@@ -188,7 +188,7 @@ selection
 !
 
 selectionStart
-    ^{'return jQuery(''.workspace'')[0].selectionStart'}
+    ^{'return jQuery(''.jt_workspace'')[0].selectionStart'}
 !
 
 selectionEnd

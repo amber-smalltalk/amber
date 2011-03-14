@@ -8,12 +8,11 @@ fn: function (){
 var self=this;
 self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
 self['@opened']=true;
-(function($rec){$rec._append_(self);$rec._append_((function(html){return html._div()._id_("jtalk");}));return $rec._addClass_("jtalkBody");})("body"._asJQuery());
+(function($rec){$rec._append_(self);return $rec._addClass_("jtalk");})("body"._asJQuery());
 (function($rec){$rec._addTab_(smalltalk.Transcript._current());return $rec._addTab_(smalltalk.Workspace._new());})(self);
 self._selectTab_(self._tabs()._last());
-(function($rec){$rec._onResize_((function(){return self._updateBodyMargin();}));return $rec._updatePositionOnWindowResize();})(self);
 return self;},
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20opened%20%3A%3D%20true.%0A%20%20%20%20%27body%27%20asJQuery%20%0A%09append%3A%20self%3B%0A%09append%3A%20%5B%3Ahtml%20%7C%20html%20div%20id%3A%20%27jtalk%27%5D%3B%0A%09addClass%3A%20%27jtalkBody%27.%0A%20%20%20%20self%20%0A%09addTab%3A%20Transcript%20current%3B%0A%09addTab%3A%20Workspace%20new.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A%20%20%20%20self%20%0A%09onResize%3A%20%5Bself%20updateBodyMargin%5D%3B%0A%09updatePositionOnWindowResize%0A')}),
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20opened%20%3A%3D%20true.%0A%20%20%20%20%27body%27%20asJQuery%20%0A%09append%3A%20self%3B%0A%09addClass%3A%20%27jtalk%27.%0A%20%20%20%20self%20%0A%09addTab%3A%20Transcript%20current%3B%0A%09addTab%3A%20Workspace%20new.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -36,10 +35,10 @@ category: 'adding/Removing',
 fn: function (aWidget){
 var self=this;
 self._tabs()._add_(aWidget);
-unescape("%23jtalk")._asJQuery()._append_(aWidget);
+"body"._asJQuery()._append_(aWidget);
 aWidget._root()._asJQuery()._hide();
 return self;},
-source: unescape('addTab%3A%20aWidget%0A%20%20%20%20self%20tabs%20add%3A%20aWidget.%0A%20%20%20%20%27%23jtalk%27%20asJQuery%20append%3A%20aWidget.%0A%20%20%20%20aWidget%20root%20asJQuery%20hide%0A')}),
+source: unescape('addTab%3A%20aWidget%0A%20%20%20%20self%20tabs%20add%3A%20aWidget.%0A%20%20%20%20%27body%27%20asJQuery%20append%3A%20aWidget.%0A%20%20%20%20aWidget%20root%20asJQuery%20hide%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -56,75 +55,15 @@ source: unescape('removeTab%3A%20aWidget%0A%20%20%20%20self%20tabs%20remove%3A%2
 smalltalk.TabManager);
 
 smalltalk.addMethod(
-'_updateBodyMargin',
-smalltalk.method({
-selector: 'updateBodyMargin',
-category: 'actions',
-fn: function (){
-var self=this;
-self._setBodyMargin_(unescape("%23jtalk")._asJQuery()._height().__plus((27)));
-return self;},
-source: unescape('updateBodyMargin%0A%20%20%20%20self%20setBodyMargin%3A%20%27%23jtalk%27%20asJQuery%20height%20+%2027%0A')}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-'_removeBodyMargin',
-smalltalk.method({
-selector: 'removeBodyMargin',
-category: 'actions',
-fn: function (){
-var self=this;
-self._setBodyMargin_((0));
-return self;},
-source: unescape('removeBodyMargin%0A%20%20%20%20self%20setBodyMargin%3A%200%0A')}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-'_setBodyMargin_',
-smalltalk.method({
-selector: 'setBodyMargin:',
-category: 'actions',
-fn: function (anInteger){
-var self=this;
-".jtalkBody"._asJQuery()._cssAt_put_(unescape("margin-bottom"),anInteger._asString().__comma("px"));
-return self;},
-source: unescape('setBodyMargin%3A%20anInteger%0A%20%20%20%20%27.jtalkBody%27%20asJQuery%20cssAt%3A%20%27margin-bottom%27%20put%3A%20anInteger%20asString%2C%20%27px%27%0A')}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-'_onResize_',
-smalltalk.method({
-selector: 'onResize:',
-category: 'actions',
-fn: function (aBlock){
-var self=this;
-(function(){jQuery('#jtalk').resizable({handles: 'n', stop: aBlock, minHeight: 230});})();
-return self;},
-source: unescape('onResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.resizable%28%7Bhandles%3A%20%27%27n%27%27%2C%20stop%3A%20aBlock%2C%20minHeight%3A%20230%7D%29%3B%27%7D%0A')}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-'_updatePositionOnWindowResize',
-smalltalk.method({
-selector: 'updatePositionOnWindowResize',
-category: 'actions',
-fn: function (){
-var self=this;
-(function(){jQuery(window).resize(function(e){jQuery('#jtalk').css('top', '').css('bottom', '27px')});})();
-return self;},
-source: unescape('updatePositionOnWindowResize%0A%20%20%20%20%7B%27jQuery%28window%29.resize%28function%28e%29%7BjQuery%28%27%27%23jtalk%27%27%29.css%28%27%27top%27%27%2C%20%27%27%27%27%27%27%29.css%28%27%27bottom%27%27%2C%20%27%2727px%27%27%29%7D%29%3B%27%7D%0A')}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
 '_open',
 smalltalk.method({
 selector: 'open',
 category: 'actions',
 fn: function (){
 var self=this;
-self['@opened']._ifFalse_((function(){self._root()._asJQuery()._show();"body"._asJQuery()._addClass_("jtalkBody");unescape("%23jtalk")._asJQuery()._show();self._updateBodyMargin();self['@selectedTab']._root()._asJQuery()._show();return self['@opened']=true;}));
+self['@opened']._ifFalse_((function(){self._root()._asJQuery()._show();"body"._asJQuery()._addClass_("jtalk");self['@selectedTab']._root()._asJQuery()._show();return self['@opened']=true;}));
 return self;},
-source: unescape('open%0A%20%20%20%20opened%20ifFalse%3A%20%5B%0A%09self%20root%20asJQuery%20show.%0A%09%27body%27%20asJQuery%20addClass%3A%20%27jtalkBody%27.%0A%09%27%23jtalk%27%20asJQuery%20show.%0A%09self%20updateBodyMargin.%0A%09selectedTab%20root%20asJQuery%20show.%0A%09opened%20%3A%3D%20true%5D%0A')}),
+source: unescape('open%0A%20%20%20%20opened%20ifFalse%3A%20%5B%0A%09self%20root%20asJQuery%20show.%0A%09%27body%27%20asJQuery%20addClass%3A%20%27jtalk%27.%0A%09selectedTab%20root%20asJQuery%20show.%0A%09opened%20%3A%3D%20true%5D%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -134,9 +73,9 @@ selector: 'close',
 category: 'actions',
 fn: function (){
 var self=this;
-self['@opened']._ifTrue_((function(){self._root()._asJQuery()._hide();unescape("%23jtalk")._asJQuery()._hide();self._removeBodyMargin();"body"._asJQuery()._removeClass_("jtalkBody");return self['@opened']=false;}));
+self['@opened']._ifTrue_((function(){self._tabs()._do_((function(each){return each._root()._asJQuery()._hide();}));self._root()._asJQuery()._hide();"body"._asJQuery()._removeClass_("jtalk");return self['@opened']=false;}));
 return self;},
-source: unescape('close%0A%20%20%20%20opened%20ifTrue%3A%20%5B%0A%09self%20root%20asJQuery%20hide.%0A%09%27%23jtalk%27%20asJQuery%20hide.%0A%09self%20removeBodyMargin.%0A%09%27body%27%20asJQuery%20removeClass%3A%20%27jtalkBody%27.%0A%09opened%20%3A%3D%20false%5D%0A')}),
+source: unescape('close%0A%20%20%20%20opened%20ifTrue%3A%20%5B%0A%09self%20tabs%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20each%20root%20asJQuery%20hide%5D.%0A%09self%20root%20asJQuery%20hide.%0A%09%27body%27%20asJQuery%20removeClass%3A%20%27jtalk%27.%0A%09opened%20%3A%3D%20false%5D%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -280,9 +219,9 @@ selector: 'renderOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){$rec._class_("jtalkTool");return $rec._with_((function(){(function($rec){$rec._class_("jt_box");return $rec._with_((function(){return self._renderBoxOn_(html);}));})(html._div());return (function($rec){$rec._class_("jt_buttons");return $rec._with_((function(){return self._renderButtonsOn_(html);}));})(html._div());}));})(html._root());
+(function($rec){$rec._class_("jtalkTool");return $rec._with_((function(){(function($rec){$rec._class_("box");return $rec._with_((function(){return self._renderBoxOn_(html);}));})(html._div());return (function($rec){$rec._class_("buttons");return $rec._with_((function(){return self._renderButtonsOn_(html);}));})(html._div());}));})(html._div());
 return self;},
-source: unescape('renderOn%3A%20html%0A%20%20%20%20html%20root%0A%09class%3A%20%27jtalkTool%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27jt_box%27%3B%0A%09%09with%3A%20%5Bself%20renderBoxOn%3A%20html%5D.%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27jt_buttons%27%3B%0A%09%09with%3A%20%5Bself%20renderButtonsOn%3A%20html%5D%5D%0A')}),
+source: unescape('renderOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27jtalkTool%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27box%27%3B%0A%09%09with%3A%20%5Bself%20renderBoxOn%3A%20html%5D.%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27buttons%27%3B%0A%09%09with%3A%20%5Bself%20renderButtonsOn%3A%20html%5D%5D%0A')}),
 smalltalk.TabWidget);
 
 smalltalk.addMethod(
@@ -355,9 +294,9 @@ selector: 'selectionStart',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function(){return jQuery('.workspace')[0].selectionStart})();
+return (function(){return jQuery('.jt_workspace')[0].selectionStart})();
 return self;},
-source: unescape('selectionStart%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.workspace%27%27%29%5B0%5D.selectionStart%27%7D%0A')}),
+source: unescape('selectionStart%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%27%7D%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -510,11 +449,10 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 self['@textarea']=html._textarea();
-self['@textarea']._asJQuery()._call_("tabby");
 self['@textarea']._onKeyDown_((function(e){return self._handleKeyDown_(e);}));
-(function($rec){$rec._class_("jt_workspace");return $rec._at_put_("spellcheck","false");})(self['@textarea']);
+(function($rec){$rec._class_("workspace");return $rec._at_put_("spellcheck","false");})(self['@textarea']);
 return self;},
-source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20textarea%20%3A%3D%20html%20textarea.%0A%20%20%20%20textarea%20asJQuery%20call%3A%20%27tabby%27.%0A%20%20%20%20textarea%20onKeyDown%3A%20%5B%3Ae%20%7C%20self%20handleKeyDown%3A%20e%5D.%0A%20%20%20%20textarea%20%0A%09class%3A%20%27jt_workspace%27%3B%0A%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%0A')}),
+source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20textarea%20%3A%3D%20html%20textarea.%0A%20%20%20%20textarea%20onKeyDown%3A%20%5B%3Ae%20%7C%20self%20handleKeyDown%3A%20e%5D.%0A%20%20%20%20textarea%20%0A%09class%3A%20%27workspace%27%3B%0A%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -590,10 +528,9 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 self['@textarea']=html._textarea();
-self['@textarea']._asJQuery()._call_("tabby");
-(function($rec){$rec._class_("jt_transcript");return $rec._at_put_("spellcheck","false");})(self['@textarea']);
+(function($rec){$rec._class_("transcript");return $rec._at_put_("spellcheck","false");})(self['@textarea']);
 return self;},
-source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20textarea%20%3A%3D%20html%20textarea.%0A%20%20%20%20textarea%20asJQuery%20call%3A%20%27tabby%27.%0A%20%20%20%20textarea%20%0A%09class%3A%20%27jt_transcript%27%3B%0A%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%0A')}),
+source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20textarea%20%3A%3D%20html%20textarea.%0A%20%20%20%20textarea%20%0A%09class%3A%20%27transcript%27%3B%0A%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%0A')}),
 smalltalk.Transcript);
 
 smalltalk.addMethod(
@@ -1003,30 +940,6 @@ source: unescape('compileDefinition%0A%20%20%20%20%7C%20newClass%20%7C%0A%20%20%
 smalltalk.Browser);
 
 smalltalk.addMethod(
-'_removeClass',
-smalltalk.method({
-selector: 'removeClass',
-category: 'actions',
-fn: function (){
-var self=this;
-self._confirm_("Do you really want to remove ".__comma(self['@selectedClass']._name()).__comma(unescape("%3F")))._ifTrue_((function(){smalltalk.Smalltalk._current()._basicDelete_(self['@selectedClass']._name());return self._selectClass_(nil);}));
-return self;},
-source: unescape('removeClass%0A%20%20%20%20%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%27%2C%20selectedClass%20name%2C%20%27%3F%27%29%0A%09ifTrue%3A%20%5B%0A%09%20%20%20%20Smalltalk%20current%20basicDelete%3A%20selectedClass%20name.%0A%09%20%20%20%20self%20selectClass%3A%20nil%5D%0A')}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-'_removeMethod',
-smalltalk.method({
-selector: 'removeMethod',
-category: 'actions',
-fn: function (){
-var self=this;
-self._confirm_(unescape("Do%20you%20really%20want%20to%20remove%20%23").__comma(self['@selectedMethod']._selector()).__comma(unescape("%3F")))._ifTrue_((function(){self['@selectedClass']._removeCompiledMethod_(self['@selectedMethod']);return self._selectMethod_(nil);}));
-return self;},
-source: unescape('removeMethod%0A%20%20%20%20%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%23%27%2C%20selectedMethod%20selector%2C%20%27%3F%27%29%0A%09ifTrue%3A%20%5B%0A%09%20%20%20%20selectedClass%20removeCompiledMethod%3A%20selectedMethod.%0A%09%20%20%20%20self%20selectMethod%3A%20nil%5D%0A')}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
 '_selectCategory_',
 smalltalk.method({
 selector: 'selectCategory:',
@@ -1114,9 +1027,9 @@ selector: 'renderTopPanelOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){$rec._class_("top");return $rec._with_((function(){self['@categoriesList']=html._ul()._class_("jt_column categories");self['@classesList']=html._ul()._class_("jt_column classes");self['@protocolsList']=html._ul()._class_("jt_column protocols");self['@methodsList']=html._ul()._class_("jt_column methods");(function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();return $rec._updateMethodsList();})(self);return html._div()._class_("jt_clear");}));})(html._div());
+(function($rec){$rec._class_("top");return $rec._with_((function(){self['@categoriesList']=html._ul()._class_("column categories");self['@classesList']=html._ul()._class_("column classes");self['@protocolsList']=html._ul()._class_("column protocols");self['@methodsList']=html._ul()._class_("column methods");(function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();return $rec._updateMethodsList();})(self);return html._div()._class_("clear");}));})(html._div());
 return self;},
-source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20categories%27.%0A%09%20%20%20%20classesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20classes%27.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D%0A')}),
+source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27column%20categories%27.%0A%09%20%20%20%20classesList%20%3A%3D%20html%20ul%20class%3A%20%27column%20classes%27.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27column%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27column%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27clear%27%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1126,10 +1039,10 @@ selector: 'renderTabsOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-self['@tabsList']=html._ul()._class_("jt_tabs");
+self['@tabsList']=html._ul()._class_("tabs");
 self._updateTabsList();
 return self;},
-source: unescape('renderTabsOn%3A%20html%0A%20%20%20%20tabsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_tabs%27.%0A%20%20%20%20self%20updateTabsList.%0A')}),
+source: unescape('renderTabsOn%3A%20html%0A%20%20%20%20tabsList%20%3A%3D%20html%20ul%20class%3A%20%27tabs%27.%0A%20%20%20%20self%20updateTabsList.%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1139,9 +1052,9 @@ selector: 'renderBottomPanelOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){$rec._class_("jt_sourceCode");return $rec._with_((function(){self['@sourceTextarea']=(function($rec){$rec._onKeyPress_((function(){return self._enableSaveButton();}));$rec._class_("source");return $rec._at_put_("spellcheck","false");})(html._textarea());return self['@sourceTextarea']._asJQuery()._call_("tabby");}));})(html._div());
+(function($rec){$rec._class_("sourceCode");return $rec._with_((function(){return self['@sourceTextarea']=(function($rec){$rec._onKeyPress_((function(){return self._enableSaveButton();}));$rec._class_("source");return $rec._at_put_("spellcheck","false");})(html._textarea());}));})(html._div());
 return self;},
-source: unescape('renderBottomPanelOn%3A%20html%0A%20%20%20%20html%20div%0A%09class%3A%20%27jt_sourceCode%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20sourceTextarea%20%3A%3D%20html%20textarea%20%0A%09%09onKeyPress%3A%20%5Bself%20enableSaveButton%5D%3B%0A%09%09class%3A%20%27source%27%3B%0A%09%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27.%0A%09%20%20%20%20sourceTextarea%20asJQuery%20call%3A%20%27tabby%27%5D%0A')}),
+source: unescape('renderBottomPanelOn%3A%20html%0A%20%20%20%20html%20div%0A%09class%3A%20%27sourceCode%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20sourceTextarea%20%3A%3D%20html%20textarea%20%0A%09%09onKeyPress%3A%20%5Bself%20enableSaveButton%5D%3B%0A%09%09class%3A%20%27source%27%3B%0A%09%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1234,10 +1147,10 @@ category: 'updating',
 fn: function (){
 var self=this;
 self._disableSaveButton();
-self['@selectedMethod']._ifNil_ifNotNil_((function(){self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_((function(){return self._hideClassButtons();}),(function(){return self._showClassButtons();}));}),(function(){self._hideClassButtons();return self._showMethodButtons();}));
+self['@selectedMethod']._ifNil_ifNotNil_((function(){self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_((function(){return self._hideClassButtons();}),(function(){return self._showClassButtons();}));}),(function(){return self._hideClassButtons()._self()._showMethodButtons();}));
 self['@sourceTextarea']._asJQuery()._val_(self._source());
 return self;},
-source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons.%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
+source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%09ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1252,18 +1165,6 @@ return self;},
 source: unescape('canBeClosed%0A%20%20%20%20%5Etrue%0A')}),
 smalltalk.Browser);
 
-
-smalltalk.addMethod(
-'_openOn_',
-smalltalk.method({
-selector: 'openOn:',
-category: 'convenience',
-fn: function (aClass){
-var self=this;
-(function($rec){$rec._open();$rec._selectCategory_(aClass._category());return $rec._selectClass_(aClass);})(self._new());
-return self;},
-source: unescape('openOn%3A%20aClass%0A%20%20%20%20self%20new%0A%09open%3B%0A%09selectCategory%3A%20aClass%20category%3B%0A%09selectClass%3A%20aClass%0A')}),
-smalltalk.Browser.klass);
 
 smalltalk.addMethod(
 '_open',
