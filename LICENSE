@@ -1,5 +1,8 @@
 Copyright (C) 2011 by Nicolas Petton <petton.nicolas@gmail.com>
 
+Parts of Jtalk take ideas from Clamato (http://clamato.net), written by Avi Byrant.
+The PetitParser library is written by Lukas Renggli (http://lukas-renggli.ch) and released under the MIT license.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
