@@ -355,9 +355,9 @@ selector: 'selectionStart',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function(){return jQuery('.workspace')[0].selectionStart})();
+return (function(){return jQuery('.jt_workspace')[0].selectionStart})();
 return self;},
-source: unescape('selectionStart%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.workspace%27%27%29%5B0%5D.selectionStart%27%7D%0A')}),
+source: unescape('selectionStart%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%27%7D%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -367,9 +367,9 @@ selector: 'selectionEnd',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function(){return jQuery('.workspace')[0].selectionEnd})();
+return (function(){return jQuery('.jt_workspace')[0].selectionEnd})();
 return self;},
-source: unescape('selectionEnd%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.workspace%27%27%29%5B0%5D.selectionEnd%27%7D%0A')}),
+source: unescape('selectionEnd%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionEnd%27%7D%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -379,9 +379,9 @@ selector: 'selectionStart:',
 category: 'accessing',
 fn: function (anInteger){
 var self=this;
-(function(){jQuery('.workspace')[0].selectionStart = anInteger})();
+(function(){jQuery('.jt_workspace')[0].selectionStart = anInteger})();
 return self;},
-source: unescape('selectionStart%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.workspace%27%27%29%5B0%5D.selectionStart%20%3D%20anInteger%27%7D%0A')}),
+source: unescape('selectionStart%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%20%3D%20anInteger%27%7D%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -391,9 +391,9 @@ selector: 'selectionEnd:',
 category: 'accessing',
 fn: function (anInteger){
 var self=this;
-(function(){jQuery('.workspace')[0].selectionEnd = anInteger})();
+(function(){jQuery('.jt_workspace')[0].selectionEnd = anInteger})();
 return self;},
-source: unescape('selectionEnd%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.workspace%27%27%29%5B0%5D.selectionEnd%20%3D%20anInteger%27%7D%0A')}),
+source: unescape('selectionEnd%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionEnd%20%3D%20anInteger%27%7D%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
