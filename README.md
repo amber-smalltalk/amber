@@ -25,4 +25,4 @@ Jtalk is released under the MIT license.
 More infos
 ----------
 
-http://nicolaspetton.github.com/jtalk
+More on the [project page](http://nicolaspetton.github.com/jtalk)
