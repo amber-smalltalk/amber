@@ -21,11 +21,15 @@ initialize
     opened := true.
     'body' asJQuery 
 	append: self;
-	addClass: 'jtalk'.
+	append: [:html | html div id: 'jtalk'];
+	addClass: 'jtalkBody'.
     self 
 	addTab: Transcript current;
 	addTab: Workspace new.
     self selectTab: self tabs last.
+    self 
+	onResize: [self updateBodyMargin];
+	updatePositionOnWindowResize
 ! !
 
 !TabManager methodsFor: 'accessing'!
@@ -38,7 +42,7 @@ tabs
 
 addTab: aWidget
     self tabs add: aWidget.
-    'body' asJQuery append: aWidget.
+    '#jtalk' asJQuery append: aWidget.
     aWidget root asJQuery hide
 !
 
@@ -49,20 +53,42 @@ removeTab: aWidget
 
 !TabManager methodsFor: 'actions'!
 
+updateBodyMargin
+    self setBodyMargin: '#jtalk' asJQuery height + 27
+!
+
+removeBodyMargin
+    self setBodyMargin: 0
+!
+
+setBodyMargin: anInteger
+    '.jtalkBody' asJQuery cssAt: 'margin-bottom' put: anInteger asString, 'px'
+!
+
+onResize: aBlock
+    {'jQuery(''#jtalk'').resizable({handles: ''n'', stop: aBlock, minHeight: 230});'}
+!
+
+updatePositionOnWindowResize
+    {'jQuery(window).resize(function(e){jQuery(''#jtalk'').css(''top'', '''''').css(''bottom'', ''27px'')});'}
+!
+
 open
     opened ifFalse: [
 	self root asJQuery show.
-	'body' asJQuery addClass: 'jtalk'.
+	'body' asJQuery addClass: 'jtalkBody'.
+	'#jtalk' asJQuery show.
+	self updateBodyMargin.
 	selectedTab root asJQuery show.
 	opened := true]
 !
 
 close
     opened ifTrue: [
-	self tabs do: [:each |
-	    each root asJQuery hide].
 	self root asJQuery hide.
-	'body' asJQuery removeClass: 'jtalk'.
+	'#jtalk' asJQuery hide.
+	self removeBodyMargin.
+	'body' asJQuery removeClass: 'jtalkBody'.
 	opened := false]
 !
 
@@ -144,7 +170,7 @@ open
 	addTab: self;
 	selectTab: self
 ! !
-   
+
 !TabWidget methodsFor: 'testing'!
 
 canBeClosed
@@ -154,14 +180,14 @@ canBeClosed
 !TabWidget methodsFor: 'rendering'!
 
 renderOn: html
-    html div 
+    html root
 	class: 'jtalkTool';
 	with: [
 	    html div
-		class: 'box';
+		class: 'jt_box';
 		with: [self renderBoxOn: html].
 	    html div
-		class: 'buttons';
+		class: 'jt_buttons';
 		with: [self renderButtonsOn: html]]
 !
 
@@ -192,15 +218,15 @@ selectionStart
 !
 
 selectionEnd
-    ^{'return jQuery(''.workspace'')[0].selectionEnd'}
+    ^{'return jQuery(''.jt_workspace'')[0].selectionEnd'}
 !
 
 selectionStart: anInteger
-    {'jQuery(''.workspace'')[0].selectionStart = anInteger'}
+    {'jQuery(''.jt_workspace'')[0].selectionStart = anInteger'}
 !
 
 selectionEnd: anInteger
-    {'jQuery(''.workspace'')[0].selectionEnd = anInteger'}
+    {'jQuery(''.jt_workspace'')[0].selectionEnd = anInteger'}
 !
 
 currentLine
@@ -267,9 +293,10 @@ eval: aString
 
 renderBoxOn: html
     textarea := html textarea.
+    textarea asJQuery call: 'tabby'.
     textarea onKeyDown: [:e | self handleKeyDown: e].
     textarea 
-	class: 'workspace';
+	class: 'jt_workspace';
 	at: 'spellcheck' put: 'false'
 !
 
@@ -349,8 +376,9 @@ clear
 
 renderBoxOn: html
     textarea := html textarea.
+    textarea asJQuery call: 'tabby'.
     textarea 
-	class: 'transcript';
+	class: 'jt_transcript';
 	at: 'spellcheck' put: 'false'
 !
 
@@ -365,6 +393,13 @@ TabWidget subclass: #Browser
 	category: 'IDE'!
 
 !Browser class methodsFor: 'convenience'!
+
+openOn: aClass
+    self new
+	open;
+	selectCategory: aClass category;
+	selectClass: aClass
+!
 
 open
     self new open
@@ -567,6 +602,20 @@ compileDefinition
 	updateClassesList
 !
 
+removeClass
+    (self confirm: 'Do you really want to remove ', selectedClass name, '?')
+	ifTrue: [
+	    Smalltalk current basicDelete: selectedClass name.
+	    self selectClass: nil]
+!
+
+removeMethod
+    (self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
+	ifTrue: [
+	    selectedClass removeCompiledMethod: selectedMethod.
+	    self selectMethod: nil]
+!
+
 selectCategory: aCategory
     selectedCategory := aCategory.
     selectedClass := selectedProtocol := selectedMethod :=  nil.
@@ -625,31 +674,32 @@ renderTopPanelOn: html
     html div 
 	class: 'top'; 
 	with: [
-	    categoriesList := html ul class: 'column categories'.
-	    classesList := html ul class: 'column classes'.
-	    protocolsList := html ul class: 'column protocols'.
-	    methodsList := html ul class: 'column methods'.
+	    categoriesList := html ul class: 'jt_column categories'.
+	    classesList := html ul class: 'jt_column classes'.
+	    protocolsList := html ul class: 'jt_column protocols'.
+	    methodsList := html ul class: 'jt_column methods'.
 	    self
 		updateCategoriesList;
 		updateClassesList;
 		updateProtocolsList;
 		updateMethodsList.
-	    html div class: 'clear']
+	    html div class: 'jt_clear']
 !
 
 renderTabsOn: html
-    tabsList := html ul class: 'tabs'.
+    tabsList := html ul class: 'jt_tabs'.
     self updateTabsList.
 !
 
 renderBottomPanelOn: html
     html div
-	class: 'sourceCode';
+	class: 'jt_sourceCode';
 	with: [
 	    sourceTextarea := html textarea 
 		onKeyPress: [self enableSaveButton];
 		class: 'source';
-		at: 'spellcheck' put: 'false']
+		at: 'spellcheck' put: 'false'.
+	    sourceTextarea asJQuery call: 'tabby']
 !
 
 renderButtonsOn: html
@@ -741,9 +791,9 @@ updateSourceAndButtons
 	    self hideMethodButtons.
 	    selectedClass 
 		ifNil: [self hideClassButtons]
-		ifNotNil: [self showClassButtons]]
+	    ifNotNil: [self showClassButtons]]
 	ifNotNil: [
-	    self hideClassButtons
+	    self hideClassButtons.
 	    self showMethodButtons].
     sourceTextarea asJQuery val: self source
 ! !
