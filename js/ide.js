@@ -743,14 +743,14 @@ selector: 'protocols',
 category: 'accessing',
 fn: function (){
 var self=this;
-try{var class=nil;
+try{var klass=nil;
 var protocols=nil;
 protocols=smalltalk.Array._new();
-self['@selectedClass']._ifNotNil_((function(){self['@selectedTab'].__eq("comment")._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return []}})})();}));class=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));class._methodDictionary()._isEmpty()._ifTrue_((function(){return protocols._add_("not yet classified");}));return class._methodDictionary()._do_((function(each){return protocols._includes_(each._category())._ifFalse_((function(){return protocols._add_(each._category());}));}));}));
+self['@selectedClass']._ifNotNil_((function(){self['@selectedTab'].__eq("comment")._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return []}})})();}));klass=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));klass._methodDictionary()._isEmpty()._ifTrue_((function(){return protocols._add_("not yet classified");}));return klass._methodDictionary()._do_((function(each){return protocols._includes_(each._category())._ifFalse_((function(){return protocols._add_(each._category());}));}));}));
 (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return protocols._sort()}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_protocols'){return e.fn()} throw(e)}},
-source: unescape('protocols%0A%20%20%20%20%7C%20class%20protocols%20%7C%0A%20%20%20%20protocols%20%3A%3D%20Array%20new.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%09class%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D.%0A%09class%20methodDictionary%20isEmpty%20ifTrue%3A%20%5B%0A%09%20%20%20%20protocols%20add%3A%20%27not%20yet%20classified%27%5D.%0A%09class%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28protocols%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%09protocols%20add%3A%20each%20category%5D%5D%5D.%0A%20%20%20%20%5Eprotocols%20sort%0A')}),
+source: unescape('protocols%0A%20%20%20%20%7C%20klass%20protocols%20%7C%0A%20%20%20%20protocols%20%3A%3D%20Array%20new.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D.%0A%09klass%20methodDictionary%20isEmpty%20ifTrue%3A%20%5B%0A%09%20%20%20%20protocols%20add%3A%20%27not%20yet%20classified%27%5D.%0A%09klass%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28protocols%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%09protocols%20add%3A%20each%20category%5D%5D%5D.%0A%20%20%20%20%5Eprotocols%20sort%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -760,13 +760,13 @@ selector: 'methods',
 category: 'accessing',
 fn: function (){
 var self=this;
-try{var class=nil;
+try{var klass=nil;
 self['@selectedTab'].__eq("comment")._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return []}})})();}));
-self['@selectedClass']._ifNotNil_((function(){return class=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));}));
-(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return self['@selectedProtocol']._ifNil_ifNotNil_((function(){return class._ifNil_ifNotNil_((function(){return [];}),(function(){return class._methodDictionary()._values();}));}),(function(){return class._methodDictionary()._values()._select_((function(each){return each._category().__eq(self['@selectedProtocol']);}));}))._sort_((function(a, b){return a._selector().__gt(b._selector());}))}})})();
+self['@selectedClass']._ifNotNil_((function(){return klass=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));}));
+(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return self['@selectedProtocol']._ifNil_ifNotNil_((function(){return klass._ifNil_ifNotNil_((function(){return [];}),(function(){return klass._methodDictionary()._values();}));}),(function(){return klass._methodDictionary()._values()._select_((function(each){return each._category().__eq(self['@selectedProtocol']);}));}))._sort_((function(a, b){return a._selector().__gt(b._selector());}))}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_methods'){return e.fn()} throw(e)}},
-source: unescape('methods%0A%20%20%20%20%7C%20class%20%7C%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09class%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D%5D.%0A%20%20%20%20%5E%28selectedProtocol%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20class%20%0A%09%09ifNil%3A%20%5B%23%28%29%5D%20%0A%09%09ifNotNil%3A%20%5Bclass%20methodDictionary%20values%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20class%20methodDictionary%20values%20select%3A%20%5B%3Aeach%20%7C%0A%09%09each%20category%20%3D%20selectedProtocol%5D%5D%29%20sort%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20selector%20%3E%20b%20selector%5D%0A')}),
+source: unescape('methods%0A%20%20%20%20%7C%20klass%20%7C%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D%5D.%0A%20%20%20%20%5E%28selectedProtocol%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20klass%20%0A%09%09ifNil%3A%20%5B%23%28%29%5D%20%0A%09%09ifNotNil%3A%20%5Bklass%20methodDictionary%20values%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20klass%20methodDictionary%20values%20select%3A%20%5B%3Aeach%20%7C%0A%09%09each%20category%20%3D%20selectedProtocol%5D%5D%29%20sort%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20selector%20%3E%20b%20selector%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
