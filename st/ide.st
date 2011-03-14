@@ -462,7 +462,7 @@ methods
 	ifNil: [
 	    klass 
 		ifNil: [#()] 
-		ifNotNil: [class methodDictionary values]]
+		ifNotNil: [klass methodDictionary values]]
 	ifNotNil: [
 	    klass methodDictionary values select: [:each |
 		each category = selectedProtocol]]) sort: [:a :b | a selector > b selector]
