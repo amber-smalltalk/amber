@@ -760,13 +760,13 @@ selector: 'methods',
 category: 'accessing',
 fn: function (){
 var self=this;
-try{var class=nil;
+try{var klass=nil;
 self['@selectedTab'].__eq("comment")._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return []}})})();}));
-self['@selectedClass']._ifNotNil_((function(){return class=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));}));
-(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return self['@selectedProtocol']._ifNil_ifNotNil_((function(){return class._ifNil_ifNotNil_((function(){return [];}),(function(){return class._methodDictionary()._values();}));}),(function(){return class._methodDictionary()._values()._select_((function(each){return each._category().__eq(self['@selectedProtocol']);}));}))._sort_((function(a, b){return a._selector().__gt(b._selector());}))}})})();
+self['@selectedClass']._ifNotNil_((function(){return klass=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));}));
+(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return self['@selectedProtocol']._ifNil_ifNotNil_((function(){return klass._ifNil_ifNotNil_((function(){return [];}),(function(){return class._methodDictionary()._values();}));}),(function(){return klass._methodDictionary()._values()._select_((function(each){return each._category().__eq(self['@selectedProtocol']);}));}))._sort_((function(a, b){return a._selector().__gt(b._selector());}))}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_methods'){return e.fn()} throw(e)}},
-source: unescape('methods%0A%20%20%20%20%7C%20class%20%7C%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09class%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D%5D.%0A%20%20%20%20%5E%28selectedProtocol%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20class%20%0A%09%09ifNil%3A%20%5B%23%28%29%5D%20%0A%09%09ifNotNil%3A%20%5Bclass%20methodDictionary%20values%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20class%20methodDictionary%20values%20select%3A%20%5B%3Aeach%20%7C%0A%09%09each%20category%20%3D%20selectedProtocol%5D%5D%29%20sort%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20selector%20%3E%20b%20selector%5D%0A')}),
+source: unescape('methods%0A%20%20%20%20%7C%20klass%20%7C%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D%5D.%0A%20%20%20%20%5E%28selectedProtocol%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20klass%20%0A%09%09ifNil%3A%20%5B%23%28%29%5D%20%0A%09%09ifNotNil%3A%20%5Bclass%20methodDictionary%20values%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20klass%20methodDictionary%20values%20select%3A%20%5B%3Aeach%20%7C%0A%09%09each%20category%20%3D%20selectedProtocol%5D%5D%29%20sort%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20selector%20%3E%20b%20selector%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(

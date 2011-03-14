@@ -452,19 +452,19 @@ protocols
 !
 
 methods
-    | class |
+    | klass |
     selectedTab = #comment ifTrue: [^#()].
     selectedClass ifNotNil: [
-	class := selectedTab = #instance
+	klass := selectedTab = #instance
 	    ifTrue: [selectedClass]
 	    ifFalse: [selectedClass class]].
     ^(selectedProtocol 
 	ifNil: [
-	    class 
+	    klass 
 		ifNil: [#()] 
 		ifNotNil: [class methodDictionary values]]
 	ifNotNil: [
-	    class methodDictionary values select: [:each |
+	    klass methodDictionary values select: [:each |
 		each category = selectedProtocol]]) sort: [:a :b | a selector > b selector]
 !
 
