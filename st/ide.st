@@ -436,16 +436,16 @@ classes
 !
 
 protocols
-    | class protocols |
+    | klass protocols |
     protocols := Array new.
     selectedClass ifNotNil: [
 	selectedTab = #comment ifTrue: [^#()].
-	class := selectedTab = #instance
+	klass := selectedTab = #instance
 	    ifTrue: [selectedClass]
 	    ifFalse: [selectedClass class].
-	class methodDictionary isEmpty ifTrue: [
+	klass methodDictionary isEmpty ifTrue: [
 	    protocols add: 'not yet classified'].
-	class methodDictionary do: [:each |
+	klass methodDictionary do: [:each |
 	    (protocols includes: each category) ifFalse: [
 		protocols add: each category]]].
     ^protocols sort
