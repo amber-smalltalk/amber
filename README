@@ -1,0 +1,7 @@
+Jtalk is an implementation of the Smalltalk language that runs on top of the JavaScript runtime. It is designed to make client-side development faster and easier.
+
+Jtalk is written in itself, including the parser and compiler. Jtalk compiles into efficient JavaScript, mapping one-to-one with the equivalent JavaScript. There is no interpretation at runtime.
+
+Jtalk is released under the MIT license.
+
+http://nicolaspetton.github.com/jtalk
