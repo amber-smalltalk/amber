@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jtalk Smalltalk</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href='css/style.css' />
+    <script type='text/javascript' src='../js/boot.js'></script>
+    <script type='text/javascript' src='../js/jquery-1.4.4.min.js'></script>
+    <script type='text/javascript' src='../js/jquery-ui-1.8.9.custom.min.js'></script>
+    <script type='text/javascript' src='../js/jquery.textarea.js'></script>
+    <script type='text/javascript' src='../js/kernel.js'></script>
+    <script type='text/javascript' src='../js/parser.js'></script>
+    <script type='text/javascript' src='../js/compiler.js'></script>	
+    <script type='text/javascript' src='../js/jQuery.js'></script>
+    <script type='text/javascript' src='../js/canvas.js'></script>
+    <script type='text/javascript' src='../js/ide.js'></script>
+    <script type='text/javascript' src='../js/init.js'></script>
+    <link rel="stylesheet" type="text/css" href="../css/jtalk.css">
+  </head>
+  <body>
+    <script type="text/javascript">
+      jQuery(window).scroll(function() {
+      	if(jQuery(window).scrollTop() > 210) {
+		jQuery('#menu')
+      			.css('position', 'fixed')
+			.css('top', '0px')
+	} else {
+      		jQuery('#menu')
+			.css('position', 'absolute')
+      			.css('top', '210px')
+      	}
+      });
+    </script>
+
+    <a href="http://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149fe06a9cc737577?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_left_darkblue_121621.png&path=" alt="Fork me on GitHub"></a>
+
+    <div id="wrapper">
+      <div id="header">
+	<div class="main">
+	  <img alt="Jtalk, the Smalltalk for web developers" src="images/text_header.png"/>
+	</div>
+      </div>
+      
+      <div id="menu">
+	<ul>
+	  <li><a href="#header">Overview</a></li> · 
+	  <li><a href="#download">Download</a></li> · 
+	  <li><a href="#documentation">Documentation</a></li> · 
+	  <li><a href="#try-it">Try it!</a></li> 
+	</ul>
+      </div>
+
+      <div id="content">
+	<div class="main">
+	  <div class="box first">
+	      <div class="content">
+		<h1><img alt="Jtalk is an implementation of the Smalltalk language that runs on the JavaScript runtime." src="images/title_container1.png"/></h1>
+		<div class="left">
+		  <p>Jtalk is an implementation of the  <a href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> language that runs on top of the <a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a> runtime. It is designed to make client-side development faster and easier.</p>
+		  <p>Jtalk is written in itself, including the parser and compiler. Jtalk compiles into efficient JavaScript, mapping one-to-one with the equivalent JavaScript. There is no interpretation at runtime.</p>
+		  <p>Try a <button onClick="smalltalk.Browser._open()"> Class browser</button> right now!</p>
+		</div>
+		<div class="right"><img src="images/screen2.png"/></div>
+		<div class="clear"></div>
+	      </div>
+	  </div>
+
+	  <div class="box">
+	      <h2>Client-side usage</h2>
+	      <div class="content">
+		<p>Load the full Jtalk Smalltalk environment in your page:</p> 
+		<pre>&lt;script&gt; src="jtalk.js" type="text/javascript" &lt;/script&gt;</pre>
+		<p>Or the runtime JavaScript file only (without the Smalltalk source or compiler):</p>
+		<pre>&lt;script&gt; src="jtalk-runtime.js" type="text/javascript" &lt;/script&gt;</pre>
+		<p>Read the <a href="#documentation">documentation</a> to learn more about writing applications in Jtalk.</p>
+	    </div>
+	  </div>
+
+	  <div class="box last doc" id="documentation">
+	    <h2>Documentation</h2>
+	    <div class="content">
+
+	      <h3 id="intro">1. Introduction <a href="#intro">&para;</a></h3>
+
+	      <p class="warning">This documentation is a work in progress.</p>
+
+	      <p class="information">Jtalk is a young piece of code and evolves quickly. Some features are still incomplete and you may very well encounter bugs.</p>
+	      <p>Jtalk is an implementation of the Smalltalk-80 language. It allows developers to write client-side heavy web applications in Smalltalk. Jtalk includes an integrated development environment with a class browser, workspace and transcript.</p>
+	      <p>Jtalk includes the following features:</p>
+	      <ol>
+		<li>It is semantically and syntaxically equivalent to <a href="http://www.pharo-project.org">Pharo Smalltalk</a> (the implementation considered as the reference)</li>
+		<li>It is written in itself and compiles into efficient JavaScript</li>
+		<li>A canvas API similar to <a href="http://www.seaside.st">Seaside</a> to generate HTML</li>
+		<li>A <a href="http://www.jquery.com">jQuery</a> binding</li>
+	      </ol>
+
+	      <h3 id="differences-other-smalltalks">2. Differences with other Smalltalk implementations <a href="#differences-other-smalltalks">&para;</a></h3>
+
+	      <h3 id="counter-example">3. The counter example <a href="#counter-example">&para;</a></h3>
+
+	      <p>The following example is the traditional Seaside-like multi-counter application. The buttons at the bottom of each counter increase or decrease the counter.</p>
+
+	      <div id="counters"></div>
+	      <script type="text/javascript">
+		jQuery(document).ready(function() {'#counters'._asJQuery()._append_(smalltalk.Counter._new())._append_(smalltalk.Counter._new())});
+	      </script>
+
+	      <p>Open a  <button onclick="smalltalk.Browser._openOn_(smalltalk.Counter);">browser</button> on the <code>Counter</code> class in the <code>Canvas</code> class category.
+		<p>Each Jtalk widget is a subclass of <code>Widget</code>. A widget is a graphical component. The <code>#renderOn:</code> method is used to generate HTML using the HTML canvas.</p>
+
+
+		<h3 id="html-canvas">4. The HTML canvas <a href="#html-canvas">&para;</a></h3>
+		<h3 id="widgets">5. Widgets <a href="#widgets">&para;</a></h3>
+		<h3 id="jquery">6. jQuery <a href="#jquery">&para;</a></h3>
+
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+    
+    <div id="footer">
+      <div class="main">
+	<p>Copyright © 2011 <a href="mailto:petton.nicolas@gmail.com">Nicolas Petton</a>.</p>
+	<p>Jtalk is an opensource project sponsored by <a href="http://www.objectfusion.fr">objectfusion</a>.</p>
+	<p>The design of this website was kindly provided by <a href="mailto:neomie.thirion@gmail.com">Noémie Thirion</a>.</p>
+      </div> 
+    </div>
+    
+  </body>
+</html>
+

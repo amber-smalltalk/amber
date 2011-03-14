@@ -1,0 +1,27 @@
+#!/bin/bash
+
+USAGE=" $0 [OPTIONS]\n\n
+
+The currently defined set of flags is:\n\n
+
+-o category\t fileout compiled classes in category\n
+-f file   \t filein file\n"
+FILE=''
+CATEGORY=''
+
+if [ $# == 0 ]; then
+        echo -e $USAGE
+        exit 1
+fi
+
+while getopts f:o:h o
+do        case "$o" in
+        f) 	  FILE="$OPTARG";;
+        o) 	  CATEGORY="$OPTARG";;
+        h)    echo -e "Usage:"
+              echo -e $USAGE
+                exit 1;;
+        esac
+done
+
+d8 ./js/boot.js ./js/kernel.js ./js/parser.js ./js/compiler.js ./js/canvas.js ./js/init.js ./scripts/compile.js -- $FILE $CATEGORY
