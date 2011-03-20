@@ -4609,6 +4609,18 @@ source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20roo
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
+'_with_',
+smalltalk.method({
+selector: 'with:',
+category: 'adding',
+fn: function (anObject){
+var self=this;
+return self._root()._with_(anObject);
+return self;},
+source: unescape('with%3A%20anObject%0A%20%20%20%20%5Eself%20root%20with%3A%20anObject%0A')}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
 '_newTag_',
 smalltalk.method({
 selector: 'newTag:',
@@ -5328,6 +5340,18 @@ self._render();
 aJQuery._append_(self._root()._asJQuery());
 return self;},
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20self%20render.%0A%20%20%20%20aJQuery%20append%3A%20self%20root%20asJQuery%0A')}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
+'_alert_',
+smalltalk.method({
+selector: 'alert:',
+category: 'actions',
+fn: function (aString){
+var self=this;
+(function(){alert(aString)})();
+return self;},
+source: unescape('alert%3A%20aString%0A%20%20%20%20%7B%27alert%28aString%29%27%7D%0A')}),
 smalltalk.Widget);
 
 smalltalk.addMethod(
