@@ -112,7 +112,6 @@ body.jtalkBody {
 .jtalkTool .jt_buttons button,
 .jtalkTool .jt_buttons select {
     font-size: 12px;
-    padding: 2px;
 }
 
 .jtalkTool textarea {
