@@ -309,6 +309,10 @@ appendToJQuery: aJQuery
 
 !Widget methodsFor: 'actions'!
 
+alert: aString
+    {'alert(aString)'}
+!
+
 confirm: aString
     ^{'return window.confirm(aString)'}
 !

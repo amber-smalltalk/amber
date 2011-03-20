@@ -409,8 +409,16 @@ parser
 
 !Compiler methodsFor: 'compiling'!
 
+parse: aString
+    ^self parser parse: aString readStream
+!
+
+parseExpression: aString
+    ^self parse: 'doIt ^[', aString, '] value'
+!
+
 compile: aString
-	^self compileNode: (self parser parse: aString readStream)
+	^self compileNode: (self parse: aString)
 !
 
 compile: aString forClass: aClass
@@ -420,7 +428,7 @@ compile: aString forClass: aClass
 
 compileExpression: aString
 	self currentClass: DoIt.
-	^self compile: 'doIt ^[', aString, '] value'
+	^self compileNode: (self parseExpression: aString)
 !
 
 compileNode: aNode

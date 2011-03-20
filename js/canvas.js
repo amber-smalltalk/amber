@@ -771,6 +771,18 @@ source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20self%20render.%0A%20
 smalltalk.Widget);
 
 smalltalk.addMethod(
+'_alert_',
+smalltalk.method({
+selector: 'alert:',
+category: 'actions',
+fn: function (aString){
+var self=this;
+(function(){alert(aString)})();
+return self;},
+source: unescape('alert%3A%20aString%0A%20%20%20%20%7B%27alert%28aString%29%27%7D%0A')}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
 '_confirm_',
 smalltalk.method({
 selector: 'confirm:',

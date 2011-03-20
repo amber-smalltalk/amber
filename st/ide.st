@@ -286,7 +286,12 @@ print: aString
 !
 
 eval: aString
-    ^Compiler new loadExpression: aString
+    | compiler node |
+    compiler := Compiler new.
+    node := compiler parseExpression: aString.
+    node isParseFailure ifTrue: [
+	^self alert: node reason, ', position: ', node position].
+    ^compiler loadExpression: aString
 ! !
 
 !Workspace methodsFor: 'rendering'!
@@ -589,8 +594,14 @@ compileMethodDefinition
 !
 
 compileMethodDefinitionFor: aClass
-    | method |
-    method := Compiler new load: sourceTextarea asJQuery val forClass: selectedClass.
+    | compiler method source node |
+    source := sourceTextarea asJQuery val.
+    compiler := Compiler new.
+    node := compiler parse: source.
+    node isParseFailure ifTrue: [
+	^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
+    compiler currentClass: selectedClass.
+    method := compiler eval: (compiler compileNode: node).
     method category: selectedProtocol.
     aClass addCompiledMethod: method.
     self updateMethodsList.

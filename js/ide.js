@@ -497,9 +497,15 @@ selector: 'eval:',
 category: 'actions',
 fn: function (aString){
 var self=this;
-return smalltalk.Compiler._new()._loadExpression_(aString);
-return self;},
-source: unescape('eval%3A%20aString%0A%20%20%20%20%5ECompiler%20new%20loadExpression%3A%20aString%0A')}),
+try{var compiler=nil;
+var node=nil;
+compiler=smalltalk.Compiler._new();
+node=compiler._parseExpression_(aString);
+node._isParseFailure()._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_eval_', fn: function(){return self._alert_(node._reason().__comma(unescape("%2C%20position%3A%20")).__comma(node._position()))}})})();}));
+(function(){throw({name: 'stReturn', selector: '_eval_', fn: function(){return compiler._loadExpression_(aString)}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_eval_'){return e.fn()} throw(e)}},
+source: unescape('eval%3A%20aString%0A%20%20%20%20%7C%20compiler%20node%20%7C%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parseExpression%3A%20aString.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%5D.%0A%20%20%20%20%5Ecompiler%20loadExpression%3A%20aString%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -981,14 +987,23 @@ selector: 'compileMethodDefinitionFor:',
 category: 'actions',
 fn: function (aClass){
 var self=this;
+try{var compiler=nil;
 var method=nil;
-method=smalltalk.Compiler._new()._load_forClass_(self['@sourceTextarea']._asJQuery()._val(),self['@selectedClass']);
+var source=nil;
+var node=nil;
+source=self['@sourceTextarea']._asJQuery()._val();
+compiler=smalltalk.Compiler._new();
+node=compiler._parse_(source);
+node._isParseFailure()._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_compileMethodDefinitionFor_', fn: function(){return self._alert_("PARSE ERROR: ".__comma(node._reason()).__comma(unescape("%2C%20position%3A%20")).__comma(node._position()._asString()))}})})();}));
+compiler._currentClass_(self['@selectedClass']);
+method=compiler._eval_(compiler._compileNode_(node));
 method._category_(self['@selectedProtocol']);
 aClass._addCompiledMethod_(method);
 self._updateMethodsList();
 self._selectMethod_(method);
-return self;},
-source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20method%20%7C%0A%20%20%20%20method%20%3A%3D%20Compiler%20new%20load%3A%20sourceTextarea%20asJQuery%20val%20forClass%3A%20selectedClass.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_compileMethodDefinitionFor_'){return e.fn()} throw(e)}},
+source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20compiler%20method%20source%20node%20%7C%0A%20%20%20%20source%20%3A%3D%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parse%3A%20source.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20%27PARSE%20ERROR%3A%20%27%2C%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%20asString%5D.%0A%20%20%20%20compiler%20currentClass%3A%20selectedClass.%0A%20%20%20%20method%20%3A%3D%20compiler%20eval%3A%20%28compiler%20compileNode%3A%20node%29.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(

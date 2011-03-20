@@ -846,9 +846,9 @@ category: 'compiling',
 fn: function (aString){
 var self=this;
 self._currentClass_(smalltalk.DoIt);
-return self._compile_(unescape("doIt%20%5E%5B").__comma(aString).__comma(unescape("%5D%20value")));
+return self._compileNode_(self._parseExpression_(aString));
 return self;},
-source: unescape('compileExpression%3A%20aString%0A%09self%20currentClass%3A%20DoIt.%0A%09%5Eself%20compile%3A%20%27doIt%20%5E%5B%27%2C%20aString%2C%20%27%5D%20value%27%0A')}),
+source: unescape('compileExpression%3A%20aString%0A%09self%20currentClass%3A%20DoIt.%0A%09%5Eself%20compileNode%3A%20%28self%20parseExpression%3A%20aString%29%0A')}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -870,9 +870,9 @@ selector: 'compile:',
 category: 'compiling',
 fn: function (aString){
 var self=this;
-return self._compileNode_(self._parser()._parse_(aString._readStream()));
+return self._compileNode_(self._parse_(aString));
 return self;},
-source: unescape('compile%3A%20aString%0A%09%5Eself%20compileNode%3A%20%28self%20parser%20parse%3A%20aString%20readStream%29%0A')}),
+source: unescape('compile%3A%20aString%0A%09%5Eself%20compileNode%3A%20%28self%20parse%3A%20aString%29%0A')}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -1084,6 +1084,30 @@ self['@stream']._nextPutAll_(aNode._source()._value()._replace_with_(unescape("%
 self['@stream']._nextPutAll_(unescape("%7D%29%28%29"));
 return self;},
 source: unescape('visitJSStatementNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%27%28function%28%29%7B%27.%0A%09stream%20nextPutAll%3A%20%28aNode%20source%20value%20replace%3A%20%27%27%27%27%27%27%20with%3A%20%27%27%27%27%29.%0A%09stream%20nextPutAll%3A%20%27%7D%29%28%29%27%0A')}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_parse_',
+smalltalk.method({
+selector: 'parse:',
+category: 'compiling',
+fn: function (aString){
+var self=this;
+return self._parser()._parse_(aString._readStream());
+return self;},
+source: unescape('parse%3A%20aString%0A%20%20%20%20%5Eself%20parser%20parse%3A%20aString%20readStream%0A')}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_parseExpression_',
+smalltalk.method({
+selector: 'parseExpression:',
+category: 'compiling',
+fn: function (aString){
+var self=this;
+return self._parse_(unescape("doIt%20%5E%5B").__comma(aString).__comma(unescape("%5D%20value")));
+return self;},
+source: unescape('parseExpression%3A%20aString%0A%20%20%20%20%5Eself%20parse%3A%20%27doIt%20%5E%5B%27%2C%20aString%2C%20%27%5D%20value%27%0A')}),
 smalltalk.Compiler);
 
 
