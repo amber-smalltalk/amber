@@ -28,8 +28,8 @@ initialize
 	addTab: Workspace new.
     self selectTab: self tabs last.
     self 
-	onResize: [self updateBodyMargin];
-	updatePositionOnWindowResize
+	onResize: [self updateBodyMargin; updatePosition];
+	onWindowResize: [self updatePosition]
 ! !
 
 !TabManager methodsFor: 'accessing'!
@@ -57,6 +57,10 @@ updateBodyMargin
     self setBodyMargin: '#jtalk' asJQuery height + 27
 !
 
+updatePosition
+    {'jQuery(''#jtalk'').css(''top'', '''''').css(''bottom'', ''27px'');'}
+!
+
 removeBodyMargin
     self setBodyMargin: 0
 !
@@ -66,11 +70,15 @@ setBodyMargin: anInteger
 !
 
 onResize: aBlock
-    {'jQuery(''#jtalk'').resizable({handles: ''n'', stop: aBlock, minHeight: 230});'}
+    {'jQuery(''#jtalk'').resizable({
+	handles: ''n'', 
+	resize: aBlock,
+	minHeight: 230
+});'}
 !
 
-updatePositionOnWindowResize
-    {'jQuery(window).resize(function(e){jQuery(''#jtalk'').css(''top'', '''''').css(''bottom'', ''27px'')});'}
+onWindowResize: aBlock
+    {'jQuery(window).resize(aBlock)'}
 !
 
 open

@@ -7836,9 +7836,9 @@ self['@opened']=true;
 (function($rec){$rec._append_(self);$rec._append_((function(html){return html._div()._id_("jtalk");}));return $rec._addClass_("jtalkBody");})("body"._asJQuery());
 (function($rec){$rec._addTab_(smalltalk.Transcript._current());return $rec._addTab_(smalltalk.Workspace._new());})(self);
 self._selectTab_(self._tabs()._last());
-(function($rec){$rec._onResize_((function(){return self._updateBodyMargin();}));return $rec._updatePositionOnWindowResize();})(self);
+(function($rec){$rec._onResize_((function(){return (function($rec){$rec._updateBodyMargin();return $rec._updatePosition();})(self);}));return $rec._onWindowResize_((function(){return self._updatePosition();}));})(self);
 return self;},
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20opened%20%3A%3D%20true.%0A%20%20%20%20%27body%27%20asJQuery%20%0A%09append%3A%20self%3B%0A%09append%3A%20%5B%3Ahtml%20%7C%20html%20div%20id%3A%20%27jtalk%27%5D%3B%0A%09addClass%3A%20%27jtalkBody%27.%0A%20%20%20%20self%20%0A%09addTab%3A%20Transcript%20current%3B%0A%09addTab%3A%20Workspace%20new.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A%20%20%20%20self%20%0A%09onResize%3A%20%5Bself%20updateBodyMargin%5D%3B%0A%09updatePositionOnWindowResize%0A')}),
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20opened%20%3A%3D%20true.%0A%20%20%20%20%27body%27%20asJQuery%20%0A%09append%3A%20self%3B%0A%09append%3A%20%5B%3Ahtml%20%7C%20html%20div%20id%3A%20%27jtalk%27%5D%3B%0A%09addClass%3A%20%27jtalkBody%27.%0A%20%20%20%20self%20%0A%09addTab%3A%20Transcript%20current%3B%0A%09addTab%3A%20Workspace%20new.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A%20%20%20%20self%20%0A%09onResize%3A%20%5Bself%20updateBodyMargin%3B%20updatePosition%5D%3B%0A%09onWindowResize%3A%20%5Bself%20updatePosition%5D%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -7893,6 +7893,18 @@ source: unescape('updateBodyMargin%0A%20%20%20%20self%20setBodyMargin%3A%20%27%2
 smalltalk.TabManager);
 
 smalltalk.addMethod(
+'_updatePosition',
+smalltalk.method({
+selector: 'updatePosition',
+category: 'actions',
+fn: function (){
+var self=this;
+(function(){jQuery('#jtalk').css('top', '').css('bottom', '27px');})();
+return self;},
+source: unescape('updatePosition%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.css%28%27%27top%27%27%2C%20%27%27%27%27%27%27%29.css%28%27%27bottom%27%27%2C%20%27%2727px%27%27%29%3B%27%7D%0A')}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
 '_removeBodyMargin',
 smalltalk.method({
 selector: 'removeBodyMargin',
@@ -7923,21 +7935,25 @@ selector: 'onResize:',
 category: 'actions',
 fn: function (aBlock){
 var self=this;
-(function(){jQuery('#jtalk').resizable({handles: 'n', stop: aBlock, minHeight: 230});})();
+(function(){jQuery('#jtalk').resizable({
+	handles: 'n', 
+	resize: aBlock,
+	minHeight: 230
+});})();
 return self;},
-source: unescape('onResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.resizable%28%7Bhandles%3A%20%27%27n%27%27%2C%20stop%3A%20aBlock%2C%20minHeight%3A%20230%7D%29%3B%27%7D%0A')}),
+source: unescape('onResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.resizable%28%7B%0A%09handles%3A%20%27%27n%27%27%2C%20%0A%09resize%3A%20aBlock%2C%0A%09minHeight%3A%20230%0A%7D%29%3B%27%7D%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
-'_updatePositionOnWindowResize',
+'_onWindowResize_',
 smalltalk.method({
-selector: 'updatePositionOnWindowResize',
+selector: 'onWindowResize:',
 category: 'actions',
-fn: function (){
+fn: function (aBlock){
 var self=this;
-(function(){jQuery(window).resize(function(e){jQuery('#jtalk').css('top', '').css('bottom', '27px')});})();
+(function(){jQuery(window).resize(aBlock)})();
 return self;},
-source: unescape('updatePositionOnWindowResize%0A%20%20%20%20%7B%27jQuery%28window%29.resize%28function%28e%29%7BjQuery%28%27%27%23jtalk%27%27%29.css%28%27%27top%27%27%2C%20%27%27%27%27%27%27%29.css%28%27%27bottom%27%27%2C%20%27%2727px%27%27%29%7D%29%3B%27%7D%0A')}),
+source: unescape('onWindowResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28window%29.resize%28aBlock%29%27%7D%0A')}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
