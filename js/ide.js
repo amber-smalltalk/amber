@@ -683,7 +683,7 @@ source: unescape('clear%0A%20%20%20%20self%20current%20clear%0A')}),
 smalltalk.Transcript.klass);
 
 
-smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedCategory', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'categoriesList', 'classesList', 'protocolsList', 'methodsList', 'sourceTextarea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons'], 'IDE');
+smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedCategory', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'categoriesList', 'classesList', 'protocolsList', 'methodsList', 'sourceTextarea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
 smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
@@ -693,8 +693,9 @@ fn: function (){
 var self=this;
 self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
 self['@selectedTab']="instance";
+self['@unsavedChanges']=false;
 return self;},
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20selectedTab%20%3A%3D%20%23instance%0A')}),
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20selectedTab%20%3A%3D%20%23instance.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -869,8 +870,9 @@ category: 'actions',
 fn: function (){
 var self=this;
 self['@saveButton']._removeAt_("disabled");
+self['@unsavedChanges']=true;
 return self;},
-source: unescape('enableSaveButton%0A%20%20%20%20saveButton%20removeAt%3A%20%27disabled%27%0A')}),
+source: unescape('enableSaveButton%0A%20%20%20%20saveButton%20removeAt%3A%20%27disabled%27.%0A%20%20%20%20unsavedChanges%20%3A%3D%20true%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -881,8 +883,9 @@ category: 'actions',
 fn: function (){
 var self=this;
 self['@saveButton']._ifNotNil_((function(){return self['@saveButton']._at_put_("disabled",true);}));
+self['@unsavedChanges']=false;
 return self;},
-source: unescape('disableSaveButton%0A%20%20%20%20saveButton%20ifNotNil%3A%20%5B%0A%09saveButton%20at%3A%20%27disabled%27%20put%3A%20true%5D%0A')}),
+source: unescape('disableSaveButton%0A%20%20%20%20saveButton%20ifNotNil%3A%20%5B%0A%09saveButton%20at%3A%20%27disabled%27%20put%3A%20true%5D.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -940,11 +943,11 @@ selector: 'compile',
 category: 'actions',
 fn: function (){
 var self=this;
+self._disableSaveButton();
 self['@selectedTab'].__eq("comment")._ifTrue_((function(){return self['@selectedClass']._ifNotNil_((function(){return self._compileClassComment();}));}));
 self['@selectedProtocol']._notNil()._or_((function(){return self['@selectedMethod']._notNil();}))._ifFalse_ifTrue_((function(){return self._compileDefinition();}),(function(){return self._compileMethodDefinition();}));
-self._disableSaveButton();
 return self;},
-source: unescape('compile%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%0A%09selectedClass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20compileClassComment%5D%5D.%0A%20%20%20%20%28selectedProtocol%20notNil%20or%3A%20%5BselectedMethod%20notNil%5D%29%0A%09ifFalse%3A%20%5Bself%20compileDefinition%5D%0A%09ifTrue%3A%20%5Bself%20compileMethodDefinition%5D.%0A%20%20%20%20self%20disableSaveButton%0A')}),
+source: unescape('compile%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%0A%09selectedClass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20compileClassComment%5D%5D.%0A%20%20%20%20%28selectedProtocol%20notNil%20or%3A%20%5BselectedMethod%20notNil%5D%29%0A%09ifFalse%3A%20%5Bself%20compileDefinition%5D%0A%09ifTrue%3A%20%5Bself%20compileMethodDefinition%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1003,6 +1006,18 @@ source: unescape('compileDefinition%0A%20%20%20%20%7C%20newClass%20%7C%0A%20%20%
 smalltalk.Browser);
 
 smalltalk.addMethod(
+'_cancelChanges',
+smalltalk.method({
+selector: 'cancelChanges',
+category: 'actions',
+fn: function (){
+var self=this;
+return self['@unsavedChanges']._ifTrue_ifFalse_((function(){return self._confirm_(unescape("Cancel%20changes%3F"));}),(function(){return true;}));
+return self;},
+source: unescape('cancelChanges%0A%20%20%20%20%5EunsavedChanges%20%0A%09ifTrue%3A%20%5Bself%20confirm%3A%20%27Cancel%20changes%3F%27%5D%0A%09ifFalse%3A%20%5Btrue%5D%0A')}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 '_removeClass',
 smalltalk.method({
 selector: 'removeClass',
@@ -1021,9 +1036,35 @@ selector: 'removeMethod',
 category: 'actions',
 fn: function (){
 var self=this;
-self._confirm_(unescape("Do%20you%20really%20want%20to%20remove%20%23").__comma(self['@selectedMethod']._selector()).__comma(unescape("%3F")))._ifTrue_((function(){self['@selectedClass']._removeCompiledMethod_(self['@selectedMethod']);return self._selectMethod_(nil);}));
+self._cancelChanges()._ifTrue_((function(){return self._confirm_(unescape("Do%20you%20really%20want%20to%20remove%20%23").__comma(self['@selectedMethod']._selector()).__comma(unescape("%3F")))._ifTrue_((function(){self['@selectedClass']._removeCompiledMethod_(self['@selectedMethod']);return self._selectMethod_(nil);}));}));
 return self;},
-source: unescape('removeMethod%0A%20%20%20%20%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%23%27%2C%20selectedMethod%20selector%2C%20%27%3F%27%29%0A%09ifTrue%3A%20%5B%0A%09%20%20%20%20selectedClass%20removeCompiledMethod%3A%20selectedMethod.%0A%09%20%20%20%20self%20selectMethod%3A%20nil%5D%0A')}),
+source: unescape('removeMethod%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%23%27%2C%20selectedMethod%20selector%2C%20%27%3F%27%29%0A%09%20%20%20%20ifTrue%3A%20%5B%0A%09%09selectedClass%20removeCompiledMethod%3A%20selectedMethod.%0A%09%09self%20selectMethod%3A%20nil%5D%5D%0A')}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_setMethodProtocol_',
+smalltalk.method({
+selector: 'setMethodProtocol:',
+category: 'actions',
+fn: function (aString){
+var self=this;
+self._cancelChanges()._ifTrue_((function(){self['@selectedMethod']._category_(aString);self['@selectedProtocol']=aString;self['@selectedMethod']=self['@selectedMethod'];return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
+return self;},
+source: unescape('setMethodProtocol%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedMethod%20category%3A%20aString.%0A%09selectedProtocol%20%3A%3D%20aString.%0A%09selectedMethod%20%3A%3D%20selectedMethod.%0A%09self%20%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_addNewProtocol',
+smalltalk.method({
+selector: 'addNewProtocol',
+category: 'actions',
+fn: function (){
+var self=this;
+var newProtocol=nil;
+newProtocol=self._prompt_("New method protocol");
+newProtocol._notEmpty()._ifTrue_((function(){return self._setMethodProtocol_(newProtocol);}));
+return self;},
+source: unescape('addNewProtocol%0A%20%20%20%20%7C%20newProtocol%20%7C%0A%20%20%20%20newProtocol%20%3A%3D%20self%20prompt%3A%20%27New%20method%20protocol%27.%0A%20%20%20%20newProtocol%20notEmpty%20ifTrue%3A%20%5B%0A%09self%20setMethodProtocol%3A%20newProtocol%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1033,11 +1074,9 @@ selector: 'selectCategory:',
 category: 'actions',
 fn: function (aCategory){
 var self=this;
-self['@selectedCategory']=aCategory;
-self['@selectedClass']=self['@selectedProtocol']=self['@selectedMethod']=nil;
-(function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);
+self._cancelChanges()._ifTrue_((function(){self['@selectedCategory']=aCategory;self['@selectedClass']=self['@selectedProtocol']=self['@selectedMethod']=nil;return (function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
 return self;},
-source: unescape('selectCategory%3A%20aCategory%0A%20%20%20%20selectedCategory%20%3A%3D%20aCategory.%0A%20%20%20%20selectedClass%20%3A%3D%20selectedProtocol%20%3A%3D%20selectedMethod%20%3A%3D%20%20nil.%0A%20%20%20%20self%20%0A%09updateCategoriesList%3B%0A%09updateClassesList%3B%0A%09updateProtocolsList%3B%0A%09updateMethodsList%3B%0A%09updateSourceAndButtons%0A')}),
+source: unescape('selectCategory%3A%20aCategory%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedCategory%20%3A%3D%20aCategory.%0A%09selectedClass%20%3A%3D%20selectedProtocol%20%3A%3D%20selectedMethod%20%3A%3D%20%20nil.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList%3B%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1047,11 +1086,9 @@ selector: 'selectClass:',
 category: 'actions',
 fn: function (aClass){
 var self=this;
-self['@selectedClass']=aClass;
-self['@selectedProtocol']=self['@selectedMethod']=nil;
-(function($rec){$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);
+self._cancelChanges()._ifTrue_((function(){self['@selectedClass']=aClass;self['@selectedProtocol']=self['@selectedMethod']=nil;return (function($rec){$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
 return self;},
-source: unescape('selectClass%3A%20aClass%0A%20%20%20%20selectedClass%20%3A%3D%20aClass.%0A%20%20%20%20selectedProtocol%20%3A%3D%20selectedMethod%20%3A%3D%20nil.%0A%20%20%20%20self%20%0A%09updateClassesList%3B%0A%09updateProtocolsList%3B%0A%09updateMethodsList%3B%0A%09updateSourceAndButtons%0A')}),
+source: unescape('selectClass%3A%20aClass%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedClass%20%3A%3D%20aClass.%0A%09selectedProtocol%20%3A%3D%20selectedMethod%20%3A%3D%20nil.%0A%09self%20%0A%09%20%20%20%20updateClassesList%3B%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1061,11 +1098,9 @@ selector: 'selectProtocol:',
 category: 'actions',
 fn: function (aString){
 var self=this;
-self['@selectedProtocol']=aString;
-self['@selectedMethod']=nil;
-(function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);
+self._cancelChanges()._ifTrue_((function(){self['@selectedProtocol']=aString;self['@selectedMethod']=nil;return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
 return self;},
-source: unescape('selectProtocol%3A%20aString%0A%20%20%20%20selectedProtocol%20%3A%3D%20aString.%0A%20%20%20%20selectedMethod%20%3A%3D%20nil.%0A%20%20%20%20self%20%0A%09updateProtocolsList%3B%0A%09updateMethodsList%3B%0A%09updateSourceAndButtons%0A')}),
+source: unescape('selectProtocol%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedProtocol%20%3A%3D%20aString.%0A%09selectedMethod%20%3A%3D%20nil.%0A%09self%20%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1075,10 +1110,9 @@ selector: 'selectMethod:',
 category: 'actions',
 fn: function (aMethod){
 var self=this;
-self['@selectedMethod']=aMethod;
-(function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);
+self._cancelChanges()._ifTrue_((function(){self['@selectedMethod']=aMethod;return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
 return self;},
-source: unescape('selectMethod%3A%20aMethod%0A%20%20%20%20selectedMethod%20%3A%3D%20aMethod.%0A%20%20%20%20self%20%0A%09updateProtocolsList%3B%0A%09updateMethodsList%3B%0A%09updateSourceAndButtons%0A')}),
+source: unescape('selectMethod%3A%20aMethod%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedMethod%20%3A%3D%20aMethod.%0A%09self%20%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1088,11 +1122,9 @@ selector: 'selectTab:',
 category: 'actions',
 fn: function (aString){
 var self=this;
-self['@selectedTab']=aString;
-self._selectProtocol_(nil);
-self._updateTabsList();
+self._cancelChanges()._ifTrue_((function(){self['@selectedTab']=aString;self._selectProtocol_(nil);return self._updateTabsList();}));
 return self;},
-source: unescape('selectTab%3A%20aString%0A%20%20%20%20selectedTab%20%3A%3D%20aString.%0A%20%20%20%20self%20selectProtocol%3A%20nil.%0A%20%20%20%20self%20updateTabsList.%0A')}),
+source: unescape('selectTab%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedTab%20%3A%3D%20aString.%0A%09self%20selectProtocol%3A%20nil.%0A%09self%20updateTabsList%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1153,11 +1185,11 @@ fn: function (html){
 var self=this;
 self['@saveButton']=html._button();
 (function($rec){$rec._with_("Save");return $rec._onClick_((function(){return self._compile();}));})(self['@saveButton']);
-self['@methodButtons']=html._span()._with_((function(){return (function($rec){$rec._with_("Remove method");return $rec._onClick_((function(){return self._removeMethod();}));})(html._button());}));
-self['@classButtons']=html._span()._with_((function(){return (function($rec){$rec._with_("Remove class");return $rec._onClick_((function(){return self._removeClass();}));})(html._button());}));
+self['@methodButtons']=html._span();
+self['@classButtons']=html._span();
 self._updateSourceAndButtons();
 return self;},
-source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20saveButton%20%3A%3D%20html%20button.%0A%20%20%20%20saveButton%20%0A%09with%3A%20%27Save%27%3B%0A%09onClick%3A%20%5Bself%20compile%5D.%0A%20%20%20%20methodButtons%20%3A%3D%20html%20span%20with%3A%20%5B%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20method%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeMethod%5D%5D.%0A%20%20%20%20classButtons%20%3A%3D%20html%20span%20with%3A%20%5B%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20class%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%20%20%20%20self%20updateSourceAndButtons%0A')}),
+source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20saveButton%20%3A%3D%20html%20button.%0A%20%20%20%20saveButton%20%0A%09with%3A%20%27Save%27%3B%0A%09onClick%3A%20%5Bself%20compile%5D.%0A%20%20%20%20methodButtons%20%3A%3D%20html%20span.%0A%20%20%20%20classButtons%20%3A%3D%20html%20span.%0A%20%20%20%20self%20updateSourceAndButtons%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1234,10 +1266,12 @@ category: 'updating',
 fn: function (){
 var self=this;
 self._disableSaveButton();
+self['@classButtons']._contents_((function(html){return (function($rec){$rec._with_("Remove class");return $rec._onClick_((function(){return self._removeClass();}));})(html._button());}));
+self['@methodButtons']._contents_((function(html){(function($rec){$rec._with_("Remove method");return $rec._onClick_((function(){return self._removeMethod();}));})(html._button());return html._select()._with_((function(){(function($rec){$rec._with_("Method protocol");return $rec._at_put_("disabled","disabled");})(html._option());(function($rec){$rec._class_("important");$rec._with_("New...");return $rec._onClick_((function(){return self._addNewProtocol();}));})(html._option());return self._protocols()._do_((function(each){return (function($rec){$rec._with_(each);return $rec._onClick_((function(){return self._setMethodProtocol_(each);}));})(html._option());}));}));}));
 self['@selectedMethod']._ifNil_ifNotNil_((function(){self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_((function(){return self._hideClassButtons();}),(function(){return self._showClassButtons();}));}),(function(){self._hideClassButtons();return self._showMethodButtons();}));
 self['@sourceTextarea']._asJQuery()._val_(self._source());
 return self;},
-source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons.%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
+source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20class%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%20%20%20%20methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20method%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeMethod%5D.%0A%09html%20select%20with%3A%20%5B%0A%09%20%20%20%20html%20option%0A%09%09with%3A%20%27Method%20protocol%27%3B%0A%09%09at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%20%20%20%20html%20option%0A%09%09class%3A%20%27important%27%3B%0A%09%09with%3A%20%27New...%27%3B%0A%09%09onClick%3A%20%5Bself%20addNewProtocol%5D.%0A%09%20%20%20%20self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09html%20option%0A%09%09%20%20%20%20with%3A%20each%3B%0A%09%09%20%20%20%20onClick%3A%20%5Bself%20setMethodProtocol%3A%20each%5D%5D%5D%5D.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons.%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(

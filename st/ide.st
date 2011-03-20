@@ -389,7 +389,7 @@ renderButtonsOn: html
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser class methodsFor: 'convenience'!
@@ -409,7 +409,8 @@ open
 
 initialize
     super initialize.
-    selectedTab := #instance
+    selectedTab := #instance.
+    unsavedChanges := false
 ! !
 
 !Browser methodsFor: 'accessing'!
@@ -541,12 +542,14 @@ classCommentSource
 !Browser methodsFor: 'actions'!
 
 enableSaveButton
-    saveButton removeAt: 'disabled'
+    saveButton removeAt: 'disabled'.
+    unsavedChanges := true
 !
 
 disableSaveButton
     saveButton ifNotNil: [
-	saveButton at: 'disabled' put: true]
+	saveButton at: 'disabled' put: true].
+    unsavedChanges := false
 !
 
 hideClassButtons
@@ -566,13 +569,13 @@ showMethodButtons
 !
 
 compile
+    self disableSaveButton.
     selectedTab = #comment ifTrue: [
 	selectedClass ifNotNil: [
 	    self compileClassComment]].
     (selectedProtocol notNil or: [selectedMethod notNil])
 	ifFalse: [self compileDefinition]
-	ifTrue: [self compileMethodDefinition].
-    self disableSaveButton
+	ifTrue: [self compileMethodDefinition]
 !
 
 compileClassComment
@@ -602,6 +605,12 @@ compileDefinition
 	updateClassesList
 !
 
+cancelChanges
+    ^unsavedChanges 
+	ifTrue: [self confirm: 'Cancel changes?']
+	ifFalse: [true]
+!
+
 removeClass
     (self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
@@ -610,54 +619,78 @@ removeClass
 !
 
 removeMethod
-    (self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
-	ifTrue: [
-	    selectedClass removeCompiledMethod: selectedMethod.
-	    self selectMethod: nil]
+    self cancelChanges ifTrue: [
+	(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
+	    ifTrue: [
+		selectedClass removeCompiledMethod: selectedMethod.
+		self selectMethod: nil]]
+!
+
+setMethodProtocol: aString
+    self cancelChanges ifTrue: [
+	selectedMethod category: aString.
+	selectedProtocol := aString.
+	selectedMethod := selectedMethod.
+	self 
+	    updateProtocolsList;
+	    updateMethodsList;
+	    updateSourceAndButtons]
+!
+
+addNewProtocol
+    | newProtocol |
+    newProtocol := self prompt: 'New method protocol'.
+    newProtocol notEmpty ifTrue: [
+	self setMethodProtocol: newProtocol]
 !
 
 selectCategory: aCategory
-    selectedCategory := aCategory.
-    selectedClass := selectedProtocol := selectedMethod :=  nil.
-    self 
-	updateCategoriesList;
-	updateClassesList;
-	updateProtocolsList;
-	updateMethodsList;
-	updateSourceAndButtons
+    self cancelChanges ifTrue: [
+	selectedCategory := aCategory.
+	selectedClass := selectedProtocol := selectedMethod :=  nil.
+	self 
+	    updateCategoriesList;
+	    updateClassesList;
+	    updateProtocolsList;
+	    updateMethodsList;
+	    updateSourceAndButtons]
 !
 
 selectClass: aClass
-    selectedClass := aClass.
-    selectedProtocol := selectedMethod := nil.
-    self 
-	updateClassesList;
-	updateProtocolsList;
-	updateMethodsList;
-	updateSourceAndButtons
+    self cancelChanges ifTrue: [
+	selectedClass := aClass.
+	selectedProtocol := selectedMethod := nil.
+	self 
+	    updateClassesList;
+	    updateProtocolsList;
+	    updateMethodsList;
+	    updateSourceAndButtons]
 !
 
 selectProtocol: aString
-    selectedProtocol := aString.
-    selectedMethod := nil.
-    self 
-	updateProtocolsList;
-	updateMethodsList;
-	updateSourceAndButtons
+    self cancelChanges ifTrue: [
+	selectedProtocol := aString.
+	selectedMethod := nil.
+	self 
+	    updateProtocolsList;
+	    updateMethodsList;
+	    updateSourceAndButtons]
 !
 
 selectMethod: aMethod
-    selectedMethod := aMethod.
-    self 
-	updateProtocolsList;
-	updateMethodsList;
-	updateSourceAndButtons
+    self cancelChanges ifTrue: [
+	selectedMethod := aMethod.
+	self 
+	    updateProtocolsList;
+	    updateMethodsList;
+	    updateSourceAndButtons]
 !
 
 selectTab: aString
-    selectedTab := aString.
-    self selectProtocol: nil.
-    self updateTabsList.
+    self cancelChanges ifTrue: [
+	selectedTab := aString.
+	self selectProtocol: nil.
+	self updateTabsList]
 ! !
 
 
@@ -707,14 +740,8 @@ renderButtonsOn: html
     saveButton 
 	with: 'Save';
 	onClick: [self compile].
-    methodButtons := html span with: [
-	html button
-	    with: 'Remove method';
-	    onClick: [self removeMethod]].
-    classButtons := html span with: [
-	html button
-	    with: 'Remove class';
-	    onClick: [self removeClass]].
+    methodButtons := html span.
+    classButtons := html span.
     self updateSourceAndButtons
 ! !
 
@@ -786,6 +813,26 @@ updateTabsList
 
 updateSourceAndButtons
     self disableSaveButton.
+    classButtons contents: [:html |
+	html button
+	    with: 'Remove class';
+	    onClick: [self removeClass]].
+    methodButtons contents: [:html |
+	html button
+	    with: 'Remove method';
+	    onClick: [self removeMethod].
+	html select with: [
+	    html option
+		with: 'Method protocol';
+		at: 'disabled' put: 'disabled'.
+	    html option
+		class: 'important';
+		with: 'New...';
+		onClick: [self addNewProtocol].
+	    self protocols do: [:each |
+		html option
+		    with: each;
+		    onClick: [self setMethodProtocol: each]]]].
     selectedMethod 
 	ifNil: [
 	    self hideMethodButtons.

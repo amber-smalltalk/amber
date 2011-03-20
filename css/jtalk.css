@@ -13,7 +13,7 @@ body.jtalkBody {
     right: 0;
     margin: 0;
     padding: 0 0 3px 0;
-    height: 19px;
+    height: 20px;
     background: white;
 }
 #jtalkTabs li {
@@ -105,8 +105,12 @@ body.jtalkBody {
     bottom: 15px;    
 }
 
+.jtalkTool .important {
+    font-weight: bold;
+}
     
-.jtalkTool .jt_buttons button {
+.jtalkTool .jt_buttons button,
+.jtalkTool .jt_buttons select {
     font-size: 12px;
 }
 
@@ -117,7 +121,7 @@ body.jtalkBody {
     line-height: 1.2em;
     font-size: 13px;
     position: relative;
-    padding: 3px;
+    padding: 0;
 }
 
 .jtalkTool .jt_clear {	 

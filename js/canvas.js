@@ -37,6 +37,18 @@ source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20roo
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
+'_with_',
+smalltalk.method({
+selector: 'with:',
+category: 'adding',
+fn: function (anObject){
+var self=this;
+return self._root()._with_(anObject);
+return self;},
+source: unescape('with%3A%20anObject%0A%20%20%20%20%5Eself%20root%20with%3A%20anObject%0A')}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
 '_newTag_',
 smalltalk.method({
 selector: 'newTag:',

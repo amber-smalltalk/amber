@@ -19,6 +19,12 @@ initialize
     root := TagBrush fromString: 'div' canvas: self
 ! !
 
+!HTMLCanvas methodsFor: 'adding'!
+
+with: anObject
+    ^self root with: anObject
+! !
+
 !HTMLCanvas methodsFor: 'tags'!
 
 newTag: aString
