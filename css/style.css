@@ -163,6 +163,7 @@ html,body {
 	font: 16px Georgia, Times, Serif;
 	line-height: 1.6em;
 	padding: 10px 0;
+	margin: 0;
 }
 
 .box .content h3 {
