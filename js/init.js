@@ -1,1 +1,0 @@
-smalltalk.init(smalltalk.Object);
