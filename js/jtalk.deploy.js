@@ -4415,9 +4415,9 @@ selector: 'on:do:',
 category: 'events',
 fn: function (anEventString, aBlock){
 var self=this;
-(function(){self['@jquery'].bind(anEventString, aBlock)})();
+(function(){self['@jquery'].bind(anEventString, function(e){aBlock(self)})})();
 return self;},
-source: unescape('on%3A%20anEventString%20do%3A%20aBlock%0A%20%20%20%20%22Attach%20aBlock%20for%20anEventString%20on%20the%20element%22%0A%20%20%20%20%7B%27self%5B%27%27@jquery%27%27%5D.bind%28anEventString%2C%20aBlock%29%27%7D%0A')}),
+source: unescape('on%3A%20anEventString%20do%3A%20aBlock%0A%20%20%20%20%22Attach%20aBlock%20for%20anEventString%20on%20the%20element%22%0A%20%20%20%20%7B%27self%5B%27%27@jquery%27%27%5D.bind%28anEventString%2C%20function%28e%29%7BaBlock%28self%29%7D%29%27%7D%0A')}),
 smalltalk.JQuery);
 
 smalltalk.addMethod(
@@ -4567,6 +4567,95 @@ return (function($rec){$rec._initializeWithJQueryObject_(anObject);return $rec._
 return self;},
 source: unescape('from%3A%20anObject%0A%20%20%20%20%5Eself%20new%0A%09initializeWithJQueryObject%3A%20anObject%3B%0A%09yourself%0A')}),
 smalltalk.JQuery.klass);
+
+
+smalltalk.addClass('Ajax', smalltalk.Object, ['settings'], 'JQuery');
+smalltalk.Ajax.comment=unescape('instance%20variable%20names%3A%0A-%20settings%20%20A%20set%20of%20key/value%20pairs%20that%20configure%20the%20Ajax%20request.%20All%20settings%20are%20optional.%0A%0AFull%20list%20of%20settings%20options%20at%20http%3A//api.jquery.com/jQuery.ajax/%0A')
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+category: 'initialization',
+fn: function (){
+var self=this;
+self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
+self['@settings']=smalltalk.Dictionary._new();
+return self;},
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20settings%20%3A%3D%20Dictionary%20new%0A')}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_at_',
+smalltalk.method({
+selector: 'at:',
+category: 'accessing',
+fn: function (aKey){
+var self=this;
+return self['@settings']._at_ifAbsent_(aKey,(function(){return nil;}));
+return self;},
+source: unescape('at%3A%20aKey%0A%20%20%20%20%5Esettings%20at%3A%20aKey%20ifAbsent%3A%20%5Bnil%5D%0A')}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_at_put_',
+smalltalk.method({
+selector: 'at:put:',
+category: 'accessing',
+fn: function (aKey, aValue){
+var self=this;
+self['@settings']._at_put_(aKey,aValue);
+return self;},
+source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%20%20%20%20settings%20at%3A%20aKey%20put%3A%20aValue%0A')}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_url',
+smalltalk.method({
+selector: 'url',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self._at_("url");
+return self;},
+source: unescape('url%0A%20%20%20%20%5Eself%20at%3A%20%27url%27%0A')}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_url_',
+smalltalk.method({
+selector: 'url:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+self._at_put_("url",aString);
+return self;},
+source: unescape('url%3A%20aString%0A%20%20%20%20self%20at%3A%20%27url%27%20put%3A%20aString%0A')}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_send',
+smalltalk.method({
+selector: 'send',
+category: 'actions',
+fn: function (){
+var self=this;
+(function(){jQuery.ajax(self['@settings'])})();
+return self;},
+source: unescape('send%0A%20%20%20%20%7B%27jQuery.ajax%28self%5B%27%27@settings%27%27%5D%29%27%7D%0A')}),
+smalltalk.Ajax);
+
+
+smalltalk.addMethod(
+'_url_',
+smalltalk.method({
+selector: 'url:',
+category: 'instance creation',
+fn: function (aString){
+var self=this;
+return (function($rec){$rec._url_(aString);return $rec._yourself();})(self._new());
+return self;},
+source: unescape('url%3A%20aString%0A%20%20%20%20%5Eself%20new%0A%09url%3A%20aString%3B%0A%09yourself%0A')}),
+smalltalk.Ajax.klass);
 
 
 
@@ -5180,6 +5269,18 @@ var self=this;
 return (function(){return smalltalk.JQuery._from_(jQuery(self['@element']))})();
 return self;},
 source: unescape('asJQuery%0A%20%20%20%20%5E%7B%27return%20smalltalk.JQuery._from_%28jQuery%28self%5B%27%27@element%27%27%5D%29%29%27%7D%0A')}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_asJQueryDo_',
+smalltalk.method({
+selector: 'asJQueryDo:',
+category: 'converting',
+fn: function (aBlock){
+var self=this;
+aBlock._value_(self._asJQuery());
+return self;},
+source: unescape('asJQueryDo%3A%20aBlock%0A%20%20%20%20aBlock%20value%3A%20self%20asJQuery%0A')}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(

@@ -604,6 +604,7 @@ compileMethodDefinition
 compileMethodDefinitionFor: aClass
     | compiler method source node |
     source := sourceTextarea asJQuery val.
+    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
     compiler := Compiler new.
     node := compiler parse: source.
     node isParseFailure ifTrue: [
@@ -647,19 +648,23 @@ removeMethod
 
 setMethodProtocol: aString
     self cancelChanges ifTrue: [
-	selectedMethod category: aString.
-	selectedProtocol := aString.
-	selectedMethod := selectedMethod.
-	self 
-	    updateProtocolsList;
-	    updateMethodsList;
-	    updateSourceAndButtons]
+	(self protocols includes: aString)
+	    ifFalse: [self addNewProtocol]
+	    ifTrue: [
+		selectedMethod category: aString.
+		selectedProtocol := aString.
+		selectedMethod := selectedMethod.
+		self 
+		    updateProtocolsList;
+		    updateMethodsList;
+		    updateSourceAndButtons]]
 !
 
 addNewProtocol
     | newProtocol |
     newProtocol := self prompt: 'New method protocol'.
     newProtocol notEmpty ifTrue: [
+	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
 !
 
@@ -840,18 +845,17 @@ updateSourceAndButtons
 	html button
 	    with: 'Remove method';
 	    onClick: [self removeMethod].
-	html select with: [
-	    html option
-		with: 'Method protocol';
-		at: 'disabled' put: 'disabled'.
-	    html option
-		class: 'important';
-		with: 'New...';
-		onClick: [self addNewProtocol].
-	    self protocols do: [:each |
+	html select 
+	    onChange: [:s | self setMethodProtocol: s val];
+	    with: [
 		html option
-		    with: each;
-		    onClick: [self setMethodProtocol: each]]]].
+		    with: 'Method protocol';
+		    at: 'disabled' put: 'disabled'.
+		html option
+		    class: 'important';
+		    with: 'New...'.
+		self protocols do: [:each |
+		    html option with: each]]].
     selectedMethod 
 	ifNil: [
 	    self hideMethodButtons.

@@ -242,6 +242,10 @@ element
 
 asJQuery
     ^{'return smalltalk.JQuery._from_(jQuery(self[''@element'']))'}
+!
+
+asJQueryDo: aBlock
+    aBlock value: self asJQuery
 ! !
 
 !TagBrush methodsFor: 'events'!

@@ -158,7 +158,7 @@ remove
 
 on: anEventString do: aBlock
     "Attach aBlock for anEventString on the element"
-    {'self[''@jquery''].bind(anEventString, aBlock)'}
+    {'self[''@jquery''].bind(anEventString, function(e){aBlock(self)})'}
 !
 
 removeEvents: aString
@@ -215,3 +215,59 @@ hasClass: aString
     "Determine whether any of the matched elements are assigned the given class."
     ^self call: 'hasClass' withArgument: aString
 ! !
+
+
+Object subclass: #Ajax
+	instanceVariableNames: 'settings'
+	category: 'JQuery'!
+
+!Ajax commentStamp!
+
+instance variable names:
+- settings  A set of key/value pairs that configure the Ajax request. All settings are optional.
+
+Full list of settings options at http://api.jquery.com/jQuery.ajax/
+!
+
+!Ajax class methodsFor: 'instance creation'!
+
+url: aString
+    ^self new
+	url: aString;
+	yourself
+! !
+
+!Ajax methodsFor: 'initialization'!
+
+initialize
+    super initialize.
+    settings := Dictionary new
+! !
+
+!Ajax methodsFor: 'accessing'!
+
+at: aKey
+    ^settings at: aKey ifAbsent: [nil]
+!
+
+at: aKey put: aValue
+    settings at: aKey put: aValue
+!
+
+url
+    ^self at: 'url'
+!
+
+url: aString
+    self at: 'url' put: aString
+! !
+
+
+!Ajax methodsFor: 'actions'!
+
+send
+    {'jQuery.ajax(self[''@settings''])'}
+! !
+
+
+    

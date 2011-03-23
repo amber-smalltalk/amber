@@ -611,6 +611,18 @@ source: unescape('asJQuery%0A%20%20%20%20%5E%7B%27return%20smalltalk.JQuery._fro
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+'_asJQueryDo_',
+smalltalk.method({
+selector: 'asJQueryDo:',
+category: 'converting',
+fn: function (aBlock){
+var self=this;
+aBlock._value_(self._asJQuery());
+return self;},
+source: unescape('asJQueryDo%3A%20aBlock%0A%20%20%20%20aBlock%20value%3A%20self%20asJQuery%0A')}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_onKeyDown_',
 smalltalk.method({
 selector: 'onKeyDown:',

@@ -1008,6 +1008,7 @@ var method=nil;
 var source=nil;
 var node=nil;
 source=self['@sourceTextarea']._asJQuery()._val();
+self['@selectedProtocol']._ifNil_((function(){return self['@selectedProtocol']=self['@selectedMethod']._category();}));
 compiler=smalltalk.Compiler._new();
 node=compiler._parse_(source);
 node._isParseFailure()._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_compileMethodDefinitionFor_', fn: function(){return self._alert_("PARSE ERROR: ".__comma(node._reason()).__comma(unescape("%2C%20position%3A%20")).__comma(node._position()._asString()))}})})();}));
@@ -1019,7 +1020,7 @@ self._updateMethodsList();
 self._selectMethod_(method);
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_compileMethodDefinitionFor_'){return e.fn()} throw(e)}},
-source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20compiler%20method%20source%20node%20%7C%0A%20%20%20%20source%20%3A%3D%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parse%3A%20source.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20%27PARSE%20ERROR%3A%20%27%2C%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%20asString%5D.%0A%20%20%20%20compiler%20currentClass%3A%20selectedClass.%0A%20%20%20%20method%20%3A%3D%20compiler%20eval%3A%20%28compiler%20compileNode%3A%20node%29.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
+source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20compiler%20method%20source%20node%20%7C%0A%20%20%20%20source%20%3A%3D%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20selectedProtocol%20ifNil%3A%20%5BselectedProtocol%20%3A%3D%20selectedMethod%20category%5D.%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parse%3A%20source.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20%27PARSE%20ERROR%3A%20%27%2C%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%20asString%5D.%0A%20%20%20%20compiler%20currentClass%3A%20selectedClass.%0A%20%20%20%20method%20%3A%3D%20compiler%20eval%3A%20%28compiler%20compileNode%3A%20node%29.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1079,9 +1080,9 @@ selector: 'setMethodProtocol:',
 category: 'actions',
 fn: function (aString){
 var self=this;
-self._cancelChanges()._ifTrue_((function(){self['@selectedMethod']._category_(aString);self['@selectedProtocol']=aString;self['@selectedMethod']=self['@selectedMethod'];return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
+self._cancelChanges()._ifTrue_((function(){return self._protocols()._includes_(aString)._ifFalse_ifTrue_((function(){return self._addNewProtocol();}),(function(){self['@selectedMethod']._category_(aString);self['@selectedProtocol']=aString;self['@selectedMethod']=self['@selectedMethod'];return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));}));
 return self;},
-source: unescape('setMethodProtocol%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedMethod%20category%3A%20aString.%0A%09selectedProtocol%20%3A%3D%20aString.%0A%09selectedMethod%20%3A%3D%20selectedMethod.%0A%09self%20%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
+source: unescape('setMethodProtocol%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09%28self%20protocols%20includes%3A%20aString%29%0A%09%20%20%20%20ifFalse%3A%20%5Bself%20addNewProtocol%5D%0A%09%20%20%20%20ifTrue%3A%20%5B%0A%09%09selectedMethod%20category%3A%20aString.%0A%09%09selectedProtocol%20%3A%3D%20aString.%0A%09%09selectedMethod%20%3A%3D%20selectedMethod.%0A%09%09self%20%0A%09%09%20%20%20%20updateProtocolsList%3B%0A%09%09%20%20%20%20updateMethodsList%3B%0A%09%09%20%20%20%20updateSourceAndButtons%5D%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1093,9 +1094,9 @@ fn: function (){
 var self=this;
 var newProtocol=nil;
 newProtocol=self._prompt_("New method protocol");
-newProtocol._notEmpty()._ifTrue_((function(){return self._setMethodProtocol_(newProtocol);}));
+newProtocol._notEmpty()._ifTrue_((function(){self['@selectedMethod']._category_(newProtocol);return self._setMethodProtocol_(newProtocol);}));
 return self;},
-source: unescape('addNewProtocol%0A%20%20%20%20%7C%20newProtocol%20%7C%0A%20%20%20%20newProtocol%20%3A%3D%20self%20prompt%3A%20%27New%20method%20protocol%27.%0A%20%20%20%20newProtocol%20notEmpty%20ifTrue%3A%20%5B%0A%09self%20setMethodProtocol%3A%20newProtocol%5D%0A')}),
+source: unescape('addNewProtocol%0A%20%20%20%20%7C%20newProtocol%20%7C%0A%20%20%20%20newProtocol%20%3A%3D%20self%20prompt%3A%20%27New%20method%20protocol%27.%0A%20%20%20%20newProtocol%20notEmpty%20ifTrue%3A%20%5B%0A%09selectedMethod%20category%3A%20newProtocol.%0A%09self%20setMethodProtocol%3A%20newProtocol%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1298,11 +1299,11 @@ fn: function (){
 var self=this;
 self._disableSaveButton();
 self['@classButtons']._contents_((function(html){return (function($rec){$rec._with_("Remove class");return $rec._onClick_((function(){return self._removeClass();}));})(html._button());}));
-self['@methodButtons']._contents_((function(html){(function($rec){$rec._with_("Remove method");return $rec._onClick_((function(){return self._removeMethod();}));})(html._button());return html._select()._with_((function(){(function($rec){$rec._with_("Method protocol");return $rec._at_put_("disabled","disabled");})(html._option());(function($rec){$rec._class_("important");$rec._with_("New...");return $rec._onClick_((function(){return self._addNewProtocol();}));})(html._option());return self._protocols()._do_((function(each){return (function($rec){$rec._with_(each);return $rec._onClick_((function(){return self._setMethodProtocol_(each);}));})(html._option());}));}));}));
+self['@methodButtons']._contents_((function(html){(function($rec){$rec._with_("Remove method");return $rec._onClick_((function(){return self._removeMethod();}));})(html._button());return (function($rec){$rec._onChange_((function(s){return self._setMethodProtocol_(s._val());}));return $rec._with_((function(){(function($rec){$rec._with_("Method protocol");return $rec._at_put_("disabled","disabled");})(html._option());(function($rec){$rec._class_("important");return $rec._with_("New...");})(html._option());return self._protocols()._do_((function(each){return html._option()._with_(each);}));}));})(html._select());}));
 self['@selectedMethod']._ifNil_ifNotNil_((function(){self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_((function(){return self._hideClassButtons();}),(function(){return self._showClassButtons();}));}),(function(){self._hideClassButtons();return self._showMethodButtons();}));
 self['@sourceTextarea']._asJQuery()._val_(self._source());
 return self;},
-source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20class%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%20%20%20%20methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20method%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeMethod%5D.%0A%09html%20select%20with%3A%20%5B%0A%09%20%20%20%20html%20option%0A%09%09with%3A%20%27Method%20protocol%27%3B%0A%09%09at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%20%20%20%20html%20option%0A%09%09class%3A%20%27important%27%3B%0A%09%09with%3A%20%27New...%27%3B%0A%09%09onClick%3A%20%5Bself%20addNewProtocol%5D.%0A%09%20%20%20%20self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09html%20option%0A%09%09%20%20%20%20with%3A%20each%3B%0A%09%09%20%20%20%20onClick%3A%20%5Bself%20setMethodProtocol%3A%20each%5D%5D%5D%5D.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons.%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
+source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20class%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%20%20%20%20methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20method%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeMethod%5D.%0A%09html%20select%20%0A%09%20%20%20%20onChange%3A%20%5B%3As%20%7C%20self%20setMethodProtocol%3A%20s%20val%5D%3B%0A%09%20%20%20%20with%3A%20%5B%0A%09%09html%20option%0A%09%09%20%20%20%20with%3A%20%27Method%20protocol%27%3B%0A%09%09%20%20%20%20at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%09html%20option%0A%09%09%20%20%20%20class%3A%20%27important%27%3B%0A%09%09%20%20%20%20with%3A%20%27New...%27.%0A%09%09self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%20%20%20%20html%20option%20with%3A%20each%5D%5D%5D.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons.%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
