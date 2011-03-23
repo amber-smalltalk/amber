@@ -134,6 +134,13 @@ body.jtalkBody {
     height: 100%;
 }
 
+.jtalkTool .jt_commit {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    font-size: 12px;
+}
+
 .jtalkTool ul.jt_column {
     width: 24%;
     padding: 0;
@@ -149,7 +156,8 @@ body.jtalkBody {
 }
 
 .jtalkTool ul.jt_column.categories {
-    left: 0%
+    left: 0%;
+    height: 105px;
 }
 
 .jtalkTool ul.jt_column.classes {

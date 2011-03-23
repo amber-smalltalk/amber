@@ -705,7 +705,7 @@ source: unescape('clear%0A%20%20%20%20self%20current%20clear%0A')}),
 smalltalk.Transcript.klass);
 
 
-smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedCategory', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'categoriesList', 'classesList', 'protocolsList', 'methodsList', 'sourceTextarea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
+smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedCategory', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'commitButton', 'categoriesList', 'classesList', 'protocolsList', 'methodsList', 'sourceTextarea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
 smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
@@ -1038,6 +1038,18 @@ source: unescape('compileDefinition%0A%20%20%20%20%7C%20newClass%20%7C%0A%20%20%
 smalltalk.Browser);
 
 smalltalk.addMethod(
+'_commitCategory',
+smalltalk.method({
+selector: 'commitCategory',
+category: 'actions',
+fn: function (){
+var self=this;
+self['@selectedCategory']._ifNotNil_((function(){return (function($rec){$rec._at_put_("type","PUT");$rec._at_put_("data",smalltalk.Exporter._new()._exportCategory_(self['@selectedCategory']));$rec._at_put_("error",(function(){return self._alert_(unescape("Commit%20failed%21"));}));return $rec._send();})(smalltalk.Ajax._url_(unescape("js/").__comma(self['@selectedCategory']).__comma(".js")));}));
+return self;},
+source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20%27js/%27%2C%20selectedCategory%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D%0A')}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 '_cancelChanges',
 smalltalk.method({
 selector: 'cancelChanges',
@@ -1178,9 +1190,9 @@ selector: 'renderTopPanelOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){$rec._class_("top");return $rec._with_((function(){self['@categoriesList']=html._ul()._class_("jt_column categories");self['@classesList']=html._ul()._class_("jt_column classes");self['@protocolsList']=html._ul()._class_("jt_column protocols");self['@methodsList']=html._ul()._class_("jt_column methods");(function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();return $rec._updateMethodsList();})(self);return html._div()._class_("jt_clear");}));})(html._div());
+(function($rec){$rec._class_("top");return $rec._with_((function(){self['@categoriesList']=html._ul()._class_("jt_column categories");self['@commitButton']=(function($rec){$rec._class_("jt_commit");$rec._title_("Commit classes in this category to disk");$rec._onClick_((function(){return self._commitCategory();}));return $rec._with_("Commit category");})(html._button());self['@classesList']=html._ul()._class_("jt_column classes");self['@protocolsList']=html._ul()._class_("jt_column protocols");self['@methodsList']=html._ul()._class_("jt_column methods");(function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();return $rec._updateMethodsList();})(self);return html._div()._class_("jt_clear");}));})(html._div());
 return self;},
-source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20categories%27.%0A%09%20%20%20%20classesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20classes%27.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D%0A')}),
+source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20categories%27.%0A%09%20%20%20%20commitButton%20%3A%3D%20html%20button%20%0A%09%09class%3A%20%27jt_commit%27%3B%0A%09%09title%3A%20%27Commit%20classes%20in%20this%20category%20to%20disk%27%3B%0A%09%09onClick%3A%20%5Bself%20commitCategory%5D%3B%0A%09%09with%3A%20%27Commit%20category%27.%0A%09%20%20%20%20classesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20classes%27.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(

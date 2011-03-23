@@ -402,7 +402,7 @@ renderButtonsOn: html
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser class methodsFor: 'convenience'!
@@ -625,6 +625,17 @@ compileDefinition
 	updateClassesList
 !
 
+commitCategory
+    selectedCategory ifNotNil: [
+	(Ajax url: 'js/', selectedCategory, '.js')
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
+	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    send]
+!
+
+
+
 cancelChanges
     ^unsavedChanges 
 	ifTrue: [self confirm: 'Cancel changes?']
@@ -732,6 +743,11 @@ renderTopPanelOn: html
 	class: 'top'; 
 	with: [
 	    categoriesList := html ul class: 'jt_column categories'.
+	    commitButton := html button 
+		class: 'jt_commit';
+		title: 'Commit classes in this category to disk';
+		onClick: [self commitCategory];
+		with: 'Commit category'.
 	    classesList := html ul class: 'jt_column classes'.
 	    protocolsList := html ul class: 'jt_column protocols'.
 	    methodsList := html ul class: 'jt_column methods'.
