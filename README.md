@@ -20,7 +20,7 @@ Some highlights:
 How to commit changes from the web-based IDE
 --------------------------------------------
 
-The Jtalk class browser is abled to commit changes to disk.
+The Jtalk class browser is able to commit changes to disk.
 The "commit category" button will send a PUT request with the JS code of all classes in the selected class category in a file named js/CATEGORY.js
 
 The easiest way to enable committing is probably to setup a webdav with Apache.
@@ -65,7 +65,7 @@ Make sure the group www-data has required rights to modify files in the webdav d
 
 ### Restart Apache
     
-    /etc/init.d/apache restart
+    /etc/init.d/apache2 restart
 
 License
 -------
