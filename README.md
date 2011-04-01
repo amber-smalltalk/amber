@@ -29,8 +29,9 @@ The following steps explain how to setup a webdav for Jtalk with Debian, but the
 
 ### Install Apache and enable the dav module
 
-    apt-get install apache
+    apt-get install apache2
     a2enmod dav
+    a2enmod dav_fs
 
 ### Create a password for the webdav
 
@@ -52,7 +53,7 @@ Add the following lines to the default vhost (in /etc/apache2/sites-available/de
 
 	    AuthType Basic
             AuthName "jtalk"
-            AuthUserFile /etc/apache2/htpassword-webdav
+            AuthUserFile /etc/apache2/htpasswd-webdav
 	    <LimitExcept GET OPTIONS>
                 Require valid-user
 	    </LimitExcept>
