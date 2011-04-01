@@ -142,16 +142,21 @@ smalltalk.mapClassName("String", "Kernel", String, smalltalk.Collection);
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.Collection);
 
+if(CanvasRenderingContext2D) {
+    smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
+}
+
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (anObject){
-var self=this;
-return (function(){return self == anObject})();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return function () {return self == anObject;}();
+    return self;
+},
 source: unescape('%3D%20anObject%0A%09%5E%7B%27return%20self%20%3D%3D%20anObject%27%7D%0A')}),
 smalltalk.Object);
 
@@ -160,10 +165,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '~=',
 category: 'comparing',
-fn: function (anObject){
-var self=this;
-return self.__eq(anObject).__eq_eq(false);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return self.__eq(anObject).__eq_eq(false);
+    return self;
+},
 source: unescape('%7E%3D%20anObject%0A%09%5E%28self%20%3D%20anObject%29%20%3D%3D%20false%0A')}),
 smalltalk.Object);
 
@@ -172,10 +178,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+},
 source: unescape('initialize%0A')}),
 smalltalk.Object);
 
@@ -184,10 +190,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'yourself',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self;
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('yourself%0A%09%5Eself%0A')}),
 smalltalk.Object);
 
@@ -196,10 +203,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'class',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.klass})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.klass;}();
+    return self;
+},
 source: unescape('class%0A%09%5E%7B%27return%20self.klass%27%7D%0A')}),
 smalltalk.Object);
 
@@ -208,10 +216,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function (){
-var self=this;
-self._error_("Object not indexable");
-return self;},
+fn: function () {
+    var self = this;
+    self._error_("Object not indexable");
+    return self;
+},
 source: unescape('size%0A%09self%20error%3A%20%27Object%20not%20indexable%27%0A')}),
 smalltalk.Object);
 
@@ -220,10 +229,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self._shallowCopy()._postCopy();
-return self;},
+fn: function () {
+    var self = this;
+    return self._shallowCopy()._postCopy();
+    return self;
+},
 source: unescape('copy%0A%09%5Eself%20shallowCopy%20postCopy%0A')}),
 smalltalk.Object);
 
@@ -232,18 +242,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return (function(){
-	    var copy = self.klass._new();
-	    for(var i in self) {
-		if(/^@.+/.test(i)) {
-		    copy[i] = self[i];
-		}
-	    }
-	    return copy;
-	})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {var copy = self.klass._new();for (var i in self) {if (/^@.+/.test(i)) {copy[i] = self[i];}}return copy;}();
+    return self;
+},
 source: unescape('shallowCopy%0A%09%5E%7B%27%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D%0A')}),
 smalltalk.Object);
 
@@ -252,18 +255,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'deepCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-(function(){	    
-	    var copy = self.klass._new();
-	    for(var i in self) {
-		if(/^@.+/.test(i)) {
-		    copy[i] = self[i]._deepCopy();
-		}
-	    }
-	    return copy;
-	})();
-return self;},
+fn: function () {
+    var self = this;
+    (function () {var copy = self.klass._new();for (var i in self) {if (/^@.+/.test(i)) {copy[i] = self[i]._deepCopy();}}return copy;}());
+    return self;
+},
 source: unescape('deepCopy%0A%09%7B%27%09%20%20%20%20%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D._deepCopy%28%29%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D.%0A')}),
 smalltalk.Object);
 
@@ -272,10 +268,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'postCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+},
 source: unescape('postCopy%0A')}),
 smalltalk.Object);
 
@@ -284,10 +280,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '->',
 category: 'converting',
-fn: function (anObject){
-var self=this;
-return smalltalk.Association._key_value_(self,anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return smalltalk.Association._key_value_(self, anObject);
+    return self;
+},
 source: unescape('-%3E%20anObject%0A%09%5EAssociation%20key%3A%20self%20value%3A%20anObject%0A')}),
 smalltalk.Object);
 
@@ -296,10 +293,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asString',
 category: 'converting',
-fn: function (){
-var self=this;
-return self._printString();
-return self;},
+fn: function () {
+    var self = this;
+    return self._printString();
+    return self;
+},
 source: unescape('asString%0A%09%5Eself%20printString%0A')}),
 smalltalk.Object);
 
@@ -308,10 +306,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJavascript',
 category: 'converting',
-fn: function (){
-var self=this;
-return self._asString();
-return self;},
+fn: function () {
+    var self = this;
+    return self._asString();
+    return self;
+},
 source: unescape('asJavascript%0A%09%5Eself%20asString%0A')}),
 smalltalk.Object);
 
@@ -320,10 +319,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'perform:',
 category: 'message handling',
-fn: function (aSymbol){
-var self=this;
-return self._perform_withArguments_(aSymbol,[]);
-return self;},
+fn: function (aSymbol) {
+    var self = this;
+    return self._perform_withArguments_(aSymbol, []);
+    return self;
+},
 source: unescape('perform%3A%20aSymbol%0A%09%5Eself%20perform%3A%20aSymbol%20withArguments%3A%20%23%28%29%0A')}),
 smalltalk.Object);
 
@@ -332,10 +332,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'perform:withArguments:',
 category: 'error handling',
-fn: function (aSymbol, aCollection){
-var self=this;
-return self._basicPerform_withArguments_(aSymbol._asSelector(),aCollection);
-return self;},
+fn: function (aSymbol, aCollection) {
+    var self = this;
+    return self._basicPerform_withArguments_(aSymbol._asSelector(), aCollection);
+    return self;
+},
 source: unescape('perform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%5Eself%20basicPerform%3A%20aSymbol%20asSelector%20withArguments%3A%20aCollection%0A')}),
 smalltalk.Object);
 
@@ -344,17 +345,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instVarAt:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-return (function(){
-	    var value = self['@'+aString];
-	    if(typeof(value) == 'undefined') {
-		return nil;
-	    } else {
-		return value;
-	    }
-	})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {var value = self["@" + aString];if (typeof value == "undefined") {return nil;} else {return value;}}();
+    return self;
+},
 source: unescape('instVarAt%3A%20aString%0A%09%5E%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5B%27%27@%27%27+aString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Object);
 
@@ -363,10 +358,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instVarAt:put:',
 category: 'accessing',
-fn: function (aString, anObject){
-var self=this;
-return (function(){self['@' + aString] = anObject})();
-return self;},
+fn: function (aString, anObject) {
+    var self = this;
+    return function () {self["@" + aString] = anObject;}();
+    return self;
+},
 source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%5E%7B%27self%5B%27%27@%27%27%20+%20aString%5D%20%3D%20anObject%27%7D%0A')}),
 smalltalk.Object);
 
@@ -375,17 +371,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicAt:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-return (function(){
-	    var value = self[aString];
-	    if(typeof(value) == 'undefined') {
-		return nil;
-	    } else {
-		return value;
-	    }
-	})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {var value = self[aString];if (typeof value == "undefined") {return nil;} else {return value;}}();
+    return self;
+},
 source: unescape('basicAt%3A%20aString%0A%09%5E%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BaString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Object);
 
@@ -394,10 +384,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicAt:put:',
 category: 'accessing',
-fn: function (aString, anObject){
-var self=this;
-return (function(){return self[aString] = anObject})();
-return self;},
+fn: function (aString, anObject) {
+    var self = this;
+    return function () {return self[aString] = anObject;}();
+    return self;
+},
 source: unescape('basicAt%3A%20aString%20put%3A%20anObject%0A%09%5E%7B%27return%20self%5BaString%5D%20%3D%20anObject%27%7D%0A')}),
 smalltalk.Object);
 
@@ -406,10 +397,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'error:',
 category: 'error handling',
-fn: function (aString){
-var self=this;
-smalltalk.Error._signal_(aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    smalltalk.Error._signal_(aString);
+    return self;
+},
 source: unescape('error%3A%20aString%0A%09Error%20signal%3A%20aString%0A')}),
 smalltalk.Object);
 
@@ -418,10 +410,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'subclassResponsibility',
 category: 'error handling',
-fn: function (){
-var self=this;
-self._error_("This method is a responsibility of a subclass");
-return self;},
+fn: function () {
+    var self = this;
+    self._error_("This method is a responsibility of a subclass");
+    return self;
+},
 source: unescape('subclassResponsibility%0A%09self%20error%3A%20%27This%20method%20is%20a%20responsibility%20of%20a%20subclass%27%0A')}),
 smalltalk.Object);
 
@@ -430,10 +423,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shouldNotImplement',
 category: 'error handling',
-fn: function (){
-var self=this;
-self._error_("This method should not be implemented in ".__comma(self._class()._name()));
-return self;},
+fn: function () {
+    var self = this;
+    self._error_("This method should not be implemented in ".__comma(self._class()._name()));
+    return self;
+},
 source: unescape('shouldNotImplement%0A%09self%20error%3A%20%27This%20method%20should%20not%20be%20implemented%20in%20%27%2C%20self%20class%20name%0A')}),
 smalltalk.Object);
 
@@ -442,10 +436,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'try:catch:',
 category: 'error handling',
-fn: function (aBlock, anotherBlock){
-var self=this;
-(function(){try{aBlock()} catch(e) {anotherBlock(e)}})();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    (function () {try {aBlock();} catch (e) {anotherBlock(e);}}());
+    return self;
+},
 source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%7B%27try%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%27%7D%0A')}),
 smalltalk.Object);
 
@@ -454,10 +449,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return "a ".__comma(self._class()._name());
-return self;},
+fn: function () {
+    var self = this;
+    return "a ".__comma(self._class()._name());
+    return self;
+},
 source: unescape('printString%0A%09%5E%27a%20%27%2C%20self%20class%20name%0A')}),
 smalltalk.Object);
 
@@ -466,10 +462,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printNl',
 category: 'printing',
-fn: function (){
-var self=this;
-(function(){console.log(self)})();
-return self;},
+fn: function () {
+    var self = this;
+    (function () {console.log(self);}());
+    return self;
+},
 source: unescape('printNl%0A%09%7B%27console.log%28self%29%27%7D%0A')}),
 smalltalk.Object);
 
@@ -478,10 +475,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isKindOf:',
 category: 'testing',
-fn: function (aClass){
-var self=this;
-return self._isMemberOf_(aClass)._ifTrue_ifFalse_((function(){return true;}),(function(){return self._class()._inheritsFrom_(aClass);}));
-return self;},
+fn: function (aClass) {
+    var self = this;
+    return self._isMemberOf_(aClass)._ifTrue_ifFalse_(function () {return true;}, function () {return self._class()._inheritsFrom_(aClass);});
+    return self;
+},
 source: unescape('isKindOf%3A%20aClass%0A%09%5E%28self%20isMemberOf%3A%20aClass%29%0A%09%20%20%20%20ifTrue%3A%20%5Btrue%5D%0A%09%20%20%20%20ifFalse%3A%20%5Bself%20class%20inheritsFrom%3A%20aClass%5D%0A')}),
 smalltalk.Object);
 
@@ -490,10 +488,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isMemberOf:',
 category: 'testing',
-fn: function (aClass){
-var self=this;
-return self._class().__eq(aClass);
-return self;},
+fn: function (aClass) {
+    var self = this;
+    return self._class().__eq(aClass);
+    return self;
+},
 source: unescape('isMemberOf%3A%20aClass%0A%09%5Eself%20class%20%3D%20aClass%0A')}),
 smalltalk.Object);
 
@@ -502,10 +501,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNil:',
 category: 'testing',
-fn: function (aBlock){
-var self=this;
-return self;
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('ifNil%3A%20aBlock%0A%09%5Eself%0A')}),
 smalltalk.Object);
 
@@ -514,10 +514,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNil:ifNotNil:',
 category: 'testing',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return anotherBlock._value();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return anotherBlock._value();
+    return self;
+},
 source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%5EanotherBlock%20value%0A')}),
 smalltalk.Object);
 
@@ -526,10 +527,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNotNil:',
 category: 'testing',
-fn: function (aBlock){
-var self=this;
-return aBlock._value();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return aBlock._value();
+    return self;
+},
 source: unescape('ifNotNil%3A%20aBlock%0A%09%5EaBlock%20value%0A')}),
 smalltalk.Object);
 
@@ -538,10 +540,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNotNil:ifNil:',
 category: 'testing',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return aBlock._value();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return aBlock._value();
+    return self;
+},
 source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%5EaBlock%20value%0A')}),
 smalltalk.Object);
 
@@ -550,10 +553,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isNil',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('isNil%0A%09%5Efalse%0A')}),
 smalltalk.Object);
 
@@ -562,10 +566,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'notNil',
 category: 'testing',
-fn: function (){
-var self=this;
-return self._isNil()._not();
-return self;},
+fn: function () {
+    var self = this;
+    return self._isNil()._not();
+    return self;
+},
 source: unescape('notNil%0A%09%5Eself%20isNil%20not%0A')}),
 smalltalk.Object);
 
@@ -574,10 +579,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isClass',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('isClass%0A%09%5Efalse%0A')}),
 smalltalk.Object);
 
@@ -586,10 +592,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isMetaclass',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('isMetaclass%0A%09%5Efalse%0A')}),
 smalltalk.Object);
 
@@ -598,10 +605,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isNumber',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('isNumber%0A%09%5Efalse%0A')}),
 smalltalk.Object);
 
@@ -610,10 +618,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isString',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('isString%0A%09%5Efalse%0A')}),
 smalltalk.Object);
 
@@ -622,10 +631,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isParseFailure',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('isParseFailure%0A%09%5Efalse%0A')}),
 smalltalk.Object);
 
@@ -634,10 +644,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicPerform:',
 category: 'error handling',
-fn: function (aSymbol){
-var self=this;
-return self._basicPerform_withArguments_(aSymbol,[]);
-return self;},
+fn: function (aSymbol) {
+    var self = this;
+    return self._basicPerform_withArguments_(aSymbol, []);
+    return self;
+},
 source: unescape('basicPerform%3A%20aSymbol%20%0A%20%20%20%20%5Eself%20basicPerform%3A%20aSymbol%20withArguments%3A%20%23%28%29%0A')}),
 smalltalk.Object);
 
@@ -646,10 +657,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicPerform:withArguments:',
 category: 'error handling',
-fn: function (aSymbol, aCollection){
-var self=this;
-return (function(){return self[aSymbol].apply(self, aCollection);})();
-return self;},
+fn: function (aSymbol, aCollection) {
+    var self = this;
+    return function () {return self[aSymbol].apply(self, aCollection);}();
+    return self;
+},
 source: unescape('basicPerform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%5E%7B%27return%20self%5BaSymbol%5D.apply%28self%2C%20aCollection%29%3B%27%7D%0A')}),
 smalltalk.Object);
 
@@ -658,10 +670,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToBrush:',
 category: '*Canvas',
-fn: function (aTagBrush){
-var self=this;
-aTagBrush._append_(self._asString());
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    aTagBrush._append_(self._asString());
+    return self;
+},
 source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20append%3A%20self%20asString%0A')}),
 smalltalk.Object);
 
@@ -670,11 +683,42 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicDelete:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-(function(){delete self[aString]})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    (function () {delete self[aString];}());
+    return self;
+},
 source: unescape('basicDelete%3A%20aString%0A%20%20%20%20%7B%27delete%20self%5BaString%5D%27%7D%0A')}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_inspect',
+smalltalk.method({
+selector: 'inspect',
+category: '*IDE',
+fn: function () {
+    var self = this;
+    (function ($rec) {$rec._inspect_(self);return $rec._open();}(smalltalk.Inspector._new()));
+    return self;
+},
+source: unescape('inspect%0A%09Inspector%20new%20%0A%09%09inspect%3A%20self%3B%0A%09%09open')}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_inspectOn_',
+smalltalk.method({
+selector: 'inspectOn:',
+category: '*IDE',
+fn: function (anInspector) {
+    var self = this;
+    var variables = nil;
+    variables = smalltalk.Dictionary._new();
+    variables._at_put_(unescape("%23self"), self);
+    self._class()._instanceVariableNames()._do_(function (each) {return variables._at_put_(each, self._instVarAt_(each));});
+    (function ($rec) {$rec._setLabel_(self._printString());return $rec._setVariables_(variables);}(anInspector));
+    return self;
+},
+source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self.%0A%09self%20class%20instanceVariableNames%20do%3A%20%5B%3Aeach%20%7C%0A%09%09variables%20at%3A%20each%20put%3A%20%28self%20instVarAt%3A%20each%29%5D.%0A%09anInspector%20%0A%09%09setLabel%3A%20self%20printString%3B%0A%09%09setVariables%3A%20variables%0A%09%0A%09')}),
 smalltalk.Object);
 
 
@@ -685,10 +729,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'classes',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.classes()})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.classes();}();
+    return self;
+},
 source: unescape('classes%0A%09%5E%7B%27return%20self.classes%28%29%27%7D%0A')}),
 smalltalk.Smalltalk);
 
@@ -699,10 +744,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'current',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return smalltalk})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return smalltalk;}();
+    return self;
+},
 source: unescape('current%0A%09%20%20%20%20%5E%7B%27return%20smalltalk%27%7D%0A')}),
 smalltalk.Smalltalk.klass);
 
@@ -713,10 +759,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'new',
 category: 'instance creation',
-fn: function (){
-var self=this;
-return (function($rec){$rec._initialize();return $rec._yourself();})(self._basicNew());
-return self;},
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._initialize();return $rec._yourself();}(self._basicNew());
+    return self;
+},
 source: unescape('new%0A%09%5Eself%20basicNew%20%0A%09%20%20%20%20initialize%3B%0A%09%20%20%20%20yourself%0A')}),
 smalltalk.Behavior);
 
@@ -725,10 +772,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicNew',
 category: 'instance creation',
-fn: function (){
-var self=this;
-return (function(){return new self.fn();})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return new self.fn;}();
+    return self;
+},
 source: unescape('basicNew%0A%09%5E%7B%27return%20new%20self.fn%28%29%3B%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -737,10 +785,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'name',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.className || nil})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.className || nil;}();
+    return self;
+},
 source: unescape('name%0A%09%5E%7B%27return%20self.className%20%7C%7C%20nil%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -749,10 +798,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'superclass',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.superclass || nil})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.superclass || nil;}();
+    return self;
+},
 source: unescape('superclass%0A%09%5E%7B%27return%20self.superclass%20%7C%7C%20nil%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -761,10 +811,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'subclasses',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return smalltalk.subclasses(self)})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return smalltalk.subclasses(self);}();
+    return self;
+},
 source: unescape('subclasses%0A%09%5E%7B%27return%20smalltalk.subclasses%28self%29%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -773,13 +824,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'allSubclasses',
 category: 'accessing',
-fn: function (){
-var self=this;
-var result=nil;
-result=self._subclasses();
-self._subclasses()._do_((function(each){return result._addAll_(each._allSubclasses());}));
-return result;
-return self;},
+fn: function () {
+    var self = this;
+    var result = nil;
+    result = self._subclasses();
+    self._subclasses()._do_(function (each) {return result._addAll_(each._allSubclasses());});
+    return result;
+    return self;
+},
 source: unescape('allSubclasses%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20self%20subclasses.%0A%09self%20subclasses%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20result%20addAll%3A%20each%20allSubclasses%5D.%0A%09%5Eresult%0A')}),
 smalltalk.Behavior);
 
@@ -788,10 +840,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'withAllSubclasses',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function($rec){$rec._addAll_(self._allSubclasses());return $rec._yourself();})(smalltalk.Array._with_(self));
-return self;},
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._addAll_(self._allSubclasses());return $rec._yourself();}(smalltalk.Array._with_(self));
+    return self;
+},
 source: unescape('withAllSubclasses%0A%09%5E%28Array%20with%3A%20self%29%20addAll%3A%20self%20allSubclasses%3B%20yourself%0A')}),
 smalltalk.Behavior);
 
@@ -800,10 +853,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'prototype',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.fn.prototype})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.fn.prototype;}();
+    return self;
+},
 source: unescape('prototype%0A%09%5E%7B%27return%20self.fn.prototype%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -812,17 +866,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'methodDictionary',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){var dict = smalltalk.Dictionary._new();
-	var methods = self.fn.prototype.methods;
-	for(var i in methods) {
-		if(methods[i].selector) {
-			dict._at_put_(methods[i].selector, methods[i]);
-		}
-	};
-	return dict})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {var dict = smalltalk.Dictionary._new();var methods = self.fn.prototype.methods;for (var i in methods) {if (methods[i].selector) {dict._at_put_(methods[i].selector, methods[i]);}}return dict;}();
+    return self;
+},
 source: unescape('methodDictionary%0A%09%5E%7B%27var%20dict%20%3D%20smalltalk.Dictionary._new%28%29%3B%0A%09var%20methods%20%3D%20self.fn.prototype.methods%3B%0A%09for%28var%20i%20in%20methods%29%20%7B%0A%09%09if%28methods%5Bi%5D.selector%29%20%7B%0A%09%09%09dict._at_put_%28methods%5Bi%5D.selector%2C%20methods%5Bi%5D%29%3B%0A%09%09%7D%0A%09%7D%3B%0A%09return%20dict%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -831,7 +879,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instVarNames',
 category: '',
-fn: function () { var self = this; return function () {return self.iVarNames;}(); return self; },
+fn: function () {
+    var self = this;
+    return function () {return self.iVarNames;}();
+    return self;
+},
 source: unescape('')}),
 smalltalk.Behavior);
 
@@ -840,10 +892,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'methodsFor:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-return (function($rec){$rec._class_category_(self,aString);return $rec._yourself();})(smalltalk.ClassCategoryReader._new());
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function ($rec) {$rec._class_category_(self, aString);return $rec._yourself();}(smalltalk.ClassCategoryReader._new());
+    return self;
+},
 source: unescape('methodsFor%3A%20aString%0A%09%5EClassCategoryReader%20new%0A%09%20%20%20%20class%3A%20self%20category%3A%20aString%3B%0A%09%20%20%20%20yourself%0A')}),
 smalltalk.Behavior);
 
@@ -852,11 +905,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addCompiledMethod:',
 category: 'accessing',
-fn: function (aMethod){
-var self=this;
-(function(){self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
-	self.fn.prototype.methods[aMethod.selector] = aMethod})();
-return self;},
+fn: function (aMethod) {
+    var self = this;
+    (function () {self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;self.fn.prototype.methods[aMethod.selector] = aMethod;}());
+    return self;
+},
 source: unescape('addCompiledMethod%3A%20aMethod%0A%09%7B%27self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%20%3D%20aMethod.fn%3B%0A%09self.fn.prototype.methods%5BaMethod.selector%5D%20%3D%20aMethod%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -865,10 +918,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instanceVariableNames',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.iVarNames})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.iVarNames;}();
+    return self;
+},
 source: unescape('instanceVariableNames%0A%09%5E%7B%27return%20self.iVarNames%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -877,10 +931,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'comment',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._basicAt_("comment")._ifNil_((function(){return "";}));
-return self;},
+fn: function () {
+    var self = this;
+    return self._basicAt_("comment")._ifNil_(function () {return "";});
+    return self;
+},
 source: unescape('comment%0A%20%20%20%20%5E%28self%20basicAt%3A%20%27comment%27%29%20ifNil%3A%20%5B%27%27%5D%0A')}),
 smalltalk.Behavior);
 
@@ -889,10 +944,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'comment:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-self._basicAt_put_("comment",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._basicAt_put_("comment", aString);
+    return self;
+},
 source: unescape('comment%3A%20aString%0A%20%20%20%20self%20basicAt%3A%20%27comment%27%20put%3A%20aString%0A')}),
 smalltalk.Behavior);
 
@@ -901,10 +957,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'commentStamp',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function($rec){$rec._class_(self);return $rec._yourself();})(smalltalk.ClassCommentReader._new());
-return self;},
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._class_(self);return $rec._yourself();}(smalltalk.ClassCommentReader._new());
+    return self;
+},
 source: unescape('commentStamp%0A%20%20%20%20%5EClassCommentReader%20new%0A%09class%3A%20self%3B%0A%09yourself%0A')}),
 smalltalk.Behavior);
 
@@ -913,11 +970,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeCompiledMethod:',
 category: 'accessing',
-fn: function (aMethod){
-var self=this;
-(function(){delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector]})();
-return self;},
+fn: function (aMethod) {
+    var self = this;
+    (function () {delete self.fn.prototype[aMethod.selector._asSelector()];delete self.fn.prototype.methods[aMethod.selector];}());
+    return self;
+},
 source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%7B%27delete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%27%7D%0A')}),
 smalltalk.Behavior);
 
@@ -929,10 +986,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'category',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.category})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.category;}();
+    return self;
+},
 source: unescape('category%0A%09%5E%7B%27return%20self.category%27%7D%0A')}),
 smalltalk.Class);
 
@@ -941,10 +999,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'category:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-(function(){self.category = aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    (function () {self.category = aString;}());
+    return self;
+},
 source: unescape('category%3A%20aString%0A%09%7B%27self.category%20%3D%20aString%27%7D%0A')}),
 smalltalk.Class);
 
@@ -953,10 +1012,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'subclass:instanceVariableNames:',
 category: 'class creation',
-fn: function (aString, anotherString){
-var self=this;
-return self._subclass_instanceVariableNames_category_(aString,anotherString,nil);
-return self;},
+fn: function (aString, anotherString) {
+    var self = this;
+    return self._subclass_instanceVariableNames_category_(aString, anotherString, nil);
+    return self;
+},
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%20category%3A%20nil%0A')}),
 smalltalk.Class);
 
@@ -965,10 +1025,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'subclass:instanceVariableNames:category:',
 category: 'class creation',
-fn: function (aString, aString2, aString3){
-var self=this;
-return smalltalk.ClassBuilder._new()._superclass_subclass_instanceVariableNames_category_(self,aString,aString2,aString3);
-return self;},
+fn: function (aString, aString2, aString3) {
+    var self = this;
+    return smalltalk.ClassBuilder._new()._superclass_subclass_instanceVariableNames_category_(self, aString, aString2, aString3);
+    return self;
+},
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A')}),
 smalltalk.Class);
 
@@ -977,10 +1038,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isClass',
 category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
 source: unescape('isClass%0A%09%5Etrue%0A')}),
 smalltalk.Class);
 
@@ -989,11 +1051,25 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return self._name();
-return self;},
+fn: function () {
+    var self = this;
+    return self._name();
+    return self;
+},
 source: unescape('printString%0A%09%5Eself%20name%0A')}),
+smalltalk.Class);
+
+smalltalk.addMethod(
+'_rename_',
+smalltalk.method({
+selector: 'rename:',
+category: 'accessing',
+fn: function (aString) {
+    var self = this;
+    (function () {smalltalk[aString] = self;delete smalltalk[self.className];self.className = aString;}());
+    return self;
+},
+source: unescape('rename%3A%20aString%0A%09%7B%27%0A%09%09smalltalk%5BaString%5D%20%3D%20self%3B%0A%09%09delete%20smalltalk%5Bself.className%5D%3B%0A%09%09self.className%20%3D%20aString%3B%0A%09%27%7D')}),
 smalltalk.Class);
 
 
@@ -1004,10 +1080,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instanceClass',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.instanceClass})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.instanceClass;}();
+    return self;
+},
 source: unescape('instanceClass%0A%09%5E%7B%27return%20self.instanceClass%27%7D%0A')}),
 smalltalk.Metaclass);
 
@@ -1016,10 +1093,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instanceVariableNames:',
 category: 'accessing',
-fn: function (aCollection){
-var self=this;
-smalltalk.ClassBuilder._new()._class_instanceVariableNames_(self,aCollection);
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    smalltalk.ClassBuilder._new()._class_instanceVariableNames_(self, aCollection);
+    return self;
+},
 source: unescape('instanceVariableNames%3A%20aCollection%0A%09ClassBuilder%20new%0A%09%20%20%20%20class%3A%20self%20instanceVariableNames%3A%20aCollection%0A')}),
 smalltalk.Metaclass);
 
@@ -1028,10 +1106,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isMetaclass',
 category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
 source: unescape('isMetaclass%0A%09%5Etrue%0A')}),
 smalltalk.Metaclass);
 
@@ -1040,10 +1119,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return self._instanceClass()._name().__comma(" class");
-return self;},
+fn: function () {
+    var self = this;
+    return self._instanceClass()._name().__comma(" class");
+    return self;
+},
 source: unescape('printString%0A%09%5Eself%20instanceClass%20name%2C%20%27%20class%27%0A')}),
 smalltalk.Metaclass);
 
@@ -1055,10 +1135,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'source',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._basicAt_("source")._ifNil_((function(){return "";}));
-return self;},
+fn: function () {
+    var self = this;
+    return self._basicAt_("source")._ifNil_(function () {return "";});
+    return self;
+},
 source: unescape('source%0A%09%5E%28self%20basicAt%3A%20%27source%27%29%20ifNil%3A%20%5B%27%27%5D%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1067,10 +1148,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'source:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-self._basicAt_put_("source",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._basicAt_put_("source", aString);
+    return self;
+},
 source: unescape('source%3A%20aString%0A%09self%20basicAt%3A%20%27source%27%20put%3A%20aString%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1079,10 +1161,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'category',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._basicAt_("category")._ifNil_((function(){return "";}));
-return self;},
+fn: function () {
+    var self = this;
+    return self._basicAt_("category")._ifNil_(function () {return "";});
+    return self;
+},
 source: unescape('category%0A%09%5E%28self%20basicAt%3A%20%27category%27%29%20ifNil%3A%20%5B%27%27%5D%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1091,10 +1174,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'category:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-self._basicAt_put_("category",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._basicAt_put_("category", aString);
+    return self;
+},
 source: unescape('category%3A%20aString%0A%09self%20basicAt%3A%20%27category%27%20put%3A%20aString%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1103,10 +1187,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selector',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._basicAt_("selector");
-return self;},
+fn: function () {
+    var self = this;
+    return self._basicAt_("selector");
+    return self;
+},
 source: unescape('selector%0A%09%5Eself%20basicAt%3A%20%27selector%27%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1115,10 +1200,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selector:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-self._basicAt_put_("selector",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._basicAt_put_("selector", aString);
+    return self;
+},
 source: unescape('selector%3A%20aString%0A%09self%20basicAt%3A%20%27selector%27%20put%3A%20aString%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1127,10 +1213,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fn',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._basicAt_("fn");
-return self;},
+fn: function () {
+    var self = this;
+    return self._basicAt_("fn");
+    return self;
+},
 source: unescape('fn%0A%09%5Eself%20basicAt%3A%20%27fn%27%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1139,10 +1226,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fn:',
 category: 'accessing',
-fn: function (aBlock){
-var self=this;
-self._basicAt_put_("fn",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._basicAt_put_("fn", aBlock);
+    return self;
+},
 source: unescape('fn%3A%20aBlock%0A%09self%20basicAt%3A%20%27fn%27%20put%3A%20aBlock%0A')}),
 smalltalk.CompiledMethod);
 
@@ -1154,10 +1242,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aNumber){
-var self=this;
-return (function(){return Number(self) == aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return Number(self) == aNumber;}();
+    return self;
+},
 source: unescape('%3D%20aNumber%0A%09%5E%7B%27return%20Number%28self%29%20%3D%3D%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1166,10 +1255,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>',
 category: 'comparing',
-fn: function (aNumber){
-var self=this;
-return (function(){return self > aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self > aNumber;}();
+    return self;
+},
 source: unescape('%3E%20aNumber%0A%09%5E%7B%27return%20self%20%3E%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1178,10 +1268,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<',
 category: 'comparing',
-fn: function (aNumber){
-var self=this;
-return (function(){return self < aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self < aNumber;}();
+    return self;
+},
 source: unescape('%3C%20aNumber%0A%09%5E%7B%27return%20self%20%3C%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1190,10 +1281,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>=',
 category: 'comparing',
-fn: function (aNumber){
-var self=this;
-return (function(){return self >= aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self >= aNumber;}();
+    return self;
+},
 source: unescape('%3E%3D%20aNumber%0A%09%5E%7B%27return%20self%20%3E%3D%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1202,10 +1294,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<=',
 category: 'comparing',
-fn: function (aNumber){
-var self=this;
-return (function(){return self <= aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self <= aNumber;}();
+    return self;
+},
 source: unescape('%3C%3D%20aNumber%0A%09%5E%7B%27return%20self%20%3C%3D%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1214,10 +1307,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '+',
 category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return (function(){return self + aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self + aNumber;}();
+    return self;
+},
 source: unescape('+%20aNumber%0A%09%5E%7B%27return%20self%20+%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1226,10 +1320,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '-',
 category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return (function(){return self - aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self - aNumber;}();
+    return self;
+},
 source: unescape('-%20aNumber%0A%09%5E%7B%27return%20self%20-%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1238,10 +1333,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '*',
 category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return (function(){return self * aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self * aNumber;}();
+    return self;
+},
 source: unescape('*%20aNumber%0A%09%5E%7B%27return%20self%20*%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1250,10 +1346,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '/',
 category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return (function(){return self / aNumber})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self / aNumber;}();
+    return self;
+},
 source: unescape('/%20aNumber%0A%09%5E%7B%27return%20self%20/%20aNumber%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1262,10 +1359,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'max:',
 category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return (function(){return Math.max(self, aNumber);})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return Math.max(self, aNumber);}();
+    return self;
+},
 source: unescape('max%3A%20aNumber%0A%09%5E%7B%27return%20Math.max%28self%2C%20aNumber%29%3B%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1274,10 +1372,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'min:',
 category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return (function(){return Math.min(self, aNumber);})();
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    return function () {return Math.min(self, aNumber);}();
+    return self;
+},
 source: unescape('min%3A%20aNumber%0A%09%5E%7B%27return%20Math.min%28self%2C%20aNumber%29%3B%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1286,10 +1385,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'rounded',
 category: 'converting',
-fn: function (){
-var self=this;
-return (function(){return Math.round(self);})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return Math.round(self);}();
+    return self;
+},
 source: unescape('rounded%0A%09%5E%7B%27return%20Math.round%28self%29%3B%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1298,10 +1398,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'truncated',
 category: 'converting',
-fn: function (){
-var self=this;
-return (function(){return Math.floor(self);})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return Math.floor(self);}();
+    return self;
+},
 source: unescape('truncated%0A%09%5E%7B%27return%20Math.floor%28self%29%3B%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1310,20 +1411,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'to:',
 category: 'converting',
-fn: function (aNumber){
-var self=this;
-var array=nil;
-var first=nil;
-var last=nil;
-var count=nil;
-first=self._truncated();
-last=aNumber._truncated().__plus((1));
-count=(1);
-first.__lt_eq(last)._ifFalse_((function(){return self._error_("Wrong interval");}));
-array=smalltalk.Array._new();
-last.__minus(first)._timesRepeat_((function(){array._at_put_(count,first);count=count.__plus((1));return first=first.__plus((1));}));
-return array;
-return self;},
+fn: function (aNumber) {
+    var self = this;
+    var array = nil;
+    var first = nil;
+    var last = nil;
+    var count = nil;
+    first = self._truncated();
+    last = aNumber._truncated().__plus(1);
+    count = 1;
+    first.__lt_eq(last)._ifFalse_(function () {return self._error_("Wrong interval");});
+    array = smalltalk.Array._new();
+    last.__minus(first)._timesRepeat_(function () {array._at_put_(count, first);count = count.__plus(1);return first = first.__plus(1);});
+    return array;
+    return self;
+},
 source: unescape('to%3A%20aNumber%0A%09%7C%20array%20first%20last%20count%20%7C%0A%09first%20%3A%3D%20self%20truncated.%0A%09last%20%3A%3D%20aNumber%20truncated%20+%201.%0A%09count%20%3A%3D%201.%0A%09%28first%20%3C%3D%20last%29%20ifFalse%3A%20%5Bself%20error%3A%20%27Wrong%20interval%27%5D.%0A%09array%20%3A%3D%20Array%20new.%0A%09%28last%20-%20first%29%20timesRepeat%3A%20%5B%0A%09%20%20%20%20array%20at%3A%20count%20put%3A%20first.%0A%09%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%09%20%20%20%20first%20%3A%3D%20first%20+%201%5D.%0A%09%5Earray%0A')}),
 smalltalk.Number);
 
@@ -1332,14 +1434,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'timesRepeat:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var integer=nil;
-var count=nil;
-integer=self._truncated();
-count=(1);
-(function(){return count.__gt(self);})._whileFalse_((function(){aBlock._value();return count=count.__plus((1));}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    var integer = nil;
+    var count = nil;
+    integer = self._truncated();
+    count = 1;
+    (function () {return count.__gt(self);}._whileFalse_(function () {aBlock._value();return count = count.__plus(1);}));
+    return self;
+},
 source: unescape('timesRepeat%3A%20aBlock%0A%09%7C%20integer%20count%20%7C%0A%09integer%20%3A%3D%20self%20truncated.%0A%09count%20%3A%3D%201.%0A%09%5Bcount%20%3E%20self%5D%20whileFalse%3A%20%5B%0A%09%20%20%20%20aBlock%20value.%0A%09%20%20%20%20count%20%3A%3D%20count%20+%201%5D%0A')}),
 smalltalk.Number);
 
@@ -1348,10 +1451,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'to:do:',
 category: 'enumerating',
-fn: function (aNumber, aBlock){
-var self=this;
-return self._to_(aNumber)._do_(aBlock);
-return self;},
+fn: function (aNumber, aBlock) {
+    var self = this;
+    return self._to_(aNumber)._do_(aBlock);
+    return self;
+},
 source: unescape('to%3A%20aNumber%20do%3A%20aBlock%0A%09%5E%28self%20to%3A%20aNumber%29%20do%3A%20aBlock%0A')}),
 smalltalk.Number);
 
@@ -1360,10 +1464,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asString',
 category: 'converting',
-fn: function (){
-var self=this;
-return self._printString();
-return self;},
+fn: function () {
+    var self = this;
+    return self._printString();
+    return self;
+},
 source: unescape('asString%0A%09%5Eself%20printString%0A')}),
 smalltalk.Number);
 
@@ -1372,10 +1477,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJavascript',
 category: 'converting',
-fn: function (){
-var self=this;
-return unescape("%28").__comma(self._printString()).__comma(unescape("%29"));
-return self;},
+fn: function () {
+    var self = this;
+    return unescape("%28").__comma(self._printString()).__comma(unescape("%29"));
+    return self;
+},
 source: unescape('asJavascript%0A%09%5E%27%28%27%2C%20self%20printString%2C%20%27%29%27%0A')}),
 smalltalk.Number);
 
@@ -1384,10 +1490,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return (function(){return String(self)})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return String(self);}();
+    return self;
+},
 source: unescape('printString%0A%09%5E%7B%27return%20String%28self%29%27%7D%0A')}),
 smalltalk.Number);
 
@@ -1396,13 +1503,79 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isNumber',
 category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
 source: unescape('isNumber%0A%09%5Etrue%0A')}),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_atRandom',
+smalltalk.method({
+selector: 'atRandom',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return smalltalk.Random._new()._next().__star(self)._truncated().__plus(1);
+    return self;
+},
+source: unescape('atRandom%0A%20%20%20%20%5E%28Random%20new%20next%20*%20self%29%20truncated%20+%201%0A')}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'__at',
+smalltalk.method({
+selector: '@',
+category: 'converting',
+fn: function (aNumber) {
+    var self = this;
+    return smalltalk.Point._x_y_(self, aNumber);
+    return self;
+},
+source: unescape('@%20aNumber%0A%09%5EPoint%20x%3A%20self%20y%3A%20aNumber')}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_asPoint',
+smalltalk.method({
+selector: 'asPoint',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return smalltalk.Point._x_y_(self, self);
+    return self;
+},
+source: unescape('asPoint%0A%09%5EPoint%20x%3A%20self%20y%3A%20self')}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_clearInterval',
+smalltalk.method({
+selector: 'clearInterval',
+category: 'intervals',
+fn: function () {
+    var self = this;
+    (function () {clearInterval(Number(self));}());
+    return self;
+},
+source: unescape('clearInterval%0A%09%7B%27clearInterval%28Number%28self%29%29%27%7D')}),
+smalltalk.Number);
+
+
+smalltalk.addMethod(
+'_pi',
+smalltalk.method({
+selector: 'pi',
+category: 'instance creation',
+fn: function () {
+    var self = this;
+    return function () {return Math.PI;}();
+    return self;
+},
+source: unescape('pi%0A%09%5E%7B%27return%20Math.PI%27%7D')}),
+smalltalk.Number.klass);
 
 
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel');
@@ -1411,10 +1584,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compiledSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.toString()})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.toString();}();
+    return self;
+},
 source: unescape('compiledSource%0A%09%5E%7B%27return%20self.toString%28%29%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1423,10 +1597,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'whileTrue:',
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-(function(){while(self()) {aBlock()}})();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    (function () {while (self()) {aBlock();}}());
+    return self;
+},
 source: unescape('whileTrue%3A%20aBlock%0A%09%7B%27while%28self%28%29%29%20%7BaBlock%28%29%7D%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1435,10 +1610,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'whileFalse:',
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-(function(){while(!self()) {aBlock()}})();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    (function () {while (!self()) {aBlock();}}());
+    return self;
+},
 source: unescape('whileFalse%3A%20aBlock%0A%09%7B%27while%28%21self%28%29%29%20%7BaBlock%28%29%7D%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1447,10 +1623,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'value',
 category: 'evaluating',
-fn: function (){
-var self=this;
-return (function(){return self();})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self();}();
+    return self;
+},
 source: unescape('value%0A%09%5E%7B%27return%20self%28%29%3B%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1459,10 +1636,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'value:',
 category: 'evaluating',
-fn: function (anArg){
-var self=this;
-return (function(){return self(anArg);})();
-return self;},
+fn: function (anArg) {
+    var self = this;
+    return function () {return self(anArg);}();
+    return self;
+},
 source: unescape('value%3A%20anArg%0A%09%5E%7B%27return%20self%28anArg%29%3B%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1471,10 +1649,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'value:value:',
 category: 'evaluating',
-fn: function (firstArg, secondArg){
-var self=this;
-return (function(){return self(firstArg, secondArg);})();
-return self;},
+fn: function (firstArg, secondArg) {
+    var self = this;
+    return function () {return self(firstArg, secondArg);}();
+    return self;
+},
 source: unescape('value%3A%20firstArg%20value%3A%20secondArg%0A%09%5E%7B%27return%20self%28firstArg%2C%20secondArg%29%3B%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1483,10 +1662,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'value:value:value:',
 category: 'evaluating',
-fn: function (firstArg, secondArg, thirdArg){
-var self=this;
-return (function(){return self(firstArg, secondArg, thirdArg);})();
-return self;},
+fn: function (firstArg, secondArg, thirdArg) {
+    var self = this;
+    return function () {return self(firstArg, secondArg, thirdArg);}();
+    return self;
+},
 source: unescape('value%3A%20firstArg%20value%3A%20secondArg%20value%3A%20thirdArg%0A%09%5E%7B%27return%20self%28firstArg%2C%20secondArg%2C%20thirdArg%29%3B%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1495,10 +1675,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'valueWithPossibleArguments:',
 category: 'evaluating',
-fn: function (aCollection){
-var self=this;
-return (function(){return self.apply(null, aCollection);})();
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    return function () {return self.apply(null, aCollection);}();
+    return self;
+},
 source: unescape('valueWithPossibleArguments%3A%20aCollection%0A%09%5E%7B%27return%20self.apply%28null%2C%20aCollection%29%3B%27%7D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1507,10 +1688,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'on:do:',
 category: 'error handling',
-fn: function (anErrorClass, aBlock){
-var self=this;
-self._try_catch_(self,(function(error){return error._isKindOf_(anErrorClass)._ifTrue_ifFalse_((function(){return aBlock._value();}),(function(){return error._signal();}));}));
-return self;},
+fn: function (anErrorClass, aBlock) {
+    var self = this;
+    self._try_catch_(self, function (error) {return error._isKindOf_(anErrorClass)._ifTrue_ifFalse_(function () {return aBlock._value();}, function () {return error._signal();});});
+    return self;
+},
 source: unescape('on%3A%20anErrorClass%20do%3A%20aBlock%0A%09self%20try%3A%20self%20catch%3A%20%5B%3Aerror%20%7C%0A%09%20%20%20%20%28error%20isKindOf%3A%20anErrorClass%29%20%0A%09%20%20%20%20%20ifTrue%3A%20%5BaBlock%20value%5D%0A%09%20%20%20%20%20ifFalse%3A%20%5Berror%20signal%5D%5D%0A')}),
 smalltalk.BlockClosure);
 
@@ -1519,13 +1701,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToJQuery:',
 category: '*JQuery',
-fn: function (aJQuery){
-var self=this;
-var canvas=nil;
-canvas=smalltalk.HTMLCanvas._new();
-self._value_(canvas);
-aJQuery._append_(canvas);
-return self;},
+fn: function (aJQuery) {
+    var self = this;
+    var canvas = nil;
+    canvas = smalltalk.HTMLCanvas._new();
+    self._value_(canvas);
+    aJQuery._append_(canvas);
+    return self;
+},
 source: unescape('appendToJQuery%3A%20aJQuery%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20HTMLCanvas%20new.%0A%09self%20value%3A%20canvas.%0A%09aJQuery%20append%3A%20canvas%0A')}),
 smalltalk.BlockClosure);
 
@@ -1534,11 +1717,38 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToBrush:',
 category: '*Canvas',
-fn: function (aTagBrush){
-var self=this;
-aTagBrush._appendBlock_(self);
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    aTagBrush._appendBlock_(self);
+    return self;
+},
 source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20appendBlock%3A%20self%0A')}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_valueWithTimeout_',
+smalltalk.method({
+selector: 'valueWithTimeout:',
+category: 'timeout/interval',
+fn: function (aNumber) {
+    var self = this;
+    (function () {setTimeout(self, aNumber);}());
+    return self;
+},
+source: unescape('valueWithTimeout%3A%20aNumber%0A%09%7B%27setTimeout%28self%2C%20aNumber%29%27%7D')}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_valueWithInterval_',
+smalltalk.method({
+selector: 'valueWithInterval:',
+category: 'timeout/interval',
+fn: function (aNumber) {
+    var self = this;
+    return function () {return setInterval(self, aNumber);}();
+    return self;
+},
+source: unescape('valueWithInterval%3A%20aNumber%0A%09%5E%7B%27return%20setInterval%28self%2C%20aNumber%29%27%7D')}),
 smalltalk.BlockClosure);
 
 
@@ -1549,10 +1759,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aBoolean){
-var self=this;
-return (function(){return Boolean(self == true) == aBoolean})();
-return self;},
+fn: function (aBoolean) {
+    var self = this;
+    return function () {return Boolean(self == true) == aBoolean;}();
+    return self;
+},
 source: unescape('%3D%20aBoolean%0A%20%20%20%20%09%5E%7B%27return%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%20aBoolean%27%7D%0A')}),
 smalltalk.Boolean);
 
@@ -1561,10 +1772,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self;
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('shallowCopy%0A%09%5Eself%0A')}),
 smalltalk.Boolean);
 
@@ -1573,10 +1785,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'deepCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self;
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('deepCopy%0A%09%5Eself%0A')}),
 smalltalk.Boolean);
 
@@ -1585,10 +1798,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifTrue:',
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-return self._ifTrue_ifFalse_(aBlock,(function(){return nil;}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._ifTrue_ifFalse_(aBlock, function () {return nil;});
+    return self;
+},
 source: unescape('ifTrue%3A%20aBlock%0A%09%5Eself%20ifTrue%3A%20aBlock%20ifFalse%3A%20%5B%5D%0A')}),
 smalltalk.Boolean);
 
@@ -1597,10 +1811,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifFalse:',
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-return self._ifTrue_ifFalse_((function(){return nil;}),aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._ifTrue_ifFalse_(function () {return nil;}, aBlock);
+    return self;
+},
 source: unescape('ifFalse%3A%20aBlock%0A%09%5Eself%20ifTrue%3A%20%5B%5D%20ifFalse%3A%20aBlock%0A')}),
 smalltalk.Boolean);
 
@@ -1609,10 +1824,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifFalse:ifTrue:',
 category: 'controlling',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return self._ifTrue_ifFalse_(anotherBlock,aBlock);
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return self._ifTrue_ifFalse_(anotherBlock, aBlock);
+    return self;
+},
 source: unescape('ifFalse%3A%20aBlock%20ifTrue%3A%20anotherBlock%0A%09%5Eself%20ifTrue%3A%20anotherBlock%20ifFalse%3A%20aBlock%0A')}),
 smalltalk.Boolean);
 
@@ -1621,16 +1837,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifTrue:ifFalse:',
 category: 'controlling',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return (function(){
-	    if(self == true) {
-		return aBlock();
-	    } else {
-		return anotherBlock();
-	    }
-	})();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return function () {if (self == true) {return aBlock();} else {return anotherBlock();}}();
+    return self;
+},
 source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%5E%7B%27%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Boolean);
 
@@ -1639,10 +1850,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'and:',
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-return self.__eq(true)._ifTrue_ifFalse_(aBlock,(function(){return false;}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self.__eq(true)._ifTrue_ifFalse_(aBlock, function () {return false;});
+    return self;
+},
 source: unescape('and%3A%20aBlock%0A%09%5Eself%20%3D%20true%0A%09%20%20%20%20ifTrue%3A%20aBlock%0A%09%20%20%20%20ifFalse%3A%20%5Bfalse%5D%0A')}),
 smalltalk.Boolean);
 
@@ -1651,10 +1863,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'or:',
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-return self.__eq(true)._ifTrue_ifFalse_((function(){return true;}),aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self.__eq(true)._ifTrue_ifFalse_(function () {return true;}, aBlock);
+    return self;
+},
 source: unescape('or%3A%20aBlock%0A%09%5Eself%20%3D%20true%0A%09%20%20%20%20ifTrue%3A%20%5Btrue%5D%0A%09%20%20%20%20ifFalse%3A%20aBlock%0A')}),
 smalltalk.Boolean);
 
@@ -1663,10 +1876,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'not',
 category: 'controlling',
-fn: function (){
-var self=this;
-return self.__eq(false);
-return self;},
+fn: function () {
+    var self = this;
+    return self.__eq(false);
+    return self;
+},
 source: unescape('not%0A%09%5Eself%20%3D%20false%0A')}),
 smalltalk.Boolean);
 
@@ -1675,10 +1889,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return (function(){return self.toString()})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.toString();}();
+    return self;
+},
 source: unescape('printString%0A%09%5E%7B%27return%20self.toString%28%29%27%7D%0A')}),
 smalltalk.Boolean);
 
@@ -1690,10 +1905,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'subclass:instanceVariableNames:',
 category: 'class creation',
-fn: function (aString, anotherString){
-var self=this;
-return self._subclass_instanceVariableNames_category_(aString,anotherString,nil);
-return self;},
+fn: function (aString, anotherString) {
+    var self = this;
+    return self._subclass_instanceVariableNames_category_(aString, anotherString, nil);
+    return self;
+},
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%20category%3A%20nil%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1702,10 +1918,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'subclass:instanceVariableNames:category:',
 category: 'class creation',
-fn: function (aString, aString2, aString3){
-var self=this;
-return smalltalk.ClassBuilder._new()._superclass_subclass_instanceVariableNames_category_(self,aString,aString2,aString3);
-return self;},
+fn: function (aString, aString2, aString3) {
+    var self = this;
+    return smalltalk.ClassBuilder._new()._superclass_subclass_instanceVariableNames_category_(self, aString, aString2, aString3);
+    return self;
+},
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1714,10 +1931,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self;
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('shallowCopy%0A%09%5Eself%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1726,10 +1944,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'deepCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self;
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('deepCopy%0A%09%5Eself%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1738,10 +1957,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNil:',
 category: 'testing',
-fn: function (aBlock){
-var self=this;
-return self._ifNil_ifNotNil_(aBlock,(function(){return nil;}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._ifNil_ifNotNil_(aBlock, function () {return nil;});
+    return self;
+},
 source: unescape('ifNil%3A%20aBlock%0A%09%5Eself%20ifNil%3A%20aBlock%20ifNotNil%3A%20%5B%5D%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1750,10 +1970,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNotNil:',
 category: 'testing',
-fn: function (aBlock){
-var self=this;
-return self;
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('ifNotNil%3A%20aBlock%0A%09%5Eself%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1762,10 +1983,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNil:ifNotNil:',
 category: 'testing',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return aBlock._value();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return aBlock._value();
+    return self;
+},
 source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%5EaBlock%20value%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1774,10 +1996,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifNotNil:ifNil:',
 category: 'testing',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return anotherBlock._value();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return anotherBlock._value();
+    return self;
+},
 source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%5EanotherBlock%20value%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1786,10 +2009,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isNil',
 category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
 source: unescape('isNil%0A%09%5Etrue%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1798,10 +2022,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'notNil',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('notNil%0A%09%5Efalse%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1810,10 +2035,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return "nil";
-return self;},
+fn: function () {
+    var self = this;
+    return "nil";
+    return self;
+},
 source: unescape('printString%0A%20%20%20%20%5E%27nil%27%0A')}),
 smalltalk.UndefinedObject);
 
@@ -1823,10 +2049,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'new',
 category: 'instance creation',
-fn: function (){
-var self=this;
-self._error_("You cannot create new instances of UndefinedObject. Use nil");
-return self;},
+fn: function () {
+    var self = this;
+    self._error_("You cannot create new instances of UndefinedObject. Use nil");
+    return self;
+},
 source: unescape('new%0A%09%20%20%20%20self%20error%3A%20%27You%20cannot%20create%20new%20instances%20of%20UndefinedObject.%20Use%20nil%27%0A')}),
 smalltalk.UndefinedObject.klass);
 
@@ -1837,10 +2064,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function (){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function () {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('size%0A%09self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
@@ -1849,10 +2077,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:',
 category: 'accessing',
-fn: function (anIndex){
-var self=this;
-return self._at_ifAbsent_(anIndex,(function(){return self._errorNotFound();}));
-return self;},
+fn: function (anIndex) {
+    var self = this;
+    return self._at_ifAbsent_(anIndex, function () {return self._errorNotFound();});
+    return self;
+},
 source: unescape('at%3A%20anIndex%0A%09%5Eself%20at%3A%20anIndex%20ifAbsent%3A%20%5B%0A%09%20%20%20%20self%20errorNotFound%5D%0A')}),
 smalltalk.Collection);
 
@@ -1861,10 +2090,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:put:',
 category: 'accessing',
-fn: function (anIndex, anObject){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function (anIndex, anObject) {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
@@ -1873,10 +2103,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifAbsent:',
 category: 'accessing',
-fn: function (anIndex, aBlock){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function (anIndex, aBlock) {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
@@ -1885,10 +2116,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'first',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._at_((1));
-return self;},
+fn: function () {
+    var self = this;
+    return self._at_(1);
+    return self;
+},
 source: unescape('first%0A%09%5Eself%20at%3A%201%0A')}),
 smalltalk.Collection);
 
@@ -1897,10 +2129,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'second',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._at_((2));
-return self;},
+fn: function () {
+    var self = this;
+    return self._at_(2);
+    return self;
+},
 source: unescape('second%0A%09%5Eself%20at%3A%202%0A')}),
 smalltalk.Collection);
 
@@ -1909,10 +2142,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'third',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._at_((3));
-return self;},
+fn: function () {
+    var self = this;
+    return self._at_(3);
+    return self;
+},
 source: unescape('third%0A%09%5Eself%20at%3A%203%0A')}),
 smalltalk.Collection);
 
@@ -1921,10 +2155,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fourth',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._at_((4));
-return self;},
+fn: function () {
+    var self = this;
+    return self._at_(4);
+    return self;
+},
 source: unescape('fourth%0A%09%5Eself%20at%3A%204%0A')}),
 smalltalk.Collection);
 
@@ -1933,10 +2168,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'last',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._at_(self._size());
-return self;},
+fn: function () {
+    var self = this;
+    return self._at_(self._size());
+    return self;
+},
 source: unescape('last%0A%09%5Eself%20at%3A%20self%20size%0A')}),
 smalltalk.Collection);
 
@@ -1945,10 +2181,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'readStream',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._stream();
-return self;},
+fn: function () {
+    var self = this;
+    return self._stream();
+    return self;
+},
 source: unescape('readStream%0A%09%5Eself%20stream%0A')}),
 smalltalk.Collection);
 
@@ -1957,10 +2194,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'writeStream',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._stream();
-return self;},
+fn: function () {
+    var self = this;
+    return self._stream();
+    return self;
+},
 source: unescape('writeStream%0A%09%5Eself%20stream%0A')}),
 smalltalk.Collection);
 
@@ -1969,10 +2207,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'stream',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._streamClass()._on_(self);
-return self;},
+fn: function () {
+    var self = this;
+    return self._streamClass()._on_(self);
+    return self;
+},
 source: unescape('stream%0A%09%5Eself%20streamClass%20on%3A%20self%0A')}),
 smalltalk.Collection);
 
@@ -1981,10 +2220,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'streamClass',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._class()._streamClass();
-return self;},
+fn: function () {
+    var self = this;
+    return self._class()._streamClass();
+    return self;
+},
 source: unescape('streamClass%0A%09%5Eself%20class%20streamClass%0A')}),
 smalltalk.Collection);
 
@@ -1993,10 +2233,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'add:',
 category: 'adding/removing',
-fn: function (anObject){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('add%3A%20anObject%0A%09self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
@@ -2005,11 +2246,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addAll:',
 category: 'adding/removing',
-fn: function (aCollection){
-var self=this;
-aCollection._do_((function(each){return self._add_(each);}));
-return aCollection;
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    aCollection._do_(function (each) {return self._add_(each);});
+    return aCollection;
+    return self;
+},
 source: unescape('addAll%3A%20aCollection%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20self%20add%3A%20each%5D.%0A%09%5EaCollection%0A')}),
 smalltalk.Collection);
 
@@ -2018,10 +2260,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ',',
 category: 'copying',
-fn: function (aCollection){
-var self=this;
-return (function($rec){$rec._addAll_(aCollection);return $rec._yourself();})(self._copy());
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    return function ($rec) {$rec._addAll_(aCollection);return $rec._yourself();}(self._copy());
+    return self;
+},
 source: unescape('%2C%20aCollection%0A%09%5Eself%20copy%20%0A%09%20%20%20%20addAll%3A%20aCollection%3B%20%0A%09%20%20%20%20yourself%0A')}),
 smalltalk.Collection);
 
@@ -2030,10 +2273,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyFrom:to:',
 category: 'copying',
-fn: function (anIndex, anotherIndex){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function (anIndex, anotherIndex) {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
@@ -2042,10 +2286,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyWith:',
 category: 'copying',
-fn: function (anObject){
-var self=this;
-return (function($rec){$rec._add_(anObject);return $rec._yourself();})(self._copy());
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return function ($rec) {$rec._add_(anObject);return $rec._yourself();}(self._copy());
+    return self;
+},
 source: unescape('copyWith%3A%20anObject%0A%09%5Eself%20copy%20add%3A%20anObject%3B%20yourself%0A')}),
 smalltalk.Collection);
 
@@ -2054,10 +2299,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyWithAll:',
 category: 'copying',
-fn: function (aCollection){
-var self=this;
-return (function($rec){$rec._addAll_(aCollection);return $rec._yourself();})(self._copy());
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    return function ($rec) {$rec._addAll_(aCollection);return $rec._yourself();}(self._copy());
+    return self;
+},
 source: unescape('copyWithAll%3A%20aCollection%0A%09%5Eself%20copy%20addAll%3A%20aCollection%3B%20yourself%0A')}),
 smalltalk.Collection);
 
@@ -2066,15 +2312,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asArray',
 category: 'converting',
-fn: function (){
-var self=this;
-var array=nil;
-var index=nil;
-array=smalltalk.Array._new();
-index=(0);
-self._do_((function(each){index=index.__plus((1));return array._at_put_(index,each);}));
-return array;
-return self;},
+fn: function () {
+    var self = this;
+    var array = nil;
+    var index = nil;
+    array = smalltalk.Array._new();
+    index = 0;
+    self._do_(function (each) {index = index.__plus(1);return array._at_put_(index, each);});
+    return array;
+    return self;
+},
 source: unescape('asArray%0A%09%7C%20array%20index%20%7C%0A%09array%20%3A%3D%20Array%20new.%0A%09index%20%3A%3D%200.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20index%20%3A%3D%20index%20+%201.%0A%09%20%20%20%20array%20at%3A%20index%20put%3A%20each%5D.%0A%09%5Earray%0A')}),
 smalltalk.Collection);
 
@@ -2083,10 +2330,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'do:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-(function(){for(var i=0;i<self.length;i++){aBlock(self[i]);}})();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    (function () {for (var i = 0; i < self.length; i++) {aBlock(self[i]);}}());
+    return self;
+},
 source: unescape('do%3A%20aBlock%0A%09%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%29%3B%7D%27%7D%0A')}),
 smalltalk.Collection);
 
@@ -2095,13 +2343,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'collect:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var stream=nil;
-stream=self._class()._new()._writeStream();
-self._do_((function(each){return stream._nextPut_(aBlock._value_(each));}));
-return stream._contents();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    var stream = nil;
+    stream = self._class()._new()._writeStream();
+    self._do_(function (each) {return stream._nextPut_(aBlock._value_(each));});
+    return stream._contents();
+    return self;
+},
 source: unescape('collect%3A%20aBlock%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20self%20class%20new%20writeStream.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20stream%20nextPut%3A%20%28aBlock%20value%3A%20each%29%5D.%0A%09%5Estream%20contents%0A')}),
 smalltalk.Collection);
 
@@ -2110,10 +2359,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'detect:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return self._detect_ifNone_(aBlock,(function(){return self._errorNotFound();}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._detect_ifNone_(aBlock, function () {return self._errorNotFound();});
+    return self;
+},
 source: unescape('detect%3A%20aBlock%0A%09%5Eself%20detect%3A%20aBlock%20ifNone%3A%20%5Bself%20errorNotFound%5D%0A')}),
 smalltalk.Collection);
 
@@ -2122,15 +2372,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'detect:ifNone:',
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return (function(){
-	for(var i = 0; i < self.length; i++)
-		if(aBlock(self[i]))
-			return self[i];
-	return anotherBlock();
-	})();
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return function () {for (var i = 0; i < self.length; i++) {if (aBlock(self[i])) {return self[i];}}return anotherBlock();}();
+    return self;
+},
 source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5E%7B%27%0A%09for%28var%20i%20%3D%200%3B%20i%20%3C%20self.length%3B%20i++%29%0A%09%09if%28aBlock%28self%5Bi%5D%29%29%0A%09%09%09return%20self%5Bi%5D%3B%0A%09return%20anotherBlock%28%29%3B%0A%09%27%7D%0A')}),
 smalltalk.Collection);
 
@@ -2139,12 +2385,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'do:separatedBy:',
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
-var self=this;
-var first=nil;
-first=true;
-self._do_((function(each){first._ifTrue_ifFalse_((function(){return first=false;}),(function(){return anotherBlock._value();}));return aBlock._value_(each);}));
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    var first = nil;
+    first = true;
+    self._do_(function (each) {first._ifTrue_ifFalse_(function () {return first = false;}, function () {return anotherBlock._value();});return aBlock._value_(each);});
+    return self;
+},
 source: unescape('do%3A%20aBlock%20separatedBy%3A%20anotherBlock%0A%20%20%20%20%09%7C%20first%20%7C%0A%20%20%20%20%09first%20%3A%3D%20true.%0A%20%20%20%20%09self%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%09%20%20%20%20first%0A%20%20%20%20%09%09ifTrue%3A%20%5Bfirst%20%3A%3D%20false%5D%0A%20%20%20%20%09%09ifFalse%3A%20%5BanotherBlock%20value%5D.%0A%20%20%20%20%09%20%20%20%20aBlock%20value%3A%20each%5D%0A')}),
 smalltalk.Collection);
 
@@ -2153,13 +2400,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'inject:into:',
 category: 'enumerating',
-fn: function (anObject, aBlock){
-var self=this;
-var result=nil;
-result=anObject;
-self._do_((function(each){return result=aBlock._value_value_(result,each);}));
-return result;
-return self;},
+fn: function (anObject, aBlock) {
+    var self = this;
+    var result = nil;
+    result = anObject;
+    self._do_(function (each) {return result = aBlock._value_value_(result, each);});
+    return result;
+    return self;
+},
 source: unescape('inject%3A%20anObject%20into%3A%20aBlock%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20anObject.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%20%20%20%20result%20%3A%3D%20aBlock%20value%3A%20result%20value%3A%20each%5D.%0A%09%5Eresult%0A')}),
 smalltalk.Collection);
 
@@ -2168,10 +2416,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'reject:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return self._select_((function(each){return aBlock._value_(each).__eq(false);}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._select_(function (each) {return aBlock._value_(each).__eq(false);});
+    return self;
+},
 source: unescape('reject%3A%20aBlock%0A%09%5Eself%20select%3A%20%5B%3Aeach%20%7C%20%28aBlock%20value%3A%20each%29%20%3D%20false%5D%0A')}),
 smalltalk.Collection);
 
@@ -2180,13 +2429,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'select:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var stream=nil;
-stream=self._class()._new()._writeStream();
-self._do_((function(each){return aBlock._value_(each)._ifTrue_((function(){return stream._nextPut_(each);}));}));
-return stream._contents();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    var stream = nil;
+    stream = self._class()._new()._writeStream();
+    self._do_(function (each) {return aBlock._value_(each)._ifTrue_(function () {return stream._nextPut_(each);});});
+    return stream._contents();
+    return self;
+},
 source: unescape('select%3A%20aBlock%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20self%20class%20new%20writeStream.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28aBlock%20value%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09stream%20nextPut%3A%20each%5D%5D.%0A%09%5Estream%20contents%0A')}),
 smalltalk.Collection);
 
@@ -2195,10 +2445,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'errorNotFound',
 category: 'error handling',
-fn: function (){
-var self=this;
-self._error_("Object is not in the collection");
-return self;},
+fn: function () {
+    var self = this;
+    self._error_("Object is not in the collection");
+    return self;
+},
 source: unescape('errorNotFound%0A%09self%20error%3A%20%27Object%20is%20not%20in%20the%20collection%27%0A')}),
 smalltalk.Collection);
 
@@ -2207,19 +2458,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'includes:',
 category: 'testing',
-fn: function (anObject){
-var self=this;
-return (function(){
-		var i = self.length;
-		while (i--) {
-			if (self[i].__eq(anObject)) {
-				return true;
-			}	
-		}
-		return false;
-
-	})();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return function () {var i = self.length;while (i--) {if (self[i].__eq(anObject)) {return true;}}return false;}();
+    return self;
+},
 source: unescape('includes%3A%20anObject%0A%09%5E%7B%27%0A%09%09var%20i%20%3D%20self.length%3B%0A%09%09while%20%28i--%29%20%7B%0A%09%09%09if%20%28self%5Bi%5D.__eq%28anObject%29%29%20%7B%0A%09%09%09%09return%20true%3B%0A%09%09%09%7D%09%0A%09%09%7D%0A%09%09return%20false%3B%0A%0A%09%27%7D%0A')}),
 smalltalk.Collection);
 
@@ -2228,10 +2471,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'notEmpty',
 category: 'testing',
-fn: function (){
-var self=this;
-return self._isEmpty()._not();
-return self;},
+fn: function () {
+    var self = this;
+    return self._isEmpty()._not();
+    return self;
+},
 source: unescape('notEmpty%0A%09%5Eself%20isEmpty%20not%0A')}),
 smalltalk.Collection);
 
@@ -2240,10 +2484,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isEmpty',
 category: 'testing',
-fn: function (){
-var self=this;
-return self._size().__eq((0));
-return self;},
+fn: function () {
+    var self = this;
+    return self._size().__eq(0);
+    return self;
+},
 source: unescape('isEmpty%0A%09%5Eself%20size%20%3D%200%0A')}),
 smalltalk.Collection);
 
@@ -2252,10 +2497,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'remove:',
 category: 'adding/removing',
-fn: function (anObject){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('remove%3A%20anObject%0A%20%20%20%20self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
@@ -2265,10 +2511,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'streamClass',
 category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.Stream;
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.Stream;
+    return self;
+},
 source: unescape('streamClass%0A%09%20%20%20%20%5EStream%0A')}),
 smalltalk.Collection.klass);
 
@@ -2277,10 +2524,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'with:',
 category: 'instance creation',
-fn: function (anObject){
-var self=this;
-return (function($rec){$rec._add_(anObject);return $rec._yourself();})(self._new());
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return function ($rec) {$rec._add_(anObject);return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('with%3A%20anObject%0A%09%20%20%20%20%5Eself%20new%0A%09%09add%3A%20anObject%3B%0A%09%09yourself%0A')}),
 smalltalk.Collection.klass);
 
@@ -2289,10 +2537,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'with:with:',
 category: 'instance creation',
-fn: function (anObject, anotherObject){
-var self=this;
-return (function($rec){$rec._add_(anObject);$rec._add_(anotherObject);return $rec._yourself();})(self._new());
-return self;},
+fn: function (anObject, anotherObject) {
+    var self = this;
+    return function ($rec) {$rec._add_(anObject);$rec._add_(anotherObject);return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('with%3A%20anObject%20with%3A%20anotherObject%0A%09%20%20%20%20%5Eself%20new%0A%09%09add%3A%20anObject%3B%0A%09%09add%3A%20anotherObject%3B%0A%09%09yourself%0A')}),
 smalltalk.Collection.klass);
 
@@ -2301,10 +2550,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'with:with:with:',
 category: 'instance creation',
-fn: function (firstObject, secondObject, thirdObject){
-var self=this;
-return (function($rec){$rec._add_(firstObject);$rec._add_(secondObject);$rec._add_(thirdObject);return $rec._yourself();})(self._new());
-return self;},
+fn: function (firstObject, secondObject, thirdObject) {
+    var self = this;
+    return function ($rec) {$rec._add_(firstObject);$rec._add_(secondObject);$rec._add_(thirdObject);return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('with%3A%20firstObject%20with%3A%20secondObject%20with%3A%20thirdObject%0A%09%20%20%20%20%5Eself%20new%0A%09%09add%3A%20firstObject%3B%0A%09%09add%3A%20secondObject%3B%0A%09%09add%3A%20thirdObject%3B%0A%09%09yourself%0A')}),
 smalltalk.Collection.klass);
 
@@ -2313,10 +2563,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'withAll:',
 category: 'instance creation',
-fn: function (aCollection){
-var self=this;
-return (function($rec){$rec._addAll_(aCollection);return $rec._yourself();})(self._new());
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    return function ($rec) {$rec._addAll_(aCollection);return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('withAll%3A%20aCollection%0A%09%20%20%20%20%5Eself%20new%0A%09%09addAll%3A%20aCollection%3B%0A%09%09yourself%0A')}),
 smalltalk.Collection.klass);
 
@@ -2327,10 +2578,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aString){
-var self=this;
-return (function(){return String(self) == aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return String(self) == aString;}();
+    return self;
+},
 source: unescape('%3D%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3D%3D%20aString%27%7D%0A')}),
 smalltalk.String);
 
@@ -2339,10 +2591,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.length})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.length;}();
+    return self;
+},
 source: unescape('size%0A%09%5E%7B%27return%20self.length%27%7D%0A')}),
 smalltalk.String);
 
@@ -2351,10 +2604,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:',
 category: 'accessing',
-fn: function (anIndex){
-var self=this;
-return (function(){return self[anIndex - 1] || nil;})();
-return self;},
+fn: function (anIndex) {
+    var self = this;
+    return function () {return self[anIndex - 1] || nil;}();
+    return self;
+},
 source: unescape('at%3A%20anIndex%0A%20%20%20%20%09%5E%7B%27return%20self%5BanIndex%20-%201%5D%20%7C%7C%20nil%3B%27%7D%0A')}),
 smalltalk.String);
 
@@ -2363,10 +2617,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:put:',
 category: 'accessing',
-fn: function (anIndex, anObject){
-var self=this;
-self._errorReadOnly();
-return self;},
+fn: function (anIndex, anObject) {
+    var self = this;
+    self._errorReadOnly();
+    return self;
+},
 source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%20%20%20%20%09self%20errorReadOnly%0A')}),
 smalltalk.String);
 
@@ -2375,10 +2630,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifAbsent:',
 category: 'accessing',
-fn: function (anIndex, aBlock){
-var self=this;
-self._at_(anIndex)._ifNil_((function(){return aBlock;}));
-return self;},
+fn: function (anIndex, aBlock) {
+    var self = this;
+    self._at_(anIndex)._ifNil_(function () {return aBlock;});
+    return self;
+},
 source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%20%20%20%20%09%28self%20at%3A%20anIndex%29%20ifNil%3A%20%5BaBlock%5D%0A')}),
 smalltalk.String);
 
@@ -2387,10 +2643,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'escaped',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return escape(self)})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return escape(self);}();
+    return self;
+},
 source: unescape('escaped%0A%09%5E%7B%27return%20escape%28self%29%27%7D%0A')}),
 smalltalk.String);
 
@@ -2399,10 +2656,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'unescaped',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return unescape(self)})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return unescape(self);}();
+    return self;
+},
 source: unescape('unescaped%0A%09%5E%7B%27return%20unescape%28self%29%27%7D%0A')}),
 smalltalk.String);
 
@@ -2411,10 +2669,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'add:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-self._errorReadOnly();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._errorReadOnly();
+    return self;
+},
 source: unescape('add%3A%20anObject%0A%20%20%20%20%09self%20errorReadOnly%0A')}),
 smalltalk.String);
 
@@ -2423,10 +2682,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ',',
 category: 'copying',
-fn: function (aString){
-var self=this;
-return (function(){return self + aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return self + aString;}();
+    return self;
+},
 source: unescape('%2C%20aString%0A%20%20%20%20%09%5E%7B%27return%20self%20+%20aString%27%7D%0A')}),
 smalltalk.String);
 
@@ -2435,10 +2695,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyFrom:to:',
 category: 'copying',
-fn: function (anIndex, anotherIndex){
-var self=this;
-return (function(){return self.substring(anIndex - 1, anotherIndex);})();
-return self;},
+fn: function (anIndex, anotherIndex) {
+    var self = this;
+    return function () {return self.substring(anIndex - 1, anotherIndex);}();
+    return self;
+},
 source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%20%20%20%20%09%5E%7B%27return%20self.substring%28anIndex%20-%201%2C%20anotherIndex%29%3B%27%7D%0A')}),
 smalltalk.String);
 
@@ -2447,10 +2708,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self._class()._fromString_(self);
-return self;},
+fn: function () {
+    var self = this;
+    return self._class()._fromString_(self);
+    return self;
+},
 source: unescape('shallowCopy%0A%20%20%20%20%09%5Eself%20class%20fromString%3A%20self%0A')}),
 smalltalk.String);
 
@@ -2459,10 +2721,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'deepCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-return self._shallowCopy();
-return self;},
+fn: function () {
+    var self = this;
+    return self._shallowCopy();
+    return self;
+},
 source: unescape('deepCopy%0A%20%20%20%20%09%5Eself%20shallowCopy%0A')}),
 smalltalk.String);
 
@@ -2471,22 +2734,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asSelector',
 category: 'converting',
-fn: function (){
-var self=this;
-var selector=nil;
-selector="_".__comma(self);
-selector=selector._replace_with_(":","_");
-selector=selector._replace_with_(unescape("%5B+%5D"),"_plus");
-selector=selector._replace_with_(unescape("-"),"_minus");
-selector=selector._replace_with_(unescape("%5B*%5D"),"_star");
-selector=selector._replace_with_(unescape("%5B/%5D"),"_slash");
-selector=selector._replace_with_(unescape("%3E"),"_gt");
-selector=selector._replace_with_(unescape("%3C"),"_lt");
-selector=selector._replace_with_(unescape("%3D"),"_eq");
-selector=selector._replace_with_(unescape("%2C"),"_comma");
-selector=selector._replace_with_(unescape("%5B@%5D"),"_at");
-return selector;
-return self;},
+fn: function () {
+    var self = this;
+    var selector = nil;
+    selector = "_".__comma(self);
+    selector = selector._replace_with_(":", "_");
+    selector = selector._replace_with_(unescape("%5B+%5D"), "_plus");
+    selector = selector._replace_with_(unescape("-"), "_minus");
+    selector = selector._replace_with_(unescape("%5B*%5D"), "_star");
+    selector = selector._replace_with_(unescape("%5B/%5D"), "_slash");
+    selector = selector._replace_with_(unescape("%3E"), "_gt");
+    selector = selector._replace_with_(unescape("%3C"), "_lt");
+    selector = selector._replace_with_(unescape("%3D"), "_eq");
+    selector = selector._replace_with_(unescape("%2C"), "_comma");
+    selector = selector._replace_with_(unescape("%5B@%5D"), "_at");
+    return selector;
+    return self;
+},
 source: unescape('asSelector%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20%27_%27%2C%20self.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3A%27%20with%3A%20%27_%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B+%5D%27%20with%3A%20%27_plus%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27-%27%20with%3A%20%27_minus%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B*%5D%27%20with%3A%20%27_star%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B/%5D%27%20with%3A%20%27_slash%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3E%27%20with%3A%20%27_gt%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3C%27%20with%3A%20%27_lt%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3D%27%20with%3A%20%27_eq%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%2C%27%20with%3A%20%27_comma%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B@%5D%27%20with%3A%20%27_at%27.%0A%09%5Eselector%0A')}),
 smalltalk.String);
 
@@ -2495,15 +2759,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJavascript',
 category: 'converting',
-fn: function (){
-var self=this;
-return (function(){
-	if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
-		return "unescape(\"" + escape(self) + "\")";
-	else
-		return "\"" + self + "\"";
-	})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {if (self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1) {return "unescape(\"" + escape(self) + "\")";} else {return "\"" + self + "\"";}}();
+    return self;
+},
 source: unescape('asJavascript%0A%09%5E%7B%27%0A%09if%28self.search%28/%5E%5Ba-zA-Z0-9_%3A.%24%20%5D*%24/%29%20%3D%3D%20-1%29%0A%09%09return%20%22unescape%28%5C%22%22%20+%20escape%28self%29%20+%20%22%5C%22%29%22%3B%0A%09else%0A%09%09return%20%22%5C%22%22%20+%20self%20+%20%22%5C%22%22%3B%0A%09%27%7D%0A')}),
 smalltalk.String);
 
@@ -2512,10 +2772,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'replace:with:',
 category: 'regular expressions',
-fn: function (aString, anotherString){
-var self=this;
-return self._replaceRegexp_with_(smalltalk.RegularExpression._fromString_flag_(aString,"g"),anotherString);
-return self;},
+fn: function (aString, anotherString) {
+    var self = this;
+    return self._replaceRegexp_with_(smalltalk.RegularExpression._fromString_flag_(aString, "g"), anotherString);
+    return self;
+},
 source: unescape('replace%3A%20aString%20with%3A%20anotherString%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20aString%20flag%3A%20%27g%27%29%20with%3A%20anotherString%0A')}),
 smalltalk.String);
 
@@ -2524,10 +2785,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'replaceRegexp:with:',
 category: 'regular expressions',
-fn: function (aRegexp, aString){
-var self=this;
-return (function(){return self.replace(aRegexp, aString);})();
-return self;},
+fn: function (aRegexp, aString) {
+    var self = this;
+    return function () {return self.replace(aRegexp, aString);}();
+    return self;
+},
 source: unescape('replaceRegexp%3A%20aRegexp%20with%3A%20aString%0A%20%20%20%20%09%5E%7B%27return%20self.replace%28aRegexp%2C%20aString%29%3B%27%7D%0A')}),
 smalltalk.String);
 
@@ -2536,10 +2798,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tokenize:',
 category: 'converting',
-fn: function (aString){
-var self=this;
-return (function(){return self.split(aString)})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return self.split(aString);}();
+    return self;
+},
 source: unescape('tokenize%3A%20aString%0A%09%5E%7B%27return%20self.split%28aString%29%27%7D%0A')}),
 smalltalk.String);
 
@@ -2548,10 +2811,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'match:',
 category: 'regular expressions',
-fn: function (aRegexp){
-var self=this;
-return (function(){return self.search(aRegexp) != -1})();
-return self;},
+fn: function (aRegexp) {
+    var self = this;
+    return function () {return self.search(aRegexp) != -1;}();
+    return self;
+},
 source: unescape('match%3A%20aRegexp%0A%20%20%20%20%09%5E%7B%27return%20self.search%28aRegexp%29%20%21%3D%20-1%27%7D%0A')}),
 smalltalk.String);
 
@@ -2560,10 +2824,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asString',
 category: 'converting',
-fn: function (){
-var self=this;
-return self;
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
 source: unescape('asString%0A%20%20%20%20%09%5Eself%0A')}),
 smalltalk.String);
 
@@ -2572,10 +2837,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asNumber',
 category: 'converting',
-fn: function (){
-var self=this;
-return (function(){return Number(self);})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return Number(self);}();
+    return self;
+},
 source: unescape('asNumber%0A%09%5E%7B%27return%20Number%28self%29%3B%27%7D%0A')}),
 smalltalk.String);
 
@@ -2584,10 +2850,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asParser',
 category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.PPStringParser._new()._string_(self);
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.PPStringParser._new()._string_(self);
+    return self;
+},
 source: unescape('asParser%0A%20%20%20%20%09%5EPPStringParser%20new%20string%3A%20self%0A')}),
 smalltalk.String);
 
@@ -2596,10 +2863,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asChoiceParser',
 category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.PPChoiceParser._withAll_(self._asArray()._collect_((function(each){return each._asParser();})));
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.PPChoiceParser._withAll_(self._asArray()._collect_(function (each) {return each._asParser();}));
+    return self;
+},
 source: unescape('asChoiceParser%0A%20%20%20%20%09%5EPPChoiceParser%20withAll%3A%20%28self%20asArray%20collect%3A%20%5B%3Aeach%20%7C%20each%20asParser%5D%29%0A')}),
 smalltalk.String);
 
@@ -2608,10 +2876,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asCharacterParser',
 category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.PPCharacterParser._new()._string_(self);
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.PPCharacterParser._new()._string_(self);
+    return self;
+},
 source: unescape('asCharacterParser%0A%20%20%20%20%09%5EPPCharacterParser%20new%20string%3A%20self%0A')}),
 smalltalk.String);
 
@@ -2620,10 +2889,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'errorReadOnly',
 category: 'error handling',
-fn: function (){
-var self=this;
-self._error_(unescape("Object%20is%20read-only"));
-return self;},
+fn: function () {
+    var self = this;
+    self._error_(unescape("Object%20is%20read-only"));
+    return self;
+},
 source: unescape('errorReadOnly%0A%20%20%20%20%09self%20error%3A%20%27Object%20is%20read-only%27%0A')}),
 smalltalk.String);
 
@@ -2632,10 +2902,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function (){
-var self=this;
-return unescape("%27").__comma(self).__comma(unescape("%27"));
-return self;},
+fn: function () {
+    var self = this;
+    return unescape("%27").__comma(self).__comma(unescape("%27"));
+    return self;
+},
 source: unescape('printString%0A%20%20%20%20%09%5E%27%27%27%27%2C%20self%2C%20%27%27%27%27%0A')}),
 smalltalk.String);
 
@@ -2644,10 +2915,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printNl',
 category: 'printing',
-fn: function (){
-var self=this;
-(function(){console.log(self)})();
-return self;},
+fn: function () {
+    var self = this;
+    (function () {console.log(self);}());
+    return self;
+},
 source: unescape('printNl%0A%09%7B%27console.log%28self%29%27%7D%0A')}),
 smalltalk.String);
 
@@ -2656,10 +2928,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isString',
 category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
 source: unescape('isString%0A%20%20%20%20%09%5Etrue%0A')}),
 smalltalk.String);
 
@@ -2668,10 +2941,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJQuery',
 category: '*JQuery',
-fn: function (){
-var self=this;
-return smalltalk.JQuery._fromString_(self);
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.JQuery._fromString_(self);
+    return self;
+},
 source: unescape('asJQuery%0A%20%20%20%20%5EJQuery%20fromString%3A%20self%0A')}),
 smalltalk.String);
 
@@ -2680,10 +2954,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToJQuery:',
 category: '*JQuery',
-fn: function (aJQuery){
-var self=this;
-(function(){aJQuery._appendElement_(String(self))})();
-return self;},
+fn: function (aJQuery) {
+    var self = this;
+    (function () {aJQuery._appendElement_(String(self));}());
+    return self;
+},
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20%7B%27aJQuery._appendElement_%28String%28self%29%29%27%7D%0A')}),
 smalltalk.String);
 
@@ -2692,10 +2967,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToBrush:',
 category: '*Canvas',
-fn: function (aTagBrush){
-var self=this;
-aTagBrush._appendString_(self);
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    aTagBrush._appendString_(self);
+    return self;
+},
 source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20appendString%3A%20self%0A')}),
 smalltalk.String);
 
@@ -2704,10 +2980,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>',
 category: 'comparing',
-fn: function (aString){
-var self=this;
-return (function(){return String(self) > aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return String(self) > aString;}();
+    return self;
+},
 source: unescape('%3E%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3E%20aString%27%7D%0A')}),
 smalltalk.String);
 
@@ -2716,10 +2993,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<',
 category: 'comparing',
-fn: function (aString){
-var self=this;
-return (function(){return String(self) < aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return String(self) < aString;}();
+    return self;
+},
 source: unescape('%3C%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3C%20aString%27%7D%0A')}),
 smalltalk.String);
 
@@ -2728,10 +3006,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>=',
 category: 'comparing',
-fn: function (aString){
-var self=this;
-return (function(){return String(self) >= aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return String(self) >= aString;}();
+    return self;
+},
 source: unescape('%3E%3D%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3E%3D%20aString%27%7D%0A')}),
 smalltalk.String);
 
@@ -2740,10 +3019,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<=',
 category: 'comparing',
-fn: function (aString){
-var self=this;
-return (function(){return String(self) <= aString})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return String(self) <= aString;}();
+    return self;
+},
 source: unescape('%3C%3D%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3C%3D%20aString%27%7D%0A')}),
 smalltalk.String);
 
@@ -2752,10 +3032,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'remove:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-self._errorReadOnly();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._errorReadOnly();
+    return self;
+},
 source: unescape('remove%3A%20anObject%0A%20%20%20%20self%20errorReadOnly%0A')}),
 smalltalk.String);
 
@@ -2765,10 +3046,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'streamClass',
 category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.StringStream;
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.StringStream;
+    return self;
+},
 source: unescape('streamClass%0A%09%20%20%20%20%5EStringStream%0A')}),
 smalltalk.String.klass);
 
@@ -2777,10 +3059,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fromString:',
 category: 'instance creation',
-fn: function (aString){
-var self=this;
-return (function(){return new self.fn(aString);})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return new self.fn(aString);}();
+    return self;
+},
 source: unescape('fromString%3A%20aString%0A%09%20%20%20%20%5E%7B%27return%20new%20self.fn%28aString%29%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
@@ -2789,10 +3072,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'cr',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){{return '\n'};})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return "\n";}();
+    return self;
+},
 source: unescape('cr%0A%09%20%20%20%20%5E%7B%27%7Breturn%20%27%27%5Cn%27%27%7D%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
@@ -2801,10 +3085,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'lf',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return '\r';})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return "\r";}();
+    return self;
+},
 source: unescape('lf%0A%09%20%20%20%20%5E%7B%27return%20%27%27%5Cr%27%27%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
@@ -2813,10 +3098,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'space',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return ' ';})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return " ";}();
+    return self;
+},
 source: unescape('space%0A%09%20%20%20%20%5E%7B%27return%20%27%27%20%27%27%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
@@ -2825,10 +3111,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tab',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return '\t';})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return "\t";}();
+    return self;
+},
 source: unescape('tab%0A%09%20%20%20%20%5E%7B%27return%20%27%27%5Ct%27%27%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
@@ -2839,10 +3126,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compile:',
 category: 'evaluating',
-fn: function (aString){
-var self=this;
-return (function(){return self.compile(aString);})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return self.compile(aString);}();
+    return self;
+},
 source: unescape('compile%3A%20aString%0A%09%5E%7B%27return%20self.compile%28aString%29%3B%27%7D%0A')}),
 smalltalk.RegularExpression);
 
@@ -2851,10 +3139,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'exec:',
 category: 'evaluating',
-fn: function (aString){
-var self=this;
-return (function(){return self.exec(aString);})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return self.exec(aString);}();
+    return self;
+},
 source: unescape('exec%3A%20aString%0A%09%5E%7B%27return%20self.exec%28aString%29%3B%27%7D%0A')}),
 smalltalk.RegularExpression);
 
@@ -2863,10 +3152,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'test:',
 category: 'evaluating',
-fn: function (aString){
-var self=this;
-return (function(){return self.test(aString);})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return self.test(aString);}();
+    return self;
+},
 source: unescape('test%3A%20aString%0A%09%5E%7B%27return%20self.test%28aString%29%3B%27%7D%0A')}),
 smalltalk.RegularExpression);
 
@@ -2876,10 +3166,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fromString:flag:',
 category: 'instance creation',
-fn: function (aString, anotherString){
-var self=this;
-return (function(){return new RegExp(aString, anotherString);})();
-return self;},
+fn: function (aString, anotherString) {
+    var self = this;
+    return function () {return new RegExp(aString, anotherString);}();
+    return self;
+},
 source: unescape('fromString%3A%20aString%20flag%3A%20anotherString%0A%09%20%20%20%20%5E%7B%27return%20new%20RegExp%28aString%2C%20anotherString%29%3B%27%7D%0A')}),
 smalltalk.RegularExpression.klass);
 
@@ -2888,10 +3179,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fromString:',
 category: 'instance creation',
-fn: function (aString){
-var self=this;
-return self._fromString_flag_(aString,"");
-return self;},
+fn: function (aString) {
+    var self = this;
+    return self._fromString_flag_(aString, "");
+    return self;
+},
 source: unescape('fromString%3A%20aString%0A%09%20%20%20%20%5Eself%20fromString%3A%20aString%20flag%3A%20%27%27%0A')}),
 smalltalk.RegularExpression.klass);
 
@@ -2902,10 +3194,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return self.length})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return self.length;}();
+    return self;
+},
 source: unescape('size%0A%09%5E%7B%27return%20self.length%27%7D%0A')}),
 smalltalk.Array);
 
@@ -2914,10 +3207,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:put:',
 category: 'accessing',
-fn: function (anIndex, anObject){
-var self=this;
-return (function(){return self[anIndex - 1] = anObject})();
-return self;},
+fn: function (anIndex, anObject) {
+    var self = this;
+    return function () {return self[anIndex - 1] = anObject;}();
+    return self;
+},
 source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%5E%7B%27return%20self%5BanIndex%20-%201%5D%20%3D%20anObject%27%7D%0A')}),
 smalltalk.Array);
 
@@ -2926,17 +3220,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifAbsent:',
 category: 'accessing',
-fn: function (anIndex, aBlock){
-var self=this;
-return (function(){
-	    var value = self[anIndex - 1];
-	    if(value === undefined) {
-		return aBlock();
-	    } else {
-		return value;
-	    }
-	})();
-return self;},
+fn: function (anIndex, aBlock) {
+    var self = this;
+    return function () {var value = self[anIndex - 1];if (value === undefined) {return aBlock();} else {return value;}}();
+    return self;
+},
 source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%5E%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Array);
 
@@ -2945,10 +3233,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'add:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-return (function(){self.push(anObject); return anObject;})();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return function () {self.push(anObject);return anObject;}();
+    return self;
+},
 source: unescape('add%3A%20anObject%0A%09%5E%7B%27self.push%28anObject%29%3B%20return%20anObject%3B%27%7D%0A')}),
 smalltalk.Array);
 
@@ -2957,10 +3246,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addLast:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-return self._add_(anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return self._add_(anObject);
+    return self;
+},
 source: unescape('addLast%3A%20anObject%0A%09%5Eself%20add%3A%20anObject%0A')}),
 smalltalk.Array);
 
@@ -2969,13 +3259,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-var newCollection=nil;
-newCollection=self._class()._new();
-self._do_((function(each){return newCollection._add_(each);}));
-return newCollection;
-return self;},
+fn: function () {
+    var self = this;
+    var newCollection = nil;
+    newCollection = self._class()._new();
+    self._do_(function (each) {return newCollection._add_(each);});
+    return newCollection;
+    return self;
+},
 source: unescape('shallowCopy%0A%09%7C%20newCollection%20%7C%0A%09newCollection%20%3A%3D%20self%20class%20new.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%20newCollection%20add%3A%20each%5D.%0A%09%5EnewCollection%0A')}),
 smalltalk.Array);
 
@@ -2984,13 +3275,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'deepCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-var newCollection=nil;
-newCollection=self._class()._new();
-self._do_((function(each){return newCollection._add_(each._deepCopy());}));
-return newCollection;
-return self;},
+fn: function () {
+    var self = this;
+    var newCollection = nil;
+    newCollection = self._class()._new();
+    self._do_(function (each) {return newCollection._add_(each._deepCopy());});
+    return newCollection;
+    return self;
+},
 source: unescape('deepCopy%0A%09%7C%20newCollection%20%7C%0A%09newCollection%20%3A%3D%20self%20class%20new.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%20newCollection%20add%3A%20each%20deepCopy%5D.%0A%09%5EnewCollection%0A')}),
 smalltalk.Array);
 
@@ -2999,13 +3291,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyFrom:to:',
 category: 'copying',
-fn: function (anIndex, anotherIndex){
-var self=this;
-var array=nil;
-array=self._class()._new();
-anIndex._to_do_(anotherIndex,(function(each){return array._add_(self._at_(each));}));
-return array;
-return self;},
+fn: function (anIndex, anotherIndex) {
+    var self = this;
+    var array = nil;
+    array = self._class()._new();
+    anIndex._to_do_(anotherIndex, function (each) {return array._add_(self._at_(each));});
+    return array;
+    return self;
+},
 source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%7C%20array%20%7C%0A%09array%20%3A%3D%20self%20class%20new.%0A%09anIndex%20to%3A%20anotherIndex%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20array%20add%3A%20%28self%20at%3A%20each%29%5D.%0A%09%5Earray%0A')}),
 smalltalk.Array);
 
@@ -3014,10 +3307,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'join:',
 category: 'enumerating',
-fn: function (aString){
-var self=this;
-return (function(){return self.join(aString);})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return self.join(aString);}();
+    return self;
+},
 source: unescape('join%3A%20aString%0A%09%5E%7B%27return%20self.join%28aString%29%3B%27%7D%0A')}),
 smalltalk.Array);
 
@@ -3026,10 +3320,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJavascript',
 category: 'converting',
-fn: function (){
-var self=this;
-return unescape("%5B").__comma(self._collect_((function(each){return each._asJavascript();}))._join_(unescape("%2C%20"))).__comma(unescape("%5D"));
-return self;},
+fn: function () {
+    var self = this;
+    return unescape("%5B").__comma(self._collect_(function (each) {return each._asJavascript();})._join_(unescape("%2C%20"))).__comma(unescape("%5D"));
+    return self;
+},
 source: unescape('asJavascript%0A%09%5E%27%5B%27%2C%20%28%28self%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJavascript%5D%29%20join%3A%20%27%2C%20%27%29%2C%20%20%27%5D%27%0A')}),
 smalltalk.Array);
 
@@ -3038,10 +3333,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort',
 category: 'enumerating',
-fn: function (){
-var self=this;
-return self._copy()._basicPerform_("sort");
-return self;},
+fn: function () {
+    var self = this;
+    return self._copy()._basicPerform_("sort");
+    return self;
+},
 source: unescape('sort%0A%20%20%20%20%5Eself%20copy%20basicPerform%3A%20%27sort%27%0A')}),
 smalltalk.Array);
 
@@ -3050,10 +3346,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return self._copy()._basicPerform_withArguments_("sort",smalltalk.Array._with_(aBlock));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._copy()._basicPerform_withArguments_("sort", smalltalk.Array._with_(aBlock));
+    return self;
+},
 source: unescape('sort%3A%20aBlock%0A%20%20%20%20%5Eself%20copy%20basicPerform%3A%20%27sort%27%20withArguments%3A%20%28Array%20with%3A%20aBlock%29%0A')}),
 smalltalk.Array);
 
@@ -3062,15 +3359,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'remove:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-(function(){for(var i=0;i<self.length;i++) {
-	if(self[i] == anObject) {
-		self.splice(i,1);
-		break;
-	}
-    }})();
-return self;},
+fn: function (anObject) {
+    var self = this;
+    (function () {for (var i = 0; i < self.length; i++) {if (self[i] == anObject) {self.splice(i, 1);break;}}}());
+    return self;
+},
 source: unescape('remove%3A%20anObject%0A%20%20%20%20%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09self.splice%28i%2C1%29%3B%0A%09%09break%3B%0A%09%7D%0A%20%20%20%20%7D%27%7D%0A')}),
 smalltalk.Array);
 
@@ -3082,10 +3375,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'messageText',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@messageText'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@messageText'];
+    return self;
+},
 source: unescape('messageText%0A%09%5EmessageText%0A')}),
 smalltalk.Error);
 
@@ -3094,10 +3388,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'messageText:',
 category: 'accessing',
-fn: function (aString){
-var self=this;
-self['@messageText']=aString;
-return self;},
+fn: function (aString) {
+    var self = this;
+    self['@messageText'] = aString;
+    return self;
+},
 source: unescape('messageText%3A%20aString%0A%09messageText%20%3A%3D%20aString%0A')}),
 smalltalk.Error);
 
@@ -3106,10 +3401,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'signal',
 category: 'signaling',
-fn: function (){
-var self=this;
-return (function(){throw({smalltalkError: self})})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {throw {smalltalkError: self};}();
+    return self;
+},
 source: unescape('signal%0A%09%5E%7B%27throw%28%7BsmalltalkError%3A%20self%7D%29%27%7D%0A')}),
 smalltalk.Error);
 
@@ -3119,10 +3415,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'signal:',
 category: 'instance creation',
-fn: function (aString){
-var self=this;
-return (function($rec){$rec._messageText_(aString);return $rec._signal();})(self._new());
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function ($rec) {$rec._messageText_(aString);return $rec._signal();}(self._new());
+    return self;
+},
 source: unescape('signal%3A%20aString%0A%09%20%20%20%20%5Eself%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal%0A')}),
 smalltalk.Error.klass);
 
@@ -3133,10 +3430,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (anAssociation){
-var self=this;
-return self._class().__eq(anAssociation._class())._and_((function(){return self._key().__eq(anAssociation._key())._and_((function(){return self._value().__eq(anAssociation._value());}));}));
-return self;},
+fn: function (anAssociation) {
+    var self = this;
+    return self._class().__eq(anAssociation._class())._and_(function () {return self._key().__eq(anAssociation._key())._and_(function () {return self._value().__eq(anAssociation._value());});});
+    return self;
+},
 source: unescape('%3D%20anAssociation%0A%09%5Eself%20class%20%3D%20anAssociation%20class%20and%3A%20%5B%0A%09%20%20%20%20self%20key%20%3D%20anAssociation%20key%20and%3A%20%5B%0A%09%09self%20value%20%3D%20anAssociation%20value%5D%5D%0A')}),
 smalltalk.Association);
 
@@ -3145,10 +3443,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'key:',
 category: 'accessing',
-fn: function (aKey){
-var self=this;
-self['@key']=aKey;
-return self;},
+fn: function (aKey) {
+    var self = this;
+    self['@key'] = aKey;
+    return self;
+},
 source: unescape('key%3A%20aKey%0A%09key%20%3A%3D%20aKey%0A')}),
 smalltalk.Association);
 
@@ -3157,10 +3456,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'key',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@key'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@key'];
+    return self;
+},
 source: unescape('key%0A%09%5Ekey%0A')}),
 smalltalk.Association);
 
@@ -3169,10 +3469,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'value:',
 category: 'accessing',
-fn: function (aValue){
-var self=this;
-self['@value']=aValue;
-return self;},
+fn: function (aValue) {
+    var self = this;
+    self['@value'] = aValue;
+    return self;
+},
 source: unescape('value%3A%20aValue%0A%09value%20%3A%3D%20aValue%0A')}),
 smalltalk.Association);
 
@@ -3181,10 +3482,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'value',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@value'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@value'];
+    return self;
+},
 source: unescape('value%0A%09%5Evalue%0A')}),
 smalltalk.Association);
 
@@ -3194,10 +3496,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'key:value:',
 category: 'instance creation',
-fn: function (aKey, aValue){
-var self=this;
-return (function($rec){$rec._key_(aKey);$rec._value_(aValue);return $rec._yourself();})(self._new());
-return self;},
+fn: function (aKey, aValue) {
+    var self = this;
+    return function ($rec) {$rec._key_(aKey);$rec._value_(aValue);return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('key%3A%20aKey%20value%3A%20aValue%0A%09%20%20%20%20%5Eself%20new%0A%09%09key%3A%20aKey%3B%0A%09%09value%3A%20aValue%3B%0A%09%09yourself%0A')}),
 smalltalk.Association.klass);
 
@@ -3208,13 +3511,20 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aDictionary){
-var self=this;
-try{self._class().__eq(aDictionary._class())._ifFalse_((function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();}));
-self._associationsDo_((function(assoc){return aDictionary._at_ifAbsent_(assoc._key(),(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})).__eq(assoc._value())._ifFalse_((function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();}));}));
-(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return true}})})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
+fn: function (aDictionary) {
+    var self = this;
+    try {
+        self._class().__eq(aDictionary._class())._ifFalse_(function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();});
+        self._associationsDo_(function (assoc) {return aDictionary._at_ifAbsent_(assoc._key(), function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();}).__eq(assoc._value())._ifFalse_(function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();});});
+        (function () {throw {name: "stReturn", selector: "__eq", fn: function () {return true;}};}());
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" && e.selector === "__eq") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('%3D%20aDictionary%0A%09self%20class%20%3D%20aDictionary%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20associationsDo%3A%20%5B%3Aassoc%20%7C%0A%09%20%20%20%20%28aDictionary%20at%3A%20assoc%20key%20ifAbsent%3A%20%5B%5Efalse%5D%29%20%3D%20assoc%20value%20%0A%09%09ifFalse%3A%20%5B%5Efalse%5D%5D.%0A%09%5Etrue%0A')}),
 smalltalk.Dictionary);
 
@@ -3223,13 +3533,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function (){
-var self=this;
-var copy=nil;
-copy=self._class()._new();
-self._associationsDo_((function(each){return copy._at_put_(each._key(),each._value());}));
-return copy;
-return self;},
+fn: function () {
+    var self = this;
+    var copy = nil;
+    copy = self._class()._new();
+    self._associationsDo_(function (each) {return copy._at_put_(each._key(), each._value());});
+    return copy;
+    return self;
+},
 source: unescape('shallowCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%5D.%0A%09%5Ecopy%0A')}),
 smalltalk.Dictionary);
 
@@ -3238,11 +3549,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@keys']=[];
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@keys'] = [];
+    return self;
+},
 source: unescape('initialize%0A%20%20%20%20%09super%20initialize.%0A%20%20%20%20%09keys%20%3A%3D%20%23%28%29%0A')}),
 smalltalk.Dictionary);
 
@@ -3251,10 +3563,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@keys']._size();
-return self;},
+fn: function () {
+    var self = this;
+    return self['@keys']._size();
+    return self;
+},
 source: unescape('size%0A%09%5Ekeys%20size%0A')}),
 smalltalk.Dictionary);
 
@@ -3263,13 +3576,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'associations',
 category: 'accessing',
-fn: function (){
-var self=this;
-var associations=nil;
-associations=[];
-self['@keys']._do_((function(each){return associations._add_(smalltalk.Association._key_value_(each,self._at_(each)));}));
-return associations;
-return self;},
+fn: function () {
+    var self = this;
+    var associations = nil;
+    associations = [];
+    self['@keys']._do_(function (each) {return associations._add_(smalltalk.Association._key_value_(each, self._at_(each)));});
+    return associations;
+    return self;
+},
 source: unescape('associations%0A%09%7C%20associations%20%7C%0A%09associations%20%3A%3D%20%23%28%29.%0A%09keys%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20associations%20add%3A%20%28Association%20key%3A%20each%20value%3A%20%28self%20at%3A%20each%29%29%5D.%0A%09%5Eassociations%0A')}),
 smalltalk.Dictionary);
 
@@ -3278,10 +3592,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'keys',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@keys']._copy();
-return self;},
+fn: function () {
+    var self = this;
+    return self['@keys']._copy();
+    return self;
+},
 source: unescape('keys%0A%09%5Ekeys%20copy%0A')}),
 smalltalk.Dictionary);
 
@@ -3290,10 +3605,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'values',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@keys']._collect_((function(each){return self._at_(each);}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@keys']._collect_(function (each) {return self._at_(each);});
+    return self;
+},
 source: unescape('values%0A%20%20%20%20%09%5Ekeys%20collect%3A%20%5B%3Aeach%20%7C%20self%20at%3A%20each%5D%0A')}),
 smalltalk.Dictionary);
 
@@ -3302,11 +3618,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:put:',
 category: 'accessing',
-fn: function (aKey, aValue){
-var self=this;
-self['@keys']._includes_(aKey)._ifFalse_((function(){return self['@keys']._add_(aKey);}));
-return self._basicAt_put_(aKey,aValue);
-return self;},
+fn: function (aKey, aValue) {
+    var self = this;
+    self['@keys']._includes_(aKey)._ifFalse_(function () {return self['@keys']._add_(aKey);});
+    return self._basicAt_put_(aKey, aValue);
+    return self;
+},
 source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%28keys%20includes%3A%20aKey%29%20ifFalse%3A%20%5Bkeys%20add%3A%20aKey%5D.%0A%09%5Eself%20basicAt%3A%20aKey%20put%3A%20aValue%0A')}),
 smalltalk.Dictionary);
 
@@ -3315,10 +3632,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifAbsent:',
 category: 'accessing',
-fn: function (aKey, aBlock){
-var self=this;
-return self._basicAt_(aKey)._ifNil_(aBlock);
-return self;},
+fn: function (aKey, aBlock) {
+    var self = this;
+    return self._basicAt_(aKey)._ifNil_(aBlock);
+    return self;
+},
 source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%20ifNil%3A%20aBlock%0A')}),
 smalltalk.Dictionary);
 
@@ -3327,10 +3645,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifAbsentPut:',
 category: 'accessing',
-fn: function (aKey, aBlock){
-var self=this;
-return self._at_ifAbsent_(aKey,(function(){return self._at_put_(aKey,aBlock._value());}));
-return self;},
+fn: function (aKey, aBlock) {
+    var self = this;
+    return self._at_ifAbsent_(aKey, function () {return self._at_put_(aKey, aBlock._value());});
+    return self;
+},
 source: unescape('at%3A%20aKey%20ifAbsentPut%3A%20aBlock%0A%20%20%20%20%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5B%0A%20%20%20%20%09%20%20%20%20self%20at%3A%20aKey%20put%3A%20aBlock%20value%5D%0A')}),
 smalltalk.Dictionary);
 
@@ -3339,10 +3658,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifPresent:',
 category: 'accessing',
-fn: function (aKey, aBlock){
-var self=this;
-return self._basicAt_(aKey)._ifNotNil_((function(){return aBlock._value_(self._at_(aKey));}));
-return self;},
+fn: function (aKey, aBlock) {
+    var self = this;
+    return self._basicAt_(aKey)._ifNotNil_(function () {return aBlock._value_(self._at_(aKey));});
+    return self;
+},
 source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D%0A')}),
 smalltalk.Dictionary);
 
@@ -3351,10 +3671,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifPresent:ifAbsent:',
 category: 'accessing',
-fn: function (aKey, aBlock, anotherBlock){
-var self=this;
-return self._basicAt_(aKey)._ifNil_ifNotNil_(anotherBlock,(function(){return aBlock._value_(self._at_(aKey));}));
-return self;},
+fn: function (aKey, aBlock, anotherBlock) {
+    var self = this;
+    return self._basicAt_(aKey)._ifNil_ifNotNil_(anotherBlock, function () {return aBlock._value_(self._at_(aKey));});
+    return self;
+},
 source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%20ifAbsent%3A%20anotherBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%0A%09%20%20%20%20ifNil%3A%20anotherBlock%0A%09%20%20%20%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D%0A')}),
 smalltalk.Dictionary);
 
@@ -3363,10 +3684,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'add:',
 category: 'adding/removing',
-fn: function (anAssociation){
-var self=this;
-self._at_put_(anAssociation._key(),anAssociation._value());
-return self;},
+fn: function (anAssociation) {
+    var self = this;
+    self._at_put_(anAssociation._key(), anAssociation._value());
+    return self;
+},
 source: unescape('add%3A%20anAssociation%0A%20%20%20%20%09self%20at%3A%20anAssociation%20key%20put%3A%20anAssociation%20value%0A')}),
 smalltalk.Dictionary);
 
@@ -3375,11 +3697,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addAll:',
 category: 'adding/removing',
-fn: function (aDictionary){
-var self=this;
-self.klass.superclass.fn.prototype['_addAll_'].apply(self, [aDictionary._associations()]);
-return aDictionary;
-return self;},
+fn: function (aDictionary) {
+    var self = this;
+    self.klass.superclass.fn.prototype._addAll_.apply(self, [aDictionary._associations()]);
+    return aDictionary;
+    return self;
+},
 source: unescape('addAll%3A%20aDictionary%0A%20%20%20%20%09super%20addAll%3A%20aDictionary%20associations.%0A%20%20%20%20%09%5EaDictionary%0A')}),
 smalltalk.Dictionary);
 
@@ -3388,10 +3711,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ',',
 category: 'copying',
-fn: function (aCollection){
-var self=this;
-self._shouldNotImplement();
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    self._shouldNotImplement();
+    return self;
+},
 source: unescape('%2C%20aCollection%0A%09self%20shouldNotImplement%0A')}),
 smalltalk.Dictionary);
 
@@ -3400,10 +3724,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyFrom:to:',
 category: 'copying',
-fn: function (anIndex, anotherIndex){
-var self=this;
-self._shouldNotImplement();
-return self;},
+fn: function (anIndex, anotherIndex) {
+    var self = this;
+    self._shouldNotImplement();
+    return self;
+},
 source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09self%20shouldNotImplement%0A')}),
 smalltalk.Dictionary);
 
@@ -3412,10 +3737,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'associationsDo:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-self._associations()._do_(aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._associations()._do_(aBlock);
+    return self;
+},
 source: unescape('associationsDo%3A%20aBlock%0A%20%20%20%20%09self%20associations%20do%3A%20aBlock%0A')}),
 smalltalk.Dictionary);
 
@@ -3424,10 +3750,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'keysAndValuesDo:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-self._associationsDo_((function(each){return aBlock._value_value_(each._key(),each._value());}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._associationsDo_(function (each) {return aBlock._value_value_(each._key(), each._value());});
+    return self;
+},
 source: unescape('keysAndValuesDo%3A%20aBlock%0A%20%20%20%20%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%09%20%20%20%20aBlock%20value%3A%20each%20key%20value%3A%20each%20value%5D%0A')}),
 smalltalk.Dictionary);
 
@@ -3436,10 +3763,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'do:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-self._values()._do_(aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._values()._do_(aBlock);
+    return self;
+},
 source: unescape('do%3A%20aBlock%0A%20%20%20%20%09self%20values%20do%3A%20aBlock%0A')}),
 smalltalk.Dictionary);
 
@@ -3448,13 +3776,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'select:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var newDict=nil;
-newDict=self._class()._new();
-self._keysAndValuesDo_((function(key, value){return aBlock._value_(value)._ifTrue_((function(){return newDict._at_put_(key,value);}));}));
-return newDict;
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    var newDict = nil;
+    newDict = self._class()._new();
+    self._keysAndValuesDo_(function (key, value) {return aBlock._value_(value)._ifTrue_(function () {return newDict._at_put_(key, value);});});
+    return newDict;
+    return self;
+},
 source: unescape('select%3A%20aBlock%0A%20%20%20%20%09%7C%20newDict%20%7C%0A%20%20%20%20%09newDict%20%3A%3D%20self%20class%20new.%0A%20%20%20%20%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%20%20%20%20%09%20%20%20%20%28aBlock%20value%3A%20value%29%20ifTrue%3A%20%5BnewDict%20at%3A%20key%20put%3A%20value%5D%5D.%0A%20%20%20%20%09%5EnewDict%0A')}),
 smalltalk.Dictionary);
 
@@ -3463,13 +3792,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'collect:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var newDict=nil;
-newDict=self._class()._new();
-self._keysAndValuesDo_((function(key, value){return aBlock._value_(value)._ifTrue_((function(){return newDict._at_put_(key,value);}));}));
-return newDict;
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    var newDict = nil;
+    newDict = self._class()._new();
+    self._keysAndValuesDo_(function (key, value) {return aBlock._value_(value)._ifTrue_(function () {return newDict._at_put_(key, value);});});
+    return newDict;
+    return self;
+},
 source: unescape('collect%3A%20aBlock%0A%20%20%20%20%09%7C%20newDict%20%7C%0A%20%20%20%20%09newDict%20%3A%3D%20self%20class%20new.%0A%20%20%20%20%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%20%20%20%20%09%20%20%20%20%28aBlock%20value%3A%20value%29%20ifTrue%3A%20%5BnewDict%20at%3A%20key%20put%3A%20value%5D%5D.%0A%20%20%20%20%09%5EnewDict%0A')}),
 smalltalk.Dictionary);
 
@@ -3478,10 +3808,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'detect:ifNone:',
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return self._values()._detect_ifNone_(aBlock,anotherBlock);
-return self;},
+fn: function (aBlock, anotherBlock) {
+    var self = this;
+    return self._values()._detect_ifNone_(aBlock, anotherBlock);
+    return self;
+},
 source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5Eself%20values%20detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A')}),
 smalltalk.Dictionary);
 
@@ -3490,10 +3821,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'includes:',
 category: 'enumerating',
-fn: function (anObject){
-var self=this;
-return self._values()._includes_(anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return self._values()._includes_(anObject);
+    return self;
+},
 source: unescape('includes%3A%20anObject%0A%09%5Eself%20values%20includes%3A%20anObject%0A')}),
 smalltalk.Dictionary);
 
@@ -3502,10 +3834,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'remove:',
 category: 'adding/removing',
-fn: function (aKey){
-var self=this;
-self._removeKey_(aKey);
-return self;},
+fn: function (aKey) {
+    var self = this;
+    self._removeKey_(aKey);
+    return self;
+},
 source: unescape('remove%3A%20aKey%0A%20%20%20%20self%20removeKey%3A%20aKey%0A')}),
 smalltalk.Dictionary);
 
@@ -3514,10 +3847,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeKey:',
 category: 'adding/removing',
-fn: function (aKey){
-var self=this;
-self['@keys']._remove_(aKey);
-return self;},
+fn: function (aKey) {
+    var self = this;
+    self['@keys']._remove_(aKey);
+    return self;
+},
 source: unescape('removeKey%3A%20aKey%0A%20%20%20%20keys%20remove%3A%20aKey%0A')}),
 smalltalk.Dictionary);
 
@@ -3529,10 +3863,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'superclass:subclass:',
 category: 'class creation',
-fn: function (aClass, aString){
-var self=this;
-self._superclass_subclass_instanceVariableNames_category_(aClass,aString,"",nil);
-return self;},
+fn: function (aClass, aString) {
+    var self = this;
+    self._superclass_subclass_instanceVariableNames_category_(aClass, aString, "", nil);
+    return self;
+},
 source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%0A%09self%20superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20%27%27%20category%3A%20nil%0A')}),
 smalltalk.ClassBuilder);
 
@@ -3541,13 +3876,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'superclass:subclass:instanceVariableNames:category:',
 category: 'class creation',
-fn: function (aClass, aString, aString2, aString3){
-var self=this;
-var newClass=nil;
-newClass=self._addSubclassOf_named_instanceVariableNames_(aClass,aString,self._instanceVariableNamesFor_(aString2));
-self._setupClass_(newClass);
-newClass._category_(aString3._ifNil_((function(){return "unclassified";})));
-return self;},
+fn: function (aClass, aString, aString2, aString3) {
+    var self = this;
+    var newClass = nil;
+    newClass = self._addSubclassOf_named_instanceVariableNames_(aClass, aString, self._instanceVariableNamesFor_(aString2));
+    self._setupClass_(newClass);
+    newClass._category_(aString3._ifNil_(function () {return "unclassified";}));
+    return self;
+},
 source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29.%0A%09self%20setupClass%3A%20newClass.%0A%09newClass%20category%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29%0A')}),
 smalltalk.ClassBuilder);
 
@@ -3556,12 +3892,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'class:instanceVariableNames:',
 category: 'class creation',
-fn: function (aClass, aString){
-var self=this;
-aClass._isMetaclass()._ifFalse_((function(){return self._error_(aClass._name().__comma(" is not a metaclass"));}));
-aClass._basicAt_put_("iVarNames",self._instanceVariableNamesFor_(aString));
-self._setupClass_(aClass);
-return self;},
+fn: function (aClass, aString) {
+    var self = this;
+    aClass._isMetaclass()._ifFalse_(function () {return self._error_(aClass._name().__comma(" is not a metaclass"));});
+    aClass._basicAt_put_("iVarNames", self._instanceVariableNamesFor_(aString));
+    self._setupClass_(aClass);
+    return self;
+},
 source: unescape('class%3A%20aClass%20instanceVariableNames%3A%20aString%0A%09aClass%20isMetaclass%20ifFalse%3A%20%5Bself%20error%3A%20aClass%20name%2C%20%27%20is%20not%20a%20metaclass%27%5D.%0A%09aClass%20basicAt%3A%20%27iVarNames%27%20put%3A%20%28self%20instanceVariableNamesFor%3A%20aString%29.%0A%09self%20setupClass%3A%20aClass%0A')}),
 smalltalk.ClassBuilder);
 
@@ -3570,10 +3907,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instanceVariableNamesFor:',
 category: 'private',
-fn: function (aString){
-var self=this;
-return aString._tokenize_(" ")._reject_((function(each){return each._isEmpty();}));
-return self;},
+fn: function (aString) {
+    var self = this;
+    return aString._tokenize_(" ")._reject_(function (each) {return each._isEmpty();});
+    return self;
+},
 source: unescape('instanceVariableNamesFor%3A%20aString%0A%09%5E%28aString%20tokenize%3A%20%27%20%27%29%20reject%3A%20%5B%3Aeach%20%7C%20each%20isEmpty%5D%0A')}),
 smalltalk.ClassBuilder);
 
@@ -3582,11 +3920,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addSubclassOf:named:instanceVariableNames:',
 category: 'private',
-fn: function (aClass, aString, aCollection){
-var self=this;
-return (function(){smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]})();
-return self;},
+fn: function (aClass, aString, aCollection) {
+    var self = this;
+    return function () {smalltalk.addClass(aString, aClass, aCollection);return smalltalk[aString];}();
+    return self;
+},
 source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%0A%09%5E%7B%27smalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%27%7D%0A')}),
 smalltalk.ClassBuilder);
 
@@ -3595,10 +3933,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setupClass:',
 category: 'private',
-fn: function (aClass){
-var self=this;
-(function(){smalltalk.init(aClass);})();
-return self;},
+fn: function (aClass) {
+    var self = this;
+    (function () {smalltalk.init(aClass);}());
+    return self;
+},
 source: unescape('setupClass%3A%20aClass%0A%09%7B%27smalltalk.init%28aClass%29%3B%27%7D%0A')}),
 smalltalk.ClassBuilder);
 
@@ -3610,11 +3949,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@chunkParser']=smalltalk.ChunkParser._new();
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@chunkParser'] = smalltalk.ChunkParser._new();
+    return self;
+},
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.%0A')}),
 smalltalk.ClassCategoryReader);
 
@@ -3623,11 +3963,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'class:category:',
 category: 'accessing',
-fn: function (aClass, aString){
-var self=this;
-self['@class']=aClass;
-self['@category']=aString;
-return self;},
+fn: function (aClass, aString) {
+    var self = this;
+    self['@class'] = aClass;
+    self['@category'] = aString;
+    return self;
+},
 source: unescape('class%3A%20aClass%20category%3A%20aString%0A%09class%20%3A%3D%20aClass.%0A%09category%20%3A%3D%20aString%0A')}),
 smalltalk.ClassCategoryReader);
 
@@ -3636,12 +3977,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'scanFrom:',
 category: 'fileIn',
-fn: function (aStream){
-var self=this;
-var nextChunk=nil;
-nextChunk=self['@chunkParser']._emptyChunk().__slash(self['@chunkParser']._chunk())._parse_(aStream);
-nextChunk._isEmptyChunk()._ifFalse_((function(){self._compileMethod_(nextChunk._contents());return self._scanFrom_(aStream);}));
-return self;},
+fn: function (aStream) {
+    var self = this;
+    var nextChunk = nil;
+    nextChunk = self['@chunkParser']._emptyChunk().__slash(self['@chunkParser']._chunk())._parse_(aStream);
+    nextChunk._isEmptyChunk()._ifFalse_(function () {self._compileMethod_(nextChunk._contents());return self._scanFrom_(aStream);});
+    return self;
+},
 source: unescape('scanFrom%3A%20aStream%0A%09%7C%20nextChunk%20%7C%0A%09nextChunk%20%3A%3D%20%28chunkParser%20emptyChunk%20/%20chunkParser%20chunk%29%20parse%3A%20aStream.%0A%09nextChunk%20isEmptyChunk%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20compileMethod%3A%20nextChunk%20contents.%0A%09%20%20%20%20self%20scanFrom%3A%20aStream%5D.%0A')}),
 smalltalk.ClassCategoryReader);
 
@@ -3650,13 +3992,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compileMethod:',
 category: 'private',
-fn: function (aString){
-var self=this;
-var method=nil;
-method=smalltalk.Compiler._new()._load_forClass_(aString,self['@class']);
-method._category_(self['@category']);
-self['@class']._addCompiledMethod_(method);
-return self;},
+fn: function (aString) {
+    var self = this;
+    var method = nil;
+    method = smalltalk.Compiler._new()._load_forClass_(aString, self['@class']);
+    method._category_(self['@category']);
+    self['@class']._addCompiledMethod_(method);
+    return self;
+},
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method%0A')}),
 smalltalk.ClassCategoryReader);
 
@@ -3668,10 +4011,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'collection',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@collection'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@collection'];
+    return self;
+},
 source: unescape('collection%0A%09%5Ecollection%0A')}),
 smalltalk.Stream);
 
@@ -3680,10 +4024,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setCollection:',
 category: 'accessing',
-fn: function (aCollection){
-var self=this;
-self['@collection']=aCollection;
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    self['@collection'] = aCollection;
+    return self;
+},
 source: unescape('setCollection%3A%20aCollection%0A%09collection%20%3A%3D%20aCollection%0A')}),
 smalltalk.Stream);
 
@@ -3692,10 +4037,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'position',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@position']._ifNil_((function(){return self['@position']=(0);}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@position']._ifNil_(function () {return self['@position'] = 0;});
+    return self;
+},
 source: unescape('position%0A%09%5Eposition%20ifNil%3A%20%5Bposition%20%3A%3D%200%5D%0A')}),
 smalltalk.Stream);
 
@@ -3704,10 +4050,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'position:',
 category: 'accessing',
-fn: function (anInteger){
-var self=this;
-self['@position']=anInteger;
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    self['@position'] = anInteger;
+    return self;
+},
 source: unescape('position%3A%20anInteger%0A%09position%20%3A%3D%20anInteger%0A')}),
 smalltalk.Stream);
 
@@ -3716,10 +4063,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'streamSize',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@streamSize'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@streamSize'];
+    return self;
+},
 source: unescape('streamSize%0A%09%5EstreamSize%0A')}),
 smalltalk.Stream);
 
@@ -3728,10 +4076,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setStreamSize:',
 category: 'accessing',
-fn: function (anInteger){
-var self=this;
-self['@streamSize']=anInteger;
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    self['@streamSize'] = anInteger;
+    return self;
+},
 source: unescape('setStreamSize%3A%20anInteger%0A%09streamSize%20%3A%3D%20anInteger%0A')}),
 smalltalk.Stream);
 
@@ -3740,10 +4089,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'contents',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._collection()._copyFrom_to_((1),self._streamSize());
-return self;},
+fn: function () {
+    var self = this;
+    return self._collection()._copyFrom_to_(1, self._streamSize());
+    return self;
+},
 source: unescape('contents%0A%09%5Eself%20collection%0A%09%20%20%20%20copyFrom%3A%201%20%0A%09%20%20%20%20to%3A%20self%20streamSize%0A')}),
 smalltalk.Stream);
 
@@ -3752,10 +4102,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self._streamSize();
-return self;},
+fn: function () {
+    var self = this;
+    return self._streamSize();
+    return self;
+},
 source: unescape('size%0A%09%5Eself%20streamSize%0A')}),
 smalltalk.Stream);
 
@@ -3764,10 +4115,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'reset',
 category: 'actions',
-fn: function (){
-var self=this;
-self._position_((0));
-return self;},
+fn: function () {
+    var self = this;
+    self._position_(0);
+    return self;
+},
 source: unescape('reset%0A%09self%20position%3A%200%0A')}),
 smalltalk.Stream);
 
@@ -3776,10 +4128,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'close',
 category: 'actions',
-fn: function (){
-var self=this;
-
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+},
 source: unescape('close%0A')}),
 smalltalk.Stream);
 
@@ -3788,10 +4140,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'flush',
 category: 'actions',
-fn: function (){
-var self=this;
-
-return self;},
+fn: function () {
+    var self = this;
+    return self;
+},
 source: unescape('flush%0A')}),
 smalltalk.Stream);
 
@@ -3800,11 +4152,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'resetContents',
 category: 'actions',
-fn: function (){
-var self=this;
-self._reset();
-self._setStreamSize_((0));
-return self;},
+fn: function () {
+    var self = this;
+    self._reset();
+    self._setStreamSize_(0);
+    return self;
+},
 source: unescape('resetContents%0A%09self%20reset.%0A%09self%20setStreamSize%3A%200%0A')}),
 smalltalk.Stream);
 
@@ -3813,10 +4166,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'do:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-(function(){return self._atEnd();})._whileFalse_((function(){return aBlock._value_(self._next());}));
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    (function () {return self._atEnd();}._whileFalse_(function () {return aBlock._value_(self._next());}));
+    return self;
+},
 source: unescape('do%3A%20aBlock%0A%09%5Bself%20atEnd%5D%20whileFalse%3A%20%5BaBlock%20value%3A%20self%20next%5D%0A')}),
 smalltalk.Stream);
 
@@ -3825,10 +4179,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setToEnd',
 category: 'positioning',
-fn: function (){
-var self=this;
-self._position_(self._size());
-return self;},
+fn: function () {
+    var self = this;
+    self._position_(self._size());
+    return self;
+},
 source: unescape('setToEnd%0A%09self%20position%3A%20self%20size%0A')}),
 smalltalk.Stream);
 
@@ -3837,10 +4192,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'skip:',
 category: 'positioning',
-fn: function (anInteger){
-var self=this;
-self._position_(self._position().__plus(anInteger)._min_max_(self._size(),(0)));
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    self._position_(self._position().__plus(anInteger)._min_max_(self._size(), 0));
+    return self;
+},
 source: unescape('skip%3A%20anInteger%0A%09self%20position%3A%20%28%28self%20position%20+%20anInteger%29%20min%3A%20self%20size%20max%3A%200%29%0A')}),
 smalltalk.Stream);
 
@@ -3849,11 +4205,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'next',
 category: 'reading',
-fn: function (){
-var self=this;
-self._position_(self._position().__plus((1)));
-return self['@collection']._at_(self._position());
-return self;},
+fn: function () {
+    var self = this;
+    self._position_(self._position().__plus(1));
+    return self['@collection']._at_(self._position());
+    return self;
+},
 source: unescape('next%0A%09self%20position%3A%20self%20position%20+%201.%20%0A%09%5Ecollection%20at%3A%20self%20position%0A')}),
 smalltalk.Stream);
 
@@ -3862,13 +4219,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'next:',
 category: 'reading',
-fn: function (anInteger){
-var self=this;
-var tempCollection=nil;
-tempCollection=self._collection()._class()._new();
-anInteger._timesRepeat_((function(){return self._atEnd()._ifFalse_((function(){return tempCollection._add_(self._next());}));}));
-return tempCollection;
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    var tempCollection = nil;
+    tempCollection = self._collection()._class()._new();
+    anInteger._timesRepeat_(function () {return self._atEnd()._ifFalse_(function () {return tempCollection._add_(self._next());});});
+    return tempCollection;
+    return self;
+},
 source: unescape('next%3A%20anInteger%0A%09%7C%20tempCollection%20%7C%0A%09tempCollection%20%3A%3D%20self%20collection%20class%20new.%0A%09anInteger%20timesRepeat%3A%20%5B%0A%09%20%20%20%20self%20atEnd%20ifFalse%3A%20%5B%0A%09%09tempCollection%20add%3A%20self%20next%5D%5D.%0A%09%5EtempCollection%0A')}),
 smalltalk.Stream);
 
@@ -3877,12 +4235,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'nextPut:',
 category: 'writing',
-fn: function (anObject){
-var self=this;
-self._position_(self._position().__plus((1)));
-self._collection()._at_put_(self._position(),anObject);
-self._setStreamSize_(self._streamSize()._max_(self._position()));
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._position_(self._position().__plus(1));
+    self._collection()._at_put_(self._position(), anObject);
+    self._setStreamSize_(self._streamSize()._max_(self._position()));
+    return self;
+},
 source: unescape('nextPut%3A%20anObject%0A%09self%20position%3A%20self%20position%20+%201.%0A%09self%20collection%20at%3A%20self%20position%20put%3A%20anObject.%0A%09self%20setStreamSize%3A%20%28self%20streamSize%20max%3A%20self%20position%29%0A')}),
 smalltalk.Stream);
 
@@ -3891,10 +4250,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'nextPutAll:',
 category: 'writing',
-fn: function (aCollection){
-var self=this;
-aCollection._do_((function(each){return self._nextPut_(each);}));
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    aCollection._do_(function (each) {return self._nextPut_(each);});
+    return self;
+},
 source: unescape('nextPutAll%3A%20aCollection%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20self%20nextPut%3A%20each%5D%0A')}),
 smalltalk.Stream);
 
@@ -3903,10 +4263,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'peek',
 category: 'reading',
-fn: function (){
-var self=this;
-return self._atEnd()._ifFalse_((function(){return self._collection()._at_(self._position().__plus((1)));}));
-return self;},
+fn: function () {
+    var self = this;
+    return self._atEnd()._ifFalse_(function () {return self._collection()._at_(self._position().__plus(1));});
+    return self;
+},
 source: unescape('peek%0A%09%5Eself%20atEnd%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20collection%20at%3A%20self%20position%20+%201%5D%0A')}),
 smalltalk.Stream);
 
@@ -3915,10 +4276,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'atEnd',
 category: 'testing',
-fn: function (){
-var self=this;
-return self._position().__eq(self._size());
-return self;},
+fn: function () {
+    var self = this;
+    return self._position().__eq(self._size());
+    return self;
+},
 source: unescape('atEnd%0A%09%5Eself%20position%20%3D%20self%20size%0A')}),
 smalltalk.Stream);
 
@@ -3927,10 +4289,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'atStart',
 category: 'testing',
-fn: function (){
-var self=this;
-return self._position().__eq((0));
-return self;},
+fn: function () {
+    var self = this;
+    return self._position().__eq(0);
+    return self;
+},
 source: unescape('atStart%0A%09%5Eself%20position%20%3D%200%0A')}),
 smalltalk.Stream);
 
@@ -3939,10 +4302,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'isEmpty',
 category: 'testing',
-fn: function (){
-var self=this;
-return self._size().__eq((0));
-return self;},
+fn: function () {
+    var self = this;
+    return self._size().__eq(0);
+    return self;
+},
 source: unescape('isEmpty%0A%09%5Eself%20size%20%3D%200%0A')}),
 smalltalk.Stream);
 
@@ -3952,10 +4316,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'on:',
 category: 'instance creation',
-fn: function (aCollection){
-var self=this;
-return (function($rec){$rec._setCollection_(aCollection);$rec._setStreamSize_(aCollection._size());return $rec._yourself();})(self._new());
-return self;},
+fn: function (aCollection) {
+    var self = this;
+    return function ($rec) {$rec._setCollection_(aCollection);$rec._setStreamSize_(aCollection._size());return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('on%3A%20aCollection%0A%09%20%20%20%20%5Eself%20new%20%0A%09%09setCollection%3A%20aCollection%3B%0A%09%09setStreamSize%3A%20aCollection%20size%3B%0A%09%09yourself%0A')}),
 smalltalk.Stream.klass);
 
@@ -3966,13 +4331,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'next:',
 category: 'reading',
-fn: function (anInteger){
-var self=this;
-var tempCollection=nil;
-tempCollection=self._collection()._class()._new();
-anInteger._timesRepeat_((function(){return self._atEnd()._ifFalse_((function(){return tempCollection=tempCollection.__comma(self._next());}));}));
-return tempCollection;
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    var tempCollection = nil;
+    tempCollection = self._collection()._class()._new();
+    anInteger._timesRepeat_(function () {return self._atEnd()._ifFalse_(function () {return tempCollection = tempCollection.__comma(self._next());});});
+    return tempCollection;
+    return self;
+},
 source: unescape('next%3A%20anInteger%0A%09%7C%20tempCollection%20%7C%0A%09tempCollection%20%3A%3D%20self%20collection%20class%20new.%0A%09anInteger%20timesRepeat%3A%20%5B%0A%09%20%20%20%20self%20atEnd%20ifFalse%3A%20%5B%0A%09%09tempCollection%20%3A%3D%20tempCollection%2C%20self%20next%5D%5D.%0A%09%5EtempCollection%0A')}),
 smalltalk.StringStream);
 
@@ -3981,10 +4347,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'nextPut:',
 category: 'writing',
-fn: function (aString){
-var self=this;
-self._nextPutAll_(aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._nextPutAll_(aString);
+    return self;
+},
 source: unescape('nextPut%3A%20aString%0A%09self%20nextPutAll%3A%20aString%0A')}),
 smalltalk.StringStream);
 
@@ -3993,12 +4360,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'nextPutAll:',
 category: 'writing',
-fn: function (aString){
-var self=this;
-self._setCollection_(self._collection()._copyFrom_to_((1),self._position()).__comma(aString).__comma(self._collection()._copyFrom_to_(self._position().__plus((1)).__plus(aString._size()),self._collection()._size())));
-self._position_(self._position().__plus(aString._size()));
-self._setStreamSize_(self._streamSize()._max_(self._position()));
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._setCollection_(self._collection()._copyFrom_to_(1, self._position()).__comma(aString).__comma(self._collection()._copyFrom_to_(self._position().__plus(1).__plus(aString._size()), self._collection()._size())));
+    self._position_(self._position().__plus(aString._size()));
+    self._setStreamSize_(self._streamSize()._max_(self._position()));
+    return self;
+},
 source: unescape('nextPutAll%3A%20aString%0A%09self%20setCollection%3A%20%0A%09%20%20%20%20%28self%20collection%20copyFrom%3A%201%20to%3A%20self%20position%29%2C%0A%09%20%20%20%20aString%2C%0A%09%20%20%20%20%28self%20collection%20copyFrom%3A%20%28self%20position%20+%201%20+%20aString%20size%29%20to%3A%20self%20collection%20size%29.%0A%09self%20position%3A%20self%20position%20+%20aString%20size.%0A%09self%20setStreamSize%3A%20%28self%20streamSize%20max%3A%20self%20position%29%0A')}),
 smalltalk.StringStream);
 
@@ -4010,10 +4378,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'class:',
 category: 'accessing',
-fn: function (aClass){
-var self=this;
-self['@class']=aClass;
-return self;},
+fn: function (aClass) {
+    var self = this;
+    self['@class'] = aClass;
+    return self;
+},
 source: unescape('class%3A%20aClass%0A%09class%20%3A%3D%20aClass%0A')}),
 smalltalk.ClassCommentReader);
 
@@ -4022,12 +4391,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'scanFrom:',
 category: 'fileIn',
-fn: function (aStream){
-var self=this;
-var nextChunk=nil;
-nextChunk=self['@chunkParser']._emptyChunk().__slash(self['@chunkParser']._chunk())._parse_(aStream);
-nextChunk._isEmptyChunk()._ifFalse_((function(){return self._setComment_(nextChunk._contents());}));
-return self;},
+fn: function (aStream) {
+    var self = this;
+    var nextChunk = nil;
+    nextChunk = self['@chunkParser']._emptyChunk().__slash(self['@chunkParser']._chunk())._parse_(aStream);
+    nextChunk._isEmptyChunk()._ifFalse_(function () {return self._setComment_(nextChunk._contents());});
+    return self;
+},
 source: unescape('scanFrom%3A%20aStream%0A%09%7C%20nextChunk%20%7C%0A%09nextChunk%20%3A%3D%20%28chunkParser%20emptyChunk%20/%20chunkParser%20chunk%29%20parse%3A%20aStream.%0A%09nextChunk%20isEmptyChunk%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20setComment%3A%20nextChunk%20contents%5D.%0A')}),
 smalltalk.ClassCommentReader);
 
@@ -4036,11 +4406,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@chunkParser']=smalltalk.ChunkParser._new();
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@chunkParser'] = smalltalk.ChunkParser._new();
+    return self;
+},
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.%0A')}),
 smalltalk.ClassCommentReader);
 
@@ -4049,14 +4420,176 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setComment:',
 category: 'private',
-fn: function (aString){
-var self=this;
-self['@class']._comment_(aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self['@class']._comment_(aString);
+    return self;
+},
 source: unescape('setComment%3A%20aString%0A%20%20%20%20class%20comment%3A%20aString%0A')}),
 smalltalk.ClassCommentReader);
 
 
+
+smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel');
+smalltalk.addMethod(
+'_next',
+smalltalk.method({
+selector: 'next',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return Math.random();}();
+    return self;
+},
+source: unescape('next%0A%20%20%20%20%5E%7B%27return%20Math.random%28%29%27%7D%0A')}),
+smalltalk.Random);
+
+smalltalk.addMethod(
+'_next_',
+smalltalk.method({
+selector: 'next:',
+category: 'accessing',
+fn: function (anInteger) {
+    var self = this;
+    return (1)._to_collect_(anInteger, function (each) {return self._next();});
+    return self;
+},
+source: unescape('next%3A%20anInteger%0A%20%20%20%20%5E1%20to%3A%20anInteger%20collect%3A%20%5B%3Aeach%20%7C%20self%20next%5D%0A')}),
+smalltalk.Random);
+
+
+
+smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel');
+smalltalk.addMethod(
+'_x',
+smalltalk.method({
+selector: 'x',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@x'];
+    return self;
+},
+source: unescape('x%0A%09%5Ex')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'_y',
+smalltalk.method({
+selector: 'y',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@y'];
+    return self;
+},
+source: unescape('y%0A%09%5Ey')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'_y_',
+smalltalk.method({
+selector: 'y:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    self['@y'] = aNumber;
+    return self;
+},
+source: unescape('y%3A%20aNumber%0A%09y%20%3A%3D%20aNumber')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'_x_',
+smalltalk.method({
+selector: 'x:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    self['@x'] = aNumber;
+    return self;
+},
+source: unescape('x%3A%20aNumber%0A%09x%20%3A%3D%20aNumber')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'__star',
+smalltalk.method({
+selector: '*',
+category: 'arithmetic',
+fn: function (aPoint) {
+    var self = this;
+    return smalltalk.Point._x_y_(self._x().__star(aPoint._asPoint()._x()), self._y().__star(aPoint._asPoint()._y()));
+    return self;
+},
+source: unescape('*%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20*%20aPoint%20asPoint%20x%20y%3A%20self%20y%20*%20aPoint%20asPoint%20y')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'__plus',
+smalltalk.method({
+selector: '+',
+category: 'arithmetic',
+fn: function (aPoint) {
+    var self = this;
+    return smalltalk.Point._x_y_(self._x().__plus(aPoint._asPoint()._x()), self._y().__plus(aPoint._asPoint()._y()));
+    return self;
+},
+source: unescape('+%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20+%20aPoint%20asPoint%20x%20y%3A%20self%20y%20+%20aPoint%20asPoint%20y')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'__minus',
+smalltalk.method({
+selector: '-',
+category: 'arithmetic',
+fn: function (aPoint) {
+    var self = this;
+    return smalltalk.Point._x_y_(self._x().__minus(aPoint._asPoint()._x()), self._y().__minus(aPoint._asPoint()._y()));
+    return self;
+},
+source: unescape('-%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20-%20aPoint%20asPoint%20x%20y%3A%20self%20y%20-%20aPoint%20asPoint%20y')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'__slash',
+smalltalk.method({
+selector: '/',
+category: 'arithmetic',
+fn: function (aPoint) {
+    var self = this;
+    return smalltalk.Point._x_y_(self._x().__slash(aPoint._asPoint()._x()), self._y().__slash(aPoint._asPoint()._y()));
+    return self;
+},
+source: unescape('/%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20/%20aPoint%20asPoint%20x%20y%3A%20self%20y%20/%20aPoint%20asPoint%20y')}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'_asPoint',
+smalltalk.method({
+selector: 'asPoint',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return self;
+    return self;
+},
+source: unescape('asPoint%0A%09%5Eself')}),
+smalltalk.Point);
+
+
+smalltalk.addMethod(
+'_x_y_',
+smalltalk.method({
+selector: 'x:y:',
+category: 'instance creation',
+fn: function (aNumber, anotherNumber) {
+    var self = this;
+    return function ($rec) {$rec._x_(aNumber);$rec._y_(anotherNumber);return $rec._yourself();}(self._new());
+    return self;
+},
+source: unescape('x%3A%20aNumber%20y%3A%20anotherNumber%0A%09%5Eself%20new%0A%09%09x%3A%20aNumber%3B%0A%09%09y%3A%20anotherNumber%3B%0A%09%09yourself')}),
+smalltalk.Point.klass);
 
 
 smalltalk.addClass('PPParser', smalltalk.Object, ['memo'], 'Parser');
@@ -6990,16 +7523,215 @@ smalltalk.Ajax.klass);
 
 
 
+smalltalk.addClass('CanvasRenderingContext', smalltalk.Object, [], 'Canvas');
+smalltalk.addMethod(
+'_fillStyle_',
+smalltalk.method({
+selector: 'fillStyle:',
+category: 'drawing paths',
+fn: function (aString) {
+    var self = this;
+    (function () {self.fillStyle = String(aString);}());
+    return self;
+},
+source: unescape('fillStyle%3A%20aString%0A%09%7B%27self.fillStyle%20%3D%20String%28aString%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_beginPath',
+smalltalk.method({
+selector: 'beginPath',
+category: 'drawing paths',
+fn: function () {
+    var self = this;
+    (function () {self.beginPath();}());
+    return self;
+},
+source: unescape('beginPath%0A%09%7B%27self.beginPath%28%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_closePath',
+smalltalk.method({
+selector: 'closePath',
+category: 'drawing paths',
+fn: function () {
+    var self = this;
+    (function () {self.closePath();}());
+    return self;
+},
+source: unescape('closePath%0A%09%7B%27self.closePath%28%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_fill',
+smalltalk.method({
+selector: 'fill',
+category: 'drawing paths',
+fn: function () {
+    var self = this;
+    (function () {self.fill();}());
+    return self;
+},
+source: unescape('fill%0A%09%7B%27self.fill%28%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_stroke',
+smalltalk.method({
+selector: 'stroke',
+category: 'drawing paths',
+fn: function () {
+    var self = this;
+    (function () {self.stroke();}());
+    return self;
+},
+source: unescape('stroke%0A%09%7B%27self.stroke%28%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_moveTo_',
+smalltalk.method({
+selector: 'moveTo:',
+category: 'drawing paths',
+fn: function (aPoint) {
+    var self = this;
+    (function () {self.moveTo(aPoint._x(), aPoint._y());}());
+    return self;
+},
+source: unescape('moveTo%3A%20aPoint%0A%09%7B%27self.moveTo%28aPoint._x%28%29%2C%20aPoint._y%28%29%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_lineTo_',
+smalltalk.method({
+selector: 'lineTo:',
+category: 'drawing paths',
+fn: function (aPoint) {
+    var self = this;
+    (function () {self.lineTo(aPoint._x(), aPoint._y());}());
+    return self;
+},
+source: unescape('lineTo%3A%20aPoint%0A%09%7B%27self.lineTo%28aPoint._x%28%29%2C%20aPoint._y%28%29%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_arcTo_radius_startAngle_endAngle_anticlockwise_',
+smalltalk.method({
+selector: 'arcTo:radius:startAngle:endAngle:anticlockwise:',
+category: 'drawing arcs',
+fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean) {
+    var self = this;
+    (function () {self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);}());
+    return self;
+},
+source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%20aNumber2%20endAngle%3A%20aNumber3%20anticlockwise%3A%20aBoolean%0A%09%7B%27self.arc%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20aNumber%2C%20aNumber2%2C%20aNumber3%2C%20aBoolean%29%27%7D%20')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_arcTo_radius_',
+smalltalk.method({
+selector: 'arcTo:radius:',
+category: 'drawing arcs',
+fn: function (aPoint, aNumber) {
+    var self = this;
+    self._arcTo_radius_startAngle_endAngle_anticlockwise_(aPoint, aNumber, 0, smalltalk.Number._pi().__star(2), false);
+    return self;
+},
+source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%0A%09self%20arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%200%20endAngle%3A%20Number%20pi%20*%202%20anticlockwise%3A%20false')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_fillRectFrom_to_',
+smalltalk.method({
+selector: 'fillRectFrom:to:',
+category: 'drawing rectangles',
+fn: function (aPoint, anotherPoint) {
+    var self = this;
+    (function () {self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());}());
+    return self;
+},
+source: unescape('fillRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%7B%27self.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_strokeRectFrom_to_',
+smalltalk.method({
+selector: 'strokeRectFrom:to:',
+category: 'drawing rectangles',
+fn: function (aPoint, anotherPoint) {
+    var self = this;
+    (function () {self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());}());
+    return self;
+},
+source: unescape('strokeRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%7B%27self.strokeRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_clearRectFrom_to_',
+smalltalk.method({
+selector: 'clearRectFrom:to:',
+category: 'drawing rectangles',
+fn: function (aPoint, anotherPoint) {
+    var self = this;
+    (function () {self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());}());
+    return self;
+},
+source: unescape('clearRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%7B%27self.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_strokeStyle_',
+smalltalk.method({
+selector: 'strokeStyle:',
+category: 'drawing paths',
+fn: function (aString) {
+    var self = this;
+    (function () {self.strokeStyle = String(aString);}());
+    return self;
+},
+source: unescape('strokeStyle%3A%20aString%0A%09%7B%27self.strokeStyle%20%3D%20String%28aString%29%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_lineWidth_',
+smalltalk.method({
+selector: 'lineWidth:',
+category: 'drawing paths',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.lineWidth = aNumber;}());
+    return self;
+},
+source: unescape('lineWidth%3A%20aNumber%0A%09%7B%27self.lineWidth%20%3D%20aNumber%27%7D')}),
+smalltalk.CanvasRenderingContext);
+
+
+smalltalk.addMethod(
+'_tagBrush_',
+smalltalk.method({
+selector: 'tagBrush:',
+category: 'instance creation',
+fn: function (aTagBrush) {
+    var self = this;
+    return function () {return aTagBrush._element().getContext("2d");}();
+    return self;
+},
+source: unescape('tagBrush%3A%20aTagBrush%0A%09%5E%7B%27return%20aTagBrush._element%28%29.getContext%28%27%272d%27%27%29%27%7D')}),
+smalltalk.CanvasRenderingContext.klass);
+
+
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 '_root_',
 smalltalk.method({
 selector: 'root:',
 category: 'accessing',
-fn: function (aTagBrush){
-var self=this;
-self['@root']=aTagBrush;
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    self['@root'] = aTagBrush;
+    return self;
+},
 source: unescape('root%3A%20aTagBrush%0A%20%20%20%20root%20%3A%3D%20aTagBrush%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7008,10 +7740,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'root',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@root'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@root'];
+    return self;
+},
 source: unescape('root%0A%20%20%20%20%5Eroot%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7020,11 +7753,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@root']=smalltalk.TagBrush._fromString_canvas_("div",self);
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@root'] = smalltalk.TagBrush._fromString_canvas_("div", self);
+    return self;
+},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7033,10 +7767,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'with:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-return self._root()._with_(anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    return self._root()._with_(anObject);
+    return self;
+},
 source: unescape('with%3A%20anObject%0A%20%20%20%20%5Eself%20root%20with%3A%20anObject%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7045,10 +7780,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'newTag:',
 category: 'tags',
-fn: function (aString){
-var self=this;
-return smalltalk.TagBrush._fromString_canvas_(aString,self);
-return self;},
+fn: function (aString) {
+    var self = this;
+    return smalltalk.TagBrush._fromString_canvas_(aString, self);
+    return self;
+},
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7057,10 +7793,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tag:',
 category: 'tags',
-fn: function (aString){
-var self=this;
-return self['@root']._addBrush_(self._newTag_(aString));
-return self;},
+fn: function (aString) {
+    var self = this;
+    return self['@root']._addBrush_(self._newTag_(aString));
+    return self;
+},
 source: unescape('tag%3A%20aString%0A%20%20%20%20%5Eroot%20addBrush%3A%20%28self%20newTag%3A%20aString%29%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7069,10 +7806,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'h1',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("h1");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("h1");
+    return self;
+},
 source: unescape('h1%0A%20%20%20%20%5Eself%20tag%3A%20%27h1%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7081,10 +7819,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'h2',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("h2");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("h2");
+    return self;
+},
 source: unescape('h2%0A%20%20%20%20%5Eself%20tag%3A%20%27h2%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7093,10 +7832,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'h3',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("h3");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("h3");
+    return self;
+},
 source: unescape('h3%0A%20%20%20%20%5Eself%20tag%3A%20%27h3%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7105,10 +7845,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'h4',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("h4");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("h4");
+    return self;
+},
 source: unescape('h4%0A%20%20%20%20%5Eself%20tag%3A%20%27h4%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7117,10 +7858,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'h5',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("h5");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("h5");
+    return self;
+},
 source: unescape('h5%0A%20%20%20%20%5Eself%20tag%3A%20%27h5%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7129,10 +7871,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'h6',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("h6");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("h6");
+    return self;
+},
 source: unescape('h6%0A%20%20%20%20%5Eself%20tag%3A%20%27h6%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7141,10 +7884,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'p',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("p");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("p");
+    return self;
+},
 source: unescape('p%0A%20%20%20%20%5Eself%20tag%3A%20%27p%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7153,10 +7897,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'div',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("div");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("div");
+    return self;
+},
 source: unescape('div%0A%20%20%20%20%5Eself%20tag%3A%20%27div%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7165,10 +7910,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'span',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("span");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("span");
+    return self;
+},
 source: unescape('span%0A%20%20%20%20%5Eself%20tag%3A%20%27span%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7177,10 +7923,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'img',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("img");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("img");
+    return self;
+},
 source: unescape('img%0A%20%20%20%20%5Eself%20tag%3A%20%27img%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7189,10 +7936,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ul',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("ul");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("ul");
+    return self;
+},
 source: unescape('ul%0A%20%20%20%20%5Eself%20tag%3A%20%27ul%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7201,10 +7949,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ol',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("ol");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("ol");
+    return self;
+},
 source: unescape('ol%0A%20%20%20%20%5Eself%20tag%3A%20%27ol%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7213,10 +7962,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'li',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("li");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("li");
+    return self;
+},
 source: unescape('li%0A%20%20%20%20%5Eself%20tag%3A%20%27li%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7225,10 +7975,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'table',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("table");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("table");
+    return self;
+},
 source: unescape('table%0A%20%20%20%20%5Eself%20tag%3A%20%27table%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7237,10 +7988,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tr',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("tr");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("tr");
+    return self;
+},
 source: unescape('tr%0A%20%20%20%20%5Eself%20tag%3A%20%27tr%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7249,10 +8001,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'td',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("td");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("td");
+    return self;
+},
 source: unescape('td%20%0A%20%20%20%20%5Eself%20tag%3A%20%27td%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7261,10 +8014,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'th',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("th");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("th");
+    return self;
+},
 source: unescape('th%0A%20%20%20%20%5Eself%20tag%3A%20%27th%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7273,10 +8027,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'form',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("form");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("form");
+    return self;
+},
 source: unescape('form%0A%20%20%20%20%5Eself%20tag%3A%20%27form%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7285,10 +8040,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'input',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("input");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("input");
+    return self;
+},
 source: unescape('input%0A%20%20%20%20%5Eself%20tag%3A%20%27input%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7297,10 +8053,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'button',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("button");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("button");
+    return self;
+},
 source: unescape('button%0A%20%20%20%20%5Eself%20tag%3A%20%27button%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7309,10 +8066,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'select',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("select");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("select");
+    return self;
+},
 source: unescape('select%0A%20%20%20%20%5Eself%20tag%3A%20%27select%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7321,10 +8079,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'option',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("option");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("option");
+    return self;
+},
 source: unescape('option%0A%20%20%20%20%5Eself%20tag%3A%20%27option%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7333,10 +8092,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'textarea',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("textarea");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("textarea");
+    return self;
+},
 source: unescape('textarea%0A%20%20%20%20%5Eself%20tag%3A%20%27textarea%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7345,10 +8105,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'a',
 category: 'tags',
-fn: function (){
-var self=this;
-return self._tag_("a");
-return self;},
+fn: function () {
+    var self = this;
+    return self._tag_("a");
+    return self;
+},
 source: unescape('a%0A%20%20%20%20%5Eself%20tag%3A%20%27a%27%0A')}),
 smalltalk.HTMLCanvas);
 
@@ -7357,26 +8118,41 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToJQuery:',
 category: '*JQuery',
-fn: function (aJQuery){
-var self=this;
-aJQuery._appendElement_(self['@root']._element());
-return self;},
+fn: function (aJQuery) {
+    var self = this;
+    aJQuery._appendElement_(self['@root']._element());
+    return self;
+},
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20aJQuery%20appendElement%3A%20root%20element%0A')}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_canvas',
+smalltalk.method({
+selector: 'canvas',
+category: 'tags',
+fn: function () {
+    var self = this;
+    return self._tag_("canvas");
+    return self;
+},
+source: unescape('canvas%0A%09%5Eself%20tag%3A%20%27canvas%27%0A')}),
 smalltalk.HTMLCanvas);
 
 
 
-smalltalk.addClass('TagBrush', smalltalk.Object, ['element'], 'Canvas');
+smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
 '_contents_',
 smalltalk.method({
 selector: 'contents:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-self._asJQuery()._empty();
-self._append_(anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._asJQuery()._empty();
+    self._append_(anObject);
+    return self;
+},
 source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20asJQuery%20empty.%0A%20%20%20%20self%20append%3A%20anObject%0A')}),
 smalltalk.TagBrush);
 
@@ -7385,11 +8161,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addBrush:',
 category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-self._appendChild_(aTagBrush._element());
-return aTagBrush;
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    self._appendChild_(aTagBrush._element());
+    return aTagBrush;
+    return self;
+},
 source: unescape('addBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendChild%3A%20aTagBrush%20element.%0A%20%20%20%20%5EaTagBrush%0A')}),
 smalltalk.TagBrush);
 
@@ -7398,10 +8175,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'with:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-self._append_(anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._append_(anObject);
+    return self;
+},
 source: unescape('with%3A%20anObject%0A%20%20%20%20self%20append%3A%20anObject%0A')}),
 smalltalk.TagBrush);
 
@@ -7410,10 +8188,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'append:',
 category: 'adding',
-fn: function (anObject){
-var self=this;
-anObject._appendToBrush_(self);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    anObject._appendToBrush_(self);
+    return self;
+},
 source: unescape('append%3A%20anObject%0A%20%20%20%20anObject%20appendToBrush%3A%20self%0A')}),
 smalltalk.TagBrush);
 
@@ -7422,10 +8201,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToBrush:',
 category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-aTagBrush._addBrush_(self);
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    aTagBrush._addBrush_(self);
+    return self;
+},
 source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20addBrush%3A%20self%0A')}),
 smalltalk.TagBrush);
 
@@ -7434,14 +8214,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendBlock:',
 category: 'adding',
-fn: function (aBlock){
-var self=this;
-var root=nil;
-root=canvas._root();
-canvas._root_(self);
-aBlock._value_(canvas);
-canvas._root_(root);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    var root = nil;
+    root = canvas._root();
+    canvas._root_(self);
+    aBlock._value_(canvas);
+    canvas._root_(root);
+    return self;
+},
 source: unescape('appendBlock%3A%20aBlock%0A%20%20%20%20%7C%20root%20%7C%0A%20%20%20%20root%20%3A%3D%20canvas%20root.%0A%20%20%20%20canvas%20root%3A%20self.%0A%20%20%20%20aBlock%20value%3A%20canvas.%0A%20%20%20%20canvas%20root%3A%20root%0A')}),
 smalltalk.TagBrush);
 
@@ -7450,10 +8231,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendChild:',
 category: 'adding',
-fn: function (anElement){
-var self=this;
-(function(){self['@element'].appendChild(anElement)})();
-return self;},
+fn: function (anElement) {
+    var self = this;
+    (function () {self['@element'].appendChild(anElement);}());
+    return self;
+},
 source: unescape('appendChild%3A%20anElement%0A%20%20%20%20%7B%27self%5B%27%27@element%27%27%5D.appendChild%28anElement%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
@@ -7462,10 +8244,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendString:',
 category: 'adding',
-fn: function (aString){
-var self=this;
-self._appendChild_(self._createTextNodeFor_(aString));
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._appendChild_(self._createTextNodeFor_(aString));
+    return self;
+},
 source: unescape('appendString%3A%20aString%0A%20%20%20%20self%20appendChild%3A%20%28self%20createTextNodeFor%3A%20aString%29%0A')}),
 smalltalk.TagBrush);
 
@@ -7474,10 +8257,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:put:',
 category: 'attributes',
-fn: function (aString, aValue){
-var self=this;
-(function(){self['@element'].setAttribute(aString, aValue)})();
-return self;},
+fn: function (aString, aValue) {
+    var self = this;
+    (function () {self['@element'].setAttribute(aString, aValue);}());
+    return self;
+},
 source: unescape('at%3A%20aString%20put%3A%20aValue%0A%20%20%20%20%7B%27self%5B%27%27@element%27%27%5D.setAttribute%28aString%2C%20aValue%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
@@ -7486,10 +8270,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeAt:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-(function(){self['@element'].removeAttribute(aString)})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    (function () {self['@element'].removeAttribute(aString);}());
+    return self;
+},
 source: unescape('removeAt%3A%20aString%0A%20%20%20%20%7B%27self%5B%27%27@element%27%27%5D.removeAttribute%28aString%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
@@ -7498,10 +8283,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'class:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-self._at_put_("class",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._at_put_("class", aString);
+    return self;
+},
 source: unescape('class%3A%20aString%0A%20%20%20%20self%20at%3A%20%27class%27%20put%3A%20aString%0A')}),
 smalltalk.TagBrush);
 
@@ -7510,10 +8296,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'id:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-self._at_put_("id",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._at_put_("id", aString);
+    return self;
+},
 source: unescape('id%3A%20aString%0A%20%20%20%20self%20at%3A%20%27id%27%20put%3A%20aString%0A')}),
 smalltalk.TagBrush);
 
@@ -7522,10 +8309,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'src:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-self._at_put_("src",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._at_put_("src", aString);
+    return self;
+},
 source: unescape('src%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27src%27%20put%3A%20aString%0A')}),
 smalltalk.TagBrush);
 
@@ -7534,10 +8322,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'href:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-self._at_put_("href",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._at_put_("href", aString);
+    return self;
+},
 source: unescape('href%3A%20aString%0A%20%20%20%20self%20at%3A%20%27href%27%20put%3A%20aString%0A')}),
 smalltalk.TagBrush);
 
@@ -7546,10 +8335,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'title:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-self._at_put_("title",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._at_put_("title", aString);
+    return self;
+},
 source: unescape('title%3A%20aString%0A%20%20%20%20self%20at%3A%20%27title%27%20put%3A%20aString%0A')}),
 smalltalk.TagBrush);
 
@@ -7558,10 +8348,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'style:',
 category: 'attributes',
-fn: function (aString){
-var self=this;
-self._at_put_("style",aString);
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._at_put_("style", aString);
+    return self;
+},
 source: unescape('style%3A%20aString%0A%20%20%20%20self%20at%3A%20%27style%27%20put%3A%20aString%0A')}),
 smalltalk.TagBrush);
 
@@ -7570,11 +8361,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initializeFromString:canvas:',
 category: 'initialization',
-fn: function (aString, aCanvas){
-var self=this;
-self['@element']=self._createElementFor_(aString);
-canvas=aCanvas;
-return self;},
+fn: function (aString, aCanvas) {
+    var self = this;
+    self['@element'] = self._createElementFor_(aString);
+    canvas = aCanvas;
+    return self;
+},
 source: unescape('initializeFromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20self%20createElementFor%3A%20aString.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas%0A')}),
 smalltalk.TagBrush);
 
@@ -7583,10 +8375,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'element',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@element'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@element'];
+    return self;
+},
 source: unescape('element%0A%20%20%20%20%5Eelement%0A')}),
 smalltalk.TagBrush);
 
@@ -7595,10 +8388,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJQuery',
 category: 'converting',
-fn: function (){
-var self=this;
-return (function(){return smalltalk.JQuery._from_(jQuery(self['@element']))})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return smalltalk.JQuery._from_(jQuery(self['@element']));}();
+    return self;
+},
 source: unescape('asJQuery%0A%20%20%20%20%5E%7B%27return%20smalltalk.JQuery._from_%28jQuery%28self%5B%27%27@element%27%27%5D%29%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
@@ -7607,10 +8401,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJQueryDo:',
 category: 'converting',
-fn: function (aBlock){
-var self=this;
-aBlock._value_(self._asJQuery());
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    aBlock._value_(self._asJQuery());
+    return self;
+},
 source: unescape('asJQueryDo%3A%20aBlock%0A%20%20%20%20aBlock%20value%3A%20self%20asJQuery%0A')}),
 smalltalk.TagBrush);
 
@@ -7619,10 +8414,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onKeyDown:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("keydown",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("keydown", aBlock);
+    return self;
+},
 source: unescape('onKeyDown%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27keydown%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7631,10 +8427,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onKeyPress:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("keypress",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("keypress", aBlock);
+    return self;
+},
 source: unescape('onKeyPress%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27keypress%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7643,10 +8440,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onKeyUp:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("keyup",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("keyup", aBlock);
+    return self;
+},
 source: unescape('onKeyUp%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27keyup%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7655,10 +8453,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onFocus:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("focus",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("focus", aBlock);
+    return self;
+},
 source: unescape('onFocus%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27focus%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7667,10 +8466,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onBlur:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("blur",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("blur", aBlock);
+    return self;
+},
 source: unescape('onBlur%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27blur%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7679,10 +8479,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onChange:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("change",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("change", aBlock);
+    return self;
+},
 source: unescape('onChange%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27change%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7691,10 +8492,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onClick:',
 category: 'events',
-fn: function (aBlock){
-var self=this;
-self._asJQuery()._on_do_("click",aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    self._asJQuery()._on_do_("click", aBlock);
+    return self;
+},
 source: unescape('onClick%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20on%3A%20%27click%27%20do%3A%20aBlock%0A')}),
 smalltalk.TagBrush);
 
@@ -7703,10 +8505,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'createElementFor:',
 category: 'private',
-fn: function (aString){
-var self=this;
-return (function(){return document.createElement(String(aString))})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return document.createElement(String(aString));}();
+    return self;
+},
 source: unescape('createElementFor%3A%20aString%0A%20%20%20%20%5E%7B%27return%20document.createElement%28String%28aString%29%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
@@ -7715,10 +8518,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'createTextNodeFor:',
 category: 'private',
-fn: function (aString){
-var self=this;
-return (function(){return document.createTextNode(String(aString))})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return document.createTextNode(String(aString));}();
+    return self;
+},
 source: unescape('createTextNodeFor%3A%20aString%0A%20%20%20%20%5E%7B%27return%20document.createTextNode%28String%28aString%29%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
@@ -7728,10 +8532,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fromString:canvas:',
 category: 'instance creation',
-fn: function (aString, aCanvas){
-var self=this;
-return (function($rec){$rec._initializeFromString_canvas_(aString,aCanvas);return $rec._yourself();})(self._new());
-return self;},
+fn: function (aString, aCanvas) {
+    var self = this;
+    return function ($rec) {$rec._initializeFromString_canvas_(aString, aCanvas);return $rec._yourself();}(self._new());
+    return self;
+},
 source: unescape('fromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromString%3A%20aString%20canvas%3A%20aCanvas%3B%0A%09yourself%0A')}),
 smalltalk.TagBrush.klass);
 
@@ -7742,10 +8547,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'root',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@root'];
-return self;},
+fn: function () {
+    var self = this;
+    return self['@root'];
+    return self;
+},
 source: unescape('root%0A%20%20%20%20%5Eroot%0A')}),
 smalltalk.Widget);
 
@@ -7754,10 +8560,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToBrush:',
 category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-self._appendToJQuery_(aTagBrush._asJQuery());
-return self;},
+fn: function (aTagBrush) {
+    var self = this;
+    self._appendToJQuery_(aTagBrush._asJQuery());
+    return self;
+},
 source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendToJQuery%3A%20aTagBrush%20asJQuery%0A')}),
 smalltalk.Widget);
 
@@ -7766,11 +8573,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'appendToJQuery:',
 category: 'adding',
-fn: function (aJQuery){
-var self=this;
-self._render();
-aJQuery._append_(self._root()._asJQuery());
-return self;},
+fn: function (aJQuery) {
+    var self = this;
+    self._render();
+    aJQuery._append_(self._root()._asJQuery());
+    return self;
+},
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20self%20render.%0A%20%20%20%20aJQuery%20append%3A%20self%20root%20asJQuery%0A')}),
 smalltalk.Widget);
 
@@ -7779,10 +8587,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'alert:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-(function(){alert(aString)})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    (function () {alert(aString);}());
+    return self;
+},
 source: unescape('alert%3A%20aString%0A%20%20%20%20%7B%27alert%28aString%29%27%7D%0A')}),
 smalltalk.Widget);
 
@@ -7791,10 +8600,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'confirm:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-return (function(){return window.confirm(aString)})();
-return self;},
+fn: function (aString) {
+    var self = this;
+    return function () {return window.confirm(aString);}();
+    return self;
+},
 source: unescape('confirm%3A%20aString%0A%20%20%20%20%5E%7B%27return%20window.confirm%28aString%29%27%7D%0A')}),
 smalltalk.Widget);
 
@@ -7803,10 +8613,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'prompt:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-return self._prompt_default_(aString,"");
-return self;},
+fn: function (aString) {
+    var self = this;
+    return self._prompt_default_(aString, "");
+    return self;
+},
 source: unescape('prompt%3A%20aString%0A%20%20%20%20%5Eself%20prompt%3A%20aString%20default%3A%20%27%27%0A')}),
 smalltalk.Widget);
 
@@ -7815,10 +8626,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'prompt:default:',
 category: 'actions',
-fn: function (aString, anotherString){
-var self=this;
-return (function(){return window.prompt(aString, anotherString)})();
-return self;},
+fn: function (aString, anotherString) {
+    var self = this;
+    return function () {return window.prompt(aString, anotherString);}();
+    return self;
+},
 source: unescape('prompt%3A%20aString%20default%3A%20anotherString%0A%20%20%20%20%5E%7B%27return%20window.prompt%28aString%2C%20anotherString%29%27%7D%0A')}),
 smalltalk.Widget);
 
@@ -7827,14 +8639,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'update',
 category: 'actions',
-fn: function (){
-var self=this;
-var canvas=nil;
-canvas=smalltalk.HTMLCanvas._new();
-canvas._root_(self._root());
-self._root()._asJQuery()._empty();
-self._renderOn_(canvas);
-return self;},
+fn: function () {
+    var self = this;
+    var canvas = nil;
+    canvas = smalltalk.HTMLCanvas._new();
+    canvas._root_(self._root());
+    self._root()._asJQuery()._empty();
+    self._renderOn_(canvas);
+    return self;
+},
 source: unescape('update%0A%20%20%20%20%7C%20canvas%20%7C%0A%20%20%20%20canvas%20%3A%3D%20HTMLCanvas%20new.%0A%20%20%20%20canvas%20root%3A%20self%20root.%0A%20%20%20%20self%20root%20asJQuery%20empty.%0A%20%20%20%20self%20renderOn%3A%20canvas%0A')}),
 smalltalk.Widget);
 
@@ -7843,13 +8656,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'render',
 category: 'rendering',
-fn: function (){
-var self=this;
-var canvas=nil;
-canvas=smalltalk.HTMLCanvas._new();
-self['@root']=canvas._root();
-self._renderOn_(canvas);
-return self;},
+fn: function () {
+    var self = this;
+    var canvas = nil;
+    canvas = smalltalk.HTMLCanvas._new();
+    self['@root'] = canvas._root();
+    self._renderOn_(canvas);
+    return self;
+},
 source: unescape('render%0A%20%20%20%20%7C%20canvas%20%7C%0A%20%20%20%20canvas%20%3A%3D%20HTMLCanvas%20new.%0A%20%20%20%20root%20%3A%3D%20canvas%20root.%0A%20%20%20%20self%20renderOn%3A%20canvas%0A')}),
 smalltalk.Widget);
 
@@ -7858,26 +8672,69 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-self;
-return self;},
+fn: function (html) {
+    var self = this;
+    return self;
+},
 source: unescape('renderOn%3A%20html%0A%20%20%20%20self%0A')}),
 smalltalk.Widget);
 
 
 
-smalltalk.addClass('Counter', smalltalk.Widget, ['count'], 'Canvas');
+smalltalk.addClass('CanvasBrush', smalltalk.TagBrush, [], 'Canvas');
+smalltalk.addMethod(
+'_createElement',
+smalltalk.method({
+selector: 'createElement',
+category: 'private',
+fn: function () {
+    var self = this;
+    return function () {return document.createElement("canvas");}();
+    return self;
+},
+source: unescape('createElement%0A%20%20%20%20%5E%7B%27return%20document.createElement%28%27%27canvas%27%27%29%27%7D%0A')}),
+smalltalk.CanvasBrush);
+
+smalltalk.addMethod(
+'_initializeWithCanvas_',
+smalltalk.method({
+selector: 'initializeWithCanvas:',
+category: 'initialization',
+fn: function (aCanvas) {
+    var self = this;
+    canvas = aCanvas;
+    return self;
+},
+source: unescape('initializeWithCanvas%3A%20aCanvas%0A%09canvas%20%3A%3D%20aCanvas')}),
+smalltalk.CanvasBrush);
+
+
+smalltalk.addMethod(
+'_canvas_',
+smalltalk.method({
+selector: 'canvas:',
+category: 'instance creation',
+fn: function (aCanvas) {
+    var self = this;
+    return function ($rec) {$rec._initializeWithCanvas_(aCanvas);return $rec._yourself();}(self._new());
+    return self;
+},
+source: unescape('canvas%3A%20aCanvas%0A%09%5Eself%20new%0A%09%09initializeWithCanvas%3A%20aCanvas%3B%0A%09%09yourself')}),
+smalltalk.CanvasBrush.klass);
+
+
+smalltalk.addClass('Counter', smalltalk.Widget, ['count'], 'Examples');
 smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@count']=(0);
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@count'] = 0;
+    return self;
+},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20count%20%3A%3D%200%0A')}),
 smalltalk.Counter);
 
@@ -7886,12 +8743,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-html._h1()._with_(self['@count']._asString());
-(function($rec){$rec._with_(unescape("++"));return $rec._onClick_((function(){return self._increase();}));})(html._button());
-(function($rec){$rec._with_(unescape("--"));return $rec._onClick_((function(){return self._decrease();}));})(html._button());
-return self;},
+fn: function (html) {
+    var self = this;
+    html._h1()._with_(self['@count']._asString());
+    (function ($rec) {$rec._with_(unescape("++"));return $rec._onClick_(function () {return self._increase();});}(html._button()));
+    (function ($rec) {$rec._with_(unescape("--"));return $rec._onClick_(function () {return self._decrease();});}(html._button()));
+    return self;
+},
 source: unescape('renderOn%3A%20html%0A%20%20%20%20html%20h1%20with%3A%20count%20asString.%0A%20%20%20%20html%20button%0A%09with%3A%20%27++%27%3B%0A%09onClick%3A%20%5Bself%20increase%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27--%27%3B%0A%09onClick%3A%20%5Bself%20decrease%5D%0A')}),
 smalltalk.Counter);
 
@@ -7900,11 +8758,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'increase',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@count']=self['@count'].__plus((1));
-self._update();
-return self;},
+fn: function () {
+    var self = this;
+    self['@count'] = self['@count'].__plus(1);
+    self._update();
+    return self;
+},
 source: unescape('increase%0A%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%20%20%20%20self%20update%0A')}),
 smalltalk.Counter);
 
@@ -7913,14 +8772,652 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'decrease',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@count']=self['@count'].__minus((1));
-self._update();
-return self;},
+fn: function () {
+    var self = this;
+    self['@count'] = self['@count'].__minus(1);
+    self._update();
+    return self;
+},
 source: unescape('decrease%0A%20%20%20%20count%20%3A%3D%20count%20-%201.%0A%20%20%20%20self%20update%0A')}),
 smalltalk.Counter);
 
+
+
+smalltalk.addClass('Tetris', smalltalk.Widget, ['renderingContext', 'timer', 'speed', 'score', 'rows', 'movingPiece'], 'Examples');
+smalltalk.addMethod(
+'_renderOn_',
+smalltalk.method({
+selector: 'renderOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("tetris");return $rec._with_(function () {html._h3()._with_("Tetris");self._renderCanvasOn_(html);return self._renderButtonsOn_(html);});}(html._div()));
+    return self;
+},
+source: unescape('renderOn%3A%20html%0A%09html%20div%0A%09%09class%3A%20%27tetris%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20h3%20with%3A%20%27Tetris%27.%0A%09%09%09self%20renderCanvasOn%3A%20html.%0A%09%09%09self%20renderButtonsOn%3A%20html%5D')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_renderCanvasOn_',
+smalltalk.method({
+selector: 'renderCanvasOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    var canvas = nil;
+    canvas = html._canvas();
+    canvas._at_put_("width", self._width()._asString());
+    canvas._at_put_("height", self._height()._asString());
+    self['@renderingContext'] = smalltalk.CanvasRenderingContext._tagBrush_(canvas);
+    self._redraw();
+    return self;
+},
+source: unescape('renderCanvasOn%3A%20html%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20html%20canvas.%0A%09canvas%20at%3A%20%27width%27%20put%3A%20self%20width%20asString.%0A%09canvas%20at%3A%20%27height%27%20put%3A%20self%20height%20asString.%0A%09renderingContext%20%3A%3D%20CanvasRenderingContext%20tagBrush%3A%20canvas.%0A%09self%20redraw')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("tetris_buttons");return $rec._with_(function () {(function ($rec) {$rec._with_("New game");return $rec._onClick_(function () {return self._startNewGame();});}(html._button()));return function ($rec) {$rec._with_(unescape("play/pause"));return $rec._onClick_(function () {return self._update();});}(html._button());});}(html._div()));
+    return self;
+},
+source: unescape('renderButtonsOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27tetris_buttons%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20button%0A%09%09%09%09with%3A%20%27New%20game%27%3B%0A%09%09%09%09onClick%3A%20%5Bself%20startNewGame%5D.%0A%09%09%09html%20button%0A%09%09%09%09with%3A%20%27play/pause%27%3B%0A%09%09%09%09onClick%3A%20%5Bself%20update%5D%5D')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+category: 'initialization',
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self._newGame();
+    return self;
+},
+source: unescape('initialize%0A%09super%20initialize.%0A%09self%20newGame')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_startNewGame',
+smalltalk.method({
+selector: 'startNewGame',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self._newGame();
+    self['@timer']._ifNotNil_(function () {return self['@timer']._clearInterval();});
+    self['@timer'] = function () {return self._nextStep();}._valueWithInterval_(self['@speed']);
+    return self;
+},
+source: unescape('startNewGame%0A%09self%20newGame.%0A%09timer%20ifNotNil%3A%20%5Btimer%20clearInterval%5D.%0A%09timer%20%3A%3D%20%5Bself%20nextStep%5D%20valueWithInterval%3A%20speed')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_width',
+smalltalk.method({
+selector: 'width',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self._class()._width();
+    return self;
+},
+source: unescape('width%0A%09%5Eself%20class%20width')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_height',
+smalltalk.method({
+selector: 'height',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self._class()._height();
+    return self;
+},
+source: unescape('height%0A%09%5Eself%20class%20height')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_nextStep',
+smalltalk.method({
+selector: 'nextStep',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self['@movingPiece']._ifNil_(function () {return self._newPiece();});
+    self['@movingPiece']._canMoveIn_(self)._ifTrue_ifFalse_(function () {return self['@movingPiece']._position_(self['@movingPiece']._position().__plus((0).__at(1)));}, function () {return self._newPiece();});
+    self._redraw();
+    return self;
+},
+source: unescape('nextStep%0A%09movingPiece%20ifNil%3A%20%5Bself%20newPiece%5D.%0A%09%28movingPiece%20canMoveIn%3A%20self%29%0A%09%09ifTrue%3A%20%5BmovingPiece%20position%3A%20movingPiece%20position%20+%20%280@1%29%5D%0A%09%09ifFalse%3A%20%5Bself%20newPiece%5D.%0A%09self%20redraw%0A%09')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_redraw',
+smalltalk.method({
+selector: 'redraw',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self['@renderingContext']._clearRectFrom_to_((0).__at(self._width()), (0).__at(self._height()));
+    (function ($rec) {$rec._drawMap();return $rec._drawPiece();}(self));
+    return self;
+},
+source: unescape('redraw%0A%09renderingContext%20clearRectFrom%3A%200@%20self%20width%20to%3A%200@%20self%20height.%0A%09self%20%0A%09%09drawMap%3B%0A%09%09drawPiece')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_drawMap',
+smalltalk.method({
+selector: 'drawMap',
+category: 'actions',
+fn: function () {
+    var self = this;
+    (function ($rec) {$rec._fillStyle_(unescape("%23fafafa"));return $rec._fillRectFrom_to_((0).__at(0), self._width().__at(self._height()));}(self['@renderingContext']));
+    (function ($rec) {$rec._lineWidth_(0.5);return $rec._strokeStyle_(unescape("%23999"));}(self['@renderingContext']));
+    (0)._to_do_(self._class()._squares()._x(), function (each) {var x = nil;x = each.__star(self._class()._squareSize());return self._drawLineFrom_to_(x.__at(0), x.__at(self._height()));});
+    (0)._to_do_(self._class()._squares()._y(), function (each) {var y = nil;y = each.__star(self._class()._squareSize());return self._drawLineFrom_to_((0).__at(y), self._width().__at(y));});
+    return self;
+},
+source: unescape('drawMap%0A%09renderingContext%20%0A%09%09fillStyle%3A%20%27%23fafafa%27%3B%0A%09%09fillRectFrom%3A%200@0%20to%3A%20self%20width@self%20height.%0A%09renderingContext%20%0A%09%09lineWidth%3A%200.5%3B%0A%09%09strokeStyle%3A%20%27%23999%27.%0A%090%20to%3A%20self%20class%20squares%20x%20do%3A%20%5B%3Aeach%20%7C%20%7C%20x%20%7C%0A%09%09x%20%3A%3D%20each%20*%20self%20class%20squareSize.%0A%09%09self%20drawLineFrom%3A%20x@0%20to%3A%20x@self%20height%5D.%0A%090%20to%3A%20self%20class%20squares%20y%20do%3A%20%5B%3Aeach%20%7C%20%7C%20y%20%7C%0A%09%09y%20%3A%3D%20each%20*%20self%20class%20squareSize.%0A%09%09self%20drawLineFrom%3A%200@y%20to%3A%20self%20width@y%5D.')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_drawLineFrom_to_',
+smalltalk.method({
+selector: 'drawLineFrom:to:',
+category: 'actions',
+fn: function (aPoint, anotherPoint) {
+    var self = this;
+    (function ($rec) {$rec._beginPath();$rec._moveTo_(aPoint);$rec._lineTo_(anotherPoint);return $rec._stroke();}(self['@renderingContext']));
+    return self;
+},
+source: unescape('drawLineFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09renderingContext%20%0A%09%09beginPath%3B%0A%09%09moveTo%3A%20aPoint%3B%0A%09%09lineTo%3A%20anotherPoint%3B%0A%09%09stroke')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_newGame',
+smalltalk.method({
+selector: 'newGame',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self['@rows'] = [];
+    self['@movingPiece'] = nil;
+    self['@speed'] = 200;
+    self['@score'] = 0;
+    return self;
+},
+source: unescape('newGame%0A%09rows%20%3A%3D%20%23%28%29.%0A%09movingPiece%20%3A%3D%20nil.%0A%09speed%20%3A%3D%20200.%0A%09score%20%3A%3D%200')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_newPiece',
+smalltalk.method({
+selector: 'newPiece',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self['@movingPiece'] = smalltalk.TetrisPiece._atRandom();
+    return self;
+},
+source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_squares',
+smalltalk.method({
+selector: 'squares',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self._class()._squares();
+    return self;
+},
+source: unescape('squares%0A%09%5Eself%20class%20squares')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_gluePiece_',
+smalltalk.method({
+selector: 'gluePiece:',
+category: 'accessing',
+fn: function (aPiece) {
+    var self = this;
+    aPiece._glueOn_(self);
+    return self;
+},
+source: unescape('gluePiece%3A%20aPiece%0A%09aPiece%20glueOn%3A%20self%0A%09')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_drawRows',
+smalltalk.method({
+selector: 'drawRows',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self._rows()._do_(function (each) {return nil;});
+    self['@movingPiece']._ifNotNil_(function () {return self['@movingPiece']._drawOn_(self['@renderingContext']);});
+    return self;
+},
+source: unescape('drawRows%0A%09self%20rows%20do%3A%20%5B%3Aeach%20%7C%5D.%0A%09movingPiece%20ifNotNil%3A%20%5BmovingPiece%20drawOn%3A%20renderingContext%5D')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_drawPiece',
+smalltalk.method({
+selector: 'drawPiece',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self['@movingPiece']._ifNotNil_(function () {return self['@movingPiece']._drawOn_(self['@renderingContext']);});
+    return self;
+},
+source: unescape('drawPiece%0A%09movingPiece%20ifNotNil%3A%20%5B%0A%09%09movingPiece%20drawOn%3A%20renderingContext%5D')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_rows',
+smalltalk.method({
+selector: 'rows',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@rows'];
+    return self;
+},
+source: unescape('rows%0A%09%22An%20array%20of%20rows.%20Each%20row%20is%20a%20collection%20of%20points.%22%0A%09%5Erows')}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_addRow_',
+smalltalk.method({
+selector: 'addRow:',
+category: 'accessing',
+fn: function (aCollection) {
+    var self = this;
+    self._rows()._add_(aCollection);
+    return self;
+},
+source: unescape('addRow%3A%20aCollection%0A%09self%20rows%20add%3A%20aCollection')}),
+smalltalk.Tetris);
+
+
+smalltalk.addMethod(
+'_squareSize',
+smalltalk.method({
+selector: 'squareSize',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return 22;
+    return self;
+},
+source: unescape('squareSize%0A%09%5E22')}),
+smalltalk.Tetris.klass);
+
+smalltalk.addMethod(
+'_width',
+smalltalk.method({
+selector: 'width',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self._squareSize().__star(self._squares()._x());
+    return self;
+},
+source: unescape('width%0A%09%5Eself%20squareSize%20*%20%28self%20squares%20x%29')}),
+smalltalk.Tetris.klass);
+
+smalltalk.addMethod(
+'_height',
+smalltalk.method({
+selector: 'height',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self._squareSize().__star(self._squares()._y());
+    return self;
+},
+source: unescape('height%0A%09%5Eself%20squareSize%20*%20%28self%20squares%20y%29')}),
+smalltalk.Tetris.klass);
+
+smalltalk.addMethod(
+'_squares',
+smalltalk.method({
+selector: 'squares',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return (10).__at(15);
+    return self;
+},
+source: unescape('squares%0A%09%5E10@15')}),
+smalltalk.Tetris.klass);
+
+
+smalltalk.addClass('TetrisPiece', smalltalk.Widget, ['rotation', 'position'], 'Examples');
+smalltalk.addMethod(
+'_drawOn_',
+smalltalk.method({
+selector: 'drawOn:',
+category: 'drawing',
+fn: function (aRenderingContext) {
+    var self = this;
+    aRenderingContext._fillStyle_(self._color());
+    self._bounds()._do_(function (each) {return function ($rec) {$rec._fillRectFrom_to_(each.__plus(self._position()).__star(smalltalk.Tetris._squareSize()), (1).__at(1).__star(smalltalk.Tetris._squareSize()));$rec._strokeStyle_(unescape("%23999"));$rec._lineWidth_(2);return $rec._strokeRectFrom_to_(each.__plus(self._position()).__star(smalltalk.Tetris._squareSize()), (1).__at(1).__star(smalltalk.Tetris._squareSize()));}(aRenderingContext);});
+    return self;
+},
+source: unescape('drawOn%3A%20aRenderingContext%0A%09aRenderingContext%20fillStyle%3A%20self%20color.%0A%09self%20bounds%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aRenderingContext%20%0A%09%09%09fillRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%3B%0A%09%09%09strokeStyle%3A%20%27%23999%27%3B%0A%09%09%09lineWidth%3A%202%3B%0A%09%09%09strokeRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%5D')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_rotation',
+smalltalk.method({
+selector: 'rotation',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@rotation']._ifNil_(function () {return self['@rotation'] = 1;});
+    return self;
+},
+source: unescape('rotation%0A%09%5Erotation%20ifNil%3A%20%5Brotation%20%3A%3D%201%5D')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_rotation_',
+smalltalk.method({
+selector: 'rotation:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    self['@rotation'] = aNumber;
+    return self;
+},
+source: unescape('rotation%3A%20aNumber%0A%09rotation%20%3A%3D%20aNumber')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_position',
+smalltalk.method({
+selector: 'position',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@position']._ifNil_(function () {return smalltalk.Tetris._squares()._x().__slash(2).__minus(1).__at(0);});
+    return self;
+},
+source: unescape('position%0A%09%5Eposition%20ifNil%3A%20%5B%28Tetris%20squares%20x%20/%202%29%20-1%20@%200%5D')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_position_',
+smalltalk.method({
+selector: 'position:',
+category: 'accessing',
+fn: function (aPoint) {
+    var self = this;
+    return self['@position'] = aPoint;
+    return self;
+},
+source: unescape('position%3A%20aPoint%0A%09%5Eposition%20%3A%3D%20aPoint')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_bounds',
+smalltalk.method({
+selector: 'bounds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
+source: unescape('bounds%0A%09self%20subclassResponsibility')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_color',
+smalltalk.method({
+selector: 'color',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return unescape("%23afa");
+    return self;
+},
+source: unescape('color%0A%09%5E%27%23afa%27')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_canMove',
+smalltalk.method({
+selector: 'canMove',
+category: 'testing',
+fn: function () {
+    var self = this;
+    return self._position()._y().__lt(smalltalk.Tetris._squares()._y().__minus(self._height()));
+    return self;
+},
+source: unescape('canMove%0A%09%5Eself%20position%20y%20%3C%20%28Tetris%20squares%20y%20-%20self%20height%29')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_height',
+smalltalk.method({
+selector: 'height',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return 2;
+    return self;
+},
+source: unescape('height%0A%09%5E2')}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_canMoveIn_',
+smalltalk.method({
+selector: 'canMoveIn:',
+category: 'testing',
+fn: function (aTetris) {
+    var self = this;
+    return self._position()._y().__lt(aTetris._squares()._y().__minus(self._height()));
+    return self;
+},
+source: unescape('canMoveIn%3A%20aTetris%0A%09%5Eself%20position%20y%20%3C%20%28aTetris%20squares%20y%20-%20self%20height%29')}),
+smalltalk.TetrisPiece);
+
+
+smalltalk.addMethod(
+'_atRandom',
+smalltalk.method({
+selector: 'atRandom',
+category: 'instance creation',
+fn: function () {
+    var self = this;
+    return self._subclasses()._at_(self._subclasses()._size()._atRandom())._new();
+    return self;
+},
+source: unescape('atRandom%0A%09%5E%28self%20subclasses%20at%3A%20self%20subclasses%20size%20atRandom%29%20new')}),
+smalltalk.TetrisPiece.klass);
+
+
+smalltalk.addClass('TetrisPieceO', smalltalk.TetrisPiece, [], 'Examples');
+smalltalk.addMethod(
+'_bounds',
+smalltalk.method({
+selector: 'bounds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._add_((0).__at(0));$rec._add_((0).__at(1));$rec._add_((1).__at(0));$rec._add_((1).__at(1));return $rec._yourself();}(smalltalk.Array._new());
+    return self;
+},
+source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09yourself')}),
+smalltalk.TetrisPieceO);
+
+
+
+smalltalk.addClass('TetrisPieceL', smalltalk.TetrisPiece, [], 'Examples');
+smalltalk.addMethod(
+'_bounds',
+smalltalk.method({
+selector: 'bounds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._add_((0).__at(0));$rec._add_((0).__at(1));$rec._add_((0).__at(2));$rec._add_((1).__at(2));return $rec._yourself();}(smalltalk.Array._new());
+    return self;
+},
+source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%200@2%3B%0A%09%09add%3A%201@2%3B%0A%09%09yourself')}),
+smalltalk.TetrisPieceL);
+
+smalltalk.addMethod(
+'_color',
+smalltalk.method({
+selector: 'color',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return unescape("%23ffa");
+    return self;
+},
+source: unescape('color%0A%09%5E%27%23ffa%27')}),
+smalltalk.TetrisPieceL);
+
+smalltalk.addMethod(
+'_height',
+smalltalk.method({
+selector: 'height',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return 3;
+    return self;
+},
+source: unescape('height%0A%09%5E3')}),
+smalltalk.TetrisPieceL);
+
+
+
+smalltalk.addClass('TetrisPieceJ', smalltalk.TetrisPiece, [], 'Examples');
+smalltalk.addMethod(
+'_color',
+smalltalk.method({
+selector: 'color',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return unescape("%23aaf");
+    return self;
+},
+source: unescape('color%0A%09%5E%27%23aaf%27')}),
+smalltalk.TetrisPieceJ);
+
+smalltalk.addMethod(
+'_bounds',
+smalltalk.method({
+selector: 'bounds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._add_((1).__at(0));$rec._add_((1).__at(1));$rec._add_((1).__at(2));$rec._add_((0).__at(2));return $rec._yourself();}(smalltalk.Array._new());
+    return self;
+},
+source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09add%3A%201@2%3B%0A%09%09add%3A%200@2%3B%0A%09%09yourself')}),
+smalltalk.TetrisPieceJ);
+
+smalltalk.addMethod(
+'_height',
+smalltalk.method({
+selector: 'height',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return 3;
+    return self;
+},
+source: unescape('height%0A%09%5E3')}),
+smalltalk.TetrisPieceJ);
+
+
+
+smalltalk.addClass('TetrisPieceI', smalltalk.TetrisPiece, [], 'Examples');
+smalltalk.addMethod(
+'_color',
+smalltalk.method({
+selector: 'color',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return unescape("%23faa");
+    return self;
+},
+source: unescape('color%0A%09%5E%27%23faa%27')}),
+smalltalk.TetrisPieceI);
+
+smalltalk.addMethod(
+'_bounds',
+smalltalk.method({
+selector: 'bounds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._add_((0).__at(0));$rec._add_((0).__at(1));$rec._add_((0).__at(2));$rec._add_((0).__at(3));return $rec._yourself();}(smalltalk.Array._new());
+    return self;
+},
+source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%200@2%3B%0A%09%09add%3A%200@3%3B%0A%09%09yourself')}),
+smalltalk.TetrisPieceI);
+
+smalltalk.addMethod(
+'_height',
+smalltalk.method({
+selector: 'height',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return 4;
+    return self;
+},
+source: unescape('height%0A%09%5E4')}),
+smalltalk.TetrisPieceI);
+
+
+
+smalltalk.addClass('TetrisPieceT', smalltalk.TetrisPiece, [], 'Examples');
+smalltalk.addMethod(
+'_bounds',
+smalltalk.method({
+selector: 'bounds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function ($rec) {$rec._add_((0).__at(0));$rec._add_((1).__at(0));$rec._add_((2).__at(0));$rec._add_((1).__at(1));return $rec._yourself();}(smalltalk.Array._new());
+    return self;
+},
+source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%202@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09yourself')}),
+smalltalk.TetrisPieceT);
+
+smalltalk.addMethod(
+'_color',
+smalltalk.method({
+selector: 'color',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return unescape("%23aaf");
+    return self;
+},
+source: unescape('color%0A%09%5E%27%23aaf%27')}),
+smalltalk.TetrisPieceT);
 
 
 
@@ -7930,15 +9427,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@opened']=true;
-(function($rec){$rec._append_(self);$rec._append_((function(html){return html._div()._id_("jtalk");}));return $rec._addClass_("jtalkBody");})("body"._asJQuery());
-(function($rec){$rec._addTab_(smalltalk.Transcript._current());return $rec._addTab_(smalltalk.Workspace._new());})(self);
-self._selectTab_(self._tabs()._last());
-(function($rec){$rec._onResize_((function(){return (function($rec){$rec._updateBodyMargin();return $rec._updatePosition();})(self);}));return $rec._onWindowResize_((function(){return self._updatePosition();}));})(self);
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@opened'] = true;
+    (function ($rec) {$rec._append_(self);$rec._append_(function (html) {return html._div()._id_("jtalk");});return $rec._addClass_("jtalkBody");}("body"._asJQuery()));
+    (function ($rec) {$rec._addTab_(smalltalk.Transcript._current());return $rec._addTab_(smalltalk.Workspace._new());}(self));
+    self._selectTab_(self._tabs()._last());
+    (function ($rec) {$rec._onResize_(function () {return function ($rec) {$rec._updateBodyMargin();return $rec._updatePosition();}(self);});return $rec._onWindowResize_(function () {return self._updatePosition();});}(self));
+    return self;
+},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20opened%20%3A%3D%20true.%0A%20%20%20%20%27body%27%20asJQuery%20%0A%09append%3A%20self%3B%0A%09append%3A%20%5B%3Ahtml%20%7C%20html%20div%20id%3A%20%27jtalk%27%5D%3B%0A%09addClass%3A%20%27jtalkBody%27.%0A%20%20%20%20self%20%0A%09addTab%3A%20Transcript%20current%3B%0A%09addTab%3A%20Workspace%20new.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A%20%20%20%20self%20%0A%09onResize%3A%20%5Bself%20updateBodyMargin%3B%20updatePosition%5D%3B%0A%09onWindowResize%3A%20%5Bself%20updatePosition%5D%0A')}),
 smalltalk.TabManager);
 
@@ -7947,10 +9445,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tabs',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@tabs']._ifNil_((function(){return self['@tabs']=smalltalk.Array._new();}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@tabs']._ifNil_(function () {return self['@tabs'] = smalltalk.Array._new();});
+    return self;
+},
 source: unescape('tabs%0A%20%20%20%20%5Etabs%20ifNil%3A%20%5Btabs%20%3A%3D%20Array%20new%5D%0A')}),
 smalltalk.TabManager);
 
@@ -7959,12 +9458,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addTab:',
 category: 'adding/Removing',
-fn: function (aWidget){
-var self=this;
-self._tabs()._add_(aWidget);
-unescape("%23jtalk")._asJQuery()._append_(aWidget);
-aWidget._root()._asJQuery()._hide();
-return self;},
+fn: function (aWidget) {
+    var self = this;
+    self._tabs()._add_(aWidget);
+    unescape("%23jtalk")._asJQuery()._append_(aWidget);
+    aWidget._root()._asJQuery()._hide();
+    return self;
+},
 source: unescape('addTab%3A%20aWidget%0A%20%20%20%20self%20tabs%20add%3A%20aWidget.%0A%20%20%20%20%27%23jtalk%27%20asJQuery%20append%3A%20aWidget.%0A%20%20%20%20aWidget%20root%20asJQuery%20hide%0A')}),
 smalltalk.TabManager);
 
@@ -7973,11 +9473,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeTab:',
 category: 'adding/Removing',
-fn: function (aWidget){
-var self=this;
-self._tabs()._remove_(aWidget);
-self._update();
-return self;},
+fn: function (aWidget) {
+    var self = this;
+    self._tabs()._remove_(aWidget);
+    self._update();
+    return self;
+},
 source: unescape('removeTab%3A%20aWidget%0A%20%20%20%20self%20tabs%20remove%3A%20aWidget.%0A%20%20%20%20self%20update%0A')}),
 smalltalk.TabManager);
 
@@ -7986,10 +9487,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateBodyMargin',
 category: 'actions',
-fn: function (){
-var self=this;
-self._setBodyMargin_(unescape("%23jtalk")._asJQuery()._height().__plus((27)));
-return self;},
+fn: function () {
+    var self = this;
+    self._setBodyMargin_(unescape("%23jtalk")._asJQuery()._height().__plus(27));
+    return self;
+},
 source: unescape('updateBodyMargin%0A%20%20%20%20self%20setBodyMargin%3A%20%27%23jtalk%27%20asJQuery%20height%20+%2027%0A')}),
 smalltalk.TabManager);
 
@@ -7998,10 +9500,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updatePosition',
 category: 'actions',
-fn: function (){
-var self=this;
-(function(){jQuery('#jtalk').css('top', '').css('bottom', '27px');})();
-return self;},
+fn: function () {
+    var self = this;
+    (function () {jQuery("#jtalk").css("top", "").css("bottom", "27px");}());
+    return self;
+},
 source: unescape('updatePosition%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.css%28%27%27top%27%27%2C%20%27%27%27%27%27%27%29.css%28%27%27bottom%27%27%2C%20%27%2727px%27%27%29%3B%27%7D%0A')}),
 smalltalk.TabManager);
 
@@ -8010,10 +9513,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeBodyMargin',
 category: 'actions',
-fn: function (){
-var self=this;
-self._setBodyMargin_((0));
-return self;},
+fn: function () {
+    var self = this;
+    self._setBodyMargin_(0);
+    return self;
+},
 source: unescape('removeBodyMargin%0A%20%20%20%20self%20setBodyMargin%3A%200%0A')}),
 smalltalk.TabManager);
 
@@ -8022,10 +9526,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setBodyMargin:',
 category: 'actions',
-fn: function (anInteger){
-var self=this;
-".jtalkBody"._asJQuery()._cssAt_put_(unescape("margin-bottom"),anInteger._asString().__comma("px"));
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    ".jtalkBody"._asJQuery()._cssAt_put_(unescape("margin-bottom"), anInteger._asString().__comma("px"));
+    return self;
+},
 source: unescape('setBodyMargin%3A%20anInteger%0A%20%20%20%20%27.jtalkBody%27%20asJQuery%20cssAt%3A%20%27margin-bottom%27%20put%3A%20anInteger%20asString%2C%20%27px%27%0A')}),
 smalltalk.TabManager);
 
@@ -8034,14 +9539,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onResize:',
 category: 'actions',
-fn: function (aBlock){
-var self=this;
-(function(){jQuery('#jtalk').resizable({
-	handles: 'n', 
-	resize: aBlock,
-	minHeight: 230
-});})();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    (function () {jQuery("#jtalk").resizable({handles: "n", resize: aBlock, minHeight: 230});}());
+    return self;
+},
 source: unescape('onResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.resizable%28%7B%0A%09handles%3A%20%27%27n%27%27%2C%20%0A%09resize%3A%20aBlock%2C%0A%09minHeight%3A%20230%0A%7D%29%3B%27%7D%0A')}),
 smalltalk.TabManager);
 
@@ -8050,10 +9552,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'onWindowResize:',
 category: 'actions',
-fn: function (aBlock){
-var self=this;
-(function(){jQuery(window).resize(aBlock)})();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    (function () {jQuery(window).resize(aBlock);}());
+    return self;
+},
 source: unescape('onWindowResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28window%29.resize%28aBlock%29%27%7D%0A')}),
 smalltalk.TabManager);
 
@@ -8062,10 +9565,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'open',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@opened']._ifFalse_((function(){self._root()._asJQuery()._show();"body"._asJQuery()._addClass_("jtalkBody");unescape("%23jtalk")._asJQuery()._show();self._updateBodyMargin();self['@selectedTab']._root()._asJQuery()._show();return self['@opened']=true;}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@opened']._ifFalse_(function () {self._root()._asJQuery()._show();"body"._asJQuery()._addClass_("jtalkBody");unescape("%23jtalk")._asJQuery()._show();self._updateBodyMargin();self['@selectedTab']._root()._asJQuery()._show();return self['@opened'] = true;});
+    return self;
+},
 source: unescape('open%0A%20%20%20%20opened%20ifFalse%3A%20%5B%0A%09self%20root%20asJQuery%20show.%0A%09%27body%27%20asJQuery%20addClass%3A%20%27jtalkBody%27.%0A%09%27%23jtalk%27%20asJQuery%20show.%0A%09self%20updateBodyMargin.%0A%09selectedTab%20root%20asJQuery%20show.%0A%09opened%20%3A%3D%20true%5D%0A')}),
 smalltalk.TabManager);
 
@@ -8074,10 +9578,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'close',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@opened']._ifTrue_((function(){self._root()._asJQuery()._hide();unescape("%23jtalk")._asJQuery()._hide();self._removeBodyMargin();"body"._asJQuery()._removeClass_("jtalkBody");return self['@opened']=false;}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@opened']._ifTrue_(function () {self._root()._asJQuery()._hide();unescape("%23jtalk")._asJQuery()._hide();self._removeBodyMargin();"body"._asJQuery()._removeClass_("jtalkBody");return self['@opened'] = false;});
+    return self;
+},
 source: unescape('close%0A%20%20%20%20opened%20ifTrue%3A%20%5B%0A%09self%20root%20asJQuery%20hide.%0A%09%27%23jtalk%27%20asJQuery%20hide.%0A%09self%20removeBodyMargin.%0A%09%27body%27%20asJQuery%20removeClass%3A%20%27jtalkBody%27.%0A%09opened%20%3A%3D%20false%5D%0A')}),
 smalltalk.TabManager);
 
@@ -8086,10 +9591,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'newBrowserTab',
 category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.Browser._open();
-return self;},
+fn: function () {
+    var self = this;
+    smalltalk.Browser._open();
+    return self;
+},
 source: unescape('newBrowserTab%0A%20%20%20%20Browser%20open%0A')}),
 smalltalk.TabManager);
 
@@ -8098,14 +9604,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectTab:',
 category: 'actions',
-fn: function (aWidget){
-var self=this;
-self._open();
-self['@selectedTab']=aWidget;
-self._tabs()._do_((function(each){return each._root()._asJQuery()._hide();}));
-aWidget._root()._asJQuery()._show();
-self._update();
-return self;},
+fn: function (aWidget) {
+    var self = this;
+    self._open();
+    self['@selectedTab'] = aWidget;
+    self._tabs()._do_(function (each) {return each._root()._asJQuery()._hide();});
+    aWidget._root()._asJQuery()._show();
+    self._update();
+    return self;
+},
 source: unescape('selectTab%3A%20aWidget%0A%20%20%20%20self%20open.%0A%20%20%20%20selectedTab%20%3A%3D%20aWidget.%0A%20%20%20%20self%20tabs%20do%3A%20%5B%3Aeach%20%7C%0A%09each%20root%20asJQuery%20hide%5D.%0A%20%20%20%20aWidget%20root%20asJQuery%20show.%0A%20%20%20%20self%20update%0A')}),
 smalltalk.TabManager);
 
@@ -8114,13 +9621,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'closeTab:',
 category: 'actions',
-fn: function (aWidget){
-var self=this;
-self._removeTab_(aWidget);
-self._selectTab_(self._tabs()._last());
-aWidget._root()._asJQuery()._remove();
-self._update();
-return self;},
+fn: function (aWidget) {
+    var self = this;
+    self._removeTab_(aWidget);
+    self._selectTab_(self._tabs()._last());
+    aWidget._root()._asJQuery()._remove();
+    self._update();
+    return self;
+},
 source: unescape('closeTab%3A%20aWidget%0A%20%20%20%20self%20removeTab%3A%20aWidget.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A%20%20%20%20aWidget%20root%20asJQuery%20remove.%0A%20%20%20%20self%20update%0A')}),
 smalltalk.TabManager);
 
@@ -8129,10 +9637,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._id_("jtalkTabs");return $rec._with_((function(){(function($rec){$rec._class_("closeAll");$rec._with_("x");return $rec._onClick_((function(){return self._close();}));})(html._li());self._tabs()._do_((function(each){return self._renderTabFor_on_(each,html);}));return (function($rec){$rec._class_("newtab");$rec._with_(unescape("%20+%20"));return $rec._onClick_((function(){return self._newBrowserTab();}));})(html._li());}));})(html._ul());
-return self;},
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._id_("jtalkTabs");return $rec._with_(function () {(function ($rec) {$rec._class_("closeAll");$rec._with_("x");return $rec._onClick_(function () {return self._close();});}(html._li()));self._tabs()._do_(function (each) {return self._renderTabFor_on_(each, html);});return function ($rec) {$rec._class_("newtab");$rec._with_(unescape("%20+%20"));return $rec._onClick_(function () {return self._newBrowserTab();});}(html._li());});}(html._ul()));
+    return self;
+},
 source: unescape('renderOn%3A%20html%0A%20%20%20%20html%20ul%0A%09id%3A%20%27jtalkTabs%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20html%20li%20%0A%09%09class%3A%20%27closeAll%27%3B%0A%09%09with%3A%20%27x%27%3B%0A%09%09onClick%3A%20%5Bself%20close%5D.%0A%09%20%20%20%20self%20tabs%20do%3A%20%5B%3Aeach%20%7C%0A%09%09self%20renderTabFor%3A%20each%20on%3A%20html%5D.%0A%09%20%20%20%20html%20li%0A%09%09class%3A%20%27newtab%27%3B%0A%09%09with%3A%20%27%20+%20%27%3B%0A%09%09onClick%3A%20%5Bself%20newBrowserTab%5D%5D%0A')}),
 smalltalk.TabManager);
 
@@ -8141,13 +9650,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderTabFor:on:',
 category: 'rendering',
-fn: function (aWidget, html){
-var self=this;
-var li=nil;
-li=html._li();
-self['@selectedTab'].__eq(aWidget)._ifTrue_((function(){return li._class_("selected");}));
-li._with_((function(){(function($rec){$rec._with_(aWidget._label());return $rec._onClick_((function(){return self._selectTab_(aWidget);}));})(html._span());return aWidget._canBeClosed()._ifTrue_((function(){return (function($rec){$rec._class_("close");$rec._with_("x");return $rec._onClick_((function(){return self._closeTab_(aWidget);}));})(html._span());}));}));
-return self;},
+fn: function (aWidget, html) {
+    var self = this;
+    var li = nil;
+    li = html._li();
+    self['@selectedTab'].__eq(aWidget)._ifTrue_(function () {return li._class_("selected");});
+    li._with_(function () {(function ($rec) {$rec._with_(aWidget._label());return $rec._onClick_(function () {return self._selectTab_(aWidget);});}(html._span()));return aWidget._canBeClosed()._ifTrue_(function () {return function ($rec) {$rec._class_("close");$rec._with_("x");return $rec._onClick_(function () {return self._closeTab_(aWidget);});}(html._span());});});
+    return self;
+},
 source: unescape('renderTabFor%3A%20aWidget%20on%3A%20html%0A%20%20%20%20%7C%20li%20%7C%0A%20%20%20%20li%20%3A%3D%20html%20li.%0A%20%20%20%20selectedTab%20%3D%20aWidget%20ifTrue%3A%20%5B%0A%09li%20class%3A%20%27selected%27%5D.%0A%20%20%20%20li%20with%3A%20%5B%0A%09html%20span%0A%09%20%20%20%20with%3A%20aWidget%20label%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20selectTab%3A%20aWidget%5D.%0A%09aWidget%20canBeClosed%20ifTrue%3A%20%5B%0A%09%20%20%20%20html%20span%20%0A%09%09class%3A%20%27close%27%3B%0A%09%09with%3A%20%27x%27%3B%0A%09%09onClick%3A%20%5Bself%20closeTab%3A%20aWidget%5D%5D%5D%0A')}),
 smalltalk.TabManager);
 
@@ -8158,10 +9668,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'current',
 category: 'instance creation',
-fn: function (){
-var self=this;
-return self['@current']._ifNil_((function(){return self['@current']=self.klass.superclass.fn.prototype['_new'].apply(self, []);}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@current']._ifNil_(function () {return self['@current'] = self.klass.superclass.fn.prototype._new.apply(self, []);});
+    return self;
+},
 source: unescape('current%0A%20%20%20%20%5Ecurrent%20ifNil%3A%20%5Bcurrent%20%3A%3D%20super%20new%5D%0A')}),
 smalltalk.TabManager.klass);
 
@@ -8170,10 +9681,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'new',
 category: 'instance creation',
-fn: function (){
-var self=this;
-self._shouldNotImplement();
-return self;},
+fn: function () {
+    var self = this;
+    self._shouldNotImplement();
+    return self;
+},
 source: unescape('new%0A%20%20%20%20self%20shouldNotImplement%0A')}),
 smalltalk.TabManager.klass);
 
@@ -8184,10 +9696,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'label',
 category: 'accessing',
-fn: function (){
-var self=this;
-self._subclassResponsibility();
-return self;},
+fn: function () {
+    var self = this;
+    self._subclassResponsibility();
+    return self;
+},
 source: unescape('label%0A%20%20%20%20self%20subclassResponsibility%0A')}),
 smalltalk.TabWidget);
 
@@ -8196,10 +9709,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'open',
 category: 'actions',
-fn: function (){
-var self=this;
-(function($rec){$rec._addTab_(self);return $rec._selectTab_(self);})(smalltalk.TabManager._current());
-return self;},
+fn: function () {
+    var self = this;
+    (function ($rec) {$rec._addTab_(self);return $rec._selectTab_(self);}(smalltalk.TabManager._current()));
+    return self;
+},
 source: unescape('open%0A%20%20%20%20TabManager%20current%0A%09addTab%3A%20self%3B%0A%09selectTab%3A%20self%0A')}),
 smalltalk.TabWidget);
 
@@ -8208,10 +9722,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'canBeClosed',
 category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
 source: unescape('canBeClosed%0A%20%20%20%20%5Efalse%0A')}),
 smalltalk.TabWidget);
 
@@ -8220,10 +9735,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._class_("jtalkTool");return $rec._with_((function(){(function($rec){$rec._class_("jt_box");return $rec._with_((function(){return self._renderBoxOn_(html);}));})(html._div());return (function($rec){$rec._class_("jt_buttons");return $rec._with_((function(){return self._renderButtonsOn_(html);}));})(html._div());}));})(html._root());
-return self;},
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("jtalkTool");return $rec._with_(function () {(function ($rec) {$rec._class_("jt_box");return $rec._with_(function () {return self._renderBoxOn_(html);});}(html._div()));return function ($rec) {$rec._class_("jt_buttons");return $rec._with_(function () {return self._renderButtonsOn_(html);});}(html._div());});}(html._root()));
+    return self;
+},
 source: unescape('renderOn%3A%20html%0A%20%20%20%20html%20root%0A%09class%3A%20%27jtalkTool%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27jt_box%27%3B%0A%09%09with%3A%20%5Bself%20renderBoxOn%3A%20html%5D.%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27jt_buttons%27%3B%0A%09%09with%3A%20%5Bself%20renderButtonsOn%3A%20html%5D%5D%0A')}),
 smalltalk.TabWidget);
 
@@ -8232,10 +9748,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderBoxOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-
-return self;},
+fn: function (html) {
+    var self = this;
+    return self;
+},
 source: unescape('renderBoxOn%3A%20html%0A')}),
 smalltalk.TabWidget);
 
@@ -8244,10 +9760,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderButtonsOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-
-return self;},
+fn: function (html) {
+    var self = this;
+    return self;
+},
 source: unescape('renderButtonsOn%3A%20html%0A')}),
 smalltalk.TabWidget);
 
@@ -8257,10 +9773,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'open',
 category: 'instance creation',
-fn: function (){
-var self=this;
-return self._new()._open();
-return self;},
+fn: function () {
+    var self = this;
+    return self._new()._open();
+    return self;
+},
 source: unescape('open%0A%20%20%20%20%5Eself%20new%20open%0A')}),
 smalltalk.TabWidget.klass);
 
@@ -8271,10 +9788,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'label',
 category: 'accessing',
-fn: function (){
-var self=this;
-return unescape("%5BWorkspace%5D");
-return self;},
+fn: function () {
+    var self = this;
+    return unescape("%5BWorkspace%5D");
+    return self;
+},
 source: unescape('label%0A%20%20%20%20%5E%27%5BWorkspace%5D%27%0A')}),
 smalltalk.Workspace);
 
@@ -8283,10 +9801,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selection',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return document.selection})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return document.selection;}();
+    return self;
+},
 source: unescape('selection%0A%20%20%20%20%5E%7B%27return%20document.selection%27%7D%0A')}),
 smalltalk.Workspace);
 
@@ -8295,10 +9814,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectionStart',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return jQuery('.jt_workspace')[0].selectionStart})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return jQuery(".jt_workspace")[0].selectionStart;}();
+    return self;
+},
 source: unescape('selectionStart%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%27%7D%0A')}),
 smalltalk.Workspace);
 
@@ -8307,10 +9827,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectionEnd',
 category: 'accessing',
-fn: function (){
-var self=this;
-return (function(){return jQuery('.jt_workspace')[0].selectionEnd})();
-return self;},
+fn: function () {
+    var self = this;
+    return function () {return jQuery(".jt_workspace")[0].selectionEnd;}();
+    return self;
+},
 source: unescape('selectionEnd%0A%20%20%20%20%5E%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionEnd%27%7D%0A')}),
 smalltalk.Workspace);
 
@@ -8319,10 +9840,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectionStart:',
 category: 'accessing',
-fn: function (anInteger){
-var self=this;
-(function(){jQuery('.jt_workspace')[0].selectionStart = anInteger})();
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    (function () {jQuery(".jt_workspace")[0].selectionStart = anInteger;}());
+    return self;
+},
 source: unescape('selectionStart%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%20%3D%20anInteger%27%7D%0A')}),
 smalltalk.Workspace);
 
@@ -8331,10 +9853,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectionEnd:',
 category: 'accessing',
-fn: function (anInteger){
-var self=this;
-(function(){jQuery('.jt_workspace')[0].selectionEnd = anInteger})();
-return self;},
+fn: function (anInteger) {
+    var self = this;
+    (function () {jQuery(".jt_workspace")[0].selectionEnd = anInteger;}());
+    return self;
+},
 source: unescape('selectionEnd%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionEnd%20%3D%20anInteger%27%7D%0A')}),
 smalltalk.Workspace);
 
@@ -8343,16 +9866,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'currentLine',
 category: 'accessing',
-fn: function (){
-var self=this;
-try{var lines=nil;
-var startLine=nil;
-var endLine=nil;
-lines=self['@textarea']._asJQuery()._val()._tokenize_(smalltalk.String._cr());
-startLine=endLine=(0);
-lines._do_((function(each){endLine=startLine.__plus(each._size());startLine=endLine.__plus((1));return endLine.__gt_eq(self._selectionStart())._ifTrue_((function(){self._selectionEnd_(endLine);return (function(){throw({name: 'stReturn', selector: '_currentLine', fn: function(){return each}})})();}));}));
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_currentLine'){return e.fn()} throw(e)}},
+fn: function () {
+    var self = this;
+    try {
+        var lines = nil;
+        var startLine = nil;
+        var endLine = nil;
+        lines = self['@textarea']._asJQuery()._val()._tokenize_(smalltalk.String._cr());
+        startLine = endLine = 0;
+        lines._do_(function (each) {endLine = startLine.__plus(each._size());startLine = endLine.__plus(1);return endLine.__gt_eq(self._selectionStart())._ifTrue_(function () {self._selectionEnd_(endLine);return function () {throw {name: "stReturn", selector: "_currentLine", fn: function () {return each;}};}();});});
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" && e.selector === "_currentLine") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('currentLine%0A%20%20%20%20%7C%20lines%20startLine%20endLine%7C%0A%20%20%20%20lines%20%3A%3D%20textarea%20asJQuery%20val%20tokenize%3A%20String%20cr.%0A%20%20%20%20startLine%20%3A%3D%20endLine%20%3A%3D%200.%0A%20%20%20%20lines%20do%3A%20%5B%3Aeach%20%7C%0A%09endLine%20%3A%3D%20startLine%20+%20each%20size.%0A%09startLine%20%3A%3D%20endLine%20+%201.%0A%09endLine%20%3E%3D%20self%20selectionStart%20ifTrue%3A%20%5B%0A%09%20%20%20%20self%20selectionEnd%3A%20endLine.%0A%09%20%20%20%20%5Eeach%5D%5D%0A')}),
 smalltalk.Workspace);
 
@@ -8361,19 +9891,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'handleKeyDown:',
 category: 'actions',
-fn: function (anEvent){
-var self=this;
-return (function(){if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 68) { //ctrl+p
-			self._printIt();
-			return false;
-		}
-		if(anEvent.keyCode === 80) { //ctrl+d
-			self._doIt();
-			return false;
-		}
-	}})();
-return self;},
+fn: function (anEvent) {
+    var self = this;
+    return function () {if (anEvent.ctrlKey) {if (anEvent.keyCode === 68) {self._printIt();return false;}if (anEvent.keyCode === 80) {self._doIt();return false;}}}();
+    return self;
+},
 source: unescape('handleKeyDown%3A%20anEvent%0A%20%20%20%20%5E%7B%27if%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2068%29%20%7B%20//ctrl+p%0A%09%09%09self._printIt%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2080%29%20%7B%20//ctrl+d%0A%09%09%09self._doIt%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%27%7D%0A')}),
 smalltalk.Workspace);
 
@@ -8382,10 +9904,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'clearWorkspace',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@textarea']._asJQuery()._val_("");
-return self;},
+fn: function () {
+    var self = this;
+    self['@textarea']._asJQuery()._val_("");
+    return self;
+},
 source: unescape('clearWorkspace%0A%20%20%20%20textarea%20asJQuery%20val%3A%20%27%27%0A')}),
 smalltalk.Workspace);
 
@@ -8394,11 +9917,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'doIt',
 category: 'actions',
-fn: function (){
-var self=this;
-self._printIt();
-return self;},
-source: unescape('doIt%0A%20%20%20%20self%20printIt%0A')}),
+fn: function () {
+    var self = this;
+    var selection = nil;
+    self['@textarea']._asJQuery()._focus();
+    self._selectionStart().__eq(self._selectionEnd())._ifTrue_ifFalse_(function () {return selection = self._currentLine();}, function () {return selection = self['@textarea']._asJQuery()._val()._copyFrom_to_(self._selectionStart().__plus(1), self._selectionEnd().__plus(1));});
+    return self._eval_(selection);
+    return self;
+},
+source: unescape('doIt%0A%20%20%20%20%7C%20selection%20%7C%0A%20%20%20%20textarea%20asJQuery%20focus.%0A%20%20%20%20self%20selectionStart%20%3D%20self%20selectionEnd%0A%09ifTrue%3A%20%5Bselection%20%3A%3D%20self%20currentLine%5D%0A%09ifFalse%3A%20%5B%0A%09%20%20%20%20selection%20%3A%3D%20textarea%20asJQuery%20val%20copyFrom%3A%20self%20selectionStart%20+%201%20to%3A%20self%20selectionEnd%20+%201%5D.%0A%20%20%20%20%5Eself%20eval%3A%20selection')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -8406,14 +9933,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printIt',
 category: 'actions',
-fn: function (){
-var self=this;
-var selection=nil;
-self['@textarea']._asJQuery()._focus();
-self._selectionStart().__eq(self._selectionEnd())._ifTrue_ifFalse_((function(){return selection=self._currentLine();}),(function(){return selection=self['@textarea']._asJQuery()._val()._copyFrom_to_(self._selectionStart().__plus((1)),self._selectionEnd().__plus((1)));}));
-self._print_(self._eval_(selection)._printString());
-return self;},
-source: unescape('printIt%0A%20%20%20%20%7C%20selection%20%7C%0A%20%20%20%20textarea%20asJQuery%20focus.%0A%20%20%20%20self%20selectionStart%20%3D%20self%20selectionEnd%0A%09ifTrue%3A%20%5Bselection%20%3A%3D%20self%20currentLine%5D%0A%09ifFalse%3A%20%5B%0A%09%20%20%20%20selection%20%3A%3D%20textarea%20asJQuery%20val%20copyFrom%3A%20self%20selectionStart%20+%201%20to%3A%20self%20selectionEnd%20+%201%5D.%0A%20%20%20%20self%20print%3A%20%28self%20eval%3A%20selection%29%20printString%0A')}),
+fn: function () {
+    var self = this;
+    self._print_(self._doIt()._printString());
+    return self;
+},
+source: unescape('printIt%0A%20%20%20%20self%20print%3A%20self%20doIt%20printString%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -8421,14 +9946,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'print:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-var start=nil;
-start=self._selectionEnd();
-self['@textarea']._asJQuery()._val_(self['@textarea']._asJQuery()._val()._copyFrom_to_((1),start).__comma(" ").__comma(aString).__comma(" ").__comma(self['@textarea']._asJQuery()._val()._copyFrom_to_(start.__plus((1)),self['@textarea']._asJQuery()._val()._size())));
-self._selectionStart_(start);
-self._selectionEnd_(start.__plus(aString._size()).__plus((2)));
-return self;},
+fn: function (aString) {
+    var self = this;
+    var start = nil;
+    start = self._selectionEnd();
+    self['@textarea']._asJQuery()._val_(self['@textarea']._asJQuery()._val()._copyFrom_to_(1, start).__comma(" ").__comma(aString).__comma(" ").__comma(self['@textarea']._asJQuery()._val()._copyFrom_to_(start.__plus(1), self['@textarea']._asJQuery()._val()._size())));
+    self._selectionStart_(start);
+    self._selectionEnd_(start.__plus(aString._size()).__plus(2));
+    return self;
+},
 source: unescape('print%3A%20aString%0A%20%20%20%20%7C%20start%20%7C%0A%20%20%20%20start%20%3A%3D%20self%20selectionEnd.%0A%20%20%20%20textarea%20asJQuery%20val%3A%20%28%0A%09%28textarea%20asJQuery%20val%20copyFrom%3A%201%20to%3A%20start%29%2C%0A%09%27%20%27%2C%20aString%2C%20%27%20%27%2C%0A%09%28textarea%20asJQuery%20val%20copyFrom%3A%20start%20+%201%20to%3A%20textarea%20asJQuery%20val%20size%29%29.%0A%20%20%20%20self%20selectionStart%3A%20start.%0A%20%20%20%20self%20selectionEnd%3A%20start%20+%20aString%20size%20+%202%0A')}),
 smalltalk.Workspace);
 
@@ -8437,16 +9963,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'eval:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-try{var compiler=nil;
-var node=nil;
-compiler=smalltalk.Compiler._new();
-node=compiler._parseExpression_(aString);
-node._isParseFailure()._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_eval_', fn: function(){return self._alert_(node._reason().__comma(unescape("%2C%20position%3A%20")).__comma(node._position()))}})})();}));
-(function(){throw({name: 'stReturn', selector: '_eval_', fn: function(){return compiler._loadExpression_(aString)}})})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_eval_'){return e.fn()} throw(e)}},
+fn: function (aString) {
+    var self = this;
+    try {
+        var compiler = nil;
+        var node = nil;
+        compiler = smalltalk.Compiler._new();
+        node = compiler._parseExpression_(aString);
+        node._isParseFailure()._ifTrue_(function () {return function () {throw {name: "stReturn", selector: "_eval_", fn: function () {return self._alert_(node._reason().__comma(unescape("%2C%20position%3A%20")).__comma(node._position()));}};}();});
+        (function () {throw {name: "stReturn", selector: "_eval_", fn: function () {return compiler._loadExpression_(aString);}};}());
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" && e.selector === "_eval_") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('eval%3A%20aString%0A%20%20%20%20%7C%20compiler%20node%20%7C%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parseExpression%3A%20aString.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%5D.%0A%20%20%20%20%5Ecompiler%20loadExpression%3A%20aString%0A')}),
 smalltalk.Workspace);
 
@@ -8455,13 +9988,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderBoxOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-self['@textarea']=html._textarea();
-self['@textarea']._asJQuery()._call_("tabby");
-self['@textarea']._onKeyDown_((function(e){return self._handleKeyDown_(e);}));
-(function($rec){$rec._class_("jt_workspace");return $rec._at_put_("spellcheck","false");})(self['@textarea']);
-return self;},
+fn: function (html) {
+    var self = this;
+    self['@textarea'] = html._textarea();
+    self['@textarea']._asJQuery()._call_("tabby");
+    self['@textarea']._onKeyDown_(function (e) {return self._handleKeyDown_(e);});
+    (function ($rec) {$rec._class_("jt_workspace");return $rec._at_put_("spellcheck", "false");}(self['@textarea']));
+    return self;
+},
 source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20textarea%20%3A%3D%20html%20textarea.%0A%20%20%20%20textarea%20asJQuery%20call%3A%20%27tabby%27.%0A%20%20%20%20textarea%20onKeyDown%3A%20%5B%3Ae%20%7C%20self%20handleKeyDown%3A%20e%5D.%0A%20%20%20%20textarea%20%0A%09class%3A%20%27jt_workspace%27%3B%0A%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%0A')}),
 smalltalk.Workspace);
 
@@ -8470,13 +10004,28 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderButtonsOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._with_("DoIt");$rec._title_(unescape("ctrl+d"));return $rec._onClick_((function(){return self._doIt();}));})(html._button());
-(function($rec){$rec._with_("PrintIt");$rec._title_(unescape("ctrl+p"));return $rec._onClick_((function(){return self._printIt();}));})(html._button());
-(function($rec){$rec._with_("Clear workspace");return $rec._onClick_((function(){return self._clearWorkspace();}));})(html._button());
-return self;},
-source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20html%20button%0A%09with%3A%20%27DoIt%27%3B%0A%09title%3A%20%27ctrl+d%27%3B%0A%09onClick%3A%20%5Bself%20doIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27PrintIt%27%3B%0A%09title%3A%20%27ctrl+p%27%3B%0A%09onClick%3A%20%5Bself%20printIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27Clear%20workspace%27%3B%0A%09onClick%3A%20%5Bself%20clearWorkspace%5D%0A')}),
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._with_("DoIt");$rec._title_(unescape("ctrl+d"));return $rec._onClick_(function () {return self._doIt();});}(html._button()));
+    (function ($rec) {$rec._with_("PrintIt");$rec._title_(unescape("ctrl+p"));return $rec._onClick_(function () {return self._printIt();});}(html._button()));
+    (function ($rec) {$rec._with_("InspectIt");$rec._title_(unescape("ctrl+i"));return $rec._onClick_(function () {return self._inspectIt();});}(html._button()));
+    (function ($rec) {$rec._with_("Clear workspace");return $rec._onClick_(function () {return self._clearWorkspace();});}(html._button()));
+    return self;
+},
+source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20html%20button%0A%09with%3A%20%27DoIt%27%3B%0A%09title%3A%20%27ctrl+d%27%3B%0A%09onClick%3A%20%5Bself%20doIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27PrintIt%27%3B%0A%09title%3A%20%27ctrl+p%27%3B%0A%09onClick%3A%20%5Bself%20printIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27InspectIt%27%3B%0A%09title%3A%20%27ctrl+i%27%3B%0A%09onClick%3A%20%5Bself%20inspectIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27Clear%20workspace%27%3B%0A%09onClick%3A%20%5Bself%20clearWorkspace%5D%0A')}),
+smalltalk.Workspace);
+
+smalltalk.addMethod(
+'_inspectIt',
+smalltalk.method({
+selector: 'inspectIt',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self._doIt()._inspect();
+    return self;
+},
+source: unescape('inspectIt%0A%20%20%20%20self%20doIt%20inspect%0A')}),
 smalltalk.Workspace);
 
 
@@ -8487,10 +10036,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'label',
 category: 'accessing',
-fn: function (){
-var self=this;
-return unescape("%5BTranscript%5D");
-return self;},
+fn: function () {
+    var self = this;
+    return unescape("%5BTranscript%5D");
+    return self;
+},
 source: unescape('label%0A%20%20%20%20%5E%27%5BTranscript%5D%27%0A')}),
 smalltalk.Transcript);
 
@@ -8499,10 +10049,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'show:',
 category: 'actions',
-fn: function (anObject){
-var self=this;
-self['@textarea']._asJQuery()._val_(self['@textarea']._asJQuery()._val().__comma(anObject._asString()));
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self['@textarea']._asJQuery()._val_(self['@textarea']._asJQuery()._val().__comma(anObject._asString()));
+    return self;
+},
 source: unescape('show%3A%20anObject%0A%20%20%20%20textarea%20asJQuery%20val%3A%20textarea%20asJQuery%20val%2C%20anObject%20asString.%0A%0A')}),
 smalltalk.Transcript);
 
@@ -8511,10 +10062,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'cr',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@textarea']._asJQuery()._val_(self['@textarea']._asJQuery()._val().__comma(smalltalk.String._cr()));
-return self;},
+fn: function () {
+    var self = this;
+    self['@textarea']._asJQuery()._val_(self['@textarea']._asJQuery()._val().__comma(smalltalk.String._cr()));
+    return self;
+},
 source: unescape('cr%0A%20%20%20%20textarea%20asJQuery%20val%3A%20textarea%20asJQuery%20val%2C%20String%20cr.%0A')}),
 smalltalk.Transcript);
 
@@ -8523,10 +10075,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'clear',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@textarea']._asJQuery()._val_("");
-return self;},
+fn: function () {
+    var self = this;
+    self['@textarea']._asJQuery()._val_("");
+    return self;
+},
 source: unescape('clear%0A%20%20%20%20textarea%20asJQuery%20val%3A%20%27%27%0A')}),
 smalltalk.Transcript);
 
@@ -8535,12 +10088,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderBoxOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-self['@textarea']=html._textarea();
-self['@textarea']._asJQuery()._call_("tabby");
-(function($rec){$rec._class_("jt_transcript");return $rec._at_put_("spellcheck","false");})(self['@textarea']);
-return self;},
+fn: function (html) {
+    var self = this;
+    self['@textarea'] = html._textarea();
+    self['@textarea']._asJQuery()._call_("tabby");
+    (function ($rec) {$rec._class_("jt_transcript");return $rec._at_put_("spellcheck", "false");}(self['@textarea']));
+    return self;
+},
 source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20textarea%20%3A%3D%20html%20textarea.%0A%20%20%20%20textarea%20asJQuery%20call%3A%20%27tabby%27.%0A%20%20%20%20textarea%20%0A%09class%3A%20%27jt_transcript%27%3B%0A%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27%0A')}),
 smalltalk.Transcript);
 
@@ -8549,10 +10103,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderButtonsOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._with_("Clear transcript");return $rec._onClick_((function(){return self._clear();}));})(html._button());
-return self;},
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._with_("Clear transcript");return $rec._onClick_(function () {return self._clear();});}(html._button()));
+    return self;
+},
 source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20html%20button%0A%09with%3A%20%27Clear%20transcript%27%3B%0A%09onClick%3A%20%5Bself%20clear%5D%0A')}),
 smalltalk.Transcript);
 
@@ -8563,10 +10118,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'open',
 category: 'instance creation',
-fn: function (){
-var self=this;
-self._current()._open();
-return self;},
+fn: function () {
+    var self = this;
+    self._current()._open();
+    return self;
+},
 source: unescape('open%0A%20%20%20%20self%20current%20open%0A')}),
 smalltalk.Transcript.klass);
 
@@ -8575,10 +10131,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'new',
 category: 'instance creation',
-fn: function (){
-var self=this;
-self._shouldNotImplement();
-return self;},
+fn: function () {
+    var self = this;
+    self._shouldNotImplement();
+    return self;
+},
 source: unescape('new%0A%20%20%20%20self%20shouldNotImplement%0A')}),
 smalltalk.Transcript.klass);
 
@@ -8587,10 +10144,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'current',
 category: 'instance creation',
-fn: function (){
-var self=this;
-return self['@current']._ifNil_((function(){return self['@current']=self.klass.superclass.fn.prototype['_new'].apply(self, []);}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@current']._ifNil_(function () {return self['@current'] = self.klass.superclass.fn.prototype._new.apply(self, []);});
+    return self;
+},
 source: unescape('current%0A%20%20%20%20%5Ecurrent%20ifNil%3A%20%5Bcurrent%20%3A%3D%20super%20new%5D%0A')}),
 smalltalk.Transcript.klass);
 
@@ -8599,10 +10157,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'show:',
 category: 'printing',
-fn: function (anObject){
-var self=this;
-self._current()._show_(anObject);
-return self;},
+fn: function (anObject) {
+    var self = this;
+    self._current()._show_(anObject);
+    return self;
+},
 source: unescape('show%3A%20anObject%0A%20%20%20%20self%20current%20show%3A%20anObject%0A')}),
 smalltalk.Transcript.klass);
 
@@ -8611,10 +10170,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'cr',
 category: 'printing',
-fn: function (){
-var self=this;
-self._current()._show_(smalltalk.String._cr());
-return self;},
+fn: function () {
+    var self = this;
+    self._current()._show_(smalltalk.String._cr());
+    return self;
+},
 source: unescape('cr%0A%20%20%20%20self%20current%20show%3A%20String%20cr%0A')}),
 smalltalk.Transcript.klass);
 
@@ -8623,10 +10183,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'clear',
 category: 'printing',
-fn: function (){
-var self=this;
-self._current()._clear();
-return self;},
+fn: function () {
+    var self = this;
+    self._current()._clear();
+    return self;
+},
 source: unescape('clear%0A%20%20%20%20self%20current%20clear%0A')}),
 smalltalk.Transcript.klass);
 
@@ -8637,12 +10198,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'initialize',
 category: 'initialization',
-fn: function (){
-var self=this;
-self.klass.superclass.fn.prototype['_initialize'].apply(self, []);
-self['@selectedTab']="instance";
-self['@unsavedChanges']=false;
-return self;},
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@selectedTab'] = "instance";
+    self['@unsavedChanges'] = false;
+    return self;
+},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20selectedTab%20%3A%3D%20%23instance.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false%0A')}),
 smalltalk.Browser);
 
@@ -8651,10 +10213,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'label',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@selectedClass']._ifNil_ifNotNil_((function(){return unescape("Browser%20%28nil%29");}),(function(){return self['@selectedClass']._name();}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@selectedClass']._ifNil_ifNotNil_(function () {return unescape("Browser%20%28nil%29");}, function () {return self['@selectedClass']._name();});
+    return self;
+},
 source: unescape('label%0A%20%20%20%20%5EselectedClass%20%0A%09ifNil%3A%20%5B%27Browser%20%28nil%29%27%5D%0A%09ifNotNil%3A%20%5BselectedClass%20name%5D%0A')}),
 smalltalk.Browser);
 
@@ -8663,13 +10226,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'categories',
 category: 'accessing',
-fn: function (){
-var self=this;
-var categories=nil;
-categories=smalltalk.Array._new();
-smalltalk.Smalltalk._current()._classes()._do_((function(each){return categories._includes_(each._category())._ifFalse_((function(){return categories._add_(each._category());}));}));
-return categories._sort();
-return self;},
+fn: function () {
+    var self = this;
+    var categories = nil;
+    categories = smalltalk.Array._new();
+    smalltalk.Smalltalk._current()._classes()._do_(function (each) {return categories._includes_(each._category())._ifFalse_(function () {return categories._add_(each._category());});});
+    return categories._sort();
+    return self;
+},
 source: unescape('categories%0A%20%20%20%20%7C%20categories%20%7C%0A%20%20%20%20categories%20%3A%3D%20Array%20new.%0A%20%20%20%20Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%28categories%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%20%20%20%20categories%20add%3A%20each%20category%5D%5D.%0A%20%20%20%20%5Ecategories%20sort%0A')}),
 smalltalk.Browser);
 
@@ -8678,10 +10242,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'classes',
 category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.Smalltalk._current()._classes()._select_((function(each){return each._category().__eq(self['@selectedCategory']);}))._sort_((function(a, b){return a._name().__gt(b._name());}));
-return self;},
+fn: function () {
+    var self = this;
+    return smalltalk.Smalltalk._current()._classes()._select_(function (each) {return each._category().__eq(self['@selectedCategory']);})._sort_(function (a, b) {return a._name().__gt(b._name());});
+    return self;
+},
 source: unescape('classes%0A%20%20%20%20%5E%28Smalltalk%20current%20classes%20%0A%09select%3A%20%5B%3Aeach%20%7C%20each%20category%20%3D%20selectedCategory%5D%29%0A%09sort%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20name%20%3E%20b%20name%5D%0A')}),
 smalltalk.Browser);
 
@@ -8690,15 +10255,22 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'protocols',
 category: 'accessing',
-fn: function (){
-var self=this;
-try{var klass=nil;
-var protocols=nil;
-protocols=smalltalk.Array._new();
-self['@selectedClass']._ifNotNil_((function(){self['@selectedTab'].__eq("comment")._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return []}})})();}));klass=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));klass._methodDictionary()._isEmpty()._ifTrue_((function(){return protocols._add_("not yet classified");}));return klass._methodDictionary()._do_((function(each){return protocols._includes_(each._category())._ifFalse_((function(){return protocols._add_(each._category());}));}));}));
-(function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return protocols._sort()}})})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_protocols'){return e.fn()} throw(e)}},
+fn: function () {
+    var self = this;
+    try {
+        var klass = nil;
+        var protocols = nil;
+        protocols = smalltalk.Array._new();
+        self['@selectedClass']._ifNotNil_(function () {self['@selectedTab'].__eq("comment")._ifTrue_(function () {return function () {throw {name: "stReturn", selector: "_protocols", fn: function () {return [];}};}();});klass = self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_(function () {return self['@selectedClass'];}, function () {return self['@selectedClass']._class();});klass._methodDictionary()._isEmpty()._ifTrue_(function () {return protocols._add_("not yet classified");});return klass._methodDictionary()._do_(function (each) {return protocols._includes_(each._category())._ifFalse_(function () {return protocols._add_(each._category());});});});
+        (function () {throw {name: "stReturn", selector: "_protocols", fn: function () {return protocols._sort();}};}());
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" && e.selector === "_protocols") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('protocols%0A%20%20%20%20%7C%20klass%20protocols%20%7C%0A%20%20%20%20protocols%20%3A%3D%20Array%20new.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D.%0A%09klass%20methodDictionary%20isEmpty%20ifTrue%3A%20%5B%0A%09%20%20%20%20protocols%20add%3A%20%27not%20yet%20classified%27%5D.%0A%09klass%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28protocols%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%09protocols%20add%3A%20each%20category%5D%5D%5D.%0A%20%20%20%20%5Eprotocols%20sort%0A')}),
 smalltalk.Browser);
 
@@ -8707,14 +10279,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'methods',
 category: 'accessing',
-fn: function (){
-var self=this;
-try{var klass=nil;
-self['@selectedTab'].__eq("comment")._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return []}})})();}));
-self['@selectedClass']._ifNotNil_((function(){return klass=self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self['@selectedClass'];}),(function(){return self['@selectedClass']._class();}));}));
-(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return self['@selectedProtocol']._ifNil_ifNotNil_((function(){return klass._ifNil_ifNotNil_((function(){return [];}),(function(){return klass._methodDictionary()._values();}));}),(function(){return klass._methodDictionary()._values()._select_((function(each){return each._category().__eq(self['@selectedProtocol']);}));}))._sort_((function(a, b){return a._selector().__gt(b._selector());}))}})})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_methods'){return e.fn()} throw(e)}},
+fn: function () {
+    var self = this;
+    try {
+        var klass = nil;
+        self['@selectedTab'].__eq("comment")._ifTrue_(function () {return function () {throw {name: "stReturn", selector: "_methods", fn: function () {return [];}};}();});
+        self['@selectedClass']._ifNotNil_(function () {return klass = self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_(function () {return self['@selectedClass'];}, function () {return self['@selectedClass']._class();});});
+        (function () {throw {name: "stReturn", selector: "_methods", fn: function () {return self['@selectedProtocol']._ifNil_ifNotNil_(function () {return klass._ifNil_ifNotNil_(function () {return [];}, function () {return klass._methodDictionary()._values();});}, function () {return klass._methodDictionary()._values()._select_(function (each) {return each._category().__eq(self['@selectedProtocol']);});})._sort_(function (a, b) {return a._selector().__gt(b._selector());});}};}());
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" && e.selector === "_methods") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('methods%0A%20%20%20%20%7C%20klass%20%7C%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D%5D.%0A%20%20%20%20%5E%28selectedProtocol%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20klass%20%0A%09%09ifNil%3A%20%5B%23%28%29%5D%20%0A%09%09ifNotNil%3A%20%5Bklass%20methodDictionary%20values%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20klass%20methodDictionary%20values%20select%3A%20%5B%3Aeach%20%7C%0A%09%09each%20category%20%3D%20selectedProtocol%5D%5D%29%20sort%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20selector%20%3E%20b%20selector%5D%0A')}),
 smalltalk.Browser);
 
@@ -8723,12 +10302,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'source',
 category: 'accessing',
-fn: function (){
-var self=this;
-try{self['@selectedTab'].__eq("comment")._ifFalse_((function(){return (function(){throw({name: 'stReturn', selector: '_source', fn: function(){return self['@selectedProtocol']._notNil()._or_((function(){return self['@selectedMethod']._notNil();}))._ifFalse_ifTrue_((function(){return self._declarationSource();}),(function(){return self._methodSource();}))}})})();}));
-(function(){throw({name: 'stReturn', selector: '_source', fn: function(){return self['@selectedClass']._ifNil_ifNotNil_((function(){return "";}),(function(){return self._classCommentSource();}))}})})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_source'){return e.fn()} throw(e)}},
+fn: function () {
+    var self = this;
+    try {
+        self['@selectedTab'].__eq("comment")._ifFalse_(function () {return function () {throw {name: "stReturn", selector: "_source", fn: function () {return self['@selectedProtocol']._notNil()._or_(function () {return self['@selectedMethod']._notNil();})._ifFalse_ifTrue_(function () {return self._declarationSource();}, function () {return self._methodSource();});}};}();});
+        (function () {throw {name: "stReturn", selector: "_source", fn: function () {return self['@selectedClass']._ifNil_ifNotNil_(function () {return "";}, function () {return self._classCommentSource();});}};}());
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" && e.selector === "_source") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('source%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifFalse%3A%20%5B%0A%09%5E%28selectedProtocol%20notNil%20or%3A%20%5BselectedMethod%20notNil%5D%29%0A%09%20%20%20%20ifFalse%3A%20%5Bself%20declarationSource%5D%0A%09%20%20%20%20ifTrue%3A%20%5Bself%20methodSource%5D%5D.%0A%20%20%20%20%5EselectedClass%0A%09ifNil%3A%20%5B%27%27%5D%0A%09ifNotNil%3A%20%5Bself%20classCommentSource%5D%0A')}),
 smalltalk.Browser);
 
@@ -8737,10 +10323,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'methodSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@selectedMethod']._ifNil_ifNotNil_((function(){return self._dummyMethodSource();}),(function(){return self['@selectedMethod']._source();}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@selectedMethod']._ifNil_ifNotNil_(function () {return self._dummyMethodSource();}, function () {return self['@selectedMethod']._source();});
+    return self;
+},
 source: unescape('methodSource%0A%20%20%20%20%5EselectedMethod%0A%09ifNil%3A%20%5Bself%20dummyMethodSource%5D%0A%09ifNotNil%3A%20%5BselectedMethod%20source%5D%0A')}),
 smalltalk.Browser);
 
@@ -8749,10 +10336,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'dummyMethodSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-return unescape("messageSelectorAndArgumentNames%0A%09%22comment%20stating%20purpose%20of%20message%22%0A%0A%09%7C%20temporary%20variable%20names%20%7C%0A%09statements");
-return self;},
+fn: function () {
+    var self = this;
+    return unescape("messageSelectorAndArgumentNames%0A%09%22comment%20stating%20purpose%20of%20message%22%0A%0A%09%7C%20temporary%20variable%20names%20%7C%0A%09statements");
+    return self;
+},
 source: unescape('dummyMethodSource%0A%20%20%20%20%5E%27messageSelectorAndArgumentNames%0A%09%22comment%20stating%20purpose%20of%20message%22%0A%0A%09%7C%20temporary%20variable%20names%20%7C%0A%09statements%27%0A')}),
 smalltalk.Browser);
 
@@ -8761,10 +10349,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'declarationSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self._classDeclarationSource();}),(function(){return self._metaclassDeclarationSource();}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_(function () {return self._classDeclarationSource();}, function () {return self._metaclassDeclarationSource();});
+    return self;
+},
 source: unescape('declarationSource%0A%20%20%20%20%5EselectedTab%20%3D%20%23instance%0A%09ifTrue%3A%20%5Bself%20classDeclarationSource%5D%0A%09ifFalse%3A%20%5Bself%20metaclassDeclarationSource%5D%0A')}),
 smalltalk.Browser);
 
@@ -8773,13 +10362,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'classDeclarationSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-var stream=nil;
-stream=""._writeStream();
-self['@selectedClass']._ifNotNil_((function(){(function($rec){$rec._nextPutAll_(self['@selectedClass']._superclass()._asString());$rec._nextPutAll_(unescape("%20subclass%3A%20%23"));$rec._nextPutAll_(self['@selectedClass']._name());$rec._nextPutAll_(smalltalk.String._cr().__comma(smalltalk.String._tab()));return $rec._nextPutAll_(unescape("instanceVariableNames%3A%20%27"));})(stream);self['@selectedClass']._instanceVariableNames()._do_separatedBy_((function(each){return stream._nextPutAll_(each);}),(function(){return stream._nextPutAll_(" ");}));return (function($rec){$rec._nextPutAll_(unescape("%27").__comma(smalltalk.String._cr()).__comma(smalltalk.String._tab()));$rec._nextPutAll_(unescape("category%3A%20%27"));$rec._nextPutAll_(self['@selectedClass']._category());return $rec._nextPutAll_(unescape("%27"));})(stream);}));
-return stream._contents();
-return self;},
+fn: function () {
+    var self = this;
+    var stream = nil;
+    stream = ""._writeStream();
+    self['@selectedClass']._ifNotNil_(function () {(function ($rec) {$rec._nextPutAll_(self['@selectedClass']._superclass()._asString());$rec._nextPutAll_(unescape("%20subclass%3A%20%23"));$rec._nextPutAll_(self['@selectedClass']._name());$rec._nextPutAll_(smalltalk.String._cr().__comma(smalltalk.String._tab()));return $rec._nextPutAll_(unescape("instanceVariableNames%3A%20%27"));}(stream));self['@selectedClass']._instanceVariableNames()._do_separatedBy_(function (each) {return stream._nextPutAll_(each);}, function () {return stream._nextPutAll_(" ");});return function ($rec) {$rec._nextPutAll_(unescape("%27").__comma(smalltalk.String._cr()).__comma(smalltalk.String._tab()));$rec._nextPutAll_(unescape("category%3A%20%27"));$rec._nextPutAll_(self['@selectedClass']._category());return $rec._nextPutAll_(unescape("%27"));}(stream);});
+    return stream._contents();
+    return self;
+},
 source: unescape('classDeclarationSource%0A%20%20%20%20%7C%20stream%20%7C%0A%20%20%20%20stream%20%3A%3D%20%27%27%20writeStream.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20superclass%20asString%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%20subclass%3A%20%23%27%3B%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20name%3B%0A%09%20%20%20%20nextPutAll%3A%20String%20cr%2C%20String%20tab%3B%0A%09%20%20%20%20nextPutAll%3A%20%27instanceVariableNames%3A%20%27%27%27.%0A%09selectedClass%20instanceVariableNames%20%0A%09%20%20%20%20do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%5D%20%0A%09%20%20%20%20separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%20%27%5D.%0A%09stream%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27%2C%20String%20cr%2C%20String%20tab%3B%0A%09%20%20%20%20nextPutAll%3A%20%27category%3A%20%27%27%27%3B%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20category%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27%5D.%0A%20%20%20%20%5Estream%20contents%0A')}),
 smalltalk.Browser);
 
@@ -8788,13 +10378,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'metaclassDeclarationSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-var stream=nil;
-stream=""._writeStream();
-self['@selectedClass']._ifNotNil_((function(){(function($rec){$rec._nextPutAll_(self['@selectedClass']._asString());$rec._nextPutAll_(" class ");return $rec._nextPutAll_(unescape("instanceVariableNames%3A%20%27"));})(stream);self['@selectedClass']._class()._instanceVariableNames()._do_separatedBy_((function(each){return stream._nextPutAll_(each);}),(function(){return stream._nextPutAll_(" ");}));return stream._nextPutAll_(unescape("%27"));}));
-return stream._contents();
-return self;},
+fn: function () {
+    var self = this;
+    var stream = nil;
+    stream = ""._writeStream();
+    self['@selectedClass']._ifNotNil_(function () {(function ($rec) {$rec._nextPutAll_(self['@selectedClass']._asString());$rec._nextPutAll_(" class ");return $rec._nextPutAll_(unescape("instanceVariableNames%3A%20%27"));}(stream));self['@selectedClass']._class()._instanceVariableNames()._do_separatedBy_(function (each) {return stream._nextPutAll_(each);}, function () {return stream._nextPutAll_(" ");});return stream._nextPutAll_(unescape("%27"));});
+    return stream._contents();
+    return self;
+},
 source: unescape('metaclassDeclarationSource%0A%20%20%20%20%7C%20stream%20%7C%0A%20%20%20%20stream%20%3A%3D%20%27%27%20writeStream.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20asString%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%20class%20%27%3B%0A%09%20%20%20%20nextPutAll%3A%20%27instanceVariableNames%3A%20%27%27%27.%0A%09selectedClass%20class%20instanceVariableNames%0A%09%20%20%20%20do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%5D%0A%09%20%20%20%20separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%20%27%5D.%0A%09stream%20nextPutAll%3A%20%27%27%27%27%5D.%0A%20%20%20%20%5Estream%20contents%0A')}),
 smalltalk.Browser);
 
@@ -8803,10 +10394,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'classCommentSource',
 category: 'accessing',
-fn: function (){
-var self=this;
-return self['@selectedClass']._comment();
-return self;},
+fn: function () {
+    var self = this;
+    return self['@selectedClass']._comment();
+    return self;
+},
 source: unescape('classCommentSource%0A%20%20%20%20%5EselectedClass%20comment%0A')}),
 smalltalk.Browser);
 
@@ -8815,11 +10407,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'enableSaveButton',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@saveButton']._removeAt_("disabled");
-self['@unsavedChanges']=true;
-return self;},
+fn: function () {
+    var self = this;
+    self['@saveButton']._removeAt_("disabled");
+    self['@unsavedChanges'] = true;
+    return self;
+},
 source: unescape('enableSaveButton%0A%20%20%20%20saveButton%20removeAt%3A%20%27disabled%27.%0A%20%20%20%20unsavedChanges%20%3A%3D%20true%0A')}),
 smalltalk.Browser);
 
@@ -8828,11 +10421,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'disableSaveButton',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@saveButton']._ifNotNil_((function(){return self['@saveButton']._at_put_("disabled",true);}));
-self['@unsavedChanges']=false;
-return self;},
+fn: function () {
+    var self = this;
+    self['@saveButton']._ifNotNil_(function () {return self['@saveButton']._at_put_("disabled", true);});
+    self['@unsavedChanges'] = false;
+    return self;
+},
 source: unescape('disableSaveButton%0A%20%20%20%20saveButton%20ifNotNil%3A%20%5B%0A%09saveButton%20at%3A%20%27disabled%27%20put%3A%20true%5D.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false%0A')}),
 smalltalk.Browser);
 
@@ -8841,10 +10435,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'hideClassButtons',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@classButtons']._asJQuery()._hide();
-return self;},
+fn: function () {
+    var self = this;
+    self['@classButtons']._asJQuery()._hide();
+    return self;
+},
 source: unescape('hideClassButtons%0A%20%20%20%20classButtons%20asJQuery%20hide%0A')}),
 smalltalk.Browser);
 
@@ -8853,10 +10448,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'showClassButtons',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@classButtons']._asJQuery()._show();
-return self;},
+fn: function () {
+    var self = this;
+    self['@classButtons']._asJQuery()._show();
+    return self;
+},
 source: unescape('showClassButtons%0A%20%20%20%20classButtons%20asJQuery%20show%0A')}),
 smalltalk.Browser);
 
@@ -8865,10 +10461,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'hideMethodButtons',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@methodButtons']._asJQuery()._hide();
-return self;},
+fn: function () {
+    var self = this;
+    self['@methodButtons']._asJQuery()._hide();
+    return self;
+},
 source: unescape('hideMethodButtons%0A%20%20%20%20methodButtons%20asJQuery%20hide%0A')}),
 smalltalk.Browser);
 
@@ -8877,10 +10474,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'showMethodButtons',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@methodButtons']._asJQuery()._show();
-return self;},
+fn: function () {
+    var self = this;
+    self['@methodButtons']._asJQuery()._show();
+    return self;
+},
 source: unescape('showMethodButtons%0A%20%20%20%20methodButtons%20asJQuery%20show%0A')}),
 smalltalk.Browser);
 
@@ -8889,12 +10487,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compile',
 category: 'actions',
-fn: function (){
-var self=this;
-self._disableSaveButton();
-self['@selectedTab'].__eq("comment")._ifTrue_((function(){return self['@selectedClass']._ifNotNil_((function(){return self._compileClassComment();}));}));
-self['@selectedProtocol']._notNil()._or_((function(){return self['@selectedMethod']._notNil();}))._ifFalse_ifTrue_((function(){return self._compileDefinition();}),(function(){return self._compileMethodDefinition();}));
-return self;},
+fn: function () {
+    var self = this;
+    self._disableSaveButton();
+    self['@selectedTab'].__eq("comment")._ifTrue_(function () {return self['@selectedClass']._ifNotNil_(function () {return self._compileClassComment();});});
+    self['@selectedProtocol']._notNil()._or_(function () {return self['@selectedMethod']._notNil();})._ifFalse_ifTrue_(function () {return self._compileDefinition();}, function () {return self._compileMethodDefinition();});
+    return self;
+},
 source: unescape('compile%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%0A%09selectedClass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20compileClassComment%5D%5D.%0A%20%20%20%20%28selectedProtocol%20notNil%20or%3A%20%5BselectedMethod%20notNil%5D%29%0A%09ifFalse%3A%20%5Bself%20compileDefinition%5D%0A%09ifTrue%3A%20%5Bself%20compileMethodDefinition%5D%0A')}),
 smalltalk.Browser);
 
@@ -8903,10 +10502,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compileClassComment',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@selectedClass']._comment_(self['@sourceTextarea']._asJQuery()._val());
-return self;},
+fn: function () {
+    var self = this;
+    self['@selectedClass']._comment_(self['@sourceTextarea']._asJQuery()._val());
+    return self;
+},
 source: unescape('compileClassComment%0A%20%20%20%20selectedClass%20comment%3A%20sourceTextarea%20asJQuery%20val%0A')}),
 smalltalk.Browser);
 
@@ -8915,10 +10515,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compileMethodDefinition',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_((function(){return self._compileMethodDefinitionFor_(self['@selectedClass']);}),(function(){return self._compileMethodDefinitionFor_(self['@selectedClass']._class());}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_(function () {return self._compileMethodDefinitionFor_(self['@selectedClass']);}, function () {return self._compileMethodDefinitionFor_(self['@selectedClass']._class());});
+    return self;
+},
 source: unescape('compileMethodDefinition%0A%20%20%20%20selectedTab%20%3D%20%23instance%0A%09ifTrue%3A%20%5Bself%20compileMethodDefinitionFor%3A%20selectedClass%5D%0A%09ifFalse%3A%20%5Bself%20compileMethodDefinitionFor%3A%20selectedClass%20class%5D%0A')}),
 smalltalk.Browser);
 
@@ -8927,25 +10528,33 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compileMethodDefinitionFor:',
 category: 'actions',
-fn: function (aClass){
-var self=this;
-try{var compiler=nil;
-var method=nil;
-var source=nil;
-var node=nil;
-source=self['@sourceTextarea']._asJQuery()._val();
-self['@selectedProtocol']._ifNil_((function(){return self['@selectedProtocol']=self['@selectedMethod']._category();}));
-compiler=smalltalk.Compiler._new();
-node=compiler._parse_(source);
-node._isParseFailure()._ifTrue_((function(){return (function(){throw({name: 'stReturn', selector: '_compileMethodDefinitionFor_', fn: function(){return self._alert_("PARSE ERROR: ".__comma(node._reason()).__comma(unescape("%2C%20position%3A%20")).__comma(node._position()._asString()))}})})();}));
-compiler._currentClass_(self['@selectedClass']);
-method=compiler._eval_(compiler._compileNode_(node));
-method._category_(self['@selectedProtocol']);
-aClass._addCompiledMethod_(method);
-self._updateMethodsList();
-self._selectMethod_(method);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_compileMethodDefinitionFor_'){return e.fn()} throw(e)}},
+fn: function (aClass) {
+    var self = this;
+    try {
+        var compiler = nil;
+        var method = nil;
+        var source = nil;
+        var node = nil;
+        source = self['@sourceTextarea']._asJQuery()._val();
+        self['@selectedProtocol']._ifNil_(function () {return self['@selectedProtocol'] = self['@selectedMethod']._category();});
+        compiler = smalltalk.Compiler._new();
+        node = compiler._parse_(source);
+        node._isParseFailure()._ifTrue_(function () {return function () {throw {name: "stReturn", selector: "_compileMethodDefinitionFor_", fn: function () {return self._alert_("PARSE ERROR: ".__comma(node._reason()).__comma(unescape("%2C%20position%3A%20")).__comma(node._position()._asString()));}};}();});
+        compiler._currentClass_(self['@selectedClass']);
+        method = compiler._eval_(compiler._compileNode_(node));
+        method._category_(self['@selectedProtocol']);
+        aClass._addCompiledMethod_(method);
+        self._updateMethodsList();
+        self._selectMethod_(method);
+        return self;
+    } catch (e) {
+        if (e.name === "stReturn" &&
+            e.selector === "_compileMethodDefinitionFor_") {
+            return e.fn();
+        }
+        throw e;
+    }
+},
 source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20compiler%20method%20source%20node%20%7C%0A%20%20%20%20source%20%3A%3D%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20selectedProtocol%20ifNil%3A%20%5BselectedProtocol%20%3A%3D%20selectedMethod%20category%5D.%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parse%3A%20source.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20%27PARSE%20ERROR%3A%20%27%2C%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%20asString%5D.%0A%20%20%20%20compiler%20currentClass%3A%20selectedClass.%0A%20%20%20%20method%20%3A%3D%20compiler%20eval%3A%20%28compiler%20compileNode%3A%20node%29.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
 smalltalk.Browser);
 
@@ -8954,12 +10563,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compileDefinition',
 category: 'actions',
-fn: function (){
-var self=this;
-var newClass=nil;
-newClass=smalltalk.Compiler._new()._loadExpression_(self['@sourceTextarea']._asJQuery()._val());
-(function($rec){$rec._updateCategoriesList();return $rec._updateClassesList();})(self);
-return self;},
+fn: function () {
+    var self = this;
+    var newClass = nil;
+    newClass = smalltalk.Compiler._new()._loadExpression_(self['@sourceTextarea']._asJQuery()._val());
+    (function ($rec) {$rec._updateCategoriesList();return $rec._updateClassesList();}(self));
+    return self;
+},
 source: unescape('compileDefinition%0A%20%20%20%20%7C%20newClass%20%7C%0A%20%20%20%20newClass%20%3A%3D%20Compiler%20new%20loadExpression%3A%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20self%20%0A%09updateCategoriesList%3B%0A%09updateClassesList%0A')}),
 smalltalk.Browser);
 
@@ -8968,11 +10578,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'commitCategory',
 category: 'actions',
-fn: function (){
-var self=this;
-self['@selectedCategory']._ifNotNil_((function(){return (function($rec){$rec._at_put_("type","PUT");$rec._at_put_("data",smalltalk.Exporter._new()._exportCategory_(self['@selectedCategory']));$rec._at_put_("error",(function(){return self._alert_(unescape("Commit%20failed%21"));}));return $rec._send();})(smalltalk.Ajax._url_(unescape("js/").__comma(self['@selectedCategory']).__comma(".js")));}));
-return self;},
-source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20%27js/%27%2C%20selectedCategory%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D%0A')}),
+fn: function () {
+    var self = this;
+    self['@selectedCategory']._ifNotNil_(function () {return function ($rec) {$rec._at_put_("type", "PUT");$rec._at_put_("data", smalltalk.Exporter._new()._exportCategory_(self['@selectedCategory']));$rec._at_put_("error", function () {return self._alert_(unescape("Commit%20failed%21"));});return $rec._send();}(smalltalk.Ajax._url_(self._class()._commitPath().__comma(unescape("/")).__comma(self['@selectedCategory']).__comma(".js")));});
+    return self;
+},
+source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20self%20class%20commitPath%2C%20%27/%27%2C%20selectedCategory%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -8980,10 +10591,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'cancelChanges',
 category: 'actions',
-fn: function (){
-var self=this;
-return self['@unsavedChanges']._ifTrue_ifFalse_((function(){return self._confirm_(unescape("Cancel%20changes%3F"));}),(function(){return true;}));
-return self;},
+fn: function () {
+    var self = this;
+    return self['@unsavedChanges']._ifTrue_ifFalse_(function () {return self._confirm_(unescape("Cancel%20changes%3F"));}, function () {return true;});
+    return self;
+},
 source: unescape('cancelChanges%0A%20%20%20%20%5EunsavedChanges%20%0A%09ifTrue%3A%20%5Bself%20confirm%3A%20%27Cancel%20changes%3F%27%5D%0A%09ifFalse%3A%20%5Btrue%5D%0A')}),
 smalltalk.Browser);
 
@@ -8992,10 +10604,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeClass',
 category: 'actions',
-fn: function (){
-var self=this;
-self._confirm_("Do you really want to remove ".__comma(self['@selectedClass']._name()).__comma(unescape("%3F")))._ifTrue_((function(){smalltalk.Smalltalk._current()._basicDelete_(self['@selectedClass']._name());return self._selectClass_(nil);}));
-return self;},
+fn: function () {
+    var self = this;
+    self._confirm_("Do you really want to remove ".__comma(self['@selectedClass']._name()).__comma(unescape("%3F")))._ifTrue_(function () {smalltalk.Smalltalk._current()._basicDelete_(self['@selectedClass']._name());return self._selectClass_(nil);});
+    return self;
+},
 source: unescape('removeClass%0A%20%20%20%20%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%27%2C%20selectedClass%20name%2C%20%27%3F%27%29%0A%09ifTrue%3A%20%5B%0A%09%20%20%20%20Smalltalk%20current%20basicDelete%3A%20selectedClass%20name.%0A%09%20%20%20%20self%20selectClass%3A%20nil%5D%0A')}),
 smalltalk.Browser);
 
@@ -9004,11 +10617,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'removeMethod',
 category: 'actions',
-fn: function (){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){return self._confirm_(unescape("Do%20you%20really%20want%20to%20remove%20%23").__comma(self['@selectedMethod']._selector()).__comma(unescape("%3F")))._ifTrue_((function(){self['@selectedClass']._removeCompiledMethod_(self['@selectedMethod']);return self._selectMethod_(nil);}));}));
-return self;},
-source: unescape('removeMethod%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%23%27%2C%20selectedMethod%20selector%2C%20%27%3F%27%29%0A%09%20%20%20%20ifTrue%3A%20%5B%0A%09%09selectedClass%20removeCompiledMethod%3A%20selectedMethod.%0A%09%09self%20selectMethod%3A%20nil%5D%5D%0A')}),
+fn: function () {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {return self._confirm_(unescape("Do%20you%20really%20want%20to%20remove%20%23").__comma(self['@selectedMethod']._selector()).__comma(unescape("%3F")))._ifTrue_(function () {self['@selectedTab'].__eq("instance")._ifTrue_ifFalse_(function () {return self['@selectedClass']._removeCompiledMethod_(self['@selectedMethod']);}, function () {return self['@selectedClass']._class()._removeCompiledMethod_(self['@selectedMethod']);});return self._selectMethod_(nil);});});
+    return self;
+},
+source: unescape('removeMethod%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20%23%27%2C%20selectedMethod%20selector%2C%20%27%3F%27%29%0A%09%20%20%20%20ifTrue%3A%20%5B%0A%09%09selectedTab%20%3D%20%23instance%20%0A%09%09%09ifTrue%3A%20%5BselectedClass%20removeCompiledMethod%3A%20selectedMethod%5D%0A%09%09%09ifFalse%3A%20%5BselectedClass%20class%20removeCompiledMethod%3A%20selectedMethod%5D.%0A%09%09self%20selectMethod%3A%20nil%5D%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -9016,10 +10630,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'setMethodProtocol:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){return self._protocols()._includes_(aString)._ifFalse_ifTrue_((function(){return self._addNewProtocol();}),(function(){self['@selectedMethod']._category_(aString);self['@selectedProtocol']=aString;self['@selectedMethod']=self['@selectedMethod'];return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));}));
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {return self._protocols()._includes_(aString)._ifFalse_ifTrue_(function () {return self._addNewProtocol();}, function () {self['@selectedMethod']._category_(aString);self['@selectedProtocol'] = aString;self['@selectedMethod'] = self['@selectedMethod'];return function ($rec) {$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();}(self);});});
+    return self;
+},
 source: unescape('setMethodProtocol%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09%28self%20protocols%20includes%3A%20aString%29%0A%09%20%20%20%20ifFalse%3A%20%5Bself%20addNewProtocol%5D%0A%09%20%20%20%20ifTrue%3A%20%5B%0A%09%09selectedMethod%20category%3A%20aString.%0A%09%09selectedProtocol%20%3A%3D%20aString.%0A%09%09selectedMethod%20%3A%3D%20selectedMethod.%0A%09%09self%20%0A%09%09%20%20%20%20updateProtocolsList%3B%0A%09%09%20%20%20%20updateMethodsList%3B%0A%09%09%20%20%20%20updateSourceAndButtons%5D%5D%0A')}),
 smalltalk.Browser);
 
@@ -9028,12 +10643,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addNewProtocol',
 category: 'actions',
-fn: function (){
-var self=this;
-var newProtocol=nil;
-newProtocol=self._prompt_("New method protocol");
-newProtocol._notEmpty()._ifTrue_((function(){self['@selectedMethod']._category_(newProtocol);return self._setMethodProtocol_(newProtocol);}));
-return self;},
+fn: function () {
+    var self = this;
+    var newProtocol = nil;
+    newProtocol = self._prompt_("New method protocol");
+    newProtocol._notEmpty()._ifTrue_(function () {self['@selectedMethod']._category_(newProtocol);return self._setMethodProtocol_(newProtocol);});
+    return self;
+},
 source: unescape('addNewProtocol%0A%20%20%20%20%7C%20newProtocol%20%7C%0A%20%20%20%20newProtocol%20%3A%3D%20self%20prompt%3A%20%27New%20method%20protocol%27.%0A%20%20%20%20newProtocol%20notEmpty%20ifTrue%3A%20%5B%0A%09selectedMethod%20category%3A%20newProtocol.%0A%09self%20setMethodProtocol%3A%20newProtocol%5D%0A')}),
 smalltalk.Browser);
 
@@ -9042,10 +10658,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectCategory:',
 category: 'actions',
-fn: function (aCategory){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){self['@selectedCategory']=aCategory;self['@selectedClass']=self['@selectedProtocol']=self['@selectedMethod']=nil;return (function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
-return self;},
+fn: function (aCategory) {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {self['@selectedCategory'] = aCategory;self['@selectedClass'] = self['@selectedProtocol'] = self['@selectedMethod'] = nil;return function ($rec) {$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();}(self);});
+    return self;
+},
 source: unescape('selectCategory%3A%20aCategory%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedCategory%20%3A%3D%20aCategory.%0A%09selectedClass%20%3A%3D%20selectedProtocol%20%3A%3D%20selectedMethod%20%3A%3D%20%20nil.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList%3B%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
@@ -9054,10 +10671,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectClass:',
 category: 'actions',
-fn: function (aClass){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){self['@selectedClass']=aClass;self['@selectedProtocol']=self['@selectedMethod']=nil;return (function($rec){$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
-return self;},
+fn: function (aClass) {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {self['@selectedClass'] = aClass;self['@selectedProtocol'] = self['@selectedMethod'] = nil;return function ($rec) {$rec._updateClassesList();$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();}(self);});
+    return self;
+},
 source: unescape('selectClass%3A%20aClass%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedClass%20%3A%3D%20aClass.%0A%09selectedProtocol%20%3A%3D%20selectedMethod%20%3A%3D%20nil.%0A%09self%20%0A%09%20%20%20%20updateClassesList%3B%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
@@ -9066,10 +10684,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectProtocol:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){self['@selectedProtocol']=aString;self['@selectedMethod']=nil;return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {self['@selectedProtocol'] = aString;self['@selectedMethod'] = nil;return function ($rec) {$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();}(self);});
+    return self;
+},
 source: unescape('selectProtocol%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedProtocol%20%3A%3D%20aString.%0A%09selectedMethod%20%3A%3D%20nil.%0A%09self%20%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
@@ -9078,10 +10697,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectMethod:',
 category: 'actions',
-fn: function (aMethod){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){self['@selectedMethod']=aMethod;return (function($rec){$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();})(self);}));
-return self;},
+fn: function (aMethod) {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {self['@selectedMethod'] = aMethod;return function ($rec) {$rec._updateProtocolsList();$rec._updateMethodsList();return $rec._updateSourceAndButtons();}(self);});
+    return self;
+},
 source: unescape('selectMethod%3A%20aMethod%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedMethod%20%3A%3D%20aMethod.%0A%09self%20%0A%09%20%20%20%20updateProtocolsList%3B%0A%09%20%20%20%20updateMethodsList%3B%0A%09%20%20%20%20updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
@@ -9090,10 +10710,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'selectTab:',
 category: 'actions',
-fn: function (aString){
-var self=this;
-self._cancelChanges()._ifTrue_((function(){self['@selectedTab']=aString;self._selectProtocol_(nil);return self._updateTabsList();}));
-return self;},
+fn: function (aString) {
+    var self = this;
+    self._cancelChanges()._ifTrue_(function () {self['@selectedTab'] = aString;self._selectProtocol_(nil);return self._updateTabsList();});
+    return self;
+},
 source: unescape('selectTab%3A%20aString%0A%20%20%20%20self%20cancelChanges%20ifTrue%3A%20%5B%0A%09selectedTab%20%3A%3D%20aString.%0A%09self%20selectProtocol%3A%20nil.%0A%09self%20updateTabsList%5D%0A')}),
 smalltalk.Browser);
 
@@ -9102,10 +10723,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderBoxOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._renderTopPanelOn_(html);$rec._renderTabsOn_(html);return $rec._renderBottomPanelOn_(html);})(self);
-return self;},
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._renderTopPanelOn_(html);$rec._renderTabsOn_(html);return $rec._renderBottomPanelOn_(html);}(self));
+    return self;
+},
 source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20self%20%0A%09renderTopPanelOn%3A%20html%3B%0A%09renderTabsOn%3A%20html%3B%0A%09renderBottomPanelOn%3A%20html%0A')}),
 smalltalk.Browser);
 
@@ -9114,10 +10736,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderTopPanelOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._class_("top");return $rec._with_((function(){self['@categoriesList']=html._ul()._class_("jt_column categories");self['@commitButton']=(function($rec){$rec._class_("jt_commit");$rec._title_("Commit classes in this category to disk");$rec._onClick_((function(){return self._commitCategory();}));return $rec._with_("Commit category");})(html._button());self['@classesList']=html._ul()._class_("jt_column classes");self['@protocolsList']=html._ul()._class_("jt_column protocols");self['@methodsList']=html._ul()._class_("jt_column methods");(function($rec){$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();return $rec._updateMethodsList();})(self);return html._div()._class_("jt_clear");}));})(html._div());
-return self;},
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("top");return $rec._with_(function () {self['@categoriesList'] = html._ul()._class_("jt_column categories");self['@commitButton'] = function ($rec) {$rec._class_("jt_commit");$rec._title_("Commit classes in this category to disk");$rec._onClick_(function () {return self._commitCategory();});return $rec._with_("Commit category");}(html._button());self['@classesList'] = html._ul()._class_("jt_column classes");self['@protocolsList'] = html._ul()._class_("jt_column protocols");self['@methodsList'] = html._ul()._class_("jt_column methods");(function ($rec) {$rec._updateCategoriesList();$rec._updateClassesList();$rec._updateProtocolsList();return $rec._updateMethodsList();}(self));return html._div()._class_("jt_clear");});}(html._div()));
+    return self;
+},
 source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20categories%27.%0A%09%20%20%20%20commitButton%20%3A%3D%20html%20button%20%0A%09%09class%3A%20%27jt_commit%27%3B%0A%09%09title%3A%20%27Commit%20classes%20in%20this%20category%20to%20disk%27%3B%0A%09%09onClick%3A%20%5Bself%20commitCategory%5D%3B%0A%09%09with%3A%20%27Commit%20category%27.%0A%09%20%20%20%20classesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20classes%27.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D%0A')}),
 smalltalk.Browser);
 
@@ -9126,11 +10749,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderTabsOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-self['@tabsList']=html._ul()._class_("jt_tabs");
-self._updateTabsList();
-return self;},
+fn: function (html) {
+    var self = this;
+    self['@tabsList'] = html._ul()._class_("jt_tabs");
+    self._updateTabsList();
+    return self;
+},
 source: unescape('renderTabsOn%3A%20html%0A%20%20%20%20tabsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_tabs%27.%0A%20%20%20%20self%20updateTabsList.%0A')}),
 smalltalk.Browser);
 
@@ -9139,10 +10763,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderBottomPanelOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){$rec._class_("jt_sourceCode");return $rec._with_((function(){self['@sourceTextarea']=(function($rec){$rec._onKeyPress_((function(){return self._enableSaveButton();}));$rec._class_("source");return $rec._at_put_("spellcheck","false");})(html._textarea());return self['@sourceTextarea']._asJQuery()._call_("tabby");}));})(html._div());
-return self;},
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("jt_sourceCode");return $rec._with_(function () {self['@sourceTextarea'] = function ($rec) {$rec._onKeyPress_(function () {return self._enableSaveButton();});$rec._class_("source");return $rec._at_put_("spellcheck", "false");}(html._textarea());return self['@sourceTextarea']._asJQuery()._call_("tabby");});}(html._div()));
+    return self;
+},
 source: unescape('renderBottomPanelOn%3A%20html%0A%20%20%20%20html%20div%0A%09class%3A%20%27jt_sourceCode%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20sourceTextarea%20%3A%3D%20html%20textarea%20%0A%09%09onKeyPress%3A%20%5Bself%20enableSaveButton%5D%3B%0A%09%09class%3A%20%27source%27%3B%0A%09%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27.%0A%09%20%20%20%20sourceTextarea%20asJQuery%20call%3A%20%27tabby%27%5D%0A')}),
 smalltalk.Browser);
 
@@ -9151,14 +10776,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'renderButtonsOn:',
 category: 'rendering',
-fn: function (html){
-var self=this;
-self['@saveButton']=html._button();
-(function($rec){$rec._with_("Save");return $rec._onClick_((function(){return self._compile();}));})(self['@saveButton']);
-self['@methodButtons']=html._span();
-self['@classButtons']=html._span();
-self._updateSourceAndButtons();
-return self;},
+fn: function (html) {
+    var self = this;
+    self['@saveButton'] = html._button();
+    (function ($rec) {$rec._with_("Save");return $rec._onClick_(function () {return self._compile();});}(self['@saveButton']));
+    self['@methodButtons'] = html._span();
+    self['@classButtons'] = html._span();
+    self._updateSourceAndButtons();
+    return self;
+},
 source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20saveButton%20%3A%3D%20html%20button.%0A%20%20%20%20saveButton%20%0A%09with%3A%20%27Save%27%3B%0A%09onClick%3A%20%5Bself%20compile%5D.%0A%20%20%20%20methodButtons%20%3A%3D%20html%20span.%0A%20%20%20%20classButtons%20%3A%3D%20html%20span.%0A%20%20%20%20self%20updateSourceAndButtons%0A')}),
 smalltalk.Browser);
 
@@ -9167,11 +10793,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateCategoriesList',
 category: 'updating',
-fn: function (){
-var self=this;
-self['@categoriesList']._contents_((function(html){return self._categories()._do_((function(each){var li=nil;
-li=html._li();self['@selectedCategory'].__eq(each)._ifTrue_((function(){return li._class_("selected");}));return (function($rec){$rec._with_(each);return $rec._onClick_((function(){return self._selectCategory_(each);}));})(li);}));}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@categoriesList']._contents_(function (html) {return self._categories()._do_(function (each) {var li = nil;li = html._li();self['@selectedCategory'].__eq(each)._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_(each);return $rec._onClick_(function () {return self._selectCategory_(each);});}(li);});});
+    return self;
+},
 source: unescape('updateCategoriesList%0A%20%20%20%20categoriesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedCategory%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%3B%0A%09%09onClick%3A%20%5Bself%20selectCategory%3A%20each%5D%5D%5D%0A')}),
 smalltalk.Browser);
 
@@ -9180,12 +10806,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateClassesList',
 category: 'updating',
-fn: function (){
-var self=this;
-smalltalk.TabManager._current()._update();
-self['@classesList']._contents_((function(html){return self._classes()._do_((function(each){var li=nil;
-li=html._li();self['@selectedClass'].__eq(each)._ifTrue_((function(){return li._class_("selected");}));return (function($rec){$rec._with_(each._name());return $rec._onClick_((function(){return self._selectClass_(each);}));})(li);}));}));
-return self;},
+fn: function () {
+    var self = this;
+    smalltalk.TabManager._current()._update();
+    self['@classesList']._contents_(function (html) {return self._classes()._do_(function (each) {var li = nil;li = html._li();self['@selectedClass'].__eq(each)._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_(each._name());return $rec._onClick_(function () {return self._selectClass_(each);});}(li);});});
+    return self;
+},
 source: unescape('updateClassesList%0A%20%20%20%20TabManager%20current%20update.%0A%20%20%20%20classesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20classes%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedClass%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%20name%3B%0A%09%09onClick%3A%20%5Bself%20selectClass%3A%20each%5D%5D%5D%0A')}),
 smalltalk.Browser);
 
@@ -9194,11 +10820,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateProtocolsList',
 category: 'updating',
-fn: function (){
-var self=this;
-self['@protocolsList']._contents_((function(html){return self._protocols()._do_((function(each){var li=nil;
-li=html._li();self['@selectedProtocol'].__eq(each)._ifTrue_((function(){return li._class_("selected");}));return (function($rec){$rec._with_(each);return $rec._onClick_((function(){return self._selectProtocol_(each);}));})(li);}));}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@protocolsList']._contents_(function (html) {return self._protocols()._do_(function (each) {var li = nil;li = html._li();self['@selectedProtocol'].__eq(each)._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_(each);return $rec._onClick_(function () {return self._selectProtocol_(each);});}(li);});});
+    return self;
+},
 source: unescape('updateProtocolsList%0A%20%20%20%20protocolsList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20protocols%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedProtocol%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%20%0A%09%09with%3A%20each%3B%0A%09%09onClick%3A%20%5Bself%20selectProtocol%3A%20each%5D%5D%5D%0A')}),
 smalltalk.Browser);
 
@@ -9207,11 +10833,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateMethodsList',
 category: 'updating',
-fn: function (){
-var self=this;
-self['@methodsList']._contents_((function(html){return self._methods()._do_((function(each){var li=nil;
-li=html._li();self['@selectedMethod'].__eq(each)._ifTrue_((function(){return li._class_("selected");}));return (function($rec){$rec._with_(each._selector());return $rec._onClick_((function(){return self._selectMethod_(each);}));})(li);}));}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@methodsList']._contents_(function (html) {return self._methods()._do_(function (each) {var li = nil;li = html._li();self['@selectedMethod'].__eq(each)._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_(each._selector());return $rec._onClick_(function () {return self._selectMethod_(each);});}(li);});});
+    return self;
+},
 source: unescape('updateMethodsList%0A%20%20%20%20methodsList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedMethod%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%20selector%3B%0A%09%09onClick%3A%20%5Bself%20selectMethod%3A%20each%5D%5D%5D%0A')}),
 smalltalk.Browser);
 
@@ -9220,11 +10846,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateTabsList',
 category: 'updating',
-fn: function (){
-var self=this;
-self['@tabsList']._contents_((function(html){var li=nil;
-li=html._li();self['@selectedTab'].__eq("instance")._ifTrue_((function(){return li._class_("selected");}));(function($rec){$rec._with_("Instance");return $rec._onClick_((function(){return self._selectTab_("instance");}));})(li);li=html._li();self['@selectedTab'].__eq("class")._ifTrue_((function(){return li._class_("selected");}));(function($rec){$rec._with_("Class");return $rec._onClick_((function(){return self._selectTab_("class");}));})(li);li=html._li();self['@selectedTab'].__eq("comment")._ifTrue_((function(){return li._class_("selected");}));return (function($rec){$rec._with_("Comment");return $rec._onClick_((function(){return self._selectTab_("comment");}));})(li);}));
-return self;},
+fn: function () {
+    var self = this;
+    self['@tabsList']._contents_(function (html) {var li = nil;li = html._li();self['@selectedTab'].__eq("instance")._ifTrue_(function () {return li._class_("selected");});(function ($rec) {$rec._with_("Instance");return $rec._onClick_(function () {return self._selectTab_("instance");});}(li));li = html._li();self['@selectedTab'].__eq("class")._ifTrue_(function () {return li._class_("selected");});(function ($rec) {$rec._with_("Class");return $rec._onClick_(function () {return self._selectTab_("class");});}(li));li = html._li();self['@selectedTab'].__eq("comment")._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_("Comment");return $rec._onClick_(function () {return self._selectTab_("comment");});}(li);});
+    return self;
+},
 source: unescape('updateTabsList%0A%20%20%20%20tabsList%20contents%3A%20%5B%3Ahtml%20%7C%7C%20li%20%7C%0A%09li%20%3A%3D%20html%20li.%0A%09selectedTab%20%3D%20%23instance%20ifTrue%3A%20%5Bli%20class%3A%20%27selected%27%5D.%0A%09li%0A%09%20%20%20%20with%3A%20%27Instance%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20selectTab%3A%20%23instance%5D.%0A%09li%20%3A%3D%20html%20li.%0A%09selectedTab%20%3D%20%23class%20ifTrue%3A%20%5Bli%20class%3A%20%27selected%27%5D.%0A%09li%0A%09%20%20%20%20with%3A%20%27Class%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20selectTab%3A%20%23class%5D.%0A%09li%20%3A%3D%20html%20li.%0A%09selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5Bli%20class%3A%20%27selected%27%5D.%0A%09li%0A%09%20%20%20%20with%3A%20%27Comment%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20selectTab%3A%20%23comment%5D%5D%0A')}),
 smalltalk.Browser);
 
@@ -9233,15 +10859,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'updateSourceAndButtons',
 category: 'updating',
-fn: function (){
-var self=this;
-self._disableSaveButton();
-self['@classButtons']._contents_((function(html){return (function($rec){$rec._with_("Remove class");return $rec._onClick_((function(){return self._removeClass();}));})(html._button());}));
-self['@methodButtons']._contents_((function(html){(function($rec){$rec._with_("Remove method");return $rec._onClick_((function(){return self._removeMethod();}));})(html._button());return (function($rec){$rec._onChange_((function(s){return self._setMethodProtocol_(s._val());}));return $rec._with_((function(){(function($rec){$rec._with_("Method protocol");return $rec._at_put_("disabled","disabled");})(html._option());(function($rec){$rec._class_("important");return $rec._with_("New...");})(html._option());return self._protocols()._do_((function(each){return html._option()._with_(each);}));}));})(html._select());}));
-self['@selectedMethod']._ifNil_ifNotNil_((function(){self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_((function(){return self._hideClassButtons();}),(function(){return self._showClassButtons();}));}),(function(){self._hideClassButtons();return self._showMethodButtons();}));
-self['@sourceTextarea']._asJQuery()._val_(self._source());
-return self;},
-source: unescape('updateSourceAndButtons%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20class%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%20%20%20%20methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09html%20button%0A%09%20%20%20%20with%3A%20%27Remove%20method%27%3B%0A%09%20%20%20%20onClick%3A%20%5Bself%20removeMethod%5D.%0A%09html%20select%20%0A%09%20%20%20%20onChange%3A%20%5B%3As%20%7C%20self%20setMethodProtocol%3A%20s%20val%5D%3B%0A%09%20%20%20%20with%3A%20%5B%0A%09%09html%20option%0A%09%09%20%20%20%20with%3A%20%27Method%20protocol%27%3B%0A%09%09%20%20%20%20at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%09html%20option%0A%09%09%20%20%20%20class%3A%20%27important%27%3B%0A%09%09%20%20%20%20with%3A%20%27New...%27.%0A%09%09self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%20%20%20%20html%20option%20with%3A%20each%5D%5D%5D.%0A%20%20%20%20selectedMethod%20%0A%09ifNil%3A%20%5B%0A%09%20%20%20%20self%20hideMethodButtons.%0A%09%20%20%20%20selectedClass%20%0A%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20hideClassButtons.%0A%09%20%20%20%20self%20showMethodButtons%5D.%0A%20%20%20%20sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
+fn: function () {
+    var self = this;
+    self._disableSaveButton();
+    self['@classButtons']._contents_(function (html) {(function ($rec) {$rec._with_("Rename class");return $rec._onClick_(function () {return self._renameClass();});}(html._button()));return function ($rec) {$rec._with_("Remove class");return $rec._onClick_(function () {return self._removeClass();});}(html._button());});
+    self['@methodButtons']._contents_(function (html) {(function ($rec) {$rec._with_("Remove method");return $rec._onClick_(function () {return self._removeMethod();});}(html._button()));return function ($rec) {$rec._onChange_(function (s) {return self._setMethodProtocol_(s._val());});return $rec._with_(function () {(function ($rec) {$rec._with_("Method protocol");return $rec._at_put_("disabled", "disabled");}(html._option()));(function ($rec) {$rec._class_("important");return $rec._with_("New...");}(html._option()));return self._protocols()._do_(function (each) {return html._option()._with_(each);});});}(html._select());});
+    self['@selectedMethod']._ifNil_ifNotNil_(function () {self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_(function () {return self._hideClassButtons();}, function () {return self._showClassButtons();});}, function () {self._hideClassButtons();return self._showMethodButtons();});
+    self['@sourceTextarea']._asJQuery()._val_(self._source());
+    return self;
+},
+source: unescape('updateSourceAndButtons%0A%09self%20disableSaveButton.%0A%09classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20button%0A%09%09%09with%3A%20%27Rename%20class%27%3B%0A%09%09%09onClick%3A%20%5Bself%20renameClass%5D.%0A%09%09html%20button%0A%09%09with%3A%20%27Remove%20class%27%3B%0A%09%09onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%09methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20button%0A%09%09%09with%3A%20%27Remove%20method%27%3B%0A%09%09%09onClick%3A%20%5Bself%20removeMethod%5D.%0A%09%09html%20select%20%0A%09%20%20%20%20%09%09onChange%3A%20%5B%3As%20%7C%20self%20setMethodProtocol%3A%20s%20val%5D%3B%0A%09%20%20%20%20%09%09with%3A%20%5B%0A%09%09%09%09html%20option%0A%09%09%20%20%20%20%09%09%09with%3A%20%27Method%20protocol%27%3B%0A%09%09%20%20%20%20%09%09%09at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%09%09%09html%20option%0A%09%09%20%20%20%20%09%09%09class%3A%20%27important%27%3B%0A%09%09%20%20%20%20%09%09%09with%3A%20%27New...%27.%0A%09%09%09%09self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%20%20%20%20%09%09%09html%20option%20with%3A%20each%5D%5D%5D.%0A%20%20%20%20%09selectedMethod%20%0A%09%09ifNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20hideMethodButtons.%0A%09%20%20%20%20%09%09%09selectedClass%20%0A%09%09%09%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20%09%09%09%09ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09%09ifNotNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20hideClassButtons.%0A%09%20%20%20%20%09%09self%20showMethodButtons%5D.%0A%20%20%20%20%09sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -9249,11 +10876,27 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'canBeClosed',
 category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
 source: unescape('canBeClosed%0A%20%20%20%20%5Etrue%0A')}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_renameClass',
+smalltalk.method({
+selector: 'renameClass',
+category: 'actions',
+fn: function () {
+    var self = this;
+    var newName = nil;
+    newName = self._prompt_("Rename class ".__comma(self['@selectedClass']._name()));
+    newName._notEmpty()._ifTrue_(function () {self['@selectedClass']._rename_(newName);return function ($rec) {$rec._updateClassesList();return $rec._updateSourceAndButtons();}(self);});
+    return self;
+},
+source: unescape('renameClass%0A%20%20%20%20%7C%20newName%20%7C%0A%20%20%20%20newName%20%3A%3D%20self%20prompt%3A%20%27Rename%20class%20%27%2C%20selectedClass%20name.%0A%20%20%20%20newName%20notEmpty%20ifTrue%3A%20%5B%0A%09selectedClass%20rename%3A%20newName.%0A%09self%20%0A%09%09updateClassesList%3B%0A%09%09updateSourceAndButtons%5D%0A')}),
 smalltalk.Browser);
 
 
@@ -9262,10 +10905,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'openOn:',
 category: 'convenience',
-fn: function (aClass){
-var self=this;
-(function($rec){$rec._open();$rec._selectCategory_(aClass._category());return $rec._selectClass_(aClass);})(self._new());
-return self;},
+fn: function (aClass) {
+    var self = this;
+    (function ($rec) {$rec._open();$rec._selectCategory_(aClass._category());return $rec._selectClass_(aClass);}(self._new()));
+    return self;
+},
 source: unescape('openOn%3A%20aClass%0A%20%20%20%20self%20new%0A%09open%3B%0A%09selectCategory%3A%20aClass%20category%3B%0A%09selectClass%3A%20aClass%0A')}),
 smalltalk.Browser.klass);
 
@@ -9274,13 +10918,239 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'open',
 category: 'convenience',
-fn: function (){
-var self=this;
-self._new()._open();
-return self;},
+fn: function () {
+    var self = this;
+    self._new()._open();
+    return self;
+},
 source: unescape('open%0A%20%20%20%20self%20new%20open%0A')}),
 smalltalk.Browser.klass);
 
+smalltalk.addMethod(
+'_commitPath',
+smalltalk.method({
+selector: 'commitPath',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return "js";
+    return self;
+},
+source: unescape('commitPath%0A%09%5E%27js%27')}),
+smalltalk.Browser.klass);
+
+
+smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'selectedVariable', 'variablesList', 'valueTextarea', 'workspaceTextarea'], 'IDE');
+smalltalk.addMethod(
+'_label',
+smalltalk.method({
+selector: 'label',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@label']._ifNil_(function () {return unescape("Inspector%20%28nil%29");});
+    return self;
+},
+source: unescape('label%0A%09%5Elabel%20ifNil%3A%20%5B%27Inspector%20%28nil%29%27%5D')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_canBeClosed',
+smalltalk.method({
+selector: 'canBeClosed',
+category: 'testing',
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
+source: unescape('canBeClosed%0A%09%5Etrue')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_inspect_',
+smalltalk.method({
+selector: 'inspect:',
+category: 'accessing',
+fn: function (anObject) {
+    var self = this;
+    anObject._inspectOn_(self);
+    return self;
+},
+source: unescape('inspect%3A%20anObject%0A%09anObject%20inspectOn%3A%20self')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+category: 'initialization',
+fn: function () {
+    var self = this;
+    self.klass.superclass.fn.prototype._initialize.apply(self, []);
+    self['@variables'] = [];
+    return self;
+},
+source: unescape('initialize%0A%09super%20initialize.%0A%09variables%20%3A%3D%20%23%28%29')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_variables',
+smalltalk.method({
+selector: 'variables',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@variables'];
+    return self;
+},
+source: unescape('variables%0A%09%5Evariables')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_setVariables_',
+smalltalk.method({
+selector: 'setVariables:',
+category: 'accessing',
+fn: function (aCollection) {
+    var self = this;
+    self['@variables'] = aCollection;
+    return self;
+},
+source: unescape('setVariables%3A%20aCollection%0A%09variables%20%3A%3D%20aCollection')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_setLabel_',
+smalltalk.method({
+selector: 'setLabel:',
+category: 'accessing',
+fn: function (aString) {
+    var self = this;
+    self['@label'] = aString;
+    return self;
+},
+source: unescape('setLabel%3A%20aString%0A%09label%20%3A%3D%20aString')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_renderBoxOn_',
+smalltalk.method({
+selector: 'renderBoxOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._renderTopPanelOn_(html);return $rec._renderBottomPanelOn_(html);}(self));
+    return self;
+},
+source: unescape('renderBoxOn%3A%20html%0A%09self%20%0A%09%09renderTopPanelOn%3A%20html%3B%0A%09%09renderBottomPanelOn%3A%20html')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_renderTopPanelOn_',
+smalltalk.method({
+selector: 'renderTopPanelOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("top");return $rec._with_(function () {self['@variablesList'] = html._ul()._class_("jt_column variables");self['@valueTextarea'] = function ($rec) {$rec._class_("jt_column value");return $rec._at_put_("readonly", "readonly");}(html._textarea());(function ($rec) {$rec._updateVariablesList();return $rec._updateValueTextarea();}(self));return html._div()._class_("jt_clear");});}(html._div()));
+    return self;
+},
+source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20variablesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20variables%27.%0A%09%20%20%20%20valueTextarea%20%3A%3D%20html%20textarea%20class%3A%20%27jt_column%20value%27%3B%20at%3A%20%27readonly%27%20put%3A%20%27readonly%27.%0A%09%20%20%20%20self%0A%09%09updateVariablesList%3B%0A%09%09updateValueTextarea.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D%0A')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_renderBottomPanelOn_',
+smalltalk.method({
+selector: 'renderBottomPanelOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._class_("jt_sourceCode");return $rec._with_(function () {self['@workspaceTextarea'] = function ($rec) {$rec._class_("source");return $rec._at_put_("spellcheck", "false");}(html._textarea());return self['@workspaceTextarea']._asJQuery()._call_("tabby");});}(html._div()));
+    return self;
+},
+source: unescape('renderBottomPanelOn%3A%20html%0A%20%20%20%20html%20div%0A%09class%3A%20%27jt_sourceCode%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20workspaceTextarea%20%3A%3D%20html%20textarea%20%0A%09%09class%3A%20%27source%27%3B%0A%09%09at%3A%20%27spellcheck%27%20put%3A%20%27false%27.%0A%09%20%20%20%20workspaceTextarea%20asJQuery%20call%3A%20%27tabby%27%5D%0A')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_updateVariablesList',
+smalltalk.method({
+selector: 'updateVariablesList',
+category: 'updating',
+fn: function () {
+    var self = this;
+    self['@variablesList']._contents_(function (html) {return self._variables()._keys()._do_(function (each) {var li = nil;li = html._li();(function ($rec) {$rec._with_(each);return $rec._onClick_(function () {return self._selectVariable_(each);});}(li));return self._selectedVariable().__eq(each)._ifTrue_(function () {return li._class_("selected");});});});
+    return self;
+},
+source: unescape('updateVariablesList%0A%09variablesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09self%20variables%20keys%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%09%09li%20%3A%3D%20html%20li.%0A%09%09%09li%0A%09%09%09%09with%3A%20each%3B%0A%09%09%09%09onClick%3A%20%5Bself%20selectVariable%3A%20each%5D.%0A%09%09%09self%20selectedVariable%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09%09%09li%20class%3A%20%27selected%27%5D%5D%5D')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_selectedVariable',
+smalltalk.method({
+selector: 'selectedVariable',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@selectedVariable'];
+    return self;
+},
+source: unescape('selectedVariable%0A%09%5EselectedVariable')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_selectedVariable_',
+smalltalk.method({
+selector: 'selectedVariable:',
+category: 'accessing',
+fn: function (aString) {
+    var self = this;
+    self['@selectedVariable'] = aString;
+    return self;
+},
+source: unescape('selectedVariable%3A%20aString%0A%09selectedVariable%20%3A%3D%20aString')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_selectVariable_',
+smalltalk.method({
+selector: 'selectVariable:',
+category: 'updating',
+fn: function (aString) {
+    var self = this;
+    self._selectedVariable_(aString);
+    (function ($rec) {$rec._updateVariablesList();return $rec._updateValueTextarea();}(self));
+    return self;
+},
+source: unescape('selectVariable%3A%20aString%0A%09self%20selectedVariable%3A%20aString.%0A%09self%20%0A%09%09updateVariablesList%3B%0A%09%09updateValueTextarea')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_updateValueTextarea',
+smalltalk.method({
+selector: 'updateValueTextarea',
+category: 'updating',
+fn: function () {
+    var self = this;
+    self['@valueTextarea']._asJQuery()._val_(self._selectedVariable()._isNil()._ifTrue_ifFalse_(function () {return "";}, function () {return self._variables()._at_(self._selectedVariable())._printString();}));
+    return self;
+},
+source: unescape('updateValueTextarea%0A%09valueTextarea%20asJQuery%20val%3A%20%28self%20selectedVariable%20isNil%0A%09%09ifTrue%3A%20%5B%27%27%5D%0A%09%09ifFalse%3A%20%5B%28self%20variables%20at%3A%20self%20selectedVariable%29%20printString%5D%29')}),
+smalltalk.Inspector);
+
+
+smalltalk.addMethod(
+'_on_',
+smalltalk.method({
+selector: 'on:',
+category: 'instance creation',
+fn: function (anObject) {
+    var self = this;
+    return function ($rec) {$rec._inspect_(anObject);return $rec._yourself();}(self._new());
+    return self;
+},
+source: unescape('on%3A%20anObject%0A%09%5Eself%20new%0A%09%09inspect%3A%20anObject%3B%0A%09%09yourself')}),
+smalltalk.Inspector.klass);
 
 
 smalltalk.init(smalltalk.Object);

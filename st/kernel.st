@@ -527,6 +527,10 @@ to: aNumber
 	^array
 !
 
+atRandom
+    ^(Random new next * self) truncated + 1
+!
+
 truncated
 	^{'return Math.floor(self);'}
 ! !
@@ -546,6 +550,12 @@ to: aNumber do: aBlock
 	^(self to: aNumber) do: aBlock
 ! !
 
+!Number methodsFor: 'interval'!
+
+clearInterval
+    {'clearInterval(Number(self))'}
+! !
+
 !Number methodsFor: 'printing'!
 
 printString
@@ -558,6 +568,20 @@ isNumber
 	^true
 ! !
 
+Object subclass: #Random
+	instanceVariableNames: ''
+	category: 'Kernel'
+!
+
+!Random methodsFor: 'accessing'!
+
+next
+    ^{'return Math.random()'}
+!
+
+next: anInteger
+    ^(1 to: anInteger) collect: [:each | self next]
+! !
 
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
@@ -609,6 +633,16 @@ value: firstArg value: secondArg value: thirdArg
 
 valueWithPossibleArguments: aCollection
 	^{'return self.apply(null, aCollection);'}
+! !
+
+!BlockClosure methodsFor: 'timeout/interval'!
+
+valueWithTimeout: aNumber
+    {'setTimeout(self, aNumber)'}
+!
+
+valueWithInterval: aNumber
+    ^{'return setInterval(self, aNumber)'}
 ! !
 
 !BlockClosure methodsFor: '*JQuery'!

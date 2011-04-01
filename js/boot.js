@@ -142,3 +142,7 @@ smalltalk.mapClassName("String", "Kernel", String, smalltalk.Collection);
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.Collection);
 
+if(CanvasRenderingContext2D) {
+    smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
+}
+
