@@ -134,7 +134,14 @@ body.jtalkBody {
     height: 100%;
 }
 
-.jtalkTool ul.jt_column {
+.jtalkTool .jt_commit {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    font-size: 12px;
+}
+
+.jtalkTool .jt_column {
     width: 24%;
     padding: 0;
     margin: 0;
@@ -148,35 +155,41 @@ body.jtalkBody {
     top: 0;
 }
 
-.jtalkTool ul.jt_column.categories {
-    left: 0%
+.jtalkTool .jt_column.value {
+    left: 25.2%;
+    width: 74.8%;
 }
 
-.jtalkTool ul.jt_column.classes {
+.jtalkTool .jt_column.categories {
+    left: 0%;
+    height: 105px;
+}
+
+.jtalkTool .jt_column.classes {
     height: 105px;
     left: 25.2%
 }
 
-.jtalkTool ul.jt_column.protocols {
+.jtalkTool .jt_column.protocols {
     left: 50.4%
 }
 
-.jtalkTool ul.jt_column.methods {
+.jtalkTool .jt_column.methods {
     left: 75.6%
 }
 
-.jtalkTool ul.jt_column li {
+.jtalkTool .jt_column li {
     list-style-type: none;
     padding-left: 5px;
     cursor: pointer;
 }
 
-.jtalkTool ul.jt_column li.selected {
+.jtalkTool .jt_column li.selected {
 	background: #e3e3e3;
 	color: #222;
 }
 
-.jtalkTool ul.jt_column li:hover {
+.jtalkTool .jt_column li:hover {
     background: #08c;
     color: white;
 }

@@ -174,10 +174,11 @@ html,body {
 }
 
 .box .content h4 {
-	font: 16px Georgia, Times, serif;
+	font: 18px Georgia, Times, serif;
 	color: #272727;
 	padding-top: 1em;
-	padding-left: 1.5em;
+	margin-top: 10px;
+	margin-bottom: 5px;
 }
 
 .box .content pre {
