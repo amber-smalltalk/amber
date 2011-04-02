@@ -32,15 +32,15 @@ html,body {
     border-bottom: 1px solid #aaa;
     position: absolute;
     width: 100%;
+    height: 36px;
     top: 210px;
     font-family: arial,helvetica,sans;
     z-index: 1;
 }
 
 #menu ul {
-    width: 980px;
-    margin: 0 auto;
     padding: 5px 0;
+    margin: 0;
 }
 
 #menu li {
@@ -51,7 +51,7 @@ html,body {
 #menu a {
 	color: #515a6a;
 	text-decoration: none;
-	padding: 5px 15px;
+	padding: 10px 15px;
 }
 
 #menu a:hover {
@@ -63,6 +63,21 @@ html,body {
 #menu a:hover {
 	color: #072d5a;
 	text-decoration: none;
+}
+
+#menu #dropdown {
+    float: left;
+    margin-left: 220px;
+    background: #d0def1;
+    border: 1px solid #aaa;
+    border-top: 0 none;
+    width: auto; 
+    display: none;
+}
+
+#menu #dropdown li {
+    display: block;
+    padding: 5px 0;
 }
 	
 #content .main {
@@ -175,7 +190,7 @@ html,body {
 }
 
 .box .content pre {
-	border: 1px solid #aaa;
+	border: 1px solid #ccc;
 	background-color: #eee;
 	border-radius: 10px;
 	-moz-border-radius: 10px;

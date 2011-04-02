@@ -103,13 +103,21 @@ title: Jtalk Smalltalk - documentation
   </div>
 </div>
 
-<!-- Add ids and anchors to doc titles -->
+<!-- Add anchors to doc titles and build the dropdown menu -->
 <script type="text/javascript">
+  jQuery('#menu .main').append("<ul id='dropdown'></ul>");
   jQuery.each(jQuery('.doc h3'), function(i, heading) {
-  	jQuery(heading).attr({'id': jQuery(heading).text().replace(/ /g,"_")})
-  	jQuery(heading).html(
-		i + ". " + 
-  		jQuery(heading).html() +
-		" <a href='#" + jQuery(heading).attr('id') + "'>&para;</a>");
+  	jQuery(heading).attr({'id': jQuery(heading).text().replace(/ /g,"_")});
+  	jQuery(heading).html(i + ". " + jQuery(heading).html());
+  	jQuery('#dropdown').append("<li><a href='#" + jQuery(heading).attr('id') + "'>" + jQuery(heading).text() + "</a></li>");
+  	jQuery(heading).html(jQuery(heading).html() + " <a href='#" + jQuery(heading).attr('id') + "'>&para;</a>");
   });
+
+  jQuery('#doc_link')
+  	.bind('mouseenter', function() {jQuery('#dropdown').show()})
+  	.bind('mouseleave', function() {jQuery('#dropdown').hide()});
+  jQuery('#dropdown')
+  	.bind('mouseenter', function() {jQuery('#dropdown').show()})
+  	.bind('mouseleave', function() {jQuery('#dropdown').hide()})
+  	.bind('click', function() {jQuery('#dropdown').hide()});
 </script>
