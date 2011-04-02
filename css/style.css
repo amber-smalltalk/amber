@@ -416,23 +416,22 @@ html,body {
 
 #footer {
 	height: 160px;
-	background: transparent url("../images/footer.png") bottom repeat-x;
 	margin: 0 auto;
 }
 
 #footer .main {
-	padding-top: 60px;
+    	border-top: 1px dashed #bbb;
+	padding-top: 10px;
 }
 
 #footer p {
-	font-size: 12px;
 	text-align: center;
-	line-height: 1.5em;
-	color: #5a5a5a;
+	line-height: 1em;
+	color: #aaa;
 }
 
 #footer a {
-	color: #0f66d2;
+	color: #3faae1;
 	text-decoration: none;
 }
 

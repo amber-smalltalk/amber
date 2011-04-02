@@ -7,13 +7,18 @@ title: Jtalk Smalltalk - documentation
   <h2>Documentation</h2>
   <div class="content">
 
-    <h3 id="intro">1. Introduction <a href="#intro">&para;</a></h3>
+    <h3>Disclaimer</h3>
 
-    <p class="warning">This documentation is a work in progress.</p>
+    <p class="warning">This documentation is a work in progress. If you find an error in the documentation, please <a href="https://github.com/NicolasPetton/jtalk/issues">file an issue</a>.</p>
+    
+    <p>This documentation <strong>doesn't aim to teach Smalltalk</strong>. Knowledge of Smalltalk is needed to understand the topics covered in this documentation. If you want to learn the Smalltalk language, you can read the excellent <a target="_blank" href="http://pharobyexamle.org">Pharo By Example</a> book.</p>
 
-    <p>Jtalk is an implementation of the Smalltalk-80 language. It allows developers to write client-side heavy web applications in Smalltalk. Jtalk includes an integrated development environment with a class browser, workspace and transcript.</p>
+
+    <h3>Introduction</h3>
 
     <p class="information">Jtalk is a young piece of code and evolves quickly. Some features are still incomplete and you may very well encounter bugs, in which case you can <a href="https://github.com/NicolasPetton/jtalk/issues">file an issue</a> or a pull request on the <a href="https://github.com/NicolasPetton/jtalk">repository</a>.</p>
+
+    <p>Jtalk is an implementation of the Smalltalk-80 language. It allows developers to write client-side heavy web applications in Smalltalk. Jtalk includes an integrated development environment with a class browser, workspace and transcript.</p>
 
     <p>Jtalk includes the following features:</p>
     <ol>
@@ -23,9 +28,9 @@ title: Jtalk Smalltalk - documentation
       <li>A <a href="http://www.jquery.com">jQuery</a> binding</li>
     </ol>
 
-    <h3 id="differences-other-smalltalks">2. Differences with other Smalltalk implementations <a href="#differences-other-smalltalks">&para;</a></h3>
+    <h3>Differences with other Smalltalk implementations</h3>
 
-    <h3 id="committing">3. Committing changes to disk with the web-based IDE <a href="#committing">&para;</a></h3>
+    <h3>Committing changes to disk with the web-based IDE</h3>
     
     <p>The class browser is able to commit changes to disk. The <code>commit category</code> button will send a PUT request with the compiled JavaScript code of all classes in the selected class category in a file named <code>js/CATEGORY.js</code>.</p>
     <p>The easiest way to enable committing is probably to setup a webdav with Apache.</p>
@@ -40,9 +45,9 @@ title: Jtalk Smalltalk - documentation
     <pre><span class="prompt">~#</span> <span class="kbd">htpasswd -c /etc/apache2/htpasswd-webdav <span class="kbd var">USERNAME</span></span></pre>
 
     <h4>Setting up the webdav directory</h4>
-    <p>Add the following lines to the default vhost (in /etc/apache2/sites-available/default):</p>
+    <p>Add the following lines to the default vhost (in <code>/etc/apache2/sites-available/default</code>):</p>
     <pre>Alias /jtalk/ "/path/to/jtalk/"
-      &lt;Directory "/path/to/jtalk/"&gt;
+&lt;Directory "/path/to/jtalk/"&gt;
       Options Indexes MultiViews FollowSymLinks
       DirectoryIndex index.html
       AllowOverride None
@@ -55,10 +60,10 @@ title: Jtalk Smalltalk - documentation
       AuthName "jtalk"
       AuthUserFile /etc/apache2/htpasswd-webdav
       &lt;LimitExcept GET OPTIONS&gt;
-      Require valid-user
+            Require valid-user
       &lt;/LimitExcept&gt;
 
-      &lt;/Directory&gt;</pre>
+&lt;/Directory&gt;</pre>
     <p>Make sure the group <code>www-data</code> has required rights to make changes to files in the webdav directory.</p>
     
     <h4>Restarting Apache</h4>
@@ -68,7 +73,7 @@ title: Jtalk Smalltalk - documentation
     <p>and go to <code>http://localhost/jtalk/</code>.</p>
     <p>The class browser should now be able to commit changes to disk.</p>
 
-    <h3 id="counter-example">4. The counter example <a href="#counter-example">&para;</a></h3>
+    <h3>The counter example</h3>
 
     <p>The following example is the traditional Seaside-like multi-counter application. The buttons at the bottom of each counter increase or decrease the counter.</p>
 
@@ -80,10 +85,31 @@ title: Jtalk Smalltalk - documentation
     <p>Open a  <button onclick="smalltalk.Browser._openOn_(smalltalk.Counter);">browser</button> on the <code>Counter</code> class in the <code>Canvas</code> class category.
     <p>Each Jtalk widget is a subclass of <code>Widget</code>. A widget is a graphical component. The <code>#renderOn:</code> method is used to generate HTML using the HTML canvas.</p>
 
-    <h3 id="html-canvas">5. The HTML canvas <a href="#html-canvas">&para;</a></h3>
-    <h3 id="widgets">6. Widgets <a href="#widgets">&para;</a></h3>
-    <h3 id="jquery">7. jQuery <a href="#jquery">&para;</a></h3>
+    <p class="information">Rendering methods should be placed in the <code>rendering</code> method protocol, and action methods in the <code>actions</code> protocol.</p>
+
+    {% highlight smalltalk %}renderOn: html
+    html h1 with: count asString.
+    html button
+    	with: '++';
+    	onClick: [self increase].
+    html button
+    	with: '--';
+    	onClick: [self decrease] {% endhighlight %}
+
+    <h3>The HTML canvas</h3>
+    <h3>Widgets</h3>
+    <h3>jQuery</h3>
 
   </div>
 </div>
 
+<!-- Add ids and anchors to doc titles -->
+<script type="text/javascript">
+  jQuery.each(jQuery('.doc h3'), function(i, heading) {
+  	jQuery(heading).attr({'id': jQuery(heading).text().replace(/ /g,"_")})
+  	jQuery(heading).html(
+		i + ". " + 
+  		jQuery(heading).html() +
+		" <a href='#" + jQuery(heading).attr('id') + "'>&para;</a>");
+  });
+</script>
