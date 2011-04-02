@@ -34,6 +34,7 @@ html,body {
     width: 100%;
     top: 210px;
     font-family: arial,helvetica,sans;
+    z-index: 1;
 }
 
 #menu ul {
@@ -182,11 +183,12 @@ html,body {
 	padding: 1em;
 	line-height: 1.5em;
 	font-size: 14px;
+	color: #333;
 }
 
 .box .content code {
 	font-size: 14px;
-	color: #666;
+	color: #333;
 	margin: 0;
 	padding: 0 3px;
 	border: 1px solid #bbb;
@@ -196,6 +198,20 @@ html,body {
 .box .content pre code {
     background: transparent;
     border: 0 none;
+    color: #333;
+}
+
+.box .content pre .prompt {
+    color: #aaa;
+}
+
+.box .content pre .kbd {
+    font-weight: bold;
+}
+
+.box .content pre .kbd.var {
+    font-weight: normal;
+    font-style: italic;
 }
 
 .box .content .tip {
@@ -219,26 +235,60 @@ html,body {
     margin-bottom: -32px
 }
 
-.box.doc {margin-top: 70px}
-
-.box .content .information {
-	background-color: #e4e8ff;
-	color: #444;
-	padding: 7px 6px 7px 12px;
-	margin-top: 20px;
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+.box.doc {
+    margin-top: 70px;
+    position: relative;
+    width: 630px;
 }
 
+.box .content .warning,
+.box .content .information {
+    position: absolute;
+    right: -250px;
+    margin-top: 20px;
+    width: 200px;
+    font-size: 14px;
+    color: #222;
+    font-family: arial,helevetica,sans;
+    padding: 10px;
+    opacity: 0.7;
+    -moz-transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+}
+
+.box .content .warning:hover,
+.box .content .information:hover {
+    opacity: 1;
+}
+
+.box .content .information:before,
+.box .content .warning:before {
+    font-family: Georgia, sans-serif;
+    font-size: 28px;
+    font-style: italic;
+    position: absolute;
+    right: 0;
+    top: -21px;
+    opacity: 0.5;
+}
+
+.box .content .information:before {
+    content: "Info";
+    color: #a6b1f3;
+}
+
+.box .content .warning:before {
+    content: "Warning";
+    color: #e869e7;
+}
+
+.box .content .information {
+    background-color: #e4e8ff;
+}    
+
 .box .content .warning {
-	background-color: #f8ccf8;
-	color: #444;
-	padding: 7px 6px 7px 12px;
-	margin: 20px 0 20px 0;
-	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+    background-color: #f8ccf8;
 }
 
 .box .content .code {

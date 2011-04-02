@@ -70,8 +70,10 @@ t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149f
 
     <p class="warning">This documentation is a work in progress.</p>
 
-    <p class="information">Jtalk is a young piece of code and evolves quickly. Some features are still incomplete and you may very well encounter bugs, in which case you can <a href="https://github.com/NicolasPetton/jtalk/issues">file an issue</a> or a pull request on the <a href="https://github.com/NicolasPetton/jtalk">repository</a>.</p>
     <p>Jtalk is an implementation of the Smalltalk-80 language. It allows developers to write client-side heavy web applications in Smalltalk. Jtalk includes an integrated development environment with a class browser, workspace and transcript.</p>
+
+    <p class="information">Jtalk is a young piece of code and evolves quickly. Some features are still incomplete and you may very well encounter bugs, in which case you can <a href="https://github.com/NicolasPetton/jtalk/issues">file an issue</a> or a pull request on the <a href="https://github.com/NicolasPetton/jtalk">repository</a>.</p>
+
     <p>Jtalk includes the following features:</p>
     <ol>
       <li>It is semantically and syntaxically equivalent to <a href="http://www.pharo-project.org">Pharo Smalltalk</a> (the implementation considered as the reference)</li>
@@ -89,12 +91,12 @@ t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149f
     <p class="information">The following steps explain how to setup a webdav for Jtalk with Debian, but the setup on OSX and other Linux distros should be similar.</p>
     <h4>Installing Apache and enabling the dav module</h4>
     <p>Evaluate the following as root:</p>
-    <pre>~# apt-get install apache2
-~# a2enmod dav
-~# a2enmod dav_fs</pre>
+    <pre><span class="prompt">~#</span> <span class="kbd">apt-get install</span> <span class="kbd var">apache2</span>
+<span class="prompt">~#</span> <span class="kbd">a2enmod</span> <span class="kbd var">dav</span>
+<span class="prompt">~#</span> <span class="kbd">a2enmod</span> <span class="kbd var">dav_fs</span></pre>
 
     <h4>Creating a password for the webdav</h4>
-    <pre>htpasswd -c /etc/apache2/htpasswd-webdav USERNAME</pre>
+    <pre><span class="prompt">~#</span> <span class="kbd">htpasswd -c /etc/apache2/htpasswd-webdav <span class="kbd var">USERNAME</span></span></pre>
 
     <h4>Setting up the webdav directory</h4>
     <p>Add the following lines to the default vhost (in /etc/apache2/sites-available/default):</p>
@@ -120,7 +122,9 @@ t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149f
     
     <h4>Restarting Apache</h4>
 
-    <p>To restart Apache, evaluate the following: <pre>~# /etc/init.d/apache2 restart</pre> and go to <code>http://localhost/jtalk/</code>.</p>
+    <p>To restart Apache, evaluate the following: </p>
+    <pre><span class="prompt">~#</span> <span class="kbd">/etc/init.d/apache2</span> <span class="kbd var">restart</span></pre>
+    <p>and go to <code>http://localhost/jtalk/</code>.</p>
     <p>The class browser should now be able to commit changes to disk.</p>
 
     <h3 id="counter-example">4. The counter example <a href="#counter-example">&para;</a></h3>
