@@ -1,193 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Jtalk Smalltalk</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href='css/style.css' />
-    <script type='text/javascript' src='js/jquery-1.4.4.min.js'></script>
-    <script type='text/javascript' src='js/jquery-ui-1.8.9.custom.min.js'></script>
-    <script type='text/javascript' src='js/jquery.textarea.js'></script>
-    <script type='text/javascript' src='js/jtalk.js'></script>
-    <link rel="stylesheet" type="text/css" href="css/jtalk.css"/>
+---
+layout: default
+title: Jtalk Smalltalk
+---
 
-    <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-2246313-6']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
-    </script>
-  </head>
-  <body>
-    <script type="text/javascript">
-      jQuery(window).scroll(function() {
-      	if(jQuery(window).scrollTop() > 210) {
-		jQuery('#menu')
-      			.css('position', 'fixed')
-			.css('top', '0px')
-	} else {
-      		jQuery('#menu')
-			.css('position', 'absolute')
-      			.css('top', '210px')
-      	}
-      });
-    </script>
-
-    <a href="http://github.com/NicolasPetton/jtalk"><img style="position: absolute; top: 0; lef
-t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149fe06a9cc737577?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_left_darkblue_121621.png&path=" alt="Fork me on GitHub"></a>
-
-    <div id="wrapper">
-      <div id="header">
-	<div class="main">
-	  <img alt="Jtalk, the Smalltalk for web developers" src="images/text_header.png"/>
-	</div>
-      </div>
-      
-      <div id="menu">
-	<ul>
-	  <li><a href="#header">Overview</a></li> · 
-	  <li><a href="#download">Download</a></li> · 
-	  <li><a href="#documentation">Documentation</a></li> 
-	</ul>
-      </div>
-
-      <div id="content">
-	<div class="main">
-	  <div class="box first">
-	      <div class="content">
-		<h1><img alt="Jtalk is an implementation of the Smalltalk language that runs on the JavaScript runtime." src="images/title_container1.png"/></h1>
-		<div class="left">
-		  <p>Jtalk is an implementation of the  <a href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> language that runs on top of the <a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a> runtime. It is designed to make client-side development faster and easier.</p>
-		  <p>Jtalk is written in itself, including the parser and compiler. Jtalk compiles into efficient JavaScript, mapping one-to-one with the equivalent JavaScript. There is no interpretation at runtime.</p>
-		  <p>Try a <button onClick="smalltalk.Browser._open()"> Class browser</button> right now!</p>
-		</div>
-		<div class="right"><img src="images/screen2.png"/></div>
-		<div class="clear"></div>
-	      </div>
-	  </div>
-
-	  <div class="box">
-	      <h2>Client-side usage</h2>
-	      <div class="content">
-		<p>Load the full Jtalk Smalltalk environment with the IDE in your page:</p> 
-		<pre>&lt;script src="js/jtalk.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" type="text/css" href="css/jtalk.css"/&gt;</pre>
-		<p>Or the deployment JavaScript file only (without the Smalltalk parser or compiler):</p>
-		<pre>&lt;script src="js/jtalk.deploy.js" type="text/javascript"&gt;&lt;/script&gt;</pre>
-		<p>Read the <a href="#documentation">documentation</a> to learn more about writing applications in Jtalk.</p>
-	    </div>
-	  </div>
-
-
-	  <div class="box">
-	      <h2 id="download">Download</h2>
-	      <div class="content">
-		<p>You can get a copy of Jtalk from github or clone the <a href="http://github.com/NicolasPetton/jtalk">git repository</a>.</p> 
-		<a href="http://github.com/NicolasPetton/jtalk/zipball/master">
-		  <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-		<a href="http://github.com/NicolasPetton/jtalk/tarball/master">
-		  <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-	    </div>
-	  </div>
-
-
-	  <div class="box last doc" id="documentation">
-	    <h2>Documentation</h2>
-	    <div class="content">
-
-	      <h3 id="intro">1. Introduction <a href="#intro">&para;</a></h3>
-
-	      <p class="warning">This documentation is a work in progress.</p>
-
-	      <p class="information">Jtalk is a young piece of code and evolves quickly. Some features are still incomplete and you may very well encounter bugs.</p>
-	      <p>Jtalk is an implementation of the Smalltalk-80 language. It allows developers to write client-side heavy web applications in Smalltalk. Jtalk includes an integrated development environment with a class browser, workspace and transcript.</p>
-	      <p>Jtalk includes the following features:</p>
-	      <ol>
-		<li>It is semantically and syntaxically equivalent to <a href="http://www.pharo-project.org">Pharo Smalltalk</a> (the implementation considered as the reference)</li>
-		<li>It is written in itself and compiles into efficient JavaScript</li>
-		<li>A canvas API similar to <a href="http://www.seaside.st">Seaside</a> to generate HTML</li>
-		<li>A <a href="http://www.jquery.com">jQuery</a> binding</li>
-	      </ol>
-
-	      <h3 id="differences-other-smalltalks">2. Differences with other Smalltalk implementations <a href="#differences-other-smalltalks">&para;</a></h3>
-
-	      <h3 id="committing">3. Committing changes to disk with the web-based IDE <a href="#committing">&para;</a></h3>
-	      
-	      <p>The class browser is able to commit changes to disk. The <code>commit category</code> button will send a PUT request with the compiled JavaScript code of all classes in the selected class category in a file named <code>js/CATEGORY.js</code>.</p>
-	      <p>The easiest way to enable committing is probably to setup a webdav with Apache.</p>
-	      <p class="information">The following steps explain how to setup a webdav for Jtalk with Debian, but the setup on OSX and other Linux distros should be similar.</p>
-	      <h4>Installing Apache and enabling the dav module</h4>
-	      <p>Evaluate the following as root:</p>
-	      <pre>~# apt-get install apache2
-~# a2enmod dav
-~# a2enmod dav_fs</pre>
-
-	      <h4>Creating a password for the webdav</h4>
-	      <pre>htpasswd -c /etc/apache2/htpasswd-webdav USERNAME</pre>
-
-	      <h4>Setting up the webdav directory</h4>
-	      <p>Add the following lines to the default vhost (in /etc/apache2/sites-available/default):</p>
-	      <pre>Alias /jtalk/ "/path/to/jtalk/"
-&lt;Directory "/path/to/jtalk/"&gt;
-    Options Indexes MultiViews FollowSymLinks
-    DirectoryIndex index.html
-    AllowOverride None
-        Order allow,deny
-    allow from all
-
-    Dav on
-
-    AuthType Basic
-    AuthName "jtalk"
-    AuthUserFile /etc/apache2/htpasswd-webdav
-    &lt;LimitExcept GET OPTIONS&gt;
-            Require valid-user
-    &lt;/LimitExcept&gt;
-
-&lt;/Directory&gt;</pre>
-	      <p>Make sure the group www-data has required rights to modify files in the webdav directory.</p>
-		
-	      <h4>Restarting Apache</h4>
-
-	      <p>To restart Apache, evaluate the following: <pre>~# /etc/init.d/apache2 restart</pre> and go to <code>http://localhost/jtalk/</code>.</p>
-	      <p>The class browser should now be able to commit changes to disk.</p>
-
-	      <h3 id="counter-example">4. The counter example <a href="#counter-example">&para;</a></h3>
-
-	      <p>The following example is the traditional Seaside-like multi-counter application. The buttons at the bottom of each counter increase or decrease the counter.</p>
-
-	      <div id="counters"></div>
-	      <script type="text/javascript">
-		jQuery(document).ready(function() {'#counters'._asJQuery()._append_(smalltalk.Counter._new())._append_(smalltalk.Counter._new())});
-	      </script>
-
-	      <p>Open a  <button onclick="smalltalk.Browser._openOn_(smalltalk.Counter);">browser</button> on the <code>Counter</code> class in the <code>Canvas</code> class category.
-		<p>Each Jtalk widget is a subclass of <code>Widget</code>. A widget is a graphical component. The <code>#renderOn:</code> method is used to generate HTML using the HTML canvas.</p>
-
-		<h3 id="html-canvas">5. The HTML canvas <a href="#html-canvas">&para;</a></h3>
-		<h3 id="widgets">6. Widgets <a href="#widgets">&para;</a></h3>
-		<h3 id="jquery">7. jQuery <a href="#jquery">&para;</a></h3>
-
-	    </div>
-	  </div>
-	</div>
-      </div>
+<div class="box first">
+  <div class="content">
+    <h1><img alt="Jtalk is an implementation of the Smalltalk language that runs on the JavaScript runtime." src="images/title_container1.png"/></h1>
+    <div class="left">
+      <p>Jtalk is an implementation of the  <a href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> language that runs on top of the <a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a> runtime. It is designed to make client-side development faster and easier.</p>
+      <p>Jtalk is written in itself, including the parser and compiler. Jtalk compiles into efficient JavaScript, mapping one-to-one with the equivalent JavaScript. There is no interpretation at runtime.</p>
+      <p>Try a <button onClick="smalltalk.Browser._open()"> Class browser</button> right now!</p>
     </div>
-    
-    <div id="footer">
-      <div class="main">
-	<p>Copyright © 2011 <a href="mailto:petton.nicolas@gmail.com">Nicolas Petton</a>.</p>
-	<p>Jtalk is an opensource project sponsored by <a href="http://www.objectfusion.fr">objectfusion</a>.</p>
-	<p>The design of this website was kindly provided by <a href="mailto:neomie.thirion@gmail.com">Noémie Thirion</a>.</p>
-      </div> 
-    </div>
-    
-  </body>
-</html>
+    <div class="right"><img src="images/screen2.png"/></div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+<div class="box">
+  <h2>Client-side usage</h2>
+  <div class="content">
+    <p>Load the full Jtalk Smalltalk environment with the IDE in your page:</p> 
+
+    {% highlight html %}<script src="js/jtalk.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/jtalk.css"/>{% endhighlight %}
+
+    <p>Or the deployment JavaScript file only (without the Smalltalk parser or compiler):</p>
+    {% highlight html %}<script src="js/jtalk.deploy.js" type="text/javascript"></script>{% endhighlight %}
+    <p>Read the <a href="#documentation">documentation</a> to learn more about writing applications in Jtalk.</p>
+  </div>
+</div>
+
+
+<div class="box last">
+  <h2 id="download">Download</h2>
+  <div class="content">
+    <p>You can get a copy of Jtalk from github or clone the <a href="http://github.com/NicolasPetton/jtalk">git repository</a>.</p> 
+    <a href="http://github.com/NicolasPetton/jtalk/zipball/master">
+      <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+    <a href="http://github.com/NicolasPetton/jtalk/tarball/master">
+      <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+  </div>
+</div>
 
