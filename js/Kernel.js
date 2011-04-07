@@ -1603,19 +1603,6 @@ fn: function (aNumber) {
 source: unescape('valueWithInterval%3A%20aNumber%0A%09%5E%7B%27return%20setInterval%28self%2C%20aNumber%29%27%7D')}),
 smalltalk.BlockClosure);
 
-smalltalk.addMethod(
-'_ensure_',
-smalltalk.method({
-selector: 'ensure:',
-category: 'evaluating',
-fn: function (aBlock) {
-    var self = this;
-    (function () {var success = true;try {self();} catch (e) {success = false;aBlock();throw e;}if (success) {aBlock();}}());
-    return self;
-},
-source: unescape('ensure%3A%20aBlock%0A%09%22Evaluate%20a%20termination%20block%20after%20evaluating%20the%20receiver%2C%20regardless%20of%0A%09%20whether%20the%20receiver%27s%20evaluation%20completes.%22%0A%09%7B%27%0A%09%09var%20success%20%3D%20true%3B%0A%09%09try%7Bself%28%29%7D%20catch%28e%29%20%7B%0A%09%09%09success%20%3D%20false%3B%0A%09%09%09aBlock%28%29%3B%0A%09%09%09throw%28e%29%7D%0A%09%09if%28success%29%7BaBlock%28%29%7D%0A%09%27%7D')}),
-smalltalk.BlockClosure);
-
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
@@ -3499,10 +3486,10 @@ selector: 'at:ifAbsent:',
 category: 'accessing',
 fn: function (aKey, aBlock) {
     var self = this;
-    return self._basicAt_(aKey)._ifNil_(aBlock);
+    return self._keys()._includes_(aKey)._ifTrue_ifFalse_(function () {return self._basicAt_(aKey);}, aBlock);
     return self;
 },
-source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%20ifNil%3A%20aBlock%0A')}),
+source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20keys%20includes%3A%20aKey%29%0A%09%09ifTrue%3A%20%5Bself%20basicAt%3A%20aKey%5D%0A%09%09ifFalse%3A%20aBlock')}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
