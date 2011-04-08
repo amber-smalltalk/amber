@@ -6,6 +6,7 @@ body.jtalkBody {
     position: fixed;
     font-family: helvetica,arial,sans;
     font-size: 12px;
+    line-height: 1;
     background: white;
     z-index: 1;
     bottom: 0;
@@ -26,6 +27,7 @@ body.jtalkBody {
     border: 1px solid #acacac;
     cursor: pointer;
     line-height: 14px;
+    margin: 0;
 }
 
 #jtalkTabs li.selected {
@@ -107,6 +109,11 @@ body.jtalkBody {
 
 .jtalkTool .important {
     font-weight: bold;
+}
+
+.jtalkTool li {
+    margin: 0;
+    padding: 0;
 }
     
 .jtalkTool .jt_buttons button,
