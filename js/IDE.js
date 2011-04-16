@@ -1440,12 +1440,12 @@ fn: function () {
     var self = this;
     self._disableSaveButton();
     self['@classButtons']._contents_(function (html) {(function ($rec) {$rec._with_("Rename class");return $rec._onClick_(function () {return self._renameClass();});}(html._button()));return function ($rec) {$rec._with_("Remove class");return $rec._onClick_(function () {return self._removeClass();});}(html._button());});
-    self['@methodButtons']._contents_(function (html) {(function ($rec) {$rec._with_("Remove method");return $rec._onClick_(function () {return self._removeMethod();});}(html._button()));return function ($rec) {$rec._onChange_(function (s) {return self._setMethodProtocol_(s._val());});return $rec._with_(function () {(function ($rec) {$rec._with_("Method protocol");return $rec._at_put_("disabled", "disabled");}(html._option()));(function ($rec) {$rec._class_("important");return $rec._with_("New...");}(html._option()));return self._protocols()._do_(function (each) {return html._option()._with_(each);});});}(html._select());});
+    self['@methodButtons']._contents_(function (html) {(function ($rec) {$rec._with_("Remove method");return $rec._onClick_(function () {return self._removeMethod();});}(html._button()));return function ($rec) {$rec._onChange_(function (e, select) {return self._setMethodProtocol_(select._val());});return $rec._with_(function () {(function ($rec) {$rec._with_("Method protocol");return $rec._at_put_("disabled", "disabled");}(html._option()));(function ($rec) {$rec._class_("important");return $rec._with_("New...");}(html._option()));return self._protocols()._do_(function (each) {return html._option()._with_(each);});});}(html._select());});
     self['@selectedMethod']._ifNil_ifNotNil_(function () {self._hideMethodButtons();return self['@selectedClass']._ifNil_ifNotNil_(function () {return self._hideClassButtons();}, function () {return self._showClassButtons();});}, function () {self._hideClassButtons();return self._showMethodButtons();});
     self['@sourceTextarea']._asJQuery()._val_(self._source());
     return self;
 },
-source: unescape('updateSourceAndButtons%0A%09self%20disableSaveButton.%0A%09classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20button%0A%09%09%09with%3A%20%27Rename%20class%27%3B%0A%09%09%09onClick%3A%20%5Bself%20renameClass%5D.%0A%09%09html%20button%0A%09%09with%3A%20%27Remove%20class%27%3B%0A%09%09onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%09methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20button%0A%09%09%09with%3A%20%27Remove%20method%27%3B%0A%09%09%09onClick%3A%20%5Bself%20removeMethod%5D.%0A%09%09html%20select%20%0A%09%20%20%20%20%09%09onChange%3A%20%5B%3As%20%7C%20self%20setMethodProtocol%3A%20s%20val%5D%3B%0A%09%20%20%20%20%09%09with%3A%20%5B%0A%09%09%09%09html%20option%0A%09%09%20%20%20%20%09%09%09with%3A%20%27Method%20protocol%27%3B%0A%09%09%20%20%20%20%09%09%09at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%09%09%09html%20option%0A%09%09%20%20%20%20%09%09%09class%3A%20%27important%27%3B%0A%09%09%20%20%20%20%09%09%09with%3A%20%27New...%27.%0A%09%09%09%09self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%20%20%20%20%09%09%09html%20option%20with%3A%20each%5D%5D%5D.%0A%20%20%20%20%09selectedMethod%20%0A%09%09ifNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20hideMethodButtons.%0A%09%20%20%20%20%09%09%09selectedClass%20%0A%09%09%09%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20%09%09%09%09ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09%09ifNotNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20hideClassButtons.%0A%09%20%20%20%20%09%09self%20showMethodButtons%5D.%0A%20%20%20%20%09sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
+source: unescape('updateSourceAndButtons%0A%09self%20disableSaveButton.%0A%09classButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20button%0A%09%09%09with%3A%20%27Rename%20class%27%3B%0A%09%09%09onClick%3A%20%5Bself%20renameClass%5D.%0A%09%09html%20button%0A%09%09with%3A%20%27Remove%20class%27%3B%0A%09%09onClick%3A%20%5Bself%20removeClass%5D%5D.%0A%09methodButtons%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20button%0A%09%09%09with%3A%20%27Remove%20method%27%3B%0A%09%09%09onClick%3A%20%5Bself%20removeMethod%5D.%0A%09%09html%20select%20%0A%09%20%20%20%20%09%09onChange%3A%20%5B%3Ae%20%3Aselect%20%7C%20self%20setMethodProtocol%3A%20select%20val%5D%3B%0A%09%20%20%20%20%09%09with%3A%20%5B%0A%09%09%09%09html%20option%0A%09%09%20%20%20%20%09%09%09with%3A%20%27Method%20protocol%27%3B%0A%09%09%20%20%20%20%09%09%09at%3A%20%27disabled%27%20put%3A%20%27disabled%27.%0A%09%09%09%09html%20option%0A%09%09%20%20%20%20%09%09%09class%3A%20%27important%27%3B%0A%09%09%20%20%20%20%09%09%09with%3A%20%27New...%27.%0A%09%09%09%09self%20protocols%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%20%20%20%20%09%09%09html%20option%20with%3A%20each%5D%5D%5D.%0A%20%20%20%20%09selectedMethod%20%0A%09%09ifNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20hideMethodButtons.%0A%09%20%20%20%20%09%09%09selectedClass%20%0A%09%09%09%09%09ifNil%3A%20%5Bself%20hideClassButtons%5D%0A%09%20%20%20%20%09%09%09%09ifNotNil%3A%20%5Bself%20showClassButtons%5D%5D%0A%09%09ifNotNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20hideClassButtons.%0A%09%20%20%20%20%09%09self%20showMethodButtons%5D.%0A%20%20%20%20%09sourceTextarea%20asJQuery%20val%3A%20self%20source%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1517,7 +1517,7 @@ source: unescape('commitPath%0A%09%5E%27js%27')}),
 smalltalk.Browser.klass);
 
 
-smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'inspectStack', 'selectedVariable', 'variablesList', 'valueTextarea', 'workspaceTextarea', 'diveButton'], 'IDE');
+smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'object', 'selectedVariable', 'variablesList', 'valueTextarea', 'workspaceTextarea', 'diveButton'], 'IDE');
 smalltalk.addMethod(
 '_label',
 smalltalk.method({
@@ -1551,27 +1551,12 @@ selector: 'inspect:',
 category: 'actions',
 fn: function (anObject) {
     var self = this;
-    self['@inspectStack']._add_(anObject);
+    self['@object'] = anObject;
     self['@variables'] = [];
-    anObject._inspectOn_(self);
+    self['@object']._inspectOn_(self);
     return self;
 },
-source: unescape('inspect%3A%20anObject%0A%09inspectStack%20add%3A%20anObject.%0A%09variables%20%3A%3D%20%23%28%29.%0A%09anObject%20inspectOn%3A%20self')}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-category: 'initialization',
-fn: function () {
-    var self = this;
-    self.klass.superclass.fn.prototype._initialize.apply(self, []);
-    self['@variables'] = [];
-    self['@inspectStack'] = [];
-    return self;
-},
-source: unescape('initialize%0A%09super%20initialize.%0A%09variables%20%3A%3D%20%23%28%29.%0A%09inspectStack%20%3A%3D%20%23%28%29')}),
+source: unescape('inspect%3A%20anObject%0A%09object%20%3A%3D%20anObject.%0A%09variables%20%3A%3D%20%23%28%29.%0A%09object%20inspectOn%3A%20self')}),
 smalltalk.Inspector);
 
 smalltalk.addMethod(
@@ -1757,6 +1742,19 @@ fn: function () {
     return self;
 },
 source: unescape('updateButtons%0A%09%28self%20selectedVariable%20notNil%20and%3A%20%5B%28self%20variables%20at%3A%20self%20selectedVariable%29%20notNil%5D%29%0A%09%09ifFalse%3A%20%5BdiveButton%20at%3A%20%27disabled%27%20put%3A%20true%5D%20%0A%09%09ifTrue%3A%20%5BdiveButton%20removeAt%3A%20%27disabled%27%5D%0A%09%09')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_refresh',
+smalltalk.method({
+selector: 'refresh',
+category: 'actions',
+fn: function () {
+    var self = this;
+    (function ($rec) {$rec._inspect_(self['@object']);$rec._updateVariablesList();return $rec._updateValueTextarea();}(self));
+    return self;
+},
+source: unescape('refresh%0A%09self%20%0A%09%09inspect%3A%20object%3B%20%0A%09%09updateVariablesList%3B%0A%09%09updateValueTextarea')}),
 smalltalk.Inspector);
 
 
