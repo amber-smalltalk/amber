@@ -30,7 +30,7 @@ title: Jtalk Smalltalk - documentation
 
     <h3>Differences with other Smalltalk implementations</h3>
 
-    Jtalk has some differences with other Smalltalk implementations. Because it maps Smalltalk constructs one-to-one with the JavaScript equivalent, including Smalltalk classes to JavaScript constructors, the core class library is simplified compared to the one in Pharo Smalltalk. The following list explains the main differences:
+    Jtalk has some differences with other Smalltalk implementations. Because it maps Smalltalk constructs one-to-one with the JavaScript equivalent, including Smalltalk classes to JavaScript constructors, the core class library is simplified compared to Pharo Smalltalk. The following list explains the main differences:
     <ul>
       <li>There is no identity in Jtalk. Especially, there is no <code>==</code> method, or <code>Symbol</code> class. For convenience and compatibility, the Jtalk parser will recognize symbol literals as strings.</li>
       <li>The collection class hierarchy is simpler compared to most Smalltalk implementations. There is no <code>OrderedCollection</code>, <code>Set</code> or <code>SortedCollection</code>. However, the size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the <code>#sort*</code> methods.</li>
