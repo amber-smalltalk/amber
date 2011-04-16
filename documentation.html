@@ -30,6 +30,14 @@ title: Jtalk Smalltalk - documentation
 
     <h3>Differences with other Smalltalk implementations</h3>
 
+    Jtalk has some differences with other Smalltalk implementations. Because it maps Smalltalk constructs one-to-one with the JavaScript equivalent, including Smalltalk classes to JavaScript constructors, the core class library is simplified compared to the one in Pharo Smalltalk. The following list explains the main differences:
+    <ul>
+      <li>There is no identity in Jtalk. Especially, there is no <code>==</code> method, or <code>Symbol</code> class. For convenience and compatibility, the Jtalk parser will recognize symbol literals as strings.</li>
+      <li>The collection class hierarchy is simpler compared to most Smalltalk implementations. There is no <code>OrderedCollection</code>, <code>Set</code> or <code>SortedCollection</code>. However, the size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the <code>#sort*</code> methods.</li>
+      <li>The <code>Date</code> class behaves like the <code>Date</code> <em>and</em> <code>TimeStamp</code> classes in Pharo Smalltalk. Therefore both <code>Date today</code> and <code>Date now</code> are valid in Jtalk.</li>
+      <li>Jtalk use solely <code>=</code> to test object equality and not the <code>#hash</code> method.</li>
+    </ul>
+
     <h3>Committing changes to disk with the web-based IDE</h3>
     
     <p>The class browser is able to commit changes to disk. The <code>commit category</code> button will send a PUT request with the compiled JavaScript code of all classes in the selected class category in a file named <code>js/CATEGORY.js</code>.</p>
