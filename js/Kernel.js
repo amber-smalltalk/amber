@@ -2357,6 +2357,19 @@ fn: function (anObject) {
 source: unescape('remove%3A%20anObject%0A%20%20%20%20self%20subclassResponsibility%0A')}),
 smalltalk.Collection);
 
+smalltalk.addMethod(
+'_removeLast',
+smalltalk.method({
+selector: 'removeLast',
+category: 'adding/removing',
+fn: function () {
+    var self = this;
+    self._remove_(self._last());
+    return self;
+},
+source: unescape('removeLast%0A%09self%20remove%3A%20self%20last')}),
+smalltalk.Collection);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -3185,12 +3198,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort',
 category: 'enumerating',
-fn: function () {
-    var self = this;
-    return self._copy()._basicPerform_("sort");
-    return self;
-},
-source: unescape('sort%0A%20%20%20%20%5Eself%20copy%20basicPerform%3A%20%27sort%27%0A')}),
+fn: function (){
+var self=this;
+return self._basicPerform_("sort");
+return self;},
+source: unescape('sort%0A%20%20%20%20%5Eself%20basicPerform%3A%20%27sort%27%0A')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3198,12 +3210,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort:',
 category: 'enumerating',
-fn: function (aBlock) {
-    var self = this;
-    return self._copy()._basicPerform_withArguments_("sort", smalltalk.Array._with_(aBlock));
-    return self;
-},
-source: unescape('sort%3A%20aBlock%0A%20%20%20%20%5Eself%20copy%20basicPerform%3A%20%27sort%27%20withArguments%3A%20%28Array%20with%3A%20aBlock%29%0A')}),
+fn: function (aBlock){
+var self=this;
+return (function(){
+		return self.sort(function(a, b) {
+			if(aBlock(a,b)) {return 1} else {return -1}
+		})
+	})();
+return self;},
+source: unescape('sort%3A%20aBlock%0A%09%5E%7B%27%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%27%7D')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3217,6 +3232,30 @@ fn: function (anObject) {
     return self;
 },
 source: unescape('remove%3A%20anObject%0A%20%20%20%20%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09self.splice%28i%2C1%29%3B%0A%09%09break%3B%0A%09%7D%0A%20%20%20%20%7D%27%7D%0A')}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+'_sorted',
+smalltalk.method({
+selector: 'sorted',
+category: 'enumerating',
+fn: function (){
+var self=this;
+return self._copy()._sort();
+return self;},
+source: unescape('sorted%0A%09%5Eself%20copy%20sort')}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+'_sorted_',
+smalltalk.method({
+selector: 'sorted:',
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return self._copy()._sorted_(aBlock);
+return self;},
+source: unescape('sorted%3A%20aBlock%0A%09%5Eself%20copy%20sorted%3A%20aBlock')}),
 smalltalk.Array);
 
 
