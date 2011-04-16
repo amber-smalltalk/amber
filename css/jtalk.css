@@ -8,7 +8,7 @@ body.jtalkBody {
     font-size: 12px;
     line-height: 1;
     background: white;
-    z-index: 1;
+    z-index: 1001;
     bottom: 0;
     left: 0;
     right: 0;
@@ -92,6 +92,7 @@ body.jtalkBody {
     bottom: 0;
     left: 0;
     top: 4px;
+    z-index: 1000;
 }
 
 .jtalkTool .jt_box {
