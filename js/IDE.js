@@ -470,10 +470,10 @@ selector: 'handleKeyDown:',
 category: 'actions',
 fn: function (anEvent) {
     var self = this;
-    return function () {if (anEvent.ctrlKey) {if (anEvent.keyCode === 68) {self._printIt();return false;}if (anEvent.keyCode === 80) {self._doIt();return false;}}}();
+    return function () {if (anEvent.ctrlKey) {if (anEvent.keyCode === 80) {self._printIt();anEvent.preventDefault();return false;}if (anEvent.keyCode === 68) {self._doIt();anEvent.preventDefault();return false;}if (anEvent.keyCode === 73) {self._inspectIt();anEvent.preventDefault();return false;}}}();
     return self;
 },
-source: unescape('handleKeyDown%3A%20anEvent%0A%20%20%20%20%5E%7B%27if%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2068%29%20%7B%20//ctrl+p%0A%09%09%09self._printIt%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2080%29%20%7B%20//ctrl+d%0A%09%09%09self._doIt%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%27%7D%0A')}),
+source: unescape('handleKeyDown%3A%20anEvent%0A%20%20%20%20%5E%7B%27if%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2080%29%20%7B%20//ctrl+p%0A%09%09%09self._printIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2068%29%20%7B%20//ctrl+d%0A%09%09%09self._doIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2073%29%20%7B%20//ctrl+i%0A%09%09%09self._inspectIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%27%7D%0A')}),
 smalltalk.Workspace);
 
 smalltalk.addMethod(
@@ -1517,7 +1517,7 @@ source: unescape('commitPath%0A%09%5E%27js%27')}),
 smalltalk.Browser.klass);
 
 
-smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'selectedVariable', 'variablesList', 'valueTextarea', 'workspaceTextarea'], 'IDE');
+smalltalk.addClass('Inspector', smalltalk.TabWidget, ['label', 'variables', 'inspectStack', 'selectedVariable', 'variablesList', 'valueTextarea', 'workspaceTextarea', 'diveButton'], 'IDE');
 smalltalk.addMethod(
 '_label',
 smalltalk.method({
@@ -1548,13 +1548,15 @@ smalltalk.addMethod(
 '_inspect_',
 smalltalk.method({
 selector: 'inspect:',
-category: 'accessing',
+category: 'actions',
 fn: function (anObject) {
     var self = this;
+    self['@inspectStack']._add_(anObject);
+    self['@variables'] = [];
     anObject._inspectOn_(self);
     return self;
 },
-source: unescape('inspect%3A%20anObject%0A%09anObject%20inspectOn%3A%20self')}),
+source: unescape('inspect%3A%20anObject%0A%09inspectStack%20add%3A%20anObject.%0A%09variables%20%3A%3D%20%23%28%29.%0A%09anObject%20inspectOn%3A%20self')}),
 smalltalk.Inspector);
 
 smalltalk.addMethod(
@@ -1566,9 +1568,10 @@ fn: function () {
     var self = this;
     self.klass.superclass.fn.prototype._initialize.apply(self, []);
     self['@variables'] = [];
+    self['@inspectStack'] = [];
     return self;
 },
-source: unescape('initialize%0A%09super%20initialize.%0A%09variables%20%3A%3D%20%23%28%29')}),
+source: unescape('initialize%0A%09super%20initialize.%0A%09variables%20%3A%3D%20%23%28%29.%0A%09inspectStack%20%3A%3D%20%23%28%29')}),
 smalltalk.Inspector);
 
 smalltalk.addMethod(
@@ -1696,10 +1699,10 @@ category: 'updating',
 fn: function (aString) {
     var self = this;
     self._selectedVariable_(aString);
-    (function ($rec) {$rec._updateVariablesList();return $rec._updateValueTextarea();}(self));
+    (function ($rec) {$rec._updateVariablesList();$rec._updateValueTextarea();return $rec._updateButtons();}(self));
     return self;
 },
-source: unescape('selectVariable%3A%20aString%0A%09self%20selectedVariable%3A%20aString.%0A%09self%20%0A%09%09updateVariablesList%3B%0A%09%09updateValueTextarea')}),
+source: unescape('selectVariable%3A%20aString%0A%09self%20selectedVariable%3A%20aString.%0A%09self%20%0A%09%09updateVariablesList%3B%0A%09%09updateValueTextarea%3B%0A%09%09updateButtons')}),
 smalltalk.Inspector);
 
 smalltalk.addMethod(
@@ -1713,6 +1716,47 @@ fn: function () {
     return self;
 },
 source: unescape('updateValueTextarea%0A%09valueTextarea%20asJQuery%20val%3A%20%28self%20selectedVariable%20isNil%0A%09%09ifTrue%3A%20%5B%27%27%5D%0A%09%09ifFalse%3A%20%5B%28self%20variables%20at%3A%20self%20selectedVariable%29%20printString%5D%29')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+category: 'rendering',
+fn: function (html) {
+    var self = this;
+    (function ($rec) {$rec._with_("Refresh");return $rec._onClick_(function () {return self._refresh();});}(html._button()));
+    self['@diveButton'] = function ($rec) {$rec._with_("Dive");return $rec._onClick_(function () {return self._dive();});}(html._button());
+    self._updateButtons();
+    return self;
+},
+source: unescape('renderButtonsOn%3A%20html%0A%09html%20button%0A%09%09with%3A%20%27Refresh%27%3B%0A%09%09onClick%3A%20%5Bself%20refresh%5D.%0A%09diveButton%20%3A%3D%20html%20button%20%0A%09%09with%3A%20%27Dive%27%3B%20%0A%09%09onClick%3A%20%5Bself%20dive%5D.%0A%09self%20updateButtons%0A%09')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_dive',
+smalltalk.method({
+selector: 'dive',
+category: 'actions',
+fn: function () {
+    var self = this;
+    self._variables()._at_(self._selectedVariable())._inspect();
+    return self;
+},
+source: unescape('dive%0A%09%28self%20variables%20at%3A%20self%20selectedVariable%29%20inspect')}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
+'_updateButtons',
+smalltalk.method({
+selector: 'updateButtons',
+category: 'updating',
+fn: function () {
+    var self = this;
+    self._selectedVariable()._notNil()._and_(function () {return self._variables()._at_(self._selectedVariable())._notNil();})._ifFalse_ifTrue_(function () {return self['@diveButton']._at_put_("disabled", true);}, function () {return self['@diveButton']._removeAt_("disabled");});
+    return self;
+},
+source: unescape('updateButtons%0A%09%28self%20selectedVariable%20notNil%20and%3A%20%5B%28self%20variables%20at%3A%20self%20selectedVariable%29%20notNil%5D%29%0A%09%09ifFalse%3A%20%5BdiveButton%20at%3A%20%27disabled%27%20put%3A%20true%5D%20%0A%09%09ifTrue%3A%20%5BdiveButton%20removeAt%3A%20%27disabled%27%5D%0A%09%09')}),
 smalltalk.Inspector);
 
 
