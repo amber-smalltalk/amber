@@ -2370,6 +2370,36 @@ fn: function () {
 source: unescape('removeLast%0A%09self%20remove%3A%20self%20last')}),
 smalltalk.Collection);
 
+smalltalk.addMethod(
+'_inspectOn_',
+smalltalk.method({
+selector: 'inspectOn:',
+category: '*IDE',
+fn: function (anInspector) {
+    var self = this;
+    var variables = nil;
+    variables = smalltalk.Dictionary._new();
+    variables._at_put_(unescape("%23self"), self);
+    self._withIndexDo_(function (each, i) {return variables._at_put_(i, each);});
+    (function ($rec) {$rec._setLabel_(self._printString());return $rec._setVariables_(variables);}(anInspector));
+    return self;
+},
+source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self.%0A%09self%20withIndexDo%3A%20%5B%3Aeach%20%3Ai%20%7C%0A%09%09variables%20at%3A%20i%20put%3A%20each%5D.%0A%09anInspector%20%0A%09%09setLabel%3A%20self%20printString%3B%0A%09%09setVariables%3A%20variables')}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+'_withIndexDo_',
+smalltalk.method({
+selector: 'withIndexDo:',
+category: 'enumerating',
+fn: function (aBlock) {
+    var self = this;
+    (function () {for (var i = 0; i < self.length; i++) {aBlock(self[i], i + 1);}}());
+    return self;
+},
+source: unescape('withIndexDo%3A%20aBlock%0A%09%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%2C%20i+1%29%3B%7D%27%7D%0A')}),
+smalltalk.Collection);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -3198,10 +3228,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort',
 category: 'enumerating',
-fn: function (){
-var self=this;
-return self._basicPerform_("sort");
-return self;},
+fn: function () {
+    var self = this;
+    return self._basicPerform_("sort");
+    return self;
+},
 source: unescape('sort%0A%20%20%20%20%5Eself%20basicPerform%3A%20%27sort%27%0A')}),
 smalltalk.Array);
 
@@ -3210,14 +3241,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return (function(){
-		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return 1} else {return -1}
-		})
-	})();
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return function () {return self.sort(function (a, b) {if (aBlock(a, b)) {return 1;} else {return - 1;}});}();
+    return self;
+},
 source: unescape('sort%3A%20aBlock%0A%09%5E%7B%27%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%27%7D')}),
 smalltalk.Array);
 
@@ -3239,10 +3267,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sorted',
 category: 'enumerating',
-fn: function (){
-var self=this;
-return self._copy()._sort();
-return self;},
+fn: function () {
+    var self = this;
+    return self._copy()._sort();
+    return self;
+},
 source: unescape('sorted%0A%09%5Eself%20copy%20sort')}),
 smalltalk.Array);
 
@@ -3251,10 +3280,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sorted:',
 category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return self._copy()._sorted_(aBlock);
-return self;},
+fn: function (aBlock) {
+    var self = this;
+    return self._copy()._sorted_(aBlock);
+    return self;
+},
 source: unescape('sorted%3A%20aBlock%0A%09%5Eself%20copy%20sorted%3A%20aBlock')}),
 smalltalk.Array);
 
@@ -3744,6 +3774,24 @@ fn: function (aKey) {
     return self;
 },
 source: unescape('removeKey%3A%20aKey%0A%20%20%20%20keys%20remove%3A%20aKey%0A')}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+'_inspectOn_',
+smalltalk.method({
+selector: 'inspectOn:',
+category: '*IDE',
+fn: function (anInspector) {
+    var self = this;
+    var variables = nil;
+    variables = smalltalk.Dictionary._new();
+    variables._at_put_(unescape("%23self"), self);
+    variables._at_put_(unescape("%23keys"), self._keys());
+    self._keysAndValuesDo_(function (key, value) {return variables._at_put_(key, value);});
+    (function ($rec) {$rec._setLabel_(self._printString());return $rec._setVariables_(variables);}(anInspector));
+    return self;
+},
+source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self.%0A%09variables%20at%3A%20%27%23keys%27%20put%3A%20self%20keys.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09variables%20at%3A%20key%20put%3A%20value%5D.%0A%09anInspector%20%0A%09%09setLabel%3A%20self%20printString%3B%0A%09%09setVariables%3A%20variables')}),
 smalltalk.Dictionary);
 
 
