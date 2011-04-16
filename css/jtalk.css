@@ -64,6 +64,7 @@ body.jtalkBody {
        left: 0;
        right: 0;
        height: 300px;
+       z-index: 1000;
 }
 
 #jtalk .ui-resizable-handle {

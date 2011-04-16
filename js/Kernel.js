@@ -1751,6 +1751,462 @@ smalltalk.Boolean);
 
 
 
+smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel');
+smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.')
+smalltalk.addMethod(
+'_year',
+smalltalk.method({
+selector: 'year',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getFullYear();}();
+    return self;
+},
+source: unescape('year%0A%09%5E%7B%27return%20self.getFullYear%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_month',
+smalltalk.method({
+selector: 'month',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getMonth() + 1;}();
+    return self;
+},
+source: unescape('month%0A%09%5E%7B%27return%20self.getMonth%28%29%20+%201%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_month_',
+smalltalk.method({
+selector: 'month:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setMonth(aNumber - 1);}());
+    return self;
+},
+source: unescape('month%3A%20aNumber%0A%09%7B%27self.setMonth%28aNumber%20-%201%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_day',
+smalltalk.method({
+selector: 'day',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self._dayOfWeek();
+    return self;
+},
+source: unescape('day%0A%09%5Eself%20dayOfWeek')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_dayOfWeek',
+smalltalk.method({
+selector: 'dayOfWeek',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getDay() + 1;}();
+    return self;
+},
+source: unescape('dayOfWeek%0A%09%5E%7B%27return%20self.getDay%28%29%20+%201%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_dayOfWeek_',
+smalltalk.method({
+selector: 'dayOfWeek:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    return function () {return self.setDay(aNumber - 1);}();
+    return self;
+},
+source: unescape('dayOfWeek%3A%20aNumber%0A%09%5E%7B%27return%20self.setDay%28aNumber%20-%201%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_day_',
+smalltalk.method({
+selector: 'day:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    self._day_(aNumber);
+    return self;
+},
+source: unescape('day%3A%20aNumber%0A%09self%20day%3A%20aNumber')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_year_',
+smalltalk.method({
+selector: 'year:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setFullYear(aNumber);}());
+    return self;
+},
+source: unescape('year%3A%20aNumber%0A%09%7B%27self.setFullYear%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_dayOfMonth',
+smalltalk.method({
+selector: 'dayOfMonth',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getDate();}();
+    return self;
+},
+source: unescape('dayOfMonth%0A%09%5E%7B%27return%20self.getDate%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_dayOfMonth_',
+smalltalk.method({
+selector: 'dayOfMonth:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setDate(aNumber);}());
+    return self;
+},
+source: unescape('dayOfMonth%3A%20aNumber%0A%09%7B%27self.setDate%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_asString',
+smalltalk.method({
+selector: 'asString',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return function () {return self.toString();}();
+    return self;
+},
+source: unescape('asString%0A%09%5E%7B%27return%20self.toString%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'printing',
+fn: function () {
+    var self = this;
+    return self._asString();
+    return self;
+},
+source: unescape('printString%0A%09%5Eself%20asString')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_asMilliseconds',
+smalltalk.method({
+selector: 'asMilliseconds',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return self._time();
+    return self;
+},
+source: unescape('asMilliseconds%0A%09%5Eself%20time')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_time',
+smalltalk.method({
+selector: 'time',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getTime();}();
+    return self;
+},
+source: unescape('time%0A%09%5E%7B%27return%20self.getTime%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_time_',
+smalltalk.method({
+selector: 'time:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setTime(aNumber);}());
+    return self;
+},
+source: unescape('time%3A%20aNumber%0A%09%7B%27self.setTime%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_asDateString',
+smalltalk.method({
+selector: 'asDateString',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return function () {return self.toDateString();}();
+    return self;
+},
+source: unescape('asDateString%0A%09%5E%7B%27return%20self.toDateString%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_asTimeString',
+smalltalk.method({
+selector: 'asTimeString',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return function () {return self.toTimeString();}();
+    return self;
+},
+source: unescape('asTimeString%0A%09%5E%7B%27return%20self.toTimeString%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_asLocaleString',
+smalltalk.method({
+selector: 'asLocaleString',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return function () {return self.toLocaleString();}();
+    return self;
+},
+source: unescape('asLocaleString%0A%09%5E%7B%27return%20self.toLocaleString%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_asNumber',
+smalltalk.method({
+selector: 'asNumber',
+category: 'converting',
+fn: function () {
+    var self = this;
+    return self._asMilliseconds();
+    return self;
+},
+source: unescape('asNumber%0A%09%5Eself%20asMilliseconds')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_hours_',
+smalltalk.method({
+selector: 'hours:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setHours(aNumber);}());
+    return self;
+},
+source: unescape('hours%3A%20aNumber%0A%09%7B%27self.setHours%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_minutes_',
+smalltalk.method({
+selector: 'minutes:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setMinutes(aNumber);}());
+    return self;
+},
+source: unescape('minutes%3A%20aNumber%0A%09%7B%27self.setMinutes%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_seconds_',
+smalltalk.method({
+selector: 'seconds:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setSeconds(aNumber);}());
+    return self;
+},
+source: unescape('seconds%3A%20aNumber%0A%09%7B%27self.setSeconds%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_milliseconds_',
+smalltalk.method({
+selector: 'milliseconds:',
+category: 'accessing',
+fn: function (aNumber) {
+    var self = this;
+    (function () {self.setMilliseconds(aNumber);}());
+    return self;
+},
+source: unescape('milliseconds%3A%20aNumber%0A%09%7B%27self.setMilliseconds%28aNumber%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_hours',
+smalltalk.method({
+selector: 'hours',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getHours();}();
+    return self;
+},
+source: unescape('hours%0A%09%5E%7B%27return%20self.getHours%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_minutes',
+smalltalk.method({
+selector: 'minutes',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getMinutes();}();
+    return self;
+},
+source: unescape('minutes%0A%09%5E%7B%27return%20self.getMinutes%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_seconds',
+smalltalk.method({
+selector: 'seconds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getSeconds();}();
+    return self;
+},
+source: unescape('seconds%0A%09%5E%7B%27return%20self.getSeconds%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_milliseconds',
+smalltalk.method({
+selector: 'milliseconds',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return function () {return self.getMilliseconds();}();
+    return self;
+},
+source: unescape('milliseconds%0A%09%5E%7B%27return%20self.getMilliseconds%28%29%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'_inspectOn_',
+smalltalk.method({
+selector: 'inspectOn:',
+category: '*IDE',
+fn: function (anInspector) {
+    var self = this;
+    var variables = nil;
+    variables = smalltalk.Dictionary._new();
+    variables._at_put_(unescape("%23self"), self);
+    variables._at_put_(unescape("%23year"), self._year());
+    variables._at_put_(unescape("%23month"), self._month());
+    variables._at_put_(unescape("%23day"), self._day());
+    variables._at_put_(unescape("%23hours"), self._hours());
+    variables._at_put_(unescape("%23minutes"), self._minutes());
+    variables._at_put_(unescape("%23seconds"), self._seconds());
+    variables._at_put_(unescape("%23milliseconds"), self._milliseconds());
+    (function ($rec) {$rec._setLabel_(self._printString());return $rec._setVariables_(variables);}(anInspector));
+    return self;
+},
+source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self.%0A%09variables%20at%3A%20%27%23year%27%20put%3A%20self%20year.%0A%09variables%20at%3A%20%27%23month%27%20put%3A%20self%20month.%0A%09variables%20at%3A%20%27%23day%27%20put%3A%20self%20day.%0A%09variables%20at%3A%20%27%23hours%27%20put%3A%20self%20hours.%0A%09variables%20at%3A%20%27%23minutes%27%20put%3A%20self%20minutes.%0A%09variables%20at%3A%20%27%23seconds%27%20put%3A%20self%20seconds.%0A%09variables%20at%3A%20%27%23milliseconds%27%20put%3A%20self%20milliseconds.%0A%09anInspector%20%0A%09%09setLabel%3A%20self%20printString%3B%0A%09%09setVariables%3A%20variables%0A%09%0A%09')}),
+smalltalk.Date);
+
+
+smalltalk.addMethod(
+'_new_',
+smalltalk.method({
+selector: 'new:',
+category: 'instance creation',
+fn: function (anObject) {
+    var self = this;
+    return function () {return new Date(anObject);}();
+    return self;
+},
+source: unescape('new%3A%20anObject%0A%09%5E%7B%27return%20new%20Date%28anObject%29%27%7D')}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+'_fromString_',
+smalltalk.method({
+selector: 'fromString:',
+category: 'instance creation',
+fn: function (aString) {
+    var self = this;
+    return self._new_(aString);
+    return self;
+},
+source: unescape('fromString%3A%20aString%0A%09%22Example%3A%20Date%20fromString%28%272011/04/15%2000%3A00%3A00%27%29%22%0A%09%5Eself%20new%3A%20aString')}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+'_fromSeconds_',
+smalltalk.method({
+selector: 'fromSeconds:',
+category: 'instance creation',
+fn: function (aNumber) {
+    var self = this;
+    return self._fromMilliseconds_(aNumber.__star(1000));
+    return self;
+},
+source: unescape('fromSeconds%3A%20aNumber%0A%09%5Eself%20fromMilliseconds%3A%20aNumber%20*%201000')}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+'_fromMilliseconds_',
+smalltalk.method({
+selector: 'fromMilliseconds:',
+category: 'instance creation',
+fn: function (aNumber) {
+    var self = this;
+    return self._new_(aNumber);
+    return self;
+},
+source: unescape('fromMilliseconds%3A%20aNumber%0A%09%5Eself%20new%3A%20aNumber')}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+'_today',
+smalltalk.method({
+selector: 'today',
+category: 'instance creation',
+fn: function () {
+    var self = this;
+    return self._new();
+    return self;
+},
+source: unescape('today%0A%09%5Eself%20new')}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+'_now',
+smalltalk.method({
+selector: 'now',
+category: 'instance creation',
+fn: function () {
+    var self = this;
+    return self._today();
+    return self;
+},
+source: unescape('now%0A%09%5Eself%20today')}),
+smalltalk.Date.klass);
+
+
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_subclass_instanceVariableNames_',
@@ -3243,7 +3699,7 @@ selector: 'sort:',
 category: 'enumerating',
 fn: function (aBlock) {
     var self = this;
-    return function () {return self.sort(function (a, b) {if (aBlock(a, b)) {return 1;} else {return - 1;}});}();
+    return function () {return self.sort(function (a, b) {if (aBlock(a, b)) {return 1;} else {return -1;}});}();
     return self;
 },
 source: unescape('sort%3A%20aBlock%0A%09%5E%7B%27%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%27%7D')}),

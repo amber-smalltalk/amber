@@ -135,6 +135,7 @@ smalltalk.Object.klass.superclass = smalltalk.Class
 smalltalk.mapClassName("Number", "Kernel", Number, smalltalk.Object);
 smalltalk.mapClassName("BlockClosure", "Kernel", Function, smalltalk.Object);
 smalltalk.mapClassName("Boolean", "Kernel", Boolean, smalltalk.Object);
+smalltalk.mapClassName("Date", "Kernel", Date, smalltalk.Object);
 smalltalk.mapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Object);
 
 smalltalk.mapClassName("Collection", "Kernel", null, smalltalk.Object);
@@ -145,4 +146,3 @@ smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.Collection);
 if(CanvasRenderingContext2D) {
     smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
 }
-
