@@ -1079,11 +1079,9 @@ selector: 'visitJSStatementNode:',
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-self['@stream']._nextPutAll_(unescape("%28function%28%29%7B"));
 self['@stream']._nextPutAll_(aNode._source()._value()._replace_with_(unescape("%27%27"),unescape("%27")));
-self['@stream']._nextPutAll_(unescape("%7D%29%28%29"));
 return self;},
-source: unescape('visitJSStatementNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%27%28function%28%29%7B%27.%0A%09stream%20nextPutAll%3A%20%28aNode%20source%20value%20replace%3A%20%27%27%27%27%27%27%20with%3A%20%27%27%27%27%29.%0A%09stream%20nextPutAll%3A%20%27%7D%29%28%29%27%0A')}),
+source: unescape('visitJSStatementNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%28aNode%20source%20value%20replace%3A%20%27%27%27%27%27%27%20with%3A%20%27%27%27%27%29')}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -1120,11 +1118,10 @@ selector: 'doIt',
 category: '',
 fn: function (){
 var self=this;
-return (function(){return smalltalk.Object._subclass_instanceVariableNames_category_("DoIt","","Compiler");})._value();
+return (function(){return smalltalk.Object._new().__eq((1));})._value();
 return self;},
-source: unescape('doIt%20%5E%5BObject%20subclass%3A%20%23DoIt%0A%09instanceVariableNames%3A%20%27%27%0A%09category%3A%20%27Compiler%27%5D%20value')}),
+source: unescape('doIt%20%5E%5BObject%20new%20%3D%201%5D%20value')}),
 smalltalk.DoIt);
-
 
 
 
