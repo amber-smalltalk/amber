@@ -4,12 +4,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    return function () {return self == anObject;}();
-    return self;
-},
-source: unescape('%3D%20anObject%0A%09%5E%7B%27return%20self%20%3D%3D%20anObject%27%7D%0A')}),
+fn: function (anObject){
+var self=this;
+return self == anObject;
+return self;},
+source: unescape('%3D%20anObject%0A%09%7B%27return%20self%20%3D%3D%20anObject%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -55,12 +54,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'class',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.klass;}();
-    return self;
-},
-source: unescape('class%0A%09%5E%7B%27return%20self.klass%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.klass;
+return self;},
+source: unescape('class%0A%09%7B%27return%20self.klass%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -94,12 +92,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'shallowCopy',
 category: 'copying',
-fn: function () {
-    var self = this;
-    return function () {var copy = self.klass._new();for (var i in self) {if (/^@.+/.test(i)) {copy[i] = self[i];}}return copy;}();
-    return self;
-},
-source: unescape('shallowCopy%0A%09%5E%7B%27%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D%0A')}),
+fn: function (){
+var self=this;
+
+	    var copy = self.klass._new();
+	    for(var i in self) {
+		if(/^@.+/.test(i)) {
+		    copy[i] = self[i];
+		}
+	    }
+	    return copy;
+	;
+return self;},
+source: unescape('shallowCopy%0A%09%7B%27%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -183,7 +188,7 @@ smalltalk.addMethod(
 '_perform_withArguments_',
 smalltalk.method({
 selector: 'perform:withArguments:',
-category: 'error handling',
+category: 'message handling',
 fn: function (aSymbol, aCollection) {
     var self = this;
     return self._basicPerform_withArguments_(aSymbol._asSelector(), aCollection);
@@ -197,12 +202,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instVarAt:',
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return function () {var value = self["@" + aString];if (typeof value == "undefined") {return nil;} else {return value;}}();
-    return self;
-},
-source: unescape('instVarAt%3A%20aString%0A%09%5E%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5B%27%27@%27%27+aString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+
+	    var value = self['@'+aString];
+	    if(typeof(value) == 'undefined') {
+		return nil;
+	    } else {
+		return value;
+	    }
+	;
+return self;},
+source: unescape('instVarAt%3A%20aString%0A%09%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5B%27%27@%27%27+aString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -210,12 +221,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instVarAt:put:',
 category: 'accessing',
-fn: function (aString, anObject) {
-    var self = this;
-    return function () {self["@" + aString] = anObject;}();
-    return self;
-},
-source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%5E%7B%27self%5B%27%27@%27%27%20+%20aString%5D%20%3D%20anObject%27%7D%0A')}),
+fn: function (aString, anObject){
+var self=this;
+self['@' + aString] = anObject;
+return self;},
+source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%7B%27self%5B%27%27@%27%27%20+%20aString%5D%20%3D%20anObject%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -223,12 +233,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicAt:',
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return function () {var value = self[aString];if (typeof value == "undefined") {return nil;} else {return value;}}();
-    return self;
-},
-source: unescape('basicAt%3A%20aString%0A%09%5E%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BaString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+
+	    var value = self[aString];
+	    if(typeof(value) == 'undefined') {
+		return nil;
+	    } else {
+		return value;
+	    }
+	;
+return self;},
+source: unescape('basicAt%3A%20aString%0A%09%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BaString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -236,12 +252,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'basicAt:put:',
 category: 'accessing',
-fn: function (aString, anObject) {
-    var self = this;
-    return function () {return self[aString] = anObject;}();
-    return self;
-},
-source: unescape('basicAt%3A%20aString%20put%3A%20anObject%0A%09%5E%7B%27return%20self%5BaString%5D%20%3D%20anObject%27%7D%0A')}),
+fn: function (aString, anObject){
+var self=this;
+return self[aString] = anObject;
+return self;},
+source: unescape('basicAt%3A%20aString%20put%3A%20anObject%0A%09%7B%27return%20self%5BaString%5D%20%3D%20anObject%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -495,7 +510,7 @@ smalltalk.addMethod(
 '_basicPerform_',
 smalltalk.method({
 selector: 'basicPerform:',
-category: 'error handling',
+category: 'message handling',
 fn: function (aSymbol) {
     var self = this;
     return self._basicPerform_withArguments_(aSymbol, []);
@@ -508,13 +523,12 @@ smalltalk.addMethod(
 '_basicPerform_withArguments_',
 smalltalk.method({
 selector: 'basicPerform:withArguments:',
-category: 'error handling',
-fn: function (aSymbol, aCollection) {
-    var self = this;
-    return function () {return self[aSymbol].apply(self, aCollection);}();
-    return self;
-},
-source: unescape('basicPerform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%5E%7B%27return%20self%5BaSymbol%5D.apply%28self%2C%20aCollection%29%3B%27%7D%0A')}),
+category: 'message handling',
+fn: function (aSymbol, aCollection){
+var self=this;
+return self[aSymbol].apply(self, aCollection);;
+return self;},
+source: unescape('basicPerform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%7B%27return%20self%5BaSymbol%5D.apply%28self%2C%20aCollection%29%3B%27%7D%0A')}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -581,12 +595,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'classes',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.classes();}();
-    return self;
-},
-source: unescape('classes%0A%09%5E%7B%27return%20self.classes%28%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.classes();
+return self;},
+source: unescape('classes%0A%09%7B%27return%20self.classes%28%29%27%7D')}),
 smalltalk.Smalltalk);
 
 
@@ -596,12 +609,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'current',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return smalltalk;}();
-    return self;
-},
-source: unescape('current%0A%09%20%20%20%20%5E%7B%27return%20smalltalk%27%7D%0A')}),
+fn: function (){
+var self=this;
+return smalltalk;
+return self;},
+source: unescape('current%0A%09%7B%27return%20smalltalk%27%7D%0A')}),
 smalltalk.Smalltalk.klass);
 
 
@@ -838,12 +850,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'category',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.category;}();
-    return self;
-},
-source: unescape('category%0A%09%5E%7B%27return%20self.category%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.category;
+return self;},
+source: unescape('category%0A%09%7B%27return%20self.category%27%7D')}),
 smalltalk.Class);
 
 smalltalk.addMethod(
@@ -932,12 +943,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'instanceClass',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.instanceClass;}();
-    return self;
-},
-source: unescape('instanceClass%0A%09%5E%7B%27return%20self.instanceClass%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.instanceClass;
+return self;},
+source: unescape('instanceClass%0A%09%7B%27return%20self.instanceClass%27%7D')}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
@@ -1094,12 +1104,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return Number(self) == aNumber;}();
-    return self;
-},
-source: unescape('%3D%20aNumber%0A%09%5E%7B%27return%20Number%28self%29%20%3D%3D%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return Number(self) == aNumber;
+return self;},
+source: unescape('%3D%20aNumber%0A%09%7B%27return%20Number%28self%29%20%3D%3D%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1107,12 +1116,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>',
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self > aNumber;}();
-    return self;
-},
-source: unescape('%3E%20aNumber%0A%09%5E%7B%27return%20self%20%3E%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self > aNumber;
+return self;},
+source: unescape('%3E%20aNumber%0A%09%7B%27return%20self%20%3E%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1120,12 +1128,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<',
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self < aNumber;}();
-    return self;
-},
-source: unescape('%3C%20aNumber%0A%09%5E%7B%27return%20self%20%3C%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self < aNumber;
+return self;},
+source: unescape('%3C%20aNumber%0A%09%7B%27return%20self%20%3C%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1133,12 +1140,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>=',
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self >= aNumber;}();
-    return self;
-},
-source: unescape('%3E%3D%20aNumber%0A%09%5E%7B%27return%20self%20%3E%3D%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self >= aNumber;
+return self;},
+source: unescape('%3E%3D%20aNumber%0A%09%7B%27return%20self%20%3E%3D%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1146,12 +1152,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<=',
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self <= aNumber;}();
-    return self;
-},
-source: unescape('%3C%3D%20aNumber%0A%09%5E%7B%27return%20self%20%3C%3D%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self <= aNumber;
+return self;},
+source: unescape('%3C%3D%20aNumber%0A%09%7B%27return%20self%20%3C%3D%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1159,12 +1164,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '+',
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self + aNumber;}();
-    return self;
-},
-source: unescape('+%20aNumber%0A%09%5E%7B%27return%20self%20+%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self + aNumber;
+return self;},
+source: unescape('+%20aNumber%0A%09%7B%27return%20self%20+%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1172,12 +1176,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '-',
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self - aNumber;}();
-    return self;
-},
-source: unescape('-%20aNumber%0A%09%5E%7B%27return%20self%20-%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self - aNumber;
+return self;},
+source: unescape('-%20aNumber%0A%09%7B%27return%20self%20-%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1185,12 +1188,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '*',
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self * aNumber;}();
-    return self;
-},
-source: unescape('*%20aNumber%0A%09%5E%7B%27return%20self%20*%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self * aNumber;
+return self;},
+source: unescape('*%20aNumber%0A%09%7B%27return%20self%20*%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1198,12 +1200,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '/',
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self / aNumber;}();
-    return self;
-},
-source: unescape('/%20aNumber%0A%09%5E%7B%27return%20self%20/%20aNumber%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return self / aNumber;
+return self;},
+source: unescape('/%20aNumber%0A%09%7B%27return%20self%20/%20aNumber%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1211,12 +1212,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'max:',
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return Math.max(self, aNumber);}();
-    return self;
-},
-source: unescape('max%3A%20aNumber%0A%09%5E%7B%27return%20Math.max%28self%2C%20aNumber%29%3B%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return Math.max(self, aNumber);;
+return self;},
+source: unescape('max%3A%20aNumber%0A%09%7B%27return%20Math.max%28self%2C%20aNumber%29%3B%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1224,12 +1224,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'min:',
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return Math.min(self, aNumber);}();
-    return self;
-},
-source: unescape('min%3A%20aNumber%0A%09%5E%7B%27return%20Math.min%28self%2C%20aNumber%29%3B%27%7D%0A')}),
+fn: function (aNumber){
+var self=this;
+return Math.min(self, aNumber);;
+return self;},
+source: unescape('min%3A%20aNumber%0A%09%7B%27return%20Math.min%28self%2C%20aNumber%29%3B%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1237,12 +1236,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'rounded',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return Math.round(self);}();
-    return self;
-},
-source: unescape('rounded%0A%09%5E%7B%27return%20Math.round%28self%29%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return Math.round(self);;
+return self;},
+source: unescape('rounded%0A%09%7B%27return%20Math.round%28self%29%3B%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1250,12 +1248,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'truncated',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return Math.floor(self);}();
-    return self;
-},
-source: unescape('truncated%0A%09%5E%7B%27return%20Math.floor%28self%29%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return Math.floor(self);;
+return self;},
+source: unescape('truncated%0A%09%7B%27return%20Math.floor%28self%29%3B%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1342,12 +1339,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function () {
-    var self = this;
-    return function () {return String(self);}();
-    return self;
-},
-source: unescape('printString%0A%09%5E%7B%27return%20String%28self%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return String(self);
+return self;},
+source: unescape('printString%0A%09%7B%27return%20String%28self%29%27%7D')}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -1421,12 +1417,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'pi',
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    return function () {return Math.PI;}();
-    return self;
-},
-source: unescape('pi%0A%09%5E%7B%27return%20Math.PI%27%7D')}),
+fn: function (){
+var self=this;
+return Math.PI;
+return self;},
+source: unescape('pi%0A%09%7B%27return%20Math.PI%27%7D')}),
 smalltalk.Number.klass);
 
 
@@ -1611,12 +1606,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aBoolean) {
-    var self = this;
-    return function () {return Boolean(self == true) == aBoolean;}();
-    return self;
-},
-source: unescape('%3D%20aBoolean%0A%20%20%20%20%09%5E%7B%27return%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%20aBoolean%27%7D%0A')}),
+fn: function (aBoolean){
+var self=this;
+return Boolean(self == true) == aBoolean;
+return self;},
+source: unescape('%3D%20aBoolean%0A%09%7B%27return%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%20aBoolean%27%7D')}),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
@@ -1689,12 +1683,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'ifTrue:ifFalse:',
 category: 'controlling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return function () {if (self == true) {return aBlock();} else {return anotherBlock();}}();
-    return self;
-},
-source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%5E%7B%27%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
+fn: function (aBlock, anotherBlock){
+var self=this;
+
+	    if(self == true) {
+		return aBlock();
+	    } else {
+		return anotherBlock();
+	    }
+	;
+return self;},
+source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%7B%27%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%27%7D')}),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
@@ -1741,12 +1740,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'printString',
 category: 'printing',
-fn: function () {
-    var self = this;
-    return function () {return self.toString();}();
-    return self;
-},
-source: unescape('printString%0A%09%5E%7B%27return%20self.toString%28%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.toString();
+return self;},
+source: unescape('printString%0A%09%7B%27return%20self.toString%28%29%27%7D')}),
 smalltalk.Boolean);
 
 
@@ -1758,12 +1756,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'year',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getFullYear();}();
-    return self;
-},
-source: unescape('year%0A%09%5E%7B%27return%20self.getFullYear%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getFullYear();
+return self;},
+source: unescape('year%0A%09%7B%27return%20self.getFullYear%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1771,12 +1768,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'month',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getMonth() + 1;}();
-    return self;
-},
-source: unescape('month%0A%09%5E%7B%27return%20self.getMonth%28%29%20+%201%27%7D')}),
+fn: function (){
+var self=this;
+return self.getMonth() + 1;
+return self;},
+source: unescape('month%0A%09%7B%27return%20self.getMonth%28%29%20+%201%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1810,12 +1806,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'dayOfWeek',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getDay() + 1;}();
-    return self;
-},
-source: unescape('dayOfWeek%0A%09%5E%7B%27return%20self.getDay%28%29%20+%201%27%7D')}),
+fn: function (){
+var self=this;
+return self.getDay() + 1;
+return self;},
+source: unescape('dayOfWeek%0A%09%7B%27return%20self.getDay%28%29%20+%201%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1823,12 +1818,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'dayOfWeek:',
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    return function () {return self.setDay(aNumber - 1);}();
-    return self;
-},
-source: unescape('dayOfWeek%3A%20aNumber%0A%09%5E%7B%27return%20self.setDay%28aNumber%20-%201%29%27%7D')}),
+fn: function (aNumber){
+var self=this;
+return self.setDay(aNumber - 1);
+return self;},
+source: unescape('dayOfWeek%3A%20aNumber%0A%09%7B%27return%20self.setDay%28aNumber%20-%201%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1862,12 +1856,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'dayOfMonth',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getDate();}();
-    return self;
-},
-source: unescape('dayOfMonth%0A%09%5E%7B%27return%20self.getDate%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getDate();
+return self;},
+source: unescape('dayOfMonth%0A%09%7B%27return%20self.getDate%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1888,12 +1881,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asString',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return self.toString();}();
-    return self;
-},
-source: unescape('asString%0A%09%5E%7B%27return%20self.toString%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.toString();
+return self;},
+source: unescape('asString%0A%09%7B%27return%20self.toString%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1927,12 +1919,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'time',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getTime();}();
-    return self;
-},
-source: unescape('time%0A%09%5E%7B%27return%20self.getTime%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getTime();
+return self;},
+source: unescape('time%0A%09%7B%27return%20self.getTime%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1953,12 +1944,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asDateString',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return self.toDateString();}();
-    return self;
-},
-source: unescape('asDateString%0A%09%5E%7B%27return%20self.toDateString%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.toDateString();
+return self;},
+source: unescape('asDateString%0A%09%7B%27return%20self.toDateString%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1966,12 +1956,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asTimeString',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return self.toTimeString();}();
-    return self;
-},
-source: unescape('asTimeString%0A%09%5E%7B%27return%20self.toTimeString%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.toTimeString();
+return self;},
+source: unescape('asTimeString%0A%09%7B%27return%20self.toTimeString%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -1979,12 +1968,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asLocaleString',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return self.toLocaleString();}();
-    return self;
-},
-source: unescape('asLocaleString%0A%09%5E%7B%27return%20self.toLocaleString%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.toLocaleString();
+return self;},
+source: unescape('asLocaleString%0A%09%7B%27return%20self.toLocaleString%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -2057,12 +2045,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'hours',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getHours();}();
-    return self;
-},
-source: unescape('hours%0A%09%5E%7B%27return%20self.getHours%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getHours();
+return self;},
+source: unescape('hours%0A%09%7B%27return%20self.getHours%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -2070,12 +2057,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'minutes',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getMinutes();}();
-    return self;
-},
-source: unescape('minutes%0A%09%5E%7B%27return%20self.getMinutes%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getMinutes();
+return self;},
+source: unescape('minutes%0A%09%7B%27return%20self.getMinutes%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -2083,12 +2069,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'seconds',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getSeconds();}();
-    return self;
-},
-source: unescape('seconds%0A%09%5E%7B%27return%20self.getSeconds%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getSeconds();
+return self;},
+source: unescape('seconds%0A%09%7B%27return%20self.getSeconds%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -2096,12 +2081,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'milliseconds',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.getMilliseconds();}();
-    return self;
-},
-source: unescape('milliseconds%0A%09%5E%7B%27return%20self.getMilliseconds%28%29%27%7D')}),
+fn: function (){
+var self=this;
+return self.getMilliseconds();
+return self;},
+source: unescape('milliseconds%0A%09%7B%27return%20self.getMilliseconds%28%29%27%7D')}),
 smalltalk.Date);
 
 smalltalk.addMethod(
@@ -2127,18 +2111,89 @@ fn: function (anInspector) {
 source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self.%0A%09variables%20at%3A%20%27%23year%27%20put%3A%20self%20year.%0A%09variables%20at%3A%20%27%23month%27%20put%3A%20self%20month.%0A%09variables%20at%3A%20%27%23day%27%20put%3A%20self%20day.%0A%09variables%20at%3A%20%27%23hours%27%20put%3A%20self%20hours.%0A%09variables%20at%3A%20%27%23minutes%27%20put%3A%20self%20minutes.%0A%09variables%20at%3A%20%27%23seconds%27%20put%3A%20self%20seconds.%0A%09variables%20at%3A%20%27%23milliseconds%27%20put%3A%20self%20milliseconds.%0A%09anInspector%20%0A%09%09setLabel%3A%20self%20printString%3B%0A%09%09setVariables%3A%20variables%0A%09%0A%09')}),
 smalltalk.Date);
 
+smalltalk.addMethod(
+'__lt',
+smalltalk.method({
+selector: '<',
+category: 'comparing',
+fn: function (aDate){
+var self=this;
+return self < aDate;
+return self;},
+source: unescape('%3C%20aDate%0A%09%7B%27return%20self%20%3C%20aDate%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'__gt',
+smalltalk.method({
+selector: '>',
+category: 'comparing',
+fn: function (aDate){
+var self=this;
+return self > aDate;
+return self;},
+source: unescape('%3E%20aDate%0A%09%7B%27return%20self%20%3E%20aDate%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'__lt_eq',
+smalltalk.method({
+selector: '<=',
+category: 'comparing',
+fn: function (aDate){
+var self=this;
+self <= aDate;
+return self;},
+source: unescape('%3C%3D%20aDate%0A%09%7B%27self%20%3C%3D%20aDate%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'__gt_eq',
+smalltalk.method({
+selector: '>=',
+category: 'comparing',
+fn: function (aDate){
+var self=this;
+self >= aDate;
+return self;},
+source: unescape('%3E%3D%20aDate%0A%09%7B%27self%20%3E%3D%20aDate%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'__minus',
+smalltalk.method({
+selector: '-',
+category: 'arithmetic',
+fn: function (aDate){
+var self=this;
+return self - aDate;
+return self;},
+source: unescape('-%20aDate%0A%09%7B%27return%20self%20-%20aDate%27%7D')}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+'__plus',
+smalltalk.method({
+selector: '+',
+category: 'arithmetic',
+fn: function (aDate){
+var self=this;
+return self + aDate;
+return self;},
+source: unescape('+%20aDate%0A%09%7B%27return%20self%20+%20aDate%27%7D')}),
+smalltalk.Date);
+
 
 smalltalk.addMethod(
 '_new_',
 smalltalk.method({
 selector: 'new:',
 category: 'instance creation',
-fn: function (anObject) {
-    var self = this;
-    return function () {return new Date(anObject);}();
-    return self;
-},
-source: unescape('new%3A%20anObject%0A%09%5E%7B%27return%20new%20Date%28anObject%29%27%7D')}),
+fn: function (anObject){
+var self=this;
+return new Date(anObject);
+return self;},
+source: unescape('new%3A%20anObject%0A%09%7B%27return%20new%20Date%28anObject%29%27%7D')}),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
@@ -2204,6 +2259,21 @@ fn: function () {
     return self;
 },
 source: unescape('now%0A%09%5Eself%20today')}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+'_millisecondsToRun_',
+smalltalk.method({
+selector: 'millisecondsToRun:',
+category: 'instance creation',
+fn: function (aBlock){
+var self=this;
+var t=nil;
+t=smalltalk.Date._now();
+aBlock._value();
+return smalltalk.Date._now().__minus(t);
+return self;},
+source: unescape('millisecondsToRun%3A%20aBlock%0A%09%7C%20t%20%7C%0A%09t%20%3A%3D%20Date%20now.%0A%09aBlock%20value.%0A%09%5EDate%20now%20-%20t')}),
 smalltalk.Date.klass);
 
 
@@ -2680,12 +2750,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'detect:ifNone:',
 category: 'enumerating',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return function () {for (var i = 0; i < self.length; i++) {if (aBlock(self[i])) {return self[i];}}return anotherBlock();}();
-    return self;
-},
-source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5E%7B%27%0A%09for%28var%20i%20%3D%200%3B%20i%20%3C%20self.length%3B%20i++%29%0A%09%09if%28aBlock%28self%5Bi%5D%29%29%0A%09%09%09return%20self%5Bi%5D%3B%0A%09return%20anotherBlock%28%29%3B%0A%09%27%7D%0A')}),
+fn: function (aBlock, anotherBlock){
+var self=this;
+
+		for(var i = 0; i < self.length; i++)
+			if(aBlock(self[i]))
+				return self[i];
+		return anotherBlock();
+	;
+return self;},
+source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%7B%27%0A%09%09for%28var%20i%20%3D%200%3B%20i%20%3C%20self.length%3B%20i++%29%0A%09%09%09if%28aBlock%28self%5Bi%5D%29%29%0A%09%09%09%09return%20self%5Bi%5D%3B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%27%7D')}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
@@ -2929,12 +3003,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '=',
 category: 'comparing',
-fn: function (aString) {
-    var self = this;
-    return function () {return String(self) == aString;}();
-    return self;
-},
-source: unescape('%3D%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3D%3D%20aString%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return String(self) == aString;
+return self;},
+source: unescape('%3D%20aString%0A%09%7B%27return%20String%28self%29%20%3D%3D%20aString%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2942,12 +3015,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.length;}();
-    return self;
-},
-source: unescape('size%0A%09%5E%7B%27return%20self.length%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.length;
+return self;},
+source: unescape('size%0A%09%7B%27return%20self.length%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2955,12 +3027,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:',
 category: 'accessing',
-fn: function (anIndex) {
-    var self = this;
-    return function () {return self[anIndex - 1] || nil;}();
-    return self;
-},
-source: unescape('at%3A%20anIndex%0A%20%20%20%20%09%5E%7B%27return%20self%5BanIndex%20-%201%5D%20%7C%7C%20nil%3B%27%7D%0A')}),
+fn: function (anIndex){
+var self=this;
+return self[anIndex - 1] || nil;;
+return self;},
+source: unescape('at%3A%20anIndex%0A%09%7B%27return%20self%5BanIndex%20-%201%5D%20%7C%7C%20nil%3B%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2994,12 +3065,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'escaped',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return escape(self);}();
-    return self;
-},
-source: unescape('escaped%0A%09%5E%7B%27return%20escape%28self%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return escape(self);
+return self;},
+source: unescape('escaped%0A%09%7B%27return%20escape%28self%29%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3007,12 +3077,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'unescaped',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return unescape(self);}();
-    return self;
-},
-source: unescape('unescaped%0A%09%5E%7B%27return%20unescape%28self%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return unescape(self);
+return self;},
+source: unescape('unescaped%0A%09%7B%27return%20unescape%28self%29%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3033,12 +3102,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ',',
 category: 'copying',
-fn: function (aString) {
-    var self = this;
-    return function () {return self + aString;}();
-    return self;
-},
-source: unescape('%2C%20aString%0A%20%20%20%20%09%5E%7B%27return%20self%20+%20aString%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self + aString;
+return self;},
+source: unescape('%2C%20aString%0A%09%7B%27return%20self%20+%20aString%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3046,12 +3114,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'copyFrom:to:',
 category: 'copying',
-fn: function (anIndex, anotherIndex) {
-    var self = this;
-    return function () {return self.substring(anIndex - 1, anotherIndex);}();
-    return self;
-},
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%20%20%20%20%09%5E%7B%27return%20self.substring%28anIndex%20-%201%2C%20anotherIndex%29%3B%27%7D%0A')}),
+fn: function (anIndex, anotherIndex){
+var self=this;
+return self.substring(anIndex - 1, anotherIndex);;
+return self;},
+source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%7B%27return%20self.substring%28anIndex%20-%201%2C%20anotherIndex%29%3B%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3110,12 +3177,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJavascript',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {if (self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1) {return "unescape(\"" + escape(self) + "\")";} else {return "\"" + self + "\"";}}();
-    return self;
-},
-source: unescape('asJavascript%0A%09%5E%7B%27%0A%09if%28self.search%28/%5E%5Ba-zA-Z0-9_%3A.%24%20%5D*%24/%29%20%3D%3D%20-1%29%0A%09%09return%20%22unescape%28%5C%22%22%20+%20escape%28self%29%20+%20%22%5C%22%29%22%3B%0A%09else%0A%09%09return%20%22%5C%22%22%20+%20self%20+%20%22%5C%22%22%3B%0A%09%27%7D%0A')}),
+fn: function (){
+var self=this;
+
+		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
+			return "unescape(\"" + escape(self) + "\")";
+		else
+			return "\"" + self + "\"";
+	;
+return self;},
+source: unescape('asJavascript%0A%09%7B%27%0A%09%09if%28self.search%28/%5E%5Ba-zA-Z0-9_%3A.%24%20%5D*%24/%29%20%3D%3D%20-1%29%0A%09%09%09return%20%22unescape%28%5C%22%22%20+%20escape%28self%29%20+%20%22%5C%22%29%22%3B%0A%09%09else%0A%09%09%09return%20%22%5C%22%22%20+%20self%20+%20%22%5C%22%22%3B%0A%09%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3136,12 +3207,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'replaceRegexp:with:',
 category: 'regular expressions',
-fn: function (aRegexp, aString) {
-    var self = this;
-    return function () {return self.replace(aRegexp, aString);}();
-    return self;
-},
-source: unescape('replaceRegexp%3A%20aRegexp%20with%3A%20aString%0A%20%20%20%20%09%5E%7B%27return%20self.replace%28aRegexp%2C%20aString%29%3B%27%7D%0A')}),
+fn: function (aRegexp, aString){
+var self=this;
+return self.replace(aRegexp, aString);;
+return self;},
+source: unescape('replaceRegexp%3A%20aRegexp%20with%3A%20aString%0A%09%7B%27return%20self.replace%28aRegexp%2C%20aString%29%3B%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3149,12 +3219,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tokenize:',
 category: 'converting',
-fn: function (aString) {
-    var self = this;
-    return function () {return self.split(aString);}();
-    return self;
-},
-source: unescape('tokenize%3A%20aString%0A%09%5E%7B%27return%20self.split%28aString%29%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self.split(aString);
+return self;},
+source: unescape('tokenize%3A%20aString%0A%09%7B%27return%20self.split%28aString%29%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3162,12 +3231,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'match:',
 category: 'regular expressions',
-fn: function (aRegexp) {
-    var self = this;
-    return function () {return self.search(aRegexp) != -1;}();
-    return self;
-},
-source: unescape('match%3A%20aRegexp%0A%20%20%20%20%09%5E%7B%27return%20self.search%28aRegexp%29%20%21%3D%20-1%27%7D%0A')}),
+fn: function (aRegexp){
+var self=this;
+return self.search(aRegexp) != -1;
+return self;},
+source: unescape('match%3A%20aRegexp%0A%09%7B%27return%20self.search%28aRegexp%29%20%21%3D%20-1%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3188,12 +3256,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asNumber',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return Number(self);}();
-    return self;
-},
-source: unescape('asNumber%0A%09%5E%7B%27return%20Number%28self%29%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return Number(self);;
+return self;},
+source: unescape('asNumber%0A%09%7B%27return%20Number%28self%29%3B%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3331,12 +3398,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>',
 category: 'comparing',
-fn: function (aString) {
-    var self = this;
-    return function () {return String(self) > aString;}();
-    return self;
-},
-source: unescape('%3E%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3E%20aString%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return String(self) > aString;
+return self;},
+source: unescape('%3E%20aString%0A%09%7B%27return%20String%28self%29%20%3E%20aString%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3344,12 +3410,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<',
 category: 'comparing',
-fn: function (aString) {
-    var self = this;
-    return function () {return String(self) < aString;}();
-    return self;
-},
-source: unescape('%3C%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3C%20aString%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return String(self) < aString;
+return self;},
+source: unescape('%3C%20aString%0A%09%7B%27return%20String%28self%29%20%3C%20aString%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3357,12 +3422,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '>=',
 category: 'comparing',
-fn: function (aString) {
-    var self = this;
-    return function () {return String(self) >= aString;}();
-    return self;
-},
-source: unescape('%3E%3D%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3E%3D%20aString%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return String(self) >= aString;
+return self;},
+source: unescape('%3E%3D%20aString%0A%09%7B%27return%20String%28self%29%20%3E%3D%20aString%27%7D%0A')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3370,12 +3434,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: '<=',
 category: 'comparing',
-fn: function (aString) {
-    var self = this;
-    return function () {return String(self) <= aString;}();
-    return self;
-},
-source: unescape('%3C%3D%20aString%0A%09%5E%7B%27return%20String%28self%29%20%3C%3D%20aString%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return String(self) <= aString;
+return self;},
+source: unescape('%3C%3D%20aString%0A%09%7B%27return%20String%28self%29%20%3C%3D%20aString%27%7D')}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3423,12 +3486,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'cr',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return "\n";}();
-    return self;
-},
-source: unescape('cr%0A%09%20%20%20%20%5E%7B%27%7Breturn%20%27%27%5Cn%27%27%7D%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return '\n';;
+return self;},
+source: unescape('cr%0A%09%7B%27return%20%27%27%5Cn%27%27%3B%27%7D')}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
@@ -3436,12 +3498,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'lf',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return "\r";}();
-    return self;
-},
-source: unescape('lf%0A%09%20%20%20%20%5E%7B%27return%20%27%27%5Cr%27%27%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return '\r';;
+return self;},
+source: unescape('lf%0A%09%7B%27return%20%27%27%5Cr%27%27%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
@@ -3449,12 +3510,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'space',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return " ";}();
-    return self;
-},
-source: unescape('space%0A%09%20%20%20%20%5E%7B%27return%20%27%27%20%27%27%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return ' ';;
+return self;},
+source: unescape('space%0A%09%7B%27return%20%27%27%20%27%27%3B%27%7D%0A')}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
@@ -3462,12 +3522,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tab',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return "\t";}();
-    return self;
-},
-source: unescape('tab%0A%09%20%20%20%20%5E%7B%27return%20%27%27%5Ct%27%27%3B%27%7D%0A')}),
+fn: function (){
+var self=this;
+return '\t';;
+return self;},
+source: unescape('tab%0A%09%7B%27return%20%27%27%5Ct%27%27%3B%27%7D')}),
 smalltalk.String.klass);
 
 
@@ -3477,12 +3536,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'compile:',
 category: 'evaluating',
-fn: function (aString) {
-    var self = this;
-    return function () {return self.compile(aString);}();
-    return self;
-},
-source: unescape('compile%3A%20aString%0A%09%5E%7B%27return%20self.compile%28aString%29%3B%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self.compile(aString);;
+return self;},
+source: unescape('compile%3A%20aString%0A%09%7B%27return%20self.compile%28aString%29%3B%27%7D')}),
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
@@ -3490,12 +3548,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'exec:',
 category: 'evaluating',
-fn: function (aString) {
-    var self = this;
-    return function () {return self.exec(aString);}();
-    return self;
-},
-source: unescape('exec%3A%20aString%0A%09%5E%7B%27return%20self.exec%28aString%29%3B%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self.exec(aString);;
+return self;},
+source: unescape('exec%3A%20aString%0A%09%7B%27return%20self.exec%28aString%29%3B%27%7D')}),
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
@@ -3503,12 +3560,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'test:',
 category: 'evaluating',
-fn: function (aString) {
-    var self = this;
-    return function () {return self.test(aString);}();
-    return self;
-},
-source: unescape('test%3A%20aString%0A%09%5E%7B%27return%20self.test%28aString%29%3B%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self.test(aString);;
+return self;},
+source: unescape('test%3A%20aString%0A%09%7B%27return%20self.test%28aString%29%3B%27%7D')}),
 smalltalk.RegularExpression);
 
 
@@ -3517,12 +3573,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'fromString:flag:',
 category: 'instance creation',
-fn: function (aString, anotherString) {
-    var self = this;
-    return function () {return new RegExp(aString, anotherString);}();
-    return self;
-},
-source: unescape('fromString%3A%20aString%20flag%3A%20anotherString%0A%09%20%20%20%20%5E%7B%27return%20new%20RegExp%28aString%2C%20anotherString%29%3B%27%7D%0A')}),
+fn: function (aString, anotherString){
+var self=this;
+return new RegExp(aString, anotherString);;
+return self;},
+source: unescape('fromString%3A%20aString%20flag%3A%20anotherString%0A%09%7B%27return%20new%20RegExp%28aString%2C%20anotherString%29%3B%27%7D%0A')}),
 smalltalk.RegularExpression.klass);
 
 smalltalk.addMethod(
@@ -3545,12 +3600,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'size',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return self.length;}();
-    return self;
-},
-source: unescape('size%0A%09%5E%7B%27return%20self.length%27%7D%0A')}),
+fn: function (){
+var self=this;
+return self.length;
+return self;},
+source: unescape('size%0A%09%7B%27return%20self.length%27%7D')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3558,12 +3612,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:put:',
 category: 'accessing',
-fn: function (anIndex, anObject) {
-    var self = this;
-    return function () {return self[anIndex - 1] = anObject;}();
-    return self;
-},
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%5E%7B%27return%20self%5BanIndex%20-%201%5D%20%3D%20anObject%27%7D%0A')}),
+fn: function (anIndex, anObject){
+var self=this;
+return self[anIndex - 1] = anObject;
+return self;},
+source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%7B%27return%20self%5BanIndex%20-%201%5D%20%3D%20anObject%27%7D%0A')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3571,12 +3624,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'at:ifAbsent:',
 category: 'accessing',
-fn: function (anIndex, aBlock) {
-    var self = this;
-    return function () {var value = self[anIndex - 1];if (value === undefined) {return aBlock();} else {return value;}}();
-    return self;
-},
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%5E%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
+fn: function (anIndex, aBlock){
+var self=this;
+
+	    var value = self[anIndex - 1];
+	    if(value === undefined) {
+		return aBlock();
+	    } else {
+		return value;
+	    }
+	;
+return self;},
+source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D%0A')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3584,12 +3643,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'add:',
 category: 'adding',
-fn: function (anObject) {
-    var self = this;
-    return function () {self.push(anObject);return anObject;}();
-    return self;
-},
-source: unescape('add%3A%20anObject%0A%09%5E%7B%27self.push%28anObject%29%3B%20return%20anObject%3B%27%7D%0A')}),
+fn: function (anObject){
+var self=this;
+self.push(anObject); return anObject;;
+return self;},
+source: unescape('add%3A%20anObject%0A%09%7B%27self.push%28anObject%29%3B%20return%20anObject%3B%27%7D%0A')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3658,12 +3716,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'join:',
 category: 'enumerating',
-fn: function (aString) {
-    var self = this;
-    return function () {return self.join(aString);}();
-    return self;
-},
-source: unescape('join%3A%20aString%0A%09%5E%7B%27return%20self.join%28aString%29%3B%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self.join(aString);;
+return self;},
+source: unescape('join%3A%20aString%0A%09%7B%27return%20self.join%28aString%29%3B%27%7D')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3697,12 +3754,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'sort:',
 category: 'enumerating',
-fn: function (aBlock) {
-    var self = this;
-    return function () {return self.sort(function (a, b) {if (aBlock(a, b)) {return 1;} else {return -1;}});}();
-    return self;
-},
-source: unescape('sort%3A%20aBlock%0A%09%5E%7B%27%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%27%7D')}),
+fn: function (aBlock){
+var self=this;
+
+		return self.sort(function(a, b) {
+			if(aBlock(a,b)) {return 1} else {return -1}
+		})
+	;
+return self;},
+source: unescape('sort%3A%20aBlock%0A%09%7B%27%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%27%7D')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3710,12 +3770,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'remove:',
 category: 'adding',
-fn: function (anObject) {
-    var self = this;
-    (function () {for (var i = 0; i < self.length; i++) {if (self[i] == anObject) {self.splice(i, 1);break;}}}());
-    return self;
-},
-source: unescape('remove%3A%20anObject%0A%20%20%20%20%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09self.splice%28i%2C1%29%3B%0A%09%09break%3B%0A%09%7D%0A%20%20%20%20%7D%27%7D%0A')}),
+fn: function (anObject){
+var self=this;
+
+		for(var i=0;i<self.length;i++) {
+			if(self[i] == anObject) {
+				self.splice(i,1);
+				break;
+			}
+		}
+	;
+return self;},
+source: unescape('remove%3A%20anObject%0A%09%7B%27%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09%09%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09%09%09self.splice%28i%2C1%29%3B%0A%09%09%09%09break%3B%0A%09%09%09%7D%0A%09%09%7D%0A%09%27%7D%0A')}),
 smalltalk.Array);
 
 smalltalk.addMethod(
@@ -3778,12 +3844,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'signal',
 category: 'signaling',
-fn: function () {
-    var self = this;
-    return function () {throw {smalltalkError: self};}();
-    return self;
-},
-source: unescape('signal%0A%09%5E%7B%27throw%28%7BsmalltalkError%3A%20self%7D%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+throw({smalltalkError: self});
+return self;},
+source: unescape('signal%0A%09%7B%27throw%28%7BsmalltalkError%3A%20self%7D%29%27%7D')}),
 smalltalk.Error);
 
 
@@ -4315,12 +4380,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'addSubclassOf:named:instanceVariableNames:',
 category: 'private',
-fn: function (aClass, aString, aCollection) {
-    var self = this;
-    return function () {smalltalk.addClass(aString, aClass, aCollection);return smalltalk[aString];}();
-    return self;
-},
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%0A%09%5E%7B%27smalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%27%7D%0A')}),
+fn: function (aClass, aString, aCollection){
+var self=this;
+smalltalk.addClass(aString, aClass, aCollection);
+	    return smalltalk[aString];
+return self;},
+source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%0A%09%7B%27smalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%27%7D')}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
@@ -4831,12 +4896,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'next',
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return function () {return Math.random();}();
-    return self;
-},
-source: unescape('next%0A%20%20%20%20%5E%7B%27return%20Math.random%28%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return Math.random();
+return self;},
+source: unescape('next%0A%09%7B%27return%20Math.random%28%29%27%7D%0A')}),
 smalltalk.Random);
 
 smalltalk.addMethod(

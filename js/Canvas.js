@@ -187,12 +187,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'tagBrush:',
 category: 'instance creation',
-fn: function (aTagBrush) {
-    var self = this;
-    return function () {return aTagBrush._element().getContext("2d");}();
-    return self;
-},
-source: unescape('tagBrush%3A%20aTagBrush%0A%09%5E%7B%27return%20aTagBrush._element%28%29.getContext%28%27%272d%27%27%29%27%7D')}),
+fn: function (aTagBrush){
+var self=this;
+return aTagBrush._element().getContext('2d');
+return self;},
+source: unescape('tagBrush%3A%20aTagBrush%0A%09%7B%27return%20aTagBrush._element%28%29.getContext%28%27%272d%27%27%29%27%7D')}),
 smalltalk.CanvasRenderingContext.klass);
 
 
@@ -863,12 +862,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'asJQuery',
 category: 'converting',
-fn: function () {
-    var self = this;
-    return function () {return smalltalk.JQuery._from_(jQuery(self['@element']));}();
-    return self;
-},
-source: unescape('asJQuery%0A%20%20%20%20%5E%7B%27return%20smalltalk.JQuery._from_%28jQuery%28self%5B%27%27@element%27%27%5D%29%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return smalltalk.JQuery._from_(jQuery(self['@element']));
+return self;},
+source: unescape('asJQuery%0A%09%7B%27return%20smalltalk.JQuery._from_%28jQuery%28self%5B%27%27@element%27%27%5D%29%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
@@ -980,12 +978,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'createElementFor:',
 category: 'private',
-fn: function (aString) {
-    var self = this;
-    return function () {return document.createElement(String(aString));}();
-    return self;
-},
-source: unescape('createElementFor%3A%20aString%0A%20%20%20%20%5E%7B%27return%20document.createElement%28String%28aString%29%29%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return document.createElement(String(aString));
+return self;},
+source: unescape('createElementFor%3A%20aString%0A%09%7B%27return%20document.createElement%28String%28aString%29%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
@@ -993,12 +990,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'createTextNodeFor:',
 category: 'private',
-fn: function (aString) {
-    var self = this;
-    return function () {return document.createTextNode(String(aString));}();
-    return self;
-},
-source: unescape('createTextNodeFor%3A%20aString%0A%20%20%20%20%5E%7B%27return%20document.createTextNode%28String%28aString%29%29%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return document.createTextNode(String(aString));
+return self;},
+source: unescape('createTextNodeFor%3A%20aString%0A%09%7B%27return%20document.createTextNode%28String%28aString%29%29%27%7D%0A')}),
 smalltalk.TagBrush);
 
 
@@ -1162,12 +1158,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'createElement',
 category: 'private',
-fn: function () {
-    var self = this;
-    return function () {return document.createElement("canvas");}();
-    return self;
-},
-source: unescape('createElement%0A%20%20%20%20%5E%7B%27return%20document.createElement%28%27%27canvas%27%27%29%27%7D%0A')}),
+fn: function (){
+var self=this;
+return document.createElement('canvas');
+return self;},
+source: unescape('createElement%0A%09%7B%27return%20document.createElement%28%27%27canvas%27%27%29%27%7D')}),
 smalltalk.CanvasBrush);
 
 smalltalk.addMethod(
