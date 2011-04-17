@@ -108,14 +108,15 @@ smalltalk.addClass = function(className, superclass, iVarNames, category) {
     if(smalltalk[className]) {
 	smalltalk[className].superclass = superclass;
 	smalltalk[className].iVarNames = iVarNames;
+	smalltalk[className].category = category || smalltalk[className].category;
     } else {
 	smalltalk[className] = smalltalk.klass({
 		className: className, 
 		iVarNames: iVarNames,
 		superclass: superclass
 	    });
+	smalltalk[className].category = category || '';
     }
-    smalltalk[className].category = category || '';
 };
 
 smalltalk.addMethod = function(jsSelector, method, klass) {

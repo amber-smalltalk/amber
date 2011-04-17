@@ -1120,6 +1120,7 @@ fn: function (aClass) {
         compiler._currentClass_(self['@selectedClass']);
         method = compiler._eval_(compiler._compileNode_(node));
         method._category_(self['@selectedProtocol']);
+        compiler._unknownVariables()._do_(function (each) {return self._confirm_(unescape("Declare%20%27").__comma(each).__comma(unescape("%27%20as%20instance%20variable%3F")))._ifTrue_(function () {self._addInstanceVariableNamed_toClass_(each, aClass);return function () {throw {name: "stReturn", selector: "_compileMethodDefinitionFor_", fn: function () {return self._compileMethodDefinitionFor_(aClass);}};}();});});
         aClass._addCompiledMethod_(method);
         self._updateMethodsList();
         self._selectMethod_(method);
@@ -1132,7 +1133,7 @@ fn: function (aClass) {
         throw e;
     }
 },
-source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20compiler%20method%20source%20node%20%7C%0A%20%20%20%20source%20%3A%3D%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20selectedProtocol%20ifNil%3A%20%5BselectedProtocol%20%3A%3D%20selectedMethod%20category%5D.%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parse%3A%20source.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20%27PARSE%20ERROR%3A%20%27%2C%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%20asString%5D.%0A%20%20%20%20compiler%20currentClass%3A%20selectedClass.%0A%20%20%20%20method%20%3A%3D%20compiler%20eval%3A%20%28compiler%20compileNode%3A%20node%29.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
+source: unescape('compileMethodDefinitionFor%3A%20aClass%0A%20%20%20%20%7C%20compiler%20method%20source%20node%20%7C%0A%20%20%20%20source%20%3A%3D%20sourceTextarea%20asJQuery%20val.%0A%20%20%20%20selectedProtocol%20ifNil%3A%20%5BselectedProtocol%20%3A%3D%20selectedMethod%20category%5D.%0A%20%20%20%20compiler%20%3A%3D%20Compiler%20new.%0A%20%20%20%20node%20%3A%3D%20compiler%20parse%3A%20source.%0A%20%20%20%20node%20isParseFailure%20ifTrue%3A%20%5B%0A%09%5Eself%20alert%3A%20%27PARSE%20ERROR%3A%20%27%2C%20node%20reason%2C%20%27%2C%20position%3A%20%27%2C%20node%20position%20asString%5D.%0A%20%20%20%20compiler%20currentClass%3A%20selectedClass.%0A%20%20%20%20method%20%3A%3D%20compiler%20eval%3A%20%28compiler%20compileNode%3A%20node%29.%0A%20%20%20%20method%20category%3A%20selectedProtocol.%0A%20%20%20%20compiler%20unknownVariables%20do%3A%20%5B%3Aeach%20%7C%0A%09%28self%20confirm%3A%20%27Declare%20%27%27%27%2C%20each%2C%20%27%27%27%20as%20instance%20variable%3F%27%29%20ifTrue%3A%20%5B%0A%09%09self%20addInstanceVariableNamed%3A%20each%20toClass%3A%20aClass.%0A%09%09%5Eself%20compileMethodDefinitionFor%3A%20aClass%5D%5D.%0A%20%20%20%20aClass%20addCompiledMethod%3A%20method.%0A%20%20%20%20self%20updateMethodsList.%0A%20%20%20%20self%20selectMethod%3A%20method%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1372,10 +1373,10 @@ selector: 'updateCategoriesList',
 category: 'updating',
 fn: function () {
     var self = this;
-    self['@categoriesList']._contents_(function (html) {return self._categories()._do_(function (each) {var li = nil;li = html._li();self['@selectedCategory'].__eq(each)._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_(each);return $rec._onClick_(function () {return self._selectCategory_(each);});}(li);});});
+    self['@categoriesList']._contents_(function (html) {return self._categories()._do_(function (each) {var li = nil;var label = nil;each._isEmpty()._ifTrue_ifFalse_(function () {return label = "Unclassified";}, function () {return label = each;});li = html._li();self['@selectedCategory'].__eq(each)._ifTrue_(function () {return li._class_("selected");});return function ($rec) {$rec._with_(label);return $rec._onClick_(function () {return self._selectCategory_(each);});}(li);});});
     return self;
 },
-source: unescape('updateCategoriesList%0A%20%20%20%20categoriesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedCategory%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%3B%0A%09%09onClick%3A%20%5Bself%20selectCategory%3A%20each%5D%5D%5D%0A')}),
+source: unescape('updateCategoriesList%0A%20%20%20%20categoriesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20label%20%7C%0A%09%20%20%20%20each%20isEmpty%20%0A%09%09ifTrue%3A%20%5Blabel%20%3A%3D%20%27Unclassified%27%5D%0A%09%09ifFalse%3A%20%5Blabel%20%3A%3D%20each%5D.%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedCategory%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20label%3B%0A%09%09onClick%3A%20%5Bself%20selectCategory%3A%20each%5D%5D%5D%0A')}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1474,6 +1475,19 @@ fn: function () {
     return self;
 },
 source: unescape('renameClass%0A%20%20%20%20%7C%20newName%20%7C%0A%20%20%20%20newName%20%3A%3D%20self%20prompt%3A%20%27Rename%20class%20%27%2C%20selectedClass%20name.%0A%20%20%20%20newName%20notEmpty%20ifTrue%3A%20%5B%0A%09selectedClass%20rename%3A%20newName.%0A%09self%20%0A%09%09updateClassesList%3B%0A%09%09updateSourceAndButtons%5D%0A')}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_addInstanceVariableNamed_toClass_',
+smalltalk.method({
+selector: 'addInstanceVariableNamed:toClass:',
+category: 'actions',
+fn: function (aString, aClass) {
+    var self = this;
+    smalltalk.ClassBuilder._new()._addSubclassOf_named_instanceVariableNames_(aClass._superclass(), aClass._name(), function ($rec) {$rec._add_(aString);return $rec._yourself();}(aClass._instanceVariableNames()._copy()));
+    return self;
+},
+source: unescape('addInstanceVariableNamed%3A%20aString%20toClass%3A%20aClass%0A%09ClassBuilder%20new%0A%09%09addSubclassOf%3A%20aClass%20superclass%20named%3A%20aClass%20name%20instanceVariableNames%3A%20%28aClass%20instanceVariableNames%20copy%20add%3A%20aString%3B%20yourself%29')}),
 smalltalk.Browser);
 
 
