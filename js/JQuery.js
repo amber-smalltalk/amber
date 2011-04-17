@@ -56,12 +56,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'cssAt:',
 category: 'css',
-fn: function (aString) {
-    var self = this;
-    return function () {return self['@jquery'].css(aString);}();
-    return self;
-},
-source: unescape('cssAt%3A%20aString%0A%20%20%20%20%5E%7B%27return%20self%5B%27%27@jquery%27%27%5D.css%28aString%29%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self['@jquery'].css(aString);
+return self;},
+source: unescape('cssAt%3A%20aString%0A%09%7B%27return%20self%5B%27%27@jquery%27%27%5D.css%28aString%29%27%7D')}),
 smalltalk.JQuery);
 
 smalltalk.addMethod(
@@ -486,12 +485,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'call:',
 category: 'private',
-fn: function (aString) {
-    var self = this;
-    return function () {return self['@jquery'][aString]();}();
-    return self;
-},
-source: unescape('call%3A%20aString%0A%20%20%20%20%5E%7B%27return%20self%5B%27%27@jquery%27%27%5D%5BaString%5D%28%29%27%7D%0A')}),
+fn: function (aString){
+var self=this;
+return self['@jquery'][aString]();
+return self;},
+source: unescape('call%3A%20aString%0A%09%7B%27return%20self%5B%27%27@jquery%27%27%5D%5BaString%5D%28%29%27%7D')}),
 smalltalk.JQuery);
 
 smalltalk.addMethod(
@@ -499,12 +497,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: 'call:withArgument:',
 category: 'private',
-fn: function (aString, anObject) {
-    var self = this;
-    return function () {return self['@jquery'][aString](anObject);}();
-    return self;
-},
-source: unescape('call%3A%20aString%20withArgument%3A%20anObject%0A%20%20%20%20%5E%7B%27return%20self%5B%27%27@jquery%27%27%5D%5BaString%5D%28anObject%29%27%7D%0A')}),
+fn: function (aString, anObject){
+var self=this;
+return self['@jquery'][aString](anObject);
+return self;},
+source: unescape('call%3A%20aString%20withArgument%3A%20anObject%0A%20%20%20%20%7B%27return%20self%5B%27%27@jquery%27%27%5D%5BaString%5D%28anObject%29%27%7D')}),
 smalltalk.JQuery);
 
 smalltalk.addMethod(
