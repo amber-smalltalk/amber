@@ -925,10 +925,10 @@ selector: 'eval:',
 category: 'compiling',
 fn: function (aString) {
     var self = this;
-    return function () {return eval(aString);}();
+    return eval(aString);
     return self;
 },
-source: unescape('eval%3A%20aString%0A%09%5E%7B%27return%20eval%28aString%29%3B%27%7D%0A')}),
+source: unescape('eval%3A%20aString%0A%09%7B%27return%20eval%28aString%29%27%7D')}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -1285,10 +1285,10 @@ selector: 'doIt',
 category: '',
 fn: function () {
     var self = this;
-    return function () {return smalltalk.Compiler._new()._recompile_(smalltalk.Object);}._value();
+    return function () {var results = nil;results = [];smalltalk.Smalltalk._current()._classes()._do_(function (each) {return each._class()._methodDictionary()._do_(function (method) {return method._source()._match_(unescape("%5C%5E%7B"))._ifTrue_(function () {return results._add_(each);});});});return results._printNl();}._value();
     return self;
 },
-source: unescape('doIt%20%5E%5BCompiler%20new%20recompile%3A%20Object%5D%20value')}),
+source: unescape('doIt%20%5E%5B%7C%20results%20%7C%0Aresults%20%3A%3D%20%23%28%29.%0A%0ASmalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09each%20class%20methodDictionary%20do%3A%20%5B%3Amethod%20%7C%0A%09%09%28method%20source%20match%3A%20%27%5C%5E%7B%27%29%20ifTrue%3A%20%5B%0A%09%09%09results%20add%3A%20each%5D%5D%5D.%0A%0Aresults%20printNl%5D%20value')}),
 smalltalk.DoIt);
 
 
