@@ -1248,6 +1248,33 @@ fn: function () {
 source: unescape('knownVariables%0A%09%5Eself%20pseudoVariables%20%0A%09%09addAll%3A%20self%20tempVariables%3B%0A%09%09yourself')}),
 smalltalk.Compiler);
 
+smalltalk.addMethod(
+'_recompile_',
+smalltalk.method({
+selector: 'recompile:',
+category: 'compiling',
+fn: function (aClass) {
+    var self = this;
+    aClass._methodDictionary()._do_(function (each) {var method = nil;method = self._load_forClass_(each._source(), aClass);method._category_(each._category());return aClass._addCompiledMethod_(method);});
+    aClass._isMetaclass()._ifFalse_(function () {return self._recompile_(aClass._class());});
+    return self;
+},
+source: unescape('recompile%3A%20aClass%0A%09aClass%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%7C%20method%20%7C%0A%09%09method%20%3A%3D%20self%20load%3A%20each%20source%20forClass%3A%20aClass.%0A%09%09method%20category%3A%20each%20category.%0A%09%09aClass%20addCompiledMethod%3A%20method%5D.%0A%09aClass%20isMetaclass%20ifFalse%3A%20%5Bself%20recompile%3A%20aClass%20class%5D')}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_recompileAll',
+smalltalk.method({
+selector: 'recompileAll',
+category: 'compiling',
+fn: function () {
+    var self = this;
+    smalltalk.Smalltalk._current()._classes()._do_(function (each) {return self._recompile_(each);});
+    return self;
+},
+source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09self%20recompile%3A%20each%5D')}),
+smalltalk.Compiler);
+
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler');
@@ -1258,10 +1285,10 @@ selector: 'doIt',
 category: '',
 fn: function () {
     var self = this;
-    return function () {return smalltalk.Chunk._subclass_instanceVariableNames_category_("EmptyChunk", "", "Parser");}._value();
+    return function () {return smalltalk.Compiler._new()._recompile_(smalltalk.Object);}._value();
     return self;
 },
-source: unescape('doIt%20%5E%5BChunk%20subclass%3A%20%23EmptyChunk%0A%09instanceVariableNames%3A%20%27%27%0A%09category%3A%20%27Parser%27%5D%20value')}),
+source: unescape('doIt%20%5E%5BCompiler%20new%20recompile%3A%20Object%5D%20value')}),
 smalltalk.DoIt);
 
 
