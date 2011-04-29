@@ -115,7 +115,13 @@ selector: 'deepCopy',
 category: 'copying',
 fn: function () {
     var self = this;
-    (function () {var copy = self.klass._new();for (var i in self) {if (/^@.+/.test(i)) {copy[i] = self[i]._deepCopy();}}return copy;}());
+    var copy = self.klass._new();
+    for (var i in self) {
+        if (/^@.+/.test(i)) {
+            copy[i] = self[i]._deepCopy();
+        }
+    }
+    return copy;
     return self;
 },
 source: unescape('deepCopy%0A%09%7B%27%09%20%20%20%20%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D._deepCopy%28%29%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D.%0A')}),
@@ -306,7 +312,11 @@ selector: 'try:catch:',
 category: 'error handling',
 fn: function (aBlock, anotherBlock) {
     var self = this;
-    (function () {try {aBlock();} catch (e) {anotherBlock(e);}}());
+    try {
+        aBlock();
+    } catch (e) {
+        anotherBlock(e);
+    }
     return self;
 },
 source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%7B%27try%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%27%7D%0A')}),
@@ -332,7 +342,7 @@ selector: 'printNl',
 category: 'printing',
 fn: function () {
     var self = this;
-    (function () {console.log(self);}());
+    console.log(self);
     return self;
 },
 source: unescape('printNl%0A%09%7B%27console.log%28self%29%27%7D%0A')}),
@@ -553,7 +563,7 @@ selector: 'basicDelete:',
 category: 'accessing',
 fn: function (aString) {
     var self = this;
-    (function () {delete self[aString];}());
+    delete self[aString];
     return self;
 },
 source: unescape('basicDelete%3A%20aString%0A%20%20%20%20%7B%27delete%20self%5BaString%5D%27%7D%0A')}),
@@ -740,19 +750,6 @@ fn: function () {
     return self;
 },
 source: unescape('methodDictionary%0A%09%5E%7B%27var%20dict%20%3D%20smalltalk.Dictionary._new%28%29%3B%0A%09var%20methods%20%3D%20self.fn.prototype.methods%3B%0A%09for%28var%20i%20in%20methods%29%20%7B%0A%09%09if%28methods%5Bi%5D.selector%29%20%7B%0A%09%09%09dict._at_put_%28methods%5Bi%5D.selector%2C%20methods%5Bi%5D%29%3B%0A%09%09%7D%0A%09%7D%3B%0A%09return%20dict%27%7D%0A')}),
-smalltalk.Behavior);
-
-smalltalk.addMethod(
-'_instVarNames',
-smalltalk.method({
-selector: 'instVarNames',
-category: '',
-fn: function () {
-    var self = this;
-    return function () {return self.iVarNames;}();
-    return self;
-},
-source: unescape('')}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
@@ -5136,5 +5133,73 @@ fn: function (aNumber, anotherNumber) {
 },
 source: unescape('x%3A%20aNumber%20y%3A%20anotherNumber%0A%09%5Eself%20new%0A%09%09x%3A%20aNumber%3B%0A%09%09y%3A%20anotherNumber%3B%0A%09%09yourself')}),
 smalltalk.Point.klass);
+
+
+smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel');
+smalltalk.addMethod(
+'_selector',
+smalltalk.method({
+selector: 'selector',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@selector'];
+    return self;
+},
+source: unescape('selector%0A%09%5Eselector')}),
+smalltalk.Message);
+
+smalltalk.addMethod(
+'_selector_',
+smalltalk.method({
+selector: 'selector:',
+category: 'accessing',
+fn: function (aString) {
+    var self = this;
+    self['@selector'] = aString;
+    return self;
+},
+source: unescape('selector%3A%20aString%0A%09selector%20%3A%3D%20aString')}),
+smalltalk.Message);
+
+smalltalk.addMethod(
+'_arguments_',
+smalltalk.method({
+selector: 'arguments:',
+category: 'accessing',
+fn: function (anArray) {
+    var self = this;
+    self['@arguments'] = anArray;
+    return self;
+},
+source: unescape('arguments%3A%20anArray%0A%09arguments%20%3A%3D%20anArray')}),
+smalltalk.Message);
+
+smalltalk.addMethod(
+'_arguments',
+smalltalk.method({
+selector: 'arguments',
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self['@arguments'];
+    return self;
+},
+source: unescape('arguments%0A%09%5Earguments')}),
+smalltalk.Message);
+
+
+smalltalk.addMethod(
+'_selector_arguments_',
+smalltalk.method({
+selector: 'selector:arguments:',
+category: 'instance creation',
+fn: function (aString, anArray) {
+    var self = this;
+    return function ($rec) {$rec._selector_(aString);$rec._arguments_(anArray);return $rec._yourself();}(self._new());
+    return self;
+},
+source: unescape('selector%3A%20aString%20arguments%3A%20anArray%0A%09%5Eself%20new%0A%09%09selector%3A%20aString%3B%0A%09%09arguments%3A%20anArray%3B%0A%09%09yourself')}),
+smalltalk.Message.klass);
 
 

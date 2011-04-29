@@ -1151,10 +1151,10 @@ selector: 'visitVariableNode:',
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    self._currentClass()._instVarNames()._includes_(aNode._value())._ifTrue_ifFalse_(function () {return self['@stream']._nextPutAll_(unescape("self%5B%27@").__comma(aNode._value()).__comma(unescape("%27%5D")));}, function () {self._knownVariables()._includes_(aNode._value())._ifFalse_(function () {return self['@unknownVariables']._add_(aNode._value());});return self['@stream']._nextPutAll_(aNode._value());});
+    self._currentClass()._instanceVariableNames()._includes_(aNode._value())._ifTrue_ifFalse_(function () {return self['@stream']._nextPutAll_(unescape("self%5B%27@").__comma(aNode._value()).__comma(unescape("%27%5D")));}, function () {self._knownVariables()._includes_(aNode._value())._ifFalse_(function () {return self['@unknownVariables']._add_(aNode._value());});return self['@stream']._nextPutAll_(aNode._value());});
     return self;
 },
-source: unescape('visitVariableNode%3A%20aNode%0A%09%28self%20currentClass%20instVarNames%20includes%3A%20aNode%20value%29%20%0A%09%09ifTrue%3A%20%5Bstream%20nextPutAll%3A%20%27self%5B%27%27@%27%2C%20aNode%20value%2C%20%27%27%27%5D%27%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09%28self%20knownVariables%20includes%3A%20aNode%20value%29%20ifFalse%3A%20%5B%0A%09%09%09%09unknownVariables%20add%3A%20aNode%20value%5D.%0A%09%09%09stream%20nextPutAll%3A%20aNode%20value%5D%0A')}),
+source: unescape('visitVariableNode%3A%20aNode%0A%09%28self%20currentClass%20instanceVariableNames%20includes%3A%20aNode%20value%29%20%0A%09%09ifTrue%3A%20%5Bstream%20nextPutAll%3A%20%27self%5B%27%27@%27%2C%20aNode%20value%2C%20%27%27%27%5D%27%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09%28self%20knownVariables%20includes%3A%20aNode%20value%29%20ifFalse%3A%20%5B%0A%09%09%09%09unknownVariables%20add%3A%20aNode%20value%5D.%0A%09%09%09stream%20nextPutAll%3A%20aNode%20value%5D%0A')}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
