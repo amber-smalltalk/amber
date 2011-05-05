@@ -36,7 +36,8 @@ title: Jtalk Smalltalk - documentation
       <li>The collection class hierarchy is simpler compared to most Smalltalk implementations. There is no <code>OrderedCollection</code>, <code>Set</code> or <code>SortedCollection</code>. However, the size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the <code>#sort*</code> methods.</li>
       <li>The <code>Date</code> class behaves like the <code>Date</code> <em>and</em> <code>TimeStamp</code> classes in Pharo Smalltalk. Therefore both <code>Date today</code> and <code>Date now</code> are valid in Jtalk.</li>
       <li>Jtalk use solely <code>=</code> to test object equality and not the <code>#hash</code> method.</li>
-      <li>Jtalk misses <code>thisContext</code> and does not support <code>#doesNotUnderstand</code>.</li>
+      <li>Jtalk misses <code>thisContext</code>.</li>
+      <li><strike>Jtalk  does not support <code>#doesNotUnderstand</code></strike>. <em>Jtalk now <a href="http://www.nicolas-petton.fr/2011/05/03/doesnnotunderstand-in-jtalk.html">has support</a> for</em> <code>#dnu:</code>.</li>
     </ul>
 
     <h3>Committing changes to disk with the web-based IDE</h3>
@@ -92,7 +93,7 @@ title: Jtalk Smalltalk - documentation
     </script>
 
     <p>Open a  <button onclick="smalltalk.Browser._openOn_(smalltalk.Counter);">browser</button> on the <code>Counter</code> class in the <code>Canvas</code> class category.
-    <p>Each Jtalk widget is a subclass of <code>Widget</code>. A widget is a graphical component. The <code>#renderOn:</code> method is used to generate HTML using the HTML canvas.</p>
+    <p>Each Jtalk widget is a subclass of <code>Widget</code>. A widget is a graphical component. The <code>#renderOn:</code> method is used to generate HTML usinng the HTML canvas.</p>
 
     <p class="information">Rendering methods should be placed in the <code>rendering</code> method protocol, and action methods in the <code>actions</code> protocol.</p>
 
@@ -106,8 +107,48 @@ title: Jtalk Smalltalk - documentation
     	onClick: [self decrease] {% endhighlight %}
 
     <h3>The HTML canvas</h3>
+    
+    <p>Jtalk allows developers to write HTML with a Canvas API similar to <a href='http://www.seaside.st'>Seaside</a>. The explanations below won't be really interesting to seasiders, there are however a few differences with the API Seaside provides.</p>
+
+    <p>Each HTML tag is represented by an instance of <code>TagBrush</code>, used to paint the tag on a <code>HTMLCanvas</code>. The <code>HTMLCanvas&gt;&gt;tag:</code> method adds a tag brush to the canvas object. For convenience, the <code>tags</code> method protocol includes methods for easily adding tag brushes named after each selector name:</p>
+
+{% highlight smalltalk %}| html |
+html := HTMLCanvas new.
+html p 
+     with: 'This is a paragraph with a link to ';
+     with: [
+     	   html a 	   
+	   	href: 'http://www.google.fr';
+     		with: 'Google']
+{% endhighlight%}
+
+<p>You can <button onclick='smalltalk.Browser._openOn_(smalltalk.HTMLCanvas)'>browse</button> the <code>HTMLCanvas</code> class to get the list of all tag methods.</p>
+
+<p>The <code>with:</code> method will call the polymorphic <code>appendToBrush:</code> method on the argument and allows you to add blocks, strings, tags, etc. to an existing tag brush or canvas.</p>
+
+<p><code>TagBrush</code> also has methods to bind events, like <code>#onClick:</code> or <code>#onChange:</code>, in the <code>events</code> protocol.</p>
+
+
     <h3>Widgets</h3>
+
+
     <h3>jQuery</h3>
+    <p>Jtalk comes with a <a href='http://www.jquery.com'>jQuery</a> binding. Each string or tag brush can be converted to a jQuery object, instance of the <code>JQuery</code> class in Jtalk, with <code>#asJQuery</code>.</p>
+
+    {% highlight smalltalk %}'body' asJQuery.
+aTagBrush asJQuery.{% endhighlight %}
+
+    <p>Once you get the jQuery object, you can use jQuery from Jtalk like you would do in JavaScript. JQuery methods in Jtalk follow the well documented <a href='http://api.jquery.com/'>jQuery API</a>.</p>
+
+    {% highlight smalltalk %}'body' asJQuery 
+       addClass: 'foo';
+       append: 'Hello world';
+aTagBrush asJQuery hide.{% endhighlight %}
+
+    <p>Once again, If you're looking for some particular method or want to learn more about how to use jQuery from Jtalk, you can <button onclick='smalltalk.Browser._openOn_(smalltalk.JQuery)'>browse</button> the <code>JQuery</code> class.</p>
+
+
+
 
   </div>
 </div>
