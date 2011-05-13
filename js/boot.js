@@ -241,6 +241,26 @@ function Smalltalk(){
 	    .replace(/_comma/, ',')
 	    .replace(/_at/, '@')
     };
+
+    /* Converts a JavaScript object to valid Smalltalk Object */
+    st.readJSObject = function(js) {
+	var object = js;
+	var readObject = (js.constructor === Object);
+	var readArray = (js.constructor === Array);
+	
+	if(readObject) {
+	    object = smalltalk.Dictionary._new();
+	}
+	for(var i in js) {
+	    if(readObject) {
+		object._at_put_(i, st.readJSObject(js[i]));
+	    } 
+	    if(readArray) {
+		object[i] = st.readJSObject(js[i]);
+	    }
+	}
+	return object;
+    };
 }
 
 function SmalltalkMethodContext() {
@@ -287,6 +307,8 @@ smalltalk.mapClassName("SequenceableCollection", "Kernel", null, smalltalk.Colle
 smalltalk.mapClassName("String", "Kernel", String, smalltalk.SequenceableCollection);
 smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollection);
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
+
+smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
 
 if(CanvasRenderingContext2D) {
     smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);

@@ -683,6 +683,19 @@ fn: function (aBoolean) {
 source: unescape('debugMode%3A%20aBoolean%0A%09%7B%27self.debugMode%20%3D%20aBoolean%27%7D')}),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+'_readJSON_',
+smalltalk.method({
+selector: 'readJSON:',
+category: 'accessing',
+fn: function (anObject) {
+    var self = this;
+    return self.readJSObject(anObject);
+    return self;
+},
+source: unescape('readJSON%3A%20anObject%0A%09%7B%27return%20self.readJSObject%28anObject%29%3B%27%7D')}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -4098,10 +4111,11 @@ selector: 'signal',
 category: 'signaling',
 fn: function () {
     var self = this;
-    throw new Error(self._messageText());
+    console.log(self._messageText());
+    throw self;
     return self;
 },
-source: unescape('signal%0A%09%7B%27throw%28new%20Error%28self._messageText%28%29%29%29%27%7D')}),
+source: unescape('signal%0A%09%7B%27console.log%28self._messageText%28%29%29%3B%20throw%28self%29%27%7D')}),
 smalltalk.Error);
 
 
