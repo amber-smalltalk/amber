@@ -933,6 +933,19 @@ fn: function (aMethod) {
 source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%7B%27delete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%27%7D%0A')}),
 smalltalk.Behavior);
 
+smalltalk.addMethod(
+'_inheritsFrom_',
+smalltalk.method({
+selector: 'inheritsFrom:',
+category: 'instance creation',
+fn: function (aClass) {
+    var self = this;
+    return smalltalk.send(smalltalk.send(aClass, "_allSubclasses", []), "_includes_", [self]);
+    return self;
+},
+source: unescape('inheritsFrom%3A%20aClass%0A%09%5EaClass%20allSubclasses%20includes%3A%20self')}),
+smalltalk.Behavior);
+
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel');
