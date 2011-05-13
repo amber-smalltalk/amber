@@ -1677,10 +1677,10 @@ selector: 'on:do:',
 category: 'error handling',
 fn: function (anErrorClass, aBlock) {
     var self = this;
-    smalltalk.send(self, "_try_catch_", [self, function (error) {return smalltalk.send(smalltalk.send(error, "_isKindOf_", [anErrorClass]), "_ifTrue_ifFalse_", [function () {return smalltalk.send(aBlock, "_value", []);}, function () {return smalltalk.send(error, "_signal", []);}]);}]);
+    smalltalk.send(self, "_try_catch_", [self, function (error) {return smalltalk.send(smalltalk.send(error, "_isKindOf_", [anErrorClass]), "_ifTrue_ifFalse_", [function () {return smalltalk.send(aBlock, "_value_", [error]);}, function () {return smalltalk.send(error, "_signal", []);}]);}]);
     return self;
 },
-source: unescape('on%3A%20anErrorClass%20do%3A%20aBlock%0A%09self%20try%3A%20self%20catch%3A%20%5B%3Aerror%20%7C%0A%09%20%20%20%20%28error%20isKindOf%3A%20anErrorClass%29%20%0A%09%20%20%20%20%20ifTrue%3A%20%5BaBlock%20value%5D%0A%09%20%20%20%20%20ifFalse%3A%20%5Berror%20signal%5D%5D%0A')}),
+source: unescape('on%3A%20anErrorClass%20do%3A%20aBlock%0A%09self%20try%3A%20self%20catch%3A%20%5B%3Aerror%20%7C%0A%09%20%20%20%20%28error%20isKindOf%3A%20anErrorClass%29%20%0A%09%20%20%20%20%20ifTrue%3A%20%5BaBlock%20value%3A%20error%5D%0A%09%20%20%20%20%20ifFalse%3A%20%5Berror%20signal%5D%5D%0A')}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
