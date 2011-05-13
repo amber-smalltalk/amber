@@ -48,6 +48,7 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
+    st.debugMode = true;
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -242,11 +243,23 @@ function Smalltalk(){
     };
 }
 
-/* Global Smalltalk objects. nil shouldn't be a global. */
+function SmalltalkMethodContext() {
+    this.stack = [];
+
+    this.push = function(context) {
+	stack.push(context);
+    };
+    
+    this.pop = function() {
+	stack.pop();
+    };
+}
+
+/* Global Smalltalk objects. nil and thisContext shouldn't be globals. */
 
 var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
-
+var thisContext = nil;
 
 /****************************************************************************************/
 
@@ -270,9 +283,10 @@ smalltalk.mapClassName("Date", "Kernel", Date, smalltalk.Object);
 smalltalk.mapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Object);
 
 smalltalk.mapClassName("Collection", "Kernel", null, smalltalk.Object);
-smalltalk.mapClassName("String", "Kernel", String, smalltalk.Collection);
+smalltalk.mapClassName("SequenceableCollection", "Kernel", null, smalltalk.Collection);
+smalltalk.mapClassName("String", "Kernel", String, smalltalk.SequenceableCollection);
+smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollection);
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
-smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.Collection);
 
 if(CanvasRenderingContext2D) {
     smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
