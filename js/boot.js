@@ -55,13 +55,13 @@ function Smalltalk(){
        should be added to the smalltalk object, see smalltalk.addClass().
        Superclass linking is *not* handled here, see smalltalk.init()  */
 
-    st.klass = function(spec) {
+    klass = function(spec) {
 	var spec = spec || {};
 	var that;
 	if(spec.meta) {
 	    that = new SmalltalkMetaclass();
 	} else {
-	    that = new (st.klass({meta: true})).fn;
+	    that = new (klass({meta: true})).fn;
 	    that.klass.instanceClass = that;
 	    that.className = spec.className;
 	    that.klass.className = that.className + ' class';
@@ -85,10 +85,12 @@ function Smalltalk(){
 
     st.method = function(spec) {
 	var that = new SmalltalkMethod();
-	that.selector = spec.selector;
-	that.category = spec.category;
-	that.source   = spec.source;
-	that.fn       = spec.fn;
+	that.selector          = spec.selector;
+	that.category          = spec.category;
+	that.source            = spec.source;
+	that.messageSends      = spec.messageSends || [];
+	that.referencedClasses = spec.referencedClasses || [];
+	that.fn                = spec.fn;
 	return that
     };
 
@@ -154,7 +156,7 @@ function Smalltalk(){
        global smalltalk object. */
 
     st.mapClassName = function(className, category, fn, superclass) {
-	st[className] = st.klass({
+	st[className] = klass({
 	    className:  className, 
 	    category:   category, 
 	    superclass: superclass,
@@ -170,7 +172,7 @@ function Smalltalk(){
 	    st[className].iVarNames = iVarNames;
 	    st[className].category = category || st[className].category;
 	} else {
-	    st[className] = smalltalk.klass({
+	    st[className] = klass({
 		className: className, 
 		iVarNames: iVarNames,
 		superclass: superclass
@@ -184,22 +186,23 @@ function Smalltalk(){
     st.addMethod = function(jsSelector, method, klass) {
 	klass.fn.prototype[jsSelector] = method.fn;
 	klass.fn.prototype.methods[method.selector] = method;
+	method.methodClass = klass;
     };
 
     /* Handles Smalltalk message send. Automatically converts undefined to the nil object.
        If the receiver does not understand the selector, call its #doesNotUnderstand: method */
 
-    st.send = function(receiver, selector, args) {
+    st.send = function(receiver, selector, args, klass) {
 	if(typeof receiver === "undefined") {
 	    receiver = nil;
 	}
-	if(receiver[selector]) {
-	    return receiver[selector].apply(receiver, args);
-	} else {
+	var klass = klass || receiver.klass;
+	var method = klass.fn.prototype[selector];
+	if(!method) {
 	    return messageNotUnderstood(receiver, selector, args);
 	}
+	return method.apply(receiver, args);
     };
-
 
     /* handle #dnu:. 
        Assume that the receiver understands #doesNotUnderstand: */

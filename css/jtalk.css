@@ -257,3 +257,41 @@ body.jtalkBody {
     width: 100%;
     height: 100%;
 }
+
+/***** IDE - ReferencesBrowser ******/
+
+.jtalkTool .jt_box .implementors {
+	width: 100%
+}
+
+.jtalkTool .jt_box .jt_column.implementors,
+.jtalkTool .jt_box .jt_column.senders,
+.jtalkTool .jt_box .jt_column.referenced_classes {
+	top: 30px;
+	height: 100%;
+	bottom: 0px;
+	width: 33%;
+}
+
+.jtalkTool .jt_box .jt_column.senders {
+	left: 33.6%
+}
+
+.jtalkTool .jt_box .jt_column.referenced_classes {
+        left: 67.3%
+}
+
+.jtalkTool .jt_box .jt_column.implementors .column_label, 
+.jtalkTool .jt_box .jt_column.senders .column_label,
+.jtalkTool .jt_box .jt_column.referenced_classes .column_label {
+	background: #dbdbdb
+}
+
+.jtalkTool .jt_box .jt_column.implementors .column_label:hover,
+.jtalkTool .jt_box .jt_column.senders .column_label:hover,
+.jtalkTool .jt_box .jt_column.referenced_classes .column_label:hover {
+	font-weight: bold;
+	color: #000;
+	cursor: default
+}
+
