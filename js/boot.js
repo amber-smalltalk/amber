@@ -48,19 +48,20 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
+    st.debugMode = true;
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
        should be added to the smalltalk object, see smalltalk.addClass().
        Superclass linking is *not* handled here, see smalltalk.init()  */
 
-    st.klass = function(spec) {
+    klass = function(spec) {
 	var spec = spec || {};
 	var that;
 	if(spec.meta) {
 	    that = new SmalltalkMetaclass();
 	} else {
-	    that = new (st.klass({meta: true})).fn;
+	    that = new (klass({meta: true})).fn;
 	    that.klass.instanceClass = that;
 	    that.className = spec.className;
 	    that.klass.className = that.className + ' class';
@@ -84,10 +85,12 @@ function Smalltalk(){
 
     st.method = function(spec) {
 	var that = new SmalltalkMethod();
-	that.selector = spec.selector;
-	that.category = spec.category;
-	that.source   = spec.source;
-	that.fn       = spec.fn;
+	that.selector          = spec.selector;
+	that.category          = spec.category;
+	that.source            = spec.source;
+	that.messageSends      = spec.messageSends || [];
+	that.referencedClasses = spec.referencedClasses || [];
+	that.fn                = spec.fn;
 	return that
     };
 
@@ -153,7 +156,7 @@ function Smalltalk(){
        global smalltalk object. */
 
     st.mapClassName = function(className, category, fn, superclass) {
-	st[className] = st.klass({
+	st[className] = klass({
 	    className:  className, 
 	    category:   category, 
 	    superclass: superclass,
@@ -169,7 +172,7 @@ function Smalltalk(){
 	    st[className].iVarNames = iVarNames;
 	    st[className].category = category || st[className].category;
 	} else {
-	    st[className] = smalltalk.klass({
+	    st[className] = klass({
 		className: className, 
 		iVarNames: iVarNames,
 		superclass: superclass
@@ -183,22 +186,23 @@ function Smalltalk(){
     st.addMethod = function(jsSelector, method, klass) {
 	klass.fn.prototype[jsSelector] = method.fn;
 	klass.fn.prototype.methods[method.selector] = method;
+	method.methodClass = klass;
     };
 
     /* Handles Smalltalk message send. Automatically converts undefined to the nil object.
        If the receiver does not understand the selector, call its #doesNotUnderstand: method */
 
-    st.send = function(receiver, selector, args) {
+    st.send = function(receiver, selector, args, klass) {
 	if(typeof receiver === "undefined") {
 	    receiver = nil;
 	}
-	if(receiver[selector]) {
-	    return receiver[selector].apply(receiver, args);
-	} else {
+	var klass = klass || receiver.klass;
+	var method = klass.fn.prototype[selector];
+	if(!method) {
 	    return messageNotUnderstood(receiver, selector, args);
 	}
+	return method.apply(receiver, args);
     };
-
 
     /* handle #dnu:. 
        Assume that the receiver understands #doesNotUnderstand: */
@@ -240,13 +244,45 @@ function Smalltalk(){
 	    .replace(/_comma/, ',')
 	    .replace(/_at/, '@')
     };
+
+    /* Converts a JavaScript object to valid Smalltalk Object */
+    st.readJSObject = function(js) {
+	var object = js;
+	var readObject = (js.constructor === Object);
+	var readArray = (js.constructor === Array);
+	
+	if(readObject) {
+	    object = smalltalk.Dictionary._new();
+	}
+	for(var i in js) {
+	    if(readObject) {
+		object._at_put_(i, st.readJSObject(js[i]));
+	    } 
+	    if(readArray) {
+		object[i] = st.readJSObject(js[i]);
+	    }
+	}
+	return object;
+    };
 }
 
-/* Global Smalltalk objects. nil shouldn't be a global. */
+function SmalltalkMethodContext() {
+    this.stack = [];
+
+    this.push = function(context) {
+	stack.push(context);
+    };
+    
+    this.pop = function() {
+	stack.pop();
+    };
+}
+
+/* Global Smalltalk objects. nil and thisContext shouldn't be globals. */
 
 var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
-
+var thisContext = nil;
 
 /****************************************************************************************/
 
@@ -274,6 +310,8 @@ smalltalk.mapClassName("SequenceableCollection", "Kernel", null, smalltalk.Colle
 smalltalk.mapClassName("String", "Kernel", String, smalltalk.SequenceableCollection);
 smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollection);
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
+
+smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
 
 if(CanvasRenderingContext2D) {
     smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
