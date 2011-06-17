@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# Get JTalk root directory
+JTALK=`dirname ${0}`/..
+
+USAGE="Usage: $0 [-r] file1 file2 ... file3 Program
+
+	Will compile a JTalk Program.js file by concatenating listed files:
+
+          *.js files are concatenated as is. If not found we look in $JTALK/js
+          *.st files are compiled into .js files. If not found we look in $JTALK/st.
+          Each file is considered to be a single class category of the same name.
+
+        NOTE: boot.js and Kernel.js is always first and init.js
+              is always added just before the last file. Finally main.js is added if found.
+"
+
+if [ "$#" == "0" ]; then
+	echo "$USAGE"
+	exit 1
+fi
+
+if [ $1 == "-r" ]; then
+  RUN=true
+  shift
+fi
+
+
+# Get a unique tempdir and make sure it gets nuked later
+TMPDIR=`mktemp -d`
+trap "rm -rf $TMPDIR" EXIT
+
+# Collect libraries and Smalltalk files
+until [ "$*" = "" ]
+do
+  case $1 in
+     *.st)
+        CATEGORY=`basename $1 .st`
+        if [ -f "$1" ]; then
+           COMPILE="$COMPILE $1 $CATEGORY"
+           COMPILED="$COMPILED $CATEGORY.js"
+        else
+           if [ -f $JTALK/st/$1 ]; then
+             COMPILE="$COMPILE $JTALK/st/$1 $CATEGORY"
+             COMPILED="$COMPILED $CATEGORY.js"
+           else
+             echo "JTalk file not found: $1"
+           fi
+        fi
+        shift
+        ;;
+
+     *.js)
+        if [ -f "$1" ]; then
+           LIBS="$LIBS $1" 
+        else
+           if [ -f $JTALK/js/$1 ]; then
+             LIBS="$LIBS $JTALK/js/$1"
+           else
+             echo "Javascript file not found: $1"
+           fi
+        fi
+        ;;
+  esac
+  # Will end up being the last argument
+  PROGRAM=$1
+  shift
+done
+
+# Create compiler
+cat $JTALK/js/boot.js $JTALK/js/Kernel.js $JTALK/js/Parser.js $JTALK/js/Compiler.js $JTALK/js/init.js $JTALK/nodejs/nodecompile.js > $TMPDIR/compiler-all.js
+# Compile all collected .st files to .js
+node $TMPDIR/compiler-all.js $COMPILE
+
+# Compose the complete libs.js file
+if [ -n "$LIBS" ]; then
+  echo "LIBS $LIBS"
+  cat $LIBS > $TMPDIR/libs.js
+  LIBS=$TMPDIR/libs.js
+fi
+
+# Check for main.js
+if [ -f "main.js" ]; then
+  MAIN="main.js"
+fi
+
+
+# And finally concatenate Program.js
+cat $JTALK/js/boot.js $JTALK/js/Kernel.js $LIBS $COMPILED $JTALK/js/init.js $MAIN > $PROGRAM.js
+
+# Optionally run Program and give all args left to it
+if [ -n "$RUN" ]; then
+  echo "Running program"
+  echo "---------------"
+  node $PROGRAM.js $@
+fi

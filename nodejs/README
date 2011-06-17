@@ -1,0 +1,8 @@
+These are just some scripts and examples of using JTalk together with Node.js.
+
+ntalkc          - a bash script for compiling JTalk programs in/for Node.js.
+nodecompile.js  - Node.js code for compiling .st files, used by ntalkc
+
+hello           - Hello world example with a simple Makefile
+
+You will need "node" in your path.
