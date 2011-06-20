@@ -1,8 +1,35 @@
-These are just some scripts and examples of using JTalk together with Node.js.
+JTalk + Node.js = Awesomeness
+=============================
+These are some experiments of using JTalk together with Node.js:
 
-ntalkc          - a bash script for compiling JTalk programs in/for Node.js.
-nodecompile.js  - Node.js code for compiling .st files, used by ntalkc
+ntalkc          - a bash script for compiling JTalk programs for Node.js.
+nodecompile.js  - trivial Node.js javascript code for compiling .st files, used by ntalkc.
 
 hello           - Hello world example with a simple Makefile
+trivialserver   - A slightly larger example.
 
-You will need "node" in your path.
+You will need "node" in your path to try examples.
+
+
+ntalkc
+======
+
+The "compiler" is simply a bash script that uses Nicolas' Exporter/Importer to compile .st files into .js files. The source code should be easy to follow but basically it does the following:
+
+1. Collect all listed (as arguments) .st and .js files. We also check in the JTalk js and st directories if not found.
+
+2. Create a "compiler" by concatenating these files (this means we always use freshest from git):
+        boot.js Kernel.js Parser.js Compiler.js init.js nodejs/nodecompile.js 
+
+3. Run this "compiler" using node and give .st files as command line arguments. This produces corresponding .js files. If not all .js files exist afterwards we abort.
+
+4. Build final program.js by concatenating:
+
+        boot.js
+        Kernel.js
+        ...all .js libraries collected in step 1.
+        ...all .js files produced from the .st files in step 3.
+        init.js (either locally or from JTalk js directory)
+        main.js (if found locally)
+
+5. Run program.js using node if "-r" was specified.
