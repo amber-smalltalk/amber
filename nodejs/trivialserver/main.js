@@ -1,5 +1,4 @@
 var http = require('http');
-var os = require('os');
 // Instantiate a JTalk object to process requests
 var server = smalltalk.TrivialServer._new();
 http.createServer(function (req, res) {

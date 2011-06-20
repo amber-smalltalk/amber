@@ -29,5 +29,5 @@ process: aRequest
 
 !TrivialServer class methodsFor: 'initialization'!
 initialize
-	{'var os = require(''os'');'}
+	{'os = require(''os'');'}
 ! !
