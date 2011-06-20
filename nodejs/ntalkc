@@ -79,6 +79,16 @@ cat $JTALK/js/boot.js $JTALK/js/Kernel.js $JTALK/js/Parser.js $JTALK/js/Compiler
 # Compile all collected .st files to .js
 node $TMPDIR/compiler-all.js $COMPILE
 
+# Verify all .js files corresponding .st files were created, otherwise exit
+IFS=" "
+for FILE in $COMPILED
+do
+  if [ ! -f "$FILE" ]; then
+    echo "Failed compilation of $FILE, exiting."
+    exit 1
+  fi 
+done
+
 # Compose the complete libs.js file from collected .js filenames.
 if [ -n "$LIBS" ]; then
   echo "LIBS $LIBS"
