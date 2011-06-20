@@ -7,6 +7,7 @@ nodecompile.js  - trivial Node.js javascript code for compiling .st files, used 
 
 hello           - Hello world example with a simple Makefile
 trivialserver   - A slightly larger example.
+trivialserver2  - A variation on trivialserver that tries to do more in JTalk.
 
 You will need "node" in your path to try examples.
 
