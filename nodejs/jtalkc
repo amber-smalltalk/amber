@@ -51,10 +51,10 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [P
         jtalkc Kernel.st
 
      Compile Hello.st to Hello.js and create complete program called
-     Hello.st.js for Node.js including boot.js, Kernel.js, init.js and
+     Program.js for Node.js including boot.js, Kernel.js, init.js and
      adding a call to class method #main in class Hello:
 
-        jtalkc -N -m Hello Hello.st
+        jtalkc -N -m Hello Hello.st Program
 
      Compile two .st files into corresponding .js files,
      and manually link with specific myboot.js, myKernel.js, myinit.js and main.js
