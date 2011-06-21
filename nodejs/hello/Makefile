@@ -1,5 +1,5 @@
 Program.js: Hello.st
-	../ntalkc Hello.st Program
+	../jtalkc -N -m Hello Hello.st Program
 
 run: Program.js
 	./hello

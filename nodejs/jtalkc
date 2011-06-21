@@ -1,0 +1,225 @@
+#!/bin/bash
+#
+# This is a "compiler" for JTalk code. Run without arguments for help.
+
+# Get JTalk root directory from the location of this script.
+JTALK=`dirname ${0}`/..
+
+function usage {
+	cat <<ENDOFHELP
+Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] [-r] file1 file2 ... file3 Program
+
+   Will compile Jtalk programs in a variety of ways.
+   Files listed will be handled using these rules:
+
+     *.js files are concatenated as is. If not found we look in $JTALK/js
+
+     *.st files are compiled into .js files. If not found we look in $JTALK/st.
+     Each file is currently considered to be a fileout of a single class
+     category of the same name as the file.
+
+  -N or -D
+     Compile for Node.js or D8 (V8 shell). Defaults to "-KIm Main" so boot.js and Kernel.js
+     are added first and init.js is added last with a call to Main class>>main.
+
+  -K
+     Add libraries to get minimal JTalk Kernel running. Implies -i.
+
+  -C
+     Add libraries to get minimal JTalk Compiler running. Implies -i.
+
+  -I
+     Add library standard initializer $JTALK/js/init.js
+
+  -i file
+     Add library initializer <file>.
+
+  -M file
+     Add javascript file <file> last acting as main.
+
+  -m class
+     Add call to #main in class <class>. 
+
+
+     Example invocations:
+
+     Compile Kernel.st to Kernel.js:
+
+        jtalkc Kernel.st
+
+     Compile Hello.st to Hello.js and create complete program called
+     Hello-all.js for Node.js including boot.js, Kernel.js, init.js and
+     adding a call to class method #main in class Hello:
+
+        jtalkc -N Hello.st
+
+     Compile two different class categories into corresponding .js files,
+     and manually link with specific boot.js, Kernel.js, init.js and main.js
+     and create complete program called Program.js:
+
+        jtalkc boot.js Kernel.js CategoryOne.st CategoryTwo.st init.js main.js Program
+ENDOFHELP
+	exit 1;
+}
+
+
+# Define our predefined library combinations
+BOOT="$JTALK/js/boot.js"
+KERNEL="$BOOT $JTALK/js/Kernel.js"
+COMPILER="$KERNEL $JTALK/js/Parser.js $JTALK/js/Compiler.js"
+
+# Predefined initializer
+INITIALIZER="$JTALK/js/init.js"
+
+# Default values
+ENV=
+INIT=
+MAIN=
+MAINFILE=
+BASE=$KERNEL
+OURCOMPILER="$COMPILER $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
+
+# Read options and shift them away
+while getopts "NDKCIi:M:m:r" o; do
+case "$o" in
+   N) ENV=NODE
+      BASE=$KERNEL
+      INIT=$INITIALIZER
+      ADDMAIN=Main;;
+   D) ENV=D8
+      BASE=$KERNEL
+      INIT=$INITIALIZER
+      ADDMAIN=Main;;
+   K) BASE=$KERNEL;;
+   C) BASE=$COMPILER;;
+   I) INIT=$INITIALIZER;;
+   i) INIT=$OPTARG;;
+   M) MAINFILE=$OPTARG;;
+   m) MAIN=$OPTARG;;
+   h) usage;;
+   [?])  usage;;
+   esac
+done
+shift $(($OPTIND - 1))
+
+# Combine supplied libraries
+LIBS="$BASE $ADDONS"
+
+# Get a unique tempdir and make it get auto removed on exit
+TMPDIR=`mktemp -d`
+trap "rm -rf $TMPDIR" EXIT
+
+# --------------------------------------------------
+# Collect libraries and Smalltalk files looking
+# both locally and in $JTALK/js and $JTALK/st 
+# --------------------------------------------------
+until [ "$*" = "" ]
+do
+  case $1 in
+     *.st)
+        CATEGORY=`basename $1 .st`
+        if [ -f "$1" ]; then
+           COMPILE="$COMPILE $1 $CATEGORY"
+           COMPILED="$COMPILED $CATEGORY.js"
+        else
+           if [ -f $JTALK/st/$1 ]; then
+             COMPILE="$COMPILE $JTALK/st/$1 $CATEGORY"
+             COMPILED="$COMPILED $CATEGORY.js"
+           else
+             echo "JTalk file not found: $1"
+             exit 1
+           fi
+        fi
+        ;;
+
+     *.js)
+        if [ -f "$1" ]; then
+           LIBS="$LIBS $1" 
+        else
+           if [ -f $JTALK/js/$1 ]; then
+             LIBS="$LIBS $JTALK/js/$1"
+           else
+             echo "Javascript file not found: $1"
+             exit 1
+           fi
+        fi
+        ;;
+  esac
+  # Will end up being the last argument
+  PROGRAM=$1
+  shift
+done
+
+# --------------------------------------------------
+# Actual compilation phase of collected .st files
+# --------------------------------------------------
+
+# Create compiler dynamically
+cat $OURCOMPILER > $TMPDIR/compiler.js
+
+# Compile all collected .st files to .js
+echo "Compiling ..."
+node $TMPDIR/compiler.js $COMPILE
+
+# Verify all .js files corresponding to .st files were created, otherwise exit
+IFS=" "
+for FILE in $COMPILED
+do
+  if [ ! -f "$FILE" ]; then
+    echo "Failed compilation of $FILE, exiting."
+    exit 1
+  fi 
+done
+
+# --------------------------------------------------
+# Now we start composing resulting javascript file.
+# --------------------------------------------------
+
+# Add collected libraries to libs.js file.
+if [ ! -z "$LIBS" ]; then
+  echo "Adding libraries $LIBS ..."
+  cat $LIBS > $TMPDIR/libs.js
+  LIBS=$TMPDIR/libs.js
+fi
+
+echo "Adding Jtalk code$COMPILED ..."
+
+# Check for init file
+if [ ! -z "$INIT" ]; then
+   if [ -f "$INIT" ]; then
+      echo "Adding initializer $INIT ..."
+   else
+      echo "Can not find init file $INIT, exiting."
+      exit 1
+   fi 
+fi
+
+# Check for adding main
+if [ ! -z "$MAIN" ]; then
+  echo "Adding call to $MAIN class >> main ..."
+  echo "smalltalk.$MAIN._main()" > $TMPDIR/main.js
+  MAIN=$TMPDIR/main.js
+fi
+
+# Check for adding main file
+if [ ! -z "$MAINFILE" ]; then
+   if [ -f "$MAINFILE" ]; then
+      echo "Adding main as $MAINFILE ..."
+   else
+      echo "Can not find main file $MAINFILE, exiting."
+      exit 1
+   fi 
+   MAIN=$MAINFILE
+fi
+
+# And finally concatenate Program.js
+echo "Writing $PROGRAM.js ..."
+cat $LIBS $COMPILED $INIT $MAIN > $PROGRAM.js
+echo "Done."
+
+# Optionally run Program and give all args left to it
+if [ -n "$RUN" ]; then
+  echo "Running program"
+  echo "---------------"
+  node $PROGRAM.js $@
+fi
