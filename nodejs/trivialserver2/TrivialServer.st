@@ -7,7 +7,6 @@ initialize
         counter := 0
 ! !
 
-
 !TrivialServer methodsFor: 'processing'!
 process: aRequest
         | hostname httpVersion stream |
@@ -43,4 +42,8 @@ initialize
         "We require these Node modules."
 
 	{'os = require(''os''), http = require(''http'');'}
+!
+
+main
+	self new start
 ! !
