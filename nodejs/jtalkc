@@ -7,9 +7,9 @@ JTALK=`dirname ${0}`/..
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] [-r] file1 file2 ... file3 Program
+Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] file1 [file2 ...] [Program]
 
-   Will compile Jtalk programs in a variety of ways.
+   Will compile Jtalk files in a variety of ways.
    Files listed will be handled using these rules:
 
      *.js files are concatenated as is. If not found we look in $JTALK/js
@@ -17,6 +17,9 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] [-r] file1 file2 ...
      *.st files are compiled into .js files. If not found we look in $JTALK/st.
      Each file is currently considered to be a fileout of a single class
      category of the same name as the file.
+
+   If no Program is specified only each given .st file will be compiled into a .js file.
+   Otherwise a Program.js file is linked together based on the given options described below:
 
   -N or -D
      Compile for Node.js or D8 (V8 shell). Defaults to "-KIm Main" so boot.js and Kernel.js
@@ -62,6 +65,10 @@ ENDOFHELP
 	exit 1;
 }
 
+# Check we at least got one argument
+if [ -z $1 ] ; then
+   usage
+fi
 
 # Define our predefined library combinations
 BOOT="$JTALK/js/boot.js"
@@ -113,6 +120,7 @@ trap "rm -rf $TMPDIR" EXIT
 # Collect libraries and Smalltalk files looking
 # both locally and in $JTALK/js and $JTALK/st 
 # --------------------------------------------------
+PROGRAM=
 until [ "$*" = "" ]
 do
   case $1 in
@@ -144,9 +152,11 @@ do
            fi
         fi
         ;;
+      *)
+        # Will end up being the last non js/st argument
+        PROGRAM=$1
+        ;;
   esac
-  # Will end up being the last argument
-  PROGRAM=$1
   shift
 done
 
@@ -170,6 +180,11 @@ do
     exit 1
   fi 
 done
+
+if [ -z $PROGRAM ]; then
+  echo "Done compiling."
+  exit 0
+fi
 
 # --------------------------------------------------
 # Now we start composing resulting javascript file.
