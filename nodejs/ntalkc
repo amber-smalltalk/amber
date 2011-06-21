@@ -1,18 +1,38 @@
 #!/bin/bash
+#
+# This is a trivial "compiler" for JTalk code. Run without arguments for help.
 
-# Get JTalk root directory
+# Get JTalk root directory from the location of this script.
 JTALK=`dirname ${0}`/..
 
 USAGE="Usage: $0 [-r] file1 file2 ... file3 Program
 
-	Will compile a JTalk Program.js file by concatenating listed files:
+   Will compile a JTalk program into a single javascript file called
+   <Program>.js by concatenating listed files using these rules:
 
-          *.js files are concatenated as is. If not found we look in $JTALK/js
-          *.st files are compiled into .js files. If not found we look in $JTALK/st.
-          Each file is considered to be a single class category of the same name.
+     *.js files are concatenated as is. If not found we look in $JTALK/js
 
-        NOTE: boot.js and Kernel.js is always first and init.js
-              is always added just before the last file. Finally main.js is added if found.
+     *.st files are compiled into .js files. If not found we look in $JTALK/st.
+     Each file is currently considered to be a fileout of a single class
+     category of the same name as the file.
+
+     NOTE: boot.js and Kernel.js is always added first and init.js
+     is always added last. Finally main.js is added if found.
+
+     If -r is used we also run node with the resulting Program.js.
+
+     Example invocations:
+
+     Compile Hello.st to Hello.js and create
+     complete program called Program.js:
+
+        ntalkc Hello.st Program
+
+     Compile two different class categories into corresponding .js files,
+     link with two existing javascript libraries and create complete
+     program called Program.js:
+
+        ntalkc lib1.js lib2.js CategoryOne.st CategoryTwo.st Program
 "
 
 if [ "$#" == "0" ]; then
@@ -24,7 +44,6 @@ if [ $1 == "-r" ]; then
   RUN=true
   shift
 fi
-
 
 # Get a unique tempdir and make sure it gets nuked later
 TMPDIR=`mktemp -d`
@@ -67,26 +86,53 @@ do
   shift
 done
 
-# Create compiler
+# Create compiler dynamically
 cat $JTALK/js/boot.js $JTALK/js/Kernel.js $JTALK/js/Parser.js $JTALK/js/Compiler.js $JTALK/js/init.js $JTALK/nodejs/nodecompile.js > $TMPDIR/compiler-all.js
+
 # Compile all collected .st files to .js
+echo "Compiling$COMPILED ..."
 node $TMPDIR/compiler-all.js $COMPILE
 
-# Compose the complete libs.js file
+# Verify all .js files corresponding .st files were created, otherwise exit
+IFS=" "
+for FILE in $COMPILED
+do
+  if [ ! -f "$FILE" ]; then
+    echo "Failed compilation of $FILE, exiting."
+    exit 1
+  fi 
+done
+
+# We must have these first...
+echo "Adding boot.js and Kernel.js ..."
+BOOT="$JTALK/js/boot.js $JTALK/js/Kernel.js"
+
+# Compose the complete libs.js file from collected .js filenames.
 if [ -n "$LIBS" ]; then
-  echo "LIBS $LIBS"
+  echo "Adding libraries $LIBS ..."
   cat $LIBS > $TMPDIR/libs.js
   LIBS=$TMPDIR/libs.js
 fi
 
+# Check for init.js
+if [ -f "init.js" ]; then
+  echo "Adding init.js ..."
+  INIT="init.js"
+else
+  echo "Adding $JTALK/js/init.js ..."
+  INIT=$JTALK/js/init.js
+fi
+
 # Check for main.js
 if [ -f "main.js" ]; then
+  echo "Adding main.js ..."
   MAIN="main.js"
 fi
 
-
 # And finally concatenate Program.js
-cat $JTALK/js/boot.js $JTALK/js/Kernel.js $LIBS $COMPILED $JTALK/js/init.js $MAIN > $PROGRAM.js
+echo "Writing $PROGRAM.js ..."
+cat $BOOT $LIBS $COMPILED $INIT $MAIN > $PROGRAM.js
+echo "Done."
 
 # Optionally run Program and give all args left to it
 if [ -n "$RUN" ]; then

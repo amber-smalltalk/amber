@@ -1,3 +1,7 @@
+// NOTE: This code is called using the ntalkc bash script - do not use directly.
+// The arguments variable is a series of .st filenames and category names.
+// If it is a .st file we import it, if it is a category name we export it
+// as aCategoryName.js.
 var sys = require('sys'), fs = require('fs');
 
 // Only care about our arguments, strip away node and all.js
