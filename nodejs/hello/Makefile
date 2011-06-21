@@ -1,7 +1,7 @@
 Program.js: Hello.st
 	../ntalkc Hello.st Program
 
-run: Hello.js
+run: Program.js
 	./hello
 
 clean:

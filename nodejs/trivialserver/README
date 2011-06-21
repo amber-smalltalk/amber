@@ -1,0 +1,18 @@
+Trivial Node.js example in JTalk:
+
+TrivialServer.st - source code.
+trivial          - trivial bash script to run resulting program.
+main.js          - small "doit" to actually run code. Will be added by ntalkc.
+Makefile         - trivial makefile, read it.
+
+TrivialServer.js - produced when you run make.
+Program.js       - Contains JTalk + TrivialServer.js + main.js
+
+To play, do this:
+
+make run
+
+...or:
+
+make
+./trivial
