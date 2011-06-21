@@ -22,14 +22,14 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [P
    Otherwise a Program.js file is linked together based on the given options described below:
 
   -N or -D
-     Compile for Node.js or D8 (V8 shell). Defaults to "-KIm Main" so boot.js and Kernel.js
+     Compile for Node.js or D8 (V8 shell). Defaults to "-Kim Main" so boot.js and Kernel.js
      are added first and init.js is added last with a call to Main class>>main.
 
   -K
-     Add libraries to get minimal JTalk Kernel running. Implies -i.
+     Add libraries to get minimal JTalk Kernel running.
 
   -C
-     Add libraries to get minimal JTalk Compiler running. Implies -i.
+     Add libraries to get minimal JTalk Compiler running.
 
   -i
      Add library standard initializer $JTALK/js/init.js
@@ -41,7 +41,7 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [P
      Add call to #main in class <class>. 
 
   -M file
-     Add javascript file <file> last acting as main.
+     Add javascript file <file> at the end acting as main.
 
 
      Example invocations:
