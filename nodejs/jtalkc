@@ -7,7 +7,7 @@ JTALK=`dirname ${0}`/..
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] file1 [file2 ...] [Program]
+Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [Program]
 
    Will compile Jtalk files in a variety of ways.
    Files listed will be handled using these rules:
@@ -31,17 +31,17 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] file1 [file2 ...] [P
   -C
      Add libraries to get minimal JTalk Compiler running. Implies -i.
 
-  -I
+  -i
      Add library standard initializer $JTALK/js/init.js
 
-  -i file
+  -I file
      Add library initializer <file>.
-
-  -M file
-     Add javascript file <file> last acting as main.
 
   -m class
      Add call to #main in class <class>. 
+
+  -M file
+     Add javascript file <file> last acting as main.
 
 
      Example invocations:
@@ -51,16 +51,17 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i file] [-I] file1 [file2 ...] [P
         jtalkc Kernel.st
 
      Compile Hello.st to Hello.js and create complete program called
-     Hello-all.js for Node.js including boot.js, Kernel.js, init.js and
+     Hello.st.js for Node.js including boot.js, Kernel.js, init.js and
      adding a call to class method #main in class Hello:
 
-        jtalkc -N Hello.st
+        jtalkc -N -m Hello Hello.st
 
-     Compile two different class categories into corresponding .js files,
-     and manually link with specific boot.js, Kernel.js, init.js and main.js
+     Compile two .st files into corresponding .js files,
+     and manually link with specific myboot.js, myKernel.js, myinit.js and main.js
      and create complete program called Program.js:
 
-        jtalkc boot.js Kernel.js CategoryOne.st CategoryTwo.st init.js main.js Program
+        jtalkc -M main.js -I myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program
+
 ENDOFHELP
 	exit 1;
 }
@@ -87,16 +88,16 @@ BASE=$KERNEL
 OURCOMPILER="$COMPILER $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
 
 # Read options and shift them away
-while getopts "NDKCIi:M:m:r" o; do
+while getopts "NDKCiI:M:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
       INIT=$INITIALIZER
-      ADDMAIN=Main;;
+      MAIN=Main;;
    D) ENV=D8
       BASE=$KERNEL
       INIT=$INITIALIZER
-      ADDMAIN=Main;;
+      MAIN=Main;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
    I) INIT=$INITIALIZER;;
@@ -181,8 +182,9 @@ do
   fi 
 done
 
+
 if [ -z $PROGRAM ]; then
-  echo "Done compiling."
+  echo "Done."
   exit 0
 fi
 
