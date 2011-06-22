@@ -19,7 +19,6 @@ decrease
 initialize
     super initialize.
     count := 0
-
 ! !
 
 !Counter methodsFor: 'rendering'!
@@ -34,7 +33,6 @@ renderOn: html
     html button
 	with: '--';
 	onClick: [self decrease]
-
 ! !
 
 Widget subclass: #Tetris
@@ -57,7 +55,6 @@ squares
 
 gluePiece: aPiece
 	aPiece glueOn: self
-	
 !
 
 rows
@@ -83,7 +80,6 @@ nextStep
 		ifTrue: [movingPiece position: movingPiece position + (0@1)]
 		ifFalse: [self newPiece].
 	self redraw
-	
 !
 
 redraw

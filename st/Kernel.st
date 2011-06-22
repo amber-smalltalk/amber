@@ -6,17 +6,14 @@ nil subclass: #Object
 
 yourself
 	^self
-
 !
 
 class
 	{'return self.klass'}
-
 !
 
 size
 	self error: 'Object not indexable'
-
 !
 
 instVarAt: aString
@@ -28,12 +25,10 @@ instVarAt: aString
 		return value;
 	    }
 	'}
-
 !
 
 instVarAt: aString put: anObject
 	{'self[''@'' + aString] = anObject'}
-
 !
 
 basicAt: aString
@@ -45,46 +40,38 @@ basicAt: aString
 		return value;
 	    }
 	'}
-
 !
 
 basicAt: aString put: anObject
 	{'return self[aString] = anObject'}
-
 !
 
 basicDelete: aString
     {'delete self[aString]'}
-
 ! !
 
 !Object methodsFor: 'comparing'!
 
 = anObject
 	{'return self == anObject'}
-
 !
 
 ~= anObject
 	^(self = anObject) == false
-
 ! !
 
 !Object methodsFor: 'converting'!
 
 -> anObject
 	^Association key: self value: anObject
-
 !
 
 asString
 	^self printString
-
 !
 
 asJavascript
 	^self asString
-
 !
 
 asJSON
@@ -103,7 +90,6 @@ asJSONObject
 
 copy
 	^self shallowCopy postCopy
-
 !
 
 shallowCopy
@@ -116,7 +102,6 @@ shallowCopy
 	    }
 	    return copy;
 	'}
-
 !
 
 deepCopy
@@ -129,33 +114,27 @@ deepCopy
 	    }
 	    return copy;
 	'}.
-
 !
 
 postCopy
-
 ! !
 
 !Object methodsFor: 'error handling'!
 
 error: aString
 	Error signal: aString
-
 !
 
 subclassResponsibility
 	self error: 'This method is a responsibility of a subclass'
-
 !
 
 shouldNotImplement
 	self error: 'This method should not be implemented in ', self class name
-
 !
 
 try: aBlock catch: anotherBlock
 	{'try{aBlock()} catch(e) {anotherBlock(e)}'}
-
 !
 
 doesNotUnderstand: aMessage
@@ -168,41 +147,34 @@ doesNotUnderstand: aMessage
 !Object methodsFor: 'initialization'!
 
 initialize
-
 ! !
 
 !Object methodsFor: 'message handling'!
 
 perform: aSymbol
 	^self perform: aSymbol withArguments: #()
-
 !
 
 perform: aSymbol withArguments: aCollection
 	^self basicPerform: aSymbol asSelector withArguments: aCollection
-
 !
 
 basicPerform: aSymbol 
     ^self basicPerform: aSymbol withArguments: #()
-
 !
 
 basicPerform: aSymbol withArguments: aCollection
 	{'return self[aSymbol].apply(self, aCollection);'}
-
 ! !
 
 !Object methodsFor: 'printing'!
 
 printString
 	^'a ', self class name
-
 !
 
 printNl
 	{'console.log(self)'}
-
 ! !
 
 !Object methodsFor: 'testing'!
@@ -211,67 +183,54 @@ isKindOf: aClass
 	^(self isMemberOf: aClass)
 	    ifTrue: [true]
 	    ifFalse: [self class inheritsFrom: aClass]
-
 !
 
 isMemberOf: aClass
 	^self class = aClass
-
 !
 
 ifNil: aBlock
 	^self
-
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
 	^anotherBlock value
-
 !
 
 ifNotNil: aBlock
 	^aBlock value
-
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	^aBlock value
-
 !
 
 isNil
 	^false
-
 !
 
 notNil
 	^self isNil not
-
 !
 
 isClass
 	^false
-
 !
 
 isMetaclass
 	^false
-
 !
 
 isNumber
 	^false
-
 !
 
 isString
 	^false
-
 !
 
 isParseFailure
 	^false
-
 ! !
 
 !Object class methodsFor: 'initialization'!
@@ -312,7 +271,6 @@ Smalltalk class instanceVariableNames: 'current'!
 
 current
 	{'return smalltalk'}
-
 ! !
 
 Object subclass: #Behavior
@@ -323,17 +281,14 @@ Object subclass: #Behavior
 
 name
 	{'return self.className || nil'}
-
 !
 
 superclass
 	{'return self.superclass || nil'}
-
 !
 
 subclasses
 	{'return smalltalk.subclasses(self)'}
-
 !
 
 allSubclasses
@@ -342,17 +297,14 @@ allSubclasses
 	self subclasses do: [:each |
 	    result addAll: each allSubclasses].
 	^result
-
 !
 
 withAllSubclasses
 	^(Array with: self) addAll: self allSubclasses; yourself
-
 !
 
 prototype
 	{'return self.fn.prototype'}
-
 !
 
 methodDictionary
@@ -364,49 +316,41 @@ methodDictionary
 		}
 	};
 	return dict'}
-
 !
 
 methodsFor: aString
 	^ClassCategoryReader new
 	    class: self category: aString;
 	    yourself
-
 !
 
 addCompiledMethod: aMethod
 	{'self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
 	self.fn.prototype.methods[aMethod.selector] = aMethod;
 	aMethod.methodClass = self'}
-
 !
 
 instanceVariableNames
 	{'return self.iVarNames'}
-
 !
 
 comment
     ^(self basicAt: 'comment') ifNil: ['']
-
 !
 
 comment: aString
     self basicAt: 'comment' put: aString
-
 !
 
 commentStamp
     ^ClassCommentReader new
 	class: self;
 	yourself
-
 !
 
 removeCompiledMethod: aMethod
 	{'delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector]'}
-
 !
 
 protocols
@@ -439,7 +383,6 @@ new
 
 basicNew
 	{'return new self.fn()'}
-
 !
 
 inheritsFrom: aClass
@@ -458,7 +401,6 @@ category
 
 category: aString
 	{'self.category = aString'}
-
 !
 
 rename: aString
@@ -473,27 +415,23 @@ rename: aString
 
 subclass: aString instanceVariableNames: anotherString
 	^self subclass: aString instanceVariableNames: anotherString category: nil
-
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 category: aString3
-
 ! !
 
 !Class methodsFor: 'printing'!
 
 printString
 	^self name
-
 ! !
 
 !Class methodsFor: 'testing'!
 
 isClass
 	^true
-
 ! !
 
 Behavior subclass: #Metaclass
@@ -509,21 +447,18 @@ instanceClass
 instanceVariableNames: aCollection
 	ClassBuilder new
 	    class: self instanceVariableNames: aCollection
-
 ! !
 
 !Metaclass methodsFor: 'printing'!
 
 printString
 	^self instanceClass name, ' class'
-
 ! !
 
 !Metaclass methodsFor: 'testing'!
 
 isMetaclass
 	^true
-
 ! !
 
 Object subclass: #CompiledMethod
@@ -534,42 +469,34 @@ Object subclass: #CompiledMethod
 
 source
 	^(self basicAt: 'source') ifNil: ['']
-
 !
 
 source: aString
 	self basicAt: 'source' put: aString
-
 !
 
 category
 	^(self basicAt: 'category') ifNil: ['']
-
 !
 
 category: aString
 	self basicAt: 'category' put: aString
-
 !
 
 selector
 	^self basicAt: 'selector'
-
 !
 
 selector: aString
 	self basicAt: 'selector' put: aString
-
 !
 
 fn
 	^self basicAt: 'fn'
-
 !
 
 fn: aBlock
 	self basicAt: 'fn' put: aBlock
-
 !
 
 messageSends
@@ -658,22 +585,18 @@ to: aNumber
 	    count := count + 1.
 	    first := first + 1].
 	^array
-
 !
 
 asString
 	^self printString
-
 !
 
 asJavascript
 	^'(', self printString, ')'
-
 !
 
 atRandom
     ^(Random new next * self) truncated + 1
-
 !
 
 @ aNumber
@@ -697,12 +620,10 @@ timesRepeat: aBlock
 	[count > self] whileFalse: [
 	    aBlock value.
 	    count := count + 1]
-
 !
 
 to: aNumber do: aBlock
 	^(self to: aNumber) do: aBlock
-
 ! !
 
 !Number methodsFor: 'printing'!
@@ -715,7 +636,6 @@ printString
 
 isNumber
 	^true
-
 ! !
 
 !Number methodsFor: 'timeouts/intervals'!
@@ -813,17 +733,14 @@ asJSONObject
 
 ifTrue: aBlock
 	^self ifTrue: aBlock ifFalse: []
-
 !
 
 ifFalse: aBlock
 	^self ifTrue: [] ifFalse: aBlock
-
 !
 
 ifFalse: aBlock ifTrue: anotherBlock
 	^self ifTrue: anotherBlock ifFalse: aBlock
-
 !
 
 ifTrue: aBlock ifFalse: anotherBlock
@@ -840,31 +757,26 @@ and: aBlock
 	^self = true
 	    ifTrue: aBlock
 	    ifFalse: [false]
-
 !
 
 or: aBlock
 	^self = true
 	    ifTrue: [true]
 	    ifFalse: aBlock
-
 !
 
 not
 	^self = false
-
 ! !
 
 !Boolean methodsFor: 'copying'!
 
 shallowCopy
 	^self
-
 !
 
 deepCopy
 	^self
-
 ! !
 
 !Boolean methodsFor: 'printing'!
@@ -1067,71 +979,59 @@ Object subclass: #UndefinedObject
 
 subclass: aString instanceVariableNames: anotherString
 	^self subclass: aString instanceVariableNames: anotherString category: nil
-
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 category: aString3
-
 ! !
 
 !UndefinedObject methodsFor: 'copying'!
 
 shallowCopy
 	^self
-
 !
 
 deepCopy
 	^self
-
 ! !
 
 !UndefinedObject methodsFor: 'printing'!
 
 printString
     ^'nil'
-
 ! !
 
 !UndefinedObject methodsFor: 'testing'!
 
 ifNil: aBlock
 	^self ifNil: aBlock ifNotNil: []
-
 !
 
 ifNotNil: aBlock
 	^self
-
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
 	^aBlock value
-
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	^anotherBlock value
-
 !
 
 isNil
 	^true
-
 !
 
 notNil
 	^false
-
 ! !
 
 !UndefinedObject class methodsFor: 'instance creation'!
 
 new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
-
 ! !
 
 Object subclass: #Collection
@@ -1142,46 +1042,38 @@ Object subclass: #Collection
 
 size
 	self subclassResponsibility
-
 !
 
 readStream
 	^self stream
-
 !
 
 writeStream
 	^self stream
-
 !
 
 stream
 	^self streamClass on: self
-
 !
 
 streamClass
 	^self class streamClass
-
 ! !
 
 !Collection methodsFor: 'adding/removing'!
 
 add: anObject
 	self subclassResponsibility
-
 !
 
 addAll: aCollection
 	aCollection do: [:each |
 	    self add: each].
 	^aCollection
-
 !
 
 remove: anObject
     self subclassResponsibility
-
 ! !
 
 !Collection methodsFor: 'converting'!
@@ -1194,7 +1086,6 @@ asArray
 	    index := index + 1.
 	    array at: index put: each].
 	^array
-
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -1203,24 +1094,20 @@ asArray
 	^self copy 
 	    addAll: aCollection; 
 	    yourself
-
 !
 
 copyWith: anObject
 	^self copy add: anObject; yourself
-
 !
 
 copyWithAll: aCollection
 	^self copy addAll: aCollection; yourself
-
 ! !
 
 !Collection methodsFor: 'enumerating'!
 
 do: aBlock
 	{'for(var i=0;i<self.length;i++){aBlock(self[i]);}'}
-
 !
 
 collect: aBlock
@@ -1229,12 +1116,10 @@ collect: aBlock
 	self do: [:each |
 	    newCollection add: (aBlock value: each)].
 	^newCollection
-
 !
 
 detect: aBlock
 	^self detect: aBlock ifNone: [self errorNotFound]
-
 !
 
 detect: aBlock ifNone: anotherBlock
@@ -1254,7 +1139,6 @@ do: aBlock separatedBy: anotherBlock
     		ifTrue: [first := false]
     		ifFalse: [anotherBlock value].
     	    aBlock value: each]
-
 !
 
 inject: anObject into: aBlock
@@ -1263,12 +1147,10 @@ inject: anObject into: aBlock
 	self do: [:each | 
 	    result := aBlock value: result value: each].
 	^result
-
 !
 
 reject: aBlock
 	^self select: [:each | (aBlock value: each) = false]
-
 !
 
 select: aBlock
@@ -1278,14 +1160,12 @@ select: aBlock
 	    (aBlock value: each) ifTrue: [
 		stream nextPut: each]].
 	^stream contents
-
 ! !
 
 !Collection methodsFor: 'error handling'!
 
 errorNotFound
 	self error: 'Object is not in the collection'
-
 ! !
 
 !Collection methodsFor: 'testing'!
@@ -1298,24 +1178,20 @@ includes: anObject
 		}
 		return false
 	'}
-
 !
 
 notEmpty
 	^self isEmpty not
-
 !
 
 isEmpty
 	^self size = 0
-
 ! !
 
 !Collection class methodsFor: 'accessing'!
 
 streamClass
 	    ^Stream
-
 ! !
 
 !Collection class methodsFor: 'instance creation'!
@@ -1324,7 +1200,6 @@ with: anObject
 	    ^self new
 		add: anObject;
 		yourself
-
 !
 
 with: anObject with: anotherObject
@@ -1332,7 +1207,6 @@ with: anObject with: anotherObject
 		add: anObject;
 		add: anotherObject;
 		yourself
-
 !
 
 with: firstObject with: secondObject with: thirdObject
@@ -1341,14 +1215,12 @@ with: firstObject with: secondObject with: thirdObject
 		add: secondObject;
 		add: thirdObject;
 		yourself
-
 !
 
 withAll: aCollection
 	    ^self new
 		addAll: aCollection;
 		yourself
-
 ! !
 
 Collection subclass: #SequenceableCollection
@@ -1360,7 +1232,6 @@ Collection subclass: #SequenceableCollection
 at: anIndex
 	^self at: anIndex ifAbsent: [
 	    self errorNotFound]
-
 !
 
 at: anIndex ifAbsent: aBlock
@@ -1369,32 +1240,26 @@ at: anIndex ifAbsent: aBlock
 
 at: anIndex put: anObject
 	self subclassResponsibility
-
 !
 
 first
 	^self at: 1
-
 !
 
 fourth
 	^self at: 4
-
 !
 
 last
 	^self at: self size
-
 !
 
 second
 	^self at: 2
-
 !
 
 third
 	^self at: 3
-
 !
 
 allButFirst
@@ -1431,7 +1296,6 @@ addLast: anObject
 
 copyFrom: anIndex to: anotherIndex
 	self subclassResponsibility
-
 ! !
 
 !SequenceableCollection methodsFor: 'enumerating'!
@@ -1448,7 +1312,6 @@ SequenceableCollection subclass: #String
 
 size
 	{'return self.length'}
-
 !
 
 at: anIndex
@@ -1457,17 +1320,14 @@ at: anIndex
 
 at: anIndex put: anObject
     	self errorReadOnly
-
 !
 
 at: anIndex ifAbsent: aBlock
     	(self at: anIndex) ifNil: [aBlock]
-
 !
 
 escaped
 	{'return escape(self)'}
-
 !
 
 unescaped
@@ -1478,12 +1338,10 @@ unescaped
 
 add: anObject
     	self errorReadOnly
-
 !
 
 remove: anObject
     self errorReadOnly
-
 ! !
 
 !String methodsFor: 'comparing'!
@@ -1494,17 +1352,14 @@ remove: anObject
 
 > aString
 	{'return String(self) > aString'}
-
 !
 
 < aString
 	{'return String(self) < aString'}
-
 !
 
 >= aString
 	{'return String(self) >= aString'}
-
 !
 
 <= aString
@@ -1529,7 +1384,6 @@ asSelector
     	selector := selector replace: ',' with: '_comma'.
     	selector := selector replace: '[@]' with: '_at'.
 	^selector
-
 !
 
 asJavascript
@@ -1547,7 +1401,6 @@ tokenize: aString
 
 asString
     	^self
-
 !
 
 asNumber
@@ -1556,17 +1409,14 @@ asNumber
 
 asParser
     	^PPStringParser new string: self
-
 !
 
 asChoiceParser
     	^PPChoiceParser withAll: (self asArray collect: [:each | each asParser])
-
 !
 
 asCharacterParser
     	^PPCharacterParser new string: self
-
 !
 
 asJSONObject
@@ -1581,67 +1431,83 @@ asJSONObject
 
 copyFrom: anIndex to: anotherIndex
 	{'return self.substring(anIndex - 1, anotherIndex);'}
-
 !
 
 shallowCopy
     	^self class fromString: self
-
 !
 
 deepCopy
     	^self shallowCopy
-
 ! !
 
 !String methodsFor: 'error handling'!
 
 errorReadOnly
     	self error: 'Object is read-only'
-
 ! !
 
 !String methodsFor: 'printing'!
 
 printString
     	^'''', self, ''''
-
 !
 
 printNl
 	{'console.log(self)'}
-
 ! !
 
 !String methodsFor: 'regular expressions'!
 
 replace: aString with: anotherString
     	^self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString
-
 !
 
 replaceRegexp: aRegexp with: aString
 	{'return self.replace(aRegexp, aString);'}
-
 !
 
 match: aRegexp
 	{'return self.search(aRegexp) !!= -1'}
+!
 
+trimLeft: separators
+
+    	^self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
+!
+
+trimRight: separators
+
+    	^self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
+!
+
+trimLeft
+	^self trimLeft: '\s'
+!
+
+trimRight
+	^self trimRight: '\s'
+!
+
+trimBoth
+	^self trimBoth: '\s'
+!
+
+trimBoth: separators
+
+    	^(self trimLeft: separators) trimRight: separators
 ! !
 
 !String methodsFor: 'testing'!
 
 isString
     	^true
-
 ! !
 
 !String class methodsFor: 'accessing'!
 
 streamClass
 	    ^StringStream
-
 !
 
 cr
@@ -1650,12 +1516,10 @@ cr
 
 lf
 	{'return ''\n'';'}
-
 !
 
 space
 	{'return '' '';'}
-
 !
 
 tab
@@ -1664,14 +1528,12 @@ tab
 
 crlf
 	{'return ''\r\n'';'}
-
 ! !
 
 !String class methodsFor: 'instance creation'!
 
 fromString: aString
 	    {'return new self.fn(aString);'}
-
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1686,7 +1548,6 @@ size
 
 at: anIndex put: anObject
 	{'return self[anIndex - 1] = anObject'}
-
 !
 
 at: anIndex ifAbsent: aBlock
@@ -1698,14 +1559,12 @@ at: anIndex ifAbsent: aBlock
 		return value;
 	    }
 	'}
-
 ! !
 
 !Array methodsFor: 'adding/removing'!
 
 add: anObject
 	{'self.push(anObject); return anObject;'}
-
 !
 
 remove: anObject
@@ -1717,7 +1576,6 @@ remove: anObject
 			}
 		}
 	'}
-
 !
 
 removeFrom: aNumber to: anotherNumber
@@ -1728,7 +1586,6 @@ removeFrom: aNumber to: anotherNumber
 
 asJavascript
 	^'[', ((self collect: [:each | each asJavascript]) join: ', '),  ']'
-
 !
 
 asJSONObject
@@ -1742,7 +1599,6 @@ shallowCopy
 	newCollection := self class new.
 	self do: [:each | newCollection add: each].
 	^newCollection
-
 !
 
 deepCopy
@@ -1750,7 +1606,6 @@ deepCopy
 	newCollection := self class new.
 	self do: [:each | newCollection add: each deepCopy].
 	^newCollection
-
 !
 
 copyFrom: anIndex to: anotherIndex
@@ -1759,7 +1614,6 @@ copyFrom: anIndex to: anotherIndex
 	anIndex to: anotherIndex do: [:each |
 	    array add: (self at: each)].
 	^array
-
 ! !
 
 !Array methodsFor: 'enumerating'!
@@ -1770,7 +1624,6 @@ join: aString
 
 sort
     ^self basicPerform: 'sort'
-
 !
 
 sort: aBlock
@@ -1811,12 +1664,10 @@ test: aString
 
 fromString: aString flag: anotherString
 	{'return new RegExp(aString, anotherString);'}
-
 !
 
 fromString: aString
 	    ^self fromString: aString flag: ''
-
 ! !
 
 Object subclass: #Error
@@ -1827,12 +1678,10 @@ Object subclass: #Error
 
 messageText
 	^messageText
-
 !
 
 messageText: aString
 	messageText := aString
-
 ! !
 
 !Error methodsFor: 'signaling'!
@@ -1847,7 +1696,6 @@ signal: aString
 	    ^self new
 		messageText: aString;
 		signal
-
 ! !
 
 Object subclass: #Association
@@ -1858,22 +1706,18 @@ Object subclass: #Association
 
 key: aKey
 	key := aKey
-
 !
 
 key
 	^key
-
 !
 
 value: aValue
 	value := aValue
-
 !
 
 value
 	^value
-
 ! !
 
 !Association methodsFor: 'comparing'!
@@ -1882,7 +1726,6 @@ value
 	^self class = anAssociation class and: [
 	    self key = anAssociation key and: [
 		self value = anAssociation value]]
-
 ! !
 
 !Association class methodsFor: 'instance creation'!
@@ -1892,7 +1735,6 @@ key: aKey value: aValue
 		key: aKey;
 		value: aValue;
 		yourself
-
 ! !
 
 Collection subclass: #Dictionary
@@ -1903,7 +1745,6 @@ Collection subclass: #Dictionary
 
 size
 	^keys size
-
 !
 
 associations
@@ -1912,23 +1753,19 @@ associations
 	keys do: [:each |
 	    associations add: (Association key: each value: (self at: each))].
 	^associations
-
 !
 
 keys
 	^keys copy
-
 !
 
 values
     	^keys collect: [:each | self at: each]
-
 !
 
 at: aKey put: aValue
 	(keys includes: aKey) ifFalse: [keys add: aKey].
 	^self basicAt: aKey put: aValue
-
 !
 
 at: aKey ifAbsent: aBlock
@@ -1940,19 +1777,16 @@ at: aKey ifAbsent: aBlock
 at: aKey ifAbsentPut: aBlock
     	^self at: aKey ifAbsent: [
     	    self at: aKey put: aBlock value]
-
 !
 
 at: aKey ifPresent: aBlock
 	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
-
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 	^(self basicAt: aKey)
 	    ifNil: anotherBlock
 	    ifNotNil: [aBlock value: (self at: aKey)]
-
 !
 
 at: aKey
@@ -1963,23 +1797,19 @@ at: aKey
 
 add: anAssociation
     	self at: anAssociation key put: anAssociation value
-
 !
 
 addAll: aDictionary
     	super addAll: aDictionary associations.
     	^aDictionary
-
 !
 
 remove: aKey
     self removeKey: aKey
-
 !
 
 removeKey: aKey
     keys remove: aKey
-
 ! !
 
 !Dictionary methodsFor: 'comparing'!
@@ -1990,7 +1820,6 @@ removeKey: aKey
 	    (aDictionary at: assoc key ifAbsent: [^false]) = assoc value 
 		ifFalse: [^false]].
 	^true
-
 ! !
 
 !Dictionary methodsFor: 'converting'!
@@ -2011,35 +1840,29 @@ shallowCopy
 	self associationsDo: [:each |
 	    copy at: each key  put: each value].
 	^copy
-
 !
 
 , aCollection
 	self shouldNotImplement
-
 !
 
 copyFrom: anIndex to: anotherIndex
 	self shouldNotImplement
-
 ! !
 
 !Dictionary methodsFor: 'enumerating'!
 
 associationsDo: aBlock
     	self associations do: aBlock
-
 !
 
 keysAndValuesDo: aBlock
     	self associationsDo: [:each |
     	    aBlock value: each key value: each value]
-
 !
 
 do: aBlock
     	self values do: aBlock
-
 !
 
 select: aBlock
@@ -2048,7 +1871,6 @@ select: aBlock
     	self keysAndValuesDo: [:key :value |
     	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
     	^newDict
-
 !
 
 collect: aBlock
@@ -2057,17 +1879,14 @@ collect: aBlock
     	self keysAndValuesDo: [:key :value |
     	    newDict at: key put: (aBlock value: value)].
     	^newDict
-
 !
 
 detect: aBlock ifNone: anotherBlock
 	^self values detect: aBlock ifNone: anotherBlock
-
 !
 
 includes: anObject
 	^self values includes: anObject
-
 ! !
 
 !Dictionary methodsFor: 'initialization'!
@@ -2075,7 +1894,6 @@ includes: anObject
 initialize
     	super initialize.
     	keys := #()
-
 ! !
 
 Object subclass: #ClassBuilder
@@ -2086,7 +1904,6 @@ Object subclass: #ClassBuilder
 
 superclass: aClass subclass: aString
 	self superclass: aClass subclass: aString instanceVariableNames: '' category: nil
-
 !
 
 superclass: aClass subclass: aString instanceVariableNames: aString2 category: aString3
@@ -2094,21 +1911,18 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 category: a
 	newClass := self addSubclassOf: aClass named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2).
 	self setupClass: newClass.
 	newClass category: (aString3 ifNil: ['unclassified'])
-
 !
 
 class: aClass instanceVariableNames: aString
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
 	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
 	self setupClass: aClass
-
 ! !
 
 !ClassBuilder methodsFor: 'private'!
 
 instanceVariableNamesFor: aString
 	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-
 !
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection
@@ -2118,7 +1932,6 @@ addSubclassOf: aClass named: aString instanceVariableNames: aCollection
 
 setupClass: aClass
 	{'smalltalk.init(aClass);'}
-
 ! !
 
 Object subclass: #ClassCategoryReader
@@ -2130,7 +1943,6 @@ Object subclass: #ClassCategoryReader
 class: aClass category: aString
 	class := aClass.
 	category := aString
-
 ! !
 
 !ClassCategoryReader methodsFor: 'fileIn'!
@@ -2141,7 +1953,6 @@ scanFrom: aStream
 	nextChunk isEmptyChunk ifFalse: [
 	    self compileMethod: nextChunk contents.
 	    self scanFrom: aStream].
-
 ! !
 
 !ClassCategoryReader methodsFor: 'initialization'!
@@ -2149,7 +1960,6 @@ scanFrom: aStream
 initialize
 	super initialize.
 	chunkParser := ChunkParser new.
-
 ! !
 
 !ClassCategoryReader methodsFor: 'private'!
@@ -2159,7 +1969,6 @@ compileMethod: aString
 	method := Compiler new load: aString forClass: class.
 	method category: category.
 	class addCompiledMethod: method
-
 ! !
 
 Object subclass: #Stream
@@ -2170,84 +1979,69 @@ Object subclass: #Stream
 
 collection
 	^collection
-
 !
 
 setCollection: aCollection
 	collection := aCollection
-
 !
 
 position
 	^position ifNil: [position := 0]
-
 !
 
 position: anInteger
 	position := anInteger
-
 !
 
 streamSize
 	^streamSize
-
 !
 
 setStreamSize: anInteger
 	streamSize := anInteger
-
 !
 
 contents
 	^self collection
 	    copyFrom: 1 
 	    to: self streamSize
-
 !
 
 size
 	^self streamSize
-
 ! !
 
 !Stream methodsFor: 'actions'!
 
 reset
 	self position: 0
-
 !
 
 close
-
 !
 
 flush
-
 !
 
 resetContents
 	self reset.
 	self setStreamSize: 0
-
 ! !
 
 !Stream methodsFor: 'enumerating'!
 
 do: aBlock
 	[self atEnd] whileFalse: [aBlock value: self next]
-
 ! !
 
 !Stream methodsFor: 'positioning'!
 
 setToEnd
 	self position: self size
-
 !
 
 skip: anInteger
 	self position: ((self position + anInteger) min: self size max: 0)
-
 ! !
 
 !Stream methodsFor: 'reading'!
@@ -2255,7 +2049,6 @@ skip: anInteger
 next
 	self position: self position + 1. 
 	^collection at: self position
-
 !
 
 next: anInteger
@@ -2265,30 +2058,25 @@ next: anInteger
 	    self atEnd ifFalse: [
 		tempCollection add: self next]].
 	^tempCollection
-
 !
 
 peek
 	^self atEnd ifFalse: [
 	    self collection at: self position + 1]
-
 ! !
 
 !Stream methodsFor: 'testing'!
 
 atEnd
 	^self position = self size
-
 !
 
 atStart
 	^self position = 0
-
 !
 
 isEmpty
 	^self size = 0
-
 ! !
 
 !Stream methodsFor: 'writing'!
@@ -2297,13 +2085,11 @@ nextPut: anObject
 	self position: self position + 1.
 	self collection at: self position put: anObject.
 	self setStreamSize: (self streamSize max: self position)
-
 !
 
 nextPutAll: aCollection
 	aCollection do: [:each |
 	    self nextPut: each]
-
 ! !
 
 !Stream class methodsFor: 'instance creation'!
@@ -2313,7 +2099,6 @@ on: aCollection
 		setCollection: aCollection;
 		setStreamSize: aCollection size;
 		yourself
-
 ! !
 
 Stream subclass: #StringStream
@@ -2329,14 +2114,12 @@ next: anInteger
 	    self atEnd ifFalse: [
 		tempCollection := tempCollection, self next]].
 	^tempCollection
-
 ! !
 
 !StringStream methodsFor: 'writing'!
 
 nextPut: aString
 	self nextPutAll: aString
-
 !
 
 nextPutAll: aString
@@ -2346,7 +2129,6 @@ nextPutAll: aString
 	    (self collection copyFrom: (self position + 1 + aString size) to: self collection size).
 	self position: self position + aString size.
 	self setStreamSize: (self streamSize max: self position)
-
 !
 
 cr
@@ -2369,7 +2151,6 @@ Object subclass: #ClassCommentReader
 
 class: aClass
 	class := aClass
-
 ! !
 
 !ClassCommentReader methodsFor: 'fileIn'!
@@ -2379,7 +2160,6 @@ scanFrom: aStream
 	nextChunk := (chunkParser emptyChunk / chunkParser chunk) parse: aStream.
 	nextChunk isEmptyChunk ifFalse: [
 	    self setComment: nextChunk contents].
-
 ! !
 
 !ClassCommentReader methodsFor: 'initialization'!
@@ -2387,14 +2167,12 @@ scanFrom: aStream
 initialize
 	super initialize.
 	chunkParser := ChunkParser new.
-
 ! !
 
 !ClassCommentReader methodsFor: 'private'!
 
 setComment: aString
     class comment: aString
-
 ! !
 
 Object subclass: #Random
@@ -2405,12 +2183,10 @@ Object subclass: #Random
 
 next
 	{'return Math.random()'}
-
 !
 
 next: anInteger
     ^1 to: anInteger collect: [:each | self next]
-
 ! !
 
 Object subclass: #Point

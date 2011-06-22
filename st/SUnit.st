@@ -76,7 +76,6 @@ TestCase subclass: #ExampleTest
 
 testFailure
 	self deny: true
-	
 !
 
 testPasses
@@ -131,7 +130,6 @@ TabWidget subclass: #TestRunner
 
 label
     ^'[Test runner]'
-
 !
 
 categories
@@ -274,7 +272,6 @@ renderButtonsOn: html
     html button
 	with: 'Run selected';
 	onClick: [self run: (self selectedClasses collect: [:each | each new])]
-
 !
 
 renderCategoriesOn: html
@@ -313,7 +310,6 @@ renderErrorsOn: html
 
 canBeClosed
     ^true
-
 !
 
 isSelectedClass: aClass

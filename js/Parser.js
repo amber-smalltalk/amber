@@ -1560,10 +1560,10 @@ selector: 'chunkEscape:',
 category: 'not yet classified',
 fn: function (aString){
 var self=this;
-return smalltalk.send(aString, "_replace_with_", [unescape("%21"), unescape("%21%21")]);
+return smalltalk.send(smalltalk.send(aString, "_replace_with_", [unescape("%21"), unescape("%21%21")]), "_trimBoth", []);
 return self;},
-source: unescape('chunkEscape%3A%20aString%0A%09%22Replace%20all%20occurrences%20of%20%21%20with%20%21%21%22%0A%0A%09%5EaString%20replace%3A%20%27%21%27%20with%3A%20%27%21%21%27%0A'),
-messageSends: ["replace:with:"],
+source: unescape('chunkEscape%3A%20aString%0A%09%22Replace%20all%20occurrences%20of%20%21%20with%20%21%21%20and%20trim%20at%20both%20ends.%22%0A%0A%09%5E%28aString%20replace%3A%20%27%21%27%20with%3A%20%27%21%21%27%29%20trimBoth%0A'),
+messageSends: ["trimBoth", "replace:with:"],
 referencedClasses: []
 }),
 smalltalk.ChunkExporter);

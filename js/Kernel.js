@@ -4263,6 +4263,96 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_trimLeft_',
+smalltalk.method({
+selector: 'trimLeft:',
+category: 'regular expressions',
+fn: function (separators){
+var self=this;
+return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send(smalltalk.RegularExpression, "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5E%5B"), "__comma", [separators]), "__comma", [unescape("%5D+")]), "g"]), ""]);
+return self;},
+source: unescape('trimLeft%3A%20separators%0A%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5E%5B%27%2C%20separators%2C%20%27%5D+%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27%0A'),
+messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
+referencedClasses: [smalltalk.RegularExpression]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_trimRight_',
+smalltalk.method({
+selector: 'trimRight:',
+category: 'regular expressions',
+fn: function (separators){
+var self=this;
+return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send(smalltalk.RegularExpression, "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [separators]), "__comma", [unescape("%5D+%24")]), "g"]), ""]);
+return self;},
+source: unescape('trimRight%3A%20separators%0A%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5B%27%2C%20separators%2C%20%27%5D+%24%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27%0A'),
+messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
+referencedClasses: [smalltalk.RegularExpression]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_trimLeft',
+smalltalk.method({
+selector: 'trimLeft',
+category: 'regular expressions',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_trimLeft_", [unescape("%5Cs")]);
+return self;},
+source: unescape('trimLeft%0A%09%5Eself%20trimLeft%3A%20%27%5Cs%27'),
+messageSends: ["trimLeft:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_trimRight',
+smalltalk.method({
+selector: 'trimRight',
+category: 'regular expressions',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_trimRight_", [unescape("%5Cs")]);
+return self;},
+source: unescape('trimRight%0A%09%5Eself%20trimRight%3A%20%27%5Cs%27'),
+messageSends: ["trimRight:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_trimBoth',
+smalltalk.method({
+selector: 'trimBoth',
+category: 'regular expressions',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_trimBoth_", [unescape("%5Cs")]);
+return self;},
+source: unescape('trimBoth%0A%09%5Eself%20trimBoth%3A%20%27%5Cs%27'),
+messageSends: ["trimBoth:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_trimBoth_',
+smalltalk.method({
+selector: 'trimBoth:',
+category: 'regular expressions',
+fn: function (separators){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_trimLeft_", [separators]), "_trimRight_", [separators]);
+return self;},
+source: unescape('trimBoth%3A%20separators%0A%0A%20%20%20%20%09%5E%28self%20trimLeft%3A%20separators%29%20trimRight%3A%20separators%0A'),
+messageSends: ["trimRight:", "trimLeft:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',

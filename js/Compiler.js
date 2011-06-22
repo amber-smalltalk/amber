@@ -1554,11 +1554,11 @@ selector: 'doIt',
 category: '',
 fn: function (){
 var self=this;
-return smalltalk.send((function(){return smalltalk.send(smalltalk.send(smalltalk.ChunkExporter, "_new", []), "_exportCategory_", ["Parser"]);}), "_value", []);
+return smalltalk.send((function(){return smalltalk.send("abc", "_trimLeft_", ["az"]);}), "_value", []);
 return self;},
-source: unescape('doIt%20%5E%5BChunkExporter%20new%20exportCategory%3A%20%27Parser%27%20%5D%20value'),
-messageSends: ["value", "exportCategory:", "new"],
-referencedClasses: [smalltalk.ChunkExporter]
+source: unescape('doIt%20%5E%5B%27abc%27%20trimLeft%3A%20%27az%27%5D%20value'),
+messageSends: ["value", "trimLeft:"],
+referencedClasses: []
 }),
 smalltalk.DoIt);
 
