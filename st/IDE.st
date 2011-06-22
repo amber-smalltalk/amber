@@ -1377,7 +1377,7 @@ search: aString
 		open
 ! !
 
-
+!Object methodsFor: '*IDE'!
 
 inspect
 	Inspector new 
@@ -1396,7 +1396,9 @@ inspectOn: anInspector
 		setVariables: variables
 	
 	
-!
+! !
+
+!Date methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -1414,7 +1416,9 @@ inspectOn: anInspector
 		setVariables: variables
 	
 	
-!
+! !
+
+!Collection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -1425,7 +1429,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-!
+! !
+
+!String methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| label |
@@ -1434,7 +1440,9 @@ inspectOn: anInspector
 		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
 		ifFalse: [label := self printString]. 
 	anInspector setLabel: label
-!
+! !
+
+!Dictionary methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -1446,4 +1454,5 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-!
+! !
+

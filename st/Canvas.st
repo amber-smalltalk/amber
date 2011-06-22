@@ -74,13 +74,6 @@ Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	category: 'Canvas'!
 
-!HTMLCanvas methodsFor: '*JQuery'!
-
-appendToJQuery: aJQuery
-    aJQuery appendElement: root element
-
-! !
-
 !HTMLCanvas methodsFor: 'accessing'!
 
 root: aTagBrush
@@ -518,18 +511,23 @@ canvas: aCanvas
 		yourself
 ! !
 
-
+!Object methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush append: self asString
 
-!
+! !
+
+!BlockClosure methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush appendBlock: self
-!
+! !
+
+!String methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush appendString: self
 
-!
+! !
+

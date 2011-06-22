@@ -321,7 +321,7 @@ url: aString
 
 ! !
 
-
+!BlockClosure methodsFor: '*JQuery'!
 
 appendToJQuery: aJQuery
 	| canvas |
@@ -329,7 +329,9 @@ appendToJQuery: aJQuery
 	self value: canvas.
 	aJQuery append: canvas
 
-!
+! !
+
+!String methodsFor: '*JQuery'!
 
 asJQuery
     ^JQuery fromString: self
@@ -339,9 +341,12 @@ asJQuery
 appendToJQuery: aJQuery
     {'aJQuery._appendElement_(String(self))'}
 
-!
+! !
+
+!HTMLCanvas methodsFor: '*JQuery'!
 
 appendToJQuery: aJQuery
     aJQuery appendElement: root element
 
-!
+! !
+

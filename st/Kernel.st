@@ -2,34 +2,6 @@ nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
-!Object methodsFor: '*Canvas'!
-
-appendToBrush: aTagBrush
-    aTagBrush append: self asString
-
-! !
-
-!Object methodsFor: '*IDE'!
-
-inspect
-	Inspector new 
-		inspect: self;
-		open
-!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	self class instanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-	
-	
-! !
-
 !Object methodsFor: 'accessing'!
 
 yourself
@@ -444,6 +416,19 @@ protocols
 	    (protocols includes: each category) ifFalse: [
 		protocols add: each category]].
     ^protocols sort
+!
+
+protocolsDo: aBlock
+	"Execute aBlock for each method category with
+	its collection of methods in the sort order of category name."
+
+	| methodsByCategory |
+	methodsByCategory := Dictionary new.
+	self methodDictionary values do: [:m |
+		(methodsByCategory at: m category ifAbsentPut: [Array new])
+ 			add: m]. 
+	self protocols do: [:category |
+		aBlock value: category value: (methodsByCategory at: category)]
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -753,22 +738,6 @@ Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
-!BlockClosure methodsFor: '*Canvas'!
-
-appendToBrush: aTagBrush
-    aTagBrush appendBlock: self
-! !
-
-!BlockClosure methodsFor: '*JQuery'!
-
-appendToJQuery: aJQuery
-	| canvas |
-	canvas := HTMLCanvas new.
-	self value: canvas.
-	aJQuery append: canvas
-
-! !
-
 !BlockClosure methodsFor: 'accessing'!
 
 compiledSource
@@ -909,26 +878,6 @@ Object subclass: #Date
 	category: 'Kernel'!
 !Date commentStamp!
 The Date class is used to work with dates and times.!
-
-!Date methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-	
-	
-! !
 
 !Date methodsFor: 'accessing'!
 
@@ -1188,19 +1137,6 @@ new
 Object subclass: #Collection
 	instanceVariableNames: ''
 	category: 'Kernel'!
-
-!Collection methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	self withIndexDo: [:each :i |
-		variables at: i put: each].
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-! !
 
 !Collection methodsFor: 'accessing'!
 
@@ -1507,36 +1443,6 @@ withIndexDo: aBlock
 SequenceableCollection subclass: #String
 	instanceVariableNames: ''
 	category: 'Kernel'!
-
-!String methodsFor: '*Canvas'!
-
-appendToBrush: aTagBrush
-    aTagBrush appendString: self
-
-! !
-
-!String methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| label |
-	super inspectOn: anInspector.
-	self printString size > 30 
-		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
-		ifFalse: [label := self printString]. 
-	anInspector setLabel: label
-! !
-
-!String methodsFor: '*JQuery'!
-
-asJQuery
-    ^JQuery fromString: self
-
-!
-
-appendToJQuery: aJQuery
-    {'aJQuery._appendElement_(String(self))'}
-
-! !
 
 !String methodsFor: 'accessing'!
 
@@ -1992,20 +1898,6 @@ key: aKey value: aValue
 Collection subclass: #Dictionary
 	instanceVariableNames: 'keys'
 	category: 'Kernel'!
-
-!Dictionary methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#keys' put: self keys.
-	self keysAndValuesDo: [:key :value |
-		variables at: key put: value].
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-! !
 
 !Dictionary methodsFor: 'accessing'!
 

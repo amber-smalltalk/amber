@@ -937,7 +937,6 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: ');';lf;lf
 !
 
-
 exportCategoryExtensions: aString on: aStream
 	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
 		each methodDictionary values do: [:method |
@@ -980,18 +979,13 @@ exportMethod: aMethod of: aClass on: aStream
 
 exportMethodsOf: aClass on: aStream
 
-    | methodsByCategory |
-    methodsByCategory := Dictionary new.
-    aClass methodDictionary values do: [:m |
-	(methodsByCategory at: m category ifAbsentPut: [Array new])
- 		add: m]. 
-    aClass protocols do: [:category |       
-	aStream
-		nextPutAll: '!!', (self classNameFor: aClass);
-		nextPutAll: ' methodsFor: ''', category, '''!!'.
-    	(methodsByCategory at: category) do: [:each |
-		self exportMethod: each of: aClass on: aStream].
-	aStream nextPutAll: ' !!'; lf; lf]
+   aClass protocolsDo: [:category :methods |
+	(category match: '^\*') ifFalse: [ 
+		self
+			exportMethods: methods
+			category: category
+			of: aClass
+			on: aStream]]
 !
 
 exportMetaDefinitionOf: aClass on: aStream
@@ -1021,5 +1015,26 @@ chunkEscape: aString
 
 	^aString replace: '!!' with: '!!!!'
 
+!
+
+exportCategoryExtensions: aString on: aStream
+	"We need to override this one too since we need to group
+	all methods in a given protocol under a leading methodsFor: chunk
+	for that class."
+
+	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
+		each protocolsDo: [:category :methods |
+			category = ('*', aString) ifTrue: [
+				self exportMethods: methods category: category of: each on: aStream]]]
+!
+
+exportMethods: methods category: category of: aClass on: aStream
+
+	aStream
+		nextPutAll: '!!', (self classNameFor: aClass);
+		nextPutAll: ' methodsFor: ''', category, '''!!'.
+    	methods do: [:each |
+		self exportMethod: each of: aClass on: aStream].
+	aStream nextPutAll: ' !!'; lf; lf
 ! !
 
