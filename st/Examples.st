@@ -1,5 +1,5 @@
 Widget subclass: #Counter
-	instanceVariableNames: 'count, header'
+	instanceVariableNames: 'count header'
 	category: 'Examples'!
 
 !Counter methodsFor: 'actions'!
@@ -38,7 +38,7 @@ renderOn: html
 ! !
 
 Widget subclass: #Tetris
-	instanceVariableNames: 'renderingContext, timer, speed, score, rows, movingPiece'
+	instanceVariableNames: 'renderingContext timer speed score rows movingPiece'
 	category: 'Examples'!
 
 !Tetris methodsFor: 'accessing'!
@@ -195,7 +195,7 @@ squares
 ! !
 
 Widget subclass: #TetrisPiece
-	instanceVariableNames: 'rotation, position'
+	instanceVariableNames: 'rotation position'
 	category: 'Examples'!
 
 !TetrisPiece methodsFor: 'accessing'!

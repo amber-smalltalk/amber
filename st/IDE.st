@@ -1,5 +1,5 @@
 Widget subclass: #TabManager
-	instanceVariableNames: 'selectedTab, tabs, opened'
+	instanceVariableNames: 'selectedTab tabs opened'
 	category: 'IDE'!
 
 !TabManager methodsFor: 'accessing'!
@@ -464,7 +464,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory, selectedClass, selectedProtocol, selectedMethod, commitButton, categoriesList, classesList, protocolsList, methodsList, sourceTextarea, tabsList, selectedTab, saveButton, classButtons, methodButtons, unsavedChanges'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -1061,7 +1061,7 @@ open
 ! !
 
 TabWidget subclass: #Inspector
-	instanceVariableNames: 'label, variables, object, selectedVariable, variablesList, valueTextarea, workspaceTextarea, diveButton'
+	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea workspaceTextarea diveButton'
 	category: 'IDE'!
 
 !Inspector methodsFor: 'accessing'!
@@ -1201,7 +1201,7 @@ on: anObject
 ! !
 
 TabWidget subclass: #ReferencesBrowser
-	instanceVariableNames: 'implementors, senders, implementorsList, input, timer, selector, sendersList, referencedClasses, referencedClassesList'
+	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
 	category: 'IDE'!
 
 !ReferencesBrowser methodsFor: 'accessing'!

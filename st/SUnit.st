@@ -88,7 +88,7 @@ testError
 ! !
 
 TabWidget subclass: #ProgressBar
-	instanceVariableNames: 'percent, progressDiv'
+	instanceVariableNames: 'percent progressDiv'
 	category: 'SUnit'!
 
 !ProgressBar methodsFor: 'accessing'!
@@ -124,7 +124,7 @@ Error subclass: #TestFailure
 	category: 'SUnit'!
 
 TabWidget subclass: #TestRunner
-	instanceVariableNames: 'selectedCategories, categoriesList, selectedClasses, classesList, selectedMethods, progressBar, methodsList, result, statusDiv'
+	instanceVariableNames: 'selectedCategories categoriesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	category: 'SUnit'!
 
 !TestRunner methodsFor: 'accessing'!
@@ -370,7 +370,7 @@ updateStatusDiv
 ! !
 
 Object subclass: #TestResult
-	instanceVariableNames: 'timestamp, runs, errors, failures, total'
+	instanceVariableNames: 'timestamp runs errors failures total'
 	category: 'SUnit'!
 
 !TestResult methodsFor: 'accessing'!

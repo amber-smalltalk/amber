@@ -246,7 +246,7 @@ canvas
 ! !
 
 Object subclass: #TagBrush
-	instanceVariableNames: 'canvas, element'
+	instanceVariableNames: 'canvas element'
 	category: 'Canvas'!
 
 !TagBrush methodsFor: 'accessing'!

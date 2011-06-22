@@ -469,7 +469,7 @@ on: aParser min: aNumber
 ! !
 
 Object subclass: #PPFailure
-	instanceVariableNames: 'position, reason'
+	instanceVariableNames: 'position reason'
 	category: 'Parser'!
 
 !PPFailure methodsFor: 'accessing'!
@@ -952,22 +952,22 @@ exportDefinitionOf: aClass on: aStream
 	    nextPutAll: '	instanceVariableNames: '''.
 	aClass instanceVariableNames 
 	    do: [:each | aStream nextPutAll: each]
-	    separatedBy: [aStream nextPutAll: ', '].
+	    separatedBy: [aStream nextPutAll: ' '].
 	aStream	
 	    nextPutAll: ''''; lf;
-	    nextPutAll: '	category: ''', aClass category, '''!'; lf.
+	    nextPutAll: '	category: ''', aClass category, '''!!'; lf.
  	aClass comment notEmpty ifTrue: [
 	    aStream 
-		nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;
-		nextPutAll: aClass comment escaped, '!';lf].
+		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
 	aStream lf
 
 !
 
 exportMethod: aMethod of: aClass on: aStream
 	aStream 
-		lf; lf; nextPutAll: aMethod source; lf;
-		nextPutAll: '!'
+		lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;
+		nextPutAll: '!!'
 !
 
 exportMethodsOf: aClass on: aStream
@@ -994,9 +994,9 @@ exportMetaDefinitionOf: aClass on: aStream
 		    nextPutAll: ' instanceVariableNames: '''.
 		aClass class instanceVariableNames 
 		    do: [:each | aStream nextPutAll: each]
-		    separatedBy: [aStream nextPutAll: ', '].
+		    separatedBy: [aStream nextPutAll: ' '].
 		aStream	
-		    nextPutAll: '''!'; lf; lf]
+		    nextPutAll: '''!!'; lf; lf]
 !
 
 classNameFor: aClass

@@ -29,7 +29,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector, arguments, source'
+	instanceVariableNames: 'selector arguments source'
 	category: 'Compiler'!
 
 !MethodNode methodsFor: 'accessing'!
@@ -72,7 +72,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #SendNode
-	instanceVariableNames: 'selector, arguments, receiver'
+	instanceVariableNames: 'selector arguments receiver'
 	category: 'Compiler'!
 
 !SendNode methodsFor: 'accessing'!
@@ -162,7 +162,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #AssignmentNode
-	instanceVariableNames: 'left, right'
+	instanceVariableNames: 'left right'
 	category: 'Compiler'!
 
 !AssignmentNode methodsFor: 'accessing'!
@@ -420,7 +420,7 @@ visitJSStatementNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream, nestedBlocks, earlyReturn, currentClass, currentSelector, unknownVariables, tempVariables, messageSends, referencedClasses'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses'
 	category: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!

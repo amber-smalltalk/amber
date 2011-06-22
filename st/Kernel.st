@@ -1945,7 +1945,7 @@ signal: aString
 ! !
 
 Object subclass: #Association
-	instanceVariableNames: 'key, value'
+	instanceVariableNames: 'key value'
 	category: 'Kernel'!
 
 !Association methodsFor: 'accessing'!
@@ -2230,7 +2230,7 @@ setupClass: aClass
 ! !
 
 Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class, category, chunkParser'
+	instanceVariableNames: 'class category chunkParser'
 	category: 'Kernel'!
 
 !ClassCategoryReader methodsFor: 'accessing'!
@@ -2271,7 +2271,7 @@ compileMethod: aString
 ! !
 
 Object subclass: #Stream
-	instanceVariableNames: 'collection, position, streamSize'
+	instanceVariableNames: 'collection position streamSize'
 	category: 'Kernel'!
 
 !Stream methodsFor: 'accessing'!
@@ -2470,7 +2470,7 @@ lf
 ! !
 
 Object subclass: #ClassCommentReader
-	instanceVariableNames: 'class, chunkParser'
+	instanceVariableNames: 'class chunkParser'
 	category: 'Kernel'!
 
 !ClassCommentReader methodsFor: 'accessing'!
@@ -2522,7 +2522,7 @@ next: anInteger
 ! !
 
 Object subclass: #Point
-	instanceVariableNames: 'x, y'
+	instanceVariableNames: 'x y'
 	category: 'Kernel'!
 
 !Point methodsFor: 'accessing'!
@@ -2577,7 +2577,7 @@ x: aNumber y: anotherNumber
 ! !
 
 Object subclass: #Message
-	instanceVariableNames: 'selector, arguments'
+	instanceVariableNames: 'selector arguments'
 	category: 'Kernel'!
 
 !Message methodsFor: 'accessing'!
@@ -2608,7 +2608,7 @@ selector: aString arguments: anArray
 ! !
 
 Error subclass: #MessageNotUnderstood
-	instanceVariableNames: 'message, receiver'
+	instanceVariableNames: 'message receiver'
 	category: 'Kernel'!
 
 !MessageNotUnderstood methodsFor: 'accessing'!
