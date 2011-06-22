@@ -1497,6 +1497,21 @@ referencedClasses: []
 }),
 smalltalk.Compiler);
 
+smalltalk.addMethod(
+'_visitFailure_',
+smalltalk.method({
+selector: 'visitFailure:',
+category: 'visiting',
+fn: function (aFailure){
+var self=this;
+smalltalk.send(self, "_error_", [smalltalk.send(aFailure, "_asString", [])]);
+return self;},
+source: unescape('visitFailure%3A%20aFailure%0A%09self%20error%3A%20aFailure%20asString'),
+messageSends: ["error:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Compiler);
+
 
 smalltalk.addMethod(
 '_recompile_',

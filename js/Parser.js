@@ -225,11 +225,11 @@ selector: 'parse:',
 category: 'parsing',
 fn: function (aStream){
 var self=this;
-return smalltalk.send(smalltalk.send(aStream, "_atEnd", []), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.PPFailure, "_new", []), "_reason_at_", ["EOF expected", smalltalk.send(aStream, "_position", [])]);}), (function(){return nil;})]);
+return smalltalk.send(smalltalk.send(aStream, "_atEnd", []), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.PPFailure, "_new", []), "_reason_at_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aStream, "_contents", []), "__comma", [smalltalk.send(smalltalk.String, "_lf", [])]), "__comma", [unescape("---------------")]), "__comma", [smalltalk.send(smalltalk.String, "_lf", [])]), "__comma", ["EOF expected"]), smalltalk.send(aStream, "_position", [])]);}), (function(){return nil;})]);
 return self;},
-source: unescape('parse%3A%20aStream%0A%09%5EaStream%20atEnd%20%0A%09%20%20%20%20ifFalse%3A%20%5B%0A%09%09PPFailure%20new%20reason%3A%20%27EOF%20expected%27%20at%3A%20aStream%20position%5D%0A%09%20%20%20%20ifTrue%3A%20%5Bnil%5D%0A'),
-messageSends: ["ifFalse:ifTrue:", "atEnd", "reason:at:", "new", "position"],
-referencedClasses: [smalltalk.nil]
+source: unescape('parse%3A%20aStream%0A%09%5EaStream%20atEnd%20%0A%09%20%20%20%20ifFalse%3A%20%5B%0A%09%09PPFailure%20new%20reason%3A%20aStream%20contents%2C%20String%20lf%2C%20%27---------------%27%2C%20String%20lf%2C%20%27EOF%20expected%27%20at%3A%20aStream%20position%5D%0A%09%20%20%20%20ifTrue%3A%20%5Bnil%5D%0A'),
+messageSends: ["ifFalse:ifTrue:", "atEnd", "reason:at:", "new", unescape("%2C"), "contents", "lf", "position"],
+referencedClasses: [smalltalk.PPFailure,smalltalk.String]
 }),
 smalltalk.PPEOFParser);
 
@@ -913,6 +913,36 @@ return true;
 return self;},
 source: unescape('isParseFailure%0A%09%5Etrue%0A'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PPFailure);
+
+smalltalk.addMethod(
+'_accept_',
+smalltalk.method({
+selector: 'accept:',
+category: 'accessing',
+fn: function (aVisitor){
+var self=this;
+smalltalk.send(aVisitor, "_visitFailure_", [self]);
+return self;},
+source: unescape('accept%3A%20aVisitor%0A%09aVisitor%20visitFailure%3A%20self'),
+messageSends: ["visitFailure:"],
+referencedClasses: []
+}),
+smalltalk.PPFailure);
+
+smalltalk.addMethod(
+'_asString',
+smalltalk.method({
+selector: 'asString',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self['@reason'], "__comma", [" at "]), "__comma", [smalltalk.send(self['@position'], "_asString", [])]);
+return self;},
+source: unescape('asString%0A%09%5Ereason%2C%20%27%20at%20%27%2C%20position%20asString'),
+messageSends: [unescape("%2C"), "asString"],
 referencedClasses: []
 }),
 smalltalk.PPFailure);

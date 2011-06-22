@@ -734,6 +734,10 @@ visitVariableNode: aNode
 
 visitJSStatementNode: aNode
 	stream nextPutAll: (aNode source value replace: '''''' with: '''')
+!
+
+visitFailure: aFailure
+	self error: aFailure asString
 ! !
 
 !Compiler class methodsFor: 'compiling'!

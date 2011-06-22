@@ -103,7 +103,7 @@ PPParser subclass: #PPEOFParser
 parse: aStream
 	^aStream atEnd 
 	    ifFalse: [
-		PPFailure new reason: 'EOF expected' at: aStream position]
+		PPFailure new reason: aStream contents, String lf, '---------------', String lf, 'EOF expected' at: aStream position]
 	    ifTrue: [nil]
 
 ! !
@@ -499,6 +499,10 @@ reason: aString at: anInteger
 	    reason: aString; 
 	    position: anInteger
 
+!
+
+accept: aVisitor
+	aVisitor visitFailure: self
 ! !
 
 !PPFailure methodsFor: 'testing'!
@@ -506,6 +510,10 @@ reason: aString at: anInteger
 isParseFailure
 	^true
 
+!
+
+asString
+	^reason, ' at ', position asString
 ! !
 
 !PPFailure class methodsFor: 'instance creation'!
