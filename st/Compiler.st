@@ -1,38 +1,113 @@
-Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!Node methodsFor: 'accessing'!nodes
+Object subclass: #Node
+	instanceVariableNames: 'nodes'
+	category: 'Compiler'!
+
+!Node methodsFor: 'accessing'!
+
+nodes
 	^nodes ifNil: [nodes := Array new]
-!addNode: aNode
+
+!
+
+addNode: aNode
 	self nodes add: aNode
-! !!Node methodsFor: 'building'!nodes: aCollection
+
+! !
+
+!Node methodsFor: 'building'!
+
+nodes: aCollection
 	nodes := aCollection
-! !!Node methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!Node methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitNode: self
-! !Node subclass: #MethodNode	instanceVariableNames: 'selector, arguments, source'	category: 'Compiler'!!MethodNode methodsFor: 'accessing'!selector
+
+! !
+
+Node subclass: #MethodNode
+	instanceVariableNames: 'selector, arguments, source'
+	category: 'Compiler'!
+
+!MethodNode methodsFor: 'accessing'!
+
+selector
 	^selector
-!selector: aString
+
+!
+
+selector: aString
 	selector := aString
-!arguments
+
+!
+
+arguments
 	^arguments ifNil: [#()]
-!arguments: aCollection
+
+!
+
+arguments: aCollection
 	arguments := aCollection
-!source
+
+!
+
+source
 	^source
-!source: aString
+
+!
+
+source: aString
 	source := aString
-! !!MethodNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!MethodNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitMethodNode: self
-! !Node subclass: #SendNode	instanceVariableNames: 'selector, arguments, receiver'	category: 'Compiler'!!SendNode methodsFor: 'accessing'!selector
+
+! !
+
+Node subclass: #SendNode
+	instanceVariableNames: 'selector, arguments, receiver'
+	category: 'Compiler'!
+
+!SendNode methodsFor: 'accessing'!
+
+selector
 	^selector
-!selector: aString
+
+!
+
+selector: aString
 	selector := aString
-!arguments
+
+!
+
+arguments
 	^arguments ifNil: [arguments := #()]
-!arguments: aCollection
+
+!
+
+arguments: aCollection
 	arguments := aCollection
-!receiver
+
+!
+
+receiver
 	^receiver
-!receiver: aNode
+
+!
+
+receiver: aNode
 	receiver := aNode
-!valueForReceiver: anObject
+
+!
+
+valueForReceiver: anObject
 	^SendNode new
 	    receiver: (self receiver 
 		ifNil: [anObject]
@@ -40,7 +115,10 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	    selector: self selector;
 	    arguments: self arguments;
 	    yourself
-!cascadeNodeWithMessages: aCollection
+
+!
+
+cascadeNodeWithMessages: aCollection
 	| first |
 	first := SendNode new
 	    selector: self selector;
@@ -50,148 +128,428 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	    receiver: self receiver;
 	    nodes: (Array with: first), aCollection;
 	    yourself
-! !!SendNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!SendNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitSendNode: self
-! !Node subclass: #CascadeNode	instanceVariableNames: 'receiver'	category: 'Compiler'!!CascadeNode methodsFor: 'accessing'!receiver
+
+! !
+
+Node subclass: #CascadeNode
+	instanceVariableNames: 'receiver'
+	category: 'Compiler'!
+
+!CascadeNode methodsFor: 'accessing'!
+
+receiver
 	^receiver
-!receiver: aNode
+
+!
+
+receiver: aNode
 	receiver := aNode
-! !!CascadeNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!CascadeNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitCascadeNode: self
-! !Node subclass: #AssignmentNode	instanceVariableNames: 'left, right'	category: 'Compiler'!!AssignmentNode methodsFor: 'accessing'!left
+
+! !
+
+Node subclass: #AssignmentNode
+	instanceVariableNames: 'left, right'
+	category: 'Compiler'!
+
+!AssignmentNode methodsFor: 'accessing'!
+
+left
 	^left
-!left: aNode
+
+!
+
+left: aNode
 	left := aNode
-!right
+
+!
+
+right
 	^right
-!right: aNode
+
+!
+
+right: aNode
 	right := aNode
-! !!AssignmentNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!AssignmentNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitAssignmentNode: self
-! !Node subclass: #BlockNode	instanceVariableNames: 'parameters'	category: 'Compiler'!!BlockNode methodsFor: 'accessing'!parameters
+
+! !
+
+Node subclass: #BlockNode
+	instanceVariableNames: 'parameters'
+	category: 'Compiler'!
+
+!BlockNode methodsFor: 'accessing'!
+
+parameters
 	^parameters ifNil: [parameters := Array new]
-!parameters: aCollection
+
+!
+
+parameters: aCollection
 	parameters := aCollection
-! !!BlockNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!BlockNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitBlockNode: self
-! !Node subclass: #SequenceNode	instanceVariableNames: 'temps'	category: 'Compiler'!!SequenceNode methodsFor: 'accessing'!temps
+
+! !
+
+Node subclass: #SequenceNode
+	instanceVariableNames: 'temps'
+	category: 'Compiler'!
+
+!SequenceNode methodsFor: 'accessing'!
+
+temps
 	^temps ifNil: [#()]
-!temps: aCollection
+
+!
+
+temps: aCollection
 	temps := aCollection
-! !!SequenceNode methodsFor: 'testing'!asBlockSequenceNode
+
+! !
+
+!SequenceNode methodsFor: 'testing'!
+
+asBlockSequenceNode
 	^BlockSequenceNode new
 	    nodes: self nodes;
 	    temps: self temps;
 	    yourself
-! !!SequenceNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!SequenceNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitSequenceNode: self
-! !SequenceNode subclass: #BlockSequenceNode	instanceVariableNames: ''	category: 'Compiler'!!BlockSequenceNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+SequenceNode subclass: #BlockSequenceNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!BlockSequenceNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitBlockSequenceNode: self
-! !Node subclass: #ReturnNode	instanceVariableNames: ''	category: 'Compiler'!!ReturnNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+Node subclass: #ReturnNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!ReturnNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitReturnNode: self
-! !Node subclass: #ValueNode	instanceVariableNames: 'value'	category: 'Compiler'!!ValueNode methodsFor: 'accessing'!value
+
+! !
+
+Node subclass: #ValueNode
+	instanceVariableNames: 'value'
+	category: 'Compiler'!
+
+!ValueNode methodsFor: 'accessing'!
+
+value
 	^value
-!value: anObject
+
+!
+
+value: anObject
 	value := anObject
-! !!ValueNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!ValueNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitValueNode: self
-! !ValueNode subclass: #VariableNode	instanceVariableNames: ''	category: 'Compiler'!!VariableNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+ValueNode subclass: #VariableNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!VariableNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitVariableNode: self
-! !VariableNode subclass: #ClassReferenceNode	instanceVariableNames: ''	category: 'Compiler'!!ClassReferenceNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+VariableNode subclass: #ClassReferenceNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!ClassReferenceNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitClassReferenceNode: self
-! !Node subclass: #JSStatementNode	instanceVariableNames: 'source'	category: 'Compiler'!!JSStatementNode methodsFor: 'accessing'!source
+
+! !
+
+Node subclass: #JSStatementNode
+	instanceVariableNames: 'source'
+	category: 'Compiler'!
+
+!JSStatementNode methodsFor: 'accessing'!
+
+source
 	^source ifNil: ['']
-!source: aString
+
+!
+
+source: aString
 	source := aString
-! !!JSStatementNode methodsFor: 'visiting'!accept: aVisitor
+
+! !
+
+!JSStatementNode methodsFor: 'visiting'!
+
+accept: aVisitor
 	aVisitor visitJSStatementNode: self
-! !Object subclass: #NodeVisitor	instanceVariableNames: ''	category: 'Compiler'!!NodeVisitor methodsFor: 'visiting'!visit: aNode
+
+! !
+
+Object subclass: #NodeVisitor
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!NodeVisitor methodsFor: 'visiting'!
+
+visit: aNode
 	aNode accept: self
-!visitNode: aNode
-!visitMethodNode: aNode
+
+!
+
+visitNode: aNode
+
+!
+
+visitMethodNode: aNode
 	self visitNode: aNode
-!visitSequenceNode: aNode
+
+!
+
+visitSequenceNode: aNode
 	self visitNode: aNode
-!visitBlockSequenceNode: aNode
+
+!
+
+visitBlockSequenceNode: aNode
 	self visitSequenceNode: aNode
-!visitBlockNode: aNode
+
+!
+
+visitBlockNode: aNode
 	self visitNode: aNode
-!visitReturnNode: aNode
+
+!
+
+visitReturnNode: aNode
 	self visitNode: aNode
-!visitSendNode: aNode
+
+!
+
+visitSendNode: aNode
 	self visitNode: aNode
-!visitCascadeNode: aNode
+
+!
+
+visitCascadeNode: aNode
 	self visitNode: aNode
-!visitValueNode: aNode
+
+!
+
+visitValueNode: aNode
 	self visitNode: aNode
-!visitVariableNode: aNode
-!visitAssignmentNode: aNode
+
+!
+
+visitVariableNode: aNode
+
+!
+
+visitAssignmentNode: aNode
 	self visitNode: aNode
-!visitClassReferenceNode: aNode
+
+!
+
+visitClassReferenceNode: aNode
 	self 
 	    nextPutAll: 'smalltalk.';
 	    nextPutAll: aNode value
-!visitJSStatementNode: aNode
+
+!
+
+visitJSStatementNode: aNode
 	self 
 	    nextPutAll: 'function(){';
 	    nextPutAll: aNode source;
 	    nextPutAll: '})()'
-! !NodeVisitor subclass: #Compiler	instanceVariableNames: 'stream, nestedBlocks, earlyReturn, currentClass, currentSelector, unknownVariables, tempVariables, messageSends, referencedClasses'	category: 'Compiler'!!Compiler methodsFor: 'accessing'!parser
+
+! !
+
+NodeVisitor subclass: #Compiler
+	instanceVariableNames: 'stream, nestedBlocks, earlyReturn, currentClass, currentSelector, unknownVariables, tempVariables, messageSends, referencedClasses'
+	category: 'Compiler'!
+
+!Compiler methodsFor: 'accessing'!
+
+parser
 	^SmalltalkParser new
-!currentClass
+
+!
+
+currentClass
 	^currentClass
-!currentClass: aClass
+
+!
+
+currentClass: aClass
 	currentClass := aClass
-!unknownVariables
-	^unknownVariables copy!pseudoVariables
-	^#('self' 'super' 'true' 'false' 'nil' 'thisContext')!tempVariables
-	^tempVariables copy!knownVariables
+
+!
+
+unknownVariables
+	^unknownVariables copy
+!
+
+pseudoVariables
+	^#('self' 'super' 'true' 'false' 'nil' 'thisContext')
+!
+
+tempVariables
+	^tempVariables copy
+!
+
+knownVariables
 	^self pseudoVariables 
 		addAll: self tempVariables;
-		yourself!classNameFor: aClass
+		yourself
+!
+
+classNameFor: aClass
 	^aClass isMetaclass
 	    ifTrue: [aClass instanceClass name, '.klass']
 	    ifFalse: [
 		aClass isNil
 		    ifTrue: ['nil']
-		    ifFalse: [aClass name]]! !!Compiler methodsFor: 'compiling'!loadExpression: aString
+		    ifFalse: [aClass name]]
+! !
+
+!Compiler methodsFor: 'compiling'!
+
+loadExpression: aString
 	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
 	^DoIt new doIt
-!load: aString forClass: aClass
+
+!
+
+load: aString forClass: aClass
 	^self eval: (self compile: aString forClass: aClass)
-!compile: aString forClass: aClass
+
+!
+
+compile: aString forClass: aClass
 	self currentClass: aClass.
-	^self compile: aString!compileExpression: aString
+	^self compile: aString
+!
+
+compileExpression: aString
 	self currentClass: DoIt.
 	^self compileNode: (self parseExpression: aString)
-!eval: aString
-	{'return eval(aString)'}!compile: aString
+
+!
+
+eval: aString
+	{'return eval(aString)'}
+!
+
+compile: aString
 	^self compileNode: (self parse: aString)
-!compileNode: aNode
+
+!
+
+compileNode: aNode
 	stream := '' writeStream.
 	self visit: aNode.
 	^stream contents
-!parse: aString
+
+!
+
+parse: aString
     ^self parser parse: aString readStream
-!parseExpression: aString
+
+!
+
+parseExpression: aString
     ^self parse: 'doIt ^[', aString, '] value'
-!recompile: aClass
+
+!
+
+recompile: aClass
 	aClass methodDictionary do: [:each || method |
 		method := self load: each source forClass: aClass.
 		method category: each category.
 		aClass addCompiledMethod: method].
-	aClass isMetaclass ifFalse: [self recompile: aClass class]!recompileAll
+	aClass isMetaclass ifFalse: [self recompile: aClass class]
+!
+
+recompileAll
 	Smalltalk current classes do: [:each |
-		self recompile: each]! !!Compiler methodsFor: 'initialization'!initialize
+		self recompile: each]
+! !
+
+!Compiler methodsFor: 'initialization'!
+
+initialize
 	super initialize.
 	stream := '' writeStream.
 	unknownVariables := #().
 	tempVariables := #().
 	messageSends := #().
 	classReferenced := #()
-! !!Compiler methodsFor: 'visiting'!visit: aNode
+
+! !
+
+!Compiler methodsFor: 'visiting'!
+
+visit: aNode
 	aNode accept: self
-!visitMethodNode: aNode
+
+!
+
+visitMethodNode: aNode
 	| str currentSelector |
 	currentSelector := aNode selector asSelector.
 	nestedBlocks := 0.
@@ -201,10 +559,10 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	unknownVariables := #().
 	tempVariables := #().
 	stream 
-	    nextPutAll: 'smalltalk.method({', String cr;
-	    nextPutAll: 'selector: "', aNode selector, '",', String cr.
+	    nextPutAll: 'smalltalk.method({'; lf;
+	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
 	Smalltalk current debugMode ifTrue: [
-	    stream nextPutAll: 'source: unescape("', aNode source escaped, '"),', String cr].
+	    stream nextPutAll: 'source: unescape("', aNode source escaped, '"),';lf].
 	stream nextPutAll: 'fn: function('.
 	aNode arguments 
 	    do: [:each | 
@@ -212,8 +570,8 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 		stream nextPutAll: each]
 	    separatedBy: [stream nextPutAll: ', '].
 	stream 
-	    nextPutAll: '){', String cr;
-	    nextPutAll: 'var self=this;', String cr.
+	    nextPutAll: '){'; lf;
+	    nextPutAll: 'var self=this;'; lf.
 	str := stream.
 	stream := '' writeStream.
 	aNode nodes do: [:each |
@@ -223,21 +581,24 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	str nextPutAll: stream contents.
 	stream := str.
 	stream 
-	    nextPutAll: String cr; 
+	    lf; 
 	    nextPutAll: 'return self;'.
 	earlyReturn ifTrue: [
-	    stream nextPutAll: String cr, '} catch(e) {if(e.name === ''stReturn'' && e.selector === ', currentSelector printString, '){return e.fn()} throw(e)}'].
+	    stream lf; nextPutAll: '} catch(e) {if(e.name === ''stReturn'' && e.selector === ', currentSelector printString, '){return e.fn()} throw(e)}'].
 	stream nextPutAll: '}'.
 	Smalltalk current debugMode ifTrue: [
 		stream 
-			nextPutAll: ',', String cr, 'messageSends: ';
-			nextPutAll: messageSends asJavascript, ',', String cr;
+			nextPutAll: ',', String lf, 'messageSends: ';
+			nextPutAll: messageSends asJavascript, ','; lf;
 			nextPutAll: 'referencedClasses: ['.
 		referencedClasses 
 			do: [:each | stream nextPutAll: each]
 			separatedBy: [stream nextPutAll: ','].
 		stream nextPutAll: ']'].
-	stream nextPutAll: '})'!visitBlockNode: aNode
+	stream nextPutAll: '})'
+!
+
+visitBlockNode: aNode
 	stream nextPutAll: '(function('.
 	aNode parameters 
 	    do: [:each |
@@ -247,16 +608,21 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	stream nextPutAll: '){'.
 	aNode nodes do: [:each | self visit: each].
 	stream nextPutAll: '})'
-!visitSequenceNode: aNode
+
+!
+
+visitSequenceNode: aNode
 	aNode temps do: [:each |
 	    tempVariables add: each.
-	    stream nextPutAll: 'var ', each, '=nil;'.
-	    stream nextPutAll: String cr].
+	    stream nextPutAll: 'var ', each, '=nil;'; lf].
 	aNode nodes do: [:each |
 	    self visit: each.
 	    stream nextPutAll: ';']
-	    separatedBy: [stream nextPutAll: String cr]
-!visitBlockSequenceNode: aNode
+	    separatedBy: [stream lf]
+
+!
+
+visitBlockSequenceNode: aNode
 	| index |
 	nestedBlocks := nestedBlocks + 1.
 	aNode nodes isEmpty
@@ -265,8 +631,7 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	    ifFalse: [
 		aNode temps do: [:each |
 		    tempVariables add: each.
-		    stream nextPutAll: 'var ', each, '=nil;'.
-		    stream nextPutAll: String cr].
+		    stream nextPutAll: 'var ', each, '=nil;'; lf].
 		index := 0.
 		aNode nodes do: [:each |
 		    index := index + 1.
@@ -275,7 +640,10 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 		    self visit: each.
 		    stream nextPutAll: ';']].
 	nestedBlocks := nestedBlocks - 1
-!visitReturnNode: aNode
+
+!
+
+visitReturnNode: aNode
 	nestedBlocks > 0 ifTrue: [
 	    earlyReturn := true].
 	earlyReturn
@@ -289,7 +657,10 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	aNode nodes do: [:each |
 	    self visit: each].
 	earlyReturn ifTrue: [
-	    stream nextPutAll: '}})})()']!visitSendNode: aNode
+	    stream nextPutAll: '}})})()']
+!
+
+visitSendNode: aNode
 	| str receiver superSend |
 	str := stream.
 	(messageSends includes: aNode selector) ifFalse: [
@@ -308,7 +679,10 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	stream nextPutAll: ']'.
 	superSend ifTrue: [
 		stream nextPutAll: ', smalltalk.', (self classNameFor: self currentClass superclass)].
-	stream nextPutAll: ')'!visitCascadeNode: aNode
+	stream nextPutAll: ')'
+!
+
+visitCascadeNode: aNode
 	| index |
 	index := 0.
 	(tempVariables includes: '$rec') ifFalse: [
@@ -324,31 +698,65 @@ Object subclass: #Node	instanceVariableNames: 'nodes'	category: 'Compiler'!!
 	stream nextPutAll: '})('.
 	self visit: aNode receiver.
 	stream nextPutAll: ')'
-!visitValueNode: aNode
+
+!
+
+visitValueNode: aNode
 	stream nextPutAll: aNode value asJavascript
-!visitAssignmentNode: aNode
+
+!
+
+visitAssignmentNode: aNode
 	self visit: aNode left.
 	stream nextPutAll: '='.
 	self visit: aNode right
-!visitClassReferenceNode: aNode
+
+!
+
+visitClassReferenceNode: aNode
 	| klass |
 	klass := 'smalltalk.', aNode value.
 	(Smalltalk current at: aNode value) isClass ifTrue: [
 		(referencedClasses includes: klass)
 			ifFalse: [referencedClasses add: klass]].
-	stream nextPutAll: klass!visitVariableNode: aNode
+	stream nextPutAll: klass
+!
+
+visitVariableNode: aNode
 	(self currentClass instanceVariableNames includes: aNode value) 
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
 			(self knownVariables includes: aNode value) ifFalse: [
 				unknownVariables add: aNode value].
 			stream nextPutAll: aNode value]
-!visitJSStatementNode: aNode
-	stream nextPutAll: (aNode source value replace: '''''' with: '''')! !!Compiler class methodsFor: 'compiling'!recompile: aClass
+
+!
+
+visitJSStatementNode: aNode
+	stream nextPutAll: (aNode source value replace: '''''' with: '''')
+! !
+
+!Compiler class methodsFor: 'compiling'!
+
+recompile: aClass
 	aClass methodDictionary do: [:each || method |
 		method := self new load: each source forClass: aClass.
 		method category: each category.
 		aClass addCompiledMethod: method].
-	aClass isMetaclass ifFalse: [self recompile: aClass class]!recompileAll
+	aClass isMetaclass ifFalse: [self recompile: aClass class]
+!
+
+recompileAll
 	Smalltalk current classes do: [:each |
-		self recompile: each]! !Object subclass: #DoIt	instanceVariableNames: ''	category: 'Compiler'!!DoIt methodsFor: ''!doIt ^[ChunkExporter new exportCategory: 'Parser' ] value! !
+		self recompile: each]
+! !
+
+Object subclass: #DoIt
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!DoIt methodsFor: ''!
+
+doIt ^[ChunkExporter new exportCategory: 'Parser' ] value
+! !
+

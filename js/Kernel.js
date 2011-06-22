@@ -4283,9 +4283,9 @@ selector: 'cr',
 category: 'accessing',
 fn: function (){
 var self=this;
-return '\n';;
+return '\r';;
 return self;},
-source: unescape('cr%0A%09%7B%27return%20%27%27%5Cn%27%27%3B%27%7D'),
+source: unescape('cr%0A%09%7B%27return%20%27%27%5Cr%27%27%3B%27%7D'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4298,9 +4298,9 @@ selector: 'lf',
 category: 'accessing',
 fn: function (){
 var self=this;
-return '\r';;
+return '\n';;
 return self;},
-source: unescape('lf%0A%09%7B%27return%20%27%27%5Cr%27%27%3B%27%7D%0A'),
+source: unescape('lf%0A%09%7B%27return%20%27%27%5Cn%27%27%3B%27%7D%0A'),
 messageSends: [],
 referencedClasses: []
 }),

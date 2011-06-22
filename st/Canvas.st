@@ -1,188 +1,535 @@
-Object subclass: #CanvasRenderingContext	instanceVariableNames: ''	category: 'Canvas'!!CanvasRenderingContext methodsFor: 'drawing arcs'!arcTo: aPoint radius: aNumber startAngle: aNumber2 endAngle: aNumber3 anticlockwise: aBoolean
-	{'self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)'} !arcTo: aPoint radius: aNumber
-	self arcTo: aPoint radius: aNumber startAngle: 0 endAngle: Number pi * 2 anticlockwise: false! !!CanvasRenderingContext methodsFor: 'drawing paths'!fillStyle: aString
-	{'self.fillStyle = String(aString)'}!beginPath
-	{'self.beginPath()'}!closePath
-	{'self.closePath()'}!fill
-	{'self.fill()'}!stroke
-	{'self.stroke()'}!moveTo: aPoint
-	{'self.moveTo(aPoint._x(), aPoint._y())'}!lineTo: aPoint
-	{'self.lineTo(aPoint._x(), aPoint._y())'}!strokeStyle: aString
-	{'self.strokeStyle = String(aString)'}!lineWidth: aNumber
-	{'self.lineWidth = aNumber'}! !!CanvasRenderingContext methodsFor: 'drawing rectangles'!fillRectFrom: aPoint to: anotherPoint
-	{'self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}!strokeRectFrom: aPoint to: anotherPoint
-	{'self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}!clearRectFrom: aPoint to: anotherPoint
-	{'self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}! !!CanvasRenderingContext class methodsFor: 'instance creation'!tagBrush: aTagBrush
-	{'return aTagBrush._element().getContext(''2d'')'}! !Object subclass: #HTMLCanvas	instanceVariableNames: 'root'	category: 'Canvas'!!HTMLCanvas methodsFor: '*JQuery'!appendToJQuery: aJQuery
+Object subclass: #CanvasRenderingContext
+	instanceVariableNames: ''
+	category: 'Canvas'!
+
+!CanvasRenderingContext methodsFor: 'drawing arcs'!
+
+arcTo: aPoint radius: aNumber startAngle: aNumber2 endAngle: aNumber3 anticlockwise: aBoolean
+	{'self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)'} 
+!
+
+arcTo: aPoint radius: aNumber
+	self arcTo: aPoint radius: aNumber startAngle: 0 endAngle: Number pi * 2 anticlockwise: false
+! !
+
+!CanvasRenderingContext methodsFor: 'drawing paths'!
+
+fillStyle: aString
+	{'self.fillStyle = String(aString)'}
+!
+
+beginPath
+	{'self.beginPath()'}
+!
+
+closePath
+	{'self.closePath()'}
+!
+
+fill
+	{'self.fill()'}
+!
+
+stroke
+	{'self.stroke()'}
+!
+
+moveTo: aPoint
+	{'self.moveTo(aPoint._x(), aPoint._y())'}
+!
+
+lineTo: aPoint
+	{'self.lineTo(aPoint._x(), aPoint._y())'}
+!
+
+strokeStyle: aString
+	{'self.strokeStyle = String(aString)'}
+!
+
+lineWidth: aNumber
+	{'self.lineWidth = aNumber'}
+! !
+
+!CanvasRenderingContext methodsFor: 'drawing rectangles'!
+
+fillRectFrom: aPoint to: anotherPoint
+	{'self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}
+!
+
+strokeRectFrom: aPoint to: anotherPoint
+	{'self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}
+!
+
+clearRectFrom: aPoint to: anotherPoint
+	{'self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}
+! !
+
+!CanvasRenderingContext class methodsFor: 'instance creation'!
+
+tagBrush: aTagBrush
+	{'return aTagBrush._element().getContext(''2d'')'}
+! !
+
+Object subclass: #HTMLCanvas
+	instanceVariableNames: 'root'
+	category: 'Canvas'!
+
+!HTMLCanvas methodsFor: '*JQuery'!
+
+appendToJQuery: aJQuery
     aJQuery appendElement: root element
-! !!HTMLCanvas methodsFor: 'accessing'!root: aTagBrush
+
+! !
+
+!HTMLCanvas methodsFor: 'accessing'!
+
+root: aTagBrush
     root := aTagBrush
-!root
+
+!
+
+root
     ^root
-! !!HTMLCanvas methodsFor: 'adding'!with: anObject
+
+! !
+
+!HTMLCanvas methodsFor: 'adding'!
+
+with: anObject
     ^self root with: anObject
-! !!HTMLCanvas methodsFor: 'initialization'!initialize
+
+! !
+
+!HTMLCanvas methodsFor: 'initialization'!
+
+initialize
     super initialize.
     root := TagBrush fromString: 'div' canvas: self
-! !!HTMLCanvas methodsFor: 'tags'!newTag: aString
+
+! !
+
+!HTMLCanvas methodsFor: 'tags'!
+
+newTag: aString
     ^TagBrush fromString: aString canvas: self
-!tag: aString
+
+!
+
+tag: aString
     ^root addBrush: (self newTag: aString)
-!h1
+
+!
+
+h1
     ^self tag: 'h1'
-!h2
+
+!
+
+h2
     ^self tag: 'h2'
-!h3
+
+!
+
+h3
     ^self tag: 'h3'
-!h4
+
+!
+
+h4
     ^self tag: 'h4'
-!h5
+
+!
+
+h5
     ^self tag: 'h5'
-!h6
+
+!
+
+h6
     ^self tag: 'h6'
-!p
+
+!
+
+p
     ^self tag: 'p'
-!div
+
+!
+
+div
     ^self tag: 'div'
-!span
+
+!
+
+span
     ^self tag: 'span'
-!img
+
+!
+
+img
     ^self tag: 'img'
-!ul
+
+!
+
+ul
     ^self tag: 'ul'
-!ol
+
+!
+
+ol
     ^self tag: 'ol'
-!li
+
+!
+
+li
     ^self tag: 'li'
-!table
+
+!
+
+table
     ^self tag: 'table'
-!tr
+
+!
+
+tr
     ^self tag: 'tr'
-!td 
+
+!
+
+td 
     ^self tag: 'td'
-!th
+
+!
+
+th
     ^self tag: 'th'
-!form
+
+!
+
+form
     ^self tag: 'form'
-!input
+
+!
+
+input
     ^self tag: 'input'
-!button
+
+!
+
+button
     ^self tag: 'button'
-!select
+
+!
+
+select
     ^self tag: 'select'
-!option
+
+!
+
+option
     ^self tag: 'option'
-!textarea
+
+!
+
+textarea
     ^self tag: 'textarea'
-!a
+
+!
+
+a
     ^self tag: 'a'
-!canvas
+
+!
+
+canvas
 	^self tag: 'canvas'
-! !Object subclass: #TagBrush	instanceVariableNames: 'canvas, element'	category: 'Canvas'!!TagBrush methodsFor: 'accessing'!element
+
+! !
+
+Object subclass: #TagBrush
+	instanceVariableNames: 'canvas, element'
+	category: 'Canvas'!
+
+!TagBrush methodsFor: 'accessing'!
+
+element
     ^element
-! !!TagBrush methodsFor: 'adding'!contents: anObject
+
+! !
+
+!TagBrush methodsFor: 'adding'!
+
+contents: anObject
     self asJQuery empty.
     self append: anObject
-!addBrush: aTagBrush
+
+!
+
+addBrush: aTagBrush
     self appendChild: aTagBrush element.
     ^aTagBrush
-!with: anObject
+
+!
+
+with: anObject
     self append: anObject
-!append: anObject
+
+!
+
+append: anObject
     anObject appendToBrush: self
-!appendToBrush: aTagBrush
+
+!
+
+appendToBrush: aTagBrush
     aTagBrush addBrush: self
-!appendBlock: aBlock
+
+!
+
+appendBlock: aBlock
     | root |
     root := canvas root.
     canvas root: self.
     aBlock value: canvas.
     canvas root: root
-!appendChild: anElement
+
+!
+
+appendChild: anElement
     {'self[''@element''].appendChild(anElement)'}
-!appendString: aString
+
+!
+
+appendString: aString
     self appendChild: (self createTextNodeFor: aString)
-! !!TagBrush methodsFor: 'attributes'!at: aString put: aValue
+
+! !
+
+!TagBrush methodsFor: 'attributes'!
+
+at: aString put: aValue
     {'self[''@element''].setAttribute(aString, aValue)'}
-!removeAt: aString
+
+!
+
+removeAt: aString
     {'self[''@element''].removeAttribute(aString)'}
-!class: aString
+
+!
+
+class: aString
     self at: 'class' put: aString
-!id: aString
+
+!
+
+id: aString
     self at: 'id' put: aString
-!src: aString
+
+!
+
+src: aString
     self  at: 'src' put: aString
-!href: aString
+
+!
+
+href: aString
     self at: 'href' put: aString
-!title: aString
+
+!
+
+title: aString
     self at: 'title' put: aString
-!style: aString
+
+!
+
+style: aString
     self at: 'style' put: aString
-! !!TagBrush methodsFor: 'converting'!asJQuery
+
+! !
+
+!TagBrush methodsFor: 'converting'!
+
+asJQuery
 	{'return smalltalk.JQuery._from_(jQuery(self[''@element'']))'}
-!asJQueryDo: aBlock
+
+!
+
+asJQueryDo: aBlock
     aBlock value: self asJQuery
-! !!TagBrush methodsFor: 'events'!onKeyDown: aBlock
+
+! !
+
+!TagBrush methodsFor: 'events'!
+
+onKeyDown: aBlock
     self asJQuery on: 'keydown' do: aBlock
-!onKeyPress: aBlock
+
+!
+
+onKeyPress: aBlock
     self asJQuery on: 'keypress' do: aBlock
-!onKeyUp: aBlock
+
+!
+
+onKeyUp: aBlock
     self asJQuery on: 'keyup' do: aBlock
-!onFocus: aBlock
+
+!
+
+onFocus: aBlock
     self asJQuery on: 'focus' do: aBlock
-!onBlur: aBlock
+
+!
+
+onBlur: aBlock
     self asJQuery on: 'blur' do: aBlock
-!onChange: aBlock
+
+!
+
+onChange: aBlock
     self asJQuery on: 'change' do: aBlock
-!onClick: aBlock
+
+!
+
+onClick: aBlock
     self asJQuery on: 'click' do: aBlock
-! !!TagBrush methodsFor: 'initialization'!initializeFromString: aString canvas: aCanvas
+
+! !
+
+!TagBrush methodsFor: 'initialization'!
+
+initializeFromString: aString canvas: aCanvas
     element := self createElementFor: aString.
     canvas := aCanvas
-! !!TagBrush methodsFor: 'private'!createElementFor: aString
+
+! !
+
+!TagBrush methodsFor: 'private'!
+
+createElementFor: aString
 	{'return document.createElement(String(aString))'}
-!createTextNodeFor: aString
+
+!
+
+createTextNodeFor: aString
 	{'return document.createTextNode(String(aString))'}
-! !!TagBrush class methodsFor: 'instance creation'!fromString: aString canvas: aCanvas
+
+! !
+
+!TagBrush class methodsFor: 'instance creation'!
+
+fromString: aString canvas: aCanvas
     ^self new
 	initializeFromString: aString canvas: aCanvas;
 	yourself
-! !Object subclass: #Widget	instanceVariableNames: 'root'	category: 'Canvas'!!Widget methodsFor: 'accessing'!root
+
+! !
+
+Object subclass: #Widget
+	instanceVariableNames: 'root'
+	category: 'Canvas'!
+
+!Widget methodsFor: 'accessing'!
+
+root
     ^root
-! !!Widget methodsFor: 'actions'!alert: aString
+
+! !
+
+!Widget methodsFor: 'actions'!
+
+alert: aString
     {'alert(aString)'}
-!confirm: aString
+
+!
+
+confirm: aString
     {'return window.confirm(aString)'}
-!prompt: aString
+
+!
+
+prompt: aString
     ^self prompt: aString default: ''
-!prompt: aString default: anotherString
+
+!
+
+prompt: aString default: anotherString
     {'return window.prompt(aString, anotherString)'}
-!update
+
+!
+
+update
     | canvas |
     canvas := HTMLCanvas new.
     canvas root: self root.
     self root asJQuery empty.
     self renderOn: canvas
-! !!Widget methodsFor: 'adding'!appendToBrush: aTagBrush
+
+! !
+
+!Widget methodsFor: 'adding'!
+
+appendToBrush: aTagBrush
     self appendToJQuery: aTagBrush asJQuery
-!appendToJQuery: aJQuery
+
+!
+
+appendToJQuery: aJQuery
     self render.
     aJQuery append: self root asJQuery
-! !!Widget methodsFor: 'rendering'!render
+
+! !
+
+!Widget methodsFor: 'rendering'!
+
+render
     | canvas |
     canvas := HTMLCanvas new.
     root := canvas root.
     self renderOn: canvas
-!renderOn: html
+
+!
+
+renderOn: html
     self
-! !TagBrush subclass: #CanvasBrush	instanceVariableNames: ''	category: 'Canvas'!!CanvasBrush methodsFor: 'initialization'!initializeWithCanvas: aCanvas
-	canvas := aCanvas! !!CanvasBrush methodsFor: 'private'!createElement
-	{'return document.createElement(''canvas'')'}! !!CanvasBrush class methodsFor: 'instance creation'!canvas: aCanvas
+
+! !
+
+TagBrush subclass: #CanvasBrush
+	instanceVariableNames: ''
+	category: 'Canvas'!
+
+!CanvasBrush methodsFor: 'initialization'!
+
+initializeWithCanvas: aCanvas
+	canvas := aCanvas
+! !
+
+!CanvasBrush methodsFor: 'private'!
+
+createElement
+	{'return document.createElement(''canvas'')'}
+! !
+
+!CanvasBrush class methodsFor: 'instance creation'!
+
+canvas: aCanvas
 	^self new
 		initializeWithCanvas: aCanvas;
-		yourself! !appendToBrush: aTagBrush
+		yourself
+! !
+
+
+
+appendToBrush: aTagBrush
     aTagBrush append: self asString
-!appendToBrush: aTagBrush
-    aTagBrush appendBlock: self!appendToBrush: aTagBrush
+
+!
+
+appendToBrush: aTagBrush
+    aTagBrush appendBlock: self
+!
+
+appendToBrush: aTagBrush
     aTagBrush appendString: self
-!
+
+!

@@ -1,22 +1,51 @@
-Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'	category: 'IDE'!!TabManager methodsFor: 'accessing'!tabs
+Widget subclass: #TabManager
+	instanceVariableNames: 'selectedTab, tabs, opened'
+	category: 'IDE'!
+
+!TabManager methodsFor: 'accessing'!
+
+tabs
     ^tabs ifNil: [tabs := Array new]
-! !!TabManager methodsFor: 'actions'!updateBodyMargin
+
+! !
+
+!TabManager methodsFor: 'actions'!
+
+updateBodyMargin
     self setBodyMargin: '#jtalk' asJQuery height + 27
-!updatePosition
+
+!
+
+updatePosition
     {'jQuery(''#jtalk'').css(''top'', '''''').css(''bottom'', ''27px'');'}
-!removeBodyMargin
+
+!
+
+removeBodyMargin
     self setBodyMargin: 0
-!setBodyMargin: anInteger
+
+!
+
+setBodyMargin: anInteger
     '.jtalkBody' asJQuery cssAt: 'margin-bottom' put: anInteger asString, 'px'
-!onResize: aBlock
+
+!
+
+onResize: aBlock
     {'jQuery(''#jtalk'').resizable({
 	handles: ''n'', 
 	resize: aBlock,
 	minHeight: 230
 });'}
-!onWindowResize: aBlock
+
+!
+
+onWindowResize: aBlock
     {'jQuery(window).resize(aBlock)'}
-!open
+
+!
+
+open
     opened ifFalse: [
 	self root asJQuery show.
 	'body' asJQuery addClass: 'jtalkBody'.
@@ -24,35 +53,60 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	self updateBodyMargin.
 	selectedTab root asJQuery show.
 	opened := true]
-!close
+
+!
+
+close
     opened ifTrue: [
 	self root asJQuery hide.
 	'#jtalk' asJQuery hide.
 	self removeBodyMargin.
 	'body' asJQuery removeClass: 'jtalkBody'.
 	opened := false]
-!newBrowserTab
+
+!
+
+newBrowserTab
     Browser open
-!selectTab: aWidget
+
+!
+
+selectTab: aWidget
     self open.
     selectedTab := aWidget.
     self tabs do: [:each |
 	each root asJQuery hide].
     aWidget root asJQuery show.
     self update
-!closeTab: aWidget
+
+!
+
+closeTab: aWidget
     self removeTab: aWidget.
     self selectTab: self tabs last.
     aWidget root asJQuery remove.
     self update
-! !!TabManager methodsFor: 'adding/Removing'!addTab: aWidget
+
+! !
+
+!TabManager methodsFor: 'adding/Removing'!
+
+addTab: aWidget
     self tabs add: aWidget.
     '#jtalk' asJQuery append: aWidget.
     aWidget root asJQuery hide
-!removeTab: aWidget
+
+!
+
+removeTab: aWidget
     self tabs remove: aWidget.
     self update
-! !!TabManager methodsFor: 'initialization'!initialize
+
+! !
+
+!TabManager methodsFor: 'initialization'!
+
+initialize
     super initialize.
     opened := true.
     'body' asJQuery 
@@ -66,7 +120,12 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
     self 
 	onResize: [self updateBodyMargin; updatePosition];
 	onWindowResize: [self updatePosition]
-! !!TabManager methodsFor: 'rendering'!renderOn: html
+
+! !
+
+!TabManager methodsFor: 'rendering'!
+
+renderOn: html
     html ul
 	id: 'jtalkTabs';
 	with: [
@@ -80,7 +139,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		class: 'newtab';
 		with: ' + ';
 		onClick: [self newBrowserTab]]
-!renderTabFor: aWidget on: html
+
+!
+
+renderTabFor: aWidget on: html
     | li |
     li := html li.
     selectedTab = aWidget ifTrue: [
@@ -94,17 +156,46 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		class: 'close';
 		with: 'x';
 		onClick: [self closeTab: aWidget]]]
-! !TabManager class instanceVariableNames: 'current'!!TabManager class methodsFor: 'instance creation'!current
+
+! !
+
+TabManager class instanceVariableNames: 'current'!
+
+!TabManager class methodsFor: 'instance creation'!
+
+current
     ^current ifNil: [current := super new]
-!new
+
+!
+
+new
     self shouldNotImplement
-! !Widget subclass: #TabWidget	instanceVariableNames: ''	category: 'IDE'!!TabWidget methodsFor: 'accessing'!label
+
+! !
+
+Widget subclass: #TabWidget
+	instanceVariableNames: ''
+	category: 'IDE'!
+
+!TabWidget methodsFor: 'accessing'!
+
+label
     self subclassResponsibility
-! !!TabWidget methodsFor: 'actions'!open
+
+! !
+
+!TabWidget methodsFor: 'actions'!
+
+open
     TabManager current
 	addTab: self;
 	selectTab: self
-! !!TabWidget methodsFor: 'rendering'!renderOn: html
+
+! !
+
+!TabWidget methodsFor: 'rendering'!
+
+renderOn: html
     html root
 	class: 'jtalkTool';
 	with: [
@@ -114,27 +205,70 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    html div
 		class: 'jt_buttons';
 		with: [self renderButtonsOn: html]]
-!renderBoxOn: html
-!renderButtonsOn: html
-! !!TabWidget methodsFor: 'testing'!canBeClosed
+
+!
+
+renderBoxOn: html
+
+!
+
+renderButtonsOn: html
+
+! !
+
+!TabWidget methodsFor: 'testing'!
+
+canBeClosed
     ^false
-! !!TabWidget class methodsFor: 'instance creation'!open
+
+! !
+
+!TabWidget class methodsFor: 'instance creation'!
+
+open
     ^self new open
-! !TabWidget subclass: #Workspace	instanceVariableNames: 'textarea'	category: 'IDE'!!Workspace methodsFor: 'accessing'!label
+
+! !
+
+TabWidget subclass: #Workspace
+	instanceVariableNames: 'textarea'
+	category: 'IDE'!
+
+!Workspace methodsFor: 'accessing'!
+
+label
     ^'[Workspace]'
-!selection
+
+!
+
+selection
     {'return document.selection'}
-!selectionStart
+
+!
+
+selectionStart
     {'return jQuery(''.jt_workspace'')[0].selectionStart'}
-!selectionEnd
+
+!
+
+selectionEnd
     {'return jQuery(''.jt_workspace'')[0].selectionEnd'}
-!selectionStart: anInteger
+
+!
+
+selectionStart: anInteger
     {'jQuery(''.jt_workspace'')[0].selectionStart = anInteger'}
-!selectionEnd: anInteger
+
+!
+
+selectionEnd: anInteger
     {'jQuery(''.jt_workspace'')[0].selectionEnd = anInteger'}
-!currentLine
+
+!
+
+currentLine
     | lines startLine endLine|
-    lines := textarea asJQuery val tokenize: String cr.
+    lines := textarea asJQuery val tokenize: String lf.
     startLine := endLine := 0.
     lines do: [:each |
 	endLine := startLine + each size.
@@ -142,7 +276,12 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	endLine >= self selectionStart ifTrue: [
 	    self selectionEnd: endLine.
 	    ^each]]
-! !!Workspace methodsFor: 'actions'!handleKeyDown: anEvent
+
+! !
+
+!Workspace methodsFor: 'actions'!
+
+handleKeyDown: anEvent
     {'if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
@@ -160,18 +299,30 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 			return false;
 		}
 	}'}
-!clearWorkspace
+
+!
+
+clearWorkspace
     textarea asJQuery val: ''
-!doIt
+
+!
+
+doIt
     | selection |
     textarea asJQuery focus.
     self selectionStart = self selectionEnd
 	ifTrue: [selection := self currentLine]
 	ifFalse: [
 	    selection := textarea asJQuery val copyFrom: self selectionStart + 1 to: self selectionEnd + 1].
-    ^self eval: selection!printIt
+    ^self eval: selection
+!
+
+printIt
     self print: self doIt printString
-!print: aString
+
+!
+
+print: aString
     | start |
     start := self selectionEnd.
     textarea asJQuery val: (
@@ -180,23 +331,37 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	(textarea asJQuery val copyFrom: start + 1 to: textarea asJQuery val size)).
     self selectionStart: start.
     self selectionEnd: start + aString size + 2
-!eval: aString
+
+!
+
+eval: aString
     | compiler node |
     compiler := Compiler new.
     node := compiler parseExpression: aString.
     node isParseFailure ifTrue: [
 	^self alert: node reason, ', position: ', node position].
     ^compiler loadExpression: aString
-!inspectIt
+
+!
+
+inspectIt
     self doIt inspect
-! !!Workspace methodsFor: 'rendering'!renderBoxOn: html
+
+! !
+
+!Workspace methodsFor: 'rendering'!
+
+renderBoxOn: html
     textarea := html textarea.
     textarea asJQuery call: 'tabby'.
     textarea onKeyDown: [:e | self handleKeyDown: e].
     textarea 
 	class: 'jt_workspace';
 	at: 'spellcheck' put: 'false'
-!renderButtonsOn: html
+
+!
+
+renderButtonsOn: html
     html button
 	with: 'DoIt';
 	title: 'ctrl+d';
@@ -212,53 +377,123 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
     html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
-! !TabWidget subclass: #Transcript	instanceVariableNames: 'textarea'	category: 'IDE'!!Transcript methodsFor: 'accessing'!label
+
+! !
+
+TabWidget subclass: #Transcript
+	instanceVariableNames: 'textarea'
+	category: 'IDE'!
+
+!Transcript methodsFor: 'accessing'!
+
+label
     ^'[Transcript]'
-! !!Transcript methodsFor: 'actions'!show: anObject
+
+! !
+
+!Transcript methodsFor: 'actions'!
+
+show: anObject
     textarea asJQuery val: textarea asJQuery val, anObject asString.
 
-!cr
+
+!
+
+cr
     textarea asJQuery val: textarea asJQuery val, String cr.
-!clear
+
+!
+
+clear
     textarea asJQuery val: ''
-! !!Transcript methodsFor: 'rendering'!renderBoxOn: html
+
+! !
+
+!Transcript methodsFor: 'rendering'!
+
+renderBoxOn: html
     textarea := html textarea.
     textarea asJQuery call: 'tabby'.
     textarea 
 	class: 'jt_transcript';
 	at: 'spellcheck' put: 'false'
-!renderButtonsOn: html
+
+!
+
+renderButtonsOn: html
     html button
 	with: 'Clear transcript';
 	onClick: [self clear]
-! !Transcript class instanceVariableNames: 'current'!!Transcript class methodsFor: 'instance creation'!open
+
+! !
+
+Transcript class instanceVariableNames: 'current'!
+
+!Transcript class methodsFor: 'instance creation'!
+
+open
     self current open
-!new
+
+!
+
+new
     self shouldNotImplement
-!current
+
+!
+
+current
     ^current ifNil: [current := super new]
-! !!Transcript class methodsFor: 'printing'!show: anObject
+
+! !
+
+!Transcript class methodsFor: 'printing'!
+
+show: anObject
     self current show: anObject
-!cr
+
+!
+
+cr
     self current show: String cr
-!clear
+
+!
+
+clear
     self current clear
-! !TabWidget subclass: #Browser	instanceVariableNames: 'selectedCategory, selectedClass, selectedProtocol, selectedMethod, commitButton, categoriesList, classesList, protocolsList, methodsList, sourceTextarea, tabsList, selectedTab, saveButton, classButtons, methodButtons, unsavedChanges'	category: 'IDE'!!Browser methodsFor: 'accessing'!label
+
+! !
+
+TabWidget subclass: #Browser
+	instanceVariableNames: 'selectedCategory, selectedClass, selectedProtocol, selectedMethod, commitButton, categoriesList, classesList, protocolsList, methodsList, sourceTextarea, tabsList, selectedTab, saveButton, classButtons, methodButtons, unsavedChanges'
+	category: 'IDE'!
+
+!Browser methodsFor: 'accessing'!
+
+label
     ^selectedClass 
 	ifNil: ['Browser (nil)']
 	ifNotNil: [selectedClass name]
-!categories
+
+!
+
+categories
     | categories |
     categories := Array new.
     Smalltalk current classes do: [:each |
 	(categories includes: each category) ifFalse: [
 	    categories add: each category]].
     ^categories sort
-!classes
+
+!
+
+classes
     ^(Smalltalk current classes 
 	select: [:each | each category = selectedCategory])
 	sort: [:a :b | a name > b name]
-!protocols
+
+!
+
+protocols
     | klass |
     selectedClass ifNotNil: [
 	selectedTab = #comment ifTrue: [^#()].
@@ -268,7 +503,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	klass methodDictionary isEmpty ifTrue: [
 	    ^Array with: 'not yet classified'].
 	^klass protocols].
-    ^Array new!methods
+    ^Array new
+!
+
+methods
     | klass |
     selectedTab = #comment ifTrue: [^#()].
     selectedClass ifNotNil: [
@@ -283,7 +521,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	ifNotNil: [
 	    klass methodDictionary values select: [:each |
 		each category = selectedProtocol]]) sort: [:a :b | a selector > b selector]
-!source
+
+!
+
+source
     selectedTab = #comment ifFalse: [
 	^(selectedProtocol notNil or: [selectedMethod notNil])
 	    ifFalse: [self declarationSource]
@@ -291,21 +532,33 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
     ^selectedClass
 	ifNil: ['']
 	ifNotNil: [self classCommentSource]
-!methodSource
+
+!
+
+methodSource
     ^selectedMethod
 	ifNil: [self dummyMethodSource]
 	ifNotNil: [selectedMethod source]
-!dummyMethodSource
+
+!
+
+dummyMethodSource
     ^'messageSelectorAndArgumentNames
 	"comment stating purpose of message"
 
 	| temporary variable names |
 	statements'
-!declarationSource
+
+!
+
+declarationSource
     ^selectedTab = #instance
 	ifTrue: [self classDeclarationSource]
 	ifFalse: [self metaclassDeclarationSource]
-!classDeclarationSource
+
+!
+
+classDeclarationSource
     | stream |
     stream := '' writeStream.
     selectedClass ifNotNil: [
@@ -313,18 +566,21 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    nextPutAll: selectedClass superclass asString;
 	    nextPutAll: ' subclass: #';
 	    nextPutAll: selectedClass name;
-	    nextPutAll: String cr, String tab;
+	    nextPutAll: String lf, String tab;
 	    nextPutAll: 'instanceVariableNames: '''.
 	selectedClass instanceVariableNames 
 	    do: [:each | stream nextPutAll: each] 
 	    separatedBy: [stream nextPutAll: ' '].
 	stream
-	    nextPutAll: '''', String cr, String tab;
+	    nextPutAll: '''', String lf, String tab;
 	    nextPutAll: 'category: ''';
 	    nextPutAll: selectedClass category;
 	    nextPutAll: ''''].
     ^stream contents
-!metaclassDeclarationSource
+
+!
+
+metaclassDeclarationSource
     | stream |
     stream := '' writeStream.
     selectedClass ifNotNil: [
@@ -337,24 +593,50 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    separatedBy: [stream nextPutAll: ' '].
 	stream nextPutAll: ''''].
     ^stream contents
-!classCommentSource
+
+!
+
+classCommentSource
     ^selectedClass comment
-! !!Browser methodsFor: 'actions'!enableSaveButton
+
+! !
+
+!Browser methodsFor: 'actions'!
+
+enableSaveButton
     saveButton removeAt: 'disabled'.
     unsavedChanges := true
-!disableSaveButton
+
+!
+
+disableSaveButton
     saveButton ifNotNil: [
 	saveButton at: 'disabled' put: true].
     unsavedChanges := false
-!hideClassButtons
+
+!
+
+hideClassButtons
     classButtons asJQuery hide
-!showClassButtons
+
+!
+
+showClassButtons
     classButtons asJQuery show
-!hideMethodButtons
+
+!
+
+hideMethodButtons
     methodButtons asJQuery hide
-!showMethodButtons
+
+!
+
+showMethodButtons
     methodButtons asJQuery show
-!compile
+
+!
+
+compile
     self disableSaveButton.
     selectedTab = #comment ifTrue: [
 	selectedClass ifNotNil: [
@@ -362,13 +644,22 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
     (selectedProtocol notNil or: [selectedMethod notNil])
 	ifFalse: [self compileDefinition]
 	ifTrue: [self compileMethodDefinition]
-!compileClassComment
+
+!
+
+compileClassComment
     selectedClass comment: sourceTextarea asJQuery val
-!compileMethodDefinition
+
+!
+
+compileMethodDefinition
     selectedTab = #instance
 	ifTrue: [self compileMethodDefinitionFor: selectedClass]
 	ifFalse: [self compileMethodDefinitionFor: selectedClass class]
-!compileMethodDefinitionFor: aClass
+
+!
+
+compileMethodDefinitionFor: aClass
     | compiler method source node |
     source := sourceTextarea asJQuery val.
     selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
@@ -386,13 +677,19 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
     aClass addCompiledMethod: method.
     self updateMethodsList.
     self selectMethod: method
-!compileDefinition
+
+!
+
+compileDefinition
     | newClass |
     newClass := Compiler new loadExpression: sourceTextarea asJQuery val.
     self 
 	updateCategoriesList;
 	updateClassesList
-!commitCategory
+
+!
+
+commitCategory
     selectedCategory ifNotNil: [
 	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
 	    at: 'type' put: 'PUT';
@@ -404,16 +701,25 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    at: 'data' put: (ChunkExporter new exportCategory: selectedCategory);
 	    at: 'error' put: [self alert: 'Commit failed!'];
 	    send]
-!cancelChanges
+
+!
+
+cancelChanges
     ^unsavedChanges 
 	ifTrue: [self confirm: 'Cancel changes?']
 	ifFalse: [true]
-!removeClass
+
+!
+
+removeClass
     (self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
 	    Smalltalk current basicDelete: selectedClass name.
 	    self selectClass: nil]
-!removeMethod
+
+!
+
+removeMethod
     self cancelChanges ifTrue: [
 	(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
 	    ifTrue: [
@@ -421,7 +727,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 			ifTrue: [selectedClass removeCompiledMethod: selectedMethod]
 			ifFalse: [selectedClass class removeCompiledMethod: selectedMethod].
 		self selectMethod: nil]]
-!setMethodProtocol: aString
+
+!
+
+setMethodProtocol: aString
     self cancelChanges ifTrue: [
 	(self protocols includes: aString)
 	    ifFalse: [self addNewProtocol]
@@ -433,13 +742,19 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		    updateProtocolsList;
 		    updateMethodsList;
 		    updateSourceAndButtons]]
-!addNewProtocol
+
+!
+
+addNewProtocol
     | newProtocol |
     newProtocol := self prompt: 'New method protocol'.
     newProtocol notEmpty ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
-!selectCategory: aCategory
+
+!
+
+selectCategory: aCategory
     self cancelChanges ifTrue: [
 	selectedCategory := aCategory.
 	selectedClass := selectedProtocol := selectedMethod :=  nil.
@@ -449,7 +764,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-!selectClass: aClass
+
+!
+
+selectClass: aClass
     self cancelChanges ifTrue: [
 	selectedClass := aClass.
 	selectedProtocol := selectedMethod := nil.
@@ -458,7 +776,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-!selectProtocol: aString
+
+!
+
+selectProtocol: aString
     self cancelChanges ifTrue: [
 	selectedProtocol := aString.
 	selectedMethod := nil.
@@ -466,19 +787,28 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-!selectMethod: aMethod
+
+!
+
+selectMethod: aMethod
     self cancelChanges ifTrue: [
 	selectedMethod := aMethod.
 	self 
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-!selectTab: aString
+
+!
+
+selectTab: aString
     self cancelChanges ifTrue: [
 	selectedTab := aString.
 	self selectProtocol: nil.
 	self updateTabsList]
-!renameClass
+
+!
+
+renameClass
     | newName |
     newName := self prompt: 'Rename class ', selectedClass name.
     newName notEmpty ifTrue: [
@@ -486,20 +816,42 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	self 
 		updateClassesList;
 		updateSourceAndButtons]
-!addInstanceVariableNamed: aString toClass: aClass
+
+!
+
+addInstanceVariableNamed: aString toClass: aClass
 	ClassBuilder new
-		addSubclassOf: aClass superclass named: aClass name instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)!searchReferencesOf: aString
-	ReferencesBrowser search: aString!searchClassReferences
-	ReferencesBrowser search: selectedClass name! !!Browser methodsFor: 'initialization'!initialize
+		addSubclassOf: aClass superclass named: aClass name instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+!
+
+searchReferencesOf: aString
+	ReferencesBrowser search: aString
+!
+
+searchClassReferences
+	ReferencesBrowser search: selectedClass name
+! !
+
+!Browser methodsFor: 'initialization'!
+
+initialize
     super initialize.
     selectedTab := #instance.
     unsavedChanges := false
-! !!Browser methodsFor: 'rendering'!renderBoxOn: html
+
+! !
+
+!Browser methodsFor: 'rendering'!
+
+renderBoxOn: html
     self 
 	renderTopPanelOn: html;
 	renderTabsOn: html;
 	renderBottomPanelOn: html
-!renderTopPanelOn: html
+
+!
+
+renderTopPanelOn: html
     html div 
 	class: 'top'; 
 	with: [
@@ -518,10 +870,16 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		updateProtocolsList;
 		updateMethodsList.
 	    html div class: 'jt_clear']
-!renderTabsOn: html
+
+!
+
+renderTabsOn: html
     tabsList := html ul class: 'jt_tabs'.
     self updateTabsList.
-!renderBottomPanelOn: html
+
+!
+
+renderBottomPanelOn: html
     html div
 	class: 'jt_sourceCode';
 	with: [
@@ -530,7 +888,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		class: 'source';
 		at: 'spellcheck' put: 'false'.
 	    sourceTextarea asJQuery call: 'tabby']
-!renderButtonsOn: html
+
+!
+
+renderButtonsOn: html
     saveButton := html button.
     saveButton 
 	with: 'Save';
@@ -538,9 +899,19 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
     methodButtons := html span.
     classButtons := html span.
     self updateSourceAndButtons
-! !!Browser methodsFor: 'testing'!canBeClosed
+
+! !
+
+!Browser methodsFor: 'testing'!
+
+canBeClosed
     ^true
-! !!Browser methodsFor: 'updating'!updateCategoriesList
+
+! !
+
+!Browser methodsFor: 'updating'!
+
+updateCategoriesList
     categoriesList contents: [:html |
 	self categories do: [:each || li label |
 	    each isEmpty 
@@ -552,7 +923,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    li
 		with: label;
 		onClick: [self selectCategory: each]]]
-!updateClassesList
+
+!
+
+updateClassesList
     TabManager current update.
     classesList contents: [:html |
 	self classes do: [:each || li |
@@ -562,7 +936,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    li
 		with: each name;
 		onClick: [self selectClass: each]]]
-!updateProtocolsList
+
+!
+
+updateProtocolsList
     protocolsList contents: [:html |
 	self protocols do: [:each || li |
 	    li := html li.
@@ -571,7 +948,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    li 
 		with: each;
 		onClick: [self selectProtocol: each]]]
-!updateMethodsList
+
+!
+
+updateMethodsList
     methodsList contents: [:html |
 	self methods do: [:each || li |
 	    li := html li.
@@ -580,7 +960,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    li
 		with: each selector;
 		onClick: [self selectMethod: each]]]
-!updateTabsList
+
+!
+
+updateTabsList
     tabsList contents: [:html || li |
 	li := html li.
 	selectedTab = #instance ifTrue: [li class: 'selected'].
@@ -597,7 +980,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	li
 	    with: 'Comment';
 	    onClick: [self selectTab: #comment]]
-!updateSourceAndButtons
+
+!
+
+updateSourceAndButtons
 	self disableSaveButton.
 	classButtons contents: [:html |
 		html button
@@ -646,33 +1032,92 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    		self hideClassButtons.
 	    		self showMethodButtons].
     	sourceTextarea asJQuery val: self source
-! !!Browser class methodsFor: 'accessing'!commitPathJs
-	^'js'!commitPathSt
-	^'st'! !!Browser class methodsFor: 'convenience'!openOn: aClass
+
+! !
+
+!Browser class methodsFor: 'accessing'!
+
+commitPathJs
+	^'js'
+!
+
+commitPathSt
+	^'st'
+! !
+
+!Browser class methodsFor: 'convenience'!
+
+openOn: aClass
     ^self new
 	open;
 	selectCategory: aClass category;
 	selectClass: aClass
-!open
+
+!
+
+open
     self new open
-! !TabWidget subclass: #Inspector	instanceVariableNames: 'label, variables, object, selectedVariable, variablesList, valueTextarea, workspaceTextarea, diveButton'	category: 'IDE'!!Inspector methodsFor: 'accessing'!label
-	^label ifNil: ['Inspector (nil)']!variables
-	^variables!setVariables: aCollection
-	variables := aCollection!setLabel: aString
-	label := aString!selectedVariable
-	^selectedVariable!selectedVariable: aString
-	selectedVariable := aString! !!Inspector methodsFor: 'actions'!inspect: anObject
+
+! !
+
+TabWidget subclass: #Inspector
+	instanceVariableNames: 'label, variables, object, selectedVariable, variablesList, valueTextarea, workspaceTextarea, diveButton'
+	category: 'IDE'!
+
+!Inspector methodsFor: 'accessing'!
+
+label
+	^label ifNil: ['Inspector (nil)']
+!
+
+variables
+	^variables
+!
+
+setVariables: aCollection
+	variables := aCollection
+!
+
+setLabel: aString
+	label := aString
+!
+
+selectedVariable
+	^selectedVariable
+!
+
+selectedVariable: aString
+	selectedVariable := aString
+! !
+
+!Inspector methodsFor: 'actions'!
+
+inspect: anObject
 	object := anObject.
 	variables := #().
-	object inspectOn: self!dive
-	(self variables at: self selectedVariable) inspect!refresh
+	object inspectOn: self
+!
+
+dive
+	(self variables at: self selectedVariable) inspect
+!
+
+refresh
 	self 
 		inspect: object; 
 		updateVariablesList;
-		updateValueTextarea! !!Inspector methodsFor: 'rendering'!renderBoxOn: html
+		updateValueTextarea
+! !
+
+!Inspector methodsFor: 'rendering'!
+
+renderBoxOn: html
 	self 
 		renderTopPanelOn: html;
-		renderBottomPanelOn: html!renderTopPanelOn: html
+		renderBottomPanelOn: html
+!
+
+renderTopPanelOn: html
     html div 
 	class: 'top'; 
 	with: [
@@ -682,7 +1127,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		updateVariablesList;
 		updateValueTextarea.
 	    html div class: 'jt_clear']
-!renderBottomPanelOn: html
+
+!
+
+renderBottomPanelOn: html
     html div
 	class: 'jt_sourceCode';
 	with: [
@@ -690,7 +1138,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		class: 'source';
 		at: 'spellcheck' put: 'false'.
 	    workspaceTextarea asJQuery call: 'tabby']
-!renderButtonsOn: html
+
+!
+
+renderButtonsOn: html
 	html button
 		with: 'Refresh';
 		onClick: [self refresh].
@@ -698,8 +1149,18 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		with: 'Dive'; 
 		onClick: [self dive].
 	self updateButtons
-	! !!Inspector methodsFor: 'testing'!canBeClosed
-	^true! !!Inspector methodsFor: 'updating'!updateVariablesList
+	
+! !
+
+!Inspector methodsFor: 'testing'!
+
+canBeClosed
+	^true
+! !
+
+!Inspector methodsFor: 'updating'!
+
+updateVariablesList
 	variablesList contents: [:html |
 		self variables keys do: [:each || li |
 			li := html li.
@@ -707,79 +1168,171 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 				with: each;
 				onClick: [self selectVariable: each].
 			self selectedVariable = each ifTrue: [
-				li class: 'selected']]]!selectVariable: aString
+				li class: 'selected']]]
+!
+
+selectVariable: aString
 	self selectedVariable: aString.
 	self 
 		updateVariablesList;
 		updateValueTextarea;
-		updateButtons!updateValueTextarea
+		updateButtons
+!
+
+updateValueTextarea
 	valueTextarea asJQuery val: (self selectedVariable isNil
 		ifTrue: ['']
-		ifFalse: [(self variables at: self selectedVariable) printString])!updateButtons
+		ifFalse: [(self variables at: self selectedVariable) printString])
+!
+
+updateButtons
 	(self selectedVariable notNil and: [(self variables at: self selectedVariable) notNil])
 		ifFalse: [diveButton at: 'disabled' put: true] 
 		ifTrue: [diveButton removeAt: 'disabled']
-		! !!Inspector class methodsFor: 'instance creation'!on: anObject
+		
+! !
+
+!Inspector class methodsFor: 'instance creation'!
+
+on: anObject
 	^self new
 		inspect: anObject;
-		yourself! !TabWidget subclass: #ReferencesBrowser	instanceVariableNames: 'implementors, senders, implementorsList, input, timer, selector, sendersList, referencedClasses, referencedClassesList'	category: 'IDE'!!ReferencesBrowser methodsFor: 'accessing'!implementors
-	^implementors ifNil: [implementors := Array new]!label
-	^'[ReferencesBrowser]'!selector
-	^selector!senders
-	^senders ifNil: [senders := Array new]!classesAndMetaclasses
-	^Smalltalk current classes, (Smalltalk current classes collect: [:each | each class])!referencedClasses
-	^referencedClasses ifNil: [referencedClasses := Array new]! !!ReferencesBrowser methodsFor: 'actions'!openBrowserOn: aMethod
+		yourself
+! !
+
+TabWidget subclass: #ReferencesBrowser
+	instanceVariableNames: 'implementors, senders, implementorsList, input, timer, selector, sendersList, referencedClasses, referencedClassesList'
+	category: 'IDE'!
+
+!ReferencesBrowser methodsFor: 'accessing'!
+
+implementors
+	^implementors ifNil: [implementors := Array new]
+!
+
+label
+	^'[ReferencesBrowser]'
+!
+
+selector
+	^selector
+!
+
+senders
+	^senders ifNil: [senders := Array new]
+!
+
+classesAndMetaclasses
+	^Smalltalk current classes, (Smalltalk current classes collect: [:each | each class])
+!
+
+referencedClasses
+	^referencedClasses ifNil: [referencedClasses := Array new]
+! !
+
+!ReferencesBrowser methodsFor: 'actions'!
+
+openBrowserOn: aMethod
        | browser |
        browser := Browser openOn: (aMethod class isMetaclass 
 		ifTrue: [aMethod methodClass instanceClass] ifFalse: [aMethod methodClass]).
        aMethod methodClass isMetaclass ifTrue: [browser selectTab: #class].
        browser
                selectProtocol: aMethod category;
-               selectMethod: aMethod!searchReferencesFor: aString
+               selectMethod: aMethod
+!
+
+searchReferencesFor: aString
 	selector := aString.
 	implementors := Array new.
 	senders := Array new.
 	referencedClasses := Array new.
 	(selector match: '^[A-Z]') 
 		ifFalse: [self searchSelectorReferencesFor: selector]
-		ifTrue: [self searchReferencedClassesFor: selector]!search: aString
+		ifTrue: [self searchReferencedClassesFor: selector]
+!
+
+search: aString
 	self 
 		searchReferencesFor: aString;
 		updateImplementorsList;
 		updateSendersList;
-		updateReferencedClassesList!searchReferencedClassesFor: aString
+		updateReferencedClassesList
+!
+
+searchReferencedClassesFor: aString
 	self classesAndMetaclasses do: [:each |
 		each methodDictionary values do: [:value |
 			(((value referencedClasses select: [:each | each notNil])collect: [:each | each name]) includes: selector) ifTrue: [
-				self referencedClasses add: value]]]!searchSelectorReferencesFor: aString
+				self referencedClasses add: value]]]
+!
+
+searchSelectorReferencesFor: aString
 	self classesAndMetaclasses do: [:each | 
 		each methodDictionary keysAndValuesDo: [:key :value | 
 			key = selector ifTrue: [self implementors add: value]].
 		each methodDictionary keysAndValuesDo: [:key :value | 
 			(value messageSends includes: selector) ifTrue: [
-				self senders add: value]]]! !!ReferencesBrowser methodsFor: 'initialization'!initialize
+				self senders add: value]]]
+! !
+
+!ReferencesBrowser methodsFor: 'initialization'!
+
+initialize
 	super initialize.
-	selector := ''! !!ReferencesBrowser methodsFor: 'private'!setInputEvents
+	selector := ''
+! !
+
+!ReferencesBrowser methodsFor: 'private'!
+
+setInputEvents
 	input
 		onKeyUp: [timer := [self search: input asJQuery val] valueWithTimeout: 100];
-		onKeyDown: [timer ifNotNil: [timer clearTimeout]]! !!ReferencesBrowser methodsFor: 'rendering'!renderBoxOn: html
+		onKeyDown: [timer ifNotNil: [timer clearTimeout]]
+! !
+
+!ReferencesBrowser methodsFor: 'rendering'!
+
+renderBoxOn: html
 	self 
 		renderInputOn: html;
 		renderImplementorsOn: html;
 		renderSendersOn: html;
-		renderReferencedClassesOn: html!renderInputOn: html
+		renderReferencedClassesOn: html
+!
+
+renderInputOn: html
 	input := html input 
 		class: 'implementors';
 		yourself.
 	input asJQuery val: selector.
-	self setInputEvents!renderImplementorsOn: html
+	self setInputEvents
+!
+
+renderImplementorsOn: html
     	implementorsList := html ul class: 'jt_column implementors'.
-	self updateImplementorsList!renderSendersOn: html
+	self updateImplementorsList
+!
+
+renderSendersOn: html
     	sendersList := html ul class: 'jt_column senders'.
-	self updateSendersList!renderReferencedClassesOn: html
+	self updateSendersList
+!
+
+renderReferencedClassesOn: html
     	referencedClassesList := html ul class: 'jt_column referenced_classes'.
-	self updateReferencedClassesList! !!ReferencesBrowser methodsFor: 'testing'!canBeClosed
-	^true! !!ReferencesBrowser methodsFor: 'updating'!updateImplementorsList
+	self updateReferencedClassesList
+! !
+
+!ReferencesBrowser methodsFor: 'testing'!
+
+canBeClosed
+	^true
+! !
+
+!ReferencesBrowser methodsFor: 'updating'!
+
+updateImplementorsList
     implementorsList contents: [:html |
 	html li
 		class: 'column_label'; 
@@ -789,7 +1342,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	    li := html li.
 	    li
 		with: (each methodClass asString, ' >> ', self selector);
-		onClick: [self openBrowserOn: each]]]!updateSendersList
+		onClick: [self openBrowserOn: each]]]
+!
+
+updateSendersList
     	sendersList contents: [:html |
 	html li
 		class: 'column_label'; 
@@ -798,7 +1354,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	self senders do: [:each |
 		html li
 	    		with: (each methodClass asString, ' >> ', each selector);
-			onClick: [self openBrowserOn: each]]]!updateReferencedClassesList
+			onClick: [self openBrowserOn: each]]]
+!
+
+updateReferencedClassesList
     	referencedClassesList contents: [:html |
 	html li
 		class: 'column_label'; 
@@ -807,13 +1366,26 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 	self referencedClasses do: [:each |
 		html li
 	    		with: (each methodClass asString, ' >> ', each selector);
-			onClick: [self openBrowserOn: each]]]! !!ReferencesBrowser class methodsFor: 'instance creation'!search: aString
+			onClick: [self openBrowserOn: each]]]
+! !
+
+!ReferencesBrowser class methodsFor: 'instance creation'!
+
+search: aString
 	^self new
 		searchReferencesFor: aString;
-		open! !inspect
+		open
+! !
+
+
+
+inspect
 	Inspector new 
 		inspect: self;
-		open!inspectOn: anInspector
+		open
+!
+
+inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
@@ -823,7 +1395,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		setLabel: self printString;
 		setVariables: variables
 	
-	!inspectOn: anInspector
+	
+!
+
+inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
@@ -838,7 +1413,10 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		setLabel: self printString;
 		setVariables: variables
 	
-	!inspectOn: anInspector
+	
+!
+
+inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
@@ -846,13 +1424,19 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		variables at: i put: each].
 	anInspector 
 		setLabel: self printString;
-		setVariables: variables!inspectOn: anInspector
+		setVariables: variables
+!
+
+inspectOn: anInspector
 	| label |
 	super inspectOn: anInspector.
 	self printString size > 30 
 		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
 		ifFalse: [label := self printString]. 
-	anInspector setLabel: label!inspectOn: anInspector
+	anInspector setLabel: label
+!
+
+inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
@@ -861,4 +1445,5 @@ Widget subclass: #TabManager	instanceVariableNames: 'selectedTab, tabs, opened'
 		variables at: key put: value].
 	anInspector 
 		setLabel: self printString;
-		setVariables: variables!
+		setVariables: variables
+!
