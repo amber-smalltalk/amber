@@ -729,7 +729,8 @@ ws
 !
 
 chunk
-	^chunk ifNil: [chunk := self ws, ('!!!!' asParser / ('!!' asParser not, PPAnyParser new)) plus flatten, '!!' asParser ==> [:node | Chunk new contents: (node second replace: '!!!!' with: '!!')]]
+	^chunk ifNil: [chunk := self ws, ('!!!!' asParser / ('!!' asParser not, PPAnyParser new)) plus flatten, '!!' asParser
+		==> [:node | Chunk new contents: (node second replace: '!!!!' with: '!!') trimBoth]]
 !
 
 emptyChunk
@@ -956,5 +957,41 @@ exportMethods: methods category: category of: aClass on: aStream
     	methods do: [:each |
 		self exportMethod: each of: aClass on: aStream].
 	aStream nextPutAll: ' !!'; lf; lf
+! !
+
+Exporter subclass: #StrippedExporter
+	instanceVariableNames: ''
+	category: 'Parser'!
+
+!StrippedExporter methodsFor: 'private'!
+
+exportDefinitionOf: aClass on: aStream
+	aStream 
+	    nextPutAll: 'smalltalk.addClass(';
+	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
+	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+	    nextPutAll: ', ['.
+	aClass instanceVariableNames 
+	    do: [:each | aStream nextPutAll: '''', each, '''']
+	    separatedBy: [aStream nextPutAll: ', '].
+	aStream	
+	    nextPutAll: '], ''';
+	    nextPutAll: aClass category, '''';
+	    nextPutAll: ');'.
+	aStream lf
+!
+
+exportMethod: aMethod of: aClass on: aStream
+	aStream 
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
+		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: ']';lf;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
+		nextPutAll: ');';lf;lf
 ! !
 
