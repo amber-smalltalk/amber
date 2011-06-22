@@ -763,14 +763,14 @@ isEmptyChunk
 ! !
 
 Object subclass: #ChunkParser
-	instanceVariableNames: 'parser, separator, eof, ws, chunk, emptyChunk, instructionChunk'
+	instanceVariableNames: 'parser separator eof ws chunk emptyChunk instructionChunk'
 	category: 'Parser'!
 
 !ChunkParser methodsFor: ''!
 
 instructionChunk
 	^instructionChunk ifNil: [
-	    instructionChunk := self ws, '!' asParser, self chunk
+	    instructionChunk := self ws, '!!' asParser, self chunk
 	    ==> [:node | InstructionChunk new contents: node last contents]]
 
 ! !
@@ -799,12 +799,12 @@ ws
 !
 
 chunk
-	^chunk ifNil: [chunk := self ws, ('!!' asParser / ('!' asParser not, PPAnyParser new)) plus flatten, '!' asParser ==> [:node | Chunk new contents: (node second replace: '!!' with: '!')]]
+	^chunk ifNil: [chunk := self ws, ('!!!!' asParser / ('!!' asParser not, PPAnyParser new)) plus flatten, '!!' asParser ==> [:node | Chunk new contents: (node second replace: '!!!!' with: '!!')]]
 
 !
 
 emptyChunk
-	^emptyChunk ifNil: [emptyChunk := self separator plus, '!' asParser, self ws ==> [:node | EmptyChunk new]]
+	^emptyChunk ifNil: [emptyChunk := self separator plus, '!!' asParser, self ws ==> [:node | EmptyChunk new]]
 
 ! !
 
@@ -987,11 +987,11 @@ exportMethodsOf: aClass on: aStream
  		add: m]. 
     aClass protocols do: [:category |       
 	aStream
-		nextPutAll: '!', (self classNameFor: aClass);
-		nextPutAll: ' methodsFor: ''', category, '''!'.
+		nextPutAll: '!!', (self classNameFor: aClass);
+		nextPutAll: ' methodsFor: ''', category, '''!!'.
     	(methodsByCategory at: category) do: [:each |
 		self exportMethod: each of: aClass on: aStream].
-	aStream nextPutAll: ' !'; lf; lf]
+	aStream nextPutAll: ' !!'; lf; lf]
 !
 
 exportMetaDefinitionOf: aClass on: aStream
@@ -1014,5 +1014,12 @@ classNameFor: aClass
 		aClass isNil
 		    ifTrue: ['nil']
 		    ifFalse: [aClass name]]
+!
+
+chunkEscape: aString
+	"Replace all occurrences of !! with !!!!"
+
+	^aString replace: '!!' with: '!!!!'
+
 ! !
 

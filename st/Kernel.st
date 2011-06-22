@@ -782,7 +782,7 @@ whileTrue: aBlock
 !
 
 whileFalse: aBlock
-	{'while(!self()) {aBlock()}'}
+	{'while(!!self()) {aBlock()}'}
 ! !
 
 !BlockClosure methodsFor: 'error handling'!
@@ -908,7 +908,7 @@ Object subclass: #Date
 	instanceVariableNames: ''
 	category: 'Kernel'!
 !Date commentStamp!
-The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.!
+The Date class is used to work with dates and times.!
 
 !Date methodsFor: '*IDE'!
 
@@ -1720,7 +1720,7 @@ replaceRegexp: aRegexp with: aString
 !
 
 match: aRegexp
-	{'return self.search(aRegexp) != -1'}
+	{'return self.search(aRegexp) !!= -1'}
 
 ! !
 

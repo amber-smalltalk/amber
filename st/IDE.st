@@ -694,12 +694,12 @@ commitCategory
 	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
 	    at: 'type' put: 'PUT';
 	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!'];
+	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
 	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')
 	    at: 'type' put: 'PUT';
 	    at: 'data' put: (ChunkExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!'];
+	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send]
 
 !
