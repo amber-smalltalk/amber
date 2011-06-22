@@ -269,7 +269,7 @@ self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", ["div", 
 return self;},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%0A'),
 messageSends: ["initialize", "fromString:canvas:"],
-referencedClasses: [smalltalk.TagBrush]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.HTMLCanvas);
 
@@ -299,7 +299,7 @@ return smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", [aString, self]
 return self;},
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self%0A'),
 messageSends: ["fromString:canvas:"],
-referencedClasses: [smalltalk.TagBrush]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.HTMLCanvas);
 

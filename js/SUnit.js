@@ -130,7 +130,7 @@ var self=this;
 return self;},
 source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
 messageSends: ["messageText:", "signal", "new"],
-referencedClasses: [smalltalk.TestFailure]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TestCase);
 
@@ -162,7 +162,7 @@ smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){sm
 return self;},
 source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D.%0A%09%09aResult%20increaseRuns%5D'),
 messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "addError:", "increaseRuns"],
-referencedClasses: [smalltalk.TestFailure,smalltalk.Error]
+referencedClasses: [smalltalk.nil,smalltalk.Error]
 }),
 smalltalk.TestCase);
 
@@ -595,7 +595,7 @@ smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send((func
 return self;},
 source: unescape('run%3A%20aCollection%0A%09result%20%3A%3D%20TestResult%20new.%0A%09self%20%0A%09%09updateStatusDiv%3B%0A%09%09updateMethodsList.%0A%09self%20progressBar%20updatePercent%3A%200.%0A%09result%20total%3A%20%28aCollection%20inject%3A%200%20into%3A%20%5B%3Aacc%20%3Aeach%20%7C%20acc%20+%20each%20methods%20size%5D%29.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5Beach%20runCaseFor%3A%20result.%0A%09%09self%20progressBar%20updatePercent%3A%20result%20runs%20/%20result%20total%20*%20100.%0A%09%09self%20updateStatusDiv.%0A%09%09self%20updateMethodsList%5D%20valueWithTimeout%3A%20100%5D.'),
 messageSends: ["new", "updateStatusDiv", "updateMethodsList", "updatePercent:", "progressBar", "total:", "inject:into:", unescape("+"), "size", "methods", "do:", "valueWithTimeout:", "runCaseFor:", unescape("*"), unescape("/"), "runs", "total"],
-referencedClasses: [smalltalk.TestResult]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TestRunner);
 
@@ -690,7 +690,7 @@ self['@result']=smalltalk.send(smalltalk.TestResult, "_new", []);
 return self;},
 source: unescape('initialize%0A%09super%20initialize.%0A%09result%20%3A%3D%20TestResult%20new'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.TestResult]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TestRunner);
 
