@@ -1,45 +1,26 @@
-Object subclass: #PPParser
-	instanceVariableNames: 'memo'
-	category: 'Parser'!
-
-
-!PPParser methodsFor: 'accessing'!
-
-memo
+Object subclass: #PPParser	instanceVariableNames: 'memo'	category: 'Parser'!!PPParser methodsFor: 'accessing'!memo
 	^memo
-! !
-
-!PPParser methodsFor: 'error handling'!
-
-onFailure: aBlock
-	^PPFailureActionParser on: self block: aBlock
-! !
-
-!PPParser methodsFor: 'initialization'!
-
-initialize
+! !!PPParser methodsFor: 'initialization'!initialize
 	memo := Dictionary new
-! !
-
-!PPParser methodsFor: 'operations'!
-
-, aParser
-	^PPSequenceParser with: self with: aParser
-!
-
-/ aParser
-	^PPChoiceParser with: self with: aParser
-!
-
-==> aBlock
-	^PPActionParser on: self block: aBlock
-!
-
-flatten
+! !!PPParser methodsFor: 'operations'!flatten
 	^PPFlattenParser on: self
-!
-
-memoizedParse: aStream
+!withSource
+	^PPSourceParser on: self
+!==> aBlock
+	^PPActionParser on: self block: aBlock
+!, aParser
+	^PPSequenceParser with: self with: aParser
+!/ aParser
+	^PPChoiceParser with: self with: aParser
+!plus
+	^PPRepeatingParser on: self min: 1
+!star
+	^PPRepeatingParser on: self min: 0
+!not
+	^PPNotParser on: self
+!optional
+	^self / PPEpsilonParser new
+!memoizedParse: aStream
 	| start end node |
 	start := aStream position.
 	^self memo at: start 
@@ -51,103 +32,31 @@ memoizedParse: aStream
 		end := aStream position.
 		self memo at: start put: (Array with: node with: end).
 		node]
-!
-
-not
-	^PPNotParser on: self
-!
-
-optional
-	^self / PPEpsilonParser new
-!
-
-plus
-	^PPRepeatingParser on: self min: 1
-!
-
-star
-	^PPRepeatingParser on: self min: 0
-!
-
-withSource
-	^PPSourceParser on: self
-! !
-
-!PPParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPParser methodsFor: 'parsing'!parse: aStream
 	self subclassResponsibility
-!
-
-parseAll: aStream
+!parseAll: aStream
 	| result |
 	result := (PPSequenceParser with: self with: PPEOFParser new) memoizedParse: aStream.
 	^result isParseFailure 
 	    ifTrue: [self error: (result messageFor: aStream contents)]
 	    ifFalse: [result first]
-! !
-
-
-PPParser subclass: #PPEOFParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPEOFParser methodsFor: 'parsing'!
-
-parse: aStream
+! !PPParser subclass: #PPEOFParser	instanceVariableNames: ''	category: 'Parser'!!PPEOFParser methodsFor: 'parsing'!parse: aStream
 	^aStream atEnd 
 	    ifFalse: [
 		PPFailure new reason: 'EOF expected' at: aStream position]
 	    ifTrue: [nil]
-! !
-
-
-PPParser subclass: #PPAnyParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPAnyParser methodsFor: 'parsing'!
-
-parse: aStream
+! !PPParser subclass: #PPAnyParser	instanceVariableNames: ''	category: 'Parser'!!PPAnyParser methodsFor: 'parsing'!parse: aStream
 	^aStream atEnd
 	    ifTrue: [PPFailure new
 			 reason: 'did not expect EOF' at: aStream position]
 	    ifFalse: [aStream next]
-! !
-
-
-PPParser subclass: #PPEpsilonParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPEpsilonParser methodsFor: 'parsing'!
-
-parse: aStream
+! !PPParser subclass: #PPEpsilonParser	instanceVariableNames: ''	category: 'Parser'!!PPEpsilonParser methodsFor: 'parsing'!parse: aStream
 	^nil
-! !
-
-
-PPParser subclass: #PPStringParser
-	instanceVariableNames: 'string'
-	category: 'Parser'!
-
-
-!PPStringParser methodsFor: 'accessing'!
-
-string
+! !PPParser subclass: #PPStringParser	instanceVariableNames: 'string'	category: 'Parser'!!PPStringParser methodsFor: 'accessing'!string
 	^string
-!
-
-string: aString
+!string: aString
 	string := aString
-! !
-
-!PPStringParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPStringParser methodsFor: 'parsing'!parse: aStream
 	| position result |
 	position := aStream position.
 	result := aStream next: self string size.
@@ -156,83 +65,29 @@ parse: aStream
 	    ifFalse: [
 		aStream position: position.
 		PPFailure new reason: 'Expected ', self string, ' but got ', (result at: position) printString; yourself]
-! !
-
-
-PPParser subclass: #PPCharacterParser
-	instanceVariableNames: 'regexp'
-	category: 'Parser'!
-
-
-!PPCharacterParser methodsFor: 'accessing'!
-
-string: aString
+! !PPParser subclass: #PPCharacterParser	instanceVariableNames: 'regexp'	category: 'Parser'!!PPCharacterParser methodsFor: 'accessing'!string: aString
 	regexp := RegularExpression fromString: '[', aString, ']'
-! !
-
-!PPCharacterParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPCharacterParser methodsFor: 'parsing'!parse: aStream
 	^(aStream peek notNil and: [self match: aStream peek])
 	    ifTrue: [aStream next]
 	    ifFalse: [PPFailure new reason: 'Could not match' at: aStream position]
-! !
-
-!PPCharacterParser methodsFor: 'private'!
-
-match: aString
+! !!PPCharacterParser methodsFor: 'private'!match: aString
 	^aString match: regexp
-! !
-
-
-PPParser subclass: #PPListParser
-	instanceVariableNames: 'parsers'
-	category: 'Parser'!
-
-
-!PPListParser class methodsFor: 'instance creation'!
-
-with: aParser with: anotherParser
-	    ^self withAll: (Array with: aParser with: anotherParser)
-!
-
-withAll: aCollection
+! !PPParser subclass: #PPListParser	instanceVariableNames: 'parsers'	category: 'Parser'!!PPListParser methodsFor: 'accessing'!parsers
+	^parsers ifNil: [#()]
+!parsers: aCollection
+	parsers := aCollection
+! !!PPListParser methodsFor: 'copying'!copyWith: aParser
+	^self class withAll: (self parsers copyWith: aParser)
+! !!PPListParser class methodsFor: 'instance creation'!withAll: aCollection
 	    ^self new
 		parsers: aCollection;
 		yourself
-! !
-
-!PPListParser methodsFor: 'accessing'!
-
-parsers
-	^parsers ifNil: [#()]
-!
-
-parsers: aCollection
-	parsers := aCollection
-! !
-
-!PPListParser methodsFor: 'copying'!
-
-copyWith: aParser
-	^self class withAll: (self parsers copyWith: aParser)
-! !
-
-
-PPListParser subclass: #PPSequenceParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPSequenceParser methodsFor: 'copying'!
-
-, aRule
+!with: aParser with: anotherParser
+	    ^self withAll: (Array with: aParser with: anotherParser)
+! !PPListParser subclass: #PPSequenceParser	instanceVariableNames: ''	category: 'Parser'!!PPSequenceParser methodsFor: 'copying'!, aRule
 	^self copyWith: aRule
-! !
-
-!PPSequenceParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPSequenceParser methodsFor: 'parsing'!parse: aStream
 	| start elements element |
 	start := aStream position.
 	elements := #().
@@ -245,23 +100,9 @@ parse: aStream
 	^element isParseFailure
 	    ifFalse: [elements]
 	    ifTrue: [aStream position: start. element]
-! !
-
-
-PPListParser subclass: #PPChoiceParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPChoiceParser methodsFor: 'copying'!
-
-/ aRule
+! !PPListParser subclass: #PPChoiceParser	instanceVariableNames: ''	category: 'Parser'!!PPChoiceParser methodsFor: 'copying'!/ aRule
 	^self copyWith: aRule
-! !
-
-!PPChoiceParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPChoiceParser methodsFor: 'parsing'!parse: aStream
 	| result |
 	self parsers
     	    detect: [:each |
@@ -269,118 +110,46 @@ parse: aStream
 		result isParseFailure not]
 	    ifNone: [].
 	^result
-! !
-
-
-PPParser subclass: #PPDelegateParser
-	instanceVariableNames: 'parser'
-	category: 'Parser'!
-
-
-!PPDelegateParser class methodsFor: 'instance creation'!
-
-on: aParser
+! !PPParser subclass: #PPDelegateParser	instanceVariableNames: 'parser'	category: 'Parser'!!PPDelegateParser methodsFor: 'accessing'!parser
+	^parser
+!parser: aParser
+	parser := aParser
+! !!PPDelegateParser methodsFor: 'parsing'!parse: aStream
+	^self parser memoizedParse: aStream
+! !!PPDelegateParser class methodsFor: 'instance creation'!on: aParser
 	    ^self new
 		parser: aParser;
 		yourself
-! !
-
-!PPDelegateParser methodsFor: 'accessing'!
-
-parser
-	^parser
-!
-
-parser: aParser
-	parser := aParser
-! !
-
-!PPDelegateParser methodsFor: 'parsing'!
-
-parse: aStream
-	^self parser memoizedParse: aStream
-! !
-
-
-PPDelegateParser subclass: #PPAndParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPAndParser methodsFor: 'parsing'!
-
-basicParse: aStream
+! !PPDelegateParser subclass: #PPAndParser	instanceVariableNames: ''	category: 'Parser'!!PPAndParser methodsFor: 'parsing'!parse: aStream
+	^self basicParse: aStream
+!basicParse: aStream
 	| element position |
 	position := aStream position.
 	element := self parser memoizedParse: aStream.
 	aStream position: position.
 	^element
-!
-
-parse: aStream
-	^self basicParse: aStream
-! !
-
-
-PPAndParser subclass: #PPNotParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPNotParser methodsFor: 'parsing'!
-
-parse: aStream
+! !PPAndParser subclass: #PPNotParser	instanceVariableNames: ''	category: 'Parser'!!PPNotParser methodsFor: 'parsing'!parse: aStream
 	| element |
 	element := self basicParse: aStream.
 	^element isParseFailure 
 	    ifTrue: [nil]
 	    ifFalse: [PPFailure reason: element at: aStream position]
-! !
-
-
-PPDelegateParser subclass: #PPActionParser
-	instanceVariableNames: 'block'
-	category: 'Parser'!
-
-
-!PPActionParser class methodsFor: 'instance creation'!
-
-on: aParser block: aBlock
-	    ^self new
-		parser: aParser;
-		block: aBlock;
-		yourself
-! !
-
-!PPActionParser methodsFor: 'accessing'!
-
-block
+! !PPDelegateParser subclass: #PPActionParser	instanceVariableNames: 'block'	category: 'Parser'!!PPActionParser methodsFor: 'accessing'!block
 	^block
-!
-
-block: aBlock
+!block: aBlock
 	block := aBlock
-! !
-
-!PPActionParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPActionParser methodsFor: 'parsing'!parse: aStream
 	| element |
 	element := self parser memoizedParse: aStream.
 	^element isParseFailure
 	    ifFalse: [self block value: element]
 	    ifTrue: [element]
-! !
-
-
-PPDelegateParser subclass: #PPFlattenParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPFlattenParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPActionParser class methodsFor: 'instance creation'!on: aParser block: aBlock
+	    ^self new
+		parser: aParser;
+		block: aBlock;
+		yourself
+! !PPDelegateParser subclass: #PPFlattenParser	instanceVariableNames: ''	category: 'Parser'!!PPFlattenParser methodsFor: 'parsing'!parse: aStream
 	| start element stop |
 	start := aStream position.
 	element := self parser memoizedParse: aStream.
@@ -389,17 +158,7 @@ parse: aStream
 	    ifFalse: [aStream collection 
 		copyFrom: start + 1 
 		to: aStream position]
-! !
-
-
-PPDelegateParser subclass: #PPSourceParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!PPSourceParser methodsFor: 'parsing'!
-
-parse: aStream
+! !PPDelegateParser subclass: #PPSourceParser	instanceVariableNames: ''	category: 'Parser'!!PPSourceParser methodsFor: 'parsing'!parse: aStream
 	| start element stop result |
 	start := aStream position.
 	element := self parser memoizedParse: aStream.
@@ -407,36 +166,11 @@ parse: aStream
 		ifTrue: [element]
 		ifFalse: [result := aStream collection copyFrom: start + 1 to: aStream position.
 			Array with: element with: result].
-! !
-
-
-PPDelegateParser subclass: #PPRepeatingParser
-	instanceVariableNames: 'min'
-	category: 'Parser'!
-
-
-!PPRepeatingParser class methodsFor: 'instance creation'!
-
-on: aParser min: aNumber
-	    ^self new
-		parser: aParser;
-		min: aNumber;
-		yourself
-! !
-
-!PPRepeatingParser methodsFor: 'accessing'!
-
-min
+! !PPDelegateParser subclass: #PPRepeatingParser	instanceVariableNames: 'min'	category: 'Parser'!!PPRepeatingParser methodsFor: 'accessing'!min
 	^min
-!
-
-min: aNumber
+!min: aNumber
 	min := aNumber
-! !
-
-!PPRepeatingParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!PPRepeatingParser methodsFor: 'parsing'!parse: aStream
 	| start element elements failure |
 	start := aStream position.
 	elements := Array new.
@@ -454,68 +188,30 @@ parse: aStream
 				ifFalse: [elements addLast: element]].
 				elements]
 		ifNotNil: [failure].
-! !
-
-
-Object subclass: #PPFailure
-	instanceVariableNames: 'position reason'
-	category: 'Parser'!
-
-
-!PPFailure class methodsFor: 'instance creation'!
-
-reason: aString at: anInteger
+! !!PPRepeatingParser class methodsFor: 'instance creation'!on: aParser min: aNumber
 	    ^self new
-		reason: aString at: anInteger;
+		parser: aParser;
+		min: aNumber;
 		yourself
-! !
-
-!PPFailure methodsFor: 'accessing'!
-
-position
+! !Object subclass: #PPFailure	instanceVariableNames: 'position, reason'	category: 'Parser'!!PPFailure methodsFor: 'accessing'!position
 	^position ifNil: [0]
-!
-
-position: aNumber
+!position: aNumber
 	position := aNumber
-!
-
-reason
+!reason
 	^reason ifNil: ['']
-!
-
-reason: aString
+!reason: aString
 	reason := aString
-!
-
-reason: aString at: anInteger
+!reason: aString at: anInteger
 	self 
 	    reason: aString; 
 	    position: anInteger
-! !
-
-!PPFailure methodsFor: 'testing'!
-
-isParseFailure
+! !!PPFailure methodsFor: 'testing'!isParseFailure
 	^true
-! !
-
-
-Object subclass: #SmalltalkParser
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!SmalltalkParser class methodsFor: 'instance creation'!
-
-parse: aStream
+! !!PPFailure class methodsFor: 'instance creation'!reason: aString at: anInteger
 	    ^self new
-		parse: aStream
-! !
-
-!SmalltalkParser methodsFor: 'grammar'!
-
-parser
+		reason: aString at: anInteger;
+		yourself
+! !Object subclass: #SmalltalkParser	instanceVariableNames: ''	category: 'Parser'!!SmalltalkParser methodsFor: 'grammar'!parser
 	| method expression separator comment ws identifier keyword className string symbol number literalArray variable reference classReference literal ret methodParser expressionParser keyword unarySelector binarySelector keywordPattern unaryPattern binaryPattern assignment temps blockParamList block expression expressions subexpression statements sequence operand unaryMessage unarySend unaryTail binaryMessage binarySend binaryTail keywordMessage keywordSend keywordPair cascade message jsStatement |
 	
 	separator := (String cr, String space, String lf, String tab) asChoiceParser.
@@ -678,120 +374,43 @@ parser
 		    yourself].
 	
 	^method, PPEOFParser new ==> [:node | node first]
-! !
-
-!SmalltalkParser methodsFor: 'parsing'!
-
-parse: aStream
+! !!SmalltalkParser methodsFor: 'parsing'!parse: aStream
 	^self parser parse: aStream
-! !
-
-
-Object subclass: #Chunk
-	instanceVariableNames: 'contents'
-	category: 'Parser'!
-
-
-!Chunk methodsFor: 'accessing'!
-
-contents
+! !!SmalltalkParser class methodsFor: 'instance creation'!parse: aStream
+	    ^self new
+		parse: aStream
+! !Object subclass: #Chunk	instanceVariableNames: 'contents'	category: 'Parser'!!Chunk methodsFor: 'accessing'!contents
 	^contents ifNil: ['']
-!
-
-contents: aString
+!contents: aString
 	contents := aString
-! !
-
-!Chunk methodsFor: 'testing'!
-
-isEmptyChunk
+! !!Chunk methodsFor: 'testing'!isEmptyChunk
 	^false
-!
-
-isInstructionChunk
+!isInstructionChunk
 	^false
-! !
-
-
-Chunk subclass: #InstructionChunk
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!InstructionChunk methodsFor: 'testing'!
-
-isInstructionChunk
+! !Chunk subclass: #InstructionChunk	instanceVariableNames: ''	category: 'Parser'!!InstructionChunk methodsFor: 'testing'!isInstructionChunk
 	^true
-! !
-
-
-Chunk subclass: #EmptyChunk
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!EmptyChunk methodsFor: 'testing'!
-
-isEmptyChunk
+! !Chunk subclass: #EmptyChunk	instanceVariableNames: ''	category: 'Parser'!!EmptyChunk methodsFor: 'testing'!isEmptyChunk
 	^true
-! !
-
-
-Object subclass: #ChunkParser
-	instanceVariableNames: 'parser separator eof ws chunk emptyChunk instructionChunk'
-	category: 'Parser'!
-
-
-!ChunkParser methodsFor: 'accessing'!
-
-chunk
-	^chunk ifNil: [chunk := self ws, ('!!!!' asParser / ('!!' asParser not, PPAnyParser new)) plus flatten, '!!' asParser ==> [:node | Chunk new contents: (node second replace: '!!!!' with: '!!')]]
-!
-
-emptyChunk
-	^emptyChunk ifNil: [emptyChunk := self separator plus, '!!' asParser, self ws ==> [:node | EmptyChunk new]]
-!
-
-eof
-	^eof ifNil: [eof := self ws, PPEOFParser new ==> [:node | nil]]
-!
-
-parser
+! !Object subclass: #ChunkParser	instanceVariableNames: 'parser, separator, eof, ws, chunk, emptyChunk, instructionChunk'	category: 'Parser'!!ChunkParser methodsFor: ''!instructionChunk
+	^instructionChunk ifNil: [
+	    instructionChunk := self ws, '!' asParser, self chunk
+	    ==> [:node | InstructionChunk new contents: node last contents]]
+! !!ChunkParser methodsFor: 'accessing'!parser
 	^parser ifNil: [
 	    parser := self instructionChunk / self emptyChunk / self chunk / self eof]
-!
-
-separator
+!eof
+	^eof ifNil: [eof := self ws, PPEOFParser new ==> [:node | nil]]
+!separator
 	^separator ifNil: [separator := (String cr, String space, String lf, String tab) asChoiceParser]
-!
-
-ws
+!ws
 	^ws ifNil: [ws := self separator star]
-! !
-
-!ChunkParser methodsFor: nil!
-
-instructionChunk
-	^instructionChunk ifNil: [
-	    instructionChunk := self ws, '!!' asParser, self chunk
-	    ==> [:node | InstructionChunk new contents: node last contents]]
-! !
-
-
-Object subclass: #Importer
-	instanceVariableNames: 'chunkParser'
-	category: 'Parser'!
-
-
-!Importer methodsFor: 'accessing'!
-
-chunkParser
+!chunk
+	^chunk ifNil: [chunk := self ws, ('!!' asParser / ('!' asParser not, PPAnyParser new)) plus flatten, '!' asParser ==> [:node | Chunk new contents: (node second replace: '!!' with: '!')]]
+!emptyChunk
+	^emptyChunk ifNil: [emptyChunk := self separator plus, '!' asParser, self ws ==> [:node | EmptyChunk new]]
+! !Object subclass: #Importer	instanceVariableNames: 'chunkParser'	category: 'Parser'!!Importer methodsFor: 'accessing'!chunkParser
 	^chunkParser ifNil: [chunkParser := ChunkParser new parser]
-! !
-
-!Importer methodsFor: 'fileIn'!
-
-import: aStream
+! !!Importer methodsFor: 'fileIn'!import: aStream
 	aStream atEnd ifFalse: [
 	    | nextChunk |
 	    nextChunk := self chunkParser parse: aStream.
@@ -801,58 +420,28 @@ import: aStream
 					 scanFrom: aStream]
 		    ifFalse: [Compiler new loadExpression: nextChunk contents].
 		self import: aStream]]
-! !
-
-
-Object subclass: #Exporter
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-
-!Exporter methodsFor: 'fileout'!
-
-exportCategory: aString
+! !Object subclass: #Exporter	instanceVariableNames: ''	category: 'Parser'!!Exporter methodsFor: 'fileOut'!exportCategory: aString
 	| stream |
 	stream := '' writeStream.
 	(Smalltalk current classes 
 	    select: [:each | each category = aString])
 	    do: [:each | stream nextPutAll: (self export: each)].
-	^stream contents
-! !
-
-!Exporter methodsFor: 'fileOut'!
-
-export: aClass
+	self exportCategoryExtensions: aString on: stream.
+	^stream contents!export: aClass
 	| stream |
 	stream := '' writeStream.
 	self exportDefinitionOf: aClass on: stream.
-	stream nextPutAll: String cr.
 	self exportMethodsOf: aClass on: stream.
-	stream nextPutAll: String cr.
 	self exportMetaDefinitionOf: aClass on: stream.
 	self exportMethodsOf: aClass class on: stream.
-	stream nextPutAll: String cr.
 	^stream contents
-! !
-
-!Exporter methodsFor: 'private'!
-
-classNameFor: aClass
-	^aClass isMetaclass
-	    ifTrue: [aClass instanceClass name, '.klass']
-	    ifFalse: [
-		aClass isNil
-		    ifTrue: ['nil']
-		    ifFalse: [aClass name]]
-!
-
-exportDefinitionOf: aClass on: aStream
+! !!Exporter methodsFor: 'private'!exportDefinitionOf: aClass on: aStream
 	aStream 
 	    nextPutAll: 'smalltalk.addClass(';
 	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
 	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
 	    nextPutAll: ', ['.
-	aClass instVarNames 
+	aClass instanceVariableNames 
 	    do: [:each | aStream nextPutAll: '''', each, '''']
 	    separatedBy: [aStream nextPutAll: ', '].
 	aStream	
@@ -865,33 +454,98 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: 'smalltalk.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
-		nextPutAll: 'unescape(''', aClass comment escaped, ''')']
-!
-
-exportMetaDefinitionOf: aClass on: aStream
-	aClass class instVarNames isEmpty ifFalse: [
+		nextPutAll: 'unescape(''', aClass comment escaped, ''')'].
+	aStream cr
+!exportMetaDefinitionOf: aClass on: aStream
+	aClass class instanceVariableNames isEmpty ifFalse: [
 	    aStream 
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
 		nextPutAll: '.iVarNames = ['.
-	    aClass class instVarNames
+	    aClass class instanceVariableNames
 		do: [:each | aStream nextPutAll: '''', each, '''']
 		separatedBy: [aStream nextPutAll: ','].
 	    aStream nextPutAll: '];', String cr]
-!
-
-exportMethodsOf: aClass on: aStream
-	aClass methodDictionary keysAndValuesDo: [:key :value |
-	    aStream 
+!exportMethodsOf: aClass on: aStream
+	aClass methodDictionary values do: [:each |
+		(each category match: '^\*') ifFalse: [
+			self exportMethod: each of: aClass on: aStream]].
+	aStream cr!classNameFor: aClass
+	^aClass isMetaclass
+	    ifTrue: [aClass instanceClass name, '.klass']
+	    ifFalse: [
+		aClass isNil
+		    ifTrue: ['nil']
+		    ifFalse: [aClass name]]
+!exportMethod: aMethod of: aClass on: aStream
+	aStream 
 		nextPutAll: 'smalltalk.addMethod(', String cr;
-		nextPutAll: '''', value selector asSelector, ''',', String cr;
+		nextPutAll: '''', aMethod selector asSelector, ''',', String cr;
 		nextPutAll: 'smalltalk.method({', String cr;
-		nextPutAll: 'selector: ''', value selector, ''',', String cr;
-		nextPutAll: 'category: ''', value category, ''',', String cr;
-		nextPutAll: 'fn: ', value fn compiledSource, ',', String cr;
-		nextPutAll: 'source: unescape(''', value source escaped, ''')';
+		nextPutAll: 'selector: ''', aMethod selector, ''',', String cr;
+		nextPutAll: 'category: ''', aMethod category, ''',', String cr;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',', String cr;
+		nextPutAll: 'source: unescape(''', aMethod source escaped, '''),', String cr;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',', String cr;
+		nextPutAll: 'referencedClasses: ['.
+	    		aMethod referencedClasses 
+				do: [:each | aStream nextPutAll: 'smalltalk.', (self classNameFor: each)]
+				separatedBy: [aStream nextPutAll: ','].
+	aStream
+		nextPutAll: ']', String cr;
 		nextPutAll: '}),', String cr;
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
-		nextPutAll: ');', String cr, String cr]
-! !
+		nextPutAll: ');', String cr, String cr!
+exportCategoryExtensions: aString on: aStream
+	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
+		each methodDictionary values do: [:method |
+			method category = ('*', aString) ifTrue: [
+				self exportMethod: method of: each on: aStream]]]! !Exporter subclass: #ChunkExporter	instanceVariableNames: ''	category: 'Parser'!!ChunkExporter methodsFor: 'not yet classified'!exportDefinitionOf: aClass on: aStream
+	"Chunk format."
 
+	aStream 
+	    nextPutAll: (self classNameFor: aClass superclass);
+	    nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+	    nextPutAll: '	instanceVariableNames: '''.
+	aClass instanceVariableNames 
+	    do: [:each | aStream nextPutAll: each]
+	    separatedBy: [aStream nextPutAll: ', '].
+	aStream	
+	    nextPutAll: ''''; lf;
+	    nextPutAll: '	category: ''', aClass category, '''!'; lf.
+ 	aClass comment notEmpty ifTrue: [
+	    aStream 
+		nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;
+		nextPutAll: aClass comment escaped, '!';lf].
+	aStream lf
+!exportMethod: aMethod of: aClass on: aStream
+	aStream 
+		lf; lf; nextPutAll: aMethod source; lf;
+		nextPutAll: '!'!exportMethodsOf: aClass on: aStream
+    | methodsByCategory |
+    methodsByCategory := Dictionary new.
+    aClass methodDictionary values do: [:m |
+	(methodsByCategory at: m category ifAbsentPut: [Array new])
+ 		add: m]. 
+    aClass protocols do: [:category |       
+	aStream
+		nextPutAll: '!', (self classNameFor: aClass);
+		nextPutAll: ' methodsFor: ''', category, '''!'.
+    	(methodsByCategory at: category) do: [:each |
+		self exportMethod: each of: aClass on: aStream].
+	aStream nextPutAll: ' !'; lf; lf]!exportMetaDefinitionOf: aClass on: aStream
 
+	aClass class instanceVariableNames isEmpty ifFalse: [
+		aStream 
+		    nextPutAll: (self classNameFor: aClass class);
+		    nextPutAll: ' instanceVariableNames: '''.
+		aClass class instanceVariableNames 
+		    do: [:each | aStream nextPutAll: each]
+		    separatedBy: [aStream nextPutAll: ', '].
+		aStream	
+		    nextPutAll: '''!'; lf; lf]!classNameFor: aClass
+	^aClass isMetaclass
+	    ifTrue: [aClass instanceClass name, ' class']
+	    ifFalse: [
+		aClass isNil
+		    ifTrue: ['nil']
+		    ifFalse: [aClass name]]! !

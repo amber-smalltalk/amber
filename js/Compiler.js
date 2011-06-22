@@ -288,7 +288,7 @@ return (function($rec){smalltalk.send($rec, "_receiver_", [smalltalk.send(self, 
 return self;},
 source: unescape('cascadeNodeWithMessages%3A%20aCollection%0A%09%7C%20first%20%7C%0A%09first%20%3A%3D%20SendNode%20new%0A%09%20%20%20%20selector%3A%20self%20selector%3B%0A%09%20%20%20%20arguments%3A%20self%20arguments%3B%0A%09%20%20%20%20yourself.%0A%09%5ECascadeNode%20new%0A%09%20%20%20%20receiver%3A%20self%20receiver%3B%0A%09%20%20%20%20nodes%3A%20%28Array%20with%3A%20first%29%2C%20aCollection%3B%0A%09%20%20%20%20yourself%0A'),
 messageSends: ["selector:", "selector", "arguments:", "arguments", "yourself", "new", "receiver:", "receiver", "nodes:", unescape("%2C"), "with:"],
-referencedClasses: [smalltalk.SendNode,smalltalk.Array,smalltalk.CascadeNode]
+referencedClasses: [smalltalk.SendNode,smalltalk.Array,smalltalk.nil]
 }),
 smalltalk.SendNode);
 
@@ -525,7 +525,7 @@ return (function($rec){smalltalk.send($rec, "_nodes_", [smalltalk.send(self, "_n
 return self;},
 source: unescape('asBlockSequenceNode%0A%09%5EBlockSequenceNode%20new%0A%09%20%20%20%20nodes%3A%20self%20nodes%3B%0A%09%20%20%20%20temps%3A%20self%20temps%3B%0A%09%20%20%20%20yourself%0A'),
 messageSends: ["nodes:", "nodes", "temps:", "temps", "yourself", "new"],
-referencedClasses: [smalltalk.BlockSequenceNode]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.SequenceNode);
 
@@ -1005,7 +1005,7 @@ return smalltalk.send(smalltalk.send(smalltalk.DoIt, "_new", []), "_doIt", []);
 return self;},
 source: unescape('loadExpression%3A%20aString%0A%09DoIt%20addCompiledMethod%3A%20%28self%20eval%3A%20%28self%20compileExpression%3A%20aString%29%29.%0A%09%5EDoIt%20new%20doIt%0A'),
 messageSends: ["addCompiledMethod:", "eval:", "compileExpression:", "doIt", "new"],
-referencedClasses: [smalltalk.DoIt]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Compiler);
 
@@ -1052,7 +1052,7 @@ return smalltalk.send(self, "_compileNode_", [smalltalk.send(self, "_parseExpres
 return self;},
 source: unescape('compileExpression%3A%20aString%0A%09self%20currentClass%3A%20DoIt.%0A%09%5Eself%20compileNode%3A%20%28self%20parseExpression%3A%20aString%29%0A'),
 messageSends: ["currentClass:", "compileNode:", "parseExpression:"],
-referencedClasses: [smalltalk.DoIt]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Compiler);
 
@@ -1540,11 +1540,11 @@ selector: 'doIt',
 category: '',
 fn: function (){
 var self=this;
-return smalltalk.send((function(){return smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_recompileAll", []);}), "_value", []);
+return smalltalk.send((function(){return smalltalk.send(smalltalk.send(smalltalk.ChunkExporter, "_new", []), "_exportCategory_", ["Parser"]);}), "_value", []);
 return self;},
-source: unescape('doIt%20%5E%5BCompiler%20new%20recompileAll%5D%20value'),
-messageSends: ["value", "recompileAll", "new"],
-referencedClasses: [smalltalk.Compiler]
+source: unescape('doIt%20%5E%5BChunkExporter%20new%20exportCategory%3A%20%27Parser%27%20%5D%20value'),
+messageSends: ["value", "exportCategory:", "new"],
+referencedClasses: [smalltalk.ChunkExporter]
 }),
 smalltalk.DoIt);
 

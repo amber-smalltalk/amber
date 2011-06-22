@@ -961,14 +961,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 try{var klass=nil;
-var protocols=nil;
-protocols=smalltalk.send(smalltalk.Array, "_new", []);
-smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return []}})})();})]);klass=smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_ifFalse_", [(function(){return self['@selectedClass'];}), (function(){return smalltalk.send(self['@selectedClass'], "_class", []);})]);smalltalk.send(smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_isEmpty", []), "_ifTrue_", [(function(){return smalltalk.send(protocols, "_add_", ["not yet classified"]);})]);return smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(protocols, "_includes_", [smalltalk.send(each, "_category", [])]), "_ifFalse_", [(function(){return smalltalk.send(protocols, "_add_", [smalltalk.send(each, "_category", [])]);})]);})]);})]);
-(function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return smalltalk.send(protocols, "_sort", [])}})})();
+smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return []}})})();})]);klass=smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_ifFalse_", [(function(){return self['@selectedClass'];}), (function(){return smalltalk.send(self['@selectedClass'], "_class", []);})]);smalltalk.send(smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_isEmpty", []), "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return smalltalk.send(smalltalk.Array, "_with_", ["not yet classified"])}})})();})]);return (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return smalltalk.send(klass, "_protocols", [])}})})();})]);
+(function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return smalltalk.send(smalltalk.Array, "_new", [])}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_protocols'){return e.fn()} throw(e)}},
-source: unescape('protocols%0A%20%20%20%20%7C%20klass%20protocols%20%7C%0A%20%20%20%20protocols%20%3A%3D%20Array%20new.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D.%0A%09klass%20methodDictionary%20isEmpty%20ifTrue%3A%20%5B%0A%09%20%20%20%20protocols%20add%3A%20%27not%20yet%20classified%27%5D.%0A%09klass%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28protocols%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%09protocols%20add%3A%20each%20category%5D%5D%5D.%0A%20%20%20%20%5Eprotocols%20sort%0A'),
-messageSends: ["new", "ifNotNil:", "ifTrue:", unescape("%3D"), "ifTrue:ifFalse:", "class", "isEmpty", "methodDictionary", "add:", "do:", "ifFalse:", "includes:", "category", "sort"],
+source: unescape('protocols%0A%20%20%20%20%7C%20klass%20%7C%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%5E%23%28%29%5D.%0A%09klass%20%3A%3D%20selectedTab%20%3D%20%23instance%0A%09%20%20%20%20ifTrue%3A%20%5BselectedClass%5D%0A%09%20%20%20%20ifFalse%3A%20%5BselectedClass%20class%5D.%0A%09klass%20methodDictionary%20isEmpty%20ifTrue%3A%20%5B%0A%09%20%20%20%20%5EArray%20with%3A%20%27not%20yet%20classified%27%5D.%0A%09%5Eklass%20protocols%5D.%0A%20%20%20%20%5EArray%20new'),
+messageSends: ["ifNotNil:", "ifTrue:", unescape("%3D"), "ifTrue:ifFalse:", "class", "isEmpty", "methodDictionary", "with:", "protocols", "new"],
 referencedClasses: [smalltalk.Array]
 }),
 smalltalk.Browser);
@@ -1299,11 +1297,11 @@ selector: 'commitCategory',
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(self['@selectedCategory'], "_ifNotNil_", [(function(){return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.Exporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPath", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));})]);
+smalltalk.send(self['@selectedCategory'], "_ifNotNil_", [(function(){(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.Exporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.ChunkExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".st"])]));})]);
 return self;},
-source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20self%20class%20commitPath%2C%20%27/%27%2C%20selectedCategory%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D%0A'),
-messageSends: ["ifNotNil:", "at:put:", "exportCategory:", "new", "alert:", "send", "url:", unescape("%2C"), "commitPath", "class"],
-referencedClasses: [smalltalk.Exporter,smalltalk.Ajax]
+source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedCategory%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathSt%2C%20%27/%27%2C%20selectedCategory%2C%20%27.st%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28ChunkExporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D%0A'),
+messageSends: ["ifNotNil:", "at:put:", "exportCategory:", "new", "alert:", "send", "url:", unescape("%2C"), "commitPathJs", "class", "commitPathSt"],
+referencedClasses: [smalltalk.Exporter,smalltalk.Ajax,smalltalk.ChunkExporter]
 }),
 smalltalk.Browser);
 
@@ -1713,7 +1711,7 @@ smalltalk.send(smalltalk.ReferencesBrowser, "_search_", [smalltalk.send(self['@s
 return self;},
 source: unescape('searchClassReferences%0A%09ReferencesBrowser%20search%3A%20selectedClass%20name'),
 messageSends: ["search:", "name"],
-referencedClasses: [smalltalk.ReferencesBrowser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Browser);
 
@@ -1749,15 +1747,30 @@ referencedClasses: []
 smalltalk.Browser.klass);
 
 smalltalk.addMethod(
-'_commitPath',
+'_commitPathJs',
 smalltalk.method({
-selector: 'commitPath',
+selector: 'commitPathJs',
 category: 'accessing',
 fn: function (){
 var self=this;
 return "js";
 return self;},
-source: unescape('commitPath%0A%09%5E%27js%27'),
+source: unescape('commitPathJs%0A%09%5E%27js%27'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Browser.klass);
+
+smalltalk.addMethod(
+'_commitPathSt',
+smalltalk.method({
+selector: 'commitPathSt',
+category: 'accessing',
+fn: function (){
+var self=this;
+return "st";
+return self;},
+source: unescape('commitPathSt%0A%09%5E%27st%27'),
 messageSends: [],
 referencedClasses: []
 }),
