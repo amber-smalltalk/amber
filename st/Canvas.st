@@ -5,7 +5,7 @@ Object subclass: #CanvasRenderingContext
 !CanvasRenderingContext methodsFor: 'drawing arcs'!
 
 arcTo: aPoint radius: aNumber startAngle: aNumber2 endAngle: aNumber3 anticlockwise: aBoolean
-	{'self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)'} 
+	{'self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)'}
 !
 
 arcTo: aPoint radius: aNumber
@@ -74,30 +74,20 @@ Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	category: 'Canvas'!
 
-!HTMLCanvas methodsFor: '*JQuery'!
-
-appendToJQuery: aJQuery
-    aJQuery appendElement: root element
-
-! !
-
 !HTMLCanvas methodsFor: 'accessing'!
 
 root: aTagBrush
     root := aTagBrush
-
 !
 
 root
     ^root
-
 ! !
 
 !HTMLCanvas methodsFor: 'adding'!
 
 with: anObject
     ^self root with: anObject
-
 ! !
 
 !HTMLCanvas methodsFor: 'initialization'!
@@ -105,155 +95,126 @@ with: anObject
 initialize
     super initialize.
     root := TagBrush fromString: 'div' canvas: self
-
 ! !
 
 !HTMLCanvas methodsFor: 'tags'!
 
 newTag: aString
     ^TagBrush fromString: aString canvas: self
-
 !
 
 tag: aString
     ^root addBrush: (self newTag: aString)
-
 !
 
 h1
     ^self tag: 'h1'
-
 !
 
 h2
     ^self tag: 'h2'
-
 !
 
 h3
     ^self tag: 'h3'
-
 !
 
 h4
     ^self tag: 'h4'
-
 !
 
 h5
     ^self tag: 'h5'
-
 !
 
 h6
     ^self tag: 'h6'
-
 !
 
 p
     ^self tag: 'p'
-
 !
 
 div
     ^self tag: 'div'
-
 !
 
 span
     ^self tag: 'span'
-
 !
 
 img
     ^self tag: 'img'
-
 !
 
 ul
     ^self tag: 'ul'
-
 !
 
 ol
     ^self tag: 'ol'
-
 !
 
 li
     ^self tag: 'li'
-
 !
 
 table
     ^self tag: 'table'
-
 !
 
 tr
     ^self tag: 'tr'
-
 !
 
 td 
     ^self tag: 'td'
-
 !
 
 th
     ^self tag: 'th'
-
 !
 
 form
     ^self tag: 'form'
-
 !
 
 input
     ^self tag: 'input'
-
 !
 
 button
     ^self tag: 'button'
-
 !
 
 select
     ^self tag: 'select'
-
 !
 
 option
     ^self tag: 'option'
-
 !
 
 textarea
     ^self tag: 'textarea'
-
 !
 
 a
     ^self tag: 'a'
-
 !
 
 canvas
 	^self tag: 'canvas'
-
 ! !
 
 Object subclass: #TagBrush
-	instanceVariableNames: 'canvas, element'
+	instanceVariableNames: 'canvas element'
 	category: 'Canvas'!
 
 !TagBrush methodsFor: 'accessing'!
 
 element
     ^element
-
 ! !
 
 !TagBrush methodsFor: 'adding'!
@@ -261,28 +222,23 @@ element
 contents: anObject
     self asJQuery empty.
     self append: anObject
-
 !
 
 addBrush: aTagBrush
     self appendChild: aTagBrush element.
     ^aTagBrush
-
 !
 
 with: anObject
     self append: anObject
-
 !
 
 append: anObject
     anObject appendToBrush: self
-
 !
 
 appendToBrush: aTagBrush
     aTagBrush addBrush: self
-
 !
 
 appendBlock: aBlock
@@ -291,108 +247,88 @@ appendBlock: aBlock
     canvas root: self.
     aBlock value: canvas.
     canvas root: root
-
 !
 
 appendChild: anElement
     {'self[''@element''].appendChild(anElement)'}
-
 !
 
 appendString: aString
     self appendChild: (self createTextNodeFor: aString)
-
 ! !
 
 !TagBrush methodsFor: 'attributes'!
 
 at: aString put: aValue
     {'self[''@element''].setAttribute(aString, aValue)'}
-
 !
 
 removeAt: aString
     {'self[''@element''].removeAttribute(aString)'}
-
 !
 
 class: aString
     self at: 'class' put: aString
-
 !
 
 id: aString
     self at: 'id' put: aString
-
 !
 
 src: aString
     self  at: 'src' put: aString
-
 !
 
 href: aString
     self at: 'href' put: aString
-
 !
 
 title: aString
     self at: 'title' put: aString
-
 !
 
 style: aString
     self at: 'style' put: aString
-
 ! !
 
 !TagBrush methodsFor: 'converting'!
 
 asJQuery
 	{'return smalltalk.JQuery._from_(jQuery(self[''@element'']))'}
-
 !
 
 asJQueryDo: aBlock
     aBlock value: self asJQuery
-
 ! !
 
 !TagBrush methodsFor: 'events'!
 
 onKeyDown: aBlock
     self asJQuery on: 'keydown' do: aBlock
-
 !
 
 onKeyPress: aBlock
     self asJQuery on: 'keypress' do: aBlock
-
 !
 
 onKeyUp: aBlock
     self asJQuery on: 'keyup' do: aBlock
-
 !
 
 onFocus: aBlock
     self asJQuery on: 'focus' do: aBlock
-
 !
 
 onBlur: aBlock
     self asJQuery on: 'blur' do: aBlock
-
 !
 
 onChange: aBlock
     self asJQuery on: 'change' do: aBlock
-
 !
 
 onClick: aBlock
     self asJQuery on: 'click' do: aBlock
-
 ! !
 
 !TagBrush methodsFor: 'initialization'!
@@ -400,19 +336,16 @@ onClick: aBlock
 initializeFromString: aString canvas: aCanvas
     element := self createElementFor: aString.
     canvas := aCanvas
-
 ! !
 
 !TagBrush methodsFor: 'private'!
 
 createElementFor: aString
 	{'return document.createElement(String(aString))'}
-
 !
 
 createTextNodeFor: aString
 	{'return document.createTextNode(String(aString))'}
-
 ! !
 
 !TagBrush class methodsFor: 'instance creation'!
@@ -421,7 +354,6 @@ fromString: aString canvas: aCanvas
     ^self new
 	initializeFromString: aString canvas: aCanvas;
 	yourself
-
 ! !
 
 Object subclass: #Widget
@@ -432,29 +364,24 @@ Object subclass: #Widget
 
 root
     ^root
-
 ! !
 
 !Widget methodsFor: 'actions'!
 
 alert: aString
     {'alert(aString)'}
-
 !
 
 confirm: aString
     {'return window.confirm(aString)'}
-
 !
 
 prompt: aString
     ^self prompt: aString default: ''
-
 !
 
 prompt: aString default: anotherString
     {'return window.prompt(aString, anotherString)'}
-
 !
 
 update
@@ -463,20 +390,17 @@ update
     canvas root: self root.
     self root asJQuery empty.
     self renderOn: canvas
-
 ! !
 
 !Widget methodsFor: 'adding'!
 
 appendToBrush: aTagBrush
     self appendToJQuery: aTagBrush asJQuery
-
 !
 
 appendToJQuery: aJQuery
     self render.
     aJQuery append: self root asJQuery
-
 ! !
 
 !Widget methodsFor: 'rendering'!
@@ -486,12 +410,10 @@ render
     canvas := HTMLCanvas new.
     root := canvas root.
     self renderOn: canvas
-
 !
 
 renderOn: html
     self
-
 ! !
 
 TagBrush subclass: #CanvasBrush
@@ -518,18 +440,21 @@ canvas: aCanvas
 		yourself
 ! !
 
-
+!Object methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush append: self asString
+! !
 
-!
+!BlockClosure methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush appendBlock: self
-!
+! !
+
+!String methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush appendString: self
+! !
 
-!

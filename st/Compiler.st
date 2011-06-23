@@ -6,105 +6,88 @@ Object subclass: #Node
 
 nodes
 	^nodes ifNil: [nodes := Array new]
-
 !
 
 addNode: aNode
 	self nodes add: aNode
-
 ! !
 
 !Node methodsFor: 'building'!
 
 nodes: aCollection
 	nodes := aCollection
-
 ! !
 
 !Node methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitNode: self
-
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector, arguments, source'
+	instanceVariableNames: 'selector arguments source'
 	category: 'Compiler'!
 
 !MethodNode methodsFor: 'accessing'!
 
 selector
 	^selector
-
 !
 
 selector: aString
 	selector := aString
-
 !
 
 arguments
 	^arguments ifNil: [#()]
-
 !
 
 arguments: aCollection
 	arguments := aCollection
-
 !
 
 source
 	^source
-
 !
 
 source: aString
 	source := aString
-
 ! !
 
 !MethodNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitMethodNode: self
-
 ! !
 
 Node subclass: #SendNode
-	instanceVariableNames: 'selector, arguments, receiver'
+	instanceVariableNames: 'selector arguments receiver'
 	category: 'Compiler'!
 
 !SendNode methodsFor: 'accessing'!
 
 selector
 	^selector
-
 !
 
 selector: aString
 	selector := aString
-
 !
 
 arguments
 	^arguments ifNil: [arguments := #()]
-
 !
 
 arguments: aCollection
 	arguments := aCollection
-
 !
 
 receiver
 	^receiver
-
 !
 
 receiver: aNode
 	receiver := aNode
-
 !
 
 valueForReceiver: anObject
@@ -115,7 +98,6 @@ valueForReceiver: anObject
 	    selector: self selector;
 	    arguments: self arguments;
 	    yourself
-
 !
 
 cascadeNodeWithMessages: aCollection
@@ -128,14 +110,12 @@ cascadeNodeWithMessages: aCollection
 	    receiver: self receiver;
 	    nodes: (Array with: first), aCollection;
 	    yourself
-
 ! !
 
 !SendNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitSendNode: self
-
 ! !
 
 Node subclass: #CascadeNode
@@ -146,52 +126,44 @@ Node subclass: #CascadeNode
 
 receiver
 	^receiver
-
 !
 
 receiver: aNode
 	receiver := aNode
-
 ! !
 
 !CascadeNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitCascadeNode: self
-
 ! !
 
 Node subclass: #AssignmentNode
-	instanceVariableNames: 'left, right'
+	instanceVariableNames: 'left right'
 	category: 'Compiler'!
 
 !AssignmentNode methodsFor: 'accessing'!
 
 left
 	^left
-
 !
 
 left: aNode
 	left := aNode
-
 !
 
 right
 	^right
-
 !
 
 right: aNode
 	right := aNode
-
 ! !
 
 !AssignmentNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitAssignmentNode: self
-
 ! !
 
 Node subclass: #BlockNode
@@ -202,19 +174,16 @@ Node subclass: #BlockNode
 
 parameters
 	^parameters ifNil: [parameters := Array new]
-
 !
 
 parameters: aCollection
 	parameters := aCollection
-
 ! !
 
 !BlockNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitBlockNode: self
-
 ! !
 
 Node subclass: #SequenceNode
@@ -225,12 +194,10 @@ Node subclass: #SequenceNode
 
 temps
 	^temps ifNil: [#()]
-
 !
 
 temps: aCollection
 	temps := aCollection
-
 ! !
 
 !SequenceNode methodsFor: 'testing'!
@@ -240,14 +207,12 @@ asBlockSequenceNode
 	    nodes: self nodes;
 	    temps: self temps;
 	    yourself
-
 ! !
 
 !SequenceNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitSequenceNode: self
-
 ! !
 
 SequenceNode subclass: #BlockSequenceNode
@@ -258,7 +223,6 @@ SequenceNode subclass: #BlockSequenceNode
 
 accept: aVisitor
 	aVisitor visitBlockSequenceNode: self
-
 ! !
 
 Node subclass: #ReturnNode
@@ -269,7 +233,6 @@ Node subclass: #ReturnNode
 
 accept: aVisitor
 	aVisitor visitReturnNode: self
-
 ! !
 
 Node subclass: #ValueNode
@@ -280,19 +243,16 @@ Node subclass: #ValueNode
 
 value
 	^value
-
 !
 
 value: anObject
 	value := anObject
-
 ! !
 
 !ValueNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitValueNode: self
-
 ! !
 
 ValueNode subclass: #VariableNode
@@ -303,7 +263,6 @@ ValueNode subclass: #VariableNode
 
 accept: aVisitor
 	aVisitor visitVariableNode: self
-
 ! !
 
 VariableNode subclass: #ClassReferenceNode
@@ -314,7 +273,6 @@ VariableNode subclass: #ClassReferenceNode
 
 accept: aVisitor
 	aVisitor visitClassReferenceNode: self
-
 ! !
 
 Node subclass: #JSStatementNode
@@ -325,19 +283,16 @@ Node subclass: #JSStatementNode
 
 source
 	^source ifNil: ['']
-
 !
 
 source: aString
 	source := aString
-
 ! !
 
 !JSStatementNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitJSStatementNode: self
-
 ! !
 
 Object subclass: #NodeVisitor
@@ -348,67 +303,54 @@ Object subclass: #NodeVisitor
 
 visit: aNode
 	aNode accept: self
-
 !
 
 visitNode: aNode
-
 !
 
 visitMethodNode: aNode
 	self visitNode: aNode
-
 !
 
 visitSequenceNode: aNode
 	self visitNode: aNode
-
 !
 
 visitBlockSequenceNode: aNode
 	self visitSequenceNode: aNode
-
 !
 
 visitBlockNode: aNode
 	self visitNode: aNode
-
 !
 
 visitReturnNode: aNode
 	self visitNode: aNode
-
 !
 
 visitSendNode: aNode
 	self visitNode: aNode
-
 !
 
 visitCascadeNode: aNode
 	self visitNode: aNode
-
 !
 
 visitValueNode: aNode
 	self visitNode: aNode
-
 !
 
 visitVariableNode: aNode
-
 !
 
 visitAssignmentNode: aNode
 	self visitNode: aNode
-
 !
 
 visitClassReferenceNode: aNode
 	self 
 	    nextPutAll: 'smalltalk.';
 	    nextPutAll: aNode value
-
 !
 
 visitJSStatementNode: aNode
@@ -416,28 +358,24 @@ visitJSStatementNode: aNode
 	    nextPutAll: 'function(){';
 	    nextPutAll: aNode source;
 	    nextPutAll: '})()'
-
 ! !
 
 NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream, nestedBlocks, earlyReturn, currentClass, currentSelector, unknownVariables, tempVariables, messageSends, referencedClasses'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses'
 	category: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
 
 parser
 	^SmalltalkParser new
-
 !
 
 currentClass
 	^currentClass
-
 !
 
 currentClass: aClass
 	currentClass := aClass
-
 !
 
 unknownVariables
@@ -472,12 +410,10 @@ classNameFor: aClass
 loadExpression: aString
 	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
 	^DoIt new doIt
-
 !
 
 load: aString forClass: aClass
 	^self eval: (self compile: aString forClass: aClass)
-
 !
 
 compile: aString forClass: aClass
@@ -488,7 +424,6 @@ compile: aString forClass: aClass
 compileExpression: aString
 	self currentClass: DoIt.
 	^self compileNode: (self parseExpression: aString)
-
 !
 
 eval: aString
@@ -497,24 +432,20 @@ eval: aString
 
 compile: aString
 	^self compileNode: (self parse: aString)
-
 !
 
 compileNode: aNode
 	stream := '' writeStream.
 	self visit: aNode.
 	^stream contents
-
 !
 
 parse: aString
     ^self parser parse: aString readStream
-
 !
 
 parseExpression: aString
     ^self parse: 'doIt ^[', aString, '] value'
-
 !
 
 recompile: aClass
@@ -539,14 +470,12 @@ initialize
 	tempVariables := #().
 	messageSends := #().
 	classReferenced := #()
-
 ! !
 
 !Compiler methodsFor: 'visiting'!
 
 visit: aNode
 	aNode accept: self
-
 !
 
 visitMethodNode: aNode
@@ -608,7 +537,6 @@ visitBlockNode: aNode
 	stream nextPutAll: '){'.
 	aNode nodes do: [:each | self visit: each].
 	stream nextPutAll: '})'
-
 !
 
 visitSequenceNode: aNode
@@ -619,7 +547,6 @@ visitSequenceNode: aNode
 	    self visit: each.
 	    stream nextPutAll: ';']
 	    separatedBy: [stream lf]
-
 !
 
 visitBlockSequenceNode: aNode
@@ -640,7 +567,6 @@ visitBlockSequenceNode: aNode
 		    self visit: each.
 		    stream nextPutAll: ';']].
 	nestedBlocks := nestedBlocks - 1
-
 !
 
 visitReturnNode: aNode
@@ -698,19 +624,16 @@ visitCascadeNode: aNode
 	stream nextPutAll: '})('.
 	self visit: aNode receiver.
 	stream nextPutAll: ')'
-
 !
 
 visitValueNode: aNode
 	stream nextPutAll: aNode value asJavascript
-
 !
 
 visitAssignmentNode: aNode
 	self visit: aNode left.
 	stream nextPutAll: '='.
 	self visit: aNode right
-
 !
 
 visitClassReferenceNode: aNode
@@ -729,11 +652,14 @@ visitVariableNode: aNode
 			(self knownVariables includes: aNode value) ifFalse: [
 				unknownVariables add: aNode value].
 			stream nextPutAll: aNode value]
-
 !
 
 visitJSStatementNode: aNode
 	stream nextPutAll: (aNode source value replace: '''''' with: '''')
+!
+
+visitFailure: aFailure
+	self error: aFailure asString
 ! !
 
 !Compiler class methodsFor: 'compiling'!
@@ -757,6 +683,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[ChunkExporter new exportCategory: 'Parser' ] value
+doIt ^['abc' trimLeft: 'az'] value
 ! !
 
