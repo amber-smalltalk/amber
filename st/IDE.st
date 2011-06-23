@@ -1,34 +1,29 @@
 Widget subclass: #TabManager
-	instanceVariableNames: 'selectedTab, tabs, opened'
+	instanceVariableNames: 'selectedTab tabs opened'
 	category: 'IDE'!
 
 !TabManager methodsFor: 'accessing'!
 
 tabs
     ^tabs ifNil: [tabs := Array new]
-
 ! !
 
 !TabManager methodsFor: 'actions'!
 
 updateBodyMargin
     self setBodyMargin: '#jtalk' asJQuery height + 27
-
 !
 
 updatePosition
     {'jQuery(''#jtalk'').css(''top'', '''''').css(''bottom'', ''27px'');'}
-
 !
 
 removeBodyMargin
     self setBodyMargin: 0
-
 !
 
 setBodyMargin: anInteger
     '.jtalkBody' asJQuery cssAt: 'margin-bottom' put: anInteger asString, 'px'
-
 !
 
 onResize: aBlock
@@ -37,12 +32,10 @@ onResize: aBlock
 	resize: aBlock,
 	minHeight: 230
 });'}
-
 !
 
 onWindowResize: aBlock
     {'jQuery(window).resize(aBlock)'}
-
 !
 
 open
@@ -53,7 +46,6 @@ open
 	self updateBodyMargin.
 	selectedTab root asJQuery show.
 	opened := true]
-
 !
 
 close
@@ -63,12 +55,10 @@ close
 	self removeBodyMargin.
 	'body' asJQuery removeClass: 'jtalkBody'.
 	opened := false]
-
 !
 
 newBrowserTab
     Browser open
-
 !
 
 selectTab: aWidget
@@ -78,7 +68,6 @@ selectTab: aWidget
 	each root asJQuery hide].
     aWidget root asJQuery show.
     self update
-
 !
 
 closeTab: aWidget
@@ -86,7 +75,6 @@ closeTab: aWidget
     self selectTab: self tabs last.
     aWidget root asJQuery remove.
     self update
-
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
@@ -95,13 +83,11 @@ addTab: aWidget
     self tabs add: aWidget.
     '#jtalk' asJQuery append: aWidget.
     aWidget root asJQuery hide
-
 !
 
 removeTab: aWidget
     self tabs remove: aWidget.
     self update
-
 ! !
 
 !TabManager methodsFor: 'initialization'!
@@ -120,7 +106,6 @@ initialize
     self 
 	onResize: [self updateBodyMargin; updatePosition];
 	onWindowResize: [self updatePosition]
-
 ! !
 
 !TabManager methodsFor: 'rendering'!
@@ -139,7 +124,6 @@ renderOn: html
 		class: 'newtab';
 		with: ' + ';
 		onClick: [self newBrowserTab]]
-
 !
 
 renderTabFor: aWidget on: html
@@ -156,7 +140,6 @@ renderTabFor: aWidget on: html
 		class: 'close';
 		with: 'x';
 		onClick: [self closeTab: aWidget]]]
-
 ! !
 
 TabManager class instanceVariableNames: 'current'!
@@ -165,12 +148,10 @@ TabManager class instanceVariableNames: 'current'!
 
 current
     ^current ifNil: [current := super new]
-
 !
 
 new
     self shouldNotImplement
-
 ! !
 
 Widget subclass: #TabWidget
@@ -181,7 +162,6 @@ Widget subclass: #TabWidget
 
 label
     self subclassResponsibility
-
 ! !
 
 !TabWidget methodsFor: 'actions'!
@@ -190,7 +170,6 @@ open
     TabManager current
 	addTab: self;
 	selectTab: self
-
 ! !
 
 !TabWidget methodsFor: 'rendering'!
@@ -205,29 +184,24 @@ renderOn: html
 	    html div
 		class: 'jt_buttons';
 		with: [self renderButtonsOn: html]]
-
 !
 
 renderBoxOn: html
-
 !
 
 renderButtonsOn: html
-
 ! !
 
 !TabWidget methodsFor: 'testing'!
 
 canBeClosed
     ^false
-
 ! !
 
 !TabWidget class methodsFor: 'instance creation'!
 
 open
     ^self new open
-
 ! !
 
 TabWidget subclass: #Workspace
@@ -238,32 +212,26 @@ TabWidget subclass: #Workspace
 
 label
     ^'[Workspace]'
-
 !
 
 selection
     {'return document.selection'}
-
 !
 
 selectionStart
     {'return jQuery(''.jt_workspace'')[0].selectionStart'}
-
 !
 
 selectionEnd
     {'return jQuery(''.jt_workspace'')[0].selectionEnd'}
-
 !
 
 selectionStart: anInteger
     {'jQuery(''.jt_workspace'')[0].selectionStart = anInteger'}
-
 !
 
 selectionEnd: anInteger
     {'jQuery(''.jt_workspace'')[0].selectionEnd = anInteger'}
-
 !
 
 currentLine
@@ -276,7 +244,6 @@ currentLine
 	endLine >= self selectionStart ifTrue: [
 	    self selectionEnd: endLine.
 	    ^each]]
-
 ! !
 
 !Workspace methodsFor: 'actions'!
@@ -299,12 +266,10 @@ handleKeyDown: anEvent
 			return false;
 		}
 	}'}
-
 !
 
 clearWorkspace
     textarea asJQuery val: ''
-
 !
 
 doIt
@@ -319,7 +284,6 @@ doIt
 
 printIt
     self print: self doIt printString
-
 !
 
 print: aString
@@ -331,7 +295,6 @@ print: aString
 	(textarea asJQuery val copyFrom: start + 1 to: textarea asJQuery val size)).
     self selectionStart: start.
     self selectionEnd: start + aString size + 2
-
 !
 
 eval: aString
@@ -341,12 +304,10 @@ eval: aString
     node isParseFailure ifTrue: [
 	^self alert: node reason, ', position: ', node position].
     ^compiler loadExpression: aString
-
 !
 
 inspectIt
     self doIt inspect
-
 ! !
 
 !Workspace methodsFor: 'rendering'!
@@ -358,7 +319,6 @@ renderBoxOn: html
     textarea 
 	class: 'jt_workspace';
 	at: 'spellcheck' put: 'false'
-
 !
 
 renderButtonsOn: html
@@ -377,7 +337,6 @@ renderButtonsOn: html
     html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
-
 ! !
 
 TabWidget subclass: #Transcript
@@ -388,25 +347,20 @@ TabWidget subclass: #Transcript
 
 label
     ^'[Transcript]'
-
 ! !
 
 !Transcript methodsFor: 'actions'!
 
 show: anObject
     textarea asJQuery val: textarea asJQuery val, anObject asString.
-
-
 !
 
 cr
     textarea asJQuery val: textarea asJQuery val, String cr.
-
 !
 
 clear
     textarea asJQuery val: ''
-
 ! !
 
 !Transcript methodsFor: 'rendering'!
@@ -417,14 +371,12 @@ renderBoxOn: html
     textarea 
 	class: 'jt_transcript';
 	at: 'spellcheck' put: 'false'
-
 !
 
 renderButtonsOn: html
     html button
 	with: 'Clear transcript';
 	onClick: [self clear]
-
 ! !
 
 Transcript class instanceVariableNames: 'current'!
@@ -433,38 +385,32 @@ Transcript class instanceVariableNames: 'current'!
 
 open
     self current open
-
 !
 
 new
     self shouldNotImplement
-
 !
 
 current
     ^current ifNil: [current := super new]
-
 ! !
 
 !Transcript class methodsFor: 'printing'!
 
 show: anObject
     self current show: anObject
-
 !
 
 cr
     self current show: String cr
-
 !
 
 clear
     self current clear
-
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory, selectedClass, selectedProtocol, selectedMethod, commitButton, categoriesList, classesList, protocolsList, methodsList, sourceTextarea, tabsList, selectedTab, saveButton, classButtons, methodButtons, unsavedChanges'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -473,7 +419,6 @@ label
     ^selectedClass 
 	ifNil: ['Browser (nil)']
 	ifNotNil: [selectedClass name]
-
 !
 
 categories
@@ -483,14 +428,12 @@ categories
 	(categories includes: each category) ifFalse: [
 	    categories add: each category]].
     ^categories sort
-
 !
 
 classes
     ^(Smalltalk current classes 
 	select: [:each | each category = selectedCategory])
 	sort: [:a :b | a name > b name]
-
 !
 
 protocols
@@ -521,7 +464,6 @@ methods
 	ifNotNil: [
 	    klass methodDictionary values select: [:each |
 		each category = selectedProtocol]]) sort: [:a :b | a selector > b selector]
-
 !
 
 source
@@ -532,14 +474,12 @@ source
     ^selectedClass
 	ifNil: ['']
 	ifNotNil: [self classCommentSource]
-
 !
 
 methodSource
     ^selectedMethod
 	ifNil: [self dummyMethodSource]
 	ifNotNil: [selectedMethod source]
-
 !
 
 dummyMethodSource
@@ -548,14 +488,12 @@ dummyMethodSource
 
 	| temporary variable names |
 	statements'
-
 !
 
 declarationSource
     ^selectedTab = #instance
 	ifTrue: [self classDeclarationSource]
 	ifFalse: [self metaclassDeclarationSource]
-
 !
 
 classDeclarationSource
@@ -577,7 +515,6 @@ classDeclarationSource
 	    nextPutAll: selectedClass category;
 	    nextPutAll: ''''].
     ^stream contents
-
 !
 
 metaclassDeclarationSource
@@ -593,12 +530,10 @@ metaclassDeclarationSource
 	    separatedBy: [stream nextPutAll: ' '].
 	stream nextPutAll: ''''].
     ^stream contents
-
 !
 
 classCommentSource
     ^selectedClass comment
-
 ! !
 
 !Browser methodsFor: 'actions'!
@@ -606,34 +541,28 @@ classCommentSource
 enableSaveButton
     saveButton removeAt: 'disabled'.
     unsavedChanges := true
-
 !
 
 disableSaveButton
     saveButton ifNotNil: [
 	saveButton at: 'disabled' put: true].
     unsavedChanges := false
-
 !
 
 hideClassButtons
     classButtons asJQuery hide
-
 !
 
 showClassButtons
     classButtons asJQuery show
-
 !
 
 hideMethodButtons
     methodButtons asJQuery hide
-
 !
 
 showMethodButtons
     methodButtons asJQuery show
-
 !
 
 compile
@@ -644,19 +573,16 @@ compile
     (selectedProtocol notNil or: [selectedMethod notNil])
 	ifFalse: [self compileDefinition]
 	ifTrue: [self compileMethodDefinition]
-
 !
 
 compileClassComment
     selectedClass comment: sourceTextarea asJQuery val
-
 !
 
 compileMethodDefinition
     selectedTab = #instance
 	ifTrue: [self compileMethodDefinitionFor: selectedClass]
 	ifFalse: [self compileMethodDefinitionFor: selectedClass class]
-
 !
 
 compileMethodDefinitionFor: aClass
@@ -677,7 +603,6 @@ compileMethodDefinitionFor: aClass
     aClass addCompiledMethod: method.
     self updateMethodsList.
     self selectMethod: method
-
 !
 
 compileDefinition
@@ -686,7 +611,6 @@ compileDefinition
     self 
 	updateCategoriesList;
 	updateClassesList
-
 !
 
 commitCategory
@@ -694,21 +618,19 @@ commitCategory
 	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
 	    at: 'type' put: 'PUT';
 	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!'];
+	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
 	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')
 	    at: 'type' put: 'PUT';
 	    at: 'data' put: (ChunkExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!'];
+	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send]
-
 !
 
 cancelChanges
     ^unsavedChanges 
 	ifTrue: [self confirm: 'Cancel changes?']
 	ifFalse: [true]
-
 !
 
 removeClass
@@ -716,7 +638,6 @@ removeClass
 	ifTrue: [
 	    Smalltalk current basicDelete: selectedClass name.
 	    self selectClass: nil]
-
 !
 
 removeMethod
@@ -727,7 +648,6 @@ removeMethod
 			ifTrue: [selectedClass removeCompiledMethod: selectedMethod]
 			ifFalse: [selectedClass class removeCompiledMethod: selectedMethod].
 		self selectMethod: nil]]
-
 !
 
 setMethodProtocol: aString
@@ -742,7 +662,6 @@ setMethodProtocol: aString
 		    updateProtocolsList;
 		    updateMethodsList;
 		    updateSourceAndButtons]]
-
 !
 
 addNewProtocol
@@ -751,7 +670,6 @@ addNewProtocol
     newProtocol notEmpty ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
-
 !
 
 selectCategory: aCategory
@@ -764,7 +682,6 @@ selectCategory: aCategory
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-
 !
 
 selectClass: aClass
@@ -776,7 +693,6 @@ selectClass: aClass
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-
 !
 
 selectProtocol: aString
@@ -787,7 +703,6 @@ selectProtocol: aString
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-
 !
 
 selectMethod: aMethod
@@ -797,7 +712,6 @@ selectMethod: aMethod
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
-
 !
 
 selectTab: aString
@@ -805,7 +719,6 @@ selectTab: aString
 	selectedTab := aString.
 	self selectProtocol: nil.
 	self updateTabsList]
-
 !
 
 renameClass
@@ -816,7 +729,6 @@ renameClass
 	self 
 		updateClassesList;
 		updateSourceAndButtons]
-
 !
 
 addInstanceVariableNamed: aString toClass: aClass
@@ -838,7 +750,6 @@ initialize
     super initialize.
     selectedTab := #instance.
     unsavedChanges := false
-
 ! !
 
 !Browser methodsFor: 'rendering'!
@@ -848,7 +759,6 @@ renderBoxOn: html
 	renderTopPanelOn: html;
 	renderTabsOn: html;
 	renderBottomPanelOn: html
-
 !
 
 renderTopPanelOn: html
@@ -870,13 +780,11 @@ renderTopPanelOn: html
 		updateProtocolsList;
 		updateMethodsList.
 	    html div class: 'jt_clear']
-
 !
 
 renderTabsOn: html
     tabsList := html ul class: 'jt_tabs'.
     self updateTabsList.
-
 !
 
 renderBottomPanelOn: html
@@ -888,7 +796,6 @@ renderBottomPanelOn: html
 		class: 'source';
 		at: 'spellcheck' put: 'false'.
 	    sourceTextarea asJQuery call: 'tabby']
-
 !
 
 renderButtonsOn: html
@@ -899,14 +806,12 @@ renderButtonsOn: html
     methodButtons := html span.
     classButtons := html span.
     self updateSourceAndButtons
-
 ! !
 
 !Browser methodsFor: 'testing'!
 
 canBeClosed
     ^true
-
 ! !
 
 !Browser methodsFor: 'updating'!
@@ -923,7 +828,6 @@ updateCategoriesList
 	    li
 		with: label;
 		onClick: [self selectCategory: each]]]
-
 !
 
 updateClassesList
@@ -936,7 +840,6 @@ updateClassesList
 	    li
 		with: each name;
 		onClick: [self selectClass: each]]]
-
 !
 
 updateProtocolsList
@@ -948,7 +851,6 @@ updateProtocolsList
 	    li 
 		with: each;
 		onClick: [self selectProtocol: each]]]
-
 !
 
 updateMethodsList
@@ -960,7 +862,6 @@ updateMethodsList
 	    li
 		with: each selector;
 		onClick: [self selectMethod: each]]]
-
 !
 
 updateTabsList
@@ -980,7 +881,6 @@ updateTabsList
 	li
 	    with: 'Comment';
 	    onClick: [self selectTab: #comment]]
-
 !
 
 updateSourceAndButtons
@@ -1032,7 +932,6 @@ updateSourceAndButtons
 	    		self hideClassButtons.
 	    		self showMethodButtons].
     	sourceTextarea asJQuery val: self source
-
 ! !
 
 !Browser class methodsFor: 'accessing'!
@@ -1052,16 +951,14 @@ openOn: aClass
 	open;
 	selectCategory: aClass category;
 	selectClass: aClass
-
 !
 
 open
     self new open
-
 ! !
 
 TabWidget subclass: #Inspector
-	instanceVariableNames: 'label, variables, object, selectedVariable, variablesList, valueTextarea, workspaceTextarea, diveButton'
+	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea workspaceTextarea diveButton'
 	category: 'IDE'!
 
 !Inspector methodsFor: 'accessing'!
@@ -1127,7 +1024,6 @@ renderTopPanelOn: html
 		updateVariablesList;
 		updateValueTextarea.
 	    html div class: 'jt_clear']
-
 !
 
 renderBottomPanelOn: html
@@ -1138,7 +1034,6 @@ renderBottomPanelOn: html
 		class: 'source';
 		at: 'spellcheck' put: 'false'.
 	    workspaceTextarea asJQuery call: 'tabby']
-
 !
 
 renderButtonsOn: html
@@ -1149,7 +1044,6 @@ renderButtonsOn: html
 		with: 'Dive'; 
 		onClick: [self dive].
 	self updateButtons
-	
 ! !
 
 !Inspector methodsFor: 'testing'!
@@ -1189,7 +1083,6 @@ updateButtons
 	(self selectedVariable notNil and: [(self variables at: self selectedVariable) notNil])
 		ifFalse: [diveButton at: 'disabled' put: true] 
 		ifTrue: [diveButton removeAt: 'disabled']
-		
 ! !
 
 !Inspector class methodsFor: 'instance creation'!
@@ -1201,7 +1094,7 @@ on: anObject
 ! !
 
 TabWidget subclass: #ReferencesBrowser
-	instanceVariableNames: 'implementors, senders, implementorsList, input, timer, selector, sendersList, referencedClasses, referencedClassesList'
+	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
 	category: 'IDE'!
 
 !ReferencesBrowser methodsFor: 'accessing'!
@@ -1377,7 +1270,7 @@ search: aString
 		open
 ! !
 
-
+!Object methodsFor: '*IDE'!
 
 inspect
 	Inspector new 
@@ -1394,9 +1287,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-	
-	
-!
+! !
+
+!Date methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -1412,9 +1305,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-	
-	
-!
+! !
+
+!Collection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -1425,7 +1318,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-!
+! !
+
+!String methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| label |
@@ -1434,7 +1329,9 @@ inspectOn: anInspector
 		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
 		ifFalse: [label := self printString]. 
 	anInspector setLabel: label
-!
+! !
+
+!Dictionary methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -1446,4 +1343,5 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-!
+! !
+

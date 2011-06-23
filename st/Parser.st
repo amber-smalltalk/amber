@@ -6,61 +6,50 @@ Object subclass: #PPParser
 
 memo
 	^memo
-
 ! !
 
 !PPParser methodsFor: 'initialization'!
 
 initialize
 	memo := Dictionary new
-
 ! !
 
 !PPParser methodsFor: 'operations'!
 
 flatten
 	^PPFlattenParser on: self
-
 !
 
 withSource
 	^PPSourceParser on: self
-
 !
 
 ==> aBlock
 	^PPActionParser on: self block: aBlock
-
 !
 
 , aParser
 	^PPSequenceParser with: self with: aParser
-
 !
 
 / aParser
 	^PPChoiceParser with: self with: aParser
-
 !
 
 plus
 	^PPRepeatingParser on: self min: 1
-
 !
 
 star
 	^PPRepeatingParser on: self min: 0
-
 !
 
 not
 	^PPNotParser on: self
-
 !
 
 optional
 	^self / PPEpsilonParser new
-
 !
 
 memoizedParse: aStream
@@ -75,14 +64,12 @@ memoizedParse: aStream
 		end := aStream position.
 		self memo at: start put: (Array with: node with: end).
 		node]
-
 ! !
 
 !PPParser methodsFor: 'parsing'!
 
 parse: aStream
 	self subclassResponsibility
-
 !
 
 parseAll: aStream
@@ -91,7 +78,6 @@ parseAll: aStream
 	^result isParseFailure 
 	    ifTrue: [self error: (result messageFor: aStream contents)]
 	    ifFalse: [result first]
-
 ! !
 
 PPParser subclass: #PPEOFParser
@@ -103,9 +89,8 @@ PPParser subclass: #PPEOFParser
 parse: aStream
 	^aStream atEnd 
 	    ifFalse: [
-		PPFailure new reason: 'EOF expected' at: aStream position]
+		PPFailure new reason: aStream contents, String lf, '---------------', String lf, 'EOF expected' at: aStream position]
 	    ifTrue: [nil]
-
 ! !
 
 PPParser subclass: #PPAnyParser
@@ -119,7 +104,6 @@ parse: aStream
 	    ifTrue: [PPFailure new
 			 reason: 'did not expect EOF' at: aStream position]
 	    ifFalse: [aStream next]
-
 ! !
 
 PPParser subclass: #PPEpsilonParser
@@ -130,7 +114,6 @@ PPParser subclass: #PPEpsilonParser
 
 parse: aStream
 	^nil
-
 ! !
 
 PPParser subclass: #PPStringParser
@@ -141,12 +124,10 @@ PPParser subclass: #PPStringParser
 
 string
 	^string
-
 !
 
 string: aString
 	string := aString
-
 ! !
 
 !PPStringParser methodsFor: 'parsing'!
@@ -160,7 +141,6 @@ parse: aStream
 	    ifFalse: [
 		aStream position: position.
 		PPFailure new reason: 'Expected ', self string, ' but got ', (result at: position) printString; yourself]
-
 ! !
 
 PPParser subclass: #PPCharacterParser
@@ -171,7 +151,6 @@ PPParser subclass: #PPCharacterParser
 
 string: aString
 	regexp := RegularExpression fromString: '[', aString, ']'
-
 ! !
 
 !PPCharacterParser methodsFor: 'parsing'!
@@ -180,14 +159,12 @@ parse: aStream
 	^(aStream peek notNil and: [self match: aStream peek])
 	    ifTrue: [aStream next]
 	    ifFalse: [PPFailure new reason: 'Could not match' at: aStream position]
-
 ! !
 
 !PPCharacterParser methodsFor: 'private'!
 
 match: aString
 	^aString match: regexp
-
 ! !
 
 PPParser subclass: #PPListParser
@@ -198,19 +175,16 @@ PPParser subclass: #PPListParser
 
 parsers
 	^parsers ifNil: [#()]
-
 !
 
 parsers: aCollection
 	parsers := aCollection
-
 ! !
 
 !PPListParser methodsFor: 'copying'!
 
 copyWith: aParser
 	^self class withAll: (self parsers copyWith: aParser)
-
 ! !
 
 !PPListParser class methodsFor: 'instance creation'!
@@ -219,12 +193,10 @@ withAll: aCollection
 	    ^self new
 		parsers: aCollection;
 		yourself
-
 !
 
 with: aParser with: anotherParser
 	    ^self withAll: (Array with: aParser with: anotherParser)
-
 ! !
 
 PPListParser subclass: #PPSequenceParser
@@ -235,7 +207,6 @@ PPListParser subclass: #PPSequenceParser
 
 , aRule
 	^self copyWith: aRule
-
 ! !
 
 !PPSequenceParser methodsFor: 'parsing'!
@@ -253,7 +224,6 @@ parse: aStream
 	^element isParseFailure
 	    ifFalse: [elements]
 	    ifTrue: [aStream position: start. element]
-
 ! !
 
 PPListParser subclass: #PPChoiceParser
@@ -264,7 +234,6 @@ PPListParser subclass: #PPChoiceParser
 
 / aRule
 	^self copyWith: aRule
-
 ! !
 
 !PPChoiceParser methodsFor: 'parsing'!
@@ -277,7 +246,6 @@ parse: aStream
 		result isParseFailure not]
 	    ifNone: [].
 	^result
-
 ! !
 
 PPParser subclass: #PPDelegateParser
@@ -288,19 +256,16 @@ PPParser subclass: #PPDelegateParser
 
 parser
 	^parser
-
 !
 
 parser: aParser
 	parser := aParser
-
 ! !
 
 !PPDelegateParser methodsFor: 'parsing'!
 
 parse: aStream
 	^self parser memoizedParse: aStream
-
 ! !
 
 !PPDelegateParser class methodsFor: 'instance creation'!
@@ -309,7 +274,6 @@ on: aParser
 	    ^self new
 		parser: aParser;
 		yourself
-
 ! !
 
 PPDelegateParser subclass: #PPAndParser
@@ -320,7 +284,6 @@ PPDelegateParser subclass: #PPAndParser
 
 parse: aStream
 	^self basicParse: aStream
-
 !
 
 basicParse: aStream
@@ -329,7 +292,6 @@ basicParse: aStream
 	element := self parser memoizedParse: aStream.
 	aStream position: position.
 	^element
-
 ! !
 
 PPAndParser subclass: #PPNotParser
@@ -344,7 +306,6 @@ parse: aStream
 	^element isParseFailure 
 	    ifTrue: [nil]
 	    ifFalse: [PPFailure reason: element at: aStream position]
-
 ! !
 
 PPDelegateParser subclass: #PPActionParser
@@ -355,12 +316,10 @@ PPDelegateParser subclass: #PPActionParser
 
 block
 	^block
-
 !
 
 block: aBlock
 	block := aBlock
-
 ! !
 
 !PPActionParser methodsFor: 'parsing'!
@@ -371,7 +330,6 @@ parse: aStream
 	^element isParseFailure
 	    ifFalse: [self block value: element]
 	    ifTrue: [element]
-
 ! !
 
 !PPActionParser class methodsFor: 'instance creation'!
@@ -381,7 +339,6 @@ on: aParser block: aBlock
 		parser: aParser;
 		block: aBlock;
 		yourself
-
 ! !
 
 PPDelegateParser subclass: #PPFlattenParser
@@ -399,7 +356,6 @@ parse: aStream
 	    ifFalse: [aStream collection 
 		copyFrom: start + 1 
 		to: aStream position]
-
 ! !
 
 PPDelegateParser subclass: #PPSourceParser
@@ -416,7 +372,6 @@ parse: aStream
 		ifTrue: [element]
 		ifFalse: [result := aStream collection copyFrom: start + 1 to: aStream position.
 			Array with: element with: result].
-
 ! !
 
 PPDelegateParser subclass: #PPRepeatingParser
@@ -427,12 +382,10 @@ PPDelegateParser subclass: #PPRepeatingParser
 
 min
 	^min
-
 !
 
 min: aNumber
 	min := aNumber
-
 ! !
 
 !PPRepeatingParser methodsFor: 'parsing'!
@@ -455,7 +408,6 @@ parse: aStream
 				ifFalse: [elements addLast: element]].
 				elements]
 		ifNotNil: [failure].
-
 ! !
 
 !PPRepeatingParser class methodsFor: 'instance creation'!
@@ -465,47 +417,48 @@ on: aParser min: aNumber
 		parser: aParser;
 		min: aNumber;
 		yourself
-
 ! !
 
 Object subclass: #PPFailure
-	instanceVariableNames: 'position, reason'
+	instanceVariableNames: 'position reason'
 	category: 'Parser'!
 
 !PPFailure methodsFor: 'accessing'!
 
 position
 	^position ifNil: [0]
-
 !
 
 position: aNumber
 	position := aNumber
-
 !
 
 reason
 	^reason ifNil: ['']
-
 !
 
 reason: aString
 	reason := aString
-
 !
 
 reason: aString at: anInteger
 	self 
 	    reason: aString; 
 	    position: anInteger
+!
 
+accept: aVisitor
+	aVisitor visitFailure: self
 ! !
 
 !PPFailure methodsFor: 'testing'!
 
 isParseFailure
 	^true
+!
 
+asString
+	^reason, ' at ', position asString
 ! !
 
 !PPFailure class methodsFor: 'instance creation'!
@@ -514,7 +467,6 @@ reason: aString at: anInteger
 	    ^self new
 		reason: aString at: anInteger;
 		yourself
-
 ! !
 
 Object subclass: #SmalltalkParser
@@ -686,14 +638,12 @@ parser
 		    yourself].
 	
 	^method, PPEOFParser new ==> [:node | node first]
-
 ! !
 
 !SmalltalkParser methodsFor: 'parsing'!
 
 parse: aStream
 	^self parser parse: aStream
-
 ! !
 
 !SmalltalkParser class methodsFor: 'instance creation'!
@@ -701,7 +651,6 @@ parse: aStream
 parse: aStream
 	    ^self new
 		parse: aStream
-
 ! !
 
 Object subclass: #Chunk
@@ -712,24 +661,20 @@ Object subclass: #Chunk
 
 contents
 	^contents ifNil: ['']
-
 !
 
 contents: aString
 	contents := aString
-
 ! !
 
 !Chunk methodsFor: 'testing'!
 
 isEmptyChunk
 	^false
-
 !
 
 isInstructionChunk
 	^false
-
 ! !
 
 Chunk subclass: #InstructionChunk
@@ -740,7 +685,6 @@ Chunk subclass: #InstructionChunk
 
 isInstructionChunk
 	^true
-
 ! !
 
 Chunk subclass: #EmptyChunk
@@ -751,20 +695,18 @@ Chunk subclass: #EmptyChunk
 
 isEmptyChunk
 	^true
-
 ! !
 
 Object subclass: #ChunkParser
-	instanceVariableNames: 'parser, separator, eof, ws, chunk, emptyChunk, instructionChunk'
+	instanceVariableNames: 'parser separator eof ws chunk emptyChunk instructionChunk'
 	category: 'Parser'!
 
 !ChunkParser methodsFor: ''!
 
 instructionChunk
 	^instructionChunk ifNil: [
-	    instructionChunk := self ws, '!' asParser, self chunk
+	    instructionChunk := self ws, '!!' asParser, self chunk
 	    ==> [:node | InstructionChunk new contents: node last contents]]
-
 ! !
 
 !ChunkParser methodsFor: 'accessing'!
@@ -772,32 +714,27 @@ instructionChunk
 parser
 	^parser ifNil: [
 	    parser := self instructionChunk / self emptyChunk / self chunk / self eof]
-
 !
 
 eof
 	^eof ifNil: [eof := self ws, PPEOFParser new ==> [:node | nil]]
-
 !
 
 separator
 	^separator ifNil: [separator := (String cr, String space, String lf, String tab) asChoiceParser]
-
 !
 
 ws
 	^ws ifNil: [ws := self separator star]
-
 !
 
 chunk
-	^chunk ifNil: [chunk := self ws, ('!!' asParser / ('!' asParser not, PPAnyParser new)) plus flatten, '!' asParser ==> [:node | Chunk new contents: (node second replace: '!!' with: '!')]]
-
+	^chunk ifNil: [chunk := self ws, ('!!!!' asParser / ('!!' asParser not, PPAnyParser new)) plus flatten, '!!' asParser
+		==> [:node | Chunk new contents: (node second replace: '!!!!' with: '!!') trimBoth]]
 !
 
 emptyChunk
-	^emptyChunk ifNil: [emptyChunk := self separator plus, '!' asParser, self ws ==> [:node | EmptyChunk new]]
-
+	^emptyChunk ifNil: [emptyChunk := self separator plus, '!!' asParser, self ws ==> [:node | EmptyChunk new]]
 ! !
 
 Object subclass: #Importer
@@ -808,7 +745,6 @@ Object subclass: #Importer
 
 chunkParser
 	^chunkParser ifNil: [chunkParser := ChunkParser new parser]
-
 ! !
 
 !Importer methodsFor: 'fileIn'!
@@ -823,7 +759,6 @@ import: aStream
 					 scanFrom: aStream]
 		    ifFalse: [Compiler new loadExpression: nextChunk contents].
 		self import: aStream]]
-
 ! !
 
 Object subclass: #Exporter
@@ -850,7 +785,6 @@ export: aClass
 	self exportMetaDefinitionOf: aClass on: stream.
 	self exportMethodsOf: aClass class on: stream.
 	^stream contents
-
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -876,7 +810,6 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: '.comment=';
 		nextPutAll: 'unescape(''', aClass comment escaped, ''')'].
 	aStream lf
-
 !
 
 exportMetaDefinitionOf: aClass on: aStream
@@ -888,7 +821,6 @@ exportMetaDefinitionOf: aClass on: aStream
 		do: [:each | aStream nextPutAll: '''', each, '''']
 		separatedBy: [aStream nextPutAll: ','].
 	    aStream nextPutAll: '];', String lf]
-
 !
 
 exportMethodsOf: aClass on: aStream
@@ -905,7 +837,6 @@ classNameFor: aClass
 		aClass isNil
 		    ifTrue: ['nil']
 		    ifFalse: [aClass name]]
-
 !
 
 exportMethod: aMethod of: aClass on: aStream
@@ -929,7 +860,6 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: ');';lf;lf
 !
 
-
 exportCategoryExtensions: aString on: aStream
 	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
 		each methodDictionary values do: [:method |
@@ -952,38 +882,32 @@ exportDefinitionOf: aClass on: aStream
 	    nextPutAll: '	instanceVariableNames: '''.
 	aClass instanceVariableNames 
 	    do: [:each | aStream nextPutAll: each]
-	    separatedBy: [aStream nextPutAll: ', '].
+	    separatedBy: [aStream nextPutAll: ' '].
 	aStream	
 	    nextPutAll: ''''; lf;
-	    nextPutAll: '	category: ''', aClass category, '''!'; lf.
+	    nextPutAll: '	category: ''', aClass category, '''!!'; lf.
  	aClass comment notEmpty ifTrue: [
 	    aStream 
-		nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;
-		nextPutAll: aClass comment escaped, '!';lf].
+		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
 	aStream lf
-
 !
 
 exportMethod: aMethod of: aClass on: aStream
 	aStream 
-		lf; lf; nextPutAll: aMethod source; lf;
-		nextPutAll: '!'
+		lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;
+		nextPutAll: '!!'
 !
 
 exportMethodsOf: aClass on: aStream
 
-    | methodsByCategory |
-    methodsByCategory := Dictionary new.
-    aClass methodDictionary values do: [:m |
-	(methodsByCategory at: m category ifAbsentPut: [Array new])
- 		add: m]. 
-    aClass protocols do: [:category |       
-	aStream
-		nextPutAll: '!', (self classNameFor: aClass);
-		nextPutAll: ' methodsFor: ''', category, '''!'.
-    	(methodsByCategory at: category) do: [:each |
-		self exportMethod: each of: aClass on: aStream].
-	aStream nextPutAll: ' !'; lf; lf]
+   aClass protocolsDo: [:category :methods |
+	(category match: '^\*') ifFalse: [ 
+		self
+			exportMethods: methods
+			category: category
+			of: aClass
+			on: aStream]]
 !
 
 exportMetaDefinitionOf: aClass on: aStream
@@ -994,9 +918,9 @@ exportMetaDefinitionOf: aClass on: aStream
 		    nextPutAll: ' instanceVariableNames: '''.
 		aClass class instanceVariableNames 
 		    do: [:each | aStream nextPutAll: each]
-		    separatedBy: [aStream nextPutAll: ', '].
+		    separatedBy: [aStream nextPutAll: ' '].
 		aStream	
-		    nextPutAll: '''!'; lf; lf]
+		    nextPutAll: '''!!'; lf; lf]
 !
 
 classNameFor: aClass
@@ -1006,5 +930,68 @@ classNameFor: aClass
 		aClass isNil
 		    ifTrue: ['nil']
 		    ifFalse: [aClass name]]
+!
+
+chunkEscape: aString
+	"Replace all occurrences of !! with !!!! and trim at both ends."
+
+	^(aString replace: '!!' with: '!!!!') trimBoth
+!
+
+exportCategoryExtensions: aString on: aStream
+	"We need to override this one too since we need to group
+	all methods in a given protocol under a leading methodsFor: chunk
+	for that class."
+
+	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
+		each protocolsDo: [:category :methods |
+			category = ('*', aString) ifTrue: [
+				self exportMethods: methods category: category of: each on: aStream]]]
+!
+
+exportMethods: methods category: category of: aClass on: aStream
+
+	aStream
+		nextPutAll: '!!', (self classNameFor: aClass);
+		nextPutAll: ' methodsFor: ''', category, '''!!'.
+    	methods do: [:each |
+		self exportMethod: each of: aClass on: aStream].
+	aStream nextPutAll: ' !!'; lf; lf
+! !
+
+Exporter subclass: #StrippedExporter
+	instanceVariableNames: ''
+	category: 'Parser'!
+
+!StrippedExporter methodsFor: 'private'!
+
+exportDefinitionOf: aClass on: aStream
+	aStream 
+	    nextPutAll: 'smalltalk.addClass(';
+	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
+	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+	    nextPutAll: ', ['.
+	aClass instanceVariableNames 
+	    do: [:each | aStream nextPutAll: '''', each, '''']
+	    separatedBy: [aStream nextPutAll: ', '].
+	aStream	
+	    nextPutAll: '], ''';
+	    nextPutAll: aClass category, '''';
+	    nextPutAll: ');'.
+	aStream lf
+!
+
+exportMethod: aMethod of: aClass on: aStream
+	aStream 
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
+		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: ']';lf;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
+		nextPutAll: ');';lf;lf
 ! !
 

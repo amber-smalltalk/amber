@@ -76,7 +76,6 @@ TestCase subclass: #ExampleTest
 
 testFailure
 	self deny: true
-	
 !
 
 testPasses
@@ -88,7 +87,7 @@ testError
 ! !
 
 TabWidget subclass: #ProgressBar
-	instanceVariableNames: 'percent, progressDiv'
+	instanceVariableNames: 'percent progressDiv'
 	category: 'SUnit'!
 
 !ProgressBar methodsFor: 'accessing'!
@@ -124,14 +123,13 @@ Error subclass: #TestFailure
 	category: 'SUnit'!
 
 TabWidget subclass: #TestRunner
-	instanceVariableNames: 'selectedCategories, categoriesList, selectedClasses, classesList, selectedMethods, progressBar, methodsList, result, statusDiv'
+	instanceVariableNames: 'selectedCategories categoriesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	category: 'SUnit'!
 
 !TestRunner methodsFor: 'accessing'!
 
 label
     ^'[Test runner]'
-
 !
 
 categories
@@ -274,7 +272,6 @@ renderButtonsOn: html
     html button
 	with: 'Run selected';
 	onClick: [self run: (self selectedClasses collect: [:each | each new])]
-
 !
 
 renderCategoriesOn: html
@@ -313,7 +310,6 @@ renderErrorsOn: html
 
 canBeClosed
     ^true
-
 !
 
 isSelectedClass: aClass
@@ -370,7 +366,7 @@ updateStatusDiv
 ! !
 
 Object subclass: #TestResult
-	instanceVariableNames: 'timestamp, runs, errors, failures, total'
+	instanceVariableNames: 'timestamp runs errors failures total'
 	category: 'SUnit'!
 
 !TestResult methodsFor: 'accessing'!

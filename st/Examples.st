@@ -1,5 +1,5 @@
 Widget subclass: #Counter
-	instanceVariableNames: 'count, header'
+	instanceVariableNames: 'count header'
 	category: 'Examples'!
 
 !Counter methodsFor: 'actions'!
@@ -19,7 +19,6 @@ decrease
 initialize
     super initialize.
     count := 0
-
 ! !
 
 !Counter methodsFor: 'rendering'!
@@ -34,11 +33,10 @@ renderOn: html
     html button
 	with: '--';
 	onClick: [self decrease]
-
 ! !
 
 Widget subclass: #Tetris
-	instanceVariableNames: 'renderingContext, timer, speed, score, rows, movingPiece'
+	instanceVariableNames: 'renderingContext timer speed score rows movingPiece'
 	category: 'Examples'!
 
 !Tetris methodsFor: 'accessing'!
@@ -57,7 +55,6 @@ squares
 
 gluePiece: aPiece
 	aPiece glueOn: self
-	
 !
 
 rows
@@ -83,7 +80,6 @@ nextStep
 		ifTrue: [movingPiece position: movingPiece position + (0@1)]
 		ifFalse: [self newPiece].
 	self redraw
-	
 !
 
 redraw
@@ -195,7 +191,7 @@ squares
 ! !
 
 Widget subclass: #TetrisPiece
-	instanceVariableNames: 'rotation, position'
+	instanceVariableNames: 'rotation position'
 	category: 'Examples'!
 
 !TetrisPiece methodsFor: 'accessing'!
