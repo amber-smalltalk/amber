@@ -28,9 +28,10 @@ process: aRequest
 
 start
         | block obj |
-        block := [:req :res |
-           {'res.writeHead(200, {''Content-Type'': ''text/html''});'}.
-           res end: (self process: req)].
+        block := [:req :res || headers |
+	    headers := Dictionary with: 'content-type' -> 'text/html'.
+	    res writeHead: (Array with: 200 with: headers).
+	    res end: (self process: req)].
 
         (http createServer: block)
                 listen: #(1337 '127.0.0.1').
@@ -41,8 +42,8 @@ start
 !TrivialServer class methodsFor: 'initialization'!
 initialize
         "We require these Node modules."
-
-	{'os = require(''os''), http = require(''http'');'}
+    os := require value: 'os'.
+    http := require value: 'http'.
 !
 
 main
