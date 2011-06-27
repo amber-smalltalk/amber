@@ -1,4 +1,0 @@
-Slight variation on ../trivialserver but this one tries to do more Node
-stuff from Smalltalk. Note that we can use a block as a function callback.
-It would be nice if we could improve more on JTalk's ability to call javascript
-code directly.
