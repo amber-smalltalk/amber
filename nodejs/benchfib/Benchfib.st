@@ -6,9 +6,7 @@ Object subclass: #Benchfib
 
 main
 
-	| result |
-	result := 0 tinyBenchmarks.
-	{'console.log(''0 tinyBenchmarks => '' + result);'}
+	console log: '0 tinyBenchmarks => ', 0 tinyBenchmarks
 ! !
 
 !Number methodsFor: '*Benchfib'!
