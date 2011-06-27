@@ -330,6 +330,6 @@ smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 
 smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
 
-if(CanvasRenderingContext2D) {
+if(this.CanvasRenderingContext2D) {
     smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
 }
