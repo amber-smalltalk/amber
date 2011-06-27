@@ -7,22 +7,26 @@ JTALK=`dirname ${0}`/..
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [Program]
+Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [Program]
 
-   Will compile Jtalk files in a variety of ways.
+   Will compile Jtalk files - either separately or into a runnable complete program.
    Files listed will be handled using these rules:
 
-     *.js files are concatenated as is. If not found we look in $JTALK/js
+   *.js
+     Files are concatenated in listed order. If not found we look in $JTALK/js
 
-     *.st files are compiled into .js files. If not found we look in $JTALK/st.
-     Each file is currently considered to be a fileout of a single class
-     category of the same name as the file.
+   *.st
+     Files are compiled into .js files before concatenated. If not found we look
+     in $JTALK/st.
 
-   If no Program is specified only each given .st file will be compiled into a .js file.
-   Otherwise a Program.js file is linked together based on the given options described below:
+     NOTE: Each file is currently considered to be a fileout of a single class
+     category of the same name as the file!
+
+   If no Program is specified each given .st file will be compiled into a .js file.
+   Otherwise a <Program>.js file is linked together based on the options:
 
   -N or -D
-     Compile for Node.js or D8 (V8 shell). Defaults to "-Kim Main" so boot.js and Kernel.js
+     Compile for Node.js or D8 (V8 shell). Implies "-K -i -m Main" so boot.js and Kernel.js
      are added first and init.js is added last with a call to Main class>>main.
 
   -K
@@ -30,6 +34,18 @@ Usage: $0 [-N|D] [-K|C] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [P
 
   -C
      Add libraries to get minimal JTalk Compiler running.
+
+  -o
+     Optimize each js file using the Google closure compiler. Using ~/compiler.jar    
+
+  -O
+     Optimize <Program>.js using the Google closure compiler. Using ~/compiler.jar
+
+  -l libray1,library2
+     Load listed libraries (no spaces) in Compiler before compiling.
+
+  -L
+     Loads all libraries in directory js in Compiler before compiling.
 
   -i
      Add library standard initializer $JTALK/js/init.js
@@ -75,6 +91,7 @@ fi
 BOOT="$JTALK/js/boot.js"
 KERNEL="$BOOT $JTALK/js/Kernel.js"
 COMPILER="$KERNEL $JTALK/js/Parser.js $JTALK/js/Compiler.js"
+CANVAS="$COMPILER $JTALK/js/Canvas.js"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
@@ -85,10 +102,10 @@ INIT=
 MAIN=
 MAINFILE=
 BASE=$KERNEL
-OURCOMPILER="$COMPILER $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
+LOAD=
 
 # Read options and shift them away
-while getopts "NDKCiI:M:m:h?" o; do
+while getopts "NDKCoOl:LiI:M:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -100,6 +117,10 @@ case "$o" in
       MAIN=Main;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
+   o) CLOSURE=true;;
+   O) CLOSUREFULL=true;;
+   l) LOAD=$OPTARG;;
+   L) LOAD="$JTALK/*.js";;
    I) INIT=$INITIALIZER;;
    i) INIT=$OPTARG;;
    M) MAINFILE=$OPTARG;;
@@ -109,6 +130,10 @@ case "$o" in
    esac
 done
 shift $(($OPTIND - 1))
+
+# Define our Compiler
+# We need to add extra listed libraries in $LOAD not already in $CANVAS
+OURCOMPILER="$CANVAS $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
 
 # Combine supplied libraries
 LIBS="$BASE $ADDONS"
@@ -182,6 +207,18 @@ do
   fi 
 done
 
+if [ ! -z $CLOSURE ]; then
+  echo "Compiling all js files using Google closure compiler."
+
+  ALLJSFILES="$COMPILED $LIBS"
+  for FILE in $ALLJSFILES
+  do
+    mv $FILE $FILE.original
+    java -jar ~/compiler.jar --js $FILE.original --js_output_file $FILE
+    rm $FILE.original
+  done
+fi
+
 
 if [ -z $PROGRAM ]; then
   echo "Done."
@@ -234,9 +271,12 @@ echo "Writing $PROGRAM.js ..."
 cat $LIBS $COMPILED $INIT $MAIN > $PROGRAM.js
 echo "Done."
 
-# Optionally run Program and give all args left to it
-if [ -n "$RUN" ]; then
-  echo "Running program"
-  echo "---------------"
-  node $PROGRAM.js $@
+
+if [ ! -z $CLOSUREFULL ]; then
+  echo "Compiling $PROGRAM.js file using Google closure compiler."
+  mv $PROGRAM.js $PROGRAM.js.original
+  java -jar ~/compiler.jar --js $PROGRAM.js.original --js_output_file $PROGRAM.js
+  rm $PROGRAM.js.original
+  echo "Done."
 fi
+
