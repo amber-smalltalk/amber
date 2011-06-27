@@ -197,6 +197,7 @@ function Smalltalk(){
 	    receiver = nil;
 	}
 	var klass = klass || receiver.klass;
+	if(!klass) { return messageNotUnderstood(receiver, selector, args) };
 	var method = klass.fn.prototype[selector];
 	if(!method) {
 	    return messageNotUnderstood(receiver, selector, args);
@@ -204,10 +205,26 @@ function Smalltalk(){
 	return method.apply(receiver, args);
     };
 
-    /* handle #dnu:. 
-       Assume that the receiver understands #doesNotUnderstand: */
+    /* Handles #dnu: *and* JavaScript method calls.
+       if the receiver has no klass, we consider it a JS object (outside of the
+       Jtalk system). Else assume that the receiver understands #doesNotUnderstand: */
 
     messageNotUnderstood = function(receiver, selector, args) {
+	/* Handles JS method calls. Assumes that a single array or single argument was passed from Jtalk.
+	   Example: someJSObject foo: #(1 2 3) -> someJSObject.foo(1,2,3); */
+	var jsFunction = receiver[selector.replace(/_/g, '')];
+	var jsArguments;
+	if(receiver.klass === undefined && typeof jsFunction === "function") {
+	    if(args[0].constructor === Array) {
+		jsArguments = args[0]
+	    } else {
+		jsArguments = [args[0]]
+	    }
+	    return jsFunction.apply(receiver, jsArguments);
+	}
+
+	/* Handles not understood messages. Also see the Jtalk counter-part 
+	   Object>>doesNotUnderstand: */
 	return receiver._doesNotUnderstand_(
 	    st.Message._new()
 		._selector_(convertSelector(selector))
@@ -313,6 +330,6 @@ smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 
 smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
 
-//if(CanvasRenderingContext2D) {
-//    smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
-//}
+if(CanvasRenderingContext2D) {
+    smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
+}
