@@ -1,17 +1,13 @@
-Trivial Node.js example in JTalk:
+Trivial Node.js example in JTalk that also uses the Google Closure compiler
+if ~/compiler.jar is present.
 
 Hello.st - source code.
 hello    - trivial bash script to run resulting program.
-main.js  - small "doit" to actually run code. Will be added by ntalkc.
 Makefile - trivial makefile, read it.
 
-Hello.js - produced when you run make. Contains JTalk + Hello.st + main.js
+Hello.js - produced when you run make. Contains JTalk + Hello.st + a main call
 
 To play, do this:
-
-make run
-
-...or:
 
 make
 ./hello

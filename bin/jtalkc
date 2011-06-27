@@ -117,8 +117,10 @@ case "$o" in
       MAIN=Main;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
-   o) CLOSURE=true;;
-   O) CLOSUREFULL=true;;
+   o) CLOSURE=true
+      CLOSUREPARTS=true;;
+   O) CLOSURE=true
+      CLOSUREFULL=true;;
    l) LOAD=$OPTARG;;
    L) LOAD="$JTALK/*.js";;
    I) INIT=$INITIALIZER;;
@@ -130,6 +132,20 @@ case "$o" in
    esac
 done
 shift $(($OPTIND - 1))
+
+# Check for Closure compiler and Java
+if [ ! -z $CLOSURE ]; then
+  java > /dev/null
+  if [ $? -eq 0 ]; then 
+    if [ ! -f ~/compiler.jar ]; then
+      echo "Can not find Closure compiler at ~/compiler.jar"
+      exit 1
+    fi
+  else
+   echo "java is not installed and is needed for -O or -o (Closure compiler)."
+   exit 1
+  fi
+fi
 
 # Define our Compiler
 # We need to add extra listed libraries in $LOAD not already in $CANVAS
@@ -207,7 +223,7 @@ do
   fi 
 done
 
-if [ ! -z $CLOSURE ]; then
+if [ ! -z $CLOSUREPARTS ]; then
   echo "Compiling all js files using Google closure compiler."
 
   ALLJSFILES="$COMPILED $LIBS"
