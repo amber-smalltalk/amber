@@ -5,7 +5,7 @@ Object subclass: #Hello
 !Hello class methodsFor: 'main'!
 
 main
-	{'console.log(smalltalk.Hello._new()._hello());'}
+	console log: Hello new hello
 ! ! 
 
 !Hello methodsFor: 'printing'!

@@ -9,15 +9,14 @@ initialize
 
 !TrivialServer methodsFor: 'processing'!
 process: aRequest
-
         | hostname httpVersion stream |
 	counter := counter + 1.
 
         "Calling a method in a js module"
-	hostname := {'os.hostname()'}.
+	hostname := os hostname.
 
         "Accessing a property of js HTTP request object"
-        httpVersion := {'aRequest.httpVersion'}.
+        httpVersion := aRequest httpVersion.
 
         stream := String new writeStream.
 	stream
@@ -25,9 +24,27 @@ process: aRequest
 		nextPutAll: '<p>OS hostname: ', hostname, '</p>';
 		nextPutAll: '<p>Number of requests: ', counter asString, '</p></html>'.
 	^stream contents
+!
+
+start
+        | block obj |
+        block := [:req :res |
+           {'res.writeHead(200, {''Content-Type'': ''text/html''});'}.
+           res end: (self process: req)].
+
+        (http createServer: block)
+                listen: #(1337 '127.0.0.1').
+        console log: 'TrivialServer running at http://127.0.0.1:1337/'
 ! !
+
 
 !TrivialServer class methodsFor: 'initialization'!
 initialize
-	{'os = require(''os'');'}
+        "We require these Node modules."
+
+	{'os = require(''os''), http = require(''http'');'}
+!
+
+main
+	self new start
 ! !
