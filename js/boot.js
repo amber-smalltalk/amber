@@ -212,7 +212,8 @@ function Smalltalk(){
     function messageNotUnderstood(receiver, selector, args) {
 	/* Handles JS method calls. Assumes that a single array or single argument was passed from Jtalk.
 	   Example: someJSObject foo: #(1 2 3) -> someJSObject.foo(1,2,3); */
-	var jsFunction = receiver[selector.replace(/_/g, '')];
+	var jsSelector = selector.replace(/_/g, '');
+	var jsFunction = receiver[jsSelector];
 	var jsArguments;
 	if(receiver.klass === undefined && typeof jsFunction === "function") {
 	    if(args[0] && args[0].constructor === Array) {
@@ -225,7 +226,7 @@ function Smalltalk(){
 
 	/* Handles not understood messages. Also see the Jtalk counter-part 
 	   Object>>doesNotUnderstand: */
-	if(!receiver.klass) {throw(receiver + ' is not a Jtalk object')}
+	if(!receiver.klass) {throw(receiver + ' is not a Jtalk object and ' + jsSelector + ' is not a function')}
 	
 	return receiver._doesNotUnderstand_(
 	    st.Message._new()
