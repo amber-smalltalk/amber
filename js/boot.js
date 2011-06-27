@@ -33,7 +33,6 @@
    |
    ==================================================================== */
 
-
 /* Smalltalk constructors definition */
 
 function SmalltalkObject(){};
@@ -55,7 +54,7 @@ function Smalltalk(){
        should be added to the smalltalk object, see smalltalk.addClass().
        Superclass linking is *not* handled here, see smalltalk.init()  */
 
-    klass = function(spec) {
+    function klass(spec) {
 	var spec = spec || {};
 	var that;
 	if(spec.meta) {
@@ -209,22 +208,29 @@ function Smalltalk(){
        if the receiver has no klass, we consider it a JS object (outside of the
        Jtalk system). Else assume that the receiver understands #doesNotUnderstand: */
 
-    messageNotUnderstood = function(receiver, selector, args) {
+    function messageNotUnderstood(receiver, selector, args) {
 	/* Handles JS method calls. Assumes that a single array or single argument was passed from Jtalk.
 	   Example: someJSObject foo: #(1 2 3) -> someJSObject.foo(1,2,3); */
-	var jsFunction = receiver[selector.replace(/_/g, '')];
+	var jsSelector = selector.replace(/_/g, '');
+	var jsProperty = receiver[jsSelector];
 	var jsArguments;
-	if(receiver.klass === undefined && typeof jsFunction === "function") {
-	    if(args[0].constructor === Array) {
-		jsArguments = args[0]
-	    } else {
-		jsArguments = [args[0]]
+	if(receiver.klass === undefined) {
+	    if(typeof jsProperty === "function") {
+		if(args[0] && args[0].constructor === Array) {
+		    jsArguments = args[0]
+		} else {
+		    jsArguments = [args[0]]
+		}
+		return jsProperty.apply(receiver, jsArguments);
+	    } else if(jsProperty !== undefined) {
+		return jsProperty
 	    }
-	    return jsFunction.apply(receiver, jsArguments);
 	}
 
 	/* Handles not understood messages. Also see the Jtalk counter-part 
 	   Object>>doesNotUnderstand: */
+	if(!receiver.klass) {throw(receiver + ' is not a Jtalk object and ' + jsSelector + ' is undefined')}
+	
 	return receiver._doesNotUnderstand_(
 	    st.Message._new()
 		._selector_(convertSelector(selector))
@@ -236,7 +242,7 @@ function Smalltalk(){
        if you modify the following functions, also change String>>asSelector
        accordingly */
 
-    convertSelector = function(selector) {
+    function convertSelector(selector) {
 	if(selector.match(/__/)) {
 	    return convertBinarySelector(selector);
 	} else {
@@ -244,11 +250,11 @@ function Smalltalk(){
 	}
     };
 
-    convertKeywordSelector = function(selector) {
+    function convertKeywordSelector(selector) {
 	return selector.replace(/^_/, '').replace(/_/g, ':');
     };
 
-    convertBinarySelector = function(selector) {
+    function convertBinarySelector(selector) {
 	return selector
 	    .replace(/^_/, '')
 	    .replace(/_plus/, '+')
@@ -300,6 +306,7 @@ function SmalltalkMethodContext() {
 var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
 var thisContext = nil;
+
 
 /****************************************************************************************/
 
