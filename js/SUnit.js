@@ -1,5 +1,65 @@
 smalltalk.addClass('TestCase', smalltalk.Object, ['testedClass'], 'SUnit');
 smalltalk.addMethod(
+'_testedClass',
+smalltalk.method({
+selector: 'testedClass',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@testedClass'];
+return self;},
+source: unescape('testedClass%0A%09%5EtestedClass'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_testedClass_',
+smalltalk.method({
+selector: 'testedClass:',
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+self['@testedClass']=aClass;
+return self;},
+source: unescape('testedClass%3A%20aClass%0A%09testedClass%20%3A%3D%20aClass'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_cleanUpInstanceVariables',
+smalltalk.method({
+selector: 'cleanUpInstanceVariables',
+category: 'private',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [(function(name){return smalltalk.send(smalltalk.send(name, "__eq", ["testSelector"]), "_ifFalse_", [(function(){return smalltalk.send(self, "_instVarAt_put_", [name, nil]);})]);})]);
+return self;},
+source: unescape('cleanUpInstanceVariables%0A%09self%20class%20instanceVariableNames%20do%3A%20%5B%20%3Aname%20%7C%0A%09%09name%20%3D%20%27testSelector%27%20ifFalse%3A%20%5B%0A%09%09%09self%20instVarAt%3A%20name%20put%3A%20nil%20%5D%5D'),
+messageSends: ["do:", "instanceVariableNames", "class", "ifFalse:", unescape("%3D"), "instVarAt:put:"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_signalFailure_',
+smalltalk.method({
+selector: 'signalFailure:',
+category: 'private',
+fn: function (aString){
+var self=this;
+(function($rec){smalltalk.send($rec, "_messageText_", [aString]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send(smalltalk.TestFailure, "_new", []));
+return self;},
+source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
+messageSends: ["messageText:", "signal", "new"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 '_setUp',
 smalltalk.method({
 selector: 'setUp',
@@ -30,21 +90,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_cleanUpInstanceVariables',
-smalltalk.method({
-selector: 'cleanUpInstanceVariables',
-category: 'private',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [(function(name){return smalltalk.send(smalltalk.send(name, "__eq", ["testSelector"]), "_ifFalse_", [(function(){return smalltalk.send(self, "_instVarAt_put_", [name, nil]);})]);})]);
-return self;},
-source: unescape('cleanUpInstanceVariables%0A%09self%20class%20instanceVariableNames%20do%3A%20%5B%20%3Aname%20%7C%0A%09%09name%20%3D%20%27testSelector%27%20ifFalse%3A%20%5B%0A%09%09%09self%20instVarAt%3A%20name%20put%3A%20nil%20%5D%5D'),
-messageSends: ["do:", "instanceVariableNames", "class", "ifFalse:", unescape("%3D"), "instVarAt:put:"],
-referencedClasses: []
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
 '_methods',
 smalltalk.method({
 selector: 'methods',
@@ -60,32 +105,34 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_testedClass',
+'_runCaseFor_',
 smalltalk.method({
-selector: 'testedClass',
-category: 'accessing',
-fn: function (){
+selector: 'runCaseFor:',
+category: 'running',
+fn: function (aTestResult){
 var self=this;
-return self['@testedClass'];
+smalltalk.send((function(){smalltalk.send(self, "_setUp", []);return smalltalk.send(self, "_performTestFor_", [aTestResult]);}), "_on_do_", [smalltalk.Error, (function(ex){smalltalk.send(self, "_tearDown", []);smalltalk.send(self, "_cleanUpInstanceVariables", []);return smalltalk.send(ex, "_signal", []);})]);
+smalltalk.send(self, "_tearDown", []);
+smalltalk.send(self, "_cleanUpInstanceVariables", []);
 return self;},
-source: unescape('testedClass%0A%09%5EtestedClass'),
-messageSends: [],
-referencedClasses: []
+source: unescape('runCaseFor%3A%20aTestResult%0A%09%5Bself%20setUp.%0A%09self%20performTestFor%3A%20aTestResult%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09self%20tearDown.%0A%09%09%09self%20cleanUpInstanceVariables.%0A%09%09%09ex%20signal%5D.%0A%09self%20tearDown.%0A%09self%20cleanUpInstanceVariables'),
+messageSends: ["on:do:", "setUp", "performTestFor:", "tearDown", "cleanUpInstanceVariables", "signal"],
+referencedClasses: [smalltalk.Error]
 }),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_testedClass_',
+'_performTestFor_',
 smalltalk.method({
-selector: 'testedClass:',
-category: 'accessing',
-fn: function (aClass){
+selector: 'performTestFor:',
+category: 'running',
+fn: function (aResult){
 var self=this;
-self['@testedClass']=aClass;
+smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [each]);}), "_on_do_", [smalltalk.TestFailure, (function(ex){return smalltalk.send(aResult, "_addFailure_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each])]);})]);}), "_on_do_", [smalltalk.Error, (function(ex){return smalltalk.send(aResult, "_addError_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each])]);})]);return smalltalk.send(aResult, "_increaseRuns", []);})]);
 return self;},
-source: unescape('testedClass%3A%20aClass%0A%09testedClass%20%3A%3D%20aClass'),
-messageSends: [],
-referencedClasses: []
+source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D.%0A%09%09aResult%20increaseRuns%5D'),
+messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "addError:", "increaseRuns"],
+referencedClasses: [smalltalk.Error]
 }),
 smalltalk.TestCase);
 
@@ -119,53 +166,6 @@ referencedClasses: []
 }),
 smalltalk.TestCase);
 
-smalltalk.addMethod(
-'_signalFailure_',
-smalltalk.method({
-selector: 'signalFailure:',
-category: 'private',
-fn: function (aString){
-var self=this;
-(function($rec){smalltalk.send($rec, "_messageText_", [aString]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send(smalltalk.TestFailure, "_new", []));
-return self;},
-source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
-messageSends: ["messageText:", "signal", "new"],
-referencedClasses: [smalltalk.TestFailure]
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-'_runCaseFor_',
-smalltalk.method({
-selector: 'runCaseFor:',
-category: 'running',
-fn: function (aTestResult){
-var self=this;
-smalltalk.send((function(){smalltalk.send(self, "_setUp", []);return smalltalk.send(self, "_performTestFor_", [aTestResult]);}), "_on_do_", [smalltalk.Error, (function(ex){smalltalk.send(self, "_tearDown", []);smalltalk.send(self, "_cleanUpInstanceVariables", []);return smalltalk.send(ex, "_signal", []);})]);
-smalltalk.send(self, "_tearDown", []);
-smalltalk.send(self, "_cleanUpInstanceVariables", []);
-return self;},
-source: unescape('runCaseFor%3A%20aTestResult%0A%09%5Bself%20setUp.%0A%09self%20performTestFor%3A%20aTestResult%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09self%20tearDown.%0A%09%09%09self%20cleanUpInstanceVariables.%0A%09%09%09ex%20signal%5D.%0A%09self%20tearDown.%0A%09self%20cleanUpInstanceVariables'),
-messageSends: ["on:do:", "setUp", "performTestFor:", "tearDown", "cleanUpInstanceVariables", "signal"],
-referencedClasses: [smalltalk.Error]
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-'_performTestFor_',
-smalltalk.method({
-selector: 'performTestFor:',
-category: 'running',
-fn: function (aResult){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [each]);}), "_on_do_", [smalltalk.TestFailure, (function(ex){return smalltalk.send(aResult, "_addFailure_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each])]);})]);}), "_on_do_", [smalltalk.Error, (function(ex){return smalltalk.send(aResult, "_addError_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each])]);})]);return smalltalk.send(aResult, "_increaseRuns", []);})]);
-return self;},
-source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D.%0A%09%09aResult%20increaseRuns%5D'),
-messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "addError:", "increaseRuns"],
-referencedClasses: [smalltalk.TestFailure,smalltalk.Error]
-}),
-smalltalk.TestCase);
-
 
 
 smalltalk.addClass('ExampleTest', smalltalk.TestCase, ['test'], 'SUnit');
@@ -178,7 +178,7 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_deny_", [true]);
 return self;},
-source: unescape('testFailure%0A%09self%20deny%3A%20true%0A%09'),
+source: unescape('testFailure%0A%09self%20deny%3A%20true'),
 messageSends: ["deny:"],
 referencedClasses: []
 }),
@@ -293,69 +293,8 @@ fn: function (){
 var self=this;
 return unescape("%5BTest%20runner%5D");
 return self;},
-source: unescape('label%0A%20%20%20%20%5E%27%5BTest%20runner%5D%27%0A'),
+source: unescape('label%0A%20%20%20%20%5E%27%5BTest%20runner%5D%27'),
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_canBeClosed',
-smalltalk.method({
-selector: 'canBeClosed',
-category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
-source: unescape('canBeClosed%0A%20%20%20%20%5Etrue%0A'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_renderBoxOn_',
-smalltalk.method({
-selector: 'renderBoxOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_renderCategoriesOn_", [html]);smalltalk.send($rec, "_renderClassesOn_", [html]);return smalltalk.send($rec, "_renderResultsOn_", [html]);})(self);
-return self;},
-source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20self%20%0A%09renderCategoriesOn%3A%20html%3B%0A%09renderClassesOn%3A%20html%3B%0A%09renderResultsOn%3A%20html'),
-messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_renderButtonsOn_',
-smalltalk.method({
-selector: 'renderButtonsOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_with_", ["Run selected"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_run_", [smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_collect_", [(function(each){return smalltalk.send(each, "_new", []);})])]);})]);})(smalltalk.send(html, "_button", []));
-return self;},
-source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20html%20button%0A%09with%3A%20%27Run%20selected%27%3B%0A%09onClick%3A%20%5Bself%20run%3A%20%28self%20selectedClasses%20collect%3A%20%5B%3Aeach%20%7C%20each%20new%5D%29%5D%0A'),
-messageSends: ["with:", "onClick:", "run:", "collect:", "selectedClasses", "new", "button"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_renderCategoriesOn_',
-smalltalk.method({
-selector: 'renderCategoriesOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-self['@categoriesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit categories"]);
-smalltalk.send(self, "_updateCategoriesList", []);
-return self;},
-source: unescape('renderCategoriesOn%3A%20html%0A%20%20%20%20%09categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20sunit%20categories%27.%0A%09self%20updateCategoriesList'),
-messageSends: ["class:", "ul", "updateCategoriesList"],
 referencedClasses: []
 }),
 smalltalk.TestRunner);
@@ -375,54 +314,6 @@ return self;},
 source: unescape('categories%0A%20%20%20%20%7C%20categories%20%7C%0A%20%20%20%20categories%20%3A%3D%20Array%20new.%0A%20%20%20%20self%20allClasses%20do%3A%20%5B%3Aeach%20%7C%0A%09%28categories%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%20%20%20%20categories%20add%3A%20each%20category%5D%5D.%0A%20%20%20%20%5Ecategories%20sort'),
 messageSends: ["new", "do:", "allClasses", "ifFalse:", "includes:", "category", "add:", "sort"],
 referencedClasses: [smalltalk.Array]
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_updateCategoriesList',
-smalltalk.method({
-selector: 'updateCategoriesList',
-category: 'updating',
-fn: function (){
-var self=this;
-smalltalk.send(self['@categoriesList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["all"]);smalltalk.send($rec, "_with_", ["All"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectAllCategories", []);})]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_categories", []), "_do_", [(function(each){var li=nil;
-li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_includes_", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [each]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_toggleCategory_", [each]);})]);})(li);})]);})]);
-return self;},
-source: unescape('updateCategoriesList%0A%20%20%20%20categoriesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%20%20%20%20html%20li%20%0A%09%09class%3A%20%27all%27%3B%0A%09%09with%3A%20%27All%27%3B%0A%09%09onClick%3A%20%5Bself%20selectAllCategories%5D.%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20%28self%20selectedCategories%20includes%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%3B%0A%09%09onClick%3A%20%5Bself%20toggleCategory%3A%20each%5D%5D%5D'),
-messageSends: ["contents:", "class:", "with:", "onClick:", "selectAllCategories", "li", "do:", "categories", "ifTrue:", "includes:", "selectedCategories", "toggleCategory:"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_renderClassesOn_',
-smalltalk.method({
-selector: 'renderClassesOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-self['@classesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit classes"]);
-smalltalk.send(self, "_updateClassesList", []);
-return self;},
-source: unescape('renderClassesOn%3A%20html%0A%20%20%20%20%09classesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20sunit%20classes%27.%0A%09self%20updateClassesList'),
-messageSends: ["class:", "ul", "updateClassesList"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_updateClassesList',
-smalltalk.method({
-selector: 'updateClassesList',
-category: 'updating',
-fn: function (){
-var self=this;
-smalltalk.send(self['@classesList'], "_contents_", [(function(html){smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_isEmpty", []), "_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_class_", ["all"]);smalltalk.send($rec, "_with_", ["All"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectAllClasses", []);})]);})(smalltalk.send(html, "_li", []));})]);return smalltalk.send(smalltalk.send(self, "_classes", []), "_do_", [(function(each){var li=nil;
-li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_includes_", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_name", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_toggleClass_", [each]);})]);})(li);})]);})]);
-return self;},
-source: unescape('updateClassesList%0A%20%20%20%20classesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%28self%20selectedCategories%20isEmpty%29%20ifFalse%3A%20%5B%0A%09%09html%20li%0A%09%09%09class%3A%20%27all%27%3B%0A%09%09%09with%3A%20%27All%27%3B%0A%09%09%09onClick%3A%20%5Bself%20selectAllClasses%5D%5D.%0A%09self%20classes%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%09li%20%3A%3D%20html%20li.%0A%09%09%28self%20selectedClasses%20includes%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09%09li%20class%3A%20%27selected%27%5D.%0A%09%09li%0A%09%09%09with%3A%20each%20name%3B%0A%09%09%09onClick%3A%20%5Bself%20toggleClass%3A%20each%5D%5D%5D'),
-messageSends: ["contents:", "ifFalse:", "isEmpty", "selectedCategories", "class:", "with:", "onClick:", "selectAllClasses", "li", "do:", "classes", "ifTrue:", "includes:", "selectedClasses", "name", "toggleClass:"],
-referencedClasses: []
 }),
 smalltalk.TestRunner);
 
@@ -487,138 +378,6 @@ referencedClasses: [smalltalk.Array]
 smalltalk.TestRunner);
 
 smalltalk.addMethod(
-'_selectAllCategories',
-smalltalk.method({
-selector: 'selectAllCategories',
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_categories", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self['@selectedCategories'], "_includes_", [each]), "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_add_", [each]);})]);})]);
-(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
-return self;},
-source: unescape('selectAllCategories%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%28selectedCategories%20includes%3A%20each%29%20ifFalse%3A%20%5B%0A%09%09%09self%20selectedCategories%20add%3A%20each%5D%5D.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList'),
-messageSends: ["do:", "categories", "ifFalse:", "includes:", "add:", "selectedCategories", "updateCategoriesList", "updateClassesList"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_toggleCategory_',
-smalltalk.method({
-selector: 'toggleCategory:',
-category: 'actions',
-fn: function (aCategory){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_isSelectedCategory_", [aCategory]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self['@selectedCategories'], "_add_", [aCategory]);}), (function(){return smalltalk.send(self['@selectedCategories'], "_remove_", [aCategory]);})]);
-(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
-return self;},
-source: unescape('toggleCategory%3A%20aCategory%0A%09%28self%20isSelectedCategory%3A%20aCategory%29%20%0A%09%09ifFalse%3A%20%5BselectedCategories%20add%3A%20aCategory%5D%0A%09%09ifTrue%3A%20%5BselectedCategories%20remove%3A%20aCategory%5D.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList'),
-messageSends: ["ifFalse:ifTrue:", "isSelectedCategory:", "add:", "remove:", "updateCategoriesList", "updateClassesList"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_toggleClass_',
-smalltalk.method({
-selector: 'toggleClass:',
-category: 'actions',
-fn: function (aClass){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_isSelectedClass_", [aClass]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self['@selectedClasses'], "_add_", [aClass]);}), (function(){return smalltalk.send(self['@selectedClasses'], "_remove_", [aClass]);})]);
-smalltalk.send(self, "_updateClassesList", []);
-return self;},
-source: unescape('toggleClass%3A%20aClass%0A%09%28self%20isSelectedClass%3A%20aClass%29%20%0A%09%09ifFalse%3A%20%5BselectedClasses%20add%3A%20aClass%5D%0A%09%09ifTrue%3A%20%5BselectedClasses%20remove%3A%20aClass%5D.%0A%09self%20%0A%09%20%20%20%20updateClassesList'),
-messageSends: ["ifFalse:ifTrue:", "isSelectedClass:", "add:", "remove:", "updateClassesList"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_isSelectedClass_',
-smalltalk.method({
-selector: 'isSelectedClass:',
-category: 'testing',
-fn: function (aClass){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_includes_", [aClass]);
-return self;},
-source: unescape('isSelectedClass%3A%20aClass%0A%09%5E%28self%20selectedClasses%20includes%3A%20aClass%29'),
-messageSends: ["includes:", "selectedClasses"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_isSelectedCategory_',
-smalltalk.method({
-selector: 'isSelectedCategory:',
-category: 'testing',
-fn: function (aCategory){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_includes_", [aCategory]);
-return self;},
-source: unescape('isSelectedCategory%3A%20aCategory%0A%09%5E%28self%20selectedCategories%20includes%3A%20aCategory%29'),
-messageSends: ["includes:", "selectedCategories"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_selectAllClasses',
-smalltalk.method({
-selector: 'selectAllClasses',
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_classes", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self['@selectedClasses'], "_includes_", [each]), "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_add_", [each]);})]);})]);
-(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
-return self;},
-source: unescape('selectAllClasses%0A%09self%20classes%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%28selectedClasses%20includes%3A%20each%29%20ifFalse%3A%20%5B%0A%09%09%09self%20selectedClasses%20add%3A%20each%5D%5D.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList'),
-messageSends: ["do:", "classes", "ifFalse:", "includes:", "add:", "selectedClasses", "updateCategoriesList", "updateClassesList"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_run_',
-smalltalk.method({
-selector: 'run:',
-category: 'actions',
-fn: function (aCollection){
-var self=this;
-self['@result']=smalltalk.send(smalltalk.TestResult, "_new", []);
-(function($rec){smalltalk.send($rec, "_updateStatusDiv", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);
-smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [(0)]);
-smalltalk.send(self['@result'], "_total_", [smalltalk.send(aCollection, "_inject_into_", [(0), (function(acc, each){return smalltalk.send(acc, "__plus", [smalltalk.send(smalltalk.send(each, "_methods", []), "_size", [])]);})])]);
-smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send((function(){smalltalk.send(each, "_runCaseFor_", [self['@result']]);smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@result'], "_runs", []), "__slash", [smalltalk.send(self['@result'], "_total", [])]), "__star", [(100)])]);smalltalk.send(self, "_updateStatusDiv", []);return smalltalk.send(self, "_updateMethodsList", []);}), "_valueWithTimeout_", [(100)]);})]);
-return self;},
-source: unescape('run%3A%20aCollection%0A%09result%20%3A%3D%20TestResult%20new.%0A%09self%20%0A%09%09updateStatusDiv%3B%0A%09%09updateMethodsList.%0A%09self%20progressBar%20updatePercent%3A%200.%0A%09result%20total%3A%20%28aCollection%20inject%3A%200%20into%3A%20%5B%3Aacc%20%3Aeach%20%7C%20acc%20+%20each%20methods%20size%5D%29.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5Beach%20runCaseFor%3A%20result.%0A%09%09self%20progressBar%20updatePercent%3A%20result%20runs%20/%20result%20total%20*%20100.%0A%09%09self%20updateStatusDiv.%0A%09%09self%20updateMethodsList%5D%20valueWithTimeout%3A%20100%5D.'),
-messageSends: ["new", "updateStatusDiv", "updateMethodsList", "updatePercent:", "progressBar", "total:", "inject:into:", unescape("+"), "size", "methods", "do:", "valueWithTimeout:", "runCaseFor:", unescape("*"), unescape("/"), "runs", "total"],
-referencedClasses: [smalltalk.TestResult]
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_renderResultsOn_',
-smalltalk.method({
-selector: 'renderResultsOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-self['@statusDiv']=smalltalk.send(html, "_div", []);
-smalltalk.send(html, "_with_", [smalltalk.send(self, "_progressBar", [])]);
-self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit methods"]);
-smalltalk.send(self, "_updateMethodsList", []);
-smalltalk.send(self, "_updateStatusDiv", []);
-return self;},
-source: unescape('renderResultsOn%3A%20html%0A%20%20%20%20%09statusDiv%20%3A%3D%20html%20div.%0A%09html%20with%3A%20self%20progressBar.%0A%20%20%20%09methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20sunit%20methods%27.%0A%09self%20updateMethodsList.%0A%09self%20updateStatusDiv'),
-messageSends: ["div", "with:", "progressBar", "class:", "ul", "updateMethodsList", "updateStatusDiv"],
-referencedClasses: []
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
 '_progressBar',
 smalltalk.method({
 selector: 'progressBar',
@@ -679,6 +438,104 @@ referencedClasses: []
 smalltalk.TestRunner);
 
 smalltalk.addMethod(
+'_failedMethods',
+smalltalk.method({
+selector: 'failedMethods',
+category: 'accessing',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_result", []), "_failures", []), "_collect_", [(function(each){return (function($rec){smalltalk.send($rec, "_class_", ["failures"]);return smalltalk.send($rec, "_with_", [each]);})(smalltalk.send(html, "_li", []));})]);
+return self;},
+source: unescape('failedMethods%0A%09self%20result%20failures%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09html%20li%20%0A%09%09%09class%3A%20%27failures%27%3B%0A%09%09%09with%3A%20each%5D'),
+messageSends: ["collect:", "failures", "result", "class:", "with:", "li"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_selectAllCategories',
+smalltalk.method({
+selector: 'selectAllCategories',
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_categories", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self['@selectedCategories'], "_includes_", [each]), "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_add_", [each]);})]);})]);
+(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
+return self;},
+source: unescape('selectAllCategories%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%28selectedCategories%20includes%3A%20each%29%20ifFalse%3A%20%5B%0A%09%09%09self%20selectedCategories%20add%3A%20each%5D%5D.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList'),
+messageSends: ["do:", "categories", "ifFalse:", "includes:", "add:", "selectedCategories", "updateCategoriesList", "updateClassesList"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_toggleCategory_',
+smalltalk.method({
+selector: 'toggleCategory:',
+category: 'actions',
+fn: function (aCategory){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_isSelectedCategory_", [aCategory]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self['@selectedCategories'], "_add_", [aCategory]);}), (function(){return smalltalk.send(self['@selectedCategories'], "_remove_", [aCategory]);})]);
+(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
+return self;},
+source: unescape('toggleCategory%3A%20aCategory%0A%09%28self%20isSelectedCategory%3A%20aCategory%29%20%0A%09%09ifFalse%3A%20%5BselectedCategories%20add%3A%20aCategory%5D%0A%09%09ifTrue%3A%20%5BselectedCategories%20remove%3A%20aCategory%5D.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList'),
+messageSends: ["ifFalse:ifTrue:", "isSelectedCategory:", "add:", "remove:", "updateCategoriesList", "updateClassesList"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_toggleClass_',
+smalltalk.method({
+selector: 'toggleClass:',
+category: 'actions',
+fn: function (aClass){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_isSelectedClass_", [aClass]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self['@selectedClasses'], "_add_", [aClass]);}), (function(){return smalltalk.send(self['@selectedClasses'], "_remove_", [aClass]);})]);
+smalltalk.send(self, "_updateClassesList", []);
+return self;},
+source: unescape('toggleClass%3A%20aClass%0A%09%28self%20isSelectedClass%3A%20aClass%29%20%0A%09%09ifFalse%3A%20%5BselectedClasses%20add%3A%20aClass%5D%0A%09%09ifTrue%3A%20%5BselectedClasses%20remove%3A%20aClass%5D.%0A%09self%20%0A%09%20%20%20%20updateClassesList'),
+messageSends: ["ifFalse:ifTrue:", "isSelectedClass:", "add:", "remove:", "updateClassesList"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_selectAllClasses',
+smalltalk.method({
+selector: 'selectAllClasses',
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_classes", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self['@selectedClasses'], "_includes_", [each]), "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_add_", [each]);})]);})]);
+(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
+return self;},
+source: unescape('selectAllClasses%0A%09self%20classes%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%28selectedClasses%20includes%3A%20each%29%20ifFalse%3A%20%5B%0A%09%09%09self%20selectedClasses%20add%3A%20each%5D%5D.%0A%09self%20%0A%09%20%20%20%20updateCategoriesList%3B%0A%09%20%20%20%20updateClassesList'),
+messageSends: ["do:", "classes", "ifFalse:", "includes:", "add:", "selectedClasses", "updateCategoriesList", "updateClassesList"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_run_',
+smalltalk.method({
+selector: 'run:',
+category: 'actions',
+fn: function (aCollection){
+var self=this;
+self['@result']=smalltalk.send(smalltalk.TestResult, "_new", []);
+(function($rec){smalltalk.send($rec, "_updateStatusDiv", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);
+smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [(0)]);
+smalltalk.send(self['@result'], "_total_", [smalltalk.send(aCollection, "_inject_into_", [(0), (function(acc, each){return smalltalk.send(acc, "__plus", [smalltalk.send(smalltalk.send(each, "_methods", []), "_size", [])]);})])]);
+smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send((function(){smalltalk.send(each, "_runCaseFor_", [self['@result']]);smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@result'], "_runs", []), "__slash", [smalltalk.send(self['@result'], "_total", [])]), "__star", [(100)])]);smalltalk.send(self, "_updateStatusDiv", []);return smalltalk.send(self, "_updateMethodsList", []);}), "_valueWithTimeout_", [(100)]);})]);
+return self;},
+source: unescape('run%3A%20aCollection%0A%09result%20%3A%3D%20TestResult%20new.%0A%09self%20%0A%09%09updateStatusDiv%3B%0A%09%09updateMethodsList.%0A%09self%20progressBar%20updatePercent%3A%200.%0A%09result%20total%3A%20%28aCollection%20inject%3A%200%20into%3A%20%5B%3Aacc%20%3Aeach%20%7C%20acc%20+%20each%20methods%20size%5D%29.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5Beach%20runCaseFor%3A%20result.%0A%09%09self%20progressBar%20updatePercent%3A%20result%20runs%20/%20result%20total%20*%20100.%0A%09%09self%20updateStatusDiv.%0A%09%09self%20updateMethodsList%5D%20valueWithTimeout%3A%20100%5D.'),
+messageSends: ["new", "updateStatusDiv", "updateMethodsList", "updatePercent:", "progressBar", "total:", "inject:into:", unescape("+"), "size", "methods", "do:", "valueWithTimeout:", "runCaseFor:", unescape("*"), unescape("/"), "runs", "total"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
@@ -690,7 +547,7 @@ self['@result']=smalltalk.send(smalltalk.TestResult, "_new", []);
 return self;},
 source: unescape('initialize%0A%09super%20initialize.%0A%09result%20%3A%3D%20TestResult%20new'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.TestResult]
+referencedClasses: []
 }),
 smalltalk.TestRunner);
 
@@ -755,16 +612,82 @@ referencedClasses: []
 smalltalk.TestRunner);
 
 smalltalk.addMethod(
-'_failedMethods',
+'_renderBoxOn_',
 smalltalk.method({
-selector: 'failedMethods',
-category: 'accessing',
-fn: function (){
+selector: 'renderBoxOn:',
+category: 'rendering',
+fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_result", []), "_failures", []), "_collect_", [(function(each){return (function($rec){smalltalk.send($rec, "_class_", ["failures"]);return smalltalk.send($rec, "_with_", [each]);})(smalltalk.send(html, "_li", []));})]);
+(function($rec){smalltalk.send($rec, "_renderCategoriesOn_", [html]);smalltalk.send($rec, "_renderClassesOn_", [html]);return smalltalk.send($rec, "_renderResultsOn_", [html]);})(self);
 return self;},
-source: unescape('failedMethods%0A%09self%20result%20failures%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09html%20li%20%0A%09%09%09class%3A%20%27failures%27%3B%0A%09%09%09with%3A%20each%5D'),
-messageSends: ["collect:", "failures", "result", "class:", "with:", "li"],
+source: unescape('renderBoxOn%3A%20html%0A%20%20%20%20self%20%0A%09renderCategoriesOn%3A%20html%3B%0A%09renderClassesOn%3A%20html%3B%0A%09renderResultsOn%3A%20html'),
+messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", ["Run selected"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_run_", [smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_collect_", [(function(each){return smalltalk.send(each, "_new", []);})])]);})]);})(smalltalk.send(html, "_button", []));
+return self;},
+source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20html%20button%0A%09with%3A%20%27Run%20selected%27%3B%0A%09onClick%3A%20%5Bself%20run%3A%20%28self%20selectedClasses%20collect%3A%20%5B%3Aeach%20%7C%20each%20new%5D%29%5D'),
+messageSends: ["with:", "onClick:", "run:", "collect:", "selectedClasses", "new", "button"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_renderCategoriesOn_',
+smalltalk.method({
+selector: 'renderCategoriesOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+self['@categoriesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit categories"]);
+smalltalk.send(self, "_updateCategoriesList", []);
+return self;},
+source: unescape('renderCategoriesOn%3A%20html%0A%20%20%20%20%09categoriesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20sunit%20categories%27.%0A%09self%20updateCategoriesList'),
+messageSends: ["class:", "ul", "updateCategoriesList"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_renderClassesOn_',
+smalltalk.method({
+selector: 'renderClassesOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+self['@classesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit classes"]);
+smalltalk.send(self, "_updateClassesList", []);
+return self;},
+source: unescape('renderClassesOn%3A%20html%0A%20%20%20%20%09classesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20sunit%20classes%27.%0A%09self%20updateClassesList'),
+messageSends: ["class:", "ul", "updateClassesList"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_renderResultsOn_',
+smalltalk.method({
+selector: 'renderResultsOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+self['@statusDiv']=smalltalk.send(html, "_div", []);
+smalltalk.send(html, "_with_", [smalltalk.send(self, "_progressBar", [])]);
+self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit methods"]);
+smalltalk.send(self, "_updateMethodsList", []);
+smalltalk.send(self, "_updateStatusDiv", []);
+return self;},
+source: unescape('renderResultsOn%3A%20html%0A%20%20%20%20%09statusDiv%20%3A%3D%20html%20div.%0A%09html%20with%3A%20self%20progressBar.%0A%20%20%20%09methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20sunit%20methods%27.%0A%09self%20updateMethodsList.%0A%09self%20updateStatusDiv'),
+messageSends: ["div", "with:", "progressBar", "class:", "ul", "updateMethodsList", "updateStatusDiv"],
 referencedClasses: []
 }),
 smalltalk.TestRunner);
@@ -795,6 +718,83 @@ smalltalk.send(smalltalk.send(smalltalk.send(self, "_result", []), "_errors", []
 return self;},
 source: unescape('renderErrorsOn%3A%20html%0A%09self%20result%20errors%20do%3A%20%5B%3Aeach%20%7C%0A%09%09html%20li%20%0A%09%09%09class%3A%20%27errors%27%3B%0A%09%09%09with%3A%20each%5D'),
 messageSends: ["do:", "errors", "result", "class:", "with:", "li"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_canBeClosed',
+smalltalk.method({
+selector: 'canBeClosed',
+category: 'testing',
+fn: function (){
+var self=this;
+return true;
+return self;},
+source: unescape('canBeClosed%0A%20%20%20%20%5Etrue'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_isSelectedClass_',
+smalltalk.method({
+selector: 'isSelectedClass:',
+category: 'testing',
+fn: function (aClass){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_includes_", [aClass]);
+return self;},
+source: unescape('isSelectedClass%3A%20aClass%0A%09%5E%28self%20selectedClasses%20includes%3A%20aClass%29'),
+messageSends: ["includes:", "selectedClasses"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_isSelectedCategory_',
+smalltalk.method({
+selector: 'isSelectedCategory:',
+category: 'testing',
+fn: function (aCategory){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_includes_", [aCategory]);
+return self;},
+source: unescape('isSelectedCategory%3A%20aCategory%0A%09%5E%28self%20selectedCategories%20includes%3A%20aCategory%29'),
+messageSends: ["includes:", "selectedCategories"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_updateCategoriesList',
+smalltalk.method({
+selector: 'updateCategoriesList',
+category: 'updating',
+fn: function (){
+var self=this;
+smalltalk.send(self['@categoriesList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["all"]);smalltalk.send($rec, "_with_", ["All"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectAllCategories", []);})]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_categories", []), "_do_", [(function(each){var li=nil;
+li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_includes_", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [each]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_toggleCategory_", [each]);})]);})(li);})]);})]);
+return self;},
+source: unescape('updateCategoriesList%0A%20%20%20%20categoriesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%20%20%20%20html%20li%20%0A%09%09class%3A%20%27all%27%3B%0A%09%09with%3A%20%27All%27%3B%0A%09%09onClick%3A%20%5Bself%20selectAllCategories%5D.%0A%09self%20categories%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20%28self%20selectedCategories%20includes%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%3B%0A%09%09onClick%3A%20%5Bself%20toggleCategory%3A%20each%5D%5D%5D'),
+messageSends: ["contents:", "class:", "with:", "onClick:", "selectAllCategories", "li", "do:", "categories", "ifTrue:", "includes:", "selectedCategories", "toggleCategory:"],
+referencedClasses: []
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_updateClassesList',
+smalltalk.method({
+selector: 'updateClassesList',
+category: 'updating',
+fn: function (){
+var self=this;
+smalltalk.send(self['@classesList'], "_contents_", [(function(html){smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_isEmpty", []), "_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_class_", ["all"]);smalltalk.send($rec, "_with_", ["All"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectAllClasses", []);})]);})(smalltalk.send(html, "_li", []));})]);return smalltalk.send(smalltalk.send(self, "_classes", []), "_do_", [(function(each){var li=nil;
+li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_includes_", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_name", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_toggleClass_", [each]);})]);})(li);})]);})]);
+return self;},
+source: unescape('updateClassesList%0A%20%20%20%20classesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%28self%20selectedCategories%20isEmpty%29%20ifFalse%3A%20%5B%0A%09%09html%20li%0A%09%09%09class%3A%20%27all%27%3B%0A%09%09%09with%3A%20%27All%27%3B%0A%09%09%09onClick%3A%20%5Bself%20selectAllClasses%5D%5D.%0A%09self%20classes%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%09li%20%3A%3D%20html%20li.%0A%09%09%28self%20selectedClasses%20includes%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09%09li%20class%3A%20%27selected%27%5D.%0A%09%09li%0A%09%09%09with%3A%20each%20name%3B%0A%09%09%09onClick%3A%20%5Bself%20toggleClass%3A%20each%5D%5D%5D'),
+messageSends: ["contents:", "ifFalse:", "isEmpty", "selectedCategories", "class:", "with:", "onClick:", "selectAllClasses", "li", "do:", "classes", "ifTrue:", "includes:", "selectedClasses", "name", "toggleClass:"],
 referencedClasses: []
 }),
 smalltalk.TestRunner);
@@ -833,26 +833,6 @@ smalltalk.TestRunner);
 
 
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
-smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@timestamp']=smalltalk.send(smalltalk.Date, "_now", []);
-self['@runs']=(0);
-self['@errors']=smalltalk.send(smalltalk.Array, "_new", []);
-self['@failures']=smalltalk.send(smalltalk.Array, "_new", []);
-self['@total']=(0);
-return self;},
-source: unescape('initialize%0A%09super%20initialize.%0A%09timestamp%20%3A%3D%20Date%20now.%0A%09runs%20%3A%3D%200.%0A%09errors%20%3A%3D%20Array%20new.%0A%09failures%20%3A%3D%20Array%20new.%0A%09total%20%3A%3D%200'),
-messageSends: ["initialize", "now", "new"],
-referencedClasses: [smalltalk.Date,smalltalk.Array]
-}),
-smalltalk.TestResult);
-
 smalltalk.addMethod(
 '_timestamp',
 smalltalk.method({
@@ -1000,6 +980,26 @@ return self;},
 source: unescape('status%0A%09%5Eself%20errors%20isEmpty%20%0A%09%09ifTrue%3A%20%5B%0A%09%09%09self%20failures%20isEmpty%20%0A%09%09%09%09ifTrue%3A%20%5B%27success%27%5D%0A%09%09%09%09ifFalse%3A%20%5B%27failure%27%5D%5D%0A%09%09ifFalse%3A%20%5B%27error%27%5D'),
 messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"],
 referencedClasses: []
+}),
+smalltalk.TestResult);
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Object);
+self['@timestamp']=smalltalk.send(smalltalk.Date, "_now", []);
+self['@runs']=(0);
+self['@errors']=smalltalk.send(smalltalk.Array, "_new", []);
+self['@failures']=smalltalk.send(smalltalk.Array, "_new", []);
+self['@total']=(0);
+return self;},
+source: unescape('initialize%0A%09super%20initialize.%0A%09timestamp%20%3A%3D%20Date%20now.%0A%09runs%20%3A%3D%200.%0A%09errors%20%3A%3D%20Array%20new.%0A%09failures%20%3A%3D%20Array%20new.%0A%09total%20%3A%3D%200'),
+messageSends: ["initialize", "now", "new"],
+referencedClasses: [smalltalk.Date,smalltalk.Array]
 }),
 smalltalk.TestResult);
 

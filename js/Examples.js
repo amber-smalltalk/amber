@@ -1,38 +1,5 @@
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Widget);
-self['@count']=(0);
-return self;},
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20count%20%3A%3D%200%0A'),
-messageSends: ["initialize"],
-referencedClasses: []
-}),
-smalltalk.Counter);
-
-smalltalk.addMethod(
-'_renderOn_',
-smalltalk.method({
-selector: 'renderOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-self['@header']=(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_h1", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("++")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_increase", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("--")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_decrease", []);})]);})(smalltalk.send(html, "_button", []));
-return self;},
-source: unescape('renderOn%3A%20html%0A%20%20%20%20header%20%3A%3D%20html%20h1%20%0A%09with%3A%20count%20asString%3B%0A%09yourself.%0A%20%20%20%20html%20button%0A%09with%3A%20%27++%27%3B%0A%09onClick%3A%20%5Bself%20increase%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27--%27%3B%0A%09onClick%3A%20%5Bself%20decrease%5D%0A'),
-messageSends: ["with:", "asString", "yourself", "h1", "onClick:", "increase", "button", "decrease"],
-referencedClasses: []
-}),
-smalltalk.Counter);
-
-smalltalk.addMethod(
 '_increase',
 smalltalk.method({
 selector: 'increase',
@@ -64,59 +31,6 @@ referencedClasses: []
 }),
 smalltalk.Counter);
 
-
-
-smalltalk.addClass('Tetris', smalltalk.Widget, ['renderingContext', 'timer', 'speed', 'score', 'rows', 'movingPiece'], 'Examples');
-smalltalk.addMethod(
-'_renderOn_',
-smalltalk.method({
-selector: 'renderOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["tetris"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_h3", []), "_with_", ["Tetris"]);smalltalk.send(self, "_renderCanvasOn_", [html]);return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
-return self;},
-source: unescape('renderOn%3A%20html%0A%09html%20div%0A%09%09class%3A%20%27tetris%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20h3%20with%3A%20%27Tetris%27.%0A%09%09%09self%20renderCanvasOn%3A%20html.%0A%09%09%09self%20renderButtonsOn%3A%20html%5D'),
-messageSends: ["class:", "with:", "h3", "renderCanvasOn:", "renderButtonsOn:", "div"],
-referencedClasses: []
-}),
-smalltalk.Tetris);
-
-smalltalk.addMethod(
-'_renderCanvasOn_',
-smalltalk.method({
-selector: 'renderCanvasOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-var canvas=nil;
-canvas=smalltalk.send(html, "_canvas", []);
-smalltalk.send(canvas, "_at_put_", ["width", smalltalk.send(smalltalk.send(self, "_width", []), "_asString", [])]);
-smalltalk.send(canvas, "_at_put_", ["height", smalltalk.send(smalltalk.send(self, "_height", []), "_asString", [])]);
-self['@renderingContext']=smalltalk.send(smalltalk.CanvasRenderingContext, "_tagBrush_", [canvas]);
-smalltalk.send(self, "_redraw", []);
-return self;},
-source: unescape('renderCanvasOn%3A%20html%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20html%20canvas.%0A%09canvas%20at%3A%20%27width%27%20put%3A%20self%20width%20asString.%0A%09canvas%20at%3A%20%27height%27%20put%3A%20self%20height%20asString.%0A%09renderingContext%20%3A%3D%20CanvasRenderingContext%20tagBrush%3A%20canvas.%0A%09self%20redraw'),
-messageSends: ["canvas", "at:put:", "asString", "width", "height", "tagBrush:", "redraw"],
-referencedClasses: [smalltalk.CanvasRenderingContext]
-}),
-smalltalk.Tetris);
-
-smalltalk.addMethod(
-'_renderButtonsOn_',
-smalltalk.method({
-selector: 'renderButtonsOn:',
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["tetris_buttons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_with_", ["New game"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_startNewGame", []);})]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_with_", [unescape("play/pause")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_update", []);})]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));
-return self;},
-source: unescape('renderButtonsOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27tetris_buttons%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20button%0A%09%09%09%09with%3A%20%27New%20game%27%3B%0A%09%09%09%09onClick%3A%20%5Bself%20startNewGame%5D.%0A%09%09%09html%20button%0A%09%09%09%09with%3A%20%27play/pause%27%3B%0A%09%09%09%09onClick%3A%20%5Bself%20update%5D%5D'),
-messageSends: ["class:", "with:", "onClick:", "startNewGame", "button", "update", "div"],
-referencedClasses: []
-}),
-smalltalk.Tetris);
-
 smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
@@ -125,31 +39,34 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Widget);
-smalltalk.send(self, "_newGame", []);
+self['@count']=(0);
 return self;},
-source: unescape('initialize%0A%09super%20initialize.%0A%09self%20newGame'),
-messageSends: ["initialize", "newGame"],
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20count%20%3A%3D%200'),
+messageSends: ["initialize"],
 referencedClasses: []
 }),
-smalltalk.Tetris);
+smalltalk.Counter);
 
 smalltalk.addMethod(
-'_startNewGame',
+'_renderOn_',
 smalltalk.method({
-selector: 'startNewGame',
-category: 'actions',
-fn: function (){
+selector: 'renderOn:',
+category: 'rendering',
+fn: function (html){
 var self=this;
-smalltalk.send(self, "_newGame", []);
-smalltalk.send(self['@timer'], "_ifNotNil_", [(function(){return smalltalk.send(self['@timer'], "_clearInterval", []);})]);
-self['@timer']=smalltalk.send((function(){return smalltalk.send(self, "_nextStep", []);}), "_valueWithInterval_", [self['@speed']]);
+self['@header']=(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_h1", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("++")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_increase", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("--")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_decrease", []);})]);})(smalltalk.send(html, "_button", []));
 return self;},
-source: unescape('startNewGame%0A%09self%20newGame.%0A%09timer%20ifNotNil%3A%20%5Btimer%20clearInterval%5D.%0A%09timer%20%3A%3D%20%5Bself%20nextStep%5D%20valueWithInterval%3A%20speed'),
-messageSends: ["newGame", "ifNotNil:", "clearInterval", "valueWithInterval:", "nextStep"],
+source: unescape('renderOn%3A%20html%0A%20%20%20%20header%20%3A%3D%20html%20h1%20%0A%09with%3A%20count%20asString%3B%0A%09yourself.%0A%20%20%20%20html%20button%0A%09with%3A%20%27++%27%3B%0A%09onClick%3A%20%5Bself%20increase%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27--%27%3B%0A%09onClick%3A%20%5Bself%20decrease%5D'),
+messageSends: ["with:", "asString", "yourself", "h1", "onClick:", "increase", "button", "decrease"],
 referencedClasses: []
 }),
-smalltalk.Tetris);
+smalltalk.Counter);
 
+
+
+smalltalk.addClass('Tetris', smalltalk.Widget, ['renderingContext', 'timer', 'speed', 'score', 'rows', 'movingPiece'], 'Examples');
 smalltalk.addMethod(
 '_width',
 smalltalk.method({
@@ -181,6 +98,83 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
+'_squares',
+smalltalk.method({
+selector: 'squares',
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_squares", []);
+return self;},
+source: unescape('squares%0A%09%5Eself%20class%20squares'),
+messageSends: ["squares", "class"],
+referencedClasses: []
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_gluePiece_',
+smalltalk.method({
+selector: 'gluePiece:',
+category: 'accessing',
+fn: function (aPiece){
+var self=this;
+smalltalk.send(aPiece, "_glueOn_", [self]);
+return self;},
+source: unescape('gluePiece%3A%20aPiece%0A%09aPiece%20glueOn%3A%20self'),
+messageSends: ["glueOn:"],
+referencedClasses: []
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_rows',
+smalltalk.method({
+selector: 'rows',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@rows'];
+return self;},
+source: unescape('rows%0A%09%22An%20array%20of%20rows.%20Each%20row%20is%20a%20collection%20of%20points.%22%0A%09%5Erows'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_addRow_',
+smalltalk.method({
+selector: 'addRow:',
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_rows", []), "_add_", [aCollection]);
+return self;},
+source: unescape('addRow%3A%20aCollection%0A%09self%20rows%20add%3A%20aCollection'),
+messageSends: ["add:", "rows"],
+referencedClasses: []
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_startNewGame',
+smalltalk.method({
+selector: 'startNewGame',
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_newGame", []);
+smalltalk.send(self['@timer'], "_ifNotNil_", [(function(){return smalltalk.send(self['@timer'], "_clearInterval", []);})]);
+self['@timer']=smalltalk.send((function(){return smalltalk.send(self, "_nextStep", []);}), "_valueWithInterval_", [self['@speed']]);
+return self;},
+source: unescape('startNewGame%0A%09self%20newGame.%0A%09timer%20ifNotNil%3A%20%5Btimer%20clearInterval%5D.%0A%09timer%20%3A%3D%20%5Bself%20nextStep%5D%20valueWithInterval%3A%20speed'),
+messageSends: ["newGame", "ifNotNil:", "clearInterval", "valueWithInterval:", "nextStep"],
+referencedClasses: []
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
 '_nextStep',
 smalltalk.method({
 selector: 'nextStep',
@@ -191,7 +185,7 @@ smalltalk.send(self['@movingPiece'], "_ifNil_", [(function(){return smalltalk.se
 smalltalk.send(smalltalk.send(self['@movingPiece'], "_canMoveIn_", [self]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@movingPiece'], "_position_", [smalltalk.send(smalltalk.send(self['@movingPiece'], "_position", []), "__plus", [smalltalk.send((0), "__at", [(1)])])]);}), (function(){return smalltalk.send(self, "_newPiece", []);})]);
 smalltalk.send(self, "_redraw", []);
 return self;},
-source: unescape('nextStep%0A%09movingPiece%20ifNil%3A%20%5Bself%20newPiece%5D.%0A%09%28movingPiece%20canMoveIn%3A%20self%29%0A%09%09ifTrue%3A%20%5BmovingPiece%20position%3A%20movingPiece%20position%20+%20%280@1%29%5D%0A%09%09ifFalse%3A%20%5Bself%20newPiece%5D.%0A%09self%20redraw%0A%09'),
+source: unescape('nextStep%0A%09movingPiece%20ifNil%3A%20%5Bself%20newPiece%5D.%0A%09%28movingPiece%20canMoveIn%3A%20self%29%0A%09%09ifTrue%3A%20%5BmovingPiece%20position%3A%20movingPiece%20position%20+%20%280@1%29%5D%0A%09%09ifFalse%3A%20%5Bself%20newPiece%5D.%0A%09self%20redraw'),
 messageSends: ["ifNil:", "newPiece", "ifTrue:ifFalse:", "canMoveIn:", "position:", unescape("+"), "position", unescape("@"), "redraw"],
 referencedClasses: []
 }),
@@ -277,36 +271,6 @@ self['@movingPiece']=smalltalk.send(smalltalk.TetrisPiece, "_atRandom", []);
 return self;},
 source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom'),
 messageSends: ["atRandom"],
-referencedClasses: [smalltalk.TetrisPiece]
-}),
-smalltalk.Tetris);
-
-smalltalk.addMethod(
-'_squares',
-smalltalk.method({
-selector: 'squares',
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_squares", []);
-return self;},
-source: unescape('squares%0A%09%5Eself%20class%20squares'),
-messageSends: ["squares", "class"],
-referencedClasses: []
-}),
-smalltalk.Tetris);
-
-smalltalk.addMethod(
-'_gluePiece_',
-smalltalk.method({
-selector: 'gluePiece:',
-category: 'accessing',
-fn: function (aPiece){
-var self=this;
-smalltalk.send(aPiece, "_glueOn_", [self]);
-return self;},
-source: unescape('gluePiece%3A%20aPiece%0A%09aPiece%20glueOn%3A%20self%0A%09'),
-messageSends: ["glueOn:"],
 referencedClasses: []
 }),
 smalltalk.Tetris);
@@ -343,31 +307,67 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_rows',
+'_initialize',
 smalltalk.method({
-selector: 'rows',
-category: 'accessing',
+selector: 'initialize',
+category: 'initialization',
 fn: function (){
 var self=this;
-return self['@rows'];
+smalltalk.send(self, "_initialize", [], smalltalk.Widget);
+smalltalk.send(self, "_newGame", []);
 return self;},
-source: unescape('rows%0A%09%22An%20array%20of%20rows.%20Each%20row%20is%20a%20collection%20of%20points.%22%0A%09%5Erows'),
-messageSends: [],
+source: unescape('initialize%0A%09super%20initialize.%0A%09self%20newGame'),
+messageSends: ["initialize", "newGame"],
 referencedClasses: []
 }),
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_addRow_',
+'_renderOn_',
 smalltalk.method({
-selector: 'addRow:',
-category: 'accessing',
-fn: function (aCollection){
+selector: 'renderOn:',
+category: 'rendering',
+fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_rows", []), "_add_", [aCollection]);
+(function($rec){smalltalk.send($rec, "_class_", ["tetris"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_h3", []), "_with_", ["Tetris"]);smalltalk.send(self, "_renderCanvasOn_", [html]);return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;},
-source: unescape('addRow%3A%20aCollection%0A%09self%20rows%20add%3A%20aCollection'),
-messageSends: ["add:", "rows"],
+source: unescape('renderOn%3A%20html%0A%09html%20div%0A%09%09class%3A%20%27tetris%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20h3%20with%3A%20%27Tetris%27.%0A%09%09%09self%20renderCanvasOn%3A%20html.%0A%09%09%09self%20renderButtonsOn%3A%20html%5D'),
+messageSends: ["class:", "with:", "h3", "renderCanvasOn:", "renderButtonsOn:", "div"],
+referencedClasses: []
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_renderCanvasOn_',
+smalltalk.method({
+selector: 'renderCanvasOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+var canvas=nil;
+canvas=smalltalk.send(html, "_canvas", []);
+smalltalk.send(canvas, "_at_put_", ["width", smalltalk.send(smalltalk.send(self, "_width", []), "_asString", [])]);
+smalltalk.send(canvas, "_at_put_", ["height", smalltalk.send(smalltalk.send(self, "_height", []), "_asString", [])]);
+self['@renderingContext']=smalltalk.send(smalltalk.CanvasRenderingContext, "_tagBrush_", [canvas]);
+smalltalk.send(self, "_redraw", []);
+return self;},
+source: unescape('renderCanvasOn%3A%20html%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20html%20canvas.%0A%09canvas%20at%3A%20%27width%27%20put%3A%20self%20width%20asString.%0A%09canvas%20at%3A%20%27height%27%20put%3A%20self%20height%20asString.%0A%09renderingContext%20%3A%3D%20CanvasRenderingContext%20tagBrush%3A%20canvas.%0A%09self%20redraw'),
+messageSends: ["canvas", "at:put:", "asString", "width", "height", "tagBrush:", "redraw"],
+referencedClasses: [smalltalk.CanvasRenderingContext]
+}),
+smalltalk.Tetris);
+
+smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["tetris_buttons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_with_", ["New game"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_startNewGame", []);})]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_with_", [unescape("play/pause")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_update", []);})]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));
+return self;},
+source: unescape('renderButtonsOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27tetris_buttons%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20button%0A%09%09%09%09with%3A%20%27New%20game%27%3B%0A%09%09%09%09onClick%3A%20%5Bself%20startNewGame%5D.%0A%09%09%09html%20button%0A%09%09%09%09with%3A%20%27play/pause%27%3B%0A%09%09%09%09onClick%3A%20%5Bself%20update%5D%5D'),
+messageSends: ["class:", "with:", "onClick:", "startNewGame", "button", "update", "div"],
 referencedClasses: []
 }),
 smalltalk.Tetris);
@@ -435,22 +435,6 @@ smalltalk.Tetris.klass);
 
 
 smalltalk.addClass('TetrisPiece', smalltalk.Widget, ['rotation', 'position'], 'Examples');
-smalltalk.addMethod(
-'_drawOn_',
-smalltalk.method({
-selector: 'drawOn:',
-category: 'drawing',
-fn: function (aRenderingContext){
-var self=this;
-smalltalk.send(aRenderingContext, "_fillStyle_", [smalltalk.send(self, "_color", [])]);
-smalltalk.send(smalltalk.send(self, "_bounds", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_fillRectFrom_to_", [smalltalk.send(smalltalk.send(each, "__plus", [smalltalk.send(self, "_position", [])]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])]), smalltalk.send(smalltalk.send((1), "__at", [(1)]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])])]);smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);smalltalk.send($rec, "_lineWidth_", [(2)]);return smalltalk.send($rec, "_strokeRectFrom_to_", [smalltalk.send(smalltalk.send(each, "__plus", [smalltalk.send(self, "_position", [])]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])]), smalltalk.send(smalltalk.send((1), "__at", [(1)]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])])]);})(aRenderingContext);})]);
-return self;},
-source: unescape('drawOn%3A%20aRenderingContext%0A%09aRenderingContext%20fillStyle%3A%20self%20color.%0A%09self%20bounds%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aRenderingContext%20%0A%09%09%09fillRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%3B%0A%09%09%09strokeStyle%3A%20%27%23999%27%3B%0A%09%09%09lineWidth%3A%202%3B%0A%09%09%09strokeRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%5D'),
-messageSends: ["fillStyle:", "color", "do:", "bounds", "fillRectFrom:to:", unescape("*"), unescape("+"), "position", "squareSize", unescape("@"), "strokeStyle:", "lineWidth:", "strokeRectFrom:to:"],
-referencedClasses: [smalltalk.Tetris]
-}),
-smalltalk.TetrisPiece);
-
 smalltalk.addMethod(
 '_rotation',
 smalltalk.method({
@@ -542,21 +526,6 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_canMove',
-smalltalk.method({
-selector: 'canMove',
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_position", []), "_y", []), "__lt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Tetris, "_squares", []), "_y", []), "__minus", [smalltalk.send(self, "_height", [])])]);
-return self;},
-source: unescape('canMove%0A%09%5Eself%20position%20y%20%3C%20%28Tetris%20squares%20y%20-%20self%20height%29'),
-messageSends: [unescape("%3C"), "y", "position", unescape("-"), "squares", "height"],
-referencedClasses: [smalltalk.Tetris]
-}),
-smalltalk.TetrisPiece);
-
-smalltalk.addMethod(
 '_height',
 smalltalk.method({
 selector: 'height',
@@ -568,6 +537,37 @@ return self;},
 source: unescape('height%0A%09%5E2'),
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_drawOn_',
+smalltalk.method({
+selector: 'drawOn:',
+category: 'drawing',
+fn: function (aRenderingContext){
+var self=this;
+smalltalk.send(aRenderingContext, "_fillStyle_", [smalltalk.send(self, "_color", [])]);
+smalltalk.send(smalltalk.send(self, "_bounds", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_fillRectFrom_to_", [smalltalk.send(smalltalk.send(each, "__plus", [smalltalk.send(self, "_position", [])]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])]), smalltalk.send(smalltalk.send((1), "__at", [(1)]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])])]);smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);smalltalk.send($rec, "_lineWidth_", [(2)]);return smalltalk.send($rec, "_strokeRectFrom_to_", [smalltalk.send(smalltalk.send(each, "__plus", [smalltalk.send(self, "_position", [])]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])]), smalltalk.send(smalltalk.send((1), "__at", [(1)]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])])]);})(aRenderingContext);})]);
+return self;},
+source: unescape('drawOn%3A%20aRenderingContext%0A%09aRenderingContext%20fillStyle%3A%20self%20color.%0A%09self%20bounds%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aRenderingContext%20%0A%09%09%09fillRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%3B%0A%09%09%09strokeStyle%3A%20%27%23999%27%3B%0A%09%09%09lineWidth%3A%202%3B%0A%09%09%09strokeRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%5D'),
+messageSends: ["fillStyle:", "color", "do:", "bounds", "fillRectFrom:to:", unescape("*"), unescape("+"), "position", "squareSize", unescape("@"), "strokeStyle:", "lineWidth:", "strokeRectFrom:to:"],
+referencedClasses: [smalltalk.Tetris]
+}),
+smalltalk.TetrisPiece);
+
+smalltalk.addMethod(
+'_canMove',
+smalltalk.method({
+selector: 'canMove',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_position", []), "_y", []), "__lt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Tetris, "_squares", []), "_y", []), "__minus", [smalltalk.send(self, "_height", [])])]);
+return self;},
+source: unescape('canMove%0A%09%5Eself%20position%20y%20%3C%20%28Tetris%20squares%20y%20-%20self%20height%29'),
+messageSends: [unescape("%3C"), "y", "position", unescape("-"), "squares", "height"],
+referencedClasses: [smalltalk.Tetris]
 }),
 smalltalk.TetrisPiece);
 
