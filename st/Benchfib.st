@@ -66,5 +66,57 @@ tinyBenchmarks
 
 	^ ((n1 * 500000 * 1000) / t1) printString, ' bytecodes/sec; ',
 	  ((r * 1000) / t2) printString, ' sends/sec'
+!
+
+jsbenchFib
+ 
+	{'if (this < 2) {
+return 1;
+} else {
+return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;}'}
+!
+
+jsbenchmark
+
+{'
+var size = 8190;
+var count;
+for (var z=0;z<this;z++) {
+  count = 0;
+  var flags = new Array();
+  for (var p=0; p<size; p++) {
+    flags[p] = true;
+  }
+  for (var i=1;i<=size;i++) {
+    if (flags[i-1]) {
+      var prime = i+1;
+      var k = i + prime;
+      while (k <= size) {
+        flags[k-1] = false;
+        k = k + prime;
+      }
+      count = count + 1;
+    }
+  }
+}
+return count'}
+!
+
+jstinyBenchmarks
+	"0 jstinyBenchmarks"
+
+	| t1 t2 r n1 n2 |
+	n1 := 1.
+	[t1 := Date millisecondsToRun: [n1 jsbenchmark].
+	t1 < 1000] whileTrue:[n1 := n1 * 2]. "Note: #benchmark's runtime is about O(n)"
+
+	n2 := 28.
+	[t2 := Date millisecondsToRun: [r := n2 jsbenchFib].
+	t2 < 1000] whileTrue:[n2 := n2 + 1]. 
+	"Note: #jsbenchFib's runtime is about O(k^n),
+		where k is the golden number = (1 + 5 sqrt) / 2 = 1.618...."
+
+	^ ((n1 * 500000 * 1000) / t1) printString, ' bytecodes/sec; ',
+	  ((r * 1000) / t2) printString, ' sends/sec'
 ! !
 

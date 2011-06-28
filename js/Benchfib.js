@@ -79,3 +79,81 @@ referencedClasses: [smalltalk.Date]
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_jsbenchFib',
+smalltalk.method({
+selector: 'jsbenchFib',
+category: '*Benchfib',
+fn: function (){
+var self=this;
+if (this < 2) {
+return 1;
+} else {
+return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
+return self;},
+source: unescape('jsbenchFib%0A%20%0A%09%7B%27if%20%28this%20%3C%202%29%20%7B%0Areturn%201%3B%0A%7D%20else%20%7B%0Areturn%20%28this-1%29._jsbenchFib%28%29%20+%20%28this-2%29._jsbenchFib%28%29%20+%201%3B%7D%27%7D'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_jsbenchmark',
+smalltalk.method({
+selector: 'jsbenchmark',
+category: '*Benchfib',
+fn: function (){
+var self=this;
+
+var size = 8190;
+var count;
+for (var z=0;z<this;z++) {
+  count = 0;
+  var flags = new Array();
+  for (var p=0; p<size; p++) {
+    flags[p] = true;
+  }
+  for (var i=1;i<=size;i++) {
+    if (flags[i-1]) {
+      var prime = i+1;
+      var k = i + prime;
+      while (k <= size) {
+        flags[k-1] = false;
+        k = k + prime;
+      }
+      count = count + 1;
+    }
+  }
+}
+return count;
+return self;},
+source: unescape('jsbenchmark%0A%0A%7B%27%0Avar%20size%20%3D%208190%3B%0Avar%20count%3B%0Afor%20%28var%20z%3D0%3Bz%3Cthis%3Bz++%29%20%7B%0A%20%20count%20%3D%200%3B%0A%20%20var%20flags%20%3D%20new%20Array%28%29%3B%0A%20%20for%20%28var%20p%3D0%3B%20p%3Csize%3B%20p++%29%20%7B%0A%20%20%20%20flags%5Bp%5D%20%3D%20true%3B%0A%20%20%7D%0A%20%20for%20%28var%20i%3D1%3Bi%3C%3Dsize%3Bi++%29%20%7B%0A%20%20%20%20if%20%28flags%5Bi-1%5D%29%20%7B%0A%20%20%20%20%20%20var%20prime%20%3D%20i+1%3B%0A%20%20%20%20%20%20var%20k%20%3D%20i%20+%20prime%3B%0A%20%20%20%20%20%20while%20%28k%20%3C%3D%20size%29%20%7B%0A%20%20%20%20%20%20%20%20flags%5Bk-1%5D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20k%20%3D%20k%20+%20prime%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20count%20%3D%20count%20+%201%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Areturn%20count%27%7D%0A'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_jstinyBenchmarks',
+smalltalk.method({
+selector: 'jstinyBenchmarks',
+category: '*Benchfib',
+fn: function (){
+var self=this;
+var t1=nil;
+var t2=nil;
+var r=nil;
+var n1=nil;
+var n2=nil;
+n1=(1);
+smalltalk.send((function(){t1=smalltalk.send(smalltalk.Date, "_millisecondsToRun_", [(function(){return smalltalk.send(n1, "_jsbenchmark", []);})]);return smalltalk.send(t1, "__lt", [(1000)]);}), "_whileTrue_", [(function(){return n1=smalltalk.send(n1, "__star", [(2)]);})]);
+n2=(28);
+smalltalk.send((function(){t2=smalltalk.send(smalltalk.Date, "_millisecondsToRun_", [(function(){return r=smalltalk.send(n2, "_jsbenchFib", []);})]);return smalltalk.send(t2, "__lt", [(1000)]);}), "_whileTrue_", [(function(){return n2=smalltalk.send(n2, "__plus", [(1)]);})]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(n1, "__star", [(500000)]), "__star", [(1000)]), "__slash", [t1]), "_printString", []), "__comma", [unescape("%20bytecodes/sec%3B%20")]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(r, "__star", [(1000)]), "__slash", [t2]), "_printString", [])]), "__comma", [unescape("%20sends/sec")]);
+return self;},
+source: unescape('jstinyBenchmarks%0A%09%220%20jstinyBenchmarks%22%0A%0A%09%7C%20t1%20t2%20r%20n1%20n2%20%7C%0A%09n1%20%3A%3D%201.%0A%09%5Bt1%20%3A%3D%20Date%20millisecondsToRun%3A%20%5Bn1%20jsbenchmark%5D.%0A%09t1%20%3C%201000%5D%20whileTrue%3A%5Bn1%20%3A%3D%20n1%20*%202%5D.%20%22Note%3A%20%23benchmark%27s%20runtime%20is%20about%20O%28n%29%22%0A%0A%09n2%20%3A%3D%2028.%0A%09%5Bt2%20%3A%3D%20Date%20millisecondsToRun%3A%20%5Br%20%3A%3D%20n2%20jsbenchFib%5D.%0A%09t2%20%3C%201000%5D%20whileTrue%3A%5Bn2%20%3A%3D%20n2%20+%201%5D.%20%0A%09%22Note%3A%20%23jsbenchFib%27s%20runtime%20is%20about%20O%28k%5En%29%2C%0A%09%09where%20k%20is%20the%20golden%20number%20%3D%20%281%20+%205%20sqrt%29%20/%202%20%3D%201.618....%22%0A%0A%09%5E%20%28%28n1%20*%20500000%20*%201000%29%20/%20t1%29%20printString%2C%20%27%20bytecodes/sec%3B%20%27%2C%0A%09%20%20%28%28r%20*%201000%29%20/%20t2%29%20printString%2C%20%27%20sends/sec%27'),
+messageSends: ["whileTrue:", "millisecondsToRun:", "jsbenchmark", unescape("%3C"), unescape("*"), "jsbenchFib", unescape("+"), unescape("%2C"), "printString", unescape("/")],
+referencedClasses: [smalltalk.Date]
+}),
+smalltalk.Number);
+
