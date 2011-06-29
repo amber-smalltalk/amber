@@ -5,4 +5,4 @@ run: Program.js
 	./hello
 
 clean:
-	rm Program.js Hello.js
+	rm -f Program.js Hello.js
