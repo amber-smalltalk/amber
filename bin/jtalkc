@@ -7,7 +7,7 @@ JTALK=$(readlink -f `dirname ${0}`/..)
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file]
+Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
           [-i] [-I file] file1 [file2 ...] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
@@ -30,7 +30,7 @@ Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file]
 
   -N or -D or -E
      Compilation target. Currently Node.js, D8 (V8 shell) or Enyo (webOS 3.0).
-     All Implies "-K -I" so boot.js and Kernel.js are added first and init.js
+     All imply "-K -I" so boot.js and Kernel.js are added first and init.js
      is added last.
 
   -K
@@ -113,16 +113,17 @@ LOAD=
 LOADANDADD=
 
 # Read options and shift them away
-while getopts "NDKCoOl:L:i:IM:m:h?" o; do
+while getopts "NDEKCoOl:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
-      INIT=$INITIALIZER
-      MAIN=Main;;
+      INIT=$INITIALIZER;;
    D) ENV=D8
       BASE=$KERNEL
-      INIT=$INITIALIZER
-      MAIN=Main;;
+      INIT=$INITIALIZER;;
+   D) ENV=ENYO
+      BASE=$KERNEL
+      INIT=$INITIALIZER;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
    o) CLOSURE=true
