@@ -5,4 +5,4 @@ run: Program.js
 	./benchfib
 
 clean:
-	rm Program.js* Benchfib.js
+	rm -f Program.js* Benchfib.js
