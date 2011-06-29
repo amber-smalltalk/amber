@@ -5,4 +5,4 @@ run: Program.js
 	./trivial
 
 clean:
-	rm Program.js TrivialServer.js
+	rm -f Program.js TrivialServer.js
