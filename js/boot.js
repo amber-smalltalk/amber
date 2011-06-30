@@ -195,13 +195,12 @@ function Smalltalk(){
 	if(typeof receiver === "undefined") {
 	    receiver = nil;
 	}
-	var klass = klass || receiver.klass;
-	if(!klass) { return messageNotUnderstood(receiver, selector, args) };
-	var method = klass.fn.prototype[selector];
-	if(!method) {
-	    return messageNotUnderstood(receiver, selector, args);
+	if(!klass && receiver.klass && receiver[selector]) {
+	    return receiver[selector].apply(receiver, args);
+	} else if(klass && klass.fn.prototype[selector]) {
+	    return klass.fn.prototype[selector].apply(receiver, args)
 	}
-	return method.apply(receiver, args);
+	return messageNotUnderstood(receiver, selector, args);
     };
 
     /* Handles #dnu: *and* JavaScript method calls.
@@ -209,27 +208,13 @@ function Smalltalk(){
        Jtalk system). Else assume that the receiver understands #doesNotUnderstand: */
 
     function messageNotUnderstood(receiver, selector, args) {
-	/* Handles JS method calls. Assumes that a single array or single argument was passed from Jtalk.
-	   Example: someJSObject foo: #(1 2 3) -> someJSObject.foo(1,2,3); */
-	var jsSelector = selector.replace(/_/g, '');
-	var jsProperty = receiver[jsSelector];
-	var jsArguments;
+	/* Handles JS method calls. */
 	if(receiver.klass === undefined) {
-	    if(typeof jsProperty === "function") {
-		if(args[0] && args[0].constructor === Array) {
-		    jsArguments = args[0]
-		} else {
-		    jsArguments = [args[0]]
-		}
-		return jsProperty.apply(receiver, jsArguments);
-	    } else if(jsProperty !== undefined) {
-		return jsProperty
-	    }
+	    return callJavaScriptMethod(receiver, selector, args);
 	}
 
 	/* Handles not understood messages. Also see the Jtalk counter-part 
 	   Object>>doesNotUnderstand: */
-	if(!receiver.klass) {throw(receiver + ' is not a Jtalk object and ' + jsSelector + ' is undefined')}
 	
 	return receiver._doesNotUnderstand_(
 	    st.Message._new()
@@ -237,6 +222,27 @@ function Smalltalk(){
 		._arguments_(args)
 	);
     };
+
+    function callJavaScriptMethod(receiver, selector, args) {
+	/* Call a method of a JS object, or answer a property.
+ 
+	   Converts keyword-based selectors by using the first
+	   keyword only, but keeping all message arguments.
+
+	   Example:
+	   "self do: aBlock with: anObjec"t -> "self.do(aBlock, anObject)" */
+
+	var jsSelector = selector.replace(/^_/, '').replace(/_.*/g, '');
+	var jsProperty = receiver[jsSelector];
+	if(typeof jsProperty === "function") {
+	    return jsProperty.apply(receiver, args);
+	} else if(jsProperty !== undefined) {
+	    return jsProperty
+	}
+	throw(receiver + ' is not a Jtalk object and ' + jsSelector + ' is undefined')
+    }
+
+	
 
     /* Convert a string to a valid smalltalk selector.
        if you modify the following functions, also change String>>asSelector
