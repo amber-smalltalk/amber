@@ -7,11 +7,12 @@ JTALK=$(readlink -f `dirname ${0}`/..)
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-m class] [-M file]
-          [-i] [-I file] file1 [file2 ...] [Program]
+Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-m class] [-M file]
+          [-i] [-I file] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
-   program. Files listed will be handled using these rules:
+   program. If no files are listed only a linking stage is performed.
+   Files listed will be handled using these rules:
 
    *.js
      Files are concatenated in listed order.
@@ -49,6 +50,9 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-m class] [-M file]
   -O
      Optimize final <Program>.js using the Google closure compiler.
      Using Closure at ~/compiler.jar    
+
+  -g
+     Compile Jtalk code in debug mode - include source and references etc.
 
   -l library1,library2
      Load listed libraries (no spaces) into Compiler before compiling.
@@ -115,9 +119,11 @@ MAINFILE=
 BASE=$KERNEL
 LOAD=
 LOADANDADD=
+DEBUG=false
+NODECOMPILE=nodecompile.js
 
 # Read options and shift them away
-while getopts "NDEKCJoOl:L:i:IM:m:h?" o; do
+while getopts "NDEKCJoOgl:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -135,6 +141,7 @@ case "$o" in
       CLOSUREPARTS=true;;
    O) CLOSURE=true
       CLOSUREFULL=true;;
+   g) DEBUG=true;;
    l) LOAD=$OPTARG;;
    L) LOADANDADD=$OPTARG;;
    I) INIT=$INITIALIZER;;
@@ -200,7 +207,7 @@ do
 done
 
 # Define our Compiler loading supplied libraries
-OURCOMPILER="$COMPILER $TOLOAD init.js $JTALK/nodejs/nodecompile.js"
+OURCOMPILER="$COMPILER $TOLOAD init.js $JTALK/nodejs/$NODECOMPILE"
 
 # Resolve OURCOMPILER
 for FILE in $OURCOMPILER
@@ -262,7 +269,7 @@ cat $TOOURCOMPILER > $TMPDIR/compiler.js
  
 # Compile all collected .st files to .js
 echo "Loading libraries $TOOURCOMPILER and compiling ..."
-node $TMPDIR/compiler.js $COMPILE
+node $TMPDIR/compiler.js $DEBUG $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "
