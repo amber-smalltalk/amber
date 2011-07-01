@@ -4,8 +4,16 @@
 // as aCategoryName.js.
 var sys = require('sys'), fs = require('fs');
 
-// Only care about our arguments, strip away node and all.js
-var arguments = process.argv.splice(2);
+// Only care about our arguments, strip away node, all.js and debug flag.
+var arguments = process.argv.splice(3);
+
+// First argument is debugMode: "true" or "false"
+if (process.argv[2] == "true") {
+  smalltalk.debugMode = true;
+} else {
+  smalltalk.debugMode = false;
+}
+console.log("Compiling in debugMode: " + smalltalk.debugMode);
 
 // If it ends with .st, import it, otherwise export category as .js
 arguments.forEach(function(val, index, array) {
