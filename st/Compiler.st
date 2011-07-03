@@ -413,7 +413,10 @@ loadExpression: aString
 !
 
 load: aString forClass: aClass
-	^self eval: (self compile: aString forClass: aClass)
+	| compiled |
+	compiled := self eval: (self compile: aString forClass: aClass).
+	self setupClass: aClass.
+	^compiled
 !
 
 compile: aString forClass: aClass
@@ -459,6 +462,10 @@ recompile: aClass
 recompileAll
 	Smalltalk current classes do: [:each |
 		self recompile: each]
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass)>
 ! !
 
 !Compiler methodsFor: 'initialization'!
