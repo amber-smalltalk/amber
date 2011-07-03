@@ -3,31 +3,35 @@
 # This is a "compiler" for JTalk code. Run without arguments for help.
 
 # Get JTalk root directory from the location of this script.
-JTALK=`dirname ${0}`/..
+JTALK=$(readlink -f `dirname ${0}`/..)
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file] [-i] [-I file] file1 [file2 ...] [Program]
+Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
+          [-i] [-I file] file1 [file2 ...] [Program]
 
-   Will compile Jtalk files - either separately or into a runnable complete program.
-   Files listed will be handled using these rules:
+   Will compile Jtalk files - either separately or into a runnable complete
+   program. Files listed will be handled using these rules:
 
    *.js
-     Files are concatenated in listed order. If not found we look in $JTALK/js
+     Files are concatenated in listed order.
+     If not found we look in $JTALK/js
 
    *.st
-     Files are compiled into .js files before concatenated. If not found we look
-     in $JTALK/st.
+     Files are compiled into .js files before concatenated.
+     If not found we look in $JTALK/st.
 
      NOTE: Each file is currently considered to be a fileout of a single class
      category of the same name as the file!
 
-   If no Program is specified each given .st file will be compiled into a .js file.
-   Otherwise a <Program>.js file is linked together based on the options:
+   If no Program is specified each given .st file will be compiled into
+   a .js file. Otherwise a <Program>.js file is linked together based on
+   the options:
 
-  -N or -D
-     Compile for Node.js or D8 (V8 shell). Implies "-K -i -m Main" so boot.js and Kernel.js
-     are added first and init.js is added last with a call to Main class>>main.
+  -N or -D or -E
+     Compilation target. Currently Node.js, D8 (V8 shell) or Enyo (webOS 3.0).
+     All imply "-K -I" so boot.js and Kernel.js are added first and init.js
+     is added last.
 
   -K
      Add libraries to get minimal JTalk Kernel running.
@@ -36,22 +40,25 @@ Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file] [-i] [-I file] file1 [fil
      Add libraries to get minimal JTalk Compiler running.
 
   -o
-     Optimize each js file using the Google closure compiler. Using ~/compiler.jar    
+     Optimize each js file using the Google closure compiler.
+     Using Closure at ~/compiler.jar    
 
   -O
-     Optimize <Program>.js using the Google closure compiler. Using ~/compiler.jar
+     Optimize final <Program>.js using the Google closure compiler.
+     Using Closure at ~/compiler.jar    
 
-  -l libray1,library2
-     Load listed libraries (no spaces) in Compiler before compiling.
+  -l library1,library2
+     Load listed libraries (no spaces) into Compiler before compiling.
 
-  -L
-     Loads all libraries in directory js in Compiler before compiling.
+  -L library1,library2
+     Load listed libraries (no spaces) into Compiler before compiling and also
+     into Program.js in listed order.
 
   -i
-     Add library standard initializer $JTALK/js/init.js
+     Add library initializer <file>.
 
   -I file
-     Add library initializer <file>.
+     Add library standard initializer $JTALK/js/init.js  
 
   -m class
      Add call to #main in class <class>. 
@@ -62,7 +69,7 @@ Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file] [-i] [-I file] file1 [fil
 
      Example invocations:
 
-     Compile Kernel.st to Kernel.js:
+     Just compile Kernel.st to Kernel.js:
 
         jtalkc Kernel.st
 
@@ -73,8 +80,8 @@ Usage: $0 [-N|D] [-K|C] [-o] [-O] [-m class] [-M file] [-i] [-I file] file1 [fil
         jtalkc -N -m Hello Hello.st Program
 
      Compile two .st files into corresponding .js files,
-     and manually link with specific myboot.js, myKernel.js, myinit.js and main.js
-     and create complete program called Program.js:
+     and link with specific myboot.js, myKernel.js, myinit.js
+     and main.js and create complete program called Program.js:
 
         jtalkc -M main.js -I myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program
 
@@ -91,7 +98,7 @@ fi
 BOOT="$JTALK/js/boot.js"
 KERNEL="$BOOT $JTALK/js/Kernel.js"
 COMPILER="$KERNEL $JTALK/js/Parser.js $JTALK/js/Compiler.js"
-CANVAS="$COMPILER $JTALK/js/Canvas.js"
+KITCHENSINK="$COMPILER $JTALK/js/Canvas.js"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
@@ -103,18 +110,20 @@ MAIN=
 MAINFILE=
 BASE=$KERNEL
 LOAD=
+LOADANDADD=
 
 # Read options and shift them away
-while getopts "NDKCoOl:LiI:M:m:h?" o; do
+while getopts "NDEKCoOl:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
-      INIT=$INITIALIZER
-      MAIN=Main;;
+      INIT=$INITIALIZER;;
    D) ENV=D8
       BASE=$KERNEL
-      INIT=$INITIALIZER
-      MAIN=Main;;
+      INIT=$INITIALIZER;;
+   D) ENV=ENYO
+      BASE=$KERNEL
+      INIT=$INITIALIZER;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
    o) CLOSURE=true
@@ -122,7 +131,7 @@ case "$o" in
    O) CLOSURE=true
       CLOSUREFULL=true;;
    l) LOAD=$OPTARG;;
-   L) LOAD="$JTALK/*.js";;
+   L) LOADANDADD=$OPTARG;;
    I) INIT=$INITIALIZER;;
    i) INIT=$OPTARG;;
    M) MAINFILE=$OPTARG;;
@@ -147,16 +156,47 @@ if [ ! -z $CLOSURE ]; then
   fi
 fi
 
-# Define our Compiler
-# We need to add extra listed libraries in $LOAD not already in $CANVAS
-OURCOMPILER="$CANVAS $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
+# Function for looking up listed js files
+function resolvejs {
+  if [ -f "$1" ]; then
+    RESOLVED="$1" 
+  else
+    if [ -f $JTALK/js/$1 ]; then
+      RESOLVED="$JTALK/js/$1"
+    else
+      echo "Javascript file not found: $1"
+      exit 1
+    fi
+  fi
+}
 
-# Combine supplied libraries
-LIBS="$BASE $ADDONS"
+# Resolve listed libraries in $LOAD separated by spaces
+LOAD=${LOAD//,/\ }
+for FILE in $LOAD
+do
+   resolvejs $FILE
+   TOLOAD="$TOLOAD $RESOLVED"
+done
+
+# Resolve listed libraries in $LOADANDADD separated by spaces
+LOADANDADD=${LOADANDADD//,/\ }
+for FILE in $LOADANDADD
+do
+   resolvejs $FILE
+   TOLOAD="$TOLOAD $RESOLVED"
+   TOADD="$TOADD $RESOLVED"
+done
+
+# Define our Compiler loading supplied libraries
+OURCOMPILER="$KITCHENSINK $TOLOAD $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
+
+# Add supplied libraries
+LIBS="$BASE $TOADD"
 
 # Get a unique tempdir and make it get auto removed on exit
 TMPDIR=`mktemp -d`
 trap "rm -rf $TMPDIR" EXIT
+
 
 # --------------------------------------------------
 # Collect libraries and Smalltalk files looking
@@ -183,16 +223,8 @@ do
         ;;
 
      *.js)
-        if [ -f "$1" ]; then
-           LIBS="$LIBS $1" 
-        else
-           if [ -f $JTALK/js/$1 ]; then
-             LIBS="$LIBS $JTALK/js/$1"
-           else
-             echo "Javascript file not found: $1"
-             exit 1
-           fi
-        fi
+        resolvejs $1
+	LIBS="$LIBS $RESOLVED" 
         ;;
       *)
         # Will end up being the last non js/st argument
@@ -210,7 +242,7 @@ done
 cat $OURCOMPILER > $TMPDIR/compiler.js
 
 # Compile all collected .st files to .js
-echo "Compiling ..."
+echo "Loading libraries $KITCHENSINK $TOLOAD and compiling ..."
 node $TMPDIR/compiler.js $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
