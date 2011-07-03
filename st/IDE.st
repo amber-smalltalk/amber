@@ -15,7 +15,7 @@ updateBodyMargin
 !
 
 updatePosition
-    {'jQuery(''#jtalk'').css(''top'', '''''').css(''bottom'', ''27px'');'}
+    <jQuery('#jtalk').css('top', '').css('bottom', '27px')>
 !
 
 removeBodyMargin
@@ -27,15 +27,15 @@ setBodyMargin: anInteger
 !
 
 onResize: aBlock
-    {'jQuery(''#jtalk'').resizable({
-	handles: ''n'', 
+    <jQuery('#jtalk').resizable({
+	handles: 'n', 
 	resize: aBlock,
 	minHeight: 230
-});'}
+})>
 !
 
 onWindowResize: aBlock
-    {'jQuery(window).resize(aBlock)'}
+    <jQuery(window).resize(aBlock)>
 !
 
 open
@@ -215,23 +215,23 @@ label
 !
 
 selection
-    {'return document.selection'}
+    <return document.selection>
 !
 
 selectionStart
-    {'return jQuery(''.jt_workspace'')[0].selectionStart'}
+    <return jQuery('.jt_workspace')[0].selectionStart>
 !
 
 selectionEnd
-    {'return jQuery(''.jt_workspace'')[0].selectionEnd'}
+    <return jQuery('.jt_workspace')[0].selectionEnd>
 !
 
 selectionStart: anInteger
-    {'jQuery(''.jt_workspace'')[0].selectionStart = anInteger'}
+    <jQuery('.jt_workspace')[0].selectionStart = anInteger>
 !
 
 selectionEnd: anInteger
-    {'jQuery(''.jt_workspace'')[0].selectionEnd = anInteger'}
+    <jQuery('.jt_workspace')[0].selectionEnd = anInteger>
 !
 
 currentLine
@@ -249,7 +249,7 @@ currentLine
 !Workspace methodsFor: 'actions'!
 
 handleKeyDown: anEvent
-    {'if(anEvent.ctrlKey) {
+    <if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
 			anEvent.preventDefault();
@@ -265,7 +265,7 @@ handleKeyDown: anEvent
 			anEvent.preventDefault();
 			return false;
 		}
-	}'}
+	}>
 !
 
 clearWorkspace

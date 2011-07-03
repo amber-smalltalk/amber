@@ -230,16 +230,18 @@ function Smalltalk(){
 	   keyword only, but keeping all message arguments.
 
 	   Example:
-	   "self do: aBlock with: anObjec"t -> "self.do(aBlock, anObject)" */
+	   "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
-	var jsSelector = selector.replace(/^_/, '').replace(/_.*/g, '');
+	var jsSelector = selector
+	    .replace(/^_/, '')
+	    .replace(/_.*/g, '');
 	var jsProperty = receiver[jsSelector];
 	if(typeof jsProperty === "function") {
 	    return jsProperty.apply(receiver, args);
 	} else if(jsProperty !== undefined) {
 	    return jsProperty
 	}
-	throw(receiver + ' is not a Jtalk object and ' + jsSelector + ' is undefined')
+	smalltalk.Error._signal_(receiver + ' is not a Jtalk object and "' + jsSelector + '" is undefined')
     }
 
 	

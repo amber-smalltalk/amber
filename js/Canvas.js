@@ -8,7 +8,7 @@ fn: function (aString){
 var self=this;
 self.fillStyle = String(aString);
 return self;},
-source: unescape('fillStyle%3A%20aString%0A%09%7B%27self.fillStyle%20%3D%20String%28aString%29%27%7D'),
+source: unescape('fillStyle%3A%20aString%0A%09%3Cself.fillStyle%20%3D%20String%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -23,7 +23,7 @@ fn: function (){
 var self=this;
 self.beginPath();
 return self;},
-source: unescape('beginPath%0A%09%7B%27self.beginPath%28%29%27%7D'),
+source: unescape('beginPath%0A%09%3Cself.beginPath%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -38,7 +38,7 @@ fn: function (){
 var self=this;
 self.closePath();
 return self;},
-source: unescape('closePath%0A%09%7B%27self.closePath%28%29%27%7D'),
+source: unescape('closePath%0A%09%3Cself.closePath%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -53,7 +53,7 @@ fn: function (){
 var self=this;
 self.fill();
 return self;},
-source: unescape('fill%0A%09%7B%27self.fill%28%29%27%7D'),
+source: unescape('fill%0A%09%3Cself.fill%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -68,7 +68,7 @@ fn: function (){
 var self=this;
 self.stroke();
 return self;},
-source: unescape('stroke%0A%09%7B%27self.stroke%28%29%27%7D'),
+source: unescape('stroke%0A%09%3Cself.stroke%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -83,7 +83,7 @@ fn: function (aPoint){
 var self=this;
 self.moveTo(aPoint._x(), aPoint._y());
 return self;},
-source: unescape('moveTo%3A%20aPoint%0A%09%7B%27self.moveTo%28aPoint._x%28%29%2C%20aPoint._y%28%29%29%27%7D'),
+source: unescape('moveTo%3A%20aPoint%0A%09%3Cself.moveTo%28aPoint._x%28%29%2C%20aPoint._y%28%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -98,7 +98,7 @@ fn: function (aPoint){
 var self=this;
 self.lineTo(aPoint._x(), aPoint._y());
 return self;},
-source: unescape('lineTo%3A%20aPoint%0A%09%7B%27self.lineTo%28aPoint._x%28%29%2C%20aPoint._y%28%29%29%27%7D'),
+source: unescape('lineTo%3A%20aPoint%0A%09%3Cself.lineTo%28aPoint._x%28%29%2C%20aPoint._y%28%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -113,7 +113,7 @@ fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean){
 var self=this;
 self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);
 return self;},
-source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%20aNumber2%20endAngle%3A%20aNumber3%20anticlockwise%3A%20aBoolean%0A%09%7B%27self.arc%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20aNumber%2C%20aNumber2%2C%20aNumber3%2C%20aBoolean%29%27%7D'),
+source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%20aNumber2%20endAngle%3A%20aNumber3%20anticlockwise%3A%20aBoolean%0A%09%3Cself.arc%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20aNumber%2C%20aNumber2%2C%20aNumber3%2C%20aBoolean%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -143,7 +143,7 @@ fn: function (aPoint, anotherPoint){
 var self=this;
 self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;},
-source: unescape('fillRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%7B%27self.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%27%7D'),
+source: unescape('fillRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%3Cself.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -158,7 +158,7 @@ fn: function (aPoint, anotherPoint){
 var self=this;
 self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;},
-source: unescape('strokeRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%7B%27self.strokeRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%27%7D'),
+source: unescape('strokeRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%3Cself.strokeRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -173,7 +173,7 @@ fn: function (aPoint, anotherPoint){
 var self=this;
 self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;},
-source: unescape('clearRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%7B%27self.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%27%7D'),
+source: unescape('clearRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%3Cself.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -188,7 +188,7 @@ fn: function (aString){
 var self=this;
 self.strokeStyle = String(aString);
 return self;},
-source: unescape('strokeStyle%3A%20aString%0A%09%7B%27self.strokeStyle%20%3D%20String%28aString%29%27%7D'),
+source: unescape('strokeStyle%3A%20aString%0A%09%3Cself.strokeStyle%20%3D%20String%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -203,7 +203,7 @@ fn: function (aNumber){
 var self=this;
 self.lineWidth = aNumber;
 return self;},
-source: unescape('lineWidth%3A%20aNumber%0A%09%7B%27self.lineWidth%20%3D%20aNumber%27%7D'),
+source: unescape('lineWidth%3A%20aNumber%0A%09%3Cself.lineWidth%20%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -219,7 +219,7 @@ fn: function (aTagBrush){
 var self=this;
 return aTagBrush._element().getContext('2d');
 return self;},
-source: unescape('tagBrush%3A%20aTagBrush%0A%09%7B%27return%20aTagBrush._element%28%29.getContext%28%27%272d%27%27%29%27%7D'),
+source: unescape('tagBrush%3A%20aTagBrush%0A%09%3Creturn%20aTagBrush._element%28%29.getContext%28%272d%27%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -801,7 +801,7 @@ fn: function (anElement){
 var self=this;
 self['@element'].appendChild(anElement);
 return self;},
-source: unescape('appendChild%3A%20anElement%0A%20%20%20%20%7B%27self%5B%27%27@element%27%27%5D.appendChild%28anElement%29%27%7D'),
+source: unescape('appendChild%3A%20anElement%0A%20%20%20%20%3Cself%5B%27@element%27%5D.appendChild%28anElement%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -831,7 +831,7 @@ fn: function (aString, aValue){
 var self=this;
 self['@element'].setAttribute(aString, aValue);
 return self;},
-source: unescape('at%3A%20aString%20put%3A%20aValue%0A%20%20%20%20%7B%27self%5B%27%27@element%27%27%5D.setAttribute%28aString%2C%20aValue%29%27%7D'),
+source: unescape('at%3A%20aString%20put%3A%20aValue%0A%20%20%20%20%3Cself%5B%27@element%27%5D.setAttribute%28aString%2C%20aValue%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -846,7 +846,7 @@ fn: function (aString){
 var self=this;
 self['@element'].removeAttribute(aString);
 return self;},
-source: unescape('removeAt%3A%20aString%0A%20%20%20%20%7B%27self%5B%27%27@element%27%27%5D.removeAttribute%28aString%29%27%7D'),
+source: unescape('removeAt%3A%20aString%0A%20%20%20%20%3Cself%5B%27@element%27%5D.removeAttribute%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -982,7 +982,7 @@ fn: function (){
 var self=this;
 return smalltalk.JQuery._from_(jQuery(self['@element']));
 return self;},
-source: unescape('asJQuery%0A%09%7B%27return%20smalltalk.JQuery._from_%28jQuery%28self%5B%27%27@element%27%27%5D%29%29%27%7D'),
+source: unescape('asJQuery%0A%09%3Creturn%20smalltalk.JQuery._from_%28jQuery%28self%5B%27@element%27%5D%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1117,7 +1117,7 @@ fn: function (aString){
 var self=this;
 return document.createElement(String(aString));
 return self;},
-source: unescape('createElementFor%3A%20aString%0A%09%7B%27return%20document.createElement%28String%28aString%29%29%27%7D'),
+source: unescape('createElementFor%3A%20aString%0A%09%3Creturn%20document.createElement%28String%28aString%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1132,7 +1132,7 @@ fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
 return self;},
-source: unescape('createTextNodeFor%3A%20aString%0A%09%7B%27return%20document.createTextNode%28String%28aString%29%29%27%7D'),
+source: unescape('createTextNodeFor%3A%20aString%0A%09%3Creturn%20document.createTextNode%28String%28aString%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1211,7 +1211,7 @@ fn: function (aString){
 var self=this;
 alert(aString);
 return self;},
-source: unescape('alert%3A%20aString%0A%20%20%20%20%7B%27alert%28aString%29%27%7D'),
+source: unescape('alert%3A%20aString%0A%20%20%20%20%3Calert%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1226,7 +1226,7 @@ fn: function (aString){
 var self=this;
 return window.confirm(aString);
 return self;},
-source: unescape('confirm%3A%20aString%0A%20%20%20%20%7B%27return%20window.confirm%28aString%29%27%7D'),
+source: unescape('confirm%3A%20aString%0A%20%20%20%20%3Creturn%20window.confirm%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1256,7 +1256,7 @@ fn: function (aString, anotherString){
 var self=this;
 return window.prompt(aString, anotherString);
 return self;},
-source: unescape('prompt%3A%20aString%20default%3A%20anotherString%0A%20%20%20%20%7B%27return%20window.prompt%28aString%2C%20anotherString%29%27%7D'),
+source: unescape('prompt%3A%20aString%20default%3A%20anotherString%0A%20%20%20%20%3Creturn%20window.prompt%28aString%2C%20anotherString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1326,7 +1326,7 @@ fn: function (){
 var self=this;
 return document.createElement('canvas');
 return self;},
-source: unescape('createElement%0A%09%7B%27return%20document.createElement%28%27%27canvas%27%27%29%27%7D'),
+source: unescape('createElement%0A%09%3Creturn%20document.createElement%28%27canvas%27%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),

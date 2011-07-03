@@ -427,7 +427,7 @@ compileExpression: aString
 !
 
 eval: aString
-	{'return eval(aString)'}
+	<return eval(aString)>
 !
 
 compile: aString
@@ -655,7 +655,7 @@ visitVariableNode: aNode
 !
 
 visitJSStatementNode: aNode
-	stream nextPutAll: (aNode source value replace: '''''' with: '''')
+	stream nextPutAll: (aNode source replace: '>>' with: '>')
 !
 
 visitFailure: aFailure
@@ -683,6 +683,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^['abc' trimLeft: 'az'] value
+doIt ^[<self["@"+'foo']>] value
 ! !
 

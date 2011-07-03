@@ -8,7 +8,7 @@ fn: function (anObject){
 var self=this;
 return self == anObject;
 return self;},
-source: unescape('%3D%20anObject%0A%09%7B%27return%20self%20%3D%3D%20anObject%27%7D'),
+source: unescape('%3D%20anObject%0A%09%3Creturn%20self%20%3D%3D%20anObject%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -68,7 +68,7 @@ fn: function (){
 var self=this;
 return self.klass;
 return self;},
-source: unescape('class%0A%09%7B%27return%20self.klass%27%7D'),
+source: unescape('class%0A%09%3Creturn%20self.klass%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -121,7 +121,7 @@ var self=this;
 	    return copy;
 	;
 return self;},
-source: unescape('shallowCopy%0A%09%7B%27%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D'),
+source: unescape('shallowCopy%0A%09%3C%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -134,7 +134,7 @@ selector: 'deepCopy',
 category: 'copying',
 fn: function (){
 var self=this;
-	    
+    
 	    var copy = self.klass._new();
 	    for(var i in self) {
 		if(/^@.+/.test(i)) {
@@ -144,7 +144,7 @@ var self=this;
 	    return copy;
 	;
 return self;},
-source: unescape('deepCopy%0A%09%7B%27%09%20%20%20%20%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D._deepCopy%28%29%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%27%7D.'),
+source: unescape('deepCopy%0A%09%3C%20%20%20%20%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D._deepCopy%28%29%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -176,7 +176,7 @@ return smalltalk.send(smalltalk.Association, "_key_value_", [self, anObject]);
 return self;},
 source: unescape('-%3E%20anObject%0A%09%5EAssociation%20key%3A%20self%20value%3A%20anObject'),
 messageSends: ["key:value:"],
-referencedClasses: [smalltalk.Association]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Object);
 
@@ -247,16 +247,9 @@ selector: 'instVarAt:',
 category: 'accessing',
 fn: function (aString){
 var self=this;
-
-	    var value = self['@'+aString];
-	    if(typeof(value) == 'undefined') {
-		return nil;
-	    } else {
-		return value;
-	    }
-	;
+return self['@'+aString];
 return self;},
-source: unescape('instVarAt%3A%20aString%0A%09%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5B%27%27@%27%27+aString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D'),
+source: unescape('instVarAt%3A%20aString%0A%09%3Creturn%20self%5B%27@%27+aString%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -271,7 +264,7 @@ fn: function (aString, anObject){
 var self=this;
 self['@' + aString] = anObject;
 return self;},
-source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%7B%27self%5B%27%27@%27%27%20+%20aString%5D%20%3D%20anObject%27%7D'),
+source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%3Cself%5B%27@%27%20+%20aString%5D%20%3D%20anObject%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -284,16 +277,9 @@ selector: 'basicAt:',
 category: 'accessing',
 fn: function (aString){
 var self=this;
-
-	    var value = self[aString];
-	    if(typeof(value) == 'undefined') {
-		return nil;
-	    } else {
-		return value;
-	    }
-	;
+return self[aString];
 return self;},
-source: unescape('basicAt%3A%20aString%0A%09%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BaString%5D%3B%0A%09%20%20%20%20if%28typeof%28value%29%20%3D%3D%20%27%27undefined%27%27%29%20%7B%0A%09%09return%20nil%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D'),
+source: unescape('basicAt%3A%20aString%0A%09%3Creturn%20self%5BaString%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -308,7 +294,7 @@ fn: function (aString, anObject){
 var self=this;
 return self[aString] = anObject;
 return self;},
-source: unescape('basicAt%3A%20aString%20put%3A%20anObject%0A%09%7B%27return%20self%5BaString%5D%20%3D%20anObject%27%7D'),
+source: unescape('basicAt%3A%20aString%20put%3A%20anObject%0A%09%3Creturn%20self%5BaString%5D%20%3D%20anObject%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -368,7 +354,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 try{aBlock()} catch(e) {anotherBlock(e)};
 return self;},
-source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%7B%27try%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%27%7D'),
+source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -398,7 +384,7 @@ fn: function (){
 var self=this;
 console.log(self);
 return self;},
-source: unescape('printNl%0A%09%7B%27console.log%28self%29%27%7D'),
+source: unescape('printNl%0A%09%3Cconsole.log%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -608,7 +594,7 @@ fn: function (aSymbol){
 var self=this;
 return smalltalk.send(self, "_basicPerform_withArguments_", [aSymbol, []]);
 return self;},
-source: unescape('basicPerform%3A%20aSymbol%20%0A%20%20%20%20%5Eself%20basicPerform%3A%20aSymbol%20withArguments%3A%20%23%28%29'),
+source: unescape('basicPerform%3A%20aSymbol%20%0A%09%5Eself%20basicPerform%3A%20aSymbol%20withArguments%3A%20%23%28%29'),
 messageSends: ["basicPerform:withArguments:"],
 referencedClasses: []
 }),
@@ -623,7 +609,7 @@ fn: function (aSymbol, aCollection){
 var self=this;
 return self[aSymbol].apply(self, aCollection);;
 return self;},
-source: unescape('basicPerform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%7B%27return%20self%5BaSymbol%5D.apply%28self%2C%20aCollection%29%3B%27%7D'),
+source: unescape('basicPerform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%3Creturn%20self%5BaSymbol%5D.apply%28self%2C%20aCollection%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -638,7 +624,7 @@ fn: function (aString){
 var self=this;
 delete self[aString];
 return self;},
-source: unescape('basicDelete%3A%20aString%0A%20%20%20%20%7B%27delete%20self%5BaString%5D%27%7D'),
+source: unescape('basicDelete%3A%20aString%0A%20%20%20%20%3Cdelete%20self%5BaString%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -655,7 +641,7 @@ var self=this;
 return self;},
 source: unescape('doesNotUnderstand%3A%20aMessage%0A%09MessageNotUnderstood%20new%0A%09%09receiver%3A%20self%3B%0A%09%09message%3A%20aMessage%3B%0A%09%09signal'),
 messageSends: ["receiver:", "message:", "signal", "new"],
-referencedClasses: [smalltalk.MessageNotUnderstood]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Object);
 
@@ -668,7 +654,7 @@ fn: function (){
 var self=this;
 return JSON.stringify(self._asJSONObject());
 return self;},
-source: unescape('asJSON%0A%09%7B%27return%20JSON.stringify%28self._asJSONObject%28%29%29%27%7D'),
+source: unescape('asJSON%0A%09%3Creturn%20JSON.stringify%28self._asJSONObject%28%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -719,7 +705,7 @@ fn: function (){
 var self=this;
 return self.classes();
 return self;},
-source: unescape('classes%0A%09%7B%27return%20self.classes%28%29%27%7D'),
+source: unescape('classes%0A%09%3Creturn%20self.classes%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -734,7 +720,7 @@ fn: function (){
 var self=this;
 return self.debugMode;
 return self;},
-source: unescape('debugMode%0A%09%7B%27return%20self.debugMode%27%7D'),
+source: unescape('debugMode%0A%09%3Creturn%20self.debugMode%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -749,7 +735,7 @@ fn: function (aBoolean){
 var self=this;
 self.debugMode = aBoolean;
 return self;},
-source: unescape('debugMode%3A%20aBoolean%0A%09%7B%27self.debugMode%20%3D%20aBoolean%27%7D'),
+source: unescape('debugMode%3A%20aBoolean%0A%09%3Cself.debugMode%20%3D%20aBoolean%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -762,9 +748,9 @@ selector: 'readJSON:',
 category: 'accessing',
 fn: function (anObject){
 var self=this;
-return self.readJSObject(anObject);;
+return self.readJSObject(anObject);
 return self;},
-source: unescape('readJSON%3A%20anObject%0A%09%7B%27return%20self.readJSObject%28anObject%29%3B%27%7D'),
+source: unescape('readJSON%3A%20anObject%0A%09%3Creturn%20self.readJSObject%28anObject%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -779,7 +765,7 @@ fn: function (aString){
 var self=this;
 return self[aString];
 return self;},
-source: unescape('at%3A%20aString%0A%09%7B%27return%20self%5BaString%5D%27%7D'),
+source: unescape('at%3A%20aString%0A%09%3Creturn%20self%5BaString%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -796,7 +782,7 @@ fn: function (){
 var self=this;
 return smalltalk;
 return self;},
-source: unescape('current%0A%09%7B%27return%20smalltalk%27%7D'),
+source: unescape('current%0A%09%3Creturn%20smalltalk%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -828,7 +814,7 @@ fn: function (){
 var self=this;
 return new self.fn();
 return self;},
-source: unescape('basicNew%0A%09%7B%27return%20new%20self.fn%28%29%27%7D'),
+source: unescape('basicNew%0A%09%3Creturn%20new%20self.fn%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -843,7 +829,7 @@ fn: function (){
 var self=this;
 return self.className || nil;
 return self;},
-source: unescape('name%0A%09%7B%27return%20self.className%20%7C%7C%20nil%27%7D'),
+source: unescape('name%0A%09%3Creturn%20self.className%20%7C%7C%20nil%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -858,7 +844,7 @@ fn: function (){
 var self=this;
 return self.superclass || nil;
 return self;},
-source: unescape('superclass%0A%09%7B%27return%20self.superclass%20%7C%7C%20nil%27%7D'),
+source: unescape('superclass%0A%09%3Creturn%20self.superclass%20%7C%7C%20nil%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -873,7 +859,7 @@ fn: function (){
 var self=this;
 return smalltalk.subclasses(self);
 return self;},
-source: unescape('subclasses%0A%09%7B%27return%20smalltalk.subclasses%28self%29%27%7D'),
+source: unescape('subclasses%0A%09%3Creturn%20smalltalk.subclasses%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -921,7 +907,7 @@ fn: function (){
 var self=this;
 return self.fn.prototype;
 return self;},
-source: unescape('prototype%0A%09%7B%27return%20self.fn.prototype%27%7D'),
+source: unescape('prototype%0A%09%3Creturn%20self.fn.prototype%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -943,7 +929,7 @@ var dict = smalltalk.Dictionary._new();
 	};
 	return dict;
 return self;},
-source: unescape('methodDictionary%0A%09%7B%27var%20dict%20%3D%20smalltalk.Dictionary._new%28%29%3B%0A%09var%20methods%20%3D%20self.fn.prototype.methods%3B%0A%09for%28var%20i%20in%20methods%29%20%7B%0A%09%09if%28methods%5Bi%5D.selector%29%20%7B%0A%09%09%09dict._at_put_%28methods%5Bi%5D.selector%2C%20methods%5Bi%5D%29%3B%0A%09%09%7D%0A%09%7D%3B%0A%09return%20dict%27%7D'),
+source: unescape('methodDictionary%0A%09%3Cvar%20dict%20%3D%20smalltalk.Dictionary._new%28%29%3B%0A%09var%20methods%20%3D%20self.fn.prototype.methods%3B%0A%09for%28var%20i%20in%20methods%29%20%7B%0A%09%09if%28methods%5Bi%5D.selector%29%20%7B%0A%09%09%09dict._at_put_%28methods%5Bi%5D.selector%2C%20methods%5Bi%5D%29%3B%0A%09%09%7D%0A%09%7D%3B%0A%09return%20dict%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -960,7 +946,7 @@ return (function($rec){smalltalk.send($rec, "_class_category_", [self, aString])
 return self;},
 source: unescape('methodsFor%3A%20aString%0A%09%5EClassCategoryReader%20new%0A%09%20%20%20%20class%3A%20self%20category%3A%20aString%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["class:category:", "yourself", "new"],
-referencedClasses: [smalltalk.ClassCategoryReader]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Behavior);
 
@@ -975,7 +961,7 @@ self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
 	self.fn.prototype.methods[aMethod.selector] = aMethod;
 	aMethod.methodClass = self;
 return self;},
-source: unescape('addCompiledMethod%3A%20aMethod%0A%09%7B%27self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%20%3D%20aMethod.fn%3B%0A%09self.fn.prototype.methods%5BaMethod.selector%5D%20%3D%20aMethod%3B%0A%09aMethod.methodClass%20%3D%20self%27%7D'),
+source: unescape('addCompiledMethod%3A%20aMethod%0A%09%3Cself.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%20%3D%20aMethod.fn%3B%0A%09self.fn.prototype.methods%5BaMethod.selector%5D%20%3D%20aMethod%3B%0A%09aMethod.methodClass%20%3D%20self%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -990,7 +976,7 @@ fn: function (){
 var self=this;
 return self.iVarNames;
 return self;},
-source: unescape('instanceVariableNames%0A%09%7B%27return%20self.iVarNames%27%7D'),
+source: unescape('instanceVariableNames%0A%09%3Creturn%20self.iVarNames%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1037,7 +1023,7 @@ return (function($rec){smalltalk.send($rec, "_class_", [self]);return smalltalk.
 return self;},
 source: unescape('commentStamp%0A%20%20%20%20%5EClassCommentReader%20new%0A%09class%3A%20self%3B%0A%09yourself'),
 messageSends: ["class:", "yourself", "new"],
-referencedClasses: [smalltalk.ClassCommentReader]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Behavior);
 
@@ -1051,7 +1037,7 @@ var self=this;
 delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
 return self;},
-source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%7B%27delete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%27%7D'),
+source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%3Cdelete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1104,7 +1090,7 @@ smalltalk.send(smalltalk.send(self, "_protocols", []), "_do_", [(function(catego
 return self;},
 source: unescape('protocolsDo%3A%20aBlock%0A%09%22Execute%20aBlock%20for%20each%20method%20category%20with%0A%09its%20collection%20of%20methods%20in%20the%20sort%20order%20of%20category%20name.%22%0A%0A%09%7C%20methodsByCategory%20%7C%0A%09methodsByCategory%20%3A%3D%20Dictionary%20new.%0A%09self%20methodDictionary%20values%20do%3A%20%5B%3Am%20%7C%0A%09%09%28methodsByCategory%20at%3A%20m%20category%20ifAbsentPut%3A%20%5BArray%20new%5D%29%0A%20%09%09%09add%3A%20m%5D.%20%0A%09self%20protocols%20do%3A%20%5B%3Acategory%20%7C%0A%09%09aBlock%20value%3A%20category%20value%3A%20%28methodsByCategory%20at%3A%20category%29%5D'),
 messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "category", "protocols", "value:value:", "at:"],
-referencedClasses: [smalltalk.Dictionary,smalltalk.Array]
+referencedClasses: [smalltalk.nil,smalltalk.Array]
 }),
 smalltalk.Behavior);
 
@@ -1120,7 +1106,7 @@ fn: function (){
 var self=this;
 return self.category;
 return self;},
-source: unescape('category%0A%09%7B%27return%20self.category%27%7D'),
+source: unescape('category%0A%09%3Creturn%20self.category%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1135,7 +1121,7 @@ fn: function (aString){
 var self=this;
 self.category = aString;
 return self;},
-source: unescape('category%3A%20aString%0A%09%7B%27self.category%20%3D%20aString%27%7D'),
+source: unescape('category%3A%20aString%0A%09%3Cself.category%20%3D%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1167,7 +1153,7 @@ return smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_supe
 return self;},
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:category:", "new"],
-referencedClasses: [smalltalk.ClassBuilder]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Class);
 
@@ -1214,7 +1200,7 @@ var self=this;
 		self.className = aString;
 	;
 return self;},
-source: unescape('rename%3A%20aString%0A%09%7B%27%0A%09%09smalltalk%5BaString%5D%20%3D%20self%3B%0A%09%09delete%20smalltalk%5Bself.className%5D%3B%0A%09%09self.className%20%3D%20aString%3B%0A%09%27%7D'),
+source: unescape('rename%3A%20aString%0A%09%3C%0A%09%09smalltalk%5BaString%5D%20%3D%20self%3B%0A%09%09delete%20smalltalk%5Bself.className%5D%3B%0A%09%09self.className%20%3D%20aString%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1232,7 +1218,7 @@ fn: function (){
 var self=this;
 return self.instanceClass;
 return self;},
-source: unescape('instanceClass%0A%09%7B%27return%20self.instanceClass%27%7D'),
+source: unescape('instanceClass%0A%09%3Creturn%20self.instanceClass%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1249,7 +1235,7 @@ smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_class_insta
 return self;},
 source: unescape('instanceVariableNames%3A%20aCollection%0A%09ClassBuilder%20new%0A%09%20%20%20%20class%3A%20self%20instanceVariableNames%3A%20aCollection'),
 messageSends: ["class:instanceVariableNames:", "new"],
-referencedClasses: [smalltalk.ClassBuilder]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Metaclass);
 
@@ -1463,7 +1449,7 @@ fn: function (aNumber){
 var self=this;
 return Number(self) == aNumber;
 return self;},
-source: unescape('%3D%20aNumber%0A%09%7B%27return%20Number%28self%29%20%3D%3D%20aNumber%27%7D'),
+source: unescape('%3D%20aNumber%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1478,7 +1464,7 @@ fn: function (aNumber){
 var self=this;
 return self > aNumber;
 return self;},
-source: unescape('%3E%20aNumber%0A%09%7B%27return%20self%20%3E%20aNumber%27%7D'),
+source: unescape('%3E%20aNumber%0A%09%3Creturn%20self%20%3E%3E%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1493,7 +1479,7 @@ fn: function (aNumber){
 var self=this;
 return self < aNumber;
 return self;},
-source: unescape('%3C%20aNumber%0A%09%7B%27return%20self%20%3C%20aNumber%27%7D'),
+source: unescape('%3C%20aNumber%0A%09%3Creturn%20self%20%3C%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1508,7 +1494,7 @@ fn: function (aNumber){
 var self=this;
 return self >= aNumber;
 return self;},
-source: unescape('%3E%3D%20aNumber%0A%09%7B%27return%20self%20%3E%3D%20aNumber%27%7D'),
+source: unescape('%3E%3D%20aNumber%0A%09%3Creturn%20self%20%3E%3E%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1523,7 +1509,7 @@ fn: function (aNumber){
 var self=this;
 return self <= aNumber;
 return self;},
-source: unescape('%3C%3D%20aNumber%0A%09%7B%27return%20self%20%3C%3D%20aNumber%27%7D'),
+source: unescape('%3C%3D%20aNumber%0A%09%3Creturn%20self%20%3C%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1538,7 +1524,7 @@ fn: function (aNumber){
 var self=this;
 return self + aNumber;
 return self;},
-source: unescape('+%20aNumber%0A%09%7B%27return%20self%20+%20aNumber%27%7D'),
+source: unescape('+%20aNumber%0A%09%3Creturn%20self%20+%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1553,7 +1539,7 @@ fn: function (aNumber){
 var self=this;
 return self - aNumber;
 return self;},
-source: unescape('-%20aNumber%0A%09%7B%27return%20self%20-%20aNumber%27%7D'),
+source: unescape('-%20aNumber%0A%09%3Creturn%20self%20-%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1568,7 +1554,7 @@ fn: function (aNumber){
 var self=this;
 return self * aNumber;
 return self;},
-source: unescape('*%20aNumber%0A%09%7B%27return%20self%20*%20aNumber%27%7D'),
+source: unescape('*%20aNumber%0A%09%3Creturn%20self%20*%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1583,7 +1569,7 @@ fn: function (aNumber){
 var self=this;
 return self / aNumber;
 return self;},
-source: unescape('/%20aNumber%0A%09%7B%27return%20self%20/%20aNumber%27%7D'),
+source: unescape('/%20aNumber%0A%09%3Creturn%20self%20/%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1598,7 +1584,7 @@ fn: function (aNumber){
 var self=this;
 return Math.max(self, aNumber);;
 return self;},
-source: unescape('max%3A%20aNumber%0A%09%7B%27return%20Math.max%28self%2C%20aNumber%29%3B%27%7D'),
+source: unescape('max%3A%20aNumber%0A%09%3Creturn%20Math.max%28self%2C%20aNumber%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1613,7 +1599,7 @@ fn: function (aNumber){
 var self=this;
 return Math.min(self, aNumber);;
 return self;},
-source: unescape('min%3A%20aNumber%0A%09%7B%27return%20Math.min%28self%2C%20aNumber%29%3B%27%7D'),
+source: unescape('min%3A%20aNumber%0A%09%3Creturn%20Math.min%28self%2C%20aNumber%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1628,7 +1614,7 @@ fn: function (){
 var self=this;
 return Math.round(self);;
 return self;},
-source: unescape('rounded%0A%09%7B%27return%20Math.round%28self%29%3B%27%7D'),
+source: unescape('rounded%0A%09%3Creturn%20Math.round%28self%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1643,7 +1629,7 @@ fn: function (){
 var self=this;
 return Math.floor(self);;
 return self;},
-source: unescape('truncated%0A%09%7B%27return%20Math.floor%28self%29%3B%27%7D'),
+source: unescape('truncated%0A%09%3Creturn%20Math.floor%28self%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1747,7 +1733,7 @@ fn: function (){
 var self=this;
 return String(self);
 return self;},
-source: unescape('printString%0A%09%7B%27return%20String%28self%29%27%7D'),
+source: unescape('printString%0A%09%3Creturn%20String%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1779,7 +1765,7 @@ return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.sen
 return self;},
 source: unescape('atRandom%0A%20%20%20%20%5E%28Random%20new%20next%20*%20self%29%20truncated%20+%201'),
 messageSends: [unescape("+"), "truncated", unescape("*"), "next", "new"],
-referencedClasses: [smalltalk.Random]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Number);
 
@@ -1794,7 +1780,7 @@ return smalltalk.send(smalltalk.Point, "_x_y_", [self, aNumber]);
 return self;},
 source: unescape('@%20aNumber%0A%09%5EPoint%20x%3A%20self%20y%3A%20aNumber'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.Point]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Number);
 
@@ -1809,7 +1795,7 @@ return smalltalk.send(smalltalk.Point, "_x_y_", [self, self]);
 return self;},
 source: unescape('asPoint%0A%09%5EPoint%20x%3A%20self%20y%3A%20self'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.Point]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Number);
 
@@ -1822,7 +1808,7 @@ fn: function (){
 var self=this;
 clearInterval(Number(self));
 return self;},
-source: unescape('clearInterval%0A%09%7B%27clearInterval%28Number%28self%29%29%27%7D'),
+source: unescape('clearInterval%0A%09%3CclearInterval%28Number%28self%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1852,7 +1838,7 @@ fn: function (){
 var self=this;
 clearTimeout(Number(self));
 return self;},
-source: unescape('clearTimeout%0A%09%7B%27clearTimeout%28Number%28self%29%29%27%7D'),
+source: unescape('clearTimeout%0A%09%3CclearTimeout%28Number%28self%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1868,7 +1854,7 @@ fn: function (){
 var self=this;
 return Math.PI;
 return self;},
-source: unescape('pi%0A%09%7B%27return%20Math.PI%27%7D'),
+source: unescape('pi%0A%09%3Creturn%20Math.PI%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1885,7 +1871,7 @@ fn: function (){
 var self=this;
 return self.toString();
 return self;},
-source: unescape('compiledSource%0A%09%7B%27return%20self.toString%28%29%27%7D'),
+source: unescape('compiledSource%0A%09%3Creturn%20self.toString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1900,7 +1886,7 @@ fn: function (aBlock){
 var self=this;
 while(self()) {aBlock()};
 return self;},
-source: unescape('whileTrue%3A%20aBlock%0A%09%7B%27while%28self%28%29%29%20%7BaBlock%28%29%7D%27%7D'),
+source: unescape('whileTrue%3A%20aBlock%0A%09%3Cwhile%28self%28%29%29%20%7BaBlock%28%29%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1915,7 +1901,7 @@ fn: function (aBlock){
 var self=this;
 while(!self()) {aBlock()};
 return self;},
-source: unescape('whileFalse%3A%20aBlock%0A%09%7B%27while%28%21self%28%29%29%20%7BaBlock%28%29%7D%27%7D'),
+source: unescape('whileFalse%3A%20aBlock%0A%09%3Cwhile%28%21self%28%29%29%20%7BaBlock%28%29%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1930,7 +1916,7 @@ fn: function (){
 var self=this;
 return self();;
 return self;},
-source: unescape('value%0A%09%7B%27return%20self%28%29%3B%27%7D'),
+source: unescape('value%0A%09%3Creturn%20self%28%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1945,7 +1931,7 @@ fn: function (anArg){
 var self=this;
 return self(anArg);;
 return self;},
-source: unescape('value%3A%20anArg%0A%09%7B%27return%20self%28anArg%29%3B%27%7D'),
+source: unescape('value%3A%20anArg%0A%09%3Creturn%20self%28anArg%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1960,7 +1946,7 @@ fn: function (firstArg, secondArg){
 var self=this;
 return self(firstArg, secondArg);;
 return self;},
-source: unescape('value%3A%20firstArg%20value%3A%20secondArg%0A%09%7B%27return%20self%28firstArg%2C%20secondArg%29%3B%27%7D'),
+source: unescape('value%3A%20firstArg%20value%3A%20secondArg%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1975,7 +1961,7 @@ fn: function (firstArg, secondArg, thirdArg){
 var self=this;
 return self(firstArg, secondArg, thirdArg);;
 return self;},
-source: unescape('value%3A%20firstArg%20value%3A%20secondArg%20value%3A%20thirdArg%0A%09%7B%27return%20self%28firstArg%2C%20secondArg%2C%20thirdArg%29%3B%27%7D'),
+source: unescape('value%3A%20firstArg%20value%3A%20secondArg%20value%3A%20thirdArg%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%2C%20thirdArg%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1990,7 +1976,7 @@ fn: function (aCollection){
 var self=this;
 return self.apply(null, aCollection);;
 return self;},
-source: unescape('valueWithPossibleArguments%3A%20aCollection%0A%09%7B%27return%20self.apply%28null%2C%20aCollection%29%3B%27%7D'),
+source: unescape('valueWithPossibleArguments%3A%20aCollection%0A%09%3Creturn%20self.apply%28null%2C%20aCollection%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2020,7 +2006,7 @@ fn: function (aNumber){
 var self=this;
 return setTimeout(self, aNumber);
 return self;},
-source: unescape('valueWithTimeout%3A%20aNumber%0A%09%7B%27return%20setTimeout%28self%2C%20aNumber%29%27%7D'),
+source: unescape('valueWithTimeout%3A%20aNumber%0A%09%3Creturn%20setTimeout%28self%2C%20aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2035,7 +2021,7 @@ fn: function (aNumber){
 var self=this;
 return setInterval(self, aNumber);
 return self;},
-source: unescape('valueWithInterval%3A%20aNumber%0A%09%7B%27return%20setInterval%28self%2C%20aNumber%29%27%7D'),
+source: unescape('valueWithInterval%3A%20aNumber%0A%09%3Creturn%20setInterval%28self%2C%20aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2053,7 +2039,7 @@ fn: function (aBoolean){
 var self=this;
 return Boolean(self == true) == aBoolean;
 return self;},
-source: unescape('%3D%20aBoolean%0A%09%7B%27return%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%20aBoolean%27%7D'),
+source: unescape('%3D%20aBoolean%0A%09%3Creturn%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%20aBoolean%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2149,7 +2135,7 @@ var self=this;
 	    }
 	;
 return self;},
-source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%7B%27%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%27%7D'),
+source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2209,7 +2195,7 @@ fn: function (){
 var self=this;
 return self.toString();
 return self;},
-source: unescape('printString%0A%09%7B%27return%20self.toString%28%29%27%7D'),
+source: unescape('printString%0A%09%3Creturn%20self.toString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2243,7 +2229,7 @@ fn: function (){
 var self=this;
 return self.getFullYear();
 return self;},
-source: unescape('year%0A%09%7B%27return%20self.getFullYear%28%29%27%7D'),
+source: unescape('year%0A%09%3Creturn%20self.getFullYear%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2258,7 +2244,7 @@ fn: function (){
 var self=this;
 return self.getMonth() + 1;
 return self;},
-source: unescape('month%0A%09%7B%27return%20self.getMonth%28%29%20+%201%27%7D'),
+source: unescape('month%0A%09%3Creturn%20self.getMonth%28%29%20+%201%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2273,7 +2259,7 @@ fn: function (aNumber){
 var self=this;
 self.setMonth(aNumber - 1);
 return self;},
-source: unescape('month%3A%20aNumber%0A%09%7B%27self.setMonth%28aNumber%20-%201%29%27%7D'),
+source: unescape('month%3A%20aNumber%0A%09%3Cself.setMonth%28aNumber%20-%201%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2303,7 +2289,7 @@ fn: function (){
 var self=this;
 return self.getDay() + 1;
 return self;},
-source: unescape('dayOfWeek%0A%09%7B%27return%20self.getDay%28%29%20+%201%27%7D'),
+source: unescape('dayOfWeek%0A%09%3Creturn%20self.getDay%28%29%20+%201%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2318,7 +2304,7 @@ fn: function (aNumber){
 var self=this;
 return self.setDay(aNumber - 1);
 return self;},
-source: unescape('dayOfWeek%3A%20aNumber%0A%09%7B%27return%20self.setDay%28aNumber%20-%201%29%27%7D'),
+source: unescape('dayOfWeek%3A%20aNumber%0A%09%3Creturn%20self.setDay%28aNumber%20-%201%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2348,7 +2334,7 @@ fn: function (aNumber){
 var self=this;
 self.setFullYear(aNumber);
 return self;},
-source: unescape('year%3A%20aNumber%0A%09%7B%27self.setFullYear%28aNumber%29%27%7D'),
+source: unescape('year%3A%20aNumber%0A%09%3Cself.setFullYear%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2363,7 +2349,7 @@ fn: function (){
 var self=this;
 return self.getDate();
 return self;},
-source: unescape('dayOfMonth%0A%09%7B%27return%20self.getDate%28%29%27%7D'),
+source: unescape('dayOfMonth%0A%09%3Creturn%20self.getDate%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2378,7 +2364,7 @@ fn: function (aNumber){
 var self=this;
 self.setDate(aNumber);
 return self;},
-source: unescape('dayOfMonth%3A%20aNumber%0A%09%7B%27self.setDate%28aNumber%29%27%7D'),
+source: unescape('dayOfMonth%3A%20aNumber%0A%09%3Cself.setDate%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2393,7 +2379,7 @@ fn: function (){
 var self=this;
 return self.toString();
 return self;},
-source: unescape('asString%0A%09%7B%27return%20self.toString%28%29%27%7D'),
+source: unescape('asString%0A%09%3Creturn%20self.toString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2438,7 +2424,7 @@ fn: function (){
 var self=this;
 return self.getTime();
 return self;},
-source: unescape('time%0A%09%7B%27return%20self.getTime%28%29%27%7D'),
+source: unescape('time%0A%09%3Creturn%20self.getTime%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2453,7 +2439,7 @@ fn: function (aNumber){
 var self=this;
 self.setTime(aNumber);
 return self;},
-source: unescape('time%3A%20aNumber%0A%09%7B%27self.setTime%28aNumber%29%27%7D'),
+source: unescape('time%3A%20aNumber%0A%09%3Cself.setTime%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2468,7 +2454,7 @@ fn: function (){
 var self=this;
 return self.toDateString();
 return self;},
-source: unescape('asDateString%0A%09%7B%27return%20self.toDateString%28%29%27%7D'),
+source: unescape('asDateString%0A%09%3Creturn%20self.toDateString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2483,7 +2469,7 @@ fn: function (){
 var self=this;
 return self.toTimeString();
 return self;},
-source: unescape('asTimeString%0A%09%7B%27return%20self.toTimeString%28%29%27%7D'),
+source: unescape('asTimeString%0A%09%3Creturn%20self.toTimeString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2498,7 +2484,7 @@ fn: function (){
 var self=this;
 return self.toLocaleString();
 return self;},
-source: unescape('asLocaleString%0A%09%7B%27return%20self.toLocaleString%28%29%27%7D'),
+source: unescape('asLocaleString%0A%09%3Creturn%20self.toLocaleString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2528,7 +2514,7 @@ fn: function (aNumber){
 var self=this;
 self.setHours(aNumber);
 return self;},
-source: unescape('hours%3A%20aNumber%0A%09%7B%27self.setHours%28aNumber%29%27%7D'),
+source: unescape('hours%3A%20aNumber%0A%09%3Cself.setHours%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2543,7 +2529,7 @@ fn: function (aNumber){
 var self=this;
 self.setMinutes(aNumber);
 return self;},
-source: unescape('minutes%3A%20aNumber%0A%09%7B%27self.setMinutes%28aNumber%29%27%7D'),
+source: unescape('minutes%3A%20aNumber%0A%09%3Cself.setMinutes%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2558,7 +2544,7 @@ fn: function (aNumber){
 var self=this;
 self.setSeconds(aNumber);
 return self;},
-source: unescape('seconds%3A%20aNumber%0A%09%7B%27self.setSeconds%28aNumber%29%27%7D'),
+source: unescape('seconds%3A%20aNumber%0A%09%3Cself.setSeconds%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2573,7 +2559,7 @@ fn: function (aNumber){
 var self=this;
 self.setMilliseconds(aNumber);
 return self;},
-source: unescape('milliseconds%3A%20aNumber%0A%09%7B%27self.setMilliseconds%28aNumber%29%27%7D'),
+source: unescape('milliseconds%3A%20aNumber%0A%09%3Cself.setMilliseconds%28aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2588,7 +2574,7 @@ fn: function (){
 var self=this;
 return self.getHours();
 return self;},
-source: unescape('hours%0A%09%7B%27return%20self.getHours%28%29%27%7D'),
+source: unescape('hours%0A%09%3Creturn%20self.getHours%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2603,7 +2589,7 @@ fn: function (){
 var self=this;
 return self.getMinutes();
 return self;},
-source: unescape('minutes%0A%09%7B%27return%20self.getMinutes%28%29%27%7D'),
+source: unescape('minutes%0A%09%3Creturn%20self.getMinutes%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2618,7 +2604,7 @@ fn: function (){
 var self=this;
 return self.getSeconds();
 return self;},
-source: unescape('seconds%0A%09%7B%27return%20self.getSeconds%28%29%27%7D'),
+source: unescape('seconds%0A%09%3Creturn%20self.getSeconds%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2633,7 +2619,7 @@ fn: function (){
 var self=this;
 return self.getMilliseconds();
 return self;},
-source: unescape('milliseconds%0A%09%7B%27return%20self.getMilliseconds%28%29%27%7D'),
+source: unescape('milliseconds%0A%09%3Creturn%20self.getMilliseconds%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2648,7 +2634,7 @@ fn: function (aDate){
 var self=this;
 return self < aDate;
 return self;},
-source: unescape('%3C%20aDate%0A%09%7B%27return%20self%20%3C%20aDate%27%7D'),
+source: unescape('%3C%20aDate%0A%09%3Creturn%20self%20%3C%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2663,7 +2649,7 @@ fn: function (aDate){
 var self=this;
 return self > aDate;
 return self;},
-source: unescape('%3E%20aDate%0A%09%7B%27return%20self%20%3E%20aDate%27%7D'),
+source: unescape('%3E%20aDate%0A%09%3Creturn%20self%20%3E%3E%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2678,7 +2664,7 @@ fn: function (aDate){
 var self=this;
 self <= aDate;
 return self;},
-source: unescape('%3C%3D%20aDate%0A%09%7B%27self%20%3C%3D%20aDate%27%7D'),
+source: unescape('%3C%3D%20aDate%0A%09%3Cself%20%3C%3D%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2693,7 +2679,7 @@ fn: function (aDate){
 var self=this;
 self >= aDate;
 return self;},
-source: unescape('%3E%3D%20aDate%0A%09%7B%27self%20%3E%3D%20aDate%27%7D'),
+source: unescape('%3E%3D%20aDate%0A%09%3Cself%20%3E%3E%3D%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2708,7 +2694,7 @@ fn: function (aDate){
 var self=this;
 return self - aDate;
 return self;},
-source: unescape('-%20aDate%0A%09%7B%27return%20self%20-%20aDate%27%7D'),
+source: unescape('-%20aDate%0A%09%3Creturn%20self%20-%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2723,7 +2709,7 @@ fn: function (aDate){
 var self=this;
 return self + aDate;
 return self;},
-source: unescape('+%20aDate%0A%09%7B%27return%20self%20+%20aDate%27%7D'),
+source: unescape('+%20aDate%0A%09%3Creturn%20self%20+%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2754,7 +2740,7 @@ fn: function (anObject){
 var self=this;
 return new Date(anObject);
 return self;},
-source: unescape('new%3A%20anObject%0A%09%7B%27return%20new%20Date%28anObject%29%27%7D'),
+source: unescape('new%3A%20anObject%0A%09%3Creturn%20new%20Date%28anObject%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2881,7 +2867,7 @@ return smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_supe
 return self;},
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:category:", "new"],
-referencedClasses: [smalltalk.ClassBuilder]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.UndefinedObject);
 
@@ -3218,7 +3204,7 @@ fn: function (aBlock){
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i]);};
 return self;},
-source: unescape('do%3A%20aBlock%0A%09%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%29%3B%7D%27%7D'),
+source: unescape('do%3A%20aBlock%0A%09%3Cfor%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%29%3B%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3271,7 +3257,7 @@ var self=this;
 		return anotherBlock();
 	;
 return self;},
-source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%7B%27%0A%09%09for%28var%20i%20%3D%200%3B%20i%20%3C%20self.length%3B%20i++%29%0A%09%09%09if%28aBlock%28self%5Bi%5D%29%29%0A%09%09%09%09return%20self%5Bi%5D%3B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%27%7D'),
+source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%3C%0A%09%09for%28var%20i%20%3D%200%3B%20i%20%3C%20self.length%3B%20i++%29%0A%09%09%09if%28aBlock%28self%5Bi%5D%29%29%0A%09%09%09%09return%20self%5Bi%5D%3B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3375,7 +3361,7 @@ var self=this;
 		return false
 	;
 return self;},
-source: unescape('includes%3A%20anObject%0A%09%7B%27%0A%09%09var%20i%20%3D%20self.length%3B%0A%09%09while%20%28i--%29%20%7B%0A%09%09%09if%20%28smalltalk.send%28self%5Bi%5D%2C%20%22__eq%22%2C%20%5BanObject%5D%29%29%20%7Breturn%20true%3B%7D%09%0A%09%09%7D%0A%09%09return%20false%0A%09%27%7D'),
+source: unescape('includes%3A%20anObject%0A%09%3C%0A%09%09var%20i%20%3D%20self.length%3B%0A%09%09while%20%28i--%29%20%7B%0A%09%09%09if%20%28smalltalk.send%28self%5Bi%5D%2C%20%22__eq%22%2C%20%5BanObject%5D%29%29%20%7Breturn%20true%3B%7D%09%0A%09%09%7D%0A%09%09return%20false%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3438,7 +3424,7 @@ return smalltalk.Stream;
 return self;},
 source: unescape('streamClass%0A%09%20%20%20%20%5EStream'),
 messageSends: [],
-referencedClasses: [smalltalk.Stream]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Collection.klass);
 
@@ -3678,7 +3664,7 @@ fn: function (aBlock){
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i], i+1);};
 return self;},
-source: unescape('withIndexDo%3A%20aBlock%0A%09%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%2C%20i+1%29%3B%7D%27%7D'),
+source: unescape('withIndexDo%3A%20aBlock%0A%09%3Cfor%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%2C%20i+1%29%3B%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3736,13 +3722,14 @@ selector: 'indexOf:ifAbsent:',
 category: 'accessing',
 fn: function (anObject, aBlock){
 var self=this;
-for(var i=0;i<self.length;i++){
-		if(self[i].__eq(anObject)) {return i+1}
-	}
-	return aBlock();
+
+		for(var i=0;i<self.length;i++){
+			if(self[i].__eq(anObject)) {return i+1}
+		}
+		return aBlock();
 	;
 return self;},
-source: unescape('indexOf%3A%20anObject%20ifAbsent%3A%20aBlock%0A%09%7B%27for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%7D%0A%09return%20aBlock%28%29%3B%0A%09%27%7D'),
+source: unescape('indexOf%3A%20anObject%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%09%7D%0A%09%09return%20aBlock%28%29%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3760,7 +3747,7 @@ fn: function (aString){
 var self=this;
 return String(self) == aString;
 return self;},
-source: unescape('%3D%20aString%0A%09%7B%27return%20String%28self%29%20%3D%3D%20aString%27%7D'),
+source: unescape('%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3D%3D%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3775,7 +3762,7 @@ fn: function (){
 var self=this;
 return self.length;
 return self;},
-source: unescape('size%0A%09%7B%27return%20self.length%27%7D'),
+source: unescape('size%0A%09%3Creturn%20self.length%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3788,9 +3775,9 @@ selector: 'at:',
 category: 'accessing',
 fn: function (anIndex){
 var self=this;
-return self[anIndex - 1];;
+return self[anIndex - 1];
 return self;},
-source: unescape('at%3A%20anIndex%0A%09%7B%27return%20self%5BanIndex%20-%201%5D%3B%27%7D'),
+source: unescape('at%3A%20anIndex%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3835,7 +3822,7 @@ fn: function (){
 var self=this;
 return escape(self);
 return self;},
-source: unescape('escaped%0A%09%7B%27return%20escape%28self%29%27%7D'),
+source: unescape('escaped%0A%09%3Creturn%20escape%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3850,7 +3837,7 @@ fn: function (){
 var self=this;
 return unescape(self);
 return self;},
-source: unescape('unescaped%0A%09%7B%27return%20unescape%28self%29%27%7D'),
+source: unescape('unescaped%0A%09%3Creturn%20unescape%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3880,7 +3867,7 @@ fn: function (aString){
 var self=this;
 return self + aString;
 return self;},
-source: unescape('%2C%20aString%0A%09%7B%27return%20self%20+%20aString%27%7D'),
+source: unescape('%2C%20aString%0A%09%3Creturn%20self%20+%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3893,9 +3880,9 @@ selector: 'copyFrom:to:',
 category: 'copying',
 fn: function (anIndex, anotherIndex){
 var self=this;
-return self.substring(anIndex - 1, anotherIndex);;
+return self.substring(anIndex - 1, anotherIndex);
 return self;},
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%7B%27return%20self.substring%28anIndex%20-%201%2C%20anotherIndex%29%3B%27%7D'),
+source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%3Creturn%20self.substring%28anIndex%20-%201%2C%20anotherIndex%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3972,7 +3959,7 @@ var self=this;
 			return "\"" + self + "\"";
 	;
 return self;},
-source: unescape('asJavascript%0A%09%7B%27%0A%09%09if%28self.search%28/%5E%5Ba-zA-Z0-9_%3A.%24%20%5D*%24/%29%20%3D%3D%20-1%29%0A%09%09%09return%20%22unescape%28%5C%22%22%20+%20escape%28self%29%20+%20%22%5C%22%29%22%3B%0A%09%09else%0A%09%09%09return%20%22%5C%22%22%20+%20self%20+%20%22%5C%22%22%3B%0A%09%27%7D'),
+source: unescape('asJavascript%0A%09%3C%0A%09%09if%28self.search%28/%5E%5Ba-zA-Z0-9_%3A.%24%20%5D*%24/%29%20%3D%3D%20-1%29%0A%09%09%09return%20%22unescape%28%5C%22%22%20+%20escape%28self%29%20+%20%22%5C%22%29%22%3B%0A%09%09else%0A%09%09%09return%20%22%5C%22%22%20+%20self%20+%20%22%5C%22%22%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4000,9 +3987,9 @@ selector: 'replaceRegexp:with:',
 category: 'regular expressions',
 fn: function (aRegexp, aString){
 var self=this;
-return self.replace(aRegexp, aString);;
+return self.replace(aRegexp, aString);
 return self;},
-source: unescape('replaceRegexp%3A%20aRegexp%20with%3A%20aString%0A%09%7B%27return%20self.replace%28aRegexp%2C%20aString%29%3B%27%7D'),
+source: unescape('replaceRegexp%3A%20aRegexp%20with%3A%20aString%0A%09%3Creturn%20self.replace%28aRegexp%2C%20aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4017,7 +4004,7 @@ fn: function (aString){
 var self=this;
 return self.split(aString);
 return self;},
-source: unescape('tokenize%3A%20aString%0A%09%7B%27return%20self.split%28aString%29%27%7D'),
+source: unescape('tokenize%3A%20aString%0A%09%3Creturn%20self.split%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4032,7 +4019,7 @@ fn: function (aRegexp){
 var self=this;
 return self.search(aRegexp) != -1;
 return self;},
-source: unescape('match%3A%20aRegexp%0A%09%7B%27return%20self.search%28aRegexp%29%20%21%3D%20-1%27%7D'),
+source: unescape('match%3A%20aRegexp%0A%09%3Creturn%20self.search%28aRegexp%29%20%21%3D%20-1%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4060,9 +4047,9 @@ selector: 'asNumber',
 category: 'converting',
 fn: function (){
 var self=this;
-return Number(self);;
+return Number(self);
 return self;},
-source: unescape('asNumber%0A%09%7B%27return%20Number%28self%29%3B%27%7D'),
+source: unescape('asNumber%0A%09%3Creturn%20Number%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4079,7 +4066,7 @@ return smalltalk.send(smalltalk.send(smalltalk.PPStringParser, "_new", []), "_st
 return self;},
 source: unescape('asParser%0A%20%20%20%20%09%5EPPStringParser%20new%20string%3A%20self'),
 messageSends: ["string:", "new"],
-referencedClasses: [smalltalk.PPStringParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.String);
 
@@ -4094,7 +4081,7 @@ return smalltalk.send(smalltalk.PPChoiceParser, "_withAll_", [smalltalk.send(sma
 return self;},
 source: unescape('asChoiceParser%0A%20%20%20%20%09%5EPPChoiceParser%20withAll%3A%20%28self%20asArray%20collect%3A%20%5B%3Aeach%20%7C%20each%20asParser%5D%29'),
 messageSends: ["withAll:", "collect:", "asArray", "asParser"],
-referencedClasses: [smalltalk.PPChoiceParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.String);
 
@@ -4109,7 +4096,7 @@ return smalltalk.send(smalltalk.send(smalltalk.PPCharacterParser, "_new", []), "
 return self;},
 source: unescape('asCharacterParser%0A%20%20%20%20%09%5EPPCharacterParser%20new%20string%3A%20self'),
 messageSends: ["string:", "new"],
-referencedClasses: [smalltalk.PPCharacterParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.String);
 
@@ -4152,7 +4139,7 @@ fn: function (){
 var self=this;
 console.log(self);
 return self;},
-source: unescape('printNl%0A%09%7B%27console.log%28self%29%27%7D'),
+source: unescape('printNl%0A%09%3Cconsole.log%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4182,7 +4169,7 @@ fn: function (aString){
 var self=this;
 return String(self) > aString;
 return self;},
-source: unescape('%3E%20aString%0A%09%7B%27return%20String%28self%29%20%3E%20aString%27%7D'),
+source: unescape('%3E%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4197,7 +4184,7 @@ fn: function (aString){
 var self=this;
 return String(self) < aString;
 return self;},
-source: unescape('%3C%20aString%0A%09%7B%27return%20String%28self%29%20%3C%20aString%27%7D'),
+source: unescape('%3C%20aString%0A%09%3Creturn%20String%28self%29%20%3C%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4212,7 +4199,7 @@ fn: function (aString){
 var self=this;
 return String(self) >= aString;
 return self;},
-source: unescape('%3E%3D%20aString%0A%09%7B%27return%20String%28self%29%20%3E%3D%20aString%27%7D'),
+source: unescape('%3E%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%3D%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4227,7 +4214,7 @@ fn: function (aString){
 var self=this;
 return String(self) <= aString;
 return self;},
-source: unescape('%3C%3D%20aString%0A%09%7B%27return%20String%28self%29%20%3C%3D%20aString%27%7D'),
+source: unescape('%3C%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3C%3D%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4242,7 +4229,7 @@ fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
-source: unescape('remove%3A%20anObject%0A%20%20%20%20self%20errorReadOnly'),
+source: unescape('remove%3A%20anObject%0A%09self%20errorReadOnly'),
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
@@ -4365,7 +4352,7 @@ return smalltalk.StringStream;
 return self;},
 source: unescape('streamClass%0A%09%20%20%20%20%5EStringStream'),
 messageSends: [],
-referencedClasses: [smalltalk.StringStream]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.String.klass);
 
@@ -4376,9 +4363,9 @@ selector: 'fromString:',
 category: 'instance creation',
 fn: function (aString){
 var self=this;
-return new self.fn(aString);;
+return new self.fn(aString);
 return self;},
-source: unescape('fromString%3A%20aString%0A%09%20%20%20%20%7B%27return%20new%20self.fn%28aString%29%3B%27%7D'),
+source: unescape('fromString%3A%20aString%0A%09%20%20%20%20%3Creturn%20new%20self.fn%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4391,9 +4378,9 @@ selector: 'cr',
 category: 'accessing',
 fn: function (){
 var self=this;
-return '\r';;
+return '\r';
 return self;},
-source: unescape('cr%0A%09%7B%27return%20%27%27%5Cr%27%27%3B%27%7D'),
+source: unescape('cr%0A%09%3Creturn%20%27%5Cr%27%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4406,9 +4393,9 @@ selector: 'lf',
 category: 'accessing',
 fn: function (){
 var self=this;
-return '\n';;
+return '\n';
 return self;},
-source: unescape('lf%0A%09%7B%27return%20%27%27%5Cn%27%27%3B%27%7D'),
+source: unescape('lf%0A%09%3Creturn%20%27%5Cn%27%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4421,9 +4408,9 @@ selector: 'space',
 category: 'accessing',
 fn: function (){
 var self=this;
-return ' ';;
+return ' ';
 return self;},
-source: unescape('space%0A%09%7B%27return%20%27%27%20%27%27%3B%27%7D'),
+source: unescape('space%0A%09%3Creturn%20%27%20%27%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4436,9 +4423,9 @@ selector: 'tab',
 category: 'accessing',
 fn: function (){
 var self=this;
-return '\t';;
+return '\t';
 return self;},
-source: unescape('tab%0A%09%7B%27return%20%27%27%5Ct%27%27%3B%27%7D'),
+source: unescape('tab%0A%09%3Creturn%20%27%5Ct%27%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4451,9 +4438,9 @@ selector: 'crlf',
 category: 'accessing',
 fn: function (){
 var self=this;
-return '\r\n';;
+return '\r\n';
 return self;},
-source: unescape('crlf%0A%09%7B%27return%20%27%27%5Cr%5Cn%27%27%3B%27%7D'),
+source: unescape('crlf%0A%09%3Creturn%20%27%5Cr%5Cn%27%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4470,7 +4457,7 @@ fn: function (){
 var self=this;
 return self.length;
 return self;},
-source: unescape('size%0A%09%7B%27return%20self.length%27%7D'),
+source: unescape('size%0A%09%3Creturn%20self.length%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4485,7 +4472,7 @@ fn: function (anIndex, anObject){
 var self=this;
 return self[anIndex - 1] = anObject;
 return self;},
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%7B%27return%20self%5BanIndex%20-%201%5D%20%3D%20anObject%27%7D'),
+source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%20%3D%20anObject%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4507,7 +4494,7 @@ var self=this;
 	    }
 	;
 return self;},
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%7B%27%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%27%7D'),
+source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4522,7 +4509,7 @@ fn: function (anObject){
 var self=this;
 self.push(anObject); return anObject;;
 return self;},
-source: unescape('add%3A%20anObject%0A%09%7B%27self.push%28anObject%29%3B%20return%20anObject%3B%27%7D'),
+source: unescape('add%3A%20anObject%0A%09%3Cself.push%28anObject%29%3B%20return%20anObject%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4589,9 +4576,9 @@ selector: 'join:',
 category: 'enumerating',
 fn: function (aString){
 var self=this;
-return self.join(aString);;
+return self.join(aString);
 return self;},
-source: unescape('join%3A%20aString%0A%09%7B%27return%20self.join%28aString%29%3B%27%7D'),
+source: unescape('join%3A%20aString%0A%09%3Creturn%20self.join%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4640,7 +4627,7 @@ var self=this;
 		})
 	;
 return self;},
-source: unescape('sort%3A%20aBlock%0A%09%7B%27%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%27%7D'),
+source: unescape('sort%3A%20aBlock%0A%09%3C%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4662,7 +4649,7 @@ var self=this;
 		}
 	;
 return self;},
-source: unescape('remove%3A%20anObject%0A%09%7B%27%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09%09%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09%09%09self.splice%28i%2C1%29%3B%0A%09%09%09%09break%3B%0A%09%09%09%7D%0A%09%09%7D%0A%09%27%7D'),
+source: unescape('remove%3A%20anObject%0A%09%3C%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09%09%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09%09%09self.splice%28i%2C1%29%3B%0A%09%09%09%09break%3B%0A%09%09%09%7D%0A%09%09%7D%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4722,7 +4709,7 @@ fn: function (aNumber, anotherNumber){
 var self=this;
 self.splice(aNumber - 1,anotherNumber - 1);
 return self;},
-source: unescape('removeFrom%3A%20aNumber%20to%3A%20anotherNumber%0A%09%7B%27self.splice%28aNumber%20-%201%2CanotherNumber%20-%201%29%27%7D'),
+source: unescape('removeFrom%3A%20aNumber%20to%3A%20anotherNumber%0A%09%3Cself.splice%28aNumber%20-%201%2CanotherNumber%20-%201%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4738,9 +4725,9 @@ selector: 'compile:',
 category: 'evaluating',
 fn: function (aString){
 var self=this;
-return self.compile(aString);;
+return self.compile(aString);
 return self;},
-source: unescape('compile%3A%20aString%0A%09%7B%27return%20self.compile%28aString%29%3B%27%7D'),
+source: unescape('compile%3A%20aString%0A%09%3Creturn%20self.compile%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4753,9 +4740,9 @@ selector: 'exec:',
 category: 'evaluating',
 fn: function (aString){
 var self=this;
-return self.exec(aString) || nil;
+return self.exec(aString);
 return self;},
-source: unescape('exec%3A%20aString%0A%09%7B%27return%20self.exec%28aString%29%20%7C%7C%20nil%27%7D'),
+source: unescape('exec%3A%20aString%0A%09%3Creturn%20self.exec%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4768,9 +4755,9 @@ selector: 'test:',
 category: 'evaluating',
 fn: function (aString){
 var self=this;
-return self.test(aString);;
+return self.test(aString);
 return self;},
-source: unescape('test%3A%20aString%0A%09%7B%27return%20self.test%28aString%29%3B%27%7D'),
+source: unescape('test%3A%20aString%0A%09%3Creturn%20self.test%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4784,9 +4771,9 @@ selector: 'fromString:flag:',
 category: 'instance creation',
 fn: function (aString, anotherString){
 var self=this;
-return new RegExp(aString, anotherString);;
+return new RegExp(aString, anotherString);
 return self;},
-source: unescape('fromString%3A%20aString%20flag%3A%20anotherString%0A%09%7B%27return%20new%20RegExp%28aString%2C%20anotherString%29%3B%27%7D'),
+source: unescape('fromString%3A%20aString%20flag%3A%20anotherString%0A%09%3Creturn%20new%20RegExp%28aString%2C%20anotherString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4848,7 +4835,7 @@ fn: function (){
 var self=this;
 console.log(self._messageText()); throw(self);
 return self;},
-source: unescape('signal%0A%09%7B%27console.log%28self._messageText%28%29%29%3B%20throw%28self%29%27%7D'),
+source: unescape('signal%0A%09%3Cconsole.log%28self._messageText%28%29%29%3B%20throw%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -5469,7 +5456,7 @@ var self=this;
 smalltalk.addClass(aString, aClass, aCollection);
 	    return smalltalk[aString];
 return self;},
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%0A%09%7B%27smalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%27%7D'),
+source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%0A%09%3Csmalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -5484,7 +5471,7 @@ fn: function (aClass){
 var self=this;
 smalltalk.init(aClass);;
 return self;},
-source: unescape('setupClass%3A%20aClass%0A%09%7B%27smalltalk.init%28aClass%29%3B%27%7D'),
+source: unescape('setupClass%3A%20aClass%0A%09%3Csmalltalk.init%28aClass%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -5505,7 +5492,7 @@ self['@chunkParser']=smalltalk.send(smalltalk.ChunkParser, "_new", []);
 return self;},
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.ChunkParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -5556,7 +5543,7 @@ smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
 return self;},
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.Compiler]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -6075,7 +6062,7 @@ self['@chunkParser']=smalltalk.send(smalltalk.ChunkParser, "_new", []);
 return self;},
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.ChunkParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.ClassCommentReader);
 
@@ -6106,7 +6093,7 @@ fn: function (){
 var self=this;
 return Math.random();
 return self;},
-source: unescape('next%0A%09%7B%27return%20Math.random%28%29%27%7D'),
+source: unescape('next%0A%09%3Creturn%20Math.random%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),

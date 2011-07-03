@@ -5,7 +5,7 @@ Object subclass: #CanvasRenderingContext
 !CanvasRenderingContext methodsFor: 'drawing arcs'!
 
 arcTo: aPoint radius: aNumber startAngle: aNumber2 endAngle: aNumber3 anticlockwise: aBoolean
-	{'self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)'}
+	<self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)>
 !
 
 arcTo: aPoint radius: aNumber
@@ -15,59 +15,59 @@ arcTo: aPoint radius: aNumber
 !CanvasRenderingContext methodsFor: 'drawing paths'!
 
 fillStyle: aString
-	{'self.fillStyle = String(aString)'}
+	<self.fillStyle = String(aString)>
 !
 
 beginPath
-	{'self.beginPath()'}
+	<self.beginPath()>
 !
 
 closePath
-	{'self.closePath()'}
+	<self.closePath()>
 !
 
 fill
-	{'self.fill()'}
+	<self.fill()>
 !
 
 stroke
-	{'self.stroke()'}
+	<self.stroke()>
 !
 
 moveTo: aPoint
-	{'self.moveTo(aPoint._x(), aPoint._y())'}
+	<self.moveTo(aPoint._x(), aPoint._y())>
 !
 
 lineTo: aPoint
-	{'self.lineTo(aPoint._x(), aPoint._y())'}
+	<self.lineTo(aPoint._x(), aPoint._y())>
 !
 
 strokeStyle: aString
-	{'self.strokeStyle = String(aString)'}
+	<self.strokeStyle = String(aString)>
 !
 
 lineWidth: aNumber
-	{'self.lineWidth = aNumber'}
+	<self.lineWidth = aNumber>
 ! !
 
 !CanvasRenderingContext methodsFor: 'drawing rectangles'!
 
 fillRectFrom: aPoint to: anotherPoint
-	{'self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}
+	<self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())>
 !
 
 strokeRectFrom: aPoint to: anotherPoint
-	{'self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}
+	<self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())>
 !
 
 clearRectFrom: aPoint to: anotherPoint
-	{'self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())'}
+	<self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())>
 ! !
 
 !CanvasRenderingContext class methodsFor: 'instance creation'!
 
 tagBrush: aTagBrush
-	{'return aTagBrush._element().getContext(''2d'')'}
+	<return aTagBrush._element().getContext('2d')>
 ! !
 
 Object subclass: #HTMLCanvas
@@ -250,7 +250,7 @@ appendBlock: aBlock
 !
 
 appendChild: anElement
-    {'self[''@element''].appendChild(anElement)'}
+    <self['@element'].appendChild(anElement)>
 !
 
 appendString: aString
@@ -260,11 +260,11 @@ appendString: aString
 !TagBrush methodsFor: 'attributes'!
 
 at: aString put: aValue
-    {'self[''@element''].setAttribute(aString, aValue)'}
+    <self['@element'].setAttribute(aString, aValue)>
 !
 
 removeAt: aString
-    {'self[''@element''].removeAttribute(aString)'}
+    <self['@element'].removeAttribute(aString)>
 !
 
 class: aString
@@ -294,7 +294,7 @@ style: aString
 !TagBrush methodsFor: 'converting'!
 
 asJQuery
-	{'return smalltalk.JQuery._from_(jQuery(self[''@element'']))'}
+	<return smalltalk.JQuery._from_(jQuery(self['@element']))>
 !
 
 asJQueryDo: aBlock
@@ -341,11 +341,11 @@ initializeFromString: aString canvas: aCanvas
 !TagBrush methodsFor: 'private'!
 
 createElementFor: aString
-	{'return document.createElement(String(aString))'}
+	<return document.createElement(String(aString))>
 !
 
 createTextNodeFor: aString
-	{'return document.createTextNode(String(aString))'}
+	<return document.createTextNode(String(aString))>
 ! !
 
 !TagBrush class methodsFor: 'instance creation'!
@@ -369,11 +369,11 @@ root
 !Widget methodsFor: 'actions'!
 
 alert: aString
-    {'alert(aString)'}
+    <alert(aString)>
 !
 
 confirm: aString
-    {'return window.confirm(aString)'}
+    <return window.confirm(aString)>
 !
 
 prompt: aString
@@ -381,7 +381,7 @@ prompt: aString
 !
 
 prompt: aString default: anotherString
-    {'return window.prompt(aString, anotherString)'}
+    <return window.prompt(aString, anotherString)>
 !
 
 update
@@ -429,7 +429,7 @@ initializeWithCanvas: aCanvas
 !CanvasBrush methodsFor: 'private'!
 
 createElement
-	{'return document.createElement(''canvas'')'}
+	<return document.createElement('canvas')>
 ! !
 
 !CanvasBrush class methodsFor: 'instance creation'!
