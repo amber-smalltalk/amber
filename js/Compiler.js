@@ -1065,7 +1065,7 @@ fn: function (aString){
 var self=this;
 return eval(aString);
 return self;},
-source: unescape('eval%3A%20aString%0A%09%7B%27return%20eval%28aString%29%27%7D'),
+source: unescape('eval%3A%20aString%0A%09%3Creturn%20eval%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1353,10 +1353,10 @@ selector: 'visitJSStatementNode:',
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_source", []), "_value", []), "_replace_with_", [unescape("%27%27"), unescape("%27")])]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(aNode, "_source", []), "_replace_with_", [unescape("%3E%3E"), unescape("%3E")])]);
 return self;},
-source: unescape('visitJSStatementNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%28aNode%20source%20value%20replace%3A%20%27%27%27%27%27%27%20with%3A%20%27%27%27%27%29'),
-messageSends: ["nextPutAll:", "replace:with:", "value", "source"],
+source: unescape('visitJSStatementNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%28aNode%20source%20replace%3A%20%27%3E%3E%27%20with%3A%20%27%3E%27%29'),
+messageSends: ["nextPutAll:", "replace:with:", "source"],
 referencedClasses: []
 }),
 smalltalk.Compiler);
@@ -1555,10 +1555,10 @@ selector: 'doIt',
 category: '',
 fn: function (){
 var self=this;
-return smalltalk.send((function(){return smalltalk.send("abc", "_trimLeft_", ["az"]);}), "_value", []);
+return smalltalk.send((function(){return self["@"+'foo'];}), "_value", []);
 return self;},
-source: unescape('doIt%20%5E%5B%27abc%27%20trimLeft%3A%20%27az%27%5D%20value'),
-messageSends: ["value", "trimLeft:"],
+source: unescape('doIt%20%5E%5B%3Cself%5B%22@%22+%27foo%27%5D%3E%5D%20value'),
+messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.DoIt);
