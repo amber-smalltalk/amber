@@ -7,7 +7,7 @@ JTALK=$(readlink -f `dirname ${0}`/..)
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-m class] [-M file]
+Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
           [-i] [-I file] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
@@ -53,6 +53,10 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-m class] [-M file]
 
   -g
      Compile Jtalk code in debug mode - include source and references etc.
+
+  -p prefix
+     Add <prefix> to compiled js files so that File.st is compiled into
+     <prefix>File.st.
 
   -l library1,library2
      Load listed libraries (no spaces) into Compiler before compiling.
@@ -116,14 +120,17 @@ ENV=
 INIT=
 MAIN=
 MAINFILE=
-BASE=$KERNEL
+BASE=
 LOAD=
 LOADANDADD=
+# Ok, bad coding practice but hey, who would use such a prefix?
+PREFIX=no-silly-prefix
+PREFIXUSED=
 DEBUG=false
 NODECOMPILE=nodecompile.js
 
 # Read options and shift them away
-while getopts "NDEKCJoOgl:L:i:IM:m:h?" o; do
+while getopts "NDEKCJoOgp:l:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -142,6 +149,8 @@ case "$o" in
    O) CLOSURE=true
       CLOSUREFULL=true;;
    g) DEBUG=true;;
+   p) PREFIX=$OPTARG
+      PREFIXUSED=$PREFIX;;
    l) LOAD=$OPTARG;;
    L) LOADANDADD=$OPTARG;;
    I) INIT=$INITIALIZER;;
@@ -236,11 +245,11 @@ do
         CATEGORY=`basename $1 .st`
         if [ -f "$1" ]; then
            COMPILE="$COMPILE $1 $CATEGORY"
-           COMPILED="$COMPILED $CATEGORY.js"
+           COMPILED="$COMPILED $PREFIXUSED$CATEGORY.js"
         else
            if [ -f $JTALK/st/$1 ]; then
              COMPILE="$COMPILE $JTALK/st/$1 $CATEGORY"
-             COMPILED="$COMPILED $CATEGORY.js"
+             COMPILED="$COMPILED $PREFIXUSED$CATEGORY.js"
            else
              echo "JTalk file not found: $1"
              exit 1
@@ -269,7 +278,7 @@ cat $TOOURCOMPILER > $TMPDIR/compiler.js
  
 # Compile all collected .st files to .js
 echo "Loading libraries $TOOURCOMPILER and compiling ..."
-node $TMPDIR/compiler.js $DEBUG $COMPILE
+node $TMPDIR/compiler.js $DEBUG $PREFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "
