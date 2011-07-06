@@ -413,7 +413,10 @@ loadExpression: aString
 !
 
 load: aString forClass: aClass
-	^self eval: (self compile: aString forClass: aClass)
+	| compiled |
+	compiled := self eval: (self compile: aString forClass: aClass).
+	self setupClass: aClass.
+	^compiled
 !
 
 compile: aString forClass: aClass
@@ -427,7 +430,7 @@ compileExpression: aString
 !
 
 eval: aString
-	{'return eval(aString)'}
+	<return eval(aString)>
 !
 
 compile: aString
@@ -459,6 +462,10 @@ recompile: aClass
 recompileAll
 	Smalltalk current classes do: [:each |
 		self recompile: each]
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass)>
 ! !
 
 !Compiler methodsFor: 'initialization'!
@@ -655,7 +662,7 @@ visitVariableNode: aNode
 !
 
 visitJSStatementNode: aNode
-	stream nextPutAll: (aNode source value replace: '''''' with: '''')
+	stream nextPutAll: (aNode source replace: '>>' with: '>')
 !
 
 visitFailure: aFailure
@@ -683,6 +690,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^['abc' trimLeft: 'az'] value
+doIt ^[<self["@"+'foo']>] value
 ! !
 

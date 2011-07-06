@@ -9,10 +9,10 @@ fn: function (){
 var self=this;
 var result=nil;
 result=smalltalk.send((0), "_tinyBenchmarks", []);
-console.log('0 tinyBenchmarks => ' + result);;
+smalltalk.send(console, "_log_", [smalltalk.send(unescape("0%20tinyBenchmarks%20%3D%3E%20"), "__plus", [result])]);
 return self;},
-source: unescape('main%0A%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%200%20tinyBenchmarks.%0A%09%7B%27console.log%28%27%270%20tinyBenchmarks%20%3D%3E%20%27%27%20+%20result%29%3B%27%7D'),
-messageSends: ["tinyBenchmarks"],
+source: unescape('main%0A%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%200%20tinyBenchmarks.%0A%09console%20log%3A%20%270%20tinyBenchmarks%20%3D%3E%20%27%20+%20result'),
+messageSends: ["tinyBenchmarks", "log:", unescape("+")],
 referencedClasses: []
 }),
 smalltalk.Benchfib.klass);
@@ -91,7 +91,7 @@ return 1;
 } else {
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
 return self;},
-source: unescape('jsbenchFib%0A%20%0A%09%7B%27if%20%28this%20%3C%202%29%20%7B%0Areturn%201%3B%0A%7D%20else%20%7B%0Areturn%20%28this-1%29._jsbenchFib%28%29%20+%20%28this-2%29._jsbenchFib%28%29%20+%201%3B%7D%27%7D'),
+source: unescape('jsbenchFib%0A%20%0A%09%3Cif%20%28this%20%3C%202%29%20%7B%0Areturn%201%3B%0A%7D%20else%20%7B%0Areturn%20%28this-1%29._jsbenchFib%28%29%20+%20%28this-2%29._jsbenchFib%28%29%20+%201%3B%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -127,7 +127,7 @@ for (var z=0;z<this;z++) {
 }
 return count;
 return self;},
-source: unescape('jsbenchmark%0A%0A%7B%27%0Avar%20size%20%3D%208190%3B%0Avar%20count%3B%0Afor%20%28var%20z%3D0%3Bz%3Cthis%3Bz++%29%20%7B%0A%20%20count%20%3D%200%3B%0A%20%20var%20flags%20%3D%20new%20Array%28%29%3B%0A%20%20for%20%28var%20p%3D0%3B%20p%3Csize%3B%20p++%29%20%7B%0A%20%20%20%20flags%5Bp%5D%20%3D%20true%3B%0A%20%20%7D%0A%20%20for%20%28var%20i%3D1%3Bi%3C%3Dsize%3Bi++%29%20%7B%0A%20%20%20%20if%20%28flags%5Bi-1%5D%29%20%7B%0A%20%20%20%20%20%20var%20prime%20%3D%20i+1%3B%0A%20%20%20%20%20%20var%20k%20%3D%20i%20+%20prime%3B%0A%20%20%20%20%20%20while%20%28k%20%3C%3D%20size%29%20%7B%0A%20%20%20%20%20%20%20%20flags%5Bk-1%5D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20k%20%3D%20k%20+%20prime%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20count%20%3D%20count%20+%201%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Areturn%20count%27%7D%0A'),
+source: unescape('jsbenchmark%0A%0A%3C%0Avar%20size%20%3D%208190%3B%0Avar%20count%3B%0Afor%20%28var%20z%3D0%3Bz%3Cthis%3Bz++%29%20%7B%0A%20%20count%20%3D%200%3B%0A%20%20var%20flags%20%3D%20new%20Array%28%29%3B%0A%20%20for%20%28var%20p%3D0%3B%20p%3Csize%3B%20p++%29%20%7B%0A%20%20%20%20flags%5Bp%5D%20%3D%20true%3B%0A%20%20%7D%0A%20%20for%20%28var%20i%3D1%3Bi%3C%3Dsize%3Bi++%29%20%7B%0A%20%20%20%20if%20%28flags%5Bi-1%5D%29%20%7B%0A%20%20%20%20%20%20var%20prime%20%3D%20i+1%3B%0A%20%20%20%20%20%20var%20k%20%3D%20i%20+%20prime%3B%0A%20%20%20%20%20%20while%20%28k%20%3C%3D%20size%29%20%7B%0A%20%20%20%20%20%20%20%20flags%5Bk-1%5D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20k%20%3D%20k%20+%20prime%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20count%20%3D%20count%20+%201%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Areturn%20count%3E'),
 messageSends: [],
 referencedClasses: []
 }),

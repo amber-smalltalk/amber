@@ -74,6 +74,7 @@ function Smalltalk(){
 	}
 	that.category = spec.category || "";
 	that.fn.prototype.methods = {};
+	that.fn.prototype.inheritedMethods = {};
 	that.fn.prototype.klass = that;
 
 	return that;
@@ -85,6 +86,7 @@ function Smalltalk(){
     st.method = function(spec) {
 	var that = new SmalltalkMethod();
 	that.selector          = spec.selector;
+	that.jsSelector        = spec.jsSelector;
 	that.category          = spec.category;
 	that.source            = spec.source;
 	that.messageSends      = spec.messageSends || [];
@@ -98,17 +100,32 @@ function Smalltalk(){
 
     st.init = function(klass) {
 	var subclasses = st.subclasses(klass);
+	var methods;
+
+	// Initializing inst vars
 	for(var i=0;i<klass.iVarNames.length;i++) {
 	    klass.fn.prototype["@"+klass.iVarNames[i]] = nil;
 	}
+
 	if(klass.superclass && klass.superclass !== nil) {
-	    klass.fn.prototype.__proto__ = klass.superclass.fn.prototype;
+	    methods = st.methods(klass.superclass);
+
+	    //Methods linking
+	    for(var i in methods) {
+		if(!klass.fn.prototype.methods[i]) {
+		    klass.fn.prototype.inheritedMethods[i] = methods[i];
+		    klass.fn.prototype[methods[i].jsSelector] = methods[i].fn;
+		}
+	    }
+
+	    //Instance variables linking
 	    for(var i=0;i<klass.superclass.iVarNames.length;i++) {
 		if(!klass["@"+klass.superclass.iVarNames[i]]) {
 		    klass.fn.prototype["@"+klass.superclass.iVarNames[i]] = nil;
 		}
 	    }
 	}
+
 	for(var i=0;i<subclasses.length;i++) {
      	    st.init(subclasses[i]);
 	}
@@ -130,8 +147,20 @@ function Smalltalk(){
 	return classes
     };
 
-    /* Answer the direct subclasses of a given class.
-       This is computed dynamically */
+    /* Answer all methods (included inherited ones) of klass. */
+
+    st.methods = function(klass) {
+	var methods = {};
+	for(var i in klass.fn.prototype.methods) {
+	    methods[i] = klass.fn.prototype.methods[i]
+	}
+	for(var i in klass.fn.prototype.inheritedMethods) {
+	    methods[i] = klass.fn.prototype.inheritedMethods[i]
+	}
+	return methods;
+    }
+
+    /* Answer the direct subclasses of klass. */
 
     st.subclasses = function(klass) {
 	var subclasses = [];
@@ -186,6 +215,7 @@ function Smalltalk(){
 	klass.fn.prototype[jsSelector] = method.fn;
 	klass.fn.prototype.methods[method.selector] = method;
 	method.methodClass = klass;
+	method.jsSelector = jsSelector;
     };
 
     /* Handles Smalltalk message send. Automatically converts undefined to the nil object.
@@ -230,16 +260,18 @@ function Smalltalk(){
 	   keyword only, but keeping all message arguments.
 
 	   Example:
-	   "self do: aBlock with: anObjec"t -> "self.do(aBlock, anObject)" */
+	   "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
-	var jsSelector = selector.replace(/^_/, '').replace(/_.*/g, '');
+	var jsSelector = selector
+	    .replace(/^_/, '')
+	    .replace(/_.*/g, '');
 	var jsProperty = receiver[jsSelector];
 	if(typeof jsProperty === "function") {
 	    return jsProperty.apply(receiver, args);
 	} else if(jsProperty !== undefined) {
 	    return jsProperty
 	}
-	throw(receiver + ' is not a Jtalk object and ' + jsSelector + ' is undefined')
+	smalltalk.Error._signal_(receiver + ' is not a Jtalk object and "' + jsSelector + '" is undefined')
     }
 
 	

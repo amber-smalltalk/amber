@@ -9,7 +9,7 @@ yourself
 !
 
 class
-	{'return self.klass'}
+	<return self.klass>
 !
 
 size
@@ -17,43 +17,29 @@ size
 !
 
 instVarAt: aString
-	{'
-	    var value = self[''@''+aString];
-	    if(typeof(value) == ''undefined'') {
-		return nil;
-	    } else {
-		return value;
-	    }
-	'}
+	<return self['@'+aString]>
 !
 
 instVarAt: aString put: anObject
-	{'self[''@'' + aString] = anObject'}
+	<self['@' + aString] = anObject>
 !
 
 basicAt: aString
-	{'
-	    var value = self[aString];
-	    if(typeof(value) == ''undefined'') {
-		return nil;
-	    } else {
-		return value;
-	    }
-	'}
+	<return self[aString]>
 !
 
 basicAt: aString put: anObject
-	{'return self[aString] = anObject'}
+	<return self[aString] = anObject>
 !
 
 basicDelete: aString
-    {'delete self[aString]'}
+    <delete self[aString]>
 ! !
 
 !Object methodsFor: 'comparing'!
 
 = anObject
-	{'return self == anObject'}
+	<return self == anObject>
 !
 
 ~= anObject
@@ -75,7 +61,7 @@ asJavascript
 !
 
 asJSON
-	{'return JSON.stringify(self._asJSONObject())'}
+	<return JSON.stringify(self._asJSONObject())>
 !
 
 asJSONObject
@@ -93,7 +79,7 @@ copy
 !
 
 shallowCopy
-	{'
+	<
 	    var copy = self.klass._new();
 	    for(var i in self) {
 		if(/^@.+/.test(i)) {
@@ -101,11 +87,11 @@ shallowCopy
 		}
 	    }
 	    return copy;
-	'}
+	>
 !
 
 deepCopy
-	{'	    
+	<    
 	    var copy = self.klass._new();
 	    for(var i in self) {
 		if(/^@.+/.test(i)) {
@@ -113,7 +99,7 @@ deepCopy
 		}
 	    }
 	    return copy;
-	'}.
+	>
 !
 
 postCopy
@@ -134,7 +120,7 @@ shouldNotImplement
 !
 
 try: aBlock catch: anotherBlock
-	{'try{aBlock()} catch(e) {anotherBlock(e)}'}
+	<try{aBlock()} catch(e) {anotherBlock(e)}>
 !
 
 doesNotUnderstand: aMessage
@@ -160,11 +146,11 @@ perform: aSymbol withArguments: aCollection
 !
 
 basicPerform: aSymbol 
-    ^self basicPerform: aSymbol withArguments: #()
+	^self basicPerform: aSymbol withArguments: #()
 !
 
 basicPerform: aSymbol withArguments: aCollection
-	{'return self[aSymbol].apply(self, aCollection);'}
+	<return self[aSymbol].apply(self, aCollection);>
 ! !
 
 !Object methodsFor: 'printing'!
@@ -174,7 +160,7 @@ printString
 !
 
 printNl
-	{'console.log(self)'}
+	<console.log(self)>
 ! !
 
 !Object methodsFor: 'testing'!
@@ -246,23 +232,23 @@ Object subclass: #Smalltalk
 !Smalltalk methodsFor: 'accessing'!
 
 classes
-	{'return self.classes()'}
+	<return self.classes()>
 !
 
 debugMode
-	{'return self.debugMode'}
+	<return self.debugMode>
 !
 
 debugMode: aBoolean
-	{'self.debugMode = aBoolean'}
+	<self.debugMode = aBoolean>
 !
 
 readJSON: anObject
-	{'return self.readJSObject(anObject);'}
+	<return self.readJSObject(anObject)>
 !
 
 at: aString
-	{'return self[aString]'}
+	<return self[aString]>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -270,7 +256,7 @@ Smalltalk class instanceVariableNames: 'current'!
 !Smalltalk class methodsFor: 'accessing'!
 
 current
-	{'return smalltalk'}
+	<return smalltalk>
 ! !
 
 Object subclass: #Behavior
@@ -280,15 +266,15 @@ Object subclass: #Behavior
 !Behavior methodsFor: 'accessing'!
 
 name
-	{'return self.className || nil'}
+	<return self.className || nil>
 !
 
 superclass
-	{'return self.superclass || nil'}
+	<return self.superclass || nil>
 !
 
 subclasses
-	{'return smalltalk.subclasses(self)'}
+	<return smalltalk.subclasses(self)>
 !
 
 allSubclasses
@@ -304,18 +290,18 @@ withAllSubclasses
 !
 
 prototype
-	{'return self.fn.prototype'}
+	<return self.fn.prototype>
 !
 
 methodDictionary
-	{'var dict = smalltalk.Dictionary._new();
+	<var dict = smalltalk.Dictionary._new();
 	var methods = self.fn.prototype.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
 			dict._at_put_(methods[i].selector, methods[i]);
 		}
 	};
-	return dict'}
+	return dict>
 !
 
 methodsFor: aString
@@ -325,13 +311,13 @@ methodsFor: aString
 !
 
 addCompiledMethod: aMethod
-	{'self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
+	<self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
 	self.fn.prototype.methods[aMethod.selector] = aMethod;
-	aMethod.methodClass = self'}
+	aMethod.methodClass = self>
 !
 
 instanceVariableNames
-	{'return self.iVarNames'}
+	<return self.iVarNames>
 !
 
 comment
@@ -349,8 +335,8 @@ commentStamp
 !
 
 removeCompiledMethod: aMethod
-	{'delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector]'}
+	<delete self.fn.prototype[aMethod.selector._asSelector()];
+	delete self.fn.prototype.methods[aMethod.selector]>
 !
 
 protocols
@@ -382,7 +368,7 @@ new
 !
 
 basicNew
-	{'return new self.fn()'}
+	<return new self.fn()>
 !
 
 inheritsFrom: aClass
@@ -396,19 +382,19 @@ Behavior subclass: #Class
 !Class methodsFor: 'accessing'!
 
 category
-	{'return self.category'}
+	<return self.category>
 !
 
 category: aString
-	{'self.category = aString'}
+	<self.category = aString>
 !
 
 rename: aString
-	{'
+	<
 		smalltalk[aString] = self;
 		delete smalltalk[self.className];
 		self.className = aString;
-	'}
+	>
 ! !
 
 !Class methodsFor: 'class creation'!
@@ -441,7 +427,7 @@ Behavior subclass: #Metaclass
 !Metaclass methodsFor: 'accessing'!
 
 instanceClass
-	{'return self.instanceClass'}
+	<return self.instanceClass>
 !
 
 instanceVariableNames: aCollection
@@ -518,59 +504,59 @@ Object subclass: #Number
 !Number methodsFor: 'arithmetic'!
 
 + aNumber
-	{'return self + aNumber'}
+	<return self + aNumber>
 !
 
 - aNumber
-	{'return self - aNumber'}
+	<return self - aNumber>
 !
 
 * aNumber
-	{'return self * aNumber'}
+	<return self * aNumber>
 !
 
 / aNumber
-	{'return self / aNumber'}
+	<return self / aNumber>
 !
 
 max: aNumber
-	{'return Math.max(self, aNumber);'}
+	<return Math.max(self, aNumber);>
 !
 
 min: aNumber
-	{'return Math.min(self, aNumber);'}
+	<return Math.min(self, aNumber);>
 ! !
 
 !Number methodsFor: 'comparing'!
 
 = aNumber
-	{'return Number(self) == aNumber'}
+	<return Number(self) == aNumber>
 !
 
 > aNumber
-	{'return self > aNumber'}
+	<return self >> aNumber>
 !
 
 < aNumber
-	{'return self < aNumber'}
+	<return self < aNumber>
 !
 
 >= aNumber
-	{'return self >= aNumber'}
+	<return self >>= aNumber>
 !
 
 <= aNumber
-	{'return self <= aNumber'}
+	<return self <= aNumber>
 ! !
 
 !Number methodsFor: 'converting'!
 
 rounded
-	{'return Math.round(self);'}
+	<return Math.round(self);>
 !
 
 truncated
-	{'return Math.floor(self);'}
+	<return Math.floor(self);>
 !
 
 to: aNumber
@@ -629,7 +615,7 @@ to: aNumber do: aBlock
 !Number methodsFor: 'printing'!
 
 printString
-	{'return String(self)'}
+	<return String(self)>
 ! !
 
 !Number methodsFor: 'testing'!
@@ -641,17 +627,17 @@ isNumber
 !Number methodsFor: 'timeouts/intervals'!
 
 clearInterval
-	{'clearInterval(Number(self))'}
+	<clearInterval(Number(self))>
 !
 
 clearTimeout
-	{'clearTimeout(Number(self))'}
+	<clearTimeout(Number(self))>
 ! !
 
 !Number class methodsFor: 'instance creation'!
 
 pi
-	{'return Math.PI'}
+	<return Math.PI>
 ! !
 
 Object subclass: #BlockClosure
@@ -661,17 +647,17 @@ Object subclass: #BlockClosure
 !BlockClosure methodsFor: 'accessing'!
 
 compiledSource
-	{'return self.toString()'}
+	<return self.toString()>
 ! !
 
 !BlockClosure methodsFor: 'controlling'!
 
 whileTrue: aBlock
-	{'while(self()) {aBlock()}'}
+	<while(self()) {aBlock()}>
 !
 
 whileFalse: aBlock
-	{'while(!!self()) {aBlock()}'}
+	<while(!!self()) {aBlock()}>
 ! !
 
 !BlockClosure methodsFor: 'error handling'!
@@ -686,33 +672,33 @@ on: anErrorClass do: aBlock
 !BlockClosure methodsFor: 'evaluating'!
 
 value
-	{'return self();'}
+	<return self();>
 !
 
 value: anArg
-	{'return self(anArg);'}
+	<return self(anArg);>
 !
 
 value: firstArg value: secondArg
-	{'return self(firstArg, secondArg);'}
+	<return self(firstArg, secondArg);>
 !
 
 value: firstArg value: secondArg value: thirdArg
-	{'return self(firstArg, secondArg, thirdArg);'}
+	<return self(firstArg, secondArg, thirdArg);>
 !
 
 valueWithPossibleArguments: aCollection
-	{'return self.apply(null, aCollection);'}
+	<return self.apply(null, aCollection);>
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!
 
 valueWithTimeout: aNumber
-	{'return setTimeout(self, aNumber)'}
+	<return setTimeout(self, aNumber)>
 !
 
 valueWithInterval: aNumber
-	{'return setInterval(self, aNumber)'}
+	<return setInterval(self, aNumber)>
 ! !
 
 Object subclass: #Boolean
@@ -722,7 +708,7 @@ Object subclass: #Boolean
 !Boolean methodsFor: 'comparing'!
 
 = aBoolean
-	{'return Boolean(self == true) == aBoolean'}
+	<return Boolean(self == true) == aBoolean>
 !
 
 asJSONObject
@@ -744,13 +730,13 @@ ifFalse: aBlock ifTrue: anotherBlock
 !
 
 ifTrue: aBlock ifFalse: anotherBlock
-	{'
+	<
 	    if(self == true) {
 		return aBlock();
 	    } else {
 		return anotherBlock();
 	    }
-	'}
+	>
 !
 
 and: aBlock
@@ -782,7 +768,7 @@ deepCopy
 !Boolean methodsFor: 'printing'!
 
 printString
-	{'return self.toString()'}
+	<return self.toString()>
 ! !
 
 Object subclass: #Date
@@ -794,15 +780,15 @@ The Date class is used to work with dates and times.!
 !Date methodsFor: 'accessing'!
 
 year
-	{'return self.getFullYear()'}
+	<return self.getFullYear()>
 !
 
 month
-	{'return self.getMonth() + 1'}
+	<return self.getMonth() + 1>
 !
 
 month: aNumber
-	{'self.setMonth(aNumber - 1)'}
+	<self.setMonth(aNumber - 1)>
 !
 
 day
@@ -810,11 +796,11 @@ day
 !
 
 dayOfWeek
-	{'return self.getDay() + 1'}
+	<return self.getDay() + 1>
 !
 
 dayOfWeek: aNumber
-	{'return self.setDay(aNumber - 1)'}
+	<return self.setDay(aNumber - 1)>
 !
 
 day: aNumber
@@ -822,89 +808,89 @@ day: aNumber
 !
 
 year: aNumber
-	{'self.setFullYear(aNumber)'}
+	<self.setFullYear(aNumber)>
 !
 
 dayOfMonth
-	{'return self.getDate()'}
+	<return self.getDate()>
 !
 
 dayOfMonth: aNumber
-	{'self.setDate(aNumber)'}
+	<self.setDate(aNumber)>
 !
 
 time
-	{'return self.getTime()'}
+	<return self.getTime()>
 !
 
 time: aNumber
-	{'self.setTime(aNumber)'}
+	<self.setTime(aNumber)>
 !
 
 hours: aNumber
-	{'self.setHours(aNumber)'}
+	<self.setHours(aNumber)>
 !
 
 minutes: aNumber
-	{'self.setMinutes(aNumber)'}
+	<self.setMinutes(aNumber)>
 !
 
 seconds: aNumber
-	{'self.setSeconds(aNumber)'}
+	<self.setSeconds(aNumber)>
 !
 
 milliseconds: aNumber
-	{'self.setMilliseconds(aNumber)'}
+	<self.setMilliseconds(aNumber)>
 !
 
 hours
-	{'return self.getHours()'}
+	<return self.getHours()>
 !
 
 minutes
-	{'return self.getMinutes()'}
+	<return self.getMinutes()>
 !
 
 seconds
-	{'return self.getSeconds()'}
+	<return self.getSeconds()>
 !
 
 milliseconds
-	{'return self.getMilliseconds()'}
+	<return self.getMilliseconds()>
 ! !
 
 !Date methodsFor: 'arithmetic'!
 
 - aDate
-	{'return self - aDate'}
+	<return self - aDate>
 !
 
 + aDate
-	{'return self + aDate'}
+	<return self + aDate>
 ! !
 
 !Date methodsFor: 'comparing'!
 
 < aDate
-	{'return self < aDate'}
+	<return self < aDate>
 !
 
 > aDate
-	{'return self > aDate'}
+	<return self >> aDate>
 !
 
 <= aDate
-	{'self <= aDate'}
+	<self <= aDate>
 !
 
 >= aDate
-	{'self >= aDate'}
+	<self >>= aDate>
 ! !
 
 !Date methodsFor: 'converting'!
 
 asString
-	{'return self.toString()'}
+	<return self.toString()>
 !
 
 asMilliseconds
@@ -912,15 +898,15 @@ asMilliseconds
 !
 
 asDateString
-	{'return self.toDateString()'}
+	<return self.toDateString()>
 !
 
 asTimeString
-	{'return self.toTimeString()'}
+	<return self.toTimeString()>
 !
 
 asLocaleString
-	{'return self.toLocaleString()'}
+	<return self.toLocaleString()>
 !
 
 asNumber
@@ -940,7 +926,7 @@ printString
 !Date class methodsFor: 'instance creation'!
 
 new: anObject
-	{'return new Date(anObject)'}
+	<return new Date(anObject)>
 !
 
 fromString: aString
@@ -1107,7 +1093,7 @@ copyWithAll: aCollection
 !Collection methodsFor: 'enumerating'!
 
 do: aBlock
-	{'for(var i=0;i<self.length;i++){aBlock(self[i]);}'}
+	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
 !
 
 collect: aBlock
@@ -1123,12 +1109,12 @@ detect: aBlock
 !
 
 detect: aBlock ifNone: anotherBlock
-	{'
+	<
 		for(var i = 0; i < self.length; i++)
 			if(aBlock(self[i]))
 				return self[i];
 		return anotherBlock();
-	'}
+	>
 !
 
 do: aBlock separatedBy: anotherBlock
@@ -1171,13 +1157,13 @@ errorNotFound
 !Collection methodsFor: 'testing'!
 
 includes: anObject
-	{'
+	<
 		var i = self.length;
 		while (i--) {
 			if (smalltalk.send(self[i], "__eq", [anObject])) {return true;}	
 		}
 		return false
-	'}
+	>
 !
 
 notEmpty
@@ -1275,11 +1261,12 @@ indexOf: anObject
 !
 
 indexOf: anObject ifAbsent: aBlock
-	{'for(var i=0;i<self.length;i++){
-		if(self[i].__eq(anObject)) {return i+1}
-	}
-	return aBlock();
-	'}
+	<
+		for(var i=0;i<self.length;i++){
+			if(self[i].__eq(anObject)) {return i+1}
+		}
+		return aBlock();
+	>
 ! !
 
 !SequenceableCollection methodsFor: 'adding'!
@@ -1301,7 +1288,7 @@ copyFrom: anIndex to: anotherIndex
 !SequenceableCollection methodsFor: 'enumerating'!
 
 withIndexDo: aBlock
-	{'for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}'}
+	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
 
 SequenceableCollection subclass: #String
@@ -1311,11 +1298,11 @@ SequenceableCollection subclass: #String
 !String methodsFor: 'accessing'!
 
 size
-	{'return self.length'}
+	<return self.length>
 !
 
 at: anIndex
-	{'return self[anIndex - 1];'}
+	<return self[anIndex - 1]>
 !
 
 at: anIndex put: anObject
@@ -1327,11 +1314,11 @@ at: anIndex ifAbsent: aBlock
 !
 
 escaped
-	{'return escape(self)'}
+	<return escape(self)>
 !
 
 unescaped
-	{'return unescape(self)'}
+	<return unescape(self)>
 ! !
 
 !String methodsFor: 'adding'!
@@ -1341,29 +1328,29 @@ add: anObject
 !
 
 remove: anObject
-    self errorReadOnly
+	self errorReadOnly
 ! !
 
 !String methodsFor: 'comparing'!
 
 = aString
-	{'return String(self) == aString'}
+	<return String(self) == aString>
 !
 
 > aString
-	{'return String(self) > aString'}
+	<return String(self) >> aString>
 !
 
 < aString
-	{'return String(self) < aString'}
+	<return String(self) < aString>
 !
 
 >= aString
-	{'return String(self) >= aString'}
+	<return String(self) >>= aString>
 !
 
 <= aString
-	{'return String(self) <= aString'}
+	<return String(self) <= aString>
 ! !
 
 !String methodsFor: 'converting'!
@@ -1387,16 +1374,16 @@ asSelector
 !
 
 asJavascript
-	{'
+	<
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
 			return "unescape(\"" + escape(self) + "\")";
 		else
 			return "\"" + self + "\"";
-	'}
+	>
 !
 
 tokenize: aString
-	{'return self.split(aString)'}
+	<return self.split(aString)>
 !
 
 asString
@@ -1404,7 +1391,7 @@ asString
 !
 
 asNumber
-	{'return Number(self);'}
+	<return Number(self)>
 !
 
 asParser
@@ -1426,11 +1413,11 @@ asJSONObject
 !String methodsFor: 'copying'!
 
 , aString
-	{'return self + aString'}
+	<return self + aString>
 !
 
 copyFrom: anIndex to: anotherIndex
-	{'return self.substring(anIndex - 1, anotherIndex);'}
+	<return self.substring(anIndex - 1, anotherIndex)>
 !
 
 shallowCopy
@@ -1454,7 +1441,7 @@ printString
 !
 
 printNl
-	{'console.log(self)'}
+	<console.log(self)>
 ! !
 
 !String methodsFor: 'regular expressions'!
@@ -1464,11 +1451,11 @@ replace: aString with: anotherString
 !
 
 replaceRegexp: aRegexp with: aString
-	{'return self.replace(aRegexp, aString);'}
+	<return self.replace(aRegexp, aString)>
 !
 
 match: aRegexp
-	{'return self.search(aRegexp) !!= -1'}
+	<return self.search(aRegexp) !!= -1>
 !
 
 trimLeft: separators
@@ -1511,29 +1498,29 @@ streamClass
 !
 
 cr
-	{'return ''\r'';'}
+	<return '\r'>
 !
 
 lf
-	{'return ''\n'';'}
+	<return '\n'>
 !
 
 space
-	{'return '' '';'}
+	<return ' '>
 !
 
 tab
-	{'return ''\t'';'}
+	<return '\t'>
 !
 
 crlf
-	{'return ''\r\n'';'}
+	<return '\r\n'>
 ! !
 
 !String class methodsFor: 'instance creation'!
 
 fromString: aString
-	    {'return new self.fn(aString);'}
+	    <return new self.fn(aString)>
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1543,43 +1530,43 @@ SequenceableCollection subclass: #Array
 !Array methodsFor: 'accessing'!
 
 size
-	{'return self.length'}
+	<return self.length>
 !
 
 at: anIndex put: anObject
-	{'return self[anIndex - 1] = anObject'}
+	<return self[anIndex - 1] = anObject>
 !
 
 at: anIndex ifAbsent: aBlock
-	{'
+	<
 	    var value = self[anIndex - 1];
 	    if(value === undefined) {
 		return aBlock();
 	    } else {
 		return value;
 	    }
-	'}
+	>
 ! !
 
 !Array methodsFor: 'adding/removing'!
 
 add: anObject
-	{'self.push(anObject); return anObject;'}
+	<self.push(anObject); return anObject;>
 !
 
 remove: anObject
-	{'
+	<
 		for(var i=0;i<self.length;i++) {
 			if(self[i] == anObject) {
 				self.splice(i,1);
 				break;
 			}
 		}
-	'}
+	>
 !
 
 removeFrom: aNumber to: anotherNumber
-	{'self.splice(aNumber - 1,anotherNumber - 1)'}
+	<self.splice(aNumber - 1,anotherNumber - 1)>
 ! !
 
 !Array methodsFor: 'converting'!
@@ -1619,7 +1606,7 @@ copyFrom: anIndex to: anotherIndex
 !Array methodsFor: 'enumerating'!
 
 join: aString
-	{'return self.join(aString);'}
+	<return self.join(aString)>
 !
 
 sort
@@ -1627,11 +1614,11 @@ sort
 !
 
 sort: aBlock
-	{'
+	<
 		return self.sort(function(a, b) {
 			if(aBlock(a,b)) {return 1} else {return -1}
 		})
-	'}
+	>
 !
 
 sorted
@@ -1649,21 +1636,21 @@ Object subclass: #RegularExpression
 !RegularExpression methodsFor: 'evaluating'!
 
 compile: aString
-	{'return self.compile(aString);'}
+	<return self.compile(aString)>
 !
 
 exec: aString
-	{'return self.exec(aString) || nil'}
+	<return self.exec(aString)>
 !
 
 test: aString
-	{'return self.test(aString);'}
+	<return self.test(aString)>
 ! !
 
 !RegularExpression class methodsFor: 'instance creation'!
 
 fromString: aString flag: anotherString
-	{'return new RegExp(aString, anotherString);'}
+	<return new RegExp(aString, anotherString)>
 !
 
 fromString: aString
@@ -1687,7 +1674,7 @@ messageText: aString
 !Error methodsFor: 'signaling'!
 
 signal
-	{'console.log(self._messageText()); throw(self)'}
+	<console.log(self._messageText()); throw(self)>
 ! !
 
 !Error class methodsFor: 'instance creation'!
@@ -1926,12 +1913,12 @@ instanceVariableNamesFor: aString
 !
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	{'smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]'}
+	<smalltalk.addClass(aString, aClass, aCollection);
+	    return smalltalk[aString]>
 !
 
 setupClass: aClass
-	{'smalltalk.init(aClass);'}
+	<smalltalk.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader
@@ -2182,7 +2169,7 @@ Object subclass: #Random
 !Random methodsFor: 'accessing'!
 
 next
-	{'return Math.random()'}
+	<return Math.random()>
 !
 
 next: anInteger

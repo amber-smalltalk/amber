@@ -621,10 +621,10 @@ parser
 		    node first cascadeNodeWithMessages: 
 			(node second collect: [:each | each third])].
 
-	jsStatement := '{' asParser, ws, string, ws, '}' asParser
-	    ==> [:node | JSStatementNode new
-			     source: node third;
-			     yourself].
+	jsStatement := '<' asParser, ('>>' asParser / ('>' asParser not, PPAnyParser new)) star flatten, '>' asParser
+		==> [:node | JSStatementNode new
+			source: node second;
+			yourself].
 
 	expression parser: assignment / cascade / keywordSend / binarySend / jsStatement.
 

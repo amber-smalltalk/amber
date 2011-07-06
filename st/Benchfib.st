@@ -8,7 +8,7 @@ main
 
 	| result |
 	result := 0 tinyBenchmarks.
-	{'console.log(''0 tinyBenchmarks => '' + result);'}
+	console log: '0 tinyBenchmarks => ' + result
 ! !
 
 !Number methodsFor: '*Benchfib'!
@@ -70,15 +70,15 @@ tinyBenchmarks
 
 jsbenchFib
  
-	{'if (this < 2) {
+	<if (this < 2) {
 return 1;
 } else {
-return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;}'}
+return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;}>
 !
 
 jsbenchmark
 
-{'
+<
 var size = 8190;
 var count;
 for (var z=0;z<this;z++) {
@@ -99,7 +99,7 @@ for (var z=0;z<this;z++) {
     }
   }
 }
-return count'}
+return count>
 !
 
 jstinyBenchmarks

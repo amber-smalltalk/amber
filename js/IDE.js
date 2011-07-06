@@ -36,9 +36,9 @@ selector: 'updatePosition',
 category: 'actions',
 fn: function (){
 var self=this;
-jQuery('#jtalk').css('top', '').css('bottom', '27px');;
+jQuery('#jtalk').css('top', '').css('bottom', '27px');
 return self;},
-source: unescape('updatePosition%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.css%28%27%27top%27%27%2C%20%27%27%27%27%27%27%29.css%28%27%27bottom%27%27%2C%20%27%2727px%27%27%29%3B%27%7D'),
+source: unescape('updatePosition%0A%20%20%20%20%3CjQuery%28%27%23jtalk%27%29.css%28%27top%27%2C%20%27%27%29.css%28%27bottom%27%2C%20%2727px%27%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -85,9 +85,9 @@ jQuery('#jtalk').resizable({
 	handles: 'n', 
 	resize: aBlock,
 	minHeight: 230
-});;
+});
 return self;},
-source: unescape('onResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28%27%27%23jtalk%27%27%29.resizable%28%7B%0A%09handles%3A%20%27%27n%27%27%2C%20%0A%09resize%3A%20aBlock%2C%0A%09minHeight%3A%20230%0A%7D%29%3B%27%7D'),
+source: unescape('onResize%3A%20aBlock%0A%20%20%20%20%3CjQuery%28%27%23jtalk%27%29.resizable%28%7B%0A%09handles%3A%20%27n%27%2C%20%0A%09resize%3A%20aBlock%2C%0A%09minHeight%3A%20230%0A%7D%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -102,7 +102,7 @@ fn: function (aBlock){
 var self=this;
 jQuery(window).resize(aBlock);
 return self;},
-source: unescape('onWindowResize%3A%20aBlock%0A%20%20%20%20%7B%27jQuery%28window%29.resize%28aBlock%29%27%7D'),
+source: unescape('onWindowResize%3A%20aBlock%0A%20%20%20%20%3CjQuery%28window%29.resize%28aBlock%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -442,7 +442,7 @@ fn: function (){
 var self=this;
 return document.selection;
 return self;},
-source: unescape('selection%0A%20%20%20%20%7B%27return%20document.selection%27%7D'),
+source: unescape('selection%0A%20%20%20%20%3Creturn%20document.selection%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -457,7 +457,7 @@ fn: function (){
 var self=this;
 return jQuery('.jt_workspace')[0].selectionStart;
 return self;},
-source: unescape('selectionStart%0A%20%20%20%20%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%27%7D'),
+source: unescape('selectionStart%0A%20%20%20%20%3Creturn%20jQuery%28%27.jt_workspace%27%29%5B0%5D.selectionStart%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -472,7 +472,7 @@ fn: function (){
 var self=this;
 return jQuery('.jt_workspace')[0].selectionEnd;
 return self;},
-source: unescape('selectionEnd%0A%20%20%20%20%7B%27return%20jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionEnd%27%7D'),
+source: unescape('selectionEnd%0A%20%20%20%20%3Creturn%20jQuery%28%27.jt_workspace%27%29%5B0%5D.selectionEnd%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -487,7 +487,7 @@ fn: function (anInteger){
 var self=this;
 jQuery('.jt_workspace')[0].selectionStart = anInteger;
 return self;},
-source: unescape('selectionStart%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionStart%20%3D%20anInteger%27%7D'),
+source: unescape('selectionStart%3A%20anInteger%0A%20%20%20%20%3CjQuery%28%27.jt_workspace%27%29%5B0%5D.selectionStart%20%3D%20anInteger%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -502,7 +502,7 @@ fn: function (anInteger){
 var self=this;
 jQuery('.jt_workspace')[0].selectionEnd = anInteger;
 return self;},
-source: unescape('selectionEnd%3A%20anInteger%0A%20%20%20%20%7B%27jQuery%28%27%27.jt_workspace%27%27%29%5B0%5D.selectionEnd%20%3D%20anInteger%27%7D'),
+source: unescape('selectionEnd%3A%20anInteger%0A%20%20%20%20%3CjQuery%28%27.jt_workspace%27%29%5B0%5D.selectionEnd%20%3D%20anInteger%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -554,7 +554,7 @@ if(anEvent.ctrlKey) {
 		}
 	};
 return self;},
-source: unescape('handleKeyDown%3A%20anEvent%0A%20%20%20%20%7B%27if%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2080%29%20%7B%20//ctrl+p%0A%09%09%09self._printIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2068%29%20%7B%20//ctrl+d%0A%09%09%09self._doIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2073%29%20%7B%20//ctrl+i%0A%09%09%09self._inspectIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%27%7D'),
+source: unescape('handleKeyDown%3A%20anEvent%0A%20%20%20%20%3Cif%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2080%29%20%7B%20//ctrl+p%0A%09%09%09self._printIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2068%29%20%7B%20//ctrl+d%0A%09%09%09self._doIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2073%29%20%7B%20//ctrl+i%0A%09%09%09self._inspectIt%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
