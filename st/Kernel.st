@@ -311,9 +311,7 @@ methodsFor: aString
 !
 
 addCompiledMethod: aMethod
-	<self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
-	self.fn.prototype.methods[aMethod.selector] = aMethod;
-	aMethod.methodClass = self>
+	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
 !
 
 instanceVariableNames

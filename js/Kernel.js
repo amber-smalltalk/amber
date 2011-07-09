@@ -957,11 +957,9 @@ selector: 'addCompiledMethod:',
 category: 'accessing',
 fn: function (aMethod){
 var self=this;
-self.fn.prototype[aMethod.selector._asSelector()] = aMethod.fn;
-	self.fn.prototype.methods[aMethod.selector] = aMethod;
-	aMethod.methodClass = self;
+smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
 return self;},
-source: unescape('addCompiledMethod%3A%20aMethod%0A%09%3Cself.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%20%3D%20aMethod.fn%3B%0A%09self.fn.prototype.methods%5BaMethod.selector%5D%20%3D%20aMethod%3B%0A%09aMethod.methodClass%20%3D%20self%3E'),
+source: unescape('addCompiledMethod%3A%20aMethod%0A%09%3Csmalltalk.addMethod%28aMethod.selector._asSelector%28%29%2C%20aMethod%2C%20self%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),

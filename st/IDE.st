@@ -410,7 +410,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges input'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -601,6 +601,7 @@ compileMethodDefinitionFor: aClass
 		self addInstanceVariableNamed: each toClass: aClass.
 		^self compileMethodDefinitionFor: aClass]].
     aClass addCompiledMethod: method.
+    compiler setupClass: aClass.
     self updateMethodsList.
     self selectMethod: method
 !
@@ -742,6 +743,14 @@ searchReferencesOf: aString
 
 searchClassReferences
 	ReferencesBrowser search: selectedClass name
+!
+
+search: aString
+	self cancelChanges ifTrue: [| searchedClass |
+		searchedClass := Smalltalk current at: aString.
+		searchedClass isClass
+			ifTrue: [self class openOn: searchedClass]
+			ifFalse: [self searchReferencesOf: aString]]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -765,15 +774,16 @@ renderTopPanelOn: html
     html div 
 	class: 'top'; 
 	with: [
-	    categoriesList := html ul class: 'jt_column categories'.
+	    self renderInputOn: html.
+	    categoriesList := html ul class: 'jt_column browser categories'.
 	    commitButton := html button 
 		class: 'jt_commit';
 		title: 'Commit classes in this category to disk';
 		onClick: [self commitCategory];
 		with: 'Commit category'.
-	    classesList := html ul class: 'jt_column classes'.
-	    protocolsList := html ul class: 'jt_column protocols'.
-	    methodsList := html ul class: 'jt_column methods'.
+	    classesList := html ul class: 'jt_column browser classes'.
+	    protocolsList := html ul class: 'jt_column browser protocols'.
+	    methodsList := html ul class: 'jt_column browser methods'.
 	    self
 		updateCategoriesList;
 		updateClassesList;
@@ -806,6 +816,15 @@ renderButtonsOn: html
     methodButtons := html span.
     classButtons := html span.
     self updateSourceAndButtons
+!
+
+renderInputOn: html
+	input := html input 
+		class: 'implementors';
+		yourself.
+	input onKeyPress: [:event |
+		event keyCode = 13 ifTrue: [
+			self search: input asJQuery val]]
 ! !
 
 !Browser methodsFor: 'testing'!
@@ -1229,7 +1248,7 @@ updateImplementorsList
     implementorsList contents: [:html |
 	html li
 		class: 'column_label'; 
-		with: 'Implementors';
+		with: 'Implementors (', self implementors size asString, ')';
 		style: 'font-weight: bold'.
 	self implementors do: [:each || li |
 	    li := html li.
@@ -1242,7 +1261,7 @@ updateSendersList
     	sendersList contents: [:html |
 	html li
 		class: 'column_label'; 
-		with: 'Senders';
+		with: 'Senders (', self senders size asString, ')';
 		style: 'font-weight: bold'.
 	self senders do: [:each |
 		html li
@@ -1254,7 +1273,7 @@ updateReferencedClassesList
     	referencedClassesList contents: [:html |
 	html li
 		class: 'column_label'; 
-		with: 'Class references';
+		with: 'Class references (', self referencedClasses size asString, ')';
 		style: 'font-weight: bold'.
 	self referencedClasses do: [:each |
 		html li

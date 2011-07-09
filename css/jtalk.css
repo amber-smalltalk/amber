@@ -1,5 +1,5 @@
 body.jtalkBody {
-    margin-bottom: 320px;
+    margin-bottom: 350px;
 }
 
 #jtalkTabs {
@@ -63,7 +63,7 @@ body.jtalkBody {
        bottom: 27px;
        left: 0;
        right: 0;
-       height: 300px;
+       height: 330px;
        z-index: 1000;
 }
 
@@ -145,7 +145,7 @@ body.jtalkBody {
 
 .jtalkTool .jt_commit {
     position: absolute;
-    top: 110px;
+    top: 140px;
     left: 0;
     font-size: 12px;
 }
@@ -167,6 +167,10 @@ body.jtalkBody {
 .jtalkTool .jt_column.value {
     left: 25.2%;
     width: 74.8%;
+}
+
+.jtalkTool .jt_column.browser {
+    top: 30px;
 }
 
 .jtalkTool .jt_column.categories {
@@ -204,7 +208,7 @@ body.jtalkBody {
 }
 
 .jtalkTool .jt_tabs {
-    top: 106px;
+    top: 136px;
     position: absolute;
     left: 25.2%;
     padding: 0;
@@ -247,7 +251,7 @@ body.jtalkBody {
 
 .jtalkTool .jt_sourceCode {
     position: absolute;
-    top: 145px;
+    top: 175px;
     bottom: 0;
     left: 0;
     right: 0;
