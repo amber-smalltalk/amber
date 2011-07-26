@@ -265,11 +265,11 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", ["div", self]);
+smalltalk.send(self['@root'], "_ifNil_", [(function(){return self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", ["div", self]);})]);
 return self;},
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self'),
-messageSends: ["initialize", "fromString:canvas:"],
-referencedClasses: [smalltalk.TagBrush]
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
+messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.HTMLCanvas);
 
@@ -299,7 +299,7 @@ return smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", [aString, self]
 return self;},
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self'),
 messageSends: ["fromString:canvas:"],
-referencedClasses: [smalltalk.TagBrush]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.HTMLCanvas);
 
@@ -693,6 +693,36 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_initializeFromJQuery_',
+smalltalk.method({
+selector: 'initializeFromJQuery:',
+category: 'initialization',
+fn: function (aJQuery){
+var self=this;
+self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromJQuery_canvas_", [aJQuery, self]);
+return self;},
+source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
+messageSends: ["fromJQuery:canvas:"],
+referencedClasses: [smalltalk.nil]
+}),
+smalltalk.HTMLCanvas);
+
+
+smalltalk.addMethod(
+'_onJQuery_',
+smalltalk.method({
+selector: 'onJQuery:',
+category: 'instance creation',
+fn: function (aJQuery){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_", [aJQuery]);smalltalk.send($rec, "_initialize", []);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_basicNew", []));
+return self;},
+source: unescape('onJQuery%3A%20aJQuery%0A%09%5Eself%20basicNew%0A%09%09initializeFromJQuery%3A%20aJQuery%3B%0A%09%09initialize%3B%0A%09%09yourself'),
+messageSends: ["initializeFromJQuery:", "initialize", "yourself", "basicNew"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
 
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
@@ -1138,6 +1168,22 @@ referencedClasses: []
 }),
 smalltalk.TagBrush);
 
+smalltalk.addMethod(
+'_initializeFromJQuery_canvas_',
+smalltalk.method({
+selector: 'initializeFromJQuery:canvas:',
+category: 'initialization',
+fn: function (aJQuery, aCanvas){
+var self=this;
+self['@element']=smalltalk.send(smalltalk.send(aJQuery, "_jquery", []), "_get_", [(0)]);
+self['@canvas']=aCanvas;
+return self;},
+source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20jquery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
+messageSends: ["get:", "jquery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
 
 smalltalk.addMethod(
 '_fromString_canvas_',
@@ -1150,6 +1196,21 @@ return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", [aS
 return self;},
 source: unescape('fromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromString%3A%20aString%20canvas%3A%20aCanvas%3B%0A%09yourself'),
 messageSends: ["initializeFromString:canvas:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.TagBrush.klass);
+
+smalltalk.addMethod(
+'_fromJQuery_canvas_',
+smalltalk.method({
+selector: 'fromJQuery:canvas:',
+category: 'instance creation',
+fn: function (aJQuery, aCanvas){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_canvas_", [aJQuery, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+source: unescape('fromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%3B%0A%09yourself'),
+messageSends: ["initializeFromJQuery:canvas:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.TagBrush.klass);
@@ -1193,12 +1254,11 @@ selector: 'appendToJQuery:',
 category: 'adding',
 fn: function (aJQuery){
 var self=this;
-smalltalk.send(self, "_render", []);
-smalltalk.send(aJQuery, "_append_", [smalltalk.send(smalltalk.send(self, "_root", []), "_asJQuery", [])]);
+smalltalk.send(self, "_renderOn_", [smalltalk.send(smalltalk.HTMLCanvas, "_onJQuery_", [aJQuery])]);
 return self;},
-source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20self%20render.%0A%20%20%20%20aJQuery%20append%3A%20self%20root%20asJQuery'),
-messageSends: ["render", "append:", "asJQuery", "root"],
-referencedClasses: []
+source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
+messageSends: ["renderOn:", "onJQuery:"],
+referencedClasses: [smalltalk.HTMLCanvas]
 }),
 smalltalk.Widget);
 

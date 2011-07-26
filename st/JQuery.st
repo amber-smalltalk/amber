@@ -28,6 +28,12 @@ empty
     ^self call: 'empty'
 ! !
 
+!JQuery methodsFor: 'accessing'!
+
+jquery
+	^jquery
+! !
+
 !JQuery methodsFor: 'attributes'!
 
 removeAttribute: aString
@@ -52,11 +58,11 @@ val: aString
 !JQuery methodsFor: 'css'!
 
 cssAt: aString
-	{'return self[''@jquery''].css(aString)'}
+	<return self['@jquery'].css(aString)>
 !
 
 cssAt: aString put: anotherString
-    {'self[''@jquery''].css(aString, anotherString)'}
+    <self['@jquery'].css(aString, anotherString)>
 !
 
 addClass: aString
@@ -170,7 +176,7 @@ remove
 
 on: anEventString do: aBlock
     "Attach aBlock for anEventString on the element"
-    {'self[''@jquery''].bind(anEventString, function(e){aBlock(e, self)})'}
+    <self['@jquery'].bind(anEventString, function(e){aBlock(e, self)})>
 !
 
 removeEvents: aString
@@ -187,11 +193,11 @@ initializeWithJQueryObject: anObject
 !JQuery methodsFor: 'private'!
 
 call: aString
-	{'return self[''@jquery''][aString]()'}
+	<return self['@jquery'][aString]()>
 !
 
 call: aString withArgument: anObject
-    {'return self[''@jquery''][aString](anObject)'}
+    <return self['@jquery'][aString](anObject)>
 ! !
 
 !JQuery methodsFor: 'testing'!
@@ -205,7 +211,7 @@ hasClass: aString
 
 fromString: aString
     | newJQuery |
-    {'newJQuery = jQuery(String(aString))'}.
+    <newJQuery = jQuery(String(aString))>.
     ^self from: newJQuery
 !
 
@@ -216,15 +222,21 @@ from: anObject
 !
 
 window
-	{'return self._from_(jQuery(window))'}
+	<return self._from_(jQuery(window))>
 !
 
 body
-	{'return self._from_(jQuery(body))'}
+	<return self._from_(jQuery('body'))>
 !
 
 document
-	{'return self._from_(jQuery(document))'}
+	<return self._from_(jQuery(document))>
+!
+
+fromElement: anElement
+    | newJQuery |
+    <newJQuery = jQuery(anElement)>.
+    ^self from: newJQuery
 ! !
 
 Object subclass: #Ajax
@@ -257,7 +269,7 @@ url: aString
 !Ajax methodsFor: 'actions'!
 
 send
-    {'jQuery.ajax(self[''@settings''])'}
+    <jQuery.ajax(self['@settings'])>
 ! !
 
 !Ajax methodsFor: 'initialization'!
@@ -278,10 +290,7 @@ url: aString
 !BlockClosure methodsFor: '*JQuery'!
 
 appendToJQuery: aJQuery
-	| canvas |
-	canvas := HTMLCanvas new.
-	self value: canvas.
-	aJQuery append: canvas
+	self value: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
 !String methodsFor: '*JQuery'!
@@ -291,7 +300,7 @@ asJQuery
 !
 
 appendToJQuery: aJQuery
-    {'aJQuery._appendElement_(String(self))'}
+    <aJQuery._appendElement_(String(self))>
 ! !
 
 !HTMLCanvas methodsFor: '*JQuery'!

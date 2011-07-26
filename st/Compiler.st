@@ -461,7 +461,8 @@ recompile: aClass
 
 recompileAll
 	Smalltalk current classes do: [:each |
-		self recompile: each]
+		Transcript show: each; cr.
+		[self recompile: each] valueWithTimeout: 100]
 !
 
 setupClass: aClass
@@ -690,6 +691,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[<self["@"+'foo']>] value
+doIt ^[Compiler new recompileAll] value
 ! !
 

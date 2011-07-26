@@ -87,7 +87,7 @@ testError
 ! !
 
 TabWidget subclass: #ProgressBar
-	instanceVariableNames: 'percent progressDiv'
+	instanceVariableNames: 'percent progressDiv div'
 	category: 'SUnit'!
 
 !ProgressBar methodsFor: 'accessing'!
@@ -103,19 +103,24 @@ percent: aNumber
 !ProgressBar methodsFor: 'rendering'!
 
 renderOn: html 
-	html div 
+	div := html div 
 		class: 'progress_bar';
-		with: [
-			html div 
-				class: 'progress';
-				style: 'width:', self percent asString, '%']
+		yourself.
+	self renderProgressBar
+!
+
+renderProgressBar
+	div contents: [:html |
+		html div 
+			class: 'progress';
+			style: 'width:', self percent asString, '%']
 ! !
 
 !ProgressBar methodsFor: 'updating'!
 
 updatePercent: aNumber
 	self percent: aNumber.
-	self update
+	self renderProgressBar
 ! !
 
 Error subclass: #TestFailure

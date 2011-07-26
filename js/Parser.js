@@ -40,7 +40,7 @@ return smalltalk.send(smalltalk.PPFlattenParser, "_on_", [self]);
 return self;},
 source: unescape('flatten%0A%09%5EPPFlattenParser%20on%3A%20self'),
 messageSends: ["on:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPFlattenParser]
 }),
 smalltalk.PPParser);
 
@@ -55,7 +55,7 @@ return smalltalk.send(smalltalk.PPSourceParser, "_on_", [self]);
 return self;},
 source: unescape('withSource%0A%09%5EPPSourceParser%20on%3A%20self'),
 messageSends: ["on:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPSourceParser]
 }),
 smalltalk.PPParser);
 
@@ -70,7 +70,7 @@ return smalltalk.send(smalltalk.PPActionParser, "_on_block_", [self, aBlock]);
 return self;},
 source: unescape('%3D%3D%3E%20aBlock%0A%09%5EPPActionParser%20on%3A%20self%20block%3A%20aBlock'),
 messageSends: ["on:block:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPActionParser]
 }),
 smalltalk.PPParser);
 
@@ -85,7 +85,7 @@ return smalltalk.send(smalltalk.PPSequenceParser, "_with_with_", [self, aParser]
 return self;},
 source: unescape('%2C%20aParser%0A%09%5EPPSequenceParser%20with%3A%20self%20with%3A%20aParser'),
 messageSends: ["with:with:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPSequenceParser]
 }),
 smalltalk.PPParser);
 
@@ -100,7 +100,7 @@ return smalltalk.send(smalltalk.PPChoiceParser, "_with_with_", [self, aParser]);
 return self;},
 source: unescape('/%20aParser%0A%09%5EPPChoiceParser%20with%3A%20self%20with%3A%20aParser'),
 messageSends: ["with:with:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPChoiceParser]
 }),
 smalltalk.PPParser);
 
@@ -115,7 +115,7 @@ return smalltalk.send(smalltalk.PPRepeatingParser, "_on_min_", [self, (1)]);
 return self;},
 source: unescape('plus%0A%09%5EPPRepeatingParser%20on%3A%20self%20min%3A%201'),
 messageSends: ["on:min:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPRepeatingParser]
 }),
 smalltalk.PPParser);
 
@@ -130,7 +130,7 @@ return smalltalk.send(smalltalk.PPRepeatingParser, "_on_min_", [self, (0)]);
 return self;},
 source: unescape('star%0A%09%5EPPRepeatingParser%20on%3A%20self%20min%3A%200'),
 messageSends: ["on:min:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPRepeatingParser]
 }),
 smalltalk.PPParser);
 
@@ -145,7 +145,7 @@ return smalltalk.send(smalltalk.PPNotParser, "_on_", [self]);
 return self;},
 source: unescape('not%0A%09%5EPPNotParser%20on%3A%20self'),
 messageSends: ["on:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPNotParser]
 }),
 smalltalk.PPParser);
 
@@ -160,7 +160,7 @@ return smalltalk.send(self, "__slash", [smalltalk.send(smalltalk.PPEpsilonParser
 return self;},
 source: unescape('optional%0A%09%5Eself%20/%20PPEpsilonParser%20new'),
 messageSends: [unescape("/"), "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPEpsilonParser]
 }),
 smalltalk.PPParser);
 
@@ -211,7 +211,7 @@ return smalltalk.send(smalltalk.send(result, "_isParseFailure", []), "_ifTrue_if
 return self;},
 source: unescape('parseAll%3A%20aStream%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20%28PPSequenceParser%20with%3A%20self%20with%3A%20PPEOFParser%20new%29%20memoizedParse%3A%20aStream.%0A%09%5Eresult%20isParseFailure%20%0A%09%20%20%20%20ifTrue%3A%20%5Bself%20error%3A%20%28result%20messageFor%3A%20aStream%20contents%29%5D%0A%09%20%20%20%20ifFalse%3A%20%5Bresult%20first%5D'),
 messageSends: ["memoizedParse:", "with:with:", "new", "ifTrue:ifFalse:", "isParseFailure", "error:", "messageFor:", "contents", "first"],
-referencedClasses: [smalltalk.nil,smalltalk.nil]
+referencedClasses: [smalltalk.PPSequenceParser,smalltalk.PPEOFParser]
 }),
 smalltalk.PPParser);
 
@@ -229,7 +229,7 @@ return smalltalk.send(smalltalk.send(aStream, "_atEnd", []), "_ifFalse_ifTrue_",
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%5EaStream%20atEnd%20%0A%09%20%20%20%20ifFalse%3A%20%5B%0A%09%09PPFailure%20new%20reason%3A%20aStream%20contents%2C%20String%20lf%2C%20%27---------------%27%2C%20String%20lf%2C%20%27EOF%20expected%27%20at%3A%20aStream%20position%5D%0A%09%20%20%20%20ifTrue%3A%20%5Bnil%5D'),
 messageSends: ["ifFalse:ifTrue:", "atEnd", "reason:at:", "new", unescape("%2C"), "contents", "lf", "position"],
-referencedClasses: [smalltalk.nil,smalltalk.String]
+referencedClasses: [smalltalk.PPFailure,smalltalk.String]
 }),
 smalltalk.PPEOFParser);
 
@@ -247,7 +247,7 @@ return smalltalk.send(smalltalk.send(aStream, "_atEnd", []), "_ifTrue_ifFalse_",
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%5EaStream%20atEnd%0A%09%20%20%20%20ifTrue%3A%20%5BPPFailure%20new%0A%09%09%09%20reason%3A%20%27did%20not%20expect%20EOF%27%20at%3A%20aStream%20position%5D%0A%09%20%20%20%20ifFalse%3A%20%5BaStream%20next%5D'),
 messageSends: ["ifTrue:ifFalse:", "atEnd", "reason:at:", "new", "position", "next"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPFailure]
 }),
 smalltalk.PPAnyParser);
 
@@ -317,7 +317,7 @@ return smalltalk.send(smalltalk.send(result, "__eq", [smalltalk.send(self, "_str
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%7C%20position%20result%20%7C%0A%09position%20%3A%3D%20aStream%20position.%0A%09result%20%3A%3D%20aStream%20next%3A%20self%20string%20size.%0A%09%5Eresult%20%3D%20self%20string%0A%09%20%20%20%20ifTrue%3A%20%5Bresult%5D%0A%09%20%20%20%20ifFalse%3A%20%5B%0A%09%09aStream%20position%3A%20position.%0A%09%09PPFailure%20new%20reason%3A%20%27Expected%20%27%2C%20self%20string%2C%20%27%20but%20got%20%27%2C%20%28result%20at%3A%20position%29%20printString%3B%20yourself%5D'),
 messageSends: ["position", "next:", "size", "string", "ifTrue:ifFalse:", unescape("%3D"), "position:", "reason:", unescape("%2C"), "printString", "at:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPFailure]
 }),
 smalltalk.PPStringParser);
 
@@ -350,7 +350,7 @@ return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aStream, "_pe
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%5E%28aStream%20peek%20notNil%20and%3A%20%5Bself%20match%3A%20aStream%20peek%5D%29%0A%09%20%20%20%20ifTrue%3A%20%5BaStream%20next%5D%0A%09%20%20%20%20ifFalse%3A%20%5BPPFailure%20new%20reason%3A%20%27Could%20not%20match%27%20at%3A%20aStream%20position%5D'),
 messageSends: ["ifTrue:ifFalse:", "and:", "notNil", "peek", "match:", "next", "reason:at:", "new", "position"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPFailure]
 }),
 smalltalk.PPCharacterParser);
 
@@ -638,7 +638,7 @@ return smalltalk.send(smalltalk.send(element, "_isParseFailure", []), "_ifTrue_i
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%7C%20element%20%7C%0A%09element%20%3A%3D%20self%20basicParse%3A%20aStream.%0A%09%5Eelement%20isParseFailure%20%0A%09%20%20%20%20ifTrue%3A%20%5Bnil%5D%0A%09%20%20%20%20ifFalse%3A%20%5BPPFailure%20reason%3A%20element%20at%3A%20aStream%20position%5D'),
 messageSends: ["basicParse:", "ifTrue:ifFalse:", "isParseFailure", "reason:at:", "position"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.PPFailure]
 }),
 smalltalk.PPNotParser);
 
@@ -1342,7 +1342,7 @@ nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [a
 return self;},
 source: unescape('import%3A%20aStream%0A%09aStream%20atEnd%20ifFalse%3A%20%5B%0A%09%20%20%20%20%7C%20nextChunk%20%7C%0A%09%20%20%20%20nextChunk%20%3A%3D%20self%20chunkParser%20parse%3A%20aStream.%0A%09%20%20%20%20nextChunk%20ifNotNil%3A%20%5B%0A%09%09nextChunk%20isInstructionChunk%20%0A%09%09%20%20%20%20ifTrue%3A%20%5B%28Compiler%20new%20loadExpression%3A%20nextChunk%20contents%29%0A%09%09%09%09%09%20scanFrom%3A%20aStream%5D%0A%09%09%20%20%20%20ifFalse%3A%20%5BCompiler%20new%20loadExpression%3A%20nextChunk%20contents%5D.%0A%09%09self%20import%3A%20aStream%5D%5D'),
 messageSends: ["ifFalse:", "atEnd", "parse:", "chunkParser", "ifNotNil:", "ifTrue:ifFalse:", "isInstructionChunk", "scanFrom:", "loadExpression:", "new", "contents", "import:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.Importer);
 

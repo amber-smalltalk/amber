@@ -271,7 +271,7 @@ self['@movingPiece']=smalltalk.send(smalltalk.TetrisPiece, "_atRandom", []);
 return self;},
 source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom'),
 messageSends: ["atRandom"],
-referencedClasses: []
+referencedClasses: [smalltalk.TetrisPiece]
 }),
 smalltalk.Tetris);
 

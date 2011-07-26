@@ -94,7 +94,11 @@ with: anObject
 
 initialize
     super initialize.
-    root := TagBrush fromString: 'div' canvas: self
+    root ifNil: [root := TagBrush fromString: 'div' canvas: self]
+!
+
+initializeFromJQuery: aJQuery
+    root := TagBrush fromJQuery: aJQuery canvas: self
 ! !
 
 !HTMLCanvas methodsFor: 'tags'!
@@ -205,6 +209,15 @@ a
 
 canvas
 	^self tag: 'canvas'
+! !
+
+!HTMLCanvas class methodsFor: 'instance creation'!
+
+onJQuery: aJQuery
+	^self basicNew
+		initializeFromJQuery: aJQuery;
+		initialize;
+		yourself
 ! !
 
 Object subclass: #TagBrush
@@ -336,6 +349,11 @@ onClick: aBlock
 initializeFromString: aString canvas: aCanvas
     element := self createElementFor: aString.
     canvas := aCanvas
+!
+
+initializeFromJQuery: aJQuery canvas: aCanvas
+    element := aJQuery jquery get: 0.
+    canvas := aCanvas
 ! !
 
 !TagBrush methodsFor: 'private'!
@@ -353,6 +371,12 @@ createTextNodeFor: aString
 fromString: aString canvas: aCanvas
     ^self new
 	initializeFromString: aString canvas: aCanvas;
+	yourself
+!
+
+fromJQuery: aJQuery canvas: aCanvas
+    ^self new
+	initializeFromJQuery: aJQuery canvas: aCanvas;
 	yourself
 ! !
 
@@ -399,8 +423,7 @@ appendToBrush: aTagBrush
 !
 
 appendToJQuery: aJQuery
-    self render.
-    aJQuery append: self root asJQuery
+   self renderOn: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
 !Widget methodsFor: 'rendering'!

@@ -128,6 +128,10 @@ doesNotUnderstand: aMessage
 		receiver: self;
 		message: aMessage;
 		signal
+!
+
+halt
+	self error: 'Halt encountered'
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -357,6 +361,14 @@ protocolsDo: aBlock
  			add: m]. 
 	self protocols do: [:category |
 		aBlock value: category value: (methodsByCategory at: category)]
+!
+
+allInstanceVariableNames
+	| result |
+	result := self instanceVariableNames.
+	self superclass ifNotNil: [
+	    result addAll: self superclass allInstanceVariableNames].
+	^result
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -1638,7 +1650,7 @@ compile: aString
 !
 
 exec: aString
-	<return self.exec(aString)>
+	<return self.exec(aString) || nil>
 !
 
 test: aString
@@ -1667,12 +1679,16 @@ messageText
 
 messageText: aString
 	messageText := aString
+!
+
+context
+	<return self.context>
 ! !
 
 !Error methodsFor: 'signaling'!
 
 signal
-	<console.log(self._messageText()); throw(self)>
+	<self.context = thisContext; self.smalltalkError = true; throw(self)>
 ! !
 
 !Error class methodsFor: 'instance creation'!
@@ -1681,6 +1697,36 @@ signal: aString
 	    ^self new
 		messageText: aString;
 		signal
+! !
+
+Object subclass: #MethodContext
+	instanceVariableNames: ''
+	category: 'Kernel'!
+
+!MethodContext methodsFor: 'accessing'!
+
+receiver
+	<return self.receiver>
+!
+
+selector
+	<return smalltalk.convertSelector(self.selector)>
+!
+
+home
+	<return self.homeContext>
+!
+
+temps
+	<return self.temps>
+!
+
+printString
+	^super printString, '(', self asString, ')'
+!
+
+asString
+	^self receiver class printString, ' >> ', self selector
 ! !
 
 Object subclass: #Association
@@ -2284,5 +2330,60 @@ receiver: anObject
 
 messageText
 	^self receiver asString, ' does not understand #', self message selector
+! !
+
+Object subclass: #ErrorHandler
+	instanceVariableNames: ''
+	category: 'Kernel'!
+
+!ErrorHandler methodsFor: 'error handling'!
+
+handleError: anError
+	anError context ifNotNil: [self logErrorContext: anError context].
+	self logError: anError
+! !
+
+!ErrorHandler methodsFor: 'private'!
+
+logContext: aContext
+	aContext home ifNotNil: [
+		self logContext: aContext home].
+	self log: aContext receiver asString, '>>', aContext selector
+!
+
+logErrorContext: aContext
+	aContext ifNotNil: [
+		aContext home ifNotNil: [
+			self logContext: aContext home]]
+!
+
+logError: anError
+	self log: anError messageText
+!
+
+log: aString
+	console log: aString
+! !
+
+ErrorHandler class instanceVariableNames: 'current'!
+
+!ErrorHandler class methodsFor: 'accessing'!
+
+current
+	^current
+!
+
+setCurrent: anHandler
+	current := anHandler
+! !
+
+!ErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
+!
+
+register
+	ErrorHandler setCurrent: self new
 ! !
 

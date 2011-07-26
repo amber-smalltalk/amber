@@ -1,5 +1,5 @@
 Widget subclass: #TabManager
-	instanceVariableNames: 'selectedTab tabs opened'
+	instanceVariableNames: 'selectedTab tabs opened ul'
 	category: 'IDE'!
 
 !TabManager methodsFor: 'accessing'!
@@ -40,18 +40,19 @@ onWindowResize: aBlock
 
 open
     opened ifFalse: [
-	self root asJQuery show.
 	'body' asJQuery addClass: 'jtalkBody'.
 	'#jtalk' asJQuery show.
+	ul asJQuery show.
 	self updateBodyMargin.
-	selectedTab root asJQuery show.
+	selectedTab show.
 	opened := true]
 !
 
 close
     opened ifTrue: [
-	self root asJQuery hide.
 	'#jtalk' asJQuery hide.
+	ul asJQuery hide.
+	selectedTab hide.
 	self removeBodyMargin.
 	'body' asJQuery removeClass: 'jtalkBody'.
 	opened := false]
@@ -65,15 +66,16 @@ selectTab: aWidget
     self open.
     selectedTab := aWidget.
     self tabs do: [:each |
-	each root asJQuery hide].
-    aWidget root asJQuery show.
+	each hide].
+    aWidget show.
+	
     self update
 !
 
 closeTab: aWidget
     self removeTab: aWidget.
     self selectTab: self tabs last.
-    aWidget root asJQuery remove.
+    aWidget remove.
     self update
 ! !
 
@@ -82,7 +84,7 @@ closeTab: aWidget
 addTab: aWidget
     self tabs add: aWidget.
     '#jtalk' asJQuery append: aWidget.
-    aWidget root asJQuery hide
+    aWidget hide
 !
 
 removeTab: aWidget
@@ -111,19 +113,10 @@ initialize
 !TabManager methodsFor: 'rendering'!
 
 renderOn: html
-    html ul
-	id: 'jtalkTabs';
-	with: [
-	    html li 
-		class: 'closeAll';
-		with: 'x';
-		onClick: [self close].
-	    self tabs do: [:each |
-		self renderTabFor: each on: html].
-	    html li
-		class: 'newtab';
-		with: ' + ';
-		onClick: [self newBrowserTab]]
+	ul := html ul
+		id: 'jtalkTabs';
+		yourself.
+	self renderTabs
 !
 
 renderTabFor: aWidget on: html
@@ -140,6 +133,26 @@ renderTabFor: aWidget on: html
 		class: 'close';
 		with: 'x';
 		onClick: [self closeTab: aWidget]]]
+!
+
+renderTabs
+	ul contents: [:html |
+	    html li 
+		class: 'closeAll';
+		with: 'x';
+		onClick: [self close].
+	    self tabs do: [:each |
+		self renderTabFor: each on: html].
+	    html li
+		class: 'newtab';
+		with: ' + ';
+		onClick: [self newBrowserTab]]
+! !
+
+!TabManager methodsFor: 'updating'!
+
+update
+	self renderTabs
 ! !
 
 TabManager class instanceVariableNames: 'current'!
@@ -155,7 +168,7 @@ new
 ! !
 
 Widget subclass: #TabWidget
-	instanceVariableNames: ''
+	instanceVariableNames: 'div'
 	category: 'IDE'!
 
 !TabWidget methodsFor: 'accessing'!
@@ -167,29 +180,49 @@ label
 !TabWidget methodsFor: 'actions'!
 
 open
-    TabManager current
-	addTab: self;
-	selectTab: self
+    TabManager current addTab: self.
+    TabManager current selectTab: self
+!
+
+show
+	div asJQuery show
+!
+
+hide
+	div asJQuery hide
+!
+
+remove
+	div asJQuery remove
 ! !
 
 !TabWidget methodsFor: 'rendering'!
 
 renderOn: html
-    html root
-	class: 'jtalkTool';
-	with: [
-	    html div
-		class: 'jt_box';
-		with: [self renderBoxOn: html].
-	    html div
-		class: 'jt_buttons';
-		with: [self renderButtonsOn: html]]
+	div := html div
+		class: 'jtalkTool';
+		yourself.
+	self renderTab
 !
 
 renderBoxOn: html
 !
 
 renderButtonsOn: html
+!
+
+update
+	self renderTab
+!
+
+renderTab
+	div contents: [:html |
+	    html div
+		class: 'jt_box';
+		with: [self renderBoxOn: html].
+	    html div
+		class: 'jt_buttons';
+		with: [self renderButtonsOn: html]]
 ! !
 
 !TabWidget methodsFor: 'testing'!
@@ -593,7 +626,7 @@ compileMethodDefinitionFor: aClass
     node := compiler parse: source.
     node isParseFailure ifTrue: [
 	^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
-    compiler currentClass: selectedClass.
+    compiler currentClass: aClass.
     method := compiler eval: (compiler compileNode: node).
     method category: selectedProtocol.
     compiler unknownVariables do: [:each |
@@ -818,7 +851,7 @@ renderButtonsOn: html
     self updateSourceAndButtons
 !
 
-renderInputOn: html
+renderInputOn: html 
 	input := html input 
 		class: 'implementors';
 		yourself.
@@ -1301,7 +1334,7 @@ inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	self class instanceVariableNames do: [:each |
+	self class allInstanceVariableNames do: [:each |
 		variables at: each put: (self instVarAt: each)].
 	anInspector 
 		setLabel: self printString;
@@ -1348,6 +1381,22 @@ inspectOn: anInspector
 		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
 		ifFalse: [label := self printString]. 
 	anInspector setLabel: label
+! !
+
+!MethodContext methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	self class instanceVariableNames do: [:each |
+		variables at: each put: (self instVarAt: each)].
+	anInspector 
+		setLabel: self printString;
+		setVariables: variables
 ! !
 
 !Dictionary methodsFor: '*IDE'!
