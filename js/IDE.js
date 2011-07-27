@@ -2827,11 +2827,18 @@ selector: 'getNodes',
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_classes", []), "_includes_", [smalltalk.send(each, "_superclass", [])]), "_not", []);})]), "_collect_", [(function(each){return smalltalk.send(smalltalk.ClassesListNode, "_on_browser_level_", [each, smalltalk.send(self, "_browser", []), (0)]);})]);
+var classes=nil;
+var children=nil;
+var others=nil;
+classes=smalltalk.send(smalltalk.send(self, "_browser", []), "_classes", []);
+children=[];
+others=[];
+smalltalk.send(classes, "_do_", [(function(each){return smalltalk.send(smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]);})]);
+return smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send(smalltalk.ClassesListNode, "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, (0)]);})]);
 return self;},
-source: unescape('getNodes%0A%09%5E%28self%20browser%20classes%20select%3A%20%5B%3Aeach%20%7C%0A%09%09%28self%20browser%20classes%20includes%3A%20each%20superclass%29%20not%5D%29%0A%09%09%09collect%3A%20%5B%3Aeach%20%7C%0A%09%09%09%09ClassesListNode%20on%3A%20each%20browser%3A%20self%20browser%20level%3A%200%5D'),
-messageSends: ["collect:", "select:", "classes", "browser", "not", "includes:", "superclass", "on:browser:level:"],
-referencedClasses: [smalltalk.nil]
+source: unescape('getNodes%0A%09%7C%20classes%20children%20others%20%7C%0A%09classes%20%3A%3D%20self%20browser%20classes.%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28classes%20includes%3A%20each%20superclass%29%0A%09%09%09ifFalse%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifTrue%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09%5Echildren%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassesListNode%20on%3A%20each%20browser%3A%20self%20browser%20classes%3A%20others%20level%3A%200%5D'),
+messageSends: ["classes", "browser", "do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:browser:classes:level:"],
+referencedClasses: [smalltalk.ClassesListNode]
 }),
 smalltalk.ClassesList);
 
@@ -2875,10 +2882,10 @@ selector: 'nodes',
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(self['@nodes'], "_ifNil_", [(function(){return self['@nodes']=smalltalk.send(self, "_getNodes", []);})]);
+return self['@nodes'];
 return self;},
-source: unescape('nodes%0A%09%5Enodes%20ifNil%3A%20%5Bnodes%20%3A%3D%20self%20getNodes%5D'),
-messageSends: ["ifNil:", "getNodes"],
+source: unescape('nodes%0A%09%5Enodes'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassesListNode);
@@ -3012,32 +3019,39 @@ referencedClasses: [smalltalk.String]
 smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-'_getNodes',
+'_getNodesFrom_',
 smalltalk.method({
-selector: 'getNodes',
+selector: 'getNodesFrom:',
 category: 'accessing',
-fn: function (){
+fn: function (aCollection){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_superclass", []), "__eq", [smalltalk.send(self, "_theClass", [])]);})]), "_collect_", [(function(each){return smalltalk.send(smalltalk.ClassesListNode, "_on_browser_level_", [each, smalltalk.send(self, "_browser", []), smalltalk.send(smalltalk.send(self, "_level", []), "__plus", [(1)])]);})]);
+var classes=nil;
+var children=nil;
+var others=nil;
+classes=aCollection;
+children=[];
+others=[];
+smalltalk.send(classes, "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_superclass", []), "__eq", [smalltalk.send(self, "_theClass", [])]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]);})]);
+self['@nodes']=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send(smalltalk.ClassesListNode, "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, smalltalk.send(smalltalk.send(self, "_level", []), "__plus", [(1)])]);})]);
 return self;},
-source: unescape('getNodes%0A%09%5E%28self%20browser%20classes%20select%3A%20%5B%3Aeach%20%7C%0A%09%09each%20superclass%20%3D%20self%20theClass%5D%29%0A%09%09%09collect%3A%20%5B%3Aeach%20%7C%0A%09%09%09%09ClassesListNode%20on%3A%20each%20browser%3A%20self%20browser%20level%3A%20self%20level%20+%201%5D'),
-messageSends: ["collect:", "select:", "classes", "browser", unescape("%3D"), "superclass", "theClass", "on:browser:level:", unescape("+"), "level"],
+source: unescape('getNodesFrom%3A%20aCollection%0A%09%7C%20classes%20children%20others%20%7C%0A%09classes%20%3A%3D%20aCollection.%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28each%20superclass%20%3D%20self%20theClass%29%0A%09%09%09ifTrue%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifFalse%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassesListNode%20on%3A%20each%20browser%3A%20self%20browser%20classes%3A%20others%20level%3A%20self%20level%20+%201%5D'),
+messageSends: ["do:", "ifTrue:ifFalse:", unescape("%3D"), "superclass", "theClass", "add:", "collect:", "on:browser:classes:level:", "browser", unescape("+"), "level"],
 referencedClasses: [smalltalk.ClassesListNode]
 }),
 smalltalk.ClassesListNode);
 
 
 smalltalk.addMethod(
-'_on_browser_level_',
+'_on_browser_classes_level_',
 smalltalk.method({
-selector: 'on:browser:level:',
+selector: 'on:browser:classes:level:',
 category: 'instance creation',
-fn: function (aClass, aBrowser, anInteger){
+fn: function (aClass, aBrowser, aCollection, anInteger){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_browser_", [aBrowser]);smalltalk.send($rec, "_level_", [anInteger]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_browser_", [aBrowser]);smalltalk.send($rec, "_level_", [anInteger]);smalltalk.send($rec, "_getNodesFrom_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
-source: unescape('on%3A%20aClass%20browser%3A%20aBrowser%20level%3A%20anInteger%0A%09%5Eself%20new%0A%09%09theClass%3A%20aClass%3B%0A%09%09browser%3A%20aBrowser%3B%0A%09%09level%3A%20anInteger%3B%0A%09%09yourself'),
-messageSends: ["theClass:", "browser:", "level:", "yourself", "new"],
+source: unescape('on%3A%20aClass%20browser%3A%20aBrowser%20classes%3A%20aCollection%20level%3A%20anInteger%0A%09%5Eself%20new%0A%09%09theClass%3A%20aClass%3B%0A%09%09browser%3A%20aBrowser%3B%0A%09%09level%3A%20anInteger%3B%0A%09%09getNodesFrom%3A%20aCollection%3B%0A%09%09yourself'),
+messageSends: ["theClass:", "browser:", "level:", "getNodesFrom:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.ClassesListNode.klass);

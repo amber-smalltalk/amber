@@ -1419,10 +1419,16 @@ browser: aBrowser
 !
 
 getNodes
-	^(self browser classes select: [:each |
-		(self browser classes includes: each superclass) not])
-			collect: [:each |
-				ClassesListNode on: each browser: self browser level: 0]
+	| classes children others |
+	classes := self browser classes.
+	children := #().
+	others := #().
+	classes do: [:each |
+		(classes includes: each superclass)
+			ifFalse: [children add: each]
+			ifTrue: [others add: each]].
+	^children collect: [:each |
+		ClassesListNode on: each browser: self browser classes: others level: 0]
 !
 
 resetNodes
@@ -1459,7 +1465,7 @@ Widget subclass: #ClassesListNode
 !ClassesListNode methodsFor: 'accessing'!
 
 nodes
-	^nodes ifNil: [nodes := self getNodes]
+	^nodes
 !
 
 theClass
@@ -1495,11 +1501,17 @@ label
 	^str contents
 !
 
-getNodes
-	^(self browser classes select: [:each |
-		each superclass = self theClass])
-			collect: [:each |
-				ClassesListNode on: each browser: self browser level: self level + 1]
+getNodesFrom: aCollection
+	| classes children others |
+	classes := aCollection.
+	children := #().
+	others := #().
+	classes do: [:each |
+		(each superclass = self theClass)
+			ifTrue: [children add: each]
+			ifFalse: [others add: each]].
+	nodes:= children collect: [:each |
+		ClassesListNode on: each browser: self browser classes: others level: self level + 1]
 ! !
 
 !ClassesListNode methodsFor: 'rendering'!
@@ -1517,11 +1529,12 @@ renderOn: html
 
 !ClassesListNode class methodsFor: 'instance creation'!
 
-on: aClass browser: aBrowser level: anInteger
+on: aClass browser: aBrowser classes: aCollection level: anInteger
 	^self new
 		theClass: aClass;
 		browser: aBrowser;
 		level: anInteger;
+		getNodesFrom: aCollection;
 		yourself
 ! !
 
