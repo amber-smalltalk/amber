@@ -323,7 +323,12 @@ function Smalltalk(){
 	if(typeof jsProperty === "function") {
 	    return jsProperty.apply(receiver, args);
 	} else if(jsProperty !== undefined) {
-	    return jsProperty
+	    if(args[0]) {
+		receiver[jsSelector] = args[0];
+		return nil;
+	    } else {
+		return jsProperty
+	    }
 	}
 	smalltalk.Error._signal_(receiver + ' is not a Jtalk object and "' + jsSelector + '" is undefined')
     };

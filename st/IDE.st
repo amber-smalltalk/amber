@@ -238,120 +238,38 @@ open
 ! !
 
 TabWidget subclass: #Workspace
-	instanceVariableNames: 'textarea'
+	instanceVariableNames: 'sourceArea'
 	category: 'IDE'!
 
 !Workspace methodsFor: 'accessing'!
 
 label
     ^'[Workspace]'
-!
-
-selection
-    <return document.selection>
-!
-
-selectionStart
-    <return jQuery('.jt_workspace')[0].selectionStart>
-!
-
-selectionEnd
-    <return jQuery('.jt_workspace')[0].selectionEnd>
-!
-
-selectionStart: anInteger
-    <jQuery('.jt_workspace')[0].selectionStart = anInteger>
-!
-
-selectionEnd: anInteger
-    <jQuery('.jt_workspace')[0].selectionEnd = anInteger>
-!
-
-currentLine
-    | lines startLine endLine|
-    lines := textarea asJQuery val tokenize: String lf.
-    startLine := endLine := 0.
-    lines do: [:each |
-	endLine := startLine + each size.
-	startLine := endLine + 1.
-	endLine >= self selectionStart ifTrue: [
-	    self selectionEnd: endLine.
-	    ^each]]
 ! !
 
 !Workspace methodsFor: 'actions'!
 
-handleKeyDown: anEvent
-    <if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
-!
-
 clearWorkspace
-    textarea asJQuery val: ''
+    sourceArea clear
 !
 
 doIt
-    | selection |
-    textarea asJQuery focus.
-    self selectionStart = self selectionEnd
-	ifTrue: [selection := self currentLine]
-	ifFalse: [
-	    selection := textarea asJQuery val copyFrom: self selectionStart + 1 to: self selectionEnd + 1].
-    ^self eval: selection
+   sourceArea doIt
 !
 
 printIt
-    self print: self doIt printString
-!
-
-print: aString
-    | start |
-    start := self selectionEnd.
-    textarea asJQuery val: (
-	(textarea asJQuery val copyFrom: 1 to: start),
-	' ', aString, ' ',
-	(textarea asJQuery val copyFrom: start + 1 to: textarea asJQuery val size)).
-    self selectionStart: start.
-    self selectionEnd: start + aString size + 2
-!
-
-eval: aString
-    | compiler node |
-    compiler := Compiler new.
-    node := compiler parseExpression: aString.
-    node isParseFailure ifTrue: [
-	^self alert: node reason, ', position: ', node position].
-    ^compiler loadExpression: aString
+	sourceArea printIt
 !
 
 inspectIt
-    self doIt inspect
+    sourceArea inspectIt
 ! !
 
 !Workspace methodsFor: 'rendering'!
 
 renderBoxOn: html
-    textarea := html textarea.
-    textarea asJQuery call: 'tabby'.
-    textarea onKeyDown: [:e | self handleKeyDown: e].
-    textarea 
-	class: 'jt_workspace';
-	at: 'spellcheck' put: 'false'
+    sourceArea := SourceArea new.
+    sourceArea renderOn: html
 !
 
 renderButtonsOn: html
@@ -443,7 +361,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceTextarea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges input'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges input'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -567,14 +485,13 @@ metaclassDeclarationSource
 
 classCommentSource
     ^selectedClass comment
+!
+
+selectedClass
+	^selectedClass
 ! !
 
 !Browser methodsFor: 'actions'!
-
-enableSaveButton
-    saveButton removeAt: 'disabled'.
-    unsavedChanges := true
-!
 
 disableSaveButton
     saveButton ifNotNil: [
@@ -609,7 +526,7 @@ compile
 !
 
 compileClassComment
-    selectedClass comment: sourceTextarea asJQuery val
+    selectedClass comment: sourceArea val
 !
 
 compileMethodDefinition
@@ -620,7 +537,7 @@ compileMethodDefinition
 
 compileMethodDefinitionFor: aClass
     | compiler method source node |
-    source := sourceTextarea asJQuery val.
+    source := sourceArea val.
     selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
     compiler := Compiler new.
     node := compiler parse: source.
@@ -641,8 +558,9 @@ compileMethodDefinitionFor: aClass
 
 compileDefinition
     | newClass |
-    newClass := Compiler new loadExpression: sourceTextarea asJQuery val.
+    newClass := Compiler new loadExpression: sourceArea textarea asJQuery val.
     self 
+	resetClassesList;
 	updateCategoriesList;
 	updateClassesList
 !
@@ -671,6 +589,7 @@ removeClass
     (self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
 	    Smalltalk current basicDelete: selectedClass name.
+	    self resetClassesList.
 	    self selectClass: nil]
 !
 
@@ -710,6 +629,7 @@ selectCategory: aCategory
     self cancelChanges ifTrue: [
 	selectedCategory := aCategory.
 	selectedClass := selectedProtocol := selectedMethod :=  nil.
+	self resetClassesList.
 	self 
 	    updateCategoriesList;
 	    updateClassesList;
@@ -814,7 +734,8 @@ renderTopPanelOn: html
 		title: 'Commit classes in this category to disk';
 		onClick: [self commitCategory];
 		with: 'Commit category'.
-	    classesList := html ul class: 'jt_column browser classes'.
+	    classesList := ClassesList on: self.
+	    classesList renderOn: html.
 	    protocolsList := html ul class: 'jt_column browser protocols'.
 	    methodsList := html ul class: 'jt_column browser methods'.
 	    self
@@ -834,11 +755,10 @@ renderBottomPanelOn: html
     html div
 	class: 'jt_sourceCode';
 	with: [
-	    sourceTextarea := html textarea 
-		onKeyPress: [self enableSaveButton];
-		class: 'source';
-		at: 'spellcheck' put: 'false'.
-	    sourceTextarea asJQuery call: 'tabby']
+	    sourceArea := SourceArea new.
+	    sourceArea renderOn: html.
+	    sourceArea textarea
+		onKeyUp: [self updateStatus]]
 !
 
 renderButtonsOn: html
@@ -848,6 +768,17 @@ renderButtonsOn: html
 	onClick: [self compile].
     methodButtons := html span.
     classButtons := html span.
+    html div 
+	class: 'right';
+	with: [
+		html button
+			with: 'DoIt';
+			onClick: [sourceArea doIt].
+		html button
+			with: 'PrintIt';
+			onClick: [sourceArea printIt].
+		html button with: 'InspectIt';
+			onClick: [sourceArea inspectit]]. 
     self updateSourceAndButtons
 !
 
@@ -863,7 +794,7 @@ renderInputOn: html
 !Browser methodsFor: 'testing'!
 
 canBeClosed
-    ^true
+	^true
 ! !
 
 !Browser methodsFor: 'updating'!
@@ -884,14 +815,15 @@ updateCategoriesList
 
 updateClassesList
     TabManager current update.
-    classesList contents: [:html |
+    classesList updateNodes.
+    "classesList contents: [:html |
 	self classes do: [:each || li |
 	    li := html li.
 	    selectedClass = each ifTrue: [
 		li class: 'selected'].
 	    li
 		with: each name;
-		onClick: [self selectClass: each]]]
+		onClick: [self selectClass: each]]]"
 !
 
 updateProtocolsList
@@ -983,7 +915,23 @@ updateSourceAndButtons
 		ifFalse: [
 	    		self hideClassButtons.
 	    		self showMethodButtons].
-    	sourceTextarea asJQuery val: self source
+    	sourceArea val: self source
+!
+
+updateStatus
+	sourceArea textarea asJQuery val = self source
+		ifTrue: [
+			saveButton ifNotNil: [
+				saveButton at: 'disabled' put: true].
+    			unsavedChanges := false]
+		ifFalse: [
+			saveButton ifNotNil: [
+    				saveButton removeAt: 'disabled'].
+    			unsavedChanges := true]
+!
+
+resetClassesList
+	classesList resetNodes
 ! !
 
 !Browser class methodsFor: 'accessing'!
@@ -1320,6 +1268,261 @@ search: aString
 	^self new
 		searchReferencesFor: aString;
 		open
+! !
+
+Widget subclass: #SourceArea
+	instanceVariableNames: 'textarea'
+	category: 'IDE'!
+
+!SourceArea methodsFor: 'accessing'!
+
+val
+    ^textarea asJQuery val
+!
+
+val: aString
+    textarea asJQuery val: aString
+!
+
+currentLine
+    | lines startLine endLine|
+    lines := textarea asJQuery val tokenize: String lf.
+    startLine := endLine := 0.
+    lines do: [:each |
+	endLine := startLine + each size.
+	startLine := endLine + 1.
+	endLine >= self selectionStart ifTrue: [
+	    self selectionEnd: endLine.
+	    ^each]]
+!
+
+selection
+    <return document.selection>
+!
+
+selectionEnd
+   ^textarea element selectionEnd
+!
+
+selectionStart
+   ^textarea element selectionStart
+!
+
+selectionStart: anInteger
+   textarea element selectionStart: anInteger
+!
+
+selectionEnd: anInteger
+   textarea element selectionEnd: anInteger
+!
+
+textarea
+	^textarea
+! !
+
+!SourceArea methodsFor: 'actions'!
+
+clear
+    textarea asJQuery val: ''
+!
+
+doIt
+    | selection |
+    textarea asJQuery focus.
+    self selectionStart = self selectionEnd
+	ifTrue: [selection := self currentLine]
+	ifFalse: [
+	    selection := textarea asJQuery val copyFrom: self selectionStart + 1 to: self selectionEnd + 1].
+    ^self eval: selection
+!
+
+eval: aString
+    | compiler node |
+    compiler := Compiler new.
+    node := compiler parseExpression: aString.
+    node isParseFailure ifTrue: [
+	^self alert: node reason, ', position: ', node position].
+    ^compiler loadExpression: aString
+!
+
+handleKeyDown: anEvent
+    <if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 80) { //ctrl+p
+			self._printIt();
+			anEvent.preventDefault();
+			return false;
+		}
+		if(anEvent.keyCode === 68) { //ctrl+d
+			self._doIt();
+			anEvent.preventDefault();
+			return false;
+		}
+		if(anEvent.keyCode === 73) { //ctrl+i
+			self._inspectIt();
+			anEvent.preventDefault();
+			return false;
+		}
+	}>
+!
+
+inspectIt
+    self doIt inspect
+!
+
+print: aString
+    | start |
+    start := self selectionEnd.
+    textarea asJQuery val: (
+	(textarea asJQuery val copyFrom: 1 to: start),
+	' ', aString, ' ',
+	(textarea asJQuery val copyFrom: start + 1 to: textarea asJQuery val size)).
+    self selectionStart: start.
+    self selectionEnd: start + aString size + 2
+!
+
+printIt
+    self print: self doIt printString
+! !
+
+!SourceArea methodsFor: 'rendering'!
+
+renderOn: html
+    textarea := html textarea.
+    textarea asJQuery call: 'tabby'.
+    textarea onKeyDown: [:e | self handleKeyDown: e].
+    textarea 
+	class: 'jt_workspace';
+	at: 'spellcheck' put: 'false'
+! !
+
+Widget subclass: #ClassesList
+	instanceVariableNames: 'browser ul nodes'
+	category: 'IDE'!
+
+!ClassesList methodsFor: 'accessing'!
+
+category
+	^self browser selectedCategory
+!
+
+nodes
+	nodes ifNil: [nodes := self getNodes].
+	^nodes
+!
+
+browser
+	^browser
+!
+
+browser: aBrowser
+	browser := aBrowser
+!
+
+getNodes
+	^(self browser classes select: [:each |
+		(self browser classes includes: each superclass) not])
+			collect: [:each |
+				ClassesListNode on: each browser: self browser level: 0]
+!
+
+resetNodes
+	nodes := nil
+! !
+
+!ClassesList methodsFor: 'rendering'!
+
+renderOn: html
+	ul := html ul
+		class: 'jt_column browser classes';
+		yourself.
+	self updateNodes
+!
+
+updateNodes
+	ul contents: [:html |
+		self nodes do: [:each |
+			each renderOn: html]]
+! !
+
+!ClassesList class methodsFor: 'instance creation'!
+
+on: aBrowser
+	^self new 
+		browser: aBrowser; 
+		yourself
+! !
+
+Widget subclass: #ClassesListNode
+	instanceVariableNames: 'browser theClass level nodes'
+	category: 'IDE'!
+
+!ClassesListNode methodsFor: 'accessing'!
+
+nodes
+	^nodes ifNil: [nodes := self getNodes]
+!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
+!
+
+browser
+	^browser
+!
+
+browser: aBrowser
+	browser := aBrowser
+!
+
+level
+	^level
+!
+
+level: anInteger
+	level := anInteger
+!
+
+label
+	| str |
+	str := String new writeStream.
+	self level timesRepeat: [
+		str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
+	str nextPutAll: self theClass name.
+	^str contents
+!
+
+getNodes
+	^(self browser classes select: [:each |
+		each superclass = self theClass])
+			collect: [:each |
+				ClassesListNode on: each browser: self browser level: self level + 1]
+! !
+
+!ClassesListNode methodsFor: 'rendering'!
+
+renderOn: html
+	| li |
+	li := html li 
+		onClick: [self browser selectClass: self theClass].
+	li asJQuery contents: self label.
+	self browser selectedClass = self theClass ifTrue:  [
+		li class: 'selected'].
+	self nodes do: [:each |
+		each renderOn: html]
+! !
+
+!ClassesListNode class methodsFor: 'instance creation'!
+
+on: aClass browser: aBrowser level: anInteger
+	^self new
+		theClass: aClass;
+		browser: aBrowser;
+		level: anInteger;
+		yourself
 ! !
 
 !Object methodsFor: '*IDE'!
