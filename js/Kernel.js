@@ -1125,6 +1125,21 @@ referencedClasses: []
 }),
 smalltalk.Behavior);
 
+smalltalk.addMethod(
+'_methodAt_',
+smalltalk.method({
+selector: 'methodAt:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.methods(self)[aString];
+return self;},
+source: unescape('methodAt%3A%20aString%0A%09%3Creturn%20smalltalk.methods%28self%29%5BaString%5D%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel');

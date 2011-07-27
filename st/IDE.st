@@ -1502,11 +1502,10 @@ label
 !
 
 getNodesFrom: aCollection
-	| classes children others |
-	classes := aCollection.
+	| children others |
 	children := #().
 	others := #().
-	classes do: [:each |
+	aCollection do: [:each |
 		(each superclass = self theClass)
 			ifTrue: [children add: each]
 			ifFalse: [others add: each]].
@@ -1536,6 +1535,109 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 		level: anInteger;
 		getNodesFrom: aCollection;
 		yourself
+! !
+
+TabWidget subclass: #Debugger
+	instanceVariableNames: 'error selectedContext sourceArea ul'
+	category: 'IDE'!
+
+!Debugger methodsFor: 'accessing'!
+
+error
+	^error
+!
+
+error: anError
+	error := anError
+!
+
+label
+	^'[Debugger]'
+! !
+
+!Debugger methodsFor: 'actions'!
+
+selectContext: aContext
+	selectedContext := aContext.
+	self updateContextsList.
+	self updateSourceArea
+! !
+
+!Debugger methodsFor: 'rendering'!
+
+renderBoxOn: html
+    self 
+	renderTopPanelOn: html;
+	renderBottomPanelOn: html
+!
+
+renderTopPanelOn: html
+	selectedContext := self error context.
+	html div 
+		class: 'top'; 
+		with: [
+			html div 
+				class: 'label';
+				with: self error messageText.
+	    		ul := html ul 
+			class: 'jt_column debugger contexts';
+			with: [self renderContext: self error context on: html]]
+!
+
+renderContext: aContext on: html
+	| li |
+	li := html li.
+	selectedContext = aContext ifTrue: [
+		li class: 'selected'].
+	li 
+		with: aContext asString;
+		onClick: [self selectContext: aContext].
+	aContext home ifNotNil: [self renderContext: aContext home on: html]
+!
+
+renderBottomPanelOn: html
+    html div
+	class: 'jt_sourceCode';
+	with: [
+	    sourceArea := SourceArea new.
+	    sourceArea renderOn: html].
+    self updateSourceArea
+! !
+
+!Debugger methodsFor: 'testing'!
+
+canBeClosed
+    ^true
+! !
+
+!Debugger methodsFor: 'updating'!
+
+updateContextsList
+	ul contents: [:html |
+		self renderContext: self error context on: html]
+!
+
+updateSourceArea
+	 sourceArea val: (selectedContext receiver class methodAt: selectedContext selector) source
+! !
+
+ErrorHandler subclass: #DebugErrorHandler
+	instanceVariableNames: ''
+	category: 'IDE'!
+
+!DebugErrorHandler methodsFor: 'error handling'!
+
+handleError: anError
+	[Debugger new
+		error: anError;
+		open] on: Error do: [:error |
+			ErrorHandler new handleError: error]
+! !
+
+!DebugErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
 ! !
 
 !Object methodsFor: '*IDE'!

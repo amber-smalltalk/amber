@@ -369,6 +369,10 @@ allInstanceVariableNames
 	self superclass ifNotNil: [
 	    result addAll: self superclass allInstanceVariableNames].
 	^result
+!
+
+methodAt: aString
+	<return smalltalk.methods(self)[aString]>
 ! !
 
 !Behavior methodsFor: 'instance creation'!
