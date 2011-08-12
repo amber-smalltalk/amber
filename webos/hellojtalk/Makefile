@@ -1,16 +1,38 @@
-Program.js: HelloJtalk.st
-	../../bin/jtalkc -K -I HelloJtalk.st Program
+#
+# If you copy this file for an Enyo/Jtalk project, just
+# modify these first two lines
+# and then add .st files as you please. This Makefile
+# should pick them all up and compile into Program.js.
+#
+PACKAGE  := jtalk.hellojtalk
+VERSION  := 1.0.0
 
-jtalk.hellojtalk_1.0.0_all.ipk: Program.js
+# -E for Enyo, -O for Closure optimization of js code.
+FLAGS    := -E -O
+IPK      := $(PACKAGE)_$(VERSION)_all.ipk
+FILE     := Program
+SOURCES  := $(wildcard *.st)
+OBJECTS  := $(patsubst %.st,%.js,$(wildcard *.st))
+FILEJS   := $(FILE).js
+
+$(FILEJS): $(SOURCES)
+	../../bin/jtalkc $(FLAGS) $(SOURCES) $(FILE)
+
+$(IPK): $(FILEJS)
 	palm-package .
 
 clean:
-	rm -f Program.js HelloJtalk.js jtalk.hellojtalk_1.0.0_all.ipk
-	palm-install -r jtalk.hellojtalk
+	rm -f $(FILEJS) $(OBJECTS) $(IPK)
+	palm-install -r $(PACKAGE)
 
-install:jtalk.hellojtalk_1.0.0_all.ipk
-	palm-install jtalk.hellojtalk_1.0.0_all.ipk
+install: $(IPK)
+	palm-install $(IPK)
 
-run:    jtalk.hellojtalk_1.0.0_all.ipk
-	palm-install jtalk.hellojtalk_1.0.0_all.ipk
-	palm-launch jtalk.hellojtalk
+# If you want to run it in the emulator, start the emulator first with palm-emulator
+run:    $(IPK)
+	palm-install $(IPK)
+	palm-launch $(PACKAGE)
+
+# This should fire it up in Chromium (at least under Ubuntu)
+chromium: $(FILEJS)
+	chromium-browser --allow-file-access-from-files index.html
