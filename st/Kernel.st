@@ -253,6 +253,15 @@ readJSON: anObject
 
 at: aString
 	<return self[aString]>
+!
+
+removeClass: aClass
+	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
+	aClass methodDictionary values do: [:each |
+		aClass removeCompiledMethod: each].
+	aClass class methodDictionary values do: [:each |
+		aClass class removeCompiledMethod: each].
+	self basicDelete: aClass name
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -338,7 +347,8 @@ commentStamp
 
 removeCompiledMethod: aMethod
 	<delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector]>
+	delete self.fn.prototype.methods[aMethod.selector];
+	smalltalk.init(self);>
 !
 
 protocols
@@ -365,7 +375,7 @@ protocolsDo: aBlock
 
 allInstanceVariableNames
 	| result |
-	result := self instanceVariableNames.
+	result := self instanceVariableNames copy.
 	self superclass ifNotNil: [
 	    result addAll: self superclass allInstanceVariableNames].
 	^result
@@ -1422,6 +1432,14 @@ asCharacterParser
 
 asJSONObject
 	^self
+!
+
+asLowercase
+	<return self.toLowerCase()>
+!
+
+asUppercase
+	<return self.toUpperCase()>
 ! !
 
 !String methodsFor: 'copying'!
@@ -1641,6 +1659,17 @@ sorted
 
 sorted: aBlock
 	^self copy sorted: aBlock
+!
+
+printString
+	| str |
+	str := '' writeStream.
+	str nextPutAll: super printString, ' ('.
+	self 
+		do: [:each | str nextPutAll: each printString]
+		separatedBy: [str nextPutAll: ' '].
+	str nextPutAll: ')'.
+	^str contents
 ! !
 
 Object subclass: #RegularExpression

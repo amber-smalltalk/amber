@@ -786,6 +786,24 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+'_removeClass_',
+smalltalk.method({
+selector: 'removeClass:',
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifTrue_", [(function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [unescape("%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21")])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);})]);
+smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
+return self;},
+source: unescape('removeClass%3A%20aClass%0A%09aClass%20isMetaclass%20ifTrue%3A%20%5Bself%20error%3A%20aClass%20asString%2C%20%27%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21%27%5D.%0A%09aClass%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20removeCompiledMethod%3A%20each%5D.%0A%09aClass%20class%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20class%20removeCompiledMethod%3A%20each%5D.%0A%09self%20basicDelete%3A%20aClass%20name'),
+messageSends: ["ifTrue:", "isMetaclass", "error:", unescape("%2C"), "asString", "do:", "values", "methodDictionary", "removeCompiledMethod:", "class", "basicDelete:", "name"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -1049,8 +1067,9 @@ fn: function (aMethod){
 var self=this;
 delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
+	smalltalk.init(self);;
 return self;},
-source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%3Cdelete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%3E'),
+source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%3Cdelete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%3B%0A%09smalltalk.init%28self%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1115,12 +1134,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var result=nil;
-result=smalltalk.send(self, "_instanceVariableNames", []);
+result=smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_copy", []);
 smalltalk.send(smalltalk.send(self, "_superclass", []), "_ifNotNil_", [(function(){return smalltalk.send(result, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allInstanceVariableNames", [])]);})]);
 return result;
 return self;},
-source: unescape('allInstanceVariableNames%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20self%20instanceVariableNames.%0A%09self%20superclass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20result%20addAll%3A%20self%20superclass%20allInstanceVariableNames%5D.%0A%09%5Eresult'),
-messageSends: ["instanceVariableNames", "ifNotNil:", "superclass", "addAll:", "allInstanceVariableNames"],
+source: unescape('allInstanceVariableNames%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20self%20instanceVariableNames%20copy.%0A%09self%20superclass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20result%20addAll%3A%20self%20superclass%20allInstanceVariableNames%5D.%0A%09%5Eresult'),
+messageSends: ["copy", "instanceVariableNames", "ifNotNil:", "superclass", "addAll:", "allInstanceVariableNames"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -4386,6 +4405,36 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_asLowercase',
+smalltalk.method({
+selector: 'asLowercase',
+category: 'converting',
+fn: function (){
+var self=this;
+return self.toLowerCase();
+return self;},
+source: unescape('asLowercase%0A%09%3Creturn%20self.toLowerCase%28%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_asUppercase',
+smalltalk.method({
+selector: 'asUppercase',
+category: 'converting',
+fn: function (){
+var self=this;
+return self.toUpperCase();
+return self;},
+source: unescape('asUppercase%0A%09%3Creturn%20self.toUpperCase%28%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -4757,6 +4806,26 @@ self.splice(aNumber - 1,anotherNumber - 1);
 return self;},
 source: unescape('removeFrom%3A%20aNumber%20to%3A%20anotherNumber%0A%09%3Cself.splice%28aNumber%20-%201%2CanotherNumber%20-%201%29%3E'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'enumerating',
+fn: function (){
+var self=this;
+var str=nil;
+str=smalltalk.send("", "_writeStream", []);
+smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection), "__comma", [unescape("%20%28")])]);
+smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
+smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);
+return smalltalk.send(str, "_contents", []);
+return self;},
+source: unescape('printString%0A%09%7C%20str%20%7C%0A%09str%20%3A%3D%20%27%27%20writeStream.%0A%09str%20nextPutAll%3A%20super%20printString%2C%20%27%20%28%27.%0A%09self%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20str%20nextPutAll%3A%20each%20printString%5D%0A%09%09separatedBy%3A%20%5Bstr%20nextPutAll%3A%20%27%20%27%5D.%0A%09str%20nextPutAll%3A%20%27%29%27.%0A%09%5Estr%20contents'),
+messageSends: ["writeStream", "nextPutAll:", unescape("%2C"), "printString", "do:separatedBy:", "contents"],
 referencedClasses: []
 }),
 smalltalk.Array);

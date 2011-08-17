@@ -7,7 +7,6 @@ body.jtalkBody {
     font-family: helvetica,arial,sans;
     font-size: 12px;
     line-height: 1;
-    background: white;
     z-index: 1001;
     bottom: 0;
     left: 0;
@@ -15,7 +14,7 @@ body.jtalkBody {
     margin: 0;
     padding: 0 0 3px 0;
     height: 20px;
-    background: white;
+    background: transparent;
 }
 #jtalkTabs li {
     list-style-type: none;

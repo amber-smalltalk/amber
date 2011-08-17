@@ -288,7 +288,7 @@ return (function($rec){smalltalk.send($rec, "_receiver_", [smalltalk.send(self, 
 return self;},
 source: unescape('cascadeNodeWithMessages%3A%20aCollection%0A%09%7C%20first%20%7C%0A%09first%20%3A%3D%20SendNode%20new%0A%09%20%20%20%20selector%3A%20self%20selector%3B%0A%09%20%20%20%20arguments%3A%20self%20arguments%3B%0A%09%20%20%20%20yourself.%0A%09%5ECascadeNode%20new%0A%09%20%20%20%20receiver%3A%20self%20receiver%3B%0A%09%20%20%20%20nodes%3A%20%28Array%20with%3A%20first%29%2C%20aCollection%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["selector:", "selector", "arguments:", "arguments", "yourself", "new", "receiver:", "receiver", "nodes:", unescape("%2C"), "with:"],
-referencedClasses: [smalltalk.SendNode,smalltalk.Array,smalltalk.CascadeNode]
+referencedClasses: [smalltalk.SendNode,smalltalk.Array,smalltalk.nil]
 }),
 smalltalk.SendNode);
 
@@ -525,7 +525,7 @@ return (function($rec){smalltalk.send($rec, "_nodes_", [smalltalk.send(self, "_n
 return self;},
 source: unescape('asBlockSequenceNode%0A%09%5EBlockSequenceNode%20new%0A%09%20%20%20%20nodes%3A%20self%20nodes%3B%0A%09%20%20%20%20temps%3A%20self%20temps%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["nodes:", "nodes", "temps:", "temps", "yourself", "new"],
-referencedClasses: [smalltalk.BlockSequenceNode]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.SequenceNode);
 
@@ -1005,7 +1005,7 @@ return smalltalk.send(smalltalk.send(smalltalk.DoIt, "_new", []), "_doIt", []);
 return self;},
 source: unescape('loadExpression%3A%20aString%0A%09DoIt%20addCompiledMethod%3A%20%28self%20eval%3A%20%28self%20compileExpression%3A%20aString%29%29.%0A%09%5EDoIt%20new%20doIt'),
 messageSends: ["addCompiledMethod:", "eval:", "compileExpression:", "doIt", "new"],
-referencedClasses: [smalltalk.DoIt]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Compiler);
 
@@ -1055,7 +1055,7 @@ return smalltalk.send(self, "_compileNode_", [smalltalk.send(self, "_parseExpres
 return self;},
 source: unescape('compileExpression%3A%20aString%0A%09self%20currentClass%3A%20DoIt.%0A%09%5Eself%20compileNode%3A%20%28self%20parseExpression%3A%20aString%29'),
 messageSends: ["currentClass:", "compileNode:", "parseExpression:"],
-referencedClasses: [smalltalk.DoIt]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Compiler);
 
@@ -1341,10 +1341,10 @@ selector: 'visitVariableNode:',
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentClass", []), "_instanceVariableNames", []), "_includes_", [smalltalk.send(aNode, "_value", [])]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("self%5B%27@"), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%27%5D")])]);}), (function(){smalltalk.send(smalltalk.send(smalltalk.send(self, "_knownVariables", []), "_includes_", [smalltalk.send(aNode, "_value", [])]), "_ifFalse_", [(function(){return smalltalk.send(self['@unknownVariables'], "_add_", [smalltalk.send(aNode, "_value", [])]);})]);return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(aNode, "_value", [])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentClass", []), "_allInstanceVariableNames", []), "_includes_", [smalltalk.send(aNode, "_value", [])]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("self%5B%27@"), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%27%5D")])]);}), (function(){smalltalk.send(smalltalk.send(smalltalk.send(self, "_knownVariables", []), "_includes_", [smalltalk.send(aNode, "_value", [])]), "_ifFalse_", [(function(){return smalltalk.send(self['@unknownVariables'], "_add_", [smalltalk.send(aNode, "_value", [])]);})]);return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(aNode, "_value", [])]);})]);
 return self;},
-source: unescape('visitVariableNode%3A%20aNode%0A%09%28self%20currentClass%20instanceVariableNames%20includes%3A%20aNode%20value%29%20%0A%09%09ifTrue%3A%20%5Bstream%20nextPutAll%3A%20%27self%5B%27%27@%27%2C%20aNode%20value%2C%20%27%27%27%5D%27%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09%28self%20knownVariables%20includes%3A%20aNode%20value%29%20ifFalse%3A%20%5B%0A%09%09%09%09unknownVariables%20add%3A%20aNode%20value%5D.%0A%09%09%09stream%20nextPutAll%3A%20aNode%20value%5D'),
-messageSends: ["ifTrue:ifFalse:", "includes:", "instanceVariableNames", "currentClass", "value", "nextPutAll:", unescape("%2C"), "ifFalse:", "knownVariables", "add:"],
+source: unescape('visitVariableNode%3A%20aNode%0A%09%28self%20currentClass%20allInstanceVariableNames%20includes%3A%20aNode%20value%29%20%0A%09%09ifTrue%3A%20%5Bstream%20nextPutAll%3A%20%27self%5B%27%27@%27%2C%20aNode%20value%2C%20%27%27%27%5D%27%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09%28self%20knownVariables%20includes%3A%20aNode%20value%29%20ifFalse%3A%20%5B%0A%09%09%09%09unknownVariables%20add%3A%20aNode%20value%5D.%0A%09%09%09stream%20nextPutAll%3A%20aNode%20value%5D'),
+messageSends: ["ifTrue:ifFalse:", "includes:", "allInstanceVariableNames", "currentClass", "value", "nextPutAll:", unescape("%2C"), "ifFalse:", "knownVariables", "add:"],
 referencedClasses: []
 }),
 smalltalk.Compiler);
@@ -1482,7 +1482,7 @@ smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []
 return self;},
 source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09Transcript%20show%3A%20each%3B%20cr.%0A%09%09%5Bself%20recompile%3A%20each%5D%20valueWithTimeout%3A%20100%5D'),
 messageSends: ["do:", "classes", "current", "show:", "cr", "valueWithTimeout:", "recompile:"],
-referencedClasses: [smalltalk.Smalltalk,smalltalk.Transcript]
+referencedClasses: [smalltalk.Smalltalk,smalltalk.nil]
 }),
 smalltalk.Compiler);
 
@@ -1573,11 +1573,11 @@ selector: 'doIt',
 category: '',
 fn: function (){
 var self=this;
-return smalltalk.send((function(){return smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_recompileAll", []);}), "_value", []);
+return smalltalk.send((function(){return smalltalk.send(smalltalk.ESUG2011Presentation, "_new", []);}), "_value", []);
 return self;},
-source: unescape('doIt%20%5E%5BCompiler%20new%20recompileAll%5D%20value'),
-messageSends: ["value", "recompileAll", "new"],
-referencedClasses: [smalltalk.Compiler]
+source: unescape('doIt%20%5E%5BESUG2011Presentation%20new%5D%20value'),
+messageSends: ["value", "new"],
+referencedClasses: [smalltalk.ESUG2011Presentation]
 }),
 smalltalk.DoIt);
 

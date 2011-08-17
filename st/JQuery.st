@@ -237,6 +237,10 @@ fromElement: anElement
     | newJQuery |
     <newJQuery = jQuery(anElement)>.
     ^self from: newJQuery
+!
+
+documentReady: aBlock
+	<jQuery(document).ready(aBlock)>
 ! !
 
 Object subclass: #Ajax

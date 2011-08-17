@@ -710,6 +710,21 @@ referencedClasses: []
 }),
 smalltalk.JQuery.klass);
 
+smalltalk.addMethod(
+'_documentReady_',
+smalltalk.method({
+selector: 'documentReady:',
+category: 'instance creation',
+fn: function (aBlock){
+var self=this;
+jQuery(document).ready(aBlock);
+return self;},
+source: unescape('documentReady%3A%20aBlock%0A%09%3CjQuery%28document%29.ready%28aBlock%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery.klass);
+
 
 smalltalk.addClass('Ajax', smalltalk.Object, ['settings'], 'JQuery');
 smalltalk.Ajax.comment=unescape('instance%20variable%20names%3A%0A-%20settings%20%20A%20set%20of%20key/value%20pairs%20that%20configure%20the%20Ajax%20request.%20All%20settings%20are%20optional.%0A%0AFull%20list%20of%20settings%20options%20at%20http%3A//api.jquery.com/jQuery.ajax/')
