@@ -102,11 +102,6 @@ function Smalltalk(){
 	var subclasses = st.subclasses(klass);
 	var methods;
 
-	// Initializing inst vars
-	for(var i=0;i<klass.iVarNames.length;i++) {
-	    klass.fn.prototype["@"+klass.iVarNames[i]] = nil;
-	}
-
 	if(klass.superclass && klass.superclass !== nil) {
 	    methods = st.methods(klass.superclass);
 
@@ -115,13 +110,6 @@ function Smalltalk(){
 		if(!klass.fn.prototype.methods[i]) {
 		    klass.fn.prototype.inheritedMethods[i] = methods[i];
 		    klass.fn.prototype[methods[i].jsSelector] = methods[i].fn;
-		}
-	    }
-
-	    //Instance variables linking
-	    for(var i=0;i<klass.superclass.iVarNames.length;i++) {
-		if(!klass["@"+klass.superclass.iVarNames[i]]) {
-		    klass.fn.prototype["@"+klass.superclass.iVarNames[i]] = nil;
 		}
 	    }
 	}

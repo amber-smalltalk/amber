@@ -588,7 +588,7 @@ cancelChanges
 removeClass
     (self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
-	    Smalltalk current basicDelete: selectedClass name.
+	    Smalltalk current removeClass: selectedClass.
 	    self resetClassesList.
 	    self selectClass: nil]
 !
@@ -1710,6 +1710,7 @@ inspectOn: anInspector
 	variables at: '#home' put: self home.
 	variables at: '#receiver' put: self receiver.
 	variables at: '#selector' put: self selector.
+	variables at: '#temps' put: self temps.
 	self class instanceVariableNames do: [:each |
 		variables at: each put: (self instVarAt: each)].
 	anInspector 

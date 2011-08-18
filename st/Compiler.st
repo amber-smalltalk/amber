@@ -654,7 +654,7 @@ visitClassReferenceNode: aNode
 !
 
 visitVariableNode: aNode
-	(self currentClass instanceVariableNames includes: aNode value) 
+	(self currentClass allInstanceVariableNames includes: aNode value) 
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
 			(self knownVariables includes: aNode value) ifFalse: [
@@ -691,6 +691,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[Compiler new recompileAll] value
+doIt ^[ESUG2011Presentation new] value
 ! !
 
