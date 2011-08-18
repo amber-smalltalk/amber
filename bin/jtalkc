@@ -7,12 +7,11 @@ JTALK=$(readlink -f `dirname ${0}`/..)
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
-          [-i] [-I file] [file1 [file2 ...]] [Program]
+Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
+          [-i] [-I file] file1 [file2 ...] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
-   program. If no files are listed only a linking stage is performed.
-   Files listed will be handled using these rules:
+   program. Files listed will be handled using these rules:
 
    *.js
      Files are concatenated in listed order.
@@ -35,13 +34,10 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
      is added last.
 
   -K
-     Add libraries to get minimal Jtalk Kernel running.
+     Add libraries to get minimal JTalk Kernel running.
 
   -C
-     Add libraries to get minimal Jtalk Compiler running.
-
-  -J
-     Add libraries to get minimal Jtalk IDE running.
+     Add libraries to get minimal JTalk Compiler running.
 
   -o
      Optimize each js file using the Google closure compiler.
@@ -50,13 +46,6 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
   -O
      Optimize final <Program>.js using the Google closure compiler.
      Using Closure at ~/compiler.jar    
-
-  -g
-     Compile Jtalk code in debug mode - include source and references etc.
-
-  -p prefix
-     Add <prefix> to compiled js files so that File.st is compiled into
-     <prefix>File.st.
 
   -l library1,library2
      Load listed libraries (no spaces) into Compiler before compiling.
@@ -106,11 +95,10 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-BOOT="boot.js"
-KERNEL="$BOOT Kernel.js"
-COMPILER="$KERNEL Parser.js Compiler.js"
-CANVAS="$COMPILER Canvas.js"
-IDE="$CANVAS JQuery.js IDE.js SUnit.js Examples.js"
+BOOT="$JTALK/js/boot.js"
+KERNEL="$BOOT $JTALK/js/Kernel.js"
+COMPILER="$KERNEL $JTALK/js/Parser.js $JTALK/js/Compiler.js"
+KITCHENSINK="$COMPILER $JTALK/js/Canvas.js"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
@@ -120,17 +108,12 @@ ENV=
 INIT=
 MAIN=
 MAINFILE=
-BASE=
+BASE=$KERNEL
 LOAD=
 LOADANDADD=
-# Ok, bad coding practice but hey, who would use such a prefix?
-PREFIX=no-silly-prefix
-PREFIXUSED=
-DEBUG=false
-NODECOMPILE=nodecompile.js
 
 # Read options and shift them away
-while getopts "NDEKCJoOgp:l:L:i:IM:m:h?" o; do
+while getopts "NDEKCoOl:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -138,19 +121,15 @@ case "$o" in
    D) ENV=D8
       BASE=$KERNEL
       INIT=$INITIALIZER;;
-   E) ENV=ENYO
+   D) ENV=ENYO
       BASE=$KERNEL
       INIT=$INITIALIZER;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
-   J) BASE=$IDE;;
    o) CLOSURE=true
       CLOSUREPARTS=true;;
    O) CLOSURE=true
       CLOSUREFULL=true;;
-   g) DEBUG=true;;
-   p) PREFIX=$OPTARG
-      PREFIXUSED=$PREFIX;;
    l) LOAD=$OPTARG;;
    L) LOADANDADD=$OPTARG;;
    I) INIT=$INITIALIZER;;
@@ -191,13 +170,6 @@ function resolvejs {
   fi
 }
 
-# Resolve listed libraries in $BASE separated by spaces
-for FILE in $BASE
-do
-   resolvejs $FILE
-   TOBASE="$TOBASE $RESOLVED"
-done
-
 # Resolve listed libraries in $LOAD separated by spaces
 LOAD=${LOAD//,/\ }
 for FILE in $LOAD
@@ -216,17 +188,10 @@ do
 done
 
 # Define our Compiler loading supplied libraries
-OURCOMPILER="$COMPILER $TOLOAD init.js $JTALK/nodejs/$NODECOMPILE"
-
-# Resolve OURCOMPILER
-for FILE in $OURCOMPILER
-do
-   resolvejs $FILE
-   TOOURCOMPILER="$TOOURCOMPILER $RESOLVED"
-done
+OURCOMPILER="$KITCHENSINK $TOLOAD $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
 
 # Add supplied libraries
-LIBS="$TOBASE $TOADD"
+LIBS="$BASE $TOADD"
 
 # Get a unique tempdir and make it get auto removed on exit
 TMPDIR=`mktemp -d`
@@ -245,11 +210,11 @@ do
         CATEGORY=`basename $1 .st`
         if [ -f "$1" ]; then
            COMPILE="$COMPILE $1 $CATEGORY"
-           COMPILED="$COMPILED $PREFIXUSED$CATEGORY.js"
+           COMPILED="$COMPILED $CATEGORY.js"
         else
            if [ -f $JTALK/st/$1 ]; then
              COMPILE="$COMPILE $JTALK/st/$1 $CATEGORY"
-             COMPILED="$COMPILED $PREFIXUSED$CATEGORY.js"
+             COMPILED="$COMPILED $CATEGORY.js"
            else
              echo "JTalk file not found: $1"
              exit 1
@@ -274,11 +239,11 @@ done
 # --------------------------------------------------
 
 # Create compiler dynamically
-cat $TOOURCOMPILER > $TMPDIR/compiler.js
- 
+cat $OURCOMPILER > $TMPDIR/compiler.js
+
 # Compile all collected .st files to .js
-echo "Loading libraries $TOOURCOMPILER and compiling ..."
-node $TMPDIR/compiler.js $DEBUG $PREFIX $COMPILE
+echo "Loading libraries $KITCHENSINK $TOLOAD and compiling ..."
+node $TMPDIR/compiler.js $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "

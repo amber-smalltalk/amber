@@ -80,6 +80,7 @@ parseAll: aStream
 	    ifFalse: [result first]
 ! !
 
+smalltalk.setup(smalltalk.PPParser);
 PPParser subclass: #PPEOFParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -93,6 +94,7 @@ parse: aStream
 	    ifTrue: [nil]
 ! !
 
+smalltalk.setup(smalltalk.PPEOFParser);
 PPParser subclass: #PPAnyParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -106,6 +108,7 @@ parse: aStream
 	    ifFalse: [aStream next]
 ! !
 
+smalltalk.setup(smalltalk.PPAnyParser);
 PPParser subclass: #PPEpsilonParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -116,6 +119,7 @@ parse: aStream
 	^nil
 ! !
 
+smalltalk.setup(smalltalk.PPEpsilonParser);
 PPParser subclass: #PPStringParser
 	instanceVariableNames: 'string'
 	category: 'Parser'!
@@ -143,6 +147,7 @@ parse: aStream
 		PPFailure new reason: 'Expected ', self string, ' but got ', (result at: position) printString; yourself]
 ! !
 
+smalltalk.setup(smalltalk.PPStringParser);
 PPParser subclass: #PPCharacterParser
 	instanceVariableNames: 'regexp'
 	category: 'Parser'!
@@ -167,6 +172,7 @@ match: aString
 	^aString match: regexp
 ! !
 
+smalltalk.setup(smalltalk.PPCharacterParser);
 PPParser subclass: #PPListParser
 	instanceVariableNames: 'parsers'
 	category: 'Parser'!
@@ -199,6 +205,7 @@ with: aParser with: anotherParser
 	    ^self withAll: (Array with: aParser with: anotherParser)
 ! !
 
+smalltalk.setup(smalltalk.PPListParser);
 PPListParser subclass: #PPSequenceParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -226,6 +233,7 @@ parse: aStream
 	    ifTrue: [aStream position: start. element]
 ! !
 
+smalltalk.setup(smalltalk.PPSequenceParser);
 PPListParser subclass: #PPChoiceParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -248,6 +256,7 @@ parse: aStream
 	^result
 ! !
 
+smalltalk.setup(smalltalk.PPChoiceParser);
 PPParser subclass: #PPDelegateParser
 	instanceVariableNames: 'parser'
 	category: 'Parser'!
@@ -276,6 +285,7 @@ on: aParser
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.PPDelegateParser);
 PPDelegateParser subclass: #PPAndParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -294,6 +304,7 @@ basicParse: aStream
 	^element
 ! !
 
+smalltalk.setup(smalltalk.PPAndParser);
 PPAndParser subclass: #PPNotParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -308,6 +319,7 @@ parse: aStream
 	    ifFalse: [PPFailure reason: element at: aStream position]
 ! !
 
+smalltalk.setup(smalltalk.PPNotParser);
 PPDelegateParser subclass: #PPActionParser
 	instanceVariableNames: 'block'
 	category: 'Parser'!
@@ -341,6 +353,7 @@ on: aParser block: aBlock
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.PPActionParser);
 PPDelegateParser subclass: #PPFlattenParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -358,6 +371,7 @@ parse: aStream
 		to: aStream position]
 ! !
 
+smalltalk.setup(smalltalk.PPFlattenParser);
 PPDelegateParser subclass: #PPSourceParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -374,6 +388,7 @@ parse: aStream
 			Array with: element with: result].
 ! !
 
+smalltalk.setup(smalltalk.PPSourceParser);
 PPDelegateParser subclass: #PPRepeatingParser
 	instanceVariableNames: 'min'
 	category: 'Parser'!
@@ -419,6 +434,7 @@ on: aParser min: aNumber
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.PPRepeatingParser);
 Object subclass: #PPFailure
 	instanceVariableNames: 'position reason'
 	category: 'Parser'!
@@ -469,6 +485,7 @@ reason: aString at: anInteger
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.PPFailure);
 Object subclass: #SmalltalkParser
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -653,6 +670,7 @@ parse: aStream
 		parse: aStream
 ! !
 
+smalltalk.setup(smalltalk.SmalltalkParser);
 Object subclass: #Chunk
 	instanceVariableNames: 'contents'
 	category: 'Parser'!
@@ -677,6 +695,7 @@ isInstructionChunk
 	^false
 ! !
 
+smalltalk.setup(smalltalk.Chunk);
 Chunk subclass: #InstructionChunk
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -687,6 +706,7 @@ isInstructionChunk
 	^true
 ! !
 
+smalltalk.setup(smalltalk.InstructionChunk);
 Chunk subclass: #EmptyChunk
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -697,6 +717,7 @@ isEmptyChunk
 	^true
 ! !
 
+smalltalk.setup(smalltalk.EmptyChunk);
 Object subclass: #ChunkParser
 	instanceVariableNames: 'parser separator eof ws chunk emptyChunk instructionChunk'
 	category: 'Parser'!
@@ -737,6 +758,7 @@ emptyChunk
 	^emptyChunk ifNil: [emptyChunk := self separator plus, '!!' asParser, self ws ==> [:node | EmptyChunk new]]
 ! !
 
+smalltalk.setup(smalltalk.ChunkParser);
 Object subclass: #Importer
 	instanceVariableNames: 'chunkParser'
 	category: 'Parser'!
@@ -761,6 +783,7 @@ import: aStream
 		self import: aStream]]
 ! !
 
+smalltalk.setup(smalltalk.Importer);
 Object subclass: #Exporter
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -784,6 +807,7 @@ export: aClass
 	self exportMethodsOf: aClass on: stream.
 	self exportMetaDefinitionOf: aClass on: stream.
 	self exportMethodsOf: aClass class on: stream.
+	self exportSetupOf: aClass on: stream.
 	^stream contents
 ! !
 
@@ -865,8 +889,16 @@ exportCategoryExtensions: aString on: aStream
 		each methodDictionary values do: [:method |
 			method category = ('*', aString) ifTrue: [
 				self exportMethod: method of: each on: aStream]]]
+!
+
+exportSetupOf: aClass on: aStream
+	aStream
+	    nextPutAll: 'smalltalk.setup(smalltalk.', (self classNameFor: aClass);
+	    nextPutAll: ');'.
+	aStream lf
 ! !
 
+smalltalk.setup(smalltalk.Exporter);
 Exporter subclass: #ChunkExporter
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -959,6 +991,7 @@ exportMethods: methods category: category of: aClass on: aStream
 	aStream nextPutAll: ' !!'; lf; lf
 ! !
 
+smalltalk.setup(smalltalk.ChunkExporter);
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
 	category: 'Parser'!
@@ -987,7 +1020,6 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
-		nextPutAll: 'category: ''', aMethod category, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: ']';lf;
 		nextPutAll: '}),';lf;
@@ -995,3 +1027,4 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: ');';lf;lf
 ! !
 
+smalltalk.setup(smalltalk.StrippedExporter);

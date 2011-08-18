@@ -35,6 +35,7 @@ renderOn: html
 	onClick: [self decrease]
 ! !
 
+smalltalk.setup(smalltalk.Counter);
 Widget subclass: #Tetris
 	instanceVariableNames: 'renderingContext timer speed score rows movingPiece'
 	category: 'Examples'!
@@ -190,6 +191,7 @@ squares
 	^10@15
 ! !
 
+smalltalk.setup(smalltalk.Tetris);
 Widget subclass: #TetrisPiece
 	instanceVariableNames: 'rotation position'
 	category: 'Examples'!
@@ -252,6 +254,7 @@ atRandom
 	^(self subclasses at: self subclasses size atRandom) new
 ! !
 
+smalltalk.setup(smalltalk.TetrisPiece);
 TetrisPiece subclass: #TetrisPieceO
 	instanceVariableNames: ''
 	category: 'Examples'!
@@ -267,6 +270,7 @@ bounds
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.TetrisPieceO);
 TetrisPiece subclass: #TetrisPieceL
 	instanceVariableNames: ''
 	category: 'Examples'!
@@ -290,6 +294,7 @@ height
 	^3
 ! !
 
+smalltalk.setup(smalltalk.TetrisPieceL);
 TetrisPiece subclass: #TetrisPieceJ
 	instanceVariableNames: ''
 	category: 'Examples'!
@@ -313,6 +318,7 @@ height
 	^3
 ! !
 
+smalltalk.setup(smalltalk.TetrisPieceJ);
 TetrisPiece subclass: #TetrisPieceI
 	instanceVariableNames: ''
 	category: 'Examples'!
@@ -336,6 +342,7 @@ height
 	^4
 ! !
 
+smalltalk.setup(smalltalk.TetrisPieceI);
 TetrisPiece subclass: #TetrisPieceT
 	instanceVariableNames: ''
 	category: 'Examples'!
@@ -355,3 +362,4 @@ color
 	^'#aaf'
 ! !
 
+smalltalk.setup(smalltalk.TetrisPieceT);

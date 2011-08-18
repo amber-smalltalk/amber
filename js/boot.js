@@ -47,7 +47,6 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
-    st.debugMode = true;
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -121,6 +120,11 @@ function Smalltalk(){
 	    st.init(klass.klass);
 	}
     };
+
+    st.setup = function(klass) {
+	st.init(klass);
+	klass._initialize();
+    }
 
     /* Answer all registered Smalltalk classes */
 
@@ -262,11 +266,6 @@ function Smalltalk(){
 	return messageNotUnderstood(receiver, selector, args);
     };
 
-    /*  */
-
-    st.send = sendWithContext;
-
-
     /* Handles Smalltalk errors. Triggers the registered ErrorHandler 
        (See the Smalltalk class ErrorHandler and its subclasses */
     
@@ -387,6 +386,18 @@ function Smalltalk(){
 	}
 	return object;
     };
+
+    /* Toggle deployment mode (no context will be handled during message send */
+    st.setDeploymentMode = function() {
+	st.send = sendWithoutContext;
+    };
+
+    st.setDevelopmentMode = function() {
+	st.send = sendWithContext;
+    }
+
+    /* Set development mode by default */
+    st.setDevelopmentMode();
 }
 
 function SmalltalkMethodContext(spec) {

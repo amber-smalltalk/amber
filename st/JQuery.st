@@ -243,6 +243,7 @@ documentReady: aBlock
 	<jQuery(document).ready(aBlock)>
 ! !
 
+smalltalk.setup(smalltalk.JQuery);
 Object subclass: #Ajax
 	instanceVariableNames: 'settings'
 	category: 'JQuery'!
@@ -291,6 +292,7 @@ url: aString
 	yourself
 ! !
 
+smalltalk.setup(smalltalk.Ajax);
 !BlockClosure methodsFor: '*JQuery'!
 
 appendToJQuery: aJQuery

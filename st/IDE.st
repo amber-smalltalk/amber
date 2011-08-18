@@ -167,6 +167,7 @@ new
     self shouldNotImplement
 ! !
 
+smalltalk.setup(smalltalk.TabManager);
 Widget subclass: #TabWidget
 	instanceVariableNames: 'div'
 	category: 'IDE'!
@@ -237,6 +238,7 @@ open
     ^self new open
 ! !
 
+smalltalk.setup(smalltalk.TabWidget);
 TabWidget subclass: #Workspace
 	instanceVariableNames: 'sourceArea'
 	category: 'IDE'!
@@ -290,6 +292,7 @@ renderButtonsOn: html
 	onClick: [self clearWorkspace]
 ! !
 
+smalltalk.setup(smalltalk.Workspace);
 TabWidget subclass: #Transcript
 	instanceVariableNames: 'textarea'
 	category: 'IDE'!
@@ -360,6 +363,7 @@ clear
     self current clear
 ! !
 
+smalltalk.setup(smalltalk.Transcript);
 TabWidget subclass: #Browser
 	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges input'
 	category: 'IDE'!
@@ -568,6 +572,11 @@ compileDefinition
 commitCategory
     selectedCategory ifNotNil: [
 	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
+	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    send.
+	(Ajax url: self class commitPathJs, '/', selectedCategory, '.deploy.js')
 	    at: 'type' put: 'PUT';
 	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
@@ -957,6 +966,7 @@ open
     self new open
 ! !
 
+smalltalk.setup(smalltalk.Browser);
 TabWidget subclass: #Inspector
 	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea workspaceTextarea diveButton'
 	category: 'IDE'!
@@ -1093,6 +1103,7 @@ on: anObject
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.Inspector);
 TabWidget subclass: #ReferencesBrowser
 	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
 	category: 'IDE'!
@@ -1270,6 +1281,7 @@ search: aString
 		open
 ! !
 
+smalltalk.setup(smalltalk.ReferencesBrowser);
 Widget subclass: #SourceArea
 	instanceVariableNames: 'textarea'
 	category: 'IDE'!
@@ -1395,6 +1407,7 @@ renderOn: html
 	at: 'spellcheck' put: 'false'
 ! !
 
+smalltalk.setup(smalltalk.SourceArea);
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	category: 'IDE'!
@@ -1458,6 +1471,7 @@ on: aBrowser
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.ClassesList);
 Widget subclass: #ClassesListNode
 	instanceVariableNames: 'browser theClass level nodes'
 	category: 'IDE'!
@@ -1537,6 +1551,7 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 		yourself
 ! !
 
+smalltalk.setup(smalltalk.ClassesListNode);
 TabWidget subclass: #Debugger
 	instanceVariableNames: 'error selectedContext sourceArea ul'
 	category: 'IDE'!
@@ -1621,6 +1636,7 @@ updateSourceArea
 	 sourceArea val: (selectedContext receiver class methodAt: selectedContext selector) source
 ! !
 
+smalltalk.setup(smalltalk.Debugger);
 ErrorHandler subclass: #DebugErrorHandler
 	instanceVariableNames: ''
 	category: 'IDE'!
@@ -1640,6 +1656,7 @@ initialize
 	self register
 ! !
 
+smalltalk.setup(smalltalk.DebugErrorHandler);
 !Object methodsFor: '*IDE'!
 
 inspect
