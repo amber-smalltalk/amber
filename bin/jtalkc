@@ -49,7 +49,9 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
 
   -O
      Optimize final <Program>.js using the Google closure compiler.
-     Using Closure at ~/compiler.jar    
+     Using Closure at ~/compiler.jar
+
+  -A Use --compilation_level ADVANCED_OPTIMIZATIONS for the closure compiler.  
 
   -g
      Compile Jtalk code in debug mode - include source and references etc.
@@ -123,6 +125,7 @@ MAINFILE=
 BASE=
 LOAD=
 LOADANDADD=
+CLOSUREOPTS=
 # Ok, bad coding practice but hey, who would use such a prefix?
 PREFIX=no-silly-prefix
 PREFIXUSED=
@@ -130,7 +133,7 @@ DEBUG=false
 NODECOMPILE=nodecompile.js
 
 # Read options and shift them away
-while getopts "NDEKCJoOgp:l:L:i:IM:m:h?" o; do
+while getopts "NDEKCJoOAgp:l:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -147,6 +150,9 @@ case "$o" in
    o) CLOSURE=true
       CLOSUREPARTS=true;;
    O) CLOSURE=true
+      CLOSUREFULL=true;;
+   A) CLOSURE=true
+      CLOSUREOPTS="$CLOSUREOPTS --compilation_level ADVANCED_OPTIMIZATIONS"
       CLOSUREFULL=true;;
    g) DEBUG=true;;
    p) PREFIX=$OPTARG
@@ -172,7 +178,7 @@ if [ ! -z $CLOSURE ]; then
       exit 1
     fi
   else
-   echo "java is not installed and is needed for -O or -o (Closure compiler)."
+   echo "java is not installed and is needed for -O, -A or -o (Closure compiler)."
    exit 1
   fi
 fi
@@ -297,7 +303,7 @@ if [ ! -z $CLOSUREPARTS ]; then
   for FILE in $ALLJSFILES
   do
     mv $FILE $FILE.original
-    java -jar ~/compiler.jar --js $FILE.original --js_output_file $FILE
+    java -jar ~/compiler.jar $CLOSUREOPTS --js $FILE.original --js_output_file $FILE
     rm $FILE.original
   done
 fi
@@ -358,7 +364,7 @@ echo "Done."
 if [ ! -z $CLOSUREFULL ]; then
   echo "Compiling $PROGRAM.js file using Google closure compiler."
   mv $PROGRAM.js $PROGRAM.js.original
-  java -jar ~/compiler.jar --js $PROGRAM.js.original --js_output_file $PROGRAM.js
+  java -jar ~/compiler.jar $CLOSUREOPTS --js $PROGRAM.js.original --js_output_file $PROGRAM.js
   rm $PROGRAM.js.original
   echo "Done."
 fi
