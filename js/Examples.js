@@ -66,6 +66,7 @@ smalltalk.Counter);
 
 
 
+smalltalk.setup(smalltalk.Counter);
 smalltalk.addClass('Tetris', smalltalk.Widget, ['renderingContext', 'timer', 'speed', 'score', 'rows', 'movingPiece'], 'Examples');
 smalltalk.addMethod(
 '_width',
@@ -271,7 +272,7 @@ self['@movingPiece']=smalltalk.send(smalltalk.TetrisPiece, "_atRandom", []);
 return self;},
 source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom'),
 messageSends: ["atRandom"],
-referencedClasses: []
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Tetris);
 
@@ -434,6 +435,7 @@ referencedClasses: []
 smalltalk.Tetris.klass);
 
 
+smalltalk.setup(smalltalk.Tetris);
 smalltalk.addClass('TetrisPiece', smalltalk.Widget, ['rotation', 'position'], 'Examples');
 smalltalk.addMethod(
 '_rotation',
@@ -603,6 +605,7 @@ referencedClasses: []
 smalltalk.TetrisPiece.klass);
 
 
+smalltalk.setup(smalltalk.TetrisPiece);
 smalltalk.addClass('TetrisPieceO', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
 '_bounds',
@@ -621,6 +624,7 @@ smalltalk.TetrisPieceO);
 
 
 
+smalltalk.setup(smalltalk.TetrisPieceO);
 smalltalk.addClass('TetrisPieceL', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
 '_bounds',
@@ -669,6 +673,7 @@ smalltalk.TetrisPieceL);
 
 
 
+smalltalk.setup(smalltalk.TetrisPieceL);
 smalltalk.addClass('TetrisPieceJ', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
 '_color',
@@ -717,6 +722,7 @@ smalltalk.TetrisPieceJ);
 
 
 
+smalltalk.setup(smalltalk.TetrisPieceJ);
 smalltalk.addClass('TetrisPieceI', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
 '_color',
@@ -765,6 +771,7 @@ smalltalk.TetrisPieceI);
 
 
 
+smalltalk.setup(smalltalk.TetrisPieceI);
 smalltalk.addClass('TetrisPieceT', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
 '_bounds',
@@ -798,3 +805,4 @@ smalltalk.TetrisPieceT);
 
 
 
+smalltalk.setup(smalltalk.TetrisPieceT);

@@ -55,7 +55,7 @@ var self=this;
 return self;},
 source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
 messageSends: ["messageText:", "signal", "new"],
-referencedClasses: []
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TestCase);
 
@@ -132,7 +132,7 @@ smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){sm
 return self;},
 source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D.%0A%09%09aResult%20increaseRuns%5D'),
 messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "addError:", "increaseRuns"],
-referencedClasses: [smalltalk.Error]
+referencedClasses: [smalltalk.nil,smalltalk.Error]
 }),
 smalltalk.TestCase);
 
@@ -168,6 +168,7 @@ smalltalk.TestCase);
 
 
 
+smalltalk.setup(smalltalk.TestCase);
 smalltalk.addClass('ExampleTest', smalltalk.TestCase, ['test'], 'SUnit');
 smalltalk.addMethod(
 '_testFailure',
@@ -216,7 +217,8 @@ smalltalk.ExampleTest);
 
 
 
-smalltalk.addClass('ProgressBar', smalltalk.TabWidget, ['percent', 'progressDiv'], 'SUnit');
+smalltalk.setup(smalltalk.ExampleTest);
+smalltalk.addClass('ProgressBar', smalltalk.TabWidget, ['percent', 'progressDiv', 'div'], 'SUnit');
 smalltalk.addMethod(
 '_percent',
 smalltalk.method({
@@ -254,10 +256,11 @@ selector: 'renderOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["progress_bar"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_class_", ["progress"]);return smalltalk.send($rec, "_style_", [smalltalk.send(smalltalk.send("width:", "__comma", [smalltalk.send(smalltalk.send(self, "_percent", []), "_asString", [])]), "__comma", [unescape("%25")])]);})(smalltalk.send(html, "_div", []));})]);})(smalltalk.send(html, "_div", []));
+self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["progress_bar"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", []));
+smalltalk.send(self, "_renderProgressBar", []);
 return self;},
-source: unescape('renderOn%3A%20html%20%0A%09html%20div%20%0A%09%09class%3A%20%27progress_bar%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20div%20%0A%09%09%09%09class%3A%20%27progress%27%3B%0A%09%09%09%09style%3A%20%27width%3A%27%2C%20self%20percent%20asString%2C%20%27%25%27%5D'),
-messageSends: ["class:", "with:", "style:", unescape("%2C"), "asString", "percent", "div"],
+source: unescape('renderOn%3A%20html%20%0A%09div%20%3A%3D%20html%20div%20%0A%09%09class%3A%20%27progress_bar%27%3B%0A%09%09yourself.%0A%09self%20renderProgressBar'),
+messageSends: ["class:", "yourself", "div", "renderProgressBar"],
 referencedClasses: []
 }),
 smalltalk.ProgressBar);
@@ -270,19 +273,36 @@ category: 'updating',
 fn: function (aNumber){
 var self=this;
 smalltalk.send(self, "_percent_", [aNumber]);
-smalltalk.send(self, "_update", []);
+smalltalk.send(self, "_renderProgressBar", []);
 return self;},
-source: unescape('updatePercent%3A%20aNumber%0A%09self%20percent%3A%20aNumber.%0A%09self%20update'),
-messageSends: ["percent:", "update"],
+source: unescape('updatePercent%3A%20aNumber%0A%09self%20percent%3A%20aNumber.%0A%09self%20renderProgressBar'),
+messageSends: ["percent:", "renderProgressBar"],
+referencedClasses: []
+}),
+smalltalk.ProgressBar);
+
+smalltalk.addMethod(
+'_renderProgressBar',
+smalltalk.method({
+selector: 'renderProgressBar',
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send(self['@div'], "_contents_", [(function(html){return (function($rec){smalltalk.send($rec, "_class_", ["progress"]);return smalltalk.send($rec, "_style_", [smalltalk.send(smalltalk.send("width:", "__comma", [smalltalk.send(smalltalk.send(self, "_percent", []), "_asString", [])]), "__comma", [unescape("%25")])]);})(smalltalk.send(html, "_div", []));})]);
+return self;},
+source: unescape('renderProgressBar%0A%09div%20contents%3A%20%5B%3Ahtml%20%7C%0A%09%09html%20div%20%0A%09%09%09class%3A%20%27progress%27%3B%0A%09%09%09style%3A%20%27width%3A%27%2C%20self%20percent%20asString%2C%20%27%25%27%5D'),
+messageSends: ["contents:", "class:", "style:", unescape("%2C"), "asString", "percent", "div"],
 referencedClasses: []
 }),
 smalltalk.ProgressBar);
 
 
 
+smalltalk.setup(smalltalk.ProgressBar);
 smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
 
 
+smalltalk.setup(smalltalk.TestFailure);
 smalltalk.addClass('TestRunner', smalltalk.TabWidget, ['selectedCategories', 'categoriesList', 'selectedClasses', 'classesList', 'selectedMethods', 'progressBar', 'methodsList', 'result', 'statusDiv'], 'SUnit');
 smalltalk.addMethod(
 '_label',
@@ -531,7 +551,7 @@ smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send((func
 return self;},
 source: unescape('run%3A%20aCollection%0A%09result%20%3A%3D%20TestResult%20new.%0A%09self%20%0A%09%09updateStatusDiv%3B%0A%09%09updateMethodsList.%0A%09self%20progressBar%20updatePercent%3A%200.%0A%09result%20total%3A%20%28aCollection%20inject%3A%200%20into%3A%20%5B%3Aacc%20%3Aeach%20%7C%20acc%20+%20each%20methods%20size%5D%29.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5Beach%20runCaseFor%3A%20result.%0A%09%09self%20progressBar%20updatePercent%3A%20result%20runs%20/%20result%20total%20*%20100.%0A%09%09self%20updateStatusDiv.%0A%09%09self%20updateMethodsList%5D%20valueWithTimeout%3A%20100%5D.'),
 messageSends: ["new", "updateStatusDiv", "updateMethodsList", "updatePercent:", "progressBar", "total:", "inject:into:", unescape("+"), "size", "methods", "do:", "valueWithTimeout:", "runCaseFor:", unescape("*"), unescape("/"), "runs", "total"],
-referencedClasses: []
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TestRunner);
 
@@ -547,7 +567,7 @@ self['@result']=smalltalk.send(smalltalk.TestResult, "_new", []);
 return self;},
 source: unescape('initialize%0A%09super%20initialize.%0A%09result%20%3A%3D%20TestResult%20new'),
 messageSends: ["initialize", "new"],
-referencedClasses: []
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TestRunner);
 
@@ -832,6 +852,7 @@ smalltalk.TestRunner);
 
 
 
+smalltalk.setup(smalltalk.TestRunner);
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 smalltalk.addMethod(
 '_timestamp',
@@ -1005,6 +1026,7 @@ smalltalk.TestResult);
 
 
 
+smalltalk.setup(smalltalk.TestResult);
 smalltalk.addClass('ExampleTest2', smalltalk.TestCase, [], 'SUnit');
 smalltalk.addMethod(
 '_testPasses',
@@ -1023,6 +1045,7 @@ smalltalk.ExampleTest2);
 
 
 
+smalltalk.setup(smalltalk.ExampleTest2);
 smalltalk.addClass('ExampleTest3', smalltalk.TestCase, [], 'SUnit');
 smalltalk.addMethod(
 '_testPasses',
@@ -1041,3 +1064,4 @@ smalltalk.ExampleTest3);
 
 
 
+smalltalk.setup(smalltalk.ExampleTest3);

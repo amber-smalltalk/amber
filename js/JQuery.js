@@ -76,6 +76,21 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
+'_jquery',
+smalltalk.method({
+selector: 'jquery',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@jquery'];
+return self;},
+source: unescape('jquery%0A%09%5Ejquery'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
 '_removeAttribute_',
 smalltalk.method({
 selector: 'removeAttribute:',
@@ -144,7 +159,7 @@ fn: function (aString){
 var self=this;
 return self['@jquery'].css(aString);
 return self;},
-source: unescape('cssAt%3A%20aString%0A%09%7B%27return%20self%5B%27%27@jquery%27%27%5D.css%28aString%29%27%7D'),
+source: unescape('cssAt%3A%20aString%0A%09%3Creturn%20self%5B%27@jquery%27%5D.css%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -159,7 +174,7 @@ fn: function (aString, anotherString){
 var self=this;
 self['@jquery'].css(aString, anotherString);
 return self;},
-source: unescape('cssAt%3A%20aString%20put%3A%20anotherString%0A%20%20%20%20%7B%27self%5B%27%27@jquery%27%27%5D.css%28aString%2C%20anotherString%29%27%7D'),
+source: unescape('cssAt%3A%20aString%20put%3A%20anotherString%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.css%28aString%2C%20anotherString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -519,7 +534,7 @@ fn: function (anEventString, aBlock){
 var self=this;
 self['@jquery'].bind(anEventString, function(e){aBlock(e, self)});
 return self;},
-source: unescape('on%3A%20anEventString%20do%3A%20aBlock%0A%20%20%20%20%22Attach%20aBlock%20for%20anEventString%20on%20the%20element%22%0A%20%20%20%20%7B%27self%5B%27%27@jquery%27%27%5D.bind%28anEventString%2C%20function%28e%29%7BaBlock%28e%2C%20self%29%7D%29%27%7D'),
+source: unescape('on%3A%20anEventString%20do%3A%20aBlock%0A%20%20%20%20%22Attach%20aBlock%20for%20anEventString%20on%20the%20element%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.bind%28anEventString%2C%20function%28e%29%7BaBlock%28e%2C%20self%29%7D%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -564,7 +579,7 @@ fn: function (aString){
 var self=this;
 return self['@jquery'][aString]();
 return self;},
-source: unescape('call%3A%20aString%0A%09%7B%27return%20self%5B%27%27@jquery%27%27%5D%5BaString%5D%28%29%27%7D'),
+source: unescape('call%3A%20aString%0A%09%3Creturn%20self%5B%27@jquery%27%5D%5BaString%5D%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -579,7 +594,7 @@ fn: function (aString, anObject){
 var self=this;
 return self['@jquery'][aString](anObject);
 return self;},
-source: unescape('call%3A%20aString%20withArgument%3A%20anObject%0A%20%20%20%20%7B%27return%20self%5B%27%27@jquery%27%27%5D%5BaString%5D%28anObject%29%27%7D'),
+source: unescape('call%3A%20aString%20withArgument%3A%20anObject%0A%20%20%20%20%3Creturn%20self%5B%27@jquery%27%5D%5BaString%5D%28anObject%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -612,7 +627,7 @@ var newJQuery=nil;
 newJQuery = jQuery(String(aString));
 return smalltalk.send(self, "_from_", [newJQuery]);
 return self;},
-source: unescape('fromString%3A%20aString%0A%20%20%20%20%7C%20newJQuery%20%7C%0A%20%20%20%20%7B%27newJQuery%20%3D%20jQuery%28String%28aString%29%29%27%7D.%0A%20%20%20%20%5Eself%20from%3A%20newJQuery'),
+source: unescape('fromString%3A%20aString%0A%20%20%20%20%7C%20newJQuery%20%7C%0A%20%20%20%20%3CnewJQuery%20%3D%20jQuery%28String%28aString%29%29%3E.%0A%20%20%20%20%5Eself%20from%3A%20newJQuery'),
 messageSends: ["from:"],
 referencedClasses: []
 }),
@@ -642,7 +657,7 @@ fn: function (){
 var self=this;
 return self._from_(jQuery(window));
 return self;},
-source: unescape('window%0A%09%7B%27return%20self._from_%28jQuery%28window%29%29%27%7D'),
+source: unescape('window%0A%09%3Creturn%20self._from_%28jQuery%28window%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -655,9 +670,9 @@ selector: 'body',
 category: 'instance creation',
 fn: function (){
 var self=this;
-return self._from_(jQuery(body));
+return self._from_(jQuery('body'));
 return self;},
-source: unescape('body%0A%09%7B%27return%20self._from_%28jQuery%28body%29%29%27%7D'),
+source: unescape('body%0A%09%3Creturn%20self._from_%28jQuery%28%27body%27%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -672,13 +687,46 @@ fn: function (){
 var self=this;
 return self._from_(jQuery(document));
 return self;},
-source: unescape('document%0A%09%7B%27return%20self._from_%28jQuery%28document%29%29%27%7D'),
+source: unescape('document%0A%09%3Creturn%20self._from_%28jQuery%28document%29%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery.klass);
+
+smalltalk.addMethod(
+'_fromElement_',
+smalltalk.method({
+selector: 'fromElement:',
+category: 'instance creation',
+fn: function (anElement){
+var self=this;
+var newJQuery=nil;
+newJQuery = jQuery(anElement);
+return smalltalk.send(self, "_from_", [newJQuery]);
+return self;},
+source: unescape('fromElement%3A%20anElement%0A%20%20%20%20%7C%20newJQuery%20%7C%0A%20%20%20%20%3CnewJQuery%20%3D%20jQuery%28anElement%29%3E.%0A%20%20%20%20%5Eself%20from%3A%20newJQuery'),
+messageSends: ["from:"],
+referencedClasses: []
+}),
+smalltalk.JQuery.klass);
+
+smalltalk.addMethod(
+'_documentReady_',
+smalltalk.method({
+selector: 'documentReady:',
+category: 'instance creation',
+fn: function (aBlock){
+var self=this;
+jQuery(document).ready(aBlock);
+return self;},
+source: unescape('documentReady%3A%20aBlock%0A%09%3CjQuery%28document%29.ready%28aBlock%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JQuery.klass);
 
 
+smalltalk.setup(smalltalk.JQuery);
 smalltalk.addClass('Ajax', smalltalk.Object, ['settings'], 'JQuery');
 smalltalk.Ajax.comment=unescape('instance%20variable%20names%3A%0A-%20settings%20%20A%20set%20of%20key/value%20pairs%20that%20configure%20the%20Ajax%20request.%20All%20settings%20are%20optional.%0A%0AFull%20list%20of%20settings%20options%20at%20http%3A//api.jquery.com/jQuery.ajax/')
 smalltalk.addMethod(
@@ -750,7 +798,7 @@ fn: function (){
 var self=this;
 jQuery.ajax(self['@settings']);
 return self;},
-source: unescape('send%0A%20%20%20%20%7B%27jQuery.ajax%28self%5B%27%27@settings%27%27%5D%29%27%7D'),
+source: unescape('send%0A%20%20%20%20%3CjQuery.ajax%28self%5B%27@settings%27%5D%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -789,6 +837,7 @@ referencedClasses: []
 smalltalk.Ajax.klass);
 
 
+smalltalk.setup(smalltalk.Ajax);
 smalltalk.addMethod(
 '_appendToJQuery_',
 smalltalk.method({
@@ -796,13 +845,10 @@ selector: 'appendToJQuery:',
 category: '*JQuery',
 fn: function (aJQuery){
 var self=this;
-var canvas=nil;
-canvas=smalltalk.send(smalltalk.HTMLCanvas, "_new", []);
-smalltalk.send(self, "_value_", [canvas]);
-smalltalk.send(aJQuery, "_append_", [canvas]);
+smalltalk.send(self, "_value_", [smalltalk.send(smalltalk.HTMLCanvas, "_onJQuery_", [aJQuery])]);
 return self;},
-source: unescape('appendToJQuery%3A%20aJQuery%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20HTMLCanvas%20new.%0A%09self%20value%3A%20canvas.%0A%09aJQuery%20append%3A%20canvas'),
-messageSends: ["new", "value:", "append:"],
+source: unescape('appendToJQuery%3A%20aJQuery%0A%09self%20value%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
+messageSends: ["value:", "onJQuery:"],
 referencedClasses: [smalltalk.HTMLCanvas]
 }),
 smalltalk.BlockClosure);
@@ -831,7 +877,7 @@ fn: function (aJQuery){
 var self=this;
 aJQuery._appendElement_(String(self));
 return self;},
-source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20%7B%27aJQuery._appendElement_%28String%28self%29%29%27%7D'),
+source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20%3CaJQuery._appendElement_%28String%28self%29%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),

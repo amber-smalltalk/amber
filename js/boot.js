@@ -47,7 +47,6 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
-    st.debugMode = true;
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -102,11 +101,6 @@ function Smalltalk(){
 	var subclasses = st.subclasses(klass);
 	var methods;
 
-	// Initializing inst vars
-	for(var i=0;i<klass.iVarNames.length;i++) {
-	    klass.fn.prototype["@"+klass.iVarNames[i]] = nil;
-	}
-
 	if(klass.superclass && klass.superclass !== nil) {
 	    methods = st.methods(klass.superclass);
 
@@ -115,13 +109,6 @@ function Smalltalk(){
 		if(!klass.fn.prototype.methods[i]) {
 		    klass.fn.prototype.inheritedMethods[i] = methods[i];
 		    klass.fn.prototype[methods[i].jsSelector] = methods[i].fn;
-		}
-	    }
-
-	    //Instance variables linking
-	    for(var i=0;i<klass.superclass.iVarNames.length;i++) {
-		if(!klass["@"+klass.superclass.iVarNames[i]]) {
-		    klass.fn.prototype["@"+klass.superclass.iVarNames[i]] = nil;
 		}
 	    }
 	}
@@ -133,6 +120,11 @@ function Smalltalk(){
 	    st.init(klass.klass);
 	}
     };
+
+    st.setup = function(klass) {
+	st.init(klass);
+	klass._initialize();
+    }
 
     /* Answer all registered Smalltalk classes */
 
@@ -221,7 +213,7 @@ function Smalltalk(){
     /* Handles Smalltalk message send. Automatically converts undefined to the nil object.
        If the receiver does not understand the selector, call its #doesNotUnderstand: method */
 
-    st.send = function(receiver, selector, args, klass) {
+    sendWithoutContext = function(receiver, selector, args, klass) {
 	if(typeof receiver === "undefined") {
 	    receiver = nil;
 	}
@@ -233,13 +225,62 @@ function Smalltalk(){
 	return messageNotUnderstood(receiver, selector, args);
     };
 
+
+    /* Handles unhandled errors during message sends */
+
+    sendWithContext = function(receiver, selector, args, klass) {
+	if(thisContext) {
+	     return withContextSend(receiver, selector, args, klass);
+	} else {
+	    try {return withContextSend(receiver, selector, args, klass)}
+	    catch(error) {
+		// Reset the context stack in any case
+		thisContext = undefined;
+		if(error.smalltalkError) {
+		    handleError(error);
+		} else {
+		    throw(error);
+		}
+	    }
+	}
+    };
+
+    /* Same as sendWithoutContext but creates a methodContext. */
+
+    withContextSend = function(receiver, selector, args, klass) {
+	var call, context;
+	if(typeof receiver === "undefined") {
+	    receiver = nil;
+	}
+	if(!klass && receiver.klass && receiver[selector]) {
+	    context = pushContext(receiver, selector, args);
+	    call = receiver[selector].apply(receiver, args);
+	    popContext(context);
+	    return call;
+	} else if(klass && klass.fn.prototype[selector]) {
+	    context = pushContext(receiver, selector, args);
+	    call = klass.fn.prototype[selector].apply(receiver, args);
+	    popContext(context);
+	    return call;
+	}
+	return messageNotUnderstood(receiver, selector, args);
+    };
+
+    /* Handles Smalltalk errors. Triggers the registered ErrorHandler 
+       (See the Smalltalk class ErrorHandler and its subclasses */
+    
+    function handleError(error) {
+	thisContext = undefined;
+	smalltalk.ErrorHandler._current()._handleError_(error);
+    }
+
     /* Handles #dnu: *and* JavaScript method calls.
        if the receiver has no klass, we consider it a JS object (outside of the
        Jtalk system). Else assume that the receiver understands #doesNotUnderstand: */
 
     function messageNotUnderstood(receiver, selector, args) {
 	/* Handles JS method calls. */
-	if(receiver.klass === undefined) {
+	if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
 	    return callJavaScriptMethod(receiver, selector, args);
 	}
 
@@ -248,7 +289,7 @@ function Smalltalk(){
 	
 	return receiver._doesNotUnderstand_(
 	    st.Message._new()
-		._selector_(convertSelector(selector))
+		._selector_(st.convertSelector(selector))
 		._arguments_(args)
 	);
     };
@@ -269,18 +310,38 @@ function Smalltalk(){
 	if(typeof jsProperty === "function") {
 	    return jsProperty.apply(receiver, args);
 	} else if(jsProperty !== undefined) {
-	    return jsProperty
+	    if(args[0]) {
+		receiver[jsSelector] = args[0];
+		return nil;
+	    } else {
+		return jsProperty
+	    }
 	}
 	smalltalk.Error._signal_(receiver + ' is not a Jtalk object and "' + jsSelector + '" is undefined')
-    }
+    };
 
 	
+    /* Handle thisContext pseudo variable */
+    
+    pushContext = function(receiver, selector, temps) {
+	if(thisContext) {
+	    return thisContext = thisContext.newContext({receiver: receiver, selector: selector, temps: temps});
+	} else {
+	    return thisContext = new SmalltalkMethodContext({receiver: receiver, selector: selector, temps: temps});
+	}
+    };
+
+    popContext = function(context) {
+	if(context) {
+	    context.removeYourself();
+	}
+    };
 
     /* Convert a string to a valid smalltalk selector.
        if you modify the following functions, also change String>>asSelector
        accordingly */
 
-    function convertSelector(selector) {
+    st.convertSelector = function(selector) {
 	if(selector.match(/__/)) {
 	    return convertBinarySelector(selector);
 	} else {
@@ -325,26 +386,55 @@ function Smalltalk(){
 	}
 	return object;
     };
+
+    /* Toggle deployment mode (no context will be handled during message send */
+    st.setDeploymentMode = function() {
+	st.send = sendWithoutContext;
+    };
+
+    st.setDevelopmentMode = function() {
+	st.send = sendWithContext;
+    }
+
+    /* Set development mode by default */
+    st.setDevelopmentMode();
 }
 
-function SmalltalkMethodContext() {
-    this.stack = [];
+function SmalltalkMethodContext(spec) {
+    var that = this;
+    spec = spec || {};
+    that.homeContext = spec.homeContext;
+    that.selector = spec.selector;
+    that.receiver = spec.receiver;
+    that.temps = spec.temps || {};
 
-    this.push = function(context) {
-	stack.push(context);
-    };
-    
-    this.pop = function() {
-	stack.pop();
-    };
+    that.newContext = function(spec) {
+	spec = spec || {};
+	return new SmalltalkMethodContext({homeContext: that, receiver: spec.receiver, selector: spec.selector, temps: spec.temps});
+    }
+
+    that.removeYourself = function() {
+	thisContext = that.homeContext;
+    }
 }
 
 /* Global Smalltalk objects. nil and thisContext shouldn't be globals. */
 
 var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
-var thisContext = nil;
+var thisContext = undefined;
 
+
+/* Utilities */
+
+Array.prototype.remove = function(s){
+    var index = this.indexOf(s);
+    if(this.indexOf(s) != -1)this.splice(index, 1);
+}
+
+if(this.jQuery) {
+    this.jQuery.allowJavaScriptCalls = true;
+}
 
 /****************************************************************************************/
 
@@ -374,6 +464,7 @@ smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollectio
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 
 smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
+smalltalk.mapClassName("MethodContext", "Kernel", SmalltalkMethodContext, smalltalk.Object);
 
 if(this.CanvasRenderingContext2D) {
     smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);

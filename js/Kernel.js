@@ -678,6 +678,21 @@ referencedClasses: [smalltalk.Object]
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_halt',
+smalltalk.method({
+selector: 'halt',
+category: 'error handling',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["Halt encountered"]);
+return self;},
+source: unescape('halt%0A%09self%20error%3A%20%27Halt%20encountered%27'),
+messageSends: ["error:"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -695,6 +710,7 @@ referencedClasses: []
 smalltalk.Object.klass);
 
 
+smalltalk.setup(smalltalk.Object);
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_classes',
@@ -706,36 +722,6 @@ var self=this;
 return self.classes();
 return self;},
 source: unescape('classes%0A%09%3Creturn%20self.classes%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
-'_debugMode',
-smalltalk.method({
-selector: 'debugMode',
-category: 'accessing',
-fn: function (){
-var self=this;
-return self.debugMode;
-return self;},
-source: unescape('debugMode%0A%09%3Creturn%20self.debugMode%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
-'_debugMode_',
-smalltalk.method({
-selector: 'debugMode:',
-category: 'accessing',
-fn: function (aBoolean){
-var self=this;
-self.debugMode = aBoolean;
-return self;},
-source: unescape('debugMode%3A%20aBoolean%0A%09%3Cself.debugMode%20%3D%20aBoolean%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -771,6 +757,24 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+'_removeClass_',
+smalltalk.method({
+selector: 'removeClass:',
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifTrue_", [(function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [unescape("%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21")])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);})]);
+smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
+return self;},
+source: unescape('removeClass%3A%20aClass%0A%09aClass%20isMetaclass%20ifTrue%3A%20%5Bself%20error%3A%20aClass%20asString%2C%20%27%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21%27%5D.%0A%09aClass%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20removeCompiledMethod%3A%20each%5D.%0A%09aClass%20class%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20class%20removeCompiledMethod%3A%20each%5D.%0A%09self%20basicDelete%3A%20aClass%20name'),
+messageSends: ["ifTrue:", "isMetaclass", "error:", unescape("%2C"), "asString", "do:", "values", "methodDictionary", "removeCompiledMethod:", "class", "basicDelete:", "name"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -789,6 +793,7 @@ referencedClasses: []
 smalltalk.Smalltalk.klass);
 
 
+smalltalk.setup(smalltalk.Smalltalk);
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_new',
@@ -1034,8 +1039,9 @@ fn: function (aMethod){
 var self=this;
 delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
+	smalltalk.init(self);;
 return self;},
-source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%3Cdelete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%3E'),
+source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%3Cdelete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%3B%0A%09smalltalk.init%28self%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1092,8 +1098,42 @@ referencedClasses: [smalltalk.nil,smalltalk.Array]
 }),
 smalltalk.Behavior);
 
+smalltalk.addMethod(
+'_allInstanceVariableNames',
+smalltalk.method({
+selector: 'allInstanceVariableNames',
+category: 'accessing',
+fn: function (){
+var self=this;
+var result=nil;
+result=smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_copy", []);
+smalltalk.send(smalltalk.send(self, "_superclass", []), "_ifNotNil_", [(function(){return smalltalk.send(result, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allInstanceVariableNames", [])]);})]);
+return result;
+return self;},
+source: unescape('allInstanceVariableNames%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20self%20instanceVariableNames%20copy.%0A%09self%20superclass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20result%20addAll%3A%20self%20superclass%20allInstanceVariableNames%5D.%0A%09%5Eresult'),
+messageSends: ["copy", "instanceVariableNames", "ifNotNil:", "superclass", "addAll:", "allInstanceVariableNames"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_methodAt_',
+smalltalk.method({
+selector: 'methodAt:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.methods(self)[aString];
+return self;},
+source: unescape('methodAt%3A%20aString%0A%09%3Creturn%20smalltalk.methods%28self%29%5BaString%5D%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
 
 
+
+smalltalk.setup(smalltalk.Behavior);
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel');
 smalltalk.addMethod(
 '_category',
@@ -1206,6 +1246,7 @@ smalltalk.Class);
 
 
 
+smalltalk.setup(smalltalk.Class);
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel');
 smalltalk.addMethod(
 '_instanceClass',
@@ -1269,6 +1310,7 @@ smalltalk.Metaclass);
 
 
 
+smalltalk.setup(smalltalk.Metaclass);
 smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_source',
@@ -1437,6 +1479,7 @@ smalltalk.CompiledMethod);
 
 
 
+smalltalk.setup(smalltalk.CompiledMethod);
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -1859,6 +1902,7 @@ referencedClasses: []
 smalltalk.Number.klass);
 
 
+smalltalk.setup(smalltalk.Number);
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_compiledSource',
@@ -2027,6 +2071,7 @@ smalltalk.BlockClosure);
 
 
 
+smalltalk.setup(smalltalk.BlockClosure);
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -2216,6 +2261,7 @@ smalltalk.Boolean);
 
 
 
+smalltalk.setup(smalltalk.Boolean);
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel');
 smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.')
 smalltalk.addMethod(
@@ -2838,6 +2884,7 @@ referencedClasses: [smalltalk.Date]
 smalltalk.Date.klass);
 
 
+smalltalk.setup(smalltalk.Date);
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_subclass_instanceVariableNames_',
@@ -3021,6 +3068,7 @@ referencedClasses: []
 smalltalk.UndefinedObject.klass);
 
 
+smalltalk.setup(smalltalk.UndefinedObject);
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_size',
@@ -3487,6 +3535,7 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 
+smalltalk.setup(smalltalk.Collection);
 smalltalk.addClass('SequenceableCollection', smalltalk.Collection, [], 'Kernel');
 smalltalk.addMethod(
 '_at_',
@@ -3735,6 +3784,7 @@ smalltalk.SequenceableCollection);
 
 
 
+smalltalk.setup(smalltalk.SequenceableCollection);
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -4338,6 +4388,36 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_asLowercase',
+smalltalk.method({
+selector: 'asLowercase',
+category: 'converting',
+fn: function (){
+var self=this;
+return self.toLowerCase();
+return self;},
+source: unescape('asLowercase%0A%09%3Creturn%20self.toLowerCase%28%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_asUppercase',
+smalltalk.method({
+selector: 'asUppercase',
+category: 'converting',
+fn: function (){
+var self=this;
+return self.toUpperCase();
+return self;},
+source: unescape('asUppercase%0A%09%3Creturn%20self.toUpperCase%28%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -4445,6 +4525,7 @@ referencedClasses: []
 smalltalk.String.klass);
 
 
+smalltalk.setup(smalltalk.String);
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel');
 smalltalk.addMethod(
 '_size',
@@ -4713,8 +4794,29 @@ referencedClasses: []
 }),
 smalltalk.Array);
 
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'enumerating',
+fn: function (){
+var self=this;
+var str=nil;
+str=smalltalk.send("", "_writeStream", []);
+smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection), "__comma", [unescape("%20%28")])]);
+smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
+smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);
+return smalltalk.send(str, "_contents", []);
+return self;},
+source: unescape('printString%0A%09%7C%20str%20%7C%0A%09str%20%3A%3D%20%27%27%20writeStream.%0A%09str%20nextPutAll%3A%20super%20printString%2C%20%27%20%28%27.%0A%09self%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20str%20nextPutAll%3A%20each%20printString%5D%0A%09%09separatedBy%3A%20%5Bstr%20nextPutAll%3A%20%27%20%27%5D.%0A%09str%20nextPutAll%3A%20%27%29%27.%0A%09%5Estr%20contents'),
+messageSends: ["writeStream", "nextPutAll:", unescape("%2C"), "printString", "do:separatedBy:", "contents"],
+referencedClasses: []
+}),
+smalltalk.Array);
 
 
+
+smalltalk.setup(smalltalk.Array);
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_compile_',
@@ -4738,9 +4840,9 @@ selector: 'exec:',
 category: 'evaluating',
 fn: function (aString){
 var self=this;
-return self.exec(aString);
+return self.exec(aString) || nil;
 return self;},
-source: unescape('exec%3A%20aString%0A%09%3Creturn%20self.exec%28aString%29%3E'),
+source: unescape('exec%3A%20aString%0A%09%3Creturn%20self.exec%28aString%29%20%7C%7C%20nil%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4793,6 +4895,7 @@ referencedClasses: []
 smalltalk.RegularExpression.klass);
 
 
+smalltalk.setup(smalltalk.RegularExpression);
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel');
 smalltalk.addMethod(
 '_messageText',
@@ -4831,9 +4934,24 @@ selector: 'signal',
 category: 'signaling',
 fn: function (){
 var self=this;
-console.log(self._messageText()); throw(self);
+self.context = thisContext; self.smalltalkError = true; throw(self);
 return self;},
-source: unescape('signal%0A%09%3Cconsole.log%28self._messageText%28%29%29%3B%20throw%28self%29%3E'),
+source: unescape('signal%0A%09%3Cself.context%20%3D%20thisContext%3B%20self.smalltalkError%20%3D%20true%3B%20throw%28self%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+'_context',
+smalltalk.method({
+selector: 'context',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.context;
+return self;},
+source: unescape('context%0A%09%3Creturn%20self.context%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4856,6 +4974,101 @@ referencedClasses: []
 smalltalk.Error.klass);
 
 
+smalltalk.setup(smalltalk.Error);
+smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel');
+smalltalk.addMethod(
+'_receiver',
+smalltalk.method({
+selector: 'receiver',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.receiver;
+return self;},
+source: unescape('receiver%0A%09%3Creturn%20self.receiver%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+'_selector',
+smalltalk.method({
+selector: 'selector',
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.convertSelector(self.selector);
+return self;},
+source: unescape('selector%0A%09%3Creturn%20smalltalk.convertSelector%28self.selector%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+'_home',
+smalltalk.method({
+selector: 'home',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.homeContext;
+return self;},
+source: unescape('home%0A%09%3Creturn%20self.homeContext%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+'_temps',
+smalltalk.method({
+selector: 'temps',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.temps;
+return self;},
+source: unescape('temps%0A%09%3Creturn%20self.temps%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Object), "__comma", [unescape("%28")]), "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", [unescape("%29")]);
+return self;},
+source: unescape('printString%0A%09%5Esuper%20printString%2C%20%27%28%27%2C%20self%20asString%2C%20%27%29%27'),
+messageSends: [unescape("%2C"), "printString", "asString"],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+'_asString',
+smalltalk.method({
+selector: 'asString',
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_class", []), "_printString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(self, "_selector", [])]);
+return self;},
+source: unescape('asString%0A%09%5Eself%20receiver%20class%20printString%2C%20%27%20%3E%3E%20%27%2C%20self%20selector'),
+messageSends: [unescape("%2C"), "printString", "class", "receiver", "selector"],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+
+
+smalltalk.setup(smalltalk.MethodContext);
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -4949,6 +5162,7 @@ referencedClasses: []
 smalltalk.Association.klass);
 
 
+smalltalk.setup(smalltalk.Association);
 smalltalk.addClass('Dictionary', smalltalk.Collection, ['keys'], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -5378,6 +5592,7 @@ smalltalk.Dictionary);
 
 
 
+smalltalk.setup(smalltalk.Dictionary);
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_superclass_subclass_',
@@ -5477,6 +5692,7 @@ smalltalk.ClassBuilder);
 
 
 
+smalltalk.setup(smalltalk.ClassBuilder);
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel');
 smalltalk.addMethod(
 '_initialize',
@@ -5547,6 +5763,7 @@ smalltalk.ClassCategoryReader);
 
 
 
+smalltalk.setup(smalltalk.ClassCategoryReader);
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel');
 smalltalk.addMethod(
 '_collection',
@@ -5917,6 +6134,7 @@ referencedClasses: []
 smalltalk.Stream.klass);
 
 
+smalltalk.setup(smalltalk.Stream);
 smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel');
 smalltalk.addMethod(
 '_next_',
@@ -6015,6 +6233,7 @@ smalltalk.StringStream);
 
 
 
+smalltalk.setup(smalltalk.StringStream);
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel');
 smalltalk.addMethod(
 '_class_',
@@ -6081,6 +6300,7 @@ smalltalk.ClassCommentReader);
 
 
 
+smalltalk.setup(smalltalk.ClassCommentReader);
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_next',
@@ -6114,6 +6334,7 @@ smalltalk.Random);
 
 
 
+smalltalk.setup(smalltalk.Random);
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel');
 smalltalk.addMethod(
 '_x',
@@ -6267,6 +6488,7 @@ referencedClasses: []
 smalltalk.Point.klass);
 
 
+smalltalk.setup(smalltalk.Point);
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel');
 smalltalk.addMethod(
 '_selector',
@@ -6345,6 +6567,7 @@ referencedClasses: []
 smalltalk.Message.klass);
 
 
+smalltalk.setup(smalltalk.Message);
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel');
 smalltalk.addMethod(
 '_message',
@@ -6423,3 +6646,146 @@ smalltalk.MessageNotUnderstood);
 
 
 
+smalltalk.setup(smalltalk.MessageNotUnderstood);
+smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel');
+smalltalk.addMethod(
+'_handleError_',
+smalltalk.method({
+selector: 'handleError:',
+category: 'error handling',
+fn: function (anError){
+var self=this;
+smalltalk.send(smalltalk.send(anError, "_context", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_logErrorContext_", [smalltalk.send(anError, "_context", [])]);})]);
+smalltalk.send(self, "_logError_", [anError]);
+return self;},
+source: unescape('handleError%3A%20anError%0A%09anError%20context%20ifNotNil%3A%20%5Bself%20logErrorContext%3A%20anError%20context%5D.%0A%09self%20logError%3A%20anError'),
+messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler);
+
+smalltalk.addMethod(
+'_logContext_',
+smalltalk.method({
+selector: 'logContext:',
+category: 'private',
+fn: function (aContext){
+var self=this;
+smalltalk.send(smalltalk.send(aContext, "_home", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})]);
+smalltalk.send(self, "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext, "_receiver", []), "_asString", []), "__comma", [unescape("%3E%3E")]), "__comma", [smalltalk.send(aContext, "_selector", [])])]);
+return self;},
+source: unescape('logContext%3A%20aContext%0A%09aContext%20home%20ifNotNil%3A%20%5B%0A%09%09self%20logContext%3A%20aContext%20home%5D.%0A%09self%20log%3A%20aContext%20receiver%20asString%2C%20%27%3E%3E%27%2C%20aContext%20selector'),
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", unescape("%2C"), "asString", "receiver", "selector"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler);
+
+smalltalk.addMethod(
+'_logErrorContext_',
+smalltalk.method({
+selector: 'logErrorContext:',
+category: 'private',
+fn: function (aContext){
+var self=this;
+smalltalk.send(aContext, "_ifNotNil_", [(function(){return smalltalk.send(smalltalk.send(aContext, "_home", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})]);})]);
+return self;},
+source: unescape('logErrorContext%3A%20aContext%0A%09aContext%20ifNotNil%3A%20%5B%0A%09%09aContext%20home%20ifNotNil%3A%20%5B%0A%09%09%09self%20logContext%3A%20aContext%20home%5D%5D'),
+messageSends: ["ifNotNil:", "home", "logContext:"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler);
+
+smalltalk.addMethod(
+'_logError_',
+smalltalk.method({
+selector: 'logError:',
+category: 'private',
+fn: function (anError){
+var self=this;
+smalltalk.send(self, "_log_", [smalltalk.send(anError, "_messageText", [])]);
+return self;},
+source: unescape('logError%3A%20anError%0A%09self%20log%3A%20anError%20messageText'),
+messageSends: ["log:", "messageText"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler);
+
+smalltalk.addMethod(
+'_log_',
+smalltalk.method({
+selector: 'log:',
+category: 'private',
+fn: function (aString){
+var self=this;
+smalltalk.send(console, "_log_", [aString]);
+return self;},
+source: unescape('log%3A%20aString%0A%09console%20log%3A%20aString'),
+messageSends: ["log:"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler);
+
+
+smalltalk.ErrorHandler.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+'_current',
+smalltalk.method({
+selector: 'current',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@current'];
+return self;},
+source: unescape('current%0A%09%5Ecurrent'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler.klass);
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_register", []);
+return self;},
+source: unescape('initialize%0A%09self%20register'),
+messageSends: ["register"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler.klass);
+
+smalltalk.addMethod(
+'_register',
+smalltalk.method({
+selector: 'register',
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.ErrorHandler, "_setCurrent_", [smalltalk.send(self, "_new", [])]);
+return self;},
+source: unescape('register%0A%09ErrorHandler%20setCurrent%3A%20self%20new'),
+messageSends: ["setCurrent:", "new"],
+referencedClasses: [smalltalk.ErrorHandler]
+}),
+smalltalk.ErrorHandler.klass);
+
+smalltalk.addMethod(
+'_setCurrent_',
+smalltalk.method({
+selector: 'setCurrent:',
+category: 'accessing',
+fn: function (anHandler){
+var self=this;
+self['@current']=anHandler;
+return self;},
+source: unescape('setCurrent%3A%20anHandler%0A%09current%20%3A%3D%20anHandler'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler.klass);
+
+
+smalltalk.setup(smalltalk.ErrorHandler);

@@ -217,6 +217,7 @@ smalltalk.PPParser);
 
 
 
+smalltalk.setup(smalltalk.PPParser);
 smalltalk.addClass('PPEOFParser', smalltalk.PPParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -235,6 +236,7 @@ smalltalk.PPEOFParser);
 
 
 
+smalltalk.setup(smalltalk.PPEOFParser);
 smalltalk.addClass('PPAnyParser', smalltalk.PPParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -253,6 +255,7 @@ smalltalk.PPAnyParser);
 
 
 
+smalltalk.setup(smalltalk.PPAnyParser);
 smalltalk.addClass('PPEpsilonParser', smalltalk.PPParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -271,6 +274,7 @@ smalltalk.PPEpsilonParser);
 
 
 
+smalltalk.setup(smalltalk.PPEpsilonParser);
 smalltalk.addClass('PPStringParser', smalltalk.PPParser, ['string'], 'Parser');
 smalltalk.addMethod(
 '_string',
@@ -323,6 +327,7 @@ smalltalk.PPStringParser);
 
 
 
+smalltalk.setup(smalltalk.PPStringParser);
 smalltalk.addClass('PPCharacterParser', smalltalk.PPParser, ['regexp'], 'Parser');
 smalltalk.addMethod(
 '_string_',
@@ -371,6 +376,7 @@ smalltalk.PPCharacterParser);
 
 
 
+smalltalk.setup(smalltalk.PPCharacterParser);
 smalltalk.addClass('PPListParser', smalltalk.PPParser, ['parsers'], 'Parser');
 smalltalk.addMethod(
 '_parsers',
@@ -449,6 +455,7 @@ referencedClasses: [smalltalk.Array]
 smalltalk.PPListParser.klass);
 
 
+smalltalk.setup(smalltalk.PPListParser);
 smalltalk.addClass('PPSequenceParser', smalltalk.PPListParser, [], 'Parser');
 smalltalk.addMethod(
 '__comma',
@@ -488,6 +495,7 @@ smalltalk.PPSequenceParser);
 
 
 
+smalltalk.setup(smalltalk.PPSequenceParser);
 smalltalk.addClass('PPChoiceParser', smalltalk.PPListParser, [], 'Parser');
 smalltalk.addMethod(
 '__slash',
@@ -523,6 +531,7 @@ smalltalk.PPChoiceParser);
 
 
 
+smalltalk.setup(smalltalk.PPChoiceParser);
 smalltalk.addClass('PPDelegateParser', smalltalk.PPParser, ['parser'], 'Parser');
 smalltalk.addMethod(
 '_parser',
@@ -586,6 +595,7 @@ referencedClasses: []
 smalltalk.PPDelegateParser.klass);
 
 
+smalltalk.setup(smalltalk.PPDelegateParser);
 smalltalk.addClass('PPAndParser', smalltalk.PPDelegateParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -624,6 +634,7 @@ smalltalk.PPAndParser);
 
 
 
+smalltalk.setup(smalltalk.PPAndParser);
 smalltalk.addClass('PPNotParser', smalltalk.PPAndParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -644,6 +655,7 @@ smalltalk.PPNotParser);
 
 
 
+smalltalk.setup(smalltalk.PPNotParser);
 smalltalk.addClass('PPActionParser', smalltalk.PPDelegateParser, ['block'], 'Parser');
 smalltalk.addMethod(
 '_block',
@@ -709,6 +721,7 @@ referencedClasses: []
 smalltalk.PPActionParser.klass);
 
 
+smalltalk.setup(smalltalk.PPActionParser);
 smalltalk.addClass('PPFlattenParser', smalltalk.PPDelegateParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -732,6 +745,7 @@ smalltalk.PPFlattenParser);
 
 
 
+smalltalk.setup(smalltalk.PPFlattenParser);
 smalltalk.addClass('PPSourceParser', smalltalk.PPDelegateParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -756,6 +770,7 @@ smalltalk.PPSourceParser);
 
 
 
+smalltalk.setup(smalltalk.PPSourceParser);
 smalltalk.addClass('PPRepeatingParser', smalltalk.PPDelegateParser, ['min'], 'Parser');
 smalltalk.addMethod(
 '_min',
@@ -826,6 +841,7 @@ referencedClasses: []
 smalltalk.PPRepeatingParser.klass);
 
 
+smalltalk.setup(smalltalk.PPRepeatingParser);
 smalltalk.addClass('PPFailure', smalltalk.Object, ['position', 'reason'], 'Parser');
 smalltalk.addMethod(
 '_position',
@@ -964,6 +980,7 @@ referencedClasses: []
 smalltalk.PPFailure.klass);
 
 
+smalltalk.setup(smalltalk.PPFailure);
 smalltalk.addClass('SmalltalkParser', smalltalk.Object, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -1086,7 +1103,7 @@ return smalltalk.send(smalltalk.send(method, "__comma", [smalltalk.send(smalltal
 return self;},
 source: unescape('parser%0A%09%7C%20method%20expression%20separator%20comment%20ws%20identifier%20keyword%20className%20string%20symbol%20number%20literalArray%20variable%20reference%20classReference%20literal%20ret%20methodParser%20expressionParser%20keyword%20unarySelector%20binarySelector%20keywordPattern%20unaryPattern%20binaryPattern%20assignment%20temps%20blockParamList%20block%20expression%20expressions%20subexpression%20statements%20sequence%20operand%20unaryMessage%20unarySend%20unaryTail%20binaryMessage%20binarySend%20binaryTail%20keywordMessage%20keywordSend%20keywordPair%20cascade%20message%20jsStatement%20%7C%0A%09%0A%09separator%20%3A%3D%20%28String%20cr%2C%20String%20space%2C%20String%20lf%2C%20String%20tab%29%20asChoiceParser.%0A%09comment%20%3A%3D%20%28%27%22%27%20asCharacterParser%2C%20%28%27%22%27%20asParser%20not%2C%20PPAnyParser%20new%29%20star%2C%20%27%22%27%20asCharacterParser%29%20flatten.%0A%0A%09ws%20%3A%3D%20%28separator%20/%20comment%29%20star.%0A%09%0A%09identifier%20%3A%3D%20%28%27a-z%27%20asCharacterParser%2C%20%27a-zA-Z0-9%27%20asCharacterParser%20star%29%20flatten.%0A%0A%09keyword%20%3A%3D%20%28identifier%2C%20%27%3A%27%20asParser%29%20flatten.%0A%0A%09className%20%3A%3D%20%28%27A-Z%27%20asCharacterParser%2C%20%27a-zA-Z0-9%27%20asCharacterParser%20star%29%20flatten.%0A%0A%09string%20%3A%3D%20%27%27%27%27%20asParser%2C%20%28%27%27%27%27%27%27%20asParser%20/%20%28%27%27%27%27%20asParser%20not%2C%20PPAnyParser%20new%29%29%20star%20flatten%2C%20%27%27%27%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20%28%28node%20at%3A%202%29%20replace%3A%20%27%27%27%27%27%27%20with%3A%20%27%27%27%27%29%5D.%0A%0A%09symbol%20%3A%3D%20%27%23%27%20asParser%2C%20%27a-zA-Z0-9%27%20asCharacterParser%20plus%20flatten%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20node%20second%5D.%0A%0A%09number%20%3A%3D%20%28%270-9%27%20asCharacterParser%20plus%2C%20%28%27.%27%20asParser%2C%20%270-9%27%20asCharacterParser%20plus%29%20optional%29%20flatten%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20node%20asNumber%5D.%0A%0A%09literal%20%3A%3D%20PPDelegateParser%20new.%0A%0A%09literalArray%20%3A%3D%20%27%23%28%27%20asParser%2C%20%28ws%2C%20literal%2C%20ws%29%20star%2C%20%27%29%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20%28Array%20withAll%3A%20%28node%20second%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%20value%5D%29%29%5D.%0A%0A%09variable%20%3A%3D%20identifier%20%3D%3D%3E%20%5B%3Atoken%20%7C%20VariableNode%20new%20value%3A%20token%5D.%0A%0A%09classReference%20%3A%3D%20className%20%3D%3D%3E%20%5B%3Atoken%20%7C%20ClassReferenceNode%20new%20value%3A%20token%5D.%0A%0A%09reference%20%3A%3D%20variable%20/%20classReference.%0A%0A%09binarySelector%20%3A%3D%20%27+*/%3D%3E%3C%2C@%25%7E-%27%20asCharacterParser%20plus%20flatten.%0A%0A%09unarySelector%20%3A%3D%20identifier.%0A%0A%09keywordPattern%20%3A%3D%20%28ws%2C%20keyword%2C%20ws%2C%20identifier%29%20plus%0A%09%09%3D%3D%3E%20%5B%3Anodes%20%7C%20Array%0A%09%09%09%09%20%20with%3A%20%28%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20at%3A%202%5D%29%20join%3A%20%27%27%29%0A%09%09%09%09%20%20with%3A%20%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20at%3A%204%5D%29%5D.%0A%0A%09binaryPattern%20%3A%3D%20ws%2C%20binarySelector%2C%20ws%2C%20identifier%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20Array%20with%3A%20node%20second%20with%3A%20%28Array%20with%3A%20node%20fourth%29%5D.%0A%0A%09unaryPattern%20%3A%3D%20ws%2C%20unarySelector%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20Array%20with%3A%20node%20second%20with%3A%20Array%20new%5D.%0A%09%0A%09expression%20%3A%3D%20PPDelegateParser%20new.%0A%0A%09expressions%20%3A%3D%20expression%2C%20%28%28ws%2C%20%27.%27%20asParser%2C%20ws%2C%20expression%29%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20fourth%5D%29%20star%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%7C%20result%20%7C%0A%09%09%20%20%20%20result%20%3A%3D%20Array%20with%3A%20node%20first.%0A%09%09%20%20%20%20node%20second%20do%3A%20%5B%3Aeach%20%7C%20result%20add%3A%20each%5D.%0A%09%09%20%20%20%20result%5D.%0A%0A%09assignment%20%3A%3D%20reference%2C%20ws%2C%20%27%3A%3D%27%20asParser%2C%20ws%2C%20expression%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20AssignmentNode%20new%20left%3A%20node%20first%3B%20right%3A%20%28node%20at%3A%205%29%5D.%0A%0A%09ret%20%3A%3D%20%27%5E%27%20asParser%2C%20ws%2C%20expression%2C%20ws%2C%20%27.%27%20asParser%20optional%0A%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%20ReturnNode%20new%0A%09%09%09%20%20%20%20%20addNode%3A%20node%20third%3B%0A%09%09%09%20%20%20%20%20yourself%5D.%0A%0A%09temps%20%3A%3D%20%27%7C%27%20asParser%2C%20%28ws%2C%20identifier%29%20star%2C%20ws%2C%20%27%7C%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20node%20second%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%5D%5D.%0A%0A%09blockParamList%20%3A%3D%20%28%27%3A%27%20asParser%2C%20identifier%2C%20ws%29%20plus%2C%20%27%7C%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%5D%5D.%0A%0A%09subexpression%20%3A%3D%20%27%28%27%20asParser%2C%20ws%2C%20expression%2C%20ws%2C%20%27%29%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20node%20third%5D.%0A%0A%09statements%20%3A%3D%20%28ret%20%3D%3D%3E%20%5B%3Anode%20%7C%20Array%20with%3A%20node%5D%29%20/%20%28expressions%2C%20ws%2C%20%27.%27%20asParser%2C%20ws%2C%20ret%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%20add%3A%20%28node%20at%3A%205%29%3B%20yourself%5D%29%20/%20%28expressions%20%2C%20%27.%27%20asParser%20optional%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%5D%29.%0A%0A%09sequence%20%3A%3D%20temps%20optional%2C%20ws%2C%20statements%20optional%2C%20ws%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20SequenceNode%20new%0A%09%09%09%09%20temps%3A%20node%20first%3B%0A%09%09%09%09%20nodes%3A%20node%20third%3B%0A%09%09%09%09%20yourself%5D.%0A%0A%09block%20%3A%3D%20%27%5B%27%20asParser%2C%20ws%2C%20blockParamList%20optional%2C%20ws%2C%20sequence%20optional%2C%20ws%2C%20%27%5D%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20BlockNode%20new%0A%09%09%09parameters%3A%20node%20third%3B%0A%09%09%09addNode%3A%20%28node%20at%3A%205%29%20asBlockSequenceNode%5D.%0A%0A%09operand%20%3A%3D%20literal%20/%20reference%20/%20subexpression.%0A%0A%09literal%20parser%3A%20number%20/%20string%20/%20literalArray%20/%20symbol%20/%20block.%0A%0A%09unaryMessage%20%3A%3D%20ws%2C%20unarySelector%2C%20%27%3A%27%20asParser%20not%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20SendNode%20new%20selector%3A%20node%20second%5D.%0A%0A%09unaryTail%20%3A%3D%20PPDelegateParser%20new.%0A%09unaryTail%20parser%3A%20%28unaryMessage%2C%20unaryTail%20optional%0A%09%09%09%20%20%20%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%09%09%20%20%20node%20second%0A%09%09%09%09%09%20%20%20ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09%09%09%20%20%20ifNotNil%3A%20%5Bnode%20second%20valueForReceiver%3A%20node%20first%5D%5D%29.%0A%0A%09unarySend%20%3A%3D%20operand%2C%20unaryTail%20optional%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20second%20%0A%09%09%09ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09ifNotNil%3A%20%5Bnode%20second%20valueForReceiver%3A%20node%20first%5D%5D.%0A%0A%09binaryMessage%20%3A%3D%20ws%2C%20binarySelector%2C%20ws%2C%20%28unarySend%20/%20operand%29%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20SendNode%20new%0A%09%09%09selector%3A%20node%20second%3B%0A%09%09%09arguments%3A%20%28Array%20with%3A%20node%20fourth%29%5D.%0A%0A%09binaryTail%20%3A%3D%20PPDelegateParser%20new.%0A%09binaryTail%20parser%3A%20%28binaryMessage%2C%20binaryTail%20optional%0A%09%09%09%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%09%09%09node%20second%20%0A%09%09%09%09%09%20%20%20%20ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09%09%09%20%20%20%20ifNotNil%3A%20%5B%20node%20second%20valueForReceiver%3A%20node%20first%5D%5D%29.%0A%0A%09binarySend%20%3A%3D%20unarySend%2C%20binaryTail%20optional%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20second%0A%09%09%09ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09ifNotNil%3A%20%5Bnode%20second%20valueForReceiver%3A%20node%20first%5D%5D.%0A%0A%09keywordPair%20%3A%3D%20keyword%2C%20ws%2C%20binarySend.%0A%0A%09keywordMessage%20%3A%3D%20%28ws%2C%20keywordPair%29%20plus%0A%09%09%3D%3D%3E%20%5B%3Anodes%20%7C%0A%09%09%20%20%20%20SendNode%20new%0A%09%09%09selector%3A%20%28%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%20first%5D%29%20join%3A%20%27%27%29%3B%0A%09%09%09arguments%3A%20%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%20third%5D%29%5D.%0A%0A%09keywordSend%20%3A%3D%20binarySend%2C%20keywordMessage%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20second%20valueForReceiver%3A%20node%20first%5D.%0A%0A%09message%20%3A%3D%20binaryMessage%20/%20unaryMessage%20/%20keywordMessage.%0A%0A%09cascade%20%3A%3D%20%28keywordSend%20/%20binarySend%29%2C%20%28ws%2C%20%27%3B%27%20asParser%2C%20message%29%20plus%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20first%20cascadeNodeWithMessages%3A%20%0A%09%09%09%28node%20second%20collect%3A%20%5B%3Aeach%20%7C%20each%20third%5D%29%5D.%0A%0A%09jsStatement%20%3A%3D%20%27%3C%27%20asParser%2C%20%28%27%3E%3E%27%20asParser%20/%20%28%27%3E%27%20asParser%20not%2C%20PPAnyParser%20new%29%29%20star%20flatten%2C%20%27%3E%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20JSStatementNode%20new%0A%09%09%09source%3A%20node%20second%3B%0A%09%09%09yourself%5D.%0A%0A%09expression%20parser%3A%20assignment%20/%20cascade%20/%20keywordSend%20/%20binarySend%20/%20jsStatement.%0A%0A%09method%20%3A%3D%20%28ws%2C%20%28keywordPattern%20/%20binaryPattern%20/%20unaryPattern%29%2C%20ws%2C%20sequence%20optional%2C%20ws%29%20withSource%0A%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09MethodNode%20new%0A%09%09%20%20%20%20selector%3A%20node%20first%20second%20first%3B%0A%09%09%20%20%20%20arguments%3A%20node%20first%20second%20second%3B%0A%09%09%20%20%20%20addNode%3A%20node%20first%20fourth%3B%0A%09%09%20%20%20%20source%3A%20node%20second%3B%0A%09%09%20%20%20%20yourself%5D.%0A%09%0A%09%5Emethod%2C%20PPEOFParser%20new%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%5D'),
 messageSends: ["asChoiceParser", unescape("%2C"), "cr", "space", "lf", "tab", "flatten", "asCharacterParser", "star", "not", "asParser", "new", unescape("/"), unescape("%3D%3D%3E"), "value:", "replace:with:", "at:", "plus", "second", "optional", "asNumber", "withAll:", "collect:", "value", "with:with:", "join:", "with:", "fourth", "first", "do:", "add:", "left:", "right:", "addNode:", "third", "yourself", "temps:", "nodes:", "parameters:", "asBlockSequenceNode", "parser:", "selector:", "ifNil:ifNotNil:", "valueForReceiver:", "arguments:", "cascadeNodeWithMessages:", "source:", "withSource"],
-referencedClasses: [smalltalk.String,smalltalk.PPAnyParser,smalltalk.ValueNode,smalltalk.PPDelegateParser,smalltalk.Array,smalltalk.VariableNode,smalltalk.ClassReferenceNode,smalltalk.AssignmentNode,smalltalk.ReturnNode,smalltalk.SequenceNode,smalltalk.BlockNode,smalltalk.SendNode,smalltalk.JSStatementNode,smalltalk.MethodNode,smalltalk.PPEOFParser]
+referencedClasses: [smalltalk.String,smalltalk.PPAnyParser,smalltalk.nil,smalltalk.PPDelegateParser,smalltalk.Array,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.PPEOFParser]
 }),
 smalltalk.SmalltalkParser);
 
@@ -1107,6 +1124,7 @@ referencedClasses: []
 smalltalk.SmalltalkParser.klass);
 
 
+smalltalk.setup(smalltalk.SmalltalkParser);
 smalltalk.addClass('Chunk', smalltalk.Object, ['contents'], 'Parser');
 smalltalk.addMethod(
 '_contents',
@@ -1170,6 +1188,7 @@ smalltalk.Chunk);
 
 
 
+smalltalk.setup(smalltalk.Chunk);
 smalltalk.addClass('InstructionChunk', smalltalk.Chunk, [], 'Parser');
 smalltalk.addMethod(
 '_isInstructionChunk',
@@ -1188,6 +1207,7 @@ smalltalk.InstructionChunk);
 
 
 
+smalltalk.setup(smalltalk.InstructionChunk);
 smalltalk.addClass('EmptyChunk', smalltalk.Chunk, [], 'Parser');
 smalltalk.addMethod(
 '_isEmptyChunk',
@@ -1206,6 +1226,7 @@ smalltalk.EmptyChunk);
 
 
 
+smalltalk.setup(smalltalk.EmptyChunk);
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['parser', 'separator', 'eof', 'ws', 'chunk', 'emptyChunk', 'instructionChunk'], 'Parser');
 smalltalk.addMethod(
 '_parser',
@@ -1314,6 +1335,7 @@ smalltalk.ChunkParser);
 
 
 
+smalltalk.setup(smalltalk.ChunkParser);
 smalltalk.addClass('Importer', smalltalk.Object, ['chunkParser'], 'Parser');
 smalltalk.addMethod(
 '_chunkParser',
@@ -1348,6 +1370,7 @@ smalltalk.Importer);
 
 
 
+smalltalk.setup(smalltalk.Importer);
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Parser');
 smalltalk.addMethod(
 '_exportCategory_',
@@ -1381,10 +1404,11 @@ smalltalk.send(self, "_exportDefinitionOf_on_", [aClass, stream]);
 smalltalk.send(self, "_exportMethodsOf_on_", [aClass, stream]);
 smalltalk.send(self, "_exportMetaDefinitionOf_on_", [aClass, stream]);
 smalltalk.send(self, "_exportMethodsOf_on_", [smalltalk.send(aClass, "_class", []), stream]);
+smalltalk.send(self, "_exportSetupOf_on_", [aClass, stream]);
 return smalltalk.send(stream, "_contents", []);
 return self;},
-source: unescape('export%3A%20aClass%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream.%0A%09%5Estream%20contents'),
-messageSends: ["writeStream", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class", "contents"],
+source: unescape('export%3A%20aClass%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream.%0A%09self%20exportSetupOf%3A%20aClass%20on%3A%20stream.%0A%09%5Estream%20contents'),
+messageSends: ["writeStream", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class", "exportSetupOf:on:", "contents"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
@@ -1486,8 +1510,25 @@ referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Exporter);
 
+smalltalk.addMethod(
+'_exportSetupOf_on_',
+smalltalk.method({
+selector: 'exportSetupOf:on:',
+category: 'private',
+fn: function (aClass, aStream){
+var self=this;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(unescape("smalltalk.setup%28smalltalk."), "__comma", [smalltalk.send(self, "_classNameFor_", [aClass])])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%29%3B")]);})(aStream);
+smalltalk.send(aStream, "_lf", []);
+return self;},
+source: unescape('exportSetupOf%3A%20aClass%20on%3A%20aStream%0A%09aStream%0A%09%20%20%20%20nextPutAll%3A%20%27smalltalk.setup%28smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%29%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%29%3B%27.%0A%09aStream%20lf'),
+messageSends: ["nextPutAll:", unescape("%2C"), "classNameFor:", "lf"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
 
 
+
+smalltalk.setup(smalltalk.Exporter);
 smalltalk.addClass('ChunkExporter', smalltalk.Exporter, [], 'Parser');
 smalltalk.addMethod(
 '_exportDefinitionOf_on_',
@@ -1617,6 +1658,7 @@ smalltalk.ChunkExporter);
 
 
 
+smalltalk.setup(smalltalk.ChunkExporter);
 smalltalk.addClass('StrippedExporter', smalltalk.Exporter, [], 'Parser');
 smalltalk.addMethod(
 '_exportDefinitionOf_on_',
@@ -1643,13 +1685,14 @@ selector: 'exportMethod:of:on:',
 category: 'private',
 fn: function (aMethod, aClass, aStream){
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.addMethod%28")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [smalltalk.send(smalltalk.send(aMethod, "_selector", []), "_asSelector", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.method%28%7B")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("selector%3A%20%27"), "__comma", [smalltalk.send(aMethod, "_selector", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("category%3A%20%27"), "__comma", [smalltalk.send(aMethod, "_category", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("fn: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_fn", []), "_compiledSource", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("%5D")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%2C")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [aClass])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29%3B")]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_lf", []);})(aStream);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.addMethod%28")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [smalltalk.send(smalltalk.send(aMethod, "_selector", []), "_asSelector", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.method%28%7B")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("selector%3A%20%27"), "__comma", [smalltalk.send(aMethod, "_selector", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("fn: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_fn", []), "_compiledSource", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("%5D")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%2C")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [aClass])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29%3B")]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_lf", []);})(aStream);
 return self;},
-source: unescape('exportMethod%3A%20aMethod%20of%3A%20aClass%20on%3A%20aStream%0A%09aStream%20%0A%09%09nextPutAll%3A%20%27smalltalk.addMethod%28%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%27%27%27%2C%20aMethod%20selector%20asSelector%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.method%28%7B%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27selector%3A%20%27%27%27%2C%20aMethod%20selector%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27category%3A%20%27%27%27%2C%20aMethod%20category%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27fn%3A%20%27%2C%20aMethod%20fn%20compiledSource%2C%20%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%5D%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%7D%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%29%3B%0A%09%09nextPutAll%3A%20%27%29%3B%27%3Blf%3Blf'),
-messageSends: ["nextPutAll:", "lf", unescape("%2C"), "asSelector", "selector", "category", "compiledSource", "fn", "classNameFor:"],
+source: unescape('exportMethod%3A%20aMethod%20of%3A%20aClass%20on%3A%20aStream%0A%09aStream%20%0A%09%09nextPutAll%3A%20%27smalltalk.addMethod%28%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%27%27%27%2C%20aMethod%20selector%20asSelector%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.method%28%7B%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27selector%3A%20%27%27%27%2C%20aMethod%20selector%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27fn%3A%20%27%2C%20aMethod%20fn%20compiledSource%2C%20%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%5D%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%7D%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%29%3B%0A%09%09nextPutAll%3A%20%27%29%3B%27%3Blf%3Blf'),
+messageSends: ["nextPutAll:", "lf", unescape("%2C"), "asSelector", "selector", "compiledSource", "fn", "classNameFor:"],
 referencedClasses: []
 }),
 smalltalk.StrippedExporter);
 
 
 
+smalltalk.setup(smalltalk.StrippedExporter);
