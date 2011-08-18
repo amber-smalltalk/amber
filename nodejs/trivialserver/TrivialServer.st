@@ -34,7 +34,7 @@ start
 	    res end: (self process: req)].
 
         (http createServer: block)
-                listen: #(1337 '127.0.0.1').
+                listen: 1337 host: '127.0.0.1'.
         console log: 'TrivialServer running at http://127.0.0.1:1337/'
 ! !
 
