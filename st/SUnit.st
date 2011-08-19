@@ -68,7 +68,6 @@ deny: aBoolean
 	self assert: aBoolean not
 ! !
 
-smalltalk.setup(smalltalk.TestCase);
 TestCase subclass: #ExampleTest
 	instanceVariableNames: 'test'
 	category: 'SUnit'!
@@ -87,7 +86,6 @@ testError
 	self assert: 1 foo
 ! !
 
-smalltalk.setup(smalltalk.ExampleTest);
 TabWidget subclass: #ProgressBar
 	instanceVariableNames: 'percent progressDiv div'
 	category: 'SUnit'!
@@ -125,12 +123,10 @@ updatePercent: aNumber
 	self renderProgressBar
 ! !
 
-smalltalk.setup(smalltalk.ProgressBar);
 Error subclass: #TestFailure
 	instanceVariableNames: ''
 	category: 'SUnit'!
 
-smalltalk.setup(smalltalk.TestFailure);
 TabWidget subclass: #TestRunner
 	instanceVariableNames: 'selectedCategories categoriesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	category: 'SUnit'!
@@ -374,7 +370,6 @@ updateStatusDiv
 		html span with: self statusInfo]
 ! !
 
-smalltalk.setup(smalltalk.TestRunner);
 Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
 	category: 'SUnit'!
@@ -437,7 +432,6 @@ initialize
 	total := 0
 ! !
 
-smalltalk.setup(smalltalk.TestResult);
 TestCase subclass: #ExampleTest2
 	instanceVariableNames: ''
 	category: 'SUnit'!
@@ -448,7 +442,6 @@ testPasses
 	100000 timesRepeat: [self assert: 1 + 1 = 2]
 ! !
 
-smalltalk.setup(smalltalk.ExampleTest2);
 TestCase subclass: #ExampleTest3
 	instanceVariableNames: ''
 	category: 'SUnit'!
@@ -459,4 +452,3 @@ testPasses
 	100000 timesRepeat: [self assert: 1 + 1 = 2]
 ! !
 
-smalltalk.setup(smalltalk.ExampleTest3);

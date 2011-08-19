@@ -168,7 +168,6 @@ smalltalk.TestCase);
 
 
 
-smalltalk.setup(smalltalk.TestCase);
 smalltalk.addClass('ExampleTest', smalltalk.TestCase, ['test'], 'SUnit');
 smalltalk.addMethod(
 '_testFailure',
@@ -217,7 +216,6 @@ smalltalk.ExampleTest);
 
 
 
-smalltalk.setup(smalltalk.ExampleTest);
 smalltalk.addClass('ProgressBar', smalltalk.TabWidget, ['percent', 'progressDiv', 'div'], 'SUnit');
 smalltalk.addMethod(
 '_percent',
@@ -298,11 +296,9 @@ smalltalk.ProgressBar);
 
 
 
-smalltalk.setup(smalltalk.ProgressBar);
 smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
 
 
-smalltalk.setup(smalltalk.TestFailure);
 smalltalk.addClass('TestRunner', smalltalk.TabWidget, ['selectedCategories', 'categoriesList', 'selectedClasses', 'classesList', 'selectedMethods', 'progressBar', 'methodsList', 'result', 'statusDiv'], 'SUnit');
 smalltalk.addMethod(
 '_label',
@@ -852,7 +848,6 @@ smalltalk.TestRunner);
 
 
 
-smalltalk.setup(smalltalk.TestRunner);
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 smalltalk.addMethod(
 '_timestamp',
@@ -1026,7 +1021,6 @@ smalltalk.TestResult);
 
 
 
-smalltalk.setup(smalltalk.TestResult);
 smalltalk.addClass('ExampleTest2', smalltalk.TestCase, [], 'SUnit');
 smalltalk.addMethod(
 '_testPasses',
@@ -1045,7 +1039,6 @@ smalltalk.ExampleTest2);
 
 
 
-smalltalk.setup(smalltalk.ExampleTest2);
 smalltalk.addClass('ExampleTest3', smalltalk.TestCase, [], 'SUnit');
 smalltalk.addMethod(
 '_testPasses',
@@ -1064,4 +1057,3 @@ smalltalk.ExampleTest3);
 
 
 
-smalltalk.setup(smalltalk.ExampleTest3);

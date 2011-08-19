@@ -24,7 +24,6 @@ accept: aVisitor
 	aVisitor visitNode: self
 ! !
 
-smalltalk.setup(smalltalk.Node);
 Node subclass: #MethodNode
 	instanceVariableNames: 'selector arguments source'
 	category: 'Compiler'!
@@ -61,7 +60,6 @@ accept: aVisitor
 	aVisitor visitMethodNode: self
 ! !
 
-smalltalk.setup(smalltalk.MethodNode);
 Node subclass: #SendNode
 	instanceVariableNames: 'selector arguments receiver'
 	category: 'Compiler'!
@@ -120,7 +118,6 @@ accept: aVisitor
 	aVisitor visitSendNode: self
 ! !
 
-smalltalk.setup(smalltalk.SendNode);
 Node subclass: #CascadeNode
 	instanceVariableNames: 'receiver'
 	category: 'Compiler'!
@@ -141,7 +138,6 @@ accept: aVisitor
 	aVisitor visitCascadeNode: self
 ! !
 
-smalltalk.setup(smalltalk.CascadeNode);
 Node subclass: #AssignmentNode
 	instanceVariableNames: 'left right'
 	category: 'Compiler'!
@@ -170,7 +166,6 @@ accept: aVisitor
 	aVisitor visitAssignmentNode: self
 ! !
 
-smalltalk.setup(smalltalk.AssignmentNode);
 Node subclass: #BlockNode
 	instanceVariableNames: 'parameters'
 	category: 'Compiler'!
@@ -191,7 +186,6 @@ accept: aVisitor
 	aVisitor visitBlockNode: self
 ! !
 
-smalltalk.setup(smalltalk.BlockNode);
 Node subclass: #SequenceNode
 	instanceVariableNames: 'temps'
 	category: 'Compiler'!
@@ -221,7 +215,6 @@ accept: aVisitor
 	aVisitor visitSequenceNode: self
 ! !
 
-smalltalk.setup(smalltalk.SequenceNode);
 SequenceNode subclass: #BlockSequenceNode
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -232,7 +225,6 @@ accept: aVisitor
 	aVisitor visitBlockSequenceNode: self
 ! !
 
-smalltalk.setup(smalltalk.BlockSequenceNode);
 Node subclass: #ReturnNode
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -243,7 +235,6 @@ accept: aVisitor
 	aVisitor visitReturnNode: self
 ! !
 
-smalltalk.setup(smalltalk.ReturnNode);
 Node subclass: #ValueNode
 	instanceVariableNames: 'value'
 	category: 'Compiler'!
@@ -264,7 +255,6 @@ accept: aVisitor
 	aVisitor visitValueNode: self
 ! !
 
-smalltalk.setup(smalltalk.ValueNode);
 ValueNode subclass: #VariableNode
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -275,7 +265,6 @@ accept: aVisitor
 	aVisitor visitVariableNode: self
 ! !
 
-smalltalk.setup(smalltalk.VariableNode);
 VariableNode subclass: #ClassReferenceNode
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -286,7 +275,6 @@ accept: aVisitor
 	aVisitor visitClassReferenceNode: self
 ! !
 
-smalltalk.setup(smalltalk.ClassReferenceNode);
 Node subclass: #JSStatementNode
 	instanceVariableNames: 'source'
 	category: 'Compiler'!
@@ -307,7 +295,6 @@ accept: aVisitor
 	aVisitor visitJSStatementNode: self
 ! !
 
-smalltalk.setup(smalltalk.JSStatementNode);
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -373,7 +360,6 @@ visitJSStatementNode: aNode
 	    nextPutAll: '})()'
 ! !
 
-smalltalk.setup(smalltalk.NodeVisitor);
 NodeVisitor subclass: #Compiler
 	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses'
 	category: 'Compiler'!
@@ -697,7 +683,6 @@ recompileAll
 		self recompile: each]
 ! !
 
-smalltalk.setup(smalltalk.Compiler);
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -707,4 +692,3 @@ Object subclass: #DoIt
 doIt ^[StrippedExporter new exportCategory: 'IDE'] value
 ! !
 
-smalltalk.setup(smalltalk.DoIt);

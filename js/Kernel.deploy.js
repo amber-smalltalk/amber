@@ -710,7 +710,6 @@ referencedClasses: []
 smalltalk.Object.klass);
 
 
-smalltalk.setup(smalltalk.Object);
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_classes',
@@ -793,7 +792,6 @@ referencedClasses: []
 smalltalk.Smalltalk.klass);
 
 
-smalltalk.setup(smalltalk.Smalltalk);
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_new',
@@ -1133,7 +1131,6 @@ smalltalk.Behavior);
 
 
 
-smalltalk.setup(smalltalk.Behavior);
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel');
 smalltalk.addMethod(
 '_category',
@@ -1246,7 +1243,6 @@ smalltalk.Class);
 
 
 
-smalltalk.setup(smalltalk.Class);
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel');
 smalltalk.addMethod(
 '_instanceClass',
@@ -1310,7 +1306,6 @@ smalltalk.Metaclass);
 
 
 
-smalltalk.setup(smalltalk.Metaclass);
 smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_source',
@@ -1479,7 +1474,6 @@ smalltalk.CompiledMethod);
 
 
 
-smalltalk.setup(smalltalk.CompiledMethod);
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -1902,7 +1896,6 @@ referencedClasses: []
 smalltalk.Number.klass);
 
 
-smalltalk.setup(smalltalk.Number);
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_compiledSource',
@@ -2071,7 +2064,6 @@ smalltalk.BlockClosure);
 
 
 
-smalltalk.setup(smalltalk.BlockClosure);
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -2261,7 +2253,6 @@ smalltalk.Boolean);
 
 
 
-smalltalk.setup(smalltalk.Boolean);
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel');
 smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.')
 smalltalk.addMethod(
@@ -2884,7 +2875,6 @@ referencedClasses: [smalltalk.Date]
 smalltalk.Date.klass);
 
 
-smalltalk.setup(smalltalk.Date);
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_subclass_instanceVariableNames_',
@@ -3068,7 +3058,6 @@ referencedClasses: []
 smalltalk.UndefinedObject.klass);
 
 
-smalltalk.setup(smalltalk.UndefinedObject);
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_size',
@@ -3535,7 +3524,6 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 
-smalltalk.setup(smalltalk.Collection);
 smalltalk.addClass('SequenceableCollection', smalltalk.Collection, [], 'Kernel');
 smalltalk.addMethod(
 '_at_',
@@ -3784,7 +3772,6 @@ smalltalk.SequenceableCollection);
 
 
 
-smalltalk.setup(smalltalk.SequenceableCollection);
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -4525,7 +4512,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 
-smalltalk.setup(smalltalk.String);
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel');
 smalltalk.addMethod(
 '_size',
@@ -4816,7 +4802,6 @@ smalltalk.Array);
 
 
 
-smalltalk.setup(smalltalk.Array);
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_compile_',
@@ -4895,7 +4880,6 @@ referencedClasses: []
 smalltalk.RegularExpression.klass);
 
 
-smalltalk.setup(smalltalk.RegularExpression);
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel');
 smalltalk.addMethod(
 '_messageText',
@@ -4974,7 +4958,6 @@ referencedClasses: []
 smalltalk.Error.klass);
 
 
-smalltalk.setup(smalltalk.Error);
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_receiver',
@@ -5068,7 +5051,6 @@ smalltalk.MethodContext);
 
 
 
-smalltalk.setup(smalltalk.MethodContext);
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -5162,7 +5144,6 @@ referencedClasses: []
 smalltalk.Association.klass);
 
 
-smalltalk.setup(smalltalk.Association);
 smalltalk.addClass('Dictionary', smalltalk.Collection, ['keys'], 'Kernel');
 smalltalk.addMethod(
 '__eq',
@@ -5592,7 +5573,6 @@ smalltalk.Dictionary);
 
 
 
-smalltalk.setup(smalltalk.Dictionary);
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_superclass_subclass_',
@@ -5692,7 +5672,6 @@ smalltalk.ClassBuilder);
 
 
 
-smalltalk.setup(smalltalk.ClassBuilder);
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel');
 smalltalk.addMethod(
 '_initialize',
@@ -5763,7 +5742,6 @@ smalltalk.ClassCategoryReader);
 
 
 
-smalltalk.setup(smalltalk.ClassCategoryReader);
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel');
 smalltalk.addMethod(
 '_collection',
@@ -6134,7 +6112,6 @@ referencedClasses: []
 smalltalk.Stream.klass);
 
 
-smalltalk.setup(smalltalk.Stream);
 smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel');
 smalltalk.addMethod(
 '_next_',
@@ -6233,7 +6210,6 @@ smalltalk.StringStream);
 
 
 
-smalltalk.setup(smalltalk.StringStream);
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel');
 smalltalk.addMethod(
 '_class_',
@@ -6300,7 +6276,6 @@ smalltalk.ClassCommentReader);
 
 
 
-smalltalk.setup(smalltalk.ClassCommentReader);
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_next',
@@ -6334,7 +6309,6 @@ smalltalk.Random);
 
 
 
-smalltalk.setup(smalltalk.Random);
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel');
 smalltalk.addMethod(
 '_x',
@@ -6488,7 +6462,6 @@ referencedClasses: []
 smalltalk.Point.klass);
 
 
-smalltalk.setup(smalltalk.Point);
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel');
 smalltalk.addMethod(
 '_selector',
@@ -6567,7 +6540,6 @@ referencedClasses: []
 smalltalk.Message.klass);
 
 
-smalltalk.setup(smalltalk.Message);
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel');
 smalltalk.addMethod(
 '_message',
@@ -6646,7 +6618,6 @@ smalltalk.MessageNotUnderstood);
 
 
 
-smalltalk.setup(smalltalk.MessageNotUnderstood);
 smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(
 '_handleError_',
@@ -6788,4 +6759,3 @@ referencedClasses: []
 smalltalk.ErrorHandler.klass);
 
 
-smalltalk.setup(smalltalk.ErrorHandler);

@@ -37,7 +37,12 @@ body.jtalkBody {
 }
 
 #jtalkTabs li span.close {
-    margin-left: 10px;
+    margin-left: 3px;
+    margin-right: 5px;
+}
+
+#jtalkTabs li span.close:hover {
+    color: #e72a2a;
 }
 
 #jtalkTabs li.closeAll {
@@ -127,6 +132,10 @@ body.jtalkBody {
     font-size: 12px;
 }
 
+.jtalkTool .source {
+    height: 100%;
+}
+
 .jtalkTool textarea,
 .jtalkTool input {
     border: 1px solid;
@@ -136,6 +145,24 @@ body.jtalkBody {
     font-size: 13px;
     position: relative;
     padding: 0;
+}
+
+.jtalkTool .CodeMirror {
+    border: 1px solid;
+    border-color: #a8a8a8;
+    font-family: Arial, Helvetica, sans;
+    font-size: 13px;
+    line-height: 1.3em;
+    height: 100%;
+    background: white;
+}
+
+.jtalkTool .CodeMirror-scroll {
+    height: 100%;
+}
+
+.talkTool .CodeMirror-scroll pre {
+    font-family: Arial, Helvetica, sans;
 }
 
 .jtalkTool .jt_clear {	 

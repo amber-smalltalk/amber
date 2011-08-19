@@ -70,7 +70,6 @@ tagBrush: aTagBrush
 	<return aTagBrush._element().getContext('2d')>
 ! !
 
-smalltalk.setup(smalltalk.CanvasRenderingContext);
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	category: 'Canvas'!
@@ -233,7 +232,6 @@ onJQuery: aJQuery
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.HTMLCanvas);
 Object subclass: #TagBrush
 	instanceVariableNames: 'canvas element'
 	category: 'Canvas'!
@@ -394,7 +392,6 @@ fromJQuery: aJQuery canvas: aCanvas
 	yourself
 ! !
 
-smalltalk.setup(smalltalk.TagBrush);
 Object subclass: #Widget
 	instanceVariableNames: ''
 	category: 'Canvas'!
@@ -433,7 +430,6 @@ renderOn: html
     self
 ! !
 
-smalltalk.setup(smalltalk.Widget);
 TagBrush subclass: #CanvasBrush
 	instanceVariableNames: ''
 	category: 'Canvas'!
@@ -458,7 +454,6 @@ canvas: aCanvas
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.CanvasBrush);
 !Object methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush

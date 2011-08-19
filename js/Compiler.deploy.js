@@ -61,7 +61,6 @@ smalltalk.Node);
 
 
 
-smalltalk.setup(smalltalk.Node);
 smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source'], 'Compiler');
 smalltalk.addMethod(
 '_selector',
@@ -170,7 +169,6 @@ smalltalk.MethodNode);
 
 
 
-smalltalk.setup(smalltalk.MethodNode);
 smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver'], 'Compiler');
 smalltalk.addMethod(
 '_selector',
@@ -311,7 +309,6 @@ smalltalk.SendNode);
 
 
 
-smalltalk.setup(smalltalk.SendNode);
 smalltalk.addClass('CascadeNode', smalltalk.Node, ['receiver'], 'Compiler');
 smalltalk.addMethod(
 '_receiver',
@@ -360,7 +357,6 @@ smalltalk.CascadeNode);
 
 
 
-smalltalk.setup(smalltalk.CascadeNode);
 smalltalk.addClass('AssignmentNode', smalltalk.Node, ['left', 'right'], 'Compiler');
 smalltalk.addMethod(
 '_left',
@@ -439,7 +435,6 @@ smalltalk.AssignmentNode);
 
 
 
-smalltalk.setup(smalltalk.AssignmentNode);
 smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters'], 'Compiler');
 smalltalk.addMethod(
 '_parameters',
@@ -488,7 +483,6 @@ smalltalk.BlockNode);
 
 
 
-smalltalk.setup(smalltalk.BlockNode);
 smalltalk.addClass('SequenceNode', smalltalk.Node, ['temps'], 'Compiler');
 smalltalk.addMethod(
 '_temps',
@@ -552,7 +546,6 @@ smalltalk.SequenceNode);
 
 
 
-smalltalk.setup(smalltalk.SequenceNode);
 smalltalk.addClass('BlockSequenceNode', smalltalk.SequenceNode, [], 'Compiler');
 smalltalk.addMethod(
 '_accept_',
@@ -571,7 +564,6 @@ smalltalk.BlockSequenceNode);
 
 
 
-smalltalk.setup(smalltalk.BlockSequenceNode);
 smalltalk.addClass('ReturnNode', smalltalk.Node, [], 'Compiler');
 smalltalk.addMethod(
 '_accept_',
@@ -590,7 +582,6 @@ smalltalk.ReturnNode);
 
 
 
-smalltalk.setup(smalltalk.ReturnNode);
 smalltalk.addClass('ValueNode', smalltalk.Node, ['value'], 'Compiler');
 smalltalk.addMethod(
 '_value',
@@ -639,7 +630,6 @@ smalltalk.ValueNode);
 
 
 
-smalltalk.setup(smalltalk.ValueNode);
 smalltalk.addClass('VariableNode', smalltalk.ValueNode, [], 'Compiler');
 smalltalk.addMethod(
 '_accept_',
@@ -658,7 +648,6 @@ smalltalk.VariableNode);
 
 
 
-smalltalk.setup(smalltalk.VariableNode);
 smalltalk.addClass('ClassReferenceNode', smalltalk.VariableNode, [], 'Compiler');
 smalltalk.addMethod(
 '_accept_',
@@ -677,7 +666,6 @@ smalltalk.ClassReferenceNode);
 
 
 
-smalltalk.setup(smalltalk.ClassReferenceNode);
 smalltalk.addClass('JSStatementNode', smalltalk.Node, ['source'], 'Compiler');
 smalltalk.addMethod(
 '_source',
@@ -726,7 +714,6 @@ smalltalk.JSStatementNode);
 
 
 
-smalltalk.setup(smalltalk.JSStatementNode);
 smalltalk.addClass('NodeVisitor', smalltalk.Object, [], 'Compiler');
 smalltalk.addMethod(
 '_visit_',
@@ -940,7 +927,6 @@ smalltalk.NodeVisitor);
 
 
 
-smalltalk.setup(smalltalk.NodeVisitor);
 smalltalk.addClass('Compiler', smalltalk.NodeVisitor, ['stream', 'nestedBlocks', 'earlyReturn', 'currentClass', 'currentSelector', 'unknownVariables', 'tempVariables', 'messageSends', 'referencedClasses'], 'Compiler');
 smalltalk.addMethod(
 '_initialize',
@@ -1581,7 +1567,6 @@ referencedClasses: [smalltalk.Smalltalk]
 smalltalk.Compiler.klass);
 
 
-smalltalk.setup(smalltalk.Compiler);
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler');
 smalltalk.addMethod(
 '_doIt',
@@ -1600,4 +1585,3 @@ smalltalk.DoIt);
 
 
 
-smalltalk.setup(smalltalk.DoIt);

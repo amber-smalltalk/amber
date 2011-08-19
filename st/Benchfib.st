@@ -11,7 +11,6 @@ main
 	console log: '0 tinyBenchmarks => ' + result
 ! !
 
-smalltalk.setup(smalltalk.Benchfib);
 !Number methodsFor: '*Benchfib'!
 
 benchFib

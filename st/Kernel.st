@@ -229,7 +229,6 @@ initialize
 	"no op"
 ! !
 
-smalltalk.setup(smalltalk.Object);
 Object subclass: #Smalltalk
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -265,7 +264,6 @@ current
 	<return smalltalk>
 ! !
 
-smalltalk.setup(smalltalk.Smalltalk);
 Object subclass: #Behavior
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -393,7 +391,6 @@ inheritsFrom: aClass
 	^aClass allSubclasses includes: self
 ! !
 
-smalltalk.setup(smalltalk.Behavior);
 Behavior subclass: #Class
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -439,7 +436,6 @@ isClass
 	^true
 ! !
 
-smalltalk.setup(smalltalk.Class);
 Behavior subclass: #Metaclass
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -467,7 +463,6 @@ isMetaclass
 	^true
 ! !
 
-smalltalk.setup(smalltalk.Metaclass);
 Object subclass: #CompiledMethod
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -518,7 +513,6 @@ referencedClasses
 	^self basicAt: 'referencedClasses'
 ! !
 
-smalltalk.setup(smalltalk.CompiledMethod);
 Object subclass: #Number
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -662,7 +656,6 @@ pi
 	<return Math.PI>
 ! !
 
-smalltalk.setup(smalltalk.Number);
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -724,7 +717,6 @@ valueWithInterval: aNumber
 	<return setInterval(self, aNumber)>
 ! !
 
-smalltalk.setup(smalltalk.BlockClosure);
 Object subclass: #Boolean
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -795,7 +787,6 @@ printString
 	<return self.toString()>
 ! !
 
-smalltalk.setup(smalltalk.Boolean);
 Object subclass: #Date
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -982,7 +973,6 @@ millisecondsToRun: aBlock
 	^Date now - t
 ! !
 
-smalltalk.setup(smalltalk.Date);
 Object subclass: #UndefinedObject
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1046,7 +1036,6 @@ new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
 
-smalltalk.setup(smalltalk.UndefinedObject);
 Object subclass: #Collection
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1236,7 +1225,6 @@ withAll: aCollection
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.Collection);
 Collection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1319,7 +1307,6 @@ withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
 
-smalltalk.setup(smalltalk.SequenceableCollection);
 SequenceableCollection subclass: #String
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1560,7 +1547,6 @@ fromString: aString
 	    <return new self.fn(aString)>
 ! !
 
-smalltalk.setup(smalltalk.String);
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1678,7 +1664,6 @@ printString
 	^str contents
 ! !
 
-smalltalk.setup(smalltalk.Array);
 Object subclass: #RegularExpression
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1707,7 +1692,6 @@ fromString: aString
 	    ^self fromString: aString flag: ''
 ! !
 
-smalltalk.setup(smalltalk.RegularExpression);
 Object subclass: #Error
 	instanceVariableNames: 'messageText'
 	category: 'Kernel'!
@@ -1740,7 +1724,6 @@ signal: aString
 		signal
 ! !
 
-smalltalk.setup(smalltalk.Error);
 Object subclass: #MethodContext
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -1771,7 +1754,6 @@ asString
 	^self receiver class printString, ' >> ', self selector
 ! !
 
-smalltalk.setup(smalltalk.MethodContext);
 Object subclass: #Association
 	instanceVariableNames: 'key value'
 	category: 'Kernel'!
@@ -1811,7 +1793,6 @@ key: aKey value: aValue
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.Association);
 Collection subclass: #Dictionary
 	instanceVariableNames: 'keys'
 	category: 'Kernel'!
@@ -1971,7 +1952,6 @@ initialize
     	keys := #()
 ! !
 
-smalltalk.setup(smalltalk.Dictionary);
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -2010,7 +1990,6 @@ setupClass: aClass
 	<smalltalk.init(aClass);>
 ! !
 
-smalltalk.setup(smalltalk.ClassBuilder);
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
 	category: 'Kernel'!
@@ -2048,7 +2027,6 @@ compileMethod: aString
 	class addCompiledMethod: method
 ! !
 
-smalltalk.setup(smalltalk.ClassCategoryReader);
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
 	category: 'Kernel'!
@@ -2179,7 +2157,6 @@ on: aCollection
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.Stream);
 Stream subclass: #StringStream
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -2222,7 +2199,6 @@ lf
 	^self nextPutAll: String lf
 ! !
 
-smalltalk.setup(smalltalk.StringStream);
 Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class chunkParser'
 	category: 'Kernel'!
@@ -2255,7 +2231,6 @@ setComment: aString
     class comment: aString
 ! !
 
-smalltalk.setup(smalltalk.ClassCommentReader);
 Object subclass: #Random
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -2270,7 +2245,6 @@ next: anInteger
     ^1 to: anInteger collect: [:each | self next]
 ! !
 
-smalltalk.setup(smalltalk.Random);
 Object subclass: #Point
 	instanceVariableNames: 'x y'
 	category: 'Kernel'!
@@ -2326,7 +2300,6 @@ x: aNumber y: anotherNumber
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.Point);
 Object subclass: #Message
 	instanceVariableNames: 'selector arguments'
 	category: 'Kernel'!
@@ -2358,7 +2331,6 @@ selector: aString arguments: anArray
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.Message);
 Error subclass: #MessageNotUnderstood
 	instanceVariableNames: 'message receiver'
 	category: 'Kernel'!
@@ -2385,7 +2357,6 @@ messageText
 	^self receiver asString, ' does not understand #', self message selector
 ! !
 
-smalltalk.setup(smalltalk.MessageNotUnderstood);
 Object subclass: #ErrorHandler
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -2441,4 +2412,3 @@ register
 	ErrorHandler setCurrent: self new
 ! !
 
-smalltalk.setup(smalltalk.ErrorHandler);

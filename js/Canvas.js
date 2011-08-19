@@ -226,7 +226,6 @@ referencedClasses: []
 smalltalk.CanvasRenderingContext.klass);
 
 
-smalltalk.setup(smalltalk.CanvasRenderingContext);
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 '_root_',
@@ -771,7 +770,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 
-smalltalk.setup(smalltalk.HTMLCanvas);
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
 '_contents_',
@@ -1263,7 +1261,6 @@ referencedClasses: []
 smalltalk.TagBrush.klass);
 
 
-smalltalk.setup(smalltalk.TagBrush);
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
 '_appendToBrush_',
@@ -1372,7 +1369,6 @@ smalltalk.Widget);
 
 
 
-smalltalk.setup(smalltalk.Widget);
 smalltalk.addClass('CanvasBrush', smalltalk.TagBrush, [], 'Canvas');
 smalltalk.addMethod(
 '_createElement',
@@ -1421,7 +1417,6 @@ referencedClasses: []
 smalltalk.CanvasBrush.klass);
 
 
-smalltalk.setup(smalltalk.CanvasBrush);
 smalltalk.addMethod(
 '_appendToBrush_',
 smalltalk.method({

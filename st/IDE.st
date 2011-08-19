@@ -125,14 +125,14 @@ renderTabFor: aWidget on: html
     selectedTab = aWidget ifTrue: [
 	li class: 'selected'].
     li with: [
-	html span
-	    with: aWidget label;
-	    onClick: [self selectTab: aWidget].
-	aWidget canBeClosed ifTrue: [
+        aWidget canBeClosed ifTrue: [
 	    html span 
 		class: 'close';
 		with: 'x';
-		onClick: [self closeTab: aWidget]]]
+		onClick: [self closeTab: aWidget]].
+	html span
+	    with: aWidget label;
+	    onClick: [self selectTab: aWidget]]
 !
 
 renderTabs
@@ -167,7 +167,6 @@ new
     self shouldNotImplement
 ! !
 
-smalltalk.setup(smalltalk.TabManager);
 Widget subclass: #TabWidget
 	instanceVariableNames: 'div'
 	category: 'IDE'!
@@ -238,7 +237,6 @@ open
     ^self new open
 ! !
 
-smalltalk.setup(smalltalk.TabWidget);
 TabWidget subclass: #Workspace
 	instanceVariableNames: 'sourceArea'
 	category: 'IDE'!
@@ -292,7 +290,6 @@ renderButtonsOn: html
 	onClick: [self clearWorkspace]
 ! !
 
-smalltalk.setup(smalltalk.Workspace);
 TabWidget subclass: #Transcript
 	instanceVariableNames: 'textarea'
 	category: 'IDE'!
@@ -363,7 +360,6 @@ clear
     self current clear
 ! !
 
-smalltalk.setup(smalltalk.Transcript);
 TabWidget subclass: #Browser
 	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges input'
 	category: 'IDE'!
@@ -562,7 +558,7 @@ compileMethodDefinitionFor: aClass
 
 compileDefinition
     | newClass |
-    newClass := Compiler new loadExpression: sourceArea textarea asJQuery val.
+    newClass := Compiler new loadExpression: sourceArea val.
     self 
 	resetClassesList;
 	updateCategoriesList;
@@ -766,7 +762,7 @@ renderBottomPanelOn: html
 	with: [
 	    sourceArea := SourceArea new.
 	    sourceArea renderOn: html.
-	    sourceArea textarea
+	    sourceArea
 		onKeyUp: [self updateStatus]]
 !
 
@@ -928,7 +924,7 @@ updateSourceAndButtons
 !
 
 updateStatus
-	sourceArea textarea asJQuery val = self source
+	sourceArea val = self source
 		ifTrue: [
 			saveButton ifNotNil: [
 				saveButton at: 'disabled' put: true].
@@ -966,7 +962,6 @@ open
     self new open
 ! !
 
-smalltalk.setup(smalltalk.Browser);
 TabWidget subclass: #Inspector
 	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea workspaceTextarea diveButton'
 	category: 'IDE'!
@@ -1103,7 +1098,6 @@ on: anObject
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.Inspector);
 TabWidget subclass: #ReferencesBrowser
 	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
 	category: 'IDE'!
@@ -1281,35 +1275,26 @@ search: aString
 		open
 ! !
 
-smalltalk.setup(smalltalk.ReferencesBrowser);
 Widget subclass: #SourceArea
-	instanceVariableNames: 'textarea'
+	instanceVariableNames: 'editor div'
 	category: 'IDE'!
 
 !SourceArea methodsFor: 'accessing'!
 
 val
-    ^textarea asJQuery val
+    ^editor getValue
 !
 
 val: aString
-    textarea asJQuery val: aString
+    editor setValue: aString
 !
 
 currentLine
-    | lines startLine endLine|
-    lines := textarea asJQuery val tokenize: String lf.
-    startLine := endLine := 0.
-    lines do: [:each |
-	endLine := startLine + each size.
-	startLine := endLine + 1.
-	endLine >= self selectionStart ifTrue: [
-	    self selectionEnd: endLine.
-	    ^each]]
+    ^editor getLine: (editor getCursor line)
 !
 
 selection
-    <return document.selection>
+	^editor getSelection
 !
 
 selectionEnd
@@ -1328,8 +1313,18 @@ selectionEnd: anInteger
    textarea element selectionEnd: anInteger
 !
 
-textarea
-	^textarea
+setEditorOn: aTextarea
+	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+        	theme: 'jtalk',
+                lineNumbers: true,
+                enterMode: 'classic',
+                matchBrackets: true,
+                electricChars: false,
+	})>
+!
+
+editor
+	^editor
 ! !
 
 !SourceArea methodsFor: 'actions'!
@@ -1340,11 +1335,9 @@ clear
 
 doIt
     | selection |
-    textarea asJQuery focus.
-    self selectionStart = self selectionEnd
-	ifTrue: [selection := self currentLine]
-	ifFalse: [
-	    selection := textarea asJQuery val copyFrom: self selectionStart + 1 to: self selectionEnd + 1].
+    editor somethingSelected
+	ifFalse: [selection := self currentLine]
+	ifTrue: [selection := self selection].
     ^self eval: selection
 !
 
@@ -1382,32 +1375,43 @@ inspectIt
 !
 
 print: aString
-    | start |
-    start := self selectionEnd.
-    textarea asJQuery val: (
-	(textarea asJQuery val copyFrom: 1 to: start),
-	' ', aString, ' ',
-	(textarea asJQuery val copyFrom: start + 1 to: textarea asJQuery val size)).
-    self selectionStart: start.
-    self selectionEnd: start + aString size + 2
+	| start stop |
+	start := Dictionary new.
+	stop := Dictionary new.
+	start at: 'line' put: (editor getCursor: false) line.
+	start at: 'ch' put: (editor getCursor: false) ch.
+	stop at: 'line' put: (start at: 'line').
+	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
+	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
+	editor setCursor: (editor getCursor: true).
+	editor setSelection: stop end: start.
+	console log: start; log: stop
 !
 
 printIt
     self print: self doIt printString
 ! !
 
+!SourceArea methodsFor: 'events'!
+
+onKeyUp: aBlock
+	div onKeyUp: aBlock
+!
+
+onKeyDown: aBlock
+	div onKeyDown: aBlock
+! !
+
 !SourceArea methodsFor: 'rendering'!
 
 renderOn: html
-    textarea := html textarea.
-    textarea asJQuery call: 'tabby'.
-    textarea onKeyDown: [:e | self handleKeyDown: e].
-    textarea 
-	class: 'jt_workspace';
-	at: 'spellcheck' put: 'false'
+    | textarea |
+    div := html div class: 'source'.
+    div with: [textarea := html textarea].
+    self setEditorOn: textarea element.
+    div onKeyDown: [:e | self handleKeyDown: e]
 ! !
 
-smalltalk.setup(smalltalk.SourceArea);
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	category: 'IDE'!
@@ -1471,7 +1475,6 @@ on: aBrowser
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.ClassesList);
 Widget subclass: #ClassesListNode
 	instanceVariableNames: 'browser theClass level nodes'
 	category: 'IDE'!
@@ -1551,7 +1554,6 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 		yourself
 ! !
 
-smalltalk.setup(smalltalk.ClassesListNode);
 TabWidget subclass: #Debugger
 	instanceVariableNames: 'error selectedContext sourceArea ul'
 	category: 'IDE'!
@@ -1636,7 +1638,6 @@ updateSourceArea
 	 sourceArea val: (selectedContext receiver class methodAt: selectedContext selector) source
 ! !
 
-smalltalk.setup(smalltalk.Debugger);
 ErrorHandler subclass: #DebugErrorHandler
 	instanceVariableNames: ''
 	category: 'IDE'!
@@ -1656,7 +1657,6 @@ initialize
 	self register
 ! !
 
-smalltalk.setup(smalltalk.DebugErrorHandler);
 !Object methodsFor: '*IDE'!
 
 inspect

@@ -217,7 +217,6 @@ smalltalk.PPParser);
 
 
 
-smalltalk.setup(smalltalk.PPParser);
 smalltalk.addClass('PPEOFParser', smalltalk.PPParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -236,7 +235,6 @@ smalltalk.PPEOFParser);
 
 
 
-smalltalk.setup(smalltalk.PPEOFParser);
 smalltalk.addClass('PPAnyParser', smalltalk.PPParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -255,7 +253,6 @@ smalltalk.PPAnyParser);
 
 
 
-smalltalk.setup(smalltalk.PPAnyParser);
 smalltalk.addClass('PPEpsilonParser', smalltalk.PPParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -274,7 +271,6 @@ smalltalk.PPEpsilonParser);
 
 
 
-smalltalk.setup(smalltalk.PPEpsilonParser);
 smalltalk.addClass('PPStringParser', smalltalk.PPParser, ['string'], 'Parser');
 smalltalk.addMethod(
 '_string',
@@ -327,7 +323,6 @@ smalltalk.PPStringParser);
 
 
 
-smalltalk.setup(smalltalk.PPStringParser);
 smalltalk.addClass('PPCharacterParser', smalltalk.PPParser, ['regexp'], 'Parser');
 smalltalk.addMethod(
 '_string_',
@@ -376,7 +371,6 @@ smalltalk.PPCharacterParser);
 
 
 
-smalltalk.setup(smalltalk.PPCharacterParser);
 smalltalk.addClass('PPListParser', smalltalk.PPParser, ['parsers'], 'Parser');
 smalltalk.addMethod(
 '_parsers',
@@ -455,7 +449,6 @@ referencedClasses: [smalltalk.Array]
 smalltalk.PPListParser.klass);
 
 
-smalltalk.setup(smalltalk.PPListParser);
 smalltalk.addClass('PPSequenceParser', smalltalk.PPListParser, [], 'Parser');
 smalltalk.addMethod(
 '__comma',
@@ -495,7 +488,6 @@ smalltalk.PPSequenceParser);
 
 
 
-smalltalk.setup(smalltalk.PPSequenceParser);
 smalltalk.addClass('PPChoiceParser', smalltalk.PPListParser, [], 'Parser');
 smalltalk.addMethod(
 '__slash',
@@ -531,7 +523,6 @@ smalltalk.PPChoiceParser);
 
 
 
-smalltalk.setup(smalltalk.PPChoiceParser);
 smalltalk.addClass('PPDelegateParser', smalltalk.PPParser, ['parser'], 'Parser');
 smalltalk.addMethod(
 '_parser',
@@ -595,7 +586,6 @@ referencedClasses: []
 smalltalk.PPDelegateParser.klass);
 
 
-smalltalk.setup(smalltalk.PPDelegateParser);
 smalltalk.addClass('PPAndParser', smalltalk.PPDelegateParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -634,7 +624,6 @@ smalltalk.PPAndParser);
 
 
 
-smalltalk.setup(smalltalk.PPAndParser);
 smalltalk.addClass('PPNotParser', smalltalk.PPAndParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -655,7 +644,6 @@ smalltalk.PPNotParser);
 
 
 
-smalltalk.setup(smalltalk.PPNotParser);
 smalltalk.addClass('PPActionParser', smalltalk.PPDelegateParser, ['block'], 'Parser');
 smalltalk.addMethod(
 '_block',
@@ -721,7 +709,6 @@ referencedClasses: []
 smalltalk.PPActionParser.klass);
 
 
-smalltalk.setup(smalltalk.PPActionParser);
 smalltalk.addClass('PPFlattenParser', smalltalk.PPDelegateParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -745,7 +732,6 @@ smalltalk.PPFlattenParser);
 
 
 
-smalltalk.setup(smalltalk.PPFlattenParser);
 smalltalk.addClass('PPSourceParser', smalltalk.PPDelegateParser, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -770,7 +756,6 @@ smalltalk.PPSourceParser);
 
 
 
-smalltalk.setup(smalltalk.PPSourceParser);
 smalltalk.addClass('PPRepeatingParser', smalltalk.PPDelegateParser, ['min'], 'Parser');
 smalltalk.addMethod(
 '_min',
@@ -841,7 +826,6 @@ referencedClasses: []
 smalltalk.PPRepeatingParser.klass);
 
 
-smalltalk.setup(smalltalk.PPRepeatingParser);
 smalltalk.addClass('PPFailure', smalltalk.Object, ['position', 'reason'], 'Parser');
 smalltalk.addMethod(
 '_position',
@@ -980,7 +964,6 @@ referencedClasses: []
 smalltalk.PPFailure.klass);
 
 
-smalltalk.setup(smalltalk.PPFailure);
 smalltalk.addClass('SmalltalkParser', smalltalk.Object, [], 'Parser');
 smalltalk.addMethod(
 '_parse_',
@@ -1124,7 +1107,6 @@ referencedClasses: []
 smalltalk.SmalltalkParser.klass);
 
 
-smalltalk.setup(smalltalk.SmalltalkParser);
 smalltalk.addClass('Chunk', smalltalk.Object, ['contents'], 'Parser');
 smalltalk.addMethod(
 '_contents',
@@ -1188,7 +1170,6 @@ smalltalk.Chunk);
 
 
 
-smalltalk.setup(smalltalk.Chunk);
 smalltalk.addClass('InstructionChunk', smalltalk.Chunk, [], 'Parser');
 smalltalk.addMethod(
 '_isInstructionChunk',
@@ -1207,7 +1188,6 @@ smalltalk.InstructionChunk);
 
 
 
-smalltalk.setup(smalltalk.InstructionChunk);
 smalltalk.addClass('EmptyChunk', smalltalk.Chunk, [], 'Parser');
 smalltalk.addMethod(
 '_isEmptyChunk',
@@ -1226,7 +1206,6 @@ smalltalk.EmptyChunk);
 
 
 
-smalltalk.setup(smalltalk.EmptyChunk);
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['parser', 'separator', 'eof', 'ws', 'chunk', 'emptyChunk', 'instructionChunk'], 'Parser');
 smalltalk.addMethod(
 '_parser',
@@ -1335,7 +1314,6 @@ smalltalk.ChunkParser);
 
 
 
-smalltalk.setup(smalltalk.ChunkParser);
 smalltalk.addClass('Importer', smalltalk.Object, ['chunkParser'], 'Parser');
 smalltalk.addMethod(
 '_chunkParser',
@@ -1370,7 +1348,6 @@ smalltalk.Importer);
 
 
 
-smalltalk.setup(smalltalk.Importer);
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Parser');
 smalltalk.addMethod(
 '_exportCategory_',
@@ -1404,11 +1381,10 @@ smalltalk.send(self, "_exportDefinitionOf_on_", [aClass, stream]);
 smalltalk.send(self, "_exportMethodsOf_on_", [aClass, stream]);
 smalltalk.send(self, "_exportMetaDefinitionOf_on_", [aClass, stream]);
 smalltalk.send(self, "_exportMethodsOf_on_", [smalltalk.send(aClass, "_class", []), stream]);
-smalltalk.send(self, "_exportSetupOf_on_", [aClass, stream]);
 return smalltalk.send(stream, "_contents", []);
 return self;},
-source: unescape('export%3A%20aClass%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream.%0A%09self%20exportSetupOf%3A%20aClass%20on%3A%20stream.%0A%09%5Estream%20contents'),
-messageSends: ["writeStream", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class", "exportSetupOf:on:", "contents"],
+source: unescape('export%3A%20aClass%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream.%0A%09%5Estream%20contents'),
+messageSends: ["writeStream", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class", "contents"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
@@ -1510,25 +1486,8 @@ referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Exporter);
 
-smalltalk.addMethod(
-'_exportSetupOf_on_',
-smalltalk.method({
-selector: 'exportSetupOf:on:',
-category: 'private',
-fn: function (aClass, aStream){
-var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(unescape("smalltalk.setup%28smalltalk."), "__comma", [smalltalk.send(self, "_classNameFor_", [aClass])])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%29%3B")]);})(aStream);
-smalltalk.send(aStream, "_lf", []);
-return self;},
-source: unescape('exportSetupOf%3A%20aClass%20on%3A%20aStream%0A%09aStream%0A%09%20%20%20%20nextPutAll%3A%20%27smalltalk.setup%28smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%29%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%29%3B%27.%0A%09aStream%20lf'),
-messageSends: ["nextPutAll:", unescape("%2C"), "classNameFor:", "lf"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
 
 
-
-smalltalk.setup(smalltalk.Exporter);
 smalltalk.addClass('ChunkExporter', smalltalk.Exporter, [], 'Parser');
 smalltalk.addMethod(
 '_exportDefinitionOf_on_',
@@ -1658,7 +1617,6 @@ smalltalk.ChunkExporter);
 
 
 
-smalltalk.setup(smalltalk.ChunkExporter);
 smalltalk.addClass('StrippedExporter', smalltalk.Exporter, [], 'Parser');
 smalltalk.addMethod(
 '_exportDefinitionOf_on_',
@@ -1695,4 +1653,3 @@ smalltalk.StrippedExporter);
 
 
 
-smalltalk.setup(smalltalk.StrippedExporter);
