@@ -18,7 +18,6 @@ referencedClasses: []
 smalltalk.Benchfib.klass);
 
 
-smalltalk.setup(smalltalk.Benchfib);
 smalltalk.addMethod(
 '_benchFib',
 smalltalk.method({

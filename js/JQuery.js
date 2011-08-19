@@ -726,7 +726,6 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 
-smalltalk.setup(smalltalk.JQuery);
 smalltalk.addClass('Ajax', smalltalk.Object, ['settings'], 'JQuery');
 smalltalk.Ajax.comment=unescape('instance%20variable%20names%3A%0A-%20settings%20%20A%20set%20of%20key/value%20pairs%20that%20configure%20the%20Ajax%20request.%20All%20settings%20are%20optional.%0A%0AFull%20list%20of%20settings%20options%20at%20http%3A//api.jquery.com/jQuery.ajax/')
 smalltalk.addMethod(
@@ -837,7 +836,6 @@ referencedClasses: []
 smalltalk.Ajax.klass);
 
 
-smalltalk.setup(smalltalk.Ajax);
 smalltalk.addMethod(
 '_appendToJQuery_',
 smalltalk.method({

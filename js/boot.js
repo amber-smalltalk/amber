@@ -121,11 +121,6 @@ function Smalltalk(){
 	}
     };
 
-    st.setup = function(klass) {
-	st.init(klass);
-	klass._initialize();
-    }
-
     /* Answer all registered Smalltalk classes */
 
     st.classes = function() {
