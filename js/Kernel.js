@@ -1879,6 +1879,51 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_modulo_',
+smalltalk.method({
+selector: 'modulo:',
+category: 'arithmetic',
+fn: function (aNumber){
+var self=this;
+return self % aNumber;
+return self;},
+source: unescape('modulo%3A%20aNumber%0A%09%3Creturn%20self%20%25%20aNumber%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_even',
+smalltalk.method({
+selector: 'even',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
+return self;},
+source: unescape('even%0A%09%5E%200%20%3D%20%28self%20modulo%3A%202%29'),
+messageSends: [unescape("%3D"), "modulo:"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_odd',
+smalltalk.method({
+selector: 'odd',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_even", []), "_not", []);
+return self;},
+source: unescape('odd%0A%09%5E%20self%20even%20not'),
+messageSends: ["not", "even"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',

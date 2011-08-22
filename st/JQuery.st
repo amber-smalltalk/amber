@@ -156,6 +156,12 @@ scrollTop: anInteger
     self call: 'scrollTop' withArgument: anInteger
 ! !
 
+!JQuery methodsFor: 'enumerating'!
+
+do: aBlock
+    self elementsDo: [:anElement|  aBlock value: (JQuery fromElement: anElement)]
+! !
+
 !JQuery methodsFor: 'events'!
 
 focus
@@ -198,6 +204,11 @@ call: aString
 
 call: aString withArgument: anObject
     <return self['@jquery'][aString](anObject)>
+!
+
+elementsDo: aBlock
+    "Iterate over a jQuery object, executing a function for each matched element."
+    <self['@jquery'].each(function(index, element){aBlock(element, self)})>
 ! !
 
 !JQuery methodsFor: 'testing'!
@@ -268,6 +279,11 @@ url
 
 url: aString
     self at: 'url' put: aString
+!
+
+onSuccessDo: aBlock
+	"Set action to execute when Ajax request is successful. Pass received data as block argument"
+	self at: 'success' put: aBlock
 ! !
 
 !Ajax methodsFor: 'actions'!

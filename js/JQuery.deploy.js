@@ -615,6 +615,36 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_do_',
+smalltalk.method({
+selector: 'do:',
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_elementsDo_", [(function(anElement){return smalltalk.send(aBlock, "_value_", [smalltalk.send(smalltalk.JQuery, "_fromElement_", [anElement])]);})]);
+return self;},
+source: unescape('do%3A%20aBlock%0A%20%20%20%20self%20elementsDo%3A%20%5B%3AanElement%7C%20%20aBlock%20value%3A%20%28JQuery%20fromElement%3A%20anElement%29%5D'),
+messageSends: ["elementsDo:", "value:", "fromElement:"],
+referencedClasses: [smalltalk.JQuery]
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_elementsDo_',
+smalltalk.method({
+selector: 'elementsDo:',
+category: 'private',
+fn: function (aBlock){
+var self=this;
+self['@jquery'].each(function(index, element){aBlock(element, self)});
+return self;},
+source: unescape('elementsDo%3A%20aBlock%0A%20%20%20%20%22Iterate%20over%20a%20jQuery%20object%2C%20executing%20a%20function%20for%20each%20matched%20element.%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.each%28function%28index%2C%20element%29%7BaBlock%28element%2C%20self%29%7D%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',
@@ -816,6 +846,21 @@ return self;},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20settings%20%3A%3D%20Dictionary%20new'),
 messageSends: ["initialize", "new"],
 referencedClasses: [smalltalk.Dictionary]
+}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_onSuccessDo_',
+smalltalk.method({
+selector: 'onSuccessDo:',
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_at_put_", ["success", aBlock]);
+return self;},
+source: unescape('onSuccessDo%3A%20aBlock%0A%09%22Set%20action%20to%20execute%20when%20Ajax%20request%20is%20successful.%20Pass%20received%20data%20as%20block%20argument%22%0A%09self%20at%3A%20%27success%27%20put%3A%20aBlock'),
+messageSends: ["at:put:"],
+referencedClasses: []
 }),
 smalltalk.Ajax);
 

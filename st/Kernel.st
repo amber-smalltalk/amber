@@ -541,6 +541,10 @@ max: aNumber
 
 min: aNumber
 	<return Math.min(self, aNumber);>
+!
+
+modulo: aNumber
+	<return self % aNumber>
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -638,6 +642,14 @@ printString
 
 isNumber
 	^true
+!
+
+even
+	^ 0 = (self modulo: 2)
+!
+
+odd
+	^ self even not
 ! !
 
 !Number methodsFor: 'timeouts/intervals'!
