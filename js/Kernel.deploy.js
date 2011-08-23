@@ -4450,6 +4450,21 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_join_',
+smalltalk.method({
+selector: 'join:',
+category: 'split join',
+fn: function (aCollection){
+var self=this;
+return smalltalk.send(smalltalk.String, "_streamContents_", [(function(stream){return smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(each, "_asString", [])]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [self]);})]);})]);
+return self;},
+source: unescape('join%3A%20aCollection%20%0A%09%5E%20String%0A%09%09streamContents%3A%20%5B%3Astream%20%7C%20aCollection%0A%09%09%09%09do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%20asString%5D%20%0A%09%09%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20self%5D%5D'),
+messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -4553,6 +4568,24 @@ return self;},
 source: unescape('crlf%0A%09%3Creturn%20%27%5Cr%5Cn%27%3E'),
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+'_streamContents_',
+smalltalk.method({
+selector: 'streamContents:',
+category: 'instance creation',
+fn: function (blockWithArg){
+var self=this;
+var stream=nil;
+stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send(smalltalk.String, "_new", [])]);
+smalltalk.send(blockWithArg, "_value_", [stream]);
+return smalltalk.send(stream, "_contents", []);
+return self;},
+source: unescape('streamContents%3A%20blockWithArg%0A%09%7Cstream%7C%0A%09stream%20%3A%3D%20%28self%20streamClass%20on%3A%20String%20new%29.%0A%09blockWithArg%20value%3A%20stream.%0A%09%5E%20stream%20contents'),
+messageSends: ["on:", "streamClass", "new", "value:", "contents"],
+referencedClasses: [smalltalk.String]
 }),
 smalltalk.String.klass);
 
@@ -6250,6 +6283,21 @@ return self;},
 source: unescape('lf%0A%09%5Eself%20nextPutAll%3A%20String%20lf'),
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: [smalltalk.String]
+}),
+smalltalk.StringStream);
+
+smalltalk.addMethod(
+'_space',
+smalltalk.method({
+selector: 'space',
+category: 'writing',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_nextPut_", [" "]);
+return self;},
+source: unescape('space%0A%09self%20nextPut%3A%20%27%20%27'),
+messageSends: ["nextPut:"],
+referencedClasses: []
 }),
 smalltalk.StringStream);
 

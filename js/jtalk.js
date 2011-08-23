@@ -47,6 +47,7 @@
 	loadJS("SUnit.js");
 	loadJS("Examples.js");
 	loadJS("Benchfib.js");
+	loadJS("Kernel-Tests.js");
 
 	if(files) {
 	    for(var i=0; i < files.length; i++) {

@@ -53,6 +53,11 @@ val
 
 val: aString
     self call: 'val' withArgument: aString
+!
+
+attrAt: aString put: anotherString
+    "Set the value of an attribute for the first element in the set of matched elements."
+    <self['@jquery'].attr(aString, anotherString)>
 ! !
 
 !JQuery methodsFor: 'css'!

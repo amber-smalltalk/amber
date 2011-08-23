@@ -645,6 +645,21 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_attrAt_put_',
+smalltalk.method({
+selector: 'attrAt:put:',
+category: 'attributes',
+fn: function (aString, anotherString){
+var self=this;
+self['@jquery'].attr(aString, anotherString);
+return self;},
+source: unescape('attrAt%3A%20aString%20put%3A%20anotherString%0A%20%20%20%20%22Set%20the%20value%20of%20an%20attribute%20for%20the%20first%20element%20in%20the%20set%20of%20matched%20elements.%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.attr%28aString%2C%20anotherString%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',

@@ -166,6 +166,21 @@ referencedClasses: []
 }),
 smalltalk.TestCase);
 
+smalltalk.addMethod(
+'_assert_equals_',
+smalltalk.method({
+selector: 'assert:equals:',
+category: 'testing',
+fn: function (expected, actual){
+var self=this;
+return smalltalk.send(self, "_assert_", [smalltalk.send(expected, "__eq", [actual])]);
+return self;},
+source: unescape('assert%3A%20expected%20equals%3A%20actual%0A%09%5E%20self%20assert%3A%20%28expected%20%3D%20actual%29'),
+messageSends: ["assert:", unescape("%3D")],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
 
 
 smalltalk.addClass('ExampleTest', smalltalk.TestCase, ['test'], 'SUnit');

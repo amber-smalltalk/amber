@@ -1521,6 +1521,15 @@ trimBoth: separators
     	^(self trimLeft: separators) trimRight: separators
 ! !
 
+!String methodsFor: 'split join'!
+
+join: aCollection 
+	^ String
+		streamContents: [:stream | aCollection
+				do: [:each | stream nextPutAll: each asString] 
+				separatedBy: [stream nextPutAll: self]]
+! !
+
 !String methodsFor: 'testing'!
 
 isString
@@ -1557,6 +1566,13 @@ crlf
 
 fromString: aString
 	    <return new self.fn(aString)>
+!
+
+streamContents: blockWithArg
+	|stream|
+	stream := (self streamClass on: String new).
+	blockWithArg value: stream.
+	^ stream contents
 ! !
 
 SequenceableCollection subclass: #Array
@@ -2209,6 +2225,10 @@ crlf
 
 lf
 	^self nextPutAll: String lf
+!
+
+space
+	self nextPut: ' '
 ! !
 
 Object subclass: #ClassCommentReader
