@@ -14,5 +14,10 @@ testStreamContents
 		equals: (String streamContents: [:aStream| aStream 
                                                  					nextPutAll: 'hello'; space; 
                                                  					nextPutAll: 'world'])
+!
+
+testIncludesSubString
+	self assert: ('jtalk' includesSubString: 'alk').
+	self deny: ('jtalk' includesSubString: 'zork').
 ! !
 

@@ -4465,6 +4465,21 @@ referencedClasses: [smalltalk.String]
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_includesSubString_',
+smalltalk.method({
+selector: 'includesSubString:',
+category: 'testing',
+fn: function (subString){
+var self=this;
+ return self.indexOf(subString) != -1 ;
+return self;},
+source: unescape('includesSubString%3A%20subString%0A%09%3C%20return%20self.indexOf%28subString%29%20%21%3D%20-1%20%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',

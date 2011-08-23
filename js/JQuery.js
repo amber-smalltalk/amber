@@ -660,6 +660,21 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_find_',
+smalltalk.method({
+selector: 'find:',
+category: 'traversing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.send(self, "_call_withArgument_", ["find", aSelector]);
+return self;},
+source: unescape('find%3A%20aSelector%0A%20%20%20%20%22Get%20the%20descendants%20of%20each%20element%20in%20the%20current%20set%20of%20matched%20elements%2C%20filtered%20by%20a%20selector%2C%20jQuery%20object%2C%20or%20element.%22%0A%20%20%20%20%5E%20self%20call%3A%20%27find%27%20withArgument%3A%20aSelector'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',

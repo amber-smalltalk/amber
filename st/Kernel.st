@@ -1534,6 +1534,10 @@ join: aCollection
 
 isString
     	^true
+!
+
+includesSubString: subString
+	< return self.indexOf(subString) !!= -1 >
 ! !
 
 !String class methodsFor: 'accessing'!

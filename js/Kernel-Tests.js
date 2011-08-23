@@ -29,5 +29,21 @@ referencedClasses: [smalltalk.String]
 }),
 smalltalk.StringTest);
 
+smalltalk.addMethod(
+'_testIncludesSubString',
+smalltalk.method({
+selector: 'testIncludesSubString',
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send("jtalk", "_includesSubString_", ["alk"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("jtalk", "_includesSubString_", ["zork"])]);
+return self;},
+source: unescape('testIncludesSubString%0A%09self%20assert%3A%20%28%27jtalk%27%20includesSubString%3A%20%27alk%27%29.%0A%09self%20deny%3A%20%28%27jtalk%27%20includesSubString%3A%20%27zork%27%29.'),
+messageSends: ["assert:", "includesSubString:", "deny:"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
 
 

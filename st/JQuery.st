@@ -223,6 +223,13 @@ hasClass: aString
     ^self call: 'hasClass' withArgument: aString
 ! !
 
+!JQuery methodsFor: 'traversing'!
+
+find: aSelector
+    "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
+    ^ self call: 'find' withArgument: aSelector
+! !
+
 !JQuery class methodsFor: 'instance creation'!
 
 fromString: aString

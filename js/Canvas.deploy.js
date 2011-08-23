@@ -753,6 +753,21 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_script',
+smalltalk.method({
+selector: 'script',
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["script"]);
+return self;},
+source: unescape('script%0A%20%20%20%20%5Eself%20tag%3A%20%27script%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
@@ -1225,6 +1240,21 @@ self['@canvas']=aCanvas;
 return self;},
 source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20jquery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
 messageSends: ["get:", "jquery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_type_',
+smalltalk.method({
+selector: 'type:',
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["type", aString]);
+return self;},
+source: unescape('type%3A%20aString%0A%20%20%20%20self%20at%3A%20%27type%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
