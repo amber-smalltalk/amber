@@ -768,6 +768,21 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_link',
+smalltalk.method({
+selector: 'link',
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["link"]);
+return self;},
+source: unescape('link%0A%20%20%20%20%5Eself%20tag%3A%20%27link%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
@@ -1254,6 +1269,36 @@ var self=this;
 smalltalk.send(self, "_at_put_", ["type", aString]);
 return self;},
 source: unescape('type%3A%20aString%0A%20%20%20%20self%20at%3A%20%27type%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_media_',
+smalltalk.method({
+selector: 'media:',
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["media", aString]);
+return self;},
+source: unescape('media%3A%20aString%0A%20%20%20%20self%20at%3A%20%27media%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_rel_',
+smalltalk.method({
+selector: 'rel:',
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["rel", aString]);
+return self;},
+source: unescape('rel%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27rel%27%20put%3A%20aString'),
 messageSends: ["at:put:"],
 referencedClasses: []
 }),

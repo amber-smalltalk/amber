@@ -1984,6 +1984,25 @@ initialize
     	keys := #()
 ! !
 
+!Dictionary methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  		aStream 
+                                  			nextPutAll: super printString;
+                                  			nextPutAll: '('.
+                                  		self associations 
+                                  			do: [:anAssociation|  
+                                                                      	aStream 
+                                                                      		nextPutAll: anAssociation key printString;
+                                                                      		nextPutAll: ' -> ';
+                                                                      		nextPutAll: anAssociation value printString]
+                                  
+                                 			separatedBy: [aStream nextPutAll: ' , '].
+                                  		aStream nextPutAll: ')'.
+                                 ]
+! !
+
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!

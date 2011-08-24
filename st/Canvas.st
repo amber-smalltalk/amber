@@ -225,6 +225,10 @@ br
 
 script
     ^self tag: 'script'
+!
+
+link
+    ^self tag: 'link'
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -322,6 +326,14 @@ style: aString
 
 type: aString
     self at: 'type' put: aString
+!
+
+media: aString
+    self at: 'media' put: aString
+!
+
+rel: aString
+    self  at: 'rel' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!

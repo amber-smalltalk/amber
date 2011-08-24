@@ -21,3 +21,18 @@ testIncludesSubString
 	self deny: ('jtalk' includesSubString: 'zork').
 ! !
 
+TestCase subclass: #DictionaryTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!DictionaryTest methodsFor: 'tests'!
+
+testPrintString
+	self 
+		assert: 'a Dictionary(''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')' 
+		equals: (Dictionary new 
+                         	at:'firstname' put: 'James';
+                        	at:'lastname' put: 'Bond';
+                        	printString)
+! !
+
