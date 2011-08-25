@@ -11,7 +11,7 @@ title: Jtalk Smalltalk - documentation
 
     <p class="warning">This documentation is a work in progress. If you find an error in the documentation, please <a href="https://github.com/NicolasPetton/jtalk/issues">file an issue</a>.</p>
     
-    <p>This documentation <strong>doesn't aim to teach Smalltalk</strong>. Knowledge of Smalltalk is needed to understand the topics covered in this documentation. If you want to learn the Smalltalk language, you can read the excellent <a target="_blank" href="http://pharobyexamle.org">Pharo By Example</a> book.</p>
+    <p>This documentation <strong>doesn't aim to teach Smalltalk</strong>. Knowledge of Smalltalk is needed to understand the topics covered in this documentation. If you want to learn the Smalltalk language, you can read the excellent <a target="_blank" href="http://pharobyexample.org">Pharo By Example</a> book.</p>
 
 
     <h3>Introduction</h3>
@@ -36,7 +36,7 @@ title: Jtalk Smalltalk - documentation
       <li>The collection class hierarchy is simpler compared to most Smalltalk implementations. There is no <code>OrderedCollection</code>, <code>Set</code> or <code>SortedCollection</code>. However, the size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the <code>#sort*</code> methods.</li>
       <li>The <code>Date</code> class behaves like the <code>Date</code> <em>and</em> <code>TimeStamp</code> classes in Pharo Smalltalk. Therefore both <code>Date today</code> and <code>Date now</code> are valid in Jtalk.</li>
       <li>Jtalk use solely <code>=</code> to test object equality and not the <code>#hash</code> method.</li>
-      <li>Jtalk misses <code>thisContext</code>.</li>
+      <li><strike>Jtalk misses <code>thisContext</code></strike>. Jtalk now supports <code> thisContext</code></li>
       <li><strike>Jtalk  does not support <code>#doesNotUnderstand</code></strike>. <em>Jtalk now <a href="http://www.nicolas-petton.fr/2011/05/03/doesnnotunderstand-in-jtalk.html">has support</a> for</em> <code>#dnu:</code>.</li>
     </ul>
 
