@@ -239,14 +239,6 @@ classes
 	<return self.classes()>
 !
 
-debugMode
-	<return self.debugMode>
-!
-
-debugMode: aBoolean
-	<self.debugMode = aBoolean>
-!
-
 readJSON: anObject
 	<return self.readJSObject(anObject)>
 !
