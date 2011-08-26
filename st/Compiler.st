@@ -498,8 +498,7 @@ visitMethodNode: aNode
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
 	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
-	Smalltalk current debugMode ifTrue: [
-	    stream nextPutAll: 'source: unescape("', aNode source escaped, '"),';lf].
+	stream nextPutAll: 'source: unescape("', aNode source escaped, '"),';lf.
 	stream nextPutAll: 'fn: function('.
 	aNode arguments 
 	    do: [:each | 
@@ -523,15 +522,14 @@ visitMethodNode: aNode
 	earlyReturn ifTrue: [
 	    stream lf; nextPutAll: '} catch(e) {if(e.name === ''stReturn'' && e.selector === ', currentSelector printString, '){return e.fn()} throw(e)}'].
 	stream nextPutAll: '}'.
-	Smalltalk current debugMode ifTrue: [
-		stream 
-			nextPutAll: ',', String lf, 'messageSends: ';
-			nextPutAll: messageSends asJavascript, ','; lf;
-			nextPutAll: 'referencedClasses: ['.
-		referencedClasses 
-			do: [:each | stream nextPutAll: each]
-			separatedBy: [stream nextPutAll: ','].
-		stream nextPutAll: ']'].
+	stream 
+		nextPutAll: ',', String lf, 'messageSends: ';
+		nextPutAll: messageSends asJavascript, ','; lf;
+		nextPutAll: 'referencedClasses: ['.
+	referencedClasses 
+		do: [:each | stream nextPutAll: each]
+		separatedBy: [stream nextPutAll: ','].
+	stream nextPutAll: ']'.
 	stream nextPutAll: '})'
 !
 
@@ -654,7 +652,7 @@ visitClassReferenceNode: aNode
 !
 
 visitVariableNode: aNode
-	(self currentClass instanceVariableNames includes: aNode value) 
+	(self currentClass allInstanceVariableNames includes: aNode value) 
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
 			(self knownVariables includes: aNode value) ifFalse: [
@@ -691,6 +689,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[Compiler new recompileAll] value
+doIt ^[StrippedExporter new exportCategory: 'IDE'] value
 ! !
 

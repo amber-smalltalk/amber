@@ -987,7 +987,6 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
-		nextPutAll: 'category: ''', aMethod category, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: ']';lf;
 		nextPutAll: '}),';lf;

@@ -209,6 +209,18 @@ a
 
 canvas
 	^self tag: 'canvas'
+!
+
+pre
+    ^self tag: 'pre'
+!
+
+code
+    ^self tag: 'code'
+!
+
+br
+    ^self tag: 'br'
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -381,14 +393,8 @@ fromJQuery: aJQuery canvas: aCanvas
 ! !
 
 Object subclass: #Widget
-	instanceVariableNames: 'root'
+	instanceVariableNames: ''
 	category: 'Canvas'!
-
-!Widget methodsFor: 'accessing'!
-
-root
-    ^root
-! !
 
 !Widget methodsFor: 'actions'!
 
@@ -406,14 +412,6 @@ prompt: aString
 
 prompt: aString default: anotherString
     <return window.prompt(aString, anotherString)>
-!
-
-update
-    | canvas |
-    canvas := HTMLCanvas new.
-    canvas root: self root.
-    self root asJQuery empty.
-    self renderOn: canvas
 ! !
 
 !Widget methodsFor: 'adding'!
@@ -427,13 +425,6 @@ appendToJQuery: aJQuery
 ! !
 
 !Widget methodsFor: 'rendering'!
-
-render
-    | canvas |
-    canvas := HTMLCanvas new.
-    root := canvas root.
-    self renderOn: canvas
-!
 
 renderOn: html
     self

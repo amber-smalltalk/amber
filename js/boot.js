@@ -47,7 +47,6 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
-    st.debugMode = true;
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -102,11 +101,6 @@ function Smalltalk(){
 	var subclasses = st.subclasses(klass);
 	var methods;
 
-	// Initializing inst vars
-	for(var i=0;i<klass.iVarNames.length;i++) {
-	    klass.fn.prototype["@"+klass.iVarNames[i]] = nil;
-	}
-
 	if(klass.superclass && klass.superclass !== nil) {
 	    methods = st.methods(klass.superclass);
 
@@ -115,13 +109,6 @@ function Smalltalk(){
 		if(!klass.fn.prototype.methods[i]) {
 		    klass.fn.prototype.inheritedMethods[i] = methods[i];
 		    klass.fn.prototype[methods[i].jsSelector] = methods[i].fn;
-		}
-	    }
-
-	    //Instance variables linking
-	    for(var i=0;i<klass.superclass.iVarNames.length;i++) {
-		if(!klass["@"+klass.superclass.iVarNames[i]]) {
-		    klass.fn.prototype["@"+klass.superclass.iVarNames[i]] = nil;
 		}
 	    }
 	}
@@ -274,11 +261,6 @@ function Smalltalk(){
 	return messageNotUnderstood(receiver, selector, args);
     };
 
-    /*  */
-
-    st.send = sendWithContext;
-
-
     /* Handles Smalltalk errors. Triggers the registered ErrorHandler 
        (See the Smalltalk class ErrorHandler and its subclasses */
     
@@ -399,6 +381,18 @@ function Smalltalk(){
 	}
 	return object;
     };
+
+    /* Toggle deployment mode (no context will be handled during message send */
+    st.setDeploymentMode = function() {
+	st.send = sendWithoutContext;
+    };
+
+    st.setDevelopmentMode = function() {
+	st.send = sendWithContext;
+    }
+
+    /* Set development mode by default */
+    st.setDevelopmentMode();
 }
 
 function SmalltalkMethodContext(spec) {
