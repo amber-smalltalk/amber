@@ -883,12 +883,42 @@ smalltalk.addMethod(
 '_onSuccessDo_',
 smalltalk.method({
 selector: 'onSuccessDo:',
-category: 'accessing',
+category: 'callbacks',
 fn: function (aBlock){
 var self=this;
 smalltalk.send(self, "_at_put_", ["success", aBlock]);
 return self;},
-source: unescape('onSuccessDo%3A%20aBlock%0A%09%22Set%20action%20to%20execute%20when%20Ajax%20request%20is%20successful.%20Pass%20received%20data%20as%20block%20argument%22%0A%09self%20at%3A%20%27success%27%20put%3A%20aBlock'),
+source: unescape('onSuccessDo%3A%20aBlock%0A%09%22Set%20action%20to%20execute%20when%20Ajax%20request%20is%20successful.%20Pass%20received%20data%20as%20block%20argument.%20Block%20arguments%3A%20data%2C%20textStatus%2C%20jqXHR%22%0A%09self%20at%3A%20%27success%27%20put%3A%20aBlock'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_onCompleteDo_',
+smalltalk.method({
+selector: 'onCompleteDo:',
+category: 'callbacks',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_at_put_", ["complete", aBlock]);
+return self;},
+source: unescape('onCompleteDo%3A%20aBlock%0A%09%22A%20block%20to%20be%20called%20when%20the%20request%20finishes%20%28after%20success%20and%20error%20callbacks%20are%20executed%29.%20Block%20arguments%3A%20jqXHR%2C%20textStatus%22%0A%09self%20at%3A%20%27complete%27%20put%3A%20aBlock'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_onErrorDo_',
+smalltalk.method({
+selector: 'onErrorDo:',
+category: 'callbacks',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_at_put_", ["error", aBlock]);
+return self;},
+source: unescape('onErrorDo%3A%20aBlock%0A%09%22A%20block%20to%20be%20called%20if%20the%20request%20fails.Block%20arguments%3A%20jqXHR%2C%20textStatus%2C%20errorThrown%22%0A%09self%20at%3A%20%27error%27%20put%3A%20aBlock'),
 messageSends: ["at:put:"],
 referencedClasses: []
 }),

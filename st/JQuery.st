@@ -291,17 +291,29 @@ url
 
 url: aString
     self at: 'url' put: aString
-!
-
-onSuccessDo: aBlock
-	"Set action to execute when Ajax request is successful. Pass received data as block argument"
-	self at: 'success' put: aBlock
 ! !
 
 !Ajax methodsFor: 'actions'!
 
 send
     <jQuery.ajax(self['@settings'])>
+! !
+
+!Ajax methodsFor: 'callbacks'!
+
+onSuccessDo: aBlock
+	"Set action to execute when Ajax request is successful. Pass received data as block argument. Block arguments: data, textStatus, jqXHR"
+	self at: 'success' put: aBlock
+!
+
+onCompleteDo: aBlock
+	"A block to be called when the request finishes (after success and error callbacks are executed). Block arguments: jqXHR, textStatus"
+	self at: 'complete' put: aBlock
+!
+
+onErrorDo: aBlock
+	"A block to be called if the request fails.Block arguments: jqXHR, textStatus, errorThrown"
+	self at: 'error' put: aBlock
 ! !
 
 !Ajax methodsFor: 'initialization'!

@@ -719,6 +719,19 @@ valueWithPossibleArguments: aCollection
 	<return self.apply(null, aCollection);>
 ! !
 
+!BlockClosure methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream| 
+                                  aStream 
+                                  	nextPutAll: super printString;
+                                  	nextPutAll: '(';
+                                  	nextPutAll: self compiledSource;
+                                  	nextPutAll: ')';
+                                  	cr.
+           ]
+! !
+
 !BlockClosure methodsFor: 'timeout/interval'!
 
 valueWithTimeout: aNumber
