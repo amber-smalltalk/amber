@@ -2,12 +2,20 @@
 #
 # This is a "compiler" for JTalk code. Run without arguments for help.
 
-# Get JTalk root directory from the location of this script.
-JTALK=$(readlink -f `dirname ${0}`/..)
+# Get JTalk root directory from the location of this script so that
+# we can find the st and js directories etc.
+
+# Earlier we used this but it does not work on Mac
+# JTALK=$(readlink -f `dirname ${0}`/..)
+TARGET=`dirname ${0}`/..
+pushd . >/dev/null
+cd $TARGET
+JTALK="`\pwd -P`"
+popd >/dev/null
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
+Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-g] [-p prefix] [-m class] [-M file]
           [-i] [-I file] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
@@ -31,7 +39,7 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
 
   -N or -D or -E
      Compilation target. Currently Node.js, D8 (V8 shell) or Enyo (webOS 3.0).
-     All imply "-K -I" so boot.js and Kernel.js are added first and init.js
+     All currentl imply "-K -I" so boot.js and Kernel.js are added first and init.js
      is added last.
 
   -K
@@ -51,7 +59,7 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
      Optimize final <Program>.js using the Google closure compiler.
      Using Closure at ~/compiler.jar
 
-  -A Use --compilation_level ADVANCED_OPTIMIZATIONS for the closure compiler.  
+  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS 
 
   -g
      Compile Jtalk code in debug mode - include source and references etc.
@@ -67,10 +75,10 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
      Load listed libraries (no spaces) into Compiler before compiling and also
      into Program.js in listed order.
 
-  -i
+  -i file
      Add library initializer <file>.
 
-  -I file
+  -I
      Add library standard initializer $JTALK/js/init.js  
 
   -m class
@@ -87,8 +95,8 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O] [-g] [-p prefix] [-m class] [-M file]
         jtalkc Kernel.st
 
      Compile Hello.st to Hello.js and create complete program called
-     Program.js for Node.js including boot.js, Kernel.js, init.js and
-     adding a call to class method #main in class Hello:
+     Program.js for Node.js and adding a call to class method #main
+     in class Hello:
 
         jtalkc -N -m Hello Hello.st Program
 
