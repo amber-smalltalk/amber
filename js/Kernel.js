@@ -1924,6 +1924,51 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_modulo_',
+smalltalk.method({
+selector: 'modulo:',
+category: 'arithmetic',
+fn: function (aNumber){
+var self=this;
+return self % aNumber;
+return self;},
+source: unescape('modulo%3A%20aNumber%0A%09%3Creturn%20self%20%25%20aNumber%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_even',
+smalltalk.method({
+selector: 'even',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
+return self;},
+source: unescape('even%0A%09%5E%200%20%3D%20%28self%20modulo%3A%202%29'),
+messageSends: [unescape("%3D"), "modulo:"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_odd',
+smalltalk.method({
+selector: 'odd',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_even", []), "_not", []);
+return self;},
+source: unescape('odd%0A%09%5E%20self%20even%20not'),
+messageSends: ["not", "even"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',
@@ -2104,6 +2149,21 @@ return self;},
 source: unescape('valueWithInterval%3A%20aNumber%0A%09%3Creturn%20setInterval%28self%2C%20aNumber%29%3E'),
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.String, "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_compiledSource", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29")]);return smalltalk.send($rec, "_cr", []);})(aStream);})]);
+return self;},
+source: unescape('printString%0A%09%5E%20String%20streamContents%3A%20%5B%3AaStream%7C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09nextPutAll%3A%20super%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09nextPutAll%3A%20%27%28%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09nextPutAll%3A%20self%20compiledSource%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09nextPutAll%3A%20%27%29%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09cr.%0A%20%20%20%20%20%20%20%20%20%20%20%5D'),
+messageSends: ["streamContents:", "nextPutAll:", "printString", "compiledSource", "cr"],
+referencedClasses: [smalltalk.String]
 }),
 smalltalk.BlockClosure);
 
@@ -4450,6 +4510,36 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_join_',
+smalltalk.method({
+selector: 'join:',
+category: 'split join',
+fn: function (aCollection){
+var self=this;
+return smalltalk.send(smalltalk.String, "_streamContents_", [(function(stream){return smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(each, "_asString", [])]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [self]);})]);})]);
+return self;},
+source: unescape('join%3A%20aCollection%20%0A%09%5E%20String%0A%09%09streamContents%3A%20%5B%3Astream%20%7C%20aCollection%0A%09%09%09%09do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%20asString%5D%20%0A%09%09%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20self%5D%5D'),
+messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_includesSubString_',
+smalltalk.method({
+selector: 'includesSubString:',
+category: 'testing',
+fn: function (subString){
+var self=this;
+ return self.indexOf(subString) != -1 ;
+return self;},
+source: unescape('includesSubString%3A%20subString%0A%09%3C%20return%20self.indexOf%28subString%29%20%21%3D%20-1%20%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -4553,6 +4643,24 @@ return self;},
 source: unescape('crlf%0A%09%3Creturn%20%27%5Cr%5Cn%27%3E'),
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+'_streamContents_',
+smalltalk.method({
+selector: 'streamContents:',
+category: 'instance creation',
+fn: function (blockWithArg){
+var self=this;
+var stream=nil;
+stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send(smalltalk.String, "_new", [])]);
+smalltalk.send(blockWithArg, "_value_", [stream]);
+return smalltalk.send(stream, "_contents", []);
+return self;},
+source: unescape('streamContents%3A%20blockWithArg%0A%09%7Cstream%7C%0A%09stream%20%3A%3D%20%28self%20streamClass%20on%3A%20String%20new%29.%0A%09blockWithArg%20value%3A%20stream.%0A%09%5E%20stream%20contents'),
+messageSends: ["on:", "streamClass", "new", "value:", "contents"],
+referencedClasses: [smalltalk.String]
 }),
 smalltalk.String.klass);
 
@@ -5616,6 +5724,21 @@ referencedClasses: [smalltalk.Object]
 }),
 smalltalk.Dictionary);
 
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.String, "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Collection)]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20-%3E%20")]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [unescape("%20%2C%20")]);})]);return smalltalk.send(aStream, "_nextPutAll_", [unescape("%29")]);})]);
+return self;},
+source: unescape('printString%0A%09%5E%20String%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09nextPutAll%3A%20super%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09nextPutAll%3A%20%27%28%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09self%20associations%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09do%3A%20%5B%3AanAssociation%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09nextPutAll%3A%20anAssociation%20key%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09nextPutAll%3A%20%27%20-%3E%20%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09nextPutAll%3A%20anAssociation%20value%20printString%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%20%2C%20%27%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09aStream%20nextPutAll%3A%20%27%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5D'),
+messageSends: ["streamContents:", "nextPutAll:", "printString", "do:separatedBy:", "associations", "key", "value"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.Dictionary);
+
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel');
@@ -6250,6 +6373,21 @@ return self;},
 source: unescape('lf%0A%09%5Eself%20nextPutAll%3A%20String%20lf'),
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: [smalltalk.String]
+}),
+smalltalk.StringStream);
+
+smalltalk.addMethod(
+'_space',
+smalltalk.method({
+selector: 'space',
+category: 'writing',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_nextPut_", [" "]);
+return self;},
+source: unescape('space%0A%09self%20nextPut%3A%20%27%20%27'),
+messageSends: ["nextPut:"],
+referencedClasses: []
 }),
 smalltalk.StringStream);
 
