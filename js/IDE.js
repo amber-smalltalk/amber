@@ -1121,11 +1121,10 @@ category: 'actions',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_disableSaveButton", []);
-smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_", [(function(){return smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){return smalltalk.send(self, "_compileClassComment", []);})]);})]);
-smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedProtocol'], "_notNil", []), "_or_", [(function(){return smalltalk.send(self['@selectedMethod'], "_notNil", []);})]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_compileDefinition", []);}), (function(){return smalltalk.send(self, "_compileMethodDefinition", []);})]);
+smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){return smalltalk.send(self, "_compileClassComment", []);})]);}), (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedProtocol'], "_notNil", []), "_or_", [(function(){return smalltalk.send(self['@selectedMethod'], "_notNil", []);})]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_compileDefinition", []);}), (function(){return smalltalk.send(self, "_compileMethodDefinition", []);})]);})]);
 return self;},
-source: unescape('compile%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedTab%20%3D%20%23comment%20ifTrue%3A%20%5B%0A%09selectedClass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20self%20compileClassComment%5D%5D.%0A%20%20%20%20%28selectedProtocol%20notNil%20or%3A%20%5BselectedMethod%20notNil%5D%29%0A%09ifFalse%3A%20%5Bself%20compileDefinition%5D%0A%09ifTrue%3A%20%5Bself%20compileMethodDefinition%5D'),
-messageSends: ["disableSaveButton", "ifTrue:", unescape("%3D"), "ifNotNil:", "compileClassComment", "ifFalse:ifTrue:", "or:", "notNil", "compileDefinition", "compileMethodDefinition"],
+source: unescape('compile%0A%20%20%20%20self%20disableSaveButton.%0A%20%20%20%20selectedTab%20%3D%20%23comment%0A%09ifTrue%3A%20%5B%0A%09%09selectedClass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20%09%09self%20compileClassComment%5D%5D%0A%09ifFalse%3A%20%5B%20%0A%20%20%09%09%20%20%28selectedProtocol%20notNil%20or%3A%20%5BselectedMethod%20notNil%5D%29%0A%09%09%09ifFalse%3A%20%5Bself%20compileDefinition%5D%0A%09%09%09ifTrue%3A%20%5Bself%20compileMethodDefinition%5D%5D.'),
+messageSends: ["disableSaveButton", "ifTrue:ifFalse:", unescape("%3D"), "ifNotNil:", "compileClassComment", "ifFalse:ifTrue:", "or:", "notNil", "compileDefinition", "compileMethodDefinition"],
 referencedClasses: []
 }),
 smalltalk.Browser);

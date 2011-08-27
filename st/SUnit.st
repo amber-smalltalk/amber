@@ -66,6 +66,10 @@ assert: aBoolean
 
 deny: aBoolean
 	self assert: aBoolean not
+!
+
+assert: expected equals: actual
+	^ self assert: (expected = actual)
 ! !
 
 TestCase subclass: #ExampleTest

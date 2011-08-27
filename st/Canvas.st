@@ -221,6 +221,14 @@ code
 
 br
     ^self tag: 'br'
+!
+
+script
+    ^self tag: 'script'
+!
+
+link
+    ^self tag: 'link'
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -314,6 +322,18 @@ title: aString
 
 style: aString
     self at: 'style' put: aString
+!
+
+type: aString
+    self at: 'type' put: aString
+!
+
+media: aString
+    self at: 'media' put: aString
+!
+
+rel: aString
+    self  at: 'rel' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!

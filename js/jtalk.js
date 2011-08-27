@@ -20,7 +20,7 @@
     }
 
     function loadDependencies() {
-	loadJS('lib/jQuery/jquery-1.4.4.min.js');
+	loadJS('lib/jQuery/jquery-1.6.2.min.js');
 	loadJS('lib/jQuery/jquery-ui-1.8.9.custom.min.js');
     }
 
@@ -47,6 +47,8 @@
 	loadJS("SUnit.js");
 	loadJS("Examples.js");
 	loadJS("Benchfib.js");
+	loadJS("Kernel-Tests.js");
+	loadJS("JQuery-Tests.js");
 
 	if(files) {
 	    for(var i=0; i < files.length; i++) {
