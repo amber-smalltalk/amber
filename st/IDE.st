@@ -574,7 +574,7 @@ commitCategory
 	    send.
 	(Ajax url: self class commitPathJs, '/', selectedCategory, '.deploy.js')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
+	    at: 'data' put: (StrippedExporter new exportCategory: selectedCategory);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
 	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')
