@@ -12,10 +12,10 @@ Jtalk is written in itself, including the parser and compiler. Jtalk compiles in
 
 Some highlights:
 
--    Jtalk features an IDE with a Class browser, Workspace, Transcript, a ReferencesBrowser supporting senders/implementors and class references, basic Inspector and even a beginning of a Debugger.
+-    Jtalk features an IDE with a Class browser, Workspace, Transcript, a ReferencesBrowser supporting senders/implementors and class references, basic Inspector and even a beginning of a Debugger and a unit TestRunner.
 -    [Pharo Smalltalk](http://www.pharo-project.org) is considered as the reference implementation.
 -    Jtalk includes a canvas to generate HTML, like [Seaside](http://www.seaside.st)
--    Jtalk can use Javascript libraries includes a [jQuery](http://www.jquery.com) binding
+-    Jtalk can use Javascript libraries and the current IDE is built on [jQuery](http://www.jquery.com)
 -    You can inline Javascript code and there are many ways to interact between Jtalk and Javascript
 
 How to commit changes from the web-based IDE
