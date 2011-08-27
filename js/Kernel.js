@@ -1129,6 +1129,36 @@ referencedClasses: []
 }),
 smalltalk.Behavior);
 
+smalltalk.addMethod(
+'_methodsFor_stamp_',
+smalltalk.method({
+selector: 'methodsFor:stamp:',
+category: 'accessing',
+fn: function (aString, aStamp){
+var self=this;
+return smalltalk.send(self, "_methodsFor_", [aString]);
+return self;},
+source: unescape('methodsFor%3A%20aString%20stamp%3A%20aStamp%0A%09%22Added%20for%20compatibility%2C%20right%20now%20ignores%20stamp.%22%0A%09%5Eself%20methodsFor%3A%20aString'),
+messageSends: ["methodsFor:"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_commentStamp_prior_',
+smalltalk.method({
+selector: 'commentStamp:prior:',
+category: 'accessing',
+fn: function (aStamp, prior){
+var self=this;
+
+return self;},
+source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%20%22Ignored%20right%20now.%22'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel');
@@ -1237,6 +1267,21 @@ var self=this;
 return self;},
 source: unescape('rename%3A%20aString%0A%09%3C%0A%09%09smalltalk%5BaString%5D%20%3D%20self%3B%0A%09%09delete%20smalltalk%5Bself.className%5D%3B%0A%09%09self.className%20%3D%20aString%3B%0A%09%3E'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Class);
+
+smalltalk.addMethod(
+'_subclass_instanceVariableNames_classVariableNames_poolDictionaries_category_',
+smalltalk.method({
+selector: 'subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:',
+category: 'class creation',
+fn: function (aString, aString2, classVars, pools, aString3){
+var self=this;
+return smalltalk.send(self, "_subclass_instanceVariableNames_category_", [aString, aString2, aString3]);
+return self;},
+source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20classVariableNames%3A%20classVars%20poolDictionaries%3A%20pools%20category%3A%20aString3%0A%09%22Just%20ignore%20class%20variables%20and%20pools.%20Added%20for%20compatibility.%22%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3'),
+messageSends: ["subclass:instanceVariableNames:category:"],
 referencedClasses: []
 }),
 smalltalk.Class);
@@ -5736,7 +5781,7 @@ smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
 return self;},
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.ClassCategoryReader);
 

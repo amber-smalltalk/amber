@@ -375,6 +375,15 @@ allInstanceVariableNames
 
 methodAt: aString
 	<return smalltalk.methods(self)[aString]>
+!
+
+methodsFor: aString stamp: aStamp
+	"Added for compatibility, right now ignores stamp."
+	^self methodsFor: aString
+!
+
+commentStamp: aStamp prior: prior
+         "Ignored right now."
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -422,6 +431,11 @@ subclass: aString instanceVariableNames: anotherString
 subclass: aString instanceVariableNames: aString2 category: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 category: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
+	"Just ignore class variables and pools. Added for compatibility."
+	^self subclass: aString instanceVariableNames: aString2 category: aString3
 ! !
 
 !Class methodsFor: 'printing'!
