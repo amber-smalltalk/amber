@@ -5,7 +5,12 @@ EnyoFriend subclass: #Eris
 !Eris methodsFor: 'actions'!
 
 doIt
-    ^self eval: self dollar richText getValue
+    | result |
+    [ result := self eval: self dollar richText getValue ]
+	on: Error
+	do: [:ex |
+		^self warn: ex messageText title: 'Error' button: 'Ooops...'].
+    ^result
 !
 
 clear
@@ -17,7 +22,7 @@ eval: aString
     compiler := Compiler new.
     node := compiler parseExpression: aString.
     node isParseFailure ifTrue: [
-	^self warn: 'Ehrm, you are a Smalltalk n00b, right?' button: 'Yup'].
+	^self warn: 'Ehrm, you are a Smalltalk n00b, right? That is not valid syntax.' title: 'Parsing Error' button: 'Okidoki...'].
     ^compiler loadExpression: aString.
 !
 
@@ -25,10 +30,10 @@ printString
 	^''
 !
 
-warn: aString button: caption
+warn: aString title: aTitle button: caption
 	| block popup |
 	block := [popup close].
-	<props = {kind: 'ModalDialog', caption: 'Parsing error', components: [
+	<props = {kind: 'ModalDialog', caption: aTitle, components: [
 			{kind: 'Control', content: aString, className: 'enyo-text-error warning-icon'},
 			{kind: 'Button', caption: caption, onclick: 'closePopup', style: 'margin-top:10px'}],
 		 closePopup: block}>.
@@ -71,7 +76,7 @@ initialize
 					{caption: 'Print it', onclick: 'printit'},
 					{caption: 'Clear', onclick: 'clear'},
 					{kind: 'Spacer'},
-					{caption: 'Quack!', onclick: 'quack'}]}]}],
+					{caption: 'Quack!!', onclick: 'quack'}]}]}],
 		doit: doItBlock,
 		printit: printItBlock,
 		quack: quackBlock,

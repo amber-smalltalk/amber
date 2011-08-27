@@ -15,7 +15,7 @@ popd >/dev/null
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-g] [-s suffix] [-m class] [-M file]
+Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-d] [-s suffix] [-m class] [-M file]
           [-i] [-I file] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
@@ -61,19 +61,23 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-g] [-s suffix] [-m class] [-M file]
 
   -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS 
 
-  -g
-     Compile Jtalk code in debug mode - include source and references etc.
+  -d
+     Additionally export code for deploy - stripped from source etc.
+     Uses suffix ".deploy.js" in addition to any explicit given suffic using -s.
 
   -s suffix
      Add <suffix> to compiled js files so that File.st is compiled into
-     File.<suffix>.st.
+     File.<suffix>.js.
+
+  -S suffix
+     Use <suffix> for all libraries accessed using -l or -L and other options.
 
   -l library1,library2
-     Load listed libraries (no spaces) into Compiler before compiling.
+     Load listed libraries (no spaces or .js) into Compiler before compiling.
 
   -L library1,library2
-     Load listed libraries (no spaces) into Compiler before compiling and also
-     into Program.js in listed order.
+     Load listed libraries (no spaces or .js) into Compiler before compiling
+     and also into Program.js in listed order.
 
   -i file
      Add library initializer <file>.
@@ -116,11 +120,11 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-BOOT="boot.js"
-KERNEL="$BOOT Kernel.js"
-COMPILER="$KERNEL Parser.js Compiler.js"
-CANVAS="$COMPILER Canvas.js"
-IDE="$CANVAS JQuery.js IDE.js SUnit.js Examples.js"
+BOOT="boot"
+KERNEL="$BOOT Kernel"
+COMPILER="$KERNEL Parser Compiler"
+CANVAS="$COMPILER Canvas"
+IDE="$CANVAS JQuery IDE SUnit Examples"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
@@ -137,11 +141,11 @@ CLOSUREOPTS=
 # Ok, bad coding practice but hey, who would use such a suffix?
 SUFFIX=no-silly-suffix
 SUFFIXUSED=
-DEBUG=false
-NODECOMPILE=nodecompile.js
+DEPLOY=false
+NODECOMPILE=nodecompile
 
 # Read options and shift them away
-while getopts "NDEKCJoOAgs:l:L:i:IM:m:h?" o; do
+while getopts "NDEKCJoOAdS:s:l:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -162,7 +166,9 @@ case "$o" in
    A) CLOSURE=true
       CLOSUREOPTS="$CLOSUREOPTS --compilation_level ADVANCED_OPTIMIZATIONS"
       CLOSUREFULL=true;;
-   g) DEBUG=true;;
+   d) DEPLOY=true;;
+   S) LOADSUFFIX=$OPTARG
+      SUFFIXUSED=$SUFFIX;;
    s) SUFFIX=$OPTARG
       SUFFIXUSED=$SUFFIX;;
    l) LOAD=$OPTARG;;
@@ -193,26 +199,27 @@ fi
 
 # Function for looking up listed js files
 function resolvejs {
-  if [ -f "$1" ]; then
-    RESOLVED="$1" 
+  FNAME="$1$LOADSUFFIX.js"
+  if [ -f $FNAME ]; then
+    RESOLVED="$FNAME" 
   else
-    if [ -f $JTALK/js/$1 ]; then
-      RESOLVED="$JTALK/js/$1"
+    if [ -f $JTALK/js/$FNAME ]; then
+      RESOLVED="$JTALK/js/$FNAME"
     else
-      echo "Javascript file not found: $1"
+      echo "Javascript file not found: $FNAME"
       exit 1
     fi
   fi
 }
 
-# Resolve listed libraries in $BASE separated by spaces
+# Resolve listed libraries in $BASE deparated by spaces
 for FILE in $BASE
 do
    resolvejs $FILE
    TOBASE="$TOBASE $RESOLVED"
 done
 
-# Resolve listed libraries in $LOAD separated by spaces
+# Resolve listed libraries in $LOAD separated by ,
 LOAD=${LOAD//,/\ }
 for FILE in $LOAD
 do
@@ -220,7 +227,7 @@ do
    TOLOAD="$TOLOAD $RESOLVED"
 done
 
-# Resolve listed libraries in $LOADANDADD separated by spaces
+# Resolve listed libraries in $LOADANDADD separated by ,
 LOADANDADD=${LOADANDADD//,/\ }
 for FILE in $LOADANDADD
 do
@@ -230,7 +237,7 @@ do
 done
 
 # Define our Compiler loading supplied libraries
-OURCOMPILER="$COMPILER $TOLOAD init.js $JTALK/nodejs/$NODECOMPILE"
+OURCOMPILER="$COMPILER $TOLOAD init $JTALK/bin/$NODECOMPILE"
 
 # Resolve OURCOMPILER
 for FILE in $OURCOMPILER
@@ -243,7 +250,7 @@ done
 LIBS="$TOBASE $TOADD"
 
 # Get a unique tempdir and make it get auto removed on exit
-TMPDIR=`mktemp -d`
+TMPDIR=`mktemp -d jtalkc.XXXXXX`
 trap "rm -rf $TMPDIR" EXIT
 
 
@@ -292,7 +299,7 @@ cat $TOOURCOMPILER > $TMPDIR/compiler.js
  
 # Compile all collected .st files to .js
 echo "Loading libraries $TOOURCOMPILER and compiling ..."
-node $TMPDIR/compiler.js $DEBUG $SUFFIX $COMPILE
+node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "

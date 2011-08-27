@@ -7,20 +7,14 @@ var sys = require('sys'), fs = require('fs');
 // Only care about our arguments, strip away node, all.js and debug flag.
 var arguments = process.argv.splice(4);
 
-// First argument is debugMode: "true" or "false"
-if (process.argv[2] == "true") {
-  smalltalk.debugMode = true;
-} else {
-  smalltalk.debugMode = false;
-}
+// First argument is also produce deploy files: "true" or "false"
+var deploy = (process.argv[2] == "true");
 
 // Second argument is suffix: "no-silly-suffix" means none
 suffix = process.argv[3];
 if (suffix == "no-silly-suffix") {
   suffix = "";
 }
-
-console.log("Compiling in debugMode: " + smalltalk.debugMode);
 
 // If it ends with .st, import it, otherwise export category as .js
 arguments.forEach(function(val, index, array) {
@@ -29,7 +23,11 @@ arguments.forEach(function(val, index, array) {
     code = fs.readFileSync(val, "utf8");
     smalltalk.Importer._new()._import_(code._stream());
   } else {
-    sys.puts("Exporting category " + val + " as " + val + suffix + ".js");
+    sys.puts("Exporting " + (deploy ? "(debug + deploy)" : "(debug)") + " category "
+		+ val + " as " + val + suffix + ".js" + (deploy ? " and " + val + suffix + ".deploy.js" : ""));
     fs.writeFileSync(val + suffix + ".js", smalltalk.Exporter._new()._exportCategory_(val));
+    if (deploy) {
+	fs.writeFileSync(val + suffix + ".deploy.js", smalltalk.StrippedExporter._new()._exportCategory_(val));
+    }
   }
 });

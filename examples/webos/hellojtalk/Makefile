@@ -16,7 +16,7 @@ OBJECTS  := $(patsubst %.st,%.js,$(wildcard *.st))
 FILEJS   := $(FILE).js
 
 $(FILEJS): $(SOURCES)
-	../../bin/jtalkc $(FLAGS) $(SOURCES) $(FILE)
+	../../../bin/jtalkc $(FLAGS) $(SOURCES) $(FILE)
 
 $(IPK): $(FILEJS)
 	palm-package .
