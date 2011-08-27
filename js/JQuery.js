@@ -615,6 +615,66 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_do_',
+smalltalk.method({
+selector: 'do:',
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_elementsDo_", [(function(anElement){return smalltalk.send(aBlock, "_value_", [smalltalk.send(smalltalk.JQuery, "_fromElement_", [anElement])]);})]);
+return self;},
+source: unescape('do%3A%20aBlock%0A%20%20%20%20self%20elementsDo%3A%20%5B%3AanElement%7C%20%20aBlock%20value%3A%20%28JQuery%20fromElement%3A%20anElement%29%5D'),
+messageSends: ["elementsDo:", "value:", "fromElement:"],
+referencedClasses: [smalltalk.JQuery]
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_elementsDo_',
+smalltalk.method({
+selector: 'elementsDo:',
+category: 'private',
+fn: function (aBlock){
+var self=this;
+self['@jquery'].each(function(index, element){aBlock(element, self)});
+return self;},
+source: unescape('elementsDo%3A%20aBlock%0A%20%20%20%20%22Iterate%20over%20a%20jQuery%20object%2C%20executing%20a%20function%20for%20each%20matched%20element.%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.each%28function%28index%2C%20element%29%7BaBlock%28element%2C%20self%29%7D%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_attrAt_put_',
+smalltalk.method({
+selector: 'attrAt:put:',
+category: 'attributes',
+fn: function (aString, anotherString){
+var self=this;
+self['@jquery'].attr(aString, anotherString);
+return self;},
+source: unescape('attrAt%3A%20aString%20put%3A%20anotherString%0A%20%20%20%20%22Set%20the%20value%20of%20an%20attribute%20for%20the%20first%20element%20in%20the%20set%20of%20matched%20elements.%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.attr%28aString%2C%20anotherString%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_find_',
+smalltalk.method({
+selector: 'find:',
+category: 'traversing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.send(self, "_call_withArgument_", ["find", aSelector]);
+return self;},
+source: unescape('find%3A%20aSelector%0A%20%20%20%20%22Get%20the%20descendants%20of%20each%20element%20in%20the%20current%20set%20of%20matched%20elements%2C%20filtered%20by%20a%20selector%2C%20jQuery%20object%2C%20or%20element.%22%0A%20%20%20%20%5E%20self%20call%3A%20%27find%27%20withArgument%3A%20aSelector'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',
@@ -816,6 +876,51 @@ return self;},
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20settings%20%3A%3D%20Dictionary%20new'),
 messageSends: ["initialize", "new"],
 referencedClasses: [smalltalk.Dictionary]
+}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_onSuccessDo_',
+smalltalk.method({
+selector: 'onSuccessDo:',
+category: 'callbacks',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_at_put_", ["success", aBlock]);
+return self;},
+source: unescape('onSuccessDo%3A%20aBlock%0A%09%22Set%20action%20to%20execute%20when%20Ajax%20request%20is%20successful.%20Pass%20received%20data%20as%20block%20argument.%20Block%20arguments%3A%20data%2C%20textStatus%2C%20jqXHR%22%0A%09self%20at%3A%20%27success%27%20put%3A%20aBlock'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_onCompleteDo_',
+smalltalk.method({
+selector: 'onCompleteDo:',
+category: 'callbacks',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_at_put_", ["complete", aBlock]);
+return self;},
+source: unescape('onCompleteDo%3A%20aBlock%0A%09%22A%20block%20to%20be%20called%20when%20the%20request%20finishes%20%28after%20success%20and%20error%20callbacks%20are%20executed%29.%20Block%20arguments%3A%20jqXHR%2C%20textStatus%22%0A%09self%20at%3A%20%27complete%27%20put%3A%20aBlock'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.Ajax);
+
+smalltalk.addMethod(
+'_onErrorDo_',
+smalltalk.method({
+selector: 'onErrorDo:',
+category: 'callbacks',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_at_put_", ["error", aBlock]);
+return self;},
+source: unescape('onErrorDo%3A%20aBlock%0A%09%22A%20block%20to%20be%20called%20if%20the%20request%20fails.Block%20arguments%3A%20jqXHR%2C%20textStatus%2C%20errorThrown%22%0A%09self%20at%3A%20%27error%27%20put%3A%20aBlock'),
+messageSends: ["at:put:"],
+referencedClasses: []
 }),
 smalltalk.Ajax);
 

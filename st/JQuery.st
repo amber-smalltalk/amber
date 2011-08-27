@@ -53,6 +53,11 @@ val
 
 val: aString
     self call: 'val' withArgument: aString
+!
+
+attrAt: aString put: anotherString
+    "Set the value of an attribute for the first element in the set of matched elements."
+    <self['@jquery'].attr(aString, anotherString)>
 ! !
 
 !JQuery methodsFor: 'css'!
@@ -156,6 +161,12 @@ scrollTop: anInteger
     self call: 'scrollTop' withArgument: anInteger
 ! !
 
+!JQuery methodsFor: 'enumerating'!
+
+do: aBlock
+    self elementsDo: [:anElement|  aBlock value: (JQuery fromElement: anElement)]
+! !
+
 !JQuery methodsFor: 'events'!
 
 focus
@@ -198,6 +209,11 @@ call: aString
 
 call: aString withArgument: anObject
     <return self['@jquery'][aString](anObject)>
+!
+
+elementsDo: aBlock
+    "Iterate over a jQuery object, executing a function for each matched element."
+    <self['@jquery'].each(function(index, element){aBlock(element, self)})>
 ! !
 
 !JQuery methodsFor: 'testing'!
@@ -205,6 +221,13 @@ call: aString withArgument: anObject
 hasClass: aString
     "Determine whether any of the matched elements are assigned the given class."
     ^self call: 'hasClass' withArgument: aString
+! !
+
+!JQuery methodsFor: 'traversing'!
+
+find: aSelector
+    "Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element."
+    ^ self call: 'find' withArgument: aSelector
 ! !
 
 !JQuery class methodsFor: 'instance creation'!
@@ -274,6 +297,23 @@ url: aString
 
 send
     <jQuery.ajax(self['@settings'])>
+! !
+
+!Ajax methodsFor: 'callbacks'!
+
+onSuccessDo: aBlock
+	"Set action to execute when Ajax request is successful. Pass received data as block argument. Block arguments: data, textStatus, jqXHR"
+	self at: 'success' put: aBlock
+!
+
+onCompleteDo: aBlock
+	"A block to be called when the request finishes (after success and error callbacks are executed). Block arguments: jqXHR, textStatus"
+	self at: 'complete' put: aBlock
+!
+
+onErrorDo: aBlock
+	"A block to be called if the request fails.Block arguments: jqXHR, textStatus, errorThrown"
+	self at: 'error' put: aBlock
 ! !
 
 !Ajax methodsFor: 'initialization'!

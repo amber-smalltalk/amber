@@ -517,12 +517,14 @@ showMethodButtons
 
 compile
     self disableSaveButton.
-    selectedTab = #comment ifTrue: [
-	selectedClass ifNotNil: [
-	    self compileClassComment]].
-    (selectedProtocol notNil or: [selectedMethod notNil])
-	ifFalse: [self compileDefinition]
-	ifTrue: [self compileMethodDefinition]
+    selectedTab = #comment
+	ifTrue: [
+		selectedClass ifNotNil: [
+	    		self compileClassComment]]
+	ifFalse: [ 
+  		  (selectedProtocol notNil or: [selectedMethod notNil])
+			ifFalse: [self compileDefinition]
+			ifTrue: [self compileMethodDefinition]].
 !
 
 compileClassComment

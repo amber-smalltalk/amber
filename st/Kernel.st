@@ -541,6 +541,10 @@ max: aNumber
 
 min: aNumber
 	<return Math.min(self, aNumber);>
+!
+
+modulo: aNumber
+	<return self % aNumber>
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -638,6 +642,14 @@ printString
 
 isNumber
 	^true
+!
+
+even
+	^ 0 = (self modulo: 2)
+!
+
+odd
+	^ self even not
 ! !
 
 !Number methodsFor: 'timeouts/intervals'!
@@ -705,6 +717,19 @@ value: firstArg value: secondArg value: thirdArg
 
 valueWithPossibleArguments: aCollection
 	<return self.apply(null, aCollection);>
+! !
+
+!BlockClosure methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream| 
+                                  aStream 
+                                  	nextPutAll: super printString;
+                                  	nextPutAll: '(';
+                                  	nextPutAll: self compiledSource;
+                                  	nextPutAll: ')';
+                                  	cr.
+           ]
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!
@@ -1509,10 +1534,23 @@ trimBoth: separators
     	^(self trimLeft: separators) trimRight: separators
 ! !
 
+!String methodsFor: 'split join'!
+
+join: aCollection 
+	^ String
+		streamContents: [:stream | aCollection
+				do: [:each | stream nextPutAll: each asString] 
+				separatedBy: [stream nextPutAll: self]]
+! !
+
 !String methodsFor: 'testing'!
 
 isString
     	^true
+!
+
+includesSubString: subString
+	< return self.indexOf(subString) !!= -1 >
 ! !
 
 !String class methodsFor: 'accessing'!
@@ -1545,6 +1583,13 @@ crlf
 
 fromString: aString
 	    <return new self.fn(aString)>
+!
+
+streamContents: blockWithArg
+	|stream|
+	stream := (self streamClass on: String new).
+	blockWithArg value: stream.
+	^ stream contents
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1952,6 +1997,25 @@ initialize
     	keys := #()
 ! !
 
+!Dictionary methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  		aStream 
+                                  			nextPutAll: super printString;
+                                  			nextPutAll: '('.
+                                  		self associations 
+                                  			do: [:anAssociation|  
+                                                                      	aStream 
+                                                                      		nextPutAll: anAssociation key printString;
+                                                                      		nextPutAll: ' -> ';
+                                                                      		nextPutAll: anAssociation value printString]
+                                  
+                                 			separatedBy: [aStream nextPutAll: ' , '].
+                                  		aStream nextPutAll: ')'.
+                                 ]
+! !
+
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -2197,6 +2261,10 @@ crlf
 
 lf
 	^self nextPutAll: String lf
+!
+
+space
+	self nextPut: ' '
 ! !
 
 Object subclass: #ClassCommentReader
