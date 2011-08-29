@@ -1699,7 +1699,7 @@ sort
 sort: aBlock
 	<
 		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return 1} else {return -1}
+			if(aBlock(a,b)) {return -1} else {return 1}
 		})
 	>
 !
@@ -1709,7 +1709,7 @@ sorted
 !
 
 sorted: aBlock
-	^self copy sorted: aBlock
+	^self copy sort: aBlock
 !
 
 printString

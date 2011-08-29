@@ -4841,11 +4841,11 @@ fn: function (aBlock){
 var self=this;
 
 		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return 1} else {return -1}
+			if(aBlock(a,b)) {return -1} else {return 1}
 		})
 	;
 return self;},
-source: unescape('sort%3A%20aBlock%0A%09%3C%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%201%7D%20else%20%7Breturn%20-1%7D%0A%09%09%7D%29%0A%09%3E'),
+source: unescape('sort%3A%20aBlock%0A%09%3C%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%20-1%7D%20else%20%7Breturn%201%7D%0A%09%09%7D%29%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4895,10 +4895,10 @@ selector: 'sorted:',
 category: 'enumerating',
 fn: function (aBlock){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_copy", []), "_sorted_", [aBlock]);
+return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
 return self;},
-source: unescape('sorted%3A%20aBlock%0A%09%5Eself%20copy%20sorted%3A%20aBlock'),
-messageSends: ["sorted:", "copy"],
+source: unescape('sorted%3A%20aBlock%0A%09%5Eself%20copy%20sort%3A%20aBlock'),
+messageSends: ["sort:", "copy"],
 referencedClasses: []
 }),
 smalltalk.Array);
@@ -5904,7 +5904,7 @@ smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
 return self;},
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.Compiler]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.ClassCategoryReader);
 
