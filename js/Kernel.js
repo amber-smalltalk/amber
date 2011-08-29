@@ -429,7 +429,7 @@ fn: function (aBlock){
 var self=this;
 return self;
 return self;},
-source: unescape('ifNil%3A%20aBlock%0A%09%5Eself'),
+source: unescape('ifNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -444,7 +444,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(anotherBlock, "_value", []);
 return self;},
-source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%5EanotherBlock%20value'),
+source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EanotherBlock%20value'),
 messageSends: ["value"],
 referencedClasses: []
 }),
@@ -459,7 +459,7 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.send(aBlock, "_value", []);
 return self;},
-source: unescape('ifNotNil%3A%20aBlock%0A%09%5EaBlock%20value'),
+source: unescape('ifNotNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EaBlock%20value'),
 messageSends: ["value"],
 referencedClasses: []
 }),
@@ -474,7 +474,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(aBlock, "_value", []);
 return self;},
-source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%5EaBlock%20value'),
+source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EaBlock%20value'),
 messageSends: ["value"],
 referencedClasses: []
 }),
@@ -1529,7 +1529,7 @@ fn: function (aNumber){
 var self=this;
 return Number(self) == aNumber;
 return self;},
-source: unescape('%3D%20aNumber%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
+source: unescape('%3D%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1544,7 +1544,7 @@ fn: function (aNumber){
 var self=this;
 return self > aNumber;
 return self;},
-source: unescape('%3E%20aNumber%0A%09%3Creturn%20self%20%3E%3E%20aNumber%3E'),
+source: unescape('%3E%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3E%3E%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1559,7 +1559,7 @@ fn: function (aNumber){
 var self=this;
 return self < aNumber;
 return self;},
-source: unescape('%3C%20aNumber%0A%09%3Creturn%20self%20%3C%20aNumber%3E'),
+source: unescape('%3C%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3C%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1574,7 +1574,7 @@ fn: function (aNumber){
 var self=this;
 return self >= aNumber;
 return self;},
-source: unescape('%3E%3D%20aNumber%0A%09%3Creturn%20self%20%3E%3E%3D%20aNumber%3E'),
+source: unescape('%3E%3D%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3E%3E%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1589,7 +1589,7 @@ fn: function (aNumber){
 var self=this;
 return self <= aNumber;
 return self;},
-source: unescape('%3C%3D%20aNumber%0A%09%3Creturn%20self%20%3C%3D%20aNumber%3E'),
+source: unescape('%3C%3D%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3C%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1604,7 +1604,7 @@ fn: function (aNumber){
 var self=this;
 return self + aNumber;
 return self;},
-source: unescape('+%20aNumber%0A%09%3Creturn%20self%20+%20aNumber%3E'),
+source: unescape('+%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20+%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1619,7 +1619,7 @@ fn: function (aNumber){
 var self=this;
 return self - aNumber;
 return self;},
-source: unescape('-%20aNumber%0A%09%3Creturn%20self%20-%20aNumber%3E'),
+source: unescape('-%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20-%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1634,7 +1634,7 @@ fn: function (aNumber){
 var self=this;
 return self * aNumber;
 return self;},
-source: unescape('*%20aNumber%0A%09%3Creturn%20self%20*%20aNumber%3E'),
+source: unescape('*%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20*%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1649,7 +1649,7 @@ fn: function (aNumber){
 var self=this;
 return self / aNumber;
 return self;},
-source: unescape('/%20aNumber%0A%09%3Creturn%20self%20/%20aNumber%3E'),
+source: unescape('/%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20/%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2011,7 +2011,7 @@ fn: function (aBlock){
 var self=this;
 while(self()) {aBlock()};
 return self;},
-source: unescape('whileTrue%3A%20aBlock%0A%09%3Cwhile%28self%28%29%29%20%7BaBlock%28%29%7D%3E'),
+source: unescape('whileTrue%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Cwhile%28self%28%29%29%20%7BaBlock%28%29%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2026,7 +2026,7 @@ fn: function (aBlock){
 var self=this;
 while(!self()) {aBlock()};
 return self;},
-source: unescape('whileFalse%3A%20aBlock%0A%09%3Cwhile%28%21self%28%29%29%20%7BaBlock%28%29%7D%3E'),
+source: unescape('whileFalse%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Cwhile%28%21self%28%29%29%20%7BaBlock%28%29%7D%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2041,7 +2041,7 @@ fn: function (){
 var self=this;
 return self();;
 return self;},
-source: unescape('value%0A%09%3Creturn%20self%28%29%3B%3E'),
+source: unescape('value%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2056,7 +2056,7 @@ fn: function (anArg){
 var self=this;
 return self(anArg);;
 return self;},
-source: unescape('value%3A%20anArg%0A%09%3Creturn%20self%28anArg%29%3B%3E'),
+source: unescape('value%3A%20anArg%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28anArg%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2071,7 +2071,7 @@ fn: function (firstArg, secondArg){
 var self=this;
 return self(firstArg, secondArg);;
 return self;},
-source: unescape('value%3A%20firstArg%20value%3A%20secondArg%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%29%3B%3E'),
+source: unescape('value%3A%20firstArg%20value%3A%20secondArg%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2086,7 +2086,7 @@ fn: function (firstArg, secondArg, thirdArg){
 var self=this;
 return self(firstArg, secondArg, thirdArg);;
 return self;},
-source: unescape('value%3A%20firstArg%20value%3A%20secondArg%20value%3A%20thirdArg%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%2C%20thirdArg%29%3B%3E'),
+source: unescape('value%3A%20firstArg%20value%3A%20secondArg%20value%3A%20thirdArg%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%2C%20thirdArg%29%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2167,6 +2167,51 @@ referencedClasses: [smalltalk.String]
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+'_whileFalse',
+smalltalk.method({
+selector: 'whileFalse',
+category: 'controlling',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileFalse_", [(function(){return nil;})]);
+return self;},
+source: unescape('whileFalse%0A%09%22inlined%20in%20the%20Compiler%22%0A%09self%20whileFalse%3A%20%5B%5D'),
+messageSends: ["whileFalse:"],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_whileTrue',
+smalltalk.method({
+selector: 'whileTrue',
+category: 'controlling',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileTrue_", [(function(){return nil;})]);
+return self;},
+source: unescape('whileTrue%0A%09%22inlined%20in%20the%20Compiler%22%0A%09self%20whileTrue%3A%20%5B%5D'),
+messageSends: ["whileTrue:"],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_new',
+smalltalk.method({
+selector: 'new',
+category: 'evaluating',
+fn: function (){
+var self=this;
+return new self();
+return self;},
+source: unescape('new%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
@@ -2224,7 +2269,7 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_ifTrue_ifFalse_", [aBlock, (function(){return nil;})]);
 return self;},
-source: unescape('ifTrue%3A%20aBlock%0A%09%5Eself%20ifTrue%3A%20aBlock%20ifFalse%3A%20%5B%5D'),
+source: unescape('ifTrue%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifTrue%3A%20aBlock%20ifFalse%3A%20%5B%5D'),
 messageSends: ["ifTrue:ifFalse:"],
 referencedClasses: []
 }),
@@ -2239,7 +2284,7 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_ifTrue_ifFalse_", [(function(){return nil;}), aBlock]);
 return self;},
-source: unescape('ifFalse%3A%20aBlock%0A%09%5Eself%20ifTrue%3A%20%5B%5D%20ifFalse%3A%20aBlock'),
+source: unescape('ifFalse%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifTrue%3A%20%5B%5D%20ifFalse%3A%20aBlock'),
 messageSends: ["ifTrue:ifFalse:"],
 referencedClasses: []
 }),
@@ -2254,7 +2299,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(self, "_ifTrue_ifFalse_", [anotherBlock, aBlock]);
 return self;},
-source: unescape('ifFalse%3A%20aBlock%20ifTrue%3A%20anotherBlock%0A%09%5Eself%20ifTrue%3A%20anotherBlock%20ifFalse%3A%20aBlock'),
+source: unescape('ifFalse%3A%20aBlock%20ifTrue%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifTrue%3A%20anotherBlock%20ifFalse%3A%20aBlock'),
 messageSends: ["ifTrue:ifFalse:"],
 referencedClasses: []
 }),
@@ -2275,7 +2320,7 @@ var self=this;
 	    }
 	;
 return self;},
-source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3050,7 +3095,7 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_ifNil_ifNotNil_", [aBlock, (function(){return nil;})]);
 return self;},
-source: unescape('ifNil%3A%20aBlock%0A%09%5Eself%20ifNil%3A%20aBlock%20ifNotNil%3A%20%5B%5D'),
+source: unescape('ifNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifNil%3A%20aBlock%20ifNotNil%3A%20%5B%5D'),
 messageSends: ["ifNil:ifNotNil:"],
 referencedClasses: []
 }),
@@ -3065,7 +3110,7 @@ fn: function (aBlock){
 var self=this;
 return self;
 return self;},
-source: unescape('ifNotNil%3A%20aBlock%0A%09%5Eself'),
+source: unescape('ifNotNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3080,7 +3125,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(aBlock, "_value", []);
 return self;},
-source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%5EaBlock%20value'),
+source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EaBlock%20value'),
 messageSends: ["value"],
 referencedClasses: []
 }),
@@ -3095,7 +3140,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(anotherBlock, "_value", []);
 return self;},
-source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%5EanotherBlock%20value'),
+source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EanotherBlock%20value'),
 messageSends: ["value"],
 referencedClasses: []
 }),

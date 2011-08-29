@@ -2686,14 +2686,13 @@ stop=smalltalk.send(smalltalk.Dictionary, "_new", []);
 smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
 smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
 smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
-smalltalk.send(stop, "_at_put_", ["ch", smalltalk.send(smalltalk.send(smalltalk.send(start, "_at_", ["ch"]), "__plus", [smalltalk.send(aString, "_size", [])]), "__plus", [(2)])]);
+smalltalk.send(stop, "_at_put_", ["ch", (typeof ($receiver = (typeof ($receiver = smalltalk.send(start, "_at_", ["ch"])) === 'number') ? $receiver +smalltalk.send(aString, "_size", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(aString, "_size", [])])) === 'number') ? $receiver +(2) : smalltalk.send($receiver, "__plus", [(2)])]);
 smalltalk.send(self['@editor'], "_replaceSelection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@editor'], "_getSelection", []), "__comma", [" "]), "__comma", [aString]), "__comma", [" "])]);
 smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], "_getCursor_", [true])]);
 smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
-(function($rec){smalltalk.send($rec, "_log_", [start]);return smalltalk.send($rec, "_log_", [stop]);})(console);
 return self;},
-source: unescape('print%3A%20aString%0A%09%7C%20start%20stop%20%7C%0A%09start%20%3A%3D%20Dictionary%20new.%0A%09stop%20%3A%3D%20Dictionary%20new.%0A%09start%20at%3A%20%27line%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20line.%0A%09start%20at%3A%20%27ch%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20ch.%0A%09stop%20at%3A%20%27line%27%20put%3A%20%28start%20at%3A%20%27line%27%29.%0A%09stop%20at%3A%20%27ch%27%20put%3A%20%28%28start%20at%3A%20%27ch%27%29%20+%20aString%20size%20+%202%29.%0A%09editor%20replaceSelection%3A%20%28editor%20getSelection%2C%20%27%20%27%2C%20aString%2C%20%27%20%27%29.%0A%09editor%20setCursor%3A%20%28editor%20getCursor%3A%20true%29.%0A%09editor%20setSelection%3A%20stop%20end%3A%20start.%0A%09console%20log%3A%20start%3B%20log%3A%20stop'),
-messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", unescape("+"), "size", "replaceSelection:", unescape("%2C"), "getSelection", "setCursor:", "setSelection:end:", "log:"],
+source: unescape('print%3A%20aString%0A%09%7C%20start%20stop%20%7C%0A%09start%20%3A%3D%20Dictionary%20new.%0A%09stop%20%3A%3D%20Dictionary%20new.%0A%09start%20at%3A%20%27line%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20line.%0A%09start%20at%3A%20%27ch%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20ch.%0A%09stop%20at%3A%20%27line%27%20put%3A%20%28start%20at%3A%20%27line%27%29.%0A%09stop%20at%3A%20%27ch%27%20put%3A%20%28%28start%20at%3A%20%27ch%27%29%20+%20aString%20size%20+%202%29.%0A%09editor%20replaceSelection%3A%20%28editor%20getSelection%2C%20%27%20%27%2C%20aString%2C%20%27%20%27%29.%0A%09editor%20setCursor%3A%20%28editor%20getCursor%3A%20true%29.%0A%09editor%20setSelection%3A%20stop%20end%3A%20start'),
+messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", unescape("+"), "size", "replaceSelection:", unescape("%2C"), "getSelection", "setCursor:", "setSelection:end:"],
 referencedClasses: [smalltalk.Dictionary]
 }),
 smalltalk.SourceArea);

@@ -7,7 +7,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@nodes'], "_ifNil_", [(function(){return self['@nodes']=smalltalk.send(smalltalk.Array, "_new", []);})]);
 return self;}
-]
 }),
 smalltalk.Node);
 
@@ -19,7 +18,6 @@ fn: function (aCollection){
 var self=this;
 self['@nodes']=aCollection;
 return self;}
-]
 }),
 smalltalk.Node);
 
@@ -31,7 +29,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_nodes", []), "_add_", [aNode]);
 return self;}
-]
 }),
 smalltalk.Node);
 
@@ -43,7 +40,39 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitNode_", [self]);
 return self;}
-]
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+'_isValueNode',
+smalltalk.method({
+selector: 'isValueNode',
+fn: function (){
+var self=this;
+return false;
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+'_isBlockNode',
+smalltalk.method({
+selector: 'isBlockNode',
+fn: function (){
+var self=this;
+return false;
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+'_isBlockSequenceNode',
+smalltalk.method({
+selector: 'isBlockSequenceNode',
+fn: function (){
+var self=this;
+return false;
+return self;}
 }),
 smalltalk.Node);
 
@@ -58,7 +87,6 @@ fn: function (){
 var self=this;
 return self['@selector'];
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -70,7 +98,6 @@ fn: function (aString){
 var self=this;
 self['@selector']=aString;
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -82,7 +109,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@arguments'], "_ifNil_", [(function(){return [];})]);
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -94,7 +120,6 @@ fn: function (aCollection){
 var self=this;
 self['@arguments']=aCollection;
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -106,7 +131,6 @@ fn: function (){
 var self=this;
 return self['@source'];
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -118,7 +142,6 @@ fn: function (aString){
 var self=this;
 self['@source']=aString;
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -130,7 +153,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitMethodNode_", [self]);
 return self;}
-]
 }),
 smalltalk.MethodNode);
 
@@ -145,7 +167,6 @@ fn: function (){
 var self=this;
 return self['@selector'];
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -157,7 +178,6 @@ fn: function (aString){
 var self=this;
 self['@selector']=aString;
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -169,7 +189,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@arguments'], "_ifNil_", [(function(){return self['@arguments']=[];})]);
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -181,7 +200,6 @@ fn: function (aCollection){
 var self=this;
 self['@arguments']=aCollection;
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -193,7 +211,6 @@ fn: function (){
 var self=this;
 return self['@receiver'];
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -205,7 +222,6 @@ fn: function (aNode){
 var self=this;
 self['@receiver']=aNode;
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -217,7 +233,6 @@ fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_receiver_", [smalltalk.send(smalltalk.send(self, "_receiver", []), "_ifNil_ifNotNil_", [(function(){return anObject;}), (function(){return smalltalk.send(smalltalk.send(self, "_receiver", []), "_valueForReceiver_", [anObject]);})])]);smalltalk.send($rec, "_selector_", [smalltalk.send(self, "_selector", [])]);smalltalk.send($rec, "_arguments_", [smalltalk.send(self, "_arguments", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.SendNode, "_new", []));
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -231,7 +246,6 @@ var first=nil;
 first=(function($rec){smalltalk.send($rec, "_selector_", [smalltalk.send(self, "_selector", [])]);smalltalk.send($rec, "_arguments_", [smalltalk.send(self, "_arguments", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.SendNode, "_new", []));
 return (function($rec){smalltalk.send($rec, "_receiver_", [smalltalk.send(self, "_receiver", [])]);smalltalk.send($rec, "_nodes_", [smalltalk.send(smalltalk.send(smalltalk.Array, "_with_", [first]), "__comma", [aCollection])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.CascadeNode, "_new", []));
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -243,7 +257,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitSendNode_", [self]);
 return self;}
-]
 }),
 smalltalk.SendNode);
 
@@ -258,7 +271,6 @@ fn: function (){
 var self=this;
 return self['@receiver'];
 return self;}
-]
 }),
 smalltalk.CascadeNode);
 
@@ -270,7 +282,6 @@ fn: function (aNode){
 var self=this;
 self['@receiver']=aNode;
 return self;}
-]
 }),
 smalltalk.CascadeNode);
 
@@ -282,7 +293,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitCascadeNode_", [self]);
 return self;}
-]
 }),
 smalltalk.CascadeNode);
 
@@ -297,7 +307,6 @@ fn: function (){
 var self=this;
 return self['@left'];
 return self;}
-]
 }),
 smalltalk.AssignmentNode);
 
@@ -309,7 +318,6 @@ fn: function (aNode){
 var self=this;
 self['@left']=aNode;
 return self;}
-]
 }),
 smalltalk.AssignmentNode);
 
@@ -321,7 +329,6 @@ fn: function (){
 var self=this;
 return self['@right'];
 return self;}
-]
 }),
 smalltalk.AssignmentNode);
 
@@ -333,7 +340,6 @@ fn: function (aNode){
 var self=this;
 self['@right']=aNode;
 return self;}
-]
 }),
 smalltalk.AssignmentNode);
 
@@ -345,13 +351,12 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitAssignmentNode_", [self]);
 return self;}
-]
 }),
 smalltalk.AssignmentNode);
 
 
 
-smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters'], 'Compiler');
+smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'inlined'], 'Compiler');
 smalltalk.addMethod(
 '_parameters',
 smalltalk.method({
@@ -360,7 +365,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@parameters'], "_ifNil_", [(function(){return self['@parameters']=smalltalk.send(smalltalk.Array, "_new", []);})]);
 return self;}
-]
 }),
 smalltalk.BlockNode);
 
@@ -372,7 +376,6 @@ fn: function (aCollection){
 var self=this;
 self['@parameters']=aCollection;
 return self;}
-]
 }),
 smalltalk.BlockNode);
 
@@ -384,7 +387,39 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitBlockNode_", [self]);
 return self;}
-]
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+'_isBlockNode',
+smalltalk.method({
+selector: 'isBlockNode',
+fn: function (){
+var self=this;
+return true;
+return self;}
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+'_inlined',
+smalltalk.method({
+selector: 'inlined',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@inlined'], "_ifNil_", [(function(){return false;})]);
+return self;}
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+'_inlined_',
+smalltalk.method({
+selector: 'inlined:',
+fn: function (aBoolean){
+var self=this;
+self['@inlined']=aBoolean;
+return self;}
 }),
 smalltalk.BlockNode);
 
@@ -399,7 +434,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@temps'], "_ifNil_", [(function(){return [];})]);
 return self;}
-]
 }),
 smalltalk.SequenceNode);
 
@@ -411,7 +445,6 @@ fn: function (aCollection){
 var self=this;
 self['@temps']=aCollection;
 return self;}
-]
 }),
 smalltalk.SequenceNode);
 
@@ -423,7 +456,6 @@ fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_nodes_", [smalltalk.send(self, "_nodes", [])]);smalltalk.send($rec, "_temps_", [smalltalk.send(self, "_temps", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.BlockSequenceNode, "_new", []));
 return self;}
-]
 }),
 smalltalk.SequenceNode);
 
@@ -435,7 +467,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitSequenceNode_", [self]);
 return self;}
-]
 }),
 smalltalk.SequenceNode);
 
@@ -450,7 +481,17 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitBlockSequenceNode_", [self]);
 return self;}
-]
+}),
+smalltalk.BlockSequenceNode);
+
+smalltalk.addMethod(
+'_isBlockSequenceNode',
+smalltalk.method({
+selector: 'isBlockSequenceNode',
+fn: function (){
+var self=this;
+return true;
+return self;}
 }),
 smalltalk.BlockSequenceNode);
 
@@ -465,7 +506,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitReturnNode_", [self]);
 return self;}
-]
 }),
 smalltalk.ReturnNode);
 
@@ -480,7 +520,6 @@ fn: function (){
 var self=this;
 return self['@value'];
 return self;}
-]
 }),
 smalltalk.ValueNode);
 
@@ -492,7 +531,6 @@ fn: function (anObject){
 var self=this;
 self['@value']=anObject;
 return self;}
-]
 }),
 smalltalk.ValueNode);
 
@@ -504,7 +542,17 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitValueNode_", [self]);
 return self;}
-]
+}),
+smalltalk.ValueNode);
+
+smalltalk.addMethod(
+'_isValueNode',
+smalltalk.method({
+selector: 'isValueNode',
+fn: function (){
+var self=this;
+return true;
+return self;}
 }),
 smalltalk.ValueNode);
 
@@ -519,7 +567,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitVariableNode_", [self]);
 return self;}
-]
 }),
 smalltalk.VariableNode);
 
@@ -534,7 +581,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitClassReferenceNode_", [self]);
 return self;}
-]
 }),
 smalltalk.ClassReferenceNode);
 
@@ -549,7 +595,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@source'], "_ifNil_", [(function(){return "";})]);
 return self;}
-]
 }),
 smalltalk.JSStatementNode);
 
@@ -561,7 +606,6 @@ fn: function (aString){
 var self=this;
 self['@source']=aString;
 return self;}
-]
 }),
 smalltalk.JSStatementNode);
 
@@ -573,7 +617,6 @@ fn: function (aVisitor){
 var self=this;
 smalltalk.send(aVisitor, "_visitJSStatementNode_", [self]);
 return self;}
-]
 }),
 smalltalk.JSStatementNode);
 
@@ -588,7 +631,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(aNode, "_accept_", [self]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -600,7 +642,6 @@ fn: function (aNode){
 var self=this;
 
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -612,7 +653,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -624,7 +664,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -636,7 +675,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitSequenceNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -648,7 +686,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -660,7 +697,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -672,7 +708,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -684,7 +719,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -696,7 +730,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -708,7 +741,6 @@ fn: function (aNode){
 var self=this;
 
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -720,7 +752,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -732,7 +763,6 @@ fn: function (aNode){
 var self=this;
 (function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk."]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(aNode, "_value", [])]);})(self);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -744,7 +774,6 @@ fn: function (aNode){
 var self=this;
 (function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("function%28%29%7B")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(aNode, "_source", [])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%28%29")]);})(self);
 return self;}
-]
 }),
 smalltalk.NodeVisitor);
 
@@ -764,7 +793,6 @@ self['@tempVariables']=[];
 self['@messageSends']=[];
 classReferenced=[];
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -776,7 +804,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.SmalltalkParser, "_new", []);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -788,7 +815,6 @@ fn: function (){
 var self=this;
 return self['@currentClass'];
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -800,7 +826,6 @@ fn: function (aClass){
 var self=this;
 self['@currentClass']=aClass;
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -813,7 +838,6 @@ var self=this;
 smalltalk.send(smalltalk.DoIt, "_addCompiledMethod_", [smalltalk.send(self, "_eval_", [smalltalk.send(self, "_compileExpression_", [aString])])]);
 return smalltalk.send(smalltalk.send(smalltalk.DoIt, "_new", []), "_doIt", []);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -828,7 +852,6 @@ compiled=smalltalk.send(self, "_eval_", [smalltalk.send(self, "_compile_forClass
 smalltalk.send(self, "_setupClass_", [aClass]);
 return compiled;
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -841,7 +864,6 @@ var self=this;
 smalltalk.send(self, "_currentClass_", [aClass]);
 return smalltalk.send(self, "_compile_", [aString]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -854,7 +876,6 @@ var self=this;
 smalltalk.send(self, "_currentClass_", [smalltalk.DoIt]);
 return smalltalk.send(self, "_compileNode_", [smalltalk.send(self, "_parseExpression_", [aString])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -866,7 +887,6 @@ fn: function (aString){
 var self=this;
 return eval(aString);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -878,7 +898,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_compileNode_", [smalltalk.send(self, "_parse_", [aString])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -892,7 +911,6 @@ self['@stream']=smalltalk.send("", "_writeStream", []);
 smalltalk.send(self, "_visit_", [aNode]);
 return smalltalk.send(self['@stream'], "_contents", []);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -904,7 +922,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(aNode, "_accept_", [self]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -942,7 +959,6 @@ smalltalk.send(self['@referencedClasses'], "_do_separatedBy_", [(function(each){
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5D")]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%7D%29")]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -958,7 +974,6 @@ smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%7B")]);
 smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%7D%29")]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -971,7 +986,6 @@ var self=this;
 smalltalk.send(smalltalk.send(aNode, "_temps", []), "_do_", [(function(each){smalltalk.send(self['@tempVariables'], "_add_", [each]);return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("var ", "__comma", [each]), "__comma", [unescape("%3Dnil%3B")])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);})]);
 smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_separatedBy_", [(function(each){smalltalk.send(self, "_visit_", [each]);return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%3B")]);}), (function(){return smalltalk.send(self['@stream'], "_lf", []);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -986,7 +1000,6 @@ self['@nestedBlocks']=smalltalk.send(self['@nestedBlocks'], "__plus", [(1)]);
 smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_isEmpty", []), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("return%20nil%3B")]);}), (function(){smalltalk.send(smalltalk.send(aNode, "_temps", []), "_do_", [(function(each){smalltalk.send(self['@tempVariables'], "_add_", [each]);return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("var ", "__comma", [each]), "__comma", [unescape("%3Dnil%3B")])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);})]);index=(0);return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){index=smalltalk.send(index, "__plus", [(1)]);smalltalk.send(smalltalk.send(index, "__eq", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_size", [])]), "_ifTrue_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", ["return "]);})]);smalltalk.send(self, "_visit_", [each]);return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%3B")]);})]);})]);
 self['@nestedBlocks']=smalltalk.send(self['@nestedBlocks'], "__minus", [(1)]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1001,7 +1014,6 @@ smalltalk.send(self['@earlyReturn'], "_ifTrue_ifFalse_", [(function(){return (fu
 smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
 smalltalk.send(self['@earlyReturn'], "_ifTrue_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%7D%7D%29%7D%29%28%29")]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1014,22 +1026,16 @@ var self=this;
 var str=nil;
 var receiver=nil;
 var superSend=nil;
+var inlined=nil;
 str=self['@stream'];
-smalltalk.send(smalltalk.send(self['@messageSends'], "_includes_", [smalltalk.send(aNode, "_selector", [])]), "_ifFalse_", [(function(){return smalltalk.send(self['@messageSends'], "_add_", [smalltalk.send(aNode, "_selector", [])]);})]);
+(($receiver = smalltalk.send(self['@messageSends'], "_includes_", [smalltalk.send(aNode, "_selector", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@messageSends'], "_add_", [smalltalk.send(aNode, "_selector", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self['@messageSends'], "_add_", [smalltalk.send(aNode, "_selector", [])]);})]);
 self['@stream']=smalltalk.send("", "_writeStream", []);
 smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);
 superSend=smalltalk.send(smalltalk.send(self['@stream'], "_contents", []), "__eq", ["super"]);
-receiver=smalltalk.send(superSend, "_ifTrue_ifFalse_", [(function(){return "self";}), (function(){return smalltalk.send(self['@stream'], "_contents", []);})]);
-smalltalk.send(str, "_nextPutAll_", [unescape("smalltalk.send%28")]);
-smalltalk.send(str, "_nextPutAll_", [receiver]);
+receiver=(($receiver = superSend).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "self";})() : (function(){return smalltalk.send(self['@stream'], "_contents", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "self";}), (function(){return smalltalk.send(self['@stream'], "_contents", []);})]);
 self['@stream']=str;
-smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%2C%20%22"), "__comma", [smalltalk.send(smalltalk.send(aNode, "_selector", []), "_asSelector", [])]), "__comma", [unescape("%22%2C%20%5B")])]);
-smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C%20")]);})]);
-smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5D")]);
-smalltalk.send(superSend, "_ifTrue_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(unescape("%2C%20smalltalk."), "__comma", [smalltalk.send(self, "_classNameFor_", [smalltalk.send(smalltalk.send(self, "_currentClass", []), "_superclass", [])])])]);})]);
-smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29")]);
+(($receiver = smalltalk.send(self, "_inlineLiteral_receiverNode_argumentNodes_", [smalltalk.send(aNode, "_selector", []), smalltalk.send(aNode, "_receiver", []), smalltalk.send(aNode, "_arguments", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (($receiver = smalltalk.send(self, "_inline_receiver_argumentNodes_", [smalltalk.send(aNode, "_selector", []), receiver, smalltalk.send(aNode, "_arguments", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(" : ", "__comma", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), "$receiver", smalltalk.send(aNode, "_arguments", []), superSend])])]);})() : (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), receiver, smalltalk.send(aNode, "_arguments", []), superSend])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(" : ", "__comma", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), "$receiver", smalltalk.send(aNode, "_arguments", []), superSend])])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), receiver, smalltalk.send(aNode, "_arguments", []), superSend])]);})]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (($receiver = smalltalk.send(self, "_inline_receiver_argumentNodes_", [smalltalk.send(aNode, "_selector", []), receiver, smalltalk.send(aNode, "_arguments", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(" : ", "__comma", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), "$receiver", smalltalk.send(aNode, "_arguments", []), superSend])])]);})() : (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), receiver, smalltalk.send(aNode, "_arguments", []), superSend])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(" : ", "__comma", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), "$receiver", smalltalk.send(aNode, "_arguments", []), superSend])])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(self, "_send_to_arguments_superSend_", [smalltalk.send(aNode, "_selector", []), receiver, smalltalk.send(aNode, "_arguments", []), superSend])]);})]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1048,7 +1054,6 @@ smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%7D%29%28")]);
 smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29")]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1060,7 +1065,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(aNode, "_value", []), "_asJavascript", [])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1074,7 +1078,6 @@ smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_left", [])]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%3D")]);
 smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_right", [])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1089,7 +1092,6 @@ klass=smalltalk.send("smalltalk.", "__comma", [smalltalk.send(aNode, "_value", [
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_at_", [smalltalk.send(aNode, "_value", [])]), "_isClass", []), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self['@referencedClasses'], "_includes_", [klass]), "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})]);})]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [klass]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1101,7 +1103,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentClass", []), "_allInstanceVariableNames", []), "_includes_", [smalltalk.send(aNode, "_value", [])]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("self%5B%27@"), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%27%5D")])]);}), (function(){smalltalk.send(smalltalk.send(smalltalk.send(self, "_knownVariables", []), "_includes_", [smalltalk.send(aNode, "_value", [])]), "_ifFalse_", [(function(){return smalltalk.send(self['@unknownVariables'], "_add_", [smalltalk.send(aNode, "_value", [])]);})]);return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(aNode, "_value", [])]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1113,7 +1114,6 @@ fn: function (aNode){
 var self=this;
 smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(aNode, "_source", []), "_replace_with_", [unescape("%3E%3E"), unescape("%3E")])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1125,7 +1125,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_parser", []), "_parse_", [smalltalk.send(aString, "_readStream", [])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1137,7 +1136,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_parse_", [smalltalk.send(smalltalk.send(unescape("doIt%20%5E%5B"), "__comma", [aString]), "__comma", [unescape("%5D%20value")])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1149,7 +1147,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@unknownVariables'], "_copy", []);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1161,7 +1158,6 @@ fn: function (){
 var self=this;
 return ["self", "super", "true", "false", "nil", "thisContext"];
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1173,7 +1169,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@tempVariables'], "_copy", []);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1185,7 +1180,6 @@ fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [smalltalk.send(self, "_tempVariables", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_pseudoVariables", []));
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1199,7 +1193,6 @@ smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(functi
 method=smalltalk.send(self, "_load_forClass_", [smalltalk.send(each, "_source", []), aClass]);smalltalk.send(method, "_category_", [smalltalk.send(each, "_category", [])]);return smalltalk.send(aClass, "_addCompiledMethod_", [method]);})]);
 smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifFalse_", [(function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1211,7 +1204,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_do_", [(function(each){(function($rec){smalltalk.send($rec, "_show_", [each]);return smalltalk.send($rec, "_cr", []);})(smalltalk.Transcript);return smalltalk.send((function(){return smalltalk.send(self, "_recompile_", [each]);}), "_valueWithTimeout_", [(100)]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1223,7 +1215,6 @@ fn: function (aClass){
 var self=this;
 return smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_instanceClass", []), "_name", []), "__comma", [".klass"]);}), (function(){return smalltalk.send(smalltalk.send(aClass, "_isNil", []), "_ifTrue_ifFalse_", [(function(){return "nil";}), (function(){return smalltalk.send(aClass, "_name", []);})]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1235,7 +1226,6 @@ fn: function (aFailure){
 var self=this;
 smalltalk.send(self, "_error_", [smalltalk.send(aFailure, "_asString", [])]);
 return self;}
-]
 }),
 smalltalk.Compiler);
 
@@ -1247,7 +1237,96 @@ fn: function (aClass){
 var self=this;
 smalltalk.init(aClass);
 return self;}
-]
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_send_to_arguments_superSend_',
+smalltalk.method({
+selector: 'send:to:arguments:superSend:',
+fn: function (aSelector, aReceiver, aCollection, aBoolean){
+var self=this;
+return smalltalk.send(smalltalk.String, "_streamContents_", [(function(str){var tmp=nil;
+tmp=self['@stream'];smalltalk.send(str, "_nextPutAll_", [unescape("smalltalk.send%28")]);smalltalk.send(str, "_nextPutAll_", [aReceiver]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%2C%20%22"), "__comma", [smalltalk.send(aSelector, "_asSelector", [])]), "__comma", [unescape("%22%2C%20%5B")])]);self['@stream']=str;smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C%20")]);})]);self['@stream']=tmp;smalltalk.send(str, "_nextPutAll_", [unescape("%5D")]);smalltalk.send(aBoolean, "_ifTrue_", [(function(){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(unescape("%2C%20smalltalk."), "__comma", [smalltalk.send(self, "_classNameFor_", [smalltalk.send(smalltalk.send(self, "_currentClass", []), "_superclass", [])])])]);})]);return smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);})]);
+return self;}
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_checkClass_for_',
+smalltalk.method({
+selector: 'checkClass:for:',
+fn: function (aClassName, receiver){
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("%28%28%24receiver%20%3D%20"), "__comma", [receiver]), "__comma", [unescape("%29.klass%20%3D%3D%3D%20smalltalk.")]), "__comma", [aClassName]), "__comma", [unescape("%29%20%3F%20")])]);
+return self;}
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_inlineLiteral_receiverNode_argumentNodes_',
+smalltalk.method({
+selector: 'inlineLiteral:receiverNode:argumentNodes:',
+fn: function (aSelector, anObject, aCollection){
+var self=this;
+var inlined=nil;
+inlined=false;
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="whileTrue:" : smalltalk.send($receiver, "__eq", ["whileTrue:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(anObject, "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(anObject, "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="whileFalse:" : smalltalk.send($receiver, "__eq", ["whileFalse:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(anObject, "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(anObject, "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%7D%7D%29%28%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="whileTrue" : smalltalk.send($receiver, "__eq", ["whileTrue"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(anObject, "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(anObject, "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="whileFalse" : smalltalk.send($receiver, "__eq", ["whileFalse"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(anObject, "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(anObject, "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28function%28%29%7Bwhile%28%21")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29%20%7B%7D%7D%29%28%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("+") : smalltalk.send($receiver, "__eq", [unescape("+")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20+%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20+%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20+%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20+%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("-") : smalltalk.send($receiver, "__eq", [unescape("-")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20-%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20-%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20-%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20-%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("*") : smalltalk.send($receiver, "__eq", [unescape("*")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20*%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20*%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20*%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20*%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("/") : smalltalk.send($receiver, "__eq", [unescape("/")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20/%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20/%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20/%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20/%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("%3C") : smalltalk.send($receiver, "__eq", [unescape("%3C")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("%3C%3D") : smalltalk.send($receiver, "__eq", [unescape("%3C%3D")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3C%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("%3D") : smalltalk.send($receiver, "__eq", [unescape("%3D")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("%3E") : smalltalk.send($receiver, "__eq", [unescape("%3E")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ==unescape("%3E%3D") : smalltalk.send($receiver, "__eq", [unescape("%3E%3D")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self, "_isNode_ofClass_", [anObject, smalltalk.Number])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%20%3E%3D%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="ifNil:" : smalltalk.send($receiver, "__eq", ["ifNil:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="ifNotNil:" : smalltalk.send($receiver, "__eq", ["ifNotNil:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%21%3D%20nil%20%26%26%20%24receiver%20%21%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%21%3D%20nil%20%26%26%20%24receiver%20%21%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%21%3D%20nil%20%26%26%20%24receiver%20%21%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%21%3D%20nil%20%26%26%20%24receiver%20%21%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="ifNil:ifNotNil:" : smalltalk.send($receiver, "__eq", ["ifNil:ifNotNil:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =="ifNotNil:ifNil:" : smalltalk.send($receiver, "__eq", ["ifNotNil:ifNil:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%28%24receiver%20%3D%20")]);smalltalk.send(self, "_visit_", [anObject]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29")]);return inlined=true;})]);})]);
+return inlined;
+return self;}
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_isNode_ofClass_',
+smalltalk.method({
+selector: 'isNode:ofClass:',
+fn: function (aNode, aClass){
+var self=this;
+return smalltalk.send(smalltalk.send(aNode, "_isValueNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_value", []), "_class", []), "__eq", [aClass]), "_or_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_value", []), "__eq", ["self"]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_currentClass", []), "__eq", [aClass]);})]);})]);})]);
+return self;}
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_inline_receiver_argumentNodes_',
+smalltalk.method({
+selector: 'inline:receiver:argumentNodes:',
+fn: function (aSelector, receiver, aCollection){
+var self=this;
+var inlined=nil;
+inlined=false;
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ="ifFalse:" : smalltalk.send($receiver, "__eq", ["ifFalse:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ="ifTrue:" : smalltalk.send($receiver, "__eq", ["ifTrue:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20nil%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ="ifTrue:ifFalse:" : smalltalk.send($receiver, "__eq", ["ifTrue:ifFalse:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver ="ifFalse:ifTrue:" : smalltalk.send($receiver, "__eq", ["ifFalse:ifTrue:"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aCollection, "_first", []), "_isBlockNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(aCollection, "_second", []), "_isBlockNode", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Boolean", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%21%20%24receiver%20%3F%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%20%3A%20")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_second", [])]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%28%29%29")]);return inlined=true;})]);})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("%3C") : smalltalk.send($receiver, "__eq", [unescape("%3C")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3C")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3C")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("%3C%3D") : smalltalk.send($receiver, "__eq", [unescape("%3C%3D")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3C%3D")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3C%3D")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("%3D") : smalltalk.send($receiver, "__eq", [unescape("%3D")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3D%3D")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3D%3D")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("%3E") : smalltalk.send($receiver, "__eq", [unescape("%3E")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3E")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3E")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("%3E%3D") : smalltalk.send($receiver, "__eq", [unescape("%3E%3D")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3E%3D")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20%3E%3D")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("+") : smalltalk.send($receiver, "__eq", [unescape("+")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20+")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20+")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("-") : smalltalk.send($receiver, "__eq", [unescape("-")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20-")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20-")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("*") : smalltalk.send($receiver, "__eq", [unescape("*")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20*")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20*")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+(($receiver = (($receiver = aSelector).klass === smalltalk.Number) ? $receiver =unescape("/") : smalltalk.send($receiver, "__eq", [unescape("/")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20/")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self, "_checkClass_for_", ["Number", receiver]);smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%24receiver%20/")]);smalltalk.send(self, "_visit_", [smalltalk.send(aCollection, "_first", [])]);return inlined=true;})]);
+return inlined;
+return self;}
 }),
 smalltalk.Compiler);
 
@@ -1262,7 +1341,6 @@ smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(functi
 method=smalltalk.send(smalltalk.send(self, "_new", []), "_load_forClass_", [smalltalk.send(each, "_source", []), aClass]);smalltalk.send(method, "_category_", [smalltalk.send(each, "_category", [])]);return smalltalk.send(aClass, "_addCompiledMethod_", [method]);})]);
 smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifFalse_", [(function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler.klass);
 
@@ -1274,7 +1352,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_do_", [(function(each){return smalltalk.send(self, "_recompile_", [each]);})]);
 return self;}
-]
 }),
 smalltalk.Compiler.klass);
 
@@ -1286,9 +1363,8 @@ smalltalk.method({
 selector: 'doIt',
 fn: function (){
 var self=this;
-return smalltalk.send((function(){return smalltalk.send(smalltalk.send(smalltalk.StrippedExporter, "_new", []), "_exportCategory_", ["IDE"]);}), "_value", []);
+return smalltalk.send((function(){return smalltalk.send(smalltalk.Date, "_millisecondsToRun_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_compile_forClass_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.SmalltalkParser, "_methodDictionary", []), "_at_", ["parser"]), "_source", []), smalltalk.SmalltalkParser]);})]);}), "_value", []);
 return self;}
-]
 }),
 smalltalk.DoIt);
 

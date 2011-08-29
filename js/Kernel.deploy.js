@@ -6,8 +6,7 @@ selector: '=',
 fn: function (anObject){
 var self=this;
 return self == anObject;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -18,8 +17,7 @@ selector: '~=',
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq_eq", [false]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -30,8 +28,7 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -42,8 +39,7 @@ selector: 'yourself',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -54,8 +50,7 @@ selector: 'class',
 fn: function (){
 var self=this;
 return self.klass;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -66,8 +61,7 @@ selector: 'size',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", ["Object not indexable"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -78,8 +72,7 @@ selector: 'copy',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_shallowCopy", []), "_postCopy", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -98,8 +91,7 @@ var self=this;
 	    }
 	    return copy;
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -118,8 +110,7 @@ var self=this;
 	    }
 	    return copy;
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -130,8 +121,7 @@ selector: 'postCopy',
 fn: function (){
 var self=this;
 
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -142,8 +132,7 @@ selector: '->',
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.Association, "_key_value_", [self, anObject]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -154,8 +143,7 @@ selector: 'asString',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_printString", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -166,8 +154,7 @@ selector: 'asJavascript',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_asString", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -178,8 +165,7 @@ selector: 'perform:',
 fn: function (aSymbol){
 var self=this;
 return smalltalk.send(self, "_perform_withArguments_", [aSymbol, []]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -190,8 +176,7 @@ selector: 'perform:withArguments:',
 fn: function (aSymbol, aCollection){
 var self=this;
 return smalltalk.send(self, "_basicPerform_withArguments_", [smalltalk.send(aSymbol, "_asSelector", []), aCollection]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -202,8 +187,7 @@ selector: 'instVarAt:',
 fn: function (aString){
 var self=this;
 return self['@'+aString];
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -214,8 +198,7 @@ selector: 'instVarAt:put:',
 fn: function (aString, anObject){
 var self=this;
 self['@' + aString] = anObject;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -226,8 +209,7 @@ selector: 'basicAt:',
 fn: function (aString){
 var self=this;
 return self[aString];
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -238,8 +220,7 @@ selector: 'basicAt:put:',
 fn: function (aString, anObject){
 var self=this;
 return self[aString] = anObject;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -250,8 +231,7 @@ selector: 'error:',
 fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.Error, "_signal_", [aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -262,8 +242,7 @@ selector: 'subclassResponsibility',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", ["This method is a responsibility of a subclass"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -274,8 +253,7 @@ selector: 'shouldNotImplement',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", [smalltalk.send("This method should not be implemented in ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -286,8 +264,7 @@ selector: 'try:catch:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 try{aBlock()} catch(e) {anotherBlock(e)};
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -298,8 +275,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send("a ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -310,8 +286,7 @@ selector: 'printNl',
 fn: function (){
 var self=this;
 console.log(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -322,8 +297,7 @@ selector: 'isKindOf:',
 fn: function (aClass){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isMemberOf_", [aClass]), "_ifTrue_ifFalse_", [(function(){return true;}), (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_inheritsFrom_", [aClass]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -334,8 +308,7 @@ selector: 'isMemberOf:',
 fn: function (aClass){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [aClass]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -346,8 +319,7 @@ selector: 'ifNil:',
 fn: function (aBlock){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -358,8 +330,7 @@ selector: 'ifNil:ifNotNil:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(anotherBlock, "_value", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -370,8 +341,7 @@ selector: 'ifNotNil:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(aBlock, "_value", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -382,8 +352,7 @@ selector: 'ifNotNil:ifNil:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(aBlock, "_value", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -394,8 +363,7 @@ selector: 'isNil',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -406,8 +374,7 @@ selector: 'notNil',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isNil", []), "_not", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -418,8 +385,7 @@ selector: 'isClass',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -430,8 +396,7 @@ selector: 'isMetaclass',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -442,8 +407,7 @@ selector: 'isNumber',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -454,8 +418,7 @@ selector: 'isString',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -466,8 +429,7 @@ selector: 'isParseFailure',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -478,8 +440,7 @@ selector: 'basicPerform:',
 fn: function (aSymbol){
 var self=this;
 return smalltalk.send(self, "_basicPerform_withArguments_", [aSymbol, []]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -490,8 +451,7 @@ selector: 'basicPerform:withArguments:',
 fn: function (aSymbol, aCollection){
 var self=this;
 return self[aSymbol].apply(self, aCollection);;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -502,8 +462,7 @@ selector: 'basicDelete:',
 fn: function (aString){
 var self=this;
 delete self[aString];
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -514,8 +473,7 @@ selector: 'doesNotUnderstand:',
 fn: function (aMessage){
 var self=this;
 (function($rec){smalltalk.send($rec, "_receiver_", [self]);smalltalk.send($rec, "_message_", [aMessage]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send(smalltalk.MessageNotUnderstood, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -526,8 +484,7 @@ selector: 'asJSON',
 fn: function (){
 var self=this;
 return JSON.stringify(self._asJSONObject());
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -541,8 +498,7 @@ var object=nil;
 object=smalltalk.send(smalltalk.Object, "_new", []);
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(object, "_basicAt_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSONObject", [])]);})]);
 return object;
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -553,8 +509,7 @@ selector: 'halt',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", ["Halt encountered"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Object);
 
@@ -566,8 +521,7 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 
-return self;},
-]
+return self;}
 }),
 smalltalk.Object.klass);
 
@@ -580,8 +534,7 @@ selector: 'classes',
 fn: function (){
 var self=this;
 return self.classes();
-return self;},
-]
+return self;}
 }),
 smalltalk.Smalltalk);
 
@@ -592,8 +545,7 @@ selector: 'readJSON:',
 fn: function (anObject){
 var self=this;
 return self.readJSObject(anObject);
-return self;},
-]
+return self;}
 }),
 smalltalk.Smalltalk);
 
@@ -604,8 +556,7 @@ selector: 'at:',
 fn: function (aString){
 var self=this;
 return self[aString];
-return self;},
-]
+return self;}
 }),
 smalltalk.Smalltalk);
 
@@ -619,8 +570,7 @@ smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifTrue_", [(functio
 smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);})]);
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);})]);
 smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Smalltalk);
 
@@ -633,8 +583,7 @@ selector: 'current',
 fn: function (){
 var self=this;
 return smalltalk;
-return self;},
-]
+return self;}
 }),
 smalltalk.Smalltalk.klass);
 
@@ -647,8 +596,7 @@ selector: 'new',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicNew", []), "_initialize", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -659,8 +607,7 @@ selector: 'basicNew',
 fn: function (){
 var self=this;
 return new self.fn();
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -671,8 +618,7 @@ selector: 'name',
 fn: function (){
 var self=this;
 return self.className || nil;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -683,8 +629,7 @@ selector: 'superclass',
 fn: function (){
 var self=this;
 return self.superclass || nil;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -695,8 +640,7 @@ selector: 'subclasses',
 fn: function (){
 var self=this;
 return smalltalk.subclasses(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -710,8 +654,7 @@ var result=nil;
 result=smalltalk.send(self, "_subclasses", []);
 smalltalk.send(smalltalk.send(self, "_subclasses", []), "_do_", [(function(each){return smalltalk.send(result, "_addAll_", [smalltalk.send(each, "_allSubclasses", [])]);})]);
 return result;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -722,8 +665,7 @@ selector: 'withAllSubclasses',
 fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [smalltalk.send(self, "_allSubclasses", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.Array, "_with_", [self]));
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -734,8 +676,7 @@ selector: 'prototype',
 fn: function (){
 var self=this;
 return self.fn.prototype;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -753,8 +694,7 @@ var dict = smalltalk.Dictionary._new();
 		}
 	};
 	return dict;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -765,8 +705,7 @@ selector: 'methodsFor:',
 fn: function (aString){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_class_category_", [self, aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.ClassCategoryReader, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -777,8 +716,7 @@ selector: 'addCompiledMethod:',
 fn: function (aMethod){
 var self=this;
 smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -789,8 +727,7 @@ selector: 'instanceVariableNames',
 fn: function (){
 var self=this;
 return self.iVarNames;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -801,8 +738,7 @@ selector: 'comment',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", ["comment"]), "_ifNil_", [(function(){return "";})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -813,8 +749,7 @@ selector: 'comment:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_basicAt_put_", ["comment", aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -825,8 +760,7 @@ selector: 'commentStamp',
 fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_class_", [self]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.ClassCommentReader, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -839,8 +773,7 @@ var self=this;
 delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
 	smalltalk.init(self);;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -851,8 +784,7 @@ selector: 'inheritsFrom:',
 fn: function (aClass){
 var self=this;
 return smalltalk.send(smalltalk.send(aClass, "_allSubclasses", []), "_includes_", [self]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -866,8 +798,7 @@ var protocols=nil;
 protocols=smalltalk.send(smalltalk.Array, "_new", []);
 smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(protocols, "_includes_", [smalltalk.send(each, "_category", [])]), "_ifFalse_", [(function(){return smalltalk.send(protocols, "_add_", [smalltalk.send(each, "_category", [])]);})]);})]);
 return smalltalk.send(protocols, "_sort", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -881,8 +812,7 @@ var methodsByCategory=nil;
 methodsByCategory=smalltalk.send(smalltalk.Dictionary, "_new", []);
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_values", []), "_do_", [(function(m){return smalltalk.send(smalltalk.send(methodsByCategory, "_at_ifAbsentPut_", [smalltalk.send(m, "_category", []), (function(){return smalltalk.send(smalltalk.Array, "_new", []);})]), "_add_", [m]);})]);
 smalltalk.send(smalltalk.send(self, "_protocols", []), "_do_", [(function(category){return smalltalk.send(aBlock, "_value_value_", [category, smalltalk.send(methodsByCategory, "_at_", [category])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -896,8 +826,7 @@ var result=nil;
 result=smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_copy", []);
 smalltalk.send(smalltalk.send(self, "_superclass", []), "_ifNotNil_", [(function(){return smalltalk.send(result, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allInstanceVariableNames", [])]);})]);
 return result;
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -908,8 +837,7 @@ selector: 'methodAt:',
 fn: function (aString){
 var self=this;
 return smalltalk.methods(self)[aString];
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -920,8 +848,7 @@ selector: 'methodsFor:stamp:',
 fn: function (aString, aStamp){
 var self=this;
 return smalltalk.send(self, "_methodsFor_", [aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -932,8 +859,7 @@ selector: 'commentStamp:prior:',
 fn: function (aStamp, prior){
 var self=this;
 
-return self;},
-]
+return self;}
 }),
 smalltalk.Behavior);
 
@@ -947,8 +873,7 @@ selector: 'category',
 fn: function (){
 var self=this;
 return self.category;
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -959,8 +884,7 @@ selector: 'category:',
 fn: function (aString){
 var self=this;
 self.category = aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -971,8 +895,7 @@ selector: 'subclass:instanceVariableNames:',
 fn: function (aString, anotherString){
 var self=this;
 return smalltalk.send(self, "_subclass_instanceVariableNames_category_", [aString, anotherString, nil]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -983,8 +906,7 @@ selector: 'subclass:instanceVariableNames:category:',
 fn: function (aString, aString2, aString3){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_superclass_subclass_instanceVariableNames_category_", [self, aString, aString2, aString3]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -995,8 +917,7 @@ selector: 'isClass',
 fn: function (){
 var self=this;
 return true;
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -1007,8 +928,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_name", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -1023,8 +943,7 @@ var self=this;
 		delete smalltalk[self.className];
 		self.className = aString;
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -1035,8 +954,7 @@ selector: 'subclass:instanceVariableNames:classVariableNames:poolDictionaries:ca
 fn: function (aString, aString2, classVars, pools, aString3){
 var self=this;
 return smalltalk.send(self, "_subclass_instanceVariableNames_category_", [aString, aString2, aString3]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Class);
 
@@ -1050,8 +968,7 @@ selector: 'instanceClass',
 fn: function (){
 var self=this;
 return self.instanceClass;
-return self;},
-]
+return self;}
 }),
 smalltalk.Metaclass);
 
@@ -1062,8 +979,7 @@ selector: 'instanceVariableNames:',
 fn: function (aCollection){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_class_instanceVariableNames_", [self, aCollection]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Metaclass);
 
@@ -1074,8 +990,7 @@ selector: 'isMetaclass',
 fn: function (){
 var self=this;
 return true;
-return self;},
-]
+return self;}
 }),
 smalltalk.Metaclass);
 
@@ -1086,8 +1001,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_instanceClass", []), "_name", []), "__comma", [" class"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Metaclass);
 
@@ -1101,8 +1015,7 @@ selector: 'source',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", ["source"]), "_ifNil_", [(function(){return "";})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1113,8 +1026,7 @@ selector: 'source:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_basicAt_put_", ["source", aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1125,8 +1037,7 @@ selector: 'category',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", ["category"]), "_ifNil_", [(function(){return "";})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1137,8 +1048,7 @@ selector: 'category:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_basicAt_put_", ["category", aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1149,8 +1059,7 @@ selector: 'selector',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicAt_", ["selector"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1161,8 +1070,7 @@ selector: 'selector:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1173,8 +1081,7 @@ selector: 'fn',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicAt_", ["fn"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1185,8 +1092,7 @@ selector: 'fn:',
 fn: function (aBlock){
 var self=this;
 smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1197,8 +1103,7 @@ selector: 'messageSends',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicAt_", ["messageSends"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1209,8 +1114,7 @@ selector: 'methodClass',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicAt_", ["methodClass"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1221,8 +1125,7 @@ selector: 'referencedClasses',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.CompiledMethod);
 
@@ -1236,8 +1139,7 @@ selector: '=',
 fn: function (aNumber){
 var self=this;
 return Number(self) == aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1248,8 +1150,7 @@ selector: '>',
 fn: function (aNumber){
 var self=this;
 return self > aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1260,8 +1161,7 @@ selector: '<',
 fn: function (aNumber){
 var self=this;
 return self < aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1272,8 +1172,7 @@ selector: '>=',
 fn: function (aNumber){
 var self=this;
 return self >= aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1284,8 +1183,7 @@ selector: '<=',
 fn: function (aNumber){
 var self=this;
 return self <= aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1296,8 +1194,7 @@ selector: '+',
 fn: function (aNumber){
 var self=this;
 return self + aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1308,8 +1205,7 @@ selector: '-',
 fn: function (aNumber){
 var self=this;
 return self - aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1320,8 +1216,7 @@ selector: '*',
 fn: function (aNumber){
 var self=this;
 return self * aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1332,8 +1227,7 @@ selector: '/',
 fn: function (aNumber){
 var self=this;
 return self / aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1344,8 +1238,7 @@ selector: 'max:',
 fn: function (aNumber){
 var self=this;
 return Math.max(self, aNumber);;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1356,8 +1249,7 @@ selector: 'min:',
 fn: function (aNumber){
 var self=this;
 return Math.min(self, aNumber);;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1368,8 +1260,7 @@ selector: 'rounded',
 fn: function (){
 var self=this;
 return Math.round(self);;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1380,8 +1271,7 @@ selector: 'truncated',
 fn: function (){
 var self=this;
 return Math.floor(self);;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1402,8 +1292,7 @@ smalltalk.send(smalltalk.send(first, "__lt_eq", [last]), "_ifFalse_", [(function
 array=smalltalk.send(smalltalk.Array, "_new", []);
 smalltalk.send(smalltalk.send(last, "__minus", [first]), "_timesRepeat_", [(function(){smalltalk.send(array, "_at_put_", [count, first]);count=smalltalk.send(count, "__plus", [(1)]);return first=smalltalk.send(first, "__plus", [(1)]);})]);
 return array;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1418,8 +1307,7 @@ var count=nil;
 integer=smalltalk.send(self, "_truncated", []);
 count=(1);
 smalltalk.send((function(){return smalltalk.send(count, "__gt", [self]);}), "_whileFalse_", [(function(){smalltalk.send(aBlock, "_value", []);return count=smalltalk.send(count, "__plus", [(1)]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1430,8 +1318,7 @@ selector: 'to:do:',
 fn: function (aNumber, aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_to_", [aNumber]), "_do_", [aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1442,8 +1329,7 @@ selector: 'asString',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_printString", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1454,8 +1340,7 @@ selector: 'asJavascript',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(unescape("%28"), "__comma", [smalltalk.send(self, "_printString", [])]), "__comma", [unescape("%29")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1466,8 +1351,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return String(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1478,8 +1362,7 @@ selector: 'isNumber',
 fn: function (){
 var self=this;
 return true;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1490,8 +1373,7 @@ selector: 'atRandom',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Random, "_new", []), "_next", []), "__star", [self]), "_truncated", []), "__plus", [(1)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1502,8 +1384,7 @@ selector: '@',
 fn: function (aNumber){
 var self=this;
 return smalltalk.send(smalltalk.Point, "_x_y_", [self, aNumber]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1514,8 +1395,7 @@ selector: 'asPoint',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.Point, "_x_y_", [self, self]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1526,8 +1406,7 @@ selector: 'clearInterval',
 fn: function (){
 var self=this;
 clearInterval(Number(self));
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1538,8 +1417,7 @@ selector: 'asJSONObject',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1550,8 +1428,7 @@ selector: 'clearTimeout',
 fn: function (){
 var self=this;
 clearTimeout(Number(self));
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1562,8 +1439,7 @@ selector: 'modulo:',
 fn: function (aNumber){
 var self=this;
 return self % aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1574,8 +1450,7 @@ selector: 'even',
 fn: function (){
 var self=this;
 return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1586,8 +1461,7 @@ selector: 'odd',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_even", []), "_not", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Number);
 
@@ -1599,8 +1473,7 @@ selector: 'pi',
 fn: function (){
 var self=this;
 return Math.PI;
-return self;},
-]
+return self;}
 }),
 smalltalk.Number.klass);
 
@@ -1613,8 +1486,7 @@ selector: 'compiledSource',
 fn: function (){
 var self=this;
 return self.toString();
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1625,8 +1497,7 @@ selector: 'whileTrue:',
 fn: function (aBlock){
 var self=this;
 while(self()) {aBlock()};
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1637,8 +1508,7 @@ selector: 'whileFalse:',
 fn: function (aBlock){
 var self=this;
 while(!self()) {aBlock()};
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1649,8 +1519,7 @@ selector: 'value',
 fn: function (){
 var self=this;
 return self();;
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1661,8 +1530,7 @@ selector: 'value:',
 fn: function (anArg){
 var self=this;
 return self(anArg);;
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1673,8 +1541,7 @@ selector: 'value:value:',
 fn: function (firstArg, secondArg){
 var self=this;
 return self(firstArg, secondArg);;
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1685,8 +1552,7 @@ selector: 'value:value:value:',
 fn: function (firstArg, secondArg, thirdArg){
 var self=this;
 return self(firstArg, secondArg, thirdArg);;
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1697,8 +1563,7 @@ selector: 'valueWithPossibleArguments:',
 fn: function (aCollection){
 var self=this;
 return self.apply(null, aCollection);;
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1709,8 +1574,7 @@ selector: 'on:do:',
 fn: function (anErrorClass, aBlock){
 var self=this;
 smalltalk.send(self, "_try_catch_", [self, (function(error){return smalltalk.send(smalltalk.send(error, "_isKindOf_", [anErrorClass]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [error]);}), (function(){return smalltalk.send(error, "_signal", []);})]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1721,8 +1585,7 @@ selector: 'valueWithTimeout:',
 fn: function (aNumber){
 var self=this;
 return setTimeout(self, aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1733,8 +1596,7 @@ selector: 'valueWithInterval:',
 fn: function (aNumber){
 var self=this;
 return setInterval(self, aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1745,8 +1607,40 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.String, "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_compiledSource", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29")]);return smalltalk.send($rec, "_cr", []);})(aStream);})]);
-return self;},
-]
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_whileFalse',
+smalltalk.method({
+selector: 'whileFalse',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileFalse_", [(function(){return nil;})]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_whileTrue',
+smalltalk.method({
+selector: 'whileTrue',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileTrue_", [(function(){return nil;})]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_new',
+smalltalk.method({
+selector: 'new',
+fn: function (){
+var self=this;
+return new self();
+return self;}
 }),
 smalltalk.BlockClosure);
 
@@ -1760,8 +1654,7 @@ selector: '=',
 fn: function (aBoolean){
 var self=this;
 return Boolean(self == true) == aBoolean;
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1772,8 +1665,7 @@ selector: 'shallowCopy',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1784,8 +1676,7 @@ selector: 'deepCopy',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1796,8 +1687,7 @@ selector: 'ifTrue:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_ifTrue_ifFalse_", [aBlock, (function(){return nil;})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1808,8 +1698,7 @@ selector: 'ifFalse:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_ifTrue_ifFalse_", [(function(){return nil;}), aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1820,8 +1709,7 @@ selector: 'ifFalse:ifTrue:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(self, "_ifTrue_ifFalse_", [anotherBlock, aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1838,8 +1726,7 @@ var self=this;
 		return anotherBlock();
 	    }
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1850,8 +1737,7 @@ selector: 'and:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "__eq", [true]), "_ifTrue_ifFalse_", [aBlock, (function(){return false;})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1862,8 +1748,7 @@ selector: 'or:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "__eq", [true]), "_ifTrue_ifFalse_", [(function(){return true;}), aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1874,8 +1759,7 @@ selector: 'not',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "__eq", [false]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1886,8 +1770,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return self.toString();
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1898,8 +1781,7 @@ selector: 'asJSONObject',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -1913,8 +1795,7 @@ selector: 'year',
 fn: function (){
 var self=this;
 return self.getFullYear();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1925,8 +1806,7 @@ selector: 'month',
 fn: function (){
 var self=this;
 return self.getMonth() + 1;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1937,8 +1817,7 @@ selector: 'month:',
 fn: function (aNumber){
 var self=this;
 self.setMonth(aNumber - 1);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1949,8 +1828,7 @@ selector: 'day',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_dayOfWeek", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1961,8 +1839,7 @@ selector: 'dayOfWeek',
 fn: function (){
 var self=this;
 return self.getDay() + 1;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1973,8 +1850,7 @@ selector: 'dayOfWeek:',
 fn: function (aNumber){
 var self=this;
 return self.setDay(aNumber - 1);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1985,8 +1861,7 @@ selector: 'day:',
 fn: function (aNumber){
 var self=this;
 smalltalk.send(self, "_day_", [aNumber]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -1997,8 +1872,7 @@ selector: 'year:',
 fn: function (aNumber){
 var self=this;
 self.setFullYear(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2009,8 +1883,7 @@ selector: 'dayOfMonth',
 fn: function (){
 var self=this;
 return self.getDate();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2021,8 +1894,7 @@ selector: 'dayOfMonth:',
 fn: function (aNumber){
 var self=this;
 self.setDate(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2033,8 +1905,7 @@ selector: 'asString',
 fn: function (){
 var self=this;
 return self.toString();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2045,8 +1916,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_asString", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2057,8 +1927,7 @@ selector: 'asMilliseconds',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_time", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2069,8 +1938,7 @@ selector: 'time',
 fn: function (){
 var self=this;
 return self.getTime();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2081,8 +1949,7 @@ selector: 'time:',
 fn: function (aNumber){
 var self=this;
 self.setTime(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2093,8 +1960,7 @@ selector: 'asDateString',
 fn: function (){
 var self=this;
 return self.toDateString();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2105,8 +1971,7 @@ selector: 'asTimeString',
 fn: function (){
 var self=this;
 return self.toTimeString();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2117,8 +1982,7 @@ selector: 'asLocaleString',
 fn: function (){
 var self=this;
 return self.toLocaleString();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2129,8 +1993,7 @@ selector: 'asNumber',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_asMilliseconds", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2141,8 +2004,7 @@ selector: 'hours:',
 fn: function (aNumber){
 var self=this;
 self.setHours(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2153,8 +2015,7 @@ selector: 'minutes:',
 fn: function (aNumber){
 var self=this;
 self.setMinutes(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2165,8 +2026,7 @@ selector: 'seconds:',
 fn: function (aNumber){
 var self=this;
 self.setSeconds(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2177,8 +2037,7 @@ selector: 'milliseconds:',
 fn: function (aNumber){
 var self=this;
 self.setMilliseconds(aNumber);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2189,8 +2048,7 @@ selector: 'hours',
 fn: function (){
 var self=this;
 return self.getHours();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2201,8 +2059,7 @@ selector: 'minutes',
 fn: function (){
 var self=this;
 return self.getMinutes();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2213,8 +2070,7 @@ selector: 'seconds',
 fn: function (){
 var self=this;
 return self.getSeconds();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2225,8 +2081,7 @@ selector: 'milliseconds',
 fn: function (){
 var self=this;
 return self.getMilliseconds();
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2237,8 +2092,7 @@ selector: '<',
 fn: function (aDate){
 var self=this;
 return self < aDate;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2249,8 +2103,7 @@ selector: '>',
 fn: function (aDate){
 var self=this;
 return self > aDate;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2261,8 +2114,7 @@ selector: '<=',
 fn: function (aDate){
 var self=this;
 self <= aDate;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2273,8 +2125,7 @@ selector: '>=',
 fn: function (aDate){
 var self=this;
 self >= aDate;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2285,8 +2136,7 @@ selector: '-',
 fn: function (aDate){
 var self=this;
 return self - aDate;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2297,8 +2147,7 @@ selector: '+',
 fn: function (aDate){
 var self=this;
 return self + aDate;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2309,8 +2158,7 @@ selector: 'asJSONObject',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Date);
 
@@ -2322,8 +2170,7 @@ selector: 'new:',
 fn: function (anObject){
 var self=this;
 return new Date(anObject);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2334,8 +2181,7 @@ selector: 'fromString:',
 fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_new_", [aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2346,8 +2192,7 @@ selector: 'fromSeconds:',
 fn: function (aNumber){
 var self=this;
 return smalltalk.send(self, "_fromMilliseconds_", [smalltalk.send(aNumber, "__star", [(1000)])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2358,8 +2203,7 @@ selector: 'fromMilliseconds:',
 fn: function (aNumber){
 var self=this;
 return smalltalk.send(self, "_new_", [aNumber]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2370,8 +2214,7 @@ selector: 'today',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_new", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2382,8 +2225,7 @@ selector: 'now',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_today", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2397,8 +2239,7 @@ var t=nil;
 t=smalltalk.send(smalltalk.Date, "_now", []);
 smalltalk.send(aBlock, "_value", []);
 return smalltalk.send(smalltalk.send(smalltalk.Date, "_now", []), "__minus", [t]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Date.klass);
 
@@ -2411,8 +2252,7 @@ selector: 'subclass:instanceVariableNames:',
 fn: function (aString, anotherString){
 var self=this;
 return smalltalk.send(self, "_subclass_instanceVariableNames_category_", [aString, anotherString, nil]);
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2423,8 +2263,7 @@ selector: 'subclass:instanceVariableNames:category:',
 fn: function (aString, aString2, aString3){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_superclass_subclass_instanceVariableNames_category_", [self, aString, aString2, aString3]);
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2435,8 +2274,7 @@ selector: 'shallowCopy',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2447,8 +2285,7 @@ selector: 'deepCopy',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2459,8 +2296,7 @@ selector: 'ifNil:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_ifNil_ifNotNil_", [aBlock, (function(){return nil;})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2471,8 +2307,7 @@ selector: 'ifNotNil:',
 fn: function (aBlock){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2483,8 +2318,7 @@ selector: 'ifNil:ifNotNil:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(aBlock, "_value", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2495,8 +2329,7 @@ selector: 'ifNotNil:ifNil:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(anotherBlock, "_value", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2507,8 +2340,7 @@ selector: 'isNil',
 fn: function (){
 var self=this;
 return true;
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2519,8 +2351,7 @@ selector: 'notNil',
 fn: function (){
 var self=this;
 return false;
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2531,8 +2362,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return "nil";
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject);
 
@@ -2544,8 +2374,7 @@ selector: 'new',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", ["You cannot create new instances of UndefinedObject. Use nil"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.UndefinedObject.klass);
 
@@ -2558,8 +2387,7 @@ selector: 'size',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2570,8 +2398,7 @@ selector: 'readStream',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_stream", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2582,8 +2409,7 @@ selector: 'writeStream',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_stream", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2594,8 +2420,7 @@ selector: 'stream',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [self]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2606,8 +2431,7 @@ selector: 'streamClass',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_streamClass", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2618,8 +2442,7 @@ selector: 'add:',
 fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2631,8 +2454,7 @@ fn: function (aCollection){
 var self=this;
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_add_", [each]);})]);
 return aCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2643,8 +2465,7 @@ selector: ',',
 fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2655,8 +2476,7 @@ selector: 'copyWith:',
 fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2667,8 +2487,7 @@ selector: 'copyWithAll:',
 fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2684,8 +2503,7 @@ array=smalltalk.send(smalltalk.Array, "_new", []);
 index=(0);
 smalltalk.send(self, "_do_", [(function(each){index=smalltalk.send(index, "__plus", [(1)]);return smalltalk.send(array, "_at_put_", [index, each]);})]);
 return array;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2696,8 +2514,7 @@ selector: 'do:',
 fn: function (aBlock){
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i]);};
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2711,8 +2528,7 @@ var newCollection=nil;
 newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [smalltalk.send(aBlock, "_value_", [each])]);})]);
 return newCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2723,8 +2539,7 @@ selector: 'detect:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_detect_ifNone_", [aBlock, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2740,8 +2555,7 @@ var self=this;
 				return self[i];
 		return anotherBlock();
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2754,8 +2568,7 @@ var self=this;
 var first=nil;
 first=true;
 smalltalk.send(self, "_do_", [(function(each){smalltalk.send(first, "_ifTrue_ifFalse_", [(function(){return first=false;}), (function(){return smalltalk.send(anotherBlock, "_value", []);})]);return smalltalk.send(aBlock, "_value_", [each]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2769,8 +2582,7 @@ var result=nil;
 result=anObject;
 smalltalk.send(self, "_do_", [(function(each){return result=smalltalk.send(aBlock, "_value_value_", [result, each]);})]);
 return result;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2781,8 +2593,7 @@ selector: 'reject:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_select_", [(function(each){return smalltalk.send(smalltalk.send(aBlock, "_value_", [each]), "__eq", [false]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2796,8 +2607,7 @@ var stream=nil;
 stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []);
 smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(smalltalk.send(aBlock, "_value_", [each]), "_ifTrue_", [(function(){return smalltalk.send(stream, "_nextPut_", [each]);})]);})]);
 return smalltalk.send(stream, "_contents", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2808,8 +2618,7 @@ selector: 'errorNotFound',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", ["Object is not in the collection"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2826,8 +2635,7 @@ var self=this;
 		}
 		return false
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2838,8 +2646,7 @@ selector: 'notEmpty',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_not", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2850,8 +2657,7 @@ selector: 'isEmpty',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2862,8 +2668,7 @@ selector: 'remove:',
 fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection);
 
@@ -2875,8 +2680,7 @@ selector: 'streamClass',
 fn: function (){
 var self=this;
 return smalltalk.Stream;
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection.klass);
 
@@ -2887,8 +2691,7 @@ selector: 'with:',
 fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection.klass);
 
@@ -2899,8 +2702,7 @@ selector: 'with:with:',
 fn: function (anObject, anotherObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);smalltalk.send($rec, "_add_", [anotherObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection.klass);
 
@@ -2911,8 +2713,7 @@ selector: 'with:with:with:',
 fn: function (firstObject, secondObject, thirdObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [firstObject]);smalltalk.send($rec, "_add_", [secondObject]);smalltalk.send($rec, "_add_", [thirdObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection.klass);
 
@@ -2923,8 +2724,7 @@ selector: 'withAll:',
 fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Collection.klass);
 
@@ -2937,8 +2737,7 @@ selector: 'at:',
 fn: function (anIndex){
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [anIndex, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -2949,8 +2748,7 @@ selector: 'at:ifAbsent:',
 fn: function (anIndex, aBlock){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -2961,8 +2759,7 @@ selector: 'at:put:',
 fn: function (anIndex, anObject){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -2973,8 +2770,7 @@ selector: 'copyFrom:to:',
 fn: function (anIndex, anotherIndex){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -2985,8 +2781,7 @@ selector: 'first',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(1)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -2997,8 +2792,7 @@ selector: 'fourth',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(4)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3009,8 +2803,7 @@ selector: 'last',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [smalltalk.send(self, "_size", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3021,8 +2814,7 @@ selector: 'second',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(2)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3033,8 +2825,7 @@ selector: 'third',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(3)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3045,8 +2836,7 @@ selector: 'removeLast',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_remove_", [smalltalk.send(self, "_last", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3057,8 +2847,7 @@ selector: 'addLast:',
 fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_add_", [anObject]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3069,8 +2858,7 @@ selector: 'withIndexDo:',
 fn: function (aBlock){
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i], i+1);};
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3081,8 +2869,7 @@ selector: 'allButFirst',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(2), smalltalk.send(self, "_size", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3093,8 +2880,7 @@ selector: 'allButLast',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(1), smalltalk.send(smalltalk.send(self, "_size", []), "__minus", [(1)])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3105,8 +2891,7 @@ selector: 'indexOf:',
 fn: function (anObject){
 var self=this;
 return smalltalk.send(self, "_indexOf_ifAbsent_", [anObject, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3122,8 +2907,7 @@ var self=this;
 		}
 		return aBlock();
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.SequenceableCollection);
 
@@ -3137,8 +2921,7 @@ selector: '=',
 fn: function (aString){
 var self=this;
 return String(self) == aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3149,8 +2932,7 @@ selector: 'size',
 fn: function (){
 var self=this;
 return self.length;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3161,8 +2943,7 @@ selector: 'at:',
 fn: function (anIndex){
 var self=this;
 return self[anIndex - 1];
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3173,8 +2954,7 @@ selector: 'at:put:',
 fn: function (anIndex, anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3185,8 +2965,7 @@ selector: 'at:ifAbsent:',
 fn: function (anIndex, aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_at_", [anIndex]), "_ifNil_", [(function(){return aBlock;})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3197,8 +2976,7 @@ selector: 'escaped',
 fn: function (){
 var self=this;
 return escape(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3209,8 +2987,7 @@ selector: 'unescaped',
 fn: function (){
 var self=this;
 return unescape(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3221,8 +2998,7 @@ selector: 'add:',
 fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3233,8 +3009,7 @@ selector: ',',
 fn: function (aString){
 var self=this;
 return self + aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3245,8 +3020,7 @@ selector: 'copyFrom:to:',
 fn: function (anIndex, anotherIndex){
 var self=this;
 return self.substring(anIndex - 1, anotherIndex);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3257,8 +3031,7 @@ selector: 'shallowCopy',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [self]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3269,8 +3042,7 @@ selector: 'deepCopy',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_shallowCopy", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3293,8 +3065,7 @@ selector=smalltalk.send(selector, "_replace_with_", [unescape("%3D"), "_eq"]);
 selector=smalltalk.send(selector, "_replace_with_", [unescape("%2C"), "_comma"]);
 selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B@%5D"), "_at"]);
 return selector;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3310,8 +3081,7 @@ var self=this;
 		else
 			return "\"" + self + "\"";
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3322,8 +3092,7 @@ selector: 'replace:with:',
 fn: function (aString, anotherString){
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send(smalltalk.RegularExpression, "_fromString_flag_", [aString, "g"]), anotherString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3334,8 +3103,7 @@ selector: 'replaceRegexp:with:',
 fn: function (aRegexp, aString){
 var self=this;
 return self.replace(aRegexp, aString);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3346,8 +3114,7 @@ selector: 'tokenize:',
 fn: function (aString){
 var self=this;
 return self.split(aString);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3358,8 +3125,7 @@ selector: 'match:',
 fn: function (aRegexp){
 var self=this;
 return self.search(aRegexp) != -1;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3370,8 +3136,7 @@ selector: 'asString',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3382,8 +3147,7 @@ selector: 'asNumber',
 fn: function (){
 var self=this;
 return Number(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3394,8 +3158,7 @@ selector: 'asParser',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.PPStringParser, "_new", []), "_string_", [self]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3406,8 +3169,7 @@ selector: 'asChoiceParser',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.PPChoiceParser, "_withAll_", [smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asParser", []);})])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3418,8 +3180,7 @@ selector: 'asCharacterParser',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.PPCharacterParser, "_new", []), "_string_", [self]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3430,8 +3191,7 @@ selector: 'errorReadOnly',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", [unescape("Object%20is%20read-only")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3442,8 +3202,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [self]), "__comma", [unescape("%27")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3454,8 +3213,7 @@ selector: 'printNl',
 fn: function (){
 var self=this;
 console.log(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3466,8 +3224,7 @@ selector: 'isString',
 fn: function (){
 var self=this;
 return true;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3478,8 +3235,7 @@ selector: '>',
 fn: function (aString){
 var self=this;
 return String(self) > aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3490,8 +3246,7 @@ selector: '<',
 fn: function (aString){
 var self=this;
 return String(self) < aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3502,8 +3257,7 @@ selector: '>=',
 fn: function (aString){
 var self=this;
 return String(self) >= aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3514,8 +3268,7 @@ selector: '<=',
 fn: function (aString){
 var self=this;
 return String(self) <= aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3526,8 +3279,7 @@ selector: 'remove:',
 fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3538,8 +3290,7 @@ selector: 'asJSONObject',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3550,8 +3301,7 @@ selector: 'trimLeft:',
 fn: function (separators){
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send(smalltalk.RegularExpression, "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5E%5B"), "__comma", [separators]), "__comma", [unescape("%5D+")]), "g"]), ""]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3562,8 +3312,7 @@ selector: 'trimRight:',
 fn: function (separators){
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send(smalltalk.RegularExpression, "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [separators]), "__comma", [unescape("%5D+%24")]), "g"]), ""]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3574,8 +3323,7 @@ selector: 'trimLeft',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_trimLeft_", [unescape("%5Cs")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3586,8 +3334,7 @@ selector: 'trimRight',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_trimRight_", [unescape("%5Cs")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3598,8 +3345,7 @@ selector: 'trimBoth',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_trimBoth_", [unescape("%5Cs")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3610,8 +3356,7 @@ selector: 'trimBoth:',
 fn: function (separators){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_trimLeft_", [separators]), "_trimRight_", [separators]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3622,8 +3367,7 @@ selector: 'asLowercase',
 fn: function (){
 var self=this;
 return self.toLowerCase();
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3634,8 +3378,7 @@ selector: 'asUppercase',
 fn: function (){
 var self=this;
 return self.toUpperCase();
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3646,8 +3389,7 @@ selector: 'join:',
 fn: function (aCollection){
 var self=this;
 return smalltalk.send(smalltalk.String, "_streamContents_", [(function(stream){return smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(each, "_asString", [])]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [self]);})]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3658,8 +3400,7 @@ selector: 'includesSubString:',
 fn: function (subString){
 var self=this;
  return self.indexOf(subString) != -1 ;
-return self;},
-]
+return self;}
 }),
 smalltalk.String);
 
@@ -3671,8 +3412,7 @@ selector: 'streamClass',
 fn: function (){
 var self=this;
 return smalltalk.StringStream;
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3683,8 +3423,7 @@ selector: 'fromString:',
 fn: function (aString){
 var self=this;
 return new self.fn(aString);
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3695,8 +3434,7 @@ selector: 'cr',
 fn: function (){
 var self=this;
 return '\r';
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3707,8 +3445,7 @@ selector: 'lf',
 fn: function (){
 var self=this;
 return '\n';
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3719,8 +3456,7 @@ selector: 'space',
 fn: function (){
 var self=this;
 return ' ';
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3731,8 +3467,7 @@ selector: 'tab',
 fn: function (){
 var self=this;
 return '\t';
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3743,8 +3478,7 @@ selector: 'crlf',
 fn: function (){
 var self=this;
 return '\r\n';
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3758,8 +3492,7 @@ var stream=nil;
 stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send(smalltalk.String, "_new", [])]);
 smalltalk.send(blockWithArg, "_value_", [stream]);
 return smalltalk.send(stream, "_contents", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.String.klass);
 
@@ -3772,8 +3505,7 @@ selector: 'size',
 fn: function (){
 var self=this;
 return self.length;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3784,8 +3516,7 @@ selector: 'at:put:',
 fn: function (anIndex, anObject){
 var self=this;
 return self[anIndex - 1] = anObject;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3803,8 +3534,7 @@ var self=this;
 		return value;
 	    }
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3815,8 +3545,7 @@ selector: 'add:',
 fn: function (anObject){
 var self=this;
 self.push(anObject); return anObject;;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3830,8 +3559,7 @@ var newCollection=nil;
 newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [each]);})]);
 return newCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3845,8 +3573,7 @@ var newCollection=nil;
 newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [smalltalk.send(each, "_deepCopy", [])]);})]);
 return newCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3860,8 +3587,7 @@ var array=nil;
 array=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(anIndex, "_to_do_", [anotherIndex, (function(each){return smalltalk.send(array, "_add_", [smalltalk.send(self, "_at_", [each])]);})]);
 return array;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3872,8 +3598,7 @@ selector: 'join:',
 fn: function (aString){
 var self=this;
 return self.join(aString);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3884,8 +3609,7 @@ selector: 'asJavascript',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [smalltalk.send(smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJavascript", []);})]), "_join_", [unescape("%2C%20")])]), "__comma", [unescape("%5D")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3896,8 +3620,7 @@ selector: 'sort',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicPerform_", ["sort"]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3912,8 +3635,7 @@ var self=this;
 			if(aBlock(a,b)) {return -1} else {return 1}
 		})
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3931,8 +3653,7 @@ var self=this;
 			}
 		}
 	;
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3943,8 +3664,7 @@ selector: 'sorted',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3955,8 +3675,7 @@ selector: 'sorted:',
 fn: function (aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3967,8 +3686,7 @@ selector: 'asJSONObject',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJSONObject", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3979,8 +3697,7 @@ selector: 'removeFrom:to:',
 fn: function (aNumber, anotherNumber){
 var self=this;
 self.splice(aNumber - 1,anotherNumber - 1);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -3996,8 +3713,7 @@ smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_print
 smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
 smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);
 return smalltalk.send(str, "_contents", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Array);
 
@@ -4011,8 +3727,7 @@ selector: 'compile:',
 fn: function (aString){
 var self=this;
 return self.compile(aString);
-return self;},
-]
+return self;}
 }),
 smalltalk.RegularExpression);
 
@@ -4023,8 +3738,7 @@ selector: 'exec:',
 fn: function (aString){
 var self=this;
 return self.exec(aString) || nil;
-return self;},
-]
+return self;}
 }),
 smalltalk.RegularExpression);
 
@@ -4035,8 +3749,7 @@ selector: 'test:',
 fn: function (aString){
 var self=this;
 return self.test(aString);
-return self;},
-]
+return self;}
 }),
 smalltalk.RegularExpression);
 
@@ -4048,8 +3761,7 @@ selector: 'fromString:flag:',
 fn: function (aString, anotherString){
 var self=this;
 return new RegExp(aString, anotherString);
-return self;},
-]
+return self;}
 }),
 smalltalk.RegularExpression.klass);
 
@@ -4060,8 +3772,7 @@ selector: 'fromString:',
 fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_fromString_flag_", [aString, ""]);
-return self;},
-]
+return self;}
 }),
 smalltalk.RegularExpression.klass);
 
@@ -4074,8 +3785,7 @@ selector: 'messageText',
 fn: function (){
 var self=this;
 return self['@messageText'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Error);
 
@@ -4086,8 +3796,7 @@ selector: 'messageText:',
 fn: function (aString){
 var self=this;
 self['@messageText']=aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.Error);
 
@@ -4098,8 +3807,7 @@ selector: 'signal',
 fn: function (){
 var self=this;
 self.context = thisContext; self.smalltalkError = true; throw(self);
-return self;},
-]
+return self;}
 }),
 smalltalk.Error);
 
@@ -4110,8 +3818,7 @@ selector: 'context',
 fn: function (){
 var self=this;
 return self.context;
-return self;},
-]
+return self;}
 }),
 smalltalk.Error);
 
@@ -4123,8 +3830,7 @@ selector: 'signal:',
 fn: function (aString){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_messageText_", [aString]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Error.klass);
 
@@ -4137,8 +3843,7 @@ selector: 'receiver',
 fn: function (){
 var self=this;
 return self.receiver;
-return self;},
-]
+return self;}
 }),
 smalltalk.MethodContext);
 
@@ -4149,8 +3854,7 @@ selector: 'selector',
 fn: function (){
 var self=this;
 return smalltalk.convertSelector(self.selector);
-return self;},
-]
+return self;}
 }),
 smalltalk.MethodContext);
 
@@ -4161,8 +3865,7 @@ selector: 'home',
 fn: function (){
 var self=this;
 return self.homeContext;
-return self;},
-]
+return self;}
 }),
 smalltalk.MethodContext);
 
@@ -4173,8 +3876,7 @@ selector: 'temps',
 fn: function (){
 var self=this;
 return self.temps;
-return self;},
-]
+return self;}
 }),
 smalltalk.MethodContext);
 
@@ -4185,8 +3887,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Object), "__comma", [unescape("%28")]), "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", [unescape("%29")]);
-return self;},
-]
+return self;}
 }),
 smalltalk.MethodContext);
 
@@ -4197,8 +3898,7 @@ selector: 'asString',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_class", []), "_printString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(self, "_selector", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.MethodContext);
 
@@ -4212,8 +3912,7 @@ selector: '=',
 fn: function (anAssociation){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Association);
 
@@ -4224,8 +3923,7 @@ selector: 'key:',
 fn: function (aKey){
 var self=this;
 self['@key']=aKey;
-return self;},
-]
+return self;}
 }),
 smalltalk.Association);
 
@@ -4236,8 +3934,7 @@ selector: 'key',
 fn: function (){
 var self=this;
 return self['@key'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Association);
 
@@ -4248,8 +3945,7 @@ selector: 'value:',
 fn: function (aValue){
 var self=this;
 self['@value']=aValue;
-return self;},
-]
+return self;}
 }),
 smalltalk.Association);
 
@@ -4260,8 +3956,7 @@ selector: 'value',
 fn: function (){
 var self=this;
 return self['@value'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Association);
 
@@ -4273,8 +3968,7 @@ selector: 'key:value:',
 fn: function (aKey, aValue){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Association.klass);
 
@@ -4290,8 +3984,7 @@ try{smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [s
 smalltalk.send(self, "_associationsDo_", [(function(assoc){return smalltalk.send(smalltalk.send(smalltalk.send(aDictionary, "_at_ifAbsent_", [smalltalk.send(assoc, "_key", []), (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]), "__eq", [smalltalk.send(assoc, "_value", [])]), "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]);})]);
 (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return true}})})();
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
-]
+} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}}
 }),
 smalltalk.Dictionary);
 
@@ -4305,8 +3998,7 @@ var copy=nil;
 copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
 return copy;
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4318,8 +4010,7 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Collection);
 self['@keys']=[];
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4330,8 +4021,7 @@ selector: 'size',
 fn: function (){
 var self=this;
 return smalltalk.send(self['@keys'], "_size", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4345,8 +4035,7 @@ var associations=nil;
 associations=[];
 smalltalk.send(self['@keys'], "_do_", [(function(each){return smalltalk.send(associations, "_add_", [smalltalk.send(smalltalk.Association, "_key_value_", [each, smalltalk.send(self, "_at_", [each])])]);})]);
 return associations;
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4357,8 +4046,7 @@ selector: 'keys',
 fn: function (){
 var self=this;
 return smalltalk.send(self['@keys'], "_copy", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4369,8 +4057,7 @@ selector: 'values',
 fn: function (){
 var self=this;
 return smalltalk.send(self['@keys'], "_collect_", [(function(each){return smalltalk.send(self, "_at_", [each]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4382,8 +4069,7 @@ fn: function (aKey, aValue){
 var self=this;
 smalltalk.send(smalltalk.send(self['@keys'], "_includes_", [aKey]), "_ifFalse_", [(function(){return smalltalk.send(self['@keys'], "_add_", [aKey]);})]);
 return smalltalk.send(self, "_basicAt_put_", [aKey, aValue]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4394,8 +4080,7 @@ selector: 'at:ifAbsent:',
 fn: function (aKey, aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_keys", []), "_includes_", [aKey]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_basicAt_", [aKey]);}), aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4406,8 +4091,7 @@ selector: 'at:ifAbsentPut:',
 fn: function (aKey, aBlock){
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_at_put_", [aKey, smalltalk.send(aBlock, "_value", [])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4418,8 +4102,7 @@ selector: 'at:ifPresent:',
 fn: function (aKey, aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNotNil_", [(function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4430,8 +4113,7 @@ selector: 'at:ifPresent:ifAbsent:',
 fn: function (aKey, aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNil_ifNotNil_", [anotherBlock, (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4442,8 +4124,7 @@ selector: 'add:',
 fn: function (anAssociation){
 var self=this;
 smalltalk.send(self, "_at_put_", [smalltalk.send(anAssociation, "_key", []), smalltalk.send(anAssociation, "_value", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4455,8 +4136,7 @@ fn: function (aDictionary){
 var self=this;
 smalltalk.send(self, "_addAll_", [smalltalk.send(aDictionary, "_associations", [])], smalltalk.Collection);
 return aDictionary;
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4467,8 +4147,7 @@ selector: ',',
 fn: function (aCollection){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4479,8 +4158,7 @@ selector: 'copyFrom:to:',
 fn: function (anIndex, anotherIndex){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4491,8 +4169,7 @@ selector: 'associationsDo:',
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_associations", []), "_do_", [aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4503,8 +4180,7 @@ selector: 'keysAndValuesDo:',
 fn: function (aBlock){
 var self=this;
 smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(aBlock, "_value_value_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4515,8 +4191,7 @@ selector: 'do:',
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_values", []), "_do_", [aBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4530,8 +4205,7 @@ var newDict=nil;
 newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(smalltalk.send(aBlock, "_value_", [value]), "_ifTrue_", [(function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})]);})]);
 return newDict;
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4545,8 +4219,7 @@ var newDict=nil;
 newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(newDict, "_at_put_", [key, smalltalk.send(aBlock, "_value_", [value])]);})]);
 return newDict;
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4557,8 +4230,7 @@ selector: 'detect:ifNone:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_values", []), "_detect_ifNone_", [aBlock, anotherBlock]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4569,8 +4241,7 @@ selector: 'includes:',
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_values", []), "_includes_", [anObject]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4581,8 +4252,7 @@ selector: 'remove:',
 fn: function (aKey){
 var self=this;
 smalltalk.send(self, "_removeKey_", [aKey]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4593,8 +4263,7 @@ selector: 'removeKey:',
 fn: function (aKey){
 var self=this;
 smalltalk.send(self['@keys'], "_remove_", [aKey]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4605,8 +4274,7 @@ selector: 'at:',
 fn: function (aKey){
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4620,8 +4288,7 @@ var object=nil;
 object=smalltalk.send(smalltalk.Object, "_new", []);
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(object, "_basicAt_put_", [key, smalltalk.send(value, "_asJSONObject", [])]);})]);
 return object;
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4632,8 +4299,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.String, "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Collection)]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20-%3E%20")]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [unescape("%20%2C%20")]);})]);return smalltalk.send(aStream, "_nextPutAll_", [unescape("%29")]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Dictionary);
 
@@ -4647,8 +4313,7 @@ selector: 'superclass:subclass:',
 fn: function (aClass, aString){
 var self=this;
 smalltalk.send(self, "_superclass_subclass_instanceVariableNames_category_", [aClass, aString, "", nil]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassBuilder);
 
@@ -4662,8 +4327,7 @@ var newClass=nil;
 newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2])]);
 smalltalk.send(self, "_setupClass_", [newClass]);
 smalltalk.send(newClass, "_category_", [smalltalk.send(aString3, "_ifNil_", [(function(){return "unclassified";})])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassBuilder);
 
@@ -4676,8 +4340,7 @@ var self=this;
 smalltalk.send(smalltalk.send(aClass, "_isMetaclass", []), "_ifFalse_", [(function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_name", []), "__comma", [" is not a metaclass"])]);})]);
 smalltalk.send(aClass, "_basicAt_put_", ["iVarNames", smalltalk.send(self, "_instanceVariableNamesFor_", [aString])]);
 smalltalk.send(self, "_setupClass_", [aClass]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassBuilder);
 
@@ -4688,8 +4351,7 @@ selector: 'instanceVariableNamesFor:',
 fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(aString, "_tokenize_", [" "]), "_reject_", [(function(each){return smalltalk.send(each, "_isEmpty", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassBuilder);
 
@@ -4701,8 +4363,7 @@ fn: function (aClass, aString, aCollection){
 var self=this;
 smalltalk.addClass(aString, aClass, aCollection);
 	    return smalltalk[aString];
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassBuilder);
 
@@ -4713,8 +4374,7 @@ selector: 'setupClass:',
 fn: function (aClass){
 var self=this;
 smalltalk.init(aClass);;
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassBuilder);
 
@@ -4729,8 +4389,7 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
 self['@chunkParser']=smalltalk.send(smalltalk.ChunkParser, "_new", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -4742,8 +4401,7 @@ fn: function (aClass, aString){
 var self=this;
 self['@class']=aClass;
 self['@category']=aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -4756,8 +4414,7 @@ var self=this;
 var nextChunk=nil;
 nextChunk=smalltalk.send(smalltalk.send(smalltalk.send(self['@chunkParser'], "_emptyChunk", []), "__slash", [smalltalk.send(self['@chunkParser'], "_chunk", [])]), "_parse_", [aStream]);
 smalltalk.send(smalltalk.send(nextChunk, "_isEmptyChunk", []), "_ifFalse_", [(function(){smalltalk.send(self, "_compileMethod_", [smalltalk.send(nextChunk, "_contents", [])]);return smalltalk.send(self, "_scanFrom_", [aStream]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -4771,8 +4428,7 @@ var method=nil;
 method=smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_load_forClass_", [aString, self['@class']]);
 smalltalk.send(method, "_category_", [self['@category']]);
 smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -4786,8 +4442,7 @@ selector: 'collection',
 fn: function (){
 var self=this;
 return self['@collection'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4798,8 +4453,7 @@ selector: 'setCollection:',
 fn: function (aCollection){
 var self=this;
 self['@collection']=aCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4810,8 +4464,7 @@ selector: 'position',
 fn: function (){
 var self=this;
 return smalltalk.send(self['@position'], "_ifNil_", [(function(){return self['@position']=(0);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4822,8 +4475,7 @@ selector: 'position:',
 fn: function (anInteger){
 var self=this;
 self['@position']=anInteger;
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4834,8 +4486,7 @@ selector: 'streamSize',
 fn: function (){
 var self=this;
 return self['@streamSize'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4846,8 +4497,7 @@ selector: 'setStreamSize:',
 fn: function (anInteger){
 var self=this;
 self['@streamSize']=anInteger;
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4858,8 +4508,7 @@ selector: 'contents',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [(1), smalltalk.send(self, "_streamSize", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4870,8 +4519,7 @@ selector: 'size',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_streamSize", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4882,8 +4530,7 @@ selector: 'reset',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_position_", [(0)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4894,8 +4541,7 @@ selector: 'close',
 fn: function (){
 var self=this;
 
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4906,8 +4552,7 @@ selector: 'flush',
 fn: function (){
 var self=this;
 
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4919,8 +4564,7 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_reset", []);
 smalltalk.send(self, "_setStreamSize_", [(0)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4931,8 +4575,7 @@ selector: 'do:',
 fn: function (aBlock){
 var self=this;
 smalltalk.send((function(){return smalltalk.send(self, "_atEnd", []);}), "_whileFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_next", [])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4943,8 +4586,7 @@ selector: 'setToEnd',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(self, "_size", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4955,8 +4597,7 @@ selector: 'skip:',
 fn: function (anInteger){
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_position", []), "__plus", [anInteger]), "_min_max_", [smalltalk.send(self, "_size", []), (0)])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4968,8 +4609,7 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(smalltalk.send(self, "_position", []), "__plus", [(1)])]);
 return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4983,8 +4623,7 @@ var tempCollection=nil;
 tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []);
 smalltalk.send(anInteger, "_timesRepeat_", [(function(){return smalltalk.send(smalltalk.send(self, "_atEnd", []), "_ifFalse_", [(function(){return smalltalk.send(tempCollection, "_add_", [smalltalk.send(self, "_next", [])]);})]);})]);
 return tempCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -4997,8 +4636,7 @@ var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(smalltalk.send(self, "_position", []), "__plus", [(1)])]);
 smalltalk.send(smalltalk.send(self, "_collection", []), "_at_put_", [smalltalk.send(self, "_position", []), anObject]);
 smalltalk.send(self, "_setStreamSize_", [smalltalk.send(smalltalk.send(self, "_streamSize", []), "_max_", [smalltalk.send(self, "_position", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -5009,8 +4647,7 @@ selector: 'nextPutAll:',
 fn: function (aCollection){
 var self=this;
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_nextPut_", [each]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -5021,8 +4658,7 @@ selector: 'peek',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_atEnd", []), "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [smalltalk.send(smalltalk.send(self, "_position", []), "__plus", [(1)])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -5033,8 +4669,7 @@ selector: 'atEnd',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_position", []), "__eq", [smalltalk.send(self, "_size", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -5045,8 +4680,7 @@ selector: 'atStart',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_position", []), "__eq", [(0)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -5057,8 +4691,7 @@ selector: 'isEmpty',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream);
 
@@ -5070,8 +4703,7 @@ selector: 'on:',
 fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_setCollection_", [aCollection]);smalltalk.send($rec, "_setStreamSize_", [smalltalk.send(aCollection, "_size", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Stream.klass);
 
@@ -5087,8 +4719,7 @@ var tempCollection=nil;
 tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []);
 smalltalk.send(anInteger, "_timesRepeat_", [(function(){return smalltalk.send(smalltalk.send(self, "_atEnd", []), "_ifFalse_", [(function(){return tempCollection=smalltalk.send(tempCollection, "__comma", [smalltalk.send(self, "_next", [])]);})]);})]);
 return tempCollection;
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5099,8 +4730,7 @@ selector: 'nextPut:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_nextPutAll_", [aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5113,8 +4743,7 @@ var self=this;
 smalltalk.send(self, "_setCollection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [(1), smalltalk.send(self, "_position", [])]), "__comma", [aString]), "__comma", [smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_position", []), "__plus", [(1)]), "__plus", [smalltalk.send(aString, "_size", [])]), smalltalk.send(smalltalk.send(self, "_collection", []), "_size", [])])])]);
 smalltalk.send(self, "_position_", [smalltalk.send(smalltalk.send(self, "_position", []), "__plus", [smalltalk.send(aString, "_size", [])])]);
 smalltalk.send(self, "_setStreamSize_", [smalltalk.send(smalltalk.send(self, "_streamSize", []), "_max_", [smalltalk.send(self, "_position", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5125,8 +4754,7 @@ selector: 'cr',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send(smalltalk.String, "_cr", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5137,8 +4765,7 @@ selector: 'crlf',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send(smalltalk.String, "_crlf", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5149,8 +4776,7 @@ selector: 'lf',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send(smalltalk.String, "_lf", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5161,8 +4787,7 @@ selector: 'space',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_nextPut_", [" "]);
-return self;},
-]
+return self;}
 }),
 smalltalk.StringStream);
 
@@ -5176,8 +4801,7 @@ selector: 'class:',
 fn: function (aClass){
 var self=this;
 self['@class']=aClass;
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCommentReader);
 
@@ -5190,8 +4814,7 @@ var self=this;
 var nextChunk=nil;
 nextChunk=smalltalk.send(smalltalk.send(smalltalk.send(self['@chunkParser'], "_emptyChunk", []), "__slash", [smalltalk.send(self['@chunkParser'], "_chunk", [])]), "_parse_", [aStream]);
 smalltalk.send(smalltalk.send(nextChunk, "_isEmptyChunk", []), "_ifFalse_", [(function(){return smalltalk.send(self, "_setComment_", [smalltalk.send(nextChunk, "_contents", [])]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCommentReader);
 
@@ -5203,8 +4826,7 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
 self['@chunkParser']=smalltalk.send(smalltalk.ChunkParser, "_new", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCommentReader);
 
@@ -5215,8 +4837,7 @@ selector: 'setComment:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self['@class'], "_comment_", [aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ClassCommentReader);
 
@@ -5230,8 +4851,7 @@ selector: 'next',
 fn: function (){
 var self=this;
 return Math.random();
-return self;},
-]
+return self;}
 }),
 smalltalk.Random);
 
@@ -5242,8 +4862,7 @@ selector: 'next:',
 fn: function (anInteger){
 var self=this;
 return smalltalk.send((1), "_to_collect_", [anInteger, (function(each){return smalltalk.send(self, "_next", []);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Random);
 
@@ -5257,8 +4876,7 @@ selector: 'x',
 fn: function (){
 var self=this;
 return self['@x'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5269,8 +4887,7 @@ selector: 'y',
 fn: function (){
 var self=this;
 return self['@y'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5281,8 +4898,7 @@ selector: 'y:',
 fn: function (aNumber){
 var self=this;
 self['@y']=aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5293,8 +4909,7 @@ selector: 'x:',
 fn: function (aNumber){
 var self=this;
 self['@x']=aNumber;
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5305,8 +4920,7 @@ selector: '*',
 fn: function (aPoint){
 var self=this;
 return smalltalk.send(smalltalk.Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5317,8 +4931,7 @@ selector: '+',
 fn: function (aPoint){
 var self=this;
 return smalltalk.send(smalltalk.Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5329,8 +4942,7 @@ selector: '-',
 fn: function (aPoint){
 var self=this;
 return smalltalk.send(smalltalk.Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5341,8 +4953,7 @@ selector: '/',
 fn: function (aPoint){
 var self=this;
 return smalltalk.send(smalltalk.Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5353,8 +4964,7 @@ selector: 'asPoint',
 fn: function (){
 var self=this;
 return self;
-return self;},
-]
+return self;}
 }),
 smalltalk.Point);
 
@@ -5366,8 +4976,7 @@ selector: 'x:y:',
 fn: function (aNumber, anotherNumber){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_x_", [aNumber]);smalltalk.send($rec, "_y_", [anotherNumber]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Point.klass);
 
@@ -5380,8 +4989,7 @@ selector: 'selector',
 fn: function (){
 var self=this;
 return self['@selector'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Message);
 
@@ -5392,8 +5000,7 @@ selector: 'selector:',
 fn: function (aString){
 var self=this;
 self['@selector']=aString;
-return self;},
-]
+return self;}
 }),
 smalltalk.Message);
 
@@ -5404,8 +5011,7 @@ selector: 'arguments:',
 fn: function (anArray){
 var self=this;
 self['@arguments']=anArray;
-return self;},
-]
+return self;}
 }),
 smalltalk.Message);
 
@@ -5416,8 +5022,7 @@ selector: 'arguments',
 fn: function (){
 var self=this;
 return self['@arguments'];
-return self;},
-]
+return self;}
 }),
 smalltalk.Message);
 
@@ -5429,8 +5034,7 @@ selector: 'selector:arguments:',
 fn: function (aString, anArray){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_selector_", [aString]);smalltalk.send($rec, "_arguments_", [anArray]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-]
+return self;}
 }),
 smalltalk.Message.klass);
 
@@ -5443,8 +5047,7 @@ selector: 'message',
 fn: function (){
 var self=this;
 return self['@message'];
-return self;},
-]
+return self;}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -5455,8 +5058,7 @@ selector: 'message:',
 fn: function (aMessage){
 var self=this;
 self['@message']=aMessage;
-return self;},
-]
+return self;}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -5467,8 +5069,7 @@ selector: 'receiver',
 fn: function (){
 var self=this;
 return self['@receiver'];
-return self;},
-]
+return self;}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -5479,8 +5080,7 @@ selector: 'receiver:',
 fn: function (anObject){
 var self=this;
 self['@receiver']=anObject;
-return self;},
-]
+return self;}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -5491,8 +5091,7 @@ selector: 'messageText',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [unescape("%20does%20not%20understand%20%23")]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -5507,8 +5106,7 @@ fn: function (anError){
 var self=this;
 smalltalk.send(smalltalk.send(anError, "_context", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_logErrorContext_", [smalltalk.send(anError, "_context", [])]);})]);
 smalltalk.send(self, "_logError_", [anError]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler);
 
@@ -5520,8 +5118,7 @@ fn: function (aContext){
 var self=this;
 smalltalk.send(smalltalk.send(aContext, "_home", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})]);
 smalltalk.send(self, "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext, "_receiver", []), "_asString", []), "__comma", [unescape("%3E%3E")]), "__comma", [smalltalk.send(aContext, "_selector", [])])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler);
 
@@ -5532,8 +5129,7 @@ selector: 'logErrorContext:',
 fn: function (aContext){
 var self=this;
 smalltalk.send(aContext, "_ifNotNil_", [(function(){return smalltalk.send(smalltalk.send(aContext, "_home", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})]);})]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler);
 
@@ -5544,8 +5140,7 @@ selector: 'logError:',
 fn: function (anError){
 var self=this;
 smalltalk.send(self, "_log_", [smalltalk.send(anError, "_messageText", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler);
 
@@ -5556,8 +5151,7 @@ selector: 'log:',
 fn: function (aString){
 var self=this;
 smalltalk.send(console, "_log_", [aString]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler);
 
@@ -5570,8 +5164,7 @@ selector: 'current',
 fn: function (){
 var self=this;
 return self['@current'];
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -5582,8 +5175,7 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_register", []);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -5594,8 +5186,7 @@ selector: 'register',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.ErrorHandler, "_setCurrent_", [smalltalk.send(self, "_new", [])]);
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -5606,8 +5197,7 @@ selector: 'setCurrent:',
 fn: function (anHandler){
 var self=this;
 self['@current']=anHandler;
-return self;},
-]
+return self;}
 }),
 smalltalk.ErrorHandler.klass);
 

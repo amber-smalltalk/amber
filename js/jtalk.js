@@ -73,6 +73,6 @@
 	}
 
 	loadJS("init.js");
-	smalltalk.setDeploymentMode();
+	loadJS("deploy.js");
     }
 })();

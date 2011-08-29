@@ -132,7 +132,7 @@ smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){sm
 return self;},
 source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%2C%20%27%3A%20%27%2C%20ex%20messageText%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%2C%20%27%3A%20%27%2C%20ex%20messageText%5D.%0A%09%09aResult%20increaseRuns%5D'),
 messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "messageText", "addError:", "increaseRuns"],
-referencedClasses: [smalltalk.TestFailure,smalltalk.Error]
+referencedClasses: [smalltalk.nil,smalltalk.Error]
 }),
 smalltalk.TestCase);
 
