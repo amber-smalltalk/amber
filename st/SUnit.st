@@ -53,15 +53,15 @@ runCaseFor: aTestResult
 performTestFor: aResult
 	self methods do: [:each | 
 		[[self perform: each]
-			on: TestFailure do: [:ex | aResult addFailure: self class name, '>>', each]]
-			on: Error do: [:ex | aResult addError: self class name, '>>', each].
+			on: TestFailure do: [:ex | aResult addFailure: self class name, '>>', each, ': ', ex messageText]]
+			on: Error do: [:ex | aResult addError: self class name, '>>', each, ': ', ex messageText].
 		aResult increaseRuns]
 ! !
 
 !TestCase methodsFor: 'testing'!
 
 assert: aBoolean
-	aBoolean ifFalse: [self signalFailure: 'Assertion failed']
+	self assert: aBoolean description: 'Assertion failed'
 !
 
 deny: aBoolean
@@ -69,7 +69,11 @@ deny: aBoolean
 !
 
 assert: expected equals: actual
-	^ self assert: (expected = actual)
+	^ self assert: (expected = actual) description: 'Expected: ', expected asString, ' but was: ', actual asString
+!
+
+assert: aBoolean description: aString
+	aBoolean ifFalse: [self signalFailure: aString]
 ! !
 
 TabWidget subclass: #ProgressBar
