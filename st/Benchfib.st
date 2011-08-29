@@ -8,24 +8,25 @@ main
 
 	| result |
 	result := 0 tinyBenchmarks.
-	console log: '0 tinyBenchmarks => ' + result
+	console log: '0 tinyBenchmarks => ' , result
 ! !
 
 !Number methodsFor: '*Benchfib'!
 
-benchFib
+benchFib 
 	"Handy send-heavy benchmark"
 	"(result // seconds to run) = approx calls per second"
 	" | r t |
 	  t := Time millisecondsToRun: [r := 26 benchFib].
 	  (r * 1000) // t"
 	"138000 on a Mac 8100/100"
-	^ self < 2
+	^ self < 2 
 		ifTrue: [1] 
 		ifFalse: [(self-1) benchFib + (self-2) benchFib + 1]
 !
 
-benchmark  "Handy bytecode-heavy benchmark"
+benchmark 
+	"Handy bytecode-heavy benchmark"
 	"(500000 // time to run) = approx bytecodes per second"
 	"5000000 // (Time millisecondsToRun: [10 benchmark]) * 1000"
 	"3059000 on a Mac 8100/100"
@@ -47,7 +48,7 @@ benchmark  "Handy bytecode-heavy benchmark"
     ^ count
 !
 
-tinyBenchmarks
+tinyBenchmarks 
 	"Report the results of running the two tiny Squeak benchmarks.
 	ar 9/10/1999: Adjusted to run at least 1 sec to get more stable results"
 	"0 tinyBenchmarks"
@@ -58,7 +59,7 @@ tinyBenchmarks
 	[t1 := Date millisecondsToRun: [n1 benchmark].
 	t1 < 1000] whileTrue:[n1 := n1 * 2]. "Note: #benchmark's runtime is about O(n)"
 
-	n2 := 28.
+	n2 := 16.
 	[t2 := Date millisecondsToRun: [r := n2 benchFib].
 	t2 < 1000] whileTrue:[n2 := n2 + 1]. 
 	"Note: #benchFib's runtime is about O(k^n),

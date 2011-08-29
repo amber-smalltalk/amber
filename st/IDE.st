@@ -1384,8 +1384,7 @@ print: aString
 	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
 	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
 	editor setCursor: (editor getCursor: true).
-	editor setSelection: stop end: start.
-	console log: start; log: stop
+	editor setSelection: stop end: start
 !
 
 printIt

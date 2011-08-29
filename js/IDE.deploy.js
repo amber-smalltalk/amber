@@ -7,7 +7,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@tabs'], "_ifNil_", [(function(){return self['@tabs']=smalltalk.send(smalltalk.Array, "_new", []);})]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -19,7 +18,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_setBodyMargin_", [smalltalk.send(smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_height", []), "__plus", [(27)])]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -31,7 +29,6 @@ fn: function (){
 var self=this;
 jQuery('#jtalk').css('top', '').css('bottom', '27px');
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -43,7 +40,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_setBodyMargin_", [(0)]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -55,7 +51,6 @@ fn: function (anInteger){
 var self=this;
 smalltalk.send(smalltalk.send(".jtalkBody", "_asJQuery", []), "_cssAt_put_", [unescape("margin-bottom"), smalltalk.send(smalltalk.send(anInteger, "_asString", []), "__comma", ["px"])]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -71,7 +66,6 @@ jQuery('#jtalk').resizable({
 	minHeight: 230
 });
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -83,7 +77,6 @@ fn: function (aBlock){
 var self=this;
 jQuery(window).resize(aBlock);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -95,7 +88,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@opened'], "_ifFalse_", [(function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_show", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_show", []);smalltalk.send(self, "_updateBodyMargin", []);smalltalk.send(self['@selectedTab'], "_show", []);return self['@opened']=true;})]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -107,7 +99,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@opened'], "_ifTrue_", [(function(){smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_hide", []);smalltalk.send(self['@selectedTab'], "_hide", []);smalltalk.send(self, "_removeBodyMargin", []);smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["jtalkBody"]);return self['@opened']=false;})]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -119,7 +110,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.Browser, "_open", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -135,7 +125,6 @@ smalltalk.send(smalltalk.send(self, "_tabs", []), "_do_", [(function(each){retur
 smalltalk.send(aWidget, "_show", []);
 smalltalk.send(self, "_update", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -150,7 +139,6 @@ smalltalk.send(self, "_selectTab_", [smalltalk.send(smalltalk.send(self, "_tabs"
 smalltalk.send(aWidget, "_remove", []);
 smalltalk.send(self, "_update", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -164,7 +152,6 @@ smalltalk.send(smalltalk.send(self, "_tabs", []), "_add_", [aWidget]);
 smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_append_", [aWidget]);
 smalltalk.send(aWidget, "_hide", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -177,7 +164,6 @@ var self=this;
 smalltalk.send(smalltalk.send(self, "_tabs", []), "_remove_", [aWidget]);
 smalltalk.send(self, "_update", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -194,7 +180,6 @@ self['@opened']=true;
 smalltalk.send(self, "_selectTab_", [smalltalk.send(smalltalk.send(self, "_tabs", []), "_last", [])]);
 (function($rec){smalltalk.send($rec, "_onResize_", [(function(){return (function($rec){smalltalk.send($rec, "_updateBodyMargin", []);return smalltalk.send($rec, "_updatePosition", []);})(self);})]);return smalltalk.send($rec, "_onWindowResize_", [(function(){return smalltalk.send(self, "_updatePosition", []);})]);})(self);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -207,7 +192,6 @@ var self=this;
 self['@ul']=(function($rec){smalltalk.send($rec, "_id_", ["jtalkTabs"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", []));
 smalltalk.send(self, "_renderTabs", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -222,7 +206,6 @@ li=smalltalk.send(html, "_li", []);
 smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", [aWidget]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);
 smalltalk.send(li, "_with_", [(function(){smalltalk.send(smalltalk.send(aWidget, "_canBeClosed", []), "_ifTrue_", [(function(){return (function($rec){smalltalk.send($rec, "_class_", ["close"]);smalltalk.send($rec, "_with_", ["x"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_closeTab_", [aWidget]);})]);})(smalltalk.send(html, "_span", []));})]);return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(aWidget, "_label", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectTab_", [aWidget]);})]);})(smalltalk.send(html, "_span", []));})]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -234,7 +217,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@ul'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["closeAll"]);smalltalk.send($rec, "_with_", ["x"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_close", []);})]);})(smalltalk.send(html, "_li", []));smalltalk.send(smalltalk.send(self, "_tabs", []), "_do_", [(function(each){return smalltalk.send(self, "_renderTabFor_on_", [each, html]);})]);return (function($rec){smalltalk.send($rec, "_class_", ["newtab"]);smalltalk.send($rec, "_with_", [unescape("%20+%20")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_newBrowserTab", []);})]);})(smalltalk.send(html, "_li", []));})]);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -246,7 +228,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_renderTabs", []);
 return self;}
-]
 }),
 smalltalk.TabManager);
 
@@ -260,7 +241,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@current'], "_ifNil_", [(function(){return self['@current']=smalltalk.send(self, "_new", [], smalltalk.Widget.klass);})]);
 return self;}
-]
 }),
 smalltalk.TabManager.klass);
 
@@ -272,7 +252,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;}
-]
 }),
 smalltalk.TabManager.klass);
 
@@ -286,7 +265,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -299,7 +277,6 @@ var self=this;
 smalltalk.send(smalltalk.send(smalltalk.TabManager, "_current", []), "_addTab_", [self]);
 smalltalk.send(smalltalk.send(smalltalk.TabManager, "_current", []), "_selectTab_", [self]);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -311,7 +288,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_show", []);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -323,7 +299,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_hide", []);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -335,7 +310,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_remove", []);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -348,7 +322,6 @@ var self=this;
 self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["jtalkTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", []));
 smalltalk.send(self, "_renderTab", []);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -360,7 +333,6 @@ fn: function (html){
 var self=this;
 
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -372,7 +344,6 @@ fn: function (html){
 var self=this;
 
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -384,7 +355,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_renderTab", []);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -396,7 +366,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@div'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["jt_box"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderBoxOn_", [html]);})]);})(smalltalk.send(html, "_div", []));return (function($rec){smalltalk.send($rec, "_class_", ["jt_buttons"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));})]);
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -408,7 +377,6 @@ fn: function (){
 var self=this;
 return false;
 return self;}
-]
 }),
 smalltalk.TabWidget);
 
@@ -421,7 +389,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
 return self;}
-]
 }),
 smalltalk.TabWidget.klass);
 
@@ -435,7 +402,6 @@ fn: function (){
 var self=this;
 return unescape("%5BWorkspace%5D");
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -447,7 +413,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@sourceArea'], "_clear", []);
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -459,7 +424,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@sourceArea'], "_doIt", []);
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -471,7 +435,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@sourceArea'], "_printIt", []);
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -483,7 +446,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@sourceArea'], "_inspectIt", []);
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -496,7 +458,6 @@ var self=this;
 self['@sourceArea']=smalltalk.send(smalltalk.SourceArea, "_new", []);
 smalltalk.send(self['@sourceArea'], "_renderOn_", [html]);
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -511,7 +472,6 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+i")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_inspectIt", []);})]);})(smalltalk.send(html, "_button", []));
 (function($rec){smalltalk.send($rec, "_with_", ["Clear workspace"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_clearWorkspace", []);})]);})(smalltalk.send(html, "_button", []));
 return self;}
-]
 }),
 smalltalk.Workspace);
 
@@ -526,7 +486,6 @@ fn: function (){
 var self=this;
 return unescape("%5BTranscript%5D");
 return self;}
-]
 }),
 smalltalk.Transcript);
 
@@ -538,7 +497,6 @@ fn: function (anObject){
 var self=this;
 smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val", []), "__comma", [smalltalk.send(anObject, "_asString", [])])]);
 return self;}
-]
 }),
 smalltalk.Transcript);
 
@@ -550,7 +508,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val", []), "__comma", [smalltalk.send(smalltalk.String, "_cr", [])])]);
 return self;}
-]
 }),
 smalltalk.Transcript);
 
@@ -562,7 +519,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [""]);
 return self;}
-]
 }),
 smalltalk.Transcript);
 
@@ -576,7 +532,6 @@ self['@textarea']=smalltalk.send(html, "_textarea", []);
 smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_call_", ["tabby"]);
 (function($rec){smalltalk.send($rec, "_class_", ["jt_transcript"]);return smalltalk.send($rec, "_at_put_", ["spellcheck", "false"]);})(self['@textarea']);
 return self;}
-]
 }),
 smalltalk.Transcript);
 
@@ -588,7 +543,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_with_", ["Clear transcript"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_clear", []);})]);})(smalltalk.send(html, "_button", []));
 return self;}
-]
 }),
 smalltalk.Transcript);
 
@@ -602,7 +556,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
 return self;}
-]
 }),
 smalltalk.Transcript.klass);
 
@@ -614,7 +567,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;}
-]
 }),
 smalltalk.Transcript.klass);
 
@@ -626,7 +578,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@current'], "_ifNil_", [(function(){return self['@current']=smalltalk.send(self, "_new", [], smalltalk.TabWidget.klass);})]);
 return self;}
-]
 }),
 smalltalk.Transcript.klass);
 
@@ -638,7 +589,6 @@ fn: function (anObject){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
 return self;}
-]
 }),
 smalltalk.Transcript.klass);
 
@@ -650,7 +600,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send(smalltalk.String, "_cr", [])]);
 return self;}
-]
 }),
 smalltalk.Transcript.klass);
 
@@ -662,7 +611,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
 return self;}
-]
 }),
 smalltalk.Transcript.klass);
 
@@ -676,7 +624,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@selectedClass'], "_ifNil_ifNotNil_", [(function(){return unescape("Browser%20%28nil%29");}), (function(){return smalltalk.send(self['@selectedClass'], "_name", []);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -691,7 +638,6 @@ categories=smalltalk.send(smalltalk.Array, "_new", []);
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(categories, "_includes_", [smalltalk.send(each, "_category", [])]), "_ifFalse_", [(function(){return smalltalk.send(categories, "_add_", [smalltalk.send(each, "_category", [])]);})]);})]);
 return smalltalk.send(categories, "_sort", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -703,7 +649,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [self['@selectedCategory']]);})]), "_sort_", [(function(a, b){return smalltalk.send(smalltalk.send(a, "_name", []), "__lt", [smalltalk.send(b, "_name", [])]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -718,7 +663,6 @@ smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){smalltalk.send
 (function(){throw({name: 'stReturn', selector: '_protocols', fn: function(){return smalltalk.send(smalltalk.Array, "_new", [])}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_protocols'){return e.fn()} throw(e)}}
-]
 }),
 smalltalk.Browser);
 
@@ -734,7 +678,6 @@ smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){return klass=s
 (function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return smalltalk.send(smalltalk.send(self['@selectedProtocol'], "_ifNil_ifNotNil_", [(function(){return smalltalk.send(klass, "_ifNil_ifNotNil_", [(function(){return [];}), (function(){return smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_values", []);})]);}), (function(){return smalltalk.send(smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_values", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [self['@selectedProtocol']]);})]);})]), "_sort_", [(function(a, b){return smalltalk.send(smalltalk.send(a, "_selector", []), "__lt", [smalltalk.send(b, "_selector", [])]);})])}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_methods'){return e.fn()} throw(e)}}
-]
 }),
 smalltalk.Browser);
 
@@ -748,7 +691,6 @@ try{smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_
 (function(){throw({name: 'stReturn', selector: '_source', fn: function(){return smalltalk.send(self['@selectedClass'], "_ifNil_ifNotNil_", [(function(){return "";}), (function(){return smalltalk.send(self, "_classCommentSource", []);})])}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_source'){return e.fn()} throw(e)}}
-]
 }),
 smalltalk.Browser);
 
@@ -760,7 +702,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@selectedMethod'], "_ifNil_ifNotNil_", [(function(){return smalltalk.send(self, "_dummyMethodSource", []);}), (function(){return smalltalk.send(self['@selectedMethod'], "_source", []);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -772,7 +713,6 @@ fn: function (){
 var self=this;
 return unescape("messageSelectorAndArgumentNames%0A%09%22comment%20stating%20purpose%20of%20message%22%0A%0A%09%7C%20temporary%20variable%20names%20%7C%0A%09statements");
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -784,7 +724,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_classDeclarationSource", []);}), (function(){return smalltalk.send(self, "_metaclassDeclarationSource", []);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -799,7 +738,6 @@ stream=smalltalk.send("", "_writeStream", []);
 smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@selectedClass'], "_superclass", []), "_asString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20subclass%3A%20%23")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_name", [])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.String, "_lf", []), "__comma", [smalltalk.send(smalltalk.String, "_tab", [])])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("instanceVariableNames%3A%20%27")]);})(stream);smalltalk.send(smalltalk.send(self['@selectedClass'], "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [smalltalk.send(smalltalk.String, "_lf", [])]), "__comma", [smalltalk.send(smalltalk.String, "_tab", [])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("category%3A%20%27")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_category", [])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%27")]);})(stream);})]);
 return smalltalk.send(stream, "_contents", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -814,7 +752,6 @@ stream=smalltalk.send("", "_writeStream", []);
 smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_asString", [])]);smalltalk.send($rec, "_nextPutAll_", [" class "]);return smalltalk.send($rec, "_nextPutAll_", [unescape("instanceVariableNames%3A%20%27")]);})(stream);smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedClass'], "_class", []), "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);return smalltalk.send(stream, "_nextPutAll_", [unescape("%27")]);})]);
 return smalltalk.send(stream, "_contents", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -826,7 +763,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@selectedClass'], "_comment", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -838,7 +774,6 @@ fn: function (){
 var self=this;
 return self['@selectedClass'];
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -851,7 +786,6 @@ var self=this;
 smalltalk.send(self['@saveButton'], "_ifNotNil_", [(function(){return smalltalk.send(self['@saveButton'], "_at_put_", ["disabled", true]);})]);
 self['@unsavedChanges']=false;
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -863,7 +797,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@classButtons'], "_asJQuery", []), "_hide", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -875,7 +808,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@classButtons'], "_asJQuery", []), "_show", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -887,7 +819,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@methodButtons'], "_asJQuery", []), "_hide", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -899,7 +830,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@methodButtons'], "_asJQuery", []), "_show", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -913,7 +843,6 @@ smalltalk.send(self, "_disableSaveButton", []);
 smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_", [(function(){return smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){return smalltalk.send(self, "_compileClassComment", []);})]);})]);
 smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedProtocol'], "_notNil", []), "_or_", [(function(){return smalltalk.send(self['@selectedMethod'], "_notNil", []);})]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_compileDefinition", []);}), (function(){return smalltalk.send(self, "_compileMethodDefinition", []);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -925,7 +854,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@selectedClass'], "_comment_", [smalltalk.send(self['@sourceArea'], "_val", [])]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -937,7 +865,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_compileMethodDefinitionFor_", [self['@selectedClass']]);}), (function(){return smalltalk.send(self, "_compileMethodDefinitionFor_", [smalltalk.send(self['@selectedClass'], "_class", [])]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -966,7 +893,6 @@ smalltalk.send(self, "_updateMethodsList", []);
 smalltalk.send(self, "_selectMethod_", [method]);
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_compileMethodDefinitionFor_'){return e.fn()} throw(e)}}
-]
 }),
 smalltalk.Browser);
 
@@ -980,7 +906,6 @@ var newClass=nil;
 newClass=smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(self['@sourceArea'], "_val", [])]);
 (function($rec){smalltalk.send($rec, "_resetClassesList", []);smalltalk.send($rec, "_updateCategoriesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -992,7 +917,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@selectedCategory'], "_ifNotNil_", [(function(){(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.Exporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.StrippedExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.ChunkExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".st"])]));})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1004,7 +928,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@unsavedChanges'], "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_confirm_", [unescape("Cancel%20changes%3F")]);}), (function(){return true;})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1016,7 +939,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_confirm_", [smalltalk.send(smalltalk.send("Do you really want to remove ", "__comma", [smalltalk.send(self['@selectedClass'], "_name", [])]), "__comma", [unescape("%3F")])]), "_ifTrue_", [(function(){smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_removeClass_", [self['@selectedClass']]);smalltalk.send(self, "_resetClassesList", []);return smalltalk.send(self, "_selectClass_", [nil]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1028,7 +950,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_confirm_", [smalltalk.send(smalltalk.send(unescape("Do%20you%20really%20want%20to%20remove%20%23"), "__comma", [smalltalk.send(self['@selectedMethod'], "_selector", [])]), "__comma", [unescape("%3F")])]), "_ifTrue_", [(function(){smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@selectedClass'], "_removeCompiledMethod_", [self['@selectedMethod']]);}), (function(){return smalltalk.send(smalltalk.send(self['@selectedClass'], "_class", []), "_removeCompiledMethod_", [self['@selectedMethod']]);})]);return smalltalk.send(self, "_selectMethod_", [nil]);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1040,7 +961,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_protocols", []), "_includes_", [aString]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_addNewProtocol", []);}), (function(){smalltalk.send(self['@selectedMethod'], "_category_", [aString]);self['@selectedProtocol']=aString;self['@selectedMethod']=self['@selectedMethod'];return (function($rec){smalltalk.send($rec, "_updateProtocolsList", []);smalltalk.send($rec, "_updateMethodsList", []);return smalltalk.send($rec, "_updateSourceAndButtons", []);})(self);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1054,7 +974,6 @@ var newProtocol=nil;
 newProtocol=smalltalk.send(self, "_prompt_", ["New method protocol"]);
 smalltalk.send(smalltalk.send(newProtocol, "_notEmpty", []), "_ifTrue_", [(function(){smalltalk.send(self['@selectedMethod'], "_category_", [newProtocol]);return smalltalk.send(self, "_setMethodProtocol_", [newProtocol]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1066,7 +985,6 @@ fn: function (aCategory){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){self['@selectedCategory']=aCategory;self['@selectedClass']=self['@selectedProtocol']=self['@selectedMethod']=nil;smalltalk.send(self, "_resetClassesList", []);return (function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);smalltalk.send($rec, "_updateMethodsList", []);return smalltalk.send($rec, "_updateSourceAndButtons", []);})(self);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1078,7 +996,6 @@ fn: function (aClass){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){self['@selectedClass']=aClass;self['@selectedProtocol']=self['@selectedMethod']=nil;return (function($rec){smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);smalltalk.send($rec, "_updateMethodsList", []);return smalltalk.send($rec, "_updateSourceAndButtons", []);})(self);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1090,7 +1007,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){self['@selectedProtocol']=aString;self['@selectedMethod']=nil;return (function($rec){smalltalk.send($rec, "_updateProtocolsList", []);smalltalk.send($rec, "_updateMethodsList", []);return smalltalk.send($rec, "_updateSourceAndButtons", []);})(self);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1102,7 +1018,6 @@ fn: function (aMethod){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){self['@selectedMethod']=aMethod;return (function($rec){smalltalk.send($rec, "_updateProtocolsList", []);smalltalk.send($rec, "_updateMethodsList", []);return smalltalk.send($rec, "_updateSourceAndButtons", []);})(self);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1114,7 +1029,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){self['@selectedTab']=aString;smalltalk.send(self, "_selectProtocol_", [nil]);return smalltalk.send(self, "_updateTabsList", []);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1128,7 +1042,6 @@ var newName=nil;
 newName=smalltalk.send(self, "_prompt_", [smalltalk.send("Rename class ", "__comma", [smalltalk.send(self['@selectedClass'], "_name", [])])]);
 smalltalk.send(smalltalk.send(newName, "_notEmpty", []), "_ifTrue_", [(function(){smalltalk.send(self['@selectedClass'], "_rename_", [newName]);return (function($rec){smalltalk.send($rec, "_updateClassesList", []);return smalltalk.send($rec, "_updateSourceAndButtons", []);})(self);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1140,7 +1053,6 @@ fn: function (aString, aClass){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.ClassBuilder, "_new", []), "_addSubclassOf_named_instanceVariableNames_", [smalltalk.send(aClass, "_superclass", []), smalltalk.send(aClass, "_name", []), (function($rec){smalltalk.send($rec, "_add_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.send(aClass, "_instanceVariableNames", []), "_copy", []))]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1152,7 +1064,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.ReferencesBrowser, "_search_", [aString]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1164,7 +1075,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.ReferencesBrowser, "_search_", [smalltalk.send(self['@selectedClass'], "_name", [])]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1177,7 +1087,6 @@ var self=this;
 smalltalk.send(smalltalk.send(self, "_cancelChanges", []), "_ifTrue_", [(function(){var searchedClass=nil;
 searchedClass=smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_at_", [aString]);return smalltalk.send(smalltalk.send(searchedClass, "_isClass", []), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_openOn_", [searchedClass]);}), (function(){return smalltalk.send(self, "_searchReferencesOf_", [aString]);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1191,7 +1100,6 @@ smalltalk.send(self, "_initialize", [], smalltalk.TabWidget);
 self['@selectedTab']="instance";
 self['@unsavedChanges']=false;
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1203,7 +1111,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_renderTopPanelOn_", [html]);smalltalk.send($rec, "_renderTabsOn_", [html]);return smalltalk.send($rec, "_renderBottomPanelOn_", [html]);})(self);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1215,7 +1122,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderInputOn_", [html]);self['@categoriesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser categories"]);self['@commitButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_commit"]);smalltalk.send($rec, "_title_", ["Commit classes in this category to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitCategory", []);})]);return smalltalk.send($rec, "_with_", ["Commit category"]);})(smalltalk.send(html, "_button", []));self['@classesList']=smalltalk.send(smalltalk.ClassesList, "_on_", [self]);smalltalk.send(self['@classesList'], "_renderOn_", [html]);self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]);self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]);(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1228,7 +1134,6 @@ var self=this;
 self['@tabsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_tabs"]);
 smalltalk.send(self, "_updateTabsList", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1240,7 +1145,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["jt_sourceCode"]);return smalltalk.send($rec, "_with_", [(function(){self['@sourceArea']=smalltalk.send(smalltalk.SourceArea, "_new", []);smalltalk.send(self['@sourceArea'], "_renderOn_", [html]);return smalltalk.send(self['@sourceArea'], "_onKeyUp_", [(function(){return smalltalk.send(self, "_updateStatus", []);})]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1257,7 +1161,6 @@ self['@classButtons']=smalltalk.send(html, "_span", []);
 (function($rec){smalltalk.send($rec, "_class_", ["right"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_with_", ["DoIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_doIt", []);})]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_with_", ["PrintIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_printIt", []);})]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_inspectit", []);})]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));
 smalltalk.send(self, "_updateSourceAndButtons", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1270,7 +1173,6 @@ var self=this;
 self['@input']=(function($rec){smalltalk.send($rec, "_class_", ["implementors"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_input", []));
 smalltalk.send(self['@input'], "_onKeyPress_", [(function(event){return smalltalk.send(smalltalk.send(smalltalk.send(event, "_keyCode", []), "__eq", [(13)]), "_ifTrue_", [(function(){return smalltalk.send(self, "_search_", [smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val", [])]);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1282,7 +1184,6 @@ fn: function (){
 var self=this;
 return true;
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1296,7 +1197,6 @@ smalltalk.send(self['@categoriesList'], "_contents_", [(function(html){return sm
 var label=nil;
 smalltalk.send(smalltalk.send(each, "_isEmpty", []), "_ifTrue_ifFalse_", [(function(){return label="Unclassified";}), (function(){return label=each;})]);li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(self['@selectedCategory'], "__eq", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [label]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectCategory_", [each]);})]);})(li);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1309,7 +1209,6 @@ var self=this;
 smalltalk.send(smalltalk.send(smalltalk.TabManager, "_current", []), "_update", []);
 smalltalk.send(self['@classesList'], "_updateNodes", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1322,7 +1221,6 @@ var self=this;
 smalltalk.send(self['@protocolsList'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_protocols", []), "_do_", [(function(each){var li=nil;
 li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(self['@selectedProtocol'], "__eq", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [each]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectProtocol_", [each]);})]);})(li);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1335,7 +1233,6 @@ var self=this;
 smalltalk.send(self['@methodsList'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){var li=nil;
 li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(self['@selectedMethod'], "__eq", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_selector", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectMethod_", [each]);})]);})(li);})]);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1348,7 +1245,6 @@ var self=this;
 smalltalk.send(self['@tabsList'], "_contents_", [(function(html){var li=nil;
 li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);(function($rec){smalltalk.send($rec, "_with_", ["Instance"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectTab_", ["instance"]);})]);})(li);li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["class"]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);(function($rec){smalltalk.send($rec, "_with_", ["Class"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectTab_", ["class"]);})]);})(li);li=smalltalk.send(html, "_li", []);smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);return (function($rec){smalltalk.send($rec, "_with_", ["Comment"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectTab_", ["comment"]);})]);})(li);})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1364,7 +1260,6 @@ smalltalk.send(self['@methodButtons'], "_contents_", [(function(html){(function(
 smalltalk.send(smalltalk.send(self['@selectedMethod'], "_isNil", []), "_ifTrue_ifFalse_", [(function(){smalltalk.send(self, "_hideMethodButtons", []);return smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedClass'], "_isNil", []), "_or_", [(function(){return smalltalk.send(self['@selectedProtocol'], "_notNil", []);})]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_hideClassButtons", []);}), (function(){return smalltalk.send(self, "_showClassButtons", []);})]);}), (function(){smalltalk.send(self, "_hideClassButtons", []);return smalltalk.send(self, "_showMethodButtons", []);})]);
 smalltalk.send(self['@sourceArea'], "_val_", [smalltalk.send(self, "_source", [])]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1376,7 +1271,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.send(self['@sourceArea'], "_val", []), "__eq", [smalltalk.send(self, "_source", [])]), "_ifTrue_ifFalse_", [(function(){smalltalk.send(self['@saveButton'], "_ifNotNil_", [(function(){return smalltalk.send(self['@saveButton'], "_at_put_", ["disabled", true]);})]);return self['@unsavedChanges']=false;}), (function(){smalltalk.send(self['@saveButton'], "_ifNotNil_", [(function(){return smalltalk.send(self['@saveButton'], "_removeAt_", ["disabled"]);})]);return self['@unsavedChanges']=true;})]);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1388,7 +1282,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@classesList'], "_resetNodes", []);
 return self;}
-]
 }),
 smalltalk.Browser);
 
@@ -1401,7 +1294,6 @@ fn: function (){
 var self=this;
 return "js";
 return self;}
-]
 }),
 smalltalk.Browser.klass);
 
@@ -1413,7 +1305,6 @@ fn: function (){
 var self=this;
 return "st";
 return self;}
-]
 }),
 smalltalk.Browser.klass);
 
@@ -1425,7 +1316,6 @@ fn: function (aClass){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_open", []);smalltalk.send($rec, "_selectCategory_", [smalltalk.send(aClass, "_category", [])]);return smalltalk.send($rec, "_selectClass_", [aClass]);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.Browser.klass);
 
@@ -1437,7 +1327,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
 return self;}
-]
 }),
 smalltalk.Browser.klass);
 
@@ -1451,7 +1340,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@label'], "_ifNil_", [(function(){return unescape("Inspector%20%28nil%29");})]);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1463,7 +1351,6 @@ fn: function (){
 var self=this;
 return self['@variables'];
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1475,7 +1362,6 @@ fn: function (aCollection){
 var self=this;
 self['@variables']=aCollection;
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1487,7 +1373,6 @@ fn: function (aString){
 var self=this;
 self['@label']=aString;
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1499,7 +1384,6 @@ fn: function (){
 var self=this;
 return self['@selectedVariable'];
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1511,7 +1395,6 @@ fn: function (aString){
 var self=this;
 self['@selectedVariable']=aString;
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1525,7 +1408,6 @@ self['@object']=anObject;
 self['@variables']=[];
 smalltalk.send(self['@object'], "_inspectOn_", [self]);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1537,7 +1419,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_variables", []), "_at_", [smalltalk.send(self, "_selectedVariable", [])]), "_inspect", []);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1549,7 +1430,6 @@ fn: function (){
 var self=this;
 (function($rec){smalltalk.send($rec, "_inspect_", [self['@object']]);smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateValueTextarea", []);})(self);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1561,7 +1441,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_renderTopPanelOn_", [html]);return smalltalk.send($rec, "_renderBottomPanelOn_", [html]);})(self);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1573,7 +1452,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){self['@variablesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column variables"]);self['@valueTextarea']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column value"]);return smalltalk.send($rec, "_at_put_", ["readonly", "readonly"]);})(smalltalk.send(html, "_textarea", []));(function($rec){smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateValueTextarea", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1585,7 +1463,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["jt_sourceCode"]);return smalltalk.send($rec, "_with_", [(function(){self['@workspaceTextarea']=(function($rec){smalltalk.send($rec, "_class_", ["source"]);return smalltalk.send($rec, "_at_put_", ["spellcheck", "false"]);})(smalltalk.send(html, "_textarea", []));return smalltalk.send(smalltalk.send(self['@workspaceTextarea'], "_asJQuery", []), "_call_", ["tabby"]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1599,7 +1476,6 @@ var self=this;
 self['@diveButton']=(function($rec){smalltalk.send($rec, "_with_", ["Dive"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_dive", []);})]);})(smalltalk.send(html, "_button", []));
 smalltalk.send(self, "_updateButtons", []);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1611,7 +1487,6 @@ fn: function (){
 var self=this;
 return true;
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1624,7 +1499,6 @@ var self=this;
 smalltalk.send(self['@variablesList'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_variables", []), "_keys", []), "_do_", [(function(each){var li=nil;
 li=smalltalk.send(html, "_li", []);(function($rec){smalltalk.send($rec, "_with_", [each]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectVariable_", [each]);})]);})(li);return smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedVariable", []), "__eq", [each]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);})]);})]);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1637,7 +1511,6 @@ var self=this;
 smalltalk.send(self, "_selectedVariable_", [aString]);
 (function($rec){smalltalk.send($rec, "_updateVariablesList", []);smalltalk.send($rec, "_updateValueTextarea", []);return smalltalk.send($rec, "_updateButtons", []);})(self);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1649,7 +1522,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@valueTextarea'], "_asJQuery", []), "_val_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedVariable", []), "_isNil", []), "_ifTrue_ifFalse_", [(function(){return "";}), (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_variables", []), "_at_", [smalltalk.send(self, "_selectedVariable", [])]), "_printString", []);})])]);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1661,7 +1533,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedVariable", []), "_notNil", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_variables", []), "_at_", [smalltalk.send(self, "_selectedVariable", [])]), "_notNil", []);})]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self['@diveButton'], "_at_put_", ["disabled", true]);}), (function(){return smalltalk.send(self['@diveButton'], "_removeAt_", ["disabled"]);})]);
 return self;}
-]
 }),
 smalltalk.Inspector);
 
@@ -1674,7 +1545,6 @@ fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_inspect_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.Inspector.klass);
 
@@ -1688,7 +1558,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@implementors'], "_ifNil_", [(function(){return self['@implementors']=smalltalk.send(smalltalk.Array, "_new", []);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1700,7 +1569,6 @@ fn: function (){
 var self=this;
 return unescape("%5BReferencesBrowser%5D");
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1712,7 +1580,6 @@ fn: function (){
 var self=this;
 return self['@selector'];
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1724,7 +1591,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@senders'], "_ifNil_", [(function(){return self['@senders']=smalltalk.send(smalltalk.Array, "_new", []);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1736,7 +1602,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_collect_", [(function(each){return smalltalk.send(each, "_class", []);})])]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1748,7 +1613,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@referencedClasses'], "_ifNil_", [(function(){return self['@referencedClasses']=smalltalk.send(smalltalk.Array, "_new", []);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1763,7 +1627,6 @@ browser=smalltalk.send(smalltalk.Browser, "_openOn_", [smalltalk.send(smalltalk.
 smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_isMetaclass", []), "_ifTrue_", [(function(){return smalltalk.send(browser, "_selectTab_", ["class"]);})]);
 (function($rec){smalltalk.send($rec, "_selectProtocol_", [smalltalk.send(aMethod, "_category", [])]);return smalltalk.send($rec, "_selectMethod_", [aMethod]);})(browser);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1779,7 +1642,6 @@ self['@senders']=smalltalk.send(smalltalk.Array, "_new", []);
 self['@referencedClasses']=smalltalk.send(smalltalk.Array, "_new", []);
 smalltalk.send(smalltalk.send(self['@selector'], "_match_", [unescape("%5E%5BA-Z%5D")]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_searchSelectorReferencesFor_", [self['@selector']]);}), (function(){return smalltalk.send(self, "_searchReferencedClassesFor_", [self['@selector']]);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1791,7 +1653,6 @@ fn: function (aString){
 var self=this;
 (function($rec){smalltalk.send($rec, "_searchReferencesFor_", [aString]);smalltalk.send($rec, "_updateImplementorsList", []);smalltalk.send($rec, "_updateSendersList", []);return smalltalk.send($rec, "_updateReferencedClassesList", []);})(self);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1803,7 +1664,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_values", []), "_do_", [(function(value){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(value, "_referencedClasses", []), "_select_", [(function(each){return smalltalk.send(each, "_notNil", []);})]), "_collect_", [(function(each){return smalltalk.send(each, "_name", []);})]), "_includes_", [self['@selector']]), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_referencedClasses", []), "_add_", [value]);})]);})]);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1815,7 +1675,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(smalltalk.send(key, "__eq", [self['@selector']]), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})]);})]);return smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(smalltalk.send(smalltalk.send(value, "_messageSends", []), "_includes_", [self['@selector']]), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})]);})]);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1828,7 +1687,6 @@ var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.TabWidget);
 self['@selector']="";
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1840,7 +1698,6 @@ fn: function (){
 var self=this;
 (function($rec){smalltalk.send($rec, "_onKeyUp_", [(function(){return self['@timer']=smalltalk.send((function(){return smalltalk.send(self, "_search_", [smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val", [])]);}), "_valueWithTimeout_", [(100)]);})]);return smalltalk.send($rec, "_onKeyDown_", [(function(){return smalltalk.send(self['@timer'], "_ifNotNil_", [(function(){return smalltalk.send(self['@timer'], "_clearTimeout", []);})]);})]);})(self['@input']);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1852,7 +1709,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_renderInputOn_", [html]);smalltalk.send($rec, "_renderImplementorsOn_", [html]);smalltalk.send($rec, "_renderSendersOn_", [html]);return smalltalk.send($rec, "_renderReferencedClassesOn_", [html]);})(self);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1866,7 +1722,6 @@ self['@input']=(function($rec){smalltalk.send($rec, "_class_", ["implementors"])
 smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val_", [self['@selector']]);
 smalltalk.send(self, "_setInputEvents", []);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1879,7 +1734,6 @@ var self=this;
 self['@implementorsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column implementors"]);
 smalltalk.send(self, "_updateImplementorsList", []);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1892,7 +1746,6 @@ var self=this;
 self['@sendersList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column senders"]);
 smalltalk.send(self, "_updateSendersList", []);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1905,7 +1758,6 @@ var self=this;
 self['@referencedClassesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column referenced_classes"]);
 smalltalk.send(self, "_updateReferencedClassesList", []);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1917,7 +1769,6 @@ fn: function (){
 var self=this;
 return true;
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1930,7 +1781,6 @@ var self=this;
 smalltalk.send(self['@implementorsList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["column_label"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(unescape("Implementors%20%28"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_implementors", []), "_size", []), "_asString", [])]), "__comma", [unescape("%29")])]);return smalltalk.send($rec, "_style_", [unescape("font-weight%3A%20bold")]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_implementors", []), "_do_", [(function(each){var li=nil;
 li=smalltalk.send(html, "_li", []);return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodClass", []), "_asString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(self, "_selector", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_openBrowserOn_", [each]);})]);})(li);})]);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1942,7 +1792,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@sendersList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["column_label"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(unescape("Senders%20%28"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_senders", []), "_size", []), "_asString", [])]), "__comma", [unescape("%29")])]);return smalltalk.send($rec, "_style_", [unescape("font-weight%3A%20bold")]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_senders", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodClass", []), "_asString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(each, "_selector", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_openBrowserOn_", [each]);})]);})(smalltalk.send(html, "_li", []));})]);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1954,7 +1803,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@referencedClassesList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["column_label"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(unescape("Class%20references%20%28"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_referencedClasses", []), "_size", []), "_asString", [])]), "__comma", [unescape("%29")])]);return smalltalk.send($rec, "_style_", [unescape("font-weight%3A%20bold")]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_referencedClasses", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodClass", []), "_asString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(each, "_selector", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_openBrowserOn_", [each]);})]);})(smalltalk.send(html, "_li", []));})]);})]);
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser);
 
@@ -1967,7 +1815,6 @@ fn: function (aString){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_searchReferencesFor_", [aString]);return smalltalk.send($rec, "_open", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.ReferencesBrowser.klass);
 
@@ -1981,7 +1828,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@editor'], "_getValue", []);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -1993,7 +1839,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self['@editor'], "_setValue_", [aString]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2005,7 +1850,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@editor'], "_getLine_", [smalltalk.send(smalltalk.send(self['@editor'], "_getCursor", []), "_line", [])]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2017,7 +1861,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self['@editor'], "_getSelection", []);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2029,7 +1872,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionEnd", []);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2041,7 +1883,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionStart", []);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2053,7 +1894,6 @@ fn: function (anInteger){
 var self=this;
 smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionStart_", [anInteger]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2065,7 +1905,6 @@ fn: function (anInteger){
 var self=this;
 smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionEnd_", [anInteger]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2083,7 +1922,6 @@ self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
                 electricChars: false,
 	});
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2095,7 +1933,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [""]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2109,7 +1946,6 @@ var selection=nil;
 smalltalk.send(smalltalk.send(self['@editor'], "_somethingSelected", []), "_ifFalse_ifTrue_", [(function(){return selection=smalltalk.send(self, "_currentLine", []);}), (function(){return selection=smalltalk.send(self, "_selection", []);})]);
 return smalltalk.send(self, "_eval_", [selection]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2127,7 +1963,6 @@ smalltalk.send(smalltalk.send(node, "_isParseFailure", []), "_ifTrue_", [(functi
 (function(){throw({name: 'stReturn', selector: '_eval_', fn: function(){return smalltalk.send(compiler, "_loadExpression_", [aString])}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_eval_'){return e.fn()} throw(e)}}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2155,7 +1990,6 @@ if(anEvent.ctrlKey) {
 		}
 	};
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2167,7 +2001,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_doIt", []), "_inspect", []);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2184,13 +2017,11 @@ stop=smalltalk.send(smalltalk.Dictionary, "_new", []);
 smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
 smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
 smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
-smalltalk.send(stop, "_at_put_", ["ch", smalltalk.send(smalltalk.send(smalltalk.send(start, "_at_", ["ch"]), "__plus", [smalltalk.send(aString, "_size", [])]), "__plus", [(2)])]);
+smalltalk.send(stop, "_at_put_", ["ch", (typeof ($receiver = (typeof ($receiver = smalltalk.send(start, "_at_", ["ch"])) === 'number') ? $receiver +smalltalk.send(aString, "_size", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(aString, "_size", [])])) === 'number') ? $receiver +(2) : smalltalk.send($receiver, "__plus", [(2)])]);
 smalltalk.send(self['@editor'], "_replaceSelection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@editor'], "_getSelection", []), "__comma", [" "]), "__comma", [aString]), "__comma", [" "])]);
 smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], "_getCursor_", [true])]);
 smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
-(function($rec){smalltalk.send($rec, "_log_", [start]);return smalltalk.send($rec, "_log_", [stop]);})(console);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2202,7 +2033,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_print_", [smalltalk.send(smalltalk.send(self, "_doIt", []), "_printString", [])]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2218,7 +2048,6 @@ smalltalk.send(self['@div'], "_with_", [(function(){return textarea=smalltalk.se
 smalltalk.send(self, "_setEditorOn_", [smalltalk.send(textarea, "_element", [])]);
 smalltalk.send(self['@div'], "_onKeyDown_", [(function(e){return smalltalk.send(self, "_handleKeyDown_", [e]);})]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2230,7 +2059,6 @@ fn: function (){
 var self=this;
 return self['@editor'];
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2242,7 +2070,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(self['@div'], "_onKeyUp_", [aBlock]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2254,7 +2081,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(self['@div'], "_onKeyDown_", [aBlock]);
 return self;}
-]
 }),
 smalltalk.SourceArea);
 
@@ -2269,7 +2095,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedCategory", []);
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2282,7 +2107,6 @@ var self=this;
 smalltalk.send(self['@nodes'], "_ifNil_", [(function(){return self['@nodes']=smalltalk.send(self, "_getNodes", []);})]);
 return self['@nodes'];
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2294,7 +2118,6 @@ fn: function (){
 var self=this;
 return self['@browser'];
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2306,7 +2129,6 @@ fn: function (aBrowser){
 var self=this;
 self['@browser']=aBrowser;
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2325,7 +2147,6 @@ others=[];
 smalltalk.send(classes, "_do_", [(function(each){return smalltalk.send(smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])]), "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]);})]);
 return smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send(smalltalk.ClassesListNode, "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, (0)]);})]);
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2337,7 +2158,6 @@ fn: function (){
 var self=this;
 self['@nodes']=nil;
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2350,7 +2170,6 @@ var self=this;
 self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", []));
 smalltalk.send(self, "_updateNodes", []);
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2362,7 +2181,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@ul'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);})]);
 return self;}
-]
 }),
 smalltalk.ClassesList);
 
@@ -2375,7 +2193,6 @@ fn: function (aBrowser){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_browser_", [aBrowser]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.ClassesList.klass);
 
@@ -2389,7 +2206,6 @@ fn: function (){
 var self=this;
 return self['@nodes'];
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2401,7 +2217,6 @@ fn: function (){
 var self=this;
 return self['@theClass'];
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2413,7 +2228,6 @@ fn: function (aClass){
 var self=this;
 self['@theClass']=aClass;
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2425,7 +2239,6 @@ fn: function (){
 var self=this;
 return self['@browser'];
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2437,7 +2250,6 @@ fn: function (aBrowser){
 var self=this;
 self['@browser']=aBrowser;
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2449,7 +2261,6 @@ fn: function (){
 var self=this;
 return self['@level'];
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2461,7 +2272,6 @@ fn: function (anInteger){
 var self=this;
 self['@level']=anInteger;
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2477,7 +2287,6 @@ smalltalk.send(smalltalk.send(self, "_level", []), "_timesRepeat_", [(function()
 smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_name", [])]);
 return smalltalk.send(str, "_contents", []);
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2494,7 +2303,6 @@ others=[];
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_superclass", []), "__eq", [smalltalk.send(self, "_theClass", [])]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]);})]);
 self['@nodes']=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send(smalltalk.ClassesListNode, "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, smalltalk.send(smalltalk.send(self, "_level", []), "__plus", [(1)])]);})]);
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2510,7 +2318,6 @@ smalltalk.send(smalltalk.send(li, "_asJQuery", []), "_contents_", [smalltalk.sen
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedClass", []), "__eq", [smalltalk.send(self, "_theClass", [])]), "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);
 smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
 return self;}
-]
 }),
 smalltalk.ClassesListNode);
 
@@ -2523,7 +2330,6 @@ fn: function (aClass, aBrowser, aCollection, anInteger){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_browser_", [aBrowser]);smalltalk.send($rec, "_level_", [anInteger]);smalltalk.send($rec, "_getNodesFrom_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.ClassesListNode.klass);
 
@@ -2537,7 +2343,6 @@ fn: function (){
 var self=this;
 return self['@error'];
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2549,7 +2354,6 @@ fn: function (anError){
 var self=this;
 self['@error']=anError;
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2561,7 +2365,6 @@ fn: function (){
 var self=this;
 return unescape("%5BDebugger%5D");
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2575,7 +2378,6 @@ self['@selectedContext']=aContext;
 smalltalk.send(self, "_updateContextsList", []);
 smalltalk.send(self, "_updateSourceArea", []);
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2587,7 +2389,6 @@ fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_renderTopPanelOn_", [html]);return smalltalk.send($rec, "_renderBottomPanelOn_", [html]);})(self);
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2600,7 +2401,6 @@ var self=this;
 self['@selectedContext']=smalltalk.send(smalltalk.send(self, "_error", []), "_context", []);
 (function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["label"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_error", []), "_messageText", [])]);})(smalltalk.send(html, "_div", []));return self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column debugger contexts"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(smalltalk.send(self, "_error", []), "_context", []), html]);})]);})(smalltalk.send(html, "_ul", []));})]);})(smalltalk.send(html, "_div", []));
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2616,7 +2416,6 @@ smalltalk.send(smalltalk.send(self['@selectedContext'], "__eq", [aContext]), "_i
 (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(aContext, "_asString", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectContext_", [aContext]);})]);})(li);
 smalltalk.send(smalltalk.send(aContext, "_home", []), "_ifNotNil_", [(function(){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(aContext, "_home", []), html]);})]);
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2629,7 +2428,6 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["jt_sourceCode"]);return smalltalk.send($rec, "_with_", [(function(){self['@sourceArea']=smalltalk.send(smalltalk.SourceArea, "_new", []);return smalltalk.send(self['@sourceArea'], "_renderOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 smalltalk.send(self, "_updateSourceArea", []);
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2641,7 +2439,6 @@ fn: function (){
 var self=this;
 return true;
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2653,7 +2450,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@ul'], "_contents_", [(function(html){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(smalltalk.send(self, "_error", []), "_context", []), html]);})]);
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2665,7 +2461,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@sourceArea'], "_val_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_methodAt_", [smalltalk.send(self['@selectedContext'], "_selector", [])]), "_source", [])]);
 return self;}
-]
 }),
 smalltalk.Debugger);
 
@@ -2680,7 +2475,6 @@ fn: function (anError){
 var self=this;
 smalltalk.send((function(){return (function($rec){smalltalk.send($rec, "_error_", [anError]);return smalltalk.send($rec, "_open", []);})(smalltalk.send(smalltalk.Debugger, "_new", []));}), "_on_do_", [smalltalk.Error, (function(error){return smalltalk.send(smalltalk.send(smalltalk.ErrorHandler, "_new", []), "_handleError_", [error]);})]);
 return self;}
-]
 }),
 smalltalk.DebugErrorHandler);
 
@@ -2693,7 +2487,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_register", []);
 return self;}
-]
 }),
 smalltalk.DebugErrorHandler.klass);
 
@@ -2706,7 +2499,6 @@ fn: function (){
 var self=this;
 (function($rec){smalltalk.send($rec, "_inspect_", [self]);return smalltalk.send($rec, "_open", []);})(smalltalk.send(smalltalk.Inspector, "_new", []));
 return self;}
-]
 }),
 smalltalk.Object);
 
@@ -2722,7 +2514,6 @@ smalltalk.send(variables, "_at_put_", [unescape("%23self"), self]);
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(self, "_instVarAt_", [each])]);})]);
 (function($rec){smalltalk.send($rec, "_setLabel_", [smalltalk.send(self, "_printString", [])]);return smalltalk.send($rec, "_setVariables_", [variables]);})(anInspector);
 return self;}
-]
 }),
 smalltalk.Object);
 
@@ -2744,7 +2535,6 @@ smalltalk.send(variables, "_at_put_", [unescape("%23seconds"), smalltalk.send(se
 smalltalk.send(variables, "_at_put_", [unescape("%23milliseconds"), smalltalk.send(self, "_milliseconds", [])]);
 (function($rec){smalltalk.send($rec, "_setLabel_", [smalltalk.send(self, "_printString", [])]);return smalltalk.send($rec, "_setVariables_", [variables]);})(anInspector);
 return self;}
-]
 }),
 smalltalk.Date);
 
@@ -2760,7 +2550,6 @@ smalltalk.send(variables, "_at_put_", [unescape("%23self"), self]);
 smalltalk.send(self, "_withIndexDo_", [(function(each, i){return smalltalk.send(variables, "_at_put_", [i, each]);})]);
 (function($rec){smalltalk.send($rec, "_setLabel_", [smalltalk.send(self, "_printString", [])]);return smalltalk.send($rec, "_setVariables_", [variables]);})(anInspector);
 return self;}
-]
 }),
 smalltalk.Collection);
 
@@ -2775,7 +2564,6 @@ smalltalk.send(self, "_inspectOn_", [anInspector], smalltalk.SequenceableCollect
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", []), "_size", []), "__gt", [(30)]), "_ifTrue_ifFalse_", [(function(){return label=smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", []), "_copyFrom_to_", [(1), (30)]), "__comma", [unescape("...%27")]);}), (function(){return label=smalltalk.send(self, "_printString", []);})]);
 smalltalk.send(anInspector, "_setLabel_", [label]);
 return self;}
-]
 }),
 smalltalk.String);
 
@@ -2795,7 +2583,6 @@ smalltalk.send(variables, "_at_put_", [unescape("%23temps"), smalltalk.send(self
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(self, "_instVarAt_", [each])]);})]);
 (function($rec){smalltalk.send($rec, "_setLabel_", [smalltalk.send(self, "_printString", [])]);return smalltalk.send($rec, "_setVariables_", [variables]);})(anInspector);
 return self;}
-]
 }),
 smalltalk.MethodContext);
 
@@ -2812,7 +2599,6 @@ smalltalk.send(variables, "_at_put_", [unescape("%23keys"), smalltalk.send(self,
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(variables, "_at_put_", [key, value]);})]);
 (function($rec){smalltalk.send($rec, "_setLabel_", [smalltalk.send(self, "_printString", [])]);return smalltalk.send($rec, "_setVariables_", [variables]);})(anInspector);
 return self;}
-]
 }),
 smalltalk.Dictionary);
 

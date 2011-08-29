@@ -7,7 +7,6 @@ fn: function (aString){
 var self=this;
 self.fillStyle = String(aString);
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -19,7 +18,6 @@ fn: function (){
 var self=this;
 self.beginPath();
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -31,7 +29,6 @@ fn: function (){
 var self=this;
 self.closePath();
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -43,7 +40,6 @@ fn: function (){
 var self=this;
 self.fill();
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -55,7 +51,6 @@ fn: function (){
 var self=this;
 self.stroke();
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -67,7 +62,6 @@ fn: function (aPoint){
 var self=this;
 self.moveTo(aPoint._x(), aPoint._y());
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -79,7 +73,6 @@ fn: function (aPoint){
 var self=this;
 self.lineTo(aPoint._x(), aPoint._y());
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -91,7 +84,6 @@ fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean){
 var self=this;
 self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -103,7 +95,6 @@ fn: function (aPoint, aNumber){
 var self=this;
 smalltalk.send(self, "_arcTo_radius_startAngle_endAngle_anticlockwise_", [aPoint, aNumber, (0), smalltalk.send(smalltalk.send(smalltalk.Number, "_pi", []), "__star", [(2)]), false]);
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -115,7 +106,6 @@ fn: function (aPoint, anotherPoint){
 var self=this;
 self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -127,7 +117,6 @@ fn: function (aPoint, anotherPoint){
 var self=this;
 self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -139,7 +128,6 @@ fn: function (aPoint, anotherPoint){
 var self=this;
 self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -151,7 +139,6 @@ fn: function (aString){
 var self=this;
 self.strokeStyle = String(aString);
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -163,7 +150,6 @@ fn: function (aNumber){
 var self=this;
 self.lineWidth = aNumber;
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -176,7 +162,6 @@ fn: function (aTagBrush){
 var self=this;
 return aTagBrush._element().getContext('2d');
 return self;}
-]
 }),
 smalltalk.CanvasRenderingContext.klass);
 
@@ -190,7 +175,6 @@ fn: function (aTagBrush){
 var self=this;
 self['@root']=aTagBrush;
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -202,7 +186,6 @@ fn: function (){
 var self=this;
 return self['@root'];
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -215,7 +198,6 @@ var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
 smalltalk.send(self['@root'], "_ifNil_", [(function(){return self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", ["div", self]);})]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -227,7 +209,6 @@ fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_root", []), "_with_", [anObject]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -239,7 +220,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", [aString, self]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -251,7 +231,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(self['@root'], "_addBrush_", [smalltalk.send(self, "_newTag_", [aString])]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -263,7 +242,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h1"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -275,7 +253,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h2"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -287,7 +264,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h3"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -299,7 +275,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h4"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -311,7 +286,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h5"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -323,7 +297,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h6"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -335,7 +308,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["p"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -347,7 +319,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["div"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -359,7 +330,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["span"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -371,7 +341,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["img"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -383,7 +352,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["ul"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -395,7 +363,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["ol"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -407,7 +374,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["li"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -419,7 +385,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["table"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -431,7 +396,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["tr"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -443,7 +407,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["td"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -455,7 +418,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["th"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -467,7 +429,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["form"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -479,7 +440,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["input"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -491,7 +451,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["button"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -503,7 +462,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["select"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -515,7 +473,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["option"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -527,7 +484,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["textarea"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -539,7 +495,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["a"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -551,7 +506,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["canvas"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -563,7 +517,6 @@ fn: function (aJQuery){
 var self=this;
 self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromJQuery_canvas_", [aJQuery, self]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -575,7 +528,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["pre"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -587,7 +539,6 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["code"]);
 return self;}
-]
 }),
 smalltalk.HTMLCanvas);
 
@@ -599,7 +550,28 @@ fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["br"]);
 return self;}
-]
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_script',
+smalltalk.method({
+selector: 'script',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["script"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_link',
+smalltalk.method({
+selector: 'link',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["link"]);
+return self;}
 }),
 smalltalk.HTMLCanvas);
 
@@ -612,7 +584,6 @@ fn: function (aJQuery){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_", [aJQuery]);smalltalk.send($rec, "_initialize", []);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_basicNew", []));
 return self;}
-]
 }),
 smalltalk.HTMLCanvas.klass);
 
@@ -627,7 +598,6 @@ var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
 smalltalk.send(self, "_append_", [anObject]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -640,7 +610,6 @@ var self=this;
 smalltalk.send(self, "_appendChild_", [smalltalk.send(aTagBrush, "_element", [])]);
 return aTagBrush;
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -652,7 +621,6 @@ fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_append_", [anObject]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -664,7 +632,6 @@ fn: function (anObject){
 var self=this;
 smalltalk.send(anObject, "_appendToBrush_", [self]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -676,7 +643,6 @@ fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_addBrush_", [self]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -692,7 +658,6 @@ smalltalk.send(self['@canvas'], "_root_", [self]);
 smalltalk.send(aBlock, "_value_", [self['@canvas']]);
 smalltalk.send(self['@canvas'], "_root_", [root]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -704,7 +669,6 @@ fn: function (anElement){
 var self=this;
 self['@element'].appendChild(anElement);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -716,7 +680,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_appendChild_", [smalltalk.send(self, "_createTextNodeFor_", [aString])]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -728,7 +691,6 @@ fn: function (aString, aValue){
 var self=this;
 self['@element'].setAttribute(aString, aValue);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -740,7 +702,6 @@ fn: function (aString){
 var self=this;
 self['@element'].removeAttribute(aString);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -752,7 +713,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["class", aString]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -764,7 +724,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["id", aString]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -776,7 +735,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["src", aString]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -788,7 +746,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["href", aString]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -800,7 +757,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["title", aString]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -812,7 +768,6 @@ fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["style", aString]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -825,7 +780,6 @@ var self=this;
 self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
 self['@canvas']=aCanvas;
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -837,7 +791,6 @@ fn: function (){
 var self=this;
 return self['@element'];
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -849,7 +802,6 @@ fn: function (){
 var self=this;
 return smalltalk.JQuery._from_(jQuery(self['@element']));
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -861,7 +813,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_asJQuery", [])]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -873,7 +824,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["keydown", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -885,7 +835,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["keypress", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -897,7 +846,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["keyup", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -909,7 +857,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["focus", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -921,7 +868,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["blur", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -933,7 +879,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["change", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -945,7 +890,6 @@ fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["click", aBlock]);
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -957,7 +901,6 @@ fn: function (aString){
 var self=this;
 return document.createElement(String(aString));
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -969,7 +912,6 @@ fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
 return self;}
-]
 }),
 smalltalk.TagBrush);
 
@@ -982,7 +924,39 @@ var self=this;
 self['@element']=smalltalk.send(smalltalk.send(aJQuery, "_jquery", []), "_get_", [(0)]);
 self['@canvas']=aCanvas;
 return self;}
-]
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_type_',
+smalltalk.method({
+selector: 'type:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["type", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_media_',
+smalltalk.method({
+selector: 'media:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["media", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_rel_',
+smalltalk.method({
+selector: 'rel:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["rel", aString]);
+return self;}
 }),
 smalltalk.TagBrush);
 
@@ -995,7 +969,6 @@ fn: function (aString, aCanvas){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", [aString, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.TagBrush.klass);
 
@@ -1007,7 +980,6 @@ fn: function (aJQuery, aCanvas){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_canvas_", [aJQuery, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.TagBrush.klass);
 
@@ -1021,7 +993,6 @@ fn: function (aTagBrush){
 var self=this;
 smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1033,7 +1004,6 @@ fn: function (aJQuery){
 var self=this;
 smalltalk.send(self, "_renderOn_", [smalltalk.send(smalltalk.HTMLCanvas, "_onJQuery_", [aJQuery])]);
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1045,7 +1015,6 @@ fn: function (aString){
 var self=this;
 alert(aString);
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1057,7 +1026,6 @@ fn: function (aString){
 var self=this;
 return window.confirm(aString);
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1069,7 +1037,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_prompt_default_", [aString, ""]);
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1081,7 +1048,6 @@ fn: function (aString, anotherString){
 var self=this;
 return window.prompt(aString, anotherString);
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1093,7 +1059,6 @@ fn: function (html){
 var self=this;
 self;
 return self;}
-]
 }),
 smalltalk.Widget);
 
@@ -1108,7 +1073,6 @@ fn: function (){
 var self=this;
 return document.createElement('canvas');
 return self;}
-]
 }),
 smalltalk.CanvasBrush);
 
@@ -1120,7 +1084,6 @@ fn: function (aCanvas){
 var self=this;
 canvas=aCanvas;
 return self;}
-]
 }),
 smalltalk.CanvasBrush);
 
@@ -1133,7 +1096,6 @@ fn: function (aCanvas){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeWithCanvas_", [aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
-]
 }),
 smalltalk.CanvasBrush.klass);
 
@@ -1146,7 +1108,6 @@ fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_append_", [smalltalk.send(self, "_asString", [])]);
 return self;}
-]
 }),
 smalltalk.Object);
 
@@ -1158,7 +1119,6 @@ fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_appendBlock_", [self]);
 return self;}
-]
 }),
 smalltalk.BlockClosure);
 
@@ -1170,7 +1130,6 @@ fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_appendString_", [self]);
 return self;}
-]
 }),
 smalltalk.String);
 
