@@ -701,7 +701,7 @@ smalltalk.method({
 selector: 'classes',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [self['@selectedCategory']]);})]), "_sort_", [(function(a, b){return smalltalk.send(smalltalk.send(a, "_name", []), "__gt", [smalltalk.send(b, "_name", [])]);})]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [self['@selectedCategory']]);})]), "_sort_", [(function(a, b){return smalltalk.send(smalltalk.send(a, "_name", []), "__lt", [smalltalk.send(b, "_name", [])]);})]);
 return self;}
 ]
 }),
@@ -731,7 +731,7 @@ var self=this;
 try{var klass=nil;
 smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["comment"]), "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return []}})})();})]);
 smalltalk.send(self['@selectedClass'], "_ifNotNil_", [(function(){return klass=smalltalk.send(smalltalk.send(self['@selectedTab'], "__eq", ["instance"]), "_ifTrue_ifFalse_", [(function(){return self['@selectedClass'];}), (function(){return smalltalk.send(self['@selectedClass'], "_class", []);})]);})]);
-(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return smalltalk.send(smalltalk.send(self['@selectedProtocol'], "_ifNil_ifNotNil_", [(function(){return smalltalk.send(klass, "_ifNil_ifNotNil_", [(function(){return [];}), (function(){return smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_values", []);})]);}), (function(){return smalltalk.send(smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_values", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [self['@selectedProtocol']]);})]);})]), "_sort_", [(function(a, b){return smalltalk.send(smalltalk.send(a, "_selector", []), "__gt", [smalltalk.send(b, "_selector", [])]);})])}})})();
+(function(){throw({name: 'stReturn', selector: '_methods', fn: function(){return smalltalk.send(smalltalk.send(self['@selectedProtocol'], "_ifNil_ifNotNil_", [(function(){return smalltalk.send(klass, "_ifNil_ifNotNil_", [(function(){return [];}), (function(){return smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_values", []);})]);}), (function(){return smalltalk.send(smalltalk.send(smalltalk.send(klass, "_methodDictionary", []), "_values", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [self['@selectedProtocol']]);})]);})]), "_sort_", [(function(a, b){return smalltalk.send(smalltalk.send(a, "_selector", []), "__lt", [smalltalk.send(b, "_selector", [])]);})])}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_methods'){return e.fn()} throw(e)}}
 ]

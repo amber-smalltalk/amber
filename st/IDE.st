@@ -384,7 +384,7 @@ categories
 classes
     ^(Smalltalk current classes 
 	select: [:each | each category = selectedCategory])
-	sort: [:a :b | a name > b name]
+	sort: [:a :b | a name < b name]
 !
 
 protocols
@@ -414,7 +414,7 @@ methods
 		ifNotNil: [klass methodDictionary values]]
 	ifNotNil: [
 	    klass methodDictionary values select: [:each |
-		each category = selectedProtocol]]) sort: [:a :b | a selector > b selector]
+		each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]
 !
 
 source
