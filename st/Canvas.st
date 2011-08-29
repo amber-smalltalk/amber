@@ -229,6 +229,10 @@ script
 
 link
     ^self tag: 'link'
+!
+
+style
+	^self tag: 'style'
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!

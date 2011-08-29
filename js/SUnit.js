@@ -128,10 +128,10 @@ selector: 'performTestFor:',
 category: 'running',
 fn: function (aResult){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [each]);}), "_on_do_", [smalltalk.TestFailure, (function(ex){return smalltalk.send(aResult, "_addFailure_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each])]);})]);}), "_on_do_", [smalltalk.Error, (function(ex){return smalltalk.send(aResult, "_addError_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each])]);})]);return smalltalk.send(aResult, "_increaseRuns", []);})]);
+smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [each]);}), "_on_do_", [smalltalk.TestFailure, (function(ex){return smalltalk.send(aResult, "_addFailure_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each]), "__comma", [": "]), "__comma", [smalltalk.send(ex, "_messageText", [])])]);})]);}), "_on_do_", [smalltalk.Error, (function(ex){return smalltalk.send(aResult, "_addError_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each]), "__comma", [": "]), "__comma", [smalltalk.send(ex, "_messageText", [])])]);})]);return smalltalk.send(aResult, "_increaseRuns", []);})]);
 return self;},
-source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%5D.%0A%09%09aResult%20increaseRuns%5D'),
-messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "addError:", "increaseRuns"],
+source: unescape('performTestFor%3A%20aResult%0A%09self%20methods%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09%5B%5Bself%20perform%3A%20each%5D%0A%09%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%2C%20%27%3A%20%27%2C%20ex%20messageText%5D%5D%0A%09%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%20class%20name%2C%20%27%3E%3E%27%2C%20each%2C%20%27%3A%20%27%2C%20ex%20messageText%5D.%0A%09%09aResult%20increaseRuns%5D'),
+messageSends: ["do:", "methods", "on:do:", "perform:", "addFailure:", unescape("%2C"), "name", "class", "messageText", "addError:", "increaseRuns"],
 referencedClasses: [smalltalk.nil,smalltalk.Error]
 }),
 smalltalk.TestCase);
@@ -143,10 +143,10 @@ selector: 'assert:',
 category: 'testing',
 fn: function (aBoolean){
 var self=this;
-smalltalk.send(aBoolean, "_ifFalse_", [(function(){return smalltalk.send(self, "_signalFailure_", ["Assertion failed"]);})]);
+smalltalk.send(self, "_assert_description_", [aBoolean, "Assertion failed"]);
 return self;},
-source: unescape('assert%3A%20aBoolean%0A%09aBoolean%20ifFalse%3A%20%5Bself%20signalFailure%3A%20%27Assertion%20failed%27%5D'),
-messageSends: ["ifFalse:", "signalFailure:"],
+source: unescape('assert%3A%20aBoolean%0A%09self%20assert%3A%20aBoolean%20description%3A%20%27Assertion%20failed%27'),
+messageSends: ["assert:description:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -173,10 +173,25 @@ selector: 'assert:equals:',
 category: 'testing',
 fn: function (expected, actual){
 var self=this;
-return smalltalk.send(self, "_assert_", [smalltalk.send(expected, "__eq", [actual])]);
+return smalltalk.send(self, "_assert_description_", [smalltalk.send(expected, "__eq", [actual]), smalltalk.send(smalltalk.send(smalltalk.send("Expected: ", "__comma", [smalltalk.send(expected, "_asString", [])]), "__comma", [" but was: "]), "__comma", [smalltalk.send(actual, "_asString", [])])]);
 return self;},
-source: unescape('assert%3A%20expected%20equals%3A%20actual%0A%09%5E%20self%20assert%3A%20%28expected%20%3D%20actual%29'),
-messageSends: ["assert:", unescape("%3D")],
+source: unescape('assert%3A%20expected%20equals%3A%20actual%0A%09%5E%20self%20assert%3A%20%28expected%20%3D%20actual%29%20description%3A%20%27Expected%3A%20%27%2C%20expected%20asString%2C%20%27%20but%20was%3A%20%27%2C%20actual%20asString'),
+messageSends: ["assert:description:", unescape("%3D"), unescape("%2C"), "asString"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_assert_description_',
+smalltalk.method({
+selector: 'assert:description:',
+category: 'testing',
+fn: function (aBoolean, aString){
+var self=this;
+smalltalk.send(aBoolean, "_ifFalse_", [(function(){return smalltalk.send(self, "_signalFailure_", [aString]);})]);
+return self;},
+source: unescape('assert%3A%20aBoolean%20description%3A%20aString%0A%09aBoolean%20ifFalse%3A%20%5Bself%20signalFailure%3A%20aString%5D'),
+messageSends: ["ifFalse:", "signalFailure:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
