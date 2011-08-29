@@ -76,24 +76,6 @@ assert: aBoolean description: aString
 	aBoolean ifFalse: [self signalFailure: aString]
 ! !
 
-TestCase subclass: #ExampleTest
-	instanceVariableNames: 'test'
-	category: 'SUnit'!
-
-!ExampleTest methodsFor: 'not yet classified'!
-
-testFailure
-	self deny: true
-!
-
-testPasses
-	100000 timesRepeat: [self assert: 1 + 1 = 2]
-!
-
-testError
-	self assert: 1 foo
-! !
-
 TabWidget subclass: #ProgressBar
 	instanceVariableNames: 'percent progressDiv div'
 	category: 'SUnit'!
@@ -438,25 +420,5 @@ initialize
 	errors := Array new.
 	failures := Array new.
 	total := 0
-! !
-
-TestCase subclass: #ExampleTest2
-	instanceVariableNames: ''
-	category: 'SUnit'!
-
-!ExampleTest2 methodsFor: 'not yet classified'!
-
-testPasses
-	100000 timesRepeat: [self assert: 1 + 1 = 2]
-! !
-
-TestCase subclass: #ExampleTest3
-	instanceVariableNames: ''
-	category: 'SUnit'!
-
-!ExampleTest3 methodsFor: 'not yet classified'!
-
-testPasses
-	100000 timesRepeat: [self assert: 1 + 1 = 2]
 ! !
 

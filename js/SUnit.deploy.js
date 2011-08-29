@@ -146,42 +146,6 @@ smalltalk.TestCase);
 
 
 
-smalltalk.addClass('ExampleTest', smalltalk.TestCase, ['test'], 'SUnit');
-smalltalk.addMethod(
-'_testFailure',
-smalltalk.method({
-selector: 'testFailure',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_deny_", [true]);
-return self;}
-}),
-smalltalk.ExampleTest);
-
-smalltalk.addMethod(
-'_testPasses',
-smalltalk.method({
-selector: 'testPasses',
-fn: function (){
-var self=this;
-smalltalk.send((100000), "_timesRepeat_", [(function(){return smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "__plus", [(1)]), "__eq", [(2)])]);})]);
-return self;}
-}),
-smalltalk.ExampleTest);
-
-smalltalk.addMethod(
-'_testError',
-smalltalk.method({
-selector: 'testError',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send((1), "_foo", [])]);
-return self;}
-}),
-smalltalk.ExampleTest);
-
-
-
 smalltalk.addClass('ProgressBar', smalltalk.TabWidget, ['percent', 'progressDiv', 'div'], 'SUnit');
 smalltalk.addMethod(
 '_percent',
@@ -780,34 +744,6 @@ self['@total']=(0);
 return self;}
 }),
 smalltalk.TestResult);
-
-
-
-smalltalk.addClass('ExampleTest2', smalltalk.TestCase, [], 'SUnit');
-smalltalk.addMethod(
-'_testPasses',
-smalltalk.method({
-selector: 'testPasses',
-fn: function (){
-var self=this;
-smalltalk.send((100000), "_timesRepeat_", [(function(){return smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "__plus", [(1)]), "__eq", [(2)])]);})]);
-return self;}
-}),
-smalltalk.ExampleTest2);
-
-
-
-smalltalk.addClass('ExampleTest3', smalltalk.TestCase, [], 'SUnit');
-smalltalk.addMethod(
-'_testPasses',
-smalltalk.method({
-selector: 'testPasses',
-fn: function (){
-var self=this;
-smalltalk.send((100000), "_timesRepeat_", [(function(){return smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "__plus", [(1)]), "__eq", [(2)])]);})]);
-return self;}
-}),
-smalltalk.ExampleTest3);
 
 
 
