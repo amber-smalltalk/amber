@@ -783,6 +783,21 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_style',
+smalltalk.method({
+selector: 'style',
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["style"]);
+return self;},
+source: unescape('style%0A%09%5Eself%20tag%3A%20%27style%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
