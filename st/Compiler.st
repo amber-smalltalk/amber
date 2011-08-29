@@ -637,7 +637,7 @@ inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
           		self visit: anObject.
           		stream nextPutAll: ') == nil || $receiver == undefined) ? '.
                   	self visit: aCollection first.
-                  	stream nextPutAll: '() : nil'.
+                  	stream nextPutAll: '() : $receiver'.
                   	inlined := true]].
 
 	(aSelector = 'ifNotNil:') ifTrue: [
@@ -781,6 +781,12 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
         ^inlined
 ! !
 
+!Compiler methodsFor: 'testing'!
+
+performOptimizations
+	^self class performOptimizations
+! !
+
 !Compiler methodsFor: 'visiting'!
 
 visit: aNode
@@ -903,11 +909,14 @@ visitSendNode: aNode
         superSend := stream contents = 'super'.
         receiver := superSend ifTrue: ['self'] ifFalse: [stream contents].
         stream := str.
-
-	(self inlineLiteral: aNode selector receiverNode: aNode receiver argumentNodes: aNode arguments) ifFalse: [
-		(self inline: aNode selector receiver: receiver argumentNodes: aNode arguments)
-                	ifTrue: [stream nextPutAll: ' : ', (self send: aNode selector to: '$receiver' arguments: aNode arguments superSend: superSend)]
-                	ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]]
+	
+	self performOptimizations 
+		ifTrue: [
+			(self inlineLiteral: aNode selector receiverNode: aNode receiver argumentNodes: aNode arguments) ifFalse: [
+				(self inline: aNode selector receiver: receiver argumentNodes: aNode arguments)
+                			ifTrue: [stream nextPutAll: ' : ', (self send: aNode selector to: '$receiver' arguments: aNode arguments superSend: superSend)]
+                			ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]]]
+		ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]
 !
 
 visitCascadeNode: aNode
@@ -981,6 +990,18 @@ send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
 		str nextPutAll: ')']
 ! !
 
+Compiler class instanceVariableNames: 'performOptimizations'!
+
+!Compiler class methodsFor: 'accessing'!
+
+performOptimizations
+	^performOptimizations ifNil: [true]
+!
+
+performOptimizations: aBoolean
+	performOptimizations := aBoolean
+! !
+
 !Compiler class methodsFor: 'compiling'!
 
 recompile: aClass
@@ -1002,6 +1023,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[Date millisecondsToRun: [Compiler new compile: (SmalltalkParser methodDictionary at: 'parser') source forClass: SmalltalkParser]] value
+doIt ^[Compiler performOptimizations: false.] value
 ! !
 
