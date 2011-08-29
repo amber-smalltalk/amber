@@ -384,7 +384,7 @@ categories
 classes
     ^(Smalltalk current classes 
 	select: [:each | each category = selectedCategory])
-	sort: [:a :b | a name > b name]
+	sort: [:a :b | a name < b name]
 !
 
 protocols
@@ -414,7 +414,7 @@ methods
 		ifNotNil: [klass methodDictionary values]]
 	ifNotNil: [
 	    klass methodDictionary values select: [:each |
-		each category = selectedProtocol]]) sort: [:a :b | a selector > b selector]
+		each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]
 !
 
 source
@@ -517,14 +517,12 @@ showMethodButtons
 
 compile
     self disableSaveButton.
-    selectedTab = #comment
-	ifTrue: [
-		selectedClass ifNotNil: [
-	    		self compileClassComment]]
-	ifFalse: [ 
-  		  (selectedProtocol notNil or: [selectedMethod notNil])
-			ifFalse: [self compileDefinition]
-			ifTrue: [self compileMethodDefinition]].
+    selectedTab = #comment ifTrue: [
+	selectedClass ifNotNil: [
+	    self compileClassComment]].
+    (selectedProtocol notNil or: [selectedMethod notNil])
+	ifFalse: [self compileDefinition]
+	ifTrue: [self compileMethodDefinition]
 !
 
 compileClassComment
@@ -576,7 +574,7 @@ commitCategory
 	    send.
 	(Ajax url: self class commitPathJs, '/', selectedCategory, '.deploy.js')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
+	    at: 'data' put: (StrippedExporter new exportCategory: selectedCategory);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
 	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')

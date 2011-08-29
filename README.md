@@ -12,16 +12,17 @@ Jtalk is written in itself, including the parser and compiler. Jtalk compiles in
 
 Some highlights:
 
--    Jtalk features an IDE with a Class browser, workspace and transcript
--    [Pharo Smalltalk](http://www.pharo-project.org) is considered as the reference implementation
+-    Jtalk features an IDE with a Class browser, Workspace, Transcript, a ReferencesBrowser supporting senders/implementors and class references, basic Inspector and even a beginning of a Debugger and a unit TestRunner.
+-    [Pharo Smalltalk](http://www.pharo-project.org) is considered as the reference implementation.
 -    Jtalk includes a canvas to generate HTML, like [Seaside](http://www.seaside.st)
--    Jtalk includes a [jQuery](http://www.jquery.com) binding
+-    Jtalk can use Javascript libraries and the current IDE is built on [jQuery](http://www.jquery.com)
+-    You can inline Javascript code and there are many ways to interact between Jtalk and Javascript
 
 How to commit changes from the web-based IDE
 --------------------------------------------
 
 The Jtalk class browser is able to commit changes to disk.
-The "commit category" button will send a PUT request with the JS code of all classes in the selected class category in a file named js/CATEGORY.js
+The "commit category" button will send a PUT request with the JS code of all classes in the selected class category in a file named js/CATEGORY.js and also send the corresponding .st files to the st directory.
 
 The easiest way to enable committing is probably to setup a webdav with Apache.
 
@@ -70,7 +71,7 @@ Make sure the group www-data has required rights to modify files in the webdav d
 License
 -------
 
-Jtalk is released under the MIT license.
+Jtalk is released under the MIT license. All contributions made for inclusion are considered to be under MIT.
 
 More infos
 ----------

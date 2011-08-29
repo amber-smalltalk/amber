@@ -2,16 +2,25 @@
 #
 # This is a "compiler" for JTalk code. Run without arguments for help.
 
-# Get JTalk root directory from the location of this script.
-JTALK=$(readlink -f `dirname ${0}`/..)
+# Get JTalk root directory from the location of this script so that
+# we can find the st and js directories etc.
+
+# Earlier we used this but it does not work on Mac
+# JTALK=$(readlink -f `dirname ${0}`/..)
+TARGET=`dirname ${0}`/..
+pushd . >/dev/null
+cd $TARGET
+JTALK="`\pwd -P`"
+popd >/dev/null
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
-          [-i] [-I file] file1 [file2 ...] [Program]
+Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-d] [-s suffix] [-m class] [-M file]
+          [-i] [-I file] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
-   program. Files listed will be handled using these rules:
+   program. If no files are listed only a linking stage is performed.
+   Files listed will be handled using these rules:
 
    *.js
      Files are concatenated in listed order.
@@ -30,14 +39,17 @@ Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
 
   -N or -D or -E
      Compilation target. Currently Node.js, D8 (V8 shell) or Enyo (webOS 3.0).
-     All imply "-K -I" so boot.js and Kernel.js are added first and init.js
+     All currentl imply "-K -I" so boot.js and Kernel.js are added first and init.js
      is added last.
 
   -K
-     Add libraries to get minimal JTalk Kernel running.
+     Add libraries to get minimal Jtalk Kernel running.
 
   -C
-     Add libraries to get minimal JTalk Compiler running.
+     Add libraries to get minimal Jtalk Compiler running.
+
+  -J
+     Add libraries to get minimal Jtalk IDE running.
 
   -o
      Optimize each js file using the Google closure compiler.
@@ -45,19 +57,32 @@ Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
 
   -O
      Optimize final <Program>.js using the Google closure compiler.
-     Using Closure at ~/compiler.jar    
+     Using Closure at ~/compiler.jar
+
+  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS 
+
+  -d
+     Additionally export code for deploy - stripped from source etc.
+     Uses suffix ".deploy.js" in addition to any explicit given suffic using -s.
+
+  -s suffix
+     Add <suffix> to compiled js files so that File.st is compiled into
+     File.<suffix>.js.
+
+  -S suffix
+     Use <suffix> for all libraries accessed using -l or -L and other options.
 
   -l library1,library2
-     Load listed libraries (no spaces) into Compiler before compiling.
+     Load listed libraries (no spaces or .js) into Compiler before compiling.
 
   -L library1,library2
-     Load listed libraries (no spaces) into Compiler before compiling and also
-     into Program.js in listed order.
+     Load listed libraries (no spaces or .js) into Compiler before compiling
+     and also into Program.js in listed order.
 
-  -i
+  -i file
      Add library initializer <file>.
 
-  -I file
+  -I
      Add library standard initializer $JTALK/js/init.js  
 
   -m class
@@ -74,8 +99,8 @@ Usage: $0 [-N|D|E] [-K|C] [-o] [-O] [-m class] [-M file]
         jtalkc Kernel.st
 
      Compile Hello.st to Hello.js and create complete program called
-     Program.js for Node.js including boot.js, Kernel.js, init.js and
-     adding a call to class method #main in class Hello:
+     Program.js for Node.js and adding a call to class method #main
+     in class Hello:
 
         jtalkc -N -m Hello Hello.st Program
 
@@ -95,25 +120,32 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-BOOT="$JTALK/js/boot.js"
-KERNEL="$BOOT $JTALK/js/Kernel.js"
-COMPILER="$KERNEL $JTALK/js/Parser.js $JTALK/js/Compiler.js"
-KITCHENSINK="$COMPILER $JTALK/js/Canvas.js"
+BOOT="boot"
+KERNEL="$BOOT Kernel"
+COMPILER="$KERNEL Parser Compiler"
+CANVAS="$COMPILER Canvas"
+IDE="$CANVAS JQuery IDE SUnit Examples"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
 
 # Default values
 ENV=
-INIT=
+INIT=$INITIALIZER
 MAIN=
 MAINFILE=
 BASE=$KERNEL
 LOAD=
 LOADANDADD=
+CLOSUREOPTS=
+# Ok, bad coding practice but hey, who would use such a suffix?
+SUFFIX=no-silly-suffix
+SUFFIXUSED=
+DEPLOY=false
+NODECOMPILE=nodecompile
 
 # Read options and shift them away
-while getopts "NDEKCoOl:L:i:IM:m:h?" o; do
+while getopts "NDEKCJoOAdS:s:l:L:i:IM:m:h?" o; do
 case "$o" in
    N) ENV=NODE
       BASE=$KERNEL
@@ -121,15 +153,24 @@ case "$o" in
    D) ENV=D8
       BASE=$KERNEL
       INIT=$INITIALIZER;;
-   D) ENV=ENYO
+   E) ENV=ENYO
       BASE=$KERNEL
       INIT=$INITIALIZER;;
    K) BASE=$KERNEL;;
    C) BASE=$COMPILER;;
+   J) BASE=$IDE;;
    o) CLOSURE=true
       CLOSUREPARTS=true;;
    O) CLOSURE=true
       CLOSUREFULL=true;;
+   A) CLOSURE=true
+      CLOSUREOPTS="$CLOSUREOPTS --compilation_level ADVANCED_OPTIMIZATIONS"
+      CLOSUREFULL=true;;
+   d) DEPLOY=true;;
+   S) LOADSUFFIX=$OPTARG
+      SUFFIXUSED=$SUFFIX;;
+   s) SUFFIX=$OPTARG
+      SUFFIXUSED=$SUFFIX;;
    l) LOAD=$OPTARG;;
    L) LOADANDADD=$OPTARG;;
    I) INIT=$INITIALIZER;;
@@ -151,26 +192,34 @@ if [ ! -z $CLOSURE ]; then
       exit 1
     fi
   else
-   echo "java is not installed and is needed for -O or -o (Closure compiler)."
+   echo "java is not installed and is needed for -O, -A or -o (Closure compiler)."
    exit 1
   fi
 fi
 
 # Function for looking up listed js files
 function resolvejs {
-  if [ -f "$1" ]; then
-    RESOLVED="$1" 
+  FNAME="$1$LOADSUFFIX.js"
+  if [ -f $FNAME ]; then
+    RESOLVED="$FNAME" 
   else
-    if [ -f $JTALK/js/$1 ]; then
-      RESOLVED="$JTALK/js/$1"
+    if [ -f $JTALK/js/$FNAME ]; then
+      RESOLVED="$JTALK/js/$FNAME"
     else
-      echo "Javascript file not found: $1"
+      echo "Javascript file not found: $FNAME"
       exit 1
     fi
   fi
 }
 
-# Resolve listed libraries in $LOAD separated by spaces
+# Resolve listed libraries in $BASE deparated by spaces
+for FILE in $BASE
+do
+   resolvejs $FILE
+   TOBASE="$TOBASE $RESOLVED"
+done
+
+# Resolve listed libraries in $LOAD separated by ,
 LOAD=${LOAD//,/\ }
 for FILE in $LOAD
 do
@@ -178,7 +227,7 @@ do
    TOLOAD="$TOLOAD $RESOLVED"
 done
 
-# Resolve listed libraries in $LOADANDADD separated by spaces
+# Resolve listed libraries in $LOADANDADD separated by ,
 LOADANDADD=${LOADANDADD//,/\ }
 for FILE in $LOADANDADD
 do
@@ -188,13 +237,20 @@ do
 done
 
 # Define our Compiler loading supplied libraries
-OURCOMPILER="$KITCHENSINK $TOLOAD $JTALK/js/init.js $JTALK/nodejs/nodecompile.js"
+OURCOMPILER="$COMPILER $TOLOAD init $JTALK/bin/$NODECOMPILE"
+
+# Resolve OURCOMPILER
+for FILE in $OURCOMPILER
+do
+   resolvejs $FILE
+   TOOURCOMPILER="$TOOURCOMPILER $RESOLVED"
+done
 
 # Add supplied libraries
-LIBS="$BASE $TOADD"
+LIBS="$TOBASE $TOADD"
 
 # Get a unique tempdir and make it get auto removed on exit
-TMPDIR=`mktemp -d`
+TMPDIR=`mktemp -d jtalkc.XXXXXX`
 trap "rm -rf $TMPDIR" EXIT
 
 
@@ -210,11 +266,11 @@ do
         CATEGORY=`basename $1 .st`
         if [ -f "$1" ]; then
            COMPILE="$COMPILE $1 $CATEGORY"
-           COMPILED="$COMPILED $CATEGORY.js"
+           COMPILED="$COMPILED $CATEGORY$SUFFIXUSED.js"
         else
            if [ -f $JTALK/st/$1 ]; then
              COMPILE="$COMPILE $JTALK/st/$1 $CATEGORY"
-             COMPILED="$COMPILED $CATEGORY.js"
+             COMPILED="$COMPILED $CATEGORY$SUFFIXUSED.js"
            else
              echo "JTalk file not found: $1"
              exit 1
@@ -239,11 +295,11 @@ done
 # --------------------------------------------------
 
 # Create compiler dynamically
-cat $OURCOMPILER > $TMPDIR/compiler.js
-
+cat $TOOURCOMPILER > $TMPDIR/compiler.js
+ 
 # Compile all collected .st files to .js
-echo "Loading libraries $KITCHENSINK $TOLOAD and compiling ..."
-node $TMPDIR/compiler.js $COMPILE
+echo "Loading libraries $TOOURCOMPILER and compiling ..."
+node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "
@@ -262,7 +318,7 @@ if [ ! -z $CLOSUREPARTS ]; then
   for FILE in $ALLJSFILES
   do
     mv $FILE $FILE.original
-    java -jar ~/compiler.jar --js $FILE.original --js_output_file $FILE
+    java -jar ~/compiler.jar $CLOSUREOPTS --js $FILE.original --js_output_file $FILE
     rm $FILE.original
   done
 fi
@@ -323,7 +379,7 @@ echo "Done."
 if [ ! -z $CLOSUREFULL ]; then
   echo "Compiling $PROGRAM.js file using Google closure compiler."
   mv $PROGRAM.js $PROGRAM.js.original
-  java -jar ~/compiler.jar --js $PROGRAM.js.original --js_output_file $PROGRAM.js
+  java -jar ~/compiler.jar $CLOSUREOPTS --js $PROGRAM.js.original --js_output_file $PROGRAM.js
   rm $PROGRAM.js.original
   echo "Done."
 fi
