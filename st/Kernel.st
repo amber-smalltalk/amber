@@ -387,7 +387,8 @@ methodsFor: aString stamp: aStamp
 !
 
 commentStamp: aStamp prior: prior
-         "Ignored right now."
+         "Stamp and prior ignored right now."
+	^self commentStamp
 ! !
 
 !Behavior methodsFor: 'instance creation'!
