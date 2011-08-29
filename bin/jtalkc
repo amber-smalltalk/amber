@@ -236,11 +236,17 @@ do
    TOADD="$TOADD $RESOLVED"
 done
 
-# Define our Compiler loading supplied libraries
-OURCOMPILER="$COMPILER $TOLOAD init $JTALK/bin/$NODECOMPILE"
-
-# Resolve OURCOMPILER
-for FILE in $OURCOMPILER
+# Resolve COMPILER
+for FILE in $COMPILER
+do
+   resolvejs $FILE
+   TOOURCOMPILER="$TOOURCOMPILER $RESOLVED"
+done
+# Add supplied libraries to load (they are already resolved)
+TOOURCOMPILER="$TOOURCOMPILER$TOLOAD"
+THEREST="init $JTALK/bin/$NODECOMPILE"
+# Resolve init and nodecompile
+for FILE in $THEREST
 do
    resolvejs $FILE
    TOOURCOMPILER="$TOOURCOMPILER $RESOLVED"
@@ -298,8 +304,9 @@ done
 cat $TOOURCOMPILER > $TMPDIR/compiler.js
  
 # Compile all collected .st files to .js
-echo "Loading libraries $TOOURCOMPILER and compiling ..."
+echo "Loading libraries$TOOURCOMPILER and compiling ..."
 node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
+echo node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "
