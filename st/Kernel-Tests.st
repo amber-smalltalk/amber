@@ -36,3 +36,19 @@ testPrintString
                         	printString)
 ! !
 
+TestCase subclass: #BooleanTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!BooleanTest methodsFor: 'not yet classified'!
+
+testLogic
+
+	"Trivial logic table"
+	self assert: (true & true); deny: (true & false); deny: (false & true); deny: (false & false).
+	self assert: (true | true); assert: (true | false); assert: (false | true); deny: (false | false).
+        "Checking that expressions work fine too"
+	self assert: (true & (1 > 0)); deny: ((1 > 0) & false); deny: ((1 > 0) & (1 > 2)).
+        self assert: (false | (1 > 0)); assert: ((1 > 0) | false); assert: ((1 > 0) | (1 > 2))
+! !
+
