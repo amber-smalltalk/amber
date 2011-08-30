@@ -16,7 +16,7 @@ smalltalk.method({
 selector: '~=',
 fn: function (anObject){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq_eq", [false]);
+return (($receiver = (($receiver = self).klass === smalltalk.Number) ? $receiver ==anObject : smalltalk.send($receiver, "__eq", [anObject])).klass === smalltalk.Number) ? $receiver ==false : smalltalk.send($receiver, "__eq", [false]);
 return self;}
 }),
 smalltalk.Object);
@@ -858,7 +858,7 @@ smalltalk.method({
 selector: 'commentStamp:prior:',
 fn: function (aStamp, prior){
 var self=this;
-return smalltalk.send(self, "_commentStamp", []);
+
 return self;}
 }),
 smalltalk.Behavior);
@@ -1611,6 +1611,39 @@ return self;}
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+'_whileFalse',
+smalltalk.method({
+selector: 'whileFalse',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileFalse_", [(function(){return nil;})]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_whileTrue',
+smalltalk.method({
+selector: 'whileTrue',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileTrue_", [(function(){return nil;})]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_new',
+smalltalk.method({
+selector: 'new',
+fn: function (){
+var self=this;
+return new self();
+return self;}
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
@@ -1748,40 +1781,6 @@ selector: 'asJSONObject',
 fn: function (){
 var self=this;
 return self;
-return self;}
-}),
-smalltalk.Boolean);
-
-smalltalk.addMethod(
-'_&',
-smalltalk.method({
-selector: '&',
-fn: function (aBoolean){
-var self=this;
-
-	    if(self == true) {
-		return aBoolean;
-	    } else {
-		return false;
-	    }
-	;
-return self;}
-}),
-smalltalk.Boolean);
-
-smalltalk.addMethod(
-'_|',
-smalltalk.method({
-selector: '|',
-fn: function (aBoolean){
-var self=this;
-
-	    if(self == true) {
-		return true;
-	    } else {
-		return aBoolean;
-	    }
-	;
 return self;}
 }),
 smalltalk.Boolean);
@@ -3405,17 +3404,6 @@ return self;}
 }),
 smalltalk.String);
 
-smalltalk.addMethod(
-'_asciiValue',
-smalltalk.method({
-selector: 'asciiValue',
-fn: function (){
-var self=this;
-return self.charCodeAt(0);;
-return self;}
-}),
-smalltalk.String);
-
 
 smalltalk.addMethod(
 '_streamClass',
@@ -3504,17 +3492,6 @@ var stream=nil;
 stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send(smalltalk.String, "_new", [])]);
 smalltalk.send(blockWithArg, "_value_", [stream]);
 return smalltalk.send(stream, "_contents", []);
-return self;}
-}),
-smalltalk.String.klass);
-
-smalltalk.addMethod(
-'_value_',
-smalltalk.method({
-selector: 'value:',
-fn: function (aUTFCharCode){
-var self=this;
-return String.fromCharCode(aUTFCharCode);;
 return self;}
 }),
 smalltalk.String.klass);
@@ -3655,7 +3632,7 @@ fn: function (aBlock){
 var self=this;
 
 		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return 1} else {return -1}
+			if(aBlock(a,b)) {return -1} else {return 1}
 		})
 	;
 return self;}
@@ -3697,7 +3674,7 @@ smalltalk.method({
 selector: 'sorted:',
 fn: function (aBlock){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_copy", []), "_sorted_", [aBlock]);
+return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
 return self;}
 }),
 smalltalk.Array);
