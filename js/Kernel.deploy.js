@@ -16,7 +16,7 @@ smalltalk.method({
 selector: '~=',
 fn: function (anObject){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq_eq", [false]);
+return (($receiver = (($receiver = self).klass === smalltalk.Number) ? $receiver ==anObject : smalltalk.send($receiver, "__eq", [anObject])).klass === smalltalk.Number) ? $receiver ==false : smalltalk.send($receiver, "__eq", [false]);
 return self;}
 }),
 smalltalk.Object);

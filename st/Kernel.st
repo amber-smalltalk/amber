@@ -43,7 +43,7 @@ basicDelete: aString
 !
 
 ~= anObject
-	^(self = anObject) == false
+	^(self = anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!

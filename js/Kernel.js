@@ -21,10 +21,10 @@ selector: '~=',
 category: 'comparing',
 fn: function (anObject){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq_eq", [false]);
+return (($receiver = (($receiver = self).klass === smalltalk.Number) ? $receiver ==anObject : smalltalk.send($receiver, "__eq", [anObject])).klass === smalltalk.Number) ? $receiver ==false : smalltalk.send($receiver, "__eq", [false]);
 return self;},
-source: unescape('%7E%3D%20anObject%0A%09%5E%28self%20%3D%20anObject%29%20%3D%3D%20false'),
-messageSends: [unescape("%3D%3D"), unescape("%3D")],
+source: unescape('%7E%3D%20anObject%0A%09%5E%28self%20%3D%20anObject%29%20%3D%20false'),
+messageSends: [unescape("%3D")],
 referencedClasses: []
 }),
 smalltalk.Object);

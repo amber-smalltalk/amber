@@ -611,7 +611,7 @@ inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
 	(aSelector = '=') ifTrue: [
           	(self isNode: anObject ofClass: Number) ifTrue: [
                   	self visit: anObject.
-                  	stream nextPutAll: ' = '.
+                  	stream nextPutAll: ' == '.
                 	self visit: aCollection first.
                 	inlined := true]].
 
@@ -1023,6 +1023,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[Compiler performOptimizations: false.] value
+doIt ^[1=2] value
 ! !
 
