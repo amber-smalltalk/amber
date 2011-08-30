@@ -567,6 +567,11 @@ min: aNumber
 
 modulo: aNumber
 	<return self % aNumber>
+!
+
+negated
+	"Answer a Number that is the negation of the receiver."
+	^ 0 - self
 ! !
 
 !Number methodsFor: 'comparing'!

@@ -1969,6 +1969,21 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_negated',
+smalltalk.method({
+selector: 'negated',
+category: 'arithmetic',
+fn: function (){
+var self=this;
+return (0) - self;
+return self;},
+source: unescape('negated%0A%09%22Answer%20a%20Number%20that%20is%20the%20negation%20of%20the%20receiver.%22%0A%09%5E%200%20-%20self'),
+messageSends: [unescape("-")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',

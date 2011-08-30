@@ -675,6 +675,111 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_fadeIn',
+smalltalk.method({
+selector: 'fadeIn',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["fadeIn"]);
+return self;},
+source: unescape('fadeIn%0A%20%20%20%20self%20call%3A%20%27fadeIn%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_slideDown',
+smalltalk.method({
+selector: 'slideDown',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["slideDown"]);
+return self;},
+source: unescape('slideDown%0A%20%20%20%20self%20call%3A%20%27slideDown%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeInSlow',
+smalltalk.method({
+selector: 'fadeInSlow',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["fadeIn", "slow"]);
+return self;},
+source: unescape('fadeInSlow%0A%20%20%20%20self%20call%3A%20%27fadeIn%27%20withArgument%3A%20%27slow%27'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeOut',
+smalltalk.method({
+selector: 'fadeOut',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["fadeOut"]);
+return self;},
+source: unescape('fadeOut%0A%20%20%20%20self%20call%3A%20%27fadeOut%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeOutSlow',
+smalltalk.method({
+selector: 'fadeOutSlow',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["fadeOut", "slow"]);
+return self;},
+source: unescape('fadeOutSlow%0A%20%20%20%20self%20call%3A%20%27fadeOut%27%20withArgument%3A%20%27slow%27'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_slideUp',
+smalltalk.method({
+selector: 'slideUp',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["slideUp"]);
+return self;},
+source: unescape('slideUp%0A%20%20%20%20self%20call%3A%20%27slideUp%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_onLoadDo_',
+smalltalk.method({
+selector: 'onLoadDo:',
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["load", aBlock]);
+return self;},
+source: unescape('onLoadDo%3A%20aBlock%0A%09%22Bind%20an%20event%20handler%20to%20the%20%27load%27%20JavaScript%20event.%22%0A%09self%20call%3A%20%27load%27%20withArgument%3A%20aBlock'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',
