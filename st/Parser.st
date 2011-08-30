@@ -509,7 +509,7 @@ parser
 
 	reference := variable / classReference.
 
-	binarySelector := '+*/=><,@%~-' asCharacterParser plus flatten.
+	binarySelector := '+*/=><,@%~|&-' asCharacterParser plus flatten.
 
 	unarySelector := identifier.
 
