@@ -163,7 +163,8 @@ left
 !
 
 left: aNode
-	left := aNode
+	left := aNode.
+	left assigned: true
 !
 
 right
@@ -296,8 +297,18 @@ accept: aVisitor
 ! !
 
 ValueNode subclass: #VariableNode
-	instanceVariableNames: ''
+	instanceVariableNames: 'assigned'
 	category: 'Compiler'!
+
+!VariableNode methodsFor: 'accessing'!
+
+assigned
+	^assigned ifNil: [false]
+!
+
+assigned: aBoolean
+	assigned := aBoolean
+! !
 
 !VariableNode methodsFor: 'visiting'!
 
@@ -736,12 +747,6 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
                 self visit: aCollection first.
                 inlined := true].
 
-	(aSelector = '=') ifTrue: [
-                self checkClass: 'Number' for: receiver.
-                stream nextPutAll: '$receiver =='.
-                self visit: aCollection first.
-                inlined := true].
-
 	(aSelector = '>') ifTrue: [
                 self checkClass: 'Number' for: receiver.
                 stream nextPutAll: '$receiver >'.
@@ -961,8 +966,13 @@ visitVariableNode: aNode
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
 			(self knownVariables includes: aNode value) 
-                  		ifFalse: [unknownVariables add: aNode value].
-                	stream nextPutAll: '(', aNode value, ' || nil)']
+                  		ifFalse: [
+                                  	unknownVariables add: aNode value.
+                                  	aNode assigned 
+                                  		ifTrue: [stream nextPutAll: '(', aNode value, ' || nil)']
+                                  		ifFalse: [stream nextPutAll: '(typeof ', aNode value, ' == ''undefined'' ? nil : ', aNode value, ')']]
+                  		ifTrue: [
+                			stream nextPutAll:aNode value]]
 !
 
 visitJSStatementNode: aNode
@@ -1023,6 +1033,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[Compiler new recompile: Browser] value
+doIt ^[a < 3] value
 ! !
 
