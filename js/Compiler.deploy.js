@@ -1088,8 +1088,8 @@ selector: 'visitClassReferenceNode:',
 fn: function (aNode){
 var self=this;
 var klass=nil;
-klass=smalltalk.send("smalltalk.", "__comma", [smalltalk.send(aNode, "_value", [])]);
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_at_", [smalltalk.send(aNode, "_value", [])]), "_isClass", []), "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self['@referencedClasses'], "_includes_", [klass]), "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})]);})]);
+klass=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("%28smalltalk."), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%20%7C%7C%20")]), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%29")]);
+(($receiver = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk, "_current", []), "_at_", [smalltalk.send(aNode, "_value", [])]), "_isClass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(self['@referencedClasses'], "_includes_", [klass])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(self['@referencedClasses'], "_includes_", [klass])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})]);})]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [klass]);
 return self;}
 }),
@@ -1397,7 +1397,7 @@ smalltalk.method({
 selector: 'doIt',
 fn: function (){
 var self=this;
-return smalltalk.send((function(){return (1) == (2);}), "_value", []);
+return smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send((smalltalk.Object || Object), "_new", []);}), "_compiledSource", []);}), "_value", []);
 return self;}
 }),
 smalltalk.DoIt);

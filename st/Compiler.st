@@ -949,7 +949,7 @@ visitAssignmentNode: aNode
 
 visitClassReferenceNode: aNode
 	| klass |
-	klass := 'smalltalk.', aNode value.
+	klass := '(smalltalk.', aNode value, ' || ', aNode value, ')'.
 	(Smalltalk current at: aNode value) isClass ifTrue: [
 		(referencedClasses includes: klass)
 			ifFalse: [referencedClasses add: klass]].
@@ -1023,6 +1023,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[1=2] value
+doIt ^[[Object new] compiledSource] value
 ! !
 
