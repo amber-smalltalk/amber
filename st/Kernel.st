@@ -387,7 +387,8 @@ methodsFor: aString stamp: aStamp
 !
 
 commentStamp: aStamp prior: prior
-         "Ignored right now."
+         "Stamp and prior ignored right now."
+	^self commentStamp
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -852,6 +853,26 @@ or: aBlock
 
 not
 	^self = false
+!
+
+& aBoolean
+	<
+	    if(self == true) {
+		return aBoolean;
+	    } else {
+		return false;
+	    }
+	>
+!
+
+| aBoolean
+	<
+	    if(self == true) {
+		return true;
+	    } else {
+		return aBoolean;
+	    }
+	>
 ! !
 
 !Boolean methodsFor: 'copying'!
@@ -1422,6 +1443,10 @@ escaped
 
 unescaped
 	<return unescape(self)>
+!
+
+asciiValue
+	<return self.charCodeAt(0);>
 ! !
 
 !String methodsFor: 'adding'!
@@ -1652,6 +1677,11 @@ streamContents: blockWithArg
 	stream := (self streamClass on: String new).
 	blockWithArg value: stream.
 	^ stream contents
+!
+
+value: aUTFCharCode
+
+	<return String.fromCharCode(aUTFCharCode);>
 ! !
 
 SequenceableCollection subclass: #Array

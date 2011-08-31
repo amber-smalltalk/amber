@@ -750,15 +750,13 @@ chunkParser
 !Importer methodsFor: 'fileIn'!
 
 import: aStream
-	aStream atEnd ifFalse: [
-	    | nextChunk |
-	    nextChunk := self chunkParser parse: aStream.
-	    nextChunk ifNotNil: [
-		nextChunk isInstructionChunk 
-		    ifTrue: [(Compiler new loadExpression: nextChunk contents)
-					 scanFrom: aStream]
-		    ifFalse: [Compiler new loadExpression: nextChunk contents].
-		self import: aStream]]
+    | nextChunk result |
+    [aStream atEnd] whileFalse: [
+        nextChunk := self chunkParser parse: aStream.
+        nextChunk ifNil: [^self].
+        result := Compiler new loadExpression: nextChunk contents.
+        nextChunk isInstructionChunk 
+            ifTrue: [result scanFrom: aStream]]
 ! !
 
 Object subclass: #Exporter
