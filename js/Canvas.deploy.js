@@ -1,5 +1,27 @@
 smalltalk.addClass('CanvasRenderingContext', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
+'_arcTo_radius_startAngle_endAngle_anticlockwise_',
+smalltalk.method({
+selector: 'arcTo:radius:startAngle:endAngle:anticlockwise:',
+fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean){
+var self=this;
+self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);
+return self;}
+}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_arcTo_radius_',
+smalltalk.method({
+selector: 'arcTo:radius:',
+fn: function (aPoint, aNumber){
+var self=this;
+smalltalk.send(self, "_arcTo_radius_startAngle_endAngle_anticlockwise_", [aPoint, aNumber, (0), (($receiver = smalltalk.send((smalltalk.Number || Number), "_pi", [])).klass === smalltalk.Number) ? $receiver *(2) : smalltalk.send($receiver, "__star", [(2)]), false]);
+return self;}
+}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
 '_fillStyle_',
 smalltalk.method({
 selector: 'fillStyle:',
@@ -77,23 +99,23 @@ return self;}
 smalltalk.CanvasRenderingContext);
 
 smalltalk.addMethod(
-'_arcTo_radius_startAngle_endAngle_anticlockwise_',
+'_strokeStyle_',
 smalltalk.method({
-selector: 'arcTo:radius:startAngle:endAngle:anticlockwise:',
-fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean){
+selector: 'strokeStyle:',
+fn: function (aString){
 var self=this;
-self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);
+self.strokeStyle = String(aString);
 return self;}
 }),
 smalltalk.CanvasRenderingContext);
 
 smalltalk.addMethod(
-'_arcTo_radius_',
+'_lineWidth_',
 smalltalk.method({
-selector: 'arcTo:radius:',
-fn: function (aPoint, aNumber){
+selector: 'lineWidth:',
+fn: function (aNumber){
 var self=this;
-smalltalk.send(self, "_arcTo_radius_startAngle_endAngle_anticlockwise_", [aPoint, aNumber, (0), smalltalk.send(smalltalk.send(smalltalk.Number, "_pi", []), "__star", [(2)]), false]);
+self.lineWidth = aNumber;
 return self;}
 }),
 smalltalk.CanvasRenderingContext);
@@ -127,28 +149,6 @@ selector: 'clearRectFrom:to:',
 fn: function (aPoint, anotherPoint){
 var self=this;
 self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
-return self;}
-}),
-smalltalk.CanvasRenderingContext);
-
-smalltalk.addMethod(
-'_strokeStyle_',
-smalltalk.method({
-selector: 'strokeStyle:',
-fn: function (aString){
-var self=this;
-self.strokeStyle = String(aString);
-return self;}
-}),
-smalltalk.CanvasRenderingContext);
-
-smalltalk.addMethod(
-'_lineWidth_',
-smalltalk.method({
-selector: 'lineWidth:',
-fn: function (aNumber){
-var self=this;
-self.lineWidth = aNumber;
 return self;}
 }),
 smalltalk.CanvasRenderingContext);
@@ -190,18 +190,6 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
-smalltalk.send(self['@root'], "_ifNil_", [(function(){return self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", ["div", self]);})]);
-return self;}
-}),
-smalltalk.HTMLCanvas);
-
-smalltalk.addMethod(
 '_with_',
 smalltalk.method({
 selector: 'with:',
@@ -213,12 +201,35 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Object);
+(($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]);})() : $receiver;
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_initializeFromJQuery_',
+smalltalk.method({
+selector: 'initializeFromJQuery:',
+fn: function (aJQuery){
+var self=this;
+self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
 '_newTag_',
 smalltalk.method({
 selector: 'newTag:',
 fn: function (aString){
 var self=this;
-return smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", [aString, self]);
+return smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", [aString, self]);
 return self;}
 }),
 smalltalk.HTMLCanvas);
@@ -510,17 +521,6 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_initializeFromJQuery_',
-smalltalk.method({
-selector: 'initializeFromJQuery:',
-fn: function (aJQuery){
-var self=this;
-self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromJQuery_canvas_", [aJQuery, self]);
-return self;}
-}),
-smalltalk.HTMLCanvas);
-
-smalltalk.addMethod(
 '_pre',
 smalltalk.method({
 selector: 'pre',
@@ -601,12 +601,24 @@ smalltalk.HTMLCanvas.klass);
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
+'_element',
+smalltalk.method({
+selector: 'element',
+fn: function (){
+var self=this;
+return self['@element'];
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_contents_',
 smalltalk.method({
 selector: 'contents:',
 fn: function (anObject){
 var self=this;
-(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
+smalltalk.send(self, "_append_", [anObject]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -677,12 +689,7 @@ smalltalk.method({
 selector: 'appendChild:',
 fn: function (anElement){
 var self=this;
-var element=self['@element'];
-      if (null == element.canHaveChildren || element.canHaveChildren) {
-    	element.appendChild(anElement);
-       } else {
-    	element.text = String(element.text) +  anElement.innerHTML;
-      } ;
+self['@element'].appendChild(anElement);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -787,24 +794,34 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_initializeFromString_canvas_',
+'_type_',
 smalltalk.method({
-selector: 'initializeFromString:canvas:',
-fn: function (aString, aCanvas){
+selector: 'type:',
+fn: function (aString){
 var self=this;
-self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
-self['@canvas']=aCanvas;
+smalltalk.send(self, "_at_put_", ["type", aString]);
 return self;}
 }),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_element',
+'_media_',
 smalltalk.method({
-selector: 'element',
-fn: function (){
+selector: 'media:',
+fn: function (aString){
 var self=this;
-return self['@element'];
+smalltalk.send(self, "_at_put_", ["media", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_rel_',
+smalltalk.method({
+selector: 'rel:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["rel", aString]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -909,23 +926,13 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_createElementFor_',
+'_initializeFromString_canvas_',
 smalltalk.method({
-selector: 'createElementFor:',
-fn: function (aString){
+selector: 'initializeFromString:canvas:',
+fn: function (aString, aCanvas){
 var self=this;
-return document.createElement(String(aString));
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_createTextNodeFor_',
-smalltalk.method({
-selector: 'createTextNodeFor:',
-fn: function (aString){
-var self=this;
-return document.createTextNode(String(aString));
+self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
+self['@canvas']=aCanvas;
 return self;}
 }),
 smalltalk.TagBrush);
@@ -943,45 +950,23 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_type_',
+'_createElementFor_',
 smalltalk.method({
-selector: 'type:',
+selector: 'createElementFor:',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_at_put_", ["type", aString]);
+return document.createElement(String(aString));
 return self;}
 }),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_media_',
+'_createTextNodeFor_',
 smalltalk.method({
-selector: 'media:',
+selector: 'createTextNodeFor:',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_at_put_", ["media", aString]);
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_rel_',
-smalltalk.method({
-selector: 'rel:',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["rel", aString]);
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_empty',
-smalltalk.method({
-selector: 'empty',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
+return document.createTextNode(String(aString));
 return self;}
 }),
 smalltalk.TagBrush);
@@ -1011,28 +996,6 @@ smalltalk.TagBrush.klass);
 
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
-smalltalk.addMethod(
-'_appendToBrush_',
-smalltalk.method({
-selector: 'appendToBrush:',
-fn: function (aTagBrush){
-var self=this;
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_appendToJQuery_',
-smalltalk.method({
-selector: 'appendToJQuery:',
-fn: function (aJQuery){
-var self=this;
-smalltalk.send(self, "_renderOn_", [smalltalk.send(smalltalk.HTMLCanvas, "_onJQuery_", [aJQuery])]);
-return self;}
-}),
-smalltalk.Widget);
-
 smalltalk.addMethod(
 '_alert_',
 smalltalk.method({
@@ -1078,6 +1041,28 @@ return self;}
 smalltalk.Widget);
 
 smalltalk.addMethod(
+'_appendToBrush_',
+smalltalk.method({
+selector: 'appendToBrush:',
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
+return self;}
+}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
+'_appendToJQuery_',
+smalltalk.method({
+selector: 'appendToJQuery:',
+fn: function (aJQuery){
+var self=this;
+smalltalk.send(self, "_renderOn_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
+return self;}
+}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
 '_renderOn_',
 smalltalk.method({
 selector: 'renderOn:',
@@ -1092,23 +1077,23 @@ smalltalk.Widget);
 
 smalltalk.addClass('CanvasBrush', smalltalk.TagBrush, [], 'Canvas');
 smalltalk.addMethod(
+'_initializeWithCanvas_',
+smalltalk.method({
+selector: 'initializeWithCanvas:',
+fn: function (aCanvas){
+var self=this;
+self['@canvas']=aCanvas;
+return self;}
+}),
+smalltalk.CanvasBrush);
+
+smalltalk.addMethod(
 '_createElement',
 smalltalk.method({
 selector: 'createElement',
 fn: function (){
 var self=this;
 return document.createElement('canvas');
-return self;}
-}),
-smalltalk.CanvasBrush);
-
-smalltalk.addMethod(
-'_initializeWithCanvas_',
-smalltalk.method({
-selector: 'initializeWithCanvas:',
-fn: function (aCanvas){
-var self=this;
-canvas=aCanvas;
 return self;}
 }),
 smalltalk.CanvasBrush);

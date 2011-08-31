@@ -6,7 +6,7 @@ selector: 'increase',
 category: 'actions',
 fn: function (){
 var self=this;
-self['@count']=smalltalk.send(self['@count'], "__plus", [(1)]);
+self['@count']=(($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]);
 smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
 return self;},
 source: unescape('increase%0A%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%20%20%20%20header%20contents%3A%20%5B%3Ahtml%20%7C%20html%20with%3A%20count%20asString%5D'),
@@ -22,7 +22,7 @@ selector: 'decrease',
 category: 'actions',
 fn: function (){
 var self=this;
-self['@count']=smalltalk.send(self['@count'], "__minus", [(1)]);
+self['@count']=(($receiver = self['@count']).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]);
 smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
 return self;},
 source: unescape('decrease%0A%20%20%20%20count%20%3A%3D%20count%20-%201.%0A%20%20%20%20header%20contents%3A%20%5B%3Ahtml%20%7C%20html%20with%3A%20count%20asString%5D'),
@@ -165,7 +165,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_newGame", []);
-smalltalk.send(self['@timer'], "_ifNotNil_", [(function(){return smalltalk.send(self['@timer'], "_clearInterval", []);})]);
+(($receiver = self['@timer']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@timer'], "_clearInterval", []);})() : nil;
 self['@timer']=smalltalk.send((function(){return smalltalk.send(self, "_nextStep", []);}), "_valueWithInterval_", [self['@speed']]);
 return self;},
 source: unescape('startNewGame%0A%09self%20newGame.%0A%09timer%20ifNotNil%3A%20%5Btimer%20clearInterval%5D.%0A%09timer%20%3A%3D%20%5Bself%20nextStep%5D%20valueWithInterval%3A%20speed'),
@@ -181,8 +181,8 @@ selector: 'nextStep',
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(self['@movingPiece'], "_ifNil_", [(function(){return smalltalk.send(self, "_newPiece", []);})]);
-smalltalk.send(smalltalk.send(self['@movingPiece'], "_canMoveIn_", [self]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@movingPiece'], "_position_", [smalltalk.send(smalltalk.send(self['@movingPiece'], "_position", []), "__plus", [smalltalk.send((0), "__at", [(1)])])]);}), (function(){return smalltalk.send(self, "_newPiece", []);})]);
+(($receiver = self['@movingPiece']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_newPiece", []);})() : $receiver;
+(($receiver = smalltalk.send(self['@movingPiece'], "_canMoveIn_", [self])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@movingPiece'], "_position_", [(($receiver = smalltalk.send(self['@movingPiece'], "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((0), "__at", [(1)]) : smalltalk.send($receiver, "__plus", [smalltalk.send((0), "__at", [(1)])])]);})() : (function(){return smalltalk.send(self, "_newPiece", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@movingPiece'], "_position_", [(($receiver = smalltalk.send(self['@movingPiece'], "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((0), "__at", [(1)]) : smalltalk.send($receiver, "__plus", [smalltalk.send((0), "__at", [(1)])])]);}), (function(){return smalltalk.send(self, "_newPiece", []);})]);
 smalltalk.send(self, "_redraw", []);
 return self;},
 source: unescape('nextStep%0A%09movingPiece%20ifNil%3A%20%5Bself%20newPiece%5D.%0A%09%28movingPiece%20canMoveIn%3A%20self%29%0A%09%09ifTrue%3A%20%5BmovingPiece%20position%3A%20movingPiece%20position%20+%20%280@1%29%5D%0A%09%09ifFalse%3A%20%5Bself%20newPiece%5D.%0A%09self%20redraw'),
@@ -217,9 +217,9 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_fillStyle_", [unescape("%23fafafa")]);return smalltalk.send($rec, "_fillRectFrom_to_", [smalltalk.send((0), "__at", [(0)]), smalltalk.send(smalltalk.send(self, "_width", []), "__at", [smalltalk.send(self, "_height", [])])]);})(self['@renderingContext']);
 (function($rec){smalltalk.send($rec, "_lineWidth_", [(0.5)]);return smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);})(self['@renderingContext']);
 smalltalk.send((0), "_to_do_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_squares", []), "_x", []), (function(each){var x=nil;
-x=smalltalk.send(each, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]);return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send(x, "__at", [(0)]), smalltalk.send(x, "__at", [smalltalk.send(self, "_height", [])])]);})]);
+x=(($receiver = each).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]);return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send(x, "__at", [(0)]), smalltalk.send(x, "__at", [smalltalk.send(self, "_height", [])])]);})]);
 smalltalk.send((0), "_to_do_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_squares", []), "_y", []), (function(each){var y=nil;
-y=smalltalk.send(each, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]);return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send((0), "__at", [y]), smalltalk.send(smalltalk.send(self, "_width", []), "__at", [y])]);})]);
+y=(($receiver = each).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]);return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send((0), "__at", [y]), smalltalk.send(smalltalk.send(self, "_width", []), "__at", [y])]);})]);
 return self;},
 source: unescape('drawMap%0A%09renderingContext%20%0A%09%09fillStyle%3A%20%27%23fafafa%27%3B%0A%09%09fillRectFrom%3A%200@0%20to%3A%20self%20width@self%20height.%0A%09renderingContext%20%0A%09%09lineWidth%3A%200.5%3B%0A%09%09strokeStyle%3A%20%27%23999%27.%0A%090%20to%3A%20self%20class%20squares%20x%20do%3A%20%5B%3Aeach%20%7C%20%7C%20x%20%7C%0A%09%09x%20%3A%3D%20each%20*%20self%20class%20squareSize.%0A%09%09self%20drawLineFrom%3A%20x@0%20to%3A%20x@self%20height%5D.%0A%090%20to%3A%20self%20class%20squares%20y%20do%3A%20%5B%3Aeach%20%7C%20%7C%20y%20%7C%0A%09%09y%20%3A%3D%20each%20*%20self%20class%20squareSize.%0A%09%09self%20drawLineFrom%3A%200@y%20to%3A%20self%20width@y%5D.'),
 messageSends: ["fillStyle:", "fillRectFrom:to:", unescape("@"), "width", "height", "lineWidth:", "strokeStyle:", "to:do:", "x", "squares", "class", unescape("*"), "squareSize", "drawLineFrom:to:", "y"],
@@ -267,11 +267,11 @@ selector: 'newPiece',
 category: 'actions',
 fn: function (){
 var self=this;
-self['@movingPiece']=smalltalk.send(smalltalk.TetrisPiece, "_atRandom", []);
+self['@movingPiece']=smalltalk.send((smalltalk.TetrisPiece || TetrisPiece), "_atRandom", []);
 return self;},
 source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom'),
 messageSends: ["atRandom"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.Tetris);
 
@@ -283,7 +283,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_rows", []), "_do_", [(function(each){return nil;})]);
-smalltalk.send(self['@movingPiece'], "_ifNotNil_", [(function(){return smalltalk.send(self['@movingPiece'], "_drawOn_", [self['@renderingContext']]);})]);
+(($receiver = self['@movingPiece']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@movingPiece'], "_drawOn_", [self['@renderingContext']]);})() : nil;
 return self;},
 source: unescape('drawRows%0A%09self%20rows%20do%3A%20%5B%3Aeach%20%7C%5D.%0A%09movingPiece%20ifNotNil%3A%20%5BmovingPiece%20drawOn%3A%20renderingContext%5D'),
 messageSends: ["do:", "rows", "ifNotNil:", "drawOn:"],
@@ -298,7 +298,7 @@ selector: 'drawPiece',
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(self['@movingPiece'], "_ifNotNil_", [(function(){return smalltalk.send(self['@movingPiece'], "_drawOn_", [self['@renderingContext']]);})]);
+(($receiver = self['@movingPiece']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@movingPiece'], "_drawOn_", [self['@renderingContext']]);})() : nil;
 return self;},
 source: unescape('drawPiece%0A%09movingPiece%20ifNotNil%3A%20%5B%0A%09%09movingPiece%20drawOn%3A%20renderingContext%5D'),
 messageSends: ["ifNotNil:", "drawOn:"],
@@ -348,7 +348,7 @@ var canvas=nil;
 canvas=smalltalk.send(html, "_canvas", []);
 smalltalk.send(canvas, "_at_put_", ["width", smalltalk.send(smalltalk.send(self, "_width", []), "_asString", [])]);
 smalltalk.send(canvas, "_at_put_", ["height", smalltalk.send(smalltalk.send(self, "_height", []), "_asString", [])]);
-self['@renderingContext']=smalltalk.send(smalltalk.CanvasRenderingContext, "_tagBrush_", [canvas]);
+self['@renderingContext']=smalltalk.send((smalltalk.CanvasRenderingContext || CanvasRenderingContext), "_tagBrush_", [canvas]);
 smalltalk.send(self, "_redraw", []);
 return self;},
 source: unescape('renderCanvasOn%3A%20html%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20html%20canvas.%0A%09canvas%20at%3A%20%27width%27%20put%3A%20self%20width%20asString.%0A%09canvas%20at%3A%20%27height%27%20put%3A%20self%20height%20asString.%0A%09renderingContext%20%3A%3D%20CanvasRenderingContext%20tagBrush%3A%20canvas.%0A%09self%20redraw'),
@@ -395,7 +395,7 @@ selector: 'width',
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_squareSize", []), "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_x", [])]);
+return (($receiver = smalltalk.send(self, "_squareSize", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_squares", []), "_x", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_x", [])]);
 return self;},
 source: unescape('width%0A%09%5Eself%20squareSize%20*%20%28self%20squares%20x%29'),
 messageSends: [unescape("*"), "squareSize", "x", "squares"],
@@ -410,7 +410,7 @@ selector: 'height',
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_squareSize", []), "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_y", [])]);
+return (($receiver = smalltalk.send(self, "_squareSize", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_squares", []), "_y", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_y", [])]);
 return self;},
 source: unescape('height%0A%09%5Eself%20squareSize%20*%20%28self%20squares%20y%29'),
 messageSends: [unescape("*"), "squareSize", "y", "squares"],
@@ -442,7 +442,7 @@ selector: 'rotation',
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(self['@rotation'], "_ifNil_", [(function(){return self['@rotation']=(1);})]);
+return (($receiver = self['@rotation']) == nil || $receiver == undefined) ? (function(){return self['@rotation']=(1);})() : $receiver;
 return self;},
 source: unescape('rotation%0A%09%5Erotation%20ifNil%3A%20%5Brotation%20%3A%3D%201%5D'),
 messageSends: ["ifNil:"],
@@ -472,7 +472,7 @@ selector: 'position',
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(self['@position'], "_ifNil_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Tetris, "_squares", []), "_x", []), "__slash", [(2)]), "__minus", [(1)]), "__at", [(0)]);})]);
+return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return smalltalk.send((($receiver = (($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_x", [])).klass === smalltalk.Number) ? $receiver /(2) : smalltalk.send($receiver, "__slash", [(2)])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), "__at", [(0)]);})() : $receiver;
 return self;},
 source: unescape('position%0A%09%5Eposition%20ifNil%3A%20%5B%28Tetris%20squares%20x%20/%202%29%20-1%20@%200%5D'),
 messageSends: ["ifNil:", unescape("@"), unescape("-"), unescape("/"), "x", "squares"],
@@ -548,7 +548,7 @@ category: 'drawing',
 fn: function (aRenderingContext){
 var self=this;
 smalltalk.send(aRenderingContext, "_fillStyle_", [smalltalk.send(self, "_color", [])]);
-smalltalk.send(smalltalk.send(self, "_bounds", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_fillRectFrom_to_", [smalltalk.send(smalltalk.send(each, "__plus", [smalltalk.send(self, "_position", [])]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])]), smalltalk.send(smalltalk.send((1), "__at", [(1)]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])])]);smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);smalltalk.send($rec, "_lineWidth_", [(2)]);return smalltalk.send($rec, "_strokeRectFrom_to_", [smalltalk.send(smalltalk.send(each, "__plus", [smalltalk.send(self, "_position", [])]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])]), smalltalk.send(smalltalk.send((1), "__at", [(1)]), "__star", [smalltalk.send(smalltalk.Tetris, "_squareSize", [])])]);})(aRenderingContext);})]);
+smalltalk.send(smalltalk.send(self, "_bounds", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_fillRectFrom_to_", [(($receiver = (($receiver = each).klass === smalltalk.Number) ? $receiver +smalltalk.send(self, "_position", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self, "_position", [])])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])]), (($receiver = smalltalk.send((1), "__at", [(1)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])])]);smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);smalltalk.send($rec, "_lineWidth_", [(2)]);return smalltalk.send($rec, "_strokeRectFrom_to_", [(($receiver = (($receiver = each).klass === smalltalk.Number) ? $receiver +smalltalk.send(self, "_position", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self, "_position", [])])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])]), (($receiver = smalltalk.send((1), "__at", [(1)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])])]);})(aRenderingContext);})]);
 return self;},
 source: unescape('drawOn%3A%20aRenderingContext%0A%09aRenderingContext%20fillStyle%3A%20self%20color.%0A%09self%20bounds%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aRenderingContext%20%0A%09%09%09fillRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%3B%0A%09%09%09strokeStyle%3A%20%27%23999%27%3B%0A%09%09%09lineWidth%3A%202%3B%0A%09%09%09strokeRectFrom%3A%20each%20+%20self%20position*%20Tetris%20squareSize%20to%3A%201@1%20*%20Tetris%20squareSize%5D'),
 messageSends: ["fillStyle:", "color", "do:", "bounds", "fillRectFrom:to:", unescape("*"), unescape("+"), "position", "squareSize", unescape("@"), "strokeStyle:", "lineWidth:", "strokeRectFrom:to:"],
@@ -563,7 +563,7 @@ selector: 'canMove',
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_position", []), "_y", []), "__lt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Tetris, "_squares", []), "_y", []), "__minus", [smalltalk.send(self, "_height", [])])]);
+return (($receiver = smalltalk.send(smalltalk.send(self, "_position", []), "_y", [])).klass === smalltalk.Number) ? $receiver <(($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])]) : smalltalk.send($receiver, "__lt", [(($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])])]);
 return self;},
 source: unescape('canMove%0A%09%5Eself%20position%20y%20%3C%20%28Tetris%20squares%20y%20-%20self%20height%29'),
 messageSends: [unescape("%3C"), "y", "position", unescape("-"), "squares", "height"],
@@ -578,7 +578,7 @@ selector: 'canMoveIn:',
 category: 'testing',
 fn: function (aTetris){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_position", []), "_y", []), "__lt", [smalltalk.send(smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", []), "__minus", [smalltalk.send(self, "_height", [])])]);
+return (($receiver = smalltalk.send(smalltalk.send(self, "_position", []), "_y", [])).klass === smalltalk.Number) ? $receiver <(($receiver = smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])]) : smalltalk.send($receiver, "__lt", [(($receiver = smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])])]);
 return self;},
 source: unescape('canMoveIn%3A%20aTetris%0A%09%5Eself%20position%20y%20%3C%20%28aTetris%20squares%20y%20-%20self%20height%29'),
 messageSends: [unescape("%3C"), "y", "position", unescape("-"), "squares", "height"],
@@ -611,7 +611,7 @@ selector: 'bounds',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(1)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.Array, "_new", []));
+return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(1)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Array || Array), "_new", []));
 return self;},
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
@@ -629,7 +629,7 @@ selector: 'bounds',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(2)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(2)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.Array, "_new", []));
+return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(2)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(2)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Array || Array), "_new", []));
 return self;},
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%200@2%3B%0A%09%09add%3A%201@2%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
@@ -692,7 +692,7 @@ selector: 'bounds',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(2)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(2)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.Array, "_new", []));
+return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(2)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(2)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Array || Array), "_new", []));
 return self;},
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09add%3A%201@2%3B%0A%09%09add%3A%200@2%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
@@ -740,7 +740,7 @@ selector: 'bounds',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(2)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(3)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.Array, "_new", []));
+return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(1)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(2)])]);smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(3)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Array || Array), "_new", []));
 return self;},
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%200@2%3B%0A%09%09add%3A%200@3%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
@@ -773,7 +773,7 @@ selector: 'bounds',
 category: 'accessing',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((2), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(1)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.Array, "_new", []));
+return (function($rec){smalltalk.send($rec, "_add_", [smalltalk.send((0), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((2), "__at", [(0)])]);smalltalk.send($rec, "_add_", [smalltalk.send((1), "__at", [(1)])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Array || Array), "_new", []));
 return self;},
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%202@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
