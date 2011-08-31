@@ -1151,10 +1151,10 @@ selector: 'commentStamp:prior:',
 category: 'accessing',
 fn: function (aStamp, prior){
 var self=this;
-
+return smalltalk.send(self, "_commentStamp", []);
 return self;},
-source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%20%22Ignored%20right%20now.%22'),
-messageSends: [],
+source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%20%22Stamp%20and%20prior%20ignored%20right%20now.%22%0A%09%5Eself%20commentStamp'),
+messageSends: ["commentStamp"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -2396,6 +2396,48 @@ var self=this;
 return self;
 return self;},
 source: unescape('asJSONObject%0A%09%5Eself'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+'_&',
+smalltalk.method({
+selector: '&',
+category: 'controlling',
+fn: function (aBoolean){
+var self=this;
+
+	    if(self == true) {
+		return aBoolean;
+	    } else {
+		return false;
+	    }
+	;
+return self;},
+source: unescape('%26%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20false%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+'_|',
+smalltalk.method({
+selector: '|',
+category: 'controlling',
+fn: function (aBoolean){
+var self=this;
+
+	    if(self == true) {
+		return true;
+	    } else {
+		return aBoolean;
+	    }
+	;
+return self;},
+source: unescape('%7C%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20true%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4585,6 +4627,21 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_asciiValue',
+smalltalk.method({
+selector: 'asciiValue',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.charCodeAt(0);;
+return self;},
+source: unescape('asciiValue%0A%09%3Creturn%20self.charCodeAt%280%29%3B%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -4706,6 +4763,21 @@ return self;},
 source: unescape('streamContents%3A%20blockWithArg%0A%09%7Cstream%7C%0A%09stream%20%3A%3D%20%28self%20streamClass%20on%3A%20String%20new%29.%0A%09blockWithArg%20value%3A%20stream.%0A%09%5E%20stream%20contents'),
 messageSends: ["on:", "streamClass", "new", "value:", "contents"],
 referencedClasses: [smalltalk.String]
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+'_value_',
+smalltalk.method({
+selector: 'value:',
+category: 'instance creation',
+fn: function (aUTFCharCode){
+var self=this;
+return String.fromCharCode(aUTFCharCode);;
+return self;},
+source: unescape('value%3A%20aUTFCharCode%0A%0A%09%3Creturn%20String.fromCharCode%28aUTFCharCode%29%3B%3E'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.String.klass);
 
