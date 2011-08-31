@@ -412,7 +412,7 @@ visitJSStatementNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced'
 	category: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
@@ -524,7 +524,7 @@ setupClass: aClass
 
 initialize
 	super initialize.
-	stream := '' writeStream.
+	stream := '' writeStream. 
 	unknownVariables := #().
 	tempVariables := #().
 	messageSends := #().
@@ -969,7 +969,7 @@ visitVariableNode: aNode
                   		ifFalse: [
                                   	unknownVariables add: aNode value.
                                   	aNode assigned 
-                                  		ifTrue: [stream nextPutAll: '(', aNode value, ' || nil)']
+                                  		ifTrue: [stream nextPutAll: aNode value]
                                   		ifFalse: [stream nextPutAll: '(typeof ', aNode value, ' == ''undefined'' ? nil : ', aNode value, ')']]
                   		ifTrue: [
                 			stream nextPutAll:aNode value]]
