@@ -1337,12 +1337,14 @@ selector: 'import:',
 category: 'fileIn',
 fn: function (aStream){
 var self=this;
-smalltalk.send(smalltalk.send(aStream, "_atEnd", []), "_ifFalse_", [(function(){var nextChunk=nil;
-nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [aStream]);return smalltalk.send(nextChunk, "_ifNotNil_", [(function(){smalltalk.send(smalltalk.send(nextChunk, "_isInstructionChunk", []), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]), "_scanFrom_", [aStream]);}), (function(){return smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]);})]);return smalltalk.send(self, "_import_", [aStream]);})]);})]);
-return self;},
-source: unescape('import%3A%20aStream%0A%09aStream%20atEnd%20ifFalse%3A%20%5B%0A%09%20%20%20%20%7C%20nextChunk%20%7C%0A%09%20%20%20%20nextChunk%20%3A%3D%20self%20chunkParser%20parse%3A%20aStream.%0A%09%20%20%20%20nextChunk%20ifNotNil%3A%20%5B%0A%09%09nextChunk%20isInstructionChunk%20%0A%09%09%20%20%20%20ifTrue%3A%20%5B%28Compiler%20new%20loadExpression%3A%20nextChunk%20contents%29%0A%09%09%09%09%09%20scanFrom%3A%20aStream%5D%0A%09%09%20%20%20%20ifFalse%3A%20%5BCompiler%20new%20loadExpression%3A%20nextChunk%20contents%5D.%0A%09%09self%20import%3A%20aStream%5D%5D'),
-messageSends: ["ifFalse:", "atEnd", "parse:", "chunkParser", "ifNotNil:", "ifTrue:ifFalse:", "isInstructionChunk", "scanFrom:", "loadExpression:", "new", "contents", "import:"],
-referencedClasses: [smalltalk.nil]
+try{var nextChunk=nil;
+var result=nil;
+(function(){while(!(function(){return smalltalk.send(aStream, "_atEnd", []);})()) {(function(){nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [aStream]);(($receiver = nextChunk) == nil || $receiver == undefined) ? (function(){return (function(){throw({name: 'stReturn', selector: '_import_', fn: function(){return self}})})();})() : $receiver;result=smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]);return (($receiver = smalltalk.send(nextChunk, "_isInstructionChunk", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})]);})()}})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_import_'){return e.fn()} throw(e)}},
+source: unescape('import%3A%20aStream%0A%20%20%20%20%7C%20nextChunk%20result%20%7C%0A%20%20%20%20%5BaStream%20atEnd%5D%20whileFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20nextChunk%20%3A%3D%20self%20chunkParser%20parse%3A%20aStream.%0A%20%20%20%20%20%20%20%20nextChunk%20ifNil%3A%20%5B%5Eself%5D.%0A%20%20%20%20%20%20%20%20result%20%3A%3D%20Compiler%20new%20loadExpression%3A%20nextChunk%20contents.%0A%20%20%20%20%20%20%20%20nextChunk%20isInstructionChunk%20%0A%20%20%20%20%20%20%20%20%20%20%20%20ifTrue%3A%20%5Bresult%20scanFrom%3A%20aStream%5D%5D'),
+messageSends: ["whileFalse:", "atEnd", "parse:", "chunkParser", "ifNil:", "loadExpression:", "new", "contents", "ifTrue:", "isInstructionChunk", "scanFrom:"],
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.Importer);
 

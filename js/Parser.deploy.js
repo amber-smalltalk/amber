@@ -1036,9 +1036,11 @@ smalltalk.method({
 selector: 'import:',
 fn: function (aStream){
 var self=this;
-smalltalk.send(smalltalk.send(aStream, "_atEnd", []), "_ifFalse_", [(function(){var nextChunk=nil;
-nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [aStream]);return smalltalk.send(nextChunk, "_ifNotNil_", [(function(){smalltalk.send(smalltalk.send(nextChunk, "_isInstructionChunk", []), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]), "_scanFrom_", [aStream]);}), (function(){return smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]);})]);return smalltalk.send(self, "_import_", [aStream]);})]);})]);
-return self;}
+try{var nextChunk=nil;
+var result=nil;
+(function(){while(!(function(){return smalltalk.send(aStream, "_atEnd", []);})()) {(function(){nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [aStream]);(($receiver = nextChunk) == nil || $receiver == undefined) ? (function(){return (function(){throw({name: 'stReturn', selector: '_import_', fn: function(){return self}})})();})() : $receiver;result=smalltalk.send(smalltalk.send(smalltalk.Compiler, "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]);return (($receiver = smalltalk.send(nextChunk, "_isInstructionChunk", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})]);})()}})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_import_'){return e.fn()} throw(e)}}
 }),
 smalltalk.Importer);
 
