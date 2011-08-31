@@ -961,11 +961,8 @@ visitVariableNode: aNode
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
 			(self knownVariables includes: aNode value) 
-                  		ifFalse: [
-					unknownVariables add: aNode value.
-					stream nextPutAll: '(typeof ', aNode value, ' == ''undefined'' ? nil : ', aNode value, ')']
-                		ifTrue: [
-                                	stream nextPutAll: aNode value]]
+                  		ifFalse: [unknownVariables add: aNode value].
+                	stream nextPutAll: '(', aNode value, ' || nil)']
 !
 
 visitJSStatementNode: aNode
