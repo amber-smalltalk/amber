@@ -161,6 +161,32 @@ scrollTop: anInteger
     self call: 'scrollTop' withArgument: anInteger
 ! !
 
+!JQuery methodsFor: 'effects'!
+
+fadeIn
+    self call: 'fadeIn'
+!
+
+slideDown
+    self call: 'slideDown'
+!
+
+fadeInSlow
+    self call: 'fadeIn' withArgument: 'slow'
+!
+
+fadeOut
+    self call: 'fadeOut'
+!
+
+fadeOutSlow
+    self call: 'fadeOut' withArgument: 'slow'
+!
+
+slideUp
+    self call: 'slideUp'
+! !
+
 !JQuery methodsFor: 'enumerating'!
 
 do: aBlock
@@ -193,6 +219,11 @@ on: anEventString do: aBlock
 removeEvents: aString
     "Unbind all handlers attached to the event aString"
     self call: 'unbind' withArgument: aString
+!
+
+onLoadDo: aBlock
+	"Bind an event handler to the 'load' JavaScript event."
+	self call: 'load' withArgument: aBlock
 ! !
 
 !JQuery methodsFor: 'initialization'!

@@ -823,11 +823,10 @@ selector: 'contents:',
 category: 'adding',
 fn: function (anObject){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
-smalltalk.send(self, "_append_", [anObject]);
+(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
 return self;},
-source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20asJQuery%20empty.%0A%20%20%20%20self%20append%3A%20anObject'),
-messageSends: ["empty", "asJQuery", "append:"],
+source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20%0A%09empty%3B%0A%20%20%20%20%09append%3A%20anObject'),
+messageSends: ["empty", "append:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
@@ -919,9 +918,14 @@ selector: 'appendChild:',
 category: 'adding',
 fn: function (anElement){
 var self=this;
-self['@element'].appendChild(anElement);
+var element=self['@element'];
+      if (null == element.canHaveChildren || element.canHaveChildren) {
+    	element.appendChild(anElement);
+       } else {
+    	element.text = String(element.text) +  anElement.innerHTML;
+      } ;
 return self;},
-source: unescape('appendChild%3A%20anElement%0A%20%20%20%20%3Cself%5B%27@element%27%5D.appendChild%28anElement%29%3E'),
+source: unescape('appendChild%3A%20anElement%0A%20%20%20%22In%20IE7%20and%20IE8%20appendChild%20fails%20on%20several%20node%20types.%20So%20we%20need%20to%20check%22%20%0A%20%20%20%20%3Cvar%20element%3Dself%5B%27@element%27%5D%3B%0A%20%20%20%20%20%20if%20%28null%20%3D%3D%20element.canHaveChildren%20%7C%7C%20element.canHaveChildren%29%20%7B%0A%20%20%20%20%09element.appendChild%28anElement%29%3B%0A%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%09element.text%20%3D%20String%28element.text%29%20+%20%20anElement.innerHTML%3B%0A%20%20%20%20%20%20%7D%20%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1315,6 +1319,21 @@ smalltalk.send(self, "_at_put_", ["rel", aString]);
 return self;},
 source: unescape('rel%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27rel%27%20put%3A%20aString'),
 messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_empty',
+smalltalk.method({
+selector: 'empty',
+category: 'adding',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
+return self;},
+source: unescape('empty%0A%20%20%20%20self%20asJQuery%20empty'),
+messageSends: ["empty", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
