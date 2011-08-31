@@ -49,6 +49,20 @@ smalltalk.DictionaryTest);
 
 
 
+smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+'_testNegated',
+smalltalk.method({
+selector: 'testNegated',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [(($receiver = smalltalk.send((3), "_negated", [])).klass === smalltalk.Number) ? $receiver +(4) : smalltalk.send($receiver, "__plus", [(4)]), (1)]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+
+
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 '_testLogic',

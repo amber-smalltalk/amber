@@ -36,11 +36,21 @@ testPrintString
                         	printString)
 ! !
 
+TestCase subclass: #NumberTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!NumberTest methodsFor: 'tests'!
+
+testNegated
+	self assert: (3 negated + 4) equals: 1
+! !
+
 TestCase subclass: #BooleanTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
-!BooleanTest methodsFor: 'not yet classified'!
+!BooleanTest methodsFor: 'tests'!
 
 testLogic
 

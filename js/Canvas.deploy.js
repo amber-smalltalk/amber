@@ -579,14 +579,10 @@ smalltalk.addMethod(
 '_style',
 smalltalk.method({
 selector: 'style',
-category: 'tags',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["style"]);
-return self;},
-source: unescape('style%0A%09%5Eself%20tag%3A%20%27style%27'),
-messageSends: ["tag:"],
-referencedClasses: []
+return self;}
 }),
 smalltalk.HTMLCanvas);
 
@@ -610,8 +606,7 @@ smalltalk.method({
 selector: 'contents:',
 fn: function (anObject){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
-smalltalk.send(self, "_append_", [anObject]);
+(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -682,7 +677,12 @@ smalltalk.method({
 selector: 'appendChild:',
 fn: function (anElement){
 var self=this;
-self['@element'].appendChild(anElement);
+var element=self['@element'];
+      if (null == element.canHaveChildren || element.canHaveChildren) {
+    	element.appendChild(anElement);
+       } else {
+    	element.text = String(element.text) +  anElement.innerHTML;
+      } ;
 return self;}
 }),
 smalltalk.TagBrush);
@@ -971,6 +971,17 @@ selector: 'rel:',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["rel", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_empty',
+smalltalk.method({
+selector: 'empty',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
 return self;}
 }),
 smalltalk.TagBrush);

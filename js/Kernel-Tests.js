@@ -65,12 +65,30 @@ smalltalk.DictionaryTest);
 
 
 
+smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+'_testNegated',
+smalltalk.method({
+selector: 'testNegated',
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [(($receiver = smalltalk.send((3), "_negated", [])).klass === smalltalk.Number) ? $receiver +(4) : smalltalk.send($receiver, "__plus", [(4)]), (1)]);
+return self;},
+source: unescape('testNegated%0A%09self%20assert%3A%20%283%20negated%20+%204%29%20equals%3A%201'),
+messageSends: ["assert:equals:", unescape("+"), "negated"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+
+
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 '_testLogic',
 smalltalk.method({
 selector: 'testLogic',
-category: 'not yet classified',
+category: 'tests',
 fn: function (){
 var self=this;
 (function($rec){smalltalk.send($rec, "_assert_", [smalltalk.send(true, "_&", [true])]);smalltalk.send($rec, "_deny_", [smalltalk.send(true, "_&", [false])]);smalltalk.send($rec, "_deny_", [smalltalk.send(false, "_&", [true])]);return smalltalk.send($rec, "_deny_", [smalltalk.send(false, "_&", [false])]);})(self);
