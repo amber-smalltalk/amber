@@ -960,9 +960,12 @@ visitVariableNode: aNode
 	(self currentClass allInstanceVariableNames includes: aNode value) 
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
-			(self knownVariables includes: aNode value) ifFalse: [
-				unknownVariables add: aNode value].
-			stream nextPutAll: aNode value]
+			(self knownVariables includes: aNode value) 
+                  		ifFalse: [
+					unknownVariables add: aNode value.
+					stream nextPutAll: '(typeof ', aNode value, ' == ''undefined'' ? nil : ', aNode value, ')']
+                		ifTrue: [
+                                	stream nextPutAll: aNode value]]
 !
 
 visitJSStatementNode: aNode
@@ -1023,6 +1026,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[[Object new] compiledSource] value
+doIt ^[Compiler new recompile: Browser] value
 ! !
 
