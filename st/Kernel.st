@@ -43,7 +43,7 @@ basicDelete: aString
 !
 
 ~= anObject
-	^(self = anObject) == false
+	^(self = anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!
@@ -180,18 +180,22 @@ isMemberOf: aClass
 !
 
 ifNil: aBlock
+	"inlined in the Compiler"
 	^self
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
+	"inlined in the Compiler"
 	^anotherBlock value
 !
 
 ifNotNil: aBlock
+	"inlined in the Compiler"
 	^aBlock value
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
+	"inlined in the Compiler"
 	^aBlock value
 !
 
@@ -383,8 +387,7 @@ methodsFor: aString stamp: aStamp
 !
 
 commentStamp: aStamp prior: prior
-         "Stamp and prior ignored right now."
-	^self commentStamp
+         "Ignored right now."
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -535,18 +538,22 @@ Object subclass: #Number
 !Number methodsFor: 'arithmetic'!
 
 + aNumber
+	"Inlined in the Compiler"
 	<return self + aNumber>
 !
 
 - aNumber
+	"Inlined in the Compiler"
 	<return self - aNumber>
 !
 
 * aNumber
+	"Inlined in the Compiler"
 	<return self * aNumber>
 !
 
 / aNumber
+	"Inlined in the Compiler"
 	<return self / aNumber>
 !
 
@@ -565,22 +572,27 @@ modulo: aNumber
 !Number methodsFor: 'comparing'!
 
 = aNumber
+	"Inlined in the Compiler"
 	<return Number(self) == aNumber>
 !
 
 > aNumber
+	"Inlined in the Compiler"
 	<return self >> aNumber>
 !
 
 < aNumber
+	"Inlined in the Compiler"
 	<return self < aNumber>
 !
 
 >= aNumber
+	"Inlined in the Compiler"
 	<return self >>= aNumber>
 !
 
 <= aNumber
+	"Inlined in the Compiler"
 	<return self <= aNumber>
 ! !
 
@@ -696,11 +708,23 @@ compiledSource
 !BlockClosure methodsFor: 'controlling'!
 
 whileTrue: aBlock
+	"inlined in the Compiler"
 	<while(self()) {aBlock()}>
 !
 
 whileFalse: aBlock
+	"inlined in the Compiler"
 	<while(!!self()) {aBlock()}>
+!
+
+whileFalse
+	"inlined in the Compiler"
+	self whileFalse: []
+!
+
+whileTrue
+	"inlined in the Compiler"
+	self whileTrue: []
 ! !
 
 !BlockClosure methodsFor: 'error handling'!
@@ -715,23 +739,33 @@ on: anErrorClass do: aBlock
 !BlockClosure methodsFor: 'evaluating'!
 
 value
+	"inlined in the Compiler"
 	<return self();>
 !
 
 value: anArg
+	"inlined in the Compiler"
 	<return self(anArg);>
 !
 
 value: firstArg value: secondArg
+	"inlined in the Compiler"
 	<return self(firstArg, secondArg);>
 !
 
 value: firstArg value: secondArg value: thirdArg
+	"inlined in the Compiler"
 	<return self(firstArg, secondArg, thirdArg);>
 !
 
 valueWithPossibleArguments: aCollection
 	<return self.apply(null, aCollection);>
+!
+
+new
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self()>
 ! !
 
 !BlockClosure methodsFor: 'printing'!
@@ -774,18 +808,22 @@ asJSONObject
 !Boolean methodsFor: 'controlling'!
 
 ifTrue: aBlock
+	"inlined in the Compiler"
 	^self ifTrue: aBlock ifFalse: []
 !
 
 ifFalse: aBlock
+	"inlined in the Compiler"
 	^self ifTrue: [] ifFalse: aBlock
 !
 
 ifFalse: aBlock ifTrue: anotherBlock
+	"inlined in the Compiler"
 	^self ifTrue: anotherBlock ifFalse: aBlock
 !
 
 ifTrue: aBlock ifFalse: anotherBlock
+	"inlined in the Compiler"
 	<
 	    if(self == true) {
 		return aBlock();
@@ -809,26 +847,6 @@ or: aBlock
 
 not
 	^self = false
-!
-
-& aBoolean
-	<
-	    if(self == true) {
-		return aBoolean;
-	    } else {
-		return false;
-	    }
-	>
-!
-
-| aBoolean
-	<
-	    if(self == true) {
-		return true;
-	    } else {
-		return aBoolean;
-	    }
-	>
 ! !
 
 !Boolean methodsFor: 'copying'!
@@ -1067,18 +1085,22 @@ printString
 !UndefinedObject methodsFor: 'testing'!
 
 ifNil: aBlock
+	"inlined in the Compiler"
 	^self ifNil: aBlock ifNotNil: []
 !
 
 ifNotNil: aBlock
+	"inlined in the Compiler"
 	^self
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
+	"inlined in the Compiler"
 	^aBlock value
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
+	"inlined in the Compiler"
 	^anotherBlock value
 !
 
@@ -1395,10 +1417,6 @@ escaped
 
 unescaped
 	<return unescape(self)>
-!
-
-asciiValue
-	<return self.charCodeAt(0);>
 ! !
 
 !String methodsFor: 'adding'!
@@ -1629,11 +1647,6 @@ streamContents: blockWithArg
 	stream := (self streamClass on: String new).
 	blockWithArg value: stream.
 	^ stream contents
-!
-
-value: aUTFCharCode
-
-	<return String.fromCharCode(aUTFCharCode);>
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1729,7 +1742,7 @@ sort
 sort: aBlock
 	<
 		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return 1} else {return -1}
+			if(aBlock(a,b)) {return -1} else {return 1}
 		})
 	>
 !
@@ -1739,7 +1752,7 @@ sorted
 !
 
 sorted: aBlock
-	^self copy sorted: aBlock
+	^self copy sort: aBlock
 !
 
 printString
