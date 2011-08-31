@@ -257,8 +257,9 @@ element
 !TagBrush methodsFor: 'adding'!
 
 contents: anObject
-    self asJQuery empty.
-    self append: anObject
+    self 
+	empty;
+    	append: anObject
 !
 
 addBrush: aTagBrush
@@ -287,11 +288,21 @@ appendBlock: aBlock
 !
 
 appendChild: anElement
-    <self['@element'].appendChild(anElement)>
+   "In IE7 and IE8 appendChild fails on several node types. So we need to check" 
+    <var element=self['@element'];
+      if (null == element.canHaveChildren || element.canHaveChildren) {
+    	element.appendChild(anElement);
+       } else {
+    	element.text = String(element.text) +  anElement.innerHTML;
+      } >
 !
 
 appendString: aString
     self appendChild: (self createTextNodeFor: aString)
+!
+
+empty
+    self asJQuery empty
 ! !
 
 !TagBrush methodsFor: 'attributes'!
