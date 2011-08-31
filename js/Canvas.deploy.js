@@ -617,8 +617,7 @@ smalltalk.method({
 selector: 'contents:',
 fn: function (anObject){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
-smalltalk.send(self, "_append_", [anObject]);
+(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -689,7 +688,12 @@ smalltalk.method({
 selector: 'appendChild:',
 fn: function (anElement){
 var self=this;
-self['@element'].appendChild(anElement);
+var element=self['@element'];
+ 	if (null == element.canHaveChildren || element.canHaveChildren) {
+		element.appendChild(anElement);
+ 	} else {
+ 		element.text = String(element.text) +  anElement.innerHTML;
+ 	} ;
 return self;}
 }),
 smalltalk.TagBrush);
@@ -967,6 +971,17 @@ selector: 'createTextNodeFor:',
 fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_empty',
+smalltalk.method({
+selector: 'empty',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
 return self;}
 }),
 smalltalk.TagBrush);

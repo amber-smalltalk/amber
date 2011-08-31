@@ -1465,6 +1465,17 @@ return self;}
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_negated',
+smalltalk.method({
+selector: 'negated',
+fn: function (){
+var self=this;
+return (0) - self;
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',
