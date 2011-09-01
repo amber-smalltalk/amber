@@ -164,27 +164,27 @@ scrollTop: anInteger
 !JQuery methodsFor: 'effects'!
 
 fadeIn
-    self call: 'fadeIn'
+ 	self call: 'fadeIn'
 !
 
 slideDown
-    self call: 'slideDown'
+ 	self call: 'slideDown'
 !
 
 fadeInSlow
-    self call: 'fadeIn' withArgument: 'slow'
+ 	self call: 'fadeIn' withArgument: 'slow'
 !
 
 fadeOut
-    self call: 'fadeOut'
+ 	self call: 'fadeOut'
 !
 
 fadeOutSlow
-    self call: 'fadeOut' withArgument: 'slow'
+ 	self call: 'fadeOut' withArgument: 'slow'
 !
 
 slideUp
-    self call: 'slideUp'
+ 	self call: 'slideUp'
 ! !
 
 !JQuery methodsFor: 'enumerating'!
@@ -223,7 +223,7 @@ removeEvents: aString
 
 onLoadDo: aBlock
 	"Bind an event handler to the 'load' JavaScript event."
-	self call: 'load' withArgument: aBlock
+        self call: 'load' withArgument: aBlock
 ! !
 
 !JQuery methodsFor: 'initialization'!
