@@ -53,9 +53,9 @@ optional
 !
 
 memoizedParse: aStream
-	| start end node |
+	| r start end node |
 	start := aStream position.
-	^self memo at: start 
+        self log: 'memoizedParse' block: [r := self memo at: start 
 	    ifPresent: [:value |
 		aStream position: (self memo at: start) second.
 		value first]
@@ -63,7 +63,8 @@ memoizedParse: aStream
 		node := self parse: aStream.
 		end := aStream position.
 		self memo at: start put: (Array with: node with: end).
-		node]
+		node]].
+	^r
 ! !
 
 !PPParser methodsFor: 'parsing'!

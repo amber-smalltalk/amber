@@ -126,11 +126,13 @@ smalltalk.method({
 selector: 'memoizedParse:',
 fn: function (aStream){
 var self=this;
+var r=nil;
 var start=nil;
 var end=nil;
 var node=nil;
 start=smalltalk.send(aStream, "_position", []);
-return smalltalk.send(smalltalk.send(self, "_memo", []), "_at_ifPresent_ifAbsent_", [start, (function(value){smalltalk.send(aStream, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_memo", []), "_at_", [start]), "_second", [])]);return smalltalk.send(value, "_first", []);}), (function(){node=smalltalk.send(self, "_parse_", [aStream]);end=smalltalk.send(aStream, "_position", []);smalltalk.send(smalltalk.send(self, "_memo", []), "_at_put_", [start, smalltalk.send((smalltalk.Array || Array), "_with_with_", [node, end])]);return node;})]);
+smalltalk.send(self, "_log_block_", ["memoizedParse", (function(){return r=smalltalk.send(smalltalk.send(self, "_memo", []), "_at_ifPresent_ifAbsent_", [start, (function(value){smalltalk.send(aStream, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_memo", []), "_at_", [start]), "_second", [])]);return smalltalk.send(value, "_first", []);}), (function(){node=smalltalk.send(self, "_parse_", [aStream]);end=smalltalk.send(aStream, "_position", []);smalltalk.send(smalltalk.send(self, "_memo", []), "_at_put_", [start, smalltalk.send((smalltalk.Array || Array), "_with_with_", [node, end])]);return node;})]);})]);
+return r;
 return self;}
 }),
 smalltalk.PPParser);
