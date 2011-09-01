@@ -259,7 +259,7 @@ element
 contents: anObject
     self 
 	empty;
-    	append: anObject
+   	append: anObject
 !
 
 addBrush: aTagBrush
@@ -288,13 +288,13 @@ appendBlock: aBlock
 !
 
 appendChild: anElement
-   "In IE7 and IE8 appendChild fails on several node types. So we need to check" 
-    <var element=self['@element'];
-      if (null == element.canHaveChildren || element.canHaveChildren) {
-    	element.appendChild(anElement);
-       } else {
-    	element.text = String(element.text) +  anElement.innerHTML;
-      } >
+	"In IE7 and IE8 appendChild fails on several node types. So we need to check" 
+ 	<var element=self['@element'];
+ 	if (null == element.canHaveChildren || element.canHaveChildren) {
+		element.appendChild(anElement);
+ 	} else {
+ 		element.text = String(element.text) +  anElement.innerHTML;
+ 	} >
 !
 
 appendString: aString
@@ -302,7 +302,7 @@ appendString: aString
 !
 
 empty
-    self asJQuery empty
+	self asJQuery empty
 ! !
 
 !TagBrush methodsFor: 'attributes'!

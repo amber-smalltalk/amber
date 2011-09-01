@@ -387,8 +387,7 @@ methodsFor: aString stamp: aStamp
 !
 
 commentStamp: aStamp prior: prior
-         "Stamp and prior ignored right now."
-	^self commentStamp
+         "Ignored right now."
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -571,8 +570,7 @@ modulo: aNumber
 !
 
 negated
-	"Answer a Number that is the negation of the receiver."
-	^ 0 - self
+	^0 - self
 ! !
 
 !Number methodsFor: 'comparing'!
