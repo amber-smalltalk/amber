@@ -245,6 +245,10 @@ TabWidget subclass: #Workspace
 
 label
     ^'[Workspace]'
+!
+
+val: aString
+    sourceArea val: aString
 ! !
 
 !Workspace methodsFor: 'actions'!
@@ -288,6 +292,13 @@ renderButtonsOn: html
     html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
+! !
+
+!Workspace class methodsFor: 'convenience'!
+
+openOn: aString
+    ^self open
+	val: aString
 ! !
 
 TabWidget subclass: #Transcript
@@ -566,21 +577,21 @@ compileDefinition
 !
 
 commitCategory
-    selectedCategory ifNotNil: [
-	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
+    selectedCategory ifNotNil: [ | path path2 path3 data data2 data3 |
+	(Ajax url: (path := self class commitPathJs, '/', selectedCategory, '.js'))
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    at: 'data' put: (data := Exporter new exportCategory: selectedCategory);
+	    at: 'error' put: [Sandbox label: path openOn: data];
 	    send.
-	(Ajax url: self class commitPathJs, '/', selectedCategory, '.deploy.js')
+	(Ajax url: (path2 := self class commitPathJs, '/', selectedCategory, '.deploy.js'))
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (StrippedExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    at: 'data' put: (data2 := StrippedExporter new exportCategory: selectedCategory);
+	    at: 'error' put: [Sandbox label: path2 openOn: data2];
 	    send.
-	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')
+	(Ajax url: (path3 := self class commitPathSt, '/', selectedCategory, '.st'))
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (ChunkExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    at: 'data' put: (data3 := ChunkExporter new exportCategory: selectedCategory);
+	    at: 'error' put: [Sandbox label: path3 openOn: data3];
 	    send]
 !
 
@@ -1330,7 +1341,7 @@ editor
 !SourceArea methodsFor: 'actions'!
 
 clear
-    textarea asJQuery val: ''
+    self val: ''
 !
 
 doIt
@@ -1656,6 +1667,35 @@ initialize
 	self register
 ! !
 
+Workspace subclass: #Sandbox
+	instanceVariableNames: 'label'
+	category: 'IDE'!
+
+!Sandbox methodsFor: 'accessing'!
+
+label
+    ^label ifNil: '[Sandbox]'
+!
+
+label: aString
+    label := aString
+! !
+
+!Sandbox methodsFor: 'testing'!
+
+canBeClosed
+    ^true
+! !
+
+!Sandbox class methodsFor: 'not yet classified'!
+
+label: aStringLabel openOn: aStringContent
+
+	^(self new
+		label: aStringLabel;
+		open) val: aStringContent
+! !
+
 !Object methodsFor: '*IDE'!
 
 inspect
@@ -1747,4 +1787,5 @@ inspectOn: anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
+
 

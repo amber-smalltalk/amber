@@ -475,6 +475,28 @@ return self;}
 }),
 smalltalk.Workspace);
 
+smalltalk.addMethod(
+'_val_',
+smalltalk.method({
+selector: 'val:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self['@sourceArea'], "_val_", [aString]);
+return self;}
+}),
+smalltalk.Workspace);
+
+
+smalltalk.addMethod(
+'_openOn_',
+smalltalk.method({
+selector: 'openOn:',
+fn: function (aString){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_open", []), "_val_", [aString]);
+return self;}
+}),
+smalltalk.Workspace.klass);
 
 
 smalltalk.addClass('Transcript', smalltalk.TabWidget, ['textarea'], 'IDE');
@@ -915,7 +937,13 @@ smalltalk.method({
 selector: 'commitCategory',
 fn: function (){
 var self=this;
-smalltalk.send(self['@selectedCategory'], "_ifNotNil_", [(function(){(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.Exporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.StrippedExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.ChunkExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".st"])]));})]);
+(($receiver = self['@selectedCategory']) != nil && $receiver != undefined) ? (function(){var path=nil;
+var path2=nil;
+var path3=nil;
+var data=nil;
+var data2=nil;
+var data3=nil;
+(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", data=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send((smalltalk.Sandbox || Sandbox), "_label_openOn_", [path, data]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [path=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", data2=smalltalk.send(smalltalk.send((smalltalk.StrippedExporter || StrippedExporter), "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send((smalltalk.Sandbox || Sandbox), "_label_openOn_", [path2, data2]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [path2=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", data3=smalltalk.send(smalltalk.send((smalltalk.ChunkExporter || ChunkExporter), "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send((smalltalk.Sandbox || Sandbox), "_label_openOn_", [path3, data3]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [path3=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".st"])]));})() : nil;
 return self;}
 }),
 smalltalk.Browser);
@@ -1931,7 +1959,7 @@ smalltalk.method({
 selector: 'clear',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [""]);
+smalltalk.send(self, "_val_", [""]);
 return self;}
 }),
 smalltalk.SourceArea);
@@ -2491,6 +2519,53 @@ return self;}
 smalltalk.DebugErrorHandler.klass);
 
 
+smalltalk.addClass('Sandbox', smalltalk.Workspace, ['label'], 'IDE');
+smalltalk.addMethod(
+'_label',
+smalltalk.method({
+selector: 'label',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@label'], "_ifNil_", [unescape("%5BSandbox%5D")]);
+return self;}
+}),
+smalltalk.Sandbox);
+
+smalltalk.addMethod(
+'_canBeClosed',
+smalltalk.method({
+selector: 'canBeClosed',
+fn: function (){
+var self=this;
+return true;
+return self;}
+}),
+smalltalk.Sandbox);
+
+smalltalk.addMethod(
+'_label_',
+smalltalk.method({
+selector: 'label:',
+fn: function (aString){
+var self=this;
+self['@label']=aString;
+return self;}
+}),
+smalltalk.Sandbox);
+
+
+smalltalk.addMethod(
+'_label_openOn_',
+smalltalk.method({
+selector: 'label:openOn:',
+fn: function (aStringLabel, aStringContent){
+var self=this;
+return smalltalk.send((function($rec){smalltalk.send($rec, "_label_", [aStringLabel]);return smalltalk.send($rec, "_open", []);})(smalltalk.send(self, "_new", [])), "_val_", [aStringContent]);
+return self;}
+}),
+smalltalk.Sandbox.klass);
+
+
 smalltalk.addMethod(
 '_inspect',
 smalltalk.method({
@@ -2601,4 +2676,5 @@ smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltal
 return self;}
 }),
 smalltalk.Dictionary);
+
 

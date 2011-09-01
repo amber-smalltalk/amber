@@ -635,6 +635,36 @@ referencedClasses: []
 }),
 smalltalk.Workspace);
 
+smalltalk.addMethod(
+'_val_',
+smalltalk.method({
+selector: 'val:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+smalltalk.send(self['@sourceArea'], "_val_", [aString]);
+return self;},
+source: unescape('val%3A%20aString%0A%20%20%20%20sourceArea%20val%3A%20aString'),
+messageSends: ["val:"],
+referencedClasses: []
+}),
+smalltalk.Workspace);
+
+
+smalltalk.addMethod(
+'_openOn_',
+smalltalk.method({
+selector: 'openOn:',
+category: 'convenience',
+fn: function (aString){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_open", []), "_val_", [aString]);
+return self;},
+source: unescape('openOn%3A%20aString%0A%20%20%20%20%5Eself%20open%0A%09val%3A%20aString'),
+messageSends: ["val:", "open"],
+referencedClasses: []
+}),
+smalltalk.Workspace.klass);
 
 
 smalltalk.addClass('Transcript', smalltalk.TabWidget, ['textarea'], 'IDE');
@@ -1216,11 +1246,17 @@ selector: 'commitCategory',
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(self['@selectedCategory'], "_ifNotNil_", [(function(){(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.Exporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.StrippedExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send(smalltalk.ChunkExporter, "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send(smalltalk.Ajax, "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".st"])]));})]);
+(($receiver = self['@selectedCategory']) != nil && $receiver != undefined) ? (function(){var path=nil;
+var path2=nil;
+var path3=nil;
+var data=nil;
+var data2=nil;
+var data3=nil;
+(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", data=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send((smalltalk.Sandbox || Sandbox), "_label_openOn_", [path, data]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [path=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", data2=smalltalk.send(smalltalk.send((smalltalk.StrippedExporter || StrippedExporter), "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send((smalltalk.Sandbox || Sandbox), "_label_openOn_", [path2, data2]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [path2=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", data3=smalltalk.send(smalltalk.send((smalltalk.ChunkExporter || ChunkExporter), "_new", []), "_exportCategory_", [self['@selectedCategory']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send((smalltalk.Sandbox || Sandbox), "_label_openOn_", [path3, data3]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [path3=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedCategory']]), "__comma", [".st"])]));})() : nil;
 return self;},
-source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedCategory%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedCategory%2C%20%27.deploy.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28StrippedExporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathSt%2C%20%27/%27%2C%20selectedCategory%2C%20%27.st%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28ChunkExporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D'),
-messageSends: ["ifNotNil:", "at:put:", "exportCategory:", "new", "alert:", "send", "url:", unescape("%2C"), "commitPathJs", "class", "commitPathSt"],
-referencedClasses: [smalltalk.Exporter,smalltalk.Ajax,smalltalk.StrippedExporter,smalltalk.ChunkExporter]
+source: unescape('commitCategory%0A%20%20%20%20selectedCategory%20ifNotNil%3A%20%5B%20%7C%20path%20path2%20path3%20data%20data2%20data3%20%7C%0A%09%28Ajax%20url%3A%20%28path%20%3A%3D%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedCategory%2C%20%27.js%27%29%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28data%20%3A%3D%20Exporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5BSandbox%20label%3A%20path%20openOn%3A%20data%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20%28path2%20%3A%3D%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedCategory%2C%20%27.deploy.js%27%29%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28data2%20%3A%3D%20StrippedExporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5BSandbox%20label%3A%20path2%20openOn%3A%20data2%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20%28path3%20%3A%3D%20self%20class%20commitPathSt%2C%20%27/%27%2C%20selectedCategory%2C%20%27.st%27%29%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28data3%20%3A%3D%20ChunkExporter%20new%20exportCategory%3A%20selectedCategory%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5BSandbox%20label%3A%20path3%20openOn%3A%20data3%5D%3B%0A%09%20%20%20%20send%5D'),
+messageSends: ["ifNotNil:", "at:put:", "exportCategory:", "new", "label:openOn:", "send", "url:", unescape("%2C"), "commitPathJs", "class", "commitPathSt"],
+referencedClasses: [smalltalk.Exporter,smalltalk.Sandbox,smalltalk.Ajax,smalltalk.StrippedExporter,smalltalk.ChunkExporter]
 }),
 smalltalk.Browser);
 
@@ -2580,10 +2616,10 @@ selector: 'clear',
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [""]);
+smalltalk.send(self, "_val_", [""]);
 return self;},
-source: unescape('clear%0A%20%20%20%20textarea%20asJQuery%20val%3A%20%27%27'),
-messageSends: ["val:", "asJQuery"],
+source: unescape('clear%0A%20%20%20%20self%20val%3A%20%27%27'),
+messageSends: ["val:"],
 referencedClasses: []
 }),
 smalltalk.SourceArea);
@@ -3315,6 +3351,69 @@ referencedClasses: []
 smalltalk.DebugErrorHandler.klass);
 
 
+smalltalk.addClass('Sandbox', smalltalk.Workspace, ['label'], 'IDE');
+smalltalk.addMethod(
+'_label',
+smalltalk.method({
+selector: 'label',
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@label'], "_ifNil_", [unescape("%5BSandbox%5D")]);
+return self;},
+source: unescape('label%0A%20%20%20%20%5Elabel%20ifNil%3A%20%27%5BSandbox%5D%27'),
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Sandbox);
+
+smalltalk.addMethod(
+'_canBeClosed',
+smalltalk.method({
+selector: 'canBeClosed',
+category: 'testing',
+fn: function (){
+var self=this;
+return true;
+return self;},
+source: unescape('canBeClosed%0A%20%20%20%20%5Etrue'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Sandbox);
+
+smalltalk.addMethod(
+'_label_',
+smalltalk.method({
+selector: 'label:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+self['@label']=aString;
+return self;},
+source: unescape('label%3A%20aString%0A%20%20%20%20label%20%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Sandbox);
+
+
+smalltalk.addMethod(
+'_label_openOn_',
+smalltalk.method({
+selector: 'label:openOn:',
+category: 'not yet classified',
+fn: function (aStringLabel, aStringContent){
+var self=this;
+return smalltalk.send((function($rec){smalltalk.send($rec, "_label_", [aStringLabel]);return smalltalk.send($rec, "_open", []);})(smalltalk.send(self, "_new", [])), "_val_", [aStringContent]);
+return self;},
+source: unescape('label%3A%20aStringLabel%20openOn%3A%20aStringContent%0A%0A%09%5E%28self%20new%0A%09%09label%3A%20aStringLabel%3B%0A%09%09open%29%20val%3A%20aStringContent'),
+messageSends: ["val:", "label:", "open", "new"],
+referencedClasses: []
+}),
+smalltalk.Sandbox.klass);
+
+
 smalltalk.addMethod(
 '_inspect',
 smalltalk.method({
@@ -3453,4 +3552,5 @@ messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "print
 referencedClasses: [smalltalk.Dictionary]
 }),
 smalltalk.Dictionary);
+
 
