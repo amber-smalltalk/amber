@@ -185,6 +185,10 @@ fadeOutSlow
 
 slideUp
     self call: 'slideUp'
+!
+
+fadeOut: aString do: aBlock
+    <self['@jquery'].fadeOut(aString, aBlock)>
 ! !
 
 !JQuery methodsFor: 'enumerating'!

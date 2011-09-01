@@ -780,6 +780,21 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_fadeOut_do_',
+smalltalk.method({
+selector: 'fadeOut:do:',
+category: 'effects',
+fn: function (aString, aBlock){
+var self=this;
+self['@jquery'].fadeOut(aString, aBlock);
+return self;},
+source: unescape('fadeOut%3A%20aString%20do%3A%20aBlock%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.fadeOut%28aString%2C%20aBlock%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',
