@@ -126,13 +126,11 @@ smalltalk.method({
 selector: 'memoizedParse:',
 fn: function (aStream){
 var self=this;
-var r=nil;
 var start=nil;
 var end=nil;
 var node=nil;
 start=smalltalk.send(aStream, "_position", []);
-smalltalk.send(self, "_log_block_", ["memoizedParse", (function(){return r=smalltalk.send(smalltalk.send(self, "_memo", []), "_at_ifPresent_ifAbsent_", [start, (function(value){smalltalk.send(aStream, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_memo", []), "_at_", [start]), "_second", [])]);return smalltalk.send(value, "_first", []);}), (function(){node=smalltalk.send(self, "_parse_", [aStream]);end=smalltalk.send(aStream, "_position", []);smalltalk.send(smalltalk.send(self, "_memo", []), "_at_put_", [start, smalltalk.send((smalltalk.Array || Array), "_with_with_", [node, end])]);return node;})]);})]);
-return r;
+return smalltalk.send(smalltalk.send(self, "_memo", []), "_at_ifPresent_ifAbsent_", [start, (function(value){smalltalk.send(aStream, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_memo", []), "_at_", [start]), "_second", [])]);return smalltalk.send(value, "_first", []);}), (function(){node=smalltalk.send(self, "_parse_", [aStream]);end=smalltalk.send(aStream, "_position", []);smalltalk.send(smalltalk.send(self, "_memo", []), "_at_put_", [start, smalltalk.send((smalltalk.Array || Array), "_with_with_", [node, end])]);return node;})]);
 return self;}
 }),
 smalltalk.PPParser);
@@ -865,184 +863,63 @@ return self;}
 smalltalk.SmalltalkParser.klass);
 
 
-smalltalk.addClass('Chunk', smalltalk.Object, ['contents'], 'Parser');
+smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Parser');
 smalltalk.addMethod(
-'_contents',
+'_stream_',
 smalltalk.method({
-selector: 'contents',
-fn: function (){
+selector: 'stream:',
+fn: function (aStream){
 var self=this;
-return (($receiver = self['@contents']) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver;
-return self;}
-}),
-smalltalk.Chunk);
-
-smalltalk.addMethod(
-'_contents_',
-smalltalk.method({
-selector: 'contents:',
-fn: function (aString){
-var self=this;
-self['@contents']=aString;
-return self;}
-}),
-smalltalk.Chunk);
-
-smalltalk.addMethod(
-'_isEmptyChunk',
-smalltalk.method({
-selector: 'isEmptyChunk',
-fn: function (){
-var self=this;
-return false;
-return self;}
-}),
-smalltalk.Chunk);
-
-smalltalk.addMethod(
-'_isInstructionChunk',
-smalltalk.method({
-selector: 'isInstructionChunk',
-fn: function (){
-var self=this;
-return false;
-return self;}
-}),
-smalltalk.Chunk);
-
-
-
-smalltalk.addClass('InstructionChunk', smalltalk.Chunk, [], 'Parser');
-smalltalk.addMethod(
-'_isInstructionChunk',
-smalltalk.method({
-selector: 'isInstructionChunk',
-fn: function (){
-var self=this;
-return true;
-return self;}
-}),
-smalltalk.InstructionChunk);
-
-
-
-smalltalk.addClass('EmptyChunk', smalltalk.Chunk, [], 'Parser');
-smalltalk.addMethod(
-'_isEmptyChunk',
-smalltalk.method({
-selector: 'isEmptyChunk',
-fn: function (){
-var self=this;
-return true;
-return self;}
-}),
-smalltalk.EmptyChunk);
-
-
-
-smalltalk.addClass('ChunkParser', smalltalk.Object, ['parser', 'separator', 'eof', 'ws', 'chunk', 'emptyChunk', 'instructionChunk'], 'Parser');
-smalltalk.addMethod(
-'_parser',
-smalltalk.method({
-selector: 'parser',
-fn: function (){
-var self=this;
-return (($receiver = self['@parser']) == nil || $receiver == undefined) ? (function(){return self['@parser']=(($receiver = (($receiver = (($receiver = smalltalk.send(self, "_instructionChunk", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self, "_emptyChunk", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self, "_emptyChunk", [])])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self, "_chunk", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self, "_chunk", [])])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self, "_eof", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self, "_eof", [])]);})() : $receiver;
+self['@stream']=aStream;
 return self;}
 }),
 smalltalk.ChunkParser);
 
 smalltalk.addMethod(
-'_eof',
+'_nextChunk',
 smalltalk.method({
-selector: 'eof',
+selector: 'nextChunk',
 fn: function (){
 var self=this;
-return (($receiver = self['@eof']) == nil || $receiver == undefined) ? (function(){return self['@eof']=smalltalk.send(smalltalk.send(smalltalk.send(self, "_ws", []), "__comma", [smalltalk.send((smalltalk.PPEOFParser || PPEOFParser), "_new", [])]), "__eq_eq_gt", [(function(node){return nil;})]);})() : $receiver;
-return self;}
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_separator',
-smalltalk.method({
-selector: 'separator',
-fn: function (){
-var self=this;
-return (($receiver = self['@separator']) == nil || $receiver == undefined) ? (function(){return self['@separator']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.String || String), "_cr", []), "__comma", [smalltalk.send((smalltalk.String || String), "_space", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])]), "_asChoiceParser", []);})() : $receiver;
-return self;}
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_ws',
-smalltalk.method({
-selector: 'ws',
-fn: function (){
-var self=this;
-return (($receiver = self['@ws']) == nil || $receiver == undefined) ? (function(){return self['@ws']=smalltalk.send(smalltalk.send(self, "_separator", []), "_star", []);})() : $receiver;
-return self;}
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_chunk',
-smalltalk.method({
-selector: 'chunk',
-fn: function (){
-var self=this;
-return (($receiver = self['@chunk']) == nil || $receiver == undefined) ? (function(){return self['@chunk']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_ws", []), "__comma", [smalltalk.send(smalltalk.send((($receiver = smalltalk.send(unescape("%21%21"), "_asParser", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(smalltalk.send(smalltalk.send(unescape("%21"), "_asParser", []), "_not", []), "__comma", [smalltalk.send((smalltalk.PPAnyParser || PPAnyParser), "_new", [])]) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send(smalltalk.send(unescape("%21"), "_asParser", []), "_not", []), "__comma", [smalltalk.send((smalltalk.PPAnyParser || PPAnyParser), "_new", [])])]), "_plus", []), "_flatten", [])]), "__comma", [smalltalk.send(unescape("%21"), "_asParser", [])]), "__eq_eq_gt", [(function(node){return smalltalk.send(smalltalk.send((smalltalk.Chunk || Chunk), "_new", []), "_contents_", [smalltalk.send(smalltalk.send(smalltalk.send(node, "_second", []), "_replace_with_", [unescape("%21%21"), unescape("%21")]), "_trimBoth", [])]);})]);})() : $receiver;
-return self;}
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_emptyChunk',
-smalltalk.method({
-selector: 'emptyChunk',
-fn: function (){
-var self=this;
-return (($receiver = self['@emptyChunk']) == nil || $receiver == undefined) ? (function(){return self['@emptyChunk']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_separator", []), "_plus", []), "__comma", [smalltalk.send(unescape("%21"), "_asParser", [])]), "__comma", [smalltalk.send(self, "_ws", [])]), "__eq_eq_gt", [(function(node){return smalltalk.send((smalltalk.EmptyChunk || EmptyChunk), "_new", []);})]);})() : $receiver;
-return self;}
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_instructionChunk',
-smalltalk.method({
-selector: 'instructionChunk',
-fn: function (){
-var self=this;
-return (($receiver = self['@instructionChunk']) == nil || $receiver == undefined) ? (function(){return self['@instructionChunk']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_ws", []), "__comma", [smalltalk.send(unescape("%21"), "_asParser", [])]), "__comma", [smalltalk.send(self, "_chunk", [])]), "__eq_eq_gt", [(function(node){return smalltalk.send(smalltalk.send((smalltalk.InstructionChunk || InstructionChunk), "_new", []), "_contents_", [smalltalk.send(smalltalk.send(node, "_last", []), "_contents", [])]);})]);})() : $receiver;
-return self;}
+try{var char=nil;
+var result=nil;
+var chunk=nil;
+result=smalltalk.send("", "_writeStream", []);
+(function(){while((function(){char=smalltalk.send(self['@stream'], "_next", []);return smalltalk.send(char, "_notNil", []);})()) {(function(){(($receiver = smalltalk.send(char, "__eq", [unescape("%21")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(self['@stream'], "_peek", []), "__eq", [unescape("%21")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@stream'], "_next", []);})() : (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_next", []);}), (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(self['@stream'], "_peek", []), "__eq", [unescape("%21")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@stream'], "_next", []);})() : (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_next", []);}), (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})]);})]);return smalltalk.send(result, "_nextPut_", [char]);})()}})();
+(function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return nil}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_nextChunk'){return e.fn()} throw(e)}}
 }),
 smalltalk.ChunkParser);
 
 
-
-smalltalk.addClass('Importer', smalltalk.Object, ['chunkParser'], 'Parser');
 smalltalk.addMethod(
-'_chunkParser',
+'_on_',
 smalltalk.method({
-selector: 'chunkParser',
-fn: function (){
+selector: 'on:',
+fn: function (aStream){
 var self=this;
-return (($receiver = self['@chunkParser']) == nil || $receiver == undefined) ? (function(){return self['@chunkParser']=smalltalk.send(smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []), "_parser", []);})() : $receiver;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_stream_", [aStream]);
 return self;}
 }),
-smalltalk.Importer);
+smalltalk.ChunkParser.klass);
 
+
+smalltalk.addClass('Importer', smalltalk.Object, [], 'Parser');
 smalltalk.addMethod(
 '_import_',
 smalltalk.method({
 selector: 'import:',
 fn: function (aStream){
 var self=this;
-try{var nextChunk=nil;
+var chunk=nil;
 var result=nil;
-(function(){while(!(function(){return smalltalk.send(aStream, "_atEnd", []);})()) {(function(){nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [aStream]);(($receiver = nextChunk) == nil || $receiver == undefined) ? (function(){return (function(){throw({name: 'stReturn', selector: '_import_', fn: function(){return self}})})();})() : $receiver;result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]);return (($receiver = smalltalk.send(nextChunk, "_isInstructionChunk", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})]);})()}})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_import_'){return e.fn()} throw(e)}}
+var parser=nil;
+var lastEmpty=nil;
+parser=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_on_", [aStream]);
+lastEmpty=false;
+(function(){while(!(function(){chunk=smalltalk.send(parser, "_nextChunk", []);return smalltalk.send(chunk, "_isNil", []);})()) {(function(){return (($receiver = smalltalk.send(chunk, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return lastEmpty=true;})() : (function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [chunk]);return (($receiver = lastEmpty).klass === smalltalk.Boolean) ? ($receiver ? (function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return lastEmpty=true;}), (function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [chunk]);return (($receiver = lastEmpty).klass === smalltalk.Boolean) ? ($receiver ? (function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})]);})]);})()}})();
+return self;}
 }),
 smalltalk.Importer);
 

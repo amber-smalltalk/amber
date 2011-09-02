@@ -40,7 +40,7 @@ return smalltalk.send((smalltalk.PPFlattenParser || PPFlattenParser), "_on_", [s
 return self;},
 source: unescape('flatten%0A%09%5EPPFlattenParser%20on%3A%20self'),
 messageSends: ["on:"],
-referencedClasses: [smalltalk.PPFlattenParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -55,7 +55,7 @@ return smalltalk.send((smalltalk.PPSourceParser || PPSourceParser), "_on_", [sel
 return self;},
 source: unescape('withSource%0A%09%5EPPSourceParser%20on%3A%20self'),
 messageSends: ["on:"],
-referencedClasses: [smalltalk.PPSourceParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -70,7 +70,7 @@ return smalltalk.send((smalltalk.PPActionParser || PPActionParser), "_on_block_"
 return self;},
 source: unescape('%3D%3D%3E%20aBlock%0A%09%5EPPActionParser%20on%3A%20self%20block%3A%20aBlock'),
 messageSends: ["on:block:"],
-referencedClasses: [smalltalk.PPActionParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -85,7 +85,7 @@ return smalltalk.send((smalltalk.PPSequenceParser || PPSequenceParser), "_with_w
 return self;},
 source: unescape('%2C%20aParser%0A%09%5EPPSequenceParser%20with%3A%20self%20with%3A%20aParser'),
 messageSends: ["with:with:"],
-referencedClasses: [smalltalk.PPSequenceParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -100,7 +100,7 @@ return smalltalk.send((smalltalk.PPChoiceParser || PPChoiceParser), "_with_with_
 return self;},
 source: unescape('/%20aParser%0A%09%5EPPChoiceParser%20with%3A%20self%20with%3A%20aParser'),
 messageSends: ["with:with:"],
-referencedClasses: [smalltalk.PPChoiceParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -115,7 +115,7 @@ return smalltalk.send((smalltalk.PPRepeatingParser || PPRepeatingParser), "_on_m
 return self;},
 source: unescape('plus%0A%09%5EPPRepeatingParser%20on%3A%20self%20min%3A%201'),
 messageSends: ["on:min:"],
-referencedClasses: [smalltalk.PPRepeatingParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -130,7 +130,7 @@ return smalltalk.send((smalltalk.PPRepeatingParser || PPRepeatingParser), "_on_m
 return self;},
 source: unescape('star%0A%09%5EPPRepeatingParser%20on%3A%20self%20min%3A%200'),
 messageSends: ["on:min:"],
-referencedClasses: [smalltalk.PPRepeatingParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -145,7 +145,7 @@ return smalltalk.send((smalltalk.PPNotParser || PPNotParser), "_on_", [self]);
 return self;},
 source: unescape('not%0A%09%5EPPNotParser%20on%3A%20self'),
 messageSends: ["on:"],
-referencedClasses: [smalltalk.PPNotParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -160,7 +160,7 @@ return (($receiver = self).klass === smalltalk.Number) ? $receiver /smalltalk.se
 return self;},
 source: unescape('optional%0A%09%5Eself%20/%20PPEpsilonParser%20new'),
 messageSends: [unescape("/"), "new"],
-referencedClasses: [smalltalk.PPEpsilonParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -171,16 +171,14 @@ selector: 'memoizedParse:',
 category: 'operations',
 fn: function (aStream){
 var self=this;
-var r=nil;
 var start=nil;
 var end=nil;
 var node=nil;
 start=smalltalk.send(aStream, "_position", []);
-smalltalk.send(self, "_log_block_", ["memoizedParse", (function(){return r=smalltalk.send(smalltalk.send(self, "_memo", []), "_at_ifPresent_ifAbsent_", [start, (function(value){smalltalk.send(aStream, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_memo", []), "_at_", [start]), "_second", [])]);return smalltalk.send(value, "_first", []);}), (function(){node=smalltalk.send(self, "_parse_", [aStream]);end=smalltalk.send(aStream, "_position", []);smalltalk.send(smalltalk.send(self, "_memo", []), "_at_put_", [start, smalltalk.send((smalltalk.Array || Array), "_with_with_", [node, end])]);return node;})]);})]);
-return r;
+return smalltalk.send(smalltalk.send(self, "_memo", []), "_at_ifPresent_ifAbsent_", [start, (function(value){smalltalk.send(aStream, "_position_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_memo", []), "_at_", [start]), "_second", [])]);return smalltalk.send(value, "_first", []);}), (function(){node=smalltalk.send(self, "_parse_", [aStream]);end=smalltalk.send(aStream, "_position", []);smalltalk.send(smalltalk.send(self, "_memo", []), "_at_put_", [start, smalltalk.send((smalltalk.Array || Array), "_with_with_", [node, end])]);return node;})]);
 return self;},
-source: unescape('memoizedParse%3A%20aStream%0A%09%7C%20r%20start%20end%20node%20%7C%0A%09start%20%3A%3D%20aStream%20position.%0A%20%20%20%20%20%20%20%20self%20log%3A%20%27memoizedParse%27%20block%3A%20%5Br%20%3A%3D%20self%20memo%20at%3A%20start%20%0A%09%20%20%20%20ifPresent%3A%20%5B%3Avalue%20%7C%0A%09%09aStream%20position%3A%20%28self%20memo%20at%3A%20start%29%20second.%0A%09%09value%20first%5D%0A%09%20%20%20%20ifAbsent%3A%20%5B%0A%09%09node%20%3A%3D%20self%20parse%3A%20aStream.%0A%09%09end%20%3A%3D%20aStream%20position.%0A%09%09self%20memo%20at%3A%20start%20put%3A%20%28Array%20with%3A%20node%20with%3A%20end%29.%0A%09%09node%5D%5D.%0A%09%5Er'),
-messageSends: ["position", "log:block:", "at:ifPresent:ifAbsent:", "memo", "position:", "second", "at:", "first", "parse:", "at:put:", "with:with:"],
+source: unescape('memoizedParse%3A%20aStream%0A%09%7C%20start%20end%20node%20%7C%0A%09start%20%3A%3D%20aStream%20position.%0A%20%20%20%20%20%20%20%5Eself%20memo%20at%3A%20start%20%0A%09%20%20%20%20ifPresent%3A%20%5B%3Avalue%20%7C%0A%09%09aStream%20position%3A%20%28self%20memo%20at%3A%20start%29%20second.%0A%09%09value%20first%5D%0A%09%20%20%20%20ifAbsent%3A%20%5B%0A%09%09node%20%3A%3D%20self%20parse%3A%20aStream.%0A%09%09end%20%3A%3D%20aStream%20position.%0A%09%09self%20memo%20at%3A%20start%20put%3A%20%28Array%20with%3A%20node%20with%3A%20end%29.%0A%09%09node%5D'),
+messageSends: ["position", "at:ifPresent:ifAbsent:", "memo", "position:", "second", "at:", "first", "parse:", "at:put:", "with:with:"],
 referencedClasses: [smalltalk.Array]
 }),
 smalltalk.PPParser);
@@ -213,7 +211,7 @@ return (($receiver = smalltalk.send(result, "_isParseFailure", [])).klass === sm
 return self;},
 source: unescape('parseAll%3A%20aStream%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20%28PPSequenceParser%20with%3A%20self%20with%3A%20PPEOFParser%20new%29%20memoizedParse%3A%20aStream.%0A%09%5Eresult%20isParseFailure%20%0A%09%20%20%20%20ifTrue%3A%20%5Bself%20error%3A%20%28result%20messageFor%3A%20aStream%20contents%29%5D%0A%09%20%20%20%20ifFalse%3A%20%5Bresult%20first%5D'),
 messageSends: ["memoizedParse:", "with:with:", "new", "ifTrue:ifFalse:", "isParseFailure", "error:", "messageFor:", "contents", "first"],
-referencedClasses: [smalltalk.PPSequenceParser,smalltalk.PPEOFParser]
+referencedClasses: [smalltalk.nil,smalltalk.nil]
 }),
 smalltalk.PPParser);
 
@@ -231,7 +229,7 @@ return (($receiver = smalltalk.send(aStream, "_atEnd", [])).klass === smalltalk.
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%5EaStream%20atEnd%20%0A%09%20%20%20%20ifFalse%3A%20%5B%0A%09%09PPFailure%20new%20reason%3A%20aStream%20contents%2C%20String%20lf%2C%20%27---------------%27%2C%20String%20lf%2C%20%27EOF%20expected%27%20at%3A%20aStream%20position%5D%0A%09%20%20%20%20ifTrue%3A%20%5Bnil%5D'),
 messageSends: ["ifFalse:ifTrue:", "atEnd", "reason:at:", "new", unescape("%2C"), "contents", "lf", "position"],
-referencedClasses: [smalltalk.PPFailure,smalltalk.String]
+referencedClasses: [smalltalk.nil,smalltalk.String]
 }),
 smalltalk.PPEOFParser);
 
@@ -249,7 +247,7 @@ return (($receiver = smalltalk.send(aStream, "_atEnd", [])).klass === smalltalk.
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%5EaStream%20atEnd%0A%09%20%20%20%20ifTrue%3A%20%5BPPFailure%20new%0A%09%09%09%20reason%3A%20%27did%20not%20expect%20EOF%27%20at%3A%20aStream%20position%5D%0A%09%20%20%20%20ifFalse%3A%20%5BaStream%20next%5D'),
 messageSends: ["ifTrue:ifFalse:", "atEnd", "reason:at:", "new", "position", "next"],
-referencedClasses: [smalltalk.PPFailure]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPAnyParser);
 
@@ -319,7 +317,7 @@ return (($receiver = smalltalk.send(result, "__eq", [smalltalk.send(self, "_stri
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%7C%20position%20result%20%7C%0A%09position%20%3A%3D%20aStream%20position.%0A%09result%20%3A%3D%20aStream%20next%3A%20self%20string%20size.%0A%09%5Eresult%20%3D%20self%20string%0A%09%20%20%20%20ifTrue%3A%20%5Bresult%5D%0A%09%20%20%20%20ifFalse%3A%20%5B%0A%09%09aStream%20position%3A%20position.%0A%09%09PPFailure%20new%20reason%3A%20%27Expected%20%27%2C%20self%20string%2C%20%27%20but%20got%20%27%2C%20%28result%20at%3A%20position%29%20printString%3B%20yourself%5D'),
 messageSends: ["position", "next:", "size", "string", "ifTrue:ifFalse:", unescape("%3D"), "position:", "reason:", unescape("%2C"), "printString", "at:", "yourself", "new"],
-referencedClasses: [smalltalk.PPFailure]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPStringParser);
 
@@ -352,7 +350,7 @@ return (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aStream, "_pee
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%5E%28aStream%20peek%20notNil%20and%3A%20%5Bself%20match%3A%20aStream%20peek%5D%29%0A%09%20%20%20%20ifTrue%3A%20%5BaStream%20next%5D%0A%09%20%20%20%20ifFalse%3A%20%5BPPFailure%20new%20reason%3A%20%27Could%20not%20match%27%20at%3A%20aStream%20position%5D'),
 messageSends: ["ifTrue:ifFalse:", "and:", "notNil", "peek", "match:", "next", "reason:at:", "new", "position"],
-referencedClasses: [smalltalk.PPFailure]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPCharacterParser);
 
@@ -640,7 +638,7 @@ return (($receiver = smalltalk.send(element, "_isParseFailure", [])).klass === s
 return self;},
 source: unescape('parse%3A%20aStream%0A%09%7C%20element%20%7C%0A%09element%20%3A%3D%20self%20basicParse%3A%20aStream.%0A%09%5Eelement%20isParseFailure%20%0A%09%20%20%20%20ifTrue%3A%20%5Bnil%5D%0A%09%20%20%20%20ifFalse%3A%20%5BPPFailure%20reason%3A%20element%20at%3A%20aStream%20position%5D'),
 messageSends: ["basicParse:", "ifTrue:ifFalse:", "isParseFailure", "reason:at:", "position"],
-referencedClasses: [smalltalk.PPFailure]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.PPNotParser);
 
@@ -1088,7 +1086,7 @@ return smalltalk.send(smalltalk.send(method, "__comma", [smalltalk.send((smallta
 return self;},
 source: unescape('parser%0A%09%7C%20method%20expression%20separator%20comment%20ws%20identifier%20keyword%20className%20string%20symbol%20number%20literalArray%20variable%20reference%20classReference%20literal%20ret%20methodParser%20expressionParser%20keyword%20unarySelector%20binarySelector%20keywordPattern%20unaryPattern%20binaryPattern%20assignment%20temps%20blockParamList%20block%20expression%20expressions%20subexpression%20statements%20sequence%20operand%20unaryMessage%20unarySend%20unaryTail%20binaryMessage%20binarySend%20binaryTail%20keywordMessage%20keywordSend%20keywordPair%20cascade%20message%20jsStatement%20%7C%0A%09%0A%09separator%20%3A%3D%20%28String%20cr%2C%20String%20space%2C%20String%20lf%2C%20String%20tab%29%20asChoiceParser.%0A%09comment%20%3A%3D%20%28%27%22%27%20asCharacterParser%2C%20%28%27%22%27%20asParser%20not%2C%20PPAnyParser%20new%29%20star%2C%20%27%22%27%20asCharacterParser%29%20flatten.%0A%0A%09ws%20%3A%3D%20%28separator%20/%20comment%29%20star.%0A%09%0A%09identifier%20%3A%3D%20%28%27a-z%27%20asCharacterParser%2C%20%27a-zA-Z0-9%27%20asCharacterParser%20star%29%20flatten.%0A%0A%09keyword%20%3A%3D%20%28identifier%2C%20%27%3A%27%20asParser%29%20flatten.%0A%0A%09className%20%3A%3D%20%28%27A-Z%27%20asCharacterParser%2C%20%27a-zA-Z0-9%27%20asCharacterParser%20star%29%20flatten.%0A%0A%09string%20%3A%3D%20%27%27%27%27%20asParser%2C%20%28%27%27%27%27%27%27%20asParser%20/%20%28%27%27%27%27%20asParser%20not%2C%20PPAnyParser%20new%29%29%20star%20flatten%2C%20%27%27%27%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20%28%28node%20at%3A%202%29%20replace%3A%20%27%27%27%27%27%27%20with%3A%20%27%27%27%27%29%5D.%0A%0A%09symbol%20%3A%3D%20%27%23%27%20asParser%2C%20%27a-zA-Z0-9%27%20asCharacterParser%20plus%20flatten%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20node%20second%5D.%0A%0A%09number%20%3A%3D%20%28%270-9%27%20asCharacterParser%20plus%2C%20%28%27.%27%20asParser%2C%20%270-9%27%20asCharacterParser%20plus%29%20optional%29%20flatten%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20node%20asNumber%5D.%0A%0A%09literal%20%3A%3D%20PPDelegateParser%20new.%0A%0A%09literalArray%20%3A%3D%20%27%23%28%27%20asParser%2C%20%28ws%2C%20literal%2C%20ws%29%20star%2C%20%27%29%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20ValueNode%20new%20value%3A%20%28Array%20withAll%3A%20%28node%20second%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%20value%5D%29%29%5D.%0A%0A%09variable%20%3A%3D%20identifier%20%3D%3D%3E%20%5B%3Atoken%20%7C%20VariableNode%20new%20value%3A%20token%5D.%0A%0A%09classReference%20%3A%3D%20className%20%3D%3D%3E%20%5B%3Atoken%20%7C%20ClassReferenceNode%20new%20value%3A%20token%5D.%0A%0A%09reference%20%3A%3D%20variable%20/%20classReference.%0A%0A%09binarySelector%20%3A%3D%20%27+*/%3D%3E%3C%2C@%25%7E%7C%26-%27%20asCharacterParser%20plus%20flatten.%0A%0A%09unarySelector%20%3A%3D%20identifier.%0A%0A%09keywordPattern%20%3A%3D%20%28ws%2C%20keyword%2C%20ws%2C%20identifier%29%20plus%0A%09%09%3D%3D%3E%20%5B%3Anodes%20%7C%20Array%0A%09%09%09%09%20%20with%3A%20%28%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20at%3A%202%5D%29%20join%3A%20%27%27%29%0A%09%09%09%09%20%20with%3A%20%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20at%3A%204%5D%29%5D.%0A%0A%09binaryPattern%20%3A%3D%20ws%2C%20binarySelector%2C%20ws%2C%20identifier%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20Array%20with%3A%20node%20second%20with%3A%20%28Array%20with%3A%20node%20fourth%29%5D.%0A%0A%09unaryPattern%20%3A%3D%20ws%2C%20unarySelector%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20Array%20with%3A%20node%20second%20with%3A%20Array%20new%5D.%0A%09%0A%09expression%20%3A%3D%20PPDelegateParser%20new.%0A%0A%09expressions%20%3A%3D%20expression%2C%20%28%28ws%2C%20%27.%27%20asParser%2C%20ws%2C%20expression%29%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20fourth%5D%29%20star%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%7C%20result%20%7C%0A%09%09%20%20%20%20result%20%3A%3D%20Array%20with%3A%20node%20first.%0A%09%09%20%20%20%20node%20second%20do%3A%20%5B%3Aeach%20%7C%20result%20add%3A%20each%5D.%0A%09%09%20%20%20%20result%5D.%0A%0A%09assignment%20%3A%3D%20variable%2C%20ws%2C%20%27%3A%3D%27%20asParser%2C%20ws%2C%20expression%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20AssignmentNode%20new%20left%3A%20node%20first%3B%20right%3A%20%28node%20at%3A%205%29%5D.%0A%0A%09ret%20%3A%3D%20%27%5E%27%20asParser%2C%20ws%2C%20expression%2C%20ws%2C%20%27.%27%20asParser%20optional%0A%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%20ReturnNode%20new%0A%09%09%09%20%20%20%20%20addNode%3A%20node%20third%3B%0A%09%09%09%20%20%20%20%20yourself%5D.%0A%0A%09temps%20%3A%3D%20%27%7C%27%20asParser%2C%20%28ws%2C%20identifier%29%20star%2C%20ws%2C%20%27%7C%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20node%20second%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%5D%5D.%0A%0A%09blockParamList%20%3A%3D%20%28%27%3A%27%20asParser%2C%20identifier%2C%20ws%29%20plus%2C%20%27%7C%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%5D%5D.%0A%0A%09subexpression%20%3A%3D%20%27%28%27%20asParser%2C%20ws%2C%20expression%2C%20ws%2C%20%27%29%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20node%20third%5D.%0A%0A%09statements%20%3A%3D%20%28ret%20%3D%3D%3E%20%5B%3Anode%20%7C%20Array%20with%3A%20node%5D%29%20/%20%28expressions%2C%20ws%2C%20%27.%27%20asParser%2C%20ws%2C%20ret%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%20add%3A%20%28node%20at%3A%205%29%3B%20yourself%5D%29%20/%20%28expressions%20%2C%20%27.%27%20asParser%20optional%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%5D%29.%0A%0A%09sequence%20%3A%3D%20temps%20optional%2C%20ws%2C%20statements%20optional%2C%20ws%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20SequenceNode%20new%0A%09%09%09%09%20temps%3A%20node%20first%3B%0A%09%09%09%09%20nodes%3A%20node%20third%3B%0A%09%09%09%09%20yourself%5D.%0A%0A%09block%20%3A%3D%20%27%5B%27%20asParser%2C%20ws%2C%20blockParamList%20optional%2C%20ws%2C%20sequence%20optional%2C%20ws%2C%20%27%5D%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20BlockNode%20new%0A%09%09%09parameters%3A%20node%20third%3B%0A%09%09%09addNode%3A%20%28node%20at%3A%205%29%20asBlockSequenceNode%5D.%0A%0A%09operand%20%3A%3D%20literal%20/%20reference%20/%20subexpression.%0A%0A%09literal%20parser%3A%20number%20/%20string%20/%20literalArray%20/%20symbol%20/%20block.%0A%0A%09unaryMessage%20%3A%3D%20ws%2C%20unarySelector%2C%20%27%3A%27%20asParser%20not%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20SendNode%20new%20selector%3A%20node%20second%5D.%0A%0A%09unaryTail%20%3A%3D%20PPDelegateParser%20new.%0A%09unaryTail%20parser%3A%20%28unaryMessage%2C%20unaryTail%20optional%0A%09%09%09%20%20%20%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%09%09%20%20%20node%20second%0A%09%09%09%09%09%20%20%20ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09%09%09%20%20%20ifNotNil%3A%20%5Bnode%20second%20valueForReceiver%3A%20node%20first%5D%5D%29.%0A%0A%09unarySend%20%3A%3D%20operand%2C%20unaryTail%20optional%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20second%20%0A%09%09%09ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09ifNotNil%3A%20%5Bnode%20second%20valueForReceiver%3A%20node%20first%5D%5D.%0A%0A%09binaryMessage%20%3A%3D%20ws%2C%20binarySelector%2C%20ws%2C%20%28unarySend%20/%20operand%29%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20SendNode%20new%0A%09%09%09selector%3A%20node%20second%3B%0A%09%09%09arguments%3A%20%28Array%20with%3A%20node%20fourth%29%5D.%0A%0A%09binaryTail%20%3A%3D%20PPDelegateParser%20new.%0A%09binaryTail%20parser%3A%20%28binaryMessage%2C%20binaryTail%20optional%0A%09%09%09%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%09%09%09node%20second%20%0A%09%09%09%09%09%20%20%20%20ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09%09%09%20%20%20%20ifNotNil%3A%20%5B%20node%20second%20valueForReceiver%3A%20node%20first%5D%5D%29.%0A%0A%09binarySend%20%3A%3D%20unarySend%2C%20binaryTail%20optional%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20second%0A%09%09%09ifNil%3A%20%5Bnode%20first%5D%0A%09%09%09ifNotNil%3A%20%5Bnode%20second%20valueForReceiver%3A%20node%20first%5D%5D.%0A%0A%09keywordPair%20%3A%3D%20keyword%2C%20ws%2C%20binarySend.%0A%0A%09keywordMessage%20%3A%3D%20%28ws%2C%20keywordPair%29%20plus%0A%09%09%3D%3D%3E%20%5B%3Anodes%20%7C%0A%09%09%20%20%20%20SendNode%20new%0A%09%09%09selector%3A%20%28%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%20first%5D%29%20join%3A%20%27%27%29%3B%0A%09%09%09arguments%3A%20%28nodes%20collect%3A%20%5B%3Aeach%20%7C%20each%20second%20third%5D%29%5D.%0A%0A%09keywordSend%20%3A%3D%20binarySend%2C%20keywordMessage%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20second%20valueForReceiver%3A%20node%20first%5D.%0A%0A%09message%20%3A%3D%20binaryMessage%20/%20unaryMessage%20/%20keywordMessage.%0A%0A%09cascade%20%3A%3D%20%28keywordSend%20/%20binarySend%29%2C%20%28ws%2C%20%27%3B%27%20asParser%2C%20message%29%20plus%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09%20%20%20%20node%20first%20cascadeNodeWithMessages%3A%20%0A%09%09%09%28node%20second%20collect%3A%20%5B%3Aeach%20%7C%20each%20third%5D%29%5D.%0A%0A%09jsStatement%20%3A%3D%20%27%3C%27%20asParser%2C%20%28%27%3E%3E%27%20asParser%20/%20%28%27%3E%27%20asParser%20not%2C%20PPAnyParser%20new%29%29%20star%20flatten%2C%20%27%3E%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20JSStatementNode%20new%0A%09%09%09source%3A%20node%20second%3B%0A%09%09%09yourself%5D.%0A%0A%09expression%20parser%3A%20assignment%20/%20cascade%20/%20keywordSend%20/%20binarySend%20/%20jsStatement.%0A%0A%09method%20%3A%3D%20%28ws%2C%20%28keywordPattern%20/%20binaryPattern%20/%20unaryPattern%29%2C%20ws%2C%20sequence%20optional%2C%20ws%29%20withSource%0A%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%0A%09%09MethodNode%20new%0A%09%09%20%20%20%20selector%3A%20node%20first%20second%20first%3B%0A%09%09%20%20%20%20arguments%3A%20node%20first%20second%20second%3B%0A%09%09%20%20%20%20addNode%3A%20node%20first%20fourth%3B%0A%09%09%20%20%20%20source%3A%20node%20second%3B%0A%09%09%20%20%20%20yourself%5D.%0A%09%0A%09%5Emethod%2C%20PPEOFParser%20new%20%3D%3D%3E%20%5B%3Anode%20%7C%20node%20first%5D'),
 messageSends: ["asChoiceParser", unescape("%2C"), "cr", "space", "lf", "tab", "flatten", "asCharacterParser", "star", "not", "asParser", "new", unescape("/"), unescape("%3D%3D%3E"), "value:", "replace:with:", "at:", "plus", "second", "optional", "asNumber", "withAll:", "collect:", "value", "with:with:", "join:", "with:", "fourth", "first", "do:", "add:", "left:", "right:", "addNode:", "third", "yourself", "temps:", "nodes:", "parameters:", "asBlockSequenceNode", "parser:", "selector:", "ifNil:ifNotNil:", "valueForReceiver:", "arguments:", "cascadeNodeWithMessages:", "source:", "withSource"],
-referencedClasses: [smalltalk.String,smalltalk.PPAnyParser,smalltalk.ValueNode,smalltalk.PPDelegateParser,smalltalk.Array,smalltalk.VariableNode,smalltalk.ClassReferenceNode,smalltalk.AssignmentNode,smalltalk.ReturnNode,smalltalk.SequenceNode,smalltalk.BlockNode,smalltalk.SendNode,smalltalk.JSStatementNode,smalltalk.MethodNode,smalltalk.PPEOFParser]
+referencedClasses: [smalltalk.String,smalltalk.PPAnyParser,smalltalk.nil,smalltalk.PPDelegateParser,smalltalk.Array,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.nil,smalltalk.PPEOFParser]
 }),
 smalltalk.SmalltalkParser);
 
@@ -1109,229 +1107,61 @@ referencedClasses: []
 smalltalk.SmalltalkParser.klass);
 
 
-smalltalk.addClass('Chunk', smalltalk.Object, ['contents'], 'Parser');
+smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Parser');
 smalltalk.addMethod(
-'_contents',
+'_stream_',
 smalltalk.method({
-selector: 'contents',
+selector: 'stream:',
 category: 'accessing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return (($receiver = self['@contents']) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver;
+self['@stream']=aStream;
 return self;},
-source: unescape('contents%0A%09%5Econtents%20ifNil%3A%20%5B%27%27%5D'),
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.Chunk);
-
-smalltalk.addMethod(
-'_contents_',
-smalltalk.method({
-selector: 'contents:',
-category: 'accessing',
-fn: function (aString){
-var self=this;
-self['@contents']=aString;
-return self;},
-source: unescape('contents%3A%20aString%0A%09contents%20%3A%3D%20aString'),
+source: unescape('stream%3A%20aStream%0A%09stream%20%3A%3D%20aStream'),
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Chunk);
+smalltalk.ChunkParser);
 
 smalltalk.addMethod(
-'_isEmptyChunk',
+'_nextChunk',
 smalltalk.method({
-selector: 'isEmptyChunk',
-category: 'testing',
+selector: 'nextChunk',
+category: 'reading',
 fn: function (){
 var self=this;
-return false;
-return self;},
-source: unescape('isEmptyChunk%0A%09%5Efalse'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Chunk);
-
-smalltalk.addMethod(
-'_isInstructionChunk',
-smalltalk.method({
-selector: 'isInstructionChunk',
-category: 'testing',
-fn: function (){
-var self=this;
-return false;
-return self;},
-source: unescape('isInstructionChunk%0A%09%5Efalse'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Chunk);
-
-
-
-smalltalk.addClass('InstructionChunk', smalltalk.Chunk, [], 'Parser');
-smalltalk.addMethod(
-'_isInstructionChunk',
-smalltalk.method({
-selector: 'isInstructionChunk',
-category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
-source: unescape('isInstructionChunk%0A%09%5Etrue'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.InstructionChunk);
-
-
-
-smalltalk.addClass('EmptyChunk', smalltalk.Chunk, [], 'Parser');
-smalltalk.addMethod(
-'_isEmptyChunk',
-smalltalk.method({
-selector: 'isEmptyChunk',
-category: 'testing',
-fn: function (){
-var self=this;
-return true;
-return self;},
-source: unescape('isEmptyChunk%0A%09%5Etrue'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.EmptyChunk);
-
-
-
-smalltalk.addClass('ChunkParser', smalltalk.Object, ['parser', 'separator', 'eof', 'ws', 'chunk', 'emptyChunk', 'instructionChunk'], 'Parser');
-smalltalk.addMethod(
-'_parser',
-smalltalk.method({
-selector: 'parser',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@parser']) == nil || $receiver == undefined) ? (function(){return self['@parser']=(($receiver = (($receiver = (($receiver = smalltalk.send(self, "_instructionChunk", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self, "_emptyChunk", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self, "_emptyChunk", [])])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self, "_chunk", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self, "_chunk", [])])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self, "_eof", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self, "_eof", [])]);})() : $receiver;
-return self;},
-source: unescape('parser%0A%09%5Eparser%20ifNil%3A%20%5B%0A%09%20%20%20%20parser%20%3A%3D%20self%20instructionChunk%20/%20self%20emptyChunk%20/%20self%20chunk%20/%20self%20eof%5D'),
-messageSends: ["ifNil:", unescape("/"), "instructionChunk", "emptyChunk", "chunk", "eof"],
+try{var char=nil;
+var result=nil;
+var chunk=nil;
+result=smalltalk.send("", "_writeStream", []);
+(function(){while((function(){char=smalltalk.send(self['@stream'], "_next", []);return smalltalk.send(char, "_notNil", []);})()) {(function(){(($receiver = smalltalk.send(char, "__eq", [unescape("%21")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (($receiver = smalltalk.send(smalltalk.send(self['@stream'], "_peek", []), "__eq", [unescape("%21")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@stream'], "_next", []);})() : (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_next", []);}), (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (($receiver = smalltalk.send(smalltalk.send(self['@stream'], "_peek", []), "__eq", [unescape("%21")])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@stream'], "_next", []);})() : (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@stream'], "_next", []);}), (function(){return (function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return smalltalk.send(smalltalk.send(result, "_contents", []), "_trimBoth", [])}})})();})]);})]);return smalltalk.send(result, "_nextPut_", [char]);})()}})();
+(function(){throw({name: 'stReturn', selector: '_nextChunk', fn: function(){return nil}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_nextChunk'){return e.fn()} throw(e)}},
+source: unescape('nextChunk%0A%09%22The%20chunk%20format%20%28Smalltalk%20Interchange%20Format%20or%20Fileout%20format%29%0A%09is%20a%20trivial%20format%20but%20can%20be%20a%20bit%20tricky%20to%20understand%3A%0A%09%09-%20Uses%20the%20exclamation%20mark%20as%20delimiter%20of%20chunks.%0A%09%09-%20Inside%20a%20chunk%20a%20normal%20exclamation%20mark%20must%20be%20doubled.%0A%09%09-%20A%20non%20empty%20chunk%20must%20be%20a%20valid%20Smalltalk%20expression.%0A%09%09-%20A%20chunk%20on%20top%20level%20with%20a%20preceding%20empty%20chunk%20is%20an%20instruction%20chunk%3A%0A%09%09%09-%20The%20object%20created%20by%20the%20expression%20then%20takes%20over%20reading%20chunks.%0A%0A%09This%20metod%20returns%20next%20chunk%20as%20a%20String%20%28trimmed%29%2C%20empty%20String%20%28all%20whitespace%29%20or%20nil.%22%0A%0A%09%7C%20char%20result%20chunk%20%7C%0A%09result%20%3A%3D%20%27%27%20writeStream.%0A%20%20%20%20%20%20%20%20%5Bchar%20%3A%3D%20stream%20next.%0A%20%20%20%20%20%20%20%20char%20notNil%5D%20whileTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20char%20%3D%20%27%21%27%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20peek%20%3D%20%27%21%27%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ifTrue%3A%20%5Bstream%20next%20%22skipping%20the%20escape%20double%22%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20ifFalse%3A%20%5B%5Eresult%20contents%20trimBoth%20%20%22chunk%20end%20marker%20found%22%5D%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20result%20nextPut%3A%20char%5D.%0A%09%5Enil%20%22a%20chunk%20needs%20to%20end%20with%20%21%22'),
+messageSends: ["writeStream", "whileTrue:", "next", "notNil", "ifTrue:", unescape("%3D"), "ifTrue:ifFalse:", "peek", "trimBoth", "contents", "nextPut:"],
 referencedClasses: []
 }),
 smalltalk.ChunkParser);
 
-smalltalk.addMethod(
-'_eof',
-smalltalk.method({
-selector: 'eof',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@eof']) == nil || $receiver == undefined) ? (function(){return self['@eof']=smalltalk.send(smalltalk.send(smalltalk.send(self, "_ws", []), "__comma", [smalltalk.send((smalltalk.PPEOFParser || PPEOFParser), "_new", [])]), "__eq_eq_gt", [(function(node){return nil;})]);})() : $receiver;
-return self;},
-source: unescape('eof%0A%09%5Eeof%20ifNil%3A%20%5Beof%20%3A%3D%20self%20ws%2C%20PPEOFParser%20new%20%3D%3D%3E%20%5B%3Anode%20%7C%20nil%5D%5D'),
-messageSends: ["ifNil:", unescape("%3D%3D%3E"), unescape("%2C"), "ws", "new"],
-referencedClasses: [smalltalk.PPEOFParser]
-}),
-smalltalk.ChunkParser);
 
 smalltalk.addMethod(
-'_separator',
+'_on_',
 smalltalk.method({
-selector: 'separator',
-category: 'accessing',
-fn: function (){
+selector: 'on:',
+category: 'not yet classified',
+fn: function (aStream){
 var self=this;
-return (($receiver = self['@separator']) == nil || $receiver == undefined) ? (function(){return self['@separator']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.String || String), "_cr", []), "__comma", [smalltalk.send((smalltalk.String || String), "_space", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])]), "_asChoiceParser", []);})() : $receiver;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_stream_", [aStream]);
 return self;},
-source: unescape('separator%0A%09%5Eseparator%20ifNil%3A%20%5Bseparator%20%3A%3D%20%28String%20cr%2C%20String%20space%2C%20String%20lf%2C%20String%20tab%29%20asChoiceParser%5D'),
-messageSends: ["ifNil:", "asChoiceParser", unescape("%2C"), "cr", "space", "lf", "tab"],
-referencedClasses: [smalltalk.String]
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_ws',
-smalltalk.method({
-selector: 'ws',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@ws']) == nil || $receiver == undefined) ? (function(){return self['@ws']=smalltalk.send(smalltalk.send(self, "_separator", []), "_star", []);})() : $receiver;
-return self;},
-source: unescape('ws%0A%09%5Ews%20ifNil%3A%20%5Bws%20%3A%3D%20self%20separator%20star%5D'),
-messageSends: ["ifNil:", "star", "separator"],
+source: unescape('on%3A%20aStream%0A%09%5Eself%20new%20stream%3A%20aStream'),
+messageSends: ["stream:", "new"],
 referencedClasses: []
 }),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_chunk',
-smalltalk.method({
-selector: 'chunk',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@chunk']) == nil || $receiver == undefined) ? (function(){return self['@chunk']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_ws", []), "__comma", [smalltalk.send(smalltalk.send((($receiver = smalltalk.send(unescape("%21%21"), "_asParser", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(smalltalk.send(smalltalk.send(unescape("%21"), "_asParser", []), "_not", []), "__comma", [smalltalk.send((smalltalk.PPAnyParser || PPAnyParser), "_new", [])]) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send(smalltalk.send(unescape("%21"), "_asParser", []), "_not", []), "__comma", [smalltalk.send((smalltalk.PPAnyParser || PPAnyParser), "_new", [])])]), "_plus", []), "_flatten", [])]), "__comma", [smalltalk.send(unescape("%21"), "_asParser", [])]), "__eq_eq_gt", [(function(node){return smalltalk.send(smalltalk.send((smalltalk.Chunk || Chunk), "_new", []), "_contents_", [smalltalk.send(smalltalk.send(smalltalk.send(node, "_second", []), "_replace_with_", [unescape("%21%21"), unescape("%21")]), "_trimBoth", [])]);})]);})() : $receiver;
-return self;},
-source: unescape('chunk%0A%09%5Echunk%20ifNil%3A%20%5Bchunk%20%3A%3D%20self%20ws%2C%20%28%27%21%21%27%20asParser%20/%20%28%27%21%27%20asParser%20not%2C%20PPAnyParser%20new%29%29%20plus%20flatten%2C%20%27%21%27%20asParser%0A%09%09%3D%3D%3E%20%5B%3Anode%20%7C%20Chunk%20new%20contents%3A%20%28node%20second%20replace%3A%20%27%21%21%27%20with%3A%20%27%21%27%29%20trimBoth%5D%5D'),
-messageSends: ["ifNil:", unescape("%3D%3D%3E"), unescape("%2C"), "ws", "flatten", "plus", unescape("/"), "asParser", "not", "new", "contents:", "trimBoth", "replace:with:", "second"],
-referencedClasses: [smalltalk.PPAnyParser,smalltalk.Chunk]
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_emptyChunk',
-smalltalk.method({
-selector: 'emptyChunk',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@emptyChunk']) == nil || $receiver == undefined) ? (function(){return self['@emptyChunk']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_separator", []), "_plus", []), "__comma", [smalltalk.send(unescape("%21"), "_asParser", [])]), "__comma", [smalltalk.send(self, "_ws", [])]), "__eq_eq_gt", [(function(node){return smalltalk.send((smalltalk.EmptyChunk || EmptyChunk), "_new", []);})]);})() : $receiver;
-return self;},
-source: unescape('emptyChunk%0A%09%5EemptyChunk%20ifNil%3A%20%5BemptyChunk%20%3A%3D%20self%20separator%20plus%2C%20%27%21%27%20asParser%2C%20self%20ws%20%3D%3D%3E%20%5B%3Anode%20%7C%20EmptyChunk%20new%5D%5D'),
-messageSends: ["ifNil:", unescape("%3D%3D%3E"), unescape("%2C"), "plus", "separator", "asParser", "ws", "new"],
-referencedClasses: [smalltalk.EmptyChunk]
-}),
-smalltalk.ChunkParser);
-
-smalltalk.addMethod(
-'_instructionChunk',
-smalltalk.method({
-selector: 'instructionChunk',
-category: '',
-fn: function (){
-var self=this;
-return (($receiver = self['@instructionChunk']) == nil || $receiver == undefined) ? (function(){return self['@instructionChunk']=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_ws", []), "__comma", [smalltalk.send(unescape("%21"), "_asParser", [])]), "__comma", [smalltalk.send(self, "_chunk", [])]), "__eq_eq_gt", [(function(node){return smalltalk.send(smalltalk.send((smalltalk.InstructionChunk || InstructionChunk), "_new", []), "_contents_", [smalltalk.send(smalltalk.send(node, "_last", []), "_contents", [])]);})]);})() : $receiver;
-return self;},
-source: unescape('instructionChunk%0A%09%5EinstructionChunk%20ifNil%3A%20%5B%0A%09%20%20%20%20instructionChunk%20%3A%3D%20self%20ws%2C%20%27%21%27%20asParser%2C%20self%20chunk%0A%09%20%20%20%20%3D%3D%3E%20%5B%3Anode%20%7C%20InstructionChunk%20new%20contents%3A%20node%20last%20contents%5D%5D'),
-messageSends: ["ifNil:", unescape("%3D%3D%3E"), unescape("%2C"), "ws", "asParser", "chunk", "contents:", "new", "contents", "last"],
-referencedClasses: [smalltalk.InstructionChunk]
-}),
-smalltalk.ChunkParser);
+smalltalk.ChunkParser.klass);
 
 
-
-smalltalk.addClass('Importer', smalltalk.Object, ['chunkParser'], 'Parser');
-smalltalk.addMethod(
-'_chunkParser',
-smalltalk.method({
-selector: 'chunkParser',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@chunkParser']) == nil || $receiver == undefined) ? (function(){return self['@chunkParser']=smalltalk.send(smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []), "_parser", []);})() : $receiver;
-return self;},
-source: unescape('chunkParser%0A%09%5EchunkParser%20ifNil%3A%20%5BchunkParser%20%3A%3D%20ChunkParser%20new%20parser%5D'),
-messageSends: ["ifNil:", "parser", "new"],
-referencedClasses: [smalltalk.ChunkParser]
-}),
-smalltalk.Importer);
-
+smalltalk.addClass('Importer', smalltalk.Object, [], 'Parser');
 smalltalk.addMethod(
 '_import_',
 smalltalk.method({
@@ -1339,14 +1169,17 @@ selector: 'import:',
 category: 'fileIn',
 fn: function (aStream){
 var self=this;
-try{var nextChunk=nil;
+var chunk=nil;
 var result=nil;
-(function(){while(!(function(){return smalltalk.send(aStream, "_atEnd", []);})()) {(function(){nextChunk=smalltalk.send(smalltalk.send(self, "_chunkParser", []), "_parse_", [aStream]);(($receiver = nextChunk) == nil || $receiver == undefined) ? (function(){return (function(){throw({name: 'stReturn', selector: '_import_', fn: function(){return self}})})();})() : $receiver;result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [smalltalk.send(nextChunk, "_contents", [])]);return (($receiver = smalltalk.send(nextChunk, "_isInstructionChunk", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(result, "_scanFrom_", [aStream]);})]);})()}})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_import_'){return e.fn()} throw(e)}},
-source: unescape('import%3A%20aStream%0A%20%20%20%20%7C%20nextChunk%20result%20%7C%0A%20%20%20%20%5BaStream%20atEnd%5D%20whileFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20nextChunk%20%3A%3D%20self%20chunkParser%20parse%3A%20aStream.%0A%20%20%20%20%20%20%20%20nextChunk%20ifNil%3A%20%5B%5Eself%5D.%0A%20%20%20%20%20%20%20%20result%20%3A%3D%20Compiler%20new%20loadExpression%3A%20nextChunk%20contents.%0A%20%20%20%20%20%20%20%20nextChunk%20isInstructionChunk%20%0A%20%20%20%20%20%20%20%20%20%20%20%20ifTrue%3A%20%5Bresult%20scanFrom%3A%20aStream%5D%5D'),
-messageSends: ["whileFalse:", "atEnd", "parse:", "chunkParser", "ifNil:", "loadExpression:", "new", "contents", "ifTrue:", "isInstructionChunk", "scanFrom:"],
-referencedClasses: [smalltalk.Compiler]
+var parser=nil;
+var lastEmpty=nil;
+parser=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_on_", [aStream]);
+lastEmpty=false;
+(function(){while(!(function(){chunk=smalltalk.send(parser, "_nextChunk", []);return smalltalk.send(chunk, "_isNil", []);})()) {(function(){return (($receiver = smalltalk.send(chunk, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return lastEmpty=true;})() : (function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [chunk]);return (($receiver = lastEmpty).klass === smalltalk.Boolean) ? ($receiver ? (function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return lastEmpty=true;}), (function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [chunk]);return (($receiver = lastEmpty).klass === smalltalk.Boolean) ? ($receiver ? (function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){lastEmpty=false;return smalltalk.send(result, "_scanFrom_", [parser]);})]);})]);})()}})();
+return self;},
+source: unescape('import%3A%20aStream%0A%20%20%20%20%7C%20chunk%20result%20parser%20lastEmpty%20%7C%0A%20%20%20%20parser%20%3A%3D%20ChunkParser%20on%3A%20aStream.%0A%20%20%20%20lastEmpty%20%3A%3D%20false.%0A%20%20%20%20%5Bchunk%20%3A%3D%20parser%20nextChunk.%0A%20%20%20%20%20chunk%20isNil%5D%20whileFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20chunk%20isEmpty%0A%20%20%20%20%20%20%20%09%09ifTrue%3A%20%5BlastEmpty%20%3A%3D%20true%5D%0A%20%20%20%20%20%20%20%09%09ifFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20%09%09result%20%3A%3D%20Compiler%20new%20loadExpression%3A%20chunk.%0A%20%20%20%20%20%20%20%20%09%09lastEmpty%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09lastEmpty%20%3A%3D%20false.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09result%20scanFrom%3A%20parser%5D%5D%5D'),
+messageSends: ["on:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "loadExpression:", "new", "ifTrue:", "scanFrom:"],
+referencedClasses: [smalltalk.ChunkParser,smalltalk.Compiler]
 }),
 smalltalk.Importer);
 

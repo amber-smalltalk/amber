@@ -53,9 +53,9 @@ optional
 !
 
 memoizedParse: aStream
-	| r start end node |
+	| start end node |
 	start := aStream position.
-        self log: 'memoizedParse' block: [r := self memo at: start 
+       ^self memo at: start 
 	    ifPresent: [:value |
 		aStream position: (self memo at: start) second.
 		value first]
@@ -63,8 +63,7 @@ memoizedParse: aStream
 		node := self parse: aStream.
 		end := aStream position.
 		self memo at: start put: (Array with: node with: end).
-		node]].
-	^r
+		node]
 ! !
 
 !PPParser methodsFor: 'parsing'!
@@ -533,7 +532,7 @@ parser
 		    node second do: [:each | result add: each].
 		    result].
 
-	assignment := reference, ws, ':=' asParser, ws, expression
+	assignment := variable, ws, ':=' asParser, ws, expression
 		==> [:node | AssignmentNode new left: node first; right: (node at: 5)].
 
 	ret := '^' asParser, ws, expression, ws, '.' asParser optional
@@ -654,110 +653,67 @@ parse: aStream
 		parse: aStream
 ! !
 
-Object subclass: #Chunk
-	instanceVariableNames: 'contents'
-	category: 'Parser'!
-
-!Chunk methodsFor: 'accessing'!
-
-contents
-	^contents ifNil: ['']
-!
-
-contents: aString
-	contents := aString
-! !
-
-!Chunk methodsFor: 'testing'!
-
-isEmptyChunk
-	^false
-!
-
-isInstructionChunk
-	^false
-! !
-
-Chunk subclass: #InstructionChunk
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-!InstructionChunk methodsFor: 'testing'!
-
-isInstructionChunk
-	^true
-! !
-
-Chunk subclass: #EmptyChunk
-	instanceVariableNames: ''
-	category: 'Parser'!
-
-!EmptyChunk methodsFor: 'testing'!
-
-isEmptyChunk
-	^true
-! !
-
 Object subclass: #ChunkParser
-	instanceVariableNames: 'parser separator eof ws chunk emptyChunk instructionChunk'
+	instanceVariableNames: 'stream'
 	category: 'Parser'!
-
-!ChunkParser methodsFor: ''!
-
-instructionChunk
-	^instructionChunk ifNil: [
-	    instructionChunk := self ws, '!!' asParser, self chunk
-	    ==> [:node | InstructionChunk new contents: node last contents]]
-! !
 
 !ChunkParser methodsFor: 'accessing'!
 
-parser
-	^parser ifNil: [
-	    parser := self instructionChunk / self emptyChunk / self chunk / self eof]
-!
+stream: aStream
+	stream := aStream
+! !
 
-eof
-	^eof ifNil: [eof := self ws, PPEOFParser new ==> [:node | nil]]
-!
+!ChunkParser methodsFor: 'reading'!
 
-separator
-	^separator ifNil: [separator := (String cr, String space, String lf, String tab) asChoiceParser]
-!
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
 
-ws
-	^ws ifNil: [ws := self separator star]
-!
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
 
-chunk
-	^chunk ifNil: [chunk := self ws, ('!!!!' asParser / ('!!' asParser not, PPAnyParser new)) plus flatten, '!!' asParser
-		==> [:node | Chunk new contents: (node second replace: '!!!!' with: '!!') trimBoth]]
-!
+	| char result chunk |
+	result := '' writeStream.
+        [char := stream next.
+        char notNil] whileTrue: [
+                 char = '!!' ifTrue: [
+                         stream peek = '!!'
+                                ifTrue: [stream next "skipping the escape double"]
+                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
+                 result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
 
-emptyChunk
-	^emptyChunk ifNil: [emptyChunk := self separator plus, '!!' asParser, self ws ==> [:node | EmptyChunk new]]
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
 ! !
 
 Object subclass: #Importer
-	instanceVariableNames: 'chunkParser'
+	instanceVariableNames: ''
 	category: 'Parser'!
-
-!Importer methodsFor: 'accessing'!
-
-chunkParser
-	^chunkParser ifNil: [chunkParser := ChunkParser new parser]
-! !
 
 !Importer methodsFor: 'fileIn'!
 
 import: aStream
-    | nextChunk result |
-    [aStream atEnd] whileFalse: [
-        nextChunk := self chunkParser parse: aStream.
-        nextChunk ifNil: [^self].
-        result := Compiler new loadExpression: nextChunk contents.
-        nextChunk isInstructionChunk 
-            ifTrue: [result scanFrom: aStream]]
+    | chunk result parser lastEmpty |
+    parser := ChunkParser on: aStream.
+    lastEmpty := false.
+    [chunk := parser nextChunk.
+     chunk isNil] whileFalse: [
+        chunk isEmpty
+       		ifTrue: [lastEmpty := true]
+       		ifFalse: [
+        		result := Compiler new loadExpression: chunk.
+        		lastEmpty 
+            			ifTrue: [
+                                  	lastEmpty := false.
+                                  	result scanFrom: parser]]]
 ! !
 
 Object subclass: #Exporter

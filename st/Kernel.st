@@ -170,7 +170,7 @@ printNl
 log: aString block: aBlock
 
 	| result |
-	"console log:"  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
+	console log:  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
 	^result
 ! !
 
@@ -2164,13 +2164,11 @@ class: aClass category: aString
 
 !ClassCategoryReader methodsFor: 'fileIn'!
 
-scanFrom: aStream
-	| nextChunk par |
-	self log: 'nextChunk build' block: [par := (chunkParser emptyChunk / chunkParser chunk)].
-	self log: 'nextChunk' block: [nextChunk := par parse: aStream].
-	nextChunk isEmptyChunk ifFalse: [
-	    self compileMethod: nextChunk contents.
-	    self scanFrom: aStream].
+scanFrom: aChunkParser
+	| chunk |
+	[chunk := aChunkParser nextChunk.
+	chunk isEmpty] whileFalse: [
+	    self compileMethod: chunk]
 ! !
 
 !ClassCategoryReader methodsFor: 'initialization'!
@@ -2186,7 +2184,7 @@ compileMethod: aString
 	| method |
 	method := Compiler new load: aString forClass: class.
 	method category: category.
-	self log: 'addCompiledMethod' block: [class addCompiledMethod: method]
+	class addCompiledMethod: method
 ! !
 
 Object subclass: #Stream
@@ -2377,11 +2375,11 @@ class: aClass
 
 !ClassCommentReader methodsFor: 'fileIn'!
 
-scanFrom: aStream
-	| nextChunk |
-	nextChunk := (chunkParser emptyChunk / chunkParser chunk) parse: aStream.
-	nextChunk isEmptyChunk ifFalse: [
-	    self setComment: nextChunk contents].
+scanFrom: aChunkParser
+	| chunk |
+	chunk := aChunkParser nextChunk.
+	chunk isEmpty ifFalse: [
+	    self setComment: chunk].
 ! !
 
 !ClassCommentReader methodsFor: 'initialization'!
