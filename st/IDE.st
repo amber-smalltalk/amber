@@ -577,22 +577,7 @@ compileDefinition
 !
 
 commitCategory
-    selectedCategory ifNotNil: [ | path path2 path3 data data2 data3 |
-	(Ajax url: (path := self class commitPathJs, '/', selectedCategory, '.js'))
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (data := Exporter new exportCategory: selectedCategory);
-	    at: 'error' put: [Sandbox label: path openOn: data];
-	    send.
-	(Ajax url: (path2 := self class commitPathJs, '/', selectedCategory, '.deploy.js'))
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (data2 := StrippedExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [Sandbox label: path2 openOn: data2];
-	    send.
-	(Ajax url: (path3 := self class commitPathSt, '/', selectedCategory, '.st'))
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (data3 := ChunkExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [Sandbox label: path3 openOn: data3];
-	    send]
+    selectedCategory ifNotNil: [ CategoryCommiter commitCategory: selectedCategory ]
 !
 
 cancelChanges
@@ -1696,6 +1681,146 @@ label: aStringLabel openOn: aStringContent
 		open) val: aStringContent
 ! !
 
+Object subclass: #CategoryCommiter
+	instanceVariableNames: 'category'
+	category: 'IDE'!
+
+!CategoryCommiter methodsFor: 'accessing'!
+
+category: aString
+	
+	category := aString
+!
+
+protocol
+
+	^<document.location.protocol>
+!
+
+jsData
+
+	^Exporter new exportCategory: category
+!
+
+jsDeployData
+
+	^StrippedExporter new exportCategory: category
+!
+
+stData
+
+	^ChunkExporter new exportCategory: category
+!
+
+jsPath
+
+	^self class commitPathJs, '/', category, '.js'
+!
+
+jsDeployPath
+
+	^self class commitPathJs, '/', category, '.deploy.js'
+!
+
+stPath
+
+	^self class commitPathSt, '/', category, '.st'
+! !
+
+!CategoryCommiter methodsFor: 'actions'!
+
+commitCategory: aString
+
+	self category: aString.
+	self commitCategory.
+!
+
+commitCategory
+
+	self isFileProtocol 
+		ifTrue: [self fileCommit]
+		ifFalse: [self ajaxCommit]
+!
+
+ajaxCommit
+
+	self ajaxCommit: self jsPath data: self jsData.
+	self ajaxCommit: self jsDeployPath data: self jsDeployData.
+	self ajaxCommit: self stPath data: self stData.
+!
+
+fileCommit
+
+	self fileCommit: self jsPath data: self jsData.
+	self fileCommit: self jsDeployPath data: self jsDeployData.
+	self fileCommit: self stPath data: self stData.
+! !
+
+!CategoryCommiter methodsFor: 'private'!
+
+ajaxCommit: filePath data: content
+
+	(Ajax url: filePath)
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: content;
+	    at: 'error' put: [self handleAjaxCommitErrorForFilePath: filePath data: content];
+	    send.
+!
+
+handleAjaxCommitErrorForFilePath: filePath data: content
+
+	Sandbox label: filePath openOn: content
+!
+
+fileCommit: path data: data
+
+	| result |
+	<
+		try {
+			var absolutePath = jQuery.twFile.convertUriToLocalPath(document.URL.substr(0, document.URL.lastIndexOf("/") + 1) + path);
+			result = jQuery.twFile.save(absolutePath, data);
+			if (result !!= true) {result = false};
+		} catch(ex) {
+			result = false;
+		};
+	>.
+	result ifFalse: [self handleFileCommitErrorForFilePath: path data: data].
+!
+
+convertToAbsolutePath: path
+
+	<return jQuery.twFile.convertUriToLocalPath(document.URL.substr(0, document.URL.lastIndexOf("/") + 1) + path)>
+!
+
+handleFileCommitErrorForFilePath: filePath data: content
+
+	Sandbox label: filePath openOn: content
+! !
+
+!CategoryCommiter methodsFor: 'testing'!
+
+isFileProtocol
+
+	^self protocol = 'file:'
+! !
+
+!CategoryCommiter class methodsFor: 'accessing'!
+
+commitPathJs
+	^'js'
+!
+
+commitPathSt
+	^'st'
+! !
+
+!CategoryCommiter class methodsFor: 'actions'!
+
+commitCategory: aString
+
+	self new commitCategory: aString
+! !
+
 !Object methodsFor: '*IDE'!
 
 inspect
@@ -1787,5 +1912,4 @@ inspectOn: anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
-
 
