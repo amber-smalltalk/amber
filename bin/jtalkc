@@ -122,7 +122,7 @@ fi
 # Define our predefined library combinations
 BOOT="boot"
 KERNEL="$BOOT Kernel"
-COMPILER="$KERNEL Parser Compiler"
+COMPILER="$KERNEL Parser parser Compiler"
 CANVAS="$COMPILER Canvas"
 IDE="$CANVAS JQuery IDE SUnit Examples"
 
@@ -306,6 +306,7 @@ cat $TOOURCOMPILER > $TMPDIR/compiler.js
 # Compile all collected .st files to .js
 echo "Loading libraries$TOOURCOMPILER and compiling ..."
 node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
+echo node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "

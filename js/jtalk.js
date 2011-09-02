@@ -43,6 +43,7 @@
 	loadJS("JQuery.js");
 	loadJS("Parser.js");
 	loadJS("Compiler.js");
+	loadJS("parser.js");
 	loadJS("IDE.js");
 	loadJS("SUnit.js");
 	loadJS("Examples.js");
