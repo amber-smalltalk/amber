@@ -693,6 +693,23 @@ referencedClasses: []
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_log_block_',
+smalltalk.method({
+selector: 'log:block:',
+category: 'printing',
+fn: function (aString, aBlock){
+var self=this;
+var result=nil;
+smalltalk.send(smalltalk.send(aString, "__comma", [" time: "]), "__comma", [smalltalk.send(smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return result=smalltalk.send(aBlock, "_value", []);})]), "_printString", [])]);
+return result;
+return self;},
+source: unescape('log%3A%20aString%20block%3A%20aBlock%0A%0A%09%7C%20result%20%7C%0A%09%22console%20log%3A%22%20%20aString%2C%20%20%27%20time%3A%20%27%2C%20%28Date%20millisecondsToRun%3A%20%5Bresult%20%3A%3D%20aBlock%20value%5D%29%20printString.%0A%09%5Eresult%0A%0A'),
+messageSends: [unescape("%2C"), "printString", "millisecondsToRun:", "value"],
+referencedClasses: [smalltalk.Date]
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -6013,11 +6030,13 @@ category: 'fileIn',
 fn: function (aStream){
 var self=this;
 var nextChunk=nil;
-nextChunk=smalltalk.send((($receiver = smalltalk.send(self['@chunkParser'], "_emptyChunk", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@chunkParser'], "_chunk", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@chunkParser'], "_chunk", [])]), "_parse_", [aStream]);
+var par=nil;
+smalltalk.send(self, "_log_block_", ["nextChunk build", (function(){return par=(($receiver = smalltalk.send(self['@chunkParser'], "_emptyChunk", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@chunkParser'], "_chunk", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@chunkParser'], "_chunk", [])]);})]);
+smalltalk.send(self, "_log_block_", ["nextChunk", (function(){return nextChunk=smalltalk.send(par, "_parse_", [aStream]);})]);
 (($receiver = smalltalk.send(nextChunk, "_isEmptyChunk", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send(self, "_compileMethod_", [smalltalk.send(nextChunk, "_contents", [])]);return smalltalk.send(self, "_scanFrom_", [aStream]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send(self, "_compileMethod_", [smalltalk.send(nextChunk, "_contents", [])]);return smalltalk.send(self, "_scanFrom_", [aStream]);})]);
 return self;},
-source: unescape('scanFrom%3A%20aStream%0A%09%7C%20nextChunk%20%7C%0A%09nextChunk%20%3A%3D%20%28chunkParser%20emptyChunk%20/%20chunkParser%20chunk%29%20parse%3A%20aStream.%0A%09nextChunk%20isEmptyChunk%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20compileMethod%3A%20nextChunk%20contents.%0A%09%20%20%20%20self%20scanFrom%3A%20aStream%5D.'),
-messageSends: ["parse:", unescape("/"), "emptyChunk", "chunk", "ifFalse:", "isEmptyChunk", "compileMethod:", "contents", "scanFrom:"],
+source: unescape('scanFrom%3A%20aStream%0A%09%7C%20nextChunk%20par%20%7C%0A%09self%20log%3A%20%27nextChunk%20build%27%20block%3A%20%5Bpar%20%3A%3D%20%28chunkParser%20emptyChunk%20/%20chunkParser%20chunk%29%5D.%0A%09self%20log%3A%20%27nextChunk%27%20block%3A%20%5BnextChunk%20%3A%3D%20par%20parse%3A%20aStream%5D.%0A%09nextChunk%20isEmptyChunk%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20compileMethod%3A%20nextChunk%20contents.%0A%09%20%20%20%20self%20scanFrom%3A%20aStream%5D.'),
+messageSends: ["log:block:", unescape("/"), "emptyChunk", "chunk", "parse:", "ifFalse:", "isEmptyChunk", "compileMethod:", "contents", "scanFrom:"],
 referencedClasses: []
 }),
 smalltalk.ClassCategoryReader);
@@ -6032,11 +6051,11 @@ var self=this;
 var method=nil;
 method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self['@class']]);
 smalltalk.send(method, "_category_", [self['@category']]);
-smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
+smalltalk.send(self, "_log_block_", ["addCompiledMethod", (function(){return smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);})]);
 return self;},
-source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
-messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09self%20log%3A%20%27addCompiledMethod%27%20block%3A%20%5Bclass%20addCompiledMethod%3A%20method%5D'),
+messageSends: ["load:forClass:", "new", "category:", "log:block:", "addCompiledMethod:"],
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.ClassCategoryReader);
 
