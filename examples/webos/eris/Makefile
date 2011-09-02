@@ -1,14 +1,13 @@
 #
 # If you copy this file for an Enyo/Jtalk project, just
-# modify these first two lines
+# modify these first three lines
 # and then add .st files as you please. This Makefile
 # should pick them all up and compile into Program.js.
 #
 PACKAGE  := jtalk.eris
 VERSION  := 0.0.1
+FLAGS    := -L COMPILER
 
-# -E for Enyo, -O for Closure optimization of js code.
-FLAGS    := -E -C
 IPK      := $(PACKAGE)_$(VERSION)_all.ipk
 FILE     := Program
 SOURCES  := $(wildcard *.st)

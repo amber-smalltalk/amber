@@ -1,5 +1,5 @@
 Program.js: MyScript.st
-	../../../bin/jtalkc -N -C -m MyScript MyScript.st Program
+	../../../bin/jtalkc -m MyScript MyScript.st Program
 
 run: Program.js
 	node Program.js

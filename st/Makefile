@@ -52,19 +52,19 @@ Compiler.js: Compiler.st Parser.js
 #
 # JQuery uses Canvas
 JQuery.js: JQuery.st Canvas.js
-	$(JTALKC) $(FLAGS) -l Canvas $<
+	$(JTALKC) $(FLAGS) -L CANVAS $<
 
 # IDE uses JQuery
 IDE.js: IDE.st JQuery.js
-	$(JTALKC) $(FLAGS) -l Canvas,JQuery $<
+	$(JTALKC) $(FLAGS) -L JQUERY $<
 
 # The SUnit TestRunner uses UI stuff from IDE.
 SUnit.js: SUnit.st IDE.js
-	$(JTALKC) $(FLAGS) -l Canvas,JQuery,IDE $<
+	$(JTALKC) $(FLAGS) -L IDE $<
 
 # Some Examples use SUnit
 Examples.js: Examples.st SUnit.js
-	$(JTALKC) $(FLAGS) -l Canvas,JQuery,IDE,SUnit $<;
+	$(JTALKC) $(FLAGS) -L IDE -l SUnit $<;
 
 
 # Installing is simply copying all js files to js directory.

@@ -7,8 +7,8 @@
 PACKAGE  := jtalk.hellojtalk
 VERSION  := 1.0.0
 
-# -E for Enyo, -O for Closure optimization of js code.
-FLAGS    := -E -O
+# -O for Closure optimization of js code.
+FLAGS    := -O
 IPK      := $(PACKAGE)_$(VERSION)_all.ipk
 FILE     := Program
 SOURCES  := $(wildcard *.st)

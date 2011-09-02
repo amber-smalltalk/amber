@@ -1,5 +1,5 @@
 Program.js: TrivialServer.st
-	../../../bin/jtalkc -N -m TrivialServer TrivialServer.st Program
+	../../../bin/jtalkc -m TrivialServer TrivialServer.st Program
 
 run: Program.js
 	./trivial
