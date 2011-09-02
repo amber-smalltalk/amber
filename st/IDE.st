@@ -245,6 +245,10 @@ TabWidget subclass: #Workspace
 
 label
     ^'[Workspace]'
+!
+
+val: aString
+    sourceArea val: aString
 ! !
 
 !Workspace methodsFor: 'actions'!
@@ -288,6 +292,13 @@ renderButtonsOn: html
     html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
+! !
+
+!Workspace class methodsFor: 'convenience'!
+
+openOn: aString
+    ^self open
+	val: aString
 ! !
 
 TabWidget subclass: #Transcript
@@ -566,22 +577,7 @@ compileDefinition
 !
 
 commitCategory
-    selectedCategory ifNotNil: [
-	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send.
-	(Ajax url: self class commitPathJs, '/', selectedCategory, '.deploy.js')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (StrippedExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send.
-	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (ChunkExporter new exportCategory: selectedCategory);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send]
+    selectedCategory ifNotNil: [ CategoryCommiter commitCategory: selectedCategory ]
 !
 
 cancelChanges
@@ -1330,7 +1326,7 @@ editor
 !SourceArea methodsFor: 'actions'!
 
 clear
-    textarea asJQuery val: ''
+    self val: ''
 !
 
 doIt
@@ -1654,6 +1650,175 @@ handleError: anError
 
 initialize
 	self register
+! !
+
+Workspace subclass: #Sandbox
+	instanceVariableNames: 'label'
+	category: 'IDE'!
+
+!Sandbox methodsFor: 'accessing'!
+
+label
+    ^label ifNil: '[Sandbox]'
+!
+
+label: aString
+    label := aString
+! !
+
+!Sandbox methodsFor: 'testing'!
+
+canBeClosed
+    ^true
+! !
+
+!Sandbox class methodsFor: 'not yet classified'!
+
+label: aStringLabel openOn: aStringContent
+
+	^(self new
+		label: aStringLabel;
+		open) val: aStringContent
+! !
+
+Object subclass: #CategoryCommiter
+	instanceVariableNames: 'category'
+	category: 'IDE'!
+
+!CategoryCommiter methodsFor: 'accessing'!
+
+category: aString
+	
+	category := aString
+!
+
+protocol
+
+	^<document.location.protocol>
+!
+
+jsData
+
+	^Exporter new exportCategory: category
+!
+
+jsDeployData
+
+	^StrippedExporter new exportCategory: category
+!
+
+stData
+
+	^ChunkExporter new exportCategory: category
+!
+
+jsPath
+
+	^self class commitPathJs, '/', category, '.js'
+!
+
+jsDeployPath
+
+	^self class commitPathJs, '/', category, '.deploy.js'
+!
+
+stPath
+
+	^self class commitPathSt, '/', category, '.st'
+! !
+
+!CategoryCommiter methodsFor: 'actions'!
+
+commitCategory: aString
+
+	self category: aString.
+	self commitCategory.
+!
+
+commitCategory
+
+	self isFileProtocol 
+		ifTrue: [self fileCommit]
+		ifFalse: [self ajaxCommit]
+!
+
+ajaxCommit
+
+	self ajaxCommit: self jsPath data: self jsData.
+	self ajaxCommit: self jsDeployPath data: self jsDeployData.
+	self ajaxCommit: self stPath data: self stData.
+!
+
+fileCommit
+
+	self fileCommit: self jsPath data: self jsData.
+	self fileCommit: self jsDeployPath data: self jsDeployData.
+	self fileCommit: self stPath data: self stData.
+! !
+
+!CategoryCommiter methodsFor: 'private'!
+
+ajaxCommit: filePath data: content
+
+	(Ajax url: filePath)
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: content;
+	    at: 'error' put: [self handleAjaxCommitErrorForFilePath: filePath data: content];
+	    send.
+!
+
+handleAjaxCommitErrorForFilePath: filePath data: content
+
+	Sandbox label: filePath openOn: content
+!
+
+fileCommit: path data: data
+
+	| result |
+	<
+		try {
+			var absolutePath = jQuery.twFile.convertUriToLocalPath(document.URL.substr(0, document.URL.lastIndexOf("/") + 1) + path);
+			result = jQuery.twFile.save(absolutePath, data);
+			if (result !!= true) {result = false};
+		} catch(ex) {
+			result = false;
+		};
+	>.
+	result ifFalse: [self handleFileCommitErrorForFilePath: path data: data].
+!
+
+convertToAbsolutePath: path
+
+	<return jQuery.twFile.convertUriToLocalPath(document.URL.substr(0, document.URL.lastIndexOf("/") + 1) + path)>
+!
+
+handleFileCommitErrorForFilePath: filePath data: content
+
+	Sandbox label: filePath openOn: content
+! !
+
+!CategoryCommiter methodsFor: 'testing'!
+
+isFileProtocol
+
+	^self protocol = 'file:'
+! !
+
+!CategoryCommiter class methodsFor: 'accessing'!
+
+commitPathJs
+	^'js'
+!
+
+commitPathSt
+	^'st'
+! !
+
+!CategoryCommiter class methodsFor: 'actions'!
+
+commitCategory: aString
+
+	self new commitCategory: aString
 ! !
 
 !Object methodsFor: '*IDE'!
