@@ -42,8 +42,7 @@ Usage: $0 [-L level] [-l lib1,lib2...] [-i file] [-m class] [-M file]
      where level is:
 
         KERNEL    - a reasonable level for server side programs or libraries.
-        PARSER    - if you need to parse stuff, includes PetitParser etc.
-        COMPILER  - if you need to compile Jtalk code.
+        COMPILER  - if you need to compile, import or export Jtalk code.
         CANVAS    - if you need HTML DOM manipulation, typical for client side.
         JQUERY    - if you want JQuery stuff on top of Canvas.
         IDE       - if you are extending the IDE with new tools etc.
@@ -92,7 +91,7 @@ Usage: $0 [-L level] [-l lib1,lib2...] [-i file] [-m class] [-M file]
      Compile Hello.st to Hello.js and create complete program called
      Program.js and adding a call to class method #main in class Hello:
 
-        jtalkc -N -m Hello Hello.st Program
+        jtalkc -m Hello Hello.st Program
 
      Compile two .st files into corresponding .js files,
      and link with specific myboot.js, myKernel.js, myinit.js
@@ -112,10 +111,9 @@ fi
 # Define our predefined library combinations
 BOOT="boot"
 KERNEL="$BOOT Kernel"
-PARSER="$KERNEL Parser"
-COMPILER="$PARSER parser Compiler"
-CANVAS="$COMPILER Canvas"
-JQUERY="$COMPILER JQuery"
+COMPILER="$KERNEL Parser parser Compiler"
+CANVAS="$KERNEL Canvas"
+JQUERY="$CANVAS JQuery"
 IDE="$JQUERY IDE SUnit Examples"
 
 # Predefined initializer
@@ -203,7 +201,6 @@ for FILE in $LOAD
 do
    resolvejs $FILE
    TOLOAD="$TOLOAD $RESOLVED"
-   TOADD="$TOADD $RESOLVED"
 done
 
 # Resolve COMPILER
@@ -212,10 +209,18 @@ do
    resolvejs $FILE
    TOCOMPILER="$TOCOMPILER $RESOLVED"
 done
-# Add supplied libraries to load (they are already resolved)
+
+# Add supplied libraries we have not already loaded (they are already resolved)
+#for FILE in $EXTRA
+#do
+#   resolvejs $FILE
+#   TOEXTRA="$TOEXTRA $RESOLVED"
+#done
+
 TOCOMPILER="$TOCOMPILER$TOLOAD"
-THEREST="init $JTALK/bin/$NODECOMPILE"
+
 # Resolve init and nodecompile
+THEREST="init $JTALK/bin/$NODECOMPILE"
 for FILE in $THEREST
 do
    resolvejs $FILE
@@ -223,7 +228,7 @@ do
 done
 
 # Add supplied libraries
-LIBS="$TOBASE $TOADD"
+LIBS="$TOBASE $TOLOAD"
 
 # Get a unique tempdir and make it get auto removed on exit
 TMPDIR=`mktemp -d jtalkc.XXXXXX`
@@ -274,7 +279,7 @@ done
 cat $TOCOMPILER > $TMPDIR/compiler.js
  
 # Compile all collected .st files to .js
-echo "Loading libraries$TOOURCOMPILER and compiling ..."
+echo "Loading libraries$TOCOMPILER and compiling ..."
 node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
