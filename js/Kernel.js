@@ -354,7 +354,7 @@ fn: function (aBlock, anotherBlock){
 var self=this;
 try{aBlock()} catch(e) {anotherBlock(e)};
 return self;},
-source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%3E'),
+source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%3E%20'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -787,6 +787,54 @@ smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
 return self;},
 source: unescape('removeClass%3A%20aClass%0A%09aClass%20isMetaclass%20ifTrue%3A%20%5Bself%20error%3A%20aClass%20asString%2C%20%27%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21%27%5D.%0A%09aClass%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20removeCompiledMethod%3A%20each%5D.%0A%09aClass%20class%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20class%20removeCompiledMethod%3A%20each%5D.%0A%09self%20basicDelete%3A%20aClass%20name'),
 messageSends: ["ifTrue:", "isMetaclass", "error:", unescape("%2C"), "asString", "do:", "values", "methodDictionary", "removeCompiledMethod:", "class", "basicDelete:", "name"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_basicParse_',
+smalltalk.method({
+selector: 'basicParse:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.parser.parse(aString);
+return self;},
+source: unescape('basicParse%3A%20aString%0A%09%3Creturn%20smalltalk.parser.parse%28aString%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_parse_',
+smalltalk.method({
+selector: 'parse:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+var result=nil;
+smalltalk.send(self, "_try_catch_", [(function(){return result=smalltalk.send(self, "_basicParse_", [aString]);}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_", [ex]), "_signal", []);})]);
+return result;
+return self;},
+source: unescape('parse%3A%20aString%0A%09%7C%20result%20%7C%0A%09self%20try%3A%20%5Bresult%20%3A%3D%20self%20basicParse%3A%20aString%5D%20catch%3A%20%5B%3Aex%20%7C%20%28self%20parseError%3A%20ex%29%20signal%5D.%0A%09%5Eresult'),
+messageSends: ["try:catch:", "basicParse:", "signal", "parseError:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_parseError_',
+smalltalk.method({
+selector: 'parseError:',
+category: 'accessing',
+fn: function (anException){
+var self=this;
+return smalltalk.Error._new()
+		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message);
+return self;},
+source: unescape('parseError%3A%20anException%0A%09%3Creturn%20smalltalk.Error._new%28%29%0A%09%09._messageText_%28%27Parse%20error%20on%20line%20%27%20+%20anException.line%20+%20%27%20column%20%27%20+%20anException.column%20+%20%27%20%3A%20%27%20+%20anException.message%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
