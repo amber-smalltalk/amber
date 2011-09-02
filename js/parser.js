@@ -945,7 +945,7 @@ smalltalk.parser = (function(){
           pos = savedPos1;
         }
         var result2 = result1 !== null
-          ? (function(neg, digits) {return (parseInt(neg+digits, 10))})(result1[0], result1[1])
+          ? (function(neg, digits) {return (parseInt(neg+digits.join(""), 10))})(result1[0], result1[1])
           : null;
         if (result2 !== null) {
           var result0 = result2;

@@ -20,7 +20,7 @@ number         = n:(float / integer) {
                	   	._value_(n)
                	 }
 float          = neg:[-]?int:integer "." dec:integer {return parseFloat((neg+int+"."+dec), 10)}
-integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits, 10))}
+integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10))}
 literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
 		  return smalltalk.ValueNode._new()
                	   	._value_(lits)
