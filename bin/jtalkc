@@ -113,7 +113,7 @@ fi
 BOOT="boot"
 KERNEL="$BOOT Kernel"
 PARSER="$KERNEL Parser"
-COMPILER="$PARSER Compiler"
+COMPILER="$PARSER parser Compiler"
 CANVAS="$COMPILER Canvas"
 JQUERY="$COMPILER JQuery"
 IDE="$JQUERY IDE SUnit Examples"

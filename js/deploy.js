@@ -1,0 +1,1 @@
+smalltalk.setDeploymentMode()

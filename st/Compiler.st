@@ -412,7 +412,7 @@ visitJSStatementNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source'
 	category: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
@@ -454,13 +454,24 @@ classNameFor: aClass
 		aClass isNil
 		    ifTrue: ['nil']
 		    ifFalse: [aClass name]]
+!
+
+source
+	^source ifNil: ['']
+!
+
+source: aString
+	source := aString
 ! !
 
 !Compiler methodsFor: 'compiling'!
 
 loadExpression: aString
+	| result |
 	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
-	^DoIt new doIt
+	result := DoIt new doIt.
+	DoIt removeCompiledMethod: (DoIt methodDictionary at: #doIt).
+	^result
 !
 
 load: aString forClass: aClass
@@ -472,12 +483,14 @@ load: aString forClass: aClass
 
 compile: aString forClass: aClass
 	self currentClass: aClass.
+	self source: aString.
 	^self compile: aString
 !
 
 compileExpression: aString
 	self currentClass: DoIt.
-	^self compileNode: (self parseExpression: aString)
+	self source: 'doIt ^[', aString, '] value'.
+	^self compileNode: (self parse: self source)
 !
 
 eval: aString
@@ -495,7 +508,7 @@ compileNode: aNode
 !
 
 parse: aString
-    ^self parser parse: aString readStream
+    ^Smalltalk current parse: aString
 !
 
 parseExpression: aString
@@ -540,7 +553,7 @@ checkClass: aClassName for: receiver
 inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
         | inlined |
         inlined := false.
-
+ 
 	"-- BlockClosures --"
 
 	(aSelector = 'whileTrue:') ifTrue: [
@@ -747,7 +760,7 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
                 self visit: aCollection first.
                 inlined := true].
 
-	(aSelector = '>') ifTrue: [
+	(aSelector = '>') ifTrue: [ 
                 self checkClass: 'Number' for: receiver.
                 stream nextPutAll: '$receiver >'.
                 self visit: aCollection first.
@@ -810,7 +823,7 @@ visitMethodNode: aNode
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
 	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
-	stream nextPutAll: 'source: unescape("', aNode source escaped, '"),';lf.
+	stream nextPutAll: 'source: unescape("', self source escaped, '"),';lf.
 	stream nextPutAll: 'fn: function('.
 	aNode arguments 
 	    do: [:each | 
@@ -1033,6 +1046,6 @@ Object subclass: #DoIt
 
 !DoIt methodsFor: ''!
 
-doIt ^[a < 3] value
+
 ! !
 

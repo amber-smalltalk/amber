@@ -540,6 +540,7 @@ compileMethodDefinitionFor: aClass
     source := sourceArea val.
     selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
     compiler := Compiler new.
+    compiler source: source.
     node := compiler parse: source.
     node isParseFailure ifTrue: [
 	^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
