@@ -258,6 +258,21 @@ removeClass: aClass
 	aClass class methodDictionary values do: [:each |
 		aClass class removeCompiledMethod: each].
 	self basicDelete: aClass name
+!
+
+basicParse: aString
+	<return smalltalk.parser.parse(aString)>
+!
+
+parse: aString
+	| result |
+	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex) signal].
+	^result
+!
+
+parseError: anException
+	<return smalltalk.Error._new()
+		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message)>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
