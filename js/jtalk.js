@@ -26,6 +26,7 @@
 
     function loadIDEDependencies() {
 	loadJS('lib/jQuery/jquery.textarea.js');
+	loadJS('lib/jQuery/jQuery.twFile.js');
 	loadJS('lib/CodeMirror/lib/codemirror.js');
 	loadCSS('lib/CodeMirror/lib/codemirror.css', 'js');
 	loadJS('lib/CodeMirror/mode/smalltalk/smalltalk.js');
