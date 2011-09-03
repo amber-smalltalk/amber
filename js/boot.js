@@ -432,13 +432,6 @@ var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
 var thisContext = undefined;
 
-/* Utilities */
-
-Array.prototype.remove = function(s){
-    var index = this.indexOf(s);
-    if(this.indexOf(s) != -1)this.splice(index, 1);
-}
-
 if(this.jQuery) {
     this.jQuery.allowJavaScriptCalls = true;
 }
