@@ -12,7 +12,7 @@ JTALKC	:= ../bin/jtalkc
 FLAGS   := -d
 
 # All corresponding js filenames for every st file available
-# In other words, if we have Kernel.st and Parser.st, then OBJECTS will be "Kernel.js Parser.js"
+# In other words, if we have Kernel.st and Compiler.st, then OBJECTS will be "Kernel.js Compiler.js"
 OBJECTS := $(patsubst %.st,%.js,$(wildcard *.st))
 
 # Default make target since it is the first target in this Makefile
@@ -30,14 +30,9 @@ boot.js init.js:
 Kernel.js: Kernel.st boot.js init.js
 	$(JTALKC) $(FLAGS) $<
 
-# ...then Parser, but using the new Kernel from step above.
-# We only need to depend on Kernel.js since it in turn depends on boot.js and init.js.
-Parser.js: Parser.st Kernel.js
-	$(JTALKC) $(FLAGS) $<
-
-# ...and Compiler, but using the new Parser and Kernel from above.
-# We only need to depend on Parser.js since it in turn depends on Kernel.js, boot.js etc
-Compiler.js: Compiler.st Parser.js
+# ...and Compiler, but using the new Kernel from above.
+# We only need to depend on Kernel.js since it in turn depends on Kernel.js, boot.js etc
+Compiler.js: Compiler.st Kernel.js
 	$(JTALKC) $(FLAGS) $<
 
 # ...now that we have a new Kernel/Parser/Compiler we use them
