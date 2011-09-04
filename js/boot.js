@@ -314,7 +314,7 @@ function Smalltalk(){
 	    }
 	}
 	
-	return st.send(st.JSObjectProxy._on_(receiver), selector, arguments);
+	return st.send(st.JSObjectProxy._on_(receiver), selector, args);
     };
 
 
