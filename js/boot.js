@@ -209,7 +209,7 @@ function Smalltalk(){
        If the receiver does not understand the selector, call its #doesNotUnderstand: method */
 
     sendWithoutContext = function(receiver, selector, args, klass) {
-	if(typeof receiver === "undefined") {
+	if(receiver === undefined || receiver === null) {
 	    receiver = nil;
 	}
 	if(!klass && receiver.klass && receiver[selector]) {
@@ -244,7 +244,7 @@ function Smalltalk(){
 
     withContextSend = function(receiver, selector, args, klass) {
 	var call, context;
-	if(typeof receiver === "undefined") {
+	if(receiver === undefined || receiver === null) {
 	    receiver = nil;
 	}
 	if(!klass && receiver.klass && receiver[selector]) {
@@ -290,7 +290,8 @@ function Smalltalk(){
     };
 
     function callJavaScriptMethod(receiver, selector, args) {
-	/* Call a method of a JS object, or answer a property.
+	/* Call a method of a JS object, or answer a property if it exists.
+	   Else try wrapping a JSObjectProxy around the receiver.
  
 	   Converts keyword-based selectors by using the first
 	   keyword only, but keeping all message arguments.
@@ -312,7 +313,8 @@ function Smalltalk(){
 		return jsProperty
 	    }
 	}
-	smalltalk.Error._signal_(receiver + ' is not a Jtalk object and "' + jsSelector + '" is undefined')
+	
+	return st.send(st.JSObjectProxy._on_(receiver), selector, arguments);
     };
 
 

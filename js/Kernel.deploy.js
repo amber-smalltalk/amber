@@ -587,6 +587,42 @@ return self;}
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+'_basicParse_',
+smalltalk.method({
+selector: 'basicParse:',
+fn: function (aString){
+var self=this;
+return smalltalk.parser.parse(aString);
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_parse_',
+smalltalk.method({
+selector: 'parse:',
+fn: function (aString){
+var self=this;
+var result=nil;
+smalltalk.send(self, "_try_catch_", [(function(){return result=smalltalk.send(self, "_basicParse_", [aString]);}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_", [ex]), "_signal", []);})]);
+return result;
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_parseError_',
+smalltalk.method({
+selector: 'parseError:',
+fn: function (anException){
+var self=this;
+return smalltalk.Error._new()
+		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message);
+return self;}
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -1625,17 +1661,6 @@ return self;}
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-'_printString',
-smalltalk.method({
-selector: 'printString',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_compiledSource", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29")]);return smalltalk.send($rec, "_cr", []);})(aStream);})]);
-return self;}
-}),
-smalltalk.BlockClosure);
-
-smalltalk.addMethod(
 '_whileFalse',
 smalltalk.method({
 selector: 'whileFalse',
@@ -1664,6 +1689,17 @@ selector: 'new',
 fn: function (){
 var self=this;
 return new self();
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_applyTo_arguments_',
+smalltalk.method({
+selector: 'applyTo:arguments:',
+fn: function (anObject, aCollection){
+var self=this;
+return self.apply(anObject, aCollection);
 return self;}
 }),
 smalltalk.BlockClosure);
@@ -5279,5 +5315,70 @@ self['@current']=anHandler;
 return self;}
 }),
 smalltalk.ErrorHandler.klass);
+
+
+smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel');
+smalltalk.addMethod(
+'_jsObject_',
+smalltalk.method({
+selector: 'jsObject:',
+fn: function (aJSObject){
+var self=this;
+self['@jsObject']=aJSObject;
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+'_jsObject',
+smalltalk.method({
+selector: 'jsObject',
+fn: function (){
+var self=this;
+return self['@jsObject'];
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+'_inspectOn_',
+smalltalk.method({
+selector: 'inspectOn:',
+fn: function (anInspector){
+var self=this;
+var variables=nil;
+variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+smalltalk.send(variables, "_at_put_", [unescape("%23self"), smalltalk.send(self, "_jsObject", [])]);
+smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
+for(var i in self['@jsObject']) {
+		variables._at_put_(i, self['@jsObject'][i]);
+	};
+smalltalk.send(anInspector, "_setVariables_", [variables]);
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+
+smalltalk.addMethod(
+'_on_',
+smalltalk.method({
+selector: 'on:',
+fn: function (aJSObject){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;}
+}),
+smalltalk.JSObjectProxy.klass);
 
 
