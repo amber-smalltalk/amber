@@ -15,15 +15,15 @@ popd >/dev/null
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-d] [-s suffix] [-m class] [-M file]
-          [-i] [-I file] [file1 [file2 ...]] [Program]
+Usage: $0 [-L level] [-l lib1,lib2...] [-i file] [-m class] [-M file]
+          [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
-   program. If no files are listed only a linking stage is performed.
+   program. If no .st files are listed only a linking stage is performed.
    Files listed will be handled using these rules:
 
    *.js
-     Files are concatenated in listed order.
+     Files are linked (concatenated) in listed order.
      If not found we look in $JTALK/js
 
    *.st
@@ -37,29 +37,37 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-d] [-s suffix] [-m class] [-M file]
    a .js file. Otherwise a <Program>.js file is linked together based on
    the options:
 
-  -N or -D or -E
-     Compilation target. Currently Node.js, D8 (V8 shell) or Enyo (webOS 3.0).
-     All currentl imply "-K -I" so boot.js and Kernel.js are added first and init.js
-     is added last.
+  -L level
+     Add libraries to a predefined level (default is KERNEL) of environment
+     where level is:
 
-  -K
-     Add libraries to get minimal Jtalk Kernel running.
+        KERNEL    - a reasonable level for server side programs or libraries.
+        COMPILER  - if you need to compile, import or export Jtalk code.
+        CANVAS    - if you need HTML DOM manipulation, typical for client side.
+        JQUERY    - if you want JQuery stuff on top of Canvas.
+        IDE       - if you are extending the IDE with new tools etc.
 
-  -C
-     Add libraries to get minimal Jtalk Compiler running.
+  -l library1,library2
+     Additionally add listed libraries (no spaces or .js) in listed order.
 
-  -J
-     Add libraries to get minimal Jtalk IDE running.
+  -i file
+     Add library initializer <file> instead of default $JTALK/js/init.js 
 
+  -m class
+     Add at end a call to #main in class <class>. 
+
+  -M file
+     Add at end javascript file <file> acting as main.
+        
   -o
      Optimize each js file using the Google closure compiler.
-     Using Closure at ~/compiler.jar    
+     Using Closure compiler found at ~/compiler.jar    
 
   -O
      Optimize final <Program>.js using the Google closure compiler.
-     Using Closure at ~/compiler.jar
+     Using Closure compiler found at ~/compiler.jar
 
-  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS 
+  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS
 
   -d
      Additionally export code for deploy - stripped from source etc.
@@ -70,26 +78,8 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-d] [-s suffix] [-m class] [-M file]
      File.<suffix>.js.
 
   -S suffix
-     Use <suffix> for all libraries accessed using -l or -L and other options.
-
-  -l library1,library2
-     Load listed libraries (no spaces or .js) into Compiler before compiling.
-
-  -L library1,library2
-     Load listed libraries (no spaces or .js) into Compiler before compiling
-     and also into Program.js in listed order.
-
-  -i file
-     Add library initializer <file>.
-
-  -I
-     Add library standard initializer $JTALK/js/init.js  
-
-  -m class
-     Add call to #main in class <class>. 
-
-  -M file
-     Add javascript file <file> at the end acting as main.
+     Use <suffix> for all libraries accessed using -L or -l. This makes it possible
+     to have multiple flavors of Jtalk and libraries in the same place.
 
 
      Example invocations:
@@ -99,16 +89,15 @@ Usage: $0 [-N|D|E] [-K|C|J] [-o] [-O|-A] [-d] [-s suffix] [-m class] [-M file]
         jtalkc Kernel.st
 
      Compile Hello.st to Hello.js and create complete program called
-     Program.js for Node.js and adding a call to class method #main
-     in class Hello:
+     Program.js and adding a call to class method #main in class Hello:
 
-        jtalkc -N -m Hello Hello.st Program
+        jtalkc -m Hello Hello.st Program
 
      Compile two .st files into corresponding .js files,
      and link with specific myboot.js, myKernel.js, myinit.js
      and main.js and create complete program called Program.js:
 
-        jtalkc -M main.js -I myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program
+        jtalkc -M main.js myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program
 
 ENDOFHELP
 	exit 1;
@@ -122,9 +111,10 @@ fi
 # Define our predefined library combinations
 BOOT="boot"
 KERNEL="$BOOT Kernel"
-COMPILER="$KERNEL Parser parser Compiler"
-CANVAS="$COMPILER Canvas"
-IDE="$CANVAS JQuery IDE SUnit Examples"
+COMPILER="$KERNEL parser Compiler"
+CANVAS="$KERNEL Canvas"
+JQUERY="$CANVAS JQuery"
+IDE="$JQUERY IDE SUnit Examples"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
@@ -136,7 +126,6 @@ MAIN=
 MAINFILE=
 BASE=$KERNEL
 LOAD=
-LOADANDADD=
 CLOSUREOPTS=
 # Ok, bad coding practice but hey, who would use such a suffix?
 SUFFIX=no-silly-suffix
@@ -145,20 +134,13 @@ DEPLOY=false
 NODECOMPILE=nodecompile
 
 # Read options and shift them away
-while getopts "NDEKCJoOAdS:s:l:L:i:IM:m:h?" o; do
+while getopts "L:l:i:m:M:oOAds:S:h?" o; do
 case "$o" in
-   N) ENV=NODE
-      BASE=$KERNEL
-      INIT=$INITIALIZER;;
-   D) ENV=D8
-      BASE=$KERNEL
-      INIT=$INITIALIZER;;
-   E) ENV=ENYO
-      BASE=$KERNEL
-      INIT=$INITIALIZER;;
-   K) BASE=$KERNEL;;
-   C) BASE=$COMPILER;;
-   J) BASE=$IDE;;
+   L) BASE=${!OPTARG};;  # If OPTARG is "KERNEL" this sets BASE to $KERNEL.
+   l) LOAD=$OPTARG;;
+   i) INIT=$OPTARG;;
+   m) MAIN=$OPTARG;;
+   M) MAINFILE=$OPTARG;;
    o) CLOSURE=true
       CLOSUREPARTS=true;;
    O) CLOSURE=true
@@ -167,16 +149,10 @@ case "$o" in
       CLOSUREOPTS="$CLOSUREOPTS --compilation_level ADVANCED_OPTIMIZATIONS"
       CLOSUREFULL=true;;
    d) DEPLOY=true;;
-   S) LOADSUFFIX=$OPTARG
-      SUFFIXUSED=$SUFFIX;;
    s) SUFFIX=$OPTARG
       SUFFIXUSED=$SUFFIX;;
-   l) LOAD=$OPTARG;;
-   L) LOADANDADD=$OPTARG;;
-   I) INIT=$INITIALIZER;;
-   i) INIT=$OPTARG;;
-   M) MAINFILE=$OPTARG;;
-   m) MAIN=$OPTARG;;
+   S) LOADSUFFIX=$OPTARG
+      SUFFIXUSED=$SUFFIX;;
    h) usage;;
    [?])  usage;;
    esac
@@ -227,33 +203,32 @@ do
    TOLOAD="$TOLOAD $RESOLVED"
 done
 
-# Resolve listed libraries in $LOADANDADD separated by ,
-LOADANDADD=${LOADANDADD//,/\ }
-for FILE in $LOADANDADD
-do
-   resolvejs $FILE
-   TOLOAD="$TOLOAD $RESOLVED"
-   TOADD="$TOADD $RESOLVED"
-done
-
 # Resolve COMPILER
 for FILE in $COMPILER
 do
    resolvejs $FILE
-   TOOURCOMPILER="$TOOURCOMPILER $RESOLVED"
+   TOCOMPILER="$TOCOMPILER $RESOLVED"
 done
-# Add supplied libraries to load (they are already resolved)
-TOOURCOMPILER="$TOOURCOMPILER$TOLOAD"
-THEREST="init $JTALK/bin/$NODECOMPILE"
+
+# Add supplied libraries we have not already loaded (they are already resolved)
+#for FILE in $EXTRA
+#do
+#   resolvejs $FILE
+#   TOEXTRA="$TOEXTRA $RESOLVED"
+#done
+
+TOCOMPILER="$TOCOMPILER$TOLOAD"
+
 # Resolve init and nodecompile
+THEREST="init $JTALK/bin/$NODECOMPILE"
 for FILE in $THEREST
 do
    resolvejs $FILE
-   TOOURCOMPILER="$TOOURCOMPILER $RESOLVED"
+   TOCOMPILER="$TOCOMPILER $RESOLVED"
 done
 
 # Add supplied libraries
-LIBS="$TOBASE $TOADD"
+LIBS="$TOBASE $TOLOAD"
 
 # Get a unique tempdir and make it get auto removed on exit
 TMPDIR=`mktemp -d jtalkc.XXXXXX`
@@ -301,12 +276,11 @@ done
 # --------------------------------------------------
 
 # Create compiler dynamically
-cat $TOOURCOMPILER > $TMPDIR/compiler.js
+cat $TOCOMPILER > $TMPDIR/compiler.js
  
 # Compile all collected .st files to .js
-echo "Loading libraries$TOOURCOMPILER and compiling ..."
+echo "Loading libraries$TOCOMPILER and compiling ..."
 node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
-echo node $TMPDIR/compiler.js $DEPLOY $SUFFIX $COMPILE
 
 # Verify all .js files corresponding to .st files were created, otherwise exit
 IFS=" "
