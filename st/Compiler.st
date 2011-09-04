@@ -1,3 +1,298 @@
+Object subclass: #ChunkParser
+	instanceVariableNames: 'stream'
+	category: 'Compiler'!
+
+!ChunkParser methodsFor: 'accessing'!
+
+stream: aStream
+	stream := aStream
+! !
+
+!ChunkParser methodsFor: 'reading'!
+
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
+
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+
+	| char result chunk |
+	result := '' writeStream.
+        [char := stream next.
+        char notNil] whileTrue: [
+                 char = '!!' ifTrue: [
+                         stream peek = '!!'
+                                ifTrue: [stream next "skipping the escape double"]
+                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
+                 result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
+
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
+! !
+
+Object subclass: #Importer
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!Importer methodsFor: 'fileIn'!
+
+import: aStream
+    | chunk result parser lastEmpty |
+    parser := ChunkParser on: aStream.
+    lastEmpty := false.
+    [chunk := parser nextChunk.
+     chunk isNil] whileFalse: [
+        chunk isEmpty
+       		ifTrue: [lastEmpty := true]
+       		ifFalse: [
+        		result := Compiler new loadExpression: chunk.
+        		lastEmpty 
+            			ifTrue: [
+                                  	lastEmpty := false.
+                                  	result scanFrom: parser]]]
+! !
+
+Object subclass: #Exporter
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!Exporter methodsFor: 'fileOut'!
+
+exportCategory: aString
+	| stream |
+	stream := '' writeStream.
+	(Smalltalk current classes 
+	    select: [:each | each category = aString])
+	    do: [:each | stream nextPutAll: (self export: each)].
+	self exportCategoryExtensions: aString on: stream.
+	^stream contents
+!
+
+export: aClass
+	| stream |
+	stream := '' writeStream.
+	self exportDefinitionOf: aClass on: stream.
+	self exportMethodsOf: aClass on: stream.
+	self exportMetaDefinitionOf: aClass on: stream.
+	self exportMethodsOf: aClass class on: stream.
+	^stream contents
+! !
+
+!Exporter methodsFor: 'private'!
+
+exportDefinitionOf: aClass on: aStream
+	aStream 
+	    nextPutAll: 'smalltalk.addClass(';
+	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
+	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+	    nextPutAll: ', ['.
+	aClass instanceVariableNames 
+	    do: [:each | aStream nextPutAll: '''', each, '''']
+	    separatedBy: [aStream nextPutAll: ', '].
+	aStream	
+	    nextPutAll: '], ''';
+	    nextPutAll: aClass category, '''';
+	    nextPutAll: ');'.
+	aClass comment notEmpty ifTrue: [
+	    aStream 
+	    	lf;
+		nextPutAll: 'smalltalk.';
+		nextPutAll: (self classNameFor: aClass);
+		nextPutAll: '.comment=';
+		nextPutAll: 'unescape(''', aClass comment escaped, ''')'].
+	aStream lf
+!
+
+exportMetaDefinitionOf: aClass on: aStream
+	aClass class instanceVariableNames isEmpty ifFalse: [
+	    aStream 
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
+		nextPutAll: '.iVarNames = ['.
+	    aClass class instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ','].
+	    aStream nextPutAll: '];', String lf]
+!
+
+exportMethodsOf: aClass on: aStream
+	aClass methodDictionary values do: [:each |
+		(each category match: '^\*') ifFalse: [
+			self exportMethod: each of: aClass on: aStream]].
+	aStream lf
+!
+
+classNameFor: aClass
+	^aClass isMetaclass
+	    ifTrue: [aClass instanceClass name, '.klass']
+	    ifFalse: [
+		aClass isNil
+		    ifTrue: ['nil']
+		    ifFalse: [aClass name]]
+!
+
+exportMethod: aMethod of: aClass on: aStream
+	aStream 
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
+		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: 'source: unescape(''', aMethod source escaped, '''),';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
+		nextPutAll: 'referencedClasses: ['.
+	    		aMethod referencedClasses 
+				do: [:each | aStream nextPutAll: 'smalltalk.', (self classNameFor: each)]
+				separatedBy: [aStream nextPutAll: ','].
+	aStream
+		nextPutAll: ']';lf;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
+		nextPutAll: ');';lf;lf
+!
+
+exportCategoryExtensions: aString on: aStream
+	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
+		each methodDictionary values do: [:method |
+			method category = ('*', aString) ifTrue: [
+				self exportMethod: method of: each on: aStream]]]
+! !
+
+Exporter subclass: #ChunkExporter
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!ChunkExporter methodsFor: 'not yet classified'!
+
+exportDefinitionOf: aClass on: aStream
+	"Chunk format."
+
+	aStream 
+	    nextPutAll: (self classNameFor: aClass superclass);
+	    nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+	    nextPutAll: '	instanceVariableNames: '''.
+	aClass instanceVariableNames 
+	    do: [:each | aStream nextPutAll: each]
+	    separatedBy: [aStream nextPutAll: ' '].
+	aStream	
+	    nextPutAll: ''''; lf;
+	    nextPutAll: '	category: ''', aClass category, '''!!'; lf.
+ 	aClass comment notEmpty ifTrue: [
+	    aStream 
+		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+	aStream lf
+!
+
+exportMethod: aMethod of: aClass on: aStream
+	aStream 
+		lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;
+		nextPutAll: '!!'
+!
+
+exportMethodsOf: aClass on: aStream
+
+   aClass protocolsDo: [:category :methods |
+	(category match: '^\*') ifFalse: [ 
+		self
+			exportMethods: methods
+			category: category
+			of: aClass
+			on: aStream]]
+!
+
+exportMetaDefinitionOf: aClass on: aStream
+
+	aClass class instanceVariableNames isEmpty ifFalse: [
+		aStream 
+		    nextPutAll: (self classNameFor: aClass class);
+		    nextPutAll: ' instanceVariableNames: '''.
+		aClass class instanceVariableNames 
+		    do: [:each | aStream nextPutAll: each]
+		    separatedBy: [aStream nextPutAll: ' '].
+		aStream	
+		    nextPutAll: '''!!'; lf; lf]
+!
+
+classNameFor: aClass
+	^aClass isMetaclass
+	    ifTrue: [aClass instanceClass name, ' class']
+	    ifFalse: [
+		aClass isNil
+		    ifTrue: ['nil']
+		    ifFalse: [aClass name]]
+!
+
+chunkEscape: aString
+	"Replace all occurrences of !! with !!!! and trim at both ends."
+
+	^(aString replace: '!!' with: '!!!!') trimBoth
+!
+
+exportCategoryExtensions: aString on: aStream
+	"We need to override this one too since we need to group
+	all methods in a given protocol under a leading methodsFor: chunk
+	for that class."
+
+	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
+		each protocolsDo: [:category :methods |
+			category = ('*', aString) ifTrue: [
+				self exportMethods: methods category: category of: each on: aStream]]]
+!
+
+exportMethods: methods category: category of: aClass on: aStream
+
+	aStream
+		nextPutAll: '!!', (self classNameFor: aClass);
+		nextPutAll: ' methodsFor: ''', category, '''!!'.
+    	methods do: [:each |
+		self exportMethod: each of: aClass on: aStream].
+	aStream nextPutAll: ' !!'; lf; lf
+! !
+
+Exporter subclass: #StrippedExporter
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!StrippedExporter methodsFor: 'private'!
+
+exportDefinitionOf: aClass on: aStream
+	aStream 
+	    nextPutAll: 'smalltalk.addClass(';
+	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
+	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+	    nextPutAll: ', ['.
+	aClass instanceVariableNames 
+	    do: [:each | aStream nextPutAll: '''', each, '''']
+	    separatedBy: [aStream nextPutAll: ', '].
+	aStream	
+	    nextPutAll: '], ''';
+	    nextPutAll: aClass category, '''';
+	    nextPutAll: ');'.
+	aStream lf
+!
+
+exportMethod: aMethod of: aClass on: aStream
+	aStream 
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource;lf;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
+		nextPutAll: ');';lf;lf
+! !
+
 Object subclass: #Node
 	instanceVariableNames: 'nodes'
 	category: 'Compiler'!
@@ -412,7 +707,7 @@ visitJSStatementNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source'
 	category: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
@@ -454,13 +749,24 @@ classNameFor: aClass
 		aClass isNil
 		    ifTrue: ['nil']
 		    ifFalse: [aClass name]]
+!
+
+source
+	^source ifNil: ['']
+!
+
+source: aString
+	source := aString
 ! !
 
 !Compiler methodsFor: 'compiling'!
 
 loadExpression: aString
+	| result |
 	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
-	^DoIt new doIt
+	result := DoIt new doIt.
+	DoIt removeCompiledMethod: (DoIt methodDictionary at: #doIt).
+	^result
 !
 
 load: aString forClass: aClass
@@ -472,12 +778,14 @@ load: aString forClass: aClass
 
 compile: aString forClass: aClass
 	self currentClass: aClass.
+	self source: aString.
 	^self compile: aString
 !
 
 compileExpression: aString
 	self currentClass: DoIt.
-	^self compileNode: (self parseExpression: aString)
+	self source: 'doIt ^[', aString, '] value'.
+	^self compileNode: (self parse: self source)
 !
 
 eval: aString
@@ -495,7 +803,7 @@ compileNode: aNode
 !
 
 parse: aString
-    ^self parser parse: aString readStream
+    ^Smalltalk current parse: aString
 !
 
 parseExpression: aString
@@ -540,7 +848,7 @@ checkClass: aClassName for: receiver
 inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
         | inlined |
         inlined := false.
-
+ 
 	"-- BlockClosures --"
 
 	(aSelector = 'whileTrue:') ifTrue: [
@@ -747,7 +1055,7 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
                 self visit: aCollection first.
                 inlined := true].
 
-	(aSelector = '>') ifTrue: [
+	(aSelector = '>') ifTrue: [ 
                 self checkClass: 'Number' for: receiver.
                 stream nextPutAll: '$receiver >'.
                 self visit: aCollection first.
@@ -810,7 +1118,7 @@ visitMethodNode: aNode
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
 	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
-	stream nextPutAll: 'source: unescape("', aNode source escaped, '"),';lf.
+	stream nextPutAll: 'source: unescape("', self source escaped, '"),';lf.
 	stream nextPutAll: 'fn: function('.
 	aNode arguments 
 	    do: [:each | 
@@ -1030,9 +1338,4 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
-
-!DoIt methodsFor: ''!
-
-doIt ^[a < 3] value
-! !
 

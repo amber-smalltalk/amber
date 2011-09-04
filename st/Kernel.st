@@ -165,6 +165,13 @@ printString
 
 printNl
 	<console.log(self)>
+!
+
+log: aString block: aBlock
+
+	| result |
+	console log:  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
+	^result
 ! !
 
 !Object methodsFor: 'testing'!
@@ -258,6 +265,21 @@ removeClass: aClass
 	aClass class methodDictionary values do: [:each |
 		aClass class removeCompiledMethod: each].
 	self basicDelete: aClass name
+!
+
+basicParse: aString
+	<return smalltalk.parser.parse(aString)>
+!
+
+parse: aString
+	| result |
+	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex) signal].
+	^result
+!
+
+parseError: anException
+	<return smalltalk.Error._new()
+		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message)>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -770,19 +792,10 @@ new
 	"Use the receiver as a JS constructor. 
 	*Do not* use this method to instanciate Smalltalk objects!!"
 	<return new self()>
-! !
+!
 
-!BlockClosure methodsFor: 'printing'!
-
-printString
-	^ String streamContents: [:aStream| 
-                                  aStream 
-                                  	nextPutAll: super printString;
-                                  	nextPutAll: '(';
-                                  	nextPutAll: self compiledSource;
-                                  	nextPutAll: ')';
-                                  	cr.
-           ]
+applyTo: anObject arguments: aCollection
+	<return self.apply(anObject, aCollection)>
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!
@@ -2157,12 +2170,11 @@ class: aClass category: aString
 
 !ClassCategoryReader methodsFor: 'fileIn'!
 
-scanFrom: aStream
-	| nextChunk |
-	nextChunk := (chunkParser emptyChunk / chunkParser chunk) parse: aStream.
-	nextChunk isEmptyChunk ifFalse: [
-	    self compileMethod: nextChunk contents.
-	    self scanFrom: aStream].
+scanFrom: aChunkParser
+	| chunk |
+	[chunk := aChunkParser nextChunk.
+	chunk isEmpty] whileFalse: [
+	    self compileMethod: chunk]
 ! !
 
 !ClassCategoryReader methodsFor: 'initialization'!
@@ -2369,11 +2381,11 @@ class: aClass
 
 !ClassCommentReader methodsFor: 'fileIn'!
 
-scanFrom: aStream
-	| nextChunk |
-	nextChunk := (chunkParser emptyChunk / chunkParser chunk) parse: aStream.
-	nextChunk isEmptyChunk ifFalse: [
-	    self setComment: nextChunk contents].
+scanFrom: aChunkParser
+	| chunk |
+	chunk := aChunkParser nextChunk.
+	chunk isEmpty ifFalse: [
+	    self setComment: chunk].
 ! !
 
 !ClassCommentReader methodsFor: 'initialization'!
@@ -2568,5 +2580,44 @@ initialize
 
 register
 	ErrorHandler setCurrent: self new
+! !
+
+Object subclass: #JSObjectProxy
+	instanceVariableNames: 'jsObject'
+	category: 'Kernel'!
+
+!JSObjectProxy methodsFor: 'accessing'!
+
+jsObject: aJSObject
+	jsObject := aJSObject
+!
+
+jsObject
+	^jsObject
+! !
+
+!JSObjectProxy methodsFor: 'proxy'!
+
+printString
+	^self jsObject toString
+!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self jsObject.
+	anInspector setLabel: self printString.
+	<for(var i in self['@jsObject']) {
+		variables._at_put_(i, self['@jsObject'][i]);
+	}>.
+	anInspector setVariables: variables
+! !
+
+!JSObjectProxy class methodsFor: 'instance creation'!
+
+on: aJSObject
+	^self new
+		jsObject: aJSObject;
+		yourself
 ! !
 
