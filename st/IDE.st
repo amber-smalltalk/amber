@@ -248,7 +248,7 @@ label
 !
 
 val: aString
-    sourceArea val: aString
+	sourceArea val: aString
 ! !
 
 !Workspace methodsFor: 'actions'!
@@ -297,8 +297,7 @@ renderButtonsOn: html
 !Workspace class methodsFor: 'convenience'!
 
 openOn: aString
-    ^self open
-	val: aString
+	^self open val: aString
 ! !
 
 TabWidget subclass: #Transcript
@@ -1653,35 +1652,6 @@ initialize
 	self register
 ! !
 
-Workspace subclass: #Sandbox
-	instanceVariableNames: 'label'
-	category: 'IDE'!
-
-!Sandbox methodsFor: 'accessing'!
-
-label
-    ^label ifNil: '[Sandbox]'
-!
-
-label: aString
-    label := aString
-! !
-
-!Sandbox methodsFor: 'testing'!
-
-canBeClosed
-    ^true
-! !
-
-!Sandbox class methodsFor: 'not yet classified'!
-
-label: aStringLabel openOn: aStringContent
-
-	^(self new
-		label: aStringLabel;
-		open) val: aStringContent
-! !
-
 Object subclass: #CategoryCommiter
 	instanceVariableNames: 'category'
 	category: 'IDE'!
@@ -1780,7 +1750,7 @@ fileCommit: path data: data
 		try {
 			var absolutePath = jQuery.twFile.convertUriToLocalPath(document.URL.substr(0, document.URL.lastIndexOf("/") + 1) + path);
 			result = jQuery.twFile.save(absolutePath, data);
-			if (result !!= true) {result = false};
+			if (result !!= true) {result = false} else {result = true};
 		} catch(ex) {
 			result = false;
 		};
@@ -1820,6 +1790,35 @@ commitPathSt
 commitCategory: aString
 
 	self new commitCategory: aString
+! !
+
+Workspace subclass: #Sandbox
+	instanceVariableNames: 'label'
+	category: 'IDE'!
+
+!Sandbox methodsFor: 'accessing'!
+
+label
+    ^label ifNil: '[Sandbox]'
+!
+
+label: aString
+    label := aString
+! !
+
+!Sandbox methodsFor: 'testing'!
+
+canBeClosed
+    ^true
+! !
+
+!Sandbox class methodsFor: 'actions'!
+
+label: aStringLabel openOn: aStringContent
+
+	^(self new
+		label: aStringLabel;
+		open) val: aStringContent
 ! !
 
 !Object methodsFor: '*IDE'!
