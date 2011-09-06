@@ -103,7 +103,8 @@ initialize
 	addClass: 'jtalkBody'.
     self 
 	addTab: Transcript current;
-	addTab: Workspace new.
+	addTab: Workspace new;
+	addTab: TestRunner new.
     self selectTab: self tabs last.
     self 
 	onResize: [self updateBodyMargin; updatePosition];
@@ -1879,10 +1880,6 @@ renderErrorsOn: html
 ! !
 
 !TestRunner methodsFor: 'testing'!
-
-canBeClosed
-    ^true
-!
 
 isSelectedClass: aClass
 	^(self selectedClasses includes: aClass)
