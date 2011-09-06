@@ -272,14 +272,24 @@ basicParse: aString
 !
 
 parse: aString
-	| result |
-	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex) signal].
+	| result | 
+	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
 	^result
 !
 
-parseError: anException
-	<return smalltalk.Error._new()
-		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message)>
+parseError: anException parsing: aString
+	| row col message lines badLine code |
+	<row = anException.line;
+	col = anException.column;
+	message = anException.message;>.
+	lines := aString lines.
+	badLine := lines at: row.
+	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
+	lines at: row put: badLine.
+	code := String streamContents: [:s |
+                                        lines withIndexDo: [:l :i |
+                                                   s nextPutAll: i asString, ': ', l, String lf]].
+	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -409,7 +419,7 @@ methodsFor: aString stamp: aStamp
 !
 
 commentStamp: aStamp prior: prior
-         "Ignored right now."
+        ^self commentStamp
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -796,6 +806,12 @@ new
 
 applyTo: anObject arguments: aCollection
 	<return self.apply(anObject, aCollection)>
+!
+
+timeToRun
+	"Answer the number of milliseconds taken to execute this block."
+
+	^ Date millisecondsToRun: self
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!
@@ -1402,6 +1418,22 @@ indexOf: anObject ifAbsent: aBlock
 		}
 		return aBlock();
 	>
+!
+
+indexOf: anObject startingAt: start ifAbsent: aBlock
+	<
+		for(var i=start-1;i<self.length;i++){
+			if(self[i].__eq(anObject)) {return i+1}
+		}
+		return aBlock();
+	>
+!
+
+indexOf: anObject startingAt: start
+	"Answer the index of the first occurence of anElement after start
+	within the receiver. If the receiver does not contain anElement, 
+	answer 0."
+	^self indexOf: anObject startingAt: start ifAbsent: [0]
 ! !
 
 !SequenceableCollection methodsFor: 'adding'!
@@ -1639,6 +1671,68 @@ join: aCollection
 		streamContents: [:stream | aCollection
 				do: [:each | stream nextPutAll: each asString] 
 				separatedBy: [stream nextPutAll: self]]
+!
+
+lineIndicesDo: aBlock
+	"execute aBlock with 3 arguments for each line:
+	- start index of line
+	- end index of line without line delimiter
+	- end index of line including line delimiter(s) CR, LF or CRLF"
+	
+	| cr lf start sz nextLF nextCR |
+	start := 1.
+	sz := self size.
+	cr := String cr.
+	nextCR := self indexOf: cr startingAt: 1.
+	lf := String lf.
+	nextLF := self indexOf: lf startingAt: 1.
+	[ start <= sz ] whileTrue: [
+		(nextLF = 0 and: [ nextCR = 0 ])
+			ifTrue: [ "No more CR, nor LF, the string is over"
+					aBlock value: start value: sz value: sz.
+					^self ].
+		(nextCR = 0 or: [ 0 < nextLF and: [ nextLF < nextCR ] ])
+			ifTrue: [ "Found a LF"
+					aBlock value: start value: nextLF - 1 value: nextLF.
+					start := 1 + nextLF.
+					nextLF := self indexOf: lf startingAt: start ]
+			ifFalse: [ 1 + nextCR = nextLF
+				ifTrue: [ "Found a CR-LF pair"
+					aBlock value: start value: nextCR - 1 value: nextLF.
+					start := 1 + nextLF.
+					nextCR := self indexOf: cr startingAt: start.
+					nextLF := self indexOf: lf startingAt: start ]
+				ifFalse: [ "Found a CR"
+					aBlock value: start value: nextCR - 1 value: nextCR.
+					start := 1 + nextCR.
+					nextCR := self indexOf: cr startingAt: start ]]]
+!
+
+linesDo: aBlock
+	"Execute aBlock with each line in this string. The terminating line
+	delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock"
+
+	self lineIndicesDo: [:start :endWithoutDelimiters :end |
+		aBlock value: (self copyFrom: start to: endWithoutDelimiters)]
+!
+
+lines
+	"Answer an array of lines composing this receiver without the line ending delimiters."
+
+	| lines |
+	lines := Array new.
+	self linesDo: [:aLine | lines add: aLine].
+	^lines
+!
+
+lineNumber: anIndex
+	"Answer a string containing the characters in the given line number."
+
+	| lineCount |
+	lineCount := 0.
+	self lineIndicesDo: [:start :endWithoutDelimiters :end |
+		(lineCount := lineCount + 1) = anIndex ifTrue: [^self copyFrom: start to: endWithoutDelimiters]].
+	^nil
 ! !
 
 !String methodsFor: 'testing'!
