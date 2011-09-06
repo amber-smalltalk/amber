@@ -1,5 +1,35 @@
 smalltalk.addClass('CanvasRenderingContext', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
+'_arcTo_radius_startAngle_endAngle_anticlockwise_',
+smalltalk.method({
+selector: 'arcTo:radius:startAngle:endAngle:anticlockwise:',
+category: 'drawing arcs',
+fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean){
+var self=this;
+self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);
+return self;},
+source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%20aNumber2%20endAngle%3A%20aNumber3%20anticlockwise%3A%20aBoolean%0A%09%3Cself.arc%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20aNumber%2C%20aNumber2%2C%20aNumber3%2C%20aBoolean%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
+'_arcTo_radius_',
+smalltalk.method({
+selector: 'arcTo:radius:',
+category: 'drawing arcs',
+fn: function (aPoint, aNumber){
+var self=this;
+smalltalk.send(self, "_arcTo_radius_startAngle_endAngle_anticlockwise_", [aPoint, aNumber, (0), (($receiver = smalltalk.send((smalltalk.Number || Number), "_pi", [])).klass === smalltalk.Number) ? $receiver *(2) : smalltalk.send($receiver, "__star", [(2)]), false]);
+return self;},
+source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%0A%09self%20arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%200%20endAngle%3A%20Number%20pi%20*%202%20anticlockwise%3A%20false'),
+messageSends: ["arcTo:radius:startAngle:endAngle:anticlockwise:", unescape("*"), "pi"],
+referencedClasses: [smalltalk.Number]
+}),
+smalltalk.CanvasRenderingContext);
+
+smalltalk.addMethod(
 '_fillStyle_',
 smalltalk.method({
 selector: 'fillStyle:',
@@ -105,32 +135,32 @@ referencedClasses: []
 smalltalk.CanvasRenderingContext);
 
 smalltalk.addMethod(
-'_arcTo_radius_startAngle_endAngle_anticlockwise_',
+'_strokeStyle_',
 smalltalk.method({
-selector: 'arcTo:radius:startAngle:endAngle:anticlockwise:',
-category: 'drawing arcs',
-fn: function (aPoint, aNumber, aNumber2, aNumber3, aBoolean){
+selector: 'strokeStyle:',
+category: 'drawing paths',
+fn: function (aString){
 var self=this;
-self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean);
+self.strokeStyle = String(aString);
 return self;},
-source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%20aNumber2%20endAngle%3A%20aNumber3%20anticlockwise%3A%20aBoolean%0A%09%3Cself.arc%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20aNumber%2C%20aNumber2%2C%20aNumber3%2C%20aBoolean%29%3E'),
+source: unescape('strokeStyle%3A%20aString%0A%09%3Cself.strokeStyle%20%3D%20String%28aString%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.CanvasRenderingContext);
 
 smalltalk.addMethod(
-'_arcTo_radius_',
+'_lineWidth_',
 smalltalk.method({
-selector: 'arcTo:radius:',
-category: 'drawing arcs',
-fn: function (aPoint, aNumber){
+selector: 'lineWidth:',
+category: 'drawing paths',
+fn: function (aNumber){
 var self=this;
-smalltalk.send(self, "_arcTo_radius_startAngle_endAngle_anticlockwise_", [aPoint, aNumber, (0), smalltalk.send(smalltalk.send(smalltalk.Number, "_pi", []), "__star", [(2)]), false]);
+self.lineWidth = aNumber;
 return self;},
-source: unescape('arcTo%3A%20aPoint%20radius%3A%20aNumber%0A%09self%20arcTo%3A%20aPoint%20radius%3A%20aNumber%20startAngle%3A%200%20endAngle%3A%20Number%20pi%20*%202%20anticlockwise%3A%20false'),
-messageSends: ["arcTo:radius:startAngle:endAngle:anticlockwise:", unescape("*"), "pi"],
-referencedClasses: [smalltalk.Number]
+source: unescape('lineWidth%3A%20aNumber%0A%09%3Cself.lineWidth%20%3D%20aNumber%3E'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.CanvasRenderingContext);
 
@@ -174,36 +204,6 @@ var self=this;
 self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y());
 return self;},
 source: unescape('clearRectFrom%3A%20aPoint%20to%3A%20anotherPoint%0A%09%3Cself.fillRect%28aPoint._x%28%29%2C%20aPoint._y%28%29%2C%20anotherPoint._x%28%29%2C%20anotherPoint._y%28%29%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.CanvasRenderingContext);
-
-smalltalk.addMethod(
-'_strokeStyle_',
-smalltalk.method({
-selector: 'strokeStyle:',
-category: 'drawing paths',
-fn: function (aString){
-var self=this;
-self.strokeStyle = String(aString);
-return self;},
-source: unescape('strokeStyle%3A%20aString%0A%09%3Cself.strokeStyle%20%3D%20String%28aString%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.CanvasRenderingContext);
-
-smalltalk.addMethod(
-'_lineWidth_',
-smalltalk.method({
-selector: 'lineWidth:',
-category: 'drawing paths',
-fn: function (aNumber){
-var self=this;
-self.lineWidth = aNumber;
-return self;},
-source: unescape('lineWidth%3A%20aNumber%0A%09%3Cself.lineWidth%20%3D%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -258,22 +258,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
-smalltalk.send(self['@root'], "_ifNil_", [(function(){return self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", ["div", self]);})]);
-return self;},
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
-messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.HTMLCanvas);
-
-smalltalk.addMethod(
 '_with_',
 smalltalk.method({
 selector: 'with:',
@@ -289,17 +273,48 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Object);
+(($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]);})() : $receiver;
+return self;},
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
+messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_initializeFromJQuery_',
+smalltalk.method({
+selector: 'initializeFromJQuery:',
+category: 'initialization',
+fn: function (aJQuery){
+var self=this;
+self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]);
+return self;},
+source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
+messageSends: ["fromJQuery:canvas:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
 '_newTag_',
 smalltalk.method({
 selector: 'newTag:',
 category: 'tags',
 fn: function (aString){
 var self=this;
-return smalltalk.send(smalltalk.TagBrush, "_fromString_canvas_", [aString, self]);
+return smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", [aString, self]);
 return self;},
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self'),
 messageSends: ["fromString:canvas:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
@@ -694,21 +709,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_initializeFromJQuery_',
-smalltalk.method({
-selector: 'initializeFromJQuery:',
-category: 'initialization',
-fn: function (aJQuery){
-var self=this;
-self['@root']=smalltalk.send(smalltalk.TagBrush, "_fromJQuery_canvas_", [aJQuery, self]);
-return self;},
-source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
-messageSends: ["fromJQuery:canvas:"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.HTMLCanvas);
-
-smalltalk.addMethod(
 '_pre',
 smalltalk.method({
 selector: 'pre',
@@ -753,6 +753,51 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_script',
+smalltalk.method({
+selector: 'script',
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["script"]);
+return self;},
+source: unescape('script%0A%20%20%20%20%5Eself%20tag%3A%20%27script%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_link',
+smalltalk.method({
+selector: 'link',
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["link"]);
+return self;},
+source: unescape('link%0A%20%20%20%20%5Eself%20tag%3A%20%27link%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_style',
+smalltalk.method({
+selector: 'style',
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["style"]);
+return self;},
+source: unescape('style%0A%09%5Eself%20tag%3A%20%27style%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
@@ -772,17 +817,31 @@ smalltalk.HTMLCanvas.klass);
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
+'_element',
+smalltalk.method({
+selector: 'element',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@element'];
+return self;},
+source: unescape('element%0A%20%20%20%20%5Eelement'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_contents_',
 smalltalk.method({
 selector: 'contents:',
 category: 'adding',
 fn: function (anObject){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
-smalltalk.send(self, "_append_", [anObject]);
+(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
 return self;},
-source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20asJQuery%20empty.%0A%20%20%20%20self%20append%3A%20anObject'),
-messageSends: ["empty", "asJQuery", "append:"],
+source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20%0A%09empty%3B%0A%20%20%20%09append%3A%20anObject'),
+messageSends: ["empty", "append:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
@@ -874,9 +933,14 @@ selector: 'appendChild:',
 category: 'adding',
 fn: function (anElement){
 var self=this;
-self['@element'].appendChild(anElement);
+var element=self['@element'];
+ 	if (null == element.canHaveChildren || element.canHaveChildren) {
+		element.appendChild(anElement);
+ 	} else {
+ 		element.text = String(element.text) +  anElement.innerHTML;
+ 	} ;
 return self;},
-source: unescape('appendChild%3A%20anElement%0A%20%20%20%20%3Cself%5B%27@element%27%5D.appendChild%28anElement%29%3E'),
+source: unescape('appendChild%3A%20anElement%0A%09%22In%20IE7%20and%20IE8%20appendChild%20fails%20on%20several%20node%20types.%20So%20we%20need%20to%20check%22%20%0A%20%09%3Cvar%20element%3Dself%5B%27@element%27%5D%3B%0A%20%09if%20%28null%20%3D%3D%20element.canHaveChildren%20%7C%7C%20element.canHaveChildren%29%20%7B%0A%09%09element.appendChild%28anElement%29%3B%0A%20%09%7D%20else%20%7B%0A%20%09%09element.text%20%3D%20String%28element.text%29%20+%20%20anElement.innerHTML%3B%0A%20%09%7D%20%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1018,32 +1082,46 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_initializeFromString_canvas_',
+'_type_',
 smalltalk.method({
-selector: 'initializeFromString:canvas:',
-category: 'initialization',
-fn: function (aString, aCanvas){
+selector: 'type:',
+category: 'attributes',
+fn: function (aString){
 var self=this;
-self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
-self['@canvas']=aCanvas;
+smalltalk.send(self, "_at_put_", ["type", aString]);
 return self;},
-source: unescape('initializeFromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20self%20createElementFor%3A%20aString.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
-messageSends: ["createElementFor:"],
+source: unescape('type%3A%20aString%0A%20%20%20%20self%20at%3A%20%27type%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_element',
+'_media_',
 smalltalk.method({
-selector: 'element',
-category: 'accessing',
-fn: function (){
+selector: 'media:',
+category: 'attributes',
+fn: function (aString){
 var self=this;
-return self['@element'];
+smalltalk.send(self, "_at_put_", ["media", aString]);
 return self;},
-source: unescape('element%0A%20%20%20%20%5Eelement'),
-messageSends: [],
+source: unescape('media%3A%20aString%0A%20%20%20%20self%20at%3A%20%27media%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_rel_',
+smalltalk.method({
+selector: 'rel:',
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["rel", aString]);
+return self;},
+source: unescape('rel%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27rel%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
@@ -1184,6 +1262,38 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+'_initializeFromString_canvas_',
+smalltalk.method({
+selector: 'initializeFromString:canvas:',
+category: 'initialization',
+fn: function (aString, aCanvas){
+var self=this;
+self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
+self['@canvas']=aCanvas;
+return self;},
+source: unescape('initializeFromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20self%20createElementFor%3A%20aString.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
+messageSends: ["createElementFor:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_initializeFromJQuery_canvas_',
+smalltalk.method({
+selector: 'initializeFromJQuery:canvas:',
+category: 'initialization',
+fn: function (aJQuery, aCanvas){
+var self=this;
+self['@element']=smalltalk.send(smalltalk.send(aJQuery, "_jquery", []), "_get_", [(0)]);
+self['@canvas']=aCanvas;
+return self;},
+source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20jquery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
+messageSends: ["get:", "jquery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_createElementFor_',
 smalltalk.method({
 selector: 'createElementFor:',
@@ -1214,17 +1324,16 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_initializeFromJQuery_canvas_',
+'_empty',
 smalltalk.method({
-selector: 'initializeFromJQuery:canvas:',
-category: 'initialization',
-fn: function (aJQuery, aCanvas){
+selector: 'empty',
+category: 'adding',
+fn: function (){
 var self=this;
-self['@element']=smalltalk.send(smalltalk.send(aJQuery, "_jquery", []), "_get_", [(0)]);
-self['@canvas']=aCanvas;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
 return self;},
-source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20jquery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
-messageSends: ["get:", "jquery"],
+source: unescape('empty%0A%09self%20asJQuery%20empty'),
+messageSends: ["empty", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
@@ -1262,36 +1371,6 @@ smalltalk.TagBrush.klass);
 
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
-smalltalk.addMethod(
-'_appendToBrush_',
-smalltalk.method({
-selector: 'appendToBrush:',
-category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
-return self;},
-source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendToJQuery%3A%20aTagBrush%20asJQuery'),
-messageSends: ["appendToJQuery:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_appendToJQuery_',
-smalltalk.method({
-selector: 'appendToJQuery:',
-category: 'adding',
-fn: function (aJQuery){
-var self=this;
-smalltalk.send(self, "_renderOn_", [smalltalk.send(smalltalk.HTMLCanvas, "_onJQuery_", [aJQuery])]);
-return self;},
-source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
-messageSends: ["renderOn:", "onJQuery:"],
-referencedClasses: [smalltalk.HTMLCanvas]
-}),
-smalltalk.Widget);
-
 smalltalk.addMethod(
 '_alert_',
 smalltalk.method({
@@ -1353,6 +1432,36 @@ referencedClasses: []
 smalltalk.Widget);
 
 smalltalk.addMethod(
+'_appendToBrush_',
+smalltalk.method({
+selector: 'appendToBrush:',
+category: 'adding',
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
+return self;},
+source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendToJQuery%3A%20aTagBrush%20asJQuery'),
+messageSends: ["appendToJQuery:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
+'_appendToJQuery_',
+smalltalk.method({
+selector: 'appendToJQuery:',
+category: 'adding',
+fn: function (aJQuery){
+var self=this;
+smalltalk.send(self, "_renderOn_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
+return self;},
+source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
+messageSends: ["renderOn:", "onJQuery:"],
+referencedClasses: [smalltalk.HTMLCanvas]
+}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
 '_renderOn_',
 smalltalk.method({
 selector: 'renderOn:',
@@ -1371,6 +1480,21 @@ smalltalk.Widget);
 
 smalltalk.addClass('CanvasBrush', smalltalk.TagBrush, [], 'Canvas');
 smalltalk.addMethod(
+'_initializeWithCanvas_',
+smalltalk.method({
+selector: 'initializeWithCanvas:',
+category: 'initialization',
+fn: function (aCanvas){
+var self=this;
+self['@canvas']=aCanvas;
+return self;},
+source: unescape('initializeWithCanvas%3A%20aCanvas%0A%09canvas%20%3A%3D%20aCanvas'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CanvasBrush);
+
+smalltalk.addMethod(
 '_createElement',
 smalltalk.method({
 selector: 'createElement',
@@ -1380,21 +1504,6 @@ var self=this;
 return document.createElement('canvas');
 return self;},
 source: unescape('createElement%0A%09%3Creturn%20document.createElement%28%27canvas%27%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.CanvasBrush);
-
-smalltalk.addMethod(
-'_initializeWithCanvas_',
-smalltalk.method({
-selector: 'initializeWithCanvas:',
-category: 'initialization',
-fn: function (aCanvas){
-var self=this;
-canvas=aCanvas;
-return self;},
-source: unescape('initializeWithCanvas%3A%20aCanvas%0A%09canvas%20%3A%3D%20aCanvas'),
 messageSends: [],
 referencedClasses: []
 }),

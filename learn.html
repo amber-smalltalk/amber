@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)http://jtalk-project.org/ -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Learn Smalltalk with ProfStef</title>
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'> 
+    <meta name="author" content="Nicolas Petton">
+    <link rel="stylesheet" type="text/css" href="css/profstef.css">
+    <script type="text/javascript" src="./js/jtalk.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      loadJtalk(['TrySmalltalk.js']);
+    </script>
+    <div class="main">
+      <a id="back" href="/"> &larr; back to jtalk-project.org </a>
+      <img src="images/profstef.png"/>
+      <h1>Hey there! Got 5 minutes? I'm prof Stef and I want to teach you Smalltalk. I promise, it won't take long!</h1> 
+      
+      <div id="tutorial"><h2>Loading...</h2></div>
+      <script> 
+	'#tutorial'._asJQuery()._contents_(
+		function(html) {
+			html._with_(smalltalk.TrySmalltalkWidget._new())
+		}
+	)
+      </script>
+    </div>
+    
+    <div id="footer">
+      <div class="main">
+	<p>Copyright © 2011 <a href="http://www.nicolas-petton.fr/">Nicolas Petton</a>. The content of this website in licensed under <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC-BY-NC 3.0</a>.</p>
+	<p>Jtalk is an opensource project sponsored by <a href="http://www.objectfusion.fr/">objectfusion</a>.</p>
+	<p>The design of this website was provided by <a href="mailto:neomie.thirion@gmail.com">Noémie Thirion</a>.</p>
+      </div> 
+    </div>
+
+    
+
+
+  </body>
+</html>

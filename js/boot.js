@@ -209,7 +209,7 @@ function Smalltalk(){
        If the receiver does not understand the selector, call its #doesNotUnderstand: method */
 
     sendWithoutContext = function(receiver, selector, args, klass) {
-	if(typeof receiver === "undefined") {
+	if(receiver === undefined || receiver === null) {
 	    receiver = nil;
 	}
 	if(!klass && receiver.klass && receiver[selector]) {
@@ -244,7 +244,7 @@ function Smalltalk(){
 
     withContextSend = function(receiver, selector, args, klass) {
 	var call, context;
-	if(typeof receiver === "undefined") {
+	if(receiver === undefined || receiver === null) {
 	    receiver = nil;
 	}
 	if(!klass && receiver.klass && receiver[selector]) {
@@ -290,7 +290,8 @@ function Smalltalk(){
     };
 
     function callJavaScriptMethod(receiver, selector, args) {
-	/* Call a method of a JS object, or answer a property.
+	/* Call a method of a JS object, or answer a property if it exists.
+	   Else try wrapping a JSObjectProxy around the receiver.
  
 	   Converts keyword-based selectors by using the first
 	   keyword only, but keeping all message arguments.
@@ -312,17 +313,23 @@ function Smalltalk(){
 		return jsProperty
 	    }
 	}
-	smalltalk.Error._signal_(receiver + ' is not a Jtalk object and "' + jsSelector + '" is undefined')
+	
+	return st.send(st.JSObjectProxy._on_(receiver), selector, args);
     };
+
+
+    /* Reuse old contexts stored in oldContexts */
+
+    st.oldContexts = [];
 
 	
     /* Handle thisContext pseudo variable */
     
     pushContext = function(receiver, selector, temps) {
 	if(thisContext) {
-	    return thisContext = thisContext.newContext({receiver: receiver, selector: selector, temps: temps});
+	    return thisContext = thisContext.newContext(receiver, selector, temps);
 	} else {
-	    return thisContext = new SmalltalkMethodContext({receiver: receiver, selector: selector, temps: temps});
+	    return thisContext = new SmalltalkMethodContext(receiver, selector, temps);
 	}
     };
 
@@ -395,21 +402,29 @@ function Smalltalk(){
     st.setDevelopmentMode();
 }
 
-function SmalltalkMethodContext(spec) {
+function SmalltalkMethodContext(receiver, selector, temps, home) {
     var that = this;
-    spec = spec || {};
-    that.homeContext = spec.homeContext;
-    that.selector = spec.selector;
-    that.receiver = spec.receiver;
-    that.temps = spec.temps || {};
+    that.receiver = receiver;
+    that.selector = selector;
+    that.temps = temps || {};
+    that.homeContext = home;
 
-    that.newContext = function(spec) {
-	spec = spec || {};
-	return new SmalltalkMethodContext({homeContext: that, receiver: spec.receiver, selector: spec.selector, temps: spec.temps});
+    that.newContext = function(receiver, selector, temps) {
+	var c = smalltalk.oldContexts.pop();
+	if(c) {
+	    c.homeContext = that;
+	    c.receiver = receiver;
+	    c.selector = selector;
+	    c.temps = temps || {};
+	} else {
+	    c = new SmalltalkMethodContext(receiver, selector, temps, that);
+	}
+	return c;
     }
 
     that.removeYourself = function() {
 	thisContext = that.homeContext;
+	smalltalk.oldContexts.push(that);
     }
 }
 
@@ -418,14 +433,6 @@ function SmalltalkMethodContext(spec) {
 var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
 var thisContext = undefined;
-
-
-/* Utilities */
-
-Array.prototype.remove = function(s){
-    var index = this.indexOf(s);
-    if(this.indexOf(s) != -1)this.splice(index, 1);
-}
 
 if(this.jQuery) {
     this.jQuery.allowJavaScriptCalls = true;
