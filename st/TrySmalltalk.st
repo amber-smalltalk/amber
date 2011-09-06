@@ -441,9 +441,9 @@ Blocks are anonymous methods that can be stored into variables and executed on d
 
 Blocks are delimited by square brackets: []"
 
-[Browser open].
+[Transcript open].
 
-"does not open a Browser because the block is not executed.
+"does not open a Transcript because the block is not executed.
 
 Here is a block that adds 2 to its argument (its argument is named x):"
 
@@ -453,7 +453,7 @@ Here is a block that adds 2 to its argument (its argument is named x):"
 
 [:x | x+2] value: 5.
 
-[Browser open] value.
+[Transcript open] value.
 
 [:x | x+2] value: 10.
 
@@ -494,7 +494,7 @@ contents:
 
 Try this:"
 
-Browser open.
+Transcript open.
 
 3 > 10 
 	ifTrue: [Transcript show: ''maybe there''''s a bug ....'']
