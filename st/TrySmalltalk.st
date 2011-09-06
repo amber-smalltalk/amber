@@ -46,10 +46,7 @@ renderButtonsOn: html
     html button
 	with: 'InspectIt';
 	title: 'ctrl+i';
-	onClick: [self workspace inspectIt].
-    html button
-	with: 'Clear workspace';
-	onClick: [self workspace clearWorkspace]
+	onClick: [self workspace inspectIt]
 ! !
 
 Object subclass: #AbstractTutorial
