@@ -814,28 +814,41 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 var result=nil;
-smalltalk.send(self, "_try_catch_", [(function(){return result=smalltalk.send(self, "_basicParse_", [aString]);}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_", [ex]), "_signal", []);})]);
+smalltalk.send(self, "_try_catch_", [(function(){return result=smalltalk.send(self, "_basicParse_", [aString]);}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_parsing_", [ex, aString]), "_signal", []);})]);
 return result;
 return self;},
-source: unescape('parse%3A%20aString%0A%09%7C%20result%20%7C%0A%09self%20try%3A%20%5Bresult%20%3A%3D%20self%20basicParse%3A%20aString%5D%20catch%3A%20%5B%3Aex%20%7C%20%28self%20parseError%3A%20ex%29%20signal%5D.%0A%09%5Eresult'),
-messageSends: ["try:catch:", "basicParse:", "signal", "parseError:"],
+source: unescape('parse%3A%20aString%0A%09%7C%20result%20%7C%20%0A%09self%20try%3A%20%5Bresult%20%3A%3D%20self%20basicParse%3A%20aString%5D%20catch%3A%20%5B%3Aex%20%7C%20%28self%20parseError%3A%20ex%20parsing%3A%20aString%29%20signal%5D.%0A%09%5Eresult'),
+messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-'_parseError_',
+'_parseError_parsing_',
 smalltalk.method({
-selector: 'parseError:',
+selector: 'parseError:parsing:',
 category: 'accessing',
-fn: function (anException){
+fn: function (anException, aString){
 var self=this;
-return smalltalk.Error._new()
-		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message);
+var row=nil;
+var col=nil;
+var message=nil;
+var lines=nil;
+var badLine=nil;
+var code=nil;
+row = anException.line;
+	col = anException.column;
+	message = anException.message;;
+lines=smalltalk.send(aString, "_lines", []);
+badLine=smalltalk.send(lines, "_at_", [row]);
+badLine=smalltalk.send(smalltalk.send(smalltalk.send(badLine, "_copyFrom_to_", [(1), (($receiver = col).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])]), "__comma", [unescape("%20%3D%3D%3D%3E")]), "__comma", [smalltalk.send(badLine, "_copyFrom_to_", [col, smalltalk.send(badLine, "_size", [])])]);
+smalltalk.send(lines, "_at_put_", [row, badLine]);
+code=smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(s){return smalltalk.send(lines, "_withIndexDo_", [(function(l, i){return smalltalk.send(s, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(i, "_asString", []), "__comma", [": "]), "__comma", [l])]);})]);})]);
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error), "_new", []), "_messageText_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Parse error on line ", "__comma", [row]), "__comma", [" column "]), "__comma", [col]), "__comma", [" : "]), "__comma", [message]), "__comma", [" while parsing this"]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [code])]);
 return self;},
-source: unescape('parseError%3A%20anException%0A%09%3Creturn%20smalltalk.Error._new%28%29%0A%09%09._messageText_%28%27Parse%20error%20on%20line%20%27%20+%20anException.line%20+%20%27%20column%20%27%20+%20anException.column%20+%20%27%20%3A%20%27%20+%20anException.message%29%3E'),
-messageSends: [],
-referencedClasses: []
+source: unescape('parseError%3A%20anException%20parsing%3A%20aString%0A%09%7C%20row%20col%20message%20lines%20badLine%20code%20%7C%0A%09%3Crow%20%3D%20anException.line%3B%0A%09col%20%3D%20anException.column%3B%0A%09message%20%3D%20anException.message%3B%3E.%0A%09lines%20%3A%3D%20aString%20lines.%0A%09badLine%20%3A%3D%20lines%20at%3A%20row.%0A%09badLine%20%3A%3D%20%28badLine%20copyFrom%3A%201%20to%3A%20col%20-%201%29%2C%20%27%20%3D%3D%3D%3E%27%2C%20%28badLine%20copyFrom%3A%20%20col%20to%3A%20badLine%20size%29.%0A%09lines%20at%3A%20row%20put%3A%20badLine.%0A%09code%20%3A%3D%20String%20streamContents%3A%20%5B%3As%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lines%20withIndexDo%3A%20%5B%3Al%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20s%20nextPutAll%3A%20i%20asString%2C%20%27%3A%20%27%2C%20l%5D%5D.%0A%09%5E%20Error%20new%20messageText%3A%20%28%27Parse%20error%20on%20line%20%27%20%2C%20row%20%2C%20%27%20column%20%27%20%2C%20col%20%2C%20%27%20%3A%20%27%20%2C%20message%20%2C%20%27%20while%20parsing%20this%27%20%2C%20String%20lf%2C%20code%29'),
+messageSends: ["lines", "at:", unescape("%2C"), "copyFrom:to:", unescape("-"), "size", "at:put:", "streamContents:", "withIndexDo:", "nextPutAll:", "asString", "messageText:", "new", "lf"],
+referencedClasses: [smalltalk.String,smalltalk.Error]
 }),
 smalltalk.Smalltalk);
 
@@ -1216,10 +1229,10 @@ selector: 'commentStamp:prior:',
 category: 'accessing',
 fn: function (aStamp, prior){
 var self=this;
-
+return smalltalk.send(self, "_commentStamp", []);
 return self;},
-source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%20%22Ignored%20right%20now.%22'),
-messageSends: [],
+source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%5Eself%20commentStamp'),
+messageSends: ["commentStamp"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -4038,6 +4051,41 @@ var self=this;
 return self;},
 source: unescape('indexOf%3A%20anObject%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%09%7D%0A%09%09return%20aBlock%28%29%3B%0A%09%3E'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+'_indexOf_startingAt_ifAbsent_',
+smalltalk.method({
+selector: 'indexOf:startingAt:ifAbsent:',
+category: 'accessing',
+fn: function (anObject, start, aBlock){
+var self=this;
+
+		for(var i=start-1;i<self.length;i++){
+			if(self[i].__eq(anObject)) {return i+1}
+		}
+		return aBlock();
+	;
+return self;},
+source: unescape('indexOf%3A%20anObject%20startingAt%3A%20start%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09for%28var%20i%3Dstart-1%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%09%7D%0A%09%09return%20aBlock%28%29%3B%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+'_indexOf_startingAt_',
+smalltalk.method({
+selector: 'indexOf:startingAt:',
+category: 'accessing',
+fn: function (anObject, start){
+var self=this;
+return smalltalk.send(self, "_indexOf_startingAt_ifAbsent_", [anObject, start, (function(){return (0);})]);
+return self;},
+source: unescape('indexOf%3A%20anObject%20startingAt%3A%20start%0A%09%22Answer%20the%20index%20of%20the%20first%20occurence%20of%20anElement%20after%20start%0A%09within%20the%20receiver.%20If%20the%20receiver%20does%20not%20contain%20anElement%2C%20%0A%09answer%200.%22%0A%09%5Eself%20indexOf%3A%20anObject%20startingAt%3A%20start%20ifAbsent%3A%20%5B0%5D'),
+messageSends: ["indexOf:startingAt:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);

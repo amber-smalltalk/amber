@@ -272,14 +272,24 @@ basicParse: aString
 !
 
 parse: aString
-	| result |
-	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex) signal].
+	| result | 
+	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
 	^result
 !
 
-parseError: anException
-	<return smalltalk.Error._new()
-		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message)>
+parseError: anException parsing: aString
+	| row col message lines badLine code |
+	<row = anException.line;
+	col = anException.column;
+	message = anException.message;>.
+	lines := aString lines.
+	badLine := lines at: row.
+	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
+	lines at: row put: badLine.
+	code := String streamContents: [:s |
+                                        lines withIndexDo: [:l :i |
+                                                   s nextPutAll: i asString, ': ', l]].
+	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' while parsing this' , String lf, code)
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -409,7 +419,7 @@ methodsFor: aString stamp: aStamp
 !
 
 commentStamp: aStamp prior: prior
-         "Ignored right now."
+        ^self commentStamp
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -1402,6 +1412,22 @@ indexOf: anObject ifAbsent: aBlock
 		}
 		return aBlock();
 	>
+!
+
+indexOf: anObject startingAt: start ifAbsent: aBlock
+	<
+		for(var i=start-1;i<self.length;i++){
+			if(self[i].__eq(anObject)) {return i+1}
+		}
+		return aBlock();
+	>
+!
+
+indexOf: anObject startingAt: start
+	"Answer the index of the first occurence of anElement after start
+	within the receiver. If the receiver does not contain anElement, 
+	answer 0."
+	^self indexOf: anObject startingAt: start ifAbsent: [0]
 ! !
 
 !SequenceableCollection methodsFor: 'adding'!
