@@ -704,6 +704,14 @@ visitJSStatementNode: aNode
 	    nextPutAll: 'function(){';
 	    nextPutAll: aNode source;
 	    nextPutAll: '})()'
+!
+
+visitDynamicArrayNode: aNode
+	self visitNode: aNode
+!
+
+visitDynamicDictionaryNode: aNode
+	self visitNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler
@@ -1306,6 +1314,22 @@ send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
 		aBoolean ifTrue: [
 			str nextPutAll: ', smalltalk.', (self classNameFor: self currentClass superclass)].
 		str nextPutAll: ')']
+!
+
+visitDynamicArrayNode: aNode
+	stream nextPutAll: '['.
+	aNode nodes 
+		do: [:each | self visit: each]
+		separatedBy: [stream nextPutAll: ','].
+	stream nextPutAll: ']'
+!
+
+visitDynamicDictionaryNode: aNode
+	stream nextPutAll: 'smalltalk.Dictionary._fromPairs_(['.
+		aNode nodes 
+			do: [:each | self visit: each]
+			separatedBy: [stream nextPutAll: ','].
+		stream nextPutAll: '])'
 ! !
 
 Compiler class instanceVariableNames: 'performOptimizations'!
@@ -1338,4 +1362,24 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
+
+Node subclass: #DynamicArrayNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!DynamicArrayNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitDynamicArrayNode: self
+! !
+
+Node subclass: #DynamicDictionaryNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!DynamicDictionaryNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitDynamicDictionaryNode: self
+! !
 

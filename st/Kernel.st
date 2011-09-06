@@ -2215,6 +2215,15 @@ printString
                                  ]
 ! !
 
+!Dictionary class methodsFor: 'instance creation'!
+
+fromPairs: aCollection
+	| dict |
+	dict := self new.
+	aCollection do: [:each | dict add: each].
+	^dict
+! !
+
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!

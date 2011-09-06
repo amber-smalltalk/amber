@@ -6080,6 +6080,24 @@ referencedClasses: [smalltalk.String]
 smalltalk.Dictionary);
 
 
+smalltalk.addMethod(
+'_fromPairs_',
+smalltalk.method({
+selector: 'fromPairs:',
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var dict=nil;
+dict=smalltalk.send(self, "_new", []);
+smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict, "_add_", [each]);})]);
+return dict;
+return self;},
+source: unescape('fromPairs%3A%20aCollection%0A%09%7C%20dict%20%7C%0A%09dict%20%3A%3D%20self%20new.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20dict%20add%3A%20each%5D.%0A%09%5Edict'),
+messageSends: ["new", "do:", "add:"],
+referencedClasses: []
+}),
+smalltalk.Dictionary.klass);
+
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(

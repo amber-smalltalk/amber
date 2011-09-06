@@ -4535,6 +4535,20 @@ return self;}
 smalltalk.Dictionary);
 
 
+smalltalk.addMethod(
+'_fromPairs_',
+smalltalk.method({
+selector: 'fromPairs:',
+fn: function (aCollection){
+var self=this;
+var dict=nil;
+dict=smalltalk.send(self, "_new", []);
+smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict, "_add_", [each]);})]);
+return dict;
+return self;}
+}),
+smalltalk.Dictionary.klass);
+
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel');
 smalltalk.addMethod(

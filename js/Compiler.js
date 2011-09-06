@@ -1459,6 +1459,36 @@ referencedClasses: []
 }),
 smalltalk.NodeVisitor);
 
+smalltalk.addMethod(
+'_visitDynamicArrayNode_',
+smalltalk.method({
+selector: 'visitDynamicArrayNode:',
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+smalltalk.send(self, "_visitNode_", [aNode]);
+return self;},
+source: unescape('visitDynamicArrayNode%3A%20aNode%0A%09self%20visitNode%3A%20aNode'),
+messageSends: ["visitNode:"],
+referencedClasses: []
+}),
+smalltalk.NodeVisitor);
+
+smalltalk.addMethod(
+'_visitDynamicDictionaryNode_',
+smalltalk.method({
+selector: 'visitDynamicDictionaryNode:',
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+smalltalk.send(self, "_visitNode_", [aNode]);
+return self;},
+source: unescape('visitDynamicDictionaryNode%3A%20aNode%0A%09self%20visitNode%3A%20aNode'),
+messageSends: ["visitNode:"],
+referencedClasses: []
+}),
+smalltalk.NodeVisitor);
+
 
 
 smalltalk.addClass('Compiler', smalltalk.NodeVisitor, ['stream', 'nestedBlocks', 'earlyReturn', 'currentClass', 'currentSelector', 'unknownVariables', 'tempVariables', 'messageSends', 'referencedClasses', 'classReferenced', 'source'], 'Compiler');
@@ -1493,7 +1523,7 @@ return smalltalk.send((smalltalk.SmalltalkParser || SmalltalkParser), "_new", []
 return self;},
 source: unescape('parser%0A%09%5ESmalltalkParser%20new'),
 messageSends: ["new"],
-referencedClasses: [smalltalk.SmalltalkParser]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Compiler);
 
@@ -2221,6 +2251,40 @@ referencedClasses: []
 }),
 smalltalk.Compiler);
 
+smalltalk.addMethod(
+'_visitDynamicArrayNode_',
+smalltalk.method({
+selector: 'visitDynamicArrayNode:',
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5B")]);
+smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C")]);})]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5D")]);
+return self;},
+source: unescape('visitDynamicArrayNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%27%5B%27.%0A%09aNode%20nodes%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20self%20visit%3A%20each%5D%0A%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%27%5D.%0A%09stream%20nextPutAll%3A%20%27%5D%27'),
+messageSends: ["nextPutAll:", "do:separatedBy:", "nodes", "visit:"],
+referencedClasses: []
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+'_visitDynamicDictionaryNode_',
+smalltalk.method({
+selector: 'visitDynamicDictionaryNode:',
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("smalltalk.Dictionary._fromPairs_%28%5B")]);
+smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C")]);})]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5D%29")]);
+return self;},
+source: unescape('visitDynamicDictionaryNode%3A%20aNode%0A%09stream%20nextPutAll%3A%20%27smalltalk.Dictionary._fromPairs_%28%5B%27.%0A%09%09aNode%20nodes%20%0A%09%09%09do%3A%20%5B%3Aeach%20%7C%20self%20visit%3A%20each%5D%0A%09%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%27%5D.%0A%09%09stream%20nextPutAll%3A%20%27%5D%29%27'),
+messageSends: ["nextPutAll:", "do:separatedBy:", "nodes", "visit:"],
+referencedClasses: []
+}),
+smalltalk.Compiler);
+
 
 smalltalk.Compiler.klass.iVarNames = ['performOptimizations'];
 smalltalk.addMethod(
@@ -2287,5 +2351,41 @@ smalltalk.Compiler.klass);
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler');
+
+
+smalltalk.addClass('DynamicArrayNode', smalltalk.Node, [], 'Compiler');
+smalltalk.addMethod(
+'_accept_',
+smalltalk.method({
+selector: 'accept:',
+category: 'visiting',
+fn: function (aVisitor){
+var self=this;
+smalltalk.send(aVisitor, "_visitDynamicArrayNode_", [self]);
+return self;},
+source: unescape('accept%3A%20aVisitor%0A%09aVisitor%20visitDynamicArrayNode%3A%20self'),
+messageSends: ["visitDynamicArrayNode:"],
+referencedClasses: []
+}),
+smalltalk.DynamicArrayNode);
+
+
+
+smalltalk.addClass('DynamicDictionaryNode', smalltalk.Node, [], 'Compiler');
+smalltalk.addMethod(
+'_accept_',
+smalltalk.method({
+selector: 'accept:',
+category: 'visiting',
+fn: function (aVisitor){
+var self=this;
+smalltalk.send(aVisitor, "_visitDynamicDictionaryNode_", [self]);
+return self;},
+source: unescape('accept%3A%20aVisitor%0A%09aVisitor%20visitDynamicDictionaryNode%3A%20self'),
+messageSends: ["visitDynamicDictionaryNode:"],
+referencedClasses: []
+}),
+smalltalk.DynamicDictionaryNode);
+
 
 

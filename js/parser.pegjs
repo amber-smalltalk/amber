@@ -25,7 +25,15 @@ literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
 		  return smalltalk.ValueNode._new()
                	   	._value_(lits)
                	 }
-literal        = number / literalArray / string / symbol / block
+dynamicArray   = "{" expressions:expressions? "}" {
+	       	  return smalltalk.DynamicArrayNode._new()
+		        ._nodes_(expressions)
+		  }
+dynamicDictionary = "#{" expressions: expressions? "}" {
+	       	  return smalltalk.DynamicDictionaryNode._new()
+		        ._nodes_(expressions)
+		  }
+literal        = number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
 
 
 variable       = identifier:identifier {
@@ -36,6 +44,7 @@ classReference = className:className {
 		  return smalltalk.ClassReferenceNode._new()
 		  	._value_(className)
 		  }
+
 reference      = variable / classReference
 
 keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg}}
