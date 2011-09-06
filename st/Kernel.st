@@ -288,8 +288,8 @@ parseError: anException parsing: aString
 	lines at: row put: badLine.
 	code := String streamContents: [:s |
                                         lines withIndexDo: [:l :i |
-                                                   s nextPutAll: i asString, ': ', l]].
-	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' while parsing this' , String lf, code)
+                                                   s nextPutAll: i asString, ': ', l, String lf]].
+	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
