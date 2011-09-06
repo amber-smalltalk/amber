@@ -49,6 +49,11 @@ a#back {
     -moz-border-radius: 8px;
 }
 
+#tutorial .CodeMirror-scroll {
+    overflow: auto;
+    height: auto;
+}
+
 #footer .main {
     	border-top: 1px dashed #bbb;
 	padding-top: 10px;
