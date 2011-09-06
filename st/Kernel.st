@@ -1446,6 +1446,12 @@ addLast: anObject
 	self add: anObject
 ! !
 
+!SequenceableCollection methodsFor: 'converting'!
+
+reversed
+	self subclassResponsibility
+! !
+
 !SequenceableCollection methodsFor: 'copying'!
 
 copyFrom: anIndex to: anotherIndex
@@ -1565,18 +1571,6 @@ asNumber
 	<return Number(self)>
 !
 
-asParser
-    	^PPStringParser new string: self
-!
-
-asChoiceParser
-    	^PPChoiceParser withAll: (self asArray collect: [:each | each asParser])
-!
-
-asCharacterParser
-    	^PPCharacterParser new string: self
-!
-
 asJSONObject
 	^self
 !
@@ -1587,6 +1581,10 @@ asLowercase
 
 asUppercase
 	<return self.toUpperCase()>
+!
+
+reversed
+	<return self.split("").reverse().join("")>
 ! !
 
 !String methodsFor: 'copying'!
@@ -1843,6 +1841,10 @@ asJavascript
 
 asJSONObject
 	^self collect: [:each | each asJSONObject]
+!
+
+reversed
+	<return self._copy().reverse()>
 ! !
 
 !Array methodsFor: 'copying'!

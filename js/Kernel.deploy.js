@@ -3056,6 +3056,17 @@ return self;}
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_subclassResponsibility", []);
+return self;}
+}),
+smalltalk.SequenceableCollection);
+
 
 
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
@@ -3292,39 +3303,6 @@ selector: 'asNumber',
 fn: function (){
 var self=this;
 return Number(self);
-return self;}
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asParser',
-smalltalk.method({
-selector: 'asParser',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.PPStringParser || PPStringParser), "_new", []), "_string_", [self]);
-return self;}
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asChoiceParser',
-smalltalk.method({
-selector: 'asChoiceParser',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.PPChoiceParser || PPChoiceParser), "_withAll_", [smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asParser", []);})])]);
-return self;}
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asCharacterParser',
-smalltalk.method({
-selector: 'asCharacterParser',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.PPCharacterParser || PPCharacterParser), "_new", []), "_string_", [self]);
 return self;}
 }),
 smalltalk.String);
@@ -3621,6 +3599,17 @@ smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, 
 (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return nil}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_lineNumber_'){return e.fn()} throw(e)}}
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+fn: function (){
+var self=this;
+return self.split("").reverse().join("");
+return self;}
 }),
 smalltalk.String);
 
@@ -3944,6 +3933,17 @@ smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_print
 smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
 smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);
 return smalltalk.send(str, "_contents", []);
+return self;}
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+fn: function (){
+var self=this;
+return self._copy().reverse();
 return self;}
 }),
 smalltalk.Array);

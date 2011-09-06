@@ -4105,6 +4105,21 @@ referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+category: 'converting',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_subclassResponsibility", []);
+return self;},
+source: unescape('reversed%0A%09self%20subclassResponsibility'),
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
 
 
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
@@ -4422,51 +4437,6 @@ return self;},
 source: unescape('asNumber%0A%09%3Creturn%20Number%28self%29%3E'),
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asParser',
-smalltalk.method({
-selector: 'asParser',
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.PPStringParser || PPStringParser), "_new", []), "_string_", [self]);
-return self;},
-source: unescape('asParser%0A%20%20%20%20%09%5EPPStringParser%20new%20string%3A%20self'),
-messageSends: ["string:", "new"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asChoiceParser',
-smalltalk.method({
-selector: 'asChoiceParser',
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.PPChoiceParser || PPChoiceParser), "_withAll_", [smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asParser", []);})])]);
-return self;},
-source: unescape('asChoiceParser%0A%20%20%20%20%09%5EPPChoiceParser%20withAll%3A%20%28self%20asArray%20collect%3A%20%5B%3Aeach%20%7C%20each%20asParser%5D%29'),
-messageSends: ["withAll:", "collect:", "asArray", "asParser"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asCharacterParser',
-smalltalk.method({
-selector: 'asCharacterParser',
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.PPCharacterParser || PPCharacterParser), "_new", []), "_string_", [self]);
-return self;},
-source: unescape('asCharacterParser%0A%20%20%20%20%09%5EPPCharacterParser%20new%20string%3A%20self'),
-messageSends: ["string:", "new"],
-referencedClasses: [smalltalk.nil]
 }),
 smalltalk.String);
 
@@ -4861,6 +4831,21 @@ return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_lineNumber_'){return e.fn()} throw(e)}},
 source: unescape('lineNumber%3A%20anIndex%0A%09%22Answer%20a%20string%20containing%20the%20characters%20in%20the%20given%20line%20number.%22%0A%0A%09%7C%20lineCount%20%7C%0A%09lineCount%20%3A%3D%200.%0A%09self%20lineIndicesDo%3A%20%5B%3Astart%20%3AendWithoutDelimiters%20%3Aend%20%7C%0A%09%09%28lineCount%20%3A%3D%20lineCount%20+%201%29%20%3D%20anIndex%20ifTrue%3A%20%5B%5Eself%20copyFrom%3A%20start%20to%3A%20endWithoutDelimiters%5D%5D.%0A%09%5Enil'),
 messageSends: ["lineIndicesDo:", "ifTrue:", unescape("%3D"), unescape("+"), "copyFrom:to:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+category: 'converting',
+fn: function (){
+var self=this;
+return self.split("").reverse().join("");
+return self;},
+source: unescape('reversed%0A%09%3Creturn%20self.split%28%22%22%29.reverse%28%29.join%28%22%22%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -5289,6 +5274,21 @@ return smalltalk.send(str, "_contents", []);
 return self;},
 source: unescape('printString%0A%09%7C%20str%20%7C%0A%09str%20%3A%3D%20%27%27%20writeStream.%0A%09str%20nextPutAll%3A%20super%20printString%2C%20%27%20%28%27.%0A%09self%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20str%20nextPutAll%3A%20each%20printString%5D%0A%09%09separatedBy%3A%20%5Bstr%20nextPutAll%3A%20%27%20%27%5D.%0A%09str%20nextPutAll%3A%20%27%29%27.%0A%09%5Estr%20contents'),
 messageSends: ["writeStream", "nextPutAll:", unescape("%2C"), "printString", "do:separatedBy:", "contents"],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+category: 'converting',
+fn: function (){
+var self=this;
+return self._copy().reverse();
+return self;},
+source: unescape('reversed%0A%09%3Creturn%20self._copy%28%29.reverse%28%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
