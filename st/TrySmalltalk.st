@@ -1,27 +1,55 @@
 Widget subclass: #TrySmalltalkWidget
-	instanceVariableNames: 'workspace'
+	instanceVariableNames: 'workspace contents header'
 	category: 'TrySmalltalk'!
 
-!TrySmalltalkWidget methodsFor: 'not yet classified'!
-
-renderOn: html
-	html h1 
-		id: 'title';
-		with: 'Try Smalltalk!!!!'.
-	html div id: 'profStefWorkspace'.
-	self appendWorkspace.
-!
+!TrySmalltalkWidget methodsFor: 'accessing'!
 
 workspace
 	^ workspace ifNil: [
-          	workspace := ProfStefWorkspace new.
-          	ProfStef default widget: self.
-          	workspace]
+          	workspace := SourceArea new]
 !
 
-appendWorkspace
-	self workspace appendToJQuery: '#profStefWorkspace' asJQuery.
-	ProfStef default showCurrentLesson.
+contents: aString
+	self workspace val: aString
+!
+
+contents
+	^self workspace val
+!
+
+setTitle: aString
+	header contents: [:html | html with: aString]
+! !
+
+!TrySmalltalkWidget methodsFor: 'rendering'!
+
+renderOn: html
+	html div 
+		class: 'profStef'; 
+		with: [header := html h2];
+		with: [self workspace renderOn: html];
+		with: [self renderButtonsOn: html].
+          ProfStef default 
+		widget: self;
+		showCurrentLesson
+!
+
+renderButtonsOn: html
+    html button
+	with: 'DoIt';
+	title: 'ctrl+d';
+	onClick: [self workspace doIt].
+    html button
+	with: 'PrintIt';
+	title: 'ctrl+p';
+	onClick: [self workspace printIt].
+    html button
+	with: 'InspectIt';
+	title: 'ctrl+i';
+	onClick: [self workspace inspectIt].
+    html button
+	with: 'Clear workspace';
+	onClick: [self workspace clearWorkspace]
 ! !
 
 Object subclass: #AbstractTutorial
@@ -202,8 +230,8 @@ widget: aWidget
 showCurrentLesson
 	| lesson |
 	lesson := self tutorialPlayer currentLesson.
-	widget workspace contents: lesson contents.
-	widget workspace title: lesson title , ' ' , self progress.
+	widget contents: lesson contents.
+	widget setTitle: lesson title , ' ' , self progress.
 ! !
 
 ProfStef class instanceVariableNames: 'instance'!
@@ -246,7 +274,7 @@ tableOfContents
 	'basicTypesString'
 	"'basicTypesSymbol'"
 	'basicTypesArray'
-	"'basicTypesDynamicArray'"
+	'basicTypesDynamicArray'
 
 	'messageSyntaxUnary'
 	'messageSyntaxBinary'
@@ -269,7 +297,7 @@ tableOfContents
 	'reflectionContinued'
 	"'pharoEnvironment'"
 
-	'debugger'
+	"'debugger'"
 	'theEnd' )
 !
 
@@ -416,9 +444,9 @@ Blocks are anonymous methods that can be stored into variables and executed on d
 
 Blocks are delimited by square brackets: []"
 
-[Transcript open].
+[Browser open].
 
-"does not open a Transcript because the block is not executed.
+"does not open a Browser because the block is not executed.
 
 Here is a block that adds 2 to its argument (its argument is named x):"
 
@@ -428,7 +456,7 @@ Here is a block that adds 2 to its argument (its argument is named x):"
 
 [:x | x+2] value: 5.
 
-[Transcript open] value.
+[Browser open] value.
 
 [:x | x+2] value: 10.
 
@@ -469,7 +497,7 @@ contents:
 
 Try this:"
 
-Transcript open.
+Browser open.
 
 3 > 10 
 	ifTrue: [Transcript show: ''maybe there''''s a bug ....'']
@@ -729,8 +757,6 @@ contents:
 
 (3 max: 2) + 2.
 
-(0@0 extent: 100@200) bottomRight.
-
 ProfStef next.'
 !
 
@@ -900,32 +926,3 @@ So let''s go to the first lesson.  Select the text below and click on the ''DoIt
 ProfStef next.'
 ! !
 
-Workspace subclass: #ProfStefWorkspace
-	instanceVariableNames: 'title titleHeader'
-	category: 'TrySmalltalk'!
-
-!ProfStefWorkspace methodsFor: 'not yet classified'!
-
-contents: aString
-	self sourceArea val: aString
-!
-
-renderTab
-	div contents: [:html |
-            title := html h2
-                id: 'profStefTitle';
-                with: 'Workspace'.
-	    html div
-		class: 'jt_box';
-		with: [self renderBoxOn: html].
-	    html div
-		class: 'jt_buttons';
-		with: [self renderButtonsOn: html]]
-!
-
-title: aTitle
-	title contents: [:html | 
-		html h2
-			id: 'profStefTitle';
-			with: aTitle ].
-! !

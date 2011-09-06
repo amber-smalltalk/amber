@@ -1,13 +1,12 @@
-smalltalk.addClass('TrySmalltalkWidget', smalltalk.Widget, ['workspace'], 'TrySmalltalk');
+smalltalk.addClass('TrySmalltalkWidget', smalltalk.Widget, ['workspace', 'contents', 'header'], 'TrySmalltalk');
 smalltalk.addMethod(
 '_renderOn_',
 smalltalk.method({
 selector: 'renderOn:',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_id_", ["title"]);return smalltalk.send($rec, "_with_", [unescape("Try%20Smalltalk%21%21")]);})(smalltalk.send(html, "_h1", []));
-smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["profStefWorkspace"]);
-smalltalk.send(self, "_appendWorkspace", []);
+(function($rec){smalltalk.send($rec, "_class_", ["profStef"]);smalltalk.send($rec, "_with_", [(function(){return self['@header']=smalltalk.send(html, "_h2", []);})]);smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_renderOn_", [html]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_widget_", [self]);return smalltalk.send($rec, "_showCurrentLesson", []);})(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []));
 return self;}
 }),
 smalltalk.TrySmalltalkWidget);
@@ -18,19 +17,54 @@ smalltalk.method({
 selector: 'workspace',
 fn: function (){
 var self=this;
-return (($receiver = self['@workspace']) == nil || $receiver == undefined) ? (function(){self['@workspace']=smalltalk.send((smalltalk.ProfStefWorkspace || ProfStefWorkspace), "_new", []);smalltalk.send(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []), "_widget_", [self]);return self['@workspace'];})() : $receiver;
+return (($receiver = self['@workspace']) == nil || $receiver == undefined) ? (function(){return self['@workspace']=smalltalk.send((smalltalk.SourceArea || SourceArea), "_new", []);})() : $receiver;
 return self;}
 }),
 smalltalk.TrySmalltalkWidget);
 
 smalltalk.addMethod(
-'_appendWorkspace',
+'_contents_',
 smalltalk.method({
-selector: 'appendWorkspace',
+selector: 'contents:',
+fn: function (aString){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_workspace", []), "_val_", [aString]);
+return self;}
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_contents',
+smalltalk.method({
+selector: 'contents',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_workspace", []), "_appendToJQuery_", [smalltalk.send(unescape("%23profStefWorkspace"), "_asJQuery", [])]);
-smalltalk.send(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []), "_showCurrentLesson", []);
+return smalltalk.send(smalltalk.send(self, "_workspace", []), "_val", []);
+return self;}
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", ["DoIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+d")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_doIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["PrintIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+p")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_printIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+i")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_inspectIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Clear workspace"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_clearWorkspace", []);})]);})(smalltalk.send(html, "_button", []));
+return self;}
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_setTitle_',
+smalltalk.method({
+selector: 'setTitle:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [aString]);})]);
 return self;}
 }),
 smalltalk.TrySmalltalkWidget);
@@ -405,8 +439,8 @@ fn: function (){
 var self=this;
 var lesson=nil;
 lesson=smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_currentLesson", []);
-smalltalk.send(smalltalk.send(self['@widget'], "_workspace", []), "_contents_", [smalltalk.send(lesson, "_contents", [])]);
-smalltalk.send(smalltalk.send(self['@widget'], "_workspace", []), "_title_", [smalltalk.send(smalltalk.send(smalltalk.send(lesson, "_title", []), "__comma", [" "]), "__comma", [smalltalk.send(self, "_progress", [])])]);
+smalltalk.send(self['@widget'], "_contents_", [smalltalk.send(lesson, "_contents", [])]);
+smalltalk.send(self['@widget'], "_setTitle_", [smalltalk.send(smalltalk.send(smalltalk.send(lesson, "_title", []), "__comma", [" "]), "__comma", [smalltalk.send(self, "_progress", [])])]);
 return self;}
 }),
 smalltalk.ProfStef);
@@ -476,7 +510,7 @@ smalltalk.method({
 selector: 'tableOfContents',
 fn: function (){
 var self=this;
-return ["welcome", "doingVSPrinting", "printing", "basicTypesNumbers", "basicTypesString", "basicTypesArray", "messageSyntaxUnary", "messageSyntaxBinary", "messageSyntaxKeyword", "messageSyntaxExecutionOrder", "messageSyntaxExecutionOrderParentheses", "mathematicalPrecedence", "messageSyntaxCascade", "messageSyntaxCascadeShouldNotBeHere", "blocks", "blocksAssignation", "conditionals", "loops", "iterators", "instanciation", "reflection", "reflectionContinued", "debugger", "theEnd"];
+return ["welcome", "doingVSPrinting", "printing", "basicTypesNumbers", "basicTypesString", "basicTypesArray", "basicTypesDynamicArray", "messageSyntaxUnary", "messageSyntaxBinary", "messageSyntaxKeyword", "messageSyntaxExecutionOrder", "messageSyntaxExecutionOrderParentheses", "mathematicalPrecedence", "messageSyntaxCascade", "messageSyntaxCascadeShouldNotBeHere", "blocks", "blocksAssignation", "conditionals", "loops", "iterators", "instanciation", "reflection", "reflectionContinued", "theEnd"];
 return self;}
 }),
 smalltalk.SmalltalkSyntaxTutorial);
@@ -553,7 +587,7 @@ smalltalk.method({
 selector: 'blocks',
 fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Blocks", unescape("%22Cascade%20is%20cool%20%21%20Let%27s%20talk%20about%20blocks.%0A%0ABlocks%20are%20anonymous%20methods%20that%20can%20be%20stored%20into%20variables%20and%20executed%20on%20demand.%0A%0ABlocks%20are%20delimited%20by%20square%20brackets%3A%20%5B%5D%22%0A%0A%5BTranscript%20open%5D.%0A%0A%22does%20not%20open%20a%20Transcript%20because%20the%20block%20is%20not%20executed.%0A%0AHere%20is%20a%20block%20that%20adds%202%20to%20its%20argument%20%28its%20argument%20is%20named%20x%29%3A%22%0A%0A%5B%3Ax%20%7C%20x+2%5D.%0A%0A%22We%20can%20execute%20a%20block%20by%20sending%20it%20value%20messages.%22%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%205.%0A%0A%5BTranscript%20open%5D%20value.%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%2010.%0A%0A%5B%3Ax%20%3Ay%7C%20x%20+%20y%5D%20value%3A3%20value%3A5.%0A%0A%5BProfStef%20next%5D%20value.")]);
+return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Blocks", unescape("%22Cascade%20is%20cool%20%21%20Let%27s%20talk%20about%20blocks.%0A%0ABlocks%20are%20anonymous%20methods%20that%20can%20be%20stored%20into%20variables%20and%20executed%20on%20demand.%0A%0ABlocks%20are%20delimited%20by%20square%20brackets%3A%20%5B%5D%22%0A%0A%5BBrowser%20open%5D.%0A%0A%22does%20not%20open%20a%20Browser%20because%20the%20block%20is%20not%20executed.%0A%0AHere%20is%20a%20block%20that%20adds%202%20to%20its%20argument%20%28its%20argument%20is%20named%20x%29%3A%22%0A%0A%5B%3Ax%20%7C%20x+2%5D.%0A%0A%22We%20can%20execute%20a%20block%20by%20sending%20it%20value%20messages.%22%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%205.%0A%0A%5BBrowser%20open%5D%20value.%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%2010.%0A%0A%5B%3Ax%20%3Ay%7C%20x%20+%20y%5D%20value%3A3%20value%3A5.%0A%0A%5BProfStef%20next%5D%20value.")]);
 return self;}
 }),
 smalltalk.SmalltalkSyntaxTutorial);
@@ -575,7 +609,7 @@ smalltalk.method({
 selector: 'conditionals',
 fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Conditionals", unescape("%22Conditionals%20are%20just%20messages%20sent%20to%20Boolean%20objects%22%0A%0A1%20%3C%202%0A%20%20ifTrue%3A%20%5B100%5D%0A%20%20ifFalse%3A%20%5B42%5D.%0A%0A%22Here%20the%20message%20is%20ifTrue%3AifFalse%0A%0ATry%20this%3A%22%0A%0ATranscript%20open.%0A%0A3%20%3E%2010%20%0A%09ifTrue%3A%20%5BTranscript%20show%3A%20%27maybe%20there%27%27s%20a%20bug%20....%27%5D%0A%09ifFalse%3A%20%5BTranscript%20show%3A%20%27No%20%3A%203%20is%20less%20than%2010%27%5D.%0A%0A3%20%3D%203%20ifTrue%3A%20%5BProfStef%20next%5D.")]);
+return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Conditionals", unescape("%22Conditionals%20are%20just%20messages%20sent%20to%20Boolean%20objects%22%0A%0A1%20%3C%202%0A%20%20ifTrue%3A%20%5B100%5D%0A%20%20ifFalse%3A%20%5B42%5D.%0A%0A%22Here%20the%20message%20is%20ifTrue%3AifFalse%0A%0ATry%20this%3A%22%0A%0ABrowser%20open.%0A%0A3%20%3E%2010%20%0A%09ifTrue%3A%20%5BTranscript%20show%3A%20%27maybe%20there%27%27s%20a%20bug%20....%27%5D%0A%09ifFalse%3A%20%5BTranscript%20show%3A%20%27No%20%3A%203%20is%20less%20than%2010%27%5D.%0A%0A3%20%3D%203%20ifTrue%3A%20%5BProfStef%20next%5D.")]);
 return self;}
 }),
 smalltalk.SmalltalkSyntaxTutorial);
@@ -696,7 +730,7 @@ smalltalk.method({
 selector: 'messageSyntaxExecutionOrderParentheses',
 fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Message syntax: Parentheses", unescape("%22Use%20parentheses%20to%20change%20order%20of%20evaluation%22%0A%0A%282.5%20+%203.8%29%20rounded.%0A%0A%283%20max%3A%202%29%20+%202.%0A%0A%280@0%20extent%3A%20100@200%29%20bottomRight.%0A%0AProfStef%20next.")]);
+return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Message syntax: Parentheses", unescape("%22Use%20parentheses%20to%20change%20order%20of%20evaluation%22%0A%0A%282.5%20+%203.8%29%20rounded.%0A%0A%283%20max%3A%202%29%20+%202.%0A%0AProfStef%20next.")]);
 return self;}
 }),
 smalltalk.SmalltalkSyntaxTutorial);

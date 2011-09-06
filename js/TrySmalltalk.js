@@ -1,18 +1,17 @@
-smalltalk.addClass('TrySmalltalkWidget', smalltalk.Widget, ['workspace'], 'TrySmalltalk');
+smalltalk.addClass('TrySmalltalkWidget', smalltalk.Widget, ['workspace', 'contents', 'header'], 'TrySmalltalk');
 smalltalk.addMethod(
 '_renderOn_',
 smalltalk.method({
 selector: 'renderOn:',
-category: 'not yet classified',
+category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_id_", ["title"]);return smalltalk.send($rec, "_with_", [unescape("Try%20Smalltalk%21%21")]);})(smalltalk.send(html, "_h1", []));
-smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["profStefWorkspace"]);
-smalltalk.send(self, "_appendWorkspace", []);
+(function($rec){smalltalk.send($rec, "_class_", ["profStef"]);smalltalk.send($rec, "_with_", [(function(){return self['@header']=smalltalk.send(html, "_h2", []);})]);smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_renderOn_", [html]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_widget_", [self]);return smalltalk.send($rec, "_showCurrentLesson", []);})(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []));
 return self;},
-source: unescape('renderOn%3A%20html%0A%09html%20h1%20%0A%09%09id%3A%20%27title%27%3B%0A%09%09with%3A%20%27Try%20Smalltalk%21%21%27.%0A%09html%20div%20id%3A%20%27profStefWorkspace%27.%0A%09self%20appendWorkspace.'),
-messageSends: ["id:", "with:", "h1", "div", "appendWorkspace"],
-referencedClasses: []
+source: unescape('renderOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27profStef%27%3B%20%0A%09%09with%3A%20%5Bheader%20%3A%3D%20html%20h2%5D%3B%0A%09%09with%3A%20%5Bself%20workspace%20renderOn%3A%20html%5D%3B%0A%09%09with%3A%20%5Bself%20renderButtonsOn%3A%20html%5D.%0A%20%20%20%20%20%20%20%20%20%20ProfStef%20default%20%0A%09%09widget%3A%20self%3B%0A%09%09showCurrentLesson'),
+messageSends: ["class:", "with:", "h2", "renderOn:", "workspace", "renderButtonsOn:", "div", "widget:", "showCurrentLesson", "default"],
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.TrySmalltalkWidget);
 
@@ -20,29 +19,76 @@ smalltalk.addMethod(
 '_workspace',
 smalltalk.method({
 selector: 'workspace',
-category: 'not yet classified',
+category: 'accessing',
 fn: function (){
 var self=this;
-return (($receiver = self['@workspace']) == nil || $receiver == undefined) ? (function(){self['@workspace']=smalltalk.send((smalltalk.ProfStefWorkspace || ProfStefWorkspace), "_new", []);smalltalk.send(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []), "_widget_", [self]);return self['@workspace'];})() : $receiver;
+return (($receiver = self['@workspace']) == nil || $receiver == undefined) ? (function(){return self['@workspace']=smalltalk.send((smalltalk.SourceArea || SourceArea), "_new", []);})() : $receiver;
 return self;},
-source: unescape('workspace%0A%09%5E%20workspace%20ifNil%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09workspace%20%3A%3D%20ProfStefWorkspace%20new.%0A%20%20%20%20%20%20%20%20%20%20%09ProfStef%20default%20widget%3A%20self.%0A%20%20%20%20%20%20%20%20%20%20%09workspace%5D'),
-messageSends: ["ifNil:", "new", "widget:", "default"],
+source: unescape('workspace%0A%09%5E%20workspace%20ifNil%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09workspace%20%3A%3D%20SourceArea%20new%5D'),
+messageSends: ["ifNil:", "new"],
+referencedClasses: [smalltalk.SourceArea]
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_contents_',
+smalltalk.method({
+selector: 'contents:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_workspace", []), "_val_", [aString]);
+return self;},
+source: unescape('contents%3A%20aString%0A%09self%20workspace%20val%3A%20aString'),
+messageSends: ["val:", "workspace"],
 referencedClasses: []
 }),
 smalltalk.TrySmalltalkWidget);
 
 smalltalk.addMethod(
-'_appendWorkspace',
+'_contents',
 smalltalk.method({
-selector: 'appendWorkspace',
-category: 'not yet classified',
+selector: 'contents',
+category: 'accessing',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_workspace", []), "_appendToJQuery_", [smalltalk.send(unescape("%23profStefWorkspace"), "_asJQuery", [])]);
-smalltalk.send(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []), "_showCurrentLesson", []);
+return smalltalk.send(smalltalk.send(self, "_workspace", []), "_val", []);
 return self;},
-source: unescape('appendWorkspace%0A%09self%20workspace%20appendToJQuery%3A%20%27%23profStefWorkspace%27%20asJQuery.%0A%09ProfStef%20default%20showCurrentLesson.'),
-messageSends: ["appendToJQuery:", "workspace", "asJQuery", "showCurrentLesson", "default"],
+source: unescape('contents%0A%09%5Eself%20workspace%20val'),
+messageSends: ["val", "workspace"],
+referencedClasses: []
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", ["DoIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+d")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_doIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["PrintIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+p")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_printIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+i")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_inspectIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Clear workspace"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_clearWorkspace", []);})]);})(smalltalk.send(html, "_button", []));
+return self;},
+source: unescape('renderButtonsOn%3A%20html%0A%20%20%20%20html%20button%0A%09with%3A%20%27DoIt%27%3B%0A%09title%3A%20%27ctrl+d%27%3B%0A%09onClick%3A%20%5Bself%20workspace%20doIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27PrintIt%27%3B%0A%09title%3A%20%27ctrl+p%27%3B%0A%09onClick%3A%20%5Bself%20workspace%20printIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27InspectIt%27%3B%0A%09title%3A%20%27ctrl+i%27%3B%0A%09onClick%3A%20%5Bself%20workspace%20inspectIt%5D.%0A%20%20%20%20html%20button%0A%09with%3A%20%27Clear%20workspace%27%3B%0A%09onClick%3A%20%5Bself%20workspace%20clearWorkspace%5D'),
+messageSends: ["with:", "title:", "onClick:", "doIt", "workspace", "button", "printIt", "inspectIt", "clearWorkspace"],
+referencedClasses: []
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_setTitle_',
+smalltalk.method({
+selector: 'setTitle:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [aString]);})]);
+return self;},
+source: unescape('setTitle%3A%20aString%0A%09header%20contents%3A%20%5B%3Ahtml%20%7C%20html%20with%3A%20aString%5D'),
+messageSends: ["contents:", "with:"],
 referencedClasses: []
 }),
 smalltalk.TrySmalltalkWidget);
@@ -542,11 +588,11 @@ fn: function (){
 var self=this;
 var lesson=nil;
 lesson=smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_currentLesson", []);
-smalltalk.send(smalltalk.send(self['@widget'], "_workspace", []), "_contents_", [smalltalk.send(lesson, "_contents", [])]);
-smalltalk.send(smalltalk.send(self['@widget'], "_workspace", []), "_title_", [smalltalk.send(smalltalk.send(smalltalk.send(lesson, "_title", []), "__comma", [" "]), "__comma", [smalltalk.send(self, "_progress", [])])]);
+smalltalk.send(self['@widget'], "_contents_", [smalltalk.send(lesson, "_contents", [])]);
+smalltalk.send(self['@widget'], "_setTitle_", [smalltalk.send(smalltalk.send(smalltalk.send(lesson, "_title", []), "__comma", [" "]), "__comma", [smalltalk.send(self, "_progress", [])])]);
 return self;},
-source: unescape('showCurrentLesson%0A%09%7C%20lesson%20%7C%0A%09lesson%20%3A%3D%20self%20tutorialPlayer%20currentLesson.%0A%09widget%20workspace%20contents%3A%20lesson%20contents.%0A%09widget%20workspace%20title%3A%20lesson%20title%20%2C%20%27%20%27%20%2C%20self%20progress.'),
-messageSends: ["currentLesson", "tutorialPlayer", "contents:", "workspace", "contents", "title:", unescape("%2C"), "title", "progress"],
+source: unescape('showCurrentLesson%0A%09%7C%20lesson%20%7C%0A%09lesson%20%3A%3D%20self%20tutorialPlayer%20currentLesson.%0A%09widget%20contents%3A%20lesson%20contents.%0A%09widget%20setTitle%3A%20lesson%20title%20%2C%20%27%20%27%20%2C%20self%20progress.'),
+messageSends: ["currentLesson", "tutorialPlayer", "contents:", "contents", "setTitle:", unescape("%2C"), "title", "progress"],
 referencedClasses: []
 }),
 smalltalk.ProfStef);
@@ -637,9 +683,9 @@ selector: 'tableOfContents',
 category: 'not yet classified',
 fn: function (){
 var self=this;
-return ["welcome", "doingVSPrinting", "printing", "basicTypesNumbers", "basicTypesString", "basicTypesArray", "messageSyntaxUnary", "messageSyntaxBinary", "messageSyntaxKeyword", "messageSyntaxExecutionOrder", "messageSyntaxExecutionOrderParentheses", "mathematicalPrecedence", "messageSyntaxCascade", "messageSyntaxCascadeShouldNotBeHere", "blocks", "blocksAssignation", "conditionals", "loops", "iterators", "instanciation", "reflection", "reflectionContinued", "debugger", "theEnd"];
+return ["welcome", "doingVSPrinting", "printing", "basicTypesNumbers", "basicTypesString", "basicTypesArray", "basicTypesDynamicArray", "messageSyntaxUnary", "messageSyntaxBinary", "messageSyntaxKeyword", "messageSyntaxExecutionOrder", "messageSyntaxExecutionOrderParentheses", "mathematicalPrecedence", "messageSyntaxCascade", "messageSyntaxCascadeShouldNotBeHere", "blocks", "blocksAssignation", "conditionals", "loops", "iterators", "instanciation", "reflection", "reflectionContinued", "theEnd"];
 return self;},
-source: unescape('tableOfContents%0A%5E%20%23%28%09%27welcome%27%0A%09%27doingVSPrinting%27%0A%09%27printing%27%0A%0A%09%27basicTypesNumbers%27%0A%09%22%27basicTypesCharacters%27%22%0A%09%27basicTypesString%27%0A%09%22%27basicTypesSymbol%27%22%0A%09%27basicTypesArray%27%0A%09%22%27basicTypesDynamicArray%27%22%0A%0A%09%27messageSyntaxUnary%27%0A%09%27messageSyntaxBinary%27%0A%09%27messageSyntaxKeyword%27%0A%09%27messageSyntaxExecutionOrder%27%0A%09%27messageSyntaxExecutionOrderParentheses%27%0A%09%27mathematicalPrecedence%27%0A%09%27messageSyntaxCascade%27%0A%09%27messageSyntaxCascadeShouldNotBeHere%27%0A%0A%09%27blocks%27%0A%09%27blocksAssignation%27%0A%09%27conditionals%27%0A%09%27loops%27%0A%09%27iterators%27%0A%0A%09%27instanciation%27%0A%0A%09%27reflection%27%0A%09%27reflectionContinued%27%0A%09%22%27pharoEnvironment%27%22%0A%0A%09%27debugger%27%0A%09%27theEnd%27%20%29'),
+source: unescape('tableOfContents%0A%5E%20%23%28%09%27welcome%27%0A%09%27doingVSPrinting%27%0A%09%27printing%27%0A%0A%09%27basicTypesNumbers%27%0A%09%22%27basicTypesCharacters%27%22%0A%09%27basicTypesString%27%0A%09%22%27basicTypesSymbol%27%22%0A%09%27basicTypesArray%27%0A%09%27basicTypesDynamicArray%27%0A%0A%09%27messageSyntaxUnary%27%0A%09%27messageSyntaxBinary%27%0A%09%27messageSyntaxKeyword%27%0A%09%27messageSyntaxExecutionOrder%27%0A%09%27messageSyntaxExecutionOrderParentheses%27%0A%09%27mathematicalPrecedence%27%0A%09%27messageSyntaxCascade%27%0A%09%27messageSyntaxCascadeShouldNotBeHere%27%0A%0A%09%27blocks%27%0A%09%27blocksAssignation%27%0A%09%27conditionals%27%0A%09%27loops%27%0A%09%27iterators%27%0A%0A%09%27instanciation%27%0A%0A%09%27reflection%27%0A%09%27reflectionContinued%27%0A%09%22%27pharoEnvironment%27%22%0A%0A%09%22%27debugger%27%22%0A%09%27theEnd%27%20%29'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -742,9 +788,9 @@ selector: 'blocks',
 category: 'not yet classified',
 fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Blocks", unescape("%22Cascade%20is%20cool%20%21%20Let%27s%20talk%20about%20blocks.%0A%0ABlocks%20are%20anonymous%20methods%20that%20can%20be%20stored%20into%20variables%20and%20executed%20on%20demand.%0A%0ABlocks%20are%20delimited%20by%20square%20brackets%3A%20%5B%5D%22%0A%0A%5BTranscript%20open%5D.%0A%0A%22does%20not%20open%20a%20Transcript%20because%20the%20block%20is%20not%20executed.%0A%0AHere%20is%20a%20block%20that%20adds%202%20to%20its%20argument%20%28its%20argument%20is%20named%20x%29%3A%22%0A%0A%5B%3Ax%20%7C%20x+2%5D.%0A%0A%22We%20can%20execute%20a%20block%20by%20sending%20it%20value%20messages.%22%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%205.%0A%0A%5BTranscript%20open%5D%20value.%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%2010.%0A%0A%5B%3Ax%20%3Ay%7C%20x%20+%20y%5D%20value%3A3%20value%3A5.%0A%0A%5BProfStef%20next%5D%20value.")]);
+return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Blocks", unescape("%22Cascade%20is%20cool%20%21%20Let%27s%20talk%20about%20blocks.%0A%0ABlocks%20are%20anonymous%20methods%20that%20can%20be%20stored%20into%20variables%20and%20executed%20on%20demand.%0A%0ABlocks%20are%20delimited%20by%20square%20brackets%3A%20%5B%5D%22%0A%0A%5BBrowser%20open%5D.%0A%0A%22does%20not%20open%20a%20Browser%20because%20the%20block%20is%20not%20executed.%0A%0AHere%20is%20a%20block%20that%20adds%202%20to%20its%20argument%20%28its%20argument%20is%20named%20x%29%3A%22%0A%0A%5B%3Ax%20%7C%20x+2%5D.%0A%0A%22We%20can%20execute%20a%20block%20by%20sending%20it%20value%20messages.%22%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%205.%0A%0A%5BBrowser%20open%5D%20value.%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%2010.%0A%0A%5B%3Ax%20%3Ay%7C%20x%20+%20y%5D%20value%3A3%20value%3A5.%0A%0A%5BProfStef%20next%5D%20value.")]);
 return self;},
-source: unescape('blocks%0A%09%5E%20Lesson%0Atitle%3A%20%27Blocks%27%20%0Acontents%3A%20%0A%27%22Cascade%20is%20cool%20%21%20Let%27%27s%20talk%20about%20blocks.%0A%0ABlocks%20are%20anonymous%20methods%20that%20can%20be%20stored%20into%20variables%20and%20executed%20on%20demand.%0A%0ABlocks%20are%20delimited%20by%20square%20brackets%3A%20%5B%5D%22%0A%0A%5BTranscript%20open%5D.%0A%0A%22does%20not%20open%20a%20Transcript%20because%20the%20block%20is%20not%20executed.%0A%0AHere%20is%20a%20block%20that%20adds%202%20to%20its%20argument%20%28its%20argument%20is%20named%20x%29%3A%22%0A%0A%5B%3Ax%20%7C%20x+2%5D.%0A%0A%22We%20can%20execute%20a%20block%20by%20sending%20it%20value%20messages.%22%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%205.%0A%0A%5BTranscript%20open%5D%20value.%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%2010.%0A%0A%5B%3Ax%20%3Ay%7C%20x%20+%20y%5D%20value%3A3%20value%3A5.%0A%0A%5BProfStef%20next%5D%20value.%27'),
+source: unescape('blocks%0A%09%5E%20Lesson%0Atitle%3A%20%27Blocks%27%20%0Acontents%3A%20%0A%27%22Cascade%20is%20cool%20%21%20Let%27%27s%20talk%20about%20blocks.%0A%0ABlocks%20are%20anonymous%20methods%20that%20can%20be%20stored%20into%20variables%20and%20executed%20on%20demand.%0A%0ABlocks%20are%20delimited%20by%20square%20brackets%3A%20%5B%5D%22%0A%0A%5BBrowser%20open%5D.%0A%0A%22does%20not%20open%20a%20Browser%20because%20the%20block%20is%20not%20executed.%0A%0AHere%20is%20a%20block%20that%20adds%202%20to%20its%20argument%20%28its%20argument%20is%20named%20x%29%3A%22%0A%0A%5B%3Ax%20%7C%20x+2%5D.%0A%0A%22We%20can%20execute%20a%20block%20by%20sending%20it%20value%20messages.%22%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%205.%0A%0A%5BBrowser%20open%5D%20value.%0A%0A%5B%3Ax%20%7C%20x+2%5D%20value%3A%2010.%0A%0A%5B%3Ax%20%3Ay%7C%20x%20+%20y%5D%20value%3A3%20value%3A5.%0A%0A%5BProfStef%20next%5D%20value.%27'),
 messageSends: ["title:contents:"],
 referencedClasses: [smalltalk.Lesson]
 }),
@@ -772,9 +818,9 @@ selector: 'conditionals',
 category: 'not yet classified',
 fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Conditionals", unescape("%22Conditionals%20are%20just%20messages%20sent%20to%20Boolean%20objects%22%0A%0A1%20%3C%202%0A%20%20ifTrue%3A%20%5B100%5D%0A%20%20ifFalse%3A%20%5B42%5D.%0A%0A%22Here%20the%20message%20is%20ifTrue%3AifFalse%0A%0ATry%20this%3A%22%0A%0ATranscript%20open.%0A%0A3%20%3E%2010%20%0A%09ifTrue%3A%20%5BTranscript%20show%3A%20%27maybe%20there%27%27s%20a%20bug%20....%27%5D%0A%09ifFalse%3A%20%5BTranscript%20show%3A%20%27No%20%3A%203%20is%20less%20than%2010%27%5D.%0A%0A3%20%3D%203%20ifTrue%3A%20%5BProfStef%20next%5D.")]);
+return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Conditionals", unescape("%22Conditionals%20are%20just%20messages%20sent%20to%20Boolean%20objects%22%0A%0A1%20%3C%202%0A%20%20ifTrue%3A%20%5B100%5D%0A%20%20ifFalse%3A%20%5B42%5D.%0A%0A%22Here%20the%20message%20is%20ifTrue%3AifFalse%0A%0ATry%20this%3A%22%0A%0ABrowser%20open.%0A%0A3%20%3E%2010%20%0A%09ifTrue%3A%20%5BTranscript%20show%3A%20%27maybe%20there%27%27s%20a%20bug%20....%27%5D%0A%09ifFalse%3A%20%5BTranscript%20show%3A%20%27No%20%3A%203%20is%20less%20than%2010%27%5D.%0A%0A3%20%3D%203%20ifTrue%3A%20%5BProfStef%20next%5D.")]);
 return self;},
-source: unescape('conditionals%0A%09%5E%20Lesson%0Atitle%3A%20%27Conditionals%27%20%0Acontents%3A%20%0A%27%22Conditionals%20are%20just%20messages%20sent%20to%20Boolean%20objects%22%0A%0A1%20%3C%202%0A%20%20ifTrue%3A%20%5B100%5D%0A%20%20ifFalse%3A%20%5B42%5D.%0A%0A%22Here%20the%20message%20is%20ifTrue%3AifFalse%0A%0ATry%20this%3A%22%0A%0ATranscript%20open.%0A%0A3%20%3E%2010%20%0A%09ifTrue%3A%20%5BTranscript%20show%3A%20%27%27maybe%20there%27%27%27%27s%20a%20bug%20....%27%27%5D%0A%09ifFalse%3A%20%5BTranscript%20show%3A%20%27%27No%20%3A%203%20is%20less%20than%2010%27%27%5D.%0A%0A3%20%3D%203%20ifTrue%3A%20%5BProfStef%20next%5D.%27.'),
+source: unescape('conditionals%0A%09%5E%20Lesson%0Atitle%3A%20%27Conditionals%27%20%0Acontents%3A%20%0A%27%22Conditionals%20are%20just%20messages%20sent%20to%20Boolean%20objects%22%0A%0A1%20%3C%202%0A%20%20ifTrue%3A%20%5B100%5D%0A%20%20ifFalse%3A%20%5B42%5D.%0A%0A%22Here%20the%20message%20is%20ifTrue%3AifFalse%0A%0ATry%20this%3A%22%0A%0ABrowser%20open.%0A%0A3%20%3E%2010%20%0A%09ifTrue%3A%20%5BTranscript%20show%3A%20%27%27maybe%20there%27%27%27%27s%20a%20bug%20....%27%27%5D%0A%09ifFalse%3A%20%5BTranscript%20show%3A%20%27%27No%20%3A%203%20is%20less%20than%2010%27%27%5D.%0A%0A3%20%3D%203%20ifTrue%3A%20%5BProfStef%20next%5D.%27.'),
 messageSends: ["title:contents:"],
 referencedClasses: [smalltalk.Lesson]
 }),
@@ -937,9 +983,9 @@ selector: 'messageSyntaxExecutionOrderParentheses',
 category: 'not yet classified',
 fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Message syntax: Parentheses", unescape("%22Use%20parentheses%20to%20change%20order%20of%20evaluation%22%0A%0A%282.5%20+%203.8%29%20rounded.%0A%0A%283%20max%3A%202%29%20+%202.%0A%0A%280@0%20extent%3A%20100@200%29%20bottomRight.%0A%0AProfStef%20next.")]);
+return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["Message syntax: Parentheses", unescape("%22Use%20parentheses%20to%20change%20order%20of%20evaluation%22%0A%0A%282.5%20+%203.8%29%20rounded.%0A%0A%283%20max%3A%202%29%20+%202.%0A%0AProfStef%20next.")]);
 return self;},
-source: unescape('messageSyntaxExecutionOrderParentheses%0A%09%5E%20Lesson%0Atitle%3A%20%27Message%20syntax%3A%20Parentheses%27%0Acontents%3A%20%0A%27%22Use%20parentheses%20to%20change%20order%20of%20evaluation%22%0A%0A%282.5%20+%203.8%29%20rounded.%0A%0A%283%20max%3A%202%29%20+%202.%0A%0A%280@0%20extent%3A%20100@200%29%20bottomRight.%0A%0AProfStef%20next.%27'),
+source: unescape('messageSyntaxExecutionOrderParentheses%0A%09%5E%20Lesson%0Atitle%3A%20%27Message%20syntax%3A%20Parentheses%27%0Acontents%3A%20%0A%27%22Use%20parentheses%20to%20change%20order%20of%20evaluation%22%0A%0A%282.5%20+%203.8%29%20rounded.%0A%0A%283%20max%3A%202%29%20+%202.%0A%0AProfStef%20next.%27'),
 messageSends: ["title:contents:"],
 referencedClasses: [smalltalk.Lesson]
 }),
@@ -1064,54 +1110,6 @@ messageSends: ["title:contents:"],
 referencedClasses: [smalltalk.Lesson]
 }),
 smalltalk.SmalltalkSyntaxTutorial);
-
-
-
-smalltalk.addClass('ProfStefWorkspace', smalltalk.Workspace, ['title', 'titleHeader'], 'TrySmalltalk');
-smalltalk.addMethod(
-'_contents_',
-smalltalk.method({
-selector: 'contents:',
-category: 'not yet classified',
-fn: function (aString){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_sourceArea", []), "_val_", [aString]);
-return self;},
-source: unescape('contents%3A%20aString%0A%09self%20sourceArea%20val%3A%20aString'),
-messageSends: ["val:", "sourceArea"],
-referencedClasses: []
-}),
-smalltalk.ProfStefWorkspace);
-
-smalltalk.addMethod(
-'_renderTab',
-smalltalk.method({
-selector: 'renderTab',
-category: 'not yet classified',
-fn: function (){
-var self=this;
-smalltalk.send(self['@div'], "_contents_", [(function(html){self['@title']=(function($rec){smalltalk.send($rec, "_id_", ["profStefTitle"]);return smalltalk.send($rec, "_with_", ["Workspace"]);})(smalltalk.send(html, "_h2", []));(function($rec){smalltalk.send($rec, "_class_", ["jt_box"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderBoxOn_", [html]);})]);})(smalltalk.send(html, "_div", []));return (function($rec){smalltalk.send($rec, "_class_", ["jt_buttons"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));})]);
-return self;},
-source: unescape('renderTab%0A%09div%20contents%3A%20%5B%3Ahtml%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20title%20%3A%3D%20html%20h2%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20id%3A%20%27profStefTitle%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20with%3A%20%27Workspace%27.%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27jt_box%27%3B%0A%09%09with%3A%20%5Bself%20renderBoxOn%3A%20html%5D.%0A%09%20%20%20%20html%20div%0A%09%09class%3A%20%27jt_buttons%27%3B%0A%09%09with%3A%20%5Bself%20renderButtonsOn%3A%20html%5D%5D'),
-messageSends: ["contents:", "id:", "with:", "h2", "class:", "renderBoxOn:", "div", "renderButtonsOn:"],
-referencedClasses: []
-}),
-smalltalk.ProfStefWorkspace);
-
-smalltalk.addMethod(
-'_title_',
-smalltalk.method({
-selector: 'title:',
-category: 'not yet classified',
-fn: function (aTitle){
-var self=this;
-smalltalk.send(self['@title'], "_contents_", [(function(html){return (function($rec){smalltalk.send($rec, "_id_", ["profStefTitle"]);return smalltalk.send($rec, "_with_", [aTitle]);})(smalltalk.send(html, "_h2", []));})]);
-return self;},
-source: unescape('title%3A%20aTitle%0A%09title%20contents%3A%20%5B%3Ahtml%20%7C%20%0A%09%09html%20h2%0A%09%09%09id%3A%20%27profStefTitle%27%3B%0A%09%09%09with%3A%20aTitle%20%5D.'),
-messageSends: ["contents:", "id:", "with:", "h2"],
-referencedClasses: []
-}),
-smalltalk.ProfStefWorkspace);
 
 
 
