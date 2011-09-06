@@ -25,11 +25,11 @@ literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
 		  return smalltalk.ValueNode._new()
                	   	._value_(lits)
                	 }
-dynamicArray   = "{" expressions:expressions? "}" {
+dynamicArray   = "{" ws expressions:expressions? ws "}" {
 	       	  return smalltalk.DynamicArrayNode._new()
 		        ._nodes_(expressions)
 		  }
-dynamicDictionary = "#{" expressions: expressions? "}" {
+dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
 	       	  return smalltalk.DynamicDictionaryNode._new()
 		        ._nodes_(expressions)
 		  }
