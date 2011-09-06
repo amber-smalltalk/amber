@@ -526,6 +526,17 @@ return self;}
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_foo',
+smalltalk.method({
+selector: 'foo',
+fn: function (){
+var self=this;
+return self;
+return self;}
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -921,6 +932,31 @@ selector: 'commentStamp:prior:',
 fn: function (aStamp, prior){
 var self=this;
 return smalltalk.send(self, "_commentStamp", []);
+return self;}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_compile_',
+smalltalk.method({
+selector: 'compile:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_compile_category_", [aString, ""]);
+return self;}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_compile_category_',
+smalltalk.method({
+selector: 'compile:category:',
+fn: function (aString, anotherString){
+var self=this;
+var method=nil;
+method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self]);
+smalltalk.send(method, "_category_", [anotherString]);
+smalltalk.send(self, "_addCompiledMethod_", [method]);
 return self;}
 }),
 smalltalk.Behavior);

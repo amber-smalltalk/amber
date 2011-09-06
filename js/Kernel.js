@@ -710,6 +710,21 @@ referencedClasses: [smalltalk.Date]
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_foo',
+smalltalk.method({
+selector: 'foo',
+category: '',
+fn: function (){
+var self=this;
+return self;
+return self;},
+source: unescape('foo%20%5E%20self'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -1234,6 +1249,39 @@ return self;},
 source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%5Eself%20commentStamp'),
 messageSends: ["commentStamp"],
 referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_compile_',
+smalltalk.method({
+selector: 'compile:',
+category: 'compiling',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_compile_category_", [aString, ""]);
+return self;},
+source: unescape('compile%3A%20aString%0A%09self%20compile%3A%20aString%20category%3A%20%27%27'),
+messageSends: ["compile:category:"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_compile_category_',
+smalltalk.method({
+selector: 'compile:category:',
+category: 'compiling',
+fn: function (aString, anotherString){
+var self=this;
+var method=nil;
+method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self]);
+smalltalk.send(method, "_category_", [anotherString]);
+smalltalk.send(self, "_addCompiledMethod_", [method]);
+return self;},
+source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
+messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.Behavior);
 

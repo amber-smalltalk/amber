@@ -2,6 +2,11 @@ nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
+!Object methodsFor: ''!
+
+foo ^ self
+! !
+
 !Object methodsFor: 'accessing'!
 
 yourself
@@ -420,6 +425,19 @@ methodsFor: aString stamp: aStamp
 
 commentStamp: aStamp prior: prior
         ^self commentStamp
+! !
+
+!Behavior methodsFor: 'compiling'!
+
+compile: aString
+	self compile: aString category: ''
+!
+
+compile: aString category: anotherString
+	| method |
+	method := Compiler new load: aString forClass: self.
+	method category: anotherString.
+	self addCompiledMethod: method
 ! !
 
 !Behavior methodsFor: 'instance creation'!
