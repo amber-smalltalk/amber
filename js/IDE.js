@@ -739,11 +739,11 @@ selector: 'open',
 category: 'instance creation',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
+(function($rec){smalltalk.send($rec, "_open", []);return smalltalk.send($rec, "_selectTab_", [smalltalk.send(self, "_current", [])]);})(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []));
 return self;},
-source: unescape('open%0A%20%20%20%20self%20current%20open'),
-messageSends: ["open", "current"],
-referencedClasses: []
+source: unescape('open%0A%20%20%20%20TabManager%20current%20%0A%09open%3B%0A%09selectTab%3A%20self%20current'),
+messageSends: ["open", "selectTab:", "current"],
+referencedClasses: [smalltalk.TabManager]
 }),
 smalltalk.Transcript.klass);
 
