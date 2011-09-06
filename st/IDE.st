@@ -336,7 +336,9 @@ Transcript class instanceVariableNames: 'current'!
 !Transcript class methodsFor: 'instance creation'!
 
 open
-    self current open
+    TabManager current 
+	open;
+	selectTab: self current
 !
 
 new

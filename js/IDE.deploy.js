@@ -554,7 +554,7 @@ smalltalk.method({
 selector: 'open',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
+(function($rec){smalltalk.send($rec, "_open", []);return smalltalk.send($rec, "_selectTab_", [smalltalk.send(self, "_current", [])]);})(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []));
 return self;}
 }),
 smalltalk.Transcript.klass);
