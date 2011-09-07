@@ -572,6 +572,17 @@ return self;}
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+'_fadeOut_do_',
+smalltalk.method({
+selector: 'fadeOut:do:',
+fn: function (aString, aBlock){
+var self=this;
+self['@jquery'].fadeOut(aString, aBlock);
+return self;}
+}),
+smalltalk.JQuery);
+
 
 smalltalk.addMethod(
 '_fromString_',
