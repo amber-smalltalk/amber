@@ -710,6 +710,21 @@ referencedClasses: [smalltalk.Date]
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_foo',
+smalltalk.method({
+selector: 'foo',
+category: '',
+fn: function (){
+var self=this;
+return self;
+return self;},
+source: unescape('foo%20%5E%20self'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -814,28 +829,41 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 var result=nil;
-smalltalk.send(self, "_try_catch_", [(function(){return result=smalltalk.send(self, "_basicParse_", [aString]);}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_", [ex]), "_signal", []);})]);
+smalltalk.send(self, "_try_catch_", [(function(){return result=smalltalk.send(self, "_basicParse_", [aString]);}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_parsing_", [ex, aString]), "_signal", []);})]);
 return result;
 return self;},
-source: unescape('parse%3A%20aString%0A%09%7C%20result%20%7C%0A%09self%20try%3A%20%5Bresult%20%3A%3D%20self%20basicParse%3A%20aString%5D%20catch%3A%20%5B%3Aex%20%7C%20%28self%20parseError%3A%20ex%29%20signal%5D.%0A%09%5Eresult'),
-messageSends: ["try:catch:", "basicParse:", "signal", "parseError:"],
+source: unescape('parse%3A%20aString%0A%09%7C%20result%20%7C%20%0A%09self%20try%3A%20%5Bresult%20%3A%3D%20self%20basicParse%3A%20aString%5D%20catch%3A%20%5B%3Aex%20%7C%20%28self%20parseError%3A%20ex%20parsing%3A%20aString%29%20signal%5D.%0A%09%5Eresult'),
+messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-'_parseError_',
+'_parseError_parsing_',
 smalltalk.method({
-selector: 'parseError:',
+selector: 'parseError:parsing:',
 category: 'accessing',
-fn: function (anException){
+fn: function (anException, aString){
 var self=this;
-return smalltalk.Error._new()
-		._messageText_('Parse error on line ' + anException.line + ' column ' + anException.column + ' : ' + anException.message);
+var row=nil;
+var col=nil;
+var message=nil;
+var lines=nil;
+var badLine=nil;
+var code=nil;
+row = anException.line;
+	col = anException.column;
+	message = anException.message;;
+lines=smalltalk.send(aString, "_lines", []);
+badLine=smalltalk.send(lines, "_at_", [row]);
+badLine=smalltalk.send(smalltalk.send(smalltalk.send(badLine, "_copyFrom_to_", [(1), (($receiver = col).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])]), "__comma", [unescape("%20%3D%3D%3D%3E")]), "__comma", [smalltalk.send(badLine, "_copyFrom_to_", [col, smalltalk.send(badLine, "_size", [])])]);
+smalltalk.send(lines, "_at_put_", [row, badLine]);
+code=smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(s){return smalltalk.send(lines, "_withIndexDo_", [(function(l, i){return smalltalk.send(s, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(i, "_asString", []), "__comma", [": "]), "__comma", [l]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])])]);})]);})]);
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error), "_new", []), "_messageText_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Parse error on line ", "__comma", [row]), "__comma", [" column "]), "__comma", [col]), "__comma", [" : "]), "__comma", [message]), "__comma", [unescape("%20Below%20is%20code%20with%20line%20numbers%20and%20%3D%3D%3D%3E%20marker%20inserted%3A")]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [code])]);
 return self;},
-source: unescape('parseError%3A%20anException%0A%09%3Creturn%20smalltalk.Error._new%28%29%0A%09%09._messageText_%28%27Parse%20error%20on%20line%20%27%20+%20anException.line%20+%20%27%20column%20%27%20+%20anException.column%20+%20%27%20%3A%20%27%20+%20anException.message%29%3E'),
-messageSends: [],
-referencedClasses: []
+source: unescape('parseError%3A%20anException%20parsing%3A%20aString%0A%09%7C%20row%20col%20message%20lines%20badLine%20code%20%7C%0A%09%3Crow%20%3D%20anException.line%3B%0A%09col%20%3D%20anException.column%3B%0A%09message%20%3D%20anException.message%3B%3E.%0A%09lines%20%3A%3D%20aString%20lines.%0A%09badLine%20%3A%3D%20lines%20at%3A%20row.%0A%09badLine%20%3A%3D%20%28badLine%20copyFrom%3A%201%20to%3A%20col%20-%201%29%2C%20%27%20%3D%3D%3D%3E%27%2C%20%28badLine%20copyFrom%3A%20%20col%20to%3A%20badLine%20size%29.%0A%09lines%20at%3A%20row%20put%3A%20badLine.%0A%09code%20%3A%3D%20String%20streamContents%3A%20%5B%3As%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lines%20withIndexDo%3A%20%5B%3Al%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20s%20nextPutAll%3A%20i%20asString%2C%20%27%3A%20%27%2C%20l%2C%20String%20lf%5D%5D.%0A%09%5E%20Error%20new%20messageText%3A%20%28%27Parse%20error%20on%20line%20%27%20%2C%20row%20%2C%20%27%20column%20%27%20%2C%20col%20%2C%20%27%20%3A%20%27%20%2C%20message%20%2C%20%27%20Below%20is%20code%20with%20line%20numbers%20and%20%3D%3D%3D%3E%20marker%20inserted%3A%27%20%2C%20String%20lf%2C%20code%29'),
+messageSends: ["lines", "at:", unescape("%2C"), "copyFrom:to:", unescape("-"), "size", "at:put:", "streamContents:", "withIndexDo:", "nextPutAll:", "asString", "lf", "messageText:", "new"],
+referencedClasses: [smalltalk.String,smalltalk.Error]
 }),
 smalltalk.Smalltalk);
 
@@ -1216,11 +1244,44 @@ selector: 'commentStamp:prior:',
 category: 'accessing',
 fn: function (aStamp, prior){
 var self=this;
-
+return smalltalk.send(self, "_commentStamp", []);
 return self;},
-source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%20%22Ignored%20right%20now.%22'),
-messageSends: [],
+source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%5Eself%20commentStamp'),
+messageSends: ["commentStamp"],
 referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_compile_',
+smalltalk.method({
+selector: 'compile:',
+category: 'compiling',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_compile_category_", [aString, ""]);
+return self;},
+source: unescape('compile%3A%20aString%0A%09self%20compile%3A%20aString%20category%3A%20%27%27'),
+messageSends: ["compile:category:"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+'_compile_category_',
+smalltalk.method({
+selector: 'compile:category:',
+category: 'compiling',
+fn: function (aString, anotherString){
+var self=this;
+var method=nil;
+method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self]);
+smalltalk.send(method, "_category_", [anotherString]);
+smalltalk.send(self, "_addCompiledMethod_", [method]);
+return self;},
+source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
+messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.Behavior);
 
@@ -2289,6 +2350,21 @@ return self;},
 source: unescape('applyTo%3A%20anObject%20arguments%3A%20aCollection%0A%09%3Creturn%20self.apply%28anObject%2C%20aCollection%29%3E'),
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_timeToRun',
+smalltalk.method({
+selector: 'timeToRun',
+category: 'evaluating',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [self]);
+return self;},
+source: unescape('timeToRun%0A%09%22Answer%20the%20number%20of%20milliseconds%20taken%20to%20execute%20this%20block.%22%0A%0A%09%5E%20Date%20millisecondsToRun%3A%20self'),
+messageSends: ["millisecondsToRun:"],
+referencedClasses: [smalltalk.Date]
 }),
 smalltalk.BlockClosure);
 
@@ -4042,6 +4118,56 @@ referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+'_indexOf_startingAt_ifAbsent_',
+smalltalk.method({
+selector: 'indexOf:startingAt:ifAbsent:',
+category: 'accessing',
+fn: function (anObject, start, aBlock){
+var self=this;
+
+		for(var i=start-1;i<self.length;i++){
+			if(self[i].__eq(anObject)) {return i+1}
+		}
+		return aBlock();
+	;
+return self;},
+source: unescape('indexOf%3A%20anObject%20startingAt%3A%20start%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09for%28var%20i%3Dstart-1%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%09%7D%0A%09%09return%20aBlock%28%29%3B%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+'_indexOf_startingAt_',
+smalltalk.method({
+selector: 'indexOf:startingAt:',
+category: 'accessing',
+fn: function (anObject, start){
+var self=this;
+return smalltalk.send(self, "_indexOf_startingAt_ifAbsent_", [anObject, start, (function(){return (0);})]);
+return self;},
+source: unescape('indexOf%3A%20anObject%20startingAt%3A%20start%0A%09%22Answer%20the%20index%20of%20the%20first%20occurence%20of%20anElement%20after%20start%0A%09within%20the%20receiver.%20If%20the%20receiver%20does%20not%20contain%20anElement%2C%20%0A%09answer%200.%22%0A%09%5Eself%20indexOf%3A%20anObject%20startingAt%3A%20start%20ifAbsent%3A%20%5B0%5D'),
+messageSends: ["indexOf:startingAt:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+category: 'converting',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_subclassResponsibility", []);
+return self;},
+source: unescape('reversed%0A%09self%20subclassResponsibility'),
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
 
 
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
@@ -4363,51 +4489,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-'_asParser',
-smalltalk.method({
-selector: 'asParser',
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.PPStringParser || PPStringParser), "_new", []), "_string_", [self]);
-return self;},
-source: unescape('asParser%0A%20%20%20%20%09%5EPPStringParser%20new%20string%3A%20self'),
-messageSends: ["string:", "new"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asChoiceParser',
-smalltalk.method({
-selector: 'asChoiceParser',
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.PPChoiceParser || PPChoiceParser), "_withAll_", [smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asParser", []);})])]);
-return self;},
-source: unescape('asChoiceParser%0A%20%20%20%20%09%5EPPChoiceParser%20withAll%3A%20%28self%20asArray%20collect%3A%20%5B%3Aeach%20%7C%20each%20asParser%5D%29'),
-messageSends: ["withAll:", "collect:", "asArray", "asParser"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-'_asCharacterParser',
-smalltalk.method({
-selector: 'asCharacterParser',
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.PPCharacterParser || PPCharacterParser), "_new", []), "_string_", [self]);
-return self;},
-source: unescape('asCharacterParser%0A%20%20%20%20%09%5EPPCharacterParser%20new%20string%3A%20self'),
-messageSends: ["string:", "new"],
-referencedClasses: [smalltalk.nil]
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
 '_errorReadOnly',
 smalltalk.method({
 selector: 'errorReadOnly',
@@ -4717,6 +4798,101 @@ var self=this;
 return self.charCodeAt(0);;
 return self;},
 source: unescape('asciiValue%0A%09%3Creturn%20self.charCodeAt%280%29%3B%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_lineIndicesDo_',
+smalltalk.method({
+selector: 'lineIndicesDo:',
+category: 'split join',
+fn: function (aBlock){
+var self=this;
+try{var cr=nil;
+var lf=nil;
+var start=nil;
+var sz=nil;
+var nextLF=nil;
+var nextCR=nil;
+start=(1);
+sz=smalltalk.send(self, "_size", []);
+cr=smalltalk.send((smalltalk.String || String), "_cr", []);
+nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, (1)]);
+lf=smalltalk.send((smalltalk.String || String), "_lf", []);
+nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, (1)]);
+(function(){while((function(){return (($receiver = start).klass === smalltalk.Number) ? $receiver <=sz : smalltalk.send($receiver, "__lt_eq", [sz]);})()) {(function(){(($receiver = smalltalk.send(smalltalk.send(nextLF, "__eq", [(0)]), "_and_", [(function(){return smalltalk.send(nextCR, "__eq", [(0)]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})]);return (($receiver = smalltalk.send(smalltalk.send(nextCR, "__eq", [(0)]), "_or_", [(function(){return smalltalk.send((0) < nextLF, "_and_", [(function(){return (($receiver = nextLF).klass === smalltalk.Number) ? $receiver <nextCR : smalltalk.send($receiver, "__lt", [nextCR]);})]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextLF]);start=(1) + nextLF;return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);})() : (function(){return (($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextLF]);start=(1) + nextLF;return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);}), (function(){return (($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, (($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})]);})]);})()}})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_lineIndicesDo_'){return e.fn()} throw(e)}},
+source: unescape('lineIndicesDo%3A%20aBlock%0A%09%22execute%20aBlock%20with%203%20arguments%20for%20each%20line%3A%0A%09-%20start%20index%20of%20line%0A%09-%20end%20index%20of%20line%20without%20line%20delimiter%0A%09-%20end%20index%20of%20line%20including%20line%20delimiter%28s%29%20CR%2C%20LF%20or%20CRLF%22%0A%09%0A%09%7C%20cr%20lf%20start%20sz%20nextLF%20nextCR%20%7C%0A%09start%20%3A%3D%201.%0A%09sz%20%3A%3D%20self%20size.%0A%09cr%20%3A%3D%20String%20cr.%0A%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%201.%0A%09lf%20%3A%3D%20String%20lf.%0A%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%201.%0A%09%5B%20start%20%3C%3D%20sz%20%5D%20whileTrue%3A%20%5B%0A%09%09%28nextLF%20%3D%200%20and%3A%20%5B%20nextCR%20%3D%200%20%5D%29%0A%09%09%09ifTrue%3A%20%5B%20%22No%20more%20CR%2C%20nor%20LF%2C%20the%20string%20is%20over%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20sz%20value%3A%20sz.%0A%09%09%09%09%09%5Eself%20%5D.%0A%09%09%28nextCR%20%3D%200%20or%3A%20%5B%200%20%3C%20nextLF%20and%3A%20%5B%20nextLF%20%3C%20nextCR%20%5D%20%5D%29%0A%09%09%09ifTrue%3A%20%5B%20%22Found%20a%20LF%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextLF%20-%201%20value%3A%20nextLF.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextLF.%0A%09%09%09%09%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%20start%20%5D%0A%09%09%09ifFalse%3A%20%5B%201%20+%20nextCR%20%3D%20nextLF%0A%09%09%09%09ifTrue%3A%20%5B%20%22Found%20a%20CR-LF%20pair%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextCR%20-%201%20value%3A%20nextLF.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextLF.%0A%09%09%09%09%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%20start.%0A%09%09%09%09%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%20start%20%5D%0A%09%09%09%09ifFalse%3A%20%5B%20%22Found%20a%20CR%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextCR%20-%201%20value%3A%20nextCR.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextCR.%0A%09%09%09%09%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%20start%20%5D%5D%5D'),
+messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", unescape("%3C%3D"), "ifTrue:", "and:", unescape("%3D"), "value:value:value:", "ifTrue:ifFalse:", "or:", unescape("%3C"), unescape("-"), unescape("+")],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_linesDo_',
+smalltalk.method({
+selector: 'linesDo:',
+category: 'split join',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])]);})]);
+return self;},
+source: unescape('linesDo%3A%20aBlock%0A%09%22Execute%20aBlock%20with%20each%20line%20in%20this%20string.%20The%20terminating%20line%0A%09delimiters%20CR%2C%20LF%20or%20CRLF%20pairs%20are%20not%20included%20in%20what%20is%20passed%20to%20aBlock%22%0A%0A%09self%20lineIndicesDo%3A%20%5B%3Astart%20%3AendWithoutDelimiters%20%3Aend%20%7C%0A%09%09aBlock%20value%3A%20%28self%20copyFrom%3A%20start%20to%3A%20endWithoutDelimiters%29%5D'),
+messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_lines',
+smalltalk.method({
+selector: 'lines',
+category: 'split join',
+fn: function (){
+var self=this;
+var lines=nil;
+lines=smalltalk.send((smalltalk.Array || Array), "_new", []);
+smalltalk.send(self, "_linesDo_", [(function(aLine){return smalltalk.send(lines, "_add_", [aLine]);})]);
+return lines;
+return self;},
+source: unescape('lines%0A%09%22Answer%20an%20array%20of%20lines%20composing%20this%20receiver%20without%20the%20line%20ending%20delimiters.%22%0A%0A%09%7C%20lines%20%7C%0A%09lines%20%3A%3D%20Array%20new.%0A%09self%20linesDo%3A%20%5B%3AaLine%20%7C%20lines%20add%3A%20aLine%5D.%0A%09%5Elines'),
+messageSends: ["new", "linesDo:", "add:"],
+referencedClasses: [smalltalk.Array]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_lineNumber_',
+smalltalk.method({
+selector: 'lineNumber:',
+category: 'split join',
+fn: function (anIndex){
+var self=this;
+try{var lineCount=nil;
+lineCount=(0);
+smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return (($receiver = smalltalk.send(lineCount=(($receiver = lineCount).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]), "__eq", [anIndex])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})]);})]);
+(function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return nil}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_lineNumber_'){return e.fn()} throw(e)}},
+source: unescape('lineNumber%3A%20anIndex%0A%09%22Answer%20a%20string%20containing%20the%20characters%20in%20the%20given%20line%20number.%22%0A%0A%09%7C%20lineCount%20%7C%0A%09lineCount%20%3A%3D%200.%0A%09self%20lineIndicesDo%3A%20%5B%3Astart%20%3AendWithoutDelimiters%20%3Aend%20%7C%0A%09%09%28lineCount%20%3A%3D%20lineCount%20+%201%29%20%3D%20anIndex%20ifTrue%3A%20%5B%5Eself%20copyFrom%3A%20start%20to%3A%20endWithoutDelimiters%5D%5D.%0A%09%5Enil'),
+messageSends: ["lineIndicesDo:", "ifTrue:", unescape("%3D"), unescape("+"), "copyFrom:to:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+category: 'converting',
+fn: function (){
+var self=this;
+return self.split("").reverse().join("");
+return self;},
+source: unescape('reversed%0A%09%3Creturn%20self.split%28%22%22%29.reverse%28%29.join%28%22%22%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -5146,6 +5322,21 @@ return smalltalk.send(str, "_contents", []);
 return self;},
 source: unescape('printString%0A%09%7C%20str%20%7C%0A%09str%20%3A%3D%20%27%27%20writeStream.%0A%09str%20nextPutAll%3A%20super%20printString%2C%20%27%20%28%27.%0A%09self%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20str%20nextPutAll%3A%20each%20printString%5D%0A%09%09separatedBy%3A%20%5Bstr%20nextPutAll%3A%20%27%20%27%5D.%0A%09str%20nextPutAll%3A%20%27%29%27.%0A%09%5Estr%20contents'),
 messageSends: ["writeStream", "nextPutAll:", unescape("%2C"), "printString", "do:separatedBy:", "contents"],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+'_reversed',
+smalltalk.method({
+selector: 'reversed',
+category: 'converting',
+fn: function (){
+var self=this;
+return self._copy().reverse();
+return self;},
+source: unescape('reversed%0A%09%3Creturn%20self._copy%28%29.reverse%28%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
@@ -5936,6 +6127,24 @@ referencedClasses: [smalltalk.String]
 }),
 smalltalk.Dictionary);
 
+
+smalltalk.addMethod(
+'_fromPairs_',
+smalltalk.method({
+selector: 'fromPairs:',
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var dict=nil;
+dict=smalltalk.send(self, "_new", []);
+smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict, "_add_", [each]);})]);
+return dict;
+return self;},
+source: unescape('fromPairs%3A%20aCollection%0A%09%7C%20dict%20%7C%0A%09dict%20%3A%3D%20self%20new.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20dict%20add%3A%20each%5D.%0A%09%5Edict'),
+messageSends: ["new", "do:", "add:"],
+referencedClasses: []
+}),
+smalltalk.Dictionary.klass);
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel');
