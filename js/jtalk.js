@@ -51,7 +51,8 @@
 	 })
 	*/
 
-	deploy = spec.deploy;
+	var spec = spec || {};
+	deploy = spec.deploy || false;
 	loadDependencies();
 	if(deploy) {
 	    loadJS("boot.js");
