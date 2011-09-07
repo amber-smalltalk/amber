@@ -360,3 +360,8 @@ body.jtalkBody {
 	color: #000;
 	cursor: default
 }
+
+
+.jtalkTool .classes .commented {
+		color: #33337F;
+}

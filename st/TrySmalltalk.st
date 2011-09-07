@@ -52,8 +52,15 @@ renderButtonsOn: html
 Object subclass: #AbstractTutorial
 	instanceVariableNames: ''
 	category: 'TrySmalltalk'!
+!AbstractTutorial commentStamp!
+Parent class of all ProfStef tutorials.
 
-!AbstractTutorial methodsFor: 'not yet classified'!
+To create your own tutorial:
+- subclass AbstractTutorial
+- implement a few methods which returns a Lesson instance
+- implement tutorial which returns a Collection of selectors to the methods you've created.!
+
+!AbstractTutorial methodsFor: 'accessing'!
 
 indexOfLesson: aSelector
 	^self tableOfContents indexOf: aSelector.
@@ -66,6 +73,18 @@ tableOfContents
   'theEnd'
 )
 !
+
+lessonAt: anInteger
+	| lessonSelector |
+	lessonSelector := self tableOfContents at: anInteger.
+	^ self perform: lessonSelector.
+!
+
+size
+	^ self tableOfContents size
+! !
+
+!AbstractTutorial methodsFor: 'pages'!
 
 welcome
 	^ Lesson
@@ -83,23 +102,13 @@ theEnd
 	^ Lesson
 		title: 'The End' 
 		contents: '"And that''d be pretty much it :)"'
-!
-
-lessonAt: anInteger
-	| lessonSelector |
-	lessonSelector := self tableOfContents at: anInteger.
-	^ self perform: lessonSelector.
-!
-
-size
-	^ self tableOfContents size
 ! !
 
 Object subclass: #Lesson
 	instanceVariableNames: 'title contents'
 	category: 'TrySmalltalk'!
 
-!Lesson methodsFor: 'not yet classified'!
+!Lesson methodsFor: 'accessing'!
 
 contents
 	^ contents ifNil: [contents := '']
@@ -117,7 +126,7 @@ title
 	^ title ifNil: [title := '']
 ! !
 
-!Lesson class methodsFor: 'not yet classified'!
+!Lesson class methodsFor: 'instance creation'!
 
 title: aTitle contents: someContents
 	^ (self new)
@@ -128,36 +137,13 @@ title: aTitle contents: someContents
 Object subclass: #TutorialPlayer
 	instanceVariableNames: 'tutorialPosition tutorial'
 	category: 'TrySmalltalk'!
+!TutorialPlayer commentStamp!
+I can navigate through an AbstractTutorial subclass. With #next and #previous you can go forward and backward through the tutorial.!
 
-!TutorialPlayer methodsFor: 'not yet classified'!
+!TutorialPlayer methodsFor: 'accessing'!
 
 currentLesson
 	^ self tutorial lessonAt: self tutorialPosition.
-!
-
-first
-	self rewind.
-	^ self currentLesson
-!
-
-last
-	tutorialPosition := self size.
-	^ self currentLesson
-!
-
-next
-	self tutorialPosition < self size
-		ifTrue: [tutorialPosition := tutorialPosition + 1].
-	^ self currentLesson
-!
-
-previous
-	tutorialPosition >  1 ifTrue: [tutorialPosition := tutorialPosition  - 1].
-	^ self currentLesson
-!
-
-rewind
-	tutorialPosition := 1.
 !
 
 size
@@ -183,19 +169,53 @@ tutorialPosition: aTutorialPosition
 	tutorialPosition := aTutorialPosition
 ! !
 
+!TutorialPlayer methodsFor: 'navigation'!
+
+first
+	self rewind.
+	^ self currentLesson
+!
+
+last
+	tutorialPosition := self size.
+	^ self currentLesson
+!
+
+next
+	self tutorialPosition < self size
+		ifTrue: [tutorialPosition := tutorialPosition + 1].
+	^ self currentLesson
+!
+
+previous
+	tutorialPosition >  1 ifTrue: [tutorialPosition := tutorialPosition  - 1].
+	^ self currentLesson
+!
+
+rewind
+	tutorialPosition := 1.
+! !
+
 Object subclass: #ProfStef
 	instanceVariableNames: 'tutorialPlayer widget'
 	category: 'TrySmalltalk'!
+!ProfStef commentStamp!
+A ProfStef is the Smalltalk teacher. To start the tutorial, evaluate:
+ProfStef go.
 
-!ProfStef methodsFor: 'not yet classified'!
+To go to the next lesson evaluate:
+ProfStef next.
+
+To execute your own tutorial:
+ProfStef goOn: MyOwnTutorial
+
+To see a table of contents with all defined tutorials:
+ProfStef contents!
+
+!ProfStef methodsFor: 'accessing'!
 
 tutorialPlayer
 	^ tutorialPlayer ifNil: [tutorialPlayer := TutorialPlayer new]
-!
-
-first
-	self tutorialPlayer first.
-	^ self showCurrentLesson.
 !
 
 progress
@@ -210,16 +230,6 @@ tutorialSizeString
 	^ self tutorialPlayer size asString
 !
 
-next
-	self tutorialPlayer next.
-	^ self showCurrentLesson.
-!
-
-previous
-	self tutorialPlayer previous.
-	^ self showCurrentLesson.
-!
-
 widget: aWidget
 	widget := aWidget
 !
@@ -231,16 +241,35 @@ showCurrentLesson
 	widget setTitle: lesson title , ' ' , self progress.
 ! !
 
-ProfStef class instanceVariableNames: 'instance'!
-
-!ProfStef class methodsFor: 'not yet classified'!
+!ProfStef methodsFor: 'navigation'!
 
 first
-	^ self default first.
+	self tutorialPlayer first.
+	^ self showCurrentLesson.
 !
+
+next
+	self tutorialPlayer next.
+	^ self showCurrentLesson.
+!
+
+previous
+	self tutorialPlayer previous.
+	^ self showCurrentLesson.
+! !
+
+ProfStef class instanceVariableNames: 'instance'!
+
+!ProfStef class methodsFor: 'initialize'!
 
 default 
 	^ instance ifNil: [instance := self new]
+! !
+
+!ProfStef class methodsFor: 'navigation'!
+
+first
+	^ self default first.
 !
 
 previous
@@ -258,8 +287,10 @@ go
 AbstractTutorial subclass: #SmalltalkSyntaxTutorial
 	instanceVariableNames: ''
 	category: 'TrySmalltalk'!
+!SmalltalkSyntaxTutorial commentStamp!
+The default ProfStef tutorial to learn Smalltalk syntax!
 
-!SmalltalkSyntaxTutorial methodsFor: 'not yet classified'!
+!SmalltalkSyntaxTutorial methodsFor: 'contents'!
 
 tableOfContents
 ^ #(	'welcome'
@@ -296,7 +327,9 @@ tableOfContents
 
 	"'debugger'"
 	'theEnd' )
-!
+! !
+
+!SmalltalkSyntaxTutorial methodsFor: 'pages'!
 
 basicTypesArray
 	^ Lesson

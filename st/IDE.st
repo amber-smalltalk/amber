@@ -520,12 +520,14 @@ showMethodButtons
 
 compile
     self disableSaveButton.
-    selectedTab = #comment ifTrue: [
-	selectedClass ifNotNil: [
-	    self compileClassComment]].
-    (selectedProtocol notNil or: [selectedMethod notNil])
-	ifFalse: [self compileDefinition]
-	ifTrue: [self compileMethodDefinition]
+    selectedTab = #comment 
+	ifTrue: [
+			selectedClass ifNotNil: [
+	    			self compileClassComment]	]
+	ifFalse: [
+		    	(selectedProtocol notNil or: [selectedMethod notNil])
+				ifFalse: [self compileDefinition]
+				ifTrue: [self compileMethodDefinition]	]
 !
 
 compileClassComment
@@ -1482,6 +1484,25 @@ Widget subclass: #ClassesListNode
 	instanceVariableNames: 'browser theClass level nodes'
 	category: 'IDE'!
 
+!ClassesListNode methodsFor: ''!
+
+renderOn: html
+	| li |
+	li := html li 
+		onClick: [self browser selectClass: self theClass]. 
+	li asJQuery contents: self label.
+
+	self browser selectedClass = self theClass ifTrue:  [
+		li class: 'selected'].
+
+	self theClass comment isEmpty ifFalse: [
+          	li class: 'commented'
+        ].
+
+	self nodes do: [:each |
+		each renderOn: html]
+! !
+
 !ClassesListNode methodsFor: 'accessing'!
 
 nodes
@@ -1531,19 +1552,6 @@ getNodesFrom: aCollection
 			ifFalse: [others add: each]].
 	nodes:= children collect: [:each |
 		ClassesListNode on: each browser: self browser classes: others level: self level + 1]
-! !
-
-!ClassesListNode methodsFor: 'rendering'!
-
-renderOn: html
-	| li |
-	li := html li 
-		onClick: [self browser selectClass: self theClass].
-	li asJQuery contents: self label.
-	self browser selectedClass = self theClass ifTrue:  [
-		li class: 'selected'].
-	self nodes do: [:each |
-		each renderOn: html]
 ! !
 
 !ClassesListNode class methodsFor: 'instance creation'!

@@ -185,6 +185,10 @@ fadeOutSlow
 
 slideUp
  	self call: 'slideUp'
+!
+
+fadeOut: aString do: aBlock
+    <self['@jquery'].fadeOut(aString, aBlock)>
 ! !
 
 !JQuery methodsFor: 'enumerating'!
@@ -223,7 +227,7 @@ removeEvents: aString
 
 onLoadDo: aBlock
 	"Bind an event handler to the 'load' JavaScript event."
-        self call: 'load' withArgument: aBlock
+	self call: 'load' withArgument: aBlock
 ! !
 
 !JQuery methodsFor: 'initialization'!
