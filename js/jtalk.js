@@ -49,7 +49,7 @@
 	loadJS("Benchfib.js");
 	loadJS("Kernel-Tests.js");
 	loadJS("JQuery-Tests.js");
-
+	loadJS("TrySmalltalk.js");
 	if(files) {
 	    for(var i=0; i < files.length; i++) {
 		loadJS(files[i], prefix);
