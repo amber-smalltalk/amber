@@ -18,11 +18,13 @@
       
       <div id="tutorial"><h2>Loading...</h2></div>
       <script> 
-	'#tutorial'._asJQuery()._contents_(
+	function loadTutorial() {
+	  '#tutorial'._asJQuery()._contents_(
 		function(html) {
 			html._with_(smalltalk.TrySmalltalkWidget._new())
 		}
-	)
+	  )
+	}
       </script>
     </div>
     
@@ -35,7 +37,7 @@
     </div>
 
     <script type="text/javascript">
-      loadJtalk({files: ['TrySmalltalk.js'], prefix: 'examples/trysmalltalk'});
+      loadJtalk({files: ['TrySmalltalk.js'], prefix: 'examples/trysmalltalk', ready: loadTutorial});
     </script>    
 
 
