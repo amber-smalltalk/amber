@@ -6,6 +6,15 @@ Widget subclass: #TabManager
 
 tabs
     ^tabs ifNil: [tabs := Array new]
+!
+
+labelFor: aWidget
+	| label maxSize |
+	maxSize := 15.
+	label := aWidget label copyFrom: 0 to: (aWidget label size min: maxSize).
+	aWidget label size > maxSize ifTrue: [
+        	label := label, '...'].
+	^label
 ! !
 
 !TabManager methodsFor: 'actions'!
@@ -132,7 +141,7 @@ renderTabFor: aWidget on: html
 		with: 'x';
 		onClick: [self closeTab: aWidget]].
 	html span
-	    with: aWidget label;
+	    with: (self labelFor: aWidget);
 	    onClick: [self selectTab: aWidget]]
 !
 
@@ -195,6 +204,10 @@ hide
 
 remove
 	div asJQuery remove
+!
+
+close
+    TabManager current closeTab: self
 ! !
 
 !TabWidget methodsFor: 'rendering'!
@@ -768,8 +781,7 @@ renderBottomPanelOn: html
 	with: [
 	    sourceArea := SourceArea new.
 	    sourceArea renderOn: html.
-	    sourceArea
-		onKeyUp: [self updateStatus]]
+	    sourceArea onKeyUp: [self updateStatus]]
 !
 
 renderButtonsOn: html
@@ -969,7 +981,7 @@ open
 ! !
 
 TabWidget subclass: #Inspector
-	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea workspaceTextarea diveButton'
+	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
 	category: 'IDE'!
 
 !Inspector methodsFor: 'accessing'!
@@ -996,6 +1008,10 @@ selectedVariable
 
 selectedVariable: aString
 	selectedVariable := aString
+!
+
+sourceArea
+	^sourceArea
 ! !
 
 !Inspector methodsFor: 'actions'!
@@ -1026,34 +1042,47 @@ renderBoxOn: html
 !
 
 renderTopPanelOn: html
-    html div 
-	class: 'top'; 
-	with: [
-	    variablesList := html ul class: 'jt_column variables'.
-	    valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
-	    self
+	html div 
+		class: 'top'; 
+		with: [
+			variablesList := html ul class: 'jt_column variables'.
+			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
+                  	html div class: 'jt_buttons inspector'; with: [
+          			html button
+                  			class: 'jt_button inspector refresh';
+					with: 'Refresh';
+					onClick: [self refresh].
+				diveButton := html button 
+                  			class: 'jt_button inspector dive';
+					with: 'Dive'; 
+					onClick: [self dive]].
+	    		html div class: 'jt_clear'].
+	self
 		updateVariablesList;
 		updateValueTextarea.
-	    html div class: 'jt_clear']
 !
 
 renderBottomPanelOn: html
     html div
 	class: 'jt_sourceCode';
 	with: [
-	    workspaceTextarea := html textarea 
-		class: 'source';
-		at: 'spellcheck' put: 'false'.
-	    workspaceTextarea asJQuery call: 'tabby']
+	    sourceArea := SourceArea new
+          	receiver: object;
+          	onDoIt: [self refresh];
+          	yourself.
+            sourceArea renderOn: html]
 !
 
 renderButtonsOn: html
-	html button
-		with: 'Refresh';
-		onClick: [self refresh].
-	diveButton := html button 
-		with: 'Dive'; 
-		onClick: [self dive].
+	html button 
+		with: 'DoIt';
+		onClick: [self sourceArea doIt].
+	html button 
+		with: 'PrintIt';
+		onClick: [self sourceArea printIt].
+	html button 
+		with: 'InspectIt';
+		onClick: [self sourceArea inspectIt].
 	self updateButtons
 ! !
 
@@ -1282,7 +1311,7 @@ search: aString
 ! !
 
 Widget subclass: #SourceArea
-	instanceVariableNames: 'editor div'
+	instanceVariableNames: 'editor div receiver onDoIt'
 	category: 'IDE'!
 
 !SourceArea methodsFor: 'accessing'!
@@ -1331,6 +1360,22 @@ setEditorOn: aTextarea
 
 editor
 	^editor
+!
+
+receiver
+	^receiver ifNil: [DoIt new]
+!
+
+receiver: anObject
+	receiver := anObject
+!
+
+onDoIt: aBlock
+	onDoIt := aBlock
+!
+
+onDoIt
+	^onDoIt
 ! !
 
 !SourceArea methodsFor: 'actions'!
@@ -1340,20 +1385,21 @@ clear
 !
 
 doIt
-    | selection |
+    | selection result |
     editor somethingSelected
 	ifFalse: [selection := self currentLine]
 	ifTrue: [selection := self selection].
-    ^self eval: selection
+    result := self eval: selection.
+    self onDoIt ifNotNil: [self onDoIt value].
+    ^result
 !
 
 eval: aString
-    | compiler node |
-    compiler := Compiler new.
-    node := compiler parseExpression: aString.
-    node isParseFailure ifTrue: [
-	^self alert: node reason, ', position: ', node position].
-    ^compiler loadExpression: aString
+	| compiler  |
+      	compiler := Compiler new.
+      	[compiler parseExpression: aString] on: Error do: [:ex |
+		^self alert: ex messageText].
+	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
 !
 
 handleKeyDown: anEvent
@@ -1487,17 +1533,19 @@ Widget subclass: #ClassesListNode
 !ClassesListNode methodsFor: ''!
 
 renderOn: html
-	| li |
+	| li cssClass |
+	cssClass := ''.
 	li := html li 
 		onClick: [self browser selectClass: self theClass]. 
 	li asJQuery contents: self label.
 
 	self browser selectedClass = self theClass ifTrue:  [
-		li class: 'selected'].
+		cssClass := cssClass, ' selected'].
 
 	self theClass comment isEmpty ifFalse: [
-          	li class: 'commented'
-        ].
+          	cssClass := cssClass, ' commented'].
+
+	li class: cssClass.
 
 	self nodes do: [:each |
 		each renderOn: html]
@@ -1566,7 +1614,7 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 ! !
 
 TabWidget subclass: #Debugger
-	instanceVariableNames: 'error selectedContext sourceArea ul'
+	instanceVariableNames: 'error selectedContext sourceArea ul ul2 inspector saveButton unsavedChanges selectedVariable selectedVariableName inspectButton'
 	category: 'IDE'!
 
 !Debugger methodsFor: 'accessing'!
@@ -1581,23 +1629,73 @@ error: anError
 
 label
 	^'[Debugger]'
+!
+
+source
+	^self method 
+		ifNil: ['Method doesn''t exist!!']
+		ifNotNil: [self method source]
+!
+
+method
+	^selectedContext receiver class methodAt: selectedContext selector
+!
+
+arguments
+	^self method 
+		ifNil: [selectedContext temps collect: [:each | nil]]
+		ifNotNil: [self method arguments]
+!
+
+receiver
+	^selectedContext receiver
 ! !
 
 !Debugger methodsFor: 'actions'!
 
 selectContext: aContext
 	selectedContext := aContext.
-	self updateContextsList.
-	self updateSourceArea
+	selectedVariable := nil.
+	selectedVariableName := nil.
+	self 
+		updateContextsList;
+          	updateSourceArea;
+          	updateInspector;
+		updateVariablesList;
+		updateStatus
+!
+
+proceed
+	self close.
+	selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps
+!
+
+save
+	| protocol |
+	protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.
+	selectedContext receiver class compile: sourceArea val category: protocol.
+	self updateStatus
+!
+
+selectVariable: anObject named: aString
+	selectedVariable := anObject.
+	selectedVariableName := aString.
+	inspector contents: [:html | html with: anObject printString].
+	self updateVariablesList
+!
+
+inspectSelectedVariable
+	selectedVariable inspect
+! !
+
+!Debugger methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	unsavedChanges = false
 ! !
 
 !Debugger methodsFor: 'rendering'!
-
-renderBoxOn: html
-    self 
-	renderTopPanelOn: html;
-	renderBottomPanelOn: html
-!
 
 renderTopPanelOn: html
 	selectedContext := self error context.
@@ -1608,8 +1706,8 @@ renderTopPanelOn: html
 				class: 'label';
 				with: self error messageText.
 	    		ul := html ul 
-			class: 'jt_column debugger contexts';
-			with: [self renderContext: self error context on: html]]
+				class: 'jt_column debugger contexts';
+				with: [self renderContext: self error context on: html]]
 !
 
 renderContext: aContext on: html
@@ -1624,12 +1722,51 @@ renderContext: aContext on: html
 !
 
 renderBottomPanelOn: html
-    html div
-	class: 'jt_sourceCode';
-	with: [
-	    sourceArea := SourceArea new.
-	    sourceArea renderOn: html].
-    self updateSourceArea
+	html div
+		class: 'jt_sourceCode debugger';
+		with: [
+			sourceArea := SourceArea new.
+              		sourceArea renderOn: html].
+	ul2 := html ul class: 'jt_column debugger variables'.
+	inspector := html div class: 'jt_column debugger inspector'.
+	sourceArea
+		onKeyUp: [self updateStatus]
+!
+
+renderButtonsOn: html
+	saveButton := html button
+		with: 'Save';
+		onClick: [self save].
+	html button
+		with: 'DoIt';
+		onClick: [sourceArea doIt].
+	html button
+		with: 'PrintIt';
+		onClick: [sourceArea printIt].
+	html button
+		with: 'InspectIt';
+		onClick: [sourceArea inspectIt].
+	html button 
+		with: 'Proceed';
+		onClick: [self proceed].
+	html button
+		with: 'Abandon';
+		onClick: [self close].
+	inspectButton := html button
+		class: 'jt_button debugger inspect';
+		with: 'Inspect';
+		onClick: [self inspectSelectedVariable].
+	 self 
+		updateSourceArea;
+		updateStatus;
+		updateVariablesList;
+		updateInspector
+!
+
+renderBoxOn: html
+    self 
+	renderTopPanelOn: html;
+	renderBottomPanelOn: html
 ! !
 
 !Debugger methodsFor: 'testing'!
@@ -1646,7 +1783,47 @@ updateContextsList
 !
 
 updateSourceArea
-	 sourceArea val: (selectedContext receiver class methodAt: selectedContext selector) source
+	 sourceArea val: self source
+!
+
+updateStatus
+	sourceArea val = self source
+		ifTrue: [
+			saveButton ifNotNil: [
+				saveButton at: 'disabled' put: true].
+    			unsavedChanges := false]
+		ifFalse: [
+			saveButton ifNotNil: [
+    				saveButton removeAt: 'disabled'].
+    			unsavedChanges := true]
+!
+
+updateInspector
+	inspector contents: [:html |]
+!
+
+updateVariablesList
+	ul2 contents: [:html | | li |
+          	li := html li 
+			with: 'self';
+			onClick: [self selectVariable: self receiver named: 'self'].
+                selectedVariableName = 'self' ifTrue: [
+                  	li class: 'selected'].
+                self arguments withIndexDo: [:each :index | | param |
+                        param := selectedContext temps at: index.
+                        li := html li 
+				with: each;
+				onClick: [self selectVariable: param named: each].
+                         selectedVariableName = each ifTrue: [
+				li class: 'selected']].
+                self receiver class allInstanceVariableNames do: [:each | | ivar |
+                        ivar := self receiver instVarAt: each.
+                        li := html li 
+				with: each;
+				onClick: [self selectVariable: ivar named: each].
+                         selectedVariableName = each ifTrue: [
+				li class: 'selected']]].
+	selectedVariable ifNil: [inspectButton at: 'disabled' put: true] ifNotNil: [inspectButton removeAt: 'disabled']
 ! !
 
 ErrorHandler subclass: #DebugErrorHandler
@@ -1712,7 +1889,7 @@ TabWidget subclass: #TestRunner
 !TestRunner methodsFor: 'accessing'!
 
 label
-    ^'[Test runner]'
+    ^'[SUnit]'
 !
 
 categories
@@ -1746,11 +1923,6 @@ progressBar
 	^progressBar ifNil: [progressBar := ProgressBar new]
 !
 
-selectedMethods
-	^selectedMethods ifNil: [self selectedClasses collect: [:each |
-		each methodDictionary keys select: [:key |  key beginsWith: 'test' ]]]
-!
-
 statusInfo
 	^self printTotal, self printPasses, self printErrors, self printFailures
 !
@@ -1759,11 +1931,11 @@ result
 	^result
 !
 
-failedMethods
-	self result failures collect: [:each |
-		html li 
-			class: 'failures';
-			with: each]
+testCases
+	| testCases |
+	testCases := #().
+	self selectedClasses do: [:each | testCases addAll: each buildSuite].
+	^testCases
 ! !
 
 !TestRunner methodsFor: 'actions'!
@@ -1809,12 +1981,16 @@ run: aCollection
 		updateStatusDiv;
 		updateMethodsList.
 	self progressBar updatePercent: 0.
-	result total: (aCollection inject: 0 into: [:acc :each | acc + each methods size]).
+	result total: aCollection size.
 	aCollection do: [:each | 
 		[each runCaseFor: result.
 		self progressBar updatePercent: result runs / result total * 100.
 		self updateStatusDiv.
 		self updateMethodsList] valueWithTimeout: 100].
+!
+
+performFailure: aTestCase
+	aTestCase perform: aTestCase selector
 ! !
 
 !TestRunner methodsFor: 'initialization'!
@@ -1835,7 +2011,7 @@ printFailures
 !
 
 printPasses
-	^(((self result total) - (self result errors size + (self result failures size))) asString) , ' passes, '
+	^(self result total - self result errors size - self result failures size) asString , ' passes, '
 !
 
 printTotal
@@ -1854,7 +2030,7 @@ renderBoxOn: html
 renderButtonsOn: html
     html button
 	with: 'Run selected';
-	onClick: [self run: (self selectedClasses collect: [:each | each new])]
+	onClick: [self run: self testCases]
 !
 
 renderCategoriesOn: html
@@ -1879,14 +2055,16 @@ renderFailuresOn: html
 	self result failures do: [:each |
 		html li 
 			class: 'failures';
-			with: each]
+			with: each class name, ' >> ', each selector;
+                        onClick: [self performFailure: each]]
 !
 
 renderErrorsOn: html
 	self result errors do: [:each |
 		html li 
 			class: 'errors';
-			with: each]
+			with: each class name, ' >> ', each selector;
+                        onClick: [self performFailure: each]]
 ! !
 
 !TestRunner methodsFor: 'testing'!
@@ -1934,8 +2112,8 @@ updateClassesList
 
 updateMethodsList
 	methodsList contents: [:html |
-		self renderFailuresOn: html.
-                self renderErrorsOn: html]
+		self renderErrorsOn: html.
+                self renderFailuresOn: html]
 !
 
 updateStatusDiv

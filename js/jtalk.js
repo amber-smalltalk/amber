@@ -63,7 +63,6 @@
 
 	    loadIDEDependencies();
 	    loadCSS('jtalk.css');
-	    loadCSS('sunit.css');
 	    loadJS("boot.js");
 	    loadJS("Kernel.js");
 	    loadJS("Canvas.js");

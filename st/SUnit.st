@@ -1,24 +1,18 @@
 Object subclass: #TestCase
-	instanceVariableNames: 'testedClass'
+	instanceVariableNames: 'testSelector'
 	category: 'SUnit'!
 
 !TestCase methodsFor: 'accessing'!
 
-testedClass
-	^testedClass
+setTestSelector: aSelector
+	testSelector := aSelector
 !
 
-testedClass: aClass
-	testedClass := aClass
+selector
+	^testSelector
 ! !
 
 !TestCase methodsFor: 'private'!
-
-cleanUpInstanceVariables
-	self class instanceVariableNames do: [ :name |
-		name = 'testSelector' ifFalse: [
-			self instVarAt: name put: nil ]]
-!
 
 signalFailure: aString
 	TestFailure new
@@ -34,28 +28,17 @@ setUp
 tearDown
 !
 
-methods
-	^self class methodDictionary keys select: [:each | each match: '^test']
-!
-
 runCaseFor: aTestResult
-	[self setUp.
-	self performTestFor: aTestResult]
-		on: Error
-		do: [:ex |
-			self tearDown.
-			self cleanUpInstanceVariables.
-			ex signal].
-	self tearDown.
-	self cleanUpInstanceVariables
+	self setUp.
+	aTestResult increaseRuns.
+	self performTestFor: aTestResult.
+	self tearDown
 !
 
 performTestFor: aResult
-	self methods do: [:each | 
-		[[self perform: each]
-			on: TestFailure do: [:ex | aResult addFailure: self class name, '>>', each, ': ', ex messageText]]
-			on: Error do: [:ex | aResult addError: self class name, '>>', each, ': ', ex messageText].
-		aResult increaseRuns]
+	[[self perform: self selector]
+		on: TestFailure do: [:ex | aResult addFailure: self]]
+		on: Error do: [:ex | aResult addError: self]
 ! !
 
 !TestCase methodsFor: 'testing'!
@@ -74,6 +57,40 @@ assert: expected equals: actual
 
 assert: aBoolean description: aString
 	aBoolean ifFalse: [self signalFailure: aString]
+! !
+
+!TestCase class methodsFor: 'accessing'!
+
+testSelectors
+	^self methodDictionary keys select: [:each | each match: '^test']
+!
+
+selector: aSelector
+	^self new
+		setTestSelector: aSelector;
+		yourself
+!
+
+lookupHierarchyRoot
+	^TestCase
+!
+
+allTestSelectors
+	| selectors |
+	selectors := self testSelectors.
+	self shouldInheritSelectors ifTrue: [
+		selectors addAll: self superclass allTestSelectors].
+	^selectors
+!
+
+buildSuite
+	^self allTestSelectors collect: [:each | self selector: each]
+! !
+
+!TestCase class methodsFor: 'testing'!
+
+shouldInheritSelectors
+	^self ~= self lookupHierarchyRoot
 ! !
 
 Error subclass: #TestFailure

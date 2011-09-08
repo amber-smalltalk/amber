@@ -147,6 +147,7 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
 		nextPutAll: 'category: ''', aMethod category, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: unescape(''', aMethod source escaped, '''),';lf;
 		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
 		nextPutAll: 'referencedClasses: ['.
@@ -715,7 +716,7 @@ visitDynamicDictionaryNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source argVariables'
 	category: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
@@ -747,6 +748,7 @@ tempVariables
 knownVariables
 	^self pseudoVariables 
 		addAll: self tempVariables;
+		addAll: self argVariables;
 		yourself
 !
 
@@ -765,6 +767,10 @@ source
 
 source: aString
 	source := aString
+!
+
+argVariables
+	^argVariables copy
 ! !
 
 !Compiler methodsFor: 'compiling'!
@@ -843,6 +849,7 @@ initialize
 	stream := '' writeStream. 
 	unknownVariables := #().
 	tempVariables := #().
+	argVariables := #().
 	messageSends := #().
 	classReferenced := #()
 ! !
@@ -1115,7 +1122,7 @@ visit: aNode
 !
 
 visitMethodNode: aNode
-	| str currentSelector |
+	| str currentSelector | 
 	currentSelector := aNode selector asSelector.
 	nestedBlocks := 0.
 	earlyReturn := false.
@@ -1123,6 +1130,7 @@ visitMethodNode: aNode
 	referencedClasses := #().
 	unknownVariables := #().
 	tempVariables := #().
+	argVariables := #().
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
 	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
@@ -1130,7 +1138,7 @@ visitMethodNode: aNode
 	stream nextPutAll: 'fn: function('.
 	aNode arguments 
 	    do: [:each | 
-		tempVariables add: each.
+		argVariables add: each.
 		stream nextPutAll: each]
 	    separatedBy: [stream nextPutAll: ', '].
 	stream 
@@ -1153,6 +1161,7 @@ visitMethodNode: aNode
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
 		nextPutAll: messageSends asJavascript, ','; lf;
+          	nextPutAll: 'args: ', argVariables asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	referencedClasses 
 		do: [:each | stream nextPutAll: each]
@@ -1288,7 +1297,9 @@ visitVariableNode: aNode
                                   		ifTrue: [stream nextPutAll: aNode value]
                                   		ifFalse: [stream nextPutAll: '(typeof ', aNode value, ' == ''undefined'' ? nil : ', aNode value, ')']]
                   		ifTrue: [
-                			stream nextPutAll:aNode value]]
+                                  	aNode value = 'thisContext'
+                                  		ifTrue: [stream nextPutAll: '(smalltalk.getThisContext())']
+                				ifFalse: [stream nextPutAll:aNode value]]]
 !
 
 visitJSStatementNode: aNode
@@ -1362,6 +1373,11 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
+
+!DoIt methodsFor: ''!
+
+doIt ^[1 fdsfds] value
+! !
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
