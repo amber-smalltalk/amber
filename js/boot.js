@@ -38,6 +38,7 @@
 function SmalltalkObject(){};
 function SmalltalkBehavior(){};
 function SmalltalkClass(){};
+function SmalltalkModule(){};
 function SmalltalkMetaclass(){
     this.meta = true;
 };
@@ -47,6 +48,20 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
+
+    
+    /* We hold all Modules in a separate Object */
+    st.modules = {};
+
+    /* Smalltalk Module object. To add a Module, use smalltalk.addModule() */
+
+    function mod(spec) {
+	var that = new SmalltalkModule();
+	that.moduleName        = spec.moduleName;
+	that.requires          = spec.requires || [];
+	that.fn                = spec.fn || function(){};
+	return that;
+    };
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -71,7 +86,11 @@ function Smalltalk(){
 	if(that.superclass) {
 	    that.klass.superclass = that.superclass.klass;
 	}
-	that.category = spec.category || "";
+	that.module = spec.module;
+        // For a while we keep the category attribute...
+        if(!(spec.module === undefined)) {
+	    that.category = spec.module.moduleName;
+	}
 	that.fn.prototype.methods = {};
 	that.fn.prototype.inheritedMethods = {};
 	that.fn.prototype.klass = that;
@@ -121,6 +140,16 @@ function Smalltalk(){
 	}
     };
 
+    /* Answer all registered Modules */
+
+    st.modules.all = function() {
+	var modules = [];
+	for(var i in st.modules) {
+	    modules.push(st.modules[i]);
+	}
+	return modules
+    };
+
     /* Answer all registered Smalltalk classes */
 
     st.classes = function() {
@@ -129,7 +158,6 @@ function Smalltalk(){
 	    if(i.search(/^[A-Z]/g) != -1) {
 		classes.push(st[i]);
 	    }
-
 	}
 	return classes
     };
@@ -168,31 +196,47 @@ function Smalltalk(){
     };
 
     /* Create a new class wrapping a JavaScript constructor, and add it to the 
-       global smalltalk object. */
+       global smalltalk object. Module is lazily created if it does not exist with given name. */
 
-    st.mapClassName = function(className, category, fn, superclass) {
+    st.mapClassName = function(className, moduleName, fn, superclass) {
+	modul = st.addModule(moduleName);
 	st[className] = klass({
 	    className:  className, 
-	    category:   category, 
+	    module:     modul, 
 	    superclass: superclass,
 	    fn:         fn
 	});
     };
 
-    /* Add a class to the smalltalk object, creating a new one if needed. */
+    /* Add a module to the smalltalk.modules object, creating a new one if needed.
+       If moduleName is nil or empty we return nil, which is an allowed module for a class. */
 
-    st.addClass = function(className, superclass, iVarNames, category) {
+    st.addModule = function(moduleName) {
+	if(!moduleName) {return nil;}
+	if(!(st.modules[moduleName])) {
+	    st.modules[moduleName] = mod({
+		moduleName: moduleName
+	    });
+	}
+	return st.modules[moduleName];
+    };
+
+    /* Add a class to the smalltalk object, creating a new one if needed.
+       Module is lazily created if it does not exist with given name.*/
+
+    st.addClass = function(className, superclass, iVarNames, moduleName) {
+	modul = st.addModule(moduleName);
 	if(st[className]) {
 	    st[className].superclass = superclass;
 	    st[className].iVarNames = iVarNames;
-	    st[className].category = category || st[className].category;
-	} else {
+	    st[className].module = modul || st[className].module;
+	} else {    
 	    st[className] = klass({
 		className: className, 
 		iVarNames: iVarNames,
-		superclass: superclass
+		superclass: superclass,
+		module: modul
 	    });
-	    st[className].category = category || '';
 	}
     };
 
@@ -446,12 +490,13 @@ if(this.jQuery) {
 
 smalltalk.mapClassName("Object", "Kernel", SmalltalkObject);
 smalltalk.mapClassName("Smalltalk", "Kernel", Smalltalk, smalltalk.Object);
+smalltalk.mapClassName("Module", "Kernel", SmalltalkModule, smalltalk.Object);
 smalltalk.mapClassName("Behavior", "Kernel", SmalltalkBehavior, smalltalk.Object);
 smalltalk.mapClassName("Class", "Kernel", SmalltalkClass, smalltalk.Behavior);
 smalltalk.mapClassName("Metaclass", "Kernel", SmalltalkMetaclass, smalltalk.Behavior);
 smalltalk.mapClassName("CompiledMethod", "Kernel", SmalltalkMethod, smalltalk.Object);
 
-smalltalk.Object.klass.superclass = smalltalk.Class
+smalltalk.Object.klass.superclass = smalltalk.Class;
 
 smalltalk.mapClassName("Number", "Kernel", Number, smalltalk.Object);
 smalltalk.mapClassName("BlockClosure", "Kernel", Function, smalltalk.Object);
@@ -469,5 +514,5 @@ smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
 smalltalk.mapClassName("MethodContext", "Kernel", SmalltalkMethodContext, smalltalk.Object);
 
 if(this.CanvasRenderingContext2D) {
-    smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
+    smalltalk.mapClassName("CanvasRenderingContext", 'Canvas', CanvasRenderingContext2D, smalltalk.Object);
 }

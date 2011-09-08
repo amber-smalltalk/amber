@@ -1523,7 +1523,7 @@ return smalltalk.send((smalltalk.SmalltalkParser || SmalltalkParser), "_new", []
 return self;},
 source: unescape('parser%0A%09%5ESmalltalkParser%20new'),
 messageSends: ["new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.Compiler);
 
@@ -1939,7 +1939,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_parse_", [aString]);
 return self;},
-source: unescape('parse%3A%20aString%0A%20%20%20%20%5ESmalltalk%20current%20parse%3A%20aString%20'),
+source: unescape('parse%3A%20aString%0A%20%20%20%20%5ESmalltalk%20current%20parse%3A%20aString'),
 messageSends: ["parse:", "current"],
 referencedClasses: [smalltalk.Smalltalk]
 }),
@@ -2044,11 +2044,11 @@ selector: 'recompileAll',
 category: 'compiling',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_do_", [(function(each){(function($rec){smalltalk.send($rec, "_show_", [each]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));return smalltalk.send((function(){return smalltalk.send(self, "_recompile_", [each]);}), "_valueWithTimeout_", [(1)]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_do_", [(function(each){(function($rec){smalltalk.send($rec, "_show_", [each]);return smalltalk.send($rec, "_cr", []);})((smalltalk.Transcript || Transcript));return smalltalk.send((function(){return smalltalk.send(self, "_recompile_", [each]);}), "_valueWithTimeout_", [(100)]);})]);
 return self;},
 source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09Transcript%20show%3A%20each%3B%20cr.%0A%09%09%5Bself%20recompile%3A%20each%5D%20valueWithTimeout%3A%20100%5D'),
 messageSends: ["do:", "classes", "current", "show:", "cr", "valueWithTimeout:", "recompile:"],
-referencedClasses: [smalltalk.Smalltalk,smalltalk.nil]
+referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Compiler);
 
