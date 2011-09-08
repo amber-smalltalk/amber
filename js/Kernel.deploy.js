@@ -2826,6 +2826,17 @@ return self;}
 }),
 smalltalk.Collection);
 
+smalltalk.addMethod(
+'_asSet',
+smalltalk.method({
+selector: 'asSet',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.Set || Set), "_withAll_", [self]);
+return self;}
+}),
+smalltalk.Collection);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -5545,5 +5556,106 @@ return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return sm
 return self;}
 }),
 smalltalk.JSObjectProxy.klass);
+
+
+smalltalk.addClass('Set', smalltalk.Collection, ['elements'], 'Kernel');
+smalltalk.addMethod(
+'_add_',
+smalltalk.method({
+selector: 'add:',
+fn: function (anObject){
+var self=this;
+
+		var found;
+		for(var i in self['@elements']) {
+			if(anObject == self['@elements'][i]) {
+				found = true;
+				break;
+			}
+		}
+		if(!found) {self['@elements'].push(anObject)}
+	;
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_remove_',
+smalltalk.method({
+selector: 'remove:',
+fn: function (anObject){
+var self=this;
+smalltalk.send(self['@elements'], "_remove_", [anObject]);
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Collection);
+self['@elements']=[];
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_size',
+smalltalk.method({
+selector: 'size',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@elements'], "_size", []);
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_asArray',
+smalltalk.method({
+selector: 'asArray',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@elements'], "_copy", []);
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_detect_ifNone_',
+smalltalk.method({
+selector: 'detect:ifNone:',
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(self['@elements'], "_detect_ifNone_", [aBlock, anotherBlock]);
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_do_',
+smalltalk.method({
+selector: 'do:',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self['@elements'], "_do_", [aBlock]);
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+'_includes_',
+smalltalk.method({
+selector: 'includes:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(self['@elements'], "_includes_", [anObject]);
+return self;}
+}),
+smalltalk.Set);
+
 
 

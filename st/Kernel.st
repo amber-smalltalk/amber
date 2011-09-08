@@ -1240,6 +1240,10 @@ asArray
 	    index := index + 1.
 	    array at: index put: each].
 	^array
+!
+
+asSet
+	^Set withAll: self
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -2741,5 +2745,63 @@ on: aJSObject
 	^self new
 		jsObject: aJSObject;
 		yourself
+! !
+
+Collection subclass: #Set
+	instanceVariableNames: 'elements'
+	category: 'Kernel'!
+
+!Set methodsFor: 'accessing'!
+
+size
+	^elements size
+! !
+
+!Set methodsFor: 'adding/removing'!
+
+add: anObject
+	<
+		var found;
+		for(var i in self['@elements']) {
+			if(anObject == self['@elements'][i]) {
+				found = true;
+				break;
+			}
+		}
+		if(!!found) {self['@elements'].push(anObject)}
+	>
+!
+
+remove: anObject
+	elements remove: anObject
+! !
+
+!Set methodsFor: 'converting'!
+
+asArray
+	^elements copy
+! !
+
+!Set methodsFor: 'enumerating'!
+
+detect: aBlock ifNone: anotherBlock
+	^elements detect: aBlock ifNone: anotherBlock
+!
+
+do: aBlock
+	elements do: aBlock
+! !
+
+!Set methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	elements := #()
+! !
+
+!Set methodsFor: 'testing'!
+
+includes: anObject
+	^elements includes: anObject
 ! !
 
