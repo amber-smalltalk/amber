@@ -47,6 +47,7 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
+    this.thisContext = undefined;
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -86,6 +87,7 @@ function Smalltalk(){
 	var that = new SmalltalkMethod();
 	that.selector          = spec.selector;
 	that.jsSelector        = spec.jsSelector;
+	that.args              = spec.args || {};
 	that.category          = spec.category;
 	that.source            = spec.source;
 	that.messageSends      = spec.messageSends || [];
@@ -224,13 +226,13 @@ function Smalltalk(){
     /* Handles unhandled errors during message sends */
 
     sendWithContext = function(receiver, selector, args, klass) {
-	if(thisContext) {
+	if(st.thisContext) {
 	     return withContextSend(receiver, selector, args, klass);
 	} else {
 	    try {return withContextSend(receiver, selector, args, klass)}
 	    catch(error) {
 		// Reset the context stack in any case
-		thisContext = undefined;
+		st.thisContext = undefined;
 		if(error.smalltalkError) {
 		    handleError(error);
 		} else {
@@ -265,7 +267,7 @@ function Smalltalk(){
        (See the Smalltalk class ErrorHandler and its subclasses */
     
     function handleError(error) {
-	thisContext = undefined;
+	st.thisContext = undefined;
 	smalltalk.ErrorHandler._current()._handleError_(error);
     }
 
@@ -325,11 +327,19 @@ function Smalltalk(){
 	
     /* Handle thisContext pseudo variable */
     
-    pushContext = function(receiver, selector, temps) {
-	if(thisContext) {
-	    return thisContext = thisContext.newContext(receiver, selector, temps);
+    st.getThisContext = function() {
+	if(st.thisContext) {
+	    return st.thisContext.copy();
 	} else {
-	    return thisContext = new SmalltalkMethodContext(receiver, selector, temps);
+	    return undefined;
+	}
+    }
+
+    pushContext = function(receiver, selector, temps) {
+	if(st.thisContext) {
+	    return st.thisContext = st.thisContext.newContext(receiver, selector, temps);
+	} else {
+	    return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps);
 	}
     };
 
@@ -409,6 +419,17 @@ function SmalltalkMethodContext(receiver, selector, temps, home) {
     that.temps = temps || {};
     that.homeContext = home;
 
+    that.copy = function() {
+	var home = that.homeContext;
+	if(home) {home = home.copy()}
+	return new SmalltalkMethodContext(
+	    that.receiver, 
+	    that.selector, 
+	    that.temps, 
+	    home
+	);
+    }
+
     that.newContext = function(receiver, selector, temps) {
 	var c = smalltalk.oldContexts.pop();
 	if(c) {
@@ -423,16 +444,16 @@ function SmalltalkMethodContext(receiver, selector, temps, home) {
     }
 
     that.removeYourself = function() {
-	thisContext = that.homeContext;
+	smalltalk.thisContext = that.homeContext;
+	that.homeContext = undefined;
 	smalltalk.oldContexts.push(that);
     }
 }
 
-/* Global Smalltalk objects. nil and thisContext shouldn't be globals. */
+/* Global Smalltalk objects. */
 
 var nil = new SmalltalkNil();
 var smalltalk = new Smalltalk();
-var thisContext = undefined;
 
 if(this.jQuery) {
     this.jQuery.allowJavaScriptCalls = true;
@@ -467,7 +488,3 @@ smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 
 smalltalk.mapClassName("Error", "Kernel", Error, smalltalk.Object);
 smalltalk.mapClassName("MethodContext", "Kernel", SmalltalkMethodContext, smalltalk.Object);
-
-if(this.CanvasRenderingContext2D) {
-    smalltalk.mapClassName("CanvasRenderingContext", "Canvas", CanvasRenderingContext2D, smalltalk.Object);
-}

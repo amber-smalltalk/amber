@@ -2,11 +2,6 @@ nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
-!Object methodsFor: ''!
-
-foo ^ self
-! !
-
 !Object methodsFor: 'accessing'!
 
 yourself
@@ -579,6 +574,10 @@ methodClass
 
 referencedClasses
 	^self basicAt: 'referencedClasses'
+!
+
+arguments
+	<return self.args || []>
 ! !
 
 Object subclass: #Number
@@ -1975,7 +1974,7 @@ context
 !Error methodsFor: 'signaling'!
 
 signal
-	<self.context = thisContext; self.smalltalkError = true; throw(self)>
+	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
 ! !
 
 !Error class methodsFor: 'instance creation'!
