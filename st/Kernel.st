@@ -1341,6 +1341,14 @@ notEmpty
 
 isEmpty
 	^self size = 0
+!
+
+ifNotEmpty: aBlock
+	self notEmpty ifTrue: aBlock.
+!
+
+ifEmpty: aBlock
+	self isEmpty ifTrue: aBlock.
 ! !
 
 !Collection class methodsFor: 'accessing'!

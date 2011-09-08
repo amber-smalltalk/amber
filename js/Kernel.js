@@ -1281,7 +1281,7 @@ smalltalk.send(self, "_addCompiledMethod_", [method]);
 return self;},
 source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.Compiler]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Behavior);
 
@@ -3791,6 +3791,36 @@ smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 source: unescape('remove%3A%20anObject%0A%20%20%20%20self%20subclassResponsibility'),
 messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+'_ifNotEmpty_',
+smalltalk.method({
+selector: 'ifNotEmpty:',
+category: 'testing',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_notEmpty", []), "_ifTrue_", [aBlock]);
+return self;},
+source: unescape('ifNotEmpty%3A%20aBlock%0A%09self%20notEmpty%20ifTrue%3A%20aBlock.'),
+messageSends: ["ifTrue:", "notEmpty"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+'_ifEmpty_',
+smalltalk.method({
+selector: 'ifEmpty:',
+category: 'testing',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_ifTrue_", [aBlock]);
+return self;},
+source: unescape('ifEmpty%3A%20aBlock%0A%09self%20isEmpty%20ifTrue%3A%20aBlock.'),
+messageSends: ["ifTrue:", "isEmpty"],
 referencedClasses: []
 }),
 smalltalk.Collection);
