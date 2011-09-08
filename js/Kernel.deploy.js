@@ -526,17 +526,6 @@ return self;}
 }),
 smalltalk.Object);
 
-smalltalk.addMethod(
-'_foo',
-smalltalk.method({
-selector: 'foo',
-fn: function (){
-var self=this;
-return self;
-return self;}
-}),
-smalltalk.Object);
-
 
 smalltalk.addMethod(
 '_initialize',
@@ -1223,6 +1212,17 @@ selector: 'referencedClasses',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
+return self;}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+'_arguments',
+smalltalk.method({
+selector: 'arguments',
+fn: function (){
+var self=this;
+return self.args || [];
 return self;}
 }),
 smalltalk.CompiledMethod);
@@ -4073,7 +4073,7 @@ smalltalk.method({
 selector: 'signal',
 fn: function (){
 var self=this;
-self.context = thisContext; self.smalltalkError = true; throw(self);
+self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
 return self;}
 }),
 smalltalk.Error);
