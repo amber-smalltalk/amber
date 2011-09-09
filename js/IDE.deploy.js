@@ -11,6 +11,22 @@ return self;}
 smalltalk.TabManager);
 
 smalltalk.addMethod(
+'_labelFor_',
+smalltalk.method({
+selector: 'labelFor:',
+fn: function (aWidget){
+var self=this;
+var label=nil;
+var maxSize=nil;
+maxSize=(15);
+label=smalltalk.send(smalltalk.send(aWidget, "_label", []), "_copyFrom_to_", [(0), smalltalk.send(smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", []), "_min_", [maxSize])]);
+(($receiver = (($receiver = smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", [])).klass === smalltalk.Number) ? $receiver >maxSize : smalltalk.send($receiver, "__gt", [maxSize])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return label=smalltalk.send(label, "__comma", ["..."]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return label=smalltalk.send(label, "__comma", ["..."]);})]);
+return label;
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
 '_updateBodyMargin',
 smalltalk.method({
 selector: 'updateBodyMargin',
@@ -231,22 +247,6 @@ return self;}
 }),
 smalltalk.TabManager);
 
-smalltalk.addMethod(
-'_labelFor_',
-smalltalk.method({
-selector: 'labelFor:',
-fn: function (aWidget){
-var self=this;
-var label=nil;
-var maxSize=nil;
-maxSize=(15);
-label=smalltalk.send(smalltalk.send(aWidget, "_label", []), "_copyFrom_to_", [(0), smalltalk.send(smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", []), "_min_", [maxSize])]);
-(($receiver = (($receiver = smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", [])).klass === smalltalk.Number) ? $receiver >maxSize : smalltalk.send($receiver, "__gt", [maxSize])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return label=smalltalk.send(label, "__comma", ["..."]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return label=smalltalk.send(label, "__comma", ["..."]);})]);
-return label;
-return self;}
-}),
-smalltalk.TabManager);
-
 
 smalltalk.TabManager.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -330,6 +330,17 @@ return self;}
 smalltalk.TabWidget);
 
 smalltalk.addMethod(
+'_close',
+smalltalk.method({
+selector: 'close',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_closeTab_", [self]);
+return self;}
+}),
+smalltalk.TabWidget);
+
+smalltalk.addMethod(
 '_renderOn_',
 smalltalk.method({
 selector: 'renderOn:',
@@ -392,17 +403,6 @@ selector: 'canBeClosed',
 fn: function (){
 var self=this;
 return false;
-return self;}
-}),
-smalltalk.TabWidget);
-
-smalltalk.addMethod(
-'_close',
-smalltalk.method({
-selector: 'close',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_closeTab_", [self]);
 return self;}
 }),
 smalltalk.TabWidget);
@@ -477,6 +477,17 @@ return self;}
 smalltalk.Workspace);
 
 smalltalk.addMethod(
+'_fileIn',
+smalltalk.method({
+selector: 'fileIn',
+fn: function (){
+var self=this;
+smalltalk.send(self['@sourceArea'], "_fileIn", []);
+return self;}
+}),
+smalltalk.Workspace);
+
+smalltalk.addMethod(
 '_renderBoxOn_',
 smalltalk.method({
 selector: 'renderBoxOn:',
@@ -497,6 +508,7 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_with_", ["DoIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+d")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_doIt", []);})]);})(smalltalk.send(html, "_button", []));
 (function($rec){smalltalk.send($rec, "_with_", ["PrintIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+p")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_printIt", []);})]);})(smalltalk.send(html, "_button", []));
 (function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);smalltalk.send($rec, "_title_", [unescape("ctrl+i")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_inspectIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["FileIn"]);smalltalk.send($rec, "_title_", [unescape("ctrl+f")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_fileIn", []);})]);})(smalltalk.send(html, "_button", []));
 (function($rec){smalltalk.send($rec, "_with_", ["Clear workspace"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_clearWorkspace", []);})]);})(smalltalk.send(html, "_button", []));
 return self;}
 }),
@@ -1427,6 +1439,17 @@ return self;}
 smalltalk.Inspector);
 
 smalltalk.addMethod(
+'_sourceArea',
+smalltalk.method({
+selector: 'sourceArea',
+fn: function (){
+var self=this;
+return self['@sourceArea'];
+return self;}
+}),
+smalltalk.Inspector);
+
+smalltalk.addMethod(
 '_inspect_',
 smalltalk.method({
 selector: 'inspect:',
@@ -1562,17 +1585,6 @@ selector: 'updateButtons',
 fn: function (){
 var self=this;
 (($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedVariable", []), "_notNil", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_variables", []), "_at_", [smalltalk.send(self, "_selectedVariable", [])]), "_notNil", []);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@diveButton'], "_at_put_", ["disabled", true]);})() : (function(){return smalltalk.send(self['@diveButton'], "_removeAt_", ["disabled"]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self['@diveButton'], "_at_put_", ["disabled", true]);}), (function(){return smalltalk.send(self['@diveButton'], "_removeAt_", ["disabled"]);})]);
-return self;}
-}),
-smalltalk.Inspector);
-
-smalltalk.addMethod(
-'_sourceArea',
-smalltalk.method({
-selector: 'sourceArea',
-fn: function (){
-var self=this;
-return self['@sourceArea'];
 return self;}
 }),
 smalltalk.Inspector);
@@ -1978,6 +1990,61 @@ return self;}
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
+'_receiver',
+smalltalk.method({
+selector: 'receiver',
+fn: function (){
+var self=this;
+return (($receiver = self['@receiver']) == nil || $receiver == undefined) ? (function(){return smalltalk.send((smalltalk.DoIt || DoIt), "_new", []);})() : $receiver;
+return self;}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
+'_receiver_',
+smalltalk.method({
+selector: 'receiver:',
+fn: function (anObject){
+var self=this;
+self['@receiver']=anObject;
+return self;}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
+'_onDoIt_',
+smalltalk.method({
+selector: 'onDoIt:',
+fn: function (aBlock){
+var self=this;
+self['@onDoIt']=aBlock;
+return self;}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
+'_onDoIt',
+smalltalk.method({
+selector: 'onDoIt',
+fn: function (){
+var self=this;
+return self['@onDoIt'];
+return self;}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
+'_currentLineOrSelection',
+smalltalk.method({
+selector: 'currentLineOrSelection',
+fn: function (){
+var self=this;
+return (($receiver = smalltalk.send(self['@editor'], "_somethingSelected", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_currentLine", []);})() : (function(){return smalltalk.send(self, "_selection", []);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_currentLine", []);}), (function(){return smalltalk.send(self, "_selection", []);})]);
+return self;}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
 '_clear',
 smalltalk.method({
 selector: 'clear',
@@ -1994,10 +2061,8 @@ smalltalk.method({
 selector: 'doIt',
 fn: function (){
 var self=this;
-var selection=nil;
 var result=nil;
-(($receiver = smalltalk.send(self['@editor'], "_somethingSelected", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return selection=smalltalk.send(self, "_currentLine", []);})() : (function(){return selection=smalltalk.send(self, "_selection", []);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return selection=smalltalk.send(self, "_currentLine", []);}), (function(){return selection=smalltalk.send(self, "_selection", []);})]);
-result=smalltalk.send(self, "_eval_", [selection]);
+result=smalltalk.send(self, "_eval_", [smalltalk.send(self, "_currentLineOrSelection", [])]);
 (($receiver = smalltalk.send(self, "_onDoIt", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_onDoIt", []), "_value", []);})() : nil;
 return result;
 return self;}
@@ -2090,6 +2155,17 @@ return self;}
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
+'_fileIn',
+smalltalk.method({
+selector: 'fileIn',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((smalltalk.Importer || Importer), "_new", []), "_import_", [smalltalk.send(smalltalk.send(self, "_currentLineOrSelection", []), "_readStream", [])]);
+return self;}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
 '_onKeyUp_',
 smalltalk.method({
 selector: 'onKeyUp:',
@@ -2122,50 +2198,6 @@ self['@div']=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["sourc
 smalltalk.send(self['@div'], "_with_", [(function(){return textarea=smalltalk.send(html, "_textarea", []);})]);
 smalltalk.send(self, "_setEditorOn_", [smalltalk.send(textarea, "_element", [])]);
 smalltalk.send(self['@div'], "_onKeyDown_", [(function(e){return smalltalk.send(self, "_handleKeyDown_", [e]);})]);
-return self;}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-'_receiver',
-smalltalk.method({
-selector: 'receiver',
-fn: function (){
-var self=this;
-return (($receiver = self['@receiver']) == nil || $receiver == undefined) ? (function(){return smalltalk.send((smalltalk.DoIt || DoIt), "_new", []);})() : $receiver;
-return self;}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-'_receiver_',
-smalltalk.method({
-selector: 'receiver:',
-fn: function (anObject){
-var self=this;
-self['@receiver']=anObject;
-return self;}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-'_onDoIt_',
-smalltalk.method({
-selector: 'onDoIt:',
-fn: function (aBlock){
-var self=this;
-self['@onDoIt']=aBlock;
-return self;}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-'_onDoIt',
-smalltalk.method({
-selector: 'onDoIt',
-fn: function (){
-var self=this;
-return self['@onDoIt'];
 return self;}
 }),
 smalltalk.SourceArea);
@@ -2285,6 +2317,25 @@ smalltalk.ClassesList.klass);
 
 smalltalk.addClass('ClassesListNode', smalltalk.Widget, ['browser', 'theClass', 'level', 'nodes'], 'IDE');
 smalltalk.addMethod(
+'_renderOn_',
+smalltalk.method({
+selector: 'renderOn:',
+fn: function (html){
+var self=this;
+var li=nil;
+var cssClass=nil;
+cssClass="";
+li=smalltalk.send(smalltalk.send(html, "_li", []), "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectClass_", [smalltalk.send(self, "_theClass", [])]);})]);
+smalltalk.send(smalltalk.send(li, "_asJQuery", []), "_contents_", [smalltalk.send(self, "_label", [])]);
+(($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return cssClass=smalltalk.send(cssClass, "__comma", [" selected"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return cssClass=smalltalk.send(cssClass, "__comma", [" selected"]);})]);
+(($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_theClass", []), "_comment", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return cssClass=smalltalk.send(cssClass, "__comma", [" commented"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return cssClass=smalltalk.send(cssClass, "__comma", [" commented"]);})]);
+smalltalk.send(li, "_class_", [cssClass]);
+smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
+return self;}
+}),
+smalltalk.ClassesListNode);
+
+smalltalk.addMethod(
 '_nodes',
 smalltalk.method({
 selector: 'nodes',
@@ -2392,25 +2443,6 @@ return self;}
 }),
 smalltalk.ClassesListNode);
 
-smalltalk.addMethod(
-'_renderOn_',
-smalltalk.method({
-selector: 'renderOn:',
-fn: function (html){
-var self=this;
-var li=nil;
-var cssClass=nil;
-cssClass="";
-li=smalltalk.send(smalltalk.send(html, "_li", []), "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectClass_", [smalltalk.send(self, "_theClass", [])]);})]);
-smalltalk.send(smalltalk.send(li, "_asJQuery", []), "_contents_", [smalltalk.send(self, "_label", [])]);
-(($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return cssClass=smalltalk.send(cssClass, "__comma", [" selected"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return cssClass=smalltalk.send(cssClass, "__comma", [" selected"]);})]);
-(($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_theClass", []), "_comment", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return cssClass=smalltalk.send(cssClass, "__comma", [" commented"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return cssClass=smalltalk.send(cssClass, "__comma", [" commented"]);})]);
-smalltalk.send(li, "_class_", [cssClass]);
-smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
-return self;}
-}),
-smalltalk.ClassesListNode);
-
 
 smalltalk.addMethod(
 '_on_browser_classes_level_',
@@ -2459,6 +2491,50 @@ return self;}
 smalltalk.Debugger);
 
 smalltalk.addMethod(
+'_source',
+smalltalk.method({
+selector: 'source',
+fn: function (){
+var self=this;
+return (($receiver = smalltalk.send(self, "_method", [])) == nil || $receiver == undefined) ? (function(){return unescape("Method%20doesn%27t%20exist%21");})() : (function(){return smalltalk.send(smalltalk.send(self, "_method", []), "_source", []);})();
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_method',
+smalltalk.method({
+selector: 'method',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_methodAt_", [smalltalk.send(self['@selectedContext'], "_selector", [])]);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_arguments',
+smalltalk.method({
+selector: 'arguments',
+fn: function (){
+var self=this;
+return (($receiver = smalltalk.send(self, "_method", [])) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self['@selectedContext'], "_temps", []), "_collect_", [(function(each){return nil;})]);})() : (function(){return smalltalk.send(smalltalk.send(self, "_method", []), "_arguments", []);})();
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_receiver',
+smalltalk.method({
+selector: 'receiver',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@selectedContext'], "_receiver", []);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
 '_selectContext_',
 smalltalk.method({
 selector: 'selectContext:',
@@ -2468,6 +2544,69 @@ self['@selectedContext']=aContext;
 self['@selectedVariable']=nil;
 self['@selectedVariableName']=nil;
 (function($rec){smalltalk.send($rec, "_updateContextsList", []);smalltalk.send($rec, "_updateSourceArea", []);smalltalk.send($rec, "_updateInspector", []);smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateStatus", []);})(self);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_proceed',
+smalltalk.method({
+selector: 'proceed',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_close", []);
+smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_perform_withArguments_", [smalltalk.send(self['@selectedContext'], "_selector", []), smalltalk.send(self['@selectedContext'], "_temps", [])]);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_save',
+smalltalk.method({
+selector: 'save',
+fn: function (){
+var self=this;
+var protocol=nil;
+protocol=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_methodDictionary", []), "_at_", [smalltalk.send(self['@selectedContext'], "_selector", [])]), "_category", []);
+smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_compile_category_", [smalltalk.send(self['@sourceArea'], "_val", []), protocol]);
+smalltalk.send(self, "_updateStatus", []);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_selectVariable_named_',
+smalltalk.method({
+selector: 'selectVariable:named:',
+fn: function (anObject, aString){
+var self=this;
+self['@selectedVariable']=anObject;
+self['@selectedVariableName']=aString;
+smalltalk.send(self['@inspector'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(anObject, "_printString", [])]);})]);
+smalltalk.send(self, "_updateVariablesList", []);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_inspectSelectedVariable',
+smalltalk.method({
+selector: 'inspectSelectedVariable',
+fn: function (){
+var self=this;
+smalltalk.send(self['@selectedVariable'], "_inspect", []);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.TabWidget);
+smalltalk.send(self['@unsavedChanges'], "__eq", [false]);
 return self;}
 }),
 smalltalk.Debugger);
@@ -2514,6 +2653,35 @@ return self;}
 smalltalk.Debugger);
 
 smalltalk.addMethod(
+'_renderButtonsOn_',
+smalltalk.method({
+selector: 'renderButtonsOn:',
+fn: function (html){
+var self=this;
+self['@saveButton']=(function($rec){smalltalk.send($rec, "_with_", ["Save"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_save", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["DoIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_doIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["PrintIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_printIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_inspectIt", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Proceed"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_proceed", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Abandon"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_close", []);})]);})(smalltalk.send(html, "_button", []));
+self['@inspectButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_button debugger inspect"]);smalltalk.send($rec, "_with_", ["Inspect"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_inspectSelectedVariable", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_updateSourceArea", []);smalltalk.send($rec, "_updateStatus", []);smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateInspector", []);})(self);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
+'_renderBoxOn_',
+smalltalk.method({
+selector: 'renderBoxOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_renderTopPanelOn_", [html]);return smalltalk.send($rec, "_renderBottomPanelOn_", [html]);})(self);
+return self;}
+}),
+smalltalk.Debugger);
+
+smalltalk.addMethod(
 '_canBeClosed',
 smalltalk.method({
 selector: 'canBeClosed',
@@ -2547,79 +2715,12 @@ return self;}
 smalltalk.Debugger);
 
 smalltalk.addMethod(
-'_renderButtonsOn_',
-smalltalk.method({
-selector: 'renderButtonsOn:',
-fn: function (html){
-var self=this;
-self['@saveButton']=(function($rec){smalltalk.send($rec, "_with_", ["Save"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_save", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", ["DoIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_doIt", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", ["PrintIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_printIt", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", ["InspectIt"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self['@sourceArea'], "_inspectIt", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", ["Proceed"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_proceed", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", ["Abandon"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_close", []);})]);})(smalltalk.send(html, "_button", []));
-self['@inspectButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_button debugger inspect"]);smalltalk.send($rec, "_with_", ["Inspect"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_inspectSelectedVariable", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_updateSourceArea", []);smalltalk.send($rec, "_updateStatus", []);smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateInspector", []);})(self);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_proceed',
-smalltalk.method({
-selector: 'proceed',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_close", []);
-smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_perform_withArguments_", [smalltalk.send(self['@selectedContext'], "_selector", []), smalltalk.send(self['@selectedContext'], "_temps", [])]);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_save',
-smalltalk.method({
-selector: 'save',
-fn: function (){
-var self=this;
-var protocol=nil;
-protocol=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_methodDictionary", []), "_at_", [smalltalk.send(self['@selectedContext'], "_selector", [])]), "_category", []);
-smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_compile_category_", [smalltalk.send(self['@sourceArea'], "_val", []), protocol]);
-smalltalk.send(self, "_updateStatus", []);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
 '_updateStatus',
 smalltalk.method({
 selector: 'updateStatus',
 fn: function (){
 var self=this;
 (($receiver = smalltalk.send(smalltalk.send(self['@sourceArea'], "_val", []), "__eq", [smalltalk.send(self, "_source", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){(($receiver = self['@saveButton']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@saveButton'], "_at_put_", ["disabled", true]);})() : nil;return self['@unsavedChanges']=false;})() : (function(){(($receiver = self['@saveButton']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@saveButton'], "_removeAt_", ["disabled"]);})() : nil;return self['@unsavedChanges']=true;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){(($receiver = self['@saveButton']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@saveButton'], "_at_put_", ["disabled", true]);})() : nil;return self['@unsavedChanges']=false;}), (function(){(($receiver = self['@saveButton']) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self['@saveButton'], "_removeAt_", ["disabled"]);})() : nil;return self['@unsavedChanges']=true;})]);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.TabWidget);
-smalltalk.send(self['@unsavedChanges'], "__eq", [false]);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_source',
-smalltalk.method({
-selector: 'source',
-fn: function (){
-var self=this;
-return (($receiver = smalltalk.send(self, "_method", [])) == nil || $receiver == undefined) ? (function(){return unescape("Method%20doesn%27t%20exist%21");})() : (function(){return smalltalk.send(smalltalk.send(self, "_method", []), "_source", []);})();
 return self;}
 }),
 smalltalk.Debugger);
@@ -2636,17 +2737,6 @@ return self;}
 smalltalk.Debugger);
 
 smalltalk.addMethod(
-'_renderBoxOn_',
-smalltalk.method({
-selector: 'renderBoxOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_renderTopPanelOn_", [html]);return smalltalk.send($rec, "_renderBottomPanelOn_", [html]);})(self);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
 '_updateVariablesList',
 smalltalk.method({
 selector: 'updateVariablesList',
@@ -2657,64 +2747,6 @@ li=(function($rec){smalltalk.send($rec, "_with_", ["self"]);return smalltalk.sen
 param=smalltalk.send(smalltalk.send(self['@selectedContext'], "_temps", []), "_at_", [index]);li=(function($rec){smalltalk.send($rec, "_with_", [each]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectVariable_named_", [param, each]);})]);})(smalltalk.send(html, "_li", []));return (($receiver = smalltalk.send(self['@selectedVariableName'], "__eq", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(li, "_class_", ["selected"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);})]);return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_class", []), "_allInstanceVariableNames", []), "_do_", [(function(each){var ivar=nil;
 ivar=smalltalk.send(smalltalk.send(self, "_receiver", []), "_instVarAt_", [each]);li=(function($rec){smalltalk.send($rec, "_with_", [each]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectVariable_named_", [ivar, each]);})]);})(smalltalk.send(html, "_li", []));return (($receiver = smalltalk.send(self['@selectedVariableName'], "__eq", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(li, "_class_", ["selected"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]);})]);})]);
 (($receiver = self['@selectedVariable']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self['@inspectButton'], "_at_put_", ["disabled", true]);})() : (function(){return smalltalk.send(self['@inspectButton'], "_removeAt_", ["disabled"]);})();
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_selectVariable_named_',
-smalltalk.method({
-selector: 'selectVariable:named:',
-fn: function (anObject, aString){
-var self=this;
-self['@selectedVariable']=anObject;
-self['@selectedVariableName']=aString;
-smalltalk.send(self['@inspector'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(anObject, "_printString", [])]);})]);
-smalltalk.send(self, "_updateVariablesList", []);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_method',
-smalltalk.method({
-selector: 'method',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedContext'], "_receiver", []), "_class", []), "_methodAt_", [smalltalk.send(self['@selectedContext'], "_selector", [])]);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_arguments',
-smalltalk.method({
-selector: 'arguments',
-fn: function (){
-var self=this;
-return (($receiver = smalltalk.send(self, "_method", [])) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self['@selectedContext'], "_temps", []), "_collect_", [(function(each){return nil;})]);})() : (function(){return smalltalk.send(smalltalk.send(self, "_method", []), "_arguments", []);})();
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_receiver',
-smalltalk.method({
-selector: 'receiver',
-fn: function (){
-var self=this;
-return smalltalk.send(self['@selectedContext'], "_receiver", []);
-return self;}
-}),
-smalltalk.Debugger);
-
-smalltalk.addMethod(
-'_inspectSelectedVariable',
-smalltalk.method({
-selector: 'inspectSelectedVariable',
-fn: function (){
-var self=this;
-smalltalk.send(self['@selectedVariable'], "_inspect", []);
 return self;}
 }),
 smalltalk.Debugger);
@@ -2910,6 +2942,20 @@ return self;}
 smalltalk.TestRunner);
 
 smalltalk.addMethod(
+'_testCases',
+smalltalk.method({
+selector: 'testCases',
+fn: function (){
+var self=this;
+var testCases=nil;
+testCases=[];
+smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_do_", [(function(each){return smalltalk.send(testCases, "_addAll_", [smalltalk.send(each, "_buildSuite", [])]);})]);
+return testCases;
+return self;}
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
 '_selectAllCategories',
 smalltalk.method({
 selector: 'selectAllCategories',
@@ -2968,6 +3014,17 @@ self['@result']=smalltalk.send((smalltalk.TestResult || TestResult), "_new", [])
 smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [(0)]);
 smalltalk.send(self['@result'], "_total_", [smalltalk.send(aCollection, "_size", [])]);
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send((function(){smalltalk.send(each, "_runCaseFor_", [self['@result']]);smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [(($receiver = (($receiver = smalltalk.send(self['@result'], "_runs", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(self['@result'], "_total", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(self['@result'], "_total", [])])).klass === smalltalk.Number) ? $receiver *(100) : smalltalk.send($receiver, "__star", [(100)])]);smalltalk.send(self, "_updateStatusDiv", []);return smalltalk.send(self, "_updateMethodsList", []);}), "_valueWithTimeout_", [(100)]);})]);
+return self;}
+}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+'_performFailure_',
+smalltalk.method({
+selector: 'performFailure:',
+fn: function (aTestCase){
+var self=this;
+smalltalk.send(aTestCase, "_perform_", [smalltalk.send(aTestCase, "_selector", [])]);
 return self;}
 }),
 smalltalk.TestRunner);
@@ -3176,31 +3233,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@statusDiv'], "_class_", [smalltalk.send("sunit status ", "__comma", [smalltalk.send(self['@result'], "_status", [])])]);
 smalltalk.send(self['@statusDiv'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(html, "_span", []), "_with_", [smalltalk.send(self, "_statusInfo", [])]);})]);
-return self;}
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_testCases',
-smalltalk.method({
-selector: 'testCases',
-fn: function (){
-var self=this;
-var testCases=nil;
-testCases=[];
-smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_do_", [(function(each){return smalltalk.send(testCases, "_addAll_", [smalltalk.send(each, "_buildSuite", [])]);})]);
-return testCases;
-return self;}
-}),
-smalltalk.TestRunner);
-
-smalltalk.addMethod(
-'_performFailure_',
-smalltalk.method({
-selector: 'performFailure:',
-fn: function (aTestCase){
-var self=this;
-smalltalk.send(aTestCase, "_perform_", [smalltalk.send(aTestCase, "_selector", [])]);
 return self;}
 }),
 smalltalk.TestRunner);

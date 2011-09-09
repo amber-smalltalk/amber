@@ -277,6 +277,10 @@ printIt
 
 inspectIt
     sourceArea inspectIt
+!
+
+fileIn
+    sourceArea fileIn
 ! !
 
 !Workspace methodsFor: 'rendering'!
@@ -299,6 +303,10 @@ renderButtonsOn: html
 	with: 'InspectIt';
 	title: 'ctrl+i';
 	onClick: [self inspectIt].
+    html button
+	with: 'FileIn';
+	title: 'ctrl+f';
+	onClick: [self fileIn].
     html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
@@ -1376,6 +1384,12 @@ onDoIt: aBlock
 
 onDoIt
 	^onDoIt
+!
+
+currentLineOrSelection
+    ^editor somethingSelected
+	ifFalse: [self currentLine]
+	ifTrue: [self selection]
 ! !
 
 !SourceArea methodsFor: 'actions'!
@@ -1385,11 +1399,8 @@ clear
 !
 
 doIt
-    | selection result |
-    editor somethingSelected
-	ifFalse: [selection := self currentLine]
-	ifTrue: [selection := self selection].
-    result := self eval: selection.
+    | result |
+    result := self eval: self currentLineOrSelection.
     self onDoIt ifNotNil: [self onDoIt value].
     ^result
 !
@@ -1441,6 +1452,10 @@ print: aString
 
 printIt
     self print: self doIt printString
+!
+
+fileIn
+    Importer new import: self currentLineOrSelection readStream
 ! !
 
 !SourceArea methodsFor: 'events'!
