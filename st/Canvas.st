@@ -1,75 +1,3 @@
-Object subclass: #CanvasRenderingContext
-	instanceVariableNames: ''
-	category: 'Canvas'!
-
-!CanvasRenderingContext methodsFor: 'drawing arcs'!
-
-arcTo: aPoint radius: aNumber startAngle: aNumber2 endAngle: aNumber3 anticlockwise: aBoolean
-	<self.arc(aPoint._x(), aPoint._y(), aNumber, aNumber2, aNumber3, aBoolean)>
-!
-
-arcTo: aPoint radius: aNumber
-	self arcTo: aPoint radius: aNumber startAngle: 0 endAngle: Number pi * 2 anticlockwise: false
-! !
-
-!CanvasRenderingContext methodsFor: 'drawing paths'!
-
-fillStyle: aString
-	<self.fillStyle = String(aString)>
-!
-
-beginPath
-	<self.beginPath()>
-!
-
-closePath
-	<self.closePath()>
-!
-
-fill
-	<self.fill()>
-!
-
-stroke
-	<self.stroke()>
-!
-
-moveTo: aPoint
-	<self.moveTo(aPoint._x(), aPoint._y())>
-!
-
-lineTo: aPoint
-	<self.lineTo(aPoint._x(), aPoint._y())>
-!
-
-strokeStyle: aString
-	<self.strokeStyle = String(aString)>
-!
-
-lineWidth: aNumber
-	<self.lineWidth = aNumber>
-! !
-
-!CanvasRenderingContext methodsFor: 'drawing rectangles'!
-
-fillRectFrom: aPoint to: anotherPoint
-	<self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())>
-!
-
-strokeRectFrom: aPoint to: anotherPoint
-	<self.strokeRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())>
-!
-
-clearRectFrom: aPoint to: anotherPoint
-	<self.fillRect(aPoint._x(), aPoint._y(), anotherPoint._x(), anotherPoint._y())>
-! !
-
-!CanvasRenderingContext class methodsFor: 'instance creation'!
-
-tagBrush: aTagBrush
-	<return aTagBrush._element().getContext('2d')>
-! !
-
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	category: 'Canvas'!
@@ -463,30 +391,6 @@ appendToJQuery: aJQuery
 
 renderOn: html
     self
-! !
-
-TagBrush subclass: #CanvasBrush
-	instanceVariableNames: ''
-	category: 'Canvas'!
-
-!CanvasBrush methodsFor: 'initialization'!
-
-initializeWithCanvas: aCanvas
-	canvas := aCanvas
-! !
-
-!CanvasBrush methodsFor: 'private'!
-
-createElement
-	<return document.createElement('canvas')>
-! !
-
-!CanvasBrush class methodsFor: 'instance creation'!
-
-canvas: aCanvas
-	^self new
-		initializeWithCanvas: aCanvas;
-		yourself
 ! !
 
 !Object methodsFor: '*Canvas'!

@@ -278,12 +278,6 @@ body.jtalkBody {
     line-height: 18px;
 }
 
-/* .jtalkTool .jt_tabs li:hover { */
-/*     background: #08c; */
-/*     color: white; */
-/*     border-color: #08c; */
-/* } */
-
 .jtalkTool .jt_tabs li.selected,
 .jtalkTool .jt_tabs li.selected:hover {
     background: white;
@@ -306,7 +300,7 @@ body.jtalkBody {
     height: 100%;
 }
 
-/* Debugger */
+/* Debugger & inspector */
 
 .jtalkTool .jt_box .label {
 	width: 98%;
@@ -318,13 +312,47 @@ body.jtalkBody {
 	color: red;
 }
 
-.jtalkTool .jt_box .jt_column.debugger.contexts {
-    width: 100%;
-    top: 30px;
-    
+.jtalkTool .jt_box .jt_column.debugger {
+    top: 175px;
 }
 
-/***** IDE - ReferencesBrowser ******/
+.jtalkTool .jt_box .jt_column.debugger.contexts {
+    top: 30px;
+    width: 100%;
+}
+
+.jtalkTool .jt_sourceCode.debugger {
+    width: 60%;
+}
+
+.jtalkTool .jt_box .jt_column.debugger.variables {
+    width: 10%;
+    left: 61%;
+    bottom: 0;
+    position: absolute;
+    height: auto;
+}
+
+.jtalkTool .jt_box .jt_column.debugger.inspector {
+    width: 28%;
+    left: 72%;
+    bottom: 0;
+    position: absolute;
+    height: auto;
+}
+
+.jtalkTool .jt_button.debugger.inspect {
+    position: absolute;
+    left: 61%;
+}
+
+.jtalkTool .jt_buttons.inspector {
+    position: absolute;
+    top: 140px;
+}
+
+
+/* ReferencesBrowser */
 
 .jtalkTool .jt_box .implementors {
 	width: 100%
@@ -365,3 +393,77 @@ body.jtalkBody {
 .jtalkTool .classes .commented {
 		color: #33337F;
 }
+
+
+/* SUnit TestRunner  */
+
+.jtalkTool .jt_column.sunit.categories,
+.jtalkTool .jt_column.sunit.classes {
+	height: 100%
+}
+
+.jtalkTool .jt_column.sunit.classes li.all,
+.jtalkTool .jt_column.sunit.categories li.all {
+	background: #e3e3e3;
+	font-weight: bold
+}
+
+.jtalkTool .jt_column.sunit.classes li.all:hover ,
+.jtalkTool .jt_column.sunit.categories li.all:hover {
+	background: #0088CC;
+	font-weight: bold
+}
+
+.jtalkTool .sunit.status {
+	position: absolute;
+	left: 50.4%;
+	width: 49%;
+	background: white;
+	border: 1px solid #a8a8a8;
+	height: 40px
+}
+
+
+.jtalkTool .sunit.status.success {
+	background: #43d443;
+}
+
+
+.jtalkTool .sunit.status.failure {
+	background: #ecd443;
+}
+
+
+.jtalkTool .sunit.status.error {
+	background: #e56f3b;
+}
+
+.jtalkTool .progress_bar {
+	position: absolute;
+	left: 50.4%;
+	width: 49%;
+	top: 50px;
+	border: 1px solid #a8a8a8;
+	background: white;
+	min-height: 20px
+}
+
+.jtalkTool .progress_bar div {
+	background: #0088CC;
+	min-height: 20px;
+}
+
+.jtalkTool .jt_column.sunit.methods {
+	left: 50.4%;
+	height: auto;
+        width: 49%;
+        top: 80px;
+        bottom: 0;
+}
+
+.jtalkTool .jt_column.sunit.methods .errors {
+    color: red;
+}
+
+.jtalkTool .jt_column.sunit.methods ul {padding: 0; margin: 0}
+

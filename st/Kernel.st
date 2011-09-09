@@ -2,11 +2,6 @@ nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
-!Object methodsFor: ''!
-
-foo ^ self
-! !
-
 !Object methodsFor: 'accessing'!
 
 yourself
@@ -579,6 +574,10 @@ methodClass
 
 referencedClasses
 	^self basicAt: 'referencedClasses'
+!
+
+arguments
+	<return self.args || []>
 ! !
 
 Object subclass: #Number
@@ -1241,6 +1240,10 @@ asArray
 	    index := index + 1.
 	    array at: index put: each].
 	^array
+!
+
+asSet
+	^Set withAll: self
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -1983,7 +1986,7 @@ context
 !Error methodsFor: 'signaling'!
 
 signal
-	<self.context = thisContext; self.smalltalkError = true; throw(self)>
+	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
 ! !
 
 !Error class methodsFor: 'instance creation'!
@@ -2750,5 +2753,63 @@ on: aJSObject
 	^self new
 		jsObject: aJSObject;
 		yourself
+! !
+
+Collection subclass: #Set
+	instanceVariableNames: 'elements'
+	category: 'Kernel'!
+
+!Set methodsFor: 'accessing'!
+
+size
+	^elements size
+! !
+
+!Set methodsFor: 'adding/removing'!
+
+add: anObject
+	<
+		var found;
+		for(var i in self['@elements']) {
+			if(anObject == self['@elements'][i]) {
+				found = true;
+				break;
+			}
+		}
+		if(!!found) {self['@elements'].push(anObject)}
+	>
+!
+
+remove: anObject
+	elements remove: anObject
+! !
+
+!Set methodsFor: 'converting'!
+
+asArray
+	^elements copy
+! !
+
+!Set methodsFor: 'enumerating'!
+
+detect: aBlock ifNone: anotherBlock
+	^elements detect: aBlock ifNone: anotherBlock
+!
+
+do: aBlock
+	elements do: aBlock
+! !
+
+!Set methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	elements := #()
+! !
+
+!Set methodsFor: 'testing'!
+
+includes: anObject
+	^elements includes: anObject
 ! !
 

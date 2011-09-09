@@ -1,37 +1,4 @@
-smalltalk.addClass('TestCase', smalltalk.Object, ['testedClass'], 'SUnit');
-smalltalk.addMethod(
-'_testedClass',
-smalltalk.method({
-selector: 'testedClass',
-fn: function (){
-var self=this;
-return self['@testedClass'];
-return self;}
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-'_testedClass_',
-smalltalk.method({
-selector: 'testedClass:',
-fn: function (aClass){
-var self=this;
-self['@testedClass']=aClass;
-return self;}
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-'_cleanUpInstanceVariables',
-smalltalk.method({
-selector: 'cleanUpInstanceVariables',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [(function(name){return (($receiver = smalltalk.send(name, "__eq", ["testSelector"])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_instVarAt_put_", [name, nil]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_instVarAt_put_", [name, nil]);})]);})]);
-return self;}
-}),
-smalltalk.TestCase);
-
+smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
 '_signalFailure_',
 smalltalk.method({
@@ -66,25 +33,15 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_methods',
-smalltalk.method({
-selector: 'methods',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_methodDictionary", []), "_keys", []), "_select_", [(function(each){return smalltalk.send(each, "_match_", [unescape("%5Etest")]);})]);
-return self;}
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
 '_runCaseFor_',
 smalltalk.method({
 selector: 'runCaseFor:',
 fn: function (aTestResult){
 var self=this;
-smalltalk.send((function(){smalltalk.send(self, "_setUp", []);return smalltalk.send(self, "_performTestFor_", [aTestResult]);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){smalltalk.send(self, "_tearDown", []);smalltalk.send(self, "_cleanUpInstanceVariables", []);return smalltalk.send(ex, "_signal", []);})]);
+smalltalk.send(self, "_setUp", []);
+smalltalk.send(aTestResult, "_increaseRuns", []);
+smalltalk.send(self, "_performTestFor_", [aTestResult]);
 smalltalk.send(self, "_tearDown", []);
-smalltalk.send(self, "_cleanUpInstanceVariables", []);
 return self;}
 }),
 smalltalk.TestCase);
@@ -95,7 +52,7 @@ smalltalk.method({
 selector: 'performTestFor:',
 fn: function (aResult){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_methods", []), "_do_", [(function(each){smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [each]);}), "_on_do_", [(smalltalk.TestFailure || TestFailure), (function(ex){return smalltalk.send(aResult, "_addFailure_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each]), "__comma", [": "]), "__comma", [smalltalk.send(ex, "_messageText", [])])]);})]);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){return smalltalk.send(aResult, "_addError_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_name", []), "__comma", [unescape("%3E%3E")]), "__comma", [each]), "__comma", [": "]), "__comma", [smalltalk.send(ex, "_messageText", [])])]);})]);return smalltalk.send(aResult, "_increaseRuns", []);})]);
+smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [smalltalk.send(self, "_selector", [])]);}), "_on_do_", [(smalltalk.TestFailure || TestFailure), (function(ex){return smalltalk.send(aResult, "_addFailure_", [self]);})]);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){return smalltalk.send(aResult, "_addError_", [self]);})]);
 return self;}
 }),
 smalltalk.TestCase);
@@ -144,6 +101,97 @@ return self;}
 }),
 smalltalk.TestCase);
 
+smalltalk.addMethod(
+'_setTestSelector_',
+smalltalk.method({
+selector: 'setTestSelector:',
+fn: function (aSelector){
+var self=this;
+self['@testSelector']=aSelector;
+return self;}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_selector',
+smalltalk.method({
+selector: 'selector',
+fn: function (){
+var self=this;
+return self['@testSelector'];
+return self;}
+}),
+smalltalk.TestCase);
+
+
+smalltalk.addMethod(
+'_testSelectors',
+smalltalk.method({
+selector: 'testSelectors',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_keys", []), "_select_", [(function(each){return smalltalk.send(each, "_match_", [unescape("%5Etest")]);})]);
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_selector_',
+smalltalk.method({
+selector: 'selector:',
+fn: function (aSelector){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_setTestSelector_", [aSelector]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_lookupHierarchyRoot',
+smalltalk.method({
+selector: 'lookupHierarchyRoot',
+fn: function (){
+var self=this;
+return (smalltalk.TestCase || TestCase);
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_shouldInheritSelectors',
+smalltalk.method({
+selector: 'shouldInheritSelectors',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_~_eq", [smalltalk.send(self, "_lookupHierarchyRoot", [])]);
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_allTestSelectors',
+smalltalk.method({
+selector: 'allTestSelectors',
+fn: function (){
+var self=this;
+var selectors=nil;
+selectors=smalltalk.send(self, "_testSelectors", []);
+(($receiver = smalltalk.send(self, "_shouldInheritSelectors", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(selectors, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allTestSelectors", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(selectors, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allTestSelectors", [])]);})]);
+return selectors;
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_buildSuite',
+smalltalk.method({
+selector: 'buildSuite',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_allTestSelectors", []), "_collect_", [(function(each){return smalltalk.send(self, "_selector_", [each]);})]);
+return self;}
+}),
+smalltalk.TestCase.klass);
 
 
 smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
