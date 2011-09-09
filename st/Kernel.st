@@ -716,6 +716,10 @@ to: aNumber do: aBlock
 
 printString
 	<return String(self)>
+!
+
+printShowingDecimalPlaces: placesDesired
+	<return self.toFixed(placesDesired)>
 ! !
 
 !Number methodsFor: 'testing'!
