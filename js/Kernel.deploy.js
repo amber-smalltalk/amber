@@ -5454,18 +5454,7 @@ smalltalk.method({
 selector: 'current',
 fn: function (){
 var self=this;
-return self['@current'];
-return self;}
-}),
-smalltalk.ErrorHandler.klass);
-
-smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_register", []);
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return self['@current']=smalltalk.send(self, "_new", []);})() : $receiver;
 return self;}
 }),
 smalltalk.ErrorHandler.klass);
@@ -5541,6 +5530,24 @@ for(var i in self['@jsObject']) {
 		variables._at_put_(i, self['@jsObject'][i]);
 	};
 smalltalk.send(anInspector, "_setVariables_", [variables]);
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+'_doesNotUnderstand_',
+smalltalk.method({
+selector: 'doesNotUnderstand:',
+fn: function (aMessage){
+var self=this;
+var obj=nil;
+var selector=nil;
+var arguments=nil;
+obj=smalltalk.send(self, "_jsObject", []);
+selector=smalltalk.send(aMessage, "_selector", []);
+arguments=smalltalk.send(aMessage, "_arguments", []);
+if(obj[selector]) {return smalltalk.send(obj, selector, arguments)};
+smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;}
 }),
 smalltalk.JSObjectProxy);

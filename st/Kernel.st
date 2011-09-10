@@ -2691,7 +2691,7 @@ ErrorHandler class instanceVariableNames: 'current'!
 !ErrorHandler class methodsFor: 'accessing'!
 
 current
-	^current
+	^current ifNil: [current := self new]
 !
 
 setCurrent: anHandler
@@ -2699,10 +2699,6 @@ setCurrent: anHandler
 ! !
 
 !ErrorHandler class methodsFor: 'initialization'!
-
-initialize
-	self register
-!
 
 register
 	ErrorHandler setCurrent: self new
@@ -2737,6 +2733,15 @@ inspectOn: anInspector
 		variables._at_put_(i, self['@jsObject'][i]);
 	}>.
 	anInspector setVariables: variables
+!
+
+doesNotUnderstand: aMessage
+	| obj selector arguments |
+	obj := self jsObject.
+	selector := aMessage selector.
+	arguments := aMessage arguments.
+	<if(obj[selector]) {return smalltalk.send(obj, selector, arguments)}>.
+	super doesNotUnderstand: aMessage
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!

@@ -4049,7 +4049,7 @@ return self;},
 args: [],
 source: unescape('asSet%0A%09%5ESet%20withAll%3A%20self'),
 messageSends: ["withAll:"],
-referencedClasses: [smalltalk.Set]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Collection);
 
@@ -7771,27 +7771,11 @@ selector: 'current',
 category: 'accessing',
 fn: function (){
 var self=this;
-return self['@current'];
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return self['@current']=smalltalk.send(self, "_new", []);})() : $receiver;
 return self;},
 args: [],
-source: unescape('current%0A%09%5Ecurrent'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ErrorHandler.klass);
-
-smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_register", []);
-return self;},
-args: [],
-source: unescape('initialize%0A%09self%20register'),
-messageSends: ["register"],
+source: unescape('current%0A%09%5Ecurrent%20ifNil%3A%20%5Bcurrent%20%3A%3D%20self%20new%5D'),
+messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler.klass);
@@ -7898,6 +7882,29 @@ args: ["anInspector"],
 source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self%20jsObject.%0A%09anInspector%20setLabel%3A%20self%20printString.%0A%09%3Cfor%28var%20i%20in%20self%5B%27@jsObject%27%5D%29%20%7B%0A%09%09variables._at_put_%28i%2C%20self%5B%27@jsObject%27%5D%5Bi%5D%29%3B%0A%09%7D%3E.%0A%09anInspector%20setVariables%3A%20variables'),
 messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "setVariables:"],
 referencedClasses: [smalltalk.Dictionary]
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+'_doesNotUnderstand_',
+smalltalk.method({
+selector: 'doesNotUnderstand:',
+category: 'proxy',
+fn: function (aMessage){
+var self=this;
+var obj=nil;
+var selector=nil;
+var arguments=nil;
+obj=smalltalk.send(self, "_jsObject", []);
+selector=smalltalk.send(aMessage, "_selector", []);
+arguments=smalltalk.send(aMessage, "_arguments", []);
+if(obj[selector]) {return smalltalk.send(obj, selector, arguments)};
+smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
+return self;},
+args: ["aMessage"],
+source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5Bselector%5D%29%20%7Breturn%20smalltalk.send%28obj%2C%20selector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
+messageSends: ["jsObject", "selector", "arguments", "doesNotUnderstand:"],
+referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 

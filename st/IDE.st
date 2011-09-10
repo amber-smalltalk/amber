@@ -140,24 +140,23 @@ renderOn: html
 !
 
 renderTabFor: aWidget on: html
-    | li |
-    li := html li.
-    selectedTab = aWidget ifTrue: [
+	| li |
+	li := html li.
+	selectedTab = aWidget ifTrue: [
 	li class: 'selected'].
-    li with: [
-        html span class: 'ltab'.
-	html span
-     	    class: 'mtab';
-      	    with: [
-        	aWidget canBeClosed ifTrue: [
-	    		html span 
-				class: 'close';
-				with: 'x';
-			onClick: [self closeTab: aWidget]].
-	    		html span
-              			with: (self labelFor: aWidget);
-	    			onClick: [self selectTab: aWidget]].
-        html span class: 'rtab'].
+	li with: [
+		html span class: 'ltab'.
+		html span
+     	    		class: 'mtab';
+      	    		with: [
+        			aWidget canBeClosed ifTrue: [
+	    				html span 
+						class: 'close';
+						with: 'x';
+					onClick: [self closeTab: aWidget]].
+	    		html span with: (self labelFor: aWidget)].
+        	html span class: 'rtab'];
+	onClick: [self selectTab: aWidget]
 !
 
 renderTabs
