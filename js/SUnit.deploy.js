@@ -1,5 +1,27 @@
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
+'_setTestSelector_',
+smalltalk.method({
+selector: 'setTestSelector:',
+fn: function (aSelector){
+var self=this;
+self['@testSelector']=aSelector;
+return self;}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_selector',
+smalltalk.method({
+selector: 'selector',
+fn: function (){
+var self=this;
+return self['@testSelector'];
+return self;}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 '_signalFailure_',
 smalltalk.method({
 selector: 'signalFailure:',
@@ -101,28 +123,6 @@ return self;}
 }),
 smalltalk.TestCase);
 
-smalltalk.addMethod(
-'_setTestSelector_',
-smalltalk.method({
-selector: 'setTestSelector:',
-fn: function (aSelector){
-var self=this;
-self['@testSelector']=aSelector;
-return self;}
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-'_selector',
-smalltalk.method({
-selector: 'selector',
-fn: function (){
-var self=this;
-return self['@testSelector'];
-return self;}
-}),
-smalltalk.TestCase);
-
 
 smalltalk.addMethod(
 '_testSelectors',
@@ -158,17 +158,6 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_shouldInheritSelectors',
-smalltalk.method({
-selector: 'shouldInheritSelectors',
-fn: function (){
-var self=this;
-return smalltalk.send(self, "_~_eq", [smalltalk.send(self, "_lookupHierarchyRoot", [])]);
-return self;}
-}),
-smalltalk.TestCase.klass);
-
-smalltalk.addMethod(
 '_allTestSelectors',
 smalltalk.method({
 selector: 'allTestSelectors',
@@ -189,6 +178,17 @@ selector: 'buildSuite',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_allTestSelectors", []), "_collect_", [(function(each){return smalltalk.send(self, "_selector_", [each]);})]);
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_shouldInheritSelectors',
+smalltalk.method({
+selector: 'shouldInheritSelectors',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_~_eq", [smalltalk.send(self, "_lookupHierarchyRoot", [])]);
 return self;}
 }),
 smalltalk.TestCase.klass);
