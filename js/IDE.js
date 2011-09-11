@@ -1578,11 +1578,11 @@ selector: 'addInstanceVariableNamed:toClass:',
 category: 'actions',
 fn: function (aString, aClass){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_addSubclassOf_named_instanceVariableNames_", [smalltalk.send(aClass, "_superclass", []), smalltalk.send(aClass, "_name", []), (function($rec){smalltalk.send($rec, "_add_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.send(aClass, "_instanceVariableNames", []), "_copy", []))]);
+smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_addSubclassOf_named_instanceVariableNames_module_", [smalltalk.send(aClass, "_superclass", []), smalltalk.send(aClass, "_name", []), (function($rec){smalltalk.send($rec, "_add_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(smalltalk.send(aClass, "_instanceVariableNames", []), "_copy", [])), smalltalk.send(smalltalk.send(aClass, "_module", []), "_name", [])]);
 return self;},
 args: ["aString", "aClass"],
-source: unescape('addInstanceVariableNamed%3A%20aString%20toClass%3A%20aClass%0A%09ClassBuilder%20new%0A%09%09addSubclassOf%3A%20aClass%20superclass%20named%3A%20aClass%20name%20instanceVariableNames%3A%20%28aClass%20instanceVariableNames%20copy%20add%3A%20aString%3B%20yourself%29'),
-messageSends: ["addSubclassOf:named:instanceVariableNames:", "new", "superclass", "name", "add:", "yourself", "copy", "instanceVariableNames"],
+source: unescape('addInstanceVariableNamed%3A%20aString%20toClass%3A%20aClass%0A%09ClassBuilder%20new%0A%09%09addSubclassOf%3A%20aClass%20superclass%20%0A%09%09named%3A%20aClass%20name%20%0A%09%09instanceVariableNames%3A%20%28aClass%20instanceVariableNames%20copy%20add%3A%20aString%3B%20yourself%29%0A%09%09module%3A%20aClass%20module%20name'),
+messageSends: ["addSubclassOf:named:instanceVariableNames:module:", "new", "superclass", "name", "add:", "yourself", "copy", "instanceVariableNames", "module"],
 referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.Browser);
@@ -2397,13 +2397,13 @@ category: 'actions',
 fn: function (aMethod){
 var self=this;
 var browser=nil;
-browser=smalltalk.send((smalltalk.Browser || Browser), "_openOn_", [(($receiver = smalltalk.send(smalltalk.send(aMethod, "_class", []), "_isMetaclass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_instanceClass", []);})() : (function(){return smalltalk.send(aMethod, "_methodClass", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_instanceClass", []);}), (function(){return smalltalk.send(aMethod, "_methodClass", []);})])]);
+browser=smalltalk.send((smalltalk.Browser || Browser), "_openOn_", [(($receiver = smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_isMetaclass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_instanceClass", []);})() : (function(){return smalltalk.send(aMethod, "_methodClass", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_instanceClass", []);}), (function(){return smalltalk.send(aMethod, "_methodClass", []);})])]);
 (($receiver = smalltalk.send(smalltalk.send(aMethod, "_methodClass", []), "_isMetaclass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(browser, "_selectTab_", ["class"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(browser, "_selectTab_", ["class"]);})]);
 (function($rec){smalltalk.send($rec, "_selectProtocol_", [smalltalk.send(aMethod, "_category", [])]);return smalltalk.send($rec, "_selectMethod_", [aMethod]);})(browser);
 return self;},
 args: ["aMethod"],
-source: unescape('openBrowserOn%3A%20aMethod%0A%20%20%20%20%20%20%20%7C%20browser%20%7C%0A%20%20%20%20%20%20%20browser%20%3A%3D%20Browser%20openOn%3A%20%28aMethod%20class%20isMetaclass%20%0A%09%09ifTrue%3A%20%5BaMethod%20methodClass%20instanceClass%5D%20ifFalse%3A%20%5BaMethod%20methodClass%5D%29.%0A%20%20%20%20%20%20%20aMethod%20methodClass%20isMetaclass%20ifTrue%3A%20%5Bbrowser%20selectTab%3A%20%23class%5D.%0A%20%20%20%20%20%20%20browser%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectProtocol%3A%20aMethod%20category%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectMethod%3A%20aMethod'),
-messageSends: ["openOn:", "ifTrue:ifFalse:", "isMetaclass", "class", "instanceClass", "methodClass", "ifTrue:", "selectTab:", "selectProtocol:", "category", "selectMethod:"],
+source: unescape('openBrowserOn%3A%20aMethod%0A%20%20%20%20%20%20%20%7C%20browser%20%7C%0A%20%20%20%20%20%20%20browser%20%3A%3D%20Browser%20openOn%3A%20%28aMethod%20methodClass%20isMetaclass%20%0A%09%09ifTrue%3A%20%5BaMethod%20methodClass%20instanceClass%5D%20ifFalse%3A%20%5BaMethod%20methodClass%5D%29.%0A%20%20%20%20%20%20%20aMethod%20methodClass%20isMetaclass%20ifTrue%3A%20%5Bbrowser%20selectTab%3A%20%23class%5D.%0A%20%20%20%20%20%20%20browser%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectProtocol%3A%20aMethod%20category%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectMethod%3A%20aMethod'),
+messageSends: ["openOn:", "ifTrue:ifFalse:", "isMetaclass", "methodClass", "instanceClass", "ifTrue:", "selectTab:", "selectProtocol:", "category", "selectMethod:"],
 referencedClasses: [smalltalk.Browser]
 }),
 smalltalk.ReferencesBrowser);
@@ -2931,11 +2931,11 @@ selector: 'clear',
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((typeof textarea == 'undefined' ? nil : textarea), "_asJQuery", []), "_val_", [""]);
+smalltalk.send(self, "_val_", [""]);
 return self;},
 args: [],
-source: unescape('clear%0A%20%20%20%20textarea%20asJQuery%20val%3A%20%27%27'),
-messageSends: ["val:", "asJQuery"],
+source: unescape('clear%0A%20%20%20%20%20%20self%20val%3A%20%27%27'),
+messageSends: ["val:"],
 referencedClasses: []
 }),
 smalltalk.SourceArea);
