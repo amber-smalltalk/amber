@@ -761,6 +761,10 @@ to: aNumber do: aBlock
 
 printString
 	<return String(self)>
+!
+
+printShowingDecimalPlaces: placesDesired
+	<return self.toFixed(placesDesired)>
 ! !
 
 !Number methodsFor: 'testing'!
@@ -1402,6 +1406,14 @@ notEmpty
 
 isEmpty
 	^self size = 0
+!
+
+ifNotEmpty: aBlock
+	self notEmpty ifTrue: aBlock.
+!
+
+ifEmpty: aBlock
+	self isEmpty ifTrue: aBlock.
 ! !
 
 !Collection class methodsFor: 'accessing'!

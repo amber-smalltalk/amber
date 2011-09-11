@@ -1680,6 +1680,17 @@ return self;
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_printShowingDecimalPlaces_',
+smalltalk.method({
+selector: 'printShowingDecimalPlaces:',
+fn: function (placesDesired){
+var self=this;
+return self.toFixed(placesDesired);
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',
@@ -2965,6 +2976,28 @@ selector: 'asSet',
 fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.Set || Set), "_withAll_", [self]);
+return self;}
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+'_ifNotEmpty_',
+smalltalk.method({
+selector: 'ifNotEmpty:',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_notEmpty", []), "_ifTrue_", [aBlock]);
+return self;}
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+'_ifEmpty_',
+smalltalk.method({
+selector: 'ifEmpty:',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_ifTrue_", [aBlock]);
 return self;}
 }),
 smalltalk.Collection);

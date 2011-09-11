@@ -47,6 +47,7 @@ testPrintString
                         	printString)
 !
 
+<<<<<<< .merge_file_pxtnya
 testEquality
 	| d1 d2 |
 
@@ -70,6 +71,8 @@ testDynamicDictionaries
 	self assert: #{1 -> 'hello'. 2 -> 'world'} = (Dictionary with: 1 -> 'hello' with: 2 -> 'world')
 ! !
 
+=======
+>>>>>>> .merge_file_i20xd7
 TestCase subclass: #BooleanTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
@@ -213,5 +216,27 @@ testTruncated
 	self assert: 3 truncated = 3.
 	self assert: 3.212 truncated = 3.
 	self assert: 3.51 truncated = 3
+! !
+
+TestCase subclass: #NumberTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!NumberTest methodsFor: 'not yet classified'!
+
+testPrintShowingDecimalPlaces
+	self assert: '23.00' equals: (23 printShowingDecimalPlaces: 2).
+	self assert: '23.57' equals: (23.5698 printShowingDecimalPlaces: 2).
+	self assert: '-234.56700' equals:( 234.567 negated printShowingDecimalPlaces: 5).
+	self assert: '23' equals: (23.4567 printShowingDecimalPlaces: 0).
+	self assert: '24' equals: (23.5567 printShowingDecimalPlaces: 0).
+	self assert: '-23' equals: (23.4567 negated printShowingDecimalPlaces: 0).
+	self assert: '-24' equals: (23.5567 negated printShowingDecimalPlaces: 0).
+	self assert: '100000000.0' equals: (100000000 printShowingDecimalPlaces: 1).
+	self assert: '0.98000' equals: (0.98 printShowingDecimalPlaces: 5).
+	self assert: '-0.98' equals: (0.98 negated printShowingDecimalPlaces: 2).
+	self assert: '2.57' equals: (2.567 printShowingDecimalPlaces: 2).
+	self assert: '-2.57' equals: (-2.567 printShowingDecimalPlaces: 2).
+	self assert: '0.00' equals: (0 printShowingDecimalPlaces: 2).
 ! !
 

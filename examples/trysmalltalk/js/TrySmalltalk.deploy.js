@@ -1,17 +1,5 @@
 smalltalk.addClass('TrySmalltalkWidget', smalltalk.Widget, ['workspace', 'contents', 'header'], 'TrySmalltalk');
 smalltalk.addMethod(
-'_renderOn_',
-smalltalk.method({
-selector: 'renderOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["profStef"]);smalltalk.send($rec, "_with_", [(function(){return self['@header']=smalltalk.send(html, "_h2", []);})]);smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_renderOn_", [html]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
-(function($rec){smalltalk.send($rec, "_widget_", [self]);return smalltalk.send($rec, "_showCurrentLesson", []);})(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []));
-return self;}
-}),
-smalltalk.TrySmalltalkWidget);
-
-smalltalk.addMethod(
 '_workspace',
 smalltalk.method({
 selector: 'workspace',
@@ -45,6 +33,29 @@ return self;}
 smalltalk.TrySmalltalkWidget);
 
 smalltalk.addMethod(
+'_setTitle_',
+smalltalk.method({
+selector: 'setTitle:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [aString]);})]);
+return self;}
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
+'_renderOn_',
+smalltalk.method({
+selector: 'renderOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["profStef"]);smalltalk.send($rec, "_with_", [(function(){return self['@header']=smalltalk.send(html, "_h2", []);})]);smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_workspace", []), "_renderOn_", [html]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_widget_", [self]);return smalltalk.send($rec, "_showCurrentLesson", []);})(smalltalk.send((smalltalk.ProfStef || ProfStef), "_default", []));
+return self;}
+}),
+smalltalk.TrySmalltalkWidget);
+
+smalltalk.addMethod(
 '_renderButtonsOn_',
 smalltalk.method({
 selector: 'renderButtonsOn:',
@@ -57,17 +68,17 @@ return self;}
 }),
 smalltalk.TrySmalltalkWidget);
 
+
 smalltalk.addMethod(
-'_setTitle_',
+'_open',
 smalltalk.method({
-selector: 'setTitle:',
-fn: function (aString){
+selector: 'open',
+fn: function (){
 var self=this;
-smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [aString]);})]);
+smalltalk.send(smalltalk.send(self, "_new", []), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
 return self;}
 }),
-smalltalk.TrySmalltalkWidget);
-
+smalltalk.TrySmalltalkWidget.klass);
 
 
 smalltalk.addClass('AbstractTutorial', smalltalk.Object, [], 'TrySmalltalk');
@@ -89,6 +100,30 @@ selector: 'tableOfContents',
 fn: function (){
 var self=this;
 return ["welcome", "testLesson", "theEnd"];
+return self;}
+}),
+smalltalk.AbstractTutorial);
+
+smalltalk.addMethod(
+'_lessonAt_',
+smalltalk.method({
+selector: 'lessonAt:',
+fn: function (anInteger){
+var self=this;
+var lessonSelector=nil;
+lessonSelector=smalltalk.send(smalltalk.send(self, "_tableOfContents", []), "_at_", [anInteger]);
+return smalltalk.send(self, "_perform_", [lessonSelector]);
+return self;}
+}),
+smalltalk.AbstractTutorial);
+
+smalltalk.addMethod(
+'_size',
+smalltalk.method({
+selector: 'size',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_tableOfContents", []), "_size", []);
 return self;}
 }),
 smalltalk.AbstractTutorial);
@@ -122,30 +157,6 @@ selector: 'theEnd',
 fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.Lesson || Lesson), "_title_contents_", ["The End", unescape("%22And%20that%27d%20be%20pretty%20much%20it%20%3A%29%22")]);
-return self;}
-}),
-smalltalk.AbstractTutorial);
-
-smalltalk.addMethod(
-'_lessonAt_',
-smalltalk.method({
-selector: 'lessonAt:',
-fn: function (anInteger){
-var self=this;
-var lessonSelector=nil;
-lessonSelector=smalltalk.send(smalltalk.send(self, "_tableOfContents", []), "_at_", [anInteger]);
-return smalltalk.send(self, "_perform_", [lessonSelector]);
-return self;}
-}),
-smalltalk.AbstractTutorial);
-
-smalltalk.addMethod(
-'_size',
-smalltalk.method({
-selector: 'size',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_tableOfContents", []), "_size", []);
 return self;}
 }),
 smalltalk.AbstractTutorial);
@@ -223,6 +234,61 @@ return self;}
 smalltalk.TutorialPlayer);
 
 smalltalk.addMethod(
+'_size',
+smalltalk.method({
+selector: 'size',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_tutorial", []), "_size", []);
+return self;}
+}),
+smalltalk.TutorialPlayer);
+
+smalltalk.addMethod(
+'_tutorial',
+smalltalk.method({
+selector: 'tutorial',
+fn: function (){
+var self=this;
+return (($receiver = self['@tutorial']) == nil || $receiver == undefined) ? (function(){return self['@tutorial']=smalltalk.send((smalltalk.SmalltalkSyntaxTutorial || SmalltalkSyntaxTutorial), "_new", []);})() : $receiver;
+return self;}
+}),
+smalltalk.TutorialPlayer);
+
+smalltalk.addMethod(
+'_tutorial_',
+smalltalk.method({
+selector: 'tutorial:',
+fn: function (aTutorial){
+var self=this;
+self['@tutorial']=aTutorial;
+return self;}
+}),
+smalltalk.TutorialPlayer);
+
+smalltalk.addMethod(
+'_tutorialPosition',
+smalltalk.method({
+selector: 'tutorialPosition',
+fn: function (){
+var self=this;
+return (($receiver = self['@tutorialPosition']) == nil || $receiver == undefined) ? (function(){smalltalk.send(self, "_rewind", []);return self['@tutorialPosition'];})() : $receiver;
+return self;}
+}),
+smalltalk.TutorialPlayer);
+
+smalltalk.addMethod(
+'_tutorialPosition_',
+smalltalk.method({
+selector: 'tutorialPosition:',
+fn: function (aTutorialPosition){
+var self=this;
+self['@tutorialPosition']=aTutorialPosition;
+return self;}
+}),
+smalltalk.TutorialPlayer);
+
+smalltalk.addMethod(
 '_first',
 smalltalk.method({
 selector: 'first',
@@ -281,61 +347,6 @@ return self;}
 }),
 smalltalk.TutorialPlayer);
 
-smalltalk.addMethod(
-'_size',
-smalltalk.method({
-selector: 'size',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_tutorial", []), "_size", []);
-return self;}
-}),
-smalltalk.TutorialPlayer);
-
-smalltalk.addMethod(
-'_tutorial',
-smalltalk.method({
-selector: 'tutorial',
-fn: function (){
-var self=this;
-return (($receiver = self['@tutorial']) == nil || $receiver == undefined) ? (function(){return self['@tutorial']=smalltalk.send((smalltalk.SmalltalkSyntaxTutorial || SmalltalkSyntaxTutorial), "_new", []);})() : $receiver;
-return self;}
-}),
-smalltalk.TutorialPlayer);
-
-smalltalk.addMethod(
-'_tutorial_',
-smalltalk.method({
-selector: 'tutorial:',
-fn: function (aTutorial){
-var self=this;
-self['@tutorial']=aTutorial;
-return self;}
-}),
-smalltalk.TutorialPlayer);
-
-smalltalk.addMethod(
-'_tutorialPosition',
-smalltalk.method({
-selector: 'tutorialPosition',
-fn: function (){
-var self=this;
-return (($receiver = self['@tutorialPosition']) == nil || $receiver == undefined) ? (function(){smalltalk.send(self, "_rewind", []);return self['@tutorialPosition'];})() : $receiver;
-return self;}
-}),
-smalltalk.TutorialPlayer);
-
-smalltalk.addMethod(
-'_tutorialPosition_',
-smalltalk.method({
-selector: 'tutorialPosition:',
-fn: function (aTutorialPosition){
-var self=this;
-self['@tutorialPosition']=aTutorialPosition;
-return self;}
-}),
-smalltalk.TutorialPlayer);
-
 
 
 smalltalk.addClass('ProfStef', smalltalk.Object, ['tutorialPlayer', 'widget'], 'TrySmalltalk');
@@ -346,18 +357,6 @@ selector: 'tutorialPlayer',
 fn: function (){
 var self=this;
 return (($receiver = self['@tutorialPlayer']) == nil || $receiver == undefined) ? (function(){return self['@tutorialPlayer']=smalltalk.send((smalltalk.TutorialPlayer || TutorialPlayer), "_new", []);})() : $receiver;
-return self;}
-}),
-smalltalk.ProfStef);
-
-smalltalk.addMethod(
-'_first',
-smalltalk.method({
-selector: 'first',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_first", []);
-return smalltalk.send(self, "_showCurrentLesson", []);
 return self;}
 }),
 smalltalk.ProfStef);
@@ -396,30 +395,6 @@ return self;}
 smalltalk.ProfStef);
 
 smalltalk.addMethod(
-'_next',
-smalltalk.method({
-selector: 'next',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_next", []);
-return smalltalk.send(self, "_showCurrentLesson", []);
-return self;}
-}),
-smalltalk.ProfStef);
-
-smalltalk.addMethod(
-'_previous',
-smalltalk.method({
-selector: 'previous',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_previous", []);
-return smalltalk.send(self, "_showCurrentLesson", []);
-return self;}
-}),
-smalltalk.ProfStef);
-
-smalltalk.addMethod(
 '_widget_',
 smalltalk.method({
 selector: 'widget:',
@@ -444,19 +419,44 @@ return self;}
 }),
 smalltalk.ProfStef);
 
-
-smalltalk.ProfStef.klass.iVarNames = ['instance'];
 smalltalk.addMethod(
 '_first',
 smalltalk.method({
 selector: 'first',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_default", []), "_first", []);
+smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_first", []);
+return smalltalk.send(self, "_showCurrentLesson", []);
 return self;}
 }),
-smalltalk.ProfStef.klass);
+smalltalk.ProfStef);
 
+smalltalk.addMethod(
+'_next',
+smalltalk.method({
+selector: 'next',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_next", []);
+return smalltalk.send(self, "_showCurrentLesson", []);
+return self;}
+}),
+smalltalk.ProfStef);
+
+smalltalk.addMethod(
+'_previous',
+smalltalk.method({
+selector: 'previous',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_tutorialPlayer", []), "_previous", []);
+return smalltalk.send(self, "_showCurrentLesson", []);
+return self;}
+}),
+smalltalk.ProfStef);
+
+
+smalltalk.ProfStef.klass.iVarNames = ['instance'];
 smalltalk.addMethod(
 '_default',
 smalltalk.method({
@@ -464,6 +464,17 @@ selector: 'default',
 fn: function (){
 var self=this;
 return (($receiver = self['@instance']) == nil || $receiver == undefined) ? (function(){return self['@instance']=smalltalk.send(self, "_new", []);})() : $receiver;
+return self;}
+}),
+smalltalk.ProfStef.klass);
+
+smalltalk.addMethod(
+'_first',
+smalltalk.method({
+selector: 'first',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_default", []), "_first", []);
 return self;}
 }),
 smalltalk.ProfStef.klass);
