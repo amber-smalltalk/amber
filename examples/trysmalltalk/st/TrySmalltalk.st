@@ -49,6 +49,12 @@ renderButtonsOn: html
 	onClick: [self workspace inspectIt]
 ! !
 
+!TrySmalltalkWidget class methodsFor: 'initialize'!
+
+open
+	self new appendToJQuery: 'body' asJQuery.
+! !
+
 Object subclass: #AbstractTutorial
 	instanceVariableNames: ''
 	category: 'TrySmalltalk'!
