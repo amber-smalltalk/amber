@@ -39,11 +39,19 @@ basicDelete: aString
 !Object methodsFor: 'comparing'!
 
 = anObject
-	<return self == anObject>
+	^self == anObject
 !
 
 ~= anObject
 	^(self = anObject) = false
+!
+
+== anObject
+	<return self === anObject>
+!
+
+~~ anObject
+	^(self == anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!
@@ -656,11 +664,6 @@ negated
 
 !Number methodsFor: 'comparing'!
 
-= aNumber
-	"Inlined in the Compiler"
-	<return Number(self) == aNumber>
-!
-
 > aNumber
 	"Inlined in the Compiler"
 	<return self >> aNumber>
@@ -679,6 +682,16 @@ negated
 <= aNumber
 	"Inlined in the Compiler"
 	<return self <= aNumber>
+!
+
+= aNumber
+	aNumber class = self class ifFalse: [^false]. 
+	<return Number(self) == aNumber>
+!
+
+== aNumber
+	aNumber class = self class ifFalse: [^false]. 
+	<return Number(self) === Number(aNumber)>
 ! !
 
 !Number methodsFor: 'converting'!
@@ -880,11 +893,13 @@ Object subclass: #Boolean
 !Boolean methodsFor: 'comparing'!
 
 = aBoolean
+	aBoolean class = self class ifFalse: [^false].
 	<return Boolean(self == true) == aBoolean>
 !
 
-asJSONObject
-	^self
+== aBoolean
+	aBoolean class = self class ifFalse: [^false].
+	<return Boolean(self == true) === Boolean(aBoolean == true)>
 ! !
 
 !Boolean methodsFor: 'controlling'!
@@ -949,6 +964,12 @@ not
 		return aBoolean;
 	    }
 	>
+! !
+
+!Boolean methodsFor: 'converting'!
+
+asJSONObject
+	^self
 ! !
 
 !Boolean methodsFor: 'copying'!
@@ -1568,10 +1589,6 @@ remove: anObject
 
 !String methodsFor: 'comparing'!
 
-= aString
-	<return String(self) == aString>
-!
-
 > aString
 	<return String(self) >> aString>
 !
@@ -1586,6 +1603,16 @@ remove: anObject
 
 <= aString
 	<return String(self) <= aString>
+!
+
+= aString
+	aString class = self class ifFalse: [^false].
+	<return String(self) == aString>
+!
+
+== aString
+	aString class = self class ifFalse: [^false].
+	<return String(self) === String(aString)>
 ! !
 
 !String methodsFor: 'converting'!
@@ -1891,6 +1918,16 @@ removeFrom: aNumber to: anotherNumber
 	<self.splice(aNumber - 1,anotherNumber - 1)>
 ! !
 
+!Array methodsFor: 'comparing'!
+
+= aCollection
+	(self class = aCollection class and: [
+        	self size = aCollection size]) ifFalse: [^false].
+	self withIndexDo: [:each :i |
+                 (aCollection at: i) = each ifFalse: [^false]].
+	^true
+! !
+
 !Array methodsFor: 'converting'!
 
 asJavascript
@@ -2174,10 +2211,8 @@ removeKey: aKey
 
 = aDictionary
 	self class = aDictionary class ifFalse: [^false].
-	self associationsDo: [:assoc |
-	    (aDictionary at: assoc key ifAbsent: [^false]) = assoc value 
-		ifFalse: [^false]].
-	^true
+	self size = aDictionary size ifFalse: [^false].
+	^self associations = aDictionary associations
 ! !
 
 !Dictionary methodsFor: 'converting'!
@@ -2822,6 +2857,13 @@ add: anObject
 
 remove: anObject
 	elements remove: anObject
+! !
+
+!Set methodsFor: 'comparing'!
+
+= aCollection
+	^self class = aCollection class and: [
+        	elements = aCollection asArray]
 ! !
 
 !Set methodsFor: 'converting'!

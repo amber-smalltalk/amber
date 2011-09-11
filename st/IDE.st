@@ -745,7 +745,10 @@ renameClass
 
 addInstanceVariableNamed: aString toClass: aClass
 	ClassBuilder new
-		addSubclassOf: aClass superclass named: aClass name instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+		addSubclassOf: aClass superclass 
+		named: aClass name 
+		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+		module: aClass module name
 !
 
 searchReferencesOf: aString
@@ -1200,7 +1203,7 @@ referencedClasses
 
 openBrowserOn: aMethod
        | browser |
-       browser := Browser openOn: (aMethod class isMetaclass 
+       browser := Browser openOn: (aMethod methodClass isMetaclass 
 		ifTrue: [aMethod methodClass instanceClass] ifFalse: [aMethod methodClass]).
        aMethod methodClass isMetaclass ifTrue: [browser selectTab: #class].
        browser
@@ -1420,7 +1423,7 @@ currentLineOrSelection
 !SourceArea methodsFor: 'actions'!
 
 clear
-    textarea asJQuery val: ''
+      self val: ''
 !
 
 doIt
