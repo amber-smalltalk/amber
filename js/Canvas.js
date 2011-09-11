@@ -60,7 +60,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
 messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
@@ -76,7 +76,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
 messageSends: ["fromJQuery:canvas:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
@@ -92,7 +92,7 @@ return self;},
 args: ["aString"],
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self'),
 messageSends: ["fromString:canvas:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
@@ -782,6 +782,22 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+'_empty',
+smalltalk.method({
+selector: 'empty',
+category: 'adding',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
+return self;},
+args: [],
+source: unescape('empty%0A%09self%20asJQuery%20empty'),
+messageSends: ["empty", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_at_put_',
 smalltalk.method({
 selector: 'at:put:',
@@ -1163,22 +1179,6 @@ return self;},
 args: ["aString"],
 source: unescape('createTextNodeFor%3A%20aString%0A%09%3Creturn%20document.createTextNode%28String%28aString%29%29%3E'),
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_empty',
-smalltalk.method({
-selector: 'empty',
-category: 'adding',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
-return self;},
-args: [],
-source: unescape('empty%0A%09self%20asJQuery%20empty'),
-messageSends: ["empty", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);

@@ -2059,7 +2059,7 @@ var self=this;
 return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_parse_", [aString]);
 return self;},
 args: ["aString"],
-source: unescape('parse%3A%20aString%0A%20%20%20%20%5ESmalltalk%20current%20parse%3A%20aString%20'),
+source: unescape('parse%3A%20aString%0A%20%20%20%20%5ESmalltalk%20current%20parse%3A%20aString'),
 messageSends: ["parse:", "current"],
 referencedClasses: [smalltalk.Smalltalk]
 }),
@@ -2175,7 +2175,7 @@ return self;},
 args: [],
 source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09Transcript%20show%3A%20each%3B%20cr.%0A%09%09%5Bself%20recompile%3A%20each%5D%20valueWithTimeout%3A%20100%5D'),
 messageSends: ["do:", "classes", "current", "show:", "cr", "valueWithTimeout:", "recompile:"],
-referencedClasses: [smalltalk.Smalltalk,smalltalk.Transcript]
+referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Compiler);
 
@@ -2511,22 +2511,6 @@ smalltalk.Compiler.klass);
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler');
-smalltalk.addMethod(
-'_doIt',
-smalltalk.method({
-selector: 'doIt',
-category: '',
-fn: function (){
-var self=this;
-return smalltalk.send((function(){return smalltalk.send((1), "_fdsfds", []);}), "_value", []);
-return self;},
-args: [],
-source: unescape('doIt%20%5E%5B1%20fdsfds%5D%20value'),
-messageSends: ["value", "fdsfds"],
-referencedClasses: []
-}),
-smalltalk.DoIt);
-
 
 
 smalltalk.addClass('DynamicArrayNode', smalltalk.Node, [], 'Compiler');

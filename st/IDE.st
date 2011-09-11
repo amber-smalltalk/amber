@@ -1,5 +1,5 @@
 Widget subclass: #TabManager
-	instanceVariableNames: 'selectedTab tabs opened ul'
+	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
 
 !TabManager methodsFor: 'accessing'!
@@ -20,11 +20,11 @@ labelFor: aWidget
 !TabManager methodsFor: 'actions'!
 
 updateBodyMargin
-    self setBodyMargin: '#jtalk' asJQuery height + 27
+    self setBodyMargin: '#jtalk' asJQuery height
 !
 
 updatePosition
-    <jQuery('#jtalk').css('top', '').css('bottom', '27px')>
+    <jQuery('#jtalk').css('top', '').css('bottom', '0px')>
 !
 
 removeBodyMargin
@@ -86,6 +86,14 @@ closeTab: aWidget
     self selectTab: self tabs last.
     aWidget remove.
     self update
+!
+
+search: aString
+	| searchedClass |
+	searchedClass := Smalltalk current at: aString.
+		searchedClass isClass
+			ifTrue: [Browser openOn: searchedClass]
+			ifFalse: [ReferencesBrowser search: aString]
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
@@ -107,9 +115,9 @@ initialize
     super initialize.
     opened := true.
     'body' asJQuery 
-	append: self;
 	append: [:html | html div id: 'jtalk'];
 	addClass: 'jtalkBody'.
+    '#jtalk' asJQuery append: self.
     self 
 	addTab: Transcript current;
 	addTab: Workspace new;
@@ -123,6 +131,8 @@ initialize
 !TabManager methodsFor: 'rendering'!
 
 renderOn: html
+	html div id: 'logo'.
+	self renderToolbarOn: html.
 	ul := html ul
 		id: 'jtalkTabs';
 		yourself.
@@ -130,33 +140,49 @@ renderOn: html
 !
 
 renderTabFor: aWidget on: html
-    | li |
-    li := html li.
-    selectedTab = aWidget ifTrue: [
+	| li |
+	li := html li.
+	selectedTab = aWidget ifTrue: [
 	li class: 'selected'].
-    li with: [
-        aWidget canBeClosed ifTrue: [
-	    html span 
-		class: 'close';
-		with: 'x';
-		onClick: [self closeTab: aWidget]].
-	html span
-	    with: (self labelFor: aWidget);
-	    onClick: [self selectTab: aWidget]]
+	li with: [
+		html span class: 'ltab'.
+		html span
+     	    		class: 'mtab';
+      	    		with: [
+        			aWidget canBeClosed ifTrue: [
+	    				html span 
+						class: 'close';
+						with: 'x';
+					onClick: [self closeTab: aWidget]].
+	    		html span with: (self labelFor: aWidget)].
+        	html span class: 'rtab'];
+	onClick: [self selectTab: aWidget]
 !
 
 renderTabs
 	ul contents: [:html |
-	    html li 
-		class: 'closeAll';
-		with: 'x';
-		onClick: [self close].
 	    self tabs do: [:each |
 		self renderTabFor: each on: html].
 	    html li
 		class: 'newtab';
-		with: ' + ';
+		with: [
+                	html span class: 'ltab'.
+                	html span class: 'mtab'; with: ' + '.
+                	html span class: 'rtab'];
 		onClick: [self newBrowserTab]]
+!
+
+renderToolbarOn: html
+	html div 
+		id: 'jt_toolbar';
+		with: [
+			input := html input 
+				class: 'implementors';
+				yourself.
+			input onKeyPress: [:event |
+				event keyCode = 13 ifTrue: [
+				self search: input asJQuery val]].
+                	html div id: 'jt_close'; onClick: [self close]]
 ! !
 
 !TabManager methodsFor: 'updating'!
@@ -258,7 +284,7 @@ TabWidget subclass: #Workspace
 !Workspace methodsFor: 'accessing'!
 
 label
-    ^'[Workspace]'
+    ^'Workspace'
 ! !
 
 !Workspace methodsFor: 'actions'!
@@ -277,6 +303,10 @@ printIt
 
 inspectIt
     sourceArea inspectIt
+!
+
+fileIn
+    sourceArea fileIn
 ! !
 
 !Workspace methodsFor: 'rendering'!
@@ -300,6 +330,10 @@ renderButtonsOn: html
 	title: 'ctrl+i';
 	onClick: [self inspectIt].
     html button
+	with: 'FileIn';
+	title: 'ctrl+f';
+	onClick: [self fileIn].
+    html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
 ! !
@@ -311,7 +345,7 @@ TabWidget subclass: #Transcript
 !Transcript methodsFor: 'accessing'!
 
 label
-    ^'[Transcript]'
+    ^'Transcript'
 ! !
 
 !Transcript methodsFor: 'actions'!
@@ -377,7 +411,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges input'
+	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -385,7 +419,7 @@ TabWidget subclass: #Browser
 label
     ^selectedClass 
 	ifNil: ['Browser (nil)']
-	ifNotNil: [selectedClass name]
+	ifNotNil: ['Browser: ', selectedClass name]
 !
 
 categories
@@ -644,7 +678,7 @@ setMethodProtocol: aString
 addNewProtocol
     | newProtocol |
     newProtocol := self prompt: 'New method protocol'.
-    newProtocol notEmpty ifTrue: [
+    (newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
 !
@@ -751,7 +785,6 @@ renderTopPanelOn: html
     html div 
 	class: 'top'; 
 	with: [
-	    self renderInputOn: html.
 	    categoriesList := html ul class: 'jt_column browser categories'.
 	    commitButton := html button 
 		class: 'jt_commit';
@@ -771,7 +804,7 @@ renderTopPanelOn: html
 !
 
 renderTabsOn: html
-    tabsList := html ul class: 'jt_tabs'.
+    tabsList := html ul class: 'jt_tabs jt_browser'.
     self updateTabsList.
 !
 
@@ -803,15 +836,6 @@ renderButtonsOn: html
 		html button with: 'InspectIt';
 			onClick: [sourceArea inspectit]]. 
     self updateSourceAndButtons
-!
-
-renderInputOn: html 
-	input := html input 
-		class: 'implementors';
-		yourself.
-	input onKeyPress: [:event |
-		event keyCode = 13 ifTrue: [
-			self search: input asJQuery val]]
 ! !
 
 !Browser methodsFor: 'testing'!
@@ -876,17 +900,26 @@ updateTabsList
 	li := html li.
 	selectedTab = #instance ifTrue: [li class: 'selected'].
 	li
-	    with: 'Instance';
+	    with: [
+              	html span class: 'ltab'.
+              	html span class: 'mtab'; with: 'Instance'.
+              	html span class: 'rtab'];
 	    onClick: [self selectTab: #instance].
 	li := html li.
 	selectedTab = #class ifTrue: [li class: 'selected'].
 	li
-	    with: 'Class';
+	    with: [
+              	html span class: 'ltab'.
+              	html span class: 'mtab'; with: 'Class'.
+              	html span class: 'rtab'];
 	    onClick: [self selectTab: #class].
 	li := html li.
 	selectedTab = #comment ifTrue: [li class: 'selected'].
 	li
-	    with: 'Comment';
+	    with: [
+              	html span class: 'ltab'.
+              	html span class: 'mtab'; with: 'Comment'.
+              	html span class: 'rtab'];
 	    onClick: [self selectTab: #comment]]
 !
 
@@ -1047,7 +1080,7 @@ renderTopPanelOn: html
 		with: [
 			variablesList := html ul class: 'jt_column variables'.
 			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
-                  	html div class: 'jt_buttons inspector'; with: [
+                  	html div class: 'jt_tabs inspector'; with: [
           			html button
                   			class: 'jt_button inspector refresh';
 					with: 'Refresh';
@@ -1144,7 +1177,7 @@ implementors
 !
 
 label
-	^'[ReferencesBrowser]'
+	^'[References]'
 !
 
 selector
@@ -1376,6 +1409,12 @@ onDoIt: aBlock
 
 onDoIt
 	^onDoIt
+!
+
+currentLineOrSelection
+    ^editor somethingSelected
+	ifFalse: [self currentLine]
+	ifTrue: [self selection]
 ! !
 
 !SourceArea methodsFor: 'actions'!
@@ -1385,11 +1424,8 @@ clear
 !
 
 doIt
-    | selection result |
-    editor somethingSelected
-	ifFalse: [selection := self currentLine]
-	ifTrue: [selection := self selection].
-    result := self eval: selection.
+    | result |
+    result := self eval: self currentLineOrSelection.
     self onDoIt ifNotNil: [self onDoIt value].
     ^result
 !
@@ -1441,6 +1477,10 @@ print: aString
 
 printIt
     self print: self doIt printString
+!
+
+fileIn
+    Importer new import: self currentLineOrSelection readStream
 ! !
 
 !SourceArea methodsFor: 'events'!
@@ -1889,7 +1929,7 @@ TabWidget subclass: #TestRunner
 !TestRunner methodsFor: 'accessing'!
 
 label
-    ^'[SUnit]'
+    ^'SUnit'
 !
 
 categories
@@ -2046,7 +2086,7 @@ renderClassesOn: html
 renderResultsOn: html
     	statusDiv := html div.
 	html with: self progressBar.
-   	methodsList := html ul class: 'jt_column sunit methods'.
+   	methodsList := html ul class: 'jt_column sunit results'.
 	self updateMethodsList.
 	self updateStatusDiv
 !

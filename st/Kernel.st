@@ -287,9 +287,13 @@ parseError: anException parsing: aString
 	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
 	lines at: row put: badLine.
 	code := String streamContents: [:s |
-                                        lines withIndexDo: [:l :i |
-                                                   s nextPutAll: i asString, ': ', l, String lf]].
+                  lines withIndexDo: [:l :i |
+                     s nextPutAll: i asString, ': ', l, String lf]].
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
+!
+
+modules
+	<return self.modules.all()>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -298,6 +302,24 @@ Smalltalk class instanceVariableNames: 'current'!
 
 current
 	<return smalltalk>
+! !
+
+Object subclass: #Module
+	instanceVariableNames: ''
+	category: 'Kernel'!
+
+!Module methodsFor: 'accessing'!
+
+name
+	<return self.moduleName || nil>
+!
+
+requires
+	<return self.requires || nil>
+!
+
+name: aString
+	<return self.moduleName = aString>
 ! !
 
 Object subclass: #Behavior
@@ -456,11 +478,7 @@ Behavior subclass: #Class
 !Class methodsFor: 'accessing'!
 
 category
-	<return self.category>
-!
-
-category: aString
-	<self.category = aString>
+	^self module ifNil: ['unclassified'] ifNotNil: [self module name]
 !
 
 rename: aString
@@ -469,22 +487,36 @@ rename: aString
 		delete smalltalk[self.className];
 		self.className = aString;
 	>
+!
+
+module
+	<return self.module>
+!
+
+module: aModule
+	<self.module = aModule>
 ! !
 
 !Class methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	^self subclass: aString instanceVariableNames: anotherString category: nil
+	"Kept for compatibility."
+	^self subclass: aString instanceVariableNames: anotherString module: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 category: aString3
+	"Kept for compatibility."
+	^self subclass: aString instanceVariableNames: aString2 module: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
 	"Just ignore class variables and pools. Added for compatibility."
-	^self subclass: aString instanceVariableNames: aString2 category: aString3
+	^self subclass: aString instanceVariableNames: aString2 module: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 module: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
 ! !
 
 !Class methodsFor: 'printing'!
@@ -1132,12 +1164,17 @@ Object subclass: #UndefinedObject
 !UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	^self subclass: aString instanceVariableNames: anotherString category: nil
+	^self subclass: aString instanceVariableNames: anotherString module: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
+	"Kept for compatibility."
+	^self subclass: aString instanceVariableNames: aString2 module: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 module: aString3
 	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 category: aString3
+	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
 ! !
 
 !UndefinedObject methodsFor: 'copying'!
@@ -2264,20 +2301,21 @@ Object subclass: #ClassBuilder
 !ClassBuilder methodsFor: 'class creation'!
 
 superclass: aClass subclass: aString
-	self superclass: aClass subclass: aString instanceVariableNames: '' category: nil
-!
-
-superclass: aClass subclass: aString instanceVariableNames: aString2 category: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2).
-	self setupClass: newClass.
-	newClass category: (aString3 ifNil: ['unclassified'])
+	^self superclass: aClass subclass: aString instanceVariableNames: '' module: nil
 !
 
 class: aClass instanceVariableNames: aString
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
 	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
 	self setupClass: aClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 module: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				module: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass
 ! !
 
 !ClassBuilder methodsFor: 'private'!
@@ -2293,6 +2331,11 @@ addSubclassOf: aClass named: aString instanceVariableNames: aCollection
 
 setupClass: aClass
 	<smalltalk.init(aClass);>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection module: moduleName
+	<smalltalk.addClass(aString, aClass, aCollection, moduleName);
+	    return smalltalk[aString]>
 ! !
 
 Object subclass: #ClassCategoryReader
@@ -2703,7 +2746,7 @@ ErrorHandler class instanceVariableNames: 'current'!
 !ErrorHandler class methodsFor: 'accessing'!
 
 current
-	^current
+	^current ifNil: [current := self new]
 !
 
 setCurrent: anHandler
@@ -2711,10 +2754,6 @@ setCurrent: anHandler
 ! !
 
 !ErrorHandler class methodsFor: 'initialization'!
-
-initialize
-	self register
-!
 
 register
 	ErrorHandler setCurrent: self new
@@ -2749,6 +2788,15 @@ inspectOn: anInspector
 		variables._at_put_(i, self['@jsObject'][i]);
 	}>.
 	anInspector setVariables: variables
+!
+
+doesNotUnderstand: aMessage
+	| obj selector arguments |
+	obj := self jsObject.
+	selector := aMessage selector.
+	arguments := aMessage arguments.
+	<if(obj[selector]) {return smalltalk.send(obj, selector, arguments)}>.
+	super doesNotUnderstand: aMessage
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
