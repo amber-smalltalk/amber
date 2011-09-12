@@ -513,6 +513,118 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
+'_fadeIn',
+smalltalk.method({
+selector: 'fadeIn',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["fadeIn"]);
+return self;},
+args: [],
+source: unescape('fadeIn%0A%20%09self%20call%3A%20%27fadeIn%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_slideDown',
+smalltalk.method({
+selector: 'slideDown',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["slideDown"]);
+return self;},
+args: [],
+source: unescape('slideDown%0A%20%09self%20call%3A%20%27slideDown%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeInSlow',
+smalltalk.method({
+selector: 'fadeInSlow',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["fadeIn", "slow"]);
+return self;},
+args: [],
+source: unescape('fadeInSlow%0A%20%09self%20call%3A%20%27fadeIn%27%20withArgument%3A%20%27slow%27'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeOut',
+smalltalk.method({
+selector: 'fadeOut',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["fadeOut"]);
+return self;},
+args: [],
+source: unescape('fadeOut%0A%20%09self%20call%3A%20%27fadeOut%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeOutSlow',
+smalltalk.method({
+selector: 'fadeOutSlow',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["fadeOut", "slow"]);
+return self;},
+args: [],
+source: unescape('fadeOutSlow%0A%20%09self%20call%3A%20%27fadeOut%27%20withArgument%3A%20%27slow%27'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_slideUp',
+smalltalk.method({
+selector: 'slideUp',
+category: 'effects',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["slideUp"]);
+return self;},
+args: [],
+source: unescape('slideUp%0A%20%09self%20call%3A%20%27slideUp%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+'_fadeOut_do_',
+smalltalk.method({
+selector: 'fadeOut:do:',
+category: 'effects',
+fn: function (aString, aBlock){
+var self=this;
+self['@jquery'].fadeOut(aString, aBlock);
+return self;},
+args: ["aString", "aBlock"],
+source: unescape('fadeOut%3A%20aString%20do%3A%20aBlock%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.fadeOut%28aString%2C%20aBlock%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
 '_do_',
 smalltalk.method({
 selector: 'do:',
@@ -625,6 +737,22 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
+'_onLoadDo_',
+smalltalk.method({
+selector: 'onLoadDo:',
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["load", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onLoadDo%3A%20aBlock%0A%09%22Bind%20an%20event%20handler%20to%20the%20%27load%27%20JavaScript%20event.%22%0A%09self%20call%3A%20%27load%27%20withArgument%3A%20aBlock'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
 '_initializeWithJQueryObject_',
 smalltalk.method({
 selector: 'initializeWithJQueryObject:',
@@ -716,134 +844,6 @@ return self;},
 args: ["aSelector"],
 source: unescape('find%3A%20aSelector%0A%20%20%20%20%22Get%20the%20descendants%20of%20each%20element%20in%20the%20current%20set%20of%20matched%20elements%2C%20filtered%20by%20a%20selector%2C%20jQuery%20object%2C%20or%20element.%22%0A%20%20%20%20%5E%20self%20call%3A%20%27find%27%20withArgument%3A%20aSelector'),
 messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_onLoadDo_',
-smalltalk.method({
-selector: 'onLoadDo:',
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(self, "_call_withArgument_", ["load", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onLoadDo%3A%20aBlock%0A%09%22Bind%20an%20event%20handler%20to%20the%20%27load%27%20JavaScript%20event.%22%0A%09self%20call%3A%20%27load%27%20withArgument%3A%20aBlock'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_fadeIn',
-smalltalk.method({
-selector: 'fadeIn',
-category: 'effects',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["fadeIn"]);
-return self;},
-args: [],
-source: unescape('fadeIn%0A%20%09self%20call%3A%20%27fadeIn%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_slideDown',
-smalltalk.method({
-selector: 'slideDown',
-category: 'effects',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["slideDown"]);
-return self;},
-args: [],
-source: unescape('slideDown%0A%20%09self%20call%3A%20%27slideDown%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_fadeInSlow',
-smalltalk.method({
-selector: 'fadeInSlow',
-category: 'effects',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_withArgument_", ["fadeIn", "slow"]);
-return self;},
-args: [],
-source: unescape('fadeInSlow%0A%20%09self%20call%3A%20%27fadeIn%27%20withArgument%3A%20%27slow%27'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_fadeOut',
-smalltalk.method({
-selector: 'fadeOut',
-category: 'effects',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["fadeOut"]);
-return self;},
-args: [],
-source: unescape('fadeOut%0A%20%09self%20call%3A%20%27fadeOut%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_fadeOutSlow',
-smalltalk.method({
-selector: 'fadeOutSlow',
-category: 'effects',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_withArgument_", ["fadeOut", "slow"]);
-return self;},
-args: [],
-source: unescape('fadeOutSlow%0A%20%09self%20call%3A%20%27fadeOut%27%20withArgument%3A%20%27slow%27'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_slideUp',
-smalltalk.method({
-selector: 'slideUp',
-category: 'effects',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["slideUp"]);
-return self;},
-args: [],
-source: unescape('slideUp%0A%20%09self%20call%3A%20%27slideUp%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_fadeOut_do_',
-smalltalk.method({
-selector: 'fadeOut:do:',
-category: 'effects',
-fn: function (aString, aBlock){
-var self=this;
-self['@jquery'].fadeOut(aString, aBlock);
-return self;},
-args: ["aString", "aBlock"],
-source: unescape('fadeOut%3A%20aString%20do%3A%20aBlock%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.fadeOut%28aString%2C%20aBlock%29%3E'),
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JQuery);

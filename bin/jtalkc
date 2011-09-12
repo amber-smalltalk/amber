@@ -15,7 +15,7 @@ popd >/dev/null
 
 function usage {
 	cat <<ENDOFHELP
-Usage: $0 [-L level] [-l lib1,lib2...] [-i file] [-m class] [-M file]
+Usage: $0 [-l lib1,lib2...] [-i file] [-m class] [-M file]
           [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]
 
    Will compile Jtalk files - either separately or into a runnable complete
@@ -36,16 +36,6 @@ Usage: $0 [-L level] [-l lib1,lib2...] [-i file] [-m class] [-M file]
    If no Program is specified each given .st file will be compiled into
    a .js file. Otherwise a <Program>.js file is linked together based on
    the options:
-
-  -L level
-     Add libraries to a predefined level (default is KERNEL) of environment
-     where level is:
-
-        KERNEL    - a reasonable level for server side programs or libraries.
-        COMPILER  - if you need to compile, import or export Jtalk code.
-        CANVAS    - if you need HTML DOM manipulation, typical for client side.
-        JQUERY    - if you want JQuery stuff on top of Canvas.
-        IDE       - if you are extending the IDE with new tools etc.
 
   -l library1,library2
      Additionally add listed libraries (no spaces or .js) in listed order.
@@ -109,12 +99,8 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-BOOT="boot"
-KERNEL="$BOOT Kernel"
+KERNEL="boot Kernel"
 COMPILER="$KERNEL parser Compiler"
-CANVAS="$KERNEL Canvas"
-JQUERY="$CANVAS JQuery"
-IDE="$JQUERY IDE SUnit Examples"
 
 # Predefined initializer
 INITIALIZER="$JTALK/js/init.js"
@@ -134,9 +120,8 @@ DEPLOY=false
 NODECOMPILE=nodecompile
 
 # Read options and shift them away
-while getopts "L:l:i:m:M:oOAds:S:h?" o; do
+while getopts "l:i:m:M:oOAds:S:h?" o; do
 case "$o" in
-   L) BASE=${!OPTARG};;  # If OPTARG is "KERNEL" this sets BASE to $KERNEL.
    l) LOAD=$OPTARG;;
    i) INIT=$OPTARG;;
    m) MAIN=$OPTARG;;

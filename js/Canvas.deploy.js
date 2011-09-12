@@ -542,6 +542,17 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+'_empty',
+smalltalk.method({
+selector: 'empty',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_at_put_',
 smalltalk.method({
 selector: 'at:put:',
@@ -803,17 +814,6 @@ selector: 'createTextNodeFor:',
 fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_empty',
-smalltalk.method({
-selector: 'empty',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
 return self;}
 }),
 smalltalk.TagBrush);

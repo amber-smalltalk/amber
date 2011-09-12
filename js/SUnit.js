@@ -1,5 +1,37 @@
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
+'_setTestSelector_',
+smalltalk.method({
+selector: 'setTestSelector:',
+category: 'accessing',
+fn: function (aSelector){
+var self=this;
+self['@testSelector']=aSelector;
+return self;},
+args: ["aSelector"],
+source: unescape('setTestSelector%3A%20aSelector%0A%09testSelector%20%3A%3D%20aSelector'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_selector',
+smalltalk.method({
+selector: 'selector',
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@testSelector'];
+return self;},
+args: [],
+source: unescape('selector%0A%09%5EtestSelector'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 '_signalFailure_',
 smalltalk.method({
 selector: 'signalFailure:',
@@ -9,9 +41,9 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_messageText_", [aString]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send((smalltalk.TestFailure || TestFailure), "_new", []));
 return self;},
 args: ["aString"],
-source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal%20'),
+source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
 messageSends: ["messageText:", "signal", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: []
 }),
 smalltalk.TestCase);
 
@@ -78,7 +110,7 @@ return self;},
 args: ["aResult"],
 source: unescape('performTestFor%3A%20aResult%0A%09%5B%5Bself%20perform%3A%20self%20selector%5D%0A%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%5D%5D%0A%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%5D'),
 messageSends: ["on:do:", "perform:", "selector", "addFailure:", "addError:"],
-referencedClasses: [smalltalk.TestFailure,smalltalk.Error]
+referencedClasses: [smalltalk.Error]
 }),
 smalltalk.TestCase);
 
@@ -146,38 +178,6 @@ referencedClasses: []
 }),
 smalltalk.TestCase);
 
-smalltalk.addMethod(
-'_setTestSelector_',
-smalltalk.method({
-selector: 'setTestSelector:',
-category: 'accessing',
-fn: function (aSelector){
-var self=this;
-self['@testSelector']=aSelector;
-return self;},
-args: ["aSelector"],
-source: unescape('setTestSelector%3A%20aSelector%0A%09testSelector%20%3A%3D%20aSelector'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-'_selector',
-smalltalk.method({
-selector: 'selector',
-category: 'accessing',
-fn: function (){
-var self=this;
-return self['@testSelector'];
-return self;},
-args: [],
-source: unescape('selector%0A%09%5EtestSelector'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TestCase);
-
 
 smalltalk.addMethod(
 '_testSelectors',
@@ -228,22 +228,6 @@ referencedClasses: [smalltalk.TestCase]
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_shouldInheritSelectors',
-smalltalk.method({
-selector: 'shouldInheritSelectors',
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.send(self, "_~_eq", [smalltalk.send(self, "_lookupHierarchyRoot", [])]);
-return self;},
-args: [],
-source: unescape('shouldInheritSelectors%0A%09%5Eself%20%7E%3D%20self%20lookupHierarchyRoot'),
-messageSends: [unescape("%7E%3D"), "lookupHierarchyRoot"],
-referencedClasses: []
-}),
-smalltalk.TestCase.klass);
-
-smalltalk.addMethod(
 '_allTestSelectors',
 smalltalk.method({
 selector: 'allTestSelectors',
@@ -274,6 +258,22 @@ return self;},
 args: [],
 source: unescape('buildSuite%0A%09%5Eself%20allTestSelectors%20collect%3A%20%5B%3Aeach%20%7C%20self%20selector%3A%20each%5D'),
 messageSends: ["collect:", "allTestSelectors", "selector:"],
+referencedClasses: []
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+'_shouldInheritSelectors',
+smalltalk.method({
+selector: 'shouldInheritSelectors',
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_~_eq", [smalltalk.send(self, "_lookupHierarchyRoot", [])]);
+return self;},
+args: [],
+source: unescape('shouldInheritSelectors%0A%09%5Eself%20%7E%3D%20self%20lookupHierarchyRoot'),
+messageSends: [unescape("%7E%3D"), "lookupHierarchyRoot"],
 referencedClasses: []
 }),
 smalltalk.TestCase.klass);

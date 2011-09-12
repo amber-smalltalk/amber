@@ -288,7 +288,7 @@ return self;},
 args: [],
 source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom'),
 messageSends: ["atRandom"],
-referencedClasses: [smalltalk.TetrisPiece]
+referencedClasses: []
 }),
 smalltalk.Tetris);
 
@@ -375,7 +375,7 @@ return self;},
 args: ["html"],
 source: unescape('renderCanvasOn%3A%20html%0A%09%7C%20canvas%20%7C%0A%09canvas%20%3A%3D%20html%20canvas.%0A%09canvas%20at%3A%20%27width%27%20put%3A%20self%20width%20asString.%0A%09canvas%20at%3A%20%27height%27%20put%3A%20self%20height%20asString.%0A%09renderingContext%20%3A%3D%20CanvasRenderingContext%20tagBrush%3A%20canvas.%0A%09self%20redraw'),
 messageSends: ["canvas", "at:put:", "asString", "width", "height", "tagBrush:", "redraw"],
-referencedClasses: [smalltalk.CanvasRenderingContext]
+referencedClasses: []
 }),
 smalltalk.Tetris);
 
