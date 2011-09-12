@@ -1,5 +1,53 @@
 smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'sys'], 'FileServer');
 smalltalk.addMethod(
+'_basePath',
+smalltalk.method({
+selector: 'basePath',
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@basePath']) == nil || $receiver == undefined) ? (function(){return unescape("./");})() : $receiver;
+return self;},
+args: [],
+source: unescape('basePath%0A%09%5EbasePath%20ifNil%3A%20%5B%27./%27%5D'),
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+'_basePath_',
+smalltalk.method({
+selector: 'basePath:',
+category: 'accessing',
+fn: function (aString){
+var self=this;
+self['@basePath']=aString;
+return self;},
+args: ["aString"],
+source: unescape('basePath%3A%20aString%0A%09basePath%20%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+'_port',
+smalltalk.method({
+selector: 'port',
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_port", []);
+return self;},
+args: [],
+source: unescape('port%0A%09%5Eself%20class%20port'),
+messageSends: ["port", "class"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
@@ -37,67 +85,17 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-'_startOn_',
+'_writeData_toFileNamed_',
 smalltalk.method({
-selector: 'startOn:',
-category: 'starting',
-fn: function (aPort){
+selector: 'writeData:toFileNamed:',
+category: 'private',
+fn: function (data, aFilename){
 var self=this;
-self['@port']=aPort;
-smalltalk.send(self, "_start", []);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aFilename]);
 return self;},
-args: ["aPort"],
-source: unescape('startOn%3A%20aPort%0A%09port%20%3A%3D%20aPort.%0A%09self%20start'),
-messageSends: ["start"],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
-'_basePath',
-smalltalk.method({
-selector: 'basePath',
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@basePath']) == nil || $receiver == undefined) ? (function(){return unescape("./");})() : $receiver;
-return self;},
-args: [],
-source: unescape('basePath%0A%09%5EbasePath%20ifNil%3A%20%5B%27./%27%5D'),
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
-'_basePath_',
-smalltalk.method({
-selector: 'basePath:',
-category: 'accessing',
-fn: function (aString){
-var self=this;
-self['@basePath']=aString;
-return self;},
-args: ["aString"],
-source: unescape('basePath%3A%20aString%0A%09basePath%20%3A%3D%20aString'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
-'_start',
-smalltalk.method({
-selector: 'start',
-category: 'starting',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self['@http'], "_createServer_", [(function(request, response){return smalltalk.send(self, "_handleRequest_respondTo_", [request, response]);})]), "_listen_", [smalltalk.send(self, "_port", [])]);
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Starting file server on port ", "__comma", [smalltalk.send(smalltalk.send(self, "_port", []), "_asString", [])])]);
-return self;},
-args: [],
-source: unescape('start%0A%09%28http%20createServer%3A%20%5B%3Arequest%20%3Aresponse%20%7C%0A%09%20%09self%20handleRequest%3A%20request%20respondTo%3A%20response%5D%29%20listen%3A%20self%20port.%0A%09console%20log%3A%20%27Starting%20file%20server%20on%20port%20%27%2C%20self%20port%20asString'),
-messageSends: ["listen:", "createServer:", "handleRequest:respondTo:", "port", "log:", unescape("%2C"), "asString"],
+args: ["data", "aFilename"],
+source: unescape('writeData%3A%20data%20toFileNamed%3A%20aFilename%0A%09console%20log%3A%20aFilename'),
+messageSends: ["log:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -175,22 +173,6 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-'_port',
-smalltalk.method({
-selector: 'port',
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_port", []);
-return self;},
-args: [],
-source: unescape('port%0A%09%5Eself%20class%20port'),
-messageSends: ["port", "class"],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
 '_respondFileNamed_to_',
 smalltalk.method({
 selector: 'respondFileNamed:to:',
@@ -227,22 +209,6 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-'_writeData_toFileNamed_',
-smalltalk.method({
-selector: 'writeData:toFileNamed:',
-category: 'private',
-fn: function (data, aFilename){
-var self=this;
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aFilename]);
-return self;},
-args: ["data", "aFilename"],
-source: unescape('writeData%3A%20data%20toFileNamed%3A%20aFilename%0A%09console%20log%3A%20aFilename%0A%09'),
-messageSends: ["log:"],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
 '_respondOKTo_',
 smalltalk.method({
 selector: 'respondOKTo:',
@@ -258,24 +224,42 @@ referencedClasses: []
 }),
 smalltalk.FileServer);
 
-
-smalltalk.FileServer.klass.iVarNames = ['port','mimeTypes'];
 smalltalk.addMethod(
-'_main',
+'_startOn_',
 smalltalk.method({
-selector: 'main',
-category: 'initialization',
-fn: function (){
+selector: 'startOn:',
+category: 'starting',
+fn: function (aPort){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_new", []), "_startOn_", [smalltalk.send(self, "_port", [])]);
+self['@port']=aPort;
+smalltalk.send(self, "_start", []);
 return self;},
-args: [],
-source: unescape('main%0A%09%5Eself%20new%20startOn%3A%20self%20port'),
-messageSends: ["startOn:", "new", "port"],
+args: ["aPort"],
+source: unescape('startOn%3A%20aPort%0A%09port%20%3A%3D%20aPort.%0A%09self%20start'),
+messageSends: ["start"],
 referencedClasses: []
 }),
-smalltalk.FileServer.klass);
+smalltalk.FileServer);
 
+smalltalk.addMethod(
+'_start',
+smalltalk.method({
+selector: 'start',
+category: 'starting',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self['@http'], "_createServer_", [(function(request, response){return smalltalk.send(self, "_handleRequest_respondTo_", [request, response]);})]), "_listen_", [smalltalk.send(self, "_port", [])]);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Starting file server on port ", "__comma", [smalltalk.send(smalltalk.send(self, "_port", []), "_asString", [])])]);
+return self;},
+args: [],
+source: unescape('start%0A%09%28http%20createServer%3A%20%5B%3Arequest%20%3Aresponse%20%7C%0A%09%20%09self%20handleRequest%3A%20request%20respondTo%3A%20response%5D%29%20listen%3A%20self%20port.%0A%09console%20log%3A%20%27Starting%20file%20server%20on%20port%20%27%2C%20self%20port%20asString'),
+messageSends: ["listen:", "createServer:", "handleRequest:respondTo:", "port", "log:", unescape("%2C"), "asString"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+
+smalltalk.FileServer.klass.iVarNames = ['port','mimeTypes'];
 smalltalk.addMethod(
 '_port',
 smalltalk.method({
@@ -352,6 +336,22 @@ return self;},
 args: ["aString"],
 source: unescape('mimeTypeFor%3A%20aString%0A%09%5Eself%20mimeTypes%20at%3A%20%28aString%20replace%3A%20%27.*%5B%5C.%5D%27%20with%3A%20%27%27%29%20ifAbsent%3A%20%5B%27text/plain%27%5D'),
 messageSends: ["at:ifAbsent:", "mimeTypes", "replace:with:"],
+referencedClasses: []
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
+'_main',
+smalltalk.method({
+selector: 'main',
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_startOn_", [smalltalk.send(self, "_port", [])]);
+return self;},
+args: [],
+source: unescape('main%0A%09%5Eself%20new%20startOn%3A%20self%20port'),
+messageSends: ["startOn:", "new", "port"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
