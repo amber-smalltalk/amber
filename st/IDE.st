@@ -765,6 +765,17 @@ search: aString
 		searchedClass isClass
 			ifTrue: [self class openOn: searchedClass]
 			ifFalse: [self searchReferencesOf: aString]]
+!
+
+handleSourceAreaKeyDown: anEvent
+	 <if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 83) { //ctrl+s
+			self._compile();
+			anEvent.preventDefault();
+			return false;
+		}
+	}
+	>
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -817,6 +828,8 @@ renderBottomPanelOn: html
 	with: [
 	    sourceArea := SourceArea new.
 	    sourceArea renderOn: html.
+            sourceArea onKeyDown: [:e |
+                                   self handleSourceAreaKeyDown: e].
 	    sourceArea onKeyUp: [self updateStatus]]
 !
 
@@ -837,7 +850,7 @@ renderButtonsOn: html
 			with: 'PrintIt';
 			onClick: [sourceArea printIt].
 		html button with: 'InspectIt';
-			onClick: [sourceArea inspectit]]. 
+			onClick: [sourceArea inspectIt]]. 
     self updateSourceAndButtons
 ! !
 
