@@ -341,7 +341,7 @@ parseError: anException parsing: aString
 !
 
 packages
-	<return self.packages>
+	<return self.packages.all()>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!

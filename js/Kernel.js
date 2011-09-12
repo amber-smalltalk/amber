@@ -961,10 +961,10 @@ selector: 'packages',
 category: 'accessing',
 fn: function (){
 var self=this;
-return self.packages;
+return self.packages.all();
 return self;},
 args: [],
-source: unescape('packages%0A%09%3Creturn%20self.packages%3E'),
+source: unescape('packages%0A%09%3Creturn%20self.packages.all%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
