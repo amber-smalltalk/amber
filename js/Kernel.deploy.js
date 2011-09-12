@@ -1684,7 +1684,7 @@ smalltalk.method({
 selector: 'even',
 fn: function (){
 var self=this;
-return (0) == smalltalk.send(self, "_modulo_", [(2)]);
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
 return self;}
 }),
 smalltalk.Number);
