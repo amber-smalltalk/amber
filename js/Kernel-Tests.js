@@ -159,7 +159,7 @@ selector: 'testEquality',
 category: 'not yet classified',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_deny_", [(0) == false]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [(0)])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [""])]);
@@ -229,16 +229,16 @@ selector: 'testEquality',
 category: 'tests',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [(1) == (1)]);
-smalltalk.send(self, "_assert_", [(0) == (0)]);
-smalltalk.send(self, "_deny_", [(1) == (0)]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((0), "__eq", [(0)])]);
+smalltalk.send(self, "_deny_", [smalltalk.send((1), "__eq", [(0)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq", [(1)])]);
-smalltalk.send(self, "_assert_", [(1) == smalltalk.send((1), "_yourself", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [smalltalk.send((1), "_yourself", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq", [smalltalk.send((1), "_yourself", [])])]);
-smalltalk.send(self, "_deny_", [(0) == false]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [(0)])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [(0)])]);
-smalltalk.send(self, "_deny_", [(0) == ""]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [""])]);
 return self;},
 args: [],
 source: unescape('testEquality%0A%09self%20assert%3A%201%20%3D%201.%0A%09self%20assert%3A%200%20%3D%200.%0A%09self%20deny%3A%201%20%3D%200.%0A%0A%09self%20assert%3A%201%20yourself%20%3D%201.%0A%09self%20assert%3A%201%20%3D%201%20yourself.%0A%09self%20assert%3A%201%20yourself%20%3D%201%20yourself.%0A%09%0A%09self%20deny%3A%200%20%3D%20false.%0A%09self%20deny%3A%20false%20%3D%200.%0A%09self%20deny%3A%20%27%27%20%3D%200.%0A%09self%20deny%3A%200%20%3D%20%27%27'),
