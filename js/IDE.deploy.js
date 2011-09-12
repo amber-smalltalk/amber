@@ -1158,6 +1158,24 @@ return self;}
 smalltalk.Browser);
 
 smalltalk.addMethod(
+'_handleSourceAreaKeyDown_',
+smalltalk.method({
+selector: 'handleSourceAreaKeyDown:',
+fn: function (anEvent){
+var self=this;
+if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 83) { //ctrl+s
+			self._compile();
+			anEvent.preventDefault();
+			return false;
+		}
+	}
+	;
+return self;}
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
@@ -1336,24 +1354,6 @@ selector: 'resetClassesList',
 fn: function (){
 var self=this;
 smalltalk.send(self['@classesList'], "_resetNodes", []);
-return self;}
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-'_handleSourceAreaKeyDown_',
-smalltalk.method({
-selector: 'handleSourceAreaKeyDown:',
-fn: function (anEvent){
-var self=this;
-if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 83) { //ctrl+s
-			self._compile();
-			anEvent.preventDefault();
-			return false;
-		}
-	}
-	;
 return self;}
 }),
 smalltalk.Browser);

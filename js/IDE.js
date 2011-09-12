@@ -1638,6 +1638,29 @@ referencedClasses: [smalltalk.Smalltalk]
 smalltalk.Browser);
 
 smalltalk.addMethod(
+'_handleSourceAreaKeyDown_',
+smalltalk.method({
+selector: 'handleSourceAreaKeyDown:',
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 83) { //ctrl+s
+			self._compile();
+			anEvent.preventDefault();
+			return false;
+		}
+	}
+	;
+return self;},
+args: ["anEvent"],
+source: unescape('handleSourceAreaKeyDown%3A%20anEvent%0A%09%20%3Cif%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2083%29%20%7B%20//ctrl+s%0A%09%09%09self._compile%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
@@ -1716,7 +1739,7 @@ return self;},
 args: ["html"],
 source: unescape('renderBottomPanelOn%3A%20html%0A%20%20%20%20html%20div%0A%09class%3A%20%27jt_sourceCode%27%3B%0A%09with%3A%20%5B%0A%09%20%20%20%20sourceArea%20%3A%3D%20SourceArea%20new.%0A%09%20%20%20%20sourceArea%20renderOn%3A%20html.%0A%20%20%20%20%20%20%20%20%20%20%20%20sourceArea%20onKeyDown%3A%20%5B%3Ae%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%20handleSourceAreaKeyDown%3A%20e%5D.%0A%09%20%20%20%20sourceArea%20onKeyUp%3A%20%5Bself%20updateStatus%5D%5D'),
 messageSends: ["class:", "with:", "new", "renderOn:", "onKeyDown:", "handleSourceAreaKeyDown:", "onKeyUp:", "updateStatus", "div"],
-referencedClasses: [smalltalk.SourceArea]
+referencedClasses: []
 }),
 smalltalk.Browser);
 
@@ -1891,29 +1914,6 @@ return self;},
 args: [],
 source: unescape('resetClassesList%0A%09classesList%20resetNodes'),
 messageSends: ["resetNodes"],
-referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-'_handleSourceAreaKeyDown_',
-smalltalk.method({
-selector: 'handleSourceAreaKeyDown:',
-category: 'actions',
-fn: function (anEvent){
-var self=this;
-if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 83) { //ctrl+s
-			self._compile();
-			anEvent.preventDefault();
-			return false;
-		}
-	}
-	;
-return self;},
-args: ["anEvent"],
-source: unescape('handleSourceAreaKeyDown%3A%20anEvent%0A%09%20%3Cif%28anEvent.ctrlKey%29%20%7B%0A%09%09if%28anEvent.keyCode%20%3D%3D%3D%2083%29%20%7B%20//ctrl+s%0A%09%09%09self._compile%28%29%3B%0A%09%09%09anEvent.preventDefault%28%29%3B%0A%09%09%09return%20false%3B%0A%09%09%7D%0A%09%7D%0A%09%3E%20'),
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Browser);

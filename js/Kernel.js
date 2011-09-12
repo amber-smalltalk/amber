@@ -2318,7 +2318,7 @@ selector: 'even',
 category: 'testing',
 fn: function (){
 var self=this;
-return (0) == smalltalk.send(self, "_modulo_", [(2)]);
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
 return self;},
 args: [],
 source: unescape('even%0A%09%5E%200%20%3D%20%28self%20modulo%3A%202%29'),
