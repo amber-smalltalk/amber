@@ -942,13 +942,6 @@ inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
                 	self visit: aCollection first.
                 	inlined := true]].
 
-	(aSelector = '=') ifTrue: [
-          	(self isNode: anObject ofClass: Number) ifTrue: [
-                  	self visit: anObject.
-                  	stream nextPutAll: ' == '.
-                	self visit: aCollection first.
-                	inlined := true]].
-
 	(aSelector = '>') ifTrue: [
           	(self isNode: anObject ofClass: Number) ifTrue: [
                   	self visit: anObject.
@@ -1373,11 +1366,6 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
-
-!DoIt methodsFor: ''!
-
-doIt ^[1 fdsfds] value
-! !
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
