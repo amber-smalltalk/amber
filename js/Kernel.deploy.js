@@ -659,23 +659,56 @@ return self;}
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-'_modules',
-smalltalk.method({
-selector: 'modules',
-fn: function (){
-var self=this;
-return self.modules.all();
-return self;}
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
 '_packages',
 smalltalk.method({
 selector: 'packages',
 fn: function (){
 var self=this;
 return self.packages.all();
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_packageAt_',
+smalltalk.method({
+selector: 'packageAt:',
+fn: function (packageName){
+var self=this;
+return self.packages[packageName];
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_packageAt_ifAbsent_',
+smalltalk.method({
+selector: 'packageAt:ifAbsent:',
+fn: function (packageName, aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_packageAt_", [packageName]), "_ifNil_", [aBlock]);
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_createPackage_',
+smalltalk.method({
+selector: 'createPackage:',
+fn: function (packageName){
+var self=this;
+return smalltalk.addPackage(packageName);
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_deletePackage_',
+smalltalk.method({
+selector: 'deletePackage:',
+fn: function (packageName){
+var self=this;
+delete smalltalk.packages[packageName];
 return self;}
 }),
 smalltalk.Smalltalk);
@@ -1110,28 +1143,6 @@ selector: 'subclass:instanceVariableNames:classVariableNames:poolDictionaries:ca
 fn: function (aString, aString2, classVars, pools, aString3){
 var self=this;
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
-return self;}
-}),
-smalltalk.Class);
-
-smalltalk.addMethod(
-'_module',
-smalltalk.method({
-selector: 'module',
-fn: function (){
-var self=this;
-return self.module;
-return self;}
-}),
-smalltalk.Class);
-
-smalltalk.addMethod(
-'_module_',
-smalltalk.method({
-selector: 'module:',
-fn: function (aModule){
-var self=this;
-self.module = aModule;
 return self;}
 }),
 smalltalk.Class);
@@ -4428,42 +4439,6 @@ return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.sen
 return self;}
 }),
 smalltalk.MethodContext);
-
-
-
-smalltalk.addClass('Module', smalltalk.Object, [], 'Kernel');
-smalltalk.addMethod(
-'_name',
-smalltalk.method({
-selector: 'name',
-fn: function (){
-var self=this;
-return self.moduleName || nil;
-return self;}
-}),
-smalltalk.Module);
-
-smalltalk.addMethod(
-'_requires',
-smalltalk.method({
-selector: 'requires',
-fn: function (){
-var self=this;
-return self.requires || nil;
-return self;}
-}),
-smalltalk.Module);
-
-smalltalk.addMethod(
-'_name_',
-smalltalk.method({
-selector: 'name:',
-fn: function (aString){
-var self=this;
-return self.moduleName = aString;
-return self;}
-}),
-smalltalk.Module);
 
 
 
