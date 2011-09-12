@@ -748,7 +748,7 @@ addInstanceVariableNamed: aString toClass: aClass
 		addSubclassOf: aClass superclass 
 		named: aClass name 
 		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
-		module: aClass module name
+		package: aClass package name
 !
 
 searchReferencesOf: aString

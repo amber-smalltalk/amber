@@ -1,3 +1,43 @@
+!ClassBuilder methodsFor: 'class creation'!
+
+superclass: aClass subclass: aString
+	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
+!
+
+class: aClass instanceVariableNames: aString
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+	self setupClass: aClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				package: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass
+! !
+
+!ClassBuilder methodsFor: 'private'!
+
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection
+	<smalltalk.addClass(aString, aClass, aCollection);
+	    return smalltalk[aString]>
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<smalltalk.addClass(aString, aClass, aCollection, packageName);
+	    return smalltalk[aString]>
+! !
+
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -300,8 +340,8 @@ parseError: anException parsing: aString
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
 !
 
-modules
-	<return self.modules.all()>
+packages
+	<return self.packages>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -312,14 +352,14 @@ current
 	<return smalltalk>
 ! !
 
-Object subclass: #Module
+Object subclass: #Package
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
-!Module methodsFor: 'accessing'!
+!Package methodsFor: 'accessing'!
 
 name
-	<return self.moduleName || nil>
+	<return self.pkgName || nil>
 !
 
 requires
@@ -327,7 +367,7 @@ requires
 !
 
 name: aString
-	<return self.moduleName = aString>
+	<return self.pkgName = aString>
 ! !
 
 Object subclass: #Behavior
@@ -486,7 +526,7 @@ Behavior subclass: #Class
 !Class methodsFor: 'accessing'!
 
 category
-	^self module ifNil: ['unclassified'] ifNotNil: [self module name]
+	^self package ifNil: ['unclassified'] ifNotNil: [self package name]
 !
 
 rename: aString
@@ -497,34 +537,34 @@ rename: aString
 	>
 !
 
-module
-	<return self.module>
+package
+	<return self.pkg>
 !
 
-module: aModule
-	<self.module = aModule>
+package: aPackage
+	<self.pkg = aPackage>
 ! !
 
 !Class methodsFor: 'class creation'!
 
+subclass: aString instanceVariableNames: aString2 package: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
+!
+
 subclass: aString instanceVariableNames: anotherString
 	"Kept for compatibility."
-	^self subclass: aString instanceVariableNames: anotherString module: nil
+	^self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
-	^self subclass: aString instanceVariableNames: aString2 module: aString3
+	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
 	"Just ignore class variables and pools. Added for compatibility."
-	^self subclass: aString instanceVariableNames: aString2 module: aString3
-!
-
-subclass: aString instanceVariableNames: aString2 module: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
+	^self subclass: aString instanceVariableNames: aString2 package: aString3
 ! !
 
 !Class methodsFor: 'printing'!
@@ -1185,17 +1225,17 @@ Object subclass: #UndefinedObject
 !UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	^self subclass: aString instanceVariableNames: anotherString module: nil
+	^self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
-	^self subclass: aString instanceVariableNames: aString2 module: aString3
+	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
-subclass: aString instanceVariableNames: aString2 module: aString3
+subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
+	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'copying'!
@@ -2333,45 +2373,6 @@ Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
-!ClassBuilder methodsFor: 'class creation'!
-
-superclass: aClass subclass: aString
-	^self superclass: aClass subclass: aString instanceVariableNames: '' module: nil
-!
-
-class: aClass instanceVariableNames: aString
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
-	self setupClass: aClass
-!
-
-superclass: aClass subclass: aString instanceVariableNames: aString2 module: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				module: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
-! !
-
-!ClassBuilder methodsFor: 'private'!
-
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	<smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]>
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection module: moduleName
-	<smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString]>
-! !
 
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
