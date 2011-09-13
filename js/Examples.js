@@ -1,8 +1,8 @@
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
-'_increase',
+unescape('_increase'),
 smalltalk.method({
-selector: 'increase',
+selector: unescape('increase'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -17,9 +17,9 @@ referencedClasses: []
 smalltalk.Counter);
 
 smalltalk.addMethod(
-'_decrease',
+unescape('_decrease'),
 smalltalk.method({
-selector: 'decrease',
+selector: unescape('decrease'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -34,9 +34,9 @@ referencedClasses: []
 smalltalk.Counter);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -51,9 +51,9 @@ referencedClasses: []
 smalltalk.Counter);
 
 smalltalk.addMethod(
-'_renderOn_',
+unescape('_renderOn_'),
 smalltalk.method({
-selector: 'renderOn:',
+selector: unescape('renderOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -72,9 +72,9 @@ smalltalk.Counter);
 
 smalltalk.addClass('Tetris', smalltalk.Widget, ['renderingContext', 'timer', 'speed', 'score', 'rows', 'movingPiece'], 'Examples');
 smalltalk.addMethod(
-'_width',
+unescape('_width'),
 smalltalk.method({
-selector: 'width',
+selector: unescape('width'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -88,9 +88,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -104,9 +104,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_squares',
+unescape('_squares'),
 smalltalk.method({
-selector: 'squares',
+selector: unescape('squares'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -120,9 +120,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_gluePiece_',
+unescape('_gluePiece_'),
 smalltalk.method({
-selector: 'gluePiece:',
+selector: unescape('gluePiece%3A'),
 category: 'accessing',
 fn: function (aPiece){
 var self=this;
@@ -136,9 +136,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_rows',
+unescape('_rows'),
 smalltalk.method({
-selector: 'rows',
+selector: unescape('rows'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -152,9 +152,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_addRow_',
+unescape('_addRow_'),
 smalltalk.method({
-selector: 'addRow:',
+selector: unescape('addRow%3A'),
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
@@ -168,9 +168,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_startNewGame',
+unescape('_startNewGame'),
 smalltalk.method({
-selector: 'startNewGame',
+selector: unescape('startNewGame'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -186,9 +186,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_nextStep',
+unescape('_nextStep'),
 smalltalk.method({
-selector: 'nextStep',
+selector: unescape('nextStep'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -204,9 +204,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_redraw',
+unescape('_redraw'),
 smalltalk.method({
-selector: 'redraw',
+selector: unescape('redraw'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -221,9 +221,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_drawMap',
+unescape('_drawMap'),
 smalltalk.method({
-selector: 'drawMap',
+selector: unescape('drawMap'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -242,9 +242,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_drawLineFrom_to_',
+unescape('_drawLineFrom_to_'),
 smalltalk.method({
-selector: 'drawLineFrom:to:',
+selector: unescape('drawLineFrom%3Ato%3A'),
 category: 'actions',
 fn: function (aPoint, anotherPoint){
 var self=this;
@@ -258,9 +258,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_newGame',
+unescape('_newGame'),
 smalltalk.method({
-selector: 'newGame',
+selector: unescape('newGame'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -277,9 +277,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_newPiece',
+unescape('_newPiece'),
 smalltalk.method({
-selector: 'newPiece',
+selector: unescape('newPiece'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -293,9 +293,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_drawRows',
+unescape('_drawRows'),
 smalltalk.method({
-selector: 'drawRows',
+selector: unescape('drawRows'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -310,9 +310,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_drawPiece',
+unescape('_drawPiece'),
 smalltalk.method({
-selector: 'drawPiece',
+selector: unescape('drawPiece'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -326,9 +326,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -343,9 +343,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_renderOn_',
+unescape('_renderOn_'),
 smalltalk.method({
-selector: 'renderOn:',
+selector: unescape('renderOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -359,9 +359,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_renderCanvasOn_',
+unescape('_renderCanvasOn_'),
 smalltalk.method({
-selector: 'renderCanvasOn:',
+selector: unescape('renderCanvasOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -380,9 +380,9 @@ referencedClasses: []
 smalltalk.Tetris);
 
 smalltalk.addMethod(
-'_renderButtonsOn_',
+unescape('_renderButtonsOn_'),
 smalltalk.method({
-selector: 'renderButtonsOn:',
+selector: unescape('renderButtonsOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -397,9 +397,9 @@ smalltalk.Tetris);
 
 
 smalltalk.addMethod(
-'_squareSize',
+unescape('_squareSize'),
 smalltalk.method({
-selector: 'squareSize',
+selector: unescape('squareSize'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -413,9 +413,9 @@ referencedClasses: []
 smalltalk.Tetris.klass);
 
 smalltalk.addMethod(
-'_width',
+unescape('_width'),
 smalltalk.method({
-selector: 'width',
+selector: unescape('width'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -429,9 +429,9 @@ referencedClasses: []
 smalltalk.Tetris.klass);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -445,9 +445,9 @@ referencedClasses: []
 smalltalk.Tetris.klass);
 
 smalltalk.addMethod(
-'_squares',
+unescape('_squares'),
 smalltalk.method({
-selector: 'squares',
+selector: unescape('squares'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -463,9 +463,9 @@ smalltalk.Tetris.klass);
 
 smalltalk.addClass('TetrisPiece', smalltalk.Widget, ['rotation', 'position'], 'Examples');
 smalltalk.addMethod(
-'_rotation',
+unescape('_rotation'),
 smalltalk.method({
-selector: 'rotation',
+selector: unescape('rotation'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -479,9 +479,9 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_rotation_',
+unescape('_rotation_'),
 smalltalk.method({
-selector: 'rotation:',
+selector: unescape('rotation%3A'),
 category: 'accessing',
 fn: function (aNumber){
 var self=this;
@@ -495,9 +495,9 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_position',
+unescape('_position'),
 smalltalk.method({
-selector: 'position',
+selector: unescape('position'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -511,9 +511,9 @@ referencedClasses: [smalltalk.Tetris]
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_position_',
+unescape('_position_'),
 smalltalk.method({
-selector: 'position:',
+selector: unescape('position%3A'),
 category: 'accessing',
 fn: function (aPoint){
 var self=this;
@@ -527,9 +527,9 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_bounds',
+unescape('_bounds'),
 smalltalk.method({
-selector: 'bounds',
+selector: unescape('bounds'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -543,9 +543,9 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_color',
+unescape('_color'),
 smalltalk.method({
-selector: 'color',
+selector: unescape('color'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -559,9 +559,9 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -575,9 +575,9 @@ referencedClasses: []
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_drawOn_',
+unescape('_drawOn_'),
 smalltalk.method({
-selector: 'drawOn:',
+selector: unescape('drawOn%3A'),
 category: 'drawing',
 fn: function (aRenderingContext){
 var self=this;
@@ -592,9 +592,9 @@ referencedClasses: [smalltalk.Tetris]
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_canMove',
+unescape('_canMove'),
 smalltalk.method({
-selector: 'canMove',
+selector: unescape('canMove'),
 category: 'testing',
 fn: function (){
 var self=this;
@@ -608,9 +608,9 @@ referencedClasses: [smalltalk.Tetris]
 smalltalk.TetrisPiece);
 
 smalltalk.addMethod(
-'_canMoveIn_',
+unescape('_canMoveIn_'),
 smalltalk.method({
-selector: 'canMoveIn:',
+selector: unescape('canMoveIn%3A'),
 category: 'testing',
 fn: function (aTetris){
 var self=this;
@@ -625,9 +625,9 @@ smalltalk.TetrisPiece);
 
 
 smalltalk.addMethod(
-'_atRandom',
+unescape('_atRandom'),
 smalltalk.method({
-selector: 'atRandom',
+selector: unescape('atRandom'),
 category: 'instance creation',
 fn: function (){
 var self=this;
@@ -643,9 +643,9 @@ smalltalk.TetrisPiece.klass);
 
 smalltalk.addClass('TetrisPieceO', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
-'_bounds',
+unescape('_bounds'),
 smalltalk.method({
-selector: 'bounds',
+selector: unescape('bounds'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -662,9 +662,9 @@ smalltalk.TetrisPieceO);
 
 smalltalk.addClass('TetrisPieceL', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
-'_bounds',
+unescape('_bounds'),
 smalltalk.method({
-selector: 'bounds',
+selector: unescape('bounds'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -678,9 +678,9 @@ referencedClasses: [smalltalk.Array]
 smalltalk.TetrisPieceL);
 
 smalltalk.addMethod(
-'_color',
+unescape('_color'),
 smalltalk.method({
-selector: 'color',
+selector: unescape('color'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -694,9 +694,9 @@ referencedClasses: []
 smalltalk.TetrisPieceL);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -713,9 +713,9 @@ smalltalk.TetrisPieceL);
 
 smalltalk.addClass('TetrisPieceJ', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
-'_color',
+unescape('_color'),
 smalltalk.method({
-selector: 'color',
+selector: unescape('color'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -729,9 +729,9 @@ referencedClasses: []
 smalltalk.TetrisPieceJ);
 
 smalltalk.addMethod(
-'_bounds',
+unescape('_bounds'),
 smalltalk.method({
-selector: 'bounds',
+selector: unescape('bounds'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -745,9 +745,9 @@ referencedClasses: [smalltalk.Array]
 smalltalk.TetrisPieceJ);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -764,9 +764,9 @@ smalltalk.TetrisPieceJ);
 
 smalltalk.addClass('TetrisPieceI', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
-'_color',
+unescape('_color'),
 smalltalk.method({
-selector: 'color',
+selector: unescape('color'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -780,9 +780,9 @@ referencedClasses: []
 smalltalk.TetrisPieceI);
 
 smalltalk.addMethod(
-'_bounds',
+unescape('_bounds'),
 smalltalk.method({
-selector: 'bounds',
+selector: unescape('bounds'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -796,9 +796,9 @@ referencedClasses: [smalltalk.Array]
 smalltalk.TetrisPieceI);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -815,9 +815,9 @@ smalltalk.TetrisPieceI);
 
 smalltalk.addClass('TetrisPieceT', smalltalk.TetrisPiece, [], 'Examples');
 smalltalk.addMethod(
-'_bounds',
+unescape('_bounds'),
 smalltalk.method({
-selector: 'bounds',
+selector: unescape('bounds'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -831,9 +831,9 @@ referencedClasses: [smalltalk.Array]
 smalltalk.TetrisPieceT);
 
 smalltalk.addMethod(
-'_color',
+unescape('_color'),
 smalltalk.method({
-selector: 'color',
+selector: unescape('color'),
 category: 'accessing',
 fn: function (){
 var self=this;

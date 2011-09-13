@@ -1,8 +1,8 @@
 smalltalk.addClass('StringTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-'_testJoin',
+unescape('_testJoin'),
 smalltalk.method({
-selector: 'testJoin',
+selector: unescape('testJoin'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -16,9 +16,9 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-'_testStreamContents',
+unescape('_testStreamContents'),
 smalltalk.method({
-selector: 'testStreamContents',
+selector: unescape('testStreamContents'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -32,9 +32,9 @@ referencedClasses: [smalltalk.String]
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-'_testIncludesSubString',
+unescape('_testIncludesSubString'),
 smalltalk.method({
-selector: 'testIncludesSubString',
+selector: unescape('testIncludesSubString'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -49,9 +49,9 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-'_testEquality',
+unescape('_testEquality'),
 smalltalk.method({
-selector: 'testEquality',
+selector: unescape('testEquality'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -72,9 +72,9 @@ smalltalk.StringTest);
 
 smalltalk.addClass('DictionaryTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-'_testPrintString',
+unescape('_testPrintString'),
 smalltalk.method({
-selector: 'testPrintString',
+selector: unescape('testPrintString'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -88,9 +88,9 @@ referencedClasses: [smalltalk.Dictionary]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-'_testEquality',
+unescape('_testEquality'),
 smalltalk.method({
-selector: 'testEquality',
+selector: unescape('testEquality'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -115,9 +115,9 @@ referencedClasses: [smalltalk.Dictionary]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-'_testDynamicDictionaries',
+unescape('_testDynamicDictionaries'),
 smalltalk.method({
-selector: 'testDynamicDictionaries',
+selector: unescape('testDynamicDictionaries'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -134,9 +134,9 @@ smalltalk.DictionaryTest);
 
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-'_testLogic',
+unescape('_testLogic'),
 smalltalk.method({
-selector: 'testLogic',
+selector: unescape('testLogic'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -153,9 +153,9 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-'_testEquality',
+unescape('_testEquality'),
 smalltalk.method({
-selector: 'testEquality',
+selector: unescape('testEquality'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -178,9 +178,9 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-'_testLogicKeywords',
+unescape('_testLogicKeywords'),
 smalltalk.method({
-selector: 'testLogicKeywords',
+selector: unescape('testLogicKeywords'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -197,9 +197,9 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-'_testIfTrueIfFalse',
+unescape('_testIfTrueIfFalse'),
 smalltalk.method({
-selector: 'testIfTrueIfFalse',
+selector: unescape('testIfTrueIfFalse'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -223,9 +223,9 @@ smalltalk.BooleanTest);
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-'_testEquality',
+unescape('_testEquality'),
 smalltalk.method({
-selector: 'testEquality',
+selector: unescape('testEquality'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -248,9 +248,9 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-'_testArithmetic',
+unescape('_testArithmetic'),
 smalltalk.method({
-selector: 'testArithmetic',
+selector: unescape('testArithmetic'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -270,9 +270,9 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-'_testRounded',
+unescape('_testRounded'),
 smalltalk.method({
-selector: 'testRounded',
+selector: unescape('testRounded'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -288,9 +288,9 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-'_testNegated',
+unescape('_testNegated'),
 smalltalk.method({
-selector: 'testNegated',
+selector: unescape('testNegated'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -305,9 +305,9 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-'_testComparison',
+unescape('_testComparison'),
 smalltalk.method({
-selector: 'testComparison',
+selector: unescape('testComparison'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -328,9 +328,9 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-'_testTruncated',
+unescape('_testTruncated'),
 smalltalk.method({
-selector: 'testTruncated',
+selector: unescape('testTruncated'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -346,9 +346,9 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-'_testPrintShowingDecimalPlaces',
+unescape('_testPrintShowingDecimalPlaces'),
 smalltalk.method({
-selector: 'testPrintShowingDecimalPlaces',
+selector: unescape('testPrintShowingDecimalPlaces'),
 category: 'not yet classified',
 fn: function (){
 var self=this;

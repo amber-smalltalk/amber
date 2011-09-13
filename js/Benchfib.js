@@ -1,9 +1,9 @@
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
-'_main',
+unescape('_main'),
 smalltalk.method({
-selector: 'main',
+selector: unescape('main'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -20,9 +20,9 @@ smalltalk.Benchfib.klass);
 
 
 smalltalk.addMethod(
-'_benchFib',
+unescape('_benchFib'),
 smalltalk.method({
-selector: 'benchFib',
+selector: unescape('benchFib'),
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -36,9 +36,9 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_benchmark',
+unescape('_benchmark'),
 smalltalk.method({
-selector: 'benchmark',
+selector: unescape('benchmark'),
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -59,9 +59,9 @@ referencedClasses: [smalltalk.Array]
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_tinyBenchmarks',
+unescape('_tinyBenchmarks'),
 smalltalk.method({
-selector: 'tinyBenchmarks',
+selector: unescape('tinyBenchmarks'),
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -84,9 +84,9 @@ referencedClasses: [smalltalk.Date]
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_jsbenchFib',
+unescape('_jsbenchFib'),
 smalltalk.method({
-selector: 'jsbenchFib',
+selector: unescape('jsbenchFib'),
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -103,9 +103,9 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_jsbenchmark',
+unescape('_jsbenchmark'),
 smalltalk.method({
-selector: 'jsbenchmark',
+selector: unescape('jsbenchmark'),
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -140,9 +140,9 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_jstinyBenchmarks',
+unescape('_jstinyBenchmarks'),
 smalltalk.method({
-selector: 'jstinyBenchmarks',
+selector: unescape('jstinyBenchmarks'),
 category: '*Benchfib',
 fn: function (){
 var self=this;

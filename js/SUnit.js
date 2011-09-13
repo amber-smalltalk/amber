@@ -1,8 +1,8 @@
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
-'_setTestSelector_',
+unescape('_setTestSelector_'),
 smalltalk.method({
-selector: 'setTestSelector:',
+selector: unescape('setTestSelector%3A'),
 category: 'accessing',
 fn: function (aSelector){
 var self=this;
@@ -16,9 +16,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_selector',
+unescape('_selector'),
 smalltalk.method({
-selector: 'selector',
+selector: unescape('selector'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -32,9 +32,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_signalFailure_',
+unescape('_signalFailure_'),
 smalltalk.method({
-selector: 'signalFailure:',
+selector: unescape('signalFailure%3A'),
 category: 'private',
 fn: function (aString){
 var self=this;
@@ -48,9 +48,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_setUp',
+unescape('_setUp'),
 smalltalk.method({
-selector: 'setUp',
+selector: unescape('setUp'),
 category: 'running',
 fn: function (){
 var self=this;
@@ -64,9 +64,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_tearDown',
+unescape('_tearDown'),
 smalltalk.method({
-selector: 'tearDown',
+selector: unescape('tearDown'),
 category: 'running',
 fn: function (){
 var self=this;
@@ -80,9 +80,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_runCaseFor_',
+unescape('_runCaseFor_'),
 smalltalk.method({
-selector: 'runCaseFor:',
+selector: unescape('runCaseFor%3A'),
 category: 'running',
 fn: function (aTestResult){
 var self=this;
@@ -99,9 +99,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_performTestFor_',
+unescape('_performTestFor_'),
 smalltalk.method({
-selector: 'performTestFor:',
+selector: unescape('performTestFor%3A'),
 category: 'running',
 fn: function (aResult){
 var self=this;
@@ -115,9 +115,9 @@ referencedClasses: [smalltalk.Error]
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_assert_',
+unescape('_assert_'),
 smalltalk.method({
-selector: 'assert:',
+selector: unescape('assert%3A'),
 category: 'testing',
 fn: function (aBoolean){
 var self=this;
@@ -131,9 +131,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_deny_',
+unescape('_deny_'),
 smalltalk.method({
-selector: 'deny:',
+selector: unescape('deny%3A'),
 category: 'testing',
 fn: function (aBoolean){
 var self=this;
@@ -147,9 +147,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_assert_equals_',
+unescape('_assert_equals_'),
 smalltalk.method({
-selector: 'assert:equals:',
+selector: unescape('assert%3Aequals%3A'),
 category: 'testing',
 fn: function (expected, actual){
 var self=this;
@@ -163,9 +163,9 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_assert_description_',
+unescape('_assert_description_'),
 smalltalk.method({
-selector: 'assert:description:',
+selector: unescape('assert%3Adescription%3A'),
 category: 'testing',
 fn: function (aBoolean, aString){
 var self=this;
@@ -180,9 +180,9 @@ smalltalk.TestCase);
 
 
 smalltalk.addMethod(
-'_testSelectors',
+unescape('_testSelectors'),
 smalltalk.method({
-selector: 'testSelectors',
+selector: unescape('testSelectors'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -196,9 +196,9 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_selector_',
+unescape('_selector_'),
 smalltalk.method({
-selector: 'selector:',
+selector: unescape('selector%3A'),
 category: 'accessing',
 fn: function (aSelector){
 var self=this;
@@ -212,9 +212,9 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_lookupHierarchyRoot',
+unescape('_lookupHierarchyRoot'),
 smalltalk.method({
-selector: 'lookupHierarchyRoot',
+selector: unescape('lookupHierarchyRoot'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -228,9 +228,9 @@ referencedClasses: [smalltalk.TestCase]
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_allTestSelectors',
+unescape('_allTestSelectors'),
 smalltalk.method({
-selector: 'allTestSelectors',
+selector: unescape('allTestSelectors'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -247,9 +247,9 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_buildSuite',
+unescape('_buildSuite'),
 smalltalk.method({
-selector: 'buildSuite',
+selector: unescape('buildSuite'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -263,9 +263,9 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_shouldInheritSelectors',
+unescape('_shouldInheritSelectors'),
 smalltalk.method({
-selector: 'shouldInheritSelectors',
+selector: unescape('shouldInheritSelectors'),
 category: 'testing',
 fn: function (){
 var self=this;
@@ -284,9 +284,9 @@ smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
 
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 smalltalk.addMethod(
-'_timestamp',
+unescape('_timestamp'),
 smalltalk.method({
-selector: 'timestamp',
+selector: unescape('timestamp'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -300,9 +300,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_errors',
+unescape('_errors'),
 smalltalk.method({
-selector: 'errors',
+selector: unescape('errors'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -316,9 +316,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_failures',
+unescape('_failures'),
 smalltalk.method({
-selector: 'failures',
+selector: unescape('failures'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -332,9 +332,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_total',
+unescape('_total'),
 smalltalk.method({
-selector: 'total',
+selector: unescape('total'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -348,9 +348,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_total_',
+unescape('_total_'),
 smalltalk.method({
-selector: 'total:',
+selector: unescape('total%3A'),
 category: 'accessing',
 fn: function (aNumber){
 var self=this;
@@ -364,9 +364,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_addError_',
+unescape('_addError_'),
 smalltalk.method({
-selector: 'addError:',
+selector: unescape('addError%3A'),
 category: 'accessing',
 fn: function (anError){
 var self=this;
@@ -380,9 +380,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_addFailure_',
+unescape('_addFailure_'),
 smalltalk.method({
-selector: 'addFailure:',
+selector: unescape('addFailure%3A'),
 category: 'accessing',
 fn: function (aFailure){
 var self=this;
@@ -396,9 +396,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_runs',
+unescape('_runs'),
 smalltalk.method({
-selector: 'runs',
+selector: unescape('runs'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -412,9 +412,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_increaseRuns',
+unescape('_increaseRuns'),
 smalltalk.method({
-selector: 'increaseRuns',
+selector: unescape('increaseRuns'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -428,9 +428,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_status',
+unescape('_status'),
 smalltalk.method({
-selector: 'status',
+selector: unescape('status'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -444,9 +444,9 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 category: 'initialization',
 fn: function (){
 var self=this;
