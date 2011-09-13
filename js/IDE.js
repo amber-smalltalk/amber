@@ -1668,14 +1668,12 @@ category: 'actions',
 fn: function (){
 var self=this;
 var newName=nil;
-var package=nil;
-package=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [self['@selectedPackage']]);
 newName=smalltalk.send(self, "_prompt_", [smalltalk.send("Rename package ", "__comma", [self['@selectedPackage']])]);
 (($receiver = smalltalk.send(newName, "_notEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_renamePackage_to_", [self['@selectedPackage'], newName]);return smalltalk.send(self, "_updateCategoriesList", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_renamePackage_to_", [self['@selectedPackage'], newName]);return smalltalk.send(self, "_updateCategoriesList", []);})]);
 return self;},
 args: [],
-source: unescape('renamePackage%0A%0A%20%20%7C%20newName%20package%20%7C%0A%20%20package%20%3A%3D%20Smalltalk%20current%20packageAt%3A%20selectedPackage.%0A%20%20newName%20%3A%3D%20self%20prompt%3A%20%27Rename%20package%20%27%2C%20selectedPackage.%0A%20%20newName%20notEmpty%20ifTrue%3A%20%5B%0A%09Smalltalk%20current%20renamePackage%3A%20selectedPackage%20to%3A%20newName.%0A%09self%20updateCategoriesList%5D'),
-messageSends: ["packageAt:", "current", "prompt:", unescape("%2C"), "ifTrue:", "notEmpty", "renamePackage:to:", "updateCategoriesList"],
+source: unescape('renamePackage%0A%0A%20%20%7C%20newName%20%7C%0A%20%20newName%20%3A%3D%20self%20prompt%3A%20%27Rename%20package%20%27%2C%20selectedPackage.%0A%20%20newName%20notEmpty%20ifTrue%3A%20%5B%0A%09Smalltalk%20current%20renamePackage%3A%20selectedPackage%20to%3A%20newName.%0A%09self%20updateCategoriesList%5D'),
+messageSends: ["prompt:", unescape("%2C"), "ifTrue:", "notEmpty", "renamePackage:to:", "current", "updateCategoriesList"],
 referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Browser);
@@ -1687,13 +1685,11 @@ selector: unescape('removePackage'),
 category: 'actions',
 fn: function (){
 var self=this;
-var package=nil;
-package=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [self['@selectedPackage']]);
-(($receiver = smalltalk.send(self, "_confirm_", [smalltalk.send(smalltalk.send("Do you really want to remove the whole package ", "__comma", [smalltalk.send(package, "_name", [])]), "__comma", [unescape("%20with%20all%20its%20classes%3F")])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removePackage_", [smalltalk.send(package, "_name", [])]);return smalltalk.send(self, "_updateCategoriesList", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removePackage_", [smalltalk.send(package, "_name", [])]);return smalltalk.send(self, "_updateCategoriesList", []);})]);
+(($receiver = smalltalk.send(self, "_confirm_", [smalltalk.send(smalltalk.send("Do you really want to remove the whole package ", "__comma", [self['@selectedPackage']]), "__comma", [unescape("%20with%20all%20its%20classes%3F")])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removePackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_updateCategoriesList", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removePackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_updateCategoriesList", []);})]);
 return self;},
 args: [],
-source: unescape('removePackage%0A%0A%20%20%7C%20package%20%7C%0A%20%20package%20%3A%3D%20Smalltalk%20current%20packageAt%3A%20selectedPackage.%0A%20%20%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20the%20whole%20package%20%27%2C%20package%20name%2C%20%27%20with%20all%20its%20classes%3F%27%29%0A%09ifTrue%3A%20%5B%0A%09%20%20%20%20Smalltalk%20current%20removePackage%3A%20package%20name.%0A%09%20%20%20%20self%20updateCategoriesList%5D'),
-messageSends: ["packageAt:", "current", "ifTrue:", "confirm:", unescape("%2C"), "name", "removePackage:", "updateCategoriesList"],
+source: unescape('removePackage%0A%0A%20%20%28self%20confirm%3A%20%27Do%20you%20really%20want%20to%20remove%20the%20whole%20package%20%27%2C%20selectedPackage%2C%20%27%20with%20all%20its%20classes%3F%27%29%0A%09ifTrue%3A%20%5B%0A%09%20%20%20%20Smalltalk%20current%20removePackage%3A%20selectedPackage.%0A%09%20%20%20%20self%20updateCategoriesList%5D'),
+messageSends: ["ifTrue:", "confirm:", unescape("%2C"), "removePackage:", "current", "updateCategoriesList"],
 referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Browser);

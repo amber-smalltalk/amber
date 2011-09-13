@@ -719,9 +719,9 @@ smalltalk.method({
 selector: 'removePackage:',
 fn: function (packageName){
 var self=this;
-var package=nil;
-package=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]);
-smalltalk.send(smalltalk.send(package, "_classes", []), "_do_", [(function(each){return smalltalk.send(self, "_removeClass_", [each]);})]);
+var pkg=nil;
+pkg=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]);
+smalltalk.send(smalltalk.send(pkg, "_classes", []), "_do_", [(function(each){return smalltalk.send(self, "_removeClass_", [each]);})]);
 smalltalk.send(self, "_deletePackage_", [packageName]);
 return self;}
 }),
@@ -733,11 +733,11 @@ smalltalk.method({
 selector: 'renamePackage:to:',
 fn: function (packageName, newName){
 var self=this;
-var package=nil;
-package=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]);
+var pkg=nil;
+pkg=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]);
 (($receiver = smalltalk.send(self, "_packageAt_", [newName])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Already exists a package called: ", "__comma", [newName])]);})() : nil;
 smalltalk.packages[newName] = smalltalk.packages[packageName];
-smalltalk.send(package, "_name_", [newName]);
+smalltalk.send(pkg, "_name_", [newName]);
 smalltalk.send(self, "_deletePackage_", [packageName]);
 return self;}
 }),
@@ -1146,7 +1146,7 @@ smalltalk.method({
 selector: 'category',
 fn: function (){
 var self=this;
-return (($receiver = smalltalk.send(self, "_package", [])) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : (function(){return smalltalk.send(smalltalk.send(self, "_package", []), "_name", []);})();
+return (($receiver = smalltalk.send(self, "_package", [])) == nil || $receiver == undefined) ? (function(){return "Unclassified";})() : (function(){return smalltalk.send(smalltalk.send(self, "_package", []), "_name", []);})();
 return self;}
 }),
 smalltalk.Class);

@@ -91,8 +91,8 @@ exportAll
     "Export all packages in the system."
 
     ^String streamContents: [:stream |
-    	Smalltalk current packages do: [:package |
-		stream nextPutAll: (self exportPackage: package name)]]
+    	Smalltalk current packages do: [:pkg |
+		stream nextPutAll: (self exportPackage: pkg name)]]
 ! !
 
 !Exporter methodsFor: 'private'!

@@ -780,8 +780,7 @@ commitPackage
 
 renamePackage
 
-  | newName package |
-  package := Smalltalk current packageAt: selectedPackage.
+  | newName |
   newName := self prompt: 'Rename package ', selectedPackage.
   newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.
@@ -790,11 +789,9 @@ renamePackage
 
 removePackage
 
-  | package |
-  package := Smalltalk current packageAt: selectedPackage.
-  (self confirm: 'Do you really want to remove the whole package ', package name, ' with all its classes?')
+  (self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
-	    Smalltalk current removePackage: package name.
+	    Smalltalk current removePackage: selectedPackage.
 	    self updateCategoriesList]
 ! !
 

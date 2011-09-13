@@ -321,9 +321,9 @@ packageAt: packageName ifAbsent: aBlock
 removePackage: packageName
 	"Removes a package and all its classes."
 
-	| package |
-	package := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
-	package classes do: [:each |
+	| pkg |
+	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	pkg classes do: [:each |
         	self removeClass: each].
 	self deletePackage: packageName
 !
@@ -331,11 +331,11 @@ removePackage: packageName
 renamePackage: packageName to: newName
 	"Rename a package."
 
-	| package |
-	package := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	| pkg |
+	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
 	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
-	package name: newName.
+	pkg name: newName.
 	self deletePackage: packageName.
 ! !
 
@@ -576,7 +576,7 @@ Behavior subclass: #Class
 !Class methodsFor: 'accessing'!
 
 category
-	^self package ifNil: ['unclassified'] ifNotNil: [self package name]
+	^self package ifNil: ['Unclassified'] ifNotNil: [self package name]
 !
 
 rename: aString
