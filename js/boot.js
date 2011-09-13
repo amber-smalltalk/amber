@@ -38,7 +38,7 @@
 function SmalltalkObject(){};
 function SmalltalkBehavior(){};
 function SmalltalkClass(){};
-function SmalltalkModule(){};
+function SmalltalkPackage(){};
 function SmalltalkMetaclass(){
     this.meta = true;
 };
@@ -51,16 +51,15 @@ function Smalltalk(){
     this.thisContext = undefined;
 
     
-    /* We hold all Modules in a separate Object */
-    st.modules = {};
+    /* We hold all Packages in a separate Object */
+    st.packages = {};
 
-    /* Smalltalk Module object. To add a Module, use smalltalk.addModule() */
+    /* Smalltalk Package object. To add a Package, use smalltalk.addPackage() */
 
-    function mod(spec) {
-	var that = new SmalltalkModule();
-	that.moduleName        = spec.moduleName;
-	that.requires          = spec.requires || [];
-	that.fn                = spec.fn || function(){};
+    function pkg(spec) {
+	var that      = new SmalltalkPackage();
+	that.pkgName  = spec.pkgName;
+	that.requires = spec.requires || [];
 	return that;
     };
 
@@ -87,10 +86,10 @@ function Smalltalk(){
 	if(that.superclass) {
 	    that.klass.superclass = that.superclass.klass;
 	}
-	that.module = spec.module;
+	that.pkg = spec.pkg;
         // For a while we keep the category attribute...
-        if(!(spec.module === undefined)) {
-	    that.category = spec.module.moduleName;
+        if(!(spec.pkg === undefined)) {
+	    that.category = spec.pkg.pkgName;
 	}
 	that.fn.prototype.methods = {};
 	that.fn.prototype.inheritedMethods = {};
@@ -142,14 +141,15 @@ function Smalltalk(){
 	}
     };
 
-    /* Answer all registered Modules */
+    /* Answer all registered Packages as Array */
 
-    st.modules.all = function() {
-	var modules = [];
-	for(var i in st.modules) {
-	    modules.push(st.modules[i]);
+    st.packages.all = function() {
+	var packages = [];
+	for(var i in st.packages) {
+          if (!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
+	    packages.push(st.packages[i]);
 	}
-	return modules
+	return packages
     };
 
     /* Answer all registered Smalltalk classes */
@@ -198,46 +198,46 @@ function Smalltalk(){
     };
 
     /* Create a new class wrapping a JavaScript constructor, and add it to the 
-       global smalltalk object. Module is lazily created if it does not exist with given name. */
+       global smalltalk object. Package is lazily created if it does not exist with given name. */
 
-    st.mapClassName = function(className, moduleName, fn, superclass) {
-	modul = st.addModule(moduleName);
+    st.mapClassName = function(className, pkgName, fn, superclass) {
+	var pkg = st.addPackage(pkgName);
 	st[className] = klass({
 	    className:  className, 
-	    module:     modul, 
 	    superclass: superclass,
+	    pkg:        pkg, 
 	    fn:         fn
 	});
     };
 
-    /* Add a module to the smalltalk.modules object, creating a new one if needed.
-       If moduleName is nil or empty we return nil, which is an allowed module for a class. */
+    /* Add a package to the smalltalk.packages object, creating a new one if needed.
+       If pkgName is nil or empty we return nil, which is an allowed package for a class. */
 
-    st.addModule = function(moduleName) {
-	if(!moduleName) {return nil;}
-	if(!(st.modules[moduleName])) {
-	    st.modules[moduleName] = mod({
-		moduleName: moduleName
+    st.addPackage = function(pkgName) {
+	if(!pkgName) {return nil;}
+	if(!(st.packages[pkgName])) {
+	    st.packages[pkgName] = pkg({
+		pkgName: pkgName
 	    });
 	}
-	return st.modules[moduleName];
+	return st.packages[pkgName];
     };
 
     /* Add a class to the smalltalk object, creating a new one if needed.
-       Module is lazily created if it does not exist with given name.*/
+       Package is lazily created if it does not exist with given name.*/
 
-    st.addClass = function(className, superclass, iVarNames, moduleName) {
-	modul = st.addModule(moduleName);
+    st.addClass = function(className, superclass, iVarNames, pkgName) {
+	var pkg = st.addPackage(pkgName);
 	if(st[className]) {
 	    st[className].superclass = superclass;
 	    st[className].iVarNames = iVarNames;
-	    st[className].module = modul || st[className].module;
+	    st[className].pkg = pkg || st[className].pkg;
 	} else {    
 	    st[className] = klass({
 		className: className, 
-		iVarNames: iVarNames,
 		superclass: superclass,
-		module: modul
+		pkg: pkg,
+		iVarNames: iVarNames
 	    });
 	}
     };
@@ -511,7 +511,7 @@ if(this.jQuery) {
 
 smalltalk.mapClassName("Object", "Kernel", SmalltalkObject);
 smalltalk.mapClassName("Smalltalk", "Kernel", Smalltalk, smalltalk.Object);
-smalltalk.mapClassName("Module", "Kernel", SmalltalkModule, smalltalk.Object);
+smalltalk.mapClassName("Package", "Kernel", SmalltalkPackage, smalltalk.Object);
 smalltalk.mapClassName("Behavior", "Kernel", SmalltalkBehavior, smalltalk.Object);
 smalltalk.mapClassName("Class", "Kernel", SmalltalkClass, smalltalk.Behavior);
 smalltalk.mapClassName("Metaclass", "Kernel", SmalltalkMetaclass, smalltalk.Behavior);
