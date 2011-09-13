@@ -1,5 +1,5 @@
 Program.js: Benchfib.st
-	../../../bin/jtalkc -m Benchfib Benchfib.st Program
+	../../../bin/amberc -m Benchfib Benchfib.st Program
 
 run: Program.js
 	./benchfib

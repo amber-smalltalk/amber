@@ -1,7 +1,7 @@
 /* ====================================================================
    |
-   |   Jtalk Smalltalk
-   |   http://jtalk-project.org
+   |   Amber Smalltalk
+   |   http://amber-lang.net
    |
    ======================================================================
 
@@ -10,7 +10,7 @@
    | Copyright (c) 2010-2011
    | Nicolas Petton <petton.nicolas@gmail.com>
    |
-   | Jtalk is released under the MIT license
+   | Amber is released under the MIT license
    |
    | Permission is hereby granted, free of charge, to any person obtaining
    | a copy of this software and associated documentation files (the 
@@ -317,7 +317,7 @@ function Smalltalk(){
 
     /* Handles #dnu: *and* JavaScript method calls.
        if the receiver has no klass, we consider it a JS object (outside of the
-       Jtalk system). Else assume that the receiver understands #doesNotUnderstand: */
+       Amber system). Else assume that the receiver understands #doesNotUnderstand: */
 
     function messageNotUnderstood(receiver, selector, args) {
 	/* Handles JS method calls. */
@@ -325,7 +325,7 @@ function Smalltalk(){
 	    return callJavaScriptMethod(receiver, selector, args);
 	}
 
-	/* Handles not understood messages. Also see the Jtalk counter-part 
+	/* Handles not understood messages. Also see the Amber counter-part 
 	   Object>>doesNotUnderstand: */
 	
 	return receiver._doesNotUnderstand_(
