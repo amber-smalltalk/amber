@@ -226,6 +226,27 @@ referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Exporter);
 
+smalltalk.addMethod(
+		'_exportAll',
+		smalltalk.method({
+		selector: 'exportAll',
+		category: 'fileOut',
+		fn: function () {
+		    var self = this;
+		    var categories = nil;
+		    var stream = nil;
+		    categories = smalltalk.send(smalltalk.Array || Array, "_new", []);
+		    stream = smalltalk.send("", "_writeStream", []);
+		    smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_classes", []), "_do_", [function (each) {return ($receiver = smalltalk.send(categories, "_includes_", [smalltalk.send(each, "_category", [])])).klass === smalltalk.Boolean ? !$receiver ? function () {return smalltalk.send(categories, "_add_", [smalltalk.send(each, "_category", [])]);}() : nil : smalltalk.send($receiver, "_ifFalse_", [function () {return smalltalk.send(categories, "_add_", [smalltalk.send(each, "_category", [])]);}]);}]);
+		    smalltalk.send(categories, "_do_", [function (each) {return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self, "_exportCategory_", [each])]);}]);
+		    return smalltalk.send(stream, "_contents", []);
+		    return self;
+		},
+		source: unescape('exportAll%0A%20%20%20%20%7C%20categories%20stream%20%7C%0A%20%20%20%20categories%20%3A%3D%20Array%20new.%0A%20%20%20%20stream%20%3A%3D%20%27%27%20writeStream.%0A%20%20%20%20Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%28categories%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%20%20%20%20categories%20add%3A%20each%20category%5D%5D.%0A%09categories%20do%3A%20%5B%3Aeach%20%7C%0A%09%09stream%20nextPutAll%3A%20%28self%20exportCategory%3A%20each%29%5D.%0A%20%20%20%20%5Estream%20contents'),
+		messageSends: ["new", "writeStream", "do:", "classes", "current", "ifFalse:", "includes:", "category", "add:", "nextPutAll:", "exportCategory:", "contents"],
+		referencedClasses: [smalltalk.Array,smalltalk.Smalltalk]
+		}),
+		smalltalk.Exporter);
 
 
 smalltalk.addClass('ChunkExporter', smalltalk.Exporter, [], 'Compiler');

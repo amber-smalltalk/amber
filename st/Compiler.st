@@ -85,6 +85,18 @@ export: aClass
 	self exportMetaDefinitionOf: aClass on: stream.
 	self exportMethodsOf: aClass class on: stream.
 	^stream contents
+!
+
+exportAll
+    | categories stream |
+    categories := Array new.
+    stream := '' writeStream.
+    Smalltalk current classes do: [:each |
+	(categories includes: each category) ifFalse: [
+	    categories add: each category]].
+	categories do: [:each |
+		stream nextPutAll: (self exportCategory: each)].
+    ^stream contents
 ! !
 
 !Exporter methodsFor: 'private'!
