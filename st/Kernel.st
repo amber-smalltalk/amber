@@ -612,11 +612,6 @@ subclass: aString instanceVariableNames: aString2 classVariableNames: classVars 
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
-subclass: aString instanceVariableNames: aString2 module: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
-!
-
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
@@ -1292,11 +1287,6 @@ subclass: aString instanceVariableNames: anotherString
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
-!
-
-subclass: aString instanceVariableNames: aString2 module: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 package: aString3
