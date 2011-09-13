@@ -411,7 +411,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
+	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges renameButton deleteButton'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -618,25 +618,6 @@ compileDefinition
 	updateClassesList
 !
 
-commitCategory
-    selectedPackage ifNotNil: [
-	(Ajax url: self class commitPathJs, '/', selectedPackage, '.js')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedPackage);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send.
-	(Ajax url: self class commitPathJs, '/', selectedPackage, '.deploy.js')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (StrippedExporter new exportCategory: selectedPackage);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send.
-	(Ajax url: self class commitPathSt, '/', selectedPackage, '.st')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (ChunkExporter new exportCategory: selectedPackage);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send]
-!
-
 cancelChanges
     ^unsavedChanges 
 	ifTrue: [self confirm: 'Cancel changes?']
@@ -776,6 +757,33 @@ handleSourceAreaKeyDown: anEvent
 		}
 	}
 	>
+!
+
+commitPackage
+    selectedPackage ifNotNil: [
+	(Ajax url: self class commitPathJs, '/', selectedPackage, '.js')
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: (Exporter new exportCategory: selectedPackage);
+	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    send.
+	(Ajax url: self class commitPathJs, '/', selectedPackage, '.deploy.js')
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: (StrippedExporter new exportCategory: selectedPackage);
+	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    send.
+	(Ajax url: self class commitPathSt, '/', selectedPackage, '.st')
+	    at: 'type' put: 'PUT';
+	    at: 'data' put: (ChunkExporter new exportCategory: selectedPackage);
+	    at: 'error' put: [self alert: 'Commit failed!!'];
+	    send]
+!
+
+renamePackage
+	self error: 'Not yet implemented'
+!
+
+deletePackage
+	self error: 'Not yet implemented'
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -803,8 +811,18 @@ renderTopPanelOn: html
 	    commitButton := html button 
 		class: 'jt_commit';
 		title: 'Commit classes in this package to disk';
-		onClick: [self commitCategory];
+		onClick: [self commitPackage];
 		with: 'Commit package'.
+            renameButton := html button 
+		class: 'jt_rename';
+		title: 'Rename this package';
+		onClick: [self renamePackage];
+		with: 'Rename package'.
+            deleteButton := html button 
+		class: 'jt_delete';
+		title: 'Remove this package from the system';
+		onClick: [self renamePackage];
+		with: 'Delete package'.
 	    classesList := ClassesList on: self.
 	    classesList renderOn: html.
 	    protocolsList := html ul class: 'jt_column browser protocols'.

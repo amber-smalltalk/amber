@@ -966,7 +966,7 @@ referencedClasses: []
 smalltalk.Transcript.klass);
 
 
-smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'commitButton', 'packagesList', 'classesList', 'protocolsList', 'methodsList', 'sourceArea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges'], 'IDE');
+smalltalk.addClass('Browser', smalltalk.TabWidget, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedMethod', 'commitButton', 'packagesList', 'classesList', 'protocolsList', 'methodsList', 'sourceArea', 'tabsList', 'selectedTab', 'saveButton', 'classButtons', 'methodButtons', 'unsavedChanges', 'renameButton', 'deleteButton'], 'IDE');
 smalltalk.addMethod(
 '_label',
 smalltalk.method({
@@ -1376,22 +1376,6 @@ referencedClasses: [smalltalk.Compiler]
 smalltalk.Browser);
 
 smalltalk.addMethod(
-'_commitCategory',
-smalltalk.method({
-selector: 'commitCategory',
-category: 'actions',
-fn: function (){
-var self=this;
-(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportCategory_", [self['@selectedPackage']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send((smalltalk.StrippedExporter || StrippedExporter), "_new", []), "_exportCategory_", [self['@selectedPackage']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send((smalltalk.ChunkExporter || ChunkExporter), "_new", []), "_exportCategory_", [self['@selectedPackage']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])]));})() : nil;
-return self;},
-args: [],
-source: unescape('commitCategory%0A%20%20%20%20selectedPackage%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedPackage%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.deploy.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28StrippedExporter%20new%20exportCategory%3A%20selectedPackage%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathSt%2C%20%27/%27%2C%20selectedPackage%2C%20%27.st%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28ChunkExporter%20new%20exportCategory%3A%20selectedPackage%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D'),
-messageSends: ["ifNotNil:", "at:put:", "exportCategory:", "new", "alert:", "send", "url:", unescape("%2C"), "commitPathJs", "class", "commitPathSt"],
-referencedClasses: [smalltalk.Exporter,smalltalk.Ajax,smalltalk.StrippedExporter,smalltalk.ChunkExporter]
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
 '_cancelChanges',
 smalltalk.method({
 selector: 'cancelChanges',
@@ -1701,12 +1685,12 @@ selector: 'renderTopPanelOn:',
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser packages"]);self['@commitButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_commit"]);smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitCategory", []);})]);return smalltalk.send($rec, "_with_", ["Commit package"]);})(smalltalk.send(html, "_button", []));self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]);smalltalk.send(self['@classesList'], "_renderOn_", [html]);self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]);self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]);(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser packages"]);self['@commitButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_commit"]);smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit package"]);})(smalltalk.send(html, "_button", []));self['@renameButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_rename"]);smalltalk.send($rec, "_title_", ["Rename this package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename package"]);})(smalltalk.send(html, "_button", []));self['@deleteButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_delete"]);smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Delete package"]);})(smalltalk.send(html, "_button", []));self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]);smalltalk.send(self['@classesList'], "_renderOn_", [html]);self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]);self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]);(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 return self;},
 args: ["html"],
-source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20packagesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20packages%27.%0A%09%20%20%20%20commitButton%20%3A%3D%20html%20button%20%0A%09%09class%3A%20%27jt_commit%27%3B%0A%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20disk%27%3B%0A%09%09onClick%3A%20%5Bself%20commitCategory%5D%3B%0A%09%09with%3A%20%27Commit%20package%27.%0A%09%20%20%20%20classesList%20%3A%3D%20ClassesList%20on%3A%20self.%0A%09%20%20%20%20classesList%20renderOn%3A%20html.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D'),
-messageSends: ["class:", "with:", "ul", "title:", "onClick:", "commitCategory", "button", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList", "div"],
-referencedClasses: []
+source: unescape('renderTopPanelOn%3A%20html%0A%20%20%20%20html%20div%20%0A%09class%3A%20%27top%27%3B%20%0A%09with%3A%20%5B%0A%09%20%20%20%20packagesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20packages%27.%0A%09%20%20%20%20commitButton%20%3A%3D%20html%20button%20%0A%09%09class%3A%20%27jt_commit%27%3B%0A%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20disk%27%3B%0A%09%09onClick%3A%20%5Bself%20commitPackage%5D%3B%0A%09%09with%3A%20%27Commit%20package%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20renameButton%20%3A%3D%20html%20button%20%0A%09%09class%3A%20%27jt_rename%27%3B%0A%09%09title%3A%20%27Rename%20this%20package%27%3B%0A%09%09onClick%3A%20%5Bself%20renamePackage%5D%3B%0A%09%09with%3A%20%27Rename%20package%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20deleteButton%20%3A%3D%20html%20button%20%0A%09%09class%3A%20%27jt_delete%27%3B%0A%09%09title%3A%20%27Remove%20this%20package%20from%20the%20system%27%3B%0A%09%09onClick%3A%20%5Bself%20renamePackage%5D%3B%0A%09%09with%3A%20%27Delete%20package%27.%0A%09%20%20%20%20classesList%20%3A%3D%20ClassesList%20on%3A%20self.%0A%09%20%20%20%20classesList%20renderOn%3A%20html.%0A%09%20%20%20%20protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20protocols%27.%0A%09%20%20%20%20methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20methods%27.%0A%09%20%20%20%20self%0A%09%09updateCategoriesList%3B%0A%09%09updateClassesList%3B%0A%09%09updateProtocolsList%3B%0A%09%09updateMethodsList.%0A%09%20%20%20%20html%20div%20class%3A%20%27jt_clear%27%5D'),
+messageSends: ["class:", "with:", "ul", "title:", "onClick:", "commitPackage", "button", "renamePackage", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList", "div"],
+referencedClasses: [smalltalk.ClassesList]
 }),
 smalltalk.Browser);
 
@@ -1914,6 +1898,54 @@ return self;},
 args: [],
 source: unescape('resetClassesList%0A%09classesList%20resetNodes'),
 messageSends: ["resetNodes"],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_commitPackage',
+smalltalk.method({
+selector: 'commitPackage',
+category: 'actions',
+fn: function (){
+var self=this;
+(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportCategory_", [self['@selectedPackage']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]));(function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send((smalltalk.StrippedExporter || StrippedExporter), "_new", []), "_exportCategory_", [self['@selectedPackage']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]));return (function($rec){smalltalk.send($rec, "_at_put_", ["type", "PUT"]);smalltalk.send($rec, "_at_put_", ["data", smalltalk.send(smalltalk.send((smalltalk.ChunkExporter || ChunkExporter), "_new", []), "_exportCategory_", [self['@selectedPackage']])]);smalltalk.send($rec, "_at_put_", ["error", (function(){return smalltalk.send(self, "_alert_", [unescape("Commit%20failed%21")]);})]);return smalltalk.send($rec, "_send", []);})(smalltalk.send((smalltalk.Ajax || Ajax), "_url_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])]));})() : nil;
+return self;},
+args: [],
+source: unescape('commitPackage%0A%20%20%20%20selectedPackage%20ifNotNil%3A%20%5B%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28Exporter%20new%20exportCategory%3A%20selectedPackage%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.deploy.js%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28StrippedExporter%20new%20exportCategory%3A%20selectedPackage%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send.%0A%09%28Ajax%20url%3A%20self%20class%20commitPathSt%2C%20%27/%27%2C%20selectedPackage%2C%20%27.st%27%29%0A%09%20%20%20%20at%3A%20%27type%27%20put%3A%20%27PUT%27%3B%0A%09%20%20%20%20at%3A%20%27data%27%20put%3A%20%28ChunkExporter%20new%20exportCategory%3A%20selectedPackage%29%3B%0A%09%20%20%20%20at%3A%20%27error%27%20put%3A%20%5Bself%20alert%3A%20%27Commit%20failed%21%27%5D%3B%0A%09%20%20%20%20send%5D'),
+messageSends: ["ifNotNil:", "at:put:", "exportCategory:", "new", "alert:", "send", "url:", unescape("%2C"), "commitPathJs", "class", "commitPathSt"],
+referencedClasses: [smalltalk.Exporter,smalltalk.Ajax,smalltalk.StrippedExporter,smalltalk.ChunkExporter]
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_renamePackage',
+smalltalk.method({
+selector: 'renamePackage',
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["Not yet implemented"]);
+return self;},
+args: [],
+source: unescape('renamePackage%0A%09self%20error%3A%20%27Not%20yet%20implemented%27'),
+messageSends: ["error:"],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+'_deletePackage',
+smalltalk.method({
+selector: 'deletePackage',
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["Not yet implemented"]);
+return self;},
+args: [],
+source: unescape('deletePackage%0A%09self%20error%3A%20%27Not%20yet%20implemented%27'),
+messageSends: ["error:"],
 referencedClasses: []
 }),
 smalltalk.Browser);
