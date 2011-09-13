@@ -512,7 +512,7 @@ classDeclarationSource
 	    separatedBy: [stream nextPutAll: ' '].
 	stream
 	    nextPutAll: '''', String lf, String tab;
-	    nextPutAll: 'category: ''';
+	    nextPutAll: 'package: ''';
 	    nextPutAll: selectedClass category;
 	    nextPutAll: ''''].
     ^stream contents
@@ -570,11 +570,11 @@ compile
     selectedTab = #comment 
 	ifTrue: [
 			selectedClass ifNotNil: [
-				self compileClassComment]	]
+				self compileClassComment]]
 	ifFalse: [
 			(selectedProtocol notNil or: [selectedMethod notNil])
 				ifFalse: [self compileDefinition]
-				ifTrue: [self compileMethodDefinition]	]
+				ifTrue: [self compileMethodDefinition]]
 !
 
 compileClassComment
@@ -1013,7 +1013,7 @@ updateStatus
 		ifTrue: [
 			saveButton ifNotNil: [
 				saveButton at: 'disabled' put: true].
-			unsavedChanges := false]
+				unsavedChanges := false]
 		ifFalse: [
 			saveButton ifNotNil: [
 				saveButton removeAt: 'disabled'].
