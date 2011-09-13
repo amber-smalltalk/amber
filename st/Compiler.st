@@ -150,9 +150,9 @@ classNameFor: aClass
 exportMethod: aMethod of: aClass on: aStream
 	aStream 
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
+		nextPutAll: 'unescape(''', aMethod selector asSelector escaped, '''),';lf;
 		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
+		nextPutAll: 'selector: unescape(''', aMethod selector escaped, '''),';lf;
 		nextPutAll: 'category: ''', aMethod category, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
