@@ -25,9 +25,9 @@ arguments.forEach(function(val, index, array) {
   } else {
     sys.puts("Exporting " + (deploy ? "(debug + deploy)" : "(debug)") + " category "
 		+ val + " as " + val + suffix + ".js" + (deploy ? " and " + val + suffix + ".deploy.js" : ""));
-    fs.writeFileSync(val + suffix + ".js", smalltalk.Exporter._new()._exportCategory_(val));
+    fs.writeFileSync(val + suffix + ".js", smalltalk.Exporter._new()._exportPackage_(val));
     if (deploy) {
-	fs.writeFileSync(val + suffix + ".deploy.js", smalltalk.StrippedExporter._new()._exportCategory_(val));
+	fs.writeFileSync(val + suffix + ".deploy.js", smalltalk.StrippedExporter._new()._exportPackage_(val));
     }
   }
 });
