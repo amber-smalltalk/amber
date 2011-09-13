@@ -13,7 +13,7 @@ labelFor: aWidget
 	maxSize := 15.
 	label := aWidget label copyFrom: 0 to: (aWidget label size min: maxSize).
 	aWidget label size > maxSize ifTrue: [
-        	label := label, '...'].
+		label := label, '...'].
 	^label
 ! !
 
@@ -147,15 +147,15 @@ renderTabFor: aWidget on: html
 	li with: [
 		html span class: 'ltab'.
 		html span
-     	    		class: 'mtab';
-      	    		with: [
-        			aWidget canBeClosed ifTrue: [
-	    				html span 
+			class: 'mtab';
+			with: [
+				aWidget canBeClosed ifTrue: [
+					html span 
 						class: 'close';
 						with: 'x';
 					onClick: [self closeTab: aWidget]].
-	    		html span with: (self labelFor: aWidget)].
-        	html span class: 'rtab'];
+			html span with: (self labelFor: aWidget)].
+		html span class: 'rtab'];
 	onClick: [self selectTab: aWidget]
 !
 
@@ -166,9 +166,9 @@ renderTabs
 	    html li
 		class: 'newtab';
 		with: [
-                	html span class: 'ltab'.
-                	html span class: 'mtab'; with: ' + '.
-                	html span class: 'rtab'];
+			html span class: 'ltab'.
+			html span class: 'mtab'; with: ' + '.
+			html span class: 'rtab'];
 		onClick: [self newBrowserTab]]
 !
 
@@ -182,7 +182,7 @@ renderToolbarOn: html
 			input onKeyPress: [:event |
 				event keyCode = 13 ifTrue: [
 				self search: input asJQuery val]].
-                	html div id: 'jt_close'; onClick: [self close]]
+			html div id: 'jt_close'; onClick: [self close]]
 ! !
 
 !TabManager methodsFor: 'updating'!
@@ -411,7 +411,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedCategory selectedClass selectedProtocol selectedMethod commitButton categoriesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
+	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -422,18 +422,18 @@ label
 	ifNotNil: ['Browser: ', selectedClass name]
 !
 
-categories
-    | categories |
-    categories := Array new.
+packages
+    | packages |
+    packages := Array new.
     Smalltalk current classes do: [:each |
-	(categories includes: each category) ifFalse: [
-	    categories add: each category]].
-    ^categories sort
+	(packages includes: each category) ifFalse: [
+	    packages add: each category]].
+    ^packages sort
 !
 
 classes
     ^(Smalltalk current classes 
-	select: [:each | each category = selectedCategory])
+	select: [:each | each category = selectedPackage])
 	sort: [:a :b | a name < b name]
 !
 
@@ -570,9 +570,9 @@ compile
     selectedTab = #comment 
 	ifTrue: [
 			selectedClass ifNotNil: [
-	    			self compileClassComment]	]
+				self compileClassComment]	]
 	ifFalse: [
-		    	(selectedProtocol notNil or: [selectedMethod notNil])
+			(selectedProtocol notNil or: [selectedMethod notNil])
 				ifFalse: [self compileDefinition]
 				ifTrue: [self compileMethodDefinition]	]
 !
@@ -619,20 +619,20 @@ compileDefinition
 !
 
 commitCategory
-    selectedCategory ifNotNil: [
-	(Ajax url: self class commitPathJs, '/', selectedCategory, '.js')
+    selectedPackage ifNotNil: [
+	(Ajax url: self class commitPathJs, '/', selectedPackage, '.js')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedCategory);
+	    at: 'data' put: (Exporter new exportCategory: selectedPackage);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
-	(Ajax url: self class commitPathJs, '/', selectedCategory, '.deploy.js')
+	(Ajax url: self class commitPathJs, '/', selectedPackage, '.deploy.js')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (StrippedExporter new exportCategory: selectedCategory);
+	    at: 'data' put: (StrippedExporter new exportCategory: selectedPackage);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
-	(Ajax url: self class commitPathSt, '/', selectedCategory, '.st')
+	(Ajax url: self class commitPathSt, '/', selectedPackage, '.st')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (ChunkExporter new exportCategory: selectedCategory);
+	    at: 'data' put: (ChunkExporter new exportCategory: selectedPackage);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send]
 !
@@ -685,7 +685,7 @@ addNewProtocol
 
 selectCategory: aCategory
     self cancelChanges ifTrue: [
-	selectedCategory := aCategory.
+	selectedPackage := aCategory.
 	selectedClass := selectedProtocol := selectedMethod :=  nil.
 	self resetClassesList.
 	self 
@@ -799,12 +799,12 @@ renderTopPanelOn: html
     html div 
 	class: 'top'; 
 	with: [
-	    categoriesList := html ul class: 'jt_column browser categories'.
+	    packagesList := html ul class: 'jt_column browser packages'.
 	    commitButton := html button 
 		class: 'jt_commit';
-		title: 'Commit classes in this category to disk';
+		title: 'Commit classes in this package to disk';
 		onClick: [self commitCategory];
-		with: 'Commit category'.
+		with: 'Commit package'.
 	    classesList := ClassesList on: self.
 	    classesList renderOn: html.
 	    protocolsList := html ul class: 'jt_column browser protocols'.
@@ -863,13 +863,13 @@ canBeClosed
 !Browser methodsFor: 'updating'!
 
 updateCategoriesList
-    categoriesList contents: [:html |
-	self categories do: [:each || li label |
+    packagesList contents: [:html |
+	self packages do: [:each || li label |
 	    each isEmpty 
 		ifTrue: [label := 'Unclassified']
 		ifFalse: [label := each].
 	    li := html li.
-	    selectedCategory = each ifTrue: [
+	    selectedPackage = each ifTrue: [
 		li class: 'selected'].
 	    li
 		with: label;
@@ -917,25 +917,25 @@ updateTabsList
 	selectedTab = #instance ifTrue: [li class: 'selected'].
 	li
 	    with: [
-              	html span class: 'ltab'.
-              	html span class: 'mtab'; with: 'Instance'.
-              	html span class: 'rtab'];
+		html span class: 'ltab'.
+		html span class: 'mtab'; with: 'Instance'.
+		html span class: 'rtab'];
 	    onClick: [self selectTab: #instance].
 	li := html li.
 	selectedTab = #class ifTrue: [li class: 'selected'].
 	li
 	    with: [
-              	html span class: 'ltab'.
-              	html span class: 'mtab'; with: 'Class'.
-              	html span class: 'rtab'];
+		html span class: 'ltab'.
+		html span class: 'mtab'; with: 'Class'.
+		html span class: 'rtab'];
 	    onClick: [self selectTab: #class].
 	li := html li.
 	selectedTab = #comment ifTrue: [li class: 'selected'].
 	li
 	    with: [
-              	html span class: 'ltab'.
-              	html span class: 'mtab'; with: 'Comment'.
-              	html span class: 'rtab'];
+		html span class: 'ltab'.
+		html span class: 'mtab'; with: 'Comment'.
+		html span class: 'rtab'];
 	    onClick: [self selectTab: #comment]]
 !
 
@@ -956,38 +956,38 @@ updateSourceAndButtons
 			with: 'Remove method';
 			onClick: [self removeMethod].
 		html select 
-	    		onChange: [:e :select | self setMethodProtocol: select val];
-	    		with: [
+			onChange: [:e :select | self setMethodProtocol: select val];
+			with: [
 				html option
-		    			with: 'Method protocol';
+					with: 'Method protocol';
 					at: 'disabled' put: 'disabled'.
 				html option
-		    			class: 'important';
-		    			with: 'New...'.
+					class: 'important';
+					with: 'New...'.
 				self protocols do: [:each |
-		    			html option with: each]].
+					html option with: each]].
 		selectedMethod isNil ifFalse: [
 			html select 
-	    			onChange: [:e :select | self searchReferencesOf: select val];
-	    			with: [
+				onChange: [:e :select | self searchReferencesOf: select val];
+				with: [
 					html option
-		    				with: 'References';
+						with: 'References';
 						at: 'disabled' put: 'disabled'.
 					html option
-		    				class: 'important';
-		    				with: selectedMethod selector.
+						class: 'important';
+						with: selectedMethod selector.
 					selectedMethod messageSends sorted do: [:each |
-		    				html option with: each]]]].
-    	selectedMethod isNil
+						html option with: each]]]].
+	selectedMethod isNil
 		ifTrue: [
-	    		self hideMethodButtons.
-	    			(selectedClass isNil or: [selectedProtocol notNil])
+			self hideMethodButtons.
+				(selectedClass isNil or: [selectedProtocol notNil])
 					ifTrue: [self hideClassButtons]
-	    				ifFalse: [self showClassButtons]]
+					ifFalse: [self showClassButtons]]
 		ifFalse: [
-	    		self hideClassButtons.
-	    		self showMethodButtons].
-    	sourceArea val: self source
+			self hideClassButtons.
+			self showMethodButtons].
+	sourceArea val: self source
 !
 
 updateStatus
@@ -995,11 +995,11 @@ updateStatus
 		ifTrue: [
 			saveButton ifNotNil: [
 				saveButton at: 'disabled' put: true].
-    			unsavedChanges := false]
+			unsavedChanges := false]
 		ifFalse: [
 			saveButton ifNotNil: [
-    				saveButton removeAt: 'disabled'].
-    			unsavedChanges := true]
+				saveButton removeAt: 'disabled'].
+			unsavedChanges := true]
 !
 
 resetClassesList
@@ -1096,16 +1096,16 @@ renderTopPanelOn: html
 		with: [
 			variablesList := html ul class: 'jt_column variables'.
 			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
-                  	html div class: 'jt_tabs inspector'; with: [
-          			html button
-                  			class: 'jt_button inspector refresh';
+			html div class: 'jt_tabs inspector'; with: [
+				html button
+					class: 'jt_button inspector refresh';
 					with: 'Refresh';
 					onClick: [self refresh].
 				diveButton := html button 
-                  			class: 'jt_button inspector dive';
+					class: 'jt_button inspector dive';
 					with: 'Dive'; 
 					onClick: [self dive]].
-	    		html div class: 'jt_clear'].
+			html div class: 'jt_clear'].
 	self
 		updateVariablesList;
 		updateValueTextarea.
@@ -1116,9 +1116,9 @@ renderBottomPanelOn: html
 	class: 'jt_sourceCode';
 	with: [
 	    sourceArea := SourceArea new
-          	receiver: object;
-          	onDoIt: [self refresh];
-          	yourself.
+		receiver: object;
+		onDoIt: [self refresh];
+		yourself.
             sourceArea renderOn: html]
 !
 
@@ -1292,17 +1292,17 @@ renderInputOn: html
 !
 
 renderImplementorsOn: html
-    	implementorsList := html ul class: 'jt_column implementors'.
+	implementorsList := html ul class: 'jt_column implementors'.
 	self updateImplementorsList
 !
 
 renderSendersOn: html
-    	sendersList := html ul class: 'jt_column senders'.
+	sendersList := html ul class: 'jt_column senders'.
 	self updateSendersList
 !
 
 renderReferencedClassesOn: html
-    	referencedClassesList := html ul class: 'jt_column referenced_classes'.
+	referencedClassesList := html ul class: 'jt_column referenced_classes'.
 	self updateReferencedClassesList
 ! !
 
@@ -1328,26 +1328,26 @@ updateImplementorsList
 !
 
 updateSendersList
-    	sendersList contents: [:html |
+	sendersList contents: [:html |
 	html li
 		class: 'column_label'; 
 		with: 'Senders (', self senders size asString, ')';
 		style: 'font-weight: bold'.
 	self senders do: [:each |
 		html li
-	    		with: (each methodClass asString, ' >> ', each selector);
+			with: (each methodClass asString, ' >> ', each selector);
 			onClick: [self openBrowserOn: each]]]
 !
 
 updateReferencedClassesList
-    	referencedClassesList contents: [:html |
+	referencedClassesList contents: [:html |
 	html li
 		class: 'column_label'; 
 		with: 'Class references (', self referencedClasses size asString, ')';
 		style: 'font-weight: bold'.
 	self referencedClasses do: [:each |
 		html li
-	    		with: (each methodClass asString, ' >> ', each selector);
+			with: (each methodClass asString, ' >> ', each selector);
 			onClick: [self openBrowserOn: each]]]
 ! !
 
@@ -1399,7 +1399,7 @@ selectionEnd: anInteger
 
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-        	theme: 'jtalk',
+		theme: 'jtalk',
                 lineNumbers: true,
                 enterMode: 'classic',
                 matchBrackets: true,
@@ -1448,8 +1448,8 @@ doIt
 
 eval: aString
 	| compiler  |
-      	compiler := Compiler new.
-      	[compiler parseExpression: aString] on: Error do: [:ex |
+	compiler := Compiler new.
+	[compiler parseExpression: aString] on: Error do: [:ex |
 		^self alert: ex messageText].
 	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
 !
@@ -1526,7 +1526,7 @@ Widget subclass: #ClassesList
 !ClassesList methodsFor: 'accessing'!
 
 category
-	^self browser selectedCategory
+	^self browser selectedPackage
 !
 
 nodes
@@ -1599,7 +1599,7 @@ renderOn: html
 		cssClass := cssClass, ' selected'].
 
 	self theClass comment isEmpty ifFalse: [
-          	cssClass := cssClass, ' commented'].
+		cssClass := cssClass, ' commented'].
 
 	li class: cssClass.
 
@@ -1715,8 +1715,8 @@ selectContext: aContext
 	selectedVariableName := nil.
 	self 
 		updateContextsList;
-          	updateSourceArea;
-          	updateInspector;
+		updateSourceArea;
+		updateInspector;
 		updateVariablesList;
 		updateStatus
 !
@@ -1761,7 +1761,7 @@ renderTopPanelOn: html
 			html div 
 				class: 'label';
 				with: self error messageText.
-	    		ul := html ul 
+			ul := html ul 
 				class: 'jt_column debugger contexts';
 				with: [self renderContext: self error context on: html]]
 !
@@ -1782,7 +1782,7 @@ renderBottomPanelOn: html
 		class: 'jt_sourceCode debugger';
 		with: [
 			sourceArea := SourceArea new.
-              		sourceArea renderOn: html].
+			sourceArea renderOn: html].
 	ul2 := html ul class: 'jt_column debugger variables'.
 	inspector := html div class: 'jt_column debugger inspector'.
 	sourceArea
@@ -1847,11 +1847,11 @@ updateStatus
 		ifTrue: [
 			saveButton ifNotNil: [
 				saveButton at: 'disabled' put: true].
-    			unsavedChanges := false]
+			unsavedChanges := false]
 		ifFalse: [
 			saveButton ifNotNil: [
-    				saveButton removeAt: 'disabled'].
-    			unsavedChanges := true]
+				saveButton removeAt: 'disabled'].
+			unsavedChanges := true]
 !
 
 updateInspector
@@ -1860,11 +1860,11 @@ updateInspector
 
 updateVariablesList
 	ul2 contents: [:html | | li |
-          	li := html li 
+		li := html li 
 			with: 'self';
 			onClick: [self selectVariable: self receiver named: 'self'].
                 selectedVariableName = 'self' ifTrue: [
-                  	li class: 'selected'].
+			li class: 'selected'].
                 self arguments withIndexDo: [:each :index | | param |
                         param := selectedContext temps at: index.
                         li := html li 
@@ -1939,7 +1939,7 @@ updatePercent: aNumber
 ! !
 
 TabWidget subclass: #TestRunner
-	instanceVariableNames: 'selectedCategories categoriesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
+	instanceVariableNames: 'selectedCategories packagesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	category: 'IDE'!
 
 !TestRunner methodsFor: 'accessing'!
@@ -1948,13 +1948,13 @@ label
     ^'SUnit'
 !
 
-categories
-    | categories |
-    categories := Array new.
+packages
+    | packages |
+    packages := Array new.
     self allClasses do: [:each |
-	(categories includes: each category) ifFalse: [
-	    categories add: each category]].
-    ^categories sort
+	(packages includes: each category) ifFalse: [
+	    packages add: each category]].
+    ^packages sort
 !
 
 classes
@@ -1997,7 +1997,7 @@ testCases
 !TestRunner methodsFor: 'actions'!
 
 selectAllCategories
-	self categories do: [:each | 
+	self packages do: [:each | 
 		(selectedCategories includes: each) ifFalse: [
 			self selectedCategories add: each]].
 	self 
@@ -2090,19 +2090,19 @@ renderButtonsOn: html
 !
 
 renderCategoriesOn: html
-    	categoriesList := html ul class: 'jt_column sunit categories'.
+	packagesList := html ul class: 'jt_column sunit packages'.
 	self updateCategoriesList
 !
 
 renderClassesOn: html
-    	classesList := html ul class: 'jt_column sunit classes'.
+	classesList := html ul class: 'jt_column sunit classes'.
 	self updateClassesList
 !
 
 renderResultsOn: html
-    	statusDiv := html div.
+	statusDiv := html div.
 	html with: self progressBar.
-   	methodsList := html ul class: 'jt_column sunit results'.
+	methodsList := html ul class: 'jt_column sunit results'.
 	self updateMethodsList.
 	self updateStatusDiv
 !
@@ -2136,12 +2136,12 @@ isSelectedCategory: aCategory
 !TestRunner methodsFor: 'updating'!
 
 updateCategoriesList
-    categoriesList contents: [:html |
+    packagesList contents: [:html |
 	    html li 
 		class: 'all';
 		with: 'All';
 		onClick: [self selectAllCategories].
-	self categories do: [:each || li |
+	self packages do: [:each || li |
 	    li := html li.
 	    (self selectedCategories includes: each) ifTrue: [
 		li class: 'selected'].

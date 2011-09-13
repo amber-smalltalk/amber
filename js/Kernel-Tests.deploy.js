@@ -118,7 +118,7 @@ smalltalk.method({
 selector: 'testEquality',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_deny_", [(0) == false]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [(0)])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [""])]);
@@ -173,16 +173,16 @@ smalltalk.method({
 selector: 'testEquality',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [(1) == (1)]);
-smalltalk.send(self, "_assert_", [(0) == (0)]);
-smalltalk.send(self, "_deny_", [(1) == (0)]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((0), "__eq", [(0)])]);
+smalltalk.send(self, "_deny_", [smalltalk.send((1), "__eq", [(0)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq", [(1)])]);
-smalltalk.send(self, "_assert_", [(1) == smalltalk.send((1), "_yourself", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [smalltalk.send((1), "_yourself", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq", [smalltalk.send((1), "_yourself", [])])]);
-smalltalk.send(self, "_deny_", [(0) == false]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [(0)])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [(0)])]);
-smalltalk.send(self, "_deny_", [(0) == ""]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [""])]);
 return self;}
 }),
 smalltalk.NumberTest);
