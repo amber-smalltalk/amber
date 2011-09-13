@@ -2747,7 +2747,7 @@ next
 !
 
 next: anInteger
-    ^1 to: anInteger collect: [:each | self next]
+    ^(1 to: anInteger) collect: [:each | self next]
 ! !
 
 Object subclass: #Point

@@ -5524,7 +5524,7 @@ smalltalk.method({
 selector: 'next:',
 fn: function (anInteger){
 var self=this;
-return smalltalk.send((1), "_to_collect_", [anInteger, (function(each){return smalltalk.send(self, "_next", []);})]);
+return smalltalk.send(smalltalk.send((1), "_to_", [anInteger]), "_collect_", [(function(each){return smalltalk.send(self, "_next", []);})]);
 return self;}
 }),
 smalltalk.Random);
