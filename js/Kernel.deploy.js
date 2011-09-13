@@ -761,6 +761,50 @@ return self;}
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+'_classes',
+smalltalk.method({
+selector: 'classes',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_select_", [(function(c){return smalltalk.send(smalltalk.send(c, "_package", []), "__eq_eq", [self]);})]);
+return self;}
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_name", []);
+return self;}
+}),
+smalltalk.Package);
+
+
+smalltalk.addMethod(
+'_named_',
+smalltalk.method({
+selector: 'named:',
+fn: function (aPackageName){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [aPackageName]);
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_named_ifAbsent_',
+smalltalk.method({
+selector: 'named:ifAbsent:',
+fn: function (aPackageName, aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_ifAbsent_", [aPackageName, aBlock]);
+return self;}
+}),
+smalltalk.Package.klass);
 
 
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel');

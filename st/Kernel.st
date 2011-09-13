@@ -333,6 +333,21 @@ current
 Object subclass: #Package
 	instanceVariableNames: ''
 	category: 'Kernel'!
+!Package commentStamp!
+A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Jtalk does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
+
+A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
+Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
+
+	Smalltalk current packageAt: 'Kernel'
+
+...but you can also use:
+
+	Package named: 'Kernel'
+
+A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
+can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
+String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.!
 
 !Package methodsFor: 'accessing'!
 
@@ -346,6 +361,31 @@ requires
 
 name: aString
 	<return self.pkgName = aString>
+! !
+
+!Package methodsFor: 'classes'!
+
+classes
+	"We need to do a reverse scan."
+	^Smalltalk current classes select: [:c | c package == self]
+! !
+
+!Package methodsFor: 'printing'!
+
+printString
+	^self name
+! !
+
+!Package class methodsFor: 'not yet classified'!
+
+named: aPackageName
+
+	^Smalltalk current packageAt: aPackageName
+!
+
+named: aPackageName ifAbsent: aBlock
+
+	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
 ! !
 
 Object subclass: #Behavior

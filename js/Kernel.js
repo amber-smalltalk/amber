@@ -1038,6 +1038,7 @@ smalltalk.Smalltalk.klass);
 
 
 smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel');
+smalltalk.Package.comment=unescape('A%20Package%20is%20similar%20to%20a%20%22class%20category%22%20typically%20found%20in%20other%20Smalltalks%20like%20Pharo%20or%20Squeak.%20Jtalk%20does%20not%20have%20class%20categories%20anymore%2C%20it%20had%20in%20the%20beginning%20but%20now%20each%20class%20in%20the%20system%20knows%20which%20package%20it%20belongs%20to.%0A%0AA%20Package%20has%20a%20name%2C%20an%20Array%20of%20%22requires%22%2C%20a%20comment%20and%20a%20Dictionary%20with%20other%20optional%20key%20value%20attributes.%20A%20Package%20can%20also%20be%20queried%20for%20its%20classes%2C%20but%20it%20will%20then%20resort%20to%20a%20reverse%20scan%20of%20all%20classes%20to%20find%20them.%0APackages%20are%20manipulated%20through%20%22Smalltalk%20current%22%2C%20like%20for%20example%20finding%20one%20based%20on%20a%20name%3A%0A%0A%09Smalltalk%20current%20packageAt%3A%20%27Kernel%27%0A%0A...but%20you%20can%20also%20use%3A%0A%0A%09Package%20named%3A%20%27Kernel%27%0A%0AA%20Package%20differs%20slightly%20from%20a%20Monticello%20package%20which%20can%20span%20multiple%20class%20categories%20using%20a%20naming%20convention%20based%20on%20hyphenation.%20But%20just%20as%20in%20Monticello%20a%20Package%20supports%20%22class%20extensions%22%20so%20a%20Package%0Acan%20define%20behaviors%20in%20foreign%20classes%20using%20a%20naming%20convention%20for%20method%20categories%20where%20the%20category%20starts%20with%20an%20asterisk%20and%20then%20the%20name%20of%20the%20owning%20package%20follows.%20This%20can%20easily%20be%20seen%20in%20for%20example%20class%0AString%20where%20the%20method%20category%20%22*IDE%22%20defines%20%23inspectOn%3A%20which%20thus%20is%20a%20method%20belonging%20to%20the%20IDE%20package.')
 smalltalk.addMethod(
 '_name',
 smalltalk.method({
@@ -1086,6 +1087,70 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+'_classes',
+smalltalk.method({
+selector: 'classes',
+category: 'classes',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_select_", [(function(c){return smalltalk.send(smalltalk.send(c, "_package", []), "__eq_eq", [self]);})]);
+return self;},
+args: [],
+source: unescape('classes%0A%09%22We%20need%20to%20do%20a%20reverse%20scan.%22%0A%09%5ESmalltalk%20current%20classes%20select%3A%20%5B%3Ac%20%7C%20c%20package%20%3D%3D%20self%5D'),
+messageSends: ["select:", "classes", "current", unescape("%3D%3D"), "package"],
+referencedClasses: [smalltalk.Smalltalk]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_name", []);
+return self;},
+args: [],
+source: unescape('printString%0A%09%5Eself%20name'),
+messageSends: ["name"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+
+smalltalk.addMethod(
+'_named_',
+smalltalk.method({
+selector: 'named:',
+category: 'not yet classified',
+fn: function (aPackageName){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [aPackageName]);
+return self;},
+args: ["aPackageName"],
+source: unescape('named%3A%20aPackageName%0A%0A%09%5ESmalltalk%20current%20packageAt%3A%20aPackageName'),
+messageSends: ["packageAt:", "current"],
+referencedClasses: [smalltalk.Smalltalk]
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_named_ifAbsent_',
+smalltalk.method({
+selector: 'named:ifAbsent:',
+category: 'not yet classified',
+fn: function (aPackageName, aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_ifAbsent_", [aPackageName, aBlock]);
+return self;},
+args: ["aPackageName", "aBlock"],
+source: unescape('named%3A%20aPackageName%20ifAbsent%3A%20aBlock%0A%0A%09%5ESmalltalk%20current%20packageAt%3A%20aPackageName%20ifAbsent%3A%20aBlock'),
+messageSends: ["packageAt:ifAbsent:", "current"],
+referencedClasses: [smalltalk.Smalltalk]
+}),
+smalltalk.Package.klass);
 
 
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel');
