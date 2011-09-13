@@ -2501,33 +2501,17 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_modulo_',
-smalltalk.method({
-selector: 'modulo:',
-category: 'arithmetic',
-fn: function (aNumber){
-var self=this;
-return self % aNumber;
-return self;},
-args: ["aNumber"],
-source: unescape('modulo%3A%20aNumber%0A%09%3Creturn%20self%20%25%20aNumber%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 '_even',
 smalltalk.method({
 selector: 'even',
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_\\\\", [(2)])]);
 return self;},
 args: [],
-source: unescape('even%0A%09%5E%200%20%3D%20%28self%20modulo%3A%202%29'),
-messageSends: [unescape("%3D"), "modulo:"],
+source: unescape('even%0A%09%5E%200%20%3D%20%28self%20%5C%5C%202%29'),
+messageSends: [unescape("%3D"), unescape("%5C%5C%5C%5C")],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2593,6 +2577,22 @@ return self.toFixed(placesDesired);
 return self;},
 args: ["placesDesired"],
 source: unescape('printShowingDecimalPlaces%3A%20placesDesired%0A%09%3Creturn%20self.toFixed%28placesDesired%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_\\',
+smalltalk.method({
+selector: '\\',
+category: 'arithmetic',
+fn: function (aNumber){
+var self=this;
+return self % aNumber;
+return self;},
+args: ["aNumber"],
+source: unescape('%5C%5C%20aNumber%0A%09%3Creturn%20self%20%25%20aNumber%3E'),
 messageSends: [],
 referencedClasses: []
 }),

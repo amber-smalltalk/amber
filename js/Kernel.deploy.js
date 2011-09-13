@@ -1755,23 +1755,12 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_modulo_',
-smalltalk.method({
-selector: 'modulo:',
-fn: function (aNumber){
-var self=this;
-return self % aNumber;
-return self;}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 '_even',
 smalltalk.method({
 selector: 'even',
 fn: function (){
 var self=this;
-return smalltalk.send((0), "__eq", [smalltalk.send(self, "_modulo_", [(2)])]);
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_\\\\", [(2)])]);
 return self;}
 }),
 smalltalk.Number);
@@ -1818,6 +1807,17 @@ selector: 'printShowingDecimalPlaces:',
 fn: function (placesDesired){
 var self=this;
 return self.toFixed(placesDesired);
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_\\',
+smalltalk.method({
+selector: '\\',
+fn: function (aNumber){
+var self=this;
+return self % aNumber;
 return self;}
 }),
 smalltalk.Number);

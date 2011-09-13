@@ -749,12 +749,12 @@ min: aNumber
 	<return Math.min(self, aNumber);>
 !
 
-modulo: aNumber
-	<return self % aNumber>
-!
-
 negated
 	^0 - self
+!
+
+\\ aNumber
+	<return self % aNumber>
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -875,7 +875,7 @@ isNumber
 !
 
 even
-	^ 0 = (self modulo: 2)
+	^ 0 = (self \\ 2)
 !
 
 odd
