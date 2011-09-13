@@ -6,7 +6,8 @@
     <meta name="author" content="Nicolas Petton" />
     <link rel="stylesheet" type="text/css" href='css/style.css' />
     <link rel="stylesheet" type="text/css" href='css/syntax.css' />
-    <script type='text/javascript' src='js/jtalk.js'></script>
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='js/amber.js'></script>
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
@@ -22,58 +23,46 @@
     </script>
   </head>
   <body>
-    <script type="text/javascript">
-      jQuery(window).scroll(function() {
-      	if(jQuery(window).scrollTop() > 210) {
-		jQuery('#menu')
-      			.css('position', 'fixed')
-			.css('top', '0px')
-	} else {
-      		jQuery('#menu')
-			.css('position', 'absolute')
-      			.css('top', '210px')
-      	}
-      });
-    </script>
 
     <a href="http://github.com/NicolasPetton/amber"><img style="position: absolute; top: 0; lef
 t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149fe06a9cc737577?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_left_darkblue_121621.png&path=" alt="Fork me on GitHub"></a>
 
     <div id="wrapper">
-      <div id="header">
-	<div class="main">
-	  <img alt="Jtalk, the Smalltalk for web developers" src="images/text_header.png"/>
+
+    <div id="header">
+      <div class="main">
+	<div class="logo">
+	  <img src="images/amber.png"/>
 	</div>
-      </div>
-      
-      <div id="menu">
-	<div class="main">
-	  <ul>
+
+	<ul id="tabs">
 	    <li><a href="index.html">Overview</a></li> · 
 	    <li><a href="index.html#download">Download</a></li> · 
 	    <li><a href="learn.html">Learn</a></li> ·
 	    <li><a id="doc_link" href="documentation.html">Documentation</a></li> ·
-	    <li><a target="_blank" href="https://github.com/NicolasPetton/jtalk">Source</a></li> 
-	  </ul>
-	</div>
-      </div>
+	    <li><a target="_blank" href="https://github.com/NicolasPetton/amber">Source</a></li> 
+	</ul>
 
-      <div id="content">
-	<div class="main">
-	  {{ content }}
-	</div>
+	<div class="clear"></div>
+
       </div>
+    </div>
+
+    
+    <div id="content">
+      <div class="main">
+	{{ content }}
+      </div>
+    </div>
     
     <div id="footer">
       <div class="main">
 	<p>Copyright © 2011 <a href="http://www.nicolas-petton.fr">Nicolas Petton</a>. The content of this website in licensed under <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC-BY-NC 3.0</a>.</p>
-	<p>Jtalk is an opensource project sponsored by <a href="http://www.objectfusion.fr">objectfusion</a>.</p>
-	<p>The design of this website was provided by <a href="mailto:neomie.thirion@gmail.com">Noémie Thirion</a>.</p>
+	<p>Amber is an opensource project sponsored by <a href="http://www.objectfusion.fr">objectfusion</a>.</p>
       </div> 
     </div>
-
-    <script type='text/javascript'> loadJtalk() </script>
+    
+    <script type='text/javascript'> loadAmber() </script>
         
   </body>
 </html>
-

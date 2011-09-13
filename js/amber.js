@@ -39,20 +39,29 @@
 	loadJS('lib/CodeMirror/lib/codemirror.js');
 	loadCSS('lib/CodeMirror/lib/codemirror.css', 'js');
 	loadJS('lib/CodeMirror/mode/smalltalk/smalltalk.js');
-	loadCSS('lib/CodeMirror/theme/jtalk.css', 'js');
+	loadCSS('lib/CodeMirror/theme/amber.css', 'js');
     }
 
-    window.loadJtalk = function(spec) {
+    window.loadAmber = function(spec) {
 	/* 
 	 example: 
-	 loadJtalk({
+	 loadAmber({
 	   files: ['MyCategory1.js', 'MyCategory2.js'], 
 	   ready: function() {smalltalk.Browser._open()}
 	 })
 	*/
 
 	var spec = spec || {};
+
+	// In deployment mode, only the compressed version of Kernel 
+	// and Canvas are loaded
 	deploy = spec.deploy || false;
+
+	// Specify a version string to avoid wrong browser caching
+	if(spec.version) {
+	    nocache = '?' + spec.version;
+	}
+
 	loadDependencies();
 	if(deploy) {
 	    loadJS("boot.js");
@@ -60,9 +69,8 @@
 	    loadJS("Canvas.deploy.js");
 	    loadJS("JQuery.deploy.js");
 	} else {
-
 	    loadIDEDependencies();
-	    loadCSS('jtalk.css');
+	    loadCSS('amber.css');
 	    loadJS("boot.js");
 	    loadJS("Kernel.js");
 	    loadJS("Canvas.js");
@@ -77,6 +85,7 @@
 	    loadJS("JQuery-Tests.js");
 	}
 
+	// Load other files, possibly with another directory prefix than 'js'
 	if(spec.files) {
 	    for(var i=0; i < spec.files.length; i++) {
 		loadJS(spec.files[i], spec.prefix);
@@ -90,6 +99,7 @@
 	    if(deploy) {smalltalk.setDeploymentMode()}
 	}
 
+	// Be sure to setup & initialize smalltalk classes
 	loadJS("init.js");
     }
 

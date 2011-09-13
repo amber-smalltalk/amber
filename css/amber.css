@@ -106,6 +106,7 @@ body.jtalkBody {
 #jtalk #jt_toolbar input {
     margin-left: 50px;
     width: 250px;
+    margin-top: 5px;
 }
 
 #jtalk #jt_toolbar #jt_close {
@@ -260,6 +261,20 @@ body.jtalkBody {
     position: absolute;
     top: 129px;
     left: 0;
+    z-index: 1;
+}
+
+.jtalkTool .jt_rename {
+    position: absolute;
+    top: 129px;
+    left: 90px;
+    z-index: 1;
+}
+
+.jtalkTool .jt_delete {
+    position: absolute;
+    top: 129px;
+    left: 185px;
     z-index: 1;
 }
 

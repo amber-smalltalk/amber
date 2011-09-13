@@ -20,20 +20,12 @@ number         = n:(float / integer) {
                	   	._value_(n)
                	 }
 float          = neg:[-]?int:integer "." dec:integer {return parseFloat((neg+int+"."+dec), 10)}
-integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10))}
+integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.joind(""), 10))}
 literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
 		  return smalltalk.ValueNode._new()
                	   	._value_(lits)
                	 }
-dynamicArray   = "{" ws expressions:expressions? ws "}" {
-	       	  return smalltalk.DynamicArrayNode._new()
-		        ._nodes_(expressions)
-		  }
-dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
-	       	  return smalltalk.DynamicDictionaryNode._new()
-		        ._nodes_(expressions)
-		  }
-literal        = number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
+literal        = number / literalArray / string / symbol / block
 
 
 variable       = identifier:identifier {
@@ -44,12 +36,11 @@ classReference = className:className {
 		  return smalltalk.ClassReferenceNode._new()
 		  	._value_(className)
 		  }
-
 reference      = variable / classReference
 
 keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg}}
 
-binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("").replace(/\\/g, '\\\\')}
+binarySelector = bin:[+*/=><,@%~|&-]+ {return bin.join("")}
 unarySelector  = identifier
 
 keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg: arg}})+ {

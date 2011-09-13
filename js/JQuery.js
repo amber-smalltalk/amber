@@ -1,8 +1,8 @@
 smalltalk.addClass('JQuery', smalltalk.Object, ['jquery'], 'JQuery');
 smalltalk.addMethod(
-'_append_',
+unescape('_append_'),
 smalltalk.method({
-selector: 'append:',
+selector: unescape('append%3A'),
 category: 'DOM insertion',
 fn: function (anObject){
 var self=this;
@@ -16,9 +16,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_appendElement_',
+unescape('_appendElement_'),
 smalltalk.method({
-selector: 'appendElement:',
+selector: unescape('appendElement%3A'),
 category: 'DOM insertion',
 fn: function (anElement){
 var self=this;
@@ -32,9 +32,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 category: 'DOM insertion',
 fn: function (aJQuery){
 var self=this;
@@ -48,9 +48,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_contents_',
+unescape('_contents_'),
 smalltalk.method({
-selector: 'contents:',
+selector: unescape('contents%3A'),
 category: 'DOM insertion',
 fn: function (anObject){
 var self=this;
@@ -65,9 +65,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_empty',
+unescape('_empty'),
 smalltalk.method({
-selector: 'empty',
+selector: unescape('empty'),
 category: 'DOM insertion',
 fn: function (){
 var self=this;
@@ -81,9 +81,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_jquery',
+unescape('_jquery'),
 smalltalk.method({
-selector: 'jquery',
+selector: unescape('jquery'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -97,9 +97,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_removeAttribute_',
+unescape('_removeAttribute_'),
 smalltalk.method({
-selector: 'removeAttribute:',
+selector: unescape('removeAttribute%3A'),
 category: 'attributes',
 fn: function (aString){
 var self=this;
@@ -113,9 +113,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_attr_',
+unescape('_attr_'),
 smalltalk.method({
-selector: 'attr:',
+selector: unescape('attr%3A'),
 category: 'attributes',
 fn: function (aString){
 var self=this;
@@ -129,9 +129,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_val',
+unescape('_val'),
 smalltalk.method({
-selector: 'val',
+selector: unescape('val'),
 category: 'attributes',
 fn: function (){
 var self=this;
@@ -145,9 +145,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_val_',
+unescape('_val_'),
 smalltalk.method({
-selector: 'val:',
+selector: unescape('val%3A'),
 category: 'attributes',
 fn: function (aString){
 var self=this;
@@ -161,9 +161,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_attrAt_put_',
+unescape('_attrAt_put_'),
 smalltalk.method({
-selector: 'attrAt:put:',
+selector: unescape('attrAt%3Aput%3A'),
 category: 'attributes',
 fn: function (aString, anotherString){
 var self=this;
@@ -177,9 +177,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_cssAt_',
+unescape('_cssAt_'),
 smalltalk.method({
-selector: 'cssAt:',
+selector: unescape('cssAt%3A'),
 category: 'css',
 fn: function (aString){
 var self=this;
@@ -193,9 +193,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_cssAt_put_',
+unescape('_cssAt_put_'),
 smalltalk.method({
-selector: 'cssAt:put:',
+selector: unescape('cssAt%3Aput%3A'),
 category: 'css',
 fn: function (aString, anotherString){
 var self=this;
@@ -209,9 +209,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_addClass_',
+unescape('_addClass_'),
 smalltalk.method({
-selector: 'addClass:',
+selector: unescape('addClass%3A'),
 category: 'css',
 fn: function (aString){
 var self=this;
@@ -225,9 +225,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_removeClass_',
+unescape('_removeClass_'),
 smalltalk.method({
-selector: 'removeClass:',
+selector: unescape('removeClass%3A'),
 category: 'css',
 fn: function (aString){
 var self=this;
@@ -241,9 +241,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_toggleClass_',
+unescape('_toggleClass_'),
 smalltalk.method({
-selector: 'toggleClass:',
+selector: unescape('toggleClass%3A'),
 category: 'css',
 fn: function (aString){
 var self=this;
@@ -257,9 +257,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_height',
+unescape('_height'),
 smalltalk.method({
-selector: 'height',
+selector: unescape('height'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -273,9 +273,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_height_',
+unescape('_height_'),
 smalltalk.method({
-selector: 'height:',
+selector: unescape('height%3A'),
 category: 'css',
 fn: function (anInteger){
 var self=this;
@@ -289,9 +289,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_width_',
+unescape('_width_'),
 smalltalk.method({
-selector: 'width:',
+selector: unescape('width%3A'),
 category: 'css',
 fn: function (anInteger){
 var self=this;
@@ -305,9 +305,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_width',
+unescape('_width'),
 smalltalk.method({
-selector: 'width',
+selector: unescape('width'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -321,9 +321,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_innerHeight',
+unescape('_innerHeight'),
 smalltalk.method({
-selector: 'innerHeight',
+selector: unescape('innerHeight'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -337,9 +337,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_innerWidth',
+unescape('_innerWidth'),
 smalltalk.method({
-selector: 'innerWidth',
+selector: unescape('innerWidth'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -353,9 +353,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_outerHeight',
+unescape('_outerHeight'),
 smalltalk.method({
-selector: 'outerHeight',
+selector: unescape('outerHeight'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -369,9 +369,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_outerWidth',
+unescape('_outerWidth'),
 smalltalk.method({
-selector: 'outerWidth',
+selector: unescape('outerWidth'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -385,9 +385,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_top',
+unescape('_top'),
 smalltalk.method({
-selector: 'top',
+selector: unescape('top'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -401,9 +401,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_left',
+unescape('_left'),
 smalltalk.method({
-selector: 'left',
+selector: unescape('left'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -417,9 +417,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_offsetLeft',
+unescape('_offsetLeft'),
 smalltalk.method({
-selector: 'offsetLeft',
+selector: unescape('offsetLeft'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -433,9 +433,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_offsetTop',
+unescape('_offsetTop'),
 smalltalk.method({
-selector: 'offsetTop',
+selector: unescape('offsetTop'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -449,9 +449,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_scrollLeft',
+unescape('_scrollLeft'),
 smalltalk.method({
-selector: 'scrollLeft',
+selector: unescape('scrollLeft'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -465,9 +465,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_scrollTop',
+unescape('_scrollTop'),
 smalltalk.method({
-selector: 'scrollTop',
+selector: unescape('scrollTop'),
 category: 'css',
 fn: function (){
 var self=this;
@@ -481,9 +481,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_scrollLeft_',
+unescape('_scrollLeft_'),
 smalltalk.method({
-selector: 'scrollLeft:',
+selector: unescape('scrollLeft%3A'),
 category: 'css',
 fn: function (anInteger){
 var self=this;
@@ -497,9 +497,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_scrollTop_',
+unescape('_scrollTop_'),
 smalltalk.method({
-selector: 'scrollTop:',
+selector: unescape('scrollTop%3A'),
 category: 'css',
 fn: function (anInteger){
 var self=this;
@@ -513,233 +513,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_do_',
+unescape('_fadeIn'),
 smalltalk.method({
-selector: 'do:',
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(self, "_elementsDo_", [(function(anElement){return smalltalk.send(aBlock, "_value_", [smalltalk.send((smalltalk.JQuery || JQuery), "_fromElement_", [anElement])]);})]);
-return self;},
-args: ["aBlock"],
-source: unescape('do%3A%20aBlock%0A%20%20%20%20self%20elementsDo%3A%20%5B%3AanElement%7C%20%20aBlock%20value%3A%20%28JQuery%20fromElement%3A%20anElement%29%5D'),
-messageSends: ["elementsDo:", "value:", "fromElement:"],
-referencedClasses: [smalltalk.JQuery]
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_focus',
-smalltalk.method({
-selector: 'focus',
-category: 'events',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["focus"]);
-return self;},
-args: [],
-source: unescape('focus%0A%20%20%20%20self%20call%3A%20%27focus%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_show',
-smalltalk.method({
-selector: 'show',
-category: 'events',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["show"]);
-return self;},
-args: [],
-source: unescape('show%0A%20%20%20%20self%20call%3A%20%27show%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_hide',
-smalltalk.method({
-selector: 'hide',
-category: 'events',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["hide"]);
-return self;},
-args: [],
-source: unescape('hide%0A%20%20%20%20self%20call%3A%20%27hide%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_remove',
-smalltalk.method({
-selector: 'remove',
-category: 'events',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_call_", ["remove"]);
-return self;},
-args: [],
-source: unescape('remove%0A%20%20%20%20self%20call%3A%20%27remove%27'),
-messageSends: ["call:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_on_do_',
-smalltalk.method({
-selector: 'on:do:',
-category: 'events',
-fn: function (anEventString, aBlock){
-var self=this;
-self['@jquery'].bind(anEventString, function(e){aBlock(e, self)});
-return self;},
-args: ["anEventString", "aBlock"],
-source: unescape('on%3A%20anEventString%20do%3A%20aBlock%0A%20%20%20%20%22Attach%20aBlock%20for%20anEventString%20on%20the%20element%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.bind%28anEventString%2C%20function%28e%29%7BaBlock%28e%2C%20self%29%7D%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_removeEvents_',
-smalltalk.method({
-selector: 'removeEvents:',
-category: 'events',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_call_withArgument_", ["unbind", aString]);
-return self;},
-args: ["aString"],
-source: unescape('removeEvents%3A%20aString%0A%20%20%20%20%22Unbind%20all%20handlers%20attached%20to%20the%20event%20aString%22%0A%20%20%20%20self%20call%3A%20%27unbind%27%20withArgument%3A%20aString'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_initializeWithJQueryObject_',
-smalltalk.method({
-selector: 'initializeWithJQueryObject:',
-category: 'initialization',
-fn: function (anObject){
-var self=this;
-self['@jquery']=anObject;
-return self;},
-args: ["anObject"],
-source: unescape('initializeWithJQueryObject%3A%20anObject%0A%20%20%20%20jquery%20%3A%3D%20anObject'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_call_',
-smalltalk.method({
-selector: 'call:',
-category: 'private',
-fn: function (aString){
-var self=this;
-return self['@jquery'][aString]();
-return self;},
-args: ["aString"],
-source: unescape('call%3A%20aString%0A%09%3Creturn%20self%5B%27@jquery%27%5D%5BaString%5D%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_call_withArgument_',
-smalltalk.method({
-selector: 'call:withArgument:',
-category: 'private',
-fn: function (aString, anObject){
-var self=this;
-return self['@jquery'][aString](anObject);
-return self;},
-args: ["aString", "anObject"],
-source: unescape('call%3A%20aString%20withArgument%3A%20anObject%0A%20%20%20%20%3Creturn%20self%5B%27@jquery%27%5D%5BaString%5D%28anObject%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_elementsDo_',
-smalltalk.method({
-selector: 'elementsDo:',
-category: 'private',
-fn: function (aBlock){
-var self=this;
-self['@jquery'].each(function(index, element){aBlock(element, self)});
-return self;},
-args: ["aBlock"],
-source: unescape('elementsDo%3A%20aBlock%0A%20%20%20%20%22Iterate%20over%20a%20jQuery%20object%2C%20executing%20a%20function%20for%20each%20matched%20element.%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.each%28function%28index%2C%20element%29%7BaBlock%28element%2C%20self%29%7D%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_hasClass_',
-smalltalk.method({
-selector: 'hasClass:',
-category: 'testing',
-fn: function (aString){
-var self=this;
-return smalltalk.send(self, "_call_withArgument_", ["hasClass", aString]);
-return self;},
-args: ["aString"],
-source: unescape('hasClass%3A%20aString%0A%20%20%20%20%22Determine%20whether%20any%20of%20the%20matched%20elements%20are%20assigned%20the%20given%20class.%22%0A%20%20%20%20%5Eself%20call%3A%20%27hasClass%27%20withArgument%3A%20aString'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_find_',
-smalltalk.method({
-selector: 'find:',
-category: 'traversing',
-fn: function (aSelector){
-var self=this;
-return smalltalk.send(self, "_call_withArgument_", ["find", aSelector]);
-return self;},
-args: ["aSelector"],
-source: unescape('find%3A%20aSelector%0A%20%20%20%20%22Get%20the%20descendants%20of%20each%20element%20in%20the%20current%20set%20of%20matched%20elements%2C%20filtered%20by%20a%20selector%2C%20jQuery%20object%2C%20or%20element.%22%0A%20%20%20%20%5E%20self%20call%3A%20%27find%27%20withArgument%3A%20aSelector'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_onLoadDo_',
-smalltalk.method({
-selector: 'onLoadDo:',
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(self, "_call_withArgument_", ["load", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onLoadDo%3A%20aBlock%0A%09%22Bind%20an%20event%20handler%20to%20the%20%27load%27%20JavaScript%20event.%22%0A%09self%20call%3A%20%27load%27%20withArgument%3A%20aBlock'),
-messageSends: ["call:withArgument:"],
-referencedClasses: []
-}),
-smalltalk.JQuery);
-
-smalltalk.addMethod(
-'_fadeIn',
-smalltalk.method({
-selector: 'fadeIn',
+selector: unescape('fadeIn'),
 category: 'effects',
 fn: function (){
 var self=this;
@@ -753,9 +529,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_slideDown',
+unescape('_slideDown'),
 smalltalk.method({
-selector: 'slideDown',
+selector: unescape('slideDown'),
 category: 'effects',
 fn: function (){
 var self=this;
@@ -769,9 +545,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_fadeInSlow',
+unescape('_fadeInSlow'),
 smalltalk.method({
-selector: 'fadeInSlow',
+selector: unescape('fadeInSlow'),
 category: 'effects',
 fn: function (){
 var self=this;
@@ -785,9 +561,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_fadeOut',
+unescape('_fadeOut'),
 smalltalk.method({
-selector: 'fadeOut',
+selector: unescape('fadeOut'),
 category: 'effects',
 fn: function (){
 var self=this;
@@ -801,9 +577,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_fadeOutSlow',
+unescape('_fadeOutSlow'),
 smalltalk.method({
-selector: 'fadeOutSlow',
+selector: unescape('fadeOutSlow'),
 category: 'effects',
 fn: function (){
 var self=this;
@@ -817,9 +593,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_slideUp',
+unescape('_slideUp'),
 smalltalk.method({
-selector: 'slideUp',
+selector: unescape('slideUp'),
 category: 'effects',
 fn: function (){
 var self=this;
@@ -833,9 +609,9 @@ referencedClasses: []
 smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_fadeOut_do_',
+unescape('_fadeOut_do_'),
 smalltalk.method({
-selector: 'fadeOut:do:',
+selector: unescape('fadeOut%3Ado%3A'),
 category: 'effects',
 fn: function (aString, aBlock){
 var self=this;
@@ -848,11 +624,235 @@ referencedClasses: []
 }),
 smalltalk.JQuery);
 
+smalltalk.addMethod(
+unescape('_do_'),
+smalltalk.method({
+selector: unescape('do%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_elementsDo_", [(function(anElement){return smalltalk.send(aBlock, "_value_", [smalltalk.send((smalltalk.JQuery || JQuery), "_fromElement_", [anElement])]);})]);
+return self;},
+args: ["aBlock"],
+source: unescape('do%3A%20aBlock%0A%20%20%20%20self%20elementsDo%3A%20%5B%3AanElement%7C%20%20aBlock%20value%3A%20%28JQuery%20fromElement%3A%20anElement%29%5D'),
+messageSends: ["elementsDo:", "value:", "fromElement:"],
+referencedClasses: [smalltalk.JQuery]
+}),
+smalltalk.JQuery);
 
 smalltalk.addMethod(
-'_fromString_',
+unescape('_focus'),
 smalltalk.method({
-selector: 'fromString:',
+selector: unescape('focus'),
+category: 'events',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["focus"]);
+return self;},
+args: [],
+source: unescape('focus%0A%20%20%20%20self%20call%3A%20%27focus%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_show'),
+smalltalk.method({
+selector: unescape('show'),
+category: 'events',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["show"]);
+return self;},
+args: [],
+source: unescape('show%0A%20%20%20%20self%20call%3A%20%27show%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_hide'),
+smalltalk.method({
+selector: unescape('hide'),
+category: 'events',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["hide"]);
+return self;},
+args: [],
+source: unescape('hide%0A%20%20%20%20self%20call%3A%20%27hide%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_remove'),
+smalltalk.method({
+selector: unescape('remove'),
+category: 'events',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_call_", ["remove"]);
+return self;},
+args: [],
+source: unescape('remove%0A%20%20%20%20self%20call%3A%20%27remove%27'),
+messageSends: ["call:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_on_do_'),
+smalltalk.method({
+selector: unescape('on%3Ado%3A'),
+category: 'events',
+fn: function (anEventString, aBlock){
+var self=this;
+self['@jquery'].bind(anEventString, function(e){aBlock(e, self)});
+return self;},
+args: ["anEventString", "aBlock"],
+source: unescape('on%3A%20anEventString%20do%3A%20aBlock%0A%20%20%20%20%22Attach%20aBlock%20for%20anEventString%20on%20the%20element%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.bind%28anEventString%2C%20function%28e%29%7BaBlock%28e%2C%20self%29%7D%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_removeEvents_'),
+smalltalk.method({
+selector: unescape('removeEvents%3A'),
+category: 'events',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["unbind", aString]);
+return self;},
+args: ["aString"],
+source: unescape('removeEvents%3A%20aString%0A%20%20%20%20%22Unbind%20all%20handlers%20attached%20to%20the%20event%20aString%22%0A%20%20%20%20self%20call%3A%20%27unbind%27%20withArgument%3A%20aString'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_onLoadDo_'),
+smalltalk.method({
+selector: unescape('onLoadDo%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_call_withArgument_", ["load", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onLoadDo%3A%20aBlock%0A%09%22Bind%20an%20event%20handler%20to%20the%20%27load%27%20JavaScript%20event.%22%0A%09self%20call%3A%20%27load%27%20withArgument%3A%20aBlock'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_initializeWithJQueryObject_'),
+smalltalk.method({
+selector: unescape('initializeWithJQueryObject%3A'),
+category: 'initialization',
+fn: function (anObject){
+var self=this;
+self['@jquery']=anObject;
+return self;},
+args: ["anObject"],
+source: unescape('initializeWithJQueryObject%3A%20anObject%0A%20%20%20%20jquery%20%3A%3D%20anObject'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_call_'),
+smalltalk.method({
+selector: unescape('call%3A'),
+category: 'private',
+fn: function (aString){
+var self=this;
+return self['@jquery'][aString]();
+return self;},
+args: ["aString"],
+source: unescape('call%3A%20aString%0A%09%3Creturn%20self%5B%27@jquery%27%5D%5BaString%5D%28%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_call_withArgument_'),
+smalltalk.method({
+selector: unescape('call%3AwithArgument%3A'),
+category: 'private',
+fn: function (aString, anObject){
+var self=this;
+return self['@jquery'][aString](anObject);
+return self;},
+args: ["aString", "anObject"],
+source: unescape('call%3A%20aString%20withArgument%3A%20anObject%0A%20%20%20%20%3Creturn%20self%5B%27@jquery%27%5D%5BaString%5D%28anObject%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_elementsDo_'),
+smalltalk.method({
+selector: unescape('elementsDo%3A'),
+category: 'private',
+fn: function (aBlock){
+var self=this;
+self['@jquery'].each(function(index, element){aBlock(element, self)});
+return self;},
+args: ["aBlock"],
+source: unescape('elementsDo%3A%20aBlock%0A%20%20%20%20%22Iterate%20over%20a%20jQuery%20object%2C%20executing%20a%20function%20for%20each%20matched%20element.%22%0A%20%20%20%20%3Cself%5B%27@jquery%27%5D.each%28function%28index%2C%20element%29%7BaBlock%28element%2C%20self%29%7D%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_hasClass_'),
+smalltalk.method({
+selector: unescape('hasClass%3A'),
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.send(self, "_call_withArgument_", ["hasClass", aString]);
+return self;},
+args: ["aString"],
+source: unescape('hasClass%3A%20aString%0A%20%20%20%20%22Determine%20whether%20any%20of%20the%20matched%20elements%20are%20assigned%20the%20given%20class.%22%0A%20%20%20%20%5Eself%20call%3A%20%27hasClass%27%20withArgument%3A%20aString'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+smalltalk.addMethod(
+unescape('_find_'),
+smalltalk.method({
+selector: unescape('find%3A'),
+category: 'traversing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.send(self, "_call_withArgument_", ["find", aSelector]);
+return self;},
+args: ["aSelector"],
+source: unescape('find%3A%20aSelector%0A%20%20%20%20%22Get%20the%20descendants%20of%20each%20element%20in%20the%20current%20set%20of%20matched%20elements%2C%20filtered%20by%20a%20selector%2C%20jQuery%20object%2C%20or%20element.%22%0A%20%20%20%20%5E%20self%20call%3A%20%27find%27%20withArgument%3A%20aSelector'),
+messageSends: ["call:withArgument:"],
+referencedClasses: []
+}),
+smalltalk.JQuery);
+
+
+smalltalk.addMethod(
+unescape('_fromString_'),
+smalltalk.method({
+selector: unescape('fromString%3A'),
 category: 'instance creation',
 fn: function (aString){
 var self=this;
@@ -868,9 +868,9 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 smalltalk.addMethod(
-'_from_',
+unescape('_from_'),
 smalltalk.method({
-selector: 'from:',
+selector: unescape('from%3A'),
 category: 'instance creation',
 fn: function (anObject){
 var self=this;
@@ -884,9 +884,9 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 smalltalk.addMethod(
-'_window',
+unescape('_window'),
 smalltalk.method({
-selector: 'window',
+selector: unescape('window'),
 category: 'instance creation',
 fn: function (){
 var self=this;
@@ -900,9 +900,9 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 smalltalk.addMethod(
-'_body',
+unescape('_body'),
 smalltalk.method({
-selector: 'body',
+selector: unescape('body'),
 category: 'instance creation',
 fn: function (){
 var self=this;
@@ -916,9 +916,9 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 smalltalk.addMethod(
-'_document',
+unescape('_document'),
 smalltalk.method({
-selector: 'document',
+selector: unescape('document'),
 category: 'instance creation',
 fn: function (){
 var self=this;
@@ -932,9 +932,9 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 smalltalk.addMethod(
-'_fromElement_',
+unescape('_fromElement_'),
 smalltalk.method({
-selector: 'fromElement:',
+selector: unescape('fromElement%3A'),
 category: 'instance creation',
 fn: function (anElement){
 var self=this;
@@ -950,9 +950,9 @@ referencedClasses: []
 smalltalk.JQuery.klass);
 
 smalltalk.addMethod(
-'_documentReady_',
+unescape('_documentReady_'),
 smalltalk.method({
-selector: 'documentReady:',
+selector: unescape('documentReady%3A'),
 category: 'instance creation',
 fn: function (aBlock){
 var self=this;
@@ -969,9 +969,9 @@ smalltalk.JQuery.klass);
 smalltalk.addClass('Ajax', smalltalk.Object, ['settings'], 'JQuery');
 smalltalk.Ajax.comment=unescape('instance%20variable%20names%3A%0A-%20settings%20%20A%20set%20of%20key/value%20pairs%20that%20configure%20the%20Ajax%20request.%20All%20settings%20are%20optional.%0A%0AFull%20list%20of%20settings%20options%20at%20http%3A//api.jquery.com/jQuery.ajax/')
 smalltalk.addMethod(
-'_at_',
+unescape('_at_'),
 smalltalk.method({
-selector: 'at:',
+selector: unescape('at%3A'),
 category: 'accessing',
 fn: function (aKey){
 var self=this;
@@ -985,9 +985,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_at_put_',
+unescape('_at_put_'),
 smalltalk.method({
-selector: 'at:put:',
+selector: unescape('at%3Aput%3A'),
 category: 'accessing',
 fn: function (aKey, aValue){
 var self=this;
@@ -1001,9 +1001,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_url',
+unescape('_url'),
 smalltalk.method({
-selector: 'url',
+selector: unescape('url'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1017,9 +1017,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_url_',
+unescape('_url_'),
 smalltalk.method({
-selector: 'url:',
+selector: unescape('url%3A'),
 category: 'accessing',
 fn: function (aString){
 var self=this;
@@ -1033,9 +1033,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_send',
+unescape('_send'),
 smalltalk.method({
-selector: 'send',
+selector: unescape('send'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -1049,9 +1049,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_onSuccessDo_',
+unescape('_onSuccessDo_'),
 smalltalk.method({
-selector: 'onSuccessDo:',
+selector: unescape('onSuccessDo%3A'),
 category: 'callbacks',
 fn: function (aBlock){
 var self=this;
@@ -1065,9 +1065,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_onCompleteDo_',
+unescape('_onCompleteDo_'),
 smalltalk.method({
-selector: 'onCompleteDo:',
+selector: unescape('onCompleteDo%3A'),
 category: 'callbacks',
 fn: function (aBlock){
 var self=this;
@@ -1081,9 +1081,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_onErrorDo_',
+unescape('_onErrorDo_'),
 smalltalk.method({
-selector: 'onErrorDo:',
+selector: unescape('onErrorDo%3A'),
 category: 'callbacks',
 fn: function (aBlock){
 var self=this;
@@ -1097,9 +1097,9 @@ referencedClasses: []
 smalltalk.Ajax);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -1115,9 +1115,9 @@ smalltalk.Ajax);
 
 
 smalltalk.addMethod(
-'_url_',
+unescape('_url_'),
 smalltalk.method({
-selector: 'url:',
+selector: unescape('url%3A'),
 category: 'instance creation',
 fn: function (aString){
 var self=this;
@@ -1132,9 +1132,9 @@ smalltalk.Ajax.klass);
 
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 category: '*JQuery',
 fn: function (aJQuery){
 var self=this;
@@ -1148,9 +1148,9 @@ referencedClasses: [smalltalk.HTMLCanvas]
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-'_asJQuery',
+unescape('_asJQuery'),
 smalltalk.method({
-selector: 'asJQuery',
+selector: unescape('asJQuery'),
 category: '*JQuery',
 fn: function (){
 var self=this;
@@ -1164,9 +1164,9 @@ referencedClasses: [smalltalk.JQuery]
 smalltalk.String);
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 category: '*JQuery',
 fn: function (aJQuery){
 var self=this;
@@ -1180,9 +1180,9 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 category: '*JQuery',
 fn: function (aJQuery){
 var self=this;

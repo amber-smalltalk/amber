@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ page.title }}</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Nicolas Petton" />
+    <link rel="stylesheet" type="text/css" href='css/style.css' />
+    <link rel="stylesheet" type="text/css" href='css/syntax.css' />
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='js/amber.js'></script>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2246313-6']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  </head>
+  <body>
+
+    <a href="http://github.com/NicolasPetton/amber"><img style="position: absolute; top: 0; lef
+								t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149fe06a9cc737577?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_left_darkblue_121621.png&path=" alt="Fork me on GitHub"></a>
+
+    <div id="wrapper">
+
+      <div id="header">
+	<div class="main">
+	  <div class="logo">
+	    <img src="images/amber.png"/>
+	  </div>
+
+	  <ul id="tabs">
+	    <li><a href="index.html">Overview</a></li> · 
+	    <li><a href="index.html#download">Download</a></li> · 
+	    <li><a href="learn.html">Learn</a></li> ·
+	    <li><a id="doc_link" href="documentation.html">Documentation</a></li> ·
+	    <li><a target="_blank" href="https://github.com/NicolasPetton/jtalk">Source</a></li> 
+	  </ul>
+
+	  <div class="clear"></div>
+
+	</div>
+      </div>
+
+      <div class="teaser">
+	<div class="main">
+	  <h1>Amber is an implementation of the Smalltalk language that runs on top of the JavaScript runtime.</h1>
+	  <div class="column">
+	    <p>Amber, formerly known as Jtalk, is an implementation of the Smalltalk-80 language. It is designed to make client-side development faster and easier. It allows developers to write client-side heavy web applications in Smalltalk. </p>
+	    <p>Amber includes an integrated development environment with a class browser, workspace, transcript, object inspector and debugger.</p>
+	  </div>
+	  <div class="column">
+	    <p>Amber is written in itself, including the parser and compiler, and compiles into efficient JavaScript, mapping one-to-one with the JS equivalent.</p>
+	    <p>Try a <button onClick="smalltalk.Browser._open()"> Class browser</button> right now!</p>
+	    <script type="text/javascript">
+	      /* <![CDATA[ */
+    (function() {
+        var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.parentNode.insertBefore(s, t);
+    })();
+/* ]]> */
+	    </script>
+	    <p>You can join the <a href="http://groups.google.com/group/jtalk-project"> Google Group</a> or the #amber-lang IRC channel on freenode.</p>
+	    <a class="FlattrButton" style="display:none;" rev="flattr;button:compact" href="http://jtalk-project.org"></a>
+	    <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="NicolasPetton">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	  </div>
+	  <div class="clear"></div>
+	</div>
+	
+	
+      </div>
+      
+      <div id="content">
+	<div class="main">
+	  {{ content }}
+	</div>
+      </div>
+
+      <div id="footer">
+	<div class="main">
+	  <p>Copyright © 2011 <a href="http://www.nicolas-petton.fr">Nicolas Petton</a>. The content of this website in licensed under <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC-BY-NC 3.0</a>.</p>
+	  <p>Amber is an opensource project sponsored by <a href="http://www.objectfusion.fr">objectfusion</a>.</p>
+	</div> 
+      </div>
+      
+      <script type='text/javascript'> loadAmber() </script>
+      
+  </body>
+</html>

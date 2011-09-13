@@ -1,7 +1,7 @@
 /* ====================================================================
    |
-   |   Jtalk Smalltalk
-   |   http://jtalk-project.org
+   |   Amber Smalltalk
+   |   http://amber-lang.net
    |
    ======================================================================
 
@@ -10,7 +10,7 @@
    | Copyright (c) 2010-2011
    | Nicolas Petton <petton.nicolas@gmail.com>
    |
-   | Jtalk is released under the MIT license
+   | Amber is released under the MIT license
    |
    | Permission is hereby granted, free of charge, to any person obtaining
    | a copy of this software and associated documentation files (the 
@@ -38,6 +38,7 @@
 function SmalltalkObject(){};
 function SmalltalkBehavior(){};
 function SmalltalkClass(){};
+function SmalltalkPackage(){};
 function SmalltalkMetaclass(){
     this.meta = true;
 };
@@ -48,6 +49,19 @@ function Smalltalk(){
 
     var st = this;
     this.thisContext = undefined;
+
+    
+    /* We hold all Packages in a separate Object */
+    st.packages = {};
+
+    /* Smalltalk Package object. To add a Package, use smalltalk.addPackage() */
+
+    function pkg(spec) {
+	var that      = new SmalltalkPackage();
+	that.pkgName  = spec.pkgName;
+	that.requires = spec.requires || [];
+	return that;
+    };
 
     /* Smalltalk class creation. A class is an instance of an automatically 
        created metaclass object. Newly created classes (not their metaclass) 
@@ -72,7 +86,11 @@ function Smalltalk(){
 	if(that.superclass) {
 	    that.klass.superclass = that.superclass.klass;
 	}
-	that.category = spec.category || "";
+	that.pkg = spec.pkg;
+        // For a while we keep the category attribute...
+        if(!(spec.pkg === undefined)) {
+	    that.category = spec.pkg.pkgName;
+	}
 	that.fn.prototype.methods = {};
 	that.fn.prototype.inheritedMethods = {};
 	that.fn.prototype.klass = that;
@@ -123,6 +141,17 @@ function Smalltalk(){
 	}
     };
 
+    /* Answer all registered Packages as Array */
+
+    st.packages.all = function() {
+	var packages = [];
+	for(var i in st.packages) {
+          if (!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
+	    packages.push(st.packages[i]);
+	}
+	return packages
+    };
+
     /* Answer all registered Smalltalk classes */
 
     st.classes = function() {
@@ -131,7 +160,6 @@ function Smalltalk(){
 	    if(i.search(/^[A-Z]/g) != -1) {
 		classes.push(st[i]);
 	    }
-
 	}
 	return classes
     };
@@ -170,31 +198,47 @@ function Smalltalk(){
     };
 
     /* Create a new class wrapping a JavaScript constructor, and add it to the 
-       global smalltalk object. */
+       global smalltalk object. Package is lazily created if it does not exist with given name. */
 
-    st.mapClassName = function(className, category, fn, superclass) {
+    st.mapClassName = function(className, pkgName, fn, superclass) {
+	var pkg = st.addPackage(pkgName);
 	st[className] = klass({
 	    className:  className, 
-	    category:   category, 
 	    superclass: superclass,
+	    pkg:        pkg, 
 	    fn:         fn
 	});
     };
 
-    /* Add a class to the smalltalk object, creating a new one if needed. */
+    /* Add a package to the smalltalk.packages object, creating a new one if needed.
+       If pkgName is nil or empty we return nil, which is an allowed package for a class. */
 
-    st.addClass = function(className, superclass, iVarNames, category) {
+    st.addPackage = function(pkgName) {
+	if(!pkgName) {return nil;}
+	if(!(st.packages[pkgName])) {
+	    st.packages[pkgName] = pkg({
+		pkgName: pkgName
+	    });
+	}
+	return st.packages[pkgName];
+    };
+
+    /* Add a class to the smalltalk object, creating a new one if needed.
+       Package is lazily created if it does not exist with given name.*/
+
+    st.addClass = function(className, superclass, iVarNames, pkgName) {
+	var pkg = st.addPackage(pkgName);
 	if(st[className]) {
 	    st[className].superclass = superclass;
 	    st[className].iVarNames = iVarNames;
-	    st[className].category = category || st[className].category;
-	} else {
+	    st[className].pkg = pkg || st[className].pkg;
+	} else {    
 	    st[className] = klass({
 		className: className, 
-		iVarNames: iVarNames,
-		superclass: superclass
+		superclass: superclass,
+		pkg: pkg,
+		iVarNames: iVarNames
 	    });
-	    st[className].category = category || '';
 	}
     };
 
@@ -273,7 +317,7 @@ function Smalltalk(){
 
     /* Handles #dnu: *and* JavaScript method calls.
        if the receiver has no klass, we consider it a JS object (outside of the
-       Jtalk system). Else assume that the receiver understands #doesNotUnderstand: */
+       Amber system). Else assume that the receiver understands #doesNotUnderstand: */
 
     function messageNotUnderstood(receiver, selector, args) {
 	/* Handles JS method calls. */
@@ -281,7 +325,7 @@ function Smalltalk(){
 	    return callJavaScriptMethod(receiver, selector, args);
 	}
 
-	/* Handles not understood messages. Also see the Jtalk counter-part 
+	/* Handles not understood messages. Also see the Amber counter-part 
 	   Object>>doesNotUnderstand: */
 	
 	return receiver._doesNotUnderstand_(
@@ -467,12 +511,13 @@ if(this.jQuery) {
 
 smalltalk.mapClassName("Object", "Kernel", SmalltalkObject);
 smalltalk.mapClassName("Smalltalk", "Kernel", Smalltalk, smalltalk.Object);
+smalltalk.mapClassName("Package", "Kernel", SmalltalkPackage, smalltalk.Object);
 smalltalk.mapClassName("Behavior", "Kernel", SmalltalkBehavior, smalltalk.Object);
 smalltalk.mapClassName("Class", "Kernel", SmalltalkClass, smalltalk.Behavior);
 smalltalk.mapClassName("Metaclass", "Kernel", SmalltalkMetaclass, smalltalk.Behavior);
 smalltalk.mapClassName("CompiledMethod", "Kernel", SmalltalkMethod, smalltalk.Object);
 
-smalltalk.Object.klass.superclass = smalltalk.Class
+smalltalk.Object.klass.superclass = smalltalk.Class;
 
 smalltalk.mapClassName("Number", "Kernel", Number, smalltalk.Object);
 smalltalk.mapClassName("BlockClosure", "Kernel", Function, smalltalk.Object);
