@@ -263,6 +263,20 @@ body.jtalkBody {
     z-index: 1;
 }
 
+.jtalkTool .jt_rename {
+    position: absolute;
+    top: 129px;
+    left: 90px;
+    z-index: 1;
+}
+
+.jtalkTool .jt_delete {
+    position: absolute;
+    top: 129px;
+    left: 185px;
+    z-index: 1;
+}
+
 .jtalkTool .jt_column {
     width: 25%;
     padding: 0;

@@ -1560,7 +1560,9 @@ smalltalk.method({
 selector: 'truncated',
 fn: function (){
 var self=this;
-return Math.floor(self);;
+var result=nil;
+(($receiver = self >= (0)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return result = Math.floor(self);;})() : (function(){return result = (Math.floor(self * (-1)) * (-1));;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return result = Math.floor(self);;}), (function(){return result = (Math.floor(self * (-1)) * (-1));;})]);
+return result;
 return self;}
 }),
 smalltalk.Number);

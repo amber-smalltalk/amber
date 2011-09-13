@@ -302,6 +302,10 @@ parseError: anException parsing: aString
 
 !Smalltalk methodsFor: 'packages'!
 
+modules
+	<return self.modules.all()>
+!
+
 packages
 	<return self.packages.all()>
 !
@@ -555,6 +559,14 @@ rename: aString
 	>
 !
 
+module
+	<return self.module>
+!
+
+module: aModule
+	<self.module = aModule>
+!
+
 package
 	<return self.pkg>
 !
@@ -764,7 +776,13 @@ rounded
 !
 
 truncated
-	<return Math.floor(self);>
+|result|
+
+    self >= 0 
+        ifTrue: [<result = Math.floor(self);>]
+        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
+
+    ^ result
 !
 
 to: aNumber
@@ -2171,6 +2189,24 @@ printString
 
 asString
 	^self receiver class printString, ' >> ', self selector
+! !
+
+Object subclass: #Module
+	instanceVariableNames: ''
+	category: 'Kernel'!
+
+!Module methodsFor: 'accessing'!
+
+name
+	<return self.moduleName || nil>
+!
+
+requires
+	<return self.requires || nil>
+!
+
+name: aString
+	<return self.moduleName = aString>
 ! !
 
 Object subclass: #Association

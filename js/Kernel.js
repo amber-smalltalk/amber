@@ -2227,11 +2227,13 @@ selector: 'truncated',
 category: 'converting',
 fn: function (){
 var self=this;
-return Math.floor(self);;
+var result=nil;
+(($receiver = self >= (0)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return result = Math.floor(self);;})() : (function(){return result = (Math.floor(self * (-1)) * (-1));;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return result = Math.floor(self);;}), (function(){return result = (Math.floor(self * (-1)) * (-1));;})]);
+return result;
 return self;},
 args: [],
-source: unescape('truncated%0A%09%3Creturn%20Math.floor%28self%29%3B%3E'),
-messageSends: [],
+source: unescape('truncated%0A%7Cresult%7C%0A%0A%20%20%20%20self%20%3E%3D%200%20%0A%20%20%20%20%20%20%20%20ifTrue%3A%20%5B%3Cresult%20%3D%20Math.floor%28self%29%3B%3E%5D%0A%20%20%20%20%20%20%20%20ifFalse%3A%20%5B%3Cresult%20%3D%20%28Math.floor%28self%20*%20%28-1%29%29%20*%20%28-1%29%29%3B%3E%5D.%0A%0A%20%20%20%20%5E%20result'),
+messageSends: ["ifTrue:ifFalse:", unescape("%3E%3D")],
 referencedClasses: []
 }),
 smalltalk.Number);
