@@ -67,24 +67,32 @@ Object subclass: #Exporter
 
 !Exporter methodsFor: 'fileOut'!
 
-exportCategory: aString
-	| stream |
-	stream := '' writeStream.
-	(Smalltalk current classes 
-	    select: [:each | each category = aString])
-	    do: [:each | stream nextPutAll: (self export: each)].
-	self exportCategoryExtensions: aString on: stream.
-	^stream contents
+export: aClass
+	"Export a single class. Subclasses override these methods."
+
+	^String streamContents: [:stream |
+		self exportDefinitionOf: aClass on: stream.
+		self exportMethodsOf: aClass on: stream.
+		self exportMetaDefinitionOf: aClass on: stream.
+		self exportMethodsOf: aClass class on: stream]
 !
 
-export: aClass
-	| stream |
-	stream := '' writeStream.
-	self exportDefinitionOf: aClass on: stream.
-	self exportMethodsOf: aClass on: stream.
-	self exportMetaDefinitionOf: aClass on: stream.
-	self exportMethodsOf: aClass class on: stream.
-	^stream contents
+exportPackage: packageName
+	"Export a given package by name."
+
+	^String streamContents: [:stream |
+        	(Smalltalk current packageAt: packageName)
+	    		classes do: [:each |
+                                     stream nextPutAll: (self export: each)].
+		self exportPackageExtensions: packageName on: stream]
+!
+
+exportAll
+    "Export all packages in the system."
+
+    ^String streamContents: [:stream |
+    	Smalltalk current packages do: [:package |
+		stream nextPutAll: (self exportPackage: package name)]]
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -161,10 +169,10 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: ');';lf;lf
 !
 
-exportCategoryExtensions: aString on: aStream
+exportPackageExtensions: packageName on: aStream
 	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
 		each methodDictionary values do: [:method |
-			method category = ('*', aString) ifTrue: [
+			method category = ('*', packageName) ifTrue: [
 				self exportMethod: method of: each on: aStream]]]
 ! !
 
@@ -239,17 +247,6 @@ chunkEscape: aString
 	^(aString replace: '!!' with: '!!!!') trimBoth
 !
 
-exportCategoryExtensions: aString on: aStream
-	"We need to override this one too since we need to group
-	all methods in a given protocol under a leading methodsFor: chunk
-	for that class."
-
-	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
-		each protocolsDo: [:category :methods |
-			category = ('*', aString) ifTrue: [
-				self exportMethods: methods category: category of: each on: aStream]]]
-!
-
 exportMethods: methods category: category of: aClass on: aStream
 
 	aStream
@@ -258,6 +255,17 @@ exportMethods: methods category: category of: aClass on: aStream
     	methods do: [:each |
 		self exportMethod: each of: aClass on: aStream].
 	aStream nextPutAll: ' !!'; lf; lf
+!
+
+exportPackageExtensions: aString on: aStream
+	"We need to override this one too since we need to group
+	all methods in a given protocol under a leading methodsFor: chunk
+	for that class."
+
+	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
+		each protocolsDo: [:category :methods |
+			category = ('*', aString) ifTrue: [
+				self exportMethods: methods category: category of: each on: aStream]]]
 ! !
 
 Exporter subclass: #StrippedExporter

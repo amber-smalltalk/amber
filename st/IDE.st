@@ -763,17 +763,17 @@ commitPackage
     selectedPackage ifNotNil: [
 	(Ajax url: self class commitPathJs, '/', selectedPackage, '.js')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportCategory: selectedPackage);
+	    at: 'data' put: (Exporter new exportPackage: selectedPackage);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
 	(Ajax url: self class commitPathJs, '/', selectedPackage, '.deploy.js')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (StrippedExporter new exportCategory: selectedPackage);
+	    at: 'data' put: (StrippedExporter new exportPackage: selectedPackage);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send.
 	(Ajax url: self class commitPathSt, '/', selectedPackage, '.st')
 	    at: 'type' put: 'PUT';
-	    at: 'data' put: (ChunkExporter new exportCategory: selectedPackage);
+	    at: 'data' put: (ChunkExporter new exportPackage: selectedPackage);
 	    at: 'error' put: [self alert: 'Commit failed!!'];
 	    send]
 !

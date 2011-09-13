@@ -1222,17 +1222,6 @@ return self;}
 smalltalk.Class);
 
 smalltalk.addMethod(
-'_subclass_instanceVariableNames_module_',
-smalltalk.method({
-selector: 'subclass:instanceVariableNames:module:',
-fn: function (aString, aString2, aString3){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_module_", [self, aString, aString2, aString3]);
-return self;}
-}),
-smalltalk.Class);
-
-smalltalk.addMethod(
 '_package',
 smalltalk.method({
 selector: 'package',
@@ -2779,17 +2768,6 @@ selector: 'printString',
 fn: function (){
 var self=this;
 return "nil";
-return self;}
-}),
-smalltalk.UndefinedObject);
-
-smalltalk.addMethod(
-'_subclass_instanceVariableNames_module_',
-smalltalk.method({
-selector: 'subclass:instanceVariableNames:module:',
-fn: function (aString, aString2, aString3){
-var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_module_", [self, aString, aString2, aString3]);
 return self;}
 }),
 smalltalk.UndefinedObject);
