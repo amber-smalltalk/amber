@@ -859,7 +859,7 @@ smalltalk.addMethod(
 '_removeClass_',
 smalltalk.method({
 selector: 'removeClass:',
-category: 'accessing',
+category: 'classes',
 fn: function (aClass){
 var self=this;
 (($receiver = smalltalk.send(aClass, "_isMetaclass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [unescape("%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21")])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [unescape("%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21")])]);})]);
@@ -948,7 +948,7 @@ var self=this;
 return self.packages.all();
 return self;},
 args: [],
-source: unescape('packages%0A%09%3Creturn%20self.packages.all%28%29%3E'),
+source: unescape('packages%0A%09%22Return%20all%20Package%20instances%20in%20the%20system.%22%0A%0A%09%3Creturn%20self.packages.all%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -990,13 +990,13 @@ smalltalk.addMethod(
 '_createPackage_',
 smalltalk.method({
 selector: 'createPackage:',
-category: 'packages',
+category: 'private',
 fn: function (packageName){
 var self=this;
 return smalltalk.addPackage(packageName);
 return self;},
 args: ["packageName"],
-source: unescape('createPackage%3A%20packageName%0A%20%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%29%3E'),
+source: unescape('createPackage%3A%20packageName%0A%09%22Create%20and%20bind%20a%20new%20package%20with%20given%20name%20and%20return%20it.%22%0A%0A%20%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1006,14 +1006,54 @@ smalltalk.addMethod(
 '_deletePackage_',
 smalltalk.method({
 selector: 'deletePackage:',
-category: 'packages',
+category: 'private',
 fn: function (packageName){
 var self=this;
 delete smalltalk.packages[packageName];
 return self;},
 args: ["packageName"],
-source: unescape('deletePackage%3A%20packageName%0A%20%20%20%20%20%20%20%3Cdelete%20smalltalk.packages%5BpackageName%5D%3E'),
+source: unescape('deletePackage%3A%20packageName%0A%09%22Deletes%20a%20package%20by%20deleting%20its%20binding%2C%20but%20does%20not%20check%20if%20it%20contains%20classes%20etc.%0A%09To%20remove%20a%20package%2C%20use%20%23removePackage%20instead.%22%0A%0A%20%20%20%20%20%20%20%3Cdelete%20smalltalk.packages%5BpackageName%5D%3E'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_removePackage_',
+smalltalk.method({
+selector: 'removePackage:',
+category: 'packages',
+fn: function (packageName){
+var self=this;
+var package=nil;
+package=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]);
+smalltalk.send(smalltalk.send(package, "_classes", []), "_do_", [(function(each){return smalltalk.send(self, "_removeClass_", [each]);})]);
+smalltalk.send(self, "_deletePackage_", [packageName]);
+return self;},
+args: ["packageName"],
+source: unescape('removePackage%3A%20packageName%0A%09%22Removes%20a%20package%20and%20all%20its%20classes.%22%0A%0A%09%7C%20package%20%7C%0A%09package%20%3A%3D%20self%20packageAt%3A%20packageName%20ifAbsent%3A%20%5Bself%20error%3A%20%27Missing%20package%3A%20%27%2C%20packageName%5D.%0A%09package%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20%09self%20removeClass%3A%20each%5D.%0A%09self%20deletePackage%3A%20packageName'),
+messageSends: ["packageAt:ifAbsent:", "error:", unescape("%2C"), "do:", "classes", "removeClass:", "deletePackage:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_renamePackage_to_',
+smalltalk.method({
+selector: 'renamePackage:to:',
+category: 'packages',
+fn: function (packageName, newName){
+var self=this;
+var package=nil;
+package=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]);
+(($receiver = smalltalk.send(self, "_packageAt_", [newName])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Already exists a package called: ", "__comma", [newName])]);})() : nil;
+smalltalk.packages[newName] = smalltalk.packages[packageName];
+smalltalk.send(package, "_name_", [newName]);
+smalltalk.send(self, "_deletePackage_", [packageName]);
+return self;},
+args: ["packageName", "newName"],
+source: unescape('renamePackage%3A%20packageName%20to%3A%20newName%0A%09%22Rename%20a%20package.%22%0A%0A%09%7C%20package%20%7C%0A%09package%20%3A%3D%20self%20packageAt%3A%20packageName%20ifAbsent%3A%20%5Bself%20error%3A%20%27Missing%20package%3A%20%27%2C%20packageName%5D.%0A%09%28self%20packageAt%3A%20newName%29%20ifNotNil%3A%20%5Bself%20error%3A%20%27Already%20exists%20a%20package%20called%3A%20%27%2C%20newName%5D.%0A%09%3Csmalltalk.packages%5BnewName%5D%20%3D%20smalltalk.packages%5BpackageName%5D%3E.%0A%09package%20name%3A%20newName.%0A%09self%20deletePackage%3A%20packageName.%0A'),
+messageSends: ["packageAt:ifAbsent:", "error:", unescape("%2C"), "ifNotNil:", "packageAt:", "name:", "deletePackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

@@ -266,15 +266,6 @@ at: aString
 	<return self[aString]>
 !
 
-removeClass: aClass
-	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
-	aClass methodDictionary values do: [:each |
-		aClass removeCompiledMethod: each].
-	aClass class methodDictionary values do: [:each |
-		aClass class removeCompiledMethod: each].
-	self basicDelete: aClass name
-!
-
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
 !
@@ -300,13 +291,22 @@ parseError: anException parsing: aString
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
 ! !
 
+!Smalltalk methodsFor: 'classes'!
+
+removeClass: aClass
+	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
+	aClass methodDictionary values do: [:each |
+		aClass removeCompiledMethod: each].
+	aClass class methodDictionary values do: [:each |
+		aClass class removeCompiledMethod: each].
+	self basicDelete: aClass name
+! !
+
 !Smalltalk methodsFor: 'packages'!
 
-modules
-	<return self.modules.all()>
-!
-
 packages
+	"Return all Package instances in the system."
+
 	<return self.packages.all()>
 !
 
@@ -318,11 +318,39 @@ packageAt: packageName ifAbsent: aBlock
        ^(self packageAt: packageName) ifNil: aBlock
 !
 
+removePackage: packageName
+	"Removes a package and all its classes."
+
+	| package |
+	package := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	package classes do: [:each |
+        	self removeClass: each].
+	self deletePackage: packageName
+!
+
+renamePackage: packageName to: newName
+	"Rename a package."
+
+	| package |
+	package := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
+	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
+	package name: newName.
+	self deletePackage: packageName.
+! !
+
+!Smalltalk methodsFor: 'private'!
+
 createPackage: packageName
+	"Create and bind a new package with given name and return it."
+
        <return smalltalk.addPackage(packageName)>
 !
 
 deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
        <delete smalltalk.packages[packageName]>
 ! !
 
@@ -557,14 +585,6 @@ rename: aString
 		delete smalltalk[self.className];
 		self.className = aString;
 	>
-!
-
-module
-	<return self.module>
-!
-
-module: aModule
-	<self.module = aModule>
 !
 
 package
@@ -2189,24 +2209,6 @@ printString
 
 asString
 	^self receiver class printString, ' >> ', self selector
-! !
-
-Object subclass: #Module
-	instanceVariableNames: ''
-	category: 'Kernel'!
-
-!Module methodsFor: 'accessing'!
-
-name
-	<return self.moduleName || nil>
-!
-
-requires
-	<return self.requires || nil>
-!
-
-name: aString
-	<return self.moduleName = aString>
 ! !
 
 Object subclass: #Association

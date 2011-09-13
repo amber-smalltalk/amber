@@ -779,11 +779,23 @@ commitPackage
 !
 
 renamePackage
-	self error: 'Not yet implemented'
+
+  | newName package |
+  package := Smalltalk current packageAt: selectedPackage.
+  newName := self prompt: 'Rename package ', selectedPackage.
+  newName notEmpty ifTrue: [
+	Smalltalk current renamePackage: selectedPackage to: newName.
+	self updateCategoriesList]
 !
 
-deletePackage
-	self error: 'Not yet implemented'
+removePackage
+
+  | package |
+  package := Smalltalk current packageAt: selectedPackage.
+  (self confirm: 'Do you really want to remove the whole package ', package name, ' with all its classes?')
+	ifTrue: [
+	    Smalltalk current removePackage: package name.
+	    self updateCategoriesList]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -821,8 +833,8 @@ renderTopPanelOn: html
             deleteButton := html button 
 		class: 'jt_delete';
 		title: 'Remove this package from the system';
-		onClick: [self renamePackage];
-		with: 'Delete package'.
+		onClick: [self removePackage];
+		with: 'Remove package'.
 	    classesList := ClassesList on: self.
 	    classesList renderOn: html.
 	    protocolsList := html ul class: 'jt_column browser protocols'.
