@@ -1,10 +1,10 @@
 #
-# If you copy this file for an Enyo/Jtalk project, just
+# If you copy this file for an Enyo/Amber project, just
 # modify these first two lines
 # and then add .st files as you please. This Makefile
 # should pick them all up and compile into Program.js.
 #
-PACKAGE  := jtalk.hellojtalk
+PACKAGE  := amber.helloamber
 VERSION  := 1.0.0
 
 # -O for Closure optimization of js code.
@@ -16,7 +16,7 @@ OBJECTS  := $(patsubst %.st,%.js,$(wildcard *.st))
 FILEJS   := $(FILE).js
 
 $(FILEJS): $(SOURCES)
-	../../../bin/jtalkc $(FLAGS) $(SOURCES) $(FILE)
+	../../../bin/amberc $(FLAGS) $(SOURCES) $(FILE)
 
 $(IPK): $(FILEJS)
 	palm-package .

@@ -39,13 +39,13 @@
 	loadJS('lib/CodeMirror/lib/codemirror.js');
 	loadCSS('lib/CodeMirror/lib/codemirror.css', 'js');
 	loadJS('lib/CodeMirror/mode/smalltalk/smalltalk.js');
-	loadCSS('lib/CodeMirror/theme/jtalk.css', 'js');
+	loadCSS('lib/CodeMirror/theme/amber.css', 'js');
     }
 
-    window.loadJtalk = function(spec) {
+    window.loadAmber = function(spec) {
 	/* 
 	 example: 
-	 loadJtalk({
+	 loadAmber({
 	   files: ['MyCategory1.js', 'MyCategory2.js'], 
 	   ready: function() {smalltalk.Browser._open()}
 	 })
@@ -70,7 +70,7 @@
 	    loadJS("JQuery.deploy.js");
 	} else {
 	    loadIDEDependencies();
-	    loadCSS('jtalk.css');
+	    loadCSS('amber.css');
 	    loadJS("boot.js");
 	    loadJS("Kernel.js");
 	    loadJS("Canvas.js");

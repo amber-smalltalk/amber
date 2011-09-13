@@ -1,13 +1,7 @@
 Copyright (C) 2011 by Nicolas Petton <petton.nicolas@gmail.com>
-Copyright (C) 2011 Jtalk contributors
+Copyright (C) 2011 Amber contributors https://github.com/NicolasPetton/amber/contributors
 
-Contributors
-David Graham <dgraham@iphouse.com>
-Göran Krampe <goran.krampe@gmail.com>
-Laurent Laffont <laurent.laffont@gmail.com>
-
-Parts of Jtalk take ideas from Clamato (http://clamato.net), written by Avi Byrant.
-The PetitParser library is written by Lukas Renggli (http://lukas-renggli.ch) and released under the MIT license.
+Parts of Amber take ideas from Clamato (http://clamato.net), written by Avi Byrant.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

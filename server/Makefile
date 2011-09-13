@@ -1,5 +1,5 @@
 Program.js: FileServer.st
-	../bin/jtalkc -m FileServer FileServer.st server
+	../bin/amberc -m FileServer FileServer.st server
 
 run: Program.js
 	./server
