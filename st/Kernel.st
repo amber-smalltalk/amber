@@ -1,43 +1,3 @@
-!ClassBuilder methodsFor: 'class creation'!
-
-superclass: aClass subclass: aString
-	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
-!
-
-class: aClass instanceVariableNames: aString
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
-	self setupClass: aClass
-!
-
-superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				package: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
-! !
-
-!ClassBuilder methodsFor: 'private'!
-
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	<smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]>
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	<smalltalk.addClass(aString, aClass, aCollection, packageName);
-	    return smalltalk[aString]>
-! !
-
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -340,6 +300,10 @@ parseError: anException parsing: aString
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
 !
 
+modules
+	<return self.modules.all()>
+!
+
 packages
 	<return self.packages.all()>
 ! !
@@ -537,6 +501,14 @@ rename: aString
 	>
 !
 
+module
+	<return self.module>
+!
+
+module: aModule
+	<self.module = aModule>
+!
+
 package
 	<return self.pkg>
 !
@@ -546,11 +518,6 @@ package: aPackage
 ! !
 
 !Class methodsFor: 'class creation'!
-
-subclass: aString instanceVariableNames: aString2 package: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
-!
 
 subclass: aString instanceVariableNames: anotherString
 	"Kept for compatibility."
@@ -565,6 +532,16 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
 	"Just ignore class variables and pools. Added for compatibility."
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 module: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 package: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
 ! !
 
 !Class methodsFor: 'printing'!
@@ -704,6 +681,11 @@ negated
 
 !Number methodsFor: 'comparing'!
 
+= aNumber
+	aNumber class = self class ifFalse: [^false]. 
+	<return Number(self) == aNumber>
+!
+
 > aNumber
 	"Inlined in the Compiler"
 	<return self >> aNumber>
@@ -724,11 +706,6 @@ negated
 	<return self <= aNumber>
 !
 
-= aNumber
-	aNumber class = self class ifFalse: [^false]. 
-	<return Number(self) == aNumber>
-!
-
 == aNumber
 	aNumber class = self class ifFalse: [^false]. 
 	<return Number(self) === Number(aNumber)>
@@ -741,7 +718,13 @@ rounded
 !
 
 truncated
-	<return Math.floor(self);>
+|result|
+
+    self >= 0 
+        ifTrue: [<result = Math.floor(self);>]
+        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
+
+    ^ result
 !
 
 to: aNumber
@@ -1233,6 +1216,11 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
+subclass: aString instanceVariableNames: aString2 module: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 module: aString3
+!
+
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
@@ -1641,6 +1629,11 @@ remove: anObject
 
 !String methodsFor: 'comparing'!
 
+= aString
+	aString class = self class ifFalse: [^false].
+	<return String(self) == aString>
+!
+
 > aString
 	<return String(self) >> aString>
 !
@@ -1655,11 +1648,6 @@ remove: anObject
 
 <= aString
 	<return String(self) <= aString>
-!
-
-= aString
-	aString class = self class ifFalse: [^false].
-	<return String(self) == aString>
 !
 
 == aString
@@ -2145,6 +2133,24 @@ asString
 	^self receiver class printString, ' >> ', self selector
 ! !
 
+Object subclass: #Module
+	instanceVariableNames: ''
+	category: 'Kernel'!
+
+!Module methodsFor: 'accessing'!
+
+name
+	<return self.moduleName || nil>
+!
+
+requires
+	<return self.requires || nil>
+!
+
+name: aString
+	<return self.moduleName = aString>
+! !
+
 Object subclass: #Association
 	instanceVariableNames: 'key value'
 	category: 'Kernel'!
@@ -2373,6 +2379,58 @@ Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
+!ClassBuilder methodsFor: 'class creation'!
+
+superclass: aClass subclass: aString
+	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
+!
+
+class: aClass instanceVariableNames: aString
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+	self setupClass: aClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 module: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				module: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				package: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass
+! !
+
+!ClassBuilder methodsFor: 'private'!
+
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection
+	<smalltalk.addClass(aString, aClass, aCollection);
+	    return smalltalk[aString]>
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection module: moduleName
+	<smalltalk.addClass(aString, aClass, aCollection, moduleName);
+	    return smalltalk[aString]>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<smalltalk.addClass(aString, aClass, aCollection, packageName);
+	    return smalltalk[aString]>
+! !
 
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
@@ -2790,6 +2848,10 @@ setCurrent: anHandler
 ! !
 
 !ErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
+!
 
 register
 	ErrorHandler setCurrent: self new
