@@ -1,14 +1,14 @@
 #
-# This Makefile takes .st files in the jtalk/st directory and produces compiled
+# This Makefile takes .st files in the amber/st directory and produces compiled
 # javascript files from them, for both debug and deployment.
 #
 # Where we find the current runnable code and where we put our js files on install
 JS	:= ../js/
 
 # The compiler script
-JTALKC	:= ../bin/jtalkc
+AMBERC	:= ../bin/amberc
 
-# Generic flags to JTALKC
+# Generic flags to AMBERC
 FLAGS   := -d
 
 # All corresponding js filenames for every st file available
@@ -29,19 +29,19 @@ boot.js init.js parser.js:
 # Then we compile Kernel.st depending on having boot.js, init.js and parser.js
 # $< means the first dependency - in other words Kernel.st
 Kernel.js: Kernel.st boot.js init.js parser.js
-	$(JTALKC) $(FLAGS) $<
+	$(AMBERC) $(FLAGS) $<
 
 # ...and Compiler, but using the new Kernel from above.
 # We only need to depend on Kernel.js since it in turn depends on boot.js etc
 Compiler.js: Compiler.st Kernel.js
-	$(JTALKC) $(FLAGS) $<
+	$(AMBERC) $(FLAGS) $<
 
 # ...now that we have a new Kernel and Compiler we use them
 # to compile the rest of st files presuming that they only depend on Kernel, like
 # for example Canvas.js and Benchfib.js.
 %.js: %.st Compiler.js
 	echo $(OBJECTS)
-	$(JTALKC) $(FLAGS) $<
+	$(AMBERC) $(FLAGS) $<
 
 # But for some libraries there are more dependencies to care for. Then
 # we need to use -l so that the compiler first loads that library
@@ -51,26 +51,26 @@ Compiler.js: Compiler.st Kernel.js
 #
 # JQuery uses Canvas
 JQuery.js: JQuery.st Canvas.js
-	$(JTALKC) $(FLAGS) -l Canvas $<
+	$(AMBERC) $(FLAGS) -l Canvas $<
 
 # IDE uses JQuery
 IDE.js: IDE.st JQuery.js
-	$(JTALKC) $(FLAGS) -l Canvas,JQuery $<
+	$(AMBERC) $(FLAGS) -l Canvas,JQuery $<
 
 TrySmalltalk.js: TrySmalltalk.st IDE.js
-	$(JTALKC) $(FLAGS) -l Canvas,JQuery,IDE $<
+	$(AMBERC) $(FLAGS) -l Canvas,JQuery,IDE $<
 
 # Some Examples use SUnit and also IDE
 Examples.js: Examples.st SUnit.js IDE.js
-	$(JTALKC) $(FLAGS) -l SUnit,Canvas,JQuery,IDE $<;
+	$(AMBERC) $(FLAGS) -l SUnit,Canvas,JQuery,IDE $<;
 
 # Tests typically also use SUnit
 Kernel-Tests.js: Kernel-Tests.st SUnit.js
-	$(JTALKC) $(FLAGS) -l SUnit $<;
+	$(AMBERC) $(FLAGS) -l SUnit $<;
 
 # Tests typically also use SUnit
 JQuery-Tests.js: JQuery-Tests.st JQuery.js SUnit.js
-	$(JTALKC) $(FLAGS) -l Canvas,JQuery,SUnit $<;
+	$(AMBERC) $(FLAGS) -l Canvas,JQuery,SUnit $<;
 
 
 # Installing is simply copying all js files to js directory.

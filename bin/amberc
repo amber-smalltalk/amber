@@ -1,16 +1,16 @@
 #!/bin/bash
 #
-# This is a "compiler" for JTalk code. Run without arguments for help.
+# This is a "compiler" for Amber code. Run without arguments for help.
 
-# Get JTalk root directory from the location of this script so that
+# Get Amber root directory from the location of this script so that
 # we can find the st and js directories etc.
 
 # Earlier we used this but it does not work on Mac
-# JTALK=$(readlink -f `dirname ${0}`/..)
+# Amber=$(readlink -f `dirname ${0}`/..)
 TARGET=`dirname ${0}`/..
 pushd . >/dev/null
 cd $TARGET
-JTALK="`\pwd -P`"
+AMBER="`\pwd -P`"
 popd >/dev/null
 
 function usage {
@@ -18,17 +18,17 @@ function usage {
 Usage: $0 [-l lib1,lib2...] [-i file] [-m class] [-M file]
           [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]
 
-   Will compile Jtalk files - either separately or into a runnable complete
+   Will compile Amber files - either separately or into a runnable complete
    program. If no .st files are listed only a linking stage is performed.
    Files listed will be handled using these rules:
 
    *.js
      Files are linked (concatenated) in listed order.
-     If not found we look in $JTALK/js
+     If not found we look in $AMBER/js
 
    *.st
      Files are compiled into .js files before concatenated.
-     If not found we look in $JTALK/st.
+     If not found we look in $AMBER/st.
 
      NOTE: Each file is currently considered to be a fileout of a single class
      category of the same name as the file!
@@ -41,7 +41,7 @@ Usage: $0 [-l lib1,lib2...] [-i file] [-m class] [-M file]
      Additionally add listed libraries (no spaces or .js) in listed order.
 
   -i file
-     Add library initializer <file> instead of default $JTALK/js/init.js 
+     Add library initializer <file> instead of default $AMBER/js/init.js 
 
   -m class
      Add at end a call to #main in class <class>. 
@@ -69,25 +69,25 @@ Usage: $0 [-l lib1,lib2...] [-i file] [-m class] [-M file]
 
   -S suffix
      Use <suffix> for all libraries accessed using -L or -l. This makes it possible
-     to have multiple flavors of Jtalk and libraries in the same place.
+     to have multiple flavors of Amber and libraries in the same place.
 
 
      Example invocations:
 
      Just compile Kernel.st to Kernel.js:
 
-        jtalkc Kernel.st
+        amberc Kernel.st
 
      Compile Hello.st to Hello.js and create complete program called
      Program.js and adding a call to class method #main in class Hello:
 
-        jtalkc -m Hello Hello.st Program
+        amberc -m Hello Hello.st Program
 
      Compile two .st files into corresponding .js files,
      and link with specific myboot.js, myKernel.js, myinit.js
      and main.js and create complete program called Program.js:
 
-        jtalkc -M main.js myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program
+        amberc -M main.js myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program
 
 ENDOFHELP
 	exit 1;
@@ -103,7 +103,7 @@ KERNEL="boot Kernel"
 COMPILER="$KERNEL parser Compiler"
 
 # Predefined initializer
-INITIALIZER="$JTALK/js/init.js"
+INITIALIZER="$AMBER/js/init.js"
 
 # Default values
 ENV=
@@ -164,8 +164,8 @@ function resolvejs {
   if [ -f $FNAME ]; then
     RESOLVED="$FNAME" 
   else
-    if [ -f $JTALK/js/$FNAME ]; then
-      RESOLVED="$JTALK/js/$FNAME"
+    if [ -f $AMBER/js/$FNAME ]; then
+      RESOLVED="$AMBER/js/$FNAME"
     else
       echo "Javascript file not found: $FNAME"
       exit 1
@@ -205,7 +205,7 @@ done
 TOCOMPILER="$TOCOMPILER$TOLOAD"
 
 # Resolve init and nodecompile
-THEREST="init $JTALK/bin/$NODECOMPILE"
+THEREST="init $AMBER/bin/$NODECOMPILE"
 for FILE in $THEREST
 do
    resolvejs $FILE
@@ -216,13 +216,13 @@ done
 LIBS="$TOBASE $TOLOAD"
 
 # Get a unique tempdir and make it get auto removed on exit
-TMPDIR=`mktemp -d jtalkc.XXXXXX`
+TMPDIR=`mktemp -d amberc.XXXXXX`
 trap "rm -rf $TMPDIR" EXIT
 
 
 # --------------------------------------------------
 # Collect libraries and Smalltalk files looking
-# both locally and in $JTALK/js and $JTALK/st 
+# both locally and in $AMBER/js and $AMBER/st 
 # --------------------------------------------------
 PROGRAM=
 until [ "$*" = "" ]
@@ -234,11 +234,11 @@ do
            COMPILE="$COMPILE $1 $CATEGORY"
            COMPILED="$COMPILED $CATEGORY$SUFFIXUSED.js"
         else
-           if [ -f $JTALK/st/$1 ]; then
-             COMPILE="$COMPILE $JTALK/st/$1 $CATEGORY"
+           if [ -f $AMBER/st/$1 ]; then
+             COMPILE="$COMPILE $AMBER/st/$1 $CATEGORY"
              COMPILED="$COMPILED $CATEGORY$SUFFIXUSED.js"
            else
-             echo "JTalk file not found: $1"
+             echo "Amber file not found: $1"
              exit 1
            fi
         fi
@@ -306,7 +306,7 @@ if [ ! -z "$LIBS" ]; then
   LIBS=$TMPDIR/libs.js
 fi
 
-echo "Adding Jtalk code$COMPILED ..."
+echo "Adding Amber code$COMPILED ..."
 
 # Check for init file
 if [ ! -z "$INIT" ]; then

@@ -1,12 +1,12 @@
 #
-# If you copy this file for an Enyo/Jtalk project, just
+# If you copy this file for an Enyo/Amber project, just
 # modify these first three lines
 # and then add .st files as you please. This Makefile
 # should pick them all up and compile into Program.js.
 #
-PACKAGE  := jtalk.eris
+PACKAGE  := amber.eris
 VERSION  := 0.0.1
-FLAGS    := -L COMPILER
+FLAGS    := -l Compiler
 
 IPK      := $(PACKAGE)_$(VERSION)_all.ipk
 FILE     := Program
@@ -15,7 +15,7 @@ OBJECTS  := $(patsubst %.st,%.js,$(wildcard *.st))
 FILEJS   := $(FILE).js
 
 $(FILEJS): $(SOURCES)
-	../../../bin/jtalkc $(FLAGS) $(SOURCES) $(FILE)
+	../../../bin/amberc $(FLAGS) $(SOURCES) $(FILE)
 
 $(IPK): $(FILEJS)
 	palm-package .

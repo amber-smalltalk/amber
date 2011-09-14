@@ -1,8 +1,8 @@
 smalltalk.addClass('JQueryTest', smalltalk.TestCase, ['document'], 'JQuery-Tests');
 smalltalk.addMethod(
-'_setUp',
+unescape('_setUp'),
 smalltalk.method({
-selector: 'setUp',
+selector: unescape('setUp'),
 category: 'running',
 fn: function (){
 var self=this;
@@ -16,9 +16,9 @@ referencedClasses: []
 smalltalk.JQueryTest);
 
 smalltalk.addMethod(
-'_testFind',
+unescape('_testFind'),
 smalltalk.method({
-selector: 'testFind',
+selector: unescape('testFind'),
 category: 'tests',
 fn: function (){
 var self=this;
@@ -32,9 +32,9 @@ referencedClasses: []
 smalltalk.JQueryTest);
 
 smalltalk.addMethod(
-'_testEach',
+unescape('_testEach'),
 smalltalk.method({
-selector: 'testEach',
+selector: unescape('testEach'),
 category: 'tests',
 fn: function (){
 var self=this;

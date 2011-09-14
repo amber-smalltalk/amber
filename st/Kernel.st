@@ -1,43 +1,3 @@
-!ClassBuilder methodsFor: 'class creation'!
-
-superclass: aClass subclass: aString
-	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
-!
-
-class: aClass instanceVariableNames: aString
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
-	self setupClass: aClass
-!
-
-superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				package: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
-! !
-
-!ClassBuilder methodsFor: 'private'!
-
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	<smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]>
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	<smalltalk.addClass(aString, aClass, aCollection, packageName);
-	    return smalltalk[aString]>
-! !
-
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -306,15 +266,6 @@ at: aString
 	<return self[aString]>
 !
 
-removeClass: aClass
-	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
-	aClass methodDictionary values do: [:each |
-		aClass removeCompiledMethod: each].
-	aClass class methodDictionary values do: [:each |
-		aClass class removeCompiledMethod: each].
-	self basicDelete: aClass name
-!
-
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
 !
@@ -338,10 +289,69 @@ parseError: anException parsing: aString
                   lines withIndexDo: [:l :i |
                      s nextPutAll: i asString, ': ', l, String lf]].
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
-!
+! !
+
+!Smalltalk methodsFor: 'classes'!
+
+removeClass: aClass
+	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
+	aClass methodDictionary values do: [:each |
+		aClass removeCompiledMethod: each].
+	aClass class methodDictionary values do: [:each |
+		aClass class removeCompiledMethod: each].
+	self basicDelete: aClass name
+! !
+
+!Smalltalk methodsFor: 'packages'!
 
 packages
+	"Return all Package instances in the system."
+
 	<return self.packages.all()>
+!
+
+packageAt: packageName
+       <return self.packages[packageName]>
+!
+
+packageAt: packageName ifAbsent: aBlock
+       ^(self packageAt: packageName) ifNil: aBlock
+!
+
+removePackage: packageName
+	"Removes a package and all its classes."
+
+	| pkg |
+	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	pkg classes do: [:each |
+        	self removeClass: each].
+	self deletePackage: packageName
+!
+
+renamePackage: packageName to: newName
+	"Rename a package."
+
+	| pkg |
+	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
+	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
+	pkg name: newName.
+	self deletePackage: packageName.
+! !
+
+!Smalltalk methodsFor: 'private'!
+
+createPackage: packageName
+	"Create and bind a new package with given name and return it."
+
+       <return smalltalk.addPackage(packageName)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+       <delete smalltalk.packages[packageName]>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -355,6 +365,21 @@ current
 Object subclass: #Package
 	instanceVariableNames: ''
 	category: 'Kernel'!
+!Package commentStamp!
+A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
+
+A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
+Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
+
+	Smalltalk current packageAt: 'Kernel'
+
+...but you can also use:
+
+	Package named: 'Kernel'
+
+A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
+can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
+String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.!
 
 !Package methodsFor: 'accessing'!
 
@@ -368,6 +393,31 @@ requires
 
 name: aString
 	<return self.pkgName = aString>
+! !
+
+!Package methodsFor: 'classes'!
+
+classes
+	"We need to do a reverse scan."
+	^Smalltalk current classes select: [:c | c package == self]
+! !
+
+!Package methodsFor: 'printing'!
+
+printString
+	^self name
+! !
+
+!Package class methodsFor: 'not yet classified'!
+
+named: aPackageName
+
+	^Smalltalk current packageAt: aPackageName
+!
+
+named: aPackageName ifAbsent: aBlock
+
+	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
 ! !
 
 Object subclass: #Behavior
@@ -526,7 +576,7 @@ Behavior subclass: #Class
 !Class methodsFor: 'accessing'!
 
 category
-	^self package ifNil: ['unclassified'] ifNotNil: [self package name]
+	^self package ifNil: ['Unclassified'] ifNotNil: [self package name]
 !
 
 rename: aString
@@ -547,11 +597,6 @@ package: aPackage
 
 !Class methodsFor: 'class creation'!
 
-subclass: aString instanceVariableNames: aString2 package: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
-!
-
 subclass: aString instanceVariableNames: anotherString
 	"Kept for compatibility."
 	^self subclass: aString instanceVariableNames: anotherString package: nil
@@ -565,6 +610,11 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
 	"Just ignore class variables and pools. Added for compatibility."
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 package: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
 ! !
 
 !Class methodsFor: 'printing'!
@@ -694,15 +744,20 @@ min: aNumber
 	<return Math.min(self, aNumber);>
 !
 
-modulo: aNumber
-	<return self % aNumber>
-!
-
 negated
 	^0 - self
+!
+
+\\ aNumber
+	<return self % aNumber>
 ! !
 
 !Number methodsFor: 'comparing'!
+
+= aNumber
+	aNumber class = self class ifFalse: [^false]. 
+	<return Number(self) == aNumber>
+!
 
 > aNumber
 	"Inlined in the Compiler"
@@ -724,11 +779,6 @@ negated
 	<return self <= aNumber>
 !
 
-= aNumber
-	aNumber class = self class ifFalse: [^false]. 
-	<return Number(self) == aNumber>
-!
-
 == aNumber
 	aNumber class = self class ifFalse: [^false]. 
 	<return Number(self) === Number(aNumber)>
@@ -741,7 +791,13 @@ rounded
 !
 
 truncated
-	<return Math.floor(self);>
+|result|
+
+    self >= 0 
+        ifTrue: [<result = Math.floor(self);>]
+        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
+
+    ^ result
 !
 
 to: aNumber
@@ -814,7 +870,7 @@ isNumber
 !
 
 even
-	^ 0 = (self modulo: 2)
+	^ 0 = (self \\ 2)
 !
 
 odd
@@ -1641,6 +1697,11 @@ remove: anObject
 
 !String methodsFor: 'comparing'!
 
+= aString
+	aString class = self class ifFalse: [^false].
+	<return String(self) == aString>
+!
+
 > aString
 	<return String(self) >> aString>
 !
@@ -1655,11 +1716,6 @@ remove: anObject
 
 <= aString
 	<return String(self) <= aString>
-!
-
-= aString
-	aString class = self class ifFalse: [^false].
-	<return String(self) == aString>
 !
 
 == aString
@@ -2373,6 +2429,58 @@ Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
+!ClassBuilder methodsFor: 'class creation'!
+
+superclass: aClass subclass: aString
+	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
+!
+
+class: aClass instanceVariableNames: aString
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+	self setupClass: aClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 module: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				module: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				package: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass
+! !
+
+!ClassBuilder methodsFor: 'private'!
+
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection
+	<smalltalk.addClass(aString, aClass, aCollection);
+	    return smalltalk[aString]>
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection module: moduleName
+	<smalltalk.addClass(aString, aClass, aCollection, moduleName);
+	    return smalltalk[aString]>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<smalltalk.addClass(aString, aClass, aCollection, packageName);
+	    return smalltalk[aString]>
+! !
 
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
@@ -2629,7 +2737,7 @@ next
 !
 
 next: anInteger
-    ^1 to: anInteger collect: [:each | self next]
+    ^(1 to: anInteger) collect: [:each | self next]
 ! !
 
 Object subclass: #Point
@@ -2790,6 +2898,10 @@ setCurrent: anHandler
 ! !
 
 !ErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
+!
 
 register
 	ErrorHandler setCurrent: self new

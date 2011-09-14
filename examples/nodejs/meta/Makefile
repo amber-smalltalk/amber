@@ -1,5 +1,5 @@
 Program.js: MyScript.st
-	../../../bin/jtalkc -L COMPILER -m MyScript MyScript.st Program
+	../../../bin/amberc -l parser,Compiler -m MyScript MyScript.st Program
 
 run: Program.js
 	node Program.js

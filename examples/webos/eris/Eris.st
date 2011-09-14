@@ -67,7 +67,7 @@ initialize
 			{kind: 'PageHeader', content: 'Eris'},
  			{kind: 'RowGroup', caption: 'Workspace', components: [
 				{kind: 'RichText', richContent: false,
-					value: 'Put some funky Jtalk code here...',
+					value: 'Put some funky Amber code here...',
 					autoWordComplete: false, spellcheck: false, autocorrect: false,
 					autoCapitalize: 'lowercase', alwaysLooksFocused: true
 				},

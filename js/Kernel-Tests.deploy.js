@@ -118,7 +118,7 @@ smalltalk.method({
 selector: 'testEquality',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_deny_", [(0) == false]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [(0)])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [""])]);
@@ -173,16 +173,16 @@ smalltalk.method({
 selector: 'testEquality',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [(1) == (1)]);
-smalltalk.send(self, "_assert_", [(0) == (0)]);
-smalltalk.send(self, "_deny_", [(1) == (0)]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((0), "__eq", [(0)])]);
+smalltalk.send(self, "_deny_", [smalltalk.send((1), "__eq", [(0)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq", [(1)])]);
-smalltalk.send(self, "_assert_", [(1) == smalltalk.send((1), "_yourself", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [smalltalk.send((1), "_yourself", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq", [smalltalk.send((1), "_yourself", [])])]);
-smalltalk.send(self, "_deny_", [(0) == false]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq", [(0)])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [(0)])]);
-smalltalk.send(self, "_deny_", [(0) == ""]);
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [""])]);
 return self;}
 }),
 smalltalk.NumberTest);
@@ -260,32 +260,6 @@ return self;}
 }),
 smalltalk.NumberTest);
 
-smalltalk.addMethod(
-'_testPrintShowingDecimalPlaces',
-smalltalk.method({
-selector: 'testPrintShowingDecimalPlaces',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_assert_equals_", ["23.00", smalltalk.send((23), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", ["23.57", smalltalk.send((23.5698), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-234.56700"), smalltalk.send(smalltalk.send((234.567), "_negated", []), "_printShowingDecimalPlaces_", [(5)])]);
-smalltalk.send(self, "_assert_equals_", ["23", smalltalk.send((23.4567), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", ["24", smalltalk.send((23.5567), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-23"), smalltalk.send(smalltalk.send((23.4567), "_negated", []), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-24"), smalltalk.send(smalltalk.send((23.5567), "_negated", []), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", ["100000000.0", smalltalk.send((100000000), "_printShowingDecimalPlaces_", [(1)])]);
-smalltalk.send(self, "_assert_equals_", ["0.98000", smalltalk.send((0.98), "_printShowingDecimalPlaces_", [(5)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-0.98"), smalltalk.send(smalltalk.send((0.98), "_negated", []), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", ["2.57", smalltalk.send((2.567), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-2.57"), smalltalk.send((-2.567), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", ["0.00", smalltalk.send((0), "_printShowingDecimalPlaces_", [(2)])]);
-return self;}
-}),
-smalltalk.NumberTest);
-
-
-
-smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 '_testPrintShowingDecimalPlaces',
 smalltalk.method({

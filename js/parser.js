@@ -1474,26 +1474,26 @@ smalltalk.parser = (function(){
         
         
         var savedPos0 = pos;
-        if (input.substr(pos).match(/^[+*\/=><,@%~|&\-]/) !== null) {
+        if (input.substr(pos).match(/^[\\+*\/=><,@%~|&\-]/) !== null) {
           var result3 = input.charAt(pos);
           pos++;
         } else {
           var result3 = null;
           if (reportMatchFailures) {
-            matchFailed("[+*\\/=><,@%~|&\\-]");
+            matchFailed("[\\\\+*\\/=><,@%~|&\\-]");
           }
         }
         if (result3 !== null) {
           var result1 = [];
           while (result3 !== null) {
             result1.push(result3);
-            if (input.substr(pos).match(/^[+*\/=><,@%~|&\-]/) !== null) {
+            if (input.substr(pos).match(/^[\\+*\/=><,@%~|&\-]/) !== null) {
               var result3 = input.charAt(pos);
               pos++;
             } else {
               var result3 = null;
               if (reportMatchFailures) {
-                matchFailed("[+*\\/=><,@%~|&\\-]");
+                matchFailed("[\\\\+*\\/=><,@%~|&\\-]");
               }
             }
           }
@@ -1501,7 +1501,7 @@ smalltalk.parser = (function(){
           var result1 = null;
         }
         var result2 = result1 !== null
-          ? (function(bin) {return bin.join("")})(result1)
+          ? (function(bin) {return bin.join("").replace(/\\/g, '\\\\')})(result1)
           : null;
         if (result2 !== null) {
           var result0 = result2;

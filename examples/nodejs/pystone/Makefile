@@ -1,5 +1,5 @@
 Program.js: Pystone.st
-	../../../bin/jtalkc -m Pystone Pystone.st Program
+	../../../bin/amberc -m Pystone Pystone.st Program
 
 run: Program.js
 	./pystone
