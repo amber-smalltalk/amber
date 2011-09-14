@@ -865,7 +865,7 @@ initialize
 !Compiler methodsFor: 'optimizations'!
 
 checkClass: aClassName for: receiver
-        stream nextPutAll: '(($receiver = ', receiver, ').klass === smalltalk.', aClassName, ') ? '
+        stream nextPutAll: '((($receiver = ', receiver, ').klass === smalltalk.', aClassName, ') ? '
 !
 
 inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
@@ -1245,7 +1245,7 @@ visitSendNode: aNode
 		ifTrue: [
 			(self inlineLiteral: aNode selector receiverNode: aNode receiver argumentNodes: aNode arguments) ifFalse: [
 				(self inline: aNode selector receiver: receiver argumentNodes: aNode arguments)
-                			ifTrue: [stream nextPutAll: ' : ', (self send: aNode selector to: '$receiver' arguments: aNode arguments superSend: superSend)]
+                			ifTrue: [stream nextPutAll: ' : ', (self send: aNode selector to: '$receiver' arguments: aNode arguments superSend: superSend), ')']
                 			ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]]]
 		ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]
 !

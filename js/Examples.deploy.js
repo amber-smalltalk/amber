@@ -5,7 +5,7 @@ smalltalk.method({
 selector: 'increase',
 fn: function (){
 var self=this;
-self['@count']=(($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]);
+self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));
 smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
 return self;}
 }),
@@ -17,7 +17,7 @@ smalltalk.method({
 selector: 'decrease',
 fn: function (){
 var self=this;
-self['@count']=(($receiver = self['@count']).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]);
+self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]));
 smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
 return self;}
 }),
@@ -137,7 +137,7 @@ selector: 'nextStep',
 fn: function (){
 var self=this;
 (($receiver = self['@movingPiece']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_newPiece", []);})() : $receiver;
-(($receiver = smalltalk.send(self['@movingPiece'], "_canMoveIn_", [self])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@movingPiece'], "_position_", [(($receiver = smalltalk.send(self['@movingPiece'], "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((0), "__at", [(1)]) : smalltalk.send($receiver, "__plus", [smalltalk.send((0), "__at", [(1)])])]);})() : (function(){return smalltalk.send(self, "_newPiece", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@movingPiece'], "_position_", [(($receiver = smalltalk.send(self['@movingPiece'], "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((0), "__at", [(1)]) : smalltalk.send($receiver, "__plus", [smalltalk.send((0), "__at", [(1)])])]);}), (function(){return smalltalk.send(self, "_newPiece", []);})]);
+((($receiver = smalltalk.send(self['@movingPiece'], "_canMoveIn_", [self])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@movingPiece'], "_position_", [((($receiver = smalltalk.send(self['@movingPiece'], "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((0), "__at", [(1)]) : smalltalk.send($receiver, "__plus", [smalltalk.send((0), "__at", [(1)])]))]);})() : (function(){return smalltalk.send(self, "_newPiece", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@movingPiece'], "_position_", [((($receiver = smalltalk.send(self['@movingPiece'], "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send((0), "__at", [(1)]) : smalltalk.send($receiver, "__plus", [smalltalk.send((0), "__at", [(1)])]))]);}), (function(){return smalltalk.send(self, "_newPiece", []);})]));
 smalltalk.send(self, "_redraw", []);
 return self;}
 }),
@@ -164,9 +164,9 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_fillStyle_", [unescape("%23fafafa")]);return smalltalk.send($rec, "_fillRectFrom_to_", [smalltalk.send((0), "__at", [(0)]), smalltalk.send(smalltalk.send(self, "_width", []), "__at", [smalltalk.send(self, "_height", [])])]);})(self['@renderingContext']);
 (function($rec){smalltalk.send($rec, "_lineWidth_", [(0.5)]);return smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);})(self['@renderingContext']);
 smalltalk.send((0), "_to_do_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_squares", []), "_x", []), (function(each){var x=nil;
-x=(($receiver = each).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]);return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send(x, "__at", [(0)]), smalltalk.send(x, "__at", [smalltalk.send(self, "_height", [])])]);})]);
+x=((($receiver = each).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]));return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send(x, "__at", [(0)]), smalltalk.send(x, "__at", [smalltalk.send(self, "_height", [])])]);})]);
 smalltalk.send((0), "_to_do_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_squares", []), "_y", []), (function(each){var y=nil;
-y=(($receiver = each).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]);return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send((0), "__at", [y]), smalltalk.send(smalltalk.send(self, "_width", []), "__at", [y])]);})]);
+y=((($receiver = each).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_class", []), "_squareSize", [])]));return smalltalk.send(self, "_drawLineFrom_to_", [smalltalk.send((0), "__at", [y]), smalltalk.send(smalltalk.send(self, "_width", []), "__at", [y])]);})]);
 return self;}
 }),
 smalltalk.Tetris);
@@ -298,7 +298,7 @@ smalltalk.method({
 selector: 'width',
 fn: function (){
 var self=this;
-return (($receiver = smalltalk.send(self, "_squareSize", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_squares", []), "_x", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_x", [])]);
+return ((($receiver = smalltalk.send(self, "_squareSize", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_squares", []), "_x", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_x", [])]));
 return self;}
 }),
 smalltalk.Tetris.klass);
@@ -309,7 +309,7 @@ smalltalk.method({
 selector: 'height',
 fn: function (){
 var self=this;
-return (($receiver = smalltalk.send(self, "_squareSize", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_squares", []), "_y", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_y", [])]);
+return ((($receiver = smalltalk.send(self, "_squareSize", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(self, "_squares", []), "_y", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(self, "_squares", []), "_y", [])]));
 return self;}
 }),
 smalltalk.Tetris.klass);
@@ -355,7 +355,7 @@ smalltalk.method({
 selector: 'position',
 fn: function (){
 var self=this;
-return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return smalltalk.send((($receiver = (($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_x", [])).klass === smalltalk.Number) ? $receiver /(2) : smalltalk.send($receiver, "__slash", [(2)])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]), "__at", [(0)]);})() : $receiver;
+return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(((($receiver = ((($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_x", [])).klass === smalltalk.Number) ? $receiver /(2) : smalltalk.send($receiver, "__slash", [(2)]))).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), "__at", [(0)]);})() : $receiver;
 return self;}
 }),
 smalltalk.TetrisPiece);
@@ -411,7 +411,7 @@ selector: 'drawOn:',
 fn: function (aRenderingContext){
 var self=this;
 smalltalk.send(aRenderingContext, "_fillStyle_", [smalltalk.send(self, "_color", [])]);
-smalltalk.send(smalltalk.send(self, "_bounds", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_fillRectFrom_to_", [(($receiver = (($receiver = each).klass === smalltalk.Number) ? $receiver +smalltalk.send(self, "_position", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self, "_position", [])])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])]), (($receiver = smalltalk.send((1), "__at", [(1)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])])]);smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);smalltalk.send($rec, "_lineWidth_", [(2)]);return smalltalk.send($rec, "_strokeRectFrom_to_", [(($receiver = (($receiver = each).klass === smalltalk.Number) ? $receiver +smalltalk.send(self, "_position", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self, "_position", [])])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])]), (($receiver = smalltalk.send((1), "__at", [(1)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])])]);})(aRenderingContext);})]);
+smalltalk.send(smalltalk.send(self, "_bounds", []), "_do_", [(function(each){return (function($rec){smalltalk.send($rec, "_fillRectFrom_to_", [((($receiver = ((($receiver = each).klass === smalltalk.Number) ? $receiver +smalltalk.send(self, "_position", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self, "_position", [])]))).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])])), ((($receiver = smalltalk.send((1), "__at", [(1)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])]))]);smalltalk.send($rec, "_strokeStyle_", [unescape("%23999")]);smalltalk.send($rec, "_lineWidth_", [(2)]);return smalltalk.send($rec, "_strokeRectFrom_to_", [((($receiver = ((($receiver = each).klass === smalltalk.Number) ? $receiver +smalltalk.send(self, "_position", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self, "_position", [])]))).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])])), ((($receiver = smalltalk.send((1), "__at", [(1)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", []) : smalltalk.send($receiver, "__star", [smalltalk.send((smalltalk.Tetris || Tetris), "_squareSize", [])]))]);})(aRenderingContext);})]);
 return self;}
 }),
 smalltalk.TetrisPiece);
@@ -422,7 +422,7 @@ smalltalk.method({
 selector: 'canMove',
 fn: function (){
 var self=this;
-return (($receiver = smalltalk.send(smalltalk.send(self, "_position", []), "_y", [])).klass === smalltalk.Number) ? $receiver <(($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])]) : smalltalk.send($receiver, "__lt", [(($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])])]);
+return ((($receiver = smalltalk.send(smalltalk.send(self, "_position", []), "_y", [])).klass === smalltalk.Number) ? $receiver <((($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])])) : smalltalk.send($receiver, "__lt", [((($receiver = smalltalk.send(smalltalk.send((smalltalk.Tetris || Tetris), "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])]))]));
 return self;}
 }),
 smalltalk.TetrisPiece);
@@ -433,7 +433,7 @@ smalltalk.method({
 selector: 'canMoveIn:',
 fn: function (aTetris){
 var self=this;
-return (($receiver = smalltalk.send(smalltalk.send(self, "_position", []), "_y", [])).klass === smalltalk.Number) ? $receiver <(($receiver = smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])]) : smalltalk.send($receiver, "__lt", [(($receiver = smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])])]);
+return ((($receiver = smalltalk.send(smalltalk.send(self, "_position", []), "_y", [])).klass === smalltalk.Number) ? $receiver <((($receiver = smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])])) : smalltalk.send($receiver, "__lt", [((($receiver = smalltalk.send(smalltalk.send(aTetris, "_squares", []), "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(self, "_height", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(self, "_height", [])]))]));
 return self;}
 }),
 smalltalk.TetrisPiece);
