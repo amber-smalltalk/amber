@@ -1,11 +1,11 @@
-"This is a base class for Jtalk Enyo UI classes. We keep track of an optional sister kind
+"This is a base class for Amber Enyo UI classes. We keep track of an optional sister kind
 in Enyo and typically an instance of it, or an instance without a kind, called ui.
 
 NOTE: Inheritance of ivars seems broken, I need to use #ui: in subclass to set it"
 
 Object subclass: #EnyoFriend
         instanceVariableNames: 'ui kind'
-        category: 'EnyoJtalk'!
+        category: 'EnyoAmber'!
 
 !EnyoFriend methodsFor: 'accessing'!
 
@@ -28,9 +28,9 @@ kind
 
 !EnyoFriend methodsFor: 'initializing'!
 initialize
-	"We make sure our JS functions can be used transparently from Jtalk,
+	"We make sure our JS functions can be used transparently from Amber,
 	at this moment we do not use it - trying to create Enyo kinds that are
-	at the same time Jtalk classes failed for me."
+	at the same time Amber classes failed for me."
 	super initialize.
 	<this.allowJavaScriptCalls = true>
 ! !
