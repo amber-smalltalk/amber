@@ -27,8 +27,8 @@ smalltalk.method({
 selector: 'testIncludesSubString',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send("jtalk", "_includesSubString_", ["alk"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("jtalk", "_includesSubString_", ["zork"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send("amber", "_includesSubString_", ["ber"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("amber", "_includesSubString_", ["zork"])]);
 return self;}
 }),
 smalltalk.StringTest);

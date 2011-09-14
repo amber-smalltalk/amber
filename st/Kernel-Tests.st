@@ -17,8 +17,8 @@ testStreamContents
 !
 
 testIncludesSubString
-	self assert: ('jtalk' includesSubString: 'alk').
-	self deny: ('jtalk' includesSubString: 'zork').
+	self assert: ('amber' includesSubString: 'ber').
+	self deny: ('amber' includesSubString: 'zork').
 !
 
 testEquality
