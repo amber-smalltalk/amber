@@ -1,4 +1,4 @@
-// NOTE: This code is called using the jtalkc bash script - do not use directly.
+// NOTE: This code is called using the amberc bash script - do not use directly.
 // The arguments variable is a series of .st filenames and category names.
 // If it is a .st file we import it, if it is a category name we export it
 // as aCategoryName.js.
