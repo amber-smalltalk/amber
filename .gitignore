@@ -1,0 +1,6 @@
+# Ignoring compiled files in examples
+examples/nodejs/**/*.js
+examples/webos/**/*.js
+
+# Ignoring compiled files in st
+st/*.js

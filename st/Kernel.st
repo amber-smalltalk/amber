@@ -366,7 +366,7 @@ Object subclass: #Package
 	instanceVariableNames: ''
 	category: 'Kernel'!
 !Package commentStamp!
-A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Jtalk does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
+A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
 
 A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
 Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
