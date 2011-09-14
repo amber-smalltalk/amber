@@ -1,83 +1,102 @@
-<!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Amber Smalltalk</title>
-    
-    <meta name="author" content="Nicolas Petton">
-    <link rel="stylesheet" type="text/css" href="./ide/style.css">
-    <script type="text/javascript" src="./js/amber.js"></script>
-  </head>
-  <body>
-    <script type="text/javascript">
-      loadAmber();
-    </script>
-    <script type="text/javascript">
-      jQuery(window).scroll(function() {
-      	if(jQuery(window).scrollTop() > 210) {
-		jQuery('#menu')
-      			.css('position', 'fixed')
-			.css('top', '0px')
-	} else {
-      		jQuery('#menu')
-			.css('position', 'absolute')
-      			.css('top', '210px')
-      	}
-      });
-    </script>
 
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>Amber Smalltalk</title> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <meta name="author" content="Nicolas Petton" /> 
+    <link rel="stylesheet" type="text/css" href='css/style.css' /> 
+    <link rel="stylesheet" type="text/css" href='css/syntax.css' /> 
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/> 
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'> 
+    <script type='text/javascript' src='js/amber.js'></script> 
+  </head> 
+  <body> 
+    
     <a href="http://github.com/NicolasPetton/amber"><img style="position: absolute; top: 0; lef
-t: 0; border: 0;" src="./ide/fork_me.png" alt="Fork me on GitHub"></a>
-
-    <div id="wrapper">
-      <div id="header">
-	<div class="main">
-	  <img alt="Jtalk, the Smalltalk for web developers" src="./ide/text_header.png">
-	</div>
-      </div>
+								t: 0; border: 0;" src="https://assets.github.com/img/bec6c51521dcc8148146135149fe06a9cc737577?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_left_darkblue_121621.png&path=" alt="Fork me on GitHub"></a> 
+    
+    <div id="wrapper"> 
       
-      <div id="menu">
-	<div class="main">
-	  <ul>
-	    <li><a href="http://jtalk-project.org/index.html">Overview</a></li> · 
-	    <li><a href="http://jtalk-project.org/index.html#download">Download</a></li> · 
-	    <li><a id="doc_link" href="http://jtalk-project.org/documentation.html">Documentation</a></li> ·
-	    <li><a target="_blank" href="https://github.com/NicolasPetton/jtalk">Source</a></li> 
-	  </ul>
-	</div>
-      </div>
-
-      <div id="content">
-	<div class="main">
-	  <div class="box first">
-  <div class="content">
-    <h1><img alt="Jtalk is an implementation of the Smalltalk language that runs on the JavaScript runtime." src="./ide/title_container1.png"></h1>
-    <div class="left">
-      <p>Jtalk is an implementation of the  <a href="http://en.wikipedia.org/wiki/Smalltalk">Smalltalk</a> language that runs on top of the <a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a> runtime. It is designed to make client-side development faster and easier.</p>
-      <p>Jtalk is written in itself, including the parser and compiler. Jtalk compiles into efficient JavaScript, mapping one-to-one with the equivalent JavaScript. There is no interpretation at runtime.</p>
-      <p>Try a <button onclick="smalltalk.Browser._open()"> Class browser</button> right now!</p>
-			<p>You may want to look at sample applications:
-			<ul>
-			  <li><a href="examples/trysmalltalk/index.html">Try Smalltalk in your web browser</a></li>
-				<li><a href="examples/presentation/index.html">JTalk slides</a></li>
-			</ul>
-			</p>
-    </div>
-    <div class="right"><img src="./ide/screen2.png"></div>
-    <div class="clear"></div>
-  </div>
-</div>
-
-	</div>
-      </div>
-    
-    <div id="footer">
-      <div class="main">
-	<p>Copyright © 2011 <a href="http://www.nicolas-petton.fr/">Nicolas Petton</a>. The content of this website in licensed under <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC-BY-NC 3.0</a>.</p>
-	<p>Jtalk is an opensource project sponsored by <a href="http://www.objectfusion.fr/">objectfusion</a>.</p>
-	<p>The design of this website was provided by <a href="mailto:neomie.thirion@gmail.com">Noémie Thirion</a>.</p>
+      <div id="header"> 
+	<div class="main"> 
+	  <div class="logo"> 
+	    <img src="images/amber.png"/> 
+	  </div> 
+	  
+	  <ul id="tabs"> 
+	    <li><a target="_blank" href="http://amber-lang.net/index.html">Overview</a></li> · 
+	    <li><a target="_blank" href="http://amber-lang.net/index.html#download">Download</a></li> · 
+	    <li><a target="_blank" href="http://amber-lang.net/learn.html">Learn</a></li> ·
+	    <li><a target="_blank" href="http://amber-lang.net/documentation.html">Documentation</a></li> ·
+	    <li><a target="_blank" target="_blank" href="https://github.com/NicolasPetton/amber">Source</a></li> 
+	  </ul> 
+	  
+	  <div class="clear"></div> 
+	  
+	</div> 
       </div> 
-    </div>
+      
+      <div class="teaser"> 
+	<div class="main"> 
+	  <h1>Welcome aboard!</h1> 
+	  <div class="column">
+	    <h2>What is Amber?</h2>
+	    <p>Amber, formerly known as Jtalk, is an implementation of the Smalltalk-80 language. It is designed to make client-side development faster and easier. It allows developers to write client-side heavy web applications in Smalltalk. </p> 
+	    <p>Amber includes an integrated development environment with a class browser, workspace, transcript, object inspector and debugger.</p> 
+	    <p>Amber is written in itself, including the compiler, and compiles into efficient JavaScript, mapping one-to-one with the JS equivalent.</p> 
+	    <h2>Give it a try!</h2>
+	    <p><b>Try a <button onClick="smalltalk.Browser._open()"> Class browser</button> right now!</b></p> 
+	  </div> 
+	  <div class="column">
+	    <h2>Don't know Smalltalk yet?</h2>
+	    <p>No problem! You can learn it online with <a href="http://amber-lang.net/learn.html">ProfStef</a></p>
+	    <h2>Join the community</h2>
+	    <ul>
+	      <li><a href="http://amber-lang.net">Amber's website</a></li>
+	      <li><a href="https://github.com/NicolasPetton/amber/wiki">Wiki on GitHub</a></li>
+	      <li><a href="http://groups.google.com/group/amber-lang">Mailing list</a></li>
+	      <li>Join us on IRC at #amber-lang on Freenode</li>
+	    </ul>
+	  </div>
+	  <div class="clear"></div> 
+	</div> 
+	
+	
+      </div> 
+      
+      <div id="content"> 
+	<div class="main"> 
+	  <div class="box"> 
+	    <h2>Client-side usage</h2> 
+	    <div class="content"> 
+	      <p>Load the full Amber Smalltalk environment with the IDE in your page:</p> 
+	      
+	      <code><pre>&lt;script src="js/amber.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt; loadAmber()&lt;/script&gt;</pre></code>
+	    </div> 
+	    
+	    
+	    <p>Or the deployment JavaScript file only (without the Smalltalk sources, parser, compiler and IDE):</p>
+	    <code><pre>&lt;script src="js/amber.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt; loadAmber({deploy: true})&lt;/script&gt;</pre></code>
+	  </div> 
+	  
+	  <div class="box last"> 
+	    <h2 id="download">Examples</h2> 
+	    <div class="content"> 
+	      <ul>
+		<li><a href="examples/trysmalltalk/index.html">ProfStef tutorial</a></li>
+		<li><a href="examples/presentation/index.html">Presentation at ESUG 2011</a></li>
+	      </ul>
+	    </div> 
+	  </div> 
+	  
+	</div> 
+      </div> 
+    </div> 
     
-  
-
-
-</div></body></html>
+    <script type='text/javascript'> loadAmber() </script> 
+    
+  </body> 
+</html> 
