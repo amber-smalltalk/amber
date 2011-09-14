@@ -6,7 +6,7 @@
 #
 PACKAGE  := amber.eris
 VERSION  := 0.0.1
-FLAGS    := -L COMPILER
+FLAGS    := -l Compiler
 
 IPK      := $(PACKAGE)_$(VERSION)_all.ipk
 FILE     := Program
