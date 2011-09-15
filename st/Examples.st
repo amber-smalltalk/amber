@@ -83,7 +83,7 @@ nextStep
 !
 
 redraw
-	renderingContext clearRectFrom: 0@ self width to: 0@ self height.
+	renderingContext clearRect: 0 y: self width to: 0 y: self height.
 	self 
 		drawMap;
 		drawPiece
@@ -92,7 +92,7 @@ redraw
 drawMap
 	renderingContext 
 		fillStyle: '#fafafa';
-		fillRectFrom: 0@0 to: self width@self height.
+		fillRect: 0 y: 0 to: self width y: self height.
 	renderingContext 
 		lineWidth: 0.5;
 		strokeStyle: '#999'.
@@ -107,8 +107,8 @@ drawMap
 drawLineFrom: aPoint to: anotherPoint
 	renderingContext 
 		beginPath;
-		moveTo: aPoint;
-		lineTo: anotherPoint;
+		moveTo: aPoint x y: aPoint y;
+		lineTo: anotherPoint x y: anotherPoint y;
 		stroke
 !
 
@@ -156,7 +156,7 @@ renderCanvasOn: html
 	canvas := html canvas.
 	canvas at: 'width' put: self width asString.
 	canvas at: 'height' put: self height asString.
-	renderingContext := CanvasRenderingContext tagBrush: canvas.
+	renderingContext := canvas element getContext: '2d'.
 	self redraw
 !
 
@@ -169,7 +169,7 @@ renderButtonsOn: html
 				onClick: [self startNewGame].
 			html button
 				with: 'play/pause';
-				onClick: [self update]]
+				onClick: []]
 ! !
 
 !Tetris class methodsFor: 'accessing'!
@@ -228,12 +228,14 @@ height
 
 drawOn: aRenderingContext
 	aRenderingContext fillStyle: self color.
-	self bounds do: [:each |
+	self bounds do: [:each || from to |
+                from := each + self position* Tetris squareSize.
+                to := 1@1 * Tetris squareSize.
 		aRenderingContext 
-			fillRectFrom: each + self position* Tetris squareSize to: 1@1 * Tetris squareSize;
+			fillRect: from x y: from y to: to x y: to y;
 			strokeStyle: '#999';
 			lineWidth: 2;
-			strokeRectFrom: each + self position* Tetris squareSize to: 1@1 * Tetris squareSize]
+			strokeRect: from x y: from y to: to x y: to y]
 ! !
 
 !TetrisPiece methodsFor: 'testing'!
