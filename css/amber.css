@@ -459,7 +459,7 @@ body.jtalkBody {
 
 /* SUnit TestRunner  */
 
-.jtalkTool .jt_column.sunit.categories,
+.jtalkTool .jt_column.sunit.packages,
 .jtalkTool .jt_column.sunit.classes {
 	height: 100%
 }

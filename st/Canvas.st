@@ -282,41 +282,37 @@ rel: aString
 !TagBrush methodsFor: 'converting'!
 
 asJQuery
-	<return smalltalk.JQuery._from_(jQuery(self['@element']))>
-!
-
-asJQueryDo: aBlock
-    aBlock value: self asJQuery
+    ^window jQuery: self element
 ! !
 
 !TagBrush methodsFor: 'events'!
 
 onKeyDown: aBlock
-    self asJQuery on: 'keydown' do: aBlock
+    self asJQuery bind: 'keydown' do: aBlock
 !
 
 onKeyPress: aBlock
-    self asJQuery on: 'keypress' do: aBlock
+    self asJQuery bind: 'keypress' do: aBlock
 !
 
 onKeyUp: aBlock
-    self asJQuery on: 'keyup' do: aBlock
+    self asJQuery bind: 'keyup' do: aBlock
 !
 
 onFocus: aBlock
-    self asJQuery on: 'focus' do: aBlock
+    self asJQuery bind: 'focus' do: aBlock
 !
 
 onBlur: aBlock
-    self asJQuery on: 'blur' do: aBlock
+    self asJQuery bind: 'blur' do: aBlock
 !
 
 onChange: aBlock
-    self asJQuery on: 'change' do: aBlock
+    self asJQuery bind: 'change' do: aBlock
 !
 
 onClick: aBlock
-    self asJQuery on: 'click' do: aBlock
+    self asJQuery bind: 'click' do: aBlock
 ! !
 
 !TagBrush methodsFor: 'initialization'!
@@ -327,7 +323,7 @@ initializeFromString: aString canvas: aCanvas
 !
 
 initializeFromJQuery: aJQuery canvas: aCanvas
-    element := aJQuery jquery get: 0.
+    element := aJQuery get: 0.
     canvas := aCanvas
 ! !
 
@@ -395,11 +391,19 @@ renderOn: html
 
 !Object methodsFor: '*Canvas'!
 
+appendToJQuery: aJQuery
+    aJQuery append: self asString
+!
+
 appendToBrush: aTagBrush
     aTagBrush append: self asString
 ! !
 
 !BlockClosure methodsFor: '*Canvas'!
+
+appendToJQuery: aJQuery
+    self value: (HTMLCanvas onJQuery: aJQuery)
+!
 
 appendToBrush: aTagBrush
     aTagBrush appendBlock: self
@@ -407,7 +411,14 @@ appendToBrush: aTagBrush
 
 !String methodsFor: '*Canvas'!
 
+asJQuery
+    <return jQuery(String(self))>
+!
+
+appendToJQuery: aJQuery
+    aJQuery append: self
+!
+
 appendToBrush: aTagBrush
     aTagBrush appendString: self
 ! !
-

@@ -32,7 +32,7 @@ removeBodyMargin
 !
 
 setBodyMargin: anInteger
-    '.jtalkBody' asJQuery cssAt: 'margin-bottom' put: anInteger asString, 'px'
+    '.jtalkBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
 !
 
 onResize: aBlock
@@ -100,7 +100,7 @@ search: aString
 
 addTab: aWidget
     self tabs add: aWidget.
-    '#jtalk' asJQuery append: aWidget.
+    aWidget appendToJQuery: '#jtalk' asJQuery.
     aWidget hide
 !
 
@@ -114,10 +114,10 @@ removeTab: aWidget
 initialize
     super initialize.
     opened := true.
+    [:html | html div id: 'jtalk'] appendToJQuery: 'body' asJQuery.
     'body' asJQuery 
-	append: [:html | html div id: 'jtalk'];
 	addClass: 'jtalkBody'.
-    '#jtalk' asJQuery append: self.
+    self appendToJQuery: '#jtalk' asJQuery.
     self 
 	addTab: Transcript current;
 	addTab: Workspace new;
@@ -366,7 +366,6 @@ clear
 
 renderBoxOn: html
     textarea := html textarea.
-    textarea asJQuery call: 'tabby'.
     textarea 
 	class: 'jt_transcript';
 	at: 'spellcheck' put: 'false'
@@ -760,22 +759,28 @@ handleSourceAreaKeyDown: anEvent
 !
 
 commitPackage
-    selectedPackage ifNotNil: [
-	(Ajax url: self class commitPathJs, '/', selectedPackage, '.js')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (Exporter new exportPackage: selectedPackage);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send.
-	(Ajax url: self class commitPathJs, '/', selectedPackage, '.deploy.js')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (StrippedExporter new exportPackage: selectedPackage);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send.
-	(Ajax url: self class commitPathSt, '/', selectedPackage, '.st')
-	    at: 'type' put: 'PUT';
-	    at: 'data' put: (ChunkExporter new exportPackage: selectedPackage);
-	    at: 'error' put: [self alert: 'Commit failed!!'];
-	    send]
+	selectedPackage ifNotNil: [
+		jQuery 
+			ajax: self class commitPathJs, '/', selectedPackage, '.js'
+			options: #{
+				'type' -> 'PUT'.
+				'data' -> (Exporter new exportPackage: selectedPackage).
+				'error' -> [self alert: 'Commit failed!!']
+			}.
+		jQuery 
+			ajax: self class commitPathJs, '/', selectedPackage, '.deploy.js'
+			options: #{
+				'type' -> 'PUT'.
+				'data' -> (StrippedExporter new exportPackage: selectedPackage).
+				'error' -> [self alert: 'Commit failed!!']
+			}.
+		jQuery 
+			ajax: self class commitPathSt, '/', selectedPackage, '.st'
+			options: #{
+				'type' -> 'PUT'.
+				'data' -> (ChunkExporter new exportPackage: selectedPackage).
+				'error' -> [self alert: 'Commit failed!!']
+			}]
 !
 
 renamePackage
@@ -978,12 +983,13 @@ updateSourceAndButtons
 		html button
 			with: 'References';
 			onClick: [self searchClassReferences]].
-	methodButtons contents: [:html |
+	methodButtons contents: [:html | | protocolSelect referencesSelect |
 		html button
 			with: 'Remove method';
 			onClick: [self removeMethod].
-		html select 
-			onChange: [:e :select | self setMethodProtocol: select val];
+		protocolSelect := html select.
+                protocolSelect
+			onChange: [ self setMethodProtocol: protocolSelect asJQuery val];
 			with: [
 				html option
 					with: 'Method protocol';
@@ -994,8 +1000,9 @@ updateSourceAndButtons
 				self protocols do: [:each |
 					html option with: each]].
 		selectedMethod isNil ifFalse: [
-			html select 
-				onChange: [:e :select | self searchReferencesOf: select val];
+			referencesSelect := html select.
+                        referencesSelect
+				onChange: [self searchReferencesOf: referencesSelect asJQuery val];
 				with: [
 					html option
 						with: 'References';
@@ -1620,7 +1627,7 @@ renderOn: html
 	cssClass := ''.
 	li := html li 
 		onClick: [self browser selectClass: self theClass]. 
-	li asJQuery contents: self label.
+	li asJQuery html: self label.
 
 	self browser selectedClass = self theClass ifTrue:  [
 		cssClass := cssClass, ' selected'].

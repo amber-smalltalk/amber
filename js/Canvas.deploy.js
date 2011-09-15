@@ -679,18 +679,7 @@ smalltalk.method({
 selector: 'asJQuery',
 fn: function (){
 var self=this;
-return smalltalk.JQuery._from_(jQuery(self['@element']));
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_asJQueryDo_',
-smalltalk.method({
-selector: 'asJQueryDo:',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_asJQuery", [])]);
+return smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(self, "_element", [])]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -701,7 +690,7 @@ smalltalk.method({
 selector: 'onKeyDown:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["keydown", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keydown", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -712,7 +701,7 @@ smalltalk.method({
 selector: 'onKeyPress:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["keypress", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keypress", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -723,7 +712,7 @@ smalltalk.method({
 selector: 'onKeyUp:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["keyup", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keyup", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -734,7 +723,7 @@ smalltalk.method({
 selector: 'onFocus:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["focus", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focus", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -745,7 +734,7 @@ smalltalk.method({
 selector: 'onBlur:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["blur", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["blur", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -756,7 +745,7 @@ smalltalk.method({
 selector: 'onChange:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["change", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["change", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -767,7 +756,7 @@ smalltalk.method({
 selector: 'onClick:',
 fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_on_do_", ["click", aBlock]);
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["click", aBlock]);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -790,7 +779,7 @@ smalltalk.method({
 selector: 'initializeFromJQuery:canvas:',
 fn: function (aJQuery, aCanvas){
 var self=this;
-self['@element']=smalltalk.send(smalltalk.send(aJQuery, "_jquery", []), "_get_", [(0)]);
+self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]);
 self['@canvas']=aCanvas;
 return self;}
 }),
@@ -923,6 +912,17 @@ smalltalk.Widget);
 
 
 smalltalk.addMethod(
+'_appendToJQuery_',
+smalltalk.method({
+selector: 'appendToJQuery:',
+fn: function (aJQuery){
+var self=this;
+smalltalk.send(aJQuery, "_append_", [smalltalk.send(self, "_asString", [])]);
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 '_appendToBrush_',
 smalltalk.method({
 selector: 'appendToBrush:',
@@ -934,6 +934,17 @@ return self;}
 smalltalk.Object);
 
 smalltalk.addMethod(
+'_appendToJQuery_',
+smalltalk.method({
+selector: 'appendToJQuery:',
+fn: function (aJQuery){
+var self=this;
+smalltalk.send(self, "_value_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
 '_appendToBrush_',
 smalltalk.method({
 selector: 'appendToBrush:',
@@ -943,6 +954,28 @@ smalltalk.send(aTagBrush, "_appendBlock_", [self]);
 return self;}
 }),
 smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_asJQuery',
+smalltalk.method({
+selector: 'asJQuery',
+fn: function (){
+var self=this;
+return jQuery(String(self));
+return self;}
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+'_appendToJQuery_',
+smalltalk.method({
+selector: 'appendToJQuery:',
+fn: function (aJQuery){
+var self=this;
+smalltalk.send(aJQuery, "_append_", [self]);
+return self;}
+}),
+smalltalk.String);
 
 smalltalk.addMethod(
 '_appendToBrush_',
