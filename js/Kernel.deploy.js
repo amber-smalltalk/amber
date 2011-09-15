@@ -5913,6 +5913,28 @@ return self;}
 }),
 smalltalk.JSObjectProxy);
 
+smalltalk.addMethod(
+'_at_',
+smalltalk.method({
+selector: 'at:',
+fn: function (aString){
+var self=this;
+return self['@jsObject'][aString];
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+'_at_put_',
+smalltalk.method({
+selector: 'at:put:',
+fn: function (aString, anObject){
+var self=this;
+self['@jsObject'][aString] = anObject;
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
 
 smalltalk.addMethod(
 '_on_',

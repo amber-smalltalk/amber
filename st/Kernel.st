@@ -2919,6 +2919,14 @@ jsObject: aJSObject
 
 jsObject
 	^jsObject
+!
+
+at: aString
+	<return self['@jsObject'][aString]>
+!
+
+at: aString put: anObject
+	<self['@jsObject'][aString] = anObject>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!
