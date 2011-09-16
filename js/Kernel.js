@@ -7991,6 +7991,22 @@ referencedClasses: []
 }),
 smalltalk.Point);
 
+smalltalk.addMethod(
+unescape('__eq'),
+smalltalk.method({
+selector: unescape('%3D'),
+category: 'arithmetic',
+fn: function (aPoint){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);
+return self;},
+args: ["aPoint"],
+source: unescape('%3D%20aPoint%0A%09%5E%20%28aPoint%20x%20%3D%20self%20x%29%20%26%20%28aPoint%20y%20%3D%20self%20y%29'),
+messageSends: [unescape("%26"), unescape("%3D"), "x", "y"],
+referencedClasses: []
+}),
+smalltalk.Point);
+
 
 smalltalk.addMethod(
 unescape('_x_y_'),

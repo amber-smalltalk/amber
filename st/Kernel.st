@@ -2778,6 +2778,10 @@ x: aNumber
 
 / aPoint
 	^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
+!
+
+= aPoint
+	^ (aPoint x = self x) & (aPoint y = self y)
 ! !
 
 !Point methodsFor: 'converting'!
