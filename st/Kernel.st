@@ -2786,7 +2786,8 @@ x: aNumber
 !
 
 = aPoint
-	^ (aPoint x = self x) & (aPoint y = self y)
+	^aPoint class = self class and: [
+		(aPoint x = self x) & (aPoint y = self y)]
 ! !
 
 !Point methodsFor: 'converting'!
