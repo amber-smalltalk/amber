@@ -359,9 +359,7 @@ function Smalltalk(){
 	   Example:
 	   "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
-	var jsSelector = selector
-	    .replace(/^_/, '')
-	    .replace(/_.*/g, '');
+	var jsSelector = selector._asJavaScriptSelector();
 	var jsProperty = receiver[jsSelector];
 	if(typeof jsProperty === "function") {
 	    return jsProperty.apply(receiver, args);

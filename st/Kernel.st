@@ -1783,6 +1783,10 @@ asUppercase
 
 reversed
 	<return self.split("").reverse().join("")>
+!
+
+asJavaScriptSelector
+	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
 ! !
 
 !String methodsFor: 'copying'!
@@ -2960,7 +2964,7 @@ doesNotUnderstand: aMessage
 	| obj selector jsSelector arguments |
 	obj := self jsObject.
 	selector := aMessage selector.
-	jsSelector := (selector asSelector replace: '^_' with: '') replace: '_.*' with: ''.
+	jsSelector := selector asJavaScriptSelector.
 	arguments := aMessage arguments.
 	<if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)}>.
 	super doesNotUnderstand: aMessage
