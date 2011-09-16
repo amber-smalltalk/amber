@@ -1,8 +1,8 @@
 smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
 smalltalk.addMethod(
-'_presentation',
+unescape('_presentation'),
 smalltalk.method({
-selector: 'presentation',
+selector: unescape('presentation'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -16,9 +16,9 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_presentation_',
+unescape('_presentation_'),
 smalltalk.method({
-selector: 'presentation:',
+selector: unescape('presentation%3A'),
 category: 'accessing',
 fn: function (aPresentation){
 var self=this;
@@ -32,9 +32,9 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -48,9 +48,9 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_cssClass',
+unescape('_cssClass'),
 smalltalk.method({
-selector: 'cssClass',
+selector: unescape('cssClass'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -64,9 +64,9 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -80,28 +80,28 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_show',
+unescape('_show'),
 smalltalk.method({
-selector: 'show',
+selector: unescape('show'),
 category: 'actions',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(self, "_id", [])]);
-(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_animate_duration_", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_", [smalltalk.send("backgroundColor", "__minus_gt", [smalltalk.send(self, "_backgroundColor", [])])]), (500)]);})() : nil;
+(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
 smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
 smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
 return self;},
 args: [],
-source: unescape('show%0A%09document%20location%20hash%3A%20self%20id.%0A%09self%20backgroundColor%20ifNotNil%3A%20%5B%0A%09%09%28window%20jQuery%3A%20%27%23slides%27%29%20animate%3A%20%28Dictionary%20with%3A%20%27backgroundColor%27%20-%3E%20self%20backgroundColor%29%20duration%3A%20500%5D.%0A%09%28window%20jQuery%3A%20%27.slide%27%29%20hide%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.%0A%09%28window%20jQuery%3A%20%27%23%27%2C%20self%20id%29%20show%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.'),
-messageSends: ["hash:", "location", "id", "ifNotNil:", "backgroundColor", "animate:duration:", "jQuery:", "with:", unescape("-%3E"), "hide:options:duration:", "slideTransition", "presentation", "show:options:duration:", unescape("%2C")],
-referencedClasses: [smalltalk.Dictionary]
+source: unescape('show%0A%09document%20location%20hash%3A%20self%20id.%0A%09self%20backgroundColor%20ifNotNil%3A%20%5B%0A%09%09%28window%20jQuery%3A%20%27%23slides%27%29%20css%3A%20%27background%27%20color%3A%20self%20backgroundColor%5D.%0A%09%28window%20jQuery%3A%20%27.slide%27%29%20hide%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.%0A%09%28window%20jQuery%3A%20%27%23%27%2C%20self%20id%29%20show%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.'),
+messageSends: ["hash:", "location", "id", "ifNotNil:", "backgroundColor", "css:color:", "jQuery:", "hide:options:duration:", "slideTransition", "presentation", "show:options:duration:", unescape("%2C")],
+referencedClasses: []
 }),
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_renderOn_',
+unescape('_renderOn_'),
 smalltalk.method({
-selector: 'renderOn:',
+selector: unescape('renderOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -115,9 +115,9 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -131,9 +131,9 @@ referencedClasses: []
 smalltalk.Slide);
 
 smalltalk.addMethod(
-'_renderMetaOn_',
+unescape('_renderMetaOn_'),
 smalltalk.method({
-selector: 'renderMetaOn:',
+selector: unescape('renderMetaOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -148,9 +148,9 @@ smalltalk.Slide);
 
 
 smalltalk.addMethod(
-'_on_',
+unescape('_on_'),
 smalltalk.method({
-selector: 'on:',
+selector: unescape('on%3A'),
 category: 'instance creation',
 fn: function (aPresentation){
 var self=this;
@@ -166,9 +166,9 @@ smalltalk.Slide.klass);
 
 smalltalk.addClass('Presentation', smalltalk.Widget, ['currentSlide', 'slides'], 'Presentation');
 smalltalk.addMethod(
-'_title',
+unescape('_title'),
 smalltalk.method({
-selector: 'title',
+selector: unescape('title'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -182,9 +182,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_author',
+unescape('_author'),
 smalltalk.method({
-selector: 'author',
+selector: unescape('author'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -198,9 +198,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_url',
+unescape('_url'),
 smalltalk.method({
-selector: 'url',
+selector: unescape('url'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -214,9 +214,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_description',
+unescape('_description'),
 smalltalk.method({
-selector: 'description',
+selector: unescape('description'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -230,9 +230,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_email',
+unescape('_email'),
 smalltalk.method({
-selector: 'email',
+selector: unescape('email'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -246,9 +246,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_slides',
+unescape('_slides'),
 smalltalk.method({
-selector: 'slides',
+selector: unescape('slides'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -263,9 +263,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_slideClasses',
+unescape('_slideClasses'),
 smalltalk.method({
-selector: 'slideClasses',
+selector: unescape('slideClasses'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -279,9 +279,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_currentSlide',
+unescape('_currentSlide'),
 smalltalk.method({
-selector: 'currentSlide',
+selector: unescape('currentSlide'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -295,9 +295,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_currentSlide_',
+unescape('_currentSlide_'),
 smalltalk.method({
-selector: 'currentSlide:',
+selector: unescape('currentSlide%3A'),
 category: 'accessing',
 fn: function (aSlide){
 var self=this;
@@ -311,9 +311,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_slideTransition',
+unescape('_slideTransition'),
 smalltalk.method({
-selector: 'slideTransition',
+selector: unescape('slideTransition'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -327,9 +327,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_reload',
+unescape('_reload'),
 smalltalk.method({
-selector: 'reload',
+selector: unescape('reload'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -346,26 +346,26 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_setup',
+unescape('_setup'),
 smalltalk.method({
-selector: 'setup',
+selector: unescape('setup'),
 category: 'actions',
 fn: function (){
 var self=this;
 smalltalk.send((smalltalk.Presentation || Presentation), "_setCurrent_", [self]);
-smalltalk.send((smalltalk.JQuery || JQuery), "_documentReady_", [(function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_append_", [self]);return (function($rec){smalltalk.send($rec, "_setKeybindings", []);smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);})]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);return (function($rec){smalltalk.send($rec, "_setKeybindings", []);smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);})]);
 return self;},
 args: [],
-source: unescape('setup%0A%09Presentation%20setCurrent%3A%20self.%0A%09JQuery%20documentReady%3A%20%5B%0A%09%09%27body%27%20asJQuery%20append%3A%20self.%0A%09%09self%20%0A%09%09%09setKeybindings%3B%0A%09%09%09checkHashChange%3B%0A%09%09%09checkHash%5D.'),
-messageSends: ["setCurrent:", "documentReady:", "append:", "asJQuery", "setKeybindings", "checkHashChange", "checkHash"],
+source: unescape('setup%0A%09Presentation%20setCurrent%3A%20self.%0A%09%28window%20jQuery%3A%20document%29%20ready%3A%20%5B%0A%09%09self%20appendToJQuery%3A%20%27body%27%20asJQuery.%0A%09%09self%20%0A%09%09%09setKeybindings%3B%0A%09%09%09checkHashChange%3B%0A%09%09%09checkHash%5D.'),
+messageSends: ["setCurrent:", "ready:", "jQuery:", "appendToJQuery:", "asJQuery", "setKeybindings", "checkHashChange", "checkHash"],
 referencedClasses: [smalltalk.Presentation]
 }),
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_nextSlide',
+unescape('_nextSlide'),
 smalltalk.method({
-selector: 'nextSlide',
+selector: unescape('nextSlide'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -380,9 +380,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_showCurrentSlide',
+unescape('_showCurrentSlide'),
 smalltalk.method({
-selector: 'showCurrentSlide',
+selector: unescape('showCurrentSlide'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -396,9 +396,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_previousSlide',
+unescape('_previousSlide'),
 smalltalk.method({
-selector: 'previousSlide',
+selector: unescape('previousSlide'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -413,42 +413,42 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_setKeybindings',
+unescape('_setKeybindings'),
 smalltalk.method({
-selector: 'setKeybindings',
+selector: unescape('setKeybindings'),
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.JQuery || JQuery), "_document", []), "_on_do_", ["keyup", (function(e){var node=nil;
-node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return (($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){(($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);return (($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){(($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);return (($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})]);})]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
+node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
 return self;},
 args: [],
-source: unescape('setKeybindings%0A%09JQuery%20document%20on%3A%20%27keyup%27%20do%3A%20%5B%3Ae%20%7C%7C%20node%20%7C%0A%09%09node%20%3A%3D%20e%20target%20nodeName%20asLowercase.%0A%09%09%28node%20%3D%20%27textarea%27%20or%3A%20%5Bnode%20%3D%20%27input%27%5D%29%20ifFalse%3A%20%5B%0A%09%09%09e%20keyCode%20%3D%2039%20ifTrue%3A%20%5Bself%20nextSlide%5D.%0A%09%09%09e%20keyCode%20%3D%2037%20ifTrue%3A%20%5Bself%20previousSlide%5D%5D%5D'),
-messageSends: ["on:do:", "document", "asLowercase", "nodeName", "target", "ifFalse:", "or:", unescape("%3D"), "ifTrue:", "keyCode", "nextSlide", "previousSlide"],
+source: unescape('setKeybindings%0A%09%28window%20jQuery%3A%20document%29%20keyup%3A%20%5B%3Ae%20%7C%7C%20node%20%7C%0A%09%09node%20%3A%3D%20e%20target%20nodeName%20asLowercase.%0A%09%09%28node%20%3D%20%27textarea%27%20or%3A%20%5Bnode%20%3D%20%27input%27%5D%29%20ifFalse%3A%20%5B%0A%09%09%09e%20keyCode%20%3D%2039%20ifTrue%3A%20%5Bself%20nextSlide%5D.%0A%09%09%09e%20keyCode%20%3D%2037%20ifTrue%3A%20%5Bself%20previousSlide%5D%5D%5D'),
+messageSends: ["keyup:", "jQuery:", "asLowercase", "nodeName", "target", "ifFalse:", "or:", unescape("%3D"), "ifTrue:", "keyCode", "nextSlide", "previousSlide"],
 referencedClasses: []
 }),
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_checkHashChange',
+unescape('_checkHashChange'),
 smalltalk.method({
-selector: 'checkHashChange',
+selector: unescape('checkHashChange'),
 category: 'actions',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.JQuery || JQuery), "_window", []), "_on_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
 return self;},
 args: [],
-source: unescape('checkHashChange%0A%09JQuery%20window%20on%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
-messageSends: ["on:do:", "window", "checkHash"],
+source: unescape('checkHashChange%0A%09%28window%20jQuery%3A%20window%29%20bind%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
+messageSends: ["bind:do:", "jQuery:", "checkHash"],
 referencedClasses: []
 }),
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_checkHash',
+unescape('_checkHash'),
 smalltalk.method({
-selector: 'checkHash',
+selector: unescape('checkHash'),
 category: 'actions',
 fn: function (){
 var self=this;
@@ -466,9 +466,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_initSlides',
+unescape('_initSlides'),
 smalltalk.method({
-selector: 'initSlides',
+selector: unescape('initSlides'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -482,9 +482,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_renderOn_',
+unescape('_renderOn_'),
 smalltalk.method({
-selector: 'renderOn:',
+selector: unescape('renderOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -500,9 +500,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_renderSlidesOn_',
+unescape('_renderSlidesOn_'),
 smalltalk.method({
-selector: 'renderSlidesOn:',
+selector: unescape('renderSlidesOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -518,9 +518,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_renderToolsOn_',
+unescape('_renderToolsOn_'),
 smalltalk.method({
-selector: 'renderToolsOn:',
+selector: unescape('renderToolsOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -537,9 +537,9 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_style',
+unescape('_style'),
 smalltalk.method({
-selector: 'style',
+selector: unescape('style'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -555,9 +555,9 @@ smalltalk.Presentation);
 
 smalltalk.Presentation.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -571,9 +571,9 @@ referencedClasses: []
 smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-'_setup',
+unescape('_setup'),
 smalltalk.method({
-selector: 'setup',
+selector: unescape('setup'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -587,9 +587,9 @@ referencedClasses: []
 smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-'_setCurrent_',
+unescape('_setCurrent_'),
 smalltalk.method({
-selector: 'setCurrent:',
+selector: unescape('setCurrent%3A'),
 category: 'initialization',
 fn: function (aSlides){
 var self=this;
@@ -603,9 +603,9 @@ referencedClasses: []
 smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-'_current',
+unescape('_current'),
 smalltalk.method({
-selector: 'current',
+selector: unescape('current'),
 category: 'initialization',
 fn: function (){
 var self=this;
@@ -619,9 +619,9 @@ referencedClasses: []
 smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-'_isConcrete',
+unescape('_isConcrete'),
 smalltalk.method({
-selector: 'isConcrete',
+selector: unescape('isConcrete'),
 category: 'testing',
 fn: function (){
 var self=this;
@@ -637,9 +637,9 @@ smalltalk.Presentation.klass);
 
 smalltalk.addClass('ESUG2011Presentation', smalltalk.Presentation, [], 'Presentation');
 smalltalk.addMethod(
-'_title',
+unescape('_title'),
 smalltalk.method({
-selector: 'title',
+selector: unescape('title'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -653,9 +653,9 @@ referencedClasses: []
 smalltalk.ESUG2011Presentation);
 
 smalltalk.addMethod(
-'_description',
+unescape('_description'),
 smalltalk.method({
-selector: 'description',
+selector: unescape('description'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -669,9 +669,9 @@ referencedClasses: []
 smalltalk.ESUG2011Presentation);
 
 smalltalk.addMethod(
-'_author',
+unescape('_author'),
 smalltalk.method({
-selector: 'author',
+selector: unescape('author'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -685,9 +685,9 @@ referencedClasses: []
 smalltalk.ESUG2011Presentation);
 
 smalltalk.addMethod(
-'_email',
+unescape('_email'),
 smalltalk.method({
-selector: 'email',
+selector: unescape('email'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -701,9 +701,9 @@ referencedClasses: []
 smalltalk.ESUG2011Presentation);
 
 smalltalk.addMethod(
-'_url',
+unescape('_url'),
 smalltalk.method({
-selector: 'url',
+selector: unescape('url'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -717,9 +717,9 @@ referencedClasses: []
 smalltalk.ESUG2011Presentation);
 
 smalltalk.addMethod(
-'_slideClasses',
+unescape('_slideClasses'),
 smalltalk.method({
-selector: 'slideClasses',
+selector: unescape('slideClasses'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -733,9 +733,9 @@ referencedClasses: [smalltalk.Array]
 smalltalk.ESUG2011Presentation);
 
 smalltalk.addMethod(
-'_style',
+unescape('_style'),
 smalltalk.method({
-selector: 'style',
+selector: unescape('style'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -751,9 +751,9 @@ smalltalk.ESUG2011Presentation);
 
 smalltalk.ESUG2011Presentation.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-'_isConcrete',
+unescape('_isConcrete'),
 smalltalk.method({
-selector: 'isConcrete',
+selector: unescape('isConcrete'),
 category: 'testing',
 fn: function (){
 var self=this;
@@ -769,9 +769,9 @@ smalltalk.ESUG2011Presentation.klass);
 
 smalltalk.addClass('IntroSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -785,9 +785,9 @@ referencedClasses: []
 smalltalk.IntroSlide);
 
 smalltalk.addMethod(
-'_cssClass',
+unescape('_cssClass'),
 smalltalk.method({
-selector: 'cssClass',
+selector: unescape('cssClass'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -801,9 +801,9 @@ referencedClasses: []
 smalltalk.IntroSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -820,9 +820,9 @@ smalltalk.IntroSlide);
 
 smalltalk.addClass('WhatIsJtalkSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -836,9 +836,9 @@ referencedClasses: []
 smalltalk.WhatIsJtalkSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -855,9 +855,9 @@ smalltalk.WhatIsJtalkSlide);
 
 smalltalk.addClass('JtalkFeaturesSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -871,9 +871,9 @@ referencedClasses: []
 smalltalk.JtalkFeaturesSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -891,9 +891,9 @@ smalltalk.JtalkFeaturesSlide);
 
 smalltalk.addClass('AboutSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -907,9 +907,9 @@ referencedClasses: []
 smalltalk.AboutSlide);
 
 smalltalk.addMethod(
-'_cssClass',
+unescape('_cssClass'),
 smalltalk.method({
-selector: 'cssClass',
+selector: unescape('cssClass'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -923,9 +923,9 @@ referencedClasses: []
 smalltalk.AboutSlide);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -939,9 +939,9 @@ referencedClasses: []
 smalltalk.AboutSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -958,9 +958,9 @@ smalltalk.AboutSlide);
 
 smalltalk.addClass('JtalkAndJavascriptSlide3', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -974,9 +974,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide3);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -990,9 +990,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide3);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1011,9 +1011,9 @@ smalltalk.JtalkAndJavascriptSlide3);
 
 smalltalk.addClass('JtalkAndJavascriptSlide2', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1027,9 +1027,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide2);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1043,9 +1043,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide2);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1064,9 +1064,9 @@ smalltalk.JtalkAndJavascriptSlide2);
 
 smalltalk.addClass('JtalkAndJavascriptSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1080,9 +1080,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide);
 
 smalltalk.addMethod(
-'_cssClass',
+unescape('_cssClass'),
 smalltalk.method({
-selector: 'cssClass',
+selector: unescape('cssClass'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1096,9 +1096,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1112,9 +1112,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1131,9 +1131,9 @@ smalltalk.JtalkAndJavascriptSlide);
 
 smalltalk.addClass('WorkspaceSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1147,9 +1147,9 @@ referencedClasses: []
 smalltalk.WorkspaceSlide);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1163,9 +1163,9 @@ referencedClasses: []
 smalltalk.WorkspaceSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'accessing',
 fn: function (html){
 var self=this;
@@ -1184,9 +1184,9 @@ smalltalk.WorkspaceSlide);
 
 smalltalk.addClass('CountersSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1200,9 +1200,9 @@ referencedClasses: []
 smalltalk.CountersSlide);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1216,9 +1216,9 @@ referencedClasses: []
 smalltalk.CountersSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1235,9 +1235,9 @@ smalltalk.CountersSlide);
 
 smalltalk.addClass('JtalkAndJavascriptSlide4', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1251,9 +1251,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide4);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1267,9 +1267,9 @@ referencedClasses: []
 smalltalk.JtalkAndJavascriptSlide4);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1288,9 +1288,9 @@ smalltalk.JtalkAndJavascriptSlide4);
 
 smalltalk.addClass('IDESlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1304,9 +1304,9 @@ referencedClasses: []
 smalltalk.IDESlide);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1320,9 +1320,9 @@ referencedClasses: []
 smalltalk.IDESlide);
 
 smalltalk.addMethod(
-'_cssClass',
+unescape('_cssClass'),
 smalltalk.method({
-selector: 'cssClass',
+selector: unescape('cssClass'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1336,9 +1336,9 @@ referencedClasses: []
 smalltalk.IDESlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1355,9 +1355,9 @@ smalltalk.IDESlide);
 
 smalltalk.addClass('ContributionsSlide', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -1371,9 +1371,9 @@ referencedClasses: []
 smalltalk.ContributionsSlide);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
@@ -1390,9 +1390,9 @@ smalltalk.ContributionsSlide);
 
 smalltalk.addClass('JtalkAndCLI', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1406,9 +1406,9 @@ referencedClasses: []
 smalltalk.JtalkAndCLI);
 
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1422,9 +1422,9 @@ referencedClasses: []
 smalltalk.JtalkAndCLI);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'not yet classified',
 fn: function (html){
 var self=this;
@@ -1443,9 +1443,9 @@ smalltalk.JtalkAndCLI);
 
 smalltalk.addClass('JtalkAndNode', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1459,9 +1459,9 @@ referencedClasses: []
 smalltalk.JtalkAndNode);
 
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1475,9 +1475,9 @@ referencedClasses: []
 smalltalk.JtalkAndNode);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'not yet classified',
 fn: function (html){
 var self=this;
@@ -1496,9 +1496,9 @@ smalltalk.JtalkAndNode);
 
 smalltalk.addClass('JtalkAndNode2', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1512,9 +1512,9 @@ referencedClasses: []
 smalltalk.JtalkAndNode2);
 
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1528,9 +1528,9 @@ referencedClasses: []
 smalltalk.JtalkAndNode2);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'not yet classified',
 fn: function (html){
 var self=this;
@@ -1551,9 +1551,9 @@ smalltalk.JtalkAndNode2);
 
 smalltalk.addClass('JtalkAndNode3', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1567,9 +1567,9 @@ referencedClasses: []
 smalltalk.JtalkAndNode3);
 
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1583,9 +1583,9 @@ referencedClasses: []
 smalltalk.JtalkAndNode3);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'not yet classified',
 fn: function (html){
 var self=this;
@@ -1604,9 +1604,9 @@ smalltalk.JtalkAndNode3);
 
 smalltalk.addClass('JtalkAndWebOS', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1620,9 +1620,9 @@ referencedClasses: []
 smalltalk.JtalkAndWebOS);
 
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1636,9 +1636,9 @@ referencedClasses: []
 smalltalk.JtalkAndWebOS);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'not yet classified',
 fn: function (html){
 var self=this;
@@ -1657,9 +1657,9 @@ smalltalk.JtalkAndWebOS);
 
 smalltalk.addClass('JtalkAndEnyo', smalltalk.Slide, [], 'Presentation');
 smalltalk.addMethod(
-'_id',
+unescape('_id'),
 smalltalk.method({
-selector: 'id',
+selector: unescape('id'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1673,9 +1673,9 @@ referencedClasses: []
 smalltalk.JtalkAndEnyo);
 
 smalltalk.addMethod(
-'_backgroundColor',
+unescape('_backgroundColor'),
 smalltalk.method({
-selector: 'backgroundColor',
+selector: unescape('backgroundColor'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
@@ -1689,9 +1689,9 @@ referencedClasses: []
 smalltalk.JtalkAndEnyo);
 
 smalltalk.addMethod(
-'_renderSlideOn_',
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: 'renderSlideOn:',
+selector: unescape('renderSlideOn%3A'),
 category: 'not yet classified',
 fn: function (html){
 var self=this;

@@ -3982,6 +3982,17 @@ return self;
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_asJavaScriptSelector',
+smalltalk.method({
+selector: 'asJavaScriptSelector',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", [unescape("%5E_"), ""]), "_replace_with_", [unescape("_.*"), ""]);
+return self;}
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -5947,11 +5958,13 @@ fn: function (aMessage){
 var self=this;
 var obj=nil;
 var selector=nil;
+var jsSelector=nil;
 var arguments=nil;
 obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
+jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[selector]) {return smalltalk.send(obj, selector, arguments)};
+if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;}
 }),

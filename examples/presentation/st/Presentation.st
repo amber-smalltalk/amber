@@ -29,7 +29,7 @@ backgroundColor
 show
 	document location hash: self id.
 	self backgroundColor ifNotNil: [
-		(window jQuery: '#slides') animate: (Dictionary with: 'backgroundColor' -> self backgroundColor) duration: 500].
+		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
 	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
 	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
 ! !
@@ -126,8 +126,8 @@ reload
 
 setup
 	Presentation setCurrent: self.
-	JQuery documentReady: [
-		'body' asJQuery append: self.
+	(window jQuery: document) ready: [
+		self appendToJQuery: 'body' asJQuery.
 		self 
 			setKeybindings;
 			checkHashChange;
@@ -159,7 +159,7 @@ previousSlide
 !
 
 setKeybindings
-	JQuery document on: 'keyup' do: [:e || node |
+	(window jQuery: document) keyup: [:e || node |
 		node := e target nodeName asLowercase.
 		(node = 'textarea' or: [node = 'input']) ifFalse: [
 			e keyCode = 39 ifTrue: [self nextSlide].
@@ -167,7 +167,7 @@ setKeybindings
 !
 
 checkHashChange
-	JQuery window on: 'hashchange' do: [self checkHash]
+	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
 !
 
 checkHash
