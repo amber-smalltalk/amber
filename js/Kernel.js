@@ -1058,6 +1058,22 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+unescape('_reservedWords'),
+smalltalk.method({
+selector: unescape('reservedWords'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.reservedWords;
+return self;},
+args: [],
+source: unescape('reservedWords%0A%09%22JavaScript%20reserved%20words%22%0A%09%3Creturn%20self.reservedWords%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(

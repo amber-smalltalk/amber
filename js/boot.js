@@ -55,6 +55,14 @@ function Smalltalk(){
 
     st.thisContext = undefined;
 
+    /* List of all reserved words in JavaScript. They may not be used as variables
+       in Smalltalk. */
+
+    st.reservedWords = ['break', 'case', 'catch', 'class', 'continue', 'debugger', 
+			'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
+			'if', 'in', 'instanceof', 'new', 'private', 'protected', 
+			'public', 'return', 'static', 'switch', 'this', 'throw',
+			'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
     
     /* We hold all Packages in a separate Object */
 

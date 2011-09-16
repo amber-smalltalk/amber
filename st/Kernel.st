@@ -289,6 +289,11 @@ parseError: anException parsing: aString
                   lines withIndexDo: [:l :i |
                      s nextPutAll: i asString, ': ', l, String lf]].
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
+!
+
+reservedWords
+	"JavaScript reserved words"
+	<return self.reservedWords>
 ! !
 
 !Smalltalk methodsFor: 'classes'!

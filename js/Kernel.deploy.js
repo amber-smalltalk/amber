@@ -743,6 +743,17 @@ return self;}
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+'_reservedWords',
+smalltalk.method({
+selector: 'reservedWords',
+fn: function (){
+var self=this;
+return self.reservedWords;
+return self;}
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
