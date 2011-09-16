@@ -17,8 +17,8 @@ testStreamContents
 !
 
 testIncludesSubString
-	self assert: ('jtalk' includesSubString: 'alk').
-	self deny: ('jtalk' includesSubString: 'zork').
+	self assert: ('amber' includesSubString: 'ber').
+	self deny: ('amber' includesSubString: 'zork').
 !
 
 testEquality
@@ -30,6 +30,12 @@ testEquality
 
 	"test JS falsy value"
 	self deny: '' = 0
+!
+
+testCopyWithoutAll
+	self 
+		assert: 'hello world' 
+		equals: ('*hello* *world*' copyWithoutAll: '*')
 ! !
 
 TestCase subclass: #DictionaryTest
@@ -231,5 +237,21 @@ testTruncated
 	self assert: 3 truncated = 3.
 	self assert: 3.212 truncated = 3.
 	self assert: 3.51 truncated = 3
+! !
+
+TestCase subclass: #JSObjectProxyTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!JSObjectProxyTest methodsFor: 'tests'!
+
+testMethodWithArguments
+	self deny: ('body' asJQuery hasClass: 'amber').
+
+	'body' asJQuery addClass: 'amber'.
+	self assert: ('body' asJQuery hasClass: 'amber').
+
+	'body' asJQuery removeClass: 'amber'.
+	self deny: ('body' asJQuery hasClass: 'amber').
 ! !
 

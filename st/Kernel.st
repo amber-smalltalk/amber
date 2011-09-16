@@ -289,6 +289,11 @@ parseError: anException parsing: aString
                   lines withIndexDo: [:l :i |
                      s nextPutAll: i asString, ': ', l, String lf]].
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
+!
+
+reservedWords
+	"JavaScript reserved words"
+	<return self.reservedWords>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -1418,6 +1423,13 @@ copyWith: anObject
 
 copyWithAll: aCollection
 	^self copy addAll: aCollection; yourself
+!
+
+copyWithoutAll: aCollection
+	"Answer a copy of the receiver that does not contain any elements 
+	equal to those in aCollection."
+
+	^ self reject: [:each | aCollection includes: each]
 ! !
 
 !Collection methodsFor: 'enumerating'!
@@ -2778,6 +2790,11 @@ x: aNumber
 
 / aPoint
 	^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
+!
+
+= aPoint
+	^aPoint class = self class and: [
+		(aPoint x = self x) & (aPoint y = self y)]
 ! !
 
 !Point methodsFor: 'converting'!
@@ -2815,6 +2832,17 @@ arguments: anArray
 
 arguments
 	^arguments
+! !
+
+!Message methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  				aStream 
+                                  					nextPutAll: super printString;
+                                  					nextPutAll: '(';
+                                  					nextPutAll: selector;
+                                  					nextPutAll: ')' 				]
 ! !
 
 !Message class methodsFor: 'instance creation'!
@@ -2919,6 +2947,14 @@ jsObject: aJSObject
 
 jsObject
 	^jsObject
+!
+
+at: aString
+	<return self['@jsObject'][aString]>
+!
+
+at: aString put: anObject
+	<self['@jsObject'][aString] = anObject>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!

@@ -48,13 +48,27 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
-    this.thisContext = undefined;
 
+    /* This is the current call context object. While it is publicly available,
+       Use smalltalk.getThisContext() instead which will answer a safe copy of 
+       the current context */
+
+    st.thisContext = undefined;
+
+    /* List of all reserved words in JavaScript. They may not be used as variables
+       in Smalltalk. */
+
+    st.reservedWords = ['break', 'case', 'catch', 'class', 'continue', 'debugger', 
+			'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
+			'if', 'in', 'instanceof', 'new', 'private', 'protected', 
+			'public', 'return', 'static', 'switch', 'this', 'throw',
+			'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
     
     /* We hold all Packages in a separate Object */
+
     st.packages = {};
 
-    /* Smalltalk Package object. To add a Package, use smalltalk.addPackage() */
+    /* Smalltalk package creation. To add a Package, use smalltalk.addPackage() */
 
     function pkg(spec) {
 	var that      = new SmalltalkPackage();

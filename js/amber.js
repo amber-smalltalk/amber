@@ -67,14 +67,12 @@
 	    loadJS("boot.js");
 	    loadJS("Kernel.deploy.js");
 	    loadJS("Canvas.deploy.js");
-	    loadJS("JQuery.deploy.js");
 	} else {
 	    loadIDEDependencies();
 	    loadCSS('amber.css');
 	    loadJS("boot.js");
 	    loadJS("Kernel.js");
 	    loadJS("Canvas.js");
-	    loadJS("JQuery.js");
 	    loadJS("Compiler.js");
 	    loadJS("parser.js");
 	    loadJS("IDE.js");
@@ -82,7 +80,6 @@
 	    loadJS("Examples.js");
 	    loadJS("Benchfib.js");
 	    loadJS("Kernel-Tests.js");
-	    loadJS("JQuery-Tests.js");
 	}
 
 	// Load other files, possibly with another directory prefix than 'js'

@@ -1,13 +1,13 @@
-EnyoFriend subclass: #HelloJtalk
+EnyoFriend subclass: #HelloAmber
         instanceVariableNames: 'count popup'
-        category: 'HelloJtalk'!
+        category: 'HelloAmber'!
 
-!HelloJtalk methodsFor: 'accessing'!
+!HelloAmber methodsFor: 'accessing'!
 count
 	^count
 ! !
 
-!HelloJtalk methodsFor: 'actions'!
+!HelloAmber methodsFor: 'actions'!
 buttonClicked
 	count := count + 1.
 	self dollar input setValue: (self dollar input getValue, 'You clicked the button ', count asString, ' times so far').
@@ -21,7 +21,7 @@ popupSelected: value
 	self dollar input setValue: (self dollar input getValue, ' ', value)
 ! !
 
-!HelloJtalk methodsFor: 'initialization'!
+!HelloAmber methodsFor: 'initialization'!
 initialize
 	"Create Enyo stuff and hook in callback blocks calling our action methods,
 	very similar to how Seaside does it.
@@ -32,11 +32,11 @@ initialize
 
 		this['@ivarname']
 
-	We can not easily mix in arbitrary Jtalk expressions in the js code, thus
+	We can not easily mix in arbitrary Amber expressions in the js code, thus
 	we use method temps for holding the blocks instead of embedding the blocks
 	directly. Blocks are js functions which is really neat. And we can use:
 
-		this._jtalkMessage()
+		this._amberMessage()
 
 	to send messages to self for embedding the result."
 
@@ -53,7 +53,7 @@ initialize
 	<props = {
 		kind: 'VFlexBox',
 		components: [
-			{kind: 'PageHeader', content: 'Jtalk Live'},
+			{kind: 'PageHeader', content: 'Amber Live'},
  			{kind: "RowGroup", caption: "Rock on", components: [
 				{kind: 'Input', components: [
 					{kind: 'Button', caption: 'Click me', onclick: 'ablock'}]
@@ -62,10 +62,10 @@ initialize
 		ablock: block}>.
 	self ui: (enyo create: props).
 
-	"If we like we can create a kind for the UI (then the props need a name EnyoHelloJtalk),
+	"If we like we can create a kind for the UI (then the props need a name EnyoHelloAmber),
 	but we do not have to in this case so this is commented out."
 	"self kind: (enyo kind: props).
-	<this['@ui'] = new EnyoHelloJtalk()>"
+	<this['@ui'] = new EnyoHelloAmber()>"
 
 	"This Enyo popup instance is created and held in an ivar for later use."
 	block2 := [:sender :value :old | self popupSelected: value].
@@ -79,7 +79,7 @@ initialize
 	
 ! !
 
-!HelloJtalk class methodsFor: 'initialization'!
+!HelloAmber class methodsFor: 'initialization'!
 initialize
 
 	enyo log: 'Class initialized'

@@ -49,28 +49,23 @@ Compiler.js: Compiler.st Kernel.js
 #
 # NOTE: With the new dependency model in class Package etc this will change!
 #
-# JQuery uses Canvas
-JQuery.js: JQuery.st Canvas.js
-	$(AMBERC) $(FLAGS) -l Canvas $<
+Canvas.js: Canvas.st
+	$(AMBERC) $(FLAGS) $<
 
 # IDE uses JQuery
-IDE.js: IDE.st JQuery.js
-	$(AMBERC) $(FLAGS) -l Canvas,JQuery $<
+IDE.js: IDE.st Canvas.js
+	$(AMBERC) $(FLAGS) -l Canvas $<
 
 TrySmalltalk.js: TrySmalltalk.st IDE.js
-	$(AMBERC) $(FLAGS) -l Canvas,JQuery,IDE $<
+	$(AMBERC) $(FLAGS) -l Canvas,IDE $<
 
 # Some Examples use SUnit and also IDE
 Examples.js: Examples.st SUnit.js IDE.js
-	$(AMBERC) $(FLAGS) -l SUnit,Canvas,JQuery,IDE $<;
+	$(AMBERC) $(FLAGS) -l SUnit,Canvas,IDE $<;
 
 # Tests typically also use SUnit
 Kernel-Tests.js: Kernel-Tests.st SUnit.js
 	$(AMBERC) $(FLAGS) -l SUnit $<;
-
-# Tests typically also use SUnit
-JQuery-Tests.js: JQuery-Tests.st JQuery.js SUnit.js
-	$(AMBERC) $(FLAGS) -l Canvas,JQuery,SUnit $<;
 
 
 # Installing is simply copying all js files to js directory.

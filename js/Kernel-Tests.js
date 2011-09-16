@@ -38,11 +38,11 @@ selector: unescape('testIncludesSubString'),
 category: 'tests',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send("jtalk", "_includesSubString_", ["alk"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("jtalk", "_includesSubString_", ["zork"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send("amber", "_includesSubString_", ["ber"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("amber", "_includesSubString_", ["zork"])]);
 return self;},
 args: [],
-source: unescape('testIncludesSubString%0A%09self%20assert%3A%20%28%27jtalk%27%20includesSubString%3A%20%27alk%27%29.%0A%09self%20deny%3A%20%28%27jtalk%27%20includesSubString%3A%20%27zork%27%29.'),
+source: unescape('testIncludesSubString%0A%09self%20assert%3A%20%28%27amber%27%20includesSubString%3A%20%27ber%27%29.%0A%09self%20deny%3A%20%28%27amber%27%20includesSubString%3A%20%27zork%27%29.'),
 messageSends: ["assert:", "includesSubString:", "deny:"],
 referencedClasses: []
 }),
@@ -64,6 +64,22 @@ return self;},
 args: [],
 source: unescape('testEquality%0A%09self%20assert%3A%20%27hello%27%20%3D%20%27hello%27.%0A%09self%20deny%3A%20%27hello%27%20%3D%20%27world%27.%0A%0A%09self%20assert%3A%20%27hello%27%20%20%3D%20%27hello%27%20yourself.%0A%09self%20assert%3A%20%27hello%27%20yourself%20%3D%20%27hello%27.%0A%0A%09%22test%20JS%20falsy%20value%22%0A%09self%20deny%3A%20%27%27%20%3D%200'),
 messageSends: ["assert:", unescape("%3D"), "deny:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+unescape('_testCopyWithoutAll'),
+smalltalk.method({
+selector: unescape('testCopyWithoutAll'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send(unescape("*hello*%20*world*"), "_copyWithoutAll_", [unescape("*")])]);
+return self;},
+args: [],
+source: unescape('testCopyWithoutAll%0A%09self%20%0A%09%09assert%3A%20%27hello%20world%27%20%0A%09%09equals%3A%20%28%27*hello*%20*world*%27%20copyWithoutAll%3A%20%27*%27%29%20'),
+messageSends: ["assert:equals:", "copyWithoutAll:"],
 referencedClasses: []
 }),
 smalltalk.StringTest);
@@ -203,14 +219,14 @@ selector: unescape('testIfTrueIfFalse'),
 category: 'not yet classified',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = true).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return "alternative block";})]), "__eq", ["alternative block"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = true).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return "alternative block";})]), "__eq", [nil])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = false).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return "alternative block";})]), "__eq", [nil])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = false).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return "alternative block";})]), "__eq", ["alternative block"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = false).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "alternative block";}), (function(){return "alternative block2";})]), "__eq", ["alternative block2"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = false).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return "alternative block";}), (function(){return "alternative block2";})]), "__eq", ["alternative block"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = true).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "alternative block";}), (function(){return "alternative block2";})]), "__eq", ["alternative block"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = true).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return "alternative block";}), (function(){return "alternative block2";})]), "__eq", ["alternative block2"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = true).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return "alternative block";})])), "__eq", ["alternative block"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = true).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return "alternative block";})])), "__eq", [nil])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = false).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return "alternative block";})])), "__eq", [nil])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = false).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return "alternative block";})])), "__eq", ["alternative block"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = false).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "alternative block";}), (function(){return "alternative block2";})])), "__eq", ["alternative block2"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = false).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return "alternative block";}), (function(){return "alternative block2";})])), "__eq", ["alternative block"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = true).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "alternative block";}), (function(){return "alternative block2";})])), "__eq", ["alternative block"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = true).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return "alternative block";})() : (function(){return "alternative block2";})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return "alternative block";}), (function(){return "alternative block2";})])), "__eq", ["alternative block2"])]);
 return self;},
 args: [],
 source: unescape('testIfTrueIfFalse%0A%20%0A%09self%20assert%3A%20%28true%20ifTrue%3A%20%5B%27alternative%20block%27%5D%29%20%3D%20%27alternative%20block%27.%0A%09self%20assert%3A%20%28true%20ifFalse%3A%20%5B%27alternative%20block%27%5D%29%20%3D%20nil.%0A%0A%09self%20assert%3A%20%28false%20ifTrue%3A%20%5B%27alternative%20block%27%5D%29%20%3D%20nil.%0A%09self%20assert%3A%20%28false%20ifFalse%3A%20%5B%27alternative%20block%27%5D%29%20%3D%20%27alternative%20block%27.%0A%0A%09self%20assert%3A%20%28false%20ifTrue%3A%20%5B%27alternative%20block%27%5D%20ifFalse%3A%20%5B%27alternative%20block2%27%5D%29%20%3D%20%27alternative%20block2%27.%0A%09self%20assert%3A%20%28false%20ifFalse%3A%20%5B%27alternative%20block%27%5D%20ifTrue%3A%20%5B%27alternative%20block2%27%5D%29%20%3D%20%27alternative%20block%27.%0A%0A%09self%20assert%3A%20%28true%20ifTrue%3A%20%5B%27alternative%20block%27%5D%20ifFalse%3A%20%5B%27alternative%20block2%27%5D%29%20%3D%20%27alternative%20block%27.%0A%09self%20assert%3A%20%28true%20ifFalse%3A%20%5B%27alternative%20block%27%5D%20ifTrue%3A%20%5B%27alternative%20block2%27%5D%29%20%3D%20%27alternative%20block2%27.'),
@@ -259,7 +275,7 @@ smalltalk.send(self, "_assert_", [smalltalk.send((2) - (1), "__eq", [(1)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send((-2) - (1), "__eq", [(-3)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send((12) / (2), "__eq", [(6)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send((3) * (4), "__eq", [(12)])]);
-smalltalk.send(self, "_assert_", [smalltalk.send((($receiver = (1) + (2)).klass === smalltalk.Number) ? $receiver *(3) : smalltalk.send($receiver, "__star", [(3)]), "__eq", [(9)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = (1) + (2)).klass === smalltalk.Number) ? $receiver *(3) : smalltalk.send($receiver, "__star", [(3)])), "__eq", [(9)])]);
 smalltalk.send(self, "_assert_", [smalltalk.send((1) + (2) * (3), "__eq", [(7)])]);
 return self;},
 args: [],
@@ -372,6 +388,29 @@ messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
+
+
+
+smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+unescape('_testMethodWithArguments'),
+smalltalk.method({
+selector: unescape('testMethodWithArguments'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
+smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["amber"]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
+smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["amber"]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
+return self;},
+args: [],
+source: unescape('testMethodWithArguments%0A%09self%20deny%3A%20%28%27body%27%20asJQuery%20hasClass%3A%20%27amber%27%29.%0A%0A%09%27body%27%20asJQuery%20addClass%3A%20%27amber%27.%0A%09self%20assert%3A%20%28%27body%27%20asJQuery%20hasClass%3A%20%27amber%27%29.%0A%0A%09%27body%27%20asJQuery%20removeClass%3A%20%27amber%27.%0A%09self%20deny%3A%20%28%27body%27%20asJQuery%20hasClass%3A%20%27amber%27%29.%0A%09'),
+messageSends: ["deny:", "hasClass:", "asJQuery", "addClass:", "assert:", "removeClass:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
 
 
 

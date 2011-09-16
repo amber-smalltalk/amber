@@ -779,6 +779,12 @@ source: aString
 
 argVariables
 	^argVariables copy
+!
+
+safeVariableNameFor: aString
+	^(Smalltalk current reservedWords includes: aString)
+		ifTrue: [aString, '_']
+		ifFalse: [aString]
 ! !
 
 !Compiler methodsFor: 'compiling'!
@@ -865,7 +871,7 @@ initialize
 !Compiler methodsFor: 'optimizations'!
 
 checkClass: aClassName for: receiver
-        stream nextPutAll: '(($receiver = ', receiver, ').klass === smalltalk.', aClassName, ') ? '
+        stream nextPutAll: '((($receiver = ', receiver, ').klass === smalltalk.', aClassName, ') ? '
 !
 
 inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
@@ -1184,9 +1190,10 @@ visitBlockNode: aNode
 !
 
 visitSequenceNode: aNode
-	aNode temps do: [:each |
-	    tempVariables add: each.
-	    stream nextPutAll: 'var ', each, '=nil;'; lf].
+	aNode temps do: [:each || temp |
+            temp := self safeVariableNameFor: each.
+	    tempVariables add: temp.
+	    stream nextPutAll: 'var ', temp, '=nil;'; lf].
 	aNode nodes do: [:each |
 	    self visit: each.
 	    stream nextPutAll: ';']
@@ -1200,9 +1207,10 @@ visitBlockSequenceNode: aNode
 	    ifTrue: [
 		stream nextPutAll: 'return nil;']
 	    ifFalse: [
-		aNode temps do: [:each |
-		    tempVariables add: each.
-		    stream nextPutAll: 'var ', each, '=nil;'; lf].
+		aNode temps do: [:each | | temp |
+                    temp := self safeVariableNameFor: each.
+		    tempVariables add: temp.
+		    stream nextPutAll: 'var ', temp, '=nil;'; lf].
 		index := 0.
 		aNode nodes do: [:each |
 		    index := index + 1.
@@ -1245,7 +1253,7 @@ visitSendNode: aNode
 		ifTrue: [
 			(self inlineLiteral: aNode selector receiverNode: aNode receiver argumentNodes: aNode arguments) ifFalse: [
 				(self inline: aNode selector receiver: receiver argumentNodes: aNode arguments)
-                			ifTrue: [stream nextPutAll: ' : ', (self send: aNode selector to: '$receiver' arguments: aNode arguments superSend: superSend)]
+                			ifTrue: [stream nextPutAll: ' : ', (self send: aNode selector to: '$receiver' arguments: aNode arguments superSend: superSend), ')']
                 			ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]]]
 		ifFalse: [stream nextPutAll: (self send: aNode selector to: receiver arguments: aNode arguments superSend: superSend)]
 !
@@ -1288,19 +1296,21 @@ visitClassReferenceNode: aNode
 !
 
 visitVariableNode: aNode
+	| varName |
 	(self currentClass allInstanceVariableNames includes: aNode value) 
 		ifTrue: [stream nextPutAll: 'self[''@', aNode value, ''']']
 		ifFalse: [
-			(self knownVariables includes: aNode value) 
+                  	varName := self safeVariableNameFor: aNode value.
+			(self knownVariables includes: varName) 
                   		ifFalse: [
                                   	unknownVariables add: aNode value.
                                   	aNode assigned 
-                                  		ifTrue: [stream nextPutAll: aNode value]
-                                  		ifFalse: [stream nextPutAll: '(typeof ', aNode value, ' == ''undefined'' ? nil : ', aNode value, ')']]
+                                  		ifTrue: [stream nextPutAll: varName]
+                                  		ifFalse: [stream nextPutAll: '(typeof ', varName, ' == ''undefined'' ? nil : ', varName, ')']]
                   		ifTrue: [
                                   	aNode value = 'thisContext'
                                   		ifTrue: [stream nextPutAll: '(smalltalk.getThisContext())']
-                				ifFalse: [stream nextPutAll:aNode value]]]
+                				ifFalse: [stream nextPutAll: varName]]]
 !
 
 visitJSStatementNode: aNode
