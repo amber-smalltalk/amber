@@ -412,5 +412,25 @@ referencedClasses: []
 }),
 smalltalk.JSObjectProxyTest);
 
+smalltalk.addMethod(
+unescape('_testYourself'),
+smalltalk.method({
+selector: unescape('testYourself'),
+category: 'tests',
+fn: function (){
+var self=this;
+var body=nil;
+body=(function($rec){smalltalk.send($rec, "_addClass_", ["amber"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send("body", "_asJQuery", []));
+smalltalk.send(self, "_assert_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+smalltalk.send(body, "_removeClass_", ["amber"]);
+smalltalk.send(self, "_deny_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+return self;},
+args: [],
+source: unescape('testYourself%0A%09%7Cbody%7C%0A%09body%20%3A%3D%20%27body%27%20asJQuery%0A%09%09%09%09addClass%3A%20%27amber%27%3B%0A%09%09%09%09yourself.%0A%0A%09self%20assert%3A%20%28body%20hasClass%3A%20%27amber%27%29.%0A%0A%09body%20removeClass%3A%20%27amber%27.%0A%09self%20deny%3A%20%28body%20hasClass%3A%20%27amber%27%29.%0A%09'),
+messageSends: ["addClass:", "yourself", "asJQuery", "assert:", "hasClass:", "removeClass:", "deny:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
 
 

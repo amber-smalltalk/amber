@@ -253,5 +253,17 @@ testMethodWithArguments
 
 	'body' asJQuery removeClass: 'amber'.
 	self deny: ('body' asJQuery hasClass: 'amber').
+!
+
+testYourself
+	|body|
+	body := 'body' asJQuery
+				addClass: 'amber';
+				yourself.
+
+	self assert: (body hasClass: 'amber').
+
+	body removeClass: 'amber'.
+	self deny: (body hasClass: 'amber').
 ! !
 
