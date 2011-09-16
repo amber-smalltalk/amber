@@ -2957,11 +2957,12 @@ inspectOn: anInspector
 !
 
 doesNotUnderstand: aMessage
-	| obj selector arguments |
+	| obj selector jsSelector arguments |
 	obj := self jsObject.
 	selector := aMessage selector.
+	jsSelector := (selector asSelector replace: '^_' with: '') replace: '_.*' with: ''.
 	arguments := aMessage arguments.
-	<if(obj[selector]) {return smalltalk.send(obj, selector, arguments)}>.
+	<if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)}>.
 	super doesNotUnderstand: aMessage
 ! !
 

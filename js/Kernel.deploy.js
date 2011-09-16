@@ -5925,11 +5925,13 @@ fn: function (aMessage){
 var self=this;
 var obj=nil;
 var selector=nil;
+var jsSelector=nil;
 var arguments=nil;
 obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
+jsSelector=smalltalk.send(smalltalk.send(smalltalk.send(selector, "_asSelector", []), "_replace_with_", [unescape("%5E_"), ""]), "_replace_with_", [unescape("_.*"), ""]);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[selector]) {return smalltalk.send(obj, selector, arguments)};
+if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;}
 }),
