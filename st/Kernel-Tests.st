@@ -273,5 +273,5 @@ testPropertyThatReturnsEmptyString
 
 	document location hash: 'test'.
 	self assert: '#test' equals: document location hash.
-! !
 
+! !

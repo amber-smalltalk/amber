@@ -548,6 +548,17 @@ return self;}
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_deprecatedAPI',
+smalltalk.method({
+selector: 'deprecatedAPI',
+fn: function (){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21")])]);
+return self;}
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -3988,7 +3999,7 @@ smalltalk.method({
 selector: 'asJavaScriptSelector',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", [unescape("%5E_"), ""]), "_replace_with_", [unescape("_.*"), ""]);
+return String(self.replace(/^_/, '').replace(/_.*/, ''));
 return self;}
 }),
 smalltalk.String);
