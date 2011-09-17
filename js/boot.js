@@ -33,6 +33,19 @@
    |
    ==================================================================== */
 
+/* Make that console is available */
+
+if (typeof console == "undefined") {
+    this.console = {
+	log: function() {},
+	warn: function() {},
+	info: function() {},
+	debug: function() {},
+	error: function() {},
+    };
+}
+
+
 /* Smalltalk constructors definition */
 
 function SmalltalkObject(){};
