@@ -788,6 +788,22 @@ referencedClasses: []
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+unescape('_deprecated_'),
+smalltalk.method({
+selector: unescape('deprecated%3A'),
+category: 'error handling',
+fn: function (aString){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [aString]);
+return self;},
+args: ["aString"],
+source: unescape('deprecated%3A%20aString%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecated%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20would%20in%20the%20future.%22%0A%09console%20warn%3A%20aString'),
+messageSends: ["warn:"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 unescape('_initialize'),

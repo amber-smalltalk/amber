@@ -548,6 +548,17 @@ return self;}
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_deprecated_',
+smalltalk.method({
+selector: 'deprecated:',
+fn: function (aString){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [aString]);
+return self;}
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',

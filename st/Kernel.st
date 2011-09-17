@@ -140,6 +140,13 @@ doesNotUnderstand: aMessage
 
 halt
 	self error: 'Halt encountered'
+!
+
+deprecated: aString
+	"Just a simple way to deprecate methods.
+	#deprecated is in the 'error handling' protocol even if it doesn't throw an error,
+	but it would in the future."
+	console warn: aString
 ! !
 
 !Object methodsFor: 'initialization'!
