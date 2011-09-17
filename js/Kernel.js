@@ -789,17 +789,17 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_deprecated_'),
+unescape('_deprecatedAPI'),
 smalltalk.method({
-selector: unescape('deprecated%3A'),
+selector: unescape('deprecatedAPI'),
 category: 'error handling',
-fn: function (aString){
+fn: function (){
 var self=this;
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [aString]);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21")])]);
 return self;},
-args: ["aString"],
-source: unescape('deprecated%3A%20aString%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecated%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20would%20in%20the%20future.%22%0A%09console%20warn%3A%20aString'),
-messageSends: ["warn:"],
+args: [],
+source: unescape('deprecatedAPI%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecatedAPI%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20could%20in%20the%20future.%22%0A%09console%20warn%3A%20thisContext%20home%20asString%2C%20%27%20is%20deprecated%21%27'),
+messageSends: ["warn:", unescape("%2C"), "asString", "home"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -5691,11 +5691,11 @@ selector: unescape('asJavaScriptSelector'),
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", [unescape("%5E_"), ""]), "_replace_with_", [unescape("_.*"), ""]);
+return String(self.replace(/^_/, '').replace(/_.*/, ''));
 return self;},
 args: [],
-source: unescape('asJavaScriptSelector%0A%09%5E%28self%20asSelector%20replace%3A%20%27%5E_%27%20with%3A%20%27%27%29%20replace%3A%20%27_.*%27%20with%3A%20%27%27.'),
-messageSends: ["replace:with:", "asSelector"],
+source: unescape('asJavaScriptSelector%0A%09%3Creturn%20String%28self.replace%28/%5E_/%2C%20%27%27%29.replace%28/_.*/%2C%20%27%27%29%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);

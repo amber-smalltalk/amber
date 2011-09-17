@@ -142,11 +142,11 @@ halt
 	self error: 'Halt encountered'
 !
 
-deprecated: aString
+deprecatedAPI
 	"Just a simple way to deprecate methods.
-	#deprecated is in the 'error handling' protocol even if it doesn't throw an error,
-	but it would in the future."
-	console warn: aString
+	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
+	but it could in the future."
+	console warn: thisContext home asString, ' is deprecated!!'
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -1793,7 +1793,7 @@ reversed
 !
 
 asJavaScriptSelector
-	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
+	<return String(self.replace(/^_/, '').replace(/_.*/, ''))>
 ! !
 
 !String methodsFor: 'copying'!

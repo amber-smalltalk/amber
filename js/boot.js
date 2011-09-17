@@ -33,7 +33,7 @@
    |
    ==================================================================== */
 
-/* Make that console is available */
+/* Make that console is defined */
 
 if (typeof console == "undefined") {
     this.console = {
