@@ -265,5 +265,13 @@ testYourself
 
 	body removeClass: 'amber'.
 	self deny: (body hasClass: 'amber').
+!
+
+testPropertyThatReturnsEmptyString
+	<document.location.hash = ''>.
+	self assert: '' equals: document location hash.
+
+	document location hash: 'test'.
+	self assert: '#test' equals: document location hash.
 ! !
 

@@ -312,5 +312,34 @@ return self;}
 }),
 smalltalk.JSObjectProxyTest);
 
+smalltalk.addMethod(
+'_testYourself',
+smalltalk.method({
+selector: 'testYourself',
+fn: function (){
+var self=this;
+var body=nil;
+body=(function($rec){smalltalk.send($rec, "_addClass_", ["amber"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send("body", "_asJQuery", []));
+smalltalk.send(self, "_assert_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+smalltalk.send(body, "_removeClass_", ["amber"]);
+smalltalk.send(self, "_deny_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+return self;}
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+'_testPropertyThatReturnsEmptyString',
+smalltalk.method({
+selector: 'testPropertyThatReturnsEmptyString',
+fn: function (){
+var self=this;
+document.location.hash = '';
+smalltalk.send(self, "_assert_equals_", ["", smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", ["test"]);
+smalltalk.send(self, "_assert_equals_", [unescape("%23test"), smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
+return self;}
+}),
+smalltalk.JSObjectProxyTest);
+
 
 

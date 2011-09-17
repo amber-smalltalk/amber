@@ -5964,7 +5964,7 @@ obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
 jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
+if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;}
 }),

@@ -432,5 +432,24 @@ referencedClasses: []
 }),
 smalltalk.JSObjectProxyTest);
 
+smalltalk.addMethod(
+unescape('_testPropertyThatReturnsEmptyString'),
+smalltalk.method({
+selector: unescape('testPropertyThatReturnsEmptyString'),
+category: 'tests',
+fn: function (){
+var self=this;
+document.location.hash = '';
+smalltalk.send(self, "_assert_equals_", ["", smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", ["test"]);
+smalltalk.send(self, "_assert_equals_", [unescape("%23test"), smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
+return self;},
+args: [],
+source: unescape('testPropertyThatReturnsEmptyString%0A%09%3Cdocument.location.hash%20%3D%20%27%27%3E.%0A%09self%20assert%3A%20%27%27%20equals%3A%20document%20location%20hash.%0A%0A%09document%20location%20hash%3A%20%27test%27.%0A%09self%20assert%3A%20%27%23test%27%20equals%3A%20document%20location%20hash.'),
+messageSends: ["assert:equals:", "hash", "location", "hash:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
 
 
