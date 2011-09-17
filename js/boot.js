@@ -35,7 +35,7 @@
 
 /* Make that console is defined */
 
-if (typeof console == "undefined") {
+if (typeof console === "undefined") {
     this.console = {
 	log: function() {},
 	warn: function() {},
