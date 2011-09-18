@@ -61,7 +61,7 @@ selector: 'show',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(self, "_id", [])]);
-(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_animate_duration_", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_", [smalltalk.send("backgroundColor", "__minus_gt", [smalltalk.send(self, "_backgroundColor", [])])]), (500)]);})() : nil;
+(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
 smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
 smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
 return self;}
@@ -247,7 +247,7 @@ selector: 'setup',
 fn: function (){
 var self=this;
 smalltalk.send((smalltalk.Presentation || Presentation), "_setCurrent_", [self]);
-smalltalk.send((smalltalk.JQuery || JQuery), "_documentReady_", [(function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_append_", [self]);return (function($rec){smalltalk.send($rec, "_setKeybindings", []);smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);})]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);return (function($rec){smalltalk.send($rec, "_setKeybindings", []);smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);})]);
 return self;}
 }),
 smalltalk.Presentation);
@@ -293,8 +293,8 @@ smalltalk.method({
 selector: 'setKeybindings',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.JQuery || JQuery), "_document", []), "_on_do_", ["keyup", (function(e){var node=nil;
-node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return (($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){(($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);return (($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){(($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);return (($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})]);})]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
+node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
 return self;}
 }),
 smalltalk.Presentation);
@@ -305,7 +305,7 @@ smalltalk.method({
 selector: 'checkHashChange',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.JQuery || JQuery), "_window", []), "_on_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
 return self;}
 }),
 smalltalk.Presentation);

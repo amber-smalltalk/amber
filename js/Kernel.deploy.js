@@ -548,6 +548,17 @@ return self;}
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+'_deprecatedAPI',
+smalltalk.method({
+selector: 'deprecatedAPI',
+fn: function (){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21")])]);
+return self;}
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 '_initialize',
@@ -739,6 +750,17 @@ pkg=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){retur
 smalltalk.packages[newName] = smalltalk.packages[packageName];
 smalltalk.send(pkg, "_name_", [newName]);
 smalltalk.send(self, "_deletePackage_", [packageName]);
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+'_reservedWords',
+smalltalk.method({
+selector: 'reservedWords',
+fn: function (){
+var self=this;
+return self.reservedWords;
 return self;}
 }),
 smalltalk.Smalltalk);
@@ -3960,6 +3982,17 @@ return self;
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_asJavaScriptSelector',
+smalltalk.method({
+selector: 'asJavaScriptSelector',
+fn: function (){
+var self=this;
+return String(self.replace(/^_/, '').replace(/_.*/, ''));
+return self;}
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -5609,6 +5642,17 @@ return self;}
 }),
 smalltalk.Point);
 
+smalltalk.addMethod(
+'__eq',
+smalltalk.method({
+selector: '=',
+fn: function (aPoint){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);})]);
+return self;}
+}),
+smalltalk.Point);
+
 
 smalltalk.addMethod(
 '_x_y_',
@@ -5903,11 +5947,13 @@ fn: function (aMessage){
 var self=this;
 var obj=nil;
 var selector=nil;
+var jsSelector=nil;
 var arguments=nil;
 obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
+jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[selector]) {return smalltalk.send(obj, selector, arguments)};
+if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;}
 }),

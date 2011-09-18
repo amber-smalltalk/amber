@@ -140,6 +140,13 @@ doesNotUnderstand: aMessage
 
 halt
 	self error: 'Halt encountered'
+!
+
+deprecatedAPI
+	"Just a simple way to deprecate methods.
+	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
+	but it could in the future."
+	console warn: thisContext home asString, ' is deprecated!!'
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -289,6 +296,11 @@ parseError: anException parsing: aString
                   lines withIndexDo: [:l :i |
                      s nextPutAll: i asString, ': ', l, String lf]].
 	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
+!
+
+reservedWords
+	"JavaScript reserved words"
+	<return self.reservedWords>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -1778,6 +1790,10 @@ asUppercase
 
 reversed
 	<return self.split("").reverse().join("")>
+!
+
+asJavaScriptSelector
+	<return String(self.replace(/^_/, '').replace(/_.*/, ''))>
 ! !
 
 !String methodsFor: 'copying'!
@@ -2778,6 +2794,11 @@ x: aNumber
 
 / aPoint
 	^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
+!
+
+= aPoint
+	^aPoint class = self class and: [
+		(aPoint x = self x) & (aPoint y = self y)]
 ! !
 
 !Point methodsFor: 'converting'!
@@ -2947,11 +2968,12 @@ inspectOn: anInspector
 !
 
 doesNotUnderstand: aMessage
-	| obj selector arguments |
+	| obj selector jsSelector arguments |
 	obj := self jsObject.
 	selector := aMessage selector.
+	jsSelector := selector asJavaScriptSelector.
 	arguments := aMessage arguments.
-	<if(obj[selector]) {return smalltalk.send(obj, selector, arguments)}>.
+	<if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)}>.
 	super doesNotUnderstand: aMessage
 ! !
 
