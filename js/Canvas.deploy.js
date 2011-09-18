@@ -418,6 +418,149 @@ return self;}
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_p_',
+smalltalk.method({
+selector: 'p:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_p", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_h1_',
+smalltalk.method({
+selector: 'h1:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h1", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_iframe',
+smalltalk.method({
+selector: 'iframe',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["iframe"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_iframe_',
+smalltalk.method({
+selector: 'iframe:',
+fn: function (aString){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_iframe", []), "_src_", [aString]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_h2_',
+smalltalk.method({
+selector: 'h2:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h2", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_h3_',
+smalltalk.method({
+selector: 'h3:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h3", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_h4_',
+smalltalk.method({
+selector: 'h4:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h4", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_h5_',
+smalltalk.method({
+selector: 'h5:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h5", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_h6_',
+smalltalk.method({
+selector: 'h6:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h6", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_img_',
+smalltalk.method({
+selector: 'img:',
+fn: function (aString){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_img", []), "_src_", [aString]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_ol_',
+smalltalk.method({
+selector: 'ol:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_ol", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_li_',
+smalltalk.method({
+selector: 'li:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_li", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_ul_',
+smalltalk.method({
+selector: 'ul:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_ul", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
@@ -803,6 +946,28 @@ selector: 'createTextNodeFor:',
 fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_width_',
+smalltalk.method({
+selector: 'width:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["width", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_height_',
+smalltalk.method({
+selector: 'height:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["height", aString]);
 return self;}
 }),
 smalltalk.TagBrush);

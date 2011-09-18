@@ -161,6 +161,58 @@ link
 
 style
 	^self tag: 'style'
+!
+
+p: anObject
+    ^self p with: anObject
+!
+
+h1: anObject
+    ^self h1 with: anObject
+!
+
+iframe
+    ^self tag: 'iframe'
+!
+
+iframe: aString
+    ^self iframe src: aString
+!
+
+h2: anObject
+    ^ self h2 with: anObject
+!
+
+h3: anObject
+    ^self h3 with: anObject
+!
+
+h4: anObject
+    ^self h4 with: anObject
+!
+
+h5: anObject
+    ^self h5 with: anObject
+!
+
+h6: anObject
+    ^self h6 with: anObject
+!
+
+img: aString
+    ^self img src: aString
+!
+
+ol: anObject
+    ^self ol with: anObject
+!
+
+li: anObject
+    ^self li with: anObject
+!
+
+ul: anObject
+    ^self ul with: anObject
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -277,6 +329,14 @@ media: aString
 
 rel: aString
     self  at: 'rel' put: aString
+!
+
+width: aString
+    self  at: 'width' put: aString
+!
+
+height: aString
+    self  at: 'height' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!
@@ -422,3 +482,4 @@ appendToJQuery: aJQuery
 appendToBrush: aTagBrush
     aTagBrush appendString: self
 ! !
+
