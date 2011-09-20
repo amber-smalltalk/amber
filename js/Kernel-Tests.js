@@ -68,6 +68,22 @@ referencedClasses: []
 }),
 smalltalk.StringTest);
 
+smalltalk.addMethod(
+unescape('_testCopyWithoutAll'),
+smalltalk.method({
+selector: unescape('testCopyWithoutAll'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send(unescape("*hello*%20*world*"), "_copyWithoutAll_", [unescape("*")])]);
+return self;},
+args: [],
+source: unescape('testCopyWithoutAll%0A%09self%20%0A%09%09assert%3A%20%27hello%20world%27%20%0A%09%09equals%3A%20%28%27*hello*%20*world*%27%20copyWithoutAll%3A%20%27*%27%29'),
+messageSends: ["assert:equals:", "copyWithoutAll:"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
 
 
 smalltalk.addClass('DictionaryTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -223,6 +239,34 @@ smalltalk.BooleanTest);
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
+unescape('_testPrintShowingDecimalPlaces'),
+smalltalk.method({
+selector: unescape('testPrintShowingDecimalPlaces'),
+category: 'not yet classified',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["23.00", smalltalk.send((23), "_printShowingDecimalPlaces_", [(2)])]);
+smalltalk.send(self, "_assert_equals_", ["23.57", smalltalk.send((23.5698), "_printShowingDecimalPlaces_", [(2)])]);
+smalltalk.send(self, "_assert_equals_", [unescape("-234.56700"), smalltalk.send(smalltalk.send((234.567), "_negated", []), "_printShowingDecimalPlaces_", [(5)])]);
+smalltalk.send(self, "_assert_equals_", ["23", smalltalk.send((23.4567), "_printShowingDecimalPlaces_", [(0)])]);
+smalltalk.send(self, "_assert_equals_", ["24", smalltalk.send((23.5567), "_printShowingDecimalPlaces_", [(0)])]);
+smalltalk.send(self, "_assert_equals_", [unescape("-23"), smalltalk.send(smalltalk.send((23.4567), "_negated", []), "_printShowingDecimalPlaces_", [(0)])]);
+smalltalk.send(self, "_assert_equals_", [unescape("-24"), smalltalk.send(smalltalk.send((23.5567), "_negated", []), "_printShowingDecimalPlaces_", [(0)])]);
+smalltalk.send(self, "_assert_equals_", ["100000000.0", smalltalk.send((100000000), "_printShowingDecimalPlaces_", [(1)])]);
+smalltalk.send(self, "_assert_equals_", ["0.98000", smalltalk.send((0.98), "_printShowingDecimalPlaces_", [(5)])]);
+smalltalk.send(self, "_assert_equals_", [unescape("-0.98"), smalltalk.send(smalltalk.send((0.98), "_negated", []), "_printShowingDecimalPlaces_", [(2)])]);
+smalltalk.send(self, "_assert_equals_", ["2.57", smalltalk.send((2.567), "_printShowingDecimalPlaces_", [(2)])]);
+smalltalk.send(self, "_assert_equals_", [unescape("-2.57"), smalltalk.send((-2.567), "_printShowingDecimalPlaces_", [(2)])]);
+smalltalk.send(self, "_assert_equals_", ["0.00", smalltalk.send((0), "_printShowingDecimalPlaces_", [(2)])]);
+return self;},
+args: [],
+source: unescape('testPrintShowingDecimalPlaces%0A%09self%20assert%3A%20%2723.00%27%20equals%3A%20%2823%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%2723.57%27%20equals%3A%20%2823.5698%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%27-234.56700%27%20equals%3A%28%20234.567%20negated%20printShowingDecimalPlaces%3A%205%29.%0A%09self%20assert%3A%20%2723%27%20equals%3A%20%2823.4567%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%2724%27%20equals%3A%20%2823.5567%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%27-23%27%20equals%3A%20%2823.4567%20negated%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%27-24%27%20equals%3A%20%2823.5567%20negated%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%27100000000.0%27%20equals%3A%20%28100000000%20printShowingDecimalPlaces%3A%201%29.%0A%09self%20assert%3A%20%270.98000%27%20equals%3A%20%280.98%20printShowingDecimalPlaces%3A%205%29.%0A%09self%20assert%3A%20%27-0.98%27%20equals%3A%20%280.98%20negated%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%272.57%27%20equals%3A%20%282.567%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%27-2.57%27%20equals%3A%20%28-2.567%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%270.00%27%20equals%3A%20%280%20printShowingDecimalPlaces%3A%202%29.'),
+messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
 unescape('_testEquality'),
 smalltalk.method({
 selector: unescape('testEquality'),
@@ -345,33 +389,67 @@ referencedClasses: []
 }),
 smalltalk.NumberTest);
 
+
+
+smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testPrintShowingDecimalPlaces'),
+unescape('_testMethodWithArguments'),
 smalltalk.method({
-selector: unescape('testPrintShowingDecimalPlaces'),
-category: 'not yet classified',
+selector: unescape('testMethodWithArguments'),
+category: 'tests',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_equals_", ["23.00", smalltalk.send((23), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", ["23.57", smalltalk.send((23.5698), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-234.56700"), smalltalk.send(smalltalk.send((234.567), "_negated", []), "_printShowingDecimalPlaces_", [(5)])]);
-smalltalk.send(self, "_assert_equals_", ["23", smalltalk.send((23.4567), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", ["24", smalltalk.send((23.5567), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-23"), smalltalk.send(smalltalk.send((23.4567), "_negated", []), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-24"), smalltalk.send(smalltalk.send((23.5567), "_negated", []), "_printShowingDecimalPlaces_", [(0)])]);
-smalltalk.send(self, "_assert_equals_", ["100000000.0", smalltalk.send((100000000), "_printShowingDecimalPlaces_", [(1)])]);
-smalltalk.send(self, "_assert_equals_", ["0.98000", smalltalk.send((0.98), "_printShowingDecimalPlaces_", [(5)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-0.98"), smalltalk.send(smalltalk.send((0.98), "_negated", []), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", ["2.57", smalltalk.send((2.567), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", [unescape("-2.57"), smalltalk.send((-2.567), "_printShowingDecimalPlaces_", [(2)])]);
-smalltalk.send(self, "_assert_equals_", ["0.00", smalltalk.send((0), "_printShowingDecimalPlaces_", [(2)])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
+smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["amber"]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
+smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["amber"]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
 return self;},
 args: [],
-source: unescape('testPrintShowingDecimalPlaces%0A%09self%20assert%3A%20%2723.00%27%20equals%3A%20%2823%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%2723.57%27%20equals%3A%20%2823.5698%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%27-234.56700%27%20equals%3A%28%20234.567%20negated%20printShowingDecimalPlaces%3A%205%29.%0A%09self%20assert%3A%20%2723%27%20equals%3A%20%2823.4567%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%2724%27%20equals%3A%20%2823.5567%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%27-23%27%20equals%3A%20%2823.4567%20negated%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%27-24%27%20equals%3A%20%2823.5567%20negated%20printShowingDecimalPlaces%3A%200%29.%0A%09self%20assert%3A%20%27100000000.0%27%20equals%3A%20%28100000000%20printShowingDecimalPlaces%3A%201%29.%0A%09self%20assert%3A%20%270.98000%27%20equals%3A%20%280.98%20printShowingDecimalPlaces%3A%205%29.%0A%09self%20assert%3A%20%27-0.98%27%20equals%3A%20%280.98%20negated%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%272.57%27%20equals%3A%20%282.567%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%27-2.57%27%20equals%3A%20%28-2.567%20printShowingDecimalPlaces%3A%202%29.%0A%09self%20assert%3A%20%270.00%27%20equals%3A%20%280%20printShowingDecimalPlaces%3A%202%29.'),
-messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"],
+source: unescape('testMethodWithArguments%0A%09self%20deny%3A%20%28%27body%27%20asJQuery%20hasClass%3A%20%27amber%27%29.%0A%0A%09%27body%27%20asJQuery%20addClass%3A%20%27amber%27.%0A%09self%20assert%3A%20%28%27body%27%20asJQuery%20hasClass%3A%20%27amber%27%29.%0A%0A%09%27body%27%20asJQuery%20removeClass%3A%20%27amber%27.%0A%09self%20deny%3A%20%28%27body%27%20asJQuery%20hasClass%3A%20%27amber%27%29.'),
+messageSends: ["deny:", "hasClass:", "asJQuery", "addClass:", "assert:", "removeClass:"],
 referencedClasses: []
 }),
-smalltalk.NumberTest);
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+unescape('_testYourself'),
+smalltalk.method({
+selector: unescape('testYourself'),
+category: 'tests',
+fn: function (){
+var self=this;
+var body=nil;
+body=(function($rec){smalltalk.send($rec, "_addClass_", ["amber"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send("body", "_asJQuery", []));
+smalltalk.send(self, "_assert_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+smalltalk.send(body, "_removeClass_", ["amber"]);
+smalltalk.send(self, "_deny_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+return self;},
+args: [],
+source: unescape('testYourself%0A%09%7Cbody%7C%0A%09body%20%3A%3D%20%27body%27%20asJQuery%0A%09%09%09%09addClass%3A%20%27amber%27%3B%0A%09%09%09%09yourself.%0A%0A%09self%20assert%3A%20%28body%20hasClass%3A%20%27amber%27%29.%0A%0A%09body%20removeClass%3A%20%27amber%27.%0A%09self%20deny%3A%20%28body%20hasClass%3A%20%27amber%27%29.'),
+messageSends: ["addClass:", "yourself", "asJQuery", "assert:", "hasClass:", "removeClass:", "deny:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+unescape('_testPropertyThatReturnsEmptyString'),
+smalltalk.method({
+selector: unescape('testPropertyThatReturnsEmptyString'),
+category: 'tests',
+fn: function (){
+var self=this;
+document.location.hash = '';
+smalltalk.send(self, "_assert_equals_", ["", smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", ["test"]);
+smalltalk.send(self, "_assert_equals_", [unescape("%23test"), smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
+return self;},
+args: [],
+source: unescape('testPropertyThatReturnsEmptyString%0A%09%3Cdocument.location.hash%20%3D%20%27%27%3E.%0A%09self%20assert%3A%20%27%27%20equals%3A%20document%20location%20hash.%0A%0A%09document%20location%20hash%3A%20%27test%27.%0A%09self%20assert%3A%20%27%23test%27%20equals%3A%20document%20location%20hash.'),
+messageSends: ["assert:equals:", "hash", "location", "hash:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
 
 
 

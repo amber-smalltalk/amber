@@ -4,3 +4,6 @@ examples/webos/**/*.js
 
 # Ignoring compiled files in st
 st/*.js
+
+# In case amber is also saved in a local Subversion
+.svn

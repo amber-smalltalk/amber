@@ -1430,6 +1430,13 @@ copyWith: anObject
 
 copyWithAll: aCollection
 	^self copy addAll: aCollection; yourself
+!
+
+copyWithoutAll: aCollection
+	"Answer a copy of the receiver that does not contain any elements 
+	equal to those in aCollection."
+
+	^ self reject: [:each | aCollection includes: each]
 ! !
 
 !Collection methodsFor: 'enumerating'!
@@ -1793,7 +1800,7 @@ reversed
 !
 
 asJavaScriptSelector
-	<return String(self.replace(/^_/, '').replace(/_.*/, ''))>
+	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
 ! !
 
 !String methodsFor: 'copying'!
@@ -2838,6 +2845,17 @@ arguments
 	^arguments
 ! !
 
+!Message methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  				aStream 
+                                  					nextPutAll: super printString;
+                                  					nextPutAll: '(';
+                                  					nextPutAll: selector;
+                                  					nextPutAll: ')' 				]
+! !
+
 !Message class methodsFor: 'instance creation'!
 
 selector: aString arguments: anArray
@@ -2973,7 +2991,7 @@ doesNotUnderstand: aMessage
 	selector := aMessage selector.
 	jsSelector := selector asJavaScriptSelector.
 	arguments := aMessage arguments.
-	<if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)}>.
+	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
 	super doesNotUnderstand: aMessage
 ! !
 

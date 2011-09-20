@@ -608,6 +608,214 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+unescape('_p_'),
+smalltalk.method({
+selector: unescape('p%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_p", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('p%3A%20anObject%0A%20%20%20%20%5Eself%20p%20with%3A%20anObject'),
+messageSends: ["with:", "p"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_h1_'),
+smalltalk.method({
+selector: unescape('h1%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h1", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('h1%3A%20anObject%0A%20%20%20%20%5Eself%20h1%20with%3A%20anObject'),
+messageSends: ["with:", "h1"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_iframe'),
+smalltalk.method({
+selector: unescape('iframe'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["iframe"]);
+return self;},
+args: [],
+source: unescape('iframe%0A%20%20%20%20%5Eself%20tag%3A%20%27iframe%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_iframe_'),
+smalltalk.method({
+selector: unescape('iframe%3A'),
+category: 'tags',
+fn: function (aString){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_iframe", []), "_src_", [aString]);
+return self;},
+args: ["aString"],
+source: unescape('iframe%3A%20aString%0A%20%20%20%20%5Eself%20iframe%20src%3A%20aString'),
+messageSends: ["src:", "iframe"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_h2_'),
+smalltalk.method({
+selector: unescape('h2%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h2", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('h2%3A%20anObject%0A%20%20%20%20%5E%20self%20h2%20with%3A%20anObject'),
+messageSends: ["with:", "h2"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_h3_'),
+smalltalk.method({
+selector: unescape('h3%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h3", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('h3%3A%20anObject%0A%20%20%20%20%5Eself%20h3%20with%3A%20anObject'),
+messageSends: ["with:", "h3"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_h4_'),
+smalltalk.method({
+selector: unescape('h4%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h4", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('h4%3A%20anObject%0A%20%20%20%20%5Eself%20h4%20with%3A%20anObject'),
+messageSends: ["with:", "h4"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_h5_'),
+smalltalk.method({
+selector: unescape('h5%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h5", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('h5%3A%20anObject%0A%20%20%20%20%5Eself%20h5%20with%3A%20anObject'),
+messageSends: ["with:", "h5"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_h6_'),
+smalltalk.method({
+selector: unescape('h6%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_h6", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('h6%3A%20anObject%0A%20%20%20%20%5Eself%20h6%20with%3A%20anObject'),
+messageSends: ["with:", "h6"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_img_'),
+smalltalk.method({
+selector: unescape('img%3A'),
+category: 'tags',
+fn: function (aString){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_img", []), "_src_", [aString]);
+return self;},
+args: ["aString"],
+source: unescape('img%3A%20aString%0A%20%20%20%20%5Eself%20img%20src%3A%20aString'),
+messageSends: ["src:", "img"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_ol_'),
+smalltalk.method({
+selector: unescape('ol%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_ol", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('ol%3A%20anObject%0A%20%20%20%20%5Eself%20ol%20with%3A%20anObject'),
+messageSends: ["with:", "ol"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_li_'),
+smalltalk.method({
+selector: unescape('li%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_li", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('li%3A%20anObject%0A%20%20%20%20%5Eself%20li%20with%3A%20anObject'),
+messageSends: ["with:", "li"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_ul_'),
+smalltalk.method({
+selector: unescape('ul%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_ul", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('ul%3A%20anObject%0A%20%20%20%20%5Eself%20ul%20with%3A%20anObject'),
+messageSends: ["with:", "ul"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 unescape('_onJQuery_'),
@@ -1163,6 +1371,38 @@ return self;},
 args: ["aString"],
 source: unescape('createTextNodeFor%3A%20aString%0A%09%3Creturn%20document.createTextNode%28String%28aString%29%29%3E'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_width_'),
+smalltalk.method({
+selector: unescape('width%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["width", aString]);
+return self;},
+args: ["aString"],
+source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_height_'),
+smalltalk.method({
+selector: unescape('height%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["height", aString]);
+return self;},
+args: ["aString"],
+source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
