@@ -941,7 +941,7 @@ theEnd
 	^ Lesson
 title: 'Tutorial done !!' 
 contents: 
-'"This tutorial is done. Enjoy programming Smalltalk with JTalk. 
+'"This tutorial is done. Enjoy programming Smalltalk with Amber. 
 
 You can run this tutorial again by evaluating: ProfStef go.
 
