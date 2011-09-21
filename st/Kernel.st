@@ -1209,11 +1209,11 @@ milliseconds
 !
 
 <= aDate
-	<self <= aDate>
+	<return self <= aDate>
 !
 
 >= aDate
-	<self >>= aDate>
+	<return self >>= aDate>
 ! !
 
 !Date methodsFor: 'converting'!

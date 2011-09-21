@@ -2541,7 +2541,7 @@ smalltalk.method({
 selector: '<=',
 fn: function (aDate){
 var self=this;
-self <= aDate;
+return self <= aDate;
 return self;}
 }),
 smalltalk.Date);
@@ -2552,7 +2552,7 @@ smalltalk.method({
 selector: '>=',
 fn: function (aDate){
 var self=this;
-self >= aDate;
+return self >= aDate;
 return self;}
 }),
 smalltalk.Date);
