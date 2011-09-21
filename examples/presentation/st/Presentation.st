@@ -120,7 +120,8 @@ style
 reload
 	'#slides' asJQuery remove.
 	'#tools' asJQuery remove.
-	'body' asJQuery append: self.
+	self initSlides.
+	self appendToJQuery: 'body' asJQuery.
 	self checkHash
 !
 
@@ -146,7 +147,9 @@ nextSlide
 showCurrentSlide
 	self currentSlide ifNotNil: [
 		'.slide' asJQuery hide.
-		('#', self currentSlide id) asJQuery show]
+		('#', self currentSlide id) asJQuery show.
+          	'title' asJQuery text: self title, ' - ', self currentSlide id.
+        ]
 !
 
 previousSlide

@@ -30,6 +30,12 @@ testEquality
 
 	"test JS falsy value"
 	self deny: '' = 0
+!
+
+testCopyWithoutAll
+	self 
+		assert: 'hello world' 
+		equals: ('*hello* *world*' copyWithoutAll: '*')
 ! !
 
 TestCase subclass: #DictionaryTest
@@ -148,6 +154,24 @@ TestCase subclass: #NumberTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
+!NumberTest methodsFor: 'not yet classified'!
+
+testPrintShowingDecimalPlaces
+	self assert: '23.00' equals: (23 printShowingDecimalPlaces: 2).
+	self assert: '23.57' equals: (23.5698 printShowingDecimalPlaces: 2).
+	self assert: '-234.56700' equals:( 234.567 negated printShowingDecimalPlaces: 5).
+	self assert: '23' equals: (23.4567 printShowingDecimalPlaces: 0).
+	self assert: '24' equals: (23.5567 printShowingDecimalPlaces: 0).
+	self assert: '-23' equals: (23.4567 negated printShowingDecimalPlaces: 0).
+	self assert: '-24' equals: (23.5567 negated printShowingDecimalPlaces: 0).
+	self assert: '100000000.0' equals: (100000000 printShowingDecimalPlaces: 1).
+	self assert: '0.98000' equals: (0.98 printShowingDecimalPlaces: 5).
+	self assert: '-0.98' equals: (0.98 negated printShowingDecimalPlaces: 2).
+	self assert: '2.57' equals: (2.567 printShowingDecimalPlaces: 2).
+	self assert: '-2.57' equals: (-2.567 printShowingDecimalPlaces: 2).
+	self assert: '0.00' equals: (0 printShowingDecimalPlaces: 2).
+! !
+
 !NumberTest methodsFor: 'tests'!
 
 testEquality
@@ -215,25 +239,39 @@ testTruncated
 	self assert: 3.51 truncated = 3
 ! !
 
-TestCase subclass: #NumberTest
+TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
-!NumberTest methodsFor: 'not yet classified'!
+!JSObjectProxyTest methodsFor: 'tests'!
 
-testPrintShowingDecimalPlaces
-	self assert: '23.00' equals: (23 printShowingDecimalPlaces: 2).
-	self assert: '23.57' equals: (23.5698 printShowingDecimalPlaces: 2).
-	self assert: '-234.56700' equals:( 234.567 negated printShowingDecimalPlaces: 5).
-	self assert: '23' equals: (23.4567 printShowingDecimalPlaces: 0).
-	self assert: '24' equals: (23.5567 printShowingDecimalPlaces: 0).
-	self assert: '-23' equals: (23.4567 negated printShowingDecimalPlaces: 0).
-	self assert: '-24' equals: (23.5567 negated printShowingDecimalPlaces: 0).
-	self assert: '100000000.0' equals: (100000000 printShowingDecimalPlaces: 1).
-	self assert: '0.98000' equals: (0.98 printShowingDecimalPlaces: 5).
-	self assert: '-0.98' equals: (0.98 negated printShowingDecimalPlaces: 2).
-	self assert: '2.57' equals: (2.567 printShowingDecimalPlaces: 2).
-	self assert: '-2.57' equals: (-2.567 printShowingDecimalPlaces: 2).
-	self assert: '0.00' equals: (0 printShowingDecimalPlaces: 2).
+testMethodWithArguments
+	self deny: ('body' asJQuery hasClass: 'amber').
+
+	'body' asJQuery addClass: 'amber'.
+	self assert: ('body' asJQuery hasClass: 'amber').
+
+	'body' asJQuery removeClass: 'amber'.
+	self deny: ('body' asJQuery hasClass: 'amber').
+!
+
+testYourself
+	|body|
+	body := 'body' asJQuery
+				addClass: 'amber';
+				yourself.
+
+	self assert: (body hasClass: 'amber').
+
+	body removeClass: 'amber'.
+	self deny: (body hasClass: 'amber').
+!
+
+testPropertyThatReturnsEmptyString
+	<document.location.hash = ''>.
+	self assert: '' equals: document location hash.
+
+	document location hash: 'test'.
+	self assert: '#test' equals: document location hash.
+
 ! !
-

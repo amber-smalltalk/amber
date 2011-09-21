@@ -4491,6 +4491,22 @@ referencedClasses: []
 }),
 smalltalk.Collection);
 
+smalltalk.addMethod(
+unescape('_copyWithoutAll_'),
+smalltalk.method({
+selector: unescape('copyWithoutAll%3A'),
+category: 'copying',
+fn: function (aCollection){
+var self=this;
+return smalltalk.send(self, "_reject_", [(function(each){return smalltalk.send(aCollection, "_includes_", [each]);})]);
+return self;},
+args: ["aCollection"],
+source: unescape('copyWithoutAll%3A%20aCollection%0A%09%22Answer%20a%20copy%20of%20the%20receiver%20that%20does%20not%20contain%20any%20elements%20%0A%09equal%20to%20those%20in%20aCollection.%22%0A%0A%09%5E%20self%20reject%3A%20%5B%3Aeach%20%7C%20aCollection%20includes%3A%20each%5D'),
+messageSends: ["reject:", "includes:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
 
 smalltalk.addMethod(
 unescape('_streamClass'),
@@ -5691,11 +5707,11 @@ selector: unescape('asJavaScriptSelector'),
 category: 'converting',
 fn: function (){
 var self=this;
-return String(self.replace(/^_/, '').replace(/_.*/, ''));
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", [unescape("%5E_"), ""]), "_replace_with_", [unescape("_.*"), ""]);
 return self;},
 args: [],
-source: unescape('asJavaScriptSelector%0A%09%3Creturn%20String%28self.replace%28/%5E_/%2C%20%27%27%29.replace%28/_.*/%2C%20%27%27%29%29%3E'),
-messageSends: [],
+source: unescape('asJavaScriptSelector%0A%09%5E%28self%20asSelector%20replace%3A%20%27%5E_%27%20with%3A%20%27%27%29%20replace%3A%20%27_.*%27%20with%3A%20%27%27.'),
+messageSends: ["replace:with:", "asSelector"],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -8138,6 +8154,22 @@ referencedClasses: []
 }),
 smalltalk.Message);
 
+smalltalk.addMethod(
+unescape('_printString'),
+smalltalk.method({
+selector: unescape('printString'),
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);smalltalk.send($rec, "_nextPutAll_", [self['@selector']]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%29")]);})(aStream);})]);
+return self;},
+args: [],
+source: unescape('printString%0A%09%5E%20String%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20super%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27%28%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20selector%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27%29%27%20%09%09%09%09%5D'),
+messageSends: ["streamContents:", "nextPutAll:", "printString"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.Message);
+
 
 smalltalk.addMethod(
 unescape('_selector_arguments_'),
@@ -8476,11 +8508,11 @@ obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
 jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
+if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;},
 args: ["aMessage"],
-source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20jsSelector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09jsSelector%20%3A%3D%20selector%20asJavaScriptSelector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5BjsSelector%5D%29%20%7Breturn%20smalltalk.send%28obj%2C%20jsSelector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
+source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20jsSelector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09jsSelector%20%3A%3D%20selector%20asJavaScriptSelector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5BjsSelector%5D%20%21%3D%20undefined%29%20%7Breturn%20smalltalk.send%28obj%2C%20jsSelector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
 messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
 referencedClasses: []
 }),

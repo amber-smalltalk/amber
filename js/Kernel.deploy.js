@@ -3144,6 +3144,17 @@ return self;}
 }),
 smalltalk.Collection);
 
+smalltalk.addMethod(
+'_copyWithoutAll_',
+smalltalk.method({
+selector: 'copyWithoutAll:',
+fn: function (aCollection){
+var self=this;
+return smalltalk.send(self, "_reject_", [(function(each){return smalltalk.send(aCollection, "_includes_", [each]);})]);
+return self;}
+}),
+smalltalk.Collection);
+
 
 smalltalk.addMethod(
 '_streamClass',
@@ -5711,6 +5722,17 @@ return self;}
 }),
 smalltalk.Message);
 
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);smalltalk.send($rec, "_nextPutAll_", [self['@selector']]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%29")]);})(aStream);})]);
+return self;}
+}),
+smalltalk.Message);
+
 
 smalltalk.addMethod(
 '_selector_arguments_',
@@ -5953,7 +5975,7 @@ obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
 jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
+if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;}
 }),
