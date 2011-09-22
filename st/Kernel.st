@@ -817,7 +817,6 @@ to: aNumber
 	first := self truncated.
 	last := aNumber truncated + 1.
 	count := 1.
-	(first <= last) ifFalse: [self error: 'Wrong interval'].
 	array := Array new.
 	(last - first) timesRepeat: [
 	    array at: count put: first.
@@ -848,6 +847,37 @@ asPoint
 
 asJSONObject
 	^self
+!
+
+to: stop by: step
+	| array value pos |
+	value := self.
+	array := Array new.
+	pos := 1.
+	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step < 0
+		ifTrue: [[ value >= stop ] whileTrue: [
+	    			array at: pos put: value.
+	    			pos := pos + 1.
+	    			value := value + step]]
+		ifFalse: [[ value <= stop ] whileTrue: [
+	    			array at: pos put: value.
+	  			pos := pos + 1.
+	    			value := value + step]].
+	^array
+!
+
+to: stop by: step do: aBlock
+	| value |
+	value := self.
+	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step < 0
+		ifTrue: [[ value >= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
+		ifFalse: [[ value <= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
 ! !
 
 !Number methodsFor: 'enumerating'!
@@ -861,8 +891,14 @@ timesRepeat: aBlock
 	    count := count + 1]
 !
 
-to: aNumber do: aBlock
-	^(self to: aNumber) do: aBlock
+to: stop do: aBlock
+	"Evaluate aBlock for each number from self to aNumber."
+	| nextValue |
+	nextValue := self.
+	[nextValue <= stop]
+		whileTrue: 
+			[aBlock value: nextValue.
+			nextValue := nextValue + 1]
 ! !
 
 !Number methodsFor: 'printing'!
