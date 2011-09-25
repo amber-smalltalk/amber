@@ -172,11 +172,11 @@ selector: unescape('title'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return "Slides";
+return smalltalk.send(smalltalk.send(self, "_class", []), "_title", []);
 return self;},
 args: [],
-source: unescape('title%0A%09%5E%27Slides%27'),
-messageSends: [],
+source: unescape('title%0A%09%5E%20self%20class%20title.'),
+messageSends: ["title", "class"],
 referencedClasses: []
 }),
 smalltalk.Presentation);
@@ -343,43 +343,6 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-unescape('_reload'),
-smalltalk.method({
-selector: unescape('reload'),
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(unescape("%23slides"), "_asJQuery", []), "_remove", []);
-smalltalk.send(smalltalk.send(unescape("%23tools"), "_asJQuery", []), "_remove", []);
-smalltalk.send(self, "_initSlides", []);
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
-smalltalk.send(self, "_checkHash", []);
-return self;},
-args: [],
-source: unescape('reload%0A%09%27%23slides%27%20asJQuery%20remove.%0A%09%27%23tools%27%20asJQuery%20remove.%0A%09self%20initSlides.%0A%09self%20appendToJQuery%3A%20%27body%27%20asJQuery.%0A%09self%20checkHash'),
-messageSends: ["remove", "asJQuery", "initSlides", "appendToJQuery:", "checkHash"],
-referencedClasses: []
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_setup'),
-smalltalk.method({
-selector: unescape('setup'),
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send((smalltalk.Presentation || Presentation), "_setCurrent_", [self]);
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);return (function($rec){smalltalk.send($rec, "_setKeybindings", []);smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);})]);
-return self;},
-args: [],
-source: unescape('setup%0A%09Presentation%20setCurrent%3A%20self.%0A%09%28window%20jQuery%3A%20document%29%20ready%3A%20%5B%0A%09%09self%20appendToJQuery%3A%20%27body%27%20asJQuery.%0A%09%09self%20%0A%09%09%09setKeybindings%3B%0A%09%09%09checkHashChange%3B%0A%09%09%09checkHash%5D.'),
-messageSends: ["setCurrent:", "ready:", "jQuery:", "appendToJQuery:", "asJQuery", "setKeybindings", "checkHashChange", "checkHash"],
-referencedClasses: [smalltalk.Presentation]
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
 unescape('_nextSlide'),
 smalltalk.method({
 selector: unescape('nextSlide'),
@@ -430,39 +393,6 @@ referencedClasses: []
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-unescape('_setKeybindings'),
-smalltalk.method({
-selector: unescape('setKeybindings'),
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
-node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
-return self;},
-args: [],
-source: unescape('setKeybindings%0A%09%28window%20jQuery%3A%20document%29%20keyup%3A%20%5B%3Ae%20%7C%7C%20node%20%7C%0A%09%09node%20%3A%3D%20e%20target%20nodeName%20asLowercase.%0A%09%09%28node%20%3D%20%27textarea%27%20or%3A%20%5Bnode%20%3D%20%27input%27%5D%29%20ifFalse%3A%20%5B%0A%09%09%09e%20keyCode%20%3D%2039%20ifTrue%3A%20%5Bself%20nextSlide%5D.%0A%09%09%09e%20keyCode%20%3D%2037%20ifTrue%3A%20%5Bself%20previousSlide%5D%5D%5D'),
-messageSends: ["keyup:", "jQuery:", "asLowercase", "nodeName", "target", "ifFalse:", "or:", unescape("%3D"), "ifTrue:", "keyCode", "nextSlide", "previousSlide"],
-referencedClasses: []
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_checkHashChange'),
-smalltalk.method({
-selector: unescape('checkHashChange'),
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
-return self;},
-args: [],
-source: unescape('checkHashChange%0A%09%28window%20jQuery%3A%20window%29%20bind%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
-messageSends: ["bind:do:", "jQuery:", "checkHash"],
-referencedClasses: []
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
 unescape('_checkHash'),
 smalltalk.method({
 selector: unescape('checkHash'),
@@ -506,12 +436,11 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
-(function($rec){smalltalk.send($rec, "_id_", ["tools"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderToolsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 (function($rec){smalltalk.send($rec, "_id_", ["slides"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderSlidesOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;},
 args: ["html"],
-source: unescape('renderOn%3A%20html%0A%09html%20style%0A%09%09type%3A%20%27text/css%27%3B%0A%09%09with%3A%20self%20style.%0A%09html%20div%20%0A%09%09id%3A%20%27tools%27%3B%0A%09%09with%3A%20%5Bself%20renderToolsOn%3A%20html%5D.%0A%09html%20div%20%0A%09%09id%3A%20%27slides%27%3B%0A%09%09with%3A%20%5Bself%20renderSlidesOn%3A%20html%5D'),
-messageSends: ["type:", "with:", "style", "id:", "renderToolsOn:", "div", "renderSlidesOn:"],
+source: unescape('renderOn%3A%20html%0A%09html%20style%0A%09%09type%3A%20%27text/css%27%3B%0A%09%09with%3A%20self%20style.%0A%09html%20div%20%0A%09%09id%3A%20%27slides%27%3B%0A%09%09with%3A%20%5Bself%20renderSlidesOn%3A%20html%5D'),
+messageSends: ["type:", "with:", "style", "id:", "renderSlidesOn:", "div"],
 referencedClasses: []
 }),
 smalltalk.Presentation);
@@ -534,91 +463,8 @@ referencedClasses: []
 }),
 smalltalk.Presentation);
 
-smalltalk.addMethod(
-unescape('_renderToolsOn_'),
-smalltalk.method({
-selector: unescape('renderToolsOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_with_", ["IDE"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_open", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", ["Reload"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_reload", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2190")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2192")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);})(smalltalk.send(html, "_a", []));
-return self;},
-args: ["html"],
-source: unescape('renderToolsOn%3A%20html%0A%09html%20a%20%0A%09%09with%3A%20%27IDE%27%3B%0A%09%09onClick%3A%20%5BTabManager%20current%20open%5D.%0A%09html%20a%0A%09%09with%3A%20%27Reload%27%3B%0A%09%09onClick%3A%20%5Bself%20reload%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2190%27%3B%0A%09%09onClick%3A%20%5Bself%20previousSlide%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2192%27%3B%0A%09%09onClick%3A%20%5Bself%20nextSlide%5D'),
-messageSends: ["with:", "onClick:", "open", "current", "a", "reload", "previousSlide", "nextSlide"],
-referencedClasses: []
-}),
-smalltalk.Presentation);
-
 
 smalltalk.Presentation.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-unescape('_initialize'),
-smalltalk.method({
-selector: unescape('initialize'),
-category: 'initialization',
-fn: function (){
-var self=this;
-((($receiver = smalltalk.send(self, "_isConcrete", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_setup", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_setup", []);})]));
-return self;},
-args: [],
-source: unescape('initialize%0A%09self%20isConcrete%20ifTrue%3A%20%5Bself%20setup%5D'),
-messageSends: ["ifTrue:", "isConcrete", "setup"],
-referencedClasses: []
-}),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-unescape('_setup'),
-smalltalk.method({
-selector: unescape('setup'),
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_new", []), "_setup", []);
-return self;},
-args: [],
-source: unescape('setup%0A%09self%20new%20setup'),
-messageSends: ["setup", "new"],
-referencedClasses: []
-}),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-unescape('_setCurrent_'),
-smalltalk.method({
-selector: unescape('setCurrent%3A'),
-category: 'initialization',
-fn: function (aSlides){
-var self=this;
-self['@current']=aSlides;
-return self;},
-args: ["aSlides"],
-source: unescape('setCurrent%3A%20aSlides%0A%09current%20%3A%3D%20aSlides'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-unescape('_current'),
-smalltalk.method({
-selector: unescape('current'),
-category: 'initialization',
-fn: function (){
-var self=this;
-return self['@current'];
-return self;},
-args: [],
-source: unescape('current%0A%09%5Ecurrent'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Presentation.klass);
-
 smalltalk.addMethod(
 unescape('_isConcrete'),
 smalltalk.method({
@@ -635,8 +481,22 @@ referencedClasses: []
 }),
 smalltalk.Presentation.klass);
 
+smalltalk.addMethod(
+unescape('_concretePresentations'),
+smalltalk.method({
+selector: unescape('concretePresentations'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_allSubclasses", []), "_select_", [(function(aPresentationClass){return smalltalk.send(aPresentationClass, "_isConcrete", []);})]);
+return self;},
+args: [],
+source: unescape('concretePresentations%0A%09%5E%20self%20allSubclasses%20select%3A%20%5B%3AaPresentationClass%7C%20aPresentationClass%20isConcrete%5D'),
+messageSends: ["select:", "allSubclasses", "isConcrete"],
+referencedClasses: []
+}),
+smalltalk.Presentation.klass);
 
-smalltalk.addClass('ESUG2011Presentation', smalltalk.Presentation, [], 'Presentation');
 smalltalk.addMethod(
 unescape('_title'),
 smalltalk.method({
@@ -644,15 +504,33 @@ selector: unescape('title'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return "Jtalk";
+return "Slides";
 return self;},
 args: [],
-source: unescape('title%0A%09%5E%27Jtalk%27'),
+source: unescape('title%0A%09%5E%20%27Slides%27'),
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.ESUG2011Presentation);
+smalltalk.Presentation.klass);
 
+smalltalk.addMethod(
+unescape('_concretePresentationsDo_'),
+smalltalk.method({
+selector: unescape('concretePresentationsDo%3A'),
+category: 'enumerating',
+fn: function (aBlockWithArg){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_concretePresentations", []), "_do_", [aBlockWithArg]);
+return self;},
+args: ["aBlockWithArg"],
+source: unescape('concretePresentationsDo%3A%20aBlockWithArg%0A%09self%20concretePresentations%20do%3A%20aBlockWithArg.'),
+messageSends: ["do:", "concretePresentations"],
+referencedClasses: []
+}),
+smalltalk.Presentation.klass);
+
+
+smalltalk.addClass('ESUG2011Presentation', smalltalk.Presentation, [], 'Presentation');
 smalltalk.addMethod(
 unescape('_description'),
 smalltalk.method({
@@ -740,10 +618,10 @@ selector: unescape('style'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return unescape("%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A/*%20.slide%20ul%2C%20.slide%20li%20%7B%20*/%0A/*%20%20%20%20%20padding%3A%200%3B%20*/%0A/*%20%20%20%20%20margin%3A%200%3B%20*/%0A/*%20%7D%20*/%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20500px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A.slide%23WhatIsJtalk%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/balloon.jpg%22%29%20650px%2050px%20no-repeat%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndCLI%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/terminal.png%22%29%20620px%2020px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A.slide%23JtalkAndNode2%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode3%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndWebOS%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/devices.jpg%22%29%20380px%20280px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndEnyo%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/enyo.png%22%29%20130px%20150px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23tools%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20width%3A%20300px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23tools%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23tools%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A");
+return unescape("%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A/*%20.slide%20ul%2C%20.slide%20li%20%7B%20*/%0A/*%20%20%20%20%20padding%3A%200%3B%20*/%0A/*%20%20%20%20%20margin%3A%200%3B%20*/%0A/*%20%7D%20*/%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20500px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A.slide%23WhatIsJtalk%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/balloon.jpg%22%29%20650px%2050px%20no-repeat%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndCLI%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/terminal.png%22%29%20620px%2020px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A.slide%23JtalkAndNode2%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode3%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndWebOS%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/devices.jpg%22%29%20380px%20280px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndEnyo%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/enyo.png%22%29%20130px%20150px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A");
 return self;},
 args: [],
-source: unescape('style%0A%09%5E%27%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A/*%20.slide%20ul%2C%20.slide%20li%20%7B%20*/%0A/*%20%20%20%20%20padding%3A%200%3B%20*/%0A/*%20%20%20%20%20margin%3A%200%3B%20*/%0A/*%20%7D%20*/%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20500px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A.slide%23WhatIsJtalk%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/balloon.jpg%22%29%20650px%2050px%20no-repeat%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndCLI%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/terminal.png%22%29%20620px%2020px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A.slide%23JtalkAndNode2%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode3%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndWebOS%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/devices.jpg%22%29%20380px%20280px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndEnyo%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/enyo.png%22%29%20130px%20150px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23tools%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20width%3A%20300px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23tools%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23tools%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A%27'),
+source: unescape('style%0A%09%5E%27%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A/*%20.slide%20ul%2C%20.slide%20li%20%7B%20*/%0A/*%20%20%20%20%20padding%3A%200%3B%20*/%0A/*%20%20%20%20%20margin%3A%200%3B%20*/%0A/*%20%7D%20*/%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20500px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A.slide%23WhatIsJtalk%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/balloon.jpg%22%29%20650px%2050px%20no-repeat%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndCLI%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/terminal.png%22%29%20620px%2020px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A.slide%23JtalkAndNode2%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode3%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndWebOS%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/devices.jpg%22%29%20380px%20280px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndEnyo%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/enyo.png%22%29%20130px%20150px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A%27'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -762,6 +640,22 @@ return true;
 return self;},
 args: [],
 source: unescape('isConcrete%0A%09%5Etrue'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ESUG2011Presentation.klass);
+
+smalltalk.addMethod(
+unescape('_title'),
+smalltalk.method({
+selector: unescape('title'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return "Jtalk";
+return self;},
+args: [],
+source: unescape('title%0A%09%5E%27Jtalk%27'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1228,7 +1122,7 @@ return self;},
 args: ["html"],
 source: unescape('renderSlideOn%3A%20html%0A%09html%20div%20class%3A%20%27section%20center%27%3B%20with%3A%20%5B%0A%09%09html%20h1%20with%3A%20%27The%20counter%20example%27.%0A%09%09html%20div%20with%3A%20%5B%0A%09%09%092%20timesRepeat%3A%20%5BCounter%20new%20renderOn%3A%20html%5D%5D%5D'),
 messageSends: ["class:", "with:", "h1", "div", "timesRepeat:", "renderOn:", "new"],
-referencedClasses: []
+referencedClasses: [smalltalk.Counter]
 }),
 smalltalk.CountersSlide);
 
@@ -1705,5 +1599,305 @@ referencedClasses: []
 }),
 smalltalk.JtalkAndEnyo);
 
+
+
+smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation'], 'Presentation');
+smalltalk.addMethod(
+unescape('_renderToolsOn_'),
+smalltalk.method({
+selector: unescape('renderToolsOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", ["IDE"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_open", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Reload"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_reload", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2190")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2192")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);})(smalltalk.send(html, "_a", []));
+return self;},
+args: ["html"],
+source: unescape('renderToolsOn%3A%20html%0A%09html%20a%20%0A%09%09with%3A%20%27IDE%27%3B%0A%09%09onClick%3A%20%5BTabManager%20current%20open%5D.%0A%09html%20a%0A%09%09with%3A%20%27Reload%27%3B%0A%09%09onClick%3A%20%5Bself%20reload%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2190%27%3B%0A%09%09onClick%3A%20%5Bself%20previousSlide%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2192%27%3B%0A%09%09onClick%3A%20%5Bself%20nextSlide%5D.'),
+messageSends: ["with:", "onClick:", "open", "current", "a", "reload", "previousSlide", "nextSlide"],
+referencedClasses: [smalltalk.TabManager]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_setKeybindings'),
+smalltalk.method({
+selector: unescape('setKeybindings'),
+category: 'keybindings',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
+node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
+return self;},
+args: [],
+source: unescape('setKeybindings%0A%09%28window%20jQuery%3A%20document%29%20keyup%3A%20%5B%3Ae%20%7C%7C%20node%20%7C%0A%09%09node%20%3A%3D%20e%20target%20nodeName%20asLowercase.%0A%09%09%28node%20%3D%20%27textarea%27%20or%3A%20%5Bnode%20%3D%20%27input%27%5D%29%20ifFalse%3A%20%5B%0A%09%09%09e%20keyCode%20%3D%2039%20ifTrue%3A%20%5Bself%20nextSlide%5D.%0A%09%09%09e%20keyCode%20%3D%2037%20ifTrue%3A%20%5Bself%20previousSlide%5D%5D%5D'),
+messageSends: ["keyup:", "jQuery:", "asLowercase", "nodeName", "target", "ifFalse:", "or:", unescape("%3D"), "ifTrue:", "keyCode", "nextSlide", "previousSlide"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_checkHash'),
+smalltalk.method({
+selector: unescape('checkHash'),
+category: 'hash',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_checkHash", []);
+return self;},
+args: [],
+source: unescape('checkHash%0A%09self%20currentPresentation%20checkHash'),
+messageSends: ["checkHash", "currentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_checkHashChange'),
+smalltalk.method({
+selector: unescape('checkHashChange'),
+category: 'hash',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
+return self;},
+args: [],
+source: unescape('checkHashChange%0A%09%28window%20jQuery%3A%20window%29%20bind%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
+messageSends: ["bind:do:", "jQuery:", "checkHash"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderPresentationSelectOn_'),
+smalltalk.method({
+selector: unescape('renderPresentationSelectOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_onChange_", [(function(anEvent){return smalltalk.send(self, "_selectPresentationNamed_", [smalltalk.send(smalltalk.send(anEvent, "_target", []), "_value", [])]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentationsDo_", [(function(aPresentationClass){return (function($rec){smalltalk.send($rec, "_value_", [smalltalk.send(aPresentationClass, "_name", [])]);return smalltalk.send($rec, "_with_", [smalltalk.send(aPresentationClass, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);})(smalltalk.send(html, "_select", []));
+return self;},
+args: ["html"],
+source: unescape('renderPresentationSelectOn%3A%20html%0A%09html%20select%0A%09%09onChange%3A%20%5B%3AanEvent%20%7C%20self%20%20selectPresentationNamed%3A%20%20anEvent%20target%20value%5D%3B%0A%09%09with%3A%20%5B%09Presentation%20concretePresentationsDo%3A%20%5B%3AaPresentationClass%20%7C%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09html%20option%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09value%3A%20aPresentationClass%20name%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09with%3A%20aPresentationClass%20title%20%5D%20%5D.'),
+messageSends: ["onChange:", "selectPresentationNamed:", "value", "target", "with:", "concretePresentationsDo:", "value:", "name", "title", "option", "select"],
+referencedClasses: [smalltalk.Presentation]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){return (function($rec){smalltalk.send($rec, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);smalltalk.send($rec, "_setKeybindings", []);return smalltalk.send($rec, "_checkHashChange", []);})(self);})]);
+return self;},
+args: [],
+source: unescape('open%0A%09%28window%20jQuery%3A%20document%29%20%20ready%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09self%20%0A%20%20%20%20%20%20%20%20%20%20%09%09appendToJQuery%3A%20%27body%27%20asJQuery%3B%0A%20%20%20%20%20%20%20%20%20%20%09%09setKeybindings%3B%0A%20%20%20%20%20%20%20%20%20%20%09%09checkHashChange.%0A%20%20%20%20%20%20%20%20%5D.'),
+messageSends: ["ready:", "jQuery:", "appendToJQuery:", "asJQuery", "setKeybindings", "checkHashChange"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderOn_'),
+smalltalk.method({
+selector: unescape('renderOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
+(function($rec){smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_renderToolsOn_", [html]);return smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);})(self);})]);})(smalltalk.send(html, "_div", []));
+self['@presentationBrush']=(function($rec){smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", []));
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;},
+args: ["html"],
+source: unescape('renderOn%3A%20html%0A%09html%20style%0A%09%09type%3A%20%27text/css%27%3B%0A%09%09with%3A%20self%20style.%0A%09html%20div%0A%09%09id%3A%20%27navigator%27%3B%0A%09%09with%3A%20%5B%09self%0A%09%09%09%09%09renderToolsOn%3A%20html%3B%0A%09%09%09%09%09renderPresentationSelectOn%3A%20html%09%5D.%0A%0A%09presentationBrush%20%3A%3D%20html%20div%20%0A%09%09%09%09%09%09%09id%3A%20%27presentation%27%3B%0A%09%09%09%09%09%09%09yourself.%0A%0A%09self%20renderCurrentPresentation.'),
+messageSends: ["type:", "with:", "style", "id:", "renderToolsOn:", "renderPresentationSelectOn:", "div", "yourself", "renderCurrentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_selectPresentation_'),
+smalltalk.method({
+selector: unescape('selectPresentation%3A'),
+category: 'callbacks',
+fn: function (aPresentationClass){
+var self=this;
+smalltalk.send(self, "_currentPresentation_", [smalltalk.send(aPresentationClass, "_new", [])]);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;},
+args: ["aPresentationClass"],
+source: unescape('selectPresentation%3A%20aPresentationClass%0A%09self%20currentPresentation%3A%20aPresentationClass%20new.%0A%09self%20renderCurrentPresentation.'),
+messageSends: ["currentPresentation:", "new", "renderCurrentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_currentPresentation_'),
+smalltalk.method({
+selector: unescape('currentPresentation%3A'),
+category: 'accessing',
+fn: function (aPresentation){
+var self=this;
+self['@currentPresentation']=aPresentation;
+return self;},
+args: ["aPresentation"],
+source: unescape('currentPresentation%3A%20aPresentation%0A%09currentPresentation%20%3A%3D%20aPresentation.'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_currentPresentation'),
+smalltalk.method({
+selector: unescape('currentPresentation'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@currentPresentation']) == nil || $receiver == undefined) ? (function(){return self['@currentPresentation']=smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_first", []), "_new", []);})() : $receiver;
+return self;},
+args: [],
+source: unescape('currentPresentation%0A%09%5E%20%20currentPresentation%20ifNil%3A%20%5BcurrentPresentation%20%3A%3D%20Presentation%20concretePresentations%20first%20new%5D.'),
+messageSends: ["ifNil:", "new", "first", "concretePresentations"],
+referencedClasses: [smalltalk.Presentation]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_selectPresentationNamed_'),
+smalltalk.method({
+selector: unescape('selectPresentationNamed%3A'),
+category: 'callbacks',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_selectPresentation_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString])]);
+return self;},
+args: ["aString"],
+source: unescape('selectPresentationNamed%3A%20aString%0A%09self%20selectPresentation%3A%20%28Smalltalk%20current%20at%3A%20aString%29'),
+messageSends: ["selectPresentation:", "at:", "current"],
+referencedClasses: [smalltalk.Smalltalk]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_style'),
+smalltalk.method({
+selector: unescape('style'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return unescape("%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A");
+return self;},
+args: [],
+source: unescape('style%0A%09%5E%20%27%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%27'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderCurrentPresentation'),
+smalltalk.method({
+selector: unescape('renderCurrentPresentation'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send(self['@presentationBrush'], "_contents_", [(function(html){return (function($rec){smalltalk.send($rec, "_renderOn_", [html]);return smalltalk.send($rec, "_checkHash", []);})(smalltalk.send(self, "_currentPresentation", []));})]);
+return self;},
+args: [],
+source: unescape('renderCurrentPresentation%0A%09presentationBrush%20contents%3A%20%5B%3Ahtml%20%7C%0A%20%20%20%20%20%20%20%20%09self%20currentPresentation%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09renderOn%3A%20html%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09checkHash.%0A%20%20%20%20%20%20%20%20%5D.%0A'),
+messageSends: ["contents:", "renderOn:", "checkHash", "currentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_previousSlide'),
+smalltalk.method({
+selector: unescape('previousSlide'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_previousSlide", []);
+return self;},
+args: [],
+source: unescape('previousSlide%0A%09self%20currentPresentation%20previousSlide'),
+messageSends: ["previousSlide", "currentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_nextSlide'),
+smalltalk.method({
+selector: unescape('nextSlide'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_nextSlide", []);
+return self;},
+args: [],
+source: unescape('nextSlide%0A%09self%20currentPresentation%20nextSlide'),
+messageSends: ["nextSlide", "currentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_reload'),
+smalltalk.method({
+selector: unescape('reload'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_currentPresentation_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_new", [])]);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;},
+args: [],
+source: unescape('reload%0A%09self%20currentPresentation%3A%20self%20currentPresentation%20class%20new.%0A%09self%20renderCurrentPresentation.'),
+messageSends: ["currentPresentation:", "new", "class", "currentPresentation", "renderCurrentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_open", []);
+return self;},
+args: [],
+source: unescape('initialize%0A%09%5E%20self%20open'),
+messageSends: ["open"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator.klass);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
+return self;},
+args: [],
+source: unescape('open%0A%09%5E%20self%20new%20open'),
+messageSends: ["open", "new"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator.klass);
 
 

@@ -70,7 +70,7 @@ Widget subclass: #Presentation
 !Presentation methodsFor: 'accessing'!
 
 title
-	^'Slides'
+	^ self class title.
 !
 
 author
@@ -117,24 +117,6 @@ style
 
 !Presentation methodsFor: 'actions'!
 
-reload
-	'#slides' asJQuery remove.
-	'#tools' asJQuery remove.
-	self initSlides.
-	self appendToJQuery: 'body' asJQuery.
-	self checkHash
-!
-
-setup
-	Presentation setCurrent: self.
-	(window jQuery: document) ready: [
-		self appendToJQuery: 'body' asJQuery.
-		self 
-			setKeybindings;
-			checkHashChange;
-			checkHash].
-!
-
 nextSlide
 	| next |
 	self currentSlide ifNotNil: [
@@ -161,18 +143,6 @@ previousSlide
 		next ifNotNil: [currentSlide := next. next show]]
 !
 
-setKeybindings
-	(window jQuery: document) keyup: [:e || node |
-		node := e target nodeName asLowercase.
-		(node = 'textarea' or: [node = 'input']) ifFalse: [
-			e keyCode = 39 ifTrue: [self nextSlide].
-			e keyCode = 37 ifTrue: [self previousSlide]]]
-!
-
-checkHashChange
-	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
-!
-
 checkHash
 	| hash slide |
 	hash := document location hash  replace: '^#' with: ''.
@@ -196,9 +166,6 @@ renderOn: html
 		type: 'text/css';
 		with: self style.
 	html div 
-		id: 'tools';
-		with: [self renderToolsOn: html].
-	html div 
 		id: 'slides';
 		with: [self renderSlidesOn: html]
 !
@@ -208,41 +175,24 @@ renderSlidesOn: html
 		each renderOn: html].
 	currentSlide ifNil: [currentSlide := self slides first].
 	self showCurrentSlide
-!
-
-renderToolsOn: html
-	html a 
-		with: 'IDE';
-		onClick: [TabManager current open].
-	html a
-		with: 'Reload';
-		onClick: [self reload].
-	html a
-		with: '←';
-		onClick: [self previousSlide].
-	html a
-		with: '→';
-		onClick: [self nextSlide]
 ! !
 
 Presentation class instanceVariableNames: 'current'!
 
-!Presentation class methodsFor: 'initialization'!
+!Presentation class methodsFor: 'accessing'!
 
-initialize
-	self isConcrete ifTrue: [self setup]
+concretePresentations
+	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
 !
 
-setup
-	self new setup
-!
+title
+	^ 'Slides'
+! !
 
-setCurrent: aSlides
-	current := aSlides
-!
+!Presentation class methodsFor: 'enumerating'!
 
-current
-	^current
+concretePresentationsDo: aBlockWithArg
+	self concretePresentations do: aBlockWithArg.
 ! !
 
 !Presentation class methodsFor: 'testing'!
@@ -256,10 +206,6 @@ Presentation subclass: #ESUG2011Presentation
 	category: 'Presentation'!
 
 !ESUG2011Presentation methodsFor: 'accessing'!
-
-title
-	^'Jtalk'
-!
 
 description
 	^'ESUG 2011, Edinburgh'
@@ -557,35 +503,6 @@ body {
     padding: 0 5px;
 }
 
-#tools {
-    z-index: 1;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    margin-left: -150px;
-    width: 300px;
-    padding: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    background: #333;
-    opacity: 0.3;
-    color: #eee;
-}
-
-#tools a {
-    font-weight: bold;
-    color: #eee;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 0 2px;
-    font-size: 14px;
-}
-
-#tools:hover {
-    opacity: 0.8;
-}
-
 .slide {
     
 }
@@ -593,6 +510,12 @@ body {
 ! !
 
 ESUG2011Presentation class instanceVariableNames: 'current'!
+
+!ESUG2011Presentation class methodsFor: 'accessing'!
+
+title
+	^'Jtalk'
+! !
 
 !ESUG2011Presentation class methodsFor: 'testing'!
 
@@ -1154,5 +1077,165 @@ renderSlideOn: html
 	html h1 with: [
 		html with: 'Jtalk and '.
 		html span class: 'blue'; with: 'Enyo'].
+! !
+
+Widget subclass: #PresentationNavigator
+	instanceVariableNames: 'presentationBrush currentPresentation'
+	category: 'Presentation'!
+
+!PresentationNavigator methodsFor: 'accessing'!
+
+currentPresentation: aPresentation
+	currentPresentation := aPresentation.
+!
+
+currentPresentation
+	^  currentPresentation ifNil: [currentPresentation := Presentation concretePresentations first new].
+!
+
+style
+	^ '
+#navigator {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -150px;
+    padding: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #333;
+    opacity: 0.3;
+    color: #eee;
+}
+
+#navigator a {
+    font-weight: bold;
+    color: #eee;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0 2px;
+    font-size: 14px;
+}
+
+#navigator:hover {
+    opacity: 0.8;
+}
+'
+! !
+
+!PresentationNavigator methodsFor: 'callbacks'!
+
+selectPresentation: aPresentationClass
+	self currentPresentation: aPresentationClass new.
+	self renderCurrentPresentation.
+!
+
+selectPresentationNamed: aString
+	self selectPresentation: (Smalltalk current at: aString)
+!
+
+previousSlide
+	self currentPresentation previousSlide
+!
+
+nextSlide
+	self currentPresentation nextSlide
+!
+
+reload
+	self currentPresentation: self currentPresentation class new.
+	self renderCurrentPresentation.
+! !
+
+!PresentationNavigator methodsFor: 'hash'!
+
+checkHash
+	self currentPresentation checkHash
+!
+
+checkHashChange
+	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
+! !
+
+!PresentationNavigator methodsFor: 'keybindings'!
+
+setKeybindings
+	(window jQuery: document) keyup: [:e || node |
+		node := e target nodeName asLowercase.
+		(node = 'textarea' or: [node = 'input']) ifFalse: [
+			e keyCode = 39 ifTrue: [self nextSlide].
+			e keyCode = 37 ifTrue: [self previousSlide]]]
+! !
+
+!PresentationNavigator methodsFor: 'rendering'!
+
+renderToolsOn: html
+	html a 
+		with: 'IDE';
+		onClick: [TabManager current open].
+	html a
+		with: 'Reload';
+		onClick: [self reload].
+	html a
+		with: '←';
+		onClick: [self previousSlide].
+	html a
+		with: '→';
+		onClick: [self nextSlide].
+!
+
+renderPresentationSelectOn: html
+	html select
+		onChange: [:anEvent | self  selectPresentationNamed:  anEvent target value];
+		with: [	Presentation concretePresentationsDo: [:aPresentationClass |   
+                                                              							html option
+                                                              								value: aPresentationClass name;
+                                                              								with: aPresentationClass title ] ].
+!
+
+open
+	(window jQuery: document)  ready: [
+          	self 
+          		appendToJQuery: 'body' asJQuery;
+          		setKeybindings;
+          		checkHashChange.
+        ].
+!
+
+renderOn: html
+	html style
+		type: 'text/css';
+		with: self style.
+	html div
+		id: 'navigator';
+		with: [	self
+					renderToolsOn: html;
+					renderPresentationSelectOn: html	].
+
+	presentationBrush := html div 
+							id: 'presentation';
+							yourself.
+
+	self renderCurrentPresentation.
+!
+
+renderCurrentPresentation
+	presentationBrush contents: [:html |
+        	self currentPresentation
+                                     	renderOn: html;
+                                     	checkHash.
+        ].
+! !
+
+!PresentationNavigator class methodsFor: 'initialize'!
+
+initialize
+	^ self open
+!
+
+open
+	^ self new open
 ! !
 
