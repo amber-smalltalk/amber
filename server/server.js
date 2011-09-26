@@ -33,6 +33,19 @@
    |
    ==================================================================== */
 
+/* Make that console is defined */
+
+if (typeof console === "undefined") {
+    this.console = {
+	log: function() {},
+	warn: function() {},
+	info: function() {},
+	debug: function() {},
+	error: function() {},
+    };
+}
+
+
 /* Smalltalk constructors definition */
 
 function SmalltalkObject(){};
@@ -48,13 +61,27 @@ function SmalltalkNil(){};
 function Smalltalk(){
 
     var st = this;
-    this.thisContext = undefined;
 
+    /* This is the current call context object. While it is publicly available,
+       Use smalltalk.getThisContext() instead which will answer a safe copy of 
+       the current context */
+
+    st.thisContext = undefined;
+
+    /* List of all reserved words in JavaScript. They may not be used as variables
+       in Smalltalk. */
+
+    st.reservedWords = ['break', 'case', 'catch', 'class', 'continue', 'debugger', 
+			'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
+			'if', 'in', 'instanceof', 'new', 'private', 'protected', 
+			'public', 'return', 'static', 'switch', 'this', 'throw',
+			'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
     
     /* We hold all Packages in a separate Object */
+
     st.packages = {};
 
-    /* Smalltalk Package object. To add a Package, use smalltalk.addPackage() */
+    /* Smalltalk package creation. To add a Package, use smalltalk.addPackage() */
 
     function pkg(spec) {
 	var that      = new SmalltalkPackage();
@@ -345,9 +372,7 @@ function Smalltalk(){
 	   Example:
 	   "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
-	var jsSelector = selector
-	    .replace(/^_/, '')
-	    .replace(/_.*/g, '');
+	var jsSelector = selector._asJavaScriptSelector();
 	var jsProperty = receiver[jsSelector];
 	if(typeof jsProperty === "function") {
 	    return jsProperty.apply(receiver, args);
@@ -1323,6 +1348,22 @@ referencedClasses: []
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+unescape('_deprecatedAPI'),
+smalltalk.method({
+selector: unescape('deprecatedAPI'),
+category: 'error handling',
+fn: function (){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21")])]);
+return self;},
+args: [],
+source: unescape('deprecatedAPI%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecatedAPI%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20could%20in%20the%20future.%22%0A%09console%20warn%3A%20thisContext%20home%20asString%2C%20%27%20is%20deprecated%21%27'),
+messageSends: ["warn:", unescape("%2C"), "asString", "home"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 unescape('_initialize'),
@@ -1589,6 +1630,22 @@ return self;},
 args: ["packageName", "newName"],
 source: unescape('renamePackage%3A%20packageName%20to%3A%20newName%0A%09%22Rename%20a%20package.%22%0A%0A%09%7C%20pkg%20%7C%0A%09pkg%20%3A%3D%20self%20packageAt%3A%20packageName%20ifAbsent%3A%20%5Bself%20error%3A%20%27Missing%20package%3A%20%27%2C%20packageName%5D.%0A%09%28self%20packageAt%3A%20newName%29%20ifNotNil%3A%20%5Bself%20error%3A%20%27Already%20exists%20a%20package%20called%3A%20%27%2C%20newName%5D.%0A%09%3Csmalltalk.packages%5BnewName%5D%20%3D%20smalltalk.packages%5BpackageName%5D%3E.%0A%09pkg%20name%3A%20newName.%0A%09self%20deletePackage%3A%20packageName.'),
 messageSends: ["packageAt:ifAbsent:", "error:", unescape("%2C"), "ifNotNil:", "packageAt:", "name:", "deletePackage:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+unescape('_reservedWords'),
+smalltalk.method({
+selector: unescape('reservedWords'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.reservedWords;
+return self;},
+args: [],
+source: unescape('reservedWords%0A%09%22JavaScript%20reserved%20words%22%0A%09%3Creturn%20self.reservedWords%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -4132,10 +4189,10 @@ selector: unescape('%3C%3D'),
 category: 'comparing',
 fn: function (aDate){
 var self=this;
-self <= aDate;
+return self <= aDate;
 return self;},
 args: ["aDate"],
-source: unescape('%3C%3D%20aDate%0A%09%3Cself%20%3C%3D%20aDate%3E'),
+source: unescape('%3C%3D%20aDate%0A%09%3Creturn%20self%20%3C%3D%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -4148,10 +4205,10 @@ selector: unescape('%3E%3D'),
 category: 'comparing',
 fn: function (aDate){
 var self=this;
-self >= aDate;
+return self >= aDate;
 return self;},
 args: ["aDate"],
-source: unescape('%3E%3D%20aDate%0A%09%3Cself%20%3E%3E%3D%20aDate%3E'),
+source: unescape('%3E%3D%20aDate%0A%09%3Creturn%20self%20%3E%3E%3D%20aDate%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -6183,6 +6240,22 @@ return self;
 args: ["aString"],
 source: unescape('%3D%3D%20aString%0A%09aString%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%3Creturn%20String%28self%29%20%3D%3D%3D%20String%28aString%29%3E'),
 messageSends: ["ifFalse:", unescape("%3D"), "class"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+unescape('_asJavaScriptSelector'),
+smalltalk.method({
+selector: unescape('asJavaScriptSelector'),
+category: 'converting',
+fn: function (){
+var self=this;
+return String(self.replace(/^_/, '').replace(/_.*/, ''));
+return self;},
+args: [],
+source: unescape('asJavaScriptSelector%0A%09%3Creturn%20String%28self.replace%28/%5E_/%2C%20%27%27%29.replace%28/_.*/%2C%20%27%27%29%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -8526,6 +8599,22 @@ referencedClasses: []
 }),
 smalltalk.Point);
 
+smalltalk.addMethod(
+unescape('__eq'),
+smalltalk.method({
+selector: unescape('%3D'),
+category: 'arithmetic',
+fn: function (aPoint){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);})]);
+return self;},
+args: ["aPoint"],
+source: unescape('%3D%20aPoint%0A%09%5EaPoint%20class%20%3D%20self%20class%20and%3A%20%5B%0A%09%09%28aPoint%20x%20%3D%20self%20x%29%20%26%20%28aPoint%20y%20%3D%20self%20y%29%5D'),
+messageSends: ["and:", unescape("%3D"), "class", unescape("%26"), "x", "y"],
+referencedClasses: []
+}),
+smalltalk.Point);
+
 
 smalltalk.addMethod(
 unescape('_x_y_'),
@@ -8941,16 +9030,50 @@ fn: function (aMessage){
 var self=this;
 var obj=nil;
 var selector=nil;
+var jsSelector=nil;
 var arguments=nil;
 obj=smalltalk.send(self, "_jsObject", []);
 selector=smalltalk.send(aMessage, "_selector", []);
+jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []);
 arguments=smalltalk.send(aMessage, "_arguments", []);
-if(obj[selector]) {return smalltalk.send(obj, selector, arguments)};
+if(obj[jsSelector]) {return smalltalk.send(obj, jsSelector, arguments)};
 smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
 return self;},
 args: ["aMessage"],
-source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5Bselector%5D%29%20%7Breturn%20smalltalk.send%28obj%2C%20selector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
-messageSends: ["jsObject", "selector", "arguments", "doesNotUnderstand:"],
+source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20jsSelector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09jsSelector%20%3A%3D%20selector%20asJavaScriptSelector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5BjsSelector%5D%29%20%7Breturn%20smalltalk.send%28obj%2C%20jsSelector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
+messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_at_'),
+smalltalk.method({
+selector: unescape('at%3A'),
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return self['@jsObject'][aString];
+return self;},
+args: ["aString"],
+source: unescape('at%3A%20aString%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5BaString%5D%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_at_put_'),
+smalltalk.method({
+selector: unescape('at%3Aput%3A'),
+category: 'accessing',
+fn: function (aString, anObject){
+var self=this;
+self['@jsObject'][aString] = anObject;
+return self;},
+args: ["aString", "anObject"],
+source: unescape('at%3A%20aString%20put%3A%20anObject%0A%09%3Cself%5B%27@jsObject%27%5D%5BaString%5D%20%3D%20anObject%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
