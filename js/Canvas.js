@@ -1407,6 +1407,22 @@ referencedClasses: []
 }),
 smalltalk.TagBrush);
 
+smalltalk.addMethod(
+unescape('_value_'),
+smalltalk.method({
+selector: unescape('value%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["value", aString]);
+return self;},
+args: ["aString"],
+source: unescape('value%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27value%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
 
 smalltalk.addMethod(
 unescape('_fromString_canvas_'),

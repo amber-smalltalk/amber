@@ -337,6 +337,10 @@ width: aString
 
 height: aString
     self  at: 'height' put: aString
+!
+
+value: aString
+    self  at: 'value' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!

@@ -267,6 +267,24 @@ h1 {
 	border: 1px solid #919293; 
 }
 
+
+.examples li {
+	list-style: none;
+	float: left;
+}
+
+.examples li img {
+		border-radius: 5px;
+		border: 5px solid rgba(0,0,0,0.4);
+		margin: 5px;
+}
+
+.examples a:hover img {
+		border-color: rgba(0,0,0,0.8);
+}
+
+
+
 #footer {
 	height: 200px;
 	border: 1px solid #ccc;

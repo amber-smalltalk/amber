@@ -121,7 +121,7 @@ smalltalk.method({
 selector: 'title',
 fn: function (){
 var self=this;
-return "Slides";
+return smalltalk.send(smalltalk.send(self, "_class", []), "_title", []);
 return self;}
 }),
 smalltalk.Presentation);
@@ -238,33 +238,6 @@ return self;}
 smalltalk.Presentation);
 
 smalltalk.addMethod(
-'_reload',
-smalltalk.method({
-selector: 'reload',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(unescape("%23slides"), "_asJQuery", []), "_remove", []);
-smalltalk.send(smalltalk.send(unescape("%23tools"), "_asJQuery", []), "_remove", []);
-smalltalk.send(self, "_initSlides", []);
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
-smalltalk.send(self, "_checkHash", []);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-'_setup',
-smalltalk.method({
-selector: 'setup',
-fn: function (){
-var self=this;
-smalltalk.send((smalltalk.Presentation || Presentation), "_setCurrent_", [self]);
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){smalltalk.send(self, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);return (function($rec){smalltalk.send($rec, "_setKeybindings", []);smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);})]);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
 '_nextSlide',
 smalltalk.method({
 selector: 'nextSlide',
@@ -295,29 +268,6 @@ fn: function (){
 var self=this;
 var next=nil;
 (($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_", [smalltalk.send(self, "_currentSlide", [])])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), (function(){return nil;})]);return (($receiver = next) != nil && $receiver != undefined) ? (function(){self['@currentSlide']=next;return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-'_setKeybindings',
-smalltalk.method({
-selector: 'setKeybindings',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
-node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-'_checkHashChange',
-smalltalk.method({
-selector: 'checkHashChange',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
 return self;}
 }),
 smalltalk.Presentation);
@@ -355,7 +305,6 @@ selector: 'renderOn:',
 fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
-(function($rec){smalltalk.send($rec, "_id_", ["tools"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderToolsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 (function($rec){smalltalk.send($rec, "_id_", ["slides"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderSlidesOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
@@ -374,66 +323,8 @@ return self;}
 }),
 smalltalk.Presentation);
 
-smalltalk.addMethod(
-'_renderToolsOn_',
-smalltalk.method({
-selector: 'renderToolsOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_with_", ["IDE"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_open", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", ["Reload"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_reload", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2190")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2192")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);})(smalltalk.send(html, "_a", []));
-return self;}
-}),
-smalltalk.Presentation);
-
 
 smalltalk.Presentation.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-'_initialize',
-smalltalk.method({
-selector: 'initialize',
-fn: function (){
-var self=this;
-((($receiver = smalltalk.send(self, "_isConcrete", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_setup", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_setup", []);})]));
-return self;}
-}),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-'_setup',
-smalltalk.method({
-selector: 'setup',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_new", []), "_setup", []);
-return self;}
-}),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-'_setCurrent_',
-smalltalk.method({
-selector: 'setCurrent:',
-fn: function (aSlides){
-var self=this;
-self['@current']=aSlides;
-return self;}
-}),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-'_current',
-smalltalk.method({
-selector: 'current',
-fn: function (){
-var self=this;
-return self['@current'];
-return self;}
-}),
-smalltalk.Presentation.klass);
-
 smalltalk.addMethod(
 '_isConcrete',
 smalltalk.method({
@@ -445,19 +336,41 @@ return self;}
 }),
 smalltalk.Presentation.klass);
 
+smalltalk.addMethod(
+'_concretePresentations',
+smalltalk.method({
+selector: 'concretePresentations',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_allSubclasses", []), "_select_", [(function(aPresentationClass){return smalltalk.send(aPresentationClass, "_isConcrete", []);})]);
+return self;}
+}),
+smalltalk.Presentation.klass);
 
-smalltalk.addClass('ESUG2011Presentation', smalltalk.Presentation, [], 'Presentation');
 smalltalk.addMethod(
 '_title',
 smalltalk.method({
 selector: 'title',
 fn: function (){
 var self=this;
-return "Jtalk";
+return "Slides";
 return self;}
 }),
-smalltalk.ESUG2011Presentation);
+smalltalk.Presentation.klass);
 
+smalltalk.addMethod(
+'_concretePresentationsDo_',
+smalltalk.method({
+selector: 'concretePresentationsDo:',
+fn: function (aBlockWithArg){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_concretePresentations", []), "_do_", [aBlockWithArg]);
+return self;}
+}),
+smalltalk.Presentation.klass);
+
+
+smalltalk.addClass('ESUG2011Presentation', smalltalk.Presentation, [], 'Presentation');
 smalltalk.addMethod(
 '_description',
 smalltalk.method({
@@ -519,7 +432,7 @@ smalltalk.method({
 selector: 'style',
 fn: function (){
 var self=this;
-return unescape("%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A/*%20.slide%20ul%2C%20.slide%20li%20%7B%20*/%0A/*%20%20%20%20%20padding%3A%200%3B%20*/%0A/*%20%20%20%20%20margin%3A%200%3B%20*/%0A/*%20%7D%20*/%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20500px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A.slide%23WhatIsJtalk%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/balloon.jpg%22%29%20650px%2050px%20no-repeat%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndCLI%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/terminal.png%22%29%20620px%2020px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A.slide%23JtalkAndNode2%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode3%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndWebOS%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/devices.jpg%22%29%20380px%20280px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndEnyo%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/enyo.png%22%29%20130px%20150px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23tools%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20width%3A%20300px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23tools%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23tools%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A");
+return unescape("%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A/*%20.slide%20ul%2C%20.slide%20li%20%7B%20*/%0A/*%20%20%20%20%20padding%3A%200%3B%20*/%0A/*%20%20%20%20%20margin%3A%200%3B%20*/%0A/*%20%7D%20*/%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20500px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A.slide%23WhatIsJtalk%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/balloon.jpg%22%29%20650px%2050px%20no-repeat%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndCLI%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/terminal.png%22%29%20620px%2020px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A.slide%23JtalkAndNode2%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndNode3%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/nodejs.png%22%29%20580px%2040px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndWebOS%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/devices.jpg%22%29%20380px%20280px%20no-repeat%3B%0A%7D%0A%0A.slide%23JtalkAndEnyo%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/enyo.png%22%29%20130px%20150px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23links%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A");
 return self;}
 }),
 smalltalk.ESUG2011Presentation);
@@ -533,6 +446,17 @@ selector: 'isConcrete',
 fn: function (){
 var self=this;
 return true;
+return self;}
+}),
+smalltalk.ESUG2011Presentation.klass);
+
+smalltalk.addMethod(
+'_title',
+smalltalk.method({
+selector: 'title',
+fn: function (){
+var self=this;
+return "Jtalk";
 return self;}
 }),
 smalltalk.ESUG2011Presentation.klass);
@@ -1205,5 +1129,215 @@ return self;}
 }),
 smalltalk.JtalkAndEnyo);
 
+
+
+smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation'], 'Presentation');
+smalltalk.addMethod(
+'_renderToolsOn_',
+smalltalk.method({
+selector: 'renderToolsOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", ["IDE"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_open", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Reload"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_reload", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2190")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2192")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);})(smalltalk.send(html, "_a", []));
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_setKeybindings',
+smalltalk.method({
+selector: 'setKeybindings',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
+node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []);return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_checkHash',
+smalltalk.method({
+selector: 'checkHash',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_checkHash", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_checkHashChange',
+smalltalk.method({
+selector: 'checkHashChange',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_renderPresentationSelectOn_',
+smalltalk.method({
+selector: 'renderPresentationSelectOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_onChange_", [(function(anEvent){return smalltalk.send(self, "_selectPresentationNamed_", [smalltalk.send(smalltalk.send(anEvent, "_target", []), "_value", [])]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentationsDo_", [(function(aPresentationClass){return (function($rec){smalltalk.send($rec, "_value_", [smalltalk.send(aPresentationClass, "_name", [])]);return smalltalk.send($rec, "_with_", [smalltalk.send(aPresentationClass, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);})(smalltalk.send(html, "_select", []));
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_open',
+smalltalk.method({
+selector: 'open',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){return (function($rec){smalltalk.send($rec, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);smalltalk.send($rec, "_setKeybindings", []);return smalltalk.send($rec, "_checkHashChange", []);})(self);})]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_renderOn_',
+smalltalk.method({
+selector: 'renderOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
+(function($rec){smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_renderToolsOn_", [html]);return smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);})(self);})]);})(smalltalk.send(html, "_div", []));
+self['@presentationBrush']=(function($rec){smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", []));
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_selectPresentation_',
+smalltalk.method({
+selector: 'selectPresentation:',
+fn: function (aPresentationClass){
+var self=this;
+smalltalk.send(self, "_currentPresentation_", [smalltalk.send(aPresentationClass, "_new", [])]);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_currentPresentation_',
+smalltalk.method({
+selector: 'currentPresentation:',
+fn: function (aPresentation){
+var self=this;
+self['@currentPresentation']=aPresentation;
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_currentPresentation',
+smalltalk.method({
+selector: 'currentPresentation',
+fn: function (){
+var self=this;
+return (($receiver = self['@currentPresentation']) == nil || $receiver == undefined) ? (function(){return self['@currentPresentation']=smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_first", []), "_new", []);})() : $receiver;
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_selectPresentationNamed_',
+smalltalk.method({
+selector: 'selectPresentationNamed:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_selectPresentation_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString])]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_style',
+smalltalk.method({
+selector: 'style',
+fn: function (){
+var self=this;
+return unescape("%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A");
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_renderCurrentPresentation',
+smalltalk.method({
+selector: 'renderCurrentPresentation',
+fn: function (){
+var self=this;
+smalltalk.send(self['@presentationBrush'], "_contents_", [(function(html){return (function($rec){smalltalk.send($rec, "_renderOn_", [html]);return smalltalk.send($rec, "_checkHash", []);})(smalltalk.send(self, "_currentPresentation", []));})]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_previousSlide',
+smalltalk.method({
+selector: 'previousSlide',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_previousSlide", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_nextSlide',
+smalltalk.method({
+selector: 'nextSlide',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_nextSlide", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_reload',
+smalltalk.method({
+selector: 'reload',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_currentPresentation_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_new", [])]);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_open", []);
+return self;}
+}),
+smalltalk.PresentationNavigator.klass);
+
+smalltalk.addMethod(
+'_open',
+smalltalk.method({
+selector: 'open',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
+return self;}
+}),
+smalltalk.PresentationNavigator.klass);
 
 
