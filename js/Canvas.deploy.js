@@ -972,6 +972,17 @@ return self;}
 }),
 smalltalk.TagBrush);
 
+smalltalk.addMethod(
+'_value_',
+smalltalk.method({
+selector: 'value:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["value", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
 
 smalltalk.addMethod(
 '_fromString_canvas_',
