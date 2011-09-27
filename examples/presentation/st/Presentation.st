@@ -1133,7 +1133,9 @@ selectPresentation: aPresentationClass
 !
 
 selectPresentationNamed: aString
-	self selectPresentation: (Smalltalk current at: aString)
+	|presentationClass|
+	presentationClass :=  (Smalltalk current at: aString).
+	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
 !
 
 previousSlide
@@ -1187,8 +1189,10 @@ renderToolsOn: html
 !
 
 renderPresentationSelectOn: html
-	html select
-		onChange: [:anEvent | self  selectPresentationNamed:  anEvent target value];
+	|presentationSelect|
+	presentationSelect := html select.
+	presentationSelect
+		onChange: [self  selectPresentationNamed:  presentationSelect asJQuery val];
 		with: [	Presentation concretePresentationsDo: [:aPresentationClass |   
                                                               							html option
                                                               								value: aPresentationClass name;
