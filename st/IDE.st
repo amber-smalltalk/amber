@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'IDE'!
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
@@ -787,9 +788,10 @@ renamePackage
 
   | newName |
   newName := self prompt: 'Rename package ', selectedPackage.
-  newName notEmpty ifTrue: [
+  newName ifNotNil: [
+    newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.
-	self updateCategoriesList]
+	self updateCategoriesList]]
 !
 
 removePackage
