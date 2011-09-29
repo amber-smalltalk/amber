@@ -8,7 +8,7 @@ PACKAGE  := amber.helloamber
 VERSION  := 1.0.0
 
 # -O for Closure optimization of js code.
-FLAGS    := -O
+FLAGS    := 
 IPK      := $(PACKAGE)_$(VERSION)_all.ipk
 FILE     := Program
 SOURCES  := $(wildcard *.st)
@@ -23,7 +23,7 @@ $(IPK): $(FILEJS)
 
 clean:
 	rm -f $(FILEJS) $(OBJECTS) $(IPK)
-	palm-install -r $(PACKAGE)
+#	palm-install -r $(PACKAGE)
 
 install: $(IPK)
 	palm-install $(IPK)
