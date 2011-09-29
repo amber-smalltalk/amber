@@ -1,7 +1,7 @@
-Program.js: FileServer.st
+server.js: FileServer.st
 	../bin/amberc -m FileServer FileServer.st server
 
-run: Program.js
+run: server.js
 	./server
 
 clean:
