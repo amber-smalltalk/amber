@@ -22,7 +22,7 @@ $(IPK): $(FILEJS)
 
 clean:
 	rm -f $(FILEJS) $(OBJECTS) $(IPK)
-	palm-install -r $(PACKAGE)
+#	palm-install -r $(PACKAGE)
 
 install: $(IPK)
 	palm-install $(IPK)
