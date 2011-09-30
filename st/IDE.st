@@ -410,7 +410,7 @@ clear
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges renameButton deleteButton'
+	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges renameButton deleteButton commitLocalButton'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -798,6 +798,14 @@ removePackage
 	ifTrue: [
 	    Smalltalk current removePackage: selectedPackage.
 	    self updateCategoriesList]
+!
+
+commitPackageToLocalStorage
+	| key sourceCode |
+	selectedPackage ifNotNil: [
+          	key := 'smalltalk.packages.' , selectedPackage.
+		sourceCode := (Exporter new exportPackage: selectedPackage).
+		<localStorage[key] = sourceCode>]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -826,17 +834,22 @@ renderTopPanelOn: html
 		class: 'jt_commit';
 		title: 'Commit classes in this package to disk';
 		onClick: [self commitPackage];
-		with: 'Commit package'.
+		with: 'Commit'.
+            commitLocalButton := html button 
+		class: 'jt_commit_local';
+		title: 'Commit classes in this package to local storage';
+		onClick: [self commitPackageToLocalStorage];
+		with: 'Local'.
             renameButton := html button 
 		class: 'jt_rename';
-		title: 'Rename this package';
+		title: 'Rename package';
 		onClick: [self renamePackage];
-		with: 'Rename package'.
+		with: 'Rename'.
             deleteButton := html button 
 		class: 'jt_delete';
 		title: 'Remove this package from the system';
 		onClick: [self removePackage];
-		with: 'Remove package'.
+		with: 'Remove'.
 	    classesList := ClassesList on: self.
 	    classesList renderOn: html.
 	    protocolsList := html ul class: 'jt_column browser protocols'.
