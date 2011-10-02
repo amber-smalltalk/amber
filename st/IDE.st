@@ -119,7 +119,7 @@ initialize
 	addClass: 'jtalkBody'.
     self appendToJQuery: '#jtalk' asJQuery.
     self 
-	addTab: Transcript current;
+	addTab: IDETranscript current;
 	addTab: Workspace new;
 	addTab: TestRunner new.
     self selectTab: self tabs last.
@@ -338,77 +338,6 @@ renderButtonsOn: html
 	onClick: [self clearWorkspace]
 ! !
 
-TabWidget subclass: #Transcript
-	instanceVariableNames: 'textarea'
-	category: 'IDE'!
-
-!Transcript methodsFor: 'accessing'!
-
-label
-    ^'Transcript'
-! !
-
-!Transcript methodsFor: 'actions'!
-
-show: anObject
-    textarea asJQuery val: textarea asJQuery val, anObject asString.
-!
-
-cr
-    textarea asJQuery val: textarea asJQuery val, String cr.
-!
-
-clear
-    textarea asJQuery val: ''
-! !
-
-!Transcript methodsFor: 'rendering'!
-
-renderBoxOn: html
-    textarea := html textarea.
-    textarea 
-	class: 'jt_transcript';
-	at: 'spellcheck' put: 'false'
-!
-
-renderButtonsOn: html
-    html button
-	with: 'Clear transcript';
-	onClick: [self clear]
-! !
-
-Transcript class instanceVariableNames: 'current'!
-
-!Transcript class methodsFor: 'instance creation'!
-
-open
-    TabManager current 
-	open;
-	selectTab: self current
-!
-
-new
-    self shouldNotImplement
-!
-
-current
-    ^current ifNil: [current := super new]
-! !
-
-!Transcript class methodsFor: 'printing'!
-
-show: anObject
-    self current show: anObject
-!
-
-cr
-    self current show: String cr
-!
-
-clear
-    self current clear
-! !
-
 TabWidget subclass: #Browser
 	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges renameButton deleteButton commitLocalButton'
 	category: 'IDE'!
@@ -587,7 +516,7 @@ compileMethodDefinition
 !
 
 compileMethodDefinitionFor: aClass
-    | compiler method source node |
+    | compiler method source node | 
     source := sourceArea val.
     selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
     compiler := Compiler new.
@@ -599,9 +528,9 @@ compileMethodDefinitionFor: aClass
     method := compiler eval: (compiler compileNode: node).
     method category: selectedProtocol.
     compiler unknownVariables do: [:each |
-        "Do not try to redeclare javascript's objects"
-        (window at: each) ifNil: [
-		(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+         "Do not try to redeclare javascript's objects"
+         (window at: each) ifNil: [
+	 	(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
     aClass addCompiledMethod: method.
@@ -789,9 +718,10 @@ renamePackage
 
   | newName |
   newName := self prompt: 'Rename package ', selectedPackage.
-  newName notEmpty ifTrue: [
+  newName ifNotNil: [
+    newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.
-	self updateCategoriesList]
+	self updateCategoriesList]]
 !
 
 removePackage
@@ -2225,6 +2155,75 @@ updateStatusDiv
 	statusDiv class: 'sunit status ', result status.
 	statusDiv contents: [:html |
 		html span with: self statusInfo]
+! !
+
+TabWidget subclass: #IDETranscript
+	instanceVariableNames: 'textarea'
+	category: 'IDE'!
+
+!IDETranscript methodsFor: 'accessing'!
+
+label
+    ^'Transcript'
+! !
+
+!IDETranscript methodsFor: 'actions'!
+
+clear
+    textarea asJQuery val: ''
+!
+
+cr
+    textarea asJQuery val: textarea asJQuery val, String cr.
+!
+
+show: anObject
+    textarea asJQuery val: textarea asJQuery val, anObject asString.
+!
+
+open
+    TabManager current 
+	open;
+	selectTab: self
+! !
+
+!IDETranscript methodsFor: 'rendering'!
+
+renderBoxOn: html
+    textarea := html textarea.
+    textarea 
+	class: 'jt_transcript';
+	at: 'spellcheck' put: 'false'
+!
+
+renderButtonsOn: html
+    html button
+	with: 'Clear transcript';
+	onClick: [self clear]
+! !
+
+IDETranscript class instanceVariableNames: 'current'!
+
+!IDETranscript class methodsFor: 'initialization'!
+
+initialize
+	Transcript register: self current
+! !
+
+!IDETranscript class methodsFor: 'instance creation'!
+
+new
+    self shouldNotImplement
+!
+
+open
+    TabManager current 
+	open;
+	selectTab: self current
+!
+
+current
+	^current ifNil: [current := super new]
 ! !
 
 !Object methodsFor: '*IDE'!
