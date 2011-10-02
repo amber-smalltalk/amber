@@ -2032,7 +2032,7 @@ self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
                 lineNumbers: true,
                 enterMode: 'classic',
                 matchBrackets: true,
-                electricChars: false,
+                electricChars: false
 	});
 return self;}
 }),

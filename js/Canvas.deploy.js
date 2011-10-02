@@ -561,6 +561,17 @@ return self;}
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_span_',
+smalltalk.method({
+selector: 'span:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_span", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',

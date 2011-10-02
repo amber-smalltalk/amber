@@ -816,6 +816,22 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+unescape('_span_'),
+smalltalk.method({
+selector: unescape('span%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_span", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('span%3A%20anObject%0A%20%20%20%20%5Eself%20span%20with%3A%20anObject'),
+messageSends: ["with:", "span"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 unescape('_onJQuery_'),
