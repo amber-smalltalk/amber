@@ -1439,7 +1439,7 @@ setEditorOn: aTextarea
                 lineNumbers: true,
                 enterMode: 'classic',
                 matchBrackets: true,
-                electricChars: false,
+                electricChars: false
 	})>
 !
 

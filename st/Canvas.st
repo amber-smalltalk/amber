@@ -213,6 +213,10 @@ li: anObject
 
 ul: anObject
     ^self ul with: anObject
+!
+
+span: anObject
+    ^self span with: anObject
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!

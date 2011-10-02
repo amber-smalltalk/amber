@@ -41,7 +41,7 @@ if (typeof console === "undefined") {
 	warn: function() {},
 	info: function() {},
 	debug: function() {},
-	error: function() {},
+	error: function() {}
     };
 }
 
