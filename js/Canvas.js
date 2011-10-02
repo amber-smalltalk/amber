@@ -832,6 +832,22 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+unescape('_style_'),
+smalltalk.method({
+selector: unescape('style%3A'),
+category: 'tags',
+fn: function (aString){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_with_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_style", []));
+return self;},
+args: ["aString"],
+source: unescape('style%3A%20aString%0A%09%5E%20self%20style%20with%3A%20aString%3B%20yourself%20'),
+messageSends: ["with:", "yourself", "style"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 unescape('_onJQuery_'),

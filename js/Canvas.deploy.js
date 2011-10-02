@@ -572,6 +572,17 @@ return self;}
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_style_',
+smalltalk.method({
+selector: 'style:',
+fn: function (aString){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_with_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_style", []));
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
