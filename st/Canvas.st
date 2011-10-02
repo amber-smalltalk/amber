@@ -217,6 +217,10 @@ ul: anObject
 
 span: anObject
     ^self span with: anObject
+!
+
+style: aString
+	^ self style with: aString; yourself
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
