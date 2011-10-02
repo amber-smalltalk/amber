@@ -1,3 +1,4 @@
+(smalltalk.addPackage('IDE'))
 smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
 smalltalk.addMethod(
 unescape('_tabs'),
@@ -1669,11 +1670,11 @@ fn: function (){
 var self=this;
 var newName=nil;
 newName=smalltalk.send(self, "_prompt_", [smalltalk.send("Rename package ", "__comma", [self['@selectedPackage']])]);
-((($receiver = smalltalk.send(newName, "_notEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_renamePackage_to_", [self['@selectedPackage'], newName]);return smalltalk.send(self, "_updateCategoriesList", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_renamePackage_to_", [self['@selectedPackage'], newName]);return smalltalk.send(self, "_updateCategoriesList", []);})]));
+(($receiver = newName) != nil && $receiver != undefined) ? (function(){return ((($receiver = smalltalk.send(newName, "_notEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_renamePackage_to_", [self['@selectedPackage'], newName]);return smalltalk.send(self, "_updateCategoriesList", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_renamePackage_to_", [self['@selectedPackage'], newName]);return smalltalk.send(self, "_updateCategoriesList", []);})]));})() : nil;
 return self;},
 args: [],
-source: unescape('renamePackage%0A%0A%20%20%7C%20newName%20%7C%0A%20%20newName%20%3A%3D%20self%20prompt%3A%20%27Rename%20package%20%27%2C%20selectedPackage.%0A%20%20newName%20notEmpty%20ifTrue%3A%20%5B%0A%09Smalltalk%20current%20renamePackage%3A%20selectedPackage%20to%3A%20newName.%0A%09self%20updateCategoriesList%5D'),
-messageSends: ["prompt:", unescape("%2C"), "ifTrue:", "notEmpty", "renamePackage:to:", "current", "updateCategoriesList"],
+source: unescape('renamePackage%0A%0A%20%20%7C%20newName%20%7C%0A%20%20newName%20%3A%3D%20self%20prompt%3A%20%27Rename%20package%20%27%2C%20selectedPackage.%0A%20%20newName%20ifNotNil%3A%20%5B%0A%20%20%20%20newName%20notEmpty%20ifTrue%3A%20%5B%0A%09Smalltalk%20current%20renamePackage%3A%20selectedPackage%20to%3A%20newName.%0A%09self%20updateCategoriesList%5D%5D'),
+messageSends: ["prompt:", unescape("%2C"), "ifNotNil:", "ifTrue:", "notEmpty", "renamePackage:to:", "current", "updateCategoriesList"],
 referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Browser);

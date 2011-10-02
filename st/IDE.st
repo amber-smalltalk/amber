@@ -599,9 +599,11 @@ compileMethodDefinitionFor: aClass
     method := compiler eval: (compiler compileNode: node).
     method category: selectedProtocol.
     compiler unknownVariables do: [:each |
-	(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
-		self addInstanceVariableNamed: each toClass: aClass.
-		^self compileMethodDefinitionFor: aClass]].
+        "Do not try to redeclare javascript's objects"
+        (window at: each) ifNil: [
+		(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+			self addInstanceVariableNamed: each toClass: aClass.
+			^self compileMethodDefinitionFor: aClass]]].
     aClass addCompiledMethod: method.
     compiler setupClass: aClass.
     self updateMethodsList.
