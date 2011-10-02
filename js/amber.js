@@ -56,7 +56,7 @@
           'SUnit',
           'Examples',
           'Benchfib',
-          'Kernel-Tests',
+          'Kernel-Tests'
         ]);
       }
 
