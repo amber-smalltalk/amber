@@ -3104,3 +3104,70 @@ includes: anObject
 	^elements includes: anObject
 ! !
 
+Object subclass: #Transcript
+	instanceVariableNames: 'textarea'
+	category: 'Kernel'!
+
+Transcript class instanceVariableNames: 'current'!
+
+!Transcript class methodsFor: 'instance creation'!
+
+open
+    self current open
+!
+
+new
+    self shouldNotImplement
+!
+
+current
+    ^current
+!
+
+register: aTranscript
+	current := aTranscript
+! !
+
+!Transcript class methodsFor: 'printing'!
+
+show: anObject
+    self current show: anObject
+!
+
+cr
+    self current show: String cr
+!
+
+clear
+    self current clear
+! !
+
+Object subclass: #ConsoleTranscript
+	instanceVariableNames: 'textarea'
+	category: 'Kernel'!
+
+!ConsoleTranscript methodsFor: 'actions'!
+
+open
+! !
+
+!ConsoleTranscript methodsFor: 'printing'!
+
+clear
+	"no op"
+!
+
+cr
+	"no op"
+!
+
+show: anObject
+	<console.log(String(anObject._asString()))>
+! !
+
+!ConsoleTranscript class methodsFor: 'initialization'!
+
+initialize
+	Transcript register: self new
+! !
+

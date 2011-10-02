@@ -264,17 +264,24 @@ body.jtalkBody {
     z-index: 1;
 }
 
+.jtalkTool .jt_commit_local {
+    position: absolute;
+    top: 129px;
+    left: 60px;
+    z-index: 1;
+}
+
 .jtalkTool .jt_rename {
     position: absolute;
     top: 129px;
-    left: 90px;
+    left: 105px;
     z-index: 1;
 }
 
 .jtalkTool .jt_delete {
     position: absolute;
     top: 129px;
-    left: 185px;
+    left: 165px;
     z-index: 1;
 }
 
