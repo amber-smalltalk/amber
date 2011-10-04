@@ -295,7 +295,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20opened%20%3A%3D%20true.%0A%20%20%20%20%5B%3Ahtml%20%7C%20html%20div%20id%3A%20%27jtalk%27%5D%20appendToJQuery%3A%20%27body%27%20asJQuery.%0A%20%20%20%20%27body%27%20asJQuery%20%0A%09addClass%3A%20%27jtalkBody%27.%0A%20%20%20%20self%20appendToJQuery%3A%20%27%23jtalk%27%20asJQuery.%0A%20%20%20%20self%20%0A%09addTab%3A%20IDETranscript%20current%3B%0A%09addTab%3A%20Workspace%20new%3B%0A%09addTab%3A%20TestRunner%20new.%0A%20%20%20%20self%20selectTab%3A%20self%20tabs%20last.%0A%20%20%20%20self%20%0A%09onResize%3A%20%5Bself%20updateBodyMargin%3B%20updatePosition%5D%3B%0A%09onWindowResize%3A%20%5Bself%20updatePosition%5D'),
 messageSends: ["initialize", "appendToJQuery:", "id:", "div", "asJQuery", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"],
-referencedClasses: [smalltalk.IDETranscript,smalltalk.Workspace,smalltalk.TestRunner]
+referencedClasses: [smalltalk.nil,smalltalk.nil,smalltalk.nil]
 }),
 smalltalk.TabManager);
 
@@ -933,14 +933,18 @@ selector: unescape('classDeclarationSource'),
 category: 'accessing',
 fn: function (){
 var self=this;
-var stream=nil;
+try{var stream=nil;
 stream=smalltalk.send("", "_writeStream", []);
-(($receiver = self['@selectedClass']) != nil && $receiver != undefined) ? (function(){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@selectedClass'], "_superclass", []), "_asString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20subclass%3A%20%23")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_name", [])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send((smalltalk.String || String), "_lf", []), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("instanceVariableNames%3A%20%27")]);})(stream);smalltalk.send(smalltalk.send(self['@selectedClass'], "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("package%3A%20%27")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_category", [])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%27")]);})(stream);})() : nil;
-return smalltalk.send(stream, "_contents", []);
-return self;},
+(($receiver = self['@selectedClass']) == nil || $receiver == undefined) ? (function(){return (function(){throw({name: 'stReturn', selector: '_classDeclarationSource', fn: function(){return smalltalk.send(self, "_classDeclarationTemplate", [])}})})();})() : $receiver;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@selectedClass'], "_superclass", []), "_asString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20subclass%3A%20%23")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_name", [])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send((smalltalk.String || String), "_lf", []), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("instanceVariableNames%3A%20%27")]);})(stream);
+smalltalk.send(smalltalk.send(self['@selectedClass'], "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("package%3A%20%27")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self['@selectedClass'], "_category", [])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%27")]);})(stream);
+(function(){throw({name: 'stReturn', selector: '_classDeclarationSource', fn: function(){return smalltalk.send(stream, "_contents", [])}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_classDeclarationSource'){return e.fn()} throw(e)}},
 args: [],
-source: unescape('classDeclarationSource%0A%20%20%20%20%7C%20stream%20%7C%0A%20%20%20%20stream%20%3A%3D%20%27%27%20writeStream.%0A%20%20%20%20selectedClass%20ifNotNil%3A%20%5B%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20superclass%20asString%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%20subclass%3A%20%23%27%3B%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20name%3B%0A%09%20%20%20%20nextPutAll%3A%20String%20lf%2C%20String%20tab%3B%0A%09%20%20%20%20nextPutAll%3A%20%27instanceVariableNames%3A%20%27%27%27.%0A%09selectedClass%20instanceVariableNames%20%0A%09%20%20%20%20do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%5D%20%0A%09%20%20%20%20separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%20%27%5D.%0A%09stream%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27%2C%20String%20lf%2C%20String%20tab%3B%0A%09%20%20%20%20nextPutAll%3A%20%27package%3A%20%27%27%27%3B%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20category%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27%5D.%0A%20%20%20%20%5Estream%20contents'),
-messageSends: ["writeStream", "ifNotNil:", "nextPutAll:", "asString", "superclass", "name", unescape("%2C"), "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "contents"],
+source: unescape('classDeclarationSource%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09selectedClass%20ifNil%3A%20%5B%5Eself%20classDeclarationTemplate%5D.%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20superclass%20asString%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%20subclass%3A%20%23%27%3B%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20name%3B%0A%09%20%20%20%20nextPutAll%3A%20String%20lf%2C%20String%20tab%3B%0A%09%20%20%20%20nextPutAll%3A%20%27instanceVariableNames%3A%20%27%27%27.%0A%09selectedClass%20instanceVariableNames%20%0A%09%20%20%20%20do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%5D%20%0A%09%20%20%20%20separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%20%27%5D.%0A%09stream%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27%2C%20String%20lf%2C%20String%20tab%3B%0A%09%20%20%20%20nextPutAll%3A%20%27package%3A%20%27%27%27%3B%0A%09%20%20%20%20nextPutAll%3A%20selectedClass%20category%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27.%0A%09%5Estream%20contents'),
+messageSends: ["writeStream", "ifNil:", "classDeclarationTemplate", "nextPutAll:", "asString", "superclass", "name", unescape("%2C"), "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "contents"],
 referencedClasses: [smalltalk.String]
 }),
 smalltalk.Browser);
@@ -1506,11 +1510,12 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.TabWidget);
 self['@selectedTab']="instance";
+self['@selectedPackage']=smalltalk.send(smalltalk.send(self, "_packages", []), "_first", []);
 self['@unsavedChanges']=false;
 return self;},
 args: [],
-source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20selectedTab%20%3A%3D%20%23instance.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false'),
-messageSends: ["initialize"],
+source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20selectedTab%20%3A%3D%20%23instance.%0A%20%20%20%20selectedPackage%20%3A%3D%20self%20packages%20first.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false'),
+messageSends: ["initialize", "first", "packages"],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -1772,6 +1777,38 @@ args: [],
 source: unescape('commitPackageToLocalStorage%0A%09%7C%20key%20sourceCode%20%7C%0A%09selectedPackage%20ifNotNil%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09key%20%3A%3D%20%27smalltalk.packages.%27%20%2C%20selectedPackage.%0A%09%09sourceCode%20%3A%3D%20%28Exporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%3ClocalStorage%5Bkey%5D%20%3D%20sourceCode%3E%5D'),
 messageSends: ["ifNotNil:", unescape("%2C"), "exportPackage:", "new"],
 referencedClasses: [smalltalk.Exporter]
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+unescape('_classDeclarationTemplate'),
+smalltalk.method({
+selector: unescape('classDeclarationTemplate'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23ClassName%0A%09instanceVariableNames%3A%20%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
+return self;},
+args: [],
+source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23ClassName%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27%20'),
+messageSends: [unescape("%2C"), "selectedPackage"],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+unescape('_selectedPackage'),
+smalltalk.method({
+selector: unescape('selectedPackage'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@selectedPackage'];
+return self;},
+args: [],
+source: unescape('selectedPackage%0A%09%5EselectedPackage'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Browser);
 

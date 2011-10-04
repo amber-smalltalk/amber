@@ -426,9 +426,9 @@ declarationSource
 !
 
 classDeclarationSource
-    | stream |
-    stream := '' writeStream.
-    selectedClass ifNotNil: [
+	| stream |
+	stream := '' writeStream.
+	selectedClass ifNil: [^self classDeclarationTemplate].
 	stream 
 	    nextPutAll: selectedClass superclass asString;
 	    nextPutAll: ' subclass: #';
@@ -442,8 +442,8 @@ classDeclarationSource
 	    nextPutAll: '''', String lf, String tab;
 	    nextPutAll: 'package: ''';
 	    nextPutAll: selectedClass category;
-	    nextPutAll: ''''].
-    ^stream contents
+	    nextPutAll: ''''.
+	^stream contents
 !
 
 metaclassDeclarationSource
@@ -467,6 +467,16 @@ classCommentSource
 
 selectedClass
 	^selectedClass
+!
+
+classDeclarationTemplate
+	^'Object subclass: #ClassName
+	instanceVariableNames: ''
+	package: ''', self selectedPackage, ''''
+!
+
+selectedPackage
+	^selectedPackage
 ! !
 
 !Browser methodsFor: 'actions'!
@@ -745,6 +755,7 @@ commitPackageToLocalStorage
 initialize
     super initialize.
     selectedTab := #instance.
+    selectedPackage := self packages first.
     unsavedChanges := false
 ! !
 
