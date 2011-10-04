@@ -470,7 +470,7 @@ selectedClass
 !
 
 classDeclarationTemplate
-	^'Object subclass: #ClassName
+	^'Object subclass: #nameOfSubclass
 	instanceVariableNames: ''
 	package: ''', self selectedPackage, ''''
 !
