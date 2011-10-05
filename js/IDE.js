@@ -1549,7 +1549,7 @@ return self;},
 args: ["html"],
 source: unescape('renderTopPanelOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27top%27%3B%20%0A%09%09with%3A%20%5B%0A%09%09%09packagesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20packages%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09html%20div%20class%3A%20%27jt_packagesButtons%27%3B%20with%3A%20%5B%0A%09%09%09%09html%20button%20%0A%09%09%09%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20disk%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20commitPackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Commit%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%20%0A%09%09%09%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20local%20storage%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20commitPackageToLocalStorage%5D%3B%0A%09%09%09%09%09with%3A%20%27Local%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%0A%09%09%09%09%09title%3A%20%27Rename%20package%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20renamePackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Rename%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%0A%09%09%09%09%09title%3A%20%27Remove%20this%20package%20from%20the%20system%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20removePackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Remove%27%5D.%0A%09%09%09classesList%20%3A%3D%20ClassesList%20on%3A%20self.%0A%09%09%09classesList%20renderOn%3A%20html.%0A%09%09%09protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20protocols%27.%0A%09%09%09methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20methods%27.%0A%09%09%09self%0A%09%09%09%09updateCategoriesList%3B%0A%09%09%09%09updateClassesList%3B%0A%09%09%09%09updateProtocolsList%3B%0A%09%09%09%09updateMethodsList.%0A%09%09%09html%20div%20class%3A%20%27jt_clear%27%5D'),
 messageSends: ["class:", "with:", "ul", "title:", "onClick:", "commitPackage", "button", "commitPackageToLocalStorage", "renamePackage", "removePackage", "div", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
-referencedClasses: [smalltalk.ClassesList]
+referencedClasses: [smalltalk.nil]
 }),
 smalltalk.Browser);
 
@@ -1788,10 +1788,10 @@ selector: unescape('classDeclarationTemplate'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
+return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
 return self;},
 args: [],
-source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27%20'),
+source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27%20'),
 messageSends: [unescape("%2C"), "selectedPackage"],
 referencedClasses: []
 }),

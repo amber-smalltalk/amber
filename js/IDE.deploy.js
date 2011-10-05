@@ -1272,7 +1272,7 @@ smalltalk.method({
 selector: 'classDeclarationTemplate',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
+return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
 return self;}
 }),
 smalltalk.Browser);
