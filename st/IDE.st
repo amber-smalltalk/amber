@@ -339,7 +339,7 @@ renderButtonsOn: html
 ! !
 
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges renameButton deleteButton commitLocalButton'
+	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -555,7 +555,8 @@ compileDefinition
     self 
 	resetClassesList;
 	updateCategoriesList;
-	updateClassesList
+	updateClassesList.
+    self selectClass: newClass
 !
 
 cancelChanges
@@ -657,7 +658,7 @@ selectTab: aString
 renameClass
     | newName |
     newName := self prompt: 'Rename class ', selectedClass name.
-    newName notEmpty ifTrue: [
+    (newName notNil and: [newName notEmpty]) ifTrue: [
 	selectedClass rename: newName.
 	self 
 		updateClassesList;
@@ -748,6 +749,17 @@ commitPackageToLocalStorage
           	key := 'smalltalk.packages.' , selectedPackage.
 		sourceCode := (Exporter new exportPackage: selectedPackage).
 		<localStorage[key] = sourceCode>]
+!
+
+addNewClass
+	| className |
+	className := self prompt: 'New class'.
+	(className notNil and: [className notEmpty]) ifTrue: [
+		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
+          	 self 
+			resetClassesList;
+			updateClassesList.
+		self selectClass: (Smalltalk current at: className)]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -769,40 +781,37 @@ renderBoxOn: html
 !
 
 renderTopPanelOn: html
-    html div 
-	class: 'top'; 
-	with: [
-	    packagesList := html ul class: 'jt_column browser packages'.
-	    commitButton := html button 
-		class: 'jt_commit';
-		title: 'Commit classes in this package to disk';
-		onClick: [self commitPackage];
-		with: 'Commit'.
-            commitLocalButton := html button 
-		class: 'jt_commit_local';
-		title: 'Commit classes in this package to local storage';
-		onClick: [self commitPackageToLocalStorage];
-		with: 'Local'.
-            renameButton := html button 
-		class: 'jt_rename';
-		title: 'Rename package';
-		onClick: [self renamePackage];
-		with: 'Rename'.
-            deleteButton := html button 
-		class: 'jt_delete';
-		title: 'Remove this package from the system';
-		onClick: [self removePackage];
-		with: 'Remove'.
-	    classesList := ClassesList on: self.
-	    classesList renderOn: html.
-	    protocolsList := html ul class: 'jt_column browser protocols'.
-	    methodsList := html ul class: 'jt_column browser methods'.
-	    self
-		updateCategoriesList;
-		updateClassesList;
-		updateProtocolsList;
-		updateMethodsList.
-	    html div class: 'jt_clear']
+	html div 
+		class: 'top'; 
+		with: [
+			packagesList := html ul class: 'jt_column browser packages'.
+          		html div class: 'jt_packagesButtons'; with: [
+				html button 
+					title: 'Commit classes in this package to disk';
+					onClick: [self commitPackage];
+					with: 'Commit'.
+        			html button 
+					title: 'Commit classes in this package to local storage';
+					onClick: [self commitPackageToLocalStorage];
+					with: 'Local'.
+        			html button
+					title: 'Rename package';
+					onClick: [self renamePackage];
+					with: 'Rename'.
+        			html button
+					title: 'Remove this package from the system';
+					onClick: [self removePackage];
+					with: 'Remove'].
+			classesList := ClassesList on: self.
+			classesList renderOn: html.
+			protocolsList := html ul class: 'jt_column browser protocols'.
+			methodsList := html ul class: 'jt_column browser methods'.
+			self
+				updateCategoriesList;
+				updateClassesList;
+				updateProtocolsList;
+				updateMethodsList.
+			html div class: 'jt_clear']
 !
 
 renderTabsOn: html
@@ -930,6 +939,10 @@ updateTabsList
 updateSourceAndButtons
 	self disableSaveButton.
 	classButtons contents: [:html |
+		html button
+			title: 'Create a new class';
+			onClick: [self addNewClass];
+			with: 'New class'.
 		html button
 			with: 'Rename class';
 			onClick: [self renameClass].

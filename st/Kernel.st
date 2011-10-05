@@ -2500,20 +2500,13 @@ class: aClass instanceVariableNames: aString
 	self setupClass: aClass
 !
 
-superclass: aClass subclass: aString instanceVariableNames: aString2 module: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				module: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
-!
-
 superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
 	| newClass |
 	newClass := self addSubclassOf: aClass
 				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
 				package: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
+	self setupClass: newClass.
+	^newClass
 ! !
 
 !ClassBuilder methodsFor: 'private'!
@@ -2529,11 +2522,6 @@ addSubclassOf: aClass named: aString instanceVariableNames: aCollection
 
 setupClass: aClass
 	<smalltalk.init(aClass);>
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection module: moduleName
-	<smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString]>
 !
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName

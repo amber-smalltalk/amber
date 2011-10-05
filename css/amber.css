@@ -257,31 +257,10 @@ body.jtalkBody {
     height: 100%;
 }
 
-.jtalkTool .jt_commit {
+.jtalkTool .jt_packagesButtons {
     position: absolute;
     top: 129px;
     left: 0;
-    z-index: 1;
-}
-
-.jtalkTool .jt_commit_local {
-    position: absolute;
-    top: 129px;
-    left: 60px;
-    z-index: 1;
-}
-
-.jtalkTool .jt_rename {
-    position: absolute;
-    top: 129px;
-    left: 105px;
-    z-index: 1;
-}
-
-.jtalkTool .jt_delete {
-    position: absolute;
-    top: 129px;
-    left: 165px;
     z-index: 1;
 }
 

@@ -7191,41 +7191,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_superclass_subclass_instanceVariableNames_module_'),
-smalltalk.method({
-selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Amodule%3A'),
-category: 'class creation',
-fn: function (aClass, aString, aString2, aString3){
-var self=this;
-var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_module_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
-smalltalk.send(self, "_setupClass_", [newClass]);
-return self;},
-args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20module%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09module%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass'),
-messageSends: ["addSubclassOf:named:instanceVariableNames:module:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
-unescape('_addSubclassOf_named_instanceVariableNames_module_'),
-smalltalk.method({
-selector: unescape('addSubclassOf%3Anamed%3AinstanceVariableNames%3Amodule%3A'),
-category: 'private',
-fn: function (aClass, aString, aCollection, moduleName){
-var self=this;
-smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString];
-return self;},
-args: ["aClass", "aString", "aCollection", "moduleName"],
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%20module%3A%20moduleName%0A%09%3Csmalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%2C%20moduleName%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
 unescape('_superclass_subclass_instanceVariableNames_package_'),
 smalltalk.method({
 selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Apackage%3A'),
@@ -7235,9 +7200,10 @@ var self=this;
 var newClass=nil;
 newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
 smalltalk.send(self, "_setupClass_", [newClass]);
+return newClass;
 return self;},
 args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass'),
+source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass.%0A%09%5EnewClass'),
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
 referencedClasses: []
 }),

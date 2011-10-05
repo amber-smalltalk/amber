@@ -5049,31 +5049,6 @@ return self;}
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-'_superclass_subclass_instanceVariableNames_module_',
-smalltalk.method({
-selector: 'superclass:subclass:instanceVariableNames:module:',
-fn: function (aClass, aString, aString2, aString3){
-var self=this;
-var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_module_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
-smalltalk.send(self, "_setupClass_", [newClass]);
-return self;}
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
-'_addSubclassOf_named_instanceVariableNames_module_',
-smalltalk.method({
-selector: 'addSubclassOf:named:instanceVariableNames:module:',
-fn: function (aClass, aString, aCollection, moduleName){
-var self=this;
-smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString];
-return self;}
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
 '_superclass_subclass_instanceVariableNames_package_',
 smalltalk.method({
 selector: 'superclass:subclass:instanceVariableNames:package:',
@@ -5082,6 +5057,7 @@ var self=this;
 var newClass=nil;
 newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
 smalltalk.send(self, "_setupClass_", [newClass]);
+return newClass;
 return self;}
 }),
 smalltalk.ClassBuilder);
