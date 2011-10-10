@@ -3488,6 +3488,17 @@ return self;}
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+'_atRandom',
+smalltalk.method({
+selector: 'atRandom',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
+return self;}
+}),
+smalltalk.SequenceableCollection);
+
 
 
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');

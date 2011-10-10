@@ -4980,6 +4980,22 @@ referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+unescape('_atRandom'),
+smalltalk.method({
+selector: unescape('atRandom'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
+return self;},
+args: [],
+source: unescape('atRandom%0A%09%5E%20self%20at%3A%20self%20size%20atRandom'),
+messageSends: ["at:", "atRandom", "size"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
 
 
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
