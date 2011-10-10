@@ -427,24 +427,6 @@ Object subclass: #Widget
 	instanceVariableNames: ''
 	category: 'Canvas'!
 
-!Widget methodsFor: 'actions'!
-
-alert: aString
-    <alert(aString)>
-!
-
-confirm: aString
-    <return window.confirm(aString)>
-!
-
-prompt: aString
-    ^self prompt: aString default: ''
-!
-
-prompt: aString default: anotherString
-    <return window.prompt(aString, anotherString)>
-! !
-
 !Widget methodsFor: 'adding'!
 
 appendToBrush: aTagBrush

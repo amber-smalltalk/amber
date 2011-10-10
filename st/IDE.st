@@ -533,14 +533,14 @@ compileMethodDefinitionFor: aClass
     compiler source: source.
     node := compiler parse: source.
     node isParseFailure ifTrue: [
-	^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
+	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
     compiler currentClass: aClass.
     method := compiler eval: (compiler compileNode: node).
     method category: selectedProtocol.
     compiler unknownVariables do: [:each |
          "Do not try to redeclare javascript's objects"
          (window at: each) ifNil: [
-	 	(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
     aClass addCompiledMethod: method.
@@ -561,12 +561,12 @@ compileDefinition
 
 cancelChanges
     ^unsavedChanges 
-	ifTrue: [self confirm: 'Cancel changes?']
+	ifTrue: [window confirm: 'Cancel changes?']
 	ifFalse: [true]
 !
 
 removeClass
-    (self confirm: 'Do you really want to remove ', selectedClass name, '?')
+    (window confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
 	    Smalltalk current removeClass: selectedClass.
 	    self resetClassesList.
@@ -575,7 +575,7 @@ removeClass
 
 removeMethod
     self cancelChanges ifTrue: [
-	(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
+	(window confirm: 'Do you really want to remove #', selectedMethod selector, '?')
 	    ifTrue: [
 		selectedTab = #instance 
 			ifTrue: [selectedClass removeCompiledMethod: selectedMethod]
@@ -599,7 +599,7 @@ setMethodProtocol: aString
 
 addNewProtocol
     | newProtocol |
-    newProtocol := self prompt: 'New method protocol'.
+    newProtocol := window prompt: 'New method protocol'.
     (newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
@@ -657,7 +657,7 @@ selectTab: aString
 
 renameClass
     | newName |
-    newName := self prompt: 'Rename class ', selectedClass name.
+    newName := window prompt: 'Rename class ', selectedClass name.
     (newName notNil and: [newName notEmpty]) ifTrue: [
 	selectedClass rename: newName.
 	self 
@@ -707,28 +707,28 @@ commitPackage
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (Exporter new exportPackage: selectedPackage).
-				'error' -> [self alert: 'Commit failed!!']
+				'error' -> [window alert: 'Commit failed!!']
 			}.
 		jQuery 
 			ajax: self class commitPathJs, '/', selectedPackage, '.deploy.js'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (StrippedExporter new exportPackage: selectedPackage).
-				'error' -> [self alert: 'Commit failed!!']
+				'error' -> [window alert: 'Commit failed!!']
 			}.
 		jQuery 
 			ajax: self class commitPathSt, '/', selectedPackage, '.st'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (ChunkExporter new exportPackage: selectedPackage).
-				'error' -> [self alert: 'Commit failed!!']
+				'error' -> [window alert: 'Commit failed!!']
 			}]
 !
 
 renamePackage
 
   | newName |
-  newName := self prompt: 'Rename package ', selectedPackage.
+  newName := window prompt: 'Rename package ', selectedPackage.
   newName ifNotNil: [
     newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.
@@ -737,7 +737,7 @@ renamePackage
 
 removePackage
 
-  (self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
+  (window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
 	    Smalltalk current removePackage: selectedPackage.
 	    self updateCategoriesList]
@@ -753,7 +753,7 @@ commitPackageToLocalStorage
 
 addNewClass
 	| className |
-	className := self prompt: 'New class'.
+	className := window prompt: 'New class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
           	 self 
@@ -1453,7 +1453,7 @@ eval: aString
 	| compiler  |
 	compiler := Compiler new.
 	[compiler parseExpression: aString] on: Error do: [:ex |
-		^self alert: ex messageText].
+		^window alert: ex messageText].
 	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
 !
 

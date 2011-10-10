@@ -1031,50 +1031,6 @@ smalltalk.TagBrush.klass);
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
-'_alert_',
-smalltalk.method({
-selector: 'alert:',
-fn: function (aString){
-var self=this;
-alert(aString);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_confirm_',
-smalltalk.method({
-selector: 'confirm:',
-fn: function (aString){
-var self=this;
-return window.confirm(aString);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_prompt_',
-smalltalk.method({
-selector: 'prompt:',
-fn: function (aString){
-var self=this;
-return smalltalk.send(self, "_prompt_default_", [aString, ""]);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_prompt_default_',
-smalltalk.method({
-selector: 'prompt:default:',
-fn: function (aString, anotherString){
-var self=this;
-return window.prompt(aString, anotherString);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
 '_appendToBrush_',
 smalltalk.method({
 selector: 'appendToBrush:',
