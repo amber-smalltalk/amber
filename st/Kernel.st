@@ -1686,6 +1686,10 @@ indexOf: anObject startingAt: start
 	within the receiver. If the receiver does not contain anElement, 
 	answer 0."
 	^self indexOf: anObject startingAt: start ifAbsent: [0]
+!
+
+atRandom
+	^ self at: self size atRandom
 ! !
 
 !SequenceableCollection methodsFor: 'adding'!
