@@ -1867,6 +1867,28 @@ return self;}
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_deepCopy',
+smalltalk.method({
+selector: 'deepCopy',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_copy", []);
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_copy',
+smalltalk.method({
+selector: 'copy',
+fn: function (){
+var self=this;
+return self;
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',

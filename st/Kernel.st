@@ -880,6 +880,16 @@ to: stop by: step do: aBlock
 	    			value := value + step]]
 ! !
 
+!Number methodsFor: 'copying'!
+
+deepCopy
+	^self copy
+!
+
+copy
+	^self
+! !
+
 !Number methodsFor: 'enumerating'!
 
 timesRepeat: aBlock
