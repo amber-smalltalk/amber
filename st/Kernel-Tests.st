@@ -279,18 +279,29 @@ testPropertyThatReturnsEmptyString
 ! !
 
 TestCase subclass: #PackageTest
-	instanceVariableNames: 'zorkPackage grulPackage'
+	instanceVariableNames: 'zorkPackage grulPackage backUpCommitPathJs backUpCommitPathSt'
 	category: 'Kernel-Tests'!
 
 !PackageTest methodsFor: 'running'!
 
 setUp
+	backUpCommitPathJs := Package defaultCommitPathJs.
+	backUpCommitPathSt := Package defaultCommitPathSt.
+
+	Package resetCommitPaths.
+
 	zorkPackage := Package new name: 'Zork'.
 	grulPackage := Package new 
 					name: 'Grul';
 					commitPathJs: 'server/grul/js';
 					commitPathSt: 'grul/st';
 					yourself
+!
+
+tearDown
+	 Package 
+		defaultCommitPathJs: backUpCommitPathJs;
+		defaultCommitPathSt: backUpCommitPathSt
 ! !
 
 !PackageTest methodsFor: 'tests'!
@@ -312,25 +323,17 @@ testGrulCommitPathJsShouldBeServerGrulJs
 ! !
 
 PackageTest subclass: #PackageWithDefaultCommitPathChangedTest
-	instanceVariableNames: 'backUpCommitPathJs backUpCommitPathSt'
+	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
 !PackageWithDefaultCommitPathChangedTest methodsFor: 'running'!
 
 setUp
 	super setUp.
-	backUpCommitPathJs := Package defaultCommitPathJs.
-	backUpCommitPathSt := Package defaultCommitPathSt.
 
 	Package
 		defaultCommitPathJs: 'javascripts/';
 		defaultCommitPathSt: 'smalltalk/'.
-!
-
-tearDown
-	 Package 
-		defaultCommitPathJs: backUpCommitPathJs;
-		defaultCommitPathSt: backUpCommitPathSt
 ! !
 
 !PackageWithDefaultCommitPathChangedTest methodsFor: 'tests'!

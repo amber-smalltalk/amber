@@ -408,11 +408,11 @@ name: aString
 !
 
 commitPathJs
-	^ commitPathJs := self class defaultCommitPathJs
+	^ commitPathJs ifNil: [self class defaultCommitPathJs]
 !
 
 commitPathSt
-	^ commitPathSt := self class defaultCommitPathSt
+	^ commitPathSt ifNil: [self class defaultCommitPathSt]
 !
 
 commitPathJs: aString
@@ -464,6 +464,13 @@ defaultCommitPathSt: aString
 
 defaultCommitPathJs: aString
 	defaultCommitPathJs := aString
+! !
+
+!Package class methodsFor: 'reset'!
+
+resetCommitPaths
+	defaultCommitPathJs := nil.
+	defaultCommitPathSt := nil.
 ! !
 
 Object subclass: #Behavior

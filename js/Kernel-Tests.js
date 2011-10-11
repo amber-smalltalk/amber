@@ -470,7 +470,7 @@ smalltalk.JSObjectProxyTest);
 
 
 
-smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage'], 'Kernel-Tests');
+smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
 smalltalk.addMethod(
 unescape('_setUp'),
 smalltalk.method({
@@ -478,12 +478,15 @@ selector: unescape('setUp'),
 category: 'running',
 fn: function (){
 var self=this;
+self['@backUpCommitPathJs']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathJs", []);
+self['@backUpCommitPathSt']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathSt", []);
+smalltalk.send((smalltalk.Package || Package), "_resetCommitPaths", []);
 self['@zorkPackage']=smalltalk.send(smalltalk.send((smalltalk.Package || Package), "_new", []), "_name_", ["Zork"]);
 self['@grulPackage']=(function($rec){smalltalk.send($rec, "_name_", ["Grul"]);smalltalk.send($rec, "_commitPathJs_", [unescape("server/grul/js")]);smalltalk.send($rec, "_commitPathSt_", [unescape("grul/st")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Package || Package), "_new", []));
 return self;},
 args: [],
-source: unescape('setUp%0A%09zorkPackage%20%3A%3D%20Package%20new%20name%3A%20%27Zork%27.%0A%09grulPackage%20%3A%3D%20Package%20new%20%0A%09%09%09%09%09name%3A%20%27Grul%27%3B%0A%09%09%09%09%09commitPathJs%3A%20%27server/grul/js%27%3B%0A%09%09%09%09%09commitPathSt%3A%20%27grul/st%27%3B%0A%09%09%09%09%09yourself'),
-messageSends: ["name:", "new", "commitPathJs:", "commitPathSt:", "yourself"],
+source: unescape('setUp%0A%09backUpCommitPathJs%20%3A%3D%20Package%20defaultCommitPathJs.%0A%09backUpCommitPathSt%20%3A%3D%20Package%20defaultCommitPathSt.%0A%0A%09Package%20resetCommitPaths.%0A%0A%09zorkPackage%20%3A%3D%20Package%20new%20name%3A%20%27Zork%27.%0A%09grulPackage%20%3A%3D%20Package%20new%20%0A%09%09%09%09%09name%3A%20%27Grul%27%3B%0A%09%09%09%09%09commitPathJs%3A%20%27server/grul/js%27%3B%0A%09%09%09%09%09commitPathSt%3A%20%27grul/st%27%3B%0A%09%09%09%09%09yourself'),
+messageSends: ["defaultCommitPathJs", "defaultCommitPathSt", "resetCommitPaths", "name:", "new", "commitPathJs:", "commitPathSt:", "yourself"],
 referencedClasses: [smalltalk.Package]
 }),
 smalltalk.PackageTest);
@@ -552,28 +555,6 @@ referencedClasses: []
 }),
 smalltalk.PackageTest);
 
-
-
-smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, ['backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
-smalltalk.addMethod(
-unescape('_setUp'),
-smalltalk.method({
-selector: unescape('setUp'),
-category: 'running',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_setUp", [], smalltalk.PackageTest);
-self['@backUpCommitPathJs']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathJs", []);
-self['@backUpCommitPathSt']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathSt", []);
-(function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [unescape("javascripts/")]);return smalltalk.send($rec, "_defaultCommitPathSt_", [unescape("smalltalk/")]);})((smalltalk.Package || Package));
-return self;},
-args: [],
-source: unescape('setUp%0A%09super%20setUp.%0A%09backUpCommitPathJs%20%3A%3D%20Package%20defaultCommitPathJs.%0A%09backUpCommitPathSt%20%3A%3D%20Package%20defaultCommitPathSt.%0A%0A%09Package%0A%09%09defaultCommitPathJs%3A%20%27javascripts/%27%3B%0A%09%09defaultCommitPathSt%3A%20%27smalltalk/%27.'),
-messageSends: ["setUp", "defaultCommitPathJs", "defaultCommitPathSt", "defaultCommitPathJs:", "defaultCommitPathSt:"],
-referencedClasses: [smalltalk.Package]
-}),
-smalltalk.PackageWithDefaultCommitPathChangedTest);
-
 smalltalk.addMethod(
 unescape('_tearDown'),
 smalltalk.method({
@@ -586,6 +567,26 @@ return self;},
 args: [],
 source: unescape('tearDown%0A%09%20Package%20%0A%09%09defaultCommitPathJs%3A%20backUpCommitPathJs%3B%0A%09%09defaultCommitPathSt%3A%20backUpCommitPathSt'),
 messageSends: ["defaultCommitPathJs:", "defaultCommitPathSt:"],
+referencedClasses: [smalltalk.Package]
+}),
+smalltalk.PackageTest);
+
+
+
+smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+unescape('_setUp'),
+smalltalk.method({
+selector: unescape('setUp'),
+category: 'running',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_setUp", [], smalltalk.PackageTest);
+(function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [unescape("javascripts/")]);return smalltalk.send($rec, "_defaultCommitPathSt_", [unescape("smalltalk/")]);})((smalltalk.Package || Package));
+return self;},
+args: [],
+source: unescape('setUp%0A%09super%20setUp.%0A%0A%09Package%0A%09%09defaultCommitPathJs%3A%20%27javascripts/%27%3B%0A%09%09defaultCommitPathSt%3A%20%27smalltalk/%27.'),
+messageSends: ["setUp", "defaultCommitPathJs:", "defaultCommitPathSt:"],
 referencedClasses: [smalltalk.Package]
 }),
 smalltalk.PackageWithDefaultCommitPathChangedTest);

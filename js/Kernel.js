@@ -1198,11 +1198,11 @@ selector: unescape('commitPathJs'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return self['@commitPathJs']=smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);
+return (($receiver = self['@commitPathJs']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);})() : $receiver;
 return self;},
 args: [],
-source: unescape('commitPathJs%0A%09%5E%20commitPathJs%20%3A%3D%20self%20class%20defaultCommitPathJs'),
-messageSends: ["defaultCommitPathJs", "class"],
+source: unescape('commitPathJs%0A%09%5E%20commitPathJs%20ifNil%3A%20%5Bself%20class%20defaultCommitPathJs%5D'),
+messageSends: ["ifNil:", "defaultCommitPathJs", "class"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -1214,11 +1214,11 @@ selector: unescape('commitPathSt'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return self['@commitPathSt']=smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);
+return (($receiver = self['@commitPathSt']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);})() : $receiver;
 return self;},
 args: [],
-source: unescape('commitPathSt%0A%09%5E%20commitPathSt%20%3A%3D%20self%20class%20defaultCommitPathSt'),
-messageSends: ["defaultCommitPathSt", "class"],
+source: unescape('commitPathSt%0A%09%5E%20commitPathSt%20ifNil%3A%20%5Bself%20class%20defaultCommitPathSt%5D'),
+messageSends: ["ifNil:", "defaultCommitPathSt", "class"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -1348,6 +1348,23 @@ self['@defaultCommitPathJs']=aString;
 return self;},
 args: ["aString"],
 source: unescape('defaultCommitPathJs%3A%20aString%0A%09defaultCommitPathJs%20%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_resetCommitPaths'),
+smalltalk.method({
+selector: unescape('resetCommitPaths'),
+category: 'reset',
+fn: function (){
+var self=this;
+self['@defaultCommitPathJs']=nil;
+self['@defaultCommitPathSt']=nil;
+return self;},
+args: [],
+source: unescape('resetCommitPaths%0A%09defaultCommitPathJs%20%3A%3D%20nil.%0A%09defaultCommitPathSt%20%3A%3D%20nil.'),
 messageSends: [],
 referencedClasses: []
 }),
