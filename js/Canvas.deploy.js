@@ -561,6 +561,28 @@ return self;}
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_span_',
+smalltalk.method({
+selector: 'span:',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_span", []), "_with_", [anObject]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_style_',
+smalltalk.method({
+selector: 'style:',
+fn: function (aString){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_with_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_style", []));
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
@@ -972,6 +994,17 @@ return self;}
 }),
 smalltalk.TagBrush);
 
+smalltalk.addMethod(
+'_value_',
+smalltalk.method({
+selector: 'value:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["value", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
 
 smalltalk.addMethod(
 '_fromString_canvas_',
@@ -997,50 +1030,6 @@ smalltalk.TagBrush.klass);
 
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
-smalltalk.addMethod(
-'_alert_',
-smalltalk.method({
-selector: 'alert:',
-fn: function (aString){
-var self=this;
-alert(aString);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_confirm_',
-smalltalk.method({
-selector: 'confirm:',
-fn: function (aString){
-var self=this;
-return window.confirm(aString);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_prompt_',
-smalltalk.method({
-selector: 'prompt:',
-fn: function (aString){
-var self=this;
-return smalltalk.send(self, "_prompt_default_", [aString, ""]);
-return self;}
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-'_prompt_default_',
-smalltalk.method({
-selector: 'prompt:default:',
-fn: function (aString, anotherString){
-var self=this;
-return window.prompt(aString, anotherString);
-return self;}
-}),
-smalltalk.Widget);
-
 smalltalk.addMethod(
 '_appendToBrush_',
 smalltalk.method({

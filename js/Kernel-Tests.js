@@ -242,7 +242,7 @@ smalltalk.addMethod(
 unescape('_testPrintShowingDecimalPlaces'),
 smalltalk.method({
 selector: unescape('testPrintShowingDecimalPlaces'),
-category: 'not yet classified',
+category: 'tests',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["23.00", smalltalk.send((23), "_printShowingDecimalPlaces_", [(2)])]);
@@ -385,6 +385,23 @@ return self;},
 args: [],
 source: unescape('testTruncated%0A%09%0A%09self%20assert%3A%203%20truncated%20%3D%203.%0A%09self%20assert%3A%203.212%20truncated%20%3D%203.%0A%09self%20assert%3A%203.51%20truncated%20%3D%203'),
 messageSends: ["assert:", unescape("%3D"), "truncated"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+unescape('_testCopying'),
+smalltalk.method({
+selector: unescape('testCopying'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_copy", []), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_deepCopy", []), "__eq", [(1)])]);
+return self;},
+args: [],
+source: unescape('testCopying%0A%09self%20assert%3A%201%20copy%20%3D%201.%0A%09self%20assert%3A%201%20deepCopy%20%3D%201'),
+messageSends: ["assert:", unescape("%3D"), "copy", "deepCopy"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);

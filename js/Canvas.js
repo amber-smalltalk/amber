@@ -816,6 +816,38 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+unescape('_span_'),
+smalltalk.method({
+selector: unescape('span%3A'),
+category: 'tags',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_span", []), "_with_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('span%3A%20anObject%0A%20%20%20%20%5Eself%20span%20with%3A%20anObject'),
+messageSends: ["with:", "span"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_style_'),
+smalltalk.method({
+selector: unescape('style%3A'),
+category: 'tags',
+fn: function (aString){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_with_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_style", []));
+return self;},
+args: ["aString"],
+source: unescape('style%3A%20aString%0A%09%5E%20self%20style%20with%3A%20aString%3B%20yourself%20'),
+messageSends: ["with:", "yourself", "style"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 unescape('_onJQuery_'),
@@ -1407,6 +1439,22 @@ referencedClasses: []
 }),
 smalltalk.TagBrush);
 
+smalltalk.addMethod(
+unescape('_value_'),
+smalltalk.method({
+selector: unescape('value%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["value", aString]);
+return self;},
+args: ["aString"],
+source: unescape('value%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27value%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
 
 smalltalk.addMethod(
 unescape('_fromString_canvas_'),
@@ -1442,70 +1490,6 @@ smalltalk.TagBrush.klass);
 
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
-smalltalk.addMethod(
-unescape('_alert_'),
-smalltalk.method({
-selector: unescape('alert%3A'),
-category: 'actions',
-fn: function (aString){
-var self=this;
-alert(aString);
-return self;},
-args: ["aString"],
-source: unescape('alert%3A%20aString%0A%20%20%20%20%3Calert%28aString%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-unescape('_confirm_'),
-smalltalk.method({
-selector: unescape('confirm%3A'),
-category: 'actions',
-fn: function (aString){
-var self=this;
-return window.confirm(aString);
-return self;},
-args: ["aString"],
-source: unescape('confirm%3A%20aString%0A%20%20%20%20%3Creturn%20window.confirm%28aString%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-unescape('_prompt_'),
-smalltalk.method({
-selector: unescape('prompt%3A'),
-category: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.send(self, "_prompt_default_", [aString, ""]);
-return self;},
-args: ["aString"],
-source: unescape('prompt%3A%20aString%0A%20%20%20%20%5Eself%20prompt%3A%20aString%20default%3A%20%27%27'),
-messageSends: ["prompt:default:"],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-unescape('_prompt_default_'),
-smalltalk.method({
-selector: unescape('prompt%3Adefault%3A'),
-category: 'actions',
-fn: function (aString, anotherString){
-var self=this;
-return window.prompt(aString, anotherString);
-return self;},
-args: ["aString", "anotherString"],
-source: unescape('prompt%3A%20aString%20default%3A%20anotherString%0A%20%20%20%20%3Creturn%20window.prompt%28aString%2C%20anotherString%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
 smalltalk.addMethod(
 unescape('_appendToBrush_'),
 smalltalk.method({

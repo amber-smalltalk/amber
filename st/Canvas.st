@@ -213,6 +213,14 @@ li: anObject
 
 ul: anObject
     ^self ul with: anObject
+!
+
+span: anObject
+    ^self span with: anObject
+!
+
+style: aString
+	^ self style with: aString; yourself
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -337,6 +345,10 @@ width: aString
 
 height: aString
     self  at: 'height' put: aString
+!
+
+value: aString
+    self  at: 'value' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!
@@ -414,24 +426,6 @@ fromJQuery: aJQuery canvas: aCanvas
 Object subclass: #Widget
 	instanceVariableNames: ''
 	category: 'Canvas'!
-
-!Widget methodsFor: 'actions'!
-
-alert: aString
-    <alert(aString)>
-!
-
-confirm: aString
-    <return window.confirm(aString)>
-!
-
-prompt: aString
-    ^self prompt: aString default: ''
-!
-
-prompt: aString default: anotherString
-    <return window.prompt(aString, anotherString)>
-! !
 
 !Widget methodsFor: 'adding'!
 
