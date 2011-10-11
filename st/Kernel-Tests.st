@@ -278,3 +278,82 @@ testPropertyThatReturnsEmptyString
 	self assert: '#test' equals: document location hash.
 ! !
 
+TestCase subclass: #PackageTest
+	instanceVariableNames: 'zorkPackage grulPackage'
+	category: 'Kernel-Tests'!
+
+!PackageTest methodsFor: 'running'!
+
+setUp
+	zorkPackage := Package new name: 'Zork'.
+	grulPackage := Package new 
+					name: 'Grul';
+					commitPathJs: 'server/grul/js';
+					commitPathSt: 'grul/st';
+					yourself
+! !
+
+!PackageTest methodsFor: 'tests'!
+
+testGrulCommitPathStShouldBeGrulSt
+	self assert: 'grul/st' equals: grulPackage commitPathSt
+!
+
+testZorkCommitPathStShouldBeSt
+	self assert: 'st' equals: zorkPackage commitPathSt
+!
+
+testZorkCommitPathJsShouldBeJs
+	self assert: 'js' equals: zorkPackage commitPathJs
+!
+
+testGrulCommitPathJsShouldBeServerGrulJs
+	self assert: 'server/grul/js' equals: grulPackage commitPathJs
+! !
+
+PackageTest subclass: #PackageWithDefaultCommitPathChangedTest
+	instanceVariableNames: 'backUpCommitPathJs backUpCommitPathSt'
+	category: 'Kernel-Tests'!
+
+!PackageWithDefaultCommitPathChangedTest methodsFor: 'running'!
+
+setUp
+	super setUp.
+	backUpCommitPathJs := Package defaultCommitPathJs.
+	backUpCommitPathSt := Package defaultCommitPathSt.
+
+	Package
+		defaultCommitPathJs: 'javascripts/';
+		defaultCommitPathSt: 'smalltalk/'.
+!
+
+tearDown
+	 Package 
+		defaultCommitPathJs: backUpCommitPathJs;
+		defaultCommitPathSt: backUpCommitPathSt
+! !
+
+!PackageWithDefaultCommitPathChangedTest methodsFor: 'tests'!
+
+testGrulCommitPathJsShouldBeServerGrulJs
+	self assert: 'server/grul/js' equals: grulPackage commitPathJs
+!
+
+testGrulCommitPathStShouldBeGrulSt
+	self assert: 'grul/st' equals: grulPackage commitPathSt
+!
+
+testZorkCommitPathJsShouldBeJavascript
+	self assert: 'javascripts/' equals: zorkPackage commitPathJs
+!
+
+testZorkCommitPathStShouldBeSmalltalk
+	self assert: 'smalltalk/' equals: zorkPackage commitPathSt
+! !
+
+!PackageWithDefaultCommitPathChangedTest class methodsFor: 'accessing'!
+
+shouldInheritSelectors
+	^ false
+! !
+

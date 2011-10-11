@@ -779,7 +779,7 @@ return self;}
 smalltalk.Smalltalk.klass);
 
 
-smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel');
+smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel');
 smalltalk.addMethod(
 '_name',
 smalltalk.method({
@@ -808,7 +808,7 @@ smalltalk.method({
 selector: 'name:',
 fn: function (aString){
 var self=this;
-return self.pkgName = aString;
+self.pkgName = aString;
 return self;}
 }),
 smalltalk.Package);
@@ -835,7 +835,52 @@ return self;}
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+'_commitPathJs',
+smalltalk.method({
+selector: 'commitPathJs',
+fn: function (){
+var self=this;
+return self['@commitPathJs']=smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);
+return self;}
+}),
+smalltalk.Package);
 
+smalltalk.addMethod(
+'_commitPathSt',
+smalltalk.method({
+selector: 'commitPathSt',
+fn: function (){
+var self=this;
+return self['@commitPathSt']=smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);
+return self;}
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+'_commitPathJs_',
+smalltalk.method({
+selector: 'commitPathJs:',
+fn: function (aString){
+var self=this;
+self['@commitPathJs']=aString;
+return self;}
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+'_commitPathSt_',
+smalltalk.method({
+selector: 'commitPathSt:',
+fn: function (aString){
+var self=this;
+self['@commitPathSt']=aString;
+return self;}
+}),
+smalltalk.Package);
+
+
+smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
 '_named_',
 smalltalk.method({
@@ -854,6 +899,50 @@ selector: 'named:ifAbsent:',
 fn: function (aPackageName, aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_ifAbsent_", [aPackageName, aBlock]);
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathSt',
+smalltalk.method({
+selector: 'defaultCommitPathSt',
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathSt']) == nil || $receiver == undefined) ? (function(){return self['@defaultCommitPathSt']="st";})() : $receiver;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathJs',
+smalltalk.method({
+selector: 'defaultCommitPathJs',
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathJs']) == nil || $receiver == undefined) ? (function(){return self['@defaultCommitPathJs']="js";})() : $receiver;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathSt_',
+smalltalk.method({
+selector: 'defaultCommitPathSt:',
+fn: function (aString){
+var self=this;
+self['@defaultCommitPathSt']=aString;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathJs_',
+smalltalk.method({
+selector: 'defaultCommitPathJs:',
+fn: function (aString){
+var self=this;
+self['@defaultCommitPathJs']=aString;
 return self;}
 }),
 smalltalk.Package.klass);

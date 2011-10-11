@@ -701,23 +701,24 @@ handleSourceAreaKeyDown: anEvent
 !
 
 commitPackage
-	selectedPackage ifNotNil: [
+	selectedPackage ifNotNil: [ |package|
+                package := Package named: selectedPackage.
 		jQuery 
-			ajax: self class commitPathJs, '/', selectedPackage, '.js'
+			ajax: package commitPathJs, '/', selectedPackage, '.js'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (Exporter new exportPackage: selectedPackage).
 				'error' -> [window alert: 'Commit failed!!']
 			}.
 		jQuery 
-			ajax: self class commitPathJs, '/', selectedPackage, '.deploy.js'
+			ajax: package commitPathJs, '/', selectedPackage, '.deploy.js'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (StrippedExporter new exportPackage: selectedPackage).
 				'error' -> [window alert: 'Commit failed!!']
 			}.
 		jQuery 
-			ajax: self class commitPathSt, '/', selectedPackage, '.st'
+			ajax: package commitPathSt, '/', selectedPackage, '.st'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (ChunkExporter new exportPackage: selectedPackage).
