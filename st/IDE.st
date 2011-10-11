@@ -702,28 +702,15 @@ handleSourceAreaKeyDown: anEvent
 
 commitPackage
 	selectedPackage ifNotNil: [ |package|
-                package := Package named: selectedPackage.
-		jQuery 
-			ajax: package commitPathJs, '/', selectedPackage, '.js'
-			options: #{
-				'type' -> 'PUT'.
-				'data' -> (Exporter new exportPackage: selectedPackage).
-				'error' -> [window alert: 'Commit failed!!']
-			}.
-		jQuery 
-			ajax: package commitPathJs, '/', selectedPackage, '.deploy.js'
-			options: #{
-				'type' -> 'PUT'.
-				'data' -> (StrippedExporter new exportPackage: selectedPackage).
-				'error' -> [window alert: 'Commit failed!!']
-			}.
-		jQuery 
-			ajax: package commitPathSt, '/', selectedPackage, '.st'
-			options: #{
-				'type' -> 'PUT'.
-				'data' -> (ChunkExporter new exportPackage: selectedPackage).
-				'error' -> [window alert: 'Commit failed!!']
-			}]
+               						 package := Package named: selectedPackage.
+               						 {	Exporter 			-> (package commitPathJs, '/', selectedPackage, '.js').
+                        					StrippedExporter 	-> (package commitPathJs, '/', selectedPackage, '.deploy.js').
+                       						 ChunkExporter 		-> (package commitPathSt, '/', selectedPackage, '.st') 			} 
+                 
+                						do: [:commitStrategy| |fileContents|
+                                                                     	fileContents := (commitStrategy key new exportPackage: selectedPackage).
+                                                                     	self ajaxPutAt: commitStrategy value data:  fileContents]
+         						]
 !
 
 renamePackage
@@ -770,6 +757,15 @@ initialize
     selectedTab := #instance.
     selectedPackage := self packages first.
     unsavedChanges := false
+! !
+
+!Browser methodsFor: 'network'!
+
+ajaxPutAt: anURL data: aString
+	jQuery 
+		ajax: anURL	options: #{	'type' -> 'PUT'.
+								'data' -> aString.
+								'error' -> [window alert: 'PUT request failed at:  ', anURL] }
 ! !
 
 !Browser methodsFor: 'rendering'!
