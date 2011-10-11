@@ -30,8 +30,10 @@
     }
 
     function loadDependencies() {
-	loadJS('lib/jQuery/jquery-1.6.4.min.js');
-	loadJS('lib/jQuery/jquery-ui-1.8.9.custom.min.js');
+	if (typeof jQuery == 'undefined') {
+		loadJS('lib/jQuery/jquery-1.6.4.min.js');
+		loadJS('lib/jQuery/jquery-ui-1.8.9.custom.min.js');
+	}
     }
 
     function loadIDEDependencies() {
