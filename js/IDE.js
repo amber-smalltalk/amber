@@ -1788,10 +1788,10 @@ selector: unescape('classDeclarationTemplate'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
+return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23NameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
 return self;},
 args: [],
-source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23nameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27%20'),
+source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23NameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27%20'),
 messageSends: [unescape("%2C"), "selectedPackage"],
 referencedClasses: []
 }),
