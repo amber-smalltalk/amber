@@ -2058,13 +2058,12 @@ selector: unescape('selectSlideAt%3A'),
 category: 'callbacks',
 fn: function (anInteger){
 var self=this;
-smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [anInteger]);
 smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_moveAt_", [anInteger]);
 return self;},
 args: ["anInteger"],
-source: unescape('selectSlideAt%3A%20anInteger%0A%09Transcript%20show%3A%20anInteger.%0A%09self%20currentPresentation%20moveAt%3A%20anInteger'),
-messageSends: ["show:", "moveAt:", "currentPresentation"],
-referencedClasses: [smalltalk.Transcript]
+source: unescape('selectSlideAt%3A%20anInteger%0A%09self%20currentPresentation%20moveAt%3A%20anInteger'),
+messageSends: ["moveAt:", "currentPresentation"],
+referencedClasses: []
 }),
 smalltalk.PresentationNavigator);
 

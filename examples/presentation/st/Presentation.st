@@ -1171,7 +1171,6 @@ reload
 !
 
 selectSlideAt: anInteger
-	Transcript show: anInteger.
 	self currentPresentation moveAt: anInteger
 ! !
 

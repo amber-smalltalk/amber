@@ -1487,7 +1487,6 @@ smalltalk.method({
 selector: 'selectSlideAt:',
 fn: function (anInteger){
 var self=this;
-smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [anInteger]);
 smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_moveAt_", [anInteger]);
 return self;}
 }),
