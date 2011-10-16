@@ -22,6 +22,10 @@ cssClass
 
 backgroundColor
 	^'#555'
+!
+
+title
+	^ self id
 ! !
 
 !Slide methodsFor: 'actions'!
@@ -151,6 +155,20 @@ checkHash
 		self currentSlide = slide ifFalse: [
 			self currentSlide: slide.
 			slide show]]
+!
+
+moveAt: anInteger
+	| next |
+	next := self slides 
+			at: anInteger
+			ifAbsent: [nil].
+	next ifNotNil: [currentSlide := next. next show]
+! !
+
+!Presentation methodsFor: 'enumerating'!
+
+slidesDo: aBlockWithArg
+	self slides do: [:aSlide| aBlockWithArg value: aSlide].
 ! !
 
 !Presentation methodsFor: 'initialization'!
@@ -1080,7 +1098,7 @@ renderSlideOn: html
 ! !
 
 Widget subclass: #PresentationNavigator
-	instanceVariableNames: 'presentationBrush currentPresentation'
+	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
 	category: 'Presentation'!
 
 !PresentationNavigator methodsFor: 'accessing'!
@@ -1136,6 +1154,7 @@ selectPresentationNamed: aString
 	|presentationClass|
 	presentationClass :=  (Smalltalk current at: aString).
 	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
+	self updateSlideSelect.
 !
 
 previousSlide
@@ -1149,6 +1168,11 @@ nextSlide
 reload
 	self currentPresentation: self currentPresentation class new.
 	self renderCurrentPresentation.
+!
+
+selectSlideAt: anInteger
+	Transcript show: anInteger.
+	self currentPresentation moveAt: anInteger
 ! !
 
 !PresentationNavigator methodsFor: 'hash'!
@@ -1216,7 +1240,8 @@ renderOn: html
 		id: 'navigator';
 		with: [	self
 					renderToolsOn: html;
-					renderPresentationSelectOn: html	].
+					renderPresentationSelectOn: html;
+                      			renderSlideSelectOn: html].
 
 	presentationBrush := html div 
 							id: 'presentation';
@@ -1231,6 +1256,22 @@ renderCurrentPresentation
                                      	renderOn: html;
                                      	checkHash.
         ].
+!
+
+renderSlideSelectOn: html
+	slideSelect := html select.
+	slideSelect onChange: [ self  selectSlideAt:  slideSelect asJQuery val ].
+	self updateSlideSelect.
+!
+
+updateSlideSelect
+	slideSelect contents: [:html| |index|
+		                       		index := 0.
+                		       		self currentPresentation slidesDo: [ :aSlide|  
+                                		                                    				index := index + 1.
+                                                		                    				html option
+                                                                		    					value: index;
+                                                            								with: aSlide title ] ].
 ! !
 
 !PresentationNavigator class methodsFor: 'initialize'!

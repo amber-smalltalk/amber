@@ -110,6 +110,17 @@ fn: function (html) {
 }),
 smalltalk.Slide);
 
+smalltalk.addMethod(
+'_title',
+smalltalk.method({
+selector: 'title',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_id", []);
+return self;}
+}),
+smalltalk.Slide);
+
 
 smalltalk.addMethod(
 '_on_',
@@ -352,6 +363,30 @@ fn: function (html) {
     smalltalk.send(self, "_showCurrentSlide", []);
     return self;
 }
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+'_slidesDo_',
+smalltalk.method({
+selector: 'slidesDo:',
+fn: function (aBlockWithArg){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(aSlide){return smalltalk.send(aBlockWithArg, "_value_", [aSlide]);})]);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+'_moveAt_',
+smalltalk.method({
+selector: 'moveAt:',
+fn: function (anInteger){
+var self=this;
+var next=nil;
+next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [anInteger, (function(){return nil;})]);
+(($receiver = next) != nil && $receiver != undefined) ? (function(){self['@currentSlide']=next;return smalltalk.send(next, "_show", []);})() : nil;
+return self;}
 }),
 smalltalk.Presentation);
 
@@ -1228,7 +1263,7 @@ smalltalk.JtalkAndEnyo);
 
 
 
-smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation'], 'Presentation');
+smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation', 'slideSelect'], 'Presentation');
 smalltalk.addMethod(
 '_renderToolsOn_',
 smalltalk.method({
@@ -1310,14 +1345,13 @@ smalltalk.addMethod(
 '_renderOn_',
 smalltalk.method({
 selector: 'renderOn:',
-fn: function (html) {
-    var self = this;
-    (function ($rec) {smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);}(smalltalk.send(html, "_style", [])));
-    (function ($rec) {smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [function () {return function ($rec) {smalltalk.send($rec, "_renderToolsOn_", [html]);return smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);}(self);}]);}(smalltalk.send(html, "_div", [])));
-    self['@presentationBrush'] = function ($rec) {smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(html, "_div", []));
-    smalltalk.send(self, "_renderCurrentPresentation", []);
-    return self;
-}
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
+(function($rec){smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_renderToolsOn_", [html]);smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);return smalltalk.send($rec, "_renderSlideSelectOn_", [html]);})(self);})]);})(smalltalk.send(html, "_div", []));
+self['@presentationBrush']=(function($rec){smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", []));
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;}
 }),
 smalltalk.PresentationNavigator);
 
@@ -1363,13 +1397,13 @@ smalltalk.addMethod(
 '_selectPresentationNamed_',
 smalltalk.method({
 selector: 'selectPresentationNamed:',
-fn: function (aString) {
-    var self = this;
-    var presentationClass = nil;
-    presentationClass = smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_at_", [aString]);
-    ($receiver = presentationClass) != nil && $receiver != undefined ? function () {return smalltalk.send(self, "_selectPresentation_", [presentationClass]);}() : nil;
-    return self;
-}
+fn: function (aString){
+var self=this;
+var presentationClass=nil;
+presentationClass=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString]);
+(($receiver = presentationClass) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_selectPresentation_", [presentationClass]);})() : nil;
+smalltalk.send(self, "_updateSlideSelect", []);
+return self;}
 }),
 smalltalk.PresentationNavigator);
 
@@ -1431,6 +1465,43 @@ fn: function () {
     smalltalk.send(self, "_renderCurrentPresentation", []);
     return self;
 }
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_renderSlideSelectOn_',
+smalltalk.method({
+selector: 'renderSlideSelectOn:',
+fn: function (html){
+var self=this;
+self['@slideSelect']=smalltalk.send(html, "_select", []);
+smalltalk.send(self['@slideSelect'], "_onChange_", [(function(){return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(smalltalk.send(self['@slideSelect'], "_asJQuery", []), "_val", [])]);})]);
+smalltalk.send(self, "_updateSlideSelect", []);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_selectSlideAt_',
+smalltalk.method({
+selector: 'selectSlideAt:',
+fn: function (anInteger){
+var self=this;
+smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [anInteger]);
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_moveAt_", [anInteger]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_updateSlideSelect',
+smalltalk.method({
+selector: 'updateSlideSelect',
+fn: function (){
+var self=this;
+smalltalk.send(self['@slideSelect'], "_contents_", [(function(html){var index=nil;
+index=(0);return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_slidesDo_", [(function(aSlide){index=((($receiver = index).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));return (function($rec){smalltalk.send($rec, "_value_", [index]);return smalltalk.send($rec, "_with_", [smalltalk.send(aSlide, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);
+return self;}
 }),
 smalltalk.PresentationNavigator);
 
