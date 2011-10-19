@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'Kernel' properties: #{}!
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -187,6 +188,17 @@ log: aString block: aBlock
 	| result |
 	console log:  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
 	^result
+!
+
+storeString
+	"Answer a String representation of the receiver from which the receiver 
+	can be reconstructed."
+
+	^ String streamContents: [:s | self storeOn: s]
+!
+
+storeOn: aStream
+	aStream nextPutAll: self printString
 ! !
 
 !Object methodsFor: 'testing'!
@@ -356,7 +368,7 @@ renamePackage: packageName to: newName
 createPackage: packageName
 	"Create and bind a new package with given name and return it."
 
-       <return smalltalk.addPackage(packageName)>
+      <return smalltalk.addPackage(packageName, nil)>
 !
 
 deletePackage: packageName
@@ -364,6 +376,17 @@ deletePackage: packageName
 	To remove a package, use #removePackage instead."
 
        <delete smalltalk.packages[packageName]>
+!
+
+createPackage: packageName properties: aDict
+	"Create and bind a new package with given name and return it."
+
+	| object |
+	<object = {};>.
+	aDict keysAndValuesDo: [:key :value |
+		<object[key] = value>.
+	].
+       <return smalltalk.addPackage(packageName, object)>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -399,12 +422,38 @@ name
 	<return self.pkgName || nil>
 !
 
-requires
-	<return self.requires || nil>
-!
-
 name: aString
 	<return self.pkgName = aString>
+!
+
+dependencies
+	^self propertyAt: 'dependencies' ifAbsent: [#()]
+!
+
+dependencies: anArray
+	^self propertyAt: 'dependencies' put: anArray
+!
+
+properties
+	"It is stored as a javascript object."
+
+	| result |
+	result := Dictionary new.
+	<for (var i in self.properties) {
+		result._at_put_(i, self.properties[i]);
+	}
+	return result;>
+!
+
+properties: aDict
+	"We store it as a javascript object."
+	
+	| object |
+	<object = {};>.
+	aDict keysAndValuesDo: [:key :value |
+		<object[key] = value>.
+	].
+	<return self.properties = object>
 ! !
 
 !Package methodsFor: 'classes'!
@@ -418,6 +467,37 @@ classes
 
 printString
 	^self name
+! !
+
+!Package methodsFor: 'private'!
+
+propertiesAsJSON
+	<return JSON.stringify(self.properties)>
+!
+
+jsProperties
+	<return self.properties || nil>
+!
+
+jsProperties: aJSObject
+	<return self.properties = aJSObject>
+! !
+
+!Package methodsFor: 'properties'!
+
+propertyAt: key
+
+	<return self.properties[key]>
+!
+
+propertyAt: key put: value
+
+	<return self.properties[key] = value>
+!
+
+propertyAt: key ifAbsent: block
+
+	^(self propertyAt: key) ifNil: [block value]
 ! !
 
 !Package class methodsFor: 'not yet classified'!
@@ -865,19 +945,6 @@ to: stop by: step
 	  			pos := pos + 1.
 	    			value := value + step]].
 	^array
-!
-
-to: stop by: step do: aBlock
-	| value |
-	value := self.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
-	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
-	    			aBlock value: value.
-	    			value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
-	    			aBlock value: value.
-	    			value := value + step]]
 ! !
 
 !Number methodsFor: 'enumerating'!
@@ -899,6 +966,19 @@ to: stop do: aBlock
 		whileTrue: 
 			[aBlock value: nextValue.
 			nextValue := nextValue + 1]
+!
+
+to: stop by: step do: aBlock
+	| value |
+	value := self.
+	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step < 0
+		ifTrue: [[ value >= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
+		ifFalse: [[ value <= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
 ! !
 
 !Number methodsFor: 'printing'!
@@ -2288,6 +2368,16 @@ value
 	^self class = anAssociation class and: [
 	    self key = anAssociation key and: [
 		self value = anAssociation value]]
+!
+
+storeOn: aStream
+	"Store in the format (key->value)"
+
+	"aStream nextPutAll: '('."
+	key storeOn: aStream.
+	aStream nextPutAll: '->'.
+	value storeOn: aStream.
+	"aStream nextPutAll: ')'"
 ! !
 
 !Association class methodsFor: 'instance creation'!
@@ -2473,6 +2563,14 @@ printString
                                  			separatedBy: [aStream nextPutAll: ' , '].
                                   		aStream nextPutAll: ')'.
                                  ]
+!
+
+storeOn: aStream
+	aStream nextPutAll: '#{'.
+	self associations
+		do: [:each | each storeOn: aStream]
+		separatedBy: [ aStream nextPutAll: '. '].
+	aStream nextPutAll: '}'
 ! !
 
 !Dictionary class methodsFor: 'instance creation'!

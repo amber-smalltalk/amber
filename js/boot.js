@@ -86,7 +86,7 @@ function Smalltalk(){
     function pkg(spec) {
 	var that      = new SmalltalkPackage();
 	that.pkgName  = spec.pkgName;
-	that.requires = spec.requires || [];
+	that.properties = spec.properties || [];
 	return that;
     };
 
@@ -114,10 +114,6 @@ function Smalltalk(){
 	    that.klass.superclass = that.superclass.klass;
 	}
 	that.pkg = spec.pkg;
-        // For a while we keep the category attribute...
-        if(!(spec.pkg === undefined)) {
-	    that.category = spec.pkg.pkgName;
-	}
 	that.fn.prototype.methods = {};
 	that.fn.prototype.inheritedMethods = {};
 	that.fn.prototype.klass = that;
@@ -228,7 +224,7 @@ function Smalltalk(){
        global smalltalk object. Package is lazily created if it does not exist with given name. */
 
     st.mapClassName = function(className, pkgName, fn, superclass) {
-	var pkg = st.addPackage(pkgName);
+	var pkg = st.addPackage(pkgName, null);
 	st[className] = klass({
 	    className:  className, 
 	    superclass: superclass,
@@ -238,14 +234,20 @@ function Smalltalk(){
     };
 
     /* Add a package to the smalltalk.packages object, creating a new one if needed.
-       If pkgName is nil or empty we return nil, which is an allowed package for a class. */
+       If pkgName is null or empty we return nil, which is an allowed package for a class.
+       If package already exists we still update the properties of it. */
 
-    st.addPackage = function(pkgName) {
+    st.addPackage = function(pkgName, properties) {
 	if(!pkgName) {return nil;}
 	if(!(st.packages[pkgName])) {
 	    st.packages[pkgName] = pkg({
-		pkgName: pkgName
+		pkgName: pkgName,
+		properties: properties
 	    });
+	} else {
+	    if(properties) {
+		st.packages[pkgName].properties = properties;
+	    }	
 	}
 	return st.packages[pkgName];
     };
@@ -254,7 +256,7 @@ function Smalltalk(){
        Package is lazily created if it does not exist with given name.*/
 
     st.addClass = function(className, superclass, iVarNames, pkgName) {
-	var pkg = st.addPackage(pkgName);
+	var pkg = st.addPackage(pkgName, null);
 	if(st[className]) {
 	    st[className].superclass = superclass;
 	    st[className].iVarNames = iVarNames;

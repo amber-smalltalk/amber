@@ -1,3 +1,4 @@
+smalltalk.addPackage('Compiler', {});
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Compiler');
 smalltalk.addMethod(
 unescape('_stream_'),
@@ -81,22 +82,6 @@ smalltalk.Importer);
 
 
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Compiler');
-smalltalk.addMethod(
-unescape('_export_'),
-smalltalk.method({
-selector: unescape('export%3A'),
-category: 'fileOut',
-fn: function (aClass){
-var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){smalltalk.send(self, "_exportDefinitionOf_on_", [aClass, stream]);smalltalk.send(self, "_exportMethodsOf_on_", [aClass, stream]);smalltalk.send(self, "_exportMetaDefinitionOf_on_", [aClass, stream]);return smalltalk.send(self, "_exportMethodsOf_on_", [smalltalk.send(aClass, "_class", []), stream]);})]);
-return self;},
-args: ["aClass"],
-source: unescape('export%3A%20aClass%0A%09%22Export%20a%20single%20class.%20Subclasses%20override%20these%20methods.%22%0A%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%09%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream%5D'),
-messageSends: ["streamContents:", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class"],
-referencedClasses: [smalltalk.String]
-}),
-smalltalk.Exporter);
-
 smalltalk.addMethod(
 unescape('_exportDefinitionOf_on_'),
 smalltalk.method({
@@ -191,28 +176,13 @@ selector: unescape('exportPackage%3A'),
 category: 'fileOut',
 fn: function (packageName){
 var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [packageName]), "_classes", []), "_do_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self, "_export_", [each])]);})]);return smalltalk.send(self, "_exportPackageExtensions_on_", [packageName, stream]);})]);
+var package=nil;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){package=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [packageName]);smalltalk.send(self, "_exportPackageDefinitionOf_on_", [package, stream]);smalltalk.send(smalltalk.send(package, "_classes", []), "_do_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self, "_exportClass_", [each])]);})]);return smalltalk.send(self, "_exportPackageExtensionsOf_on_", [package, stream]);})]);
 return self;},
 args: ["packageName"],
-source: unescape('exportPackage%3A%20packageName%0A%09%22Export%20a%20given%20package%20by%20name.%22%0A%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%20%20%20%20%20%20%20%20%09%28Smalltalk%20current%20packageAt%3A%20packageName%29%0A%09%20%20%20%20%09%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20nextPutAll%3A%20%28self%20export%3A%20each%29%5D.%0A%09%09self%20exportPackageExtensions%3A%20packageName%20on%3A%20stream%5D'),
-messageSends: ["streamContents:", "do:", "classes", "packageAt:", "current", "nextPutAll:", "export:", "exportPackageExtensions:on:"],
+source: unescape('exportPackage%3A%20packageName%0A%09%22Export%20a%20given%20package%20by%20name.%22%0A%0A%09%7C%20package%20%7C%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20package%20%3A%3D%20Smalltalk%20current%20packageAt%3A%20packageName.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%20exportPackageDefinitionOf%3A%20package%20on%3A%20stream.%0A%09%20%20%20%20%09package%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20nextPutAll%3A%20%28self%20exportClass%3A%20each%29%5D.%0A%09%09self%20exportPackageExtensionsOf%3A%20package%20on%3A%20stream%5D'),
+messageSends: ["streamContents:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "classes", "nextPutAll:", "exportClass:", "exportPackageExtensionsOf:on:"],
 referencedClasses: [smalltalk.String,smalltalk.Smalltalk]
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-unescape('_exportPackageExtensions_on_'),
-smalltalk.method({
-selector: unescape('exportPackageExtensions%3Aon%3A'),
-category: 'private',
-fn: function (packageName, aStream){
-var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_collect_", [(function(each){return smalltalk.send(each, "_class", []);})])]), "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_values", []), "_do_", [(function(method){return ((($receiver = smalltalk.send(smalltalk.send(method, "_category", []), "__eq", [smalltalk.send(unescape("*"), "__comma", [packageName])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_exportMethod_of_on_", [method, each, aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_exportMethod_of_on_", [method, each, aStream]);})]));})]);})]);
-return self;},
-args: ["packageName", "aStream"],
-source: unescape('exportPackageExtensions%3A%20packageName%20on%3A%20aStream%0A%09Smalltalk%20current%20classes%2C%20%28Smalltalk%20current%20classes%20collect%3A%20%5B%3Aeach%20%7C%20each%20class%5D%29%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20methodDictionary%20values%20do%3A%20%5B%3Amethod%20%7C%0A%09%09%09method%20category%20%3D%20%28%27*%27%2C%20packageName%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20exportMethod%3A%20method%20of%3A%20each%20on%3A%20aStream%5D%5D%5D'),
-messageSends: ["do:", unescape("%2C"), "classes", "current", "collect:", "class", "values", "methodDictionary", "ifTrue:", unescape("%3D"), "category", "exportMethod:of:on:"],
-referencedClasses: [smalltalk.Smalltalk]
 }),
 smalltalk.Exporter);
 
@@ -229,6 +199,57 @@ args: [],
 source: unescape('exportAll%0A%20%20%20%20%22Export%20all%20packages%20in%20the%20system.%22%0A%0A%20%20%20%20%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%20%20%20%20%09Smalltalk%20current%20packages%20do%3A%20%5B%3Apkg%20%7C%0A%09%09stream%20nextPutAll%3A%20%28self%20exportPackage%3A%20pkg%20name%29%5D%5D'),
 messageSends: ["streamContents:", "do:", "packages", "current", "nextPutAll:", "exportPackage:", "name"],
 referencedClasses: [smalltalk.String,smalltalk.Smalltalk]
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+unescape('_exportClass_'),
+smalltalk.method({
+selector: unescape('exportClass%3A'),
+category: 'fileOut',
+fn: function (aClass){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){smalltalk.send(self, "_exportDefinitionOf_on_", [aClass, stream]);smalltalk.send(self, "_exportMethodsOf_on_", [aClass, stream]);smalltalk.send(self, "_exportMetaDefinitionOf_on_", [aClass, stream]);return smalltalk.send(self, "_exportMethodsOf_on_", [smalltalk.send(aClass, "_class", []), stream]);})]);
+return self;},
+args: ["aClass"],
+source: unescape('exportClass%3A%20aClass%0A%09%22Export%20a%20single%20class.%20Subclasses%20override%20these%20methods.%22%0A%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%09%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream%5D'),
+messageSends: ["streamContents:", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+unescape('_exportPackageExtensionsOf_on_'),
+smalltalk.method({
+selector: unescape('exportPackageExtensionsOf%3Aon%3A'),
+category: 'private',
+fn: function (package, aStream){
+var self=this;
+var name=nil;
+name=smalltalk.send(package, "_name", []);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_collect_", [(function(each){return smalltalk.send(each, "_class", []);})])]), "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_values", []), "_do_", [(function(method){return ((($receiver = smalltalk.send(smalltalk.send(method, "_category", []), "__eq", [smalltalk.send(unescape("*"), "__comma", [name])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_exportMethod_of_on_", [method, each, aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_exportMethod_of_on_", [method, each, aStream]);})]));})]);})]);
+return self;},
+args: ["package", "aStream"],
+source: unescape('exportPackageExtensionsOf%3A%20package%20on%3A%20aStream%0A%09%7C%20name%20%7C%0A%09name%20%3A%3D%20package%20name.%0A%09Smalltalk%20current%20classes%2C%20%28Smalltalk%20current%20classes%20collect%3A%20%5B%3Aeach%20%7C%20each%20class%5D%29%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20methodDictionary%20values%20do%3A%20%5B%3Amethod%20%7C%0A%09%09%09method%20category%20%3D%20%28%27*%27%2C%20name%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20exportMethod%3A%20method%20of%3A%20each%20on%3A%20aStream%5D%5D%5D'),
+messageSends: ["name", "do:", unescape("%2C"), "classes", "current", "collect:", "class", "values", "methodDictionary", "ifTrue:", unescape("%3D"), "category", "exportMethod:of:on:"],
+referencedClasses: [smalltalk.Smalltalk]
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+unescape('_exportPackageDefinitionOf_on_'),
+smalltalk.method({
+selector: unescape('exportPackageDefinitionOf%3Aon%3A'),
+category: 'private',
+fn: function (package, aStream){
+var self=this;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.addPackage%28")]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [smalltalk.send(package, "_name", [])]), "__comma", [unescape("%27%2C%20")]), "__comma", [smalltalk.send(package, "_propertiesAsJSON", [])]), "__comma", [unescape("%29%3B")])]);})(aStream);
+smalltalk.send(aStream, "_lf", []);
+return self;},
+args: ["package", "aStream"],
+source: unescape('exportPackageDefinitionOf%3A%20package%20on%3A%20aStream%0A%09aStream%20%0A%09%20%20%20%20nextPutAll%3A%20%27smalltalk.addPackage%28%27%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%27%27%27%2C%20package%20name%2C%20%27%27%27%2C%20%27%2C%20package%20propertiesAsJSON%20%2C%20%27%29%3B%27.%0A%09aStream%20lf'),
+messageSends: ["nextPutAll:", unescape("%2C"), "name", "propertiesAsJSON", "lf"],
+referencedClasses: []
 }),
 smalltalk.Exporter);
 
@@ -354,18 +375,36 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-unescape('_exportPackageExtensions_on_'),
+unescape('_exportPackageExtensionsOf_on_'),
 smalltalk.method({
-selector: unescape('exportPackageExtensions%3Aon%3A'),
+selector: unescape('exportPackageExtensionsOf%3Aon%3A'),
 category: 'not yet classified',
-fn: function (aString, aStream){
+fn: function (package, aStream){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_collect_", [(function(each){return smalltalk.send(each, "_class", []);})])]), "_do_", [(function(each){return smalltalk.send(each, "_protocolsDo_", [(function(category, methods){return ((($receiver = smalltalk.send(category, "__eq", [smalltalk.send(unescape("*"), "__comma", [aString])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_exportMethods_category_of_on_", [methods, category, each, aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_exportMethods_category_of_on_", [methods, category, each, aStream]);})]));})]);})]);
+var name=nil;
+name=smalltalk.send(package, "_name", []);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_collect_", [(function(each){return smalltalk.send(each, "_class", []);})])]), "_do_", [(function(each){return smalltalk.send(each, "_protocolsDo_", [(function(category, methods){return ((($receiver = smalltalk.send(category, "__eq", [smalltalk.send(unescape("*"), "__comma", [name])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_exportMethods_category_of_on_", [methods, category, each, aStream]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_exportMethods_category_of_on_", [methods, category, each, aStream]);})]));})]);})]);
 return self;},
-args: ["aString", "aStream"],
-source: unescape('exportPackageExtensions%3A%20aString%20on%3A%20aStream%0A%09%22We%20need%20to%20override%20this%20one%20too%20since%20we%20need%20to%20group%0A%09all%20methods%20in%20a%20given%20protocol%20under%20a%20leading%20methodsFor%3A%20chunk%0A%09for%20that%20class.%22%0A%0A%09Smalltalk%20current%20classes%2C%20%28Smalltalk%20current%20classes%20collect%3A%20%5B%3Aeach%20%7C%20each%20class%5D%29%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20protocolsDo%3A%20%5B%3Acategory%20%3Amethods%20%7C%0A%09%09%09category%20%3D%20%28%27*%27%2C%20aString%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20exportMethods%3A%20methods%20category%3A%20category%20of%3A%20each%20on%3A%20aStream%5D%5D%5D'),
-messageSends: ["do:", unescape("%2C"), "classes", "current", "collect:", "class", "protocolsDo:", "ifTrue:", unescape("%3D"), "exportMethods:category:of:on:"],
+args: ["package", "aStream"],
+source: unescape('exportPackageExtensionsOf%3A%20package%20on%3A%20aStream%0A%09%22We%20need%20to%20override%20this%20one%20too%20since%20we%20need%20to%20group%0A%09all%20methods%20in%20a%20given%20protocol%20under%20a%20leading%20methodsFor%3A%20chunk%0A%09for%20that%20class.%22%0A%0A%09%7C%20name%20%7C%0A%09name%20%3A%3D%20package%20name.%0A%09Smalltalk%20current%20classes%2C%20%28Smalltalk%20current%20classes%20collect%3A%20%5B%3Aeach%20%7C%20each%20class%5D%29%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20protocolsDo%3A%20%5B%3Acategory%20%3Amethods%20%7C%0A%09%09%09category%20%3D%20%28%27*%27%2C%20name%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20exportMethods%3A%20methods%20category%3A%20category%20of%3A%20each%20on%3A%20aStream%5D%5D%5D'),
+messageSends: ["name", "do:", unescape("%2C"), "classes", "current", "collect:", "class", "protocolsDo:", "ifTrue:", unescape("%3D"), "exportMethods:category:of:on:"],
 referencedClasses: [smalltalk.Smalltalk]
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+unescape('_exportPackageDefinitionOf_on_'),
+smalltalk.method({
+selector: unescape('exportPackageDefinitionOf%3Aon%3A'),
+category: 'not yet classified',
+fn: function (package, aStream){
+var self=this;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("Smalltalk%20current%20createPackage%3A%20%27"), "__comma", [smalltalk.send(package, "_name", [])]), "__comma", [unescape("%27%20properties%3A%20")]), "__comma", [smalltalk.send(smalltalk.send(package, "_properties", []), "_storeString", [])]), "__comma", [unescape("%21")])]);return smalltalk.send($rec, "_lf", []);})(aStream);
+return self;},
+args: ["package", "aStream"],
+source: unescape('exportPackageDefinitionOf%3A%20package%20on%3A%20aStream%0A%09%22Chunk%20format.%22%0A%0A%09aStream%20%0A%09%20%20%20%20nextPutAll%3A%20%27Smalltalk%20current%20createPackage%3A%20%27%27%27%2C%20package%20name%2C%0A%09%09%27%27%27%20properties%3A%20%27%2C%20package%20properties%20storeString%2C%20%27%21%27%3B%20lf.'),
+messageSends: ["nextPutAll:", unescape("%2C"), "name", "storeString", "properties", "lf"],
+referencedClasses: []
 }),
 smalltalk.ChunkExporter);
 

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'IDE'!
+Smalltalk current createPackage: 'IDE' properties: #{}!
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!

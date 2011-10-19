@@ -1,3 +1,4 @@
+smalltalk.addPackage('Canvas', {});
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 '_root_',
@@ -817,6 +818,28 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+'_width_',
+smalltalk.method({
+selector: 'width:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["width", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+'_height_',
+smalltalk.method({
+selector: 'height:',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["height", aString]);
+return self;}
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 '_asJQuery',
 smalltalk.method({
 selector: 'asJQuery',
@@ -946,28 +969,6 @@ selector: 'createTextNodeFor:',
 fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_width_',
-smalltalk.method({
-selector: 'width:',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["width", aString]);
-return self;}
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-'_height_',
-smalltalk.method({
-selector: 'height:',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["height", aString]);
 return self;}
 }),
 smalltalk.TagBrush);

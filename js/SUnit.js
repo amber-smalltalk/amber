@@ -1,3 +1,4 @@
+smalltalk.addPackage('SUnit', {});
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
 unescape('_setTestSelector_'),

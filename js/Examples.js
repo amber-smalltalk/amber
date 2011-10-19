@@ -1,3 +1,4 @@
+smalltalk.addPackage('Examples', {});
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
 unescape('_increase'),

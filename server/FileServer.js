@@ -1,3 +1,4 @@
+smalltalk.addPackage('FileServer', []);
 smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'sys'], 'FileServer');
 smalltalk.addMethod(
 unescape('_basePath'),

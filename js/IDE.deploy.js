@@ -1,4 +1,4 @@
-(smalltalk.addPackage('IDE'))
+smalltalk.addPackage('IDE', {});
 smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
 smalltalk.addMethod(
 '_tabs',

@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'Kernel-Tests' properties: #{}!
 TestCase subclass: #StringTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
@@ -273,5 +274,5 @@ testPropertyThatReturnsEmptyString
 
 	document location hash: 'test'.
 	self assert: '#test' equals: document location hash.
-
 ! !
+

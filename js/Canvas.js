@@ -1,3 +1,4 @@
+smalltalk.addPackage('Canvas', {});
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 unescape('_root_'),
@@ -1182,6 +1183,38 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+unescape('_width_'),
+smalltalk.method({
+selector: unescape('width%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["width", aString]);
+return self;},
+args: ["aString"],
+source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_height_'),
+smalltalk.method({
+selector: unescape('height%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["height", aString]);
+return self;},
+args: ["aString"],
+source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 unescape('_asJQuery'),
 smalltalk.method({
 selector: unescape('asJQuery'),
@@ -1371,38 +1404,6 @@ return self;},
 args: ["aString"],
 source: unescape('createTextNodeFor%3A%20aString%0A%09%3Creturn%20document.createTextNode%28String%28aString%29%29%3E'),
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_width_'),
-smalltalk.method({
-selector: unescape('width%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["width", aString]);
-return self;},
-args: ["aString"],
-source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_height_'),
-smalltalk.method({
-selector: unescape('height%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["height", aString]);
-return self;},
-args: ["aString"],
-source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);

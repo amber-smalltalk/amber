@@ -1,3 +1,4 @@
+smalltalk.addPackage('Kernel', {});
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel');
 smalltalk.addMethod(
 unescape('__eq'),
@@ -187,7 +188,7 @@ return self;},
 args: ["anObject"],
 source: unescape('-%3E%20anObject%0A%09%5EAssociation%20key%3A%20self%20value%3A%20anObject'),
 messageSends: ["key:value:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Association]
 }),
 smalltalk.Object);
 
@@ -683,7 +684,7 @@ return self;},
 args: ["aMessage"],
 source: unescape('doesNotUnderstand%3A%20aMessage%0A%09MessageNotUnderstood%20new%0A%09%09receiver%3A%20self%3B%0A%09%09message%3A%20aMessage%3B%0A%09%09signal'),
 messageSends: ["receiver:", "message:", "signal", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.MessageNotUnderstood]
 }),
 smalltalk.Object);
 
@@ -800,6 +801,38 @@ return self;},
 args: [],
 source: unescape('deprecatedAPI%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecatedAPI%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20could%20in%20the%20future.%22%0A%09console%20warn%3A%20thisContext%20home%20asString%2C%20%27%20is%20deprecated%21%27'),
 messageSends: ["warn:", unescape("%2C"), "asString", "home"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_storeString'),
+smalltalk.method({
+selector: unescape('storeString'),
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(s){return smalltalk.send(self, "_storeOn_", [s]);})]);
+return self;},
+args: [],
+source: unescape('storeString%0A%09%22Answer%20a%20String%20representation%20of%20the%20receiver%20from%20which%20the%20receiver%20%0A%09can%20be%20reconstructed.%22%0A%0A%09%5E%20String%20streamContents%3A%20%5B%3As%20%7C%20self%20storeOn%3A%20s%5D'),
+messageSends: ["streamContents:", "storeOn:"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_storeOn_'),
+smalltalk.method({
+selector: unescape('storeOn%3A'),
+category: 'printing',
+fn: function (aStream){
+var self=this;
+smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(self, "_printString", [])]);
+return self;},
+args: ["aStream"],
+source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20self%20printString'),
+messageSends: ["nextPutAll:", "printString"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -1009,10 +1042,10 @@ selector: unescape('createPackage%3A'),
 category: 'private',
 fn: function (packageName){
 var self=this;
-return smalltalk.addPackage(packageName);
+return smalltalk.addPackage(packageName, nil);
 return self;},
 args: ["packageName"],
-source: unescape('createPackage%3A%20packageName%0A%09%22Create%20and%20bind%20a%20new%20package%20with%20given%20name%20and%20return%20it.%22%0A%0A%20%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%29%3E'),
+source: unescape('createPackage%3A%20packageName%0A%09%22Create%20and%20bind%20a%20new%20package%20with%20given%20name%20and%20return%20it.%22%0A%0A%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%2C%20nil%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1090,6 +1123,25 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+unescape('_createPackage_properties_'),
+smalltalk.method({
+selector: unescape('createPackage%3Aproperties%3A'),
+category: 'private',
+fn: function (packageName, aDict){
+var self=this;
+var object=nil;
+object = {};;
+smalltalk.send(aDict, "_keysAndValuesDo_", [(function(key, value){return object[key] = value;})]);
+return smalltalk.addPackage(packageName, object);
+return self;},
+args: ["packageName", "aDict"],
+source: unescape('createPackage%3A%20packageName%20properties%3A%20aDict%0A%09%22Create%20and%20bind%20a%20new%20package%20with%20given%20name%20and%20return%20it.%22%0A%0A%09%7C%20object%20%7C%0A%09%3Cobject%20%3D%20%7B%7D%3B%3E.%0A%09aDict%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09%3Cobject%5Bkey%5D%20%3D%20value%3E.%0A%09%5D.%0A%20%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%2C%20object%29%3E'),
+messageSends: ["keysAndValuesDo:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -1122,22 +1174,6 @@ return self.pkgName || nil;
 return self;},
 args: [],
 source: unescape('name%0A%09%3Creturn%20self.pkgName%20%7C%7C%20nil%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-unescape('_requires'),
-smalltalk.method({
-selector: unescape('requires'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self.requires || nil;
-return self;},
-args: [],
-source: unescape('requires%0A%09%3Creturn%20self.requires%20%7C%7C%20nil%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1187,6 +1223,174 @@ return self;},
 args: [],
 source: unescape('printString%0A%09%5Eself%20name'),
 messageSends: ["name"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_dependencies'),
+smalltalk.method({
+selector: unescape('dependencies'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_propertyAt_ifAbsent_", ["dependencies", (function(){return [];})]);
+return self;},
+args: [],
+source: unescape('dependencies%0A%09%5Eself%20propertyAt%3A%20%27dependencies%27%20ifAbsent%3A%20%5B%23%28%29%5D'),
+messageSends: ["propertyAt:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_dependencies_'),
+smalltalk.method({
+selector: unescape('dependencies%3A'),
+category: 'accessing',
+fn: function (anArray){
+var self=this;
+return smalltalk.send(self, "_propertyAt_put_", ["dependencies", anArray]);
+return self;},
+args: ["anArray"],
+source: unescape('dependencies%3A%20anArray%0A%09%5Eself%20propertyAt%3A%20%27dependencies%27%20put%3A%20anArray'),
+messageSends: ["propertyAt:put:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_properties'),
+smalltalk.method({
+selector: unescape('properties'),
+category: 'accessing',
+fn: function (){
+var self=this;
+var result=nil;
+result=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+for (var i in self.properties) {
+		result._at_put_(i, self.properties[i]);
+	}
+	return result;;
+return self;},
+args: [],
+source: unescape('properties%0A%09%22It%20is%20stored%20as%20a%20javascript%20object.%22%0A%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20Dictionary%20new.%0A%09%3Cfor%20%28var%20i%20in%20self.properties%29%20%7B%0A%09%09result._at_put_%28i%2C%20self.properties%5Bi%5D%29%3B%0A%09%7D%0A%09return%20result%3B%3E'),
+messageSends: ["new"],
+referencedClasses: [smalltalk.Dictionary]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_propertiesAsJSON'),
+smalltalk.method({
+selector: unescape('propertiesAsJSON'),
+category: 'private',
+fn: function (){
+var self=this;
+return JSON.stringify(self.properties);
+return self;},
+args: [],
+source: unescape('propertiesAsJSON%0A%09%3Creturn%20JSON.stringify%28self.properties%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_properties_'),
+smalltalk.method({
+selector: unescape('properties%3A'),
+category: 'accessing',
+fn: function (aDict){
+var self=this;
+var object=nil;
+object = {};;
+smalltalk.send(aDict, "_keysAndValuesDo_", [(function(key, value){return object[key] = value;})]);
+return self.properties = object;
+return self;},
+args: ["aDict"],
+source: unescape('properties%3A%20aDict%0A%09%22We%20store%20it%20as%20a%20javascript%20object.%22%0A%09%0A%09%7C%20object%20%7C%0A%09%3Cobject%20%3D%20%7B%7D%3B%3E.%0A%09aDict%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09%3Cobject%5Bkey%5D%20%3D%20value%3E.%0A%09%5D.%0A%09%3Creturn%20self.properties%20%3D%20object%3E'),
+messageSends: ["keysAndValuesDo:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_jsProperties'),
+smalltalk.method({
+selector: unescape('jsProperties'),
+category: 'private',
+fn: function (){
+var self=this;
+return self.properties || nil;
+return self;},
+args: [],
+source: unescape('jsProperties%0A%09%3Creturn%20self.properties%20%7C%7C%20nil%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_jsProperties_'),
+smalltalk.method({
+selector: unescape('jsProperties%3A'),
+category: 'private',
+fn: function (aJSObject){
+var self=this;
+return self.properties = aJSObject;
+return self;},
+args: ["aJSObject"],
+source: unescape('jsProperties%3A%20aJSObject%0A%09%3Creturn%20self.properties%20%3D%20aJSObject%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_propertyAt_'),
+smalltalk.method({
+selector: unescape('propertyAt%3A'),
+category: 'properties',
+fn: function (key){
+var self=this;
+return self.properties[key];
+return self;},
+args: ["key"],
+source: unescape('propertyAt%3A%20key%0A%0A%09%3Creturn%20self.properties%5Bkey%5D%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_propertyAt_put_'),
+smalltalk.method({
+selector: unescape('propertyAt%3Aput%3A'),
+category: 'properties',
+fn: function (key, value){
+var self=this;
+return self.properties[key] = value;
+return self;},
+args: ["key", "value"],
+source: unescape('propertyAt%3A%20key%20put%3A%20value%0A%0A%09%3Creturn%20self.properties%5Bkey%5D%20%3D%20value%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_propertyAt_ifAbsent_'),
+smalltalk.method({
+selector: unescape('propertyAt%3AifAbsent%3A'),
+category: 'properties',
+fn: function (key, block){
+var self=this;
+return (($receiver = smalltalk.send(self, "_propertyAt_", [key])) == nil || $receiver == undefined) ? (function(){return smalltalk.send(block, "_value", []);})() : $receiver;
+return self;},
+args: ["key", "block"],
+source: unescape('propertyAt%3A%20key%20ifAbsent%3A%20block%0A%0A%09%5E%28self%20propertyAt%3A%20key%29%20ifNil%3A%20%5Bblock%20value%5D'),
+messageSends: ["ifNil:", "propertyAt:", "value"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -1392,7 +1596,7 @@ return self;},
 args: ["aString"],
 source: unescape('methodsFor%3A%20aString%0A%09%5EClassCategoryReader%20new%0A%09%20%20%20%20class%3A%20self%20category%3A%20aString%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["class:category:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassCategoryReader]
 }),
 smalltalk.Behavior);
 
@@ -1472,7 +1676,7 @@ return self;},
 args: [],
 source: unescape('commentStamp%0A%20%20%20%20%5EClassCommentReader%20new%0A%09class%3A%20self%3B%0A%09yourself'),
 messageSends: ["class:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassCommentReader]
 }),
 smalltalk.Behavior);
 
@@ -1544,7 +1748,7 @@ return self;},
 args: ["aBlock"],
 source: unescape('protocolsDo%3A%20aBlock%0A%09%22Execute%20aBlock%20for%20each%20method%20category%20with%0A%09its%20collection%20of%20methods%20in%20the%20sort%20order%20of%20category%20name.%22%0A%0A%09%7C%20methodsByCategory%20%7C%0A%09methodsByCategory%20%3A%3D%20Dictionary%20new.%0A%09self%20methodDictionary%20values%20do%3A%20%5B%3Am%20%7C%0A%09%09%28methodsByCategory%20at%3A%20m%20category%20ifAbsentPut%3A%20%5BArray%20new%5D%29%0A%20%09%09%09add%3A%20m%5D.%20%0A%09self%20protocols%20do%3A%20%5B%3Acategory%20%7C%0A%09%09aBlock%20value%3A%20category%20value%3A%20%28methodsByCategory%20at%3A%20category%29%5D'),
 messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "category", "protocols", "value:value:", "at:"],
-referencedClasses: [smalltalk.nil,smalltalk.Array]
+referencedClasses: [smalltalk.Dictionary,smalltalk.Array]
 }),
 smalltalk.Behavior);
 
@@ -1646,7 +1850,7 @@ return self;},
 args: ["aString", "anotherString"],
 source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.Behavior);
 
@@ -1813,7 +2017,7 @@ return self;},
 args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.Class);
 
@@ -1848,7 +2052,7 @@ return self;},
 args: ["aCollection"],
 source: unescape('instanceVariableNames%3A%20aCollection%0A%09ClassBuilder%20new%0A%09%20%20%20%20class%3A%20self%20instanceVariableNames%3A%20aCollection'),
 messageSends: ["class:instanceVariableNames:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.Metaclass);
 
@@ -2433,7 +2637,7 @@ return self;},
 args: [],
 source: unescape('atRandom%0A%20%20%20%20%5E%28Random%20new%20next%20*%20self%29%20truncated%20+%201'),
 messageSends: [unescape("+"), "truncated", unescape("*"), "next", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Random]
 }),
 smalltalk.Number);
 
@@ -2449,7 +2653,7 @@ return self;},
 args: ["aNumber"],
 source: unescape('@%20aNumber%0A%09%5EPoint%20x%3A%20self%20y%3A%20aNumber'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Point]
 }),
 smalltalk.Number);
 
@@ -2465,7 +2669,7 @@ return self;},
 args: [],
 source: unescape('asPoint%0A%09%5EPoint%20x%3A%20self%20y%3A%20self'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Point]
 }),
 smalltalk.Number);
 
@@ -2643,7 +2847,7 @@ smalltalk.addMethod(
 unescape('_to_by_do_'),
 smalltalk.method({
 selector: unescape('to%3Aby%3Ado%3A'),
-category: 'converting',
+category: 'enumerating',
 fn: function (stop, step, aBlock){
 var self=this;
 var value=nil;
@@ -4052,7 +4256,7 @@ return self;},
 args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.UndefinedObject);
 
@@ -4499,7 +4703,7 @@ return self;},
 args: [],
 source: unescape('asSet%0A%09%5ESet%20withAll%3A%20self'),
 messageSends: ["withAll:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Set]
 }),
 smalltalk.Collection);
 
@@ -4564,7 +4768,7 @@ return self;},
 args: [],
 source: unescape('streamClass%0A%09%20%20%20%20%5EStream'),
 messageSends: [],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Stream]
 }),
 smalltalk.Collection.klass);
 
@@ -5773,7 +5977,7 @@ return self;},
 args: [],
 source: unescape('streamClass%0A%09%20%20%20%20%5EStringStream'),
 messageSends: [],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.StringStream]
 }),
 smalltalk.String.klass);
 
@@ -6597,6 +6801,24 @@ referencedClasses: []
 }),
 smalltalk.Association);
 
+smalltalk.addMethod(
+unescape('_storeOn_'),
+smalltalk.method({
+selector: unescape('storeOn%3A'),
+category: 'comparing',
+fn: function (aStream){
+var self=this;
+smalltalk.send(self['@key'], "_storeOn_", [aStream]);
+smalltalk.send(aStream, "_nextPutAll_", [unescape("-%3E")]);
+smalltalk.send(self['@value'], "_storeOn_", [aStream]);
+return self;},
+args: ["aStream"],
+source: unescape('storeOn%3A%20aStream%0A%09%22Store%20in%20the%20format%20%28key-%3Evalue%29%22%0A%0A%09%22aStream%20nextPutAll%3A%20%27%28%27.%22%0A%09key%20storeOn%3A%20aStream.%0A%09aStream%20nextPutAll%3A%20%27-%3E%27.%0A%09value%20storeOn%3A%20aStream.%0A%09%22aStream%20nextPutAll%3A%20%27%29%27%22'),
+messageSends: ["storeOn:", "nextPutAll:"],
+referencedClasses: []
+}),
+smalltalk.Association);
+
 
 smalltalk.addMethod(
 unescape('_key_value_'),
@@ -7085,6 +7307,24 @@ referencedClasses: [smalltalk.String]
 }),
 smalltalk.Dictionary);
 
+smalltalk.addMethod(
+unescape('_storeOn_'),
+smalltalk.method({
+selector: unescape('storeOn%3A'),
+category: 'printing',
+fn: function (aStream){
+var self=this;
+smalltalk.send(aStream, "_nextPutAll_", [unescape("%23%7B")]);
+smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_storeOn_", [aStream]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [". "]);})]);
+smalltalk.send(aStream, "_nextPutAll_", [unescape("%7D")]);
+return self;},
+args: ["aStream"],
+source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20%27%23%7B%27.%0A%09self%20associations%0A%09%09do%3A%20%5B%3Aeach%20%7C%20each%20storeOn%3A%20aStream%5D%0A%09%09separatedBy%3A%20%5B%20aStream%20nextPutAll%3A%20%27.%20%27%5D.%0A%09aStream%20nextPutAll%3A%20%27%7D%27'),
+messageSends: ["nextPutAll:", "do:separatedBy:", "associations", "storeOn:"],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
 
 smalltalk.addMethod(
 unescape('_fromPairs_'),
@@ -7276,7 +7516,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ChunkParser]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -7329,7 +7569,7 @@ return self;},
 args: ["aString"],
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -7897,7 +8137,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ChunkParser]
 }),
 smalltalk.ClassCommentReader);
 
