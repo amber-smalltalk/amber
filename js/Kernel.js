@@ -2862,6 +2862,38 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+unescape('_deepCopy'),
+smalltalk.method({
+selector: unescape('deepCopy'),
+category: 'copying',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_copy", []);
+return self;},
+args: [],
+source: unescape('deepCopy%0A%09%5Eself%20copy'),
+messageSends: ["copy"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_copy'),
+smalltalk.method({
+selector: unescape('copy'),
+category: 'copying',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('copy%0A%09%5Eself'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 unescape('_pi'),
@@ -5152,6 +5184,22 @@ referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+unescape('_atRandom'),
+smalltalk.method({
+selector: unescape('atRandom'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
+return self;},
+args: [],
+source: unescape('atRandom%0A%09%5E%20self%20at%3A%20self%20size%20atRandom'),
+messageSends: ["at:", "atRandom", "size"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
 
 
 smalltalk.addClass('String', smalltalk.SequenceableCollection, [], 'Kernel');
@@ -7431,41 +7479,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_superclass_subclass_instanceVariableNames_module_'),
-smalltalk.method({
-selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Amodule%3A'),
-category: 'class creation',
-fn: function (aClass, aString, aString2, aString3){
-var self=this;
-var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_module_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
-smalltalk.send(self, "_setupClass_", [newClass]);
-return self;},
-args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20module%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09module%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass'),
-messageSends: ["addSubclassOf:named:instanceVariableNames:module:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
-unescape('_addSubclassOf_named_instanceVariableNames_module_'),
-smalltalk.method({
-selector: unescape('addSubclassOf%3Anamed%3AinstanceVariableNames%3Amodule%3A'),
-category: 'private',
-fn: function (aClass, aString, aCollection, moduleName){
-var self=this;
-smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString];
-return self;},
-args: ["aClass", "aString", "aCollection", "moduleName"],
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%20module%3A%20moduleName%0A%09%3Csmalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%2C%20moduleName%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
 unescape('_superclass_subclass_instanceVariableNames_package_'),
 smalltalk.method({
 selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Apackage%3A'),
@@ -7475,9 +7488,10 @@ var self=this;
 var newClass=nil;
 newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
 smalltalk.send(self, "_setupClass_", [newClass]);
+return newClass;
 return self;},
 args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass'),
+source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass.%0A%09%5EnewClass'),
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
 referencedClasses: []
 }),
@@ -9007,5 +9021,204 @@ referencedClasses: []
 }),
 smalltalk.Set);
 
+
+
+smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel');
+
+smalltalk.Transcript.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
+return self;},
+args: [],
+source: unescape('open%0A%20%20%20%20self%20current%20open'),
+messageSends: ["open", "current"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_new'),
+smalltalk.method({
+selector: unescape('new'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_shouldNotImplement", []);
+return self;},
+args: [],
+source: unescape('new%0A%20%20%20%20self%20shouldNotImplement'),
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_current'),
+smalltalk.method({
+selector: unescape('current'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return self['@current'];
+return self;},
+args: [],
+source: unescape('current%0A%20%20%20%20%5Ecurrent'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_show_'),
+smalltalk.method({
+selector: unescape('show%3A'),
+category: 'printing',
+fn: function (anObject){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('show%3A%20anObject%0A%20%20%20%20self%20current%20show%3A%20anObject'),
+messageSends: ["show:", "current"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_cr'),
+smalltalk.method({
+selector: unescape('cr'),
+category: 'printing',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
+return self;},
+args: [],
+source: unescape('cr%0A%20%20%20%20self%20current%20show%3A%20String%20cr'),
+messageSends: ["show:", "current", "cr"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_clear'),
+smalltalk.method({
+selector: unescape('clear'),
+category: 'printing',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
+return self;},
+args: [],
+source: unescape('clear%0A%20%20%20%20self%20current%20clear'),
+messageSends: ["clear", "current"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_register_'),
+smalltalk.method({
+selector: unescape('register%3A'),
+category: 'instance creation',
+fn: function (aTranscript){
+var self=this;
+self['@current']=aTranscript;
+return self;},
+args: ["aTranscript"],
+source: unescape('register%3A%20aTranscript%0A%09current%20%3A%3D%20aTranscript'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+
+smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel');
+smalltalk.addMethod(
+unescape('_clear'),
+smalltalk.method({
+selector: unescape('clear'),
+category: 'printing',
+fn: function (){
+var self=this;
+
+return self;},
+args: [],
+source: unescape('clear%0A%09%22no%20op%22'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+unescape('_cr'),
+smalltalk.method({
+selector: unescape('cr'),
+category: 'printing',
+fn: function (){
+var self=this;
+
+return self;},
+args: [],
+source: unescape('cr%0A%09%22no%20op%22'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+unescape('_show_'),
+smalltalk.method({
+selector: unescape('show%3A'),
+category: 'printing',
+fn: function (anObject){
+var self=this;
+console.log(String(anObject._asString()));
+return self;},
+args: ["anObject"],
+source: unescape('show%3A%20anObject%0A%09%3Cconsole.log%28String%28anObject._asString%28%29%29%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'actions',
+fn: function (){
+var self=this;
+
+return self;},
+args: [],
+source: unescape('open'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
+return self;},
+args: [],
+source: unescape('initialize%0A%09Transcript%20register%3A%20self%20new'),
+messageSends: ["register:", "new"],
+referencedClasses: [smalltalk.Transcript]
+}),
+smalltalk.ConsoleTranscript.klass);
 
 

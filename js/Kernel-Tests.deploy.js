@@ -295,6 +295,18 @@ return self;}
 }),
 smalltalk.NumberTest);
 
+smalltalk.addMethod(
+'_testCopying',
+smalltalk.method({
+selector: 'testCopying',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_copy", []), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_deepCopy", []), "__eq", [(1)])]);
+return self;}
+}),
+smalltalk.NumberTest);
+
 
 
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');

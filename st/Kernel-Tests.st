@@ -155,7 +155,7 @@ TestCase subclass: #NumberTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
-!NumberTest methodsFor: 'not yet classified'!
+!NumberTest methodsFor: 'tests'!
 
 testPrintShowingDecimalPlaces
 	self assert: '23.00' equals: (23 printShowingDecimalPlaces: 2).
@@ -171,9 +171,7 @@ testPrintShowingDecimalPlaces
 	self assert: '2.57' equals: (2.567 printShowingDecimalPlaces: 2).
 	self assert: '-2.57' equals: (-2.567 printShowingDecimalPlaces: 2).
 	self assert: '0.00' equals: (0 printShowingDecimalPlaces: 2).
-! !
-
-!NumberTest methodsFor: 'tests'!
+!
 
 testEquality
 	self assert: 1 = 1.
@@ -238,6 +236,11 @@ testTruncated
 	self assert: 3 truncated = 3.
 	self assert: 3.212 truncated = 3.
 	self assert: 3.51 truncated = 3
+!
+
+testCopying
+	self assert: 1 copy = 1.
+	self assert: 1 deepCopy = 1
 ! !
 
 TestCase subclass: #JSObjectProxyTest

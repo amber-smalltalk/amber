@@ -2011,6 +2011,28 @@ return self;}
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_deepCopy',
+smalltalk.method({
+selector: 'deepCopy',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_copy", []);
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_copy',
+smalltalk.method({
+selector: 'copy',
+fn: function (){
+var self=this;
+return self;
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',
@@ -3606,6 +3628,17 @@ selector: 'reversed',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
+return self;}
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+'_atRandom',
+smalltalk.method({
+selector: 'atRandom',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
 return self;}
 }),
 smalltalk.SequenceableCollection);
@@ -5219,31 +5252,6 @@ return self;}
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-'_superclass_subclass_instanceVariableNames_module_',
-smalltalk.method({
-selector: 'superclass:subclass:instanceVariableNames:module:',
-fn: function (aClass, aString, aString2, aString3){
-var self=this;
-var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_module_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
-smalltalk.send(self, "_setupClass_", [newClass]);
-return self;}
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
-'_addSubclassOf_named_instanceVariableNames_module_',
-smalltalk.method({
-selector: 'addSubclassOf:named:instanceVariableNames:module:',
-fn: function (aClass, aString, aCollection, moduleName){
-var self=this;
-smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString];
-return self;}
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
 '_superclass_subclass_instanceVariableNames_package_',
 smalltalk.method({
 selector: 'superclass:subclass:instanceVariableNames:package:',
@@ -5252,6 +5260,7 @@ var self=this;
 var newClass=nil;
 newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
 smalltalk.send(self, "_setupClass_", [newClass]);
+return newClass;
 return self;}
 }),
 smalltalk.ClassBuilder);
@@ -6330,5 +6339,144 @@ return self;}
 }),
 smalltalk.Set);
 
+
+
+smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel');
+
+smalltalk.Transcript.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+'_open',
+smalltalk.method({
+selector: 'open',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+'_new',
+smalltalk.method({
+selector: 'new',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_shouldNotImplement", []);
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+'_current',
+smalltalk.method({
+selector: 'current',
+fn: function (){
+var self=this;
+return self['@current'];
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+'_show_',
+smalltalk.method({
+selector: 'show:',
+fn: function (anObject){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+'_cr',
+smalltalk.method({
+selector: 'cr',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+'_clear',
+smalltalk.method({
+selector: 'clear',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+'_register_',
+smalltalk.method({
+selector: 'register:',
+fn: function (aTranscript){
+var self=this;
+self['@current']=aTranscript;
+return self;}
+}),
+smalltalk.Transcript.klass);
+
+
+smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel');
+smalltalk.addMethod(
+'_clear',
+smalltalk.method({
+selector: 'clear',
+fn: function (){
+var self=this;
+
+return self;}
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+'_cr',
+smalltalk.method({
+selector: 'cr',
+fn: function (){
+var self=this;
+
+return self;}
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+'_show_',
+smalltalk.method({
+selector: 'show:',
+fn: function (anObject){
+var self=this;
+console.log(String(anObject._asString()));
+return self;}
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+'_open',
+smalltalk.method({
+selector: 'open',
+fn: function (){
+var self=this;
+
+return self;}
+}),
+smalltalk.ConsoleTranscript);
+
+
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+fn: function (){
+var self=this;
+smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
+return self;}
+}),
+smalltalk.ConsoleTranscript.klass);
 
 

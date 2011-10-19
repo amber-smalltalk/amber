@@ -1,4 +1,5 @@
 Smalltalk current createPackage: 'IDE' properties: #{}!
+
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
@@ -120,7 +121,7 @@ initialize
 	addClass: 'jtalkBody'.
     self appendToJQuery: '#jtalk' asJQuery.
     self 
-	addTab: Transcript current;
+	addTab: IDETranscript current;
 	addTab: Workspace new;
 	addTab: TestRunner new.
     self selectTab: self tabs last.
@@ -339,79 +340,8 @@ renderButtonsOn: html
 	onClick: [self clearWorkspace]
 ! !
 
-TabWidget subclass: #Transcript
-	instanceVariableNames: 'textarea'
-	category: 'IDE'!
-
-!Transcript methodsFor: 'accessing'!
-
-label
-    ^'Transcript'
-! !
-
-!Transcript methodsFor: 'actions'!
-
-show: anObject
-    textarea asJQuery val: textarea asJQuery val, anObject asString.
-!
-
-cr
-    textarea asJQuery val: textarea asJQuery val, String cr.
-!
-
-clear
-    textarea asJQuery val: ''
-! !
-
-!Transcript methodsFor: 'rendering'!
-
-renderBoxOn: html
-    textarea := html textarea.
-    textarea 
-	class: 'jt_transcript';
-	at: 'spellcheck' put: 'false'
-!
-
-renderButtonsOn: html
-    html button
-	with: 'Clear transcript';
-	onClick: [self clear]
-! !
-
-Transcript class instanceVariableNames: 'current'!
-
-!Transcript class methodsFor: 'instance creation'!
-
-open
-    TabManager current 
-	open;
-	selectTab: self current
-!
-
-new
-    self shouldNotImplement
-!
-
-current
-    ^current ifNil: [current := super new]
-! !
-
-!Transcript class methodsFor: 'printing'!
-
-show: anObject
-    self current show: anObject
-!
-
-cr
-    self current show: String cr
-!
-
-clear
-    self current clear
-! !
-
 TabWidget subclass: #Browser
-	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod commitButton packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges renameButton deleteButton'
+	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
@@ -498,9 +428,9 @@ declarationSource
 !
 
 classDeclarationSource
-    | stream |
-    stream := '' writeStream.
-    selectedClass ifNotNil: [
+	| stream |
+	stream := '' writeStream.
+	selectedClass ifNil: [^self classDeclarationTemplate].
 	stream 
 	    nextPutAll: selectedClass superclass asString;
 	    nextPutAll: ' subclass: #';
@@ -514,8 +444,8 @@ classDeclarationSource
 	    nextPutAll: '''', String lf, String tab;
 	    nextPutAll: 'package: ''';
 	    nextPutAll: selectedClass category;
-	    nextPutAll: ''''].
-    ^stream contents
+	    nextPutAll: ''''.
+	^stream contents
 !
 
 metaclassDeclarationSource
@@ -539,6 +469,16 @@ classCommentSource
 
 selectedClass
 	^selectedClass
+!
+
+classDeclarationTemplate
+	^'Object subclass: #NameOfSubclass
+	instanceVariableNames: ''''
+	package: ''', self selectedPackage, ''''
+!
+
+selectedPackage
+	^selectedPackage
 ! !
 
 !Browser methodsFor: 'actions'!
@@ -588,21 +528,23 @@ compileMethodDefinition
 !
 
 compileMethodDefinitionFor: aClass
-    | compiler method source node |
+    | compiler method source node | 
     source := sourceArea val.
     selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
     compiler := Compiler new.
     compiler source: source.
     node := compiler parse: source.
     node isParseFailure ifTrue: [
-	^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
+	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
     compiler currentClass: aClass.
     method := compiler eval: (compiler compileNode: node).
     method category: selectedProtocol.
     compiler unknownVariables do: [:each |
-	(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
-		self addInstanceVariableNamed: each toClass: aClass.
-		^self compileMethodDefinitionFor: aClass]].
+         "Do not try to redeclare javascript's objects"
+         (window at: each) ifNil: [
+	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+			self addInstanceVariableNamed: each toClass: aClass.
+			^self compileMethodDefinitionFor: aClass]]].
     aClass addCompiledMethod: method.
     compiler setupClass: aClass.
     self updateMethodsList.
@@ -615,17 +557,18 @@ compileDefinition
     self 
 	resetClassesList;
 	updateCategoriesList;
-	updateClassesList
+	updateClassesList.
+    self selectClass: newClass
 !
 
 cancelChanges
     ^unsavedChanges 
-	ifTrue: [self confirm: 'Cancel changes?']
+	ifTrue: [window confirm: 'Cancel changes?']
 	ifFalse: [true]
 !
 
 removeClass
-    (self confirm: 'Do you really want to remove ', selectedClass name, '?')
+    (window confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
 	    Smalltalk current removeClass: selectedClass.
 	    self resetClassesList.
@@ -634,7 +577,7 @@ removeClass
 
 removeMethod
     self cancelChanges ifTrue: [
-	(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
+	(window confirm: 'Do you really want to remove #', selectedMethod selector, '?')
 	    ifTrue: [
 		selectedTab = #instance 
 			ifTrue: [selectedClass removeCompiledMethod: selectedMethod]
@@ -658,7 +601,7 @@ setMethodProtocol: aString
 
 addNewProtocol
     | newProtocol |
-    newProtocol := self prompt: 'New method protocol'.
+    newProtocol := window prompt: 'New method protocol'.
     (newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
@@ -716,8 +659,8 @@ selectTab: aString
 
 renameClass
     | newName |
-    newName := self prompt: 'Rename class ', selectedClass name.
-    newName notEmpty ifTrue: [
+    newName := window prompt: 'Rename class ', selectedClass name.
+    (newName notNil and: [newName notEmpty]) ifTrue: [
 	selectedClass rename: newName.
 	self 
 		updateClassesList;
@@ -766,28 +709,28 @@ commitPackage
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (Exporter new exportPackage: selectedPackage).
-				'error' -> [self alert: 'Commit failed!!']
+				'error' -> [window alert: 'Commit failed!!']
 			}.
 		jQuery 
 			ajax: self class commitPathJs, '/', selectedPackage, '.deploy.js'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (StrippedExporter new exportPackage: selectedPackage).
-				'error' -> [self alert: 'Commit failed!!']
+				'error' -> [window alert: 'Commit failed!!']
 			}.
 		jQuery 
 			ajax: self class commitPathSt, '/', selectedPackage, '.st'
 			options: #{
 				'type' -> 'PUT'.
 				'data' -> (ChunkExporter new exportPackage: selectedPackage).
-				'error' -> [self alert: 'Commit failed!!']
+				'error' -> [window alert: 'Commit failed!!']
 			}]
 !
 
 renamePackage
 
   | newName |
-  newName := self prompt: 'Rename package ', selectedPackage.
+  newName := window prompt: 'Rename package ', selectedPackage.
   newName ifNotNil: [
     newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.
@@ -796,10 +739,29 @@ renamePackage
 
 removePackage
 
-  (self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
+  (window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
 	    Smalltalk current removePackage: selectedPackage.
 	    self updateCategoriesList]
+!
+
+commitPackageToLocalStorage
+	| key sourceCode |
+	selectedPackage ifNotNil: [
+          	key := 'smalltalk.packages.' , selectedPackage.
+		sourceCode := (Exporter new exportPackage: selectedPackage).
+		<localStorage[key] = sourceCode>]
+!
+
+addNewClass
+	| className |
+	className := window prompt: 'New class'.
+	(className notNil and: [className notEmpty]) ifTrue: [
+		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
+          	 self 
+			resetClassesList;
+			updateClassesList.
+		self selectClass: (Smalltalk current at: className)]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -807,6 +769,7 @@ removePackage
 initialize
     super initialize.
     selectedTab := #instance.
+    selectedPackage := self packages first.
     unsavedChanges := false
 ! !
 
@@ -820,35 +783,37 @@ renderBoxOn: html
 !
 
 renderTopPanelOn: html
-    html div 
-	class: 'top'; 
-	with: [
-	    packagesList := html ul class: 'jt_column browser packages'.
-	    commitButton := html button 
-		class: 'jt_commit';
-		title: 'Commit classes in this package to disk';
-		onClick: [self commitPackage];
-		with: 'Commit package'.
-            renameButton := html button 
-		class: 'jt_rename';
-		title: 'Rename this package';
-		onClick: [self renamePackage];
-		with: 'Rename package'.
-            deleteButton := html button 
-		class: 'jt_delete';
-		title: 'Remove this package from the system';
-		onClick: [self removePackage];
-		with: 'Remove package'.
-	    classesList := ClassesList on: self.
-	    classesList renderOn: html.
-	    protocolsList := html ul class: 'jt_column browser protocols'.
-	    methodsList := html ul class: 'jt_column browser methods'.
-	    self
-		updateCategoriesList;
-		updateClassesList;
-		updateProtocolsList;
-		updateMethodsList.
-	    html div class: 'jt_clear']
+	html div 
+		class: 'top'; 
+		with: [
+			packagesList := html ul class: 'jt_column browser packages'.
+          		html div class: 'jt_packagesButtons'; with: [
+				html button 
+					title: 'Commit classes in this package to disk';
+					onClick: [self commitPackage];
+					with: 'Commit'.
+        			html button 
+					title: 'Commit classes in this package to local storage';
+					onClick: [self commitPackageToLocalStorage];
+					with: 'Local'.
+        			html button
+					title: 'Rename package';
+					onClick: [self renamePackage];
+					with: 'Rename'.
+        			html button
+					title: 'Remove this package from the system';
+					onClick: [self removePackage];
+					with: 'Remove'].
+			classesList := ClassesList on: self.
+			classesList renderOn: html.
+			protocolsList := html ul class: 'jt_column browser protocols'.
+			methodsList := html ul class: 'jt_column browser methods'.
+			self
+				updateCategoriesList;
+				updateClassesList;
+				updateProtocolsList;
+				updateMethodsList.
+			html div class: 'jt_clear']
 !
 
 renderTabsOn: html
@@ -976,6 +941,10 @@ updateTabsList
 updateSourceAndButtons
 	self disableSaveButton.
 	classButtons contents: [:html |
+		html button
+			title: 'Create a new class';
+			onClick: [self addNewClass];
+			with: 'New class'.
 		html button
 			with: 'Rename class';
 			onClick: [self renameClass].
@@ -1439,7 +1408,7 @@ setEditorOn: aTextarea
                 lineNumbers: true,
                 enterMode: 'classic',
                 matchBrackets: true,
-                electricChars: false,
+                electricChars: false
 	})>
 !
 
@@ -1486,7 +1455,7 @@ eval: aString
 	| compiler  |
 	compiler := Compiler new.
 	[compiler parseExpression: aString] on: Error do: [:ex |
-		^self alert: ex messageText].
+		^window alert: ex messageText].
 	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
 !
 
@@ -2212,6 +2181,75 @@ updateStatusDiv
 	statusDiv class: 'sunit status ', result status.
 	statusDiv contents: [:html |
 		html span with: self statusInfo]
+! !
+
+TabWidget subclass: #IDETranscript
+	instanceVariableNames: 'textarea'
+	category: 'IDE'!
+
+!IDETranscript methodsFor: 'accessing'!
+
+label
+    ^'Transcript'
+! !
+
+!IDETranscript methodsFor: 'actions'!
+
+clear
+    textarea asJQuery val: ''
+!
+
+cr
+    textarea asJQuery val: textarea asJQuery val, String cr.
+!
+
+show: anObject
+    textarea asJQuery val: textarea asJQuery val, anObject asString.
+!
+
+open
+    TabManager current 
+	open;
+	selectTab: self
+! !
+
+!IDETranscript methodsFor: 'rendering'!
+
+renderBoxOn: html
+    textarea := html textarea.
+    textarea 
+	class: 'jt_transcript';
+	at: 'spellcheck' put: 'false'
+!
+
+renderButtonsOn: html
+    html button
+	with: 'Clear transcript';
+	onClick: [self clear]
+! !
+
+IDETranscript class instanceVariableNames: 'current'!
+
+!IDETranscript class methodsFor: 'initialization'!
+
+initialize
+	Transcript register: self current
+! !
+
+!IDETranscript class methodsFor: 'instance creation'!
+
+new
+    self shouldNotImplement
+!
+
+open
+    TabManager current 
+	open;
+	selectTab: self current
+!
+
+current
+	^current ifNil: [current := super new]
 ! !
 
 !Object methodsFor: '*IDE'!

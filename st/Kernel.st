@@ -947,6 +947,16 @@ to: stop by: step
 	^array
 ! !
 
+!Number methodsFor: 'copying'!
+
+deepCopy
+	^self copy
+!
+
+copy
+	^self
+! !
+
 !Number methodsFor: 'enumerating'!
 
 timesRepeat: aBlock
@@ -1756,6 +1766,10 @@ indexOf: anObject startingAt: start
 	within the receiver. If the receiver does not contain anElement, 
 	answer 0."
 	^self indexOf: anObject startingAt: start ifAbsent: [0]
+!
+
+atRandom
+	^ self at: self size atRandom
 ! !
 
 !SequenceableCollection methodsFor: 'adding'!
@@ -2598,20 +2612,13 @@ class: aClass instanceVariableNames: aString
 	self setupClass: aClass
 !
 
-superclass: aClass subclass: aString instanceVariableNames: aString2 module: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				module: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
-!
-
 superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
 	| newClass |
 	newClass := self addSubclassOf: aClass
 				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
 				package: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass
+	self setupClass: newClass.
+	^newClass
 ! !
 
 !ClassBuilder methodsFor: 'private'!
@@ -2627,11 +2634,6 @@ addSubclassOf: aClass named: aString instanceVariableNames: aCollection
 
 setupClass: aClass
 	<smalltalk.init(aClass);>
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection module: moduleName
-	<smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString]>
 !
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
@@ -3200,5 +3202,72 @@ initialize
 
 includes: anObject
 	^elements includes: anObject
+! !
+
+Object subclass: #Transcript
+	instanceVariableNames: 'textarea'
+	category: 'Kernel'!
+
+Transcript class instanceVariableNames: 'current'!
+
+!Transcript class methodsFor: 'instance creation'!
+
+open
+    self current open
+!
+
+new
+    self shouldNotImplement
+!
+
+current
+    ^current
+!
+
+register: aTranscript
+	current := aTranscript
+! !
+
+!Transcript class methodsFor: 'printing'!
+
+show: anObject
+    self current show: anObject
+!
+
+cr
+    self current show: String cr
+!
+
+clear
+    self current clear
+! !
+
+Object subclass: #ConsoleTranscript
+	instanceVariableNames: 'textarea'
+	category: 'Kernel'!
+
+!ConsoleTranscript methodsFor: 'actions'!
+
+open
+! !
+
+!ConsoleTranscript methodsFor: 'printing'!
+
+clear
+	"no op"
+!
+
+cr
+	"no op"
+!
+
+show: anObject
+	<console.log(String(anObject._asString()))>
+! !
+
+!ConsoleTranscript class methodsFor: 'initialization'!
+
+initialize
+	Transcript register: self new
 ! !
 

@@ -41,7 +41,7 @@ if (typeof console === "undefined") {
 	warn: function() {},
 	info: function() {},
 	debug: function() {},
-	error: function() {},
+	error: function() {}
     };
 }
 
@@ -750,7 +750,7 @@ return self;},
 args: ["anObject"],
 source: unescape('-%3E%20anObject%0A%09%5EAssociation%20key%3A%20self%20value%3A%20anObject'),
 messageSends: ["key:value:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Association]
 }),
 smalltalk.Object);
 
@@ -1246,7 +1246,7 @@ return self;},
 args: ["aMessage"],
 source: unescape('doesNotUnderstand%3A%20aMessage%0A%09MessageNotUnderstood%20new%0A%09%09receiver%3A%20self%3B%0A%09%09message%3A%20aMessage%3B%0A%09%09signal'),
 messageSends: ["receiver:", "message:", "signal", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.MessageNotUnderstood]
 }),
 smalltalk.Object);
 
@@ -1838,7 +1838,7 @@ return self;},
 args: [],
 source: unescape('properties%0A%09%22It%20is%20stored%20as%20a%20javascript%20object.%22%0A%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20Dictionary%20new.%0A%09%3Cfor%20%28var%20i%20in%20self.properties%29%20%7B%0A%09%09result._at_put_%28i%2C%20self.properties%5Bi%5D%29%3B%0A%09%7D%0A%09return%20result%3B%3E'),
 messageSends: ["new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Dictionary]
 }),
 smalltalk.Package);
 
@@ -2158,7 +2158,7 @@ return self;},
 args: ["aString"],
 source: unescape('methodsFor%3A%20aString%0A%09%5EClassCategoryReader%20new%0A%09%20%20%20%20class%3A%20self%20category%3A%20aString%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["class:category:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassCategoryReader]
 }),
 smalltalk.Behavior);
 
@@ -2238,7 +2238,7 @@ return self;},
 args: [],
 source: unescape('commentStamp%0A%20%20%20%20%5EClassCommentReader%20new%0A%09class%3A%20self%3B%0A%09yourself'),
 messageSends: ["class:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassCommentReader]
 }),
 smalltalk.Behavior);
 
@@ -2310,7 +2310,7 @@ return self;},
 args: ["aBlock"],
 source: unescape('protocolsDo%3A%20aBlock%0A%09%22Execute%20aBlock%20for%20each%20method%20category%20with%0A%09its%20collection%20of%20methods%20in%20the%20sort%20order%20of%20category%20name.%22%0A%0A%09%7C%20methodsByCategory%20%7C%0A%09methodsByCategory%20%3A%3D%20Dictionary%20new.%0A%09self%20methodDictionary%20values%20do%3A%20%5B%3Am%20%7C%0A%09%09%28methodsByCategory%20at%3A%20m%20category%20ifAbsentPut%3A%20%5BArray%20new%5D%29%0A%20%09%09%09add%3A%20m%5D.%20%0A%09self%20protocols%20do%3A%20%5B%3Acategory%20%7C%0A%09%09aBlock%20value%3A%20category%20value%3A%20%28methodsByCategory%20at%3A%20category%29%5D'),
 messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "category", "protocols", "value:value:", "at:"],
-referencedClasses: [smalltalk.nil,smalltalk.Array]
+referencedClasses: [smalltalk.Dictionary,smalltalk.Array]
 }),
 smalltalk.Behavior);
 
@@ -2412,7 +2412,7 @@ return self;},
 args: ["aString", "anotherString"],
 source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.Behavior);
 
@@ -2579,7 +2579,7 @@ return self;},
 args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.Class);
 
@@ -2614,7 +2614,7 @@ return self;},
 args: ["aCollection"],
 source: unescape('instanceVariableNames%3A%20aCollection%0A%09ClassBuilder%20new%0A%09%20%20%20%20class%3A%20self%20instanceVariableNames%3A%20aCollection'),
 messageSends: ["class:instanceVariableNames:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.Metaclass);
 
@@ -3199,7 +3199,7 @@ return self;},
 args: [],
 source: unescape('atRandom%0A%20%20%20%20%5E%28Random%20new%20next%20*%20self%29%20truncated%20+%201'),
 messageSends: [unescape("+"), "truncated", unescape("*"), "next", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Random]
 }),
 smalltalk.Number);
 
@@ -3215,7 +3215,7 @@ return self;},
 args: ["aNumber"],
 source: unescape('@%20aNumber%0A%09%5EPoint%20x%3A%20self%20y%3A%20aNumber'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Point]
 }),
 smalltalk.Number);
 
@@ -3231,7 +3231,7 @@ return self;},
 args: [],
 source: unescape('asPoint%0A%09%5EPoint%20x%3A%20self%20y%3A%20self'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Point]
 }),
 smalltalk.Number);
 
@@ -3420,6 +3420,38 @@ return self;},
 args: ["stop", "step", "aBlock"],
 source: unescape('to%3A%20stop%20by%3A%20step%20do%3A%20aBlock%0A%09%7C%20value%20%7C%0A%09value%20%3A%3D%20self.%0A%09step%20%3D%200%20ifTrue%3A%20%5Bself%20error%3A%20%27step%20must%20be%20non-zero%27%5D.%0A%09step%20%3C%200%0A%09%09ifTrue%3A%20%5B%5B%20value%20%3E%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09aBlock%20value%3A%20value.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D%0A%09%09ifFalse%3A%20%5B%5B%20value%20%3C%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09aBlock%20value%3A%20value.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D'),
 messageSends: ["ifTrue:", unescape("%3D"), "error:", "ifTrue:ifFalse:", unescape("%3C"), "whileTrue:", unescape("%3E%3D"), "value:", unescape("+"), unescape("%3C%3D")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_deepCopy'),
+smalltalk.method({
+selector: unescape('deepCopy'),
+category: 'copying',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_copy", []);
+return self;},
+args: [],
+source: unescape('deepCopy%0A%09%5Eself%20copy'),
+messageSends: ["copy"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_copy'),
+smalltalk.method({
+selector: unescape('copy'),
+category: 'copying',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('copy%0A%09%5Eself'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -4818,7 +4850,7 @@ return self;},
 args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ClassBuilder]
 }),
 smalltalk.UndefinedObject);
 
@@ -5265,7 +5297,7 @@ return self;},
 args: [],
 source: unescape('asSet%0A%09%5ESet%20withAll%3A%20self'),
 messageSends: ["withAll:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Set]
 }),
 smalltalk.Collection);
 
@@ -5330,7 +5362,7 @@ return self;},
 args: [],
 source: unescape('streamClass%0A%09%20%20%20%20%5EStream'),
 messageSends: [],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Stream]
 }),
 smalltalk.Collection.klass);
 
@@ -5710,6 +5742,22 @@ return self;},
 args: [],
 source: unescape('reversed%0A%09self%20subclassResponsibility'),
 messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+unescape('_atRandom'),
+smalltalk.method({
+selector: unescape('atRandom'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
+return self;},
+args: [],
+source: unescape('atRandom%0A%09%5E%20self%20at%3A%20self%20size%20atRandom'),
+messageSends: ["at:", "atRandom", "size"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -6539,7 +6587,7 @@ return self;},
 args: [],
 source: unescape('streamClass%0A%09%20%20%20%20%5EStringStream'),
 messageSends: [],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.StringStream]
 }),
 smalltalk.String.klass);
 
@@ -7993,41 +8041,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_superclass_subclass_instanceVariableNames_module_'),
-smalltalk.method({
-selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Amodule%3A'),
-category: 'class creation',
-fn: function (aClass, aString, aString2, aString3){
-var self=this;
-var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_module_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
-smalltalk.send(self, "_setupClass_", [newClass]);
-return self;},
-args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20module%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09module%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass'),
-messageSends: ["addSubclassOf:named:instanceVariableNames:module:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
-unescape('_addSubclassOf_named_instanceVariableNames_module_'),
-smalltalk.method({
-selector: unescape('addSubclassOf%3Anamed%3AinstanceVariableNames%3Amodule%3A'),
-category: 'private',
-fn: function (aClass, aString, aCollection, moduleName){
-var self=this;
-smalltalk.addClass(aString, aClass, aCollection, moduleName);
-	    return smalltalk[aString];
-return self;},
-args: ["aClass", "aString", "aCollection", "moduleName"],
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%20module%3A%20moduleName%0A%09%3Csmalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%2C%20moduleName%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
 unescape('_superclass_subclass_instanceVariableNames_package_'),
 smalltalk.method({
 selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Apackage%3A'),
@@ -8037,9 +8050,10 @@ var self=this;
 var newClass=nil;
 newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
 smalltalk.send(self, "_setupClass_", [newClass]);
+return newClass;
 return self;},
 args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass'),
+source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass.%0A%09%5EnewClass'),
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
 referencedClasses: []
 }),
@@ -8078,7 +8092,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ChunkParser]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -8131,7 +8145,7 @@ return self;},
 args: ["aString"],
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.Compiler]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -8699,7 +8713,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: [smalltalk.ChunkParser]
 }),
 smalltalk.ClassCommentReader);
 
@@ -9571,6 +9585,205 @@ smalltalk.Set);
 
 
 
+smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel');
+
+smalltalk.Transcript.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
+return self;},
+args: [],
+source: unescape('open%0A%20%20%20%20self%20current%20open'),
+messageSends: ["open", "current"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_new'),
+smalltalk.method({
+selector: unescape('new'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_shouldNotImplement", []);
+return self;},
+args: [],
+source: unescape('new%0A%20%20%20%20self%20shouldNotImplement'),
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_current'),
+smalltalk.method({
+selector: unescape('current'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return self['@current'];
+return self;},
+args: [],
+source: unescape('current%0A%20%20%20%20%5Ecurrent'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_show_'),
+smalltalk.method({
+selector: unescape('show%3A'),
+category: 'printing',
+fn: function (anObject){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('show%3A%20anObject%0A%20%20%20%20self%20current%20show%3A%20anObject'),
+messageSends: ["show:", "current"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_cr'),
+smalltalk.method({
+selector: unescape('cr'),
+category: 'printing',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
+return self;},
+args: [],
+source: unescape('cr%0A%20%20%20%20self%20current%20show%3A%20String%20cr'),
+messageSends: ["show:", "current", "cr"],
+referencedClasses: [smalltalk.String]
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_clear'),
+smalltalk.method({
+selector: unescape('clear'),
+category: 'printing',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
+return self;},
+args: [],
+source: unescape('clear%0A%20%20%20%20self%20current%20clear'),
+messageSends: ["clear", "current"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+unescape('_register_'),
+smalltalk.method({
+selector: unescape('register%3A'),
+category: 'instance creation',
+fn: function (aTranscript){
+var self=this;
+self['@current']=aTranscript;
+return self;},
+args: ["aTranscript"],
+source: unescape('register%3A%20aTranscript%0A%09current%20%3A%3D%20aTranscript'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+
+smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel');
+smalltalk.addMethod(
+unescape('_clear'),
+smalltalk.method({
+selector: unescape('clear'),
+category: 'printing',
+fn: function (){
+var self=this;
+
+return self;},
+args: [],
+source: unescape('clear%0A%09%22no%20op%22'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+unescape('_cr'),
+smalltalk.method({
+selector: unescape('cr'),
+category: 'printing',
+fn: function (){
+var self=this;
+
+return self;},
+args: [],
+source: unescape('cr%0A%09%22no%20op%22'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+unescape('_show_'),
+smalltalk.method({
+selector: unescape('show%3A'),
+category: 'printing',
+fn: function (anObject){
+var self=this;
+console.log(String(anObject._asString()));
+return self;},
+args: ["anObject"],
+source: unescape('show%3A%20anObject%0A%09%3Cconsole.log%28String%28anObject._asString%28%29%29%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'actions',
+fn: function (){
+var self=this;
+
+return self;},
+args: [],
+source: unescape('open'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ConsoleTranscript);
+
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
+return self;},
+args: [],
+source: unescape('initialize%0A%09Transcript%20register%3A%20self%20new'),
+messageSends: ["register:", "new"],
+referencedClasses: [smalltalk.Transcript]
+}),
+smalltalk.ConsoleTranscript.klass);
+
+
 smalltalk.addPackage('FileServer', []);
 smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'sys'], 'FileServer');
 smalltalk.addMethod(
@@ -9938,5 +10151,4 @@ smalltalk.classes()._do_(function(each) {each._initialize()});
 
 if(this.smalltalkReady) {
     this.smalltalkReady();
-}
-smalltalk.FileServer._main()
+}smalltalk.FileServer._main()

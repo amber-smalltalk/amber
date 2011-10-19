@@ -2224,7 +2224,7 @@ return self;},
 args: [],
 source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09Transcript%20show%3A%20each%3B%20cr.%0A%09%09%5Bself%20recompile%3A%20each%5D%20valueWithTimeout%3A%20100%5D'),
 messageSends: ["do:", "classes", "current", "show:", "cr", "valueWithTimeout:", "recompile:"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: [smalltalk.Smalltalk,smalltalk.Transcript]
 }),
 smalltalk.Compiler);
 
