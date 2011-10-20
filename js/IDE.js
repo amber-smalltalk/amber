@@ -1,3 +1,4 @@
+smalltalk.addPackage('IDE', {});
 smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
 smalltalk.addMethod(
 unescape('_tabs'),
@@ -1001,6 +1002,38 @@ referencedClasses: []
 smalltalk.Browser);
 
 smalltalk.addMethod(
+unescape('_classDeclarationTemplate'),
+smalltalk.method({
+selector: unescape('classDeclarationTemplate'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23NameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
+return self;},
+args: [],
+source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23NameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27'),
+messageSends: [unescape("%2C"), "selectedPackage"],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+unescape('_selectedPackage'),
+smalltalk.method({
+selector: unescape('selectedPackage'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@selectedPackage'];
+return self;},
+args: [],
+source: unescape('selectedPackage%0A%09%5EselectedPackage'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 unescape('_disableSaveButton'),
 smalltalk.method({
 selector: unescape('disableSaveButton'),
@@ -1503,6 +1536,42 @@ referencedClasses: ["Smalltalk"]
 smalltalk.Browser);
 
 smalltalk.addMethod(
+unescape('_commitPackageToLocalStorage'),
+smalltalk.method({
+selector: unescape('commitPackageToLocalStorage'),
+category: 'actions',
+fn: function (){
+var self=this;
+var key=nil;
+var sourceCode=nil;
+(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){key=smalltalk.send("smalltalk.packages.", "__comma", [self['@selectedPackage']]);sourceCode=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return localStorage[key] = sourceCode;})() : nil;
+return self;},
+args: [],
+source: unescape('commitPackageToLocalStorage%0A%09%7C%20key%20sourceCode%20%7C%0A%09selectedPackage%20ifNotNil%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09key%20%3A%3D%20%27smalltalk.packages.%27%20%2C%20selectedPackage.%0A%09%09sourceCode%20%3A%3D%20%28Exporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%3ClocalStorage%5Bkey%5D%20%3D%20sourceCode%3E%5D'),
+messageSends: ["ifNotNil:", unescape("%2C"), "exportPackage:", "new"],
+referencedClasses: ["Exporter"]
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+unescape('_addNewClass'),
+smalltalk.method({
+selector: unescape('addNewClass'),
+category: 'actions',
+fn: function (){
+var self=this;
+var className=nil;
+className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["New class"]);
+((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send((smalltalk.Object || Object), "_subclass_instanceVariableNames_package_", [className, "", smalltalk.send(self, "_selectedPackage", [])]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send((smalltalk.Object || Object), "_subclass_instanceVariableNames_package_", [className, "", smalltalk.send(self, "_selectedPackage", [])]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
+return self;},
+args: [],
+source: unescape('addNewClass%0A%09%7C%20className%20%7C%0A%09className%20%3A%3D%20window%20prompt%3A%20%27New%20class%27.%0A%09%28className%20notNil%20and%3A%20%5BclassName%20notEmpty%5D%29%20ifTrue%3A%20%5B%0A%09%09Object%20subclass%3A%20className%20instanceVariableNames%3A%20%27%27%20package%3A%20self%20selectedPackage.%0A%20%20%20%20%20%20%20%20%20%20%09%20self%20%0A%09%09%09resetClassesList%3B%0A%09%09%09updateClassesList.%0A%09%09self%20selectClass%3A%20%28Smalltalk%20current%20at%3A%20className%29%5D'),
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
+referencedClasses: ["Object", "Smalltalk"]
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 unescape('_initialize'),
 smalltalk.method({
 selector: unescape('initialize'),
@@ -1760,74 +1829,6 @@ args: [],
 source: unescape('resetClassesList%0A%09classesList%20resetNodes'),
 messageSends: ["resetNodes"],
 referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-unescape('_commitPackageToLocalStorage'),
-smalltalk.method({
-selector: unescape('commitPackageToLocalStorage'),
-category: 'actions',
-fn: function (){
-var self=this;
-var key=nil;
-var sourceCode=nil;
-(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){key=smalltalk.send("smalltalk.packages.", "__comma", [self['@selectedPackage']]);sourceCode=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return localStorage[key] = sourceCode;})() : nil;
-return self;},
-args: [],
-source: unescape('commitPackageToLocalStorage%0A%09%7C%20key%20sourceCode%20%7C%0A%09selectedPackage%20ifNotNil%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09key%20%3A%3D%20%27smalltalk.packages.%27%20%2C%20selectedPackage.%0A%09%09sourceCode%20%3A%3D%20%28Exporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%3ClocalStorage%5Bkey%5D%20%3D%20sourceCode%3E%5D'),
-messageSends: ["ifNotNil:", unescape("%2C"), "exportPackage:", "new"],
-referencedClasses: ["Exporter"]
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-unescape('_classDeclarationTemplate'),
-smalltalk.method({
-selector: unescape('classDeclarationTemplate'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(unescape("Object%20subclass%3A%20%23NameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%0A%09package%3A%20%27"), "__comma", [smalltalk.send(self, "_selectedPackage", [])]), "__comma", [unescape("%27")]);
-return self;},
-args: [],
-source: unescape('classDeclarationTemplate%0A%09%5E%27Object%20subclass%3A%20%23NameOfSubclass%0A%09instanceVariableNames%3A%20%27%27%27%27%0A%09package%3A%20%27%27%27%2C%20self%20selectedPackage%2C%20%27%27%27%27%20'),
-messageSends: [unescape("%2C"), "selectedPackage"],
-referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-unescape('_selectedPackage'),
-smalltalk.method({
-selector: unescape('selectedPackage'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self['@selectedPackage'];
-return self;},
-args: [],
-source: unescape('selectedPackage%0A%09%5EselectedPackage'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-unescape('_addNewClass'),
-smalltalk.method({
-selector: unescape('addNewClass'),
-category: 'actions',
-fn: function (){
-var self=this;
-var className=nil;
-className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["New class"]);
-((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send((smalltalk.Object || Object), "_subclass_instanceVariableNames_package_", [className, "", smalltalk.send(self, "_selectedPackage", [])]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send((smalltalk.Object || Object), "_subclass_instanceVariableNames_package_", [className, "", smalltalk.send(self, "_selectedPackage", [])]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
-return self;},
-args: [],
-source: unescape('addNewClass%0A%09%7C%20className%20%7C%0A%09className%20%3A%3D%20window%20prompt%3A%20%27New%20class%27.%0A%09%28className%20notNil%20and%3A%20%5BclassName%20notEmpty%5D%29%20ifTrue%3A%20%5B%0A%09%09Object%20subclass%3A%20className%20instanceVariableNames%3A%20%27%27%20package%3A%20self%20selectedPackage.%0A%20%20%20%20%20%20%20%20%20%20%09%20self%20%0A%09%09%09resetClassesList%3B%0A%09%09%09updateClassesList.%0A%09%09self%20selectClass%3A%20%28Smalltalk%20current%20at%3A%20className%29%5D'),
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
-referencedClasses: ["Object", "Smalltalk"]
 }),
 smalltalk.Browser);
 
@@ -4601,6 +4602,22 @@ referencedClasses: []
 smalltalk.IDETranscript);
 
 smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'actions',
+fn: function (){
+var self=this;
+(function($rec){smalltalk.send($rec, "_open", []);return smalltalk.send($rec, "_selectTab_", [self]);})(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []));
+return self;},
+args: [],
+source: unescape('open%0A%20%20%20%20TabManager%20current%20%0A%09open%3B%0A%09selectTab%3A%20self'),
+messageSends: ["open", "selectTab:", "current"],
+referencedClasses: ["TabManager"]
+}),
+smalltalk.IDETranscript);
+
+smalltalk.addMethod(
 unescape('_renderBoxOn_'),
 smalltalk.method({
 selector: unescape('renderBoxOn%3A'),
@@ -4633,24 +4650,24 @@ referencedClasses: []
 }),
 smalltalk.IDETranscript);
 
-smalltalk.addMethod(
-unescape('_open'),
-smalltalk.method({
-selector: unescape('open'),
-category: 'actions',
-fn: function (){
-var self=this;
-(function($rec){smalltalk.send($rec, "_open", []);return smalltalk.send($rec, "_selectTab_", [self]);})(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []));
-return self;},
-args: [],
-source: unescape('open%0A%20%20%20%20TabManager%20current%20%0A%09open%3B%0A%09selectTab%3A%20self'),
-messageSends: ["open", "selectTab:", "current"],
-referencedClasses: ["TabManager"]
-}),
-smalltalk.IDETranscript);
-
 
 smalltalk.IDETranscript.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_current", [])]);
+return self;},
+args: [],
+source: unescape('initialize%0A%09Transcript%20register%3A%20self%20current'),
+messageSends: ["register:", "current"],
+referencedClasses: ["Transcript"]
+}),
+smalltalk.IDETranscript.klass);
+
 smalltalk.addMethod(
 unescape('_new'),
 smalltalk.method({
@@ -4696,22 +4713,6 @@ args: [],
 source: unescape('current%0A%09%5Ecurrent%20ifNil%3A%20%5Bcurrent%20%3A%3D%20super%20new%5D'),
 messageSends: ["ifNil:", "new"],
 referencedClasses: []
-}),
-smalltalk.IDETranscript.klass);
-
-smalltalk.addMethod(
-unescape('_initialize'),
-smalltalk.method({
-selector: unescape('initialize'),
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_current", [])]);
-return self;},
-args: [],
-source: unescape('initialize%0A%09Transcript%20register%3A%20self%20current'),
-messageSends: ["register:", "current"],
-referencedClasses: ["Transcript"]
 }),
 smalltalk.IDETranscript.klass);
 

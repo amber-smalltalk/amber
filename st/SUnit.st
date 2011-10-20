@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'SUnit' properties: #{}!
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector'
 	category: 'SUnit'!
