@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'Canvas' properties: #{}!
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	category: 'Canvas'!

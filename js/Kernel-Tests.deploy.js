@@ -1,3 +1,4 @@
+smalltalk.addPackage('Kernel-Tests', {});
 smalltalk.addClass('StringTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 '_testJoin',
