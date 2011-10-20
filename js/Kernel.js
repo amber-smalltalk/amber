@@ -2690,6 +2690,38 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+unescape('_sqrt'),
+smalltalk.method({
+selector: unescape('sqrt'),
+category: 'arithmetic',
+fn: function (){
+var self=this;
+return Math.sqrt(self);
+return self;},
+args: [],
+source: unescape('sqrt%0A%09%3Creturn%20Math.sqrt%28self%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_squared'),
+smalltalk.method({
+selector: unescape('squared'),
+category: 'arithmetic',
+fn: function (){
+var self=this;
+return self * self;
+return self;},
+args: [],
+source: unescape('squared%0A%09%5Eself%20*%20self'),
+messageSends: [unescape("*")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 unescape('_pi'),
