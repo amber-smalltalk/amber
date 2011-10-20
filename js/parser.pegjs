@@ -33,7 +33,13 @@ dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
 	       	  return smalltalk.DynamicDictionaryNode._new()
 		        ._nodes_(expressions)
 		  }
-literal        = number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
+pseudoVariable = val:('true' {return true} 
+				/ 'false' {return false}
+				/ 'nil' {return nil} {
+					return smalltalk.ValueNode._new()
+						._value_(val)
+				}
+literal        = pseudoVariable / number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
 
 
 variable       = identifier:identifier {
