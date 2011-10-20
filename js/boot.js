@@ -71,7 +71,7 @@ function Smalltalk(){
     /* List of all reserved words in JavaScript. They may not be used as variables
        in Smalltalk. */
 
-    st.reservedWords = ['break', 'case', 'catch', 'class', 'continue', 'debugger', 
+    st.reservedWords = ['break', 'case', 'catch', 'char', 'class', 'continue', 'debugger', 
 			'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
 			'if', 'in', 'instanceof', 'new', 'private', 'protected', 
 			'public', 'return', 'static', 'switch', 'this', 'throw',
