@@ -1250,7 +1250,7 @@ search: aString
 searchReferencedClassesFor: aString
 	self classesAndMetaclasses do: [:each |
 		each methodDictionary values do: [:value |
-			(((value referencedClasses select: [:each | each notNil])collect: [:each | each name]) includes: selector) ifTrue: [
+			(value referencedClasses includes: selector) ifTrue: [
 				self referencedClasses add: value]]]
 !
 

@@ -28,7 +28,7 @@ return self;},
 args: [],
 source: unescape('testStreamContents%0A%09self%20%0A%09%09assert%3A%20%27hello%20world%27%20%0A%09%09equals%3A%20%28String%20streamContents%3A%20%5B%3AaStream%7C%20aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27hello%27%3B%20space%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27world%27%5D%29'),
 messageSends: ["assert:equals:", "streamContents:", "nextPutAll:", "space"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.StringTest);
 
@@ -100,7 +100,7 @@ return self;},
 args: [],
 source: unescape('testPrintString%0A%09self%0A%09%09assert%3A%20%27a%20Dictionary%28%27%27firstname%27%27%20-%3E%20%27%27James%27%27%20%2C%20%27%27lastname%27%27%20-%3E%20%27%27Bond%27%27%29%27%20%0A%09%09equals%3A%20%28Dictionary%20new%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09at%3A%27firstname%27%20put%3A%20%27James%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09at%3A%27lastname%27%20put%3A%20%27Bond%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09printString%29'),
 messageSends: ["assert:equals:", "at:put:", "printString", "new"],
-referencedClasses: [smalltalk.Dictionary]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
 
@@ -127,7 +127,7 @@ return self;},
 args: [],
 source: unescape('testEquality%0A%09%7C%20d1%20d2%20%7C%0A%0A%09self%20assert%3A%20Dictionary%20new%20%3D%20Dictionary%20new.%0A%09%09%0A%09d1%20%3A%3D%20Dictionary%20new%20at%3A%201%20put%3A%202%3B%20yourself.%0A%09d2%20%3A%3D%20Dictionary%20new%20at%3A%201%20put%3A%202%3B%20yourself.%0A%09self%20assert%3A%20d1%20%3D%20d2.%0A%0A%09d2%20%3A%3D%20Dictionary%20new%20at%3A%201%20put%3A%203%3B%20yourself.%0A%09self%20deny%3A%20d1%20%3D%20d2.%0A%0A%09d2%20%3A%3D%20Dictionary%20new%20at%3A%202%20put%3A%202%3B%20yourself.%0A%09self%20deny%3A%20d1%20%3D%20d2.%0A%0A%09d2%20%3A%3D%20Dictionary%20new%20at%3A%201%20put%3A%202%3B%20at%3A%203%20put%3A%204%3B%20yourself.%0A%09self%20deny%3A%20d1%20%3D%20d2.'),
 messageSends: ["assert:", unescape("%3D"), "new", "at:put:", "yourself", "deny:"],
-referencedClasses: [smalltalk.Dictionary]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
 
@@ -143,7 +143,7 @@ return self;},
 args: [],
 source: unescape('testDynamicDictionaries%0A%09self%20assert%3A%20%23%7B1%20-%3E%20%27hello%27.%202%20-%3E%20%27world%27%7D%20%3D%20%28Dictionary%20with%3A%201%20-%3E%20%27hello%27%20with%3A%202%20-%3E%20%27world%27%29'),
 messageSends: ["assert:", unescape("%3D"), unescape("-%3E"), "with:with:"],
-referencedClasses: [smalltalk.Dictionary]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
 

@@ -75,7 +75,7 @@ return self;},
 args: ["aStream"],
 source: unescape('import%3A%20aStream%0A%20%20%20%20%7C%20chunk%20result%20parser%20lastEmpty%20%7C%0A%20%20%20%20parser%20%3A%3D%20ChunkParser%20on%3A%20aStream.%0A%20%20%20%20lastEmpty%20%3A%3D%20false.%0A%20%20%20%20%5Bchunk%20%3A%3D%20parser%20nextChunk.%0A%20%20%20%20%20chunk%20isNil%5D%20whileFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20chunk%20isEmpty%0A%20%20%20%20%20%20%20%09%09ifTrue%3A%20%5BlastEmpty%20%3A%3D%20true%5D%0A%20%20%20%20%20%20%20%09%09ifFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20%09%09result%20%3A%3D%20Compiler%20new%20loadExpression%3A%20chunk.%0A%20%20%20%20%20%20%20%20%09%09lastEmpty%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09lastEmpty%20%3A%3D%20false.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09result%20scanFrom%3A%20parser%5D%5D%5D'),
 messageSends: ["on:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "loadExpression:", "new", "ifTrue:", "scanFrom:"],
-referencedClasses: [smalltalk.ChunkParser,smalltalk.Compiler]
+referencedClasses: ["ChunkParser", "Compiler"]
 }),
 smalltalk.Importer);
 
@@ -114,7 +114,7 @@ return self;},
 args: ["aClass", "aStream"],
 source: unescape('exportMetaDefinitionOf%3A%20aClass%20on%3A%20aStream%0A%09aClass%20class%20instanceVariableNames%20isEmpty%20ifFalse%3A%20%5B%0A%09%20%20%20%20aStream%20%0A%09%09nextPutAll%3A%20%27smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%20class%29%3B%0A%09%09nextPutAll%3A%20%27.iVarNames%20%3D%20%5B%27.%0A%09%20%20%20%20aClass%20class%20instanceVariableNames%0A%09%09do%3A%20%5B%3Aeach%20%7C%20aStream%20nextPutAll%3A%20%27%27%27%27%2C%20each%2C%20%27%27%27%27%5D%0A%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%2C%27%5D.%0A%09%20%20%20%20aStream%20nextPutAll%3A%20%27%5D%3B%27%2C%20String%20lf%5D'),
 messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", unescape("%2C"), "classNameFor:", "do:separatedBy:", "lf"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Exporter);
 
@@ -158,13 +158,12 @@ selector: unescape('exportMethod%3Aof%3Aon%3A'),
 category: 'private',
 fn: function (aMethod, aClass, aStream){
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.addMethod%28")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("unescape%28%27"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_selector", []), "_asSelector", []), "_escaped", [])]), "__comma", [unescape("%27%29%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.method%28%7B")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("selector%3A%20unescape%28%27"), "__comma", [smalltalk.send(smalltalk.send(aMethod, "_selector", []), "_escaped", [])]), "__comma", [unescape("%27%29%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("category%3A%20%27"), "__comma", [smalltalk.send(aMethod, "_category", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("fn: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_fn", []), "_compiledSource", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("args: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_arguments", []), "_asJavascript", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("source%3A%20unescape%28%27"), "__comma", [smalltalk.send(smalltalk.send(aMethod, "_source", []), "_escaped", [])]), "__comma", [unescape("%27%29%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("messageSends: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_messageSends", []), "_asJavascript", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", [unescape("referencedClasses%3A%20%5B")]);})(aStream);
-smalltalk.send(smalltalk.send(aMethod, "_referencedClasses", []), "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [each])])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [unescape("%2C")]);})]);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("%5D")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%2C")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [aClass])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29%3B")]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_lf", []);})(aStream);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.addMethod%28")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("unescape%28%27"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_selector", []), "_asSelector", []), "_escaped", [])]), "__comma", [unescape("%27%29%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("smalltalk.method%28%7B")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("selector%3A%20unescape%28%27"), "__comma", [smalltalk.send(smalltalk.send(aMethod, "_selector", []), "_escaped", [])]), "__comma", [unescape("%27%29%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("category%3A%20%27"), "__comma", [smalltalk.send(aMethod, "_category", [])]), "__comma", [unescape("%27%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("fn: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_fn", []), "_compiledSource", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("args: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_arguments", []), "_asJavascript", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("source%3A%20unescape%28%27"), "__comma", [smalltalk.send(smalltalk.send(aMethod, "_source", []), "_escaped", [])]), "__comma", [unescape("%27%29%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("messageSends: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_messageSends", []), "_asJavascript", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send("referencedClasses: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_referencedClasses", []), "_asJavascript", [])])]);})(aStream);
+(function($rec){smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%2C")]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [aClass])])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%29%3B")]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_lf", []);})(aStream);
 return self;},
 args: ["aMethod", "aClass", "aStream"],
-source: unescape('exportMethod%3A%20aMethod%20of%3A%20aClass%20on%3A%20aStream%0A%09aStream%20%0A%09%09nextPutAll%3A%20%27smalltalk.addMethod%28%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27unescape%28%27%27%27%2C%20aMethod%20selector%20asSelector%20escaped%2C%20%27%27%27%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.method%28%7B%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27selector%3A%20unescape%28%27%27%27%2C%20aMethod%20selector%20escaped%2C%20%27%27%27%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27category%3A%20%27%27%27%2C%20aMethod%20category%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27fn%3A%20%27%2C%20aMethod%20fn%20compiledSource%2C%20%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27args%3A%20%27%2C%20aMethod%20arguments%20asJavascript%2C%20%27%2C%27%3B%20lf%3B%0A%09%09nextPutAll%3A%20%27source%3A%20unescape%28%27%27%27%2C%20aMethod%20source%20escaped%2C%20%27%27%27%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27messageSends%3A%20%27%2C%20aMethod%20messageSends%20asJavascript%2C%20%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27referencedClasses%3A%20%5B%27.%0A%09%20%20%20%20%09%09aMethod%20referencedClasses%20%0A%09%09%09%09do%3A%20%5B%3Aeach%20%7C%20aStream%20nextPutAll%3A%20%27smalltalk.%27%2C%20%28self%20classNameFor%3A%20each%29%5D%0A%09%09%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%2C%27%5D.%0A%09aStream%0A%09%09nextPutAll%3A%20%27%5D%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27%7D%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%29%3B%0A%09%09nextPutAll%3A%20%27%29%3B%27%3Blf%3Blf'),
-messageSends: ["nextPutAll:", "lf", unescape("%2C"), "escaped", "asSelector", "selector", "category", "compiledSource", "fn", "asJavascript", "arguments", "source", "messageSends", "do:separatedBy:", "referencedClasses", "classNameFor:"],
+source: unescape('exportMethod%3A%20aMethod%20of%3A%20aClass%20on%3A%20aStream%0A%09aStream%20%0A%09%09nextPutAll%3A%20%27smalltalk.addMethod%28%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27unescape%28%27%27%27%2C%20aMethod%20selector%20asSelector%20escaped%2C%20%27%27%27%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.method%28%7B%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27selector%3A%20unescape%28%27%27%27%2C%20aMethod%20selector%20escaped%2C%20%27%27%27%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27category%3A%20%27%27%27%2C%20aMethod%20category%2C%20%27%27%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27fn%3A%20%27%2C%20aMethod%20fn%20compiledSource%2C%20%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27args%3A%20%27%2C%20aMethod%20arguments%20asJavascript%2C%20%27%2C%27%3B%20lf%3B%0A%09%09nextPutAll%3A%20%27source%3A%20unescape%28%27%27%27%2C%20aMethod%20source%20escaped%2C%20%27%27%27%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27messageSends%3A%20%27%2C%20aMethod%20messageSends%20asJavascript%2C%20%27%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27referencedClasses%3A%20%27%2C%20aMethod%20referencedClasses%20asJavascript.%0A%09aStream%0A%09%09lf%3B%0A%09%09nextPutAll%3A%20%27%7D%29%2C%27%3Blf%3B%0A%09%09nextPutAll%3A%20%27smalltalk.%27%2C%20%28self%20classNameFor%3A%20aClass%29%3B%0A%09%09nextPutAll%3A%20%27%29%3B%27%3Blf%3Blf'),
+messageSends: ["nextPutAll:", "lf", unescape("%2C"), "escaped", "asSelector", "selector", "category", "compiledSource", "fn", "asJavascript", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
@@ -182,7 +181,7 @@ return self;},
 args: ["packageName"],
 source: unescape('exportPackage%3A%20packageName%0A%09%22Export%20a%20given%20package%20by%20name.%22%0A%0A%09%7C%20package%20%7C%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20package%20%3A%3D%20Smalltalk%20current%20packageAt%3A%20packageName.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%20exportPackageDefinitionOf%3A%20package%20on%3A%20stream.%0A%09%20%20%20%20%09package%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20nextPutAll%3A%20%28self%20exportClass%3A%20each%29%5D.%0A%09%09self%20exportPackageExtensionsOf%3A%20package%20on%3A%20stream%5D'),
 messageSends: ["streamContents:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "classes", "nextPutAll:", "exportClass:", "exportPackageExtensionsOf:on:"],
-referencedClasses: [smalltalk.String,smalltalk.Smalltalk]
+referencedClasses: ["String", "Smalltalk"]
 }),
 smalltalk.Exporter);
 
@@ -198,7 +197,7 @@ return self;},
 args: [],
 source: unescape('exportAll%0A%20%20%20%20%22Export%20all%20packages%20in%20the%20system.%22%0A%0A%20%20%20%20%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%20%20%20%20%09Smalltalk%20current%20packages%20do%3A%20%5B%3Apkg%20%7C%0A%09%09stream%20nextPutAll%3A%20%28self%20exportPackage%3A%20pkg%20name%29%5D%5D'),
 messageSends: ["streamContents:", "do:", "packages", "current", "nextPutAll:", "exportPackage:", "name"],
-referencedClasses: [smalltalk.String,smalltalk.Smalltalk]
+referencedClasses: ["String", "Smalltalk"]
 }),
 smalltalk.Exporter);
 
@@ -214,7 +213,7 @@ return self;},
 args: ["aClass"],
 source: unescape('exportClass%3A%20aClass%0A%09%22Export%20a%20single%20class.%20Subclasses%20override%20these%20methods.%22%0A%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%09%09self%20exportDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMethodsOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMetaDefinitionOf%3A%20aClass%20on%3A%20stream.%0A%09%09self%20exportMethodsOf%3A%20aClass%20class%20on%3A%20stream%5D'),
 messageSends: ["streamContents:", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Exporter);
 
@@ -232,7 +231,7 @@ return self;},
 args: ["package", "aStream"],
 source: unescape('exportPackageExtensionsOf%3A%20package%20on%3A%20aStream%0A%09%7C%20name%20%7C%0A%09name%20%3A%3D%20package%20name.%0A%09Smalltalk%20current%20classes%2C%20%28Smalltalk%20current%20classes%20collect%3A%20%5B%3Aeach%20%7C%20each%20class%5D%29%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20methodDictionary%20values%20do%3A%20%5B%3Amethod%20%7C%0A%09%09%09method%20category%20%3D%20%28%27*%27%2C%20name%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20exportMethod%3A%20method%20of%3A%20each%20on%3A%20aStream%5D%5D%5D'),
 messageSends: ["name", "do:", unescape("%2C"), "classes", "current", "collect:", "class", "values", "methodDictionary", "ifTrue:", unescape("%3D"), "category", "exportMethod:of:on:"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Exporter);
 
@@ -388,7 +387,7 @@ return self;},
 args: ["package", "aStream"],
 source: unescape('exportPackageExtensionsOf%3A%20package%20on%3A%20aStream%0A%09%22We%20need%20to%20override%20this%20one%20too%20since%20we%20need%20to%20group%0A%09all%20methods%20in%20a%20given%20protocol%20under%20a%20leading%20methodsFor%3A%20chunk%0A%09for%20that%20class.%22%0A%0A%09%7C%20name%20%7C%0A%09name%20%3A%3D%20package%20name.%0A%09Smalltalk%20current%20classes%2C%20%28Smalltalk%20current%20classes%20collect%3A%20%5B%3Aeach%20%7C%20each%20class%5D%29%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20protocolsDo%3A%20%5B%3Acategory%20%3Amethods%20%7C%0A%09%09%09category%20%3D%20%28%27*%27%2C%20name%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20exportMethods%3A%20methods%20category%3A%20category%20of%3A%20each%20on%3A%20aStream%5D%5D%5D'),
 messageSends: ["name", "do:", unescape("%2C"), "classes", "current", "collect:", "class", "protocolsDo:", "ifTrue:", unescape("%3D"), "exportMethods:category:of:on:"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.ChunkExporter);
 
@@ -461,7 +460,7 @@ return self;},
 args: [],
 source: unescape('nodes%0A%09%5Enodes%20ifNil%3A%20%5Bnodes%20%3A%3D%20Array%20new%5D'),
 messageSends: ["ifNil:", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.Node);
 
@@ -787,7 +786,7 @@ return self;},
 args: ["anObject"],
 source: unescape('valueForReceiver%3A%20anObject%0A%09%5ESendNode%20new%0A%09%20%20%20%20receiver%3A%20%28self%20receiver%20%0A%09%09ifNil%3A%20%5BanObject%5D%0A%09%09ifNotNil%3A%20%5Bself%20receiver%20valueForReceiver%3A%20anObject%5D%29%3B%0A%09%20%20%20%20selector%3A%20self%20selector%3B%0A%09%20%20%20%20arguments%3A%20self%20arguments%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself", "new"],
-referencedClasses: [smalltalk.SendNode]
+referencedClasses: ["SendNode"]
 }),
 smalltalk.SendNode);
 
@@ -805,7 +804,7 @@ return self;},
 args: ["aCollection"],
 source: unescape('cascadeNodeWithMessages%3A%20aCollection%0A%09%7C%20first%20%7C%0A%09first%20%3A%3D%20SendNode%20new%0A%09%20%20%20%20selector%3A%20self%20selector%3B%0A%09%20%20%20%20arguments%3A%20self%20arguments%3B%0A%09%20%20%20%20yourself.%0A%09%5ECascadeNode%20new%0A%09%20%20%20%20receiver%3A%20self%20receiver%3B%0A%09%20%20%20%20nodes%3A%20%28Array%20with%3A%20first%29%2C%20aCollection%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["selector:", "selector", "arguments:", "arguments", "yourself", "new", "receiver:", "receiver", "nodes:", unescape("%2C"), "with:"],
-referencedClasses: [smalltalk.SendNode,smalltalk.Array,smalltalk.CascadeNode]
+referencedClasses: ["SendNode", "Array", "CascadeNode"]
 }),
 smalltalk.SendNode);
 
@@ -975,7 +974,7 @@ return self;},
 args: [],
 source: unescape('parameters%0A%09%5Eparameters%20ifNil%3A%20%5Bparameters%20%3A%3D%20Array%20new%5D'),
 messageSends: ["ifNil:", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.BlockNode);
 
@@ -1106,7 +1105,7 @@ return self;},
 args: [],
 source: unescape('asBlockSequenceNode%0A%09%5EBlockSequenceNode%20new%0A%09%20%20%20%20nodes%3A%20self%20nodes%3B%0A%09%20%20%20%20temps%3A%20self%20temps%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["nodes:", "nodes", "temps:", "temps", "yourself", "new"],
-referencedClasses: [smalltalk.BlockSequenceNode]
+referencedClasses: ["BlockSequenceNode"]
 }),
 smalltalk.SequenceNode);
 
@@ -1664,7 +1663,7 @@ return self;},
 args: [],
 source: unescape('parser%0A%09%5ESmalltalkParser%20new'),
 messageSends: ["new"],
-referencedClasses: []
+referencedClasses: ["SmalltalkParser"]
 }),
 smalltalk.Compiler);
 
@@ -1716,7 +1715,7 @@ return self;},
 args: ["aString"],
 source: unescape('loadExpression%3A%20aString%0A%09%7C%20result%20%7C%0A%09DoIt%20addCompiledMethod%3A%20%28self%20eval%3A%20%28self%20compileExpression%3A%20aString%29%29.%0A%09result%20%3A%3D%20DoIt%20new%20doIt.%0A%09DoIt%20removeCompiledMethod%3A%20%28DoIt%20methodDictionary%20at%3A%20%23doIt%29.%0A%09%5Eresult'),
 messageSends: ["addCompiledMethod:", "eval:", "compileExpression:", "doIt", "new", "removeCompiledMethod:", "at:", "methodDictionary"],
-referencedClasses: [smalltalk.DoIt]
+referencedClasses: ["DoIt"]
 }),
 smalltalk.Compiler);
 
@@ -1771,7 +1770,7 @@ return self;},
 args: ["aString"],
 source: unescape('compileExpression%3A%20aString%0A%09self%20currentClass%3A%20DoIt.%0A%09self%20source%3A%20%27doIt%20%5E%5B%27%2C%20aString%2C%20%27%5D%20value%27.%0A%09%5Eself%20compileNode%3A%20%28self%20parse%3A%20self%20source%29'),
 messageSends: ["currentClass:", "source:", unescape("%2C"), "compileNode:", "parse:", "source"],
-referencedClasses: [smalltalk.DoIt]
+referencedClasses: ["DoIt"]
 }),
 smalltalk.Compiler);
 
@@ -1873,14 +1872,14 @@ self['@stream']=str;
 ((($receiver = self['@earlyReturn']).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%7D%20catch%28e%29%20%7Bif%28e.name%20%3D%3D%3D%20%27stReturn%27%20%26%26%20e.selector%20%3D%3D%3D%20"), "__comma", [smalltalk.send(self['@currentSelector'], "_printString", [])]), "__comma", [unescape("%29%7Breturn%20e.fn%28%29%7D%20throw%28e%29%7D")])]);})(self['@stream']);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function($rec){smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%7D%20catch%28e%29%20%7Bif%28e.name%20%3D%3D%3D%20%27stReturn%27%20%26%26%20e.selector%20%3D%3D%3D%20"), "__comma", [smalltalk.send(self['@currentSelector'], "_printString", [])]), "__comma", [unescape("%29%7Breturn%20e.fn%28%29%7D%20throw%28e%29%7D")])]);})(self['@stream']);})]));
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%7D")]);
 (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(unescape("%2C"), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", ["messageSends: "])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@messageSends'], "_asJavascript", []), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("args: ", "__comma", [smalltalk.send(self['@argVariables'], "_asJavascript", [])]), "__comma", [unescape("%2C")])]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", [unescape("referencedClasses%3A%20%5B")]);})(self['@stream']);
-smalltalk.send(self['@referencedClasses'], "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C")]);})]);
+smalltalk.send(self['@referencedClasses'], "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C")]);})]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5D")]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%7D%29")]);
 return self;},
 args: ["aNode"],
-source: unescape('visitMethodNode%3A%20aNode%0A%09%7C%20str%20currentSelector%20%7C%20%0A%09currentSelector%20%3A%3D%20aNode%20selector%20asSelector.%0A%09nestedBlocks%20%3A%3D%200.%0A%09earlyReturn%20%3A%3D%20false.%0A%09messageSends%20%3A%3D%20%23%28%29.%0A%09referencedClasses%20%3A%3D%20%23%28%29.%0A%09unknownVariables%20%3A%3D%20%23%28%29.%0A%09tempVariables%20%3A%3D%20%23%28%29.%0A%09argVariables%20%3A%3D%20%23%28%29.%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20%27smalltalk.method%28%7B%27%3B%20lf%3B%0A%09%20%20%20%20nextPutAll%3A%20%27selector%3A%20%22%27%2C%20aNode%20selector%2C%20%27%22%2C%27%3B%20lf.%0A%09stream%20nextPutAll%3A%20%27source%3A%20unescape%28%22%27%2C%20self%20source%20escaped%2C%20%27%22%29%2C%27%3Blf.%0A%09stream%20nextPutAll%3A%20%27fn%3A%20function%28%27.%0A%09aNode%20arguments%20%0A%09%20%20%20%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09argVariables%20add%3A%20each.%0A%09%09stream%20nextPutAll%3A%20each%5D%0A%09%20%20%20%20separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%20%27%5D.%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20%27%29%7B%27%3B%20lf%3B%0A%09%20%20%20%20nextPutAll%3A%20%27var%20self%3Dthis%3B%27%3B%20lf.%0A%09str%20%3A%3D%20stream.%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09aNode%20nodes%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20self%20visit%3A%20each%5D.%0A%09earlyReturn%20ifTrue%3A%20%5B%0A%09%20%20%20%20str%20nextPutAll%3A%20%27try%7B%27%5D.%0A%09str%20nextPutAll%3A%20stream%20contents.%0A%09stream%20%3A%3D%20str.%0A%09stream%20%0A%09%20%20%20%20lf%3B%20%0A%09%20%20%20%20nextPutAll%3A%20%27return%20self%3B%27.%0A%09earlyReturn%20ifTrue%3A%20%5B%0A%09%20%20%20%20stream%20lf%3B%20nextPutAll%3A%20%27%7D%20catch%28e%29%20%7Bif%28e.name%20%3D%3D%3D%20%27%27stReturn%27%27%20%26%26%20e.selector%20%3D%3D%3D%20%27%2C%20currentSelector%20printString%2C%20%27%29%7Breturn%20e.fn%28%29%7D%20throw%28e%29%7D%27%5D.%0A%09stream%20nextPutAll%3A%20%27%7D%27.%0A%09stream%20%0A%09%09nextPutAll%3A%20%27%2C%27%2C%20String%20lf%2C%20%27messageSends%3A%20%27%3B%0A%09%09nextPutAll%3A%20messageSends%20asJavascript%2C%20%27%2C%27%3B%20lf%3B%0A%20%20%20%20%20%20%20%20%20%20%09nextPutAll%3A%20%27args%3A%20%27%2C%20argVariables%20asJavascript%2C%20%27%2C%27%3B%20lf%3B%0A%09%09nextPutAll%3A%20%27referencedClasses%3A%20%5B%27.%0A%09referencedClasses%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%5D%0A%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%27%5D.%0A%09stream%20nextPutAll%3A%20%27%5D%27.%0A%09stream%20nextPutAll%3A%20%27%7D%29%27'),
+source: unescape('visitMethodNode%3A%20aNode%0A%09%7C%20str%20currentSelector%20%7C%20%0A%09currentSelector%20%3A%3D%20aNode%20selector%20asSelector.%0A%09nestedBlocks%20%3A%3D%200.%0A%09earlyReturn%20%3A%3D%20false.%0A%09messageSends%20%3A%3D%20%23%28%29.%0A%09referencedClasses%20%3A%3D%20%23%28%29.%0A%09unknownVariables%20%3A%3D%20%23%28%29.%0A%09tempVariables%20%3A%3D%20%23%28%29.%0A%09argVariables%20%3A%3D%20%23%28%29.%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20%27smalltalk.method%28%7B%27%3B%20lf%3B%0A%09%20%20%20%20nextPutAll%3A%20%27selector%3A%20%22%27%2C%20aNode%20selector%2C%20%27%22%2C%27%3B%20lf.%0A%09stream%20nextPutAll%3A%20%27source%3A%20unescape%28%22%27%2C%20self%20source%20escaped%2C%20%27%22%29%2C%27%3Blf.%0A%09stream%20nextPutAll%3A%20%27fn%3A%20function%28%27.%0A%09aNode%20arguments%20%0A%09%20%20%20%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09argVariables%20add%3A%20each.%0A%09%09stream%20nextPutAll%3A%20each%5D%0A%09%20%20%20%20separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%20%27%5D.%0A%09stream%20%0A%09%20%20%20%20nextPutAll%3A%20%27%29%7B%27%3B%20lf%3B%0A%09%20%20%20%20nextPutAll%3A%20%27var%20self%3Dthis%3B%27%3B%20lf.%0A%09str%20%3A%3D%20stream.%0A%09stream%20%3A%3D%20%27%27%20writeStream.%0A%09aNode%20nodes%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20self%20visit%3A%20each%5D.%0A%09earlyReturn%20ifTrue%3A%20%5B%0A%09%20%20%20%20str%20nextPutAll%3A%20%27try%7B%27%5D.%0A%09str%20nextPutAll%3A%20stream%20contents.%0A%09stream%20%3A%3D%20str.%0A%09stream%20%0A%09%20%20%20%20lf%3B%20%0A%09%20%20%20%20nextPutAll%3A%20%27return%20self%3B%27.%0A%09earlyReturn%20ifTrue%3A%20%5B%0A%09%20%20%20%20stream%20lf%3B%20nextPutAll%3A%20%27%7D%20catch%28e%29%20%7Bif%28e.name%20%3D%3D%3D%20%27%27stReturn%27%27%20%26%26%20e.selector%20%3D%3D%3D%20%27%2C%20currentSelector%20printString%2C%20%27%29%7Breturn%20e.fn%28%29%7D%20throw%28e%29%7D%27%5D.%0A%09stream%20nextPutAll%3A%20%27%7D%27.%0A%09stream%20%0A%09%09nextPutAll%3A%20%27%2C%27%2C%20String%20lf%2C%20%27messageSends%3A%20%27%3B%0A%09%09nextPutAll%3A%20messageSends%20asJavascript%2C%20%27%2C%27%3B%20lf%3B%0A%20%20%20%20%20%20%20%20%20%20%09nextPutAll%3A%20%27args%3A%20%27%2C%20argVariables%20asJavascript%2C%20%27%2C%27%3B%20lf%3B%0A%09%09nextPutAll%3A%20%27referencedClasses%3A%20%5B%27.%0A%09referencedClasses%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%20printString%5D%0A%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%27%5D.%0A%09stream%20nextPutAll%3A%20%27%5D%27.%0A%09stream%20nextPutAll%3A%20%27%7D%29%27'),
 messageSends: ["asSelector", "selector", "nextPutAll:", "lf", unescape("%2C"), "escaped", "source", "do:separatedBy:", "arguments", "add:", "writeStream", "do:", "nodes", "visit:", "ifTrue:", "contents", "printString", "asJavascript"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Compiler);
 
@@ -2008,7 +2007,7 @@ return self;},
 args: ["aNode"],
 source: unescape('visitCascadeNode%3A%20aNode%0A%09%7C%20index%20%7C%0A%09index%20%3A%3D%200.%0A%09%28tempVariables%20includes%3A%20%27%24rec%27%29%20ifFalse%3A%20%5B%0A%09%09tempVariables%20add%3A%20%27%24rec%27%5D.%0A%09stream%20nextPutAll%3A%20%27%28function%28%24rec%29%7B%27.%0A%09aNode%20nodes%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20index%20%3A%3D%20index%20+%201.%0A%09%20%20%20%20index%20%3D%20aNode%20nodes%20size%20ifTrue%3A%20%5B%0A%09%09stream%20nextPutAll%3A%20%27return%20%27%5D.%0A%09%20%20%20%20each%20receiver%3A%20%28VariableNode%20new%20value%3A%20%27%24rec%27%29.%0A%09%20%20%20%20self%20visit%3A%20each.%0A%09%20%20%20%20stream%20nextPutAll%3A%20%27%3B%27%5D.%0A%09stream%20nextPutAll%3A%20%27%7D%29%28%27.%0A%09self%20visit%3A%20aNode%20receiver.%0A%09stream%20nextPutAll%3A%20%27%29%27'),
 messageSends: ["ifFalse:", "includes:", "add:", "nextPutAll:", "do:", "nodes", unescape("+"), "ifTrue:", unescape("%3D"), "size", "receiver:", "value:", "new", "visit:", "receiver"],
-referencedClasses: [smalltalk.VariableNode]
+referencedClasses: ["VariableNode"]
 }),
 smalltalk.Compiler);
 
@@ -2053,15 +2052,13 @@ selector: unescape('visitClassReferenceNode%3A'),
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-var klass=nil;
-klass=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("%28smalltalk."), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%20%7C%7C%20")]), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%29")]);
-((($receiver = smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [smalltalk.send(aNode, "_value", [])]), "_isClass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return ((($receiver = smalltalk.send(self['@referencedClasses'], "_includes_", [klass])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return ((($receiver = smalltalk.send(self['@referencedClasses'], "_includes_", [klass])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [klass]);})]));})]));
-smalltalk.send(self['@stream'], "_nextPutAll_", [klass]);
+((($receiver = smalltalk.send(self['@referencedClasses'], "_includes_", [smalltalk.send(aNode, "_value", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self['@referencedClasses'], "_add_", [smalltalk.send(aNode, "_value", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self['@referencedClasses'], "_add_", [smalltalk.send(aNode, "_value", [])]);})]));
+smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(unescape("%28smalltalk."), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%20%7C%7C%20")]), "__comma", [smalltalk.send(aNode, "_value", [])]), "__comma", [unescape("%29")])]);
 return self;},
 args: ["aNode"],
-source: unescape('visitClassReferenceNode%3A%20aNode%0A%09%7C%20klass%20%7C%0A%09klass%20%3A%3D%20%27%28smalltalk.%27%2C%20aNode%20value%2C%20%27%20%7C%7C%20%27%2C%20aNode%20value%2C%20%27%29%27.%0A%09%28Smalltalk%20current%20at%3A%20aNode%20value%29%20isClass%20ifTrue%3A%20%5B%0A%09%09%28referencedClasses%20includes%3A%20klass%29%0A%09%09%09ifFalse%3A%20%5BreferencedClasses%20add%3A%20klass%5D%5D.%0A%09stream%20nextPutAll%3A%20klass'),
-messageSends: [unescape("%2C"), "value", "ifTrue:", "isClass", "at:", "current", "ifFalse:", "includes:", "add:", "nextPutAll:"],
-referencedClasses: [smalltalk.Smalltalk]
+source: unescape('visitClassReferenceNode%3A%20aNode%0A%09%28referencedClasses%20includes%3A%20aNode%20value%29%20ifFalse%3A%20%5B%0A%09%09referencedClasses%20add%3A%20aNode%20value%5D.%0A%09stream%20nextPutAll%3A%20%27%28smalltalk.%27%2C%20aNode%20value%2C%20%27%20%7C%7C%20%27%2C%20aNode%20value%2C%20%27%29%27'),
+messageSends: ["ifFalse:", "includes:", "value", "add:", "nextPutAll:", unescape("%2C")],
+referencedClasses: []
 }),
 smalltalk.Compiler);
 
@@ -2110,7 +2107,7 @@ return self;},
 args: ["aString"],
 source: unescape('parse%3A%20aString%0A%20%20%20%20%5ESmalltalk%20current%20parse%3A%20aString'),
 messageSends: ["parse:", "current"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler);
 
@@ -2224,7 +2221,7 @@ return self;},
 args: [],
 source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09Transcript%20show%3A%20each%3B%20cr.%0A%09%09%5Bself%20recompile%3A%20each%5D%20valueWithTimeout%3A%20100%5D'),
 messageSends: ["do:", "classes", "current", "show:", "cr", "valueWithTimeout:", "recompile:"],
-referencedClasses: [smalltalk.Smalltalk,smalltalk.Transcript]
+referencedClasses: ["Smalltalk", "Transcript"]
 }),
 smalltalk.Compiler);
 
@@ -2289,7 +2286,7 @@ return self;},
 args: ["aSelector", "aReceiver", "aCollection", "aBoolean"],
 source: unescape('send%3A%20aSelector%20to%3A%20aReceiver%20arguments%3A%20aCollection%20superSend%3A%20aBoolean%0A%09%5EString%20streamContents%3A%20%5B%3Astr%20%7C%7C%20tmp%20%7C%0A%20%20%20%20%20%20%20%20%09tmp%20%3A%3D%20stream.%0A%09%09str%20nextPutAll%3A%20%27smalltalk.send%28%27.%0A%09%09str%20nextPutAll%3A%20aReceiver.%0A%09%09str%20nextPutAll%3A%20%27%2C%20%22%27%2C%20aSelector%20asSelector%2C%20%27%22%2C%20%5B%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20%3A%3D%20str.%0A%09%09aCollection%0A%09%20%20%20%20%09%09do%3A%20%5B%3Aeach%20%7C%20self%20visit%3A%20each%5D%0A%09%20%20%20%20%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20%27%2C%20%27%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20%3A%3D%20tmp.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20str%20nextPutAll%3A%20%27%5D%27.%0A%09%09aBoolean%20ifTrue%3A%20%5B%0A%09%09%09str%20nextPutAll%3A%20%27%2C%20smalltalk.%27%2C%20%28self%20classNameFor%3A%20self%20currentClass%20superclass%29%5D.%0A%09%09str%20nextPutAll%3A%20%27%29%27%5D'),
 messageSends: ["streamContents:", "nextPutAll:", unescape("%2C"), "asSelector", "do:separatedBy:", "visit:", "ifTrue:", "classNameFor:", "superclass", "currentClass"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Compiler);
 
@@ -2339,7 +2336,7 @@ return self;},
 args: ["aSelector", "anObject", "aCollection"],
 source: unescape('inlineLiteral%3A%20aSelector%20receiverNode%3A%20anObject%20argumentNodes%3A%20aCollection%0A%20%20%20%20%20%20%20%20%7C%20inlined%20%7C%0A%20%20%20%20%20%20%20%20inlined%20%3A%3D%20false.%0A%20%0A%09%22--%20BlockClosures%20--%22%0A%0A%09%28aSelector%20%3D%20%27whileTrue%3A%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28anObject%20isBlockNode%20and%3A%20%5BaCollection%20first%20isBlockNode%5D%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28function%28%29%7Bwhile%28%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%29%20%7B%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%28%29%7D%7D%29%28%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27whileFalse%3A%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28anObject%20isBlockNode%20and%3A%20%5BaCollection%20first%20isBlockNode%5D%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28function%28%29%7Bwhile%28%21%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%29%20%7B%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%28%29%7D%7D%29%28%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27whileTrue%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09anObject%20isBlockNode%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28function%28%29%7Bwhile%28%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%29%20%7B%7D%7D%29%28%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27whileFalse%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09anObject%20isBlockNode%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28function%28%29%7Bwhile%28%21%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%29%20%7B%7D%7D%29%28%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%22--%20Numbers%20--%22%0A%0A%09%28aSelector%20%3D%20%27+%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20+%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27-%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20-%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27*%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20*%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27/%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20/%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27%3C%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20%3C%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27%3C%3D%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20%3C%3D%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27%3E%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20%3E%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27%3E%3D%27%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%28self%20isNode%3A%20anObject%20ofClass%3A%20Number%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%20%3E%3D%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%20%20%20%0A%09%22--%20UndefinedObject%20--%22%0A%0A%09%28aSelector%20%3D%20%27ifNil%3A%27%29%20ifTrue%3A%20%5B%0A%09%09aCollection%20first%20isBlockNode%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%28%28%24receiver%20%3D%20%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%20%3A%20%24receiver%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27ifNotNil%3A%27%29%20ifTrue%3A%20%5B%0A%09%09aCollection%20first%20isBlockNode%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%28%28%24receiver%20%3D%20%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%29%20%21%3D%20nil%20%26%26%20%24receiver%20%21%3D%20undefined%29%20%3F%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%20%3A%20nil%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27ifNil%3AifNotNil%3A%27%29%20ifTrue%3A%20%5B%0A%09%09%28aCollection%20first%20isBlockNode%20and%3A%20%5BaCollection%20second%20isBlockNode%5D%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%28%28%24receiver%20%3D%20%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%20%3A%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20second.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%0A%09%28aSelector%20%3D%20%27ifNotNil%3AifNil%3A%27%29%20ifTrue%3A%20%5B%0A%09%09%28aCollection%20first%20isBlockNode%20and%3A%20%5BaCollection%20second%20isBlockNode%5D%29%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%28%28%24receiver%20%3D%20%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09self%20visit%3A%20anObject.%0A%20%20%20%20%20%20%20%20%20%20%09%09stream%20nextPutAll%3A%20%27%29%20%3D%3D%20nil%20%7C%7C%20%24receiver%20%3D%3D%20undefined%29%20%3F%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20second.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%20%3A%20%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20visit%3A%20aCollection%20first.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09stream%20nextPutAll%3A%20%27%28%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09inlined%20%3A%3D%20true%5D%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%5Einlined'),
 messageSends: ["ifTrue:", unescape("%3D"), "and:", "isBlockNode", "first", "nextPutAll:", "visit:", "isNode:ofClass:", "second"],
-referencedClasses: [smalltalk.Number]
+referencedClasses: ["Number"]
 }),
 smalltalk.Compiler);
 
@@ -2501,7 +2498,7 @@ return self;},
 args: ["aString"],
 source: unescape('safeVariableNameFor%3A%20aString%0A%09%5E%28Smalltalk%20current%20reservedWords%20includes%3A%20aString%29%0A%09%09ifTrue%3A%20%5BaString%2C%20%27_%27%5D%0A%09%09ifFalse%3A%20%5BaString%5D'),
 messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", "current", unescape("%2C")],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler);
 
@@ -2537,7 +2534,7 @@ return self;},
 args: [],
 source: unescape('recompileAll%0A%09Smalltalk%20current%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09self%20recompile%3A%20each%5D'),
 messageSends: ["do:", "classes", "current", "recompile:"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler.klass);
 
