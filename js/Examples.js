@@ -288,7 +288,7 @@ return self;},
 args: [],
 source: unescape('newPiece%0A%09movingPiece%20%3A%3D%20TetrisPiece%20atRandom'),
 messageSends: ["atRandom"],
-referencedClasses: []
+referencedClasses: ["TetrisPiece"]
 }),
 smalltalk.Tetris);
 
@@ -506,7 +506,7 @@ return self;},
 args: [],
 source: unescape('position%0A%09%5Eposition%20ifNil%3A%20%5B%28Tetris%20squares%20x%20/%202%29%20-1%20@%200%5D'),
 messageSends: ["ifNil:", unescape("@"), unescape("-"), unescape("/"), "x", "squares"],
-referencedClasses: [smalltalk.Tetris]
+referencedClasses: ["Tetris"]
 }),
 smalltalk.TetrisPiece);
 
@@ -589,7 +589,7 @@ return self;},
 args: ["aRenderingContext"],
 source: unescape('drawOn%3A%20aRenderingContext%0A%09aRenderingContext%20fillStyle%3A%20self%20color.%0A%09self%20bounds%20do%3A%20%5B%3Aeach%20%7C%7C%20from%20to%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20from%20%3A%3D%20each%20+%20self%20position*%20Tetris%20squareSize.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20to%20%3A%3D%201@1%20*%20Tetris%20squareSize.%0A%09%09aRenderingContext%20%0A%09%09%09fillRect%3A%20from%20x%20y%3A%20from%20y%20to%3A%20to%20x%20y%3A%20to%20y%3B%0A%09%09%09strokeStyle%3A%20%27%23999%27%3B%0A%09%09%09lineWidth%3A%202%3B%0A%09%09%09strokeRect%3A%20from%20x%20y%3A%20from%20y%20to%3A%20to%20x%20y%3A%20to%20y%5D'),
 messageSends: ["fillStyle:", "color", "do:", "bounds", unescape("*"), unescape("+"), "position", "squareSize", unescape("@"), "fillRect:y:to:y:", "x", "y", "strokeStyle:", "lineWidth:", "strokeRect:y:to:y:"],
-referencedClasses: [smalltalk.Tetris]
+referencedClasses: ["Tetris"]
 }),
 smalltalk.TetrisPiece);
 
@@ -605,7 +605,7 @@ return self;},
 args: [],
 source: unescape('canMove%0A%09%5Eself%20position%20y%20%3C%20%28Tetris%20squares%20y%20-%20self%20height%29'),
 messageSends: [unescape("%3C"), "y", "position", unescape("-"), "squares", "height"],
-referencedClasses: [smalltalk.Tetris]
+referencedClasses: ["Tetris"]
 }),
 smalltalk.TetrisPiece);
 
@@ -656,7 +656,7 @@ return self;},
 args: [],
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.TetrisPieceO);
 
@@ -675,7 +675,7 @@ return self;},
 args: [],
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%200@2%3B%0A%09%09add%3A%201@2%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.TetrisPieceL);
 
@@ -742,7 +742,7 @@ return self;},
 args: [],
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09add%3A%201@2%3B%0A%09%09add%3A%200@2%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.TetrisPieceJ);
 
@@ -793,7 +793,7 @@ return self;},
 args: [],
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%200@1%3B%0A%09%09add%3A%200@2%3B%0A%09%09add%3A%200@3%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.TetrisPieceI);
 
@@ -828,7 +828,7 @@ return self;},
 args: [],
 source: unescape('bounds%0A%09%5EArray%20new%0A%09%09add%3A%200@0%3B%0A%09%09add%3A%201@0%3B%0A%09%09add%3A%202@0%3B%0A%09%09add%3A%201@1%3B%0A%09%09yourself'),
 messageSends: ["add:", unescape("@"), "yourself", "new"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.TetrisPieceT);
 

@@ -158,12 +158,9 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: unescape(''', aMethod source escaped, '''),';lf;
 		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
-		nextPutAll: 'referencedClasses: ['.
-	    		aMethod referencedClasses 
-				do: [:each | aStream nextPutAll: 'smalltalk.', (self classNameFor: each)]
-				separatedBy: [aStream nextPutAll: ','].
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
 	aStream
-		nextPutAll: ']';lf;
+		lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
 		nextPutAll: ');';lf;lf
@@ -1171,7 +1168,7 @@ visitMethodNode: aNode
           	nextPutAll: 'args: ', argVariables asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	referencedClasses 
-		do: [:each | stream nextPutAll: each]
+		do: [:each | stream nextPutAll: each printString]
 		separatedBy: [stream nextPutAll: ','].
 	stream nextPutAll: ']'.
 	stream nextPutAll: '})'
@@ -1287,12 +1284,9 @@ visitAssignmentNode: aNode
 !
 
 visitClassReferenceNode: aNode
-	| klass |
-	klass := '(smalltalk.', aNode value, ' || ', aNode value, ')'.
-	(Smalltalk current at: aNode value) isClass ifTrue: [
-		(referencedClasses includes: klass)
-			ifFalse: [referencedClasses add: klass]].
-	stream nextPutAll: klass
+	(referencedClasses includes: aNode value) ifFalse: [
+		referencedClasses add: aNode value].
+	stream nextPutAll: '(smalltalk.', aNode value, ' || ', aNode value, ')'
 !
 
 visitVariableNode: aNode

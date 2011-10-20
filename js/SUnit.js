@@ -43,7 +43,7 @@ return self;},
 args: ["aString"],
 source: unescape('signalFailure%3A%20aString%0A%09TestFailure%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
 messageSends: ["messageText:", "signal", "new"],
-referencedClasses: []
+referencedClasses: ["TestFailure"]
 }),
 smalltalk.TestCase);
 
@@ -110,7 +110,7 @@ return self;},
 args: ["aResult"],
 source: unescape('performTestFor%3A%20aResult%0A%09%5B%5Bself%20perform%3A%20self%20selector%5D%0A%09%09on%3A%20TestFailure%20do%3A%20%5B%3Aex%20%7C%20aResult%20addFailure%3A%20self%5D%5D%0A%09%09on%3A%20Error%20do%3A%20%5B%3Aex%20%7C%20aResult%20addError%3A%20self%5D'),
 messageSends: ["on:do:", "perform:", "selector", "addFailure:", "addError:"],
-referencedClasses: [smalltalk.Error]
+referencedClasses: ["TestFailure", "Error"]
 }),
 smalltalk.TestCase);
 
@@ -223,7 +223,7 @@ return self;},
 args: [],
 source: unescape('lookupHierarchyRoot%0A%09%5ETestCase'),
 messageSends: [],
-referencedClasses: [smalltalk.TestCase]
+referencedClasses: ["TestCase"]
 }),
 smalltalk.TestCase.klass);
 
@@ -460,7 +460,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09timestamp%20%3A%3D%20Date%20now.%0A%09runs%20%3A%3D%200.%0A%09errors%20%3A%3D%20Array%20new.%0A%09failures%20%3A%3D%20Array%20new.%0A%09total%20%3A%3D%200'),
 messageSends: ["initialize", "now", "new"],
-referencedClasses: [smalltalk.Date,smalltalk.Array]
+referencedClasses: ["Date", "Array"]
 }),
 smalltalk.TestResult);
 

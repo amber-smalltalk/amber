@@ -60,7 +60,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
 messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
-referencedClasses: []
+referencedClasses: ["TagBrush"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -76,7 +76,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
 messageSends: ["fromJQuery:canvas:"],
-referencedClasses: []
+referencedClasses: ["TagBrush"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -92,7 +92,7 @@ return self;},
 args: ["aString"],
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self'),
 messageSends: ["fromString:canvas:"],
-referencedClasses: []
+referencedClasses: ["TagBrush"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -1518,7 +1518,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
 messageSends: ["renderOn:", "onJQuery:"],
-referencedClasses: [smalltalk.HTMLCanvas]
+referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.Widget);
 
@@ -1584,7 +1584,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20self%20value%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
 messageSends: ["value:", "onJQuery:"],
-referencedClasses: [smalltalk.HTMLCanvas]
+referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.BlockClosure);
 

@@ -187,7 +187,7 @@ return self;},
 args: ["anObject"],
 source: unescape('-%3E%20anObject%0A%09%5EAssociation%20key%3A%20self%20value%3A%20anObject'),
 messageSends: ["key:value:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Association"]
 }),
 smalltalk.Object);
 
@@ -331,7 +331,7 @@ return self;},
 args: ["aString"],
 source: unescape('error%3A%20aString%0A%09Error%20signal%3A%20aString'),
 messageSends: ["signal:"],
-referencedClasses: [smalltalk.Error]
+referencedClasses: ["Error"]
 }),
 smalltalk.Object);
 
@@ -683,7 +683,7 @@ return self;},
 args: ["aMessage"],
 source: unescape('doesNotUnderstand%3A%20aMessage%0A%09MessageNotUnderstood%20new%0A%09%09receiver%3A%20self%3B%0A%09%09message%3A%20aMessage%3B%0A%09%09signal'),
 messageSends: ["receiver:", "message:", "signal", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["MessageNotUnderstood"]
 }),
 smalltalk.Object);
 
@@ -718,7 +718,7 @@ return self;},
 args: [],
 source: unescape('asJSONObject%0A%09%7C%20object%20%7C%0A%09object%20%3A%3D%20Object%20new.%0A%09self%20class%20instanceVariableNames%20do%3A%20%5B%3Aeach%20%7C%0A%09%09object%20basicAt%3A%20each%20put%3A%20%28self%20instVarAt%3A%20each%29%20asJSONObject%5D.%0A%09%5Eobject'),
 messageSends: ["new", "do:", "instanceVariableNames", "class", "basicAt:put:", "asJSONObject", "instVarAt:"],
-referencedClasses: [smalltalk.Object]
+referencedClasses: ["Object"]
 }),
 smalltalk.Object);
 
@@ -752,7 +752,7 @@ return self;},
 args: ["aString", "aBlock"],
 source: unescape('log%3A%20aString%20block%3A%20aBlock%0A%0A%09%7C%20result%20%7C%0A%09console%20log%3A%20%20aString%2C%20%20%27%20time%3A%20%27%2C%20%28Date%20millisecondsToRun%3A%20%5Bresult%20%3A%3D%20aBlock%20value%5D%29%20printString.%0A%09%5Eresult'),
 messageSends: ["log:", unescape("%2C"), "printString", "millisecondsToRun:", "value"],
-referencedClasses: [smalltalk.Date]
+referencedClasses: ["Date"]
 }),
 smalltalk.Object);
 
@@ -950,7 +950,7 @@ return self;},
 args: ["anException", "aString"],
 source: unescape('parseError%3A%20anException%20parsing%3A%20aString%0A%09%7C%20row%20col%20message%20lines%20badLine%20code%20%7C%0A%09%3Crow%20%3D%20anException.line%3B%0A%09col%20%3D%20anException.column%3B%0A%09message%20%3D%20anException.message%3B%3E.%0A%09lines%20%3A%3D%20aString%20lines.%0A%09badLine%20%3A%3D%20lines%20at%3A%20row.%0A%09badLine%20%3A%3D%20%28badLine%20copyFrom%3A%201%20to%3A%20col%20-%201%29%2C%20%27%20%3D%3D%3D%3E%27%2C%20%28badLine%20copyFrom%3A%20%20col%20to%3A%20badLine%20size%29.%0A%09lines%20at%3A%20row%20put%3A%20badLine.%0A%09code%20%3A%3D%20String%20streamContents%3A%20%5B%3As%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lines%20withIndexDo%3A%20%5B%3Al%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20s%20nextPutAll%3A%20i%20asString%2C%20%27%3A%20%27%2C%20l%2C%20String%20lf%5D%5D.%0A%09%5E%20Error%20new%20messageText%3A%20%28%27Parse%20error%20on%20line%20%27%20%2C%20row%20%2C%20%27%20column%20%27%20%2C%20col%20%2C%20%27%20%3A%20%27%20%2C%20message%20%2C%20%27%20Below%20is%20code%20with%20line%20numbers%20and%20%3D%3D%3D%3E%20marker%20inserted%3A%27%20%2C%20String%20lf%2C%20code%29'),
 messageSends: ["lines", "at:", unescape("%2C"), "copyFrom:to:", unescape("-"), "size", "at:put:", "streamContents:", "withIndexDo:", "nextPutAll:", "asString", "lf", "messageText:", "new"],
-referencedClasses: [smalltalk.String,smalltalk.Error]
+referencedClasses: ["String", "Error"]
 }),
 smalltalk.Smalltalk);
 
@@ -1171,7 +1171,7 @@ return self;},
 args: [],
 source: unescape('classes%0A%09%22We%20need%20to%20do%20a%20reverse%20scan.%22%0A%09%5ESmalltalk%20current%20classes%20select%3A%20%5B%3Ac%20%7C%20c%20package%20%3D%3D%20self%5D'),
 messageSends: ["select:", "classes", "current", unescape("%3D%3D"), "package"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
 
@@ -1204,7 +1204,7 @@ return self;},
 args: ["aPackageName"],
 source: unescape('named%3A%20aPackageName%0A%0A%09%5ESmalltalk%20current%20packageAt%3A%20aPackageName'),
 messageSends: ["packageAt:", "current"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package.klass);
 
@@ -1220,7 +1220,7 @@ return self;},
 args: ["aPackageName", "aBlock"],
 source: unescape('named%3A%20aPackageName%20ifAbsent%3A%20aBlock%0A%0A%09%5ESmalltalk%20current%20packageAt%3A%20aPackageName%20ifAbsent%3A%20aBlock'),
 messageSends: ["packageAt:ifAbsent:", "current"],
-referencedClasses: [smalltalk.Smalltalk]
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package.klass);
 
@@ -1337,7 +1337,7 @@ return self;},
 args: [],
 source: unescape('withAllSubclasses%0A%09%5E%28Array%20with%3A%20self%29%20addAll%3A%20self%20allSubclasses%3B%20yourself'),
 messageSends: ["addAll:", "allSubclasses", "yourself", "with:"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.Behavior);
 
@@ -1392,7 +1392,7 @@ return self;},
 args: ["aString"],
 source: unescape('methodsFor%3A%20aString%0A%09%5EClassCategoryReader%20new%0A%09%20%20%20%20class%3A%20self%20category%3A%20aString%3B%0A%09%20%20%20%20yourself'),
 messageSends: ["class:category:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ClassCategoryReader"]
 }),
 smalltalk.Behavior);
 
@@ -1472,7 +1472,7 @@ return self;},
 args: [],
 source: unescape('commentStamp%0A%20%20%20%20%5EClassCommentReader%20new%0A%09class%3A%20self%3B%0A%09yourself'),
 messageSends: ["class:", "yourself", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ClassCommentReader"]
 }),
 smalltalk.Behavior);
 
@@ -1525,7 +1525,7 @@ return self;},
 args: [],
 source: unescape('protocols%0A%20%20%20%20%7C%20protocols%20%7C%0A%20%20%20%20protocols%20%3A%3D%20Array%20new.%0A%20%20%20%20self%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28protocols%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%09protocols%20add%3A%20each%20category%5D%5D.%0A%20%20%20%20%5Eprotocols%20sort'),
 messageSends: ["new", "do:", "methodDictionary", "ifFalse:", "includes:", "category", "add:", "sort"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.Behavior);
 
@@ -1544,7 +1544,7 @@ return self;},
 args: ["aBlock"],
 source: unescape('protocolsDo%3A%20aBlock%0A%09%22Execute%20aBlock%20for%20each%20method%20category%20with%0A%09its%20collection%20of%20methods%20in%20the%20sort%20order%20of%20category%20name.%22%0A%0A%09%7C%20methodsByCategory%20%7C%0A%09methodsByCategory%20%3A%3D%20Dictionary%20new.%0A%09self%20methodDictionary%20values%20do%3A%20%5B%3Am%20%7C%0A%09%09%28methodsByCategory%20at%3A%20m%20category%20ifAbsentPut%3A%20%5BArray%20new%5D%29%0A%20%09%09%09add%3A%20m%5D.%20%0A%09self%20protocols%20do%3A%20%5B%3Acategory%20%7C%0A%09%09aBlock%20value%3A%20category%20value%3A%20%28methodsByCategory%20at%3A%20category%29%5D'),
 messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "category", "protocols", "value:value:", "at:"],
-referencedClasses: [smalltalk.nil,smalltalk.Array]
+referencedClasses: ["Dictionary", "Array"]
 }),
 smalltalk.Behavior);
 
@@ -1646,7 +1646,7 @@ return self;},
 args: ["aString", "anotherString"],
 source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Compiler"]
 }),
 smalltalk.Behavior);
 
@@ -1813,7 +1813,7 @@ return self;},
 args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Class);
 
@@ -1848,7 +1848,7 @@ return self;},
 args: ["aCollection"],
 source: unescape('instanceVariableNames%3A%20aCollection%0A%09ClassBuilder%20new%0A%09%20%20%20%20class%3A%20self%20instanceVariableNames%3A%20aCollection'),
 messageSends: ["class:instanceVariableNames:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Metaclass);
 
@@ -2315,7 +2315,7 @@ return self;},
 args: ["aNumber"],
 source: unescape('to%3A%20aNumber%0A%09%7C%20array%20first%20last%20count%20%7C%0A%09first%20%3A%3D%20self%20truncated.%0A%09last%20%3A%3D%20aNumber%20truncated%20+%201.%0A%09count%20%3A%3D%201.%0A%09array%20%3A%3D%20Array%20new.%0A%09%28last%20-%20first%29%20timesRepeat%3A%20%5B%0A%09%20%20%20%20array%20at%3A%20count%20put%3A%20first.%0A%09%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%09%20%20%20%20first%20%3A%3D%20first%20+%201%5D.%0A%09%5Earray'),
 messageSends: ["truncated", unescape("+"), "new", "timesRepeat:", unescape("-"), "at:put:"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.Number);
 
@@ -2433,7 +2433,7 @@ return self;},
 args: [],
 source: unescape('atRandom%0A%20%20%20%20%5E%28Random%20new%20next%20*%20self%29%20truncated%20+%201'),
 messageSends: [unescape("+"), "truncated", unescape("*"), "next", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Random"]
 }),
 smalltalk.Number);
 
@@ -2449,7 +2449,7 @@ return self;},
 args: ["aNumber"],
 source: unescape('@%20aNumber%0A%09%5EPoint%20x%3A%20self%20y%3A%20aNumber'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Point"]
 }),
 smalltalk.Number);
 
@@ -2465,7 +2465,7 @@ return self;},
 args: [],
 source: unescape('asPoint%0A%09%5EPoint%20x%3A%20self%20y%3A%20self'),
 messageSends: ["x:y:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Point"]
 }),
 smalltalk.Number);
 
@@ -2635,7 +2635,7 @@ return self;},
 args: ["stop", "step"],
 source: unescape('to%3A%20stop%20by%3A%20step%0A%09%7C%20array%20value%20pos%20%7C%0A%09value%20%3A%3D%20self.%0A%09array%20%3A%3D%20Array%20new.%0A%09pos%20%3A%3D%201.%0A%09step%20%3D%200%20ifTrue%3A%20%5Bself%20error%3A%20%27step%20must%20be%20non-zero%27%5D.%0A%09step%20%3C%200%0A%09%09ifTrue%3A%20%5B%5B%20value%20%3E%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09array%20at%3A%20pos%20put%3A%20value.%0A%09%20%20%20%20%09%09%09pos%20%3A%3D%20pos%20+%201.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D%0A%09%09ifFalse%3A%20%5B%5B%20value%20%3C%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09array%20at%3A%20pos%20put%3A%20value.%0A%09%20%20%09%09%09pos%20%3A%3D%20pos%20+%201.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D.%0A%09%5Earray'),
 messageSends: ["new", "ifTrue:", unescape("%3D"), "error:", "ifTrue:ifFalse:", unescape("%3C"), "whileTrue:", unescape("%3E%3D"), "at:put:", unescape("+"), unescape("%3C%3D")],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.Number);
 
@@ -2961,7 +2961,7 @@ return self;},
 args: [],
 source: unescape('timeToRun%0A%09%22Answer%20the%20number%20of%20milliseconds%20taken%20to%20execute%20this%20block.%22%0A%0A%09%5E%20Date%20millisecondsToRun%3A%20self'),
 messageSends: ["millisecondsToRun:"],
-referencedClasses: [smalltalk.Date]
+referencedClasses: ["Date"]
 }),
 smalltalk.BlockClosure);
 
@@ -3890,7 +3890,7 @@ return self;},
 args: ["aBlock"],
 source: unescape('millisecondsToRun%3A%20aBlock%0A%09%7C%20t%20%7C%0A%09t%20%3A%3D%20Date%20now.%0A%09aBlock%20value.%0A%09%5EDate%20now%20-%20t'),
 messageSends: ["now", "value", unescape("-")],
-referencedClasses: [smalltalk.Date]
+referencedClasses: ["Date"]
 }),
 smalltalk.Date.klass);
 
@@ -4084,7 +4084,7 @@ return self;},
 args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.UndefinedObject);
 
@@ -4285,7 +4285,7 @@ return self;},
 args: [],
 source: unescape('asArray%0A%09%7C%20array%20index%20%7C%0A%09array%20%3A%3D%20Array%20new.%0A%09index%20%3A%3D%200.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20index%20%3A%3D%20index%20+%201.%0A%09%20%20%20%20array%20at%3A%20index%20put%3A%20each%5D.%0A%09%5Earray'),
 messageSends: ["new", "do:", unescape("+"), "at:put:"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.Collection);
 
@@ -4531,7 +4531,7 @@ return self;},
 args: [],
 source: unescape('asSet%0A%09%5ESet%20withAll%3A%20self'),
 messageSends: ["withAll:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Set"]
 }),
 smalltalk.Collection);
 
@@ -4596,7 +4596,7 @@ return self;},
 args: [],
 source: unescape('streamClass%0A%09%20%20%20%20%5EStream'),
 messageSends: [],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Stream"]
 }),
 smalltalk.Collection.klass);
 
@@ -5254,7 +5254,7 @@ return self;},
 args: ["aString", "anotherString"],
 source: unescape('replace%3A%20aString%20with%3A%20anotherString%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20aString%20flag%3A%20%27g%27%29%20with%3A%20anotherString'),
 messageSends: ["replaceRegexp:with:", "fromString:flag:"],
-referencedClasses: [smalltalk.RegularExpression]
+referencedClasses: ["RegularExpression"]
 }),
 smalltalk.String);
 
@@ -5510,7 +5510,7 @@ return self;},
 args: ["separators"],
 source: unescape('trimLeft%3A%20separators%0A%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5E%5B%27%2C%20separators%2C%20%27%5D+%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
 messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
-referencedClasses: [smalltalk.RegularExpression]
+referencedClasses: ["RegularExpression"]
 }),
 smalltalk.String);
 
@@ -5526,7 +5526,7 @@ return self;},
 args: ["separators"],
 source: unescape('trimRight%3A%20separators%0A%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5B%27%2C%20separators%2C%20%27%5D+%24%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
 messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
-referencedClasses: [smalltalk.RegularExpression]
+referencedClasses: ["RegularExpression"]
 }),
 smalltalk.String);
 
@@ -5638,7 +5638,7 @@ return self;},
 args: ["aCollection"],
 source: unescape('join%3A%20aCollection%20%0A%09%5E%20String%0A%09%09streamContents%3A%20%5B%3Astream%20%7C%20aCollection%0A%09%09%09%09do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%20asString%5D%20%0A%09%09%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20self%5D%5D'),
 messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.String);
 
@@ -5699,7 +5699,7 @@ return self;
 args: ["aBlock"],
 source: unescape('lineIndicesDo%3A%20aBlock%0A%09%22execute%20aBlock%20with%203%20arguments%20for%20each%20line%3A%0A%09-%20start%20index%20of%20line%0A%09-%20end%20index%20of%20line%20without%20line%20delimiter%0A%09-%20end%20index%20of%20line%20including%20line%20delimiter%28s%29%20CR%2C%20LF%20or%20CRLF%22%0A%09%0A%09%7C%20cr%20lf%20start%20sz%20nextLF%20nextCR%20%7C%0A%09start%20%3A%3D%201.%0A%09sz%20%3A%3D%20self%20size.%0A%09cr%20%3A%3D%20String%20cr.%0A%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%201.%0A%09lf%20%3A%3D%20String%20lf.%0A%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%201.%0A%09%5B%20start%20%3C%3D%20sz%20%5D%20whileTrue%3A%20%5B%0A%09%09%28nextLF%20%3D%200%20and%3A%20%5B%20nextCR%20%3D%200%20%5D%29%0A%09%09%09ifTrue%3A%20%5B%20%22No%20more%20CR%2C%20nor%20LF%2C%20the%20string%20is%20over%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20sz%20value%3A%20sz.%0A%09%09%09%09%09%5Eself%20%5D.%0A%09%09%28nextCR%20%3D%200%20or%3A%20%5B%200%20%3C%20nextLF%20and%3A%20%5B%20nextLF%20%3C%20nextCR%20%5D%20%5D%29%0A%09%09%09ifTrue%3A%20%5B%20%22Found%20a%20LF%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextLF%20-%201%20value%3A%20nextLF.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextLF.%0A%09%09%09%09%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%20start%20%5D%0A%09%09%09ifFalse%3A%20%5B%201%20+%20nextCR%20%3D%20nextLF%0A%09%09%09%09ifTrue%3A%20%5B%20%22Found%20a%20CR-LF%20pair%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextCR%20-%201%20value%3A%20nextLF.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextLF.%0A%09%09%09%09%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%20start.%0A%09%09%09%09%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%20start%20%5D%0A%09%09%09%09ifFalse%3A%20%5B%20%22Found%20a%20CR%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextCR%20-%201%20value%3A%20nextCR.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextCR.%0A%09%09%09%09%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%20start%20%5D%5D%5D'),
 messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", unescape("%3C%3D"), "ifTrue:", "and:", unescape("%3D"), "value:value:value:", "ifTrue:ifFalse:", "or:", unescape("%3C"), unescape("-"), unescape("+")],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.String);
 
@@ -5734,7 +5734,7 @@ return self;},
 args: [],
 source: unescape('lines%0A%09%22Answer%20an%20array%20of%20lines%20composing%20this%20receiver%20without%20the%20line%20ending%20delimiters.%22%0A%0A%09%7C%20lines%20%7C%0A%09lines%20%3A%3D%20Array%20new.%0A%09self%20linesDo%3A%20%5B%3AaLine%20%7C%20lines%20add%3A%20aLine%5D.%0A%09%5Elines'),
 messageSends: ["new", "linesDo:", "add:"],
-referencedClasses: [smalltalk.Array]
+referencedClasses: ["Array"]
 }),
 smalltalk.String);
 
@@ -5821,7 +5821,7 @@ return self;},
 args: [],
 source: unescape('streamClass%0A%09%20%20%20%20%5EStringStream'),
 messageSends: [],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["StringStream"]
 }),
 smalltalk.String.klass);
 
@@ -5936,7 +5936,7 @@ return self;},
 args: ["blockWithArg"],
 source: unescape('streamContents%3A%20blockWithArg%0A%09%7Cstream%7C%0A%09stream%20%3A%3D%20%28self%20streamClass%20on%3A%20String%20new%29.%0A%09blockWithArg%20value%3A%20stream.%0A%09%5E%20stream%20contents'),
 messageSends: ["on:", "streamClass", "new", "value:", "contents"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.String.klass);
 
@@ -6750,7 +6750,7 @@ return self;},
 args: [],
 source: unescape('associations%0A%09%7C%20associations%20%7C%0A%09associations%20%3A%3D%20%23%28%29.%0A%09keys%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20associations%20add%3A%20%28Association%20key%3A%20each%20value%3A%20%28self%20at%3A%20each%29%29%5D.%0A%09%5Eassociations'),
 messageSends: ["do:", "add:", "key:value:", "at:"],
-referencedClasses: [smalltalk.Association]
+referencedClasses: ["Association"]
 }),
 smalltalk.Dictionary);
 
@@ -7113,7 +7113,7 @@ return self;},
 args: [],
 source: unescape('asJSONObject%0A%09%7C%20object%20%7C%0A%09object%20%3A%3D%20Object%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09object%20basicAt%3A%20key%20put%3A%20value%20asJSONObject%5D.%0A%09%5Eobject'),
 messageSends: ["new", "keysAndValuesDo:", "basicAt:put:", "asJSONObject"],
-referencedClasses: [smalltalk.Object]
+referencedClasses: ["Object"]
 }),
 smalltalk.Dictionary);
 
@@ -7129,7 +7129,7 @@ return self;},
 args: [],
 source: unescape('printString%0A%09%5E%20String%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09nextPutAll%3A%20super%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09nextPutAll%3A%20%27%28%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09self%20associations%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09do%3A%20%5B%3AanAssociation%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09nextPutAll%3A%20anAssociation%20key%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09nextPutAll%3A%20%27%20-%3E%20%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09nextPutAll%3A%20anAssociation%20value%20printString%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%20%2C%20%27%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09aStream%20nextPutAll%3A%20%27%29%27.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5D'),
 messageSends: ["streamContents:", "nextPutAll:", "printString", "do:separatedBy:", "associations", "key", "value"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Dictionary);
 
@@ -7290,7 +7290,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ChunkParser"]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -7343,7 +7343,7 @@ return self;},
 args: ["aString"],
 source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassCategoryReader);
 
@@ -7809,7 +7809,7 @@ return self;},
 args: [],
 source: unescape('cr%0A%09%5Eself%20nextPutAll%3A%20String%20cr'),
 messageSends: ["nextPutAll:", "cr"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
@@ -7825,7 +7825,7 @@ return self;},
 args: [],
 source: unescape('crlf%0A%09%5Eself%20nextPutAll%3A%20String%20crlf'),
 messageSends: ["nextPutAll:", "crlf"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
@@ -7841,7 +7841,7 @@ return self;},
 args: [],
 source: unescape('lf%0A%09%5Eself%20nextPutAll%3A%20String%20lf'),
 messageSends: ["nextPutAll:", "lf"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
@@ -7911,7 +7911,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
 messageSends: ["initialize", "new"],
-referencedClasses: [smalltalk.nil]
+referencedClasses: ["ChunkParser"]
 }),
 smalltalk.ClassCommentReader);
 
@@ -8045,7 +8045,7 @@ return self;},
 args: ["aPoint"],
 source: unescape('*%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20*%20aPoint%20asPoint%20x%20y%3A%20self%20y%20*%20aPoint%20asPoint%20y'),
 messageSends: ["x:y:", unescape("*"), "x", "asPoint", "y"],
-referencedClasses: [smalltalk.Point]
+referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
@@ -8061,7 +8061,7 @@ return self;},
 args: ["aPoint"],
 source: unescape('+%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20+%20aPoint%20asPoint%20x%20y%3A%20self%20y%20+%20aPoint%20asPoint%20y'),
 messageSends: ["x:y:", unescape("+"), "x", "asPoint", "y"],
-referencedClasses: [smalltalk.Point]
+referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
@@ -8077,7 +8077,7 @@ return self;},
 args: ["aPoint"],
 source: unescape('-%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20-%20aPoint%20asPoint%20x%20y%3A%20self%20y%20-%20aPoint%20asPoint%20y'),
 messageSends: ["x:y:", unescape("-"), "x", "asPoint", "y"],
-referencedClasses: [smalltalk.Point]
+referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
@@ -8093,7 +8093,7 @@ return self;},
 args: ["aPoint"],
 source: unescape('/%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20/%20aPoint%20asPoint%20x%20y%3A%20self%20y%20/%20aPoint%20asPoint%20y'),
 messageSends: ["x:y:", unescape("/"), "x", "asPoint", "y"],
-referencedClasses: [smalltalk.Point]
+referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
@@ -8224,7 +8224,7 @@ return self;},
 args: [],
 source: unescape('printString%0A%09%5E%20String%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20super%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27%28%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20selector%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27%29%27%20%09%09%09%09%5D'),
 messageSends: ["streamContents:", "nextPutAll:", "printString"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Message);
 
@@ -8458,7 +8458,7 @@ return self;},
 args: [],
 source: unescape('register%0A%09ErrorHandler%20setCurrent%3A%20self%20new'),
 messageSends: ["setCurrent:", "new"],
-referencedClasses: [smalltalk.ErrorHandler]
+referencedClasses: ["ErrorHandler"]
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -8547,7 +8547,7 @@ return self;},
 args: ["anInspector"],
 source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self%20jsObject.%0A%09anInspector%20setLabel%3A%20self%20printString.%0A%09%3Cfor%28var%20i%20in%20self%5B%27@jsObject%27%5D%29%20%7B%0A%09%09variables._at_put_%28i%2C%20self%5B%27@jsObject%27%5D%5Bi%5D%29%3B%0A%09%7D%3E.%0A%09anInspector%20setVariables%3A%20variables'),
 messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "setVariables:"],
-referencedClasses: [smalltalk.Dictionary]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.JSObjectProxy);
 
@@ -8862,7 +8862,7 @@ return self;},
 args: [],
 source: unescape('cr%0A%20%20%20%20self%20current%20show%3A%20String%20cr'),
 messageSends: ["show:", "current", "cr"],
-referencedClasses: [smalltalk.String]
+referencedClasses: ["String"]
 }),
 smalltalk.Transcript.klass);
 
@@ -8977,7 +8977,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%09Transcript%20register%3A%20self%20new'),
 messageSends: ["register:", "new"],
-referencedClasses: [smalltalk.Transcript]
+referencedClasses: ["Transcript"]
 }),
 smalltalk.ConsoleTranscript.klass);
 
