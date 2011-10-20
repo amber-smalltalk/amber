@@ -2044,6 +2044,28 @@ return self;}
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_sqrt',
+smalltalk.method({
+selector: 'sqrt',
+fn: function (){
+var self=this;
+return Math.sqrt(self);
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_squared',
+smalltalk.method({
+selector: 'squared',
+fn: function (){
+var self=this;
+return self * self;
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',

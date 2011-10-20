@@ -842,6 +842,14 @@ negated
 
 \\ aNumber
 	<return self % aNumber>
+!
+
+sqrt
+	<return Math.sqrt(self)>
+!
+
+squared
+	^self * self
 ! !
 
 !Number methodsFor: 'comparing'!
