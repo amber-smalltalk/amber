@@ -12,13 +12,7 @@ prompt
 
 createInterface
 	"No completion for now"
-	"(readline createInterface numArgs < 3) 
-		ifTrue: [
-			console log: '0.4...'.
-			interface := readline createInterface: process stdin autocomplete: null.
-			stdin on: 'data' do: [:buffer | interface write: buffer]]
-		ifFalse: ["
-			interface := readline createInterface: process stdin stdout: process stdout" autocomplete: null]".
+	interface := readline createInterface: process stdin stdout: process stdout.
 	interface on: 'line' do: [:buffer  | self eval: buffer].
 	interface on: 'close' do: [self close].
 	self setPrompt.
