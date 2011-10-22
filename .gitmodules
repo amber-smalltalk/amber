@@ -1,0 +1,3 @@
+[submodule "amber"]
+	path = amber
+	url = git://github.com/NicolasPetton/amber.git

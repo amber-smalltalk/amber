@@ -1,0 +1,10 @@
+{
+	"id": "jtalk.helloamber",
+	"version": "1.0.0",
+	"vendor": "Krampe Dynamic Development",
+	"type": "web",
+	"main": "index.html",
+	"title": "Enyo Hello Amber",
+	"icon": "icon.png",
+	"uiRevision": 2
+}

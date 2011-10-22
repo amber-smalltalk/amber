@@ -1,0 +1,313 @@
+/* CSS Reset */
+
+html,body {
+	margin: 0;
+	padding: 0;
+	font: 14px "Helvetica Neue", "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	color: #444;
+}
+
+/* Layout */
+
+.clear {clear:both}
+
+#header {
+    margin: 60px auto;
+    margin-bottom: 20px;
+}
+
+#header .main {
+    text-align: center;
+}
+
+.teaser {
+    background: #eee;
+    border: 3px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+#tabs {
+    list-type: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 20px;
+}
+
+#tabs li {
+    margin: 0 5px;
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+    color: #613823;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.selected {
+    text-decoration: underline;
+    color: #444;
+}
+
+	
+.main {
+	width: 900px;
+	margin: 0 auto;
+}
+
+
+.column {
+    float: left;
+    width: 440px;
+    margin-right: 10px;
+}
+
+
+/* Fonts */
+
+h1, h2, h3 {
+    font-family: 'Istok Web';
+    font-weight: normal;
+    color: #442905;
+    line-height: 1.2;
+}
+
+h1 {
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0px 1px 1px #FFF;
+}
+
+.teaser h1 {
+    text-align: center;
+}
+
+.box {
+    margin: 40px 0;
+    color: #777;
+}
+
+.box.doc {
+    margin-top: 70px;
+    position: relative;
+    width: 630px;
+}
+
+.box .content .warning,
+.box .content .information {
+    position: absolute;
+    right: -250px;
+    margin-top: 20px;
+    width: 200px;
+    font-size: 14px;
+    color: #222;
+    font-family: arial,helevetica,sans;
+    padding: 10px;
+    opacity: 0.7;
+    -moz-transition: opacity 0.3s;
+    -webkit-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+}
+
+.box .content .warning:hover,
+.box .content .information:hover {
+    opacity: 1;
+}
+
+.box .content .information:before,
+.box .content .warning:before {
+    font-family: Georgia, sans-serif;
+    font-size: 28px;
+    font-style: italic;
+    position: absolute;
+    right: 0;
+    top: -21px;
+    opacity: 0.5;
+}
+
+.box .content .information:before {
+    content: "Info";
+    color: #a6b1f3;
+}
+
+.box .content .warning:before {
+    content: "Warning";
+    color: #e869e7;
+}
+
+.box .content .information {
+    background-color: #e4e8ff;
+}    
+
+.box .content .warning {
+    background-color: #f8ccf8;
+}
+
+.box .content .code {
+	background: #565656;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 7px;
+}
+
+.box .content .code p {
+	color: white;
+}
+
+.box.first .content .left ul {
+	padding-left: 10px;
+}
+
+.box.last .content .right {
+    width: 300px;
+}
+
+.doc .box.first .content .right {
+	float: right;
+	width: 230px;
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #ececec;
+	border: 1px solid #e1e1e1;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.doc .box.first .content .right ol, 
+.doc .box.first .content .right ol a {
+	color: #03388a;
+}
+
+.doc .box.first .content .right ol {
+	padding: 0 0 7px 35px;
+}
+
+.doc .box.first .content .right ol li{
+	padding: 7px 0 7px 0; 
+}
+
+.doc .box.first .content .right ul a {
+	font: 15px Helvetica, Arial, sans;
+	color: black;
+}
+
+.doc .box.first .content .right ul li {
+	list-style-type: none;
+	padding: 2px 0 2px 0;
+}
+
+.trysmalltalk {
+    text-align: right;
+    padding: 10px;
+}
+
+.trysmalltalk textarea {
+    width: 850px;
+    height: 300px;
+    padding: 20px;
+    background-color: #eaeaea;
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    font: 16px monaco, courier, monospace;
+    color: 434343;
+    line-height: 1.6em;
+}
+
+.trysmalltalk button {
+    margin: 20px 0 0 5px;
+    padding: 4px;
+    background: #75aef5;
+    border: 1px solid #7caeed;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.trysmalltalk .print-it {
+	background: #bebebe;
+	border: 1px solid #b2b2b2;
+}
+
+.trysmalltalk button:hover {
+	background: #3180e1;
+	border: 1px solid #518cd6; 
+}
+
+#counters {
+    border: 2px dashed;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background: #ffffcc;
+    font-family: arial,helvetica,sans;
+}
+
+#counters h1 {
+    margin: 10px;
+    color: #333;
+}
+
+
+.trysmalltalk .print-it:hover {
+	background: #898989;
+	border: 1px solid #919293; 
+}
+
+
+.examples li {
+	list-style: none;
+	float: left;
+}
+
+.examples li img {
+		border-radius: 5px;
+		border: 5px solid rgba(0,0,0,0.4);
+		margin: 5px;
+}
+
+.examples a:hover img {
+		border-color: rgba(0,0,0,0.8);
+}
+
+
+
+#footer {
+	height: 200px;
+	border: 1px solid #ccc;
+	background: #f3f3f3 url('../images/mosquito.png') 50px 20px no-repeat;
+	margin: 0 auto;
+}
+
+#footer .main {
+	padding-top: 10px;
+}
+
+#footer p {
+	text-align: center;
+	line-height: 1em;
+	color: #aaa;
+}
+
+#footer a {
+	color: #3faae1;
+	text-decoration: none;
+}
+
+#footer a:hover {
+	text-decoration: underline;
+}
+

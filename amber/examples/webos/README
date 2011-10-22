@@ -1,0 +1,11 @@
+These are examples that can be run in webOS 3.0 using Enyo - the new UI framework that was released with 3.0.
+
+You can play with them:
+
+- In a real device (a Touchpad or Pre 3 at the moment), but then you would first need to install the webOS SDK 3.0. With your device connected through USB you should be able to do "make run" and it should get installed and started on your device!
+
+- In the emulator included in the SDK. Just start "palm-emulator" and then do "make run" in any of the examples.
+
+- In a WebKit based browser, like Chromium (on Linux, do "make chromium") or Safari on the Mac (yes, it works). But first you would need to ensure that you have a copy of the enyo directory (normally you find it in /opt/PalmSDK/0.1/share/refcode/framework/enyo on Linux, just copy that whole directory into the directory in which you have the jtalk clone from github. Then the relative path in the index.html file referencing Enyo should work.
+
+

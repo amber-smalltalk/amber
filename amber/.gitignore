@@ -1,0 +1,10 @@
+# Ignoring compiled files in examples etc
+examples/nodejs/**/*.js
+examples/webos/**/*.js
+server/FileServer*.js
+
+# Ignoring compiled files in st
+st/*.js
+
+# In case amber is also saved in a local Subversion
+.svn

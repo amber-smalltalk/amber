@@ -1,0 +1,36 @@
+
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>Twitterwall</title> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <meta name="author" content="Stefan Krecher" /> 
+	<link rel="stylesheet" type="text/css" href='css/twitterwall.css' /> 
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/> 
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'> 
+    <script src="../../js/amber.js" type="text/javascript"></script>
+  </head> 
+  <body> 
+         
+	<center>
+		<h2>A simple Twitterwall made with Amber</h2>
+		<p>Shows the last 5 Tweets regarding your query</p>
+	    <p>Examine the <button onClick="smalltalk.Browser._openOn_(smalltalk.TwitterSearch)"> TwitterSearch class</button></p> 
+
+	<div id="playground"></div>
+	</center>
+	<!--
+    <script type='text/javascript'> loadAmber() </script> 
+	<script type='text/javascript'> smalltalk.TwitterSearch._new()._query_('%23smalltalk') </script> 
+    -->
+	<script type="text/javascript"> 
+	loadAmber({
+		files: ['TwitterSearch.js', 'Tweet.js'],
+		prefix: 'examples/twitterwall/js',
+		ready: function() {
+			smalltalk.TwitterSearch._new()._query_('%23smalltalk') 
+		}}); 
+</script>
+	
+  </body> 
+</html> 

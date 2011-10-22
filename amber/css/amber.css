@@ -1,0 +1,517 @@
+body.jtalkBody {
+    margin-bottom: 350px;
+}
+
+#jtalkTabs, #jtalk .jt_tabs {
+    margin: 0;
+    padding: 0;
+    background: url("../images/sprite.png") #DBD9C9 0 -27px;
+    height: 22px;
+    width: 100%;
+    list-style: none;
+    font-weight: bold;
+}
+
+#jtalkTabs li, #jtalk .jt_tabs li {
+    padding: 0 1px;
+    cursor: pointer;
+    color: #565656;
+}
+
+#jtalk .ltab, #jtalk .rtab, #jtalk .mtab {
+    height: 22px;
+    float: left;
+}
+
+#jtalk .ltab, #jtalk .rtab {
+    width: 8px;
+}
+
+#jtalk .rtab {
+    margin-right: 1px;
+}
+
+#jtalk .mtab {
+    line-height: 20px;
+}
+
+#jtalkTabs li:hover .ltab,
+#jtalk .jt_tabs li:hover .ltab {
+    background: url("../images/sprite.png") -16px -96px;
+}
+
+#jtalkTabs li:hover .mtab,
+#jtalk .jt_tabs li:hover .mtab {
+    background: url("../images/sprite.png") 0 -73px;
+}
+
+#jtalkTabs li:hover .rtab,
+#jtalk .jt_tabs li:hover .rtab {
+    background: url("../images/sprite.png") -24px -96px;
+}
+
+#jtalkTabs li.selected,
+#jtalk .jt_tabs li.selected {
+    color: #111;
+}
+
+#jtalkTabs li.selected .ltab,
+#jtalk .jt_tabs li.selected .ltab {
+    background: url("../images/sprite.png") 0px -96px;
+}
+
+#jtalkTabs li.selected .mtab,
+#jtalk .jt_tabs li.selected .mtab {
+    background: url("../images/sprite.png") 0 -50px;
+}
+
+#jtalkTabs li.selected .rtab,
+#jtalk .jt_tabs li.selected .rtab {
+    background: url("../images/sprite.png") -8px -96px;
+}
+
+#jtalkTabs li .close {
+    margin-right: 5px;
+    color: #aaa;
+}
+
+#jtalk {
+       position: fixed;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       height: 330px;
+       z-index: 1000;
+}
+
+#jtalk, #jtalk button, #jtalk input, #jtalk select {
+       font-family: Lucida Grande, Tahoma, sans-serif;
+       font-size: 11px;
+}
+
+#jtalk #logo {
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    width: 22px;
+    height: 20px;
+    background: url("../images/tinylogo.png") top left no-repeat;
+}
+
+#jtalk #jt_toolbar {
+    height: 27px;
+    background: url("../images/sprite.png") 0 0;
+}
+
+#jtalk #jt_toolbar input {
+    margin-left: 50px;
+    width: 250px;
+    margin-top: 5px;
+}
+
+#jtalk #jt_toolbar #jt_close {
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    background: url('../images/off.png');
+    cursor: pointer;
+}
+
+#jtalk #jt_toolbar #jt_close:hover {
+    background: url('../images/offHover.png');
+}
+
+
+#jtalk .ui-resizable-handle {
+    background-color: transparent;
+    top: 0;
+    cursor: row-resize;
+    height: 5px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: auto !important;
+}
+
+.jtalkTool {
+    width: 100%;
+    color: #333;
+    line-height: 1.3em;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 49px;
+    z-index: 1000;
+    background: white;
+}
+
+.jtalkTool .jt_box {
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    bottom: 27px;
+}
+
+.jtalkTool .jt_buttons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 27px;
+    line-height: 27px;
+    background: url("../images/sprite.png") 0 0 repeat;
+}
+
+.jtalkTool .jt_buttons .right {
+    float: right;
+}
+
+.jtalkTool .important {
+    font-weight: bold;
+}
+
+
+.jtalkTool button {
+    border: 1px solid transparent;
+    background: transparent;
+    padding: 2px 4px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+.jtalkTool button:hover {
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+}
+
+.jtalkTool  button:active {
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    background: #ddd;
+}
+
+.jtalkTool select, #jtalk input {
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    background: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.jtalkTool li {
+    margin: 0;
+    padding: 0;
+}
+    
+.jtalkTool .source {
+    height: 100%;
+}
+
+.jtalkTool textarea,
+.jtalkTool input {
+    border: 0 none;
+    font-family: Arial, Helvetica, sans;
+    line-height: 1.3em;
+    font-size: 12px;
+    position: relative;
+    padding: 0;
+}
+
+.jtalkTool .CodeMirror {
+    border: 0 none;
+    font-family: Arial, Helvetica, sans;
+    font-size: 12px;
+    line-height: 1.3em;
+    height: 100%;
+    background: white;
+}
+
+.jtalkTool .CodeMirror-scroll {
+    height: 100%;
+}
+
+.talkTool .CodeMirror-scroll pre {
+    font-family: Arial, Helvetica, sans;
+}
+
+.jtalkTool .jt_clear {	 
+    clear: both;
+}
+
+.jtalkTool .jt_transcript,
+.jtalkTool .jt_workspace {
+    width: 100%;
+    height: 100%;
+}
+
+.jtalkTool .jt_packagesButtons {
+    position: absolute;
+    top: 129px;
+    left: 0;
+    z-index: 1;
+}
+
+.jtalkTool .jt_column {
+    width: 25%;
+    padding: 0;
+    margin: 0;
+    float: left;
+    outline: 1px solid #aaa;
+    border: 0 none;
+    height: 130px;
+    overflow-y: auto;
+    background: #fff;
+    color: #111;
+    position: absolute;
+    top: 0;
+}
+
+.jtalkTool .jt_column.classes {
+    left: 25%
+}
+
+.jtalkTool .jt_column.classes ul {
+    margin-left: 0;
+}
+
+.jtalkTool .jt_column.classes ul li {
+    padding-left: 10px;
+    margin-left: 0;
+}
+
+.jtalkTool .jt_column.protocols {
+    left: 50%
+}
+
+.jtalkTool .jt_column.methods {
+    left: 75%
+}
+
+.jtalkTool .jt_column li {
+    list-style-type: none;
+    padding-left: 5px;
+    cursor: pointer;
+    color: #111;
+    font-weight: bold;
+}
+
+.jtalkTool .jt_column li.selected {
+	background: #e3e3e3;
+	color: #222;
+}
+
+.jtalkTool .jt_column li:hover {
+    background: #08c;
+    color: white;
+}
+
+#jtalk .jtalkTool .jt_tabs {
+    top: 130px;
+    position: absolute;
+}
+
+#jtalk .jtalkTool .jt_tabs.jt_browser {
+    padding-left: 25%;
+}
+
+.jtalkTool .jt_sourceCode {
+    position: absolute;
+    top: 152px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.jtalkTool .jt_sourceCode textarea.source {
+    width: 100%;
+    height: 100%;
+}
+
+/* Debugger & inspector */
+
+.jtalkTool .jt_box .label {
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+	position: absolute;
+	line-height: 1.5em;
+	font-size: 16px;
+	color: red;
+	background: url("../images/sprite.png") top left repeat;
+	height: 27px;
+}
+
+.jtalkTool .jt_box .jt_column.debugger {
+    top: 158px;
+}
+
+.jtalkTool .jt_box .jt_column.debugger.contexts {
+    top: 27px;
+    width: 100%;
+}
+
+.jtalkTool .jt_sourceCode.debugger {
+    width: 60%;
+    top: 158px;
+}
+
+.jtalkTool .jt_box .jt_column.debugger.variables {
+    width: 10%;
+    left: 60%;
+    bottom: 0;
+    position: absolute;
+    height: auto;
+}
+
+.jtalkTool .jt_box .jt_column.debugger.inspector {
+    width: 30%;
+    left: 70%;
+    bottom: 0;
+    position: absolute;
+    height: auto;
+}
+
+.jtalkTool .jt_button.debugger.inspect {
+    position: absolute;
+    left: 60%;
+}
+
+.jtalkTool .jt_column.value {
+    left: 25%;
+    width: 75%;
+}
+
+.jtalkTool .jt_buttons.inspector {
+    position: absolute;
+    top: 130px;
+}
+
+
+/* ReferencesBrowser */
+
+.jtalkTool .jt_box .implementors {
+	width: 100%
+}
+
+.jtalkTool .jt_box .jt_column.implementors,
+.jtalkTool .jt_box .jt_column.senders,
+.jtalkTool .jt_box .jt_column.referenced_classes {
+	top: 20px;
+	height: auto;
+	bottom: 0;
+	width: 33.333%;
+}
+
+.jtalkTool .jt_box .jt_column.senders {
+	left: 33.333%
+}
+
+.jtalkTool .jt_box .jt_column.referenced_classes {
+        left: 66.67%
+}
+
+.jtalkTool .jt_box .jt_column.implementors .column_label, 
+.jtalkTool .jt_box .jt_column.senders .column_label,
+.jtalkTool .jt_box .jt_column.referenced_classes .column_label {
+	background: #dbdbdb
+}
+
+.jtalkTool .jt_box .jt_column.implementors .column_label:hover,
+.jtalkTool .jt_box .jt_column.senders .column_label:hover,
+.jtalkTool .jt_box .jt_column.referenced_classes .column_label:hover {
+	font-weight: bold;
+	color: #000;
+	cursor: default
+}
+
+
+.jtalkTool .classes .commented {
+		color: #33337F;
+}
+
+
+/* SUnit TestRunner  */
+
+.jtalkTool .jt_column.sunit.packages,
+.jtalkTool .jt_column.sunit.classes {
+	height: 100%
+}
+
+.jtalkTool .jt_column.sunit.classes li.all,
+.jtalkTool .jt_column.sunit.categories li.all {
+	background: #e3e3e3;
+	font-weight: bold
+}
+
+.jtalkTool .jt_column.sunit.classes li.all:hover ,
+.jtalkTool .jt_column.sunit.categories li.all:hover {
+	background: #0088CC;
+	font-weight: bold
+}
+
+.jtalkTool .sunit.status {
+	position: absolute;
+	left: 50%;
+	width: 50%;
+	outline: 1px solid #aaa;
+	background: white;
+	height: 40px
+}
+
+
+.jtalkTool .sunit.status.success {
+	background: #43d443;
+}
+
+
+.jtalkTool .sunit.status.failure {
+	background: #ecd443;
+}
+
+
+.jtalkTool .sunit.status.error {
+	background: #e56f3b;
+}
+
+.jtalkTool .progress_bar {
+	position: absolute;
+	left: 50%;
+	width: 50%;
+	top: 40px;
+	background: white;
+	outline: 1px solid #aaa;
+	min-height: 20px
+}
+
+.jtalkTool .progress_bar div {
+	background: #0088CC;
+	min-height: 20px;
+}
+
+.jtalkTool .jt_column.results.sunit {
+	left: 50%;
+	height: auto;
+        width: 50%;
+        top: 62px;
+        bottom: 0;
+}
+
+.jtalkTool .jt_column.sunit.results .errors {
+    color: red;
+}
+
+/*.jtalkTool .jt_column.sunit.results ul {padding: 0; margin: 0}*/
+
