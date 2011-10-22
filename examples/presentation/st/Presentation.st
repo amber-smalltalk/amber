@@ -31,7 +31,6 @@ title
 !Slide methodsFor: 'actions'!
 
 show
-	document location hash: self id.
 	self backgroundColor ifNotNil: [
 		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
 	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
@@ -125,7 +124,7 @@ nextSlide
 	| next |
 	self currentSlide ifNotNil: [
 		next := self slides 
-			at: (self slides indexOf: self currentSlide) + 1
+			at: (self currentSlideIndex) + 1
 			ifAbsent: [nil].
 		next ifNotNil: [currentSlide := next. next show]]
 !
@@ -142,19 +141,9 @@ previousSlide
 	| next |
 	self currentSlide ifNotNil: [
 		next := self slides 
-			at: (self slides indexOf: self currentSlide) - 1
+			at: (self currentSlideIndex) - 1
 			ifAbsent: [nil].
 		next ifNotNil: [currentSlide := next. next show]]
-!
-
-checkHash
-	| hash slide |
-	hash := document location hash  replace: '^#' with: ''.
-	slide := self slides detect:  [:each | each id = hash] ifNone: [nil].
-	slide ifNotNil: [
-		self currentSlide = slide ifFalse: [
-			self currentSlide: slide.
-			slide show]]
 !
 
 moveAt: anInteger
@@ -163,6 +152,10 @@ moveAt: anInteger
 			at: anInteger
 			ifAbsent: [nil].
 	next ifNotNil: [currentSlide := next. next show]
+!
+
+currentSlideIndex
+	^ self slides indexOf: self currentSlide ifAbsent: [1]
 ! !
 
 !Presentation methodsFor: 'enumerating'!
@@ -1154,15 +1147,16 @@ selectPresentationNamed: aString
 	|presentationClass|
 	presentationClass :=  (Smalltalk current at: aString).
 	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
-	self updateSlideSelect.
 !
 
 previousSlide
-	self currentPresentation previousSlide
+	self currentPresentation previousSlide.
+	self updateHash.
 !
 
 nextSlide
-	self currentPresentation nextSlide
+	self currentPresentation nextSlide.
+	self updateHash.
 !
 
 reload
@@ -1171,13 +1165,26 @@ reload
 !
 
 selectSlideAt: anInteger
-	self currentPresentation moveAt: anInteger
+	self currentPresentation moveAt: anInteger.
+	self updateHash.
+!
+
+updateHash
+	document location hash: self currentPresentation class name, '-', self currentPresentation currentSlideIndex.
 ! !
 
 !PresentationNavigator methodsFor: 'hash'!
 
 checkHash
-	self currentPresentation checkHash
+	| hash presentation |
+	hash := (document location hash  replace: '^#' with: '') tokenize: '-'. 
+	presentation := Presentation concretePresentations 
+				detect: [:aPresentationClass | aPresentationClass name == hash first]
+				ifNone: [^ self].
+	presentation == self currentPresentation class ifFalse: [
+          	self selectPresentationNamed: presentation.
+          	self selectSlideAt: hash last
+        ].
 !
 
 checkHashChange
@@ -1246,15 +1253,15 @@ renderOn: html
 							id: 'presentation';
 							yourself.
 
+	self checkHash.
 	self renderCurrentPresentation.
 !
 
 renderCurrentPresentation
 	presentationBrush contents: [:html |
-        	self currentPresentation
-                                     	renderOn: html;
-                                     	checkHash.
+        	self currentPresentation renderOn: html.
         ].
+	self updateSlideSelect.
 !
 
 renderSlideSelectOn: html

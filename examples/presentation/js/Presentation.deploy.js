@@ -63,15 +63,12 @@ smalltalk.addMethod(
 '_show',
 smalltalk.method({
 selector: 'show',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(typeof document == "undefined" ? nil : document, "_location", []), "_hash_", [smalltalk.send(self, "_id", [])]);
-    ($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil &&
-        $receiver != undefined ? function () {return smalltalk.send(smalltalk.send(typeof window == "undefined" ? nil : window, "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);}() : nil;
-    smalltalk.send(smalltalk.send(typeof window == "undefined" ? nil : window, "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], 300]);
-    smalltalk.send(smalltalk.send(typeof window == "undefined" ? nil : window, "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], 300]);
-    return self;
-}
+fn: function (){
+var self=this;
+(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+return self;}
 }),
 smalltalk.Slide);
 
@@ -273,13 +270,11 @@ smalltalk.addMethod(
 '_nextSlide',
 smalltalk.method({
 selector: 'nextSlide',
-fn: function () {
-    var self = this;
-    var next = nil;
-    ($receiver = smalltalk.send(self, "_currentSlide", [])) != nil &&
-        $receiver != undefined ? function () {next = smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [($receiver = smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_", [smalltalk.send(self, "_currentSlide", [])])).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]), function () {return nil;}]);return ($receiver = next) != nil && $receiver != undefined ? function () {self['@currentSlide'] = next;return smalltalk.send(next, "_show", []);}() : nil;}() : nil;
-    return self;
-}
+fn: function (){
+var self=this;
+var next=nil;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), (function(){return nil;})]);return (($receiver = next) != nil && $receiver != undefined) ? (function(){self['@currentSlide']=next;return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
+return self;}
 }),
 smalltalk.Presentation);
 
@@ -300,29 +295,11 @@ smalltalk.addMethod(
 '_previousSlide',
 smalltalk.method({
 selector: 'previousSlide',
-fn: function () {
-    var self = this;
-    var next = nil;
-    ($receiver = smalltalk.send(self, "_currentSlide", [])) != nil &&
-        $receiver != undefined ? function () {next = smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [($receiver = smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_", [smalltalk.send(self, "_currentSlide", [])])).klass === smalltalk.Number ? $receiver - 1 : smalltalk.send($receiver, "__minus", [1]), function () {return nil;}]);return ($receiver = next) != nil && $receiver != undefined ? function () {self['@currentSlide'] = next;return smalltalk.send(next, "_show", []);}() : nil;}() : nil;
-    return self;
-}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-'_checkHash',
-smalltalk.method({
-selector: 'checkHash',
-fn: function () {
-    var self = this;
-    var hash = nil;
-    var slide = nil;
-    hash = smalltalk.send(smalltalk.send(smalltalk.send(typeof document == "undefined" ? nil : document, "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]);
-    slide = smalltalk.send(smalltalk.send(self, "_slides", []), "_detect_ifNone_", [function (each) {return smalltalk.send(smalltalk.send(each, "_id", []), "__eq", [hash]);}, function () {return nil;}]);
-    ($receiver = slide) != nil && $receiver != undefined ? function () {return ($receiver = smalltalk.send(smalltalk.send(self, "_currentSlide", []), "__eq", [slide])).klass === smalltalk.Boolean ? !$receiver ? function () {smalltalk.send(self, "_currentSlide_", [slide]);return smalltalk.send(slide, "_show", []);}() : nil : smalltalk.send($receiver, "_ifFalse_", [function () {smalltalk.send(self, "_currentSlide_", [slide]);return smalltalk.send(slide, "_show", []);}]);}() : nil;
-    return self;
-}
+fn: function (){
+var self=this;
+var next=nil;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), (function(){return nil;})]);return (($receiver = next) != nil && $receiver != undefined) ? (function(){self['@currentSlide']=next;return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
+return self;}
 }),
 smalltalk.Presentation);
 
@@ -386,6 +363,17 @@ var self=this;
 var next=nil;
 next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [anInteger, (function(){return nil;})]);
 (($receiver = next) != nil && $receiver != undefined) ? (function(){self['@currentSlide']=next;return smalltalk.send(next, "_show", []);})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+'_currentSlideIndex',
+smalltalk.method({
+selector: 'currentSlideIndex',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_ifAbsent_", [smalltalk.send(self, "_currentSlide", []), (function(){return (1);})]);
 return self;}
 }),
 smalltalk.Presentation);
@@ -1295,11 +1283,15 @@ smalltalk.addMethod(
 '_checkHash',
 smalltalk.method({
 selector: 'checkHash',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_checkHash", []);
-    return self;
-}
+fn: function (){
+var self=this;
+try{var hash=nil;
+var presentation=nil;
+hash=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]), "_tokenize_", [unescape("-")]);
+presentation=smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_detect_ifNone_", [(function(aPresentationClass){return smalltalk.send(smalltalk.send(aPresentationClass, "_name", []), "__eq_eq", [smalltalk.send(hash, "_first", [])]);}), (function(){return (function(){throw({name: 'stReturn', selector: '_checkHash', fn: function(){return self}})})();})]);
+((($receiver = smalltalk.send(presentation, "__eq_eq", [smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send(self, "_selectPresentationNamed_", [presentation]);return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(hash, "_last", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send(self, "_selectPresentationNamed_", [presentation]);return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(hash, "_last", [])]);})]));
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_checkHash'){return e.fn()} throw(e)}}
 }),
 smalltalk.PresentationNavigator);
 
@@ -1350,6 +1342,7 @@ var self=this;
 (function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
 (function($rec){smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_renderToolsOn_", [html]);smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);return smalltalk.send($rec, "_renderSlideSelectOn_", [html]);})(self);})]);})(smalltalk.send(html, "_div", []));
 self['@presentationBrush']=(function($rec){smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", []));
+smalltalk.send(self, "_checkHash", []);
 smalltalk.send(self, "_renderCurrentPresentation", []);
 return self;}
 }),
@@ -1402,7 +1395,6 @@ var self=this;
 var presentationClass=nil;
 presentationClass=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString]);
 (($receiver = presentationClass) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_selectPresentation_", [presentationClass]);})() : nil;
-smalltalk.send(self, "_updateSlideSelect", []);
 return self;}
 }),
 smalltalk.PresentationNavigator);
@@ -1423,11 +1415,11 @@ smalltalk.addMethod(
 '_renderCurrentPresentation',
 smalltalk.method({
 selector: 'renderCurrentPresentation',
-fn: function () {
-    var self = this;
-    smalltalk.send(self['@presentationBrush'], "_contents_", [function (html) {return function ($rec) {smalltalk.send($rec, "_renderOn_", [html]);return smalltalk.send($rec, "_checkHash", []);}(smalltalk.send(self, "_currentPresentation", []));}]);
-    return self;
-}
+fn: function (){
+var self=this;
+smalltalk.send(self['@presentationBrush'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_renderOn_", [html]);})]);
+smalltalk.send(self, "_updateSlideSelect", []);
+return self;}
 }),
 smalltalk.PresentationNavigator);
 
@@ -1435,11 +1427,11 @@ smalltalk.addMethod(
 '_previousSlide',
 smalltalk.method({
 selector: 'previousSlide',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_previousSlide", []);
-    return self;
-}
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_previousSlide", []);
+smalltalk.send(self, "_updateHash", []);
+return self;}
 }),
 smalltalk.PresentationNavigator);
 
@@ -1447,11 +1439,11 @@ smalltalk.addMethod(
 '_nextSlide',
 smalltalk.method({
 selector: 'nextSlide',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_nextSlide", []);
-    return self;
-}
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_nextSlide", []);
+smalltalk.send(self, "_updateHash", []);
+return self;}
 }),
 smalltalk.PresentationNavigator);
 
@@ -1488,6 +1480,7 @@ selector: 'selectSlideAt:',
 fn: function (anInteger){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_moveAt_", [anInteger]);
+smalltalk.send(self, "_updateHash", []);
 return self;}
 }),
 smalltalk.PresentationNavigator);
@@ -1500,6 +1493,17 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@slideSelect'], "_contents_", [(function(html){var index=nil;
 index=(0);return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_slidesDo_", [(function(aSlide){index=((($receiver = index).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));return (function($rec){smalltalk.send($rec, "_value_", [index]);return smalltalk.send($rec, "_with_", [smalltalk.send(aSlide, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);
+return self;}
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+'_updateHash',
+smalltalk.method({
+selector: 'updateHash',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_name", []), "__comma", [unescape("-")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_currentSlideIndex", [])])]);
 return self;}
 }),
 smalltalk.PresentationNavigator);
