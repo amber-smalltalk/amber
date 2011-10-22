@@ -806,6 +806,11 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
+!Number methodsFor: ''!
+
+
+! !
+
 !Number methodsFor: 'arithmetic'!
 
 + aNumber
@@ -1047,6 +1052,10 @@ Object subclass: #BlockClosure
 
 compiledSource
 	<return self.toString()>
+!
+
+numArgs
+	<return self.length>
 ! !
 
 !BlockClosure methodsFor: 'controlling'!

@@ -3217,6 +3217,22 @@ referencedClasses: ["Date"]
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+unescape('_numArgs'),
+smalltalk.method({
+selector: unescape('numArgs'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.length;
+return self;},
+args: [],
+source: unescape('numArgs%0A%09%3Creturn%20self.length%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');

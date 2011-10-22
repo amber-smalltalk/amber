@@ -2256,6 +2256,17 @@ return self;}
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+'_numArgs',
+smalltalk.method({
+selector: 'numArgs',
+fn: function (){
+var self=this;
+return self.length;
+return self;}
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
