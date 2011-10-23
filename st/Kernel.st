@@ -277,10 +277,6 @@ classes
 	<return self.classes()>
 !
 
-readJSON: anObject
-	<return self.readJSObject(anObject)>
-!
-
 at: aString
 	<return self[aString]>
 !
@@ -313,6 +309,10 @@ parseError: anException parsing: aString
 reservedWords
 	"JavaScript reserved words"
 	<return self.reservedWords>
+!
+
+readJSObject: anObject
+	<return self.readJSObject(anObject)>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -419,7 +419,7 @@ String where the method category "*IDE" defines #inspectOn: which thus is a meth
 !Package methodsFor: 'accessing'!
 
 name
-	<return self.pkgName || nil>
+	<return self.pkgName>
 !
 
 name: aString
@@ -435,14 +435,7 @@ dependencies: anArray
 !
 
 properties
-	"It is stored as a javascript object."
-
-	| result |
-	result := Dictionary new.
-	<for (var i in self.properties) {
-		result._at_put_(i, self.properties[i]);
-	}
-	return result;>
+	^Smalltalk current readJSObject: (self basicAt: 'properties')
 !
 
 properties: aDict
@@ -476,7 +469,7 @@ propertiesAsJSON
 !
 
 jsProperties
-	<return self.properties || nil>
+	<return self.properties>
 !
 
 jsProperties: aJSObject

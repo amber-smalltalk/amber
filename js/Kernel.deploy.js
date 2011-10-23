@@ -608,17 +608,6 @@ return self;}
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-'_readJSON_',
-smalltalk.method({
-selector: 'readJSON:',
-fn: function (anObject){
-var self=this;
-return self.readJSObject(anObject);
-return self;}
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
 '_at_',
 smalltalk.method({
 selector: 'at:',
@@ -802,6 +791,17 @@ return self;}
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+'_readJSObject_',
+smalltalk.method({
+selector: 'readJSObject:',
+fn: function (anObject){
+var self=this;
+return self.readJSObject(anObject);
+return self;}
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -823,7 +823,7 @@ smalltalk.method({
 selector: 'name',
 fn: function (){
 var self=this;
-return self.pkgName || nil;
+return self.pkgName;
 return self;}
 }),
 smalltalk.Package);
@@ -889,12 +889,7 @@ smalltalk.method({
 selector: 'properties',
 fn: function (){
 var self=this;
-var result=nil;
-result=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
-for (var i in self.properties) {
-		result._at_put_(i, self.properties[i]);
-	}
-	return result;;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_readJSObject_", [smalltalk.send(self, "_basicAt_", ["properties"])]);
 return self;}
 }),
 smalltalk.Package);
@@ -930,7 +925,7 @@ smalltalk.method({
 selector: 'jsProperties',
 fn: function (){
 var self=this;
-return self.properties || nil;
+return self.properties;
 return self;}
 }),
 smalltalk.Package);
