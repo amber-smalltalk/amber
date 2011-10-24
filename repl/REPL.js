@@ -1,4 +1,4 @@
-smalltalk.addPackage('REPL', []);
+smalltalk.addPackage('REPL', {});
 smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util'], 'REPL');
 smalltalk.addMethod(
 unescape('_prompt'),
@@ -30,7 +30,7 @@ smalltalk.send(self, "_setPrompt", []);
 smalltalk.send(self['@interface'], "_prompt", []);
 return self;},
 args: [],
-source: unescape('createInterface%0A%09%22No%20completion%20for%20now%22%0A%09%22%28readline%20createInterface%20numArgs%20%3C%203%29%20%0A%09%09ifTrue%3A%20%5B%0A%09%09%09console%20log%3A%20%270.4...%27.%0A%09%09%09interface%20%3A%3D%20readline%20createInterface%3A%20process%20stdin%20autocomplete%3A%20null.%0A%09%09%09stdin%20on%3A%20%27data%27%20do%3A%20%5B%3Abuffer%20%7C%20interface%20write%3A%20buffer%5D%5D%0A%09%09ifFalse%3A%20%5B%22%0A%09%09%09interface%20%3A%3D%20readline%20createInterface%3A%20process%20stdin%20stdout%3A%20process%20stdout%22%20autocomplete%3A%20null%5D%22.%0A%09interface%20on%3A%20%27line%27%20do%3A%20%5B%3Abuffer%20%20%7C%20self%20eval%3A%20buffer%5D.%0A%09interface%20on%3A%20%27close%27%20do%3A%20%5Bself%20close%5D.%0A%09self%20setPrompt.%0A%09interface%20prompt'),
+source: unescape('createInterface%0A%09%22No%20completion%20for%20now%22%0A%09interface%20%3A%3D%20readline%20createInterface%3A%20process%20stdin%20stdout%3A%20process%20stdout.%0A%09interface%20on%3A%20%27line%27%20do%3A%20%5B%3Abuffer%20%20%7C%20self%20eval%3A%20buffer%5D.%0A%09interface%20on%3A%20%27close%27%20do%3A%20%5Bself%20close%5D.%0A%09self%20setPrompt.%0A%09interface%20prompt'),
 messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "eval:", "close", "setPrompt", "prompt"],
 referencedClasses: []
 }),

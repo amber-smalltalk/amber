@@ -3272,7 +3272,9 @@ cr
 !
 
 show: anObject
-	<console.log(String(anObject._asString()))>
+	| string |
+	string := anObject asString.
+	<console.log(String(string))>
 ! !
 
 !ConsoleTranscript class methodsFor: 'initialization'!

@@ -86,7 +86,7 @@ function Smalltalk(){
 	function pkg(spec) {
 		var that      = new SmalltalkPackage();
 		that.pkgName  = spec.pkgName;
-		that.properties = spec.properties || [];
+		that.properties = spec.properties || {};
 		return that;
 	};
 
@@ -224,7 +224,7 @@ function Smalltalk(){
 	   global smalltalk object. Package is lazily created if it does not exist with given name. */
 
 	st.mapClassName = function(className, pkgName, fn, superclass) {
-		var pkg = st.addPackage(pkgName, null);
+		var pkg = st.addPackage(pkgName);
 		st[className] = klass({
 			className:  className, 
 			superclass: superclass,
@@ -256,7 +256,7 @@ function Smalltalk(){
 	   Package is lazily created if it does not exist with given name.*/
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
-		var pkg = st.addPackage(pkgName, null);
+		var pkg = st.addPackage(pkgName);
 		if(st[className]) {
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
@@ -1435,22 +1435,6 @@ referencedClasses: []
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_readJSON_'),
-smalltalk.method({
-selector: unescape('readJSON%3A'),
-category: 'accessing',
-fn: function (anObject){
-var self=this;
-return self.readJSObject(anObject);
-return self;},
-args: ["anObject"],
-source: unescape('readJSON%3A%20anObject%0A%09%3Creturn%20self.readJSObject%28anObject%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
 unescape('_at_'),
 smalltalk.method({
 selector: unescape('at%3A'),
@@ -1704,6 +1688,22 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+unescape('_readJSObject_'),
+smalltalk.method({
+selector: unescape('readJSObject%3A'),
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return self.readJSObject(anObject);
+return self;},
+args: ["anObject"],
+source: unescape('readJSObject%3A%20anObject%0A%09%3Creturn%20self.readJSObject%28anObject%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -1732,10 +1732,10 @@ selector: unescape('name'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return self.pkgName || nil;
+return self.pkgName;
 return self;},
 args: [],
-source: unescape('name%0A%09%3Creturn%20self.pkgName%20%7C%7C%20nil%3E'),
+source: unescape('name%0A%09%3Creturn%20self.pkgName%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1828,17 +1828,12 @@ selector: unescape('properties'),
 category: 'accessing',
 fn: function (){
 var self=this;
-var result=nil;
-result=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
-for (var i in self.properties) {
-		result._at_put_(i, self.properties[i]);
-	}
-	return result;;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_readJSObject_", [smalltalk.send(self, "_basicAt_", ["properties"])]);
 return self;},
 args: [],
-source: unescape('properties%0A%09%22It%20is%20stored%20as%20a%20javascript%20object.%22%0A%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20Dictionary%20new.%0A%09%3Cfor%20%28var%20i%20in%20self.properties%29%20%7B%0A%09%09result._at_put_%28i%2C%20self.properties%5Bi%5D%29%3B%0A%09%7D%0A%09return%20result%3B%3E'),
-messageSends: ["new"],
-referencedClasses: ["Dictionary"]
+source: unescape('properties%0A%09%5ESmalltalk%20current%20readJSObject%3A%20%28self%20basicAt%3A%20%27properties%27%29'),
+messageSends: ["readJSObject:", "current", "basicAt:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
 
@@ -1884,10 +1879,10 @@ selector: unescape('jsProperties'),
 category: 'private',
 fn: function (){
 var self=this;
-return self.properties || nil;
+return self.properties;
 return self;},
 args: [],
-source: unescape('jsProperties%0A%09%3Creturn%20self.properties%20%7C%7C%20nil%3E'),
+source: unescape('jsProperties%0A%09%3Creturn%20self.properties%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -9805,11 +9800,13 @@ selector: unescape('show%3A'),
 category: 'printing',
 fn: function (anObject){
 var self=this;
-console.log(String(anObject._asString()));
+var string=nil;
+string=smalltalk.send(anObject, "_asString", []);
+console.log(String(string));
 return self;},
 args: ["anObject"],
-source: unescape('show%3A%20anObject%0A%09%3Cconsole.log%28String%28anObject._asString%28%29%29%29%3E'),
-messageSends: [],
+source: unescape('show%3A%20anObject%0A%09%7C%20string%20%7C%0A%09string%20%3A%3D%20anObject%20asString.%0A%09%3Cconsole.log%28String%28string%29%29%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
@@ -16468,7 +16465,7 @@ smalltalk.parser = (function(){
   
   return result;
 })();
-smalltalk.addPackage('REPL', []);
+smalltalk.addPackage('REPL', {});
 smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util'], 'REPL');
 smalltalk.addMethod(
 unescape('_prompt'),
@@ -16500,7 +16497,7 @@ smalltalk.send(self, "_setPrompt", []);
 smalltalk.send(self['@interface'], "_prompt", []);
 return self;},
 args: [],
-source: unescape('createInterface%0A%09%22No%20completion%20for%20now%22%0A%09%22%28readline%20createInterface%20numArgs%20%3C%203%29%20%0A%09%09ifTrue%3A%20%5B%0A%09%09%09console%20log%3A%20%270.4...%27.%0A%09%09%09interface%20%3A%3D%20readline%20createInterface%3A%20process%20stdin%20autocomplete%3A%20null.%0A%09%09%09stdin%20on%3A%20%27data%27%20do%3A%20%5B%3Abuffer%20%7C%20interface%20write%3A%20buffer%5D%5D%0A%09%09ifFalse%3A%20%5B%22%0A%09%09%09interface%20%3A%3D%20readline%20createInterface%3A%20process%20stdin%20stdout%3A%20process%20stdout%22%20autocomplete%3A%20null%5D%22.%0A%09interface%20on%3A%20%27line%27%20do%3A%20%5B%3Abuffer%20%20%7C%20self%20eval%3A%20buffer%5D.%0A%09interface%20on%3A%20%27close%27%20do%3A%20%5Bself%20close%5D.%0A%09self%20setPrompt.%0A%09interface%20prompt'),
+source: unescape('createInterface%0A%09%22No%20completion%20for%20now%22%0A%09interface%20%3A%3D%20readline%20createInterface%3A%20process%20stdin%20stdout%3A%20process%20stdout.%0A%09interface%20on%3A%20%27line%27%20do%3A%20%5B%3Abuffer%20%20%7C%20self%20eval%3A%20buffer%5D.%0A%09interface%20on%3A%20%27close%27%20do%3A%20%5Bself%20close%5D.%0A%09self%20setPrompt.%0A%09interface%20prompt'),
 messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "eval:", "close", "setPrompt", "prompt"],
 referencedClasses: []
 }),

@@ -9238,11 +9238,13 @@ selector: unescape('show%3A'),
 category: 'printing',
 fn: function (anObject){
 var self=this;
-console.log(String(anObject._asString()));
+var string=nil;
+string=smalltalk.send(anObject, "_asString", []);
+console.log(String(string));
 return self;},
 args: ["anObject"],
-source: unescape('show%3A%20anObject%0A%09%3Cconsole.log%28String%28anObject._asString%28%29%29%29%3E'),
-messageSends: [],
+source: unescape('show%3A%20anObject%0A%09%7C%20string%20%7C%0A%09string%20%3A%3D%20anObject%20asString.%0A%09%3Cconsole.log%28String%28string%29%29%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);

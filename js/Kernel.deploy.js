@@ -6490,7 +6490,9 @@ smalltalk.method({
 selector: 'show:',
 fn: function (anObject){
 var self=this;
-console.log(String(anObject._asString()));
+var string=nil;
+string=smalltalk.send(anObject, "_asString", []);
+console.log(String(string));
 return self;}
 }),
 smalltalk.ConsoleTranscript);
