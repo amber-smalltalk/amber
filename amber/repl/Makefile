@@ -1,8 +1,8 @@
 repl.js: REPL.st
-	../bin/amberc -m Repl -l Compiler,parser REPL.st repl
+	../bin/amberc -m Repl -l Compiler,parser REPL.st amber
 
 run: repl.js
-	./repl
+	./amber
 
 clean:
-	rm -f repl.js
+	rm -f amber.js

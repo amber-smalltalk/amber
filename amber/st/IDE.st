@@ -1,5 +1,4 @@
 Smalltalk current createPackage: 'IDE' properties: #{}!
-
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
@@ -762,6 +761,17 @@ addNewClass
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
+!
+
+copyClass
+	| className |
+	className := window prompt: 'Copy class'.
+	(className notNil and: [className notEmpty]) ifTrue: [
+		ClassBuilder new copyClass: self selectedClass named: className.
+          	 self 
+			resetClassesList;
+			updateClassesList.
+		self selectClass: (Smalltalk current at: className)]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -948,6 +958,9 @@ updateSourceAndButtons
 		html button
 			with: 'Rename class';
 			onClick: [self renameClass].
+		html button
+			with: 'Copy class';
+			onClick: [self copyClass].
 		html button
 			with: 'Remove class';
 			onClick: [self removeClass].
@@ -1406,7 +1419,7 @@ setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'jtalk',
                 lineNumbers: true,
-                enterMode: 'classic',
+                enterMode: 'flat',
                 matchBrackets: true,
                 electricChars: false
 	})>

@@ -86,7 +86,7 @@ function Smalltalk(){
 	function pkg(spec) {
 		var that      = new SmalltalkPackage();
 		that.pkgName  = spec.pkgName;
-		that.properties = spec.properties || [];
+		that.properties = spec.properties || {};
 		return that;
 	};
 
@@ -224,7 +224,7 @@ function Smalltalk(){
 	   global smalltalk object. Package is lazily created if it does not exist with given name. */
 
 	st.mapClassName = function(className, pkgName, fn, superclass) {
-		var pkg = st.addPackage(pkgName, null);
+		var pkg = st.addPackage(pkgName);
 		st[className] = klass({
 			className:  className, 
 			superclass: superclass,
@@ -256,7 +256,7 @@ function Smalltalk(){
 	   Package is lazily created if it does not exist with given name.*/
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
-		var pkg = st.addPackage(pkgName, null);
+		var pkg = st.addPackage(pkgName);
 		if(st[className]) {
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
