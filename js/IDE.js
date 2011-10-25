@@ -1572,6 +1572,24 @@ referencedClasses: ["Object", "Smalltalk"]
 smalltalk.Browser);
 
 smalltalk.addMethod(
+unescape('_copyClass'),
+smalltalk.method({
+selector: unescape('copyClass'),
+category: 'actions',
+fn: function (){
+var self=this;
+var className=nil;
+className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["Copy class"]);
+((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
+return self;},
+args: [],
+source: unescape('copyClass%0A%09%7C%20className%20%7C%0A%09className%20%3A%3D%20window%20prompt%3A%20%27Copy%20class%27.%0A%09%28className%20notNil%20and%3A%20%5BclassName%20notEmpty%5D%29%20ifTrue%3A%20%5B%0A%09%09ClassBuilder%20new%20copyClass%3A%20self%20selectedClass%20named%3A%20className.%0A%20%20%20%20%20%20%20%20%20%20%09%20self%20%0A%09%09%09resetClassesList%3B%0A%09%09%09updateClassesList.%0A%09%09self%20selectClass%3A%20%28Smalltalk%20current%20at%3A%20className%29%5D'),
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
+referencedClasses: ["ClassBuilder", "Smalltalk"]
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 unescape('_initialize'),
 smalltalk.method({
 selector: unescape('initialize'),
@@ -1829,24 +1847,6 @@ args: [],
 source: unescape('resetClassesList%0A%09classesList%20resetNodes'),
 messageSends: ["resetNodes"],
 referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-unescape('_copyClass'),
-smalltalk.method({
-selector: unescape('copyClass'),
-category: 'actions',
-fn: function (){
-var self=this;
-var className=nil;
-className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["Copy class"]);
-((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
-return self;},
-args: [],
-source: unescape('copyClass%0A%09%7C%20className%20%7C%0A%09className%20%3A%3D%20window%20prompt%3A%20%27Copy%20class%27.%0A%09%28className%20notNil%20and%3A%20%5BclassName%20notEmpty%5D%29%20ifTrue%3A%20%5B%0A%09%09ClassBuilder%20new%20copyClass%3A%20self%20selectedClass%20named%3A%20className.%0A%20%20%20%20%20%20%20%20%20%20%09%20self%20%0A%09%09%09resetClassesList%3B%0A%09%09%09updateClassesList.%0A%09%09self%20selectClass%3A%20%28Smalltalk%20current%20at%3A%20className%29%5D'),
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
-referencedClasses: ["ClassBuilder", "Smalltalk"]
 }),
 smalltalk.Browser);
 

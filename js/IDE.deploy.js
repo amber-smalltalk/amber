@@ -1117,6 +1117,19 @@ return self;}
 smalltalk.Browser);
 
 smalltalk.addMethod(
+'_copyClass',
+smalltalk.method({
+selector: 'copyClass',
+fn: function (){
+var self=this;
+var className=nil;
+className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["Copy class"]);
+((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
+return self;}
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
@@ -1298,19 +1311,6 @@ selector: 'resetClassesList',
 fn: function (){
 var self=this;
 smalltalk.send(self['@classesList'], "_resetNodes", []);
-return self;}
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-'_copyClass',
-smalltalk.method({
-selector: 'copyClass',
-fn: function (){
-var self=this;
-var className=nil;
-className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["Copy class"]);
-((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
 return self;}
 }),
 smalltalk.Browser);
