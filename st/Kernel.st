@@ -2649,6 +2649,29 @@ setupClass: aClass
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<smalltalk.addClass(aString, aClass, aCollection, packageName);
 	    return smalltalk[aString]>
+!
+
+copyClass: aClass named: aString
+	| newClass |
+
+	newClass := self 
+		addSubclassOf: aClass superclass
+		named: aString 
+		instanceVariableNames: aClass instanceVariableNames 
+		package: aClass package name.
+
+	self setupClass: newClass.
+
+	aClass methodDictionary values do: [:each |
+		newClass addCompiledMethod: (Compiler new load: each source forClass: newClass).
+		(newClass methodDictionary at: each selector) category: each category].
+
+	aClass class methodDictionary values do: [:each |
+		newClass class addCompiledMethod: (Compiler new load: each source forClass: newClass class).
+		(newClass class methodDictionary at: each selector) category: each category].
+
+	self setupClass: newClass.
+	^newClass
 ! !
 
 Object subclass: #ClassCategoryReader
@@ -3281,5 +3304,189 @@ show: anObject
 
 initialize
 	Transcript register: self new
+! !
+
+Dictionary subclass: #Dictionary2
+	instanceVariableNames: 'keys'
+	category: 'Kernel'!
+
+!Dictionary2 methodsFor: 'accessing'!
+
+size
+	^keys size
+!
+
+associations
+	| associations |
+	associations := #().
+	keys do: [:each |
+	    associations add: (Association key: each value: (self at: each))].
+	^associations
+!
+
+keys
+	^keys copy
+!
+
+values
+    	^keys collect: [:each | self at: each]
+!
+
+at: aKey put: aValue
+	(keys includes: aKey) ifFalse: [keys add: aKey].
+	^self basicAt: aKey put: aValue
+!
+
+at: aKey ifAbsent: aBlock
+	^(self keys includes: aKey)
+		ifTrue: [self basicAt: aKey]
+		ifFalse: aBlock
+!
+
+at: aKey ifAbsentPut: aBlock
+    	^self at: aKey ifAbsent: [
+    	    self at: aKey put: aBlock value]
+!
+
+at: aKey ifPresent: aBlock
+	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
+!
+
+at: aKey ifPresent: aBlock ifAbsent: anotherBlock
+	^(self basicAt: aKey)
+	    ifNil: anotherBlock
+	    ifNotNil: [aBlock value: (self at: aKey)]
+!
+
+at: aKey
+	^self at: aKey ifAbsent: [self errorNotFound]
+! !
+
+!Dictionary2 methodsFor: 'adding/removing'!
+
+add: anAssociation
+    	self at: anAssociation key put: anAssociation value
+!
+
+addAll: aDictionary
+    	super addAll: aDictionary associations.
+    	^aDictionary
+!
+
+remove: aKey
+    self removeKey: aKey
+!
+
+removeKey: aKey
+    keys remove: aKey
+! !
+
+!Dictionary2 methodsFor: 'comparing'!
+
+= aDictionary
+	self class = aDictionary class ifFalse: [^false].
+	self size = aDictionary size ifFalse: [^false].
+	^self associations = aDictionary associations
+! !
+
+!Dictionary2 methodsFor: 'converting'!
+
+asJSONObject
+	| object |
+	object := Object new.
+	self keysAndValuesDo: [:key :value |
+		object basicAt: key put: value asJSONObject].
+	^object
+! !
+
+!Dictionary2 methodsFor: 'copying'!
+
+shallowCopy
+	| copy |
+	copy := self class new.
+	self associationsDo: [:each |
+	    copy at: each key  put: each value].
+	^copy
+!
+
+, aCollection
+	self shouldNotImplement
+!
+
+copyFrom: anIndex to: anotherIndex
+	self shouldNotImplement
+! !
+
+!Dictionary2 methodsFor: 'enumerating'!
+
+associationsDo: aBlock
+    	self associations do: aBlock
+!
+
+keysAndValuesDo: aBlock
+    	self associationsDo: [:each |
+    	    aBlock value: each key value: each value]
+!
+
+do: aBlock
+    	self values do: aBlock
+!
+
+select: aBlock
+    	| newDict |
+    	newDict := self class new.
+    	self keysAndValuesDo: [:key :value |
+    	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
+    	^newDict
+!
+
+collect: aBlock
+    	| newDict |
+    	newDict := self class new.
+    	self keysAndValuesDo: [:key :value |
+    	    newDict at: key put: (aBlock value: value)].
+    	^newDict
+!
+
+detect: aBlock ifNone: anotherBlock
+	^self values detect: aBlock ifNone: anotherBlock
+!
+
+includes: anObject
+	^self values includes: anObject
+! !
+
+!Dictionary2 methodsFor: 'initialization'!
+
+initialize
+    	super initialize.
+    	keys := #()
+! !
+
+!Dictionary2 methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  		aStream 
+                                  			nextPutAll: super printString;
+                                  			nextPutAll: '('.
+                                  		self associations 
+                                  			do: [:anAssociation|  
+                                                                      	aStream 
+                                                                      		nextPutAll: anAssociation key printString;
+                                                                      		nextPutAll: ' -> ';
+                                                                      		nextPutAll: anAssociation value printString]
+                                  
+                                 			separatedBy: [aStream nextPutAll: ' , '].
+                                  		aStream nextPutAll: ')'.
+                                 ]
+!
+
+storeOn: aStream
+	aStream nextPutAll: '#{'.
+	self associations
+		do: [:each | each storeOn: aStream]
+		separatedBy: [ aStream nextPutAll: '. '].
+	aStream nextPutAll: '}'
 ! !
 
