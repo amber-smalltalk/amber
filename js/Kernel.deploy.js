@@ -1971,10 +1971,7 @@ smalltalk.addMethod(
 '_\',
 smalltalk.method({
 selector: '\',
-fn: function (aNumber){
-var self=this;
-return self % aNumber;
-return self;}
+fn: function (a){return this%a}
 }),
 smalltalk.Number);
 

@@ -2808,10 +2808,7 @@ unescape('_%5C'),
 smalltalk.method({
 selector: unescape('%5C'),
 category: '',
-fn: function (aNumber){
-var self=this;
-return self % aNumber;
-return self;},
+fn: function (a){return this%a},
 args: ["aNumber"],
 source: unescape(''),
 messageSends: [],
