@@ -5,4 +5,4 @@ run: server.js
 	./server
 
 clean:
-	rm -f FileServer.js server.js
+	rm -f FileServer.js
