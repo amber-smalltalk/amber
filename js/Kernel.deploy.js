@@ -4708,6 +4708,17 @@ return self;}
 }),
 smalltalk.Error);
 
+smalltalk.addMethod(
+'_jsStack',
+smalltalk.method({
+selector: 'jsStack',
+fn: function (){
+var self=this;
+return self.stack;
+return self;}
+}),
+smalltalk.Error);
+
 
 smalltalk.addMethod(
 '_signal_',

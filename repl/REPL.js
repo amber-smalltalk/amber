@@ -76,13 +76,13 @@ category: 'actions',
 fn: function (buffer){
 var self=this;
 var result=nil;
-((($receiver = smalltalk.send(buffer, "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [buffer]);return smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [result]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [buffer]);return smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [result]);})]));
+((($receiver = smalltalk.send(buffer, "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_try_catch_", [(function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [buffer]);return smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [result]);}), (function(e){return smalltalk.send(smalltalk.send((typeof process == 'undefined' ? nil : process), "_stdout", []), "_write_", [smalltalk.send(e, "_jsStack", [])]);})]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_try_catch_", [(function(){result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_loadExpression_", [buffer]);return smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [result]);}), (function(e){return smalltalk.send(smalltalk.send((typeof process == 'undefined' ? nil : process), "_stdout", []), "_write_", [smalltalk.send(e, "_jsStack", [])]);})]);})]));
 smalltalk.send(self, "_setPrompt", []);
 smalltalk.send(self['@interface'], "_prompt", []);
 return self;},
 args: ["buffer"],
-source: unescape('eval%3A%20buffer%0A%09%7C%20result%20%7C%0A%09buffer%20isEmpty%20ifFalse%3A%20%5B%0A%09%09result%20%3A%3D%20Compiler%20new%20loadExpression%3A%20buffer.%0A%09%09Transcript%20show%3A%20result%5D.%0A%09self%20setPrompt.%0A%09interface%20prompt'),
-messageSends: ["ifFalse:", "isEmpty", "loadExpression:", "new", "show:", "setPrompt", "prompt"],
+source: unescape('eval%3A%20buffer%0A%09%7C%20result%20%7C%0A%09buffer%20isEmpty%20ifFalse%3A%20%5B%0A%09%09self%20try%3A%20%5B%0A%09%09%09result%20%3A%3D%20Compiler%20new%20loadExpression%3A%20buffer.%0A%09%09%09Transcript%20show%3A%20result%5D%0A%09%09catch%3A%20%5B%3Ae%20%7C%0A%09%09%09process%20stdout%20write%3A%20e%20jsStack%5D%5D.%0A%09self%20setPrompt.%0A%09interface%20prompt'),
+messageSends: ["ifFalse:", "isEmpty", "try:catch:", "loadExpression:", "new", "show:", "write:", "stdout", "jsStack", "setPrompt", "prompt"],
 referencedClasses: ["Compiler", "Transcript"]
 }),
 smalltalk.Repl);

@@ -30,8 +30,11 @@ close
 eval: buffer
 	| result |
 	buffer isEmpty ifFalse: [
-		result := Compiler new loadExpression: buffer.
-		Transcript show: result].
+		self try: [
+			result := Compiler new loadExpression: buffer.
+			Transcript show: result]
+		catch: [:e |
+			process stdout write: e jsStack]].
 	self setPrompt.
 	interface prompt
 ! !

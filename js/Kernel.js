@@ -6710,6 +6710,22 @@ referencedClasses: []
 }),
 smalltalk.Error);
 
+smalltalk.addMethod(
+unescape('_jsStack'),
+smalltalk.method({
+selector: unescape('jsStack'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.stack;
+return self;},
+args: [],
+source: unescape('jsStack%0A%09%3Creturn%20self.stack%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
 
 smalltalk.addMethod(
 unescape('_signal_'),

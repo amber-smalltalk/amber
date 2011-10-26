@@ -2318,6 +2318,10 @@ messageText: aString
 
 context
 	<return self.context>
+!
+
+jsStack
+	<return self.stack>
 ! !
 
 !Error methodsFor: 'signaling'!
