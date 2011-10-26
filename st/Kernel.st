@@ -1122,6 +1122,16 @@ timeToRun
 	"Answer the number of milliseconds taken to execute this block."
 
 	^ Date millisecondsToRun: self
+!
+
+ensure: aBlock
+	| success |
+	success := false.
+	[self value. success := true. aBlock value]
+		on: Error
+		do: [:ex |
+			success ifFalse: [aBlock value].
+			ex signal]
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!
@@ -2328,6 +2338,12 @@ jsStack
 
 signal
 	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
+! !
+
+!Error methodsFor: 'testing'!
+
+isSmalltalkError
+	<return self.smalltalkError === true>
 ! !
 
 !Error class methodsFor: 'instance creation'!

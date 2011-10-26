@@ -34,8 +34,9 @@ eval: buffer
 			result := Compiler new loadExpression: buffer.
 			Transcript show: result]
 		catch: [:e |
-			process stdout write: e jsStack]].
-	self setPrompt.
+			e isSmalltalkError
+			    ifTrue: [ErrorHandler new handleError: e]
+			    ifFalse: [process stdout write: e jsStack]]].
 	interface prompt
 ! !
 
