@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'Compiler' properties: #{}!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
 	category: 'Compiler'!
@@ -67,24 +68,16 @@ Object subclass: #Exporter
 
 !Exporter methodsFor: 'fileOut'!
 
-export: aClass
-	"Export a single class. Subclasses override these methods."
-
-	^String streamContents: [:stream |
-		self exportDefinitionOf: aClass on: stream.
-		self exportMethodsOf: aClass on: stream.
-		self exportMetaDefinitionOf: aClass on: stream.
-		self exportMethodsOf: aClass class on: stream]
-!
-
 exportPackage: packageName
 	"Export a given package by name."
 
+	| package |
 	^String streamContents: [:stream |
-        	(Smalltalk current packageAt: packageName)
-	    		classes do: [:each |
-                                     stream nextPutAll: (self export: each)].
-		self exportPackageExtensions: packageName on: stream]
+                package := Smalltalk current packageAt: packageName.
+                self exportPackageDefinitionOf: package on: stream.
+	    	package classes do: [:each |
+                        stream nextPutAll: (self exportClass: each)].
+		self exportPackageExtensionsOf: package on: stream]
 !
 
 exportAll
@@ -93,6 +86,16 @@ exportAll
     ^String streamContents: [:stream |
     	Smalltalk current packages do: [:pkg |
 		stream nextPutAll: (self exportPackage: pkg name)]]
+!
+
+exportClass: aClass
+	"Export a single class. Subclasses override these methods."
+
+	^String streamContents: [:stream |
+		self exportDefinitionOf: aClass on: stream.
+		self exportMethodsOf: aClass on: stream.
+		self exportMetaDefinitionOf: aClass on: stream.
+		self exportMethodsOf: aClass class on: stream]
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -158,22 +161,28 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: unescape(''', aMethod source escaped, '''),';lf;
 		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
-		nextPutAll: 'referencedClasses: ['.
-	    		aMethod referencedClasses 
-				do: [:each | aStream nextPutAll: 'smalltalk.', (self classNameFor: each)]
-				separatedBy: [aStream nextPutAll: ','].
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
 	aStream
-		nextPutAll: ']';lf;
+		lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
 		nextPutAll: ');';lf;lf
 !
 
-exportPackageExtensions: packageName on: aStream
+exportPackageExtensionsOf: package on: aStream
+	| name |
+	name := package name.
 	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
 		each methodDictionary values do: [:method |
-			method category = ('*', packageName) ifTrue: [
+			method category = ('*', name) ifTrue: [
 				self exportMethod: method of: each on: aStream]]]
+!
+
+exportPackageDefinitionOf: package on: aStream
+	aStream 
+	    nextPutAll: 'smalltalk.addPackage(';
+	    nextPutAll: '''', package name, ''', ', package propertiesAsJSON , ');'.
+	aStream lf
 ! !
 
 Exporter subclass: #ChunkExporter
@@ -257,15 +266,25 @@ exportMethods: methods category: category of: aClass on: aStream
 	aStream nextPutAll: ' !!'; lf; lf
 !
 
-exportPackageExtensions: aString on: aStream
+exportPackageExtensionsOf: package on: aStream
 	"We need to override this one too since we need to group
 	all methods in a given protocol under a leading methodsFor: chunk
 	for that class."
 
+	| name |
+	name := package name.
 	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
 		each protocolsDo: [:category :methods |
-			category = ('*', aString) ifTrue: [
+			category = ('*', name) ifTrue: [
 				self exportMethods: methods category: category of: each on: aStream]]]
+!
+
+exportPackageDefinitionOf: package on: aStream
+	"Chunk format."
+
+	aStream 
+	    nextPutAll: 'Smalltalk current createPackage: ''', package name,
+		''' properties: ', package properties storeString, '!!'; lf.
 ! !
 
 Exporter subclass: #StrippedExporter
@@ -1171,7 +1190,7 @@ visitMethodNode: aNode
           	nextPutAll: 'args: ', argVariables asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	referencedClasses 
-		do: [:each | stream nextPutAll: each]
+		do: [:each | stream nextPutAll: each printString]
 		separatedBy: [stream nextPutAll: ','].
 	stream nextPutAll: ']'.
 	stream nextPutAll: '})'
@@ -1287,12 +1306,9 @@ visitAssignmentNode: aNode
 !
 
 visitClassReferenceNode: aNode
-	| klass |
-	klass := '(smalltalk.', aNode value, ' || ', aNode value, ')'.
-	(Smalltalk current at: aNode value) isClass ifTrue: [
-		(referencedClasses includes: klass)
-			ifFalse: [referencedClasses add: klass]].
-	stream nextPutAll: klass
+	(referencedClasses includes: aNode value) ifFalse: [
+		referencedClasses add: aNode value].
+	stream nextPutAll: '(smalltalk.', aNode value, ' || ', aNode value, ')'
 !
 
 visitVariableNode: aNode

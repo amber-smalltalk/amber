@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'Benchfib' properties: #{}!
 Object subclass: #Benchfib
 	instanceVariableNames: ''
 	category: 'Benchfib'!

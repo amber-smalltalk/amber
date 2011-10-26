@@ -1,3 +1,4 @@
+smalltalk.addPackage('Canvas', {});
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 unescape('_root_'),
@@ -60,7 +61,7 @@ return self;},
 args: [],
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
 messageSends: ["initialize", "ifNil:", "fromString:canvas:"],
-referencedClasses: []
+referencedClasses: ["TagBrush"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -76,7 +77,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
 messageSends: ["fromJQuery:canvas:"],
-referencedClasses: []
+referencedClasses: ["TagBrush"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -92,7 +93,7 @@ return self;},
 args: ["aString"],
 source: unescape('newTag%3A%20aString%0A%20%20%20%20%5ETagBrush%20fromString%3A%20aString%20canvas%3A%20self'),
 messageSends: ["fromString:canvas:"],
-referencedClasses: []
+referencedClasses: ["TagBrush"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -842,7 +843,7 @@ var self=this;
 return (function($rec){smalltalk.send($rec, "_with_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_style", []));
 return self;},
 args: ["aString"],
-source: unescape('style%3A%20aString%0A%09%5E%20self%20style%20with%3A%20aString%3B%20yourself%20'),
+source: unescape('style%3A%20aString%0A%09%5E%20self%20style%20with%3A%20aString%3B%20yourself'),
 messageSends: ["with:", "yourself", "style"],
 referencedClasses: []
 }),
@@ -1214,6 +1215,54 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
+unescape('_width_'),
+smalltalk.method({
+selector: unescape('width%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["width", aString]);
+return self;},
+args: ["aString"],
+source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_height_'),
+smalltalk.method({
+selector: unescape('height%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["height", aString]);
+return self;},
+args: ["aString"],
+source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_value_'),
+smalltalk.method({
+selector: unescape('value%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["value", aString]);
+return self;},
+args: ["aString"],
+source: unescape('value%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27value%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
 unescape('_asJQuery'),
 smalltalk.method({
 selector: unescape('asJQuery'),
@@ -1407,54 +1456,6 @@ referencedClasses: []
 }),
 smalltalk.TagBrush);
 
-smalltalk.addMethod(
-unescape('_width_'),
-smalltalk.method({
-selector: unescape('width%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["width", aString]);
-return self;},
-args: ["aString"],
-source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_height_'),
-smalltalk.method({
-selector: unescape('height%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["height", aString]);
-return self;},
-args: ["aString"],
-source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_value_'),
-smalltalk.method({
-selector: unescape('value%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["value", aString]);
-return self;},
-args: ["aString"],
-source: unescape('value%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27value%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
 
 smalltalk.addMethod(
 unescape('_fromString_canvas_'),
@@ -1518,7 +1519,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
 messageSends: ["renderOn:", "onJQuery:"],
-referencedClasses: [smalltalk.HTMLCanvas]
+referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.Widget);
 
@@ -1584,7 +1585,7 @@ return self;},
 args: ["aJQuery"],
 source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20%20self%20value%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
 messageSends: ["value:", "onJQuery:"],
-referencedClasses: [smalltalk.HTMLCanvas]
+referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.BlockClosure);
 

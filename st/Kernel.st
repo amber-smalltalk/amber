@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'Kernel' properties: #{}!
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel'!
@@ -187,6 +188,17 @@ log: aString block: aBlock
 	| result |
 	console log:  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
 	^result
+!
+
+storeString
+	"Answer a String representation of the receiver from which the receiver 
+	can be reconstructed."
+
+	^ String streamContents: [:s | self storeOn: s]
+!
+
+storeOn: aStream
+	aStream nextPutAll: self printString
 ! !
 
 !Object methodsFor: 'testing'!
@@ -265,10 +277,6 @@ classes
 	<return self.classes()>
 !
 
-readJSON: anObject
-	<return self.readJSObject(anObject)>
-!
-
 at: aString
 	<return self[aString]>
 !
@@ -301,6 +309,10 @@ parseError: anException parsing: aString
 reservedWords
 	"JavaScript reserved words"
 	<return self.reservedWords>
+!
+
+readJSObject: anObject
+	<return self.readJSObject(anObject)>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -356,7 +368,7 @@ renamePackage: packageName to: newName
 createPackage: packageName
 	"Create and bind a new package with given name and return it."
 
-       <return smalltalk.addPackage(packageName)>
+      <return smalltalk.addPackage(packageName, nil)>
 !
 
 deletePackage: packageName
@@ -364,6 +376,17 @@ deletePackage: packageName
 	To remove a package, use #removePackage instead."
 
        <delete smalltalk.packages[packageName]>
+!
+
+createPackage: packageName properties: aDict
+	"Create and bind a new package with given name and return it."
+
+	| object |
+	<object = {};>.
+	aDict keysAndValuesDo: [:key :value |
+		<object[key] = value>.
+	].
+       <return smalltalk.addPackage(packageName, object)>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -396,11 +419,7 @@ String where the method category "*IDE" defines #inspectOn: which thus is a meth
 !Package methodsFor: 'accessing'!
 
 name
-	<return self.pkgName || nil>
-!
-
-requires
-	<return self.requires || nil>
+	<return self.pkgName>
 !
 
 name: aString
@@ -421,6 +440,29 @@ commitPathJs: aString
 
 commitPathSt: aString
 	commitPathSt := aString
+!
+
+dependencies
+	^self propertyAt: 'dependencies' ifAbsent: [#()]
+!
+
+dependencies: anArray
+	^self propertyAt: 'dependencies' put: anArray
+!
+
+properties
+	^Smalltalk current readJSObject: (self basicAt: 'properties')
+!
+
+properties: aDict
+	"We store it as a javascript object."
+	
+	| object |
+	<object = {};>.
+	aDict keysAndValuesDo: [:key :value |
+		<object[key] = value>.
+	].
+	<return self.properties = object>
 ! !
 
 !Package methodsFor: 'classes'!
@@ -437,6 +479,37 @@ printString
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+
+!Package methodsFor: 'private'!
+
+propertiesAsJSON
+	<return JSON.stringify(self.properties)>
+!
+
+jsProperties
+	<return self.properties>
+!
+
+jsProperties: aJSObject
+	<return self.properties = aJSObject>
+! !
+
+!Package methodsFor: 'properties'!
+
+propertyAt: key
+
+	<return self.properties[key]>
+!
+
+propertyAt: key put: value
+
+	<return self.properties[key] = value>
+!
+
+propertyAt: key ifAbsent: block
+
+	^(self propertyAt: key) ifNil: [block value]
+! !
 
 !Package class methodsFor: 'accessing'!
 
@@ -767,6 +840,11 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	category: 'Kernel'!
 
+!Number methodsFor: ''!
+
+
+! !
+
 !Number methodsFor: 'arithmetic'!
 
 + aNumber
@@ -803,6 +881,14 @@ negated
 
 \\ aNumber
 	<return self % aNumber>
+!
+
+sqrt
+	<return Math.sqrt(self)>
+!
+
+squared
+	^self * self
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -906,19 +992,6 @@ to: stop by: step
 	  			pos := pos + 1.
 	    			value := value + step]].
 	^array
-!
-
-to: stop by: step do: aBlock
-	| value |
-	value := self.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
-	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
-	    			aBlock value: value.
-	    			value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
-	    			aBlock value: value.
-	    			value := value + step]]
 ! !
 
 !Number methodsFor: 'copying'!
@@ -950,6 +1023,19 @@ to: stop do: aBlock
 		whileTrue: 
 			[aBlock value: nextValue.
 			nextValue := nextValue + 1]
+!
+
+to: stop by: step do: aBlock
+	| value |
+	value := self.
+	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step < 0
+		ifTrue: [[ value >= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
+		ifFalse: [[ value <= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
 ! !
 
 !Number methodsFor: 'printing'!
@@ -1000,6 +1086,10 @@ Object subclass: #BlockClosure
 
 compiledSource
 	<return self.toString()>
+!
+
+numArgs
+	<return self.length>
 ! !
 
 !BlockClosure methodsFor: 'controlling'!
@@ -1073,6 +1163,16 @@ timeToRun
 	"Answer the number of milliseconds taken to execute this block."
 
 	^ Date millisecondsToRun: self
+!
+
+ensure: aBlock
+	| success |
+	success := false.
+	[self value. success := true. aBlock value]
+		on: Error
+		do: [:ex |
+			success ifFalse: [aBlock value].
+			ex signal]
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!
@@ -2269,12 +2369,22 @@ messageText: aString
 
 context
 	<return self.context>
+!
+
+jsStack
+	<return self.stack>
 ! !
 
 !Error methodsFor: 'signaling'!
 
 signal
 	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
+! !
+
+!Error methodsFor: 'testing'!
+
+isSmalltalkError
+	<return self.smalltalkError === true>
 ! !
 
 !Error class methodsFor: 'instance creation'!
@@ -2343,6 +2453,16 @@ value
 	^self class = anAssociation class and: [
 	    self key = anAssociation key and: [
 		self value = anAssociation value]]
+!
+
+storeOn: aStream
+	"Store in the format (key->value)"
+
+	"aStream nextPutAll: '('."
+	key storeOn: aStream.
+	aStream nextPutAll: '->'.
+	value storeOn: aStream.
+	"aStream nextPutAll: ')'"
 ! !
 
 !Association class methodsFor: 'instance creation'!
@@ -2528,6 +2648,14 @@ printString
                                  			separatedBy: [aStream nextPutAll: ' , '].
                                   		aStream nextPutAll: ')'.
                                  ]
+!
+
+storeOn: aStream
+	aStream nextPutAll: '#{'.
+	self associations
+		do: [:each | each storeOn: aStream]
+		separatedBy: [ aStream nextPutAll: '. '].
+	aStream nextPutAll: '}'
 ! !
 
 !Dictionary class methodsFor: 'instance creation'!
@@ -2582,6 +2710,29 @@ setupClass: aClass
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<smalltalk.addClass(aString, aClass, aCollection, packageName);
 	    return smalltalk[aString]>
+!
+
+copyClass: aClass named: aString
+	| newClass |
+
+	newClass := self 
+		addSubclassOf: aClass superclass
+		named: aString 
+		instanceVariableNames: aClass instanceVariableNames 
+		package: aClass package name.
+
+	self setupClass: newClass.
+
+	aClass methodDictionary values do: [:each |
+		newClass addCompiledMethod: (Compiler new load: each source forClass: newClass).
+		(newClass methodDictionary at: each selector) category: each category].
+
+	aClass class methodDictionary values do: [:each |
+		newClass class addCompiledMethod: (Compiler new load: each source forClass: newClass class).
+		(newClass class methodDictionary at: each selector) category: each category].
+
+	self setupClass: newClass.
+	^newClass
 ! !
 
 Object subclass: #ClassCategoryReader
@@ -3205,12 +3356,198 @@ cr
 !
 
 show: anObject
-	<console.log(String(anObject._asString()))>
+	| string |
+	string := anObject asString.
+	<console.log(String(string))>
 ! !
 
 !ConsoleTranscript class methodsFor: 'initialization'!
 
 initialize
 	Transcript register: self new
+! !
+
+Dictionary subclass: #Dictionary2
+	instanceVariableNames: 'keys'
+	category: 'Kernel'!
+
+!Dictionary2 methodsFor: 'accessing'!
+
+size
+	^keys size
+!
+
+associations
+	| associations |
+	associations := #().
+	keys do: [:each |
+	    associations add: (Association key: each value: (self at: each))].
+	^associations
+!
+
+keys
+	^keys copy
+!
+
+values
+    	^keys collect: [:each | self at: each]
+!
+
+at: aKey put: aValue
+	(keys includes: aKey) ifFalse: [keys add: aKey].
+	^self basicAt: aKey put: aValue
+!
+
+at: aKey ifAbsent: aBlock
+	^(self keys includes: aKey)
+		ifTrue: [self basicAt: aKey]
+		ifFalse: aBlock
+!
+
+at: aKey ifAbsentPut: aBlock
+    	^self at: aKey ifAbsent: [
+    	    self at: aKey put: aBlock value]
+!
+
+at: aKey ifPresent: aBlock
+	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
+!
+
+at: aKey ifPresent: aBlock ifAbsent: anotherBlock
+	^(self basicAt: aKey)
+	    ifNil: anotherBlock
+	    ifNotNil: [aBlock value: (self at: aKey)]
+!
+
+at: aKey
+	^self at: aKey ifAbsent: [self errorNotFound]
+! !
+
+!Dictionary2 methodsFor: 'adding/removing'!
+
+add: anAssociation
+    	self at: anAssociation key put: anAssociation value
+!
+
+addAll: aDictionary
+    	super addAll: aDictionary associations.
+    	^aDictionary
+!
+
+remove: aKey
+    self removeKey: aKey
+!
+
+removeKey: aKey
+    keys remove: aKey
+! !
+
+!Dictionary2 methodsFor: 'comparing'!
+
+= aDictionary
+	self class = aDictionary class ifFalse: [^false].
+	self size = aDictionary size ifFalse: [^false].
+	^self associations = aDictionary associations
+! !
+
+!Dictionary2 methodsFor: 'converting'!
+
+asJSONObject
+	| object |
+	object := Object new.
+	self keysAndValuesDo: [:key :value |
+		object basicAt: key put: value asJSONObject].
+	^object
+! !
+
+!Dictionary2 methodsFor: 'copying'!
+
+shallowCopy
+	| copy |
+	copy := self class new.
+	self associationsDo: [:each |
+	    copy at: each key  put: each value].
+	^copy
+!
+
+, aCollection
+	self shouldNotImplement
+!
+
+copyFrom: anIndex to: anotherIndex
+	self shouldNotImplement
+! !
+
+!Dictionary2 methodsFor: 'enumerating'!
+
+associationsDo: aBlock
+    	self associations do: aBlock
+!
+
+keysAndValuesDo: aBlock
+    	self associationsDo: [:each |
+    	    aBlock value: each key value: each value]
+!
+
+do: aBlock
+    	self values do: aBlock
+!
+
+select: aBlock
+    	| newDict |
+    	newDict := self class new.
+    	self keysAndValuesDo: [:key :value |
+    	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
+    	^newDict
+!
+
+collect: aBlock
+    	| newDict |
+    	newDict := self class new.
+    	self keysAndValuesDo: [:key :value |
+    	    newDict at: key put: (aBlock value: value)].
+    	^newDict
+!
+
+detect: aBlock ifNone: anotherBlock
+	^self values detect: aBlock ifNone: anotherBlock
+!
+
+includes: anObject
+	^self values includes: anObject
+! !
+
+!Dictionary2 methodsFor: 'initialization'!
+
+initialize
+    	super initialize.
+    	keys := #()
+! !
+
+!Dictionary2 methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  		aStream 
+                                  			nextPutAll: super printString;
+                                  			nextPutAll: '('.
+                                  		self associations 
+                                  			do: [:anAssociation|  
+                                                                      	aStream 
+                                                                      		nextPutAll: anAssociation key printString;
+                                                                      		nextPutAll: ' -> ';
+                                                                      		nextPutAll: anAssociation value printString]
+                                  
+                                 			separatedBy: [aStream nextPutAll: ' , '].
+                                  		aStream nextPutAll: ')'.
+                                 ]
+!
+
+storeOn: aStream
+	aStream nextPutAll: '#{'.
+	self associations
+		do: [:each | each storeOn: aStream]
+		separatedBy: [ aStream nextPutAll: '. '].
+	aStream nextPutAll: '}'
 ! !
 

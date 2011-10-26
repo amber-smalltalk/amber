@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'IDE' properties: #{}!
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
@@ -470,7 +471,7 @@ selectedClass
 !
 
 classDeclarationTemplate
-	^'Object subclass: #nameOfSubclass
+	^'Object subclass: #NameOfSubclass
 	instanceVariableNames: ''''
 	package: ''', self selectedPackage, ''''
 !
@@ -748,6 +749,17 @@ addNewClass
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
+!
+
+copyClass
+	| className |
+	className := window prompt: 'Copy class'.
+	(className notNil and: [className notEmpty]) ifTrue: [
+		ClassBuilder new copyClass: self selectedClass named: className.
+          	 self 
+			resetClassesList;
+			updateClassesList.
+		self selectClass: (Smalltalk current at: className)]
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -943,6 +955,9 @@ updateSourceAndButtons
 		html button
 			with: 'Rename class';
 			onClick: [self renameClass].
+		html button
+			with: 'Copy class';
+			onClick: [self copyClass].
 		html button
 			with: 'Remove class';
 			onClick: [self removeClass].
@@ -1245,7 +1260,7 @@ search: aString
 searchReferencedClassesFor: aString
 	self classesAndMetaclasses do: [:each |
 		each methodDictionary values do: [:value |
-			(((value referencedClasses select: [:each | each notNil])collect: [:each | each name]) includes: selector) ifTrue: [
+			(value referencedClasses includes: selector) ifTrue: [
 				self referencedClasses add: value]]]
 !
 
@@ -1401,7 +1416,7 @@ setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'jtalk',
                 lineNumbers: true,
-                enterMode: 'classic',
+                enterMode: 'flat',
                 matchBrackets: true,
                 electricChars: false
 	})>

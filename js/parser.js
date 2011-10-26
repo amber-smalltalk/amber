@@ -42,6 +42,7 @@ smalltalk.parser = (function(){
         "method": parse_method,
         "number": parse_number,
         "operand": parse_operand,
+        "pseudoVariable": parse_pseudoVariable,
         "reference": parse_reference,
         "ret": parse_ret,
         "separator": parse_separator,
@@ -1258,6 +1259,108 @@ smalltalk.parser = (function(){
         return result0;
       }
       
+      function parse_pseudoVariable() {
+        var cacheKey = 'pseudoVariable@' + pos;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = cachedResult.nextPos;
+          return cachedResult.result;
+        }
+        
+        
+        var savedPos0 = pos;
+        var savedPos3 = pos;
+        if (input.substr(pos, 4) === "true") {
+          var result10 = "true";
+          pos += 4;
+        } else {
+          var result10 = null;
+          if (reportMatchFailures) {
+            matchFailed("\"true\"");
+          }
+        }
+        var result11 = result10 !== null
+          ? (function() {return true})()
+          : null;
+        if (result11 !== null) {
+          var result9 = result11;
+        } else {
+          var result9 = null;
+          pos = savedPos3;
+        }
+        if (result9 !== null) {
+          var result1 = result9;
+        } else {
+          var savedPos2 = pos;
+          if (input.substr(pos, 5) === "false") {
+            var result7 = "false";
+            pos += 5;
+          } else {
+            var result7 = null;
+            if (reportMatchFailures) {
+              matchFailed("\"false\"");
+            }
+          }
+          var result8 = result7 !== null
+            ? (function() {return false})()
+            : null;
+          if (result8 !== null) {
+            var result6 = result8;
+          } else {
+            var result6 = null;
+            pos = savedPos2;
+          }
+          if (result6 !== null) {
+            var result1 = result6;
+          } else {
+            var savedPos1 = pos;
+            if (input.substr(pos, 3) === "nil") {
+              var result4 = "nil";
+              pos += 3;
+            } else {
+              var result4 = null;
+              if (reportMatchFailures) {
+                matchFailed("\"nil\"");
+              }
+            }
+            var result5 = result4 !== null
+              ? (function() {return nil})()
+              : null;
+            if (result5 !== null) {
+              var result3 = result5;
+            } else {
+              var result3 = null;
+              pos = savedPos1;
+            }
+            if (result3 !== null) {
+              var result1 = result3;
+            } else {
+              var result1 = null;;
+            };
+          };
+        }
+        var result2 = result1 !== null
+          ? (function(val) {
+          					return smalltalk.ValueNode._new()
+          						._value_(val)
+          				})(result1)
+          : null;
+        if (result2 !== null) {
+          var result0 = result2;
+        } else {
+          var result0 = null;
+          pos = savedPos0;
+        }
+        
+        
+        
+        cache[cacheKey] = {
+          nextPos: pos,
+          result:  result0
+        };
+        return result0;
+      }
+      
       function parse_literal() {
         var cacheKey = 'literal@' + pos;
         var cachedResult = cache[cacheKey];
@@ -1267,35 +1370,40 @@ smalltalk.parser = (function(){
         }
         
         
-        var result7 = parse_number();
-        if (result7 !== null) {
-          var result0 = result7;
+        var result8 = parse_pseudoVariable();
+        if (result8 !== null) {
+          var result0 = result8;
         } else {
-          var result6 = parse_literalArray();
-          if (result6 !== null) {
-            var result0 = result6;
+          var result7 = parse_number();
+          if (result7 !== null) {
+            var result0 = result7;
           } else {
-            var result5 = parse_dynamicDictionary();
-            if (result5 !== null) {
-              var result0 = result5;
+            var result6 = parse_literalArray();
+            if (result6 !== null) {
+              var result0 = result6;
             } else {
-              var result4 = parse_dynamicArray();
-              if (result4 !== null) {
-                var result0 = result4;
+              var result5 = parse_dynamicDictionary();
+              if (result5 !== null) {
+                var result0 = result5;
               } else {
-                var result3 = parse_string();
-                if (result3 !== null) {
-                  var result0 = result3;
+                var result4 = parse_dynamicArray();
+                if (result4 !== null) {
+                  var result0 = result4;
                 } else {
-                  var result2 = parse_symbol();
-                  if (result2 !== null) {
-                    var result0 = result2;
+                  var result3 = parse_string();
+                  if (result3 !== null) {
+                    var result0 = result3;
                   } else {
-                    var result1 = parse_block();
-                    if (result1 !== null) {
-                      var result0 = result1;
+                    var result2 = parse_symbol();
+                    if (result2 !== null) {
+                      var result0 = result2;
                     } else {
-                      var result0 = null;;
+                      var result1 = parse_block();
+                      if (result1 !== null) {
+                        var result0 = result1;
+                      } else {
+                        var result0 = null;;
+                      };
                     };
                   };
                 };
