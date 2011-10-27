@@ -3225,6 +3225,24 @@ referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+unescape('_ensure_'),
+smalltalk.method({
+selector: unescape('ensure%3A'),
+category: 'evaluating',
+fn: function (aBlock){
+var self=this;
+var success=nil;
+success=false;
+smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+return self;},
+args: ["aBlock"],
+source: unescape('ensure%3A%20aBlock%0A%09%7C%20success%20%7C%0A%09success%20%3A%3D%20false.%0A%09%5Bself%20value.%20success%20%3A%3D%20true.%20aBlock%20value%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09success%20ifFalse%3A%20%5BaBlock%20value%5D.%0A%09%09%09ex%20signal%5D'),
+messageSends: ["on:do:", "value", "ifFalse:", "signal"],
+referencedClasses: ["Error"]
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
@@ -6702,6 +6720,38 @@ return self.context;
 return self;},
 args: [],
 source: unescape('context%0A%09%3Creturn%20self.context%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+unescape('_jsStack'),
+smalltalk.method({
+selector: unescape('jsStack'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.stack;
+return self;},
+args: [],
+source: unescape('jsStack%0A%09%3Creturn%20self.stack%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+unescape('_isSmalltalkError'),
+smalltalk.method({
+selector: unescape('isSmalltalkError'),
+category: 'testing',
+fn: function (){
+var self=this;
+return self.smalltalkError === true;
+return self;},
+args: [],
+source: unescape('isSmalltalkError%0A%09%3Creturn%20self.smalltalkError%20%3D%3D%3D%20true%3E'),
 messageSends: [],
 referencedClasses: []
 }),

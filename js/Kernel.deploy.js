@@ -2259,6 +2259,19 @@ return self;}
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+'_ensure_',
+smalltalk.method({
+selector: 'ensure:',
+fn: function (aBlock){
+var self=this;
+var success=nil;
+success=false;
+smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel');
@@ -4701,6 +4714,28 @@ selector: 'context',
 fn: function (){
 var self=this;
 return self.context;
+return self;}
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+'_jsStack',
+smalltalk.method({
+selector: 'jsStack',
+fn: function (){
+var self=this;
+return self.stack;
+return self;}
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+'_isSmalltalkError',
+smalltalk.method({
+selector: 'isSmalltalkError',
+fn: function (){
+var self=this;
+return self.smalltalkError === true;
 return self;}
 }),
 smalltalk.Error);
