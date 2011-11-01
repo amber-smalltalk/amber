@@ -30,6 +30,10 @@ amber = (function() {
 		deploy = spec.deploy || false;
 		debug = spec.debug || false;
 
+    // Allow loading default Amber files from a different location
+    // e.g. http://amber-lang.net/amber/
+    if (spec.home) home = spec.home;
+
 		// Specify a version string to avoid wrong browser caching
 		if (spec.version) {
 			nocache = '?' + spec.version;
