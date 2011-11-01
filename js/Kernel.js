@@ -695,12 +695,12 @@ selector: unescape('asJSON'),
 category: 'converting',
 fn: function (){
 var self=this;
-return JSON.stringify(self);
+return smalltalk.send((smalltalk.JSON || JSON), "_parse_", [smalltalk.send(self, "_asJSONString", [])]);
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%3Creturn%20JSON.stringify%28self%29%3E'),
-messageSends: [],
-referencedClasses: []
+source: unescape('asJSON%0A%09%5EJSON%20parse%3A%20self%20asJSONString'),
+messageSends: ["parse:", "asJSONString"],
+referencedClasses: ["JSON"]
 }),
 smalltalk.Object);
 
@@ -815,6 +815,22 @@ args: ["aStream"],
 source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20self%20printString'),
 messageSends: ["nextPutAll:", "printString"],
 referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_asJSONString'),
+smalltalk.method({
+selector: unescape('asJSONString'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [self]);
+return self;},
+args: [],
+source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20self'),
+messageSends: ["stringify:"],
+referencedClasses: ["JSON"]
 }),
 smalltalk.Object);
 

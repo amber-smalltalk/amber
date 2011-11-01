@@ -484,7 +484,7 @@ smalltalk.method({
 selector: 'asJSON',
 fn: function (){
 var self=this;
-return JSON.stringify(self);
+return smalltalk.send((smalltalk.JSON || JSON), "_parse_", [smalltalk.send(self, "_asJSONString", [])]);
 return self;}
 }),
 smalltalk.Object);
@@ -564,6 +564,17 @@ selector: 'storeOn:',
 fn: function (aStream){
 var self=this;
 smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(self, "_printString", [])]);
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_asJSONString',
+smalltalk.method({
+selector: 'asJSONString',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [self]);
 return self;}
 }),
 smalltalk.Object);

@@ -70,7 +70,11 @@ asJavascript
 !
 
 asJSON
-	<return JSON.stringify(self)>
+	^JSON parse: self asJSONString
+!
+
+asJSONString
+	^JSON stringify: self
 ! !
 
 !Object methodsFor: 'copying'!
