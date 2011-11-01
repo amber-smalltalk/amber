@@ -777,10 +777,10 @@ selector: unescape('deprecatedAPI'),
 category: 'error handling',
 fn: function (){
 var self=this;
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21")])]);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21%20%28in%20")]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_home", []), "_asString", [])]), "__comma", [unescape("%29")])]);
 return self;},
 args: [],
-source: unescape('deprecatedAPI%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecatedAPI%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20could%20in%20the%20future.%22%0A%09console%20warn%3A%20thisContext%20home%20asString%2C%20%27%20is%20deprecated%21%27'),
+source: unescape('deprecatedAPI%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecatedAPI%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20could%20in%20the%20future.%22%0A%09console%20warn%3A%20thisContext%20home%20asString%2C%20%27%20is%20deprecated%21%20%28in%20%27%2C%20thisContext%20home%20home%20asString%2C%20%27%29%27'),
 messageSends: ["warn:", unescape("%2C"), "asString", "home"],
 referencedClasses: []
 }),
@@ -1872,11 +1872,12 @@ selector: unescape('subclass%3AinstanceVariableNames%3Acategory%3A'),
 category: 'class creation',
 fn: function (aString, aString2, aString3){
 var self=this;
+smalltalk.send(self, "_deprecatedAPI", []);
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
 return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%22Kept%20for%20compatibility.%22%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
-messageSends: ["subclass:instanceVariableNames:package:"],
+source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%22Kept%20for%20compatibility.%22%0A%09self%20deprecatedAPI.%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.Class);
@@ -4133,11 +4134,12 @@ selector: unescape('subclass%3AinstanceVariableNames%3Acategory%3A'),
 category: 'class creation',
 fn: function (aString, aString2, aString3){
 var self=this;
+smalltalk.send(self, "_deprecatedAPI", []);
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
 return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%22Kept%20for%20compatibility.%22%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
-messageSends: ["subclass:instanceVariableNames:package:"],
+source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%22Kept%20for%20compatibility.%22%0A%09self%20deprecatedAPI.%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);

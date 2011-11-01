@@ -139,7 +139,7 @@ deprecatedAPI
 	"Just a simple way to deprecate methods.
 	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
 	but it could in the future."
-	console warn: thisContext home asString, ' is deprecated!!'
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -681,6 +681,7 @@ subclass: aString instanceVariableNames: anotherString
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
+	self deprecatedAPI.
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
@@ -1422,6 +1423,7 @@ subclass: aString instanceVariableNames: anotherString
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
+	self deprecatedAPI.
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 

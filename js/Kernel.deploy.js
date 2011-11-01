@@ -541,7 +541,7 @@ smalltalk.method({
 selector: 'deprecatedAPI',
 fn: function (){
 var self=this;
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21")])]);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21%20%28in%20")]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_home", []), "_asString", [])]), "__comma", [unescape("%29")])]);
 return self;}
 }),
 smalltalk.Object);
@@ -1315,6 +1315,7 @@ smalltalk.method({
 selector: 'subclass:instanceVariableNames:category:',
 fn: function (aString, aString2, aString3){
 var self=this;
+smalltalk.send(self, "_deprecatedAPI", []);
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
 return self;}
 }),
@@ -2895,6 +2896,7 @@ smalltalk.method({
 selector: 'subclass:instanceVariableNames:category:',
 fn: function (aString, aString2, aString3){
 var self=this;
+smalltalk.send(self, "_deprecatedAPI", []);
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
 return self;}
 }),
