@@ -511,6 +511,7 @@ propertyAt: key ifAbsent: block
 	^(self propertyAt: key) ifNil: [block value]
 ! !
 
+
 !Package class methodsFor: 'accessing'!
 
 named: aPackageName

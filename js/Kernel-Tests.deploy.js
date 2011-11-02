@@ -373,6 +373,17 @@ return self;}
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
+'_tearDown',
+smalltalk.method({
+selector: 'tearDown',
+fn: function (){
+var self=this;
+(function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [self['@backUpCommitPathJs']]);return smalltalk.send($rec, "_defaultCommitPathSt_", [self['@backUpCommitPathSt']]);})((smalltalk.Package || Package));
+return self;}
+}),
+smalltalk.PackageTest);
+
+smalltalk.addMethod(
 '_testGrulCommitPathStShouldBeGrulSt',
 smalltalk.method({
 selector: 'testGrulCommitPathStShouldBeGrulSt',
@@ -412,17 +423,6 @@ selector: 'testGrulCommitPathJsShouldBeServerGrulJs',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("server/grul/js"), smalltalk.send(self['@grulPackage'], "_commitPathJs", [])]);
-return self;}
-}),
-smalltalk.PackageTest);
-
-smalltalk.addMethod(
-'_tearDown',
-smalltalk.method({
-selector: 'tearDown',
-fn: function (){
-var self=this;
-(function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [self['@backUpCommitPathJs']]);return smalltalk.send($rec, "_defaultCommitPathSt_", [self['@backUpCommitPathSt']]);})((smalltalk.Package || Package));
 return self;}
 }),
 smalltalk.PackageTest);
