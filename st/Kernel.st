@@ -2525,6 +2525,14 @@ shallowCopy
 
 copyFrom: anIndex to: anotherIndex
 	self shouldNotImplement
+!
+
+deepCopy
+	| copy |
+	copy := self class new.
+	self associationsDo: [:each |
+	    copy at: each key  put: each value deepCopy].
+	^copy
 ! !
 
 !Dictionary methodsFor: 'enumerating'!

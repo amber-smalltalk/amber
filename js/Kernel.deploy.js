@@ -5208,6 +5208,20 @@ return self;}
 }),
 smalltalk.Dictionary);
 
+smalltalk.addMethod(
+'_deepCopy',
+smalltalk.method({
+selector: 'deepCopy',
+fn: function (){
+var self=this;
+var copy=nil;
+copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(smalltalk.send(each, "_value", []), "_deepCopy", [])]);})]);
+return copy;
+return self;}
+}),
+smalltalk.Dictionary);
+
 
 smalltalk.addMethod(
 '_fromPairs_',
