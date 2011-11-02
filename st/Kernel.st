@@ -34,7 +34,7 @@ basicAt: aString put: anObject
 !
 
 basicDelete: aString
-    <delete self[aString]>
+    <delete self[aString]; return aString>
 ! !
 
 !Object methodsFor: 'comparing'!
@@ -70,15 +70,11 @@ asJavascript
 !
 
 asJSON
-	<return JSON.stringify(self._asJSONObject())>
+	^JSON parse: self asJSONString
 !
 
-asJSONObject
-	| object |
-	object := Object new.
-	self class instanceVariableNames do: [:each |
-		object basicAt: each put: (self instVarAt: each) asJSONObject].
-	^object
+asJSONString
+	^JSON stringify: self
 ! !
 
 !Object methodsFor: 'copying'!
@@ -147,7 +143,7 @@ deprecatedAPI
 	"Just a simple way to deprecate methods.
 	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
 	but it could in the future."
-	console warn: thisContext home asString, ' is deprecated!!'
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -731,6 +727,7 @@ subclass: aString instanceVariableNames: anotherString
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
+	self deprecatedAPI.
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
@@ -971,10 +968,6 @@ atRandom
 
 asPoint
 	^Point x: self y: self
-!
-
-asJSONObject
-	^self
 !
 
 to: stop by: step
@@ -1266,12 +1259,6 @@ not
 	>
 ! !
 
-!Boolean methodsFor: 'converting'!
-
-asJSONObject
-	^self
-! !
-
 !Boolean methodsFor: 'copying'!
 
 shallowCopy
@@ -1428,10 +1415,6 @@ asLocaleString
 
 asNumber
 	^self asMilliseconds
-!
-
-asJSONObject
-	^self
 ! !
 
 !Date methodsFor: 'printing'!
@@ -1486,6 +1469,7 @@ subclass: aString instanceVariableNames: anotherString
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
+	self deprecatedAPI.
 	^self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
@@ -1585,6 +1569,10 @@ addAll: aCollection
 !
 
 remove: anObject
+    ^self remove: anObject ifAbsent: [self errorNotFound]
+!
+
+remove: anObject ifAbsent: aBlock
     self subclassResponsibility
 ! !
 
@@ -1975,10 +1963,6 @@ asNumber
 	<return Number(self)>
 !
 
-asJSONObject
-	^self
-!
-
 asLowercase
 	<return self.toLowerCase()>
 !
@@ -2257,10 +2241,6 @@ asJavascript
 	^'[', ((self collect: [:each | each asJavascript]) join: ', '),  ']'
 !
 
-asJSONObject
-	^self collect: [:each | each asJSONObject]
-!
-
 reversed
 	<return self._copy().reverse()>
 ! !
@@ -2476,38 +2456,45 @@ key: aKey value: aValue
 ! !
 
 Collection subclass: #Dictionary
-	instanceVariableNames: 'keys'
+	instanceVariableNames: ''
 	category: 'Kernel'!
 
 !Dictionary methodsFor: 'accessing'!
 
 size
-	^keys size
+	^self keys size
 !
 
 associations
 	| associations |
 	associations := #().
-	keys do: [:each |
+	self keys do: [:each |
 	    associations add: (Association key: each value: (self at: each))].
 	^associations
 !
 
 keys
-	^keys copy
+	<
+		var keys = [];
+		for(var i in self) {
+			if(self.hasOwnProperty(i)) {
+				keys.push(i);
+			}
+		};
+		return keys;
+	>
 !
 
 values
-    	^keys collect: [:each | self at: each]
+    	^self keys collect: [:each | self at: each]
 !
 
 at: aKey put: aValue
-	(keys includes: aKey) ifFalse: [keys add: aKey].
 	^self basicAt: aKey put: aValue
 !
 
 at: aKey ifAbsent: aBlock
-	^(self keys includes: aKey)
+	^(self includesKey: aKey)
 		ifTrue: [self basicAt: aKey]
 		ifFalse: aBlock
 !
@@ -2542,12 +2529,18 @@ addAll: aDictionary
     	^aDictionary
 !
 
-remove: aKey
-    self removeKey: aKey
+removeKey: aKey
+    self remove: aKey
 !
 
-removeKey: aKey
-    keys remove: aKey
+remove: aKey ifAbsent: aBlock
+    ^self removeKey: aKey ifAbsent: aBlock
+!
+
+removeKey: aKey ifAbsent: aBlock
+	^(self includesKey: aKey) 
+		ifFalse: [aBlock value]
+		ifTrue: [self basicDelete: aKey]
 ! !
 
 !Dictionary methodsFor: 'comparing'!
@@ -2556,16 +2549,6 @@ removeKey: aKey
 	self class = aDictionary class ifFalse: [^false].
 	self size = aDictionary size ifFalse: [^false].
 	^self associations = aDictionary associations
-! !
-
-!Dictionary methodsFor: 'converting'!
-
-asJSONObject
-	| object |
-	object := Object new.
-	self keysAndValuesDo: [:key :value |
-		object basicAt: key put: value asJSONObject].
-	^object
 ! !
 
 !Dictionary methodsFor: 'copying'!
@@ -2584,6 +2567,14 @@ shallowCopy
 
 copyFrom: anIndex to: anotherIndex
 	self shouldNotImplement
+!
+
+deepCopy
+	| copy |
+	copy := self class new.
+	self associationsDo: [:each |
+	    copy at: each key  put: each value deepCopy].
+	^copy
 ! !
 
 !Dictionary methodsFor: 'enumerating'!
@@ -2625,30 +2616,21 @@ includes: anObject
 	^self values includes: anObject
 ! !
 
-!Dictionary methodsFor: 'initialization'!
-
-initialize
-    	super initialize.
-    	keys := #()
-! !
-
 !Dictionary methodsFor: 'printing'!
 
 printString
-	^ String streamContents: [:aStream|  
-                                  		aStream 
-                                  			nextPutAll: super printString;
-                                  			nextPutAll: '('.
-                                  		self associations 
-                                  			do: [:anAssociation|  
-                                                                      	aStream 
-                                                                      		nextPutAll: anAssociation key printString;
-                                                                      		nextPutAll: ' -> ';
-                                                                      		nextPutAll: anAssociation value printString]
-                                  
-                                 			separatedBy: [aStream nextPutAll: ' , '].
-                                  		aStream nextPutAll: ')'.
-                                 ]
+	^String streamContents: [:aStream|  
+		aStream 
+			nextPutAll: super printString;
+			nextPutAll: '('.
+				self associations 
+					do: [:anAssociation|  
+						aStream 
+							nextPutAll: anAssociation key printString;
+								nextPutAll: ' -> ';
+								nextPutAll: anAssociation value printString]
+							separatedBy: [aStream nextPutAll: ' , '].
+						aStream nextPutAll: ')']
 !
 
 storeOn: aStream
@@ -2657,6 +2639,12 @@ storeOn: aStream
 		do: [:each | each storeOn: aStream]
 		separatedBy: [ aStream nextPutAll: '. '].
 	aStream nextPutAll: '}'
+! !
+
+!Dictionary methodsFor: 'testing'!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
 ! !
 
 !Dictionary class methodsFor: 'instance creation'!
@@ -3366,189 +3354,5 @@ show: anObject
 
 initialize
 	Transcript register: self new
-! !
-
-Dictionary subclass: #Dictionary2
-	instanceVariableNames: 'keys'
-	category: 'Kernel'!
-
-!Dictionary2 methodsFor: 'accessing'!
-
-size
-	^keys size
-!
-
-associations
-	| associations |
-	associations := #().
-	keys do: [:each |
-	    associations add: (Association key: each value: (self at: each))].
-	^associations
-!
-
-keys
-	^keys copy
-!
-
-values
-    	^keys collect: [:each | self at: each]
-!
-
-at: aKey put: aValue
-	(keys includes: aKey) ifFalse: [keys add: aKey].
-	^self basicAt: aKey put: aValue
-!
-
-at: aKey ifAbsent: aBlock
-	^(self keys includes: aKey)
-		ifTrue: [self basicAt: aKey]
-		ifFalse: aBlock
-!
-
-at: aKey ifAbsentPut: aBlock
-    	^self at: aKey ifAbsent: [
-    	    self at: aKey put: aBlock value]
-!
-
-at: aKey ifPresent: aBlock
-	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
-!
-
-at: aKey ifPresent: aBlock ifAbsent: anotherBlock
-	^(self basicAt: aKey)
-	    ifNil: anotherBlock
-	    ifNotNil: [aBlock value: (self at: aKey)]
-!
-
-at: aKey
-	^self at: aKey ifAbsent: [self errorNotFound]
-! !
-
-!Dictionary2 methodsFor: 'adding/removing'!
-
-add: anAssociation
-    	self at: anAssociation key put: anAssociation value
-!
-
-addAll: aDictionary
-    	super addAll: aDictionary associations.
-    	^aDictionary
-!
-
-remove: aKey
-    self removeKey: aKey
-!
-
-removeKey: aKey
-    keys remove: aKey
-! !
-
-!Dictionary2 methodsFor: 'comparing'!
-
-= aDictionary
-	self class = aDictionary class ifFalse: [^false].
-	self size = aDictionary size ifFalse: [^false].
-	^self associations = aDictionary associations
-! !
-
-!Dictionary2 methodsFor: 'converting'!
-
-asJSONObject
-	| object |
-	object := Object new.
-	self keysAndValuesDo: [:key :value |
-		object basicAt: key put: value asJSONObject].
-	^object
-! !
-
-!Dictionary2 methodsFor: 'copying'!
-
-shallowCopy
-	| copy |
-	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value].
-	^copy
-!
-
-, aCollection
-	self shouldNotImplement
-!
-
-copyFrom: anIndex to: anotherIndex
-	self shouldNotImplement
-! !
-
-!Dictionary2 methodsFor: 'enumerating'!
-
-associationsDo: aBlock
-    	self associations do: aBlock
-!
-
-keysAndValuesDo: aBlock
-    	self associationsDo: [:each |
-    	    aBlock value: each key value: each value]
-!
-
-do: aBlock
-    	self values do: aBlock
-!
-
-select: aBlock
-    	| newDict |
-    	newDict := self class new.
-    	self keysAndValuesDo: [:key :value |
-    	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
-    	^newDict
-!
-
-collect: aBlock
-    	| newDict |
-    	newDict := self class new.
-    	self keysAndValuesDo: [:key :value |
-    	    newDict at: key put: (aBlock value: value)].
-    	^newDict
-!
-
-detect: aBlock ifNone: anotherBlock
-	^self values detect: aBlock ifNone: anotherBlock
-!
-
-includes: anObject
-	^self values includes: anObject
-! !
-
-!Dictionary2 methodsFor: 'initialization'!
-
-initialize
-    	super initialize.
-    	keys := #()
-! !
-
-!Dictionary2 methodsFor: 'printing'!
-
-printString
-	^ String streamContents: [:aStream|  
-                                  		aStream 
-                                  			nextPutAll: super printString;
-                                  			nextPutAll: '('.
-                                  		self associations 
-                                  			do: [:anAssociation|  
-                                                                      	aStream 
-                                                                      		nextPutAll: anAssociation key printString;
-                                                                      		nextPutAll: ' -> ';
-                                                                      		nextPutAll: anAssociation value printString]
-                                  
-                                 			separatedBy: [aStream nextPutAll: ' , '].
-                                  		aStream nextPutAll: ')'.
-                                 ]
-!
-
-storeOn: aStream
-	aStream nextPutAll: '#{'.
-	self associations
-		do: [:each | each storeOn: aStream]
-		separatedBy: [ aStream nextPutAll: '. '].
-	aStream nextPutAll: '}'
 ! !
 
