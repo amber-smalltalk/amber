@@ -3578,3 +3578,146 @@ smalltalk.Set);
 
 
 
+smalltalk.addClass('HashTable', smalltalk.Dictionary, ['keys', 'values'], 'Kernel-Collections');
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Dictionary);
+self['@keys']=[];
+self['@values']=[];
+return self;},
+args: [],
+source: unescape('initialize%0A%09super%20initialize.%0A%09keys%20%3A%3D%20%23%28%29.%0A%09values%20%3A%3D%20%23%28%29'),
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+unescape('_at_ifAbsent_'),
+smalltalk.method({
+selector: unescape('at%3AifAbsent%3A'),
+category: 'accessing',
+fn: function (aKey, aBlock){
+var self=this;
+
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			return aBlock();
+		} else {
+			return self['@values'][index];
+		}
+	;
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%09%09if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%09%09%09return%20aBlock%28%29%3B%0A%09%09%7D%20else%20%7B%0A%09%09%09return%20self%5B%27@values%27%5D%5Bindex%5D%3B%0A%09%09%7D%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+unescape('_keys'),
+smalltalk.method({
+selector: unescape('keys'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@keys'], "_copy", []);
+return self;},
+args: [],
+source: unescape('keys%0A%09%5Ekeys%20copy'),
+messageSends: ["copy"],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+unescape('_values'),
+smalltalk.method({
+selector: unescape('values'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@values'], "_copy", []);
+return self;},
+args: [],
+source: unescape('values%0A%09%5Evalues%20copy'),
+messageSends: ["copy"],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+unescape('_at_put_'),
+smalltalk.method({
+selector: unescape('at%3Aput%3A'),
+category: 'accessing',
+fn: function (aKey, aValue){
+var self=this;
+
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			self['@values'].push(aValue);
+			self['@keys'].push(aKey);
+		} else {
+			self['@values'][index] = aValue;
+		};
+
+		return aValue;
+	;
+return self;},
+args: ["aKey", "aValue"],
+source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%3C%0A%09%09var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%09%09if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%09%09%09self%5B%27@values%27%5D.push%28aValue%29%3B%0A%09%09%09self%5B%27@keys%27%5D.push%28aKey%29%3B%0A%09%09%7D%20else%20%7B%0A%09%09%09self%5B%27@values%27%5D%5Bindex%5D%20%3D%20aValue%3B%0A%09%09%7D%3B%0A%0A%09%09return%20aValue%3B%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+unescape('_includesKey_'),
+smalltalk.method({
+selector: unescape('includesKey%3A'),
+category: 'testing',
+fn: function (aKey){
+var self=this;
+return smalltalk.send(self['@keys'], "_includes_", [aKey]);
+return self;},
+args: ["aKey"],
+source: unescape('includesKey%3A%20aKey%0A%09%5Ekeys%20includes%3A%20aKey'),
+messageSends: ["includes:"],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+unescape('_removeKey_ifAbsent_'),
+smalltalk.method({
+selector: unescape('removeKey%3AifAbsent%3A'),
+category: 'adding/removing',
+fn: function (aKey, aBlock){
+var self=this;
+
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			self['@keys'].splice(i, 1);
+			self['@values'].splice(i, 1);
+			return aKey
+		};
+	;
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%09%09if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%09%09%09return%20aBlock%28%29%0A%09%09%7D%20else%20%7B%0A%09%09%09self%5B%27@keys%27%5D.splice%28i%2C%201%29%3B%0A%09%09%09self%5B%27@values%27%5D.splice%28i%2C%201%29%3B%0A%09%09%09return%20aKey%0A%09%09%7D%3B%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashTable);
+
+
+

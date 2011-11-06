@@ -2523,3 +2523,111 @@ smalltalk.Set);
 
 
 
+smalltalk.addClass('HashTable', smalltalk.Dictionary, ['keys', 'values'], 'Kernel-Collections');
+smalltalk.addMethod(
+'_initialize',
+smalltalk.method({
+selector: 'initialize',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Dictionary);
+self['@keys']=[];
+self['@values']=[];
+return self;}
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+'_at_ifAbsent_',
+smalltalk.method({
+selector: 'at:ifAbsent:',
+fn: function (aKey, aBlock){
+var self=this;
+
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			return aBlock();
+		} else {
+			return self['@values'][index];
+		}
+	;
+return self;}
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+'_keys',
+smalltalk.method({
+selector: 'keys',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@keys'], "_copy", []);
+return self;}
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+'_values',
+smalltalk.method({
+selector: 'values',
+fn: function (){
+var self=this;
+return smalltalk.send(self['@values'], "_copy", []);
+return self;}
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+'_at_put_',
+smalltalk.method({
+selector: 'at:put:',
+fn: function (aKey, aValue){
+var self=this;
+
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			self['@values'].push(aValue);
+			self['@keys'].push(aKey);
+		} else {
+			self['@values'][index] = aValue;
+		};
+
+		return aValue;
+	;
+return self;}
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+'_includesKey_',
+smalltalk.method({
+selector: 'includesKey:',
+fn: function (aKey){
+var self=this;
+return smalltalk.send(self['@keys'], "_includes_", [aKey]);
+return self;}
+}),
+smalltalk.HashTable);
+
+smalltalk.addMethod(
+'_removeKey_ifAbsent_',
+smalltalk.method({
+selector: 'removeKey:ifAbsent:',
+fn: function (aKey, aBlock){
+var self=this;
+
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			self['@keys'].splice(i, 1);
+			self['@values'].splice(i, 1);
+			return aKey
+		};
+	;
+return self;}
+}),
+smalltalk.HashTable);
+
+
+

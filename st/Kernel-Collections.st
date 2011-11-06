@@ -1294,3 +1294,71 @@ includes: anObject
 	^elements includes: anObject
 ! !
 
+Dictionary subclass: #HashTable
+	instanceVariableNames: 'keys values'
+	category: 'Kernel-Collections'!
+
+!HashTable methodsFor: 'accessing'!
+
+at: aKey ifAbsent: aBlock
+	<
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			return aBlock();
+		} else {
+			return self['@values'][index];
+		}
+	>
+!
+
+keys
+	^keys copy
+!
+
+values
+	^values copy
+!
+
+at: aKey put: aValue
+	<
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			self['@values'].push(aValue);
+			self['@keys'].push(aKey);
+		} else {
+			self['@values'][index] = aValue;
+		};
+
+		return aValue;
+	>
+! !
+
+!HashTable methodsFor: 'adding/removing'!
+
+removeKey: aKey ifAbsent: aBlock
+	<
+		var index = self['@keys'].indexOf(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			self['@keys'].splice(i, 1);
+			self['@values'].splice(i, 1);
+			return aKey
+		};
+	>
+! !
+
+!HashTable methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	keys := #().
+	values := #()
+! !
+
+!HashTable methodsFor: 'testing'!
+
+includesKey: aKey
+	^keys includes: aKey
+! !
+
