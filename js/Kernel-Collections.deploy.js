@@ -1207,6 +1207,17 @@ return self;}
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+'_asJSONString',
+smalltalk.method({
+selector: 'asJSONString',
+fn: function (){
+var self=this;
+return self;
+return self;}
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 '_streamClass',

@@ -1717,6 +1717,22 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+unescape('_asJSONString'),
+smalltalk.method({
+selector: unescape('asJSONString'),
+category: 'converting',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('asJSONString%0A%09%5Eself'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 unescape('_streamClass'),

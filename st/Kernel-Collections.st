@@ -450,6 +450,10 @@ reversed
 
 asJavaScriptSelector
 	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
+!
+
+asJSONString
+	^self
 ! !
 
 !String methodsFor: 'copying'!
