@@ -26,14 +26,30 @@ all: $(OBJECTS)
 boot.js init.js parser.js:
 	cp ../js/$@ .
 
-# Then we compile Kernel.st depending on having boot.js, init.js and parser.js
-# $< means the first dependency - in other words Kernel.st
-Kernel.js: Kernel.st boot.js init.js parser.js
+# Then we compile Kernel-*.st files depending on having boot.js, init.js and parser.js
+# $< means the first dependency - in other words Kernel-*.st
+Kernel-Objects.js: Kernel-Objects.st boot.js init.js parser.js
+	$(AMBERC) $(FLAGS) $<
+
+Kernel-Classes.js: Kernel-Classes.st boot.js init.js parser.js
+	$(AMBERC) $(FLAGS) $<
+
+Kernel-Methods.js: Kernel-Methods.st boot.js init.js parser.js
+	$(AMBERC) $(FLAGS) $<
+
+Kernel-Collections.js: Kernel-Collections.st boot.js init.js parser.js
+	$(AMBERC) $(FLAGS) $<
+
+Kernel-Exceptions.js: Kernel-Exceptions.st boot.js init.js parser.js
+	$(AMBERC) $(FLAGS) $<
+
+Kernel-Transcript.js: Kernel-Transcript.st boot.js init.js parser.js
 	$(AMBERC) $(FLAGS) $<
 
 # ...and Compiler, but using the new Kernel from above.
-# We only need to depend on Kernel.js since it in turn depends on boot.js etc
-Compiler.js: Compiler.st Kernel.js
+# We only need to depend on Kernel js files since it in turn depends on boot.js etc
+Compiler.js: Compiler.st Kernel-Objects.js Kernel-Classes.js Kernel-Methods.js Kernel-Collections.js \
+	Kernel-Exceptions.js Kernel-Transcript.js
 	$(AMBERC) $(FLAGS) $<
 
 # ...now that we have a new Kernel and Compiler we use them
