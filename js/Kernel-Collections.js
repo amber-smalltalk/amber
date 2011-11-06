@@ -266,7 +266,7 @@ first=true;
 smalltalk.send(self, "_do_", [(function(each){((($receiver = first).klass === smalltalk.Boolean) ? ($receiver ? (function(){return first=false;})() : (function(){return smalltalk.send(anotherBlock, "_value", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return first=false;}), (function(){return smalltalk.send(anotherBlock, "_value", []);})]));return smalltalk.send(aBlock, "_value_", [each]);})]);
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('do%3A%20aBlock%20separatedBy%3A%20anotherBlock%0A%20%20%20%20%09%7C%20first%20%7C%0A%20%20%20%20%09first%20%3A%3D%20true.%0A%20%20%20%20%09self%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%09%20%20%20%20first%0A%20%20%20%20%09%09ifTrue%3A%20%5Bfirst%20%3A%3D%20false%5D%0A%20%20%20%20%09%09ifFalse%3A%20%5BanotherBlock%20value%5D.%0A%20%20%20%20%09%20%20%20%20aBlock%20value%3A%20each%5D'),
+source: unescape('do%3A%20aBlock%20separatedBy%3A%20anotherBlock%0A%09%7C%20first%20%7C%0A%09first%20%3A%3D%20true.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20first%0A%09%09ifTrue%3A%20%5Bfirst%20%3A%3D%20false%5D%0A%09%09ifFalse%3A%20%5BanotherBlock%20value%5D.%0A%09%20%20%20%20aBlock%20value%3A%20each%5D'),
 messageSends: ["do:", "ifTrue:ifFalse:", "value", "value:"],
 referencedClasses: []
 }),
@@ -489,6 +489,22 @@ args: ["anObject", "aBlock"],
 source: unescape('remove%3A%20anObject%20ifAbsent%3A%20aBlock%0A%20%20%20%20self%20subclassResponsibility'),
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+unescape('_asJSONString'),
+smalltalk.method({
+selector: unescape('asJSONString'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJSONString", []);})])]);
+return self;},
+args: [],
+source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20%28self%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJSONString%5D%29'),
+messageSends: ["stringify:", "collect:", "asJSONString"],
+referencedClasses: ["JSON"]
 }),
 smalltalk.Collection);
 
@@ -968,7 +984,7 @@ var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
 args: ["anIndex", "anObject"],
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%20%20%20%20%09self%20errorReadOnly'),
+source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09self%20errorReadOnly'),
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
@@ -984,7 +1000,7 @@ var self=this;
 (($receiver = smalltalk.send(self, "_at_", [anIndex])) == nil || $receiver == undefined) ? (function(){return aBlock;})() : $receiver;
 return self;},
 args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%20%20%20%20%09%28self%20at%3A%20anIndex%29%20ifNil%3A%20%5BaBlock%5D'),
+source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%28self%20at%3A%20anIndex%29%20ifNil%3A%20%5BaBlock%5D'),
 messageSends: ["ifNil:", "at:"],
 referencedClasses: []
 }),
@@ -1032,7 +1048,7 @@ var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
 args: ["anObject"],
-source: unescape('add%3A%20anObject%0A%20%20%20%20%09self%20errorReadOnly'),
+source: unescape('add%3A%20anObject%0A%09self%20errorReadOnly'),
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
@@ -1080,7 +1096,7 @@ var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [self]);
 return self;},
 args: [],
-source: unescape('shallowCopy%0A%20%20%20%20%09%5Eself%20class%20fromString%3A%20self'),
+source: unescape('shallowCopy%0A%09%5Eself%20class%20fromString%3A%20self'),
 messageSends: ["fromString:", "class"],
 referencedClasses: []
 }),
@@ -1096,7 +1112,7 @@ var self=this;
 return smalltalk.send(self, "_shallowCopy", []);
 return self;},
 args: [],
-source: unescape('deepCopy%0A%20%20%20%20%09%5Eself%20shallowCopy'),
+source: unescape('deepCopy%0A%09%5Eself%20shallowCopy'),
 messageSends: ["shallowCopy"],
 referencedClasses: []
 }),
@@ -1124,7 +1140,7 @@ selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B@%5D"), "_at"]
 return selector;
 return self;},
 args: [],
-source: unescape('asSelector%0A%09%22If%20you%20change%20this%20method%2C%20change%20smalltalk.convertSelector%20too%20%28see%20js/boot.js%20file%29%22%0A%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20%27_%27%2C%20self.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3A%27%20with%3A%20%27_%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B+%5D%27%20with%3A%20%27_plus%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27-%27%20with%3A%20%27_minus%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B*%5D%27%20with%3A%20%27_star%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B/%5D%27%20with%3A%20%27_slash%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3E%27%20with%3A%20%27_gt%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3C%27%20with%3A%20%27_lt%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%3D%27%20with%3A%20%27_eq%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%2C%27%20with%3A%20%27_comma%27.%0A%20%20%20%20%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B@%5D%27%20with%3A%20%27_at%27.%0A%09%5Eselector'),
+source: unescape('asSelector%0A%09%22If%20you%20change%20this%20method%2C%20change%20smalltalk.convertSelector%20too%20%28see%20js/boot.js%20file%29%22%0A%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20%27_%27%2C%20self.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3A%27%20with%3A%20%27_%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B+%5D%27%20with%3A%20%27_plus%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27-%27%20with%3A%20%27_minus%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B*%5D%27%20with%3A%20%27_star%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B/%5D%27%20with%3A%20%27_slash%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3E%27%20with%3A%20%27_gt%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3C%27%20with%3A%20%27_lt%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3D%27%20with%3A%20%27_eq%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%2C%27%20with%3A%20%27_comma%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B@%5D%27%20with%3A%20%27_at%27.%0A%09%5Eselector'),
 messageSends: [unescape("%2C"), "replace:with:"],
 referencedClasses: []
 }),
@@ -1161,7 +1177,7 @@ var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [aString, "g"]), anotherString]);
 return self;},
 args: ["aString", "anotherString"],
-source: unescape('replace%3A%20aString%20with%3A%20anotherString%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20aString%20flag%3A%20%27g%27%29%20with%3A%20anotherString'),
+source: unescape('replace%3A%20aString%20with%3A%20anotherString%0A%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20aString%20flag%3A%20%27g%27%29%20with%3A%20anotherString'),
 messageSends: ["replaceRegexp:with:", "fromString:flag:"],
 referencedClasses: ["RegularExpression"]
 }),
@@ -1225,7 +1241,7 @@ var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('asString%0A%20%20%20%20%09%5Eself'),
+source: unescape('asString%0A%09%5Eself'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1257,7 +1273,7 @@ var self=this;
 smalltalk.send(self, "_error_", [unescape("Object%20is%20read-only")]);
 return self;},
 args: [],
-source: unescape('errorReadOnly%0A%20%20%20%20%09self%20error%3A%20%27Object%20is%20read-only%27'),
+source: unescape('errorReadOnly%0A%09self%20error%3A%20%27Object%20is%20read-only%27'),
 messageSends: ["error:"],
 referencedClasses: []
 }),
@@ -1273,7 +1289,7 @@ var self=this;
 return smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [self]), "__comma", [unescape("%27")]);
 return self;},
 args: [],
-source: unescape('printString%0A%20%20%20%20%09%5E%27%27%27%27%2C%20self%2C%20%27%27%27%27'),
+source: unescape('printString%0A%09%5E%27%27%27%27%2C%20self%2C%20%27%27%27%27'),
 messageSends: [unescape("%2C")],
 referencedClasses: []
 }),
@@ -1305,7 +1321,7 @@ var self=this;
 return true;
 return self;},
 args: [],
-source: unescape('isString%0A%20%20%20%20%09%5Etrue'),
+source: unescape('isString%0A%09%5Etrue'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1401,7 +1417,7 @@ var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5E%5B"), "__comma", [separators]), "__comma", [unescape("%5D+")]), "g"]), ""]);
 return self;},
 args: ["separators"],
-source: unescape('trimLeft%3A%20separators%0A%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5E%5B%27%2C%20separators%2C%20%27%5D+%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
+source: unescape('trimLeft%3A%20separators%0A%0A%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5E%5B%27%2C%20separators%2C%20%27%5D+%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
 messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
 referencedClasses: ["RegularExpression"]
 }),
@@ -1417,7 +1433,7 @@ var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [separators]), "__comma", [unescape("%5D+%24")]), "g"]), ""]);
 return self;},
 args: ["separators"],
-source: unescape('trimRight%3A%20separators%0A%0A%20%20%20%20%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5B%27%2C%20separators%2C%20%27%5D+%24%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
+source: unescape('trimRight%3A%20separators%0A%0A%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5B%27%2C%20separators%2C%20%27%5D+%24%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
 messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
 referencedClasses: ["RegularExpression"]
 }),
@@ -1481,7 +1497,7 @@ var self=this;
 return smalltalk.send(smalltalk.send(self, "_trimLeft_", [separators]), "_trimRight_", [separators]);
 return self;},
 args: ["separators"],
-source: unescape('trimBoth%3A%20separators%0A%0A%20%20%20%20%09%5E%28self%20trimLeft%3A%20separators%29%20trimRight%3A%20separators'),
+source: unescape('trimBoth%3A%20separators%0A%0A%09%5E%28self%20trimLeft%3A%20separators%29%20trimRight%3A%20separators'),
 messageSends: ["trimRight:", "trimLeft:"],
 referencedClasses: []
 }),
@@ -2168,7 +2184,7 @@ smalltalk.send(self, "_withIndexDo_", [(function(each, i){return ((($receiver = 
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
 args: ["aCollection"],
-source: unescape('%3D%20aCollection%0A%09%28self%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%20%20%20%20%20%20%20%20%09self%20size%20%3D%20aCollection%20size%5D%29%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20withIndexDo%3A%20%5B%3Aeach%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%28aCollection%20at%3A%20i%29%20%3D%20each%20ifFalse%3A%20%5B%5Efalse%5D%5D.%0A%09%5Etrue'),
+source: unescape('%3D%20aCollection%0A%09%28self%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%09%09self%20size%20%3D%20aCollection%20size%5D%29%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20withIndexDo%3A%20%5B%3Aeach%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%28aCollection%20at%3A%20i%29%20%3D%20each%20ifFalse%3A%20%5B%5Efalse%5D%5D.%0A%09%5Etrue'),
 messageSends: ["ifFalse:", "and:", unescape("%3D"), "class", "size", "withIndexDo:", "at:"],
 referencedClasses: []
 }),
@@ -2374,537 +2390,6 @@ messageSends: ["key:", "value:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.Association.klass);
-
-
-smalltalk.addClass('Dictionary', smalltalk.Collection, [], 'Kernel-Collections');
-smalltalk.addMethod(
-unescape('__eq'),
-smalltalk.method({
-selector: unescape('%3D'),
-category: 'comparing',
-fn: function (aDictionary){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aDictionary, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
-((($receiver = smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aDictionary, "_size", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
-(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return smalltalk.send(smalltalk.send(self, "_associations", []), "__eq", [smalltalk.send(aDictionary, "_associations", [])])}})})();
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
-args: ["aDictionary"],
-source: unescape('%3D%20aDictionary%0A%09self%20class%20%3D%20aDictionary%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20size%20%3D%20aDictionary%20size%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%5Eself%20associations%20%3D%20aDictionary%20associations'),
-messageSends: ["ifFalse:", unescape("%3D"), "class", "size", "associations"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_shallowCopy'),
-smalltalk.method({
-selector: unescape('shallowCopy'),
-category: 'copying',
-fn: function (){
-var self=this;
-var copy=nil;
-copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
-smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
-return copy;
-return self;},
-args: [],
-source: unescape('shallowCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%5D.%0A%09%5Ecopy'),
-messageSends: ["new", "class", "associationsDo:", "at:put:", "key", "value"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_size'),
-smalltalk.method({
-selector: unescape('size'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_keys", []), "_size", []);
-return self;},
-args: [],
-source: unescape('size%0A%09%5Eself%20keys%20size'),
-messageSends: ["size", "keys"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_associations'),
-smalltalk.method({
-selector: unescape('associations'),
-category: 'accessing',
-fn: function (){
-var self=this;
-var associations=nil;
-associations=[];
-smalltalk.send(smalltalk.send(self, "_keys", []), "_do_", [(function(each){return smalltalk.send(associations, "_add_", [smalltalk.send((smalltalk.Association || Association), "_key_value_", [each, smalltalk.send(self, "_at_", [each])])]);})]);
-return associations;
-return self;},
-args: [],
-source: unescape('associations%0A%09%7C%20associations%20%7C%0A%09associations%20%3A%3D%20%23%28%29.%0A%09self%20keys%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20associations%20add%3A%20%28Association%20key%3A%20each%20value%3A%20%28self%20at%3A%20each%29%29%5D.%0A%09%5Eassociations'),
-messageSends: ["do:", "keys", "add:", "key:value:", "at:"],
-referencedClasses: ["Association"]
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_keys'),
-smalltalk.method({
-selector: unescape('keys'),
-category: 'accessing',
-fn: function (){
-var self=this;
-
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	;
-return self;},
-args: [],
-source: unescape('keys%0A%09%3C%0A%09%09var%20keys%20%3D%20%5B%5D%3B%0A%09%09for%28var%20i%20in%20self%29%20%7B%0A%09%09%09if%28self.hasOwnProperty%28i%29%29%20%7B%0A%09%09%09%09keys.push%28i%29%3B%0A%09%09%09%7D%0A%09%09%7D%3B%0A%09%09return%20keys%3B%0A%09%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_values'),
-smalltalk.method({
-selector: unescape('values'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_keys", []), "_collect_", [(function(each){return smalltalk.send(self, "_at_", [each]);})]);
-return self;},
-args: [],
-source: unescape('values%0A%20%20%20%20%09%5Eself%20keys%20collect%3A%20%5B%3Aeach%20%7C%20self%20at%3A%20each%5D'),
-messageSends: ["collect:", "keys", "at:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_at_put_'),
-smalltalk.method({
-selector: unescape('at%3Aput%3A'),
-category: 'accessing',
-fn: function (aKey, aValue){
-var self=this;
-return smalltalk.send(self, "_basicAt_put_", [aKey, aValue]);
-return self;},
-args: ["aKey", "aValue"],
-source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%5Eself%20basicAt%3A%20aKey%20put%3A%20aValue'),
-messageSends: ["basicAt:put:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
-smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
-category: 'accessing',
-fn: function (aKey, aBlock){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_includesKey_", [aKey]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_basicAt_", [aKey]);}), aBlock]);
-return self;},
-args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20includesKey%3A%20aKey%29%0A%09%09ifTrue%3A%20%5Bself%20basicAt%3A%20aKey%5D%0A%09%09ifFalse%3A%20aBlock'),
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_at_ifAbsentPut_'),
-smalltalk.method({
-selector: unescape('at%3AifAbsentPut%3A'),
-category: 'accessing',
-fn: function (aKey, aBlock){
-var self=this;
-return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_at_put_", [aKey, smalltalk.send(aBlock, "_value", [])]);})]);
-return self;},
-args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifAbsentPut%3A%20aBlock%0A%20%20%20%20%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5B%0A%20%20%20%20%09%20%20%20%20self%20at%3A%20aKey%20put%3A%20aBlock%20value%5D'),
-messageSends: ["at:ifAbsent:", "at:put:", "value"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_at_ifPresent_'),
-smalltalk.method({
-selector: unescape('at%3AifPresent%3A'),
-category: 'accessing',
-fn: function (aKey, aBlock){
-var self=this;
-return (($receiver = smalltalk.send(self, "_basicAt_", [aKey])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})() : nil;
-return self;},
-args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D'),
-messageSends: ["ifNotNil:", "basicAt:", "value:", "at:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_at_ifPresent_ifAbsent_'),
-smalltalk.method({
-selector: unescape('at%3AifPresent%3AifAbsent%3A'),
-category: 'accessing',
-fn: function (aKey, aBlock, anotherBlock){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNil_ifNotNil_", [anotherBlock, (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
-return self;},
-args: ["aKey", "aBlock", "anotherBlock"],
-source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%20ifAbsent%3A%20anotherBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%0A%09%20%20%20%20ifNil%3A%20anotherBlock%0A%09%20%20%20%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D'),
-messageSends: ["ifNil:ifNotNil:", "basicAt:", "value:", "at:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_add_'),
-smalltalk.method({
-selector: unescape('add%3A'),
-category: 'adding/removing',
-fn: function (anAssociation){
-var self=this;
-smalltalk.send(self, "_at_put_", [smalltalk.send(anAssociation, "_key", []), smalltalk.send(anAssociation, "_value", [])]);
-return self;},
-args: ["anAssociation"],
-source: unescape('add%3A%20anAssociation%0A%20%20%20%20%09self%20at%3A%20anAssociation%20key%20put%3A%20anAssociation%20value'),
-messageSends: ["at:put:", "key", "value"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_addAll_'),
-smalltalk.method({
-selector: unescape('addAll%3A'),
-category: 'adding/removing',
-fn: function (aDictionary){
-var self=this;
-smalltalk.send(self, "_addAll_", [smalltalk.send(aDictionary, "_associations", [])], smalltalk.Collection);
-return aDictionary;
-return self;},
-args: ["aDictionary"],
-source: unescape('addAll%3A%20aDictionary%0A%20%20%20%20%09super%20addAll%3A%20aDictionary%20associations.%0A%20%20%20%20%09%5EaDictionary'),
-messageSends: ["addAll:", "associations"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('__comma'),
-smalltalk.method({
-selector: unescape('%2C'),
-category: 'copying',
-fn: function (aCollection){
-var self=this;
-smalltalk.send(self, "_shouldNotImplement", []);
-return self;},
-args: ["aCollection"],
-source: unescape('%2C%20aCollection%0A%09self%20shouldNotImplement'),
-messageSends: ["shouldNotImplement"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_copyFrom_to_'),
-smalltalk.method({
-selector: unescape('copyFrom%3Ato%3A'),
-category: 'copying',
-fn: function (anIndex, anotherIndex){
-var self=this;
-smalltalk.send(self, "_shouldNotImplement", []);
-return self;},
-args: ["anIndex", "anotherIndex"],
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09self%20shouldNotImplement'),
-messageSends: ["shouldNotImplement"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_associationsDo_'),
-smalltalk.method({
-selector: unescape('associationsDo%3A'),
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_associations", []), "_do_", [aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('associationsDo%3A%20aBlock%0A%20%20%20%20%09self%20associations%20do%3A%20aBlock'),
-messageSends: ["do:", "associations"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_keysAndValuesDo_'),
-smalltalk.method({
-selector: unescape('keysAndValuesDo%3A'),
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(aBlock, "_value_value_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
-return self;},
-args: ["aBlock"],
-source: unescape('keysAndValuesDo%3A%20aBlock%0A%20%20%20%20%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%09%20%20%20%20aBlock%20value%3A%20each%20key%20value%3A%20each%20value%5D'),
-messageSends: ["associationsDo:", "value:value:", "key", "value"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_do_'),
-smalltalk.method({
-selector: unescape('do%3A'),
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_values", []), "_do_", [aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('do%3A%20aBlock%0A%20%20%20%20%09self%20values%20do%3A%20aBlock'),
-messageSends: ["do:", "values"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_select_'),
-smalltalk.method({
-selector: unescape('select%3A'),
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var newDict=nil;
-newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
-smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(aBlock, "_value_", [value])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})]));})]);
-return newDict;
-return self;},
-args: ["aBlock"],
-source: unescape('select%3A%20aBlock%0A%20%20%20%20%09%7C%20newDict%20%7C%0A%20%20%20%20%09newDict%20%3A%3D%20self%20class%20new.%0A%20%20%20%20%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%20%20%20%20%09%20%20%20%20%28aBlock%20value%3A%20value%29%20ifTrue%3A%20%5BnewDict%20at%3A%20key%20put%3A%20value%5D%5D.%0A%20%20%20%20%09%5EnewDict'),
-messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "value:", "at:put:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_collect_'),
-smalltalk.method({
-selector: unescape('collect%3A'),
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-var newDict=nil;
-newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
-smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(newDict, "_at_put_", [key, smalltalk.send(aBlock, "_value_", [value])]);})]);
-return newDict;
-return self;},
-args: ["aBlock"],
-source: unescape('collect%3A%20aBlock%0A%20%20%20%20%09%7C%20newDict%20%7C%0A%20%20%20%20%09newDict%20%3A%3D%20self%20class%20new.%0A%20%20%20%20%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%20%20%20%20%09%20%20%20%20newDict%20at%3A%20key%20put%3A%20%28aBlock%20value%3A%20value%29%5D.%0A%20%20%20%20%09%5EnewDict'),
-messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "value:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_detect_ifNone_'),
-smalltalk.method({
-selector: unescape('detect%3AifNone%3A'),
-category: 'enumerating',
-fn: function (aBlock, anotherBlock){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_values", []), "_detect_ifNone_", [aBlock, anotherBlock]);
-return self;},
-args: ["aBlock", "anotherBlock"],
-source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5Eself%20values%20detect%3A%20aBlock%20ifNone%3A%20anotherBlock'),
-messageSends: ["detect:ifNone:", "values"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_includes_'),
-smalltalk.method({
-selector: unescape('includes%3A'),
-category: 'enumerating',
-fn: function (anObject){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_values", []), "_includes_", [anObject]);
-return self;},
-args: ["anObject"],
-source: unescape('includes%3A%20anObject%0A%09%5Eself%20values%20includes%3A%20anObject'),
-messageSends: ["includes:", "values"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_removeKey_'),
-smalltalk.method({
-selector: unescape('removeKey%3A'),
-category: 'adding/removing',
-fn: function (aKey){
-var self=this;
-smalltalk.send(self, "_remove_", [aKey]);
-return self;},
-args: ["aKey"],
-source: unescape('removeKey%3A%20aKey%0A%20%20%20%20self%20remove%3A%20aKey'),
-messageSends: ["remove:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_at_'),
-smalltalk.method({
-selector: unescape('at%3A'),
-category: 'accessing',
-fn: function (aKey){
-var self=this;
-return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
-return self;},
-args: ["aKey"],
-source: unescape('at%3A%20aKey%0A%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5Bself%20errorNotFound%5D'),
-messageSends: ["at:ifAbsent:", "errorNotFound"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_printString'),
-smalltalk.method({
-selector: unescape('printString'),
-category: 'printing',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Collection)]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20-%3E%20")]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [unescape("%20%2C%20")]);})]);return smalltalk.send(aStream, "_nextPutAll_", [unescape("%29")]);})]);
-return self;},
-args: [],
-source: unescape('printString%0A%09%5EString%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%09%09aStream%20%0A%09%09%09nextPutAll%3A%20super%20printString%3B%0A%09%09%09nextPutAll%3A%20%27%28%27.%0A%09%09%09%09self%20associations%20%0A%09%09%09%09%09do%3A%20%5B%3AanAssociation%7C%20%20%0A%09%09%09%09%09%09aStream%20%0A%09%09%09%09%09%09%09nextPutAll%3A%20anAssociation%20key%20printString%3B%0A%09%09%09%09%09%09%09%09nextPutAll%3A%20%27%20-%3E%20%27%3B%0A%09%09%09%09%09%09%09%09nextPutAll%3A%20anAssociation%20value%20printString%5D%0A%09%09%09%09%09%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%20%2C%20%27%5D.%0A%09%09%09%09%09%09aStream%20nextPutAll%3A%20%27%29%27%5D'),
-messageSends: ["streamContents:", "nextPutAll:", "printString", "do:separatedBy:", "associations", "key", "value"],
-referencedClasses: ["String"]
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_storeOn_'),
-smalltalk.method({
-selector: unescape('storeOn%3A'),
-category: 'printing',
-fn: function (aStream){
-var self=this;
-smalltalk.send(aStream, "_nextPutAll_", [unescape("%23%7B")]);
-smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_storeOn_", [aStream]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [". "]);})]);
-smalltalk.send(aStream, "_nextPutAll_", [unescape("%7D")]);
-return self;},
-args: ["aStream"],
-source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20%27%23%7B%27.%0A%09self%20associations%0A%09%09do%3A%20%5B%3Aeach%20%7C%20each%20storeOn%3A%20aStream%5D%0A%09%09separatedBy%3A%20%5B%20aStream%20nextPutAll%3A%20%27.%20%27%5D.%0A%09aStream%20nextPutAll%3A%20%27%7D%27'),
-messageSends: ["nextPutAll:", "do:separatedBy:", "associations", "storeOn:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_includesKey_'),
-smalltalk.method({
-selector: unescape('includesKey%3A'),
-category: 'testing',
-fn: function (aKey){
-var self=this;
-return self.hasOwnProperty(aKey);
-return self;},
-args: ["aKey"],
-source: unescape('includesKey%3A%20aKey%0A%09%3Creturn%20self.hasOwnProperty%28aKey%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_remove_ifAbsent_'),
-smalltalk.method({
-selector: unescape('remove%3AifAbsent%3A'),
-category: 'adding/removing',
-fn: function (aKey, aBlock){
-var self=this;
-return smalltalk.send(self, "_removeKey_ifAbsent_", [aKey, aBlock]);
-return self;},
-args: ["aKey", "aBlock"],
-source: unescape('remove%3A%20aKey%20ifAbsent%3A%20aBlock%0A%20%20%20%20%5Eself%20removeKey%3A%20aKey%20ifAbsent%3A%20aBlock'),
-messageSends: ["removeKey:ifAbsent:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_removeKey_ifAbsent_'),
-smalltalk.method({
-selector: unescape('removeKey%3AifAbsent%3A'),
-category: 'adding/removing',
-fn: function (aKey, aBlock){
-var self=this;
-return ((($receiver = smalltalk.send(self, "_includesKey_", [aKey])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})]));
-return self;},
-args: ["aKey", "aBlock"],
-source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20includesKey%3A%20aKey%29%20%0A%09%09ifFalse%3A%20%5BaBlock%20value%5D%0A%09%09ifTrue%3A%20%5Bself%20basicDelete%3A%20aKey%5D'),
-messageSends: ["ifFalse:ifTrue:", "includesKey:", "value", "basicDelete:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-unescape('_deepCopy'),
-smalltalk.method({
-selector: unescape('deepCopy'),
-category: 'copying',
-fn: function (){
-var self=this;
-var copy=nil;
-copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
-smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(smalltalk.send(each, "_value", []), "_deepCopy", [])]);})]);
-return copy;
-return self;},
-args: [],
-source: unescape('deepCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%20deepCopy%5D.%0A%09%5Ecopy'),
-messageSends: ["new", "class", "associationsDo:", "at:put:", "key", "deepCopy", "value"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-
-smalltalk.addMethod(
-unescape('_fromPairs_'),
-smalltalk.method({
-selector: unescape('fromPairs%3A'),
-category: 'instance creation',
-fn: function (aCollection){
-var self=this;
-var dict=nil;
-dict=smalltalk.send(self, "_new", []);
-smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict, "_add_", [each]);})]);
-return dict;
-return self;},
-args: ["aCollection"],
-source: unescape('fromPairs%3A%20aCollection%0A%09%7C%20dict%20%7C%0A%09dict%20%3A%3D%20self%20new.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20dict%20add%3A%20each%5D.%0A%09%5Edict'),
-messageSends: ["new", "do:", "add:"],
-referencedClasses: []
-}),
-smalltalk.Dictionary.klass);
 
 
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
@@ -3570,7 +3055,7 @@ var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aCollection, "_class", [])]), "_and_", [(function(){return smalltalk.send(self['@elements'], "__eq", [smalltalk.send(aCollection, "_asArray", [])]);})]);
 return self;},
 args: ["aCollection"],
-source: unescape('%3D%20aCollection%0A%09%5Eself%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%20%20%20%20%20%20%20%20%09elements%20%3D%20aCollection%20asArray%5D'),
+source: unescape('%3D%20aCollection%0A%09%5Eself%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%09%09elements%20%3D%20aCollection%20asArray%5D'),
 messageSends: ["and:", unescape("%3D"), "class", "asArray"],
 referencedClasses: []
 }),
@@ -3578,25 +3063,554 @@ smalltalk.Set);
 
 
 
-smalltalk.addClass('HashTable', smalltalk.Dictionary, ['keys', 'values'], 'Kernel-Collections');
+smalltalk.addClass('HashedCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('_initialize'),
+unescape('_size'),
 smalltalk.method({
-selector: unescape('initialize'),
-category: 'initialization',
+selector: unescape('size'),
+category: 'accessing',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Dictionary);
-self['@keys']=[];
-self['@values']=[];
+return smalltalk.send(smalltalk.send(self, "_keys", []), "_size", []);
 return self;},
 args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09keys%20%3A%3D%20%23%28%29.%0A%09values%20%3A%3D%20%23%28%29'),
-messageSends: ["initialize"],
+source: unescape('size%0A%09%5Eself%20keys%20size'),
+messageSends: ["size", "keys"],
 referencedClasses: []
 }),
-smalltalk.HashTable);
+smalltalk.HashedCollection);
 
+smalltalk.addMethod(
+unescape('_associations'),
+smalltalk.method({
+selector: unescape('associations'),
+category: 'accessing',
+fn: function (){
+var self=this;
+var associations=nil;
+associations=[];
+smalltalk.send(smalltalk.send(self, "_keys", []), "_do_", [(function(each){return smalltalk.send(associations, "_add_", [smalltalk.send((smalltalk.Association || Association), "_key_value_", [each, smalltalk.send(self, "_at_", [each])])]);})]);
+return associations;
+return self;},
+args: [],
+source: unescape('associations%0A%09%7C%20associations%20%7C%0A%09associations%20%3A%3D%20%23%28%29.%0A%09self%20keys%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20associations%20add%3A%20%28Association%20key%3A%20each%20value%3A%20%28self%20at%3A%20each%29%29%5D.%0A%09%5Eassociations'),
+messageSends: ["do:", "keys", "add:", "key:value:", "at:"],
+referencedClasses: ["Association"]
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_keys'),
+smalltalk.method({
+selector: unescape('keys'),
+category: 'accessing',
+fn: function (){
+var self=this;
+
+		var keys = [];
+		for(var i in self) {
+			if(self.hasOwnProperty(i)) {
+				keys.push(i);
+			}
+		};
+		return keys;
+	;
+return self;},
+args: [],
+source: unescape('keys%0A%09%3C%0A%09%09var%20keys%20%3D%20%5B%5D%3B%0A%09%09for%28var%20i%20in%20self%29%20%7B%0A%09%09%09if%28self.hasOwnProperty%28i%29%29%20%7B%0A%09%09%09%09keys.push%28i%29%3B%0A%09%09%09%7D%0A%09%09%7D%3B%0A%09%09return%20keys%3B%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_values'),
+smalltalk.method({
+selector: unescape('values'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_keys", []), "_collect_", [(function(each){return smalltalk.send(self, "_at_", [each]);})]);
+return self;},
+args: [],
+source: unescape('values%0A%09%5Eself%20keys%20collect%3A%20%5B%3Aeach%20%7C%20self%20at%3A%20each%5D'),
+messageSends: ["collect:", "keys", "at:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_at_put_'),
+smalltalk.method({
+selector: unescape('at%3Aput%3A'),
+category: 'accessing',
+fn: function (aKey, aValue){
+var self=this;
+return smalltalk.send(self, "_basicAt_put_", [aKey, aValue]);
+return self;},
+args: ["aKey", "aValue"],
+source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%5Eself%20basicAt%3A%20aKey%20put%3A%20aValue'),
+messageSends: ["basicAt:put:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_at_ifAbsent_'),
+smalltalk.method({
+selector: unescape('at%3AifAbsent%3A'),
+category: 'accessing',
+fn: function (aKey, aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_includesKey_", [aKey]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_basicAt_", [aKey]);}), aBlock]);
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20includesKey%3A%20aKey%29%0A%09%09ifTrue%3A%20%5Bself%20basicAt%3A%20aKey%5D%0A%09%09ifFalse%3A%20aBlock'),
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_at_ifAbsentPut_'),
+smalltalk.method({
+selector: unescape('at%3AifAbsentPut%3A'),
+category: 'accessing',
+fn: function (aKey, aBlock){
+var self=this;
+return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_at_put_", [aKey, smalltalk.send(aBlock, "_value", [])]);})]);
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('at%3A%20aKey%20ifAbsentPut%3A%20aBlock%0A%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5B%0A%09%20%20%20%20self%20at%3A%20aKey%20put%3A%20aBlock%20value%5D'),
+messageSends: ["at:ifAbsent:", "at:put:", "value"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_at_ifPresent_'),
+smalltalk.method({
+selector: unescape('at%3AifPresent%3A'),
+category: 'accessing',
+fn: function (aKey, aBlock){
+var self=this;
+return (($receiver = smalltalk.send(self, "_basicAt_", [aKey])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})() : nil;
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D'),
+messageSends: ["ifNotNil:", "basicAt:", "value:", "at:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_at_ifPresent_ifAbsent_'),
+smalltalk.method({
+selector: unescape('at%3AifPresent%3AifAbsent%3A'),
+category: 'accessing',
+fn: function (aKey, aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNil_ifNotNil_", [anotherBlock, (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
+return self;},
+args: ["aKey", "aBlock", "anotherBlock"],
+source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%20ifAbsent%3A%20anotherBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%0A%09%20%20%20%20ifNil%3A%20anotherBlock%0A%09%20%20%20%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D'),
+messageSends: ["ifNil:ifNotNil:", "basicAt:", "value:", "at:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_at_'),
+smalltalk.method({
+selector: unescape('at%3A'),
+category: 'accessing',
+fn: function (aKey){
+var self=this;
+return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
+return self;},
+args: ["aKey"],
+source: unescape('at%3A%20aKey%0A%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5Bself%20errorNotFound%5D'),
+messageSends: ["at:ifAbsent:", "errorNotFound"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_add_'),
+smalltalk.method({
+selector: unescape('add%3A'),
+category: 'adding/removing',
+fn: function (anAssociation){
+var self=this;
+smalltalk.send(self, "_at_put_", [smalltalk.send(anAssociation, "_key", []), smalltalk.send(anAssociation, "_value", [])]);
+return self;},
+args: ["anAssociation"],
+source: unescape('add%3A%20anAssociation%0A%09self%20at%3A%20anAssociation%20key%20put%3A%20anAssociation%20value'),
+messageSends: ["at:put:", "key", "value"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_addAll_'),
+smalltalk.method({
+selector: unescape('addAll%3A'),
+category: 'adding/removing',
+fn: function (aHashedCollection){
+var self=this;
+smalltalk.send(self, "_addAll_", [smalltalk.send(aHashedCollection, "_associations", [])], smalltalk.Collection);
+return aHashedCollection;
+return self;},
+args: ["aHashedCollection"],
+source: unescape('addAll%3A%20aHashedCollection%0A%09super%20addAll%3A%20aHashedCollection%20associations.%0A%09%5EaHashedCollection'),
+messageSends: ["addAll:", "associations"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_removeKey_'),
+smalltalk.method({
+selector: unescape('removeKey%3A'),
+category: 'adding/removing',
+fn: function (aKey){
+var self=this;
+smalltalk.send(self, "_remove_", [aKey]);
+return self;},
+args: ["aKey"],
+source: unescape('removeKey%3A%20aKey%0A%20%20%20%20self%20remove%3A%20aKey'),
+messageSends: ["remove:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_remove_ifAbsent_'),
+smalltalk.method({
+selector: unescape('remove%3AifAbsent%3A'),
+category: 'adding/removing',
+fn: function (aKey, aBlock){
+var self=this;
+return smalltalk.send(self, "_removeKey_ifAbsent_", [aKey, aBlock]);
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('remove%3A%20aKey%20ifAbsent%3A%20aBlock%0A%20%20%20%20%5Eself%20removeKey%3A%20aKey%20ifAbsent%3A%20aBlock'),
+messageSends: ["removeKey:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_removeKey_ifAbsent_'),
+smalltalk.method({
+selector: unescape('removeKey%3AifAbsent%3A'),
+category: 'adding/removing',
+fn: function (aKey, aBlock){
+var self=this;
+return ((($receiver = smalltalk.send(self, "_includesKey_", [aKey])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})]));
+return self;},
+args: ["aKey", "aBlock"],
+source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20includesKey%3A%20aKey%29%20%0A%09%09ifFalse%3A%20%5BaBlock%20value%5D%0A%09%09ifTrue%3A%20%5Bself%20basicDelete%3A%20aKey%5D'),
+messageSends: ["ifFalse:ifTrue:", "includesKey:", "value", "basicDelete:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('__eq'),
+smalltalk.method({
+selector: unescape('%3D'),
+category: 'comparing',
+fn: function (aHashedCollection){
+var self=this;
+try{((($receiver = smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aHashedCollection, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+((($receiver = smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aHashedCollection, "_size", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return smalltalk.send(smalltalk.send(self, "_associations", []), "__eq", [smalltalk.send(aHashedCollection, "_associations", [])])}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
+args: ["aHashedCollection"],
+source: unescape('%3D%20aHashedCollection%0A%09self%20class%20%3D%20aHashedCollection%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20size%20%3D%20aHashedCollection%20size%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%5Eself%20associations%20%3D%20aHashedCollection%20associations'),
+messageSends: ["ifFalse:", unescape("%3D"), "class", "size", "associations"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_shallowCopy'),
+smalltalk.method({
+selector: unescape('shallowCopy'),
+category: 'copying',
+fn: function (){
+var self=this;
+var copy=nil;
+copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
+return copy;
+return self;},
+args: [],
+source: unescape('shallowCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%5D.%0A%09%5Ecopy'),
+messageSends: ["new", "class", "associationsDo:", "at:put:", "key", "value"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('__comma'),
+smalltalk.method({
+selector: unescape('%2C'),
+category: 'copying',
+fn: function (aCollection){
+var self=this;
+smalltalk.send(self, "_shouldNotImplement", []);
+return self;},
+args: ["aCollection"],
+source: unescape('%2C%20aCollection%0A%09self%20shouldNotImplement'),
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_copyFrom_to_'),
+smalltalk.method({
+selector: unescape('copyFrom%3Ato%3A'),
+category: 'copying',
+fn: function (anIndex, anotherIndex){
+var self=this;
+smalltalk.send(self, "_shouldNotImplement", []);
+return self;},
+args: ["anIndex", "anotherIndex"],
+source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09self%20shouldNotImplement'),
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_deepCopy'),
+smalltalk.method({
+selector: unescape('deepCopy'),
+category: 'copying',
+fn: function (){
+var self=this;
+var copy=nil;
+copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(smalltalk.send(each, "_value", []), "_deepCopy", [])]);})]);
+return copy;
+return self;},
+args: [],
+source: unescape('deepCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%20deepCopy%5D.%0A%09%5Ecopy'),
+messageSends: ["new", "class", "associationsDo:", "at:put:", "key", "deepCopy", "value"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_associationsDo_'),
+smalltalk.method({
+selector: unescape('associationsDo%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_associations", []), "_do_", [aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('associationsDo%3A%20aBlock%0A%09self%20associations%20do%3A%20aBlock'),
+messageSends: ["do:", "associations"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_keysAndValuesDo_'),
+smalltalk.method({
+selector: unescape('keysAndValuesDo%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(aBlock, "_value_value_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
+return self;},
+args: ["aBlock"],
+source: unescape('keysAndValuesDo%3A%20aBlock%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20aBlock%20value%3A%20each%20key%20value%3A%20each%20value%5D'),
+messageSends: ["associationsDo:", "value:value:", "key", "value"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_do_'),
+smalltalk.method({
+selector: unescape('do%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_values", []), "_do_", [aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('do%3A%20aBlock%0A%09self%20values%20do%3A%20aBlock'),
+messageSends: ["do:", "values"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_select_'),
+smalltalk.method({
+selector: unescape('select%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+var newDict=nil;
+newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(aBlock, "_value_", [value])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})]));})]);
+return newDict;
+return self;},
+args: ["aBlock"],
+source: unescape('select%3A%20aBlock%0A%09%7C%20newDict%20%7C%0A%09newDict%20%3A%3D%20self%20class%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%20%20%20%20%28aBlock%20value%3A%20value%29%20ifTrue%3A%20%5BnewDict%20at%3A%20key%20put%3A%20value%5D%5D.%0A%09%5EnewDict'),
+messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "value:", "at:put:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_collect_'),
+smalltalk.method({
+selector: unescape('collect%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+var newDict=nil;
+newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(newDict, "_at_put_", [key, smalltalk.send(aBlock, "_value_", [value])]);})]);
+return newDict;
+return self;},
+args: ["aBlock"],
+source: unescape('collect%3A%20aBlock%0A%09%7C%20newDict%20%7C%0A%09newDict%20%3A%3D%20self%20class%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%20%20%20%20newDict%20at%3A%20key%20put%3A%20%28aBlock%20value%3A%20value%29%5D.%0A%09%5EnewDict'),
+messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "value:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_detect_ifNone_'),
+smalltalk.method({
+selector: unescape('detect%3AifNone%3A'),
+category: 'enumerating',
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_values", []), "_detect_ifNone_", [aBlock, anotherBlock]);
+return self;},
+args: ["aBlock", "anotherBlock"],
+source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5Eself%20values%20detect%3A%20aBlock%20ifNone%3A%20anotherBlock'),
+messageSends: ["detect:ifNone:", "values"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_includes_'),
+smalltalk.method({
+selector: unescape('includes%3A'),
+category: 'enumerating',
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_values", []), "_includes_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('includes%3A%20anObject%0A%09%5Eself%20values%20includes%3A%20anObject'),
+messageSends: ["includes:", "values"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_printString'),
+smalltalk.method({
+selector: unescape('printString'),
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Collection)]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20-%3E%20")]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [unescape("%20%2C%20")]);})]);return smalltalk.send(aStream, "_nextPutAll_", [unescape("%29")]);})]);
+return self;},
+args: [],
+source: unescape('printString%0A%09%5EString%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%09%09aStream%20%0A%09%09%09nextPutAll%3A%20super%20printString%3B%0A%09%09%09nextPutAll%3A%20%27%28%27.%0A%09%09%09%09self%20associations%20%0A%09%09%09%09%09do%3A%20%5B%3AanAssociation%7C%20%20%0A%09%09%09%09%09%09aStream%20%0A%09%09%09%09%09%09%09nextPutAll%3A%20anAssociation%20key%20printString%3B%0A%09%09%09%09%09%09%09%09nextPutAll%3A%20%27%20-%3E%20%27%3B%0A%09%09%09%09%09%09%09%09nextPutAll%3A%20anAssociation%20value%20printString%5D%0A%09%09%09%09%09%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%20%2C%20%27%5D.%0A%09%09%09%09%09%09aStream%20nextPutAll%3A%20%27%29%27%5D'),
+messageSends: ["streamContents:", "nextPutAll:", "printString", "do:separatedBy:", "associations", "key", "value"],
+referencedClasses: ["String"]
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_storeOn_'),
+smalltalk.method({
+selector: unescape('storeOn%3A'),
+category: 'printing',
+fn: function (aStream){
+var self=this;
+smalltalk.send(aStream, "_nextPutAll_", [unescape("%23%7B")]);
+smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_storeOn_", [aStream]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [". "]);})]);
+smalltalk.send(aStream, "_nextPutAll_", [unescape("%7D")]);
+return self;},
+args: ["aStream"],
+source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20%27%23%7B%27.%0A%09self%20associations%0A%09%09do%3A%20%5B%3Aeach%20%7C%20each%20storeOn%3A%20aStream%5D%0A%09%09separatedBy%3A%20%5B%20aStream%20nextPutAll%3A%20%27.%20%27%5D.%0A%09aStream%20nextPutAll%3A%20%27%7D%27'),
+messageSends: ["nextPutAll:", "do:separatedBy:", "associations", "storeOn:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_includesKey_'),
+smalltalk.method({
+selector: unescape('includesKey%3A'),
+category: 'testing',
+fn: function (aKey){
+var self=this;
+return self.hasOwnProperty(aKey);
+return self;},
+args: ["aKey"],
+source: unescape('includesKey%3A%20aKey%0A%09%3Creturn%20self.hasOwnProperty%28aKey%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+unescape('_asDictionary'),
+smalltalk.method({
+selector: unescape('asDictionary'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.Dictionary || Dictionary), "_fromPairs_", [smalltalk.send(self, "_associations", [])]);
+return self;},
+args: [],
+source: unescape('asDictionary%0A%09%5EDictionary%20fromPairs%3A%20self%20associations'),
+messageSends: ["fromPairs:", "associations"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.HashedCollection);
+
+
+smalltalk.addMethod(
+unescape('_fromPairs_'),
+smalltalk.method({
+selector: unescape('fromPairs%3A'),
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var dict=nil;
+dict=smalltalk.send(self, "_new", []);
+smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict, "_add_", [each]);})]);
+return dict;
+return self;},
+args: ["aCollection"],
+source: unescape('fromPairs%3A%20aCollection%0A%09%7C%20dict%20%7C%0A%09dict%20%3A%3D%20self%20new.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20dict%20add%3A%20each%5D.%0A%09%5Edict'),
+messageSends: ["new", "do:", "add:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection.klass);
+
+
+smalltalk.addClass('Dictionary', smalltalk.HashedCollection, ['keys', 'values'], 'Kernel-Collections');
 smalltalk.addMethod(
 unescape('_at_ifAbsent_'),
 smalltalk.method({
@@ -3618,7 +3632,7 @@ source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20ind
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HashTable);
+smalltalk.Dictionary);
 
 smalltalk.addMethod(
 unescape('_keys'),
@@ -3634,7 +3648,7 @@ source: unescape('keys%0A%09%5Ekeys%20copy'),
 messageSends: ["copy"],
 referencedClasses: []
 }),
-smalltalk.HashTable);
+smalltalk.Dictionary);
 
 smalltalk.addMethod(
 unescape('_values'),
@@ -3650,7 +3664,7 @@ source: unescape('values%0A%09%5Evalues%20copy'),
 messageSends: ["copy"],
 referencedClasses: []
 }),
-smalltalk.HashTable);
+smalltalk.Dictionary);
 
 smalltalk.addMethod(
 unescape('_at_put_'),
@@ -3676,23 +3690,7 @@ source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%3C%0A%09%09var%20index%20
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HashTable);
-
-smalltalk.addMethod(
-unescape('_includesKey_'),
-smalltalk.method({
-selector: unescape('includesKey%3A'),
-category: 'testing',
-fn: function (aKey){
-var self=this;
-return smalltalk.send(self['@keys'], "_includes_", [aKey]);
-return self;},
-args: ["aKey"],
-source: unescape('includesKey%3A%20aKey%0A%09%5Ekeys%20includes%3A%20aKey'),
-messageSends: ["includes:"],
-referencedClasses: []
-}),
-smalltalk.HashTable);
+smalltalk.Dictionary);
 
 smalltalk.addMethod(
 unescape('_removeKey_ifAbsent_'),
@@ -3717,7 +3715,73 @@ source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09va
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HashTable);
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.HashedCollection);
+self['@keys']=[];
+self['@values']=[];
+return self;},
+args: [],
+source: unescape('initialize%0A%09super%20initialize.%0A%09keys%20%3A%3D%20%23%28%29.%0A%09values%20%3A%3D%20%23%28%29'),
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+unescape('_includesKey_'),
+smalltalk.method({
+selector: unescape('includesKey%3A'),
+category: 'testing',
+fn: function (aKey){
+var self=this;
+return smalltalk.send(self['@keys'], "_includes_", [aKey]);
+return self;},
+args: ["aKey"],
+source: unescape('includesKey%3A%20aKey%0A%09%5Ekeys%20includes%3A%20aKey'),
+messageSends: ["includes:"],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+unescape('_asHashedCollection'),
+smalltalk.method({
+selector: unescape('asHashedCollection'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_fromPairs_", [smalltalk.send(self, "_associations", [])]);
+return self;},
+args: [],
+source: unescape('asHashedCollection%0A%09%5EHashedCollection%20fromPairs%3A%20self%20associations'),
+messageSends: ["fromPairs:", "associations"],
+referencedClasses: ["HashedCollection"]
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+unescape('_asJSONString'),
+smalltalk.method({
+selector: unescape('asJSONString'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSONString", []);
+return self;},
+args: [],
+source: unescape('asJSONString%0A%09%5Eself%20asHashedCollection%20asJSONString'),
+messageSends: ["asJSONString", "asHashedCollection"],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
 
 
 

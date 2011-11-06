@@ -1758,7 +1758,7 @@ smalltalk.method({
 selector: 'visitDynamicDictionaryNode:',
 fn: function (aNode){
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("smalltalk.Dictionary._fromPairs_%28%5B")]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("smalltalk.HashedCollection._fromPairs_%28%5B")]);
 smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%2C")]);})]);
 smalltalk.send(self['@stream'], "_nextPutAll_", [unescape("%5D%29")]);
 return self;}

@@ -1498,8 +1498,8 @@ inspectIt
 
 print: aString
 	| start stop |
-	start := Dictionary new.
-	stop := Dictionary new.
+	start := HashedCollection new.
+	stop := HashedCollection new.
 	start at: 'line' put: (editor getCursor: false) line.
 	start at: 'ch' put: (editor getCursor: false) ch.
 	stop at: 'line' put: (start at: 'line').

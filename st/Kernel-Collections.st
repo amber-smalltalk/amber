@@ -59,6 +59,10 @@ asArray
 
 asSet
 	^Set withAll: self
+!
+
+asJSONString
+	^JSON stringify: (self collect: [:each | each asJSONString])
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -112,13 +116,13 @@ detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock separatedBy: anotherBlock
-    	| first |
-    	first := true.
-    	self do: [:each |
-    	    first
-    		ifTrue: [first := false]
-    		ifFalse: [anotherBlock value].
-    	    aBlock value: each]
+	| first |
+	first := true.
+	self do: [:each |
+	    first
+		ifTrue: [first := false]
+		ifFalse: [anotherBlock value].
+	    aBlock value: each]
 !
 
 inject: anObject into: aBlock
@@ -334,11 +338,11 @@ at: anIndex
 !
 
 at: anIndex put: anObject
-    	self errorReadOnly
+	self errorReadOnly
 !
 
 at: anIndex ifAbsent: aBlock
-    	(self at: anIndex) ifNil: [aBlock]
+	(self at: anIndex) ifNil: [aBlock]
 !
 
 escaped
@@ -356,7 +360,7 @@ asciiValue
 !String methodsFor: 'adding'!
 
 add: anObject
-    	self errorReadOnly
+	self errorReadOnly
 !
 
 remove: anObject
@@ -398,16 +402,16 @@ asSelector
 
 	| selector |
 	selector := '_', self.
-    	selector := selector replace: ':' with: '_'.
-    	selector := selector replace: '[+]' with: '_plus'.
-    	selector := selector replace: '-' with: '_minus'.
-    	selector := selector replace: '[*]' with: '_star'.
-    	selector := selector replace: '[/]' with: '_slash'.
-    	selector := selector replace: '>' with: '_gt'.
-    	selector := selector replace: '<' with: '_lt'.
-    	selector := selector replace: '=' with: '_eq'.
-    	selector := selector replace: ',' with: '_comma'.
-    	selector := selector replace: '[@]' with: '_at'.
+	selector := selector replace: ':' with: '_'.
+	selector := selector replace: '[+]' with: '_plus'.
+	selector := selector replace: '-' with: '_minus'.
+	selector := selector replace: '[*]' with: '_star'.
+	selector := selector replace: '[/]' with: '_slash'.
+	selector := selector replace: '>' with: '_gt'.
+	selector := selector replace: '<' with: '_lt'.
+	selector := selector replace: '=' with: '_eq'.
+	selector := selector replace: ',' with: '_comma'.
+	selector := selector replace: '[@]' with: '_at'.
 	^selector
 !
 
@@ -425,7 +429,7 @@ tokenize: aString
 !
 
 asString
-    	^self
+	^self
 !
 
 asNumber
@@ -459,23 +463,23 @@ copyFrom: anIndex to: anotherIndex
 !
 
 shallowCopy
-    	^self class fromString: self
+	^self class fromString: self
 !
 
 deepCopy
-    	^self shallowCopy
+	^self shallowCopy
 ! !
 
 !String methodsFor: 'error handling'!
 
 errorReadOnly
-    	self error: 'Object is read-only'
+	self error: 'Object is read-only'
 ! !
 
 !String methodsFor: 'printing'!
 
 printString
-    	^'''', self, ''''
+	^'''', self, ''''
 !
 
 printNl
@@ -485,7 +489,7 @@ printNl
 !String methodsFor: 'regular expressions'!
 
 replace: aString with: anotherString
-    	^self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString
+	^self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString
 !
 
 replaceRegexp: aRegexp with: aString
@@ -498,12 +502,12 @@ match: aRegexp
 
 trimLeft: separators
 
-    	^self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
+	^self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
 !
 
 trimRight: separators
 
-    	^self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
+	^self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
 !
 
 trimLeft
@@ -520,7 +524,7 @@ trimBoth
 
 trimBoth: separators
 
-    	^(self trimLeft: separators) trimRight: separators
+	^(self trimLeft: separators) trimRight: separators
 ! !
 
 !String methodsFor: 'split join'!
@@ -597,7 +601,7 @@ lineNumber: anIndex
 !String methodsFor: 'testing'!
 
 isString
-    	^true
+	^true
 !
 
 includesSubString: subString
@@ -698,7 +702,7 @@ removeFrom: aNumber to: anotherNumber
 
 = aCollection
 	(self class = aCollection class and: [
-        	self size = aCollection size]) ifFalse: [^false].
+		self size = aCollection size]) ifFalse: [^false].
 	self withIndexDo: [:each :i |
                  (aCollection at: i) = each ifFalse: [^false]].
 	^true
@@ -850,207 +854,6 @@ key: aKey value: aValue
 		key: aKey;
 		value: aValue;
 		yourself
-! !
-
-Collection subclass: #Dictionary
-	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
-
-!Dictionary methodsFor: 'accessing'!
-
-size
-	^self keys size
-!
-
-associations
-	| associations |
-	associations := #().
-	self keys do: [:each |
-	    associations add: (Association key: each value: (self at: each))].
-	^associations
-!
-
-keys
-	<
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	>
-!
-
-values
-    	^self keys collect: [:each | self at: each]
-!
-
-at: aKey put: aValue
-	^self basicAt: aKey put: aValue
-!
-
-at: aKey ifAbsent: aBlock
-	^(self includesKey: aKey)
-		ifTrue: [self basicAt: aKey]
-		ifFalse: aBlock
-!
-
-at: aKey ifAbsentPut: aBlock
-    	^self at: aKey ifAbsent: [
-    	    self at: aKey put: aBlock value]
-!
-
-at: aKey ifPresent: aBlock
-	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
-!
-
-at: aKey ifPresent: aBlock ifAbsent: anotherBlock
-	^(self basicAt: aKey)
-	    ifNil: anotherBlock
-	    ifNotNil: [aBlock value: (self at: aKey)]
-!
-
-at: aKey
-	^self at: aKey ifAbsent: [self errorNotFound]
-! !
-
-!Dictionary methodsFor: 'adding/removing'!
-
-add: anAssociation
-    	self at: anAssociation key put: anAssociation value
-!
-
-addAll: aDictionary
-    	super addAll: aDictionary associations.
-    	^aDictionary
-!
-
-removeKey: aKey
-    self remove: aKey
-!
-
-remove: aKey ifAbsent: aBlock
-    ^self removeKey: aKey ifAbsent: aBlock
-!
-
-removeKey: aKey ifAbsent: aBlock
-	^(self includesKey: aKey) 
-		ifFalse: [aBlock value]
-		ifTrue: [self basicDelete: aKey]
-! !
-
-!Dictionary methodsFor: 'comparing'!
-
-= aDictionary
-	self class = aDictionary class ifFalse: [^false].
-	self size = aDictionary size ifFalse: [^false].
-	^self associations = aDictionary associations
-! !
-
-!Dictionary methodsFor: 'copying'!
-
-shallowCopy
-	| copy |
-	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value].
-	^copy
-!
-
-, aCollection
-	self shouldNotImplement
-!
-
-copyFrom: anIndex to: anotherIndex
-	self shouldNotImplement
-!
-
-deepCopy
-	| copy |
-	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value deepCopy].
-	^copy
-! !
-
-!Dictionary methodsFor: 'enumerating'!
-
-associationsDo: aBlock
-    	self associations do: aBlock
-!
-
-keysAndValuesDo: aBlock
-    	self associationsDo: [:each |
-    	    aBlock value: each key value: each value]
-!
-
-do: aBlock
-    	self values do: aBlock
-!
-
-select: aBlock
-    	| newDict |
-    	newDict := self class new.
-    	self keysAndValuesDo: [:key :value |
-    	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
-    	^newDict
-!
-
-collect: aBlock
-    	| newDict |
-    	newDict := self class new.
-    	self keysAndValuesDo: [:key :value |
-    	    newDict at: key put: (aBlock value: value)].
-    	^newDict
-!
-
-detect: aBlock ifNone: anotherBlock
-	^self values detect: aBlock ifNone: anotherBlock
-!
-
-includes: anObject
-	^self values includes: anObject
-! !
-
-!Dictionary methodsFor: 'printing'!
-
-printString
-	^String streamContents: [:aStream|  
-		aStream 
-			nextPutAll: super printString;
-			nextPutAll: '('.
-				self associations 
-					do: [:anAssociation|  
-						aStream 
-							nextPutAll: anAssociation key printString;
-								nextPutAll: ' -> ';
-								nextPutAll: anAssociation value printString]
-							separatedBy: [aStream nextPutAll: ' , '].
-						aStream nextPutAll: ')']
-!
-
-storeOn: aStream
-	aStream nextPutAll: '#{'.
-	self associations
-		do: [:each | each storeOn: aStream]
-		separatedBy: [ aStream nextPutAll: '. '].
-	aStream nextPutAll: '}'
-! !
-
-!Dictionary methodsFor: 'testing'!
-
-includesKey: aKey
-	<return self.hasOwnProperty(aKey)>
-! !
-
-!Dictionary class methodsFor: 'instance creation'!
-
-fromPairs: aCollection
-	| dict |
-	dict := self new.
-	aCollection do: [:each | dict add: each].
-	^dict
 ! !
 
 Object subclass: #Stream
@@ -1262,7 +1065,7 @@ remove: anObject
 
 = aCollection
 	^self class = aCollection class and: [
-        	elements = aCollection asArray]
+		elements = aCollection asArray]
 ! !
 
 !Set methodsFor: 'converting'!
@@ -1294,11 +1097,218 @@ includes: anObject
 	^elements includes: anObject
 ! !
 
-Dictionary subclass: #HashTable
+Collection subclass: #HashedCollection
+	instanceVariableNames: ''
+	category: 'Kernel-Collections'!
+
+!HashedCollection methodsFor: 'accessing'!
+
+size
+	^self keys size
+!
+
+associations
+	| associations |
+	associations := #().
+	self keys do: [:each |
+	    associations add: (Association key: each value: (self at: each))].
+	^associations
+!
+
+keys
+	<
+		var keys = [];
+		for(var i in self) {
+			if(self.hasOwnProperty(i)) {
+				keys.push(i);
+			}
+		};
+		return keys;
+	>
+!
+
+values
+	^self keys collect: [:each | self at: each]
+!
+
+at: aKey put: aValue
+	^self basicAt: aKey put: aValue
+!
+
+at: aKey ifAbsent: aBlock
+	^(self includesKey: aKey)
+		ifTrue: [self basicAt: aKey]
+		ifFalse: aBlock
+!
+
+at: aKey ifAbsentPut: aBlock
+	^self at: aKey ifAbsent: [
+	    self at: aKey put: aBlock value]
+!
+
+at: aKey ifPresent: aBlock
+	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
+!
+
+at: aKey ifPresent: aBlock ifAbsent: anotherBlock
+	^(self basicAt: aKey)
+	    ifNil: anotherBlock
+	    ifNotNil: [aBlock value: (self at: aKey)]
+!
+
+at: aKey
+	^self at: aKey ifAbsent: [self errorNotFound]
+! !
+
+!HashedCollection methodsFor: 'adding/removing'!
+
+add: anAssociation
+	self at: anAssociation key put: anAssociation value
+!
+
+addAll: aHashedCollection
+	super addAll: aHashedCollection associations.
+	^aHashedCollection
+!
+
+removeKey: aKey
+    self remove: aKey
+!
+
+remove: aKey ifAbsent: aBlock
+    ^self removeKey: aKey ifAbsent: aBlock
+!
+
+removeKey: aKey ifAbsent: aBlock
+	^(self includesKey: aKey) 
+		ifFalse: [aBlock value]
+		ifTrue: [self basicDelete: aKey]
+! !
+
+!HashedCollection methodsFor: 'comparing'!
+
+= aHashedCollection
+	self class = aHashedCollection class ifFalse: [^false].
+	self size = aHashedCollection size ifFalse: [^false].
+	^self associations = aHashedCollection associations
+! !
+
+!HashedCollection methodsFor: 'converting'!
+
+asDictionary
+	^Dictionary fromPairs: self associations
+! !
+
+!HashedCollection methodsFor: 'copying'!
+
+shallowCopy
+	| copy |
+	copy := self class new.
+	self associationsDo: [:each |
+	    copy at: each key  put: each value].
+	^copy
+!
+
+, aCollection
+	self shouldNotImplement
+!
+
+copyFrom: anIndex to: anotherIndex
+	self shouldNotImplement
+!
+
+deepCopy
+	| copy |
+	copy := self class new.
+	self associationsDo: [:each |
+	    copy at: each key  put: each value deepCopy].
+	^copy
+! !
+
+!HashedCollection methodsFor: 'enumerating'!
+
+associationsDo: aBlock
+	self associations do: aBlock
+!
+
+keysAndValuesDo: aBlock
+	self associationsDo: [:each |
+	    aBlock value: each key value: each value]
+!
+
+do: aBlock
+	self values do: aBlock
+!
+
+select: aBlock
+	| newDict |
+	newDict := self class new.
+	self keysAndValuesDo: [:key :value |
+	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
+	^newDict
+!
+
+collect: aBlock
+	| newDict |
+	newDict := self class new.
+	self keysAndValuesDo: [:key :value |
+	    newDict at: key put: (aBlock value: value)].
+	^newDict
+!
+
+detect: aBlock ifNone: anotherBlock
+	^self values detect: aBlock ifNone: anotherBlock
+!
+
+includes: anObject
+	^self values includes: anObject
+! !
+
+!HashedCollection methodsFor: 'printing'!
+
+printString
+	^String streamContents: [:aStream|  
+		aStream 
+			nextPutAll: super printString;
+			nextPutAll: '('.
+				self associations 
+					do: [:anAssociation|  
+						aStream 
+							nextPutAll: anAssociation key printString;
+								nextPutAll: ' -> ';
+								nextPutAll: anAssociation value printString]
+							separatedBy: [aStream nextPutAll: ' , '].
+						aStream nextPutAll: ')']
+!
+
+storeOn: aStream
+	aStream nextPutAll: '#{'.
+	self associations
+		do: [:each | each storeOn: aStream]
+		separatedBy: [ aStream nextPutAll: '. '].
+	aStream nextPutAll: '}'
+! !
+
+!HashedCollection methodsFor: 'testing'!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
+! !
+
+!HashedCollection class methodsFor: 'instance creation'!
+
+fromPairs: aCollection
+	| dict |
+	dict := self new.
+	aCollection do: [:each | dict add: each].
+	^dict
+! !
+
+HashedCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
 	category: 'Kernel-Collections'!
 
-!HashTable methodsFor: 'accessing'!
+!Dictionary methodsFor: 'accessing'!
 
 at: aKey ifAbsent: aBlock
 	<
@@ -1333,7 +1343,7 @@ at: aKey put: aValue
 	>
 ! !
 
-!HashTable methodsFor: 'adding/removing'!
+!Dictionary methodsFor: 'adding/removing'!
 
 removeKey: aKey ifAbsent: aBlock
 	<
@@ -1348,7 +1358,17 @@ removeKey: aKey ifAbsent: aBlock
 	>
 ! !
 
-!HashTable methodsFor: 'initialization'!
+!Dictionary methodsFor: 'converting'!
+
+asHashedCollection
+	^HashedCollection fromPairs: self associations
+!
+
+asJSONString
+	^self asHashedCollection asJSONString
+! !
+
+!Dictionary methodsFor: 'initialization'!
 
 initialize
 	super initialize.
@@ -1356,7 +1376,7 @@ initialize
 	values := #()
 ! !
 
-!HashTable methodsFor: 'testing'!
+!Dictionary methodsFor: 'testing'!
 
 includesKey: aKey
 	^keys includes: aKey

@@ -1363,7 +1363,7 @@ visitDynamicArrayNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	stream nextPutAll: 'smalltalk.Dictionary._fromPairs_(['.
+	stream nextPutAll: 'smalltalk.HashedCollection._fromPairs_(['.
 		aNode nodes 
 			do: [:each | self visit: each]
 			separatedBy: [stream nextPutAll: ','].
