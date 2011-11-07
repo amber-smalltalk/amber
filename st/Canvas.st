@@ -222,6 +222,50 @@ span: anObject
 
 style: aString
 	^ self style with: aString; yourself
+!
+
+articles
+    ^self tag: 'articles'
+!
+
+audio
+    ^self tag: 'audio'
+!
+
+fieldset
+    ^self tag: 'fieldset'
+!
+
+footer
+    ^self tag: 'footer'
+!
+
+header
+    ^self tag: 'header'
+!
+
+hr
+    ^self tag: 'hr'
+!
+
+section
+    ^self tag: 'section'
+!
+
+tbody
+    ^self tag: 'tbody'
+!
+
+tfoot
+    ^self tag: 'tfoot'
+!
+
+thead
+    ^self tag: 'thead'
+!
+
+video
+    ^self tag: 'video'
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
