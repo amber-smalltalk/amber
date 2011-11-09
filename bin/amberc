@@ -74,9 +74,9 @@ Usage: $0 [-l lib1,lib2...] [-i file] [-m class] [-M file]
 
      Example invocations:
 
-     Just compile Kernel.st to Kernel.js:
+     Just compile Kernel-Objects.st to Kernel-Objects.js:
 
-        amberc Kernel.st
+        amberc Kernel-Objects.st
 
      Compile Hello.st to Hello.js and create complete program called
      Program.js and adding a call to class method #main in class Hello:
@@ -99,7 +99,7 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-KERNEL="boot Kernel"
+KERNEL="boot Kernel-Objects Kernel-Classes Kernel-Methods Kernel-Collections Kernel-Exceptions Kernel-Transcript"
 COMPILER="$KERNEL parser Compiler"
 
 # Predefined initializer

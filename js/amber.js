@@ -30,6 +30,10 @@ amber = (function() {
 		deploy = spec.deploy || false;
 		debug = spec.debug || false;
 
+    // Allow loading default Amber files from a different location
+    // e.g. http://amber-lang.net/amber/
+    if (spec.home) home = spec.home;
+
 		// Specify a version string to avoid wrong browser caching
 		if (spec.version) {
 			nocache = '?' + spec.version;
@@ -42,7 +46,12 @@ amber = (function() {
 
 		if (deploy) {
 			loadPackages([
-					'Kernel.deploy',
+					'Kernel-Objects.deploy',
+					'Kernel-Classes.deploy',
+					'Kernel-Methods.deploy',
+					'Kernel-Collections.deploy',
+					'Kernel-Exceptions.deploy',
+					'Kernel-Transcript.deploy',
 					'Canvas.deploy'
 					]);
 		} else {
@@ -50,7 +59,12 @@ amber = (function() {
 			loadCSS('amber.css');
 
 			loadPackages([
-				'Kernel',
+				'Kernel-Objects',
+				'Kernel-Classes',
+				'Kernel-Methods',
+				'Kernel-Collections',
+				'Kernel-Exceptions',
+				'Kernel-Transcript',
 				'Canvas',
 				'Compiler',
 				'parser',

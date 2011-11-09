@@ -849,6 +849,182 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+unescape('_articles'),
+smalltalk.method({
+selector: unescape('articles'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["articles"]);
+return self;},
+args: [],
+source: unescape('articles%0A%20%20%20%20%5Eself%20tag%3A%20%27articles%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_audio'),
+smalltalk.method({
+selector: unescape('audio'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["audio"]);
+return self;},
+args: [],
+source: unescape('audio%0A%20%20%20%20%5Eself%20tag%3A%20%27audio%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_fieldset'),
+smalltalk.method({
+selector: unescape('fieldset'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["fieldset"]);
+return self;},
+args: [],
+source: unescape('fieldset%0A%20%20%20%20%5Eself%20tag%3A%20%27fieldset%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_footer'),
+smalltalk.method({
+selector: unescape('footer'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["footer"]);
+return self;},
+args: [],
+source: unescape('footer%0A%20%20%20%20%5Eself%20tag%3A%20%27footer%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_header'),
+smalltalk.method({
+selector: unescape('header'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["header"]);
+return self;},
+args: [],
+source: unescape('header%0A%20%20%20%20%5Eself%20tag%3A%20%27header%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_hr'),
+smalltalk.method({
+selector: unescape('hr'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["hr"]);
+return self;},
+args: [],
+source: unescape('hr%0A%20%20%20%20%5Eself%20tag%3A%20%27hr%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_section'),
+smalltalk.method({
+selector: unescape('section'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["section"]);
+return self;},
+args: [],
+source: unescape('section%0A%20%20%20%20%5Eself%20tag%3A%20%27section%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_tbody'),
+smalltalk.method({
+selector: unescape('tbody'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["tbody"]);
+return self;},
+args: [],
+source: unescape('tbody%0A%20%20%20%20%5Eself%20tag%3A%20%27tbody%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_tfoot'),
+smalltalk.method({
+selector: unescape('tfoot'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["tfoot"]);
+return self;},
+args: [],
+source: unescape('tfoot%0A%20%20%20%20%5Eself%20tag%3A%20%27tfoot%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_thead'),
+smalltalk.method({
+selector: unescape('thead'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["thead"]);
+return self;},
+args: [],
+source: unescape('thead%0A%20%20%20%20%5Eself%20tag%3A%20%27thead%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+unescape('_video'),
+smalltalk.method({
+selector: unescape('video'),
+category: 'tags',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["video"]);
+return self;},
+args: [],
+source: unescape('video%0A%20%20%20%20%5Eself%20tag%3A%20%27video%27'),
+messageSends: ["tag:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 unescape('_onJQuery_'),

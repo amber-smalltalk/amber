@@ -584,6 +584,127 @@ return self;}
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+'_articles',
+smalltalk.method({
+selector: 'articles',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["articles"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_audio',
+smalltalk.method({
+selector: 'audio',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["audio"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_fieldset',
+smalltalk.method({
+selector: 'fieldset',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["fieldset"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_footer',
+smalltalk.method({
+selector: 'footer',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["footer"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_header',
+smalltalk.method({
+selector: 'header',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["header"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_hr',
+smalltalk.method({
+selector: 'hr',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["hr"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_section',
+smalltalk.method({
+selector: 'section',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["section"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_tbody',
+smalltalk.method({
+selector: 'tbody',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["tbody"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_tfoot',
+smalltalk.method({
+selector: 'tfoot',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["tfoot"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_thead',
+smalltalk.method({
+selector: 'thead',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["thead"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
+'_video',
+smalltalk.method({
+selector: 'video',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_tag_", ["video"]);
+return self;}
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 '_onJQuery_',
