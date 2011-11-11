@@ -17,18 +17,17 @@
 		<p>Shows the last 5 Tweets regarding your query</p>
 	    <p>Examine the <button onClick="smalltalk.Browser._openOn_(smalltalk.TwitterSearch)"> TwitterSearch class</button></p> 
 
+	<p>Query:<br><input id="searchQuery" type="text" size="30" maxlength="30" value="#smalltalk">
+	<button onClick="smalltalk.TwitterSearch._new()._query()">update</button>
+	</p>
 	<div id="playground"></div>
 	</center>
-	<!--
-    <script type='text/javascript'> loadAmber() </script> 
-	<script type='text/javascript'> smalltalk.TwitterSearch._new()._query_('%23smalltalk') </script> 
-    -->
 	<script type="text/javascript"> 
 	loadAmber({
-		files: ['TwitterSearch.js', 'Tweet.js'],
+		files: ['TwitterWall.js'],
 		prefix: 'examples/twitterwall/js',
 		ready: function() {
-			smalltalk.TwitterSearch._new()._query_('%23smalltalk') 
+			smalltalk.TwitterSearch._new()._query() 
 		}}); 
 </script>
 	
