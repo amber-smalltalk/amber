@@ -46,7 +46,12 @@ amber = (function() {
 
 		if (deploy) {
 			loadPackages([
-					'Kernel.deploy',
+					'Kernel-Objects.deploy',
+					'Kernel-Classes.deploy',
+					'Kernel-Methods.deploy',
+					'Kernel-Collections.deploy',
+					'Kernel-Exceptions.deploy',
+					'Kernel-Transcript.deploy',
 					'Canvas.deploy'
 					]);
 		} else {
@@ -54,7 +59,12 @@ amber = (function() {
 			loadCSS('amber.css');
 
 			loadPackages([
-				'Kernel',
+				'Kernel-Objects',
+				'Kernel-Classes',
+				'Kernel-Methods',
+				'Kernel-Collections',
+				'Kernel-Exceptions',
+				'Kernel-Transcript',
 				'Canvas',
 				'Compiler',
 				'parser',
