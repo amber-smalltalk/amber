@@ -40,6 +40,7 @@ amber = (function() {
 		}
 
 		loadDependencies();
+		loadJS('compat.js');
 		loadJS('boot.js');
 
 		populateLocalPackages();
