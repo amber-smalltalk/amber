@@ -40,6 +40,7 @@ amber = (function() {
 		}
 
 		loadDependencies();
+		loadJS('compat.js');
 		loadJS('boot.js');
 
 		populateLocalPackages();
@@ -137,10 +138,15 @@ amber = (function() {
 		document.getElementsByTagName("head")[0].appendChild(link);
 	};
 
-	function loadDependencies() {
-		loadJS('lib/jQuery/jquery-1.6.4.min.js');
-		loadJS('lib/jQuery/jquery-ui-1.8.9.custom.min.js');
-	};
+  function loadDependencies() {
+		if (typeof jQuery == 'undefined') {
+			loadJS('lib/jQuery/jquery-1.6.4.min.js');
+		}
+
+		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
+			loadJS('lib/jQuery/jquery-ui-1.8.16.custom.min.js');
+		}
+  };
 
 	function loadIDEDependencies() {
 		loadJS('lib/jQuery/jquery.textarea.js');

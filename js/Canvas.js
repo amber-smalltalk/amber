@@ -1253,11 +1253,11 @@ selector: unescape('class%3A'),
 category: 'attributes',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_at_put_", ["class", aString]);
+self['@element'].className = aString;
 return self;},
 args: ["aString"],
-source: unescape('class%3A%20aString%0A%20%20%20%20self%20at%3A%20%27class%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
+source: unescape('class%3A%20aString%0A%20%20%20%20%20%20%3Cself%5B%27@element%27%5D.className%20%3D%20aString%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.TagBrush);

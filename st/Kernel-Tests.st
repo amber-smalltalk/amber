@@ -279,3 +279,85 @@ testPropertyThatReturnsEmptyString
 	self assert: '#test' equals: document location hash.
 ! !
 
+TestCase subclass: #PackageTest
+	instanceVariableNames: 'zorkPackage grulPackage backUpCommitPathJs backUpCommitPathSt'
+	category: 'Kernel-Tests'!
+
+!PackageTest methodsFor: 'running'!
+
+setUp
+	backUpCommitPathJs := Package defaultCommitPathJs.
+	backUpCommitPathSt := Package defaultCommitPathSt.
+
+	Package resetCommitPaths.
+
+	zorkPackage := Package new name: 'Zork'.
+	grulPackage := Package new 
+					name: 'Grul';
+					commitPathJs: 'server/grul/js';
+					commitPathSt: 'grul/st';
+					yourself
+!
+
+tearDown
+	 Package 
+		defaultCommitPathJs: backUpCommitPathJs;
+		defaultCommitPathSt: backUpCommitPathSt
+! !
+
+!PackageTest methodsFor: 'tests'!
+
+testGrulCommitPathStShouldBeGrulSt
+	self assert: 'grul/st' equals: grulPackage commitPathSt
+!
+
+testZorkCommitPathStShouldBeSt
+	self assert: 'st' equals: zorkPackage commitPathSt
+!
+
+testZorkCommitPathJsShouldBeJs
+	self assert: 'js' equals: zorkPackage commitPathJs
+!
+
+testGrulCommitPathJsShouldBeServerGrulJs
+	self assert: 'server/grul/js' equals: grulPackage commitPathJs
+! !
+
+PackageTest subclass: #PackageWithDefaultCommitPathChangedTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!PackageWithDefaultCommitPathChangedTest methodsFor: 'running'!
+
+setUp
+	super setUp.
+
+	Package
+		defaultCommitPathJs: 'javascripts/';
+		defaultCommitPathSt: 'smalltalk/'.
+! !
+
+!PackageWithDefaultCommitPathChangedTest methodsFor: 'tests'!
+
+testGrulCommitPathJsShouldBeServerGrulJs
+	self assert: 'server/grul/js' equals: grulPackage commitPathJs
+!
+
+testGrulCommitPathStShouldBeGrulSt
+	self assert: 'grul/st' equals: grulPackage commitPathSt
+!
+
+testZorkCommitPathJsShouldBeJavascript
+	self assert: 'javascripts/' equals: zorkPackage commitPathJs
+!
+
+testZorkCommitPathStShouldBeSmalltalk
+	self assert: 'smalltalk/' equals: zorkPackage commitPathSt
+! !
+
+!PackageWithDefaultCommitPathChangedTest class methodsFor: 'accessing'!
+
+shouldInheritSelectors
+	^ false
+! !
+

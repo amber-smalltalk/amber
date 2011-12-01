@@ -16,6 +16,8 @@ body.jtalkBody {
     padding: 0 1px;
     cursor: pointer;
     color: #565656;
+		max-width: 200px;
+		float:left;
 }
 
 #jtalk .ltab, #jtalk .rtab, #jtalk .mtab {

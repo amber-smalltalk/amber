@@ -471,3 +471,206 @@ smalltalk.JSObjectProxyTest);
 
 
 
+smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
+smalltalk.addMethod(
+unescape('_setUp'),
+smalltalk.method({
+selector: unescape('setUp'),
+category: 'running',
+fn: function (){
+var self=this;
+self['@backUpCommitPathJs']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathJs", []);
+self['@backUpCommitPathSt']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathSt", []);
+smalltalk.send((smalltalk.Package || Package), "_resetCommitPaths", []);
+self['@zorkPackage']=smalltalk.send(smalltalk.send((smalltalk.Package || Package), "_new", []), "_name_", ["Zork"]);
+self['@grulPackage']=(function($rec){smalltalk.send($rec, "_name_", ["Grul"]);smalltalk.send($rec, "_commitPathJs_", [unescape("server/grul/js")]);smalltalk.send($rec, "_commitPathSt_", [unescape("grul/st")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Package || Package), "_new", []));
+return self;},
+args: [],
+source: unescape('setUp%0A%09backUpCommitPathJs%20%3A%3D%20Package%20defaultCommitPathJs.%0A%09backUpCommitPathSt%20%3A%3D%20Package%20defaultCommitPathSt.%0A%0A%09Package%20resetCommitPaths.%0A%0A%09zorkPackage%20%3A%3D%20Package%20new%20name%3A%20%27Zork%27.%0A%09grulPackage%20%3A%3D%20Package%20new%20%0A%09%09%09%09%09name%3A%20%27Grul%27%3B%0A%09%09%09%09%09commitPathJs%3A%20%27server/grul/js%27%3B%0A%09%09%09%09%09commitPathSt%3A%20%27grul/st%27%3B%0A%09%09%09%09%09yourself'),
+messageSends: ["defaultCommitPathJs", "defaultCommitPathSt", "resetCommitPaths", "name:", "new", "commitPathJs:", "commitPathSt:", "yourself"],
+referencedClasses: ["Package"]
+}),
+smalltalk.PackageTest);
+
+smalltalk.addMethod(
+unescape('_tearDown'),
+smalltalk.method({
+selector: unescape('tearDown'),
+category: 'running',
+fn: function (){
+var self=this;
+(function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [self['@backUpCommitPathJs']]);return smalltalk.send($rec, "_defaultCommitPathSt_", [self['@backUpCommitPathSt']]);})((smalltalk.Package || Package));
+return self;},
+args: [],
+source: unescape('tearDown%0A%09%20Package%20%0A%09%09defaultCommitPathJs%3A%20backUpCommitPathJs%3B%0A%09%09defaultCommitPathSt%3A%20backUpCommitPathSt'),
+messageSends: ["defaultCommitPathJs:", "defaultCommitPathSt:"],
+referencedClasses: ["Package"]
+}),
+smalltalk.PackageTest);
+
+smalltalk.addMethod(
+unescape('_testGrulCommitPathStShouldBeGrulSt'),
+smalltalk.method({
+selector: unescape('testGrulCommitPathStShouldBeGrulSt'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [unescape("grul/st"), smalltalk.send(self['@grulPackage'], "_commitPathSt", [])]);
+return self;},
+args: [],
+source: unescape('testGrulCommitPathStShouldBeGrulSt%0A%09self%20assert%3A%20%27grul/st%27%20equals%3A%20grulPackage%20commitPathSt'),
+messageSends: ["assert:equals:", "commitPathSt"],
+referencedClasses: []
+}),
+smalltalk.PackageTest);
+
+smalltalk.addMethod(
+unescape('_testZorkCommitPathStShouldBeSt'),
+smalltalk.method({
+selector: unescape('testZorkCommitPathStShouldBeSt'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["st", smalltalk.send(self['@zorkPackage'], "_commitPathSt", [])]);
+return self;},
+args: [],
+source: unescape('testZorkCommitPathStShouldBeSt%0A%09self%20assert%3A%20%27st%27%20equals%3A%20zorkPackage%20commitPathSt'),
+messageSends: ["assert:equals:", "commitPathSt"],
+referencedClasses: []
+}),
+smalltalk.PackageTest);
+
+smalltalk.addMethod(
+unescape('_testZorkCommitPathJsShouldBeJs'),
+smalltalk.method({
+selector: unescape('testZorkCommitPathJsShouldBeJs'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["js", smalltalk.send(self['@zorkPackage'], "_commitPathJs", [])]);
+return self;},
+args: [],
+source: unescape('testZorkCommitPathJsShouldBeJs%0A%09self%20assert%3A%20%27js%27%20equals%3A%20zorkPackage%20commitPathJs'),
+messageSends: ["assert:equals:", "commitPathJs"],
+referencedClasses: []
+}),
+smalltalk.PackageTest);
+
+smalltalk.addMethod(
+unescape('_testGrulCommitPathJsShouldBeServerGrulJs'),
+smalltalk.method({
+selector: unescape('testGrulCommitPathJsShouldBeServerGrulJs'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [unescape("server/grul/js"), smalltalk.send(self['@grulPackage'], "_commitPathJs", [])]);
+return self;},
+args: [],
+source: unescape('testGrulCommitPathJsShouldBeServerGrulJs%0A%09self%20assert%3A%20%27server/grul/js%27%20equals%3A%20grulPackage%20commitPathJs'),
+messageSends: ["assert:equals:", "commitPathJs"],
+referencedClasses: []
+}),
+smalltalk.PackageTest);
+
+
+
+smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+unescape('_setUp'),
+smalltalk.method({
+selector: unescape('setUp'),
+category: 'running',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_setUp", [], smalltalk.PackageTest);
+(function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [unescape("javascripts/")]);return smalltalk.send($rec, "_defaultCommitPathSt_", [unescape("smalltalk/")]);})((smalltalk.Package || Package));
+return self;},
+args: [],
+source: unescape('setUp%0A%09super%20setUp.%0A%0A%09Package%0A%09%09defaultCommitPathJs%3A%20%27javascripts/%27%3B%0A%09%09defaultCommitPathSt%3A%20%27smalltalk/%27.'),
+messageSends: ["setUp", "defaultCommitPathJs:", "defaultCommitPathSt:"],
+referencedClasses: ["Package"]
+}),
+smalltalk.PackageWithDefaultCommitPathChangedTest);
+
+smalltalk.addMethod(
+unescape('_testGrulCommitPathJsShouldBeServerGrulJs'),
+smalltalk.method({
+selector: unescape('testGrulCommitPathJsShouldBeServerGrulJs'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [unescape("server/grul/js"), smalltalk.send(self['@grulPackage'], "_commitPathJs", [])]);
+return self;},
+args: [],
+source: unescape('testGrulCommitPathJsShouldBeServerGrulJs%0A%09self%20assert%3A%20%27server/grul/js%27%20equals%3A%20grulPackage%20commitPathJs'),
+messageSends: ["assert:equals:", "commitPathJs"],
+referencedClasses: []
+}),
+smalltalk.PackageWithDefaultCommitPathChangedTest);
+
+smalltalk.addMethod(
+unescape('_testGrulCommitPathStShouldBeGrulSt'),
+smalltalk.method({
+selector: unescape('testGrulCommitPathStShouldBeGrulSt'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [unescape("grul/st"), smalltalk.send(self['@grulPackage'], "_commitPathSt", [])]);
+return self;},
+args: [],
+source: unescape('testGrulCommitPathStShouldBeGrulSt%0A%09self%20assert%3A%20%27grul/st%27%20equals%3A%20grulPackage%20commitPathSt'),
+messageSends: ["assert:equals:", "commitPathSt"],
+referencedClasses: []
+}),
+smalltalk.PackageWithDefaultCommitPathChangedTest);
+
+smalltalk.addMethod(
+unescape('_testZorkCommitPathJsShouldBeJavascript'),
+smalltalk.method({
+selector: unescape('testZorkCommitPathJsShouldBeJavascript'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [unescape("javascripts/"), smalltalk.send(self['@zorkPackage'], "_commitPathJs", [])]);
+return self;},
+args: [],
+source: unescape('testZorkCommitPathJsShouldBeJavascript%0A%09self%20assert%3A%20%27javascripts/%27%20equals%3A%20zorkPackage%20commitPathJs'),
+messageSends: ["assert:equals:", "commitPathJs"],
+referencedClasses: []
+}),
+smalltalk.PackageWithDefaultCommitPathChangedTest);
+
+smalltalk.addMethod(
+unescape('_testZorkCommitPathStShouldBeSmalltalk'),
+smalltalk.method({
+selector: unescape('testZorkCommitPathStShouldBeSmalltalk'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [unescape("smalltalk/"), smalltalk.send(self['@zorkPackage'], "_commitPathSt", [])]);
+return self;},
+args: [],
+source: unescape('testZorkCommitPathStShouldBeSmalltalk%0A%09self%20assert%3A%20%27smalltalk/%27%20equals%3A%20zorkPackage%20commitPathSt'),
+messageSends: ["assert:equals:", "commitPathSt"],
+referencedClasses: []
+}),
+smalltalk.PackageWithDefaultCommitPathChangedTest);
+
+
+smalltalk.addMethod(
+unescape('_shouldInheritSelectors'),
+smalltalk.method({
+selector: unescape('shouldInheritSelectors'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return false;
+return self;},
+args: [],
+source: unescape('shouldInheritSelectors%0A%09%5E%20false'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PackageWithDefaultCommitPathChangedTest.klass);
+
+

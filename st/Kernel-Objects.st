@@ -394,7 +394,7 @@ current
 ! !
 
 Object subclass: #Package
-	instanceVariableNames: ''
+	instanceVariableNames: 'commitPathJs commitPathSt'
 	category: 'Kernel-Objects'!
 !Package commentStamp!
 A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -419,7 +419,7 @@ name
 !
 
 name: aString
-	<return self.pkgName = aString>
+	<self.pkgName = aString>
 !
 
 dependencies
@@ -443,6 +443,22 @@ properties: aDict
 		<object[key] = value>.
 	].
 	<return self.properties = object>
+!
+
+commitPathJs
+	^ commitPathJs ifNil: [self class defaultCommitPathJs]
+!
+
+commitPathJs: aString
+	commitPathJs := aString
+!
+
+commitPathSt
+	^ commitPathSt ifNil: [self class defaultCommitPathSt]
+!
+
+commitPathSt: aString
+	commitPathSt := aString
 ! !
 
 !Package methodsFor: 'classes'!
@@ -487,6 +503,31 @@ propertyAt: key put: value
 propertyAt: key ifAbsent: block
 
 	^(self propertyAt: key) ifNil: [block value]
+! !
+
+Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+
+!Package class methodsFor: 'commit paths'!
+
+defaultCommitPathJs
+	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
+!
+
+defaultCommitPathJs: aString
+	defaultCommitPathJs := aString
+!
+
+defaultCommitPathSt
+	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
+!
+
+defaultCommitPathSt: aString
+	defaultCommitPathSt := aString
+!
+
+resetCommitPaths
+        defaultCommitPathJs := nil.
+        defaultCommitPathSt := nil.
 ! !
 
 !Package class methodsFor: 'not yet classified'!
