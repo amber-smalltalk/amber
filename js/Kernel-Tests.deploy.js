@@ -107,6 +107,75 @@ return self;}
 }),
 smalltalk.DictionaryTest);
 
+smalltalk.addMethod(
+'_testAccessing',
+smalltalk.method({
+selector: 'testAccessing',
+fn: function (){
+var self=this;
+var d=nil;
+d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+smalltalk.send(d, "_at_put_", ["hello", "world"]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_at_", ["hello"]), "__eq", ["world"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_at_ifAbsent_", ["hello", (function(){return nil;})]), "__eq", ["world"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send(d, "_at_ifAbsent_", ["foo", (function(){return nil;})]), "__eq", ["world"])]);
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_at_", [(1)]), "__eq", [(2)])]);
+smalltalk.send(d, "_at_put_", [smalltalk.send((1), "__at", [(3)]), (3)]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_at_", [smalltalk.send((1), "__at", [(3)])]), "__eq", [(3)])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+'_testSize',
+smalltalk.method({
+selector: 'testSize',
+fn: function (){
+var self=this;
+var d=nil;
+d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_size", []), "__eq", [(0)])]);
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_size", []), "__eq", [(1)])]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_size", []), "__eq", [(2)])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+'_testValues',
+smalltalk.method({
+selector: 'testValues',
+fn: function (){
+var self=this;
+var d=nil;
+d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(d, "_at_put_", [(3), (4)]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_values", []), "__eq", [[(2), (3), (4)]])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+'_testKeys',
+smalltalk.method({
+selector: 'testKeys',
+fn: function (){
+var self=this;
+var d=nil;
+d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(d, "_at_put_", [(3), (4)]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_keys", []), "__eq", [[(1), (2), (3)]])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
 
 
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');

@@ -2564,8 +2564,11 @@ selector: 'at:ifAbsent:',
 fn: function (aKey, aBlock){
 var self=this;
 
-		var index = self['@keys'].indexOf(aKey);
-		if(index === -1) {
+		var index;
+		for(var i=0;i<self['@keys'].length;i++){
+			if(self['@keys'][i].__eq(aKey)) {index = i;}
+		};
+		if(typeof index === 'undefined') {
 			return aBlock();
 		} else {
 			return self['@values'][index];

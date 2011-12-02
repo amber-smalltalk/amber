@@ -3635,8 +3635,11 @@ category: 'accessing',
 fn: function (aKey, aBlock){
 var self=this;
 
-		var index = self['@keys'].indexOf(aKey);
-		if(index === -1) {
+		var index;
+		for(var i=0;i<self['@keys'].length;i++){
+			if(self['@keys'][i].__eq(aKey)) {index = i;}
+		};
+		if(typeof index === 'undefined') {
 			return aBlock();
 		} else {
 			return self['@values'][index];
@@ -3644,7 +3647,7 @@ var self=this;
 	;
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%09%09if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%09%09%09return%20aBlock%28%29%3B%0A%09%09%7D%20else%20%7B%0A%09%09%09return%20self%5B%27@values%27%5D%5Bindex%5D%3B%0A%09%09%7D%0A%09%3E'),
+source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20index%3B%0A%09%09for%28var%20i%3D0%3Bi%3Cself%5B%27@keys%27%5D.length%3Bi++%29%7B%0A%09%09%09if%28self%5B%27@keys%27%5D%5Bi%5D.__eq%28aKey%29%29%20%7Bindex%20%3D%20i%3B%7D%0A%09%09%7D%3B%0A%09%09if%28typeof%20index%20%3D%3D%3D%20%27undefined%27%29%20%7B%0A%09%09%09return%20aBlock%28%29%3B%0A%09%09%7D%20else%20%7B%0A%09%09%09return%20self%5B%27@values%27%5D%5Bindex%5D%3B%0A%09%09%7D%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),

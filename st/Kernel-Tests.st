@@ -75,6 +75,58 @@ testEquality
 
 testDynamicDictionaries
 	self assert: #{1 -> 'hello'. 2 -> 'world'} = (Dictionary with: 1 -> 'hello' with: 2 -> 'world')
+!
+
+testAccessing
+	| d |
+
+	d := Dictionary new.
+
+	d at: 'hello' put: 'world'.
+	self assert: (d at: 'hello') = 'world'.
+	self assert: (d at: 'hello' ifAbsent: [nil]) = 'world'.
+	self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.
+
+	d at: 1 put: 2.
+	self assert: (d at: 1) = 2.
+
+	d at: 1@3 put: 3.
+	self assert: (d at: 1@3) = 3
+!
+
+testSize
+	| d |
+
+	d := Dictionary new.
+	self assert: d size = 0.
+
+	d at: 1 put: 2.
+	self assert: d size = 1.
+
+	d at: 2 put: 3.
+	self assert: d size = 2.
+!
+
+testValues
+	| d |
+
+	d := Dictionary new.
+	d at: 1 put: 2.
+	d at: 2 put: 3.
+	d at: 3 put: 4.
+
+	self assert: d values = #(2 3 4)
+!
+
+testKeys
+	| d |
+
+	d := Dictionary new.
+	d at: 1 put: 2.
+	d at: 2 put: 3.
+	d at: 3 put: 4.
+
+	self assert: d keys = #(1 2 3)
 ! !
 
 TestCase subclass: #BooleanTest
