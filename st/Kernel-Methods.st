@@ -56,6 +56,11 @@ arguments
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	category: 'Kernel-Methods'!
+!BlockClosure commentStamp!
+A BlockClosure is a lexical closure.
+The JavaScript representation is a function.
+
+A BlockClosure is evaluated with the #value* methods in the 'evaluating' protocol.!
 
 !BlockClosure methodsFor: 'accessing'!
 
@@ -143,7 +148,7 @@ timeToRun
 ensure: aBlock
 	| success |
 	success := false.
-	[self value. success := true. aBlock value]
+	^[self value. success := true. aBlock value]
 		on: Error
 		do: [:ex |
 			success ifFalse: [aBlock value].

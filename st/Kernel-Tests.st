@@ -144,7 +144,7 @@ TestCase subclass: #BooleanTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
-!BooleanTest methodsFor: 'not yet classified'!
+!BooleanTest methodsFor: 'tests'!
 
 testLogic
  
@@ -212,6 +212,15 @@ testIfTrueIfFalse
 
 	self assert: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
 	self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+!
+
+testIdentity
+	self assert: true == true.
+	self assert: true yourself == true.
+	self assert: true == true yourself.
+	self assert: true yourself == true yourself.
+
+	self deny: true == false
 ! !
 
 TestCase subclass: #NumberTest
@@ -302,8 +311,58 @@ testTruncated
 !
 
 testCopying
-	self assert: 1 copy = 1.
-	self assert: 1 deepCopy = 1
+	self assert: 1 copy == 1.
+	self assert: 1 deepCopy == 1
+!
+
+testMinMax
+	
+	self assert: (2 max: 5) equals: 5.
+	self assert: (2 min: 5) equals: 2
+!
+
+testIdentity
+	self assert: 1 == 1.
+	self assert: 0 == 0.
+	self deny: 1 == 0.
+
+	self assert: 1 yourself == 1.
+	self assert: 1 == 1 yourself.
+	self assert: 1 yourself == 1 yourself.
+	
+	self deny: 1 == 2
+!
+
+testSqrt
+	
+	self assert: 4 sqrt = 2.
+	self assert: 16 sqrt = 4
+!
+
+testSquared
+	
+	self assert: 4 squared = 16
+!
+
+testTimesRepeat
+	| i |
+
+	i := 0.
+	0 timesRepeat: [i := i + 1].
+	self assert: i equals: 0.
+
+	5 timesRepeat: [i := i + 1].
+	self assert: i equals: 5
+!
+
+testTo
+	self assert: (1 to: 5) equals: #(1 2 3 4 5)
+!
+
+testToBy
+	self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).
+
+	self should: [1 to: 4 by: 0] raise: Error
 ! !
 
 TestCase subclass: #JSObjectProxyTest
@@ -422,5 +481,88 @@ testZorkCommitPathStShouldBeSmalltalk
 
 shouldInheritSelectors
 	^ false
+! !
+
+TestCase subclass: #BlockClosureTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!BlockClosureTest methodsFor: 'tests'!
+
+testValue
+	self assert: ([1+1] value) equals: 2.
+	self assert: ([:x | x +1] value: 2) equals: 3.
+	self assert: ([:x :y | x*y] value: 2 value: 4) equals: 8. 
+
+	"Arguments are optional in Amber. This isn't ANSI compliant."
+
+	self assert: ([:a :b :c | 1] value) equals: 1
+!
+
+testOnDo
+	self assert: ([Error new signal] on: Error do: [:ex | true])
+!
+
+testEnsure
+	self assert: ([Error new] ensure: [true])
+!
+
+testNumArgs
+	self assert: [] numArgs equals: 0.
+	self assert: [:a :b | ] numArgs equals: 2
+!
+
+testValueWithPossibleArguments
+	self assert: ([1] valueWithPossibleArguments: #(3 4)) equals: 1.
+	self assert: ([:a | a + 4] valueWithPossibleArguments: #(3 4)) equals: 7.
+	self assert: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5)) equals: 7.
+!
+
+testWhileTrue
+	| i |
+	i := 0.
+	[i < 5] whileTrue: [i := i + 1].
+	self assert: i equals: 5.
+
+	i := 0.
+	[i := i + 1. i < 5] whileTrue.
+	self assert: i equals: 5
+!
+
+testWhileFalse
+	| i |
+	i := 0.
+	[i > 5] whileFalse: [i := i + 1].
+	self assert: i equals: 6.
+
+	i := 0.
+	[i := i + 1. i > 5] whileFalse.
+	self assert: i equals: 6
+!
+
+testCompiledSource
+	self assert: [1+1] compiledSource equals:  'function (){return (1) + (1);}'
+! !
+
+TestCase subclass: #ObjectTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!ObjectTest methodsFor: 'tests'!
+
+testEquality
+	| o |
+	o := Object new.
+	self deny: o = Object new.
+	self assert: o = o.
+	self assert: o yourself = o.
+	self assert: o = o yourself
+!
+
+testIdentity
+	| o |
+	o := Object new.
+	self deny: o == Object new.
+	self assert: o == o
 ! !
 

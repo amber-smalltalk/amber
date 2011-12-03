@@ -269,6 +269,21 @@ return self;}
 }),
 smalltalk.BooleanTest);
 
+smalltalk.addMethod(
+'_testIdentity',
+smalltalk.method({
+selector: 'testIdentity',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [true])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [true])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(true, "__eq_eq", [false])]);
+return self;}
+}),
+smalltalk.BooleanTest);
+
 
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -394,8 +409,99 @@ smalltalk.method({
 selector: 'testCopying',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_copy", []), "__eq", [(1)])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_deepCopy", []), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_copy", []), "__eq_eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_deepCopy", []), "__eq_eq", [(1)])]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testMinMax',
+smalltalk.method({
+selector: 'testMinMax',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((2), "_max_", [(5)]), (5)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((2), "_min_", [(5)]), (2)]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testIdentity',
+smalltalk.method({
+selector: 'testIdentity',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq_eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((0), "__eq_eq", [(0)])]);
+smalltalk.send(self, "_deny_", [smalltalk.send((1), "__eq_eq", [(0)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq_eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq_eq", [smalltalk.send((1), "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_yourself", []), "__eq_eq", [smalltalk.send((1), "_yourself", [])])]);
+smalltalk.send(self, "_deny_", [smalltalk.send((1), "__eq_eq", [(2)])]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testSqrt',
+smalltalk.method({
+selector: 'testSqrt',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((4), "_sqrt", []), "__eq", [(2)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((16), "_sqrt", []), "__eq", [(4)])]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testSquared',
+smalltalk.method({
+selector: 'testSquared',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((4), "_squared", []), "__eq", [(16)])]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testTimesRepeat',
+smalltalk.method({
+selector: 'testTimesRepeat',
+fn: function (){
+var self=this;
+var i=nil;
+i=(0);
+smalltalk.send((0), "_timesRepeat_", [(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]);
+smalltalk.send(self, "_assert_equals_", [i, (0)]);
+smalltalk.send((5), "_timesRepeat_", [(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]);
+smalltalk.send(self, "_assert_equals_", [i, (5)]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testTo',
+smalltalk.method({
+selector: 'testTo',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((1), "_to_", [(5)]), [(1), (2), (3), (4), (5)]]);
+return self;}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+'_testToBy',
+smalltalk.method({
+selector: 'testToBy',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((0), "_to_by_", [(6), (2)]), [(0), (2), (4), (6)]]);
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send((1), "_to_by_", [(4), (0)]);}), (smalltalk.Error || Error)]);
 return self;}
 }),
 smalltalk.NumberTest);
@@ -590,5 +696,147 @@ return false;
 return self;}
 }),
 smalltalk.PackageWithDefaultCommitPathChangedTest.klass);
+
+
+smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+'_testValue',
+smalltalk.method({
+selector: 'testValue',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1) + (1);}), "_value", []), (2)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(x){return ((($receiver = x).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));}), "_value_", [(2)]), (3)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(x, y){return ((($receiver = x).klass === smalltalk.Number) ? $receiver *y : smalltalk.send($receiver, "__star", [y]));}), "_value_value_", [(2), (4)]), (8)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(a, b, c){return (1);}), "_value", []), (1)]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testOnDo',
+smalltalk.method({
+selector: 'testOnDo',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send((function(){return smalltalk.send(smalltalk.send((smalltalk.Error || Error), "_new", []), "_signal", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){return true;})])]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testEnsure',
+smalltalk.method({
+selector: 'testEnsure',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send((function(){return smalltalk.send((smalltalk.Error || Error), "_new", []);}), "_ensure_", [(function(){return true;})])]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testNumArgs',
+smalltalk.method({
+selector: 'testNumArgs',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return nil;}), "_numArgs", []), (0)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(a, b){return nil;}), "_numArgs", []), (2)]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testValueWithPossibleArguments',
+smalltalk.method({
+selector: 'testValueWithPossibleArguments',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1);}), "_valueWithPossibleArguments_", [[(3), (4)]]), (1)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(a){return ((($receiver = a).klass === smalltalk.Number) ? $receiver +(4) : smalltalk.send($receiver, "__plus", [(4)]));}), "_valueWithPossibleArguments_", [[(3), (4)]]), (7)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(a, b){return ((($receiver = a).klass === smalltalk.Number) ? $receiver +b : smalltalk.send($receiver, "__plus", [b]));}), "_valueWithPossibleArguments_", [[(3), (4), (5)]]), (7)]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testWhileTrue',
+smalltalk.method({
+selector: 'testWhileTrue',
+fn: function (){
+var self=this;
+var i=nil;
+i=(0);
+(function(){while((function(){return ((($receiver = i).klass === smalltalk.Number) ? $receiver <(5) : smalltalk.send($receiver, "__lt", [(5)]));})()) {(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()}})();
+smalltalk.send(self, "_assert_equals_", [i, (5)]);
+i=(0);
+(function(){while((function(){i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));return ((($receiver = i).klass === smalltalk.Number) ? $receiver <(5) : smalltalk.send($receiver, "__lt", [(5)]));})()) {}})();
+smalltalk.send(self, "_assert_equals_", [i, (5)]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testWhileFalse',
+smalltalk.method({
+selector: 'testWhileFalse',
+fn: function (){
+var self=this;
+var i=nil;
+i=(0);
+(function(){while(!(function(){return ((($receiver = i).klass === smalltalk.Number) ? $receiver >(5) : smalltalk.send($receiver, "__gt", [(5)]));})()) {(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()}})();
+smalltalk.send(self, "_assert_equals_", [i, (6)]);
+i=(0);
+(function(){while(!(function(){i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));return ((($receiver = i).klass === smalltalk.Number) ? $receiver >(5) : smalltalk.send($receiver, "__gt", [(5)]));})()) {}})();
+smalltalk.send(self, "_assert_equals_", [i, (6)]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+'_testCompiledSource',
+smalltalk.method({
+selector: 'testCompiledSource',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1) + (1);}), "_compiledSource", []), unescape("function%20%28%29%7Breturn%20%281%29%20+%20%281%29%3B%7D")]);
+return self;}
+}),
+smalltalk.BlockClosureTest);
+
+
+
+smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+'_testEquality',
+smalltalk.method({
+selector: 'testEquality',
+fn: function (){
+var self=this;
+var o=nil;
+o=smalltalk.send((smalltalk.Object || Object), "_new", []);
+smalltalk.send(self, "_deny_", [smalltalk.send(o, "__eq", [smalltalk.send((smalltalk.Object || Object), "_new", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq", [o])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(o, "_yourself", []), "__eq", [o])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq", [smalltalk.send(o, "_yourself", [])])]);
+return self;}
+}),
+smalltalk.ObjectTest);
+
+smalltalk.addMethod(
+'_testIdentity',
+smalltalk.method({
+selector: 'testIdentity',
+fn: function (){
+var self=this;
+var o=nil;
+o=smalltalk.send((smalltalk.Object || Object), "_new", []);
+smalltalk.send(self, "_deny_", [smalltalk.send(o, "__eq_eq", [smalltalk.send((smalltalk.Object || Object), "_new", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq_eq", [o])]);
+return self;}
+}),
+smalltalk.ObjectTest);
+
 
 
