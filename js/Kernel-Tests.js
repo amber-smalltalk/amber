@@ -85,6 +85,40 @@ referencedClasses: []
 }),
 smalltalk.StringTest);
 
+smalltalk.addMethod(
+unescape('_testAt'),
+smalltalk.method({
+selector: unescape('testAt'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(1)]), "__eq", ["h"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(5)]), "__eq", ["o"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_ifAbsent_", [(6), (function(){return nil;})]), "__eq", [nil])]);
+return self;},
+args: [],
+source: unescape('testAt%0A%09self%20assert%3A%20%28%27hello%27%20at%3A%201%29%20%3D%20%27h%27.%0A%09self%20assert%3A%20%28%27hello%27%20at%3A%205%29%20%3D%20%27o%27.%0A%09self%20assert%3A%20%28%27hello%27%20at%3A%206%20ifAbsent%3A%20%5Bnil%5D%29%20%3D%20nil'),
+messageSends: ["assert:", unescape("%3D"), "at:", "at:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+unescape('_testAtPut'),
+smalltalk.method({
+selector: unescape('testAtPut'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
+return self;},
+args: [],
+source: unescape('testAtPut%0A%09%22String%20instances%20are%20read-only%22%0A%09self%20should%3A%20%5B%27hello%27%20at%3A%201%20put%3A%20%27a%27%5D%20raise%3A%20Error'),
+messageSends: ["should:raise:", "at:put:"],
+referencedClasses: ["Error"]
+}),
+smalltalk.StringTest);
+
 
 
 smalltalk.addClass('DictionaryTest', smalltalk.TestCase, [], 'Kernel-Tests');

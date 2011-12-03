@@ -58,6 +58,16 @@ assert: expected equals: actual
 
 assert: aBoolean description: aString
 	aBoolean ifFalse: [self signalFailure: aString]
+!
+
+should: aBlock
+	self assert: aBlock value
+!
+
+should: aBlock raise: anExceptionClass
+	self assert: ([aBlock value. false] 
+		on: anExceptionClass 
+		do: [:ex | true])
 ! !
 
 !TestCase class methodsFor: 'accessing'!

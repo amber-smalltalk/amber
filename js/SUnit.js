@@ -179,6 +179,38 @@ referencedClasses: []
 }),
 smalltalk.TestCase);
 
+smalltalk.addMethod(
+unescape('_should_'),
+smalltalk.method({
+selector: unescape('should%3A'),
+category: 'testing',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(aBlock, "_value", [])]);
+return self;},
+args: ["aBlock"],
+source: unescape('should%3A%20aBlock%0A%09self%20assert%3A%20aBlock%20value'),
+messageSends: ["assert:", "value"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+unescape('_should_raise_'),
+smalltalk.method({
+selector: unescape('should%3Araise%3A'),
+category: 'testing',
+fn: function (aBlock, anExceptionClass){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send((function(){smalltalk.send(aBlock, "_value", []);return false;}), "_on_do_", [anExceptionClass, (function(ex){return true;})])]);
+return self;},
+args: ["aBlock", "anExceptionClass"],
+source: unescape('should%3A%20aBlock%20raise%3A%20anExceptionClass%0A%09self%20assert%3A%20%28%5BaBlock%20value.%20false%5D%20%0A%09%09on%3A%20anExceptionClass%20%0A%09%09do%3A%20%5B%3Aex%20%7C%20true%5D%29'),
+messageSends: ["assert:", "on:do:", "value"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
 
 smalltalk.addMethod(
 unescape('_testSelectors'),

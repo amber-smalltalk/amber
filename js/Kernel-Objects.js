@@ -375,10 +375,11 @@ selector: unescape('try%3Acatch%3A'),
 category: 'error handling',
 fn: function (aBlock, anotherBlock){
 var self=this;
-try{aBlock()} catch(e) {anotherBlock(e)};
+try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;;
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%3E'),
+source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7Bresult%20%3D%20aBlock%28%29%7D%20catch%28e%29%20%7Bresult%20%3D%20anotherBlock%28e%29%7D%3B%0A%09return%20result%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),

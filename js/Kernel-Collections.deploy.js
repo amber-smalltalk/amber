@@ -674,17 +674,6 @@ return self;}
 smalltalk.String);
 
 smalltalk.addMethod(
-'_at_',
-smalltalk.method({
-selector: 'at:',
-fn: function (anIndex){
-var self=this;
-return self[anIndex - 1];
-return self;}
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
 '_at_put_',
 smalltalk.method({
 selector: 'at:put:',
@@ -701,7 +690,7 @@ smalltalk.method({
 selector: 'at:ifAbsent:',
 fn: function (anIndex, aBlock){
 var self=this;
-(($receiver = smalltalk.send(self, "_at_", [anIndex])) == nil || $receiver == undefined) ? (function(){return aBlock;})() : $receiver;
+return self[anIndex - 1] || aBlock();
 return self;}
 }),
 smalltalk.String);

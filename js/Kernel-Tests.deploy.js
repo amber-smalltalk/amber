@@ -60,6 +60,30 @@ return self;}
 }),
 smalltalk.StringTest);
 
+smalltalk.addMethod(
+'_testAt',
+smalltalk.method({
+selector: 'testAt',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(1)]), "__eq", ["h"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(5)]), "__eq", ["o"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_ifAbsent_", [(6), (function(){return nil;})]), "__eq", [nil])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+'_testAtPut',
+smalltalk.method({
+selector: 'testAtPut',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.StringTest);
+
 
 
 smalltalk.addClass('DictionaryTest', smalltalk.TestCase, [], 'Kernel-Tests');

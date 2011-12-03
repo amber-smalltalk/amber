@@ -959,22 +959,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_at_'),
-smalltalk.method({
-selector: unescape('at%3A'),
-category: 'accessing',
-fn: function (anIndex){
-var self=this;
-return self[anIndex - 1];
-return self;},
-args: ["anIndex"],
-source: unescape('at%3A%20anIndex%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
 unescape('_at_put_'),
 smalltalk.method({
 selector: unescape('at%3Aput%3A'),
@@ -997,11 +981,11 @@ selector: unescape('at%3AifAbsent%3A'),
 category: 'accessing',
 fn: function (anIndex, aBlock){
 var self=this;
-(($receiver = smalltalk.send(self, "_at_", [anIndex])) == nil || $receiver == undefined) ? (function(){return aBlock;})() : $receiver;
+return self[anIndex - 1] || aBlock();
 return self;},
 args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%28self%20at%3A%20anIndex%29%20ifNil%3A%20%5BaBlock%5D'),
-messageSends: ["ifNil:", "at:"],
+source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%20%7C%7C%20aBlock%28%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);

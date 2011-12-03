@@ -92,7 +92,7 @@ whileTrue
 !BlockClosure methodsFor: 'error handling'!
 
 on: anErrorClass do: aBlock
-	self try: self catch: [:error |
+	^self try: self catch: [:error |
 	    (error isKindOf: anErrorClass) 
 	     ifTrue: [aBlock value: error]
 	     ifFalse: [error signal]]

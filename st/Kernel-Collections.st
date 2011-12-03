@@ -333,16 +333,12 @@ size
 	<return self.length>
 !
 
-at: anIndex
-	<return self[anIndex - 1]>
-!
-
 at: anIndex put: anObject
 	self errorReadOnly
 !
 
 at: anIndex ifAbsent: aBlock
-	(self at: anIndex) ifNil: [aBlock]
+	<return self[anIndex - 1] || aBlock()>
 !
 
 escaped

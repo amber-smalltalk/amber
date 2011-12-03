@@ -264,7 +264,8 @@ smalltalk.method({
 selector: 'try:catch:',
 fn: function (aBlock, anotherBlock){
 var self=this;
-try{aBlock()} catch(e) {anotherBlock(e)};
+try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;;
 return self;}
 }),
 smalltalk.Object);

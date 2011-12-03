@@ -125,7 +125,8 @@ shouldNotImplement
 !
 
 try: aBlock catch: anotherBlock
-	<try{aBlock()} catch(e) {anotherBlock(e)}>
+	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;>
 !
 
 doesNotUnderstand: aMessage

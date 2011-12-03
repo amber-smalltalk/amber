@@ -37,6 +37,17 @@ testCopyWithoutAll
 	self 
 		assert: 'hello world' 
 		equals: ('*hello* *world*' copyWithoutAll: '*')
+!
+
+testAt
+	self assert: ('hello' at: 1) = 'h'.
+	self assert: ('hello' at: 5) = 'o'.
+	self assert: ('hello' at: 6 ifAbsent: [nil]) = nil
+!
+
+testAtPut
+	"String instances are read-only"
+	self should: ['hello' at: 1 put: 'a'] raise: Error
 ! !
 
 TestCase subclass: #DictionaryTest
