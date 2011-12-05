@@ -35,6 +35,10 @@ basicAt: aString put: anObject
 
 basicDelete: aString
     <delete self[aString]; return aString>
+!
+
+identityHash
+	<return self.identityHash || (self.identityHash = smalltalk.nextId());>
 ! !
 
 !Object methodsFor: 'comparing'!
@@ -48,7 +52,7 @@ basicDelete: aString
 !
 
 == anObject
-	<return self === anObject>
+	^self identityHash = anObject identityHash
 !
 
 ~~ anObject
@@ -255,6 +259,10 @@ isString
 !
 
 isParseFailure
+	^false
+!
+
+isSymbol
 	^false
 ! !
 
@@ -552,6 +560,12 @@ Object subclass: #Number
 
 ! !
 
+!Number methodsFor: 'accessing'!
+
+identityHash
+	^self asString, 'n'
+! !
+
 !Number methodsFor: 'arithmetic'!
 
 + aNumber
@@ -601,7 +615,7 @@ squared
 !Number methodsFor: 'comparing'!
 
 = aNumber
-	aNumber class = self class ifFalse: [^false]. 
+	aNumber isNumber ifFalse: [^false]. 
 	<return Number(self) == aNumber>
 !
 
@@ -623,11 +637,6 @@ squared
 <= aNumber
 	"Inlined in the Compiler"
 	<return self <= aNumber>
-!
-
-== aNumber
-	aNumber class = self class ifFalse: [^false]. 
-	<return Number(self) === Number(aNumber)>
 ! !
 
 !Number methodsFor: 'converting'!
@@ -790,11 +799,6 @@ Object subclass: #Boolean
 = aBoolean
 	aBoolean class = self class ifFalse: [^false].
 	<return Boolean(self == true) == aBoolean>
-!
-
-== aBoolean
-	aBoolean class = self class ifFalse: [^false].
-	<return Boolean(self == true) === Boolean(aBoolean == true)>
 ! !
 
 !Boolean methodsFor: 'controlling'!

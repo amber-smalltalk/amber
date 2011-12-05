@@ -58,6 +58,10 @@ function SmalltalkMetaclass(){
 function SmalltalkMethod(){};
 function SmalltalkNil(){};
 
+function SmalltalkSymbol(string){
+	this.value = string;
+};
+
 function Smalltalk(){
 
 	var st = this;
@@ -76,6 +80,25 @@ function Smalltalk(){
 		'if', 'in', 'instanceof', 'new', 'private', 'protected', 
 		'public', 'return', 'static', 'switch', 'this', 'throw',
 		'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
+
+	/* The symbol table ensures symbol unicity */
+
+	symbolTable = {};
+	st.symbolFor = function(string) {
+		if(symbolTable[string] === undefined) {
+			symbolTable[string] = new SmalltalkSymbol(string);
+		};
+
+		return symbolTable[string];
+	};
+
+	/* Unique ID number generator */
+
+	oid = 0;
+	st.nextId = function() {
+		oid += 1;
+		return oid;
+	};
 
 	/* We hold all Packages in a separate Object */
 
@@ -554,7 +577,9 @@ smalltalk.mapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Obje
 
 smalltalk.mapClassName("Collection", "Kernel", null, smalltalk.Object);
 smalltalk.mapClassName("SequenceableCollection", "Kernel", null, smalltalk.Collection);
-smalltalk.mapClassName("String", "Kernel", String, smalltalk.SequenceableCollection);
+smalltalk.mapClassName("CharacterArray", "Kernel", null, smalltalk.SequenceableCollection);
+smalltalk.mapClassName("String", "Kernel", String, smalltalk.CharacterArray);
+smalltalk.mapClassName("Symbol", "Kernel", SmalltalkSymbol, smalltalk.CharacterArray);
 smalltalk.mapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollection);
 smalltalk.mapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
 

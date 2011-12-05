@@ -746,11 +746,11 @@ selector: unescape('%3D%3D'),
 category: 'comparing',
 fn: function (anObject){
 var self=this;
-return self === anObject;
+return smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
 return self;},
 args: ["anObject"],
-source: unescape('%3D%3D%20anObject%0A%09%3Creturn%20self%20%3D%3D%3D%20anObject%3E'),
-messageSends: [],
+source: unescape('%3D%3D%20anObject%0A%09%5Eself%20identityHash%20%3D%20anObject%20identityHash'),
+messageSends: [unescape("%3D"), "identityHash"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -832,6 +832,38 @@ args: [],
 source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20self'),
 messageSends: ["stringify:"],
 referencedClasses: ["JSON"]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_identityHash'),
+smalltalk.method({
+selector: unescape('identityHash'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.identityHash || (self.identityHash = smalltalk.nextId());;
+return self;},
+args: [],
+source: unescape('identityHash%0A%09%3Creturn%20self.identityHash%20%7C%7C%20%28self.identityHash%20%3D%20smalltalk.nextId%28%29%29%3B%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_isSymbol'),
+smalltalk.method({
+selector: unescape('isSymbol'),
+category: 'testing',
+fn: function (){
+var self=this;
+return false;
+return self;},
+args: [],
+source: unescape('isSymbol%0A%09%5Efalse'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Object);
 
@@ -1576,13 +1608,13 @@ selector: unescape('%3D'),
 category: 'comparing',
 fn: function (aNumber){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+try{((($receiver = smalltalk.send(aNumber, "_isNumber", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
 return Number(self) == aNumber;
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
 args: ["aNumber"],
-source: unescape('%3D%20aNumber%0A%09aNumber%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
+source: unescape('%3D%20aNumber%0A%09aNumber%20isNumber%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
+messageSends: ["ifFalse:", "isNumber"],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2037,24 +2069,6 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__eq_eq'),
-smalltalk.method({
-selector: unescape('%3D%3D'),
-category: 'comparing',
-fn: function (aNumber){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Number(self) === Number(aNumber);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}},
-args: ["aNumber"],
-source: unescape('%3D%3D%20aNumber%0A%09aNumber%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%3D%20Number%28aNumber%29%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 unescape('_printShowingDecimalPlaces_'),
 smalltalk.method({
 selector: unescape('printShowingDecimalPlaces%3A'),
@@ -2205,6 +2219,22 @@ return self;},
 args: [],
 source: unescape('squared%0A%09%5Eself%20*%20self'),
 messageSends: [unescape("*")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_identityHash'),
+smalltalk.method({
+selector: unescape('identityHash'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
+return self;},
+args: [],
+source: unescape('identityHash%0A%09%5Eself%20asString%2C%20%27n%27'),
+messageSends: [unescape("%2C"), "asString"],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2452,24 +2482,6 @@ return self;},
 args: ["aBoolean"],
 source: unescape('%7C%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20true%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Boolean);
-
-smalltalk.addMethod(
-unescape('__eq_eq'),
-smalltalk.method({
-selector: unescape('%3D%3D'),
-category: 'comparing',
-fn: function (aBoolean){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Boolean(self == true) === Boolean(aBoolean == true);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}},
-args: ["aBoolean"],
-source: unescape('%3D%3D%20aBoolean%0A%09aBoolean%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%3Creturn%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%3D%20Boolean%28aBoolean%20%3D%3D%20true%29%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
 referencedClasses: []
 }),
 smalltalk.Boolean);

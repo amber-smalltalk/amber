@@ -520,7 +520,7 @@ smalltalk.method({
 selector: '==',
 fn: function (anObject){
 var self=this;
-return self === anObject;
+return smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
 return self;}
 }),
 smalltalk.Object);
@@ -576,6 +576,28 @@ selector: 'asJSONString',
 fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [self]);
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_identityHash',
+smalltalk.method({
+selector: 'identityHash',
+fn: function (){
+var self=this;
+return self.identityHash || (self.identityHash = smalltalk.nextId());;
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_isSymbol',
+smalltalk.method({
+selector: 'isSymbol',
+fn: function (){
+var self=this;
+return false;
 return self;}
 }),
 smalltalk.Object);
@@ -1104,7 +1126,7 @@ smalltalk.method({
 selector: '=',
 fn: function (aNumber){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+try{((($receiver = smalltalk.send(aNumber, "_isNumber", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
 return Number(self) == aNumber;
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}}
@@ -1426,19 +1448,6 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'__eq_eq',
-smalltalk.method({
-selector: '==',
-fn: function (aNumber){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Number(self) === Number(aNumber);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 '_printShowingDecimalPlaces_',
 smalltalk.method({
 selector: 'printShowingDecimalPlaces:',
@@ -1544,6 +1553,17 @@ selector: 'squared',
 fn: function (){
 var self=this;
 return self * self;
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_identityHash',
+smalltalk.method({
+selector: 'identityHash',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
 return self;}
 }),
 smalltalk.Number);
@@ -1722,19 +1742,6 @@ var self=this;
 	    }
 	;
 return self;}
-}),
-smalltalk.Boolean);
-
-smalltalk.addMethod(
-'__eq_eq',
-smalltalk.method({
-selector: '==',
-fn: function (aBoolean){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Boolean(self == true) === Boolean(aBoolean == true);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}}
 }),
 smalltalk.Boolean);
 

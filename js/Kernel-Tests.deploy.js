@@ -269,21 +269,6 @@ return self;}
 }),
 smalltalk.BooleanTest);
 
-smalltalk.addMethod(
-'_testIdentity',
-smalltalk.method({
-selector: 'testIdentity',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [true])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [true])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
-smalltalk.send(self, "_deny_", [smalltalk.send(true, "__eq_eq", [false])]);
-return self;}
-}),
-smalltalk.BooleanTest);
-
 
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');

@@ -359,26 +359,6 @@ referencedClasses: []
 }),
 smalltalk.BooleanTest);
 
-smalltalk.addMethod(
-unescape('_testIdentity'),
-smalltalk.method({
-selector: unescape('testIdentity'),
-category: 'tests',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [true])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [true])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
-smalltalk.send(self, "_deny_", [smalltalk.send(true, "__eq_eq", [false])]);
-return self;},
-args: [],
-source: unescape('testIdentity%0A%09self%20assert%3A%20true%20%3D%3D%20true.%0A%09self%20assert%3A%20true%20yourself%20%3D%3D%20true.%0A%09self%20assert%3A%20true%20%3D%3D%20true%20yourself.%0A%09self%20assert%3A%20true%20yourself%20%3D%3D%20true%20yourself.%0A%0A%09self%20deny%3A%20true%20%3D%3D%20false'),
-messageSends: ["assert:", unescape("%3D%3D"), "yourself", "deny:"],
-referencedClasses: []
-}),
-smalltalk.BooleanTest);
-
 
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');

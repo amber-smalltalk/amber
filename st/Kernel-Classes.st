@@ -194,7 +194,7 @@ subclass: aString instanceVariableNames: aString2 classVariableNames: classVars 
 
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
+	    superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
 !Class methodsFor: 'printing'!

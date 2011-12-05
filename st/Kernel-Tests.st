@@ -212,15 +212,6 @@ testIfTrueIfFalse
 
 	self assert: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
 	self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
-!
-
-testIdentity
-	self assert: true == true.
-	self assert: true yourself == true.
-	self assert: true == true yourself.
-	self assert: true yourself == true yourself.
-
-	self deny: true == false
 ! !
 
 TestCase subclass: #NumberTest
