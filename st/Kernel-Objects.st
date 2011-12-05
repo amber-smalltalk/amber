@@ -17,12 +17,16 @@ size
 	self error: 'Object not indexable'
 !
 
-instVarAt: aString
-	<return self['@'+aString]>
+instVarAt: aSymbol
+	| varname |
+	varname := aSymbol asString.
+	<return self['@'+varname]>
 !
 
-instVarAt: aString put: anObject
-	<self['@' + aString] = anObject>
+instVarAt: aSymbol put: anObject
+	| varname |
+	varname := aSymbol asString.
+	<self['@' + varname] = anObject>
 !
 
 basicAt: aString

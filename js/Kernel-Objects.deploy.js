@@ -185,9 +185,11 @@ smalltalk.addMethod(
 '_instVarAt_',
 smalltalk.method({
 selector: 'instVarAt:',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@'+aString];
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+return self['@'+varname];
 return self;}
 }),
 smalltalk.Object);
@@ -196,9 +198,11 @@ smalltalk.addMethod(
 '_instVarAt_put_',
 smalltalk.method({
 selector: 'instVarAt:put:',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@' + aString] = anObject;
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+self['@' + varname] = anObject;
 return self;}
 }),
 smalltalk.Object);

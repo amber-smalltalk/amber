@@ -335,6 +335,39 @@ return self;}
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+'_newValue_',
+smalltalk.method({
+selector: 'newValue:',
+fn: function (anObject){
+var self=this;
+return new self(anObject);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_newValue_value_',
+smalltalk.method({
+selector: 'newValue:value:',
+fn: function (anObject, anObject2){
+var self=this;
+return new self(anObject, anObject2);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_newValue_value_value_',
+smalltalk.method({
+selector: 'newValue:value:value:',
+fn: function (anObject, anObject2, anObject3){
+var self=this;
+return new self(anObject, anObject2);
+return self;}
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');

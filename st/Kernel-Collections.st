@@ -469,19 +469,19 @@ asciiValue
 !
 
 > aString
-	<return String(self) >> aString>
+	<return String(self) >> aString._asString()>
 !
 
 < aString
-	<return String(self) < aString>
+	<return String(self) < aString._asString()>
 !
 
 >= aString
-	<return String(self) >>= aString>
+	<return String(self) >>= aString._asString()>
 !
 
 <= aString
-	<return String(self) <= aString>
+	<return String(self) <= aString._asString()>
 ! !
 
 !String methodsFor: 'converting'!
@@ -772,6 +772,7 @@ size
 !
 
 = aSymbol
+	aSymbol class = self class ifFalse: [^false].
 	^self asString = aSymbol asString
 !
 
@@ -803,7 +804,7 @@ deepCopy
 	^self
 !
 
-shadowCopy
+shallowCopy
 	^self
 ! !
 

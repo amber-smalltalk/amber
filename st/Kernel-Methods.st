@@ -153,6 +153,24 @@ ensure: aBlock
 		do: [:ex |
 			success ifFalse: [aBlock value].
 			ex signal]
+!
+
+newValue: anObject
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self(anObject)>
+!
+
+newValue:  anObject value: anObject2
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self(anObject, anObject2)>
+!
+
+newValue:  anObject value: anObject2 value: anObject3
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self(anObject, anObject2)>
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!

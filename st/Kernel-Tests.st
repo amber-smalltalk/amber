@@ -48,6 +48,16 @@ testAt
 testAtPut
 	"String instances are read-only"
 	self should: ['hello' at: 1 put: 'a'] raise: Error
+!
+
+testSize
+	self assert: 'smalltalk' size equals: 9.
+	self assert: '' size equals: 0
+!
+
+testAddRemove
+	self should: ['hello' add: 'a'] raise: Error.
+	self should: ['hello' remove: 'h'] raise: Error
 ! !
 
 TestCase subclass: #DictionaryTest
@@ -360,6 +370,12 @@ TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
 	category: 'Kernel-Tests'!
 
+!JSObjectProxyTest methodsFor: 'accessing'!
+
+jsObject
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}}>
+! !
+
 !JSObjectProxyTest methodsFor: 'tests'!
 
 testMethodWithArguments
@@ -390,6 +406,21 @@ testPropertyThatReturnsEmptyString
 
 	document location hash: 'test'.
 	self assert: '#test' equals: document location hash.
+!
+
+testDNU
+	self should: [self jsObject foo] raise: MessageNotUnderstood
+!
+
+testMessageSend
+
+	self assert: self jsObject a equals: 1.
+	self assert: self jsObject b equals: 2.
+	self assert: (self jsObject c: 3) equals: 3
+!
+
+testPrinting
+	self assert: self jsObject printString = '[object Object]'
 ! !
 
 TestCase subclass: #PackageTest
@@ -555,5 +586,307 @@ testIdentity
 	o := Object new.
 	self deny: o == Object new.
 	self assert: o == o
+!
+
+testHalt
+	self should: [Object new halt] raise: Error
+!
+
+testBasicAccess
+	| o |
+	o := Object new.
+	o basicAt: 'a' put: 1.
+	self assert: (o basicAt: 'a') equals: 1.
+	self assert: (o basicAt: 'b') equals: nil
+!
+
+testNilUndefined
+	"nil in Smalltalk is the undefined object in JS"
+
+	self assert: nil = undefined
+!
+
+testidentityHash
+	| o1 o2 |
+	
+	o1 := Object new.
+	o2 := Object new.
+
+	self assert: o1 identityHash == o1 identityHash.
+	self deny: o1 identityHash == o2 identityHash
+!
+
+testBasicPerform
+	| o |
+	o := Object new.
+	o basicAt: 'func' put: ['hello'].	
+	o basicAt: 'func2' put: [:a | a + 1].
+
+	self assert: (o basicPerform: 'func')	 equals: 'hello'.
+	self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4
+!
+
+testIfNil
+	self deny: Object new isNil.
+	self deny: (Object new ifNil: [true]) = true.
+	self assert: (Object new ifNotNil: [true]) = true.
+
+	self assert: (Object new ifNil: [false] ifNotNil: [true]) = true.
+	self assert: (Object new ifNotNil: [true] ifNil: [false]) = true
+!
+
+testInstVars
+	| o |
+	o := ObjectMock new.
+	self assert: (o instVarAt: #foo) equals: nil.
+
+	o instVarAt: #foo put: 1.
+	self assert: (o instVarAt: #foo) equals: 1.
+	self assert: (o instVarAt: 'foo') equals: 1
+!
+
+testYourself
+	| o |
+	o := ObjectMock new.
+	self assert: o yourself == o
+!
+
+testDNU
+	self should: [Object new foo] raise: MessageNotUnderstood
+! !
+
+TestCase subclass: #SymbolTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!SymbolTest methodsFor: 'tests'!
+
+testEquality
+	self assert: #hello = #hello.
+	self deny: #hello = #world.
+
+	self assert: #hello  = #hello yourself.
+	self assert: #hello yourself = #hello.
+
+	self deny: #hello  = 'hello'.
+	self deny: 'hello' = #hello.
+!
+
+testAt
+	self assert: (#hello at: 1) = 'h'.
+	self assert: (#hello at: 5) = 'o'.
+	self assert: (#hello at: 6 ifAbsent: [nil]) = nil
+!
+
+testAtPut
+	"Symbol instances are read-only"
+	self should: ['hello' at: 1 put: 'a'] raise: Error
+!
+
+testIdentity
+	self assert: #hello == #hello.
+	self deny: #hello == #world.
+
+	self assert: #hello  = #hello yourself.
+	self assert: #hello yourself = #hello asString asSymbol
+!
+
+testComparing
+	self assert: #ab > #aa.
+	self deny: #ab > #ba.
+
+	self assert: #ab < #ba.
+	self deny: #bb < #ba.
+
+	self assert: #ab >= #aa.
+	self deny: #ab >= #ba.
+
+	self assert: #ab <= #ba.
+	self deny: #bb <= #ba
+!
+
+testSize
+	self assert: #a size equals: 1.
+	self assert: #aaaaa size equals: 5
+!
+
+testAsString
+	self assert: #hello asString equals: 'hello'
+!
+
+testAsSymbol
+	self assert: #hello == #hello asSymbol
+!
+
+testCopying
+	self assert: #hello copy == #hello.
+	self assert: #hello deepCopy == #hello
+!
+
+testIsSymbolIsString
+	self assert: #hello isSymbol.
+	self deny: 'hello' isSymbol.
+	self deny: #hello isString.
+	self assert: 'hello' isString
+! !
+
+Object subclass: #ObjectMock
+	instanceVariableNames: 'foo bar'
+	category: 'Kernel-Tests'!
+
+!ObjectMock methodsFor: 'not yet classified'!
+
+foo
+	^foo
+!
+
+foo: anObject
+	foo := anObject
+! !
+
+TestCase subclass: #UndefinedTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!UndefinedTest methodsFor: 'tests'!
+
+testIsNil
+	self assert: nil isNil.
+	self deny: nil notNil.
+!
+
+testIfNil
+	self assert: (nil ifNil: [true]) equals: true.
+	self deny: (nil ifNotNil: [true]) = true.
+	self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.
+	self deny: (nil ifNotNil: [true] ifNil: [false]) = true
+!
+
+testCopying
+	self assert: nil copy equals: nil
+!
+
+testDeepCopy
+	self assert: nil deepCopy = nil
+! !
+
+TestCase subclass: #PointTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!PointTest methodsFor: 'tests'!
+
+testAccessing
+	self assert: (Point x: 3 y: 4) x equals: 3.
+	self assert: (Point x: 3 y: 4) y equals: 4.
+	self assert: (Point new x: 3) x equals: 3.
+	self assert: (Point new y: 4) y equals: 4
+!
+
+testAt
+	self assert: 3@4 equals: (Point x: 3 y: 4)
+!
+
+testEgality
+	self assert: 3@4 = (3@4).
+	self deny: 3@5 = (3@6)
+!
+
+testArithmetic
+	self assert: 3@4 * (3@4 ) equals: (Point x: 9 y: 16).
+	self assert: 3@4 + (3@4 ) equals: (Point x: 6 y: 8).
+	self assert: 3@4 - (3@4 ) equals: (Point x: 0 y: 0).
+	self assert: 6@8 / (3@4 ) equals: (Point x: 2 y: 2)
+! !
+
+TestCase subclass: #RandomTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!RandomTest methodsFor: 'tests'!
+
+textNext
+
+	10000 timesRepeat: [
+			| current next | 
+			next := Random new next.
+			self assert: (next >= 0).
+			self assert: (next < 1).
+			self deny: current = next.
+			next = current]
+! !
+
+TestCase subclass: #ClassBuilderTest
+	instanceVariableNames: 'builder theClass'
+	category: 'Kernel-Tests'!
+
+!ClassBuilderTest methodsFor: 'running'!
+
+setUp
+	builder := ClassBuilder new
+!
+
+tearDown
+	theClass ifNotNil: [Smalltalk current removeClass: theClass. theClass := nil]
+!
+
+testClassCopy
+	theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
+	self assert: theClass superclass == ObjectMock superclass.
+	self assert: theClass instanceVariableNames == ObjectMock instanceVariableNames.
+	self assert: theClass name equals: 'ObjectMock2'.
+	self assert: theClass package == ObjectMock package.
+	self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys
+!
+
+testInstanceVariableNames
+	self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')
+! !
+
+TestCase subclass: #SetTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!SetTest methodsFor: 'tests'!
+
+testUnicity
+	| set |
+	set := Set new.
+	set add: 21.
+	set add: 'hello'.
+
+	set add: 21.
+	self assert: set size = 2.
+	
+	set add: 'hello'.
+	self assert: set size = 2.
+
+	self assert: set asArray equals: #(21 'hello')
+!
+
+testAt
+	self should: [Set new at: 1 put: 2] raise: Error
+!
+
+testAddRemove
+	| set |
+	set := Set new.
+	
+	self assert: set isEmpty.
+
+	set add: 3.
+	self assert: (set includes: 3).
+
+	set add: 5.
+	self assert: (set includes: 5).
+
+	set remove: 3.
+	self deny: (set includes: 3)
+!
+
+testSize
+	self assert: Set new size equals: 0.
+	self assert: (Set withAll: #(1 2 3 4)) size equals: 4.
+	self assert: (Set withAll: #(1 1 1 1)) size equals: 1
 ! !
 

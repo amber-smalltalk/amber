@@ -486,6 +486,54 @@ referencedClasses: ["Error"]
 }),
 smalltalk.BlockClosure);
 
+smalltalk.addMethod(
+unescape('_newValue_'),
+smalltalk.method({
+selector: unescape('newValue%3A'),
+category: 'evaluating',
+fn: function (anObject){
+var self=this;
+return new self(anObject);
+return self;},
+args: ["anObject"],
+source: unescape('newValue%3A%20anObject%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+unescape('_newValue_value_'),
+smalltalk.method({
+selector: unescape('newValue%3Avalue%3A'),
+category: 'evaluating',
+fn: function (anObject, anObject2){
+var self=this;
+return new self(anObject, anObject2);
+return self;},
+args: ["anObject", "anObject2"],
+source: unescape('newValue%3A%20%20anObject%20value%3A%20anObject2%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%2C%20anObject2%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+unescape('_newValue_value_value_'),
+smalltalk.method({
+selector: unescape('newValue%3Avalue%3Avalue%3A'),
+category: 'evaluating',
+fn: function (anObject, anObject2, anObject3){
+var self=this;
+return new self(anObject, anObject2);
+return self;},
+args: ["anObject", "anObject2", "anObject3"],
+source: unescape('newValue%3A%20%20anObject%20value%3A%20anObject2%20value%3A%20anObject3%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%2C%20anObject2%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
 
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');

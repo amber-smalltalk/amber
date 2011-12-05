@@ -1109,7 +1109,7 @@ smalltalk.method({
 selector: '>',
 fn: function (aString){
 var self=this;
-return String(self) > aString;
+return String(self) > aString._asString();
 return self;}
 }),
 smalltalk.String);
@@ -1120,7 +1120,7 @@ smalltalk.method({
 selector: '<',
 fn: function (aString){
 var self=this;
-return String(self) < aString;
+return String(self) < aString._asString();
 return self;}
 }),
 smalltalk.String);
@@ -1131,7 +1131,7 @@ smalltalk.method({
 selector: '>=',
 fn: function (aString){
 var self=this;
-return String(self) >= aString;
+return String(self) >= aString._asString();
 return self;}
 }),
 smalltalk.String);
@@ -1142,7 +1142,7 @@ smalltalk.method({
 selector: '<=',
 fn: function (aString){
 var self=this;
-return String(self) <= aString;
+return String(self) <= aString._asString();
 return self;}
 }),
 smalltalk.String);
@@ -1559,17 +1559,6 @@ return self;}
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-'_shadowCopy',
-smalltalk.method({
-selector: 'shadowCopy',
-fn: function (){
-var self=this;
-return self;
-return self;}
-}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 '__lt',
 smalltalk.method({
 selector: '<',
@@ -1608,8 +1597,10 @@ smalltalk.method({
 selector: '=',
 fn: function (aSymbol){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_asString", []), "__eq", [smalltalk.send(aSymbol, "_asString", [])]);
-return self;}
+try{((($receiver = smalltalk.send(smalltalk.send(aSymbol, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return smalltalk.send(smalltalk.send(self, "_asString", []), "__eq", [smalltalk.send(aSymbol, "_asString", [])])}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}}
 }),
 smalltalk.Symbol);
 
@@ -1642,6 +1633,17 @@ selector: '>',
 fn: function (aSymbol){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver >smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(aSymbol, "_asString", [])]));
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+'_shallowCopy',
+smalltalk.method({
+selector: 'shallowCopy',
+fn: function (){
+var self=this;
+return self;
 return self;}
 }),
 smalltalk.Symbol);

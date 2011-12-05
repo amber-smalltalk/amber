@@ -1575,10 +1575,10 @@ selector: unescape('%3E'),
 category: 'comparing',
 fn: function (aString){
 var self=this;
-return String(self) > aString;
+return String(self) > aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3E%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%20aString%3E'),
+source: unescape('%3E%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%20aString._asString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1591,10 +1591,10 @@ selector: unescape('%3C'),
 category: 'comparing',
 fn: function (aString){
 var self=this;
-return String(self) < aString;
+return String(self) < aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3C%20aString%0A%09%3Creturn%20String%28self%29%20%3C%20aString%3E'),
+source: unescape('%3C%20aString%0A%09%3Creturn%20String%28self%29%20%3C%20aString._asString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1607,10 +1607,10 @@ selector: unescape('%3E%3D'),
 category: 'comparing',
 fn: function (aString){
 var self=this;
-return String(self) >= aString;
+return String(self) >= aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3E%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%3D%20aString%3E'),
+source: unescape('%3E%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%3D%20aString._asString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1623,10 +1623,10 @@ selector: unescape('%3C%3D'),
 category: 'comparing',
 fn: function (aString){
 var self=this;
-return String(self) <= aString;
+return String(self) <= aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3C%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3C%3D%20aString%3E'),
+source: unescape('%3C%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3C%3D%20aString._asString%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -2219,22 +2219,6 @@ referencedClasses: []
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_shadowCopy'),
-smalltalk.method({
-selector: unescape('shadowCopy'),
-category: 'copying',
-fn: function (){
-var self=this;
-return self;
-return self;},
-args: [],
-source: unescape('shadowCopy%0A%09%5Eself'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 unescape('__lt'),
 smalltalk.method({
 selector: unescape('%3C'),
@@ -2289,11 +2273,13 @@ selector: unescape('%3D'),
 category: 'comparing',
 fn: function (aSymbol){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_asString", []), "__eq", [smalltalk.send(aSymbol, "_asString", [])]);
-return self;},
+try{((($receiver = smalltalk.send(smalltalk.send(aSymbol, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return smalltalk.send(smalltalk.send(self, "_asString", []), "__eq", [smalltalk.send(aSymbol, "_asString", [])])}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
 args: ["aSymbol"],
-source: unescape('%3D%20aSymbol%0A%09%5Eself%20asString%20%3D%20aSymbol%20asString'),
-messageSends: [unescape("%3D"), "asString"],
+source: unescape('%3D%20aSymbol%0A%09aSymbol%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%5Eself%20asString%20%3D%20aSymbol%20asString'),
+messageSends: ["ifFalse:", unescape("%3D"), "class", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
@@ -2342,6 +2328,22 @@ return self;},
 args: ["aSymbol"],
 source: unescape('%3E%20aSymbol%0A%09%5Eself%20asString%20%3E%20aSymbol%20asString'),
 messageSends: [unescape("%3E"), "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+unescape('_shallowCopy'),
+smalltalk.method({
+selector: unescape('shallowCopy'),
+category: 'copying',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('shallowCopy%0A%09%5Eself'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Symbol);

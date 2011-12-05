@@ -261,13 +261,15 @@ unescape('_instVarAt_'),
 smalltalk.method({
 selector: unescape('instVarAt%3A'),
 category: 'accessing',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@'+aString];
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+return self['@'+varname];
 return self;},
-args: ["aString"],
-source: unescape('instVarAt%3A%20aString%0A%09%3Creturn%20self%5B%27@%27+aString%5D%3E'),
-messageSends: [],
+args: ["aSymbol"],
+source: unescape('instVarAt%3A%20aSymbol%0A%09%7C%20varname%20%7C%0A%09varname%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@%27+varname%5D%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -277,13 +279,15 @@ unescape('_instVarAt_put_'),
 smalltalk.method({
 selector: unescape('instVarAt%3Aput%3A'),
 category: 'accessing',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@' + aString] = anObject;
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+self['@' + varname] = anObject;
 return self;},
-args: ["aString", "anObject"],
-source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%3Cself%5B%27@%27%20+%20aString%5D%20%3D%20anObject%3E'),
-messageSends: [],
+args: ["aSymbol", "anObject"],
+source: unescape('instVarAt%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20varname%20%7C%0A%09varname%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@%27%20+%20varname%5D%20%3D%20anObject%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
