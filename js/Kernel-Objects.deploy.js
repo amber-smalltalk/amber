@@ -2569,9 +2569,11 @@ smalltalk.addMethod(
 '_at_',
 smalltalk.method({
 selector: 'at:',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@jsObject'][aString];
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+return self['@jsObject'][attr];
 return self;}
 }),
 smalltalk.JSObjectProxy);
@@ -2580,9 +2582,11 @@ smalltalk.addMethod(
 '_at_put_',
 smalltalk.method({
 selector: 'at:put:',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@jsObject'][aString] = anObject;
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+self['@jsObject'][attr] = anObject;
 return self;}
 }),
 smalltalk.JSObjectProxy);

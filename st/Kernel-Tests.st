@@ -563,7 +563,7 @@ testWhileFalse
 !
 
 testCompiledSource
-	self assert: [1+1] compiledSource equals:  'function (){return (1) + (1);}'
+	self assert: ([1+1] compiledSource includesSubString: 'function')
 ! !
 
 TestCase subclass: #ObjectTest

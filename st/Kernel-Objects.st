@@ -1228,12 +1228,16 @@ jsObject
 	^jsObject
 !
 
-at: aString
-	<return self['@jsObject'][aString]>
+at: aSymbol
+	| attr |
+	attr := aSymbol asString.
+	<return self['@jsObject'][attr]>
 !
 
-at: aString put: anObject
-	<self['@jsObject'][aString] = anObject>
+at: aSymbol put: anObject
+	| attr |
+	attr := aSymbol asString.
+	<self['@jsObject'][attr] = anObject>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!

@@ -855,7 +855,7 @@ smalltalk.method({
 selector: 'testCompiledSource',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1) + (1);}), "_compiledSource", []), unescape("function%20%28%29%7Breturn%20%281%29%20+%20%281%29%3B%7D")]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((function(){return (1) + (1);}), "_compiledSource", []), "_includesSubString_", ["function"])]);
 return self;}
 }),
 smalltalk.BlockClosureTest);

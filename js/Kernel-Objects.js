@@ -3667,13 +3667,15 @@ unescape('_at_'),
 smalltalk.method({
 selector: unescape('at%3A'),
 category: 'accessing',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@jsObject'][aString];
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+return self['@jsObject'][attr];
 return self;},
-args: ["aString"],
-source: unescape('at%3A%20aString%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5BaString%5D%3E'),
-messageSends: [],
+args: ["aSymbol"],
+source: unescape('at%3A%20aSymbol%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5Battr%5D%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -3683,13 +3685,15 @@ unescape('_at_put_'),
 smalltalk.method({
 selector: unescape('at%3Aput%3A'),
 category: 'accessing',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@jsObject'][aString] = anObject;
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+self['@jsObject'][attr] = anObject;
 return self;},
-args: ["aString", "anObject"],
-source: unescape('at%3A%20aString%20put%3A%20anObject%0A%09%3Cself%5B%27@jsObject%27%5D%5BaString%5D%20%3D%20anObject%3E'),
-messageSends: [],
+args: ["aSymbol", "anObject"],
+source: unescape('at%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@jsObject%27%5D%5Battr%5D%20%3D%20anObject%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);

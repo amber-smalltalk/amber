@@ -1161,11 +1161,11 @@ selector: unescape('testCompiledSource'),
 category: 'tests',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1) + (1);}), "_compiledSource", []), unescape("function%20%28%29%7Breturn%20%281%29%20+%20%281%29%3B%7D")]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((function(){return (1) + (1);}), "_compiledSource", []), "_includesSubString_", ["function"])]);
 return self;},
 args: [],
-source: unescape('testCompiledSource%0A%09self%20assert%3A%20%5B1+1%5D%20compiledSource%20equals%3A%20%20%27function%20%28%29%7Breturn%20%281%29%20+%20%281%29%3B%7D%27%20'),
-messageSends: ["assert:equals:", "compiledSource", unescape("+")],
+source: unescape('testCompiledSource%0A%09self%20assert%3A%20%28%5B1+1%5D%20compiledSource%20includesSubString%3A%20%27function%27%29'),
+messageSends: ["assert:", "includesSubString:", "compiledSource", unescape("+")],
 referencedClasses: []
 }),
 smalltalk.BlockClosureTest);
