@@ -583,11 +583,11 @@ selector: unescape('subclass%3AinstanceVariableNames%3Apackage%3A'),
 category: 'class creation',
 fn: function (aString, aString2, aString3){
 var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
+return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, smalltalk.send(aString, "_asString", []), aString2, aString3]);
 return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
-messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
+source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20asString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+messageSends: ["superclass:subclass:instanceVariableNames:package:", "new", "asString"],
 referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Class);

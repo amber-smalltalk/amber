@@ -261,13 +261,15 @@ unescape('_instVarAt_'),
 smalltalk.method({
 selector: unescape('instVarAt%3A'),
 category: 'accessing',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@'+aString];
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+return self['@'+varname];
 return self;},
-args: ["aString"],
-source: unescape('instVarAt%3A%20aString%0A%09%3Creturn%20self%5B%27@%27+aString%5D%3E'),
-messageSends: [],
+args: ["aSymbol"],
+source: unescape('instVarAt%3A%20aSymbol%0A%09%7C%20varname%20%7C%0A%09varname%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@%27+varname%5D%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -277,13 +279,15 @@ unescape('_instVarAt_put_'),
 smalltalk.method({
 selector: unescape('instVarAt%3Aput%3A'),
 category: 'accessing',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@' + aString] = anObject;
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+self['@' + varname] = anObject;
 return self;},
-args: ["aString", "anObject"],
-source: unescape('instVarAt%3A%20aString%20put%3A%20anObject%0A%09%3Cself%5B%27@%27%20+%20aString%5D%20%3D%20anObject%3E'),
-messageSends: [],
+args: ["aSymbol", "anObject"],
+source: unescape('instVarAt%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20varname%20%7C%0A%09varname%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@%27%20+%20varname%5D%20%3D%20anObject%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -375,10 +379,11 @@ selector: unescape('try%3Acatch%3A'),
 category: 'error handling',
 fn: function (aBlock, anotherBlock){
 var self=this;
-try{aBlock()} catch(e) {anotherBlock(e)};
+try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;;
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7BaBlock%28%29%7D%20catch%28e%29%20%7BanotherBlock%28e%29%7D%3E'),
+source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7Bresult%20%3D%20aBlock%28%29%7D%20catch%28e%29%20%7Bresult%20%3D%20anotherBlock%28e%29%7D%3B%0A%09return%20result%3B%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -745,11 +750,11 @@ selector: unescape('%3D%3D'),
 category: 'comparing',
 fn: function (anObject){
 var self=this;
-return self === anObject;
+return smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
 return self;},
 args: ["anObject"],
-source: unescape('%3D%3D%20anObject%0A%09%3Creturn%20self%20%3D%3D%3D%20anObject%3E'),
-messageSends: [],
+source: unescape('%3D%3D%20anObject%0A%09%5Eself%20identityHash%20%3D%20anObject%20identityHash'),
+messageSends: [unescape("%3D"), "identityHash"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -831,6 +836,38 @@ args: [],
 source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20self'),
 messageSends: ["stringify:"],
 referencedClasses: ["JSON"]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_identityHash'),
+smalltalk.method({
+selector: unescape('identityHash'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.identityHash || (self.identityHash = smalltalk.nextId());;
+return self;},
+args: [],
+source: unescape('identityHash%0A%09%3Creturn%20self.identityHash%20%7C%7C%20%28self.identityHash%20%3D%20smalltalk.nextId%28%29%29%3B%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_isSymbol'),
+smalltalk.method({
+selector: unescape('isSymbol'),
+category: 'testing',
+fn: function (){
+var self=this;
+return false;
+return self;},
+args: [],
+source: unescape('isSymbol%0A%09%5Efalse'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Object);
 
@@ -1158,7 +1195,7 @@ referencedClasses: []
 smalltalk.Smalltalk.klass);
 
 
-smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
 smalltalk.Package.comment=unescape('A%20Package%20is%20similar%20to%20a%20%22class%20category%22%20typically%20found%20in%20other%20Smalltalks%20like%20Pharo%20or%20Squeak.%20Amber%20does%20not%20have%20class%20categories%20anymore%2C%20it%20had%20in%20the%20beginning%20but%20now%20each%20class%20in%20the%20system%20knows%20which%20package%20it%20belongs%20to.%0A%0AA%20Package%20has%20a%20name%2C%20an%20Array%20of%20%22requires%22%2C%20a%20comment%20and%20a%20Dictionary%20with%20other%20optional%20key%20value%20attributes.%20A%20Package%20can%20also%20be%20queried%20for%20its%20classes%2C%20but%20it%20will%20then%20resort%20to%20a%20reverse%20scan%20of%20all%20classes%20to%20find%20them.%0APackages%20are%20manipulated%20through%20%22Smalltalk%20current%22%2C%20like%20for%20example%20finding%20one%20based%20on%20a%20name%3A%0A%0A%09Smalltalk%20current%20packageAt%3A%20%27Kernel%27%0A%0A...but%20you%20can%20also%20use%3A%0A%0A%09Package%20named%3A%20%27Kernel%27%0A%0AA%20Package%20differs%20slightly%20from%20a%20Monticello%20package%20which%20can%20span%20multiple%20class%20categories%20using%20a%20naming%20convention%20based%20on%20hyphenation.%20But%20just%20as%20in%20Monticello%20a%20Package%20supports%20%22class%20extensions%22%20so%20a%20Package%0Acan%20define%20behaviors%20in%20foreign%20classes%20using%20a%20naming%20convention%20for%20method%20categories%20where%20the%20category%20starts%20with%20an%20asterisk%20and%20then%20the%20name%20of%20the%20owning%20package%20follows.%20This%20can%20easily%20be%20seen%20in%20for%20example%20class%0AString%20where%20the%20method%20category%20%22*IDE%22%20defines%20%23inspectOn%3A%20which%20thus%20is%20a%20method%20belonging%20to%20the%20IDE%20package.')
 smalltalk.addMethod(
 unescape('_name'),
@@ -1183,10 +1220,10 @@ selector: unescape('name%3A'),
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return self.pkgName = aString;
+self.pkgName = aString;
 return self;},
 args: ["aString"],
-source: unescape('name%3A%20aString%0A%09%3Creturn%20self.pkgName%20%3D%20aString%3E'),
+source: unescape('name%3A%20aString%0A%09%3Cself.pkgName%20%3D%20aString%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -1387,7 +1424,72 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+unescape('_commitPathJs'),
+smalltalk.method({
+selector: unescape('commitPathJs'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@commitPathJs']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);})() : $receiver;
+return self;},
+args: [],
+source: unescape('commitPathJs%0A%09%5E%20commitPathJs%20ifNil%3A%20%5Bself%20class%20defaultCommitPathJs%5D'),
+messageSends: ["ifNil:", "defaultCommitPathJs", "class"],
+referencedClasses: []
+}),
+smalltalk.Package);
 
+smalltalk.addMethod(
+unescape('_commitPathJs_'),
+smalltalk.method({
+selector: unescape('commitPathJs%3A'),
+category: 'accessing',
+fn: function (aString){
+var self=this;
+self['@commitPathJs']=aString;
+return self;},
+args: ["aString"],
+source: unescape('commitPathJs%3A%20aString%0A%09commitPathJs%A0%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_commitPathSt'),
+smalltalk.method({
+selector: unescape('commitPathSt'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@commitPathSt']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);})() : $receiver;
+return self;},
+args: [],
+source: unescape('commitPathSt%0A%09%5E%20commitPathSt%20ifNil%3A%20%5Bself%20class%20defaultCommitPathSt%5D'),
+messageSends: ["ifNil:", "defaultCommitPathSt", "class"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+unescape('_commitPathSt_'),
+smalltalk.method({
+selector: unescape('commitPathSt%3A'),
+category: 'accessing',
+fn: function (aString){
+var self=this;
+self['@commitPathSt']=aString;
+return self;},
+args: ["aString"],
+source: unescape('commitPathSt%3A%20aString%0A%09commitPathSt%A0%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+
+smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
 unescape('_named_'),
 smalltalk.method({
@@ -1420,6 +1522,87 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package.klass);
 
+smalltalk.addMethod(
+unescape('_defaultCommitPathJs'),
+smalltalk.method({
+selector: unescape('defaultCommitPathJs'),
+category: 'commit paths',
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathJs']) == nil || $receiver == undefined) ? (function(){return self['@defaultCommitPathJs']="js";})() : $receiver;
+return self;},
+args: [],
+source: unescape('defaultCommitPathJs%0A%09%5E%20defaultCommitPathJs%20ifNil%3A%20%5B%20defaultCommitPathJs%20%3A%3D%20%27js%27%5D'),
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_defaultCommitPathJs_'),
+smalltalk.method({
+selector: unescape('defaultCommitPathJs%3A'),
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+self['@defaultCommitPathJs']=aString;
+return self;},
+args: ["aString"],
+source: unescape('defaultCommitPathJs%3A%20aString%0A%09defaultCommitPathJs%20%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_defaultCommitPathSt'),
+smalltalk.method({
+selector: unescape('defaultCommitPathSt'),
+category: 'commit paths',
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathSt']) == nil || $receiver == undefined) ? (function(){return self['@defaultCommitPathSt']="st";})() : $receiver;
+return self;},
+args: [],
+source: unescape('defaultCommitPathSt%0A%09%5E%20defaultCommitPathSt%20ifNil%3A%20%5B%20defaultCommitPathSt%20%3A%3D%20%27st%27%5D'),
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_defaultCommitPathSt_'),
+smalltalk.method({
+selector: unescape('defaultCommitPathSt%3A'),
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+self['@defaultCommitPathSt']=aString;
+return self;},
+args: ["aString"],
+source: unescape('defaultCommitPathSt%3A%20aString%0A%09defaultCommitPathSt%20%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_resetCommitPaths'),
+smalltalk.method({
+selector: unescape('resetCommitPaths'),
+category: 'commit paths',
+fn: function (){
+var self=this;
+self['@defaultCommitPathJs']=nil;
+self['@defaultCommitPathSt']=nil;
+return self;},
+args: [],
+source: unescape('resetCommitPaths%0A%20%20%20%20%20%20%20%20defaultCommitPathJs%20%3A%3D%20nil.%0A%20%20%20%20%20%20%20%20defaultCommitPathSt%20%3A%3D%20nil.'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
@@ -1429,13 +1612,13 @@ selector: unescape('%3D'),
 category: 'comparing',
 fn: function (aNumber){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+try{((($receiver = smalltalk.send(aNumber, "_isNumber", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
 return Number(self) == aNumber;
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
 args: ["aNumber"],
-source: unescape('%3D%20aNumber%0A%09aNumber%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
+source: unescape('%3D%20aNumber%0A%09aNumber%20isNumber%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
+messageSends: ["ifFalse:", "isNumber"],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -1890,24 +2073,6 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__eq_eq'),
-smalltalk.method({
-selector: unescape('%3D%3D'),
-category: 'comparing',
-fn: function (aNumber){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Number(self) === Number(aNumber);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}},
-args: ["aNumber"],
-source: unescape('%3D%3D%20aNumber%0A%09aNumber%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%3D%20Number%28aNumber%29%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 unescape('_printShowingDecimalPlaces_'),
 smalltalk.method({
 selector: unescape('printShowingDecimalPlaces%3A'),
@@ -2058,6 +2223,22 @@ return self;},
 args: [],
 source: unescape('squared%0A%09%5Eself%20*%20self'),
 messageSends: [unescape("*")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_identityHash'),
+smalltalk.method({
+selector: unescape('identityHash'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
+return self;},
+args: [],
+source: unescape('identityHash%0A%09%5Eself%20asString%2C%20%27n%27'),
+messageSends: [unescape("%2C"), "asString"],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2305,24 +2486,6 @@ return self;},
 args: ["aBoolean"],
 source: unescape('%7C%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20true%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Boolean);
-
-smalltalk.addMethod(
-unescape('__eq_eq'),
-smalltalk.method({
-selector: unescape('%3D%3D'),
-category: 'comparing',
-fn: function (aBoolean){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Boolean(self == true) === Boolean(aBoolean == true);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}},
-args: ["aBoolean"],
-source: unescape('%3D%3D%20aBoolean%0A%09aBoolean%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%3Creturn%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%3D%20Boolean%28aBoolean%20%3D%3D%20true%29%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
 referencedClasses: []
 }),
 smalltalk.Boolean);
@@ -3504,13 +3667,15 @@ unescape('_at_'),
 smalltalk.method({
 selector: unescape('at%3A'),
 category: 'accessing',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@jsObject'][aString];
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+return self['@jsObject'][attr];
 return self;},
-args: ["aString"],
-source: unescape('at%3A%20aString%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5BaString%5D%3E'),
-messageSends: [],
+args: ["aSymbol"],
+source: unescape('at%3A%20aSymbol%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5Battr%5D%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -3520,13 +3685,15 @@ unescape('_at_put_'),
 smalltalk.method({
 selector: unescape('at%3Aput%3A'),
 category: 'accessing',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@jsObject'][aString] = anObject;
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+self['@jsObject'][attr] = anObject;
 return self;},
-args: ["aString", "anObject"],
-source: unescape('at%3A%20aString%20put%3A%20anObject%0A%09%3Cself%5B%27@jsObject%27%5D%5BaString%5D%20%3D%20anObject%3E'),
-messageSends: [],
+args: ["aSymbol", "anObject"],
+source: unescape('at%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@jsObject%27%5D%5Battr%5D%20%3D%20anObject%3E'),
+messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);

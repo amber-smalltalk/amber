@@ -48,13 +48,7 @@ remove: anObject ifAbsent: aBlock
 !Collection methodsFor: 'converting'!
 
 asArray
-	| array index |
-	array := Array new.
-	index := 0.
-	self do: [:each |
-	    index := index + 1.
-	    array at: index put: each].
-	^array
+	^Array withAll: self
 !
 
 asSet
@@ -63,6 +57,10 @@ asSet
 
 asJSONString
 	^JSON stringify: (self collect: [:each | each asJSONString])
+!
+
+asOrderedCollection
+	^OrderedCollection withAll: self
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -213,6 +211,10 @@ withAll: aCollection
 	    ^self new
 		addAll: aCollection;
 		yourself
+!
+
+new: anInteger
+	^self new
 ! !
 
 Collection subclass: #SequenceableCollection
@@ -305,6 +307,16 @@ addLast: anObject
 	self add: anObject
 ! !
 
+!SequenceableCollection methodsFor: 'comparing'!
+
+= aCollection
+	(self class = aCollection class and: [
+		self size = aCollection size]) ifFalse: [^false].
+	self withIndexDo: [:each :i |
+                 (aCollection at: i) = each ifFalse: [^false]].
+	^true
+! !
+
 !SequenceableCollection methodsFor: 'converting'!
 
 reversed
@@ -314,7 +326,28 @@ reversed
 !SequenceableCollection methodsFor: 'copying'!
 
 copyFrom: anIndex to: anotherIndex
-	self subclassResponsibility
+	| range newCollection |
+	range := anIndex to: anotherIndex.
+	newCollection := self class new: range size.
+	range do: [:each |
+	    newCollection at: each put: (self at: each)].
+	^newCollection
+!
+
+shallowCopy
+	| newCollection |
+	newCollection := self class new: self size.
+	self withIndexDo: [ :each :index | 
+		newCollection at: index put: each].
+	^newCollection
+!
+
+deepCopy
+	| newCollection |
+	newCollection := self class new: self size.
+	self withIndexDo: [:each :index | 
+		newCollection at: index put: each deepCopy].
+	^newCollection
 ! !
 
 !SequenceableCollection methodsFor: 'enumerating'!
@@ -323,7 +356,86 @@ withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
 
-SequenceableCollection subclass: #String
+!SequenceableCollection methodsFor: 'printing'!
+
+printString
+	| str |
+	str := '' writeStream.
+	str nextPutAll: super printString, ' ('.
+	self 
+		do: [:each | str nextPutAll: each printString]
+		separatedBy: [str nextPutAll: ' '].
+	str nextPutAll: ')'.
+	^str contents
+! !
+
+SequenceableCollection subclass: #CharacterArray
+	instanceVariableNames: ''
+	category: 'Kernel-Collections'!
+
+!CharacterArray methodsFor: 'accessing'!
+
+at: anIndex put: anObject
+	self errorReadOnly
+! !
+
+!CharacterArray methodsFor: 'adding'!
+
+add: anObject
+	self errorReadOnly
+!
+
+remove: anObject
+	self errorReadOnly
+! !
+
+!CharacterArray methodsFor: 'converting'!
+
+asString
+	^self subclassResponsibility
+!
+
+asNumber
+	^self asString asNumber
+!
+
+asUppercase
+	^self class fromString: self asString asUppercase
+!
+
+asSymbol
+	^self subclassResponsibility
+!
+
+asLowercase
+	^self class fromString: self asString asLowercase
+! !
+
+!CharacterArray methodsFor: 'copying'!
+
+, aString
+	^self asString, aString asString
+! !
+
+!CharacterArray methodsFor: 'error handling'!
+
+errorReadOnly
+	self error: 'Object is read-only'
+! !
+
+!CharacterArray methodsFor: 'printing'!
+
+printString
+	^self asString printString
+! !
+
+!CharacterArray class methodsFor: 'instance creation'!
+
+fromString: aString
+	self subclassResponsibility
+! !
+
+CharacterArray subclass: #String
 	instanceVariableNames: ''
 	category: 'Kernel-Collections'!
 
@@ -333,16 +445,8 @@ size
 	<return self.length>
 !
 
-at: anIndex
-	<return self[anIndex - 1]>
-!
-
-at: anIndex put: anObject
-	self errorReadOnly
-!
-
 at: anIndex ifAbsent: aBlock
-	(self at: anIndex) ifNil: [aBlock]
+	<return self[anIndex - 1] || aBlock()>
 !
 
 escaped
@@ -357,42 +461,27 @@ asciiValue
 	<return self.charCodeAt(0);>
 ! !
 
-!String methodsFor: 'adding'!
-
-add: anObject
-	self errorReadOnly
-!
-
-remove: anObject
-	self errorReadOnly
-! !
-
 !String methodsFor: 'comparing'!
 
 = aString
 	aString class = self class ifFalse: [^false].
-	<return String(self) == aString>
+	<return String(self) === String(aString)>
 !
 
 > aString
-	<return String(self) >> aString>
+	<return String(self) >> aString._asString()>
 !
 
 < aString
-	<return String(self) < aString>
+	<return String(self) < aString._asString()>
 !
 
 >= aString
-	<return String(self) >>= aString>
+	<return String(self) >>= aString._asString()>
 !
 
 <= aString
-	<return String(self) <= aString>
-!
-
-== aString
-	aString class = self class ifFalse: [^false].
-	<return String(self) === String(aString)>
+	<return String(self) <= aString._asString()>
 ! !
 
 !String methodsFor: 'converting'!
@@ -454,6 +543,10 @@ asJavaScriptSelector
 
 asJSONString
 	^self
+!
+
+asSymbol
+	^Symbol lookup: self
 ! !
 
 !String methodsFor: 'copying'!
@@ -472,12 +565,6 @@ shallowCopy
 
 deepCopy
 	^self shallowCopy
-! !
-
-!String methodsFor: 'error handling'!
-
-errorReadOnly
-	self error: 'Object is read-only'
 ! !
 
 !String methodsFor: 'printing'!
@@ -656,6 +743,95 @@ value: aUTFCharCode
 	<return String.fromCharCode(aUTFCharCode);>
 ! !
 
+CharacterArray subclass: #Symbol
+	instanceVariableNames: ''
+	category: 'Kernel-Collections'!
+
+!Symbol methodsFor: 'accessing'!
+
+at: anIndex ifAbsent: aBlock
+	^self asString at: anIndex ifAbsent: aBlock
+!
+
+size
+	^self asString size
+! !
+
+!Symbol methodsFor: 'comparing'!
+
+< aSymbol
+	^self asString < aSymbol asString
+!
+
+<= aSymbol
+	^self asString <= aSymbol asString
+!
+
+>= aSymbol
+	^self asString >= aSymbol asString
+!
+
+= aSymbol
+	aSymbol class = self class ifFalse: [^false].
+	^self asString = aSymbol asString
+!
+
+> aSymbol
+	^self asString > aSymbol asString
+! !
+
+!Symbol methodsFor: 'converting'!
+
+asString
+	<return self.value>
+!
+
+asSymbol
+	^self
+!
+
+asJavascript
+	^'smalltalk.symbolFor("', self asString, '")'
+! !
+
+!Symbol methodsFor: 'copying'!
+
+copyFrom: anIndex to: anotherIndex
+	^self class fromString: (self asString copyFrom: anIndex to: anotherIndex)
+!
+
+deepCopy
+	^self
+!
+
+shallowCopy
+	^self
+! !
+
+!Symbol methodsFor: 'printing'!
+
+printString
+	^'#', self asString
+!
+
+isSymbol
+	^true
+! !
+
+!Symbol class methodsFor: 'instance creation'!
+
+lookup: aString
+	<return smalltalk.symbolFor(aString);>
+!
+
+basicNew
+	self shouldNotImplement
+!
+
+fromString: aString
+	^self lookup: aString
+! !
+
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
 	category: 'Kernel-Collections'!
@@ -702,16 +878,6 @@ removeFrom: aNumber to: anotherNumber
 	<self.splice(aNumber - 1,anotherNumber - 1)>
 ! !
 
-!Array methodsFor: 'comparing'!
-
-= aCollection
-	(self class = aCollection class and: [
-		self size = aCollection size]) ifFalse: [^false].
-	self withIndexDo: [:each :i |
-                 (aCollection at: i) = each ifFalse: [^false]].
-	^true
-! !
-
 !Array methodsFor: 'converting'!
 
 asJavascript
@@ -720,30 +886,6 @@ asJavascript
 
 reversed
 	<return self._copy().reverse()>
-! !
-
-!Array methodsFor: 'copying'!
-
-shallowCopy
-	| newCollection |
-	newCollection := self class new.
-	self do: [:each | newCollection add: each].
-	^newCollection
-!
-
-deepCopy
-	| newCollection |
-	newCollection := self class new.
-	self do: [:each | newCollection add: each deepCopy].
-	^newCollection
-!
-
-copyFrom: anIndex to: anotherIndex
-	| array |
-	array := self class new.
-	anIndex to: anotherIndex do: [:each |
-	    array add: (self at: each)].
-	^array
 ! !
 
 !Array methodsFor: 'enumerating'!
@@ -770,17 +912,41 @@ sorted
 
 sorted: aBlock
 	^self copy sort: aBlock
+! !
+
+!Array class methodsFor: 'instance creation'!
+
+new: anInteger
+	<return new Array(anInteger)>
 !
 
-printString
-	| str |
-	str := '' writeStream.
-	str nextPutAll: super printString, ' ('.
-	self 
-		do: [:each | str nextPutAll: each printString]
-		separatedBy: [str nextPutAll: ' '].
-	str nextPutAll: ')'.
-	^str contents
+with: anObject
+	    ^(self new: 1)
+		at: 1 put: anObject;
+		yourself
+!
+
+with: anObject with: anObject2
+	    ^(self new: 2)
+		at: 1 put: anObject;
+		at: 2 put: anObject2;
+		yourself
+!
+
+with: anObject with: anObject2 with: anObject3
+	    ^(self new: 3)
+		at: 1 put: anObject;
+		at: 2 put: anObject2;
+		at: 3 put: anObject3;
+		yourself
+!
+
+withAll: aCollection
+	| instance |
+	instance := self new: aCollection size.
+	aCollection withIndexDo: [:index :each |
+		instance at: index put: each].
+	^instance
 ! !
 
 Object subclass: #RegularExpression
@@ -1104,6 +1270,10 @@ includes: anObject
 Collection subclass: #HashedCollection
 	instanceVariableNames: ''
 	category: 'Kernel-Collections'!
+!HashedCollection commentStamp!
+A HashedCollection is a traditional JavaScript object, or a Smalltalk Dictionary.
+
+Unlike a Dictionary, it can only have strings as keys.!
 
 !HashedCollection methodsFor: 'accessing'!
 
@@ -1316,8 +1486,11 @@ HashedCollection subclass: #Dictionary
 
 at: aKey ifAbsent: aBlock
 	<
-		var index = self['@keys'].indexOf(aKey);
-		if(index === -1) {
+		var index;
+		for(var i=0;i<self['@keys'].length;i++){
+			if(self['@keys'][i].__eq(aKey)) {index = i;}
+		};
+		if(typeof index === 'undefined') {
 			return aBlock();
 		} else {
 			return self['@values'][index];
@@ -1384,5 +1557,101 @@ initialize
 
 includesKey: aKey
 	^keys includes: aKey
+! !
+
+SequenceableCollection subclass: #OrderedCollection
+	instanceVariableNames: 'elements'
+	category: 'Kernel-Collections'!
+
+!OrderedCollection methodsFor: 'accessing'!
+
+size
+	^elements size
+!
+
+at: anIndex put: anObject
+	<return self['@elements'][anIndex - 1] = anObject>
+!
+
+at: anIndex ifAbsent: aBlock
+	^elements at: anIndex ifAbsent: aBlock
+! !
+
+!OrderedCollection methodsFor: 'adding/removing'!
+
+add: anObject
+	<self['@elements'].push(anObject); return anObject;>
+!
+
+remove: anObject
+	<
+		for(var i=0;i<self['@elements'].length;i++) {
+			if(self['@elements'][i] == anObject) {
+				self['@elements'].splice(i,1);
+				break;
+			}
+		}
+	>
+!
+
+removeFrom: aNumber to: anotherNumber
+	<self['@elements'].splice(aNumber - 1,anotherNumber - 1)>
+! !
+
+!OrderedCollection methodsFor: 'converting'!
+
+reversed
+	^self asArray reversed asOrderedCollection
+!
+
+asOrderedCollection
+	^self
+!
+
+asArray
+	^elements copy
+! !
+
+!OrderedCollection methodsFor: 'enumerating'!
+
+join: aString
+	^elements join: aString
+!
+
+sort
+ 	elements sort.
+	^self
+!
+
+sort: aBlock
+	elements sort: aBlock.
+	^self
+!
+
+sorted
+	^self copy sort
+!
+
+sorted: aBlock
+	^self copy sort: aBlock
+!
+
+withIndexDo: aBlock
+	elements withIndexDo: aBlock
+!
+
+detect: aBlock ifNone: anotherBlock
+	^elements detect: aBlock ifNone: anotherBlock
+!
+
+do: aBlock
+	elements do: aBlock
+! !
+
+!OrderedCollection methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	elements := #()
 ! !
 

@@ -229,7 +229,7 @@ smalltalk.method({
 selector: 'on:do:',
 fn: function (anErrorClass, aBlock){
 var self=this;
-smalltalk.send(self, "_try_catch_", [self, (function(error){return ((($receiver = smalltalk.send(error, "_isKindOf_", [anErrorClass])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value_", [error]);})() : (function(){return smalltalk.send(error, "_signal", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [error]);}), (function(){return smalltalk.send(error, "_signal", []);})]));})]);
+return smalltalk.send(self, "_try_catch_", [self, (function(error){return ((($receiver = smalltalk.send(error, "_isKindOf_", [anErrorClass])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value_", [error]);})() : (function(){return smalltalk.send(error, "_signal", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [error]);}), (function(){return smalltalk.send(error, "_signal", []);})]));})]);
 return self;}
 }),
 smalltalk.BlockClosure);
@@ -330,7 +330,40 @@ fn: function (aBlock){
 var self=this;
 var success=nil;
 success=false;
-smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+return smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_newValue_',
+smalltalk.method({
+selector: 'newValue:',
+fn: function (anObject){
+var self=this;
+return new self(anObject);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_newValue_value_',
+smalltalk.method({
+selector: 'newValue:value:',
+fn: function (anObject, anObject2){
+var self=this;
+return new self(anObject, anObject2);
+return self;}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+'_newValue_value_value_',
+smalltalk.method({
+selector: 'newValue:value:value:',
+fn: function (anObject, anObject2, anObject3){
+var self=this;
+return new self(anObject, anObject2);
 return self;}
 }),
 smalltalk.BlockClosure);

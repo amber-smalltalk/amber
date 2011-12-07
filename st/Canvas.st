@@ -349,7 +349,7 @@ removeAt: aString
 !
 
 class: aString
-    self at: 'class' put: aString
+      <self['@element'].className = aString>
 !
 
 id: aString

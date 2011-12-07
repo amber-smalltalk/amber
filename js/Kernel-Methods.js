@@ -195,6 +195,7 @@ smalltalk.CompiledMethod);
 
 
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.BlockClosure.comment=unescape('A%20BlockClosure%20is%20a%20lexical%20closure.%0AThe%20JavaScript%20representation%20is%20a%20function.%0A%0AA%20BlockClosure%20is%20evaluated%20with%20the%20%23value*%20methods%20in%20the%20%27evaluating%27%20protocol.')
 smalltalk.addMethod(
 unescape('_compiledSource'),
 smalltalk.method({
@@ -330,10 +331,10 @@ selector: unescape('on%3Ado%3A'),
 category: 'error handling',
 fn: function (anErrorClass, aBlock){
 var self=this;
-smalltalk.send(self, "_try_catch_", [self, (function(error){return ((($receiver = smalltalk.send(error, "_isKindOf_", [anErrorClass])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value_", [error]);})() : (function(){return smalltalk.send(error, "_signal", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [error]);}), (function(){return smalltalk.send(error, "_signal", []);})]));})]);
+return smalltalk.send(self, "_try_catch_", [self, (function(error){return ((($receiver = smalltalk.send(error, "_isKindOf_", [anErrorClass])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value_", [error]);})() : (function(){return smalltalk.send(error, "_signal", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [error]);}), (function(){return smalltalk.send(error, "_signal", []);})]));})]);
 return self;},
 args: ["anErrorClass", "aBlock"],
-source: unescape('on%3A%20anErrorClass%20do%3A%20aBlock%0A%09self%20try%3A%20self%20catch%3A%20%5B%3Aerror%20%7C%0A%09%20%20%20%20%28error%20isKindOf%3A%20anErrorClass%29%20%0A%09%20%20%20%20%20ifTrue%3A%20%5BaBlock%20value%3A%20error%5D%0A%09%20%20%20%20%20ifFalse%3A%20%5Berror%20signal%5D%5D'),
+source: unescape('on%3A%20anErrorClass%20do%3A%20aBlock%0A%09%5Eself%20try%3A%20self%20catch%3A%20%5B%3Aerror%20%7C%0A%09%20%20%20%20%28error%20isKindOf%3A%20anErrorClass%29%20%0A%09%20%20%20%20%20ifTrue%3A%20%5BaBlock%20value%3A%20error%5D%0A%09%20%20%20%20%20ifFalse%3A%20%5Berror%20signal%5D%5D'),
 messageSends: ["try:catch:", "ifTrue:ifFalse:", "isKindOf:", "value:", "signal"],
 referencedClasses: []
 }),
@@ -476,12 +477,60 @@ fn: function (aBlock){
 var self=this;
 var success=nil;
 success=false;
-smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+return smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
 return self;},
 args: ["aBlock"],
-source: unescape('ensure%3A%20aBlock%0A%09%7C%20success%20%7C%0A%09success%20%3A%3D%20false.%0A%09%5Bself%20value.%20success%20%3A%3D%20true.%20aBlock%20value%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09success%20ifFalse%3A%20%5BaBlock%20value%5D.%0A%09%09%09ex%20signal%5D'),
+source: unescape('ensure%3A%20aBlock%0A%09%7C%20success%20%7C%0A%09success%20%3A%3D%20false.%0A%09%5E%5Bself%20value.%20success%20%3A%3D%20true.%20aBlock%20value%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09success%20ifFalse%3A%20%5BaBlock%20value%5D.%0A%09%09%09ex%20signal%5D'),
 messageSends: ["on:do:", "value", "ifFalse:", "signal"],
 referencedClasses: ["Error"]
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+unescape('_newValue_'),
+smalltalk.method({
+selector: unescape('newValue%3A'),
+category: 'evaluating',
+fn: function (anObject){
+var self=this;
+return new self(anObject);
+return self;},
+args: ["anObject"],
+source: unescape('newValue%3A%20anObject%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+unescape('_newValue_value_'),
+smalltalk.method({
+selector: unescape('newValue%3Avalue%3A'),
+category: 'evaluating',
+fn: function (anObject, anObject2){
+var self=this;
+return new self(anObject, anObject2);
+return self;},
+args: ["anObject", "anObject2"],
+source: unescape('newValue%3A%20%20anObject%20value%3A%20anObject2%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%2C%20anObject2%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+unescape('_newValue_value_value_'),
+smalltalk.method({
+selector: unescape('newValue%3Avalue%3Avalue%3A'),
+category: 'evaluating',
+fn: function (anObject, anObject2, anObject3){
+var self=this;
+return new self(anObject, anObject2);
+return self;},
+args: ["anObject", "anObject2", "anObject3"],
+source: unescape('newValue%3A%20%20anObject%20value%3A%20anObject2%20value%3A%20anObject3%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%2C%20anObject2%29%3E'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.BlockClosure);
 

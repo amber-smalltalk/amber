@@ -867,7 +867,7 @@ smalltalk.method({
 selector: 'class:',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_at_put_", ["class", aString]);
+self['@element'].className = aString;
 return self;}
 }),
 smalltalk.TagBrush);

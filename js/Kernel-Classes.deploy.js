@@ -412,7 +412,7 @@ smalltalk.method({
 selector: 'subclass:instanceVariableNames:package:',
 fn: function (aString, aString2, aString3){
 var self=this;
-return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
+return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, smalltalk.send(aString, "_asString", []), aString2, aString3]);
 return self;}
 }),
 smalltalk.Class);

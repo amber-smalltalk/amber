@@ -56,6 +56,11 @@ arguments
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	category: 'Kernel-Methods'!
+!BlockClosure commentStamp!
+A BlockClosure is a lexical closure.
+The JavaScript representation is a function.
+
+A BlockClosure is evaluated with the #value* methods in the 'evaluating' protocol.!
 
 !BlockClosure methodsFor: 'accessing'!
 
@@ -92,7 +97,7 @@ whileTrue
 !BlockClosure methodsFor: 'error handling'!
 
 on: anErrorClass do: aBlock
-	self try: self catch: [:error |
+	^self try: self catch: [:error |
 	    (error isKindOf: anErrorClass) 
 	     ifTrue: [aBlock value: error]
 	     ifFalse: [error signal]]
@@ -143,11 +148,29 @@ timeToRun
 ensure: aBlock
 	| success |
 	success := false.
-	[self value. success := true. aBlock value]
+	^[self value. success := true. aBlock value]
 		on: Error
 		do: [:ex |
 			success ifFalse: [aBlock value].
 			ex signal]
+!
+
+newValue: anObject
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self(anObject)>
+!
+
+newValue:  anObject value: anObject2
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self(anObject, anObject2)>
+!
+
+newValue:  anObject value: anObject2 value: anObject3
+	"Use the receiver as a JS constructor. 
+	*Do not* use this method to instanciate Smalltalk objects!!"
+	<return new self(anObject, anObject2)>
 ! !
 
 !BlockClosure methodsFor: 'timeout/interval'!

@@ -13,7 +13,7 @@ string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
 
 symbol         = "#"val:[a-zA-Z0-9]* {
 		  return smalltalk.ValueNode._new()
-               	   	._value_(val.join("").replace(/\"/ig, '"'))
+               	   	._value_('smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
                	 }
 number         = n:(float / integer) {
 		  return smalltalk.ValueNode._new()
@@ -33,12 +33,12 @@ dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
 	       	  return smalltalk.DynamicDictionaryNode._new()
 		        ._nodes_(expressions)
 		  }
-pseudoVariable = val:('true' {return true} 
-				/ 'false' {return false}
-				/ 'nil' {return nil} {
-					return smalltalk.ValueNode._new()
-						._value_(val)
-				}
+pseudoVariable = val:(
+	          'true' {return true} 
+	       	/ 'false' {return false}
+		/ 'nil' {return nil}) {
+			return smalltalk.ValueNode._new()._value_(val)
+		    }
 literal        = pseudoVariable / number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
 
 

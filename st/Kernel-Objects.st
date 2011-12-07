@@ -17,12 +17,16 @@ size
 	self error: 'Object not indexable'
 !
 
-instVarAt: aString
-	<return self['@'+aString]>
+instVarAt: aSymbol
+	| varname |
+	varname := aSymbol asString.
+	<return self['@'+varname]>
 !
 
-instVarAt: aString put: anObject
-	<self['@' + aString] = anObject>
+instVarAt: aSymbol put: anObject
+	| varname |
+	varname := aSymbol asString.
+	<self['@' + varname] = anObject>
 !
 
 basicAt: aString
@@ -35,6 +39,10 @@ basicAt: aString put: anObject
 
 basicDelete: aString
     <delete self[aString]; return aString>
+!
+
+identityHash
+	<return self.identityHash || (self.identityHash = smalltalk.nextId());>
 ! !
 
 !Object methodsFor: 'comparing'!
@@ -48,7 +56,7 @@ basicDelete: aString
 !
 
 == anObject
-	<return self === anObject>
+	^self identityHash = anObject identityHash
 !
 
 ~~ anObject
@@ -125,7 +133,8 @@ shouldNotImplement
 !
 
 try: aBlock catch: anotherBlock
-	<try{aBlock()} catch(e) {anotherBlock(e)}>
+	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;>
 !
 
 doesNotUnderstand: aMessage
@@ -254,6 +263,10 @@ isString
 !
 
 isParseFailure
+	^false
+!
+
+isSymbol
 	^false
 ! !
 
@@ -394,7 +407,7 @@ current
 ! !
 
 Object subclass: #Package
-	instanceVariableNames: ''
+	instanceVariableNames: 'commitPathJs commitPathSt'
 	category: 'Kernel-Objects'!
 !Package commentStamp!
 A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -419,7 +432,7 @@ name
 !
 
 name: aString
-	<return self.pkgName = aString>
+	<self.pkgName = aString>
 !
 
 dependencies
@@ -443,6 +456,22 @@ properties: aDict
 		<object[key] = value>.
 	].
 	<return self.properties = object>
+!
+
+commitPathJs
+	^ commitPathJs ifNil: [self class defaultCommitPathJs]
+!
+
+commitPathJs: aString
+	commitPathJs := aString
+!
+
+commitPathSt
+	^ commitPathSt ifNil: [self class defaultCommitPathSt]
+!
+
+commitPathSt: aString
+	commitPathSt := aString
 ! !
 
 !Package methodsFor: 'classes'!
@@ -489,6 +518,31 @@ propertyAt: key ifAbsent: block
 	^(self propertyAt: key) ifNil: [block value]
 ! !
 
+Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+
+!Package class methodsFor: 'commit paths'!
+
+defaultCommitPathJs
+	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
+!
+
+defaultCommitPathJs: aString
+	defaultCommitPathJs := aString
+!
+
+defaultCommitPathSt
+	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
+!
+
+defaultCommitPathSt: aString
+	defaultCommitPathSt := aString
+!
+
+resetCommitPaths
+        defaultCommitPathJs := nil.
+        defaultCommitPathSt := nil.
+! !
+
 !Package class methodsFor: 'not yet classified'!
 
 named: aPackageName
@@ -508,6 +562,12 @@ Object subclass: #Number
 !Number methodsFor: ''!
 
 
+! !
+
+!Number methodsFor: 'accessing'!
+
+identityHash
+	^self asString, 'n'
 ! !
 
 !Number methodsFor: 'arithmetic'!
@@ -559,7 +619,7 @@ squared
 !Number methodsFor: 'comparing'!
 
 = aNumber
-	aNumber class = self class ifFalse: [^false]. 
+	aNumber isNumber ifFalse: [^false]. 
 	<return Number(self) == aNumber>
 !
 
@@ -581,11 +641,6 @@ squared
 <= aNumber
 	"Inlined in the Compiler"
 	<return self <= aNumber>
-!
-
-== aNumber
-	aNumber class = self class ifFalse: [^false]. 
-	<return Number(self) === Number(aNumber)>
 ! !
 
 !Number methodsFor: 'converting'!
@@ -748,11 +803,6 @@ Object subclass: #Boolean
 = aBoolean
 	aBoolean class = self class ifFalse: [^false].
 	<return Boolean(self == true) == aBoolean>
-!
-
-== aBoolean
-	aBoolean class = self class ifFalse: [^false].
-	<return Boolean(self == true) === Boolean(aBoolean == true)>
 ! !
 
 !Boolean methodsFor: 'controlling'!
@@ -1178,12 +1228,16 @@ jsObject
 	^jsObject
 !
 
-at: aString
-	<return self['@jsObject'][aString]>
+at: aSymbol
+	| attr |
+	attr := aSymbol asString.
+	<return self['@jsObject'][attr]>
 !
 
-at: aString put: anObject
-	<self['@jsObject'][aString] = anObject>
+at: aSymbol put: anObject
+	| attr |
+	attr := aSymbol asString.
+	<self['@jsObject'][attr] = anObject>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!

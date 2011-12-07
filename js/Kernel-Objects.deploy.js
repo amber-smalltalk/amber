@@ -185,9 +185,11 @@ smalltalk.addMethod(
 '_instVarAt_',
 smalltalk.method({
 selector: 'instVarAt:',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@'+aString];
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+return self['@'+varname];
 return self;}
 }),
 smalltalk.Object);
@@ -196,9 +198,11 @@ smalltalk.addMethod(
 '_instVarAt_put_',
 smalltalk.method({
 selector: 'instVarAt:put:',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@' + aString] = anObject;
+var varname=nil;
+varname=smalltalk.send(aSymbol, "_asString", []);
+self['@' + varname] = anObject;
 return self;}
 }),
 smalltalk.Object);
@@ -264,7 +268,8 @@ smalltalk.method({
 selector: 'try:catch:',
 fn: function (aBlock, anotherBlock){
 var self=this;
-try{aBlock()} catch(e) {anotherBlock(e)};
+try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;;
 return self;}
 }),
 smalltalk.Object);
@@ -519,7 +524,7 @@ smalltalk.method({
 selector: '==',
 fn: function (anObject){
 var self=this;
-return self === anObject;
+return smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
 return self;}
 }),
 smalltalk.Object);
@@ -575,6 +580,28 @@ selector: 'asJSONString',
 fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [self]);
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_identityHash',
+smalltalk.method({
+selector: 'identityHash',
+fn: function (){
+var self=this;
+return self.identityHash || (self.identityHash = smalltalk.nextId());;
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+'_isSymbol',
+smalltalk.method({
+selector: 'isSymbol',
+fn: function (){
+var self=this;
+return false;
 return self;}
 }),
 smalltalk.Object);
@@ -813,7 +840,7 @@ return self;}
 smalltalk.Smalltalk.klass);
 
 
-smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
 smalltalk.addMethod(
 '_name',
 smalltalk.method({
@@ -831,7 +858,7 @@ smalltalk.method({
 selector: 'name:',
 fn: function (aString){
 var self=this;
-return self.pkgName = aString;
+self.pkgName = aString;
 return self;}
 }),
 smalltalk.Package);
@@ -971,7 +998,52 @@ return self;}
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+'_commitPathJs',
+smalltalk.method({
+selector: 'commitPathJs',
+fn: function (){
+var self=this;
+return (($receiver = self['@commitPathJs']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);})() : $receiver;
+return self;}
+}),
+smalltalk.Package);
 
+smalltalk.addMethod(
+'_commitPathJs_',
+smalltalk.method({
+selector: 'commitPathJs:',
+fn: function (aString){
+var self=this;
+self['@commitPathJs']=aString;
+return self;}
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+'_commitPathSt',
+smalltalk.method({
+selector: 'commitPathSt',
+fn: function (){
+var self=this;
+return (($receiver = self['@commitPathSt']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);})() : $receiver;
+return self;}
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+'_commitPathSt_',
+smalltalk.method({
+selector: 'commitPathSt:',
+fn: function (aString){
+var self=this;
+self['@commitPathSt']=aString;
+return self;}
+}),
+smalltalk.Package);
+
+
+smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
 '_named_',
 smalltalk.method({
@@ -994,6 +1066,62 @@ return self;}
 }),
 smalltalk.Package.klass);
 
+smalltalk.addMethod(
+'_defaultCommitPathJs',
+smalltalk.method({
+selector: 'defaultCommitPathJs',
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathJs']) == nil || $receiver == undefined) ? (function(){return self['@defaultCommitPathJs']="js";})() : $receiver;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathJs_',
+smalltalk.method({
+selector: 'defaultCommitPathJs:',
+fn: function (aString){
+var self=this;
+self['@defaultCommitPathJs']=aString;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathSt',
+smalltalk.method({
+selector: 'defaultCommitPathSt',
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathSt']) == nil || $receiver == undefined) ? (function(){return self['@defaultCommitPathSt']="st";})() : $receiver;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_defaultCommitPathSt_',
+smalltalk.method({
+selector: 'defaultCommitPathSt:',
+fn: function (aString){
+var self=this;
+self['@defaultCommitPathSt']=aString;
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_resetCommitPaths',
+smalltalk.method({
+selector: 'resetCommitPaths',
+fn: function (){
+var self=this;
+self['@defaultCommitPathJs']=nil;
+self['@defaultCommitPathSt']=nil;
+return self;}
+}),
+smalltalk.Package.klass);
+
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
@@ -1002,7 +1130,7 @@ smalltalk.method({
 selector: '=',
 fn: function (aNumber){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+try{((($receiver = smalltalk.send(aNumber, "_isNumber", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
 return Number(self) == aNumber;
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}}
@@ -1324,19 +1452,6 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'__eq_eq',
-smalltalk.method({
-selector: '==',
-fn: function (aNumber){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aNumber, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Number(self) === Number(aNumber);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 '_printShowingDecimalPlaces_',
 smalltalk.method({
 selector: 'printShowingDecimalPlaces:',
@@ -1442,6 +1557,17 @@ selector: 'squared',
 fn: function (){
 var self=this;
 return self * self;
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_identityHash',
+smalltalk.method({
+selector: 'identityHash',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
 return self;}
 }),
 smalltalk.Number);
@@ -1620,19 +1746,6 @@ var self=this;
 	    }
 	;
 return self;}
-}),
-smalltalk.Boolean);
-
-smalltalk.addMethod(
-'__eq_eq',
-smalltalk.method({
-selector: '==',
-fn: function (aBoolean){
-var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq_eq', fn: function(){return false}})})();})]));
-return Boolean(self == true) === Boolean(aBoolean == true);
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq_eq'){return e.fn()} throw(e)}}
 }),
 smalltalk.Boolean);
 
@@ -2456,9 +2569,11 @@ smalltalk.addMethod(
 '_at_',
 smalltalk.method({
 selector: 'at:',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return self['@jsObject'][aString];
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+return self['@jsObject'][attr];
 return self;}
 }),
 smalltalk.JSObjectProxy);
@@ -2467,9 +2582,11 @@ smalltalk.addMethod(
 '_at_put_',
 smalltalk.method({
 selector: 'at:put:',
-fn: function (aString, anObject){
+fn: function (aSymbol, anObject){
 var self=this;
-self['@jsObject'][aString] = anObject;
+var attr=nil;
+attr=smalltalk.send(aSymbol, "_asString", []);
+self['@jsObject'][attr] = anObject;
 return self;}
 }),
 smalltalk.JSObjectProxy);

@@ -22,12 +22,15 @@ cssClass
 
 backgroundColor
 	^'#555'
+!
+
+title
+	^ self id
 ! !
 
 !Slide methodsFor: 'actions'!
 
 show
-	document location hash: self id.
 	self backgroundColor ifNotNil: [
 		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
 	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
@@ -121,7 +124,7 @@ nextSlide
 	| next |
 	self currentSlide ifNotNil: [
 		next := self slides 
-			at: (self slides indexOf: self currentSlide) + 1
+			at: (self currentSlideIndex) + 1
 			ifAbsent: [nil].
 		next ifNotNil: [currentSlide := next. next show]]
 !
@@ -138,19 +141,27 @@ previousSlide
 	| next |
 	self currentSlide ifNotNil: [
 		next := self slides 
-			at: (self slides indexOf: self currentSlide) - 1
+			at: (self currentSlideIndex) - 1
 			ifAbsent: [nil].
 		next ifNotNil: [currentSlide := next. next show]]
 !
 
-checkHash
-	| hash slide |
-	hash := document location hash  replace: '^#' with: ''.
-	slide := self slides detect:  [:each | each id = hash] ifNone: [nil].
-	slide ifNotNil: [
-		self currentSlide = slide ifFalse: [
-			self currentSlide: slide.
-			slide show]]
+moveAt: anInteger
+	| next |
+	next := self slides 
+			at: anInteger
+			ifAbsent: [nil].
+	next ifNotNil: [currentSlide := next. next show]
+!
+
+currentSlideIndex
+	^ self slides indexOf: self currentSlide ifAbsent: [1]
+! !
+
+!Presentation methodsFor: 'enumerating'!
+
+slidesDo: aBlockWithArg
+	self slides do: [:aSlide| aBlockWithArg value: aSlide].
 ! !
 
 !Presentation methodsFor: 'initialization'!
@@ -1080,7 +1091,7 @@ renderSlideOn: html
 ! !
 
 Widget subclass: #PresentationNavigator
-	instanceVariableNames: 'presentationBrush currentPresentation'
+	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
 	category: 'Presentation'!
 
 !PresentationNavigator methodsFor: 'accessing'!
@@ -1139,22 +1150,41 @@ selectPresentationNamed: aString
 !
 
 previousSlide
-	self currentPresentation previousSlide
+	self currentPresentation previousSlide.
+	self updateHash.
 !
 
 nextSlide
-	self currentPresentation nextSlide
+	self currentPresentation nextSlide.
+	self updateHash.
 !
 
 reload
 	self currentPresentation: self currentPresentation class new.
 	self renderCurrentPresentation.
+!
+
+selectSlideAt: anInteger
+	self currentPresentation moveAt: anInteger.
+	self updateHash.
+!
+
+updateHash
+	document location hash: self currentPresentation class name, '-', self currentPresentation currentSlideIndex.
 ! !
 
 !PresentationNavigator methodsFor: 'hash'!
 
 checkHash
-	self currentPresentation checkHash
+	| hash presentation |
+	hash := (document location hash  replace: '^#' with: '') tokenize: '-'. 
+	presentation := Presentation concretePresentations 
+				detect: [:aPresentationClass | aPresentationClass name == hash first]
+				ifNone: [^ self].
+	presentation == self currentPresentation class ifFalse: [
+          	self selectPresentationNamed: presentation.
+          	self selectSlideAt: hash last
+        ].
 !
 
 checkHashChange
@@ -1216,21 +1246,38 @@ renderOn: html
 		id: 'navigator';
 		with: [	self
 					renderToolsOn: html;
-					renderPresentationSelectOn: html	].
+					renderPresentationSelectOn: html;
+                      			renderSlideSelectOn: html].
 
 	presentationBrush := html div 
 							id: 'presentation';
 							yourself.
 
+	self checkHash.
 	self renderCurrentPresentation.
 !
 
 renderCurrentPresentation
 	presentationBrush contents: [:html |
-        	self currentPresentation
-                                     	renderOn: html;
-                                     	checkHash.
+        	self currentPresentation renderOn: html.
         ].
+	self updateSlideSelect.
+!
+
+renderSlideSelectOn: html
+	slideSelect := html select.
+	slideSelect onChange: [ self  selectSlideAt:  slideSelect asJQuery val ].
+	self updateSlideSelect.
+!
+
+updateSlideSelect
+	slideSelect contents: [:html| |index|
+		                       		index := 0.
+                		       		self currentPresentation slidesDo: [ :aSlide|  
+                                		                                    				index := index + 1.
+                                                		                    				html option
+                                                                		    					value: index;
+                                                            								with: aSlide title ] ].
 ! !
 
 !PresentationNavigator class methodsFor: 'initialize'!

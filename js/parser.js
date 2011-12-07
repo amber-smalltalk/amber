@@ -755,7 +755,7 @@ smalltalk.parser = (function(){
         var result2 = result1 !== null
           ? (function(val) {
           		  return smalltalk.ValueNode._new()
-                         	   	._value_(val.join("").replace(/\"/ig, '"'))
+                         	   	._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
                          	 })(result1[1])
           : null;
         if (result2 !== null) {
@@ -1341,9 +1341,8 @@ smalltalk.parser = (function(){
         }
         var result2 = result1 !== null
           ? (function(val) {
-          					return smalltalk.ValueNode._new()
-          						._value_(val)
-          				})(result1)
+          			return smalltalk.ValueNode._new()._value_(val)
+          		    })(result1)
           : null;
         if (result2 !== null) {
           var result0 = result2;
