@@ -21,6 +21,7 @@ amber = (function() {
 	var localStorageSource = [];
 	var localPackages;
 	var spec;
+	var jsToLoad = [];
 
 	that.load = function(obj) {
 		spec = obj || {};
@@ -110,6 +111,10 @@ amber = (function() {
 	};
 
 	function loadJS(name, prefix) {
+		jsToLoad.push(buildJSURL(name, prefix));
+	};
+
+	function buildJSURL(name, prefix) {
 		var prefix = prefix || 'js';
 		var name = name;
 
@@ -117,9 +122,7 @@ amber = (function() {
 			name = name + nocache;
 		}
 
-		var url = home + prefix + '/' + name;
-		var scriptString = '<script src="' + url + '" type="text/javascript"></script>';
-		document.write(scriptString);
+		return home + prefix + '/' + name;
 	};
 
 	function loadCSS(name, prefix) {
@@ -138,13 +141,18 @@ amber = (function() {
 		document.getElementsByTagName("head")[0].appendChild(link);
 	};
 
+	function addScriptTag(src) {
+		var scriptString = '<script src="' + src + '" type="text/javascript"></script>';
+		document.write(scriptString);
+	}
+
   function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			loadJS('lib/jQuery/jquery-1.6.4.min.js');
+			addScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			loadJS('lib/jQuery/jquery-ui-1.8.16.custom.min.js');
+			addScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
   };
 
@@ -158,9 +166,7 @@ amber = (function() {
 
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk() {
-
 		window.smalltalkReady = function() {
-
 			for (var i=0; i < localStorageSource.length; i++) {
 				eval(localStorageSource[i]);
 			}
@@ -173,7 +179,29 @@ amber = (function() {
 				spec.ready();
 			}
 		}
+
+		if (typeof jQuery == 'undefined') {
+			for(var i in jsToLoad)
+				addScriptTag(jsToLoad[i]);
+		} else {
+			getScript(jsToLoad[0]); 
+		}
 	};
+
+	/* 
+	 * When loaded using AJAX, scripts order not guaranteed.
+	 * Load JS in the order they have been added
+	 * using loadJS.
+	 */
+	function getScript(url) {
+		$.getScript(url, 
+								function(){
+									jsToLoad.shift();
+									if (jsToLoad.length > 0)
+										getScript(jsToLoad[0]);
+								});
+	}
+	
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
