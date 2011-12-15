@@ -1122,6 +1122,54 @@ return self;}
 }),
 smalltalk.Package.klass);
 
+smalltalk.addMethod(
+'_fetch_prefix_',
+smalltalk.method({
+selector: 'fetch:prefix:',
+fn: function (aPackageName, aPrefix){
+var self=this;
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_getScript_onSuccess_", [smalltalk.send(smalltalk.send(aPrefix, "__comma", [aPackageName]), "__comma", [".js"]), (function(){return smalltalk.send((smalltalk.Package || Package), "_init_", [aPackageName]);})]);
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_fetch_',
+smalltalk.method({
+selector: 'fetch:',
+fn: function (aPackageName){
+var self=this;
+smalltalk.send(self, "_fetch_prefix_", [aPackageName, smalltalk.send(smalltalk.send(self, "_defaultCommitPathJs", []), "__comma", [unescape("/")])]);
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_commitToLocalStorage_',
+smalltalk.method({
+selector: 'commitToLocalStorage:',
+fn: function (aPackageName){
+var self=this;
+var key=nil;
+var sourceCode=nil;
+key=smalltalk.send("smalltalk.packages.", "__comma", [aPackageName]);
+sourceCode=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [aPackageName]);
+localStorage[key] = escape(sourceCode);
+return self;}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+'_init_',
+smalltalk.method({
+selector: 'init:',
+fn: function (aPackageName){
+var self=this;
+(function($rec){smalltalk.send($rec, "_do_", [(function(each){return smalltalk.init(each);})]);return smalltalk.send($rec, "_do_", [(function(each){return smalltalk.send(each, "_initialize", []);})]);})(smalltalk.send(smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_classes", []), "_select_", [(function(each){return each.pkg.pkgName == aPackageName;})]));
+return self;}
+}),
+smalltalk.Package.klass);
+
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(

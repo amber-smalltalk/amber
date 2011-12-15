@@ -6,7 +6,6 @@
   })
 */
 
-
 amber = (function() {
   var that = {};
 
@@ -22,6 +21,17 @@ amber = (function() {
   var localPackages;
   var spec;
 
+  that.toggleIDE = function() {
+    if ($('#jtalk').length == 0) {
+      smalltalk.Browser._open();
+    } else if ($('#jtalk').is(':visible')) {
+      smalltalk.TabManager._current()._close();
+    } else {
+      smalltalk.TabManager._current()._open();
+    }
+    return false;
+  }
+
   that.load = function(obj) {
     spec = obj || {};
 
@@ -29,6 +39,12 @@ amber = (function() {
     // and Canvas are loaded
     deploy = spec.deploy || false;
     debug = spec.debug || false;
+
+    // When debug is turned on, logs are written to the console,
+    // and the user will be prompted before they leave the page.
+    if (debug) {
+      window.onbeforeunload = function(){ return 'You will loose all code that you have not committed'; }
+    }
 
     // Allow loading default Amber files from a different location
     // e.g. http://amber-lang.net/amber/
@@ -85,7 +101,9 @@ amber = (function() {
     // Always load all local packages
     for (name in localPackages) {
       log('Local package:  ' + name);
-      localStorageSource.push(localPackages[name]);
+      var sourceCode = unescape(localPackages[name]);
+      sourceCode += "\nsmalltalk.Package._init_('"+name+"')";
+      localStorageSource.push(sourceCode);
     }
 
     // Be sure to setup & initialize smalltalk classes
@@ -151,8 +169,8 @@ amber = (function() {
   function loadIDEDependencies() {
     loadJS('lib/jQuery/jquery.textarea.js');
     loadJS('lib/CodeMirror/codemirror.js');
-    loadCSS('lib/CodeMirror/codemirror.css', 'js');
     loadJS('lib/CodeMirror/smalltalk.js');
+    loadCSS('lib/CodeMirror/codemirror.css', 'js');
     loadCSS('lib/CodeMirror/amber.css', 'js');
   };
 
@@ -208,6 +226,5 @@ amber = (function() {
   return that;
 })();
 
-window.loadAmber = function(spec) {
-  amber.load(spec);
-}
+window.loadAmber = amber.load;
+window.toggleAmberIDE = amber.toggleIDE;
