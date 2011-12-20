@@ -1,213 +1,230 @@
 /* Amber package loading
-	usage example:
-	amber.load({
-		files: ['MyCategory1.js', 'MyCategory2.js'],
-		ready: function() {smalltalk.Browser._open()}
-	})
+  usage example:
+  amber.load({
+    files: ['MyCategory1.js', 'MyCategory2.js'],
+    ready: function() {smalltalk.Browser._open()}
+  })
 */
 
-
 amber = (function() {
-	var that = {};
+  var that = {};
 
-	var scripts = document.getElementsByTagName("script");
-	var src     = scripts[ scripts.length - 1 ].src;
-	var home    = src.split("/").slice(0, -2).join("/") + "/";
-	var nocache = '?' + (new Date()).getTime();
+  var scripts = document.getElementsByTagName("script");
+  var src     = scripts[ scripts.length - 1 ].src;
+  var home    = src.split("/").slice(0, -2).join("/") + "/";
+  var nocache = '?' + (new Date()).getTime();
 
-	var debug;
-	var deploy;
+  var debug;
+  var deploy;
 
-	var localStorageSource = [];
-	var localPackages;
-	var spec;
+  var localStorageSource = [];
+  var localPackages;
+  var spec;
 
-	that.load = function(obj) {
-		spec = obj || {};
+  that.toggleIDE = function() {
+    if ($('#jtalk').length == 0) {
+      smalltalk.Browser._open();
+    } else if ($('#jtalk').is(':visible')) {
+      smalltalk.TabManager._current()._close();
+    } else {
+      smalltalk.TabManager._current()._open();
+    }
+    return false;
+  }
 
-		// In deployment mode, only the compressed version of Kernel
-		// and Canvas are loaded
-		deploy = spec.deploy || false;
-		debug = spec.debug || false;
+  that.load = function(obj) {
+    spec = obj || {};
+
+    // In deployment mode, only the compressed version of Kernel
+    // and Canvas are loaded
+    deploy = spec.deploy || false;
+    debug = spec.debug || false;
+
+    // When debug is turned on, logs are written to the console,
+    // and the user will be prompted before they leave the page.
+    if (debug) {
+      window.onbeforeunload = function(){ return 'You will loose all code that you have not committed'; }
+    }
 
     // Allow loading default Amber files from a different location
     // e.g. http://amber-lang.net/amber/
     if (spec.home) home = spec.home;
 
-		// Specify a version string to avoid wrong browser caching
-		if (spec.version) {
-			nocache = '?' + spec.version;
-		}
+    // Specify a version string to avoid wrong browser caching
+    if (spec.version) {
+      nocache = '?' + spec.version;
+    }
 
-		loadDependencies();
-		loadJS('compat.js');
-		loadJS('boot.js');
+    loadDependencies();
+    loadJS('compat.js');
+    loadJS('boot.js');
 
-		populateLocalPackages();
+    populateLocalPackages();
 
-		if (deploy) {
-			loadPackages([
-					'Kernel-Objects.deploy',
-					'Kernel-Classes.deploy',
-					'Kernel-Methods.deploy',
-					'Kernel-Collections.deploy',
-					'Kernel-Exceptions.deploy',
-					'Kernel-Transcript.deploy',
-					'Canvas.deploy'
-					]);
-		} else {
-			loadIDEDependencies();
-			loadCSS('amber.css');
+    if (deploy) {
+      loadPackages([
+        'Kernel-Objects.deploy',
+        'Kernel-Classes.deploy',
+        'Kernel-Methods.deploy',
+        'Kernel-Collections.deploy',
+        'Kernel-Exceptions.deploy',
+        'Kernel-Transcript.deploy',
+        'Canvas.deploy'
+      ]);
+    } else {
+      loadIDEDependencies();
+      loadCSS('amber.css');
 
-			loadPackages([
-				'Kernel-Objects',
-				'Kernel-Classes',
-				'Kernel-Methods',
-				'Kernel-Collections',
-				'Kernel-Exceptions',
-				'Kernel-Transcript',
-				'Canvas',
-				'Compiler',
-				'parser',
-				'IDE',
-				'SUnit',
-				'Examples',
-				'Benchfib',
-				'Kernel-Tests'
-			]);
-		}
+      loadPackages([
+        'Kernel-Objects',
+        'Kernel-Classes',
+        'Kernel-Methods',
+        'Kernel-Collections',
+        'Kernel-Exceptions',
+        'Kernel-Transcript',
+        'Canvas',
+        'Compiler',
+        'parser',
+        'IDE',
+        'SUnit',
+        'Examples',
+        'Benchfib',
+        'Kernel-Tests'
+      ]);
+    }
 
-		var additionalFiles = spec.packages || spec.files;
-		if (additionalFiles) {
-			loadPackages(additionalFiles, spec.prefix);
-		}
+    var additionalFiles = spec.packages || spec.files;
+    if (additionalFiles) {
+      loadPackages(additionalFiles, spec.prefix);
+    }
 
-		// Always load all local packages
-		for (name in localPackages) {
-			log('Local package:  ' + name);
-			localStorageSource.push(localPackages[name]);
-		}
+    // Always load all local packages
+    for (name in localPackages) {
+      log('Local package:  ' + name);
+      var sourceCode = unescape(localPackages[name]);
+      sourceCode += "\nsmalltalk.Package._init_('"+name+"')";
+      localStorageSource.push(sourceCode);
+    }
 
-		// Be sure to setup & initialize smalltalk classes
-		loadJS('init.js');
-		initializeSmalltalk();
-	};
-
-	function loadPackages(names, prefix){
-		var name, url;
-		var prefix = prefix || 'js';
-
-		for (var i=0; i < names.length; i++) {
-			name = names[i].split(/\.js$/)[0];
-
-			// Only load package from the server if it isn't stored in
-			// localStorage
-			if (!(name in localPackages)) {
-				log('Server package: ' + name);
-				loadJS(name + '.js', prefix);
-			}
-		}
-	};
-
-	function loadJS(name, prefix) {
-		var prefix = prefix || 'js';
-		var name = name;
-
-		if (!deploy) {
-			name = name + nocache;
-		}
-
-		var url = home + prefix + '/' + name;
-		var scriptString = '<script src="' + url + '" type="text/javascript"></script>';
-		document.write(scriptString);
-	};
-
-	function loadCSS(name, prefix) {
-		var prefix = prefix || 'css';
-		var name = name;
-		if (!deploy) {
-			name = name + nocache;
-		}
-
-		var url = home + prefix + '/' + name;
-
-		var link = document.createElement("link");
-		link.setAttribute("rel", "stylesheet");
-		link.setAttribute("type", "text/css");
-		link.setAttribute("href", url);
-		document.getElementsByTagName("head")[0].appendChild(link);
-	};
-
-  function loadDependencies() {
-		if (typeof jQuery == 'undefined') {
-			loadJS('lib/jQuery/jquery-1.6.4.min.js');
-		}
-
-		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			loadJS('lib/jQuery/jquery-ui-1.8.16.custom.min.js');
-		}
+    // Be sure to setup & initialize smalltalk classes
+    loadJS('init.js');
+    initializeSmalltalk();
   };
 
-	function loadIDEDependencies() {
-		loadJS('lib/jQuery/jquery.textarea.js');
-		loadJS('lib/CodeMirror/lib/codemirror.js');
-		loadCSS('lib/CodeMirror/lib/codemirror.css', 'js');
-		loadJS('lib/CodeMirror/mode/smalltalk/smalltalk.js');
-		loadCSS('lib/CodeMirror/theme/amber.css', 'js');
-	};
+  function loadPackages(names, prefix){
+    var name, url;
+    var prefix = prefix || 'js';
 
-	// This will be called after JS files have been loaded
-	function initializeSmalltalk() {
+    for (var i=0; i < names.length; i++) {
+      name = names[i].split(/\.js$/)[0];
 
-		window.smalltalkReady = function() {
+      // Only load package from the server if it isn't stored in
+      // localStorage
+      if (!(name in localPackages)) {
+        log('Server package: ' + name);
+        loadJS(name + '.js', prefix);
+      }
+    }
+  };
 
-			for (var i=0; i < localStorageSource.length; i++) {
-				eval(localStorageSource[i]);
-			}
+  function loadJS(name, prefix) {
+    var prefix = prefix || 'js';
+    var name = name;
 
-			if (deploy) {
-				smalltalk.setDeploymentMode();
-			}
+    if (!deploy) {
+      name = name + nocache;
+    }
 
-			if (spec.ready) {
-				spec.ready();
-			}
-		}
-	};
+    var url = home + prefix + '/' + name;
+    var scriptString = '<script src="' + url + '" type="text/javascript"></script>';
+    document.write(scriptString);
+  };
 
-	function populateLocalPackages(){
-		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
-		localPackages = {};
+  function loadCSS(name, prefix) {
+    var prefix = prefix || 'css';
+    var name = name;
+    if (!deploy) {
+      name = name + nocache;
+    }
 
-		var match, key;
+    var url = home + prefix + '/' + name;
 
-		for(var i=0; i < localStorage.length; i++) {
-			key = localStorage.key(i);
+    var link = document.createElement("link");
+    link.setAttribute("rel", "stylesheet");
+    link.setAttribute("type", "text/css");
+    link.setAttribute("href", url);
+    document.getElementsByTagName("head")[0].appendChild(link);
+  };
 
-			if (match = key.match(localStorageRE)) {
-				localPackages[match[1]] = localStorage[key];
-			}
-		}
+  function loadDependencies() {
+    if (typeof jQuery == 'undefined') {
+      loadJS('lib/jQuery/jquery-1.6.4.min.js');
+    }
 
-		return localPackages;
-	};
+    if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {
+      loadJS('lib/jQuery/jquery-ui-1.8.16.custom.min.js');
+    }
+  };
 
-	function clearLocalPackages() {
-		for (var name in localPackages) {
-			log('Removing ' + name + ' from local storage');
-			localStorage.removeItem('smalltalk.packages.' + name);
-		}
-	};
+  function loadIDEDependencies() {
+    loadJS('lib/jQuery/jquery.textarea.js');
+    loadJS('lib/CodeMirror/codemirror.js');
+    loadJS('lib/CodeMirror/smalltalk.js');
+    loadCSS('lib/CodeMirror/codemirror.css', 'js');
+    loadCSS('lib/CodeMirror/amber.css', 'js');
+  };
 
-	function log(string) {
-		if (debug) {
-			console.log(string);
-		}
-	}
+  // This will be called after JS files have been loaded
+  function initializeSmalltalk() {
 
-	return that;
+    window.smalltalkReady = function() {
+
+      for (var i=0; i < localStorageSource.length; i++) {
+        eval(localStorageSource[i]);
+      }
+
+      if (deploy) {
+        smalltalk.setDeploymentMode();
+      }
+
+      if (spec.ready) {
+        spec.ready();
+      }
+    }
+  };
+
+  function populateLocalPackages(){
+    var localStorageRE = /^smalltalk\.packages\.(.*)$/;
+    localPackages = {};
+
+    var match, key;
+
+    for(var i=0; i < localStorage.length; i++) {
+      key = localStorage.key(i);
+
+      if (match = key.match(localStorageRE)) {
+        localPackages[match[1]] = localStorage[key];
+      }
+    }
+
+    return localPackages;
+  };
+
+  function clearLocalPackages() {
+    for (var name in localPackages) {
+      log('Removing ' + name + ' from local storage');
+      localStorage.removeItem('smalltalk.packages.' + name);
+    }
+  };
+
+  function log(string) {
+    if (debug) {
+      console.log(string);
+    }
+  }
+
+  return that;
 })();
 
-window.loadAmber = function(spec) {
-	amber.load(spec);
-}
+window.loadAmber = amber.load;
+window.toggleAmberIDE = amber.toggleIDE;
