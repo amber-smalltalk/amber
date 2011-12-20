@@ -2514,6 +2514,20 @@ return self;}
 }),
 smalltalk.Set);
 
+smalltalk.addMethod(
+'_select_',
+smalltalk.method({
+selector: 'select:',
+fn: function (aBlock){
+var self=this;
+var collection=nil;
+collection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.send(aBlock, "_value_", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(collection, "_add_", [each]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(collection, "_add_", [each]);})]));})]);
+return collection;
+return self;}
+}),
+smalltalk.Set);
+
 
 
 smalltalk.addClass('HashedCollection', smalltalk.Collection, [], 'Kernel-Collections');

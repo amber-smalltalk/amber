@@ -1252,6 +1252,15 @@ detect: aBlock ifNone: anotherBlock
 
 do: aBlock
 	elements do: aBlock
+!
+
+select: aBlock
+	| collection |
+	collection := self class new. 
+	self do: [:each |
+		(aBlock value: each) ifTrue: [
+			collection add: each]].
+	^collection
 ! !
 
 !Set methodsFor: 'initialization'!
