@@ -423,7 +423,11 @@ Packages are manipulated through "Smalltalk current", like for example finding o
 
 A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
 can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
-String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.!
+String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.
+
+You can fetch a package from the server:
+
+	Package fetch: 'Additional-Examples'!
 
 !Package methodsFor: 'accessing'!
 
@@ -541,6 +545,29 @@ defaultCommitPathSt: aString
 resetCommitPaths
         defaultCommitPathJs := nil.
         defaultCommitPathSt := nil.
+! !
+
+!Package class methodsFor: 'loading-storing'!
+
+fetch: aPackageName prefix: aPrefix
+	jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]
+!
+
+fetch: aPackageName
+	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
+!
+
+commitToLocalStorage: aPackageName
+	| key sourceCode |
+	key := 'smalltalk.packages.' , aPackageName.
+	sourceCode := Exporter new exportPackage: aPackageName.
+	<localStorage[key] = escape(sourceCode)>
+!
+
+init: aPackageName
+	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
+		do: [ :each | <smalltalk.init(each)> ];
+		do: [ :each | each initialize ]
 ! !
 
 !Package class methodsFor: 'not yet classified'!

@@ -3,6 +3,9 @@ examples/nodejs/**/*.js
 examples/webos/**/*.js
 server/FileServer*.js
 
+# Ignoring Mac Finder files
+.DS_Store
+
 # Ignoring compiled files in st
 st/*.js
 
