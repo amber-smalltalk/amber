@@ -53,6 +53,7 @@ amber = (function() {
 					'Kernel-Collections.deploy',
 					'Kernel-Exceptions.deploy',
 					'Kernel-Transcript.deploy',
+					'Kernel-Announcements.deploy',
 					'Canvas.deploy'
 					]);
 		} else {
@@ -66,6 +67,7 @@ amber = (function() {
 				'Kernel-Collections',
 				'Kernel-Exceptions',
 				'Kernel-Transcript',
+				'Kernel-Announcements',
 				'Canvas',
 				'Compiler',
 				'parser',
