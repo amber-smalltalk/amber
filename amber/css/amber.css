@@ -16,6 +16,8 @@ body.jtalkBody {
     padding: 0 1px;
     cursor: pointer;
     color: #565656;
+		max-width: 200px;
+		float:left;
 }
 
 #jtalk .ltab, #jtalk .rtab, #jtalk .mtab {
@@ -80,7 +82,7 @@ body.jtalkBody {
        bottom: 0;
        left: 0;
        right: 0;
-       height: 330px;
+       height: 350px;
        z-index: 1000;
 }
 
@@ -259,7 +261,7 @@ body.jtalkBody {
 
 .jtalkTool .jt_packagesButtons {
     position: absolute;
-    top: 129px;
+    top: 149px;
     left: 0;
     z-index: 1;
 }
@@ -271,7 +273,7 @@ body.jtalkBody {
     float: left;
     outline: 1px solid #aaa;
     border: 0 none;
-    height: 130px;
+    height: 150px;
     overflow-y: auto;
     background: #fff;
     color: #111;
@@ -319,7 +321,7 @@ body.jtalkBody {
 }
 
 #jtalk .jtalkTool .jt_tabs {
-    top: 130px;
+    top: 150px;
     position: absolute;
 }
 
@@ -329,7 +331,7 @@ body.jtalkBody {
 
 .jtalkTool .jt_sourceCode {
     position: absolute;
-    top: 152px;
+    top: 172px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -355,7 +357,7 @@ body.jtalkBody {
 }
 
 .jtalkTool .jt_box .jt_column.debugger {
-    top: 158px;
+    top: 178px;
 }
 
 .jtalkTool .jt_box .jt_column.debugger.contexts {
@@ -365,7 +367,7 @@ body.jtalkBody {
 
 .jtalkTool .jt_sourceCode.debugger {
     width: 60%;
-    top: 158px;
+    top: 178px;
 }
 
 .jtalkTool .jt_box .jt_column.debugger.variables {
@@ -396,7 +398,7 @@ body.jtalkBody {
 
 .jtalkTool .jt_buttons.inspector {
     position: absolute;
-    top: 130px;
+    top: 150px;
 }
 
 

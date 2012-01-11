@@ -1492,12 +1492,14 @@ selector: unescape('commitPackage'),
 category: 'actions',
 fn: function (){
 var self=this;
-(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".js"]), smalltalk.Dictionary._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]),smalltalk.send("data", "__minus_gt", [smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [self['@selectedPackage']])]),smalltalk.send("error", "__minus_gt", [(function(){return smalltalk.send((typeof window == 'undefined' ? nil : window), "_alert_", [unescape("Commit%20failed%21")]);})])])]);smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"]), smalltalk.Dictionary._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]),smalltalk.send("data", "__minus_gt", [smalltalk.send(smalltalk.send((smalltalk.StrippedExporter || StrippedExporter), "_new", []), "_exportPackage_", [self['@selectedPackage']])]),smalltalk.send("error", "__minus_gt", [(function(){return smalltalk.send((typeof window == 'undefined' ? nil : window), "_alert_", [unescape("Commit%20failed%21")]);})])])]);return smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".st"]), smalltalk.Dictionary._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]),smalltalk.send("data", "__minus_gt", [smalltalk.send(smalltalk.send((smalltalk.ChunkExporter || ChunkExporter), "_new", []), "_exportPackage_", [self['@selectedPackage']])]),smalltalk.send("error", "__minus_gt", [(function(){return smalltalk.send((typeof window == 'undefined' ? nil : window), "_alert_", [unescape("Commit%20failed%21")]);})])])]);})() : nil;
+(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){var package=nil;
+package=smalltalk.send((smalltalk.Package || Package), "_named_", [self['@selectedPackage']]);return smalltalk.send([smalltalk.send((smalltalk.Exporter || Exporter), "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]),smalltalk.send((smalltalk.StrippedExporter || StrippedExporter), "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]),smalltalk.send((smalltalk.ChunkExporter || ChunkExporter), "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathSt", []), "__comma", [unescape("/")]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])])], "_do_", [(function(commitStrategy){var fileContents=nil;
+fileContents=smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy, "_key", []), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_ajaxPutAt_data_", [smalltalk.send(commitStrategy, "_value", []), fileContents]);})]);})() : nil;
 return self;},
 args: [],
-source: unescape('commitPackage%0A%09selectedPackage%20ifNotNil%3A%20%5B%0A%09%09jQuery%20%0A%09%09%09ajax%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.js%27%0A%09%09%09options%3A%20%23%7B%0A%09%09%09%09%27type%27%20-%3E%20%27PUT%27.%0A%09%09%09%09%27data%27%20-%3E%20%28Exporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%09%09%27error%27%20-%3E%20%5Bwindow%20alert%3A%20%27Commit%20failed%21%27%5D%0A%09%09%09%7D.%0A%09%09jQuery%20%0A%09%09%09ajax%3A%20self%20class%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.deploy.js%27%0A%09%09%09options%3A%20%23%7B%0A%09%09%09%09%27type%27%20-%3E%20%27PUT%27.%0A%09%09%09%09%27data%27%20-%3E%20%28StrippedExporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%09%09%27error%27%20-%3E%20%5Bwindow%20alert%3A%20%27Commit%20failed%21%27%5D%0A%09%09%09%7D.%0A%09%09jQuery%20%0A%09%09%09ajax%3A%20self%20class%20commitPathSt%2C%20%27/%27%2C%20selectedPackage%2C%20%27.st%27%0A%09%09%09options%3A%20%23%7B%0A%09%09%09%09%27type%27%20-%3E%20%27PUT%27.%0A%09%09%09%09%27data%27%20-%3E%20%28ChunkExporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%09%09%27error%27%20-%3E%20%5Bwindow%20alert%3A%20%27Commit%20failed%21%27%5D%0A%09%09%09%7D%5D'),
-messageSends: ["ifNotNil:", "ajax:options:", unescape("%2C"), "commitPathJs", "class", unescape("-%3E"), "exportPackage:", "new", "alert:", "commitPathSt"],
-referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
+source: unescape('commitPackage%0A%09selectedPackage%20ifNotNil%3A%20%5B%20%7Cpackage%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%20package%20%3A%3D%20Package%20named%3A%20selectedPackage.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%20%7B%09Exporter%20%09%09%09-%3E%20%28package%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.js%27%29.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09StrippedExporter%20%09-%3E%20%28package%20commitPathJs%2C%20%27/%27%2C%20selectedPackage%2C%20%27.deploy.js%27%29.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%20ChunkExporter%20%09%09-%3E%20%28package%20commitPathSt%2C%20%27/%27%2C%20selectedPackage%2C%20%27.st%27%29%20%09%09%09%7D%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09do%3A%20%5B%3AcommitStrategy%7C%20%7CfileContents%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09fileContents%20%3A%3D%20%28commitStrategy%20key%20new%20exportPackage%3A%20selectedPackage%29.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09self%20ajaxPutAt%3A%20commitStrategy%20value%20data%3A%20%20fileContents%5D%0A%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%5D'),
+messageSends: ["ifNotNil:", "named:", "do:", unescape("-%3E"), unescape("%2C"), "commitPathJs", "commitPathSt", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value"],
+referencedClasses: ["Package", "Exporter", "StrippedExporter", "ChunkExporter"]
 }),
 smalltalk.Browser);
 
@@ -1572,6 +1574,24 @@ referencedClasses: ["Object", "Smalltalk"]
 smalltalk.Browser);
 
 smalltalk.addMethod(
+unescape('_copyClass'),
+smalltalk.method({
+selector: unescape('copyClass'),
+category: 'actions',
+fn: function (){
+var self=this;
+var className=nil;
+className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["Copy class"]);
+((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
+return self;},
+args: [],
+source: unescape('copyClass%0A%09%7C%20className%20%7C%0A%09className%20%3A%3D%20window%20prompt%3A%20%27Copy%20class%27.%0A%09%28className%20notNil%20and%3A%20%5BclassName%20notEmpty%5D%29%20ifTrue%3A%20%5B%0A%09%09ClassBuilder%20new%20copyClass%3A%20self%20selectedClass%20named%3A%20className.%0A%20%20%20%20%20%20%20%20%20%20%09%20self%20%0A%09%09%09resetClassesList%3B%0A%09%09%09updateClassesList.%0A%09%09self%20selectClass%3A%20%28Smalltalk%20current%20at%3A%20className%29%5D'),
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
+referencedClasses: ["ClassBuilder", "Smalltalk"]
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
 unescape('_initialize'),
 smalltalk.method({
 selector: unescape('initialize'),
@@ -1586,6 +1606,22 @@ return self;},
 args: [],
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20selectedTab%20%3A%3D%20%23instance.%0A%20%20%20%20selectedPackage%20%3A%3D%20self%20packages%20first.%0A%20%20%20%20unsavedChanges%20%3A%3D%20false'),
 messageSends: ["initialize", "first", "packages"],
+referencedClasses: []
+}),
+smalltalk.Browser);
+
+smalltalk.addMethod(
+unescape('_ajaxPutAt_data_'),
+smalltalk.method({
+selector: unescape('ajaxPutAt%3Adata%3A'),
+category: 'network',
+fn: function (anURL, aString){
+var self=this;
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]),smalltalk.send("data", "__minus_gt", [aString]),smalltalk.send("error", "__minus_gt", [(function(){return smalltalk.send((typeof window == 'undefined' ? nil : window), "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);})])])]);
+return self;},
+args: ["anURL", "aString"],
+source: unescape('ajaxPutAt%3A%20anURL%20data%3A%20aString%0A%09jQuery%20%0A%09%09ajax%3A%20anURL%09options%3A%20%23%7B%09%27type%27%20-%3E%20%27PUT%27.%0A%09%09%09%09%09%09%09%09%27data%27%20-%3E%20aString.%0A%09%09%09%09%09%09%09%09%27error%27%20-%3E%20%5Bwindow%20alert%3A%20%27PUT%20request%20failed%20at%3A%20%20%27%2C%20anURL%5D%20%7D'),
+messageSends: ["ajax:options:", unescape("-%3E"), "alert:", unescape("%2C")],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -1829,24 +1865,6 @@ args: [],
 source: unescape('resetClassesList%0A%09classesList%20resetNodes'),
 messageSends: ["resetNodes"],
 referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
-unescape('_copyClass'),
-smalltalk.method({
-selector: unescape('copyClass'),
-category: 'actions',
-fn: function (){
-var self=this;
-var className=nil;
-className=smalltalk.send((typeof window == 'undefined' ? nil : window), "_prompt_", ["Copy class"]);
-((($receiver = smalltalk.send(smalltalk.send(className, "_notNil", []), "_and_", [(function(){return smalltalk.send(className, "_notEmpty", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_copyClass_named_", [smalltalk.send(self, "_selectedClass", []), className]);(function($rec){smalltalk.send($rec, "_resetClassesList", []);return smalltalk.send($rec, "_updateClassesList", []);})(self);return smalltalk.send(self, "_selectClass_", [smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [className])]);})]));
-return self;},
-args: [],
-source: unescape('copyClass%0A%09%7C%20className%20%7C%0A%09className%20%3A%3D%20window%20prompt%3A%20%27Copy%20class%27.%0A%09%28className%20notNil%20and%3A%20%5BclassName%20notEmpty%5D%29%20ifTrue%3A%20%5B%0A%09%09ClassBuilder%20new%20copyClass%3A%20self%20selectedClass%20named%3A%20className.%0A%20%20%20%20%20%20%20%20%20%20%09%20self%20%0A%09%09%09resetClassesList%3B%0A%09%09%09updateClassesList.%0A%09%09self%20selectClass%3A%20%28Smalltalk%20current%20at%3A%20className%29%5D'),
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "copyClass:named:", "new", "selectedClass", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current"],
-referencedClasses: ["ClassBuilder", "Smalltalk"]
 }),
 smalltalk.Browser);
 
@@ -2991,8 +3009,8 @@ fn: function (aString){
 var self=this;
 var start=nil;
 var stop=nil;
-start=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
-stop=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+start=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []);
+stop=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []);
 smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
 smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
 smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
@@ -3002,9 +3020,9 @@ smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], 
 smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
 return self;},
 args: ["aString"],
-source: unescape('print%3A%20aString%0A%09%7C%20start%20stop%20%7C%0A%09start%20%3A%3D%20Dictionary%20new.%0A%09stop%20%3A%3D%20Dictionary%20new.%0A%09start%20at%3A%20%27line%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20line.%0A%09start%20at%3A%20%27ch%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20ch.%0A%09stop%20at%3A%20%27line%27%20put%3A%20%28start%20at%3A%20%27line%27%29.%0A%09stop%20at%3A%20%27ch%27%20put%3A%20%28%28start%20at%3A%20%27ch%27%29%20+%20aString%20size%20+%202%29.%0A%09editor%20replaceSelection%3A%20%28editor%20getSelection%2C%20%27%20%27%2C%20aString%2C%20%27%20%27%29.%0A%09editor%20setCursor%3A%20%28editor%20getCursor%3A%20true%29.%0A%09editor%20setSelection%3A%20stop%20end%3A%20start'),
+source: unescape('print%3A%20aString%0A%09%7C%20start%20stop%20%7C%0A%09start%20%3A%3D%20HashedCollection%20new.%0A%09stop%20%3A%3D%20HashedCollection%20new.%0A%09start%20at%3A%20%27line%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20line.%0A%09start%20at%3A%20%27ch%27%20put%3A%20%28editor%20getCursor%3A%20false%29%20ch.%0A%09stop%20at%3A%20%27line%27%20put%3A%20%28start%20at%3A%20%27line%27%29.%0A%09stop%20at%3A%20%27ch%27%20put%3A%20%28%28start%20at%3A%20%27ch%27%29%20+%20aString%20size%20+%202%29.%0A%09editor%20replaceSelection%3A%20%28editor%20getSelection%2C%20%27%20%27%2C%20aString%2C%20%27%20%27%29.%0A%09editor%20setCursor%3A%20%28editor%20getCursor%3A%20true%29.%0A%09editor%20setSelection%3A%20stop%20end%3A%20start'),
 messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", unescape("+"), "size", "replaceSelection:", unescape("%2C"), "getSelection", "setCursor:", "setSelection:end:"],
-referencedClasses: ["Dictionary"]
+referencedClasses: ["HashedCollection"]
 }),
 smalltalk.SourceArea);
 

@@ -812,7 +812,7 @@ loadExpression: aString
 	| result |
 	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
 	result := DoIt new doIt.
-	DoIt removeCompiledMethod: (DoIt methodDictionary at: #doIt).
+	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
 	^result
 !
 
@@ -1363,7 +1363,7 @@ visitDynamicArrayNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	stream nextPutAll: 'smalltalk.Dictionary._fromPairs_(['.
+	stream nextPutAll: 'smalltalk.HashedCollection._fromPairs_(['.
 		aNode nodes 
 			do: [:each | self visit: each]
 			separatedBy: [stream nextPutAll: ','].
@@ -1400,6 +1400,11 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
+
+!DoIt methodsFor: ''!
+
+doIt ^[Compiler methodsFor: 'initialization'] value
+! !
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''

@@ -124,6 +124,28 @@ return self;}
 }),
 smalltalk.TestCase);
 
+smalltalk.addMethod(
+'_should_',
+smalltalk.method({
+selector: 'should:',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(aBlock, "_value", [])]);
+return self;}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+'_should_raise_',
+smalltalk.method({
+selector: 'should:raise:',
+fn: function (aBlock, anExceptionClass){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send((function(){smalltalk.send(aBlock, "_value", []);return false;}), "_on_do_", [anExceptionClass, (function(ex){return true;})])]);
+return self;}
+}),
+smalltalk.TestCase);
+
 
 smalltalk.addMethod(
 '_testSelectors',

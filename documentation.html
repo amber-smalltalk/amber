@@ -1,173 +1,35 @@
----
-layout: default
-title: Amber Smalltalk - documentation
----
-
-<div class="box last doc" id="documentation">
-  <h1>Documentation</h1>
-  <div class="content">
-
-    <h2>Disclaimer</h2>
-
-    <p class="warning">This documentation is a work in progress. If you find an error in the documentation, please <a href="https://github.com/NicolasPetton/amber/issues">file an issue</a>.</p>
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>Amber Smalltalk - Documentation</title> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <meta name="author" content="Nicolas Petton" /> 
+    <link rel="stylesheet" type="text/css" href='css/style.css' /> 
+    <link rel="stylesheet" type="text/css" href='css/documentation.css' /> 
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/> 
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'> 
+    <script type='text/javascript' src='amber/js/amber.js'></script> 
+    <script type='text/javascript' src='amber/js/lib/showdown.js'></script> 
+  </head> 
+  <body> 
     
-    <p>This documentation <strong>doesn't aim to teach Smalltalk</strong>. Knowledge of Smalltalk is needed to understand the topics covered in this documentation. If you want to learn the Smalltalk language, you can read the excellent <a target="_blank" href="http://pharobyexample.org">Pharo By Example</a> book.</p>
-
-
-    <h2>Introduction</h2>
-
-    <p class="information">Amber is a young piece of code and evolves quickly. Some features are still incomplete and you may very well encounter bugs, in which case you can <a href="https://github.com/NicolasPetton/amber/issues">file an issue</a> or a pull request on the <a href="https://github.com/NicolasPetton/amber">repository</a>.</p>
-
-    <p>Amber is an implementation of the Smalltalk-80 language. It allows developers to write client-side heavy web applications in Smalltalk. Amber includes an integrated development environment with a class browser, workspace and transcript.</p>
-
-    <p>Amber includes the following features:</p>
-    <ol>
-      <li>It is semantically and syntactically equivalent to <a href="http://www.pharo-project.org">Pharo Smalltalk</a> (the implementation considered as the reference)</li>
-      <li>It is written in itself and compiles into efficient JavaScript</li>
-      <li>A canvas API similar to <a href="http://www.seaside.st">Seaside</a> to generate HTML</li>
-      <li>A <a href="http://www.jquery.com">jQuery</a> binding</li>
-    </ol>
-
-    <h2>Differences with other Smalltalk implementations</h2>
-
-    Amber has some differences with other Smalltalk implementations. Because it maps Smalltalk constructs one-to-one with the JavaScript equivalent, including Smalltalk classes to JavaScript constructors, the core class library is simplified compared to Pharo Smalltalk. The following list explains the main differences:
-    <ul>
-      <li>There is no identity in Amber. Especially, there is no <code>==</code> method, or <code>Symbol</code> class. For convenience and compatibility, the Amber parser will recognize symbol literals as strings.</li>
-      <li>The collection class hierarchy is simpler compared to most Smalltalk implementations. There is no <code>OrderedCollection</code>, <code>Set</code> or <code>SortedCollection</code>. However, the size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the <code>#sort*</code> methods.</li>
-      <li>The <code>Date</code> class behaves like the <code>Date</code> <em>and</em> <code>TimeStamp</code> classes in Pharo Smalltalk. Therefore both <code>Date today</code> and <code>Date now</code> are valid in Amber.</li>
-      <li>Amber use solely <code>=</code> to test object equality and not the <code>#hash</code> method.</li>
-      <li><strike>Amber misses <code>thisContext</code></strike>. Amber now supports <code> thisContext</code></li>
-      <li><strike>Amber  does not support <code>#doesNotUnderstand</code></strike>. <em>Amber now <a href="http://www.nicolas-petton.fr/2011/05/03/doesnnotunderstand-in-jtalk.html">has support</a> for</em> <code>#dnu:</code>.</li>
-    </ul>
-
-    <h2>Committing changes to disk with the web-based IDE</h2>
+    <div id="wrapper"> 
+      
+      <div id="header"> 
+	<h1>Documentation</h1>
+	<h2>Version 0.9.1</h2>
+	<img src="images/amber.png"/> 
+      <ul id="tabs"> 
+	<li><a target="_blank" href="http://amber-lang.net/index.html">Overview</a></li> · 
+	<li><a target="_blank" href="http://amber-lang.net/index.html#download">Download</a></li> · 
+	<li><a target="_blank" href="http://amber-lang.net/learn.html">Learn</a></li> ·
+	<li><a target="_blank" href="http://amber-lang.net/documentation.html">Documentation</a></li> ·
+	<li><a target="_blank" target="_blank" href="https://github.com/NicolasPetton/amber">Source</a></li> 
+      </ul> 
+      
+      <div class="clear"></div> 
+    </div>
+    <script type='text/javascript'> loadAmber({files: ['Documentation.js']}) </script> 
     
-    <p>The class browser is able to commit changes to disk. The <code>commit category</code> button will send a PUT request with the compiled JavaScript code of all classes in the selected class category in a file named <code>js/CATEGORY.js</code>.</p>
-    <p>The easiest way to enable committing is probably to setup a webdav with Apache.</p>
-    <p class="information">The following steps explain how to setup a webdav for Amber with Debian, but the setup on OSX and other Linux distros should be similar.</p>
-    <h4>Installing Apache and enabling the dav module</h4>
-    <p>Evaluate the following as root:</p>
-    <pre><span class="prompt">~#</span> <span class="kbd">apt-get install</span> <span class="kbd var">apache2</span>
-<span class="prompt">~#</span> <span class="kbd">a2enmod</span> <span class="kbd var">dav</span>
-<span class="prompt">~#</span> <span class="kbd">a2enmod</span> <span class="kbd var">dav_fs</span></pre>
-
-    <h4>Creating a password for the webdav</h4>
-    <pre><span class="prompt">~#</span> <span class="kbd">htpasswd -c /etc/apache2/htpasswd-webdav <span class="kbd var">USERNAME</span></span></pre>
-
-    <h4>Setting up the webdav directory</h4>
-    <p>Add the following lines to the default vhost (in <code>/etc/apache2/sites-available/default</code>):</p>
-    <pre>Alias /amber/ "/path/to/amber/"
-&lt;Directory "/path/to/amber/"&gt;
-      Options Indexes MultiViews FollowSymLinks
-      DirectoryIndex index.html
-      AllowOverride None
-      Order allow,deny
-      allow from all
-
-      Dav on
-
-      AuthType Basic
-      AuthName "amber"
-      AuthUserFile /etc/apache2/htpasswd-webdav
-      &lt;LimitExcept GET OPTIONS&gt;
-            Require valid-user
-      &lt;/LimitExcept&gt;
-
-&lt;/Directory&gt;</pre>
-    <p>Make sure the group <code>www-data</code> has required rights to make changes to files in the webdav directory.</p>
-    
-    <h4>Restarting Apache</h4>
-
-    <p>To restart Apache, evaluate the following: </p>
-    <pre><span class="prompt">~#</span> <span class="kbd">/etc/init.d/apache2</span> <span class="kbd var">restart</span></pre>
-    <p>and go to <code>http://localhost/amber/</code>.</p>
-    <p>The class browser should now be able to commit changes to disk.</p>
-
-    <h2>The counter example</h2>
-
-    <p>The following example is the traditional Seaside-like multi-counter application. The buttons at the bottom of each counter increase or decrease the counter.</p>
-
-    <div id="counters"></div>
-    <script type="text/javascript">
-      jQuery(document).ready(function() {'#counters'._asJQuery()._append_(smalltalk.Counter._new())._append_(smalltalk.Counter._new())});
-    </script>
-
-    <p>Open a  <button onclick="smalltalk.Browser._openOn_(smalltalk.Counter);">browser</button> on the <code>Counter</code> class in the <code>Canvas</code> class category.
-    <p>Each Amber widget is a subclass of <code>Widget</code>. A widget is a graphical component. The <code>#renderOn:</code> method is used to generate HTML usinng the HTML canvas.</p>
-
-    <p class="information">Rendering methods should be placed in the <code>rendering</code> method protocol, and action methods in the <code>actions</code> protocol.</p>
-
-    {% highlight smalltalk %}renderOn: html
-    html h1 with: count asString.
-    html button
-    	with: '++';
-    	onClick: [self increase].
-    html button
-    	with: '--';
-    	onClick: [self decrease] {% endhighlight %}
-
-    <h2>The HTML canvas</h2>
-    
-    <p>Amber allows developers to write HTML with a Canvas API similar to <a href='http://www.seaside.st'>Seaside</a>. The explanations below won't be really interesting to seasiders, there are however a few differences with the API Seaside provides.</p>
-
-    <p>Each HTML tag is represented by an instance of <code>TagBrush</code>, used to paint the tag on a <code>HTMLCanvas</code>. The <code>HTMLCanvas&gt;&gt;tag:</code> method adds a tag brush to the canvas object. For convenience, the <code>tags</code> method protocol includes methods for easily adding tag brushes named after each selector name:</p>
-
-{% highlight smalltalk %}| html |
-html := HTMLCanvas new.
-html p 
-     with: 'This is a paragraph with a link to ';
-     with: [
-     	   html a 	   
-	   	href: 'http://www.google.fr';
-     		with: 'Google']
-{% endhighlight%}
-
-<p>You can <button onclick='smalltalk.Browser._openOn_(smalltalk.HTMLCanvas)'>browse</button> the <code>HTMLCanvas</code> class to get the list of all tag methods.</p>
-
-<p>The <code>with:</code> method will call the polymorphic <code>appendToBrush:</code> method on the argument and allows you to add blocks, strings, tags, etc. to an existing tag brush or canvas.</p>
-
-<p><code>TagBrush</code> also has methods to bind events, like <code>#onClick:</code> or <code>#onChange:</code>, in the <code>events</code> protocol.</p>
-
-
-    <h2>Widgets</h2>
-
-
-    <h2>jQuery</h2>
-    <p>Amber comes with a <a href='http://www.jquery.com'>jQuery</a> binding. Each string or tag brush can be converted to a jQuery object, instance of the <code>JQuery</code> class in Amber, with <code>#asJQuery</code>.</p>
-
-    {% highlight smalltalk %}'body' asJQuery.
-aTagBrush asJQuery.{% endhighlight %}
-
-    <p>Once you get the jQuery object, you can use jQuery from Amber like you would do in JavaScript. JQuery methods in Amber follow the well documented <a href='http://api.jquery.com/'>jQuery API</a>.</p>
-
-    {% highlight smalltalk %}'body' asJQuery 
-       addClass: 'foo';
-       append: 'Hello world';
-aTagBrush asJQuery hide.{% endhighlight %}
-
-    <p>Once again, If you're looking for some particular method or want to learn more about how to use jQuery from Amber, you can <button onclick='smalltalk.Browser._openOn_(smalltalk.JQuery)'>browse</button> the <code>JQuery</code> class.</p>
-
-
-
-
-  </div>
-</div>
-
-<!-- Add anchors to doc titles and build the dropdown menu -->
-<script type="text/javascript">
-  jQuery('#menu .main').append("<ul id='dropdown'></ul>");
-  jQuery.each(jQuery('.doc h2'), function(i, heading) {
-  	jQuery(heading).attr({'id': jQuery(heading).text().replace(/ /g,"_")});
-  	jQuery(heading).html(i + ". " + jQuery(heading).html());
-  	jQuery('#dropdown').append("<li><a href='#" + jQuery(heading).attr('id') + "'>" + jQuery(heading).text() + "</a></li>");
-  	jQuery(heading).html(jQuery(heading).html() + " <a href='#" + jQuery(heading).attr('id') + "'>&para;</a>");
-  });
-
-  jQuery('#doc_link')
-  	.bind('mouseenter', function() {jQuery('#dropdown').show()})
-  	.bind('mouseleave', function() {jQuery('#dropdown').hide()});
-  jQuery('#dropdown')
-  	.bind('mouseenter', function() {jQuery('#dropdown').show()})
-  	.bind('mouseleave', function() {jQuery('#dropdown').hide()})
-  	.bind('click', function() {jQuery('#dropdown').hide()});
-</script>
+  </body> 
+</html> 
