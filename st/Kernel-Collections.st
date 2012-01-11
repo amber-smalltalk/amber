@@ -1102,8 +1102,11 @@ skip: anInteger
 !Stream methodsFor: 'reading'!
 
 next
-	self position: self position + 1. 
-	^collection at: self position
+	^self atEnd 
+		ifTrue: [nil]
+		ifFalse: [
+			self position: self position + 1. 
+			collection at: self position]
 !
 
 next: anInteger

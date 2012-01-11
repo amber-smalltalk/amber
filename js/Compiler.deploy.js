@@ -1837,6 +1837,17 @@ smalltalk.Compiler.klass);
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler');
+smalltalk.addMethod(
+'_doIt',
+smalltalk.method({
+selector: 'doIt',
+fn: function (){
+var self=this;
+return smalltalk.send((function(){return smalltalk.send((smalltalk.Compiler || Compiler), "_methodsFor_", ["initialization"]);}), "_value", []);
+return self;}
+}),
+smalltalk.DoIt);
+
 
 
 smalltalk.addClass('DynamicArrayNode', smalltalk.Node, [], 'Compiler');

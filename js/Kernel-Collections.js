@@ -3159,12 +3159,11 @@ selector: unescape('next'),
 category: 'reading',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);
-return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);
+return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return nil;})() : (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return nil;}), (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})]));
 return self;},
 args: [],
-source: unescape('next%0A%09self%20position%3A%20self%20position%20+%201.%20%0A%09%5Ecollection%20at%3A%20self%20position'),
-messageSends: ["position:", unescape("+"), "position", "at:"],
+source: unescape('next%0A%09%5Eself%20atEnd%20%0A%09%09ifTrue%3A%20%5Bnil%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09self%20position%3A%20self%20position%20+%201.%20%0A%09%09%09collection%20at%3A%20self%20position%5D'),
+messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", unescape("+"), "position", "at:"],
 referencedClasses: []
 }),
 smalltalk.Stream);

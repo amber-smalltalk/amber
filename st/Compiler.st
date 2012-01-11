@@ -812,7 +812,7 @@ loadExpression: aString
 	| result |
 	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
 	result := DoIt new doIt.
-	DoIt removeCompiledMethod: (DoIt methodDictionary at: #doIt).
+	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
 	^result
 !
 
@@ -1400,6 +1400,11 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
+
+!DoIt methodsFor: ''!
+
+doIt ^[Compiler methodsFor: 'initialization'] value
+! !
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
