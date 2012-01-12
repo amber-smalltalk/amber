@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Learn Smalltalk with ProfStef</title>
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'> 
+    <meta name="author" content="Nicolas Petton">
+    <link rel="stylesheet" type="text/css" href="css/profstef.css">
+    <script type="text/javascript" src="js/amber.js"></script>
+  </head>
+  <body>
+
+    <div class="main">
+      <a id="back" href="./index.html"> &larr; back to main page </a>
+      <img src="images/profstef.png"/>
+      <h1>Hey there! Got 5 minutes? I'm prof Stef and I want to teach you Smalltalk. I promise, it won't take long!</h1> 
+      
+      <div id="tutorial"><h2>Loading...</h2></div>
+      <script> 
+	function loadTutorial() {
+		jQuery('#tutorial').empty();
+		smalltalk.TrySmalltalkWidget._new()._appendToJQuery_(jQuery('#tutorial'));
+	}
+      </script>
+    </div>
+    
+    <div id="footer">
+      <div class="main">
+	<p>Copyright © 2011 <a href="http://www.nicolas-petton.fr/">Nicolas Petton</a>. The content of this website in licensed under <a href="http://creativecommons.org/licenses/by-nc/3.0/">CC-BY-NC 3.0</a>.</p>
+	<p>Amber is an opensource project sponsored by <a href="http://www.objectfusion.fr/">objectfusion</a>.</p>
+      </div> 
+    </div>
+
+    <script type="text/javascript">
+      loadAmber({files: ['TrySmalltalk.js'], prefix: 'examples/trysmalltalk/js', ready: loadTutorial});
+    </script>    
+
+
+  </body>
+</html>
