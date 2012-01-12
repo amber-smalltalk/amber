@@ -40,10 +40,11 @@ category: 'building',
 fn: function (aCanvas){
 var self=this;
 smalltalk.send(aCanvas, "_with_", [smalltalk.send(self, "_widget", [])]);
+(function($rec){smalltalk.send($rec, "_checkHashChange", []);return smalltalk.send($rec, "_checkHash", []);})(self);
 return self;},
 args: ["aCanvas"],
-source: unescape('buildOn%3A%20aCanvas%0A%09aCanvas%20with%3A%20self%20widget'),
-messageSends: ["with:", "widget"],
+source: unescape('buildOn%3A%20aCanvas%0A%09aCanvas%20with%3A%20self%20widget.%0A%09self%20%0A%09%09checkHashChange%3B%0A%09%09checkHash'),
+messageSends: ["with:", "widget", "checkHashChange", "checkHash"],
 referencedClasses: []
 }),
 smalltalk.DocumentationBuilder);
@@ -183,12 +184,47 @@ selector: unescape('ch6KernelObjects'),
 category: 'chapters',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_title_", [unescape("Kernel-Objects")]);smalltalk.send($rec, "_package_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Objects")])]);return smalltalk.send($rec, "_contents_", [""]);})(smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_new", []));
+return (function($rec){smalltalk.send($rec, "_title_", [unescape("Kernel-Objects")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Objects")])]));
 return self;},
 args: [],
-source: unescape('ch6KernelObjects%0A%09%5EPackageDocChapter%20new%0A%09%09title%3A%20%27Kernel-Objects%27%3B%0A%09%09package%3A%20%28Package%20named%3A%20%27Kernel-Objects%27%29%3B%0A%09%09contents%3A%20%27%27'),
-messageSends: ["title:", "package:", "named:", "contents:", "new"],
-referencedClasses: ["Package", "PackageDocChapter"]
+source: unescape('ch6KernelObjects%0A%09%5E%28PackageDocChapter%20on%3A%20%28Package%20named%3A%20%27Kernel-Objects%27%29%29%0A%09%09title%3A%20%27Kernel-Objects%27%3B%0A%09%09yourself'),
+messageSends: ["title:", "yourself", "on:", "named:"],
+referencedClasses: ["PackageDocChapter", "Package"]
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+unescape('_checkHashChange'),
+smalltalk.method({
+selector: unescape('checkHashChange'),
+category: 'routing',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
+return self;},
+args: [],
+source: unescape('checkHashChange%0A%09%28window%20jQuery%3A%20window%29%20bind%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
+messageSends: ["bind:do:", "jQuery:", "checkHash"],
+referencedClasses: []
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+unescape('_checkHash'),
+smalltalk.method({
+selector: unescape('checkHash'),
+category: 'routing',
+fn: function (){
+var self=this;
+var hash=nil;
+var presentation=nil;
+hash=smalltalk.send(smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]);
+smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [(function($rec){smalltalk.send($rec, "_id_", [hash]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ChapterSelectionAnnouncement || ChapterSelectionAnnouncement), "_new", []))]);
+return self;},
+args: [],
+source: unescape('checkHash%0A%09%7C%20hash%20presentation%20%7C%0A%09hash%20%3A%3D%20document%20location%20hash%20%20replace%3A%20%27%5E%23%27%20with%3A%20%27%27.%0A%09self%20announcer%20announce%3A%20%28ChapterSelectionAnnouncement%20new%20%0A%09%09id%3A%20hash%3B%20%0A%09%09yourself%29'),
+messageSends: ["replace:with:", "hash", "location", "announce:", "announcer", "id:", "yourself", "new"],
+referencedClasses: ["ChapterSelectionAnnouncement"]
 }),
 smalltalk.DocumentationBuilder);
 
@@ -267,11 +303,11 @@ selector: unescape('contents'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return self['@contents'];
+return (($receiver = self['@contents']) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver;
 return self;},
 args: [],
-source: unescape('contents%0A%09%5Econtents'),
-messageSends: [],
+source: unescape('contents%0A%09%5Econtents%20ifNil%3A%20%5B%27%27%5D'),
+messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.DocChapter);
@@ -463,12 +499,12 @@ selector: unescape('selectChapter%3A'),
 category: 'actions',
 fn: function (aChapter){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_widget", []), "_selectChapter_", [aChapter]);
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(aChapter, "_id", [])]);
 return self;},
 args: ["aChapter"],
-source: unescape('selectChapter%3A%20aChapter%0A%09DocumentationBuilder%20current%20widget%20selectChapter%3A%20aChapter'),
-messageSends: ["selectChapter:", "widget", "current"],
-referencedClasses: ["DocumentationBuilder"]
+source: unescape('selectChapter%3A%20aChapter%0A%09document%20location%20hash%3A%20aChapter%20id'),
+messageSends: ["hash:", "location", "id"],
+referencedClasses: []
 }),
 smalltalk.DocChapter);
 
@@ -504,6 +540,87 @@ referencedClasses: []
 }),
 smalltalk.DocChapter);
 
+smalltalk.addMethod(
+unescape('_id'),
+smalltalk.method({
+selector: unescape('id'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_title", []), "_replace_with_", [" ", unescape("-")]);
+return self;},
+args: [],
+source: unescape('id%0A%09%22The%20id%20is%20used%20in%20url%20fragments.%20%0A%09It%20must%20be%20unique%20amoung%20all%20chapters%22%0A%09%5Eself%20title%20replace%3A%20%27%20%27%20with%3A%20%27-%27'),
+messageSends: ["replace:with:", "title"],
+referencedClasses: []
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+unescape('_announcer'),
+smalltalk.method({
+selector: unescape('announcer'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_announcer", []);
+return self;},
+args: [],
+source: unescape('announcer%0A%09%5EDocumentationBuilder%20current%20announcer'),
+messageSends: ["announcer", "current"],
+referencedClasses: ["DocumentationBuilder"]
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+unescape('_subscribe'),
+smalltalk.method({
+selector: unescape('subscribe'),
+category: 'subscriptions',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_announcer", []), "_on_do_", [(smalltalk.ChapterSelectionAnnouncement || ChapterSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_id", []), "__eq", [smalltalk.send(self, "_id", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_displayChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_displayChapter_", [self]);})]));})]);
+return self;},
+args: [],
+source: unescape('subscribe%0A%09self%20announcer%20on%3A%20ChapterSelectionAnnouncement%20do%3A%20%5B%3Aann%20%7C%0A%09%09ann%20id%20%3D%20self%20id%20ifTrue%3A%20%5Bself%20displayChapter%3A%20self%5D%5D'),
+messageSends: ["on:do:", "announcer", "ifTrue:", unescape("%3D"), "id", "displayChapter:"],
+referencedClasses: ["ChapterSelectionAnnouncement"]
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Widget);
+smalltalk.send(self, "_subscribe", []);
+return self;},
+args: [],
+source: unescape('initialize%0A%09super%20initialize.%0A%09self%20subscribe'),
+messageSends: ["initialize", "subscribe"],
+referencedClasses: []
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+unescape('_displayChapter_'),
+smalltalk.method({
+selector: unescape('displayChapter%3A'),
+category: 'actions',
+fn: function (aChapter){
+var self=this;
+smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_widget", []), "_displayChapter_", [aChapter]);
+return self;},
+args: ["aChapter"],
+source: unescape('displayChapter%3A%20aChapter%0A%09DocumentationBuilder%20current%20widget%20displayChapter%3A%20aChapter'),
+messageSends: ["displayChapter:", "widget", "current"],
+referencedClasses: ["DocumentationBuilder"]
+}),
+smalltalk.DocChapter);
+
 
 
 smalltalk.addClass('PackageDocChapter', smalltalk.DocChapter, ['package', 'chapters'], 'Documentation');
@@ -520,23 +637,6 @@ args: [],
 source: unescape('package%0A%09%5Epackage'),
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.PackageDocChapter);
-
-smalltalk.addMethod(
-unescape('_package_'),
-smalltalk.method({
-selector: unescape('package%3A'),
-category: 'accessing',
-fn: function (aPackage){
-var self=this;
-self['@package']=aPackage;
-self['@chapters']=smalltalk.send(smalltalk.send(smalltalk.send(aPackage, "_classes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(a, "_name", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(b, "_name", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(b, "_name", [])]));})]), "_collect_", [(function(each){return (function($rec){smalltalk.send($rec, "_parent_", [self]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassDocChapter || ClassDocChapter), "_on_", [each]));})]);
-return self;},
-args: ["aPackage"],
-source: unescape('package%3A%20aPackage%0A%09package%20%3A%3D%20aPackage.%0A%09chapters%20%3A%3D%20%28aPackage%20classes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20name%20%3C%20b%20name%5D%29%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09%28ClassDocChapter%20on%3A%20each%29%0A%09%09%09parent%3A%20self%3B%0A%09%09%09yourself%5D'),
-messageSends: ["collect:", "sorted:", "classes", unescape("%3C"), "name", "parent:", "yourself", "on:"],
-referencedClasses: ["ClassDocChapter"]
 }),
 smalltalk.PackageDocChapter);
 
@@ -588,6 +688,23 @@ referencedClasses: []
 }),
 smalltalk.PackageDocChapter);
 
+smalltalk.addMethod(
+unescape('_initializeWithPackage_'),
+smalltalk.method({
+selector: unescape('initializeWithPackage%3A'),
+category: 'initialization',
+fn: function (aPackage){
+var self=this;
+self['@package']=aPackage;
+self['@chapters']=smalltalk.send(smalltalk.send(smalltalk.send(aPackage, "_classes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(a, "_name", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(b, "_name", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(b, "_name", [])]));})]), "_collect_", [(function(each){return (function($rec){smalltalk.send($rec, "_parent_", [self]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassDocChapter || ClassDocChapter), "_on_", [each]));})]);
+return self;},
+args: ["aPackage"],
+source: unescape('initializeWithPackage%3A%20aPackage%0A%09package%20%3A%3D%20aPackage.%0A%09chapters%20%3A%3D%20%28aPackage%20classes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20name%20%3C%20b%20name%5D%29%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09%28ClassDocChapter%20on%3A%20each%29%0A%09%09%09parent%3A%20self%3B%0A%09%09%09yourself%5D'),
+messageSends: ["collect:", "sorted:", "classes", unescape("%3C"), "name", "parent:", "yourself", "on:"],
+referencedClasses: ["ClassDocChapter"]
+}),
+smalltalk.PackageDocChapter);
+
 
 smalltalk.addMethod(
 unescape('_on_'),
@@ -596,11 +713,11 @@ selector: unescape('on%3A'),
 category: 'instance creation',
 fn: function (aPackage){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_package_", [aPackage]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return (function($rec){smalltalk.send($rec, "_initializeWithPackage_", [aPackage]);smalltalk.send($rec, "_initialize", []);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_basicNew", []));
 return self;},
 args: ["aPackage"],
-source: unescape('on%3A%20aPackage%0A%09%5Eself%20new%0A%09%09package%3A%20aPackage%3B%0A%09%09yourself'),
-messageSends: ["package:", "yourself", "new"],
+source: unescape('on%3A%20aPackage%0A%09%5Eself%20basicNew%0A%09%09initializeWithPackage%3A%20aPackage%3B%0A%09%09initialize%3B%0A%09%09yourself'),
+messageSends: ["initializeWithPackage:", "initialize", "yourself", "basicNew"],
 referencedClasses: []
 }),
 smalltalk.PackageDocChapter.klass);
@@ -619,23 +736,6 @@ return self;},
 args: [],
 source: unescape('theClass%0A%09%5EtheClass'),
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ClassDocChapter);
-
-smalltalk.addMethod(
-unescape('_theClass_'),
-smalltalk.method({
-selector: unescape('theClass%3A'),
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-self['@theClass']=aClass;
-smalltalk.send(self, "_subscribe", []);
-return self;},
-args: ["aClass"],
-source: unescape('theClass%3A%20aClass%0A%09theClass%20%3A%3D%20aClass.%0A%09self%20subscribe'),
-messageSends: ["subscribe"],
 referencedClasses: []
 }),
 smalltalk.ClassDocChapter);
@@ -708,15 +808,32 @@ smalltalk.addMethod(
 unescape('_subscribe'),
 smalltalk.method({
 selector: unescape('subscribe'),
-category: 'accessing',
+category: 'subscriptions',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_announcer", []), "_on_do_", [(smalltalk.ClassSelectionAnnouncement || ClassSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_theClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_widget", []), "_selectChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_widget", []), "_selectChapter_", [self]);})]));})]);
+smalltalk.send(self, "_subscribe", [], smalltalk.DocChapter);
+smalltalk.send(smalltalk.send(self, "_announcer", []), "_on_do_", [(smalltalk.ClassSelectionAnnouncement || ClassSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_theClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_selectChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_selectChapter_", [self]);})]));})]);
 return self;},
 args: [],
-source: unescape('subscribe%0A%09DocumentationBuilder%20current%20announcer%20%0A%09%09on%3A%20ClassSelectionAnnouncement%20do%3A%20%5B%3Aann%20%7C%0A%09%09%09ann%20theClass%20%3D%20self%20theClass%20ifTrue%3A%20%5B%0A%09%09%09%09DocumentationBuilder%20current%20widget%20selectChapter%3A%20self%5D%5D'),
-messageSends: ["on:do:", "announcer", "current", "ifTrue:", unescape("%3D"), "theClass", "selectChapter:", "widget"],
-referencedClasses: ["DocumentationBuilder", "ClassSelectionAnnouncement"]
+source: unescape('subscribe%0A%09super%20subscribe.%0A%09self%20announcer%20%0A%09%09on%3A%20ClassSelectionAnnouncement%20do%3A%20%5B%3Aann%20%7C%0A%09%09%09ann%20theClass%20%3D%20self%20theClass%20ifTrue%3A%20%5B%0A%09%09%09%09self%20selectChapter%3A%20self%5D%5D'),
+messageSends: ["subscribe", "on:do:", "announcer", "ifTrue:", unescape("%3D"), "theClass", "selectChapter:"],
+referencedClasses: ["ClassSelectionAnnouncement"]
+}),
+smalltalk.ClassDocChapter);
+
+smalltalk.addMethod(
+unescape('_initializeWithClass_'),
+smalltalk.method({
+selector: unescape('initializeWithClass%3A'),
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+self['@theClass']=aClass;
+return self;},
+args: ["aClass"],
+source: unescape('initializeWithClass%3A%20aClass%0A%09theClass%20%3A%3D%20aClass'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.ClassDocChapter);
 
@@ -728,11 +845,11 @@ selector: unescape('on%3A'),
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return (function($rec){smalltalk.send($rec, "_initializeWithClass_", [aClass]);smalltalk.send($rec, "_initialize", []);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_basicNew", []));
 return self;},
 args: ["aClass"],
-source: unescape('on%3A%20aClass%0A%09%5Eself%20new%0A%09%09theClass%3A%20aClass%3B%0A%09%09yourself'),
-messageSends: ["theClass:", "yourself", "new"],
+source: unescape('on%3A%20aClass%0A%09%5Eself%20basicNew%0A%09%09initializeWithClass%3A%20aClass%3B%0A%09%09initialize%3B%0A%09%09yourself'),
+messageSends: ["initializeWithClass:", "initialize", "yourself", "basicNew"],
 referencedClasses: []
 }),
 smalltalk.ClassDocChapter.klass);
@@ -820,23 +937,6 @@ referencedClasses: []
 smalltalk.DocumentationWidget);
 
 smalltalk.addMethod(
-unescape('_selectChapter_'),
-smalltalk.method({
-selector: unescape('selectChapter%3A'),
-category: 'actions',
-fn: function (aChapter){
-var self=this;
-smalltalk.send(self, "_selectedChapter_", [aChapter]);
-smalltalk.send(self, "_updateChapterDiv", []);
-return self;},
-args: ["aChapter"],
-source: unescape('selectChapter%3A%20aChapter%0A%09self%20selectedChapter%3A%20aChapter.%0A%09self%20updateChapterDiv'),
-messageSends: ["selectedChapter:", "updateChapterDiv"],
-referencedClasses: []
-}),
-smalltalk.DocumentationWidget);
-
-smalltalk.addMethod(
 unescape('_renderOn_'),
 smalltalk.method({
 selector: unescape('renderOn%3A'),
@@ -897,6 +997,39 @@ return self;},
 args: ["aChapter", "html"],
 source: unescape('renderChapterMenu%3A%20aChapter%20on%3A%20html%0A%09html%20a%0A%09%09with%3A%20aChapter%20title%3B%0A%09%09onClick%3A%20%5B%0A%09%09%09self%20selectChapter%3A%20aChapter%5D.%0A%09html%20ol%20with%3A%20%5B%0A%09%09%09aChapter%20chapters%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%09%09html%20li%20with%3A%20%5B%0A%09%09%09%09%09self%20renderChapterMenu%3A%20each%20on%3A%20html%5D%5D%5D'),
 messageSends: ["with:", "title", "onClick:", "selectChapter:", "a", "ol", "do:", "chapters", "li", "renderChapterMenu:on:"],
+referencedClasses: []
+}),
+smalltalk.DocumentationWidget);
+
+smalltalk.addMethod(
+unescape('_displayChapter_'),
+smalltalk.method({
+selector: unescape('displayChapter%3A'),
+category: 'actions',
+fn: function (aChapter){
+var self=this;
+smalltalk.send(self, "_selectedChapter_", [aChapter]);
+smalltalk.send(self, "_updateChapterDiv", []);
+return self;},
+args: ["aChapter"],
+source: unescape('displayChapter%3A%20aChapter%0A%09self%20selectedChapter%3A%20aChapter.%0A%09self%20updateChapterDiv'),
+messageSends: ["selectedChapter:", "updateChapterDiv"],
+referencedClasses: []
+}),
+smalltalk.DocumentationWidget);
+
+smalltalk.addMethod(
+unescape('_selectChapter_'),
+smalltalk.method({
+selector: unescape('selectChapter%3A'),
+category: 'actions',
+fn: function (aChapter){
+var self=this;
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(aChapter, "_id", [])]);
+return self;},
+args: ["aChapter"],
+source: unescape('selectChapter%3A%20aChapter%0A%09document%20location%20hash%3A%20aChapter%20id'),
+messageSends: ["hash:", "location", "id"],
 referencedClasses: []
 }),
 smalltalk.DocumentationWidget);
@@ -987,22 +1120,6 @@ referencedClasses: []
 smalltalk.ClassesIndexChapter);
 
 
-smalltalk.addMethod(
-unescape('_on_'),
-smalltalk.method({
-selector: unescape('on%3A'),
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aClass"],
-source: unescape('on%3A%20aClass%0A%09%5Eself%20new%0A%09%09theClass%3A%20aClass%3B%0A%09%09yourself'),
-messageSends: ["theClass:", "yourself", "new"],
-referencedClasses: []
-}),
-smalltalk.ClassesIndexChapter.klass);
-
 
 smalltalk.addClass('ClassSelectionAnnouncement', smalltalk.Object, ['theClass'], 'Documentation');
 smalltalk.addMethod(
@@ -1053,5 +1170,40 @@ messageSends: ["theClass:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.ClassSelectionAnnouncement.klass);
+
+
+smalltalk.addClass('ChapterSelectionAnnouncement', smalltalk.Object, ['id'], 'Documentation');
+smalltalk.addMethod(
+unescape('_id'),
+smalltalk.method({
+selector: unescape('id'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@id'];
+return self;},
+args: [],
+source: unescape('id%0A%09%5Eid'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ChapterSelectionAnnouncement);
+
+smalltalk.addMethod(
+unescape('_id_'),
+smalltalk.method({
+selector: unescape('id%3A'),
+category: 'accessing',
+fn: function (aString){
+var self=this;
+self['@id']=aString;
+return self;},
+args: ["aString"],
+source: unescape('id%3A%20aString%0A%09id%20%3A%3D%20aString'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ChapterSelectionAnnouncement);
+
 
 
