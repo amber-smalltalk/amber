@@ -2348,6 +2348,22 @@ referencedClasses: []
 }),
 smalltalk.Symbol);
 
+smalltalk.addMethod(
+unescape('_asSelector'),
+smalltalk.method({
+selector: unescape('asSelector'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_asSelector", []);
+return self;},
+args: [],
+source: unescape('asSelector%0A%09%5Eself%20asString%20asSelector'),
+messageSends: ["asSelector", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
 
 smalltalk.addMethod(
 unescape('_lookup_'),

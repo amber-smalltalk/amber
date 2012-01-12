@@ -26,7 +26,10 @@ buildChapters
 !
 
 buildOn: aCanvas
-	aCanvas with: self widget
+	aCanvas with: self widget.
+	self 
+		checkHashChange;
+		checkHash
 !
 
 buildOnJQuery: aJQuery
@@ -229,10 +232,23 @@ ch5Index
 !
 
 ch6KernelObjects
-	^PackageDocChapter new
+	^(PackageDocChapter on: (Package named: 'Kernel-Objects'))
 		title: 'Kernel-Objects';
-		package: (Package named: 'Kernel-Objects');
-		contents: ''
+		yourself
+! !
+
+!DocumentationBuilder methodsFor: 'routing'!
+
+checkHashChange
+	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
+!
+
+checkHash
+	| hash presentation |
+	hash := document location hash  replace: '^#' with: ''.
+	self announcer announce: (ChapterSelectionAnnouncement new 
+		id: hash; 
+		yourself)
 ! !
 
 DocumentationBuilder class instanceVariableNames: 'current'!
@@ -264,7 +280,7 @@ title: aString
 !
 
 contents
-	^contents
+	^contents ifNil: ['']
 !
 
 contents: aString
@@ -298,6 +314,16 @@ parent
 
 parent: aChapter
 	parent := aChapter
+!
+
+id
+	"The id is used in url fragments. 
+	It must be unique amoung all chapters"
+	^self title replace: ' ' with: '-'
+!
+
+announcer
+	^DocumentationBuilder current announcer
 ! !
 
 !DocChapter methodsFor: 'actions'!
@@ -307,7 +333,18 @@ selectClass: aClass
 !
 
 selectChapter: aChapter
-	DocumentationBuilder current widget selectChapter: aChapter
+	document location hash: aChapter id
+!
+
+displayChapter: aChapter
+	DocumentationBuilder current widget displayChapter: aChapter
+! !
+
+!DocChapter methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self subscribe
 ! !
 
 !DocChapter methodsFor: 'rendering'!
@@ -348,6 +385,13 @@ renderLinksOn: html
 						onClick: [self selectChapter: each]]]]
 ! !
 
+!DocChapter methodsFor: 'subscriptions'!
+
+subscribe
+	self announcer on: ChapterSelectionAnnouncement do: [:ann |
+		ann id = self id ifTrue: [self displayChapter: self]]
+! !
+
 DocChapter subclass: #PackageDocChapter
 	instanceVariableNames: 'package chapters'
 	category: 'Documentation'!
@@ -356,14 +400,6 @@ DocChapter subclass: #PackageDocChapter
 
 package
 	^package
-!
-
-package: aPackage
-	package := aPackage.
-	chapters := (aPackage classes sorted: [:a :b | a name < b name]) collect: [:each |
-		(ClassDocChapter on: each)
-			parent: self;
-			yourself]
 !
 
 title
@@ -378,11 +414,22 @@ contents
 	^'Classes in package ', self package name, ':'
 ! !
 
+!PackageDocChapter methodsFor: 'initialization'!
+
+initializeWithPackage: aPackage
+	package := aPackage.
+	chapters := (aPackage classes sorted: [:a :b | a name < b name]) collect: [:each |
+		(ClassDocChapter on: each)
+			parent: self;
+			yourself]
+! !
+
 !PackageDocChapter class methodsFor: 'instance creation'!
 
 on: aPackage
-	^self new
-		package: aPackage;
+	^self basicNew
+		initializeWithPackage: aPackage;
+		initialize;
 		yourself
 ! !
 
@@ -394,11 +441,6 @@ DocChapter subclass: #ClassDocChapter
 
 theClass
 	^theClass
-!
-
-theClass: aClass
-	theClass := aClass.
-	self subscribe
 !
 
 contents
@@ -415,11 +457,8 @@ title
 	^self theClass name
 !
 
-subscribe
-	DocumentationBuilder current announcer 
-		on: ClassSelectionAnnouncement do: [:ann |
-			ann theClass = self theClass ifTrue: [
-				DocumentationBuilder current widget selectChapter: self]]
+initializeWithClass: aClass
+	theClass := aClass
 ! !
 
 !ClassDocChapter methodsFor: 'rendering'!
@@ -433,11 +472,22 @@ renderLinksOn: html
 				onClick: [Browser openOn: self theClass]]]
 ! !
 
+!ClassDocChapter methodsFor: 'subscriptions'!
+
+subscribe
+	super subscribe.
+	self announcer 
+		on: ClassSelectionAnnouncement do: [:ann |
+			ann theClass = self theClass ifTrue: [
+				self selectChapter: self]]
+! !
+
 !ClassDocChapter class methodsFor: 'accessing'!
 
 on: aClass
-	^self new
-		theClass: aClass;
+	^self basicNew
+		initializeWithClass: aClass;
+		initialize;
 		yourself
 ! !
 
@@ -469,9 +519,13 @@ selectedChapter: aChapter
 
 !DocumentationWidget methodsFor: 'actions'!
 
-selectChapter: aChapter
+displayChapter: aChapter
 	self selectedChapter: aChapter.
 	self updateChapterDiv
+!
+
+selectChapter: aChapter
+	document location hash: aChapter id
 ! !
 
 !DocumentationWidget methodsFor: 'rendering'!
@@ -554,14 +608,6 @@ renderDocOn: html
 						onClick: [self selectClass: each]]]]]
 ! !
 
-!ClassesIndexChapter class methodsFor: 'accessing'!
-
-on: aClass
-	^self new
-		theClass: aClass;
-		yourself
-! !
-
 Object subclass: #ClassSelectionAnnouncement
 	instanceVariableNames: 'theClass'
 	category: 'Documentation'!
@@ -582,5 +628,19 @@ on: aClass
 	^self new
 		theClass: aClass;
 		yourself
+! !
+
+Object subclass: #ChapterSelectionAnnouncement
+	instanceVariableNames: 'id'
+	category: 'Documentation'!
+
+!ChapterSelectionAnnouncement methodsFor: 'accessing'!
+
+id
+	^id
+!
+
+id: aString
+	id := aString
 ! !
 

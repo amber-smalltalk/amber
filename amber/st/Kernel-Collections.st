@@ -792,6 +792,10 @@ asSymbol
 
 asJavascript
 	^'smalltalk.symbolFor("', self asString, '")'
+!
+
+asSelector
+	^self asString asSelector
 ! !
 
 !Symbol methodsFor: 'copying'!
