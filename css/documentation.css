@@ -5,7 +5,16 @@
 
 #header {
     text-align: left;
-    margin: 20px;
+    margin: 20px 0;
+}
+
+#header .left {
+    float: left;
+    margin-right: 20px;
+}
+
+#header h1 {
+    margin: 10px 0;
 }
 
 .documentation {
@@ -28,6 +37,7 @@
     border: 1px solid #ccc;
     background: #eee;
     padding: 5px;
+    margin: 0 20px;
 }
 
 .documentation code {

@@ -143,94 +143,6 @@ NOTE: We can use any webDAV server and Apache2 has been used earlier and works f
 '
 !
 
-ch4FirstApp
-	^DocChapter new
-		title: 'A first application';
-		contents: '
-
-Let''s make Hello World in Amber.
-
-First, you need a place for your new project. I made a new directory under amber:
-
-    amber/projects/hello
-
-This will store your project files. To get started, add a new index.html file to this folder, as well as empty js and st folders.
-
-Your index.html can be really basic. The most important thing it does is include amber.js and run loadAmber. Here is a basic index.html you can use:
-
-
-    <!!DOCTYPE html>
-    <html>
-      <head>
-        <title>My First Amber Project</title>
-        <script src="../../js/amber.js" type="text/javascript"></script>
-        <script type="text/javascript">
-          loadAmber({
-            files: [],
-            prefix: ''projects/hello/js'',
-            ready: function() {
-              
-            }}); 
-        </script>
-      </head>
-      <body>
-        <article>
-          <h1>My First Amber Project</h1>
-          <button onclick="smalltalk.Browser._open()">class browser</button>
-          <button id="sayHello">say hello</button>
-        </article>
-      </body>
-    </html>
-
-Now start up amber with node.js and navigate to  http://localhost:4000/projects/hello/index.html
-
-It''s boring so far, so lets write some code. Click the button to open the class browser. Find an existing class and change its name to Hello and its package to HelloApp. 
-Then click save. This creates a new class and leaves the old one intact, it doesn''t overwrite it. Your class will look like this:
-
-    Object subclass: #Hello
-        instanceVariableNames: ''''
-        package: ''HelloApp''
-
-Now click save and navigate to your new class in its new package.
- Then click ''commit package''. You just created a new class and saved your work. 
-On your file system check out your js and st folders. Your new class is now saved in both JavaScript and Smalltalk.
-
-Now, refresh your browser page and reopen the class browser. Oh no, your new class is gone!! To load your new class automatically, you have to add it in index.html. Make your JavaScript look like this:
-
-
-    loadAmber({
-        files: [''HelloApp.js''],
-        prefix: ''projects/hello/js'',
-        ready: function() {      
-    }}); 
-
-Save and refresh again. Now your class is loaded and shows up in the class browser.
-
-Now, let''s make this class do something. Create a new message in the class browser by navigating to your class, then clicking ''not yet classified'' and fill in a simple message. Try this for example:
-
-    begin
-	"Makes me say hello to the user."
-
-	| msg button |
-	msg := ''Hello world!!''.
-	button := ''#sayHello'' asJQuery.
-	button click: [button after: ''<p>'' , msg , ''</p>''].
-
-Your message isn''t too helpful if it doesn''t get called. Save it, commit the package, then edit index.html again. You can write JavaScript code that sends a message to Smalltalk:
-
-    loadAmber({
-        files: [''HelloApp.js''],
-        prefix: ''projects/hello/js'', // path for js files i think
-        ready: function() {
-          $(function() {
-            smalltalk.Hello._new()._begin();
-          });
-    }}); 
-
-From there, you can create new Smalltalk classes and messages to build up your app. Enjoy!!
-'
-!
-
 ch5Index
 	^ClassesIndexChapter new
 !
@@ -241,6 +153,10 @@ ch6KernelObjects
 
 ch7KernelClasses
 	^PackageDocChapter on: (Package named: 'Kernel-Classes')
+!
+
+ch4Tutorials
+	^TutorialsChapter new
 ! !
 
 !DocumentationBuilder methodsFor: 'routing'!
@@ -658,5 +574,168 @@ id
 
 id: aString
 	id := aString
+! !
+
+DocChapter subclass: #TutorialsChapter
+	instanceVariableNames: ''
+	category: 'Documentation'!
+
+!TutorialsChapter methodsFor: 'accessing'!
+
+title
+	^'Tutorials'
+!
+
+contents
+	^'Here''s a serie of tutorials. If you are new to Smalltalk, you can also learn Amber online with [ProfStef](http://www.amber-lang.net/learn.html)'
+!
+
+chapters
+	^{ self firstAppChapter. self counterChapter }
+!
+
+firstAppChapter
+	^DocChapter new
+		title: 'A first application';
+		contents: '
+
+Let''s make Hello World in Amber.
+
+First, you need a place for your new project. I made a new directory under amber:
+
+    amber/projects/hello
+
+This will store your project files. To get started, add a new index.html file to this folder, as well as empty js and st folders.
+
+Your index.html can be really basic. The most important thing it does is include amber.js and run loadAmber. Here is a basic index.html you can use:
+
+
+    <!!DOCTYPE html>
+    <html>
+      <head>
+        <title>My First Amber Project</title>
+        <script src="../../js/amber.js" type="text/javascript"></script>
+        <script type="text/javascript">
+          loadAmber({
+            files: [],
+            prefix: ''projects/hello/js'',
+            ready: function() {
+              
+            }}); 
+        </script>
+      </head>
+      <body>
+        <article>
+          <h1>My First Amber Project</h1>
+          <button onclick="smalltalk.Browser._open()">class browser</button>
+          <button id="sayHello">say hello</button>
+        </article>
+      </body>
+    </html>
+
+Now start up amber with node.js and navigate to  http://localhost:4000/projects/hello/index.html
+
+It''s boring so far, so lets write some code. Click the button to open the class browser. Find an existing class and change its name to Hello and its package to HelloApp. 
+Then click save. This creates a new class and leaves the old one intact, it doesn''t overwrite it. Your class will look like this:
+
+    Object subclass: #Hello
+        instanceVariableNames: ''''
+        package: ''HelloApp''
+
+Now click save and navigate to your new class in its new package.
+ Then click ''commit package''. You just created a new class and saved your work. 
+On your file system check out your js and st folders. Your new class is now saved in both JavaScript and Smalltalk.
+
+Now, refresh your browser page and reopen the class browser. Oh no, your new class is gone!! To load your new class automatically, you have to add it in index.html. Make your JavaScript look like this:
+
+
+    loadAmber({
+        files: [''HelloApp.js''],
+        prefix: ''projects/hello/js'',
+        ready: function() {      
+    }}); 
+
+Save and refresh again. Now your class is loaded and shows up in the class browser.
+
+Now, let''s make this class do something. Create a new message in the class browser by navigating to your class, then clicking ''not yet classified'' and fill in a simple message. Try this for example:
+
+    begin
+	"Makes me say hello to the user."
+
+	| msg button |
+	msg := ''Hello world!!''.
+	button := ''#sayHello'' asJQuery.
+	button click: [button after: ''<p>'' , msg , ''</p>''].
+
+Your message isn''t too helpful if it doesn''t get called. Save it, commit the package, then edit index.html again. You can write JavaScript code that sends a message to Smalltalk:
+
+    loadAmber({
+        files: [''HelloApp.js''],
+        prefix: ''projects/hello/js'', // path for js files i think
+        ready: function() {
+          $(function() {
+            smalltalk.Hello._new()._begin();
+          });
+    }}); 
+
+From there, you can create new Smalltalk classes and messages to build up your app. Enjoy!!
+'
+!
+
+counterChapter
+	^DocChapter new
+		title: 'The counter application';
+		contents: '
+
+This tutorial will teach you how to build HTML with Amber using jQuery and the HTMLCanvas API. It is freely adapted from 
+the [Seaside counter example](http://www.seaside.st/about/examples/counter)
+
+##The counter widget
+
+The counter is the most basic example of a widget. It allows to increment and decrement a number by clicking a button.
+
+Amber already comes with a counter example in the `Examples` package. To avoid class name conflict, we''ll name our counter class `TCounter`.
+
+    Widget subclass: #TCounter
+        instanceVariableNames: ''count header''
+        package: ''Tutorials''
+
+The first method is used to initialize the component with the default state, in this case we set the counter to 0:
+
+    initialize
+        super initialize.
+        count := 0
+
+The method used for rendering a widget is `#renderOn:`. It takes an instance of HTMLCanvas as parameter. 
+The `header` h1 kept as an instance variable, so when the count value change, we can update it''s contents accordingly.
+
+    renderOn: html
+        header := html h1 
+            with: count asString;
+            yourself.
+        html button
+            with: ''++'';
+            onClick: [self increase].
+        html button
+            with: ''--'';
+            onClick: [self decrease]
+
+The counter is almost ready. All we need now is to implement the two action methods `#increase` and `#decrease` to change the state 
+of our counter and update its header.
+
+    increase
+        count := count + 1.
+        header contents: [:html | html with: count asString]
+
+    decrease
+        count := count - 1.
+        header contents: [:html | html with: count asString]
+
+
+That''s it!! We can now display an instance of TCounter by rendering it on the page using jQuery:
+
+    TCounter new appendToJQuery: ''body'' asJQuery
+
+'
 ! !
 
