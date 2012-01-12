@@ -1170,6 +1170,18 @@ new
 Object subclass: #Random
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Random commentStamp!
+Random is just a wrapper around javascript Math.random() and is trivially used like this:
+
+	Random new next
+
+This will return a float x where x < 1 and x > 0. If you want a random integer between 1 and 10 you can use #atRandom
+
+	10 atRandom
+
+...which is also implemented in SequencableCollection so you can easy pick an element at random:
+
+	#('a' 'b' 'c') atRandom!
 
 !Random methodsFor: 'accessing'!
 
