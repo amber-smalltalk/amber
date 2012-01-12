@@ -21,7 +21,7 @@ Object has no instance variable.
 ##Access
 
 Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.
-Accessing JavaScript properties if an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
+Accessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
 
 ##Copying
 
@@ -1300,6 +1300,28 @@ x: aNumber y: anotherNumber
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
 	category: 'Kernel-Objects'!
+!JSObjectProxy commentStamp!
+JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
+JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
+
+## Examples
+
+JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
+
+    window alert: 'hello world'.
+    window inspect.
+    (window jQuery: 'body') append: 'hello world'
+
+Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. 
+
+## Message conversion rules
+
+- `someUser name` becomes  `someUser.name`
+- `someUser name: 'John'` becomes `someUser name = "John"`
+- `console log: 'hello world'` becomes `console.log('hello world')`
+- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
+
+__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
 
 !JSObjectProxy methodsFor: 'accessing'!
 
