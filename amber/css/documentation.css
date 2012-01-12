@@ -30,6 +30,12 @@
     padding: 5px;
 }
 
+.documentation code {
+    background: #eee;
+    padding: 0 5px;
+}
+
+
 .documentation .menu {
     position: fixed;
     left: 0;

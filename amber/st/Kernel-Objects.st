@@ -2,6 +2,42 @@ Smalltalk current createPackage: 'Kernel-Objects' properties: #{}!
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Object commentStamp!
+*Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.
+
+Object provides default behavior common to all normal objects, such as: 
+
+- access
+- copying
+- comparison
+- error handling
+- message sending
+- reflection
+
+Also utility messages that all objects should respond to are defined here.
+
+Object has no instance variable.
+
+##Access
+
+Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.
+Accessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
+
+##Copying
+
+Copying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.
+The hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.
+
+##Comparison
+
+Objects understand equality  `#=` and identity `#==` comparison.
+
+##Error handling
+
+- `#halt` is the typical message to use for inserting breakpoints during debugging.
+- `#error:` throws a generic error exception
+- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.
+  Overriding this message can be useful to implement proxies for example.!
 
 !Object methodsFor: 'accessing'!
 
@@ -824,6 +860,11 @@ pi
 Object subclass: #Boolean
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Boolean commentStamp!
+Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.
+
+Boolean defines the protocol for logic testing operations and conditional control structures for the logical values.
+Boolean instances are weither `true` or `false`.!
 
 !Boolean methodsFor: 'comparing'!
 
@@ -916,7 +957,10 @@ Object subclass: #Date
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 !Date commentStamp!
-The Date class is used to work with dates and times.!
+The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
+Amber and answer the same date object.
+
+Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
 
 !Date methodsFor: 'accessing'!
 
@@ -1170,6 +1214,18 @@ new
 Object subclass: #Random
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Random commentStamp!
+Random is just a wrapper around javascript Math.random() and is trivially used like this:
+
+	Random new next
+
+This will return a float x where x < 1 and x > 0. If you want a random integer between 1 and 10 you can use #atRandom
+
+	10 atRandom
+
+...which is also implemented in SequencableCollection so you can easy pick an element at random:
+
+	#('a' 'b' 'c') atRandom!
 
 !Random methodsFor: 'accessing'!
 
@@ -1244,6 +1300,28 @@ x: aNumber y: anotherNumber
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
 	category: 'Kernel-Objects'!
+!JSObjectProxy commentStamp!
+JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
+JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
+
+## Examples
+
+JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
+
+    window alert: 'hello world'.
+    window inspect.
+    (window jQuery: 'body') append: 'hello world'
+
+Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. 
+
+## Message conversion rules
+
+- `someUser name` becomes  `someUser.name`
+- `someUser name: 'John'` becomes `someUser name = "John"`
+- `console log: 'hello world'` becomes `console.log('hello world')`
+- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
+
+__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
 
 !JSObjectProxy methodsFor: 'accessing'!
 
