@@ -47,17 +47,19 @@ ch1introduction
 		title: 'Introduction';
 		contents: '
 
-##Amber Smalltalk in a nutshell.
+##Amber Smalltalk in a nutshell
 
-Amber is an implementation of the Smalltalk-80 language. 
-It allows developers to write client-side heavy web applications in Smalltalk. Amber includes an integrated development environment with a class browser, workspace and transcript.
+Amber is an implementation of the Smalltalk-80 language. It is designed to make client-side web development **faster, easier and more fun** as it allows developers to write HTML5 applications in Smalltalk!!
 
-Amber includes the following features:
+Amber is written in itself, including the IDE and the compiler and it runs **directly inside your browser**. The IDE is fairly complete with a class browser, workspace, transcript, unit test runner, object inspectors, cross reference tools and even a debugger.
 
-- It is semantically and syntactically equivalent to Pharo Smalltalk (the implementation considered as the reference)
-- It is written in itself and compiles into efficient JavaScript
-- A canvas API similar to Seaside to generate HTML
-- A jQuery binding.
+Noteworthy features:
+
+- Amber is semantically and syntactically very close to [Pharo Smalltalk](http://www.pharo-project.org). Pharo is considered the reference implementation.
+- Amber **seamlessly interacts with JavaScript** and can use its full eco system of libraries without any glue code needed.
+- Amber **has no dependencies** and can be used in any JavaScript runtime, not only inside browsers. An important example is [Node.js](http://nodejs.org).
+- Amber is a live Smalltalk that **compiles incrementally into efficient JavaScript** often mapping one-to-one with JavaScript equivalents.
+- Amber has a **Seaside influenced canvas library** to dynamically generate HTML.
 
 ## Disclaimer
 
