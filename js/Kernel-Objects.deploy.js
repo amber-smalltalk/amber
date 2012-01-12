@@ -1620,6 +1620,39 @@ return self;}
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+'_negative',
+smalltalk.method({
+selector: 'negative',
+fn: function (){
+var self=this;
+return self < (0);
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_positive',
+smalltalk.method({
+selector: 'positive',
+fn: function (){
+var self=this;
+return self >= (0);
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+'_isZero',
+smalltalk.method({
+selector: 'isZero',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "__eq", [(0)]);
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 '_pi',
@@ -2524,6 +2557,17 @@ selector: '=',
 fn: function (aPoint){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);})]);
+return self;}
+}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+'_printString',
+smalltalk.method({
+selector: 'printString',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@x'], "_printString", []), "__comma", [unescape("@")])]);((($receiver = smalltalk.send(smalltalk.send(self['@y'], "_notNil", []), "_and_", [(function(){return smalltalk.send(self['@y'], "_negative", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(stream, "_space", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(stream, "_space", []);})]));return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self['@y'], "_printString", [])]);})]);
 return self;}
 }),
 smalltalk.Point);

@@ -2312,6 +2312,54 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+unescape('_negative'),
+smalltalk.method({
+selector: unescape('negative'),
+category: 'testing',
+fn: function (){
+var self=this;
+return self < (0);
+return self;},
+args: [],
+source: unescape('negative%0A%09%22Answer%20whether%20the%20receiver%20is%20mathematically%20negative.%22%0A%0A%09%5E%20self%20%3C%200'),
+messageSends: [unescape("%3C")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_positive'),
+smalltalk.method({
+selector: unescape('positive'),
+category: 'testing',
+fn: function (){
+var self=this;
+return self >= (0);
+return self;},
+args: [],
+source: unescape('positive%0A%09%22Answer%20whether%20the%20receiver%20is%20positive%20or%20equal%20to%200.%20%28ST-80%20protocol%29.%22%0A%0A%09%5E%20self%20%3E%3D%200'),
+messageSends: [unescape("%3E%3D")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_isZero'),
+smalltalk.method({
+selector: unescape('isZero'),
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "__eq", [(0)]);
+return self;},
+args: [],
+source: unescape('isZero%0A%09%5Eself%20%3D%200'),
+messageSends: [unescape("%3D")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 unescape('_pi'),
@@ -3423,7 +3471,7 @@ smalltalk.UndefinedObject.klass);
 
 
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Random.comment=unescape('Random%20is%20just%20a%20wrapper%20around%20javascript%20Math.random%28%29%20and%20is%20trivially%20used%20like%20this%3A%0A%0A%09Random%20new%20next%0A%0AThis%20will%20return%20a%20float%20x%20where%20x%20%3C%201%20and%20x%20%3E%200.%20If%20you%20want%20a%20random%20integer%20between%201%20and%2010%20you%20can%20use%20%23atRandom%0A%0A%0910%20atRandom%0A%0A...which%20is%20also%20implemented%20in%20SequencableCollection%20so%20you%20can%20easy%20pick%20an%20element%20at%20random%3A%0A%0A%09%23%28%27a%27%20%27b%27%20%27c%27%29%20atRandom')
+smalltalk.Random.comment=unescape('Random%20is%20a%20random%20number%20generator%20and%20is%20implemented%20as%20a%20wrapper%20around%20javascript%20Math.random%28%29%20and%20is%20trivially%20used%20like%20this%3A%0A%0A%09Random%20new%20next%0A%0AThis%20will%20return%20a%20float%20x%20where%20x%20%3C%201%20and%20x%20%3E%200.%20If%20you%20want%20a%20random%20integer%20from%201%20to%2010%20you%20can%20use%20%23atRandom%0A%0A%0910%20atRandom%0A%0A...and%20if%20you%20want%20a%20random%20number%20in%20a%20specific%20interval%20this%20also%20works%3A%0A%0A%09%283%20to%3A%207%29%20atRandom%0A%0A...but%20be%20aware%20that%20%23to%3A%20does%20not%20create%20an%20Interval%20as%20in%20other%20Smalltalks%20but%20in%20fact%20an%20Array%20of%20numbers%2C%20so%20it%27s%20better%20to%20use%3A%0A%0A%095%20atRandom%20+%202%0A%0ASince%20%23atRandom%20is%20implemented%20in%20SequencableCollection%20you%20can%20easy%20pick%20an%20element%20at%20random%3A%0A%0A%09%23%28%27a%27%20%27b%27%20%27c%27%29%20atRandom%0A%0A...or%20perhaps%20a%20letter%20from%20a%20String%3A%0A%0A%09%27abc%27%20atRandom')
 smalltalk.addMethod(
 unescape('_next'),
 smalltalk.method({
@@ -3459,6 +3507,7 @@ smalltalk.Random);
 
 
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel-Objects');
+smalltalk.Point.comment=unescape('A%20Point%20represents%20an%20x-y%20pair%20of%20numbers%20usually%20designating%20a%20geometric%20coordinate.%0APoints%20are%20traditionally%20created%20using%20the%20binary%20%23@%20message%20to%20a%20number%3A%0A%0A%09100@120%0A%0APoints%20can%20then%20be%20arithmetically%20manipulated%20using%20math%3A%0A%0A%09100@100%20+%20%2810@10%29%0A%0ACreating%20a%20Point%20with%20a%20negative%20y-value%20will%20need%20a%20space%20after%20@%20in%20order%20to%20avoid%20a%20parsing%20error%2C%0A10@%20-5%20works%20fine%2C%20but%20not%2010@-5%0A%0AAmber%20does%20not%20have%20much%20behavior%20in%20this%20class%20out-of-the-box.')
 smalltalk.addMethod(
 unescape('_x'),
 smalltalk.method({
@@ -3616,6 +3665,22 @@ args: ["aPoint"],
 source: unescape('%3D%20aPoint%0A%09%5EaPoint%20class%20%3D%20self%20class%20and%3A%20%5B%0A%09%09%28aPoint%20x%20%3D%20self%20x%29%20%26%20%28aPoint%20y%20%3D%20self%20y%29%5D'),
 messageSends: ["and:", unescape("%3D"), "class", unescape("%26"), "x", "y"],
 referencedClasses: []
+}),
+smalltalk.Point);
+
+smalltalk.addMethod(
+unescape('_printString'),
+smalltalk.method({
+selector: unescape('printString'),
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@x'], "_printString", []), "__comma", [unescape("@")])]);((($receiver = smalltalk.send(smalltalk.send(self['@y'], "_notNil", []), "_and_", [(function(){return smalltalk.send(self['@y'], "_negative", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(stream, "_space", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(stream, "_space", []);})]));return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self['@y'], "_printString", [])]);})]);
+return self;},
+args: [],
+source: unescape('printString%0A%09%22Print%20receiver%20in%20classic%20x@y%20notation.%22%0A%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%09%09stream%20nextPutAll%3A%20x%20printString%2C%20%27@%27.%0A%09%09%28y%20notNil%20and%3A%20%5By%20negative%5D%29%0A%09%09%09ifTrue%3A%20%5B%0A%09%09%09%09%22Avoid%20ambiguous%20@-%20construct%22%0A%09%09%09%09stream%20space%5D.%0A%09%09stream%20nextPutAll%3A%20y%20printString%5D'),
+messageSends: ["streamContents:", "nextPutAll:", unescape("%2C"), "printString", "ifTrue:", "and:", "notNil", "negative", "space"],
+referencedClasses: ["String"]
 }),
 smalltalk.Point);
 

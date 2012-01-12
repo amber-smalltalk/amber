@@ -839,6 +839,22 @@ even
 
 odd
 	^ self even not
+!
+
+negative
+	"Answer whether the receiver is mathematically negative."
+
+	^ self < 0
+!
+
+positive
+	"Answer whether the receiver is positive or equal to 0. (ST-80 protocol)."
+
+	^ self >= 0
+!
+
+isZero
+	^self = 0
 ! !
 
 !Number methodsFor: 'timeouts/intervals'!
@@ -1219,17 +1235,29 @@ Object subclass: #Random
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 !Random commentStamp!
-Random is just a wrapper around javascript Math.random() and is trivially used like this:
+Random is a random number generator and is implemented as a wrapper around javascript Math.random() and is trivially used like this:
 
 	Random new next
 
-This will return a float x where x < 1 and x > 0. If you want a random integer between 1 and 10 you can use #atRandom
+This will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use #atRandom
 
 	10 atRandom
 
-...which is also implemented in SequencableCollection so you can easy pick an element at random:
+...and if you want a random number in a specific interval this also works:
 
-	#('a' 'b' 'c') atRandom!
+	(3 to: 7) atRandom
+
+...but be aware that #to: does not create an Interval as in other Smalltalks but in fact an Array of numbers, so it's better to use:
+
+	5 atRandom + 2
+
+Since #atRandom is implemented in SequencableCollection you can easy pick an element at random:
+
+	#('a' 'b' 'c') atRandom
+
+...or perhaps a letter from a String:
+
+	'abc' atRandom!
 
 !Random methodsFor: 'accessing'!
 
@@ -1244,6 +1272,20 @@ next: anInteger
 Object subclass: #Point
 	instanceVariableNames: 'x y'
 	category: 'Kernel-Objects'!
+!Point commentStamp!
+A Point represents an x-y pair of numbers usually designating a geometric coordinate.
+Points are traditionally created using the binary #@ message to a number:
+
+	100@120
+
+Points can then be arithmetically manipulated using math:
+
+	100@100 + (10@10)
+
+Creating a Point with a negative y-value will need a space after @ in order to avoid a parsing error,
+10@ -5 works fine, but not 10@-5
+
+Amber does not have much behavior in this class out-of-the-box.!
 
 !Point methodsFor: 'accessing'!
 
@@ -1290,6 +1332,20 @@ x: aNumber
 
 asPoint
 	^self
+! !
+
+!Point methodsFor: 'printing'!
+
+printString
+	"Print receiver in classic x@y notation."
+
+	^String streamContents: [:stream |
+		stream nextPutAll: x printString, '@'.
+		(y notNil and: [y negative])
+			ifTrue: [
+				"Avoid ambiguous @- construct"
+				stream space].
+		stream nextPutAll: y printString]
 ! !
 
 !Point class methodsFor: 'instance creation'!
