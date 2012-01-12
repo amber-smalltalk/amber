@@ -1648,6 +1648,17 @@ return self;}
 }),
 smalltalk.Symbol);
 
+smalltalk.addMethod(
+'_asSelector',
+smalltalk.method({
+selector: 'asSelector',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_asSelector", []);
+return self;}
+}),
+smalltalk.Symbol);
+
 
 smalltalk.addMethod(
 '_lookup_',
