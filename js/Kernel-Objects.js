@@ -3210,6 +3210,7 @@ smalltalk.Date.klass);
 
 
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.UndefinedObject.comment=unescape('UndefinedObject%20describes%20the%20behavior%20of%20its%20sole%20instance%2C%20%60nil%60.%20%60nil%60%20represents%20a%20prior%20value%20for%20variables%20that%20have%20not%20been%20initialized%2C%20or%20for%20results%20which%20are%20meaningless.%0A%0A%60nil%60%20is%20the%20Smalltalk%20representation%20of%20the%20%60undefined%60%20JavaScript%20object.')
 smalltalk.addMethod(
 unescape('_subclass_instanceVariableNames_'),
 smalltalk.method({

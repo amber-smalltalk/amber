@@ -1141,6 +1141,10 @@ millisecondsToRun: aBlock
 Object subclass: #UndefinedObject
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!UndefinedObject commentStamp!
+UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
+
+`nil` is the Smalltalk representation of the `undefined` JavaScript object.!
 
 !UndefinedObject methodsFor: 'class creation'!
 
