@@ -1196,7 +1196,7 @@ smalltalk.Smalltalk.klass);
 
 
 smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
-smalltalk.Package.comment=unescape('A%20Package%20is%20similar%20to%20a%20%22class%20category%22%20typically%20found%20in%20other%20Smalltalks%20like%20Pharo%20or%20Squeak.%20Amber%20does%20not%20have%20class%20categories%20anymore%2C%20it%20had%20in%20the%20beginning%20but%20now%20each%20class%20in%20the%20system%20knows%20which%20package%20it%20belongs%20to.%0A%0AA%20Package%20has%20a%20name%2C%20an%20Array%20of%20%22requires%22%2C%20a%20comment%20and%20a%20Dictionary%20with%20other%20optional%20key%20value%20attributes.%20A%20Package%20can%20also%20be%20queried%20for%20its%20classes%2C%20but%20it%20will%20then%20resort%20to%20a%20reverse%20scan%20of%20all%20classes%20to%20find%20them.%0APackages%20are%20manipulated%20through%20%22Smalltalk%20current%22%2C%20like%20for%20example%20finding%20one%20based%20on%20a%20name%3A%0A%0A%09Smalltalk%20current%20packageAt%3A%20%27Kernel%27%0A%0A...but%20you%20can%20also%20use%3A%0A%0A%09Package%20named%3A%20%27Kernel%27%0A%0AA%20Package%20differs%20slightly%20from%20a%20Monticello%20package%20which%20can%20span%20multiple%20class%20categories%20using%20a%20naming%20convention%20based%20on%20hyphenation.%20But%20just%20as%20in%20Monticello%20a%20Package%20supports%20%22class%20extensions%22%20so%20a%20Package%0Acan%20define%20behaviors%20in%20foreign%20classes%20using%20a%20naming%20convention%20for%20method%20categories%20where%20the%20category%20starts%20with%20an%20asterisk%20and%20then%20the%20name%20of%20the%20owning%20package%20follows.%20This%20can%20easily%20be%20seen%20in%20for%20example%20class%0AString%20where%20the%20method%20category%20%22*IDE%22%20defines%20%23inspectOn%3A%20which%20thus%20is%20a%20method%20belonging%20to%20the%20IDE%20package.')
+smalltalk.Package.comment=unescape('A%20Package%20is%20similar%20to%20a%20%22class%20category%22%20typically%20found%20in%20other%20Smalltalks%20like%20Pharo%20or%20Squeak.%20Amber%20does%20not%20have%20class%20categories%20anymore%2C%20it%20had%20in%20the%20beginning%20but%20now%20each%20class%20in%20the%20system%20knows%20which%20package%20it%20belongs%20to.%0A%0AA%20Package%20has%20a%20name%2C%20an%20Array%20of%20%22requires%22%2C%20a%20comment%20and%20a%20Dictionary%20with%20other%20optional%20key%20value%20attributes.%20A%20Package%20can%20also%20be%20queried%20for%20its%20classes%2C%20but%20it%20will%20then%20resort%20to%20a%20reverse%20scan%20of%20all%20classes%20to%20find%20them.%0APackages%20are%20manipulated%20through%20%22Smalltalk%20current%22%2C%20like%20for%20example%20finding%20one%20based%20on%20a%20name%3A%0A%0A%09Smalltalk%20current%20packageAt%3A%20%27Kernel%27%0A%0A...but%20you%20can%20also%20use%3A%0A%0A%09Package%20named%3A%20%27Kernel%27%0A%0AA%20Package%20differs%20slightly%20from%20a%20Monticello%20package%20which%20can%20span%20multiple%20class%20categories%20using%20a%20naming%20convention%20based%20on%20hyphenation.%20But%20just%20as%20in%20Monticello%20a%20Package%20supports%20%22class%20extensions%22%20so%20a%20Package%0Acan%20define%20behaviors%20in%20foreign%20classes%20using%20a%20naming%20convention%20for%20method%20categories%20where%20the%20category%20starts%20with%20an%20asterisk%20and%20then%20the%20name%20of%20the%20owning%20package%20follows.%20This%20can%20easily%20be%20seen%20in%20for%20example%20class%0AString%20where%20the%20method%20category%20%22*IDE%22%20defines%20%23inspectOn%3A%20which%20thus%20is%20a%20method%20belonging%20to%20the%20IDE%20package.%0A%0AYou%20can%20fetch%20a%20package%20from%20the%20server%3A%0A%0A%09Package%20fetch%3A%20%27Additional-Examples%27')
 smalltalk.addMethod(
 unescape('_name'),
 smalltalk.method({
@@ -1599,6 +1599,74 @@ return self;},
 args: [],
 source: unescape('resetCommitPaths%0A%20%20%20%20%20%20%20%20defaultCommitPathJs%20%3A%3D%20nil.%0A%20%20%20%20%20%20%20%20defaultCommitPathSt%20%3A%3D%20nil.'),
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_fetch_prefix_'),
+smalltalk.method({
+selector: unescape('fetch%3Aprefix%3A'),
+category: 'loading-storing',
+fn: function (aPackageName, aPrefix){
+var self=this;
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_getScript_onSuccess_", [smalltalk.send(smalltalk.send(aPrefix, "__comma", [aPackageName]), "__comma", [".js"]), (function(){return smalltalk.send((smalltalk.Package || Package), "_init_", [aPackageName]);})]);
+return self;},
+args: ["aPackageName", "aPrefix"],
+source: unescape('fetch%3A%20aPackageName%20prefix%3A%20aPrefix%0A%09jQuery%20getScript%3A%20%28aPrefix%20%2C%20aPackageName%20%2C%20%27.js%27%29%20onSuccess%3A%20%5B%20Package%20init%3A%20aPackageName%20%5D'),
+messageSends: ["getScript:onSuccess:", unescape("%2C"), "init:"],
+referencedClasses: ["Package"]
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_fetch_'),
+smalltalk.method({
+selector: unescape('fetch%3A'),
+category: 'loading-storing',
+fn: function (aPackageName){
+var self=this;
+smalltalk.send(self, "_fetch_prefix_", [aPackageName, smalltalk.send(smalltalk.send(self, "_defaultCommitPathJs", []), "__comma", [unescape("/")])]);
+return self;},
+args: ["aPackageName"],
+source: unescape('fetch%3A%20aPackageName%0A%09self%20fetch%3A%20aPackageName%20prefix%3A%20self%20defaultCommitPathJs%2C%20%27/%27'),
+messageSends: ["fetch:prefix:", unescape("%2C"), "defaultCommitPathJs"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_commitToLocalStorage_'),
+smalltalk.method({
+selector: unescape('commitToLocalStorage%3A'),
+category: 'loading-storing',
+fn: function (aPackageName){
+var self=this;
+var key=nil;
+var sourceCode=nil;
+key=smalltalk.send("smalltalk.packages.", "__comma", [aPackageName]);
+sourceCode=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [aPackageName]);
+localStorage[key] = escape(sourceCode);
+return self;},
+args: ["aPackageName"],
+source: unescape('commitToLocalStorage%3A%20aPackageName%0A%09%7C%20key%20sourceCode%20%7C%0A%09key%20%3A%3D%20%27smalltalk.packages.%27%20%2C%20aPackageName.%0A%09sourceCode%20%3A%3D%20Exporter%20new%20exportPackage%3A%20aPackageName.%0A%09%3ClocalStorage%5Bkey%5D%20%3D%20escape%28sourceCode%29%3E'),
+messageSends: [unescape("%2C"), "exportPackage:", "new"],
+referencedClasses: ["Exporter"]
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_init_'),
+smalltalk.method({
+selector: unescape('init%3A'),
+category: 'loading-storing',
+fn: function (aPackageName){
+var self=this;
+(function($rec){smalltalk.send($rec, "_do_", [(function(each){return smalltalk.init(each);})]);return smalltalk.send($rec, "_do_", [(function(each){return smalltalk.send(each, "_initialize", []);})]);})(smalltalk.send(smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_classes", []), "_select_", [(function(each){return each.pkg.pkgName == aPackageName;})]));
+return self;},
+args: ["aPackageName"],
+source: unescape('init%3A%20aPackageName%0A%09%28smalltalk%20classes%20select%3A%20%5B%20%3Aeach%20%7C%20%3Ceach.pkg.pkgName%20%3D%3D%20aPackageName%3E%20%5D%29%0A%09%09do%3A%20%5B%20%3Aeach%20%7C%20%3Csmalltalk.init%28each%29%3E%20%5D%3B%0A%09%09do%3A%20%5B%20%3Aeach%20%7C%20each%20initialize%20%5D'),
+messageSends: ["do:", "initialize", "select:", "classes"],
 referencedClasses: []
 }),
 smalltalk.Package.klass);

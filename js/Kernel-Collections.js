@@ -3159,12 +3159,11 @@ selector: unescape('next'),
 category: 'reading',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);
-return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);
+return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return nil;})() : (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return nil;}), (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})]));
 return self;},
 args: [],
-source: unescape('next%0A%09self%20position%3A%20self%20position%20+%201.%20%0A%09%5Ecollection%20at%3A%20self%20position'),
-messageSends: ["position:", unescape("+"), "position", "at:"],
+source: unescape('next%0A%09%5Eself%20atEnd%20%0A%09%09ifTrue%3A%20%5Bnil%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09self%20position%3A%20self%20position%20+%201.%20%0A%09%09%09collection%20at%3A%20self%20position%5D'),
+messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", unescape("+"), "position", "at:"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -3575,6 +3574,25 @@ return self;},
 args: ["aCollection"],
 source: unescape('%3D%20aCollection%0A%09%5Eself%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%09%09elements%20%3D%20aCollection%20asArray%5D'),
 messageSends: ["and:", unescape("%3D"), "class", "asArray"],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+unescape('_select_'),
+smalltalk.method({
+selector: unescape('select%3A'),
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+var collection=nil;
+collection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.send(aBlock, "_value_", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(collection, "_add_", [each]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(collection, "_add_", [each]);})]));})]);
+return collection;
+return self;},
+args: ["aBlock"],
+source: unescape('select%3A%20aBlock%0A%09%7C%20collection%20%7C%0A%09collection%20%3A%3D%20self%20class%20new.%20%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28aBlock%20value%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09%09collection%20add%3A%20each%5D%5D.%0A%09%5Ecollection'),
+messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"],
 referencedClasses: []
 }),
 smalltalk.Set);
