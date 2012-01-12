@@ -128,7 +128,7 @@ smalltalk.method({
 selector: 'ch6KernelObjects',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_title_", [unescape("Kernel-Objects")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Objects")])]));
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Objects")])]);
 return self;}
 }),
 smalltalk.DocumentationBuilder);
@@ -158,6 +158,43 @@ return self;}
 }),
 smalltalk.DocumentationBuilder);
 
+smalltalk.addMethod(
+'_ch7KernelClasses',
+smalltalk.method({
+selector: 'ch7KernelClasses',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Classes")])]);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+'_update',
+smalltalk.method({
+selector: 'update',
+fn: function (){
+var self=this;
+self['@chapters']=nil;
+self['@announcer']=nil;
+self['@widget']=nil;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".documentation"]), "_remove", []);
+smalltalk.send(self, "_build", []);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+'_build',
+smalltalk.method({
+selector: 'build',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_buildOnJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
 
 smalltalk.DocumentationBuilder.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -166,7 +203,7 @@ smalltalk.method({
 selector: 'initialize',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_buildOnJQuery_", [smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", ["body"])]);
+smalltalk.send(smalltalk.send(self, "_current", []), "_build", []);
 return self;}
 }),
 smalltalk.DocumentationBuilder.klass);

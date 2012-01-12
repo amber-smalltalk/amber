@@ -2,6 +2,42 @@ Smalltalk current createPackage: 'Kernel-Objects' properties: #{}!
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Object commentStamp!
+*Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.
+
+Object provides default behavior common to all normal objects, such as: 
+
+- access
+- copying
+- comparison
+- error handling
+- message sending
+- reflection
+
+Also utility messages that all objects should respond to are defined here.
+
+Object has no instance variable.
+
+##Access
+
+Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.
+Accessing JavaScript properties if an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
+
+##Copying
+
+Copying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.
+The hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.
+
+##Comparison
+
+Objects understand equality  `#=` and identity `#==` comparison.
+
+##Error handling
+
+- `#halt` is the typical message to use for inserting breakpoints during debugging.
+- `#error:` throws a generic error exception
+- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.
+  Overriding this message can be useful to implement proxies for example.!
 
 !Object methodsFor: 'accessing'!
 
@@ -824,6 +860,11 @@ pi
 Object subclass: #Boolean
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Boolean commentStamp!
+Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.
+
+Boolean defines the protocol for logic testing operations and conditional control structures for the logical values.
+Boolean instances are weither `true` or `false`.!
 
 !Boolean methodsFor: 'comparing'!
 
@@ -916,7 +957,10 @@ Object subclass: #Date
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 !Date commentStamp!
-The Date class is used to work with dates and times.!
+The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
+Amber and answer the same date object.
+
+Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
 
 !Date methodsFor: 'accessing'!
 

@@ -184,11 +184,11 @@ selector: unescape('ch6KernelObjects'),
 category: 'chapters',
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_title_", [unescape("Kernel-Objects")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Objects")])]));
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Objects")])]);
 return self;},
 args: [],
-source: unescape('ch6KernelObjects%0A%09%5E%28PackageDocChapter%20on%3A%20%28Package%20named%3A%20%27Kernel-Objects%27%29%29%0A%09%09title%3A%20%27Kernel-Objects%27%3B%0A%09%09yourself'),
-messageSends: ["title:", "yourself", "on:", "named:"],
+source: unescape('ch6KernelObjects%0A%09%5EPackageDocChapter%20on%3A%20%28Package%20named%3A%20%27Kernel-Objects%27%29'),
+messageSends: ["on:", "named:"],
 referencedClasses: ["PackageDocChapter", "Package"]
 }),
 smalltalk.DocumentationBuilder);
@@ -228,6 +228,58 @@ referencedClasses: ["ChapterSelectionAnnouncement"]
 }),
 smalltalk.DocumentationBuilder);
 
+smalltalk.addMethod(
+unescape('_ch7KernelClasses'),
+smalltalk.method({
+selector: unescape('ch7KernelClasses'),
+category: 'chapters',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Classes")])]);
+return self;},
+args: [],
+source: unescape('ch7KernelClasses%0A%09%5EPackageDocChapter%20on%3A%20%28Package%20named%3A%20%27Kernel-Classes%27%29'),
+messageSends: ["on:", "named:"],
+referencedClasses: ["PackageDocChapter", "Package"]
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+unescape('_update'),
+smalltalk.method({
+selector: unescape('update'),
+category: 'updating',
+fn: function (){
+var self=this;
+self['@chapters']=nil;
+self['@announcer']=nil;
+self['@widget']=nil;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".documentation"]), "_remove", []);
+smalltalk.send(self, "_build", []);
+return self;},
+args: [],
+source: unescape('update%0A%09chapters%20%3A%3D%20nil.%0A%09announcer%20%3A%3D%20nil.%0A%09widget%20%3A%3D%20nil.%0A%09%28window%20jQuery%3A%20%27.documentation%27%29%20remove.%0A%09self%20build'),
+messageSends: ["remove", "jQuery:", "build"],
+referencedClasses: []
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+unescape('_build'),
+smalltalk.method({
+selector: unescape('build'),
+category: 'building',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_buildOnJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
+return self;},
+args: [],
+source: unescape('build%0A%09self%20buildOnJQuery%3A%20%28%27body%27%20asJQuery%29'),
+messageSends: ["buildOnJQuery:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.DocumentationBuilder);
+
 
 smalltalk.DocumentationBuilder.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -237,11 +289,11 @@ selector: unescape('initialize'),
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_buildOnJQuery_", [smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", ["body"])]);
+smalltalk.send(smalltalk.send(self, "_current", []), "_build", []);
 return self;},
 args: [],
-source: unescape('initialize%0A%09self%20current%20buildOnJQuery%3A%20%28window%20jQuery%3A%20%27body%27%29'),
-messageSends: ["buildOnJQuery:", "current", "jQuery:"],
+source: unescape('initialize%0A%09self%20current%20build'),
+messageSends: ["build", "current"],
 referencedClasses: []
 }),
 smalltalk.DocumentationBuilder.klass);

@@ -34,6 +34,10 @@ buildOn: aCanvas
 
 buildOnJQuery: aJQuery
 	self buildOn: (HTMLCanvas onJQuery: aJQuery)
+!
+
+build
+	self buildOnJQuery: ('body' asJQuery)
 ! !
 
 !DocumentationBuilder methodsFor: 'chapters'!
@@ -232,9 +236,11 @@ ch5Index
 !
 
 ch6KernelObjects
-	^(PackageDocChapter on: (Package named: 'Kernel-Objects'))
-		title: 'Kernel-Objects';
-		yourself
+	^PackageDocChapter on: (Package named: 'Kernel-Objects')
+!
+
+ch7KernelClasses
+	^PackageDocChapter on: (Package named: 'Kernel-Classes')
 ! !
 
 !DocumentationBuilder methodsFor: 'routing'!
@@ -251,6 +257,16 @@ checkHash
 		yourself)
 ! !
 
+!DocumentationBuilder methodsFor: 'updating'!
+
+update
+	chapters := nil.
+	announcer := nil.
+	widget := nil.
+	(window jQuery: '.documentation') remove.
+	self build
+! !
+
 DocumentationBuilder class instanceVariableNames: 'current'!
 
 !DocumentationBuilder class methodsFor: 'accessing'!
@@ -262,7 +278,7 @@ current
 !DocumentationBuilder class methodsFor: 'initialization'!
 
 initialize
-	self current buildOnJQuery: (window jQuery: 'body')
+	self current build
 ! !
 
 Widget subclass: #DocChapter

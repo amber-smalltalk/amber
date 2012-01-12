@@ -1,5 +1,6 @@
 smalltalk.addPackage('Kernel-Objects', {});
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
+smalltalk.Object.comment=unescape('*Object%20is%20the%20root%20of%20the%20Smalltalk%20class%20system*.%20All%20classes%20in%20the%20system%20are%20subclasses%20of%20Object.%0A%0AObject%20provides%20default%20behavior%20common%20to%20all%20normal%20objects%2C%20such%20as%3A%20%0A%0A-%20access%0A-%20copying%0A-%20comparison%0A-%20error%20handling%0A-%20message%20sending%0A-%20reflection%0A%0AAlso%20utility%20messages%20that%20all%20objects%20should%20respond%20to%20are%20defined%20here.%0A%0AObject%20has%20no%20instance%20variable.%0A%0A%23%23Access%0A%0AInstance%20variables%20can%20be%20accessed%20with%20%60%23instVarAt%3A%60%20and%20%60%23instVarAt%3Aput%3A%60.%20%60Object%20%3E%3E%20instanceVariableNames%60%20answers%20a%20collection%20of%20all%20instance%20variable%20names.%0AAccessing%20JavaScript%20properties%20if%20an%20object%20is%20done%20through%20%60%23basicAt%3A%60%2C%20%60%23basicAt%3Aput%3A%60%20and%20%60basicDelete%3A%60.%0A%0A%23%23Copying%0A%0ACopying%20an%20object%20is%20handled%20by%20%60%23copy%60%20and%20%60%23deepCopy%60.%20The%20first%20one%20performs%20a%20shallow%20copy%20of%20the%20receiver%2C%20while%20the%20second%20one%20performs%20a%20deep%20copy.%0AThe%20hook%20method%20%60%23postCopy%60%20can%20be%20overriden%20in%20subclasses%20to%20copy%20fields%20as%20necessary%20to%20complete%20the%20full%20copy.%20It%20will%20be%20sent%20by%20the%20copy%20of%20the%20receiver.%0A%0A%23%23Comparison%0A%0AObjects%20understand%20equality%20%20%60%23%3D%60%20and%20identity%20%60%23%3D%3D%60%20comparison.%0A%0A%23%23Error%20handling%0A%0A-%20%60%23halt%60%20is%20the%20typical%20message%20to%20use%20for%20inserting%20breakpoints%20during%20debugging.%0A-%20%60%23error%3A%60%20throws%20a%20generic%20error%20exception%0A-%20%60%23doesNotUnderstand%3A%60%20handles%20the%20fact%20that%20there%20was%20an%20attempt%20to%20send%20the%20given%20message%20to%20the%20receiver%20but%20the%20receiver%20does%20not%20understand%20this%20message.%0A%20%20Overriding%20this%20message%20can%20be%20useful%20to%20implement%20proxies%20for%20example.')
 smalltalk.addMethod(
 unescape('__eq'),
 smalltalk.method({
@@ -2330,6 +2331,7 @@ smalltalk.Number.klass);
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.Boolean.comment=unescape('Boolean%20wraps%20the%20JavaScript%20%60Boolean%28%29%60%20constructor.%20The%20%60true%60%20and%20%60false%60%20objects%20are%20the%20JavaScript%20boolean%20objects.%0A%0ABoolean%20defines%20the%20protocol%20for%20logic%20testing%20operations%20and%20conditional%20control%20structures%20for%20the%20logical%20values.%0ABoolean%20instances%20are%20weither%20%60true%60%20or%20%60false%60.')
 smalltalk.addMethod(
 unescape('__eq'),
 smalltalk.method({
@@ -2561,7 +2563,7 @@ smalltalk.Boolean);
 
 
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.')
+smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.%20Therefore%20%60Date%20today%60%20and%20%60Date%20now%60%20are%20both%20valid%20in%0AAmber%20and%20answer%20the%20same%20date%20object.%0A%0ADate%20wraps%20the%20%60Date%28%29%60%20JavaScript%20constructor%2C%20and%20Smalltalk%20date%20objects%20are%20JavaScript%20date%20objects.')
 smalltalk.addMethod(
 unescape('_year'),
 smalltalk.method({
