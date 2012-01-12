@@ -3420,6 +3420,7 @@ smalltalk.UndefinedObject.klass);
 
 
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.Random.comment=unescape('Random%20is%20just%20a%20wrapper%20around%20javascript%20Math.random%28%29%20and%20is%20trivially%20used%20like%20this%3A%0A%0A%09Random%20new%20next%0A%0AThis%20will%20return%20a%20float%20x%20where%20x%20%3C%201%20and%20x%20%3E%200.%20If%20you%20want%20a%20random%20integer%20between%201%20and%2010%20you%20can%20use%20%23atRandom%0A%0A%0910%20atRandom%0A%0A...which%20is%20also%20implemented%20in%20SequencableCollection%20so%20you%20can%20easy%20pick%20an%20element%20at%20random%3A%0A%0A%09%23%28%27a%27%20%27b%27%20%27c%27%29%20atRandom')
 smalltalk.addMethod(
 unescape('_next'),
 smalltalk.method({
