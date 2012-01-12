@@ -315,6 +315,32 @@ initialize
 Object subclass: #Smalltalk
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Smalltalk commentStamp!
+Smalltalk has only one instance, accessed with `Smalltalk current`. 
+It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+
+The `smalltalk` object holds all class and packages defined in the system.
+
+## Classes
+
+Classes can be accessed using the following methods:
+
+- `#classes` answers the full list of Smalltalk classes in the system
+- `#at:` answers a specific class of `nil`
+
+## Packages
+
+Packages can be accessed using the following methods:
+
+- `#packages` answers the full list of packages
+- `#packageAt:` answers a specific class of `nil`
+
+__note:__ classes and packages are accessed using strings, not symbols
+
+## Parsing
+
+The `#parse:` method is used to parse Smalltalk source code. 
+It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
 
 !Smalltalk methodsFor: 'accessing'!
 
