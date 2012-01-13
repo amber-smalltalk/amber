@@ -61,6 +61,14 @@ Noteworthy features:
 - Amber is a live Smalltalk that **compiles incrementally into efficient JavaScript** often mapping one-to-one with JavaScript equivalents.
 - Amber has a **Seaside influenced canvas library** to dynamically generate HTML.
 
+## Arguments for using Amber
+In our humble opinion the main arguments for using Amber are:
+
+- JavaScript is quite a broken language with lots of traps and odd quirks. It is the assembler of the Internet which is cool, but we don''t want to write in it.
+- Smalltalk as a language is immensely cleaner and more mature, both syntactically and semantically.
+- Smalltalk has a simple class model with a lightweight syntax for closures, it is in many ways a perfect match for the Good Parts of JavaScript.
+- Having a true live interactive incremental development environment where you can build your application directly in the browser is unbeatable.
+
 ## Disclaimer
 
 This documentation doesn''t aim to teach Smalltalk. 
