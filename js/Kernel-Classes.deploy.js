@@ -220,7 +220,7 @@ selector: 'protocolsDo:',
 fn: function (aBlock){
 var self=this;
 var methodsByCategory=nil;
-methodsByCategory=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(methodsByCategory=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_values", []), "_do_", [(function(m){return smalltalk.send(smalltalk.send(methodsByCategory, "_at_ifAbsentPut_", [smalltalk.send(m, "_category", []), (function(){return smalltalk.send((smalltalk.Array || Array), "_new", []);})]), "_add_", [m]);})]);
 smalltalk.send(smalltalk.send(self, "_protocols", []), "_do_", [(function(category){return smalltalk.send(aBlock, "_value_value_", [category, smalltalk.send(methodsByCategory, "_at_", [category])]);})]);
 return self;}
