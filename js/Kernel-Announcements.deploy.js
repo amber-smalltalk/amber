@@ -1,13 +1,24 @@
 smalltalk.addPackage('Kernel-Announcements', {});
 smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
 smalltalk.addMethod(
+'_announce_',
+smalltalk.method({
+selector: 'announce:',
+fn: function (anAnnouncement){
+var self=this;
+smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
+return self;}
+}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@subscriptions']=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection), "_new", []);
+(self['@subscriptions']=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection), "_new", []));
 return self;}
 }),
 smalltalk.Announcer);
@@ -19,17 +30,6 @@ selector: 'on:do:',
 fn: function (aClass, aBlock){
 var self=this;
 smalltalk.send(self['@subscriptions'], "_add_", [(function($rec){smalltalk.send($rec, "_block_", [aBlock]);smalltalk.send($rec, "_announcementClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription), "_new", []))]);
-return self;}
-}),
-smalltalk.Announcer);
-
-smalltalk.addMethod(
-'_announce_',
-smalltalk.method({
-selector: 'announce:',
-fn: function (anAnnouncement){
-var self=this;
-smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
 return self;}
 }),
 smalltalk.Announcer);
@@ -54,7 +54,7 @@ smalltalk.method({
 selector: 'announcementClass:',
 fn: function (aClass){
 var self=this;
-self['@announcementClass']=aClass;
+(self['@announcementClass']=aClass);
 return self;}
 }),
 smalltalk.AnnouncementSubscription);
@@ -76,7 +76,7 @@ smalltalk.method({
 selector: 'block:',
 fn: function (aBlock){
 var self=this;
-self['@block']=aBlock;
+(self['@block']=aBlock);
 return self;}
 }),
 smalltalk.AnnouncementSubscription);

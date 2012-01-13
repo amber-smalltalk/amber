@@ -476,8 +476,8 @@ category: 'evaluating',
 fn: function (aBlock){
 var self=this;
 var success=nil;
-success=false;
-return smalltalk.send((function(){smalltalk.send(self, "_value", []);success=true;return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+(success=false);
+return smalltalk.send((function(){smalltalk.send(self, "_value", []);(success=true);return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
 return self;},
 args: ["aBlock"],
 source: unescape('ensure%3A%20aBlock%0A%09%7C%20success%20%7C%0A%09success%20%3A%3D%20false.%0A%09%5E%5Bself%20value.%20success%20%3A%3D%20true.%20aBlock%20value%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09success%20ifFalse%3A%20%5BaBlock%20value%5D.%0A%09%09%09ex%20signal%5D'),
@@ -659,7 +659,7 @@ selector: unescape('selector%3A'),
 category: 'accessing',
 fn: function (aString){
 var self=this;
-self['@selector']=aString;
+(self['@selector']=aString);
 return self;},
 args: ["aString"],
 source: unescape('selector%3A%20aString%0A%09selector%20%3A%3D%20aString'),
@@ -675,7 +675,7 @@ selector: unescape('arguments%3A'),
 category: 'accessing',
 fn: function (anArray){
 var self=this;
-self['@arguments']=anArray;
+(self['@arguments']=anArray);
 return self;},
 args: ["anArray"],
 source: unescape('arguments%3A%20anArray%0A%09arguments%20%3A%3D%20anArray'),

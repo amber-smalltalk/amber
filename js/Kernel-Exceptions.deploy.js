@@ -17,7 +17,7 @@ smalltalk.method({
 selector: 'messageText:',
 fn: function (aString){
 var self=this;
-self['@messageText']=aString;
+(self['@messageText']=aString);
 return self;}
 }),
 smalltalk.Error);
@@ -97,7 +97,7 @@ smalltalk.method({
 selector: 'message:',
 fn: function (aMessage){
 var self=this;
-self['@message']=aMessage;
+(self['@message']=aMessage);
 return self;}
 }),
 smalltalk.MessageNotUnderstood);
@@ -119,7 +119,7 @@ smalltalk.method({
 selector: 'receiver:',
 fn: function (anObject){
 var self=this;
-self['@receiver']=anObject;
+(self['@receiver']=anObject);
 return self;}
 }),
 smalltalk.MessageNotUnderstood);
@@ -203,7 +203,7 @@ smalltalk.method({
 selector: 'current',
 fn: function (){
 var self=this;
-return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return self['@current']=smalltalk.send(self, "_new", []);})() : $receiver;
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", []));})() : $receiver;
 return self;}
 }),
 smalltalk.ErrorHandler.klass);
@@ -236,7 +236,7 @@ smalltalk.method({
 selector: 'setCurrent:',
 fn: function (anHandler){
 var self=this;
-self['@current']=anHandler;
+(self['@current']=anHandler);
 return self;}
 }),
 smalltalk.ErrorHandler.klass);

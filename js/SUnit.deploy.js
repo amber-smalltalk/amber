@@ -6,7 +6,7 @@ smalltalk.method({
 selector: 'setTestSelector:',
 fn: function (aSelector){
 var self=this;
-self['@testSelector']=aSelector;
+(self['@testSelector']=aSelector);
 return self;}
 }),
 smalltalk.TestCase);
@@ -187,7 +187,7 @@ selector: 'allTestSelectors',
 fn: function (){
 var self=this;
 var selectors=nil;
-selectors=smalltalk.send(self, "_testSelectors", []);
+(selectors=smalltalk.send(self, "_testSelectors", []));
 ((($receiver = smalltalk.send(self, "_shouldInheritSelectors", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(selectors, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allTestSelectors", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(selectors, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allTestSelectors", [])]);})]));
 return selectors;
 return self;}
@@ -271,7 +271,7 @@ smalltalk.method({
 selector: 'total:',
 fn: function (aNumber){
 var self=this;
-self['@total']=aNumber;
+(self['@total']=aNumber);
 return self;}
 }),
 smalltalk.TestResult);
@@ -315,7 +315,7 @@ smalltalk.method({
 selector: 'increaseRuns',
 fn: function (){
 var self=this;
-self['@runs']=((($receiver = self['@runs']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));
+(self['@runs']=((($receiver = self['@runs']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
 return self;}
 }),
 smalltalk.TestResult);
@@ -338,11 +338,11 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@timestamp']=smalltalk.send((smalltalk.Date || Date), "_now", []);
-self['@runs']=(0);
-self['@errors']=smalltalk.send((smalltalk.Array || Array), "_new", []);
-self['@failures']=smalltalk.send((smalltalk.Array || Array), "_new", []);
-self['@total']=(0);
+(self['@timestamp']=smalltalk.send((smalltalk.Date || Date), "_now", []));
+(self['@runs']=(0));
+(self['@errors']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+(self['@failures']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+(self['@total']=(0));
 return self;}
 }),
 smalltalk.TestResult);
