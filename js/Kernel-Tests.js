@@ -206,11 +206,11 @@ selector: unescape('testDynamicDictionaries'),
 category: 'tests',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.HashedCollection._fromPairs_([smalltalk.send((1), "__minus_gt", ["hello"]),smalltalk.send((2), "__minus_gt", ["world"])]), "__eq", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_with_", [smalltalk.send((1), "__minus_gt", ["hello"]), smalltalk.send((2), "__minus_gt", ["world"])])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.HashedCollection._fromPairs_([smalltalk.send("hello", "__minus_gt", [(1)])]), "_asDictionary", []), "__eq", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_", [smalltalk.send("hello", "__minus_gt", [(1)])])])]);
 return self;},
 args: [],
-source: unescape('testDynamicDictionaries%0A%09self%20assert%3A%20%23%7B1%20-%3E%20%27hello%27.%202%20-%3E%20%27world%27%7D%20%3D%20%28Dictionary%20with%3A%201%20-%3E%20%27hello%27%20with%3A%202%20-%3E%20%27world%27%29'),
-messageSends: ["assert:", unescape("%3D"), unescape("-%3E"), "with:with:"],
+source: unescape('testDynamicDictionaries%0A%09self%20assert%3A%20%23%7B%27hello%27%20-%3E%201%7D%20asDictionary%20%3D%20%28Dictionary%20with%3A%20%27hello%27%20-%3E%201%29'),
+messageSends: ["assert:", unescape("%3D"), "asDictionary", unescape("-%3E"), "with:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
