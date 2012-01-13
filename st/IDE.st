@@ -2339,7 +2339,7 @@ inspectOn: anInspector
 		setVariables: variables
 ! !
 
-!Dictionary methodsFor: '*IDE'!
+!HashedCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |

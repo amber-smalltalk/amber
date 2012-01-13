@@ -4886,7 +4886,7 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables=nil;
-variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(variables, "_at_put_", [unescape("%23self"), self]);
 smalltalk.send(variables, "_at_put_", [unescape("%23keys"), smalltalk.send(self, "_keys", [])]);
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(variables, "_at_put_", [key, value]);})]);
@@ -4897,5 +4897,5 @@ source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09var
 messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.Dictionary);
+smalltalk.HashedCollection);
 
