@@ -34,7 +34,7 @@ prototype
 !
 
 methodDictionary
-	<var dict = smalltalk.Dictionary._new();
+	<var dict = smalltalk.HashedCollection._new();
 	var methods = self.fn.prototype.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
