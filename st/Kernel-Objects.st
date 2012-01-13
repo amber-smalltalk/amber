@@ -1261,11 +1261,11 @@ Object subclass: #Random
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 !Random commentStamp!
-Random is a random number generator and is implemented as a wrapper around javascript Math.random() and is trivially used like this:
+`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
 
 	Random new next
 
-This will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use #atRandom
+This will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`
 
 	10 atRandom
 
@@ -1273,17 +1273,19 @@ This will return a float x where x < 1 and x > 0. If you want a random integer f
 
 	(3 to: 7) atRandom
 
-...but be aware that #to: does not create an Interval as in other Smalltalks but in fact an Array of numbers, so it's better to use:
+...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
 
 	5 atRandom + 2
 
-Since #atRandom is implemented in SequencableCollection you can easy pick an element at random:
+Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:
 
 	#('a' 'b' 'c') atRandom
 
-...or perhaps a letter from a String:
+...or perhaps a letter from a `String`:
 
-	'abc' atRandom!
+	'abc' atRandom
+
+Since Amber does not have Characters this will return a `String` of length 1 like for example `'b'`.!
 
 !Random methodsFor: 'accessing'!
 
