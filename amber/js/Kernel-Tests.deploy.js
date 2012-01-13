@@ -131,14 +131,14 @@ var self=this;
 var d1=nil;
 var d2=nil;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []), "__eq", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", [])])]);
-d1=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (2)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
-d2=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (2)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+(d1=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (2)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", [])));
+(d2=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (2)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", [])));
 smalltalk.send(self, "_assert_", [smalltalk.send(d1, "__eq", [d2])]);
-d2=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (3)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+(d2=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (3)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", [])));
 smalltalk.send(self, "_deny_", [smalltalk.send(d1, "__eq", [d2])]);
-d2=(function($rec){smalltalk.send($rec, "_at_put_", [(2), (2)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+(d2=(function($rec){smalltalk.send($rec, "_at_put_", [(2), (2)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", [])));
 smalltalk.send(self, "_deny_", [smalltalk.send(d1, "__eq", [d2])]);
-d2=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (2)]);smalltalk.send($rec, "_at_put_", [(3), (4)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+(d2=(function($rec){smalltalk.send($rec, "_at_put_", [(1), (2)]);smalltalk.send($rec, "_at_put_", [(3), (4)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", [])));
 smalltalk.send(self, "_deny_", [smalltalk.send(d1, "__eq", [d2])]);
 return self;}
 }),
@@ -150,7 +150,7 @@ smalltalk.method({
 selector: 'testDynamicDictionaries',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.Dictionary._fromPairs_([smalltalk.send((1), "__minus_gt", ["hello"]),smalltalk.send((2), "__minus_gt", ["world"])]), "__eq", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_with_", [smalltalk.send((1), "__minus_gt", ["hello"]), smalltalk.send((2), "__minus_gt", ["world"])])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.HashedCollection._fromPairs_([smalltalk.send("hello", "__minus_gt", [(1)])]), "_asDictionary", []), "__eq", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_", [smalltalk.send("hello", "__minus_gt", [(1)])])])]);
 return self;}
 }),
 smalltalk.DictionaryTest);
@@ -162,7 +162,7 @@ selector: 'testAccessing',
 fn: function (){
 var self=this;
 var d=nil;
-d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(d, "_at_put_", ["hello", "world"]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_at_", ["hello"]), "__eq", ["world"])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_at_ifAbsent_", ["hello", (function(){return nil;})]), "__eq", ["world"])]);
@@ -182,7 +182,7 @@ selector: 'testSize',
 fn: function (){
 var self=this;
 var d=nil;
-d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_size", []), "__eq", [(0)])]);
 smalltalk.send(d, "_at_put_", [(1), (2)]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_size", []), "__eq", [(1)])]);
@@ -199,7 +199,7 @@ selector: 'testValues',
 fn: function (){
 var self=this;
 var d=nil;
-d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(d, "_at_put_", [(1), (2)]);
 smalltalk.send(d, "_at_put_", [(2), (3)]);
 smalltalk.send(d, "_at_put_", [(3), (4)]);
@@ -215,7 +215,7 @@ selector: 'testKeys',
 fn: function (){
 var self=this;
 var d=nil;
-d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(d, "_at_put_", [(1), (2)]);
 smalltalk.send(d, "_at_put_", [(2), (3)]);
 smalltalk.send(d, "_at_put_", [(3), (4)]);
@@ -483,10 +483,10 @@ selector: 'testTimesRepeat',
 fn: function (){
 var self=this;
 var i=nil;
-i=(0);
-smalltalk.send((0), "_timesRepeat_", [(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]);
+(i=(0));
+smalltalk.send((0), "_timesRepeat_", [(function(){return (i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})]);
 smalltalk.send(self, "_assert_equals_", [i, (0)]);
-smalltalk.send((5), "_timesRepeat_", [(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]);
+smalltalk.send((5), "_timesRepeat_", [(function(){return (i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})]);
 smalltalk.send(self, "_assert_equals_", [i, (5)]);
 return self;}
 }),
@@ -519,6 +519,17 @@ smalltalk.NumberTest);
 
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
+'_jsObject',
+smalltalk.method({
+selector: 'jsObject',
+fn: function (){
+var self=this;
+return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}};
+return self;}
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
 '_testMethodWithArguments',
 smalltalk.method({
 selector: 'testMethodWithArguments',
@@ -540,7 +551,7 @@ selector: 'testYourself',
 fn: function (){
 var self=this;
 var body=nil;
-body=(function($rec){smalltalk.send($rec, "_addClass_", ["amber"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send("body", "_asJQuery", []));
+(body=(function($rec){smalltalk.send($rec, "_addClass_", ["amber"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send("body", "_asJQuery", [])));
 smalltalk.send(self, "_assert_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
 smalltalk.send(body, "_removeClass_", ["amber"]);
 smalltalk.send(self, "_deny_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
@@ -558,17 +569,6 @@ document.location.hash = '';
 smalltalk.send(self, "_assert_equals_", ["", smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
 smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", ["test"]);
 smalltalk.send(self, "_assert_equals_", [unescape("%23test"), smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", [])]);
-return self;}
-}),
-smalltalk.JSObjectProxyTest);
-
-smalltalk.addMethod(
-'_jsObject',
-smalltalk.method({
-selector: 'jsObject',
-fn: function (){
-var self=this;
-return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}};
 return self;}
 }),
 smalltalk.JSObjectProxyTest);
@@ -617,11 +617,11 @@ smalltalk.method({
 selector: 'setUp',
 fn: function (){
 var self=this;
-self['@backUpCommitPathJs']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathJs", []);
-self['@backUpCommitPathSt']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathSt", []);
+(self['@backUpCommitPathJs']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathJs", []));
+(self['@backUpCommitPathSt']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathSt", []));
 smalltalk.send((smalltalk.Package || Package), "_resetCommitPaths", []);
-self['@zorkPackage']=smalltalk.send(smalltalk.send((smalltalk.Package || Package), "_new", []), "_name_", ["Zork"]);
-self['@grulPackage']=(function($rec){smalltalk.send($rec, "_name_", ["Grul"]);smalltalk.send($rec, "_commitPathJs_", [unescape("server/grul/js")]);smalltalk.send($rec, "_commitPathSt_", [unescape("grul/st")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Package || Package), "_new", []));
+(self['@zorkPackage']=smalltalk.send(smalltalk.send((smalltalk.Package || Package), "_new", []), "_name_", ["Zork"]));
+(self['@grulPackage']=(function($rec){smalltalk.send($rec, "_name_", ["Grul"]);smalltalk.send($rec, "_commitPathJs_", [unescape("server/grul/js")]);smalltalk.send($rec, "_commitPathSt_", [unescape("grul/st")]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Package || Package), "_new", [])));
 return self;}
 }),
 smalltalk.PackageTest);
@@ -822,11 +822,11 @@ selector: 'testWhileTrue',
 fn: function (){
 var self=this;
 var i=nil;
-i=(0);
-(function(){while((function(){return ((($receiver = i).klass === smalltalk.Number) ? $receiver <(5) : smalltalk.send($receiver, "__lt", [(5)]));})()) {(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()}})();
+(i=(0));
+(function(){while((function(){return ((($receiver = i).klass === smalltalk.Number) ? $receiver <(5) : smalltalk.send($receiver, "__lt", [(5)]));})()) {(function(){return (i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
 smalltalk.send(self, "_assert_equals_", [i, (5)]);
-i=(0);
-(function(){while((function(){i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));return ((($receiver = i).klass === smalltalk.Number) ? $receiver <(5) : smalltalk.send($receiver, "__lt", [(5)]));})()) {}})();
+(i=(0));
+(function(){while((function(){(i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return ((($receiver = i).klass === smalltalk.Number) ? $receiver <(5) : smalltalk.send($receiver, "__lt", [(5)]));})()) {}})();
 smalltalk.send(self, "_assert_equals_", [i, (5)]);
 return self;}
 }),
@@ -839,11 +839,11 @@ selector: 'testWhileFalse',
 fn: function (){
 var self=this;
 var i=nil;
-i=(0);
-(function(){while(!(function(){return ((($receiver = i).klass === smalltalk.Number) ? $receiver >(5) : smalltalk.send($receiver, "__gt", [(5)]));})()) {(function(){return i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()}})();
+(i=(0));
+(function(){while(!(function(){return ((($receiver = i).klass === smalltalk.Number) ? $receiver >(5) : smalltalk.send($receiver, "__gt", [(5)]));})()) {(function(){return (i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
 smalltalk.send(self, "_assert_equals_", [i, (6)]);
-i=(0);
-(function(){while(!(function(){i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));return ((($receiver = i).klass === smalltalk.Number) ? $receiver >(5) : smalltalk.send($receiver, "__gt", [(5)]));})()) {}})();
+(i=(0));
+(function(){while(!(function(){(i=((($receiver = i).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return ((($receiver = i).klass === smalltalk.Number) ? $receiver >(5) : smalltalk.send($receiver, "__gt", [(5)]));})()) {}})();
 smalltalk.send(self, "_assert_equals_", [i, (6)]);
 return self;}
 }),
@@ -870,7 +870,7 @@ selector: 'testEquality',
 fn: function (){
 var self=this;
 var o=nil;
-o=smalltalk.send((smalltalk.Object || Object), "_new", []);
+(o=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(self, "_deny_", [smalltalk.send(o, "__eq", [smalltalk.send((smalltalk.Object || Object), "_new", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq", [o])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(o, "_yourself", []), "__eq", [o])]);
@@ -886,7 +886,7 @@ selector: 'testIdentity',
 fn: function (){
 var self=this;
 var o=nil;
-o=smalltalk.send((smalltalk.Object || Object), "_new", []);
+(o=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(self, "_deny_", [smalltalk.send(o, "__eq_eq", [smalltalk.send((smalltalk.Object || Object), "_new", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq_eq", [o])]);
 return self;}
@@ -911,7 +911,7 @@ selector: 'testBasicAccess',
 fn: function (){
 var self=this;
 var o=nil;
-o=smalltalk.send((smalltalk.Object || Object), "_new", []);
+(o=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(o, "_basicAt_put_", ["a", (1)]);
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(o, "_basicAt_", ["a"]), (1)]);
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(o, "_basicAt_", ["b"]), nil]);
@@ -938,8 +938,8 @@ fn: function (){
 var self=this;
 var o1=nil;
 var o2=nil;
-o1=smalltalk.send((smalltalk.Object || Object), "_new", []);
-o2=smalltalk.send((smalltalk.Object || Object), "_new", []);
+(o1=smalltalk.send((smalltalk.Object || Object), "_new", []));
+(o2=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(o1, "_identityHash", []), "__eq_eq", [smalltalk.send(o1, "_identityHash", [])])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send(o1, "_identityHash", []), "__eq_eq", [smalltalk.send(o2, "_identityHash", [])])]);
 return self;}
@@ -953,7 +953,7 @@ selector: 'testBasicPerform',
 fn: function (){
 var self=this;
 var o=nil;
-o=smalltalk.send((smalltalk.Object || Object), "_new", []);
+(o=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(o, "_basicAt_put_", ["func", (function(){return "hello";})]);
 smalltalk.send(o, "_basicAt_put_", ["func2", (function(a){return ((($receiver = a).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]);
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(o, "_basicPerform_", ["func"]), "hello"]);
@@ -984,7 +984,7 @@ selector: 'testInstVars',
 fn: function (){
 var self=this;
 var o=nil;
-o=smalltalk.send((smalltalk.ObjectMock || ObjectMock), "_new", []);
+(o=smalltalk.send((smalltalk.ObjectMock || ObjectMock), "_new", []));
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(o, "_instVarAt_", [smalltalk.symbolFor("foo")]), nil]);
 smalltalk.send(o, "_instVarAt_put_", [smalltalk.symbolFor("foo"), (1)]);
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(o, "_instVarAt_", [smalltalk.symbolFor("foo")]), (1)]);
@@ -1000,7 +1000,7 @@ selector: 'testYourself',
 fn: function (){
 var self=this;
 var o=nil;
-o=smalltalk.send((smalltalk.ObjectMock || ObjectMock), "_new", []);
+(o=smalltalk.send((smalltalk.ObjectMock || ObjectMock), "_new", []));
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(o, "_yourself", []), "__eq_eq", [o])]);
 return self;}
 }),
@@ -1172,7 +1172,7 @@ smalltalk.method({
 selector: 'foo:',
 fn: function (anObject){
 var self=this;
-self['@foo']=anObject;
+(self['@foo']=anObject);
 return self;}
 }),
 smalltalk.ObjectMock);
@@ -1293,7 +1293,7 @@ fn: function (){
 var self=this;
 smalltalk.send((10000), "_timesRepeat_", [(function(){var current=nil;
 var next=nil;
-next=smalltalk.send(smalltalk.send((smalltalk.Random || Random), "_new", []), "_next", []);smalltalk.send(self, "_assert_", [((($receiver = next).klass === smalltalk.Number) ? $receiver >=(0) : smalltalk.send($receiver, "__gt_eq", [(0)]))]);smalltalk.send(self, "_assert_", [((($receiver = next).klass === smalltalk.Number) ? $receiver <(1) : smalltalk.send($receiver, "__lt", [(1)]))]);smalltalk.send(self, "_deny_", [smalltalk.send(current, "__eq", [next])]);return smalltalk.send(next, "__eq", [current]);})]);
+(next=smalltalk.send(smalltalk.send((smalltalk.Random || Random), "_new", []), "_next", []));smalltalk.send(self, "_assert_", [((($receiver = next).klass === smalltalk.Number) ? $receiver >=(0) : smalltalk.send($receiver, "__gt_eq", [(0)]))]);smalltalk.send(self, "_assert_", [((($receiver = next).klass === smalltalk.Number) ? $receiver <(1) : smalltalk.send($receiver, "__lt", [(1)]))]);smalltalk.send(self, "_deny_", [smalltalk.send(current, "__eq", [next])]);return smalltalk.send(next, "__eq", [current]);})]);
 return self;}
 }),
 smalltalk.RandomTest);
@@ -1307,7 +1307,7 @@ smalltalk.method({
 selector: 'setUp',
 fn: function (){
 var self=this;
-self['@builder']=smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []);
+(self['@builder']=smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []));
 return self;}
 }),
 smalltalk.ClassBuilderTest);
@@ -1318,7 +1318,7 @@ smalltalk.method({
 selector: 'tearDown',
 fn: function (){
 var self=this;
-(($receiver = self['@theClass']) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removeClass_", [self['@theClass']]);return self['@theClass']=nil;})() : nil;
+(($receiver = self['@theClass']) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removeClass_", [self['@theClass']]);return (self['@theClass']=nil);})() : nil;
 return self;}
 }),
 smalltalk.ClassBuilderTest);
@@ -1329,7 +1329,7 @@ smalltalk.method({
 selector: 'testClassCopy',
 fn: function (){
 var self=this;
-self['@theClass']=smalltalk.send(self['@builder'], "_copyClass_named_", [(smalltalk.ObjectMock || ObjectMock), "ObjectMock2"]);
+(self['@theClass']=smalltalk.send(self['@builder'], "_copyClass_named_", [(smalltalk.ObjectMock || ObjectMock), "ObjectMock2"]));
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(self['@theClass'], "_superclass", []), "__eq_eq", [smalltalk.send((smalltalk.ObjectMock || ObjectMock), "_superclass", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(self['@theClass'], "_instanceVariableNames", []), "__eq_eq", [smalltalk.send((smalltalk.ObjectMock || ObjectMock), "_instanceVariableNames", [])])]);
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(self['@theClass'], "_name", []), "ObjectMock2"]);
@@ -1360,7 +1360,7 @@ selector: 'testUnicity',
 fn: function (){
 var self=this;
 var set=nil;
-set=smalltalk.send((smalltalk.Set || Set), "_new", []);
+(set=smalltalk.send((smalltalk.Set || Set), "_new", []));
 smalltalk.send(set, "_add_", [(21)]);
 smalltalk.send(set, "_add_", ["hello"]);
 smalltalk.send(set, "_add_", [(21)]);
@@ -1390,7 +1390,7 @@ selector: 'testAddRemove',
 fn: function (){
 var self=this;
 var set=nil;
-set=smalltalk.send((smalltalk.Set || Set), "_new", []);
+(set=smalltalk.send((smalltalk.Set || Set), "_new", []));
 smalltalk.send(self, "_assert_", [smalltalk.send(set, "_isEmpty", [])]);
 smalltalk.send(set, "_add_", [(3)]);
 smalltalk.send(self, "_assert_", [smalltalk.send(set, "_includes_", [(3)])]);

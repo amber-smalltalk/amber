@@ -1300,9 +1300,11 @@ visitValueNode: aNode
 !
 
 visitAssignmentNode: aNode
+	stream nextPutAll: '('.
 	self visit: aNode left.
 	stream nextPutAll: '='.
-	self visit: aNode right
+	self visit: aNode right.
+	stream nextPutAll: ')'
 !
 
 visitClassReferenceNode: aNode

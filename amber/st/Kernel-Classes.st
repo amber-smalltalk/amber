@@ -34,7 +34,7 @@ prototype
 !
 
 methodDictionary
-	<var dict = smalltalk.Dictionary._new();
+	<var dict = smalltalk.HashedCollection._new();
 	var methods = self.fn.prototype.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
@@ -92,7 +92,7 @@ protocolsDo: aBlock
 	its collection of methods in the sort order of category name."
 
 	| methodsByCategory |
-	methodsByCategory := Dictionary new.
+	methodsByCategory := HashedCollection new.
 	self methodDictionary values do: [:m |
 		(methodsByCategory at: m category ifAbsentPut: [Array new])
  			add: m]. 

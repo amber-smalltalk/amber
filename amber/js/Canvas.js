@@ -7,7 +7,7 @@ selector: unescape('root%3A'),
 category: 'accessing',
 fn: function (aTagBrush){
 var self=this;
-self['@root']=aTagBrush;
+(self['@root']=aTagBrush);
 return self;},
 args: ["aTagBrush"],
 source: unescape('root%3A%20aTagBrush%0A%20%20%20%20root%20%3A%3D%20aTagBrush'),
@@ -56,7 +56,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-(($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]);})() : $receiver;
+(($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return (self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]));})() : $receiver;
 return self;},
 args: [],
 source: unescape('initialize%0A%20%20%20%20super%20initialize.%0A%20%20%20%20root%20ifNil%3A%20%5Broot%20%3A%3D%20TagBrush%20fromString%3A%20%27div%27%20canvas%3A%20self%5D'),
@@ -72,7 +72,7 @@ selector: unescape('initializeFromJQuery%3A'),
 category: 'initialization',
 fn: function (aJQuery){
 var self=this;
-self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]);
+(self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]));
 return self;},
 args: ["aJQuery"],
 source: unescape('initializeFromJQuery%3A%20aJQuery%0A%20%20%20%20root%20%3A%3D%20TagBrush%20fromJQuery%3A%20aJQuery%20canvas%3A%20self'),
@@ -1149,7 +1149,7 @@ category: 'adding',
 fn: function (aBlock){
 var self=this;
 var root=nil;
-root=smalltalk.send(self['@canvas'], "_root", []);
+(root=smalltalk.send(self['@canvas'], "_root", []));
 smalltalk.send(self['@canvas'], "_root_", [self]);
 smalltalk.send(aBlock, "_value_", [self['@canvas']]);
 smalltalk.send(self['@canvas'], "_root_", [root]);
@@ -1573,8 +1573,8 @@ selector: unescape('initializeFromString%3Acanvas%3A'),
 category: 'initialization',
 fn: function (aString, aCanvas){
 var self=this;
-self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
-self['@canvas']=aCanvas;
+(self['@element']=smalltalk.send(self, "_createElementFor_", [aString]));
+(self['@canvas']=aCanvas);
 return self;},
 args: ["aString", "aCanvas"],
 source: unescape('initializeFromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20self%20createElementFor%3A%20aString.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
@@ -1590,8 +1590,8 @@ selector: unescape('initializeFromJQuery%3Acanvas%3A'),
 category: 'initialization',
 fn: function (aJQuery, aCanvas){
 var self=this;
-self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]);
-self['@canvas']=aCanvas;
+(self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]));
+(self['@canvas']=aCanvas);
 return self;},
 args: ["aJQuery", "aCanvas"],
 source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),

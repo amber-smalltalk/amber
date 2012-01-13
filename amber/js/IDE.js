@@ -2440,10 +2440,10 @@ selector: unescape('searchSelectorReferencesFor%3A'),
 category: 'actions',
 fn: function (aString){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(key, "__eq", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})]));})]);return smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(smalltalk.send(value, "_messageSends", []), "_includes_", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})]));})]);})]);
+smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){((($receiver = smalltalk.send(key, "__eq", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})]));return ((($receiver = smalltalk.send(smalltalk.send(value, "_messageSends", []), "_includes_", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})]));})]);})]);
 return self;},
 args: ["aString"],
-source: unescape('searchSelectorReferencesFor%3A%20aString%0A%09self%20classesAndMetaclasses%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09each%20methodDictionary%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%20%0A%09%09%09key%20%3D%20selector%20ifTrue%3A%20%5Bself%20implementors%20add%3A%20value%5D%5D.%0A%09%09each%20methodDictionary%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%20%0A%09%09%09%28value%20messageSends%20includes%3A%20selector%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20senders%20add%3A%20value%5D%5D%5D'),
+source: unescape('searchSelectorReferencesFor%3A%20aString%0A%09self%20classesAndMetaclasses%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09each%20methodDictionary%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%20%0A%09%09%09key%20%3D%20selector%20ifTrue%3A%20%5Bself%20implementors%20add%3A%20value%5D.%0A%09%09%09%28value%20messageSends%20includes%3A%20selector%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20senders%20add%3A%20value%5D%5D%5D'),
 messageSends: ["do:", "classesAndMetaclasses", "keysAndValuesDo:", "methodDictionary", "ifTrue:", unescape("%3D"), "add:", "implementors", "includes:", "messageSends", "senders"],
 referencedClasses: []
 }),
@@ -4886,7 +4886,7 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables=nil;
-variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(variables, "_at_put_", [unescape("%23self"), self]);
 smalltalk.send(variables, "_at_put_", [unescape("%23keys"), smalltalk.send(self, "_keys", [])]);
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(variables, "_at_put_", [key, value]);})]);
@@ -4897,5 +4897,5 @@ source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09var
 messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.Dictionary);
+smalltalk.HashedCollection);
 

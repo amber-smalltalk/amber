@@ -47,17 +47,27 @@ ch1introduction
 		title: 'Introduction';
 		contents: '
 
-##Amber Smalltalk in a nutshell.
+##Amber Smalltalk in a nutshell
 
-Amber is an implementation of the Smalltalk-80 language. 
-It allows developers to write client-side heavy web applications in Smalltalk. Amber includes an integrated development environment with a class browser, workspace and transcript.
+Amber is an implementation of the Smalltalk-80 language. It is designed to make client-side web development **faster, easier and more fun** as it allows developers to write HTML5 applications in a live Smalltalk environment!!
 
-Amber includes the following features:
+Amber is written in itself, including the IDE and the compiler and it runs **directly inside your browser**. The IDE is fairly complete with a class browser, workspace, transcript, unit test runner, object inspectors, cross reference tools and even a debugger.
 
-- It is semantically and syntactically equivalent to Pharo Smalltalk (the implementation considered as the reference)
-- It is written in itself and compiles into efficient JavaScript
-- A canvas API similar to Seaside to generate HTML
-- A jQuery binding.
+Noteworthy features:
+
+- Amber is semantically and syntactically very close to [Pharo Smalltalk](http://www.pharo-project.org). Pharo is considered the reference implementation.
+- Amber **seamlessly interacts with JavaScript** and can use its full eco system of libraries without any glue code needed.
+- Amber **has no dependencies** and can be used in any JavaScript runtime, not only inside browsers. An important example is [Node.js](http://nodejs.org).
+- Amber is a live Smalltalk that **compiles incrementally into efficient JavaScript** often mapping one-to-one with JavaScript equivalents.
+- Amber has a **Seaside influenced canvas library** to dynamically generate HTML.
+
+## Arguments for using Amber
+In our humble opinion the main arguments for using Amber are:
+
+- JavaScript is quite a broken language with lots of traps and odd quirks. It is the assembler of the Internet which is cool, but we don''t want to write in it.
+- Smalltalk as a language is immensely cleaner and more mature, both syntactically and semantically.
+- Smalltalk has a simple class model with a lightweight syntax for closures, it is in many ways a perfect match for the Good Parts of JavaScript.
+- Having a true live interactive incremental development environment where you can build your application directly in the browser is unbeatable.
 
 ## Disclaimer
 
@@ -71,13 +81,21 @@ ch2differencesWithOtherSmalltalks
 	^DocChapter new
 		title: 'Differences with other Smalltalks';
 		contents: '
-Amber has some differences with other Smalltalk implementations. 
-Because it maps Smalltalk constructs one-to-one with the JavaScript equivalent, including Smalltalk classes to JavaScript constructors, the core class library is simplified compared to Pharo Smalltalk. 
-The following list explains the main differences:
+Amber has some differences with other Smalltalk implementations. This makes porting code a non-trivial thing, but still quite manageable.
+Because it maps Smalltalk constructs one-to-one with the JavaScript equivalent, including Smalltalk classes to JavaScript constructors, the core class library is simplified compared to Pharo Smalltalk.
+And since we want Amber to be useful in building lean browser apps we can''t let it bloat too much.
 
-- The collection class hierarchy is simpler compared to most Smalltalk implementations. As of today, there is no SortedCollection. The size of arrays is dynamic, and they behave like an ordered collection. 
-  They can also be sorted with the #sort* methods.
-- The Date class behaves like the Date and TimeStamp classes in Pharo Smalltalk. Therefore both Date today and Date now are valid in Amber.
+But apart from missing things other Smalltalks may have, there are also things that are plain different:
+
+- The collection class hierarchy is much simpler compared to most Smalltalk implementations.
+- As of today, there is no SortedCollection. The size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the `#sort*` methods.
+- The `Date` class behaves like the `Date` and `TimeStamp` classes in Pharo Smalltalk. Therefore both `Date today` and `Date now` are valid in Amber.
+- Amber does not have class Character, but `String` does implement some of Character behavior.
+- Amber does support class instance variables, but not class variables.
+- Amber only has global classes and packages, but not arbitrary objects. Use classes instead like `Smalltalk current` instead of `Smalltalk` etc.
+- Amber does not support pool dictionaries.
+- Amber uses **< ...javascript code... >** to inline JavaScript code and does not have pragmas.
+- Amber does not have class categories. The left side in the browser lists real Packages, but they feel much the same.
 '
 !
 

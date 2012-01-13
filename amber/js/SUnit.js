@@ -7,7 +7,7 @@ selector: unescape('setTestSelector%3A'),
 category: 'accessing',
 fn: function (aSelector){
 var self=this;
-self['@testSelector']=aSelector;
+(self['@testSelector']=aSelector);
 return self;},
 args: ["aSelector"],
 source: unescape('setTestSelector%3A%20aSelector%0A%09testSelector%20%3A%3D%20aSelector'),
@@ -268,7 +268,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var selectors=nil;
-selectors=smalltalk.send(self, "_testSelectors", []);
+(selectors=smalltalk.send(self, "_testSelectors", []));
 ((($receiver = smalltalk.send(self, "_shouldInheritSelectors", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(selectors, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allTestSelectors", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(selectors, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allTestSelectors", [])]);})]));
 return selectors;
 return self;},
@@ -387,7 +387,7 @@ selector: unescape('total%3A'),
 category: 'accessing',
 fn: function (aNumber){
 var self=this;
-self['@total']=aNumber;
+(self['@total']=aNumber);
 return self;},
 args: ["aNumber"],
 source: unescape('total%3A%20aNumber%0A%09total%20%3A%3D%20aNumber'),
@@ -451,7 +451,7 @@ selector: unescape('increaseRuns'),
 category: 'accessing',
 fn: function (){
 var self=this;
-self['@runs']=((($receiver = self['@runs']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));
+(self['@runs']=((($receiver = self['@runs']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
 return self;},
 args: [],
 source: unescape('increaseRuns%0A%09runs%20%3A%3D%20runs%20+%201'),
@@ -484,11 +484,11 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@timestamp']=smalltalk.send((smalltalk.Date || Date), "_now", []);
-self['@runs']=(0);
-self['@errors']=smalltalk.send((smalltalk.Array || Array), "_new", []);
-self['@failures']=smalltalk.send((smalltalk.Array || Array), "_new", []);
-self['@total']=(0);
+(self['@timestamp']=smalltalk.send((smalltalk.Date || Date), "_now", []));
+(self['@runs']=(0));
+(self['@errors']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+(self['@failures']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+(self['@total']=(0));
 return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09timestamp%20%3A%3D%20Date%20now.%0A%09runs%20%3A%3D%200.%0A%09errors%20%3A%3D%20Array%20new.%0A%09failures%20%3A%3D%20Array%20new.%0A%09total%20%3A%3D%200'),
