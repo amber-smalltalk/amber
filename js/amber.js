@@ -17,8 +17,6 @@ amber = (function() {
 	var debug;
 	var deploy;
 
-	var localStorageSource = [];
-	var localPackages;
 	var spec;
 
 	that.toggleIDE = function() {
@@ -59,7 +57,6 @@ amber = (function() {
 		loadJS('compat.js');
 		loadJS('boot.js');
 
-		populateLocalPackages();
 
 		if (deploy) {
 			loadPackages([
@@ -100,14 +97,6 @@ amber = (function() {
 			loadPackages(additionalFiles, spec.prefix);
 		}
 
-		// Always load all local packages
-		for (name in localPackages) {
-			log('Local package:  ' + name);
-			var sourceCode = unescape(localPackages[name]);
-			sourceCode += "\nsmalltalk.Package._init_('"+name+"')";
-			localStorageSource.push(sourceCode);
-		}
-
 		// Be sure to setup & initialize smalltalk classes
 		loadJS('init.js');
 		initializeSmalltalk();
@@ -119,13 +108,7 @@ amber = (function() {
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
-
-			// Only load package from the server if it isn't stored in
-			// localStorage
-			if (!(name in localPackages)) {
-				log('Server package: ' + name);
-				loadJS(name + '.js', prefix);
-			}
+			loadJS(name + '.js', prefix);
 		}
 	};
 
@@ -142,8 +125,6 @@ amber = (function() {
 		loadJS('compat.js');
 		loadJS('boot.js');
 
-		populateLocalPackages();
-
 		if (deploy) {
 			loadPackages([
 				'Kernel-Objects.deploy',
@@ -183,12 +164,6 @@ amber = (function() {
 			loadPackages(additionalFiles, spec.prefix);
 		}
 
-		// Always load all local packages
-		for (name in localPackages) {
-			log('Local package:  ' + name);
-			localStorageSource.push(localPackages[name]);
-		}
-
 		// Be sure to setup & initialize smalltalk classes
 		loadJS('init.js');
 		initializeSmalltalk();
@@ -200,13 +175,7 @@ amber = (function() {
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
-
-			// Only load package from the server if it isn't stored in
-			// localStorage
-			if (!(name in localPackages)) {
-				log('Server package: ' + name);
-				loadJS(name + '.js', prefix);
-			}
+			loadJS(name + '.js', prefix);
 		}
 	};
 
@@ -263,10 +232,6 @@ amber = (function() {
 
 		window.smalltalkReady = function() {
 
-			for (var i=0; i < localStorageSource.length; i++) {
-				eval(localStorageSource[i]);
-			}
-
 			if (deploy) {
 				smalltalk.setDeploymentMode();
 			}
@@ -274,30 +239,6 @@ amber = (function() {
 			if (spec.ready) {
 				spec.ready();
 			}
-		}
-	};
-
-	function populateLocalPackages(){
-		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
-		localPackages = {};
-
-		var match, key;
-
-		for(var i=0; i < localStorage.length; i++) {
-			key = localStorage.key(i);
-
-			if (match = key.match(localStorageRE)) {
-				localPackages[match[1]] = localStorage[key];
-			}
-		}
-
-		return localPackages;
-	};
-
-	function clearLocalPackages() {
-		for (var name in localPackages) {
-			log('Removing ' + name + ' from local storage');
-			localStorage.removeItem('smalltalk.packages.' + name);
 		}
 	};
 
