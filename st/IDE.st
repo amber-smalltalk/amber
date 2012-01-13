@@ -1267,8 +1267,7 @@ searchReferencedClassesFor: aString
 searchSelectorReferencesFor: aString
 	self classesAndMetaclasses do: [:each | 
 		each methodDictionary keysAndValuesDo: [:key :value | 
-			key = selector ifTrue: [self implementors add: value]].
-		each methodDictionary keysAndValuesDo: [:key :value | 
+			key = selector ifTrue: [self implementors add: value].
 			(value messageSends includes: selector) ifTrue: [
 				self senders add: value]]]
 ! !
