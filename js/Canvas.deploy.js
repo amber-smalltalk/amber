@@ -6,7 +6,7 @@ smalltalk.method({
 selector: 'root:',
 fn: function (aTagBrush){
 var self=this;
-self['@root']=aTagBrush;
+(self['@root']=aTagBrush);
 return self;}
 }),
 smalltalk.HTMLCanvas);
@@ -40,7 +40,7 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-(($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]);})() : $receiver;
+(($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return (self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]));})() : $receiver;
 return self;}
 }),
 smalltalk.HTMLCanvas);
@@ -51,7 +51,7 @@ smalltalk.method({
 selector: 'initializeFromJQuery:',
 fn: function (aJQuery){
 var self=this;
-self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]);
+(self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]));
 return self;}
 }),
 smalltalk.HTMLCanvas);
@@ -793,7 +793,7 @@ selector: 'appendBlock:',
 fn: function (aBlock){
 var self=this;
 var root=nil;
-root=smalltalk.send(self['@canvas'], "_root", []);
+(root=smalltalk.send(self['@canvas'], "_root", []));
 smalltalk.send(self['@canvas'], "_root_", [self]);
 smalltalk.send(aBlock, "_value_", [self['@canvas']]);
 smalltalk.send(self['@canvas'], "_root_", [root]);
@@ -1087,8 +1087,8 @@ smalltalk.method({
 selector: 'initializeFromString:canvas:',
 fn: function (aString, aCanvas){
 var self=this;
-self['@element']=smalltalk.send(self, "_createElementFor_", [aString]);
-self['@canvas']=aCanvas;
+(self['@element']=smalltalk.send(self, "_createElementFor_", [aString]));
+(self['@canvas']=aCanvas);
 return self;}
 }),
 smalltalk.TagBrush);
@@ -1099,8 +1099,8 @@ smalltalk.method({
 selector: 'initializeFromJQuery:canvas:',
 fn: function (aJQuery, aCanvas){
 var self=this;
-self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]);
-self['@canvas']=aCanvas;
+(self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]));
+(self['@canvas']=aCanvas);
 return self;}
 }),
 smalltalk.TagBrush);

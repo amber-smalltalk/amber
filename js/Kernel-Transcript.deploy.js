@@ -74,7 +74,7 @@ smalltalk.method({
 selector: 'register:',
 fn: function (aTranscript){
 var self=this;
-self['@current']=aTranscript;
+(self['@current']=aTranscript);
 return self;}
 }),
 smalltalk.Transcript.klass);
@@ -110,7 +110,7 @@ selector: 'show:',
 fn: function (anObject){
 var self=this;
 var string=nil;
-string=smalltalk.send(anObject, "_asString", []);
+(string=smalltalk.send(anObject, "_asString", []));
 console.log(String(string));
 return self;}
 }),

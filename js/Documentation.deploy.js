@@ -6,7 +6,29 @@ smalltalk.method({
 selector: 'chapters',
 fn: function (){
 var self=this;
-return (($receiver = self['@chapters']) == nil || $receiver == undefined) ? (function(){return self['@chapters']=smalltalk.send(self, "_buildChapters", []);})() : $receiver;
+return (($receiver = self['@chapters']) == nil || $receiver == undefined) ? (function(){return (self['@chapters']=smalltalk.send(self, "_buildChapters", []));})() : $receiver;
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+'_announcer',
+smalltalk.method({
+selector: 'announcer',
+fn: function (){
+var self=this;
+return (($receiver = self['@announcer']) == nil || $receiver == undefined) ? (function(){return (self['@announcer']=smalltalk.send((smalltalk.Announcer || Announcer), "_new", []));})() : $receiver;
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+'_widget',
+smalltalk.method({
+selector: 'widget',
+fn: function (){
+var self=this;
+return (($receiver = self['@widget']) == nil || $receiver == undefined) ? (function(){return (self['@widget']=smalltalk.send((smalltalk.DocumentationWidget || DocumentationWidget), "_on_", [self]));})() : $receiver;
 return self;}
 }),
 smalltalk.DocumentationBuilder);
@@ -46,34 +68,23 @@ return self;}
 smalltalk.DocumentationBuilder);
 
 smalltalk.addMethod(
+'_build',
+smalltalk.method({
+selector: 'build',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_buildOnJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
 '_ch1introduction',
 smalltalk.method({
 selector: 'ch1introduction',
 fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_title_", ["Introduction"]);return smalltalk.send($rec, "_contents_", [unescape("%0A%0A%23%23Amber%20Smalltalk%20in%20a%20nutshell%0A%0AAmber%20is%20an%20implementation%20of%20the%20Smalltalk-80%20language.%20It%20is%20designed%20to%20make%20client-side%20web%20development%20**faster%2C%20easier%20and%20more%20fun**%20as%20it%20allows%20developers%20to%20write%20HTML5%20applications%20in%20a%20live%20Smalltalk%20environment%21%0A%0AAmber%20is%20written%20in%20itself%2C%20including%20the%20IDE%20and%20the%20compiler%20and%20it%20runs%20**directly%20inside%20your%20browser**.%20The%20IDE%20is%20fairly%20complete%20with%20a%20class%20browser%2C%20workspace%2C%20transcript%2C%20unit%20test%20runner%2C%20object%20inspectors%2C%20cross%20reference%20tools%20and%20even%20a%20debugger.%0A%0ANoteworthy%20features%3A%0A%0A-%20Amber%20is%20semantically%20and%20syntactically%20very%20close%20to%20%5BPharo%20Smalltalk%5D%28http%3A//www.pharo-project.org%29.%20Pharo%20is%20considered%20the%20reference%20implementation.%0A-%20Amber%20**seamlessly%20interacts%20with%20JavaScript**%20and%20can%20use%20its%20full%20eco%20system%20of%20libraries%20without%20any%20glue%20code%20needed.%0A-%20Amber%20**has%20no%20dependencies**%20and%20can%20be%20used%20in%20any%20JavaScript%20runtime%2C%20not%20only%20inside%20browsers.%20An%20important%20example%20is%20%5BNode.js%5D%28http%3A//nodejs.org%29.%0A-%20Amber%20is%20a%20live%20Smalltalk%20that%20**compiles%20incrementally%20into%20efficient%20JavaScript**%20often%20mapping%20one-to-one%20with%20JavaScript%20equivalents.%0A-%20Amber%20has%20a%20**Seaside%20influenced%20canvas%20library**%20to%20dynamically%20generate%20HTML.%0A%0A%23%23%20Arguments%20for%20using%20Amber%0AIn%20our%20humble%20opinion%20the%20main%20arguments%20for%20using%20Amber%20are%3A%0A%0A-%20JavaScript%20is%20quite%20a%20broken%20language%20with%20lots%20of%20traps%20and%20odd%20quirks.%20It%20is%20the%20assembler%20of%20the%20Internet%20which%20is%20cool%2C%20but%20we%20don%27t%20want%20to%20write%20in%20it.%0A-%20Smalltalk%20as%20a%20language%20is%20immensely%20cleaner%20and%20more%20mature%2C%20both%20syntactically%20and%20semantically.%0A-%20Smalltalk%20has%20a%20simple%20class%20model%20with%20a%20lightweight%20syntax%20for%20closures%2C%20it%20is%20in%20many%20ways%20a%20perfect%20match%20for%20the%20Good%20Parts%20of%20JavaScript.%0A-%20Having%20a%20true%20live%20interactive%20incremental%20development%20environment%20where%20you%20can%20build%20your%20application%20directly%20in%20the%20browser%20is%20unbeatable.%0A%0A%23%23%20Disclaimer%0A%0AThis%20documentation%20doesn%27t%20aim%20to%20teach%20Smalltalk.%20%0AKnowledge%20of%20Smalltalk%20is%20needed%20to%20understand%20the%20topics%20covered%20in%20this%20documentation.%20%0AIf%20you%20want%20to%20learn%20the%20Smalltalk%20language%2C%20you%20can%20read%20the%20excellent%20%5BPharo%20By%20Example%5D%28http%3A//www.pharobyexample.org%29%20book.%0A")]);})(smalltalk.send((smalltalk.DocChapter || DocChapter), "_new", []));
-return self;}
-}),
-smalltalk.DocumentationBuilder);
-
-smalltalk.addMethod(
-'_announcer',
-smalltalk.method({
-selector: 'announcer',
-fn: function (){
-var self=this;
-return (($receiver = self['@announcer']) == nil || $receiver == undefined) ? (function(){return self['@announcer']=smalltalk.send((smalltalk.Announcer || Announcer), "_new", []);})() : $receiver;
-return self;}
-}),
-smalltalk.DocumentationBuilder);
-
-smalltalk.addMethod(
-'_widget',
-smalltalk.method({
-selector: 'widget',
-fn: function (){
-var self=this;
-return (($receiver = self['@widget']) == nil || $receiver == undefined) ? (function(){return self['@widget']=smalltalk.send((smalltalk.DocumentationWidget || DocumentationWidget), "_on_", [self]);})() : $receiver;
 return self;}
 }),
 smalltalk.DocumentationBuilder);
@@ -123,6 +134,28 @@ return self;}
 smalltalk.DocumentationBuilder);
 
 smalltalk.addMethod(
+'_ch7KernelClasses',
+smalltalk.method({
+selector: 'ch7KernelClasses',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Classes")])]);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+'_ch4Tutorials',
+smalltalk.method({
+selector: 'ch4Tutorials',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.TutorialsChapter || TutorialsChapter), "_new", []);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
 '_checkHashChange',
 smalltalk.method({
 selector: 'checkHashChange',
@@ -141,19 +174,8 @@ fn: function (){
 var self=this;
 var hash=nil;
 var presentation=nil;
-hash=smalltalk.send(smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]);
+(hash=smalltalk.send(smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]));
 smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [(function($rec){smalltalk.send($rec, "_id_", [hash]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ChapterSelectionAnnouncement || ChapterSelectionAnnouncement), "_new", []))]);
-return self;}
-}),
-smalltalk.DocumentationBuilder);
-
-smalltalk.addMethod(
-'_ch7KernelClasses',
-smalltalk.method({
-selector: 'ch7KernelClasses',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Classes")])]);
 return self;}
 }),
 smalltalk.DocumentationBuilder);
@@ -164,33 +186,11 @@ smalltalk.method({
 selector: 'update',
 fn: function (){
 var self=this;
-self['@chapters']=nil;
-self['@announcer']=nil;
-self['@widget']=nil;
+(self['@chapters']=nil);
+(self['@announcer']=nil);
+(self['@widget']=nil);
 smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".documentation"]), "_remove", []);
 smalltalk.send(self, "_build", []);
-return self;}
-}),
-smalltalk.DocumentationBuilder);
-
-smalltalk.addMethod(
-'_build',
-smalltalk.method({
-selector: 'build',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_buildOnJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
-return self;}
-}),
-smalltalk.DocumentationBuilder);
-
-smalltalk.addMethod(
-'_ch4Tutorials',
-smalltalk.method({
-selector: 'ch4Tutorials',
-fn: function (){
-var self=this;
-return smalltalk.send((smalltalk.TutorialsChapter || TutorialsChapter), "_new", []);
 return self;}
 }),
 smalltalk.DocumentationBuilder);
@@ -198,23 +198,23 @@ smalltalk.DocumentationBuilder);
 
 smalltalk.DocumentationBuilder.klass.iVarNames = ['current'];
 smalltalk.addMethod(
+'_current',
+smalltalk.method({
+selector: 'current',
+fn: function (){
+var self=this;
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", []));})() : $receiver;
+return self;}
+}),
+smalltalk.DocumentationBuilder.klass);
+
+smalltalk.addMethod(
 '_initialize',
 smalltalk.method({
 selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_build", []);
-return self;}
-}),
-smalltalk.DocumentationBuilder.klass);
-
-smalltalk.addMethod(
-'_current',
-smalltalk.method({
-selector: 'current',
-fn: function (){
-var self=this;
-return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return self['@current']=smalltalk.send(self, "_new", []);})() : $receiver;
 return self;}
 }),
 smalltalk.DocumentationBuilder.klass);
@@ -238,7 +238,7 @@ smalltalk.method({
 selector: 'title:',
 fn: function (aString){
 var self=this;
-self['@title']=aString;
+(self['@title']=aString);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -260,7 +260,7 @@ smalltalk.method({
 selector: 'contents:',
 fn: function (aString){
 var self=this;
-self['@contents']=aString;
+(self['@contents']=aString);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -288,38 +288,12 @@ return self;}
 smalltalk.DocChapter);
 
 smalltalk.addMethod(
-'_renderOn_',
-smalltalk.method({
-selector: 'renderOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderDocOn_", [html]);return smalltalk.send(self, "_renderLinksOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
-return self;}
-}),
-smalltalk.DocChapter);
-
-smalltalk.addMethod(
 '_cssClass',
 smalltalk.method({
 selector: 'cssClass',
 fn: function (){
 var self=this;
 return "doc_chapter";
-return self;}
-}),
-smalltalk.DocChapter);
-
-smalltalk.addMethod(
-'_renderDocOn_',
-smalltalk.method({
-selector: 'renderDocOn:',
-fn: function (html){
-var self=this;
-var div=nil;
-smalltalk.send(smalltalk.send(html, "_h1", []), "_with_", [smalltalk.send(self, "_title", [])]);
-smalltalk.send(self, "_renderNavigationOn_", [html]);
-div=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["contents"]);
-smalltalk.send(smalltalk.send(div, "_asJQuery", []), "_html_", [smalltalk.send(self, "_htmlContents", [])]);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -341,18 +315,7 @@ smalltalk.method({
 selector: 'level:',
 fn: function (anInteger){
 var self=this;
-self['@level']=anInteger;
-return self;}
-}),
-smalltalk.DocChapter);
-
-smalltalk.addMethod(
-'_selectClass_',
-smalltalk.method({
-selector: 'selectClass:',
-fn: function (aClass){
-var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_announcer", []), "_announce_", [smalltalk.send((smalltalk.ClassSelectionAnnouncement || ClassSelectionAnnouncement), "_on_", [aClass])]);
+(level=anInteger);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -374,40 +337,7 @@ smalltalk.method({
 selector: 'parent:',
 fn: function (aChapter){
 var self=this;
-self['@parent']=aChapter;
-return self;}
-}),
-smalltalk.DocChapter);
-
-smalltalk.addMethod(
-'_selectChapter_',
-smalltalk.method({
-selector: 'selectChapter:',
-fn: function (aChapter){
-var self=this;
-smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(aChapter, "_id", [])]);
-return self;}
-}),
-smalltalk.DocChapter);
-
-smalltalk.addMethod(
-'_renderNavigationOn_',
-smalltalk.method({
-selector: 'renderNavigationOn:',
-fn: function (html){
-var self=this;
-(($receiver = smalltalk.send(self, "_parent", [])) != nil && $receiver != undefined) ? (function(){return (function($rec){smalltalk.send($rec, "_class_", ["navigation"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(unescape("%u2190%20back%20to%20"), "__comma", [smalltalk.send(smalltalk.send(self, "_parent", []), "_title", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectChapter_", [smalltalk.send(self, "_parent", [])]);})]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));})() : nil;
-return self;}
-}),
-smalltalk.DocChapter);
-
-smalltalk.addMethod(
-'_renderLinksOn_',
-smalltalk.method({
-selector: 'renderLinksOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["links"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_chapters", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_title", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectChapter_", [each]);})]);})(smalltalk.send(html, "_a", []));})]);})]);})]);})(smalltalk.send(html, "_ul", []));
+(self['@parent']=aChapter);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -435,12 +365,34 @@ return self;}
 smalltalk.DocChapter);
 
 smalltalk.addMethod(
-'_subscribe',
+'_selectClass_',
 smalltalk.method({
-selector: 'subscribe',
-fn: function (){
+selector: 'selectClass:',
+fn: function (aClass){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_announcer", []), "_on_do_", [(smalltalk.ChapterSelectionAnnouncement || ChapterSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_id", []), "__eq", [smalltalk.send(self, "_id", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_displayChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_displayChapter_", [self]);})]));})]);
+smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_announcer", []), "_announce_", [smalltalk.send((smalltalk.ClassSelectionAnnouncement || ClassSelectionAnnouncement), "_on_", [aClass])]);
+return self;}
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+'_selectChapter_',
+smalltalk.method({
+selector: 'selectChapter:',
+fn: function (aChapter){
+var self=this;
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(aChapter, "_id", [])]);
+return self;}
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+'_displayChapter_',
+smalltalk.method({
+selector: 'displayChapter:',
+fn: function (aChapter){
+var self=this;
+smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_widget", []), "_displayChapter_", [aChapter]);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -458,12 +410,60 @@ return self;}
 smalltalk.DocChapter);
 
 smalltalk.addMethod(
-'_displayChapter_',
+'_renderOn_',
 smalltalk.method({
-selector: 'displayChapter:',
-fn: function (aChapter){
+selector: 'renderOn:',
+fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.DocumentationBuilder || DocumentationBuilder), "_current", []), "_widget", []), "_displayChapter_", [aChapter]);
+(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderDocOn_", [html]);return smalltalk.send(self, "_renderLinksOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+return self;}
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+'_renderDocOn_',
+smalltalk.method({
+selector: 'renderDocOn:',
+fn: function (html){
+var self=this;
+var div=nil;
+smalltalk.send(smalltalk.send(html, "_h1", []), "_with_", [smalltalk.send(self, "_title", [])]);
+smalltalk.send(self, "_renderNavigationOn_", [html]);
+(div=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["contents"]));
+smalltalk.send(smalltalk.send(div, "_asJQuery", []), "_html_", [smalltalk.send(self, "_htmlContents", [])]);
+return self;}
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+'_renderNavigationOn_',
+smalltalk.method({
+selector: 'renderNavigationOn:',
+fn: function (html){
+var self=this;
+(($receiver = smalltalk.send(self, "_parent", [])) != nil && $receiver != undefined) ? (function(){return (function($rec){smalltalk.send($rec, "_class_", ["navigation"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(unescape("%u2190%20back%20to%20"), "__comma", [smalltalk.send(smalltalk.send(self, "_parent", []), "_title", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectChapter_", [smalltalk.send(self, "_parent", [])]);})]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));})() : nil;
+return self;}
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+'_renderLinksOn_',
+smalltalk.method({
+selector: 'renderLinksOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["links"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_chapters", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_title", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectChapter_", [each]);})]);})(smalltalk.send(html, "_a", []));})]);})]);})]);})(smalltalk.send(html, "_ul", []));
+return self;}
+}),
+smalltalk.DocChapter);
+
+smalltalk.addMethod(
+'_subscribe',
+smalltalk.method({
+selector: 'subscribe',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_announcer", []), "_on_do_", [(smalltalk.ChapterSelectionAnnouncement || ChapterSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_id", []), "__eq", [smalltalk.send(self, "_id", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_displayChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_displayChapter_", [self]);})]));})]);
 return self;}
 }),
 smalltalk.DocChapter);
@@ -521,8 +521,8 @@ smalltalk.method({
 selector: 'initializeWithPackage:',
 fn: function (aPackage){
 var self=this;
-self['@package']=aPackage;
-self['@chapters']=smalltalk.send(smalltalk.send(smalltalk.send(aPackage, "_classes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(a, "_name", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(b, "_name", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(b, "_name", [])]));})]), "_collect_", [(function(each){return (function($rec){smalltalk.send($rec, "_parent_", [self]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassDocChapter || ClassDocChapter), "_on_", [each]));})]);
+(self['@package']=aPackage);
+(self['@chapters']=smalltalk.send(smalltalk.send(smalltalk.send(aPackage, "_classes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(a, "_name", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(b, "_name", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(b, "_name", [])]));})]), "_collect_", [(function(each){return (function($rec){smalltalk.send($rec, "_parent_", [self]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassDocChapter || ClassDocChapter), "_on_", [each]));})]));
 return self;}
 }),
 smalltalk.PackageDocChapter);
@@ -586,6 +586,17 @@ return self;}
 smalltalk.ClassDocChapter);
 
 smalltalk.addMethod(
+'_initializeWithClass_',
+smalltalk.method({
+selector: 'initializeWithClass:',
+fn: function (aClass){
+var self=this;
+(self['@theClass']=aClass);
+return self;}
+}),
+smalltalk.ClassDocChapter);
+
+smalltalk.addMethod(
 '_renderLinksOn_',
 smalltalk.method({
 selector: 'renderLinksOn:',
@@ -604,17 +615,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_subscribe", [], smalltalk.DocChapter);
 smalltalk.send(smalltalk.send(self, "_announcer", []), "_on_do_", [(smalltalk.ClassSelectionAnnouncement || ClassSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_theClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_selectChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_selectChapter_", [self]);})]));})]);
-return self;}
-}),
-smalltalk.ClassDocChapter);
-
-smalltalk.addMethod(
-'_initializeWithClass_',
-smalltalk.method({
-selector: 'initializeWithClass:',
-fn: function (aClass){
-var self=this;
-self['@theClass']=aClass;
 return self;}
 }),
 smalltalk.ClassDocChapter);
@@ -650,7 +650,7 @@ smalltalk.method({
 selector: 'builder:',
 fn: function (aDocumentationBuilder){
 var self=this;
-self['@builder']=aDocumentationBuilder;
+(self['@builder']=aDocumentationBuilder);
 return self;}
 }),
 smalltalk.DocumentationWidget);
@@ -672,7 +672,7 @@ smalltalk.method({
 selector: 'selectedChapter',
 fn: function (){
 var self=this;
-return (($receiver = self['@selectedChapter']) == nil || $receiver == undefined) ? (function(){return self['@selectedChapter']=smalltalk.send(smalltalk.send(self, "_chapters", []), "_first", []);})() : $receiver;
+return (($receiver = self['@selectedChapter']) == nil || $receiver == undefined) ? (function(){return (self['@selectedChapter']=smalltalk.send(smalltalk.send(self, "_chapters", []), "_first", []));})() : $receiver;
 return self;}
 }),
 smalltalk.DocumentationWidget);
@@ -683,52 +683,7 @@ smalltalk.method({
 selector: 'selectedChapter:',
 fn: function (aChapter){
 var self=this;
-return self['@selectedChapter']=aChapter;
-return self;}
-}),
-smalltalk.DocumentationWidget);
-
-smalltalk.addMethod(
-'_renderOn_',
-smalltalk.method({
-selector: 'renderOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["documentation"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderMenuOn_", [html]);self['@chapterDiv']=smalltalk.send(html, "_div", []);return smalltalk.send(self, "_updateChapterDiv", []);})]);})(smalltalk.send(html, "_div", []));
-return self;}
-}),
-smalltalk.DocumentationWidget);
-
-smalltalk.addMethod(
-'_renderMenuOn_',
-smalltalk.method({
-selector: 'renderMenuOn:',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["menu"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(html, "_ol", []), "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_chapters", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return smalltalk.send(self, "_renderChapterMenu_on_", [each, html]);})]);})]);})]);})]);})(smalltalk.send(html, "_div", []));
-return self;}
-}),
-smalltalk.DocumentationWidget);
-
-smalltalk.addMethod(
-'_updateChapterDiv',
-smalltalk.method({
-selector: 'updateChapterDiv',
-fn: function (){
-var self=this;
-smalltalk.send(self['@chapterDiv'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self, "_selectedChapter", [])]);})]);
-return self;}
-}),
-smalltalk.DocumentationWidget);
-
-smalltalk.addMethod(
-'_renderChapterMenu_on_',
-smalltalk.method({
-selector: 'renderChapterMenu:on:',
-fn: function (aChapter, html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(aChapter, "_title", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectChapter_", [aChapter]);})]);})(smalltalk.send(html, "_a", []));
-smalltalk.send(smalltalk.send(html, "_ol", []), "_with_", [(function(){return smalltalk.send(smalltalk.send(aChapter, "_chapters", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return smalltalk.send(self, "_renderChapterMenu_on_", [each, html]);})]);})]);})]);
+return (self['@selectedChapter']=aChapter);
 return self;}
 }),
 smalltalk.DocumentationWidget);
@@ -752,6 +707,51 @@ selector: 'selectChapter:',
 fn: function (aChapter){
 var self=this;
 smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(aChapter, "_id", [])]);
+return self;}
+}),
+smalltalk.DocumentationWidget);
+
+smalltalk.addMethod(
+'_renderOn_',
+smalltalk.method({
+selector: 'renderOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["documentation"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderMenuOn_", [html]);(self['@chapterDiv']=smalltalk.send(html, "_div", []));return smalltalk.send(self, "_updateChapterDiv", []);})]);})(smalltalk.send(html, "_div", []));
+return self;}
+}),
+smalltalk.DocumentationWidget);
+
+smalltalk.addMethod(
+'_renderMenuOn_',
+smalltalk.method({
+selector: 'renderMenuOn:',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["menu"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(smalltalk.send(html, "_ol", []), "_with_", [(function(){return smalltalk.send(smalltalk.send(self, "_chapters", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return smalltalk.send(self, "_renderChapterMenu_on_", [each, html]);})]);})]);})]);})]);})(smalltalk.send(html, "_div", []));
+return self;}
+}),
+smalltalk.DocumentationWidget);
+
+smalltalk.addMethod(
+'_renderChapterMenu_on_',
+smalltalk.method({
+selector: 'renderChapterMenu:on:',
+fn: function (aChapter, html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(aChapter, "_title", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectChapter_", [aChapter]);})]);})(smalltalk.send(html, "_a", []));
+smalltalk.send(smalltalk.send(html, "_ol", []), "_with_", [(function(){return smalltalk.send(smalltalk.send(aChapter, "_chapters", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return smalltalk.send(self, "_renderChapterMenu_on_", [each, html]);})]);})]);})]);
+return self;}
+}),
+smalltalk.DocumentationWidget);
+
+smalltalk.addMethod(
+'_updateChapterDiv',
+smalltalk.method({
+selector: 'updateChapterDiv',
+fn: function (){
+var self=this;
+smalltalk.send(self['@chapterDiv'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self, "_selectedChapter", [])]);})]);
 return self;}
 }),
 smalltalk.DocumentationWidget);
@@ -793,6 +793,17 @@ return self;}
 smalltalk.ClassesIndexChapter);
 
 smalltalk.addMethod(
+'_alphabet',
+smalltalk.method({
+selector: 'alphabet',
+fn: function (){
+var self=this;
+return "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+return self;}
+}),
+smalltalk.ClassesIndexChapter);
+
+smalltalk.addMethod(
 '_renderDocOn_',
 smalltalk.method({
 selector: 'renderDocOn:',
@@ -800,18 +811,7 @@ fn: function (html){
 var self=this;
 smalltalk.send(smalltalk.send(html, "_h1", []), "_with_", [smalltalk.send(self, "_title", [])]);
 smalltalk.send(smalltalk.send(self, "_alphabet", []), "_do_", [(function(letter){var classes=nil;
-classes=smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_name", []), "_first", []), "__eq", [letter]);})]);smalltalk.send(classes, "_ifNotEmpty_", [(function(){return smalltalk.send(smalltalk.send(html, "_h2", []), "_with_", [letter]);})]);return smalltalk.send(smalltalk.send(html, "_ul", []), "_with_", [(function(){return smalltalk.send(smalltalk.send(classes, "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(a, "_name", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(b, "_name", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(b, "_name", [])]));})]), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_name", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectClass_", [each]);})]);})(smalltalk.send(html, "_a", []));})]);})]);})]);})]);
-return self;}
-}),
-smalltalk.ClassesIndexChapter);
-
-smalltalk.addMethod(
-'_alphabet',
-smalltalk.method({
-selector: 'alphabet',
-fn: function (){
-var self=this;
-return "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+(classes=smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_name", []), "_first", []), "__eq", [letter]);})]));smalltalk.send(classes, "_ifNotEmpty_", [(function(){return smalltalk.send(smalltalk.send(html, "_h2", []), "_with_", [letter]);})]);return smalltalk.send(smalltalk.send(html, "_ul", []), "_with_", [(function(){return smalltalk.send(smalltalk.send(classes, "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(a, "_name", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(b, "_name", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(b, "_name", [])]));})]), "_do_", [(function(each){return smalltalk.send(smalltalk.send(html, "_li", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(each, "_name", [])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectClass_", [each]);})]);})(smalltalk.send(html, "_a", []));})]);})]);})]);})]);
 return self;}
 }),
 smalltalk.ClassesIndexChapter);
@@ -836,7 +836,7 @@ smalltalk.method({
 selector: 'theClass:',
 fn: function (aClass){
 var self=this;
-self['@theClass']=aClass;
+(self['@theClass']=aClass);
 return self;}
 }),
 smalltalk.ClassSelectionAnnouncement);
@@ -872,7 +872,7 @@ smalltalk.method({
 selector: 'id:',
 fn: function (aString){
 var self=this;
-self['@id']=aString;
+(self['@id']=aString);
 return self;}
 }),
 smalltalk.ChapterSelectionAnnouncement);
