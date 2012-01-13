@@ -1301,17 +1301,22 @@ Object subclass: #Point
 	instanceVariableNames: 'x y'
 	category: 'Kernel-Objects'!
 !Point commentStamp!
-A Point represents an x-y pair of numbers usually designating a geometric coordinate.
-Points are traditionally created using the binary #@ message to a number:
+A `Point` represents an x-y pair of numbers usually designating a geometric coordinate.
+Points are traditionally created using the binary `#@` message to a number:
 
 	100@120
 
-Points can then be arithmetically manipulated using math:
+Points can then be arithmetically manipulated:
 
 	100@100 + (10@10)
 
-Creating a Point with a negative y-value will need a space after @ in order to avoid a parsing error,
-10@ -5 works fine, but not 10@-5
+...or for example:
+
+	(100@100) * 2
+
+**NOTE:** Creating a Point with a negative y-value will need a space after `@` in order to avoid a parsing error:
+
+	100@ -100 "but 100@-100 would not parse"
 
 Amber does not have much behavior in this class out-of-the-box.!
 

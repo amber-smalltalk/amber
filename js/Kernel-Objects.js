@@ -3508,7 +3508,7 @@ smalltalk.Random);
 
 
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel-Objects');
-smalltalk.Point.comment=unescape('A%20Point%20represents%20an%20x-y%20pair%20of%20numbers%20usually%20designating%20a%20geometric%20coordinate.%0APoints%20are%20traditionally%20created%20using%20the%20binary%20%23@%20message%20to%20a%20number%3A%0A%0A%09100@120%0A%0APoints%20can%20then%20be%20arithmetically%20manipulated%20using%20math%3A%0A%0A%09100@100%20+%20%2810@10%29%0A%0ACreating%20a%20Point%20with%20a%20negative%20y-value%20will%20need%20a%20space%20after%20@%20in%20order%20to%20avoid%20a%20parsing%20error%2C%0A10@%20-5%20works%20fine%2C%20but%20not%2010@-5%0A%0AAmber%20does%20not%20have%20much%20behavior%20in%20this%20class%20out-of-the-box.')
+smalltalk.Point.comment=unescape('A%20%60Point%60%20represents%20an%20x-y%20pair%20of%20numbers%20usually%20designating%20a%20geometric%20coordinate.%0APoints%20are%20traditionally%20created%20using%20the%20binary%20%60%23@%60%20message%20to%20a%20number%3A%0A%0A%09100@120%0A%0APoints%20can%20then%20be%20arithmetically%20manipulated%3A%0A%0A%09100@100%20+%20%2810@10%29%0A%0A...or%20for%20example%3A%0A%0A%09%28100@100%29%20*%202%0A%0A**NOTE%3A**%20Creating%20a%20Point%20with%20a%20negative%20y-value%20will%20need%20a%20space%20after%20%60@%60%20in%20order%20to%20avoid%20a%20parsing%20error%3A%0A%0A%09100@%20-100%20%22but%20100@-100%20would%20not%20parse%22%0A%0AAmber%20does%20not%20have%20much%20behavior%20in%20this%20class%20out-of-the-box.')
 smalltalk.addMethod(
 unescape('_x'),
 smalltalk.method({
