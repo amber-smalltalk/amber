@@ -95,7 +95,7 @@ testEquality
 !
 
 testDynamicDictionaries
-	self assert: #{1 -> 'hello'. 2 -> 'world'} = (Dictionary with: 1 -> 'hello' with: 2 -> 'world')
+	self assert: #{'hello' -> 1} asDictionary = (Dictionary with: 'hello' -> 1)
 !
 
 testAccessing

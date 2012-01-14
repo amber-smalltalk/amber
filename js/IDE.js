@@ -1538,24 +1538,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.Browser);
 
 smalltalk.addMethod(
-unescape('_commitPackageToLocalStorage'),
-smalltalk.method({
-selector: unescape('commitPackageToLocalStorage'),
-category: 'actions',
-fn: function (){
-var self=this;
-var key=nil;
-var sourceCode=nil;
-(($receiver = self['@selectedPackage']) != nil && $receiver != undefined) ? (function(){key=smalltalk.send("smalltalk.packages.", "__comma", [self['@selectedPackage']]);sourceCode=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return localStorage[key] = sourceCode;})() : nil;
-return self;},
-args: [],
-source: unescape('commitPackageToLocalStorage%0A%09%7C%20key%20sourceCode%20%7C%0A%09selectedPackage%20ifNotNil%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09key%20%3A%3D%20%27smalltalk.packages.%27%20%2C%20selectedPackage.%0A%09%09sourceCode%20%3A%3D%20%28Exporter%20new%20exportPackage%3A%20selectedPackage%29.%0A%09%09%3ClocalStorage%5Bkey%5D%20%3D%20sourceCode%3E%5D'),
-messageSends: ["ifNotNil:", unescape("%2C"), "exportPackage:", "new"],
-referencedClasses: ["Exporter"]
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
 unescape('_addNewClass'),
 smalltalk.method({
 selector: unescape('addNewClass'),
@@ -1649,11 +1631,11 @@ selector: unescape('renderTopPanelOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser packages"]);(function($rec){smalltalk.send($rec, "_class_", ["jt_packagesButtons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to local storage"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackageToLocalStorage", []);})]);return smalltalk.send($rec, "_with_", ["Local"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Rename package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename"]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_removePackage", []);})]);return smalltalk.send($rec, "_with_", ["Remove"]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]);smalltalk.send(self['@classesList'], "_renderOn_", [html]);self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]);self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]);(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser packages"]));(function($rec){smalltalk.send($rec, "_class_", ["jt_packagesButtons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Rename package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename"]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_removePackage", []);})]);return smalltalk.send($rec, "_with_", ["Remove"]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));(self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]));smalltalk.send(self['@classesList'], "_renderOn_", [html]);(self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]));(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]));(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 return self;},
 args: ["html"],
-source: unescape('renderTopPanelOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27top%27%3B%20%0A%09%09with%3A%20%5B%0A%09%09%09packagesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20packages%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09html%20div%20class%3A%20%27jt_packagesButtons%27%3B%20with%3A%20%5B%0A%09%09%09%09html%20button%20%0A%09%09%09%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20disk%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20commitPackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Commit%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%20%0A%09%09%09%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20local%20storage%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20commitPackageToLocalStorage%5D%3B%0A%09%09%09%09%09with%3A%20%27Local%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%0A%09%09%09%09%09title%3A%20%27Rename%20package%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20renamePackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Rename%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%0A%09%09%09%09%09title%3A%20%27Remove%20this%20package%20from%20the%20system%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20removePackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Remove%27%5D.%0A%09%09%09classesList%20%3A%3D%20ClassesList%20on%3A%20self.%0A%09%09%09classesList%20renderOn%3A%20html.%0A%09%09%09protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20protocols%27.%0A%09%09%09methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20methods%27.%0A%09%09%09self%0A%09%09%09%09updateCategoriesList%3B%0A%09%09%09%09updateClassesList%3B%0A%09%09%09%09updateProtocolsList%3B%0A%09%09%09%09updateMethodsList.%0A%09%09%09html%20div%20class%3A%20%27jt_clear%27%5D'),
-messageSends: ["class:", "with:", "ul", "title:", "onClick:", "commitPackage", "button", "commitPackageToLocalStorage", "renamePackage", "removePackage", "div", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
+source: unescape('renderTopPanelOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27top%27%3B%20%0A%09%09with%3A%20%5B%0A%09%09%09packagesList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20packages%27.%0A%20%20%20%20%20%20%20%20%20%20%09%09html%20div%20class%3A%20%27jt_packagesButtons%27%3B%20with%3A%20%5B%0A%09%09%09%09html%20button%20%0A%09%09%09%09%09title%3A%20%27Commit%20classes%20in%20this%20package%20to%20disk%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20commitPackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Commit%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%0A%09%09%09%09%09title%3A%20%27Rename%20package%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20renamePackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Rename%27.%0A%20%20%20%20%20%20%20%20%09%09%09html%20button%0A%09%09%09%09%09title%3A%20%27Remove%20this%20package%20from%20the%20system%27%3B%0A%09%09%09%09%09onClick%3A%20%5Bself%20removePackage%5D%3B%0A%09%09%09%09%09with%3A%20%27Remove%27%5D.%0A%09%09%09classesList%20%3A%3D%20ClassesList%20on%3A%20self.%0A%09%09%09classesList%20renderOn%3A%20html.%0A%09%09%09protocolsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20protocols%27.%0A%09%09%09methodsList%20%3A%3D%20html%20ul%20class%3A%20%27jt_column%20browser%20methods%27.%0A%09%09%09self%0A%09%09%09%09updateCategoriesList%3B%0A%09%09%09%09updateClassesList%3B%0A%09%09%09%09updateProtocolsList%3B%0A%09%09%09%09updateMethodsList.%0A%09%09%09html%20div%20class%3A%20%27jt_clear%27%5D'),
+messageSends: ["class:", "with:", "ul", "title:", "onClick:", "commitPackage", "button", "renamePackage", "removePackage", "div", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
 referencedClasses: ["ClassesList"]
 }),
 smalltalk.Browser);
@@ -1757,7 +1739,7 @@ smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", 
 smalltalk.send(self['@classesList'], "_updateNodes", []);
 return self;},
 args: [],
-source: unescape('updateClassesList%0A%20%20%20%20TabManager%20current%20update.%0A%20%20%20%20classesList%20updateNodes.%0A%20%20%20%20%22classesList%20contents%3A%20%5B%3Ahtml%20%7C%0A%09self%20classes%20do%3A%20%5B%3Aeach%20%7C%7C%20li%20%7C%0A%09%20%20%20%20li%20%3A%3D%20html%20li.%0A%09%20%20%20%20selectedClass%20%3D%20each%20ifTrue%3A%20%5B%0A%09%09li%20class%3A%20%27selected%27%5D.%0A%09%20%20%20%20li%0A%09%09with%3A%20each%20name%3B%0A%09%09onClick%3A%20%5Bself%20selectClass%3A%20each%5D%5D%5D%22'),
+source: unescape('updateClassesList%0A%20%20%20%20TabManager%20current%20update.%0A%20%20%20%20classesList%20updateNodes'),
 messageSends: ["update", "current", "updateNodes"],
 referencedClasses: ["TabManager"]
 }),
@@ -2440,10 +2422,10 @@ selector: unescape('searchSelectorReferencesFor%3A'),
 category: 'actions',
 fn: function (aString){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(key, "__eq", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})]));})]);return smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(smalltalk.send(value, "_messageSends", []), "_includes_", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})]));})]);})]);
+smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){((($receiver = smalltalk.send(key, "__eq", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})]));return ((($receiver = smalltalk.send(smalltalk.send(value, "_messageSends", []), "_includes_", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})]));})]);})]);
 return self;},
 args: ["aString"],
-source: unescape('searchSelectorReferencesFor%3A%20aString%0A%09self%20classesAndMetaclasses%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09each%20methodDictionary%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%20%0A%09%09%09key%20%3D%20selector%20ifTrue%3A%20%5Bself%20implementors%20add%3A%20value%5D%5D.%0A%09%09each%20methodDictionary%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%20%0A%09%09%09%28value%20messageSends%20includes%3A%20selector%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20senders%20add%3A%20value%5D%5D%5D'),
+source: unescape('searchSelectorReferencesFor%3A%20aString%0A%09self%20classesAndMetaclasses%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%09each%20methodDictionary%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%20%0A%09%09%09key%20%3D%20selector%20ifTrue%3A%20%5Bself%20implementors%20add%3A%20value%5D.%0A%09%09%09%28value%20messageSends%20includes%3A%20selector%29%20ifTrue%3A%20%5B%0A%09%09%09%09self%20senders%20add%3A%20value%5D%5D%5D'),
 messageSends: ["do:", "classesAndMetaclasses", "keysAndValuesDo:", "methodDictionary", "ifTrue:", unescape("%3D"), "add:", "implementors", "includes:", "messageSends", "senders"],
 referencedClasses: []
 }),
@@ -4886,7 +4868,7 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables=nil;
-variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []);
+(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 smalltalk.send(variables, "_at_put_", [unescape("%23self"), self]);
 smalltalk.send(variables, "_at_put_", [unescape("%23keys"), smalltalk.send(self, "_keys", [])]);
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(variables, "_at_put_", [key, value]);})]);
@@ -4897,5 +4879,5 @@ source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09var
 messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.Dictionary);
+smalltalk.HashedCollection);
 

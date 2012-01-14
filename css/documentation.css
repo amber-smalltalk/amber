@@ -1,0 +1,84 @@
+#wrapper {
+    margin-left: 350px;
+    text-align: left;
+}
+
+#header {
+    text-align: left;
+    margin: 20px 0;
+}
+
+#header .left {
+    float: left;
+    margin-right: 20px;
+}
+
+#header h1 {
+    margin: 10px 0;
+}
+
+.documentation {
+    border-top: 1px solid #999;
+}
+
+.documentation a {
+    color: #C71212;
+    cursor: pointer;
+}
+
+.documentation a:hover {
+    color: white;
+    background: #D15E5E;
+    text-decoration: none;
+}
+
+.documentation pre {
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background: #eee;
+    padding: 5px;
+    margin: 0 20px;
+}
+
+.documentation code {
+    background: #eee;
+    padding: 0 5px;
+}
+
+
+.documentation .menu {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 300px;
+    background: #ddd;
+    overflow-y: scroll;
+}
+
+.documentation .doc_chapter {
+    position: absolute;
+    background: #fafafa;
+    left: 300px;
+    right: 0;
+    padding: 0 20px;
+}
+
+.documentation .doc_chapter a {
+    background: #eae3c6;
+}
+
+.documentation .doc_chapter a:hover {
+    background: #D15E5E;
+    color: white;
+}
+
+.documentation .doc_chapter .links {
+    border-top: 1px solid #999;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.documentation .doc_chapter h2 {
+    border-bottom: 1px solid #999;
+}

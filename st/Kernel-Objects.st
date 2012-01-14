@@ -2,6 +2,42 @@ Smalltalk current createPackage: 'Kernel-Objects' properties: #{}!
 nil subclass: #Object
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Object commentStamp!
+*Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.
+
+Object provides default behavior common to all normal objects, such as: 
+
+- access
+- copying
+- comparison
+- error handling
+- message sending
+- reflection
+
+Also utility messages that all objects should respond to are defined here.
+
+Object has no instance variable.
+
+##Access
+
+Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.
+Accessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
+
+##Copying
+
+Copying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.
+The hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.
+
+##Comparison
+
+Objects understand equality  `#=` and identity `#==` comparison.
+
+##Error handling
+
+- `#halt` is the typical message to use for inserting breakpoints during debugging.
+- `#error:` throws a generic error exception
+- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.
+  Overriding this message can be useful to implement proxies for example.!
 
 !Object methodsFor: 'accessing'!
 
@@ -279,6 +315,32 @@ initialize
 Object subclass: #Smalltalk
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Smalltalk commentStamp!
+Smalltalk has only one instance, accessed with `Smalltalk current`. 
+It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+
+The `smalltalk` object holds all class and packages defined in the system.
+
+## Classes
+
+Classes can be accessed using the following methods:
+
+- `#classes` answers the full list of Smalltalk classes in the system
+- `#at:` answers a specific class of `nil`
+
+## Packages
+
+Packages can be accessed using the following methods:
+
+- `#packages` answers the full list of packages
+- `#packageAt:` answers a specific class of `nil`
+
+__note:__ classes and packages are accessed using strings, not symbols
+
+## Parsing
+
+The `#parse:` method is used to parse Smalltalk source code. 
+It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
 
 !Smalltalk methodsFor: 'accessing'!
 
@@ -423,7 +485,11 @@ Packages are manipulated through "Smalltalk current", like for example finding o
 
 A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
 can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
-String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.!
+String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.
+
+You can fetch a package from the server:
+
+	Package fetch: 'Additional-Examples'!
 
 !Package methodsFor: 'accessing'!
 
@@ -541,6 +607,29 @@ defaultCommitPathSt: aString
 resetCommitPaths
         defaultCommitPathJs := nil.
         defaultCommitPathSt := nil.
+! !
+
+!Package class methodsFor: 'loading-storing'!
+
+fetch: aPackageName prefix: aPrefix
+	jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]
+!
+
+fetch: aPackageName
+	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
+!
+
+commitToLocalStorage: aPackageName
+	| key sourceCode |
+	key := 'smalltalk.packages.' , aPackageName.
+	sourceCode := Exporter new exportPackage: aPackageName.
+	<localStorage[key] = escape(sourceCode)>
+!
+
+init: aPackageName
+	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
+		do: [ :each | <smalltalk.init(each)> ];
+		do: [ :each | each initialize ]
 ! !
 
 !Package class methodsFor: 'not yet classified'!
@@ -776,6 +865,22 @@ even
 
 odd
 	^ self even not
+!
+
+negative
+	"Answer whether the receiver is mathematically negative."
+
+	^ self < 0
+!
+
+positive
+	"Answer whether the receiver is positive or equal to 0. (ST-80 protocol)."
+
+	^ self >= 0
+!
+
+isZero
+	^self = 0
 ! !
 
 !Number methodsFor: 'timeouts/intervals'!
@@ -797,6 +902,11 @@ pi
 Object subclass: #Boolean
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Boolean commentStamp!
+Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.
+
+Boolean defines the protocol for logic testing operations and conditional control structures for the logical values.
+Boolean instances are weither `true` or `false`.!
 
 !Boolean methodsFor: 'comparing'!
 
@@ -889,7 +999,10 @@ Object subclass: #Date
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 !Date commentStamp!
-The Date class is used to work with dates and times.!
+The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
+Amber and answer the same date object.
+
+Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
 
 !Date methodsFor: 'accessing'!
 
@@ -1070,6 +1183,10 @@ millisecondsToRun: aBlock
 Object subclass: #UndefinedObject
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!UndefinedObject commentStamp!
+UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
+
+`nil` is the Smalltalk representation of the `undefined` JavaScript object.!
 
 !UndefinedObject methodsFor: 'class creation'!
 
@@ -1143,6 +1260,32 @@ new
 Object subclass: #Random
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Random commentStamp!
+`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
+
+	Random new next
+
+This will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`
+
+	10 atRandom
+
+...and if you want a random number in a specific interval this also works:
+
+	(3 to: 7) atRandom
+
+...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
+
+	5 atRandom + 2
+
+Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:
+
+	#('a' 'b' 'c') atRandom
+
+...or perhaps a letter from a `String`:
+
+	'abc' atRandom
+
+Since Amber does not have Characters this will return a `String` of length 1 like for example `'b'`.!
 
 !Random methodsFor: 'accessing'!
 
@@ -1157,6 +1300,25 @@ next: anInteger
 Object subclass: #Point
 	instanceVariableNames: 'x y'
 	category: 'Kernel-Objects'!
+!Point commentStamp!
+A `Point` represents an x-y pair of numbers usually designating a geometric coordinate.
+Points are traditionally created using the binary `#@` message to a number:
+
+	100@120
+
+Points can then be arithmetically manipulated:
+
+	100@100 + (10@10)
+
+...or for example:
+
+	(100@100) * 2
+
+**NOTE:** Creating a Point with a negative y-value will need a space after `@` in order to avoid a parsing error:
+
+	100@ -100 "but 100@-100 would not parse"
+
+Amber does not have much behavior in this class out-of-the-box.!
 
 !Point methodsFor: 'accessing'!
 
@@ -1205,6 +1367,20 @@ asPoint
 	^self
 ! !
 
+!Point methodsFor: 'printing'!
+
+printString
+	"Print receiver in classic x@y notation."
+
+	^String streamContents: [:stream |
+		stream nextPutAll: x printString, '@'.
+		(y notNil and: [y negative])
+			ifTrue: [
+				"Avoid ambiguous @- construct"
+				stream space].
+		stream nextPutAll: y printString]
+! !
+
 !Point class methodsFor: 'instance creation'!
 
 x: aNumber y: anotherNumber
@@ -1217,6 +1393,28 @@ x: aNumber y: anotherNumber
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
 	category: 'Kernel-Objects'!
+!JSObjectProxy commentStamp!
+JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
+JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
+
+## Examples
+
+JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
+
+    window alert: 'hello world'.
+    window inspect.
+    (window jQuery: 'body') append: 'hello world'
+
+Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. 
+
+## Message conversion rules
+
+- `someUser name` becomes  `someUser.name`
+- `someUser name: 'John'` becomes `someUser name = "John"`
+- `console log: 'hello world'` becomes `console.log('hello world')`
+- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
+
+__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
 
 !JSObjectProxy methodsFor: 'accessing'!
 

@@ -140,7 +140,7 @@ selector: 'collect:',
 fn: function (aBlock){
 var self=this;
 var newCollection=nil;
-newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+(newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
 smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [smalltalk.send(aBlock, "_value_", [each])]);})]);
 return newCollection;
 return self;}
@@ -181,8 +181,8 @@ selector: 'do:separatedBy:',
 fn: function (aBlock, anotherBlock){
 var self=this;
 var first=nil;
-first=true;
-smalltalk.send(self, "_do_", [(function(each){((($receiver = first).klass === smalltalk.Boolean) ? ($receiver ? (function(){return first=false;})() : (function(){return smalltalk.send(anotherBlock, "_value", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return first=false;}), (function(){return smalltalk.send(anotherBlock, "_value", []);})]));return smalltalk.send(aBlock, "_value_", [each]);})]);
+(first=true);
+smalltalk.send(self, "_do_", [(function(each){((($receiver = first).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (first=false);})() : (function(){return smalltalk.send(anotherBlock, "_value", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (first=false);}), (function(){return smalltalk.send(anotherBlock, "_value", []);})]));return smalltalk.send(aBlock, "_value_", [each]);})]);
 return self;}
 }),
 smalltalk.Collection);
@@ -194,8 +194,8 @@ selector: 'inject:into:',
 fn: function (anObject, aBlock){
 var self=this;
 var result=nil;
-result=anObject;
-smalltalk.send(self, "_do_", [(function(each){return result=smalltalk.send(aBlock, "_value_value_", [result, each]);})]);
+(result=anObject);
+smalltalk.send(self, "_do_", [(function(each){return (result=smalltalk.send(aBlock, "_value_value_", [result, each]));})]);
 return result;
 return self;}
 }),
@@ -219,7 +219,7 @@ selector: 'select:',
 fn: function (aBlock){
 var self=this;
 var stream=nil;
-stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []);
+(stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []));
 smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.send(aBlock, "_value_", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(stream, "_nextPut_", [each]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(stream, "_nextPut_", [each]);})]));})]);
 return smalltalk.send(stream, "_contents", []);
 return self;}
@@ -474,8 +474,8 @@ fn: function (anIndex, anotherIndex){
 var self=this;
 var range=nil;
 var newCollection=nil;
-range=smalltalk.send(anIndex, "_to_", [anotherIndex]);
-newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(range, "_size", [])]);
+(range=smalltalk.send(anIndex, "_to_", [anotherIndex]));
+(newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(range, "_size", [])]));
 smalltalk.send(range, "_do_", [(function(each){return smalltalk.send(newCollection, "_at_put_", [each, smalltalk.send(self, "_at_", [each])]);})]);
 return newCollection;
 return self;}
@@ -689,7 +689,7 @@ selector: 'shallowCopy',
 fn: function (){
 var self=this;
 var newCollection=nil;
-newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]);
+(newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]));
 smalltalk.send(self, "_withIndexDo_", [(function(each, index){return smalltalk.send(newCollection, "_at_put_", [index, each]);})]);
 return newCollection;
 return self;}
@@ -703,7 +703,7 @@ selector: 'deepCopy',
 fn: function (){
 var self=this;
 var newCollection=nil;
-newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]);
+(newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]));
 smalltalk.send(self, "_withIndexDo_", [(function(each, index){return smalltalk.send(newCollection, "_at_put_", [index, smalltalk.send(each, "_deepCopy", [])]);})]);
 return newCollection;
 return self;}
@@ -717,7 +717,7 @@ selector: 'printString',
 fn: function (){
 var self=this;
 var str=nil;
-str=smalltalk.send("", "_writeStream", []);
+(str=smalltalk.send("", "_writeStream", []));
 smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Collection), "__comma", [unescape("%20%28")])]);
 smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
 smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);
@@ -972,17 +972,17 @@ selector: 'asSelector',
 fn: function (){
 var self=this;
 var selector=nil;
-selector=smalltalk.send("_", "__comma", [self]);
-selector=smalltalk.send(selector, "_replace_with_", [":", "_"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B+%5D"), "_plus"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("-"), "_minus"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B*%5D"), "_star"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B/%5D"), "_slash"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%3E"), "_gt"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%3C"), "_lt"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%3D"), "_eq"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%2C"), "_comma"]);
-selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B@%5D"), "_at"]);
+(selector=smalltalk.send("_", "__comma", [self]));
+(selector=smalltalk.send(selector, "_replace_with_", [":", "_"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B+%5D"), "_plus"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("-"), "_minus"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B*%5D"), "_star"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B/%5D"), "_slash"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%3E"), "_gt"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%3C"), "_lt"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%3D"), "_eq"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%2C"), "_comma"]));
+(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B@%5D"), "_at"]));
 return selector;
 return self;}
 }),
@@ -1280,13 +1280,13 @@ var start=nil;
 var sz=nil;
 var nextLF=nil;
 var nextCR=nil;
-start=(1);
-sz=smalltalk.send(self, "_size", []);
-cr=smalltalk.send((smalltalk.String || String), "_cr", []);
-nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, (1)]);
-lf=smalltalk.send((smalltalk.String || String), "_lf", []);
-nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, (1)]);
-(function(){while((function(){return ((($receiver = start).klass === smalltalk.Number) ? $receiver <=sz : smalltalk.send($receiver, "__lt_eq", [sz]));})()) {(function(){((($receiver = smalltalk.send(smalltalk.send(nextLF, "__eq", [(0)]), "_and_", [(function(){return smalltalk.send(nextCR, "__eq", [(0)]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})]));return ((($receiver = smalltalk.send(smalltalk.send(nextCR, "__eq", [(0)]), "_or_", [(function(){return smalltalk.send((0) < nextLF, "_and_", [(function(){return ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver <nextCR : smalltalk.send($receiver, "__lt", [nextCR]));})]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);start=(1) + nextLF;return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);})() : (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);start=(1) + nextLF;return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);}), (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);start=(1) + nextLF;nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);return nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]);}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);start=(1) + nextCR;return nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]);})]));})]));})()}})();
+(start=(1));
+(sz=smalltalk.send(self, "_size", []));
+(cr=smalltalk.send((smalltalk.String || String), "_cr", []));
+(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, (1)]));
+(lf=smalltalk.send((smalltalk.String || String), "_lf", []));
+(nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, (1)]));
+(function(){while((function(){return ((($receiver = start).klass === smalltalk.Number) ? $receiver <=sz : smalltalk.send($receiver, "__lt_eq", [sz]));})()) {(function(){((($receiver = smalltalk.send(smalltalk.send(nextLF, "__eq", [(0)]), "_and_", [(function(){return smalltalk.send(nextCR, "__eq", [(0)]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})]));return ((($receiver = smalltalk.send(smalltalk.send(nextCR, "__eq", [(0)]), "_or_", [(function(){return smalltalk.send((0) < nextLF, "_and_", [(function(){return ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver <nextCR : smalltalk.send($receiver, "__lt", [nextCR]));})]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})]));})]));})()}})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_lineIndicesDo_'){return e.fn()} throw(e)}}
 }),
@@ -1310,7 +1310,7 @@ selector: 'lines',
 fn: function (){
 var self=this;
 var lines=nil;
-lines=smalltalk.send((smalltalk.Array || Array), "_new", []);
+(lines=smalltalk.send((smalltalk.Array || Array), "_new", []));
 smalltalk.send(self, "_linesDo_", [(function(aLine){return smalltalk.send(lines, "_add_", [aLine]);})]);
 return lines;
 return self;}
@@ -1324,8 +1324,8 @@ selector: 'lineNumber:',
 fn: function (anIndex){
 var self=this;
 try{var lineCount=nil;
-lineCount=(0);
-smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return ((($receiver = smalltalk.send(lineCount=((($receiver = lineCount).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), "__eq", [anIndex])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})]));})]);
+(lineCount=(0));
+smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return ((($receiver = smalltalk.send((lineCount=((($receiver = lineCount).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))), "__eq", [anIndex])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})]));})]);
 (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return nil}})})();
 return self;
 } catch(e) {if(e.name === 'stReturn' && e.selector === '_lineNumber_'){return e.fn()} throw(e)}}
@@ -1461,7 +1461,7 @@ selector: 'streamContents:',
 fn: function (blockWithArg){
 var self=this;
 var stream=nil;
-stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send((smalltalk.String || String), "_new", [])]);
+(stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send((smalltalk.String || String), "_new", [])]));
 smalltalk.send(blockWithArg, "_value_", [stream]);
 return smalltalk.send(stream, "_contents", []);
 return self;}
@@ -1644,6 +1644,17 @@ selector: 'shallowCopy',
 fn: function (){
 var self=this;
 return self;
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+'_asSelector',
+smalltalk.method({
+selector: 'asSelector',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_asSelector", []);
 return self;}
 }),
 smalltalk.Symbol);
@@ -1897,7 +1908,7 @@ selector: 'withAll:',
 fn: function (aCollection){
 var self=this;
 var instance=nil;
-instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]);
+(instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
 smalltalk.send(aCollection, "_withIndexDo_", [(function(index, each){return smalltalk.send(instance, "_at_put_", [index, each]);})]);
 return instance;
 return self;}
@@ -1981,7 +1992,7 @@ smalltalk.method({
 selector: 'key:',
 fn: function (aKey){
 var self=this;
-self['@key']=aKey;
+(self['@key']=aKey);
 return self;}
 }),
 smalltalk.Association);
@@ -2003,7 +2014,7 @@ smalltalk.method({
 selector: 'value:',
 fn: function (aValue){
 var self=this;
-self['@value']=aValue;
+(self['@value']=aValue);
 return self;}
 }),
 smalltalk.Association);
@@ -2063,7 +2074,7 @@ smalltalk.method({
 selector: 'setCollection:',
 fn: function (aCollection){
 var self=this;
-self['@collection']=aCollection;
+(self['@collection']=aCollection);
 return self;}
 }),
 smalltalk.Stream);
@@ -2074,7 +2085,7 @@ smalltalk.method({
 selector: 'position',
 fn: function (){
 var self=this;
-return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return self['@position']=(0);})() : $receiver;
+return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return (self['@position']=(0));})() : $receiver;
 return self;}
 }),
 smalltalk.Stream);
@@ -2085,7 +2096,7 @@ smalltalk.method({
 selector: 'position:',
 fn: function (anInteger){
 var self=this;
-self['@position']=anInteger;
+(self['@position']=anInteger);
 return self;}
 }),
 smalltalk.Stream);
@@ -2107,7 +2118,7 @@ smalltalk.method({
 selector: 'setStreamSize:',
 fn: function (anInteger){
 var self=this;
-self['@streamSize']=anInteger;
+(self['@streamSize']=anInteger);
 return self;}
 }),
 smalltalk.Stream);
@@ -2218,8 +2229,7 @@ smalltalk.method({
 selector: 'next',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);
-return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);
+return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return nil;})() : (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return nil;}), (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})]));
 return self;}
 }),
 smalltalk.Stream);
@@ -2231,7 +2241,7 @@ selector: 'next:',
 fn: function (anInteger){
 var self=this;
 var tempCollection=nil;
-tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []);
+(tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []));
 smalltalk.send(anInteger, "_timesRepeat_", [(function(){return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(tempCollection, "_add_", [smalltalk.send(self, "_next", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(tempCollection, "_add_", [smalltalk.send(self, "_next", [])]);})]));})]);
 return tempCollection;
 return self;}
@@ -2327,8 +2337,8 @@ selector: 'next:',
 fn: function (anInteger){
 var self=this;
 var tempCollection=nil;
-tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []);
-smalltalk.send(anInteger, "_timesRepeat_", [(function(){return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return tempCollection=smalltalk.send(tempCollection, "__comma", [smalltalk.send(self, "_next", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return tempCollection=smalltalk.send(tempCollection, "__comma", [smalltalk.send(self, "_next", [])]);})]));})]);
+(tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []));
+smalltalk.send(anInteger, "_timesRepeat_", [(function(){return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (tempCollection=smalltalk.send(tempCollection, "__comma", [smalltalk.send(self, "_next", [])]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (tempCollection=smalltalk.send(tempCollection, "__comma", [smalltalk.send(self, "_next", [])]));})]));})]);
 return tempCollection;
 return self;}
 }),
@@ -2443,7 +2453,7 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Collection);
-self['@elements']=[];
+(self['@elements']=[]);
 return self;}
 }),
 smalltalk.Set);
@@ -2514,6 +2524,20 @@ return self;}
 }),
 smalltalk.Set);
 
+smalltalk.addMethod(
+'_select_',
+smalltalk.method({
+selector: 'select:',
+fn: function (aBlock){
+var self=this;
+var collection=nil;
+(collection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
+smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.send(aBlock, "_value_", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(collection, "_add_", [each]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(collection, "_add_", [each]);})]));})]);
+return collection;
+return self;}
+}),
+smalltalk.Set);
+
 
 
 smalltalk.addClass('HashedCollection', smalltalk.Collection, [], 'Kernel-Collections');
@@ -2535,7 +2559,7 @@ selector: 'associations',
 fn: function (){
 var self=this;
 var associations=nil;
-associations=[];
+(associations=[]);
 smalltalk.send(smalltalk.send(self, "_keys", []), "_do_", [(function(each){return smalltalk.send(associations, "_add_", [smalltalk.send((smalltalk.Association || Association), "_key_value_", [each, smalltalk.send(self, "_at_", [each])])]);})]);
 return associations;
 return self;}
@@ -2715,7 +2739,7 @@ selector: 'shallowCopy',
 fn: function (){
 var self=this;
 var copy=nil;
-copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+(copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
 smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
 return copy;
 return self;}
@@ -2751,7 +2775,7 @@ selector: 'deepCopy',
 fn: function (){
 var self=this;
 var copy=nil;
-copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+(copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
 smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(copy, "_at_put_", [smalltalk.send(each, "_key", []), smalltalk.send(smalltalk.send(each, "_value", []), "_deepCopy", [])]);})]);
 return copy;
 return self;}
@@ -2798,7 +2822,7 @@ selector: 'select:',
 fn: function (aBlock){
 var self=this;
 var newDict=nil;
-newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+(newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return ((($receiver = smalltalk.send(aBlock, "_value_", [value])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(newDict, "_at_put_", [key, value]);})]));})]);
 return newDict;
 return self;}
@@ -2812,7 +2836,7 @@ selector: 'collect:',
 fn: function (aBlock){
 var self=this;
 var newDict=nil;
-newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []);
+(newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
 smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(newDict, "_at_put_", [key, smalltalk.send(aBlock, "_value_", [value])]);})]);
 return newDict;
 return self;}
@@ -2895,7 +2919,7 @@ selector: 'fromPairs:',
 fn: function (aCollection){
 var self=this;
 var dict=nil;
-dict=smalltalk.send(self, "_new", []);
+(dict=smalltalk.send(self, "_new", []));
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict, "_add_", [each]);})]);
 return dict;
 return self;}
@@ -2995,8 +3019,8 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.HashedCollection);
-self['@keys']=[];
-self['@values']=[];
+(self['@keys']=[]);
+(self['@values']=[]);
 return self;}
 }),
 smalltalk.Dictionary);
@@ -3185,7 +3209,7 @@ selector: 'initialize',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.SequenceableCollection);
-self['@elements']=[];
+(self['@elements']=[]);
 return self;}
 }),
 smalltalk.OrderedCollection);

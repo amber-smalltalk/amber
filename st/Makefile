@@ -56,7 +56,6 @@ Compiler.js: Compiler.st Kernel-Objects.js Kernel-Classes.js Kernel-Methods.js K
 # to compile the rest of st files presuming that they only depend on Kernel, like
 # for example Canvas.js and Benchfib.js.
 %.js: %.st Compiler.js
-	echo $(OBJECTS)
 	$(AMBERC) $(FLAGS) $<
 
 # But for some libraries there are more dependencies to care for. Then
@@ -77,12 +76,15 @@ TrySmalltalk.js: TrySmalltalk.st IDE.js
 
 # Some Examples use SUnit and also IDE
 Examples.js: Examples.st SUnit.js IDE.js
-	$(AMBERC) $(FLAGS) -l SUnit,Canvas,IDE $<;
+	$(AMBERC) $(FLAGS) -l SUnit,Canvas,IDE $<
 
 # Tests typically also use SUnit
 Kernel-Tests.js: Kernel-Tests.st SUnit.js
-	$(AMBERC) $(FLAGS) -l SUnit $<;
+	$(AMBERC) $(FLAGS) -l SUnit $<
 
+# Documentation
+Documentation.js: Documentation.st Canvas.js
+	$(AMBERC) $(FLAGS) -l Canvas $<;
 
 # Installing is simply copying all js files to js directory.
 install: all
@@ -90,7 +92,7 @@ install: all
 
 # And cleaning is trivial also
 clean:
-	rm -f *.js; 
+	rm -f *.js
 
 # These three are phony
 .PHONY: all install clean

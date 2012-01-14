@@ -732,14 +732,6 @@ removePackage
 	    self updateCategoriesList]
 !
 
-commitPackageToLocalStorage
-	| key sourceCode |
-	selectedPackage ifNotNil: [
-          	key := 'smalltalk.packages.' , selectedPackage.
-		sourceCode := (Exporter new exportPackage: selectedPackage).
-		<localStorage[key] = sourceCode>]
-!
-
 addNewClass
 	| className |
 	className := window prompt: 'New class'.
@@ -799,10 +791,6 @@ renderTopPanelOn: html
 					title: 'Commit classes in this package to disk';
 					onClick: [self commitPackage];
 					with: 'Commit'.
-        			html button 
-					title: 'Commit classes in this package to local storage';
-					onClick: [self commitPackageToLocalStorage];
-					with: 'Local'.
         			html button
 					title: 'Rename package';
 					onClick: [self renamePackage];
@@ -884,15 +872,7 @@ updateCategoriesList
 
 updateClassesList
     TabManager current update.
-    classesList updateNodes.
-    "classesList contents: [:html |
-	self classes do: [:each || li |
-	    li := html li.
-	    selectedClass = each ifTrue: [
-		li class: 'selected'].
-	    li
-		with: each name;
-		onClick: [self selectClass: each]]]"
+    classesList updateNodes
 !
 
 updateProtocolsList
@@ -1267,8 +1247,7 @@ searchReferencedClassesFor: aString
 searchSelectorReferencesFor: aString
 	self classesAndMetaclasses do: [:each | 
 		each methodDictionary keysAndValuesDo: [:key :value | 
-			key = selector ifTrue: [self implementors add: value]].
-		each methodDictionary keysAndValuesDo: [:key :value | 
+			key = selector ifTrue: [self implementors add: value].
 			(value messageSends includes: selector) ifTrue: [
 				self senders add: value]]]
 ! !
@@ -2340,7 +2319,7 @@ inspectOn: anInspector
 		setVariables: variables
 ! !
 
-!Dictionary methodsFor: '*IDE'!
+!HashedCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |

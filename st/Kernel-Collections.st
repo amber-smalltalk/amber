@@ -792,6 +792,10 @@ asSymbol
 
 asJavascript
 	^'smalltalk.symbolFor("', self asString, '")'
+!
+
+asSelector
+	^self asString asSelector
 ! !
 
 !Symbol methodsFor: 'copying'!
@@ -1102,8 +1106,11 @@ skip: anInteger
 !Stream methodsFor: 'reading'!
 
 next
-	self position: self position + 1. 
-	^collection at: self position
+	^self atEnd 
+		ifTrue: [nil]
+		ifFalse: [
+			self position: self position + 1. 
+			collection at: self position]
 !
 
 next: anInteger
@@ -1252,6 +1259,15 @@ detect: aBlock ifNone: anotherBlock
 
 do: aBlock
 	elements do: aBlock
+!
+
+select: aBlock
+	| collection |
+	collection := self class new. 
+	self do: [:each |
+		(aBlock value: each) ifTrue: [
+			collection add: each]].
+	^collection
 ! !
 
 !Set methodsFor: 'initialization'!
