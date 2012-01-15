@@ -280,6 +280,38 @@ referencedClasses: []
 }),
 smalltalk.DocumentationBuilder);
 
+smalltalk.addMethod(
+unescape('_ch8KernelCollection'),
+smalltalk.method({
+selector: unescape('ch8KernelCollection'),
+category: 'chapters',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Collections")])]);
+return self;},
+args: [],
+source: unescape('ch8KernelCollection%0A%09%5EPackageDocChapter%20on%3A%20%28Package%20named%3A%20%27Kernel-Collections%27%29'),
+messageSends: ["on:", "named:"],
+referencedClasses: ["PackageDocChapter", "Package"]
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+unescape('_ch9KernelMethods'),
+smalltalk.method({
+selector: unescape('ch9KernelMethods'),
+category: 'chapters',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Methods")])]);
+return self;},
+args: [],
+source: unescape('ch9KernelMethods%0A%09%5EPackageDocChapter%20on%3A%20%28Package%20named%3A%20%27Kernel-Methods%27%29'),
+messageSends: ["on:", "named:"],
+referencedClasses: ["PackageDocChapter", "Package"]
+}),
+smalltalk.DocumentationBuilder);
+
 
 smalltalk.DocumentationBuilder.klass.iVarNames = ['current'];
 smalltalk.addMethod(
