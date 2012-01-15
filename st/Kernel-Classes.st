@@ -259,6 +259,10 @@ isMetaclass
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel-Classes'!
+!ClassBuilder commentStamp!
+ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
+
+Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
 
 !ClassBuilder methodsFor: 'class creation'!
 
@@ -327,6 +331,8 @@ copyClass: aClass named: aString
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
 	category: 'Kernel-Classes'!
+!ClassCategoryReader commentStamp!
+ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
 
 !ClassCategoryReader methodsFor: 'accessing'!
 
@@ -363,6 +369,9 @@ compileMethod: aString
 Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class chunkParser'
 	category: 'Kernel-Classes'!
+!ClassCommentReader commentStamp!
+ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
+See `ClassCategoryReader` too.!
 
 !ClassCommentReader methodsFor: 'accessing'!
 

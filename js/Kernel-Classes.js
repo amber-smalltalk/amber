@@ -665,6 +665,7 @@ smalltalk.Metaclass);
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
+smalltalk.ClassBuilder.comment=unescape('ClassBuilder%20is%20responsible%20for%20compiling%20new%20classes%20or%20modifying%20existing%20classes%20in%20the%20system.%0A%0ARather%20than%20using%20ClassBuilder%20directly%20to%20compile%20a%20class%2C%20use%20%60Class%20%3E%3E%20subclass%3AinstanceVariableNames%3Apackage%3A%60.')
 smalltalk.addMethod(
 unescape('_superclass_subclass_'),
 smalltalk.method({
@@ -809,6 +810,7 @@ smalltalk.ClassBuilder);
 
 
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel-Classes');
+smalltalk.ClassCategoryReader.comment=unescape('ClassCategoryReader%20represents%20a%20mechanism%20for%20retrieving%20class%20descriptions%20stored%20on%20a%20file.')
 smalltalk.addMethod(
 unescape('_initialize'),
 smalltalk.method({
@@ -882,6 +884,7 @@ smalltalk.ClassCategoryReader);
 
 
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel-Classes');
+smalltalk.ClassCommentReader.comment=unescape('ClassCommentReader%20represents%20a%20mechanism%20for%20retrieving%20class%20descriptions%20stored%20on%20a%20file.%0ASee%20%60ClassCategoryReader%60%20too.')
 smalltalk.addMethod(
 unescape('_class_'),
 smalltalk.method({
