@@ -192,10 +192,11 @@ amber = (function() {
 
 	function loadNextJS() {
 		loadJS(jsToLoad[0], function(){
-														jsToLoad.shift();
-														if (jsToLoad.length > 0)
-															loadNextJS();
-													});
+			jsToLoad.shift();
+			if (jsToLoad.length > 0) {
+				loadNextJS();
+			}
+		});
 	};
 
 	function loadJSViaScriptTag(url, callback) {
