@@ -648,11 +648,6 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 
-!Number methodsFor: ''!
-
-
-! !
-
 !Number methodsFor: 'accessing'!
 
 identityHash

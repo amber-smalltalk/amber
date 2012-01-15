@@ -88,7 +88,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var result=nil;
-result=smalltalk.send(self, "_subclasses", []);
+(result=smalltalk.send(self, "_subclasses", []));
 smalltalk.send(smalltalk.send(self, "_subclasses", []), "_do_", [(function(each){return smalltalk.send(result, "_addAll_", [smalltalk.send(each, "_allSubclasses", [])]);})]);
 return result;
 return self;},
@@ -292,7 +292,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var protocols=nil;
-protocols=smalltalk.send((smalltalk.Array || Array), "_new", []);
+(protocols=smalltalk.send((smalltalk.Array || Array), "_new", []));
 smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_do_", [(function(each){return ((($receiver = smalltalk.send(protocols, "_includes_", [smalltalk.send(each, "_category", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(protocols, "_add_", [smalltalk.send(each, "_category", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(protocols, "_add_", [smalltalk.send(each, "_category", [])]);})]));})]);
 return smalltalk.send(protocols, "_sort", []);
 return self;},
@@ -330,7 +330,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var result=nil;
-result=smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_copy", []);
+(result=smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_copy", []));
 (($receiver = smalltalk.send(self, "_superclass", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(result, "_addAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_allInstanceVariableNames", [])]);})() : nil;
 return result;
 return self;},
@@ -413,7 +413,7 @@ category: 'compiling',
 fn: function (aString, anotherString){
 var self=this;
 var method=nil;
-method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self]);
+(method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self]));
 smalltalk.send(method, "_category_", [anotherString]);
 smalltalk.send(self, "_addCompiledMethod_", [method]);
 return self;},
@@ -753,7 +753,7 @@ category: 'class creation',
 fn: function (aClass, aString, aString2, aString3){
 var self=this;
 var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]);
+(newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [aClass, aString, smalltalk.send(self, "_instanceVariableNamesFor_", [aString2]), (($receiver = aString3) == nil || $receiver == undefined) ? (function(){return "unclassified";})() : $receiver]));
 smalltalk.send(self, "_setupClass_", [newClass]);
 return newClass;
 return self;},
@@ -789,7 +789,7 @@ category: 'private',
 fn: function (aClass, aString){
 var self=this;
 var newClass=nil;
-newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [smalltalk.send(aClass, "_superclass", []), aString, smalltalk.send(aClass, "_instanceVariableNames", []), smalltalk.send(smalltalk.send(aClass, "_package", []), "_name", [])]);
+(newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [smalltalk.send(aClass, "_superclass", []), aString, smalltalk.send(aClass, "_instanceVariableNames", []), smalltalk.send(smalltalk.send(aClass, "_package", []), "_name", [])]));
 smalltalk.send(self, "_setupClass_", [newClass]);
 smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){smalltalk.send(newClass, "_addCompiledMethod_", [smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [smalltalk.send(each, "_source", []), newClass])]);return smalltalk.send(smalltalk.send(smalltalk.send(newClass, "_methodDictionary", []), "_at_", [smalltalk.send(each, "_selector", [])]), "_category_", [smalltalk.send(each, "_category", [])]);})]);
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){smalltalk.send(smalltalk.send(newClass, "_class", []), "_addCompiledMethod_", [smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [smalltalk.send(each, "_source", []), smalltalk.send(newClass, "_class", [])])]);return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(newClass, "_class", []), "_methodDictionary", []), "_at_", [smalltalk.send(each, "_selector", [])]), "_category_", [smalltalk.send(each, "_category", [])]);})]);
@@ -814,7 +814,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []);
+(self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []));
 return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
@@ -830,8 +830,8 @@ selector: unescape('class%3Acategory%3A'),
 category: 'accessing',
 fn: function (aClass, aString){
 var self=this;
-self['@class']=aClass;
-self['@category']=aString;
+(self['@class']=aClass);
+(self['@category']=aString);
 return self;},
 args: ["aClass", "aString"],
 source: unescape('class%3A%20aClass%20category%3A%20aString%0A%09class%20%3A%3D%20aClass.%0A%09category%20%3A%3D%20aString'),
@@ -848,7 +848,7 @@ category: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
 var chunk=nil;
-(function(){while(!(function(){chunk=smalltalk.send(aChunkParser, "_nextChunk", []);return smalltalk.send(chunk, "_isEmpty", []);})()) {(function(){return smalltalk.send(self, "_compileMethod_", [chunk]);})()}})();
+(function(){while(!(function(){(chunk=smalltalk.send(aChunkParser, "_nextChunk", []));return smalltalk.send(chunk, "_isEmpty", []);})()) {(function(){return smalltalk.send(self, "_compileMethod_", [chunk]);})()}})();
 return self;},
 args: ["aChunkParser"],
 source: unescape('scanFrom%3A%20aChunkParser%0A%09%7C%20chunk%20%7C%0A%09%5Bchunk%20%3A%3D%20aChunkParser%20nextChunk.%0A%09chunk%20isEmpty%5D%20whileFalse%3A%20%5B%0A%09%20%20%20%20self%20compileMethod%3A%20chunk%5D'),
@@ -865,7 +865,7 @@ category: 'private',
 fn: function (aString){
 var self=this;
 var method=nil;
-method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self['@class']]);
+(method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self['@class']]));
 smalltalk.send(method, "_category_", [self['@category']]);
 smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
 return self;},
@@ -886,7 +886,7 @@ selector: unescape('class%3A'),
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-self['@class']=aClass;
+(self['@class']=aClass);
 return self;},
 args: ["aClass"],
 source: unescape('class%3A%20aClass%0A%09class%20%3A%3D%20aClass'),
@@ -903,7 +903,7 @@ category: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
 var chunk=nil;
-chunk=smalltalk.send(aChunkParser, "_nextChunk", []);
+(chunk=smalltalk.send(aChunkParser, "_nextChunk", []));
 ((($receiver = smalltalk.send(chunk, "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_setComment_", [chunk]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_setComment_", [chunk]);})]));
 return self;},
 args: ["aChunkParser"],
@@ -921,7 +921,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
-self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []);
+(self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []));
 return self;},
 args: [],
 source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),

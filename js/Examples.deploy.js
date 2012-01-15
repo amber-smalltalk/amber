@@ -1,9 +1,9 @@
 smalltalk.addPackage('Examples', {});
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
-'_increase',
+unescape('_increase'),
 smalltalk.method({
-selector: 'increase',
+selector: unescape('increase'),
 fn: function (){
 var self=this;
 (self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
@@ -13,9 +13,9 @@ return self;}
 smalltalk.Counter);
 
 smalltalk.addMethod(
-'_decrease',
+unescape('_decrease'),
 smalltalk.method({
-selector: 'decrease',
+selector: unescape('decrease'),
 fn: function (){
 var self=this;
 (self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])));
@@ -25,9 +25,9 @@ return self;}
 smalltalk.Counter);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Widget);
@@ -37,9 +37,9 @@ return self;}
 smalltalk.Counter);
 
 smalltalk.addMethod(
-'_renderOn_',
+unescape('_renderOn_'),
 smalltalk.method({
-selector: 'renderOn:',
+selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
 (self['@header']=(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_h1", [])));

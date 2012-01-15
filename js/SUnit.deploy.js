@@ -1,9 +1,9 @@
 smalltalk.addPackage('SUnit', {});
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
-'_setTestSelector_',
+unescape('_setTestSelector_'),
 smalltalk.method({
-selector: 'setTestSelector:',
+selector: unescape('setTestSelector%3A'),
 fn: function (aSelector){
 var self=this;
 (self['@testSelector']=aSelector);
@@ -12,9 +12,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_selector',
+unescape('_selector'),
 smalltalk.method({
-selector: 'selector',
+selector: unescape('selector'),
 fn: function (){
 var self=this;
 return self['@testSelector'];
@@ -23,9 +23,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_signalFailure_',
+unescape('_signalFailure_'),
 smalltalk.method({
-selector: 'signalFailure:',
+selector: unescape('signalFailure%3A'),
 fn: function (aString){
 var self=this;
 (function($rec){smalltalk.send($rec, "_messageText_", [aString]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send((smalltalk.TestFailure || TestFailure), "_new", []));
@@ -34,9 +34,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_setUp',
+unescape('_setUp'),
 smalltalk.method({
-selector: 'setUp',
+selector: unescape('setUp'),
 fn: function (){
 var self=this;
 
@@ -45,9 +45,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_tearDown',
+unescape('_tearDown'),
 smalltalk.method({
-selector: 'tearDown',
+selector: unescape('tearDown'),
 fn: function (){
 var self=this;
 
@@ -56,9 +56,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_runCaseFor_',
+unescape('_runCaseFor_'),
 smalltalk.method({
-selector: 'runCaseFor:',
+selector: unescape('runCaseFor%3A'),
 fn: function (aTestResult){
 var self=this;
 smalltalk.send(self, "_setUp", []);
@@ -70,9 +70,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_performTestFor_',
+unescape('_performTestFor_'),
 smalltalk.method({
-selector: 'performTestFor:',
+selector: unescape('performTestFor%3A'),
 fn: function (aResult){
 var self=this;
 smalltalk.send((function(){return smalltalk.send((function(){return smalltalk.send(self, "_perform_", [smalltalk.send(self, "_selector", [])]);}), "_on_do_", [(smalltalk.TestFailure || TestFailure), (function(ex){return smalltalk.send(aResult, "_addFailure_", [self]);})]);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){return smalltalk.send(aResult, "_addError_", [self]);})]);
@@ -81,9 +81,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_assert_',
+unescape('_assert_'),
 smalltalk.method({
-selector: 'assert:',
+selector: unescape('assert%3A'),
 fn: function (aBoolean){
 var self=this;
 smalltalk.send(self, "_assert_description_", [aBoolean, "Assertion failed"]);
@@ -92,9 +92,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_deny_',
+unescape('_deny_'),
 smalltalk.method({
-selector: 'deny:',
+selector: unescape('deny%3A'),
 fn: function (aBoolean){
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(aBoolean, "_not", [])]);
@@ -103,9 +103,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_assert_equals_',
+unescape('_assert_equals_'),
 smalltalk.method({
-selector: 'assert:equals:',
+selector: unescape('assert%3Aequals%3A'),
 fn: function (expected, actual){
 var self=this;
 return smalltalk.send(self, "_assert_description_", [smalltalk.send(expected, "__eq", [actual]), smalltalk.send(smalltalk.send(smalltalk.send("Expected: ", "__comma", [smalltalk.send(expected, "_asString", [])]), "__comma", [" but was: "]), "__comma", [smalltalk.send(actual, "_asString", [])])]);
@@ -114,9 +114,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_assert_description_',
+unescape('_assert_description_'),
 smalltalk.method({
-selector: 'assert:description:',
+selector: unescape('assert%3Adescription%3A'),
 fn: function (aBoolean, aString){
 var self=this;
 ((($receiver = aBoolean).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_signalFailure_", [aString]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_signalFailure_", [aString]);})]));
@@ -125,9 +125,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_should_',
+unescape('_should_'),
 smalltalk.method({
-selector: 'should:',
+selector: unescape('should%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(aBlock, "_value", [])]);
@@ -136,9 +136,9 @@ return self;}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-'_should_raise_',
+unescape('_should_raise_'),
 smalltalk.method({
-selector: 'should:raise:',
+selector: unescape('should%3Araise%3A'),
 fn: function (aBlock, anExceptionClass){
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send((function(){smalltalk.send(aBlock, "_value", []);return false;}), "_on_do_", [anExceptionClass, (function(ex){return true;})])]);
@@ -148,9 +148,9 @@ smalltalk.TestCase);
 
 
 smalltalk.addMethod(
-'_testSelectors',
+unescape('_testSelectors'),
 smalltalk.method({
-selector: 'testSelectors',
+selector: unescape('testSelectors'),
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_keys", []), "_select_", [(function(each){return smalltalk.send(each, "_match_", [unescape("%5Etest")]);})]);
@@ -159,9 +159,9 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_selector_',
+unescape('_selector_'),
 smalltalk.method({
-selector: 'selector:',
+selector: unescape('selector%3A'),
 fn: function (aSelector){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_setTestSelector_", [aSelector]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
@@ -170,9 +170,9 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_lookupHierarchyRoot',
+unescape('_lookupHierarchyRoot'),
 smalltalk.method({
-selector: 'lookupHierarchyRoot',
+selector: unescape('lookupHierarchyRoot'),
 fn: function (){
 var self=this;
 return (smalltalk.TestCase || TestCase);
@@ -181,9 +181,9 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_allTestSelectors',
+unescape('_allTestSelectors'),
 smalltalk.method({
-selector: 'allTestSelectors',
+selector: unescape('allTestSelectors'),
 fn: function (){
 var self=this;
 var selectors=nil;
@@ -195,9 +195,9 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_buildSuite',
+unescape('_buildSuite'),
 smalltalk.method({
-selector: 'buildSuite',
+selector: unescape('buildSuite'),
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_allTestSelectors", []), "_collect_", [(function(each){return smalltalk.send(self, "_selector_", [each]);})]);
@@ -206,9 +206,9 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-'_shouldInheritSelectors',
+unescape('_shouldInheritSelectors'),
 smalltalk.method({
-selector: 'shouldInheritSelectors',
+selector: unescape('shouldInheritSelectors'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_~_eq", [smalltalk.send(self, "_lookupHierarchyRoot", [])]);
@@ -222,9 +222,9 @@ smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
 
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 smalltalk.addMethod(
-'_timestamp',
+unescape('_timestamp'),
 smalltalk.method({
-selector: 'timestamp',
+selector: unescape('timestamp'),
 fn: function (){
 var self=this;
 return self['@timestamp'];
@@ -233,9 +233,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_errors',
+unescape('_errors'),
 smalltalk.method({
-selector: 'errors',
+selector: unescape('errors'),
 fn: function (){
 var self=this;
 return self['@errors'];
@@ -244,9 +244,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_failures',
+unescape('_failures'),
 smalltalk.method({
-selector: 'failures',
+selector: unescape('failures'),
 fn: function (){
 var self=this;
 return self['@failures'];
@@ -255,9 +255,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_total',
+unescape('_total'),
 smalltalk.method({
-selector: 'total',
+selector: unescape('total'),
 fn: function (){
 var self=this;
 return self['@total'];
@@ -266,9 +266,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_total_',
+unescape('_total_'),
 smalltalk.method({
-selector: 'total:',
+selector: unescape('total%3A'),
 fn: function (aNumber){
 var self=this;
 (self['@total']=aNumber);
@@ -277,9 +277,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_addError_',
+unescape('_addError_'),
 smalltalk.method({
-selector: 'addError:',
+selector: unescape('addError%3A'),
 fn: function (anError){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_errors", []), "_add_", [anError]);
@@ -288,9 +288,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_addFailure_',
+unescape('_addFailure_'),
 smalltalk.method({
-selector: 'addFailure:',
+selector: unescape('addFailure%3A'),
 fn: function (aFailure){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_failures", []), "_add_", [aFailure]);
@@ -299,9 +299,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_runs',
+unescape('_runs'),
 smalltalk.method({
-selector: 'runs',
+selector: unescape('runs'),
 fn: function (){
 var self=this;
 return self['@runs'];
@@ -310,9 +310,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_increaseRuns',
+unescape('_increaseRuns'),
 smalltalk.method({
-selector: 'increaseRuns',
+selector: unescape('increaseRuns'),
 fn: function (){
 var self=this;
 (self['@runs']=((($receiver = self['@runs']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
@@ -321,9 +321,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_status',
+unescape('_status'),
 smalltalk.method({
-selector: 'status',
+selector: unescape('status'),
 fn: function (){
 var self=this;
 return ((($receiver = smalltalk.send(smalltalk.send(self, "_errors", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return ((($receiver = smalltalk.send(smalltalk.send(self, "_failures", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "success";})() : (function(){return "failure";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "success";}), (function(){return "failure";})]));})() : (function(){return "error";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return ((($receiver = smalltalk.send(smalltalk.send(self, "_failures", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "success";})() : (function(){return "failure";})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return "success";}), (function(){return "failure";})]));}), (function(){return "error";})]));
@@ -332,9 +332,9 @@ return self;}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
