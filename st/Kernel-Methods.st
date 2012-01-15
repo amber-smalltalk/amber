@@ -216,6 +216,12 @@ asString
 Object subclass: #Message
 	instanceVariableNames: 'selector arguments'
 	category: 'Kernel-Methods'!
+!Message commentStamp!
+Generally, the system does not use instances of Message for efficiency reasons.
+However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. 
+This instance is sent it as an argument with the message doesNotUnderstand: to the receiver.
+
+See boot.js, messageNotUnderstood  and its counterpart Object>>doesNotUnderstand:!
 
 !Message methodsFor: 'accessing'!
 

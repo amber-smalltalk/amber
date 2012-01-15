@@ -636,6 +636,7 @@ smalltalk.MethodContext);
 
 
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
+smalltalk.Message.comment=unescape('Generally%2C%20the%20system%20does%20not%20use%20instances%20of%20Message%20for%20efficiency%20reasons.%0AHowever%2C%20when%20a%20message%20is%20not%20understood%20by%20its%20receiver%2C%20the%20interpreter%20will%20make%20up%20an%20instance%20of%20it%20in%20order%20to%20capture%20the%20information%20involved%20in%20an%20actual%20message%20transmission.%20%0AThis%20instance%20is%20sent%20it%20as%20an%20argument%20with%20the%20message%20doesNotUnderstand%3A%20to%20the%20receiver.%0A%0ASee%20boot.js%2C%20messageNotUnderstood%20%20and%20its%20counterpart%20Object%3E%3EdoesNotUnderstand%3A')
 smalltalk.addMethod(
 unescape('_selector'),
 smalltalk.method({
