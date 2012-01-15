@@ -195,6 +195,28 @@ return self;}
 }),
 smalltalk.DocumentationBuilder);
 
+smalltalk.addMethod(
+unescape('_ch8KernelCollection'),
+smalltalk.method({
+selector: unescape('ch8KernelCollection'),
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Collections")])]);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
+smalltalk.addMethod(
+unescape('_ch9KernelMethods'),
+smalltalk.method({
+selector: unescape('ch9KernelMethods'),
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.PackageDocChapter || PackageDocChapter), "_on_", [smalltalk.send((smalltalk.Package || Package), "_named_", [unescape("Kernel-Methods")])]);
+return self;}
+}),
+smalltalk.DocumentationBuilder);
+
 
 smalltalk.DocumentationBuilder.klass.iVarNames = ['current'];
 smalltalk.addMethod(

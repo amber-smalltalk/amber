@@ -1,5 +1,6 @@
 smalltalk.addPackage('Kernel-Classes', {});
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
+smalltalk.Behavior.comment=unescape('Behavior%20is%20the%20superclass%20of%20all%20class%20objects.%20%0A%0AIt%20defines%20the%20protocol%20for%20creating%20instances%20of%20a%20class%20with%20%60%23basicNew%60%20and%20%60%23new%60%20%28see%20%60boot.js%60%20for%20class%20constructors%20details%29.%0AInstances%20know%20about%20the%20subclass/superclass%20relationships%20between%20classes%2C%20contain%20the%20description%20that%20instances%20are%20created%20from%2C%20%0Aand%20hold%20the%20method%20dictionary%20that%27s%20associated%20with%20each%20class.%0A%0ABehavior%20also%20%20provides%20methods%20for%20compiling%20methods%2C%20examining%20the%20method%20dictionary%2C%20and%20iterating%20over%20the%20class%20hierarchy.')
 smalltalk.addMethod(
 unescape('_new'),
 smalltalk.method({
@@ -174,7 +175,7 @@ smalltalk.addMethod(
 unescape('_addCompiledMethod_'),
 smalltalk.method({
 selector: unescape('addCompiledMethod%3A'),
-category: 'accessing',
+category: 'compiling',
 fn: function (aMethod){
 var self=this;
 smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
@@ -254,7 +255,7 @@ smalltalk.addMethod(
 unescape('_removeCompiledMethod_'),
 smalltalk.method({
 selector: unescape('removeCompiledMethod%3A'),
-category: 'accessing',
+category: 'compiling',
 fn: function (aMethod){
 var self=this;
 delete self.fn.prototype[aMethod.selector._asSelector()];
@@ -272,7 +273,7 @@ smalltalk.addMethod(
 unescape('_inheritsFrom_'),
 smalltalk.method({
 selector: unescape('inheritsFrom%3A'),
-category: 'instance creation',
+category: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.send(smalltalk.send(aClass, "_allSubclasses", []), "_includes_", [self]);
@@ -427,6 +428,7 @@ smalltalk.Behavior);
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
+smalltalk.Class.comment=unescape('Class%20is%20__the__%20class%20object.%20%0A%0AInstances%20are%20the%20classes%20of%20the%20system.%0AClass%20creation%20is%20done%20throught%20a%20%60ClassBuilder%60')
 smalltalk.addMethod(
 unescape('_category'),
 smalltalk.method({
@@ -595,6 +597,7 @@ smalltalk.Class);
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
+smalltalk.Metaclass.comment=unescape('Metaclass%20is%20the%20root%20of%20the%20class%20hierarchy.%0A%0AMetaclass%20instances%20are%20metaclasses%2C%20one%20for%20each%20real%20class.%20%0AMetaclass%20instances%20have%20a%20single%20instance%2C%20which%20they%20hold%20onto%2C%20which%20is%20the%20class%20that%20they%20are%20the%20metaclass%20of.')
 smalltalk.addMethod(
 unescape('_instanceClass'),
 smalltalk.method({
@@ -662,6 +665,7 @@ smalltalk.Metaclass);
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
+smalltalk.ClassBuilder.comment=unescape('ClassBuilder%20is%20responsible%20for%20compiling%20new%20classes%20or%20modifying%20existing%20classes%20in%20the%20system.%0A%0ARather%20than%20using%20ClassBuilder%20directly%20to%20compile%20a%20class%2C%20use%20%60Class%20%3E%3E%20subclass%3AinstanceVariableNames%3Apackage%3A%60.')
 smalltalk.addMethod(
 unescape('_superclass_subclass_'),
 smalltalk.method({
@@ -806,6 +810,7 @@ smalltalk.ClassBuilder);
 
 
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel-Classes');
+smalltalk.ClassCategoryReader.comment=unescape('ClassCategoryReader%20represents%20a%20mechanism%20for%20retrieving%20class%20descriptions%20stored%20on%20a%20file.')
 smalltalk.addMethod(
 unescape('_initialize'),
 smalltalk.method({
@@ -879,6 +884,7 @@ smalltalk.ClassCategoryReader);
 
 
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel-Classes');
+smalltalk.ClassCommentReader.comment=unescape('ClassCommentReader%20represents%20a%20mechanism%20for%20retrieving%20class%20descriptions%20stored%20on%20a%20file.%0ASee%20%60ClassCategoryReader%60%20too.')
 smalltalk.addMethod(
 unescape('_class_'),
 smalltalk.method({

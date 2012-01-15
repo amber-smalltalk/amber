@@ -2,6 +2,14 @@ Smalltalk current createPackage: 'Kernel-Classes' properties: #{}!
 Object subclass: #Behavior
 	instanceVariableNames: ''
 	category: 'Kernel-Classes'!
+!Behavior commentStamp!
+Behavior is the superclass of all class objects. 
+
+It defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).
+Instances know about the subclass/superclass relationships between classes, contain the description that instances are created from, 
+and hold the method dictionary that's associated with each class.
+
+Behavior also  provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy.!
 
 !Behavior methodsFor: 'accessing'!
 
@@ -50,10 +58,6 @@ methodsFor: aString
 	    yourself
 !
 
-addCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
-!
-
 instanceVariableNames
 	<return self.iVarNames>
 !
@@ -70,12 +74,6 @@ commentStamp
     ^ClassCommentReader new
 	class: self;
 	yourself
-!
-
-removeCompiledMethod: aMethod
-	<delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector];
-	smalltalk.init(self);>
 !
 
 protocols
@@ -123,6 +121,16 @@ commentStamp: aStamp prior: prior
 
 !Behavior methodsFor: 'compiling'!
 
+addCompiledMethod: aMethod
+	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
+!
+
+removeCompiledMethod: aMethod
+	<delete self.fn.prototype[aMethod.selector._asSelector()];
+	delete self.fn.prototype.methods[aMethod.selector];
+	smalltalk.init(self);>
+!
+
 compile: aString
 	self compile: aString category: ''
 !
@@ -142,7 +150,9 @@ new
 
 basicNew
 	<return new self.fn()>
-!
+! !
+
+!Behavior methodsFor: 'testing'!
 
 inheritsFrom: aClass
 	^aClass allSubclasses includes: self
@@ -151,6 +161,11 @@ inheritsFrom: aClass
 Behavior subclass: #Class
 	instanceVariableNames: ''
 	category: 'Kernel-Classes'!
+!Class commentStamp!
+Class is __the__ class object. 
+
+Instances are the classes of the system.
+Class creation is done throught a `ClassBuilder`!
 
 !Class methodsFor: 'accessing'!
 
@@ -212,6 +227,11 @@ isClass
 Behavior subclass: #Metaclass
 	instanceVariableNames: ''
 	category: 'Kernel-Classes'!
+!Metaclass commentStamp!
+Metaclass is the root of the class hierarchy.
+
+Metaclass instances are metaclasses, one for each real class. 
+Metaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of.!
 
 !Metaclass methodsFor: 'accessing'!
 
@@ -239,6 +259,10 @@ isMetaclass
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	category: 'Kernel-Classes'!
+!ClassBuilder commentStamp!
+ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
+
+Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
 
 !ClassBuilder methodsFor: 'class creation'!
 
@@ -307,6 +331,8 @@ copyClass: aClass named: aString
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
 	category: 'Kernel-Classes'!
+!ClassCategoryReader commentStamp!
+ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
 
 !ClassCategoryReader methodsFor: 'accessing'!
 
@@ -343,6 +369,9 @@ compileMethod: aString
 Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class chunkParser'
 	category: 'Kernel-Classes'!
+!ClassCommentReader commentStamp!
+ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
+See `ClassCategoryReader` too.!
 
 !ClassCommentReader methodsFor: 'accessing'!
 
