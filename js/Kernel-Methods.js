@@ -537,6 +537,7 @@ smalltalk.BlockClosure);
 
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.MethodContext.comment=unescape('MethodContext%20hold%20all%20the%20dynamic%20state%20associated%20with%20the%20execution%20of%20either%20a%20method%20activation%20resulting%20from%20a%20message%20send.%20That%20is%20used%20to%20build%20the%20call%20stack%20while%20debugging.%0A%20%20%0AMethodContext%20instances%20are%20JavaScript%20SmalltalkMethodContext%20objects%20defined%20in%20boot.js%20%0A%0ACurrent%20limitation%3A%20MethodContext%20instances%20are%20not%20created%20on%20Block%20evaluation.%20That%20means%20it%27s%20actually%20impossible%20to%20debug%20inside%20a%20Block.')
 smalltalk.addMethod(
 unescape('_receiver'),
 smalltalk.method({
