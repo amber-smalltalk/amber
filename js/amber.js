@@ -19,6 +19,7 @@ amber = (function() {
 
 	var spec;
 	var jsToLoad = [];
+	var loadJS;
 
 	that.toggleIDE = function() {
 		if ($('#jtalk').length == 0) {
@@ -55,8 +56,8 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		loadJS('compat.js');
-		loadJS('boot.js');
+		addJSToLoad('compat.js');
+		addJSToLoad('boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -98,7 +99,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		loadJS('init.js');
+		addJSToLoad('init.js');
 		initializeSmalltalk();
 	};
 
@@ -108,11 +109,11 @@ amber = (function() {
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
-			loadJS(name + '.js', prefix);
+			addJSToLoad(name + '.js', prefix);
 		}
 	};
 
-	function loadJS(name, prefix) {
+	function addJSToLoad(name, prefix) {
 		jsToLoad.push(buildJSURL(name, prefix));
 	};
 
@@ -143,25 +144,20 @@ amber = (function() {
 		document.getElementsByTagName("head")[0].appendChild(link);
 	};
 
-	function addScriptTag(src) {
-		var scriptString = '<script src="' + src + '" type="text/javascript"></script>';
-		document.write(scriptString);
-	}
-
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			addScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			addScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
 	};
 
 	function loadIDEDependencies() {
-		loadJS('lib/jQuery/jquery.textarea.js');
-		loadJS('lib/CodeMirror/codemirror.js');
-		loadJS('lib/CodeMirror/smalltalk.js');
+		addJSToLoad('lib/jQuery/jquery.textarea.js');
+		addJSToLoad('lib/CodeMirror/codemirror.js');
+		addJSToLoad('lib/CodeMirror/smalltalk.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
 		loadCSS('lib/CodeMirror/amber.css', 'js');
 	};
@@ -178,34 +174,43 @@ amber = (function() {
 			}
 		}
 
-		loadAllScripts(); 
-	}
-
-	
-	function loadAllScripts() {
-		if (typeof jQuery == 'undefined') {
-			for(var i in jsToLoad)
-				addScriptTag(jsToLoad[i]);
-		} else {
-			getScript(jsToLoad[0]); 
-		}
+		loadAllJS(); 
 	};
-
 
 	/* 
 	 * When loaded using AJAX, scripts order not guaranteed.
-	 * Load JS in the order they have been added
-	 * using loadJS.
+	 * Load JS in the order they have been added using addJSToLoad().
+	 * If loaded, will use jQuery's getScript instead of adding a script element
 	 */
-	function getScript(url) {
-		$.getScript(url, 
-								function(){
-									jsToLoad.shift();
-									if (jsToLoad.length > 0)
-										getScript(jsToLoad[0]);
-								});
-	}
-	
+	function loadAllJS() {
+		loadJS = loadJSViaScriptTag;
+		if (typeof jQuery != 'undefined') {
+			loadJS = loadJSViaJQuery;
+		}
+		loadNextJS();
+	};
+
+	function loadNextJS() {
+		loadJS(jsToLoad[0], function(){
+														jsToLoad.shift();
+														if (jsToLoad.length > 0)
+															loadNextJS();
+													});
+	};
+
+	function loadJSViaScriptTag(url, callback) {
+		writeScriptTag(url);
+		callback();
+	};
+
+	function loadJSViaJQuery(url, callback) {
+		$.getScript(jsToLoad[0], callback);
+	};
+
+	function writeScriptTag(src) {
+		var scriptString = '<script src="' + src + '" type="text/javascript"></script>';
+		document.write(scriptString);
+	};
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
