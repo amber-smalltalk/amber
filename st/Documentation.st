@@ -175,6 +175,14 @@ ch7KernelClasses
 
 ch4Tutorials
 	^TutorialsChapter new
+!
+
+ch8KernelCollection
+	^PackageDocChapter on: (Package named: 'Kernel-Collections')
+!
+
+ch9KernelMethods
+	^PackageDocChapter on: (Package named: 'Kernel-Methods')
 ! !
 
 !DocumentationBuilder methodsFor: 'routing'!
