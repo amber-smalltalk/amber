@@ -1511,9 +1511,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_\',
+'_\\',
 smalltalk.method({
-selector: '\',
+selector: '\\',
 fn: function (aNumber){
 var self=this;
 return self % aNumber;

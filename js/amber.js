@@ -18,6 +18,8 @@ amber = (function() {
 	var deploy;
 
 	var spec;
+	var jsToLoad = [];
+	var loadJS;
 
 	that.toggleIDE = function() {
 		if ($('#jtalk').length == 0) {
@@ -54,76 +56,8 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		loadJS('compat.js');
-		loadJS('boot.js');
-
-
-		if (deploy) {
-			loadPackages([
-				'Kernel-Objects.deploy',
-				'Kernel-Classes.deploy',
-				'Kernel-Methods.deploy',
-				'Kernel-Collections.deploy',
-				'Kernel-Exceptions.deploy',
-				'Kernel-Transcript.deploy',
-				'Kernel-Announcements.deploy',
-				'Canvas.deploy'
-			]);
-		} else {
-			loadIDEDependencies();
-			loadCSS('amber.css');
-
-			loadPackages([
-				'Kernel-Objects',
-				'Kernel-Classes',
-				'Kernel-Methods',
-				'Kernel-Collections',
-				'Kernel-Exceptions',
-				'Kernel-Transcript',
-				'Kernel-Announcements',
-				'Canvas',
-				'Compiler',
-				'parser',
-				'IDE',
-				'SUnit',
-				'Examples',
-				'Benchfib',
-				'Kernel-Tests'
-			]);
-		}
-
-		var additionalFiles = spec.packages || spec.files;
-		if (additionalFiles) {
-			loadPackages(additionalFiles, spec.prefix);
-		}
-
-		// Be sure to setup & initialize smalltalk classes
-		loadJS('init.js');
-		initializeSmalltalk();
-	};
-
-	function loadPackages(names, prefix){
-		var name, url;
-		var prefix = prefix || 'js';
-
-		for (var i=0; i < names.length; i++) {
-			name = names[i].split(/\.js$/)[0];
-			loadJS(name + '.js', prefix);
-		}
-	};
-
-	function loadJS(name, prefix) {
-		var prefix = prefix || 'js';
-		var name = name;
-
-		// Specify a version string to avoid wrong browser caching
-		if (spec.version) {
-			nocache = '?' + spec.version;
-		}
-
-		loadDependencies();
-		loadJS('compat.js');
-		loadJS('boot.js');
+		addJSToLoad('compat.js');
+		addJSToLoad('boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -165,7 +99,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		loadJS('init.js');
+		addJSToLoad('init.js');
 		initializeSmalltalk();
 	};
 
@@ -175,11 +109,15 @@ amber = (function() {
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
-			loadJS(name + '.js', prefix);
+			addJSToLoad(name + '.js', prefix);
 		}
 	};
 
-	function loadJS(name, prefix) {
+	function addJSToLoad(name, prefix) {
+		jsToLoad.push(buildJSURL(name, prefix));
+	};
+
+	function buildJSURL(name, prefix) {
 		var prefix = prefix || 'js';
 		var name = name;
 
@@ -187,9 +125,7 @@ amber = (function() {
 			name = name + nocache;
 		}
 
-		var url = home + prefix + '/' + name;
-		var scriptString = '<script src="' + url + '" type="text/javascript"></script>';
-		document.write(scriptString);
+		return home + prefix + '/' + name;
 	};
 
 	function loadCSS(name, prefix) {
@@ -208,30 +144,27 @@ amber = (function() {
 		document.getElementsByTagName("head")[0].appendChild(link);
 	};
 
-
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			loadJS('lib/jQuery/jquery-1.6.4.min.js');
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
 		}
 
-		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {
-			loadJS('lib/jQuery/jquery-ui-1.8.16.custom.min.js');
+		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
 	};
 
 	function loadIDEDependencies() {
-		loadJS('lib/jQuery/jquery.textarea.js');
-		loadJS('lib/CodeMirror/codemirror.js');
-		loadJS('lib/CodeMirror/smalltalk.js');
+		addJSToLoad('lib/jQuery/jquery.textarea.js');
+		addJSToLoad('lib/CodeMirror/codemirror.js');
+		addJSToLoad('lib/CodeMirror/smalltalk.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
 		loadCSS('lib/CodeMirror/amber.css', 'js');
 	};
 
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk() {
-
 		window.smalltalkReady = function() {
-
 			if (deploy) {
 				smalltalk.setDeploymentMode();
 			}
@@ -239,6 +172,67 @@ amber = (function() {
 			if (spec.ready) {
 				spec.ready();
 			}
+		}
+
+		loadAllJS(); 
+	};
+
+	/* 
+	 * When loaded using AJAX, scripts order not guaranteed.
+	 * Load JS in the order they have been added using addJSToLoad().
+	 * If loaded, will use jQuery's getScript instead of adding a script element
+	 */
+	function loadAllJS() {
+		loadJS = loadJSViaScriptTag;
+		if (typeof jQuery != 'undefined') {
+			loadJS = loadJSViaJQuery;
+		}
+		loadNextJS();
+	};
+
+	function loadNextJS() {
+		loadJS(jsToLoad[0], function(){
+														jsToLoad.shift();
+														if (jsToLoad.length > 0)
+															loadNextJS();
+													});
+	};
+
+	function loadJSViaScriptTag(url, callback) {
+		writeScriptTag(url);
+		callback();
+	};
+
+	function loadJSViaJQuery(url, callback) {
+		$.getScript(jsToLoad[0], callback);
+	};
+
+	function writeScriptTag(src) {
+		var scriptString = '<script src="' + src + '" type="text/javascript"></script>';
+		document.write(scriptString);
+	};
+
+	function populateLocalPackages(){
+		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
+		localPackages = {};
+
+		var match, key;
+
+		for(var i=0; i < localStorage.length; i++) {
+			key = localStorage.key(i);
+
+			if (match = key.match(localStorageRE)) {
+				localPackages[match[1]] = localStorage[key];
+			}
+		}
+
+		return localPackages;
+	};
+
+	function clearLocalPackages() {
+		for (var name in localPackages) {
+			log('Removing ' + name + ' from local storage');
+			localStorage.removeItem('smalltalk.packages.' + name);
 		}
 	};
 
