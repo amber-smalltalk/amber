@@ -648,9 +648,10 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
 !Number commentStamp!
-Class Number holds the most general methods for dealing with numbers.  
+Number holds the most general methods for dealing with numbers.  
+Number is directly mapped to JavaScript Number.
 
-Most arithmetic methods like + / - max: are directly inlined into javascript. Number is directly mapped to JavaScript Number.
+Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript. 
 
 ##Enumerating
 A Number can be used to evaluate a Block a fixed number of times:
