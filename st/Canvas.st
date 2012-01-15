@@ -161,7 +161,7 @@ link
 !
 
 style
-	^self tag: 'style'
+	^ root addBrush:  (StyleTag canvas: self)
 !
 
 p: anObject
@@ -486,6 +486,38 @@ appendToJQuery: aJQuery
 
 renderOn: html
     self
+! !
+
+TagBrush subclass: #StyleTag
+	instanceVariableNames: 'canvas element'
+	category: 'Canvas'!
+!StyleTag commentStamp!
+I'm a <style> tag use to inline CSS or load a stylesheet.
+
+For inlining handle IE compatibility problems.!
+
+!StyleTag methodsFor: 'adding'!
+
+with: aString
+	self isBrowserIE
+		ifTrue: [self element styleSheet cssText: aString ]
+		ifFalse: [super with: aString ].
+! !
+
+!StyleTag methodsFor: 'testing'!
+
+isBrowserIE
+	|ie|
+	ie := <jQuery.browser.msie>.
+	^ ie notNil.
+! !
+
+!StyleTag class methodsFor: 'instance creation'!
+
+canvas: aCanvas
+    ^self new
+	initializeFromString: 'style' canvas: aCanvas;
+	yourself
 ! !
 
 !Object methodsFor: '*Canvas'!
