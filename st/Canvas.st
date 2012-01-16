@@ -291,6 +291,10 @@ isMozilla
 
 isWebkit
 	^((jQuery at: #browser) at: #webkit) notNil
+!
+
+browserVersion
+	^(jQuery at: #browser) version
 ! !
 
 Object subclass: #TagBrush

@@ -761,6 +761,17 @@ return self;}
 }),
 smalltalk.HTMLCanvas.klass);
 
+smalltalk.addMethod(
+unescape('_browserVersion'),
+smalltalk.method({
+selector: unescape('browserVersion'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_version", []);
+return self;}
+}),
+smalltalk.HTMLCanvas.klass);
+
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(

@@ -1106,6 +1106,22 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas.klass);
 
+smalltalk.addMethod(
+unescape('_browserVersion'),
+smalltalk.method({
+selector: unescape('browserVersion'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_version", []);
+return self;},
+args: [],
+source: unescape('browserVersion%0A%09%5E%28jQuery%20at%3A%20%23browser%29%20version'),
+messageSends: ["version", "at:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
+
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
