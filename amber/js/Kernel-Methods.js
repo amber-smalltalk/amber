@@ -1,5 +1,6 @@
 smalltalk.addPackage('Kernel-Methods', {});
 smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.CompiledMethod.comment=unescape('CompiledMethod%20hold%20the%20source%20and%20compiled%20code%20of%20a%20class%20method.%0A%0AYou%20can%20get%20a%20CompiledMethod%20using%20%60Behavior%3E%3EmethodAt%3A%60%0A%0A%09String%20methodAt%3A%20%27lines%27%0A%0Aand%20read%20the%20source%20code%0A%0A%09%28String%20methodAt%3A%20%27lines%27%29%20source%0A%0ASee%20referenced%20classes%3A%0A%0A%09%28String%20methodAt%3A%20%27lines%27%29%20referencedClasses%0A%0Aor%20messages%20sent%20from%20this%20method%3A%0A%09%0A%09%28String%20methodAt%3A%20%27lines%27%29%20%20messageSends')
 smalltalk.addMethod(
 unescape('_source'),
 smalltalk.method({
@@ -195,7 +196,7 @@ smalltalk.CompiledMethod);
 
 
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.BlockClosure.comment=unescape('A%20BlockClosure%20is%20a%20lexical%20closure.%0AThe%20JavaScript%20representation%20is%20a%20function.%0A%0AA%20BlockClosure%20is%20evaluated%20with%20the%20%23value*%20methods%20in%20the%20%27evaluating%27%20protocol.')
+smalltalk.BlockClosure.comment=unescape('A%20BlockClosure%20is%20a%20lexical%20closure.%0AThe%20JavaScript%20representation%20is%20a%20function.%0A%0AA%20BlockClosure%20is%20evaluated%20with%20the%20%60%23value*%60%20methods%20in%20the%20%27evaluating%27%20protocol.')
 smalltalk.addMethod(
 unescape('_compiledSource'),
 smalltalk.method({
@@ -537,6 +538,7 @@ smalltalk.BlockClosure);
 
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.MethodContext.comment=unescape('MethodContext%20holds%20all%20the%20dynamic%20state%20associated%20with%20the%20execution%20of%20either%20a%20method%20activation%20resulting%20from%20a%20message%20send.%20That%20is%20used%20to%20build%20the%20call%20stack%20while%20debugging.%0A%20%20%0AMethodContext%20instances%20are%20JavaScript%20%60SmalltalkMethodContext%60%20objects%20defined%20in%20boot.js%20%0A%0ACurrent%20limitation%3A%20MethodContext%20instances%20are%20not%20created%20on%20Block%20evaluation.%20That%20means%20it%27s%20actually%20impossible%20to%20debug%20inside%20a%20Block.')
 smalltalk.addMethod(
 unescape('_receiver'),
 smalltalk.method({
@@ -636,6 +638,7 @@ smalltalk.MethodContext);
 
 
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
+smalltalk.Message.comment=unescape('Generally%2C%20the%20system%20does%20not%20use%20instances%20of%20Message%20for%20efficiency%20reasons.%0AHowever%2C%20when%20a%20message%20is%20not%20understood%20by%20its%20receiver%2C%20the%20interpreter%20will%20make%20up%20an%20instance%20of%20it%20in%20order%20to%20capture%20the%20information%20involved%20in%20an%20actual%20message%20transmission.%20%0AThis%20instance%20is%20sent%20it%20as%20an%20argument%20with%20the%20message%20%60doesNotUnderstand%3A%60%20to%20the%20receiver.%0A%0ASee%20boot.js%2C%20%60messageNotUnderstood%60%20%20and%20its%20counterpart%20%60Object%3E%3EdoesNotUnderstand%3A%60')
 smalltalk.addMethod(
 unescape('_selector'),
 smalltalk.method({

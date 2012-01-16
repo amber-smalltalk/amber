@@ -312,9 +312,9 @@ exportDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream 
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: '''', aMethod selector asSelector, ''',';lf;
+		nextPutAll: 'unescape(''', aMethod selector asSelector escaped, '''),';lf;
 		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: ''', aMethod selector, ''',';lf;
+		nextPutAll: 'selector: unescape(''', aMethod selector escaped, '''),';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource;lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
@@ -1402,11 +1402,6 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
-
-!DoIt methodsFor: ''!
-
-doIt ^[Compiler methodsFor: 'initialization'] value
-! !
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''

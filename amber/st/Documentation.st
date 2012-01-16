@@ -87,11 +87,11 @@ And since we want Amber to be useful in building lean browser apps we can''t let
 
 But apart from missing things other Smalltalks may have, there are also things that are plain different:
 
-- The collection class hierarchy is much simpler compared to most Smalltalk implementations.
+- The collection class hierarchy is much simpler compared to most Smalltalk implementations. In part this is because we want to map reasonably well with JavaScript counter parts.
 - As of today, there is no SortedCollection. The size of arrays is dynamic, and they behave like an ordered collection. They can also be sorted with the `#sort*` methods.
 - The `Date` class behaves like the `Date` and `TimeStamp` classes in Pharo Smalltalk. Therefore both `Date today` and `Date now` are valid in Amber.
-- Amber does not have class Character, but `String` does implement some of Character behavior.
-- Amber does support class instance variables, but not class variables.
+- Amber does not have class Character, but `String` does implement some of Character behavior so a single character String can work as a Character.
+- Amber does support **class instance variables**, but not class variables.
 - Amber only has global classes and packages, but not arbitrary objects. Use classes instead like `Smalltalk current` instead of `Smalltalk` etc.
 - Amber does not support pool dictionaries.
 - Amber uses **< ...javascript code... >** to inline JavaScript code and does not have pragmas.
@@ -105,12 +105,11 @@ ch3GettingStarted
 		contents: '
 To get started hacking in Amber you can basically take three routes, independent of your platform:
 
-1. Just try it out at http://www.amber-lang.net (click the "Class browser" button) - but you will **not be able to save any code you write**!! 
-    Still, it works fine for looking at the IDE and playing around. Just don''t press F5/reload - it will bring you back to zero. 
-    (Well, if you still want to develop and save code online someone has set up this site seems for free use: https://www.screwtopdb.com/amberstore/topics?name=amberstore/amber.html )
-2. Download an Amber zip-ball, install Nodejs, fire up the Amber server and then open Amber from localhost - then you **can save code**. Detailed instructions are below!!
-3. Same as above but install git first and get a proper clone from http://github.com/NicolasPetton/amber instead of a zip/tar-ball. 
-    If you want to **contribute to Amber itself** this is really what you want to do. It requires installing git first, but it is quite simple - although we leave this bit as an "exercise to the reader" :)
+1. Just **try it out directly** at [www.amber-lang.net](http://www.amber-lang.net) - click the **Class browser** button there. But you will **not be able to save any code you write**!! 
+    Still, it works fine for looking at the IDE and playing around. Just **don''t press F5/reload** - it will lose any code you have written.
+2. Download an Amber zip-ball, install [Nodejs](http://www.nodejs.org), fire up the Amber server and then open Amber from localhost - then you **can save code**. Detailed instructions are below!!
+3. Same as above but install git first and get a proper clone from [http://github.com/NicolasPetton/amber](http://github.com/NicolasPetton/amber) instead of a zip/tar-ball. 
+    If you want to **contribute to Amber itself** this is really what you want to do. In fact, in most cases this is what you want to do. It requires installing git first, but it is quite simple - although we leave this bit as an "exercise to the reader" :)
 
 **PLEASE NOTE:** Amber core developers use Linux. 
 We do not want to introduce dependencies that aren''t cross platform - but currently amberc (the command line compiler) is a bash script and we also use Makefiles 
@@ -119,45 +118,37 @@ We do not want to introduce dependencies that aren''t cross platform - but curre
 
 ## Downloading Amber
 Currently you can download in zip or tar-ball format, either cutting edge or a release. [Downloads are available here](https://github.com/NicolasPetton/amber/archives/amber). 
-At the moment of writing you have release [0.9 as zip](https://github.com/NicolasPetton/amber/zipball/0.9) or [tar](https://github.com/NicolasPetton/amber/tarball/0.9), 
-or [cutting edge as zip](https://github.com/NicolasPetton/amber/zipball/amber) or [tar](https://github.com/NicolasPetton/amber/tarball/amber).
 
-At the moment this is just a **1.5Mb download**, so its very small. Unpack wherever you like, but I would rename the directory that is unpacked to something slightly shorter - like say "amber-0.9" or just "amber". 
+Unpack wherever you like, but I would rename the directory that is unpacked to something slightly shorter - like say "amber". :)
 And yes, at this point you can double click the index.html file in the amber directory to get the IDE up, but again, **you will not be able to save code**. So please continue below :)
 
 ## Installing Node.js
 [Node](http://www.nodejs.org) (for short) is simply the V8 Javascript VM from Google (used in Chrome) hooked together with some hard core C-libraries for doing "evented I/O".
- Basically it''s Javascript for the server - on asynch steroids. Amber runs fine in Node and we use it for several Amber tools, like amberc (the command line Amber compiler) or the Amber server (see below). 
-There are also several Amber-Node example to look at if you want to play with running Amber programs server side. **In short - you really want to install Nodejs. :)**
+Basically it''s JavaScript for the server - on asynch steroids. Amber runs fine in Node and we use it for several Amber tools, like amberc (the command line Amber compiler) or the Amber server (see below). 
+There are also several Amber-Node examples to look at if you want to play with running Amber programs server side. **In short - you really want to install Nodejs. :)**
 
-- Installing Node on Linux can be done using your package tool of choice ("apt-get install nodejs" for example) or any other way described at [the download page](http://nodejs.org/#download).
-- Installing Node on MacOS seems to be easiest by getting it from [here](https://sites.google.com/site/nodejsmacosx/).
-- Installing Node on Windows is probably done best by using the [download from Nodejs.org](http://nodejs.org/#download). This is not an installer, it is instead simply the node executable - **node.exe**.
-    - Put node.exe somewhere in your path. In Windows7 I can run a command prompt "As administrator" (right click the command prompt in Start menu) and then just "copy node.exe c:\windows\" or such.
+- Installing Node on Linux can be done using your package tool of choice (`apt-get install nodejs` for example) or any other way described at [the download page](http://nodejs.org/#download).
+- Installing Node on MacOS or Windows is probably done best by using the [installers available at Nodejs.org](http://nodejs.org/#download).
 
 ## Starting Amber server
 Nicolas has written a minimal webDAV server that is the easiest way to get up and running Amber with the ability to save code. This little server is written in... Amber!! 
 And it runs on top of Node. So to start it up serving your brand new directory tree of sweet Amber you do:
 
-    cd amber      (or whatever you called the directory you unpackaged)
-    ./bin/server  (in windows you type "node server\server.js" instead)
+	cd amber	(or whatever you called the directory you unpackaged)
+	./bin/server	(in windows you type `node server\server.js` instead)
 
 It should say it is listening on port 4000. If it does, hooray!! That means both Node and Amber are good. In Windows you might get a question about opening that port in the local firewall - yep, do it!!
 
 ## Firing up Amber
-The Amber IDE is written in... Amber. It uses JQuery and runs right in your browser as a ... well, a web page. 
+The Amber IDE is written in... Amber. It uses [jQuery](http://jquery.com) and runs right in your browser as a ... well, a web page. 
 We could open it up just using a file url - but the reason we performed the previous steps is so that we can load the IDE web page from a server that can handle PUTs (webDAV) of source code. 
-According to web security Amber can only do PUT back to the same server it was loaded from. Thus we instead want to open it through our little server now listening on port 4000:
+According to web security Amber can only do PUT back to the same server it was loaded from. Thus we instead want to open it [through our little server now listening on port 4000](http://localhost:4000/index.html).
+Clicking that link and then pressing the **Class browser** should get your Amber IDE running with the ability to commit modified packages locally.
 
-    http://localhost:4000/index.html
-
-Clicking the above link should get your Amber running.
-
-To verify that you can indeed commit - just select a Package in the browser, like say "Examples" and press "Commit package" button. **If all goes well nothing happens :)**. 
+To verify that you can indeed commit now - just select a Package in the browser, like say "Examples" and press the **Commit** button below. **If all goes well nothing happens :)**. 
 So in order to really know if it worked we can check the modified date on the files **amber/st/Examples.st**, **amber/js/Examples.js** and **amber/js/Examples.deploy.js** - they should be brand new.
 
 NOTE: We can use any webDAV server and Apache2 has been used earlier and works fine. But the Amber server is smaller and simpler to start.
-
 '
 !
 
@@ -175,6 +166,14 @@ ch7KernelClasses
 
 ch4Tutorials
 	^TutorialsChapter new
+!
+
+ch8KernelCollection
+	^PackageDocChapter on: (Package named: 'Kernel-Collections')
+!
+
+ch9KernelMethods
+	^PackageDocChapter on: (Package named: 'Kernel-Methods')
 ! !
 
 !DocumentationBuilder methodsFor: 'routing'!

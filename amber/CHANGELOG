@@ -1,9 +1,31 @@
+16th January 2012 - Release 0.9.1
+=================================
 
+Here's a summary of changes since the 0.9 release:
 
+- 80 new unit tests written
+- 52 issues fixed
+- All classes in Kernel-Objects, Kernel-Classes and Kernel-Methods has been documented
+- New documentation framework (see http://amber-lang.net/documentation.html)
+- Better class organisations, "Kernel" package split into several packages
+- First class packages have replaced class categories
+- Internet Explorer 7+ compatibility
+- New Announcement framework ported from Pharo
+- New console-based REPL written in Amber using node.js
+- Symbol class implemented together with object identity and #==
+- New OrderedCollection and Set implementation
+- Dictionary can now have any kind of object as keys. String-key dictionary has been renamed HashedCollection
+- New TwitterWall example
+- Improved HTML Canvas, now compatible with IE7
+- Improved JSObjectProxy for seemless JavaScript objects access from Amber
+- No more jQuery binding. Amber is fully capable of sending messages to JavaScript objects
+
+13th September 2011 - Release 0.9
+=================================
 Amber has been evolving furiously since the presentation at ESUG 2011 in Edinburgh less than 3 weeks ago.
 
 This is a summary:
- 
+
 Language, compiler and runtime
 
 - New 100x faster parser built using PEGjs instead of the old parser built using PetitParser.
@@ -23,7 +45,7 @@ Language, compiler and runtime
 Development environment
 
 - A working Debugger with integrated inspector, proceed etc.
-- A new structure with 
+- A new structure with
 - A working amberc command line compiler including a Makefile for recompiling the whole Amber.
 - Enabled TestRunner in the IDE for running unit tests based on SUnit.
 - Added "File in" button in Workspace to easily paste and filein source code in chunk format in the IDE.

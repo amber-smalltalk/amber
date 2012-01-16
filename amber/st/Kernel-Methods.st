@@ -2,6 +2,24 @@ Smalltalk current createPackage: 'Kernel-Methods' properties: #{}!
 Object subclass: #CompiledMethod
 	instanceVariableNames: ''
 	category: 'Kernel-Methods'!
+!CompiledMethod commentStamp!
+CompiledMethod hold the source and compiled code of a class method.
+
+You can get a CompiledMethod using `Behavior>>methodAt:`
+
+	String methodAt: 'lines'
+
+and read the source code
+
+	(String methodAt: 'lines') source
+
+See referenced classes:
+
+	(String methodAt: 'lines') referencedClasses
+
+or messages sent from this method:
+	
+	(String methodAt: 'lines')  messageSends!
 
 !CompiledMethod methodsFor: 'accessing'!
 
@@ -60,7 +78,7 @@ Object subclass: #BlockClosure
 A BlockClosure is a lexical closure.
 The JavaScript representation is a function.
 
-A BlockClosure is evaluated with the #value* methods in the 'evaluating' protocol.!
+A BlockClosure is evaluated with the `#value*` methods in the 'evaluating' protocol.!
 
 !BlockClosure methodsFor: 'accessing'!
 
@@ -186,6 +204,12 @@ valueWithInterval: aNumber
 Object subclass: #MethodContext
 	instanceVariableNames: ''
 	category: 'Kernel-Methods'!
+!MethodContext commentStamp!
+MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
+  
+MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js 
+
+Current limitation: MethodContext instances are not created on Block evaluation. That means it's actually impossible to debug inside a Block.!
 
 !MethodContext methodsFor: 'accessing'!
 
@@ -216,6 +240,12 @@ asString
 Object subclass: #Message
 	instanceVariableNames: 'selector arguments'
 	category: 'Kernel-Methods'!
+!Message commentStamp!
+Generally, the system does not use instances of Message for efficiency reasons.
+However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. 
+This instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.
+
+See boot.js, `messageNotUnderstood`  and its counterpart `Object>>doesNotUnderstand:`!
 
 !Message methodsFor: 'accessing'!
 

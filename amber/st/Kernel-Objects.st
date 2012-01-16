@@ -647,6 +647,20 @@ named: aPackageName ifAbsent: aBlock
 Object subclass: #Number
 	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
+!Number commentStamp!
+Number holds the most general methods for dealing with numbers.  
+Number is directly mapped to JavaScript Number.
+
+Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript. 
+
+##Enumerating
+A Number can be used to evaluate a Block a fixed number of times:
+
+	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
+	
+	1 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].
+	
+	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
 
 !Number methodsFor: ''!
 

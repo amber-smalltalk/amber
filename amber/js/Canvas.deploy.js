@@ -414,7 +414,7 @@ smalltalk.method({
 selector: 'style',
 fn: function (){
 var self=this;
-return smalltalk.send(self, "_tag_", ["style"]);
+return smalltalk.send(self['@root'], "_addBrush_", [smalltalk.send((smalltalk.StyleTag || StyleTag), "_canvas_", [self])]);
 return self;}
 }),
 smalltalk.HTMLCanvas);
@@ -1185,6 +1185,44 @@ return self;}
 }),
 smalltalk.Widget);
 
+
+
+smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
+smalltalk.addMethod(
+'_with_',
+smalltalk.method({
+selector: 'with:',
+fn: function (aString){
+var self=this;
+((($receiver = smalltalk.send(self, "_isBrowserIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})]));
+return self;}
+}),
+smalltalk.StyleTag);
+
+smalltalk.addMethod(
+'_isBrowserIE',
+smalltalk.method({
+selector: 'isBrowserIE',
+fn: function (){
+var self=this;
+var ie=nil;
+(ie=jQuery.browser.msie);
+return smalltalk.send(ie, "_notNil", []);
+return self;}
+}),
+smalltalk.StyleTag);
+
+
+smalltalk.addMethod(
+'_canvas_',
+smalltalk.method({
+selector: 'canvas:',
+fn: function (aCanvas){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", ["style", aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;}
+}),
+smalltalk.StyleTag.klass);
 
 
 smalltalk.addMethod(

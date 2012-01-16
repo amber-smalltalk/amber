@@ -600,12 +600,12 @@ selector: unescape('style'),
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.send(self, "_tag_", ["style"]);
+return smalltalk.send(self['@root'], "_addBrush_", [smalltalk.send((smalltalk.StyleTag || StyleTag), "_canvas_", [self])]);
 return self;},
 args: [],
-source: unescape('style%0A%09%5Eself%20tag%3A%20%27style%27'),
-messageSends: ["tag:"],
-referencedClasses: []
+source: unescape('style%0A%09%5E%20root%20addBrush%3A%20%20%28StyleTag%20canvas%3A%20self%29'),
+messageSends: ["addBrush:", "canvas:"],
+referencedClasses: ["StyleTag"]
 }),
 smalltalk.HTMLCanvas);
 
@@ -1715,6 +1715,60 @@ referencedClasses: []
 }),
 smalltalk.Widget);
 
+
+
+smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
+smalltalk.StyleTag.comment=unescape('I%27m%20a%20%3Cstyle%3E%20tag%20use%20to%20inline%20CSS%20or%20load%20a%20stylesheet.%0A%0AFor%20inlining%20handle%20IE%20compatibility%20problems.')
+smalltalk.addMethod(
+unescape('_with_'),
+smalltalk.method({
+selector: unescape('with%3A'),
+category: 'adding',
+fn: function (aString){
+var self=this;
+((($receiver = smalltalk.send(self, "_isBrowserIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})]));
+return self;},
+args: ["aString"],
+source: unescape('with%3A%20aString%0A%09self%20isBrowserIE%0A%09%09ifTrue%3A%20%5Bself%20element%20styleSheet%20cssText%3A%20aString%20%5D%0A%09%09ifFalse%3A%20%5Bsuper%20with%3A%20aString%20%5D.'),
+messageSends: ["ifTrue:ifFalse:", "isBrowserIE", "cssText:", "styleSheet", "element", "with:"],
+referencedClasses: []
+}),
+smalltalk.StyleTag);
+
+smalltalk.addMethod(
+unescape('_isBrowserIE'),
+smalltalk.method({
+selector: unescape('isBrowserIE'),
+category: 'testing',
+fn: function (){
+var self=this;
+var ie=nil;
+(ie=jQuery.browser.msie);
+return smalltalk.send(ie, "_notNil", []);
+return self;},
+args: [],
+source: unescape('isBrowserIE%0A%09%7Cie%7C%0A%09ie%20%3A%3D%20%3CjQuery.browser.msie%3E.%0A%09%5E%20ie%20notNil.'),
+messageSends: ["notNil"],
+referencedClasses: []
+}),
+smalltalk.StyleTag);
+
+
+smalltalk.addMethod(
+unescape('_canvas_'),
+smalltalk.method({
+selector: unescape('canvas%3A'),
+category: 'instance creation',
+fn: function (aCanvas){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", ["style", aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aCanvas"],
+source: unescape('canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromString%3A%20%27style%27%20canvas%3A%20aCanvas%3B%0A%09yourself'),
+messageSends: ["initializeFromString:canvas:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.StyleTag.klass);
 
 
 smalltalk.addMethod(

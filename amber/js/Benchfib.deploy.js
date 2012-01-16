@@ -2,9 +2,9 @@ smalltalk.addPackage('Benchfib', {});
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
-'_main',
+unescape('_main'),
 smalltalk.method({
-selector: 'main',
+selector: unescape('main'),
 fn: function (){
 var self=this;
 var result=nil;
@@ -16,9 +16,9 @@ smalltalk.Benchfib.klass);
 
 
 smalltalk.addMethod(
-'_benchFib',
+unescape('_benchFib'),
 smalltalk.method({
-selector: 'benchFib',
+selector: unescape('benchFib'),
 fn: function (){
 var self=this;
 return ((($receiver = self < (2)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (1);})() : (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (1);}), (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]));
@@ -27,9 +27,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_benchmark',
+unescape('_benchmark'),
 smalltalk.method({
-selector: 'benchmark',
+selector: unescape('benchmark'),
 fn: function (){
 var self=this;
 var size=nil;
@@ -45,9 +45,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_tinyBenchmarks',
+unescape('_tinyBenchmarks'),
 smalltalk.method({
-selector: 'tinyBenchmarks',
+selector: unescape('tinyBenchmarks'),
 fn: function (){
 var self=this;
 var t1=nil;
@@ -65,9 +65,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_jsbenchFib',
+unescape('_jsbenchFib'),
 smalltalk.method({
-selector: 'jsbenchFib',
+selector: unescape('jsbenchFib'),
 fn: function (){
 var self=this;
 if (this < 2) {
@@ -79,9 +79,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_jsbenchmark',
+unescape('_jsbenchmark'),
 smalltalk.method({
-selector: 'jsbenchmark',
+selector: unescape('jsbenchmark'),
 fn: function (){
 var self=this;
 
@@ -111,9 +111,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-'_jstinyBenchmarks',
+unescape('_jstinyBenchmarks'),
 smalltalk.method({
-selector: 'jstinyBenchmarks',
+selector: unescape('jstinyBenchmarks'),
 fn: function (){
 var self=this;
 var t1=nil;
