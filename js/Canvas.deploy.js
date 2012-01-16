@@ -1,9 +1,9 @@
 smalltalk.addPackage('Canvas', {});
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
-'_root_',
+unescape('_root_'),
 smalltalk.method({
-selector: 'root:',
+selector: unescape('root%3A'),
 fn: function (aTagBrush){
 var self=this;
 (self['@root']=aTagBrush);
@@ -12,9 +12,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_root',
+unescape('_root'),
 smalltalk.method({
-selector: 'root',
+selector: unescape('root'),
 fn: function (){
 var self=this;
 return self['@root'];
@@ -23,9 +23,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_with_',
+unescape('_with_'),
 smalltalk.method({
-selector: 'with:',
+selector: unescape('with%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_root", []), "_with_", [anObject]);
@@ -34,9 +34,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_initialize',
+unescape('_initialize'),
 smalltalk.method({
-selector: 'initialize',
+selector: unescape('initialize'),
 fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Object);
@@ -46,9 +46,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_initializeFromJQuery_',
+unescape('_initializeFromJQuery_'),
 smalltalk.method({
-selector: 'initializeFromJQuery:',
+selector: unescape('initializeFromJQuery%3A'),
 fn: function (aJQuery){
 var self=this;
 (self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromJQuery_canvas_", [aJQuery, self]));
@@ -57,9 +57,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_newTag_',
+unescape('_newTag_'),
 smalltalk.method({
-selector: 'newTag:',
+selector: unescape('newTag%3A'),
 fn: function (aString){
 var self=this;
 return smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", [aString, self]);
@@ -68,9 +68,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_tag_',
+unescape('_tag_'),
 smalltalk.method({
-selector: 'tag:',
+selector: unescape('tag%3A'),
 fn: function (aString){
 var self=this;
 return smalltalk.send(self['@root'], "_addBrush_", [smalltalk.send(self, "_newTag_", [aString])]);
@@ -79,9 +79,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h1',
+unescape('_h1'),
 smalltalk.method({
-selector: 'h1',
+selector: unescape('h1'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h1"]);
@@ -90,9 +90,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h2',
+unescape('_h2'),
 smalltalk.method({
-selector: 'h2',
+selector: unescape('h2'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h2"]);
@@ -101,9 +101,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h3',
+unescape('_h3'),
 smalltalk.method({
-selector: 'h3',
+selector: unescape('h3'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h3"]);
@@ -112,9 +112,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h4',
+unescape('_h4'),
 smalltalk.method({
-selector: 'h4',
+selector: unescape('h4'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h4"]);
@@ -123,9 +123,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h5',
+unescape('_h5'),
 smalltalk.method({
-selector: 'h5',
+selector: unescape('h5'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h5"]);
@@ -134,9 +134,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h6',
+unescape('_h6'),
 smalltalk.method({
-selector: 'h6',
+selector: unescape('h6'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["h6"]);
@@ -145,9 +145,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_p',
+unescape('_p'),
 smalltalk.method({
-selector: 'p',
+selector: unescape('p'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["p"]);
@@ -156,9 +156,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_div',
+unescape('_div'),
 smalltalk.method({
-selector: 'div',
+selector: unescape('div'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["div"]);
@@ -167,9 +167,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_span',
+unescape('_span'),
 smalltalk.method({
-selector: 'span',
+selector: unescape('span'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["span"]);
@@ -178,9 +178,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_img',
+unescape('_img'),
 smalltalk.method({
-selector: 'img',
+selector: unescape('img'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["img"]);
@@ -189,9 +189,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_ul',
+unescape('_ul'),
 smalltalk.method({
-selector: 'ul',
+selector: unescape('ul'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["ul"]);
@@ -200,9 +200,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_ol',
+unescape('_ol'),
 smalltalk.method({
-selector: 'ol',
+selector: unescape('ol'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["ol"]);
@@ -211,9 +211,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_li',
+unescape('_li'),
 smalltalk.method({
-selector: 'li',
+selector: unescape('li'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["li"]);
@@ -222,9 +222,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_table',
+unescape('_table'),
 smalltalk.method({
-selector: 'table',
+selector: unescape('table'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["table"]);
@@ -233,9 +233,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_tr',
+unescape('_tr'),
 smalltalk.method({
-selector: 'tr',
+selector: unescape('tr'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["tr"]);
@@ -244,9 +244,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_td',
+unescape('_td'),
 smalltalk.method({
-selector: 'td',
+selector: unescape('td'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["td"]);
@@ -255,9 +255,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_th',
+unescape('_th'),
 smalltalk.method({
-selector: 'th',
+selector: unescape('th'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["th"]);
@@ -266,9 +266,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_form',
+unescape('_form'),
 smalltalk.method({
-selector: 'form',
+selector: unescape('form'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["form"]);
@@ -277,9 +277,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_input',
+unescape('_input'),
 smalltalk.method({
-selector: 'input',
+selector: unescape('input'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["input"]);
@@ -288,9 +288,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_button',
+unescape('_button'),
 smalltalk.method({
-selector: 'button',
+selector: unescape('button'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["button"]);
@@ -299,9 +299,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_select',
+unescape('_select'),
 smalltalk.method({
-selector: 'select',
+selector: unescape('select'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["select"]);
@@ -310,9 +310,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_option',
+unescape('_option'),
 smalltalk.method({
-selector: 'option',
+selector: unescape('option'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["option"]);
@@ -321,9 +321,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_textarea',
+unescape('_textarea'),
 smalltalk.method({
-selector: 'textarea',
+selector: unescape('textarea'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["textarea"]);
@@ -332,9 +332,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_a',
+unescape('_a'),
 smalltalk.method({
-selector: 'a',
+selector: unescape('a'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["a"]);
@@ -343,9 +343,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_canvas',
+unescape('_canvas'),
 smalltalk.method({
-selector: 'canvas',
+selector: unescape('canvas'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["canvas"]);
@@ -354,9 +354,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_pre',
+unescape('_pre'),
 smalltalk.method({
-selector: 'pre',
+selector: unescape('pre'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["pre"]);
@@ -365,9 +365,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_code',
+unescape('_code'),
 smalltalk.method({
-selector: 'code',
+selector: unescape('code'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["code"]);
@@ -376,9 +376,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_br',
+unescape('_br'),
 smalltalk.method({
-selector: 'br',
+selector: unescape('br'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["br"]);
@@ -387,9 +387,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_script',
+unescape('_script'),
 smalltalk.method({
-selector: 'script',
+selector: unescape('script'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["script"]);
@@ -398,9 +398,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_link',
+unescape('_link'),
 smalltalk.method({
-selector: 'link',
+selector: unescape('link'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["link"]);
@@ -409,9 +409,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_style',
+unescape('_style'),
 smalltalk.method({
-selector: 'style',
+selector: unescape('style'),
 fn: function (){
 var self=this;
 return smalltalk.send(self['@root'], "_addBrush_", [smalltalk.send((smalltalk.StyleTag || StyleTag), "_canvas_", [self])]);
@@ -420,9 +420,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_p_',
+unescape('_p_'),
 smalltalk.method({
-selector: 'p:',
+selector: unescape('p%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_p", []), "_with_", [anObject]);
@@ -431,9 +431,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h1_',
+unescape('_h1_'),
 smalltalk.method({
-selector: 'h1:',
+selector: unescape('h1%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_h1", []), "_with_", [anObject]);
@@ -442,9 +442,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_iframe',
+unescape('_iframe'),
 smalltalk.method({
-selector: 'iframe',
+selector: unescape('iframe'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["iframe"]);
@@ -453,9 +453,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_iframe_',
+unescape('_iframe_'),
 smalltalk.method({
-selector: 'iframe:',
+selector: unescape('iframe%3A'),
 fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_iframe", []), "_src_", [aString]);
@@ -464,9 +464,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h2_',
+unescape('_h2_'),
 smalltalk.method({
-selector: 'h2:',
+selector: unescape('h2%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_h2", []), "_with_", [anObject]);
@@ -475,9 +475,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h3_',
+unescape('_h3_'),
 smalltalk.method({
-selector: 'h3:',
+selector: unescape('h3%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_h3", []), "_with_", [anObject]);
@@ -486,9 +486,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h4_',
+unescape('_h4_'),
 smalltalk.method({
-selector: 'h4:',
+selector: unescape('h4%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_h4", []), "_with_", [anObject]);
@@ -497,9 +497,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h5_',
+unescape('_h5_'),
 smalltalk.method({
-selector: 'h5:',
+selector: unescape('h5%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_h5", []), "_with_", [anObject]);
@@ -508,9 +508,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_h6_',
+unescape('_h6_'),
 smalltalk.method({
-selector: 'h6:',
+selector: unescape('h6%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_h6", []), "_with_", [anObject]);
@@ -519,9 +519,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_img_',
+unescape('_img_'),
 smalltalk.method({
-selector: 'img:',
+selector: unescape('img%3A'),
 fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_img", []), "_src_", [aString]);
@@ -530,9 +530,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_ol_',
+unescape('_ol_'),
 smalltalk.method({
-selector: 'ol:',
+selector: unescape('ol%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_ol", []), "_with_", [anObject]);
@@ -541,9 +541,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_li_',
+unescape('_li_'),
 smalltalk.method({
-selector: 'li:',
+selector: unescape('li%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_li", []), "_with_", [anObject]);
@@ -552,9 +552,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_ul_',
+unescape('_ul_'),
 smalltalk.method({
-selector: 'ul:',
+selector: unescape('ul%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_ul", []), "_with_", [anObject]);
@@ -563,9 +563,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_span_',
+unescape('_span_'),
 smalltalk.method({
-selector: 'span:',
+selector: unescape('span%3A'),
 fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_span", []), "_with_", [anObject]);
@@ -574,9 +574,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_style_',
+unescape('_style_'),
 smalltalk.method({
-selector: 'style:',
+selector: unescape('style%3A'),
 fn: function (aString){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_with_", [aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_style", []));
@@ -585,9 +585,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_articles',
+unescape('_articles'),
 smalltalk.method({
-selector: 'articles',
+selector: unescape('articles'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["articles"]);
@@ -596,9 +596,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_audio',
+unescape('_audio'),
 smalltalk.method({
-selector: 'audio',
+selector: unescape('audio'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["audio"]);
@@ -607,9 +607,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_fieldset',
+unescape('_fieldset'),
 smalltalk.method({
-selector: 'fieldset',
+selector: unescape('fieldset'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["fieldset"]);
@@ -618,9 +618,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_footer',
+unescape('_footer'),
 smalltalk.method({
-selector: 'footer',
+selector: unescape('footer'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["footer"]);
@@ -629,9 +629,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_header',
+unescape('_header'),
 smalltalk.method({
-selector: 'header',
+selector: unescape('header'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["header"]);
@@ -640,9 +640,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_hr',
+unescape('_hr'),
 smalltalk.method({
-selector: 'hr',
+selector: unescape('hr'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["hr"]);
@@ -651,9 +651,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_section',
+unescape('_section'),
 smalltalk.method({
-selector: 'section',
+selector: unescape('section'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["section"]);
@@ -662,9 +662,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_tbody',
+unescape('_tbody'),
 smalltalk.method({
-selector: 'tbody',
+selector: unescape('tbody'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["tbody"]);
@@ -673,9 +673,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_tfoot',
+unescape('_tfoot'),
 smalltalk.method({
-selector: 'tfoot',
+selector: unescape('tfoot'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["tfoot"]);
@@ -684,9 +684,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_thead',
+unescape('_thead'),
 smalltalk.method({
-selector: 'thead',
+selector: unescape('thead'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["thead"]);
@@ -695,9 +695,9 @@ return self;}
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-'_video',
+unescape('_video'),
 smalltalk.method({
-selector: 'video',
+selector: unescape('video'),
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_tag_", ["video"]);
@@ -707,9 +707,9 @@ smalltalk.HTMLCanvas);
 
 
 smalltalk.addMethod(
-'_onJQuery_',
+unescape('_onJQuery_'),
 smalltalk.method({
-selector: 'onJQuery:',
+selector: unescape('onJQuery%3A'),
 fn: function (aJQuery){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_", [aJQuery]);smalltalk.send($rec, "_initialize", []);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_basicNew", []));
@@ -717,12 +717,56 @@ return self;}
 }),
 smalltalk.HTMLCanvas.klass);
 
+smalltalk.addMethod(
+unescape('_isMSIE'),
+smalltalk.method({
+selector: unescape('isMSIE'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("msie")]), "_notNil", []);
+return self;}
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+unescape('_isOpera'),
+smalltalk.method({
+selector: unescape('isOpera'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("opera")]), "_notNil", []);
+return self;}
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+unescape('_isMozilla'),
+smalltalk.method({
+selector: unescape('isMozilla'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("mozilla")]), "_notNil", []);
+return self;}
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+unescape('_isWebkit'),
+smalltalk.method({
+selector: unescape('isWebkit'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("webkit")]), "_notNil", []);
+return self;}
+}),
+smalltalk.HTMLCanvas.klass);
+
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
-'_element',
+unescape('_element'),
 smalltalk.method({
-selector: 'element',
+selector: unescape('element'),
 fn: function (){
 var self=this;
 return self['@element'];
@@ -731,9 +775,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_contents_',
+unescape('_contents_'),
 smalltalk.method({
-selector: 'contents:',
+selector: unescape('contents%3A'),
 fn: function (anObject){
 var self=this;
 (function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
@@ -742,9 +786,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_addBrush_',
+unescape('_addBrush_'),
 smalltalk.method({
-selector: 'addBrush:',
+selector: unescape('addBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
 smalltalk.send(self, "_appendChild_", [smalltalk.send(aTagBrush, "_element", [])]);
@@ -754,9 +798,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_with_',
+unescape('_with_'),
 smalltalk.method({
-selector: 'with:',
+selector: unescape('with%3A'),
 fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_append_", [anObject]);
@@ -765,9 +809,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_append_',
+unescape('_append_'),
 smalltalk.method({
-selector: 'append:',
+selector: unescape('append%3A'),
 fn: function (anObject){
 var self=this;
 smalltalk.send(anObject, "_appendToBrush_", [self]);
@@ -776,9 +820,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_appendToBrush_',
+unescape('_appendToBrush_'),
 smalltalk.method({
-selector: 'appendToBrush:',
+selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_addBrush_", [self]);
@@ -787,9 +831,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_appendBlock_',
+unescape('_appendBlock_'),
 smalltalk.method({
-selector: 'appendBlock:',
+selector: unescape('appendBlock%3A'),
 fn: function (aBlock){
 var self=this;
 var root=nil;
@@ -802,9 +846,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_appendChild_',
+unescape('_appendChild_'),
 smalltalk.method({
-selector: 'appendChild:',
+selector: unescape('appendChild%3A'),
 fn: function (anElement){
 var self=this;
 var element=self['@element'];
@@ -818,9 +862,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_appendString_',
+unescape('_appendString_'),
 smalltalk.method({
-selector: 'appendString:',
+selector: unescape('appendString%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_appendChild_", [smalltalk.send(self, "_createTextNodeFor_", [aString])]);
@@ -829,9 +873,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_empty',
+unescape('_empty'),
 smalltalk.method({
-selector: 'empty',
+selector: unescape('empty'),
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
@@ -840,9 +884,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_at_put_',
+unescape('_at_put_'),
 smalltalk.method({
-selector: 'at:put:',
+selector: unescape('at%3Aput%3A'),
 fn: function (aString, aValue){
 var self=this;
 self['@element'].setAttribute(aString, aValue);
@@ -851,9 +895,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_removeAt_',
+unescape('_removeAt_'),
 smalltalk.method({
-selector: 'removeAt:',
+selector: unescape('removeAt%3A'),
 fn: function (aString){
 var self=this;
 self['@element'].removeAttribute(aString);
@@ -862,9 +906,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_class_',
+unescape('_class_'),
 smalltalk.method({
-selector: 'class:',
+selector: unescape('class%3A'),
 fn: function (aString){
 var self=this;
 self['@element'].className = aString;
@@ -873,9 +917,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_id_',
+unescape('_id_'),
 smalltalk.method({
-selector: 'id:',
+selector: unescape('id%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["id", aString]);
@@ -884,9 +928,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_src_',
+unescape('_src_'),
 smalltalk.method({
-selector: 'src:',
+selector: unescape('src%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["src", aString]);
@@ -895,9 +939,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_href_',
+unescape('_href_'),
 smalltalk.method({
-selector: 'href:',
+selector: unescape('href%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["href", aString]);
@@ -906,9 +950,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_title_',
+unescape('_title_'),
 smalltalk.method({
-selector: 'title:',
+selector: unescape('title%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["title", aString]);
@@ -917,9 +961,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_style_',
+unescape('_style_'),
 smalltalk.method({
-selector: 'style:',
+selector: unescape('style%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["style", aString]);
@@ -928,9 +972,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_type_',
+unescape('_type_'),
 smalltalk.method({
-selector: 'type:',
+selector: unescape('type%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["type", aString]);
@@ -939,9 +983,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_media_',
+unescape('_media_'),
 smalltalk.method({
-selector: 'media:',
+selector: unescape('media%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["media", aString]);
@@ -950,9 +994,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_rel_',
+unescape('_rel_'),
 smalltalk.method({
-selector: 'rel:',
+selector: unescape('rel%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["rel", aString]);
@@ -961,9 +1005,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_width_',
+unescape('_width_'),
 smalltalk.method({
-selector: 'width:',
+selector: unescape('width%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["width", aString]);
@@ -972,9 +1016,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_height_',
+unescape('_height_'),
 smalltalk.method({
-selector: 'height:',
+selector: unescape('height%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["height", aString]);
@@ -983,9 +1027,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_value_',
+unescape('_value_'),
 smalltalk.method({
-selector: 'value:',
+selector: unescape('value%3A'),
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_at_put_", ["value", aString]);
@@ -994,9 +1038,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_asJQuery',
+unescape('_asJQuery'),
 smalltalk.method({
-selector: 'asJQuery',
+selector: unescape('asJQuery'),
 fn: function (){
 var self=this;
 return smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(self, "_element", [])]);
@@ -1005,9 +1049,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onKeyDown_',
+unescape('_onKeyDown_'),
 smalltalk.method({
-selector: 'onKeyDown:',
+selector: unescape('onKeyDown%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keydown", aBlock]);
@@ -1016,9 +1060,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onKeyPress_',
+unescape('_onKeyPress_'),
 smalltalk.method({
-selector: 'onKeyPress:',
+selector: unescape('onKeyPress%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keypress", aBlock]);
@@ -1027,9 +1071,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onKeyUp_',
+unescape('_onKeyUp_'),
 smalltalk.method({
-selector: 'onKeyUp:',
+selector: unescape('onKeyUp%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keyup", aBlock]);
@@ -1038,9 +1082,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onFocus_',
+unescape('_onFocus_'),
 smalltalk.method({
-selector: 'onFocus:',
+selector: unescape('onFocus%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focus", aBlock]);
@@ -1049,9 +1093,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onBlur_',
+unescape('_onBlur_'),
 smalltalk.method({
-selector: 'onBlur:',
+selector: unescape('onBlur%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["blur", aBlock]);
@@ -1060,9 +1104,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onChange_',
+unescape('_onChange_'),
 smalltalk.method({
-selector: 'onChange:',
+selector: unescape('onChange%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["change", aBlock]);
@@ -1071,9 +1115,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_onClick_',
+unescape('_onClick_'),
 smalltalk.method({
-selector: 'onClick:',
+selector: unescape('onClick%3A'),
 fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["click", aBlock]);
@@ -1082,9 +1126,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_initializeFromString_canvas_',
+unescape('_initializeFromString_canvas_'),
 smalltalk.method({
-selector: 'initializeFromString:canvas:',
+selector: unescape('initializeFromString%3Acanvas%3A'),
 fn: function (aString, aCanvas){
 var self=this;
 (self['@element']=smalltalk.send(self, "_createElementFor_", [aString]));
@@ -1094,9 +1138,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_initializeFromJQuery_canvas_',
+unescape('_initializeFromJQuery_canvas_'),
 smalltalk.method({
-selector: 'initializeFromJQuery:canvas:',
+selector: unescape('initializeFromJQuery%3Acanvas%3A'),
 fn: function (aJQuery, aCanvas){
 var self=this;
 (self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]));
@@ -1106,9 +1150,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_createElementFor_',
+unescape('_createElementFor_'),
 smalltalk.method({
-selector: 'createElementFor:',
+selector: unescape('createElementFor%3A'),
 fn: function (aString){
 var self=this;
 return document.createElement(String(aString));
@@ -1117,9 +1161,9 @@ return self;}
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-'_createTextNodeFor_',
+unescape('_createTextNodeFor_'),
 smalltalk.method({
-selector: 'createTextNodeFor:',
+selector: unescape('createTextNodeFor%3A'),
 fn: function (aString){
 var self=this;
 return document.createTextNode(String(aString));
@@ -1129,9 +1173,9 @@ smalltalk.TagBrush);
 
 
 smalltalk.addMethod(
-'_fromString_canvas_',
+unescape('_fromString_canvas_'),
 smalltalk.method({
-selector: 'fromString:canvas:',
+selector: unescape('fromString%3Acanvas%3A'),
 fn: function (aString, aCanvas){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", [aString, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
@@ -1140,9 +1184,9 @@ return self;}
 smalltalk.TagBrush.klass);
 
 smalltalk.addMethod(
-'_fromJQuery_canvas_',
+unescape('_fromJQuery_canvas_'),
 smalltalk.method({
-selector: 'fromJQuery:canvas:',
+selector: unescape('fromJQuery%3Acanvas%3A'),
 fn: function (aJQuery, aCanvas){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_canvas_", [aJQuery, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
@@ -1153,9 +1197,9 @@ smalltalk.TagBrush.klass);
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
-'_appendToBrush_',
+unescape('_appendToBrush_'),
 smalltalk.method({
-selector: 'appendToBrush:',
+selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
 smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
@@ -1164,9 +1208,9 @@ return self;}
 smalltalk.Widget);
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 fn: function (aJQuery){
 var self=this;
 smalltalk.send(self, "_renderOn_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
@@ -1175,9 +1219,9 @@ return self;}
 smalltalk.Widget);
 
 smalltalk.addMethod(
-'_renderOn_',
+unescape('_renderOn_'),
 smalltalk.method({
-selector: 'renderOn:',
+selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
 self;
@@ -1189,34 +1233,21 @@ smalltalk.Widget);
 
 smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
-'_with_',
+unescape('_with_'),
 smalltalk.method({
-selector: 'with:',
+selector: unescape('with%3A'),
 fn: function (aString){
 var self=this;
-((($receiver = smalltalk.send(self, "_isBrowserIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})]));
-return self;}
-}),
-smalltalk.StyleTag);
-
-smalltalk.addMethod(
-'_isBrowserIE',
-smalltalk.method({
-selector: 'isBrowserIE',
-fn: function (){
-var self=this;
-var ie=nil;
-(ie=jQuery.browser.msie);
-return smalltalk.send(ie, "_notNil", []);
+((($receiver = smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_isMSIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})]));
 return self;}
 }),
 smalltalk.StyleTag);
 
 
 smalltalk.addMethod(
-'_canvas_',
+unescape('_canvas_'),
 smalltalk.method({
-selector: 'canvas:',
+selector: unescape('canvas%3A'),
 fn: function (aCanvas){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", ["style", aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
@@ -1226,9 +1257,9 @@ smalltalk.StyleTag.klass);
 
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 fn: function (aJQuery){
 var self=this;
 smalltalk.send(aJQuery, "_append_", [smalltalk.send(self, "_asString", [])]);
@@ -1237,9 +1268,9 @@ return self;}
 smalltalk.Object);
 
 smalltalk.addMethod(
-'_appendToBrush_',
+unescape('_appendToBrush_'),
 smalltalk.method({
-selector: 'appendToBrush:',
+selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_append_", [smalltalk.send(self, "_asString", [])]);
@@ -1248,9 +1279,9 @@ return self;}
 smalltalk.Object);
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 fn: function (aJQuery){
 var self=this;
 smalltalk.send(self, "_value_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
@@ -1259,9 +1290,9 @@ return self;}
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-'_appendToBrush_',
+unescape('_appendToBrush_'),
 smalltalk.method({
-selector: 'appendToBrush:',
+selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_appendBlock_", [self]);
@@ -1270,9 +1301,9 @@ return self;}
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-'_asJQuery',
+unescape('_asJQuery'),
 smalltalk.method({
-selector: 'asJQuery',
+selector: unescape('asJQuery'),
 fn: function (){
 var self=this;
 return jQuery(String(self));
@@ -1281,9 +1312,9 @@ return self;}
 smalltalk.String);
 
 smalltalk.addMethod(
-'_appendToJQuery_',
+unescape('_appendToJQuery_'),
 smalltalk.method({
-selector: 'appendToJQuery:',
+selector: unescape('appendToJQuery%3A'),
 fn: function (aJQuery){
 var self=this;
 smalltalk.send(aJQuery, "_append_", [self]);
@@ -1292,9 +1323,9 @@ return self;}
 smalltalk.String);
 
 smalltalk.addMethod(
-'_appendToBrush_',
+unescape('_appendToBrush_'),
 smalltalk.method({
-selector: 'appendToBrush:',
+selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
 smalltalk.send(aTagBrush, "_appendString_", [self]);

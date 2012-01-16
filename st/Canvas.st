@@ -275,6 +275,22 @@ onJQuery: aJQuery
 		initializeFromJQuery: aJQuery;
 		initialize;
 		yourself
+!
+
+isMSIE
+	^((jQuery at: #browser) at: #msie) notNil
+!
+
+isOpera
+	^((jQuery at: #browser) at: #opera) notNil
+!
+
+isMozilla
+	^((jQuery at: #browser) at: #mozilla) notNil
+!
+
+isWebkit
+	^((jQuery at: #browser) at: #webkit) notNil
 ! !
 
 Object subclass: #TagBrush
@@ -499,17 +515,9 @@ For inlining handle IE compatibility problems.!
 !StyleTag methodsFor: 'adding'!
 
 with: aString
-	self isBrowserIE
+	HTMLCanvas isMSIE
 		ifTrue: [self element styleSheet cssText: aString ]
 		ifFalse: [super with: aString ].
-! !
-
-!StyleTag methodsFor: 'testing'!
-
-isBrowserIE
-	|ie|
-	ie := <jQuery.browser.msie>.
-	^ ie notNil.
 ! !
 
 !StyleTag class methodsFor: 'instance creation'!

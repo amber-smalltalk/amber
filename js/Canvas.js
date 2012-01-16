@@ -1042,6 +1042,70 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas.klass);
 
+smalltalk.addMethod(
+unescape('_isMSIE'),
+smalltalk.method({
+selector: unescape('isMSIE'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("msie")]), "_notNil", []);
+return self;},
+args: [],
+source: unescape('isMSIE%0A%09%5E%28%28jQuery%20at%3A%20%23browser%29%20at%3A%20%23msie%29%20notNil'),
+messageSends: ["notNil", "at:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+unescape('_isOpera'),
+smalltalk.method({
+selector: unescape('isOpera'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("opera")]), "_notNil", []);
+return self;},
+args: [],
+source: unescape('isOpera%0A%09%5E%28%28jQuery%20at%3A%20%23browser%29%20at%3A%20%23opera%29%20notNil'),
+messageSends: ["notNil", "at:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+unescape('_isMozilla'),
+smalltalk.method({
+selector: unescape('isMozilla'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("mozilla")]), "_notNil", []);
+return self;},
+args: [],
+source: unescape('isMozilla%0A%09%5E%28%28jQuery%20at%3A%20%23browser%29%20at%3A%20%23mozilla%29%20notNil'),
+messageSends: ["notNil", "at:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
+
+smalltalk.addMethod(
+unescape('_isWebkit'),
+smalltalk.method({
+selector: unescape('isWebkit'),
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_at_", [smalltalk.symbolFor("browser")]), "_at_", [smalltalk.symbolFor("webkit")]), "_notNil", []);
+return self;},
+args: [],
+source: unescape('isWebkit%0A%09%5E%28%28jQuery%20at%3A%20%23browser%29%20at%3A%20%23webkit%29%20notNil'),
+messageSends: ["notNil", "at:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas.klass);
+
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
@@ -1726,30 +1790,12 @@ selector: unescape('with%3A'),
 category: 'adding',
 fn: function (aString){
 var self=this;
-((($receiver = smalltalk.send(self, "_isBrowserIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})]));
+((($receiver = smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_isMSIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.TagBrush);})]));
 return self;},
 args: ["aString"],
-source: unescape('with%3A%20aString%0A%09self%20isBrowserIE%0A%09%09ifTrue%3A%20%5Bself%20element%20styleSheet%20cssText%3A%20aString%20%5D%0A%09%09ifFalse%3A%20%5Bsuper%20with%3A%20aString%20%5D.'),
-messageSends: ["ifTrue:ifFalse:", "isBrowserIE", "cssText:", "styleSheet", "element", "with:"],
-referencedClasses: []
-}),
-smalltalk.StyleTag);
-
-smalltalk.addMethod(
-unescape('_isBrowserIE'),
-smalltalk.method({
-selector: unescape('isBrowserIE'),
-category: 'testing',
-fn: function (){
-var self=this;
-var ie=nil;
-(ie=jQuery.browser.msie);
-return smalltalk.send(ie, "_notNil", []);
-return self;},
-args: [],
-source: unescape('isBrowserIE%0A%09%7Cie%7C%0A%09ie%20%3A%3D%20%3CjQuery.browser.msie%3E.%0A%09%5E%20ie%20notNil.'),
-messageSends: ["notNil"],
-referencedClasses: []
+source: unescape('with%3A%20aString%0A%09HTMLCanvas%20isMSIE%0A%09%09ifTrue%3A%20%5Bself%20element%20styleSheet%20cssText%3A%20aString%20%5D%0A%09%09ifFalse%3A%20%5Bsuper%20with%3A%20aString%20%5D.'),
+messageSends: ["ifTrue:ifFalse:", "isMSIE", "cssText:", "styleSheet", "element", "with:"],
+referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.StyleTag);
 
