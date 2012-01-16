@@ -1,10 +1,11 @@
 # Makefile for sub directories
 AMBER = st
 SERVER = server
+REPL = repl
 EXAMPLES = examples
 
 # REST is all except AMBER
-REST = $(SERVER) $(EXAMPLES)
+REST = $(SERVER) $(EXAMPLES) $(REPL)
 
 # And these are all
 DIRS = $(AMBER) $(REST)
