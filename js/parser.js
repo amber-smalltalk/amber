@@ -794,25 +794,119 @@ smalltalk.parser = (function(){
         }
         if (result3 !== null) {
           var result4 = [];
-          if (input.substr(pos).match(/^[a-zA-Z0-9]/) !== null) {
-            var result5 = input.charAt(pos);
+          var savedPos3 = pos;
+          if (input.substr(pos).match(/^[a-zA-Z0-9:]/) !== null) {
+            var result12 = input.charAt(pos);
             pos++;
           } else {
-            var result5 = null;
+            var result12 = null;
             if (reportMatchFailures) {
-              matchFailed("[a-zA-Z0-9]");
+              matchFailed("[a-zA-Z0-9:]");
             }
+          }
+          if (result12 !== null) {
+            var result10 = [];
+            while (result12 !== null) {
+              result10.push(result12);
+              if (input.substr(pos).match(/^[a-zA-Z0-9:]/) !== null) {
+                var result12 = input.charAt(pos);
+                pos++;
+              } else {
+                var result12 = null;
+                if (reportMatchFailures) {
+                  matchFailed("[a-zA-Z0-9:]");
+                }
+              }
+            }
+          } else {
+            var result10 = null;
+          }
+          var result11 = result10 !== null
+            ? (function(digits) {return digits.join("")})(result10)
+            : null;
+          if (result11 !== null) {
+            var result9 = result11;
+          } else {
+            var result9 = null;
+            pos = savedPos3;
+          }
+          if (result9 !== null) {
+            var result5 = result9;
+          } else {
+            var savedPos2 = pos;
+            var result7 = parse_string();
+            var result8 = result7 !== null
+              ? (function(node) {return node._value()})(result7)
+              : null;
+            if (result8 !== null) {
+              var result6 = result8;
+            } else {
+              var result6 = null;
+              pos = savedPos2;
+            }
+            if (result6 !== null) {
+              var result5 = result6;
+            } else {
+              var result5 = null;;
+            };
           }
           while (result5 !== null) {
             result4.push(result5);
-            if (input.substr(pos).match(/^[a-zA-Z0-9]/) !== null) {
-              var result5 = input.charAt(pos);
+            var savedPos3 = pos;
+            if (input.substr(pos).match(/^[a-zA-Z0-9:]/) !== null) {
+              var result12 = input.charAt(pos);
               pos++;
             } else {
-              var result5 = null;
+              var result12 = null;
               if (reportMatchFailures) {
-                matchFailed("[a-zA-Z0-9]");
+                matchFailed("[a-zA-Z0-9:]");
               }
+            }
+            if (result12 !== null) {
+              var result10 = [];
+              while (result12 !== null) {
+                result10.push(result12);
+                if (input.substr(pos).match(/^[a-zA-Z0-9:]/) !== null) {
+                  var result12 = input.charAt(pos);
+                  pos++;
+                } else {
+                  var result12 = null;
+                  if (reportMatchFailures) {
+                    matchFailed("[a-zA-Z0-9:]");
+                  }
+                }
+              }
+            } else {
+              var result10 = null;
+            }
+            var result11 = result10 !== null
+              ? (function(digits) {return digits.join("")})(result10)
+              : null;
+            if (result11 !== null) {
+              var result9 = result11;
+            } else {
+              var result9 = null;
+              pos = savedPos3;
+            }
+            if (result9 !== null) {
+              var result5 = result9;
+            } else {
+              var savedPos2 = pos;
+              var result7 = parse_string();
+              var result8 = result7 !== null
+                ? (function(node) {return node._value()})(result7)
+                : null;
+              if (result8 !== null) {
+                var result6 = result8;
+              } else {
+                var result6 = null;
+                pos = savedPos2;
+              }
+              if (result6 !== null) {
+                var result5 = result6;
+              } else {
+                var result5 = null;;
+              };
             }
           }
           if (result4 !== null) {
@@ -827,8 +921,8 @@ smalltalk.parser = (function(){
         }
         var result2 = result1 !== null
           ? (function(val) {
-          		  return smalltalk.ValueNode._new()
-                         	   	._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
+          		  		    return smalltalk.ValueNode._new()
+                         	   		    	   ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
                          	 })(result1[1])
           : null;
         if (result2 !== null) {

@@ -12,9 +12,11 @@ string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                	   	._value_(val.join("").replace(/\"/ig, '"'))
 	         }
 
-symbol         = "#"val:[a-zA-Z0-9]* {
-		  return smalltalk.ValueNode._new()
-               	   	._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
+symbol         = "#"val:(
+			digits:[a-zA-Z0-9\:]+ {return digits.join("")} / 
+			node:string {return node._value()})* {
+		  		    return smalltalk.ValueNode._new()
+               	   		    	   ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
                	 }
 number         = n:(float / integer) {
 		  return smalltalk.ValueNode._new()
