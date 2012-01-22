@@ -46,6 +46,9 @@ Kernel-Exceptions.js: Kernel-Exceptions.st boot.js init.js parser.js
 Kernel-Transcript.js: Kernel-Transcript.st boot.js init.js parser.js
 	$(AMBERC) $(FLAGS) $<
 
+Kernel-Announcements.js: Kernel-Announcements.st boot.js init.js parser.js
+	$(AMBERC) $(FLAGS) $<
+
 # ...and Compiler, but using the new Kernel from above.
 # We only need to depend on Kernel js files since it in turn depends on boot.js etc
 Compiler.js: Compiler.st Kernel-Objects.js Kernel-Classes.js Kernel-Methods.js Kernel-Collections.js \
