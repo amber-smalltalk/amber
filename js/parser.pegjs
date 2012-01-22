@@ -3,7 +3,8 @@ start = method
 separator      = [ \t\v\f\u00A0\uFEFF\n\r\u2028\u2029]+
 comments       = (["][^"]*["])+
 ws             = (separator / comments)*
-identifier     = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("")}
+identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
+varIdentifier  = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("")}
 keyword        = first:identifier last:[:] {return first + last}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
@@ -42,7 +43,7 @@ pseudoVariable = val:(
 literal        = pseudoVariable / number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
 
 
-variable       = identifier:identifier {
+variable       = identifier:varIdentifier {
 		  return smalltalk.VariableNode._new()
 			._value_(identifier)
 		  }
