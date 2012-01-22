@@ -1,56 +1,4 @@
 smalltalk.addPackage('Kernel-Announcements', {});
-smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
-smalltalk.addMethod(
-unescape('_announce_'),
-smalltalk.method({
-selector: unescape('announce%3A'),
-category: 'announcing',
-fn: function (anAnnouncement){
-var self=this;
-smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
-return self;},
-args: ["anAnnouncement"],
-source: unescape('announce%3A%20anAnnouncement%0A%09subscriptions%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20deliver%3A%20anAnnouncement%5D'),
-messageSends: ["do:", "deliver:"],
-referencedClasses: []
-}),
-smalltalk.Announcer);
-
-smalltalk.addMethod(
-unescape('_initialize'),
-smalltalk.method({
-selector: unescape('initialize'),
-category: 'initialization',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
-(self['@subscriptions']=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection), "_new", []));
-return self;},
-args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09subscriptions%20%3A%3D%20OrderedCollection%20new'),
-messageSends: ["initialize", "new"],
-referencedClasses: ["OrderedCollection"]
-}),
-smalltalk.Announcer);
-
-smalltalk.addMethod(
-unescape('_on_do_'),
-smalltalk.method({
-selector: unescape('on%3Ado%3A'),
-category: 'subscribing',
-fn: function (aClass, aBlock){
-var self=this;
-smalltalk.send(self['@subscriptions'], "_add_", [(function($rec){smalltalk.send($rec, "_block_", [aBlock]);smalltalk.send($rec, "_announcementClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription), "_new", []))]);
-return self;},
-args: ["aClass", "aBlock"],
-source: unescape('on%3A%20aClass%20do%3A%20aBlock%0A%09subscriptions%20add%3A%20%28AnnouncementSubscription%20new%0A%09%09block%3A%20aBlock%3B%0A%09%09announcementClass%3A%20aClass%3B%0A%09%09yourself%29'),
-messageSends: ["add:", "block:", "announcementClass:", "yourself", "new"],
-referencedClasses: ["AnnouncementSubscription"]
-}),
-smalltalk.Announcer);
-
-
-
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
 unescape('_announcementClass'),
@@ -147,6 +95,58 @@ messageSends: ["isKindOf:", "announcementClass"],
 referencedClasses: []
 }),
 smalltalk.AnnouncementSubscription);
+
+
+
+smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
+smalltalk.addMethod(
+unescape('_announce_'),
+smalltalk.method({
+selector: unescape('announce%3A'),
+category: 'announcing',
+fn: function (anAnnouncement){
+var self=this;
+smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
+return self;},
+args: ["anAnnouncement"],
+source: unescape('announce%3A%20anAnnouncement%0A%09subscriptions%20do%3A%20%5B%3Aeach%20%7C%0A%09%09each%20deliver%3A%20anAnnouncement%5D'),
+messageSends: ["do:", "deliver:"],
+referencedClasses: []
+}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Object);
+(self['@subscriptions']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+return self;},
+args: [],
+source: unescape('initialize%0A%09super%20initialize.%0A%09subscriptions%20%3A%3D%20Array%20new'),
+messageSends: ["initialize", "new"],
+referencedClasses: ["Array"]
+}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+unescape('_on_do_'),
+smalltalk.method({
+selector: unescape('on%3Ado%3A'),
+category: 'subscribing',
+fn: function (aClass, aBlock){
+var self=this;
+smalltalk.send(self['@subscriptions'], "_add_", [(function($rec){smalltalk.send($rec, "_block_", [aBlock]);smalltalk.send($rec, "_announcementClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription), "_new", []))]);
+return self;},
+args: ["aClass", "aBlock"],
+source: unescape('on%3A%20aClass%20do%3A%20aBlock%0A%09subscriptions%20add%3A%20%28AnnouncementSubscription%20new%0A%09%09block%3A%20aBlock%3B%0A%09%09announcementClass%3A%20aClass%3B%0A%09%09yourself%29'),
+messageSends: ["add:", "block:", "announcementClass:", "yourself", "new"],
+referencedClasses: ["AnnouncementSubscription"]
+}),
+smalltalk.Announcer);
 
 
 

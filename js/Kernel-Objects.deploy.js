@@ -1042,6 +1042,17 @@ return self;}
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+unescape('_sortedClasses'),
+smalltalk.method({
+selector: unescape('sortedClasses'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_classes", []), "_inject_into_", [[], (function(acc, each){return ((($receiver = smalltalk.send(acc, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);})() : (function(){return ((($receiver = smalltalk.send(acc, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);})() : (function(){return smalltalk.send([each], "__comma", [acc]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);}), (function(){return smalltalk.send([each], "__comma", [acc]);})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);}), (function(){return ((($receiver = smalltalk.send(acc, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);})() : (function(){return smalltalk.send([each], "__comma", [acc]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);}), (function(){return smalltalk.send([each], "__comma", [acc]);})]));})]));})]);
+return self;}
+}),
+smalltalk.Package);
+
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
@@ -1506,17 +1517,6 @@ selector: unescape('printShowingDecimalPlaces%3A'),
 fn: function (placesDesired){
 var self=this;
 return self.toFixed(placesDesired);
-return self;}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-unescape('_%5C'),
-smalltalk.method({
-selector: unescape('%5C'),
-fn: function (aNumber){
-var self=this;
-return self % aNumber;
 return self;}
 }),
 smalltalk.Number);
@@ -2425,29 +2425,115 @@ return self;}
 smalltalk.UndefinedObject.klass);
 
 
-smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
 smalltalk.addMethod(
-unescape('_next'),
+unescape('_jsObject_'),
 smalltalk.method({
-selector: unescape('next'),
+selector: unescape('jsObject%3A'),
+fn: function (aJSObject){
+var self=this;
+(self['@jsObject']=aJSObject);
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_jsObject'),
+smalltalk.method({
+selector: unescape('jsObject'),
 fn: function (){
 var self=this;
-return Math.random();
+return self['@jsObject'];
 return self;}
 }),
-smalltalk.Random);
+smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_next_'),
+unescape('_printString'),
 smalltalk.method({
-selector: unescape('next%3A'),
-fn: function (anInteger){
+selector: unescape('printString'),
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send((1), "_to_", [anInteger]), "_collect_", [(function(each){return smalltalk.send(self, "_next", []);})]);
+return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
 return self;}
 }),
-smalltalk.Random);
+smalltalk.JSObjectProxy);
 
+smalltalk.addMethod(
+unescape('_inspectOn_'),
+smalltalk.method({
+selector: unescape('inspectOn%3A'),
+fn: function (anInspector){
+var self=this;
+var variables=nil;
+(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(variables, "_at_put_", [unescape("%23self"), smalltalk.send(self, "_jsObject", [])]);
+smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
+for(var i in self['@jsObject']) {
+		variables._at_put_(i, self['@jsObject'][i]);
+	};
+smalltalk.send(anInspector, "_setVariables_", [variables]);
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_doesNotUnderstand_'),
+smalltalk.method({
+selector: unescape('doesNotUnderstand%3A'),
+fn: function (aMessage){
+var self=this;
+var obj=nil;
+var selector=nil;
+var jsSelector=nil;
+var arguments=nil;
+(obj=smalltalk.send(self, "_jsObject", []));
+(selector=smalltalk.send(aMessage, "_selector", []));
+(jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []));
+(arguments=smalltalk.send(aMessage, "_arguments", []));
+if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
+smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_at_'),
+smalltalk.method({
+selector: unescape('at%3A'),
+fn: function (aSymbol){
+var self=this;
+var attr=nil;
+(attr=smalltalk.send(aSymbol, "_asString", []));
+return self['@jsObject'][attr];
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_at_put_'),
+smalltalk.method({
+selector: unescape('at%3Aput%3A'),
+fn: function (aSymbol, anObject){
+var self=this;
+var attr=nil;
+(attr=smalltalk.send(aSymbol, "_asString", []));
+self['@jsObject'][attr] = anObject;
+return self;}
+}),
+smalltalk.JSObjectProxy);
+
+
+smalltalk.addMethod(
+unescape('_on_'),
+smalltalk.method({
+selector: unescape('on%3A'),
+fn: function (aJSObject){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;}
+}),
+smalltalk.JSObjectProxy.klass);
 
 
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel-Objects');
@@ -2585,114 +2671,28 @@ return self;}
 smalltalk.Point.klass);
 
 
-smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
+smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
-unescape('_jsObject_'),
+unescape('_next'),
 smalltalk.method({
-selector: unescape('jsObject%3A'),
-fn: function (aJSObject){
-var self=this;
-(self['@jsObject']=aJSObject);
-return self;}
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_jsObject'),
-smalltalk.method({
-selector: unescape('jsObject'),
+selector: unescape('next'),
 fn: function (){
 var self=this;
-return self['@jsObject'];
+return Math.random();
 return self;}
 }),
-smalltalk.JSObjectProxy);
+smalltalk.Random);
 
 smalltalk.addMethod(
-unescape('_printString'),
+unescape('_next_'),
 smalltalk.method({
-selector: unescape('printString'),
-fn: function (){
+selector: unescape('next%3A'),
+fn: function (anInteger){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
+return smalltalk.send(smalltalk.send((1), "_to_", [anInteger]), "_collect_", [(function(each){return smalltalk.send(self, "_next", []);})]);
 return self;}
 }),
-smalltalk.JSObjectProxy);
+smalltalk.Random);
 
-smalltalk.addMethod(
-unescape('_inspectOn_'),
-smalltalk.method({
-selector: unescape('inspectOn%3A'),
-fn: function (anInspector){
-var self=this;
-var variables=nil;
-(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
-smalltalk.send(variables, "_at_put_", [unescape("%23self"), smalltalk.send(self, "_jsObject", [])]);
-smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
-for(var i in self['@jsObject']) {
-		variables._at_put_(i, self['@jsObject'][i]);
-	};
-smalltalk.send(anInspector, "_setVariables_", [variables]);
-return self;}
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_doesNotUnderstand_'),
-smalltalk.method({
-selector: unescape('doesNotUnderstand%3A'),
-fn: function (aMessage){
-var self=this;
-var obj=nil;
-var selector=nil;
-var jsSelector=nil;
-var arguments=nil;
-(obj=smalltalk.send(self, "_jsObject", []));
-(selector=smalltalk.send(aMessage, "_selector", []));
-(jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []));
-(arguments=smalltalk.send(aMessage, "_arguments", []));
-if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
-smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
-return self;}
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_at_'),
-smalltalk.method({
-selector: unescape('at%3A'),
-fn: function (aSymbol){
-var self=this;
-var attr=nil;
-(attr=smalltalk.send(aSymbol, "_asString", []));
-return self['@jsObject'][attr];
-return self;}
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_at_put_'),
-smalltalk.method({
-selector: unescape('at%3Aput%3A'),
-fn: function (aSymbol, anObject){
-var self=this;
-var attr=nil;
-(attr=smalltalk.send(aSymbol, "_asString", []));
-self['@jsObject'][attr] = anObject;
-return self;}
-}),
-smalltalk.JSObjectProxy);
-
-
-smalltalk.addMethod(
-unescape('_on_'),
-smalltalk.method({
-selector: unescape('on%3A'),
-fn: function (aJSObject){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;}
-}),
-smalltalk.JSObjectProxy.klass);
 
 

@@ -1490,6 +1490,22 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+unescape('_sortedClasses'),
+smalltalk.method({
+selector: unescape('sortedClasses'),
+category: 'classes',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_classes", []), "_inject_into_", [[], (function(acc, each){return ((($receiver = smalltalk.send(acc, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);})() : (function(){return ((($receiver = smalltalk.send(acc, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);})() : (function(){return smalltalk.send([each], "__comma", [acc]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);}), (function(){return smalltalk.send([each], "__comma", [acc]);})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);}), (function(){return ((($receiver = smalltalk.send(acc, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);})() : (function(){return smalltalk.send([each], "__comma", [acc]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function($rec){smalltalk.send($rec, "_add_", [each]);return smalltalk.send($rec, "_yourself", []);})(acc);}), (function(){return smalltalk.send([each], "__comma", [acc]);})]));})]));})]);
+return self;},
+args: [],
+source: unescape('sortedClasses%0A%09%22Answer%20all%20classes%20in%20the%20receiver%2C%20sorted%20by%20superclass/subclasses%22%0A%09%0A%09%5Eself%20classes%20inject%3A%20%23%28%29%20into%3A%20%5B%3Aacc%20%3Aeach%20%7C%20%0A%09%09acc%20isEmpty%20%0A%09%09%09ifTrue%3A%20%5Bacc%20add%3A%20each%3B%20yourself%5D%0A%09%09%09ifFalse%3A%20%5B%28acc%20includes%3A%20each%20superclass%29%0A%09%09%09%09ifTrue%3A%20%5Bacc%20add%3A%20each%3B%20yourself%5D%0A%09%09%09%09ifFalse%3A%20%5B%7Beach%7D%2C%20acc%5D%5D%5D'),
+messageSends: ["inject:into:", "classes", "ifTrue:ifFalse:", "isEmpty", "add:", "yourself", "includes:", "superclass", unescape("%2C")],
+referencedClasses: []
+}),
+smalltalk.Package);
+
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
@@ -2154,22 +2170,6 @@ return self.toFixed(placesDesired);
 return self;},
 args: ["placesDesired"],
 source: unescape('printShowingDecimalPlaces%3A%20placesDesired%0A%09%3Creturn%20self.toFixed%28placesDesired%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-unescape('_%5C'),
-smalltalk.method({
-selector: unescape('%5C'),
-category: '',
-fn: function (aNumber){
-var self=this;
-return self % aNumber;
-return self;},
-args: ["aNumber"],
-source: unescape(''),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3472,40 +3472,156 @@ referencedClasses: []
 smalltalk.UndefinedObject.klass);
 
 
-smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Random.comment=unescape('%60Random%60%20is%20a%20random%20number%20generator%20and%20is%20implemented%20as%20a%20trivial%20wrapper%20around%20javascript%20%60Math.random%28%29%60%20and%20is%20used%20like%20this%3A%0A%0A%09Random%20new%20next%0A%0AThis%20will%20return%20a%20float%20x%20where%20x%20%3C%201%20and%20x%20%3E%200.%20If%20you%20want%20a%20random%20integer%20from%201%20to%2010%20you%20can%20use%20%60%23atRandom%60%0A%0A%0910%20atRandom%0A%0A...and%20if%20you%20want%20a%20random%20number%20in%20a%20specific%20interval%20this%20also%20works%3A%0A%0A%09%283%20to%3A%207%29%20atRandom%0A%0A...but%20be%20aware%20that%20%60%23to%3A%60%20does%20not%20create%20an%20Interval%20as%20in%20other%20Smalltalk%20implementations%20but%20in%20fact%20an%20%60Array%60%20of%20numbers%2C%20so%20it%27s%20better%20to%20use%3A%0A%0A%095%20atRandom%20+%202%0A%0ASince%20%60%23atRandom%60%20is%20implemented%20in%20%60SequencableCollection%60%20you%20can%20easy%20pick%20an%20element%20at%20random%3A%0A%0A%09%23%28%27a%27%20%27b%27%20%27c%27%29%20atRandom%0A%0A...or%20perhaps%20a%20letter%20from%20a%20%60String%60%3A%0A%0A%09%27abc%27%20atRandom%0A%0ASince%20Amber%20does%20not%20have%20Characters%20this%20will%20return%20a%20%60String%60%20of%20length%201%20like%20for%20example%20%60%27b%27%60.')
+smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
+smalltalk.JSObjectProxy.comment=unescape('JSObjectProxy%20handles%20sending%20messages%20to%20JavaScript%20object%2C%20therefore%20accessing%20JavaScript%20objects%20from%20Amber%20is%20transparent.%0AJSOjbectProxy%20makes%20intensive%20use%20of%20%60%23doesNotUnderstand%3A%60.%0A%0A%23%23%20Examples%0A%0AJSObjectProxy%20objects%20are%20instanciated%20by%20Amber%20when%20a%20Smalltalk%20message%20is%20sent%20to%20a%20JavaScript%20object.%0A%0A%20%20%20%20window%20alert%3A%20%27hello%20world%27.%0A%20%20%20%20window%20inspect.%0A%20%20%20%20%28window%20jQuery%3A%20%27body%27%29%20append%3A%20%27hello%20world%27%0A%0ASmalltalk%20messages%20sends%20are%20converted%20to%20JavaScript%20function%20calls%20or%20object%20property%20access%20_%28in%20this%20order%29_.%20If%20n%20one%20of%20them%20match%2C%20a%20%60MessageNotUnderstood%60%20error%20will%20be%20thrown.%20%0A%0A%23%23%20Message%20conversion%20rules%0A%0A-%20%60someUser%20name%60%20becomes%20%20%60someUser.name%60%0A-%20%60someUser%20name%3A%20%27John%27%60%20becomes%20%60someUser%20name%20%3D%20%22John%22%60%0A-%20%60console%20log%3A%20%27hello%20world%27%60%20becomes%20%60console.log%28%27hello%20world%27%29%60%0A-%20%60%28window%20jQuery%3A%20%27foo%27%29%20css%3A%20%27background%27%20color%3A%20%27red%27%60%20becomes%20%60window.jQuery%28%27foo%27%29.css%28%27background%27%2C%20%27red%27%29%60%0A%0A__Note%3A__%20For%20keyword-based%20messages%2C%20only%20the%20first%20keyword%20is%20kept%3A%20%60window%20foo%3A%201%20bar%3A%202%60%20is%20equivalent%20to%20%60window%20foo%3A%201%20baz%3A%202%60.')
 smalltalk.addMethod(
-unescape('_next'),
+unescape('_jsObject_'),
 smalltalk.method({
-selector: unescape('next'),
+selector: unescape('jsObject%3A'),
 category: 'accessing',
-fn: function (){
+fn: function (aJSObject){
 var self=this;
-return Math.random();
+(self['@jsObject']=aJSObject);
 return self;},
-args: [],
-source: unescape('next%0A%09%3Creturn%20Math.random%28%29%3E'),
+args: ["aJSObject"],
+source: unescape('jsObject%3A%20aJSObject%0A%09jsObject%20%3A%3D%20aJSObject'),
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Random);
+smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_next_'),
+unescape('_jsObject'),
 smalltalk.method({
-selector: unescape('next%3A'),
+selector: unescape('jsObject'),
 category: 'accessing',
-fn: function (anInteger){
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send((1), "_to_", [anInteger]), "_collect_", [(function(each){return smalltalk.send(self, "_next", []);})]);
+return self['@jsObject'];
 return self;},
-args: ["anInteger"],
-source: unescape('next%3A%20anInteger%0A%20%20%20%20%5E%281%20to%3A%20anInteger%29%20collect%3A%20%5B%3Aeach%20%7C%20self%20next%5D'),
-messageSends: ["collect:", "to:", "next"],
+args: [],
+source: unescape('jsObject%0A%09%5EjsObject'),
+messageSends: [],
 referencedClasses: []
 }),
-smalltalk.Random);
+smalltalk.JSObjectProxy);
 
+smalltalk.addMethod(
+unescape('_printString'),
+smalltalk.method({
+selector: unescape('printString'),
+category: 'proxy',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
+return self;},
+args: [],
+source: unescape('printString%0A%09%5Eself%20jsObject%20toString'),
+messageSends: ["toString", "jsObject"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_inspectOn_'),
+smalltalk.method({
+selector: unescape('inspectOn%3A'),
+category: 'proxy',
+fn: function (anInspector){
+var self=this;
+var variables=nil;
+(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(variables, "_at_put_", [unescape("%23self"), smalltalk.send(self, "_jsObject", [])]);
+smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
+for(var i in self['@jsObject']) {
+		variables._at_put_(i, self['@jsObject'][i]);
+	};
+smalltalk.send(anInspector, "_setVariables_", [variables]);
+return self;},
+args: ["anInspector"],
+source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self%20jsObject.%0A%09anInspector%20setLabel%3A%20self%20printString.%0A%09%3Cfor%28var%20i%20in%20self%5B%27@jsObject%27%5D%29%20%7B%0A%09%09variables._at_put_%28i%2C%20self%5B%27@jsObject%27%5D%5Bi%5D%29%3B%0A%09%7D%3E.%0A%09anInspector%20setVariables%3A%20variables'),
+messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_doesNotUnderstand_'),
+smalltalk.method({
+selector: unescape('doesNotUnderstand%3A'),
+category: 'proxy',
+fn: function (aMessage){
+var self=this;
+var obj=nil;
+var selector=nil;
+var jsSelector=nil;
+var arguments=nil;
+(obj=smalltalk.send(self, "_jsObject", []));
+(selector=smalltalk.send(aMessage, "_selector", []));
+(jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []));
+(arguments=smalltalk.send(aMessage, "_arguments", []));
+if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
+smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
+return self;},
+args: ["aMessage"],
+source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20jsSelector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09jsSelector%20%3A%3D%20selector%20asJavaScriptSelector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5BjsSelector%5D%20%21%3D%20undefined%29%20%7Breturn%20smalltalk.send%28obj%2C%20jsSelector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
+messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_at_'),
+smalltalk.method({
+selector: unescape('at%3A'),
+category: 'accessing',
+fn: function (aSymbol){
+var self=this;
+var attr=nil;
+(attr=smalltalk.send(aSymbol, "_asString", []));
+return self['@jsObject'][attr];
+return self;},
+args: ["aSymbol"],
+source: unescape('at%3A%20aSymbol%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5Battr%5D%3E'),
+messageSends: ["asString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+unescape('_at_put_'),
+smalltalk.method({
+selector: unescape('at%3Aput%3A'),
+category: 'accessing',
+fn: function (aSymbol, anObject){
+var self=this;
+var attr=nil;
+(attr=smalltalk.send(aSymbol, "_asString", []));
+self['@jsObject'][attr] = anObject;
+return self;},
+args: ["aSymbol", "anObject"],
+source: unescape('at%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@jsObject%27%5D%5Battr%5D%20%3D%20anObject%3E'),
+messageSends: ["asString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+
+smalltalk.addMethod(
+unescape('_on_'),
+smalltalk.method({
+selector: unescape('on%3A'),
+category: 'instance creation',
+fn: function (aJSObject){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aJSObject"],
+source: unescape('on%3A%20aJSObject%0A%09%5Eself%20new%0A%09%09jsObject%3A%20aJSObject%3B%0A%09%09yourself'),
+messageSends: ["jsObject:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy.klass);
 
 
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel-Objects');
@@ -3704,155 +3820,39 @@ referencedClasses: []
 smalltalk.Point.klass);
 
 
-smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
-smalltalk.JSObjectProxy.comment=unescape('JSObjectProxy%20handles%20sending%20messages%20to%20JavaScript%20object%2C%20therefore%20accessing%20JavaScript%20objects%20from%20Amber%20is%20transparent.%0AJSOjbectProxy%20makes%20intensive%20use%20of%20%60%23doesNotUnderstand%3A%60.%0A%0A%23%23%20Examples%0A%0AJSObjectProxy%20objects%20are%20instanciated%20by%20Amber%20when%20a%20Smalltalk%20message%20is%20sent%20to%20a%20JavaScript%20object.%0A%0A%20%20%20%20window%20alert%3A%20%27hello%20world%27.%0A%20%20%20%20window%20inspect.%0A%20%20%20%20%28window%20jQuery%3A%20%27body%27%29%20append%3A%20%27hello%20world%27%0A%0ASmalltalk%20messages%20sends%20are%20converted%20to%20JavaScript%20function%20calls%20or%20object%20property%20access%20_%28in%20this%20order%29_.%20If%20n%20one%20of%20them%20match%2C%20a%20%60MessageNotUnderstood%60%20error%20will%20be%20thrown.%20%0A%0A%23%23%20Message%20conversion%20rules%0A%0A-%20%60someUser%20name%60%20becomes%20%20%60someUser.name%60%0A-%20%60someUser%20name%3A%20%27John%27%60%20becomes%20%60someUser%20name%20%3D%20%22John%22%60%0A-%20%60console%20log%3A%20%27hello%20world%27%60%20becomes%20%60console.log%28%27hello%20world%27%29%60%0A-%20%60%28window%20jQuery%3A%20%27foo%27%29%20css%3A%20%27background%27%20color%3A%20%27red%27%60%20becomes%20%60window.jQuery%28%27foo%27%29.css%28%27background%27%2C%20%27red%27%29%60%0A%0A__Note%3A__%20For%20keyword-based%20messages%2C%20only%20the%20first%20keyword%20is%20kept%3A%20%60window%20foo%3A%201%20bar%3A%202%60%20is%20equivalent%20to%20%60window%20foo%3A%201%20baz%3A%202%60.')
+smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.Random.comment=unescape('%60Random%60%20is%20a%20random%20number%20generator%20and%20is%20implemented%20as%20a%20trivial%20wrapper%20around%20javascript%20%60Math.random%28%29%60%20and%20is%20used%20like%20this%3A%0A%0A%09Random%20new%20next%0A%0AThis%20will%20return%20a%20float%20x%20where%20x%20%3C%201%20and%20x%20%3E%200.%20If%20you%20want%20a%20random%20integer%20from%201%20to%2010%20you%20can%20use%20%60%23atRandom%60%0A%0A%0910%20atRandom%0A%0A...and%20if%20you%20want%20a%20random%20number%20in%20a%20specific%20interval%20this%20also%20works%3A%0A%0A%09%283%20to%3A%207%29%20atRandom%0A%0A...but%20be%20aware%20that%20%60%23to%3A%60%20does%20not%20create%20an%20Interval%20as%20in%20other%20Smalltalk%20implementations%20but%20in%20fact%20an%20%60Array%60%20of%20numbers%2C%20so%20it%27s%20better%20to%20use%3A%0A%0A%095%20atRandom%20+%202%0A%0ASince%20%60%23atRandom%60%20is%20implemented%20in%20%60SequencableCollection%60%20you%20can%20easy%20pick%20an%20element%20at%20random%3A%0A%0A%09%23%28%27a%27%20%27b%27%20%27c%27%29%20atRandom%0A%0A...or%20perhaps%20a%20letter%20from%20a%20%60String%60%3A%0A%0A%09%27abc%27%20atRandom%0A%0ASince%20Amber%20does%20not%20have%20Characters%20this%20will%20return%20a%20%60String%60%20of%20length%201%20like%20for%20example%20%60%27b%27%60.')
 smalltalk.addMethod(
-unescape('_jsObject_'),
+unescape('_next'),
 smalltalk.method({
-selector: unescape('jsObject%3A'),
-category: 'accessing',
-fn: function (aJSObject){
-var self=this;
-(self['@jsObject']=aJSObject);
-return self;},
-args: ["aJSObject"],
-source: unescape('jsObject%3A%20aJSObject%0A%09jsObject%20%3A%3D%20aJSObject'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_jsObject'),
-smalltalk.method({
-selector: unescape('jsObject'),
+selector: unescape('next'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return self['@jsObject'];
+return Math.random();
 return self;},
 args: [],
-source: unescape('jsObject%0A%09%5EjsObject'),
+source: unescape('next%0A%09%3Creturn%20Math.random%28%29%3E'),
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.JSObjectProxy);
+smalltalk.Random);
 
 smalltalk.addMethod(
-unescape('_printString'),
+unescape('_next_'),
 smalltalk.method({
-selector: unescape('printString'),
-category: 'proxy',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
-return self;},
-args: [],
-source: unescape('printString%0A%09%5Eself%20jsObject%20toString'),
-messageSends: ["toString", "jsObject"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_inspectOn_'),
-smalltalk.method({
-selector: unescape('inspectOn%3A'),
-category: 'proxy',
-fn: function (anInspector){
-var self=this;
-var variables=nil;
-(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
-smalltalk.send(variables, "_at_put_", [unescape("%23self"), smalltalk.send(self, "_jsObject", [])]);
-smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
-for(var i in self['@jsObject']) {
-		variables._at_put_(i, self['@jsObject'][i]);
-	};
-smalltalk.send(anInspector, "_setVariables_", [variables]);
-return self;},
-args: ["anInspector"],
-source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self%20jsObject.%0A%09anInspector%20setLabel%3A%20self%20printString.%0A%09%3Cfor%28var%20i%20in%20self%5B%27@jsObject%27%5D%29%20%7B%0A%09%09variables._at_put_%28i%2C%20self%5B%27@jsObject%27%5D%5Bi%5D%29%3B%0A%09%7D%3E.%0A%09anInspector%20setVariables%3A%20variables'),
-messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_doesNotUnderstand_'),
-smalltalk.method({
-selector: unescape('doesNotUnderstand%3A'),
-category: 'proxy',
-fn: function (aMessage){
-var self=this;
-var obj=nil;
-var selector=nil;
-var jsSelector=nil;
-var arguments=nil;
-(obj=smalltalk.send(self, "_jsObject", []));
-(selector=smalltalk.send(aMessage, "_selector", []));
-(jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []));
-(arguments=smalltalk.send(aMessage, "_arguments", []));
-if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
-smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
-return self;},
-args: ["aMessage"],
-source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20jsSelector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09jsSelector%20%3A%3D%20selector%20asJavaScriptSelector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5BjsSelector%5D%20%21%3D%20undefined%29%20%7Breturn%20smalltalk.send%28obj%2C%20jsSelector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
-messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-unescape('_at_'),
-smalltalk.method({
-selector: unescape('at%3A'),
+selector: unescape('next%3A'),
 category: 'accessing',
-fn: function (aSymbol){
+fn: function (anInteger){
 var self=this;
-var attr=nil;
-(attr=smalltalk.send(aSymbol, "_asString", []));
-return self['@jsObject'][attr];
+return smalltalk.send(smalltalk.send((1), "_to_", [anInteger]), "_collect_", [(function(each){return smalltalk.send(self, "_next", []);})]);
 return self;},
-args: ["aSymbol"],
-source: unescape('at%3A%20aSymbol%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5Battr%5D%3E'),
-messageSends: ["asString"],
+args: ["anInteger"],
+source: unescape('next%3A%20anInteger%0A%20%20%20%20%5E%281%20to%3A%20anInteger%29%20collect%3A%20%5B%3Aeach%20%7C%20self%20next%5D'),
+messageSends: ["collect:", "to:", "next"],
 referencedClasses: []
 }),
-smalltalk.JSObjectProxy);
+smalltalk.Random);
 
-smalltalk.addMethod(
-unescape('_at_put_'),
-smalltalk.method({
-selector: unescape('at%3Aput%3A'),
-category: 'accessing',
-fn: function (aSymbol, anObject){
-var self=this;
-var attr=nil;
-(attr=smalltalk.send(aSymbol, "_asString", []));
-self['@jsObject'][attr] = anObject;
-return self;},
-args: ["aSymbol", "anObject"],
-source: unescape('at%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@jsObject%27%5D%5Battr%5D%20%3D%20anObject%3E'),
-messageSends: ["asString"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-
-smalltalk.addMethod(
-unescape('_on_'),
-smalltalk.method({
-selector: unescape('on%3A'),
-category: 'instance creation',
-fn: function (aJSObject){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aJSObject"],
-source: unescape('on%3A%20aJSObject%0A%09%5Eself%20new%0A%09%09jsObject%3A%20aJSObject%3B%0A%09%09yourself'),
-messageSends: ["jsObject:", "yourself", "new"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy.klass);
 
 

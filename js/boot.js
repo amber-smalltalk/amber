@@ -48,9 +48,9 @@ if (typeof console === "undefined") {
 
 /* Smalltalk constructors definition */
 
-function SmalltalkObject(){};
+function SmalltalkObject(){}
 function SmalltalkBehavior(){};
-function SmalltalkClass(){};
+function SmalltalkClass(){}
 function SmalltalkPackage(){};
 function SmalltalkMetaclass(){
 	this.meta = true;
@@ -133,6 +133,7 @@ function Smalltalk(){
 		that.fn = spec.fn || function(){};
 		that.superclass = spec.superclass;
 		that.iVarNames = spec.iVarNames || [];
+        that.toString = function() {return 'Smalltalk ' + that.className};
 		if(that.superclass) {
 			that.klass.superclass = that.superclass.klass;
 		}

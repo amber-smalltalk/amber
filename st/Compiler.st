@@ -1,158 +1,101 @@
 Smalltalk current createPackage: 'Compiler' properties: #{}!
-Object subclass: #Node
-	instanceVariableNames: 'nodes'
-	category: 'Compiler'!
-
-!Node methodsFor: 'accessing'!
-
-nodes
-	^nodes ifNil: [nodes := Array new]
-!
-
-addNode: aNode
-	self nodes add: aNode
-! !
-
-!Node methodsFor: 'building'!
-
-nodes: aCollection
-	nodes := aCollection
-! !
-
-!Node methodsFor: 'testing'!
-
-isValueNode
-	^false
-!
-
-isBlockNode
-	^false
-!
-
-isBlockSequenceNode
-	^false
-! !
-
-!Node methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitNode: self
-! !
-
-Node subclass: #SequenceNode
-	instanceVariableNames: 'temps'
-	category: 'Compiler'!
-
-!SequenceNode methodsFor: 'accessing'!
-
-temps
-	^temps ifNil: [#()]
-!
-
-temps: aCollection
-	temps := aCollection
-! !
-
-!SequenceNode methodsFor: 'testing'!
-
-asBlockSequenceNode
-	^BlockSequenceNode new
-	    nodes: self nodes;
-	    temps: self temps;
-	    yourself
-! !
-
-!SequenceNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitSequenceNode: self
-! !
-
-Node subclass: #DynamicDictionaryNode
+Object subclass: #NodeVisitor
 	instanceVariableNames: ''
 	category: 'Compiler'!
 
-!DynamicDictionaryNode methodsFor: 'visiting'!
+!NodeVisitor methodsFor: 'visiting'!
 
-accept: aVisitor
-	aVisitor visitDynamicDictionaryNode: self
+visit: aNode
+	aNode accept: self
+!
+
+visitNode: aNode
+!
+
+visitMethodNode: aNode
+	self visitNode: aNode
+!
+
+visitSequenceNode: aNode
+	self visitNode: aNode
+!
+
+visitBlockSequenceNode: aNode
+	self visitSequenceNode: aNode
+!
+
+visitBlockNode: aNode
+	self visitNode: aNode
+!
+
+visitReturnNode: aNode
+	self visitNode: aNode
+!
+
+visitSendNode: aNode
+	self visitNode: aNode
+!
+
+visitCascadeNode: aNode
+	self visitNode: aNode
+!
+
+visitValueNode: aNode
+	self visitNode: aNode
+!
+
+visitVariableNode: aNode
+!
+
+visitAssignmentNode: aNode
+	self visitNode: aNode
+!
+
+visitClassReferenceNode: aNode
+	self 
+	    nextPutAll: 'smalltalk.';
+	    nextPutAll: aNode value
+!
+
+visitJSStatementNode: aNode
+	self 
+	    nextPutAll: 'function(){';
+	    nextPutAll: aNode source;
+	    nextPutAll: '})()'
+!
+
+visitDynamicArrayNode: aNode
+	self visitNode: aNode
+!
+
+visitDynamicDictionaryNode: aNode
+	self visitNode: aNode
 ! !
 
-Node subclass: #ReturnNode
+Object subclass: #DoIt
 	instanceVariableNames: ''
 	category: 'Compiler'!
 
-!ReturnNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitReturnNode: self
-! !
-
-Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
+Object subclass: #Importer
+	instanceVariableNames: ''
 	category: 'Compiler'!
 
-!ChunkParser methodsFor: 'accessing'!
+!Importer methodsFor: 'fileIn'!
 
-stream: aStream
-	stream := aStream
-! !
-
-!ChunkParser methodsFor: 'reading'!
-
-nextChunk
-	"The chunk format (Smalltalk Interchange Format or Fileout format)
-	is a trivial format but can be a bit tricky to understand:
-		- Uses the exclamation mark as delimiter of chunks.
-		- Inside a chunk a normal exclamation mark must be doubled.
-		- A non empty chunk must be a valid Smalltalk expression.
-		- A chunk on top level with a preceding empty chunk is an instruction chunk:
-			- The object created by the expression then takes over reading chunks.
-
-	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
-
-	| char result chunk |
-	result := '' writeStream.
-        [char := stream next.
-        char notNil] whileTrue: [
-                 char = '!!' ifTrue: [
-                         stream peek = '!!'
-                                ifTrue: [stream next "skipping the escape double"]
-                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
-                 result nextPut: char].
-	^nil "a chunk needs to end with !!"
-! !
-
-!ChunkParser class methodsFor: 'not yet classified'!
-
-on: aStream
-	^self new stream: aStream
-! !
-
-Node subclass: #ValueNode
-	instanceVariableNames: 'value'
-	category: 'Compiler'!
-
-!ValueNode methodsFor: 'accessing'!
-
-value
-	^value
-!
-
-value: anObject
-	value := anObject
-! !
-
-!ValueNode methodsFor: 'testing'!
-
-isValueNode
-	^true
-! !
-
-!ValueNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitValueNode: self
+import: aStream
+    | chunk result parser lastEmpty |
+    parser := ChunkParser on: aStream.
+    lastEmpty := false.
+    [chunk := parser nextChunk.
+     chunk isNil] whileFalse: [
+        chunk isEmpty
+       		ifTrue: [lastEmpty := true]
+       		ifFalse: [
+        		result := Compiler new loadExpression: chunk.
+        		lastEmpty 
+            			ifTrue: [
+                                  	lastEmpty := false.
+                                  	result scanFrom: parser]]]
 ! !
 
 Object subclass: #Exporter
@@ -169,7 +112,7 @@ exportPackage: packageName
                 package := Smalltalk current packageAt: packageName.
                 self exportPackageDefinitionOf: package on: stream.
 		"Export classes in dependency order"
-	    	(package classes sorted: [:a :b | a subclasses includes: b]) do: [:each |
+	    	package sortedClasses do: [:each |
                         stream nextPutAll: (self exportClass: each)].
 		self exportPackageExtensionsOf: package on: stream]
 !
@@ -277,6 +220,162 @@ exportPackageDefinitionOf: package on: aStream
 	    nextPutAll: 'smalltalk.addPackage(';
 	    nextPutAll: '''', package name, ''', ', package propertiesAsJSON , ');'.
 	aStream lf
+! !
+
+Object subclass: #ChunkParser
+	instanceVariableNames: 'stream'
+	category: 'Compiler'!
+
+!ChunkParser methodsFor: 'accessing'!
+
+stream: aStream
+	stream := aStream
+! !
+
+!ChunkParser methodsFor: 'reading'!
+
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
+
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+
+	| char result chunk |
+	result := '' writeStream.
+        [char := stream next.
+        char notNil] whileTrue: [
+                 char = '!!' ifTrue: [
+                         stream peek = '!!'
+                                ifTrue: [stream next "skipping the escape double"]
+                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
+                 result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
+
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
+! !
+
+Object subclass: #Node
+	instanceVariableNames: 'nodes'
+	category: 'Compiler'!
+
+!Node methodsFor: 'accessing'!
+
+nodes
+	^nodes ifNil: [nodes := Array new]
+!
+
+addNode: aNode
+	self nodes add: aNode
+! !
+
+!Node methodsFor: 'building'!
+
+nodes: aCollection
+	nodes := aCollection
+! !
+
+!Node methodsFor: 'testing'!
+
+isValueNode
+	^false
+!
+
+isBlockNode
+	^false
+!
+
+isBlockSequenceNode
+	^false
+! !
+
+!Node methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitNode: self
+! !
+
+Node subclass: #SequenceNode
+	instanceVariableNames: 'temps'
+	category: 'Compiler'!
+
+!SequenceNode methodsFor: 'accessing'!
+
+temps
+	^temps ifNil: [#()]
+!
+
+temps: aCollection
+	temps := aCollection
+! !
+
+!SequenceNode methodsFor: 'testing'!
+
+asBlockSequenceNode
+	^BlockSequenceNode new
+	    nodes: self nodes;
+	    temps: self temps;
+	    yourself
+! !
+
+!SequenceNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitSequenceNode: self
+! !
+
+Node subclass: #DynamicDictionaryNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!DynamicDictionaryNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitDynamicDictionaryNode: self
+! !
+
+Node subclass: #ReturnNode
+	instanceVariableNames: ''
+	category: 'Compiler'!
+
+!ReturnNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitReturnNode: self
+! !
+
+Node subclass: #ValueNode
+	instanceVariableNames: 'value'
+	category: 'Compiler'!
+
+!ValueNode methodsFor: 'accessing'!
+
+value
+	^value
+!
+
+value: anObject
+	value := anObject
+! !
+
+!ValueNode methodsFor: 'testing'!
+
+isValueNode
+	^true
+! !
+
+!ValueNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitValueNode: self
 ! !
 
 ValueNode subclass: #VariableNode
@@ -518,28 +617,6 @@ accept: aVisitor
 	aVisitor visitAssignmentNode: self
 ! !
 
-Object subclass: #Importer
-	instanceVariableNames: ''
-	category: 'Compiler'!
-
-!Importer methodsFor: 'fileIn'!
-
-import: aStream
-    | chunk result parser lastEmpty |
-    parser := ChunkParser on: aStream.
-    lastEmpty := false.
-    [chunk := parser nextChunk.
-     chunk isNil] whileFalse: [
-        chunk isEmpty
-       		ifTrue: [lastEmpty := true]
-       		ifFalse: [
-        		result := Compiler new loadExpression: chunk.
-        		lastEmpty 
-            			ifTrue: [
-                                  	lastEmpty := false.
-                                  	result scanFrom: parser]]]
-! !
-
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
 	category: 'Compiler'!
@@ -548,83 +625,6 @@ Node subclass: #DynamicArrayNode
 
 accept: aVisitor
 	aVisitor visitDynamicArrayNode: self
-! !
-
-Object subclass: #DoIt
-	instanceVariableNames: ''
-	category: 'Compiler'!
-
-Object subclass: #NodeVisitor
-	instanceVariableNames: ''
-	category: 'Compiler'!
-
-!NodeVisitor methodsFor: 'visiting'!
-
-visit: aNode
-	aNode accept: self
-!
-
-visitNode: aNode
-!
-
-visitMethodNode: aNode
-	self visitNode: aNode
-!
-
-visitSequenceNode: aNode
-	self visitNode: aNode
-!
-
-visitBlockSequenceNode: aNode
-	self visitSequenceNode: aNode
-!
-
-visitBlockNode: aNode
-	self visitNode: aNode
-!
-
-visitReturnNode: aNode
-	self visitNode: aNode
-!
-
-visitSendNode: aNode
-	self visitNode: aNode
-!
-
-visitCascadeNode: aNode
-	self visitNode: aNode
-!
-
-visitValueNode: aNode
-	self visitNode: aNode
-!
-
-visitVariableNode: aNode
-!
-
-visitAssignmentNode: aNode
-	self visitNode: aNode
-!
-
-visitClassReferenceNode: aNode
-	self 
-	    nextPutAll: 'smalltalk.';
-	    nextPutAll: aNode value
-!
-
-visitJSStatementNode: aNode
-	self 
-	    nextPutAll: 'function(){';
-	    nextPutAll: aNode source;
-	    nextPutAll: '})()'
-!
-
-visitDynamicArrayNode: aNode
-	self visitNode: aNode
-!
-
-visitDynamicDictionaryNode: aNode
-	self visitNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler

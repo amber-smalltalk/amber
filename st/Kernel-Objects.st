@@ -545,6 +545,17 @@ commitPathSt: aString
 classes
 	"We need to do a reverse scan."
 	^Smalltalk current classes select: [:c | c package == self]
+!
+
+sortedClasses
+	"Answer all classes in the receiver, sorted by superclass/subclasses"
+	
+	^self classes inject: #() into: [:acc :each | 
+		acc isEmpty 
+			ifTrue: [acc add: each; yourself]
+			ifFalse: [(acc includes: each superclass)
+				ifTrue: [acc add: each; yourself]
+				ifFalse: [{each}, acc]]]
 ! !
 
 !Package methodsFor: 'printing'!
@@ -661,11 +672,6 @@ A Number can be used to evaluate a Block a fixed number of times:
 	1 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].
 	
 	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
-
-!Number methodsFor: ''!
-
-
-! !
 
 !Number methodsFor: 'accessing'!
 
@@ -1271,44 +1277,87 @@ new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
 
-Object subclass: #Random
-	instanceVariableNames: ''
+Object subclass: #JSObjectProxy
+	instanceVariableNames: 'jsObject'
 	category: 'Kernel-Objects'!
-!Random commentStamp!
-`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
+!JSObjectProxy commentStamp!
+JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
+JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
 
-	Random new next
+## Examples
 
-This will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`
+JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
 
-	10 atRandom
+    window alert: 'hello world'.
+    window inspect.
+    (window jQuery: 'body') append: 'hello world'
 
-...and if you want a random number in a specific interval this also works:
+Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. 
 
-	(3 to: 7) atRandom
+## Message conversion rules
 
-...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
+- `someUser name` becomes  `someUser.name`
+- `someUser name: 'John'` becomes `someUser name = "John"`
+- `console log: 'hello world'` becomes `console.log('hello world')`
+- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
 
-	5 atRandom + 2
+__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
 
-Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:
+!JSObjectProxy methodsFor: 'accessing'!
 
-	#('a' 'b' 'c') atRandom
-
-...or perhaps a letter from a `String`:
-
-	'abc' atRandom
-
-Since Amber does not have Characters this will return a `String` of length 1 like for example `'b'`.!
-
-!Random methodsFor: 'accessing'!
-
-next
-	<return Math.random()>
+jsObject: aJSObject
+	jsObject := aJSObject
 !
 
-next: anInteger
-    ^(1 to: anInteger) collect: [:each | self next]
+jsObject
+	^jsObject
+!
+
+at: aSymbol
+	| attr |
+	attr := aSymbol asString.
+	<return self['@jsObject'][attr]>
+!
+
+at: aSymbol put: anObject
+	| attr |
+	attr := aSymbol asString.
+	<self['@jsObject'][attr] = anObject>
+! !
+
+!JSObjectProxy methodsFor: 'proxy'!
+
+printString
+	^self jsObject toString
+!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self jsObject.
+	anInspector setLabel: self printString.
+	<for(var i in self['@jsObject']) {
+		variables._at_put_(i, self['@jsObject'][i]);
+	}>.
+	anInspector setVariables: variables
+!
+
+doesNotUnderstand: aMessage
+	| obj selector jsSelector arguments |
+	obj := self jsObject.
+	selector := aMessage selector.
+	jsSelector := selector asJavaScriptSelector.
+	arguments := aMessage arguments.
+	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
+	super doesNotUnderstand: aMessage
+! !
+
+!JSObjectProxy class methodsFor: 'instance creation'!
+
+on: aJSObject
+	^self new
+		jsObject: aJSObject;
+		yourself
 ! !
 
 Object subclass: #Point
@@ -1404,86 +1453,43 @@ x: aNumber y: anotherNumber
 		yourself
 ! !
 
-Object subclass: #JSObjectProxy
-	instanceVariableNames: 'jsObject'
+Object subclass: #Random
+	instanceVariableNames: ''
 	category: 'Kernel-Objects'!
-!JSObjectProxy commentStamp!
-JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
-JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
+!Random commentStamp!
+`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
 
-## Examples
+	Random new next
 
-JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
+This will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`
 
-    window alert: 'hello world'.
-    window inspect.
-    (window jQuery: 'body') append: 'hello world'
+	10 atRandom
 
-Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. 
+...and if you want a random number in a specific interval this also works:
 
-## Message conversion rules
+	(3 to: 7) atRandom
 
-- `someUser name` becomes  `someUser.name`
-- `someUser name: 'John'` becomes `someUser name = "John"`
-- `console log: 'hello world'` becomes `console.log('hello world')`
-- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
+...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
 
-__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
+	5 atRandom + 2
 
-!JSObjectProxy methodsFor: 'accessing'!
+Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:
 
-jsObject: aJSObject
-	jsObject := aJSObject
+	#('a' 'b' 'c') atRandom
+
+...or perhaps a letter from a `String`:
+
+	'abc' atRandom
+
+Since Amber does not have Characters this will return a `String` of length 1 like for example `'b'`.!
+
+!Random methodsFor: 'accessing'!
+
+next
+	<return Math.random()>
 !
 
-jsObject
-	^jsObject
-!
-
-at: aSymbol
-	| attr |
-	attr := aSymbol asString.
-	<return self['@jsObject'][attr]>
-!
-
-at: aSymbol put: anObject
-	| attr |
-	attr := aSymbol asString.
-	<self['@jsObject'][attr] = anObject>
-! !
-
-!JSObjectProxy methodsFor: 'proxy'!
-
-printString
-	^self jsObject toString
-!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self jsObject.
-	anInspector setLabel: self printString.
-	<for(var i in self['@jsObject']) {
-		variables._at_put_(i, self['@jsObject'][i]);
-	}>.
-	anInspector setVariables: variables
-!
-
-doesNotUnderstand: aMessage
-	| obj selector jsSelector arguments |
-	obj := self jsObject.
-	selector := aMessage selector.
-	jsSelector := selector asJavaScriptSelector.
-	arguments := aMessage arguments.
-	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
-	super doesNotUnderstand: aMessage
-! !
-
-!JSObjectProxy class methodsFor: 'instance creation'!
-
-on: aJSObject
-	^self new
-		jsObject: aJSObject;
-		yourself
+next: anInteger
+    ^(1 to: anInteger) collect: [:each | self next]
 ! !
 

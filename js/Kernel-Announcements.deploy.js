@@ -1,41 +1,4 @@
 smalltalk.addPackage('Kernel-Announcements', {});
-smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
-smalltalk.addMethod(
-unescape('_announce_'),
-smalltalk.method({
-selector: unescape('announce%3A'),
-fn: function (anAnnouncement){
-var self=this;
-smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
-return self;}
-}),
-smalltalk.Announcer);
-
-smalltalk.addMethod(
-unescape('_initialize'),
-smalltalk.method({
-selector: unescape('initialize'),
-fn: function (){
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
-(self['@subscriptions']=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection), "_new", []));
-return self;}
-}),
-smalltalk.Announcer);
-
-smalltalk.addMethod(
-unescape('_on_do_'),
-smalltalk.method({
-selector: unescape('on%3Ado%3A'),
-fn: function (aClass, aBlock){
-var self=this;
-smalltalk.send(self['@subscriptions'], "_add_", [(function($rec){smalltalk.send($rec, "_block_", [aBlock]);smalltalk.send($rec, "_announcementClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription), "_new", []))]);
-return self;}
-}),
-smalltalk.Announcer);
-
-
-
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
 unescape('_announcementClass'),
@@ -102,6 +65,43 @@ return smalltalk.send(anAnnouncement, "_isKindOf_", [smalltalk.send(self, "_anno
 return self;}
 }),
 smalltalk.AnnouncementSubscription);
+
+
+
+smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
+smalltalk.addMethod(
+unescape('_announce_'),
+smalltalk.method({
+selector: unescape('announce%3A'),
+fn: function (anAnnouncement){
+var self=this;
+smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
+return self;}
+}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+fn: function (){
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.Object);
+(self['@subscriptions']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+return self;}
+}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+unescape('_on_do_'),
+smalltalk.method({
+selector: unescape('on%3Ado%3A'),
+fn: function (aClass, aBlock){
+var self=this;
+smalltalk.send(self['@subscriptions'], "_add_", [(function($rec){smalltalk.send($rec, "_block_", [aBlock]);smalltalk.send($rec, "_announcementClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription), "_new", []))]);
+return self;}
+}),
+smalltalk.Announcer);
 
 
 
