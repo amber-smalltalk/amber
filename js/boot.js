@@ -391,6 +391,10 @@ function Smalltalk(){
 	/* Call a method of a JS object, or answer a property if it exists.
 	   Else try wrapping a JSObjectProxy around the receiver.
 
+       If the object property is a function, then call it, except if it starts with
+       an uppercase character (we probably want to answer the function itself in this 
+       case and send it #new from Amber).
+
 	   Converts keyword-based selectors by using the first
 	   keyword only, but keeping all message arguments.
 
@@ -400,14 +404,14 @@ function Smalltalk(){
 	function callJavaScriptMethod(receiver, selector, args) {
 		var jsSelector = selector._asJavaScriptSelector();
 		var jsProperty = receiver[jsSelector];
-		if(typeof jsProperty === "function") {
+		if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
 			return jsProperty.apply(receiver, args);
 		} else if(jsProperty !== undefined) {
 			if(args[0]) {
 				receiver[jsSelector] = args[0];
 				return nil;
 			} else {
-				return jsProperty
+				return jsProperty;
 			}
 		}
 
