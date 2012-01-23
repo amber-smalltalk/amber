@@ -1,4 +1,214 @@
 Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
+Object subclass: #Association
+	instanceVariableNames: 'key value'
+	category: 'Kernel-Collections'!
+
+!Association methodsFor: 'accessing'!
+
+key: aKey
+	key := aKey
+!
+
+key
+	^key
+!
+
+value: aValue
+	value := aValue
+!
+
+value
+	^value
+! !
+
+!Association methodsFor: 'comparing'!
+
+= anAssociation
+	^self class = anAssociation class and: [
+	    self key = anAssociation key and: [
+		self value = anAssociation value]]
+!
+
+storeOn: aStream
+	"Store in the format (key->value)"
+
+	"aStream nextPutAll: '('."
+	key storeOn: aStream.
+	aStream nextPutAll: '->'.
+	value storeOn: aStream.
+	"aStream nextPutAll: ')'"
+! !
+
+!Association class methodsFor: 'instance creation'!
+
+key: aKey value: aValue
+	    ^self new
+		key: aKey;
+		value: aValue;
+		yourself
+! !
+
+Object subclass: #Stream
+	instanceVariableNames: 'collection position streamSize'
+	category: 'Kernel-Collections'!
+
+!Stream methodsFor: 'accessing'!
+
+collection
+	^collection
+!
+
+setCollection: aCollection
+	collection := aCollection
+!
+
+position
+	^position ifNil: [position := 0]
+!
+
+position: anInteger
+	position := anInteger
+!
+
+streamSize
+	^streamSize
+!
+
+setStreamSize: anInteger
+	streamSize := anInteger
+!
+
+contents
+	^self collection
+	    copyFrom: 1 
+	    to: self streamSize
+!
+
+size
+	^self streamSize
+! !
+
+!Stream methodsFor: 'actions'!
+
+reset
+	self position: 0
+!
+
+close
+!
+
+flush
+!
+
+resetContents
+	self reset.
+	self setStreamSize: 0
+! !
+
+!Stream methodsFor: 'enumerating'!
+
+do: aBlock
+	[self atEnd] whileFalse: [aBlock value: self next]
+! !
+
+!Stream methodsFor: 'positioning'!
+
+setToEnd
+	self position: self size
+!
+
+skip: anInteger
+	self position: ((self position + anInteger) min: self size max: 0)
+! !
+
+!Stream methodsFor: 'reading'!
+
+next
+	^self atEnd 
+		ifTrue: [nil]
+		ifFalse: [
+			self position: self position + 1. 
+			collection at: self position]
+!
+
+next: anInteger
+	| tempCollection |
+	tempCollection := self collection class new.
+	anInteger timesRepeat: [
+	    self atEnd ifFalse: [
+		tempCollection add: self next]].
+	^tempCollection
+!
+
+peek
+	^self atEnd ifFalse: [
+	    self collection at: self position + 1]
+! !
+
+!Stream methodsFor: 'testing'!
+
+atEnd
+	^self position = self size
+!
+
+atStart
+	^self position = 0
+!
+
+isEmpty
+	^self size = 0
+! !
+
+!Stream methodsFor: 'writing'!
+
+nextPut: anObject
+	self position: self position + 1.
+	self collection at: self position put: anObject.
+	self setStreamSize: (self streamSize max: self position)
+!
+
+nextPutAll: aCollection
+	aCollection do: [:each |
+	    self nextPut: each]
+! !
+
+!Stream class methodsFor: 'instance creation'!
+
+on: aCollection
+	    ^self new 
+		setCollection: aCollection;
+		setStreamSize: aCollection size;
+		yourself
+! !
+
+Object subclass: #RegularExpression
+	instanceVariableNames: ''
+	category: 'Kernel-Collections'!
+
+!RegularExpression methodsFor: 'evaluating'!
+
+compile: aString
+	<return self.compile(aString)>
+!
+
+exec: aString
+	<return self.exec(aString) || nil>
+!
+
+test: aString
+	<return self.test(aString)>
+! !
+
+!RegularExpression class methodsFor: 'instance creation'!
+
+fromString: aString flag: anotherString
+	<return new RegExp(aString, anotherString)>
+!
+
+fromString: aString
+	    ^self fromString: aString flag: ''
+! !
+
 Object subclass: #Collection
 	instanceVariableNames: ''
 	category: 'Kernel-Collections'!
@@ -60,7 +270,7 @@ asJSONString
 !
 
 asOrderedCollection
-	^OrderedCollection withAll: self
+	^self asArray
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -953,214 +1163,121 @@ withAll: aCollection
 	^instance
 ! !
 
-Object subclass: #RegularExpression
+SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
 	category: 'Kernel-Collections'!
 
-!RegularExpression methodsFor: 'evaluating'!
-
-compile: aString
-	<return self.compile(aString)>
-!
-
-exec: aString
-	<return self.exec(aString) || nil>
-!
-
-test: aString
-	<return self.test(aString)>
-! !
-
-!RegularExpression class methodsFor: 'instance creation'!
-
-fromString: aString flag: anotherString
-	<return new RegExp(aString, anotherString)>
-!
-
-fromString: aString
-	    ^self fromString: aString flag: ''
-! !
-
-Object subclass: #Association
-	instanceVariableNames: 'key value'
-	category: 'Kernel-Collections'!
-
-!Association methodsFor: 'accessing'!
-
-key: aKey
-	key := aKey
-!
-
-key
-	^key
-!
-
-value: aValue
-	value := aValue
-!
-
-value
-	^value
-! !
-
-!Association methodsFor: 'comparing'!
-
-= anAssociation
-	^self class = anAssociation class and: [
-	    self key = anAssociation key and: [
-		self value = anAssociation value]]
-!
-
-storeOn: aStream
-	"Store in the format (key->value)"
-
-	"aStream nextPutAll: '('."
-	key storeOn: aStream.
-	aStream nextPutAll: '->'.
-	value storeOn: aStream.
-	"aStream nextPutAll: ')'"
-! !
-
-!Association class methodsFor: 'instance creation'!
-
-key: aKey value: aValue
-	    ^self new
-		key: aKey;
-		value: aValue;
-		yourself
-! !
-
-Object subclass: #Stream
-	instanceVariableNames: 'collection position streamSize'
-	category: 'Kernel-Collections'!
-
-!Stream methodsFor: 'accessing'!
-
-collection
-	^collection
-!
-
-setCollection: aCollection
-	collection := aCollection
-!
-
-position
-	^position ifNil: [position := 0]
-!
-
-position: anInteger
-	position := anInteger
-!
-
-streamSize
-	^streamSize
-!
-
-setStreamSize: anInteger
-	streamSize := anInteger
-!
-
-contents
-	^self collection
-	    copyFrom: 1 
-	    to: self streamSize
-!
+!Array methodsFor: 'accessing'!
 
 size
-	^self streamSize
+	<return self.length>
+!
+
+at: anIndex put: anObject
+	<return self[anIndex - 1] = anObject>
+!
+
+at: anIndex ifAbsent: aBlock
+	<
+	    var value = self[anIndex - 1];
+	    if(value === undefined) {
+		return aBlock();
+	    } else {
+		return value;
+	    }
+	>
 ! !
 
-!Stream methodsFor: 'actions'!
+!Array methodsFor: 'adding/removing'!
 
-reset
-	self position: 0
+add: anObject
+	<self.push(anObject); return anObject;>
 !
 
-close
+remove: anObject
+	<
+		for(var i=0;i<self.length;i++) {
+			if(self[i] == anObject) {
+				self.splice(i,1);
+				break;
+			}
+		}
+	>
 !
 
-flush
-!
-
-resetContents
-	self reset.
-	self setStreamSize: 0
+removeFrom: aNumber to: anotherNumber
+	<self.splice(aNumber - 1,anotherNumber - 1)>
 ! !
 
-!Stream methodsFor: 'enumerating'!
+!Array methodsFor: 'converting'!
 
-do: aBlock
-	[self atEnd] whileFalse: [aBlock value: self next]
+asJavascript
+	^'[', ((self collect: [:each | each asJavascript]) join: ', '),  ']'
+!
+
+reversed
+	<return self._copy().reverse()>
 ! !
 
-!Stream methodsFor: 'positioning'!
+!Array methodsFor: 'enumerating'!
 
-setToEnd
-	self position: self size
+join: aString
+	<return self.join(aString)>
 !
 
-skip: anInteger
-	self position: ((self position + anInteger) min: self size max: 0)
+sort
+    ^self basicPerform: 'sort'
+!
+
+sort: aBlock
+	<
+		return self.sort(function(a, b) {
+			if(aBlock(a,b)) {return -1} else {return 1}
+		})
+	>
+!
+
+sorted
+	^self copy sort
+!
+
+sorted: aBlock
+	^self copy sort: aBlock
 ! !
 
-!Stream methodsFor: 'reading'!
+!Array class methodsFor: 'instance creation'!
 
-next
-	^self atEnd 
-		ifTrue: [nil]
-		ifFalse: [
-			self position: self position + 1. 
-			collection at: self position]
+new: anInteger
+	<return new Array(anInteger)>
 !
 
-next: anInteger
-	| tempCollection |
-	tempCollection := self collection class new.
-	anInteger timesRepeat: [
-	    self atEnd ifFalse: [
-		tempCollection add: self next]].
-	^tempCollection
-!
-
-peek
-	^self atEnd ifFalse: [
-	    self collection at: self position + 1]
-! !
-
-!Stream methodsFor: 'testing'!
-
-atEnd
-	^self position = self size
-!
-
-atStart
-	^self position = 0
-!
-
-isEmpty
-	^self size = 0
-! !
-
-!Stream methodsFor: 'writing'!
-
-nextPut: anObject
-	self position: self position + 1.
-	self collection at: self position put: anObject.
-	self setStreamSize: (self streamSize max: self position)
-!
-
-nextPutAll: aCollection
-	aCollection do: [:each |
-	    self nextPut: each]
-! !
-
-!Stream class methodsFor: 'instance creation'!
-
-on: aCollection
-	    ^self new 
-		setCollection: aCollection;
-		setStreamSize: aCollection size;
+with: anObject
+	    ^(self new: 1)
+		at: 1 put: anObject;
 		yourself
+!
+
+with: anObject with: anObject2
+	    ^(self new: 2)
+		at: 1 put: anObject;
+		at: 2 put: anObject2;
+		yourself
+!
+
+with: anObject with: anObject2 with: anObject3
+	    ^(self new: 3)
+		at: 1 put: anObject;
+		at: 2 put: anObject2;
+		at: 3 put: anObject3;
+		yourself
+!
+
+withAll: aCollection
+	| instance |
+	instance := self new: aCollection size.
+	aCollection withIndexDo: [:index :each |
+		instance at: index put: each].
+	^instance
 ! !
 
 Stream subclass: #StringStream
@@ -1224,7 +1341,7 @@ size
 add: anObject
 	<
 		var found;
-		for(var i in self['@elements']) {
+		for(var i=0; i < self['@elements'].length; i++) {
 			if(anObject == self['@elements'][i]) {
 				found = true;
 				break;
@@ -1573,101 +1690,5 @@ initialize
 
 includesKey: aKey
 	^keys includes: aKey
-! !
-
-SequenceableCollection subclass: #OrderedCollection
-	instanceVariableNames: 'elements'
-	category: 'Kernel-Collections'!
-
-!OrderedCollection methodsFor: 'accessing'!
-
-size
-	^elements size
-!
-
-at: anIndex put: anObject
-	<return self['@elements'][anIndex - 1] = anObject>
-!
-
-at: anIndex ifAbsent: aBlock
-	^elements at: anIndex ifAbsent: aBlock
-! !
-
-!OrderedCollection methodsFor: 'adding/removing'!
-
-add: anObject
-	<self['@elements'].push(anObject); return anObject;>
-!
-
-remove: anObject
-	<
-		for(var i=0;i<self['@elements'].length;i++) {
-			if(self['@elements'][i] == anObject) {
-				self['@elements'].splice(i,1);
-				break;
-			}
-		}
-	>
-!
-
-removeFrom: aNumber to: anotherNumber
-	<self['@elements'].splice(aNumber - 1,anotherNumber - 1)>
-! !
-
-!OrderedCollection methodsFor: 'converting'!
-
-reversed
-	^self asArray reversed asOrderedCollection
-!
-
-asOrderedCollection
-	^self
-!
-
-asArray
-	^elements copy
-! !
-
-!OrderedCollection methodsFor: 'enumerating'!
-
-join: aString
-	^elements join: aString
-!
-
-sort
- 	elements sort.
-	^self
-!
-
-sort: aBlock
-	elements sort: aBlock.
-	^self
-!
-
-sorted
-	^self copy sort
-!
-
-sorted: aBlock
-	^self copy sort: aBlock
-!
-
-withIndexDo: aBlock
-	elements withIndexDo: aBlock
-!
-
-detect: aBlock ifNone: anotherBlock
-	^elements detect: aBlock ifNone: anotherBlock
-!
-
-do: aBlock
-	elements do: aBlock
-! !
-
-!OrderedCollection methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	elements := #()
 ! !
 
