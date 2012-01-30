@@ -1,69 +1,205 @@
-Widget subclass: #Slide
-	instanceVariableNames: 'presentation'
+Smalltalk current createPackage: 'Presentation' properties: #{}!
+Widget subclass: #PresentationNavigator
+	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
 	category: 'Presentation'!
 
-!Slide methodsFor: 'accessing'!
+!PresentationNavigator methodsFor: 'accessing'!
 
-presentation
-	^presentation
+currentPresentation: aPresentation
+	currentPresentation := aPresentation.
 !
 
-presentation: aPresentation
-	presentation := aPresentation
+currentPresentation
+	^  currentPresentation ifNil: [currentPresentation := Presentation concretePresentations first new].
 !
 
-id
-	self subclassResponsibility
-!
+style
+	^ '
+#navigator {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -150px;
+    padding: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #333;
+    opacity: 0.3;
+    color: #eee;
+}
 
-cssClass
-	^'slide'
-!
+#navigator a {
+    font-weight: bold;
+    color: #eee;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0 2px;
+    font-size: 14px;
+}
 
-backgroundColor
-	^'#555'
-!
-
-title
-	^ self id
+#navigator:hover {
+    opacity: 0.8;
+}
+'
 ! !
 
-!Slide methodsFor: 'actions'!
+!PresentationNavigator methodsFor: 'callbacks'!
 
-show
-	self backgroundColor ifNotNil: [
-		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
-	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
-	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
+selectPresentation: aPresentationClass
+	self currentPresentation: aPresentationClass new.
+	self renderCurrentPresentation.
+!
+
+selectPresentationNamed: aString
+	|presentationClass|
+	presentationClass :=  (Smalltalk current at: aString).
+	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
+!
+
+previousSlide
+	self currentPresentation previousSlide.
+	self updateHash.
+!
+
+nextSlide
+	self currentPresentation nextSlide.
+	self updateHash.
+!
+
+reload
+	|slideIndex|
+	slideIndex := self currentPresentation currentSlideIndex.
+	self currentPresentation: self currentPresentation class new.
+	self renderCurrentPresentation.
+	self selectSlideAt: slideIndex.
+!
+
+selectSlideAt: anInteger
+	self currentPresentation moveAt: anInteger.
+	self updateHash.
+!
+
+updateHash
+	document location hash: self currentPresentation class name, '-', self currentPresentation currentSlideIndex.
 ! !
 
-!Slide methodsFor: 'rendering'!
+!PresentationNavigator methodsFor: 'hash'!
+
+checkHash
+	| hash presentation |
+	hash := (document location hash  replace: '^#' with: '') tokenize: '-'. 
+	presentation := Presentation concretePresentations 
+				detect: [:aPresentationClass | aPresentationClass name == hash first]
+				ifNone: [^ self].
+	presentation == self currentPresentation class ifFalse: [
+          	self selectPresentationNamed: presentation.
+          	self selectSlideAt: hash last
+        ].
+!
+
+checkHashChange
+	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
+! !
+
+!PresentationNavigator methodsFor: 'keybindings'!
+
+setKeybindings
+	(window jQuery: document) keyup: [:e || node |
+		node := e target nodeName asLowercase.
+		(node = 'textarea' or: [node = 'input']) ifFalse: [
+			e keyCode = 39 ifTrue: [self nextSlide].
+			e keyCode = 37 ifTrue: [self previousSlide]]]
+! !
+
+!PresentationNavigator methodsFor: 'rendering'!
+
+renderToolsOn: html
+	html a 
+		with: 'IDE';
+		onClick: [TabManager current open].
+	html a
+		with: 'Reload';
+		onClick: [self reload].
+	html a
+		with: '←';
+		onClick: [self previousSlide].
+	html a
+		with: '→';
+		onClick: [self nextSlide].
+!
+
+renderPresentationSelectOn: html
+	|presentationSelect|
+	presentationSelect := html select.
+	presentationSelect
+		onChange: [self  selectPresentationNamed:  presentationSelect asJQuery val];
+		with: [	Presentation concretePresentationsDo: [:aPresentationClass |   
+                                                              							html option
+                                                              								value: aPresentationClass name;
+                                                              								with: aPresentationClass title ] ].
+!
+
+open
+	(window jQuery: document)  ready: [
+          	self 
+          		appendToJQuery: 'body' asJQuery;
+          		setKeybindings;
+          		checkHashChange.
+        ].
+!
 
 renderOn: html
-	html div class: self cssClass; id: self id; with: [
-		self renderSlideOn: html.
-		self renderMetaOn: html]
+	html style
+		type: 'text/css';
+		with: self style.
+	html div
+		id: 'navigator';
+		with: [	self
+					renderToolsOn: html;
+					renderPresentationSelectOn: html;
+                      			renderSlideSelectOn: html].
+
+	presentationBrush := html div 
+							id: 'presentation';
+							yourself.
+
+	self checkHash.
+	self renderCurrentPresentation.
 !
 
-renderSlideOn: html
+renderCurrentPresentation
+	presentationBrush contents: [:html |
+        	self currentPresentation renderOn: html.
+        ].
+	self updateSlideSelect.
 !
 
-renderMetaOn: html
-	html div 
-		id: 'meta';
-		with: [
-			html p class: 'title'; with: self presentation title.
-			html p class: 'description'; with: self presentation description.
-			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
-			html a class: 'url'; with: self presentation url; href: self presentation url]
+renderSlideSelectOn: html
+	slideSelect := html select.
+	slideSelect onChange: [ self  selectSlideAt:  slideSelect asJQuery val ].
+	self updateSlideSelect.
+!
+
+updateSlideSelect
+	slideSelect contents: [:html| |index|
+		                       		index := 0.
+                		       		self currentPresentation slidesDo: [ :aSlide|  
+                                		                                    				index := index + 1.
+                                                		                    				html option
+                                                                		    					value: index;
+                                                            								with: aSlide title ] ].
 ! !
 
-!Slide class methodsFor: 'instance creation'!
+!PresentationNavigator class methodsFor: 'initialize'!
 
-on: aPresentation
-	^self new
-		presentation: aPresentation;
-		yourself
+initialize
+	^ self open
+!
+
+open
+	^ self new open
 ! !
 
 Widget subclass: #Presentation
@@ -210,6 +346,74 @@ concretePresentationsDo: aBlockWithArg
 
 isConcrete
 	^false
+! !
+
+Widget subclass: #Slide
+	instanceVariableNames: 'presentation'
+	category: 'Presentation'!
+
+!Slide methodsFor: 'accessing'!
+
+presentation
+	^presentation
+!
+
+presentation: aPresentation
+	presentation := aPresentation
+!
+
+id
+	^ self class name
+!
+
+cssClass
+	^'slide'
+!
+
+backgroundColor
+	^'#555'
+!
+
+title
+	^ self id
+! !
+
+!Slide methodsFor: 'actions'!
+
+show
+	self backgroundColor ifNotNil: [
+		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
+	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
+	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
+! !
+
+!Slide methodsFor: 'rendering'!
+
+renderOn: html
+	html div class: self cssClass; id: self id; with: [
+		self renderSlideOn: html.
+		self renderMetaOn: html]
+!
+
+renderSlideOn: html
+!
+
+renderMetaOn: html
+	html div 
+		id: 'meta';
+		with: [
+			html p class: 'title'; with: self presentation title.
+			html p class: 'description'; with: self presentation description.
+			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
+			html a class: 'url'; with: self presentation url; href: self presentation url]
+! !
+
+!Slide class methodsFor: 'instance creation'!
+
+on: aPresentation
+	^self new
+		presentation: aPresentation;
+		yourself
 ! !
 
 Presentation subclass: #ESUG2011Presentation
@@ -1090,203 +1294,396 @@ renderSlideOn: html
 		html span class: 'blue'; with: 'Enyo'].
 ! !
 
-Widget subclass: #PresentationNavigator
-	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
+Presentation subclass: #FOSDEM2012Presentation
+	instanceVariableNames: ''
 	category: 'Presentation'!
 
-!PresentationNavigator methodsFor: 'accessing'!
+!FOSDEM2012Presentation methodsFor: 'accessing'!
 
-currentPresentation: aPresentation
-	currentPresentation := aPresentation.
+description
+	^'FOSDEM 2012, Brussels'
 !
 
-currentPresentation
-	^  currentPresentation ifNil: [currentPresentation := Presentation concretePresentations first new].
+author
+	^'Laurent Laffont, Johnny Thornton'
+!
+
+email
+	^'laurent.laffont@gmail.com,  johnnyt@xan.do'
+!
+
+url
+	^'http://amber-lang.net'
 !
 
 style
-	^ '
-#navigator {
-    z-index: 1;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    margin-left: -150px;
-    padding: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    background: #333;
-    opacity: 0.3;
-    color: #eee;
+	^'
+body {
+    font-family: Helvetica,Arial,sans;
 }
 
-#navigator a {
-    font-weight: bold;
-    color: #eee;
+#slides {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #555;
+}
+
+.slide {
+    background: #fff;
+    color: #444;
+    text-align: left;
+    font-size: 20px;
+    line-height: 1.8em;
+    height: 500px;
+    width: 700px;
+    padding: 60px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -420px;
+    margin-top: -320px;
+    box-shadow: 0 0 20px #111;
+    -moz-box-shadow: 0 0 20px #111;
+    -webkit-box-shadow: 0 0 20px #111;
+}
+
+.slide.transparent {
+    background: transparent;
+    box-shadow: 0 0 0 none;
+    -moz-box-shadow: 0 0 0 transparent;
+    -webkit-box-shadow: 0 0 0 transparent;
+    color: #fff !!important;
+}
+
+.slide.black {
+    background: black;
+    background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.38, rgb(79,79,79)),
+	color-stop(0.69, rgb(33,33,33)),
+	color-stop(0.86, rgb(4,4,4))
+    );
+    background-image: -moz-linear-gradient(
+	center bottom,
+	rgb(79,79,79) 38%,
+	rgb(33,33,33) 69%,
+	rgb(4,4,4) 86%
+    );
+    color: #fff !!important;
+}
+
+.slide.black h1, .slide.black h2, .slide.black h3,
+.slide.transparent h1, .slide.transparent h2, .slide.transparent h3 {
+    color: #fff;
+    text-shadow: 0 1px 4px #aaa;
+}
+
+.slide.black a, .slide.transparent a {
+    color: #ccc;
+}
+
+.slide.white {
+    color: #333 !!important;
+}
+
+.slide.white h1, .slide.white h2, .slide.white h3 {
+    color: #333;
+}
+
+.slide.white a {
+    color: #333;
+}
+
+
+.slide h1, .slide h2, .slide h3 {
+    color: #333;
+    /* text-align: center; */
+}
+
+.slide h1 {
+    font-family: "Droid Sans";
+    font-size: 36px;
+    text-shadow: 0 1px 4px #aaa;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.slide button {
+    font-size: 18px;
+}
+
+.slide a {
+    color: #555;
     text-decoration: none;
     cursor: pointer;
-    padding: 0 2px;
-    font-size: 14px;
 }
 
-#navigator:hover {
+.slide a:hover {
+    color: #fff;
+    background: #555;
+}
+
+.slide .right {
+    text-align: right;
+}
+
+.slide .section.center {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    width: 700px;
+    height: 500px;
+}
+
+.slide code {
+    font-family: "Droid Sans Mono";
+    color: #444;
+    border: 1px solid #ddd;
+    background: #eee;
+    border-radius: 4px;
+    padding: 2px;
+    font-size: 16px;
+}
+
+.slide .code2 {
+    font-family: "Droid Sans Mono";
+    line-height: 1.2em;
+    color: #444;
+    padding: 2px;
+    font-size: 16px;
+}
+
+
+.slide .CodeMirror {
+    width: 500px;
+    height: 300px;
+    text-align: left;
+}
+
+.slide .CodeMirror-scroll {
+    text-align: left;
+}
+
+.slide .fancy {
+    margin-top: 30px;
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    color: red;
+}
+
+.slide .comment {
+    opacity: 0.6;
+    font-weight: normal;
+}
+
+.slide .red {
+    color: red;
+}
+
+.slide .blue {
+    color: blue;
+}
+
+#meta {
+    position: absolute;
+    font-size: 12px;
+    opacity: 0.6;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    background: #333;
+    text-align: right;
+    padding: 0 10px;
+    line-height: 1.8em;
+    color: #eee;
+    border-top-left-radius: 5px;
+}
+
+#meta:hover {
     opacity: 0.8;
 }
+
+#meta p {
+    display: inline;
+    padding: 0 5px;
+}
+
+#meta a {
+    //background: #ccc;
+    color: #ccc;
+    text-decoration: none;
+    padding: 0 5px;
+}
+
+.slide {
+    
+}
+
+.slide.blue3d {
+  background: #feffff;
+  background: -moz-linear-gradient(top, #feffff 0%, #d2ebf9 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffff), color-stop(100%,#d2ebf9));
+  background: -webkit-linear-gradient(top, #feffff 0%,#d2ebf9 100%);
+  background: -o-linear-gradient(top, #feffff 0%,#d2ebf9 100%);
+  background: -ms-linear-gradient(top, #feffff 0%,#d2ebf9 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#feffff", endColorstr="#d2ebf9",GradientType=0 );
+  background: linear-gradient(top, #feffff 0%,#d2ebf9 100%);
+}
+
+
+.slide.red3d {
+  background: #febbbb;
+  background: -moz-linear-gradient(top, #febbbb 0%, #fe9090 71%, #ff5c5c 95%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#febbbb), color-stop(71%,#fe9090), color-stop(95%,#ff5c5c));
+  background: -webkit-linear-gradient(top, #febbbb 0%,#fe9090 71%,#ff5c5c 95%);
+  background: -o-linear-gradient(top, #febbbb 0%,#fe9090 71%,#ff5c5c 95%);
+  background: -ms-linear-gradient(top, #febbbb 0%,#fe9090 71%,#ff5c5c 95%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#febbbb", endColorstr="#ff5c5c",GradientType=0 );
+  background: linear-gradient(top, #febbbb 0%,#fe9090 71%,#ff5c5c 95%);
+}
+
+
+.slide.green3d {
+  background: #cdeb8e;
+  background: -moz-linear-gradient(top, #cdeb8e 0%, #a5c956 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cdeb8e), color-stop(100%,#a5c956));
+  background: -webkit-linear-gradient(top, #cdeb8e 0%,#a5c956 100%);
+  background: -o-linear-gradient(top, #cdeb8e 0%,#a5c956 100%);
+  background: -ms-linear-gradient(top, #cdeb8e 0%,#a5c956 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#cdeb8e", endColorstr="#a5c956",GradientType=0 );
+  background: linear-gradient(top, #cdeb8e 0%,#a5c956 100%);
+}
+
+@-webkit-keyframes rotate-horizontal {
+	0% { -webkit-transform: perspective(1000px) rotateY(-10deg);}
+	100% { -webkit-transform: perspective(1000px) rotateY(10deg);}
+}
+
+.animate p{
+-webkit-transform-style: preserve-3d;
+-webkit-animation: rotate-horizontal 2s infinite alternate ease-in-out;
+-webkit-transform: perspective(1000px) rotateY(0deg);
+-webkit-transition: all 2s ease-in-out;
+}
+
+#FOSDEMAmberBackend img {
+	margin: 5px;
+	-webkit-animation: rotate-horizontal 2s infinite alternate ease-in-out;
+}
 '
+!
+
+slideClasses
+^ {
+	FOSDEMIntroSlide.
+	CountersSlide.
+	JtalkAndJavascriptSlide.
+	FOSDEMBookletSlide.
+	FOSDEMAmberBackend
+}
 ! !
 
-!PresentationNavigator methodsFor: 'callbacks'!
+!FOSDEM2012Presentation class methodsFor: 'testing'!
 
-selectPresentation: aPresentationClass
-	self currentPresentation: aPresentationClass new.
-	self renderCurrentPresentation.
+isConcrete
+	^true
 !
 
-selectPresentationNamed: aString
-	|presentationClass|
-	presentationClass :=  (Smalltalk current at: aString).
-	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
-!
-
-previousSlide
-	self currentPresentation previousSlide.
-	self updateHash.
-!
-
-nextSlide
-	self currentPresentation nextSlide.
-	self updateHash.
-!
-
-reload
-	self currentPresentation: self currentPresentation class new.
-	self renderCurrentPresentation.
-!
-
-selectSlideAt: anInteger
-	self currentPresentation moveAt: anInteger.
-	self updateHash.
-!
-
-updateHash
-	document location hash: self currentPresentation class name, '-', self currentPresentation currentSlideIndex.
+title
+	^'Amber'
 ! !
 
-!PresentationNavigator methodsFor: 'hash'!
+Slide subclass: #FOSDEMIntroSlide
+	instanceVariableNames: ''
+	category: 'Presentation'!
 
-checkHash
-	| hash presentation |
-	hash := (document location hash  replace: '^#' with: '') tokenize: '-'. 
-	presentation := Presentation concretePresentations 
-				detect: [:aPresentationClass | aPresentationClass name == hash first]
-				ifNone: [^ self].
-	presentation == self currentPresentation class ifFalse: [
-          	self selectPresentationNamed: presentation.
-          	self selectSlideAt: hash last
-        ].
-!
+!FOSDEMIntroSlide methodsFor: 'not yet classified'!
 
-checkHashChange
-	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
+renderSlideOn: html
+	html div class: 'section center animate'; with: [
+		html img src: 'fosdem2012/images/amber.png'.
+		html p: self presentation author.
+          	html p: self presentation description.
+		html p: [
+			html with: self presentation email]].
 ! !
 
-!PresentationNavigator methodsFor: 'keybindings'!
+Slide subclass: #FOSDEMBookletSlide
+	instanceVariableNames: ''
+	category: 'Presentation'!
 
-setKeybindings
-	(window jQuery: document) keyup: [:e || node |
-		node := e target nodeName asLowercase.
-		(node = 'textarea' or: [node = 'input']) ifFalse: [
-			e keyCode = 39 ifTrue: [self nextSlide].
-			e keyCode = 37 ifTrue: [self previousSlide]]]
+!FOSDEMBookletSlide methodsFor: 'accessing'!
+
+cssClass
+	^ 'slide blue3d'
 ! !
 
-!PresentationNavigator methodsFor: 'rendering'!
+!FOSDEMBookletSlide methodsFor: 'rendering'!
 
-renderToolsOn: html
-	html a 
-		with: 'IDE';
-		onClick: [TabManager current open].
-	html a
-		with: 'Reload';
-		onClick: [self reload].
-	html a
-		with: '←';
-		onClick: [self previousSlide].
-	html a
-		with: '→';
-		onClick: [self nextSlide].
+renderSlideOn: html
+	self renderBookOn: html.
+	html link 
+		rel:'stylesheet';
+		href: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.css'.
+	jQuery 
+		getScript: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.min.js' 	
+		do: ['#book' asJQuery booklet: self bookletOptions].
 !
 
-renderPresentationSelectOn: html
-	|presentationSelect|
-	presentationSelect := html select.
-	presentationSelect
-		onChange: [self  selectPresentationNamed:  presentationSelect asJQuery val];
-		with: [	Presentation concretePresentationsDo: [:aPresentationClass |   
-                                                              							html option
-                                                              								value: aPresentationClass name;
-                                                              								with: aPresentationClass title ] ].
+renderBookOn: html
+	html div 
+		id: 'book';
+		with: [	html div
+					class: 'b-load';
+					with: [	html 
+								div: 'Amber makes it easy to plug existing javascript libraires';
+								div: 'Here is an example with the jQuery Booklet plugin';
+								div: 'Want to see how ?';
+								div: [ html button
+										onClick: [Browser openOn: FOSDEMBookletSlide ];
+										with: 'Just browse the code :)'.						] 	
+																							
+					]	
+		].
 !
 
-open
-	(window jQuery: document)  ready: [
-          	self 
-          		appendToJQuery: 'body' asJQuery;
-          		setKeybindings;
-          		checkHashChange.
-        ].
-!
+bookletOptions
+	^ #{ 
+		'arrows' -> true.
+		'keyboard' -> false.
+		'pageNumbers' -> false.
+		'closed' -> true
+	}
+! !
 
-renderOn: html
-	html style
-		type: 'text/css';
-		with: self style.
+Slide subclass: #FOSDEMAmberBackend
+	instanceVariableNames: ''
+	category: 'Presentation'!
+
+!FOSDEMAmberBackend methodsFor: 'accessing'!
+
+cssClass
+	^ 'slide green3d'
+! !
+
+!FOSDEMAmberBackend methodsFor: 'rendering'!
+
+renderSlideOn: html
 	html div
-		id: 'navigator';
-		with: [	self
-					renderToolsOn: html;
-					renderPresentationSelectOn: html;
-                      			renderSlideSelectOn: html].
-
-	presentationBrush := html div 
-							id: 'presentation';
-							yourself.
-
-	self checkHash.
-	self renderCurrentPresentation.
-!
-
-renderCurrentPresentation
-	presentationBrush contents: [:html |
-        	self currentPresentation renderOn: html.
-        ].
-	self updateSlideSelect.
-!
-
-renderSlideSelectOn: html
-	slideSelect := html select.
-	slideSelect onChange: [ self  selectSlideAt:  slideSelect asJQuery val ].
-	self updateSlideSelect.
-!
-
-updateSlideSelect
-	slideSelect contents: [:html| |index|
-		                       		index := 0.
-                		       		self currentPresentation slidesDo: [ :aSlide|  
-                                		                                    				index := index + 1.
-                                                		                    				html option
-                                                                		    					value: index;
-                                                            								with: aSlide title ] ].
-! !
-
-!PresentationNavigator class methodsFor: 'initialize'!
-
-initialize
-	^ self open
-!
-
-open
-	^ self new open
+		class: 'section center';
+		with: [	html h1: 'Need a backend ?'.
+				{'nodejs.png'. 'php.gif'. 'rails.png'.   'pharo.png'. 'ambrhino.jpg'} do: [:aString |
+						html img: 'fosdem2012/images/', aString.
+				]
+		]
 ! !
 
