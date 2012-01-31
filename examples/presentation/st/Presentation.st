@@ -1569,10 +1569,7 @@ body {
 }
 
 .animate p{
--webkit-transform-style: preserve-3d;
 -webkit-animation: rotate-horizontal 2s infinite alternate ease-in-out;
--webkit-transform: perspective(1000px) rotateY(0deg);
--webkit-transition: all 2s ease-in-out;
 }
 
 #FOSDEMAmberBackend img {
@@ -1692,20 +1689,40 @@ Slide subclass: #FOSDEMJSPlayGroundSlide
 	instanceVariableNames: ''
 	category: 'Presentation'!
 
-!FOSDEMJSPlayGroundSlide methodsFor: 'not yet classified'!
+!FOSDEMJSPlayGroundSlide methodsFor: 'accessing'!
+
+codeSnippet
+^'|logo|
+logo:=''img#amberlogo'' asJQuery.
+logo
+  css: ''-webkit-transition'' 
+  apply: ''all 10s ease-in-out''.
+
+logo
+  css: ''-webkit-transform'' 
+  apply: ''rotateZ(360deg)''.
+
+logo click: [
+    window alert: ''This is cool !!''].
+
+logo inspect'.
+! !
+
+!FOSDEMJSPlayGroundSlide methodsFor: 'rendering'!
 
 renderSlideOn: html
+	html div
+		class: 'section center'; 
+		with: [
+			self renderSnippet: self codeSnippet on: html.
+			html img
+				id: 'amberlogo'; 
+				src: 'fosdem2012/images/amber.png'	]
+!
+
+renderSnippet: aString on: html
 	(SourceArea new 
-		renderOn: html;
-		editor) replaceSelection: 
-'''img#amberlogo'' asJQuery 
-  css: ''-webkit-transform'' 
-      apply: ''rotateZ(-20deg)'';
-  click: [
-    window alert: ''This is cool !!'']'.
-	
-	html img
-		id: 'amberlogo'; 
-		src: 'fosdem2012/images/amber.png'
+			renderOn: html;
+			editor)  setValue: aString.
 ! !
 
