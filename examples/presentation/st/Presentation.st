@@ -1,4 +1,218 @@
 Smalltalk current createPackage: 'Presentation' properties: #{}!
+Widget subclass: #Slide
+	instanceVariableNames: 'presentation'
+	category: 'Presentation'!
+
+!Slide methodsFor: 'accessing'!
+
+presentation
+	^presentation
+!
+
+presentation: aPresentation
+	presentation := aPresentation
+!
+
+id
+	^ self class name
+!
+
+cssClass
+	^'slide'
+!
+
+backgroundColor
+	^'#555'
+!
+
+title
+	^ self id
+! !
+
+!Slide methodsFor: 'actions'!
+
+show
+	self backgroundColor ifNotNil: [
+		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
+	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
+	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
+! !
+
+!Slide methodsFor: 'rendering'!
+
+renderOn: html
+	html div class: self cssClass; id: self id; with: [
+		self renderSlideOn: html.
+		self renderMetaOn: html]
+!
+
+renderSlideOn: html
+!
+
+renderMetaOn: html
+	html div 
+		id: 'meta';
+		with: [
+			html p class: 'title'; with: self presentation title.
+			html p class: 'description'; with: self presentation description.
+			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
+			html a class: 'url'; with: self presentation url; href: self presentation url]
+! !
+
+!Slide class methodsFor: 'instance creation'!
+
+on: aPresentation
+	^self new
+		presentation: aPresentation;
+		yourself
+! !
+
+Widget subclass: #Presentation
+	instanceVariableNames: 'currentSlide slides'
+	category: 'Presentation'!
+
+!Presentation methodsFor: 'accessing'!
+
+title
+	^ self class title.
+!
+
+author
+	^'John Smith'
+!
+
+url
+	^'http://jtalk-project.org'
+!
+
+description
+	^'A presentation written in Jtalk'
+!
+
+email
+	^'john@smith.com'
+!
+
+slides
+	slides ifNil: [self initSlides].
+	^slides
+!
+
+slideClasses
+	^self subclassResponsibility
+!
+
+currentSlide
+	^currentSlide
+!
+
+currentSlide: aSlide
+	currentSlide := aSlide
+!
+
+slideTransition
+	^'fade'
+!
+
+style
+	"Should return a CSS style"
+	^ ''
+! !
+
+!Presentation methodsFor: 'actions'!
+
+nextSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) + 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+showCurrentSlide
+	self currentSlide ifNotNil: [
+		'.slide' asJQuery hide.
+		('#', self currentSlide id) asJQuery show.
+          	'title' asJQuery text: self title, ' - ', self currentSlide id.
+        ]
+!
+
+previousSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) - 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+moveAt: anInteger
+	| next |
+	next := self slides 
+			at: anInteger
+			ifAbsent: [nil].
+	next ifNotNil: [currentSlide := next. next show]
+!
+
+currentSlideIndex
+	^ self slides indexOf: self currentSlide ifAbsent: [1]
+! !
+
+!Presentation methodsFor: 'enumerating'!
+
+slidesDo: aBlockWithArg
+	self slides do: [:aSlide| aBlockWithArg value: aSlide].
+! !
+
+!Presentation methodsFor: 'initialization'!
+
+initSlides
+	slides := self slideClasses collect: [:each | each on: self]
+! !
+
+!Presentation methodsFor: 'rendering'!
+
+renderOn: html
+	html style
+		type: 'text/css';
+		with: self style.
+	html div 
+		id: 'slides';
+		with: [self renderSlidesOn: html]
+!
+
+renderSlidesOn: html
+	self slides do: [:each | 
+		each renderOn: html].
+	currentSlide ifNil: [currentSlide := self slides first].
+	self showCurrentSlide
+! !
+
+Presentation class instanceVariableNames: 'current'!
+
+!Presentation class methodsFor: 'accessing'!
+
+concretePresentations
+	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
+!
+
+title
+	^ 'Slides'
+! !
+
+!Presentation class methodsFor: 'enumerating'!
+
+concretePresentationsDo: aBlockWithArg
+	self concretePresentations do: aBlockWithArg.
+! !
+
+!Presentation class methodsFor: 'testing'!
+
+isConcrete
+	^false
+! !
+
 Widget subclass: #PresentationNavigator
 	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
 	category: 'Presentation'!
@@ -200,220 +414,6 @@ initialize
 
 open
 	^ self new open
-! !
-
-Widget subclass: #Presentation
-	instanceVariableNames: 'currentSlide slides'
-	category: 'Presentation'!
-
-!Presentation methodsFor: 'accessing'!
-
-title
-	^ self class title.
-!
-
-author
-	^'John Smith'
-!
-
-url
-	^'http://jtalk-project.org'
-!
-
-description
-	^'A presentation written in Jtalk'
-!
-
-email
-	^'john@smith.com'
-!
-
-slides
-	slides ifNil: [self initSlides].
-	^slides
-!
-
-slideClasses
-	^self subclassResponsibility
-!
-
-currentSlide
-	^currentSlide
-!
-
-currentSlide: aSlide
-	currentSlide := aSlide
-!
-
-slideTransition
-	^'fade'
-!
-
-style
-	"Should return a CSS style"
-	^ ''
-! !
-
-!Presentation methodsFor: 'actions'!
-
-nextSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) + 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-showCurrentSlide
-	self currentSlide ifNotNil: [
-		'.slide' asJQuery hide.
-		('#', self currentSlide id) asJQuery show.
-          	'title' asJQuery text: self title, ' - ', self currentSlide id.
-        ]
-!
-
-previousSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) - 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-moveAt: anInteger
-	| next |
-	next := self slides 
-			at: anInteger
-			ifAbsent: [nil].
-	next ifNotNil: [currentSlide := next. next show]
-!
-
-currentSlideIndex
-	^ self slides indexOf: self currentSlide ifAbsent: [1]
-! !
-
-!Presentation methodsFor: 'enumerating'!
-
-slidesDo: aBlockWithArg
-	self slides do: [:aSlide| aBlockWithArg value: aSlide].
-! !
-
-!Presentation methodsFor: 'initialization'!
-
-initSlides
-	slides := self slideClasses collect: [:each | each on: self]
-! !
-
-!Presentation methodsFor: 'rendering'!
-
-renderOn: html
-	html style
-		type: 'text/css';
-		with: self style.
-	html div 
-		id: 'slides';
-		with: [self renderSlidesOn: html]
-!
-
-renderSlidesOn: html
-	self slides do: [:each | 
-		each renderOn: html].
-	currentSlide ifNil: [currentSlide := self slides first].
-	self showCurrentSlide
-! !
-
-Presentation class instanceVariableNames: 'current'!
-
-!Presentation class methodsFor: 'accessing'!
-
-concretePresentations
-	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
-!
-
-title
-	^ 'Slides'
-! !
-
-!Presentation class methodsFor: 'enumerating'!
-
-concretePresentationsDo: aBlockWithArg
-	self concretePresentations do: aBlockWithArg.
-! !
-
-!Presentation class methodsFor: 'testing'!
-
-isConcrete
-	^false
-! !
-
-Widget subclass: #Slide
-	instanceVariableNames: 'presentation'
-	category: 'Presentation'!
-
-!Slide methodsFor: 'accessing'!
-
-presentation
-	^presentation
-!
-
-presentation: aPresentation
-	presentation := aPresentation
-!
-
-id
-	^ self class name
-!
-
-cssClass
-	^'slide'
-!
-
-backgroundColor
-	^'#555'
-!
-
-title
-	^ self id
-! !
-
-!Slide methodsFor: 'actions'!
-
-show
-	self backgroundColor ifNotNil: [
-		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
-	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
-	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
-! !
-
-!Slide methodsFor: 'rendering'!
-
-renderOn: html
-	html div class: self cssClass; id: self id; with: [
-		self renderSlideOn: html.
-		self renderMetaOn: html]
-!
-
-renderSlideOn: html
-!
-
-renderMetaOn: html
-	html div 
-		id: 'meta';
-		with: [
-			html p class: 'title'; with: self presentation title.
-			html p class: 'description'; with: self presentation description.
-			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
-			html a class: 'url'; with: self presentation url; href: self presentation url]
-! !
-
-!Slide class methodsFor: 'instance creation'!
-
-on: aPresentation
-	^self new
-		presentation: aPresentation;
-		yourself
 ! !
 
 Presentation subclass: #ESUG2011Presentation
@@ -1584,8 +1584,8 @@ slideClasses
 	FOSDEMIntroSlide.
 	CountersSlide.
 	JtalkAndJavascriptSlide.
-	FOSDEMBookletSlide.
 	FOSDEMJSPlayGroundSlide.
+	FOSDEMBookletSlide.
 	FOSDEMCanvasSlide.
 	FOSDEMAmberBackend
 }
@@ -1626,6 +1626,16 @@ cssClass
 	^ 'slide blue3d'
 ! !
 
+!FOSDEMBookletSlide methodsFor: 'css'!
+
+style
+	^ '
+#book { font-size: 1.4em; }
+#book .b-load .b-wrap { background-color: #DEC3A9;}
+#book .b-load .b-wrap-left { background-color: #DDD;} } 
+'
+! !
+
 !FOSDEMBookletSlide methodsFor: 'rendering'!
 
 renderSlideOn: html
@@ -1633,6 +1643,9 @@ renderSlideOn: html
 	html link 
 		rel:'stylesheet';
 		href: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.css'.
+	
+	html style: self style.
+	
 	jQuery 
 		getScript: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.min.js' 	
 		do: ['#book' asJQuery booklet: self bookletOptions].
@@ -1699,9 +1712,9 @@ logo
   css: ''-webkit-transition'' 
   apply: ''all 10s ease-in-out''.
 
-logo
-  css: ''-webkit-transform'' 
-  apply: ''rotateZ(360deg)''.
+<logo.css(
+	''-webkit-transform'', 
+	''rotateZ(360deg)'');>.
 
 logo click: [
     window alert: ''This is cool !!''].
@@ -1731,15 +1744,13 @@ Slide subclass: #FOSDEMCanvasSlide
 	instanceVariableNames: 'c2d canvas'
 	category: 'Presentation'!
 
-!FOSDEMCanvasSlide methodsFor: 'rendering'!
+!FOSDEMCanvasSlide methodsFor: 'accessing'!
 
-renderSlideOn: html
-	html h1: 'Canvas made easy'.
-	canvas := html  canvas 
-				width: 700;
-				height: 400;
-				onClick: [self drawOnCanvas]
-!
+cssClass
+	^ 'slide red3d'
+! !
+
+!FOSDEMCanvasSlide methodsFor: 'drawing'!
 
 drawOnCanvas
 	|c2d|
@@ -1750,9 +1761,31 @@ drawOnCanvas
 		width: canvas element width 
 		height: canvas element height.
 	
-	20 timesRepeat: [
+	40 atRandom timesRepeat: [ |rgba|
+			rgba := ',' join: {255 atRandom. 255 atRandom. 255 atRandom. 10 atRandom / 10}.
+			c2d	at: 'fillStyle' put: 'rgba(', rgba, ')'.
 			c2d
-				at: 'fillStyle' put: 'rgba(', 255 atRandom asString, ',' , 255 atRandom asString, ',', 255 atRandom asString, ', 0.4)';
-				fillRect: 600 atRandom y: 300 atRandom width: 200 atRandom height: 200 atRandom ]
+				fillRect: 600 atRandom 
+				y: 300 atRandom 
+				width: 200 atRandom 
+				height: 200 atRandom ]
+! !
+
+!FOSDEMCanvasSlide methodsFor: 'rendering'!
+
+renderSlideOn: html
+	html h1: 'Playing with canvas'.
+	canvas := html  canvas 
+				width: 700;
+				height: 400.
+
+	self updateCanvas.
+! !
+
+!FOSDEMCanvasSlide methodsFor: 'updating'!
+
+updateCanvas
+	self drawOnCanvas.
+	window setTimeout: [self updateCanvas] delay: 500.
 ! !
 
