@@ -1,216 +1,223 @@
 Smalltalk current createPackage: 'Presentation' properties: #{}!
-Widget subclass: #Slide
-	instanceVariableNames: 'presentation'
+FOSDEMSlide subclass: #FOSDEMREPLSlide
+	instanceVariableNames: ''
 	category: 'Presentation'!
 
-!Slide methodsFor: 'accessing'!
-
-presentation
-	^presentation
-!
-
-presentation: aPresentation
-	presentation := aPresentation
-!
-
-id
-	^ self class name
-!
-
-cssClass
-	^'slide'
-!
-
-backgroundColor
-	^'#555'
-!
-
-title
-	^ self id
-! !
-
-!Slide methodsFor: 'actions'!
-
-show
-	self backgroundColor ifNotNil: [
-		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
-	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
-	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
-! !
-
-!Slide methodsFor: 'rendering'!
-
-renderOn: html
-	html div class: self cssClass; id: self id; with: [
-		self renderSlideOn: html.
-		self renderMetaOn: html]
-!
+!FOSDEMREPLSlide methodsFor: 'rendering'!
 
 renderSlideOn: html
+	html h1: 'REPL'.
+	self renderCodeSnippetOn: html.
 !
 
-renderMetaOn: html
-	html div 
-		id: 'meta';
-		with: [
-			html p class: 'title'; with: self presentation title.
-			html p class: 'description'; with: self presentation description.
-			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
-			html a class: 'url'; with: self presentation url; href: self presentation url]
+codeSnippet
+	^ 
+'./bin/amber
+fs := require value: ''fs''.
+fs readdir: ''/tmp'' do: [:err :file| console log: file]'.
 ! !
 
-!Slide class methodsFor: 'instance creation'!
-
-on: aPresentation
-	^self new
-		presentation: aPresentation;
-		yourself
-! !
-
-Widget subclass: #Presentation
-	instanceVariableNames: 'currentSlide slides'
+FOSDEMSlide subclass: #FOSDEMJSToSmalltalk
+	instanceVariableNames: ''
 	category: 'Presentation'!
 
-!Presentation methodsFor: 'accessing'!
+!FOSDEMJSToSmalltalk methodsFor: 'accessing'!
 
-title
-	^ self class title.
+cssClass
+	^ 'slide blue3d'
 !
 
-author
-	^'John Smith'
-!
+codeSnippet
+	^
+'var counter = window.smalltalk.Counter._new();
+counter._appendToJQuery_($(''#jsToSmalltalk''));'.
+! !
 
-url
-	^'http://jtalk-project.org'
-!
+!FOSDEMJSToSmalltalk methodsFor: 'rendering'!
 
-description
-	^'A presentation written in Jtalk'
-!
+renderSlideOn: html
+	html h1: 'Call Smalltalk from Javascript'.
+	self renderCodeSnippetOn: html.
+	html div id: 'jsToSmalltalk'
+! !
 
-email
-	^'john@smith.com'
-!
+FOSDEMSlide subclass: #FOSDEMCanvasSlide
+	instanceVariableNames: 'c2d canvas'
+	category: 'Presentation'!
 
-slides
-	slides ifNil: [self initSlides].
-	^slides
-!
+!FOSDEMCanvasSlide methodsFor: 'accessing'!
 
-slideClasses
-	^self subclassResponsibility
-!
+cssClass
+	^ 'slide red3d'
+! !
 
-currentSlide
-	^currentSlide
-!
+!FOSDEMCanvasSlide methodsFor: 'drawing'!
 
-currentSlide: aSlide
-	currentSlide := aSlide
-!
+drawOnCanvas
+	|c2d|
+	c2d := canvas element getContext: '2d'.
+	c2d 
+		clearRect: 0 
+		y: 0 
+		width: canvas element width 
+		height: canvas element height.
+	
+	40 atRandom timesRepeat: [ |rgba|
+			rgba := ',' join: {255 atRandom. 255 atRandom. 255 atRandom. 10 atRandom / 10}.
+			c2d	at: 'fillStyle' put: 'rgba(', rgba, ')'.
+			c2d
+				fillRect: 600 atRandom 
+				y: 300 atRandom 
+				width: 200 atRandom 
+				height: 200 atRandom ]
+! !
 
-slideTransition
-	^'fade'
-!
+!FOSDEMCanvasSlide methodsFor: 'rendering'!
+
+renderSlideOn: html
+	html h1: 'Playing with canvas'.
+	canvas := html  canvas 
+				width: 700;
+				height: 400.
+
+	self updateCanvas.
+! !
+
+!FOSDEMCanvasSlide methodsFor: 'updating'!
+
+updateCanvas
+	self drawOnCanvas.
+	window setTimeout: [self updateCanvas] delay: 500.
+! !
+
+FOSDEMSlide subclass: #FOSDEMJSPlayGroundSlide
+	instanceVariableNames: ''
+	category: 'Presentation'!
+
+!FOSDEMJSPlayGroundSlide methodsFor: 'accessing'!
+
+codeSnippet
+^'|logo|
+logo:=''img#amberlogo'' asJQuery.
+
+logo
+  css:''-webkit-transition'' put:''all 10s ease-in-out''.
+
+<logo.css(''-webkit-transform'', ''rotateY(360deg)'');>.
+
+logo click: [window alert: ''This is cool !!''].
+
+logo inspect'.
+! !
+
+!FOSDEMJSPlayGroundSlide methodsFor: 'rendering'!
+
+renderSlideOn: html
+	html div
+		class: 'section center'; 
+		with: [
+			self renderCodeSnippetOn: html.
+			html img
+				id: 'amberlogo'; 
+				src: 'fosdem2012/images/amber.png'	]
+! !
+
+FOSDEMSlide subclass: #FOSDEMAmberBackend
+	instanceVariableNames: ''
+	category: 'Presentation'!
+
+!FOSDEMAmberBackend methodsFor: 'accessing'!
+
+cssClass
+	^ 'slide green3d'
+! !
+
+!FOSDEMAmberBackend methodsFor: 'rendering'!
+
+renderSlideOn: html
+	html div
+		class: 'section center';
+		with: [	html h1: 'Need a backend ?'.
+				{'nodejs.png'. 'php.gif'. 'rails.png'.   'pharo.png'. 'ambrhino.jpg'} do: [:aString |
+						html img: 'fosdem2012/images/', aString.
+				]
+		]
+! !
+
+FOSDEMSlide subclass: #FOSDEMBookletSlide
+	instanceVariableNames: ''
+	category: 'Presentation'!
+
+!FOSDEMBookletSlide methodsFor: 'accessing'!
+
+cssClass
+	^ 'slide blue3d'
+! !
+
+!FOSDEMBookletSlide methodsFor: 'css'!
 
 style
-	"Should return a CSS style"
-	^ ''
+	^ '
+#book { font-size: 1.4em; }
+#book .b-load .b-wrap-right { background-color: #DEC3A9;}
+#book .b-load .b-wrap-left { background-color: #DDD;} 
+'
 ! !
 
-!Presentation methodsFor: 'actions'!
+!FOSDEMBookletSlide methodsFor: 'rendering'!
 
-nextSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) + 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
+renderSlideOn: html
+	self renderBookOn: html.
+	html link 
+		rel:'stylesheet';
+		href: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.css'.
+	
+	html style: self style.
+	
+	jQuery 
+		getScript: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.min.js' 	
+		do: ['#book' asJQuery booklet: self bookletOptions].
 !
 
-showCurrentSlide
-	self currentSlide ifNotNil: [
-		'.slide' asJQuery hide.
-		('#', self currentSlide id) asJQuery show.
-          	'title' asJQuery text: self title, ' - ', self currentSlide id.
-        ]
-!
-
-previousSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) - 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-moveAt: anInteger
-	| next |
-	next := self slides 
-			at: anInteger
-			ifAbsent: [nil].
-	next ifNotNil: [currentSlide := next. next show]
-!
-
-currentSlideIndex
-	^ self slides indexOf: self currentSlide ifAbsent: [1]
-! !
-
-!Presentation methodsFor: 'enumerating'!
-
-slidesDo: aBlockWithArg
-	self slides do: [:aSlide| aBlockWithArg value: aSlide].
-! !
-
-!Presentation methodsFor: 'initialization'!
-
-initSlides
-	slides := self slideClasses collect: [:each | each on: self]
-! !
-
-!Presentation methodsFor: 'rendering'!
-
-renderOn: html
-	html style
-		type: 'text/css';
-		with: self style.
+renderBookOn: html
 	html div 
-		id: 'slides';
-		with: [self renderSlidesOn: html]
+		id: 'book';
+		with: [	html div
+					class: 'b-load';
+					with: [	html 
+								div: 'Amber makes it easy to plug existing javascript libraires';
+								div: 'Here is an example with the jQuery Booklet plugin';
+								div: 'Want to see how ?';
+								div: [ html button
+										onClick: [Browser openOn: FOSDEMBookletSlide ];
+										with: 'Just browse the code :)'.						] 	
+																							
+					]	
+		].
 !
 
-renderSlidesOn: html
-	self slides do: [:each | 
-		each renderOn: html].
-	currentSlide ifNil: [currentSlide := self slides first].
-	self showCurrentSlide
+bookletOptions
+	^ #{ 
+		'arrows' -> true.
+		'keyboard' -> false.
+		'pageNumbers' -> false.
+		'closed' -> true
+	}
 ! !
 
-Presentation class instanceVariableNames: 'current'!
+FOSDEMSlide subclass: #FOSDEMIntroSlide
+	instanceVariableNames: ''
+	category: 'Presentation'!
 
-!Presentation class methodsFor: 'accessing'!
+!FOSDEMIntroSlide methodsFor: 'not yet classified'!
 
-concretePresentations
-	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
-!
-
-title
-	^ 'Slides'
-! !
-
-!Presentation class methodsFor: 'enumerating'!
-
-concretePresentationsDo: aBlockWithArg
-	self concretePresentations do: aBlockWithArg.
-! !
-
-!Presentation class methodsFor: 'testing'!
-
-isConcrete
-	^false
+renderSlideOn: html
+	html div class: 'section center animate'; with: [
+		html img src: 'fosdem2012/images/amber.png'.
+		html p: self presentation author.
+          	html p: self presentation description.
+		html p: [
+			html with: self presentation email]].
 ! !
 
 Widget subclass: #PresentationNavigator
@@ -414,6 +421,220 @@ initialize
 
 open
 	^ self new open
+! !
+
+Widget subclass: #Presentation
+	instanceVariableNames: 'currentSlide slides'
+	category: 'Presentation'!
+
+!Presentation methodsFor: 'accessing'!
+
+title
+	^ self class title.
+!
+
+author
+	^'John Smith'
+!
+
+url
+	^'http://jtalk-project.org'
+!
+
+description
+	^'A presentation written in Jtalk'
+!
+
+email
+	^'john@smith.com'
+!
+
+slides
+	slides ifNil: [self initSlides].
+	^slides
+!
+
+slideClasses
+	^self subclassResponsibility
+!
+
+currentSlide
+	^currentSlide
+!
+
+currentSlide: aSlide
+	currentSlide := aSlide
+!
+
+slideTransition
+	^'fade'
+!
+
+style
+	"Should return a CSS style"
+	^ ''
+! !
+
+!Presentation methodsFor: 'actions'!
+
+nextSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) + 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+showCurrentSlide
+	self currentSlide ifNotNil: [
+		'.slide' asJQuery hide.
+		('#', self currentSlide id) asJQuery show.
+          	'title' asJQuery text: self title, ' - ', self currentSlide id.
+        ]
+!
+
+previousSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) - 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+moveAt: anInteger
+	| next |
+	next := self slides 
+			at: anInteger
+			ifAbsent: [nil].
+	next ifNotNil: [currentSlide := next. next show]
+!
+
+currentSlideIndex
+	^ self slides indexOf: self currentSlide ifAbsent: [1]
+! !
+
+!Presentation methodsFor: 'enumerating'!
+
+slidesDo: aBlockWithArg
+	self slides do: [:aSlide| aBlockWithArg value: aSlide].
+! !
+
+!Presentation methodsFor: 'initialization'!
+
+initSlides
+	slides := self slideClasses collect: [:each | each on: self]
+! !
+
+!Presentation methodsFor: 'rendering'!
+
+renderOn: html
+	html style
+		type: 'text/css';
+		with: self style.
+	html div 
+		id: 'slides';
+		with: [self renderSlidesOn: html]
+!
+
+renderSlidesOn: html
+	self slides do: [:each | 
+		each renderOn: html].
+	currentSlide ifNil: [currentSlide := self slides first].
+	self showCurrentSlide
+! !
+
+Presentation class instanceVariableNames: 'current'!
+
+!Presentation class methodsFor: 'accessing'!
+
+concretePresentations
+	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
+!
+
+title
+	^ 'Slides'
+! !
+
+!Presentation class methodsFor: 'enumerating'!
+
+concretePresentationsDo: aBlockWithArg
+	self concretePresentations do: aBlockWithArg.
+! !
+
+!Presentation class methodsFor: 'testing'!
+
+isConcrete
+	^false
+! !
+
+Widget subclass: #Slide
+	instanceVariableNames: 'presentation'
+	category: 'Presentation'!
+
+!Slide methodsFor: 'accessing'!
+
+presentation
+	^presentation
+!
+
+presentation: aPresentation
+	presentation := aPresentation
+!
+
+id
+	^ self class name
+!
+
+cssClass
+	^'slide'
+!
+
+backgroundColor
+	^'#555'
+!
+
+title
+	^ self id
+! !
+
+!Slide methodsFor: 'actions'!
+
+show
+	self backgroundColor ifNotNil: [
+		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
+	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
+	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
+! !
+
+!Slide methodsFor: 'rendering'!
+
+renderOn: html
+	html div class: self cssClass; id: self id; with: [
+		self renderSlideOn: html.
+		self renderMetaOn: html]
+!
+
+renderSlideOn: html
+!
+
+renderMetaOn: html
+	html div 
+		id: 'meta';
+		with: [
+			html p class: 'title'; with: self presentation title.
+			html p class: 'description'; with: self presentation description.
+			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
+			html a class: 'url'; with: self presentation url; href: self presentation url]
+! !
+
+!Slide class methodsFor: 'instance creation'!
+
+on: aPresentation
+	^self new
+		presentation: aPresentation;
+		yourself
 ! !
 
 Presentation subclass: #ESUG2011Presentation
@@ -1463,7 +1684,7 @@ body {
 
 
 .slide .CodeMirror {
-    width: 500px;
+    width: 700px;
     height: 300px;
     text-align: left;
 }
@@ -1593,7 +1814,8 @@ slideClasses
 	FOSDEMJSToSmalltalk.
 	FOSDEMBookletSlide.
 	FOSDEMCanvasSlide.
-	FOSDEMAmberBackend
+	FOSDEMAmberBackend.
+	FOSDEMREPLSlide
 }
 ! !
 
@@ -1607,211 +1829,27 @@ title
 	^'Amber'
 ! !
 
-Slide subclass: #FOSDEMIntroSlide
+Slide subclass: #FOSDEMSlide
 	instanceVariableNames: ''
 	category: 'Presentation'!
 
-!FOSDEMIntroSlide methodsFor: 'not yet classified'!
-
-renderSlideOn: html
-	html div class: 'section center animate'; with: [
-		html img src: 'fosdem2012/images/amber.png'.
-		html p: self presentation author.
-          	html p: self presentation description.
-		html p: [
-			html with: self presentation email]].
-! !
-
-Slide subclass: #FOSDEMBookletSlide
-	instanceVariableNames: ''
-	category: 'Presentation'!
-
-!FOSDEMBookletSlide methodsFor: 'accessing'!
-
-cssClass
-	^ 'slide blue3d'
-! !
-
-!FOSDEMBookletSlide methodsFor: 'css'!
-
-style
-	^ '
-#book { font-size: 1.4em; }
-#book .b-load .b-wrap-right { background-color: #DEC3A9;}
-#book .b-load .b-wrap-left { background-color: #DDD;} 
-'
-! !
-
-!FOSDEMBookletSlide methodsFor: 'rendering'!
-
-renderSlideOn: html
-	self renderBookOn: html.
-	html link 
-		rel:'stylesheet';
-		href: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.css'.
-	
-	html style: self style.
-	
-	jQuery 
-		getScript: 'fosdem2012/lib/booklet/jquery.booklet.1.2.0.min.js' 	
-		do: ['#book' asJQuery booklet: self bookletOptions].
-!
-
-renderBookOn: html
-	html div 
-		id: 'book';
-		with: [	html div
-					class: 'b-load';
-					with: [	html 
-								div: 'Amber makes it easy to plug existing javascript libraires';
-								div: 'Here is an example with the jQuery Booklet plugin';
-								div: 'Want to see how ?';
-								div: [ html button
-										onClick: [Browser openOn: FOSDEMBookletSlide ];
-										with: 'Just browse the code :)'.						] 	
-																							
-					]	
-		].
-!
-
-bookletOptions
-	^ #{ 
-		'arrows' -> true.
-		'keyboard' -> false.
-		'pageNumbers' -> false.
-		'closed' -> true
-	}
-! !
-
-Slide subclass: #FOSDEMAmberBackend
-	instanceVariableNames: ''
-	category: 'Presentation'!
-
-!FOSDEMAmberBackend methodsFor: 'accessing'!
-
-cssClass
-	^ 'slide green3d'
-! !
-
-!FOSDEMAmberBackend methodsFor: 'rendering'!
-
-renderSlideOn: html
-	html div
-		class: 'section center';
-		with: [	html h1: 'Need a backend ?'.
-				{'nodejs.png'. 'php.gif'. 'rails.png'.   'pharo.png'. 'ambrhino.jpg'} do: [:aString |
-						html img: 'fosdem2012/images/', aString.
-				]
-		]
-! !
-
-Slide subclass: #FOSDEMJSPlayGroundSlide
-	instanceVariableNames: ''
-	category: 'Presentation'!
-
-!FOSDEMJSPlayGroundSlide methodsFor: 'accessing'!
+!FOSDEMSlide methodsFor: 'accessing'!
 
 codeSnippet
-^'|logo|
-logo:=''img#amberlogo'' asJQuery.
-logo
-  css: ''-webkit-transition'' 
-  apply: ''all 10s ease-in-out''.
-
-<logo.css(
-	''-webkit-transform'', 
-	''rotateY(360deg)'');>.
-
-logo click: [
-    window alert: ''This is cool !!''].
-
-logo inspect'.
+	self subclassResponsibility
 ! !
 
-!FOSDEMJSPlayGroundSlide methodsFor: 'rendering'!
-
-renderSlideOn: html
-	html div
-		class: 'section center'; 
-		with: [
-			self renderSnippet: self codeSnippet on: html.
-			html img
-				id: 'amberlogo'; 
-				src: 'fosdem2012/images/amber.png'	]
-!
+!FOSDEMSlide methodsFor: 'rendering'!
 
 renderSnippet: aString on: html
 	(SourceArea new 
 			renderOn: html;
 			editor)  setValue: aString.
-! !
+!
 
-Slide subclass: #FOSDEMCanvasSlide
-	instanceVariableNames: 'c2d canvas'
-	category: 'Presentation'!
-
-!FOSDEMCanvasSlide methodsFor: 'accessing'!
-
-cssClass
-	^ 'slide red3d'
-! !
-
-!FOSDEMCanvasSlide methodsFor: 'drawing'!
-
-drawOnCanvas
-	|c2d|
-	c2d := canvas element getContext: '2d'.
-	c2d 
-		clearRect: 0 
-		y: 0 
-		width: canvas element width 
-		height: canvas element height.
-	
-	40 atRandom timesRepeat: [ |rgba|
-			rgba := ',' join: {255 atRandom. 255 atRandom. 255 atRandom. 10 atRandom / 10}.
-			c2d	at: 'fillStyle' put: 'rgba(', rgba, ')'.
-			c2d
-				fillRect: 600 atRandom 
-				y: 300 atRandom 
-				width: 200 atRandom 
-				height: 200 atRandom ]
-! !
-
-!FOSDEMCanvasSlide methodsFor: 'rendering'!
-
-renderSlideOn: html
-	html h1: 'Playing with canvas'.
-	canvas := html  canvas 
-				width: 700;
-				height: 400.
-
-	self updateCanvas.
-! !
-
-!FOSDEMCanvasSlide methodsFor: 'updating'!
-
-updateCanvas
-	self drawOnCanvas.
-	window setTimeout: [self updateCanvas] delay: 500.
-! !
-
-Slide subclass: #FOSDEMJSToSmalltalk
-	instanceVariableNames: ''
-	category: 'Presentation'!
-
-!FOSDEMJSToSmalltalk methodsFor: 'accessing'!
-
-cssClass
-	^ 'slide blue3d'
-! !
-
-!FOSDEMJSToSmalltalk methodsFor: 'rendering'!
-
-renderSlideOn: html
-	html h1: 'Call Smalltalk from Javascript'.
-	html pre with:
-'var counter = window.smalltalk.Counter._new();
-counter._appendToJQuery_($(''#jsToSmalltalk''));'.
-	html div id: 'jsToSmalltalk'
+renderCodeSnippetOn: html
+	(SourceArea new 
+			renderOn: html;
+			editor)  setValue: self codeSnippet.
 ! !
 
