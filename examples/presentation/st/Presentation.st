@@ -1,4 +1,98 @@
 Smalltalk current createPackage: 'Presentation' properties: #{}!
+Widget subclass: #Slide
+	instanceVariableNames: 'presentation'
+	category: 'Presentation'!
+
+!Slide methodsFor: 'accessing'!
+
+presentation
+	^presentation
+!
+
+presentation: aPresentation
+	presentation := aPresentation
+!
+
+id
+	^ self class name
+!
+
+cssClass
+	^'slide'
+!
+
+backgroundColor
+	^'#555'
+!
+
+title
+	^ self id
+! !
+
+!Slide methodsFor: 'actions'!
+
+show
+	self backgroundColor ifNotNil: [
+		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
+	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
+	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
+! !
+
+!Slide methodsFor: 'rendering'!
+
+renderOn: html
+	html div class: self cssClass; id: self id; with: [
+		self renderSlideOn: html.
+		self renderMetaOn: html]
+!
+
+renderSlideOn: html
+!
+
+renderMetaOn: html
+	html div 
+		id: 'meta';
+		with: [
+			html p class: 'title'; with: self presentation title.
+			html p class: 'description'; with: self presentation description.
+			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
+			html a class: 'url'; with: self presentation url; href: self presentation url]
+! !
+
+!Slide class methodsFor: 'instance creation'!
+
+on: aPresentation
+	^self new
+		presentation: aPresentation;
+		yourself
+! !
+
+
+Slide subclass: #FOSDEMSlide
+	instanceVariableNames: ''
+	category: 'Presentation'!
+
+!FOSDEMSlide methodsFor: 'accessing'!
+
+codeSnippet
+	self subclassResponsibility
+! !
+
+!FOSDEMSlide methodsFor: 'rendering'!
+
+renderSnippet: aString on: html
+	(SourceArea new 
+			renderOn: html;
+			editor)  setValue: aString.
+!
+
+renderCodeSnippetOn: html
+	(SourceArea new 
+			renderOn: html;
+			editor)  setValue: self codeSnippet.
+! !
+
+
 FOSDEMSlide subclass: #FOSDEMREPLSlide
 	instanceVariableNames: ''
 	category: 'Presentation'!
@@ -37,8 +131,10 @@ counter._appendToJQuery_($(''#jsToSmalltalk''));'.
 
 renderSlideOn: html
 	html h1: 'Call Smalltalk from Javascript'.
+	html div
+		id: 'jsToSmalltalk';
+		style: 'float: left'.
 	self renderCodeSnippetOn: html.
-	html div id: 'jsToSmalltalk'
 ! !
 
 FOSDEMSlide subclass: #FOSDEMCanvasSlide
@@ -422,6 +518,7 @@ initialize
 open
 	^ self new open
 ! !
+
 
 Widget subclass: #Presentation
 	instanceVariableNames: 'currentSlide slides'
@@ -1827,29 +1924,5 @@ isConcrete
 
 title
 	^'Amber'
-! !
-
-Slide subclass: #FOSDEMSlide
-	instanceVariableNames: ''
-	category: 'Presentation'!
-
-!FOSDEMSlide methodsFor: 'accessing'!
-
-codeSnippet
-	self subclassResponsibility
-! !
-
-!FOSDEMSlide methodsFor: 'rendering'!
-
-renderSnippet: aString on: html
-	(SourceArea new 
-			renderOn: html;
-			editor)  setValue: aString.
-!
-
-renderCodeSnippetOn: html
-	(SourceArea new 
-			renderOn: html;
-			editor)  setValue: self codeSnippet.
 ! !
 
