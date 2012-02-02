@@ -67,6 +67,354 @@ on: aPresentation
 		yourself
 ! !
 
+Widget subclass: #PresentationNavigator
+	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
+	category: 'Presentation'!
+
+!PresentationNavigator methodsFor: 'accessing'!
+
+currentPresentation: aPresentation
+	currentPresentation := aPresentation.
+!
+
+currentPresentation
+	^  currentPresentation ifNil: [currentPresentation := Presentation concretePresentations first new].
+!
+
+style
+	^ '
+#navigator {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -150px;
+    padding: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #333;
+    opacity: 0.3;
+    color: #eee;
+}
+
+#navigator a {
+    font-weight: bold;
+    color: #eee;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0 2px;
+    font-size: 14px;
+}
+
+#navigator:hover {
+    opacity: 0.8;
+}
+'
+! !
+
+!PresentationNavigator methodsFor: 'callbacks'!
+
+selectPresentation: aPresentationClass
+	self currentPresentation: aPresentationClass new.
+	self renderCurrentPresentation.
+!
+
+selectPresentationNamed: aString
+	|presentationClass|
+	presentationClass :=  (Smalltalk current at: aString).
+	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
+!
+
+previousSlide
+	self currentPresentation previousSlide.
+	self updateHash.
+!
+
+nextSlide
+	self currentPresentation nextSlide.
+	self updateHash.
+!
+
+reload
+	|slideIndex|
+	slideIndex := self currentPresentation currentSlideIndex.
+	self currentPresentation: self currentPresentation class new.
+	self renderCurrentPresentation.
+	self selectSlideAt: slideIndex.
+!
+
+selectSlideAt: anInteger
+	self currentPresentation moveAt: anInteger.
+	self updateHash.
+!
+
+updateHash
+	document location hash: self currentPresentation class name, '-', self currentPresentation currentSlideIndex.
+! !
+
+!PresentationNavigator methodsFor: 'hash'!
+
+checkHash
+	| hash presentation |
+	hash := (document location hash  replace: '^#' with: '') tokenize: '-'. 
+	presentation := Presentation concretePresentations 
+				detect: [:aPresentationClass | aPresentationClass name == hash first]
+				ifNone: [^ self].
+	presentation == self currentPresentation class ifFalse: [
+          	self selectPresentationNamed: presentation.
+          	self selectSlideAt: hash last
+        ].
+!
+
+checkHashChange
+	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
+! !
+
+!PresentationNavigator methodsFor: 'keybindings'!
+
+setKeybindings
+	(window jQuery: document) keyup: [:e || node |
+		node := e target nodeName asLowercase.
+		(node = 'textarea' or: [node = 'input']) ifFalse: [
+			e keyCode = 39 ifTrue: [self nextSlide].
+			e keyCode = 37 ifTrue: [self previousSlide]]]
+! !
+
+!PresentationNavigator methodsFor: 'rendering'!
+
+renderToolsOn: html
+	html a 
+		with: 'IDE';
+		onClick: [TabManager current open].
+	html a
+		with: 'Reload';
+		onClick: [self reload].
+	html a
+		with: '←';
+		onClick: [self previousSlide].
+	html a
+		with: '→';
+		onClick: [self nextSlide].
+!
+
+renderPresentationSelectOn: html
+	|presentationSelect|
+	presentationSelect := html select.
+	presentationSelect
+		onChange: [self  selectPresentationNamed:  presentationSelect asJQuery val];
+		with: [	Presentation concretePresentationsDo: [:aPresentationClass |   
+                                                              							html option
+                                                              								value: aPresentationClass name;
+                                                              								with: aPresentationClass title ] ].
+!
+
+open
+	(window jQuery: document)  ready: [
+          	self 
+          		appendToJQuery: 'body' asJQuery;
+          		setKeybindings;
+          		checkHashChange.
+        ].
+!
+
+renderOn: html
+	html style
+		type: 'text/css';
+		with: self style.
+	html div
+		id: 'navigator';
+		with: [	self
+					renderToolsOn: html;
+					renderPresentationSelectOn: html;
+                      			renderSlideSelectOn: html].
+
+	presentationBrush := html div 
+							id: 'presentation';
+							yourself.
+
+	self checkHash.
+	self renderCurrentPresentation.
+!
+
+renderCurrentPresentation
+	presentationBrush contents: [:html |
+        	self currentPresentation renderOn: html.
+        ].
+	self updateSlideSelect.
+!
+
+renderSlideSelectOn: html
+	slideSelect := html select.
+	slideSelect onChange: [ self  selectSlideAt:  slideSelect asJQuery val ].
+	self updateSlideSelect.
+!
+
+updateSlideSelect
+	slideSelect contents: [:html| |index|
+		                       		index := 0.
+                		       		self currentPresentation slidesDo: [ :aSlide|  
+                                		                                    				index := index + 1.
+                                                		                    				html option
+                                                                		    					value: index;
+                                                            								with: aSlide title ] ].
+! !
+
+!PresentationNavigator class methodsFor: 'initialize'!
+
+initialize
+	^ self open
+!
+
+open
+	^ self new open
+! !
+
+Widget subclass: #Presentation
+	instanceVariableNames: 'currentSlide slides'
+	category: 'Presentation'!
+
+!Presentation methodsFor: 'accessing'!
+
+title
+	^ self class title.
+!
+
+author
+	^'John Smith'
+!
+
+url
+	^'http://jtalk-project.org'
+!
+
+description
+	^'A presentation written in Jtalk'
+!
+
+email
+	^'john@smith.com'
+!
+
+slides
+	slides ifNil: [self initSlides].
+	^slides
+!
+
+slideClasses
+	^self subclassResponsibility
+!
+
+currentSlide
+	^currentSlide
+!
+
+currentSlide: aSlide
+	currentSlide := aSlide
+!
+
+slideTransition
+	^'fade'
+!
+
+style
+	"Should return a CSS style"
+	^ ''
+! !
+
+!Presentation methodsFor: 'actions'!
+
+nextSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) + 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+showCurrentSlide
+	self currentSlide ifNotNil: [
+		'.slide' asJQuery hide.
+		('#', self currentSlide id) asJQuery show.
+          	'title' asJQuery text: self title, ' - ', self currentSlide id.
+        ]
+!
+
+previousSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) - 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+moveAt: anInteger
+	| next |
+	next := self slides 
+			at: anInteger
+			ifAbsent: [nil].
+	next ifNotNil: [currentSlide := next. next show]
+!
+
+currentSlideIndex
+	^ self slides indexOf: self currentSlide ifAbsent: [1]
+! !
+
+!Presentation methodsFor: 'enumerating'!
+
+slidesDo: aBlockWithArg
+	self slides do: [:aSlide| aBlockWithArg value: aSlide].
+! !
+
+!Presentation methodsFor: 'initialization'!
+
+initSlides
+	slides := self slideClasses collect: [:each | each on: self]
+! !
+
+!Presentation methodsFor: 'rendering'!
+
+renderOn: html
+	html style
+		type: 'text/css';
+		with: self style.
+	html div 
+		id: 'slides';
+		with: [self renderSlidesOn: html]
+!
+
+renderSlidesOn: html
+	self slides do: [:each | 
+		each renderOn: html].
+	currentSlide ifNil: [currentSlide := self slides first].
+	self showCurrentSlide
+! !
+
+Presentation class instanceVariableNames: 'current'!
+
+!Presentation class methodsFor: 'accessing'!
+
+concretePresentations
+	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
+!
+
+title
+	^ 'Slides'
+! !
+
+!Presentation class methodsFor: 'enumerating'!
+
+concretePresentationsDo: aBlockWithArg
+	self concretePresentations do: aBlockWithArg.
+! !
+
+!Presentation class methodsFor: 'testing'!
+
+isConcrete
+	^false
+! !
 
 Slide subclass: #FOSDEMSlide
 	instanceVariableNames: ''
@@ -91,7 +439,6 @@ renderCodeSnippetOn: html
 			renderOn: html;
 			editor)  setValue: self codeSnippet.
 ! !
-
 
 FOSDEMSlide subclass: #FOSDEMREPLSlide
 	instanceVariableNames: ''
@@ -314,424 +661,6 @@ renderSlideOn: html
           	html p: self presentation description.
 		html p: [
 			html with: self presentation email]].
-! !
-
-Widget subclass: #PresentationNavigator
-	instanceVariableNames: 'presentationBrush currentPresentation slideSelect'
-	category: 'Presentation'!
-
-!PresentationNavigator methodsFor: 'accessing'!
-
-currentPresentation: aPresentation
-	currentPresentation := aPresentation.
-!
-
-currentPresentation
-	^  currentPresentation ifNil: [currentPresentation := Presentation concretePresentations first new].
-!
-
-style
-	^ '
-#navigator {
-    z-index: 1;
-    position: fixed;
-    top: 0;
-    left: 50%;
-    margin-left: -150px;
-    padding: 5px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    background: #333;
-    opacity: 0.3;
-    color: #eee;
-}
-
-#navigator a {
-    font-weight: bold;
-    color: #eee;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 0 2px;
-    font-size: 14px;
-}
-
-#navigator:hover {
-    opacity: 0.8;
-}
-'
-! !
-
-!PresentationNavigator methodsFor: 'callbacks'!
-
-selectPresentation: aPresentationClass
-	self currentPresentation: aPresentationClass new.
-	self renderCurrentPresentation.
-!
-
-selectPresentationNamed: aString
-	|presentationClass|
-	presentationClass :=  (Smalltalk current at: aString).
-	presentationClass ifNotNil: [ self selectPresentation: presentationClass ].
-!
-
-previousSlide
-	self currentPresentation previousSlide.
-	self updateHash.
-!
-
-nextSlide
-	self currentPresentation nextSlide.
-	self updateHash.
-!
-
-reload
-	|slideIndex|
-	slideIndex := self currentPresentation currentSlideIndex.
-	self currentPresentation: self currentPresentation class new.
-	self renderCurrentPresentation.
-	self selectSlideAt: slideIndex.
-!
-
-selectSlideAt: anInteger
-	self currentPresentation moveAt: anInteger.
-	self updateHash.
-!
-
-updateHash
-	document location hash: self currentPresentation class name, '-', self currentPresentation currentSlideIndex.
-! !
-
-!PresentationNavigator methodsFor: 'hash'!
-
-checkHash
-	| hash presentation |
-	hash := (document location hash  replace: '^#' with: '') tokenize: '-'. 
-	presentation := Presentation concretePresentations 
-				detect: [:aPresentationClass | aPresentationClass name == hash first]
-				ifNone: [^ self].
-	presentation == self currentPresentation class ifFalse: [
-          	self selectPresentationNamed: presentation.
-          	self selectSlideAt: hash last
-        ].
-!
-
-checkHashChange
-	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
-! !
-
-!PresentationNavigator methodsFor: 'keybindings'!
-
-setKeybindings
-	(window jQuery: document) keyup: [:e || node |
-		node := e target nodeName asLowercase.
-		(node = 'textarea' or: [node = 'input']) ifFalse: [
-			e keyCode = 39 ifTrue: [self nextSlide].
-			e keyCode = 37 ifTrue: [self previousSlide]]]
-! !
-
-!PresentationNavigator methodsFor: 'rendering'!
-
-renderToolsOn: html
-	html a 
-		with: 'IDE';
-		onClick: [TabManager current open].
-	html a
-		with: 'Reload';
-		onClick: [self reload].
-	html a
-		with: '←';
-		onClick: [self previousSlide].
-	html a
-		with: '→';
-		onClick: [self nextSlide].
-!
-
-renderPresentationSelectOn: html
-	|presentationSelect|
-	presentationSelect := html select.
-	presentationSelect
-		onChange: [self  selectPresentationNamed:  presentationSelect asJQuery val];
-		with: [	Presentation concretePresentationsDo: [:aPresentationClass |   
-                                                              							html option
-                                                              								value: aPresentationClass name;
-                                                              								with: aPresentationClass title ] ].
-!
-
-open
-	(window jQuery: document)  ready: [
-          	self 
-          		appendToJQuery: 'body' asJQuery;
-          		setKeybindings;
-          		checkHashChange.
-        ].
-!
-
-renderOn: html
-	html style
-		type: 'text/css';
-		with: self style.
-	html div
-		id: 'navigator';
-		with: [	self
-					renderToolsOn: html;
-					renderPresentationSelectOn: html;
-                      			renderSlideSelectOn: html].
-
-	presentationBrush := html div 
-							id: 'presentation';
-							yourself.
-
-	self checkHash.
-	self renderCurrentPresentation.
-!
-
-renderCurrentPresentation
-	presentationBrush contents: [:html |
-        	self currentPresentation renderOn: html.
-        ].
-	self updateSlideSelect.
-!
-
-renderSlideSelectOn: html
-	slideSelect := html select.
-	slideSelect onChange: [ self  selectSlideAt:  slideSelect asJQuery val ].
-	self updateSlideSelect.
-!
-
-updateSlideSelect
-	slideSelect contents: [:html| |index|
-		                       		index := 0.
-                		       		self currentPresentation slidesDo: [ :aSlide|  
-                                		                                    				index := index + 1.
-                                                		                    				html option
-                                                                		    					value: index;
-                                                            								with: aSlide title ] ].
-! !
-
-!PresentationNavigator class methodsFor: 'initialize'!
-
-initialize
-	^ self open
-!
-
-open
-	^ self new open
-! !
-
-
-Widget subclass: #Presentation
-	instanceVariableNames: 'currentSlide slides'
-	category: 'Presentation'!
-
-!Presentation methodsFor: 'accessing'!
-
-title
-	^ self class title.
-!
-
-author
-	^'John Smith'
-!
-
-url
-	^'http://jtalk-project.org'
-!
-
-description
-	^'A presentation written in Jtalk'
-!
-
-email
-	^'john@smith.com'
-!
-
-slides
-	slides ifNil: [self initSlides].
-	^slides
-!
-
-slideClasses
-	^self subclassResponsibility
-!
-
-currentSlide
-	^currentSlide
-!
-
-currentSlide: aSlide
-	currentSlide := aSlide
-!
-
-slideTransition
-	^'fade'
-!
-
-style
-	"Should return a CSS style"
-	^ ''
-! !
-
-!Presentation methodsFor: 'actions'!
-
-nextSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) + 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-showCurrentSlide
-	self currentSlide ifNotNil: [
-		'.slide' asJQuery hide.
-		('#', self currentSlide id) asJQuery show.
-          	'title' asJQuery text: self title, ' - ', self currentSlide id.
-        ]
-!
-
-previousSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) - 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-moveAt: anInteger
-	| next |
-	next := self slides 
-			at: anInteger
-			ifAbsent: [nil].
-	next ifNotNil: [currentSlide := next. next show]
-!
-
-currentSlideIndex
-	^ self slides indexOf: self currentSlide ifAbsent: [1]
-! !
-
-!Presentation methodsFor: 'enumerating'!
-
-slidesDo: aBlockWithArg
-	self slides do: [:aSlide| aBlockWithArg value: aSlide].
-! !
-
-!Presentation methodsFor: 'initialization'!
-
-initSlides
-	slides := self slideClasses collect: [:each | each on: self]
-! !
-
-!Presentation methodsFor: 'rendering'!
-
-renderOn: html
-	html style
-		type: 'text/css';
-		with: self style.
-	html div 
-		id: 'slides';
-		with: [self renderSlidesOn: html]
-!
-
-renderSlidesOn: html
-	self slides do: [:each | 
-		each renderOn: html].
-	currentSlide ifNil: [currentSlide := self slides first].
-	self showCurrentSlide
-! !
-
-Presentation class instanceVariableNames: 'current'!
-
-!Presentation class methodsFor: 'accessing'!
-
-concretePresentations
-	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
-!
-
-title
-	^ 'Slides'
-! !
-
-!Presentation class methodsFor: 'enumerating'!
-
-concretePresentationsDo: aBlockWithArg
-	self concretePresentations do: aBlockWithArg.
-! !
-
-!Presentation class methodsFor: 'testing'!
-
-isConcrete
-	^false
-! !
-
-Widget subclass: #Slide
-	instanceVariableNames: 'presentation'
-	category: 'Presentation'!
-
-!Slide methodsFor: 'accessing'!
-
-presentation
-	^presentation
-!
-
-presentation: aPresentation
-	presentation := aPresentation
-!
-
-id
-	^ self class name
-!
-
-cssClass
-	^'slide'
-!
-
-backgroundColor
-	^'#555'
-!
-
-title
-	^ self id
-! !
-
-!Slide methodsFor: 'actions'!
-
-show
-	self backgroundColor ifNotNil: [
-		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
-	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
-	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
-! !
-
-!Slide methodsFor: 'rendering'!
-
-renderOn: html
-	html div class: self cssClass; id: self id; with: [
-		self renderSlideOn: html.
-		self renderMetaOn: html]
-!
-
-renderSlideOn: html
-!
-
-renderMetaOn: html
-	html div 
-		id: 'meta';
-		with: [
-			html p class: 'title'; with: self presentation title.
-			html p class: 'description'; with: self presentation description.
-			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
-			html a class: 'url'; with: self presentation url; href: self presentation url]
-! !
-
-!Slide class methodsFor: 'instance creation'!
-
-on: aPresentation
-	^self new
-		presentation: aPresentation;
-		yourself
 ! !
 
 Presentation subclass: #ESUG2011Presentation
@@ -1898,6 +1827,25 @@ body {
 .slide#ide {
     background: black url("esug2011/images/ide_star_wars.png") center center no-repeat;
 }
+
+
+.tweet {
+	background-color: #aaa;
+	color: black;
+	padding: 10px;
+	border-radius: 10px;
+	border: 5px solid #eee;
+	margin: 10px;
+}
+
+.tweet img {
+	vertical-align: top;
+	margin-right: 10px;
+}
+
+.tweet span:first-child {
+	float: right;
+}
 '
 !
 
@@ -1910,6 +1858,7 @@ slideClasses
 	FOSDEMJSPlayGroundSlide.
 	FOSDEMJSToSmalltalk.
 	FOSDEMBookletSlide.
+	FOSDEMTwitter.
 	FOSDEMCanvasSlide.
 	FOSDEMAmberBackend.
 	FOSDEMREPLSlide
@@ -1924,5 +1873,54 @@ isConcrete
 
 title
 	^'Amber'
+! !
+
+FOSDEMSlide subclass: #FOSDEMTwitter
+	instanceVariableNames: 'twitterDiv'
+	category: 'Presentation'!
+
+!FOSDEMTwitter methodsFor: 'accessing'!
+
+cssClass
+	^ 'slide black'
+! !
+
+!FOSDEMTwitter methodsFor: 'callback'!
+
+loadTweets
+	jQuery 
+		ajax: 'http://search.twitter.com/search.json?rpp=3&q=%40AmberSmalltalk'
+		options: #{
+				'type' -> 'GET'.
+				'success' -> [ :json | self renderTweets: (json results)].
+				'dataType' -> 'jsonp'
+			}.
+! !
+
+!FOSDEMTwitter methodsFor: 'rendering'!
+
+renderSlideOn: html
+	html button
+		onClick: [self loadTweets];
+		with: 'What about @AmberSmalltalk on Twitter ?'.
+	twitterDiv := html div.
+!
+
+renderTweets: tweets
+	twitterDiv contents: [	:html|
+						tweets do: [	:tweet|  
+									self renderTweet: tweet on: html] ]
+!
+
+renderTweet: tweet on: html
+	html div 
+		class: 'tweet';
+		with: [
+			html 
+				span: (tweet at: 'created_at');
+				img: (tweet at: 'profile_image_url');
+				span: (tweet at: 'from_user');
+				div: (tweet at: 'text'). 
+		]
 ! !
 
