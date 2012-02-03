@@ -1,207 +1,83 @@
 smalltalk.addPackage('Presentation', {});
-smalltalk.addClass('Presentation', smalltalk.Widget, ['currentSlide', 'slides'], 'Presentation');
+smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
+smalltalk.addMethod(
+unescape('_presentation'),
+smalltalk.method({
+selector: unescape('presentation'),
+fn: function (){
+var self=this;
+return self['@presentation'];
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_presentation_'),
+smalltalk.method({
+selector: unescape('presentation%3A'),
+fn: function (aPresentation){
+var self=this;
+(self['@presentation']=aPresentation);
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_id'),
+smalltalk.method({
+selector: unescape('id'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_name", []);
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_cssClass'),
+smalltalk.method({
+selector: unescape('cssClass'),
+fn: function (){
+var self=this;
+return "slide";
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_backgroundColor'),
+smalltalk.method({
+selector: unescape('backgroundColor'),
+fn: function (){
+var self=this;
+return unescape("%23555");
+return self;}
+}),
+smalltalk.Slide);
+
 smalltalk.addMethod(
 unescape('_title'),
 smalltalk.method({
 selector: unescape('title'),
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_title", []);
+return smalltalk.send(self, "_id", []);
 return self;}
 }),
-smalltalk.Presentation);
+smalltalk.Slide);
 
 smalltalk.addMethod(
-unescape('_author'),
+unescape('_show'),
 smalltalk.method({
-selector: unescape('author'),
+selector: unescape('show'),
 fn: function (){
 var self=this;
-return "John Smith";
+(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
 return self;}
 }),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_url'),
-smalltalk.method({
-selector: unescape('url'),
-fn: function (){
-var self=this;
-return unescape("http%3A//jtalk-project.org");
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_description'),
-smalltalk.method({
-selector: unescape('description'),
-fn: function (){
-var self=this;
-return "A presentation written in Jtalk";
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_email'),
-smalltalk.method({
-selector: unescape('email'),
-fn: function (){
-var self=this;
-return unescape("john@smith.com");
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slides'),
-smalltalk.method({
-selector: unescape('slides'),
-fn: function (){
-var self=this;
-(($receiver = self['@slides']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_initSlides", []);})() : $receiver;
-return self['@slides'];
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slideClasses'),
-smalltalk.method({
-selector: unescape('slideClasses'),
-fn: function (){
-var self=this;
-return smalltalk.send(self, "_subclassResponsibility", []);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_currentSlide'),
-smalltalk.method({
-selector: unescape('currentSlide'),
-fn: function (){
-var self=this;
-return self['@currentSlide'];
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_currentSlide_'),
-smalltalk.method({
-selector: unescape('currentSlide%3A'),
-fn: function (aSlide){
-var self=this;
-(self['@currentSlide']=aSlide);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slideTransition'),
-smalltalk.method({
-selector: unescape('slideTransition'),
-fn: function (){
-var self=this;
-return "fade";
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_style'),
-smalltalk.method({
-selector: unescape('style'),
-fn: function (){
-var self=this;
-return "";
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_nextSlide'),
-smalltalk.method({
-selector: unescape('nextSlide'),
-fn: function (){
-var self=this;
-var next=nil;
-(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_showCurrentSlide'),
-smalltalk.method({
-selector: unescape('showCurrentSlide'),
-fn: function (){
-var self=this;
-(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send(".slide", "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])]), "_asJQuery", []), "_show", []);return smalltalk.send(smalltalk.send("title", "_asJQuery", []), "_text_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_title", []), "__comma", [unescape("%20-%20")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])])]);})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_previousSlide'),
-smalltalk.method({
-selector: unescape('previousSlide'),
-fn: function (){
-var self=this;
-var next=nil;
-(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_moveAt_'),
-smalltalk.method({
-selector: unescape('moveAt%3A'),
-fn: function (anInteger){
-var self=this;
-var next=nil;
-(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [anInteger, (function(){return nil;})]));
-(($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_currentSlideIndex'),
-smalltalk.method({
-selector: unescape('currentSlideIndex'),
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_ifAbsent_", [smalltalk.send(self, "_currentSlide", []), (function(){return (1);})]);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slidesDo_'),
-smalltalk.method({
-selector: unescape('slidesDo%3A'),
-fn: function (aBlockWithArg){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(aSlide){return smalltalk.send(aBlockWithArg, "_value_", [aSlide]);})]);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_initSlides'),
-smalltalk.method({
-selector: unescape('initSlides'),
-fn: function (){
-var self=this;
-(self['@slides']=smalltalk.send(smalltalk.send(self, "_slideClasses", []), "_collect_", [(function(each){return smalltalk.send(each, "_on_", [self]);})]));
-return self;}
-}),
-smalltalk.Presentation);
+smalltalk.Slide);
 
 smalltalk.addMethod(
 unescape('_renderOn_'),
@@ -209,70 +85,44 @@ smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
-(function($rec){smalltalk.send($rec, "_id_", ["slides"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderSlidesOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);smalltalk.send($rec, "_id_", [smalltalk.send(self, "_id", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderSlideOn_", [html]);return smalltalk.send(self, "_renderMetaOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
-smalltalk.Presentation);
+smalltalk.Slide);
 
 smalltalk.addMethod(
-unescape('_renderSlidesOn_'),
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: unescape('renderSlidesOn%3A'),
+selector: unescape('renderSlideOn%3A'),
 fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
-(($receiver = self['@currentSlide']) == nil || $receiver == undefined) ? (function(){return (self['@currentSlide']=smalltalk.send(smalltalk.send(self, "_slides", []), "_first", []));})() : $receiver;
-smalltalk.send(self, "_showCurrentSlide", []);
+
 return self;}
 }),
-smalltalk.Presentation);
-
-
-smalltalk.Presentation.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-unescape('_concretePresentations'),
-smalltalk.method({
-selector: unescape('concretePresentations'),
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_allSubclasses", []), "_select_", [(function(aPresentationClass){return smalltalk.send(aPresentationClass, "_isConcrete", []);})]);
-return self;}
-}),
-smalltalk.Presentation.klass);
+smalltalk.Slide);
 
 smalltalk.addMethod(
-unescape('_title'),
+unescape('_renderMetaOn_'),
 smalltalk.method({
-selector: unescape('title'),
-fn: function (){
+selector: unescape('renderMetaOn%3A'),
+fn: function (html){
 var self=this;
-return "Slides";
+(function($rec){smalltalk.send($rec, "_id_", ["meta"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["title"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_title", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["description"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_description", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["author"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_author", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send("mailto:", "__comma", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_email", [])])]);})(smalltalk.send(html, "_a", []));return (function($rec){smalltalk.send($rec, "_class_", ["url"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
-smalltalk.Presentation.klass);
+smalltalk.Slide);
+
 
 smalltalk.addMethod(
-unescape('_concretePresentationsDo_'),
+unescape('_on_'),
 smalltalk.method({
-selector: unescape('concretePresentationsDo%3A'),
-fn: function (aBlockWithArg){
+selector: unescape('on%3A'),
+fn: function (aPresentation){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_concretePresentations", []), "_do_", [aBlockWithArg]);
+return (function($rec){smalltalk.send($rec, "_presentation_", [aPresentation]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
 }),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-unescape('_isConcrete'),
-smalltalk.method({
-selector: unescape('isConcrete'),
-fn: function (){
-var self=this;
-return false;
-return self;}
-}),
-smalltalk.Presentation.klass);
+smalltalk.Slide.klass);
 
 
 smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation', 'slideSelect'], 'Presentation');
@@ -549,85 +399,209 @@ return self;}
 smalltalk.PresentationNavigator.klass);
 
 
-smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
-smalltalk.addMethod(
-unescape('_presentation'),
-smalltalk.method({
-selector: unescape('presentation'),
-fn: function (){
-var self=this;
-return self['@presentation'];
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_presentation_'),
-smalltalk.method({
-selector: unescape('presentation%3A'),
-fn: function (aPresentation){
-var self=this;
-(self['@presentation']=aPresentation);
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_id'),
-smalltalk.method({
-selector: unescape('id'),
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_name", []);
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_cssClass'),
-smalltalk.method({
-selector: unescape('cssClass'),
-fn: function (){
-var self=this;
-return "slide";
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_backgroundColor'),
-smalltalk.method({
-selector: unescape('backgroundColor'),
-fn: function (){
-var self=this;
-return unescape("%23555");
-return self;}
-}),
-smalltalk.Slide);
-
+smalltalk.addClass('Presentation', smalltalk.Widget, ['currentSlide', 'slides'], 'Presentation');
 smalltalk.addMethod(
 unescape('_title'),
 smalltalk.method({
 selector: unescape('title'),
 fn: function (){
 var self=this;
-return smalltalk.send(self, "_id", []);
+return smalltalk.send(smalltalk.send(self, "_class", []), "_title", []);
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
 
 smalltalk.addMethod(
-unescape('_show'),
+unescape('_author'),
 smalltalk.method({
-selector: unescape('show'),
+selector: unescape('author'),
 fn: function (){
 var self=this;
-(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+return "John Smith";
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_url'),
+smalltalk.method({
+selector: unescape('url'),
+fn: function (){
+var self=this;
+return unescape("http%3A//jtalk-project.org");
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_description'),
+smalltalk.method({
+selector: unescape('description'),
+fn: function (){
+var self=this;
+return "A presentation written in Jtalk";
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_email'),
+smalltalk.method({
+selector: unescape('email'),
+fn: function (){
+var self=this;
+return unescape("john@smith.com");
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slides'),
+smalltalk.method({
+selector: unescape('slides'),
+fn: function (){
+var self=this;
+(($receiver = self['@slides']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_initSlides", []);})() : $receiver;
+return self['@slides'];
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slideClasses'),
+smalltalk.method({
+selector: unescape('slideClasses'),
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_subclassResponsibility", []);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_currentSlide'),
+smalltalk.method({
+selector: unescape('currentSlide'),
+fn: function (){
+var self=this;
+return self['@currentSlide'];
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_currentSlide_'),
+smalltalk.method({
+selector: unescape('currentSlide%3A'),
+fn: function (aSlide){
+var self=this;
+(self['@currentSlide']=aSlide);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slideTransition'),
+smalltalk.method({
+selector: unescape('slideTransition'),
+fn: function (){
+var self=this;
+return "fade";
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_style'),
+smalltalk.method({
+selector: unescape('style'),
+fn: function (){
+var self=this;
+return "";
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_nextSlide'),
+smalltalk.method({
+selector: unescape('nextSlide'),
+fn: function (){
+var self=this;
+var next=nil;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_showCurrentSlide'),
+smalltalk.method({
+selector: unescape('showCurrentSlide'),
+fn: function (){
+var self=this;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send(".slide", "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])]), "_asJQuery", []), "_show", []);return smalltalk.send(smalltalk.send("title", "_asJQuery", []), "_text_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_title", []), "__comma", [unescape("%20-%20")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])])]);})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_previousSlide'),
+smalltalk.method({
+selector: unescape('previousSlide'),
+fn: function (){
+var self=this;
+var next=nil;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_moveAt_'),
+smalltalk.method({
+selector: unescape('moveAt%3A'),
+fn: function (anInteger){
+var self=this;
+var next=nil;
+(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [anInteger, (function(){return nil;})]));
+(($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_currentSlideIndex'),
+smalltalk.method({
+selector: unescape('currentSlideIndex'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_ifAbsent_", [smalltalk.send(self, "_currentSlide", []), (function(){return (1);})]);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slidesDo_'),
+smalltalk.method({
+selector: unescape('slidesDo%3A'),
+fn: function (aBlockWithArg){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(aSlide){return smalltalk.send(aBlockWithArg, "_value_", [aSlide]);})]);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_initSlides'),
+smalltalk.method({
+selector: unescape('initSlides'),
+fn: function (){
+var self=this;
+(self['@slides']=smalltalk.send(smalltalk.send(self, "_slideClasses", []), "_collect_", [(function(each){return smalltalk.send(each, "_on_", [self]);})]));
+return self;}
+}),
+smalltalk.Presentation);
 
 smalltalk.addMethod(
 unescape('_renderOn_'),
@@ -635,44 +609,70 @@ smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);smalltalk.send($rec, "_id_", [smalltalk.send(self, "_id", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderSlideOn_", [html]);return smalltalk.send(self, "_renderMetaOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
+(function($rec){smalltalk.send($rec, "_id_", ["slides"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderSlidesOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
 
 smalltalk.addMethod(
-unescape('_renderSlideOn_'),
+unescape('_renderSlidesOn_'),
 smalltalk.method({
-selector: unescape('renderSlideOn%3A'),
+selector: unescape('renderSlidesOn%3A'),
 fn: function (html){
 var self=this;
-
+smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
+(($receiver = self['@currentSlide']) == nil || $receiver == undefined) ? (function(){return (self['@currentSlide']=smalltalk.send(smalltalk.send(self, "_slides", []), "_first", []));})() : $receiver;
+smalltalk.send(self, "_showCurrentSlide", []);
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
+
+
+smalltalk.Presentation.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+unescape('_concretePresentations'),
+smalltalk.method({
+selector: unescape('concretePresentations'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_allSubclasses", []), "_select_", [(function(aPresentationClass){return smalltalk.send(aPresentationClass, "_isConcrete", []);})]);
+return self;}
+}),
+smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-unescape('_renderMetaOn_'),
+unescape('_title'),
 smalltalk.method({
-selector: unescape('renderMetaOn%3A'),
-fn: function (html){
+selector: unescape('title'),
+fn: function (){
 var self=this;
-(function($rec){smalltalk.send($rec, "_id_", ["meta"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["title"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_title", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["description"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_description", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["author"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_author", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send("mailto:", "__comma", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_email", [])])]);})(smalltalk.send(html, "_a", []));return (function($rec){smalltalk.send($rec, "_class_", ["url"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));
+return "Slides";
 return self;}
 }),
-smalltalk.Slide);
-
+smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-unescape('_on_'),
+unescape('_concretePresentationsDo_'),
 smalltalk.method({
-selector: unescape('on%3A'),
-fn: function (aPresentation){
+selector: unescape('concretePresentationsDo%3A'),
+fn: function (aBlockWithArg){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_presentation_", [aPresentation]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+smalltalk.send(smalltalk.send(self, "_concretePresentations", []), "_do_", [aBlockWithArg]);
 return self;}
 }),
-smalltalk.Slide.klass);
+smalltalk.Presentation.klass);
+
+smalltalk.addMethod(
+unescape('_isConcrete'),
+smalltalk.method({
+selector: unescape('isConcrete'),
+fn: function (){
+var self=this;
+return false;
+return self;}
+}),
+smalltalk.Presentation.klass);
 
 
 smalltalk.addClass('FOSDEMSlide', smalltalk.Slide, [], 'Presentation');
@@ -1777,7 +1777,7 @@ smalltalk.method({
 selector: unescape('slideClasses'),
 fn: function (){
 var self=this;
-return [(smalltalk.FOSDEMIntroSlide || FOSDEMIntroSlide),(smalltalk.CountersSlide || CountersSlide),(smalltalk.IDESlide || IDESlide),(smalltalk.JtalkAndJavascriptSlide || JtalkAndJavascriptSlide),(smalltalk.FOSDEMJSPlayGroundSlide || FOSDEMJSPlayGroundSlide),(smalltalk.FOSDEMJSToSmalltalk || FOSDEMJSToSmalltalk),(smalltalk.FOSDEMBookletSlide || FOSDEMBookletSlide),(smalltalk.FOSDEMTwitter || FOSDEMTwitter),(smalltalk.FOSDEMCanvasSlide || FOSDEMCanvasSlide),(smalltalk.FOSDEMAmberBackend || FOSDEMAmberBackend),(smalltalk.FOSDEMREPLSlide || FOSDEMREPLSlide),(smalltalk.FOSDEMCLISlide || FOSDEMCLISlide),(smalltalk.FOSDEMContributionsSlide || FOSDEMContributionsSlide)];
+return [(smalltalk.FOSDEMIntroSlide || FOSDEMIntroSlide),(smalltalk.FOSDEMAmberZeroNine || FOSDEMAmberZeroNine),(smalltalk.CountersSlide || CountersSlide),(smalltalk.IDESlide || IDESlide),(smalltalk.JtalkAndJavascriptSlide || JtalkAndJavascriptSlide),(smalltalk.FOSDEMJSPlayGroundSlide || FOSDEMJSPlayGroundSlide),(smalltalk.FOSDEMJSToSmalltalk || FOSDEMJSToSmalltalk),(smalltalk.FOSDEMBookletSlide || FOSDEMBookletSlide),(smalltalk.FOSDEMTwitter || FOSDEMTwitter),(smalltalk.FOSDEMCanvasSlide || FOSDEMCanvasSlide),(smalltalk.FOSDEMAmberBackend || FOSDEMAmberBackend),(smalltalk.FOSDEMREPLSlide || FOSDEMREPLSlide),(smalltalk.FOSDEMCLISlide || FOSDEMCLISlide),(smalltalk.FOSDEMContributionsSlide || FOSDEMContributionsSlide)];
 return self;}
 }),
 smalltalk.FOSDEM2012Presentation);
@@ -1899,10 +1899,24 @@ smalltalk.method({
 selector: unescape('renderSlideOn%3A'),
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["section"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//amber-lang.net")]);return smalltalk.send($rec, "_with_", [unescape("amber-lang.net")]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("https%3A//github.com/NicolasPetton/amber")]);return smalltalk.send($rec, "_with_", [unescape("github.com/NicolasPetton/amber")]);})(smalltalk.send(html, "_a", []));})]);return smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//groups.google.com/group/amber-lang")]);return smalltalk.send($rec, "_with_", [unescape("groups.google.com/group/amber-lang")]);})(smalltalk.send(html, "_a", []));})]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["section"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("/documentation.html")]);return smalltalk.send($rec, "_with_", ["Documentation"]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//amber-lang.net")]);return smalltalk.send($rec, "_with_", [unescape("amber-lang.net")]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("https%3A//github.com/NicolasPetton/amber")]);return smalltalk.send($rec, "_with_", [unescape("github.com/NicolasPetton/amber")]);})(smalltalk.send(html, "_a", []));})]);return smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//groups.google.com/group/amber-lang")]);return smalltalk.send($rec, "_with_", [unescape("groups.google.com/group/amber-lang")]);})(smalltalk.send(html, "_a", []));})]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
 smalltalk.FOSDEMContributionsSlide);
+
+
+
+smalltalk.addClass('FOSDEMAmberZeroNine', smalltalk.FOSDEMSlide, [], 'Presentation');
+smalltalk.addMethod(
+unescape('_renderSlideOn_'),
+smalltalk.method({
+selector: unescape('renderSlideOn%3A'),
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["section center"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_h1_", [unescape("Amber%200.9.1%20is%20out%20%21")]);smalltalk.send($rec, "_div_", [(function(){return smalltalk.send(smalltalk.send(html, "_cite", []), "_with_", [unescape("Now%20with%20over%2043%20forks%20on%20github%20and%20more%20than%20230%20followers%20the%20project%3A%20%20http%3A//www.amber-lang.net%20%20...is%20live%20and%20kicking%21")]);})]);return smalltalk.send($rec, "_div_", [(function(){return smalltalk.send(smalltalk.send(html, "_cite", []), "_with_", [unescape("--%20Nicolas%20%26%20G%F6ran")]);})]);})(html);})]);})(smalltalk.send(html, "_div", []));
+return self;}
+}),
+smalltalk.FOSDEMAmberZeroNine);
 
 
 

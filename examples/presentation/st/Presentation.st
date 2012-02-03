@@ -1,148 +1,70 @@
 Smalltalk current createPackage: 'Presentation' properties: #{}!
-Widget subclass: #Presentation
-	instanceVariableNames: 'currentSlide slides'
+Widget subclass: #Slide
+	instanceVariableNames: 'presentation'
 	category: 'Presentation'!
 
-!Presentation methodsFor: 'accessing'!
+!Slide methodsFor: 'accessing'!
+
+presentation
+	^presentation
+!
+
+presentation: aPresentation
+	presentation := aPresentation
+!
+
+id
+	^ self class name
+!
+
+cssClass
+	^'slide'
+!
+
+backgroundColor
+	^'#555'
+!
 
 title
-	^ self class title.
-!
-
-author
-	^'John Smith'
-!
-
-url
-	^'http://jtalk-project.org'
-!
-
-description
-	^'A presentation written in Jtalk'
-!
-
-email
-	^'john@smith.com'
-!
-
-slides
-	slides ifNil: [self initSlides].
-	^slides
-!
-
-slideClasses
-	^self subclassResponsibility
-!
-
-currentSlide
-	^currentSlide
-!
-
-currentSlide: aSlide
-	currentSlide := aSlide
-!
-
-slideTransition
-	^'fade'
-!
-
-style
-	"Should return a CSS style"
-	^ ''
+	^ self id
 ! !
 
-!Presentation methodsFor: 'actions'!
+!Slide methodsFor: 'actions'!
 
-nextSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) + 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-showCurrentSlide
-	self currentSlide ifNotNil: [
-		'.slide' asJQuery hide.
-		('#', self currentSlide id) asJQuery show.
-          	'title' asJQuery text: self title, ' - ', self currentSlide id.
-        ]
-!
-
-previousSlide
-	| next |
-	self currentSlide ifNotNil: [
-		next := self slides 
-			at: (self currentSlideIndex) - 1
-			ifAbsent: [nil].
-		next ifNotNil: [currentSlide := next. next show]]
-!
-
-moveAt: anInteger
-	| next |
-	next := self slides 
-			at: anInteger
-			ifAbsent: [nil].
-	next ifNotNil: [currentSlide := next. next show]
-!
-
-currentSlideIndex
-	^ self slides indexOf: self currentSlide ifAbsent: [1]
+show
+	self backgroundColor ifNotNil: [
+		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
+	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
+	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
 ! !
 
-!Presentation methodsFor: 'enumerating'!
-
-slidesDo: aBlockWithArg
-	self slides do: [:aSlide| aBlockWithArg value: aSlide].
-! !
-
-!Presentation methodsFor: 'initialization'!
-
-initSlides
-	slides := self slideClasses collect: [:each | each on: self]
-! !
-
-!Presentation methodsFor: 'rendering'!
+!Slide methodsFor: 'rendering'!
 
 renderOn: html
-	html style
-		type: 'text/css';
-		with: self style.
+	html div class: self cssClass; id: self id; with: [
+		self renderSlideOn: html.
+		self renderMetaOn: html]
+!
+
+renderSlideOn: html
+!
+
+renderMetaOn: html
 	html div 
-		id: 'slides';
-		with: [self renderSlidesOn: html]
-!
-
-renderSlidesOn: html
-	self slides do: [:each | 
-		each renderOn: html].
-	currentSlide ifNil: [currentSlide := self slides first].
-	self showCurrentSlide
+		id: 'meta';
+		with: [
+			html p class: 'title'; with: self presentation title.
+			html p class: 'description'; with: self presentation description.
+			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
+			html a class: 'url'; with: self presentation url; href: self presentation url]
 ! !
 
-Presentation class instanceVariableNames: 'current'!
+!Slide class methodsFor: 'instance creation'!
 
-!Presentation class methodsFor: 'accessing'!
-
-concretePresentations
-	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
-!
-
-title
-	^ 'Slides'
-! !
-
-!Presentation class methodsFor: 'enumerating'!
-
-concretePresentationsDo: aBlockWithArg
-	self concretePresentations do: aBlockWithArg.
-! !
-
-!Presentation class methodsFor: 'testing'!
-
-isConcrete
-	^false
+on: aPresentation
+	^self new
+		presentation: aPresentation;
+		yourself
 ! !
 
 Widget subclass: #PresentationNavigator
@@ -348,72 +270,150 @@ open
 	^ self new open
 ! !
 
-Widget subclass: #Slide
-	instanceVariableNames: 'presentation'
+Widget subclass: #Presentation
+	instanceVariableNames: 'currentSlide slides'
 	category: 'Presentation'!
 
-!Slide methodsFor: 'accessing'!
+!Presentation methodsFor: 'accessing'!
 
-presentation
-	^presentation
+title
+	^ self class title.
 !
 
-presentation: aPresentation
-	presentation := aPresentation
+author
+	^'John Smith'
 !
 
-id
-	^ self class name
+url
+	^'http://jtalk-project.org'
 !
 
-cssClass
-	^'slide'
+description
+	^'A presentation written in Jtalk'
 !
 
-backgroundColor
-	^'#555'
+email
+	^'john@smith.com'
+!
+
+slides
+	slides ifNil: [self initSlides].
+	^slides
+!
+
+slideClasses
+	^self subclassResponsibility
+!
+
+currentSlide
+	^currentSlide
+!
+
+currentSlide: aSlide
+	currentSlide := aSlide
+!
+
+slideTransition
+	^'fade'
+!
+
+style
+	"Should return a CSS style"
+	^ ''
+! !
+
+!Presentation methodsFor: 'actions'!
+
+nextSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) + 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+showCurrentSlide
+	self currentSlide ifNotNil: [
+		'.slide' asJQuery hide.
+		('#', self currentSlide id) asJQuery show.
+          	'title' asJQuery text: self title, ' - ', self currentSlide id.
+        ]
+!
+
+previousSlide
+	| next |
+	self currentSlide ifNotNil: [
+		next := self slides 
+			at: (self currentSlideIndex) - 1
+			ifAbsent: [nil].
+		next ifNotNil: [currentSlide := next. next show]]
+!
+
+moveAt: anInteger
+	| next |
+	next := self slides 
+			at: anInteger
+			ifAbsent: [nil].
+	next ifNotNil: [currentSlide := next. next show]
+!
+
+currentSlideIndex
+	^ self slides indexOf: self currentSlide ifAbsent: [1]
+! !
+
+!Presentation methodsFor: 'enumerating'!
+
+slidesDo: aBlockWithArg
+	self slides do: [:aSlide| aBlockWithArg value: aSlide].
+! !
+
+!Presentation methodsFor: 'initialization'!
+
+initSlides
+	slides := self slideClasses collect: [:each | each on: self]
+! !
+
+!Presentation methodsFor: 'rendering'!
+
+renderOn: html
+	html style
+		type: 'text/css';
+		with: self style.
+	html div 
+		id: 'slides';
+		with: [self renderSlidesOn: html]
+!
+
+renderSlidesOn: html
+	self slides do: [:each | 
+		each renderOn: html].
+	currentSlide ifNil: [currentSlide := self slides first].
+	self showCurrentSlide
+! !
+
+Presentation class instanceVariableNames: 'current'!
+
+!Presentation class methodsFor: 'accessing'!
+
+concretePresentations
+	^ self allSubclasses select: [:aPresentationClass| aPresentationClass isConcrete]
 !
 
 title
-	^ self id
+	^ 'Slides'
 ! !
 
-!Slide methodsFor: 'actions'!
+!Presentation class methodsFor: 'enumerating'!
 
-show
-	self backgroundColor ifNotNil: [
-		(window jQuery: '#slides') css: 'background' color: self backgroundColor].
-	(window jQuery: '.slide') hide: self presentation slideTransition options: #() duration: 300.
-	(window jQuery: '#', self id) show: self presentation slideTransition options: #() duration: 300.
+concretePresentationsDo: aBlockWithArg
+	self concretePresentations do: aBlockWithArg.
 ! !
 
-!Slide methodsFor: 'rendering'!
+!Presentation class methodsFor: 'testing'!
 
-renderOn: html
-	html div class: self cssClass; id: self id; with: [
-		self renderSlideOn: html.
-		self renderMetaOn: html]
-!
-
-renderSlideOn: html
-!
-
-renderMetaOn: html
-	html div 
-		id: 'meta';
-		with: [
-			html p class: 'title'; with: self presentation title.
-			html p class: 'description'; with: self presentation description.
-			html a class: 'author'; with: self presentation author; href: 'mailto:', self presentation email.
-			html a class: 'url'; with: self presentation url; href: self presentation url]
-! !
-
-!Slide class methodsFor: 'instance creation'!
-
-on: aPresentation
-	^self new
-		presentation: aPresentation;
-		yourself
+isConcrete
+	^false
 ! !
 
 Slide subclass: #FOSDEMSlide
@@ -1865,6 +1865,7 @@ body {
 slideClasses
 ^ {
 	FOSDEMIntroSlide.
+	FOSDEMAmberZeroNine.
 	CountersSlide.
 	IDESlide.
 	JtalkAndJavascriptSlide.
@@ -1969,10 +1970,27 @@ FOSDEMSlide subclass: #FOSDEMContributionsSlide
 renderSlideOn: html
 	html div class: 'section'; with: [
 		html p with: [
+			html a href: '/documentation.html'; with: 'Documentation'].
+		html p with: [
 			html a href: 'http://amber-lang.net'; with: 'amber-lang.net'].
 		html p with: [
 			html a href: 'https://github.com/NicolasPetton/amber'; with: 'github.com/NicolasPetton/amber'].
 		html p with: [
 			html a href: 'http://groups.google.com/group/amber-lang'; with: 'groups.google.com/group/amber-lang']]
+! !
+
+FOSDEMSlide subclass: #FOSDEMAmberZeroNine
+	instanceVariableNames: ''
+	category: 'Presentation'!
+
+!FOSDEMAmberZeroNine methodsFor: 'not yet classified'!
+
+renderSlideOn: html
+	html div 
+		class: 'section center';
+		with: [ 	html 
+					h1: 'Amber 0.9.1 is out !!';
+					div: [html cite with: 'Now with over 43 forks on github and more than 230 followers the project:  http://www.amber-lang.net  ...is live and kicking!!'];
+					div: [html cite with: '-- Nicolas & Göran'] ]
 ! !
 

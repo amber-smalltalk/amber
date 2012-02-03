@@ -1,4 +1,569 @@
 smalltalk.addPackage('Presentation', {});
+smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
+smalltalk.addMethod(
+unescape('_presentation'),
+smalltalk.method({
+selector: unescape('presentation'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@presentation'];
+return self;},
+args: [],
+source: unescape('presentation%0A%09%5Epresentation'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_presentation_'),
+smalltalk.method({
+selector: unescape('presentation%3A'),
+category: 'accessing',
+fn: function (aPresentation){
+var self=this;
+(self['@presentation']=aPresentation);
+return self;},
+args: ["aPresentation"],
+source: unescape('presentation%3A%20aPresentation%0A%09presentation%20%3A%3D%20aPresentation'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_id'),
+smalltalk.method({
+selector: unescape('id'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_name", []);
+return self;},
+args: [],
+source: unescape('id%0A%09%5E%20self%20class%20name'),
+messageSends: ["name", "class"],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_cssClass'),
+smalltalk.method({
+selector: unescape('cssClass'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return "slide";
+return self;},
+args: [],
+source: unescape('cssClass%0A%09%5E%27slide%27'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_backgroundColor'),
+smalltalk.method({
+selector: unescape('backgroundColor'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return unescape("%23555");
+return self;},
+args: [],
+source: unescape('backgroundColor%0A%09%5E%27%23555%27'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_title'),
+smalltalk.method({
+selector: unescape('title'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_id", []);
+return self;},
+args: [],
+source: unescape('title%0A%09%5E%20self%20id'),
+messageSends: ["id"],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_show'),
+smalltalk.method({
+selector: unescape('show'),
+category: 'actions',
+fn: function (){
+var self=this;
+(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+return self;},
+args: [],
+source: unescape('show%0A%09self%20backgroundColor%20ifNotNil%3A%20%5B%0A%09%09%28window%20jQuery%3A%20%27%23slides%27%29%20css%3A%20%27background%27%20color%3A%20self%20backgroundColor%5D.%0A%09%28window%20jQuery%3A%20%27.slide%27%29%20hide%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.%0A%09%28window%20jQuery%3A%20%27%23%27%2C%20self%20id%29%20show%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.'),
+messageSends: ["ifNotNil:", "backgroundColor", "css:color:", "jQuery:", "hide:options:duration:", "slideTransition", "presentation", "show:options:duration:", unescape("%2C"), "id"],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_renderOn_'),
+smalltalk.method({
+selector: unescape('renderOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);smalltalk.send($rec, "_id_", [smalltalk.send(self, "_id", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderSlideOn_", [html]);return smalltalk.send(self, "_renderMetaOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+return self;},
+args: ["html"],
+source: unescape('renderOn%3A%20html%0A%09html%20div%20class%3A%20self%20cssClass%3B%20id%3A%20self%20id%3B%20with%3A%20%5B%0A%09%09self%20renderSlideOn%3A%20html.%0A%09%09self%20renderMetaOn%3A%20html%5D'),
+messageSends: ["class:", "cssClass", "id:", "id", "with:", "renderSlideOn:", "renderMetaOn:", "div"],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_renderSlideOn_'),
+smalltalk.method({
+selector: unescape('renderSlideOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+
+return self;},
+args: ["html"],
+source: unescape('renderSlideOn%3A%20html'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_renderMetaOn_'),
+smalltalk.method({
+selector: unescape('renderMetaOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_id_", ["meta"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["title"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_title", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["description"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_description", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["author"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_author", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send("mailto:", "__comma", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_email", [])])]);})(smalltalk.send(html, "_a", []));return (function($rec){smalltalk.send($rec, "_class_", ["url"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));
+return self;},
+args: ["html"],
+source: unescape('renderMetaOn%3A%20html%0A%09html%20div%20%0A%09%09id%3A%20%27meta%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20p%20class%3A%20%27title%27%3B%20with%3A%20self%20presentation%20title.%0A%09%09%09html%20p%20class%3A%20%27description%27%3B%20with%3A%20self%20presentation%20description.%0A%09%09%09html%20a%20class%3A%20%27author%27%3B%20with%3A%20self%20presentation%20author%3B%20href%3A%20%27mailto%3A%27%2C%20self%20presentation%20email.%0A%09%09%09html%20a%20class%3A%20%27url%27%3B%20with%3A%20self%20presentation%20url%3B%20href%3A%20self%20presentation%20url%5D'),
+messageSends: ["id:", "with:", "class:", "title", "presentation", "p", "description", "author", "href:", unescape("%2C"), "email", "a", "url", "div"],
+referencedClasses: []
+}),
+smalltalk.Slide);
+
+
+smalltalk.addMethod(
+unescape('_on_'),
+smalltalk.method({
+selector: unescape('on%3A'),
+category: 'instance creation',
+fn: function (aPresentation){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_presentation_", [aPresentation]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aPresentation"],
+source: unescape('on%3A%20aPresentation%0A%09%5Eself%20new%0A%09%09presentation%3A%20aPresentation%3B%0A%09%09yourself'),
+messageSends: ["presentation:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.Slide.klass);
+
+
+smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation', 'slideSelect'], 'Presentation');
+smalltalk.addMethod(
+unescape('_currentPresentation_'),
+smalltalk.method({
+selector: unescape('currentPresentation%3A'),
+category: 'accessing',
+fn: function (aPresentation){
+var self=this;
+(self['@currentPresentation']=aPresentation);
+return self;},
+args: ["aPresentation"],
+source: unescape('currentPresentation%3A%20aPresentation%0A%09currentPresentation%20%3A%3D%20aPresentation.'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_currentPresentation'),
+smalltalk.method({
+selector: unescape('currentPresentation'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@currentPresentation']) == nil || $receiver == undefined) ? (function(){return (self['@currentPresentation']=smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_first", []), "_new", []));})() : $receiver;
+return self;},
+args: [],
+source: unescape('currentPresentation%0A%09%5E%20%20currentPresentation%20ifNil%3A%20%5BcurrentPresentation%20%3A%3D%20Presentation%20concretePresentations%20first%20new%5D.'),
+messageSends: ["ifNil:", "new", "first", "concretePresentations"],
+referencedClasses: ["Presentation"]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_style'),
+smalltalk.method({
+selector: unescape('style'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return unescape("%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A");
+return self;},
+args: [],
+source: unescape('style%0A%09%5E%20%27%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%27'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_selectPresentation_'),
+smalltalk.method({
+selector: unescape('selectPresentation%3A'),
+category: 'callbacks',
+fn: function (aPresentationClass){
+var self=this;
+smalltalk.send(self, "_currentPresentation_", [smalltalk.send(aPresentationClass, "_new", [])]);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;},
+args: ["aPresentationClass"],
+source: unescape('selectPresentation%3A%20aPresentationClass%0A%09self%20currentPresentation%3A%20aPresentationClass%20new.%0A%09self%20renderCurrentPresentation.'),
+messageSends: ["currentPresentation:", "new", "renderCurrentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_selectPresentationNamed_'),
+smalltalk.method({
+selector: unescape('selectPresentationNamed%3A'),
+category: 'callbacks',
+fn: function (aString){
+var self=this;
+var presentationClass=nil;
+(presentationClass=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString]));
+(($receiver = presentationClass) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_selectPresentation_", [presentationClass]);})() : nil;
+return self;},
+args: ["aString"],
+source: unescape('selectPresentationNamed%3A%20aString%0A%09%7CpresentationClass%7C%0A%09presentationClass%20%3A%3D%20%20%28Smalltalk%20current%20at%3A%20aString%29.%0A%09presentationClass%20ifNotNil%3A%20%5B%20self%20selectPresentation%3A%20presentationClass%20%5D.'),
+messageSends: ["at:", "current", "ifNotNil:", "selectPresentation:"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_previousSlide'),
+smalltalk.method({
+selector: unescape('previousSlide'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_previousSlide", []);
+smalltalk.send(self, "_updateHash", []);
+return self;},
+args: [],
+source: unescape('previousSlide%0A%09self%20currentPresentation%20previousSlide.%0A%09self%20updateHash.'),
+messageSends: ["previousSlide", "currentPresentation", "updateHash"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_nextSlide'),
+smalltalk.method({
+selector: unescape('nextSlide'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_nextSlide", []);
+smalltalk.send(self, "_updateHash", []);
+return self;},
+args: [],
+source: unescape('nextSlide%0A%09self%20currentPresentation%20nextSlide.%0A%09self%20updateHash.'),
+messageSends: ["nextSlide", "currentPresentation", "updateHash"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_reload'),
+smalltalk.method({
+selector: unescape('reload'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+var slideIndex=nil;
+(slideIndex=smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_currentSlideIndex", []));
+smalltalk.send(self, "_currentPresentation_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_new", [])]);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+smalltalk.send(self, "_selectSlideAt_", [slideIndex]);
+return self;},
+args: [],
+source: unescape('reload%0A%09%7CslideIndex%7C%0A%09slideIndex%20%3A%3D%20self%20currentPresentation%20currentSlideIndex.%0A%09self%20currentPresentation%3A%20self%20currentPresentation%20class%20new.%0A%09self%20renderCurrentPresentation.%0A%09self%20selectSlideAt%3A%20slideIndex.'),
+messageSends: ["currentSlideIndex", "currentPresentation", "currentPresentation:", "new", "class", "renderCurrentPresentation", "selectSlideAt:"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_selectSlideAt_'),
+smalltalk.method({
+selector: unescape('selectSlideAt%3A'),
+category: 'callbacks',
+fn: function (anInteger){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_moveAt_", [anInteger]);
+smalltalk.send(self, "_updateHash", []);
+return self;},
+args: ["anInteger"],
+source: unescape('selectSlideAt%3A%20anInteger%0A%09self%20currentPresentation%20moveAt%3A%20anInteger.%0A%09self%20updateHash.'),
+messageSends: ["moveAt:", "currentPresentation", "updateHash"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_updateHash'),
+smalltalk.method({
+selector: unescape('updateHash'),
+category: 'callbacks',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_name", []), "__comma", [unescape("-")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_currentSlideIndex", [])])]);
+return self;},
+args: [],
+source: unescape('updateHash%0A%09document%20location%20hash%3A%20self%20currentPresentation%20class%20name%2C%20%27-%27%2C%20self%20currentPresentation%20currentSlideIndex.'),
+messageSends: ["hash:", "location", unescape("%2C"), "name", "class", "currentPresentation", "currentSlideIndex"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_checkHash'),
+smalltalk.method({
+selector: unescape('checkHash'),
+category: 'hash',
+fn: function (){
+var self=this;
+try{var hash=nil;
+var presentation=nil;
+(hash=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]), "_tokenize_", [unescape("-")]));
+(presentation=smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_detect_ifNone_", [(function(aPresentationClass){return smalltalk.send(smalltalk.send(aPresentationClass, "_name", []), "__eq_eq", [smalltalk.send(hash, "_first", [])]);}), (function(){return (function(){throw({name: 'stReturn', selector: '_checkHash', fn: function(){return self}})})();})]));
+((($receiver = smalltalk.send(presentation, "__eq_eq", [smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send(self, "_selectPresentationNamed_", [presentation]);return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(hash, "_last", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send(self, "_selectPresentationNamed_", [presentation]);return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(hash, "_last", [])]);})]));
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_checkHash'){return e.fn()} throw(e)}},
+args: [],
+source: unescape('checkHash%0A%09%7C%20hash%20presentation%20%7C%0A%09hash%20%3A%3D%20%28document%20location%20hash%20%20replace%3A%20%27%5E%23%27%20with%3A%20%27%27%29%20tokenize%3A%20%27-%27.%20%0A%09presentation%20%3A%3D%20Presentation%20concretePresentations%20%0A%09%09%09%09detect%3A%20%5B%3AaPresentationClass%20%7C%20aPresentationClass%20name%20%3D%3D%20hash%20first%5D%0A%09%09%09%09ifNone%3A%20%5B%5E%20self%5D.%0A%09presentation%20%3D%3D%20self%20currentPresentation%20class%20ifFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09self%20selectPresentationNamed%3A%20presentation.%0A%20%20%20%20%20%20%20%20%20%20%09self%20selectSlideAt%3A%20hash%20last%0A%20%20%20%20%20%20%20%20%5D.'),
+messageSends: ["tokenize:", "replace:with:", "hash", "location", "detect:ifNone:", "concretePresentations", unescape("%3D%3D"), "name", "first", "ifFalse:", "class", "currentPresentation", "selectPresentationNamed:", "selectSlideAt:", "last"],
+referencedClasses: ["Presentation"]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_checkHashChange'),
+smalltalk.method({
+selector: unescape('checkHashChange'),
+category: 'hash',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
+return self;},
+args: [],
+source: unescape('checkHashChange%0A%09%28window%20jQuery%3A%20window%29%20bind%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
+messageSends: ["bind:do:", "jQuery:", "checkHash"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_setKeybindings'),
+smalltalk.method({
+selector: unescape('setKeybindings'),
+category: 'keybindings',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
+(node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []));return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
+return self;},
+args: [],
+source: unescape('setKeybindings%0A%09%28window%20jQuery%3A%20document%29%20keyup%3A%20%5B%3Ae%20%7C%7C%20node%20%7C%0A%09%09node%20%3A%3D%20e%20target%20nodeName%20asLowercase.%0A%09%09%28node%20%3D%20%27textarea%27%20or%3A%20%5Bnode%20%3D%20%27input%27%5D%29%20ifFalse%3A%20%5B%0A%09%09%09e%20keyCode%20%3D%2039%20ifTrue%3A%20%5Bself%20nextSlide%5D.%0A%09%09%09e%20keyCode%20%3D%2037%20ifTrue%3A%20%5Bself%20previousSlide%5D%5D%5D'),
+messageSends: ["keyup:", "jQuery:", "asLowercase", "nodeName", "target", "ifFalse:", "or:", unescape("%3D"), "ifTrue:", "keyCode", "nextSlide", "previousSlide"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderToolsOn_'),
+smalltalk.method({
+selector: unescape('renderToolsOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_with_", ["IDE"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_open", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", ["Reload"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_reload", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2190")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})(smalltalk.send(html, "_a", []));
+(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2192")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);})(smalltalk.send(html, "_a", []));
+return self;},
+args: ["html"],
+source: unescape('renderToolsOn%3A%20html%0A%09html%20a%20%0A%09%09with%3A%20%27IDE%27%3B%0A%09%09onClick%3A%20%5BTabManager%20current%20open%5D.%0A%09html%20a%0A%09%09with%3A%20%27Reload%27%3B%0A%09%09onClick%3A%20%5Bself%20reload%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2190%27%3B%0A%09%09onClick%3A%20%5Bself%20previousSlide%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2192%27%3B%0A%09%09onClick%3A%20%5Bself%20nextSlide%5D.'),
+messageSends: ["with:", "onClick:", "open", "current", "a", "reload", "previousSlide", "nextSlide"],
+referencedClasses: ["TabManager"]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderPresentationSelectOn_'),
+smalltalk.method({
+selector: unescape('renderPresentationSelectOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+var presentationSelect=nil;
+(presentationSelect=smalltalk.send(html, "_select", []));
+(function($rec){smalltalk.send($rec, "_onChange_", [(function(){return smalltalk.send(self, "_selectPresentationNamed_", [smalltalk.send(smalltalk.send(presentationSelect, "_asJQuery", []), "_val", [])]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentationsDo_", [(function(aPresentationClass){return (function($rec){smalltalk.send($rec, "_value_", [smalltalk.send(aPresentationClass, "_name", [])]);return smalltalk.send($rec, "_with_", [smalltalk.send(aPresentationClass, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);})(presentationSelect);
+return self;},
+args: ["html"],
+source: unescape('renderPresentationSelectOn%3A%20html%0A%09%7CpresentationSelect%7C%0A%09presentationSelect%20%3A%3D%20html%20select.%0A%09presentationSelect%0A%09%09onChange%3A%20%5Bself%20%20selectPresentationNamed%3A%20%20presentationSelect%20asJQuery%20val%5D%3B%0A%09%09with%3A%20%5B%09Presentation%20concretePresentationsDo%3A%20%5B%3AaPresentationClass%20%7C%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09html%20option%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09value%3A%20aPresentationClass%20name%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09with%3A%20aPresentationClass%20title%20%5D%20%5D.'),
+messageSends: ["select", "onChange:", "selectPresentationNamed:", "val", "asJQuery", "with:", "concretePresentationsDo:", "value:", "name", "title", "option"],
+referencedClasses: ["Presentation"]
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){return (function($rec){smalltalk.send($rec, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);smalltalk.send($rec, "_setKeybindings", []);return smalltalk.send($rec, "_checkHashChange", []);})(self);})]);
+return self;},
+args: [],
+source: unescape('open%0A%09%28window%20jQuery%3A%20document%29%20%20ready%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09self%20%0A%20%20%20%20%20%20%20%20%20%20%09%09appendToJQuery%3A%20%27body%27%20asJQuery%3B%0A%20%20%20%20%20%20%20%20%20%20%09%09setKeybindings%3B%0A%20%20%20%20%20%20%20%20%20%20%09%09checkHashChange.%0A%20%20%20%20%20%20%20%20%5D.'),
+messageSends: ["ready:", "jQuery:", "appendToJQuery:", "asJQuery", "setKeybindings", "checkHashChange"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderOn_'),
+smalltalk.method({
+selector: unescape('renderOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
+(function($rec){smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_renderToolsOn_", [html]);smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);return smalltalk.send($rec, "_renderSlideSelectOn_", [html]);})(self);})]);})(smalltalk.send(html, "_div", []));
+(self['@presentationBrush']=(function($rec){smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
+smalltalk.send(self, "_checkHash", []);
+smalltalk.send(self, "_renderCurrentPresentation", []);
+return self;},
+args: ["html"],
+source: unescape('renderOn%3A%20html%0A%09html%20style%0A%09%09type%3A%20%27text/css%27%3B%0A%09%09with%3A%20self%20style.%0A%09html%20div%0A%09%09id%3A%20%27navigator%27%3B%0A%09%09with%3A%20%5B%09self%0A%09%09%09%09%09renderToolsOn%3A%20html%3B%0A%09%09%09%09%09renderPresentationSelectOn%3A%20html%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09renderSlideSelectOn%3A%20html%5D.%0A%0A%09presentationBrush%20%3A%3D%20html%20div%20%0A%09%09%09%09%09%09%09id%3A%20%27presentation%27%3B%0A%09%09%09%09%09%09%09yourself.%0A%0A%09self%20checkHash.%0A%09self%20renderCurrentPresentation.'),
+messageSends: ["type:", "with:", "style", "id:", "renderToolsOn:", "renderPresentationSelectOn:", "renderSlideSelectOn:", "div", "yourself", "checkHash", "renderCurrentPresentation"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderCurrentPresentation'),
+smalltalk.method({
+selector: unescape('renderCurrentPresentation'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send(self['@presentationBrush'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_renderOn_", [html]);})]);
+smalltalk.send(self, "_updateSlideSelect", []);
+return self;},
+args: [],
+source: unescape('renderCurrentPresentation%0A%09presentationBrush%20contents%3A%20%5B%3Ahtml%20%7C%0A%20%20%20%20%20%20%20%20%09self%20currentPresentation%20renderOn%3A%20html.%0A%20%20%20%20%20%20%20%20%5D.%0A%09self%20updateSlideSelect.'),
+messageSends: ["contents:", "renderOn:", "currentPresentation", "updateSlideSelect"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_renderSlideSelectOn_'),
+smalltalk.method({
+selector: unescape('renderSlideSelectOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+(self['@slideSelect']=smalltalk.send(html, "_select", []));
+smalltalk.send(self['@slideSelect'], "_onChange_", [(function(){return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(smalltalk.send(self['@slideSelect'], "_asJQuery", []), "_val", [])]);})]);
+smalltalk.send(self, "_updateSlideSelect", []);
+return self;},
+args: ["html"],
+source: unescape('renderSlideSelectOn%3A%20html%0A%09slideSelect%20%3A%3D%20html%20select.%0A%09slideSelect%20onChange%3A%20%5B%20self%20%20selectSlideAt%3A%20%20slideSelect%20asJQuery%20val%20%5D.%0A%09self%20updateSlideSelect.'),
+messageSends: ["select", "onChange:", "selectSlideAt:", "val", "asJQuery", "updateSlideSelect"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+smalltalk.addMethod(
+unescape('_updateSlideSelect'),
+smalltalk.method({
+selector: unescape('updateSlideSelect'),
+category: 'rendering',
+fn: function (){
+var self=this;
+smalltalk.send(self['@slideSelect'], "_contents_", [(function(html){var index=nil;
+(index=(0));return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_slidesDo_", [(function(aSlide){(index=((($receiver = index).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (function($rec){smalltalk.send($rec, "_value_", [index]);return smalltalk.send($rec, "_with_", [smalltalk.send(aSlide, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);
+return self;},
+args: [],
+source: unescape('updateSlideSelect%0A%09slideSelect%20contents%3A%20%5B%3Ahtml%7C%20%7Cindex%7C%0A%09%09%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09index%20%3A%3D%200.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%20%20%20%09%09self%20currentPresentation%20slidesDo%3A%20%5B%20%3AaSlide%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09index%20%3A%3D%20index%20+%201.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09html%20option%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%09%09%09%09%09value%3A%20index%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09with%3A%20aSlide%20title%20%5D%20%5D.'),
+messageSends: ["contents:", "slidesDo:", "currentPresentation", unescape("+"), "value:", "with:", "title", "option"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator);
+
+
+smalltalk.addMethod(
+unescape('_initialize'),
+smalltalk.method({
+selector: unescape('initialize'),
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_open", []);
+return self;},
+args: [],
+source: unescape('initialize%0A%09%5E%20self%20open'),
+messageSends: ["open"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator.klass);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+category: 'initialize',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
+return self;},
+args: [],
+source: unescape('open%0A%09%5E%20self%20new%20open'),
+messageSends: ["open", "new"],
+referencedClasses: []
+}),
+smalltalk.PresentationNavigator.klass);
+
+
 smalltalk.addClass('Presentation', smalltalk.Widget, ['currentSlide', 'slides'], 'Presentation');
 smalltalk.addMethod(
 unescape('_title'),
@@ -393,571 +958,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Presentation.klass);
-
-
-smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation', 'slideSelect'], 'Presentation');
-smalltalk.addMethod(
-unescape('_currentPresentation_'),
-smalltalk.method({
-selector: unescape('currentPresentation%3A'),
-category: 'accessing',
-fn: function (aPresentation){
-var self=this;
-(self['@currentPresentation']=aPresentation);
-return self;},
-args: ["aPresentation"],
-source: unescape('currentPresentation%3A%20aPresentation%0A%09currentPresentation%20%3A%3D%20aPresentation.'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_currentPresentation'),
-smalltalk.method({
-selector: unescape('currentPresentation'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@currentPresentation']) == nil || $receiver == undefined) ? (function(){return (self['@currentPresentation']=smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_first", []), "_new", []));})() : $receiver;
-return self;},
-args: [],
-source: unescape('currentPresentation%0A%09%5E%20%20currentPresentation%20ifNil%3A%20%5BcurrentPresentation%20%3A%3D%20Presentation%20concretePresentations%20first%20new%5D.'),
-messageSends: ["ifNil:", "new", "first", "concretePresentations"],
-referencedClasses: ["Presentation"]
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_style'),
-smalltalk.method({
-selector: unescape('style'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return unescape("%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A");
-return self;},
-args: [],
-source: unescape('style%0A%09%5E%20%27%0A%23navigator%20%7B%0A%20%20%20%20z-index%3A%201%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-150px%3B%0A%20%20%20%20padding%3A%205px%3B%0A%20%20%20%20border-radius%3A%205px%3B%0A%20%20%20%20-moz-border-radius%3A%205px%3B%0A%20%20%20%20-webkit-border-radius%3A%205px%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20opacity%3A%200.3%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%7D%0A%0A%23navigator%20a%20%7B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20padding%3A%200%202px%3B%0A%20%20%20%20font-size%3A%2014px%3B%0A%7D%0A%0A%23navigator%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%27'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_selectPresentation_'),
-smalltalk.method({
-selector: unescape('selectPresentation%3A'),
-category: 'callbacks',
-fn: function (aPresentationClass){
-var self=this;
-smalltalk.send(self, "_currentPresentation_", [smalltalk.send(aPresentationClass, "_new", [])]);
-smalltalk.send(self, "_renderCurrentPresentation", []);
-return self;},
-args: ["aPresentationClass"],
-source: unescape('selectPresentation%3A%20aPresentationClass%0A%09self%20currentPresentation%3A%20aPresentationClass%20new.%0A%09self%20renderCurrentPresentation.'),
-messageSends: ["currentPresentation:", "new", "renderCurrentPresentation"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_selectPresentationNamed_'),
-smalltalk.method({
-selector: unescape('selectPresentationNamed%3A'),
-category: 'callbacks',
-fn: function (aString){
-var self=this;
-var presentationClass=nil;
-(presentationClass=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString]));
-(($receiver = presentationClass) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_selectPresentation_", [presentationClass]);})() : nil;
-return self;},
-args: ["aString"],
-source: unescape('selectPresentationNamed%3A%20aString%0A%09%7CpresentationClass%7C%0A%09presentationClass%20%3A%3D%20%20%28Smalltalk%20current%20at%3A%20aString%29.%0A%09presentationClass%20ifNotNil%3A%20%5B%20self%20selectPresentation%3A%20presentationClass%20%5D.'),
-messageSends: ["at:", "current", "ifNotNil:", "selectPresentation:"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_previousSlide'),
-smalltalk.method({
-selector: unescape('previousSlide'),
-category: 'callbacks',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_previousSlide", []);
-smalltalk.send(self, "_updateHash", []);
-return self;},
-args: [],
-source: unescape('previousSlide%0A%09self%20currentPresentation%20previousSlide.%0A%09self%20updateHash.'),
-messageSends: ["previousSlide", "currentPresentation", "updateHash"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_nextSlide'),
-smalltalk.method({
-selector: unescape('nextSlide'),
-category: 'callbacks',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_nextSlide", []);
-smalltalk.send(self, "_updateHash", []);
-return self;},
-args: [],
-source: unescape('nextSlide%0A%09self%20currentPresentation%20nextSlide.%0A%09self%20updateHash.'),
-messageSends: ["nextSlide", "currentPresentation", "updateHash"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_reload'),
-smalltalk.method({
-selector: unescape('reload'),
-category: 'callbacks',
-fn: function (){
-var self=this;
-var slideIndex=nil;
-(slideIndex=smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_currentSlideIndex", []));
-smalltalk.send(self, "_currentPresentation_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_new", [])]);
-smalltalk.send(self, "_renderCurrentPresentation", []);
-smalltalk.send(self, "_selectSlideAt_", [slideIndex]);
-return self;},
-args: [],
-source: unescape('reload%0A%09%7CslideIndex%7C%0A%09slideIndex%20%3A%3D%20self%20currentPresentation%20currentSlideIndex.%0A%09self%20currentPresentation%3A%20self%20currentPresentation%20class%20new.%0A%09self%20renderCurrentPresentation.%0A%09self%20selectSlideAt%3A%20slideIndex.'),
-messageSends: ["currentSlideIndex", "currentPresentation", "currentPresentation:", "new", "class", "renderCurrentPresentation", "selectSlideAt:"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_selectSlideAt_'),
-smalltalk.method({
-selector: unescape('selectSlideAt%3A'),
-category: 'callbacks',
-fn: function (anInteger){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_moveAt_", [anInteger]);
-smalltalk.send(self, "_updateHash", []);
-return self;},
-args: ["anInteger"],
-source: unescape('selectSlideAt%3A%20anInteger%0A%09self%20currentPresentation%20moveAt%3A%20anInteger.%0A%09self%20updateHash.'),
-messageSends: ["moveAt:", "currentPresentation", "updateHash"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_updateHash'),
-smalltalk.method({
-selector: unescape('updateHash'),
-category: 'callbacks',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", []), "_name", []), "__comma", [unescape("-")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_currentSlideIndex", [])])]);
-return self;},
-args: [],
-source: unescape('updateHash%0A%09document%20location%20hash%3A%20self%20currentPresentation%20class%20name%2C%20%27-%27%2C%20self%20currentPresentation%20currentSlideIndex.'),
-messageSends: ["hash:", "location", unescape("%2C"), "name", "class", "currentPresentation", "currentSlideIndex"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_checkHash'),
-smalltalk.method({
-selector: unescape('checkHash'),
-category: 'hash',
-fn: function (){
-var self=this;
-try{var hash=nil;
-var presentation=nil;
-(hash=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((typeof document == 'undefined' ? nil : document), "_location", []), "_hash", []), "_replace_with_", [unescape("%5E%23"), ""]), "_tokenize_", [unescape("-")]));
-(presentation=smalltalk.send(smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentations", []), "_detect_ifNone_", [(function(aPresentationClass){return smalltalk.send(smalltalk.send(aPresentationClass, "_name", []), "__eq_eq", [smalltalk.send(hash, "_first", [])]);}), (function(){return (function(){throw({name: 'stReturn', selector: '_checkHash', fn: function(){return self}})})();})]));
-((($receiver = smalltalk.send(presentation, "__eq_eq", [smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send(self, "_selectPresentationNamed_", [presentation]);return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(hash, "_last", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send(self, "_selectPresentationNamed_", [presentation]);return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(hash, "_last", [])]);})]));
-return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_checkHash'){return e.fn()} throw(e)}},
-args: [],
-source: unescape('checkHash%0A%09%7C%20hash%20presentation%20%7C%0A%09hash%20%3A%3D%20%28document%20location%20hash%20%20replace%3A%20%27%5E%23%27%20with%3A%20%27%27%29%20tokenize%3A%20%27-%27.%20%0A%09presentation%20%3A%3D%20Presentation%20concretePresentations%20%0A%09%09%09%09detect%3A%20%5B%3AaPresentationClass%20%7C%20aPresentationClass%20name%20%3D%3D%20hash%20first%5D%0A%09%09%09%09ifNone%3A%20%5B%5E%20self%5D.%0A%09presentation%20%3D%3D%20self%20currentPresentation%20class%20ifFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09self%20selectPresentationNamed%3A%20presentation.%0A%20%20%20%20%20%20%20%20%20%20%09self%20selectSlideAt%3A%20hash%20last%0A%20%20%20%20%20%20%20%20%5D.'),
-messageSends: ["tokenize:", "replace:with:", "hash", "location", "detect:ifNone:", "concretePresentations", unescape("%3D%3D"), "name", "first", "ifFalse:", "class", "currentPresentation", "selectPresentationNamed:", "selectSlideAt:", "last"],
-referencedClasses: ["Presentation"]
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_checkHashChange'),
-smalltalk.method({
-selector: unescape('checkHashChange'),
-category: 'hash',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof window == 'undefined' ? nil : window)]), "_bind_do_", ["hashchange", (function(){return smalltalk.send(self, "_checkHash", []);})]);
-return self;},
-args: [],
-source: unescape('checkHashChange%0A%09%28window%20jQuery%3A%20window%29%20bind%3A%20%27hashchange%27%20do%3A%20%5Bself%20checkHash%5D'),
-messageSends: ["bind:do:", "jQuery:", "checkHash"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_setKeybindings'),
-smalltalk.method({
-selector: unescape('setKeybindings'),
-category: 'keybindings',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_keyup_", [(function(e){var node=nil;
-(node=smalltalk.send(smalltalk.send(smalltalk.send(e, "_target", []), "_nodeName", []), "_asLowercase", []));return ((($receiver = smalltalk.send(smalltalk.send(node, "__eq", ["textarea"]), "_or_", [(function(){return smalltalk.send(node, "__eq", ["input"]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(39)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_nextSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]));return ((($receiver = smalltalk.send(smalltalk.send(e, "_keyCode", []), "__eq", [(37)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_previousSlide", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]));})]));})]);
-return self;},
-args: [],
-source: unescape('setKeybindings%0A%09%28window%20jQuery%3A%20document%29%20keyup%3A%20%5B%3Ae%20%7C%7C%20node%20%7C%0A%09%09node%20%3A%3D%20e%20target%20nodeName%20asLowercase.%0A%09%09%28node%20%3D%20%27textarea%27%20or%3A%20%5Bnode%20%3D%20%27input%27%5D%29%20ifFalse%3A%20%5B%0A%09%09%09e%20keyCode%20%3D%2039%20ifTrue%3A%20%5Bself%20nextSlide%5D.%0A%09%09%09e%20keyCode%20%3D%2037%20ifTrue%3A%20%5Bself%20previousSlide%5D%5D%5D'),
-messageSends: ["keyup:", "jQuery:", "asLowercase", "nodeName", "target", "ifFalse:", "or:", unescape("%3D"), "ifTrue:", "keyCode", "nextSlide", "previousSlide"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_renderToolsOn_'),
-smalltalk.method({
-selector: unescape('renderToolsOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_with_", ["IDE"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_open", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", ["Reload"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_reload", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2190")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_previousSlide", []);})]);})(smalltalk.send(html, "_a", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("%u2192")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_nextSlide", []);})]);})(smalltalk.send(html, "_a", []));
-return self;},
-args: ["html"],
-source: unescape('renderToolsOn%3A%20html%0A%09html%20a%20%0A%09%09with%3A%20%27IDE%27%3B%0A%09%09onClick%3A%20%5BTabManager%20current%20open%5D.%0A%09html%20a%0A%09%09with%3A%20%27Reload%27%3B%0A%09%09onClick%3A%20%5Bself%20reload%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2190%27%3B%0A%09%09onClick%3A%20%5Bself%20previousSlide%5D.%0A%09html%20a%0A%09%09with%3A%20%27%u2192%27%3B%0A%09%09onClick%3A%20%5Bself%20nextSlide%5D.'),
-messageSends: ["with:", "onClick:", "open", "current", "a", "reload", "previousSlide", "nextSlide"],
-referencedClasses: ["TabManager"]
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_renderPresentationSelectOn_'),
-smalltalk.method({
-selector: unescape('renderPresentationSelectOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-var presentationSelect=nil;
-(presentationSelect=smalltalk.send(html, "_select", []));
-(function($rec){smalltalk.send($rec, "_onChange_", [(function(){return smalltalk.send(self, "_selectPresentationNamed_", [smalltalk.send(smalltalk.send(presentationSelect, "_asJQuery", []), "_val", [])]);})]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send((smalltalk.Presentation || Presentation), "_concretePresentationsDo_", [(function(aPresentationClass){return (function($rec){smalltalk.send($rec, "_value_", [smalltalk.send(aPresentationClass, "_name", [])]);return smalltalk.send($rec, "_with_", [smalltalk.send(aPresentationClass, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);})(presentationSelect);
-return self;},
-args: ["html"],
-source: unescape('renderPresentationSelectOn%3A%20html%0A%09%7CpresentationSelect%7C%0A%09presentationSelect%20%3A%3D%20html%20select.%0A%09presentationSelect%0A%09%09onChange%3A%20%5Bself%20%20selectPresentationNamed%3A%20%20presentationSelect%20asJQuery%20val%5D%3B%0A%09%09with%3A%20%5B%09Presentation%20concretePresentationsDo%3A%20%5B%3AaPresentationClass%20%7C%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09html%20option%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09value%3A%20aPresentationClass%20name%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09with%3A%20aPresentationClass%20title%20%5D%20%5D.'),
-messageSends: ["select", "onChange:", "selectPresentationNamed:", "val", "asJQuery", "with:", "concretePresentationsDo:", "value:", "name", "title", "option"],
-referencedClasses: ["Presentation"]
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_open'),
-smalltalk.method({
-selector: unescape('open'),
-category: 'rendering',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [(typeof document == 'undefined' ? nil : document)]), "_ready_", [(function(){return (function($rec){smalltalk.send($rec, "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);smalltalk.send($rec, "_setKeybindings", []);return smalltalk.send($rec, "_checkHashChange", []);})(self);})]);
-return self;},
-args: [],
-source: unescape('open%0A%09%28window%20jQuery%3A%20document%29%20%20ready%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%09self%20%0A%20%20%20%20%20%20%20%20%20%20%09%09appendToJQuery%3A%20%27body%27%20asJQuery%3B%0A%20%20%20%20%20%20%20%20%20%20%09%09setKeybindings%3B%0A%20%20%20%20%20%20%20%20%20%20%09%09checkHashChange.%0A%20%20%20%20%20%20%20%20%5D.'),
-messageSends: ["ready:", "jQuery:", "appendToJQuery:", "asJQuery", "setKeybindings", "checkHashChange"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_renderOn_'),
-smalltalk.method({
-selector: unescape('renderOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
-(function($rec){smalltalk.send($rec, "_id_", ["navigator"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_renderToolsOn_", [html]);smalltalk.send($rec, "_renderPresentationSelectOn_", [html]);return smalltalk.send($rec, "_renderSlideSelectOn_", [html]);})(self);})]);})(smalltalk.send(html, "_div", []));
-(self['@presentationBrush']=(function($rec){smalltalk.send($rec, "_id_", ["presentation"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
-smalltalk.send(self, "_checkHash", []);
-smalltalk.send(self, "_renderCurrentPresentation", []);
-return self;},
-args: ["html"],
-source: unescape('renderOn%3A%20html%0A%09html%20style%0A%09%09type%3A%20%27text/css%27%3B%0A%09%09with%3A%20self%20style.%0A%09html%20div%0A%09%09id%3A%20%27navigator%27%3B%0A%09%09with%3A%20%5B%09self%0A%09%09%09%09%09renderToolsOn%3A%20html%3B%0A%09%09%09%09%09renderPresentationSelectOn%3A%20html%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09renderSlideSelectOn%3A%20html%5D.%0A%0A%09presentationBrush%20%3A%3D%20html%20div%20%0A%09%09%09%09%09%09%09id%3A%20%27presentation%27%3B%0A%09%09%09%09%09%09%09yourself.%0A%0A%09self%20checkHash.%0A%09self%20renderCurrentPresentation.'),
-messageSends: ["type:", "with:", "style", "id:", "renderToolsOn:", "renderPresentationSelectOn:", "renderSlideSelectOn:", "div", "yourself", "checkHash", "renderCurrentPresentation"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_renderCurrentPresentation'),
-smalltalk.method({
-selector: unescape('renderCurrentPresentation'),
-category: 'rendering',
-fn: function (){
-var self=this;
-smalltalk.send(self['@presentationBrush'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_renderOn_", [html]);})]);
-smalltalk.send(self, "_updateSlideSelect", []);
-return self;},
-args: [],
-source: unescape('renderCurrentPresentation%0A%09presentationBrush%20contents%3A%20%5B%3Ahtml%20%7C%0A%20%20%20%20%20%20%20%20%09self%20currentPresentation%20renderOn%3A%20html.%0A%20%20%20%20%20%20%20%20%5D.%0A%09self%20updateSlideSelect.'),
-messageSends: ["contents:", "renderOn:", "currentPresentation", "updateSlideSelect"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_renderSlideSelectOn_'),
-smalltalk.method({
-selector: unescape('renderSlideSelectOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-(self['@slideSelect']=smalltalk.send(html, "_select", []));
-smalltalk.send(self['@slideSelect'], "_onChange_", [(function(){return smalltalk.send(self, "_selectSlideAt_", [smalltalk.send(smalltalk.send(self['@slideSelect'], "_asJQuery", []), "_val", [])]);})]);
-smalltalk.send(self, "_updateSlideSelect", []);
-return self;},
-args: ["html"],
-source: unescape('renderSlideSelectOn%3A%20html%0A%09slideSelect%20%3A%3D%20html%20select.%0A%09slideSelect%20onChange%3A%20%5B%20self%20%20selectSlideAt%3A%20%20slideSelect%20asJQuery%20val%20%5D.%0A%09self%20updateSlideSelect.'),
-messageSends: ["select", "onChange:", "selectSlideAt:", "val", "asJQuery", "updateSlideSelect"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-smalltalk.addMethod(
-unescape('_updateSlideSelect'),
-smalltalk.method({
-selector: unescape('updateSlideSelect'),
-category: 'rendering',
-fn: function (){
-var self=this;
-smalltalk.send(self['@slideSelect'], "_contents_", [(function(html){var index=nil;
-(index=(0));return smalltalk.send(smalltalk.send(self, "_currentPresentation", []), "_slidesDo_", [(function(aSlide){(index=((($receiver = index).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (function($rec){smalltalk.send($rec, "_value_", [index]);return smalltalk.send($rec, "_with_", [smalltalk.send(aSlide, "_title", [])]);})(smalltalk.send(html, "_option", []));})]);})]);
-return self;},
-args: [],
-source: unescape('updateSlideSelect%0A%09slideSelect%20contents%3A%20%5B%3Ahtml%7C%20%7Cindex%7C%0A%09%09%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09index%20%3A%3D%200.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%20%20%20%09%09self%20currentPresentation%20slidesDo%3A%20%5B%20%3AaSlide%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09index%20%3A%3D%20index%20+%201.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09html%20option%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%20%20%20%20%09%09%09%09%09value%3A%20index%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09%09%09%09with%3A%20aSlide%20title%20%5D%20%5D.'),
-messageSends: ["contents:", "slidesDo:", "currentPresentation", unescape("+"), "value:", "with:", "title", "option"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator);
-
-
-smalltalk.addMethod(
-unescape('_initialize'),
-smalltalk.method({
-selector: unescape('initialize'),
-category: 'initialize',
-fn: function (){
-var self=this;
-return smalltalk.send(self, "_open", []);
-return self;},
-args: [],
-source: unescape('initialize%0A%09%5E%20self%20open'),
-messageSends: ["open"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator.klass);
-
-smalltalk.addMethod(
-unescape('_open'),
-smalltalk.method({
-selector: unescape('open'),
-category: 'initialize',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
-return self;},
-args: [],
-source: unescape('open%0A%09%5E%20self%20new%20open'),
-messageSends: ["open", "new"],
-referencedClasses: []
-}),
-smalltalk.PresentationNavigator.klass);
-
-
-smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
-smalltalk.addMethod(
-unescape('_presentation'),
-smalltalk.method({
-selector: unescape('presentation'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self['@presentation'];
-return self;},
-args: [],
-source: unescape('presentation%0A%09%5Epresentation'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_presentation_'),
-smalltalk.method({
-selector: unescape('presentation%3A'),
-category: 'accessing',
-fn: function (aPresentation){
-var self=this;
-(self['@presentation']=aPresentation);
-return self;},
-args: ["aPresentation"],
-source: unescape('presentation%3A%20aPresentation%0A%09presentation%20%3A%3D%20aPresentation'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_id'),
-smalltalk.method({
-selector: unescape('id'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_name", []);
-return self;},
-args: [],
-source: unescape('id%0A%09%5E%20self%20class%20name'),
-messageSends: ["name", "class"],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_cssClass'),
-smalltalk.method({
-selector: unescape('cssClass'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return "slide";
-return self;},
-args: [],
-source: unescape('cssClass%0A%09%5E%27slide%27'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_backgroundColor'),
-smalltalk.method({
-selector: unescape('backgroundColor'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return unescape("%23555");
-return self;},
-args: [],
-source: unescape('backgroundColor%0A%09%5E%27%23555%27'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_title'),
-smalltalk.method({
-selector: unescape('title'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(self, "_id", []);
-return self;},
-args: [],
-source: unescape('title%0A%09%5E%20self%20id'),
-messageSends: ["id"],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_show'),
-smalltalk.method({
-selector: unescape('show'),
-category: 'actions',
-fn: function (){
-var self=this;
-(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
-return self;},
-args: [],
-source: unescape('show%0A%09self%20backgroundColor%20ifNotNil%3A%20%5B%0A%09%09%28window%20jQuery%3A%20%27%23slides%27%29%20css%3A%20%27background%27%20color%3A%20self%20backgroundColor%5D.%0A%09%28window%20jQuery%3A%20%27.slide%27%29%20hide%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.%0A%09%28window%20jQuery%3A%20%27%23%27%2C%20self%20id%29%20show%3A%20self%20presentation%20slideTransition%20options%3A%20%23%28%29%20duration%3A%20300.'),
-messageSends: ["ifNotNil:", "backgroundColor", "css:color:", "jQuery:", "hide:options:duration:", "slideTransition", "presentation", "show:options:duration:", unescape("%2C"), "id"],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_renderOn_'),
-smalltalk.method({
-selector: unescape('renderOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);smalltalk.send($rec, "_id_", [smalltalk.send(self, "_id", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderSlideOn_", [html]);return smalltalk.send(self, "_renderMetaOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
-return self;},
-args: ["html"],
-source: unescape('renderOn%3A%20html%0A%09html%20div%20class%3A%20self%20cssClass%3B%20id%3A%20self%20id%3B%20with%3A%20%5B%0A%09%09self%20renderSlideOn%3A%20html.%0A%09%09self%20renderMetaOn%3A%20html%5D'),
-messageSends: ["class:", "cssClass", "id:", "id", "with:", "renderSlideOn:", "renderMetaOn:", "div"],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_renderSlideOn_'),
-smalltalk.method({
-selector: unescape('renderSlideOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-
-return self;},
-args: ["html"],
-source: unescape('renderSlideOn%3A%20html'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_renderMetaOn_'),
-smalltalk.method({
-selector: unescape('renderMetaOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_id_", ["meta"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["title"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_title", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["description"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_description", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["author"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_author", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send("mailto:", "__comma", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_email", [])])]);})(smalltalk.send(html, "_a", []));return (function($rec){smalltalk.send($rec, "_class_", ["url"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));
-return self;},
-args: ["html"],
-source: unescape('renderMetaOn%3A%20html%0A%09html%20div%20%0A%09%09id%3A%20%27meta%27%3B%0A%09%09with%3A%20%5B%0A%09%09%09html%20p%20class%3A%20%27title%27%3B%20with%3A%20self%20presentation%20title.%0A%09%09%09html%20p%20class%3A%20%27description%27%3B%20with%3A%20self%20presentation%20description.%0A%09%09%09html%20a%20class%3A%20%27author%27%3B%20with%3A%20self%20presentation%20author%3B%20href%3A%20%27mailto%3A%27%2C%20self%20presentation%20email.%0A%09%09%09html%20a%20class%3A%20%27url%27%3B%20with%3A%20self%20presentation%20url%3B%20href%3A%20self%20presentation%20url%5D'),
-messageSends: ["id:", "with:", "class:", "title", "presentation", "p", "description", "author", "href:", unescape("%2C"), "email", "a", "url", "div"],
-referencedClasses: []
-}),
-smalltalk.Slide);
-
-
-smalltalk.addMethod(
-unescape('_on_'),
-smalltalk.method({
-selector: unescape('on%3A'),
-category: 'instance creation',
-fn: function (aPresentation){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_presentation_", [aPresentation]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aPresentation"],
-source: unescape('on%3A%20aPresentation%0A%09%5Eself%20new%0A%09%09presentation%3A%20aPresentation%3B%0A%09%09yourself'),
-messageSends: ["presentation:", "yourself", "new"],
-referencedClasses: []
-}),
-smalltalk.Slide.klass);
 
 
 smalltalk.addClass('FOSDEMSlide', smalltalk.Slide, [], 'Presentation');
@@ -2508,12 +2508,12 @@ selector: unescape('slideClasses'),
 category: 'accessing',
 fn: function (){
 var self=this;
-return [(smalltalk.FOSDEMIntroSlide || FOSDEMIntroSlide),(smalltalk.CountersSlide || CountersSlide),(smalltalk.IDESlide || IDESlide),(smalltalk.JtalkAndJavascriptSlide || JtalkAndJavascriptSlide),(smalltalk.FOSDEMJSPlayGroundSlide || FOSDEMJSPlayGroundSlide),(smalltalk.FOSDEMJSToSmalltalk || FOSDEMJSToSmalltalk),(smalltalk.FOSDEMBookletSlide || FOSDEMBookletSlide),(smalltalk.FOSDEMTwitter || FOSDEMTwitter),(smalltalk.FOSDEMCanvasSlide || FOSDEMCanvasSlide),(smalltalk.FOSDEMAmberBackend || FOSDEMAmberBackend),(smalltalk.FOSDEMREPLSlide || FOSDEMREPLSlide),(smalltalk.FOSDEMCLISlide || FOSDEMCLISlide),(smalltalk.FOSDEMContributionsSlide || FOSDEMContributionsSlide)];
+return [(smalltalk.FOSDEMIntroSlide || FOSDEMIntroSlide),(smalltalk.FOSDEMAmberZeroNine || FOSDEMAmberZeroNine),(smalltalk.CountersSlide || CountersSlide),(smalltalk.IDESlide || IDESlide),(smalltalk.JtalkAndJavascriptSlide || JtalkAndJavascriptSlide),(smalltalk.FOSDEMJSPlayGroundSlide || FOSDEMJSPlayGroundSlide),(smalltalk.FOSDEMJSToSmalltalk || FOSDEMJSToSmalltalk),(smalltalk.FOSDEMBookletSlide || FOSDEMBookletSlide),(smalltalk.FOSDEMTwitter || FOSDEMTwitter),(smalltalk.FOSDEMCanvasSlide || FOSDEMCanvasSlide),(smalltalk.FOSDEMAmberBackend || FOSDEMAmberBackend),(smalltalk.FOSDEMREPLSlide || FOSDEMREPLSlide),(smalltalk.FOSDEMCLISlide || FOSDEMCLISlide),(smalltalk.FOSDEMContributionsSlide || FOSDEMContributionsSlide)];
 return self;},
 args: [],
-source: unescape('slideClasses%0A%5E%20%7B%0A%09FOSDEMIntroSlide.%0A%09CountersSlide.%0A%09IDESlide.%0A%09JtalkAndJavascriptSlide.%0A%09FOSDEMJSPlayGroundSlide.%0A%09FOSDEMJSToSmalltalk.%0A%09FOSDEMBookletSlide.%0A%09FOSDEMTwitter.%0A%09FOSDEMCanvasSlide.%0A%09FOSDEMAmberBackend.%0A%09FOSDEMREPLSlide.%0A%09FOSDEMCLISlide.%0A%09FOSDEMContributionsSlide%0A%7D'),
+source: unescape('slideClasses%0A%5E%20%7B%0A%09FOSDEMIntroSlide.%0A%09FOSDEMAmberZeroNine.%0A%09CountersSlide.%0A%09IDESlide.%0A%09JtalkAndJavascriptSlide.%0A%09FOSDEMJSPlayGroundSlide.%0A%09FOSDEMJSToSmalltalk.%0A%09FOSDEMBookletSlide.%0A%09FOSDEMTwitter.%0A%09FOSDEMCanvasSlide.%0A%09FOSDEMAmberBackend.%0A%09FOSDEMREPLSlide.%0A%09FOSDEMCLISlide.%0A%09FOSDEMContributionsSlide%0A%7D'),
 messageSends: [],
-referencedClasses: ["FOSDEMIntroSlide", "CountersSlide", "IDESlide", "JtalkAndJavascriptSlide", "FOSDEMJSPlayGroundSlide", "FOSDEMJSToSmalltalk", "FOSDEMBookletSlide", "FOSDEMTwitter", "FOSDEMCanvasSlide", "FOSDEMAmberBackend", "FOSDEMREPLSlide", "FOSDEMCLISlide", "FOSDEMContributionsSlide"]
+referencedClasses: ["FOSDEMIntroSlide", "FOSDEMAmberZeroNine", "CountersSlide", "IDESlide", "JtalkAndJavascriptSlide", "FOSDEMJSPlayGroundSlide", "FOSDEMJSToSmalltalk", "FOSDEMBookletSlide", "FOSDEMTwitter", "FOSDEMCanvasSlide", "FOSDEMAmberBackend", "FOSDEMREPLSlide", "FOSDEMCLISlide", "FOSDEMContributionsSlide"]
 }),
 smalltalk.FOSDEM2012Presentation);
 
@@ -2680,14 +2680,33 @@ selector: unescape('renderSlideOn%3A'),
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["section"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//amber-lang.net")]);return smalltalk.send($rec, "_with_", [unescape("amber-lang.net")]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("https%3A//github.com/NicolasPetton/amber")]);return smalltalk.send($rec, "_with_", [unescape("github.com/NicolasPetton/amber")]);})(smalltalk.send(html, "_a", []));})]);return smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//groups.google.com/group/amber-lang")]);return smalltalk.send($rec, "_with_", [unescape("groups.google.com/group/amber-lang")]);})(smalltalk.send(html, "_a", []));})]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["section"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("/documentation.html")]);return smalltalk.send($rec, "_with_", ["Documentation"]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//amber-lang.net")]);return smalltalk.send($rec, "_with_", [unescape("amber-lang.net")]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("https%3A//github.com/NicolasPetton/amber")]);return smalltalk.send($rec, "_with_", [unescape("github.com/NicolasPetton/amber")]);})(smalltalk.send(html, "_a", []));})]);return smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//groups.google.com/group/amber-lang")]);return smalltalk.send($rec, "_with_", [unescape("groups.google.com/group/amber-lang")]);})(smalltalk.send(html, "_a", []));})]);})]);})(smalltalk.send(html, "_div", []));
 return self;},
 args: ["html"],
-source: unescape('renderSlideOn%3A%20html%0A%09html%20div%20class%3A%20%27section%27%3B%20with%3A%20%5B%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27http%3A//amber-lang.net%27%3B%20with%3A%20%27amber-lang.net%27%5D.%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27https%3A//github.com/NicolasPetton/amber%27%3B%20with%3A%20%27github.com/NicolasPetton/amber%27%5D.%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27http%3A//groups.google.com/group/amber-lang%27%3B%20with%3A%20%27groups.google.com/group/amber-lang%27%5D%5D'),
+source: unescape('renderSlideOn%3A%20html%0A%09html%20div%20class%3A%20%27section%27%3B%20with%3A%20%5B%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27/documentation.html%27%3B%20with%3A%20%27Documentation%27%5D.%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27http%3A//amber-lang.net%27%3B%20with%3A%20%27amber-lang.net%27%5D.%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27https%3A//github.com/NicolasPetton/amber%27%3B%20with%3A%20%27github.com/NicolasPetton/amber%27%5D.%0A%09%09html%20p%20with%3A%20%5B%0A%09%09%09html%20a%20href%3A%20%27http%3A//groups.google.com/group/amber-lang%27%3B%20with%3A%20%27groups.google.com/group/amber-lang%27%5D%5D'),
 messageSends: ["class:", "with:", "p", "href:", "a", "div"],
 referencedClasses: []
 }),
 smalltalk.FOSDEMContributionsSlide);
+
+
+
+smalltalk.addClass('FOSDEMAmberZeroNine', smalltalk.FOSDEMSlide, [], 'Presentation');
+smalltalk.addMethod(
+unescape('_renderSlideOn_'),
+smalltalk.method({
+selector: unescape('renderSlideOn%3A'),
+category: 'not yet classified',
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["section center"]);return smalltalk.send($rec, "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_h1_", [unescape("Amber%200.9.1%20is%20out%20%21")]);smalltalk.send($rec, "_div_", [(function(){return smalltalk.send(smalltalk.send(html, "_cite", []), "_with_", [unescape("Now%20with%20over%2043%20forks%20on%20github%20and%20more%20than%20230%20followers%20the%20project%3A%20%20http%3A//www.amber-lang.net%20%20...is%20live%20and%20kicking%21")]);})]);return smalltalk.send($rec, "_div_", [(function(){return smalltalk.send(smalltalk.send(html, "_cite", []), "_with_", [unescape("--%20Nicolas%20%26%20G%F6ran")]);})]);})(html);})]);})(smalltalk.send(html, "_div", []));
+return self;},
+args: ["html"],
+source: unescape('renderSlideOn%3A%20html%0A%09html%20div%20%0A%09%09class%3A%20%27section%20center%27%3B%0A%09%09with%3A%20%5B%20%09html%20%0A%09%09%09%09%09h1%3A%20%27Amber%200.9.1%20is%20out%20%21%27%3B%0A%09%09%09%09%09div%3A%20%5Bhtml%20cite%20with%3A%20%27Now%20with%20over%2043%20forks%20on%20github%20and%20more%20than%20230%20followers%20the%20project%3A%20%20http%3A//www.amber-lang.net%20%20...is%20live%20and%20kicking%21%27%5D%3B%0A%09%09%09%09%09div%3A%20%5Bhtml%20cite%20with%3A%20%27--%20Nicolas%20%26%20G%F6ran%27%5D%20%5D'),
+messageSends: ["class:", "with:", "h1:", "div:", "cite", "div"],
+referencedClasses: []
+}),
+smalltalk.FOSDEMAmberZeroNine);
 
 
 
