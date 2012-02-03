@@ -5,5 +5,5 @@ Object subclass: #Hello
 !Hello class methodsFor: 'main'!
 
 main
-	console log: 'Hello world from JTalk in Node.js'
+	console log: 'Hello world from Amber in Node.js'
 ! ! 
