@@ -1,83 +1,207 @@
 smalltalk.addPackage('Presentation', {});
-smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
-smalltalk.addMethod(
-unescape('_presentation'),
-smalltalk.method({
-selector: unescape('presentation'),
-fn: function (){
-var self=this;
-return self['@presentation'];
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_presentation_'),
-smalltalk.method({
-selector: unescape('presentation%3A'),
-fn: function (aPresentation){
-var self=this;
-(self['@presentation']=aPresentation);
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_id'),
-smalltalk.method({
-selector: unescape('id'),
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_name", []);
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_cssClass'),
-smalltalk.method({
-selector: unescape('cssClass'),
-fn: function (){
-var self=this;
-return "slide";
-return self;}
-}),
-smalltalk.Slide);
-
-smalltalk.addMethod(
-unescape('_backgroundColor'),
-smalltalk.method({
-selector: unescape('backgroundColor'),
-fn: function (){
-var self=this;
-return unescape("%23555");
-return self;}
-}),
-smalltalk.Slide);
-
+smalltalk.addClass('Presentation', smalltalk.Widget, ['currentSlide', 'slides'], 'Presentation');
 smalltalk.addMethod(
 unescape('_title'),
 smalltalk.method({
 selector: unescape('title'),
 fn: function (){
 var self=this;
-return smalltalk.send(self, "_id", []);
+return smalltalk.send(smalltalk.send(self, "_class", []), "_title", []);
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
 
 smalltalk.addMethod(
-unescape('_show'),
+unescape('_author'),
 smalltalk.method({
-selector: unescape('show'),
+selector: unescape('author'),
 fn: function (){
 var self=this;
-(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
-smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+return "John Smith";
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_url'),
+smalltalk.method({
+selector: unescape('url'),
+fn: function (){
+var self=this;
+return unescape("http%3A//jtalk-project.org");
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_description'),
+smalltalk.method({
+selector: unescape('description'),
+fn: function (){
+var self=this;
+return "A presentation written in Jtalk";
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_email'),
+smalltalk.method({
+selector: unescape('email'),
+fn: function (){
+var self=this;
+return unescape("john@smith.com");
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slides'),
+smalltalk.method({
+selector: unescape('slides'),
+fn: function (){
+var self=this;
+(($receiver = self['@slides']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_initSlides", []);})() : $receiver;
+return self['@slides'];
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slideClasses'),
+smalltalk.method({
+selector: unescape('slideClasses'),
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_subclassResponsibility", []);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_currentSlide'),
+smalltalk.method({
+selector: unescape('currentSlide'),
+fn: function (){
+var self=this;
+return self['@currentSlide'];
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_currentSlide_'),
+smalltalk.method({
+selector: unescape('currentSlide%3A'),
+fn: function (aSlide){
+var self=this;
+(self['@currentSlide']=aSlide);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slideTransition'),
+smalltalk.method({
+selector: unescape('slideTransition'),
+fn: function (){
+var self=this;
+return "fade";
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_style'),
+smalltalk.method({
+selector: unescape('style'),
+fn: function (){
+var self=this;
+return "";
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_nextSlide'),
+smalltalk.method({
+selector: unescape('nextSlide'),
+fn: function (){
+var self=this;
+var next=nil;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_showCurrentSlide'),
+smalltalk.method({
+selector: unescape('showCurrentSlide'),
+fn: function (){
+var self=this;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send(".slide", "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])]), "_asJQuery", []), "_show", []);return smalltalk.send(smalltalk.send("title", "_asJQuery", []), "_text_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_title", []), "__comma", [unescape("%20-%20")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])])]);})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_previousSlide'),
+smalltalk.method({
+selector: unescape('previousSlide'),
+fn: function (){
+var self=this;
+var next=nil;
+(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_moveAt_'),
+smalltalk.method({
+selector: unescape('moveAt%3A'),
+fn: function (anInteger){
+var self=this;
+var next=nil;
+(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [anInteger, (function(){return nil;})]));
+(($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_currentSlideIndex'),
+smalltalk.method({
+selector: unescape('currentSlideIndex'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_ifAbsent_", [smalltalk.send(self, "_currentSlide", []), (function(){return (1);})]);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_slidesDo_'),
+smalltalk.method({
+selector: unescape('slidesDo%3A'),
+fn: function (aBlockWithArg){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(aSlide){return smalltalk.send(aBlockWithArg, "_value_", [aSlide]);})]);
+return self;}
+}),
+smalltalk.Presentation);
+
+smalltalk.addMethod(
+unescape('_initSlides'),
+smalltalk.method({
+selector: unescape('initSlides'),
+fn: function (){
+var self=this;
+(self['@slides']=smalltalk.send(smalltalk.send(self, "_slideClasses", []), "_collect_", [(function(each){return smalltalk.send(each, "_on_", [self]);})]));
+return self;}
+}),
+smalltalk.Presentation);
 
 smalltalk.addMethod(
 unescape('_renderOn_'),
@@ -85,44 +209,70 @@ smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);smalltalk.send($rec, "_id_", [smalltalk.send(self, "_id", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderSlideOn_", [html]);return smalltalk.send(self, "_renderMetaOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
+(function($rec){smalltalk.send($rec, "_id_", ["slides"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderSlidesOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
 
 smalltalk.addMethod(
-unescape('_renderSlideOn_'),
+unescape('_renderSlidesOn_'),
 smalltalk.method({
-selector: unescape('renderSlideOn%3A'),
+selector: unescape('renderSlidesOn%3A'),
 fn: function (html){
 var self=this;
-
+smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
+(($receiver = self['@currentSlide']) == nil || $receiver == undefined) ? (function(){return (self['@currentSlide']=smalltalk.send(smalltalk.send(self, "_slides", []), "_first", []));})() : $receiver;
+smalltalk.send(self, "_showCurrentSlide", []);
 return self;}
 }),
-smalltalk.Slide);
+smalltalk.Presentation);
+
+
+smalltalk.Presentation.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+unescape('_concretePresentations'),
+smalltalk.method({
+selector: unescape('concretePresentations'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_allSubclasses", []), "_select_", [(function(aPresentationClass){return smalltalk.send(aPresentationClass, "_isConcrete", []);})]);
+return self;}
+}),
+smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-unescape('_renderMetaOn_'),
+unescape('_title'),
 smalltalk.method({
-selector: unescape('renderMetaOn%3A'),
-fn: function (html){
+selector: unescape('title'),
+fn: function (){
 var self=this;
-(function($rec){smalltalk.send($rec, "_id_", ["meta"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["title"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_title", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["description"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_description", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["author"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_author", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send("mailto:", "__comma", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_email", [])])]);})(smalltalk.send(html, "_a", []));return (function($rec){smalltalk.send($rec, "_class_", ["url"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));
+return "Slides";
 return self;}
 }),
-smalltalk.Slide);
-
+smalltalk.Presentation.klass);
 
 smalltalk.addMethod(
-unescape('_on_'),
+unescape('_concretePresentationsDo_'),
 smalltalk.method({
-selector: unescape('on%3A'),
-fn: function (aPresentation){
+selector: unescape('concretePresentationsDo%3A'),
+fn: function (aBlockWithArg){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_presentation_", [aPresentation]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+smalltalk.send(smalltalk.send(self, "_concretePresentations", []), "_do_", [aBlockWithArg]);
 return self;}
 }),
-smalltalk.Slide.klass);
+smalltalk.Presentation.klass);
+
+smalltalk.addMethod(
+unescape('_isConcrete'),
+smalltalk.method({
+selector: unescape('isConcrete'),
+fn: function (){
+var self=this;
+return false;
+return self;}
+}),
+smalltalk.Presentation.klass);
 
 
 smalltalk.addClass('PresentationNavigator', smalltalk.Widget, ['presentationBrush', 'currentPresentation', 'slideSelect'], 'Presentation');
@@ -399,209 +549,85 @@ return self;}
 smalltalk.PresentationNavigator.klass);
 
 
-smalltalk.addClass('Presentation', smalltalk.Widget, ['currentSlide', 'slides'], 'Presentation');
+smalltalk.addClass('Slide', smalltalk.Widget, ['presentation'], 'Presentation');
+smalltalk.addMethod(
+unescape('_presentation'),
+smalltalk.method({
+selector: unescape('presentation'),
+fn: function (){
+var self=this;
+return self['@presentation'];
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_presentation_'),
+smalltalk.method({
+selector: unescape('presentation%3A'),
+fn: function (aPresentation){
+var self=this;
+(self['@presentation']=aPresentation);
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_id'),
+smalltalk.method({
+selector: unescape('id'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_name", []);
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_cssClass'),
+smalltalk.method({
+selector: unescape('cssClass'),
+fn: function (){
+var self=this;
+return "slide";
+return self;}
+}),
+smalltalk.Slide);
+
+smalltalk.addMethod(
+unescape('_backgroundColor'),
+smalltalk.method({
+selector: unescape('backgroundColor'),
+fn: function (){
+var self=this;
+return unescape("%23555");
+return self;}
+}),
+smalltalk.Slide);
+
 smalltalk.addMethod(
 unescape('_title'),
 smalltalk.method({
 selector: unescape('title'),
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_title", []);
+return smalltalk.send(self, "_id", []);
 return self;}
 }),
-smalltalk.Presentation);
+smalltalk.Slide);
 
 smalltalk.addMethod(
-unescape('_author'),
+unescape('_show'),
 smalltalk.method({
-selector: unescape('author'),
+selector: unescape('show'),
 fn: function (){
 var self=this;
-return "John Smith";
+(($receiver = smalltalk.send(self, "_backgroundColor", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [unescape("%23slides")]), "_css_color_", ["background", smalltalk.send(self, "_backgroundColor", [])]);})() : nil;
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [".slide"]), "_hide_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
+smalltalk.send(smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_id", [])])]), "_show_options_duration_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_slideTransition", []), [], (300)]);
 return self;}
 }),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_url'),
-smalltalk.method({
-selector: unescape('url'),
-fn: function (){
-var self=this;
-return unescape("http%3A//jtalk-project.org");
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_description'),
-smalltalk.method({
-selector: unescape('description'),
-fn: function (){
-var self=this;
-return "A presentation written in Jtalk";
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_email'),
-smalltalk.method({
-selector: unescape('email'),
-fn: function (){
-var self=this;
-return unescape("john@smith.com");
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slides'),
-smalltalk.method({
-selector: unescape('slides'),
-fn: function (){
-var self=this;
-(($receiver = self['@slides']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_initSlides", []);})() : $receiver;
-return self['@slides'];
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slideClasses'),
-smalltalk.method({
-selector: unescape('slideClasses'),
-fn: function (){
-var self=this;
-return smalltalk.send(self, "_subclassResponsibility", []);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_currentSlide'),
-smalltalk.method({
-selector: unescape('currentSlide'),
-fn: function (){
-var self=this;
-return self['@currentSlide'];
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_currentSlide_'),
-smalltalk.method({
-selector: unescape('currentSlide%3A'),
-fn: function (aSlide){
-var self=this;
-(self['@currentSlide']=aSlide);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slideTransition'),
-smalltalk.method({
-selector: unescape('slideTransition'),
-fn: function (){
-var self=this;
-return "fade";
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_style'),
-smalltalk.method({
-selector: unescape('style'),
-fn: function (){
-var self=this;
-return "";
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_nextSlide'),
-smalltalk.method({
-selector: unescape('nextSlide'),
-fn: function (){
-var self=this;
-var next=nil;
-(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_showCurrentSlide'),
-smalltalk.method({
-selector: unescape('showCurrentSlide'),
-fn: function (){
-var self=this;
-(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send(".slide", "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])]), "_asJQuery", []), "_show", []);return smalltalk.send(smalltalk.send("title", "_asJQuery", []), "_text_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_title", []), "__comma", [unescape("%20-%20")]), "__comma", [smalltalk.send(smalltalk.send(self, "_currentSlide", []), "_id", [])])]);})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_previousSlide'),
-smalltalk.method({
-selector: unescape('previousSlide'),
-fn: function (){
-var self=this;
-var next=nil;
-(($receiver = smalltalk.send(self, "_currentSlide", [])) != nil && $receiver != undefined) ? (function(){(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(self, "_currentSlideIndex", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), (function(){return nil;})]));return (($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_moveAt_'),
-smalltalk.method({
-selector: unescape('moveAt%3A'),
-fn: function (anInteger){
-var self=this;
-var next=nil;
-(next=smalltalk.send(smalltalk.send(self, "_slides", []), "_at_ifAbsent_", [anInteger, (function(){return nil;})]));
-(($receiver = next) != nil && $receiver != undefined) ? (function(){(self['@currentSlide']=next);return smalltalk.send(next, "_show", []);})() : nil;
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_currentSlideIndex'),
-smalltalk.method({
-selector: unescape('currentSlideIndex'),
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_slides", []), "_indexOf_ifAbsent_", [smalltalk.send(self, "_currentSlide", []), (function(){return (1);})]);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_slidesDo_'),
-smalltalk.method({
-selector: unescape('slidesDo%3A'),
-fn: function (aBlockWithArg){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(aSlide){return smalltalk.send(aBlockWithArg, "_value_", [aSlide]);})]);
-return self;}
-}),
-smalltalk.Presentation);
-
-smalltalk.addMethod(
-unescape('_initSlides'),
-smalltalk.method({
-selector: unescape('initSlides'),
-fn: function (){
-var self=this;
-(self['@slides']=smalltalk.send(smalltalk.send(self, "_slideClasses", []), "_collect_", [(function(each){return smalltalk.send(each, "_on_", [self]);})]));
-return self;}
-}),
-smalltalk.Presentation);
+smalltalk.Slide);
 
 smalltalk.addMethod(
 unescape('_renderOn_'),
@@ -609,70 +635,44 @@ smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_type_", [unescape("text/css")]);return smalltalk.send($rec, "_with_", [smalltalk.send(self, "_style", [])]);})(smalltalk.send(html, "_style", []));
-(function($rec){smalltalk.send($rec, "_id_", ["slides"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderSlidesOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", [smalltalk.send(self, "_cssClass", [])]);smalltalk.send($rec, "_id_", [smalltalk.send(self, "_id", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_renderSlideOn_", [html]);return smalltalk.send(self, "_renderMetaOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
-smalltalk.Presentation);
+smalltalk.Slide);
 
 smalltalk.addMethod(
-unescape('_renderSlidesOn_'),
+unescape('_renderSlideOn_'),
 smalltalk.method({
-selector: unescape('renderSlidesOn%3A'),
+selector: unescape('renderSlideOn%3A'),
 fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_slides", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
-(($receiver = self['@currentSlide']) == nil || $receiver == undefined) ? (function(){return (self['@currentSlide']=smalltalk.send(smalltalk.send(self, "_slides", []), "_first", []));})() : $receiver;
-smalltalk.send(self, "_showCurrentSlide", []);
+
 return self;}
 }),
-smalltalk.Presentation);
-
-
-smalltalk.Presentation.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-unescape('_concretePresentations'),
-smalltalk.method({
-selector: unescape('concretePresentations'),
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_allSubclasses", []), "_select_", [(function(aPresentationClass){return smalltalk.send(aPresentationClass, "_isConcrete", []);})]);
-return self;}
-}),
-smalltalk.Presentation.klass);
+smalltalk.Slide);
 
 smalltalk.addMethod(
-unescape('_title'),
+unescape('_renderMetaOn_'),
 smalltalk.method({
-selector: unescape('title'),
-fn: function (){
+selector: unescape('renderMetaOn%3A'),
+fn: function (html){
 var self=this;
-return "Slides";
+(function($rec){smalltalk.send($rec, "_id_", ["meta"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["title"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_title", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["description"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_description", [])]);})(smalltalk.send(html, "_p", []));(function($rec){smalltalk.send($rec, "_class_", ["author"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_author", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send("mailto:", "__comma", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_email", [])])]);})(smalltalk.send(html, "_a", []));return (function($rec){smalltalk.send($rec, "_class_", ["url"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);return smalltalk.send($rec, "_href_", [smalltalk.send(smalltalk.send(self, "_presentation", []), "_url", [])]);})(smalltalk.send(html, "_a", []));})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
-smalltalk.Presentation.klass);
+smalltalk.Slide);
+
 
 smalltalk.addMethod(
-unescape('_concretePresentationsDo_'),
+unescape('_on_'),
 smalltalk.method({
-selector: unescape('concretePresentationsDo%3A'),
-fn: function (aBlockWithArg){
+selector: unescape('on%3A'),
+fn: function (aPresentation){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_concretePresentations", []), "_do_", [aBlockWithArg]);
+return (function($rec){smalltalk.send($rec, "_presentation_", [aPresentation]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
 }),
-smalltalk.Presentation.klass);
-
-smalltalk.addMethod(
-unescape('_isConcrete'),
-smalltalk.method({
-selector: unescape('isConcrete'),
-fn: function (){
-var self=this;
-return false;
-return self;}
-}),
-smalltalk.Presentation.klass);
+smalltalk.Slide.klass);
 
 
 smalltalk.addClass('FOSDEMSlide', smalltalk.Slide, [], 'Presentation');
@@ -1766,7 +1766,7 @@ smalltalk.method({
 selector: unescape('style'),
 fn: function (){
 var self=this;
-return unescape("%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A%0A.slide.blue3d%20%7B%0A%20%20background%3A%20%23feffff%3B%0A%20%20background%3A%20-moz-linear-gradient%28top%2C%20%23feffff%200%25%2C%20%23d2ebf9%20100%25%29%3B%0A%20%20background%3A%20-webkit-gradient%28linear%2C%20left%20top%2C%20left%20bottom%2C%20color-stop%280%25%2C%23feffff%29%2C%20color-stop%28100%25%2C%23d2ebf9%29%29%3B%0A%20%20background%3A%20-webkit-linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%20%20background%3A%20-o-linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%20%20background%3A%20-ms-linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%20%20filter%3A%20progid%3ADXImageTransform.Microsoft.gradient%28%20startColorstr%3D%22%23feffff%22%2C%20endColorstr%3D%22%23d2ebf9%22%2CGradientType%3D0%20%29%3B%0A%20%20background%3A%20linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%7D%0A%0A%0A.slide.red3d%20%7B%0A%20%20background%3A%20%23febbbb%3B%0A%20%20background%3A%20-moz-linear-gradient%28top%2C%20%23febbbb%200%25%2C%20%23fe9090%2071%25%2C%20%23ff5c5c%2095%25%29%3B%0A%20%20background%3A%20-webkit-gradient%28linear%2C%20left%20top%2C%20left%20bottom%2C%20color-stop%280%25%2C%23febbbb%29%2C%20color-stop%2871%25%2C%23fe9090%29%2C%20color-stop%2895%25%2C%23ff5c5c%29%29%3B%0A%20%20background%3A%20-webkit-linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%20%20background%3A%20-o-linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%20%20background%3A%20-ms-linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%20%20filter%3A%20progid%3ADXImageTransform.Microsoft.gradient%28%20startColorstr%3D%22%23febbbb%22%2C%20endColorstr%3D%22%23ff5c5c%22%2CGradientType%3D0%20%29%3B%0A%20%20background%3A%20linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%7D%0A%0A%0A.slide.green3d%20%7B%0A%20%20background%3A%20%23cdeb8e%3B%0A%20%20background%3A%20-moz-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%20%23a5c956%20100%25%29%3B%0A%20%20background%3A%20-webkit-gradient%28linear%2C%20left%20top%2C%20left%20bottom%2C%20color-stop%280%25%2C%23cdeb8e%29%2C%20color-stop%28100%25%2C%23a5c956%29%29%3B%0A%20%20background%3A%20-webkit-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%20%20background%3A%20-o-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%20%20background%3A%20-ms-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%20%20filter%3A%20progid%3ADXImageTransform.Microsoft.gradient%28%20startColorstr%3D%22%23cdeb8e%22%2C%20endColorstr%3D%22%23a5c956%22%2CGradientType%3D0%20%29%3B%0A%20%20background%3A%20linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%7D%0A%0A@-webkit-keyframes%20rotate-horizontal%20%7B%0A%090%25%20%7B%20-webkit-transform%3A%20perspective%281000px%29%20rotateY%28-10deg%29%3B%7D%0A%09100%25%20%7B%20-webkit-transform%3A%20perspective%281000px%29%20rotateY%2810deg%29%3B%7D%0A%7D%0A%0A.animate%20p%7B%0A-webkit-animation%3A%20rotate-horizontal%202s%20infinite%20alternate%20ease-in-out%3B%0A%7D%0A%0A%23FOSDEMAmberBackend%20img%20%7B%0A%09margin%3A%205px%3B%0A%09-webkit-animation%3A%20rotate-horizontal%202s%20infinite%20alternate%20ease-in-out%3B%0A%7D%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A%0A.tweet%20%7B%0A%09background-color%3A%20%23aaa%3B%0A%09color%3A%20black%3B%0A%09padding%3A%2010px%3B%0A%09border-radius%3A%2010px%3B%0A%09border%3A%205px%20solid%20%23eee%3B%0A%09margin%3A%2010px%3B%0A%7D%0A%0A.tweet%20img%20%7B%0A%09vertical-align%3A%20top%3B%0A%09margin-right%3A%2010px%3B%0A%7D%0A%0A.tweet%20span%3Afirst-child%20%7B%0A%09float%3A%20right%3B%0A%7D%0A");
+return unescape("%0Abody%20%7B%0A%20%20%20%20font-family%3A%20Helvetica%2CArial%2Csans%3B%0A%7D%0A%0A%23slides%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20top%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%20%20%20%20font-size%3A%2020px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20height%3A%20500px%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20padding%3A%2060px%3B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20left%3A%2050%25%3B%0A%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20margin-left%3A%20-420px%3B%0A%20%20%20%20margin-top%3A%20-320px%3B%0A%20%20%20%20box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%2020px%20%23111%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%2020px%20%23111%3B%0A%7D%0A%0A.slide.transparent%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%20%20%20%20box-shadow%3A%200%200%200%20none%3B%0A%20%20%20%20-moz-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20-webkit-box-shadow%3A%200%200%200%20transparent%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20%7B%0A%20%20%20%20background%3A%20black%3B%0A%20%20%20%20background-image%3A%20-webkit-gradient%28%0A%09linear%2C%0A%09left%20bottom%2C%0A%09left%20top%2C%0A%09color-stop%280.38%2C%20rgb%2879%2C79%2C79%29%29%2C%0A%09color-stop%280.69%2C%20rgb%2833%2C33%2C33%29%29%2C%0A%09color-stop%280.86%2C%20rgb%284%2C4%2C4%29%29%0A%20%20%20%20%29%3B%0A%20%20%20%20background-image%3A%20-moz-linear-gradient%28%0A%09center%20bottom%2C%0A%09rgb%2879%2C79%2C79%29%2038%25%2C%0A%09rgb%2833%2C33%2C33%29%2069%25%2C%0A%09rgb%284%2C4%2C4%29%2086%25%0A%20%20%20%20%29%3B%0A%20%20%20%20color%3A%20%23fff%20%21important%3B%0A%7D%0A%0A.slide.black%20h1%2C%20.slide.black%20h2%2C%20.slide.black%20h3%2C%0A.slide.transparent%20h1%2C%20.slide.transparent%20h2%2C%20.slide.transparent%20h3%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%7D%0A%0A.slide.black%20a%2C%20.slide.transparent%20a%20%7B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%7D%0A%0A.slide.white%20%7B%0A%20%20%20%20color%3A%20%23333%20%21important%3B%0A%7D%0A%0A.slide.white%20h1%2C%20.slide.white%20h2%2C%20.slide.white%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A.slide.white%20a%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%0A.slide%20h1%2C%20.slide%20h2%2C%20.slide%20h3%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20/*%20text-align%3A%20center%3B%20*/%0A%7D%0A%0A.slide%20h1%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2036px%3B%0A%20%20%20%20text-shadow%3A%200%201px%204px%20%23aaa%3B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20margin-bottom%3A%2050px%3B%0A%7D%0A%0A.slide%20button%20%7B%0A%20%20%20%20font-size%3A%2018px%3B%0A%7D%0A%0A.slide%20a%20%7B%0A%20%20%20%20color%3A%20%23555%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%7D%0A%0A.slide%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20background%3A%20%23555%3B%0A%7D%0A%0A.slide%20.right%20%7B%0A%20%20%20%20text-align%3A%20right%3B%0A%7D%0A%0A.slide%20.section.center%20%7B%0A%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20display%3A%20table-cell%3B%0A%20%20%20%20vertical-align%3A%20middle%3B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20500px%3B%0A%7D%0A%0A.slide%20code%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20border%3A%201px%20solid%20%23ddd%3B%0A%20%20%20%20background%3A%20%23eee%3B%0A%20%20%20%20border-radius%3A%204px%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A.slide%20.code2%20%7B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%20Mono%22%3B%0A%20%20%20%20line-height%3A%201.2em%3B%0A%20%20%20%20color%3A%20%23444%3B%0A%20%20%20%20padding%3A%202px%3B%0A%20%20%20%20font-size%3A%2016px%3B%0A%7D%0A%0A%0A.slide%20.CodeMirror%20%7B%0A%20%20%20%20width%3A%20700px%3B%0A%20%20%20%20height%3A%20300px%3B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.CodeMirror-scroll%20%7B%0A%20%20%20%20text-align%3A%20left%3B%0A%7D%0A%0A.slide%20.fancy%20%7B%0A%20%20%20%20margin-top%3A%2030px%3B%0A%20%20%20%20-webkit-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20-moz-transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20transform%3A%20rotate%28-10deg%29%3B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.comment%20%7B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20font-weight%3A%20normal%3B%0A%7D%0A%0A.slide%20.red%20%7B%0A%20%20%20%20color%3A%20red%3B%0A%7D%0A%0A.slide%20.blue%20%7B%0A%20%20%20%20color%3A%20blue%3B%0A%7D%0A%0A%23meta%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20font-size%3A%2012px%3B%0A%20%20%20%20opacity%3A%200.6%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20right%3A%200%3B%0A%20%20%20%20z-index%3A%202%3B%0A%20%20%20%20background%3A%20%23333%3B%0A%20%20%20%20text-align%3A%20right%3B%0A%20%20%20%20padding%3A%200%2010px%3B%0A%20%20%20%20line-height%3A%201.8em%3B%0A%20%20%20%20color%3A%20%23eee%3B%0A%20%20%20%20border-top-left-radius%3A%205px%3B%0A%7D%0A%0A%23meta%3Ahover%20%7B%0A%20%20%20%20opacity%3A%200.8%3B%0A%7D%0A%0A%23meta%20p%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A%23meta%20a%20%7B%0A%20%20%20%20//background%3A%20%23ccc%3B%0A%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20padding%3A%200%205px%3B%0A%7D%0A%0A.slide%20%7B%0A%20%20%20%20%0A%7D%0A%0A.slide.blue3d%20%7B%0A%20%20background%3A%20%23feffff%3B%0A%20%20background%3A%20-moz-linear-gradient%28top%2C%20%23feffff%200%25%2C%20%23d2ebf9%20100%25%29%3B%0A%20%20background%3A%20-webkit-gradient%28linear%2C%20left%20top%2C%20left%20bottom%2C%20color-stop%280%25%2C%23feffff%29%2C%20color-stop%28100%25%2C%23d2ebf9%29%29%3B%0A%20%20background%3A%20-webkit-linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%20%20background%3A%20-o-linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%20%20background%3A%20-ms-linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%20%20filter%3A%20progid%3ADXImageTransform.Microsoft.gradient%28%20startColorstr%3D%22%23feffff%22%2C%20endColorstr%3D%22%23d2ebf9%22%2CGradientType%3D0%20%29%3B%0A%20%20background%3A%20linear-gradient%28top%2C%20%23feffff%200%25%2C%23d2ebf9%20100%25%29%3B%0A%7D%0A%0A%0A.slide.red3d%20%7B%0A%20%20background%3A%20%23febbbb%3B%0A%20%20background%3A%20-moz-linear-gradient%28top%2C%20%23febbbb%200%25%2C%20%23fe9090%2071%25%2C%20%23ff5c5c%2095%25%29%3B%0A%20%20background%3A%20-webkit-gradient%28linear%2C%20left%20top%2C%20left%20bottom%2C%20color-stop%280%25%2C%23febbbb%29%2C%20color-stop%2871%25%2C%23fe9090%29%2C%20color-stop%2895%25%2C%23ff5c5c%29%29%3B%0A%20%20background%3A%20-webkit-linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%20%20background%3A%20-o-linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%20%20background%3A%20-ms-linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%20%20filter%3A%20progid%3ADXImageTransform.Microsoft.gradient%28%20startColorstr%3D%22%23febbbb%22%2C%20endColorstr%3D%22%23ff5c5c%22%2CGradientType%3D0%20%29%3B%0A%20%20background%3A%20linear-gradient%28top%2C%20%23febbbb%200%25%2C%23fe9090%2071%25%2C%23ff5c5c%2095%25%29%3B%0A%7D%0A%0A%0A.slide.green3d%20%7B%0A%20%20background%3A%20%23cdeb8e%3B%0A%20%20background%3A%20-moz-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%20%23a5c956%20100%25%29%3B%0A%20%20background%3A%20-webkit-gradient%28linear%2C%20left%20top%2C%20left%20bottom%2C%20color-stop%280%25%2C%23cdeb8e%29%2C%20color-stop%28100%25%2C%23a5c956%29%29%3B%0A%20%20background%3A%20-webkit-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%20%20background%3A%20-o-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%20%20background%3A%20-ms-linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%20%20filter%3A%20progid%3ADXImageTransform.Microsoft.gradient%28%20startColorstr%3D%22%23cdeb8e%22%2C%20endColorstr%3D%22%23a5c956%22%2CGradientType%3D0%20%29%3B%0A%20%20background%3A%20linear-gradient%28top%2C%20%23cdeb8e%200%25%2C%23a5c956%20100%25%29%3B%0A%7D%0A%0A@-webkit-keyframes%20rotate-horizontal%20%7B%0A%090%25%20%7B%20-webkit-transform%3A%20perspective%281000px%29%20rotateY%28-10deg%29%3B%7D%0A%09100%25%20%7B%20-webkit-transform%3A%20perspective%281000px%29%20rotateY%2810deg%29%3B%7D%0A%7D%0A%0A.animate%20p%7B%0A-webkit-animation%3A%20rotate-horizontal%202s%20infinite%20alternate%20ease-in-out%3B%0A%7D%0A%0A%23FOSDEMAmberBackend%20img%20%7B%0A%09margin%3A%205px%3B%0A%09-webkit-animation%3A%20rotate-horizontal%202s%20infinite%20alternate%20ease-in-out%3B%0A%7D%0A%0A.slide%23FOSDEMContributionsSlide%20%7B%0A%20%20%20%20background%3A%20white%20url%28%22esug2011/images/asterix.png%22%29%2030px%20130px%20no-repeat%3B%0A%7D%0A%0A.slide%23FOSDEMContributionsSlide%20.section%20%7B%0A%20%20%20%20margin-left%3A%20250px%3B%0A%20%20%20%20margin-top%3A%20200px%3B%0A%20%20%20%20font-family%3A%20%22Droid%20Sans%22%3B%0A%20%20%20%20font-size%3A%2026px%3B%0A%20%20%20%20font-weight%3A%20bold%3B%0A%7D%0A%0A%0A.slide%23ide%20%7B%0A%20%20%20%20background%3A%20black%20url%28%22esug2011/images/ide_star_wars.png%22%29%20center%20center%20no-repeat%3B%0A%7D%0A%0A%0A.tweet%20%7B%0A%09background-color%3A%20%23aaa%3B%0A%09color%3A%20black%3B%0A%09padding%3A%2010px%3B%0A%09border-radius%3A%2010px%3B%0A%09border%3A%205px%20solid%20%23eee%3B%0A%09margin%3A%2010px%3B%0A%7D%0A%0A.tweet%20img%20%7B%0A%09vertical-align%3A%20top%3B%0A%09margin-right%3A%2010px%3B%0A%7D%0A%0A.tweet%20span%3Afirst-child%20%7B%0A%09float%3A%20right%3B%0A%7D%0A");
 return self;}
 }),
 smalltalk.FOSDEM2012Presentation);
@@ -1777,7 +1777,7 @@ smalltalk.method({
 selector: unescape('slideClasses'),
 fn: function (){
 var self=this;
-return [(smalltalk.FOSDEMIntroSlide || FOSDEMIntroSlide),(smalltalk.CountersSlide || CountersSlide),(smalltalk.IDESlide || IDESlide),(smalltalk.JtalkAndJavascriptSlide || JtalkAndJavascriptSlide),(smalltalk.FOSDEMJSPlayGroundSlide || FOSDEMJSPlayGroundSlide),(smalltalk.FOSDEMJSToSmalltalk || FOSDEMJSToSmalltalk),(smalltalk.FOSDEMBookletSlide || FOSDEMBookletSlide),(smalltalk.FOSDEMTwitter || FOSDEMTwitter),(smalltalk.FOSDEMCanvasSlide || FOSDEMCanvasSlide),(smalltalk.FOSDEMAmberBackend || FOSDEMAmberBackend),(smalltalk.FOSDEMREPLSlide || FOSDEMREPLSlide)];
+return [(smalltalk.FOSDEMIntroSlide || FOSDEMIntroSlide),(smalltalk.CountersSlide || CountersSlide),(smalltalk.IDESlide || IDESlide),(smalltalk.JtalkAndJavascriptSlide || JtalkAndJavascriptSlide),(smalltalk.FOSDEMJSPlayGroundSlide || FOSDEMJSPlayGroundSlide),(smalltalk.FOSDEMJSToSmalltalk || FOSDEMJSToSmalltalk),(smalltalk.FOSDEMBookletSlide || FOSDEMBookletSlide),(smalltalk.FOSDEMTwitter || FOSDEMTwitter),(smalltalk.FOSDEMCanvasSlide || FOSDEMCanvasSlide),(smalltalk.FOSDEMAmberBackend || FOSDEMAmberBackend),(smalltalk.FOSDEMREPLSlide || FOSDEMREPLSlide),(smalltalk.FOSDEMCLISlide || FOSDEMCLISlide),(smalltalk.FOSDEMContributionsSlide || FOSDEMContributionsSlide)];
 return self;}
 }),
 smalltalk.FOSDEM2012Presentation);
@@ -1862,6 +1862,47 @@ smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", 
 return self;}
 }),
 smalltalk.FOSDEMTwitter);
+
+
+
+smalltalk.addClass('FOSDEMCLISlide', smalltalk.FOSDEMSlide, [], 'Presentation');
+smalltalk.addMethod(
+unescape('_renderSlideOn_'),
+smalltalk.method({
+selector: unescape('renderSlideOn%3A'),
+fn: function (html){
+var self=this;
+smalltalk.send(html, "_h1_", ["CLI"]);
+smalltalk.send(html, "_with_", [unescape("amberc%20compiles%20.st%20files%20into%20node%20programs%20%21")]);
+smalltalk.send(self, "_renderCodeSnippetOn_", [html]);
+return self;}
+}),
+smalltalk.FOSDEMCLISlide);
+
+smalltalk.addMethod(
+unescape('_codeSnippet'),
+smalltalk.method({
+selector: unescape('codeSnippet'),
+fn: function (){
+var self=this;
+return unescape("cd%20examples/nodejs/hello%0A../../../bin/amberc%20-m%20Hello%20Hello.st%20Program%0Anode%20Program.js%0A%0AHello%20world%20from%20Amber%20in%20Node.js");
+return self;}
+}),
+smalltalk.FOSDEMCLISlide);
+
+
+
+smalltalk.addClass('FOSDEMContributionsSlide', smalltalk.FOSDEMSlide, [], 'Presentation');
+smalltalk.addMethod(
+unescape('_renderSlideOn_'),
+smalltalk.method({
+selector: unescape('renderSlideOn%3A'),
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_class_", ["section"]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//amber-lang.net")]);return smalltalk.send($rec, "_with_", [unescape("amber-lang.net")]);})(smalltalk.send(html, "_a", []));})]);smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("https%3A//github.com/NicolasPetton/amber")]);return smalltalk.send($rec, "_with_", [unescape("github.com/NicolasPetton/amber")]);})(smalltalk.send(html, "_a", []));})]);return smalltalk.send(smalltalk.send(html, "_p", []), "_with_", [(function(){return (function($rec){smalltalk.send($rec, "_href_", [unescape("http%3A//groups.google.com/group/amber-lang")]);return smalltalk.send($rec, "_with_", [unescape("groups.google.com/group/amber-lang")]);})(smalltalk.send(html, "_a", []));})]);})]);})(smalltalk.send(html, "_div", []));
+return self;}
+}),
+smalltalk.FOSDEMContributionsSlide);
 
 
 
