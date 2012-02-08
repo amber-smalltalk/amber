@@ -1,121 +1,4 @@
 smalltalk.addPackage('Kernel-Collections', {});
-smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
-smalltalk.addMethod(
-unescape('__eq'),
-smalltalk.method({
-selector: unescape('%3D'),
-category: 'comparing',
-fn: function (anAssociation){
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
-return self;},
-args: ["anAssociation"],
-source: unescape('%3D%20anAssociation%0A%09%5Eself%20class%20%3D%20anAssociation%20class%20and%3A%20%5B%0A%09%20%20%20%20self%20key%20%3D%20anAssociation%20key%20and%3A%20%5B%0A%09%09self%20value%20%3D%20anAssociation%20value%5D%5D'),
-messageSends: ["and:", unescape("%3D"), "class", "key", "value"],
-referencedClasses: []
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_key_'),
-smalltalk.method({
-selector: unescape('key%3A'),
-category: 'accessing',
-fn: function (aKey){
-var self=this;
-(self['@key']=aKey);
-return self;},
-args: ["aKey"],
-source: unescape('key%3A%20aKey%0A%09key%20%3A%3D%20aKey'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_key'),
-smalltalk.method({
-selector: unescape('key'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self['@key'];
-return self;},
-args: [],
-source: unescape('key%0A%09%5Ekey'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_value_'),
-smalltalk.method({
-selector: unescape('value%3A'),
-category: 'accessing',
-fn: function (aValue){
-var self=this;
-(self['@value']=aValue);
-return self;},
-args: ["aValue"],
-source: unescape('value%3A%20aValue%0A%09value%20%3A%3D%20aValue'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_value'),
-smalltalk.method({
-selector: unescape('value'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self['@value'];
-return self;},
-args: [],
-source: unescape('value%0A%09%5Evalue'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_storeOn_'),
-smalltalk.method({
-selector: unescape('storeOn%3A'),
-category: 'comparing',
-fn: function (aStream){
-var self=this;
-smalltalk.send(self['@key'], "_storeOn_", [aStream]);
-smalltalk.send(aStream, "_nextPutAll_", [unescape("-%3E")]);
-smalltalk.send(self['@value'], "_storeOn_", [aStream]);
-return self;},
-args: ["aStream"],
-source: unescape('storeOn%3A%20aStream%0A%09%22Store%20in%20the%20format%20%28key-%3Evalue%29%22%0A%0A%09%22aStream%20nextPutAll%3A%20%27%28%27.%22%0A%09key%20storeOn%3A%20aStream.%0A%09aStream%20nextPutAll%3A%20%27-%3E%27.%0A%09value%20storeOn%3A%20aStream.%0A%09%22aStream%20nextPutAll%3A%20%27%29%27%22'),
-messageSends: ["storeOn:", "nextPutAll:"],
-referencedClasses: []
-}),
-smalltalk.Association);
-
-
-smalltalk.addMethod(
-unescape('_key_value_'),
-smalltalk.method({
-selector: unescape('key%3Avalue%3A'),
-category: 'instance creation',
-fn: function (aKey, aValue){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aKey", "aValue"],
-source: unescape('key%3A%20aKey%20value%3A%20aValue%0A%09%20%20%20%20%5Eself%20new%0A%09%09key%3A%20aKey%3B%0A%09%09value%3A%20aValue%3B%0A%09%09yourself'),
-messageSends: ["key:", "value:", "yourself", "new"],
-referencedClasses: []
-}),
-smalltalk.Association.klass);
-
-
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.addMethod(
 unescape('_collection'),
@@ -507,6 +390,123 @@ messageSends: ["setCollection:", "setStreamSize:", "size", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.Stream.klass);
+
+
+smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
+smalltalk.addMethod(
+unescape('__eq'),
+smalltalk.method({
+selector: unescape('%3D'),
+category: 'comparing',
+fn: function (anAssociation){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
+return self;},
+args: ["anAssociation"],
+source: unescape('%3D%20anAssociation%0A%09%5Eself%20class%20%3D%20anAssociation%20class%20and%3A%20%5B%0A%09%20%20%20%20self%20key%20%3D%20anAssociation%20key%20and%3A%20%5B%0A%09%09self%20value%20%3D%20anAssociation%20value%5D%5D'),
+messageSends: ["and:", unescape("%3D"), "class", "key", "value"],
+referencedClasses: []
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_key_'),
+smalltalk.method({
+selector: unescape('key%3A'),
+category: 'accessing',
+fn: function (aKey){
+var self=this;
+(self['@key']=aKey);
+return self;},
+args: ["aKey"],
+source: unescape('key%3A%20aKey%0A%09key%20%3A%3D%20aKey'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_key'),
+smalltalk.method({
+selector: unescape('key'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@key'];
+return self;},
+args: [],
+source: unescape('key%0A%09%5Ekey'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_value_'),
+smalltalk.method({
+selector: unescape('value%3A'),
+category: 'accessing',
+fn: function (aValue){
+var self=this;
+(self['@value']=aValue);
+return self;},
+args: ["aValue"],
+source: unescape('value%3A%20aValue%0A%09value%20%3A%3D%20aValue'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_value'),
+smalltalk.method({
+selector: unescape('value'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@value'];
+return self;},
+args: [],
+source: unescape('value%0A%09%5Evalue'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_storeOn_'),
+smalltalk.method({
+selector: unescape('storeOn%3A'),
+category: 'comparing',
+fn: function (aStream){
+var self=this;
+smalltalk.send(self['@key'], "_storeOn_", [aStream]);
+smalltalk.send(aStream, "_nextPutAll_", [unescape("-%3E")]);
+smalltalk.send(self['@value'], "_storeOn_", [aStream]);
+return self;},
+args: ["aStream"],
+source: unescape('storeOn%3A%20aStream%0A%09%22Store%20in%20the%20format%20%28key-%3Evalue%29%22%0A%0A%09%22aStream%20nextPutAll%3A%20%27%28%27.%22%0A%09key%20storeOn%3A%20aStream.%0A%09aStream%20nextPutAll%3A%20%27-%3E%27.%0A%09value%20storeOn%3A%20aStream.%0A%09%22aStream%20nextPutAll%3A%20%27%29%27%22'),
+messageSends: ["storeOn:", "nextPutAll:"],
+referencedClasses: []
+}),
+smalltalk.Association);
+
+
+smalltalk.addMethod(
+unescape('_key_value_'),
+smalltalk.method({
+selector: unescape('key%3Avalue%3A'),
+category: 'instance creation',
+fn: function (aKey, aValue){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aKey", "aValue"],
+source: unescape('key%3A%20aKey%20value%3A%20aValue%0A%09%20%20%20%20%5Eself%20new%0A%09%09key%3A%20aKey%3B%0A%09%09value%3A%20aValue%3B%0A%09%09yourself'),
+messageSends: ["key:", "value:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.Association.klass);
 
 
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
@@ -1270,12 +1270,12 @@ var range=nil;
 var newCollection=nil;
 (range=smalltalk.send(anIndex, "_to_", [anotherIndex]));
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(range, "_size", [])]));
-smalltalk.send(range, "_do_", [(function(each){return smalltalk.send(newCollection, "_at_put_", [each, smalltalk.send(self, "_at_", [each])]);})]);
+smalltalk.send(range, "_withIndexDo_", [(function(each, i){return smalltalk.send(newCollection, "_at_put_", [i, smalltalk.send(self, "_at_", [each])]);})]);
 return newCollection;
 return self;},
 args: ["anIndex", "anotherIndex"],
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%7C%20range%20newCollection%20%7C%0A%09range%20%3A%3D%20anIndex%20to%3A%20anotherIndex.%0A%09newCollection%20%3A%3D%20self%20class%20new%3A%20range%20size.%0A%09range%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20newCollection%20at%3A%20each%20put%3A%20%28self%20at%3A%20each%29%5D.%0A%09%5EnewCollection'),
-messageSends: ["to:", "new:", "class", "size", "do:", "at:put:", "at:"],
+source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%7C%20range%20newCollection%20%7C%0A%09range%20%3A%3D%20anIndex%20to%3A%20anotherIndex.%0A%09newCollection%20%3A%3D%20self%20class%20new%3A%20range%20size.%0A%09range%20withIndexDo%3A%20%5B%3Aeach%20%3Ai%20%7C%0A%09%20%20%20%20newCollection%20at%3A%20i%20put%3A%20%28self%20at%3A%20each%29%5D.%0A%09%5EnewCollection'),
+messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
