@@ -996,17 +996,42 @@ smalltalk.parser = (function(){
         var savedPos0 = pos;
         var savedPos1 = pos;
         if (input.substr(pos).match(/^[\-]/) !== null) {
-          var result7 = input.charAt(pos);
+          var result9 = input.charAt(pos);
           pos++;
         } else {
-          var result7 = null;
+          var result9 = null;
           if (reportMatchFailures) {
             matchFailed("[\\-]");
           }
         }
-        var result3 = result7 !== null ? result7 : '';
+        var result3 = result9 !== null ? result9 : '';
         if (result3 !== null) {
-          var result4 = parse_integer();
+          if (input.substr(pos).match(/^[0-9]/) !== null) {
+            var result8 = input.charAt(pos);
+            pos++;
+          } else {
+            var result8 = null;
+            if (reportMatchFailures) {
+              matchFailed("[0-9]");
+            }
+          }
+          if (result8 !== null) {
+            var result4 = [];
+            while (result8 !== null) {
+              result4.push(result8);
+              if (input.substr(pos).match(/^[0-9]/) !== null) {
+                var result8 = input.charAt(pos);
+                pos++;
+              } else {
+                var result8 = null;
+                if (reportMatchFailures) {
+                  matchFailed("[0-9]");
+                }
+              }
+            }
+          } else {
+            var result4 = null;
+          }
           if (result4 !== null) {
             if (input.substr(pos, 1) === ".") {
               var result5 = ".";
@@ -1018,7 +1043,32 @@ smalltalk.parser = (function(){
               }
             }
             if (result5 !== null) {
-              var result6 = parse_integer();
+              if (input.substr(pos).match(/^[0-9]/) !== null) {
+                var result7 = input.charAt(pos);
+                pos++;
+              } else {
+                var result7 = null;
+                if (reportMatchFailures) {
+                  matchFailed("[0-9]");
+                }
+              }
+              if (result7 !== null) {
+                var result6 = [];
+                while (result7 !== null) {
+                  result6.push(result7);
+                  if (input.substr(pos).match(/^[0-9]/) !== null) {
+                    var result7 = input.charAt(pos);
+                    pos++;
+                  } else {
+                    var result7 = null;
+                    if (reportMatchFailures) {
+                      matchFailed("[0-9]");
+                    }
+                  }
+                }
+              } else {
+                var result6 = null;
+              }
               if (result6 !== null) {
                 var result1 = [result3, result4, result5, result6];
               } else {
@@ -1038,7 +1088,7 @@ smalltalk.parser = (function(){
           pos = savedPos1;
         }
         var result2 = result1 !== null
-          ? (function(neg, int, dec) {return parseFloat((neg+int+"."+dec), 10)})(result1[0], result1[1], result1[3])
+          ? (function(neg, int, dec) {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)})(result1[0], result1[1], result1[3])
           : null;
         if (result2 !== null) {
           var result0 = result2;
