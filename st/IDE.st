@@ -768,6 +768,7 @@ initialize
 ajaxPutAt: anURL data: aString
 	jQuery 
 		ajax: anURL	options: #{	'type' -> 'PUT'.
+                                'contentType' -> 'application/json'.
 								'data' -> aString.
 								'error' -> [window alert: 'PUT request failed at:  ', anURL] }
 ! !

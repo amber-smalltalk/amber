@@ -1599,7 +1599,7 @@ selector: unescape('ajaxPutAt%3Adata%3A'),
 category: 'network',
 fn: function (anURL, aString){
 var self=this;
-smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]),smalltalk.send("data", "__minus_gt", [aString]),smalltalk.send("error", "__minus_gt", [(function(){return smalltalk.send((typeof window == 'undefined' ? nil : window), "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);})])])]);
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]),smalltalk.send("contentType", "__minus_gt", ["application/json"]),smalltalk.send("data", "__minus_gt", [aString]),smalltalk.send("error", "__minus_gt", [(function(){return smalltalk.send((typeof window == 'undefined' ? nil : window), "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);})])])]);
 return self;},
 args: ["anURL", "aString"],
 source: unescape('ajaxPutAt%3A%20anURL%20data%3A%20aString%0A%09jQuery%20%0A%09%09ajax%3A%20anURL%09options%3A%20%23%7B%09%27type%27%20-%3E%20%27PUT%27.%0A%09%09%09%09%09%09%09%09%27data%27%20-%3E%20aString.%0A%09%09%09%09%09%09%09%09%27error%27%20-%3E%20%5Bwindow%20alert%3A%20%27PUT%20request%20failed%20at%3A%20%20%27%2C%20anURL%5D%20%7D'),
