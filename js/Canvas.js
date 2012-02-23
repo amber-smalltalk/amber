@@ -1,4 +1,1174 @@
 smalltalk.addPackage('Canvas', {});
+smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
+smalltalk.addMethod(
+unescape('_appendToBrush_'),
+smalltalk.method({
+selector: unescape('appendToBrush%3A'),
+category: 'adding',
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
+return self;},
+args: ["aTagBrush"],
+source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendToJQuery%3A%20aTagBrush%20asJQuery'),
+messageSends: ["appendToJQuery:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
+unescape('_appendToJQuery_'),
+smalltalk.method({
+selector: unescape('appendToJQuery%3A'),
+category: 'adding',
+fn: function (aJQuery){
+var self=this;
+smalltalk.send(self, "_renderOn_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
+return self;},
+args: ["aJQuery"],
+source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
+messageSends: ["renderOn:", "onJQuery:"],
+referencedClasses: ["HTMLCanvas"]
+}),
+smalltalk.Widget);
+
+smalltalk.addMethod(
+unescape('_renderOn_'),
+smalltalk.method({
+selector: unescape('renderOn%3A'),
+category: 'rendering',
+fn: function (html){
+var self=this;
+self;
+return self;},
+args: ["html"],
+source: unescape('renderOn%3A%20html%0A%20%20%20%20self'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Widget);
+
+
+
+smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
+smalltalk.addMethod(
+unescape('_element'),
+smalltalk.method({
+selector: unescape('element'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@element'];
+return self;},
+args: [],
+source: unescape('element%0A%20%20%20%20%5Eelement'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_contents_'),
+smalltalk.method({
+selector: unescape('contents%3A'),
+category: 'adding',
+fn: function (anObject){
+var self=this;
+(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
+return self;},
+args: ["anObject"],
+source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20%0A%09empty%3B%0A%20%20%20%09append%3A%20anObject'),
+messageSends: ["empty", "append:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_addBrush_'),
+smalltalk.method({
+selector: unescape('addBrush%3A'),
+category: 'adding',
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(self, "_appendChild_", [smalltalk.send(aTagBrush, "_element", [])]);
+return aTagBrush;
+return self;},
+args: ["aTagBrush"],
+source: unescape('addBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendChild%3A%20aTagBrush%20element.%0A%20%20%20%20%5EaTagBrush'),
+messageSends: ["appendChild:", "element"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_with_'),
+smalltalk.method({
+selector: unescape('with%3A'),
+category: 'adding',
+fn: function (anObject){
+var self=this;
+smalltalk.send(self, "_append_", [anObject]);
+return self;},
+args: ["anObject"],
+source: unescape('with%3A%20anObject%0A%20%20%20%20self%20append%3A%20anObject'),
+messageSends: ["append:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_append_'),
+smalltalk.method({
+selector: unescape('append%3A'),
+category: 'adding',
+fn: function (anObject){
+var self=this;
+smalltalk.send(anObject, "_appendToBrush_", [self]);
+return self;},
+args: ["anObject"],
+source: unescape('append%3A%20anObject%0A%20%20%20%20anObject%20appendToBrush%3A%20self'),
+messageSends: ["appendToBrush:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_appendToBrush_'),
+smalltalk.method({
+selector: unescape('appendToBrush%3A'),
+category: 'adding',
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(aTagBrush, "_addBrush_", [self]);
+return self;},
+args: ["aTagBrush"],
+source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20addBrush%3A%20self'),
+messageSends: ["addBrush:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_appendBlock_'),
+smalltalk.method({
+selector: unescape('appendBlock%3A'),
+category: 'adding',
+fn: function (aBlock){
+var self=this;
+var root=nil;
+(root=smalltalk.send(self['@canvas'], "_root", []));
+smalltalk.send(self['@canvas'], "_root_", [self]);
+smalltalk.send(aBlock, "_value_", [self['@canvas']]);
+smalltalk.send(self['@canvas'], "_root_", [root]);
+return self;},
+args: ["aBlock"],
+source: unescape('appendBlock%3A%20aBlock%0A%20%20%20%20%7C%20root%20%7C%0A%20%20%20%20root%20%3A%3D%20canvas%20root.%0A%20%20%20%20canvas%20root%3A%20self.%0A%20%20%20%20aBlock%20value%3A%20canvas.%0A%20%20%20%20canvas%20root%3A%20root'),
+messageSends: ["root", "root:", "value:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_appendChild_'),
+smalltalk.method({
+selector: unescape('appendChild%3A'),
+category: 'adding',
+fn: function (anElement){
+var self=this;
+var element=self['@element'];
+ 	if (null == element.canHaveChildren || element.canHaveChildren) {
+		element.appendChild(anElement);
+ 	} else {
+ 		element.text = String(element.text) +  anElement.innerHTML;
+ 	} ;
+return self;},
+args: ["anElement"],
+source: unescape('appendChild%3A%20anElement%0A%09%22In%20IE7%20and%20IE8%20appendChild%20fails%20on%20several%20node%20types.%20So%20we%20need%20to%20check%22%20%0A%20%09%3Cvar%20element%3Dself%5B%27@element%27%5D%3B%0A%20%09if%20%28null%20%3D%3D%20element.canHaveChildren%20%7C%7C%20element.canHaveChildren%29%20%7B%0A%09%09element.appendChild%28anElement%29%3B%0A%20%09%7D%20else%20%7B%0A%20%09%09element.text%20%3D%20String%28element.text%29%20+%20%20anElement.innerHTML%3B%0A%20%09%7D%20%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_appendString_'),
+smalltalk.method({
+selector: unescape('appendString%3A'),
+category: 'adding',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_appendChild_", [smalltalk.send(self, "_createTextNodeFor_", [aString])]);
+return self;},
+args: ["aString"],
+source: unescape('appendString%3A%20aString%0A%20%20%20%20self%20appendChild%3A%20%28self%20createTextNodeFor%3A%20aString%29'),
+messageSends: ["appendChild:", "createTextNodeFor:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_empty'),
+smalltalk.method({
+selector: unescape('empty'),
+category: 'adding',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
+return self;},
+args: [],
+source: unescape('empty%0A%09self%20asJQuery%20empty'),
+messageSends: ["empty", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_at_put_'),
+smalltalk.method({
+selector: unescape('at%3Aput%3A'),
+category: 'attributes',
+fn: function (aString, aValue){
+var self=this;
+self['@element'].setAttribute(aString, aValue);
+return self;},
+args: ["aString", "aValue"],
+source: unescape('at%3A%20aString%20put%3A%20aValue%0A%20%20%20%20%3Cself%5B%27@element%27%5D.setAttribute%28aString%2C%20aValue%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_removeAt_'),
+smalltalk.method({
+selector: unescape('removeAt%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+self['@element'].removeAttribute(aString);
+return self;},
+args: ["aString"],
+source: unescape('removeAt%3A%20aString%0A%20%20%20%20%3Cself%5B%27@element%27%5D.removeAttribute%28aString%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_class_'),
+smalltalk.method({
+selector: unescape('class%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+self['@element'].className = aString;
+return self;},
+args: ["aString"],
+source: unescape('class%3A%20aString%0A%20%20%20%20%20%20%3Cself%5B%27@element%27%5D.className%20%3D%20aString%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_id_'),
+smalltalk.method({
+selector: unescape('id%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["id", aString]);
+return self;},
+args: ["aString"],
+source: unescape('id%3A%20aString%0A%20%20%20%20self%20at%3A%20%27id%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_src_'),
+smalltalk.method({
+selector: unescape('src%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["src", aString]);
+return self;},
+args: ["aString"],
+source: unescape('src%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27src%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_href_'),
+smalltalk.method({
+selector: unescape('href%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["href", aString]);
+return self;},
+args: ["aString"],
+source: unescape('href%3A%20aString%0A%20%20%20%20self%20at%3A%20%27href%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_title_'),
+smalltalk.method({
+selector: unescape('title%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["title", aString]);
+return self;},
+args: ["aString"],
+source: unescape('title%3A%20aString%0A%20%20%20%20self%20at%3A%20%27title%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_style_'),
+smalltalk.method({
+selector: unescape('style%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["style", aString]);
+return self;},
+args: ["aString"],
+source: unescape('style%3A%20aString%0A%20%20%20%20self%20at%3A%20%27style%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_type_'),
+smalltalk.method({
+selector: unescape('type%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["type", aString]);
+return self;},
+args: ["aString"],
+source: unescape('type%3A%20aString%0A%20%20%20%20self%20at%3A%20%27type%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_media_'),
+smalltalk.method({
+selector: unescape('media%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["media", aString]);
+return self;},
+args: ["aString"],
+source: unescape('media%3A%20aString%0A%20%20%20%20self%20at%3A%20%27media%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_rel_'),
+smalltalk.method({
+selector: unescape('rel%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["rel", aString]);
+return self;},
+args: ["aString"],
+source: unescape('rel%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27rel%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_width_'),
+smalltalk.method({
+selector: unescape('width%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["width", aString]);
+return self;},
+args: ["aString"],
+source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_height_'),
+smalltalk.method({
+selector: unescape('height%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["height", aString]);
+return self;},
+args: ["aString"],
+source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_value_'),
+smalltalk.method({
+selector: unescape('value%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["value", aString]);
+return self;},
+args: ["aString"],
+source: unescape('value%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27value%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_asJQuery'),
+smalltalk.method({
+selector: unescape('asJQuery'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(self, "_element", [])]);
+return self;},
+args: [],
+source: unescape('asJQuery%0A%20%20%20%20%5Ewindow%20jQuery%3A%20self%20element'),
+messageSends: ["jQuery:", "element"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onKeyDown_'),
+smalltalk.method({
+selector: unescape('onKeyDown%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keydown", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onKeyDown%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27keydown%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onKeyPress_'),
+smalltalk.method({
+selector: unescape('onKeyPress%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keypress", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onKeyPress%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27keypress%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onKeyUp_'),
+smalltalk.method({
+selector: unescape('onKeyUp%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keyup", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onKeyUp%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27keyup%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onFocus_'),
+smalltalk.method({
+selector: unescape('onFocus%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focus", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onFocus%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27focus%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onBlur_'),
+smalltalk.method({
+selector: unescape('onBlur%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["blur", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onBlur%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27blur%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onChange_'),
+smalltalk.method({
+selector: unescape('onChange%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["change", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onChange%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27change%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onClick_'),
+smalltalk.method({
+selector: unescape('onClick%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["click", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onClick%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27click%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_initializeFromString_canvas_'),
+smalltalk.method({
+selector: unescape('initializeFromString%3Acanvas%3A'),
+category: 'initialization',
+fn: function (aString, aCanvas){
+var self=this;
+(self['@element']=smalltalk.send(self, "_createElementFor_", [aString]));
+(self['@canvas']=aCanvas);
+return self;},
+args: ["aString", "aCanvas"],
+source: unescape('initializeFromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20self%20createElementFor%3A%20aString.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
+messageSends: ["createElementFor:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_initializeFromJQuery_canvas_'),
+smalltalk.method({
+selector: unescape('initializeFromJQuery%3Acanvas%3A'),
+category: 'initialization',
+fn: function (aJQuery, aCanvas){
+var self=this;
+(self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]));
+(self['@canvas']=aCanvas);
+return self;},
+args: ["aJQuery", "aCanvas"],
+source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
+messageSends: ["get:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_createElementFor_'),
+smalltalk.method({
+selector: unescape('createElementFor%3A'),
+category: 'private',
+fn: function (aString){
+var self=this;
+return document.createElement(String(aString));
+return self;},
+args: ["aString"],
+source: unescape('createElementFor%3A%20aString%0A%09%3Creturn%20document.createElement%28String%28aString%29%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_createTextNodeFor_'),
+smalltalk.method({
+selector: unescape('createTextNodeFor%3A'),
+category: 'private',
+fn: function (aString){
+var self=this;
+return document.createTextNode(String(aString));
+return self;},
+args: ["aString"],
+source: unescape('createTextNodeFor%3A%20aString%0A%09%3Creturn%20document.createTextNode%28String%28aString%29%29%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onSubmit_'),
+smalltalk.method({
+selector: unescape('onSubmit%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["submit", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onSubmit%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27submit%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onDblClick_'),
+smalltalk.method({
+selector: unescape('onDblClick%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["dblclick", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onDblClick%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27dblclick%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onHover_'),
+smalltalk.method({
+selector: unescape('onHover%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["hover", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onHover%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27hover%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onFocusIn_'),
+smalltalk.method({
+selector: unescape('onFocusIn%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focusin", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onFocusIn%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27focusin%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onFocusOut_'),
+smalltalk.method({
+selector: unescape('onFocusOut%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focusout", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onFocusOut%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27focusout%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseDown_'),
+smalltalk.method({
+selector: unescape('onMouseDown%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mousedown", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseDown%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mousedown%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseUp_'),
+smalltalk.method({
+selector: unescape('onMouseUp%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseup", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseUp%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseup%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseEnter_'),
+smalltalk.method({
+selector: unescape('onMouseEnter%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseenter", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseEnter%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseenter%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseLeave_'),
+smalltalk.method({
+selector: unescape('onMouseLeave%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseleave", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseLeave%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseleave%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseMove_'),
+smalltalk.method({
+selector: unescape('onMouseMove%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mousemove", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseMove%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mousemove%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseOut_'),
+smalltalk.method({
+selector: unescape('onMouseOut%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseout", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseOut%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseout%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onMouseOver_'),
+smalltalk.method({
+selector: unescape('onMouseOver%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseover", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onMouseOver%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseover%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onSelect_'),
+smalltalk.method({
+selector: unescape('onSelect%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["select", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onSelect%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27select%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_onUnload_'),
+smalltalk.method({
+selector: unescape('onUnload%3A'),
+category: 'events',
+fn: function (aBlock){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["unload", aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('onUnload%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27unload%27%20do%3A%20aBlock'),
+messageSends: ["bind:do:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_for_'),
+smalltalk.method({
+selector: unescape('for%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["for", aString]);
+return self;},
+args: ["aString"],
+source: unescape('for%3A%20aString%0A%09self%20at%3A%20%27for%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_placeholder_'),
+smalltalk.method({
+selector: unescape('placeholder%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["placeholder", aString]);
+return self;},
+args: ["aString"],
+source: unescape('placeholder%3A%20aString%0A%09self%20at%3A%20%27placeholder%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_accesskey_'),
+smalltalk.method({
+selector: unescape('accesskey%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["accesskey", aString]);
+return self;},
+args: ["aString"],
+source: unescape('accesskey%3A%20aString%0A%09self%20at%3A%20%27accesskey%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_contenteditable_'),
+smalltalk.method({
+selector: unescape('contenteditable%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["contenteditable", aString]);
+return self;},
+args: ["aString"],
+source: unescape('contenteditable%3A%20aString%0A%09self%20at%3A%20%27contenteditable%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_contextmenu_'),
+smalltalk.method({
+selector: unescape('contextmenu%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["contextmenu", aString]);
+return self;},
+args: ["aString"],
+source: unescape('contextmenu%3A%20aString%0A%09self%20at%3A%20%27contextmenu%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_draggable_'),
+smalltalk.method({
+selector: unescape('draggable%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["draggable", aString]);
+return self;},
+args: ["aString"],
+source: unescape('draggable%3A%20aString%0A%09self%20at%3A%20%27draggable%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_hidden'),
+smalltalk.method({
+selector: unescape('hidden'),
+category: 'attributes',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_at_put_", ["hidden", "hidden"]);
+return self;},
+args: [],
+source: unescape('hidden%0A%09self%20at%3A%20%27hidden%27%20put%3A%20%27hidden%27'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_tabindex_'),
+smalltalk.method({
+selector: unescape('tabindex%3A'),
+category: 'attributes',
+fn: function (aNumber){
+var self=this;
+smalltalk.send(self, "_at_put_", ["tabindex", aNumber]);
+return self;},
+args: ["aNumber"],
+source: unescape('tabindex%3A%20aNumber%0A%09self%20at%3A%20%27tabindex%27%20put%3A%20aNumber'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_target_'),
+smalltalk.method({
+selector: unescape('target%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["target", aString]);
+return self;},
+args: ["aString"],
+source: unescape('target%3A%20aString%0A%09self%20at%3A%20%27target%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_align_'),
+smalltalk.method({
+selector: unescape('align%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["align", aString]);
+return self;},
+args: ["aString"],
+source: unescape('align%3A%20aString%0A%09self%20at%3A%20%27align%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_alt_'),
+smalltalk.method({
+selector: unescape('alt%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["alt", aString]);
+return self;},
+args: ["aString"],
+source: unescape('alt%3A%20aString%0A%09self%20at%3A%20%27alt%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_name_'),
+smalltalk.method({
+selector: unescape('name%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["name", aString]);
+return self;},
+args: ["aString"],
+source: unescape('name%3A%20aString%0A%09self%20at%3A%20%27name%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_valign_'),
+smalltalk.method({
+selector: unescape('valign%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["valign", aString]);
+return self;},
+args: ["aString"],
+source: unescape('valign%3A%20aString%0A%09self%20at%3A%20%27valign%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_method_'),
+smalltalk.method({
+selector: unescape('method%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["method", aString]);
+return self;},
+args: ["aString"],
+source: unescape('method%3A%20aString%0A%09self%20at%3A%20%27method%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_action_'),
+smalltalk.method({
+selector: unescape('action%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["action", aString]);
+return self;},
+args: ["aString"],
+source: unescape('action%3A%20aString%0A%09self%20at%3A%20%27action%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_rows_'),
+smalltalk.method({
+selector: unescape('rows%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["rows", aString]);
+return self;},
+args: ["aString"],
+source: unescape('rows%3A%20aString%0A%09self%20at%3A%20%27rows%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+unescape('_cols_'),
+smalltalk.method({
+selector: unescape('cols%3A'),
+category: 'attributes',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_at_put_", ["cols", aString]);
+return self;},
+args: ["aString"],
+source: unescape('cols%3A%20aString%0A%09self%20at%3A%20%27cols%27%20put%3A%20aString'),
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+
+smalltalk.addMethod(
+unescape('_fromString_canvas_'),
+smalltalk.method({
+selector: unescape('fromString%3Acanvas%3A'),
+category: 'instance creation',
+fn: function (aString, aCanvas){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", [aString, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aString", "aCanvas"],
+source: unescape('fromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromString%3A%20aString%20canvas%3A%20aCanvas%3B%0A%09yourself'),
+messageSends: ["initializeFromString:canvas:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.TagBrush.klass);
+
+smalltalk.addMethod(
+unescape('_fromJQuery_canvas_'),
+smalltalk.method({
+selector: unescape('fromJQuery%3Acanvas%3A'),
+category: 'instance creation',
+fn: function (aJQuery, aCanvas){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_canvas_", [aJQuery, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aJQuery", "aCanvas"],
+source: unescape('fromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%3B%0A%09yourself'),
+messageSends: ["initializeFromJQuery:canvas:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.TagBrush.klass);
+
+
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 unescape('_root_'),
@@ -1777,6 +2947,22 @@ referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
+smalltalk.addMethod(
+unescape('_div_'),
+smalltalk.method({
+selector: unescape('div%3A'),
+category: 'tags',
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_div", []), "_with_", [aBlock]);
+return self;},
+args: ["aBlock"],
+source: unescape('div%3A%20aBlock%0A%20%20%20%20%5Eself%20div%20with%3A%20aBlock'),
+messageSends: ["with:", "div"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
 
 smalltalk.addMethod(
 unescape('_onJQuery_'),
@@ -1873,1176 +3059,6 @@ messageSends: ["version", "at:"],
 referencedClasses: []
 }),
 smalltalk.HTMLCanvas.klass);
-
-
-smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
-smalltalk.addMethod(
-unescape('_element'),
-smalltalk.method({
-selector: unescape('element'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self['@element'];
-return self;},
-args: [],
-source: unescape('element%0A%20%20%20%20%5Eelement'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_contents_'),
-smalltalk.method({
-selector: unescape('contents%3A'),
-category: 'adding',
-fn: function (anObject){
-var self=this;
-(function($rec){smalltalk.send($rec, "_empty", []);return smalltalk.send($rec, "_append_", [anObject]);})(self);
-return self;},
-args: ["anObject"],
-source: unescape('contents%3A%20anObject%0A%20%20%20%20self%20%0A%09empty%3B%0A%20%20%20%09append%3A%20anObject'),
-messageSends: ["empty", "append:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_addBrush_'),
-smalltalk.method({
-selector: unescape('addBrush%3A'),
-category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-smalltalk.send(self, "_appendChild_", [smalltalk.send(aTagBrush, "_element", [])]);
-return aTagBrush;
-return self;},
-args: ["aTagBrush"],
-source: unescape('addBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendChild%3A%20aTagBrush%20element.%0A%20%20%20%20%5EaTagBrush'),
-messageSends: ["appendChild:", "element"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_with_'),
-smalltalk.method({
-selector: unescape('with%3A'),
-category: 'adding',
-fn: function (anObject){
-var self=this;
-smalltalk.send(self, "_append_", [anObject]);
-return self;},
-args: ["anObject"],
-source: unescape('with%3A%20anObject%0A%20%20%20%20self%20append%3A%20anObject'),
-messageSends: ["append:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_append_'),
-smalltalk.method({
-selector: unescape('append%3A'),
-category: 'adding',
-fn: function (anObject){
-var self=this;
-smalltalk.send(anObject, "_appendToBrush_", [self]);
-return self;},
-args: ["anObject"],
-source: unescape('append%3A%20anObject%0A%20%20%20%20anObject%20appendToBrush%3A%20self'),
-messageSends: ["appendToBrush:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_appendToBrush_'),
-smalltalk.method({
-selector: unescape('appendToBrush%3A'),
-category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-smalltalk.send(aTagBrush, "_addBrush_", [self]);
-return self;},
-args: ["aTagBrush"],
-source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20addBrush%3A%20self'),
-messageSends: ["addBrush:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_appendBlock_'),
-smalltalk.method({
-selector: unescape('appendBlock%3A'),
-category: 'adding',
-fn: function (aBlock){
-var self=this;
-var root=nil;
-(root=smalltalk.send(self['@canvas'], "_root", []));
-smalltalk.send(self['@canvas'], "_root_", [self]);
-smalltalk.send(aBlock, "_value_", [self['@canvas']]);
-smalltalk.send(self['@canvas'], "_root_", [root]);
-return self;},
-args: ["aBlock"],
-source: unescape('appendBlock%3A%20aBlock%0A%20%20%20%20%7C%20root%20%7C%0A%20%20%20%20root%20%3A%3D%20canvas%20root.%0A%20%20%20%20canvas%20root%3A%20self.%0A%20%20%20%20aBlock%20value%3A%20canvas.%0A%20%20%20%20canvas%20root%3A%20root'),
-messageSends: ["root", "root:", "value:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_appendChild_'),
-smalltalk.method({
-selector: unescape('appendChild%3A'),
-category: 'adding',
-fn: function (anElement){
-var self=this;
-var element=self['@element'];
- 	if (null == element.canHaveChildren || element.canHaveChildren) {
-		element.appendChild(anElement);
- 	} else {
- 		element.text = String(element.text) +  anElement.innerHTML;
- 	} ;
-return self;},
-args: ["anElement"],
-source: unescape('appendChild%3A%20anElement%0A%09%22In%20IE7%20and%20IE8%20appendChild%20fails%20on%20several%20node%20types.%20So%20we%20need%20to%20check%22%20%0A%20%09%3Cvar%20element%3Dself%5B%27@element%27%5D%3B%0A%20%09if%20%28null%20%3D%3D%20element.canHaveChildren%20%7C%7C%20element.canHaveChildren%29%20%7B%0A%09%09element.appendChild%28anElement%29%3B%0A%20%09%7D%20else%20%7B%0A%20%09%09element.text%20%3D%20String%28element.text%29%20+%20%20anElement.innerHTML%3B%0A%20%09%7D%20%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_appendString_'),
-smalltalk.method({
-selector: unescape('appendString%3A'),
-category: 'adding',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_appendChild_", [smalltalk.send(self, "_createTextNodeFor_", [aString])]);
-return self;},
-args: ["aString"],
-source: unescape('appendString%3A%20aString%0A%20%20%20%20self%20appendChild%3A%20%28self%20createTextNodeFor%3A%20aString%29'),
-messageSends: ["appendChild:", "createTextNodeFor:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_empty'),
-smalltalk.method({
-selector: unescape('empty'),
-category: 'adding',
-fn: function (){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_empty", []);
-return self;},
-args: [],
-source: unescape('empty%0A%09self%20asJQuery%20empty'),
-messageSends: ["empty", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_at_put_'),
-smalltalk.method({
-selector: unescape('at%3Aput%3A'),
-category: 'attributes',
-fn: function (aString, aValue){
-var self=this;
-self['@element'].setAttribute(aString, aValue);
-return self;},
-args: ["aString", "aValue"],
-source: unescape('at%3A%20aString%20put%3A%20aValue%0A%20%20%20%20%3Cself%5B%27@element%27%5D.setAttribute%28aString%2C%20aValue%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_removeAt_'),
-smalltalk.method({
-selector: unescape('removeAt%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-self['@element'].removeAttribute(aString);
-return self;},
-args: ["aString"],
-source: unescape('removeAt%3A%20aString%0A%20%20%20%20%3Cself%5B%27@element%27%5D.removeAttribute%28aString%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_class_'),
-smalltalk.method({
-selector: unescape('class%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-self['@element'].className = aString;
-return self;},
-args: ["aString"],
-source: unescape('class%3A%20aString%0A%20%20%20%20%20%20%3Cself%5B%27@element%27%5D.className%20%3D%20aString%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_id_'),
-smalltalk.method({
-selector: unescape('id%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["id", aString]);
-return self;},
-args: ["aString"],
-source: unescape('id%3A%20aString%0A%20%20%20%20self%20at%3A%20%27id%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_src_'),
-smalltalk.method({
-selector: unescape('src%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["src", aString]);
-return self;},
-args: ["aString"],
-source: unescape('src%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27src%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_href_'),
-smalltalk.method({
-selector: unescape('href%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["href", aString]);
-return self;},
-args: ["aString"],
-source: unescape('href%3A%20aString%0A%20%20%20%20self%20at%3A%20%27href%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_title_'),
-smalltalk.method({
-selector: unescape('title%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["title", aString]);
-return self;},
-args: ["aString"],
-source: unescape('title%3A%20aString%0A%20%20%20%20self%20at%3A%20%27title%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_style_'),
-smalltalk.method({
-selector: unescape('style%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["style", aString]);
-return self;},
-args: ["aString"],
-source: unescape('style%3A%20aString%0A%20%20%20%20self%20at%3A%20%27style%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_type_'),
-smalltalk.method({
-selector: unescape('type%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["type", aString]);
-return self;},
-args: ["aString"],
-source: unescape('type%3A%20aString%0A%20%20%20%20self%20at%3A%20%27type%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_media_'),
-smalltalk.method({
-selector: unescape('media%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["media", aString]);
-return self;},
-args: ["aString"],
-source: unescape('media%3A%20aString%0A%20%20%20%20self%20at%3A%20%27media%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_rel_'),
-smalltalk.method({
-selector: unescape('rel%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["rel", aString]);
-return self;},
-args: ["aString"],
-source: unescape('rel%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27rel%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_width_'),
-smalltalk.method({
-selector: unescape('width%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["width", aString]);
-return self;},
-args: ["aString"],
-source: unescape('width%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27width%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_height_'),
-smalltalk.method({
-selector: unescape('height%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["height", aString]);
-return self;},
-args: ["aString"],
-source: unescape('height%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27height%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_value_'),
-smalltalk.method({
-selector: unescape('value%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["value", aString]);
-return self;},
-args: ["aString"],
-source: unescape('value%3A%20aString%0A%20%20%20%20self%20%20at%3A%20%27value%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_asJQuery'),
-smalltalk.method({
-selector: unescape('asJQuery'),
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.send((typeof window == 'undefined' ? nil : window), "_jQuery_", [smalltalk.send(self, "_element", [])]);
-return self;},
-args: [],
-source: unescape('asJQuery%0A%20%20%20%20%5Ewindow%20jQuery%3A%20self%20element'),
-messageSends: ["jQuery:", "element"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onKeyDown_'),
-smalltalk.method({
-selector: unescape('onKeyDown%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keydown", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onKeyDown%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27keydown%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onKeyPress_'),
-smalltalk.method({
-selector: unescape('onKeyPress%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keypress", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onKeyPress%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27keypress%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onKeyUp_'),
-smalltalk.method({
-selector: unescape('onKeyUp%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["keyup", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onKeyUp%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27keyup%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onFocus_'),
-smalltalk.method({
-selector: unescape('onFocus%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focus", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onFocus%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27focus%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onBlur_'),
-smalltalk.method({
-selector: unescape('onBlur%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["blur", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onBlur%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27blur%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onChange_'),
-smalltalk.method({
-selector: unescape('onChange%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["change", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onChange%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27change%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onClick_'),
-smalltalk.method({
-selector: unescape('onClick%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["click", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onClick%3A%20aBlock%0A%20%20%20%20self%20asJQuery%20bind%3A%20%27click%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_initializeFromString_canvas_'),
-smalltalk.method({
-selector: unescape('initializeFromString%3Acanvas%3A'),
-category: 'initialization',
-fn: function (aString, aCanvas){
-var self=this;
-(self['@element']=smalltalk.send(self, "_createElementFor_", [aString]));
-(self['@canvas']=aCanvas);
-return self;},
-args: ["aString", "aCanvas"],
-source: unescape('initializeFromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20self%20createElementFor%3A%20aString.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
-messageSends: ["createElementFor:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_initializeFromJQuery_canvas_'),
-smalltalk.method({
-selector: unescape('initializeFromJQuery%3Acanvas%3A'),
-category: 'initialization',
-fn: function (aJQuery, aCanvas){
-var self=this;
-(self['@element']=smalltalk.send(aJQuery, "_get_", [(0)]));
-(self['@canvas']=aCanvas);
-return self;},
-args: ["aJQuery", "aCanvas"],
-source: unescape('initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20element%20%3A%3D%20aJQuery%20get%3A%200.%0A%20%20%20%20canvas%20%3A%3D%20aCanvas'),
-messageSends: ["get:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_createElementFor_'),
-smalltalk.method({
-selector: unescape('createElementFor%3A'),
-category: 'private',
-fn: function (aString){
-var self=this;
-return document.createElement(String(aString));
-return self;},
-args: ["aString"],
-source: unescape('createElementFor%3A%20aString%0A%09%3Creturn%20document.createElement%28String%28aString%29%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_createTextNodeFor_'),
-smalltalk.method({
-selector: unescape('createTextNodeFor%3A'),
-category: 'private',
-fn: function (aString){
-var self=this;
-return document.createTextNode(String(aString));
-return self;},
-args: ["aString"],
-source: unescape('createTextNodeFor%3A%20aString%0A%09%3Creturn%20document.createTextNode%28String%28aString%29%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onSubmit_'),
-smalltalk.method({
-selector: unescape('onSubmit%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["submit", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onSubmit%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27submit%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onDblClick_'),
-smalltalk.method({
-selector: unescape('onDblClick%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["dblclick", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onDblClick%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27dblclick%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onHover_'),
-smalltalk.method({
-selector: unescape('onHover%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["hover", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onHover%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27hover%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onFocusIn_'),
-smalltalk.method({
-selector: unescape('onFocusIn%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focusin", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onFocusIn%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27focusin%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onFocusOut_'),
-smalltalk.method({
-selector: unescape('onFocusOut%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["focusout", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onFocusOut%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27focusout%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseDown_'),
-smalltalk.method({
-selector: unescape('onMouseDown%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mousedown", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseDown%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mousedown%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseUp_'),
-smalltalk.method({
-selector: unescape('onMouseUp%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseup", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseUp%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseup%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseEnter_'),
-smalltalk.method({
-selector: unescape('onMouseEnter%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseenter", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseEnter%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseenter%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseLeave_'),
-smalltalk.method({
-selector: unescape('onMouseLeave%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseleave", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseLeave%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseleave%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseMove_'),
-smalltalk.method({
-selector: unescape('onMouseMove%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mousemove", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseMove%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mousemove%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseOut_'),
-smalltalk.method({
-selector: unescape('onMouseOut%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseout", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseOut%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseout%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onMouseOver_'),
-smalltalk.method({
-selector: unescape('onMouseOver%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["mouseover", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onMouseOver%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27mouseover%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onSelect_'),
-smalltalk.method({
-selector: unescape('onSelect%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["select", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onSelect%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27select%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_onUnload_'),
-smalltalk.method({
-selector: unescape('onUnload%3A'),
-category: 'events',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_asJQuery", []), "_bind_do_", ["unload", aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('onUnload%3A%20aBlock%0A%09self%20asJQuery%20bind%3A%20%27unload%27%20do%3A%20aBlock'),
-messageSends: ["bind:do:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_for_'),
-smalltalk.method({
-selector: unescape('for%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["for", aString]);
-return self;},
-args: ["aString"],
-source: unescape('for%3A%20aString%0A%09self%20at%3A%20%27for%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_placeholder_'),
-smalltalk.method({
-selector: unescape('placeholder%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["placeholder", aString]);
-return self;},
-args: ["aString"],
-source: unescape('placeholder%3A%20aString%0A%09self%20at%3A%20%27placeholder%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_accesskey_'),
-smalltalk.method({
-selector: unescape('accesskey%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["accesskey", aString]);
-return self;},
-args: ["aString"],
-source: unescape('accesskey%3A%20aString%0A%09self%20at%3A%20%27accesskey%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_contenteditable_'),
-smalltalk.method({
-selector: unescape('contenteditable%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["contenteditable", aString]);
-return self;},
-args: ["aString"],
-source: unescape('contenteditable%3A%20aString%0A%09self%20at%3A%20%27contenteditable%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_contextmenu_'),
-smalltalk.method({
-selector: unescape('contextmenu%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["contextmenu", aString]);
-return self;},
-args: ["aString"],
-source: unescape('contextmenu%3A%20aString%0A%09self%20at%3A%20%27contextmenu%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_draggable_'),
-smalltalk.method({
-selector: unescape('draggable%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["draggable", aString]);
-return self;},
-args: ["aString"],
-source: unescape('draggable%3A%20aString%0A%09self%20at%3A%20%27draggable%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_hidden'),
-smalltalk.method({
-selector: unescape('hidden'),
-category: 'attributes',
-fn: function (){
-var self=this;
-smalltalk.send(self, "_at_put_", ["hidden", "hidden"]);
-return self;},
-args: [],
-source: unescape('hidden%0A%09self%20at%3A%20%27hidden%27%20put%3A%20%27hidden%27'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_tabindex_'),
-smalltalk.method({
-selector: unescape('tabindex%3A'),
-category: 'attributes',
-fn: function (aNumber){
-var self=this;
-smalltalk.send(self, "_at_put_", ["tabindex", aNumber]);
-return self;},
-args: ["aNumber"],
-source: unescape('tabindex%3A%20aNumber%0A%09self%20at%3A%20%27tabindex%27%20put%3A%20aNumber'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_target_'),
-smalltalk.method({
-selector: unescape('target%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["target", aString]);
-return self;},
-args: ["aString"],
-source: unescape('target%3A%20aString%0A%09self%20at%3A%20%27target%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_align_'),
-smalltalk.method({
-selector: unescape('align%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["align", aString]);
-return self;},
-args: ["aString"],
-source: unescape('align%3A%20aString%0A%09self%20at%3A%20%27align%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_alt_'),
-smalltalk.method({
-selector: unescape('alt%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["alt", aString]);
-return self;},
-args: ["aString"],
-source: unescape('alt%3A%20aString%0A%09self%20at%3A%20%27alt%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_name_'),
-smalltalk.method({
-selector: unescape('name%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["name", aString]);
-return self;},
-args: ["aString"],
-source: unescape('name%3A%20aString%0A%09self%20at%3A%20%27name%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_valign_'),
-smalltalk.method({
-selector: unescape('valign%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["valign", aString]);
-return self;},
-args: ["aString"],
-source: unescape('valign%3A%20aString%0A%09self%20at%3A%20%27valign%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_method_'),
-smalltalk.method({
-selector: unescape('method%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["method", aString]);
-return self;},
-args: ["aString"],
-source: unescape('method%3A%20aString%0A%09self%20at%3A%20%27method%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_action_'),
-smalltalk.method({
-selector: unescape('action%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["action", aString]);
-return self;},
-args: ["aString"],
-source: unescape('action%3A%20aString%0A%09self%20at%3A%20%27action%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_rows_'),
-smalltalk.method({
-selector: unescape('rows%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["rows", aString]);
-return self;},
-args: ["aString"],
-source: unescape('rows%3A%20aString%0A%09self%20at%3A%20%27rows%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-smalltalk.addMethod(
-unescape('_cols_'),
-smalltalk.method({
-selector: unescape('cols%3A'),
-category: 'attributes',
-fn: function (aString){
-var self=this;
-smalltalk.send(self, "_at_put_", ["cols", aString]);
-return self;},
-args: ["aString"],
-source: unescape('cols%3A%20aString%0A%09self%20at%3A%20%27cols%27%20put%3A%20aString'),
-messageSends: ["at:put:"],
-referencedClasses: []
-}),
-smalltalk.TagBrush);
-
-
-smalltalk.addMethod(
-unescape('_fromString_canvas_'),
-smalltalk.method({
-selector: unescape('fromString%3Acanvas%3A'),
-category: 'instance creation',
-fn: function (aString, aCanvas){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_initializeFromString_canvas_", [aString, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aString", "aCanvas"],
-source: unescape('fromString%3A%20aString%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromString%3A%20aString%20canvas%3A%20aCanvas%3B%0A%09yourself'),
-messageSends: ["initializeFromString:canvas:", "yourself", "new"],
-referencedClasses: []
-}),
-smalltalk.TagBrush.klass);
-
-smalltalk.addMethod(
-unescape('_fromJQuery_canvas_'),
-smalltalk.method({
-selector: unescape('fromJQuery%3Acanvas%3A'),
-category: 'instance creation',
-fn: function (aJQuery, aCanvas){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_initializeFromJQuery_canvas_", [aJQuery, aCanvas]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aJQuery", "aCanvas"],
-source: unescape('fromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%0A%20%20%20%20%5Eself%20new%0A%09initializeFromJQuery%3A%20aJQuery%20canvas%3A%20aCanvas%3B%0A%09yourself'),
-messageSends: ["initializeFromJQuery:canvas:", "yourself", "new"],
-referencedClasses: []
-}),
-smalltalk.TagBrush.klass);
-
-
-smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
-smalltalk.addMethod(
-unescape('_appendToBrush_'),
-smalltalk.method({
-selector: unescape('appendToBrush%3A'),
-category: 'adding',
-fn: function (aTagBrush){
-var self=this;
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(aTagBrush, "_asJQuery", [])]);
-return self;},
-args: ["aTagBrush"],
-source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20self%20appendToJQuery%3A%20aTagBrush%20asJQuery'),
-messageSends: ["appendToJQuery:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-unescape('_appendToJQuery_'),
-smalltalk.method({
-selector: unescape('appendToJQuery%3A'),
-category: 'adding',
-fn: function (aJQuery){
-var self=this;
-smalltalk.send(self, "_renderOn_", [smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_onJQuery_", [aJQuery])]);
-return self;},
-args: ["aJQuery"],
-source: unescape('appendToJQuery%3A%20aJQuery%0A%20%20%20self%20renderOn%3A%20%28HTMLCanvas%20onJQuery%3A%20aJQuery%29'),
-messageSends: ["renderOn:", "onJQuery:"],
-referencedClasses: ["HTMLCanvas"]
-}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-unescape('_renderOn_'),
-smalltalk.method({
-selector: unescape('renderOn%3A'),
-category: 'rendering',
-fn: function (html){
-var self=this;
-self;
-return self;},
-args: ["html"],
-source: unescape('renderOn%3A%20html%0A%20%20%20%20self'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Widget);
-
 
 
 smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');

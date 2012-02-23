@@ -1,4 +1,339 @@
 Smalltalk current createPackage: 'Canvas' properties: #{}!
+Object subclass: #Widget
+	instanceVariableNames: ''
+	category: 'Canvas'!
+
+!Widget methodsFor: 'adding'!
+
+appendToBrush: aTagBrush
+    self appendToJQuery: aTagBrush asJQuery
+!
+
+appendToJQuery: aJQuery
+   self renderOn: (HTMLCanvas onJQuery: aJQuery)
+! !
+
+!Widget methodsFor: 'rendering'!
+
+renderOn: html
+    self
+! !
+
+Object subclass: #TagBrush
+	instanceVariableNames: 'canvas element'
+	category: 'Canvas'!
+
+!TagBrush methodsFor: 'accessing'!
+
+element
+    ^element
+! !
+
+!TagBrush methodsFor: 'adding'!
+
+contents: anObject
+    self 
+	empty;
+   	append: anObject
+!
+
+addBrush: aTagBrush
+    self appendChild: aTagBrush element.
+    ^aTagBrush
+!
+
+with: anObject
+    self append: anObject
+!
+
+append: anObject
+    anObject appendToBrush: self
+!
+
+appendToBrush: aTagBrush
+    aTagBrush addBrush: self
+!
+
+appendBlock: aBlock
+    | root |
+    root := canvas root.
+    canvas root: self.
+    aBlock value: canvas.
+    canvas root: root
+!
+
+appendChild: anElement
+	"In IE7 and IE8 appendChild fails on several node types. So we need to check" 
+ 	<var element=self['@element'];
+ 	if (null == element.canHaveChildren || element.canHaveChildren) {
+		element.appendChild(anElement);
+ 	} else {
+ 		element.text = String(element.text) +  anElement.innerHTML;
+ 	} >
+!
+
+appendString: aString
+    self appendChild: (self createTextNodeFor: aString)
+!
+
+empty
+	self asJQuery empty
+! !
+
+!TagBrush methodsFor: 'attributes'!
+
+at: aString put: aValue
+    <self['@element'].setAttribute(aString, aValue)>
+!
+
+removeAt: aString
+    <self['@element'].removeAttribute(aString)>
+!
+
+class: aString
+      <self['@element'].className = aString>
+!
+
+id: aString
+    self at: 'id' put: aString
+!
+
+src: aString
+    self  at: 'src' put: aString
+!
+
+href: aString
+    self at: 'href' put: aString
+!
+
+title: aString
+    self at: 'title' put: aString
+!
+
+style: aString
+    self at: 'style' put: aString
+!
+
+type: aString
+    self at: 'type' put: aString
+!
+
+media: aString
+    self at: 'media' put: aString
+!
+
+rel: aString
+    self  at: 'rel' put: aString
+!
+
+width: aString
+    self  at: 'width' put: aString
+!
+
+height: aString
+    self  at: 'height' put: aString
+!
+
+value: aString
+    self  at: 'value' put: aString
+!
+
+for: aString
+	self at: 'for' put: aString
+!
+
+placeholder: aString
+	self at: 'placeholder' put: aString
+!
+
+accesskey: aString
+	self at: 'accesskey' put: aString
+!
+
+contenteditable: aString
+	self at: 'contenteditable' put: aString
+!
+
+contextmenu: aString
+	self at: 'contextmenu' put: aString
+!
+
+draggable: aString
+	self at: 'draggable' put: aString
+!
+
+hidden
+	self at: 'hidden' put: 'hidden'
+!
+
+tabindex: aNumber
+	self at: 'tabindex' put: aNumber
+!
+
+target: aString
+	self at: 'target' put: aString
+!
+
+align: aString
+	self at: 'align' put: aString
+!
+
+alt: aString
+	self at: 'alt' put: aString
+!
+
+name: aString
+	self at: 'name' put: aString
+!
+
+valign: aString
+	self at: 'valign' put: aString
+!
+
+method: aString
+	self at: 'method' put: aString
+!
+
+action: aString
+	self at: 'action' put: aString
+!
+
+rows: aString
+	self at: 'rows' put: aString
+!
+
+cols: aString
+	self at: 'cols' put: aString
+! !
+
+!TagBrush methodsFor: 'converting'!
+
+asJQuery
+    ^window jQuery: self element
+! !
+
+!TagBrush methodsFor: 'events'!
+
+onKeyDown: aBlock
+    self asJQuery bind: 'keydown' do: aBlock
+!
+
+onKeyPress: aBlock
+    self asJQuery bind: 'keypress' do: aBlock
+!
+
+onKeyUp: aBlock
+    self asJQuery bind: 'keyup' do: aBlock
+!
+
+onFocus: aBlock
+    self asJQuery bind: 'focus' do: aBlock
+!
+
+onBlur: aBlock
+    self asJQuery bind: 'blur' do: aBlock
+!
+
+onChange: aBlock
+    self asJQuery bind: 'change' do: aBlock
+!
+
+onClick: aBlock
+    self asJQuery bind: 'click' do: aBlock
+!
+
+onSubmit: aBlock
+	self asJQuery bind: 'submit' do: aBlock
+!
+
+onDblClick: aBlock
+	self asJQuery bind: 'dblclick' do: aBlock
+!
+
+onHover: aBlock
+	self asJQuery bind: 'hover' do: aBlock
+!
+
+onFocusIn: aBlock
+	self asJQuery bind: 'focusin' do: aBlock
+!
+
+onFocusOut: aBlock
+	self asJQuery bind: 'focusout' do: aBlock
+!
+
+onMouseDown: aBlock
+	self asJQuery bind: 'mousedown' do: aBlock
+!
+
+onMouseUp: aBlock
+	self asJQuery bind: 'mouseup' do: aBlock
+!
+
+onMouseEnter: aBlock
+	self asJQuery bind: 'mouseenter' do: aBlock
+!
+
+onMouseLeave: aBlock
+	self asJQuery bind: 'mouseleave' do: aBlock
+!
+
+onMouseMove: aBlock
+	self asJQuery bind: 'mousemove' do: aBlock
+!
+
+onMouseOut: aBlock
+	self asJQuery bind: 'mouseout' do: aBlock
+!
+
+onMouseOver: aBlock
+	self asJQuery bind: 'mouseover' do: aBlock
+!
+
+onSelect: aBlock
+	self asJQuery bind: 'select' do: aBlock
+!
+
+onUnload: aBlock
+	self asJQuery bind: 'unload' do: aBlock
+! !
+
+!TagBrush methodsFor: 'initialization'!
+
+initializeFromString: aString canvas: aCanvas
+    element := self createElementFor: aString.
+    canvas := aCanvas
+!
+
+initializeFromJQuery: aJQuery canvas: aCanvas
+    element := aJQuery get: 0.
+    canvas := aCanvas
+! !
+
+!TagBrush methodsFor: 'private'!
+
+createElementFor: aString
+	<return document.createElement(String(aString))>
+!
+
+createTextNodeFor: aString
+	<return document.createTextNode(String(aString))>
+! !
+
+!TagBrush class methodsFor: 'instance creation'!
+
+fromString: aString canvas: aCanvas
+    ^self new
+	initializeFromString: aString canvas: aCanvas;
+	yourself
+!
+
+fromJQuery: aJQuery canvas: aCanvas
+    ^self new
+	initializeFromJQuery: aJQuery canvas: aCanvas;
+	yourself
+! !
+
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	category: 'Canvas'!
@@ -454,6 +789,10 @@ address
 
 abbr
 	^self tag: 'abbr'
+!
+
+div: aBlock
+    ^self div with: aBlock
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -483,341 +822,6 @@ isWebkit
 
 browserVersion
 	^(jQuery at: #browser) version
-! !
-
-Object subclass: #TagBrush
-	instanceVariableNames: 'canvas element'
-	category: 'Canvas'!
-
-!TagBrush methodsFor: 'accessing'!
-
-element
-    ^element
-! !
-
-!TagBrush methodsFor: 'adding'!
-
-contents: anObject
-    self 
-	empty;
-   	append: anObject
-!
-
-addBrush: aTagBrush
-    self appendChild: aTagBrush element.
-    ^aTagBrush
-!
-
-with: anObject
-    self append: anObject
-!
-
-append: anObject
-    anObject appendToBrush: self
-!
-
-appendToBrush: aTagBrush
-    aTagBrush addBrush: self
-!
-
-appendBlock: aBlock
-    | root |
-    root := canvas root.
-    canvas root: self.
-    aBlock value: canvas.
-    canvas root: root
-!
-
-appendChild: anElement
-	"In IE7 and IE8 appendChild fails on several node types. So we need to check" 
- 	<var element=self['@element'];
- 	if (null == element.canHaveChildren || element.canHaveChildren) {
-		element.appendChild(anElement);
- 	} else {
- 		element.text = String(element.text) +  anElement.innerHTML;
- 	} >
-!
-
-appendString: aString
-    self appendChild: (self createTextNodeFor: aString)
-!
-
-empty
-	self asJQuery empty
-! !
-
-!TagBrush methodsFor: 'attributes'!
-
-at: aString put: aValue
-    <self['@element'].setAttribute(aString, aValue)>
-!
-
-removeAt: aString
-    <self['@element'].removeAttribute(aString)>
-!
-
-class: aString
-      <self['@element'].className = aString>
-!
-
-id: aString
-    self at: 'id' put: aString
-!
-
-src: aString
-    self  at: 'src' put: aString
-!
-
-href: aString
-    self at: 'href' put: aString
-!
-
-title: aString
-    self at: 'title' put: aString
-!
-
-style: aString
-    self at: 'style' put: aString
-!
-
-type: aString
-    self at: 'type' put: aString
-!
-
-media: aString
-    self at: 'media' put: aString
-!
-
-rel: aString
-    self  at: 'rel' put: aString
-!
-
-width: aString
-    self  at: 'width' put: aString
-!
-
-height: aString
-    self  at: 'height' put: aString
-!
-
-value: aString
-    self  at: 'value' put: aString
-!
-
-for: aString
-	self at: 'for' put: aString
-!
-
-placeholder: aString
-	self at: 'placeholder' put: aString
-!
-
-accesskey: aString
-	self at: 'accesskey' put: aString
-!
-
-contenteditable: aString
-	self at: 'contenteditable' put: aString
-!
-
-contextmenu: aString
-	self at: 'contextmenu' put: aString
-!
-
-draggable: aString
-	self at: 'draggable' put: aString
-!
-
-hidden
-	self at: 'hidden' put: 'hidden'
-!
-
-tabindex: aNumber
-	self at: 'tabindex' put: aNumber
-!
-
-target: aString
-	self at: 'target' put: aString
-!
-
-align: aString
-	self at: 'align' put: aString
-!
-
-alt: aString
-	self at: 'alt' put: aString
-!
-
-name: aString
-	self at: 'name' put: aString
-!
-
-valign: aString
-	self at: 'valign' put: aString
-!
-
-method: aString
-	self at: 'method' put: aString
-!
-
-action: aString
-	self at: 'action' put: aString
-!
-
-rows: aString
-	self at: 'rows' put: aString
-!
-
-cols: aString
-	self at: 'cols' put: aString
-! !
-
-!TagBrush methodsFor: 'converting'!
-
-asJQuery
-    ^window jQuery: self element
-! !
-
-!TagBrush methodsFor: 'events'!
-
-onKeyDown: aBlock
-    self asJQuery bind: 'keydown' do: aBlock
-!
-
-onKeyPress: aBlock
-    self asJQuery bind: 'keypress' do: aBlock
-!
-
-onKeyUp: aBlock
-    self asJQuery bind: 'keyup' do: aBlock
-!
-
-onFocus: aBlock
-    self asJQuery bind: 'focus' do: aBlock
-!
-
-onBlur: aBlock
-    self asJQuery bind: 'blur' do: aBlock
-!
-
-onChange: aBlock
-    self asJQuery bind: 'change' do: aBlock
-!
-
-onClick: aBlock
-    self asJQuery bind: 'click' do: aBlock
-!
-
-onSubmit: aBlock
-	self asJQuery bind: 'submit' do: aBlock
-!
-
-onDblClick: aBlock
-	self asJQuery bind: 'dblclick' do: aBlock
-!
-
-onHover: aBlock
-	self asJQuery bind: 'hover' do: aBlock
-!
-
-onFocusIn: aBlock
-	self asJQuery bind: 'focusin' do: aBlock
-!
-
-onFocusOut: aBlock
-	self asJQuery bind: 'focusout' do: aBlock
-!
-
-onMouseDown: aBlock
-	self asJQuery bind: 'mousedown' do: aBlock
-!
-
-onMouseUp: aBlock
-	self asJQuery bind: 'mouseup' do: aBlock
-!
-
-onMouseEnter: aBlock
-	self asJQuery bind: 'mouseenter' do: aBlock
-!
-
-onMouseLeave: aBlock
-	self asJQuery bind: 'mouseleave' do: aBlock
-!
-
-onMouseMove: aBlock
-	self asJQuery bind: 'mousemove' do: aBlock
-!
-
-onMouseOut: aBlock
-	self asJQuery bind: 'mouseout' do: aBlock
-!
-
-onMouseOver: aBlock
-	self asJQuery bind: 'mouseover' do: aBlock
-!
-
-onSelect: aBlock
-	self asJQuery bind: 'select' do: aBlock
-!
-
-onUnload: aBlock
-	self asJQuery bind: 'unload' do: aBlock
-! !
-
-!TagBrush methodsFor: 'initialization'!
-
-initializeFromString: aString canvas: aCanvas
-    element := self createElementFor: aString.
-    canvas := aCanvas
-!
-
-initializeFromJQuery: aJQuery canvas: aCanvas
-    element := aJQuery get: 0.
-    canvas := aCanvas
-! !
-
-!TagBrush methodsFor: 'private'!
-
-createElementFor: aString
-	<return document.createElement(String(aString))>
-!
-
-createTextNodeFor: aString
-	<return document.createTextNode(String(aString))>
-! !
-
-!TagBrush class methodsFor: 'instance creation'!
-
-fromString: aString canvas: aCanvas
-    ^self new
-	initializeFromString: aString canvas: aCanvas;
-	yourself
-!
-
-fromJQuery: aJQuery canvas: aCanvas
-    ^self new
-	initializeFromJQuery: aJQuery canvas: aCanvas;
-	yourself
-! !
-
-Object subclass: #Widget
-	instanceVariableNames: ''
-	category: 'Canvas'!
-
-!Widget methodsFor: 'adding'!
-
-appendToBrush: aTagBrush
-    self appendToJQuery: aTagBrush asJQuery
-!
-
-appendToJQuery: aJQuery
-   self renderOn: (HTMLCanvas onJQuery: aJQuery)
-! !
-
-!Widget methodsFor: 'rendering'!
-
-renderOn: html
-    self
 ! !
 
 TagBrush subclass: #StyleTag
