@@ -1,74 +1,90 @@
 Smalltalk current createPackage: 'Kernel-Methods' properties: #{}!
-Object subclass: #CompiledMethod
-	instanceVariableNames: ''
+Object subclass: #Message
+	instanceVariableNames: 'selector arguments'
 	category: 'Kernel-Methods'!
-!CompiledMethod commentStamp!
-CompiledMethod hold the source and compiled code of a class method.
+!Message commentStamp!
+Generally, the system does not use instances of Message for efficiency reasons.
+However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. 
+This instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.
 
-You can get a CompiledMethod using `Behavior>>methodAt:`
+See boot.js, `messageNotUnderstood`  and its counterpart `Object>>doesNotUnderstand:`!
 
-	String methodAt: 'lines'
-
-and read the source code
-
-	(String methodAt: 'lines') source
-
-See referenced classes:
-
-	(String methodAt: 'lines') referencedClasses
-
-or messages sent from this method:
-	
-	(String methodAt: 'lines')  messageSends!
-
-!CompiledMethod methodsFor: 'accessing'!
-
-source
-	^(self basicAt: 'source') ifNil: ['']
-!
-
-source: aString
-	self basicAt: 'source' put: aString
-!
-
-category
-	^(self basicAt: 'category') ifNil: ['']
-!
-
-category: aString
-	self basicAt: 'category' put: aString
-!
+!Message methodsFor: 'accessing'!
 
 selector
-	^self basicAt: 'selector'
+	^selector
 !
 
 selector: aString
-	self basicAt: 'selector' put: aString
+	selector := aString
 !
 
-fn
-	^self basicAt: 'fn'
-!
-
-fn: aBlock
-	self basicAt: 'fn' put: aBlock
-!
-
-messageSends
-	^self basicAt: 'messageSends'
-!
-
-methodClass
-	^self basicAt: 'methodClass'
-!
-
-referencedClasses
-	^self basicAt: 'referencedClasses'
+arguments: anArray
+	arguments := anArray
 !
 
 arguments
-	<return self.args || []>
+	^arguments
+! !
+
+!Message methodsFor: 'printing'!
+
+printString
+	^ String streamContents: [:aStream|  
+                                  				aStream 
+                                  					nextPutAll: super printString;
+                                  					nextPutAll: '(';
+                                  					nextPutAll: selector;
+                                  					nextPutAll: ')' 				]
+!
+
+sendTo: anObject
+	Smalltalk current send: self selector to: anObject arguments: self arguments
+! !
+
+!Message class methodsFor: 'instance creation'!
+
+selector: aString arguments: anArray
+	^self new
+		selector: aString;
+		arguments: anArray;
+		yourself
+! !
+
+Object subclass: #MethodContext
+	instanceVariableNames: ''
+	category: 'Kernel-Methods'!
+!MethodContext commentStamp!
+MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
+  
+MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js 
+
+Current limitation: MethodContext instances are not created on Block evaluation. That means it's actually impossible to debug inside a Block.!
+
+!MethodContext methodsFor: 'accessing'!
+
+receiver
+	<return self.receiver>
+!
+
+selector
+	<return smalltalk.convertSelector(self.selector)>
+!
+
+home
+	<return self.homeContext>
+!
+
+temps
+	<return self.temps>
+!
+
+printString
+	^super printString, '(', self asString, ')'
+!
+
+asString
+	^self receiver class printString, ' >> ', self selector
 ! !
 
 Object subclass: #BlockClosure
@@ -201,87 +217,75 @@ valueWithInterval: aNumber
 	<return setInterval(self, aNumber)>
 ! !
 
-Object subclass: #MethodContext
+Object subclass: #CompiledMethod
 	instanceVariableNames: ''
 	category: 'Kernel-Methods'!
-!MethodContext commentStamp!
-MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
-  
-MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js 
+!CompiledMethod commentStamp!
+CompiledMethod hold the source and compiled code of a class method.
 
-Current limitation: MethodContext instances are not created on Block evaluation. That means it's actually impossible to debug inside a Block.!
+You can get a CompiledMethod using `Behavior>>methodAt:`
 
-!MethodContext methodsFor: 'accessing'!
+	String methodAt: 'lines'
 
-receiver
-	<return self.receiver>
+and read the source code
+
+	(String methodAt: 'lines') source
+
+See referenced classes:
+
+	(String methodAt: 'lines') referencedClasses
+
+or messages sent from this method:
+	
+	(String methodAt: 'lines')  messageSends!
+
+!CompiledMethod methodsFor: 'accessing'!
+
+source
+	^(self basicAt: 'source') ifNil: ['']
+!
+
+source: aString
+	self basicAt: 'source' put: aString
+!
+
+category
+	^(self basicAt: 'category') ifNil: ['']
+!
+
+category: aString
+	self basicAt: 'category' put: aString
 !
 
 selector
-	<return smalltalk.convertSelector(self.selector)>
-!
-
-home
-	<return self.homeContext>
-!
-
-temps
-	<return self.temps>
-!
-
-printString
-	^super printString, '(', self asString, ')'
-!
-
-asString
-	^self receiver class printString, ' >> ', self selector
-! !
-
-Object subclass: #Message
-	instanceVariableNames: 'selector arguments'
-	category: 'Kernel-Methods'!
-!Message commentStamp!
-Generally, the system does not use instances of Message for efficiency reasons.
-However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. 
-This instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.
-
-See boot.js, `messageNotUnderstood`  and its counterpart `Object>>doesNotUnderstand:`!
-
-!Message methodsFor: 'accessing'!
-
-selector
-	^selector
+	^self basicAt: 'selector'
 !
 
 selector: aString
-	selector := aString
+	self basicAt: 'selector' put: aString
 !
 
-arguments: anArray
-	arguments := anArray
+fn
+	^self basicAt: 'fn'
+!
+
+fn: aBlock
+	self basicAt: 'fn' put: aBlock
+!
+
+messageSends
+	^self basicAt: 'messageSends'
+!
+
+methodClass
+	^self basicAt: 'methodClass'
+!
+
+referencedClasses
+	^self basicAt: 'referencedClasses'
 !
 
 arguments
-	^arguments
-! !
-
-!Message methodsFor: 'printing'!
-
-printString
-	^ String streamContents: [:aStream|  
-                                  				aStream 
-                                  					nextPutAll: super printString;
-                                  					nextPutAll: '(';
-                                  					nextPutAll: selector;
-                                  					nextPutAll: ')' 				]
-! !
-
-!Message class methodsFor: 'instance creation'!
-
-selector: aString arguments: anArray
-	^self new
-		selector: aString;
-		arguments: anArray;
-		yourself
+	<return self.args || []>
 ! !
 

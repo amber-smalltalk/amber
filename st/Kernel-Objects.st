@@ -384,6 +384,12 @@ reservedWords
 
 readJSObject: anObject
 	<return self.readJSObject(anObject)>
+!
+
+send: aSelector to: anObject arguments: aCollection
+	| selector |
+	selector := aSelector asString asSelector.
+	<self.send(anObject, selector, aCollection)>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -1275,6 +1281,191 @@ notNil
 
 new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
+! !
+
+Object subclass: #Date
+	instanceVariableNames: ''
+	category: 'Kernel-Objects'!
+!Date commentStamp!
+The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
+Amber and answer the same date object.
+
+Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
+
+!Date methodsFor: 'accessing'!
+
+year
+	<return self.getFullYear()>
+!
+
+month
+	<return self.getMonth() + 1>
+!
+
+month: aNumber
+	<self.setMonth(aNumber - 1)>
+!
+
+day
+	^self dayOfWeek
+!
+
+dayOfWeek
+	<return self.getDay() + 1>
+!
+
+dayOfWeek: aNumber
+	<return self.setDay(aNumber - 1)>
+!
+
+day: aNumber
+	self day: aNumber
+!
+
+year: aNumber
+	<self.setFullYear(aNumber)>
+!
+
+dayOfMonth
+	<return self.getDate()>
+!
+
+dayOfMonth: aNumber
+	<self.setDate(aNumber)>
+!
+
+time
+	<return self.getTime()>
+!
+
+time: aNumber
+	<self.setTime(aNumber)>
+!
+
+hours: aNumber
+	<self.setHours(aNumber)>
+!
+
+minutes: aNumber
+	<self.setMinutes(aNumber)>
+!
+
+seconds: aNumber
+	<self.setSeconds(aNumber)>
+!
+
+milliseconds: aNumber
+	<self.setMilliseconds(aNumber)>
+!
+
+hours
+	<return self.getHours()>
+!
+
+minutes
+	<return self.getMinutes()>
+!
+
+seconds
+	<return self.getSeconds()>
+!
+
+milliseconds
+	<return self.getMilliseconds()>
+! !
+
+!Date methodsFor: 'arithmetic'!
+
+- aDate
+	<return self - aDate>
+!
+
++ aDate
+	<return self + aDate>
+! !
+
+!Date methodsFor: 'comparing'!
+
+< aDate
+	<return self < aDate>
+!
+
+> aDate
+	<return self >> aDate>
+!
+
+<= aDate
+	<return self <= aDate>
+!
+
+>= aDate
+	<return self >>= aDate>
+! !
+
+!Date methodsFor: 'converting'!
+
+asString
+	<return self.toString()>
+!
+
+asMilliseconds
+	^self time
+!
+
+asDateString
+	<return self.toDateString()>
+!
+
+asTimeString
+	<return self.toTimeString()>
+!
+
+asLocaleString
+	<return self.toLocaleString()>
+!
+
+asNumber
+	^self asMilliseconds
+! !
+
+!Date methodsFor: 'printing'!
+
+printString
+	^self asString
+! !
+
+!Date class methodsFor: 'instance creation'!
+
+new: anObject
+	<return new Date(anObject)>
+!
+
+fromString: aString
+	"Example: Date fromString('2011/04/15 00:00:00')"
+	^self new: aString
+!
+
+fromSeconds: aNumber
+	^self fromMilliseconds: aNumber * 1000
+!
+
+fromMilliseconds: aNumber
+	^self new: aNumber
+!
+
+today
+	^self new
+!
+
+now
+	^self today
+!
+
+millisecondsToRun: aBlock
+	| t |
+	t := Date now.
+	aBlock value.
+	^Date now - t
 ! !
 
 Object subclass: #JSObjectProxy
