@@ -4751,7 +4751,7 @@ smalltalk.addMethod(
 unescape('_translateBy_'),
 smalltalk.method({
 selector: unescape('translateBy%3A'),
-category: 'converting',
+category: 'transforming',
 fn: function (delta){
 var self=this;
 return smalltalk.send(((($receiver = smalltalk.send(delta, "_x", [])).klass === smalltalk.Number) ? $receiver +self['@x'] : smalltalk.send($receiver, "__plus", [self['@x']])), "__at", [((($receiver = smalltalk.send(delta, "_y", [])).klass === smalltalk.Number) ? $receiver +self['@y'] : smalltalk.send($receiver, "__plus", [self['@y']]))]);

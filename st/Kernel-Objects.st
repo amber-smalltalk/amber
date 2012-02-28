@@ -1619,11 +1619,6 @@ x: aNumber
 
 asPoint
 	^self
-!
-
-translateBy: delta 
-	"Answer a Point translated by delta (an instance of Point)."
-	^(delta x + x) @ (delta y + y)
 ! !
 
 !Point methodsFor: 'printing'!
@@ -1638,6 +1633,13 @@ printString
 				"Avoid ambiguous @- construct"
 				stream space].
 		stream nextPutAll: y printString]
+! !
+
+!Point methodsFor: 'transforming'!
+
+translateBy: delta 
+	"Answer a Point translated by delta (an instance of Point)."
+	^(delta x + x) @ (delta y + y)
 ! !
 
 !Point class methodsFor: 'instance creation'!
