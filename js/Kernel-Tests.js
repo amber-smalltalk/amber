@@ -249,6 +249,25 @@ referencedClasses: ["Point"]
 }),
 smalltalk.PointTest);
 
+smalltalk.addMethod(
+unescape('_testTranslateBy'),
+smalltalk.method({
+selector: unescape('testTranslateBy'),
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(4)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((0), "__at", [(1)])])]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(2)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((0), "__at", [smalltalk.send((1), "_negated", [])])])]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((5), "__at", [(6)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((2), "__at", [(3)])])]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((0), "__at", [(3)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send(smalltalk.send((3), "_negated", []), "__at", [(0)])])]);
+return self;},
+args: [],
+source: unescape('testTranslateBy%0A%09self%20assert%3A%203@4%20equals%3A%20%283@3%20translateBy%3A%200@1%29.%0A%09self%20assert%3A%203@2%20equals%3A%20%283@3%20translateBy%3A%200@1%20negated%29.%0A%09self%20assert%3A%205@6%20equals%3A%20%283@3%20translateBy%3A%202@3%29.%0A%09self%20assert%3A%200@3%20equals%3A%20%283@3%20translateBy%3A%203%20negated%20@0%29.'),
+messageSends: ["assert:equals:", unescape("@"), "translateBy:", "negated"],
+referencedClasses: []
+}),
+smalltalk.PointTest);
+
 
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -1840,6 +1859,25 @@ messageSends: ["assert:", unescape("%3D"), "asArray"],
 referencedClasses: []
 }),
 smalltalk.StringTest);
+
+
+
+smalltalk.addClass('ArrayTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+unescape('_testFirstN'),
+smalltalk.method({
+selector: unescape('testFirstN'),
+category: 'testing',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [[(1),(2),(3)], smalltalk.send([(1),(2),(3),(4),(5)], "_first_", [(3)])]);
+return self;},
+args: [],
+source: unescape('testFirstN%0A%09self%20assert%3A%20%7B1.%202.%203%7D%20equals%3A%20%28%7B1.%202.%A03.%204.%205%7D%20first%3A%203%29.'),
+messageSends: ["assert:equals:", "first:"],
+referencedClasses: []
+}),
+smalltalk.ArrayTest);
 
 
 
