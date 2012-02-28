@@ -4747,6 +4747,22 @@ referencedClasses: ["String"]
 }),
 smalltalk.Point);
 
+smalltalk.addMethod(
+unescape('_translateBy_'),
+smalltalk.method({
+selector: unescape('translateBy%3A'),
+category: 'converting',
+fn: function (delta){
+var self=this;
+return smalltalk.send(((($receiver = smalltalk.send(delta, "_x", [])).klass === smalltalk.Number) ? $receiver +self['@x'] : smalltalk.send($receiver, "__plus", [self['@x']])), "__at", [((($receiver = smalltalk.send(delta, "_y", [])).klass === smalltalk.Number) ? $receiver +self['@y'] : smalltalk.send($receiver, "__plus", [self['@y']]))]);
+return self;},
+args: ["delta"],
+source: unescape('translateBy%3A%20delta%20%0A%09%22Answer%20a%20Point%20translated%20by%20delta%20%28an%20instance%20of%20Point%29.%22%0A%09%5E%28delta%20x%20+%20x%29%20@%20%28delta%20y%20+%20y%29'),
+messageSends: [unescape("@"), unescape("+"), "x", "y"],
+referencedClasses: []
+}),
+smalltalk.Point);
+
 
 smalltalk.addMethod(
 unescape('_x_y_'),
