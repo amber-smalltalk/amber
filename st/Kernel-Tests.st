@@ -117,6 +117,13 @@ testArithmetic
 	self assert: 3@4 + (3@4 ) equals: (Point x: 6 y: 8).
 	self assert: 3@4 - (3@4 ) equals: (Point x: 0 y: 0).
 	self assert: 6@8 / (3@4 ) equals: (Point x: 2 y: 2)
+!
+
+testTranslateBy
+	self assert: 3@4 equals: (3@3 translateBy: 0@1).
+	self assert: 3@2 equals: (3@3 translateBy: 0@1 negated).
+	self assert: 5@6 equals: (3@3 translateBy: 2@3).
+	self assert: 0@3 equals: (3@3 translateBy: 3 negated @0).
 ! !
 
 TestCase subclass: #UndefinedTest
@@ -854,6 +861,16 @@ testAddRemove
 
 testAsArray
 	self assert: 'hello' asArray = #('h' 'e' 'l' 'l' 'o').
+! !
+
+TestCase subclass: #ArrayTest
+	instanceVariableNames: ''
+	category: 'Kernel-Tests'!
+
+!ArrayTest methodsFor: 'testing'!
+
+testFirstN
+	self assert: {1. 2. 3} equals: ({1. 2. 3. 4. 5} first: 3).
 ! !
 
 PackageTest subclass: #PackageWithDefaultCommitPathChangedTest

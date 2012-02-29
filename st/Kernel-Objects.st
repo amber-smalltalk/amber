@@ -1635,6 +1635,13 @@ printString
 		stream nextPutAll: y printString]
 ! !
 
+!Point methodsFor: 'transforming'!
+
+translateBy: delta 
+	"Answer a Point translated by delta (an instance of Point)."
+	^(delta x + x) @ (delta y + y)
+! !
+
 !Point class methodsFor: 'instance creation'!
 
 x: aNumber y: anotherNumber

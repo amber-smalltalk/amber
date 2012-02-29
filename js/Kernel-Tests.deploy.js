@@ -184,6 +184,20 @@ return self;}
 }),
 smalltalk.PointTest);
 
+smalltalk.addMethod(
+unescape('_testTranslateBy'),
+smalltalk.method({
+selector: unescape('testTranslateBy'),
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(4)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((0), "__at", [(1)])])]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(2)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((0), "__at", [smalltalk.send((1), "_negated", [])])])]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((5), "__at", [(6)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((2), "__at", [(3)])])]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send((0), "__at", [(3)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send(smalltalk.send((3), "_negated", []), "__at", [(0)])])]);
+return self;}
+}),
+smalltalk.PointTest);
+
 
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -1355,6 +1369,20 @@ smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_asArr
 return self;}
 }),
 smalltalk.StringTest);
+
+
+
+smalltalk.addClass('ArrayTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+unescape('_testFirstN'),
+smalltalk.method({
+selector: unescape('testFirstN'),
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", [[(1),(2),(3)], smalltalk.send([(1),(2),(3),(4),(5)], "_first_", [(3)])]);
+return self;}
+}),
+smalltalk.ArrayTest);
 
 
 
