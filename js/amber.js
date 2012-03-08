@@ -205,7 +205,12 @@ amber = (function() {
 	};
 
 	function loadJSViaJQuery(url, callback) {
-		$.getScript(jsToLoad[0], callback);
+		$.ajax({
+			dataType: "script",
+			url: jsToLoad[0],
+			cache: deploy,
+			success: callback
+		});
 	};
 
 	function writeScriptTag(src) {
