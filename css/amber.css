@@ -225,7 +225,7 @@ body.jtalkBody {
 .jtalkTool textarea,
 .jtalkTool input {
     border: 0 none;
-    font-family: Arial, Helvetica, sans;
+    font-family: Monaco, Helvetica, sans;
     line-height: 1.3em;
     font-size: 12px;
     position: relative;
@@ -234,7 +234,7 @@ body.jtalkBody {
 
 .jtalkTool .CodeMirror {
     border: 0 none;
-    font-family: Arial, Helvetica, sans;
+    font-family: Monaco, Helvetica, sans;
     font-size: 12px;
     line-height: 1.3em;
     height: 100%;
@@ -246,7 +246,7 @@ body.jtalkBody {
 }
 
 .talkTool .CodeMirror-scroll pre {
-    font-family: Arial, Helvetica, sans;
+    font-family: Monaco, Helvetica, sans;
 }
 
 .jtalkTool .jt_clear {	 
