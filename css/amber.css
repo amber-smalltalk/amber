@@ -246,7 +246,7 @@ body.jtalkBody {
 }
 
 .talkTool .CodeMirror-scroll pre {
-    font-family: Menlo, "DejaVu Sans Mono","DejaVu Sans", Helvetica, sans;
+    font-family: "DejaVu Sans", Helvetica, sans;
 }
 
 .jtalkTool .jt_clear {	 
