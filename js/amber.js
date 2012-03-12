@@ -205,12 +205,8 @@ amber = (function() {
 	};
 
 	function loadJSViaJQuery(url, callback) {
-		$.ajax({
-			dataType: "script",
-			url: jsToLoad[0],
-			cache: deploy,
-			success: callback
-		});
+		$.ajaxSetup({cache: true});
+ 		$.getScript(jsToLoad[0], callback);
 	};
 
 	function writeScriptTag(src) {
