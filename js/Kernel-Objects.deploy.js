@@ -528,11 +528,13 @@ smalltalk.addMethod(
 unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.JSON || JSON, "_parse_", [smalltalk.send(self, "_asJSONString", [])]);
-    return self;
-}
+fn: function (){
+var self=this;
+var variables=nil;
+(variables=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);})]);
+return variables;
+return self;}
 }),
 smalltalk.Object);
 
@@ -626,11 +628,10 @@ smalltalk.addMethod(
 unescape('_asJSONString'),
 smalltalk.method({
 selector: unescape('asJSONString'),
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.JSON || JSON, "_stringify_", [self]);
-    return self;
-}
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_asJSON", [])]);
+return self;}
 }),
 smalltalk.Object);
 
@@ -1818,6 +1819,17 @@ fn: function () {
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+return self;
+return self;}
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 unescape('_pi'),
@@ -2006,6 +2018,17 @@ fn: function (aBoolean) {
     }
     return self;
 }
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+return self;
+return self;}
 }),
 smalltalk.Boolean);
 
@@ -2640,6 +2663,17 @@ fn: function (aString, aString2, aString3) {
     return smalltalk.send(smalltalk.send(smalltalk.ClassBuilder || ClassBuilder, "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
     return self;
 }
+}),
+smalltalk.UndefinedObject);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+return (typeof null == 'undefined' ? nil : null);
+return self;}
 }),
 smalltalk.UndefinedObject);
 
