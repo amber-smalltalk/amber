@@ -1,4 +1,53 @@
 Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
+Object subclass: #Association
+	instanceVariableNames: 'key value'
+	category: 'Kernel-Collections'!
+
+!Association methodsFor: 'accessing'!
+
+key: aKey
+	key := aKey
+!
+
+key
+	^key
+!
+
+value: aValue
+	value := aValue
+!
+
+value
+	^value
+! !
+
+!Association methodsFor: 'comparing'!
+
+= anAssociation
+	^self class = anAssociation class and: [
+	    self key = anAssociation key and: [
+		self value = anAssociation value]]
+!
+
+storeOn: aStream
+	"Store in the format (key->value)"
+
+	"aStream nextPutAll: '('."
+	key storeOn: aStream.
+	aStream nextPutAll: '->'.
+	value storeOn: aStream.
+	"aStream nextPutAll: ')'"
+! !
+
+!Association class methodsFor: 'instance creation'!
+
+key: aKey value: aValue
+	    ^self new
+		key: aKey;
+		value: aValue;
+		yourself
+! !
+
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
 	category: 'Kernel-Collections'!
@@ -129,55 +178,6 @@ on: aCollection
 	    ^self new 
 		setCollection: aCollection;
 		setStreamSize: aCollection size;
-		yourself
-! !
-
-Object subclass: #Association
-	instanceVariableNames: 'key value'
-	category: 'Kernel-Collections'!
-
-!Association methodsFor: 'accessing'!
-
-key: aKey
-	key := aKey
-!
-
-key
-	^key
-!
-
-value: aValue
-	value := aValue
-!
-
-value
-	^value
-! !
-
-!Association methodsFor: 'comparing'!
-
-= anAssociation
-	^self class = anAssociation class and: [
-	    self key = anAssociation key and: [
-		self value = anAssociation value]]
-!
-
-storeOn: aStream
-	"Store in the format (key->value)"
-
-	"aStream nextPutAll: '('."
-	key storeOn: aStream.
-	aStream nextPutAll: '->'.
-	value storeOn: aStream.
-	"aStream nextPutAll: ')'"
-! !
-
-!Association class methodsFor: 'instance creation'!
-
-key: aKey value: aValue
-	    ^self new
-		key: aKey;
-		value: aValue;
 		yourself
 ! !
 
@@ -1013,6 +1013,10 @@ asJavascript
 
 asSelector
 	^self asString asSelector
+!
+
+asJSON
+	^self asString asJSON
 ! !
 
 !Symbol methodsFor: 'copying'!
