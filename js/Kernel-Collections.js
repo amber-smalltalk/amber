@@ -1081,22 +1081,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
-smalltalk.method({
-selector: unescape('asJSONString'),
-category: 'converting',
-fn: function () {
-var self=this;
-return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJSONString", []);})])]);
-return self;},
-args: [],
-source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20%28self%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJSONString%5D%29'),
-messageSends: ["stringify:", "collect:", "asJSONString"],
-referencedClasses: ["JSON"]
-}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
 unescape('_asOrderedCollection'),
 smalltalk.method({
 selector: unescape('asOrderedCollection'),
@@ -1108,6 +1092,22 @@ return self;},
 args: [],
 source: unescape('asOrderedCollection%0A%09%5Eself%20asArray'),
 messageSends: ["asArray"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asJSON", []);})]);
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%5Eself%20asArray%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJSON%5D'),
+messageSends: ["collect:", "asArray", "asJSON"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -2534,22 +2534,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
-smalltalk.method({
-selector: unescape('asJSONString'),
-category: 'converting',
-fn: function () {
-var self=this;
-return self;
-return self;},
-args: [],
-source: unescape('asJSONString%0A%09%5Eself'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
 unescape('_asSymbol'),
 smalltalk.method({
 selector: unescape('asSymbol'),
@@ -2562,6 +2546,22 @@ args: [],
 source: unescape('asSymbol%0A%09%5ESymbol%20lookup%3A%20self'),
 messageSends: ["lookup:"],
 referencedClasses: ["Symbol"]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%5Eself'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.String);
 
@@ -4470,6 +4470,25 @@ referencedClasses: ["Dictionary"]
 }),
 smalltalk.HashedCollection);
 
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+var c=nil;
+(c=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
+smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(c, "_at_put_", [key, smalltalk.send(value, "_asJSON", [])]);})]);
+return c;
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%7C%20c%20%7C%0A%09c%20%3A%3D%20self%20class%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09c%20at%3A%20key%20put%3A%20value%20asJSON%5D.%0A%09%5Ec'),
+messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "asJSON"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
 
 smalltalk.addMethod(
 unescape('_fromPairs_'),
@@ -4652,17 +4671,17 @@ referencedClasses: ["HashedCollection"]
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
+unescape('_asJSON'),
 smalltalk.method({
-selector: unescape('asJSONString'),
+selector: unescape('asJSON'),
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSONString", []);
+return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSON", []);
 return self;},
 args: [],
-source: unescape('asJSONString%0A%09%5Eself%20asHashedCollection%20asJSONString'),
-messageSends: ["asJSONString", "asHashedCollection"],
+source: unescape('asJSON%0A%09%5Eself%20asHashedCollection%20asJSON'),
+messageSends: ["asJSON", "asHashedCollection"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
