@@ -1037,13 +1037,13 @@ unescape('_ifEmpty_'),
 smalltalk.method({
 selector: unescape('ifEmpty%3A'),
 category: 'testing',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_ifTrue_", [aBlock]);
+return ((($receiver = smalltalk.send(self, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return self;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return self;})]));
 return self;},
 args: ["aBlock"],
-source: unescape('ifEmpty%3A%20aBlock%0A%09self%20isEmpty%20ifTrue%3A%20aBlock.'),
-messageSends: ["ifTrue:", "isEmpty"],
+source: unescape('ifEmpty%3A%20aBlock%0A%09%22Evaluate%20the%20given%20block%20with%20the%20receiver%20as%20argument%2C%20answering%20its%20value%20if%20the%20receiver%20is%20empty%2C%20otherwise%20answer%20the%20receiver.%20Note%20that%20the%20fact%20that%20this%20method%20returns%20its%20argument%20in%20case%20the%20receiver%20is%20not%20empty%20allows%20one%20to%20write%20expressions%20like%20the%20following%20ones%3A%20self%20classifyMethodAs%3A%20%0A%09%09%28myProtocol%20ifEmpty%3A%20%5B%27As%20yet%20unclassified%27%5D%29%22%0A%09%5E%20self%20isEmpty%20%0A%09%09ifTrue%3A%20%5B%20aBlock%20value%20%5D%0A%09%09ifFalse%3A%20%5B%20self%20%5D'),
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "value"],
 referencedClasses: []
 }),
 smalltalk.Collection);

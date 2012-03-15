@@ -726,9 +726,9 @@ smalltalk.addMethod(
 unescape('_ifEmpty_'),
 smalltalk.method({
 selector: unescape('ifEmpty%3A'),
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_ifTrue_", [aBlock]);
+return ((($receiver = smalltalk.send(self, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return self;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return self;})]));
 return self;}
 }),
 smalltalk.Collection);
