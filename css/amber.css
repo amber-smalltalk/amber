@@ -2,6 +2,8 @@ body.jtalkBody {
     margin-bottom: 350px;
 }
 
+@import url("amber-normalize.css");
+
 #jtalkTabs, #jtalk .jt_tabs {
     margin: 0;
     padding: 0;
