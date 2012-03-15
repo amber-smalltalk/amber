@@ -1,407 +1,4 @@
 Smalltalk current createPackage: 'IDE' properties: #{}!
-ErrorHandler subclass: #DebugErrorHandler
-	instanceVariableNames: ''
-	category: 'IDE'!
-
-!DebugErrorHandler methodsFor: 'error handling'!
-
-handleError: anError
-	[Debugger new
-		error: anError;
-		open] on: Error do: [:error |
-			ErrorHandler new handleError: error]
-! !
-
-!DebugErrorHandler class methodsFor: 'initialization'!
-
-initialize
-	self register
-! !
-
-Widget subclass: #ClassesListNode
-	instanceVariableNames: 'browser theClass level nodes'
-	category: 'IDE'!
-
-!ClassesListNode methodsFor: ''!
-
-renderOn: html
-	| li cssClass |
-	cssClass := ''.
-	li := html li 
-		onClick: [self browser selectClass: self theClass]. 
-	li asJQuery html: self label.
-
-	self browser selectedClass = self theClass ifTrue:  [
-		cssClass := cssClass, ' selected'].
-
-	self theClass comment isEmpty ifFalse: [
-		cssClass := cssClass, ' commented'].
-
-	li class: cssClass.
-
-	self nodes do: [:each |
-		each renderOn: html]
-! !
-
-!ClassesListNode methodsFor: 'accessing'!
-
-nodes
-	^nodes
-!
-
-theClass
-	^theClass
-!
-
-theClass: aClass
-	theClass := aClass
-!
-
-browser
-	^browser
-!
-
-browser: aBrowser
-	browser := aBrowser
-!
-
-level
-	^level
-!
-
-level: anInteger
-	level := anInteger
-!
-
-label
-	| str |
-	str := String new writeStream.
-	self level timesRepeat: [
-		str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
-	str nextPutAll: self theClass name.
-	^str contents
-!
-
-getNodesFrom: aCollection
-	| children others |
-	children := #().
-	others := #().
-	aCollection do: [:each |
-		(each superclass = self theClass)
-			ifTrue: [children add: each]
-			ifFalse: [others add: each]].
-	nodes:= children collect: [:each |
-		ClassesListNode on: each browser: self browser classes: others level: self level + 1]
-! !
-
-!ClassesListNode class methodsFor: 'instance creation'!
-
-on: aClass browser: aBrowser classes: aCollection level: anInteger
-	^self new
-		theClass: aClass;
-		browser: aBrowser;
-		level: anInteger;
-		getNodesFrom: aCollection;
-		yourself
-! !
-
-Widget subclass: #ClassesList
-	instanceVariableNames: 'browser ul nodes'
-	category: 'IDE'!
-
-!ClassesList methodsFor: 'accessing'!
-
-category
-	^self browser selectedPackage
-!
-
-nodes
-	nodes ifNil: [nodes := self getNodes].
-	^nodes
-!
-
-browser
-	^browser
-!
-
-browser: aBrowser
-	browser := aBrowser
-!
-
-getNodes
-	| classes children others |
-	classes := self browser classes.
-	children := #().
-	others := #().
-	classes do: [:each |
-		(classes includes: each superclass)
-			ifFalse: [children add: each]
-			ifTrue: [others add: each]].
-	^children collect: [:each |
-		ClassesListNode on: each browser: self browser classes: others level: 0]
-!
-
-resetNodes
-	nodes := nil
-! !
-
-!ClassesList methodsFor: 'rendering'!
-
-renderOn: html
-	ul := html ul
-		class: 'jt_column browser classes';
-		yourself.
-	self updateNodes
-!
-
-updateNodes
-	ul contents: [:html |
-		self nodes do: [:each |
-			each renderOn: html]]
-! !
-
-!ClassesList class methodsFor: 'instance creation'!
-
-on: aBrowser
-	^self new 
-		browser: aBrowser; 
-		yourself
-! !
-
-Widget subclass: #SourceArea
-	instanceVariableNames: 'editor div receiver onDoIt'
-	category: 'IDE'!
-
-!SourceArea methodsFor: 'accessing'!
-
-val
-    ^editor getValue
-!
-
-val: aString
-    editor setValue: aString
-!
-
-currentLine
-    ^editor getLine: (editor getCursor line)
-!
-
-selection
-	^editor getSelection
-!
-
-selectionEnd
-   ^textarea element selectionEnd
-!
-
-selectionStart
-   ^textarea element selectionStart
-!
-
-selectionStart: anInteger
-   textarea element selectionStart: anInteger
-!
-
-selectionEnd: anInteger
-   textarea element selectionEnd: anInteger
-!
-
-setEditorOn: aTextarea
-	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'jtalk',
-                lineNumbers: true,
-                enterMode: 'flat',
-                matchBrackets: true,
-                electricChars: false
-	})>
-!
-
-editor
-	^editor
-!
-
-receiver
-	^receiver ifNil: [DoIt new]
-!
-
-receiver: anObject
-	receiver := anObject
-!
-
-onDoIt: aBlock
-	onDoIt := aBlock
-!
-
-onDoIt
-	^onDoIt
-!
-
-currentLineOrSelection
-    ^editor somethingSelected
-	ifFalse: [self currentLine]
-	ifTrue: [self selection]
-! !
-
-!SourceArea methodsFor: 'actions'!
-
-clear
-      self val: ''
-!
-
-doIt
-    | result |
-    result := self eval: self currentLineOrSelection.
-    self onDoIt ifNotNil: [self onDoIt value].
-    ^result
-!
-
-eval: aString
-	| compiler  |
-	compiler := Compiler new.
-	[compiler parseExpression: aString] on: Error do: [:ex |
-		^window alert: ex messageText].
-	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
-!
-
-handleKeyDown: anEvent
-    <if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
-!
-
-inspectIt
-    self doIt inspect
-!
-
-print: aString
-	| start stop |
-	start := HashedCollection new.
-	stop := HashedCollection new.
-	start at: 'line' put: (editor getCursor: false) line.
-	start at: 'ch' put: (editor getCursor: false) ch.
-	stop at: 'line' put: (start at: 'line').
-	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
-	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
-	editor setCursor: (editor getCursor: true).
-	editor setSelection: stop end: start
-!
-
-printIt
-    self print: self doIt printString
-!
-
-fileIn
-    Importer new import: self currentLineOrSelection readStream
-! !
-
-!SourceArea methodsFor: 'events'!
-
-onKeyUp: aBlock
-	div onKeyUp: aBlock
-!
-
-onKeyDown: aBlock
-	div onKeyDown: aBlock
-! !
-
-!SourceArea methodsFor: 'rendering'!
-
-renderOn: html
-    | textarea |
-    div := html div class: 'source'.
-    div with: [textarea := html textarea].
-    self setEditorOn: textarea element.
-    div onKeyDown: [:e | self handleKeyDown: e]
-! !
-
-Widget subclass: #TabWidget
-	instanceVariableNames: 'div'
-	category: 'IDE'!
-
-!TabWidget methodsFor: 'accessing'!
-
-label
-    self subclassResponsibility
-! !
-
-!TabWidget methodsFor: 'actions'!
-
-open
-    TabManager current addTab: self.
-    TabManager current selectTab: self
-!
-
-show
-	div asJQuery show
-!
-
-hide
-	div asJQuery hide
-!
-
-remove
-	div asJQuery remove
-!
-
-close
-    TabManager current closeTab: self
-! !
-
-!TabWidget methodsFor: 'rendering'!
-
-renderOn: html
-	div := html div
-		class: 'jtalkTool';
-		yourself.
-	self renderTab
-!
-
-renderBoxOn: html
-!
-
-renderButtonsOn: html
-!
-
-update
-	self renderTab
-!
-
-renderTab
-	div contents: [:html |
-	    html div
-		class: 'jt_box';
-		with: [self renderBoxOn: html].
-	    html div
-		class: 'jt_buttons';
-		with: [self renderButtonsOn: html]]
-! !
-
-!TabWidget methodsFor: 'testing'!
-
-canBeClosed
-    ^false
-! !
-
-!TabWidget class methodsFor: 'instance creation'!
-
-open
-    ^self new open
-! !
-
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
@@ -605,6 +202,409 @@ current
 
 new
     self shouldNotImplement
+! !
+
+Widget subclass: #TabWidget
+	instanceVariableNames: 'div'
+	category: 'IDE'!
+
+!TabWidget methodsFor: 'accessing'!
+
+label
+    self subclassResponsibility
+! !
+
+!TabWidget methodsFor: 'actions'!
+
+open
+    TabManager current addTab: self.
+    TabManager current selectTab: self
+!
+
+show
+	div asJQuery show
+!
+
+hide
+	div asJQuery hide
+!
+
+remove
+	div asJQuery remove
+!
+
+close
+    TabManager current closeTab: self
+! !
+
+!TabWidget methodsFor: 'rendering'!
+
+renderOn: html
+	div := html div
+		class: 'jtalkTool';
+		yourself.
+	self renderTab
+!
+
+renderBoxOn: html
+!
+
+renderButtonsOn: html
+!
+
+update
+	self renderTab
+!
+
+renderTab
+	div contents: [:html |
+	    html div
+		class: 'jt_box';
+		with: [self renderBoxOn: html].
+	    html div
+		class: 'jt_buttons';
+		with: [self renderButtonsOn: html]]
+! !
+
+!TabWidget methodsFor: 'testing'!
+
+canBeClosed
+    ^false
+! !
+
+!TabWidget class methodsFor: 'instance creation'!
+
+open
+    ^self new open
+! !
+
+Widget subclass: #SourceArea
+	instanceVariableNames: 'editor div receiver onDoIt'
+	category: 'IDE'!
+
+!SourceArea methodsFor: 'accessing'!
+
+val
+    ^editor getValue
+!
+
+val: aString
+    editor setValue: aString
+!
+
+currentLine
+    ^editor getLine: (editor getCursor line)
+!
+
+selection
+	^editor getSelection
+!
+
+selectionEnd
+   ^textarea element selectionEnd
+!
+
+selectionStart
+   ^textarea element selectionStart
+!
+
+selectionStart: anInteger
+   textarea element selectionStart: anInteger
+!
+
+selectionEnd: anInteger
+   textarea element selectionEnd: anInteger
+!
+
+setEditorOn: aTextarea
+	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+		theme: 'jtalk',
+                lineNumbers: true,
+                enterMode: 'flat',
+                matchBrackets: true,
+                electricChars: false
+	})>
+!
+
+editor
+	^editor
+!
+
+receiver
+	^receiver ifNil: [DoIt new]
+!
+
+receiver: anObject
+	receiver := anObject
+!
+
+onDoIt: aBlock
+	onDoIt := aBlock
+!
+
+onDoIt
+	^onDoIt
+!
+
+currentLineOrSelection
+    ^editor somethingSelected
+	ifFalse: [self currentLine]
+	ifTrue: [self selection]
+! !
+
+!SourceArea methodsFor: 'actions'!
+
+clear
+      self val: ''
+!
+
+doIt
+    | result |
+    result := self eval: self currentLineOrSelection.
+    self onDoIt ifNotNil: [self onDoIt value].
+    ^result
+!
+
+eval: aString
+	| compiler  |
+	compiler := Compiler new.
+	[compiler parseExpression: aString] on: Error do: [:ex |
+		^window alert: ex messageText].
+	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
+!
+
+handleKeyDown: anEvent
+    <if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 80) { //ctrl+p
+			self._printIt();
+			anEvent.preventDefault();
+			return false;
+		}
+		if(anEvent.keyCode === 68) { //ctrl+d
+			self._doIt();
+			anEvent.preventDefault();
+			return false;
+		}
+		if(anEvent.keyCode === 73) { //ctrl+i
+			self._inspectIt();
+			anEvent.preventDefault();
+			return false;
+		}
+	}>
+!
+
+inspectIt
+    self doIt inspect
+!
+
+print: aString
+	| start stop |
+	start := HashedCollection new.
+	stop := HashedCollection new.
+	start at: 'line' put: (editor getCursor: false) line.
+	start at: 'ch' put: (editor getCursor: false) ch.
+	stop at: 'line' put: (start at: 'line').
+	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
+	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
+	editor setCursor: (editor getCursor: true).
+	editor setSelection: stop end: start
+!
+
+printIt
+    self print: self doIt printString
+!
+
+fileIn
+    Importer new import: self currentLineOrSelection readStream
+! !
+
+!SourceArea methodsFor: 'events'!
+
+onKeyUp: aBlock
+	div onKeyUp: aBlock
+!
+
+onKeyDown: aBlock
+	div onKeyDown: aBlock
+! !
+
+!SourceArea methodsFor: 'rendering'!
+
+renderOn: html
+    | textarea |
+    div := html div class: 'source'.
+    div with: [textarea := html textarea].
+    self setEditorOn: textarea element.
+    div onKeyDown: [:e | self handleKeyDown: e]
+! !
+
+Widget subclass: #ClassesList
+	instanceVariableNames: 'browser ul nodes'
+	category: 'IDE'!
+
+!ClassesList methodsFor: 'accessing'!
+
+category
+	^self browser selectedPackage
+!
+
+nodes
+	nodes ifNil: [nodes := self getNodes].
+	^nodes
+!
+
+browser
+	^browser
+!
+
+browser: aBrowser
+	browser := aBrowser
+!
+
+getNodes
+	| classes children others |
+	classes := self browser classes.
+	children := #().
+	others := #().
+	classes do: [:each |
+		(classes includes: each superclass)
+			ifFalse: [children add: each]
+			ifTrue: [others add: each]].
+	^children collect: [:each |
+		ClassesListNode on: each browser: self browser classes: others level: 0]
+!
+
+resetNodes
+	nodes := nil
+! !
+
+!ClassesList methodsFor: 'rendering'!
+
+renderOn: html
+	ul := html ul
+		class: 'jt_column browser classes';
+		yourself.
+	self updateNodes
+!
+
+updateNodes
+	ul contents: [:html |
+		self nodes do: [:each |
+			each renderOn: html]]
+! !
+
+!ClassesList class methodsFor: 'instance creation'!
+
+on: aBrowser
+	^self new 
+		browser: aBrowser; 
+		yourself
+! !
+
+Widget subclass: #ClassesListNode
+	instanceVariableNames: 'browser theClass level nodes'
+	category: 'IDE'!
+
+!ClassesListNode methodsFor: ''!
+
+renderOn: html
+	| li cssClass |
+	cssClass := ''.
+	li := html li 
+		onClick: [self browser selectClass: self theClass]. 
+	li asJQuery html: self label.
+
+	self browser selectedClass = self theClass ifTrue:  [
+		cssClass := cssClass, ' selected'].
+
+	self theClass comment isEmpty ifFalse: [
+		cssClass := cssClass, ' commented'].
+
+	li class: cssClass.
+
+	self nodes do: [:each |
+		each renderOn: html]
+! !
+
+!ClassesListNode methodsFor: 'accessing'!
+
+nodes
+	^nodes
+!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
+!
+
+browser
+	^browser
+!
+
+browser: aBrowser
+	browser := aBrowser
+!
+
+level
+	^level
+!
+
+level: anInteger
+	level := anInteger
+!
+
+label
+	| str |
+	str := String new writeStream.
+	self level timesRepeat: [
+		str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
+	str nextPutAll: self theClass name.
+	^str contents
+!
+
+getNodesFrom: aCollection
+	| children others |
+	children := #().
+	others := #().
+	aCollection do: [:each |
+		(each superclass = self theClass)
+			ifTrue: [children add: each]
+			ifFalse: [others add: each]].
+	nodes:= children collect: [:each |
+		ClassesListNode on: each browser: self browser classes: others level: self level + 1]
+! !
+
+!ClassesListNode class methodsFor: 'instance creation'!
+
+on: aClass browser: aBrowser classes: aCollection level: anInteger
+	^self new
+		theClass: aClass;
+		browser: aBrowser;
+		level: anInteger;
+		getNodesFrom: aCollection;
+		yourself
+! !
+
+ErrorHandler subclass: #DebugErrorHandler
+	instanceVariableNames: ''
+	category: 'IDE'!
+
+!DebugErrorHandler methodsFor: 'error handling'!
+
+handleError: anError
+	[Debugger new
+		error: anError;
+		open] on: Error do: [:error |
+			ErrorHandler new handleError: error]
+! !
+
+!DebugErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
 ! !
 
 TabWidget subclass: #Workspace
@@ -2195,6 +2195,7 @@ cr
 !
 
 show: anObject
+    textarea ifNil: [self open].
     textarea asJQuery val: textarea asJQuery val, anObject asString.
 !
 

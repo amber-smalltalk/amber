@@ -1,16 +1,201 @@
 smalltalk.addPackage('IDE', {});
-smalltalk.addClass('DebugErrorHandler', smalltalk.ErrorHandler, [], 'IDE');
+smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
 smalltalk.addMethod(
-unescape('_handleError_'),
+unescape('_tabs'),
 smalltalk.method({
-selector: unescape('handleError%3A'),
-fn: function (anError){
+selector: unescape('tabs'),
+fn: function (){
 var self=this;
-smalltalk.send((function(){return (function($rec){smalltalk.send($rec, "_error_", [anError]);return smalltalk.send($rec, "_open", []);})(smalltalk.send((smalltalk.Debugger || Debugger), "_new", []));}), "_on_do_", [(smalltalk.Error || Error), (function(error){return smalltalk.send(smalltalk.send((smalltalk.ErrorHandler || ErrorHandler), "_new", []), "_handleError_", [error]);})]);
+return (($receiver = self['@tabs']) == nil || $receiver == undefined) ? (function(){return (self['@tabs']=smalltalk.send((smalltalk.Array || Array), "_new", []));})() : $receiver;
 return self;}
 }),
-smalltalk.DebugErrorHandler);
+smalltalk.TabManager);
 
+smalltalk.addMethod(
+unescape('_labelFor_'),
+smalltalk.method({
+selector: unescape('labelFor%3A'),
+fn: function (aWidget){
+var self=this;
+var label=nil;
+var maxSize=nil;
+(maxSize=(15));
+(label=smalltalk.send(smalltalk.send(aWidget, "_label", []), "_copyFrom_to_", [(0), smalltalk.send(smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", []), "_min_", [maxSize])]));
+((($receiver = ((($receiver = smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", [])).klass === smalltalk.Number) ? $receiver >maxSize : smalltalk.send($receiver, "__gt", [maxSize]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (label=smalltalk.send(label, "__comma", ["..."]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (label=smalltalk.send(label, "__comma", ["..."]));})]));
+return label;
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_updateBodyMargin'),
+smalltalk.method({
+selector: unescape('updateBodyMargin'),
+fn: function (){
+var self=this;
+smalltalk.send(self, "_setBodyMargin_", [smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_height", [])]);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_updatePosition'),
+smalltalk.method({
+selector: unescape('updatePosition'),
+fn: function (){
+var self=this;
+jQuery('#jtalk').css('top', '').css('bottom', '0px');
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_removeBodyMargin'),
+smalltalk.method({
+selector: unescape('removeBodyMargin'),
+fn: function (){
+var self=this;
+smalltalk.send(self, "_setBodyMargin_", [(0)]);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_setBodyMargin_'),
+smalltalk.method({
+selector: unescape('setBodyMargin%3A'),
+fn: function (anInteger){
+var self=this;
+smalltalk.send(smalltalk.send(".jtalkBody", "_asJQuery", []), "_css_put_", [unescape("margin-bottom"), smalltalk.send(smalltalk.send(anInteger, "_asString", []), "__comma", ["px"])]);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_onResize_'),
+smalltalk.method({
+selector: unescape('onResize%3A'),
+fn: function (aBlock){
+var self=this;
+jQuery('#jtalk').resizable({
+	handles: 'n', 
+	resize: aBlock,
+	minHeight: 230
+});
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_onWindowResize_'),
+smalltalk.method({
+selector: unescape('onWindowResize%3A'),
+fn: function (aBlock){
+var self=this;
+jQuery(window).resize(aBlock);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_open'),
+smalltalk.method({
+selector: unescape('open'),
+fn: function (){
+var self=this;
+((($receiver = self['@opened']).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_show", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_show", []);smalltalk.send(self, "_updateBodyMargin", []);smalltalk.send(self['@selectedTab'], "_show", []);return (self['@opened']=true);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_show", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_show", []);smalltalk.send(self, "_updateBodyMargin", []);smalltalk.send(self['@selectedTab'], "_show", []);return (self['@opened']=true);})]));
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_close'),
+smalltalk.method({
+selector: unescape('close'),
+fn: function (){
+var self=this;
+((($receiver = self['@opened']).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_hide", []);smalltalk.send(self['@selectedTab'], "_hide", []);smalltalk.send(self, "_removeBodyMargin", []);smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["jtalkBody"]);return (self['@opened']=false);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_hide", []);smalltalk.send(self['@selectedTab'], "_hide", []);smalltalk.send(self, "_removeBodyMargin", []);smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["jtalkBody"]);return (self['@opened']=false);})]));
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_newBrowserTab'),
+smalltalk.method({
+selector: unescape('newBrowserTab'),
+fn: function (){
+var self=this;
+smalltalk.send((smalltalk.Browser || Browser), "_open", []);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_selectTab_'),
+smalltalk.method({
+selector: unescape('selectTab%3A'),
+fn: function (aWidget){
+var self=this;
+smalltalk.send(self, "_open", []);
+(self['@selectedTab']=aWidget);
+smalltalk.send(smalltalk.send(self, "_tabs", []), "_do_", [(function(each){return smalltalk.send(each, "_hide", []);})]);
+smalltalk.send(aWidget, "_show", []);
+smalltalk.send(self, "_update", []);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_closeTab_'),
+smalltalk.method({
+selector: unescape('closeTab%3A'),
+fn: function (aWidget){
+var self=this;
+smalltalk.send(self, "_removeTab_", [aWidget]);
+smalltalk.send(self, "_selectTab_", [smalltalk.send(smalltalk.send(self, "_tabs", []), "_last", [])]);
+smalltalk.send(aWidget, "_remove", []);
+smalltalk.send(self, "_update", []);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_search_'),
+smalltalk.method({
+selector: unescape('search%3A'),
+fn: function (aString){
+var self=this;
+var searchedClass=nil;
+(searchedClass=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString]));
+((($receiver = smalltalk.send(searchedClass, "_isClass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.Browser || Browser), "_openOn_", [searchedClass]);})() : (function(){return smalltalk.send((smalltalk.ReferencesBrowser || ReferencesBrowser), "_search_", [aString]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send((smalltalk.Browser || Browser), "_openOn_", [searchedClass]);}), (function(){return smalltalk.send((smalltalk.ReferencesBrowser || ReferencesBrowser), "_search_", [aString]);})]));
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_addTab_'),
+smalltalk.method({
+selector: unescape('addTab%3A'),
+fn: function (aWidget){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_tabs", []), "_add_", [aWidget]);
+smalltalk.send(aWidget, "_appendToJQuery_", [smalltalk.send(unescape("%23jtalk"), "_asJQuery", [])]);
+smalltalk.send(aWidget, "_hide", []);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_removeTab_'),
+smalltalk.method({
+selector: unescape('removeTab%3A'),
+fn: function (aWidget){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_tabs", []), "_remove_", [aWidget]);
+smalltalk.send(self, "_update", []);
+return self;}
+}),
+smalltalk.TabManager);
 
 smalltalk.addMethod(
 unescape('_initialize'),
@@ -18,227 +203,171 @@ smalltalk.method({
 selector: unescape('initialize'),
 fn: function (){
 var self=this;
-smalltalk.send(self, "_register", []);
+smalltalk.send(self, "_initialize", [], smalltalk.Widget);
+(self['@opened']=true);
+smalltalk.send((function(html){return smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["jtalk"]);}), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
+smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);
+smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(unescape("%23jtalk"), "_asJQuery", [])]);
+(function($rec){smalltalk.send($rec, "_addTab_", [smalltalk.send((smalltalk.IDETranscript || IDETranscript), "_current", [])]);smalltalk.send($rec, "_addTab_", [smalltalk.send((smalltalk.Workspace || Workspace), "_new", [])]);return smalltalk.send($rec, "_addTab_", [smalltalk.send((smalltalk.TestRunner || TestRunner), "_new", [])]);})(self);
+smalltalk.send(self, "_selectTab_", [smalltalk.send(smalltalk.send(self, "_tabs", []), "_last", [])]);
+(function($rec){smalltalk.send($rec, "_onResize_", [(function(){return (function($rec){smalltalk.send($rec, "_updateBodyMargin", []);return smalltalk.send($rec, "_updatePosition", []);})(self);})]);return smalltalk.send($rec, "_onWindowResize_", [(function(){return smalltalk.send(self, "_updatePosition", []);})]);})(self);
 return self;}
 }),
-smalltalk.DebugErrorHandler.klass);
+smalltalk.TabManager);
 
-
-smalltalk.addClass('ClassesListNode', smalltalk.Widget, ['browser', 'theClass', 'level', 'nodes'], 'IDE');
 smalltalk.addMethod(
 unescape('_renderOn_'),
 smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
+smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["logo"]);
+smalltalk.send(self, "_renderToolbarOn_", [html]);
+(self['@ul']=(function($rec){smalltalk.send($rec, "_id_", ["jtalkTabs"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
+smalltalk.send(self, "_renderTabs", []);
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_renderTabFor_on_'),
+smalltalk.method({
+selector: unescape('renderTabFor%3Aon%3A'),
+fn: function (aWidget, html){
+var self=this;
 var li=nil;
-var cssClass=nil;
-(cssClass="");
-(li=smalltalk.send(smalltalk.send(html, "_li", []), "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectClass_", [smalltalk.send(self, "_theClass", [])]);})]));
-smalltalk.send(smalltalk.send(li, "_asJQuery", []), "_html_", [smalltalk.send(self, "_label", [])]);
-((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" selected"]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" selected"]));})]));
-((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_theClass", []), "_comment", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" commented"]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" commented"]));})]));
-smalltalk.send(li, "_class_", [cssClass]);
-smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
+(li=smalltalk.send(html, "_li", []));
+((($receiver = smalltalk.send(self['@selectedTab'], "__eq", [aWidget])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(li, "_class_", ["selected"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]));
+(function($rec){smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["ltab"]);(function($rec){smalltalk.send($rec, "_class_", ["mtab"]);return smalltalk.send($rec, "_with_", [(function(){((($receiver = smalltalk.send(aWidget, "_canBeClosed", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_class_", ["close"]);smalltalk.send($rec, "_with_", ["x"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_closeTab_", [aWidget]);})]);})(smalltalk.send(html, "_span", []));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function($rec){smalltalk.send($rec, "_class_", ["close"]);smalltalk.send($rec, "_with_", ["x"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_closeTab_", [aWidget]);})]);})(smalltalk.send(html, "_span", []));})]));return smalltalk.send(smalltalk.send(html, "_span", []), "_with_", [smalltalk.send(self, "_labelFor_", [aWidget])]);})]);})(smalltalk.send(html, "_span", []));return smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["rtab"]);})]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectTab_", [aWidget]);})]);})(li);
 return self;}
 }),
-smalltalk.ClassesListNode);
+smalltalk.TabManager);
 
 smalltalk.addMethod(
-unescape('_nodes'),
+unescape('_renderTabs'),
 smalltalk.method({
-selector: unescape('nodes'),
+selector: unescape('renderTabs'),
 fn: function (){
 var self=this;
-return self['@nodes'];
+smalltalk.send(self['@ul'], "_contents_", [(function(html){smalltalk.send(smalltalk.send(self, "_tabs", []), "_do_", [(function(each){return smalltalk.send(self, "_renderTabFor_on_", [each, html]);})]);return (function($rec){smalltalk.send($rec, "_class_", ["newtab"]);smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["ltab"]);(function($rec){smalltalk.send($rec, "_class_", ["mtab"]);return smalltalk.send($rec, "_with_", [unescape("%20+%20")]);})(smalltalk.send(html, "_span", []));return smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["rtab"]);})]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_newBrowserTab", []);})]);})(smalltalk.send(html, "_li", []));})]);
 return self;}
 }),
-smalltalk.ClassesListNode);
+smalltalk.TabManager);
 
 smalltalk.addMethod(
-unescape('_theClass'),
+unescape('_renderToolbarOn_'),
 smalltalk.method({
-selector: unescape('theClass'),
+selector: unescape('renderToolbarOn%3A'),
+fn: function (html){
+var self=this;
+(function($rec){smalltalk.send($rec, "_id_", ["jt_toolbar"]);return smalltalk.send($rec, "_with_", [(function(){(self['@input']=(function($rec){smalltalk.send($rec, "_class_", ["implementors"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_input", [])));smalltalk.send(self['@input'], "_onKeyPress_", [(function(event){return ((($receiver = smalltalk.send(smalltalk.send(event, "_keyCode", []), "__eq", [(13)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_search_", [smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_search_", [smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val", [])]);})]));})]);return (function($rec){smalltalk.send($rec, "_id_", ["jt_close"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_close", []);})]);})(smalltalk.send(html, "_div", []));})]);})(smalltalk.send(html, "_div", []));
+return self;}
+}),
+smalltalk.TabManager);
+
+smalltalk.addMethod(
+unescape('_update'),
+smalltalk.method({
+selector: unescape('update'),
 fn: function (){
 var self=this;
-return self['@theClass'];
+smalltalk.send(self, "_renderTabs", []);
 return self;}
 }),
-smalltalk.ClassesListNode);
+smalltalk.TabManager);
 
-smalltalk.addMethod(
-unescape('_theClass_'),
-smalltalk.method({
-selector: unescape('theClass%3A'),
-fn: function (aClass){
-var self=this;
-(self['@theClass']=aClass);
-return self;}
-}),
-smalltalk.ClassesListNode);
 
+smalltalk.TabManager.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-unescape('_browser'),
+unescape('_current'),
 smalltalk.method({
-selector: unescape('browser'),
+selector: unescape('current'),
 fn: function (){
 var self=this;
-return self['@browser'];
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", [], smalltalk.Widget.klass));})() : $receiver;
 return self;}
 }),
-smalltalk.ClassesListNode);
+smalltalk.TabManager.klass);
 
 smalltalk.addMethod(
-unescape('_browser_'),
+unescape('_new'),
 smalltalk.method({
-selector: unescape('browser%3A'),
-fn: function (aBrowser){
-var self=this;
-(self['@browser']=aBrowser);
-return self;}
-}),
-smalltalk.ClassesListNode);
-
-smalltalk.addMethod(
-unescape('_level'),
-smalltalk.method({
-selector: unescape('level'),
+selector: unescape('new'),
 fn: function (){
 var self=this;
-return self['@level'];
+smalltalk.send(self, "_shouldNotImplement", []);
 return self;}
 }),
-smalltalk.ClassesListNode);
+smalltalk.TabManager.klass);
 
-smalltalk.addMethod(
-unescape('_level_'),
-smalltalk.method({
-selector: unescape('level%3A'),
-fn: function (anInteger){
-var self=this;
-(self['@level']=anInteger);
-return self;}
-}),
-smalltalk.ClassesListNode);
 
+smalltalk.addClass('TabWidget', smalltalk.Widget, ['div'], 'IDE');
 smalltalk.addMethod(
 unescape('_label'),
 smalltalk.method({
 selector: unescape('label'),
 fn: function (){
 var self=this;
-var str=nil;
-(str=smalltalk.send(smalltalk.send((smalltalk.String || String), "_new", []), "_writeStream", []));
-smalltalk.send(smalltalk.send(self, "_level", []), "_timesRepeat_", [(function(){return smalltalk.send(str, "_nextPutAll_", [unescape("%26nbsp%3B%26nbsp%3B%26nbsp%3B%26nbsp%3B")]);})]);
-smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_name", [])]);
-return smalltalk.send(str, "_contents", []);
+smalltalk.send(self, "_subclassResponsibility", []);
 return self;}
 }),
-smalltalk.ClassesListNode);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
-unescape('_getNodesFrom_'),
+unescape('_open'),
 smalltalk.method({
-selector: unescape('getNodesFrom%3A'),
-fn: function (aCollection){
-var self=this;
-var children=nil;
-var others=nil;
-(children=[]);
-(others=[]);
-smalltalk.send(aCollection, "_do_", [(function(each){return ((($receiver = smalltalk.send(smalltalk.send(each, "_superclass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
-(self['@nodes']=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, ((($receiver = smalltalk.send(self, "_level", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})]));
-return self;}
-}),
-smalltalk.ClassesListNode);
-
-
-smalltalk.addMethod(
-unescape('_on_browser_classes_level_'),
-smalltalk.method({
-selector: unescape('on%3Abrowser%3Aclasses%3Alevel%3A'),
-fn: function (aClass, aBrowser, aCollection, anInteger){
-var self=this;
-return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_browser_", [aBrowser]);smalltalk.send($rec, "_level_", [anInteger]);smalltalk.send($rec, "_getNodesFrom_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;}
-}),
-smalltalk.ClassesListNode.klass);
-
-
-smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
-smalltalk.addMethod(
-unescape('_category'),
-smalltalk.method({
-selector: unescape('category'),
+selector: unescape('open'),
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedPackage", []);
+smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_addTab_", [self]);
+smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_selectTab_", [self]);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
-unescape('_nodes'),
+unescape('_show'),
 smalltalk.method({
-selector: unescape('nodes'),
+selector: unescape('show'),
 fn: function (){
 var self=this;
-(($receiver = self['@nodes']) == nil || $receiver == undefined) ? (function(){return (self['@nodes']=smalltalk.send(self, "_getNodes", []));})() : $receiver;
-return self['@nodes'];
+smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_show", []);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
-unescape('_browser'),
+unescape('_hide'),
 smalltalk.method({
-selector: unescape('browser'),
+selector: unescape('hide'),
 fn: function (){
 var self=this;
-return self['@browser'];
+smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_hide", []);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
-unescape('_browser_'),
+unescape('_remove'),
 smalltalk.method({
-selector: unescape('browser%3A'),
-fn: function (aBrowser){
-var self=this;
-(self['@browser']=aBrowser);
-return self;}
-}),
-smalltalk.ClassesList);
-
-smalltalk.addMethod(
-unescape('_getNodes'),
-smalltalk.method({
-selector: unescape('getNodes'),
+selector: unescape('remove'),
 fn: function (){
 var self=this;
-var classes=nil;
-var children=nil;
-var others=nil;
-(classes=smalltalk.send(smalltalk.send(self, "_browser", []), "_classes", []));
-(children=[]);
-(others=[]);
-smalltalk.send(classes, "_do_", [(function(each){return ((($receiver = smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
-return smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, (0)]);})]);
+smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_remove", []);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
-unescape('_resetNodes'),
+unescape('_close'),
 smalltalk.method({
-selector: unescape('resetNodes'),
+selector: unescape('close'),
 fn: function (){
 var self=this;
-(self['@nodes']=nil);
+smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_closeTab_", [self]);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
 unescape('_renderOn_'),
@@ -246,34 +375,78 @@ smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-(self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
-smalltalk.send(self, "_updateNodes", []);
+(self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["jtalkTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
+smalltalk.send(self, "_renderTab", []);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
 
 smalltalk.addMethod(
-unescape('_updateNodes'),
+unescape('_renderBoxOn_'),
 smalltalk.method({
-selector: unescape('updateNodes'),
+selector: unescape('renderBoxOn%3A'),
+fn: function (html){
+var self=this;
+
+return self;}
+}),
+smalltalk.TabWidget);
+
+smalltalk.addMethod(
+unescape('_renderButtonsOn_'),
+smalltalk.method({
+selector: unescape('renderButtonsOn%3A'),
+fn: function (html){
+var self=this;
+
+return self;}
+}),
+smalltalk.TabWidget);
+
+smalltalk.addMethod(
+unescape('_update'),
+smalltalk.method({
+selector: unescape('update'),
 fn: function (){
 var self=this;
-smalltalk.send(self['@ul'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);})]);
+smalltalk.send(self, "_renderTab", []);
 return self;}
 }),
-smalltalk.ClassesList);
+smalltalk.TabWidget);
+
+smalltalk.addMethod(
+unescape('_renderTab'),
+smalltalk.method({
+selector: unescape('renderTab'),
+fn: function (){
+var self=this;
+smalltalk.send(self['@div'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["jt_box"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderBoxOn_", [html]);})]);})(smalltalk.send(html, "_div", []));return (function($rec){smalltalk.send($rec, "_class_", ["jt_buttons"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));})]);
+return self;}
+}),
+smalltalk.TabWidget);
+
+smalltalk.addMethod(
+unescape('_canBeClosed'),
+smalltalk.method({
+selector: unescape('canBeClosed'),
+fn: function (){
+var self=this;
+return false;
+return self;}
+}),
+smalltalk.TabWidget);
 
 
 smalltalk.addMethod(
-unescape('_on_'),
+unescape('_open'),
 smalltalk.method({
-selector: unescape('on%3A'),
-fn: function (aBrowser){
+selector: unescape('open'),
+fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_browser_", [aBrowser]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
 return self;}
 }),
-smalltalk.ClassesList.klass);
+smalltalk.TabWidget.klass);
 
 
 smalltalk.addClass('SourceArea', smalltalk.Widget, ['editor', 'div', 'receiver', 'onDoIt'], 'IDE');
@@ -608,73 +781,80 @@ smalltalk.SourceArea);
 
 
 
-smalltalk.addClass('TabWidget', smalltalk.Widget, ['div'], 'IDE');
+smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
-unescape('_label'),
+unescape('_category'),
 smalltalk.method({
-selector: unescape('label'),
+selector: unescape('category'),
 fn: function (){
 var self=this;
-smalltalk.send(self, "_subclassResponsibility", []);
+return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedPackage", []);
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
-unescape('_open'),
+unescape('_nodes'),
 smalltalk.method({
-selector: unescape('open'),
+selector: unescape('nodes'),
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_addTab_", [self]);
-smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_selectTab_", [self]);
+(($receiver = self['@nodes']) == nil || $receiver == undefined) ? (function(){return (self['@nodes']=smalltalk.send(self, "_getNodes", []));})() : $receiver;
+return self['@nodes'];
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
-unescape('_show'),
+unescape('_browser'),
 smalltalk.method({
-selector: unescape('show'),
+selector: unescape('browser'),
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_show", []);
+return self['@browser'];
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
-unescape('_hide'),
+unescape('_browser_'),
 smalltalk.method({
-selector: unescape('hide'),
-fn: function (){
+selector: unescape('browser%3A'),
+fn: function (aBrowser){
 var self=this;
-smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_hide", []);
+(self['@browser']=aBrowser);
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
-unescape('_remove'),
+unescape('_getNodes'),
 smalltalk.method({
-selector: unescape('remove'),
+selector: unescape('getNodes'),
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self['@div'], "_asJQuery", []), "_remove", []);
+var classes=nil;
+var children=nil;
+var others=nil;
+(classes=smalltalk.send(smalltalk.send(self, "_browser", []), "_classes", []));
+(children=[]);
+(others=[]);
+smalltalk.send(classes, "_do_", [(function(each){return ((($receiver = smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
+return smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, (0)]);})]);
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
-unescape('_close'),
+unescape('_resetNodes'),
 smalltalk.method({
-selector: unescape('close'),
+selector: unescape('resetNodes'),
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.TabManager || TabManager), "_current", []), "_closeTab_", [self]);
+(self['@nodes']=nil);
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
 unescape('_renderOn_'),
@@ -682,277 +862,189 @@ smalltalk.method({
 selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-(self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["jtalkTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
-smalltalk.send(self, "_renderTab", []);
+(self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
+smalltalk.send(self, "_updateNodes", []);
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesList);
 
 smalltalk.addMethod(
-unescape('_renderBoxOn_'),
+unescape('_updateNodes'),
 smalltalk.method({
-selector: unescape('renderBoxOn%3A'),
+selector: unescape('updateNodes'),
+fn: function (){
+var self=this;
+smalltalk.send(self['@ul'], "_contents_", [(function(html){return smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);})]);
+return self;}
+}),
+smalltalk.ClassesList);
+
+
+smalltalk.addMethod(
+unescape('_on_'),
+smalltalk.method({
+selector: unescape('on%3A'),
+fn: function (aBrowser){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_browser_", [aBrowser]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;}
+}),
+smalltalk.ClassesList.klass);
+
+
+smalltalk.addClass('ClassesListNode', smalltalk.Widget, ['browser', 'theClass', 'level', 'nodes'], 'IDE');
+smalltalk.addMethod(
+unescape('_renderOn_'),
+smalltalk.method({
+selector: unescape('renderOn%3A'),
 fn: function (html){
 var self=this;
-
+var li=nil;
+var cssClass=nil;
+(cssClass="");
+(li=smalltalk.send(smalltalk.send(html, "_li", []), "_onClick_", [(function(){return smalltalk.send(smalltalk.send(self, "_browser", []), "_selectClass_", [smalltalk.send(self, "_theClass", [])]);})]));
+smalltalk.send(smalltalk.send(li, "_asJQuery", []), "_html_", [smalltalk.send(self, "_label", [])]);
+((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_browser", []), "_selectedClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" selected"]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" selected"]));})]));
+((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_theClass", []), "_comment", []), "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" commented"]));})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (cssClass=smalltalk.send(cssClass, "__comma", [" commented"]));})]));
+smalltalk.send(li, "_class_", [cssClass]);
+smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_renderOn_", [html]);})]);
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_renderButtonsOn_'),
+unescape('_nodes'),
 smalltalk.method({
-selector: unescape('renderButtonsOn%3A'),
-fn: function (html){
-var self=this;
-
-return self;}
-}),
-smalltalk.TabWidget);
-
-smalltalk.addMethod(
-unescape('_update'),
-smalltalk.method({
-selector: unescape('update'),
+selector: unescape('nodes'),
 fn: function (){
 var self=this;
-smalltalk.send(self, "_renderTab", []);
+return self['@nodes'];
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_renderTab'),
+unescape('_theClass'),
 smalltalk.method({
-selector: unescape('renderTab'),
+selector: unescape('theClass'),
 fn: function (){
 var self=this;
-smalltalk.send(self['@div'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["jt_box"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderBoxOn_", [html]);})]);})(smalltalk.send(html, "_div", []));return (function($rec){smalltalk.send($rec, "_class_", ["jt_buttons"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderButtonsOn_", [html]);})]);})(smalltalk.send(html, "_div", []));})]);
+return self['@theClass'];
 return self;}
 }),
-smalltalk.TabWidget);
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_canBeClosed'),
+unescape('_theClass_'),
 smalltalk.method({
-selector: unescape('canBeClosed'),
+selector: unescape('theClass%3A'),
+fn: function (aClass){
+var self=this;
+(self['@theClass']=aClass);
+return self;}
+}),
+smalltalk.ClassesListNode);
+
+smalltalk.addMethod(
+unescape('_browser'),
+smalltalk.method({
+selector: unescape('browser'),
 fn: function (){
 var self=this;
-return false;
+return self['@browser'];
 return self;}
 }),
-smalltalk.TabWidget);
-
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_open'),
+unescape('_browser_'),
 smalltalk.method({
-selector: unescape('open'),
+selector: unescape('browser%3A'),
+fn: function (aBrowser){
+var self=this;
+(self['@browser']=aBrowser);
+return self;}
+}),
+smalltalk.ClassesListNode);
+
+smalltalk.addMethod(
+unescape('_level'),
+smalltalk.method({
+selector: unescape('level'),
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_new", []), "_open", []);
+return self['@level'];
 return self;}
 }),
-smalltalk.TabWidget.klass);
-
-
-smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');
-smalltalk.addMethod(
-unescape('_tabs'),
-smalltalk.method({
-selector: unescape('tabs'),
-fn: function (){
-var self=this;
-return (($receiver = self['@tabs']) == nil || $receiver == undefined) ? (function(){return (self['@tabs']=smalltalk.send((smalltalk.Array || Array), "_new", []));})() : $receiver;
-return self;}
-}),
-smalltalk.TabManager);
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_labelFor_'),
+unescape('_level_'),
 smalltalk.method({
-selector: unescape('labelFor%3A'),
-fn: function (aWidget){
-var self=this;
-var label=nil;
-var maxSize=nil;
-(maxSize=(15));
-(label=smalltalk.send(smalltalk.send(aWidget, "_label", []), "_copyFrom_to_", [(0), smalltalk.send(smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", []), "_min_", [maxSize])]));
-((($receiver = ((($receiver = smalltalk.send(smalltalk.send(aWidget, "_label", []), "_size", [])).klass === smalltalk.Number) ? $receiver >maxSize : smalltalk.send($receiver, "__gt", [maxSize]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (label=smalltalk.send(label, "__comma", ["..."]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (label=smalltalk.send(label, "__comma", ["..."]));})]));
-return label;
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_updateBodyMargin'),
-smalltalk.method({
-selector: unescape('updateBodyMargin'),
-fn: function (){
-var self=this;
-smalltalk.send(self, "_setBodyMargin_", [smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_height", [])]);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_updatePosition'),
-smalltalk.method({
-selector: unescape('updatePosition'),
-fn: function (){
-var self=this;
-jQuery('#jtalk').css('top', '').css('bottom', '0px');
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_removeBodyMargin'),
-smalltalk.method({
-selector: unescape('removeBodyMargin'),
-fn: function (){
-var self=this;
-smalltalk.send(self, "_setBodyMargin_", [(0)]);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_setBodyMargin_'),
-smalltalk.method({
-selector: unescape('setBodyMargin%3A'),
+selector: unescape('level%3A'),
 fn: function (anInteger){
 var self=this;
-smalltalk.send(smalltalk.send(".jtalkBody", "_asJQuery", []), "_css_put_", [unescape("margin-bottom"), smalltalk.send(smalltalk.send(anInteger, "_asString", []), "__comma", ["px"])]);
+(self['@level']=anInteger);
 return self;}
 }),
-smalltalk.TabManager);
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_onResize_'),
+unescape('_label'),
 smalltalk.method({
-selector: unescape('onResize%3A'),
-fn: function (aBlock){
-var self=this;
-jQuery('#jtalk').resizable({
-	handles: 'n', 
-	resize: aBlock,
-	minHeight: 230
-});
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_onWindowResize_'),
-smalltalk.method({
-selector: unescape('onWindowResize%3A'),
-fn: function (aBlock){
-var self=this;
-jQuery(window).resize(aBlock);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_open'),
-smalltalk.method({
-selector: unescape('open'),
+selector: unescape('label'),
 fn: function (){
 var self=this;
-((($receiver = self['@opened']).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_show", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_show", []);smalltalk.send(self, "_updateBodyMargin", []);smalltalk.send(self['@selectedTab'], "_show", []);return (self['@opened']=true);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_show", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_show", []);smalltalk.send(self, "_updateBodyMargin", []);smalltalk.send(self['@selectedTab'], "_show", []);return (self['@opened']=true);})]));
+var str=nil;
+(str=smalltalk.send(smalltalk.send((smalltalk.String || String), "_new", []), "_writeStream", []));
+smalltalk.send(smalltalk.send(self, "_level", []), "_timesRepeat_", [(function(){return smalltalk.send(str, "_nextPutAll_", [unescape("%26nbsp%3B%26nbsp%3B%26nbsp%3B%26nbsp%3B")]);})]);
+smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_name", [])]);
+return smalltalk.send(str, "_contents", []);
 return self;}
 }),
-smalltalk.TabManager);
+smalltalk.ClassesListNode);
 
 smalltalk.addMethod(
-unescape('_close'),
+unescape('_getNodesFrom_'),
 smalltalk.method({
-selector: unescape('close'),
-fn: function (){
+selector: unescape('getNodesFrom%3A'),
+fn: function (aCollection){
 var self=this;
-((($receiver = self['@opened']).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_hide", []);smalltalk.send(self['@selectedTab'], "_hide", []);smalltalk.send(self, "_removeBodyMargin", []);smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["jtalkBody"]);return (self['@opened']=false);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(smalltalk.send(unescape("%23jtalk"), "_asJQuery", []), "_hide", []);smalltalk.send(smalltalk.send(self['@ul'], "_asJQuery", []), "_hide", []);smalltalk.send(self['@selectedTab'], "_hide", []);smalltalk.send(self, "_removeBodyMargin", []);smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_removeClass_", ["jtalkBody"]);return (self['@opened']=false);})]));
+var children=nil;
+var others=nil;
+(children=[]);
+(others=[]);
+smalltalk.send(aCollection, "_do_", [(function(each){return ((($receiver = smalltalk.send(smalltalk.send(each, "_superclass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
+(self['@nodes']=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, smalltalk.send(self, "_browser", []), others, ((($receiver = smalltalk.send(self, "_level", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})]));
 return self;}
 }),
-smalltalk.TabManager);
+smalltalk.ClassesListNode);
+
 
 smalltalk.addMethod(
-unescape('_newBrowserTab'),
+unescape('_on_browser_classes_level_'),
 smalltalk.method({
-selector: unescape('newBrowserTab'),
-fn: function (){
+selector: unescape('on%3Abrowser%3Aclasses%3Alevel%3A'),
+fn: function (aClass, aBrowser, aCollection, anInteger){
 var self=this;
-smalltalk.send((smalltalk.Browser || Browser), "_open", []);
+return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_browser_", [aBrowser]);smalltalk.send($rec, "_level_", [anInteger]);smalltalk.send($rec, "_getNodesFrom_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;}
 }),
-smalltalk.TabManager);
+smalltalk.ClassesListNode.klass);
 
-smalltalk.addMethod(
-unescape('_selectTab_'),
-smalltalk.method({
-selector: unescape('selectTab%3A'),
-fn: function (aWidget){
-var self=this;
-smalltalk.send(self, "_open", []);
-(self['@selectedTab']=aWidget);
-smalltalk.send(smalltalk.send(self, "_tabs", []), "_do_", [(function(each){return smalltalk.send(each, "_hide", []);})]);
-smalltalk.send(aWidget, "_show", []);
-smalltalk.send(self, "_update", []);
-return self;}
-}),
-smalltalk.TabManager);
 
+smalltalk.addClass('DebugErrorHandler', smalltalk.ErrorHandler, [], 'IDE');
 smalltalk.addMethod(
-unescape('_closeTab_'),
+unescape('_handleError_'),
 smalltalk.method({
-selector: unescape('closeTab%3A'),
-fn: function (aWidget){
+selector: unescape('handleError%3A'),
+fn: function (anError){
 var self=this;
-smalltalk.send(self, "_removeTab_", [aWidget]);
-smalltalk.send(self, "_selectTab_", [smalltalk.send(smalltalk.send(self, "_tabs", []), "_last", [])]);
-smalltalk.send(aWidget, "_remove", []);
-smalltalk.send(self, "_update", []);
+smalltalk.send((function(){return (function($rec){smalltalk.send($rec, "_error_", [anError]);return smalltalk.send($rec, "_open", []);})(smalltalk.send((smalltalk.Debugger || Debugger), "_new", []));}), "_on_do_", [(smalltalk.Error || Error), (function(error){return smalltalk.send(smalltalk.send((smalltalk.ErrorHandler || ErrorHandler), "_new", []), "_handleError_", [error]);})]);
 return self;}
 }),
-smalltalk.TabManager);
+smalltalk.DebugErrorHandler);
 
-smalltalk.addMethod(
-unescape('_search_'),
-smalltalk.method({
-selector: unescape('search%3A'),
-fn: function (aString){
-var self=this;
-var searchedClass=nil;
-(searchedClass=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_at_", [aString]));
-((($receiver = smalltalk.send(searchedClass, "_isClass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.Browser || Browser), "_openOn_", [searchedClass]);})() : (function(){return smalltalk.send((smalltalk.ReferencesBrowser || ReferencesBrowser), "_search_", [aString]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send((smalltalk.Browser || Browser), "_openOn_", [searchedClass]);}), (function(){return smalltalk.send((smalltalk.ReferencesBrowser || ReferencesBrowser), "_search_", [aString]);})]));
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_addTab_'),
-smalltalk.method({
-selector: unescape('addTab%3A'),
-fn: function (aWidget){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_tabs", []), "_add_", [aWidget]);
-smalltalk.send(aWidget, "_appendToJQuery_", [smalltalk.send(unescape("%23jtalk"), "_asJQuery", [])]);
-smalltalk.send(aWidget, "_hide", []);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_removeTab_'),
-smalltalk.method({
-selector: unescape('removeTab%3A'),
-fn: function (aWidget){
-var self=this;
-smalltalk.send(smalltalk.send(self, "_tabs", []), "_remove_", [aWidget]);
-smalltalk.send(self, "_update", []);
-return self;}
-}),
-smalltalk.TabManager);
 
 smalltalk.addMethod(
 unescape('_initialize'),
@@ -960,102 +1052,10 @@ smalltalk.method({
 selector: unescape('initialize'),
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Widget);
-(self['@opened']=true);
-smalltalk.send((function(html){return smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["jtalk"]);}), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
-smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);
-smalltalk.send(self, "_appendToJQuery_", [smalltalk.send(unescape("%23jtalk"), "_asJQuery", [])]);
-(function($rec){smalltalk.send($rec, "_addTab_", [smalltalk.send((smalltalk.IDETranscript || IDETranscript), "_current", [])]);smalltalk.send($rec, "_addTab_", [smalltalk.send((smalltalk.Workspace || Workspace), "_new", [])]);return smalltalk.send($rec, "_addTab_", [smalltalk.send((smalltalk.TestRunner || TestRunner), "_new", [])]);})(self);
-smalltalk.send(self, "_selectTab_", [smalltalk.send(smalltalk.send(self, "_tabs", []), "_last", [])]);
-(function($rec){smalltalk.send($rec, "_onResize_", [(function(){return (function($rec){smalltalk.send($rec, "_updateBodyMargin", []);return smalltalk.send($rec, "_updatePosition", []);})(self);})]);return smalltalk.send($rec, "_onWindowResize_", [(function(){return smalltalk.send(self, "_updatePosition", []);})]);})(self);
+smalltalk.send(self, "_register", []);
 return self;}
 }),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_renderOn_'),
-smalltalk.method({
-selector: unescape('renderOn%3A'),
-fn: function (html){
-var self=this;
-smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["logo"]);
-smalltalk.send(self, "_renderToolbarOn_", [html]);
-(self['@ul']=(function($rec){smalltalk.send($rec, "_id_", ["jtalkTabs"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
-smalltalk.send(self, "_renderTabs", []);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_renderTabFor_on_'),
-smalltalk.method({
-selector: unescape('renderTabFor%3Aon%3A'),
-fn: function (aWidget, html){
-var self=this;
-var li=nil;
-(li=smalltalk.send(html, "_li", []));
-((($receiver = smalltalk.send(self['@selectedTab'], "__eq", [aWidget])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(li, "_class_", ["selected"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(li, "_class_", ["selected"]);})]));
-(function($rec){smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["ltab"]);(function($rec){smalltalk.send($rec, "_class_", ["mtab"]);return smalltalk.send($rec, "_with_", [(function(){((($receiver = smalltalk.send(aWidget, "_canBeClosed", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function($rec){smalltalk.send($rec, "_class_", ["close"]);smalltalk.send($rec, "_with_", ["x"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_closeTab_", [aWidget]);})]);})(smalltalk.send(html, "_span", []));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function($rec){smalltalk.send($rec, "_class_", ["close"]);smalltalk.send($rec, "_with_", ["x"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_closeTab_", [aWidget]);})]);})(smalltalk.send(html, "_span", []));})]));return smalltalk.send(smalltalk.send(html, "_span", []), "_with_", [smalltalk.send(self, "_labelFor_", [aWidget])]);})]);})(smalltalk.send(html, "_span", []));return smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["rtab"]);})]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_selectTab_", [aWidget]);})]);})(li);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_renderTabs'),
-smalltalk.method({
-selector: unescape('renderTabs'),
-fn: function (){
-var self=this;
-smalltalk.send(self['@ul'], "_contents_", [(function(html){smalltalk.send(smalltalk.send(self, "_tabs", []), "_do_", [(function(each){return smalltalk.send(self, "_renderTabFor_on_", [each, html]);})]);return (function($rec){smalltalk.send($rec, "_class_", ["newtab"]);smalltalk.send($rec, "_with_", [(function(){smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["ltab"]);(function($rec){smalltalk.send($rec, "_class_", ["mtab"]);return smalltalk.send($rec, "_with_", [unescape("%20+%20")]);})(smalltalk.send(html, "_span", []));return smalltalk.send(smalltalk.send(html, "_span", []), "_class_", ["rtab"]);})]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_newBrowserTab", []);})]);})(smalltalk.send(html, "_li", []));})]);
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_renderToolbarOn_'),
-smalltalk.method({
-selector: unescape('renderToolbarOn%3A'),
-fn: function (html){
-var self=this;
-(function($rec){smalltalk.send($rec, "_id_", ["jt_toolbar"]);return smalltalk.send($rec, "_with_", [(function(){(self['@input']=(function($rec){smalltalk.send($rec, "_class_", ["implementors"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_input", [])));smalltalk.send(self['@input'], "_onKeyPress_", [(function(event){return ((($receiver = smalltalk.send(smalltalk.send(event, "_keyCode", []), "__eq", [(13)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_search_", [smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_search_", [smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val", [])]);})]));})]);return (function($rec){smalltalk.send($rec, "_id_", ["jt_close"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_close", []);})]);})(smalltalk.send(html, "_div", []));})]);})(smalltalk.send(html, "_div", []));
-return self;}
-}),
-smalltalk.TabManager);
-
-smalltalk.addMethod(
-unescape('_update'),
-smalltalk.method({
-selector: unescape('update'),
-fn: function (){
-var self=this;
-smalltalk.send(self, "_renderTabs", []);
-return self;}
-}),
-smalltalk.TabManager);
-
-
-smalltalk.TabManager.klass.iVarNames = ['current'];
-smalltalk.addMethod(
-unescape('_current'),
-smalltalk.method({
-selector: unescape('current'),
-fn: function (){
-var self=this;
-return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", [], smalltalk.Widget.klass));})() : $receiver;
-return self;}
-}),
-smalltalk.TabManager.klass);
-
-smalltalk.addMethod(
-unescape('_new'),
-smalltalk.method({
-selector: unescape('new'),
-fn: function (){
-var self=this;
-smalltalk.send(self, "_shouldNotImplement", []);
-return self;}
-}),
-smalltalk.TabManager.klass);
+smalltalk.DebugErrorHandler.klass);
 
 
 smalltalk.addClass('Workspace', smalltalk.TabWidget, ['sourceArea'], 'IDE');
@@ -3271,6 +3271,7 @@ smalltalk.method({
 selector: unescape('show%3A'),
 fn: function (anObject){
 var self=this;
+(($receiver = self['@textarea']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(self, "_open", []);})() : $receiver;
 smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@textarea'], "_asJQuery", []), "_val", []), "__comma", [smalltalk.send(anObject, "_asString", [])])]);
 return self;}
 }),
