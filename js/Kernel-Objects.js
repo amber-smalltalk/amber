@@ -740,15 +740,17 @@ unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.JSON || JSON, "_parse_", [smalltalk.send(self, "_asJSONString", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+var variables=nil;
+(variables=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);})]);
+return variables;
+return self;},
 args: [],
-source: unescape('asJSON%0A%09%5EJSON%20parse%3A%20self%20asJSONString'),
-messageSends: ["parse:", "asJSONString"],
-referencedClasses: ["JSON"]
+source: unescape('asJSON%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20HashedCollection%20new.%0A%09self%20class%20allInstanceVariableNames%20do%3A%20%5B%3Aeach%20%7C%0A%09%09variables%20at%3A%20each%20put%3A%20%28self%20instVarAt%3A%20each%29%20asJSON%5D.%0A%09%5Evariables'),
+messageSends: ["new", "do:", "allInstanceVariableNames", "class", "at:put:", "asJSON", "instVarAt:"],
+referencedClasses: ["HashedCollection"]
 }),
 smalltalk.Object);
 
@@ -878,14 +880,13 @@ unescape('_asJSONString'),
 smalltalk.method({
 selector: unescape('asJSONString'),
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.JSON || JSON, "_stringify_", [self]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_asJSON", [])]);
+return self;},
 args: [],
-source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20self'),
-messageSends: ["stringify:"],
+source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20self%20asJSON'),
+messageSends: ["stringify:", "asJSON"],
 referencedClasses: ["JSON"]
 }),
 smalltalk.Object);
@@ -2532,6 +2533,22 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%5Eself'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 unescape('_pi'),
@@ -2789,6 +2806,22 @@ fn: function (aBoolean) {
 },
 args: ["aBoolean"],
 source: unescape('%7C%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20true%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+return self;
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%5Eself'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -3687,6 +3720,22 @@ args: ["aString", "aString2", "aString3"],
 source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
 referencedClasses: ["ClassBuilder"]
+}),
+smalltalk.UndefinedObject);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+return (typeof null == 'undefined' ? nil : null);
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%5Enull'),
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
