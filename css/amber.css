@@ -209,6 +209,7 @@ body.jtalkBody {
     border-right: 1px solid #fff;
     border-bottom: 1px solid #fff;
     background: #fff;
+    display: inline;
     margin-top: 0;
     margin-bottom: 0;
     padding-top: 0;
