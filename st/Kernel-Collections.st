@@ -265,12 +265,12 @@ asSet
 	^Set withAll: self
 !
 
-asJSONString
-	^JSON stringify: (self collect: [:each | each asJSONString])
-!
-
 asOrderedCollection
 	^self asArray
+!
+
+asJSON
+	^self asArray collect: [:each | each asJSON]
 ! !
 
 !Collection methodsFor: 'copying'!
@@ -762,12 +762,12 @@ asJavaScriptSelector
 	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
 !
 
-asJSONString
-	^self
-!
-
 asSymbol
 	^Symbol lookup: self
+!
+
+asJSON
+	^self
 ! !
 
 !String methodsFor: 'copying'!
@@ -1515,6 +1515,14 @@ removeKey: aKey ifAbsent: aBlock
 
 asDictionary
 	^Dictionary fromPairs: self associations
+!
+
+asJSON
+	| c |
+	c := self class new.
+	self keysAndValuesDo: [:key :value |
+		c at: key put: value asJSON].
+	^c
 ! !
 
 !HashedCollection methodsFor: 'copying'!
@@ -1685,8 +1693,8 @@ asHashedCollection
 	^HashedCollection fromPairs: self associations
 !
 
-asJSONString
-	^self asHashedCollection asJSONString
+asJSON
+	^self asHashedCollection asJSON
 ! !
 
 !Dictionary methodsFor: 'initialization'!

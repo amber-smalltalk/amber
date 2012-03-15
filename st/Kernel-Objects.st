@@ -114,11 +114,15 @@ asJavascript
 !
 
 asJSON
-	^JSON parse: self asJSONString
+	| variables |
+	variables := HashedCollection new.
+	self class allInstanceVariableNames do: [:each |
+		variables at: each put: (self instVarAt: each) asJSON].
+	^variables
 !
 
 asJSONString
-	^JSON stringify: self
+	^JSON stringify: self asJSON
 ! !
 
 !Object methodsFor: 'copying'!
@@ -823,6 +827,10 @@ to: stop by: step
 	  			pos := pos + 1.
 	    			value := value + step]].
 	^array
+!
+
+asJSON
+	^self
 ! !
 
 !Number methodsFor: 'copying'!
@@ -1003,6 +1011,12 @@ not
 		return aBoolean;
 	    }
 	>
+! !
+
+!Boolean methodsFor: 'converting'!
+
+asJSON
+	^self
 ! !
 
 !Boolean methodsFor: 'copying'!
@@ -1229,6 +1243,12 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
+! !
+
+!UndefinedObject methodsFor: 'converting'!
+
+asJSON
+	^null
 ! !
 
 !UndefinedObject methodsFor: 'copying'!

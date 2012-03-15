@@ -756,23 +756,23 @@ return self;}
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
-smalltalk.method({
-selector: unescape('asJSONString'),
-fn: function () {
-var self=this;
-return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJSONString", []);})])]);
-return self;}
-}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
 unescape('_asOrderedCollection'),
 smalltalk.method({
 selector: unescape('asOrderedCollection'),
 fn: function () {
 var self=this;
 return smalltalk.send(self, "_asArray", []);
+return self;}
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asJSON", []);})]);
 return self;}
 }),
 smalltalk.Collection);
@@ -1779,23 +1779,23 @@ return self;}
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
-smalltalk.method({
-selector: unescape('asJSONString'),
-fn: function () {
-var self=this;
-return self;
-return self;}
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
 unescape('_asSymbol'),
 smalltalk.method({
 selector: unescape('asSymbol'),
 fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.Symbol || Symbol), "_lookup_", [self]);
+return self;}
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+return self;
 return self;}
 }),
 smalltalk.String);
@@ -3144,6 +3144,20 @@ return self;}
 }),
 smalltalk.HashedCollection);
 
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+var c=nil;
+(c=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
+smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltalk.send(c, "_at_put_", [key, smalltalk.send(value, "_asJSON", [])]);})]);
+return c;
+return self;}
+}),
+smalltalk.HashedCollection);
+
 
 smalltalk.addMethod(
 unescape('_fromPairs_'),
@@ -3281,12 +3295,12 @@ return self;}
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
+unescape('_asJSON'),
 smalltalk.method({
-selector: unescape('asJSONString'),
-fn: function () {
+selector: unescape('asJSON'),
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSONString", []);
+return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSON", []);
 return self;}
 }),
 smalltalk.Dictionary);
