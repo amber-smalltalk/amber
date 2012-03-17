@@ -927,6 +927,22 @@ referencedClasses: []
 }),
 smalltalk.Object);
 
+smalltalk.addMethod(
+unescape('_respondsTo_'),
+smalltalk.method({
+selector: unescape('respondsTo%3A'),
+category: 'testing',
+fn: function (aMethodNameStringOrSymbol){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [smalltalk.send(aMethodNameStringOrSymbol, "_asString", [])]);
+return self;},
+args: ["aMethodNameStringOrSymbol"],
+source: unescape('respondsTo%3A%20aMethodNameStringOrSymbol%20%0A%09%22Answer%20whether%20the%20method%20dictionary%20of%20the%20receiver%27s%20class%20contains%20%0A%09aMethodNameStringOrSymbol%20as%20a%20message%20selector.%22%0A%09%5Eself%20class%20canUnderstand%3A%20aMethodNameStringOrSymbol%20asString'),
+messageSends: ["canUnderstand:", "class", "asString"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
 
 smalltalk.addMethod(
 unescape('_initialize'),

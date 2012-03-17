@@ -1,4 +1,149 @@
 Smalltalk current createPackage: 'Kernel-Classes' properties: #{}!
+Object subclass: #ClassCommentReader
+	instanceVariableNames: 'class chunkParser'
+	category: 'Kernel-Classes'!
+!ClassCommentReader commentStamp!
+ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
+See `ClassCategoryReader` too.!
+
+!ClassCommentReader methodsFor: 'accessing'!
+
+class: aClass
+	class := aClass
+! !
+
+!ClassCommentReader methodsFor: 'fileIn'!
+
+scanFrom: aChunkParser
+	| chunk |
+	chunk := aChunkParser nextChunk.
+	chunk isEmpty ifFalse: [
+	    self setComment: chunk].
+! !
+
+!ClassCommentReader methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	chunkParser := ChunkParser new.
+! !
+
+!ClassCommentReader methodsFor: 'private'!
+
+setComment: aString
+    class comment: aString
+! !
+
+Object subclass: #ClassCategoryReader
+	instanceVariableNames: 'class category chunkParser'
+	category: 'Kernel-Classes'!
+!ClassCategoryReader commentStamp!
+ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
+
+!ClassCategoryReader methodsFor: 'accessing'!
+
+class: aClass category: aString
+	class := aClass.
+	category := aString
+! !
+
+!ClassCategoryReader methodsFor: 'fileIn'!
+
+scanFrom: aChunkParser
+	| chunk |
+	[chunk := aChunkParser nextChunk.
+	chunk isEmpty] whileFalse: [
+	    self compileMethod: chunk]
+! !
+
+!ClassCategoryReader methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	chunkParser := ChunkParser new.
+! !
+
+!ClassCategoryReader methodsFor: 'private'!
+
+compileMethod: aString
+	| method |
+	method := Compiler new load: aString forClass: class.
+	method category: category.
+	class addCompiledMethod: method
+! !
+
+Object subclass: #ClassBuilder
+	instanceVariableNames: ''
+	category: 'Kernel-Classes'!
+!ClassBuilder commentStamp!
+ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
+
+Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
+
+!ClassBuilder methodsFor: 'class creation'!
+
+superclass: aClass subclass: aString
+	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
+!
+
+class: aClass instanceVariableNames: aString
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+	self setupClass: aClass
+!
+
+superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
+	| newClass |
+	newClass := self addSubclassOf: aClass
+				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+				package: (aString3 ifNil: ['unclassified']).
+	self setupClass: newClass.
+	^newClass
+! !
+
+!ClassBuilder methodsFor: 'private'!
+
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection
+	<smalltalk.addClass(aString, aClass, aCollection);
+	    return smalltalk[aString]>
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
+!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<smalltalk.addClass(aString, aClass, aCollection, packageName);
+	    return smalltalk[aString]>
+!
+
+copyClass: aClass named: aString
+	| newClass |
+
+	newClass := self 
+		addSubclassOf: aClass superclass
+		named: aString 
+		instanceVariableNames: aClass instanceVariableNames 
+		package: aClass package name.
+
+	self setupClass: newClass.
+
+	aClass methodDictionary values do: [:each |
+		newClass addCompiledMethod: (Compiler new load: each source forClass: newClass).
+		(newClass methodDictionary at: each selector) category: each category].
+
+	aClass class methodDictionary values do: [:each |
+		newClass class addCompiledMethod: (Compiler new load: each source forClass: newClass class).
+		(newClass class methodDictionary at: each selector) category: each category].
+
+	self setupClass: newClass.
+	^newClass
+! !
+
 Object subclass: #Behavior
 	instanceVariableNames: ''
 	category: 'Kernel-Classes'!
@@ -156,6 +301,16 @@ basicNew
 
 inheritsFrom: aClass
 	^aClass allSubclasses includes: self
+!
+
+canUnderstand: selector 
+	"Answer whether the receiver can respond to the message whose selector 
+	is the argument. The selector can be in the method dictionary of the 
+	receiver's class or any of its superclasses."
+
+	(self methodDictionary includesKey: selector) ifTrue: [^true].
+	self superclass == nil ifTrue: [^false].
+	^ self superclass canUnderstand: selector
 ! !
 
 Behavior subclass: #Class
@@ -254,150 +409,5 @@ printString
 
 isMetaclass
 	^true
-! !
-
-Object subclass: #ClassBuilder
-	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
-!ClassBuilder commentStamp!
-ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
-
-Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
-
-!ClassBuilder methodsFor: 'class creation'!
-
-superclass: aClass subclass: aString
-	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
-!
-
-class: aClass instanceVariableNames: aString
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
-	self setupClass: aClass
-!
-
-superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
-	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				package: (aString3 ifNil: ['unclassified']).
-	self setupClass: newClass.
-	^newClass
-! !
-
-!ClassBuilder methodsFor: 'private'!
-
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	<smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]>
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
-!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	<smalltalk.addClass(aString, aClass, aCollection, packageName);
-	    return smalltalk[aString]>
-!
-
-copyClass: aClass named: aString
-	| newClass |
-
-	newClass := self 
-		addSubclassOf: aClass superclass
-		named: aString 
-		instanceVariableNames: aClass instanceVariableNames 
-		package: aClass package name.
-
-	self setupClass: newClass.
-
-	aClass methodDictionary values do: [:each |
-		newClass addCompiledMethod: (Compiler new load: each source forClass: newClass).
-		(newClass methodDictionary at: each selector) category: each category].
-
-	aClass class methodDictionary values do: [:each |
-		newClass class addCompiledMethod: (Compiler new load: each source forClass: newClass class).
-		(newClass class methodDictionary at: each selector) category: each category].
-
-	self setupClass: newClass.
-	^newClass
-! !
-
-Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class category chunkParser'
-	category: 'Kernel-Classes'!
-!ClassCategoryReader commentStamp!
-ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
-
-!ClassCategoryReader methodsFor: 'accessing'!
-
-class: aClass category: aString
-	class := aClass.
-	category := aString
-! !
-
-!ClassCategoryReader methodsFor: 'fileIn'!
-
-scanFrom: aChunkParser
-	| chunk |
-	[chunk := aChunkParser nextChunk.
-	chunk isEmpty] whileFalse: [
-	    self compileMethod: chunk]
-! !
-
-!ClassCategoryReader methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	chunkParser := ChunkParser new.
-! !
-
-!ClassCategoryReader methodsFor: 'private'!
-
-compileMethod: aString
-	| method |
-	method := Compiler new load: aString forClass: class.
-	method category: category.
-	class addCompiledMethod: method
-! !
-
-Object subclass: #ClassCommentReader
-	instanceVariableNames: 'class chunkParser'
-	category: 'Kernel-Classes'!
-!ClassCommentReader commentStamp!
-ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
-See `ClassCategoryReader` too.!
-
-!ClassCommentReader methodsFor: 'accessing'!
-
-class: aClass
-	class := aClass
-! !
-
-!ClassCommentReader methodsFor: 'fileIn'!
-
-scanFrom: aChunkParser
-	| chunk |
-	chunk := aChunkParser nextChunk.
-	chunk isEmpty ifFalse: [
-	    self setComment: chunk].
-! !
-
-!ClassCommentReader methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	chunkParser := ChunkParser new.
-! !
-
-!ClassCommentReader methodsFor: 'private'!
-
-setComment: aString
-    class comment: aString
 ! !
 

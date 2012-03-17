@@ -309,6 +309,12 @@ isParseFailure
 
 isSymbol
 	^false
+!
+
+respondsTo: aMethodNameStringOrSymbol 
+	"Answer whether the method dictionary of the receiver's class contains 
+	aMethodNameStringOrSymbol as a message selector."
+	^self class canUnderstand: aMethodNameStringOrSymbol asString
 ! !
 
 !Object class methodsFor: 'accessing'!
