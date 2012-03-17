@@ -531,8 +531,10 @@ selector: unescape('asJSON'),
 fn: function (){
 var self=this;
 var variables=nil;
+var toSerialize=nil;
 (variables=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);})]);
+(toSerialize=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_reject_", [(function(e){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_jsonIgnoreInstanceVariables", []), "_includes_", [e]);})]));
+smalltalk.send(toSerialize, "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);})]);
 return variables;
 return self;}
 }),
@@ -668,6 +670,17 @@ fn: function () {
     var self = this;
     return self;
 }
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+unescape('_jsonIgnoreInstanceVariables'),
+smalltalk.method({
+selector: unescape('jsonIgnoreInstanceVariables'),
+fn: function (){
+var self=this;
+return [];
+return self;}
 }),
 smalltalk.Object.klass);
 

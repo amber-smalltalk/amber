@@ -114,9 +114,10 @@ asJavascript
 !
 
 asJSON
-	| variables |
+	| variables toSerialize |
 	variables := HashedCollection new.
-	self class allInstanceVariableNames do: [:each |
+	toSerialize := self class allInstanceVariableNames reject:[:e| self class jsonIgnoreInstanceVariables includes: e].
+	toSerialize do: [:each |
 		variables at: each put: (self instVarAt: each) asJSON].
 	^variables
 !
@@ -308,6 +309,15 @@ isParseFailure
 
 isSymbol
 	^false
+! !
+
+!Object class methodsFor: 'accessing'!
+
+jsonIgnoreInstanceVariables
+	"Answers the names of the instance variables that have to be ignored when serializing/reifying this objects to/from json.
+	Subclasses should override when appropiate (but don't forget concatenation with super's)."
+
+	^ #()
 ! !
 
 !Object class methodsFor: 'initialization'!

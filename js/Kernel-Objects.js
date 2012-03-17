@@ -743,13 +743,15 @@ category: 'converting',
 fn: function (){
 var self=this;
 var variables=nil;
+var toSerialize=nil;
 (variables=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);})]);
+(toSerialize=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_reject_", [(function(e){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_jsonIgnoreInstanceVariables", []), "_includes_", [e]);})]));
+smalltalk.send(toSerialize, "_do_", [(function(each){return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);})]);
 return variables;
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20HashedCollection%20new.%0A%09self%20class%20allInstanceVariableNames%20do%3A%20%5B%3Aeach%20%7C%0A%09%09variables%20at%3A%20each%20put%3A%20%28self%20instVarAt%3A%20each%29%20asJSON%5D.%0A%09%5Evariables'),
-messageSends: ["new", "do:", "allInstanceVariableNames", "class", "at:put:", "asJSON", "instVarAt:"],
+source: unescape('asJSON%0A%09%7C%20variables%20toSerialize%20%7C%0A%09variables%20%3A%3D%20HashedCollection%20new.%0A%09toSerialize%20%3A%3D%20self%20class%20allInstanceVariableNames%20reject%3A%5B%3Ae%7C%20self%20class%20jsonIgnoreInstanceVariables%20includes%3A%20e%5D.%0A%09toSerialize%20do%3A%20%5B%3Aeach%20%7C%0A%09%09variables%20at%3A%20each%20put%3A%20%28self%20instVarAt%3A%20each%29%20asJSON%5D.%0A%09%5Evariables'),
+messageSends: ["new", "reject:", "allInstanceVariableNames", "class", "includes:", "jsonIgnoreInstanceVariables", "do:", "at:put:", "asJSON", "instVarAt:"],
 referencedClasses: ["HashedCollection"]
 }),
 smalltalk.Object);
@@ -937,6 +939,22 @@ fn: function () {
 },
 args: [],
 source: unescape('initialize%0A%09%22no%20op%22'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+unescape('_jsonIgnoreInstanceVariables'),
+smalltalk.method({
+selector: unescape('jsonIgnoreInstanceVariables'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return [];
+return self;},
+args: [],
+source: unescape('jsonIgnoreInstanceVariables%0A%09%22Answers%20the%20names%20of%20the%20instance%20variables%20that%20have%20to%20be%20ignored%20when%20serializing/reifying%20this%20objects%20to/from%20json.%0A%09Subclasses%20should%20override%20when%20appropiate%20%28but%20don%27t%20forget%20concatenation%20with%20super%27s%29.%22%0A%0A%09%5E%20%23%28%29'),
 messageSends: [],
 referencedClasses: []
 }),
