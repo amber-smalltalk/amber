@@ -1,4 +1,53 @@
 Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
+Object subclass: #Association
+	instanceVariableNames: 'key value'
+	category: 'Kernel-Collections'!
+
+!Association methodsFor: 'accessing'!
+
+key: aKey
+	key := aKey
+!
+
+key
+	^key
+!
+
+value: aValue
+	value := aValue
+!
+
+value
+	^value
+! !
+
+!Association methodsFor: 'comparing'!
+
+= anAssociation
+	^self class = anAssociation class and: [
+	    self key = anAssociation key and: [
+		self value = anAssociation value]]
+!
+
+storeOn: aStream
+	"Store in the format (key->value)"
+
+	"aStream nextPutAll: '('."
+	key storeOn: aStream.
+	aStream nextPutAll: '->'.
+	value storeOn: aStream.
+	"aStream nextPutAll: ')'"
+! !
+
+!Association class methodsFor: 'instance creation'!
+
+key: aKey value: aValue
+	    ^self new
+		key: aKey;
+		value: aValue;
+		yourself
+! !
+
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
 	category: 'Kernel-Collections'!
@@ -129,55 +178,6 @@ on: aCollection
 	    ^self new 
 		setCollection: aCollection;
 		setStreamSize: aCollection size;
-		yourself
-! !
-
-Object subclass: #Association
-	instanceVariableNames: 'key value'
-	category: 'Kernel-Collections'!
-
-!Association methodsFor: 'accessing'!
-
-key: aKey
-	key := aKey
-!
-
-key
-	^key
-!
-
-value: aValue
-	value := aValue
-!
-
-value
-	^value
-! !
-
-!Association methodsFor: 'comparing'!
-
-= anAssociation
-	^self class = anAssociation class and: [
-	    self key = anAssociation key and: [
-		self value = anAssociation value]]
-!
-
-storeOn: aStream
-	"Store in the format (key->value)"
-
-	"aStream nextPutAll: '('."
-	key storeOn: aStream.
-	aStream nextPutAll: '->'.
-	value storeOn: aStream.
-	"aStream nextPutAll: ')'"
-! !
-
-!Association class methodsFor: 'instance creation'!
-
-key: aKey value: aValue
-	    ^self new
-		key: aKey;
-		value: aValue;
 		yourself
 ! !
 
@@ -1685,13 +1685,14 @@ at: aKey put: aValue
 !Dictionary methodsFor: 'adding/removing'!
 
 removeKey: aKey ifAbsent: aBlock
+
 	<
 		var index = self['@keys'].indexOf(aKey);
 		if(index === -1) {
 			return aBlock()
 		} else {
-			self['@keys'].splice(i, 1);
-			self['@values'].splice(i, 1);
+			self['@keys'].splice(index, 1);
+			self['@values'].splice(index, 1);
 			return aKey
 		};
 	>
