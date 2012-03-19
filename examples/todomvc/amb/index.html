@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Amber Smalltalk</title>
+	<link rel="stylesheet" href="css/todos.css">
+	<script src="js/amber.js"></script>
+  <script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=false'></script>
+</head>
+<body>
+	<div id="todoapp">
+
+    <!--
+		<div class="title">
+			<h1>Todos</h1>
+		</div>
+		<div class="content">
+			<form id="create-todo">
+				<input id="new-todo" type="text" placeholder="What needs to be done?" />
+			</form>
+			<div id="todos">
+				<div id="todo-actions">
+					<input id="check-all" class="check" type="checkbox" />
+					<label for="check-all">Mark all as complete</label>
+				</div>
+				<ul id="todo-list">
+					<li class="todo">
+						<div class="display">
+							<input class="check" type="checkbox" />
+							<div class="todo-content">Name</div>
+							<span class="todo-destroy"></span>
+						</div>
+						<div class="edit">
+							<input class="todo-input" type="text" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div id="todo-stats">
+				<span class="todo-count">
+					<span class="number">1</span>
+					<span class="word">item</span> left.
+				</span>
+				<span class="todo-clear">
+					<a href="#">
+						Clear <span class="number-done">1</span>
+						completed <span class="word-done">item</span>
+					</a>
+				</span>
+			</div>
+		</div>
+    -->
+
+	</div>
+	<ul id="instructions">
+		<li>Double-click to edit a todo.</li>
+	</ul>
+	<div id="credits">
+		TodoMVC created by <a href="http://addyosmani.github.com/todomvc/">Addy Osmani</a>.
+		<br />
+		Amber example created by
+		<a href="https://github.com/johnnyt">JohnnyT</a>
+	</div>
+
+	<!-- scripts here -->
+	<script type="text/javascript">
+		loadAmber({
+			packages: ['Todos'],
+			debug: true,
+			ready: function(){ smalltalk.Browser._openOn_(smalltalk.TodoApp); }
+		});
+	</script>
+</body>
+</html>
