@@ -1,17 +1,18 @@
 <html>
 <head>
-<title>JTalk - Presentation</title>
+<title>Amber - Presentation</title>
+<script src="../../js/lib/jquery-1.7.min.js" type="text/javascript"></script>
 <script src="../../js/amber.js" type="text/javascript"></script>
 </head>
 <body>
-
-<script type="text/javascript"> 
-	loadAmber({
-		files: ['Presentation.js'],
-		prefix: 'examples/presentation/js',
-		ready: function() {smalltalk.Browser._openOn_(smalltalk.FOSDEM2012Presentation)} 
-	}); 
-</script>
-
+  <script type="text/javascript">
+    loadAmber({
+      packages: ['Presentation','AmberPresentation'],
+      prefix: 'examples/presentation/js',
+      ready: function() {
+        //smalltalk.Browser._openOn_(smalltalk.Presentation._concretePresentations()._last())
+      }
+    });
+  </script>
 </body>
 </html>
