@@ -856,27 +856,9 @@ compileMethodDefinition
 !
 
 compileMethodDefinitionFor: aClass
-    | compiler method source node | 
-    source := sourceArea val.
-    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
-    compiler := Compiler new.
-    compiler source: source.
-    node := compiler parse: source.
-    node isParseFailure ifTrue: [
-	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
-    compiler currentClass: aClass.
-    method := compiler eval: (compiler compileNode: node).
-    method category: selectedProtocol.
-    compiler unknownVariables do: [:each |
-         "Do not try to redeclare javascript's objects"
-         (window at: each) ifNil: [
-	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
-			self addInstanceVariableNamed: each toClass: aClass.
-			^self compileMethodDefinitionFor: aClass]]].
-    aClass addCompiledMethod: method.
-    compiler setupClass: aClass.
-    self updateMethodsList.
-    self selectMethod: method
+   
+    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].    
+    self compileMethodDefinitionFor: aClass withSource: sourceArea val andCategory: selectedProtocol
 !
 
 compileDefinition
@@ -1081,6 +1063,30 @@ copyClass
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
+!
+
+compileMethodDefinitionFor: aClass withSource: aSource andCategory: aCategory
+	
+   | compiler method source node | 
+
+    compiler := Compiler new.
+    compiler source: aSource.
+    node := compiler parse: aSource.
+    node isParseFailure ifTrue: [  
+	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
+    compiler currentClass: aClass.
+    method := compiler eval: (compiler compileNode: node).
+    method category: aCategory.
+    compiler unknownVariables do: [:each |
+         "Do not try to redeclare javascript's objects"
+         (window at: each) ifNil: [
+	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+			self addInstanceVariableNamed: each toClass: aClass.
+			^self compileMethodDefinitionFor: aClass]]].
+    aClass addCompiledMethod: method.
+    compiler setupClass: aClass.
+    self updateMethodsList.
+    self selectMethod: method
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -1273,7 +1279,10 @@ updateSourceAndButtons
 			onClick: [self removeClass].
 		html button
 			with: 'References';
-			onClick: [self searchClassReferences]].
+			onClick: [self searchClassReferences].
+                html button
+			with: 'Create accessors';
+			onClick: [self createAccessors]].
 	methodButtons contents: [:html | | protocolSelect referencesSelect |
 		html button
 			with: 'Remove method';
@@ -1330,6 +1339,29 @@ updateStatus
 
 resetClassesList
 	classesList resetNodes
+!
+
+createAccessors
+ 
+ selectedClass instanceVariableNames 
+     do: [:name|    self createAccessorsFor: name ]
+!
+
+createAccessorsFor: name
+ 
+	(selectedClass methodDictionary includesKey: name)
+		ifFalse: [      
+		 self compileMethodDefinitionFor: selectedClass 
+					withSource: (name , String lf , '    ^' , name) 
+ 					andCategory: 'accessing'
+                ].
+ 
+	(selectedClass methodDictionary includesKey: name , ':')
+		ifFalse: [      
+		  self compileMethodDefinitionFor: selectedClass 
+							withSource: (name , ':' ,  ' aValue' , String lf , '    ' ,  name , ' := aValue.' ) 
+					        	andCategory: 'accessing'
+                ]
 ! !
 
 !Browser class methodsFor: 'accessing'!
