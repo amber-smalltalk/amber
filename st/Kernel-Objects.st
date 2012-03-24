@@ -1550,6 +1550,15 @@ at: aSymbol put: anObject
 	| attr |
 	attr := aSymbol asString.
 	<self['@jsObject'][attr] = anObject>
+!
+
+asDictionary
+	^ Dictionary fromPairs: (self keys collect:[:key|
+								key -> (self at: key)])
+!
+
+keys
+	<return Object.keys(self['@jsObject'])>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!
