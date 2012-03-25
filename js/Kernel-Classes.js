@@ -138,7 +138,7 @@ smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
 smalltalk.send(compiler, "_setupClass_", [self['@class']]);
 return self;},
 args: ["aString"],
-source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20compiler%20%7C%0A%09method%20%3A%3D%20%28compiler%20%3A%3D%20Compiler%20new%29%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method.%0A%09compiler%20setupClass%3A%20class.%20'),
+source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20compiler%20%7C%0A%09method%20%3A%3D%20%28compiler%20%3A%3D%20Compiler%20new%29%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method.%0A%09compiler%20setupClass%3A%20class.'),
 messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:", "setupClass:"],
 referencedClasses: ["Compiler"]
 }),
