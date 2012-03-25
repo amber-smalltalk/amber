@@ -12,6 +12,9 @@ amber = (function() {
 	var scripts = document.getElementsByTagName("script");
 	var src     = scripts[ scripts.length - 1 ].src;
 	var home    = src.split("/").slice(0, -2).join("/") + "/";
+        var amberPrefix = "amber/";
+        var amberCssPrefix = "amber/css"; 
+        var amberJsPrefix = "amber/js"; 
 
 	var debug;
 	var deploy;
@@ -56,8 +59,8 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('compat.js');
-		addJSToLoad('boot.js');
+		addJSToLoad('compat.js', amberJsPrefix);
+		addJSToLoad('boot.js', amberJsPrefix);
 
 		if (deploy) {
 			loadPackages([
@@ -69,10 +72,10 @@ amber = (function() {
 				'Kernel-Transcript.deploy',
 				'Kernel-Announcements.deploy',
 				'Canvas.deploy'
-			]);
+			], amberJsPrefix);
 		} else {
 			loadIDEDependencies();
-			loadCSS('amber.css');
+			loadCSS('amber.css', amberCssPrefix);
 
 			loadPackages([
 				'Kernel-Objects',
@@ -90,7 +93,7 @@ amber = (function() {
 				'Examples',
 				'Benchfib',
 				'Kernel-Tests'
-			]);
+			], amberJsPrefix);
 		}
 
 		var additionalFiles = spec.packages || spec.files;
@@ -99,7 +102,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('init.js');
+		addJSToLoad('init.js', amberJsPrefix);
 		initializeSmalltalk();
 	};
 
@@ -146,20 +149,20 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js', amberJsPrefix));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js', amberJsPrefix));
 		}
 	};
 
 	function loadIDEDependencies() {
-		addJSToLoad('lib/jQuery/jquery.textarea.js');
-		addJSToLoad('lib/CodeMirror/codemirror.js');
-		addJSToLoad('lib/CodeMirror/smalltalk.js');
-		loadCSS('lib/CodeMirror/codemirror.css', 'js');
-		loadCSS('lib/CodeMirror/amber.css', 'js');
+		addJSToLoad('lib/jQuery/jquery.textarea.js', amberJsPrefix);
+		addJSToLoad('lib/CodeMirror/codemirror.js', amberJsPrefix);
+		addJSToLoad('lib/CodeMirror/smalltalk.js', amberJsPrefix);
+		loadCSS('lib/CodeMirror/codemirror.css', amberJsPrefix);
+		loadCSS('lib/CodeMirror/amber.css', amberJsPrefix);
 	};
 
 	// This will be called after JS files have been loaded
