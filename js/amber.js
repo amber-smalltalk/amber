@@ -12,9 +12,6 @@ amber = (function() {
 	var scripts = document.getElementsByTagName("script");
 	var src     = scripts[ scripts.length - 1 ].src;
 	var home    = src.split("/").slice(0, -2).join("/") + "/";
-        var amberPrefix = "amber/";
-        var amberCssPrefix = "amber/css"; 
-        var amberJsPrefix = "amber/js"; 
 
 	var debug;
 	var deploy;
@@ -59,8 +56,8 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('compat.js', amberJsPrefix);
-		addJSToLoad('boot.js', amberJsPrefix);
+		addJSToLoad('compat.js');
+		addJSToLoad('boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -72,10 +69,10 @@ amber = (function() {
 				'Kernel-Transcript.deploy',
 				'Kernel-Announcements.deploy',
 				'Canvas.deploy'
-			], amberJsPrefix);
+			]);
 		} else {
 			loadIDEDependencies();
-			loadCSS('amber.css', amberCssPrefix);
+			loadCSS('amber.css');
 
 			loadPackages([
 				'Kernel-Objects',
@@ -93,42 +90,45 @@ amber = (function() {
 				'Examples',
 				'Benchfib',
 				'Kernel-Tests'
-			], amberJsPrefix);
+			]);
 		}
 
 		var additionalFiles = spec.packages || spec.files;
 		if (additionalFiles) {
-			loadPackages(additionalFiles, spec.prefix);
+			loadPackages(additionalFiles, spec.prefix, spec.packageHome);
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('init.js', amberJsPrefix);
+		addJSToLoad('init.js');
 		initializeSmalltalk();
 	};
 
-	function loadPackages(names, prefix){
+	function loadPackages(names, prefix, urlHome){
 		var name, url;
 		var prefix = prefix || 'js';
+    var urlHome = urlHome || home;
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
-			addJSToLoad(name + '.js', prefix);
+			addJSToLoad(name + '.js', prefix, urlHome);
 		}
 	};
 
-	function addJSToLoad(name, prefix) {
-		jsToLoad.push(buildJSURL(name, prefix));
+	function addJSToLoad(name, prefix, urlHome) {
+    var urlHome = urlHome || home;
+		jsToLoad.push(buildJSURL(name, prefix, urlHome));
 	};
 
-	function buildJSURL(name, prefix) {
+	function buildJSURL(name, prefix, urlHome) {
 		var prefix = prefix || 'js';
 		var name = name;
+    var urlHome = urlHome || home;
 
 		if (!deploy) {
 			name = name + nocache;
 		}
 
-		return home + prefix + '/' + name;
+		return urlHome + prefix + '/' + name;
 	};
 
 	function loadCSS(name, prefix) {
@@ -149,20 +149,20 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js', amberJsPrefix));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js', amberJsPrefix));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
 	};
 
 	function loadIDEDependencies() {
-		addJSToLoad('lib/jQuery/jquery.textarea.js', amberJsPrefix);
-		addJSToLoad('lib/CodeMirror/codemirror.js', amberJsPrefix);
-		addJSToLoad('lib/CodeMirror/smalltalk.js', amberJsPrefix);
-		loadCSS('lib/CodeMirror/codemirror.css', amberJsPrefix);
-		loadCSS('lib/CodeMirror/amber.css', amberJsPrefix);
+		addJSToLoad('lib/jQuery/jquery.textarea.js');
+		addJSToLoad('lib/CodeMirror/codemirror.js');
+		addJSToLoad('lib/CodeMirror/smalltalk.js');
+		loadCSS('lib/CodeMirror/codemirror.css', 'js');
+		loadCSS('lib/CodeMirror/amber.css', 'js');
 	};
 
 	// This will be called after JS files have been loaded
