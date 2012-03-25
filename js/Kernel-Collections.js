@@ -2973,6 +2973,22 @@ referencedClasses: []
 }),
 smalltalk.Symbol);
 
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_asJSON", []);
+return self;},
+args: [],
+source: unescape('asJSON%0A%09%5Eself%20asString%20asJSON'),
+messageSends: ["asJSON", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
 
 smalltalk.addMethod(
 unescape('_lookup_'),

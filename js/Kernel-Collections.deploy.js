@@ -2083,6 +2083,17 @@ return self;}
 }),
 smalltalk.Symbol);
 
+smalltalk.addMethod(
+unescape('_asJSON'),
+smalltalk.method({
+selector: unescape('asJSON'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_asJSON", []);
+return self;}
+}),
+smalltalk.Symbol);
+
 
 smalltalk.addMethod(
 unescape('_lookup_'),

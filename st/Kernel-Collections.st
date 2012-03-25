@@ -1017,6 +1017,10 @@ asJavascript
 
 asSelector
 	^self asString asSelector
+!
+
+asJSON
+	^self asString asJSON
 ! !
 
 !Symbol methodsFor: 'copying'!
