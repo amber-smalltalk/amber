@@ -206,7 +206,7 @@ amber = (function() {
 
 	function loadJSViaJQuery(url, callback) {
 		$.ajaxSetup({cache: true});
- 		$.getScript(jsToLoad[0], callback);
+		$.getScript(jsToLoad[0], callback);
 	};
 
 	function writeScriptTag(src) {
