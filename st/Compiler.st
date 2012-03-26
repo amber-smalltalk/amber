@@ -1,106 +1,88 @@
 Smalltalk current createPackage: 'Compiler' properties: #{}!
-Object subclass: #NodeVisitor
-	instanceVariableNames: ''
-	category: 'Compiler'!
+Object subclass: #Node
+	instanceVariableNames: 'nodes'
+	package: 'Compiler'!
 
-!NodeVisitor methodsFor: 'visiting'!
+!Node methodsFor: 'accessing'!
 
-visit: aNode
-	aNode accept: self
+nodes
+	^nodes ifNil: [nodes := Array new]
 !
 
-visitNode: aNode
-!
-
-visitMethodNode: aNode
-	self visitNode: aNode
-!
-
-visitSequenceNode: aNode
-	self visitNode: aNode
-!
-
-visitBlockSequenceNode: aNode
-	self visitSequenceNode: aNode
-!
-
-visitBlockNode: aNode
-	self visitNode: aNode
-!
-
-visitReturnNode: aNode
-	self visitNode: aNode
-!
-
-visitSendNode: aNode
-	self visitNode: aNode
-!
-
-visitCascadeNode: aNode
-	self visitNode: aNode
-!
-
-visitValueNode: aNode
-	self visitNode: aNode
-!
-
-visitVariableNode: aNode
-!
-
-visitAssignmentNode: aNode
-	self visitNode: aNode
-!
-
-visitClassReferenceNode: aNode
-	self 
-	    nextPutAll: 'smalltalk.';
-	    nextPutAll: aNode value
-!
-
-visitJSStatementNode: aNode
-	self 
-	    nextPutAll: 'function(){';
-	    nextPutAll: aNode source;
-	    nextPutAll: '})()'
-!
-
-visitDynamicArrayNode: aNode
-	self visitNode: aNode
-!
-
-visitDynamicDictionaryNode: aNode
-	self visitNode: aNode
+addNode: aNode
+	self nodes add: aNode
 ! !
 
-Object subclass: #DoIt
-	instanceVariableNames: ''
-	category: 'Compiler'!
+!Node methodsFor: 'building'!
 
-Object subclass: #Importer
-	instanceVariableNames: ''
-	category: 'Compiler'!
+nodes: aCollection
+	nodes := aCollection
+! !
 
-!Importer methodsFor: 'fileIn'!
+!Node methodsFor: 'testing'!
 
-import: aStream
-    | chunk result parser lastEmpty |
-    parser := ChunkParser on: aStream.
-    lastEmpty := false.
-    [chunk := parser nextChunk.
-     chunk isNil] whileFalse: [
-        chunk isEmpty
-       		ifTrue: [lastEmpty := true]
-       		ifFalse: [
-        		result := Compiler new loadExpression: chunk.
-        		lastEmpty 
-            			ifTrue: [
-                                  	lastEmpty := false.
-                                  	result scanFrom: parser]]]
+isValueNode
+	^false
+!
+
+isBlockNode
+	^false
+!
+
+isBlockSequenceNode
+	^false
+! !
+
+!Node methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitNode: self
+! !
+
+Object subclass: #ChunkParser
+	instanceVariableNames: 'stream'
+	package: 'Compiler'!
+
+!ChunkParser methodsFor: 'accessing'!
+
+stream: aStream
+	stream := aStream
+! !
+
+!ChunkParser methodsFor: 'reading'!
+
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
+
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+
+	| char result chunk |
+	result := '' writeStream.
+        [char := stream next.
+        char notNil] whileTrue: [
+                 char = '!!' ifTrue: [
+                         stream peek = '!!'
+                                ifTrue: [stream next "skipping the escape double"]
+                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
+                 result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
+
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
 ! !
 
 Object subclass: #Exporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Exporter methodsFor: 'fileOut'!
 
@@ -222,90 +204,108 @@ exportPackageDefinitionOf: package on: aStream
 	aStream lf
 ! !
 
-Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
-	category: 'Compiler'!
+Object subclass: #Importer
+	instanceVariableNames: ''
+	package: 'Compiler'!
 
-!ChunkParser methodsFor: 'accessing'!
+!Importer methodsFor: 'fileIn'!
 
-stream: aStream
-	stream := aStream
+import: aStream
+    | chunk result parser lastEmpty |
+    parser := ChunkParser on: aStream.
+    lastEmpty := false.
+    [chunk := parser nextChunk.
+     chunk isNil] whileFalse: [
+        chunk isEmpty
+       		ifTrue: [lastEmpty := true]
+       		ifFalse: [
+        		result := Compiler new loadExpression: chunk.
+        		lastEmpty 
+            			ifTrue: [
+                                  	lastEmpty := false.
+                                  	result scanFrom: parser]]]
 ! !
 
-!ChunkParser methodsFor: 'reading'!
+Object subclass: #DoIt
+	instanceVariableNames: ''
+	package: 'Compiler'!
 
-nextChunk
-	"The chunk format (Smalltalk Interchange Format or Fileout format)
-	is a trivial format but can be a bit tricky to understand:
-		- Uses the exclamation mark as delimiter of chunks.
-		- Inside a chunk a normal exclamation mark must be doubled.
-		- A non empty chunk must be a valid Smalltalk expression.
-		- A chunk on top level with a preceding empty chunk is an instruction chunk:
-			- The object created by the expression then takes over reading chunks.
+Object subclass: #NodeVisitor
+	instanceVariableNames: ''
+	package: 'Compiler'!
 
-	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+!NodeVisitor methodsFor: 'visiting'!
 
-	| char result chunk |
-	result := '' writeStream.
-        [char := stream next.
-        char notNil] whileTrue: [
-                 char = '!!' ifTrue: [
-                         stream peek = '!!'
-                                ifTrue: [stream next "skipping the escape double"]
-                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
-                 result nextPut: char].
-	^nil "a chunk needs to end with !!"
-! !
-
-!ChunkParser class methodsFor: 'not yet classified'!
-
-on: aStream
-	^self new stream: aStream
-! !
-
-Object subclass: #Node
-	instanceVariableNames: 'nodes'
-	category: 'Compiler'!
-
-!Node methodsFor: 'accessing'!
-
-nodes
-	^nodes ifNil: [nodes := Array new]
+visit: aNode
+	aNode accept: self
 !
 
-addNode: aNode
-	self nodes add: aNode
-! !
-
-!Node methodsFor: 'building'!
-
-nodes: aCollection
-	nodes := aCollection
-! !
-
-!Node methodsFor: 'testing'!
-
-isValueNode
-	^false
+visitNode: aNode
 !
 
-isBlockNode
-	^false
+visitMethodNode: aNode
+	self visitNode: aNode
 !
 
-isBlockSequenceNode
-	^false
-! !
+visitSequenceNode: aNode
+	self visitNode: aNode
+!
 
-!Node methodsFor: 'visiting'!
+visitBlockSequenceNode: aNode
+	self visitSequenceNode: aNode
+!
 
-accept: aVisitor
-	aVisitor visitNode: self
+visitBlockNode: aNode
+	self visitNode: aNode
+!
+
+visitReturnNode: aNode
+	self visitNode: aNode
+!
+
+visitSendNode: aNode
+	self visitNode: aNode
+!
+
+visitCascadeNode: aNode
+	self visitNode: aNode
+!
+
+visitValueNode: aNode
+	self visitNode: aNode
+!
+
+visitVariableNode: aNode
+!
+
+visitAssignmentNode: aNode
+	self visitNode: aNode
+!
+
+visitClassReferenceNode: aNode
+	self 
+	    nextPutAll: 'smalltalk.';
+	    nextPutAll: aNode value
+!
+
+visitJSStatementNode: aNode
+	self 
+	    nextPutAll: 'function(){';
+	    nextPutAll: aNode source;
+	    nextPutAll: '})()'
+!
+
+visitDynamicArrayNode: aNode
+	self visitNode: aNode
+!
+
+visitDynamicDictionaryNode: aNode
+	self visitNode: aNode
 ! !
 
 Node subclass: #SequenceNode
 	instanceVariableNames: 'temps'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !SequenceNode methodsFor: 'accessing'!
 
@@ -334,7 +334,7 @@ accept: aVisitor
 
 Node subclass: #DynamicDictionaryNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !DynamicDictionaryNode methodsFor: 'visiting'!
 
@@ -344,7 +344,7 @@ accept: aVisitor
 
 Node subclass: #ReturnNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ReturnNode methodsFor: 'visiting'!
 
@@ -354,7 +354,7 @@ accept: aVisitor
 
 Node subclass: #ValueNode
 	instanceVariableNames: 'value'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ValueNode methodsFor: 'accessing'!
 
@@ -380,7 +380,7 @@ accept: aVisitor
 
 ValueNode subclass: #VariableNode
 	instanceVariableNames: 'assigned'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !VariableNode methodsFor: 'accessing'!
 
@@ -400,7 +400,7 @@ accept: aVisitor
 
 Exporter subclass: #ChunkExporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ChunkExporter methodsFor: 'not yet classified'!
 
@@ -416,7 +416,7 @@ exportDefinitionOf: aClass on: aStream
 	    separatedBy: [aStream nextPutAll: ' '].
 	aStream	
 	    nextPutAll: ''''; lf;
-	    nextPutAll: '	category: ''', aClass category, '''!!'; lf.
+	    nextPutAll: '	package: ''', aClass package name, '''!!'; lf.
  	aClass comment notEmpty ifTrue: [
 	    aStream 
 		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
@@ -502,7 +502,7 @@ exportPackageDefinitionOf: package on: aStream
 
 VariableNode subclass: #ClassReferenceNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ClassReferenceNode methodsFor: 'visiting'!
 
@@ -512,7 +512,7 @@ accept: aVisitor
 
 Node subclass: #SendNode
 	instanceVariableNames: 'selector arguments receiver'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !SendNode methodsFor: 'accessing'!
 
@@ -570,7 +570,7 @@ accept: aVisitor
 
 Node subclass: #JSStatementNode
 	instanceVariableNames: 'source'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !JSStatementNode methodsFor: 'accessing'!
 
@@ -590,7 +590,7 @@ accept: aVisitor
 
 Node subclass: #AssignmentNode
 	instanceVariableNames: 'left right'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !AssignmentNode methodsFor: 'accessing'!
 
@@ -619,7 +619,7 @@ accept: aVisitor
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !DynamicArrayNode methodsFor: 'visiting'!
 
@@ -629,7 +629,7 @@ accept: aVisitor
 
 NodeVisitor subclass: #Compiler
 	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source argVariables'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
 
@@ -1286,7 +1286,7 @@ recompileAll
 
 SequenceNode subclass: #BlockSequenceNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !BlockSequenceNode methodsFor: 'testing'!
 
@@ -1302,7 +1302,7 @@ accept: aVisitor
 
 Node subclass: #BlockNode
 	instanceVariableNames: 'parameters inlined'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !BlockNode methodsFor: 'accessing'!
 
@@ -1336,7 +1336,7 @@ accept: aVisitor
 
 Node subclass: #CascadeNode
 	instanceVariableNames: 'receiver'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !CascadeNode methodsFor: 'accessing'!
 
@@ -1356,7 +1356,7 @@ accept: aVisitor
 
 Node subclass: #MethodNode
 	instanceVariableNames: 'selector arguments source'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !MethodNode methodsFor: 'accessing'!
 
@@ -1392,7 +1392,7 @@ accept: aVisitor
 
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !StrippedExporter methodsFor: 'private'!
 
