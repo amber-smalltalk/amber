@@ -141,11 +141,11 @@ theClass: aClass
 !ClassesListNode methodsFor: 'visiting'!
 
 traverseClassesWith: aCollection
-    "sort classes alphabetically Issue #143"
+	"sort classes alphabetically Issue #143"
 
-    aCollection add: self theClass.
-    (self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |
-        aNode traverseClassesWith: aCollection ].
+	aCollection add: self theClass.
+	(self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |
+		aNode traverseClassesWith: aCollection ].
 ! !
 
 !ClassesListNode class methodsFor: 'instance creation'!
