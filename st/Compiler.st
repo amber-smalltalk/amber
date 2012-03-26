@@ -1,83 +1,101 @@
 Smalltalk current createPackage: 'Compiler' properties: #{}!
-Object subclass: #Node
-	instanceVariableNames: 'nodes'
+Object subclass: #NodeVisitor
+	instanceVariableNames: ''
 	package: 'Compiler'!
 
-!Node methodsFor: 'accessing'!
+!NodeVisitor methodsFor: 'visiting'!
 
-nodes
-	^nodes ifNil: [nodes := Array new]
+visit: aNode
+	aNode accept: self
 !
 
-addNode: aNode
-	self nodes add: aNode
-! !
-
-!Node methodsFor: 'building'!
-
-nodes: aCollection
-	nodes := aCollection
-! !
-
-!Node methodsFor: 'testing'!
-
-isValueNode
-	^false
+visitNode: aNode
 !
 
-isBlockNode
-	^false
+visitMethodNode: aNode
+	self visitNode: aNode
 !
 
-isBlockSequenceNode
-	^false
+visitSequenceNode: aNode
+	self visitNode: aNode
+!
+
+visitBlockSequenceNode: aNode
+	self visitSequenceNode: aNode
+!
+
+visitBlockNode: aNode
+	self visitNode: aNode
+!
+
+visitReturnNode: aNode
+	self visitNode: aNode
+!
+
+visitSendNode: aNode
+	self visitNode: aNode
+!
+
+visitCascadeNode: aNode
+	self visitNode: aNode
+!
+
+visitValueNode: aNode
+	self visitNode: aNode
+!
+
+visitVariableNode: aNode
+!
+
+visitAssignmentNode: aNode
+	self visitNode: aNode
+!
+
+visitClassReferenceNode: aNode
+	self 
+	    nextPutAll: 'smalltalk.';
+	    nextPutAll: aNode value
+!
+
+visitJSStatementNode: aNode
+	self 
+	    nextPutAll: 'function(){';
+	    nextPutAll: aNode source;
+	    nextPutAll: '})()'
+!
+
+visitDynamicArrayNode: aNode
+	self visitNode: aNode
+!
+
+visitDynamicDictionaryNode: aNode
+	self visitNode: aNode
 ! !
 
-!Node methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitNode: self
-! !
-
-Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
+Object subclass: #DoIt
+	instanceVariableNames: ''
 	package: 'Compiler'!
 
-!ChunkParser methodsFor: 'accessing'!
+Object subclass: #Importer
+	instanceVariableNames: ''
+	package: 'Compiler'!
 
-stream: aStream
-	stream := aStream
-! !
+!Importer methodsFor: 'fileIn'!
 
-!ChunkParser methodsFor: 'reading'!
-
-nextChunk
-	"The chunk format (Smalltalk Interchange Format or Fileout format)
-	is a trivial format but can be a bit tricky to understand:
-		- Uses the exclamation mark as delimiter of chunks.
-		- Inside a chunk a normal exclamation mark must be doubled.
-		- A non empty chunk must be a valid Smalltalk expression.
-		- A chunk on top level with a preceding empty chunk is an instruction chunk:
-			- The object created by the expression then takes over reading chunks.
-
-	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
-
-	| char result chunk |
-	result := '' writeStream.
-        [char := stream next.
-        char notNil] whileTrue: [
-                 char = '!!' ifTrue: [
-                         stream peek = '!!'
-                                ifTrue: [stream next "skipping the escape double"]
-                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
-                 result nextPut: char].
-	^nil "a chunk needs to end with !!"
-! !
-
-!ChunkParser class methodsFor: 'not yet classified'!
-
-on: aStream
-	^self new stream: aStream
+import: aStream
+    | chunk result parser lastEmpty |
+    parser := ChunkParser on: aStream.
+    lastEmpty := false.
+    [chunk := parser nextChunk.
+     chunk isNil] whileFalse: [
+        chunk isEmpty
+       		ifTrue: [lastEmpty := true]
+       		ifFalse: [
+        		result := Compiler new loadExpression: chunk.
+        		lastEmpty 
+            			ifTrue: [
+                                  	lastEmpty := false.
+                                  	result scanFrom: parser]]]
 ! !
 
 Object subclass: #Exporter
@@ -204,103 +222,85 @@ exportPackageDefinitionOf: package on: aStream
 	aStream lf
 ! !
 
-Object subclass: #Importer
-	instanceVariableNames: ''
+Object subclass: #ChunkParser
+	instanceVariableNames: 'stream'
 	package: 'Compiler'!
 
-!Importer methodsFor: 'fileIn'!
+!ChunkParser methodsFor: 'accessing'!
 
-import: aStream
-    | chunk result parser lastEmpty |
-    parser := ChunkParser on: aStream.
-    lastEmpty := false.
-    [chunk := parser nextChunk.
-     chunk isNil] whileFalse: [
-        chunk isEmpty
-       		ifTrue: [lastEmpty := true]
-       		ifFalse: [
-        		result := Compiler new loadExpression: chunk.
-        		lastEmpty 
-            			ifTrue: [
-                                  	lastEmpty := false.
-                                  	result scanFrom: parser]]]
+stream: aStream
+	stream := aStream
 ! !
 
-Object subclass: #DoIt
-	instanceVariableNames: ''
+!ChunkParser methodsFor: 'reading'!
+
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
+
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+
+	| char result chunk |
+	result := '' writeStream.
+        [char := stream next.
+        char notNil] whileTrue: [
+                 char = '!!' ifTrue: [
+                         stream peek = '!!'
+                                ifTrue: [stream next "skipping the escape double"]
+                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
+                 result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
+
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
+! !
+
+Object subclass: #Node
+	instanceVariableNames: 'nodes'
 	package: 'Compiler'!
 
-Object subclass: #NodeVisitor
-	instanceVariableNames: ''
-	package: 'Compiler'!
+!Node methodsFor: 'accessing'!
 
-!NodeVisitor methodsFor: 'visiting'!
-
-visit: aNode
-	aNode accept: self
+nodes
+	^nodes ifNil: [nodes := Array new]
 !
 
-visitNode: aNode
+addNode: aNode
+	self nodes add: aNode
+! !
+
+!Node methodsFor: 'building'!
+
+nodes: aCollection
+	nodes := aCollection
+! !
+
+!Node methodsFor: 'testing'!
+
+isValueNode
+	^false
 !
 
-visitMethodNode: aNode
-	self visitNode: aNode
+isBlockNode
+	^false
 !
 
-visitSequenceNode: aNode
-	self visitNode: aNode
-!
+isBlockSequenceNode
+	^false
+! !
 
-visitBlockSequenceNode: aNode
-	self visitSequenceNode: aNode
-!
+!Node methodsFor: 'visiting'!
 
-visitBlockNode: aNode
-	self visitNode: aNode
-!
-
-visitReturnNode: aNode
-	self visitNode: aNode
-!
-
-visitSendNode: aNode
-	self visitNode: aNode
-!
-
-visitCascadeNode: aNode
-	self visitNode: aNode
-!
-
-visitValueNode: aNode
-	self visitNode: aNode
-!
-
-visitVariableNode: aNode
-!
-
-visitAssignmentNode: aNode
-	self visitNode: aNode
-!
-
-visitClassReferenceNode: aNode
-	self 
-	    nextPutAll: 'smalltalk.';
-	    nextPutAll: aNode value
-!
-
-visitJSStatementNode: aNode
-	self 
-	    nextPutAll: 'function(){';
-	    nextPutAll: aNode source;
-	    nextPutAll: '})()'
-!
-
-visitDynamicArrayNode: aNode
-	self visitNode: aNode
-!
-
-visitDynamicDictionaryNode: aNode
-	self visitNode: aNode
+accept: aVisitor
+	aVisitor visitNode: self
 ! !
 
 Node subclass: #SequenceNode
@@ -405,23 +405,23 @@ Exporter subclass: #ChunkExporter
 !ChunkExporter methodsFor: 'not yet classified'!
 
 exportDefinitionOf: aClass on: aStream
-	"Chunk format."
+    "Chunk format."
 
-	aStream 
-	    nextPutAll: (self classNameFor: aClass superclass);
-	    nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
-	    nextPutAll: '	instanceVariableNames: '''.
-	aClass instanceVariableNames 
-	    do: [:each | aStream nextPutAll: each]
-	    separatedBy: [aStream nextPutAll: ' '].
-	aStream	
-	    nextPutAll: ''''; lf;
-	    nextPutAll: '	package: ''', aClass package name, '''!!'; lf.
- 	aClass comment notEmpty ifTrue: [
-	    aStream 
-		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
-		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
-	aStream lf
+    aStream 
+        nextPutAll: (self classNameFor: aClass superclass);
+        nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+        nextPutAll: '	instanceVariableNames: '''.
+    aClass instanceVariableNames 
+        do: [:each | aStream nextPutAll: each]
+        separatedBy: [aStream nextPutAll: ' '].
+    aStream 
+        nextPutAll: ''''; lf;
+        nextPutAll: '	package: ''', aClass category, '''!!'; lf.
+    aClass comment notEmpty ifTrue: [
+        aStream 
+        nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+        nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+    aStream lf
 !
 
 exportMethod: aMethod of: aClass on: aStream
