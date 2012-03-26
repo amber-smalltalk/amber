@@ -39,7 +39,7 @@ Objects understand equality  `#=` and identity `#==` comparison.
 - `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.
   Overriding this message can be useful to implement proxies for example.!
 
-!!Object methodsFor: 'accessing'!!
+!Object methodsFor: 'accessing'!
 
 basicAt: aString
 	<return self[aString]>
@@ -79,9 +79,9 @@ size
 
 yourself
 	^self
-! !!
+! !
 
-!!Object methodsFor: 'comparing'!!
+!Object methodsFor: 'comparing'!
 
 = anObject
 	^self == anObject
@@ -97,9 +97,9 @@ yourself
 
 ~~ anObject
 	^(self == anObject) = false
-! !!
+! !
 
-!!Object methodsFor: 'converting'!!
+!Object methodsFor: 'converting'!
 
 -> anObject
 	^Association key: self value: anObject
@@ -123,9 +123,9 @@ asJavascript
 
 asString
 	^self printString
-! !!
+! !
 
-!!Object methodsFor: 'copying'!!
+!Object methodsFor: 'copying'!
 
 copy
 	^self shallowCopy postCopy
@@ -156,9 +156,9 @@ shallowCopy
 	    }
 	    return copy;
 	>
-! !!
+! !
 
-!!Object methodsFor: 'error handling'!!
+!Object methodsFor: 'error handling'!
 
 deprecatedAPI
 	"Just a simple way to deprecate methods.
@@ -193,14 +193,14 @@ subclassResponsibility
 try: aBlock catch: anotherBlock
 	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
 	return result;>
-! !!
+! !
 
-!!Object methodsFor: 'initialization'!!
+!Object methodsFor: 'initialization'!
 
 initialize
-! !!
+! !
 
-!!Object methodsFor: 'message handling'!!
+!Object methodsFor: 'message handling'!
 
 basicPerform: aSymbol 
 	^self basicPerform: aSymbol withArguments: #()
@@ -216,9 +216,9 @@ perform: aSymbol
 
 perform: aSymbol withArguments: aCollection
 	^self basicPerform: aSymbol asSelector withArguments: aCollection
-! !!
+! !
 
-!!Object methodsFor: 'printing'!!
+!Object methodsFor: 'printing'!
 
 log: aString block: aBlock
 
@@ -244,9 +244,9 @@ storeString
 	can be reconstructed."
 
 	^ String streamContents: [:s | self storeOn: s]
-! !!
+! !
 
-!!Object methodsFor: 'testing'!!
+!Object methodsFor: 'testing'!
 
 ifNil: aBlock
 	"inlined in the Compiler"
@@ -308,13 +308,13 @@ isSymbol
 
 notNil
 	^self isNil not
-! !!
+! !
 
-!!Object class methodsFor: 'initialization'!!
+!Object class methodsFor: 'initialization'!
 
 initialize
 	"no op"
-! !!
+! !
 
 Object subclass: #Boolean
 	instanceVariableNames: ''
@@ -325,14 +325,14 @@ Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` obj
 Boolean defines the protocol for logic testing operations and conditional control structures for the logical values.
 Boolean instances are weither `true` or `false`.!
 
-!!Boolean methodsFor: 'comparing'!!
+!Boolean methodsFor: 'comparing'!
 
 = aBoolean
 	aBoolean class = self class ifFalse: [^false].
 	<return Boolean(self == true) == aBoolean>
-! !!
+! !
 
-!!Boolean methodsFor: 'controlling'!!
+!Boolean methodsFor: 'controlling'!
 
 & aBoolean
 	<
@@ -394,15 +394,15 @@ or: aBlock
 		return aBoolean;
 	    }
 	>
-! !!
+! !
 
-!!Boolean methodsFor: 'converting'!!
+!Boolean methodsFor: 'converting'!
 
 asJSON
 	^self
-! !!
+! !
 
-!!Boolean methodsFor: 'copying'!!
+!Boolean methodsFor: 'copying'!
 
 deepCopy
 	^self
@@ -410,13 +410,13 @@ deepCopy
 
 shallowCopy
 	^self
-! !!
+! !
 
-!!Boolean methodsFor: 'printing'!!
+!Boolean methodsFor: 'printing'!
 
 printString
 	<return self.toString()>
-! !!
+! !
 
 Object subclass: #Date
 	instanceVariableNames: ''
@@ -427,7 +427,7 @@ Amber and answer the same date object.
 
 Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
 
-!!Date methodsFor: 'accessing'!!
+!Date methodsFor: 'accessing'!
 
 day
 	^self dayOfWeek
@@ -507,9 +507,9 @@ year
 
 year: aNumber
 	<self.setFullYear(aNumber)>
-! !!
+! !
 
-!!Date methodsFor: 'arithmetic'!!
+!Date methodsFor: 'arithmetic'!
 
 + aDate
 	<return self + aDate>
@@ -517,9 +517,9 @@ year: aNumber
 
 - aDate
 	<return self - aDate>
-! !!
+! !
 
-!!Date methodsFor: 'comparing'!!
+!Date methodsFor: 'comparing'!
 
 < aDate
 	<return self < aDate>
@@ -535,9 +535,9 @@ year: aNumber
 
 >= aDate
 	<return self >>= aDate>
-! !!
+! !
 
-!!Date methodsFor: 'converting'!!
+!Date methodsFor: 'converting'!
 
 asDateString
 	<return self.toDateString()>
@@ -561,15 +561,15 @@ asString
 
 asTimeString
 	<return self.toTimeString()>
-! !!
+! !
 
-!!Date methodsFor: 'printing'!!
+!Date methodsFor: 'printing'!
 
 printString
 	^self asString
-! !!
+! !
 
-!!Date class methodsFor: 'instance creation'!!
+!Date class methodsFor: 'instance creation'!
 
 fromMilliseconds: aNumber
 	^self new: aNumber
@@ -601,7 +601,7 @@ now
 
 today
 	^self new
-! !!
+! !
 
 Object subclass: #Date
 	instanceVariableNames: ''
@@ -612,7 +612,7 @@ Amber and answer the same date object.
 
 Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
 
-!!Date methodsFor: 'accessing'!!
+!Date methodsFor: 'accessing'!
 
 day
 	^self dayOfWeek
@@ -692,9 +692,9 @@ year
 
 year: aNumber
 	<self.setFullYear(aNumber)>
-! !!
+! !
 
-!!Date methodsFor: 'arithmetic'!!
+!Date methodsFor: 'arithmetic'!
 
 + aDate
 	<return self + aDate>
@@ -702,9 +702,9 @@ year: aNumber
 
 - aDate
 	<return self - aDate>
-! !!
+! !
 
-!!Date methodsFor: 'comparing'!!
+!Date methodsFor: 'comparing'!
 
 < aDate
 	<return self < aDate>
@@ -720,9 +720,9 @@ year: aNumber
 
 >= aDate
 	<return self >>= aDate>
-! !!
+! !
 
-!!Date methodsFor: 'converting'!!
+!Date methodsFor: 'converting'!
 
 asDateString
 	<return self.toDateString()>
@@ -746,15 +746,15 @@ asString
 
 asTimeString
 	<return self.toTimeString()>
-! !!
+! !
 
-!!Date methodsFor: 'printing'!!
+!Date methodsFor: 'printing'!
 
 printString
 	^self asString
-! !!
+! !
 
-!!Date class methodsFor: 'instance creation'!!
+!Date class methodsFor: 'instance creation'!
 
 fromMilliseconds: aNumber
 	^self new: aNumber
@@ -786,7 +786,7 @@ now
 
 today
 	^self new
-! !!
+! !
 
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
@@ -814,7 +814,7 @@ Smalltalk messages sends are converted to JavaScript function calls or object pr
 
 __Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
 
-!!JSObjectProxy methodsFor: 'accessing'!!
+!JSObjectProxy methodsFor: 'accessing'!
 
 at: aSymbol
 	| attr |
@@ -834,9 +834,9 @@ jsObject
 
 jsObject: aJSObject
 	jsObject := aJSObject
-! !!
+! !
 
-!!JSObjectProxy methodsFor: 'proxy'!!
+!JSObjectProxy methodsFor: 'proxy'!
 
 doesNotUnderstand: aMessage
 	| obj selector jsSelector arguments |
@@ -861,15 +861,15 @@ inspectOn: anInspector
 
 printString
 	^self jsObject toString
-! !!
+! !
 
-!!JSObjectProxy class methodsFor: 'instance creation'!!
+!JSObjectProxy class methodsFor: 'instance creation'!
 
 on: aJSObject
 	^self new
 		jsObject: aJSObject;
 		yourself
-! !!
+! !
 
 Object subclass: #Number
 	instanceVariableNames: ''
@@ -889,13 +889,13 @@ A Number can be used to evaluate a Block a fixed number of times:
 	
 	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
 
-!!Number methodsFor: 'accessing'!!
+!Number methodsFor: 'accessing'!
 
 identityHash
 	^self asString, 'n'
-! !!
+! !
 
-!!Number methodsFor: 'arithmetic'!!
+!Number methodsFor: 'arithmetic'!
 
 * aNumber
 	"Inlined in the Compiler"
@@ -939,9 +939,9 @@ sqrt
 
 squared
 	^self * self
-! !!
+! !
 
-!!Number methodsFor: 'comparing'!!
+!Number methodsFor: 'comparing'!
 
 < aNumber
 	"Inlined in the Compiler"
@@ -966,9 +966,9 @@ squared
 >= aNumber
 	"Inlined in the Compiler"
 	<return self >>= aNumber>
-! !!
+! !
 
-!!Number methodsFor: 'converting'!!
+!Number methodsFor: 'converting'!
 
 @ aNumber
 	^Point x: self y: aNumber
@@ -1037,9 +1037,9 @@ truncated
         ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
 
     ^ result
-! !!
+! !
 
-!!Number methodsFor: 'copying'!!
+!Number methodsFor: 'copying'!
 
 copy
 	^self
@@ -1047,9 +1047,9 @@ copy
 
 deepCopy
 	^self copy
-! !!
+! !
 
-!!Number methodsFor: 'enumerating'!!
+!Number methodsFor: 'enumerating'!
 
 timesRepeat: aBlock
 	| integer count |
@@ -1081,9 +1081,9 @@ to: stop do: aBlock
 		whileTrue: 
 			[aBlock value: nextValue.
 			nextValue := nextValue + 1]
-! !!
+! !
 
-!!Number methodsFor: 'printing'!!
+!Number methodsFor: 'printing'!
 
 printShowingDecimalPlaces: placesDesired
 	<return self.toFixed(placesDesired)>
@@ -1091,9 +1091,9 @@ printShowingDecimalPlaces: placesDesired
 
 printString
 	<return String(self)>
-! !!
+! !
 
-!!Number methodsFor: 'testing'!!
+!Number methodsFor: 'testing'!
 
 even
 	^ 0 = (self \\ 2)
@@ -1121,9 +1121,9 @@ positive
 	"Answer whether the receiver is positive or equal to 0. (ST-80 protocol)."
 
 	^ self >= 0
-! !!
+! !
 
-!!Number methodsFor: 'timeouts/intervals'!!
+!Number methodsFor: 'timeouts/intervals'!
 
 clearInterval
 	<clearInterval(Number(self))>
@@ -1131,13 +1131,13 @@ clearInterval
 
 clearTimeout
 	<clearTimeout(Number(self))>
-! !!
+! !
 
-!!Number class methodsFor: 'instance creation'!!
+!Number class methodsFor: 'instance creation'!
 
 pi
 	<return Math.PI>
-! !!
+! !
 
 Object subclass: #Package
 	instanceVariableNames: 'commitPathJs commitPathSt'
@@ -1162,7 +1162,7 @@ You can fetch a package from the server:
 
 	Package fetch: 'Additional-Examples'!
 
-!!Package methodsFor: 'accessing'!!
+!Package methodsFor: 'accessing'!
 
 commitPathJs
 	^ commitPathJs ifNil: [self class defaultCommitPathJs]
@@ -1209,9 +1209,9 @@ properties: aDict
 		<object[key] = value>.
 	].
 	<return self.properties = object>
-! !!
+! !
 
-!!Package methodsFor: 'classes'!!
+!Package methodsFor: 'classes'!
 
 classes
 	"We need to do a reverse scan."
@@ -1222,15 +1222,15 @@ sortedClasses
     "Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
 
     ^self class sortedClasses: self classes
-! !!
+! !
 
-!!Package methodsFor: 'printing'!!
+!Package methodsFor: 'printing'!
 
 printString
 	^self name
-! !!
+! !
 
-!!Package methodsFor: 'private'!!
+!Package methodsFor: 'private'!
 
 jsProperties
 	<return self.properties>
@@ -1242,9 +1242,9 @@ jsProperties: aJSObject
 
 propertiesAsJSON
 	<return JSON.stringify(self.properties)>
-! !!
+! !
 
-!!Package methodsFor: 'properties'!!
+!Package methodsFor: 'properties'!
 
 propertyAt: key
 
@@ -1259,11 +1259,11 @@ propertyAt: key ifAbsent: block
 propertyAt: key put: value
 
 	<return self.properties[key] = value>
-! !!
+! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 
-!!Package class methodsFor: 'commit paths'!!
+!Package class methodsFor: 'commit paths'!
 
 defaultCommitPathJs
 	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
@@ -1284,9 +1284,9 @@ defaultCommitPathSt: aString
 resetCommitPaths
         defaultCommitPathJs := nil.
         defaultCommitPathSt := nil.
-! !!
+! !
 
-!!Package class methodsFor: 'loading-storing'!!
+!Package class methodsFor: 'loading-storing'!
 
 commitToLocalStorage: aPackageName
 	| key sourceCode |
@@ -1307,9 +1307,9 @@ init: aPackageName
 	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
 		do: [ :each | <smalltalk.init(each)> ];
 		do: [ :each | each initialize ]
-! !!
+! !
 
-!!Package class methodsFor: 'not yet classified'!!
+!Package class methodsFor: 'not yet classified'!
 
 named: aPackageName
 
@@ -1319,9 +1319,9 @@ named: aPackageName
 named: aPackageName ifAbsent: aBlock
 
 	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
-! !!
+! !
 
-!!Package class methodsFor: 'sorting'!!
+!Package class methodsFor: 'sorting'!
 
 sortedClasses: classes
     "Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
@@ -1340,7 +1340,7 @@ sortedClasses: classes
     nodes do: [:aNode |
         aNode traverseClassesWith: expandedClasses].
     ^expandedClasses
-! !!
+! !
 
 Object subclass: #Point
 	instanceVariableNames: 'x y'
@@ -1365,7 +1365,7 @@ Points can then be arithmetically manipulated:
 
 Amber does not have much behavior in this class out-of-the-box.!
 
-!!Point methodsFor: 'accessing'!!
+!Point methodsFor: 'accessing'!
 
 x
 	^x
@@ -1381,9 +1381,9 @@ y
 
 y: aNumber
 	y := aNumber
-! !!
+! !
 
-!!Point methodsFor: 'arithmetic'!!
+!Point methodsFor: 'arithmetic'!
 
 * aPoint
 	^Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y
@@ -1404,15 +1404,15 @@ y: aNumber
 = aPoint
 	^aPoint class = self class and: [
 		(aPoint x = self x) & (aPoint y = self y)]
-! !!
+! !
 
-!!Point methodsFor: 'converting'!!
+!Point methodsFor: 'converting'!
 
 asPoint
 	^self
-! !!
+! !
 
-!!Point methodsFor: 'printing'!!
+!Point methodsFor: 'printing'!
 
 printString
 	"Print receiver in classic x@y notation."
@@ -1424,23 +1424,23 @@ printString
 				"Avoid ambiguous @- construct"
 				stream space].
 		stream nextPutAll: y printString]
-! !!
+! !
 
-!!Point methodsFor: 'transforming'!!
+!Point methodsFor: 'transforming'!
 
 translateBy: delta 
 	"Answer a Point translated by delta (an instance of Point)."
 	^(delta x + x) @ (delta y + y)
-! !!
+! !
 
-!!Point class methodsFor: 'instance creation'!!
+!Point class methodsFor: 'instance creation'!
 
 x: aNumber y: anotherNumber
 	^self new
 		x: aNumber;
 		y: anotherNumber;
 		yourself
-! !!
+! !
 
 Object subclass: #Random
 	instanceVariableNames: ''
@@ -1472,7 +1472,7 @@ Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an
 
 Since Amber does not have Characters this will return a `String` of length 1 like for example `'b'`.!
 
-!!Random methodsFor: 'accessing'!!
+!Random methodsFor: 'accessing'!
 
 next
 	<return Math.random()>
@@ -1480,7 +1480,7 @@ next
 
 next: anInteger
     ^(1 to: anInteger) collect: [:each | self next]
-! !!
+! !
 
 Object subclass: #Smalltalk
 	instanceVariableNames: ''
@@ -1512,7 +1512,7 @@ __note:__ classes and packages are accessed using strings, not symbols
 The `#parse:` method is used to parse Smalltalk source code. 
 It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
 
-!!Smalltalk methodsFor: 'accessing'!!
+!Smalltalk methodsFor: 'accessing'!
 
 at: aString
 	<return self[aString]>
@@ -1560,9 +1560,9 @@ send: aSelector to: anObject arguments: aCollection
 	| selector |
 	selector := aSelector asString asSelector.
 	<self.send(anObject, selector, aCollection)>
-! !!
+! !
 
-!!Smalltalk methodsFor: 'classes'!!
+!Smalltalk methodsFor: 'classes'!
 
 removeClass: aClass
 	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
@@ -1571,9 +1571,9 @@ removeClass: aClass
 	aClass class methodDictionary values do: [:each |
 		aClass class removeCompiledMethod: each].
 	self basicDelete: aClass name
-! !!
+! !
 
-!!Smalltalk methodsFor: 'packages'!!
+!Smalltalk methodsFor: 'packages'!
 
 packageAt: packageName
        <return self.packages[packageName]>
@@ -1608,9 +1608,9 @@ renamePackage: packageName to: newName
 	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
 	pkg name: newName.
 	self deletePackage: packageName.
-! !!
+! !
 
-!!Smalltalk methodsFor: 'private'!!
+!Smalltalk methodsFor: 'private'!
 
 createPackage: packageName
 	"Create and bind a new package with given name and return it."
@@ -1634,15 +1634,15 @@ deletePackage: packageName
 	To remove a package, use #removePackage instead."
 
        <delete smalltalk.packages[packageName]>
-! !!
+! !
 
 Smalltalk class instanceVariableNames: 'current'!
 
-!!Smalltalk class methodsFor: 'accessing'!!
+!Smalltalk class methodsFor: 'accessing'!
 
 current
 	<return smalltalk>
-! !!
+! !
 
 Object subclass: #UndefinedObject
 	instanceVariableNames: ''
@@ -1652,7 +1652,7 @@ UndefinedObject describes the behavior of its sole instance, `nil`. `nil` repres
 
 `nil` is the Smalltalk representation of the `undefined` JavaScript object.!
 
-!!UndefinedObject methodsFor: 'class creation'!!
+!UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
 	^self subclass: aString instanceVariableNames: anotherString package: nil
@@ -1667,15 +1667,15 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
 	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
-! !!
+! !
 
-!!UndefinedObject methodsFor: 'converting'!!
+!UndefinedObject methodsFor: 'converting'!
 
 asJSON
 	^null
-! !!
+! !
 
-!!UndefinedObject methodsFor: 'copying'!!
+!UndefinedObject methodsFor: 'copying'!
 
 deepCopy
 	^self
@@ -1683,15 +1683,15 @@ deepCopy
 
 shallowCopy
 	^self
-! !!
+! !
 
-!!UndefinedObject methodsFor: 'printing'!!
+!UndefinedObject methodsFor: 'printing'!
 
 printString
     ^'nil'
-! !!
+! !
 
-!!UndefinedObject methodsFor: 'testing'!!
+!UndefinedObject methodsFor: 'testing'!
 
 ifNil: aBlock
 	"inlined in the Compiler"
@@ -1719,11 +1719,11 @@ isNil
 
 notNil
 	^false
-! !!
+! !
 
-!!UndefinedObject class methodsFor: 'instance creation'!!
+!UndefinedObject class methodsFor: 'instance creation'!
 
 new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
-! !!
+! !
 
