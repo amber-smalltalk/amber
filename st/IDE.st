@@ -1,13 +1,346 @@
 Smalltalk current createPackage: 'IDE' properties: #{}!
+Widget subclass: #ClassesList
+	instanceVariableNames: 'browser ul nodes'
+	category: 'IDE'!
+
+!ClassesList methodsFor: 'accessing'!
+
+browser
+	^browser
+!
+
+browser: aBrowser
+	browser := aBrowser
+!
+
+category
+	^self browser selectedPackage
+!
+
+getNodes
+	| classes children others |
+	classes := self browser classes.
+	children := #().
+	others := #().
+	classes do: [:each |
+		(classes includes: each superclass)
+			ifFalse: [children add: each]
+			ifTrue: [others add: each]].
+	^children collect: [:each |
+		ClassesListNode on: each browser: self browser classes: others level: 0]
+!
+
+nodes
+	nodes ifNil: [nodes := self getNodes].
+	^nodes
+!
+
+resetNodes
+	nodes := nil
+! !
+
+!ClassesList methodsFor: 'rendering'!
+
+renderOn: html
+	ul := html ul
+		class: 'jt_column browser classes';
+		yourself.
+	self updateNodes
+!
+
+updateNodes
+	ul contents: [:html |
+		self nodes do: [:each |
+			each renderOn: html]]
+! !
+
+!ClassesList class methodsFor: 'instance creation'!
+
+on: aBrowser
+	^self new 
+		browser: aBrowser; 
+		yourself
+! !
+
+Widget subclass: #ClassesListNode
+	instanceVariableNames: 'browser theClass level nodes'
+	category: 'IDE'!
+
+!ClassesListNode methodsFor: ''!
+
+renderOn: html
+	| li cssClass |
+	cssClass := ''.
+	li := html li 
+		onClick: [self browser selectClass: self theClass]. 
+	li asJQuery html: self label.
+
+	self browser selectedClass = self theClass ifTrue:  [
+		cssClass := cssClass, ' selected'].
+
+	self theClass comment isEmpty ifFalse: [
+		cssClass := cssClass, ' commented'].
+
+	li class: cssClass.
+
+	self nodes do: [:each |
+		each renderOn: html]
+! !
+
+!ClassesListNode methodsFor: 'accessing'!
+
+browser
+	^browser
+!
+
+browser: aBrowser
+	browser := aBrowser
+!
+
+getNodesFrom: aCollection
+	| children others |
+	children := #().
+	others := #().
+	aCollection do: [:each |
+		(each superclass = self theClass)
+			ifTrue: [children add: each]
+			ifFalse: [others add: each]].
+	nodes:= children collect: [:each |
+		ClassesListNode on: each browser: self browser classes: others level: self level + 1]
+!
+
+label
+	| str |
+	str := String new writeStream.
+	self level timesRepeat: [
+		str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
+	str nextPutAll: self theClass name.
+	^str contents
+!
+
+level
+	^level
+!
+
+level: anInteger
+	level := anInteger
+!
+
+nodes
+	^nodes
+!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
+!
+
+traverseClassesWith: aCollection
+	"sort classes alphabetically Issue #143"
+
+	aCollection add: self theClass.
+	(self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |
+		aNode traverseClassesWith: aCollection ].
+! !
+
+!ClassesListNode class methodsFor: 'instance creation'!
+
+on: aClass browser: aBrowser classes: aCollection level: anInteger
+	^self new
+		theClass: aClass;
+		browser: aBrowser;
+		level: anInteger;
+		getNodesFrom: aCollection;
+		yourself
+! !
+
+ErrorHandler subclass: #DebugErrorHandler
+	instanceVariableNames: ''
+	category: 'IDE'!
+
+!DebugErrorHandler methodsFor: 'error handling'!
+
+handleError: anError
+	[Debugger new
+		error: anError;
+		open] on: Error do: [:error |
+			ErrorHandler new handleError: error]
+! !
+
+!DebugErrorHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
+! !
+
+Widget subclass: #SourceArea
+	instanceVariableNames: 'editor div receiver onDoIt'
+	category: 'IDE'!
+
+!SourceArea methodsFor: 'accessing'!
+
+currentLine
+    ^editor getLine: (editor getCursor line)
+!
+
+currentLineOrSelection
+    ^editor somethingSelected
+	ifFalse: [self currentLine]
+	ifTrue: [self selection]
+!
+
+editor
+	^editor
+!
+
+onDoIt
+	^onDoIt
+!
+
+onDoIt: aBlock
+	onDoIt := aBlock
+!
+
+receiver
+	^receiver ifNil: [DoIt new]
+!
+
+receiver: anObject
+	receiver := anObject
+!
+
+selection
+	^editor getSelection
+!
+
+selectionEnd
+   ^textarea element selectionEnd
+!
+
+selectionEnd: anInteger
+   textarea element selectionEnd: anInteger
+!
+
+selectionStart
+   ^textarea element selectionStart
+!
+
+selectionStart: anInteger
+   textarea element selectionStart: anInteger
+!
+
+setEditorOn: aTextarea
+	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+		theme: 'jtalk',
+                lineNumbers: true,
+                enterMode: 'flat',
+                matchBrackets: true,
+                electricChars: false
+	})>
+!
+
+val
+    ^editor getValue
+!
+
+val: aString
+    editor setValue: aString
+! !
+
+!SourceArea methodsFor: 'actions'!
+
+clear
+      self val: ''
+!
+
+doIt
+    | result |
+    result := self eval: self currentLineOrSelection.
+    self onDoIt ifNotNil: [self onDoIt value].
+    ^result
+!
+
+eval: aString
+	| compiler  |
+	compiler := Compiler new.
+	[compiler parseExpression: aString] on: Error do: [:ex |
+		^window alert: ex messageText].
+	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
+!
+
+fileIn
+    Importer new import: self currentLineOrSelection readStream
+!
+
+handleKeyDown: anEvent
+    <if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 80) { //ctrl+p
+			self._printIt();
+			anEvent.preventDefault();
+			return false;
+		}
+		if(anEvent.keyCode === 68) { //ctrl+d
+			self._doIt();
+			anEvent.preventDefault();
+			return false;
+		}
+		if(anEvent.keyCode === 73) { //ctrl+i
+			self._inspectIt();
+			anEvent.preventDefault();
+			return false;
+		}
+	}>
+!
+
+inspectIt
+    self doIt inspect
+!
+
+print: aString
+	| start stop |
+	start := HashedCollection new.
+	stop := HashedCollection new.
+	start at: 'line' put: (editor getCursor: false) line.
+	start at: 'ch' put: (editor getCursor: false) ch.
+	stop at: 'line' put: (start at: 'line').
+	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
+	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
+	editor setCursor: (editor getCursor: true).
+	editor setSelection: stop end: start
+!
+
+printIt
+    self print: self doIt printString
+! !
+
+!SourceArea methodsFor: 'events'!
+
+onKeyDown: aBlock
+	div onKeyDown: aBlock
+!
+
+onKeyUp: aBlock
+	div onKeyUp: aBlock
+! !
+
+!SourceArea methodsFor: 'rendering'!
+
+renderOn: html
+    | textarea |
+    div := html div class: 'source'.
+    div with: [textarea := html textarea].
+    self setEditorOn: textarea element.
+    div onKeyDown: [:e | self handleKeyDown: e]
+! !
+
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
 
 !TabManager methodsFor: 'accessing'!
-
-tabs
-    ^tabs ifNil: [tabs := Array new]
-!
 
 labelFor: aWidget
 	| label maxSize |
@@ -16,24 +349,33 @@ labelFor: aWidget
 	aWidget label size > maxSize ifTrue: [
 		label := label, '...'].
 	^label
+!
+
+tabs
+    ^tabs ifNil: [tabs := Array new]
 ! !
 
 !TabManager methodsFor: 'actions'!
 
-updateBodyMargin
-    self setBodyMargin: '#jtalk' asJQuery height
+close
+    opened ifTrue: [
+	'#jtalk' asJQuery hide.
+	ul asJQuery hide.
+	selectedTab hide.
+	self removeBodyMargin.
+	'body' asJQuery removeClass: 'jtalkBody'.
+	opened := false]
 !
 
-updatePosition
-    <jQuery('#jtalk').css('top', '').css('bottom', '0px')>
+closeTab: aWidget
+    self removeTab: aWidget.
+    self selectTab: self tabs last.
+    aWidget remove.
+    self update
 !
 
-removeBodyMargin
-    self setBodyMargin: 0
-!
-
-setBodyMargin: anInteger
-    '.jtalkBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
+newBrowserTab
+    Browser open
 !
 
 onResize: aBlock
@@ -58,18 +400,16 @@ open
 	opened := true]
 !
 
-close
-    opened ifTrue: [
-	'#jtalk' asJQuery hide.
-	ul asJQuery hide.
-	selectedTab hide.
-	self removeBodyMargin.
-	'body' asJQuery removeClass: 'jtalkBody'.
-	opened := false]
+removeBodyMargin
+    self setBodyMargin: 0
 !
 
-newBrowserTab
-    Browser open
+search: aString
+	| searchedClass |
+	searchedClass := Smalltalk current at: aString.
+		searchedClass isClass
+			ifTrue: [Browser openOn: searchedClass]
+			ifFalse: [ReferencesBrowser search: aString]
 !
 
 selectTab: aWidget
@@ -82,19 +422,16 @@ selectTab: aWidget
     self update
 !
 
-closeTab: aWidget
-    self removeTab: aWidget.
-    self selectTab: self tabs last.
-    aWidget remove.
-    self update
+setBodyMargin: anInteger
+    '.jtalkBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
 !
 
-search: aString
-	| searchedClass |
-	searchedClass := Smalltalk current at: aString.
-		searchedClass isClass
-			ifTrue: [Browser openOn: searchedClass]
-			ifFalse: [ReferencesBrowser search: aString]
+updateBodyMargin
+    self setBodyMargin: '#jtalk' asJQuery height
+!
+
+updatePosition
+    <jQuery('#jtalk').css('top', '').css('bottom', '0px')>
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
@@ -216,35 +553,28 @@ label
 
 !TabWidget methodsFor: 'actions'!
 
-open
-    TabManager current addTab: self.
-    TabManager current selectTab: self
-!
-
-show
-	div asJQuery show
+close
+    TabManager current closeTab: self
 !
 
 hide
 	div asJQuery hide
 !
 
+open
+    TabManager current addTab: self.
+    TabManager current selectTab: self
+!
+
 remove
 	div asJQuery remove
 !
 
-close
-    TabManager current closeTab: self
+show
+	div asJQuery show
 ! !
 
 !TabWidget methodsFor: 'rendering'!
-
-renderOn: html
-	div := html div
-		class: 'jtalkTool';
-		yourself.
-	self renderTab
-!
 
 renderBoxOn: html
 !
@@ -252,7 +582,10 @@ renderBoxOn: html
 renderButtonsOn: html
 !
 
-update
+renderOn: html
+	div := html div
+		class: 'jtalkTool';
+		yourself.
 	self renderTab
 !
 
@@ -264,6 +597,10 @@ renderTab
 	    html div
 		class: 'jt_buttons';
 		with: [self renderButtonsOn: html]]
+!
+
+update
+	self renderTab
 ! !
 
 !TabWidget methodsFor: 'testing'!
@@ -278,481 +615,14 @@ open
     ^self new open
 ! !
 
-Widget subclass: #SourceArea
-	instanceVariableNames: 'editor div receiver onDoIt'
-	category: 'IDE'!
-
-!SourceArea methodsFor: 'accessing'!
-
-val
-    ^editor getValue
-!
-
-val: aString
-    editor setValue: aString
-!
-
-currentLine
-    ^editor getLine: (editor getCursor line)
-!
-
-selection
-	^editor getSelection
-!
-
-selectionEnd
-   ^textarea element selectionEnd
-!
-
-selectionStart
-   ^textarea element selectionStart
-!
-
-selectionStart: anInteger
-   textarea element selectionStart: anInteger
-!
-
-selectionEnd: anInteger
-   textarea element selectionEnd: anInteger
-!
-
-setEditorOn: aTextarea
-	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'jtalk',
-                lineNumbers: true,
-                enterMode: 'flat',
-                matchBrackets: true,
-                electricChars: false
-	})>
-!
-
-editor
-	^editor
-!
-
-receiver
-	^receiver ifNil: [DoIt new]
-!
-
-receiver: anObject
-	receiver := anObject
-!
-
-onDoIt: aBlock
-	onDoIt := aBlock
-!
-
-onDoIt
-	^onDoIt
-!
-
-currentLineOrSelection
-    ^editor somethingSelected
-	ifFalse: [self currentLine]
-	ifTrue: [self selection]
-! !
-
-!SourceArea methodsFor: 'actions'!
-
-clear
-      self val: ''
-!
-
-doIt
-    | result |
-    result := self eval: self currentLineOrSelection.
-    self onDoIt ifNotNil: [self onDoIt value].
-    ^result
-!
-
-eval: aString
-	| compiler  |
-	compiler := Compiler new.
-	[compiler parseExpression: aString] on: Error do: [:ex |
-		^window alert: ex messageText].
-	^(compiler load: 'doIt ^[', aString, '] value' forClass: DoIt) fn applyTo: self receiver arguments: #()
-!
-
-handleKeyDown: anEvent
-    <if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
-!
-
-inspectIt
-    self doIt inspect
-!
-
-print: aString
-	| start stop |
-	start := HashedCollection new.
-	stop := HashedCollection new.
-	start at: 'line' put: (editor getCursor: false) line.
-	start at: 'ch' put: (editor getCursor: false) ch.
-	stop at: 'line' put: (start at: 'line').
-	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
-	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
-	editor setCursor: (editor getCursor: true).
-	editor setSelection: stop end: start
-!
-
-printIt
-    self print: self doIt printString
-!
-
-fileIn
-    Importer new import: self currentLineOrSelection readStream
-! !
-
-!SourceArea methodsFor: 'events'!
-
-onKeyUp: aBlock
-	div onKeyUp: aBlock
-!
-
-onKeyDown: aBlock
-	div onKeyDown: aBlock
-! !
-
-!SourceArea methodsFor: 'rendering'!
-
-renderOn: html
-    | textarea |
-    div := html div class: 'source'.
-    div with: [textarea := html textarea].
-    self setEditorOn: textarea element.
-    div onKeyDown: [:e | self handleKeyDown: e]
-! !
-
-Widget subclass: #ClassesList
-	instanceVariableNames: 'browser ul nodes'
-	category: 'IDE'!
-
-!ClassesList methodsFor: 'accessing'!
-
-category
-	^self browser selectedPackage
-!
-
-nodes
-	nodes ifNil: [nodes := self getNodes].
-	^nodes
-!
-
-browser
-	^browser
-!
-
-browser: aBrowser
-	browser := aBrowser
-!
-
-getNodes
-	| classes children others |
-	classes := self browser classes.
-	children := #().
-	others := #().
-	classes do: [:each |
-		(classes includes: each superclass)
-			ifFalse: [children add: each]
-			ifTrue: [others add: each]].
-	^children collect: [:each |
-		ClassesListNode on: each browser: self browser classes: others level: 0]
-!
-
-resetNodes
-	nodes := nil
-! !
-
-!ClassesList methodsFor: 'rendering'!
-
-renderOn: html
-	ul := html ul
-		class: 'jt_column browser classes';
-		yourself.
-	self updateNodes
-!
-
-updateNodes
-	ul contents: [:html |
-		self nodes do: [:each |
-			each renderOn: html]]
-! !
-
-!ClassesList class methodsFor: 'instance creation'!
-
-on: aBrowser
-	^self new 
-		browser: aBrowser; 
-		yourself
-! !
-
-Widget subclass: #ClassesListNode
-	instanceVariableNames: 'browser theClass level nodes'
-	category: 'IDE'!
-
-!ClassesListNode methodsFor: ''!
-
-renderOn: html
-	| li cssClass |
-	cssClass := ''.
-	li := html li 
-		onClick: [self browser selectClass: self theClass]. 
-	li asJQuery html: self label.
-
-	self browser selectedClass = self theClass ifTrue:  [
-		cssClass := cssClass, ' selected'].
-
-	self theClass comment isEmpty ifFalse: [
-		cssClass := cssClass, ' commented'].
-
-	li class: cssClass.
-
-	self nodes do: [:each |
-		each renderOn: html]
-! !
-
-!ClassesListNode methodsFor: 'accessing'!
-
-nodes
-	^nodes
-!
-
-theClass
-	^theClass
-!
-
-theClass: aClass
-	theClass := aClass
-!
-
-browser
-	^browser
-!
-
-browser: aBrowser
-	browser := aBrowser
-!
-
-level
-	^level
-!
-
-level: anInteger
-	level := anInteger
-!
-
-label
-	| str |
-	str := String new writeStream.
-	self level timesRepeat: [
-		str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
-	str nextPutAll: self theClass name.
-	^str contents
-!
-
-getNodesFrom: aCollection
-	| children others |
-	children := #().
-	others := #().
-	aCollection do: [:each |
-		(each superclass = self theClass)
-			ifTrue: [children add: each]
-			ifFalse: [others add: each]].
-	nodes:= children collect: [:each |
-		ClassesListNode on: each browser: self browser classes: others level: self level + 1]
-! !
-
-!ClassesListNode class methodsFor: 'instance creation'!
-
-on: aClass browser: aBrowser classes: aCollection level: anInteger
-	^self new
-		theClass: aClass;
-		browser: aBrowser;
-		level: anInteger;
-		getNodesFrom: aCollection;
-		yourself
-! !
-
-ErrorHandler subclass: #DebugErrorHandler
-	instanceVariableNames: ''
-	category: 'IDE'!
-
-!DebugErrorHandler methodsFor: 'error handling'!
-
-handleError: anError
-	[Debugger new
-		error: anError;
-		open] on: Error do: [:error |
-			ErrorHandler new handleError: error]
-! !
-
-!DebugErrorHandler class methodsFor: 'initialization'!
-
-initialize
-	self register
-! !
-
-TabWidget subclass: #Workspace
-	instanceVariableNames: 'sourceArea'
-	category: 'IDE'!
-
-!Workspace methodsFor: 'accessing'!
-
-label
-    ^'Workspace'
-! !
-
-!Workspace methodsFor: 'actions'!
-
-clearWorkspace
-    sourceArea clear
-!
-
-doIt
-   sourceArea doIt
-!
-
-printIt
-	sourceArea printIt
-!
-
-inspectIt
-    sourceArea inspectIt
-!
-
-fileIn
-    sourceArea fileIn
-! !
-
-!Workspace methodsFor: 'rendering'!
-
-renderBoxOn: html
-    sourceArea := SourceArea new.
-    sourceArea renderOn: html
-!
-
-renderButtonsOn: html
-    html button
-	with: 'DoIt';
-	title: 'ctrl+d';
-	onClick: [self doIt].
-    html button
-	with: 'PrintIt';
-	title: 'ctrl+p';
-	onClick: [self printIt].
-    html button
-	with: 'InspectIt';
-	title: 'ctrl+i';
-	onClick: [self inspectIt].
-    html button
-	with: 'FileIn';
-	title: 'ctrl+f';
-	onClick: [self fileIn].
-    html button
-	with: 'Clear workspace';
-	onClick: [self clearWorkspace]
-! !
-
 TabWidget subclass: #Browser
 	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
 
-label
-    ^selectedClass 
-	ifNil: ['Browser (nil)']
-	ifNotNil: ['Browser: ', selectedClass name]
-!
-
-packages
-    | packages |
-    packages := Array new.
-    Smalltalk current classes do: [:each |
-	(packages includes: each category) ifFalse: [
-	    packages add: each category]].
-    ^packages sort
-!
-
-classes
-    ^((Smalltalk current classes 
-	select: [:each | each category = selectedPackage])
-	sort: [:a :b | a name < b name]) asSet
-!
-
-protocols
-    | klass |
-    selectedClass ifNotNil: [
-	selectedTab = #comment ifTrue: [^#()].
-	klass := selectedTab = #instance
-	    ifTrue: [selectedClass]
-	    ifFalse: [selectedClass class].
-	klass methodDictionary isEmpty ifTrue: [
-	    ^Array with: 'not yet classified'].
-	^klass protocols].
-    ^Array new
-!
-
-methods
-    | klass |
-    selectedTab = #comment ifTrue: [^#()].
-    selectedClass ifNotNil: [
-	klass := selectedTab = #instance
-	    ifTrue: [selectedClass]
-	    ifFalse: [selectedClass class]].
-    ^(selectedProtocol 
-	ifNil: [
-	    klass 
-		ifNil: [#()] 
-		ifNotNil: [klass methodDictionary values]]
-	ifNotNil: [
-	    klass methodDictionary values select: [:each |
-		each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]
-!
-
-source
-    selectedTab = #comment ifFalse: [
-	^(selectedProtocol notNil or: [selectedMethod notNil])
-	    ifFalse: [self declarationSource]
-	    ifTrue: [self methodSource]].
-    ^selectedClass
-	ifNil: ['']
-	ifNotNil: [self classCommentSource]
-!
-
-methodSource
-    ^selectedMethod
-	ifNil: [self dummyMethodSource]
-	ifNotNil: [selectedMethod source]
-!
-
-dummyMethodSource
-    ^'messageSelectorAndArgumentNames
-	"comment stating purpose of message"
-
-	| temporary variable names |
-	statements'
-!
-
-declarationSource
-    ^selectedTab = #instance
-	ifTrue: [self classDeclarationSource]
-	ifFalse: [self metaclassDeclarationSource]
+classCommentSource
+    ^selectedClass comment
 !
 
 classDeclarationSource
@@ -776,6 +646,38 @@ classDeclarationSource
 	^stream contents
 !
 
+classDeclarationTemplate
+	^'Object subclass: #NameOfSubclass
+	instanceVariableNames: ''''
+	package: ''', self selectedPackage, ''''
+!
+
+classes
+    ^((Smalltalk current classes 
+	select: [:each | each category = selectedPackage])
+	sort: [:a :b | a name < b name]) asSet
+!
+
+declarationSource
+    ^selectedTab = #instance
+	ifTrue: [self classDeclarationSource]
+	ifFalse: [self metaclassDeclarationSource]
+!
+
+dummyMethodSource
+    ^'messageSelectorAndArgumentNames
+	"comment stating purpose of message"
+
+	| temporary variable names |
+	statements'
+!
+
+label
+    ^selectedClass 
+	ifNil: ['Browser (nil)']
+	ifNotNil: ['Browser: ', selectedClass name]
+!
+
 metaclassDeclarationSource
     | stream |
     stream := '' writeStream.
@@ -791,46 +693,115 @@ metaclassDeclarationSource
     ^stream contents
 !
 
-classCommentSource
-    ^selectedClass comment
+methodSource
+    ^selectedMethod
+	ifNil: [self dummyMethodSource]
+	ifNotNil: [selectedMethod source]
+!
+
+methods
+    | klass |
+    selectedTab = #comment ifTrue: [^#()].
+    selectedClass ifNotNil: [
+	klass := selectedTab = #instance
+	    ifTrue: [selectedClass]
+	    ifFalse: [selectedClass class]].
+    ^(selectedProtocol 
+	ifNil: [
+	    klass 
+		ifNil: [#()] 
+		ifNotNil: [klass methodDictionary values]]
+	ifNotNil: [
+	    klass methodDictionary values select: [:each |
+		each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]
+!
+
+packages
+    | packages |
+    packages := Array new.
+    Smalltalk current classes do: [:each |
+	(packages includes: each category) ifFalse: [
+	    packages add: each category]].
+    ^packages sort
+!
+
+protocols
+    | klass |
+    selectedClass ifNotNil: [
+	selectedTab = #comment ifTrue: [^#()].
+	klass := selectedTab = #instance
+	    ifTrue: [selectedClass]
+	    ifFalse: [selectedClass class].
+	klass methodDictionary isEmpty ifTrue: [
+	    ^Array with: 'not yet classified'].
+	^klass protocols].
+    ^Array new
 !
 
 selectedClass
 	^selectedClass
 !
 
-classDeclarationTemplate
-	^'Object subclass: #NameOfSubclass
-	instanceVariableNames: ''''
-	package: ''', self selectedPackage, ''''
-!
-
 selectedPackage
 	^selectedPackage
+!
+
+source
+    selectedTab = #comment ifFalse: [
+	^(selectedProtocol notNil or: [selectedMethod notNil])
+	    ifFalse: [self declarationSource]
+	    ifTrue: [self methodSource]].
+    ^selectedClass
+	ifNil: ['']
+	ifNotNil: [self classCommentSource]
 ! !
 
 !Browser methodsFor: 'actions'!
 
-disableSaveButton
-    saveButton ifNotNil: [
-	saveButton at: 'disabled' put: true].
-    unsavedChanges := false
+addInstanceVariableNamed: aString toClass: aClass
+	ClassBuilder new
+		addSubclassOf: aClass superclass 
+		named: aClass name 
+		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+		package: aClass package name
 !
 
-hideClassButtons
-    classButtons asJQuery hide
+addNewClass
+	| className |
+	className := window prompt: 'New class'.
+	(className notNil and: [className notEmpty]) ifTrue: [
+		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
+          	 self 
+			resetClassesList;
+			updateClassesList.
+		self selectClass: (Smalltalk current at: className)]
 !
 
-showClassButtons
-    classButtons asJQuery show
+addNewProtocol
+    | newProtocol |
+    newProtocol := window prompt: 'New method protocol'.
+    (newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
+	selectedMethod category: newProtocol.
+	self setMethodProtocol: newProtocol]
 !
 
-hideMethodButtons
-    methodButtons asJQuery hide
+cancelChanges
+    ^unsavedChanges 
+	ifTrue: [window confirm: 'Cancel changes?']
+	ifFalse: [true]
 !
 
-showMethodButtons
-    methodButtons asJQuery show
+commitPackage
+	selectedPackage ifNotNil: [ |package|
+               						 package := Package named: selectedPackage.
+               						 {	Exporter 			-> (package commitPathJs, '/', selectedPackage, '.js').
+                        					StrippedExporter 	-> (package commitPathJs, '/', selectedPackage, '.deploy.js').
+                       						 ChunkExporter 		-> (package commitPathSt, '/', selectedPackage, '.st') 			} 
+                 
+                						do: [:commitStrategy| |fileContents|
+                                                                     	fileContents := (commitStrategy key new exportPackage: selectedPackage).
+                                                                     	self ajaxPutAt: commitStrategy value data:  fileContents]
+         						]
 !
 
 compile
@@ -849,18 +820,6 @@ compileClassComment
     selectedClass comment: sourceArea val
 !
 
-compileMethodDefinition
-    selectedTab = #instance
-	ifTrue: [self compileMethodDefinitionFor: selectedClass]
-	ifFalse: [self compileMethodDefinitionFor: selectedClass class]
-!
-
-compileMethodDefinitionFor: aClass
-   
-    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].    
-    self compileMethodDefinitionFor: aClass withSource: sourceArea val andCategory: selectedProtocol
-!
-
 compileDefinition
     | newClass |
     newClass := Compiler new loadExpression: sourceArea val.
@@ -871,10 +830,70 @@ compileDefinition
     self selectClass: newClass
 !
 
-cancelChanges
-    ^unsavedChanges 
-	ifTrue: [window confirm: 'Cancel changes?']
-	ifFalse: [true]
+compileMethodDefinition
+    selectedTab = #instance
+	ifTrue: [self compileMethodDefinitionFor: selectedClass]
+	ifFalse: [self compileMethodDefinitionFor: selectedClass class]
+!
+
+compileMethodDefinitionFor: aClass
+    | compiler method source node | 
+    source := sourceArea val.
+    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
+    compiler := Compiler new.
+    compiler source: source.
+    node := compiler parse: source.
+    node isParseFailure ifTrue: [
+	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
+    compiler currentClass: aClass.
+    method := compiler eval: (compiler compileNode: node).
+    method category: selectedProtocol.
+    compiler unknownVariables do: [:each |
+         "Do not try to redeclare javascript's objects"
+         (window at: each) ifNil: [
+	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+			self addInstanceVariableNamed: each toClass: aClass.
+			^self compileMethodDefinitionFor: aClass]]].
+    aClass addCompiledMethod: method.
+    compiler setupClass: aClass.
+    self updateMethodsList.
+    self selectMethod: method
+!
+
+copyClass
+	| className |
+	className := window prompt: 'Copy class'.
+	(className notNil and: [className notEmpty]) ifTrue: [
+		ClassBuilder new copyClass: self selectedClass named: className.
+          	 self 
+			resetClassesList;
+			updateClassesList.
+		self selectClass: (Smalltalk current at: className)]
+!
+
+disableSaveButton
+    saveButton ifNotNil: [
+	saveButton at: 'disabled' put: true].
+    unsavedChanges := false
+!
+
+handleSourceAreaKeyDown: anEvent
+	 <if(anEvent.ctrlKey) {
+		if(anEvent.keyCode === 83) { //ctrl+s
+			self._compile();
+			anEvent.preventDefault();
+			return false;
+		}
+	}
+	>
+!
+
+hideClassButtons
+    classButtons asJQuery hide
+!
+
+hideMethodButtons
+    methodButtons asJQuery hide
 !
 
 removeClass
@@ -895,26 +914,48 @@ removeMethod
 		self selectMethod: nil]]
 !
 
-setMethodProtocol: aString
-    self cancelChanges ifTrue: [
-	(self protocols includes: aString)
-	    ifFalse: [self addNewProtocol]
-	    ifTrue: [
-		selectedMethod category: aString.
-		selectedProtocol := aString.
-		selectedMethod := selectedMethod.
-		self 
-		    updateProtocolsList;
-		    updateMethodsList;
-		    updateSourceAndButtons]]
+removePackage
+
+  (window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
+	ifTrue: [
+	    Smalltalk current removePackage: selectedPackage.
+	    self updateCategoriesList]
 !
 
-addNewProtocol
-    | newProtocol |
-    newProtocol := window prompt: 'New method protocol'.
-    (newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
-	selectedMethod category: newProtocol.
-	self setMethodProtocol: newProtocol]
+renameClass
+    | newName |
+    newName := window prompt: 'Rename class ', selectedClass name.
+    (newName notNil and: [newName notEmpty]) ifTrue: [
+	selectedClass rename: newName.
+	self 
+		updateClassesList;
+		updateSourceAndButtons]
+!
+
+renamePackage
+
+  | newName |
+  newName := window prompt: 'Rename package ', selectedPackage.
+  newName ifNotNil: [
+    newName notEmpty ifTrue: [
+	Smalltalk current renamePackage: selectedPackage to: newName.
+	self updateCategoriesList]]
+!
+
+search: aString
+	self cancelChanges ifTrue: [| searchedClass |
+		searchedClass := Smalltalk current at: aString.
+		searchedClass isClass
+			ifTrue: [self class openOn: searchedClass]
+			ifFalse: [self searchReferencesOf: aString]]
+!
+
+searchClassReferences
+	ReferencesBrowser search: selectedClass name
+!
+
+searchReferencesOf: aString
+	ReferencesBrowser search: aString
 !
 
 selectCategory: aCategory
@@ -941,19 +982,19 @@ selectClass: aClass
 	    updateSourceAndButtons]
 !
 
-selectProtocol: aString
+selectMethod: aMethod
     self cancelChanges ifTrue: [
-	selectedProtocol := aString.
-	selectedMethod := nil.
+	selectedMethod := aMethod.
 	self 
 	    updateProtocolsList;
 	    updateMethodsList;
 	    updateSourceAndButtons]
 !
 
-selectMethod: aMethod
+selectProtocol: aString
     self cancelChanges ifTrue: [
-	selectedMethod := aMethod.
+	selectedProtocol := aString.
+	selectedMethod := nil.
 	self 
 	    updateProtocolsList;
 	    updateMethodsList;
@@ -967,126 +1008,26 @@ selectTab: aString
 	self updateTabsList]
 !
 
-renameClass
-    | newName |
-    newName := window prompt: 'Rename class ', selectedClass name.
-    (newName notNil and: [newName notEmpty]) ifTrue: [
-	selectedClass rename: newName.
-	self 
-		updateClassesList;
-		updateSourceAndButtons]
+setMethodProtocol: aString
+    self cancelChanges ifTrue: [
+	(self protocols includes: aString)
+	    ifFalse: [self addNewProtocol]
+	    ifTrue: [
+		selectedMethod category: aString.
+		selectedProtocol := aString.
+		selectedMethod := selectedMethod.
+		self 
+		    updateProtocolsList;
+		    updateMethodsList;
+		    updateSourceAndButtons]]
 !
 
-addInstanceVariableNamed: aString toClass: aClass
-	ClassBuilder new
-		addSubclassOf: aClass superclass 
-		named: aClass name 
-		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
-		package: aClass package name
+showClassButtons
+    classButtons asJQuery show
 !
 
-searchReferencesOf: aString
-	ReferencesBrowser search: aString
-!
-
-searchClassReferences
-	ReferencesBrowser search: selectedClass name
-!
-
-search: aString
-	self cancelChanges ifTrue: [| searchedClass |
-		searchedClass := Smalltalk current at: aString.
-		searchedClass isClass
-			ifTrue: [self class openOn: searchedClass]
-			ifFalse: [self searchReferencesOf: aString]]
-!
-
-handleSourceAreaKeyDown: anEvent
-	 <if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 83) { //ctrl+s
-			self._compile();
-			anEvent.preventDefault();
-			return false;
-		}
-	}
-	>
-!
-
-commitPackage
-	selectedPackage ifNotNil: [ |package|
-               						 package := Package named: selectedPackage.
-               						 {	Exporter 			-> (package commitPathJs, '/', selectedPackage, '.js').
-                        					StrippedExporter 	-> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-                       						 ChunkExporter 		-> (package commitPathSt, '/', selectedPackage, '.st') 			} 
-                 
-                						do: [:commitStrategy| |fileContents|
-                                                                     	fileContents := (commitStrategy key new exportPackage: selectedPackage).
-                                                                     	self ajaxPutAt: commitStrategy value data:  fileContents]
-         						]
-!
-
-renamePackage
-
-  | newName |
-  newName := window prompt: 'Rename package ', selectedPackage.
-  newName ifNotNil: [
-    newName notEmpty ifTrue: [
-	Smalltalk current renamePackage: selectedPackage to: newName.
-	self updateCategoriesList]]
-!
-
-removePackage
-
-  (window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
-	ifTrue: [
-	    Smalltalk current removePackage: selectedPackage.
-	    self updateCategoriesList]
-!
-
-addNewClass
-	| className |
-	className := window prompt: 'New class'.
-	(className notNil and: [className notEmpty]) ifTrue: [
-		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
-          	 self 
-			resetClassesList;
-			updateClassesList.
-		self selectClass: (Smalltalk current at: className)]
-!
-
-copyClass
-	| className |
-	className := window prompt: 'Copy class'.
-	(className notNil and: [className notEmpty]) ifTrue: [
-		ClassBuilder new copyClass: self selectedClass named: className.
-          	 self 
-			resetClassesList;
-			updateClassesList.
-		self selectClass: (Smalltalk current at: className)]
-!
-
-compileMethodDefinitionFor: aClass withSource: aSource andCategory: aCategory
-	
-   | compiler method source node | 
-
-    compiler := Compiler new.
-    compiler source: aSource.
-    node := compiler parse: aSource.
-    node isParseFailure ifTrue: [  
-	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
-    compiler currentClass: aClass.
-    method := compiler eval: (compiler compileNode: node).
-    method category: aCategory.
-    compiler unknownVariables do: [:each |
-         "Do not try to redeclare javascript's objects"
-         (window at: each) ifNil: [
-	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
-			self addInstanceVariableNamed: each toClass: aClass.
-			^self compileMethodDefinitionFor: aClass]]].
-    aClass addCompiledMethod: method.
-    compiler setupClass: aClass.
-    self updateMethodsList.
-    self selectMethod: method
+showMethodButtons
+    methodButtons asJQuery show
 ! !
 
 !Browser methodsFor: 'initialization'!
@@ -1110,11 +1051,48 @@ ajaxPutAt: anURL data: aString
 
 !Browser methodsFor: 'rendering'!
 
+renderBottomPanelOn: html
+    html div
+	class: 'jt_sourceCode';
+	with: [
+	    sourceArea := SourceArea new.
+	    sourceArea renderOn: html.
+            sourceArea onKeyDown: [:e |
+                                   self handleSourceAreaKeyDown: e].
+	    sourceArea onKeyUp: [self updateStatus]]
+!
+
 renderBoxOn: html
     self 
 	renderTopPanelOn: html;
 	renderTabsOn: html;
 	renderBottomPanelOn: html
+!
+
+renderButtonsOn: html
+    saveButton := html button.
+    saveButton 
+	with: 'Save';
+	onClick: [self compile].
+    methodButtons := html span.
+    classButtons := html span.
+    html div 
+	class: 'right';
+	with: [
+		html button
+			with: 'DoIt';
+			onClick: [sourceArea doIt].
+		html button
+			with: 'PrintIt';
+			onClick: [sourceArea printIt].
+		html button with: 'InspectIt';
+			onClick: [sourceArea inspectIt]]. 
+    self updateSourceAndButtons
+!
+
+renderTabsOn: html
+    tabsList := html ul class: 'jt_tabs jt_browser'.
+    self updateTabsList.
 !
 
 renderTopPanelOn: html
@@ -1145,43 +1123,6 @@ renderTopPanelOn: html
 				updateProtocolsList;
 				updateMethodsList.
 			html div class: 'jt_clear']
-!
-
-renderTabsOn: html
-    tabsList := html ul class: 'jt_tabs jt_browser'.
-    self updateTabsList.
-!
-
-renderBottomPanelOn: html
-    html div
-	class: 'jt_sourceCode';
-	with: [
-	    sourceArea := SourceArea new.
-	    sourceArea renderOn: html.
-            sourceArea onKeyDown: [:e |
-                                   self handleSourceAreaKeyDown: e].
-	    sourceArea onKeyUp: [self updateStatus]]
-!
-
-renderButtonsOn: html
-    saveButton := html button.
-    saveButton 
-	with: 'Save';
-	onClick: [self compile].
-    methodButtons := html span.
-    classButtons := html span.
-    html div 
-	class: 'right';
-	with: [
-		html button
-			with: 'DoIt';
-			onClick: [sourceArea doIt].
-		html button
-			with: 'PrintIt';
-			onClick: [sourceArea printIt].
-		html button with: 'InspectIt';
-			onClick: [sourceArea inspectIt]]. 
-    self updateSourceAndButtons
 ! !
 
 !Browser methodsFor: 'testing'!
@@ -1191,6 +1132,10 @@ canBeClosed
 ! !
 
 !Browser methodsFor: 'updating'!
+
+resetClassesList
+	classesList resetNodes
+!
 
 updateCategoriesList
     packagesList contents: [:html |
@@ -1211,17 +1156,6 @@ updateClassesList
     classesList updateNodes
 !
 
-updateProtocolsList
-    protocolsList contents: [:html |
-	self protocols do: [:each || li |
-	    li := html li.
-	    selectedProtocol = each ifTrue: [
-		li class: 'selected'].
-	    li 
-		with: each;
-		onClick: [self selectProtocol: each]]]
-!
-
 updateMethodsList
     methodsList contents: [:html |
 	self methods do: [:each || li |
@@ -1233,32 +1167,15 @@ updateMethodsList
 		onClick: [self selectMethod: each]]]
 !
 
-updateTabsList
-    tabsList contents: [:html || li |
-	li := html li.
-	selectedTab = #instance ifTrue: [li class: 'selected'].
-	li
-	    with: [
-		html span class: 'ltab'.
-		html span class: 'mtab'; with: 'Instance'.
-		html span class: 'rtab'];
-	    onClick: [self selectTab: #instance].
-	li := html li.
-	selectedTab = #class ifTrue: [li class: 'selected'].
-	li
-	    with: [
-		html span class: 'ltab'.
-		html span class: 'mtab'; with: 'Class'.
-		html span class: 'rtab'];
-	    onClick: [self selectTab: #class].
-	li := html li.
-	selectedTab = #comment ifTrue: [li class: 'selected'].
-	li
-	    with: [
-		html span class: 'ltab'.
-		html span class: 'mtab'; with: 'Comment'.
-		html span class: 'rtab'];
-	    onClick: [self selectTab: #comment]]
+updateProtocolsList
+    protocolsList contents: [:html |
+	self protocols do: [:each || li |
+	    li := html li.
+	    selectedProtocol = each ifTrue: [
+		li class: 'selected'].
+	    li 
+		with: each;
+		onClick: [self selectProtocol: each]]]
 !
 
 updateSourceAndButtons
@@ -1279,10 +1196,7 @@ updateSourceAndButtons
 			onClick: [self removeClass].
 		html button
 			with: 'References';
-			onClick: [self searchClassReferences].
-                html button
-			with: 'Create accessors';
-			onClick: [self createAccessors]].
+			onClick: [self searchClassReferences]].
 	methodButtons contents: [:html | | protocolSelect referencesSelect |
 		html button
 			with: 'Remove method';
@@ -1337,31 +1251,32 @@ updateStatus
 			unsavedChanges := true]
 !
 
-resetClassesList
-	classesList resetNodes
-!
-
-createAccessors
- 
- selectedClass instanceVariableNames 
-     do: [:name|    self createAccessorsFor: name ]
-!
-
-createAccessorsFor: name
- 
-	(selectedClass methodDictionary includesKey: name)
-		ifFalse: [      
-		 self compileMethodDefinitionFor: selectedClass 
-					withSource: (name , String lf , '    ^' , name) 
- 					andCategory: 'accessing'
-                ].
- 
-	(selectedClass methodDictionary includesKey: name , ':')
-		ifFalse: [      
-		  self compileMethodDefinitionFor: selectedClass 
-							withSource: (name , ':' ,  ' aValue' , String lf , '    ' ,  name , ' := aValue.' ) 
-					        	andCategory: 'accessing'
-                ]
+updateTabsList
+    tabsList contents: [:html || li |
+	li := html li.
+	selectedTab = #instance ifTrue: [li class: 'selected'].
+	li
+	    with: [
+		html span class: 'ltab'.
+		html span class: 'mtab'; with: 'Instance'.
+		html span class: 'rtab'];
+	    onClick: [self selectTab: #instance].
+	li := html li.
+	selectedTab = #class ifTrue: [li class: 'selected'].
+	li
+	    with: [
+		html span class: 'ltab'.
+		html span class: 'mtab'; with: 'Class'.
+		html span class: 'rtab'];
+	    onClick: [self selectTab: #class].
+	li := html li.
+	selectedTab = #comment ifTrue: [li class: 'selected'].
+	li
+	    with: [
+		html span class: 'ltab'.
+		html span class: 'mtab'; with: 'Comment'.
+		html span class: 'rtab'];
+	    onClick: [self selectTab: #comment]]
 ! !
 
 !Browser class methodsFor: 'accessing'!
@@ -1376,344 +1291,15 @@ commitPathSt
 
 !Browser class methodsFor: 'convenience'!
 
+open
+    self new open
+!
+
 openOn: aClass
     ^self new
 	open;
 	selectCategory: aClass category;
 	selectClass: aClass
-!
-
-open
-    self new open
-! !
-
-TabWidget subclass: #Inspector
-	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
-	category: 'IDE'!
-
-!Inspector methodsFor: 'accessing'!
-
-label
-	^label ifNil: ['Inspector (nil)']
-!
-
-variables
-	^variables
-!
-
-setVariables: aCollection
-	variables := aCollection
-!
-
-setLabel: aString
-	label := aString
-!
-
-selectedVariable
-	^selectedVariable
-!
-
-selectedVariable: aString
-	selectedVariable := aString
-!
-
-sourceArea
-	^sourceArea
-! !
-
-!Inspector methodsFor: 'actions'!
-
-inspect: anObject
-	object := anObject.
-	variables := #().
-	object inspectOn: self
-!
-
-dive
-	(self variables at: self selectedVariable) inspect
-!
-
-refresh
-	self 
-		inspect: object; 
-		updateVariablesList;
-		updateValueTextarea
-! !
-
-!Inspector methodsFor: 'rendering'!
-
-renderBoxOn: html
-	self 
-		renderTopPanelOn: html;
-		renderBottomPanelOn: html
-!
-
-renderTopPanelOn: html
-	html div 
-		class: 'top'; 
-		with: [
-			variablesList := html ul class: 'jt_column variables'.
-			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
-			html div class: 'jt_tabs inspector'; with: [
-				html button
-					class: 'jt_button inspector refresh';
-					with: 'Refresh';
-					onClick: [self refresh].
-				diveButton := html button 
-					class: 'jt_button inspector dive';
-					with: 'Dive'; 
-					onClick: [self dive]].
-			html div class: 'jt_clear'].
-	self
-		updateVariablesList;
-		updateValueTextarea.
-!
-
-renderBottomPanelOn: html
-    html div
-	class: 'jt_sourceCode';
-	with: [
-	    sourceArea := SourceArea new
-		receiver: object;
-		onDoIt: [self refresh];
-		yourself.
-            sourceArea renderOn: html]
-!
-
-renderButtonsOn: html
-	html button 
-		with: 'DoIt';
-		onClick: [self sourceArea doIt].
-	html button 
-		with: 'PrintIt';
-		onClick: [self sourceArea printIt].
-	html button 
-		with: 'InspectIt';
-		onClick: [self sourceArea inspectIt].
-	self updateButtons
-! !
-
-!Inspector methodsFor: 'testing'!
-
-canBeClosed
-	^true
-! !
-
-!Inspector methodsFor: 'updating'!
-
-updateVariablesList
-	variablesList contents: [:html |
-		self variables keys do: [:each || li |
-			li := html li.
-			li
-				with: each;
-				onClick: [self selectVariable: each].
-			self selectedVariable = each ifTrue: [
-				li class: 'selected']]]
-!
-
-selectVariable: aString
-	self selectedVariable: aString.
-	self 
-		updateVariablesList;
-		updateValueTextarea;
-		updateButtons
-!
-
-updateValueTextarea
-	valueTextarea asJQuery val: (self selectedVariable isNil
-		ifTrue: ['']
-		ifFalse: [(self variables at: self selectedVariable) printString])
-!
-
-updateButtons
-	(self selectedVariable notNil and: [(self variables at: self selectedVariable) notNil])
-		ifFalse: [diveButton at: 'disabled' put: true] 
-		ifTrue: [diveButton removeAt: 'disabled']
-! !
-
-!Inspector class methodsFor: 'instance creation'!
-
-on: anObject
-	^self new
-		inspect: anObject;
-		yourself
-! !
-
-TabWidget subclass: #ReferencesBrowser
-	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
-	category: 'IDE'!
-
-!ReferencesBrowser methodsFor: 'accessing'!
-
-implementors
-	^implementors ifNil: [implementors := Array new]
-!
-
-label
-	^'[References]'
-!
-
-selector
-	^selector
-!
-
-senders
-	^senders ifNil: [senders := Array new]
-!
-
-classesAndMetaclasses
-	^Smalltalk current classes, (Smalltalk current classes collect: [:each | each class])
-!
-
-referencedClasses
-	^referencedClasses ifNil: [referencedClasses := Array new]
-! !
-
-!ReferencesBrowser methodsFor: 'actions'!
-
-openBrowserOn: aMethod
-       | browser |
-       browser := Browser openOn: (aMethod methodClass isMetaclass 
-		ifTrue: [aMethod methodClass instanceClass] ifFalse: [aMethod methodClass]).
-       aMethod methodClass isMetaclass ifTrue: [browser selectTab: #class].
-       browser
-               selectProtocol: aMethod category;
-               selectMethod: aMethod
-!
-
-searchReferencesFor: aString
-	selector := aString.
-	implementors := Array new.
-	senders := Array new.
-	referencedClasses := Array new.
-	(selector match: '^[A-Z]') 
-		ifFalse: [self searchSelectorReferencesFor: selector]
-		ifTrue: [self searchReferencedClassesFor: selector]
-!
-
-search: aString
-	self 
-		searchReferencesFor: aString;
-		updateImplementorsList;
-		updateSendersList;
-		updateReferencedClassesList
-!
-
-searchReferencedClassesFor: aString
-	self classesAndMetaclasses do: [:each |
-		each methodDictionary values do: [:value |
-			(value referencedClasses includes: selector) ifTrue: [
-				self referencedClasses add: value]]]
-!
-
-searchSelectorReferencesFor: aString
-	self classesAndMetaclasses do: [:each | 
-		each methodDictionary keysAndValuesDo: [:key :value | 
-			key = selector ifTrue: [self implementors add: value].
-			(value messageSends includes: selector) ifTrue: [
-				self senders add: value]]]
-! !
-
-!ReferencesBrowser methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	selector := ''
-! !
-
-!ReferencesBrowser methodsFor: 'private'!
-
-setInputEvents
-	input
-		onKeyUp: [timer := [self search: input asJQuery val] valueWithTimeout: 100];
-		onKeyDown: [timer ifNotNil: [timer clearTimeout]]
-! !
-
-!ReferencesBrowser methodsFor: 'rendering'!
-
-renderBoxOn: html
-	self 
-		renderInputOn: html;
-		renderImplementorsOn: html;
-		renderSendersOn: html;
-		renderReferencedClassesOn: html
-!
-
-renderInputOn: html
-	input := html input 
-		class: 'implementors';
-		yourself.
-	input asJQuery val: selector.
-	self setInputEvents
-!
-
-renderImplementorsOn: html
-	implementorsList := html ul class: 'jt_column implementors'.
-	self updateImplementorsList
-!
-
-renderSendersOn: html
-	sendersList := html ul class: 'jt_column senders'.
-	self updateSendersList
-!
-
-renderReferencedClassesOn: html
-	referencedClassesList := html ul class: 'jt_column referenced_classes'.
-	self updateReferencedClassesList
-! !
-
-!ReferencesBrowser methodsFor: 'testing'!
-
-canBeClosed
-	^true
-! !
-
-!ReferencesBrowser methodsFor: 'updating'!
-
-updateImplementorsList
-    implementorsList contents: [:html |
-	html li
-		class: 'column_label'; 
-		with: 'Implementors (', self implementors size asString, ')';
-		style: 'font-weight: bold'.
-	self implementors do: [:each || li |
-	    li := html li.
-	    li
-		with: (each methodClass asString, ' >> ', self selector);
-		onClick: [self openBrowserOn: each]]]
-!
-
-updateSendersList
-	sendersList contents: [:html |
-	html li
-		class: 'column_label'; 
-		with: 'Senders (', self senders size asString, ')';
-		style: 'font-weight: bold'.
-	self senders do: [:each |
-		html li
-			with: (each methodClass asString, ' >> ', each selector);
-			onClick: [self openBrowserOn: each]]]
-!
-
-updateReferencedClassesList
-	referencedClassesList contents: [:html |
-	html li
-		class: 'column_label'; 
-		with: 'Class references (', self referencedClasses size asString, ')';
-		style: 'font-weight: bold'.
-	self referencedClasses do: [:each |
-		html li
-			with: (each methodClass asString, ' >> ', each selector);
-			onClick: [self openBrowserOn: each]]]
-! !
-
-!ReferencesBrowser class methodsFor: 'instance creation'!
-
-search: aString
-	^self new
-		searchReferencesFor: aString;
-		open
 ! !
 
 TabWidget subclass: #Debugger
@@ -1721,6 +1307,12 @@ TabWidget subclass: #Debugger
 	category: 'IDE'!
 
 !Debugger methodsFor: 'accessing'!
+
+arguments
+	^self method 
+		ifNil: [selectedContext temps collect: [:each | nil]]
+		ifNotNil: [self method arguments]
+!
 
 error
 	^error
@@ -1734,38 +1326,24 @@ label
 	^'[Debugger]'
 !
 
-source
-	^self method 
-		ifNil: ['Method doesn''t exist!!']
-		ifNotNil: [self method source]
-!
-
 method
 	^selectedContext receiver class methodAt: selectedContext selector
 !
 
-arguments
-	^self method 
-		ifNil: [selectedContext temps collect: [:each | nil]]
-		ifNotNil: [self method arguments]
-!
-
 receiver
 	^selectedContext receiver
+!
+
+source
+	^self method 
+		ifNil: ['Method doesn''t exist!!']
+		ifNotNil: [self method source]
 ! !
 
 !Debugger methodsFor: 'actions'!
 
-selectContext: aContext
-	selectedContext := aContext.
-	selectedVariable := nil.
-	selectedVariableName := nil.
-	self 
-		updateContextsList;
-		updateSourceArea;
-		updateInspector;
-		updateVariablesList;
-		updateStatus
+inspectSelectedVariable
+	selectedVariable inspect
 !
 
 proceed
@@ -1780,15 +1358,23 @@ save
 	self updateStatus
 !
 
+selectContext: aContext
+	selectedContext := aContext.
+	selectedVariable := nil.
+	selectedVariableName := nil.
+	self 
+		updateContextsList;
+		updateSourceArea;
+		updateInspector;
+		updateVariablesList;
+		updateStatus
+!
+
 selectVariable: anObject named: aString
 	selectedVariable := anObject.
 	selectedVariableName := aString.
 	inspector contents: [:html | html with: anObject printString].
 	self updateVariablesList
-!
-
-inspectSelectedVariable
-	selectedVariable inspect
 ! !
 
 !Debugger methodsFor: 'initialization'!
@@ -1800,30 +1386,6 @@ initialize
 
 !Debugger methodsFor: 'rendering'!
 
-renderTopPanelOn: html
-	selectedContext := self error context.
-	html div 
-		class: 'top'; 
-		with: [
-			html div 
-				class: 'label';
-				with: self error messageText.
-			ul := html ul 
-				class: 'jt_column debugger contexts';
-				with: [self renderContext: self error context on: html]]
-!
-
-renderContext: aContext on: html
-	| li |
-	li := html li.
-	selectedContext = aContext ifTrue: [
-		li class: 'selected'].
-	li 
-		with: aContext asString;
-		onClick: [self selectContext: aContext].
-	aContext home ifNotNil: [self renderContext: aContext home on: html]
-!
-
 renderBottomPanelOn: html
 	html div
 		class: 'jt_sourceCode debugger';
@@ -1834,6 +1396,12 @@ renderBottomPanelOn: html
 	inspector := html div class: 'jt_column debugger inspector'.
 	sourceArea
 		onKeyUp: [self updateStatus]
+!
+
+renderBoxOn: html
+    self 
+	renderTopPanelOn: html;
+	renderBottomPanelOn: html
 !
 
 renderButtonsOn: html
@@ -1866,10 +1434,28 @@ renderButtonsOn: html
 		updateInspector
 !
 
-renderBoxOn: html
-    self 
-	renderTopPanelOn: html;
-	renderBottomPanelOn: html
+renderContext: aContext on: html
+	| li |
+	li := html li.
+	selectedContext = aContext ifTrue: [
+		li class: 'selected'].
+	li 
+		with: aContext asString;
+		onClick: [self selectContext: aContext].
+	aContext home ifNotNil: [self renderContext: aContext home on: html]
+!
+
+renderTopPanelOn: html
+	selectedContext := self error context.
+	html div 
+		class: 'top'; 
+		with: [
+			html div 
+				class: 'label';
+				with: self error messageText.
+			ul := html ul 
+				class: 'jt_column debugger contexts';
+				with: [self renderContext: self error context on: html]]
 ! !
 
 !Debugger methodsFor: 'testing'!
@@ -1883,6 +1469,10 @@ canBeClosed
 updateContextsList
 	ul contents: [:html |
 		self renderContext: self error context on: html]
+!
+
+updateInspector
+	inspector contents: [:html |]
 !
 
 updateSourceArea
@@ -1899,10 +1489,6 @@ updateStatus
 			saveButton ifNotNil: [
 				saveButton removeAt: 'disabled'].
 			unsavedChanges := true]
-!
-
-updateInspector
-	inspector contents: [:html |]
 !
 
 updateVariablesList
@@ -1927,6 +1513,229 @@ updateVariablesList
                          selectedVariableName = each ifTrue: [
 				li class: 'selected']]].
 	selectedVariable ifNil: [inspectButton at: 'disabled' put: true] ifNotNil: [inspectButton removeAt: 'disabled']
+! !
+
+TabWidget subclass: #IDETranscript
+	instanceVariableNames: 'textarea'
+	category: 'IDE'!
+
+!IDETranscript methodsFor: 'accessing'!
+
+label
+    ^'Transcript'
+! !
+
+!IDETranscript methodsFor: 'actions'!
+
+clear
+    textarea asJQuery val: ''
+!
+
+cr
+    textarea asJQuery val: textarea asJQuery val, String cr.
+!
+
+open
+    TabManager current 
+	open;
+	selectTab: self
+!
+
+show: anObject
+    textarea ifNil: [self open].
+    textarea asJQuery val: textarea asJQuery val, anObject asString.
+! !
+
+!IDETranscript methodsFor: 'rendering'!
+
+renderBoxOn: html
+    textarea := html textarea.
+    textarea 
+	class: 'jt_transcript';
+	at: 'spellcheck' put: 'false'
+!
+
+renderButtonsOn: html
+    html button
+	with: 'Clear transcript';
+	onClick: [self clear]
+! !
+
+IDETranscript class instanceVariableNames: 'current'!
+
+!IDETranscript class methodsFor: 'initialization'!
+
+initialize
+	Transcript register: self current
+! !
+
+!IDETranscript class methodsFor: 'instance creation'!
+
+current
+	^current ifNil: [current := super new]
+!
+
+new
+    self shouldNotImplement
+!
+
+open
+    TabManager current 
+	open;
+	selectTab: self current
+! !
+
+TabWidget subclass: #Inspector
+	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
+	category: 'IDE'!
+
+!Inspector methodsFor: 'accessing'!
+
+label
+	^label ifNil: ['Inspector (nil)']
+!
+
+selectedVariable
+	^selectedVariable
+!
+
+selectedVariable: aString
+	selectedVariable := aString
+!
+
+setLabel: aString
+	label := aString
+!
+
+setVariables: aCollection
+	variables := aCollection
+!
+
+sourceArea
+	^sourceArea
+!
+
+variables
+	^variables
+! !
+
+!Inspector methodsFor: 'actions'!
+
+dive
+	(self variables at: self selectedVariable) inspect
+!
+
+inspect: anObject
+	object := anObject.
+	variables := #().
+	object inspectOn: self
+!
+
+refresh
+	self 
+		inspect: object; 
+		updateVariablesList;
+		updateValueTextarea
+! !
+
+!Inspector methodsFor: 'rendering'!
+
+renderBottomPanelOn: html
+    html div
+	class: 'jt_sourceCode';
+	with: [
+	    sourceArea := SourceArea new
+		receiver: object;
+		onDoIt: [self refresh];
+		yourself.
+            sourceArea renderOn: html]
+!
+
+renderBoxOn: html
+	self 
+		renderTopPanelOn: html;
+		renderBottomPanelOn: html
+!
+
+renderButtonsOn: html
+	html button 
+		with: 'DoIt';
+		onClick: [self sourceArea doIt].
+	html button 
+		with: 'PrintIt';
+		onClick: [self sourceArea printIt].
+	html button 
+		with: 'InspectIt';
+		onClick: [self sourceArea inspectIt].
+	self updateButtons
+!
+
+renderTopPanelOn: html
+	html div 
+		class: 'top'; 
+		with: [
+			variablesList := html ul class: 'jt_column variables'.
+			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
+			html div class: 'jt_tabs inspector'; with: [
+				html button
+					class: 'jt_button inspector refresh';
+					with: 'Refresh';
+					onClick: [self refresh].
+				diveButton := html button 
+					class: 'jt_button inspector dive';
+					with: 'Dive'; 
+					onClick: [self dive]].
+			html div class: 'jt_clear'].
+	self
+		updateVariablesList;
+		updateValueTextarea.
+! !
+
+!Inspector methodsFor: 'testing'!
+
+canBeClosed
+	^true
+! !
+
+!Inspector methodsFor: 'updating'!
+
+selectVariable: aString
+	self selectedVariable: aString.
+	self 
+		updateVariablesList;
+		updateValueTextarea;
+		updateButtons
+!
+
+updateButtons
+	(self selectedVariable notNil and: [(self variables at: self selectedVariable) notNil])
+		ifFalse: [diveButton at: 'disabled' put: true] 
+		ifTrue: [diveButton removeAt: 'disabled']
+!
+
+updateValueTextarea
+	valueTextarea asJQuery val: (self selectedVariable isNil
+		ifTrue: ['']
+		ifFalse: [(self variables at: self selectedVariable) printString])
+!
+
+updateVariablesList
+	variablesList contents: [:html |
+		self variables keys do: [:each || li |
+			li := html li.
+			li
+				with: each;
+				onClick: [self selectVariable: each].
+			self selectedVariable = each ifTrue: [
+				li class: 'selected']]]
+! !
+
+!Inspector class methodsFor: 'instance creation'!
+
+on: anObject
+	^self new
+		inspect: anObject;
+		yourself
 ! !
 
 TabWidget subclass: #ProgressBar
@@ -1966,11 +1775,197 @@ updatePercent: aNumber
 	self renderProgressBar
 ! !
 
+TabWidget subclass: #ReferencesBrowser
+	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
+	category: 'IDE'!
+
+!ReferencesBrowser methodsFor: 'accessing'!
+
+classesAndMetaclasses
+	^Smalltalk current classes, (Smalltalk current classes collect: [:each | each class])
+!
+
+implementors
+	^implementors ifNil: [implementors := Array new]
+!
+
+label
+	^'[References]'
+!
+
+referencedClasses
+	^referencedClasses ifNil: [referencedClasses := Array new]
+!
+
+selector
+	^selector
+!
+
+senders
+	^senders ifNil: [senders := Array new]
+! !
+
+!ReferencesBrowser methodsFor: 'actions'!
+
+openBrowserOn: aMethod
+       | browser |
+       browser := Browser openOn: (aMethod methodClass isMetaclass 
+		ifTrue: [aMethod methodClass instanceClass] ifFalse: [aMethod methodClass]).
+       aMethod methodClass isMetaclass ifTrue: [browser selectTab: #class].
+       browser
+               selectProtocol: aMethod category;
+               selectMethod: aMethod
+!
+
+search: aString
+	self 
+		searchReferencesFor: aString;
+		updateImplementorsList;
+		updateSendersList;
+		updateReferencedClassesList
+!
+
+searchReferencedClassesFor: aString
+	self classesAndMetaclasses do: [:each |
+		each methodDictionary values do: [:value |
+			(value referencedClasses includes: selector) ifTrue: [
+				self referencedClasses add: value]]]
+!
+
+searchReferencesFor: aString
+	selector := aString.
+	implementors := Array new.
+	senders := Array new.
+	referencedClasses := Array new.
+	(selector match: '^[A-Z]') 
+		ifFalse: [self searchSelectorReferencesFor: selector]
+		ifTrue: [self searchReferencedClassesFor: selector]
+!
+
+searchSelectorReferencesFor: aString
+	self classesAndMetaclasses do: [:each | 
+		each methodDictionary keysAndValuesDo: [:key :value | 
+			key = selector ifTrue: [self implementors add: value].
+			(value messageSends includes: selector) ifTrue: [
+				self senders add: value]]]
+! !
+
+!ReferencesBrowser methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	selector := ''
+! !
+
+!ReferencesBrowser methodsFor: 'private'!
+
+setInputEvents
+	input
+		onKeyUp: [timer := [self search: input asJQuery val] valueWithTimeout: 100];
+		onKeyDown: [timer ifNotNil: [timer clearTimeout]]
+! !
+
+!ReferencesBrowser methodsFor: 'rendering'!
+
+renderBoxOn: html
+	self 
+		renderInputOn: html;
+		renderImplementorsOn: html;
+		renderSendersOn: html;
+		renderReferencedClassesOn: html
+!
+
+renderImplementorsOn: html
+	implementorsList := html ul class: 'jt_column implementors'.
+	self updateImplementorsList
+!
+
+renderInputOn: html
+	input := html input 
+		class: 'implementors';
+		yourself.
+	input asJQuery val: selector.
+	self setInputEvents
+!
+
+renderReferencedClassesOn: html
+	referencedClassesList := html ul class: 'jt_column referenced_classes'.
+	self updateReferencedClassesList
+!
+
+renderSendersOn: html
+	sendersList := html ul class: 'jt_column senders'.
+	self updateSendersList
+! !
+
+!ReferencesBrowser methodsFor: 'testing'!
+
+canBeClosed
+	^true
+! !
+
+!ReferencesBrowser methodsFor: 'updating'!
+
+updateImplementorsList
+    implementorsList contents: [:html |
+	html li
+		class: 'column_label'; 
+		with: 'Implementors (', self implementors size asString, ')';
+		style: 'font-weight: bold'.
+	self implementors do: [:each || li |
+	    li := html li.
+	    li
+		with: (each methodClass asString, ' >> ', self selector);
+		onClick: [self openBrowserOn: each]]]
+!
+
+updateReferencedClassesList
+	referencedClassesList contents: [:html |
+	html li
+		class: 'column_label'; 
+		with: 'Class references (', self referencedClasses size asString, ')';
+		style: 'font-weight: bold'.
+	self referencedClasses do: [:each |
+		html li
+			with: (each methodClass asString, ' >> ', each selector);
+			onClick: [self openBrowserOn: each]]]
+!
+
+updateSendersList
+	sendersList contents: [:html |
+	html li
+		class: 'column_label'; 
+		with: 'Senders (', self senders size asString, ')';
+		style: 'font-weight: bold'.
+	self senders do: [:each |
+		html li
+			with: (each methodClass asString, ' >> ', each selector);
+			onClick: [self openBrowserOn: each]]]
+! !
+
+!ReferencesBrowser class methodsFor: 'instance creation'!
+
+search: aString
+	^self new
+		searchReferencesFor: aString;
+		open
+! !
+
 TabWidget subclass: #TestRunner
 	instanceVariableNames: 'selectedCategories packagesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	category: 'IDE'!
 
 !TestRunner methodsFor: 'accessing'!
+
+allClasses
+	^TestCase allSubclasses
+!
+
+classes
+    ^(self allClasses 
+	select: [:each | self selectedCategories includes: each category])
+	sort: [:a :b | a name > b name]
+!
 
 label
     ^'SUnit'
@@ -1985,34 +1980,24 @@ packages
     ^packages sort
 !
 
-classes
-    ^(self allClasses 
-	select: [:each | self selectedCategories includes: each category])
-	sort: [:a :b | a name > b name]
+progressBar
+	^progressBar ifNil: [progressBar := ProgressBar new]
+!
+
+result
+	^result
 !
 
 selectedCategories
 	^selectedCategories ifNil: [selectedCategories := Array new]
 !
 
-allClasses
-	^TestCase allSubclasses
-!
-
 selectedClasses
 	^selectedClasses  ifNil: [selectedClasses := Array new]
 !
 
-progressBar
-	^progressBar ifNil: [progressBar := ProgressBar new]
-!
-
 statusInfo
 	^self printTotal, self printPasses, self printErrors, self printFailures
-!
-
-result
-	^result
 !
 
 testCases
@@ -2024,10 +2009,37 @@ testCases
 
 !TestRunner methodsFor: 'actions'!
 
+performFailure: aTestCase
+	aTestCase perform: aTestCase selector
+!
+
+run: aCollection
+	result := TestResult new.
+	self 
+		updateStatusDiv;
+		updateMethodsList.
+	self progressBar updatePercent: 0.
+	result total: aCollection size.
+	aCollection do: [:each | 
+		[each runCaseFor: result.
+		self progressBar updatePercent: result runs / result total * 100.
+		self updateStatusDiv.
+		self updateMethodsList] valueWithTimeout: 100].
+!
+
 selectAllCategories
 	self packages do: [:each | 
 		(selectedCategories includes: each) ifFalse: [
 			self selectedCategories add: each]].
+	self 
+	    updateCategoriesList;
+	    updateClassesList
+!
+
+selectAllClasses
+	self classes do: [:each | 
+		(selectedClasses includes: each) ifFalse: [
+			self selectedClasses add: each]].
 	self 
 	    updateCategoriesList;
 	    updateClassesList
@@ -2048,33 +2060,6 @@ toggleClass: aClass
 		ifTrue: [selectedClasses remove: aClass].
 	self 
 	    updateClassesList
-!
-
-selectAllClasses
-	self classes do: [:each | 
-		(selectedClasses includes: each) ifFalse: [
-			self selectedClasses add: each]].
-	self 
-	    updateCategoriesList;
-	    updateClassesList
-!
-
-run: aCollection
-	result := TestResult new.
-	self 
-		updateStatusDiv;
-		updateMethodsList.
-	self progressBar updatePercent: 0.
-	result total: aCollection size.
-	aCollection do: [:each | 
-		[each runCaseFor: result.
-		self progressBar updatePercent: result runs / result total * 100.
-		self updateStatusDiv.
-		self updateMethodsList] valueWithTimeout: 100].
-!
-
-performFailure: aTestCase
-	aTestCase perform: aTestCase selector
 ! !
 
 !TestRunner methodsFor: 'initialization'!
@@ -2127,12 +2112,12 @@ renderClassesOn: html
 	self updateClassesList
 !
 
-renderResultsOn: html
-	statusDiv := html div.
-	html with: self progressBar.
-	methodsList := html ul class: 'jt_column sunit results'.
-	self updateMethodsList.
-	self updateStatusDiv
+renderErrorsOn: html
+	self result errors do: [:each |
+		html li 
+			class: 'errors';
+			with: each class name, ' >> ', each selector;
+                        onClick: [self performFailure: each]]
 !
 
 renderFailuresOn: html
@@ -2143,22 +2128,22 @@ renderFailuresOn: html
                         onClick: [self performFailure: each]]
 !
 
-renderErrorsOn: html
-	self result errors do: [:each |
-		html li 
-			class: 'errors';
-			with: each class name, ' >> ', each selector;
-                        onClick: [self performFailure: each]]
+renderResultsOn: html
+	statusDiv := html div.
+	html with: self progressBar.
+	methodsList := html ul class: 'jt_column sunit results'.
+	self updateMethodsList.
+	self updateStatusDiv
 ! !
 
 !TestRunner methodsFor: 'testing'!
 
-isSelectedClass: aClass
-	^(self selectedClasses includes: aClass)
-!
-
 isSelectedCategory: aCategory
 	^(self selectedCategories includes: aCategory)
+!
+
+isSelectedClass: aClass
+	^(self selectedClasses includes: aClass)
 ! !
 
 !TestRunner methodsFor: 'updating'!
@@ -2206,74 +2191,65 @@ updateStatusDiv
 		html span with: self statusInfo]
 ! !
 
-TabWidget subclass: #IDETranscript
-	instanceVariableNames: 'textarea'
+TabWidget subclass: #Workspace
+	instanceVariableNames: 'sourceArea'
 	category: 'IDE'!
 
-!IDETranscript methodsFor: 'accessing'!
+!Workspace methodsFor: 'accessing'!
 
 label
-    ^'Transcript'
+    ^'Workspace'
 ! !
 
-!IDETranscript methodsFor: 'actions'!
+!Workspace methodsFor: 'actions'!
 
-clear
-    textarea asJQuery val: ''
+clearWorkspace
+    sourceArea clear
 !
 
-cr
-    textarea asJQuery val: textarea asJQuery val, String cr.
+doIt
+   sourceArea doIt
 !
 
-show: anObject
-    textarea ifNil: [self open].
-    textarea asJQuery val: textarea asJQuery val, anObject asString.
+fileIn
+    sourceArea fileIn
 !
 
-open
-    TabManager current 
-	open;
-	selectTab: self
+inspectIt
+    sourceArea inspectIt
+!
+
+printIt
+	sourceArea printIt
 ! !
 
-!IDETranscript methodsFor: 'rendering'!
+!Workspace methodsFor: 'rendering'!
 
 renderBoxOn: html
-    textarea := html textarea.
-    textarea 
-	class: 'jt_transcript';
-	at: 'spellcheck' put: 'false'
+    sourceArea := SourceArea new.
+    sourceArea renderOn: html
 !
 
 renderButtonsOn: html
     html button
-	with: 'Clear transcript';
-	onClick: [self clear]
-! !
-
-IDETranscript class instanceVariableNames: 'current'!
-
-!IDETranscript class methodsFor: 'initialization'!
-
-initialize
-	Transcript register: self current
-! !
-
-!IDETranscript class methodsFor: 'instance creation'!
-
-new
-    self shouldNotImplement
-!
-
-open
-    TabManager current 
-	open;
-	selectTab: self current
-!
-
-current
-	^current ifNil: [current := super new]
+	with: 'DoIt';
+	title: 'ctrl+d';
+	onClick: [self doIt].
+    html button
+	with: 'PrintIt';
+	title: 'ctrl+p';
+	onClick: [self printIt].
+    html button
+	with: 'InspectIt';
+	title: 'ctrl+i';
+	onClick: [self inspectIt].
+    html button
+	with: 'FileIn';
+	title: 'ctrl+f';
+	onClick: [self fileIn].
+    html button
+	with: 'Clear workspace';
+	onClick: [self clearWorkspace]
 ! !
 
 !Object methodsFor: '*IDE'!
