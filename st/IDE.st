@@ -3,7 +3,7 @@ Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	category: 'IDE'!
 
-!!ClassesList methodsFor: 'accessing'!!
+!ClassesList methodsFor: 'accessing'!
 
 browser
 	^browser
@@ -37,9 +37,9 @@ nodes
 
 resetNodes
 	nodes := nil
-! !!
+! !
 
-!!ClassesList methodsFor: 'rendering'!!
+!ClassesList methodsFor: 'rendering'!
 
 renderOn: html
 	ul := html ul
@@ -52,21 +52,21 @@ updateNodes
 	ul contents: [:html |
 		self nodes do: [:each |
 			each renderOn: html]]
-! !!
+! !
 
-!!ClassesList class methodsFor: 'instance creation'!!
+!ClassesList class methodsFor: 'instance creation'!
 
 on: aBrowser
 	^self new 
 		browser: aBrowser; 
 		yourself
-! !!
+! !
 
 Widget subclass: #ClassesListNode
 	instanceVariableNames: 'browser theClass level nodes'
 	category: 'IDE'!
 
-!!ClassesListNode methodsFor: ''!!
+!ClassesListNode methodsFor: ''!
 
 renderOn: html
 	| li cssClass |
@@ -85,9 +85,9 @@ renderOn: html
 
 	self nodes do: [:each |
 		each renderOn: html]
-! !!
+! !
 
-!!ClassesListNode methodsFor: 'accessing'!!
+!ClassesListNode methodsFor: 'accessing'!
 
 browser
 	^browser
@@ -136,9 +136,9 @@ theClass
 
 theClass: aClass
 	theClass := aClass
-! !!
+! !
 
-!!ClassesListNode methodsFor: 'visiting'!!
+!ClassesListNode methodsFor: 'visiting'!
 
 traverseClassesWith: aCollection
     "sort classes alphabetically Issue #143"
@@ -146,9 +146,9 @@ traverseClassesWith: aCollection
     aCollection add: self theClass.
     (self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |
         aNode traverseClassesWith: aCollection ].
-! !!
+! !
 
-!!ClassesListNode class methodsFor: 'instance creation'!!
+!ClassesListNode class methodsFor: 'instance creation'!
 
 on: aClass browser: aBrowser classes: aCollection level: anInteger
 	^self new
@@ -157,32 +157,32 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 		level: anInteger;
 		getNodesFrom: aCollection;
 		yourself
-! !!
+! !
 
 ErrorHandler subclass: #DebugErrorHandler
 	instanceVariableNames: ''
 	category: 'IDE'!
 
-!!DebugErrorHandler methodsFor: 'error handling'!!
+!DebugErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
 	[Debugger new
 		error: anError;
 		open] on: Error do: [:error |
 			ErrorHandler new handleError: error]
-! !!
+! !
 
-!!DebugErrorHandler class methodsFor: 'initialization'!!
+!DebugErrorHandler class methodsFor: 'initialization'!
 
 initialize
 	self register
-! !!
+! !
 
 Widget subclass: #SourceArea
 	instanceVariableNames: 'editor div receiver onDoIt'
 	category: 'IDE'!
 
-!!SourceArea methodsFor: 'accessing'!!
+!SourceArea methodsFor: 'accessing'!
 
 currentLine
     ^editor getLine: (editor getCursor line)
@@ -250,9 +250,9 @@ val
 
 val: aString
     editor setValue: aString
-! !!
+! !
 
-!!SourceArea methodsFor: 'actions'!!
+!SourceArea methodsFor: 'actions'!
 
 clear
       self val: ''
@@ -316,9 +316,9 @@ print: aString
 
 printIt
     self print: self doIt printString
-! !!
+! !
 
-!!SourceArea methodsFor: 'events'!!
+!SourceArea methodsFor: 'events'!
 
 onKeyDown: aBlock
 	div onKeyDown: aBlock
@@ -326,9 +326,9 @@ onKeyDown: aBlock
 
 onKeyUp: aBlock
 	div onKeyUp: aBlock
-! !!
+! !
 
-!!SourceArea methodsFor: 'rendering'!!
+!SourceArea methodsFor: 'rendering'!
 
 renderOn: html
     | textarea |
@@ -336,13 +336,13 @@ renderOn: html
     div with: [textarea := html textarea].
     self setEditorOn: textarea element.
     div onKeyDown: [:e | self handleKeyDown: e]
-! !!
+! !
 
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
 	category: 'IDE'!
 
-!!TabManager methodsFor: 'accessing'!!
+!TabManager methodsFor: 'accessing'!
 
 labelFor: aWidget
 	| label maxSize |
@@ -355,9 +355,9 @@ labelFor: aWidget
 
 tabs
     ^tabs ifNil: [tabs := Array new]
-! !!
+! !
 
-!!TabManager methodsFor: 'actions'!!
+!TabManager methodsFor: 'actions'!
 
 close
     opened ifTrue: [
@@ -434,9 +434,9 @@ updateBodyMargin
 
 updatePosition
     <jQuery('#jtalk').css('top', '').css('bottom', '0px')>
-! !!
+! !
 
-!!TabManager methodsFor: 'adding/Removing'!!
+!TabManager methodsFor: 'adding/Removing'!
 
 addTab: aWidget
     self tabs add: aWidget.
@@ -447,9 +447,9 @@ addTab: aWidget
 removeTab: aWidget
     self tabs remove: aWidget.
     self update
-! !!
+! !
 
-!!TabManager methodsFor: 'initialization'!!
+!TabManager methodsFor: 'initialization'!
 
 initialize
     super initialize.
@@ -466,9 +466,9 @@ initialize
     self 
 	onResize: [self updateBodyMargin; updatePosition];
 	onWindowResize: [self updatePosition]
-! !!
+! !
 
-!!TabManager methodsFor: 'rendering'!!
+!TabManager methodsFor: 'rendering'!
 
 renderOn: html
 	html div id: 'logo'.
@@ -523,17 +523,17 @@ renderToolbarOn: html
 				event keyCode = 13 ifTrue: [
 				self search: input asJQuery val]].
 			html div id: 'jt_close'; onClick: [self close]]
-! !!
+! !
 
-!!TabManager methodsFor: 'updating'!!
+!TabManager methodsFor: 'updating'!
 
 update
 	self renderTabs
-! !!
+! !
 
 TabManager class instanceVariableNames: 'current'!
 
-!!TabManager class methodsFor: 'instance creation'!!
+!TabManager class methodsFor: 'instance creation'!
 
 current
     ^current ifNil: [current := super new]
@@ -541,19 +541,19 @@ current
 
 new
     self shouldNotImplement
-! !!
+! !
 
 Widget subclass: #TabWidget
 	instanceVariableNames: 'div'
 	category: 'IDE'!
 
-!!TabWidget methodsFor: 'accessing'!!
+!TabWidget methodsFor: 'accessing'!
 
 label
     self subclassResponsibility
-! !!
+! !
 
-!!TabWidget methodsFor: 'actions'!!
+!TabWidget methodsFor: 'actions'!
 
 close
     TabManager current closeTab: self
@@ -574,9 +574,9 @@ remove
 
 show
 	div asJQuery show
-! !!
+! !
 
-!!TabWidget methodsFor: 'rendering'!!
+!TabWidget methodsFor: 'rendering'!
 
 renderBoxOn: html
 !
@@ -603,25 +603,25 @@ renderTab
 
 update
 	self renderTab
-! !!
+! !
 
-!!TabWidget methodsFor: 'testing'!!
+!TabWidget methodsFor: 'testing'!
 
 canBeClosed
     ^false
-! !!
+! !
 
-!!TabWidget class methodsFor: 'instance creation'!!
+!TabWidget class methodsFor: 'instance creation'!
 
 open
     ^self new open
-! !!
+! !
 
 TabWidget subclass: #Browser
 	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
 	category: 'IDE'!
 
-!!Browser methodsFor: 'accessing'!!
+!Browser methodsFor: 'accessing'!
 
 classCommentSource
     ^selectedClass comment
@@ -756,9 +756,9 @@ source
     ^selectedClass
 	ifNil: ['']
 	ifNotNil: [self classCommentSource]
-! !!
+! !
 
-!!Browser methodsFor: 'actions'!!
+!Browser methodsFor: 'actions'!
 
 addInstanceVariableNamed: aString toClass: aClass
 	ClassBuilder new
@@ -1030,18 +1030,18 @@ showClassButtons
 
 showMethodButtons
     methodButtons asJQuery show
-! !!
+! !
 
-!!Browser methodsFor: 'initialization'!!
+!Browser methodsFor: 'initialization'!
 
 initialize
     super initialize.
     selectedTab := #instance.
     selectedPackage := self packages first.
     unsavedChanges := false
-! !!
+! !
 
-!!Browser methodsFor: 'network'!!
+!Browser methodsFor: 'network'!
 
 ajaxPutAt: anURL data: aString
 	jQuery 
@@ -1049,9 +1049,9 @@ ajaxPutAt: anURL data: aString
 								'data' -> aString.
 								'contentType' -> 'text/plain;charset=UTF-8'.
 								'error' -> [window alert: 'PUT request failed at:  ', anURL] }
-! !!
+! !
 
-!!Browser methodsFor: 'rendering'!!
+!Browser methodsFor: 'rendering'!
 
 renderBottomPanelOn: html
     html div
@@ -1125,15 +1125,15 @@ renderTopPanelOn: html
 				updateProtocolsList;
 				updateMethodsList.
 			html div class: 'jt_clear']
-! !!
+! !
 
-!!Browser methodsFor: 'testing'!!
+!Browser methodsFor: 'testing'!
 
 canBeClosed
 	^true
-! !!
+! !
 
-!!Browser methodsFor: 'updating'!!
+!Browser methodsFor: 'updating'!
 
 resetClassesList
 	classesList resetNodes
@@ -1279,9 +1279,9 @@ updateTabsList
 		html span class: 'mtab'; with: 'Comment'.
 		html span class: 'rtab'];
 	    onClick: [self selectTab: #comment]]
-! !!
+! !
 
-!!Browser class methodsFor: 'accessing'!!
+!Browser class methodsFor: 'accessing'!
 
 commitPathJs
 	^'js'
@@ -1289,9 +1289,9 @@ commitPathJs
 
 commitPathSt
 	^'st'
-! !!
+! !
 
-!!Browser class methodsFor: 'convenience'!!
+!Browser class methodsFor: 'convenience'!
 
 open
     self new open
@@ -1302,13 +1302,13 @@ openOn: aClass
 	open;
 	selectCategory: aClass category;
 	selectClass: aClass
-! !!
+! !
 
 TabWidget subclass: #Debugger
 	instanceVariableNames: 'error selectedContext sourceArea ul ul2 inspector saveButton unsavedChanges selectedVariable selectedVariableName inspectButton'
 	category: 'IDE'!
 
-!!Debugger methodsFor: 'accessing'!!
+!Debugger methodsFor: 'accessing'!
 
 arguments
 	^self method 
@@ -1340,9 +1340,9 @@ source
 	^self method 
 		ifNil: ['Method doesn''t exist!!']
 		ifNotNil: [self method source]
-! !!
+! !
 
-!!Debugger methodsFor: 'actions'!!
+!Debugger methodsFor: 'actions'!
 
 inspectSelectedVariable
 	selectedVariable inspect
@@ -1377,16 +1377,16 @@ selectVariable: anObject named: aString
 	selectedVariableName := aString.
 	inspector contents: [:html | html with: anObject printString].
 	self updateVariablesList
-! !!
+! !
 
-!!Debugger methodsFor: 'initialization'!!
+!Debugger methodsFor: 'initialization'!
 
 initialize
 	super initialize.
 	unsavedChanges = false
-! !!
+! !
 
-!!Debugger methodsFor: 'rendering'!!
+!Debugger methodsFor: 'rendering'!
 
 renderBottomPanelOn: html
 	html div
@@ -1458,15 +1458,15 @@ renderTopPanelOn: html
 			ul := html ul 
 				class: 'jt_column debugger contexts';
 				with: [self renderContext: self error context on: html]]
-! !!
+! !
 
-!!Debugger methodsFor: 'testing'!!
+!Debugger methodsFor: 'testing'!
 
 canBeClosed
     ^true
-! !!
+! !
 
-!!Debugger methodsFor: 'updating'!!
+!Debugger methodsFor: 'updating'!
 
 updateContextsList
 	ul contents: [:html |
@@ -1515,19 +1515,19 @@ updateVariablesList
                          selectedVariableName = each ifTrue: [
 				li class: 'selected']]].
 	selectedVariable ifNil: [inspectButton at: 'disabled' put: true] ifNotNil: [inspectButton removeAt: 'disabled']
-! !!
+! !
 
 TabWidget subclass: #IDETranscript
 	instanceVariableNames: 'textarea'
 	category: 'IDE'!
 
-!!IDETranscript methodsFor: 'accessing'!!
+!IDETranscript methodsFor: 'accessing'!
 
 label
     ^'Transcript'
-! !!
+! !
 
-!!IDETranscript methodsFor: 'actions'!!
+!IDETranscript methodsFor: 'actions'!
 
 clear
     textarea asJQuery val: ''
@@ -1546,9 +1546,9 @@ open
 show: anObject
     textarea ifNil: [self open].
     textarea asJQuery val: textarea asJQuery val, anObject asString.
-! !!
+! !
 
-!!IDETranscript methodsFor: 'rendering'!!
+!IDETranscript methodsFor: 'rendering'!
 
 renderBoxOn: html
     textarea := html textarea.
@@ -1561,17 +1561,17 @@ renderButtonsOn: html
     html button
 	with: 'Clear transcript';
 	onClick: [self clear]
-! !!
+! !
 
 IDETranscript class instanceVariableNames: 'current'!
 
-!!IDETranscript class methodsFor: 'initialization'!!
+!IDETranscript class methodsFor: 'initialization'!
 
 initialize
 	Transcript register: self current
-! !!
+! !
 
-!!IDETranscript class methodsFor: 'instance creation'!!
+!IDETranscript class methodsFor: 'instance creation'!
 
 current
 	^current ifNil: [current := super new]
@@ -1585,13 +1585,13 @@ open
     TabManager current 
 	open;
 	selectTab: self current
-! !!
+! !
 
 TabWidget subclass: #Inspector
 	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
 	category: 'IDE'!
 
-!!Inspector methodsFor: 'accessing'!!
+!Inspector methodsFor: 'accessing'!
 
 label
 	^label ifNil: ['Inspector (nil)']
@@ -1619,9 +1619,9 @@ sourceArea
 
 variables
 	^variables
-! !!
+! !
 
-!!Inspector methodsFor: 'actions'!!
+!Inspector methodsFor: 'actions'!
 
 dive
 	(self variables at: self selectedVariable) inspect
@@ -1638,9 +1638,9 @@ refresh
 		inspect: object; 
 		updateVariablesList;
 		updateValueTextarea
-! !!
+! !
 
-!!Inspector methodsFor: 'rendering'!!
+!Inspector methodsFor: 'rendering'!
 
 renderBottomPanelOn: html
     html div
@@ -1691,15 +1691,15 @@ renderTopPanelOn: html
 	self
 		updateVariablesList;
 		updateValueTextarea.
-! !!
+! !
 
-!!Inspector methodsFor: 'testing'!!
+!Inspector methodsFor: 'testing'!
 
 canBeClosed
 	^true
-! !!
+! !
 
-!!Inspector methodsFor: 'updating'!!
+!Inspector methodsFor: 'updating'!
 
 selectVariable: aString
 	self selectedVariable: aString.
@@ -1730,21 +1730,21 @@ updateVariablesList
 				onClick: [self selectVariable: each].
 			self selectedVariable = each ifTrue: [
 				li class: 'selected']]]
-! !!
+! !
 
-!!Inspector class methodsFor: 'instance creation'!!
+!Inspector class methodsFor: 'instance creation'!
 
 on: anObject
 	^self new
 		inspect: anObject;
 		yourself
-! !!
+! !
 
 TabWidget subclass: #ProgressBar
 	instanceVariableNames: 'percent progressDiv div'
 	category: 'IDE'!
 
-!!ProgressBar methodsFor: 'accessing'!!
+!ProgressBar methodsFor: 'accessing'!
 
 percent
 	^percent ifNil: [0]
@@ -1752,9 +1752,9 @@ percent
 
 percent: aNumber
 	percent := aNumber
-! !!
+! !
 
-!!ProgressBar methodsFor: 'rendering'!!
+!ProgressBar methodsFor: 'rendering'!
 
 renderOn: html 
 	div := html div 
@@ -1768,20 +1768,20 @@ renderProgressBar
 		html div 
 			class: 'progress';
 			style: 'width:', self percent asString, '%']
-! !!
+! !
 
-!!ProgressBar methodsFor: 'updating'!!
+!ProgressBar methodsFor: 'updating'!
 
 updatePercent: aNumber
 	self percent: aNumber.
 	self renderProgressBar
-! !!
+! !
 
 TabWidget subclass: #ReferencesBrowser
 	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
 	category: 'IDE'!
 
-!!ReferencesBrowser methodsFor: 'accessing'!!
+!ReferencesBrowser methodsFor: 'accessing'!
 
 classesAndMetaclasses
 	^Smalltalk current classes, (Smalltalk current classes collect: [:each | each class])
@@ -1805,9 +1805,9 @@ selector
 
 senders
 	^senders ifNil: [senders := Array new]
-! !!
+! !
 
-!!ReferencesBrowser methodsFor: 'actions'!!
+!ReferencesBrowser methodsFor: 'actions'!
 
 openBrowserOn: aMethod
        | browser |
@@ -1850,24 +1850,24 @@ searchSelectorReferencesFor: aString
 			key = selector ifTrue: [self implementors add: value].
 			(value messageSends includes: selector) ifTrue: [
 				self senders add: value]]]
-! !!
+! !
 
-!!ReferencesBrowser methodsFor: 'initialization'!!
+!ReferencesBrowser methodsFor: 'initialization'!
 
 initialize
 	super initialize.
 	selector := ''
-! !!
+! !
 
-!!ReferencesBrowser methodsFor: 'private'!!
+!ReferencesBrowser methodsFor: 'private'!
 
 setInputEvents
 	input
 		onKeyUp: [timer := [self search: input asJQuery val] valueWithTimeout: 100];
 		onKeyDown: [timer ifNotNil: [timer clearTimeout]]
-! !!
+! !
 
-!!ReferencesBrowser methodsFor: 'rendering'!!
+!ReferencesBrowser methodsFor: 'rendering'!
 
 renderBoxOn: html
 	self 
@@ -1898,15 +1898,15 @@ renderReferencedClassesOn: html
 renderSendersOn: html
 	sendersList := html ul class: 'jt_column senders'.
 	self updateSendersList
-! !!
+! !
 
-!!ReferencesBrowser methodsFor: 'testing'!!
+!ReferencesBrowser methodsFor: 'testing'!
 
 canBeClosed
 	^true
-! !!
+! !
 
-!!ReferencesBrowser methodsFor: 'updating'!!
+!ReferencesBrowser methodsFor: 'updating'!
 
 updateImplementorsList
     implementorsList contents: [:html |
@@ -1943,21 +1943,21 @@ updateSendersList
 		html li
 			with: (each methodClass asString, ' >> ', each selector);
 			onClick: [self openBrowserOn: each]]]
-! !!
+! !
 
-!!ReferencesBrowser class methodsFor: 'instance creation'!!
+!ReferencesBrowser class methodsFor: 'instance creation'!
 
 search: aString
 	^self new
 		searchReferencesFor: aString;
 		open
-! !!
+! !
 
 TabWidget subclass: #TestRunner
 	instanceVariableNames: 'selectedCategories packagesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
 	category: 'IDE'!
 
-!!TestRunner methodsFor: 'accessing'!!
+!TestRunner methodsFor: 'accessing'!
 
 allClasses
 	^TestCase allSubclasses
@@ -2007,9 +2007,9 @@ testCases
 	testCases := #().
 	self selectedClasses do: [:each | testCases addAll: each buildSuite].
 	^testCases
-! !!
+! !
 
-!!TestRunner methodsFor: 'actions'!!
+!TestRunner methodsFor: 'actions'!
 
 performFailure: aTestCase
 	aTestCase perform: aTestCase selector
@@ -2062,16 +2062,16 @@ toggleClass: aClass
 		ifTrue: [selectedClasses remove: aClass].
 	self 
 	    updateClassesList
-! !!
+! !
 
-!!TestRunner methodsFor: 'initialization'!!
+!TestRunner methodsFor: 'initialization'!
 
 initialize
 	super initialize.
 	result := TestResult new
-! !!
+! !
 
-!!TestRunner methodsFor: 'printing'!!
+!TestRunner methodsFor: 'printing'!
 
 printErrors
 	^self result errors size asString , ' errors, '
@@ -2087,9 +2087,9 @@ printPasses
 
 printTotal
 	^self result total asString, ' runs, '
-! !!
+! !
 
-!!TestRunner methodsFor: 'rendering'!!
+!TestRunner methodsFor: 'rendering'!
 
 renderBoxOn: html
     self 
@@ -2136,9 +2136,9 @@ renderResultsOn: html
 	methodsList := html ul class: 'jt_column sunit results'.
 	self updateMethodsList.
 	self updateStatusDiv
-! !!
+! !
 
-!!TestRunner methodsFor: 'testing'!!
+!TestRunner methodsFor: 'testing'!
 
 isSelectedCategory: aCategory
 	^(self selectedCategories includes: aCategory)
@@ -2146,9 +2146,9 @@ isSelectedCategory: aCategory
 
 isSelectedClass: aClass
 	^(self selectedClasses includes: aClass)
-! !!
+! !
 
-!!TestRunner methodsFor: 'updating'!!
+!TestRunner methodsFor: 'updating'!
 
 updateCategoriesList
     packagesList contents: [:html |
@@ -2191,19 +2191,19 @@ updateStatusDiv
 	statusDiv class: 'sunit status ', result status.
 	statusDiv contents: [:html |
 		html span with: self statusInfo]
-! !!
+! !
 
 TabWidget subclass: #Workspace
 	instanceVariableNames: 'sourceArea'
 	category: 'IDE'!
 
-!!Workspace methodsFor: 'accessing'!!
+!Workspace methodsFor: 'accessing'!
 
 label
     ^'Workspace'
-! !!
+! !
 
-!!Workspace methodsFor: 'actions'!!
+!Workspace methodsFor: 'actions'!
 
 clearWorkspace
     sourceArea clear
@@ -2223,9 +2223,9 @@ inspectIt
 
 printIt
 	sourceArea printIt
-! !!
+! !
 
-!!Workspace methodsFor: 'rendering'!!
+!Workspace methodsFor: 'rendering'!
 
 renderBoxOn: html
     sourceArea := SourceArea new.
@@ -2252,9 +2252,9 @@ renderButtonsOn: html
     html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
-! !!
+! !
 
-!!Object methodsFor: '*IDE'!!
+!Object methodsFor: '*IDE'!
 
 inspect
 	Inspector new 
@@ -2271,9 +2271,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-! !!
+! !
 
-!!Collection methodsFor: '*IDE'!!
+!Collection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -2284,9 +2284,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-! !!
+! !
 
-!!HashedCollection methodsFor: '*IDE'!!
+!HashedCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -2298,9 +2298,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-! !!
+! !
 
-!!String methodsFor: '*IDE'!!
+!String methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| label |
@@ -2309,9 +2309,9 @@ inspectOn: anInspector
 		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
 		ifFalse: [label := self printString]. 
 	anInspector setLabel: label
-! !!
+! !
 
-!!Set methodsFor: '*IDE'!!
+!Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -2322,27 +2322,9 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-! !!
+! !
 
-!!Date methodsFor: '*IDE'!!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-! !!
-
-!!Date methodsFor: '*IDE'!!
+!Date methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -2358,9 +2340,27 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-! !!
+! !
 
-!!MethodContext methodsFor: '*IDE'!!
+!Date methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#year' put: self year.
+	variables at: '#month' put: self month.
+	variables at: '#day' put: self day.
+	variables at: '#hours' put: self hours.
+	variables at: '#minutes' put: self minutes.
+	variables at: '#seconds' put: self seconds.
+	variables at: '#milliseconds' put: self milliseconds.
+	anInspector 
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!MethodContext methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
@@ -2375,5 +2375,5 @@ inspectOn: anInspector
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
-! !!
+! !
 
