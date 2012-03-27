@@ -1,42 +1,4 @@
 Smalltalk current createPackage: 'Kernel-Transcript' properties: #{}!
-Object subclass: #Transcript
-	instanceVariableNames: 'textarea'
-	category: 'Kernel-Transcript'!
-
-Transcript class instanceVariableNames: 'current'!
-
-!Transcript class methodsFor: 'instance creation'!
-
-open
-    self current open
-!
-
-new
-    self shouldNotImplement
-!
-
-current
-    ^current
-!
-
-register: aTranscript
-	current := aTranscript
-! !
-
-!Transcript class methodsFor: 'printing'!
-
-show: anObject
-    self current show: anObject
-!
-
-cr
-    self current show: String cr
-!
-
-clear
-    self current clear
-! !
-
 Object subclass: #ConsoleTranscript
 	instanceVariableNames: 'textarea'
 	category: 'Kernel-Transcript'!
@@ -66,5 +28,43 @@ show: anObject
 
 initialize
 	Transcript register: self new
+! !
+
+Object subclass: #Transcript
+	instanceVariableNames: 'textarea'
+	category: 'Kernel-Transcript'!
+
+Transcript class instanceVariableNames: 'current'!
+
+!Transcript class methodsFor: 'instance creation'!
+
+current
+    ^current
+!
+
+new
+    self shouldNotImplement
+!
+
+open
+    self current open
+!
+
+register: aTranscript
+	current := aTranscript
+! !
+
+!Transcript class methodsFor: 'printing'!
+
+clear
+    self current clear
+!
+
+cr
+    self current show: String cr
+!
+
+show: anObject
+    self current show: anObject
 ! !
 

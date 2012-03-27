@@ -1,6 +1,54 @@
 smalltalk.addPackage('Kernel-Exceptions', {});
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(
+unescape('_context'),
+smalltalk.method({
+selector: unescape('context'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.context;
+return self;},
+args: [],
+source: unescape('context%0A%09%3Creturn%20self.context%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+unescape('_isSmalltalkError'),
+smalltalk.method({
+selector: unescape('isSmalltalkError'),
+category: 'testing',
+fn: function (){
+var self=this;
+return self.smalltalkError === true;
+return self;},
+args: [],
+source: unescape('isSmalltalkError%0A%09%3Creturn%20self.smalltalkError%20%3D%3D%3D%20true%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+unescape('_jsStack'),
+smalltalk.method({
+selector: unescape('jsStack'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self.stack;
+return self;},
+args: [],
+source: unescape('jsStack%0A%09%3Creturn%20self.stack%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
 unescape('_messageText'),
 smalltalk.method({
 selector: unescape('messageText'),
@@ -43,54 +91,6 @@ self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(sel
 return self;},
 args: [],
 source: unescape('signal%0A%09%3Cself.context%20%3D%20smalltalk.getThisContext%28%29%3B%20self.smalltalkError%20%3D%20true%3B%20throw%28self%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Error);
-
-smalltalk.addMethod(
-unescape('_context'),
-smalltalk.method({
-selector: unescape('context'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self.context;
-return self;},
-args: [],
-source: unescape('context%0A%09%3Creturn%20self.context%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Error);
-
-smalltalk.addMethod(
-unescape('_jsStack'),
-smalltalk.method({
-selector: unescape('jsStack'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return self.stack;
-return self;},
-args: [],
-source: unescape('jsStack%0A%09%3Creturn%20self.stack%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Error);
-
-smalltalk.addMethod(
-unescape('_isSmalltalkError'),
-smalltalk.method({
-selector: unescape('isSmalltalkError'),
-category: 'testing',
-fn: function (){
-var self=this;
-return self.smalltalkError === true;
-return self;},
-args: [],
-source: unescape('isSmalltalkError%0A%09%3Creturn%20self.smalltalkError%20%3D%3D%3D%20true%3E'),
 messageSends: [],
 referencedClasses: []
 }),
@@ -148,6 +148,22 @@ referencedClasses: []
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
+unescape('_messageText'),
+smalltalk.method({
+selector: unescape('messageText'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [unescape("%20does%20not%20understand%20%23")]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
+return self;},
+args: [],
+source: unescape('messageText%0A%09%5Eself%20receiver%20asString%2C%20%27%20does%20not%20understand%20%23%27%2C%20self%20message%20selector'),
+messageSends: [unescape("%2C"), "asString", "receiver", "selector", "message"],
+referencedClasses: []
+}),
+smalltalk.MessageNotUnderstood);
+
+smalltalk.addMethod(
 unescape('_receiver'),
 smalltalk.method({
 selector: unescape('receiver'),
@@ -179,22 +195,6 @@ referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
 
-smalltalk.addMethod(
-unescape('_messageText'),
-smalltalk.method({
-selector: unescape('messageText'),
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [unescape("%20does%20not%20understand%20%23")]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
-return self;},
-args: [],
-source: unescape('messageText%0A%09%5Eself%20receiver%20asString%2C%20%27%20does%20not%20understand%20%23%27%2C%20self%20message%20selector'),
-messageSends: [unescape("%2C"), "asString", "receiver", "selector", "message"],
-referencedClasses: []
-}),
-smalltalk.MessageNotUnderstood);
-
 
 
 smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel-Exceptions');
@@ -211,6 +211,22 @@ return self;},
 args: ["anError"],
 source: unescape('handleError%3A%20anError%0A%09anError%20context%20ifNotNil%3A%20%5Bself%20logErrorContext%3A%20anError%20context%5D.%0A%09self%20logError%3A%20anError'),
 messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
+referencedClasses: []
+}),
+smalltalk.ErrorHandler);
+
+smalltalk.addMethod(
+unescape('_log_'),
+smalltalk.method({
+selector: unescape('log%3A'),
+category: 'private',
+fn: function (aString){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aString]);
+return self;},
+args: ["aString"],
+source: unescape('log%3A%20aString%0A%09console%20log%3A%20aString'),
+messageSends: ["log:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
@@ -233,22 +249,6 @@ referencedClasses: []
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-unescape('_logErrorContext_'),
-smalltalk.method({
-selector: unescape('logErrorContext%3A'),
-category: 'private',
-fn: function (aContext){
-var self=this;
-(($receiver = aContext) != nil && $receiver != undefined) ? (function(){return (($receiver = smalltalk.send(aContext, "_home", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})() : nil;})() : nil;
-return self;},
-args: ["aContext"],
-source: unescape('logErrorContext%3A%20aContext%0A%09aContext%20ifNotNil%3A%20%5B%0A%09%09aContext%20home%20ifNotNil%3A%20%5B%0A%09%09%09self%20logContext%3A%20aContext%20home%5D%5D'),
-messageSends: ["ifNotNil:", "home", "logContext:"],
-referencedClasses: []
-}),
-smalltalk.ErrorHandler);
-
-smalltalk.addMethod(
 unescape('_logError_'),
 smalltalk.method({
 selector: unescape('logError%3A'),
@@ -265,17 +265,17 @@ referencedClasses: []
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-unescape('_log_'),
+unescape('_logErrorContext_'),
 smalltalk.method({
-selector: unescape('log%3A'),
+selector: unescape('logErrorContext%3A'),
 category: 'private',
-fn: function (aString){
+fn: function (aContext){
 var self=this;
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aString]);
+(($receiver = aContext) != nil && $receiver != undefined) ? (function(){return (($receiver = smalltalk.send(aContext, "_home", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})() : nil;})() : nil;
 return self;},
-args: ["aString"],
-source: unescape('log%3A%20aString%0A%09console%20log%3A%20aString'),
-messageSends: ["log:"],
+args: ["aContext"],
+source: unescape('logErrorContext%3A%20aContext%0A%09aContext%20ifNotNil%3A%20%5B%0A%09%09aContext%20home%20ifNotNil%3A%20%5B%0A%09%09%09self%20logContext%3A%20aContext%20home%5D%5D'),
+messageSends: ["ifNotNil:", "home", "logContext:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);

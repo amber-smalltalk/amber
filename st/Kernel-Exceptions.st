@@ -5,20 +5,20 @@ Object subclass: #Error
 
 !Error methodsFor: 'accessing'!
 
-messageText
-	^messageText
-!
-
-messageText: aString
-	messageText := aString
-!
-
 context
 	<return self.context>
 !
 
 jsStack
 	<return self.stack>
+!
+
+messageText
+	^messageText
+!
+
+messageText: aString
+	messageText := aString
 ! !
 
 !Error methodsFor: 'signaling'!
@@ -55,16 +55,16 @@ message: aMessage
 	message := aMessage
 !
 
+messageText
+	^self receiver asString, ' does not understand #', self message selector
+!
+
 receiver
 	^receiver
 !
 
 receiver: anObject
 	receiver := anObject
-!
-
-messageText
-	^self receiver asString, ' does not understand #', self message selector
 ! !
 
 Object subclass: #ErrorHandler
@@ -80,24 +80,24 @@ handleError: anError
 
 !ErrorHandler methodsFor: 'private'!
 
+log: aString
+	console log: aString
+!
+
 logContext: aContext
 	aContext home ifNotNil: [
 		self logContext: aContext home].
 	self log: aContext receiver asString, '>>', aContext selector
 !
 
-logErrorContext: aContext
-	aContext ifNotNil: [
-		aContext home ifNotNil: [
-			self logContext: aContext home]]
-!
-
 logError: anError
 	self log: anError messageText
 !
 
-log: aString
-	console log: aString
+logErrorContext: aContext
+	aContext ifNotNil: [
+		aContext home ifNotNil: [
+			self logContext: aContext home]]
 ! !
 
 ErrorHandler class instanceVariableNames: 'current'!

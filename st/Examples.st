@@ -5,13 +5,13 @@ Widget subclass: #Counter
 
 !Counter methodsFor: 'actions'!
 
-increase
-    count := count + 1.
+decrease
+    count := count - 1.
     header contents: [:html | html with: count asString]
 !
 
-decrease
-    count := count - 1.
+increase
+    count := count + 1.
     header contents: [:html | html with: count asString]
 ! !
 

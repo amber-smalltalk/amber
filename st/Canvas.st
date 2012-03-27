@@ -1,22 +1,492 @@
 Smalltalk current createPackage: 'Canvas' properties: #{}!
-Object subclass: #Widget
-	instanceVariableNames: ''
+Object subclass: #HTMLCanvas
+	instanceVariableNames: 'root'
 	category: 'Canvas'!
 
-!Widget methodsFor: 'adding'!
+!HTMLCanvas methodsFor: 'accessing'!
 
-appendToBrush: aTagBrush
-    self appendToJQuery: aTagBrush asJQuery
+root
+    ^root
 !
 
-appendToJQuery: aJQuery
-   self renderOn: (HTMLCanvas onJQuery: aJQuery)
+root: aTagBrush
+    root := aTagBrush
 ! !
 
-!Widget methodsFor: 'rendering'!
+!HTMLCanvas methodsFor: 'adding'!
 
-renderOn: html
-    self
+with: anObject
+    ^self root with: anObject
+! !
+
+!HTMLCanvas methodsFor: 'initialization'!
+
+initialize
+    super initialize.
+    root ifNil: [root := TagBrush fromString: 'div' canvas: self]
+!
+
+initializeFromJQuery: aJQuery
+    root := TagBrush fromJQuery: aJQuery canvas: self
+! !
+
+!HTMLCanvas methodsFor: 'tags'!
+
+a
+    ^self tag: 'a'
+!
+
+abbr
+	^self tag: 'abbr'
+!
+
+address
+	^self tag: 'address'
+!
+
+area
+	^self tag: 'area'
+!
+
+article
+    ^self tag: 'article'
+!
+
+aside
+	^self tag: 'aside'
+!
+
+audio
+    ^self tag: 'audio'
+!
+
+base
+	^self tag: 'base'
+!
+
+blockquote
+	^self tag: 'blockquote'
+!
+
+body
+	^self tag: 'body'
+!
+
+br
+    ^self tag: 'br'
+!
+
+button
+    ^self tag: 'button'
+!
+
+canvas
+	^self tag: 'canvas'
+!
+
+caption
+	^self tag: 'caption'
+!
+
+cite
+	^self tag: 'cite'
+!
+
+code
+    ^self tag: 'code'
+!
+
+col
+	^self tag: 'col'
+!
+
+colgroup
+	^self tag: 'colgroup'
+!
+
+command
+	^self tag: 'command'
+!
+
+datalist
+	^self tag: 'datalist'
+!
+
+dd
+	^self tag: 'dd'
+!
+
+del
+	^self tag: 'del'
+!
+
+details
+	^self tag: 'details'
+!
+
+div
+    ^self tag: 'div'
+!
+
+div: aBlock
+    ^self div with: aBlock
+!
+
+dl
+	^self tag: 'dl'
+!
+
+dt
+	^self tag: 'dt'
+!
+
+em
+	^self tag: 'em'
+!
+
+embed
+	^self tag: 'embed'
+!
+
+fieldset
+    ^self tag: 'fieldset'
+!
+
+figcaption
+	^self tag: 'figcaption'
+!
+
+figure
+	^self tag: 'figure'
+!
+
+footer
+    ^self tag: 'footer'
+!
+
+form
+    ^self tag: 'form'
+!
+
+h1
+    ^self tag: 'h1'
+!
+
+h1: anObject
+    ^self h1 with: anObject
+!
+
+h2
+    ^self tag: 'h2'
+!
+
+h2: anObject
+    ^ self h2 with: anObject
+!
+
+h3
+    ^self tag: 'h3'
+!
+
+h3: anObject
+    ^self h3 with: anObject
+!
+
+h4
+    ^self tag: 'h4'
+!
+
+h4: anObject
+    ^self h4 with: anObject
+!
+
+h5
+    ^self tag: 'h5'
+!
+
+h5: anObject
+    ^self h5 with: anObject
+!
+
+h6
+    ^self tag: 'h6'
+!
+
+h6: anObject
+    ^self h6 with: anObject
+!
+
+head
+	^self tag: 'head'
+!
+
+header
+    ^self tag: 'header'
+!
+
+hgroup
+	^self tag: 'hgroup'
+!
+
+hr
+    ^self tag: 'hr'
+!
+
+html
+	^self tag: 'html'
+!
+
+iframe
+    ^self tag: 'iframe'
+!
+
+iframe: aString
+    ^self iframe src: aString
+!
+
+img
+    ^self tag: 'img'
+!
+
+img: aString
+    ^self img src: aString
+!
+
+input
+    ^self tag: 'input'
+!
+
+label
+	^self tag: 'label'
+!
+
+legend
+	^self tag: 'legend'
+!
+
+li
+    ^self tag: 'li'
+!
+
+li: anObject
+    ^self li with: anObject
+!
+
+link
+    ^self tag: 'link'
+!
+
+map
+	^self tag: 'map'
+!
+
+mark
+	^self tag: 'mark'
+!
+
+menu
+	^self tag: 'menu'
+!
+
+meta
+	^self tag: 'meta'
+!
+
+nav
+	^self tag: 'nav'
+!
+
+newTag: aString
+    ^TagBrush fromString: aString canvas: self
+!
+
+noscript
+	^self tag: 'noscript'
+!
+
+object
+	^self tag: 'object'
+!
+
+ol
+    ^self tag: 'ol'
+!
+
+ol: anObject
+    ^self ol with: anObject
+!
+
+optgroup
+	^self tag: 'optgroup'
+!
+
+option
+    ^self tag: 'option'
+!
+
+output
+	^self tag: 'output'
+!
+
+p
+    ^self tag: 'p'
+!
+
+p: anObject
+    ^self p with: anObject
+!
+
+param
+	^self tag: 'param'
+!
+
+pre
+    ^self tag: 'pre'
+!
+
+progress
+	^self tag: 'progress'
+!
+
+script
+    ^self tag: 'script'
+!
+
+section
+    ^self tag: 'section'
+!
+
+select
+    ^self tag: 'select'
+!
+
+small
+	^self tag: 'small'
+!
+
+source
+	^self tag: 'source'
+!
+
+span
+    ^self tag: 'span'
+!
+
+span: anObject
+    ^self span with: anObject
+!
+
+strong
+	^self tag: 'strong'
+!
+
+strong: anObject
+	^self strong with: anObject
+!
+
+style
+	^ root addBrush:  (StyleTag canvas: self)
+!
+
+style: aString
+	^ self style with: aString; yourself
+!
+
+sub
+	^self tag: 'sub'
+!
+
+summary
+	^self tag: 'summary'
+!
+
+sup
+	^self tag: 'sup'
+!
+
+table
+    ^self tag: 'table'
+!
+
+tag: aString
+    ^root addBrush: (self newTag: aString)
+!
+
+tbody
+    ^self tag: 'tbody'
+!
+
+td 
+    ^self tag: 'td'
+!
+
+textarea
+    ^self tag: 'textarea'
+!
+
+tfoot
+    ^self tag: 'tfoot'
+!
+
+th
+    ^self tag: 'th'
+!
+
+thead
+    ^self tag: 'thead'
+!
+
+time
+	^self tag: 'time'
+!
+
+title
+	^self tag: 'title'
+!
+
+tr
+    ^self tag: 'tr'
+!
+
+ul
+    ^self tag: 'ul'
+!
+
+ul: anObject
+    ^self ul with: anObject
+!
+
+video
+    ^self tag: 'video'
+! !
+
+!HTMLCanvas class methodsFor: 'instance creation'!
+
+browserVersion
+	^(jQuery at: #browser) version
+!
+
+isMSIE
+	^((jQuery at: #browser) at: #msie) notNil
+!
+
+isMozilla
+	^((jQuery at: #browser) at: #mozilla) notNil
+!
+
+isOpera
+	^((jQuery at: #browser) at: #opera) notNil
+!
+
+isWebkit
+	^((jQuery at: #browser) at: #webkit) notNil
+!
+
+onJQuery: aJQuery
+	^self basicNew
+		initializeFromJQuery: aJQuery;
+		initialize;
+		yourself
 ! !
 
 Object subclass: #TagBrush
@@ -31,27 +501,13 @@ element
 
 !TagBrush methodsFor: 'adding'!
 
-contents: anObject
-    self 
-	empty;
-   	append: anObject
-!
-
 addBrush: aTagBrush
     self appendChild: aTagBrush element.
     ^aTagBrush
 !
 
-with: anObject
-    self append: anObject
-!
-
 append: anObject
     anObject appendToBrush: self
-!
-
-appendToBrush: aTagBrush
-    aTagBrush addBrush: self
 !
 
 appendBlock: aBlock
@@ -76,78 +532,52 @@ appendString: aString
     self appendChild: (self createTextNodeFor: aString)
 !
 
+appendToBrush: aTagBrush
+    aTagBrush addBrush: self
+!
+
+contents: anObject
+    self 
+	empty;
+   	append: anObject
+!
+
 empty
 	self asJQuery empty
+!
+
+with: anObject
+    self append: anObject
 ! !
 
 !TagBrush methodsFor: 'attributes'!
 
-at: aString put: aValue
-    <self['@element'].setAttribute(aString, aValue)>
+accesskey: aString
+	self at: 'accesskey' put: aString
 !
 
-removeAt: aString
-    <self['@element'].removeAttribute(aString)>
+action: aString
+	self at: 'action' put: aString
+!
+
+align: aString
+	self at: 'align' put: aString
+!
+
+alt: aString
+	self at: 'alt' put: aString
+!
+
+at: aString put: aValue
+    <self['@element'].setAttribute(aString, aValue)>
 !
 
 class: aString
       <self['@element'].className = aString>
 !
 
-id: aString
-    self at: 'id' put: aString
-!
-
-src: aString
-    self  at: 'src' put: aString
-!
-
-href: aString
-    self at: 'href' put: aString
-!
-
-title: aString
-    self at: 'title' put: aString
-!
-
-style: aString
-    self at: 'style' put: aString
-!
-
-type: aString
-    self at: 'type' put: aString
-!
-
-media: aString
-    self at: 'media' put: aString
-!
-
-rel: aString
-    self  at: 'rel' put: aString
-!
-
-width: aString
-    self  at: 'width' put: aString
-!
-
-height: aString
-    self  at: 'height' put: aString
-!
-
-value: aString
-    self  at: 'value' put: aString
-!
-
-for: aString
-	self at: 'for' put: aString
-!
-
-placeholder: aString
-	self at: 'placeholder' put: aString
-!
-
-accesskey: aString
-	self at: 'accesskey' put: aString
+cols: aString
+	self at: 'cols' put: aString
 !
 
 contenteditable: aString
@@ -162,8 +592,60 @@ draggable: aString
 	self at: 'draggable' put: aString
 !
 
+for: aString
+	self at: 'for' put: aString
+!
+
+height: aString
+    self  at: 'height' put: aString
+!
+
 hidden
 	self at: 'hidden' put: 'hidden'
+!
+
+href: aString
+    self at: 'href' put: aString
+!
+
+id: aString
+    self at: 'id' put: aString
+!
+
+media: aString
+    self at: 'media' put: aString
+!
+
+method: aString
+	self at: 'method' put: aString
+!
+
+name: aString
+	self at: 'name' put: aString
+!
+
+placeholder: aString
+	self at: 'placeholder' put: aString
+!
+
+rel: aString
+    self  at: 'rel' put: aString
+!
+
+removeAt: aString
+    <self['@element'].removeAttribute(aString)>
+!
+
+rows: aString
+	self at: 'rows' put: aString
+!
+
+src: aString
+    self  at: 'src' put: aString
+!
+
+style: aString
+    self at: 'style' put: aString
 !
 
 tabindex: aNumber
@@ -174,36 +656,24 @@ target: aString
 	self at: 'target' put: aString
 !
 
-align: aString
-	self at: 'align' put: aString
+title: aString
+    self at: 'title' put: aString
 !
 
-alt: aString
-	self at: 'alt' put: aString
-!
-
-name: aString
-	self at: 'name' put: aString
+type: aString
+    self at: 'type' put: aString
 !
 
 valign: aString
 	self at: 'valign' put: aString
 !
 
-method: aString
-	self at: 'method' put: aString
+value: aString
+    self  at: 'value' put: aString
 !
 
-action: aString
-	self at: 'action' put: aString
-!
-
-rows: aString
-	self at: 'rows' put: aString
-!
-
-cols: aString
-	self at: 'cols' put: aString
+width: aString
+    self  at: 'width' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!
@@ -213,22 +683,6 @@ asJQuery
 ! !
 
 !TagBrush methodsFor: 'events'!
-
-onKeyDown: aBlock
-    self asJQuery bind: 'keydown' do: aBlock
-!
-
-onKeyPress: aBlock
-    self asJQuery bind: 'keypress' do: aBlock
-!
-
-onKeyUp: aBlock
-    self asJQuery bind: 'keyup' do: aBlock
-!
-
-onFocus: aBlock
-    self asJQuery bind: 'focus' do: aBlock
-!
 
 onBlur: aBlock
     self asJQuery bind: 'blur' do: aBlock
@@ -242,16 +696,12 @@ onClick: aBlock
     self asJQuery bind: 'click' do: aBlock
 !
 
-onSubmit: aBlock
-	self asJQuery bind: 'submit' do: aBlock
-!
-
 onDblClick: aBlock
 	self asJQuery bind: 'dblclick' do: aBlock
 !
 
-onHover: aBlock
-	self asJQuery bind: 'hover' do: aBlock
+onFocus: aBlock
+    self asJQuery bind: 'focus' do: aBlock
 !
 
 onFocusIn: aBlock
@@ -262,12 +712,24 @@ onFocusOut: aBlock
 	self asJQuery bind: 'focusout' do: aBlock
 !
 
-onMouseDown: aBlock
-	self asJQuery bind: 'mousedown' do: aBlock
+onHover: aBlock
+	self asJQuery bind: 'hover' do: aBlock
 !
 
-onMouseUp: aBlock
-	self asJQuery bind: 'mouseup' do: aBlock
+onKeyDown: aBlock
+    self asJQuery bind: 'keydown' do: aBlock
+!
+
+onKeyPress: aBlock
+    self asJQuery bind: 'keypress' do: aBlock
+!
+
+onKeyUp: aBlock
+    self asJQuery bind: 'keyup' do: aBlock
+!
+
+onMouseDown: aBlock
+	self asJQuery bind: 'mousedown' do: aBlock
 !
 
 onMouseEnter: aBlock
@@ -290,8 +752,16 @@ onMouseOver: aBlock
 	self asJQuery bind: 'mouseover' do: aBlock
 !
 
+onMouseUp: aBlock
+	self asJQuery bind: 'mouseup' do: aBlock
+!
+
 onSelect: aBlock
 	self asJQuery bind: 'select' do: aBlock
+!
+
+onSubmit: aBlock
+	self asJQuery bind: 'submit' do: aBlock
 !
 
 onUnload: aBlock
@@ -300,13 +770,13 @@ onUnload: aBlock
 
 !TagBrush methodsFor: 'initialization'!
 
-initializeFromString: aString canvas: aCanvas
-    element := self createElementFor: aString.
+initializeFromJQuery: aJQuery canvas: aCanvas
+    element := aJQuery get: 0.
     canvas := aCanvas
 !
 
-initializeFromJQuery: aJQuery canvas: aCanvas
-    element := aJQuery get: 0.
+initializeFromString: aString canvas: aCanvas
+    element := self createElementFor: aString.
     canvas := aCanvas
 ! !
 
@@ -322,506 +792,16 @@ createTextNodeFor: aString
 
 !TagBrush class methodsFor: 'instance creation'!
 
-fromString: aString canvas: aCanvas
-    ^self new
-	initializeFromString: aString canvas: aCanvas;
-	yourself
-!
-
 fromJQuery: aJQuery canvas: aCanvas
     ^self new
 	initializeFromJQuery: aJQuery canvas: aCanvas;
 	yourself
-! !
-
-Object subclass: #HTMLCanvas
-	instanceVariableNames: 'root'
-	category: 'Canvas'!
-
-!HTMLCanvas methodsFor: 'accessing'!
-
-root: aTagBrush
-    root := aTagBrush
-!
-
-root
-    ^root
-! !
-
-!HTMLCanvas methodsFor: 'adding'!
-
-with: anObject
-    ^self root with: anObject
-! !
-
-!HTMLCanvas methodsFor: 'initialization'!
-
-initialize
-    super initialize.
-    root ifNil: [root := TagBrush fromString: 'div' canvas: self]
-!
-
-initializeFromJQuery: aJQuery
-    root := TagBrush fromJQuery: aJQuery canvas: self
-! !
-
-!HTMLCanvas methodsFor: 'tags'!
-
-newTag: aString
-    ^TagBrush fromString: aString canvas: self
-!
-
-tag: aString
-    ^root addBrush: (self newTag: aString)
-!
-
-h1
-    ^self tag: 'h1'
-!
-
-h2
-    ^self tag: 'h2'
-!
-
-h3
-    ^self tag: 'h3'
-!
-
-h4
-    ^self tag: 'h4'
-!
-
-h5
-    ^self tag: 'h5'
-!
-
-h6
-    ^self tag: 'h6'
-!
-
-p
-    ^self tag: 'p'
-!
-
-div
-    ^self tag: 'div'
-!
-
-span
-    ^self tag: 'span'
-!
-
-img
-    ^self tag: 'img'
-!
-
-ul
-    ^self tag: 'ul'
-!
-
-ol
-    ^self tag: 'ol'
-!
-
-li
-    ^self tag: 'li'
-!
-
-table
-    ^self tag: 'table'
-!
-
-tr
-    ^self tag: 'tr'
-!
-
-td 
-    ^self tag: 'td'
-!
-
-th
-    ^self tag: 'th'
-!
-
-form
-    ^self tag: 'form'
-!
-
-input
-    ^self tag: 'input'
-!
-
-button
-    ^self tag: 'button'
-!
-
-select
-    ^self tag: 'select'
-!
-
-option
-    ^self tag: 'option'
-!
-
-textarea
-    ^self tag: 'textarea'
-!
-
-a
-    ^self tag: 'a'
-!
-
-canvas
-	^self tag: 'canvas'
-!
-
-pre
-    ^self tag: 'pre'
-!
-
-code
-    ^self tag: 'code'
-!
-
-br
-    ^self tag: 'br'
-!
-
-script
-    ^self tag: 'script'
-!
-
-link
-    ^self tag: 'link'
-!
-
-style
-	^ root addBrush:  (StyleTag canvas: self)
-!
-
-p: anObject
-    ^self p with: anObject
-!
-
-h1: anObject
-    ^self h1 with: anObject
-!
-
-iframe
-    ^self tag: 'iframe'
-!
-
-iframe: aString
-    ^self iframe src: aString
-!
-
-h2: anObject
-    ^ self h2 with: anObject
-!
-
-h3: anObject
-    ^self h3 with: anObject
-!
-
-h4: anObject
-    ^self h4 with: anObject
-!
-
-h5: anObject
-    ^self h5 with: anObject
-!
-
-h6: anObject
-    ^self h6 with: anObject
-!
-
-img: aString
-    ^self img src: aString
-!
-
-ol: anObject
-    ^self ol with: anObject
-!
-
-li: anObject
-    ^self li with: anObject
-!
-
-ul: anObject
-    ^self ul with: anObject
-!
-
-span: anObject
-    ^self span with: anObject
-!
-
-style: aString
-	^ self style with: aString; yourself
-!
-
-audio
-    ^self tag: 'audio'
-!
-
-fieldset
-    ^self tag: 'fieldset'
-!
-
-footer
-    ^self tag: 'footer'
-!
-
-header
-    ^self tag: 'header'
-!
-
-hr
-    ^self tag: 'hr'
-!
-
-section
-    ^self tag: 'section'
-!
-
-tbody
-    ^self tag: 'tbody'
-!
-
-tfoot
-    ^self tag: 'tfoot'
-!
-
-thead
-    ^self tag: 'thead'
-!
-
-video
-    ^self tag: 'video'
-!
-
-label
-	^self tag: 'label'
-!
-
-title
-	^self tag: 'title'
-!
-
-time
-	^self tag: 'time'
-!
-
-sup
-	^self tag: 'sup'
-!
-
-summary
-	^self tag: 'summary'
-!
-
-sub
-	^self tag: 'sub'
-!
-
-strong
-	^self tag: 'strong'
-!
-
-strong: anObject
-	^self strong with: anObject
-!
-
-source
-	^self tag: 'source'
-!
-
-small
-	^self tag: 'small'
-!
-
-progress
-	^self tag: 'progress'
-!
-
-param
-	^self tag: 'param'
-!
-
-output
-	^self tag: 'output'
-!
-
-optgroup
-	^self tag: 'optgroup'
-!
-
-object
-	^self tag: 'object'
-!
-
-noscript
-	^self tag: 'noscript'
-!
-
-nav
-	^self tag: 'nav'
-!
-
-meta
-	^self tag: 'meta'
-!
-
-menu
-	^self tag: 'menu'
-!
-
-mark
-	^self tag: 'mark'
-!
-
-map
-	^self tag: 'map'
-!
-
-legend
-	^self tag: 'legend'
-!
-
-html
-	^self tag: 'html'
-!
-
-hgroup
-	^self tag: 'hgroup'
-!
-
-head
-	^self tag: 'head'
-!
-
-figure
-	^self tag: 'figure'
-!
-
-figcaption
-	^self tag: 'figcaption'
-!
-
-embed
-	^self tag: 'embed'
-!
-
-em
-	^self tag: 'em'
-!
-
-dt
-	^self tag: 'dt'
-!
-
-dl
-	^self tag: 'dl'
-!
-
-details
-	^self tag: 'details'
-!
-
-del
-	^self tag: 'del'
-!
-
-dd
-	^self tag: 'dd'
-!
-
-datalist
-	^self tag: 'datalist'
-!
-
-command
-	^self tag: 'command'
-!
-
-colgroup
-	^self tag: 'colgroup'
-!
-
-col
-	^self tag: 'col'
-!
-
-cite
-	^self tag: 'cite'
-!
-
-caption
-	^self tag: 'caption'
-!
-
-body
-	^self tag: 'body'
-!
-
-blockquote
-	^self tag: 'blockquote'
-!
-
-base
-	^self tag: 'base'
-!
-
-aside
-	^self tag: 'aside'
-!
-
-article
-    ^self tag: 'article'
-!
-
-area
-	^self tag: 'area'
-!
-
-address
-	^self tag: 'address'
-!
-
-abbr
-	^self tag: 'abbr'
-!
-
-div: aBlock
-    ^self div with: aBlock
-! !
-
-!HTMLCanvas class methodsFor: 'instance creation'!
-
-onJQuery: aJQuery
-	^self basicNew
-		initializeFromJQuery: aJQuery;
-		initialize;
-		yourself
-!
-
-isMSIE
-	^((jQuery at: #browser) at: #msie) notNil
-!
-
-isOpera
-	^((jQuery at: #browser) at: #opera) notNil
-!
-
-isMozilla
-	^((jQuery at: #browser) at: #mozilla) notNil
-!
-
-isWebkit
-	^((jQuery at: #browser) at: #webkit) notNil
 !
 
-browserVersion
-	^(jQuery at: #browser) version
+fromString: aString canvas: aCanvas
+    ^self new
+	initializeFromString: aString canvas: aCanvas;
+	yourself
 ! !
 
 TagBrush subclass: #StyleTag
@@ -848,37 +828,57 @@ canvas: aCanvas
 	yourself
 ! !
 
-!Object methodsFor: '*Canvas'!
+Object subclass: #Widget
+	instanceVariableNames: ''
+	category: 'Canvas'!
+
+!Widget methodsFor: 'adding'!
+
+appendToBrush: aTagBrush
+    self appendToJQuery: aTagBrush asJQuery
+!
 
 appendToJQuery: aJQuery
-    aJQuery append: self asString
-!
+   self renderOn: (HTMLCanvas onJQuery: aJQuery)
+! !
+
+!Widget methodsFor: 'rendering'!
+
+renderOn: html
+    self
+! !
+
+!Object methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
     aTagBrush append: self asString
+!
+
+appendToJQuery: aJQuery
+    aJQuery append: self asString
 ! !
 
 !BlockClosure methodsFor: '*Canvas'!
 
-appendToJQuery: aJQuery
-    self value: (HTMLCanvas onJQuery: aJQuery)
-!
-
 appendToBrush: aTagBrush
     aTagBrush appendBlock: self
+!
+
+appendToJQuery: aJQuery
+    self value: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
 !String methodsFor: '*Canvas'!
 
-asJQuery
-    <return jQuery(String(self))>
+appendToBrush: aTagBrush
+    aTagBrush appendString: self
 !
 
 appendToJQuery: aJQuery
     aJQuery append: self
 !
 
-appendToBrush: aTagBrush
-    aTagBrush appendString: self
+asJQuery
+    <return jQuery(String(self))>
 ! !
 
