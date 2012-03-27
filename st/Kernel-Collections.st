@@ -1,4 +1,53 @@
 Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
+Object subclass: #Association
+	instanceVariableNames: 'key value'
+	category: 'Kernel-Collections'!
+
+!Association methodsFor: 'accessing'!
+
+key: aKey
+	key := aKey
+!
+
+key
+	^key
+!
+
+value: aValue
+	value := aValue
+!
+
+value
+	^value
+! !
+
+!Association methodsFor: 'comparing'!
+
+= anAssociation
+	^self class = anAssociation class and: [
+	    self key = anAssociation key and: [
+		self value = anAssociation value]]
+!
+
+storeOn: aStream
+	"Store in the format (key->value)"
+
+	"aStream nextPutAll: '('."
+	key storeOn: aStream.
+	aStream nextPutAll: '->'.
+	value storeOn: aStream.
+	"aStream nextPutAll: ')'"
+! !
+
+!Association class methodsFor: 'instance creation'!
+
+key: aKey value: aValue
+	    ^self new
+		key: aKey;
+		value: aValue;
+		yourself
+! !
+
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
 	category: 'Kernel-Collections'!
@@ -132,55 +181,6 @@ on: aCollection
 		yourself
 ! !
 
-Object subclass: #Association
-	instanceVariableNames: 'key value'
-	category: 'Kernel-Collections'!
-
-!Association methodsFor: 'accessing'!
-
-key: aKey
-	key := aKey
-!
-
-key
-	^key
-!
-
-value: aValue
-	value := aValue
-!
-
-value
-	^value
-! !
-
-!Association methodsFor: 'comparing'!
-
-= anAssociation
-	^self class = anAssociation class and: [
-	    self key = anAssociation key and: [
-		self value = anAssociation value]]
-!
-
-storeOn: aStream
-	"Store in the format (key->value)"
-
-	"aStream nextPutAll: '('."
-	key storeOn: aStream.
-	aStream nextPutAll: '->'.
-	value storeOn: aStream.
-	"aStream nextPutAll: ')'"
-! !
-
-!Association class methodsFor: 'instance creation'!
-
-key: aKey value: aValue
-	    ^self new
-		key: aKey;
-		value: aValue;
-		yourself
-! !
-
 Object subclass: #RegularExpression
 	instanceVariableNames: ''
 	category: 'Kernel-Collections'!
@@ -233,6 +233,15 @@ stream
 
 streamClass
 	^self class streamClass
+!
+
+occurrencesOf: anObject 
+	"Answer how many of the receiver's elements are equal to anObject."
+
+	| tally |
+	tally := 0.
+	self do: [:each | anObject = each ifTrue: [tally := tally + 1]].
+	^tally
 ! !
 
 !Collection methodsFor: 'adding/removing'!
@@ -636,6 +645,17 @@ capitalized
 	^ (stream
 		nextPut: self first asUppercase;
 		nextPutAll: self allButFirst) contents
+!
+
+isLetter
+
+	^ self isDigit not
+!
+
+isDigit
+
+	^ self asNumber >= 0 or:[
+	self asNumber < 0]
 ! !
 
 !CharacterArray methodsFor: 'copying'!
@@ -992,6 +1012,17 @@ at: anIndex ifAbsent: aBlock
 
 size
 	^self asString size
+!
+
+precedence
+	"Answer the receiver's precedence, assuming it is a valid Smalltalk
+	message selector or 0 otherwise.  The numbers are 1 for unary,
+	2 for binary and 3 for keyword selectors."
+
+	self size = 0 ifTrue: [^ 0].
+	self first isLetter ifFalse: [^ 2].
+	self last = ':' ifTrue: [^ 3].
+	^ 1
 ! !
 
 !Symbol methodsFor: 'comparing'!
@@ -1061,6 +1092,20 @@ printString
 
 isSymbol
 	^true
+! !
+
+!Symbol methodsFor: 'testing'!
+
+isKeyword
+	"Answer whether the receiver is a message keyword."
+
+	^ self precedence = 3
+!
+
+isUnary
+	"Answer whether the receiver is an unary message selector."
+
+	^ self precedence = 1
 ! !
 
 !Symbol class methodsFor: 'instance creation'!

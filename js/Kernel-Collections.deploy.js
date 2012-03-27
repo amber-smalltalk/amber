@@ -1,4 +1,86 @@
 smalltalk.addPackage('Kernel-Collections', {});
+smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
+smalltalk.addMethod(
+unescape('__eq'),
+smalltalk.method({
+selector: unescape('%3D'),
+fn: function (anAssociation) {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_key_'),
+smalltalk.method({
+selector: unescape('key%3A'),
+fn: function (aKey) {
+var self=this;
+(self['@key']=aKey);
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_key'),
+smalltalk.method({
+selector: unescape('key'),
+fn: function () {
+var self=this;
+return self['@key'];
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_value_'),
+smalltalk.method({
+selector: unescape('value%3A'),
+fn: function (aValue) {
+var self=this;
+(self['@value']=aValue);
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_value'),
+smalltalk.method({
+selector: unescape('value'),
+fn: function () {
+var self=this;
+return self['@value'];
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
+unescape('_storeOn_'),
+smalltalk.method({
+selector: unescape('storeOn%3A'),
+fn: function (aStream) {
+var self=this;
+smalltalk.send(self['@key'], "_storeOn_", [aStream]);
+smalltalk.send(aStream, "_nextPutAll_", [unescape("-%3E")]);
+smalltalk.send(self['@value'], "_storeOn_", [aStream]);
+return self;}
+}),
+smalltalk.Association);
+
+
+smalltalk.addMethod(
+unescape('_key_value_'),
+smalltalk.method({
+selector: unescape('key%3Avalue%3A'),
+fn: function (aKey, aValue) {
+var self=this;
+return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;}
+}),
+smalltalk.Association.klass);
+
+
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.addMethod(
 unescape('_collection'),
@@ -270,88 +352,6 @@ return (function($rec){smalltalk.send($rec, "_setCollection_", [aCollection]);sm
 return self;}
 }),
 smalltalk.Stream.klass);
-
-
-smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
-smalltalk.addMethod(
-unescape('__eq'),
-smalltalk.method({
-selector: unescape('%3D'),
-fn: function (anAssociation) {
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
-return self;}
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_key_'),
-smalltalk.method({
-selector: unescape('key%3A'),
-fn: function (aKey) {
-var self=this;
-(self['@key']=aKey);
-return self;}
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_key'),
-smalltalk.method({
-selector: unescape('key'),
-fn: function () {
-var self=this;
-return self['@key'];
-return self;}
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_value_'),
-smalltalk.method({
-selector: unescape('value%3A'),
-fn: function (aValue) {
-var self=this;
-(self['@value']=aValue);
-return self;}
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_value'),
-smalltalk.method({
-selector: unescape('value'),
-fn: function () {
-var self=this;
-return self['@value'];
-return self;}
-}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-unescape('_storeOn_'),
-smalltalk.method({
-selector: unescape('storeOn%3A'),
-fn: function (aStream) {
-var self=this;
-smalltalk.send(self['@key'], "_storeOn_", [aStream]);
-smalltalk.send(aStream, "_nextPutAll_", [unescape("-%3E")]);
-smalltalk.send(self['@value'], "_storeOn_", [aStream]);
-return self;}
-}),
-smalltalk.Association);
-
-
-smalltalk.addMethod(
-unescape('_key_value_'),
-smalltalk.method({
-selector: unescape('key%3Avalue%3A'),
-fn: function (aKey, aValue) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;}
-}),
-smalltalk.Association.klass);
 
 
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
@@ -773,6 +773,20 @@ selector: unescape('asJSON'),
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asJSON", []);})]);
+return self;}
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+unescape('_occurrencesOf_'),
+smalltalk.method({
+selector: unescape('occurrencesOf%3A'),
+fn: function (anObject){
+var self=this;
+var tally=nil;
+(tally=(0));
+smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.send(anObject, "__eq", [each])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (tally=((($receiver = tally).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (tally=((($receiver = tally).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})]));})]);
+return tally;
 return self;}
 }),
 smalltalk.Collection);
@@ -1283,6 +1297,28 @@ var self=this;
 var stream=nil;
 (stream=smalltalk.send((smalltalk.StringStream || StringStream), "_on_", [smalltalk.send((smalltalk.String || String), "_new", [])]));
 return smalltalk.send((function($rec){smalltalk.send($rec, "_nextPut_", [smalltalk.send(smalltalk.send(self, "_first", []), "_asUppercase", [])]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_allButFirst", [])]);})(stream), "_contents", []);
+return self;}
+}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+unescape('_isLetter'),
+smalltalk.method({
+selector: unescape('isLetter'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_isDigit", []), "_not", []);
+return self;}
+}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+unescape('_isDigit'),
+smalltalk.method({
+selector: unescape('isDigit'),
+fn: function (){
+var self=this;
+return smalltalk.send(((($receiver = smalltalk.send(self, "_asNumber", [])).klass === smalltalk.Number) ? $receiver >=(0) : smalltalk.send($receiver, "__gt_eq", [(0)])), "_or_", [(function(){return ((($receiver = smalltalk.send(self, "_asNumber", [])).klass === smalltalk.Number) ? $receiver <(0) : smalltalk.send($receiver, "__lt", [(0)]));})]);
 return self;}
 }),
 smalltalk.CharacterArray);
@@ -2114,6 +2150,43 @@ selector: unescape('asJSON'),
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asJSON", []);
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+unescape('_precedence'),
+smalltalk.method({
+selector: unescape('precedence'),
+fn: function (){
+var self=this;
+try{((($receiver = smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (0)}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (0)}})})();})]));
+((($receiver = smalltalk.send(smalltalk.send(self, "_first", []), "_isLetter", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (2)}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (2)}})})();})]));
+((($receiver = smalltalk.send(smalltalk.send(self, "_last", []), "__eq", [":"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (3)}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (3)}})})();})]));
+(function(){throw({name: 'stReturn', selector: '_precedence', fn: function(){return (1)}})})();
+return self;
+} catch(e) {if(e.name === 'stReturn' && e.selector === '_precedence'){return e.fn()} throw(e)}}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+unescape('_isKeyword'),
+smalltalk.method({
+selector: unescape('isKeyword'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_precedence", []), "__eq", [(3)]);
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+unescape('_isUnary'),
+smalltalk.method({
+selector: unescape('isUnary'),
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_precedence", []), "__eq", [(1)]);
 return self;}
 }),
 smalltalk.Symbol);
