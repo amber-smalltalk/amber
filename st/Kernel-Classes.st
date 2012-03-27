@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Classes' properties: #{}!
 Object subclass: #Behavior
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !Behavior commentStamp!
 Behavior is the superclass of all class objects. 
 
@@ -160,7 +160,7 @@ inheritsFrom: aClass
 
 Behavior subclass: #Class
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !Class commentStamp!
 Class is __the__ class object. 
 
@@ -226,7 +226,7 @@ isClass
 
 Behavior subclass: #Metaclass
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !Metaclass commentStamp!
 Metaclass is the root of the class hierarchy.
 
@@ -258,7 +258,7 @@ isMetaclass
 
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !ClassBuilder commentStamp!
 ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
 
@@ -330,7 +330,7 @@ setupClass: aClass
 
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !ClassCategoryReader commentStamp!
 ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
 
@@ -369,7 +369,7 @@ compileMethod: aString
 
 Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class chunkParser'
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
 ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
 See `ClassCategoryReader` too.!

@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Canvas' properties: #{}!
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
-	category: 'Canvas'!
+	package: 'Canvas'!
 
 !HTMLCanvas methodsFor: 'accessing'!
 
@@ -491,7 +491,7 @@ onJQuery: aJQuery
 
 Object subclass: #TagBrush
 	instanceVariableNames: 'canvas element'
-	category: 'Canvas'!
+	package: 'Canvas'!
 
 !TagBrush methodsFor: 'accessing'!
 
@@ -806,7 +806,7 @@ fromString: aString canvas: aCanvas
 
 TagBrush subclass: #StyleTag
 	instanceVariableNames: 'canvas element'
-	category: 'Canvas'!
+	package: 'Canvas'!
 !StyleTag commentStamp!
 I'm a <style> tag use to inline CSS or load a stylesheet.
 
@@ -830,7 +830,7 @@ canvas: aCanvas
 
 Object subclass: #Widget
 	instanceVariableNames: ''
-	category: 'Canvas'!
+	package: 'Canvas'!
 
 !Widget methodsFor: 'adding'!
 

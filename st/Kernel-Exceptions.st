@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Exceptions' properties: #{}!
 Object subclass: #Error
 	instanceVariableNames: 'messageText'
-	category: 'Kernel-Exceptions'!
+	package: 'Kernel-Exceptions'!
 
 !Error methodsFor: 'accessing'!
 
@@ -43,7 +43,7 @@ signal: aString
 
 Error subclass: #MessageNotUnderstood
 	instanceVariableNames: 'message receiver'
-	category: 'Kernel-Exceptions'!
+	package: 'Kernel-Exceptions'!
 
 !MessageNotUnderstood methodsFor: 'accessing'!
 
@@ -69,7 +69,7 @@ receiver: anObject
 
 Object subclass: #ErrorHandler
 	instanceVariableNames: ''
-	category: 'Kernel-Exceptions'!
+	package: 'Kernel-Exceptions'!
 
 !ErrorHandler methodsFor: 'error handling'!
 

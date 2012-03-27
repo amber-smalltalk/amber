@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Tests' properties: #{}!
 TestCase subclass: #ArrayTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !ArrayTest methodsFor: 'testing'!
 
@@ -15,7 +15,7 @@ testIfEmpty
 
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !BlockClosureTest methodsFor: 'tests'!
 
@@ -76,7 +76,7 @@ testWhileTrue
 
 TestCase subclass: #BooleanTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !BooleanTest methodsFor: 'tests'!
 
@@ -150,7 +150,7 @@ testLogicKeywords
 
 TestCase subclass: #ClassBuilderTest
 	instanceVariableNames: 'builder theClass'
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !ClassBuilderTest methodsFor: 'running'!
 
@@ -177,7 +177,7 @@ testInstanceVariableNames
 
 TestCase subclass: #DictionaryTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !DictionaryTest methodsFor: 'tests'!
 
@@ -267,7 +267,7 @@ testValues
 
 TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !JSObjectProxyTest methodsFor: 'accessing'!
 
@@ -324,7 +324,7 @@ testYourself
 
 TestCase subclass: #NumberTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !NumberTest methodsFor: 'tests'!
 
@@ -466,7 +466,7 @@ testTruncated
 
 Object subclass: #ObjectMock
 	instanceVariableNames: 'foo bar'
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !ObjectMock methodsFor: 'not yet classified'!
 
@@ -480,7 +480,7 @@ foo: anObject
 
 TestCase subclass: #ObjectTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !ObjectTest methodsFor: 'tests'!
 
@@ -569,7 +569,7 @@ testidentityHash
 
 TestCase subclass: #PackageTest
 	instanceVariableNames: 'zorkPackage grulPackage backUpCommitPathJs backUpCommitPathSt'
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !PackageTest methodsFor: 'running'!
 
@@ -613,7 +613,7 @@ testZorkCommitPathStShouldBeSt
 
 PackageTest subclass: #PackageWithDefaultCommitPathChangedTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !PackageWithDefaultCommitPathChangedTest methodsFor: 'running'!
 
@@ -651,7 +651,7 @@ shouldInheritSelectors
 
 TestCase subclass: #PointTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !PointTest methodsFor: 'tests'!
 
@@ -687,7 +687,7 @@ testTranslateBy
 
 TestCase subclass: #RandomTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !RandomTest methodsFor: 'tests'!
 
@@ -704,7 +704,7 @@ textNext
 
 TestCase subclass: #SetTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !SetTest methodsFor: 'tests'!
 
@@ -751,7 +751,7 @@ testUnicity
 
 TestCase subclass: #StringTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !StringTest methodsFor: 'tests'!
 
@@ -816,7 +816,7 @@ testStreamContents
 
 TestCase subclass: #SymbolTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !SymbolTest methodsFor: 'tests'!
 
@@ -891,7 +891,7 @@ testSize
 
 TestCase subclass: #UndefinedTest
 	instanceVariableNames: ''
-	category: 'Kernel-Tests'!
+	package: 'Kernel-Tests'!
 
 !UndefinedTest methodsFor: 'tests'!
 

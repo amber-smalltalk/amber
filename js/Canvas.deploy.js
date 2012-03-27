@@ -2137,6 +2137,17 @@ smalltalk.Widget);
 
 
 smalltalk.addMethod(
+unescape('_appendToBrush_'),
+smalltalk.method({
+selector: unescape('appendToBrush%3A'),
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(aTagBrush, "_append_", [smalltalk.send(self, "_asString", [])]);
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 unescape('_appendToJQuery_'),
 smalltalk.method({
 selector: unescape('appendToJQuery%3A'),
@@ -2153,10 +2164,10 @@ smalltalk.method({
 selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
-smalltalk.send(aTagBrush, "_append_", [smalltalk.send(self, "_asString", [])]);
+smalltalk.send(aTagBrush, "_appendBlock_", [self]);
 return self;}
 }),
-smalltalk.Object);
+smalltalk.BlockClosure);
 
 smalltalk.addMethod(
 unescape('_appendToJQuery_'),
@@ -2175,18 +2186,7 @@ smalltalk.method({
 selector: unescape('appendToBrush%3A'),
 fn: function (aTagBrush){
 var self=this;
-smalltalk.send(aTagBrush, "_appendBlock_", [self]);
-return self;}
-}),
-smalltalk.BlockClosure);
-
-smalltalk.addMethod(
-unescape('_asJQuery'),
-smalltalk.method({
-selector: unescape('asJQuery'),
-fn: function (){
-var self=this;
-return jQuery(String(self));
+smalltalk.send(aTagBrush, "_appendString_", [self]);
 return self;}
 }),
 smalltalk.String);
@@ -2203,12 +2203,12 @@ return self;}
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_appendToBrush_'),
+unescape('_asJQuery'),
 smalltalk.method({
-selector: unescape('appendToBrush%3A'),
-fn: function (aTagBrush){
+selector: unescape('asJQuery'),
+fn: function (){
 var self=this;
-smalltalk.send(aTagBrush, "_appendString_", [self]);
+return jQuery(String(self));
 return self;}
 }),
 smalltalk.String);

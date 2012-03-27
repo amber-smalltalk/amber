@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'SUnit' properties: #{}!
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector'
-	category: 'SUnit'!
+	package: 'SUnit'!
 
 !TestCase methodsFor: 'accessing'!
 
@@ -106,11 +106,11 @@ shouldInheritSelectors
 
 Error subclass: #TestFailure
 	instanceVariableNames: ''
-	category: 'SUnit'!
+	package: 'SUnit'!
 
 Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
-	category: 'SUnit'!
+	package: 'SUnit'!
 
 !TestResult methodsFor: 'accessing'!
 

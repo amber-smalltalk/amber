@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
 Object subclass: #Association
 	instanceVariableNames: 'key value'
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Association methodsFor: 'accessing'!
 
@@ -50,7 +50,7 @@ key: aKey value: aValue
 
 Object subclass: #Collection
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Collection methodsFor: 'accessing'!
 
@@ -272,7 +272,7 @@ withAll: aCollection
 
 Collection subclass: #HashedCollection
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 !HashedCollection commentStamp!
 A HashedCollection is a traditional JavaScript object, or a Smalltalk Dictionary.
 
@@ -491,7 +491,7 @@ fromPairs: aCollection
 
 HashedCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Dictionary methodsFor: 'accessing'!
 
@@ -572,7 +572,7 @@ includesKey: aKey
 
 Collection subclass: #SequenceableCollection
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !SequenceableCollection methodsFor: 'accessing'!
 
@@ -731,7 +731,7 @@ printString
 
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Array methodsFor: 'accessing'!
 
@@ -848,7 +848,7 @@ withAll: aCollection
 
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Array methodsFor: 'accessing'!
 
@@ -965,7 +965,7 @@ withAll: aCollection
 
 SequenceableCollection subclass: #CharacterArray
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !CharacterArray methodsFor: 'accessing'!
 
@@ -1031,7 +1031,7 @@ fromString: aString
 
 CharacterArray subclass: #String
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !String methodsFor: 'accessing'!
 
@@ -1339,7 +1339,7 @@ value: aUTFCharCode
 
 CharacterArray subclass: #Symbol
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Symbol methodsFor: 'accessing'!
 
@@ -1436,7 +1436,7 @@ lookup: aString
 
 Collection subclass: #Set
 	instanceVariableNames: 'elements'
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Set methodsFor: 'accessing'!
 
@@ -1510,7 +1510,7 @@ includes: anObject
 
 Object subclass: #RegularExpression
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !RegularExpression methodsFor: 'evaluating'!
 
@@ -1538,7 +1538,7 @@ fromString: aString flag: anotherString
 
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !Stream methodsFor: 'accessing'!
 
@@ -1671,7 +1671,7 @@ on: aCollection
 
 Stream subclass: #StringStream
 	instanceVariableNames: ''
-	category: 'Kernel-Collections'!
+	package: 'Kernel-Collections'!
 
 !StringStream methodsFor: 'reading'!
 

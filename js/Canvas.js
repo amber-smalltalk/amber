@@ -3098,6 +3098,22 @@ smalltalk.Widget);
 
 
 smalltalk.addMethod(
+unescape('_appendToBrush_'),
+smalltalk.method({
+selector: unescape('appendToBrush%3A'),
+category: '*Canvas',
+fn: function (aTagBrush){
+var self=this;
+smalltalk.send(aTagBrush, "_append_", [smalltalk.send(self, "_asString", [])]);
+return self;},
+args: ["aTagBrush"],
+source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20append%3A%20self%20asString'),
+messageSends: ["append:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 unescape('_appendToJQuery_'),
 smalltalk.method({
 selector: unescape('appendToJQuery%3A'),
@@ -3120,14 +3136,14 @@ selector: unescape('appendToBrush%3A'),
 category: '*Canvas',
 fn: function (aTagBrush){
 var self=this;
-smalltalk.send(aTagBrush, "_append_", [smalltalk.send(self, "_asString", [])]);
+smalltalk.send(aTagBrush, "_appendBlock_", [self]);
 return self;},
 args: ["aTagBrush"],
-source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20append%3A%20self%20asString'),
-messageSends: ["append:", "asString"],
+source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20appendBlock%3A%20self'),
+messageSends: ["appendBlock:"],
 referencedClasses: []
 }),
-smalltalk.Object);
+smalltalk.BlockClosure);
 
 smalltalk.addMethod(
 unescape('_appendToJQuery_'),
@@ -3152,27 +3168,11 @@ selector: unescape('appendToBrush%3A'),
 category: '*Canvas',
 fn: function (aTagBrush){
 var self=this;
-smalltalk.send(aTagBrush, "_appendBlock_", [self]);
+smalltalk.send(aTagBrush, "_appendString_", [self]);
 return self;},
 args: ["aTagBrush"],
-source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20appendBlock%3A%20self'),
-messageSends: ["appendBlock:"],
-referencedClasses: []
-}),
-smalltalk.BlockClosure);
-
-smalltalk.addMethod(
-unescape('_asJQuery'),
-smalltalk.method({
-selector: unescape('asJQuery'),
-category: '*Canvas',
-fn: function (){
-var self=this;
-return jQuery(String(self));
-return self;},
-args: [],
-source: unescape('asJQuery%0A%20%20%20%20%3Creturn%20jQuery%28String%28self%29%29%3E'),
-messageSends: [],
+source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20appendString%3A%20self'),
+messageSends: ["appendString:"],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -3194,17 +3194,17 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_appendToBrush_'),
+unescape('_asJQuery'),
 smalltalk.method({
-selector: unescape('appendToBrush%3A'),
+selector: unescape('asJQuery'),
 category: '*Canvas',
-fn: function (aTagBrush){
+fn: function (){
 var self=this;
-smalltalk.send(aTagBrush, "_appendString_", [self]);
+return jQuery(String(self));
 return self;},
-args: ["aTagBrush"],
-source: unescape('appendToBrush%3A%20aTagBrush%0A%20%20%20%20aTagBrush%20appendString%3A%20self'),
-messageSends: ["appendString:"],
+args: [],
+source: unescape('asJQuery%0A%20%20%20%20%3Creturn%20jQuery%28String%28self%29%29%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);

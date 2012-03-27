@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Methods' properties: #{}!
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
-	category: 'Kernel-Methods'!
+	package: 'Kernel-Methods'!
 !BlockClosure commentStamp!
 A BlockClosure is a lexical closure.
 The JavaScript representation is a function.
@@ -131,7 +131,7 @@ valueWithTimeout: aNumber
 
 Object subclass: #CompiledMethod
 	instanceVariableNames: ''
-	category: 'Kernel-Methods'!
+	package: 'Kernel-Methods'!
 !CompiledMethod commentStamp!
 CompiledMethod hold the source and compiled code of a class method.
 
@@ -203,7 +203,7 @@ source: aString
 
 Object subclass: #Message
 	instanceVariableNames: 'selector arguments'
-	category: 'Kernel-Methods'!
+	package: 'Kernel-Methods'!
 !Message commentStamp!
 Generally, the system does not use instances of Message for efficiency reasons.
 However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. 
@@ -255,7 +255,7 @@ selector: aString arguments: anArray
 
 Object subclass: #MethodContext
 	instanceVariableNames: ''
-	category: 'Kernel-Methods'!
+	package: 'Kernel-Methods'!
 !MethodContext commentStamp!
 MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
   

@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Transcript' properties: #{}!
 Object subclass: #ConsoleTranscript
 	instanceVariableNames: 'textarea'
-	category: 'Kernel-Transcript'!
+	package: 'Kernel-Transcript'!
 
 !ConsoleTranscript methodsFor: 'actions'!
 
@@ -32,7 +32,7 @@ initialize
 
 Object subclass: #Transcript
 	instanceVariableNames: 'textarea'
-	category: 'Kernel-Transcript'!
+	package: 'Kernel-Transcript'!
 
 Transcript class instanceVariableNames: 'current'!
 
