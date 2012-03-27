@@ -3817,7 +3817,7 @@ var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_sortedClasses_", [smalltalk.send(self, "_classes", [])]);
 return self;},
 args: [],
-source: unescape('sortedClasses%0A%20%20%20%20%22Answer%20all%20classes%20in%20the%20receiver%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%20%20%20%20%5Eself%20class%20sortedClasses%3A%20self%20classes'),
+source: unescape('sortedClasses%0A%09%22Answer%20all%20classes%20in%20the%20receiver%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%5Eself%20class%20sortedClasses%3A%20self%20classes'),
 messageSends: ["sortedClasses:", "class", "classes"],
 referencedClasses: []
 }),
@@ -4040,7 +4040,7 @@ smalltalk.send(nodes, "_do_", [(function(aNode){return smalltalk.send(aNode, "_t
 return expandedClasses;
 return self;},
 args: ["classes"],
-source: unescape('sortedClasses%3A%20classes%0A%20%20%20%20%22Answer%20classes%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%20%20%20%20%7C%20children%20others%20nodes%20expandedClasses%20%7C%0A%20%20%20%20children%20%3A%3D%20%23%28%29.%0A%20%20%20%20others%20%3A%3D%20%23%28%29.%0A%20%20%20%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20%28classes%20includes%3A%20each%20superclass%29%0A%20%20%20%20%20%20%20%20%20%20%20%20ifFalse%3A%20%5Bchildren%20add%3A%20each%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20ifTrue%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%20%20%20%20nodes%20%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20ClassesListNode%20on%3A%20each%20browser%3A%20nil%20classes%3A%20others%20level%3A%200%5D.%0A%20%20%20%20nodes%20%3A%3D%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D.%0A%20%20%20%20expandedClasses%20%3A%3D%20Array%20new.%0A%20%20%20%20nodes%20do%3A%20%5B%3AaNode%20%7C%0A%20%20%20%20%20%20%20%20aNode%20traverseClassesWith%3A%20expandedClasses%5D.%0A%20%20%20%20%5EexpandedClasses'),
+source: unescape('sortedClasses%3A%20classes%0A%09%22Answer%20classes%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%7C%20children%20others%20nodes%20expandedClasses%20%7C%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28classes%20includes%3A%20each%20superclass%29%0A%09%09%09ifFalse%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifTrue%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%20%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassesListNode%20on%3A%20each%20browser%3A%20nil%20classes%3A%20others%20level%3A%200%5D.%0A%09nodes%20%3A%3D%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D.%0A%09expandedClasses%20%3A%3D%20Array%20new.%0A%09nodes%20do%3A%20%5B%3AaNode%20%7C%0A%09%09aNode%20traverseClassesWith%3A%20expandedClasses%5D.%0A%09%5EexpandedClasses'),
 messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:browser:classes:level:", "sorted:", unescape("%3C%3D"), "name", "theClass", "new", "traverseClassesWith:"],
 referencedClasses: ["ClassesListNode", "Array"]
 }),

@@ -146,12 +146,12 @@ exportMethod: aMethod of: aClass on: aStream
 !
 
 exportMethodsOf: aClass on: aStream
-    "Issue #143: sort methods alphabetically"
+	"Issue #143: sort methods alphabetically"
 
-    ((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:each |
-        (each category match: '^\*') ifFalse: [
-            self exportMethod: each of: aClass on: aStream]].
-    aStream lf
+	((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:each |
+		(each category match: '^\*') ifFalse: [
+			self exportMethod: each of: aClass on: aStream]].
+	aStream lf
 !
 
 exportPackageDefinitionOf: package on: aStream
@@ -162,15 +162,15 @@ exportPackageDefinitionOf: package on: aStream
 !
 
 exportPackageExtensionsOf: package on: aStream
-    "Issue #143: sort classes and methods alphabetically"
+	"Issue #143: sort classes and methods alphabetically"
 
-    | name |
-    name := package name.
-    (Package sortedClasses: Smalltalk current classes) do: [:each |
-        {each. each class} do: [:aClass | 
-            ((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
-                (method category match: '^\*', name) ifTrue: [
-                    self exportMethod: method of: each on: aStream ]]]]
+	| name |
+	name := package name.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass | 
+			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
+				(method category match: '^\*', name) ifTrue: [
+					self exportMethod: method of: each on: aStream ]]]]
 ! !
 
 Exporter subclass: #ChunkExporter
@@ -234,30 +234,30 @@ exportMethod: aMethod of: aClass on: aStream
 !
 
 exportMethods: methods category: category of: aClass on: aStream
-    "Issue #143: sort methods alphabetically"
+	"Issue #143: sort methods alphabetically"
 
-    aStream
-        nextPutAll: '!!', (self classNameFor: aClass);
-        nextPutAll: ' methodsFor: ''', category, '''!!'.
-        (methods sorted: [:a :b | a selector <= b selector]) do: [:each |
-                self exportMethod: each of: aClass on: aStream].
-    aStream nextPutAll: ' !!'; lf; lf
+	aStream
+		nextPutAll: '!!', (self classNameFor: aClass);
+		nextPutAll: ' methodsFor: ''', category, '''!!'.
+		(methods sorted: [:a :b | a selector <= b selector]) do: [:each |
+				self exportMethod: each of: aClass on: aStream].
+	aStream nextPutAll: ' !!'; lf; lf
 !
 
 exportMethodsOf: aClass on: aStream
-    "Issue #143: sort protocol alphabetically"
+	"Issue #143: sort protocol alphabetically"
 
-    | map |
-    map := Dictionary new.
-    aClass protocolsDo: [:category :methods | 
-        (category match: '^\*') ifFalse: [ map at: category put: methods ]].
-    (map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
-        methods := map at: category.
-        self
-            exportMethods: methods
-            category: category
-            of: aClass
-            on: aStream ]
+	| map |
+	map := Dictionary new.
+	aClass protocolsDo: [:category :methods | 
+		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
+	(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
+		methods := map at: category.
+		self
+			exportMethods: methods
+			category: category
+			of: aClass
+			on: aStream ]
 !
 
 exportPackageDefinitionOf: package on: aStream
@@ -269,22 +269,22 @@ exportPackageDefinitionOf: package on: aStream
 !
 
 exportPackageExtensionsOf: package on: aStream
-    "We need to override this one too since we need to group
-    all methods in a given protocol under a leading methodsFor: chunk
-    for that class."
+	"We need to override this one too since we need to group
+	all methods in a given protocol under a leading methodsFor: chunk
+	for that class."
 
-    "Issue #143: sort protocol alphabetically"
+	"Issue #143: sort protocol alphabetically"
 
-    | name map |
-    name := package name.
-    (Package sortedClasses: Smalltalk current classes) do: [:each |
-        {each. each class} do: [:aClass |
-            map := Dictionary new.
-            aClass protocolsDo: [:category :methods | 
-                (category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
-            (map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
-                methods := map at: category.    
-                self exportMethods: methods category: category of: each on: aStream ]]]
+	| name map |
+	name := package name.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			map := Dictionary new.
+			aClass protocolsDo: [:category :methods | 
+				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
+			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
+				methods := map at: category.	
+				self exportMethods: methods category: category of: each on: aStream ]]]
 ! !
 
 Exporter subclass: #StrippedExporter
