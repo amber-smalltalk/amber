@@ -2726,20 +2726,7 @@ smalltalk.method({
 selector: unescape('sortedClasses'),
 fn: function (){
 var self=this;
-var classes=nil;
-var children=nil;
-var others=nil;
-var nodes=nil;
-var expandedClasses=nil;
-(classes=smalltalk.send(self, "_classes", []));
-(children=[]);
-(others=[]);
-smalltalk.send(classes, "_do_", [(function(each){return ((($receiver = smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
-(nodes=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, nil, others, (0)]);})]));
-(nodes=smalltalk.send(nodes, "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]));})]));
-(expandedClasses=smalltalk.send((smalltalk.Array || Array), "_new", []));
-smalltalk.send(nodes, "_do_", [(function(aNode){return smalltalk.send(aNode, "_traverseClassesWith_", [expandedClasses]);})]);
-return expandedClasses;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_sortedClasses_", [smalltalk.send(self, "_classes", [])]);
 return self;}
 }),
 smalltalk.Package);
@@ -2882,6 +2869,28 @@ fn: function () {
     self['@defaultCommitPathSt'] = nil;
     return self;
 }
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+unescape('_sortedClasses_'),
+smalltalk.method({
+selector: unescape('sortedClasses%3A'),
+fn: function (classes){
+var self=this;
+var children=nil;
+var others=nil;
+var nodes=nil;
+var expandedClasses=nil;
+(children=[]);
+(others=[]);
+smalltalk.send(classes, "_do_", [(function(each){return ((($receiver = smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
+(nodes=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, nil, others, (0)]);})]));
+(nodes=smalltalk.send(nodes, "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]));})]));
+(expandedClasses=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(nodes, "_do_", [(function(aNode){return smalltalk.send(aNode, "_traverseClassesWith_", [expandedClasses]);})]);
+return expandedClasses;
+return self;}
 }),
 smalltalk.Package.klass);
 

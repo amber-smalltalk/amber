@@ -136,7 +136,9 @@ theClass
 
 theClass: aClass
 	theClass := aClass
-!
+! !
+
+!ClassesListNode methodsFor: 'visiting'!
 
 traverseClassesWith: aCollection
 	"sort classes alphabetically Issue #143"
@@ -2271,24 +2273,6 @@ inspectOn: anInspector
 		setVariables: variables
 ! !
 
-!Date methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-! !
-
 !Collection methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2297,6 +2281,20 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	self withIndexDo: [:each :i |
 		variables at: i put: each].
+	anInspector 
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!HashedCollection methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#keys' put: self keys.
+	self keysAndValuesDo: [:key :value |
+		variables at: key put: value].
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
@@ -2313,18 +2311,14 @@ inspectOn: anInspector
 	anInspector setLabel: label
 ! !
 
-!MethodContext methodsFor: '*IDE'!
+!Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	variables at: '#home' put: self home.
-	variables at: '#receiver' put: self receiver.
-	variables at: '#selector' put: self selector.
-	variables at: '#temps' put: self temps.
-	self class instanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
+	elements withIndexDo: [:each :i |
+		variables at: i put: each].
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
@@ -2348,28 +2342,36 @@ inspectOn: anInspector
 		setVariables: variables
 ! !
 
-!Set methodsFor: '*IDE'!
+!Date methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	elements withIndexDo: [:each :i |
-		variables at: i put: each].
+	variables at: '#year' put: self year.
+	variables at: '#month' put: self month.
+	variables at: '#day' put: self day.
+	variables at: '#hours' put: self hours.
+	variables at: '#minutes' put: self minutes.
+	variables at: '#seconds' put: self seconds.
+	variables at: '#milliseconds' put: self milliseconds.
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables
 ! !
 
-!HashedCollection methodsFor: '*IDE'!
+!MethodContext methodsFor: '*IDE'!
 
 inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	variables at: '#keys' put: self keys.
-	self keysAndValuesDo: [:key :value |
-		variables at: key put: value].
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	variables at: '#temps' put: self temps.
+	self class instanceVariableNames do: [:each |
+		variables at: each put: (self instVarAt: each)].
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables

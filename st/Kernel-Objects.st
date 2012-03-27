@@ -1220,22 +1220,8 @@ classes
 
 sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
-	
-	| classes children others nodes expandedClasses |
-	classes := self classes.
-	children := #().
-	others := #().
-	classes do: [:each |
-		(classes includes: each superclass)
-			ifFalse: [children add: each]
-			ifTrue: [others add: each]].
-	nodes := children collect: [:each |
-		ClassesListNode on: each browser: nil classes: others level: 0].
-	nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].
-	expandedClasses := Array new.
-	nodes do: [:aNode |
-		aNode traverseClassesWith: expandedClasses].
-	^expandedClasses
+
+	^self class sortedClasses: self classes
 ! !
 
 !Package methodsFor: 'printing'!
@@ -1333,6 +1319,27 @@ named: aPackageName
 named: aPackageName ifAbsent: aBlock
 
 	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+! !
+
+!Package class methodsFor: 'sorting'!
+
+sortedClasses: classes
+	"Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
+
+	| children others nodes expandedClasses |
+	children := #().
+	others := #().
+	classes do: [:each |
+		(classes includes: each superclass)
+			ifFalse: [children add: each]
+			ifTrue: [others add: each]].
+	nodes := children collect: [:each |
+		ClassesListNode on: each browser: nil classes: others level: 0].
+	nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].
+	expandedClasses := Array new.
+	nodes do: [:aNode |
+		aNode traverseClassesWith: expandedClasses].
+	^expandedClasses
 ! !
 
 Object subclass: #Point

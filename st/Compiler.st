@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Compiler' properties: #{}!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ChunkParser methodsFor: 'accessing'!
 
@@ -42,11 +42,11 @@ on: aStream
 
 Object subclass: #DoIt
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 Object subclass: #Exporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Exporter methodsFor: 'fileOut'!
 
@@ -162,17 +162,20 @@ exportPackageDefinitionOf: package on: aStream
 !
 
 exportPackageExtensionsOf: package on: aStream
+	"Issue #143: sort classes and methods alphabetically"
+
 	| name |
 	name := package name.
-	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
-		each methodDictionary values do: [:method |
-			method category = ('*', name) ifTrue: [
-				self exportMethod: method of: each on: aStream]]]
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass | 
+			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
+				(method category match: '^\*', name) ifTrue: [
+					self exportMethod: method of: each on: aStream ]]]]
 ! !
 
 Exporter subclass: #ChunkExporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ChunkExporter methodsFor: 'not yet classified'!
 
@@ -192,23 +195,23 @@ classNameFor: aClass
 !
 
 exportDefinitionOf: aClass on: aStream
-	"Chunk format."
+    "Chunk format."
 
-	aStream 
-	    nextPutAll: (self classNameFor: aClass superclass);
-	    nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
-	    nextPutAll: '	instanceVariableNames: '''.
-	aClass instanceVariableNames 
-	    do: [:each | aStream nextPutAll: each]
-	    separatedBy: [aStream nextPutAll: ' '].
-	aStream	
-	    nextPutAll: ''''; lf;
-	    nextPutAll: '	category: ''', aClass category, '''!!'; lf.
- 	aClass comment notEmpty ifTrue: [
-	    aStream 
-		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
-		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
-	aStream lf
+    aStream 
+        nextPutAll: (self classNameFor: aClass superclass);
+        nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+        nextPutAll: '	instanceVariableNames: '''.
+    aClass instanceVariableNames 
+        do: [:each | aStream nextPutAll: each]
+        separatedBy: [aStream nextPutAll: ' '].
+    aStream 
+        nextPutAll: ''''; lf;
+        nextPutAll: '	package: ''', aClass category, '''!!'; lf.
+    aClass comment notEmpty ifTrue: [
+        aStream 
+        nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+        nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+    aStream lf
 !
 
 exportMetaDefinitionOf: aClass on: aStream
@@ -236,8 +239,8 @@ exportMethods: methods category: category of: aClass on: aStream
 	aStream
 		nextPutAll: '!!', (self classNameFor: aClass);
 		nextPutAll: ' methodsFor: ''', category, '''!!'.
-    	(methods sorted: [:a :b | a selector <= b selector]) do: [:each |
-		self exportMethod: each of: aClass on: aStream].
+		(methods sorted: [:a :b | a selector <= b selector]) do: [:each |
+				self exportMethod: each of: aClass on: aStream].
 	aStream nextPutAll: ' !!'; lf; lf
 !
 
@@ -270,17 +273,23 @@ exportPackageExtensionsOf: package on: aStream
 	all methods in a given protocol under a leading methodsFor: chunk
 	for that class."
 
-	| name |
+	"Issue #143: sort protocol alphabetically"
+
+	| name map |
 	name := package name.
-	Smalltalk current classes, (Smalltalk current classes collect: [:each | each class]) do: [:each |
-		each protocolsDo: [:category :methods |
-			category = ('*', name) ifTrue: [
-				self exportMethods: methods category: category of: each on: aStream]]]
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			map := Dictionary new.
+			aClass protocolsDo: [:category :methods | 
+				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
+			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
+				methods := map at: category.	
+				self exportMethods: methods category: category of: each on: aStream ]]]
 ! !
 
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !StrippedExporter methodsFor: 'private'!
 
@@ -314,7 +323,7 @@ exportMethod: aMethod of: aClass on: aStream
 
 Object subclass: #Importer
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Importer methodsFor: 'fileIn'!
 
@@ -336,7 +345,7 @@ import: aStream
 
 Object subclass: #Node
 	instanceVariableNames: 'nodes'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Node methodsFor: 'accessing'!
 
@@ -376,7 +385,7 @@ accept: aVisitor
 
 Node subclass: #AssignmentNode
 	instanceVariableNames: 'left right'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !AssignmentNode methodsFor: 'accessing'!
 
@@ -405,7 +414,7 @@ accept: aVisitor
 
 Node subclass: #BlockNode
 	instanceVariableNames: 'parameters inlined'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !BlockNode methodsFor: 'accessing'!
 
@@ -439,7 +448,7 @@ accept: aVisitor
 
 Node subclass: #CascadeNode
 	instanceVariableNames: 'receiver'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !CascadeNode methodsFor: 'accessing'!
 
@@ -459,7 +468,7 @@ accept: aVisitor
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !DynamicArrayNode methodsFor: 'visiting'!
 
@@ -469,7 +478,7 @@ accept: aVisitor
 
 Node subclass: #DynamicDictionaryNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !DynamicDictionaryNode methodsFor: 'visiting'!
 
@@ -479,7 +488,7 @@ accept: aVisitor
 
 Node subclass: #JSStatementNode
 	instanceVariableNames: 'source'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !JSStatementNode methodsFor: 'accessing'!
 
@@ -499,7 +508,7 @@ accept: aVisitor
 
 Node subclass: #MethodNode
 	instanceVariableNames: 'selector arguments source'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !MethodNode methodsFor: 'accessing'!
 
@@ -535,7 +544,7 @@ accept: aVisitor
 
 Node subclass: #ReturnNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ReturnNode methodsFor: 'visiting'!
 
@@ -545,7 +554,7 @@ accept: aVisitor
 
 Node subclass: #SendNode
 	instanceVariableNames: 'selector arguments receiver'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !SendNode methodsFor: 'accessing'!
 
@@ -603,7 +612,7 @@ accept: aVisitor
 
 Node subclass: #SequenceNode
 	instanceVariableNames: 'temps'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !SequenceNode methodsFor: 'accessing'!
 
@@ -632,7 +641,7 @@ accept: aVisitor
 
 SequenceNode subclass: #BlockSequenceNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !BlockSequenceNode methodsFor: 'testing'!
 
@@ -648,7 +657,7 @@ accept: aVisitor
 
 Node subclass: #ValueNode
 	instanceVariableNames: 'value'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ValueNode methodsFor: 'accessing'!
 
@@ -674,7 +683,7 @@ accept: aVisitor
 
 ValueNode subclass: #VariableNode
 	instanceVariableNames: 'assigned'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !VariableNode methodsFor: 'accessing'!
 
@@ -694,7 +703,7 @@ accept: aVisitor
 
 VariableNode subclass: #ClassReferenceNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ClassReferenceNode methodsFor: 'visiting'!
 
@@ -704,7 +713,7 @@ accept: aVisitor
 
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !NodeVisitor methodsFor: 'visiting'!
 
@@ -777,7 +786,7 @@ visitVariableNode: aNode
 
 NodeVisitor subclass: #Compiler
 	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source argVariables'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
 
