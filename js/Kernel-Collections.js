@@ -1165,12 +1165,12 @@ unescape('_removeKey_'),
 smalltalk.method({
 selector: unescape('removeKey%3A'),
 category: 'adding/removing',
-fn: function (aKey) {
+fn: function (aKey){
 var self=this;
-smalltalk.send(self, "_remove_", [aKey]);
+return smalltalk.send(self, "_remove_", [aKey]);
 return self;},
 args: ["aKey"],
-source: unescape('removeKey%3A%20aKey%0A%20%20%20%20self%20remove%3A%20aKey'),
+source: unescape('removeKey%3A%20aKey%0A%20%20%20%20%5Eself%20remove%3A%20aKey'),
 messageSends: ["remove:"],
 referencedClasses: []
 }),
@@ -1441,21 +1441,22 @@ unescape('_removeKey_ifAbsent_'),
 smalltalk.method({
 selector: unescape('removeKey%3AifAbsent%3A'),
 category: 'adding/removing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 
-		var index = self['@keys'].indexOf(aKey);
-		if(index === -1) {
-			return aBlock()
-		} else {
-			self['@keys'].splice(i, 1);
-			self['@values'].splice(i, 1);
-			return aKey
-		};
-	;
+            var index = self['@keys'].indexOf(aKey);
+            if(index === -1) {
+                return aBlock()
+            } else {
+                var value;
+                self['@keys'].splice(index, 1);
+                value = self['@values'].splice(index, 1);
+                return value[0];
+            };
+    ;
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%09%09if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%09%09%09return%20aBlock%28%29%0A%09%09%7D%20else%20%7B%0A%09%09%09self%5B%27@keys%27%5D.splice%28i%2C%201%29%3B%0A%09%09%09self%5B%27@values%27%5D.splice%28i%2C%201%29%3B%0A%09%09%09return%20aKey%0A%09%09%7D%3B%0A%09%3E'),
+source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%20%20%20%20%3C%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20aBlock%28%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20value%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%5B%27@keys%27%5D.splice%28index%2C%201%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%20%3D%20self%5B%27@values%27%5D.splice%28index%2C%201%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20value%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%3E'),
 messageSends: [],
 referencedClasses: []
 }),

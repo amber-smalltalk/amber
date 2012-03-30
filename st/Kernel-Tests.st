@@ -241,6 +241,42 @@ testPrintString
                         	printString)
 !
 
+testRemoveKey
+    | d key |
+
+    d := Dictionary new.
+    d at: 1 put: 2.
+    d at: 2 put: 3.
+    d at: 3 put: 4.
+
+    key := 2.
+
+    self assert: d keys = #(1 2 3).
+
+    d removeKey: key.
+    self assert: d keys = #(1 3).
+    self assert: d values = #(2 4).
+    self deny: (d includesKey: 2)
+!
+
+testRemoveKeyIfAbsent
+    | d key |
+
+    d := Dictionary new.
+    d at: 1 put: 2.
+    d at: 2 put: 3.
+    d at: 3 put: 4.
+
+    key := 2.
+    self assert: (d removeKey: key) = 3.
+
+    key := 3.
+    self assert: (d removeKey: key ifAbsent: [42]) = 4.
+
+    key := 'why'.
+    self assert: (d removeKey: key ifAbsent: [42] ) = 42.
+!
+
 testSize
 	| d |
 

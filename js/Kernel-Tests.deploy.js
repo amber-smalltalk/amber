@@ -336,6 +336,50 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
+unescape('_testRemoveKey'),
+smalltalk.method({
+selector: unescape('testRemoveKey'),
+fn: function (){
+var self=this;
+var d=nil;
+var key=nil;
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(d, "_at_put_", [(3), (4)]);
+(key=(2));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_keys", []), "__eq", [[(1), (2), (3)]])]);
+smalltalk.send(d, "_removeKey_", [key]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_keys", []), "__eq", [[(1), (3)]])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_values", []), "__eq", [[(2), (4)]])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(d, "_includesKey_", [(2)])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+unescape('_testRemoveKeyIfAbsent'),
+smalltalk.method({
+selector: unescape('testRemoveKeyIfAbsent'),
+fn: function (){
+var self=this;
+var d=nil;
+var key=nil;
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(d, "_at_put_", [(3), (4)]);
+(key=(2));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_removeKey_", [key]), "__eq", [(3)])]);
+(key=(3));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_removeKey_ifAbsent_", [key, (function(){return (42);})]), "__eq", [(4)])]);
+(key="why");
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_removeKey_ifAbsent_", [key, (function(){return (42);})]), "__eq", [(42)])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
 unescape('_testSize'),
 smalltalk.method({
 selector: unescape('testSize'),

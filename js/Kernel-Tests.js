@@ -451,6 +451,60 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
+unescape('_testRemoveKey'),
+smalltalk.method({
+selector: unescape('testRemoveKey'),
+category: 'tests',
+fn: function (){
+var self=this;
+var d=nil;
+var key=nil;
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(d, "_at_put_", [(3), (4)]);
+(key=(2));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_keys", []), "__eq", [[(1), (2), (3)]])]);
+smalltalk.send(d, "_removeKey_", [key]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_keys", []), "__eq", [[(1), (3)]])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_values", []), "__eq", [[(2), (4)]])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(d, "_includesKey_", [(2)])]);
+return self;},
+args: [],
+source: unescape('testRemoveKey%0A%20%20%20%20%7C%20d%20key%20%7C%0A%0A%20%20%20%20d%20%3A%3D%20Dictionary%20new.%0A%20%20%20%20d%20at%3A%201%20put%3A%202.%0A%20%20%20%20d%20at%3A%202%20put%3A%203.%0A%20%20%20%20d%20at%3A%203%20put%3A%204.%0A%0A%20%20%20%20key%20%3A%3D%202.%0A%0A%20%20%20%20self%20assert%3A%20d%20keys%20%3D%20%23%281%202%203%29.%0A%0A%20%20%20%20d%20removeKey%3A%20key.%0A%20%20%20%20self%20assert%3A%20d%20keys%20%3D%20%23%281%203%29.%0A%20%20%20%20self%20assert%3A%20d%20values%20%3D%20%23%282%204%29.%0A%20%20%20%20self%20deny%3A%20%28d%20includesKey%3A%202%29'),
+messageSends: ["new", "at:put:", "assert:", unescape("%3D"), "keys", "removeKey:", "values", "deny:", "includesKey:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+unescape('_testRemoveKeyIfAbsent'),
+smalltalk.method({
+selector: unescape('testRemoveKeyIfAbsent'),
+category: 'tests',
+fn: function (){
+var self=this;
+var d=nil;
+var key=nil;
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", [(1), (2)]);
+smalltalk.send(d, "_at_put_", [(2), (3)]);
+smalltalk.send(d, "_at_put_", [(3), (4)]);
+(key=(2));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_removeKey_", [key]), "__eq", [(3)])]);
+(key=(3));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_removeKey_ifAbsent_", [key, (function(){return (42);})]), "__eq", [(4)])]);
+(key="why");
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_removeKey_ifAbsent_", [key, (function(){return (42);})]), "__eq", [(42)])]);
+return self;},
+args: [],
+source: unescape('testRemoveKeyIfAbsent%0A%20%20%20%20%7C%20d%20key%20%7C%0A%0A%20%20%20%20d%20%3A%3D%20Dictionary%20new.%0A%20%20%20%20d%20at%3A%201%20put%3A%202.%0A%20%20%20%20d%20at%3A%202%20put%3A%203.%0A%20%20%20%20d%20at%3A%203%20put%3A%204.%0A%0A%20%20%20%20key%20%3A%3D%202.%0A%20%20%20%20self%20assert%3A%20%28d%20removeKey%3A%20key%29%20%3D%203.%0A%0A%20%20%20%20key%20%3A%3D%203.%0A%20%20%20%20self%20assert%3A%20%28d%20removeKey%3A%20key%20ifAbsent%3A%20%5B42%5D%29%20%3D%204.%0A%0A%20%20%20%20key%20%3A%3D%20%27why%27.%0A%20%20%20%20self%20assert%3A%20%28d%20removeKey%3A%20key%20ifAbsent%3A%20%5B42%5D%20%29%20%3D%2042.'),
+messageSends: ["new", "at:put:", "assert:", unescape("%3D"), "removeKey:", "removeKey:ifAbsent:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
 unescape('_testSize'),
 smalltalk.method({
 selector: unescape('testSize'),

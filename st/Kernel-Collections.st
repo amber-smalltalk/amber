@@ -353,7 +353,7 @@ remove: aKey ifAbsent: aBlock
 !
 
 removeKey: aKey
-    self remove: aKey
+    ^self remove: aKey
 !
 
 removeKey: aKey ifAbsent: aBlock
@@ -534,16 +534,17 @@ values
 !Dictionary methodsFor: 'adding/removing'!
 
 removeKey: aKey ifAbsent: aBlock
-	<
-		var index = self['@keys'].indexOf(aKey);
-		if(index === -1) {
-			return aBlock()
-		} else {
-			self['@keys'].splice(i, 1);
-			self['@values'].splice(i, 1);
-			return aKey
-		};
-	>
+    <
+            var index = self['@keys'].indexOf(aKey);
+            if(index === -1) {
+                return aBlock()
+            } else {
+                var value;
+                self['@keys'].splice(index, 1);
+                value = self['@values'].splice(index, 1);
+                return value[0];
+            };
+    >
 ! !
 
 !Dictionary methodsFor: 'converting'!

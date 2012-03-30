@@ -818,9 +818,9 @@ smalltalk.addMethod(
 unescape('_removeKey_'),
 smalltalk.method({
 selector: unescape('removeKey%3A'),
-fn: function (aKey) {
+fn: function (aKey){
 var self=this;
-smalltalk.send(self, "_remove_", [aKey]);
+return smalltalk.send(self, "_remove_", [aKey]);
 return self;}
 }),
 smalltalk.HashedCollection);
@@ -1019,18 +1019,19 @@ smalltalk.addMethod(
 unescape('_removeKey_ifAbsent_'),
 smalltalk.method({
 selector: unescape('removeKey%3AifAbsent%3A'),
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 
-		var index = self['@keys'].indexOf(aKey);
-		if(index === -1) {
-			return aBlock()
-		} else {
-			self['@keys'].splice(i, 1);
-			self['@values'].splice(i, 1);
-			return aKey
-		};
-	;
+            var index = self['@keys'].indexOf(aKey);
+            if(index === -1) {
+                return aBlock()
+            } else {
+                var value;
+                self['@keys'].splice(index, 1);
+                value = self['@values'].splice(index, 1);
+                return value[0];
+            };
+    ;
 return self;}
 }),
 smalltalk.Dictionary);
