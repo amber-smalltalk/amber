@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Compiler' properties: #{}!
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !NodeVisitor methodsFor: 'visiting'!
 
@@ -74,11 +74,11 @@ visitDynamicDictionaryNode: aNode
 
 Object subclass: #DoIt
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 Object subclass: #Importer
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Importer methodsFor: 'fileIn'!
 
@@ -100,7 +100,7 @@ import: aStream
 
 Object subclass: #Exporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Exporter methodsFor: 'fileOut'!
 
@@ -224,7 +224,7 @@ exportPackageDefinitionOf: package on: aStream
 
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ChunkParser methodsFor: 'accessing'!
 
@@ -265,7 +265,7 @@ on: aStream
 
 Object subclass: #Node
 	instanceVariableNames: 'nodes'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Node methodsFor: 'accessing'!
 
@@ -305,7 +305,7 @@ accept: aVisitor
 
 Node subclass: #SequenceNode
 	instanceVariableNames: 'temps'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !SequenceNode methodsFor: 'accessing'!
 
@@ -334,7 +334,7 @@ accept: aVisitor
 
 Node subclass: #DynamicDictionaryNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !DynamicDictionaryNode methodsFor: 'visiting'!
 
@@ -344,7 +344,7 @@ accept: aVisitor
 
 Node subclass: #ReturnNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ReturnNode methodsFor: 'visiting'!
 
@@ -354,7 +354,7 @@ accept: aVisitor
 
 Node subclass: #ValueNode
 	instanceVariableNames: 'value'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ValueNode methodsFor: 'accessing'!
 
@@ -380,7 +380,7 @@ accept: aVisitor
 
 ValueNode subclass: #VariableNode
 	instanceVariableNames: 'assigned'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !VariableNode methodsFor: 'accessing'!
 
@@ -400,28 +400,28 @@ accept: aVisitor
 
 Exporter subclass: #ChunkExporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ChunkExporter methodsFor: 'not yet classified'!
 
 exportDefinitionOf: aClass on: aStream
-	"Chunk format."
+    "Chunk format."
 
-	aStream 
-	    nextPutAll: (self classNameFor: aClass superclass);
-	    nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
-	    nextPutAll: '	instanceVariableNames: '''.
-	aClass instanceVariableNames 
-	    do: [:each | aStream nextPutAll: each]
-	    separatedBy: [aStream nextPutAll: ' '].
-	aStream	
-	    nextPutAll: ''''; lf;
-	    nextPutAll: '	category: ''', aClass category, '''!!'; lf.
- 	aClass comment notEmpty ifTrue: [
-	    aStream 
-		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
-		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
-	aStream lf
+    aStream 
+        nextPutAll: (self classNameFor: aClass superclass);
+        nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+        nextPutAll: '	instanceVariableNames: '''.
+    aClass instanceVariableNames 
+        do: [:each | aStream nextPutAll: each]
+        separatedBy: [aStream nextPutAll: ' '].
+    aStream 
+        nextPutAll: ''''; lf;
+        nextPutAll: '	package: ''', aClass category, '''!!'; lf.
+    aClass comment notEmpty ifTrue: [
+        aStream 
+        nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+        nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+    aStream lf
 !
 
 exportMethod: aMethod of: aClass on: aStream
@@ -502,7 +502,7 @@ exportPackageDefinitionOf: package on: aStream
 
 VariableNode subclass: #ClassReferenceNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !ClassReferenceNode methodsFor: 'visiting'!
 
@@ -512,7 +512,7 @@ accept: aVisitor
 
 Node subclass: #SendNode
 	instanceVariableNames: 'selector arguments receiver'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !SendNode methodsFor: 'accessing'!
 
@@ -570,7 +570,7 @@ accept: aVisitor
 
 Node subclass: #JSStatementNode
 	instanceVariableNames: 'source'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !JSStatementNode methodsFor: 'accessing'!
 
@@ -590,7 +590,7 @@ accept: aVisitor
 
 Node subclass: #AssignmentNode
 	instanceVariableNames: 'left right'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !AssignmentNode methodsFor: 'accessing'!
 
@@ -619,7 +619,7 @@ accept: aVisitor
 
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !DynamicArrayNode methodsFor: 'visiting'!
 
@@ -629,7 +629,7 @@ accept: aVisitor
 
 NodeVisitor subclass: #Compiler
 	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source argVariables'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
 
@@ -1286,7 +1286,7 @@ recompileAll
 
 SequenceNode subclass: #BlockSequenceNode
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !BlockSequenceNode methodsFor: 'testing'!
 
@@ -1302,7 +1302,7 @@ accept: aVisitor
 
 Node subclass: #BlockNode
 	instanceVariableNames: 'parameters inlined'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !BlockNode methodsFor: 'accessing'!
 
@@ -1336,7 +1336,7 @@ accept: aVisitor
 
 Node subclass: #CascadeNode
 	instanceVariableNames: 'receiver'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !CascadeNode methodsFor: 'accessing'!
 
@@ -1356,7 +1356,7 @@ accept: aVisitor
 
 Node subclass: #MethodNode
 	instanceVariableNames: 'selector arguments source'
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !MethodNode methodsFor: 'accessing'!
 
@@ -1392,7 +1392,7 @@ accept: aVisitor
 
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
-	category: 'Compiler'!
+	package: 'Compiler'!
 
 !StrippedExporter methodsFor: 'private'!
 
