@@ -41,16 +41,24 @@ Objects understand equality  `#=` and identity `#==` comparison.
 
 !Object methodsFor: 'accessing'!
 
-yourself
-	^self
+basicAt: aString
+	<return self[aString]>
+!
+
+basicAt: aString put: anObject
+	<return self[aString] = anObject>
+!
+
+basicDelete: aString
+    <delete self[aString]; return aString>
 !
 
 class
 	<return self.klass>
 !
 
-size
-	self error: 'Object not indexable'
+identityHash
+	<return self.identityHash || (self.identityHash = smalltalk.nextId());>
 !
 
 instVarAt: aSymbol
@@ -65,20 +73,12 @@ instVarAt: aSymbol put: anObject
 	<self['@' + varname] = anObject>
 !
 
-basicAt: aString
-	<return self[aString]>
+size
+	self error: 'Object not indexable'
 !
 
-basicAt: aString put: anObject
-	<return self[aString] = anObject>
-!
-
-basicDelete: aString
-    <delete self[aString]; return aString>
-!
-
-identityHash
-	<return self.identityHash || (self.identityHash = smalltalk.nextId());>
+yourself
+	^self
 ! !
 
 !Object methodsFor: 'comparing'!
@@ -87,12 +87,12 @@ identityHash
 	^self == anObject
 !
 
-~= anObject
-	^(self = anObject) = false
-!
-
 == anObject
 	^self identityHash = anObject identityHash
+!
+
+~= anObject
+	^(self = anObject) = false
 !
 
 ~~ anObject
@@ -105,14 +105,6 @@ identityHash
 	^Association key: self value: anObject
 !
 
-asString
-	^self printString
-!
-
-asJavascript
-	^self asString
-!
-
 asJSON
 	| variables |
 	variables := HashedCollection new.
@@ -123,24 +115,20 @@ asJSON
 
 asJSONString
 	^JSON stringify: self asJSON
+!
+
+asJavascript
+	^self asString
+!
+
+asString
+	^self printString
 ! !
 
 !Object methodsFor: 'copying'!
 
 copy
 	^self shallowCopy postCopy
-!
-
-shallowCopy
-	<
-	    var copy = self.klass._new();
-	    for(var i in self) {
-		if(/^@.+/.test(i)) {
-		    copy[i] = self[i];
-		}
-	    }
-	    return copy;
-	>
 !
 
 deepCopy
@@ -156,25 +144,27 @@ deepCopy
 !
 
 postCopy
+!
+
+shallowCopy
+	<
+	    var copy = self.klass._new();
+	    for(var i in self) {
+		if(/^@.+/.test(i)) {
+		    copy[i] = self[i];
+		}
+	    }
+	    return copy;
+	>
 ! !
 
 !Object methodsFor: 'error handling'!
 
-error: aString
-	Error signal: aString
-!
-
-subclassResponsibility
-	self error: 'This method is a responsibility of a subclass'
-!
-
-shouldNotImplement
-	self error: 'This method should not be implemented in ', self class name
-!
-
-try: aBlock catch: anotherBlock
-	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
-	return result;>
+deprecatedAPI
+	"Just a simple way to deprecate methods.
+	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
+	but it could in the future."
+	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
 !
 
 doesNotUnderstand: aMessage
@@ -184,15 +174,25 @@ doesNotUnderstand: aMessage
 		signal
 !
 
+error: aString
+	Error signal: aString
+!
+
 halt
 	self error: 'Halt encountered'
 !
 
-deprecatedAPI
-	"Just a simple way to deprecate methods.
-	#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,
-	but it could in the future."
-	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
+shouldNotImplement
+	self error: 'This method should not be implemented in ', self class name
+!
+
+subclassResponsibility
+	self error: 'This method is a responsibility of a subclass'
+!
+
+try: aBlock catch: anotherBlock
+	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;>
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -202,31 +202,23 @@ initialize
 
 !Object methodsFor: 'message handling'!
 
-perform: aSymbol
-	^self perform: aSymbol withArguments: #()
-!
-
-perform: aSymbol withArguments: aCollection
-	^self basicPerform: aSymbol asSelector withArguments: aCollection
-!
-
 basicPerform: aSymbol 
 	^self basicPerform: aSymbol withArguments: #()
 !
 
 basicPerform: aSymbol withArguments: aCollection
 	<return self[aSymbol].apply(self, aCollection);>
+!
+
+perform: aSymbol
+	^self perform: aSymbol withArguments: #()
+!
+
+perform: aSymbol withArguments: aCollection
+	^self basicPerform: aSymbol asSelector withArguments: aCollection
 ! !
 
 !Object methodsFor: 'printing'!
-
-printString
-	^'a ', self class name
-!
-
-printNl
-	<console.log(self)>
-!
 
 log: aString block: aBlock
 
@@ -235,28 +227,26 @@ log: aString block: aBlock
 	^result
 !
 
+printNl
+	<console.log(self)>
+!
+
+printString
+	^'a ', self class name
+!
+
+storeOn: aStream
+	aStream nextPutAll: self printString
+!
+
 storeString
 	"Answer a String representation of the receiver from which the receiver 
 	can be reconstructed."
 
 	^ String streamContents: [:s | self storeOn: s]
-!
-
-storeOn: aStream
-	aStream nextPutAll: self printString
 ! !
 
 !Object methodsFor: 'testing'!
-
-isKindOf: aClass
-	^(self isMemberOf: aClass)
-	    ifTrue: [true]
-	    ifFalse: [self class inheritsFrom: aClass]
-!
-
-isMemberOf: aClass
-	^self class = aClass
-!
 
 ifNil: aBlock
 	"inlined in the Compiler"
@@ -278,27 +268,29 @@ ifNotNil: aBlock ifNil: anotherBlock
 	^aBlock value
 !
 
-isNil
-	^false
-!
-
-notNil
-	^self isNil not
-!
-
 isClass
 	^false
+!
+
+isKindOf: aClass
+	^(self isMemberOf: aClass)
+	    ifTrue: [true]
+	    ifFalse: [self class inheritsFrom: aClass]
+!
+
+isMemberOf: aClass
+	^self class = aClass
 !
 
 isMetaclass
 	^false
 !
 
-isNumber
+isNil
 	^false
 !
 
-isString
+isNumber
 	^false
 !
 
@@ -306,631 +298,22 @@ isParseFailure
 	^false
 !
 
+isString
+	^false
+!
+
 isSymbol
 	^false
+!
+
+notNil
+	^self isNil not
 ! !
 
 !Object class methodsFor: 'initialization'!
 
 initialize
 	"no op"
-! !
-
-Object subclass: #Smalltalk
-	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
-!Smalltalk commentStamp!
-Smalltalk has only one instance, accessed with `Smalltalk current`. 
-It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
-
-The `smalltalk` object holds all class and packages defined in the system.
-
-## Classes
-
-Classes can be accessed using the following methods:
-
-- `#classes` answers the full list of Smalltalk classes in the system
-- `#at:` answers a specific class of `nil`
-
-## Packages
-
-Packages can be accessed using the following methods:
-
-- `#packages` answers the full list of packages
-- `#packageAt:` answers a specific class of `nil`
-
-__note:__ classes and packages are accessed using strings, not symbols
-
-## Parsing
-
-The `#parse:` method is used to parse Smalltalk source code. 
-It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
-
-!Smalltalk methodsFor: 'accessing'!
-
-classes
-	<return self.classes()>
-!
-
-at: aString
-	<return self[aString]>
-!
-
-basicParse: aString
-	<return smalltalk.parser.parse(aString)>
-!
-
-parse: aString
-	| result | 
-	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
-	^result
-!
-
-parseError: anException parsing: aString
-	| row col message lines badLine code |
-	<row = anException.line;
-	col = anException.column;
-	message = anException.message;>.
-	lines := aString lines.
-	badLine := lines at: row.
-	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
-	lines at: row put: badLine.
-	code := String streamContents: [:s |
-                  lines withIndexDo: [:l :i |
-                     s nextPutAll: i asString, ': ', l, String lf]].
-	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
-!
-
-reservedWords
-	"JavaScript reserved words"
-	<return self.reservedWords>
-!
-
-readJSObject: anObject
-	<return self.readJSObject(anObject)>
-!
-
-send: aSelector to: anObject arguments: aCollection
-	| selector |
-	selector := aSelector asString asSelector.
-	<self.send(anObject, selector, aCollection)>
-! !
-
-!Smalltalk methodsFor: 'classes'!
-
-removeClass: aClass
-	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
-	aClass methodDictionary values do: [:each |
-		aClass removeCompiledMethod: each].
-	aClass class methodDictionary values do: [:each |
-		aClass class removeCompiledMethod: each].
-	self basicDelete: aClass name
-! !
-
-!Smalltalk methodsFor: 'packages'!
-
-packages
-	"Return all Package instances in the system."
-
-	<return self.packages.all()>
-!
-
-packageAt: packageName
-       <return self.packages[packageName]>
-!
-
-packageAt: packageName ifAbsent: aBlock
-       ^(self packageAt: packageName) ifNil: aBlock
-!
-
-removePackage: packageName
-	"Removes a package and all its classes."
-
-	| pkg |
-	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
-	pkg classes do: [:each |
-        	self removeClass: each].
-	self deletePackage: packageName
-!
-
-renamePackage: packageName to: newName
-	"Rename a package."
-
-	| pkg |
-	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
-	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
-	pkg name: newName.
-	self deletePackage: packageName.
-! !
-
-!Smalltalk methodsFor: 'private'!
-
-createPackage: packageName
-	"Create and bind a new package with given name and return it."
-
-      <return smalltalk.addPackage(packageName, nil)>
-!
-
-deletePackage: packageName
-	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
-	To remove a package, use #removePackage instead."
-
-       <delete smalltalk.packages[packageName]>
-!
-
-createPackage: packageName properties: aDict
-	"Create and bind a new package with given name and return it."
-
-	| object |
-	<object = {};>.
-	aDict keysAndValuesDo: [:key :value |
-		<object[key] = value>.
-	].
-       <return smalltalk.addPackage(packageName, object)>
-! !
-
-Smalltalk class instanceVariableNames: 'current'!
-
-!Smalltalk class methodsFor: 'accessing'!
-
-current
-	<return smalltalk>
-! !
-
-Object subclass: #Package
-	instanceVariableNames: 'commitPathJs commitPathSt'
-	category: 'Kernel-Objects'!
-!Package commentStamp!
-A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
-
-A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
-Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
-
-	Smalltalk current packageAt: 'Kernel'
-
-...but you can also use:
-
-	Package named: 'Kernel'
-
-A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
-can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
-String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.
-
-You can fetch a package from the server:
-
-	Package fetch: 'Additional-Examples'!
-
-!Package methodsFor: 'accessing'!
-
-name
-	<return self.pkgName>
-!
-
-name: aString
-	<self.pkgName = aString>
-!
-
-dependencies
-	^self propertyAt: 'dependencies' ifAbsent: [#()]
-!
-
-dependencies: anArray
-	^self propertyAt: 'dependencies' put: anArray
-!
-
-properties
-	^Smalltalk current readJSObject: (self basicAt: 'properties')
-!
-
-properties: aDict
-	"We store it as a javascript object."
-	
-	| object |
-	<object = {};>.
-	aDict keysAndValuesDo: [:key :value |
-		<object[key] = value>.
-	].
-	<return self.properties = object>
-!
-
-commitPathJs
-	^ commitPathJs ifNil: [self class defaultCommitPathJs]
-!
-
-commitPathJs: aString
-	commitPathJs := aString
-!
-
-commitPathSt
-	^ commitPathSt ifNil: [self class defaultCommitPathSt]
-!
-
-commitPathSt: aString
-	commitPathSt := aString
-! !
-
-!Package methodsFor: 'classes'!
-
-classes
-	"We need to do a reverse scan."
-	^Smalltalk current classes select: [:c | c package == self]
-!
-
-sortedClasses
-	"Answer all classes in the receiver, sorted by superclass/subclasses"
-	
-	^self classes inject: #() into: [:acc :each | 
-		acc isEmpty 
-			ifTrue: [acc add: each; yourself]
-			ifFalse: [(acc includes: each superclass)
-				ifTrue: [acc add: each; yourself]
-				ifFalse: [{each}, acc]]]
-! !
-
-!Package methodsFor: 'printing'!
-
-printString
-	^self name
-! !
-
-!Package methodsFor: 'private'!
-
-propertiesAsJSON
-	<return JSON.stringify(self.properties)>
-!
-
-jsProperties
-	<return self.properties>
-!
-
-jsProperties: aJSObject
-	<return self.properties = aJSObject>
-! !
-
-!Package methodsFor: 'properties'!
-
-propertyAt: key
-
-	<return self.properties[key]>
-!
-
-propertyAt: key put: value
-
-	<return self.properties[key] = value>
-!
-
-propertyAt: key ifAbsent: block
-
-	^(self propertyAt: key) ifNil: [block value]
-! !
-
-Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
-
-!Package class methodsFor: 'commit paths'!
-
-defaultCommitPathJs
-	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
-!
-
-defaultCommitPathJs: aString
-	defaultCommitPathJs := aString
-!
-
-defaultCommitPathSt
-	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
-!
-
-defaultCommitPathSt: aString
-	defaultCommitPathSt := aString
-!
-
-resetCommitPaths
-        defaultCommitPathJs := nil.
-        defaultCommitPathSt := nil.
-! !
-
-!Package class methodsFor: 'loading-storing'!
-
-fetch: aPackageName prefix: aPrefix
-	jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]
-!
-
-fetch: aPackageName
-	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
-!
-
-commitToLocalStorage: aPackageName
-	| key sourceCode |
-	key := 'smalltalk.packages.' , aPackageName.
-	sourceCode := Exporter new exportPackage: aPackageName.
-	<localStorage[key] = escape(sourceCode)>
-!
-
-init: aPackageName
-	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
-		do: [ :each | <smalltalk.init(each)> ];
-		do: [ :each | each initialize ]
-! !
-
-!Package class methodsFor: 'not yet classified'!
-
-named: aPackageName
-
-	^Smalltalk current packageAt: aPackageName
-!
-
-named: aPackageName ifAbsent: aBlock
-
-	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
-! !
-
-Object subclass: #Number
-	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
-!Number commentStamp!
-Number holds the most general methods for dealing with numbers.  
-Number is directly mapped to JavaScript Number.
-
-Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript. 
-
-##Enumerating
-A Number can be used to evaluate a Block a fixed number of times:
-
-	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
-	
-	1 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].
-	
-	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
-
-!Number methodsFor: 'accessing'!
-
-identityHash
-	^self asString, 'n'
-! !
-
-!Number methodsFor: 'arithmetic'!
-
-+ aNumber
-	"Inlined in the Compiler"
-	<return self + aNumber>
-!
-
-- aNumber
-	"Inlined in the Compiler"
-	<return self - aNumber>
-!
-
-* aNumber
-	"Inlined in the Compiler"
-	<return self * aNumber>
-!
-
-/ aNumber
-	"Inlined in the Compiler"
-	<return self / aNumber>
-!
-
-max: aNumber
-	<return Math.max(self, aNumber);>
-!
-
-min: aNumber
-	<return Math.min(self, aNumber);>
-!
-
-negated
-	^0 - self
-!
-
-\\ aNumber
-	<return self % aNumber>
-!
-
-sqrt
-	<return Math.sqrt(self)>
-!
-
-squared
-	^self * self
-! !
-
-!Number methodsFor: 'comparing'!
-
-= aNumber
-	aNumber isNumber ifFalse: [^false]. 
-	<return Number(self) == aNumber>
-!
-
-> aNumber
-	"Inlined in the Compiler"
-	<return self >> aNumber>
-!
-
-< aNumber
-	"Inlined in the Compiler"
-	<return self < aNumber>
-!
-
->= aNumber
-	"Inlined in the Compiler"
-	<return self >>= aNumber>
-!
-
-<= aNumber
-	"Inlined in the Compiler"
-	<return self <= aNumber>
-! !
-
-!Number methodsFor: 'converting'!
-
-rounded
-	<return Math.round(self);>
-!
-
-truncated
-|result|
-
-    self >= 0 
-        ifTrue: [<result = Math.floor(self);>]
-        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
-
-    ^ result
-!
-
-to: aNumber
-	| array first last count |
-	first := self truncated.
-	last := aNumber truncated + 1.
-	count := 1.
-	array := Array new.
-	(last - first) timesRepeat: [
-	    array at: count put: first.
-	    count := count + 1.
-	    first := first + 1].
-	^array
-!
-
-asString
-	^self printString
-!
-
-asJavascript
-	^'(', self printString, ')'
-!
-
-atRandom
-    ^(Random new next * self) truncated + 1
-!
-
-@ aNumber
-	^Point x: self y: aNumber
-!
-
-asPoint
-	^Point x: self y: self
-!
-
-to: stop by: step
-	| array value pos |
-	value := self.
-	array := Array new.
-	pos := 1.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
-	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
-	    			array at: pos put: value.
-	    			pos := pos + 1.
-	    			value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
-	    			array at: pos put: value.
-	  			pos := pos + 1.
-	    			value := value + step]].
-	^array
-!
-
-asJSON
-	^self
-! !
-
-!Number methodsFor: 'copying'!
-
-deepCopy
-	^self copy
-!
-
-copy
-	^self
-! !
-
-!Number methodsFor: 'enumerating'!
-
-timesRepeat: aBlock
-	| integer count |
-	integer := self truncated.
-	count := 1.
-	[count > self] whileFalse: [
-	    aBlock value.
-	    count := count + 1]
-!
-
-to: stop do: aBlock
-	"Evaluate aBlock for each number from self to aNumber."
-	| nextValue |
-	nextValue := self.
-	[nextValue <= stop]
-		whileTrue: 
-			[aBlock value: nextValue.
-			nextValue := nextValue + 1]
-!
-
-to: stop by: step do: aBlock
-	| value |
-	value := self.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
-	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
-	    			aBlock value: value.
-	    			value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
-	    			aBlock value: value.
-	    			value := value + step]]
-! !
-
-!Number methodsFor: 'printing'!
-
-printString
-	<return String(self)>
-!
-
-printShowingDecimalPlaces: placesDesired
-	<return self.toFixed(placesDesired)>
-! !
-
-!Number methodsFor: 'testing'!
-
-isNumber
-	^true
-!
-
-even
-	^ 0 = (self \\ 2)
-!
-
-odd
-	^ self even not
-!
-
-negative
-	"Answer whether the receiver is mathematically negative."
-
-	^ self < 0
-!
-
-positive
-	"Answer whether the receiver is positive or equal to 0. (ST-80 protocol)."
-
-	^ self >= 0
-!
-
-isZero
-	^self = 0
-! !
-
-!Number methodsFor: 'timeouts/intervals'!
-
-clearInterval
-	<clearInterval(Number(self))>
-!
-
-clearTimeout
-	<clearTimeout(Number(self))>
-! !
-
-!Number class methodsFor: 'instance creation'!
-
-pi
-	<return Math.PI>
 ! !
 
 Object subclass: #Boolean
@@ -951,9 +334,20 @@ Boolean instances are weither `true` or `false`.!
 
 !Boolean methodsFor: 'controlling'!
 
-ifTrue: aBlock
-	"inlined in the Compiler"
-	^self ifTrue: aBlock ifFalse: []
+& aBoolean
+	<
+	    if(self == true) {
+		return aBoolean;
+	    } else {
+		return false;
+	    }
+	>
+!
+
+and: aBlock
+	^self = true
+	    ifTrue: aBlock
+	    ifFalse: [false]
 !
 
 ifFalse: aBlock
@@ -964,6 +358,11 @@ ifFalse: aBlock
 ifFalse: aBlock ifTrue: anotherBlock
 	"inlined in the Compiler"
 	^self ifTrue: anotherBlock ifFalse: aBlock
+!
+
+ifTrue: aBlock
+	"inlined in the Compiler"
+	^self ifTrue: aBlock ifFalse: []
 !
 
 ifTrue: aBlock ifFalse: anotherBlock
@@ -977,30 +376,14 @@ ifTrue: aBlock ifFalse: anotherBlock
 	>
 !
 
-and: aBlock
-	^self = true
-	    ifTrue: aBlock
-	    ifFalse: [false]
+not
+	^self = false
 !
 
 or: aBlock
 	^self = true
 	    ifTrue: [true]
 	    ifFalse: aBlock
-!
-
-not
-	^self = false
-!
-
-& aBoolean
-	<
-	    if(self == true) {
-		return aBoolean;
-	    } else {
-		return false;
-	    }
-	>
 !
 
 | aBoolean
@@ -1021,11 +404,11 @@ asJSON
 
 !Boolean methodsFor: 'copying'!
 
-shallowCopy
+deepCopy
 	^self
 !
 
-deepCopy
+shallowCopy
 	^self
 ! !
 
@@ -1046,36 +429,12 @@ Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are J
 
 !Date methodsFor: 'accessing'!
 
-year
-	<return self.getFullYear()>
-!
-
-month
-	<return self.getMonth() + 1>
-!
-
-month: aNumber
-	<self.setMonth(aNumber - 1)>
-!
-
 day
 	^self dayOfWeek
 !
 
-dayOfWeek
-	<return self.getDay() + 1>
-!
-
-dayOfWeek: aNumber
-	<return self.setDay(aNumber - 1)>
-!
-
 day: aNumber
 	self day: aNumber
-!
-
-year: aNumber
-	<self.setFullYear(aNumber)>
 !
 
 dayOfMonth
@@ -1086,6 +445,54 @@ dayOfMonth: aNumber
 	<self.setDate(aNumber)>
 !
 
+dayOfWeek
+	<return self.getDay() + 1>
+!
+
+dayOfWeek: aNumber
+	<return self.setDay(aNumber - 1)>
+!
+
+hours
+	<return self.getHours()>
+!
+
+hours: aNumber
+	<self.setHours(aNumber)>
+!
+
+milliseconds
+	<return self.getMilliseconds()>
+!
+
+milliseconds: aNumber
+	<self.setMilliseconds(aNumber)>
+!
+
+minutes
+	<return self.getMinutes()>
+!
+
+minutes: aNumber
+	<self.setMinutes(aNumber)>
+!
+
+month
+	<return self.getMonth() + 1>
+!
+
+month: aNumber
+	<self.setMonth(aNumber - 1)>
+!
+
+seconds
+	<return self.getSeconds()>
+!
+
+seconds: aNumber
+	<self.setSeconds(aNumber)>
+!
+
 time
 	<return self.getTime()>
 !
@@ -1094,46 +501,22 @@ time: aNumber
 	<self.setTime(aNumber)>
 !
 
-hours: aNumber
-	<self.setHours(aNumber)>
+year
+	<return self.getFullYear()>
 !
 
-minutes: aNumber
-	<self.setMinutes(aNumber)>
-!
-
-seconds: aNumber
-	<self.setSeconds(aNumber)>
-!
-
-milliseconds: aNumber
-	<self.setMilliseconds(aNumber)>
-!
-
-hours
-	<return self.getHours()>
-!
-
-minutes
-	<return self.getMinutes()>
-!
-
-seconds
-	<return self.getSeconds()>
-!
-
-milliseconds
-	<return self.getMilliseconds()>
+year: aNumber
+	<self.setFullYear(aNumber)>
 ! !
 
 !Date methodsFor: 'arithmetic'!
 
-- aDate
-	<return self - aDate>
-!
-
 + aDate
 	<return self + aDate>
+!
+
+- aDate
+	<return self - aDate>
 ! !
 
 !Date methodsFor: 'comparing'!
@@ -1142,12 +525,12 @@ milliseconds
 	<return self < aDate>
 !
 
-> aDate
-	<return self >> aDate>
-!
-
 <= aDate
 	<return self <= aDate>
+!
+
+> aDate
+	<return self >> aDate>
 !
 
 >= aDate
@@ -1156,28 +539,28 @@ milliseconds
 
 !Date methodsFor: 'converting'!
 
-asString
-	<return self.toString()>
-!
-
-asMilliseconds
-	^self time
-!
-
 asDateString
 	<return self.toDateString()>
-!
-
-asTimeString
-	<return self.toTimeString()>
 !
 
 asLocaleString
 	<return self.toLocaleString()>
 !
 
+asMilliseconds
+	^self time
+!
+
 asNumber
 	^self asMilliseconds
+!
+
+asString
+	<return self.toString()>
+!
+
+asTimeString
+	<return self.toTimeString()>
 ! !
 
 !Date methodsFor: 'printing'!
@@ -1188,8 +571,12 @@ printString
 
 !Date class methodsFor: 'instance creation'!
 
-new: anObject
-	<return new Date(anObject)>
+fromMilliseconds: aNumber
+	^self new: aNumber
+!
+
+fromSeconds: aNumber
+	^self fromMilliseconds: aNumber * 1000
 !
 
 fromString: aString
@@ -1197,110 +584,23 @@ fromString: aString
 	^self new: aString
 !
 
-fromSeconds: aNumber
-	^self fromMilliseconds: aNumber * 1000
+millisecondsToRun: aBlock
+	| t |
+	t := Date now.
+	aBlock value.
+	^Date now - t
 !
 
-fromMilliseconds: aNumber
-	^self new: aNumber
-!
-
-today
-	^self new
+new: anObject
+	<return new Date(anObject)>
 !
 
 now
 	^self today
 !
 
-millisecondsToRun: aBlock
-	| t |
-	t := Date now.
-	aBlock value.
-	^Date now - t
-! !
-
-Object subclass: #UndefinedObject
-	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
-!UndefinedObject commentStamp!
-UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
-
-`nil` is the Smalltalk representation of the `undefined` JavaScript object.!
-
-!UndefinedObject methodsFor: 'class creation'!
-
-subclass: aString instanceVariableNames: anotherString
-	^self subclass: aString instanceVariableNames: anotherString package: nil
-!
-
-subclass: aString instanceVariableNames: aString2 category: aString3
-	"Kept for compatibility."
-	self deprecatedAPI.
-	^self subclass: aString instanceVariableNames: aString2 package: aString3
-!
-
-subclass: aString instanceVariableNames: aString2 package: aString3
-	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
-! !
-
-!UndefinedObject methodsFor: 'converting'!
-
-asJSON
-	^null
-! !
-
-!UndefinedObject methodsFor: 'copying'!
-
-shallowCopy
-	^self
-!
-
-deepCopy
-	^self
-! !
-
-!UndefinedObject methodsFor: 'printing'!
-
-printString
-    ^'nil'
-! !
-
-!UndefinedObject methodsFor: 'testing'!
-
-ifNil: aBlock
-	"inlined in the Compiler"
-	^self ifNil: aBlock ifNotNil: []
-!
-
-ifNotNil: aBlock
-	"inlined in the Compiler"
-	^self
-!
-
-ifNil: aBlock ifNotNil: anotherBlock
-	"inlined in the Compiler"
-	^aBlock value
-!
-
-ifNotNil: aBlock ifNil: anotherBlock
-	"inlined in the Compiler"
-	^anotherBlock value
-!
-
-isNil
-	^true
-!
-
-notNil
-	^false
-! !
-
-!UndefinedObject class methodsFor: 'instance creation'!
-
-new
-	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
+today
+	^self new
 ! !
 
 Object subclass: #Date
@@ -1314,36 +614,12 @@ Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are J
 
 !Date methodsFor: 'accessing'!
 
-year
-	<return self.getFullYear()>
-!
-
-month
-	<return self.getMonth() + 1>
-!
-
-month: aNumber
-	<self.setMonth(aNumber - 1)>
-!
-
 day
 	^self dayOfWeek
 !
 
-dayOfWeek
-	<return self.getDay() + 1>
-!
-
-dayOfWeek: aNumber
-	<return self.setDay(aNumber - 1)>
-!
-
 day: aNumber
 	self day: aNumber
-!
-
-year: aNumber
-	<self.setFullYear(aNumber)>
 !
 
 dayOfMonth
@@ -1354,6 +630,54 @@ dayOfMonth: aNumber
 	<self.setDate(aNumber)>
 !
 
+dayOfWeek
+	<return self.getDay() + 1>
+!
+
+dayOfWeek: aNumber
+	<return self.setDay(aNumber - 1)>
+!
+
+hours
+	<return self.getHours()>
+!
+
+hours: aNumber
+	<self.setHours(aNumber)>
+!
+
+milliseconds
+	<return self.getMilliseconds()>
+!
+
+milliseconds: aNumber
+	<self.setMilliseconds(aNumber)>
+!
+
+minutes
+	<return self.getMinutes()>
+!
+
+minutes: aNumber
+	<self.setMinutes(aNumber)>
+!
+
+month
+	<return self.getMonth() + 1>
+!
+
+month: aNumber
+	<self.setMonth(aNumber - 1)>
+!
+
+seconds
+	<return self.getSeconds()>
+!
+
+seconds: aNumber
+	<self.setSeconds(aNumber)>
+!
+
 time
 	<return self.getTime()>
 !
@@ -1362,46 +686,22 @@ time: aNumber
 	<self.setTime(aNumber)>
 !
 
-hours: aNumber
-	<self.setHours(aNumber)>
+year
+	<return self.getFullYear()>
 !
 
-minutes: aNumber
-	<self.setMinutes(aNumber)>
-!
-
-seconds: aNumber
-	<self.setSeconds(aNumber)>
-!
-
-milliseconds: aNumber
-	<self.setMilliseconds(aNumber)>
-!
-
-hours
-	<return self.getHours()>
-!
-
-minutes
-	<return self.getMinutes()>
-!
-
-seconds
-	<return self.getSeconds()>
-!
-
-milliseconds
-	<return self.getMilliseconds()>
+year: aNumber
+	<self.setFullYear(aNumber)>
 ! !
 
 !Date methodsFor: 'arithmetic'!
 
-- aDate
-	<return self - aDate>
-!
-
 + aDate
 	<return self + aDate>
+!
+
+- aDate
+	<return self - aDate>
 ! !
 
 !Date methodsFor: 'comparing'!
@@ -1410,12 +710,12 @@ milliseconds
 	<return self < aDate>
 !
 
-> aDate
-	<return self >> aDate>
-!
-
 <= aDate
 	<return self <= aDate>
+!
+
+> aDate
+	<return self >> aDate>
 !
 
 >= aDate
@@ -1424,28 +724,28 @@ milliseconds
 
 !Date methodsFor: 'converting'!
 
-asString
-	<return self.toString()>
-!
-
-asMilliseconds
-	^self time
-!
-
 asDateString
 	<return self.toDateString()>
-!
-
-asTimeString
-	<return self.toTimeString()>
 !
 
 asLocaleString
 	<return self.toLocaleString()>
 !
 
+asMilliseconds
+	^self time
+!
+
 asNumber
 	^self asMilliseconds
+!
+
+asString
+	<return self.toString()>
+!
+
+asTimeString
+	<return self.toTimeString()>
 ! !
 
 !Date methodsFor: 'printing'!
@@ -1456,8 +756,12 @@ printString
 
 !Date class methodsFor: 'instance creation'!
 
-new: anObject
-	<return new Date(anObject)>
+fromMilliseconds: aNumber
+	^self new: aNumber
+!
+
+fromSeconds: aNumber
+	^self fromMilliseconds: aNumber * 1000
 !
 
 fromString: aString
@@ -1465,27 +769,23 @@ fromString: aString
 	^self new: aString
 !
 
-fromSeconds: aNumber
-	^self fromMilliseconds: aNumber * 1000
+millisecondsToRun: aBlock
+	| t |
+	t := Date now.
+	aBlock value.
+	^Date now - t
 !
 
-fromMilliseconds: aNumber
-	^self new: aNumber
-!
-
-today
-	^self new
+new: anObject
+	<return new Date(anObject)>
 !
 
 now
 	^self today
 !
 
-millisecondsToRun: aBlock
-	| t |
-	t := Date now.
-	aBlock value.
-	^Date now - t
+today
+	^self new
 ! !
 
 Object subclass: #JSObjectProxy
@@ -1516,14 +816,6 @@ __Note:__ For keyword-based messages, only the first keyword is kept: `window fo
 
 !JSObjectProxy methodsFor: 'accessing'!
 
-jsObject: aJSObject
-	jsObject := aJSObject
-!
-
-jsObject
-	^jsObject
-!
-
 at: aSymbol
 	| attr |
 	attr := aSymbol asString.
@@ -1534,12 +826,26 @@ at: aSymbol put: anObject
 	| attr |
 	attr := aSymbol asString.
 	<self['@jsObject'][attr] = anObject>
+!
+
+jsObject
+	^jsObject
+!
+
+jsObject: aJSObject
+	jsObject := aJSObject
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!
 
-printString
-	^self jsObject toString
+doesNotUnderstand: aMessage
+	| obj selector jsSelector arguments |
+	obj := self jsObject.
+	selector := aMessage selector.
+	jsSelector := selector asJavaScriptSelector.
+	arguments := aMessage arguments.
+	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
+	super doesNotUnderstand: aMessage
 !
 
 inspectOn: anInspector
@@ -1553,14 +859,8 @@ inspectOn: anInspector
 	anInspector setVariables: variables
 !
 
-doesNotUnderstand: aMessage
-	| obj selector jsSelector arguments |
-	obj := self jsObject.
-	selector := aMessage selector.
-	jsSelector := selector asJavaScriptSelector.
-	arguments := aMessage arguments.
-	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
-	super doesNotUnderstand: aMessage
+printString
+	^self jsObject toString
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
@@ -1569,6 +869,477 @@ on: aJSObject
 	^self new
 		jsObject: aJSObject;
 		yourself
+! !
+
+Object subclass: #Number
+	instanceVariableNames: ''
+	category: 'Kernel-Objects'!
+!Number commentStamp!
+Number holds the most general methods for dealing with numbers.  
+Number is directly mapped to JavaScript Number.
+
+Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript. 
+
+##Enumerating
+A Number can be used to evaluate a Block a fixed number of times:
+
+	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
+	
+	1 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].
+	
+	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
+
+!Number methodsFor: 'accessing'!
+
+identityHash
+	^self asString, 'n'
+! !
+
+!Number methodsFor: 'arithmetic'!
+
+* aNumber
+	"Inlined in the Compiler"
+	<return self * aNumber>
+!
+
++ aNumber
+	"Inlined in the Compiler"
+	<return self + aNumber>
+!
+
+- aNumber
+	"Inlined in the Compiler"
+	<return self - aNumber>
+!
+
+/ aNumber
+	"Inlined in the Compiler"
+	<return self / aNumber>
+!
+
+\\ aNumber
+	<return self % aNumber>
+!
+
+max: aNumber
+	<return Math.max(self, aNumber);>
+!
+
+min: aNumber
+	<return Math.min(self, aNumber);>
+!
+
+negated
+	^0 - self
+!
+
+sqrt
+	<return Math.sqrt(self)>
+!
+
+squared
+	^self * self
+! !
+
+!Number methodsFor: 'comparing'!
+
+< aNumber
+	"Inlined in the Compiler"
+	<return self < aNumber>
+!
+
+<= aNumber
+	"Inlined in the Compiler"
+	<return self <= aNumber>
+!
+
+= aNumber
+	aNumber isNumber ifFalse: [^false]. 
+	<return Number(self) == aNumber>
+!
+
+> aNumber
+	"Inlined in the Compiler"
+	<return self >> aNumber>
+!
+
+>= aNumber
+	"Inlined in the Compiler"
+	<return self >>= aNumber>
+! !
+
+!Number methodsFor: 'converting'!
+
+@ aNumber
+	^Point x: self y: aNumber
+!
+
+asJSON
+	^self
+!
+
+asJavascript
+	^'(', self printString, ')'
+!
+
+asPoint
+	^Point x: self y: self
+!
+
+asString
+	^self printString
+!
+
+atRandom
+    ^(Random new next * self) truncated + 1
+!
+
+rounded
+	<return Math.round(self);>
+!
+
+to: aNumber
+	| array first last count |
+	first := self truncated.
+	last := aNumber truncated + 1.
+	count := 1.
+	array := Array new.
+	(last - first) timesRepeat: [
+	    array at: count put: first.
+	    count := count + 1.
+	    first := first + 1].
+	^array
+!
+
+to: stop by: step
+	| array value pos |
+	value := self.
+	array := Array new.
+	pos := 1.
+	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step < 0
+		ifTrue: [[ value >= stop ] whileTrue: [
+	    			array at: pos put: value.
+	    			pos := pos + 1.
+	    			value := value + step]]
+		ifFalse: [[ value <= stop ] whileTrue: [
+	    			array at: pos put: value.
+	  			pos := pos + 1.
+	    			value := value + step]].
+	^array
+!
+
+truncated
+|result|
+
+    self >= 0 
+        ifTrue: [<result = Math.floor(self);>]
+        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
+
+    ^ result
+! !
+
+!Number methodsFor: 'copying'!
+
+copy
+	^self
+!
+
+deepCopy
+	^self copy
+! !
+
+!Number methodsFor: 'enumerating'!
+
+timesRepeat: aBlock
+	| integer count |
+	integer := self truncated.
+	count := 1.
+	[count > self] whileFalse: [
+	    aBlock value.
+	    count := count + 1]
+!
+
+to: stop by: step do: aBlock
+	| value |
+	value := self.
+	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step < 0
+		ifTrue: [[ value >= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
+		ifFalse: [[ value <= stop ] whileTrue: [
+	    			aBlock value: value.
+	    			value := value + step]]
+!
+
+to: stop do: aBlock
+	"Evaluate aBlock for each number from self to aNumber."
+	| nextValue |
+	nextValue := self.
+	[nextValue <= stop]
+		whileTrue: 
+			[aBlock value: nextValue.
+			nextValue := nextValue + 1]
+! !
+
+!Number methodsFor: 'printing'!
+
+printShowingDecimalPlaces: placesDesired
+	<return self.toFixed(placesDesired)>
+!
+
+printString
+	<return String(self)>
+! !
+
+!Number methodsFor: 'testing'!
+
+even
+	^ 0 = (self \\ 2)
+!
+
+isNumber
+	^true
+!
+
+isZero
+	^self = 0
+!
+
+negative
+	"Answer whether the receiver is mathematically negative."
+
+	^ self < 0
+!
+
+odd
+	^ self even not
+!
+
+positive
+	"Answer whether the receiver is positive or equal to 0. (ST-80 protocol)."
+
+	^ self >= 0
+! !
+
+!Number methodsFor: 'timeouts/intervals'!
+
+clearInterval
+	<clearInterval(Number(self))>
+!
+
+clearTimeout
+	<clearTimeout(Number(self))>
+! !
+
+!Number class methodsFor: 'instance creation'!
+
+pi
+	<return Math.PI>
+! !
+
+Object subclass: #Package
+	instanceVariableNames: 'commitPathJs commitPathSt'
+	category: 'Kernel-Objects'!
+!Package commentStamp!
+A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
+
+A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
+Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
+
+	Smalltalk current packageAt: 'Kernel'
+
+...but you can also use:
+
+	Package named: 'Kernel'
+
+A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
+can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
+String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.
+
+You can fetch a package from the server:
+
+	Package fetch: 'Additional-Examples'!
+
+!Package methodsFor: 'accessing'!
+
+commitPathJs
+	^ commitPathJs ifNil: [self class defaultCommitPathJs]
+!
+
+commitPathJs: aString
+	commitPathJs := aString
+!
+
+commitPathSt
+	^ commitPathSt ifNil: [self class defaultCommitPathSt]
+!
+
+commitPathSt: aString
+	commitPathSt := aString
+!
+
+dependencies
+	^self propertyAt: 'dependencies' ifAbsent: [#()]
+!
+
+dependencies: anArray
+	^self propertyAt: 'dependencies' put: anArray
+!
+
+name
+	<return self.pkgName>
+!
+
+name: aString
+	<self.pkgName = aString>
+!
+
+properties
+	^Smalltalk current readJSObject: (self basicAt: 'properties')
+!
+
+properties: aDict
+	"We store it as a javascript object."
+	
+	| object |
+	<object = {};>.
+	aDict keysAndValuesDo: [:key :value |
+		<object[key] = value>.
+	].
+	<return self.properties = object>
+! !
+
+!Package methodsFor: 'classes'!
+
+classes
+	"We need to do a reverse scan."
+	^Smalltalk current classes select: [:c | c package == self]
+!
+
+sortedClasses
+	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
+
+	^self class sortedClasses: self classes
+! !
+
+!Package methodsFor: 'printing'!
+
+printString
+	^self name
+! !
+
+!Package methodsFor: 'private'!
+
+jsProperties
+	<return self.properties>
+!
+
+jsProperties: aJSObject
+	<return self.properties = aJSObject>
+!
+
+propertiesAsJSON
+	<return JSON.stringify(self.properties)>
+! !
+
+!Package methodsFor: 'properties'!
+
+propertyAt: key
+
+	<return self.properties[key]>
+!
+
+propertyAt: key ifAbsent: block
+
+	^(self propertyAt: key) ifNil: [block value]
+!
+
+propertyAt: key put: value
+
+	<return self.properties[key] = value>
+! !
+
+Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+
+!Package class methodsFor: 'commit paths'!
+
+defaultCommitPathJs
+	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
+!
+
+defaultCommitPathJs: aString
+	defaultCommitPathJs := aString
+!
+
+defaultCommitPathSt
+	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
+!
+
+defaultCommitPathSt: aString
+	defaultCommitPathSt := aString
+!
+
+resetCommitPaths
+        defaultCommitPathJs := nil.
+        defaultCommitPathSt := nil.
+! !
+
+!Package class methodsFor: 'loading-storing'!
+
+commitToLocalStorage: aPackageName
+	| key sourceCode |
+	key := 'smalltalk.packages.' , aPackageName.
+	sourceCode := Exporter new exportPackage: aPackageName.
+	<localStorage[key] = escape(sourceCode)>
+!
+
+fetch: aPackageName
+	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
+!
+
+fetch: aPackageName prefix: aPrefix
+	jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]
+!
+
+init: aPackageName
+	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
+		do: [ :each | <smalltalk.init(each)> ];
+		do: [ :each | each initialize ]
+! !
+
+!Package class methodsFor: 'not yet classified'!
+
+named: aPackageName
+
+	^Smalltalk current packageAt: aPackageName
+!
+
+named: aPackageName ifAbsent: aBlock
+
+	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+! !
+
+!Package class methodsFor: 'sorting'!
+
+sortedClasses: classes
+	"Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
+
+	| children others nodes expandedClasses |
+	children := #().
+	others := #().
+	classes do: [:each |
+		(classes includes: each superclass)
+			ifFalse: [children add: each]
+			ifTrue: [others add: each]].
+	nodes := children collect: [:each |
+		ClassesListNode on: each browser: nil classes: others level: 0].
+	nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].
+	expandedClasses := Array new.
+	nodes do: [:aNode |
+		aNode traverseClassesWith: expandedClasses].
+	^expandedClasses
 ! !
 
 Object subclass: #Point
@@ -1600,16 +1371,16 @@ x
 	^x
 !
 
+x: aNumber
+	x := aNumber
+!
+
 y
 	^y
 !
 
 y: aNumber
 	y := aNumber
-!
-
-x: aNumber
-	x := aNumber
 ! !
 
 !Point methodsFor: 'arithmetic'!
@@ -1709,5 +1480,250 @@ next
 
 next: anInteger
     ^(1 to: anInteger) collect: [:each | self next]
+! !
+
+Object subclass: #Smalltalk
+	instanceVariableNames: ''
+	category: 'Kernel-Objects'!
+!Smalltalk commentStamp!
+Smalltalk has only one instance, accessed with `Smalltalk current`. 
+It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+
+The `smalltalk` object holds all class and packages defined in the system.
+
+## Classes
+
+Classes can be accessed using the following methods:
+
+- `#classes` answers the full list of Smalltalk classes in the system
+- `#at:` answers a specific class of `nil`
+
+## Packages
+
+Packages can be accessed using the following methods:
+
+- `#packages` answers the full list of packages
+- `#packageAt:` answers a specific class of `nil`
+
+__note:__ classes and packages are accessed using strings, not symbols
+
+## Parsing
+
+The `#parse:` method is used to parse Smalltalk source code. 
+It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
+
+!Smalltalk methodsFor: 'accessing'!
+
+at: aString
+	<return self[aString]>
+!
+
+basicParse: aString
+	<return smalltalk.parser.parse(aString)>
+!
+
+classes
+	<return self.classes()>
+!
+
+parse: aString
+	| result | 
+	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
+	^result
+!
+
+parseError: anException parsing: aString
+	| row col message lines badLine code |
+	<row = anException.line;
+	col = anException.column;
+	message = anException.message;>.
+	lines := aString lines.
+	badLine := lines at: row.
+	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
+	lines at: row put: badLine.
+	code := String streamContents: [:s |
+                  lines withIndexDo: [:l :i |
+                     s nextPutAll: i asString, ': ', l, String lf]].
+	^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
+!
+
+readJSObject: anObject
+	<return self.readJSObject(anObject)>
+!
+
+reservedWords
+	"JavaScript reserved words"
+	<return self.reservedWords>
+!
+
+send: aSelector to: anObject arguments: aCollection
+	| selector |
+	selector := aSelector asString asSelector.
+	<self.send(anObject, selector, aCollection)>
+! !
+
+!Smalltalk methodsFor: 'classes'!
+
+removeClass: aClass
+	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
+	aClass methodDictionary values do: [:each |
+		aClass removeCompiledMethod: each].
+	aClass class methodDictionary values do: [:each |
+		aClass class removeCompiledMethod: each].
+	self basicDelete: aClass name
+! !
+
+!Smalltalk methodsFor: 'packages'!
+
+packageAt: packageName
+       <return self.packages[packageName]>
+!
+
+packageAt: packageName ifAbsent: aBlock
+       ^(self packageAt: packageName) ifNil: aBlock
+!
+
+packages
+	"Return all Package instances in the system."
+
+	<return self.packages.all()>
+!
+
+removePackage: packageName
+	"Removes a package and all its classes."
+
+	| pkg |
+	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	pkg classes do: [:each |
+        	self removeClass: each].
+	self deletePackage: packageName
+!
+
+renamePackage: packageName to: newName
+	"Rename a package."
+
+	| pkg |
+	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
+	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
+	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
+	pkg name: newName.
+	self deletePackage: packageName.
+! !
+
+!Smalltalk methodsFor: 'private'!
+
+createPackage: packageName
+	"Create and bind a new package with given name and return it."
+
+      <return smalltalk.addPackage(packageName, nil)>
+!
+
+createPackage: packageName properties: aDict
+	"Create and bind a new package with given name and return it."
+
+	| object |
+	<object = {};>.
+	aDict keysAndValuesDo: [:key :value |
+		<object[key] = value>.
+	].
+       <return smalltalk.addPackage(packageName, object)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+       <delete smalltalk.packages[packageName]>
+! !
+
+Smalltalk class instanceVariableNames: 'current'!
+
+!Smalltalk class methodsFor: 'accessing'!
+
+current
+	<return smalltalk>
+! !
+
+Object subclass: #UndefinedObject
+	instanceVariableNames: ''
+	category: 'Kernel-Objects'!
+!UndefinedObject commentStamp!
+UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
+
+`nil` is the Smalltalk representation of the `undefined` JavaScript object.!
+
+!UndefinedObject methodsFor: 'class creation'!
+
+subclass: aString instanceVariableNames: anotherString
+	^self subclass: aString instanceVariableNames: anotherString package: nil
+!
+
+subclass: aString instanceVariableNames: aString2 category: aString3
+	"Kept for compatibility."
+	self deprecatedAPI.
+	^self subclass: aString instanceVariableNames: aString2 package: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 package: aString3
+	^ClassBuilder new
+	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
+! !
+
+!UndefinedObject methodsFor: 'converting'!
+
+asJSON
+	^null
+! !
+
+!UndefinedObject methodsFor: 'copying'!
+
+deepCopy
+	^self
+!
+
+shallowCopy
+	^self
+! !
+
+!UndefinedObject methodsFor: 'printing'!
+
+printString
+    ^'nil'
+! !
+
+!UndefinedObject methodsFor: 'testing'!
+
+ifNil: aBlock
+	"inlined in the Compiler"
+	^self ifNil: aBlock ifNotNil: []
+!
+
+ifNil: aBlock ifNotNil: anotherBlock
+	"inlined in the Compiler"
+	^aBlock value
+!
+
+ifNotNil: aBlock
+	"inlined in the Compiler"
+	^self
+!
+
+ifNotNil: aBlock ifNil: anotherBlock
+	"inlined in the Compiler"
+	^anotherBlock value
+!
+
+isNil
+	^true
+!
+
+notNil
+	^false
+! !
+
+!UndefinedObject class methodsFor: 'instance creation'!
+
+new
+	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
 
