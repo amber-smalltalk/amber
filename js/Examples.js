@@ -1,23 +1,6 @@
 smalltalk.addPackage('Examples', {});
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
-unescape('_increase'),
-smalltalk.method({
-selector: unescape('increase'),
-category: 'actions',
-fn: function (){
-var self=this;
-(self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
-smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
-return self;},
-args: [],
-source: unescape('increase%0A%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%20%20%20%20header%20contents%3A%20%5B%3Ahtml%20%7C%20html%20with%3A%20count%20asString%5D'),
-messageSends: [unescape("+"), "contents:", "with:", "asString"],
-referencedClasses: []
-}),
-smalltalk.Counter);
-
-smalltalk.addMethod(
 unescape('_decrease'),
 smalltalk.method({
 selector: unescape('decrease'),
@@ -30,6 +13,23 @@ return self;},
 args: [],
 source: unescape('decrease%0A%20%20%20%20count%20%3A%3D%20count%20-%201.%0A%20%20%20%20header%20contents%3A%20%5B%3Ahtml%20%7C%20html%20with%3A%20count%20asString%5D'),
 messageSends: [unescape("-"), "contents:", "with:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Counter);
+
+smalltalk.addMethod(
+unescape('_increase'),
+smalltalk.method({
+selector: unescape('increase'),
+category: 'actions',
+fn: function (){
+var self=this;
+(self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
+smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
+return self;},
+args: [],
+source: unescape('increase%0A%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%20%20%20%20header%20contents%3A%20%5B%3Ahtml%20%7C%20html%20with%3A%20count%20asString%5D'),
+messageSends: [unescape("+"), "contents:", "with:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Counter);

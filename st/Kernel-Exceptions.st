@@ -1,17 +1,9 @@
 Smalltalk current createPackage: 'Kernel-Exceptions' properties: #{}!
 Object subclass: #Error
 	instanceVariableNames: 'messageText'
-	category: 'Kernel-Exceptions'!
+	package: 'Kernel-Exceptions'!
 
 !Error methodsFor: 'accessing'!
-
-messageText
-	^messageText
-!
-
-messageText: aString
-	messageText := aString
-!
 
 context
 	<return self.context>
@@ -19,6 +11,14 @@ context
 
 jsStack
 	<return self.stack>
+!
+
+messageText
+	^messageText
+!
+
+messageText: aString
+	messageText := aString
 ! !
 
 !Error methodsFor: 'signaling'!
@@ -43,7 +43,7 @@ signal: aString
 
 Error subclass: #MessageNotUnderstood
 	instanceVariableNames: 'message receiver'
-	category: 'Kernel-Exceptions'!
+	package: 'Kernel-Exceptions'!
 
 !MessageNotUnderstood methodsFor: 'accessing'!
 
@@ -55,21 +55,21 @@ message: aMessage
 	message := aMessage
 !
 
+messageText
+	^self receiver asString, ' does not understand #', self message selector
+!
+
 receiver
 	^receiver
 !
 
 receiver: anObject
 	receiver := anObject
-!
-
-messageText
-	^self receiver asString, ' does not understand #', self message selector
 ! !
 
 Object subclass: #ErrorHandler
 	instanceVariableNames: ''
-	category: 'Kernel-Exceptions'!
+	package: 'Kernel-Exceptions'!
 
 !ErrorHandler methodsFor: 'error handling'!
 
@@ -80,24 +80,24 @@ handleError: anError
 
 !ErrorHandler methodsFor: 'private'!
 
+log: aString
+	console log: aString
+!
+
 logContext: aContext
 	aContext home ifNotNil: [
 		self logContext: aContext home].
 	self log: aContext receiver asString, '>>', aContext selector
 !
 
-logErrorContext: aContext
-	aContext ifNotNil: [
-		aContext home ifNotNil: [
-			self logContext: aContext home]]
-!
-
 logError: anError
 	self log: anError messageText
 !
 
-log: aString
-	console log: aString
+logErrorContext: aContext
+	aContext ifNotNil: [
+		aContext home ifNotNil: [
+			self logContext: aContext home]]
 ! !
 
 ErrorHandler class instanceVariableNames: 'current'!

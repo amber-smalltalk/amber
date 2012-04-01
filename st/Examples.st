@@ -1,17 +1,17 @@
 Smalltalk current createPackage: 'Examples' properties: #{}!
 Widget subclass: #Counter
 	instanceVariableNames: 'count header'
-	category: 'Examples'!
+	package: 'Examples'!
 
 !Counter methodsFor: 'actions'!
 
-increase
-    count := count + 1.
+decrease
+    count := count - 1.
     header contents: [:html | html with: count asString]
 !
 
-decrease
-    count := count - 1.
+increase
+    count := count + 1.
     header contents: [:html | html with: count asString]
 ! !
 

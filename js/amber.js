@@ -95,7 +95,7 @@ amber = (function() {
 
 		var additionalFiles = spec.packages || spec.files;
 		if (additionalFiles) {
-			loadPackages(additionalFiles, spec.prefix);
+			loadPackages(additionalFiles, spec.prefix, spec.packageHome);
 		}
 
 		// Be sure to setup & initialize smalltalk classes
@@ -103,29 +103,32 @@ amber = (function() {
 		initializeSmalltalk();
 	};
 
-	function loadPackages(names, prefix){
+	function loadPackages(names, prefix, urlHome){
 		var name, url;
 		var prefix = prefix || 'js';
+    var urlHome = urlHome || home;
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
-			addJSToLoad(name + '.js', prefix);
+			addJSToLoad(name + '.js', prefix, urlHome);
 		}
 	};
 
-	function addJSToLoad(name, prefix) {
-		jsToLoad.push(buildJSURL(name, prefix));
+	function addJSToLoad(name, prefix, urlHome) {
+    var urlHome = urlHome || home;
+		jsToLoad.push(buildJSURL(name, prefix, urlHome));
 	};
 
-	function buildJSURL(name, prefix) {
+	function buildJSURL(name, prefix, urlHome) {
 		var prefix = prefix || 'js';
 		var name = name;
+    var urlHome = urlHome || home;
 
 		if (!deploy) {
 			name = name + nocache;
 		}
 
-		return home + prefix + '/' + name;
+		return urlHome + prefix + '/' + name;
 	};
 
 	function loadCSS(name, prefix) {

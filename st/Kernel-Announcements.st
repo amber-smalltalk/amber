@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Announcements' properties: #{}!
 Object subclass: #AnnouncementSubscription
 	instanceVariableNames: 'block announcementClass'
-	category: 'Kernel-Announcements'!
+	package: 'Kernel-Announcements'!
 
 !AnnouncementSubscription methodsFor: 'accessing'!
 
@@ -34,7 +34,7 @@ handlesAnnouncement: anAnnouncement
 
 Object subclass: #Announcer
 	instanceVariableNames: 'registry subscriptions'
-	category: 'Kernel-Announcements'!
+	package: 'Kernel-Announcements'!
 
 !Announcer methodsFor: 'announcing'!
 

@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Objects' properties: #{}!
 nil subclass: #Object
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Object commentStamp!
 *Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.
 
@@ -318,7 +318,7 @@ initialize
 
 Object subclass: #Boolean
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Boolean commentStamp!
 Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.
 
@@ -420,7 +420,7 @@ printString
 
 Object subclass: #Date
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Date commentStamp!
 The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
 Amber and answer the same date object.
@@ -605,7 +605,7 @@ today
 
 Object subclass: #Date
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Date commentStamp!
 The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
 Amber and answer the same date object.
@@ -790,7 +790,7 @@ today
 
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !JSObjectProxy commentStamp!
 JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
 JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
@@ -873,7 +873,7 @@ on: aJSObject
 
 Object subclass: #Number
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Number commentStamp!
 Number holds the most general methods for dealing with numbers.  
 Number is directly mapped to JavaScript Number.
@@ -1141,7 +1141,7 @@ pi
 
 Object subclass: #Package
 	instanceVariableNames: 'commitPathJs commitPathSt'
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Package commentStamp!
 A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
 
@@ -1344,7 +1344,7 @@ sortedClasses: classes
 
 Object subclass: #Point
 	instanceVariableNames: 'x y'
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Point commentStamp!
 A `Point` represents an x-y pair of numbers usually designating a geometric coordinate.
 Points are traditionally created using the binary `#@` message to a number:
@@ -1444,7 +1444,7 @@ x: aNumber y: anotherNumber
 
 Object subclass: #Random
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Random commentStamp!
 `Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
 
@@ -1484,7 +1484,7 @@ next: anInteger
 
 Object subclass: #Smalltalk
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !Smalltalk commentStamp!
 Smalltalk has only one instance, accessed with `Smalltalk current`. 
 It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
@@ -1646,7 +1646,7 @@ current
 
 Object subclass: #UndefinedObject
 	instanceVariableNames: ''
-	category: 'Kernel-Objects'!
+	package: 'Kernel-Objects'!
 !UndefinedObject commentStamp!
 UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
 

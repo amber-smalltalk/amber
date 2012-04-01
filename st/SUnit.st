@@ -1,16 +1,16 @@
 Smalltalk current createPackage: 'SUnit' properties: #{}!
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector'
-	category: 'SUnit'!
+	package: 'SUnit'!
 
 !TestCase methodsFor: 'accessing'!
 
-setTestSelector: aSelector
-	testSelector := aSelector
-!
-
 selector
 	^testSelector
+!
+
+setTestSelector: aSelector
+	testSelector := aSelector
 ! !
 
 !TestCase methodsFor: 'private'!
@@ -23,10 +23,10 @@ signalFailure: aString
 
 !TestCase methodsFor: 'running'!
 
-setUp
-!
-
-tearDown
+performTestFor: aResult
+	[[self perform: self selector]
+		on: TestFailure do: [:ex | aResult addFailure: self]]
+		on: Error do: [:ex | aResult addError: self]
 !
 
 runCaseFor: aTestResult
@@ -36,10 +36,10 @@ runCaseFor: aTestResult
 	self tearDown
 !
 
-performTestFor: aResult
-	[[self perform: self selector]
-		on: TestFailure do: [:ex | aResult addFailure: self]]
-		on: Error do: [:ex | aResult addError: self]
+setUp
+!
+
+tearDown
 ! !
 
 !TestCase methodsFor: 'testing'!
@@ -48,16 +48,16 @@ assert: aBoolean
 	self assert: aBoolean description: 'Assertion failed'
 !
 
-deny: aBoolean
-	self assert: aBoolean not
+assert: aBoolean description: aString
+	aBoolean ifFalse: [self signalFailure: aString]
 !
 
 assert: expected equals: actual
 	^ self assert: (expected = actual) description: 'Expected: ', expected asString, ' but was: ', actual asString
 !
 
-assert: aBoolean description: aString
-	aBoolean ifFalse: [self signalFailure: aString]
+deny: aBoolean
+	self assert: aBoolean not
 !
 
 should: aBlock
@@ -72,20 +72,6 @@ should: aBlock raise: anExceptionClass
 
 !TestCase class methodsFor: 'accessing'!
 
-testSelectors
-	^self methodDictionary keys select: [:each | each match: '^test']
-!
-
-selector: aSelector
-	^self new
-		setTestSelector: aSelector;
-		yourself
-!
-
-lookupHierarchyRoot
-	^TestCase
-!
-
 allTestSelectors
 	| selectors |
 	selectors := self testSelectors.
@@ -96,6 +82,20 @@ allTestSelectors
 
 buildSuite
 	^self allTestSelectors collect: [:each | self selector: each]
+!
+
+lookupHierarchyRoot
+	^TestCase
+!
+
+selector: aSelector
+	^self new
+		setTestSelector: aSelector;
+		yourself
+!
+
+testSelectors
+	^self methodDictionary keys select: [:each | each match: '^test']
 ! !
 
 !TestCase class methodsFor: 'testing'!
@@ -106,16 +106,20 @@ shouldInheritSelectors
 
 Error subclass: #TestFailure
 	instanceVariableNames: ''
-	category: 'SUnit'!
+	package: 'SUnit'!
 
 Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
-	category: 'SUnit'!
+	package: 'SUnit'!
 
 !TestResult methodsFor: 'accessing'!
 
-timestamp
-	^timestamp
+addError: anError
+	self errors add: anError
+!
+
+addFailure: aFailure
+	self failures add: aFailure
 !
 
 errors
@@ -126,28 +130,12 @@ failures
 	^failures
 !
 
-total
-	^total
-!
-
-total: aNumber
-	total := aNumber
-!
-
-addError: anError
-	self errors add: anError
-!
-
-addFailure: aFailure
-	self failures add: aFailure
+increaseRuns
+	runs := runs + 1
 !
 
 runs
 	^runs
-!
-
-increaseRuns
-	runs := runs + 1
 !
 
 status
@@ -157,6 +145,18 @@ status
 				ifTrue: ['success']
 				ifFalse: ['failure']]
 		ifFalse: ['error']
+!
+
+timestamp
+	^timestamp
+!
+
+total
+	^total
+!
+
+total: aNumber
+	total := aNumber
 ! !
 
 !TestResult methodsFor: 'initialization'!

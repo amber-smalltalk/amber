@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'IDE' properties: #{}!
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !ClassesList methodsFor: 'accessing'!
 
@@ -64,7 +64,7 @@ on: aBrowser
 
 Widget subclass: #ClassesListNode
 	instanceVariableNames: 'browser theClass level nodes'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !ClassesListNode methodsFor: ''!
 
@@ -161,7 +161,7 @@ on: aClass browser: aBrowser classes: aCollection level: anInteger
 
 ErrorHandler subclass: #DebugErrorHandler
 	instanceVariableNames: ''
-	category: 'IDE'!
+	package: 'IDE'!
 
 !DebugErrorHandler methodsFor: 'error handling'!
 
@@ -180,7 +180,7 @@ initialize
 
 Widget subclass: #SourceArea
 	instanceVariableNames: 'editor div receiver onDoIt'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !SourceArea methodsFor: 'accessing'!
 
@@ -340,7 +340,7 @@ renderOn: html
 
 Widget subclass: #TabManager
 	instanceVariableNames: 'selectedTab tabs opened ul input'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !TabManager methodsFor: 'accessing'!
 
@@ -545,7 +545,7 @@ new
 
 Widget subclass: #TabWidget
 	instanceVariableNames: 'div'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !TabWidget methodsFor: 'accessing'!
 
@@ -619,7 +619,7 @@ open
 
 TabWidget subclass: #Browser
 	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedMethod packagesList classesList protocolsList methodsList sourceArea tabsList selectedTab saveButton classButtons methodButtons unsavedChanges'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !Browser methodsFor: 'accessing'!
 
@@ -1306,7 +1306,7 @@ openOn: aClass
 
 TabWidget subclass: #Debugger
 	instanceVariableNames: 'error selectedContext sourceArea ul ul2 inspector saveButton unsavedChanges selectedVariable selectedVariableName inspectButton'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !Debugger methodsFor: 'accessing'!
 
@@ -1519,7 +1519,7 @@ updateVariablesList
 
 TabWidget subclass: #IDETranscript
 	instanceVariableNames: 'textarea'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !IDETranscript methodsFor: 'accessing'!
 
@@ -1589,7 +1589,7 @@ open
 
 TabWidget subclass: #Inspector
 	instanceVariableNames: 'label variables object selectedVariable variablesList valueTextarea diveButton sourceArea'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !Inspector methodsFor: 'accessing'!
 
@@ -1742,7 +1742,7 @@ on: anObject
 
 TabWidget subclass: #ProgressBar
 	instanceVariableNames: 'percent progressDiv div'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !ProgressBar methodsFor: 'accessing'!
 
@@ -1779,7 +1779,7 @@ updatePercent: aNumber
 
 TabWidget subclass: #ReferencesBrowser
 	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !ReferencesBrowser methodsFor: 'accessing'!
 
@@ -1955,7 +1955,7 @@ search: aString
 
 TabWidget subclass: #TestRunner
 	instanceVariableNames: 'selectedCategories packagesList selectedClasses classesList selectedMethods progressBar methodsList result statusDiv'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !TestRunner methodsFor: 'accessing'!
 
@@ -2195,7 +2195,7 @@ updateStatusDiv
 
 TabWidget subclass: #Workspace
 	instanceVariableNames: 'sourceArea'
-	category: 'IDE'!
+	package: 'IDE'!
 
 !Workspace methodsFor: 'accessing'!
 

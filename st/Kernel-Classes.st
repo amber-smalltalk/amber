@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Kernel-Classes' properties: #{}!
 Object subclass: #Behavior
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !Behavior commentStamp!
 Behavior is the superclass of all class objects. 
 
@@ -13,16 +13,12 @@ Behavior also  provides methods for compiling methods, examining the method dict
 
 !Behavior methodsFor: 'accessing'!
 
-name
-	<return self.className || nil>
-!
-
-superclass
-	<return self.superclass || nil>
-!
-
-subclasses
-	<return smalltalk.subclasses(self)>
+allInstanceVariableNames
+	| result |
+	result := self instanceVariableNames copy.
+	self superclass ifNotNil: [
+	    result addAll: self superclass allInstanceVariableNames].
+	^result
 !
 
 allSubclasses
@@ -33,12 +29,30 @@ allSubclasses
 	^result
 !
 
-withAllSubclasses
-	^(Array with: self) addAll: self allSubclasses; yourself
+comment
+    ^(self basicAt: 'comment') ifNil: ['']
 !
 
-prototype
-	<return self.fn.prototype>
+comment: aString
+    self basicAt: 'comment' put: aString
+!
+
+commentStamp
+    ^ClassCommentReader new
+	class: self;
+	yourself
+!
+
+commentStamp: aStamp prior: prior
+        ^self commentStamp
+!
+
+instanceVariableNames
+	<return self.iVarNames>
+!
+
+methodAt: aString
+	<return smalltalk.methods(self)[aString]>
 !
 
 methodDictionary
@@ -58,22 +72,13 @@ methodsFor: aString
 	    yourself
 !
 
-instanceVariableNames
-	<return self.iVarNames>
+methodsFor: aString stamp: aStamp
+	"Added for compatibility, right now ignores stamp."
+	^self methodsFor: aString
 !
 
-comment
-    ^(self basicAt: 'comment') ifNil: ['']
-!
-
-comment: aString
-    self basicAt: 'comment' put: aString
-!
-
-commentStamp
-    ^ClassCommentReader new
-	class: self;
-	yourself
+name
+	<return self.className || nil>
 !
 
 protocols
@@ -98,37 +103,26 @@ protocolsDo: aBlock
 		aBlock value: category value: (methodsByCategory at: category)]
 !
 
-allInstanceVariableNames
-	| result |
-	result := self instanceVariableNames copy.
-	self superclass ifNotNil: [
-	    result addAll: self superclass allInstanceVariableNames].
-	^result
+prototype
+	<return self.fn.prototype>
 !
 
-methodAt: aString
-	<return smalltalk.methods(self)[aString]>
+subclasses
+	<return smalltalk.subclasses(self)>
 !
 
-methodsFor: aString stamp: aStamp
-	"Added for compatibility, right now ignores stamp."
-	^self methodsFor: aString
+superclass
+	<return self.superclass || nil>
 !
 
-commentStamp: aStamp prior: prior
-        ^self commentStamp
+withAllSubclasses
+	^(Array with: self) addAll: self allSubclasses; yourself
 ! !
 
 !Behavior methodsFor: 'compiling'!
 
 addCompiledMethod: aMethod
 	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
-!
-
-removeCompiledMethod: aMethod
-	<delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector];
-	smalltalk.init(self);>
 !
 
 compile: aString
@@ -140,16 +134,22 @@ compile: aString category: anotherString
 	method := Compiler new load: aString forClass: self.
 	method category: anotherString.
 	self addCompiledMethod: method
+!
+
+removeCompiledMethod: aMethod
+	<delete self.fn.prototype[aMethod.selector._asSelector()];
+	delete self.fn.prototype.methods[aMethod.selector];
+	smalltalk.init(self);>
 ! !
 
 !Behavior methodsFor: 'instance creation'!
 
-new
-	^self basicNew initialize
-!
-
 basicNew
 	<return new self.fn()>
+!
+
+new
+	^self basicNew initialize
 ! !
 
 !Behavior methodsFor: 'testing'!
@@ -160,7 +160,7 @@ inheritsFrom: aClass
 
 Behavior subclass: #Class
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !Class commentStamp!
 Class is __the__ class object. 
 
@@ -173,20 +173,20 @@ category
 	^self package ifNil: ['Unclassified'] ifNotNil: [self package name]
 !
 
-rename: aString
-	<
-		smalltalk[aString] = self;
-		delete smalltalk[self.className];
-		self.className = aString;
-	>
-!
-
 package
 	<return self.pkg>
 !
 
 package: aPackage
 	<self.pkg = aPackage>
+!
+
+rename: aString
+	<
+		smalltalk[aString] = self;
+		delete smalltalk[self.className];
+		self.className = aString;
+	>
 ! !
 
 !Class methodsFor: 'class creation'!
@@ -226,7 +226,7 @@ isClass
 
 Behavior subclass: #Metaclass
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !Metaclass commentStamp!
 Metaclass is the root of the class hierarchy.
 
@@ -258,7 +258,7 @@ isMetaclass
 
 Object subclass: #ClassBuilder
 	instanceVariableNames: ''
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !ClassBuilder commentStamp!
 ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
 
@@ -266,14 +266,14 @@ Rather than using ClassBuilder directly to compile a class, use `Class >> subcla
 
 !ClassBuilder methodsFor: 'class creation'!
 
-superclass: aClass subclass: aString
-	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
-!
-
 class: aClass instanceVariableNames: aString
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
 	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
 	self setupClass: aClass
+!
+
+superclass: aClass subclass: aString
+	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
 !
 
 superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
@@ -287,17 +287,9 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 
 !ClassBuilder methodsFor: 'private'!
 
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-!
-
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection
 	<smalltalk.addClass(aString, aClass, aCollection);
 	    return smalltalk[aString]>
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
 !
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
@@ -326,11 +318,19 @@ copyClass: aClass named: aString
 
 	self setupClass: newClass.
 	^newClass
+!
+
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category chunkParser'
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !ClassCategoryReader commentStamp!
 ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
 
@@ -360,15 +360,16 @@ initialize
 !ClassCategoryReader methodsFor: 'private'!
 
 compileMethod: aString
-	| method |
-	method := Compiler new load: aString forClass: class.
+	| method compiler |
+	method := (compiler := Compiler new) load: aString forClass: class.
 	method category: category.
-	class addCompiledMethod: method
+	class addCompiledMethod: method.
+	compiler setupClass: class.
 ! !
 
 Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class chunkParser'
-	category: 'Kernel-Classes'!
+	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
 ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
 See `ClassCategoryReader` too.!
