@@ -4033,16 +4033,16 @@ var expandedClasses=nil;
 (children=[]);
 (others=[]);
 smalltalk.send(classes, "_do_", [(function(each){return ((($receiver = smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
-(nodes=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassesListNode || ClassesListNode), "_on_browser_classes_level_", [each, nil, others, (0)]);})]));
+(nodes=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassSorterNode || ClassSorterNode), "_on_classes_level_", [each, others, (0)]);})]));
 (nodes=smalltalk.send(nodes, "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]));})]));
 (expandedClasses=smalltalk.send((smalltalk.Array || Array), "_new", []));
 smalltalk.send(nodes, "_do_", [(function(aNode){return smalltalk.send(aNode, "_traverseClassesWith_", [expandedClasses]);})]);
 return expandedClasses;
 return self;},
 args: ["classes"],
-source: unescape('sortedClasses%3A%20classes%0A%09%22Answer%20classes%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%7C%20children%20others%20nodes%20expandedClasses%20%7C%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28classes%20includes%3A%20each%20superclass%29%0A%09%09%09ifFalse%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifTrue%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%20%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassesListNode%20on%3A%20each%20browser%3A%20nil%20classes%3A%20others%20level%3A%200%5D.%0A%09nodes%20%3A%3D%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D.%0A%09expandedClasses%20%3A%3D%20Array%20new.%0A%09nodes%20do%3A%20%5B%3AaNode%20%7C%0A%09%09aNode%20traverseClassesWith%3A%20expandedClasses%5D.%0A%09%5EexpandedClasses'),
-messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:browser:classes:level:", "sorted:", unescape("%3C%3D"), "name", "theClass", "new", "traverseClassesWith:"],
-referencedClasses: ["ClassesListNode", "Array"]
+source: unescape('sortedClasses%3A%20classes%0A%09%22Answer%20classes%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%7C%20children%20others%20nodes%20expandedClasses%20%7C%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28classes%20includes%3A%20each%20superclass%29%0A%09%09%09ifFalse%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifTrue%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%20%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassSorterNode%20on%3A%20each%20classes%3A%20others%20level%3A%200%5D.%0A%09nodes%20%3A%3D%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D.%0A%09expandedClasses%20%3A%3D%20Array%20new.%0A%09nodes%20do%3A%20%5B%3AaNode%20%7C%0A%09%09aNode%20traverseClassesWith%3A%20expandedClasses%5D.%0A%09%5EexpandedClasses'),
+messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:classes:level:", "sorted:", unescape("%3C%3D"), "name", "theClass", "new", "traverseClassesWith:"],
+referencedClasses: ["ClassSorterNode", "Array"]
 }),
 smalltalk.Package.klass);
 
