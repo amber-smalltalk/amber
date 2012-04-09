@@ -956,3 +956,140 @@ smalltalk.ClassCommentReader);
 
 
 
+smalltalk.addClass('ClassSorterNode', smalltalk.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
+smalltalk.addMethod(
+unescape('_getNodesFrom_'),
+smalltalk.method({
+selector: unescape('getNodesFrom%3A'),
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+var children=nil;
+var others=nil;
+(children=[]);
+(others=[]);
+smalltalk.send(aCollection, "_do_", [(function(each){return ((($receiver = smalltalk.send(smalltalk.send(each, "_superclass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(children, "_add_", [each]);})() : (function(){return smalltalk.send(others, "_add_", [each]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(children, "_add_", [each]);}), (function(){return smalltalk.send(others, "_add_", [each]);})]));})]);
+(self['@nodes']=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassSorterNode || ClassSorterNode), "_on_classes_level_", [each, others, ((($receiver = smalltalk.send(self, "_level", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})]));
+return self;},
+args: ["aCollection"],
+source: unescape('getNodesFrom%3A%20aCollection%0A%09%7C%20children%20others%20%7C%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28each%20superclass%20%3D%20self%20theClass%29%0A%09%09%09ifTrue%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifFalse%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassSorterNode%20on%3A%20each%20classes%3A%20others%20level%3A%20self%20level%20+%201%5D'),
+messageSends: ["do:", "ifTrue:ifFalse:", unescape("%3D"), "superclass", "theClass", "add:", "collect:", "on:classes:level:", unescape("+"), "level"],
+referencedClasses: ["ClassSorterNode"]
+}),
+smalltalk.ClassSorterNode);
+
+smalltalk.addMethod(
+unescape('_level'),
+smalltalk.method({
+selector: unescape('level'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@level'];
+return self;},
+args: [],
+source: unescape('level%0A%09%5Elevel'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode);
+
+smalltalk.addMethod(
+unescape('_level_'),
+smalltalk.method({
+selector: unescape('level%3A'),
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+(self['@level']=anInteger);
+return self;},
+args: ["anInteger"],
+source: unescape('level%3A%20anInteger%0A%09level%20%3A%3D%20anInteger'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode);
+
+smalltalk.addMethod(
+unescape('_nodes'),
+smalltalk.method({
+selector: unescape('nodes'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@nodes'];
+return self;},
+args: [],
+source: unescape('nodes%0A%09%5Enodes'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode);
+
+smalltalk.addMethod(
+unescape('_theClass'),
+smalltalk.method({
+selector: unescape('theClass'),
+category: 'accessing',
+fn: function (){
+var self=this;
+return self['@theClass'];
+return self;},
+args: [],
+source: unescape('theClass%0A%09%5EtheClass'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode);
+
+smalltalk.addMethod(
+unescape('_theClass_'),
+smalltalk.method({
+selector: unescape('theClass%3A'),
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+(self['@theClass']=aClass);
+return self;},
+args: ["aClass"],
+source: unescape('theClass%3A%20aClass%0A%09theClass%20%3A%3D%20aClass'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode);
+
+smalltalk.addMethod(
+unescape('_traverseClassesWith_'),
+smalltalk.method({
+selector: unescape('traverseClassesWith%3A'),
+category: 'visiting',
+fn: function (aCollection){
+var self=this;
+smalltalk.send(aCollection, "_add_", [smalltalk.send(self, "_theClass", [])]);
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_nodes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]));})]), "_do_", [(function(aNode){return smalltalk.send(aNode, "_traverseClassesWith_", [aCollection]);})]);
+return self;},
+args: ["aCollection"],
+source: unescape('traverseClassesWith%3A%20aCollection%0A%09%22sort%20classes%20alphabetically%20Issue%20%23143%22%0A%0A%09aCollection%20add%3A%20self%20theClass.%0A%09%28self%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D%29%20do%3A%20%5B%3AaNode%20%7C%0A%09%09aNode%20traverseClassesWith%3A%20aCollection%20%5D.'),
+messageSends: ["add:", "theClass", "do:", "sorted:", "nodes", unescape("%3C%3D"), "name", "traverseClassesWith:"],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode);
+
+
+smalltalk.addMethod(
+unescape('_on_classes_level_'),
+smalltalk.method({
+selector: unescape('on%3Aclasses%3Alevel%3A'),
+category: 'instance creation',
+fn: function (aClass, aCollection, anInteger){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_level_", [anInteger]);smalltalk.send($rec, "_getNodesFrom_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
+args: ["aClass", "aCollection", "anInteger"],
+source: unescape('on%3A%20aClass%20classes%3A%20aCollection%20level%3A%20anInteger%0A%09%5Eself%20new%0A%09%09theClass%3A%20aClass%3B%0A%09%09level%3A%20anInteger%3B%0A%09%09getNodesFrom%3A%20aCollection%3B%0A%09%09yourself'),
+messageSends: ["theClass:", "level:", "getNodesFrom:", "yourself", "new"],
+referencedClasses: []
+}),
+smalltalk.ClassSorterNode.klass);
+
+

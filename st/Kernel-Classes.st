@@ -402,3 +402,61 @@ setComment: aString
     class comment: aString
 ! !
 
+Object subclass: #ClassSorterNode
+	instanceVariableNames: 'theClass level nodes'
+	package: 'Kernel-Classes'!
+
+!ClassSorterNode methodsFor: 'accessing'!
+
+getNodesFrom: aCollection
+	| children others |
+	children := #().
+	others := #().
+	aCollection do: [:each |
+		(each superclass = self theClass)
+			ifTrue: [children add: each]
+			ifFalse: [others add: each]].
+	nodes:= children collect: [:each |
+		ClassSorterNode on: each classes: others level: self level + 1]
+!
+
+level
+	^level
+!
+
+level: anInteger
+	level := anInteger
+!
+
+nodes
+	^nodes
+!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
+! !
+
+!ClassSorterNode methodsFor: 'visiting'!
+
+traverseClassesWith: aCollection
+	"sort classes alphabetically Issue #143"
+
+	aCollection add: self theClass.
+	(self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |
+		aNode traverseClassesWith: aCollection ].
+! !
+
+!ClassSorterNode class methodsFor: 'instance creation'!
+
+on: aClass classes: aCollection level: anInteger
+	^self new
+		theClass: aClass;
+		level: anInteger;
+		getNodesFrom: aCollection;
+		yourself
+! !
+
