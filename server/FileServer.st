@@ -68,9 +68,9 @@ handlePUTRequest: aRequest respondTo: aResponse
 	stream := fs createWriteStream: '.', aRequest url.
 
 	aRequest setEncoding: 'utf8'.
-	aRequest on: #data do: [:data | stream write: data].
+	aRequest on: 'data' do: [:data | stream write: data].
 
-	aRequest on: #end do: [
+	aRequest on: 'end' do: [
 		stream end.
 		self respondOKTo: aResponse]
 !
