@@ -238,18 +238,6 @@ return self;}
 }),
 smalltalk.ClassesListNode);
 
-smalltalk.addMethod(
-unescape('_traverseClassesWith_'),
-smalltalk.method({
-selector: unescape('traverseClassesWith%3A'),
-fn: function (aCollection){
-var self=this;
-smalltalk.send(aCollection, "_add_", [smalltalk.send(self, "_theClass", [])]);
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_nodes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]));})]), "_do_", [(function(aNode){return smalltalk.send(aNode, "_traverseClassesWith_", [aCollection]);})]);
-return self;}
-}),
-smalltalk.ClassesListNode);
-
 
 smalltalk.addMethod(
 unescape('_on_browser_classes_level_'),

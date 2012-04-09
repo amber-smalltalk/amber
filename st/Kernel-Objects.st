@@ -1334,7 +1334,7 @@ sortedClasses: classes
 			ifFalse: [children add: each]
 			ifTrue: [others add: each]].
 	nodes := children collect: [:each |
-		ClassesListNode on: each browser: nil classes: others level: 0].
+		ClassSorterNode on: each classes: others level: 0].
 	nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].
 	expandedClasses := Array new.
 	nodes do: [:aNode |
