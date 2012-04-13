@@ -5,7 +5,7 @@ body.jtalkBody {
 #jtalkTabs, #jtalk .jt_tabs {
     margin: 0;
     padding: 0;
-    background: url("../images/sprite.png") #DBD9C9 0 -27px;
+    background: url("../images/sprite.amber.png") #DBD9C9 0 -27px;
     height: 22px;
     width: 100%;
     list-style: none;
@@ -39,17 +39,17 @@ body.jtalkBody {
 
 #jtalkTabs li:hover .ltab,
 #jtalk .jt_tabs li:hover .ltab {
-    background: url("../images/sprite.png") -16px -96px;
+    background: url("../images/sprite.amber.png") -16px -96px;
 }
 
 #jtalkTabs li:hover .mtab,
 #jtalk .jt_tabs li:hover .mtab {
-    background: url("../images/sprite.png") 0 -73px;
+    background: url("../images/sprite.amber.png") 0 -73px;
 }
 
 #jtalkTabs li:hover .rtab,
 #jtalk .jt_tabs li:hover .rtab {
-    background: url("../images/sprite.png") -24px -96px;
+    background: url("../images/sprite.amber.png") -24px -96px;
 }
 
 #jtalkTabs li.selected,
@@ -59,17 +59,17 @@ body.jtalkBody {
 
 #jtalkTabs li.selected .ltab,
 #jtalk .jt_tabs li.selected .ltab {
-    background: url("../images/sprite.png") 0px -96px;
+    background: url("../images/sprite.amber.png") 0px -96px;
 }
 
 #jtalkTabs li.selected .mtab,
 #jtalk .jt_tabs li.selected .mtab {
-    background: url("../images/sprite.png") 0 -50px;
+    background: url("../images/sprite.amber.png") 0 -50px;
 }
 
 #jtalkTabs li.selected .rtab,
 #jtalk .jt_tabs li.selected .rtab {
-    background: url("../images/sprite.png") -8px -96px;
+    background: url("../images/sprite.amber.png") -8px -96px;
 }
 
 #jtalkTabs li .close {
@@ -97,12 +97,12 @@ body.jtalkBody {
     left: 8px;
     width: 22px;
     height: 20px;
-    background: url("../images/tinylogo.png") top left no-repeat;
+    background: url("../images/tinylogo.amber.png") top left no-repeat;
 }
 
 #jtalk #jt_toolbar {
     height: 27px;
-    background: url("../images/sprite.png") 0 0;
+    background: url("../images/sprite.amber.png") 0 0;
 }
 
 #jtalk #jt_toolbar input {
@@ -117,12 +117,12 @@ body.jtalkBody {
     top: 6px;
     width: 16px;
     height: 16px;
-    background: url('../images/off.png');
+    background: url('../images/off.amber.png');
     cursor: pointer;
 }
 
 #jtalk #jt_toolbar #jt_close:hover {
-    background: url('../images/offHover.png');
+    background: url('../images/offHover.amber.png');
 }
 
 
@@ -166,7 +166,7 @@ body.jtalkBody {
     right: 0;
     height: 27px;
     line-height: 27px;
-    background: url("../images/sprite.png") 0 0 repeat;
+    background: url("../images/sprite.amber.png") 0 0 repeat;
 }
 
 .jtalkTool .jt_buttons .right {
@@ -365,7 +365,7 @@ body.jtalkBody {
 	line-height: 1.5em;
 	font-size: 16px;
 	color: red;
-	background: url("../images/sprite.png") top left repeat;
+	background: url("../images/sprite.amber.png") top left repeat;
 	height: 27px;
 }
 
