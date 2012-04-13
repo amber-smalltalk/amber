@@ -2,8 +2,6 @@ body.jtalkBody {
     margin-bottom: 350px;
 }
 
-@import url("amber-normalize.css");
-
 #jtalkTabs, #jtalk .jt_tabs {
     margin: 0;
     padding: 0;
@@ -214,7 +212,19 @@ body.jtalkBody {
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
+    height: 14px;
+    line-height: normal;
+    box-shadow: none;
+    outline: none;
+    vertical-align:baseline;
 }
+.jtalkTool select {
+    height:18px;
+    width: auto;
+}
+
+
+
 
 .jtalkTool li {
     margin: 0;
