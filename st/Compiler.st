@@ -170,7 +170,7 @@ exportPackageExtensionsOf: package on: aStream
 		{each. each class} do: [:aClass | 
 			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
 				(method category match: '^\*', name) ifTrue: [
-					self exportMethod: method of: each on: aStream ]]]]
+					self exportMethod: method of: aClass on: aStream ]]]]
 ! !
 
 Exporter subclass: #ChunkExporter
