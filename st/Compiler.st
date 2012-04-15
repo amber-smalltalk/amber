@@ -284,7 +284,7 @@ exportPackageExtensionsOf: package on: aStream
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 				methods := map at: category.	
-				self exportMethods: methods category: category of: each on: aStream ]]]
+				self exportMethods: methods category: category of: aClass on: aStream ]]]
 ! !
 
 Exporter subclass: #StrippedExporter
