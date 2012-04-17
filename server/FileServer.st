@@ -72,19 +72,11 @@ handlePUTRequest: aRequest respondTo: aResponse
 	|stream |
 	stream := fs createWriteStream: '.' , aRequest url.
         aRequest setEncoding: 'utf8'.
-        <
-		aRequest.on("data", function (chunk) {
-			stream.write(chunk);
-		});
-		aRequest.on("end", function () {
-			stream.end();
-			aResponse.writeHead(200, "OK", {
-			'Content-Type': 'text/plain',
-			'Access-Control-Allow-Origin': '*'
-       			});
-       			aResponse.end();
-	        })
-	>
+        aRequest on: 'data' do: [:data | stream write: data].
+
+        aRequest on: 'end' do: [
+                stream end.
+                self respondOKTo: aResponse]
 
 !
 
