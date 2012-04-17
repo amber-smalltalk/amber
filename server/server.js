@@ -12738,23 +12738,12 @@ var self=this;
 var stream=nil;
 (stream=smalltalk.send(self['@fs'], "_createWriteStream_", [smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])])]));
 smalltalk.send(aRequest, "_setEncoding_", ["utf8"]);
-
-		aRequest.on("data", function (chunk) {
-			stream.write(chunk);
-		});
-		aRequest.on("end", function () {
-			stream.end();
-			aResponse.writeHead(200, "OK", {
-			'Content-Type': 'text/plain',
-			'Access-Control-Allow-Origin': '*'
-       			});
-       			aResponse.end();
-	        })
-	;
+smalltalk.send(aRequest, "_on_do_", ["data", (function(data){return smalltalk.send(stream, "_write_", [data]);})]);
+smalltalk.send(aRequest, "_on_do_", ["end", (function(){smalltalk.send(stream, "_end", []);return smalltalk.send(self, "_respondOKTo_", [aResponse]);})]);
 return self;},
 args: ["aRequest", "aResponse"],
-source: unescape('handlePUTRequest%3A%20aRequest%20respondTo%3A%20aResponse%0A%09%7Cstream%20%7C%0A%09stream%20%3A%3D%20fs%20createWriteStream%3A%20%27.%27%20%2C%20aRequest%20url.%0A%20%20%20%20%20%20%20%20aRequest%20setEncoding%3A%20%27utf8%27.%0A%20%20%20%20%20%20%20%20%3C%0A%09%09aRequest.on%28%22data%22%2C%20function%20%28chunk%29%20%7B%0A%09%09%09stream.write%28chunk%29%3B%0A%09%09%7D%29%3B%0A%09%09aRequest.on%28%22end%22%2C%20function%20%28%29%20%7B%0A%09%09%09stream.end%28%29%3B%0A%09%09%09aResponse.writeHead%28200%2C%20%22OK%22%2C%20%7B%0A%09%09%09%27Content-Type%27%3A%20%27text/plain%27%2C%0A%09%09%09%27Access-Control-Allow-Origin%27%3A%20%27*%27%0A%20%20%20%20%20%20%20%09%09%09%7D%29%3B%0A%20%20%20%20%20%20%20%09%09%09aResponse.end%28%29%3B%0A%09%20%20%20%20%20%20%20%20%7D%29%0A%09%3E'),
-messageSends: ["createWriteStream:", unescape("%2C"), "url", "setEncoding:"],
+source: unescape('handlePUTRequest%3A%20aRequest%20respondTo%3A%20aResponse%0A%09%7Cstream%20%7C%0A%09stream%20%3A%3D%20fs%20createWriteStream%3A%20%27.%27%20%2C%20aRequest%20url.%0A%20%20%20%20%20%20%20%20aRequest%20setEncoding%3A%20%27utf8%27.%0A%20%20%20%20%20%20%20%20aRequest%20on%3A%20%27data%27%20do%3A%20%5B%3Adata%20%7C%20stream%20write%3A%20data%5D.%0A%0A%20%20%20%20%20%20%20%20aRequest%20on%3A%20%27end%27%20do%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20end.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%20respondOKTo%3A%20aResponse%5D'),
+messageSends: ["createWriteStream:", unescape("%2C"), "url", "setEncoding:", "on:do:", "write:", "end", "respondOKTo:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
