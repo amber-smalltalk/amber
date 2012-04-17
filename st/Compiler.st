@@ -170,7 +170,7 @@ exportPackageExtensionsOf: package on: aStream
 		{each. each class} do: [:aClass | 
 			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
 				(method category match: '^\*', name) ifTrue: [
-					self exportMethod: method of: each on: aStream ]]]]
+					self exportMethod: method of: aClass on: aStream ]]]]
 ! !
 
 Exporter subclass: #ChunkExporter
@@ -284,7 +284,7 @@ exportPackageExtensionsOf: package on: aStream
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 				methods := map at: category.	
-				self exportMethods: methods category: category of: each on: aStream ]]]
+				self exportMethods: methods category: category of: aClass on: aStream ]]]
 ! !
 
 Exporter subclass: #StrippedExporter

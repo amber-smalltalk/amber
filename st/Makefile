@@ -85,6 +85,9 @@ Examples.js: Examples.st SUnit.js IDE.js
 Kernel-Tests.js: Kernel-Tests.st SUnit.js
 	$(AMBERC) $(FLAGS) -l SUnit $<
 
+Compiler-Tests.js: Compiler-Tests.st SUnit.js
+	$(AMBERC) $(FLAGS) -l SUnit $<
+
 # Documentation
 Documentation.js: Documentation.st Canvas.js
 	$(AMBERC) $(FLAGS) -l Canvas $<;
