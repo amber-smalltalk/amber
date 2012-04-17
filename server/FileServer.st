@@ -1,6 +1,6 @@
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url port basePath sys'
-	category: 'FileServer'!
+	instanceVariableNames: 'path http fs url port basePath util'
+	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
 
@@ -23,7 +23,7 @@ initialize
 	path := self require: 'path'.
 	http := self require: 'http'.
 	fs := self require: 'fs'.
-	sys := self require: 'sys'.
+	util := self require: 'util'.
 	url := self require: 'url'
 ! !
 
@@ -48,9 +48,14 @@ respondNotFoundTo: aResponse
 !
 
 handleRequest: aRequest respondTo: aResponse
+
 	aRequest method = 'PUT'
-		ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse]
-		ifFalse: [self handleGETRequest: aRequest respondTo: aResponse]
+		ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].
+	aRequest method = 'GET'
+		ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].
+	aRequest method = 'OPTIONS'
+		ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]
+
 !
 
 handleGETRequest: aRequest respondTo: aResponse
@@ -64,15 +69,24 @@ handleGETRequest: aRequest respondTo: aResponse
 !
 
 handlePUTRequest: aRequest respondTo: aResponse
-	| stream |
-	stream := fs createWriteStream: '.', aRequest url.
+	|stream |
+	stream := fs createWriteStream: '.' , aRequest url.
+        aRequest setEncoding: 'utf8'.
+        aRequest on: 'data' do: [:data | stream write: data].
 
-	aRequest setEncoding: 'utf8'.
-	aRequest on: #data do: [:data | stream write: data].
+        aRequest on: 'end' do: [
+                stream end.
+                self respondOKTo: aResponse]
 
-	aRequest on: #end do: [
-		stream end.
-		self respondOKTo: aResponse]
+!
+
+handleOPTIONSRequest: aRequest respondTo: aResponse
+	aResponse writeHead: 200 options: #{'Access-Control-Allow-Origin' -> '*'.
+					'Access-Control-Allow-Methods' -> 'GET, PUT, POST, DELETE, OPTIONS'.
+					'Access-Control-Allow-Headers' -> 'Content-Type, Accept'.
+					'Content-Length' -> 0.
+					'Access-Control-Max-Age' -> 10}.
+	aResponse end
 !
 
 respondFileNamed: aFilename to: aResponse
@@ -102,8 +116,9 @@ respondInternalErrorTo: aResponse
 
 respondOKTo: aResponse
 	aResponse 
-		writeHead: 200 options: #{'Content-Type' -> 'text/plain'};
-		end
+		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.
+	aResponse end.
+					
 ! !
 
 !FileServer methodsFor: 'starting'!
