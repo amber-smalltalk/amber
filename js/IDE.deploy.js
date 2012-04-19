@@ -2591,7 +2591,7 @@ smalltalk.ProgressBar);
 
 
 
-smalltalk.addClass('ReferencesBrowser', smalltalk.TabWidget, ['implementors', 'senders', 'implementorsList', 'input', 'timer', 'selector', 'sendersList', 'referencedClasses', 'referencedClassesList'], 'IDE');
+smalltalk.addClass('ReferencesBrowser', smalltalk.TabWidget, ['implementors', 'senders', 'implementorsList', 'input', 'timer', 'selector', 'sendersList', 'referencedClasses', 'referencedClassesList', 'matches', 'matchesList'], 'IDE');
 smalltalk.addMethod(
 unescape('_canBeClosed'),
 smalltalk.method({
@@ -2649,6 +2649,17 @@ return self;}
 smalltalk.ReferencesBrowser);
 
 smalltalk.addMethod(
+unescape('_matches'),
+smalltalk.method({
+selector: unescape('matches'),
+fn: function (){
+var self=this;
+return (($receiver = self['@matches']) == nil || $receiver == undefined) ? (function(){return (self['@matches']=smalltalk.send((smalltalk.Array || Array), "_new", []));})() : $receiver;
+return self;}
+}),
+smalltalk.ReferencesBrowser);
+
+smalltalk.addMethod(
 unescape('_openBrowserOn_'),
 smalltalk.method({
 selector: unescape('openBrowserOn%3A'),
@@ -2679,7 +2690,7 @@ smalltalk.method({
 selector: unescape('renderBoxOn%3A'),
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_renderInputOn_", [html]);smalltalk.send($rec, "_renderImplementorsOn_", [html]);smalltalk.send($rec, "_renderSendersOn_", [html]);return smalltalk.send($rec, "_renderReferencedClassesOn_", [html]);})(self);
+(function($rec){smalltalk.send($rec, "_renderInputOn_", [html]);smalltalk.send($rec, "_renderImplementorsOn_", [html]);smalltalk.send($rec, "_renderSendersOn_", [html]);smalltalk.send($rec, "_renderReferencedClassesOn_", [html]);return smalltalk.send($rec, "_renderMatchesOn_", [html]);})(self);
 return self;}
 }),
 smalltalk.ReferencesBrowser);
@@ -2705,6 +2716,18 @@ var self=this;
 (self['@input']=(function($rec){smalltalk.send($rec, "_class_", ["implementors"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_input", [])));
 smalltalk.send(smalltalk.send(self['@input'], "_asJQuery", []), "_val_", [self['@selector']]);
 smalltalk.send(self, "_setInputEvents", []);
+return self;}
+}),
+smalltalk.ReferencesBrowser);
+
+smalltalk.addMethod(
+unescape('_renderMatchesOn_'),
+smalltalk.method({
+selector: unescape('renderMatchesOn%3A'),
+fn: function (html){
+var self=this;
+(self['@matchesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column matches"]));
+smalltalk.send(self, "_updateMatchesList", []);
 return self;}
 }),
 smalltalk.ReferencesBrowser);
@@ -2739,16 +2762,29 @@ smalltalk.method({
 selector: unescape('search%3A'),
 fn: function (aString){
 var self=this;
-(function($rec){smalltalk.send($rec, "_searchReferencesFor_", [aString]);smalltalk.send($rec, "_updateImplementorsList", []);smalltalk.send($rec, "_updateSendersList", []);return smalltalk.send($rec, "_updateReferencedClassesList", []);})(self);
+(function($rec){smalltalk.send($rec, "_searchReferencesFor_", [aString]);smalltalk.send($rec, "_updateImplementorsList", []);smalltalk.send($rec, "_updateSendersList", []);smalltalk.send($rec, "_updateReferencedClassesList", []);return smalltalk.send($rec, "_updateMatchesList", []);})(self);
 return self;}
 }),
 smalltalk.ReferencesBrowser);
 
 smalltalk.addMethod(
-unescape('_searchReferencedClassesFor_'),
+unescape('_searchMethodSource'),
 smalltalk.method({
-selector: unescape('searchReferencedClassesFor%3A'),
-fn: function (aString){
+selector: unescape('searchMethodSource'),
+fn: function (){
+var self=this;
+var regex=nil;
+(regex=smalltalk.send(self['@selector'], "_allButFirst", []));
+smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_values", []), "_do_", [(function(value){return ((($receiver = smalltalk.send(smalltalk.send(value, "_source", []), "_match_", [regex])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_matches", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_matches", []), "_add_", [value]);})]));})]);})]);
+return self;}
+}),
+smalltalk.ReferencesBrowser);
+
+smalltalk.addMethod(
+unescape('_searchReferencedClasses'),
+smalltalk.method({
+selector: unescape('searchReferencedClasses'),
+fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_values", []), "_do_", [(function(value){return ((($receiver = smalltalk.send(smalltalk.send(value, "_referencedClasses", []), "_includes_", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_referencedClasses", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_referencedClasses", []), "_add_", [value]);})]));})]);})]);
 return self;}
@@ -2765,16 +2801,18 @@ var self=this;
 (self['@implementors']=smalltalk.send((smalltalk.Array || Array), "_new", []));
 (self['@senders']=smalltalk.send((smalltalk.Array || Array), "_new", []));
 (self['@referencedClasses']=smalltalk.send((smalltalk.Array || Array), "_new", []));
-((($receiver = smalltalk.send(self['@selector'], "_match_", [unescape("%5E%5BA-Z%5D")])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_searchSelectorReferencesFor_", [self['@selector']]);})() : (function(){return smalltalk.send(self, "_searchReferencedClassesFor_", [self['@selector']]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_searchSelectorReferencesFor_", [self['@selector']]);}), (function(){return smalltalk.send(self, "_searchReferencedClassesFor_", [self['@selector']]);})]));
+(self['@matches']=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(self, "_searchMethodSource", []);
+((($receiver = smalltalk.send(self['@selector'], "_match_", [unescape("%5E%5BA-Z%5D")])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_searchSelectorReferences", []);})() : (function(){return smalltalk.send(self, "_searchReferencedClasses", []);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_searchSelectorReferences", []);}), (function(){return smalltalk.send(self, "_searchReferencedClasses", []);})]));
 return self;}
 }),
 smalltalk.ReferencesBrowser);
 
 smalltalk.addMethod(
-unescape('_searchSelectorReferencesFor_'),
+unescape('_searchSelectorReferences'),
 smalltalk.method({
-selector: unescape('searchSelectorReferencesFor%3A'),
-fn: function (aString){
+selector: unescape('searchSelectorReferences'),
+fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_classesAndMetaclasses", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(each, "_methodDictionary", []), "_keysAndValuesDo_", [(function(key, value){((($receiver = smalltalk.send(key, "__eq", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_implementors", []), "_add_", [value]);})]));return ((($receiver = smalltalk.send(smalltalk.send(value, "_messageSends", []), "_includes_", [self['@selector']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_senders", []), "_add_", [value]);})]));})]);})]);
 return self;}
@@ -2822,6 +2860,18 @@ fn: function (){
 var self=this;
 smalltalk.send(self['@implementorsList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["column_label"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(unescape("Implementors%20%28"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_implementors", []), "_size", []), "_asString", [])]), "__comma", [unescape("%29")])]);return smalltalk.send($rec, "_style_", [unescape("font-weight%3A%20bold")]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_implementors", []), "_do_", [(function(each){var li=nil;
 (li=smalltalk.send(html, "_li", []));return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodClass", []), "_asString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(self, "_selector", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_openBrowserOn_", [each]);})]);})(li);})]);})]);
+return self;}
+}),
+smalltalk.ReferencesBrowser);
+
+smalltalk.addMethod(
+unescape('_updateMatchesList'),
+smalltalk.method({
+selector: unescape('updateMatchesList'),
+fn: function (){
+var self=this;
+smalltalk.send(self['@matchesList'], "_contents_", [(function(html){(function($rec){smalltalk.send($rec, "_class_", ["column_label"]);smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(unescape("Regex%20matches%20%28"), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_matches", []), "_size", []), "_asString", [])]), "__comma", [unescape("%29")])]);return smalltalk.send($rec, "_style_", [unescape("font-weight%3A%20bold")]);})(smalltalk.send(html, "_li", []));return smalltalk.send(smalltalk.send(self, "_matches", []), "_do_", [(function(each){var li=nil;
+(li=smalltalk.send(html, "_li", []));return (function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(each, "_methodClass", []), "_asString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(each, "_selector", [])])]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_openBrowserOn_", [each]);})]);})(li);})]);})]);
 return self;}
 }),
 smalltalk.ReferencesBrowser);
