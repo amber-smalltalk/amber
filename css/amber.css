@@ -423,30 +423,37 @@ body.jtalkBody {
 
 .jtalkTool .jt_box .jt_column.implementors,
 .jtalkTool .jt_box .jt_column.senders,
-.jtalkTool .jt_box .jt_column.referenced_classes {
+.jtalkTool .jt_box .jt_column.referenced_classes,
+.jtalkTool .jt_box .jt_column.matches {
 	top: 20px;
 	height: auto;
 	bottom: 0;
-	width: 33.333%;
+	width: 25%;
 }
 
 .jtalkTool .jt_box .jt_column.senders {
-	left: 33.333%
+	left: 25%
 }
 
 .jtalkTool .jt_box .jt_column.referenced_classes {
-        left: 66.67%
+        left: 50%
+}
+
+.jtalkTool .jt_box .jt_column.matches {
+        left: 75%
 }
 
 .jtalkTool .jt_box .jt_column.implementors .column_label, 
 .jtalkTool .jt_box .jt_column.senders .column_label,
-.jtalkTool .jt_box .jt_column.referenced_classes .column_label {
+.jtalkTool .jt_box .jt_column.referenced_classes .column_label,
+.jtalkTool .jt_box .jt_column.matches .column_label {
 	background: #dbdbdb
 }
 
 .jtalkTool .jt_box .jt_column.implementors .column_label:hover,
 .jtalkTool .jt_box .jt_column.senders .column_label:hover,
-.jtalkTool .jt_box .jt_column.referenced_classes .column_label:hover {
+.jtalkTool .jt_box .jt_column.referenced_classes .column_label:hover,
+.jtalkTool .jt_box .jt_column.matches .column_label:hover {
 	font-weight: bold;
 	color: #000;
 	cursor: default
