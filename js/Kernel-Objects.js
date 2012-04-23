@@ -745,6 +745,22 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
+unescape('_respondsTo_'),
+smalltalk.method({
+selector: unescape('respondsTo%3A'),
+category: 'testing',
+fn: function (aSelector) {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [aSelector]);
+return self;},
+args: ["aSelector"],
+source: unescape('respondsTo%3A%20aSelector%0A%09%5Eself%20class%20canUnderstand%3A%20aSelector'),
+messageSends: ["canUnderstand:", "class"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 unescape('_shallowCopy'),
 smalltalk.method({
 selector: unescape('shallowCopy'),

@@ -529,6 +529,17 @@ fn: function () {
 smalltalk.Object);
 
 smalltalk.addMethod(
+unescape('_respondsTo_'),
+smalltalk.method({
+selector: unescape('respondsTo%3A'),
+fn: function (aSelector) {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [aSelector]);
+return self;}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 unescape('_shallowCopy'),
 smalltalk.method({
 selector: unescape('shallowCopy'),

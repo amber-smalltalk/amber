@@ -154,6 +154,11 @@ new
 
 !Behavior methodsFor: 'testing'!
 
+canUnderstand: aSelector
+	^(self methodDictionary keys includes: aSelector asString) or: [
+		self superclass notNil and: [self superclass canUnderstand: aSelector]]
+!
+
 inheritsFrom: aClass
 	^aClass allSubclasses includes: self
 ! !

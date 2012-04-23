@@ -308,6 +308,10 @@ isSymbol
 
 notNil
 	^self isNil not
+!
+
+respondsTo: aSelector
+	^self class canUnderstand: aSelector
 ! !
 
 !Object class methodsFor: 'initialization'!
