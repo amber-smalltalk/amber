@@ -2073,6 +2073,22 @@ smalltalk.JSObjectProxy.klass);
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Number.comment=unescape('Number%20holds%20the%20most%20general%20methods%20for%20dealing%20with%20numbers.%20%20%0ANumber%20is%20directly%20mapped%20to%20JavaScript%20Number.%0A%0AMost%20arithmetic%20methods%20like%20%60%23+%60%20%60%23/%60%20%60%23-%60%20%60%23max%3A%60%20are%20directly%20inlined%20into%20javascript.%20%0A%0A%23%23Enumerating%0AA%20Number%20can%20be%20used%20to%20evaluate%20a%20Block%20a%20fixed%20number%20of%20times%3A%0A%0A%095%20timesRepeat%3A%20%5BTranscript%20show%3A%20%27This%20will%20be%20printed%205%20times%27%3B%20cr%5D.%0A%09%0A%091%20to%3A%205%20do%3A%20%5B%3AaNumber%7C%20Transcript%20show%3A%20aNumber%20asString%3B%20cr%5D.%0A%09%0A%091%20to%3A%2010%20by%3A%202%20do%3A%20%5B%3AaNumber%7C%20Transcript%20show%3A%20aNumber%20asString%3B%20cr%5D.')
 smalltalk.addMethod(
+unescape('_%26'),
+smalltalk.method({
+selector: unescape('%26'),
+category: 'converting',
+fn: function (aNumber) {
+var self=this;
+return self & aNumber;
+return self;},
+args: ["aNumber"],
+source: unescape('%26%20aNumber%0A%09%3Creturn%20self%20%26%20aNumber%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
 unescape('__star'),
 smalltalk.method({
 selector: unescape('*'),
@@ -2800,6 +2816,22 @@ fn: function () {
 args: [],
 source: unescape('truncated%0A%7Cresult%7C%0A%0A%20%20%20%20self%20%3E%3D%200%20%0A%20%20%20%20%20%20%20%20ifTrue%3A%20%5B%3Cresult%20%3D%20Math.floor%28self%29%3B%3E%5D%0A%20%20%20%20%20%20%20%20ifFalse%3A%20%5B%3Cresult%20%3D%20%28Math.floor%28self%20*%20%28-1%29%29%20*%20%28-1%29%29%3B%3E%5D.%0A%0A%20%20%20%20%5E%20result'),
 messageSends: ["ifTrue:ifFalse:", unescape("%3E%3D")],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_%7C'),
+smalltalk.method({
+selector: unescape('%7C'),
+category: 'converting',
+fn: function (aNumber) {
+var self=this;
+return self | aNumber;
+return self;},
+args: ["aNumber"],
+source: unescape('%7C%20aNumber%0A%09%3Creturn%20self%20%7C%20aNumber%3E'),
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);

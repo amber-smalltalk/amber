@@ -791,6 +791,10 @@ squared
 
 !Number methodsFor: 'converting'!
 
+& aNumber
+	<return self & aNumber>
+!
+
 @ aNumber
 	^Point x: self y: aNumber
 !
@@ -858,6 +862,10 @@ truncated
         ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
 
     ^ result
+!
+
+| aNumber
+	<return self | aNumber>
 ! !
 
 !Number methodsFor: 'copying'!

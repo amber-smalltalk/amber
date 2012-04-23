@@ -1483,6 +1483,17 @@ smalltalk.JSObjectProxy.klass);
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
+unescape('_%26'),
+smalltalk.method({
+selector: unescape('%26'),
+fn: function (aNumber) {
+var self=this;
+return self & aNumber;
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
 unescape('__star'),
 smalltalk.method({
 selector: unescape('*'),
@@ -2006,6 +2017,17 @@ fn: function () {
     return result;
     return self;
 }
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_%7C'),
+smalltalk.method({
+selector: unescape('%7C'),
+fn: function (aNumber) {
+var self=this;
+return self | aNumber;
+return self;}
 }),
 smalltalk.Number);
 
