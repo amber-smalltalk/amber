@@ -683,13 +683,14 @@ smalltalk.method({
 selector: unescape('perform%3AwithArguments%3A'),
 category: 'message handling',
 fn: function (aSymbol, aCollection) {
-    var self = this;
-    return smalltalk.send(self, "_basicPerform_withArguments_", [smalltalk.send(aSymbol, "_asSelector", []), aCollection]);
-    return self;
-},
+var self=this;
+var selector=nil;
+(selector=smalltalk.send(aSymbol, "_asSelector", []));
+return smalltalk.send(self, selector, aCollection);
+return self;},
 args: ["aSymbol", "aCollection"],
-source: unescape('perform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%5Eself%20basicPerform%3A%20aSymbol%20asSelector%20withArguments%3A%20aCollection'),
-messageSends: ["basicPerform:withArguments:", "asSelector"],
+source: unescape('perform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20aSymbol%20asSelector.%0A%09%3Creturn%20smalltalk.send%28self%2C%20selector%2C%20aCollection%29%3E'),
+messageSends: ["asSelector"],
 referencedClasses: []
 }),
 smalltalk.Object);

@@ -486,10 +486,11 @@ unescape('_perform_withArguments_'),
 smalltalk.method({
 selector: unescape('perform%3AwithArguments%3A'),
 fn: function (aSymbol, aCollection) {
-    var self = this;
-    return smalltalk.send(self, "_basicPerform_withArguments_", [smalltalk.send(aSymbol, "_asSelector", []), aCollection]);
-    return self;
-}
+var self=this;
+var selector=nil;
+(selector=smalltalk.send(aSymbol, "_asSelector", []));
+return smalltalk.send(self, selector, aCollection);
+return self;}
 }),
 smalltalk.Object);
 

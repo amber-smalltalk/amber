@@ -215,7 +215,9 @@ perform: aSymbol
 !
 
 perform: aSymbol withArguments: aCollection
-	^self basicPerform: aSymbol asSelector withArguments: aCollection
+	| selector |
+	selector := aSymbol asSelector.
+	<return smalltalk.send(self, selector, aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
