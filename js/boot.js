@@ -313,15 +313,13 @@ function Smalltalk(){
 	   If the receiver does not understand the selector, call its #doesNotUnderstand: method */
 
 	sendWithoutContext = function(receiver, selector, args, klass) {
-		if(receiver === undefined || receiver === null) {
+		if(receiver == null) {
 			receiver = nil;
 		}
-		if(!klass && receiver.klass && receiver[selector]) {
-			return receiver[selector].apply(receiver, args);
-		} else if(klass && klass.fn.prototype[selector]) {
-			return klass.fn.prototype[selector].apply(receiver, args)
-		}
-		return messageNotUnderstood(receiver, selector, args);
+		var imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+		return imp
+			? imp.apply(receiver, args)
+			: messageNotUnderstood(receiver, selector, args);
 	};
 
 
@@ -346,24 +344,23 @@ function Smalltalk(){
 
 	/* Same as sendWithoutContext but creates a methodContext. */
 
-	withContextSend = function(receiver, selector, args, klass) {
-		var call, context;
-		if(receiver === undefined || receiver === null) {
+	function withContextSend(receiver, selector, args, klass) {
+		var call, context, imp;
+		if(receiver == null) {
 			receiver = nil;
 		}
-		if(!klass && receiver.klass && receiver[selector]) {
+		imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+		if(imp) {
 			context = pushContext(receiver, selector, args);
-			call = receiver[selector].apply(receiver, args);
-			popContext(context);
+			call = imp.apply(receiver, args);
+			st.thisContext = context.homeContext;
+			context.homeContext = undefined;
+			st.oldContext = context;
 			return call;
-		} else if(klass && klass.fn.prototype[selector]) {
-			context = pushContext(receiver, selector, args);
-			call = klass.fn.prototype[selector].apply(receiver, args);
-			popContext(context);
-			return call;
+		} else {
+			return messageNotUnderstood(receiver, selector, args);
 		}
-		return messageNotUnderstood(receiver, selector, args);
-	};
+	}
 
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler 
 	   (See the Smalltalk class ErrorHandler and its subclasses */
@@ -424,9 +421,9 @@ function Smalltalk(){
 	};
 
 
-	/* Reuse old contexts stored in oldContexts */
+	/* Reuse one old context stored in oldContext */
 
-	st.oldContexts = [];
+	st.oldContext = null;
 
 
 	/* Handle thisContext pseudo variable */
@@ -434,24 +431,23 @@ function Smalltalk(){
 	st.getThisContext = function() {
 		if(st.thisContext) {
 			return st.thisContext.copy();
-		} else {
+		}/* else { // this is the default
 			return undefined;
-		}
+		}*/
 	}
 
-	pushContext = function(receiver, selector, temps) {
-		if(st.thisContext) {
-			return st.thisContext = st.thisContext.newContext(receiver, selector, temps);
-		} else {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps);
+	function pushContext(receiver, selector, temps) {
+		var c = st.oldContext, tc = st.thisContext;
+		if (!c) {
+			return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps, tc);
 		}
-	};
-
-	popContext = function(context) {
-		if(context) {
-			context.removeYourself();
-		}
-	};
+		st.oldContext = null;
+		c.homeContext = tc;
+		c.receiver = receiver;
+		c.selector = selector;
+		c.temps = temps || {};
+		return st.thisContext = c;
+	}
 
 	/* Convert a string to a valid smalltalk selector.
 	   if you modify the following functions, also change String>>asSelector
@@ -517,42 +513,22 @@ function Smalltalk(){
 }
 
 function SmalltalkMethodContext(receiver, selector, temps, home) {
-	var that = this;
-	that.receiver = receiver;
-	that.selector = selector;
-	that.temps = temps || {};
-	that.homeContext = home;
-
-	that.copy = function() {
-		var home = that.homeContext;
-		if(home) {home = home.copy()}
-		return new SmalltalkMethodContext(
-				that.receiver, 
-				that.selector, 
-				that.temps, 
-				home
-				);
-	}
-
-	that.newContext = function(receiver, selector, temps) {
-		var c = smalltalk.oldContexts.pop();
-		if(c) {
-			c.homeContext = that;
-			c.receiver = receiver;
-			c.selector = selector;
-			c.temps = temps || {};
-		} else {
-			c = new SmalltalkMethodContext(receiver, selector, temps, that);
-		}
-		return c;
-	}
-
-	that.removeYourself = function() {
-		smalltalk.thisContext = that.homeContext;
-		that.homeContext = undefined;
-		smalltalk.oldContexts.push(that);
-	}
+	this.receiver = receiver;
+	this.selector = selector;
+	this.temps = temps || {};
+	this.homeContext = home;
 }
+
+SmalltalkMethodContext.prototype.copy = function() {
+	var home = this.homeContext;
+	if(home) {home = home.copy()}
+	return new SmalltalkMethodContext(
+			this.receiver, 
+			this.selector, 
+			this.temps, 
+			home
+			);
+};
 
 /* Global Smalltalk objects. */
 
