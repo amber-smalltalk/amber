@@ -50,4 +50,15 @@ return self;}
 smalltalk.Counter);
 
 
+smalltalk.addMethod(
+unescape('_tryExample'),
+smalltalk.method({
+selector: unescape('tryExample'),
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_new", []), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
+return self;}
+}),
+smalltalk.Counter.klass);
+
 
