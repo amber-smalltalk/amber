@@ -486,10 +486,11 @@ unescape('_perform_withArguments_'),
 smalltalk.method({
 selector: unescape('perform%3AwithArguments%3A'),
 fn: function (aSymbol, aCollection) {
-    var self = this;
-    return smalltalk.send(self, "_basicPerform_withArguments_", [smalltalk.send(aSymbol, "_asSelector", []), aCollection]);
-    return self;
-}
+var self=this;
+var selector=nil;
+(selector=smalltalk.send(aSymbol, "_asSelector", []));
+return smalltalk.send(self, selector, aCollection);
+return self;}
 }),
 smalltalk.Object);
 
@@ -525,6 +526,17 @@ fn: function () {
     return smalltalk.send("a ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])]);
     return self;
 }
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_respondsTo_'),
+smalltalk.method({
+selector: unescape('respondsTo%3A'),
+fn: function (aSelector) {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [aSelector]);
+return self;}
 }),
 smalltalk.Object);
 
@@ -1471,6 +1483,17 @@ smalltalk.JSObjectProxy.klass);
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
+unescape('_%26'),
+smalltalk.method({
+selector: unescape('%26'),
+fn: function (aNumber) {
+var self=this;
+return self & aNumber;
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
 unescape('__star'),
 smalltalk.method({
 selector: unescape('*'),
@@ -1994,6 +2017,17 @@ fn: function () {
     return result;
     return self;
 }
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+unescape('_%7C'),
+smalltalk.method({
+selector: unescape('%7C'),
+fn: function (aNumber) {
+var self=this;
+return self | aNumber;
+return self;}
 }),
 smalltalk.Number);
 

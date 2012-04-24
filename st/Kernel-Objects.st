@@ -215,7 +215,9 @@ perform: aSymbol
 !
 
 perform: aSymbol withArguments: aCollection
-	^self basicPerform: aSymbol asSelector withArguments: aCollection
+	| selector |
+	selector := aSymbol asSelector.
+	<return smalltalk.send(self, selector, aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
@@ -308,6 +310,10 @@ isSymbol
 
 notNil
 	^self isNil not
+!
+
+respondsTo: aSelector
+	^self class canUnderstand: aSelector
 ! !
 
 !Object class methodsFor: 'initialization'!
@@ -785,6 +791,10 @@ squared
 
 !Number methodsFor: 'converting'!
 
+& aNumber
+	<return self & aNumber>
+!
+
 @ aNumber
 	^Point x: self y: aNumber
 !
@@ -852,6 +862,10 @@ truncated
         ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
 
     ^ result
+!
+
+| aNumber
+	<return self | aNumber>
 ! !
 
 !Number methodsFor: 'copying'!
