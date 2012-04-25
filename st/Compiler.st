@@ -1323,14 +1323,14 @@ visitMethodNode: aNode
 	aNode nodes do: [:each |
 	    self visit: each].
 	earlyReturn ifTrue: [
-	    str nextPutAll: 'try{'].
+	    str nextPutAll: 'var $early={};'; lf; nextPutAll: 'try{'].
 	str nextPutAll: stream contents.
 	stream := str.
 	stream 
 	    lf; 
 	    nextPutAll: 'return self;'.
 	earlyReturn ifTrue: [
-	    stream lf; nextPutAll: '} catch(e) {if(e.name === ''stReturn'' && e.selector === ', currentSelector printString, '){return e.fn()} throw(e)}'].
+	    stream lf; nextPutAll: '} catch(e) {if(e===$early)return e(); throw e}'].
 	stream nextPutAll: '}'.
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
@@ -1350,15 +1350,12 @@ visitReturnNode: aNode
 	earlyReturn
 	    ifTrue: [
 		stream
-		    nextPutAll: '(function(){throw(';
-		    nextPutAll: '{name: ''stReturn'', selector: ';
-		    nextPutAll: currentSelector printString;
-		    nextPutAll: ', fn: function(){return ']
+		    nextPutAll: '(function(){throw $early=function(){return ']
 	    ifFalse: [stream nextPutAll: 'return '].
 	aNode nodes do: [:each |
 	    self visit: each].
 	earlyReturn ifTrue: [
-	    stream nextPutAll: '}})})()']
+	    stream nextPutAll: '}})()']
 !
 
 visitSendNode: aNode
