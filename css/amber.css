@@ -16,10 +16,13 @@ body.jtalkBody {
     padding: 0 1px;
     cursor: pointer;
     color: #565656;
-		max-width: 200px;
-		float:left;
+	max-width: 200px;
+	float:left;
 }
+#jtalk li {
+	line-height: 14px;
 
+}
 #jtalk .ltab, #jtalk .rtab, #jtalk .mtab {
     height: 22px;
     float: left;
@@ -537,3 +540,7 @@ body.jtalkBody {
 
 /*.jtalkTool .jt_column.sunit.results ul {padding: 0; margin: 0}*/
 
+/* Code mirror overrides */
+.CodeMirror pre {
+	line-height: 14px;
+}
