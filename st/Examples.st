@@ -2,6 +2,12 @@ Smalltalk current createPackage: 'Examples' properties: #{}!
 Widget subclass: #Counter
 	instanceVariableNames: 'count header'
 	package: 'Examples'!
+!Counter commentStamp!
+This is a trivial Widget example mimicking the classic Counter example in Seaside. 
+In order to play with it, just select the doit below and press the Do it button in the far right corner.
+Then take a look in the HTML document above the IDE.
+
+        Counter new appendToJQuery: 'body' asJQuery!
 
 !Counter methodsFor: 'actions'!
 
@@ -34,5 +40,16 @@ renderOn: html
     html button
 	with: '--';
 	onClick: [self decrease]
+! !
+
+!Counter class methodsFor: 'example'!
+
+tryExample
+	"In order to play with the Counter, just select the
+	doit below and press the Do it button. Then take a
+	look in the HTML document above the IDE."
+
+	"Counter tryExample"
+        self new appendToJQuery: 'body' asJQuery
 ! !
 

@@ -57,7 +57,7 @@ unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 var variables=nil;
 (variables=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
@@ -76,7 +76,7 @@ unescape('_asJSONString'),
 smalltalk.method({
 selector: unescape('asJSONString'),
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_asJSON", [])]);
 return self;},
@@ -683,13 +683,14 @@ smalltalk.method({
 selector: unescape('perform%3AwithArguments%3A'),
 category: 'message handling',
 fn: function (aSymbol, aCollection) {
-    var self = this;
-    return smalltalk.send(self, "_basicPerform_withArguments_", [smalltalk.send(aSymbol, "_asSelector", []), aCollection]);
-    return self;
-},
+var self=this;
+var selector=nil;
+(selector=smalltalk.send(aSymbol, "_asSelector", []));
+return smalltalk.send(self, selector, aCollection);
+return self;},
 args: ["aSymbol", "aCollection"],
-source: unescape('perform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%5Eself%20basicPerform%3A%20aSymbol%20asSelector%20withArguments%3A%20aCollection'),
-messageSends: ["basicPerform:withArguments:", "asSelector"],
+source: unescape('perform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20aSymbol%20asSelector.%0A%09%3Creturn%20smalltalk.send%28self%2C%20selector%2C%20aCollection%29%3E'),
+messageSends: ["asSelector"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -740,6 +741,22 @@ fn: function () {
 args: [],
 source: unescape('printString%0A%09%5E%27a%20%27%2C%20self%20class%20name'),
 messageSends: [unescape("%2C"), "name", "class"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+unescape('_respondsTo_'),
+smalltalk.method({
+selector: unescape('respondsTo%3A'),
+category: 'testing',
+fn: function (aSelector) {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [aSelector]);
+return self;},
+args: ["aSelector"],
+source: unescape('respondsTo%3A%20aSelector%0A%09%5Eself%20class%20canUnderstand%3A%20aSelector'),
+messageSends: ["canUnderstand:", "class"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -1013,7 +1030,7 @@ unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -1891,693 +1908,6 @@ referencedClasses: []
 smalltalk.Date.klass);
 
 
-smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.%20Therefore%20%60Date%20today%60%20and%20%60Date%20now%60%20are%20both%20valid%20in%0AAmber%20and%20answer%20the%20same%20date%20object.%0A%0ADate%20wraps%20the%20%60Date%28%29%60%20JavaScript%20constructor%2C%20and%20Smalltalk%20date%20objects%20are%20JavaScript%20date%20objects.')
-smalltalk.addMethod(
-unescape('__plus'),
-smalltalk.method({
-selector: unescape('+'),
-category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self + aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('+%20aDate%0A%09%3Creturn%20self%20+%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__minus'),
-smalltalk.method({
-selector: unescape('-'),
-category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self - aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('-%20aDate%0A%09%3Creturn%20self%20-%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__lt'),
-smalltalk.method({
-selector: unescape('%3C'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self < aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3C%20aDate%0A%09%3Creturn%20self%20%3C%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__lt_eq'),
-smalltalk.method({
-selector: unescape('%3C%3D'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self <= aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3C%3D%20aDate%0A%09%3Creturn%20self%20%3C%3D%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__gt'),
-smalltalk.method({
-selector: unescape('%3E'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self > aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3E%20aDate%0A%09%3Creturn%20self%20%3E%3E%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__gt_eq'),
-smalltalk.method({
-selector: unescape('%3E%3D'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self >= aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3E%3D%20aDate%0A%09%3Creturn%20self%20%3E%3E%3D%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asDateString'),
-smalltalk.method({
-selector: unescape('asDateString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toDateString();
-    return self;
-},
-args: [],
-source: unescape('asDateString%0A%09%3Creturn%20self.toDateString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asLocaleString'),
-smalltalk.method({
-selector: unescape('asLocaleString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toLocaleString();
-    return self;
-},
-args: [],
-source: unescape('asLocaleString%0A%09%3Creturn%20self.toLocaleString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asMilliseconds'),
-smalltalk.method({
-selector: unescape('asMilliseconds'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_time", []);
-    return self;
-},
-args: [],
-source: unescape('asMilliseconds%0A%09%5Eself%20time'),
-messageSends: ["time"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asNumber'),
-smalltalk.method({
-selector: unescape('asNumber'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asMilliseconds", []);
-    return self;
-},
-args: [],
-source: unescape('asNumber%0A%09%5Eself%20asMilliseconds'),
-messageSends: ["asMilliseconds"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asString'),
-smalltalk.method({
-selector: unescape('asString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
-args: [],
-source: unescape('asString%0A%09%3Creturn%20self.toString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asTimeString'),
-smalltalk.method({
-selector: unescape('asTimeString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toTimeString();
-    return self;
-},
-args: [],
-source: unescape('asTimeString%0A%09%3Creturn%20self.toTimeString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_day'),
-smalltalk.method({
-selector: unescape('day'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_dayOfWeek", []);
-    return self;
-},
-args: [],
-source: unescape('day%0A%09%5Eself%20dayOfWeek'),
-messageSends: ["dayOfWeek"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_day_'),
-smalltalk.method({
-selector: unescape('day%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    smalltalk.send(self, "_day_", [aNumber]);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('day%3A%20aNumber%0A%09self%20day%3A%20aNumber'),
-messageSends: ["day:"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfMonth'),
-smalltalk.method({
-selector: unescape('dayOfMonth'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDate();
-    return self;
-},
-args: [],
-source: unescape('dayOfMonth%0A%09%3Creturn%20self.getDate%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfMonth_'),
-smalltalk.method({
-selector: unescape('dayOfMonth%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setDate(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('dayOfMonth%3A%20aNumber%0A%09%3Cself.setDate%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfWeek'),
-smalltalk.method({
-selector: unescape('dayOfWeek'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDay() + 1;
-    return self;
-},
-args: [],
-source: unescape('dayOfWeek%0A%09%3Creturn%20self.getDay%28%29%20+%201%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfWeek_'),
-smalltalk.method({
-selector: unescape('dayOfWeek%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    return self.setDay(aNumber - 1);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('dayOfWeek%3A%20aNumber%0A%09%3Creturn%20self.setDay%28aNumber%20-%201%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_hours'),
-smalltalk.method({
-selector: unescape('hours'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getHours();
-    return self;
-},
-args: [],
-source: unescape('hours%0A%09%3Creturn%20self.getHours%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_hours_'),
-smalltalk.method({
-selector: unescape('hours%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setHours(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('hours%3A%20aNumber%0A%09%3Cself.setHours%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_milliseconds'),
-smalltalk.method({
-selector: unescape('milliseconds'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMilliseconds();
-    return self;
-},
-args: [],
-source: unescape('milliseconds%0A%09%3Creturn%20self.getMilliseconds%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_milliseconds_'),
-smalltalk.method({
-selector: unescape('milliseconds%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMilliseconds(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('milliseconds%3A%20aNumber%0A%09%3Cself.setMilliseconds%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_minutes'),
-smalltalk.method({
-selector: unescape('minutes'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMinutes();
-    return self;
-},
-args: [],
-source: unescape('minutes%0A%09%3Creturn%20self.getMinutes%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_minutes_'),
-smalltalk.method({
-selector: unescape('minutes%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMinutes(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('minutes%3A%20aNumber%0A%09%3Cself.setMinutes%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_month'),
-smalltalk.method({
-selector: unescape('month'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMonth() + 1;
-    return self;
-},
-args: [],
-source: unescape('month%0A%09%3Creturn%20self.getMonth%28%29%20+%201%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_month_'),
-smalltalk.method({
-selector: unescape('month%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMonth(aNumber - 1);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('month%3A%20aNumber%0A%09%3Cself.setMonth%28aNumber%20-%201%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_printString'),
-smalltalk.method({
-selector: unescape('printString'),
-category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asString", []);
-    return self;
-},
-args: [],
-source: unescape('printString%0A%09%5Eself%20asString'),
-messageSends: ["asString"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_seconds'),
-smalltalk.method({
-selector: unescape('seconds'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getSeconds();
-    return self;
-},
-args: [],
-source: unescape('seconds%0A%09%3Creturn%20self.getSeconds%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_seconds_'),
-smalltalk.method({
-selector: unescape('seconds%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setSeconds(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('seconds%3A%20aNumber%0A%09%3Cself.setSeconds%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_time'),
-smalltalk.method({
-selector: unescape('time'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getTime();
-    return self;
-},
-args: [],
-source: unescape('time%0A%09%3Creturn%20self.getTime%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_time_'),
-smalltalk.method({
-selector: unescape('time%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setTime(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('time%3A%20aNumber%0A%09%3Cself.setTime%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_year'),
-smalltalk.method({
-selector: unescape('year'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getFullYear();
-    return self;
-},
-args: [],
-source: unescape('year%0A%09%3Creturn%20self.getFullYear%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_year_'),
-smalltalk.method({
-selector: unescape('year%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setFullYear(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('year%3A%20aNumber%0A%09%3Cself.setFullYear%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-
-smalltalk.addMethod(
-unescape('_fromMilliseconds_'),
-smalltalk.method({
-selector: unescape('fromMilliseconds%3A'),
-category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(self, "_new_", [aNumber]);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('fromMilliseconds%3A%20aNumber%0A%09%5Eself%20new%3A%20aNumber'),
-messageSends: ["new:"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_fromSeconds_'),
-smalltalk.method({
-selector: unescape('fromSeconds%3A'),
-category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(self, "_fromMilliseconds_", [($receiver = aNumber).klass === smalltalk.Number ? $receiver * 1000 : smalltalk.send($receiver, "__star", [1000])]);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('fromSeconds%3A%20aNumber%0A%09%5Eself%20fromMilliseconds%3A%20aNumber%20*%201000'),
-messageSends: ["fromMilliseconds:", unescape("*")],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_fromString_'),
-smalltalk.method({
-selector: unescape('fromString%3A'),
-category: 'instance creation',
-fn: function (aString) {
-    var self = this;
-    return smalltalk.send(self, "_new_", [aString]);
-    return self;
-},
-args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09%22Example%3A%20Date%20fromString%28%272011/04/15%2000%3A00%3A00%27%29%22%0A%09%5Eself%20new%3A%20aString'),
-messageSends: ["new:"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_millisecondsToRun_'),
-smalltalk.method({
-selector: unescape('millisecondsToRun%3A'),
-category: 'instance creation',
-fn: function (aBlock) {
-    var self = this;
-    var t = nil;
-    t = smalltalk.send(smalltalk.Date || Date, "_now", []);
-    smalltalk.send(aBlock, "_value", []);
-    return ($receiver = smalltalk.send(smalltalk.Date || Date, "_now", [])).klass === smalltalk.Number ? $receiver - t : smalltalk.send($receiver, "__minus", [t]);
-    return self;
-},
-args: ["aBlock"],
-source: unescape('millisecondsToRun%3A%20aBlock%0A%09%7C%20t%20%7C%0A%09t%20%3A%3D%20Date%20now.%0A%09aBlock%20value.%0A%09%5EDate%20now%20-%20t'),
-messageSends: ["now", "value", unescape("-")],
-referencedClasses: ["Date"]
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_new_'),
-smalltalk.method({
-selector: unescape('new%3A'),
-category: 'instance creation',
-fn: function (anObject) {
-    var self = this;
-    return new Date(anObject);
-    return self;
-},
-args: ["anObject"],
-source: unescape('new%3A%20anObject%0A%09%3Creturn%20new%20Date%28anObject%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_now'),
-smalltalk.method({
-selector: unescape('now'),
-category: 'instance creation',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_today", []);
-    return self;
-},
-args: [],
-source: unescape('now%0A%09%5Eself%20today'),
-messageSends: ["today"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_today'),
-smalltalk.method({
-selector: unescape('today'),
-category: 'instance creation',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_new", []);
-    return self;
-},
-args: [],
-source: unescape('today%0A%09%5Eself%20new'),
-messageSends: ["new"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-
 smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
 smalltalk.JSObjectProxy.comment=unescape('JSObjectProxy%20handles%20sending%20messages%20to%20JavaScript%20object%2C%20therefore%20accessing%20JavaScript%20objects%20from%20Amber%20is%20transparent.%0AJSOjbectProxy%20makes%20intensive%20use%20of%20%60%23doesNotUnderstand%3A%60.%0A%0A%23%23%20Examples%0A%0AJSObjectProxy%20objects%20are%20instanciated%20by%20Amber%20when%20a%20Smalltalk%20message%20is%20sent%20to%20a%20JavaScript%20object.%0A%0A%20%20%20%20window%20alert%3A%20%27hello%20world%27.%0A%20%20%20%20window%20inspect.%0A%20%20%20%20%28window%20jQuery%3A%20%27body%27%29%20append%3A%20%27hello%20world%27%0A%0ASmalltalk%20messages%20sends%20are%20converted%20to%20JavaScript%20function%20calls%20or%20object%20property%20access%20_%28in%20this%20order%29_.%20If%20n%20one%20of%20them%20match%2C%20a%20%60MessageNotUnderstood%60%20error%20will%20be%20thrown.%20%0A%0A%23%23%20Message%20conversion%20rules%0A%0A-%20%60someUser%20name%60%20becomes%20%20%60someUser.name%60%0A-%20%60someUser%20name%3A%20%27John%27%60%20becomes%20%60someUser%20name%20%3D%20%22John%22%60%0A-%20%60console%20log%3A%20%27hello%20world%27%60%20becomes%20%60console.log%28%27hello%20world%27%29%60%0A-%20%60%28window%20jQuery%3A%20%27foo%27%29%20css%3A%20%27background%27%20color%3A%20%27red%27%60%20becomes%20%60window.jQuery%28%27foo%27%29.css%28%27background%27%2C%20%27red%27%29%60%0A%0A__Note%3A__%20For%20keyword-based%20messages%2C%20only%20the%20first%20keyword%20is%20kept%3A%20%60window%20foo%3A%201%20bar%3A%202%60%20is%20equivalent%20to%20%60window%20foo%3A%201%20baz%3A%202%60.')
 smalltalk.addMethod(
@@ -2742,6 +2072,22 @@ smalltalk.JSObjectProxy.klass);
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Number.comment=unescape('Number%20holds%20the%20most%20general%20methods%20for%20dealing%20with%20numbers.%20%20%0ANumber%20is%20directly%20mapped%20to%20JavaScript%20Number.%0A%0AMost%20arithmetic%20methods%20like%20%60%23+%60%20%60%23/%60%20%60%23-%60%20%60%23max%3A%60%20are%20directly%20inlined%20into%20javascript.%20%0A%0A%23%23Enumerating%0AA%20Number%20can%20be%20used%20to%20evaluate%20a%20Block%20a%20fixed%20number%20of%20times%3A%0A%0A%095%20timesRepeat%3A%20%5BTranscript%20show%3A%20%27This%20will%20be%20printed%205%20times%27%3B%20cr%5D.%0A%09%0A%091%20to%3A%205%20do%3A%20%5B%3AaNumber%7C%20Transcript%20show%3A%20aNumber%20asString%3B%20cr%5D.%0A%09%0A%091%20to%3A%2010%20by%3A%202%20do%3A%20%5B%3AaNumber%7C%20Transcript%20show%3A%20aNumber%20asString%3B%20cr%5D.')
+smalltalk.addMethod(
+unescape('_%26'),
+smalltalk.method({
+selector: unescape('%26'),
+category: 'converting',
+fn: function (aNumber) {
+var self=this;
+return self & aNumber;
+return self;},
+args: ["aNumber"],
+source: unescape('%26%20aNumber%0A%09%3Creturn%20self%20%26%20aNumber%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 smalltalk.addMethod(
 unescape('__star'),
 smalltalk.method({
@@ -2942,7 +2288,7 @@ unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -3474,6 +2820,22 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+smalltalk.addMethod(
+unescape('_%7C'),
+smalltalk.method({
+selector: unescape('%7C'),
+category: 'converting',
+fn: function (aNumber) {
+var self=this;
+return self | aNumber;
+return self;},
+args: ["aNumber"],
+source: unescape('%7C%20aNumber%0A%09%3Creturn%20self%20%7C%20aNumber%3E'),
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
 
 smalltalk.addMethod(
 unescape('_pi'),
@@ -3812,12 +3174,12 @@ unescape('_sortedClasses'),
 smalltalk.method({
 selector: unescape('sortedClasses'),
 category: 'classes',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_sortedClasses_", [smalltalk.send(self, "_classes", [])]);
 return self;},
 args: [],
-source: unescape('sortedClasses%0A%09%22Answer%20all%20classes%20in%20the%20receiver%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%5Eself%20class%20sortedClasses%3A%20self%20classes'),
+source: unescape('sortedClasses%0A%09%22Answer%20all%20classes%20in%20the%20receiver%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29.%22%0A%0A%09%5Eself%20class%20sortedClasses%3A%20self%20classes'),
 messageSends: ["sortedClasses:", "class", "classes"],
 referencedClasses: []
 }),
@@ -4024,7 +3386,7 @@ unescape('_sortedClasses_'),
 smalltalk.method({
 selector: unescape('sortedClasses%3A'),
 category: 'sorting',
-fn: function (classes){
+fn: function (classes) {
 var self=this;
 var children=nil;
 var others=nil;
@@ -4173,7 +3535,7 @@ unescape('_translateBy_'),
 smalltalk.method({
 selector: unescape('translateBy%3A'),
 category: 'transforming',
-fn: function (delta){
+fn: function (delta) {
 var self=this;
 return smalltalk.send(((($receiver = smalltalk.send(delta, "_x", [])).klass === smalltalk.Number) ? $receiver +self['@x'] : smalltalk.send($receiver, "__plus", [self['@x']])), "__at", [((($receiver = smalltalk.send(delta, "_y", [])).klass === smalltalk.Number) ? $receiver +self['@y'] : smalltalk.send($receiver, "__plus", [self['@y']]))]);
 return self;},
@@ -4660,7 +4022,7 @@ unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return (typeof null == 'undefined' ? nil : null);
 return self;},

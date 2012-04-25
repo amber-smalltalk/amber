@@ -1,5 +1,6 @@
 smalltalk.addPackage('Examples', {});
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
+smalltalk.Counter.comment=unescape('This%20is%20a%20trivial%20Widget%20example%20mimicking%20the%20classic%20Counter%20example%20in%20Seaside.%20%0AIn%20order%20to%20play%20with%20it%2C%20just%20select%20the%20doit%20below%20and%20press%20the%20Do%20it%20button%20in%20the%20far%20right%20corner.%0AThen%20take%20a%20look%20in%20the%20HTML%20document%20above%20the%20IDE.%0A%0A%20%20%20%20%20%20%20%20Counter%20new%20appendToJQuery%3A%20%27body%27%20asJQuery')
 smalltalk.addMethod(
 unescape('_decrease'),
 smalltalk.method({
@@ -69,5 +70,21 @@ referencedClasses: []
 }),
 smalltalk.Counter);
 
+
+smalltalk.addMethod(
+unescape('_tryExample'),
+smalltalk.method({
+selector: unescape('tryExample'),
+category: 'example',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self, "_new", []), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
+return self;},
+args: [],
+source: unescape('tryExample%0A%09%22In%20order%20to%20play%20with%20the%20Counter%2C%20just%20select%20the%0A%09doit%20below%20and%20press%20the%20Do%20it%20button.%20Then%20take%20a%0A%09look%20in%20the%20HTML%20document%20above%20the%20IDE.%22%0A%0A%09%22Counter%20tryExample%22%0A%20%20%20%20%20%20%20%20self%20new%20appendToJQuery%3A%20%27body%27%20asJQuery%20'),
+messageSends: ["appendToJQuery:", "new", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.Counter.klass);
 
 

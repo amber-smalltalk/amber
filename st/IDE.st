@@ -1768,7 +1768,7 @@ updatePercent: aNumber
 ! !
 
 TabWidget subclass: #ReferencesBrowser
-	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList'
+	instanceVariableNames: 'implementors senders implementorsList input timer selector sendersList referencedClasses referencedClassesList matches matchesList'
 	package: 'IDE'!
 
 !ReferencesBrowser methodsFor: 'accessing'!
@@ -1783,6 +1783,10 @@ implementors
 
 label
 	^'[References]'
+!
+
+matches
+	^matches ifNil: [matches := Array new]
 !
 
 referencedClasses
@@ -1814,10 +1818,20 @@ search: aString
 		searchReferencesFor: aString;
 		updateImplementorsList;
 		updateSendersList;
-		updateReferencedClassesList
+		updateReferencedClassesList;
+		updateMatchesList
 !
 
-searchReferencedClassesFor: aString
+searchMethodSource
+	| regex |
+	regex := selector allButFirst.
+	self classesAndMetaclasses do: [:each |
+		each methodDictionary values do: [:value |
+			(value source match: regex) ifTrue: [
+				self matches add: value]]]
+!
+
+searchReferencedClasses
 	self classesAndMetaclasses do: [:each |
 		each methodDictionary values do: [:value |
 			(value referencedClasses includes: selector) ifTrue: [
@@ -1829,12 +1843,14 @@ searchReferencesFor: aString
 	implementors := Array new.
 	senders := Array new.
 	referencedClasses := Array new.
+	matches := Array new.
+	self searchMethodSource.
 	(selector match: '^[A-Z]') 
-		ifFalse: [self searchSelectorReferencesFor: selector]
-		ifTrue: [self searchReferencedClassesFor: selector]
+		ifFalse: [self searchSelectorReferences]
+		ifTrue: [self searchReferencedClasses]
 !
 
-searchSelectorReferencesFor: aString
+searchSelectorReferences
 	self classesAndMetaclasses do: [:each | 
 		each methodDictionary keysAndValuesDo: [:key :value | 
 			key = selector ifTrue: [self implementors add: value].
@@ -1864,7 +1880,8 @@ renderBoxOn: html
 		renderInputOn: html;
 		renderImplementorsOn: html;
 		renderSendersOn: html;
-		renderReferencedClassesOn: html
+		renderReferencedClassesOn: html;
+		renderMatchesOn: html
 !
 
 renderImplementorsOn: html
@@ -1878,6 +1895,11 @@ renderInputOn: html
 		yourself.
 	input asJQuery val: selector.
 	self setInputEvents
+!
+
+renderMatchesOn: html
+	matchesList := html ul class: 'jt_column matches'.
+	self updateMatchesList
 !
 
 renderReferencedClassesOn: html
@@ -1908,6 +1930,19 @@ updateImplementorsList
 	    li := html li.
 	    li
 		with: (each methodClass asString, ' >> ', self selector);
+		onClick: [self openBrowserOn: each]]]
+!
+
+updateMatchesList
+    matchesList contents: [:html |
+	html li
+		class: 'column_label'; 
+		with: 'Regex matches (', self matches size asString, ')';
+		style: 'font-weight: bold'.
+	self matches do: [:each || li |
+	    li := html li.
+	    li
+		with: (each methodClass asString, ' >> ', each selector);
 		onClick: [self openBrowserOn: each]]]
 !
 

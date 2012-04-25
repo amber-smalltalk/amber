@@ -75,8 +75,10 @@ exportPackage: packageName
 	^String streamContents: [:stream |
                 package := Smalltalk current packageAt: packageName.
                 self exportPackageDefinitionOf: package on: stream.
-		"Export classes in dependency order"
-	    	package sortedClasses do: [:each |
+
+		"Export classes in dependency order.
+		Update (issue #171): Remove duplicates for export"
+	    	package sortedClasses asSet do: [:each |
                         stream nextPutAll: (self exportClass: each)].
 		self exportPackageExtensionsOf: package on: stream]
 ! !

@@ -215,7 +215,9 @@ perform: aSymbol
 !
 
 perform: aSymbol withArguments: aCollection
-	^self basicPerform: aSymbol asSelector withArguments: aCollection
+	| selector |
+	selector := aSymbol asSelector.
+	<return smalltalk.send(self, selector, aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
@@ -308,6 +310,10 @@ isSymbol
 
 notNil
 	^self isNil not
+!
+
+respondsTo: aSelector
+	^self class canUnderstand: aSelector
 ! !
 
 !Object class methodsFor: 'initialization'!
@@ -416,191 +422,6 @@ shallowCopy
 
 printString
 	<return self.toString()>
-! !
-
-Object subclass: #Date
-	instanceVariableNames: ''
-	package: 'Kernel-Objects'!
-!Date commentStamp!
-The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
-Amber and answer the same date object.
-
-Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
-
-!Date methodsFor: 'accessing'!
-
-day
-	^self dayOfWeek
-!
-
-day: aNumber
-	self day: aNumber
-!
-
-dayOfMonth
-	<return self.getDate()>
-!
-
-dayOfMonth: aNumber
-	<self.setDate(aNumber)>
-!
-
-dayOfWeek
-	<return self.getDay() + 1>
-!
-
-dayOfWeek: aNumber
-	<return self.setDay(aNumber - 1)>
-!
-
-hours
-	<return self.getHours()>
-!
-
-hours: aNumber
-	<self.setHours(aNumber)>
-!
-
-milliseconds
-	<return self.getMilliseconds()>
-!
-
-milliseconds: aNumber
-	<self.setMilliseconds(aNumber)>
-!
-
-minutes
-	<return self.getMinutes()>
-!
-
-minutes: aNumber
-	<self.setMinutes(aNumber)>
-!
-
-month
-	<return self.getMonth() + 1>
-!
-
-month: aNumber
-	<self.setMonth(aNumber - 1)>
-!
-
-seconds
-	<return self.getSeconds()>
-!
-
-seconds: aNumber
-	<self.setSeconds(aNumber)>
-!
-
-time
-	<return self.getTime()>
-!
-
-time: aNumber
-	<self.setTime(aNumber)>
-!
-
-year
-	<return self.getFullYear()>
-!
-
-year: aNumber
-	<self.setFullYear(aNumber)>
-! !
-
-!Date methodsFor: 'arithmetic'!
-
-+ aDate
-	<return self + aDate>
-!
-
-- aDate
-	<return self - aDate>
-! !
-
-!Date methodsFor: 'comparing'!
-
-< aDate
-	<return self < aDate>
-!
-
-<= aDate
-	<return self <= aDate>
-!
-
-> aDate
-	<return self >> aDate>
-!
-
->= aDate
-	<return self >>= aDate>
-! !
-
-!Date methodsFor: 'converting'!
-
-asDateString
-	<return self.toDateString()>
-!
-
-asLocaleString
-	<return self.toLocaleString()>
-!
-
-asMilliseconds
-	^self time
-!
-
-asNumber
-	^self asMilliseconds
-!
-
-asString
-	<return self.toString()>
-!
-
-asTimeString
-	<return self.toTimeString()>
-! !
-
-!Date methodsFor: 'printing'!
-
-printString
-	^self asString
-! !
-
-!Date class methodsFor: 'instance creation'!
-
-fromMilliseconds: aNumber
-	^self new: aNumber
-!
-
-fromSeconds: aNumber
-	^self fromMilliseconds: aNumber * 1000
-!
-
-fromString: aString
-	"Example: Date fromString('2011/04/15 00:00:00')"
-	^self new: aString
-!
-
-millisecondsToRun: aBlock
-	| t |
-	t := Date now.
-	aBlock value.
-	^Date now - t
-!
-
-new: anObject
-	<return new Date(anObject)>
-!
-
-now
-	^self today
-!
-
-today
-	^self new
 ! !
 
 Object subclass: #Date
@@ -970,6 +791,10 @@ squared
 
 !Number methodsFor: 'converting'!
 
+& aNumber
+	<return self & aNumber>
+!
+
 @ aNumber
 	^Point x: self y: aNumber
 !
@@ -1037,6 +862,10 @@ truncated
         ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
 
     ^ result
+!
+
+| aNumber
+	<return self | aNumber>
 ! !
 
 !Number methodsFor: 'copying'!
@@ -1219,7 +1048,7 @@ classes
 !
 
 sortedClasses
-	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)"
+	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
 	^self class sortedClasses: self classes
 ! !

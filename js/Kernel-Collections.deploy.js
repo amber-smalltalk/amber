@@ -131,7 +131,7 @@ smalltalk.addMethod(
 unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asJSON", []);})]);
 return self;}
@@ -273,7 +273,7 @@ smalltalk.addMethod(
 unescape('_ifEmpty_'),
 smalltalk.method({
 selector: unescape('ifEmpty%3A'),
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return self;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return self;})]));
 return self;}
@@ -578,7 +578,7 @@ smalltalk.addMethod(
 unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
-fn: function (){
+fn: function () {
 var self=this;
 var c=nil;
 (c=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -818,7 +818,7 @@ smalltalk.addMethod(
 unescape('_removeKey_'),
 smalltalk.method({
 selector: unescape('removeKey%3A'),
-fn: function (aKey){
+fn: function (aKey) {
 var self=this;
 return smalltalk.send(self, "_remove_", [aKey]);
 return self;}
@@ -931,7 +931,7 @@ smalltalk.addMethod(
 unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSON", []);
 return self;}
@@ -1019,7 +1019,7 @@ smalltalk.addMethod(
 unescape('_removeKey_ifAbsent_'),
 smalltalk.method({
 selector: unescape('removeKey%3AifAbsent%3A'),
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 
             var index = self['@keys'].indexOf(aKey);
@@ -1186,7 +1186,7 @@ smalltalk.addMethod(
 unescape('_first_'),
 smalltalk.method({
 selector: unescape('first%3A'),
-fn: function (n){
+fn: function (n) {
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(1), n]);
 return self;}
@@ -1354,228 +1354,6 @@ return self;}
 }),
 smalltalk.SequenceableCollection);
 
-
-
-smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.addMethod(
-unescape('_add_'),
-smalltalk.method({
-selector: unescape('add%3A'),
-fn: function (anObject) {
-var self=this;
-self.push(anObject); return anObject;;
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_asJavascript'),
-smalltalk.method({
-selector: unescape('asJavascript'),
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [smalltalk.send(smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJavascript", []);})]), "_join_", [unescape("%2C%20")])]), "__comma", [unescape("%5D")]);
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
-smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
-fn: function (anIndex, aBlock) {
-var self=this;
-
-	    var value = self[anIndex - 1];
-	    if(value === undefined) {
-		return aBlock();
-	    } else {
-		return value;
-	    }
-	;
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_at_put_'),
-smalltalk.method({
-selector: unescape('at%3Aput%3A'),
-fn: function (anIndex, anObject) {
-var self=this;
-return self[anIndex - 1] = anObject;
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_join_'),
-smalltalk.method({
-selector: unescape('join%3A'),
-fn: function (aString) {
-var self=this;
-return self.join(aString);
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_remove_'),
-smalltalk.method({
-selector: unescape('remove%3A'),
-fn: function (anObject) {
-var self=this;
-
-		for(var i=0;i<self.length;i++) {
-			if(self[i] == anObject) {
-				self.splice(i,1);
-				break;
-			}
-		}
-	;
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_removeFrom_to_'),
-smalltalk.method({
-selector: unescape('removeFrom%3Ato%3A'),
-fn: function (aNumber, anotherNumber) {
-var self=this;
-self.splice(aNumber - 1,anotherNumber - 1);
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_reversed'),
-smalltalk.method({
-selector: unescape('reversed'),
-fn: function () {
-var self=this;
-return self._copy().reverse();
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_size'),
-smalltalk.method({
-selector: unescape('size'),
-fn: function () {
-var self=this;
-return self.length;
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sort'),
-smalltalk.method({
-selector: unescape('sort'),
-fn: function () {
-var self=this;
-return smalltalk.send(self, "_basicPerform_", ["sort"]);
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sort_'),
-smalltalk.method({
-selector: unescape('sort%3A'),
-fn: function (aBlock) {
-var self=this;
-
-		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return -1} else {return 1}
-		})
-	;
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sorted'),
-smalltalk.method({
-selector: unescape('sorted'),
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort", []);
-return self;}
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sorted_'),
-smalltalk.method({
-selector: unescape('sorted%3A'),
-fn: function (aBlock) {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
-return self;}
-}),
-smalltalk.Array);
-
-
-smalltalk.addMethod(
-unescape('_new_'),
-smalltalk.method({
-selector: unescape('new%3A'),
-fn: function (anInteger) {
-var self=this;
-return new Array(anInteger);
-return self;}
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_with_'),
-smalltalk.method({
-selector: unescape('with%3A'),
-fn: function (anObject) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(1)]));
-return self;}
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_with_with_'),
-smalltalk.method({
-selector: unescape('with%3Awith%3A'),
-fn: function (anObject, anObject2) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(2)]));
-return self;}
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_with_with_with_'),
-smalltalk.method({
-selector: unescape('with%3Awith%3Awith%3A'),
-fn: function (anObject, anObject2, anObject3) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);smalltalk.send($rec, "_at_put_", [(3), anObject3]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(3)]));
-return self;}
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_withAll_'),
-smalltalk.method({
-selector: unescape('withAll%3A'),
-fn: function (aCollection) {
-var self=this;
-var instance=nil;
-(instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
-smalltalk.send(aCollection, "_withIndexDo_", [(function(each, index){return smalltalk.send(instance, "_at_put_", [index, each]);})]);
-return instance;
-return self;}
-}),
-smalltalk.Array.klass);
 
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
@@ -2008,7 +1786,7 @@ smalltalk.addMethod(
 unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;}
@@ -2614,7 +2392,7 @@ smalltalk.addMethod(
 unescape('_asJSON'),
 smalltalk.method({
 selector: unescape('asJSON'),
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asJSON", []);
 return self;}
