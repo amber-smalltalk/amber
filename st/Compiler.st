@@ -1349,7 +1349,7 @@ visitMethodNode: aNode
 visitReturnNode: aNode
 	nestedBlocks > 0 ifTrue: [
 	    earlyReturn := true].
-	earlyReturn
+	nestedBlocks > 0
 	    ifTrue: [
 		stream
 		    nextPutAll: '(function(){throw $early=function(){return ']
