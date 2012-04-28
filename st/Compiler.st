@@ -1356,7 +1356,7 @@ visitReturnNode: aNode
 	    ifFalse: [stream nextPutAll: 'return '].
 	aNode nodes do: [:each |
 	    self visit: each].
-	earlyReturn ifTrue: [
+	nestedBlocks > 0 ifTrue: [
 	    stream nextPutAll: '}})()']
 !
 
