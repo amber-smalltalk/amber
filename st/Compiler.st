@@ -732,7 +732,7 @@ visitBlockNode: aNode
 !
 
 visitBlockSequenceNode: aNode
-	self visitSequenceNode: aNode
+	self visitNode: aNode
 !
 
 visitCascadeNode: aNode
@@ -740,9 +740,7 @@ visitCascadeNode: aNode
 !
 
 visitClassReferenceNode: aNode
-	self 
-	    nextPutAll: 'smalltalk.';
-	    nextPutAll: aNode value
+	self visitNode: aNode
 !
 
 visitDynamicArrayNode: aNode
@@ -754,10 +752,7 @@ visitDynamicDictionaryNode: aNode
 !
 
 visitJSStatementNode: aNode
-	self 
-	    nextPutAll: 'function(){';
-	    nextPutAll: aNode source;
-	    nextPutAll: '})()'
+	self visitNode: aNode
 !
 
 visitMethodNode: aNode
@@ -784,6 +779,7 @@ visitValueNode: aNode
 !
 
 visitVariableNode: aNode
+	self visitNode: aNode
 ! !
 
 NodeVisitor subclass: #Compiler

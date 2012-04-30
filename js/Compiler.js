@@ -1472,11 +1472,11 @@ selector: unescape('visitBlockSequenceNode%3A'),
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitSequenceNode_", [aNode]);
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: unescape('visitBlockSequenceNode%3A%20aNode%0A%09self%20visitSequenceNode%3A%20aNode'),
-messageSends: ["visitSequenceNode:"],
+source: unescape('visitBlockSequenceNode%3A%20aNode%0A%09self%20visitNode%3A%20aNode'),
+messageSends: ["visitNode:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);
@@ -1504,11 +1504,11 @@ selector: unescape('visitClassReferenceNode%3A'),
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk."]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(aNode, "_value", [])]);})(self);
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: unescape('visitClassReferenceNode%3A%20aNode%0A%09self%20%0A%09%20%20%20%20nextPutAll%3A%20%27smalltalk.%27%3B%0A%09%20%20%20%20nextPutAll%3A%20aNode%20value'),
-messageSends: ["nextPutAll:", "value"],
+source: unescape('visitClassReferenceNode%3A%20aNode%0A%09self%20visitNode%3A%20aNode'),
+messageSends: ["visitNode:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);
@@ -1552,11 +1552,11 @@ selector: unescape('visitJSStatementNode%3A'),
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("function%28%29%7B")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(aNode, "_source", [])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%28%29")]);})(self);
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: unescape('visitJSStatementNode%3A%20aNode%0A%09self%20%0A%09%20%20%20%20nextPutAll%3A%20%27function%28%29%7B%27%3B%0A%09%20%20%20%20nextPutAll%3A%20aNode%20source%3B%0A%09%20%20%20%20nextPutAll%3A%20%27%7D%29%28%29%27'),
-messageSends: ["nextPutAll:", "source"],
+source: unescape('visitJSStatementNode%3A%20aNode%0A%09self%20visitNode%3A%20aNode'),
+messageSends: ["visitNode:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);
@@ -1664,11 +1664,11 @@ selector: unescape('visitVariableNode%3A'),
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: unescape('visitVariableNode%3A%20aNode'),
-messageSends: [],
+source: unescape('visitVariableNode%3A%20aNode%0A%09self%20visitNode%3A%20aNode'),
+messageSends: ["visitNode:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);

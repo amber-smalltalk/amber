@@ -1046,7 +1046,7 @@ smalltalk.method({
 selector: unescape('visitBlockSequenceNode%3A'),
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitSequenceNode_", [aNode]);
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -1068,7 +1068,7 @@ smalltalk.method({
 selector: unescape('visitClassReferenceNode%3A'),
 fn: function (aNode) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk."]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(aNode, "_value", [])]);})(self);
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -1101,7 +1101,7 @@ smalltalk.method({
 selector: unescape('visitJSStatementNode%3A'),
 fn: function (aNode) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [unescape("function%28%29%7B")]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(aNode, "_source", [])]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%7D%29%28%29")]);})(self);
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -1178,7 +1178,7 @@ smalltalk.method({
 selector: unescape('visitVariableNode%3A'),
 fn: function (aNode) {
 var self=this;
-
+smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
