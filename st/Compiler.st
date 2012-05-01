@@ -113,7 +113,7 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: 'smalltalk.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
-		nextPutAll: 'unescape(''', aClass comment escaped, ''')'].
+		nextPutAll: aClass comment asJavascript].
 	aStream lf
 !
 
@@ -131,13 +131,13 @@ exportMetaDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream 
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: 'unescape(''', aMethod selector asSelector escaped, '''),';lf;
+		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: unescape(''', aMethod selector escaped, '''),';lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'category: ''', aMethod category, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
-		nextPutAll: 'source: unescape(''', aMethod source escaped, '''),';lf;
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
 		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
 		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
 	aStream
@@ -314,9 +314,9 @@ exportDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream 
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: 'unescape(''', aMethod selector asSelector escaped, '''),';lf;
+		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: unescape(''', aMethod selector escaped, '''),';lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource;lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
@@ -1306,7 +1306,7 @@ visitMethodNode: aNode
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
 	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
-	stream nextPutAll: 'source: unescape("', self source escaped, '"),';lf.
+	stream nextPutAll: 'source: ', self source asJavascript, ',';lf.
 	stream nextPutAll: 'fn: function('.
 	aNode arguments 
 	    do: [:each | 
