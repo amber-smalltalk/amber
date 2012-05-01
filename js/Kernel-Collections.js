@@ -1096,6 +1096,7 @@ category: 'accessing',
 fn: function () {
 var self=this;
 
+		if ('function'===typeof Object.keys) return Object.keys(self);
 		var keys = [];
 		for(var i in self) {
 			if(self.hasOwnProperty(i)) {
@@ -1106,7 +1107,7 @@ var self=this;
 	;
 return self;},
 args: [],
-source: unescape('keys%0A%09%3C%0A%09%09var%20keys%20%3D%20%5B%5D%3B%0A%09%09for%28var%20i%20in%20self%29%20%7B%0A%09%09%09if%28self.hasOwnProperty%28i%29%29%20%7B%0A%09%09%09%09keys.push%28i%29%3B%0A%09%09%09%7D%0A%09%09%7D%3B%0A%09%09return%20keys%3B%0A%09%3E'),
+source: unescape('keys%0A%09%3C%0A%09%09if%20%28%27function%27%3D%3D%3Dtypeof%20Object.keys%29%20return%20Object.keys%28self%29%3B%0A%09%09var%20keys%20%3D%20%5B%5D%3B%0A%09%09for%28var%20i%20in%20self%29%20%7B%0A%09%09%09if%28self.hasOwnProperty%28i%29%29%20%7B%0A%09%09%09%09keys.push%28i%29%3B%0A%09%09%09%7D%0A%09%09%7D%3B%0A%09%09return%20keys%3B%0A%09%3E'),
 messageSends: [],
 referencedClasses: []
 }),

@@ -319,6 +319,7 @@ at: aKey put: aValue
 
 keys
 	<
+		if ('function'===typeof Object.keys) return Object.keys(self);
 		var keys = [];
 		for(var i in self) {
 			if(self.hasOwnProperty(i)) {
