@@ -257,10 +257,10 @@ function Smalltalk(){
 		});
 	};
 
-    /* Create an alias for an existing class */
-    st.alias = function(klass, alias) {
-        st[alias] = klass;
-    }
+	/* Create an alias for an existing class */
+	st.alias = function(klass, alias) {
+		st[alias] = klass;
+	}
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
 	   If pkgName is null or empty we return nil, which is an allowed package for a class.
@@ -290,7 +290,7 @@ function Smalltalk(){
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
 			st[className].pkg = pkg || st[className].pkg;
-		} else {    
+		} else {
 			st[className] = klass({
 				className: className, 
 				superclass: superclass,
@@ -337,7 +337,7 @@ function Smalltalk(){
 		if(imp) {
 			pushContext(receiver, selector, args);
 			call = imp.apply(receiver, args);
-            popContext();
+			popContext();
 			return call;
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
@@ -431,12 +431,12 @@ function Smalltalk(){
 		return st.thisContext = c;
 	};
 
-    function popContext() {
-        var context = st.thisContext;
-        st.thisContext = context.homeContext;
+	function popContext() {
+		var context = st.thisContext;
+		st.thisContext = context.homeContext;
 		context.homeContext = undefined;
 		st.oldContext = context;
-    };
+	};
 
 	/* Convert a string to a valid smalltalk selector.
 	   if you modify the following functions, also change String>>asSelector
