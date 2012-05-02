@@ -319,6 +319,7 @@ at: aKey put: aValue
 
 keys
 	<
+		if ('function'===typeof Object.keys) return Object.keys(self);
 		var keys = [];
 		for(var i in self) {
 			if(self.hasOwnProperty(i)) {
@@ -975,7 +976,7 @@ asJavaScriptSelector
 asJavascript
 	<
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
-			return "unescape(\"" + escape(self) + "\")";
+			return "\"" + self.replace(/[\x00-\x1f"\\\x7f-\x9f]/g, function(ch){var c=ch.charCodeAt(0);return "\\x"+("0"+c.toString(16)).slice(-2)}) + "\"";
 		else
 			return "\"" + self + "\"";
 	>
