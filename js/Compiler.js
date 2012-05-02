@@ -1745,6 +1745,22 @@ referencedClasses: ["DoIt"]
 smalltalk.AbstractCompiler);
 
 smalltalk.addMethod(
+"_compileNode_",
+smalltalk.method({
+selector: "compileNode:",
+category: 'compiling',
+fn: function (aNode) {
+var self=this;
+smalltalk.send(self, "_subclassResponsibility", []);
+return self;},
+args: ["aNode"],
+source: "compileNode: aNode\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.AbstractCompiler);
+
+smalltalk.addMethod(
 "_currentClass",
 smalltalk.method({
 selector: "currentClass",

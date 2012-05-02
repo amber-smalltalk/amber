@@ -841,6 +841,10 @@ compileExpression: aString
 	^self compileNode: (self parse: self source)
 !
 
+compileNode: aNode
+	self subclassResponsibility
+!
+
 eval: aString
 	<return eval(aString)>
 !

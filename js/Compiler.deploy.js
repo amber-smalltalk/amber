@@ -1235,6 +1235,17 @@ return self;}
 smalltalk.AbstractCompiler);
 
 smalltalk.addMethod(
+"_compileNode_",
+smalltalk.method({
+selector: "compileNode:",
+fn: function (aNode) {
+var self=this;
+smalltalk.send(self, "_subclassResponsibility", []);
+return self;}
+}),
+smalltalk.AbstractCompiler);
+
+smalltalk.addMethod(
 "_currentClass",
 smalltalk.method({
 selector: "currentClass",
