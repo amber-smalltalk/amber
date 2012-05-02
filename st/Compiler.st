@@ -782,15 +782,11 @@ visitVariableNode: aNode
 	self visitNode: aNode
 ! !
 
-NodeVisitor subclass: #Compiler
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentClass currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced source argVariables'
+NodeVisitor subclass: #AbstractCompiler
+	instanceVariableNames: 'currentClass source'
 	package: 'Compiler'!
 
-!Compiler methodsFor: 'accessing'!
-
-argVariables
-	^argVariables copy
-!
+!AbstractCompiler methodsFor: 'accessing'!
 
 classNameFor: aClass
 	^aClass isMetaclass
@@ -809,17 +805,6 @@ currentClass: aClass
 	currentClass := aClass
 !
 
-knownVariables
-	^self pseudoVariables 
-		addAll: self tempVariables;
-		addAll: self argVariables;
-		yourself
-!
-
-parser
-	^SmalltalkParser new
-!
-
 pseudoVariables
 	^#('self' 'super' 'true' 'false' 'nil' 'thisContext')
 !
@@ -836,17 +821,9 @@ source
 
 source: aString
 	source := aString
-!
-
-tempVariables
-	^tempVariables copy
-!
-
-unknownVariables
-	^unknownVariables copy
 ! !
 
-!Compiler methodsFor: 'compiling'!
+!AbstractCompiler methodsFor: 'compiling'!
 
 compile: aString
 	^self compileNode: (self parse: aString)
@@ -862,12 +839,6 @@ compileExpression: aString
 	self currentClass: DoIt.
 	self source: 'doIt ^[', aString, '] value'.
 	^self compileNode: (self parse: self source)
-!
-
-compileNode: aNode
-	stream := '' writeStream.
-	self visit: aNode.
-	^stream contents
 !
 
 eval: aString
@@ -913,6 +884,54 @@ recompileAll
 
 setupClass: aClass
 	<smalltalk.init(aClass)>
+! !
+
+!AbstractCompiler class methodsFor: 'compiling'!
+
+recompile: aClass
+	aClass methodDictionary do: [:each || method |
+		method := self new load: each source forClass: aClass.
+		method category: each category.
+		aClass addCompiledMethod: method].
+	aClass isMetaclass ifFalse: [self recompile: aClass class]
+!
+
+recompileAll
+	Smalltalk current classes do: [:each |
+		self recompile: each]
+! !
+
+AbstractCompiler subclass: #Compiler
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables'
+	package: 'Compiler'!
+
+!Compiler methodsFor: 'accessing'!
+
+argVariables
+	^argVariables copy
+!
+
+knownVariables
+	^self pseudoVariables 
+		addAll: self tempVariables;
+		addAll: self argVariables;
+		yourself
+!
+
+tempVariables
+	^tempVariables copy
+!
+
+unknownVariables
+	^unknownVariables copy
+! !
+
+!Compiler methodsFor: 'compiling'!
+
+compileNode: aNode
+	stream := '' writeStream.
+	self visit: aNode.
+	^stream contents
 ! !
 
 !Compiler methodsFor: 'initialization'!
@@ -1419,20 +1438,5 @@ performOptimizations
 
 performOptimizations: aBoolean
 	performOptimizations := aBoolean
-! !
-
-!Compiler class methodsFor: 'compiling'!
-
-recompile: aClass
-	aClass methodDictionary do: [:each || method |
-		method := self new load: each source forClass: aClass.
-		method category: each category.
-		aClass addCompiledMethod: method].
-	aClass isMetaclass ifFalse: [self recompile: aClass class]
-!
-
-recompileAll
-	Smalltalk current classes do: [:each |
-		self recompile: each]
 ! !
 

@@ -309,23 +309,9 @@ function Smalltalk(){
 		method.jsSelector = jsSelector;
 	};
 
-	/* Handles Smalltalk message send. Automatically converts undefined to the nil object.
-	   If the receiver does not understand the selector, call its #doesNotUnderstand: method */
-
-	sendWithoutContext = function(receiver, selector, args, klass) {
-		if(receiver == null) {
-			receiver = nil;
-		}
-		var imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
-		return imp
-			? imp.apply(receiver, args)
-			: messageNotUnderstood(receiver, selector, args);
-	};
-
-
 	/* Handles unhandled errors during message sends */
 
-	sendWithContext = function(receiver, selector, args, klass) {
+	st.send = function(receiver, selector, args, klass) {
 		if(st.thisContext) {
 			return withContextSend(receiver, selector, args, klass);
 		} else {
@@ -342,25 +328,21 @@ function Smalltalk(){
 		}
 	};
 
-	/* Same as sendWithoutContext but creates a methodContext. */
-
 	function withContextSend(receiver, selector, args, klass) {
-		var call, context, imp;
+		var call, imp;
 		if(receiver == null) {
 			receiver = nil;
 		}
 		imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(imp) {
-			context = pushContext(receiver, selector, args);
+			pushContext(receiver, selector, args);
 			call = imp.apply(receiver, args);
-			st.thisContext = context.homeContext;
-			context.homeContext = undefined;
-			st.oldContext = context;
+            popContext();
 			return call;
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
 		}
-	}
+	};
 
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler 
 	   (See the Smalltalk class ErrorHandler and its subclasses */
@@ -368,7 +350,7 @@ function Smalltalk(){
 	function handleError(error) {
 		st.thisContext = undefined;
 		smalltalk.ErrorHandler._current()._handleError_(error);
-	}
+	};
 
 	/* Handles #dnu: *and* JavaScript method calls.
 	   if the receiver has no klass, we consider it a JS object (outside of the
@@ -434,7 +416,7 @@ function Smalltalk(){
 		}/* else { // this is the default
 			return undefined;
 		}*/
-	}
+	};
 
 	function pushContext(receiver, selector, temps) {
 		var c = st.oldContext, tc = st.thisContext;
@@ -447,7 +429,14 @@ function Smalltalk(){
 		c.selector = selector;
 		c.temps = temps || {};
 		return st.thisContext = c;
-	}
+	};
+
+    function popContext() {
+        var context = st.thisContext;
+        st.thisContext = context.homeContext;
+		context.homeContext = undefined;
+		st.oldContext = context;
+    };
 
 	/* Convert a string to a valid smalltalk selector.
 	   if you modify the following functions, also change String>>asSelector
@@ -499,25 +488,17 @@ function Smalltalk(){
 		return object;
 	};
 
-	/* Toggle deployment mode (no context will be handled during message send */
-	st.setDeploymentMode = function() {
-		st.send = sendWithoutContext;
-	};
-
-	st.setDevelopmentMode = function() {
-		st.send = sendWithContext;
-	}
-
-	/* Set development mode by default */
-	st.setDevelopmentMode();
-}
+	/* Kept for backward compatibility */
+	st.setDeploymentMode = function() {};
+	st.setDevelopmentMode = function() {};
+};
 
 function SmalltalkMethodContext(receiver, selector, temps, home) {
 	this.receiver = receiver;
 	this.selector = selector;
 	this.temps = temps || {};
 	this.homeContext = home;
-}
+};
 
 SmalltalkMethodContext.prototype.copy = function() {
 	var home = this.homeContext;
