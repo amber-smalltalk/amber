@@ -163,9 +163,16 @@ function Smalltalk(){
 
 	/* Initialize a class in its class hierarchy. Handle both class and
 	   metaclasses. */
+	   
+	st.init = function(klass) {
+		st.initSubTree(klass);
+		if(klass.klass && !klass.meta) {
+			st.initSubTree(klass.klass);
+		}
+	};
 
 	if ('function' === typeof Object.keys) {
-		st.init = function(klass) {
+		st.initSubTree = function(klass) {
 			var subclasses = st.subclasses(klass);
 			var methods, proto = klass.fn.prototype;
 
@@ -183,14 +190,11 @@ function Smalltalk(){
 			}
 
 			for(var i=0;i<subclasses.length;i++) {
-				st.init(subclasses[i]);
-			}
-			if(klass.klass && !klass.meta) {
-				st.init(klass.klass);
+				st.initSubTree(subclasses[i]);
 			}
 		};
 	} else {
-		st.init = function(klass) {
+		st.initSubTree = function(klass) {
 			var subclasses = st.subclasses(klass);
 			var methods, proto = klass.fn.prototype;
 
@@ -207,10 +211,7 @@ function Smalltalk(){
 			}
 
 			for(var i=0;i<subclasses.length;i++) {
-				st.init(subclasses[i]);
-			}
-			if(klass.klass && !klass.meta) {
-				st.init(klass.klass);
+				st.initSubTree(subclasses[i]);
 			}
 		};
 	}
