@@ -841,6 +841,10 @@ compileExpression: aString
 	^self compileNode: (self parse: self source)
 !
 
+compileNode: aNode
+	self subclassResponsibility
+!
+
 eval: aString
 	<return eval(aString)>
 !
@@ -1347,7 +1351,7 @@ visitMethodNode: aNode
 	    lf; 
 	    nextPutAll: 'return self;'.
 	earlyReturn ifTrue: [
-	    stream lf; nextPutAll: '} catch(e) {if(e===$early)return e(); throw e}'].
+	    stream lf; nextPutAll: '} catch(e) {if(e===$early)return e[0]; throw e}'].
 	stream nextPutAll: '}'.
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
@@ -1367,12 +1371,12 @@ visitReturnNode: aNode
 	nestedBlocks > 0
 	    ifTrue: [
 		stream
-		    nextPutAll: '(function(){throw $early=function(){return ']
+		    nextPutAll: '(function(){throw $early=[']
 	    ifFalse: [stream nextPutAll: 'return '].
 	aNode nodes do: [:each |
 	    self visit: each].
 	nestedBlocks > 0 ifTrue: [
-	    stream nextPutAll: '}})()']
+	    stream nextPutAll: ']})()']
 !
 
 visitSendNode: aNode
