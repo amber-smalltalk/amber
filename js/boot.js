@@ -335,9 +335,9 @@ function Smalltalk(){
 		}
 		imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(imp) {
-			pushContext(receiver, selector, args);
+			var context = pushContext(receiver, selector, args);
 			call = imp.apply(receiver, args);
-			popContext();
+			popContext(context);
 			return call;
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
@@ -431,8 +431,7 @@ function Smalltalk(){
 		return st.thisContext = c;
 	};
 
-	function popContext() {
-		var context = st.thisContext;
+	function popContext(context) {
 		st.thisContext = context.homeContext;
 		context.homeContext = undefined;
 		st.oldContext = context;
