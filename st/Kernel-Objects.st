@@ -440,7 +440,7 @@ day
 !
 
 day: aNumber
-	self day: aNumber
+	self dayOfWeek: aNumber
 !
 
 dayOfMonth
