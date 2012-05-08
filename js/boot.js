@@ -163,30 +163,58 @@ function Smalltalk(){
 
 	/* Initialize a class in its class hierarchy. Handle both class and
 	   metaclasses. */
-
+	   
 	st.init = function(klass) {
-		var subclasses = st.subclasses(klass);
-		var methods;
-
-		if(klass.superclass && klass.superclass !== nil) {
-			methods = st.methods(klass.superclass);
-
-			//Methods linking
-			for(var i in methods) {
-				if(!klass.fn.prototype.methods[i]) {
-					klass.fn.prototype.inheritedMethods[i] = methods[i];
-					klass.fn.prototype[methods[i].jsSelector] = methods[i].fn;
-				}
-			}
-		}
-
-		for(var i=0;i<subclasses.length;i++) {
-			st.init(subclasses[i]);
-		}
+		st.initSubTree(klass);
 		if(klass.klass && !klass.meta) {
-			st.init(klass.klass);
+			st.initSubTree(klass.klass);
 		}
 	};
+
+	if ('function' === typeof Object.keys) {
+		st.initSubTree = function(klass) {
+			var subclasses = st.subclasses(klass);
+			var methods, proto = klass.fn.prototype;
+
+			if(klass.superclass && klass.superclass !== nil) {
+				methods = st.methods(klass.superclass);
+
+				//Methods linking
+				for(var keys=Object.keys(methods),i=0,l=keys.length; i<l; ++i) {
+					var k = keys[i]
+					if(!proto.methods[k]) {
+						proto.inheritedMethods[k] = methods[k];
+						proto[methods[k].jsSelector] = methods[k].fn;
+					}
+				}
+			}
+
+			for(var i=0;i<subclasses.length;i++) {
+				st.initSubTree(subclasses[i]);
+			}
+		};
+	} else {
+		st.initSubTree = function(klass) {
+			var subclasses = st.subclasses(klass);
+			var methods, proto = klass.fn.prototype;
+
+			if(klass.superclass && klass.superclass !== nil) {
+				methods = st.methods(klass.superclass);
+
+				//Methods linking
+				for(var i in methods) {
+					if(!proto.methods[i]) {
+						proto.inheritedMethods[i] = methods[i];
+						proto[methods[i].jsSelector] = methods[i].fn;
+					}
+				}
+			}
+
+			for(var i=0;i<subclasses.length;i++) {
+				st.initSubTree(subclasses[i]);
+			}
+		};
+	}
 
 	/* Answer all registered Packages as Array */
 
@@ -201,27 +229,55 @@ function Smalltalk(){
 
 	/* Answer all registered Smalltalk classes */
 
-	st.classes = function() {
-		var classes = [];
-		for(var i in st) {
-			if(i.search(/^[A-Z]/g) != -1) {
-				classes.push(st[i]);
+	if ('function' === typeof Object.keys) {
+		st.classes = function() {
+			var classes = [], names = Object.keys(st), l = names.length;
+			for (var i=0; i<l; ++i) {
+				var name = names[i];
+				if (name.search(/^[A-Z]/) !== -1) {
+					classes.push(st[name]);
+				}
 			}
-		}
-		return classes
-	};
+			return classes;
+		};
+	} else {
+		st.classes = function() {
+			var classes = [];
+			for(var i in st) {
+				if(i.search(/^[A-Z]/g) != -1) {
+					classes.push(st[i]);
+				}
+			}
+			return classes
+		};
+	}
 
 	/* Answer all methods (included inherited ones) of klass. */
 
-	st.methods = function(klass) {
-		var methods = {};
-		for(var i in klass.fn.prototype.methods) {
-			methods[i] = klass.fn.prototype.methods[i]
-		}
-		for(var i in klass.fn.prototype.inheritedMethods) {
-			methods[i] = klass.fn.prototype.inheritedMethods[i]
-		}
-		return methods;
+	if ('function' === typeof Object.keys) {
+		st.methods = function(klass) {
+			var methods = {};
+			var copyFrom = klass.fn.prototype.methods;
+			for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
+				methods[k[i]] = copyFrom[k[i]];
+			}
+			copyFrom = klass.fn.prototype.inheritedMethods;
+			for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
+				methods[k[i]] = copyFrom[k[i]];
+			}
+			return methods;
+		};
+	} else {
+		st.methods = function(klass) {
+			var methods = {};
+			for(var i in klass.fn.prototype.methods) {
+				methods[i] = klass.fn.prototype.methods[i]
+			}
+			for(var i in klass.fn.prototype.inheritedMethods) {
+				methods[i] = klass.fn.prototype.inheritedMethods[i]
+			}
+			return methods;
+		};
 	}
 
 	/* Answer the direct subclasses of klass. */
@@ -229,15 +285,17 @@ function Smalltalk(){
 	st.subclasses = function(klass) {
 		var subclasses = [];
 		var classes = st.classes();
-		for(var i in classes) {
-			if(classes[i].fn) {
-				//Metaclasses
-				if(classes[i].klass && classes[i].klass.superclass === klass) {
-					subclasses.push(classes[i].klass);
-				}
+		for(var i=0, l=classes.length; i<l; ++i) {
+			var c = classes[i]
+			if(c.fn) {
 				//Classes
-				if(classes[i].superclass === klass) {
-					subclasses.push(classes[i]);
+				if(c.superclass === klass) {
+					subclasses.push(c);
+				}
+				c = c.klass;
+				//Metaclasses
+				if(c && c.superclass === klass) {
+					subclasses.push(c);
 				}
 			}
 		}
@@ -257,10 +315,10 @@ function Smalltalk(){
 		});
 	};
 
-    /* Create an alias for an existing class */
-    st.alias = function(klass, alias) {
-        st[alias] = klass;
-    }
+	/* Create an alias for an existing class */
+	st.alias = function(klass, alias) {
+		st[alias] = klass;
+	}
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
 	   If pkgName is null or empty we return nil, which is an allowed package for a class.
@@ -290,7 +348,7 @@ function Smalltalk(){
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
 			st[className].pkg = pkg || st[className].pkg;
-		} else {    
+		} else {
 			st[className] = klass({
 				className: className, 
 				superclass: superclass,
@@ -335,9 +393,9 @@ function Smalltalk(){
 		}
 		imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(imp) {
-			pushContext(receiver, selector, args);
+			var context = pushContext(receiver, selector, args);
 			call = imp.apply(receiver, args);
-            popContext();
+			popContext(context);
 			return call;
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
@@ -431,12 +489,11 @@ function Smalltalk(){
 		return st.thisContext = c;
 	};
 
-    function popContext() {
-        var context = st.thisContext;
-        st.thisContext = context.homeContext;
+	function popContext(context) {
+		st.thisContext = context.homeContext;
 		context.homeContext = undefined;
 		st.oldContext = context;
-    };
+	};
 
 	/* Convert a string to a valid smalltalk selector.
 	   if you modify the following functions, also change String>>asSelector
