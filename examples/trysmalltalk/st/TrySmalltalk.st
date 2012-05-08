@@ -1,63 +1,7 @@
-Widget subclass: #TrySmalltalkWidget
-	instanceVariableNames: 'workspace contents header'
-	category: 'TrySmalltalk'!
-
-!TrySmalltalkWidget methodsFor: 'accessing'!
-
-workspace
-	^ workspace ifNil: [
-          	workspace := SourceArea new]
-!
-
-contents: aString
-	self workspace val: aString
-!
-
-contents
-	^self workspace val
-!
-
-setTitle: aString
-	header contents: [:html | html with: aString]
-! !
-
-!TrySmalltalkWidget methodsFor: 'rendering'!
-
-renderOn: html
-	html div 
-		class: 'profStef'; 
-		with: [header := html h2];
-		with: [self workspace renderOn: html];
-		with: [self renderButtonsOn: html].
-          ProfStef default 
-		widget: self;
-		showCurrentLesson
-!
-
-renderButtonsOn: html
-    html button
-	with: 'DoIt';
-	title: 'ctrl+d';
-	onClick: [self workspace doIt].
-    html button
-	with: 'PrintIt';
-	title: 'ctrl+p';
-	onClick: [self workspace printIt].
-    html button
-	with: 'InspectIt';
-	title: 'ctrl+i';
-	onClick: [self workspace inspectIt]
-! !
-
-!TrySmalltalkWidget class methodsFor: 'initialize'!
-
-open
-	self new appendToJQuery: 'body' asJQuery.
-! !
-
+Smalltalk current createPackage: 'TrySmalltalk' properties: #{}!
 Object subclass: #AbstractTutorial
 	instanceVariableNames: ''
-	category: 'TrySmalltalk'!
+	package: 'TrySmalltalk'!
 !AbstractTutorial commentStamp!
 Parent class of all ProfStef tutorials.
 
@@ -72,14 +16,6 @@ indexOfLesson: aSelector
 	^self tableOfContents indexOf: aSelector.
 !
 
-tableOfContents
-^ #(
-  'welcome'
-  'testLesson'
-  'theEnd'
-)
-!
-
 lessonAt: anInteger
 	| lessonSelector |
 	lessonSelector := self tableOfContents at: anInteger.
@@ -88,15 +24,17 @@ lessonAt: anInteger
 
 size
 	^ self tableOfContents size
+!
+
+tableOfContents
+^ #(
+  'welcome'
+  'testLesson'
+  'theEnd'
+)
 ! !
 
 !AbstractTutorial methodsFor: 'pages'!
-
-welcome
-	^ Lesson
-		title: 'Welcome' 
-		contents: '"Hi, this is a test tutorial."'
-!
 
 testLesson
 	^ Lesson
@@ -108,191 +46,17 @@ theEnd
 	^ Lesson
 		title: 'The End' 
 		contents: '"And that''d be pretty much it :)"'
-! !
-
-Object subclass: #Lesson
-	instanceVariableNames: 'title contents'
-	category: 'TrySmalltalk'!
-
-!Lesson methodsFor: 'accessing'!
-
-contents
-	^ contents ifNil: [contents := '']
 !
 
-contents: aString
-	contents := aString
-!
-
-title: aString
-	title := aString
-!
-
-title
-	^ title ifNil: [title := '']
-! !
-
-!Lesson class methodsFor: 'instance creation'!
-
-title: aTitle contents: someContents
-	^ (self new)
-		title: aTitle;
-		contents: someContents
-! !
-
-Object subclass: #TutorialPlayer
-	instanceVariableNames: 'tutorialPosition tutorial'
-	category: 'TrySmalltalk'!
-!TutorialPlayer commentStamp!
-I can navigate through an AbstractTutorial subclass. With #next and #previous you can go forward and backward through the tutorial.!
-
-!TutorialPlayer methodsFor: 'accessing'!
-
-currentLesson
-	^ self tutorial lessonAt: self tutorialPosition.
-!
-
-size
-	^ self tutorial size
-!
-
-tutorial
-	^ tutorial  ifNil: [tutorial := SmalltalkSyntaxTutorial new]
-!
-
-tutorial: aTutorial
-	tutorial := aTutorial
-!
-
-tutorialPosition 
-	^ tutorialPosition  ifNil: [
-		self rewind.
-		tutorialPosition.
-	].
-!
-
-tutorialPosition: aTutorialPosition 
-	tutorialPosition := aTutorialPosition
-! !
-
-!TutorialPlayer methodsFor: 'navigation'!
-
-first
-	self rewind.
-	^ self currentLesson
-!
-
-last
-	tutorialPosition := self size.
-	^ self currentLesson
-!
-
-next
-	self tutorialPosition < self size
-		ifTrue: [tutorialPosition := tutorialPosition + 1].
-	^ self currentLesson
-!
-
-previous
-	tutorialPosition >  1 ifTrue: [tutorialPosition := tutorialPosition  - 1].
-	^ self currentLesson
-!
-
-rewind
-	tutorialPosition := 1.
-! !
-
-Object subclass: #ProfStef
-	instanceVariableNames: 'tutorialPlayer widget'
-	category: 'TrySmalltalk'!
-!ProfStef commentStamp!
-A ProfStef is the Smalltalk teacher. To start the tutorial, evaluate:
-ProfStef go.
-
-To go to the next lesson evaluate:
-ProfStef next.
-
-To execute your own tutorial:
-ProfStef goOn: MyOwnTutorial
-
-To see a table of contents with all defined tutorials:
-ProfStef contents!
-
-!ProfStef methodsFor: 'accessing'!
-
-tutorialPlayer
-	^ tutorialPlayer ifNil: [tutorialPlayer := TutorialPlayer new]
-!
-
-progress
-	^ '(', self tutorialPositionString, '/', self tutorialSizeString, ')'.
-!
-
-tutorialPositionString
-	^ self tutorialPlayer tutorialPosition asString.
-!
-
-tutorialSizeString
-	^ self tutorialPlayer size asString
-!
-
-widget: aWidget
-	widget := aWidget
-!
-
-showCurrentLesson
-	| lesson |
-	lesson := self tutorialPlayer currentLesson.
-	widget contents: lesson contents.
-	widget setTitle: lesson title , ' ' , self progress.
-! !
-
-!ProfStef methodsFor: 'navigation'!
-
-first
-	self tutorialPlayer first.
-	^ self showCurrentLesson.
-!
-
-next
-	self tutorialPlayer next.
-	^ self showCurrentLesson.
-!
-
-previous
-	self tutorialPlayer previous.
-	^ self showCurrentLesson.
-! !
-
-ProfStef class instanceVariableNames: 'instance'!
-
-!ProfStef class methodsFor: 'initialize'!
-
-default 
-	^ instance ifNil: [instance := self new]
-! !
-
-!ProfStef class methodsFor: 'navigation'!
-
-first
-	^ self default first.
-!
-
-previous
-	^ self default previous.
-!
-
-next
-	^ self default next.
-!
-
-go
-	self first.
+welcome
+	^ Lesson
+		title: 'Welcome' 
+		contents: '"Hi, this is a test tutorial."'
 ! !
 
 AbstractTutorial subclass: #SmalltalkSyntaxTutorial
 	instanceVariableNames: ''
-	category: 'TrySmalltalk'!
+	package: 'TrySmalltalk'!
 !SmalltalkSyntaxTutorial commentStamp!
 The default ProfStef tutorial to learn Smalltalk syntax!
 
@@ -600,7 +364,7 @@ Array new
 anArray := Array new
 	add: ''Some text'';
 	add: 3;
-	yourself;
+	yourself.
 
 Transcript show: anArray; cr.
 
@@ -941,7 +705,7 @@ theEnd
 	^ Lesson
 title: 'Tutorial done !!' 
 contents: 
-'"This tutorial is done. Enjoy programming Smalltalk with Amber. 
+'"This tutorial is done. Enjoy programming Smalltalk with JTalk. 
 
 You can run this tutorial again by evaluating: ProfStef go.
 
@@ -960,5 +724,242 @@ You must want me to help you learn Smalltalk.
 So let''s go to the first lesson.  Select the text below and click on the ''DoIt'' button"
 
 ProfStef next.'
+! !
+
+Object subclass: #Lesson
+	instanceVariableNames: 'title contents'
+	package: 'TrySmalltalk'!
+
+!Lesson methodsFor: 'accessing'!
+
+contents
+	^ contents ifNil: [contents := '']
+!
+
+contents: aString
+	contents := aString
+!
+
+title
+	^ title ifNil: [title := '']
+!
+
+title: aString
+	title := aString
+! !
+
+!Lesson class methodsFor: 'instance creation'!
+
+title: aTitle contents: someContents
+	^ (self new)
+		title: aTitle;
+		contents: someContents
+! !
+
+Object subclass: #ProfStef
+	instanceVariableNames: 'tutorialPlayer widget'
+	package: 'TrySmalltalk'!
+!ProfStef commentStamp!
+A ProfStef is the Smalltalk teacher. To start the tutorial, evaluate:
+ProfStef go.
+
+To go to the next lesson evaluate:
+ProfStef next.
+
+To execute your own tutorial:
+ProfStef goOn: MyOwnTutorial
+
+To see a table of contents with all defined tutorials:
+ProfStef contents!
+
+!ProfStef methodsFor: 'accessing'!
+
+progress
+	^ '(', self tutorialPositionString, '/', self tutorialSizeString, ')'.
+!
+
+showCurrentLesson
+	| lesson |
+	lesson := self tutorialPlayer currentLesson.
+	widget contents: lesson contents.
+	widget setTitle: lesson title , ' ' , self progress.
+!
+
+tutorialPlayer
+	^ tutorialPlayer ifNil: [tutorialPlayer := TutorialPlayer new]
+!
+
+tutorialPositionString
+	^ self tutorialPlayer tutorialPosition asString.
+!
+
+tutorialSizeString
+	^ self tutorialPlayer size asString
+!
+
+widget: aWidget
+	widget := aWidget
+! !
+
+!ProfStef methodsFor: 'navigation'!
+
+first
+	self tutorialPlayer first.
+	^ self showCurrentLesson.
+!
+
+next
+	self tutorialPlayer next.
+	^ self showCurrentLesson.
+!
+
+previous
+	self tutorialPlayer previous.
+	^ self showCurrentLesson.
+! !
+
+ProfStef class instanceVariableNames: 'instance'!
+
+!ProfStef class methodsFor: 'initialize'!
+
+default 
+	^ instance ifNil: [instance := self new]
+! !
+
+!ProfStef class methodsFor: 'navigation'!
+
+first
+	^ self default first.
+!
+
+go
+	self first.
+!
+
+next
+	^ self default next.
+!
+
+previous
+	^ self default previous.
+! !
+
+Widget subclass: #TrySmalltalkWidget
+	instanceVariableNames: 'workspace contents header'
+	package: 'TrySmalltalk'!
+
+!TrySmalltalkWidget methodsFor: 'accessing'!
+
+contents
+	^self workspace val
+!
+
+contents: aString
+	self workspace val: aString
+!
+
+setTitle: aString
+	header contents: [:html | html with: aString]
+!
+
+workspace
+	^ workspace ifNil: [
+          	workspace := SourceArea new]
+! !
+
+!TrySmalltalkWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+    html button
+	with: 'DoIt';
+	title: 'ctrl+d';
+	onClick: [self workspace doIt].
+    html button
+	with: 'PrintIt';
+	title: 'ctrl+p';
+	onClick: [self workspace printIt].
+    html button
+	with: 'InspectIt';
+	title: 'ctrl+i';
+	onClick: [self workspace inspectIt]
+!
+
+renderOn: html
+	html div 
+		class: 'profStef'; 
+		with: [header := html h2];
+		with: [self workspace renderOn: html];
+		with: [self renderButtonsOn: html].
+          ProfStef default 
+		widget: self;
+		showCurrentLesson
+! !
+
+!TrySmalltalkWidget class methodsFor: 'initialize'!
+
+open
+	self new appendToJQuery: 'body' asJQuery.
+! !
+
+Object subclass: #TutorialPlayer
+	instanceVariableNames: 'tutorialPosition tutorial'
+	package: 'TrySmalltalk'!
+!TutorialPlayer commentStamp!
+I can navigate through an AbstractTutorial subclass. With #next and #previous you can go forward and backward through the tutorial.!
+
+!TutorialPlayer methodsFor: 'accessing'!
+
+currentLesson
+	^ self tutorial lessonAt: self tutorialPosition.
+!
+
+size
+	^ self tutorial size
+!
+
+tutorial
+	^ tutorial  ifNil: [tutorial := SmalltalkSyntaxTutorial new]
+!
+
+tutorial: aTutorial
+	tutorial := aTutorial
+!
+
+tutorialPosition 
+	^ tutorialPosition  ifNil: [
+		self rewind.
+		tutorialPosition.
+	].
+!
+
+tutorialPosition: aTutorialPosition 
+	tutorialPosition := aTutorialPosition
+! !
+
+!TutorialPlayer methodsFor: 'navigation'!
+
+first
+	self rewind.
+	^ self currentLesson
+!
+
+last
+	tutorialPosition := self size.
+	^ self currentLesson
+!
+
+next
+	self tutorialPosition < self size
+		ifTrue: [tutorialPosition := tutorialPosition + 1].
+	^ self currentLesson
+!
+
+previous
+	tutorialPosition >  1 ifTrue: [tutorialPosition := tutorialPosition  - 1].
+	^ self currentLesson
+!
+
+rewind
+	tutorialPosition := 1.
 ! !
 
