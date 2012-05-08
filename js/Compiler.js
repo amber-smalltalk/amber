@@ -2439,11 +2439,11 @@ selector: "visitJSStatementNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(aNode, "_source", []), "_replace_with_", [unescape("%3E%3E"), unescape("%3E")])]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(aNode, "_source", [])]);
 return self;},
 args: ["aNode"],
-source: "visitJSStatementNode: aNode\x0a\x09stream nextPutAll: (aNode source replace: '>>' with: '>')",
-messageSends: ["nextPutAll:", "replace:with:", "source"],
+source: "visitJSStatementNode: aNode\x0a\x09stream nextPutAll: aNode source",
+messageSends: ["nextPutAll:", "source"],
 referencedClasses: []
 }),
 smalltalk.Compiler);

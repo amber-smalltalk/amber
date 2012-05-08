@@ -1313,7 +1313,7 @@ visitFailure: aFailure
 !
 
 visitJSStatementNode: aNode
-	stream nextPutAll: (aNode source replace: '>>' with: '>')
+	stream nextPutAll: aNode source
 !
 
 visitMethodNode: aNode

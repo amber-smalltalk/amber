@@ -1738,7 +1738,7 @@ smalltalk.method({
 selector: "visitJSStatementNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(aNode, "_source", []), "_replace_with_", [unescape("%3E%3E"), unescape("%3E")])]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(aNode, "_source", [])]);
 return self;}
 }),
 smalltalk.Compiler);
