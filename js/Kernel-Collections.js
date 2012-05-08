@@ -1956,16 +1956,12 @@ category: 'accessing',
 fn: function (anIndex, aBlock) {
 var self=this;
 
-	    var value = self[anIndex - 1];
-	    if(value === undefined) {
-		return aBlock();
-	    } else {
-		return value;
-	    }
+		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
+		return self[anIndex - 1];
 	;
 return self;},
 args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09    var value = self[anIndex - 1];\x0a\x09    if(value === undefined) {\x0a\x09\x09return aBlock();\x0a\x09    } else {\x0a\x09\x09return value;\x0a\x09    }\x0a\x09>",
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09\x09if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};\x0a\x09\x09return self[anIndex - 1];\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

@@ -739,12 +739,8 @@ SequenceableCollection subclass: #Array
 
 at: anIndex ifAbsent: aBlock
 	<
-	    var value = self[anIndex - 1];
-	    if(value === undefined) {
-		return aBlock();
-	    } else {
-		return value;
-	    }
+		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
+		return self[anIndex - 1];
 	>
 !
 

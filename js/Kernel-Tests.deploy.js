@@ -1,10 +1,28 @@
 smalltalk.addPackage('Kernel-Tests', {});
 smalltalk.addClass('ArrayTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testFirstN'),
+"_testAtIfAbsent",
 smalltalk.method({
-selector: unescape('testFirstN'),
-fn: function (){
+selector: "testAtIfAbsent",
+fn: function () {
+var self=this;
+var array=nil;
+(array=["hello", "world"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_", [(1)]), "hello"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_", [(2)]), "world"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(2), (function(){return "not found";})]), "world"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(0), (function(){return "not found";})]), "not found"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(-10), (function(){return "not found";})]), "not found"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(3), (function(){return "not found";})]), "not found"]);
+return self;}
+}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+"_testFirstN",
+smalltalk.method({
+selector: "testFirstN",
+fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [[(1),(2),(3)], smalltalk.send([(1),(2),(3),(4),(5)], "_first_", [(3)])]);
 return self;}
@@ -12,10 +30,10 @@ return self;}
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-unescape('_testIfEmpty'),
+"_testIfEmpty",
 smalltalk.method({
-selector: unescape('testIfEmpty'),
-fn: function (){
+selector: "testIfEmpty",
+fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["zork", smalltalk.send("", "_ifEmpty_", [(function(){return "zork";})])]);
 return self;}
@@ -26,9 +44,9 @@ smalltalk.ArrayTest);
 
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testCompiledSource'),
+"_testCompiledSource",
 smalltalk.method({
-selector: unescape('testCompiledSource'),
+selector: "testCompiledSource",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((function(){return (1) + (1);}), "_compiledSource", []), "_includesSubString_", ["function"])]);
@@ -37,9 +55,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testEnsure'),
+"_testEnsure",
 smalltalk.method({
-selector: unescape('testEnsure'),
+selector: "testEnsure",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send((function(){return smalltalk.send((smalltalk.Error || Error), "_new", []);}), "_ensure_", [(function(){return true;})])]);
@@ -48,9 +66,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testNumArgs'),
+"_testNumArgs",
 smalltalk.method({
-selector: unescape('testNumArgs'),
+selector: "testNumArgs",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return nil;}), "_numArgs", []), (0)]);
@@ -60,9 +78,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testOnDo'),
+"_testOnDo",
 smalltalk.method({
-selector: unescape('testOnDo'),
+selector: "testOnDo",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send((function(){return smalltalk.send(smalltalk.send((smalltalk.Error || Error), "_new", []), "_signal", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){return true;})])]);
@@ -71,9 +89,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testValue'),
+"_testValue",
 smalltalk.method({
-selector: unescape('testValue'),
+selector: "testValue",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1) + (1);}), "_value", []), (2)]);
@@ -85,9 +103,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testValueWithPossibleArguments'),
+"_testValueWithPossibleArguments",
 smalltalk.method({
-selector: unescape('testValueWithPossibleArguments'),
+selector: "testValueWithPossibleArguments",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((function(){return (1);}), "_valueWithPossibleArguments_", [[(3), (4)]]), (1)]);
@@ -98,9 +116,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testWhileFalse'),
+"_testWhileFalse",
 smalltalk.method({
-selector: unescape('testWhileFalse'),
+selector: "testWhileFalse",
 fn: function () {
 var self=this;
 var i=nil;
@@ -115,9 +133,9 @@ return self;}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-unescape('_testWhileTrue'),
+"_testWhileTrue",
 smalltalk.method({
-selector: unescape('testWhileTrue'),
+selector: "testWhileTrue",
 fn: function () {
 var self=this;
 var i=nil;
@@ -135,9 +153,9 @@ smalltalk.BlockClosureTest);
 
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testEquality'),
+"_testEquality",
 smalltalk.method({
-selector: unescape('testEquality'),
+selector: "testEquality",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq", [false])]);
@@ -155,9 +173,9 @@ return self;}
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-unescape('_testIfTrueIfFalse'),
+"_testIfTrueIfFalse",
 smalltalk.method({
-selector: unescape('testIfTrueIfFalse'),
+selector: "testIfTrueIfFalse",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(((($receiver = true).klass === smalltalk.Boolean) ? ($receiver ? (function(){return "alternative block";})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return "alternative block";})])), "__eq", ["alternative block"])]);
@@ -173,9 +191,9 @@ return self;}
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-unescape('_testLogic'),
+"_testLogic",
 smalltalk.method({
-selector: unescape('testLogic'),
+selector: "testLogic",
 fn: function () {
 var self=this;
 (function($rec){smalltalk.send($rec, "_assert_", [smalltalk.send(true, "_&", [true])]);smalltalk.send($rec, "_deny_", [smalltalk.send(true, "_&", [false])]);smalltalk.send($rec, "_deny_", [smalltalk.send(false, "_&", [true])]);return smalltalk.send($rec, "_deny_", [smalltalk.send(false, "_&", [false])]);})(self);
@@ -187,9 +205,9 @@ return self;}
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-unescape('_testLogicKeywords'),
+"_testLogicKeywords",
 smalltalk.method({
-selector: unescape('testLogicKeywords'),
+selector: "testLogicKeywords",
 fn: function () {
 var self=this;
 (function($rec){smalltalk.send($rec, "_assert_", [smalltalk.send(true, "_and_", [(function(){return true;})])]);smalltalk.send($rec, "_deny_", [smalltalk.send(true, "_and_", [(function(){return false;})])]);smalltalk.send($rec, "_deny_", [smalltalk.send(false, "_and_", [(function(){return true;})])]);return smalltalk.send($rec, "_deny_", [smalltalk.send(false, "_and_", [(function(){return false;})])]);})(self);
@@ -204,9 +222,9 @@ smalltalk.BooleanTest);
 
 smalltalk.addClass('ClassBuilderTest', smalltalk.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_setUp'),
+"_setUp",
 smalltalk.method({
-selector: unescape('setUp'),
+selector: "setUp",
 fn: function () {
 var self=this;
 (self['@builder']=smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []));
@@ -215,9 +233,9 @@ return self;}
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-unescape('_tearDown'),
+"_tearDown",
 smalltalk.method({
-selector: unescape('tearDown'),
+selector: "tearDown",
 fn: function () {
 var self=this;
 (($receiver = self['@theClass']) != nil && $receiver != undefined) ? (function(){smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_removeClass_", [self['@theClass']]);return (self['@theClass']=nil);})() : nil;
@@ -226,9 +244,9 @@ return self;}
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-unescape('_testClassCopy'),
+"_testClassCopy",
 smalltalk.method({
-selector: unescape('testClassCopy'),
+selector: "testClassCopy",
 fn: function () {
 var self=this;
 (self['@theClass']=smalltalk.send(self['@builder'], "_copyClass_named_", [(smalltalk.ObjectMock || ObjectMock), "ObjectMock2"]));
@@ -242,9 +260,9 @@ return self;}
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-unescape('_testInstanceVariableNames'),
+"_testInstanceVariableNames",
 smalltalk.method({
-selector: unescape('testInstanceVariableNames'),
+selector: "testInstanceVariableNames",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(self['@builder'], "_instanceVariableNamesFor_", ["  hello   world   "]), ["hello", "world"]]);
@@ -256,9 +274,9 @@ smalltalk.ClassBuilderTest);
 
 smalltalk.addClass('DictionaryTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testAccessing'),
+"_testAccessing",
 smalltalk.method({
-selector: unescape('testAccessing'),
+selector: "testAccessing",
 fn: function () {
 var self=this;
 var d=nil;
@@ -276,9 +294,9 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testDynamicDictionaries'),
+"_testDynamicDictionaries",
 smalltalk.method({
-selector: unescape('testDynamicDictionaries'),
+selector: "testDynamicDictionaries",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.HashedCollection._fromPairs_([smalltalk.send("hello", "__minus_gt", [(1)])]), "_asDictionary", []), "__eq", [smalltalk.send((smalltalk.Dictionary || Dictionary), "_with_", [smalltalk.send("hello", "__minus_gt", [(1)])])])]);
@@ -287,9 +305,9 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testEquality'),
+"_testEquality",
 smalltalk.method({
-selector: unescape('testEquality'),
+selector: "testEquality",
 fn: function () {
 var self=this;
 var d1=nil;
@@ -309,9 +327,9 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testKeys'),
+"_testKeys",
 smalltalk.method({
-selector: unescape('testKeys'),
+selector: "testKeys",
 fn: function () {
 var self=this;
 var d=nil;
@@ -325,9 +343,9 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testPrintString'),
+"_testPrintString",
 smalltalk.method({
-selector: unescape('testPrintString'),
+selector: "testPrintString",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("a%20Dictionary%28%27firstname%27%20-%3E%20%27James%27%20%2C%20%27lastname%27%20-%3E%20%27Bond%27%29"), (function($rec){smalltalk.send($rec, "_at_put_", ["firstname", "James"]);smalltalk.send($rec, "_at_put_", ["lastname", "Bond"]);return smalltalk.send($rec, "_printString", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []))]);
@@ -336,10 +354,10 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testRemoveKey'),
+"_testRemoveKey",
 smalltalk.method({
-selector: unescape('testRemoveKey'),
-fn: function (){
+selector: "testRemoveKey",
+fn: function () {
 var self=this;
 var d=nil;
 var key=nil;
@@ -358,10 +376,10 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testRemoveKeyIfAbsent'),
+"_testRemoveKeyIfAbsent",
 smalltalk.method({
-selector: unescape('testRemoveKeyIfAbsent'),
-fn: function (){
+selector: "testRemoveKeyIfAbsent",
+fn: function () {
 var self=this;
 var d=nil;
 var key=nil;
@@ -380,9 +398,9 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testSize'),
+"_testSize",
 smalltalk.method({
-selector: unescape('testSize'),
+selector: "testSize",
 fn: function () {
 var self=this;
 var d=nil;
@@ -397,9 +415,9 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-unescape('_testValues'),
+"_testValues",
 smalltalk.method({
-selector: unescape('testValues'),
+selector: "testValues",
 fn: function () {
 var self=this;
 var d=nil;
@@ -416,9 +434,9 @@ smalltalk.DictionaryTest);
 
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_jsObject'),
+"_jsObject",
 smalltalk.method({
-selector: unescape('jsObject'),
+selector: "jsObject",
 fn: function () {
 var self=this;
 return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}};
@@ -427,9 +445,9 @@ return self;}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-unescape('_testDNU'),
+"_testDNU",
 smalltalk.method({
-selector: unescape('testDNU'),
+selector: "testDNU",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_foo", []);}), (smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
@@ -438,9 +456,9 @@ return self;}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-unescape('_testMessageSend'),
+"_testMessageSend",
 smalltalk.method({
-selector: unescape('testMessageSend'),
+selector: "testMessageSend",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.send(self, "_jsObject", []), "_a", []), (1)]);
@@ -451,9 +469,9 @@ return self;}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-unescape('_testMethodWithArguments'),
+"_testMethodWithArguments",
 smalltalk.method({
-selector: unescape('testMethodWithArguments'),
+selector: "testMethodWithArguments",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_hasClass_", ["amber"])]);
@@ -466,9 +484,9 @@ return self;}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-unescape('_testPrinting'),
+"_testPrinting",
 smalltalk.method({
-selector: unescape('testPrinting'),
+selector: "testPrinting",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_jsObject", []), "_printString", []), "__eq", [unescape("%5Bobject%20Object%5D")])]);
@@ -477,9 +495,9 @@ return self;}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-unescape('_testPropertyThatReturnsEmptyString'),
+"_testPropertyThatReturnsEmptyString",
 smalltalk.method({
-selector: unescape('testPropertyThatReturnsEmptyString'),
+selector: "testPropertyThatReturnsEmptyString",
 fn: function () {
 var self=this;
 document.location.hash = '';
@@ -491,9 +509,9 @@ return self;}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-unescape('_testYourself'),
+"_testYourself",
 smalltalk.method({
-selector: unescape('testYourself'),
+selector: "testYourself",
 fn: function () {
 var self=this;
 var body=nil;
@@ -509,9 +527,9 @@ smalltalk.JSObjectProxyTest);
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testArithmetic'),
+"_testArithmetic",
 smalltalk.method({
-selector: unescape('testArithmetic'),
+selector: "testArithmetic",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send((1.5) + (1), "__eq", [(2.5)])]);
@@ -526,9 +544,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testComparison'),
+"_testComparison",
 smalltalk.method({
-selector: unescape('testComparison'),
+selector: "testComparison",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [(3) > (2)]);
@@ -544,9 +562,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testCopying'),
+"_testCopying",
 smalltalk.method({
-selector: unescape('testCopying'),
+selector: "testCopying",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((1), "_copy", []), "__eq_eq", [(1)])]);
@@ -556,9 +574,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testEquality'),
+"_testEquality",
 smalltalk.method({
-selector: unescape('testEquality'),
+selector: "testEquality",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq", [(1)])]);
@@ -576,9 +594,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testIdentity'),
+"_testIdentity",
 smalltalk.method({
-selector: unescape('testIdentity'),
+selector: "testIdentity",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send((1), "__eq_eq", [(1)])]);
@@ -593,9 +611,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testMinMax'),
+"_testMinMax",
 smalltalk.method({
-selector: unescape('testMinMax'),
+selector: "testMinMax",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((2), "_max_", [(5)]), (5)]);
@@ -605,9 +623,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testNegated'),
+"_testNegated",
 smalltalk.method({
-selector: unescape('testNegated'),
+selector: "testNegated",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((3), "_negated", []), "__eq", [(-3)])]);
@@ -617,9 +635,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testPrintShowingDecimalPlaces'),
+"_testPrintShowingDecimalPlaces",
 smalltalk.method({
-selector: unescape('testPrintShowingDecimalPlaces'),
+selector: "testPrintShowingDecimalPlaces",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["23.00", smalltalk.send((23), "_printShowingDecimalPlaces_", [(2)])]);
@@ -640,9 +658,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testRounded'),
+"_testRounded",
 smalltalk.method({
-selector: unescape('testRounded'),
+selector: "testRounded",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((3), "_rounded", []), "__eq", [(3)])]);
@@ -653,9 +671,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testSqrt'),
+"_testSqrt",
 smalltalk.method({
-selector: unescape('testSqrt'),
+selector: "testSqrt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((4), "_sqrt", []), "__eq", [(2)])]);
@@ -665,9 +683,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testSquared'),
+"_testSquared",
 smalltalk.method({
-selector: unescape('testSquared'),
+selector: "testSquared",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((4), "_squared", []), "__eq", [(16)])]);
@@ -676,9 +694,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testTimesRepeat'),
+"_testTimesRepeat",
 smalltalk.method({
-selector: unescape('testTimesRepeat'),
+selector: "testTimesRepeat",
 fn: function () {
 var self=this;
 var i=nil;
@@ -692,9 +710,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testTo'),
+"_testTo",
 smalltalk.method({
-selector: unescape('testTo'),
+selector: "testTo",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((1), "_to_", [(5)]), [(1), (2), (3), (4), (5)]]);
@@ -703,9 +721,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testToBy'),
+"_testToBy",
 smalltalk.method({
-selector: unescape('testToBy'),
+selector: "testToBy",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((0), "_to_by_", [(6), (2)]), [(0), (2), (4), (6)]]);
@@ -715,9 +733,9 @@ return self;}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-unescape('_testTruncated'),
+"_testTruncated",
 smalltalk.method({
-selector: unescape('testTruncated'),
+selector: "testTruncated",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((3), "_truncated", []), "__eq", [(3)])]);
@@ -731,9 +749,9 @@ smalltalk.NumberTest);
 
 smalltalk.addClass('ObjectMock', smalltalk.Object, ['foo', 'bar'], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_foo'),
+"_foo",
 smalltalk.method({
-selector: unescape('foo'),
+selector: "foo",
 fn: function () {
 var self=this;
 return self['@foo'];
@@ -742,9 +760,9 @@ return self;}
 smalltalk.ObjectMock);
 
 smalltalk.addMethod(
-unescape('_foo_'),
+"_foo_",
 smalltalk.method({
-selector: unescape('foo%3A'),
+selector: "foo:",
 fn: function (anObject) {
 var self=this;
 (self['@foo']=anObject);
@@ -756,9 +774,9 @@ smalltalk.ObjectMock);
 
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testBasicAccess'),
+"_testBasicAccess",
 smalltalk.method({
-selector: unescape('testBasicAccess'),
+selector: "testBasicAccess",
 fn: function () {
 var self=this;
 var o=nil;
@@ -771,9 +789,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testBasicPerform'),
+"_testBasicPerform",
 smalltalk.method({
-selector: unescape('testBasicPerform'),
+selector: "testBasicPerform",
 fn: function () {
 var self=this;
 var o=nil;
@@ -787,9 +805,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testDNU'),
+"_testDNU",
 smalltalk.method({
-selector: unescape('testDNU'),
+selector: "testDNU",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.Object || Object), "_new", []), "_foo", []);}), (smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
@@ -798,9 +816,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testEquality'),
+"_testEquality",
 smalltalk.method({
-selector: unescape('testEquality'),
+selector: "testEquality",
 fn: function () {
 var self=this;
 var o=nil;
@@ -814,9 +832,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testHalt'),
+"_testHalt",
 smalltalk.method({
-selector: unescape('testHalt'),
+selector: "testHalt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.Object || Object), "_new", []), "_halt", []);}), (smalltalk.Error || Error)]);
@@ -825,9 +843,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testIdentity'),
+"_testIdentity",
 smalltalk.method({
-selector: unescape('testIdentity'),
+selector: "testIdentity",
 fn: function () {
 var self=this;
 var o=nil;
@@ -839,9 +857,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testIfNil'),
+"_testIfNil",
 smalltalk.method({
-selector: unescape('testIfNil'),
+selector: "testIfNil",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send((smalltalk.Object || Object), "_new", []), "_isNil", [])]);
@@ -854,9 +872,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testInstVars'),
+"_testInstVars",
 smalltalk.method({
-selector: unescape('testInstVars'),
+selector: "testInstVars",
 fn: function () {
 var self=this;
 var o=nil;
@@ -870,9 +888,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testNilUndefined'),
+"_testNilUndefined",
 smalltalk.method({
-selector: unescape('testNilUndefined'),
+selector: "testNilUndefined",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [(typeof undefined == 'undefined' ? nil : undefined)])]);
@@ -881,9 +899,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testYourself'),
+"_testYourself",
 smalltalk.method({
-selector: unescape('testYourself'),
+selector: "testYourself",
 fn: function () {
 var self=this;
 var o=nil;
@@ -894,9 +912,9 @@ return self;}
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-unescape('_testidentityHash'),
+"_testidentityHash",
 smalltalk.method({
-selector: unescape('testidentityHash'),
+selector: "testidentityHash",
 fn: function () {
 var self=this;
 var o1=nil;
@@ -913,9 +931,9 @@ smalltalk.ObjectTest);
 
 smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_setUp'),
+"_setUp",
 smalltalk.method({
-selector: unescape('setUp'),
+selector: "setUp",
 fn: function () {
 var self=this;
 (self['@backUpCommitPathJs']=smalltalk.send((smalltalk.Package || Package), "_defaultCommitPathJs", []));
@@ -928,9 +946,9 @@ return self;}
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-unescape('_tearDown'),
+"_tearDown",
 smalltalk.method({
-selector: unescape('tearDown'),
+selector: "tearDown",
 fn: function () {
 var self=this;
 (function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", [self['@backUpCommitPathJs']]);return smalltalk.send($rec, "_defaultCommitPathSt_", [self['@backUpCommitPathSt']]);})((smalltalk.Package || Package));
@@ -939,9 +957,9 @@ return self;}
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-unescape('_testGrulCommitPathJsShouldBeServerGrulJs'),
+"_testGrulCommitPathJsShouldBeServerGrulJs",
 smalltalk.method({
-selector: unescape('testGrulCommitPathJsShouldBeServerGrulJs'),
+selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("server/grul/js"), smalltalk.send(self['@grulPackage'], "_commitPathJs", [])]);
@@ -950,9 +968,9 @@ return self;}
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-unescape('_testGrulCommitPathStShouldBeGrulSt'),
+"_testGrulCommitPathStShouldBeGrulSt",
 smalltalk.method({
-selector: unescape('testGrulCommitPathStShouldBeGrulSt'),
+selector: "testGrulCommitPathStShouldBeGrulSt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("grul/st"), smalltalk.send(self['@grulPackage'], "_commitPathSt", [])]);
@@ -961,9 +979,9 @@ return self;}
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-unescape('_testZorkCommitPathJsShouldBeJs'),
+"_testZorkCommitPathJsShouldBeJs",
 smalltalk.method({
-selector: unescape('testZorkCommitPathJsShouldBeJs'),
+selector: "testZorkCommitPathJsShouldBeJs",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["js", smalltalk.send(self['@zorkPackage'], "_commitPathJs", [])]);
@@ -972,9 +990,9 @@ return self;}
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-unescape('_testZorkCommitPathStShouldBeSt'),
+"_testZorkCommitPathStShouldBeSt",
 smalltalk.method({
-selector: unescape('testZorkCommitPathStShouldBeSt'),
+selector: "testZorkCommitPathStShouldBeSt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["st", smalltalk.send(self['@zorkPackage'], "_commitPathSt", [])]);
@@ -986,9 +1004,9 @@ smalltalk.PackageTest);
 
 smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_setUp'),
+"_setUp",
 smalltalk.method({
-selector: unescape('setUp'),
+selector: "setUp",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_setUp", [], smalltalk.PackageTest);
@@ -998,9 +1016,9 @@ return self;}
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-unescape('_testGrulCommitPathJsShouldBeServerGrulJs'),
+"_testGrulCommitPathJsShouldBeServerGrulJs",
 smalltalk.method({
-selector: unescape('testGrulCommitPathJsShouldBeServerGrulJs'),
+selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("server/grul/js"), smalltalk.send(self['@grulPackage'], "_commitPathJs", [])]);
@@ -1009,9 +1027,9 @@ return self;}
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-unescape('_testGrulCommitPathStShouldBeGrulSt'),
+"_testGrulCommitPathStShouldBeGrulSt",
 smalltalk.method({
-selector: unescape('testGrulCommitPathStShouldBeGrulSt'),
+selector: "testGrulCommitPathStShouldBeGrulSt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("grul/st"), smalltalk.send(self['@grulPackage'], "_commitPathSt", [])]);
@@ -1020,9 +1038,9 @@ return self;}
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-unescape('_testZorkCommitPathJsShouldBeJavascript'),
+"_testZorkCommitPathJsShouldBeJavascript",
 smalltalk.method({
-selector: unescape('testZorkCommitPathJsShouldBeJavascript'),
+selector: "testZorkCommitPathJsShouldBeJavascript",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("javascripts/"), smalltalk.send(self['@zorkPackage'], "_commitPathJs", [])]);
@@ -1031,9 +1049,9 @@ return self;}
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-unescape('_testZorkCommitPathStShouldBeSmalltalk'),
+"_testZorkCommitPathStShouldBeSmalltalk",
 smalltalk.method({
-selector: unescape('testZorkCommitPathStShouldBeSmalltalk'),
+selector: "testZorkCommitPathStShouldBeSmalltalk",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("smalltalk/"), smalltalk.send(self['@zorkPackage'], "_commitPathSt", [])]);
@@ -1043,9 +1061,9 @@ smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 
 smalltalk.addMethod(
-unescape('_shouldInheritSelectors'),
+"_shouldInheritSelectors",
 smalltalk.method({
-selector: unescape('shouldInheritSelectors'),
+selector: "shouldInheritSelectors",
 fn: function () {
 var self=this;
 return false;
@@ -1056,9 +1074,9 @@ smalltalk.PackageWithDefaultCommitPathChangedTest.klass);
 
 smalltalk.addClass('PointTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testAccessing'),
+"_testAccessing",
 smalltalk.method({
-selector: unescape('testAccessing'),
+selector: "testAccessing",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.send((smalltalk.Point || Point), "_x_y_", [(3), (4)]), "_x", []), (3)]);
@@ -1070,9 +1088,9 @@ return self;}
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-unescape('_testArithmetic'),
+"_testArithmetic",
 smalltalk.method({
-selector: unescape('testArithmetic'),
+selector: "testArithmetic",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [((($receiver = smalltalk.send((3), "__at", [(4)])).klass === smalltalk.Number) ? $receiver *smalltalk.send((3), "__at", [(4)]) : smalltalk.send($receiver, "__star", [smalltalk.send((3), "__at", [(4)])])), smalltalk.send((smalltalk.Point || Point), "_x_y_", [(9), (16)])]);
@@ -1084,9 +1102,9 @@ return self;}
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-unescape('_testAt'),
+"_testAt",
 smalltalk.method({
-selector: unescape('testAt'),
+selector: "testAt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(4)]), smalltalk.send((smalltalk.Point || Point), "_x_y_", [(3), (4)])]);
@@ -1095,9 +1113,9 @@ return self;}
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-unescape('_testEgality'),
+"_testEgality",
 smalltalk.method({
-selector: unescape('testEgality'),
+selector: "testEgality",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((3), "__at", [(4)]), "__eq", [smalltalk.send((3), "__at", [(4)])])]);
@@ -1107,10 +1125,10 @@ return self;}
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-unescape('_testTranslateBy'),
+"_testTranslateBy",
 smalltalk.method({
-selector: unescape('testTranslateBy'),
-fn: function (){
+selector: "testTranslateBy",
+fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(4)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((0), "__at", [(1)])])]);
 smalltalk.send(self, "_assert_equals_", [smalltalk.send((3), "__at", [(2)]), smalltalk.send(smalltalk.send((3), "__at", [(3)]), "_translateBy_", [smalltalk.send((0), "__at", [smalltalk.send((1), "_negated", [])])])]);
@@ -1124,9 +1142,9 @@ smalltalk.PointTest);
 
 smalltalk.addClass('RandomTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_textNext'),
+"_textNext",
 smalltalk.method({
-selector: unescape('textNext'),
+selector: "textNext",
 fn: function () {
 var self=this;
 smalltalk.send((10000), "_timesRepeat_", [(function(){var current=nil;
@@ -1140,9 +1158,9 @@ smalltalk.RandomTest);
 
 smalltalk.addClass('SetTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testAddRemove'),
+"_testAddRemove",
 smalltalk.method({
-selector: unescape('testAddRemove'),
+selector: "testAddRemove",
 fn: function () {
 var self=this;
 var set=nil;
@@ -1159,9 +1177,9 @@ return self;}
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-unescape('_testAt'),
+"_testAt",
 smalltalk.method({
-selector: unescape('testAt'),
+selector: "testAt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.Set || Set), "_new", []), "_at_put_", [(1), (2)]);}), (smalltalk.Error || Error)]);
@@ -1170,9 +1188,9 @@ return self;}
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-unescape('_testSize'),
+"_testSize",
 smalltalk.method({
-selector: unescape('testSize'),
+selector: "testSize",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.send((smalltalk.Set || Set), "_new", []), "_size", []), (0)]);
@@ -1183,9 +1201,9 @@ return self;}
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-unescape('_testUnicity'),
+"_testUnicity",
 smalltalk.method({
-selector: unescape('testUnicity'),
+selector: "testUnicity",
 fn: function () {
 var self=this;
 var set=nil;
@@ -1205,9 +1223,9 @@ smalltalk.SetTest);
 
 smalltalk.addClass('StringTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testAddRemove'),
+"_testAddRemove",
 smalltalk.method({
-selector: unescape('testAddRemove'),
+selector: "testAddRemove",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_add_", ["a"]);}), (smalltalk.Error || Error)]);
@@ -1217,9 +1235,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testAsArray'),
+"_testAsArray",
 smalltalk.method({
-selector: unescape('testAsArray'),
+selector: "testAsArray",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_asArray", []), "__eq", [["h", "e", "l", "l", "o"]])]);
@@ -1228,9 +1246,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testAt'),
+"_testAt",
 smalltalk.method({
-selector: unescape('testAt'),
+selector: "testAt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(1)]), "__eq", ["h"])]);
@@ -1241,9 +1259,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testAtPut'),
+"_testAtPut",
 smalltalk.method({
-selector: unescape('testAtPut'),
+selector: "testAtPut",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
@@ -1252,9 +1270,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testCopyWithoutAll'),
+"_testCopyWithoutAll",
 smalltalk.method({
-selector: unescape('testCopyWithoutAll'),
+selector: "testCopyWithoutAll",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send(unescape("*hello*%20*world*"), "_copyWithoutAll_", [unescape("*")])]);
@@ -1263,9 +1281,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testEquality'),
+"_testEquality",
 smalltalk.method({
-selector: unescape('testEquality'),
+selector: "testEquality",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq", ["hello"])]);
@@ -1278,9 +1296,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testIncludesSubString'),
+"_testIncludesSubString",
 smalltalk.method({
-selector: unescape('testIncludesSubString'),
+selector: "testIncludesSubString",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send("amber", "_includesSubString_", ["ber"])]);
@@ -1290,9 +1308,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testJoin'),
+"_testJoin",
 smalltalk.method({
-selector: unescape('testJoin'),
+selector: "testJoin",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [unescape("hello%2Cworld"), smalltalk.send(unescape("%2C"), "_join_", [["hello", "world"]])]);
@@ -1301,9 +1319,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testSize'),
+"_testSize",
 smalltalk.method({
-selector: unescape('testSize'),
+selector: "testSize",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send("smalltalk", "_size", []), (9)]);
@@ -1313,9 +1331,9 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-unescape('_testStreamContents'),
+"_testStreamContents",
 smalltalk.method({
-selector: unescape('testStreamContents'),
+selector: "testStreamContents",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", ["hello"]);smalltalk.send($rec, "_space", []);return smalltalk.send($rec, "_nextPutAll_", ["world"]);})(aStream);})])]);
@@ -1327,9 +1345,9 @@ smalltalk.StringTest);
 
 smalltalk.addClass('SymbolTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testAsString'),
+"_testAsString",
 smalltalk.method({
-selector: unescape('testAsString'),
+selector: "testAsString",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("hello"), "_asString", []), "hello"]);
@@ -1338,9 +1356,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testAsSymbol'),
+"_testAsSymbol",
 smalltalk.method({
-selector: unescape('testAsSymbol'),
+selector: "testAsSymbol",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_asSymbol", [])])]);
@@ -1349,9 +1367,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testAt'),
+"_testAt",
 smalltalk.method({
-selector: unescape('testAt'),
+selector: "testAt",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_", [(1)]), "__eq", ["h"])]);
@@ -1362,9 +1380,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testAtPut'),
+"_testAtPut",
 smalltalk.method({
-selector: unescape('testAtPut'),
+selector: "testAtPut",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
@@ -1373,9 +1391,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testComparing'),
+"_testComparing",
 smalltalk.method({
-selector: unescape('testComparing'),
+selector: "testComparing",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >smalltalk.symbolFor("aa") : smalltalk.send($receiver, "__gt", [smalltalk.symbolFor("aa")]))]);
@@ -1391,9 +1409,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testCopying'),
+"_testCopying",
 smalltalk.method({
-selector: unescape('testCopying'),
+selector: "testCopying",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_copy", []), "__eq_eq", [smalltalk.symbolFor("hello")])]);
@@ -1403,9 +1421,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testEquality'),
+"_testEquality",
 smalltalk.method({
-selector: unescape('testEquality'),
+selector: "testEquality",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.symbolFor("hello")])]);
@@ -1419,9 +1437,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testIdentity'),
+"_testIdentity",
 smalltalk.method({
-selector: unescape('testIdentity'),
+selector: "testIdentity",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.symbolFor("hello")])]);
@@ -1433,9 +1451,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testIsSymbolIsString'),
+"_testIsSymbolIsString",
 smalltalk.method({
-selector: unescape('testIsSymbolIsString'),
+selector: "testIsSymbolIsString",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "_isSymbol", [])]);
@@ -1447,9 +1465,9 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
-unescape('_testSize'),
+"_testSize",
 smalltalk.method({
-selector: unescape('testSize'),
+selector: "testSize",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("a"), "_size", []), (1)]);
@@ -1462,9 +1480,9 @@ smalltalk.SymbolTest);
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-unescape('_testCopying'),
+"_testCopying",
 smalltalk.method({
-selector: unescape('testCopying'),
+selector: "testCopying",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [smalltalk.send(nil, "_copy", []), nil]);
@@ -1473,9 +1491,9 @@ return self;}
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-unescape('_testDeepCopy'),
+"_testDeepCopy",
 smalltalk.method({
-selector: unescape('testDeepCopy'),
+selector: "testDeepCopy",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(nil, "_deepCopy", []), "__eq", [nil])]);
@@ -1484,9 +1502,9 @@ return self;}
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-unescape('_testIfNil'),
+"_testIfNil",
 smalltalk.method({
-selector: unescape('testIfNil'),
+selector: "testIfNil",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_equals_", [(($receiver = nil) == nil || $receiver == undefined) ? (function(){return true;})() : $receiver, true]);
@@ -1498,9 +1516,9 @@ return self;}
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-unescape('_testIsNil'),
+"_testIsNil",
 smalltalk.method({
-selector: unescape('testIsNil'),
+selector: "testIsNil",
 fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(nil, "_isNil", [])]);

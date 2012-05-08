@@ -5,6 +5,17 @@ TestCase subclass: #ArrayTest
 
 !ArrayTest methodsFor: 'testing'!
 
+testAtIfAbsent
+	| array |
+	array := #('hello' 'world').
+	self assert: (array at: 1) equals: 'hello'.
+	self assert: (array at: 2) equals: 'world'.
+	self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.
+	self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.
+	self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.
+	self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.
+!
+
 testFirstN
 	self assert: {1. 2. 3} equals: ({1. 2. 3. 4. 5} first: 3).
 !
