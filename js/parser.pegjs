@@ -28,7 +28,7 @@ literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
 		  return smalltalk.ValueNode._new()
                	   	._value_(lits)
                	 }
-dynamicArray   = "{" ws expressions:expressions? ws "}" {
+dynamicArray   = "{" ws expressions:expressions? ws "."? "}" {
 	       	  return smalltalk.DynamicArrayNode._new()
 		        ._nodes_(expressions)
 		  }
