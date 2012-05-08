@@ -1062,6 +1062,10 @@ match: aRegexp
 	<return self.search(aRegexp) !!= -1>
 !
 
+matchesOf: aRegularExpression
+      <return self.match(aRegularExpression)>
+!
+
 replace: aString with: anotherString
 	^self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString
 !
