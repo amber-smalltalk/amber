@@ -5,17 +5,6 @@ TestCase subclass: #ArrayTest
 
 !ArrayTest methodsFor: 'testing'!
 
-testAtIfAbsent
-	| array |
-	array := #('hello' 'world').
-	self assert: (array at: 1) equals: 'hello'.
-	self assert: (array at: 2) equals: 'world'.
-	self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.
-	self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.
-	self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.
-	self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.
-!
-
 testFirstN
 	self assert: {1. 2. 3} equals: ({1. 2. 3. 4. 5} first: 3).
 !
@@ -230,6 +219,44 @@ testEquality
 
 	d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.
 	self deny: d1 = d2.
+!
+
+testIfAbsent
+	| d visited |
+
+	visited := false.
+	d := Dictionary new.
+
+	d at: 'hello' ifAbsent: [ visited := true ].
+	self assert: visited.
+!
+
+testIfPresent
+
+	| d visited absent |
+	visited := false.
+	d := Dictionary new.
+	d at: 'hello' put: 'world'.
+
+	d at: 'hello' ifPresent: [ :value | visited := value ].
+	self assert: visited = 'world'.
+
+	absent := d at: 'bye' ifPresent: [ :value | visited := value ].
+	self assert: absent isNil.
+!
+
+testIfPresentIfAbsent
+	| d visited |
+
+	visited := false.
+	d := Dictionary new.
+	d at: 'hello' put: 'world'.
+
+	d at: 'hello' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
+	self assert: visited = 'world'.
+
+	d at: 'buy' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
+	self assert: visited.
 !
 
 testKeys
