@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Taskig: Emmas ToDo App</title>
+    <script src="../../js/amber.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      loadAmber({
+        files: ['Taskig.js', 'Taskig-Announcements.js', 'Taskig-Exceptions.js', 
+				'Taskig-Tests.js', 'Taskig-Model.js', 'Taskig-Widgets.js',
+				'Kernel-Exceptions.js', 'Kernel-Tests.js', 'Kernel-Objects.js',
+				'SUnit.js', 'SUnit-Tests.js',
+				'Canvas.js' ],
+        prefix: 'projects/taskig/js',
+        ready: function() {
+
+        }}); 
+    </script>
+  </head>
+  <body>
+      <button onclick="smalltalk.Browser._open()">class browser</button>
+      <div id="playground"></div>
+  </body>
+</html>
