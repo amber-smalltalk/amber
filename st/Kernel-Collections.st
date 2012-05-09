@@ -304,13 +304,21 @@ at: aKey ifAbsentPut: aBlock
 !
 
 at: aKey ifPresent: aBlock
-	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
+	"Lookup the given key in the receiver. 
+	If it is present, answer the value of evaluating the given block with the value associated with the key. 
+	Otherwise, answer nil."
+	^(self includesKey: aKey)
+		ifTrue: [ aBlock value: (self at: aKey) ]
+		ifFalse: [ nil ]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
-	^(self basicAt: aKey)
-	    ifNil: anotherBlock
-	    ifNotNil: [aBlock value: (self at: aKey)]
+	"Lookup the given key in the receiver. 
+	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key, 
+	otherwise answer the value of absentBlock."
+	^(self includesKey: aKey)
+		ifTrue: [ aBlock value: (self at: aKey) ]
+		ifFalse: anotherBlock
 !
 
 at: aKey put: aValue
@@ -319,7 +327,6 @@ at: aKey put: aValue
 
 keys
 	<
-		if ('function'===typeof Object.keys) return Object.keys(self);
 		var keys = [];
 		for(var i in self) {
 			if(self.hasOwnProperty(i)) {
@@ -739,8 +746,12 @@ SequenceableCollection subclass: #Array
 
 at: anIndex ifAbsent: aBlock
 	<
-		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
-		return self[anIndex - 1];
+	    var value = self[anIndex - 1];
+	    if(value === undefined) {
+		return aBlock();
+	    } else {
+		return value;
+	    }
 	>
 !
 
@@ -972,7 +983,7 @@ asJavaScriptSelector
 asJavascript
 	<
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
-			return "\"" + self.replace(/[\x00-\x1f"\\\x7f-\x9f]/g, function(ch){var c=ch.charCodeAt(0);return "\\x"+("0"+c.toString(16)).slice(-2)}) + "\"";
+			return "unescape(\"" + escape(self) + "\")";
 		else
 			return "\"" + self + "\"";
 	>
@@ -1056,10 +1067,6 @@ printString
 
 match: aRegexp
 	<return self.search(aRegexp) !!= -1>
-!
-
-matchesOf: aRegularExpression
-      <return self.match(aRegularExpression)>
 !
 
 replace: aString with: anotherString
