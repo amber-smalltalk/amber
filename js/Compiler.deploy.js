@@ -1279,14 +1279,15 @@ return self;}
 smalltalk.AbstractCompiler);
 
 smalltalk.addMethod(
-"_load_forClass_",
+"_install_forClass_category_",
 smalltalk.method({
-selector: "load:forClass:",
-fn: function (aString, aClass) {
+selector: "install:forClass:category:",
+fn: function (aString, aBehavior, anotherString){
 var self=this;
 var compiled=nil;
-(compiled=smalltalk.send(self, "_eval_", [smalltalk.send(self, "_compile_forClass_", [aString, aClass])]));
-smalltalk.send(self, "_setupClass_", [aClass]);
+(compiled=smalltalk.send(self, "_eval_", [smalltalk.send(self, "_compile_forClass_", [aString, aBehavior])]));
+smalltalk.send(compiled, "_category_", [anotherString]);
+smalltalk.send(aBehavior, "_addCompiledMethod_", [compiled]);
 return compiled;
 return self;}
 }),
@@ -1344,10 +1345,10 @@ smalltalk.addMethod(
 "_recompile_",
 smalltalk.method({
 selector: "recompile:",
-fn: function (aClass) {
+fn: function (aClass){
 var self=this;
-smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){var method=nil;
-(method=smalltalk.send(self, "_load_forClass_", [smalltalk.send(each, "_source", []), aClass]));smalltalk.send(method, "_category_", [smalltalk.send(each, "_category", [])]);return smalltalk.send(aClass, "_addCompiledMethod_", [method]);})]);
+smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){return smalltalk.send(self, "_install_forClass_category_", [smalltalk.send(each, "_source", []), aClass, smalltalk.send(each, "_category", [])]);})]);
+smalltalk.send(self, "_setupClass_", [aClass]);
 ((($receiver = smalltalk.send(aClass, "_isMetaclass", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})]));
 return self;}
 }),
@@ -1413,11 +1414,9 @@ smalltalk.addMethod(
 "_recompile_",
 smalltalk.method({
 selector: "recompile:",
-fn: function (aClass) {
+fn: function (aClass){
 var self=this;
-smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){var method=nil;
-(method=smalltalk.send(smalltalk.send(self, "_new", []), "_load_forClass_", [smalltalk.send(each, "_source", []), aClass]));smalltalk.send(method, "_category_", [smalltalk.send(each, "_category", [])]);return smalltalk.send(aClass, "_addCompiledMethod_", [method]);})]);
-((($receiver = smalltalk.send(aClass, "_isMetaclass", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})]));
+smalltalk.send(smalltalk.send(self, "_new", []), "_recompile_", [aClass]);
 return self;}
 }),
 smalltalk.AbstractCompiler.klass);
