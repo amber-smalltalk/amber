@@ -168,10 +168,6 @@ amber = (function() {
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk() {
 		window.smalltalkReady = function() {
-			if (deploy) {
-				smalltalk.setDeploymentMode();
-			}
-
 			if (spec.ready) {
 				spec.ready();
 			}

@@ -171,50 +171,28 @@ function Smalltalk(){
 		}
 	};
 
-	if ('function' === typeof Object.keys) {
-		st.initSubTree = function(klass) {
-			var subclasses = st.subclasses(klass);
-			var methods, proto = klass.fn.prototype;
+	st.initSubTree = function(klass) {
+		var subclasses = st.subclasses(klass);
+		var methods, proto = klass.fn.prototype;
 
-			if(klass.superclass && klass.superclass !== nil) {
-				methods = st.methods(klass.superclass);
+		if(klass.superclass && klass.superclass !== nil) {
+			methods = st.methods(klass.superclass);
 
-				//Methods linking
-				for(var keys=Object.keys(methods),i=0,l=keys.length; i<l; ++i) {
-					var k = keys[i]
-					if(!proto.methods[k]) {
-						proto.inheritedMethods[k] = methods[k];
-						proto[methods[k].jsSelector] = methods[k].fn;
-					}
+			//Methods linking
+			for(var keys=Object.keys(methods),i=0,l=keys.length; i<l; ++i) {
+				var k = keys[i]
+				if(!proto.methods[k]) {
+					proto.inheritedMethods[k] = methods[k];
+					proto[methods[k].jsSelector] = methods[k].fn;
 				}
 			}
+		}
 
-			for(var i=0;i<subclasses.length;i++) {
-				st.initSubTree(subclasses[i]);
-			}
-		};
-	} else {
-		st.initSubTree = function(klass) {
-			var subclasses = st.subclasses(klass);
-			var methods, proto = klass.fn.prototype;
+		for(var i=0;i<subclasses.length;i++) {
+			st.initSubTree(subclasses[i]);
+		}
+	};
 
-			if(klass.superclass && klass.superclass !== nil) {
-				methods = st.methods(klass.superclass);
-
-				//Methods linking
-				for(var i in methods) {
-					if(!proto.methods[i]) {
-						proto.inheritedMethods[i] = methods[i];
-						proto[methods[i].jsSelector] = methods[i].fn;
-					}
-				}
-			}
-
-			for(var i=0;i<subclasses.length;i++) {
-				st.initSubTree(subclasses[i]);
-			}
-		};
-	}
 
 	/* Answer all registered Packages as Array */
 
@@ -229,56 +207,33 @@ function Smalltalk(){
 
 	/* Answer all registered Smalltalk classes */
 
-	if ('function' === typeof Object.keys) {
-		st.classes = function() {
-			var classes = [], names = Object.keys(st), l = names.length;
-			for (var i=0; i<l; ++i) {
-				var name = names[i];
-				if (name.search(/^[A-Z]/) !== -1) {
-					classes.push(st[name]);
-				}
+	st.classes = function() {
+		var classes = [], names = Object.keys(st), l = names.length;
+		for (var i=0; i<l; ++i) {
+			var name = names[i];
+			if (name.search(/^[A-Z]/) !== -1) {
+				classes.push(st[name]);
 			}
-			return classes;
-		};
-	} else {
-		st.classes = function() {
-			var classes = [];
-			for(var i in st) {
-				if(i.search(/^[A-Z]/g) != -1) {
-					classes.push(st[i]);
-				}
-			}
-			return classes
-		};
-	}
+		}
+		return classes;
+	};
+
 
 	/* Answer all methods (included inherited ones) of klass. */
 
-	if ('function' === typeof Object.keys) {
-		st.methods = function(klass) {
-			var methods = {};
-			var copyFrom = klass.fn.prototype.methods;
-			for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
-				methods[k[i]] = copyFrom[k[i]];
-			}
-			copyFrom = klass.fn.prototype.inheritedMethods;
-			for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
-				methods[k[i]] = copyFrom[k[i]];
-			}
-			return methods;
-		};
-	} else {
-		st.methods = function(klass) {
-			var methods = {};
-			for(var i in klass.fn.prototype.methods) {
-				methods[i] = klass.fn.prototype.methods[i]
-			}
-			for(var i in klass.fn.prototype.inheritedMethods) {
-				methods[i] = klass.fn.prototype.inheritedMethods[i]
-			}
-			return methods;
-		};
-	}
+	st.methods = function(klass) {
+		var methods = {};
+		var copyFrom = klass.fn.prototype.methods;
+		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
+			methods[k[i]] = copyFrom[k[i]];
+		}
+		copyFrom = klass.fn.prototype.inheritedMethods;
+		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
+			methods[k[i]] = copyFrom[k[i]];
+		}
+		return methods;
+	};
+
 
 	/* Answer the direct subclasses of klass. */
 
@@ -544,10 +499,6 @@ function Smalltalk(){
 		}
 		return object;
 	};
-
-	/* Kept for backward compatibility */
-	st.setDeploymentMode = function() {};
-	st.setDevelopmentMode = function() {};
 };
 
 function SmalltalkMethodContext(receiver, selector, temps, home) {
