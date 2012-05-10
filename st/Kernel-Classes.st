@@ -130,10 +130,9 @@ compile: aString
 !
 
 compile: aString category: anotherString
-	| method |
-	method := Compiler new load: aString forClass: self.
-	method category: anotherString.
-	self addCompiledMethod: method
+	Compiler new
+		install: aString forClass: self category: anotherString;
+		setupClass: self
 !
 
 removeCompiledMethod: aMethod
@@ -314,12 +313,10 @@ copyClass: aClass named: aString
 	self setupClass: newClass.
 
 	aClass methodDictionary values do: [:each |
-		newClass addCompiledMethod: (Compiler new load: each source forClass: newClass).
-		(newClass methodDictionary at: each selector) category: each category].
+		Compiler new install: each source forClass: newClass category: each category].
 
 	aClass class methodDictionary values do: [:each |
-		newClass class addCompiledMethod: (Compiler new load: each source forClass: newClass class).
-		(newClass class methodDictionary at: each selector) category: each category].
+		Compiler new install: each source forClass: newClass class category: each category].
 
 	self setupClass: newClass.
 	^newClass
@@ -352,7 +349,8 @@ scanFrom: aChunkParser
 	| chunk |
 	[chunk := aChunkParser nextChunk.
 	chunk isEmpty] whileFalse: [
-	    self compileMethod: chunk]
+	    self compileMethod: chunk].
+	Compiler new setupClass: class
 ! !
 
 !ClassCategoryReader methodsFor: 'initialization'!
@@ -365,11 +363,7 @@ initialize
 !ClassCategoryReader methodsFor: 'private'!
 
 compileMethod: aString
-	| method compiler |
-	method := (compiler := Compiler new) load: aString forClass: class.
-	method category: category.
-	class addCompiledMethod: method.
-	compiler setupClass: class.
+	Compiler new install: aString forClass: class category: category
 ! !
 
 Object subclass: #ClassCommentReader

@@ -849,10 +849,11 @@ eval: aString
 	<return eval(aString)>
 !
 
-load: aString forClass: aClass
+install: aString forClass: aBehavior category: anotherString
 	| compiled |
-	compiled := self eval: (self compile: aString forClass: aClass).
-	self setupClass: aClass.
+	compiled := self eval: (self compile: aString forClass: aBehavior).
+	compiled category: anotherString.
+	aBehavior addCompiledMethod: compiled.
 	^compiled
 !
 
@@ -873,10 +874,9 @@ parseExpression: aString
 !
 
 recompile: aClass
-	aClass methodDictionary do: [:each || method |
-		method := self load: each source forClass: aClass.
-		method category: each category.
-		aClass addCompiledMethod: method].
+	aClass methodDictionary do: [:each |
+		self install: each source forClass: aClass category: each category].
+	self setupClass: aClass.
 	aClass isMetaclass ifFalse: [self recompile: aClass class]
 !
 
@@ -893,11 +893,7 @@ setupClass: aClass
 !AbstractCompiler class methodsFor: 'compiling'!
 
 recompile: aClass
-	aClass methodDictionary do: [:each || method |
-		method := self new load: each source forClass: aClass.
-		method category: each category.
-		aClass addCompiledMethod: method].
-	aClass isMetaclass ifFalse: [self recompile: aClass class]
+	self new recompile: aClass
 !
 
 recompileAll
