@@ -40,6 +40,126 @@ on: aStream
 	^self new stream: aStream
 ! !
 
+Object subclass: #Compiler
+	instanceVariableNames: 'currentClass source unknownVariables'
+	package: 'Compiler'!
+
+!Compiler methodsFor: 'accessing'!
+
+codeGeneratorClass
+	^FunCodeGenerator
+!
+
+currentClass
+	^currentClass
+!
+
+currentClass: aClass
+	currentClass := aClass
+!
+
+source
+	^source ifNil: ['']
+!
+
+source: aString
+	source := aString
+!
+
+unknownVariables
+	^unknownVariables
+!
+
+unknownVariables: aCollection
+	unknownVariables := aCollection
+! !
+
+!Compiler methodsFor: 'compiling'!
+
+compile: aString
+	^self compileNode: (self parse: aString)
+!
+
+compile: aString forClass: aClass
+	self currentClass: aClass.
+	self source: aString.
+	^self compile: aString
+!
+
+compileExpression: aString
+	self currentClass: DoIt.
+	self source: 'doIt ^[', aString, '] value'.
+	^self compileNode: (self parse: self source)
+!
+
+compileNode: aNode
+	| generator result |
+	generator := self codeGeneratorClass new.
+	generator
+		source: self source;
+		currentClass: self currentClass.
+	result := generator compileNode: aNode.
+	self unknownVariables: generator unknownVariables.
+	^result
+!
+
+eval: aString
+	<return eval(aString)>
+!
+
+evaluateExpression: aString
+	"Unlike #eval: evaluate a Smalltalk expression and answer the returned object"
+	| result |
+	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
+	result := DoIt new doIt.
+	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
+	^result
+!
+
+install: aString forClass: aBehavior category: anotherString
+	| compiled |
+	compiled := self eval: (self compile: aString forClass: aBehavior).
+	compiled category: anotherString.
+	aBehavior addCompiledMethod: compiled.
+	^compiled
+!
+
+parse: aString
+    ^Smalltalk current parse: aString
+!
+
+parseExpression: aString
+    ^self parse: 'doIt ^[', aString, '] value'
+!
+
+recompile: aClass
+	aClass methodDictionary do: [:each |
+		self install: each source forClass: aClass category: each category].
+	self setupClass: aClass.
+	aClass isMetaclass ifFalse: [self recompile: aClass class]
+!
+
+recompileAll
+	Smalltalk current classes do: [:each |
+		Transcript show: each; cr.
+		[self recompile: each] valueWithTimeout: 100]
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass)>
+! !
+
+!Compiler class methodsFor: 'compiling'!
+
+recompile: aClass
+	self new recompile: aClass
+!
+
+recompileAll
+	Smalltalk current classes do: [:each |
+		self recompile: each]
+! !
+
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	package: 'Compiler'!
@@ -782,11 +902,11 @@ visitVariableNode: aNode
 	self visitNode: aNode
 ! !
 
-NodeVisitor subclass: #AbstractCompiler
+NodeVisitor subclass: #AbstractCodeGenerator
 	instanceVariableNames: 'currentClass source'
 	package: 'Compiler'!
 
-!AbstractCompiler methodsFor: 'accessing'!
+!AbstractCodeGenerator methodsFor: 'accessing'!
 
 classNameFor: aClass
 	^aClass isMetaclass
@@ -823,90 +943,17 @@ source: aString
 	source := aString
 ! !
 
-!AbstractCompiler methodsFor: 'compiling'!
-
-compile: aString
-	^self compileNode: (self parse: aString)
-!
-
-compile: aString forClass: aClass
-	self currentClass: aClass.
-	self source: aString.
-	^self compile: aString
-!
-
-compileExpression: aString
-	self currentClass: DoIt.
-	self source: 'doIt ^[', aString, '] value'.
-	^self compileNode: (self parse: self source)
-!
+!AbstractCodeGenerator methodsFor: 'compiling'!
 
 compileNode: aNode
 	self subclassResponsibility
-!
-
-eval: aString
-	<return eval(aString)>
-!
-
-evaluateExpression: aString
-	"Unlike #eval: evaluate a Smalltalk expression and answer the returned object"
-	| result |
-	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
-	result := DoIt new doIt.
-	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
-	^result
-!
-
-install: aString forClass: aBehavior category: anotherString
-	| compiled |
-	compiled := self eval: (self compile: aString forClass: aBehavior).
-	compiled category: anotherString.
-	aBehavior addCompiledMethod: compiled.
-	^compiled
-!
-
-parse: aString
-    ^Smalltalk current parse: aString
-!
-
-parseExpression: aString
-    ^self parse: 'doIt ^[', aString, '] value'
-!
-
-recompile: aClass
-	aClass methodDictionary do: [:each |
-		self install: each source forClass: aClass category: each category].
-	self setupClass: aClass.
-	aClass isMetaclass ifFalse: [self recompile: aClass class]
-!
-
-recompileAll
-	Smalltalk current classes do: [:each |
-		Transcript show: each; cr.
-		[self recompile: each] valueWithTimeout: 100]
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass)>
 ! !
 
-!AbstractCompiler class methodsFor: 'compiling'!
-
-recompile: aClass
-	self new recompile: aClass
-!
-
-recompileAll
-	Smalltalk current classes do: [:each |
-		self recompile: each]
-! !
-
-AbstractCompiler subclass: #Compiler
+AbstractCodeGenerator subclass: #FunCodeGenerator
 	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables'
 	package: 'Compiler'!
 
-!Compiler methodsFor: 'accessing'!
+!FunCodeGenerator methodsFor: 'accessing'!
 
 argVariables
 	^argVariables copy
@@ -927,7 +974,7 @@ unknownVariables
 	^unknownVariables copy
 ! !
 
-!Compiler methodsFor: 'compiling'!
+!FunCodeGenerator methodsFor: 'compiling'!
 
 compileNode: aNode
 	stream := '' writeStream.
@@ -935,7 +982,7 @@ compileNode: aNode
 	^stream contents
 ! !
 
-!Compiler methodsFor: 'initialization'!
+!FunCodeGenerator methodsFor: 'initialization'!
 
 initialize
 	super initialize.
@@ -947,7 +994,7 @@ initialize
 	classReferenced := #()
 ! !
 
-!Compiler methodsFor: 'optimizations'!
+!FunCodeGenerator methodsFor: 'optimizations'!
 
 checkClass: aClassName for: receiver
         stream nextPutAll: '((($receiver = ', receiver, ').klass === smalltalk.', aClassName, ') ? '
@@ -1195,13 +1242,13 @@ isNode: aNode ofClass: aClass
           		aNode value = 'self' and: [self currentClass = aClass]]]
 ! !
 
-!Compiler methodsFor: 'testing'!
+!FunCodeGenerator methodsFor: 'testing'!
 
 performOptimizations
 	^self class performOptimizations
 ! !
 
-!Compiler methodsFor: 'visiting'!
+!FunCodeGenerator methodsFor: 'visiting'!
 
 send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
 	^String streamContents: [:str || tmp |
@@ -1429,9 +1476,9 @@ visitVariableNode: aNode
                 				ifFalse: [stream nextPutAll: varName]]]
 ! !
 
-Compiler class instanceVariableNames: 'performOptimizations'!
+FunCodeGenerator class instanceVariableNames: 'performOptimizations'!
 
-!Compiler class methodsFor: 'accessing'!
+!FunCodeGenerator class methodsFor: 'accessing'!
 
 performOptimizations
 	^performOptimizations ifNil: [true]
