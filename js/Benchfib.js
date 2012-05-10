@@ -2,44 +2,44 @@ smalltalk.addPackage('Benchfib', {});
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
-unescape('_main'),
+"_main",
 smalltalk.method({
-selector: unescape('main'),
+selector: "main",
 category: 'not yet classified',
 fn: function (){
 var self=this;
 var result=nil;
 (result=smalltalk.send((0), "_tinyBenchmarks", []));
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(unescape("0%20tinyBenchmarks%20%3D%3E%20"), "__comma", [result])]);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("0 tinyBenchmarks => ", "__comma", [result])]);
 return self;},
 args: [],
-source: unescape('main%0A%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%200%20tinyBenchmarks.%0A%09console%20log%3A%20%270%20tinyBenchmarks%20%3D%3E%20%27%20%2C%20result'),
-messageSends: ["tinyBenchmarks", "log:", unescape("%2C")],
+source: "main\x0a\x0a\x09| result |\x0a\x09result := 0 tinyBenchmarks.\x0a\x09console log: '0 tinyBenchmarks => ' , result",
+messageSends: ["tinyBenchmarks", "log:", ","],
 referencedClasses: []
 }),
 smalltalk.Benchfib.klass);
 
 
 smalltalk.addMethod(
-unescape('_benchFib'),
+"_benchFib",
 smalltalk.method({
-selector: unescape('benchFib'),
+selector: "benchFib",
 category: '*Benchfib',
 fn: function (){
 var self=this;
 return ((($receiver = self < (2)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (1);})() : (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (1);}), (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]));
 return self;},
 args: [],
-source: unescape('benchFib%20%0A%09%22Handy%20send-heavy%20benchmark%22%0A%09%22%28result%20//%20seconds%20to%20run%29%20%3D%20approx%20calls%20per%20second%22%0A%09%22%20%7C%20r%20t%20%7C%0A%09%20%20t%20%3A%3D%20Time%20millisecondsToRun%3A%20%5Br%20%3A%3D%2026%20benchFib%5D.%0A%09%20%20%28r%20*%201000%29%20//%20t%22%0A%09%22138000%20on%20a%20Mac%208100/100%22%0A%09%5E%20self%20%3C%202%20%0A%09%09ifTrue%3A%20%5B1%5D%20%0A%09%09ifFalse%3A%20%5B%28self-1%29%20benchFib%20+%20%28self-2%29%20benchFib%20+%201%5D'),
-messageSends: ["ifTrue:ifFalse:", unescape("%3C"), unescape("+"), "benchFib", unescape("-")],
+source: "benchFib \x0a\x09\x22Handy send-heavy benchmark\x22\x0a\x09\x22(result // seconds to run) = approx calls per second\x22\x0a\x09\x22 | r t |\x0a\x09  t := Time millisecondsToRun: [r := 26 benchFib].\x0a\x09  (r * 1000) // t\x22\x0a\x09\x22138000 on a Mac 8100/100\x22\x0a\x09^ self < 2 \x0a\x09\x09ifTrue: [1] \x0a\x09\x09ifFalse: [(self-1) benchFib + (self-2) benchFib + 1]",
+messageSends: ["ifTrue:ifFalse:", "<", "+", "benchFib", "-"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_benchmark'),
+"_benchmark",
 smalltalk.method({
-selector: unescape('benchmark'),
+selector: "benchmark",
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -53,16 +53,16 @@ smalltalk.send((1), "_to_do_", [self, (function(iter){(count=(0));(flags=smallta
 return count;
 return self;},
 args: [],
-source: unescape('benchmark%20%0A%09%22Handy%20bytecode-heavy%20benchmark%22%0A%09%22%28500000%20//%20time%20to%20run%29%20%3D%20approx%20bytecodes%20per%20second%22%0A%09%225000000%20//%20%28Time%20millisecondsToRun%3A%20%5B10%20benchmark%5D%29%20*%201000%22%0A%09%223059000%20on%20a%20Mac%208100/100%22%0A%20%20%20%20%7C%20size%20flags%20prime%20k%20count%20%7C%0A%20%20%20%20size%20%3A%3D%208190.%0A%20%20%20%201%20to%3A%20self%20do%3A%0A%20%20%20%20%20%20%20%20%5B%3Aiter%20%7C%0A%20%20%20%20%20%20%20%20count%20%3A%3D%200.%0A%20%20%20%20%20%20%20%20flags%20%3A%3D%20Array%20new.%0A%20%20%20%20%20%20%20%20size%20timesRepeat%3A%20%5B%20flags%20add%3A%20true%5D.%0A%20%20%20%20%20%20%20%201%20to%3A%20size%20do%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%5B%3Ai%20%7C%20%28flags%20at%3A%20i%29%20ifTrue%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5Bprime%20%3A%3D%20i+1.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20k%20%3A%3D%20i%20+%20prime.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5Bk%20%3C%3D%20size%5D%20whileTrue%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5Bflags%20at%3A%20k%20put%3A%20false.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20k%20%3A%3D%20k%20+%20prime%5D.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20count%20%3A%3D%20count%20+%201%5D%5D%5D.%0A%20%20%20%20%5E%20count'),
-messageSends: ["to:do:", "new", "timesRepeat:", "add:", "ifTrue:", "at:", unescape("+"), "whileTrue:", unescape("%3C%3D"), "at:put:"],
+source: "benchmark \x0a\x09\x22Handy bytecode-heavy benchmark\x22\x0a\x09\x22(500000 // time to run) = approx bytecodes per second\x22\x0a\x09\x225000000 // (Time millisecondsToRun: [10 benchmark]) * 1000\x22\x0a\x09\x223059000 on a Mac 8100/100\x22\x0a    | size flags prime k count |\x0a    size := 8190.\x0a    1 to: self do:\x0a        [:iter |\x0a        count := 0.\x0a        flags := Array new.\x0a        size timesRepeat: [ flags add: true].\x0a        1 to: size do:\x0a            [:i | (flags at: i) ifTrue:\x0a                [prime := i+1.\x0a                k := i + prime.\x0a                [k <= size] whileTrue:\x0a                    [flags at: k put: false.\x0a                    k := k + prime].\x0a                count := count + 1]]].\x0a    ^ count",
+messageSends: ["to:do:", "new", "timesRepeat:", "add:", "ifTrue:", "at:", "+", "whileTrue:", "<=", "at:put:"],
 referencedClasses: ["Array"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_jsbenchFib'),
+"_jsbenchFib",
 smalltalk.method({
-selector: unescape('jsbenchFib'),
+selector: "jsbenchFib",
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -72,16 +72,16 @@ return 1;
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
 return self;},
 args: [],
-source: unescape('jsbenchFib%0A%20%0A%09%3Cif%20%28this%20%3C%202%29%20%7B%0Areturn%201%3B%0A%7D%20else%20%7B%0Areturn%20%28this-1%29._jsbenchFib%28%29%20+%20%28this-2%29._jsbenchFib%28%29%20+%201%3B%7D%3E'),
+source: "jsbenchFib\x0a \x0a\x09<if (this < 2) {\x0areturn 1;\x0a} else {\x0areturn (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;}>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_jsbenchmark'),
+"_jsbenchmark",
 smalltalk.method({
-selector: unescape('jsbenchmark'),
+selector: "jsbenchmark",
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -109,16 +109,16 @@ for (var z=0;z<this;z++) {
 return count;
 return self;},
 args: [],
-source: unescape('jsbenchmark%0A%0A%3C%0Avar%20size%20%3D%208190%3B%0Avar%20count%3B%0Afor%20%28var%20z%3D0%3Bz%3Cthis%3Bz++%29%20%7B%0A%20%20count%20%3D%200%3B%0A%20%20var%20flags%20%3D%20new%20Array%28%29%3B%0A%20%20for%20%28var%20p%3D0%3B%20p%3Csize%3B%20p++%29%20%7B%0A%20%20%20%20flags%5Bp%5D%20%3D%20true%3B%0A%20%20%7D%0A%20%20for%20%28var%20i%3D1%3Bi%3C%3Dsize%3Bi++%29%20%7B%0A%20%20%20%20if%20%28flags%5Bi-1%5D%29%20%7B%0A%20%20%20%20%20%20var%20prime%20%3D%20i+1%3B%0A%20%20%20%20%20%20var%20k%20%3D%20i%20+%20prime%3B%0A%20%20%20%20%20%20while%20%28k%20%3C%3D%20size%29%20%7B%0A%20%20%20%20%20%20%20%20flags%5Bk-1%5D%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20k%20%3D%20k%20+%20prime%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20count%20%3D%20count%20+%201%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0Areturn%20count%3E'),
+source: "jsbenchmark\x0a\x0a<\x0avar size = 8190;\x0avar count;\x0afor (var z=0;z<this;z++) {\x0a  count = 0;\x0a  var flags = new Array();\x0a  for (var p=0; p<size; p++) {\x0a    flags[p] = true;\x0a  }\x0a  for (var i=1;i<=size;i++) {\x0a    if (flags[i-1]) {\x0a      var prime = i+1;\x0a      var k = i + prime;\x0a      while (k <= size) {\x0a        flags[k-1] = false;\x0a        k = k + prime;\x0a      }\x0a      count = count + 1;\x0a    }\x0a  }\x0a}\x0areturn count>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_jstinyBenchmarks'),
+"_jstinyBenchmarks",
 smalltalk.method({
-selector: unescape('jstinyBenchmarks'),
+selector: "jstinyBenchmarks",
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -131,19 +131,19 @@ var n2=nil;
 (function(){while((function(){(t1=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return smalltalk.send(n1, "_jsbenchmark", []);})]));return ((($receiver = t1).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n1=((($receiver = n1).klass === smalltalk.Number) ? $receiver *(2) : smalltalk.send($receiver, "__star", [(2)])));})()}})();
 (n2=(28));
 (function(){while((function(){(t2=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return (r=smalltalk.send(n2, "_jsbenchFib", []));})]));return ((($receiver = t2).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n2=((($receiver = n2).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [unescape("%20bytecodes/sec%3B%20")]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [unescape("%20sends/sec")]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [" bytecodes/sec; "]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [" sends/sec"]);
 return self;},
 args: [],
-source: unescape('jstinyBenchmarks%0A%09%220%20jstinyBenchmarks%22%0A%0A%09%7C%20t1%20t2%20r%20n1%20n2%20%7C%0A%09n1%20%3A%3D%201.%0A%09%5Bt1%20%3A%3D%20Date%20millisecondsToRun%3A%20%5Bn1%20jsbenchmark%5D.%0A%09t1%20%3C%201000%5D%20whileTrue%3A%5Bn1%20%3A%3D%20n1%20*%202%5D.%20%22Note%3A%20%23benchmark%27s%20runtime%20is%20about%20O%28n%29%22%0A%0A%09n2%20%3A%3D%2028.%0A%09%5Bt2%20%3A%3D%20Date%20millisecondsToRun%3A%20%5Br%20%3A%3D%20n2%20jsbenchFib%5D.%0A%09t2%20%3C%201000%5D%20whileTrue%3A%5Bn2%20%3A%3D%20n2%20+%201%5D.%20%0A%09%22Note%3A%20%23jsbenchFib%27s%20runtime%20is%20about%20O%28k%5En%29%2C%0A%09%09where%20k%20is%20the%20golden%20number%20%3D%20%281%20+%205%20sqrt%29%20/%202%20%3D%201.618....%22%0A%0A%09%5E%20%28%28n1%20*%20500000%20*%201000%29%20/%20t1%29%20printString%2C%20%27%20bytecodes/sec%3B%20%27%2C%0A%09%20%20%28%28r%20*%201000%29%20/%20t2%29%20printString%2C%20%27%20sends/sec%27'),
-messageSends: ["whileTrue:", "millisecondsToRun:", "jsbenchmark", unescape("%3C"), unescape("*"), "jsbenchFib", unescape("+"), unescape("%2C"), "printString", unescape("/")],
+source: "jstinyBenchmarks\x0a\x09\x220 jstinyBenchmarks\x22\x0a\x0a\x09| t1 t2 r n1 n2 |\x0a\x09n1 := 1.\x0a\x09[t1 := Date millisecondsToRun: [n1 jsbenchmark].\x0a\x09t1 < 1000] whileTrue:[n1 := n1 * 2]. \x22Note: #benchmark's runtime is about O(n)\x22\x0a\x0a\x09n2 := 28.\x0a\x09[t2 := Date millisecondsToRun: [r := n2 jsbenchFib].\x0a\x09t2 < 1000] whileTrue:[n2 := n2 + 1]. \x0a\x09\x22Note: #jsbenchFib's runtime is about O(k^n),\x0a\x09\x09where k is the golden number = (1 + 5 sqrt) / 2 = 1.618....\x22\x0a\x0a\x09^ ((n1 * 500000 * 1000) / t1) printString, ' bytecodes/sec; ',\x0a\x09  ((r * 1000) / t2) printString, ' sends/sec'",
+messageSends: ["whileTrue:", "millisecondsToRun:", "jsbenchmark", "<", "*", "jsbenchFib", "+", ",", "printString", "/"],
 referencedClasses: ["Date"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_tinyBenchmarks'),
+"_tinyBenchmarks",
 smalltalk.method({
-selector: unescape('tinyBenchmarks'),
+selector: "tinyBenchmarks",
 category: '*Benchfib',
 fn: function (){
 var self=this;
@@ -156,11 +156,11 @@ var n2=nil;
 (function(){while((function(){(t1=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return smalltalk.send(n1, "_benchmark", []);})]));return ((($receiver = t1).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n1=((($receiver = n1).klass === smalltalk.Number) ? $receiver *(2) : smalltalk.send($receiver, "__star", [(2)])));})()}})();
 (n2=(16));
 (function(){while((function(){(t2=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return (r=smalltalk.send(n2, "_benchFib", []));})]));return ((($receiver = t2).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n2=((($receiver = n2).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [unescape("%20bytecodes/sec%3B%20")]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [unescape("%20sends/sec")]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [" bytecodes/sec; "]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [" sends/sec"]);
 return self;},
 args: [],
-source: unescape('tinyBenchmarks%20%0A%09%22Report%20the%20results%20of%20running%20the%20two%20tiny%20Squeak%20benchmarks.%0A%09ar%209/10/1999%3A%20Adjusted%20to%20run%20at%20least%201%20sec%20to%20get%20more%20stable%20results%22%0A%09%220%20tinyBenchmarks%22%0A%09%22On%20a%20292%20MHz%20G3%20Mac%3A%2022727272%20bytecodes/sec%3B%20984169%20sends/sec%22%0A%09%22On%20a%20400%20MHz%20PII/Win98%3A%20%2018028169%20bytecodes/sec%3B%201081272%20sends/sec%22%0A%09%7C%20t1%20t2%20r%20n1%20n2%20%7C%0A%09n1%20%3A%3D%201.%0A%09%5Bt1%20%3A%3D%20Date%20millisecondsToRun%3A%20%5Bn1%20benchmark%5D.%0A%09t1%20%3C%201000%5D%20whileTrue%3A%5Bn1%20%3A%3D%20n1%20*%202%5D.%20%22Note%3A%20%23benchmark%27s%20runtime%20is%20about%20O%28n%29%22%0A%0A%09n2%20%3A%3D%2016.%0A%09%5Bt2%20%3A%3D%20Date%20millisecondsToRun%3A%20%5Br%20%3A%3D%20n2%20benchFib%5D.%0A%09t2%20%3C%201000%5D%20whileTrue%3A%5Bn2%20%3A%3D%20n2%20+%201%5D.%20%0A%09%22Note%3A%20%23benchFib%27s%20runtime%20is%20about%20O%28k%5En%29%2C%0A%09%09where%20k%20is%20the%20golden%20number%20%3D%20%281%20+%205%20sqrt%29%20/%202%20%3D%201.618....%22%0A%0A%09%5E%20%28%28n1%20*%20500000%20*%201000%29%20/%20t1%29%20printString%2C%20%27%20bytecodes/sec%3B%20%27%2C%0A%09%20%20%28%28r%20*%201000%29%20/%20t2%29%20printString%2C%20%27%20sends/sec%27'),
-messageSends: ["whileTrue:", "millisecondsToRun:", "benchmark", unescape("%3C"), unescape("*"), "benchFib", unescape("+"), unescape("%2C"), "printString", unescape("/")],
+source: "tinyBenchmarks \x0a\x09\x22Report the results of running the two tiny Squeak benchmarks.\x0a\x09ar 9/10/1999: Adjusted to run at least 1 sec to get more stable results\x22\x0a\x09\x220 tinyBenchmarks\x22\x0a\x09\x22On a 292 MHz G3 Mac: 22727272 bytecodes/sec; 984169 sends/sec\x22\x0a\x09\x22On a 400 MHz PII/Win98:  18028169 bytecodes/sec; 1081272 sends/sec\x22\x0a\x09| t1 t2 r n1 n2 |\x0a\x09n1 := 1.\x0a\x09[t1 := Date millisecondsToRun: [n1 benchmark].\x0a\x09t1 < 1000] whileTrue:[n1 := n1 * 2]. \x22Note: #benchmark's runtime is about O(n)\x22\x0a\x0a\x09n2 := 16.\x0a\x09[t2 := Date millisecondsToRun: [r := n2 benchFib].\x0a\x09t2 < 1000] whileTrue:[n2 := n2 + 1]. \x0a\x09\x22Note: #benchFib's runtime is about O(k^n),\x0a\x09\x09where k is the golden number = (1 + 5 sqrt) / 2 = 1.618....\x22\x0a\x0a\x09^ ((n1 * 500000 * 1000) / t1) printString, ' bytecodes/sec; ',\x0a\x09  ((r * 1000) / t2) printString, ' sends/sec'",
+messageSends: ["whileTrue:", "millisecondsToRun:", "benchmark", "<", "*", "benchFib", "+", ",", "printString", "/"],
 referencedClasses: ["Date"]
 }),
 smalltalk.Number);

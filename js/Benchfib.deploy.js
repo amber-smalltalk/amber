@@ -2,23 +2,23 @@ smalltalk.addPackage('Benchfib', {});
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
-unescape('_main'),
+"_main",
 smalltalk.method({
-selector: unescape('main'),
+selector: "main",
 fn: function (){
 var self=this;
 var result=nil;
 (result=smalltalk.send((0), "_tinyBenchmarks", []));
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(unescape("0%20tinyBenchmarks%20%3D%3E%20"), "__comma", [result])]);
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("0 tinyBenchmarks => ", "__comma", [result])]);
 return self;}
 }),
 smalltalk.Benchfib.klass);
 
 
 smalltalk.addMethod(
-unescape('_benchFib'),
+"_benchFib",
 smalltalk.method({
-selector: unescape('benchFib'),
+selector: "benchFib",
 fn: function (){
 var self=this;
 return ((($receiver = self < (2)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (1);})() : (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (1);}), (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]));
@@ -27,9 +27,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_benchmark'),
+"_benchmark",
 smalltalk.method({
-selector: unescape('benchmark'),
+selector: "benchmark",
 fn: function (){
 var self=this;
 var size=nil;
@@ -45,9 +45,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_jsbenchFib'),
+"_jsbenchFib",
 smalltalk.method({
-selector: unescape('jsbenchFib'),
+selector: "jsbenchFib",
 fn: function (){
 var self=this;
 if (this < 2) {
@@ -59,9 +59,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_jsbenchmark'),
+"_jsbenchmark",
 smalltalk.method({
-selector: unescape('jsbenchmark'),
+selector: "jsbenchmark",
 fn: function (){
 var self=this;
 
@@ -91,9 +91,9 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_jstinyBenchmarks'),
+"_jstinyBenchmarks",
 smalltalk.method({
-selector: unescape('jstinyBenchmarks'),
+selector: "jstinyBenchmarks",
 fn: function (){
 var self=this;
 var t1=nil;
@@ -105,15 +105,15 @@ var n2=nil;
 (function(){while((function(){(t1=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return smalltalk.send(n1, "_jsbenchmark", []);})]));return ((($receiver = t1).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n1=((($receiver = n1).klass === smalltalk.Number) ? $receiver *(2) : smalltalk.send($receiver, "__star", [(2)])));})()}})();
 (n2=(28));
 (function(){while((function(){(t2=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return (r=smalltalk.send(n2, "_jsbenchFib", []));})]));return ((($receiver = t2).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n2=((($receiver = n2).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [unescape("%20bytecodes/sec%3B%20")]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [unescape("%20sends/sec")]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [" bytecodes/sec; "]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [" sends/sec"]);
 return self;}
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_tinyBenchmarks'),
+"_tinyBenchmarks",
 smalltalk.method({
-selector: unescape('tinyBenchmarks'),
+selector: "tinyBenchmarks",
 fn: function (){
 var self=this;
 var t1=nil;
@@ -125,7 +125,7 @@ var n2=nil;
 (function(){while((function(){(t1=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return smalltalk.send(n1, "_benchmark", []);})]));return ((($receiver = t1).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n1=((($receiver = n1).klass === smalltalk.Number) ? $receiver *(2) : smalltalk.send($receiver, "__star", [(2)])));})()}})();
 (n2=(16));
 (function(){while((function(){(t2=smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return (r=smalltalk.send(n2, "_benchFib", []));})]));return ((($receiver = t2).klass === smalltalk.Number) ? $receiver <(1000) : smalltalk.send($receiver, "__lt", [(1000)]));})()) {(function(){return (n2=((($receiver = n2).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [unescape("%20bytecodes/sec%3B%20")]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [unescape("%20sends/sec")]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(((($receiver = ((($receiver = ((($receiver = n1).klass === smalltalk.Number) ? $receiver *(500000) : smalltalk.send($receiver, "__star", [(500000)]))).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t1 : smalltalk.send($receiver, "__slash", [t1])), "_printString", []), "__comma", [" bytecodes/sec; "]), "__comma", [smalltalk.send(((($receiver = ((($receiver = r).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))).klass === smalltalk.Number) ? $receiver /t2 : smalltalk.send($receiver, "__slash", [t2])), "_printString", [])]), "__comma", [" sends/sec"]);
 return self;}
 }),
 smalltalk.Number);

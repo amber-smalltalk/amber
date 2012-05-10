@@ -1,57 +1,57 @@
 smalltalk.addPackage('Kernel-Transcript', {});
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
-unescape('_clear'),
+"_clear",
 smalltalk.method({
-selector: unescape('clear'),
+selector: "clear",
 category: 'printing',
 fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('clear%0A%09%22no%20op%22'),
+source: "clear\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 category: 'printing',
 fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('cr%0A%09%22no%20op%22'),
+source: "cr\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_open'),
+"_open",
 smalltalk.method({
-selector: unescape('open'),
+selector: "open",
 category: 'actions',
 fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('open'),
+source: "open",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_show_'),
+"_show_",
 smalltalk.method({
-selector: unescape('show%3A'),
+selector: "show:",
 category: 'printing',
 fn: function (anObject){
 var self=this;
@@ -60,7 +60,7 @@ var string=nil;
 console.log(String(string));
 return self;},
 args: ["anObject"],
-source: unescape('show%3A%20anObject%0A%09%7C%20string%20%7C%0A%09string%20%3A%3D%20anObject%20asString.%0A%09%3Cconsole.log%28String%28string%29%29%3E'),
+source: "show: anObject\x0a\x09| string |\x0a\x09string := anObject asString.\x0a\x09<console.log(String(string))>",
 messageSends: ["asString"],
 referencedClasses: []
 }),
@@ -68,16 +68,16 @@ smalltalk.ConsoleTranscript);
 
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
 return self;},
 args: [],
-source: unescape('initialize%0A%09Transcript%20register%3A%20self%20new'),
+source: "initialize\x0a\x09Transcript register: self new",
 messageSends: ["register:", "new"],
 referencedClasses: ["Transcript"]
 }),
@@ -88,112 +88,112 @@ smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcr
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-unescape('_clear'),
+"_clear",
 smalltalk.method({
-selector: unescape('clear'),
+selector: "clear",
 category: 'printing',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
 return self;},
 args: [],
-source: unescape('clear%0A%20%20%20%20self%20current%20clear'),
+source: "clear\x0a    self current clear",
 messageSends: ["clear", "current"],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 category: 'printing',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
 return self;},
 args: [],
-source: unescape('cr%0A%20%20%20%20self%20current%20show%3A%20String%20cr'),
+source: "cr\x0a    self current show: String cr",
 messageSends: ["show:", "current", "cr"],
 referencedClasses: ["String"]
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_current'),
+"_current",
 smalltalk.method({
-selector: unescape('current'),
+selector: "current",
 category: 'instance creation',
 fn: function (){
 var self=this;
 return self['@current'];
 return self;},
 args: [],
-source: unescape('current%0A%20%20%20%20%5Ecurrent'),
+source: "current\x0a    ^current",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_new'),
+"_new",
 smalltalk.method({
-selector: unescape('new'),
+selector: "new",
 category: 'instance creation',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
 args: [],
-source: unescape('new%0A%20%20%20%20self%20shouldNotImplement'),
+source: "new\x0a    self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_open'),
+"_open",
 smalltalk.method({
-selector: unescape('open'),
+selector: "open",
 category: 'instance creation',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
 return self;},
 args: [],
-source: unescape('open%0A%20%20%20%20self%20current%20open'),
+source: "open\x0a    self current open",
 messageSends: ["open", "current"],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_register_'),
+"_register_",
 smalltalk.method({
-selector: unescape('register%3A'),
+selector: "register:",
 category: 'instance creation',
 fn: function (aTranscript){
 var self=this;
 (self['@current']=aTranscript);
 return self;},
 args: ["aTranscript"],
-source: unescape('register%3A%20aTranscript%0A%09current%20%3A%3D%20aTranscript'),
+source: "register: aTranscript\x0a\x09current := aTranscript",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_show_'),
+"_show_",
 smalltalk.method({
-selector: unescape('show%3A'),
+selector: "show:",
 category: 'printing',
 fn: function (anObject){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
 return self;},
 args: ["anObject"],
-source: unescape('show%3A%20anObject%0A%20%20%20%20self%20current%20show%3A%20anObject'),
+source: "show: anObject\x0a    self current show: anObject",
 messageSends: ["show:", "current"],
 referencedClasses: []
 }),

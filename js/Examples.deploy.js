@@ -1,9 +1,9 @@
 smalltalk.addPackage('Examples', {});
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
-unescape('_decrease'),
+"_decrease",
 smalltalk.method({
-selector: unescape('decrease'),
+selector: "decrease",
 fn: function (){
 var self=this;
 (self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])));
@@ -13,9 +13,9 @@ return self;}
 smalltalk.Counter);
 
 smalltalk.addMethod(
-unescape('_increase'),
+"_increase",
 smalltalk.method({
-selector: unescape('increase'),
+selector: "increase",
 fn: function (){
 var self=this;
 (self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
@@ -25,35 +25,35 @@ return self;}
 smalltalk.Counter);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Widget);
+smalltalk.send(self, "_initialize", [], smalltalk.Counter.superclass || nil);
 (self['@count']=(0));
 return self;}
 }),
 smalltalk.Counter);
 
 smalltalk.addMethod(
-unescape('_renderOn_'),
+"_renderOn_",
 smalltalk.method({
-selector: unescape('renderOn%3A'),
+selector: "renderOn:",
 fn: function (html){
 var self=this;
 (self['@header']=(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_h1", [])));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("++")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_increase", []);})]);})(smalltalk.send(html, "_button", []));
-(function($rec){smalltalk.send($rec, "_with_", [unescape("--")]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_decrease", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["++"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_increase", []);})]);})(smalltalk.send(html, "_button", []));
+(function($rec){smalltalk.send($rec, "_with_", ["--"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_decrease", []);})]);})(smalltalk.send(html, "_button", []));
 return self;}
 }),
 smalltalk.Counter);
 
 
 smalltalk.addMethod(
-unescape('_tryExample'),
+"_tryExample",
 smalltalk.method({
-selector: unescape('tryExample'),
+selector: "tryExample",
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_new", []), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);

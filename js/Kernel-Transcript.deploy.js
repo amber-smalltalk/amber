@@ -1,9 +1,9 @@
 smalltalk.addPackage('Kernel-Transcript', {});
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
-unescape('_clear'),
+"_clear",
 smalltalk.method({
-selector: unescape('clear'),
+selector: "clear",
 fn: function (){
 var self=this;
 
@@ -12,9 +12,9 @@ return self;}
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 fn: function (){
 var self=this;
 
@@ -23,9 +23,9 @@ return self;}
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_open'),
+"_open",
 smalltalk.method({
-selector: unescape('open'),
+selector: "open",
 fn: function (){
 var self=this;
 
@@ -34,9 +34,9 @@ return self;}
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_show_'),
+"_show_",
 smalltalk.method({
-selector: unescape('show%3A'),
+selector: "show:",
 fn: function (anObject){
 var self=this;
 var string=nil;
@@ -48,9 +48,9 @@ smalltalk.ConsoleTranscript);
 
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 fn: function (){
 var self=this;
 smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
@@ -63,9 +63,9 @@ smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcr
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-unescape('_clear'),
+"_clear",
 smalltalk.method({
-selector: unescape('clear'),
+selector: "clear",
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
@@ -74,9 +74,9 @@ return self;}
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
@@ -85,9 +85,9 @@ return self;}
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_current'),
+"_current",
 smalltalk.method({
-selector: unescape('current'),
+selector: "current",
 fn: function (){
 var self=this;
 return self['@current'];
@@ -96,9 +96,9 @@ return self;}
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_new'),
+"_new",
 smalltalk.method({
-selector: unescape('new'),
+selector: "new",
 fn: function (){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
@@ -107,9 +107,9 @@ return self;}
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_open'),
+"_open",
 smalltalk.method({
-selector: unescape('open'),
+selector: "open",
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
@@ -118,9 +118,9 @@ return self;}
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_register_'),
+"_register_",
 smalltalk.method({
-selector: unescape('register%3A'),
+selector: "register:",
 fn: function (aTranscript){
 var self=this;
 (self['@current']=aTranscript);
@@ -129,9 +129,9 @@ return self;}
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_show_'),
+"_show_",
 smalltalk.method({
-selector: unescape('show%3A'),
+selector: "show:",
 fn: function (anObject){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);

@@ -338,7 +338,7 @@ import: aStream
         chunk isEmpty
        		ifTrue: [lastEmpty := true]
        		ifFalse: [
-        		result := Compiler new loadExpression: chunk.
+        		result := Compiler new evaluateExpression: chunk.
         		lastEmpty 
             			ifTrue: [
                                   	lastEmpty := false.
@@ -849,20 +849,21 @@ eval: aString
 	<return eval(aString)>
 !
 
+evaluateExpression: aString
+	"Unlike #eval: evaluate a Smalltalk expression and answer the returned object"
+	| result |
+	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
+	result := DoIt new doIt.
+	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
+	^result
+!
+
 install: aString forClass: aBehavior category: anotherString
 	| compiled |
 	compiled := self eval: (self compile: aString forClass: aBehavior).
 	compiled category: anotherString.
 	aBehavior addCompiledMethod: compiled.
 	^compiled
-!
-
-loadExpression: aString
-	| result |
-	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
-	result := DoIt new doIt.
-	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
-	^result
 !
 
 parse: aString

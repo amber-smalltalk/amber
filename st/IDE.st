@@ -814,7 +814,7 @@ compileClassComment
 
 compileDefinition
     | newClass |
-    newClass := Compiler new loadExpression: sourceArea val.
+    newClass := Compiler new evaluateExpression: sourceArea val.
     self 
 	resetClassesList;
 	updateCategoriesList;

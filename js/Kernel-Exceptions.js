@@ -5,7 +5,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self.context;
 return self;},
@@ -21,7 +21,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isSmalltalkError",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return self.smalltalkError === true;
 return self;},
@@ -37,7 +37,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "jsStack",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self.stack;
 return self;},
@@ -53,7 +53,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@messageText'];
 return self;},
@@ -69,7 +69,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText:",
 category: 'accessing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 (self['@messageText']=aString);
 return self;},
@@ -85,7 +85,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "signal",
 category: 'signaling',
-fn: function () {
+fn: function (){
 var self=this;
 self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
 return self;},
@@ -101,7 +101,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "signal:",
 category: 'signaling',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 smalltalk.send(self, "_messageText_", [aString]);
 smalltalk.send(self, "_signal", []);
@@ -119,7 +119,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "signal",
 category: 'instance creation',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_new", []), "_signal", []);
 return self;},
@@ -135,7 +135,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "signal:",
 category: 'instance creation',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_new", []), "_signal_", [aString]);
 return self;},
@@ -153,7 +153,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "message",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@message'];
 return self;},
@@ -169,7 +169,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "message:",
 category: 'accessing',
-fn: function (aMessage) {
+fn: function (aMessage){
 var self=this;
 (self['@message']=aMessage);
 return self;},
@@ -185,9 +185,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [unescape("%20does%20not%20understand%20%23")]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [" does not understand #"]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
 return self;},
 args: [],
 source: "messageText\x0a\x09^self receiver asString, ' does not understand #', self message selector",
@@ -201,7 +201,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@receiver'];
 return self;},
@@ -217,7 +217,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver:",
 category: 'accessing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 (self['@receiver']=anObject);
 return self;},
@@ -236,7 +236,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "handleError:",
 category: 'error handling',
-fn: function (anError) {
+fn: function (anError){
 var self=this;
 (($receiver = smalltalk.send(anError, "_context", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logErrorContext_", [smalltalk.send(anError, "_context", [])]);})() : nil;
 smalltalk.send(self, "_logError_", [anError]);
@@ -253,7 +253,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "log:",
 category: 'private',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aString]);
 return self;},
@@ -269,10 +269,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "logContext:",
 category: 'private',
-fn: function (aContext) {
+fn: function (aContext){
 var self=this;
 (($receiver = smalltalk.send(aContext, "_home", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})() : nil;
-smalltalk.send(self, "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext, "_receiver", []), "_asString", []), "__comma", [unescape("%3E%3E")]), "__comma", [smalltalk.send(aContext, "_selector", [])])]);
+smalltalk.send(self, "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext, "_receiver", []), "_asString", []), "__comma", [">>"]), "__comma", [smalltalk.send(aContext, "_selector", [])])]);
 return self;},
 args: ["aContext"],
 source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext receiver asString, '>>', aContext selector",
@@ -286,7 +286,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "logError:",
 category: 'private',
-fn: function (anError) {
+fn: function (anError){
 var self=this;
 smalltalk.send(self, "_log_", [smalltalk.send(anError, "_messageText", [])]);
 return self;},
@@ -302,7 +302,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "logErrorContext:",
 category: 'private',
-fn: function (aContext) {
+fn: function (aContext){
 var self=this;
 (($receiver = aContext) != nil && $receiver != undefined) ? (function(){return (($receiver = smalltalk.send(aContext, "_home", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})() : nil;})() : nil;
 return self;},
@@ -320,7 +320,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", []));})() : $receiver;
 return self;},
@@ -336,7 +336,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_register", []);
 return self;},
@@ -352,7 +352,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "register",
 category: 'initialization',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send((smalltalk.ErrorHandler || ErrorHandler), "_setCurrent_", [smalltalk.send(self, "_new", [])]);
 return self;},
@@ -368,7 +368,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "setCurrent:",
 category: 'accessing',
-fn: function (anHandler) {
+fn: function (anHandler){
 var self=this;
 (self['@current']=anHandler);
 return self;},
