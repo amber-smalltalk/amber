@@ -25,6 +25,11 @@ messageText: aString
 
 signal
 	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
+!
+
+signal: aString
+	self messageText: aString.
+	self signal
 ! !
 
 !Error methodsFor: 'testing'!
@@ -35,10 +40,13 @@ isSmalltalkError
 
 !Error class methodsFor: 'instance creation'!
 
+signal
+	^self new signal
+!
+
 signal: aString
 	    ^self new
-		messageText: aString;
-		signal
+		signal: aString
 ! !
 
 Error subclass: #MessageNotUnderstood
