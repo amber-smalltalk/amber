@@ -45,22 +45,21 @@ if (typeof console === "undefined") {
 	};
 }
 
-
 /* Smalltalk constructors definition */
 
 function SmalltalkObject(){}
-function SmalltalkBehavior(){};
+function SmalltalkBehavior(){}
 function SmalltalkClass(){}
-function SmalltalkPackage(){};
+function SmalltalkPackage(){}
 function SmalltalkMetaclass(){
 	this.meta = true;
-};
-function SmalltalkMethod(){};
-function SmalltalkNil(){};
+}
+function SmalltalkMethod(){}
+function SmalltalkNil(){}
 
 function SmalltalkSymbol(string){
 	this.value = string;
-};
+}
 
 function Smalltalk(){
 
@@ -107,8 +106,8 @@ function Smalltalk(){
 	/* Smalltalk package creation. To add a Package, use smalltalk.addPackage() */
 
 	function pkg(spec) {
-		var that      = new SmalltalkPackage();
-		that.pkgName  = spec.pkgName;
+		var that = new SmalltalkPackage();
+		that.pkgName = spec.pkgName;
 		that.properties = spec.properties || {};
 		return that;
 	};
@@ -120,28 +119,40 @@ function Smalltalk(){
 
 	function klass(spec) {
 		var spec = spec || {};
-		var that;
-		if(spec.meta) {
-			that = new SmalltalkMetaclass();
-		} else {
-			that = new (klass({meta: true})).fn;
-			that.klass.instanceClass = that;
-			that.className = spec.className;
-			that.klass.className = that.className + ' class';
+		var meta = metaKlass();
+		var that = setupKlass(meta.instanceClass, spec);
+		that.className = spec.className;
+		meta.className = spec.className + ' class';
+		if(spec.superclass) {
+			that.superclass = spec.superclass;
+			meta.superclass = spec.superclass.klass;
 		}
+		return that;
+	}
+	
+	function metaKlass() {
+		var meta = setupKlass(new SmalltalkMetaclass(), {});
+		meta.instanceClass = new meta.fn;
+		return meta;
+	}
+	
+	function klassToString() { return 'Smalltalk ' + this.className; }
 
+	function setupKlass(that, spec) {
 		that.fn = spec.fn || function(){};
-		that.superclass = spec.superclass;
 		that.iVarNames = spec.iVarNames || [];
-        that.toString = function() {return 'Smalltalk ' + that.className};
-		if(that.superclass) {
-			that.klass.superclass = that.superclass.klass;
-		}
+		Object.defineProperty(that, "toString", {
+			value: klassToString, configurable: true // no writable - in par with ES6 methods
+		});
 		that.pkg = spec.pkg;
+		Object.defineProperties(that.fn.prototype, {
+			methods: { enumerable: false, configurable: true, writable: true },
+			inheritedMethods: { enumerable: false, configurable: true, writable: true },
+			klass: { enumerable: false, configurable: true, writable: true }
+		});
 		that.fn.prototype.methods = {};
 		that.fn.prototype.inheritedMethods = {};
 		that.fn.prototype.klass = that;
-
 		return that;
 	};
 
@@ -158,7 +169,7 @@ function Smalltalk(){
 		that.messageSends      = spec.messageSends || [];
 		that.referencedClasses = spec.referencedClasses || [];
 		that.fn                = spec.fn;
-		return that
+		return that;
 	};
 
 	/* Initialize a class in its class hierarchy. Handle both class and
@@ -183,7 +194,9 @@ function Smalltalk(){
 				var k = keys[i]
 				if(!proto.methods[k]) {
 					proto.inheritedMethods[k] = methods[k];
-					proto[methods[k].jsSelector] = methods[k].fn;
+					Object.defineProperty(proto, methods[k].jsSelector, {
+						value: methods[k].fn, configurable: true // no writable - in par with ES6 methods
+					});
 				}
 			}
 		}
@@ -316,7 +329,9 @@ function Smalltalk(){
 	/* Add a method to a class */
 
 	st.addMethod = function(jsSelector, method, klass) {
-		klass.fn.prototype[jsSelector] = method.fn;
+		Object.defineProperty(klass.fn.prototype, jsSelector, {
+			value: method.fn, configurable: true // not writable - in par with ES6 methods
+		});
 		klass.fn.prototype.methods[method.selector] = method;
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;
