@@ -342,6 +342,10 @@ Boolean instances are weither `true` or `false`.!
 = aBoolean
 	aBoolean class = self class ifFalse: [^false].
 	<return Boolean(self == true) == aBoolean>
+!
+
+== aBoolean
+	^self = aBoolean
 ! !
 
 !Boolean methodsFor: 'controlling'!

@@ -5,7 +5,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (anAssociation){
+fn: function (anAssociation) {
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
 return self;},
@@ -21,7 +21,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self['@key'];
 return self;},
@@ -37,7 +37,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key:",
 category: 'accessing',
-fn: function (aKey){
+fn: function (aKey) {
 var self=this;
 (self['@key']=aKey);
 return self;},
@@ -53,7 +53,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "storeOn:",
 category: 'comparing',
-fn: function (aStream){
+fn: function (aStream) {
 var self=this;
 smalltalk.send(self['@key'], "_storeOn_", [aStream]);
 smalltalk.send(aStream, "_nextPutAll_", ["->"]);
@@ -71,7 +71,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self['@value'];
 return self;},
@@ -87,7 +87,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
 category: 'accessing',
-fn: function (aValue){
+fn: function (aValue) {
 var self=this;
 (self['@value']=aValue);
 return self;},
@@ -104,7 +104,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key:value:",
 category: 'instance creation',
-fn: function (aKey, aValue){
+fn: function (aKey, aValue) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
@@ -122,7 +122,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
 category: 'copying',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
 return self;},
@@ -138,7 +138,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -154,7 +154,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "addAll:",
 category: 'adding/removing',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_add_", [each]);})]);
 return aCollection;
@@ -171,7 +171,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asArray",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.Array || Array), "_withAll_", [self]);
 return self;},
@@ -187,7 +187,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asJSON", []);})]);
 return self;},
@@ -203,7 +203,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asOrderedCollection",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_asArray", []);
 return self;},
@@ -219,7 +219,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSet",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.Set || Set), "_withAll_", [self]);
 return self;},
@@ -235,7 +235,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "collect:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 var newCollection=nil;
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -254,7 +254,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyWith:",
 category: 'copying',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
 return self;},
@@ -270,7 +270,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyWithAll:",
 category: 'copying',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
 return self;},
@@ -286,7 +286,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyWithoutAll:",
 category: 'copying',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return smalltalk.send(self, "_reject_", [(function(each){return smalltalk.send(aCollection, "_includes_", [each]);})]);
 return self;},
@@ -302,7 +302,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 return smalltalk.send(self, "_detect_ifNone_", [aBlock, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
@@ -318,7 +318,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
+fn: function (aBlock, anotherBlock) {
 var self=this;
 
 		for(var i = 0; i < self.length; i++)
@@ -339,7 +339,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i]);};
 return self;},
@@ -355,7 +355,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "do:separatedBy:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
+fn: function (aBlock, anotherBlock) {
 var self=this;
 var first=nil;
 (first=true);
@@ -373,7 +373,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "errorNotFound",
 category: 'error handling',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_error_", ["Object is not in the collection"]);
 return self;},
@@ -389,7 +389,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifEmpty:",
 category: 'testing',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return self;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return self;})]));
 return self;},
@@ -405,7 +405,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotEmpty:",
 category: 'testing',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_notEmpty", []), "_ifTrue_", [aBlock]);
 return self;},
@@ -421,7 +421,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
 category: 'testing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 
 		var i = self.length;
@@ -443,7 +443,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "inject:into:",
 category: 'enumerating',
-fn: function (anObject, aBlock){
+fn: function (anObject, aBlock) {
 var self=this;
 var result=nil;
 (result=anObject);
@@ -462,7 +462,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isEmpty",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)]);
 return self;},
@@ -478,7 +478,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "notEmpty",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_not", []);
 return self;},
@@ -494,7 +494,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "readStream",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_stream", []);
 return self;},
@@ -510,7 +510,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reject:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 return smalltalk.send(self, "_select_", [(function(each){return smalltalk.send(smalltalk.send(aBlock, "_value_", [each]), "__eq", [false]);})]);
 return self;},
@@ -526,7 +526,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
 category: 'adding/removing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return smalltalk.send(self, "_remove_ifAbsent_", [anObject, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
@@ -542,7 +542,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:ifAbsent:",
 category: 'adding/removing',
-fn: function (anObject, aBlock){
+fn: function (anObject, aBlock) {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -558,7 +558,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 var stream=nil;
 (stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []));
@@ -577,7 +577,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -593,7 +593,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "stream",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [self]);
 return self;},
@@ -609,7 +609,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "streamClass",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_streamClass", []);
 return self;},
@@ -625,7 +625,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "writeStream",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_stream", []);
 return self;},
@@ -642,7 +642,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "new:",
 category: 'instance creation',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 return smalltalk.send(self, "_new", []);
 return self;},
@@ -658,7 +658,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "streamClass",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return (smalltalk.Stream || Stream);
 return self;},
@@ -674,7 +674,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "with:",
 category: 'instance creation',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
@@ -690,7 +690,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:",
 category: 'instance creation',
-fn: function (anObject, anotherObject){
+fn: function (anObject, anotherObject) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);smalltalk.send($rec, "_add_", [anotherObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
@@ -706,7 +706,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:with:",
 category: 'instance creation',
-fn: function (firstObject, secondObject, thirdObject){
+fn: function (firstObject, secondObject, thirdObject) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [firstObject]);smalltalk.send($rec, "_add_", [secondObject]);smalltalk.send($rec, "_add_", [thirdObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
@@ -722,7 +722,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "withAll:",
 category: 'instance creation',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
@@ -741,7 +741,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
 category: 'copying',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
@@ -757,7 +757,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aHashedCollection){
+fn: function (aHashedCollection) {
 var self=this;
 var $early={};
 try{((($receiver = smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aHashedCollection, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
@@ -777,7 +777,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
-fn: function (anAssociation){
+fn: function (anAssociation) {
 var self=this;
 smalltalk.send(self, "_at_put_", [smalltalk.send(anAssociation, "_key", []), smalltalk.send(anAssociation, "_value", [])]);
 return self;},
@@ -793,7 +793,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "addAll:",
 category: 'adding/removing',
-fn: function (aHashedCollection){
+fn: function (aHashedCollection) {
 var self=this;
 smalltalk.send(self, "_addAll_", [smalltalk.send(aHashedCollection, "_associations", [])], smalltalk.HashedCollection.superclass || nil);
 return aHashedCollection;
@@ -810,7 +810,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asDictionary",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.Dictionary || Dictionary), "_fromPairs_", [smalltalk.send(self, "_associations", [])]);
 return self;},
@@ -826,7 +826,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 var c=nil;
 (c=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -845,7 +845,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "associations",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 var associations=nil;
 (associations=[]);
@@ -864,7 +864,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "associationsDo:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_associations", []), "_do_", [aBlock]);
 return self;},
@@ -880,7 +880,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
-fn: function (aKey){
+fn: function (aKey) {
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
@@ -896,7 +896,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_includesKey_", [aKey]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_basicAt_", [aKey]);}), aBlock]);
 return self;},
@@ -912,7 +912,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsentPut:",
 category: 'accessing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_at_put_", [aKey, smalltalk.send(aBlock, "_value", [])]);})]);
 return self;},
@@ -928,7 +928,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:",
 category: 'accessing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 return (($receiver = smalltalk.send(self, "_basicAt_", [aKey])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})() : nil;
 return self;},
@@ -944,7 +944,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
 category: 'accessing',
-fn: function (aKey, aBlock, anotherBlock){
+fn: function (aKey, aBlock, anotherBlock) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNil_ifNotNil_", [anotherBlock, (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
 return self;},
@@ -960,7 +960,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
-fn: function (aKey, aValue){
+fn: function (aKey, aValue) {
 var self=this;
 return smalltalk.send(self, "_basicAt_put_", [aKey, aValue]);
 return self;},
@@ -976,7 +976,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "collect:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 var newDict=nil;
 (newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -995,7 +995,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex){
+fn: function (anIndex, anotherIndex) {
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
@@ -1011,7 +1011,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 var copy=nil;
 (copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -1030,7 +1030,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
+fn: function (aBlock, anotherBlock) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_values", []), "_detect_ifNone_", [aBlock, anotherBlock]);
 return self;},
@@ -1046,7 +1046,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_values", []), "_do_", [aBlock]);
 return self;},
@@ -1062,7 +1062,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
 category: 'enumerating',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_values", []), "_includes_", [anObject]);
 return self;},
@@ -1078,7 +1078,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includesKey:",
 category: 'testing',
-fn: function (aKey){
+fn: function (aKey) {
 var self=this;
 return self.hasOwnProperty(aKey);
 return self;},
@@ -1094,7 +1094,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "keys",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 
 		if ('function'===typeof Object.keys) return Object.keys(self);
@@ -1119,7 +1119,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "keysAndValuesDo:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(aBlock, "_value_value_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
 return self;},
@@ -1135,7 +1135,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;},
@@ -1151,7 +1151,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:ifAbsent:",
 category: 'adding/removing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 return smalltalk.send(self, "_removeKey_ifAbsent_", [aKey, aBlock]);
 return self;},
@@ -1167,7 +1167,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeKey:",
 category: 'adding/removing',
-fn: function (aKey){
+fn: function (aKey) {
 var self=this;
 return smalltalk.send(self, "_remove_", [aKey]);
 return self;},
@@ -1183,7 +1183,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 category: 'adding/removing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_includesKey_", [aKey])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})]));
 return self;},
@@ -1199,7 +1199,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 var newDict=nil;
 (newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -1218,7 +1218,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 var copy=nil;
 (copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -1237,7 +1237,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_keys", []), "_size", []);
 return self;},
@@ -1253,7 +1253,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "storeOn:",
 category: 'printing',
-fn: function (aStream){
+fn: function (aStream) {
 var self=this;
 smalltalk.send(aStream, "_nextPutAll_", ["#{"]);
 smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_storeOn_", [aStream]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [". "]);})]);
@@ -1271,7 +1271,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "values",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_keys", []), "_collect_", [(function(each){return smalltalk.send(self, "_at_", [each]);})]);
 return self;},
@@ -1288,7 +1288,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromPairs:",
 category: 'instance creation',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 var dict=nil;
 (dict=smalltalk.send(self, "_new", []));
@@ -1309,7 +1309,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asHashedCollection",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_fromPairs_", [smalltalk.send(self, "_associations", [])]);
 return self;},
@@ -1325,7 +1325,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSON", []);
 return self;},
@@ -1341,7 +1341,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 
 		var index;
@@ -1367,7 +1367,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
-fn: function (aKey, aValue){
+fn: function (aKey, aValue) {
 var self=this;
 
 		var index = self['@keys'].indexOf(aKey);
@@ -1393,7 +1393,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includesKey:",
 category: 'testing',
-fn: function (aKey){
+fn: function (aKey) {
 var self=this;
 return smalltalk.send(self['@keys'], "_includes_", [aKey]);
 return self;},
@@ -1409,7 +1409,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Dictionary.superclass || nil);
 (self['@keys']=[]);
@@ -1427,7 +1427,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "keys",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self['@keys'], "_copy", []);
 return self;},
@@ -1443,7 +1443,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 category: 'adding/removing',
-fn: function (aKey, aBlock){
+fn: function (aKey, aBlock) {
 var self=this;
 
             var index = self['@keys'].indexOf(aKey);
@@ -1469,7 +1469,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "values",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self['@values'], "_copy", []);
 return self;},
@@ -1488,7 +1488,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 var $early={};
 try{((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aCollection, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aCollection, "_size", [])]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
@@ -1508,7 +1508,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "addLast:",
 category: 'adding',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 smalltalk.send(self, "_add_", [anObject]);
 return self;},
@@ -1524,7 +1524,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "allButFirst",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(2), smalltalk.send(self, "_size", [])]);
 return self;},
@@ -1540,7 +1540,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "allButLast",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(1), ((($receiver = smalltalk.send(self, "_size", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]))]);
 return self;},
@@ -1556,7 +1556,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
-fn: function (anIndex){
+fn: function (anIndex) {
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [anIndex, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
@@ -1572,7 +1572,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock){
+fn: function (anIndex, aBlock) {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -1588,7 +1588,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
-fn: function (anIndex, anObject){
+fn: function (anIndex, anObject) {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -1604,7 +1604,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "atRandom",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
 return self;},
@@ -1620,7 +1620,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex){
+fn: function (anIndex, anotherIndex) {
 var self=this;
 var range=nil;
 var newCollection=nil;
@@ -1641,7 +1641,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 var newCollection=nil;
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]));
@@ -1660,7 +1660,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "first",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [(1)]);
 return self;},
@@ -1676,7 +1676,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "first:",
 category: 'accessing',
-fn: function (n){
+fn: function (n) {
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(1), n]);
 return self;},
@@ -1692,7 +1692,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fourth",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [(4)]);
 return self;},
@@ -1708,7 +1708,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:",
 category: 'accessing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return smalltalk.send(self, "_indexOf_ifAbsent_", [anObject, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
@@ -1724,7 +1724,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 category: 'accessing',
-fn: function (anObject, aBlock){
+fn: function (anObject, aBlock) {
 var self=this;
 
 		for(var i=0;i<self.length;i++){
@@ -1745,7 +1745,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:startingAt:",
 category: 'accessing',
-fn: function (anObject, start){
+fn: function (anObject, start) {
 var self=this;
 return smalltalk.send(self, "_indexOf_startingAt_ifAbsent_", [anObject, start, (function(){return (0);})]);
 return self;},
@@ -1761,7 +1761,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "indexOf:startingAt:ifAbsent:",
 category: 'accessing',
-fn: function (anObject, start, aBlock){
+fn: function (anObject, start, aBlock) {
 var self=this;
 
 		for(var i=start-1;i<self.length;i++){
@@ -1782,7 +1782,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "last",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [smalltalk.send(self, "_size", [])]);
 return self;},
@@ -1798,7 +1798,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 var str=nil;
 (str=smalltalk.send("", "_writeStream", []));
@@ -1819,7 +1819,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeLast",
 category: 'adding',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_remove_", [smalltalk.send(self, "_last", [])]);
 return self;},
@@ -1835,7 +1835,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reversed",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -1851,7 +1851,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "second",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [(2)]);
 return self;},
@@ -1867,7 +1867,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 var newCollection=nil;
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]));
@@ -1886,7 +1886,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "third",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [(3)]);
 return self;},
@@ -1902,7 +1902,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "withIndexDo:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i], i+1);};
 return self;},
@@ -1921,7 +1921,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 self.push(anObject); return anObject;;
 return self;},
@@ -1937,7 +1937,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send("[", "__comma", [smalltalk.send(smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJavascript", []);})]), "_join_", [", "])]), "__comma", ["]"]);
 return self;},
@@ -1953,7 +1953,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock){
+fn: function (anIndex, aBlock) {
 var self=this;
 
 		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
@@ -1972,7 +1972,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
-fn: function (anIndex, anObject){
+fn: function (anIndex, anObject) {
 var self=this;
 return self[anIndex - 1] = anObject;
 return self;},
@@ -1988,7 +1988,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "join:",
 category: 'enumerating',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return self.join(aString);
 return self;},
@@ -2004,7 +2004,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
 category: 'adding/removing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 
 		for(var i=0;i<self.length;i++) {
@@ -2027,7 +2027,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeFrom:to:",
 category: 'adding/removing',
-fn: function (aNumber, anotherNumber){
+fn: function (aNumber, anotherNumber) {
 var self=this;
 self.splice(aNumber - 1,anotherNumber - 1);
 return self;},
@@ -2043,7 +2043,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reversed",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self._copy().reverse();
 return self;},
@@ -2059,7 +2059,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self.length;
 return self;},
@@ -2075,7 +2075,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sort",
 category: 'enumerating',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_basicPerform_", ["sort"]);
 return self;},
@@ -2091,7 +2091,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sort:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 
 		return self.sort(function(a, b) {
@@ -2111,7 +2111,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sorted",
 category: 'enumerating',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort", []);
 return self;},
@@ -2127,7 +2127,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sorted:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
 return self;},
@@ -2144,7 +2144,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "new:",
 category: 'instance creation',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 return new Array(anInteger);
 return self;},
@@ -2160,7 +2160,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "with:",
 category: 'instance creation',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(1)]));
 return self;},
@@ -2176,7 +2176,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:",
 category: 'instance creation',
-fn: function (anObject, anObject2){
+fn: function (anObject, anObject2) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(2)]));
 return self;},
@@ -2192,7 +2192,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "with:with:with:",
 category: 'instance creation',
-fn: function (anObject, anObject2, anObject3){
+fn: function (anObject, anObject2, anObject3) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);smalltalk.send($rec, "_at_put_", [(3), anObject3]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(3)]));
 return self;},
@@ -2208,7 +2208,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "withAll:",
 category: 'instance creation',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 var instance=nil;
 (instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
@@ -2229,7 +2229,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
 category: 'copying',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", [smalltalk.send(aString, "_asString", [])]);
 return self;},
@@ -2245,7 +2245,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
 category: 'adding',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
@@ -2261,7 +2261,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asLowercase",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [smalltalk.send(smalltalk.send(self, "_asString", []), "_asLowercase", [])]);
 return self;},
@@ -2277,7 +2277,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asNumber", []);
 return self;},
@@ -2293,7 +2293,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -2309,7 +2309,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSymbol",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -2325,7 +2325,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asUppercase",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [smalltalk.send(smalltalk.send(self, "_asString", []), "_asUppercase", [])]);
 return self;},
@@ -2341,7 +2341,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
-fn: function (anIndex, anObject){
+fn: function (anIndex, anObject) {
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
@@ -2357,7 +2357,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "errorReadOnly",
 category: 'error handling',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_error_", ["Object is read-only"]);
 return self;},
@@ -2373,7 +2373,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_printString", []);
 return self;},
@@ -2389,7 +2389,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
 category: 'adding',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
@@ -2406,7 +2406,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
@@ -2424,7 +2424,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
 category: 'copying',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return self + aString;
 return self;},
@@ -2440,7 +2440,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
 category: 'comparing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return String(self) < aString._asString();
 return self;},
@@ -2456,7 +2456,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
 category: 'comparing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return String(self) <= aString._asString();
 return self;},
@@ -2472,7 +2472,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 var $early={};
 try{((($receiver = smalltalk.send(smalltalk.send(aString, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
@@ -2487,11 +2487,27 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
+"__eq_eq",
+smalltalk.method({
+selector: "==",
+category: 'comparing',
+fn: function (aString) {
+var self=this;
+return smalltalk.send(self, "__eq", [aString]);
+return self;},
+args: ["aString"],
+source: "== aString\x0a\x09^self = aString",
+messageSends: ["="],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "__gt",
 smalltalk.method({
 selector: ">",
 category: 'comparing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return String(self) > aString._asString();
 return self;},
@@ -2507,7 +2523,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
 category: 'comparing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return String(self) >= aString._asString();
 return self;},
@@ -2523,7 +2539,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -2539,7 +2555,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavaScriptSelector",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", ["^_", ""]), "_replace_with_", ["_.*", ""]);
 return self;},
@@ -2555,7 +2571,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
@@ -2576,7 +2592,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asLowercase",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self.toLowerCase();
 return self;},
@@ -2592,7 +2608,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return Number(self);
 return self;},
@@ -2608,7 +2624,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSelector",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 var selector=nil;
 (selector=smalltalk.send("_", "__comma", [self]));
@@ -2636,7 +2652,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -2652,7 +2668,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSymbol",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.Symbol || Symbol), "_lookup_", [self]);
 return self;},
@@ -2668,7 +2684,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asUppercase",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self.toUpperCase();
 return self;},
@@ -2684,7 +2700,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asciiValue",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self.charCodeAt(0);;
 return self;},
@@ -2700,7 +2716,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock){
+fn: function (anIndex, aBlock) {
 var self=this;
 return self[anIndex - 1] || aBlock();
 return self;},
@@ -2716,7 +2732,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex){
+fn: function (anIndex, anotherIndex) {
 var self=this;
 return self.substring(anIndex - 1, anotherIndex);
 return self;},
@@ -2732,7 +2748,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_shallowCopy", []);
 return self;},
@@ -2748,7 +2764,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "escaped",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return escape(self);
 return self;},
@@ -2764,7 +2780,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includesSubString:",
 category: 'testing',
-fn: function (subString){
+fn: function (subString) {
 var self=this;
  return self.indexOf(subString) != -1 ;
 return self;},
@@ -2780,7 +2796,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isString",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return true;
 return self;},
@@ -2796,7 +2812,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "join:",
 category: 'split join',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){return smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(each, "_asString", [])]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [self]);})]);})]);
 return self;},
@@ -2812,7 +2828,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "lineIndicesDo:",
 category: 'split join',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 var $early={};
 try{var cr=nil;
@@ -2842,7 +2858,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "lineNumber:",
 category: 'split join',
-fn: function (anIndex){
+fn: function (anIndex) {
 var self=this;
 var $early={};
 try{var lineCount=nil;
@@ -2863,7 +2879,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "lines",
 category: 'split join',
-fn: function (){
+fn: function () {
 var self=this;
 var lines=nil;
 (lines=smalltalk.send((smalltalk.Array || Array), "_new", []));
@@ -2882,7 +2898,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "linesDo:",
 category: 'split join',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])]);})]);
 return self;},
@@ -2898,7 +2914,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "match:",
 category: 'regular expressions',
-fn: function (aRegexp){
+fn: function (aRegexp) {
 var self=this;
 return self.search(aRegexp) != -1;
 return self;},
@@ -2914,7 +2930,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "matchesOf:",
 category: 'regular expressions',
-fn: function (aRegularExpression){
+fn: function (aRegularExpression) {
 var self=this;
 return self.match(aRegularExpression);
 return self;},
@@ -2930,7 +2946,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printNl",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 console.log(self);
 return self;},
@@ -2946,7 +2962,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send("'", "__comma", [self]), "__comma", ["'"]);
 return self;},
@@ -2962,7 +2978,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "replace:with:",
 category: 'regular expressions',
-fn: function (aString, anotherString){
+fn: function (aString, anotherString) {
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [aString, "g"]), anotherString]);
 return self;},
@@ -2978,7 +2994,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "replaceRegexp:with:",
 category: 'regular expressions',
-fn: function (aRegexp, aString){
+fn: function (aRegexp, aString) {
 var self=this;
 return self.replace(aRegexp, aString);
 return self;},
@@ -2994,7 +3010,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reversed",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self.split("").reverse().join("");
 return self;},
@@ -3010,7 +3026,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [self]);
 return self;},
@@ -3026,7 +3042,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self.length;
 return self;},
@@ -3042,7 +3058,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "tokenize:",
 category: 'converting',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return self.split(aString);
 return self;},
@@ -3058,7 +3074,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "trimBoth",
 category: 'regular expressions',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_trimBoth_", ["\x5cs"]);
 return self;},
@@ -3074,7 +3090,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "trimBoth:",
 category: 'regular expressions',
-fn: function (separators){
+fn: function (separators) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_trimLeft_", [separators]), "_trimRight_", [separators]);
 return self;},
@@ -3090,7 +3106,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "trimLeft",
 category: 'regular expressions',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_trimLeft_", ["\x5cs"]);
 return self;},
@@ -3106,7 +3122,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "trimLeft:",
 category: 'regular expressions',
-fn: function (separators){
+fn: function (separators) {
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send("^[", "__comma", [separators]), "__comma", ["]+"]), "g"]), ""]);
 return self;},
@@ -3122,7 +3138,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "trimRight",
 category: 'regular expressions',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_trimRight_", ["\x5cs"]);
 return self;},
@@ -3138,7 +3154,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "trimRight:",
 category: 'regular expressions',
-fn: function (separators){
+fn: function (separators) {
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send("[", "__comma", [separators]), "__comma", ["]+$"]), "g"]), ""]);
 return self;},
@@ -3154,7 +3170,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "unescaped",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return unescape(self);
 return self;},
@@ -3171,7 +3187,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return '\r';
 return self;},
@@ -3187,7 +3203,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "crlf",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return '\r\n';
 return self;},
@@ -3203,7 +3219,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return new self.fn(aString);
 return self;},
@@ -3219,7 +3235,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "lf",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return '\n';
 return self;},
@@ -3235,7 +3251,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "space",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return ' ';
 return self;},
@@ -3251,7 +3267,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "streamClass",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return (smalltalk.StringStream || StringStream);
 return self;},
@@ -3267,7 +3283,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "streamContents:",
 category: 'instance creation',
-fn: function (blockWithArg){
+fn: function (blockWithArg) {
 var self=this;
 var stream=nil;
 (stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send((smalltalk.String || String), "_new", [])]));
@@ -3286,7 +3302,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "tab",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return '\t';
 return self;},
@@ -3302,7 +3318,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
 category: 'instance creation',
-fn: function (aUTFCharCode){
+fn: function (aUTFCharCode) {
 var self=this;
 return String.fromCharCode(aUTFCharCode);;
 return self;},
@@ -3320,7 +3336,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
 category: 'comparing',
-fn: function (aSymbol){
+fn: function (aSymbol) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
@@ -3336,7 +3352,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
 category: 'comparing',
-fn: function (aSymbol){
+fn: function (aSymbol) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
@@ -3352,7 +3368,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aSymbol){
+fn: function (aSymbol) {
 var self=this;
 var $early={};
 try{((($receiver = smalltalk.send(smalltalk.send(aSymbol, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
@@ -3371,7 +3387,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">",
 category: 'comparing',
-fn: function (aSymbol){
+fn: function (aSymbol) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver >smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
@@ -3387,7 +3403,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
 category: 'comparing',
-fn: function (aSymbol){
+fn: function (aSymbol) {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver >=smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__gt_eq", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
@@ -3403,7 +3419,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asJSON", []);
 return self;},
@@ -3419,7 +3435,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send("smalltalk.symbolFor(\x22", "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", ["\x22)"]);
 return self;},
@@ -3435,7 +3451,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSelector",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asSelector", []);
 return self;},
@@ -3451,7 +3467,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self.value;
 return self;},
@@ -3467,7 +3483,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSymbol",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -3483,7 +3499,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock){
+fn: function (anIndex, aBlock) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_at_ifAbsent_", [anIndex, aBlock]);
 return self;},
@@ -3499,7 +3515,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex){
+fn: function (anIndex, anotherIndex) {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [smalltalk.send(smalltalk.send(self, "_asString", []), "_copyFrom_to_", [anIndex, anotherIndex])]);
 return self;},
@@ -3515,7 +3531,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -3531,7 +3547,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isSymbol",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 return true;
 return self;},
@@ -3547,7 +3563,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send("#", "__comma", [smalltalk.send(self, "_asString", [])]);
 return self;},
@@ -3563,7 +3579,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function (){
+fn: function () {
 var self=this;
 return self;
 return self;},
@@ -3579,7 +3595,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_size", []);
 return self;},
@@ -3596,7 +3612,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicNew",
 category: 'instance creation',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
@@ -3612,7 +3628,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return smalltalk.send(self, "_lookup_", [aString]);
 return self;},
@@ -3628,7 +3644,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "lookup:",
 category: 'instance creation',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return smalltalk.symbolFor(aString);;
 return self;},
@@ -3646,7 +3662,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aCollection, "_class", [])]), "_and_", [(function(){return smalltalk.send(self['@elements'], "__eq", [smalltalk.send(aCollection, "_asArray", [])]);})]);
 return self;},
@@ -3662,7 +3678,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 
 		var found;
@@ -3687,7 +3703,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asArray",
 category: 'converting',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self['@elements'], "_copy", []);
 return self;},
@@ -3703,7 +3719,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock){
+fn: function (aBlock, anotherBlock) {
 var self=this;
 return smalltalk.send(self['@elements'], "_detect_ifNone_", [aBlock, anotherBlock]);
 return self;},
@@ -3719,7 +3735,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 smalltalk.send(self['@elements'], "_do_", [aBlock]);
 return self;},
@@ -3735,7 +3751,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includes:",
 category: 'testing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 return smalltalk.send(self['@elements'], "_includes_", [anObject]);
 return self;},
@@ -3751,7 +3767,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Set.superclass || nil);
 (self['@elements']=[]);
@@ -3768,7 +3784,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
 category: 'adding/removing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 smalltalk.send(self['@elements'], "_remove_", [anObject]);
 return self;},
@@ -3784,7 +3800,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "select:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 var collection=nil;
 (collection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -3803,7 +3819,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self['@elements'], "_size", []);
 return self;},
@@ -3822,7 +3838,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "compile:",
 category: 'evaluating',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return self.compile(aString);
 return self;},
@@ -3838,7 +3854,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "exec:",
 category: 'evaluating',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return self.exec(aString) || nil;
 return self;},
@@ -3854,7 +3870,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "test:",
 category: 'evaluating',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return self.test(aString);
 return self;},
@@ -3871,7 +3887,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 return smalltalk.send(self, "_fromString_flag_", [aString, ""]);
 return self;},
@@ -3887,7 +3903,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:flag:",
 category: 'instance creation',
-fn: function (aString, anotherString){
+fn: function (aString, anotherString) {
 var self=this;
 return new RegExp(aString, anotherString);
 return self;},
@@ -3905,7 +3921,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_position", []), "__eq", [smalltalk.send(self, "_size", [])]);
 return self;},
@@ -3921,7 +3937,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "atStart",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_position", []), "__eq", [(0)]);
 return self;},
@@ -3937,7 +3953,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
 category: 'actions',
-fn: function (){
+fn: function () {
 var self=this;
 
 return self;},
@@ -3953,7 +3969,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self['@collection'];
 return self;},
@@ -3969,7 +3985,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "contents",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [(1), smalltalk.send(self, "_streamSize", [])]);
 return self;},
@@ -3985,7 +4001,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
-fn: function (aBlock){
+fn: function (aBlock) {
 var self=this;
 (function(){while(!(function(){return smalltalk.send(self, "_atEnd", []);})()) {(function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_next", [])]);})()}})();
 return self;},
@@ -4001,7 +4017,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "flush",
 category: 'actions',
-fn: function (){
+fn: function () {
 var self=this;
 
 return self;},
@@ -4017,7 +4033,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isEmpty",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)]);
 return self;},
@@ -4033,7 +4049,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
 category: 'reading',
-fn: function (){
+fn: function () {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return nil;})() : (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return nil;}), (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})]));
 return self;},
@@ -4049,7 +4065,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
 category: 'reading',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 var tempCollection=nil;
 (tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []));
@@ -4068,7 +4084,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPut:",
 category: 'writing',
-fn: function (anObject){
+fn: function (anObject) {
 var self=this;
 smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);
 smalltalk.send(smalltalk.send(self, "_collection", []), "_at_put_", [smalltalk.send(self, "_position", []), anObject]);
@@ -4086,7 +4102,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutAll:",
 category: 'writing',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_nextPut_", [each]);})]);
 return self;},
@@ -4102,7 +4118,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "peek",
 category: 'reading',
-fn: function (){
+fn: function () {
 var self=this;
 return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})]));
 return self;},
@@ -4118,7 +4134,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "position",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return (self['@position']=(0));})() : $receiver;
 return self;},
@@ -4134,7 +4150,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "position:",
 category: 'accessing',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 (self['@position']=anInteger);
 return self;},
@@ -4150,7 +4166,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reset",
 category: 'actions',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_position_", [(0)]);
 return self;},
@@ -4166,7 +4182,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "resetContents",
 category: 'actions',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_reset", []);
 smalltalk.send(self, "_setStreamSize_", [(0)]);
@@ -4183,7 +4199,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "setCollection:",
 category: 'accessing',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 (self['@collection']=aCollection);
 return self;},
@@ -4199,7 +4215,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "setStreamSize:",
 category: 'accessing',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 (self['@streamSize']=anInteger);
 return self;},
@@ -4215,7 +4231,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "setToEnd",
 category: 'positioning',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(self, "_size", [])]);
 return self;},
@@ -4231,7 +4247,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_streamSize", []);
 return self;},
@@ -4247,7 +4263,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "skip:",
 category: 'positioning',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +anInteger : smalltalk.send($receiver, "__plus", [anInteger])), "_min_max_", [smalltalk.send(self, "_size", []), (0)])]);
 return self;},
@@ -4263,7 +4279,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "streamSize",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self['@streamSize'];
 return self;},
@@ -4280,7 +4296,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
-fn: function (aCollection){
+fn: function (aCollection) {
 var self=this;
 return (function($rec){smalltalk.send($rec, "_setCollection_", [aCollection]);smalltalk.send($rec, "_setStreamSize_", [smalltalk.send(aCollection, "_size", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
@@ -4298,7 +4314,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
 category: 'writing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
 return self;},
@@ -4314,7 +4330,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "crlf",
 category: 'writing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send((smalltalk.String || String), "_crlf", [])]);
 return self;},
@@ -4330,7 +4346,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "lf",
 category: 'writing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send((smalltalk.String || String), "_lf", [])]);
 return self;},
@@ -4346,7 +4362,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
 category: 'reading',
-fn: function (anInteger){
+fn: function (anInteger) {
 var self=this;
 var tempCollection=nil;
 (tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []));
@@ -4365,7 +4381,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPut:",
 category: 'writing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 smalltalk.send(self, "_nextPutAll_", [aString]);
 return self;},
@@ -4381,7 +4397,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "nextPutAll:",
 category: 'writing',
-fn: function (aString){
+fn: function (aString) {
 var self=this;
 smalltalk.send(self, "_setCollection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [(1), smalltalk.send(self, "_position", [])]), "__comma", [aString]), "__comma", [smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [((($receiver = ((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(aString, "_size", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(aString, "_size", [])])), smalltalk.send(smalltalk.send(self, "_collection", []), "_size", [])])])]);
 smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(aString, "_size", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(aString, "_size", [])]))]);
@@ -4399,7 +4415,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "space",
 category: 'writing',
-fn: function (){
+fn: function () {
 var self=this;
 smalltalk.send(self, "_nextPut_", [" "]);
 return self;},
