@@ -226,7 +226,13 @@ smalltalk.method({
 selector: "identityHash",
 fn: function (){
 var self=this;
-return self.identityHash || (self.identityHash = smalltalk.nextId());;
+
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	;
 return self;}
 }),
 smalltalk.Object);
