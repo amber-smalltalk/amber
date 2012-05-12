@@ -41,13 +41,17 @@ on: aStream
 ! !
 
 Object subclass: #Compiler
-	instanceVariableNames: 'currentClass source unknownVariables'
+	instanceVariableNames: 'currentClass source unknownVariables codeGeneratorClass'
 	package: 'Compiler'!
 
 !Compiler methodsFor: 'accessing'!
 
 codeGeneratorClass
-	^FunCodeGenerator
+	^codeGeneratorClass ifNil: [FunCodeGenerator]
+!
+
+codeGeneratorClass: aClass
+	codeGeneratorClass := aClass
 !
 
 currentClass
