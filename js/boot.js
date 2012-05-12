@@ -119,8 +119,8 @@ function Smalltalk(){
 
 	function klass(spec) {
 		var spec = spec || {};
-		var meta = metaKlass();
-		var that = setupKlass(meta.instanceClass, spec);
+		var meta = metaclass();
+		var that = setupClass(meta.instanceClass, spec);
 		that.className = spec.className;
 		meta.className = spec.className + ' class';
 		if(spec.superclass) {
@@ -130,19 +130,18 @@ function Smalltalk(){
 		return that;
 	}
 	
-	function metaKlass() {
-		var meta = setupKlass(new SmalltalkMetaclass(), {});
+	function metaclass() {
+		var meta = setupClass(new SmalltalkMetaclass(), {});
 		meta.instanceClass = new meta.fn;
 		return meta;
 	}
 	
-	function klassToString() { return 'Smalltalk ' + this.className; }
-
-	function setupKlass(that, spec) {
+	function setupClass(that, spec) {
 		that.fn = spec.fn || function(){};
 		that.iVarNames = spec.iVarNames || [];
 		Object.defineProperty(that, "toString", {
-			value: klassToString, configurable: true // no writable - in par with ES6 methods
+			value: function() { return 'Smalltalk ' + this.className; }, 
+            configurable: true // no writable - in par with ES6 methods
 		});
 		that.pkg = spec.pkg;
 		Object.defineProperties(that.fn.prototype, {
