@@ -2487,6 +2487,22 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
+"__eq_eq",
+smalltalk.method({
+selector: "==",
+category: 'comparing',
+fn: function (aString){
+var self=this;
+return smalltalk.send(self, "__eq", [aString]);
+return self;},
+args: ["aString"],
+source: "== aString\x0a\x09^self = aString",
+messageSends: ["="],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "__gt",
 smalltalk.method({
 selector: ">",

@@ -323,10 +323,16 @@ selector: "identityHash",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self.identityHash || (self.identityHash = smalltalk.nextId());;
+
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	;
 return self;},
 args: [],
-source: "identityHash\x0a\x09<return self.identityHash || (self.identityHash = smalltalk.nextId());>",
+source: "identityHash\x0a\x09<\x0a\x09var hash=self.identityHash;\x0a\x09if (hash) return hash;\x0a\x09hash=smalltalk.nextId();\x0a\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09return hash;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -950,6 +956,22 @@ return self;
 args: ["aBoolean"],
 source: "= aBoolean\x0a\x09aBoolean class = self class ifFalse: [^false].\x0a\x09<return Boolean(self == true) == aBoolean>",
 messageSends: ["ifFalse:", "=", "class"],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+"__eq_eq",
+smalltalk.method({
+selector: "==",
+category: 'comparing',
+fn: function (aBoolean){
+var self=this;
+return smalltalk.send(self, "__eq", [aBoolean]);
+return self;},
+args: ["aBoolean"],
+source: "== aBoolean\x0a\x09^self = aBoolean",
+messageSends: ["="],
 referencedClasses: []
 }),
 smalltalk.Boolean);

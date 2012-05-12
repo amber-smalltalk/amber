@@ -951,6 +951,10 @@ unescaped
 	<return String(self) === String(aString)>
 !
 
+== aString
+	^self = aString
+!
+
 > aString
 	<return String(self) >> aString._asString()>
 !

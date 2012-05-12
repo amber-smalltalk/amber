@@ -226,7 +226,13 @@ smalltalk.method({
 selector: "identityHash",
 fn: function (){
 var self=this;
-return self.identityHash || (self.identityHash = smalltalk.nextId());;
+
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	;
 return self;}
 }),
 smalltalk.Object);
@@ -664,6 +670,17 @@ try{((($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq"
 return Boolean(self == true) == aBoolean;
 return self;
 } catch(e) {if(e===$early)return e[0]; throw e}}
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+"__eq_eq",
+smalltalk.method({
+selector: "==",
+fn: function (aBoolean){
+var self=this;
+return smalltalk.send(self, "__eq", [aBoolean]);
+return self;}
 }),
 smalltalk.Boolean);
 

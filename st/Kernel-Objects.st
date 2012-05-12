@@ -58,7 +58,13 @@ class
 !
 
 identityHash
-	<return self.identityHash || (self.identityHash = smalltalk.nextId());>
+	<
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	>
 !
 
 instVarAt: aSymbol
@@ -336,6 +342,10 @@ Boolean instances are weither `true` or `false`.!
 = aBoolean
 	aBoolean class = self class ifFalse: [^false].
 	<return Boolean(self == true) == aBoolean>
+!
+
+== aBoolean
+	^self = aBoolean
 ! !
 
 !Boolean methodsFor: 'controlling'!

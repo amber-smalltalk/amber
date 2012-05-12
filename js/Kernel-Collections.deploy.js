@@ -1761,6 +1761,17 @@ return self;
 smalltalk.String);
 
 smalltalk.addMethod(
+"__eq_eq",
+smalltalk.method({
+selector: "==",
+fn: function (aString){
+var self=this;
+return smalltalk.send(self, "__eq", [aString]);
+return self;}
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "__gt",
 smalltalk.method({
 selector: ">",
