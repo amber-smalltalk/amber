@@ -109,6 +109,24 @@ testEquality
 	self assert: true yourself = true yourself
 !
 
+testIdentity
+	"We're on top of JS...just be sure to check the basics!!"
+
+	self deny: 0 == false. 
+	self deny: false == 0.
+	self deny: '' == false.
+	self deny: false == ''.
+
+	self assert: true == true.
+	self deny: false == true.
+	self deny: true == false.
+	self assert: false == false.
+
+	"JS may do some type coercing after sending a message"
+	self assert: true yourself == true.
+	self assert: true yourself == true yourself
+!
+
 testIfTrueIfFalse
  
 	self assert: (true ifTrue: ['alternative block']) = 'alternative block'.
@@ -570,7 +588,9 @@ testIdentity
 	| o |
 	o := Object new.
 	self deny: o == Object new.
-	self assert: o == o
+	self assert: o == o.
+	self assert: o yourself == o.
+	self assert: o == o yourself
 !
 
 testIfNil
@@ -837,6 +857,17 @@ testEquality
 
 	"test JS falsy value"
 	self deny: '' = 0
+!
+
+testIdentity
+	self assert: 'hello' == 'hello'.
+	self deny: 'hello' == 'world'.
+
+	self assert: 'hello' == 'hello' yourself.
+	self assert: 'hello' yourself == 'hello'.
+
+	"test JS falsy value"
+	self deny: '' == 0
 !
 
 testIncludesSubString
