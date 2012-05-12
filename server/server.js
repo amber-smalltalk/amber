@@ -45,22 +45,21 @@ if (typeof console === "undefined") {
 	};
 }
 
-
 /* Smalltalk constructors definition */
 
 function SmalltalkObject(){}
-function SmalltalkBehavior(){};
+function SmalltalkBehavior(){}
 function SmalltalkClass(){}
-function SmalltalkPackage(){};
+function SmalltalkPackage(){}
 function SmalltalkMetaclass(){
 	this.meta = true;
-};
-function SmalltalkMethod(){};
-function SmalltalkNil(){};
+}
+function SmalltalkMethod(){}
+function SmalltalkNil(){}
 
 function SmalltalkSymbol(string){
 	this.value = string;
-};
+}
 
 function Smalltalk(){
 
@@ -107,8 +106,8 @@ function Smalltalk(){
 	/* Smalltalk package creation. To add a Package, use smalltalk.addPackage() */
 
 	function pkg(spec) {
-		var that      = new SmalltalkPackage();
-		that.pkgName  = spec.pkgName;
+		var that = new SmalltalkPackage();
+		that.pkgName = spec.pkgName;
 		that.properties = spec.properties || {};
 		return that;
 	};
@@ -120,28 +119,36 @@ function Smalltalk(){
 
 	function klass(spec) {
 		var spec = spec || {};
-		var that;
-		if(spec.meta) {
-			that = new SmalltalkMetaclass();
-		} else {
-			that = new (klass({meta: true})).fn;
-			that.klass.instanceClass = that;
-			that.className = spec.className;
-			that.klass.className = that.className + ' class';
+		var meta = metaclass();
+		var that = setupClass(meta.instanceClass, spec);
+		that.className = spec.className;
+		meta.className = spec.className + ' class';
+		if(spec.superclass) {
+			that.superclass = spec.superclass;
+			meta.superclass = spec.superclass.klass;
 		}
-
+		return that;
+	}
+	
+	function metaclass() {
+		var meta = setupClass(new SmalltalkMetaclass(), {});
+		meta.instanceClass = new meta.fn;
+		return meta;
+	}
+	
+	function setupClass(that, spec) {
 		that.fn = spec.fn || function(){};
-		that.superclass = spec.superclass;
 		that.iVarNames = spec.iVarNames || [];
-        that.toString = function() {return 'Smalltalk ' + that.className};
-		if(that.superclass) {
-			that.klass.superclass = that.superclass.klass;
-		}
+		Object.defineProperty(that, "toString", {
+			value: function() { return 'Smalltalk ' + this.className; }, 
+            configurable: true // no writable - in par with ES6 methods
+		});
 		that.pkg = spec.pkg;
-		that.fn.prototype.methods = {};
-		that.fn.prototype.inheritedMethods = {};
-		that.fn.prototype.klass = that;
-
+		Object.defineProperties(that.fn.prototype, {
+			methods: { value: {}, enumerable: false, configurable: true, writable: true },
+			inheritedMethods: { value: {}, enumerable: false, configurable: true, writable: true },
+			klass: { value: that, enumerable: false, configurable: true, writable: true }
+		});
 		return that;
 	};
 
@@ -158,35 +165,43 @@ function Smalltalk(){
 		that.messageSends      = spec.messageSends || [];
 		that.referencedClasses = spec.referencedClasses || [];
 		that.fn                = spec.fn;
-		return that
+		return that;
 	};
 
 	/* Initialize a class in its class hierarchy. Handle both class and
 	   metaclasses. */
-
+	   
 	st.init = function(klass) {
+		st.initSubTree(klass);
+		if(klass.klass && !klass.meta) {
+			st.initSubTree(klass.klass);
+		}
+	};
+
+	st.initSubTree = function(klass) {
 		var subclasses = st.subclasses(klass);
-		var methods;
+		var methods, proto = klass.fn.prototype;
 
 		if(klass.superclass && klass.superclass !== nil) {
 			methods = st.methods(klass.superclass);
 
 			//Methods linking
-			for(var i in methods) {
-				if(!klass.fn.prototype.methods[i]) {
-					klass.fn.prototype.inheritedMethods[i] = methods[i];
-					klass.fn.prototype[methods[i].jsSelector] = methods[i].fn;
+			for(var keys=Object.keys(methods),i=0,l=keys.length; i<l; ++i) {
+				var k = keys[i]
+				if(!proto.methods[k]) {
+					proto.inheritedMethods[k] = methods[k];
+					Object.defineProperty(proto, methods[k].jsSelector, {
+						value: methods[k].fn, configurable: true // no writable - in par with ES6 methods
+					});
 				}
 			}
 		}
 
 		for(var i=0;i<subclasses.length;i++) {
-			st.init(subclasses[i]);
-		}
-		if(klass.klass && !klass.meta) {
-			st.init(klass.klass);
+			st.initSubTree(subclasses[i]);
 		}
 	};
+
 
 	/* Answer all registered Packages as Array */
 
@@ -202,42 +217,49 @@ function Smalltalk(){
 	/* Answer all registered Smalltalk classes */
 
 	st.classes = function() {
-		var classes = [];
-		for(var i in st) {
-			if(i.search(/^[A-Z]/g) != -1) {
-				classes.push(st[i]);
+		var classes = [], names = Object.keys(st), l = names.length;
+		for (var i=0; i<l; ++i) {
+			var name = names[i];
+			if (name.search(/^[A-Z]/) !== -1) {
+				classes.push(st[name]);
 			}
 		}
-		return classes
+		return classes;
 	};
+
 
 	/* Answer all methods (included inherited ones) of klass. */
 
 	st.methods = function(klass) {
 		var methods = {};
-		for(var i in klass.fn.prototype.methods) {
-			methods[i] = klass.fn.prototype.methods[i]
+		var copyFrom = klass.fn.prototype.methods;
+		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
+			methods[k[i]] = copyFrom[k[i]];
 		}
-		for(var i in klass.fn.prototype.inheritedMethods) {
-			methods[i] = klass.fn.prototype.inheritedMethods[i]
+		copyFrom = klass.fn.prototype.inheritedMethods;
+		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
+			methods[k[i]] = copyFrom[k[i]];
 		}
 		return methods;
-	}
+	};
+
 
 	/* Answer the direct subclasses of klass. */
 
 	st.subclasses = function(klass) {
 		var subclasses = [];
 		var classes = st.classes();
-		for(var i in classes) {
-			if(classes[i].fn) {
-				//Metaclasses
-				if(classes[i].klass && classes[i].klass.superclass === klass) {
-					subclasses.push(classes[i].klass);
-				}
+		for(var i=0, l=classes.length; i<l; ++i) {
+			var c = classes[i]
+			if(c.fn) {
 				//Classes
-				if(classes[i].superclass === klass) {
-					subclasses.push(classes[i]);
+				if(c.superclass === klass) {
+					subclasses.push(c);
+				}
+				c = c.klass;
+				//Metaclasses
+				if(c && c.superclass === klass) {
+					subclasses.push(c);
 				}
 			}
 		}
@@ -257,10 +279,10 @@ function Smalltalk(){
 		});
 	};
 
-    /* Create an alias for an existing class */
-    st.alias = function(klass, alias) {
-        st[alias] = klass;
-    }
+	/* Create an alias for an existing class */
+	st.alias = function(klass, alias) {
+		st[alias] = klass;
+	}
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
 	   If pkgName is null or empty we return nil, which is an allowed package for a class.
@@ -290,7 +312,7 @@ function Smalltalk(){
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
 			st[className].pkg = pkg || st[className].pkg;
-		} else {    
+		} else {
 			st[className] = klass({
 				className: className, 
 				superclass: superclass,
@@ -303,31 +325,17 @@ function Smalltalk(){
 	/* Add a method to a class */
 
 	st.addMethod = function(jsSelector, method, klass) {
-		klass.fn.prototype[jsSelector] = method.fn;
+		Object.defineProperty(klass.fn.prototype, jsSelector, {
+			value: method.fn, configurable: true // not writable - in par with ES6 methods
+		});
 		klass.fn.prototype.methods[method.selector] = method;
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;
 	};
 
-	/* Handles Smalltalk message send. Automatically converts undefined to the nil object.
-	   If the receiver does not understand the selector, call its #doesNotUnderstand: method */
-
-	sendWithoutContext = function(receiver, selector, args, klass) {
-		if(receiver === undefined || receiver === null) {
-			receiver = nil;
-		}
-		if(!klass && receiver.klass && receiver[selector]) {
-			return receiver[selector].apply(receiver, args);
-		} else if(klass && klass.fn.prototype[selector]) {
-			return klass.fn.prototype[selector].apply(receiver, args)
-		}
-		return messageNotUnderstood(receiver, selector, args);
-	};
-
-
 	/* Handles unhandled errors during message sends */
 
-	sendWithContext = function(receiver, selector, args, klass) {
+	st.send = function(receiver, selector, args, klass) {
 		if(st.thisContext) {
 			return withContextSend(receiver, selector, args, klass);
 		} else {
@@ -344,25 +352,20 @@ function Smalltalk(){
 		}
 	};
 
-	/* Same as sendWithoutContext but creates a methodContext. */
-
-	withContextSend = function(receiver, selector, args, klass) {
-		var call, context;
-		if(receiver === undefined || receiver === null) {
+	function withContextSend(receiver, selector, args, klass) {
+		var call, imp;
+		if(receiver == null) {
 			receiver = nil;
 		}
-		if(!klass && receiver.klass && receiver[selector]) {
-			context = pushContext(receiver, selector, args);
-			call = receiver[selector].apply(receiver, args);
+		imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+		if(imp) {
+			var context = pushContext(receiver, selector, args);
+			call = imp.apply(receiver, args);
 			popContext(context);
 			return call;
-		} else if(klass && klass.fn.prototype[selector]) {
-			context = pushContext(receiver, selector, args);
-			call = klass.fn.prototype[selector].apply(receiver, args);
-			popContext(context);
-			return call;
+		} else {
+			return messageNotUnderstood(receiver, selector, args);
 		}
-		return messageNotUnderstood(receiver, selector, args);
 	};
 
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler 
@@ -371,7 +374,7 @@ function Smalltalk(){
 	function handleError(error) {
 		st.thisContext = undefined;
 		smalltalk.ErrorHandler._current()._handleError_(error);
-	}
+	};
 
 	/* Handles #dnu: *and* JavaScript method calls.
 	   if the receiver has no klass, we consider it a JS object (outside of the
@@ -424,9 +427,9 @@ function Smalltalk(){
 	};
 
 
-	/* Reuse old contexts stored in oldContexts */
+	/* Reuse one old context stored in oldContext */
 
-	st.oldContexts = [];
+	st.oldContext = null;
 
 
 	/* Handle thisContext pseudo variable */
@@ -434,23 +437,28 @@ function Smalltalk(){
 	st.getThisContext = function() {
 		if(st.thisContext) {
 			return st.thisContext.copy();
-		} else {
+		}/* else { // this is the default
 			return undefined;
-		}
-	}
-
-	pushContext = function(receiver, selector, temps) {
-		if(st.thisContext) {
-			return st.thisContext = st.thisContext.newContext(receiver, selector, temps);
-		} else {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps);
-		}
+		}*/
 	};
 
-	popContext = function(context) {
-		if(context) {
-			context.removeYourself();
+	function pushContext(receiver, selector, temps) {
+		var c = st.oldContext, tc = st.thisContext;
+		if (!c) {
+			return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps, tc);
 		}
+		st.oldContext = null;
+		c.homeContext = tc;
+		c.receiver = receiver;
+		c.selector = selector;
+		c.temps = temps || {};
+		return st.thisContext = c;
+	};
+
+	function popContext(context) {
+		st.thisContext = context.homeContext;
+		context.homeContext = undefined;
+		st.oldContext = context;
 	};
 
 	/* Convert a string to a valid smalltalk selector.
@@ -502,57 +510,25 @@ function Smalltalk(){
 		}
 		return object;
 	};
-
-	/* Toggle deployment mode (no context will be handled during message send */
-	st.setDeploymentMode = function() {
-		st.send = sendWithoutContext;
-	};
-
-	st.setDevelopmentMode = function() {
-		st.send = sendWithContext;
-	}
-
-	/* Set development mode by default */
-	st.setDevelopmentMode();
-}
+};
 
 function SmalltalkMethodContext(receiver, selector, temps, home) {
-	var that = this;
-	that.receiver = receiver;
-	that.selector = selector;
-	that.temps = temps || {};
-	that.homeContext = home;
+	this.receiver = receiver;
+	this.selector = selector;
+	this.temps = temps || {};
+	this.homeContext = home;
+};
 
-	that.copy = function() {
-		var home = that.homeContext;
-		if(home) {home = home.copy()}
-		return new SmalltalkMethodContext(
-				that.receiver, 
-				that.selector, 
-				that.temps, 
-				home
-				);
-	}
-
-	that.newContext = function(receiver, selector, temps) {
-		var c = smalltalk.oldContexts.pop();
-		if(c) {
-			c.homeContext = that;
-			c.receiver = receiver;
-			c.selector = selector;
-			c.temps = temps || {};
-		} else {
-			c = new SmalltalkMethodContext(receiver, selector, temps, that);
-		}
-		return c;
-	}
-
-	that.removeYourself = function() {
-		smalltalk.thisContext = that.homeContext;
-		that.homeContext = undefined;
-		smalltalk.oldContexts.push(that);
-	}
-}
+SmalltalkMethodContext.prototype.copy = function() {
+	var home = this.homeContext;
+	if(home) {home = home.copy()}
+	return new SmalltalkMethodContext(
+			this.receiver, 
+			this.selector, 
+			this.temps, 
+			home
+			);
+};
 
 /* Global Smalltalk objects. */
 
@@ -602,62 +578,59 @@ smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
 smalltalk.addPackage('Kernel-Objects', {});
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
-smalltalk.Object.comment=unescape('*Object%20is%20the%20root%20of%20the%20Smalltalk%20class%20system*.%20All%20classes%20in%20the%20system%20are%20subclasses%20of%20Object.%0A%0AObject%20provides%20default%20behavior%20common%20to%20all%20normal%20objects%2C%20such%20as%3A%20%0A%0A-%20access%0A-%20copying%0A-%20comparison%0A-%20error%20handling%0A-%20message%20sending%0A-%20reflection%0A%0AAlso%20utility%20messages%20that%20all%20objects%20should%20respond%20to%20are%20defined%20here.%0A%0AObject%20has%20no%20instance%20variable.%0A%0A%23%23Access%0A%0AInstance%20variables%20can%20be%20accessed%20with%20%60%23instVarAt%3A%60%20and%20%60%23instVarAt%3Aput%3A%60.%20%60Object%20%3E%3E%20instanceVariableNames%60%20answers%20a%20collection%20of%20all%20instance%20variable%20names.%0AAccessing%20JavaScript%20properties%20of%20an%20object%20is%20done%20through%20%60%23basicAt%3A%60%2C%20%60%23basicAt%3Aput%3A%60%20and%20%60basicDelete%3A%60.%0A%0A%23%23Copying%0A%0ACopying%20an%20object%20is%20handled%20by%20%60%23copy%60%20and%20%60%23deepCopy%60.%20The%20first%20one%20performs%20a%20shallow%20copy%20of%20the%20receiver%2C%20while%20the%20second%20one%20performs%20a%20deep%20copy.%0AThe%20hook%20method%20%60%23postCopy%60%20can%20be%20overriden%20in%20subclasses%20to%20copy%20fields%20as%20necessary%20to%20complete%20the%20full%20copy.%20It%20will%20be%20sent%20by%20the%20copy%20of%20the%20receiver.%0A%0A%23%23Comparison%0A%0AObjects%20understand%20equality%20%20%60%23%3D%60%20and%20identity%20%60%23%3D%3D%60%20comparison.%0A%0A%23%23Error%20handling%0A%0A-%20%60%23halt%60%20is%20the%20typical%20message%20to%20use%20for%20inserting%20breakpoints%20during%20debugging.%0A-%20%60%23error%3A%60%20throws%20a%20generic%20error%20exception%0A-%20%60%23doesNotUnderstand%3A%60%20handles%20the%20fact%20that%20there%20was%20an%20attempt%20to%20send%20the%20given%20message%20to%20the%20receiver%20but%20the%20receiver%20does%20not%20understand%20this%20message.%0A%20%20Overriding%20this%20message%20can%20be%20useful%20to%20implement%20proxies%20for%20example.')
+smalltalk.Object.comment="*Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.\x0a\x0aObject provides default behavior common to all normal objects, such as: \x0a\x0a- access\x0a- copying\x0a- comparison\x0a- error handling\x0a- message sending\x0a- reflection\x0a\x0aAlso utility messages that all objects should respond to are defined here.\x0a\x0aObject has no instance variable.\x0a\x0a##Access\x0a\x0aInstance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.\x0aAccessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.\x0a\x0a##Copying\x0a\x0aCopying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.\x0aThe hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.\x0a\x0a##Comparison\x0a\x0aObjects understand equality  `#=` and identity `#==` comparison.\x0a\x0a##Error handling\x0a\x0a- `#halt` is the typical message to use for inserting breakpoints during debugging.\x0a- `#error:` throws a generic error exception\x0a- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.\x0a  Overriding this message can be useful to implement proxies for example."
 smalltalk.addMethod(
-unescape('__minus_gt'),
+"__minus_gt",
 smalltalk.method({
-selector: unescape('-%3E'),
+selector: "->",
 category: 'converting',
-fn: function (anObject) {
-    var self = this;
-    return smalltalk.send(smalltalk.Association || Association, "_key_value_", [self, anObject]);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.send((smalltalk.Association || Association), "_key_value_", [self, anObject]);
+return self;},
 args: ["anObject"],
-source: unescape('-%3E%20anObject%0A%09%5EAssociation%20key%3A%20self%20value%3A%20anObject'),
+source: "-> anObject\x0a\x09^Association key: self value: anObject",
 messageSends: ["key:value:"],
 referencedClasses: ["Association"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    return smalltalk.send(self, "__eq_eq", [anObject]);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.send(self, "__eq_eq", [anObject]);
+return self;},
 args: ["anObject"],
-source: unescape('%3D%20anObject%0A%09%5Eself%20%3D%3D%20anObject'),
-messageSends: [unescape("%3D%3D")],
+source: "= anObject\x0a\x09^self == anObject",
+messageSends: ["=="],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('__eq_eq'),
+"__eq_eq",
 smalltalk.method({
-selector: unescape('%3D%3D'),
+selector: "==",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
+return self;},
 args: ["anObject"],
-source: unescape('%3D%3D%20anObject%0A%09%5Eself%20identityHash%20%3D%20anObject%20identityHash'),
-messageSends: [unescape("%3D"), "identityHash"],
+source: "== anObject\x0a\x09^self identityHash = anObject identityHash",
+messageSends: ["=", "identityHash"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
@@ -667,878 +640,855 @@ smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceV
 return variables;
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20HashedCollection%20new.%0A%09self%20class%20allInstanceVariableNames%20do%3A%20%5B%3Aeach%20%7C%0A%09%09variables%20at%3A%20each%20put%3A%20%28self%20instVarAt%3A%20each%29%20asJSON%5D.%0A%09%5Evariables'),
+source: "asJSON\x0a\x09| variables |\x0a\x09variables := HashedCollection new.\x0a\x09self class allInstanceVariableNames do: [:each |\x0a\x09\x09variables at: each put: (self instVarAt: each) asJSON].\x0a\x09^variables",
 messageSends: ["new", "do:", "allInstanceVariableNames", "class", "at:put:", "asJSON", "instVarAt:"],
 referencedClasses: ["HashedCollection"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_asJSONString'),
+"_asJSONString",
 smalltalk.method({
-selector: unescape('asJSONString'),
+selector: "asJSONString",
 category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.JSON || JSON), "_stringify_", [smalltalk.send(self, "_asJSON", [])]);
 return self;},
 args: [],
-source: unescape('asJSONString%0A%09%5EJSON%20stringify%3A%20self%20asJSON'),
+source: "asJSONString\x0a\x09^JSON stringify: self asJSON",
 messageSends: ["stringify:", "asJSON"],
 referencedClasses: ["JSON"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_asJavascript'),
+"_asJavascript",
 smalltalk.method({
-selector: unescape('asJavascript'),
+selector: "asJavascript",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asString", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_asString", []);
+return self;},
 args: [],
-source: unescape('asJavascript%0A%09%5Eself%20asString'),
+source: "asJavascript\x0a\x09^self asString",
 messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_printString", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_printString", []);
+return self;},
 args: [],
-source: unescape('asString%0A%09%5Eself%20printString'),
+source: "asString\x0a\x09^self printString",
 messageSends: ["printString"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_basicAt_'),
+"_basicAt_",
 smalltalk.method({
-selector: unescape('basicAt%3A'),
+selector: "basicAt:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return self[aString];
-    return self;
-},
+fn: function (aString){
+var self=this;
+return self[aString];
+return self;},
 args: ["aString"],
-source: unescape('basicAt%3A%20aString%0A%09%3Creturn%20self%5BaString%5D%3E'),
+source: "basicAt: aString\x0a\x09<return self[aString]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_basicAt_put_'),
+"_basicAt_put_",
 smalltalk.method({
-selector: unescape('basicAt%3Aput%3A'),
+selector: "basicAt:put:",
 category: 'accessing',
-fn: function (aString, anObject) {
-    var self = this;
-    return self[aString] = anObject;
-    return self;
-},
+fn: function (aString, anObject){
+var self=this;
+return self[aString] = anObject;
+return self;},
 args: ["aString", "anObject"],
-source: unescape('basicAt%3A%20aString%20put%3A%20anObject%0A%09%3Creturn%20self%5BaString%5D%20%3D%20anObject%3E'),
+source: "basicAt: aString put: anObject\x0a\x09<return self[aString] = anObject>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_basicDelete_'),
+"_basicDelete_",
 smalltalk.method({
-selector: unescape('basicDelete%3A'),
+selector: "basicDelete:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    delete self[aString];
-    return aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+delete self[aString]; return aString;
+return self;},
 args: ["aString"],
-source: unescape('basicDelete%3A%20aString%0A%20%20%20%20%3Cdelete%20self%5BaString%5D%3B%20return%20aString%3E'),
+source: "basicDelete: aString\x0a    <delete self[aString]; return aString>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_basicPerform_'),
+"_basicPerform_",
 smalltalk.method({
-selector: unescape('basicPerform%3A'),
+selector: "basicPerform:",
 category: 'message handling',
-fn: function (aSymbol) {
-    var self = this;
-    return smalltalk.send(self, "_basicPerform_withArguments_", [aSymbol, []]);
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.send(self, "_basicPerform_withArguments_", [aSymbol, []]);
+return self;},
 args: ["aSymbol"],
-source: unescape('basicPerform%3A%20aSymbol%20%0A%09%5Eself%20basicPerform%3A%20aSymbol%20withArguments%3A%20%23%28%29'),
+source: "basicPerform: aSymbol \x0a\x09^self basicPerform: aSymbol withArguments: #()",
 messageSends: ["basicPerform:withArguments:"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_basicPerform_withArguments_'),
+"_basicPerform_withArguments_",
 smalltalk.method({
-selector: unescape('basicPerform%3AwithArguments%3A'),
+selector: "basicPerform:withArguments:",
 category: 'message handling',
-fn: function (aSymbol, aCollection) {
-    var self = this;
-    return self[aSymbol].apply(self, aCollection);
-    return self;
-},
+fn: function (aSymbol, aCollection){
+var self=this;
+return self[aSymbol].apply(self, aCollection);;
+return self;},
 args: ["aSymbol", "aCollection"],
-source: unescape('basicPerform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%3Creturn%20self%5BaSymbol%5D.apply%28self%2C%20aCollection%29%3B%3E'),
+source: "basicPerform: aSymbol withArguments: aCollection\x0a\x09<return self[aSymbol].apply(self, aCollection);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_class'),
+"_class",
 smalltalk.method({
-selector: unescape('class'),
+selector: "class",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.klass;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.klass;
+return self;},
 args: [],
-source: unescape('class%0A%09%3Creturn%20self.klass%3E'),
+source: "class\x0a\x09<return self.klass>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_copy'),
+"_copy",
 smalltalk.method({
-selector: unescape('copy'),
+selector: "copy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_shallowCopy", []), "_postCopy", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_shallowCopy", []), "_postCopy", []);
+return self;},
 args: [],
-source: unescape('copy%0A%09%5Eself%20shallowCopy%20postCopy'),
+source: "copy\x0a\x09^self shallowCopy postCopy",
 messageSends: ["postCopy", "shallowCopy"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    var copy = self.klass._new();
-    for (var i in self) {
-        if (/^@.+/.test(i)) {
-            copy[i] = self[i]._deepCopy();
-        }
-    }
-    return copy;
-    return self;
-},
+fn: function (){
+var self=this;
+    
+	    var copy = self.klass._new();
+	    for(var i in self) {
+		if(/^@.+/.test(i)) {
+		    copy[i] = self[i]._deepCopy();
+		}
+	    }
+	    return copy;
+	;
+return self;},
 args: [],
-source: unescape('deepCopy%0A%09%3C%20%20%20%20%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D._deepCopy%28%29%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%3E'),
+source: "deepCopy\x0a\x09<    \x0a\x09    var copy = self.klass._new();\x0a\x09    for(var i in self) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09    copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09    }\x0a\x09    return copy;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_deprecatedAPI'),
+"_deprecatedAPI",
 smalltalk.method({
-selector: unescape('deprecatedAPI'),
+selector: "deprecatedAPI",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(typeof console == "undefined" ? nil : console, "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.getThisContext(), "_home", []), "_asString", []), "__comma", [unescape("%20is%20deprecated%21%20%28in%20")]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.getThisContext(), "_home", []), "_home", []), "_asString", [])]), "__comma", [unescape("%29")])]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_asString", []), "__comma", [" is deprecated! (in "]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.getThisContext()), "_home", []), "_home", []), "_asString", [])]), "__comma", [")"])]);
+return self;},
 args: [],
-source: unescape('deprecatedAPI%0A%09%22Just%20a%20simple%20way%20to%20deprecate%20methods.%0A%09%23deprecatedAPI%20is%20in%20the%20%27error%20handling%27%20protocol%20even%20if%20it%20doesn%27t%20throw%20an%20error%2C%0A%09but%20it%20could%20in%20the%20future.%22%0A%09console%20warn%3A%20thisContext%20home%20asString%2C%20%27%20is%20deprecated%21%20%28in%20%27%2C%20thisContext%20home%20home%20asString%2C%20%27%29%27'),
-messageSends: ["warn:", unescape("%2C"), "asString", "home"],
+source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'",
+messageSends: ["warn:", ",", "asString", "home"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_doesNotUnderstand_'),
+"_doesNotUnderstand_",
 smalltalk.method({
-selector: unescape('doesNotUnderstand%3A'),
+selector: "doesNotUnderstand:",
 category: 'error handling',
-fn: function (aMessage) {
-    var self = this;
-    (function ($rec) {smalltalk.send($rec, "_receiver_", [self]);smalltalk.send($rec, "_message_", [aMessage]);return smalltalk.send($rec, "_signal", []);}(smalltalk.send(smalltalk.MessageNotUnderstood || MessageNotUnderstood, "_new", [])));
-    return self;
-},
+fn: function (aMessage){
+var self=this;
+(function($rec){smalltalk.send($rec, "_receiver_", [self]);smalltalk.send($rec, "_message_", [aMessage]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send((smalltalk.MessageNotUnderstood || MessageNotUnderstood), "_new", []));
+return self;},
 args: ["aMessage"],
-source: unescape('doesNotUnderstand%3A%20aMessage%0A%09MessageNotUnderstood%20new%0A%09%09receiver%3A%20self%3B%0A%09%09message%3A%20aMessage%3B%0A%09%09signal'),
+source: "doesNotUnderstand: aMessage\x0a\x09MessageNotUnderstood new\x0a\x09\x09receiver: self;\x0a\x09\x09message: aMessage;\x0a\x09\x09signal",
 messageSends: ["receiver:", "message:", "signal", "new"],
 referencedClasses: ["MessageNotUnderstood"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_error_'),
+"_error_",
 smalltalk.method({
-selector: unescape('error%3A'),
+selector: "error:",
 category: 'error handling',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(smalltalk.Error || Error, "_signal_", [aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+smalltalk.send((smalltalk.Error || Error), "_signal_", [aString]);
+return self;},
 args: ["aString"],
-source: unescape('error%3A%20aString%0A%09Error%20signal%3A%20aString'),
+source: "error: aString\x0a\x09Error signal: aString",
 messageSends: ["signal:"],
 referencedClasses: ["Error"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_halt'),
+"_halt",
 smalltalk.method({
-selector: unescape('halt'),
+selector: "halt",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["Halt encountered"]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["Halt encountered"]);
+return self;},
 args: [],
-source: unescape('halt%0A%09self%20error%3A%20%27Halt%20encountered%27'),
+source: "halt\x0a\x09self error: 'Halt encountered'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_identityHash'),
+"_identityHash",
 smalltalk.method({
-selector: unescape('identityHash'),
+selector: "identityHash",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.identityHash || (self.identityHash = smalltalk.nextId());
-    return self;
-},
+fn: function (){
+var self=this;
+
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	;
+return self;},
 args: [],
-source: unescape('identityHash%0A%09%3Creturn%20self.identityHash%20%7C%7C%20%28self.identityHash%20%3D%20smalltalk.nextId%28%29%29%3B%3E'),
+source: "identityHash\x0a\x09<\x0a\x09var hash=self.identityHash;\x0a\x09if (hash) return hash;\x0a\x09hash=smalltalk.nextId();\x0a\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09return hash;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_ifNil_'),
+"_ifNil_",
 smalltalk.method({
-selector: unescape('ifNil%3A'),
+selector: "ifNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return self;
+return self;},
 args: ["aBlock"],
-source: unescape('ifNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself'),
+source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_ifNil_ifNotNil_'),
+"_ifNil_ifNotNil_",
 smalltalk.method({
-selector: unescape('ifNil%3AifNotNil%3A'),
+selector: "ifNil:ifNotNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return smalltalk.send(anotherBlock, "_value", []);
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(anotherBlock, "_value", []);
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EanotherBlock%20value'),
+source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value",
 messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_ifNotNil_'),
+"_ifNotNil_",
 smalltalk.method({
-selector: unescape('ifNotNil%3A'),
+selector: "ifNotNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    return smalltalk.send(aBlock, "_value", []);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(aBlock, "_value", []);
+return self;},
 args: ["aBlock"],
-source: unescape('ifNotNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EaBlock%20value'),
+source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
 messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_ifNotNil_ifNil_'),
+"_ifNotNil_ifNil_",
 smalltalk.method({
-selector: unescape('ifNotNil%3AifNil%3A'),
+selector: "ifNotNil:ifNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return smalltalk.send(aBlock, "_value", []);
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(aBlock, "_value", []);
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EaBlock%20value'),
+source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
 messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+
+return self;},
 args: [],
-source: unescape('initialize'),
+source: "initialize",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_instVarAt_'),
+"_instVarAt_",
 smalltalk.method({
-selector: unescape('instVarAt%3A'),
+selector: "instVarAt:",
 category: 'accessing',
-fn: function (aSymbol) {
-    var self = this;
-    var varname = nil;
-    varname = smalltalk.send(aSymbol, "_asString", []);
-    return self["@" + varname];
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+var varname=nil;
+(varname=smalltalk.send(aSymbol, "_asString", []));
+return self['@'+varname];
+return self;},
 args: ["aSymbol"],
-source: unescape('instVarAt%3A%20aSymbol%0A%09%7C%20varname%20%7C%0A%09varname%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@%27+varname%5D%3E'),
+source: "instVarAt: aSymbol\x0a\x09| varname |\x0a\x09varname := aSymbol asString.\x0a\x09<return self['@'+varname]>",
 messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_instVarAt_put_'),
+"_instVarAt_put_",
 smalltalk.method({
-selector: unescape('instVarAt%3Aput%3A'),
+selector: "instVarAt:put:",
 category: 'accessing',
-fn: function (aSymbol, anObject) {
-    var self = this;
-    var varname = nil;
-    varname = smalltalk.send(aSymbol, "_asString", []);
-    self["@" + varname] = anObject;
-    return self;
-},
+fn: function (aSymbol, anObject){
+var self=this;
+var varname=nil;
+(varname=smalltalk.send(aSymbol, "_asString", []));
+self['@' + varname] = anObject;
+return self;},
 args: ["aSymbol", "anObject"],
-source: unescape('instVarAt%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20varname%20%7C%0A%09varname%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@%27%20+%20varname%5D%20%3D%20anObject%3E'),
+source: "instVarAt: aSymbol put: anObject\x0a\x09| varname |\x0a\x09varname := aSymbol asString.\x0a\x09<self['@' + varname] = anObject>",
 messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isClass'),
+"_isClass",
 smalltalk.method({
-selector: unescape('isClass'),
+selector: "isClass",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isClass%0A%09%5Efalse'),
+source: "isClass\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isKindOf_'),
+"_isKindOf_",
 smalltalk.method({
-selector: unescape('isKindOf%3A'),
+selector: "isKindOf:",
 category: 'testing',
-fn: function (aClass) {
-    var self = this;
-    return ($receiver = smalltalk.send(self, "_isMemberOf_", [aClass])).klass === smalltalk.Boolean ? $receiver ? function () {return true;}() : function () {return smalltalk.send(smalltalk.send(self, "_class", []), "_inheritsFrom_", [aClass]);}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return true;}, function () {return smalltalk.send(smalltalk.send(self, "_class", []), "_inheritsFrom_", [aClass]);}]);
-    return self;
-},
+fn: function (aClass){
+var self=this;
+return ((($receiver = smalltalk.send(self, "_isMemberOf_", [aClass])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return true;})() : (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_inheritsFrom_", [aClass]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return true;}), (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_inheritsFrom_", [aClass]);})]));
+return self;},
 args: ["aClass"],
-source: unescape('isKindOf%3A%20aClass%0A%09%5E%28self%20isMemberOf%3A%20aClass%29%0A%09%20%20%20%20ifTrue%3A%20%5Btrue%5D%0A%09%20%20%20%20ifFalse%3A%20%5Bself%20class%20inheritsFrom%3A%20aClass%5D'),
+source: "isKindOf: aClass\x0a\x09^(self isMemberOf: aClass)\x0a\x09    ifTrue: [true]\x0a\x09    ifFalse: [self class inheritsFrom: aClass]",
 messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isMemberOf_'),
+"_isMemberOf_",
 smalltalk.method({
-selector: unescape('isMemberOf%3A'),
+selector: "isMemberOf:",
 category: 'testing',
-fn: function (aClass) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [aClass]);
-    return self;
-},
+fn: function (aClass){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [aClass]);
+return self;},
 args: ["aClass"],
-source: unescape('isMemberOf%3A%20aClass%0A%09%5Eself%20class%20%3D%20aClass'),
-messageSends: [unescape("%3D"), "class"],
+source: "isMemberOf: aClass\x0a\x09^self class = aClass",
+messageSends: ["=", "class"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isMetaclass'),
+"_isMetaclass",
 smalltalk.method({
-selector: unescape('isMetaclass'),
+selector: "isMetaclass",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isMetaclass%0A%09%5Efalse'),
+source: "isMetaclass\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isNil'),
+"_isNil",
 smalltalk.method({
-selector: unescape('isNil'),
+selector: "isNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isNil%0A%09%5Efalse'),
+source: "isNil\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isNumber'),
+"_isNumber",
 smalltalk.method({
-selector: unescape('isNumber'),
+selector: "isNumber",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isNumber%0A%09%5Efalse'),
+source: "isNumber\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isParseFailure'),
+"_isParseFailure",
 smalltalk.method({
-selector: unescape('isParseFailure'),
+selector: "isParseFailure",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isParseFailure%0A%09%5Efalse'),
+source: "isParseFailure\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isString'),
+"_isString",
 smalltalk.method({
-selector: unescape('isString'),
+selector: "isString",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isString%0A%09%5Efalse'),
+source: "isString\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_isSymbol'),
+"_isSymbol",
 smalltalk.method({
-selector: unescape('isSymbol'),
+selector: "isSymbol",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('isSymbol%0A%09%5Efalse'),
+source: "isSymbol\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_log_block_'),
+"_log_block_",
 smalltalk.method({
-selector: unescape('log%3Ablock%3A'),
+selector: "log:block:",
 category: 'printing',
-fn: function (aString, aBlock) {
-    var self = this;
-    var result = nil;
-    smalltalk.send(typeof console == "undefined" ? nil : console, "_log_", [smalltalk.send(smalltalk.send(aString, "__comma", [" time: "]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.Date || Date, "_millisecondsToRun_", [function () {return result = smalltalk.send(aBlock, "_value", []);}]), "_printString", [])])]);
-    return result;
-    return self;
-},
+fn: function (aString, aBlock){
+var self=this;
+var result=nil;
+smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(smalltalk.send(aString, "__comma", [" time: "]), "__comma", [smalltalk.send(smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [(function(){return (result=smalltalk.send(aBlock, "_value", []));})]), "_printString", [])])]);
+return result;
+return self;},
 args: ["aString", "aBlock"],
-source: unescape('log%3A%20aString%20block%3A%20aBlock%0A%0A%09%7C%20result%20%7C%0A%09console%20log%3A%20%20aString%2C%20%20%27%20time%3A%20%27%2C%20%28Date%20millisecondsToRun%3A%20%5Bresult%20%3A%3D%20aBlock%20value%5D%29%20printString.%0A%09%5Eresult'),
-messageSends: ["log:", unescape("%2C"), "printString", "millisecondsToRun:", "value"],
+source: "log: aString block: aBlock\x0a\x0a\x09| result |\x0a\x09console log:  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.\x0a\x09^result",
+messageSends: ["log:", ",", "printString", "millisecondsToRun:", "value"],
 referencedClasses: ["Date"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_notNil'),
+"_notNil",
 smalltalk.method({
-selector: unescape('notNil'),
+selector: "notNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_isNil", []), "_not", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_isNil", []), "_not", []);
+return self;},
 args: [],
-source: unescape('notNil%0A%09%5Eself%20isNil%20not'),
+source: "notNil\x0a\x09^self isNil not",
 messageSends: ["not", "isNil"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_perform_'),
+"_perform_",
 smalltalk.method({
-selector: unescape('perform%3A'),
+selector: "perform:",
 category: 'message handling',
-fn: function (aSymbol) {
-    var self = this;
-    return smalltalk.send(self, "_perform_withArguments_", [aSymbol, []]);
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.send(self, "_perform_withArguments_", [aSymbol, []]);
+return self;},
 args: ["aSymbol"],
-source: unescape('perform%3A%20aSymbol%0A%09%5Eself%20perform%3A%20aSymbol%20withArguments%3A%20%23%28%29'),
+source: "perform: aSymbol\x0a\x09^self perform: aSymbol withArguments: #()",
 messageSends: ["perform:withArguments:"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_perform_withArguments_'),
+"_perform_withArguments_",
 smalltalk.method({
-selector: unescape('perform%3AwithArguments%3A'),
+selector: "perform:withArguments:",
 category: 'message handling',
-fn: function (aSymbol, aCollection) {
-    var self = this;
-    return smalltalk.send(self, "_basicPerform_withArguments_", [smalltalk.send(aSymbol, "_asSelector", []), aCollection]);
-    return self;
-},
+fn: function (aSymbol, aCollection){
+var self=this;
+var selector=nil;
+(selector=smalltalk.send(aSymbol, "_asSelector", []));
+return smalltalk.send(self, selector, aCollection);
+return self;},
 args: ["aSymbol", "aCollection"],
-source: unescape('perform%3A%20aSymbol%20withArguments%3A%20aCollection%0A%09%5Eself%20basicPerform%3A%20aSymbol%20asSelector%20withArguments%3A%20aCollection'),
-messageSends: ["basicPerform:withArguments:", "asSelector"],
+source: "perform: aSymbol withArguments: aCollection\x0a\x09| selector |\x0a\x09selector := aSymbol asSelector.\x0a\x09<return smalltalk.send(self, selector, aCollection)>",
+messageSends: ["asSelector"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_postCopy'),
+"_postCopy",
 smalltalk.method({
-selector: unescape('postCopy'),
+selector: "postCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+
+return self;},
 args: [],
-source: unescape('postCopy'),
+source: "postCopy",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_printNl'),
+"_printNl",
 smalltalk.method({
-selector: unescape('printNl'),
+selector: "printNl",
 category: 'printing',
-fn: function () {
-    var self = this;
-    console.log(self);
-    return self;
-},
+fn: function (){
+var self=this;
+console.log(self);
+return self;},
 args: [],
-source: unescape('printNl%0A%09%3Cconsole.log%28self%29%3E'),
+source: "printNl\x0a\x09<console.log(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send("a ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send("a ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])]);
+return self;},
 args: [],
-source: unescape('printString%0A%09%5E%27a%20%27%2C%20self%20class%20name'),
-messageSends: [unescape("%2C"), "name", "class"],
+source: "printString\x0a\x09^'a ', self class name",
+messageSends: [",", "name", "class"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_respondsTo_",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "respondsTo:",
+category: 'testing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [aSelector]);
+return self;},
+args: ["aSelector"],
+source: "respondsTo: aSelector\x0a\x09^self class canUnderstand: aSelector",
+messageSends: ["canUnderstand:", "class"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+"_shallowCopy",
+smalltalk.method({
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    var copy = self.klass._new();
-    for (var i in self) {
-        if (/^@.+/.test(i)) {
-            copy[i] = self[i];
-        }
-    }
-    return copy;
-    return self;
-},
+fn: function (){
+var self=this;
+
+	    var copy = self.klass._new();
+	    for(var i in self) {
+		if(/^@.+/.test(i)) {
+		    copy[i] = self[i];
+		}
+	    }
+	    return copy;
+	;
+return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%3C%0A%09%20%20%20%20var%20copy%20%3D%20self.klass._new%28%29%3B%0A%09%20%20%20%20for%28var%20i%20in%20self%29%20%7B%0A%09%09if%28/%5E@.+/.test%28i%29%29%20%7B%0A%09%09%20%20%20%20copy%5Bi%5D%20%3D%20self%5Bi%5D%3B%0A%09%09%7D%0A%09%20%20%20%20%7D%0A%09%20%20%20%20return%20copy%3B%0A%09%3E'),
+source: "shallowCopy\x0a\x09<\x0a\x09    var copy = self.klass._new();\x0a\x09    for(var i in self) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09    copy[i] = self[i];\x0a\x09\x09}\x0a\x09    }\x0a\x09    return copy;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_shouldNotImplement'),
+"_shouldNotImplement",
 smalltalk.method({
-selector: unescape('shouldNotImplement'),
+selector: "shouldNotImplement",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", [smalltalk.send("This method should not be implemented in ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])])]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", [smalltalk.send("This method should not be implemented in ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])])]);
+return self;},
 args: [],
-source: unescape('shouldNotImplement%0A%09self%20error%3A%20%27This%20method%20should%20not%20be%20implemented%20in%20%27%2C%20self%20class%20name'),
-messageSends: ["error:", unescape("%2C"), "name", "class"],
+source: "shouldNotImplement\x0a\x09self error: 'This method should not be implemented in ', self class name",
+messageSends: ["error:", ",", "name", "class"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["Object not indexable"]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["Object not indexable"]);
+return self;},
 args: [],
-source: unescape('size%0A%09self%20error%3A%20%27Object%20not%20indexable%27'),
+source: "size\x0a\x09self error: 'Object not indexable'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_storeOn_'),
+"_storeOn_",
 smalltalk.method({
-selector: unescape('storeOn%3A'),
+selector: "storeOn:",
 category: 'printing',
-fn: function (aStream) {
-    var self = this;
-    smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(self, "_printString", [])]);
-    return self;
-},
+fn: function (aStream){
+var self=this;
+smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(self, "_printString", [])]);
+return self;},
 args: ["aStream"],
-source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20self%20printString'),
+source: "storeOn: aStream\x0a\x09aStream nextPutAll: self printString",
 messageSends: ["nextPutAll:", "printString"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_storeString'),
+"_storeString",
 smalltalk.method({
-selector: unescape('storeString'),
+selector: "storeString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.String || String, "_streamContents_", [function (s) {return smalltalk.send(self, "_storeOn_", [s]);}]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(s){return smalltalk.send(self, "_storeOn_", [s]);})]);
+return self;},
 args: [],
-source: unescape('storeString%0A%09%22Answer%20a%20String%20representation%20of%20the%20receiver%20from%20which%20the%20receiver%20%0A%09can%20be%20reconstructed.%22%0A%0A%09%5E%20String%20streamContents%3A%20%5B%3As%20%7C%20self%20storeOn%3A%20s%5D'),
+source: "storeString\x0a\x09\x22Answer a String representation of the receiver from which the receiver \x0a\x09can be reconstructed.\x22\x0a\x0a\x09^ String streamContents: [:s | self storeOn: s]",
 messageSends: ["streamContents:", "storeOn:"],
 referencedClasses: ["String"]
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_subclassResponsibility'),
+"_subclassResponsibility",
 smalltalk.method({
-selector: unescape('subclassResponsibility'),
+selector: "subclassResponsibility",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["This method is a responsibility of a subclass"]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["This method is a responsibility of a subclass"]);
+return self;},
 args: [],
-source: unescape('subclassResponsibility%0A%09self%20error%3A%20%27This%20method%20is%20a%20responsibility%20of%20a%20subclass%27'),
+source: "subclassResponsibility\x0a\x09self error: 'This method is a responsibility of a subclass'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_try_catch_'),
+"_try_catch_",
 smalltalk.method({
-selector: unescape('try%3Acatch%3A'),
+selector: "try:catch:",
 category: 'error handling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    try {
-        result = aBlock();
-    } catch (e) {
-        result = anotherBlock(e);
-    }
-    return result;
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;;
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('try%3A%20aBlock%20catch%3A%20anotherBlock%0A%09%3Ctry%7Bresult%20%3D%20aBlock%28%29%7D%20catch%28e%29%20%7Bresult%20%3D%20anotherBlock%28e%29%7D%3B%0A%09return%20result%3B%3E'),
+source: "try: aBlock catch: anotherBlock\x0a\x09<try{result = aBlock()} catch(e) {result = anotherBlock(e)};\x0a\x09return result;>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_yourself'),
+"_yourself",
 smalltalk.method({
-selector: unescape('yourself'),
+selector: "yourself",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('yourself%0A%09%5Eself'),
+source: "yourself\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_%7E_eq'),
+"_~_eq",
 smalltalk.method({
-selector: unescape('%7E%3D'),
+selector: "~=",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq", [false]);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq", [false]);
+return self;},
 args: ["anObject"],
-source: unescape('%7E%3D%20anObject%0A%09%5E%28self%20%3D%20anObject%29%20%3D%20false'),
-messageSends: [unescape("%3D")],
+source: "~= anObject\x0a\x09^(self = anObject) = false",
+messageSends: ["="],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 smalltalk.addMethod(
-unescape('_%7E%7E'),
+"_~~",
 smalltalk.method({
-selector: unescape('%7E%7E'),
+selector: "~~",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "__eq_eq", [anObject]), "__eq", [false]);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "__eq_eq", [anObject]), "__eq", [false]);
+return self;},
 args: ["anObject"],
-source: unescape('%7E%7E%20anObject%0A%09%5E%28self%20%3D%3D%20anObject%29%20%3D%20false'),
-messageSends: [unescape("%3D"), unescape("%3D%3D")],
+source: "~~ anObject\x0a\x09^(self == anObject) = false",
+messageSends: ["=", "=="],
 referencedClasses: []
 }),
 smalltalk.Object);
 
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+
+return self;},
 args: [],
-source: unescape('initialize%0A%09%22no%20op%22'),
+source: "initialize\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1546,259 +1496,263 @@ smalltalk.Object.klass);
 
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Boolean.comment=unescape('Boolean%20wraps%20the%20JavaScript%20%60Boolean%28%29%60%20constructor.%20The%20%60true%60%20and%20%60false%60%20objects%20are%20the%20JavaScript%20boolean%20objects.%0A%0ABoolean%20defines%20the%20protocol%20for%20logic%20testing%20operations%20and%20conditional%20control%20structures%20for%20the%20logical%20values.%0ABoolean%20instances%20are%20weither%20%60true%60%20or%20%60false%60.')
+smalltalk.Boolean.comment="Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.\x0a\x0aBoolean defines the protocol for logic testing operations and conditional control structures for the logical values.\x0aBoolean instances are weither `true` or `false`."
 smalltalk.addMethod(
-unescape('_%26'),
+"_&",
 smalltalk.method({
-selector: unescape('%26'),
+selector: "&",
 category: 'controlling',
-fn: function (aBoolean) {
-    var self = this;
-    if (self == true) {
-        return aBoolean;
-    } else {
-        return false;
-    }
-    return self;
-},
+fn: function (aBoolean){
+var self=this;
+
+	    if(self == true) {
+		return aBoolean;
+	    } else {
+		return false;
+	    }
+	;
+return self;},
 args: ["aBoolean"],
-source: unescape('%26%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20false%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+source: "& aBoolean\x0a\x09<\x0a\x09    if(self == true) {\x0a\x09\x09return aBoolean;\x0a\x09    } else {\x0a\x09\x09return false;\x0a\x09    }\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aBoolean) {
-    var self = this;
-    try {
-        ($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean ? !$receiver ? function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();}() : nil : smalltalk.send($receiver, "_ifFalse_", [function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();}]);
-        return Boolean(self == true) == aBoolean;
-        return self;
-    } catch (e) {
-        if (e.name === "stReturn" && e.selector === "__eq") {
-            return e.fn();
-        }
-        throw e;
-    }
-},
+fn: function (aBoolean){
+var self=this;
+var $early={};
+try{((($receiver = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
+return Boolean(self == true) == aBoolean;
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aBoolean"],
-source: unescape('%3D%20aBoolean%0A%09aBoolean%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%3Creturn%20Boolean%28self%20%3D%3D%20true%29%20%3D%3D%20aBoolean%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
+source: "= aBoolean\x0a\x09aBoolean class = self class ifFalse: [^false].\x0a\x09<return Boolean(self == true) == aBoolean>",
+messageSends: ["ifFalse:", "=", "class"],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_and_'),
+"__eq_eq",
 smalltalk.method({
-selector: unescape('and%3A'),
+selector: "==",
+category: 'comparing',
+fn: function (aBoolean){
+var self=this;
+return smalltalk.send(self, "__eq", [aBoolean]);
+return self;},
+args: ["aBoolean"],
+source: "== aBoolean\x0a\x09^self = aBoolean",
+messageSends: ["="],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+"_and_",
+smalltalk.method({
+selector: "and:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "__eq", [true]), "_ifTrue_ifFalse_", [aBlock, function () {return false;}]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "__eq", [true]), "_ifTrue_ifFalse_", [aBlock, (function(){return false;})]);
+return self;},
 args: ["aBlock"],
-source: unescape('and%3A%20aBlock%0A%09%5Eself%20%3D%20true%0A%09%20%20%20%20ifTrue%3A%20aBlock%0A%09%20%20%20%20ifFalse%3A%20%5Bfalse%5D'),
-messageSends: ["ifTrue:ifFalse:", unescape("%3D")],
+source: "and: aBlock\x0a\x09^self = true\x0a\x09    ifTrue: aBlock\x0a\x09    ifFalse: [false]",
+messageSends: ["ifTrue:ifFalse:", "="],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Eself'),
+source: "asJSON\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('deepCopy%0A%09%5Eself'),
+source: "deepCopy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_ifFalse_'),
+"_ifFalse_",
 smalltalk.method({
-selector: unescape('ifFalse%3A'),
+selector: "ifFalse:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    return smalltalk.send(self, "_ifTrue_ifFalse_", [function () {return nil;}, aBlock]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(self, "_ifTrue_ifFalse_", [(function(){return nil;}), aBlock]);
+return self;},
 args: ["aBlock"],
-source: unescape('ifFalse%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifTrue%3A%20%5B%5D%20ifFalse%3A%20aBlock'),
+source: "ifFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifTrue: [] ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:"],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_ifFalse_ifTrue_'),
+"_ifFalse_ifTrue_",
 smalltalk.method({
-selector: unescape('ifFalse%3AifTrue%3A'),
+selector: "ifFalse:ifTrue:",
 category: 'controlling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return smalltalk.send(self, "_ifTrue_ifFalse_", [anotherBlock, aBlock]);
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(self, "_ifTrue_ifFalse_", [anotherBlock, aBlock]);
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('ifFalse%3A%20aBlock%20ifTrue%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifTrue%3A%20anotherBlock%20ifFalse%3A%20aBlock'),
+source: "ifFalse: aBlock ifTrue: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifTrue: anotherBlock ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:"],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_ifTrue_'),
+"_ifTrue_",
 smalltalk.method({
-selector: unescape('ifTrue%3A'),
+selector: "ifTrue:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    return smalltalk.send(self, "_ifTrue_ifFalse_", [aBlock, function () {return nil;}]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(self, "_ifTrue_ifFalse_", [aBlock, (function(){return nil;})]);
+return self;},
 args: ["aBlock"],
-source: unescape('ifTrue%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifTrue%3A%20aBlock%20ifFalse%3A%20%5B%5D'),
+source: "ifTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifTrue: aBlock ifFalse: []",
 messageSends: ["ifTrue:ifFalse:"],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_ifTrue_ifFalse_'),
+"_ifTrue_ifFalse_",
 smalltalk.method({
-selector: unescape('ifTrue%3AifFalse%3A'),
+selector: "ifTrue:ifFalse:",
 category: 'controlling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    if (self == true) {
-        return aBlock();
-    } else {
-        return anotherBlock();
-    }
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+
+	    if(self == true) {
+		return aBlock();
+	    } else {
+		return anotherBlock();
+	    }
+	;
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('ifTrue%3A%20aBlock%20ifFalse%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+source: "ifTrue: aBlock ifFalse: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<\x0a\x09    if(self == true) {\x0a\x09\x09return aBlock();\x0a\x09    } else {\x0a\x09\x09return anotherBlock();\x0a\x09    }\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_not'),
+"_not",
 smalltalk.method({
-selector: unescape('not'),
+selector: "not",
 category: 'controlling',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "__eq", [false]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "__eq", [false]);
+return self;},
 args: [],
-source: unescape('not%0A%09%5Eself%20%3D%20false'),
-messageSends: [unescape("%3D")],
+source: "not\x0a\x09^self = false",
+messageSends: ["="],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_or_'),
+"_or_",
 smalltalk.method({
-selector: unescape('or%3A'),
+selector: "or:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "__eq", [true]), "_ifTrue_ifFalse_", [function () {return true;}, aBlock]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "__eq", [true]), "_ifTrue_ifFalse_", [(function(){return true;}), aBlock]);
+return self;},
 args: ["aBlock"],
-source: unescape('or%3A%20aBlock%0A%09%5Eself%20%3D%20true%0A%09%20%20%20%20ifTrue%3A%20%5Btrue%5D%0A%09%20%20%20%20ifFalse%3A%20aBlock'),
-messageSends: ["ifTrue:ifFalse:", unescape("%3D")],
+source: "or: aBlock\x0a\x09^self = true\x0a\x09    ifTrue: [true]\x0a\x09    ifFalse: aBlock",
+messageSends: ["ifTrue:ifFalse:", "="],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.toString();
+return self;},
 args: [],
-source: unescape('printString%0A%09%3Creturn%20self.toString%28%29%3E'),
+source: "printString\x0a\x09<return self.toString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_shallowCopy",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%5Eself'),
+source: "shallowCopy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-unescape('_%7C'),
+"_|",
 smalltalk.method({
-selector: unescape('%7C'),
+selector: "|",
 category: 'controlling',
-fn: function (aBoolean) {
-    var self = this;
-    if (self == true) {
-        return true;
-    } else {
-        return aBoolean;
-    }
-    return self;
-},
+fn: function (aBoolean){
+var self=this;
+
+	    if(self == true) {
+		return true;
+	    } else {
+		return aBoolean;
+	    }
+	;
+return self;},
 args: ["aBoolean"],
-source: unescape('%7C%20aBoolean%0A%09%3C%0A%09%20%20%20%20if%28self%20%3D%3D%20true%29%20%7B%0A%09%09return%20true%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20aBoolean%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+source: "| aBoolean\x0a\x09<\x0a\x09    if(self == true) {\x0a\x09\x09return true;\x0a\x09    } else {\x0a\x09\x09return aBoolean;\x0a\x09    }\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1807,563 +1761,530 @@ smalltalk.Boolean);
 
 
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.%20Therefore%20%60Date%20today%60%20and%20%60Date%20now%60%20are%20both%20valid%20in%0AAmber%20and%20answer%20the%20same%20date%20object.%0A%0ADate%20wraps%20the%20%60Date%28%29%60%20JavaScript%20constructor%2C%20and%20Smalltalk%20date%20objects%20are%20JavaScript%20date%20objects.')
+smalltalk.Date.comment="The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in\x0aAmber and answer the same date object.\x0a\x0aDate wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects."
 smalltalk.addMethod(
-unescape('__plus'),
+"__plus",
 smalltalk.method({
-selector: unescape('+'),
+selector: "+",
 category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self + aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return self + aDate;
+return self;},
 args: ["aDate"],
-source: unescape('+%20aDate%0A%09%3Creturn%20self%20+%20aDate%3E'),
+source: "+ aDate\x0a\x09<return self + aDate>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('__minus'),
+"__minus",
 smalltalk.method({
-selector: unescape('-'),
+selector: "-",
 category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self - aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return self - aDate;
+return self;},
 args: ["aDate"],
-source: unescape('-%20aDate%0A%09%3Creturn%20self%20-%20aDate%3E'),
+source: "- aDate\x0a\x09<return self - aDate>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('__lt'),
+"__lt",
 smalltalk.method({
-selector: unescape('%3C'),
+selector: "<",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self < aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return self < aDate;
+return self;},
 args: ["aDate"],
-source: unescape('%3C%20aDate%0A%09%3Creturn%20self%20%3C%20aDate%3E'),
+source: "< aDate\x0a\x09<return self < aDate>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('__lt_eq'),
+"__lt_eq",
 smalltalk.method({
-selector: unescape('%3C%3D'),
+selector: "<=",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self <= aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return self <= aDate;
+return self;},
 args: ["aDate"],
-source: unescape('%3C%3D%20aDate%0A%09%3Creturn%20self%20%3C%3D%20aDate%3E'),
+source: "<= aDate\x0a\x09<return self <= aDate>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('__gt'),
+"__gt",
 smalltalk.method({
-selector: unescape('%3E'),
+selector: ">",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self > aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return self > aDate;
+return self;},
 args: ["aDate"],
-source: unescape('%3E%20aDate%0A%09%3Creturn%20self%20%3E%3E%20aDate%3E'),
+source: "> aDate\x0a\x09<return self >> aDate>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('__gt_eq'),
+"__gt_eq",
 smalltalk.method({
-selector: unescape('%3E%3D'),
+selector: ">=",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self >= aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return self >= aDate;
+return self;},
 args: ["aDate"],
-source: unescape('%3E%3D%20aDate%0A%09%3Creturn%20self%20%3E%3E%3D%20aDate%3E'),
+source: ">= aDate\x0a\x09<return self >>= aDate>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_asDateString'),
+"_asDateString",
 smalltalk.method({
-selector: unescape('asDateString'),
+selector: "asDateString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toDateString();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.toDateString();
+return self;},
 args: [],
-source: unescape('asDateString%0A%09%3Creturn%20self.toDateString%28%29%3E'),
+source: "asDateString\x0a\x09<return self.toDateString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_asLocaleString'),
+"_asLocaleString",
 smalltalk.method({
-selector: unescape('asLocaleString'),
+selector: "asLocaleString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toLocaleString();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.toLocaleString();
+return self;},
 args: [],
-source: unescape('asLocaleString%0A%09%3Creturn%20self.toLocaleString%28%29%3E'),
+source: "asLocaleString\x0a\x09<return self.toLocaleString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_asMilliseconds'),
+"_asMilliseconds",
 smalltalk.method({
-selector: unescape('asMilliseconds'),
+selector: "asMilliseconds",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_time", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_time", []);
+return self;},
 args: [],
-source: unescape('asMilliseconds%0A%09%5Eself%20time'),
+source: "asMilliseconds\x0a\x09^self time",
 messageSends: ["time"],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_asNumber'),
+"_asNumber",
 smalltalk.method({
-selector: unescape('asNumber'),
+selector: "asNumber",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asMilliseconds", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_asMilliseconds", []);
+return self;},
 args: [],
-source: unescape('asNumber%0A%09%5Eself%20asMilliseconds'),
+source: "asNumber\x0a\x09^self asMilliseconds",
 messageSends: ["asMilliseconds"],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.toString();
+return self;},
 args: [],
-source: unescape('asString%0A%09%3Creturn%20self.toString%28%29%3E'),
+source: "asString\x0a\x09<return self.toString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_asTimeString'),
+"_asTimeString",
 smalltalk.method({
-selector: unescape('asTimeString'),
+selector: "asTimeString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toTimeString();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.toTimeString();
+return self;},
 args: [],
-source: unescape('asTimeString%0A%09%3Creturn%20self.toTimeString%28%29%3E'),
+source: "asTimeString\x0a\x09<return self.toTimeString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_day'),
+"_day",
 smalltalk.method({
-selector: unescape('day'),
+selector: "day",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_dayOfWeek", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_dayOfWeek", []);
+return self;},
 args: [],
-source: unescape('day%0A%09%5Eself%20dayOfWeek'),
+source: "day\x0a\x09^self dayOfWeek",
 messageSends: ["dayOfWeek"],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_day_'),
+"_day_",
 smalltalk.method({
-selector: unescape('day%3A'),
+selector: "day:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    smalltalk.send(self, "_day_", [aNumber]);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+smalltalk.send(self, "_dayOfWeek_", [aNumber]);
+return self;},
 args: ["aNumber"],
-source: unescape('day%3A%20aNumber%0A%09self%20day%3A%20aNumber'),
-messageSends: ["day:"],
+source: "day: aNumber\x0a\x09self dayOfWeek: aNumber",
+messageSends: ["dayOfWeek:"],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_dayOfMonth'),
+"_dayOfMonth",
 smalltalk.method({
-selector: unescape('dayOfMonth'),
+selector: "dayOfMonth",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDate();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getDate();
+return self;},
 args: [],
-source: unescape('dayOfMonth%0A%09%3Creturn%20self.getDate%28%29%3E'),
+source: "dayOfMonth\x0a\x09<return self.getDate()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_dayOfMonth_'),
+"_dayOfMonth_",
 smalltalk.method({
-selector: unescape('dayOfMonth%3A'),
+selector: "dayOfMonth:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setDate(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setDate(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('dayOfMonth%3A%20aNumber%0A%09%3Cself.setDate%28aNumber%29%3E'),
+source: "dayOfMonth: aNumber\x0a\x09<self.setDate(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_dayOfWeek'),
+"_dayOfWeek",
 smalltalk.method({
-selector: unescape('dayOfWeek'),
+selector: "dayOfWeek",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDay() + 1;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getDay() + 1;
+return self;},
 args: [],
-source: unescape('dayOfWeek%0A%09%3Creturn%20self.getDay%28%29%20+%201%3E'),
+source: "dayOfWeek\x0a\x09<return self.getDay() + 1>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_dayOfWeek_'),
+"_dayOfWeek_",
 smalltalk.method({
-selector: unescape('dayOfWeek%3A'),
+selector: "dayOfWeek:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    return self.setDay(aNumber - 1);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self.setDay(aNumber - 1);
+return self;},
 args: ["aNumber"],
-source: unescape('dayOfWeek%3A%20aNumber%0A%09%3Creturn%20self.setDay%28aNumber%20-%201%29%3E'),
+source: "dayOfWeek: aNumber\x0a\x09<return self.setDay(aNumber - 1)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_hours'),
+"_hours",
 smalltalk.method({
-selector: unescape('hours'),
+selector: "hours",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getHours();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getHours();
+return self;},
 args: [],
-source: unescape('hours%0A%09%3Creturn%20self.getHours%28%29%3E'),
+source: "hours\x0a\x09<return self.getHours()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_hours_'),
+"_hours_",
 smalltalk.method({
-selector: unescape('hours%3A'),
+selector: "hours:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setHours(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setHours(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('hours%3A%20aNumber%0A%09%3Cself.setHours%28aNumber%29%3E'),
+source: "hours: aNumber\x0a\x09<self.setHours(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_milliseconds'),
+"_milliseconds",
 smalltalk.method({
-selector: unescape('milliseconds'),
+selector: "milliseconds",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMilliseconds();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getMilliseconds();
+return self;},
 args: [],
-source: unescape('milliseconds%0A%09%3Creturn%20self.getMilliseconds%28%29%3E'),
+source: "milliseconds\x0a\x09<return self.getMilliseconds()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_milliseconds_'),
+"_milliseconds_",
 smalltalk.method({
-selector: unescape('milliseconds%3A'),
+selector: "milliseconds:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMilliseconds(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setMilliseconds(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('milliseconds%3A%20aNumber%0A%09%3Cself.setMilliseconds%28aNumber%29%3E'),
+source: "milliseconds: aNumber\x0a\x09<self.setMilliseconds(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_minutes'),
+"_minutes",
 smalltalk.method({
-selector: unescape('minutes'),
+selector: "minutes",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMinutes();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getMinutes();
+return self;},
 args: [],
-source: unescape('minutes%0A%09%3Creturn%20self.getMinutes%28%29%3E'),
+source: "minutes\x0a\x09<return self.getMinutes()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_minutes_'),
+"_minutes_",
 smalltalk.method({
-selector: unescape('minutes%3A'),
+selector: "minutes:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMinutes(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setMinutes(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('minutes%3A%20aNumber%0A%09%3Cself.setMinutes%28aNumber%29%3E'),
+source: "minutes: aNumber\x0a\x09<self.setMinutes(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_month'),
+"_month",
 smalltalk.method({
-selector: unescape('month'),
+selector: "month",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMonth() + 1;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getMonth() + 1;
+return self;},
 args: [],
-source: unescape('month%0A%09%3Creturn%20self.getMonth%28%29%20+%201%3E'),
+source: "month\x0a\x09<return self.getMonth() + 1>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_month_'),
+"_month_",
 smalltalk.method({
-selector: unescape('month%3A'),
+selector: "month:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMonth(aNumber - 1);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setMonth(aNumber - 1);
+return self;},
 args: ["aNumber"],
-source: unescape('month%3A%20aNumber%0A%09%3Cself.setMonth%28aNumber%20-%201%29%3E'),
+source: "month: aNumber\x0a\x09<self.setMonth(aNumber - 1)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asString", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_asString", []);
+return self;},
 args: [],
-source: unescape('printString%0A%09%5Eself%20asString'),
+source: "printString\x0a\x09^self asString",
 messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_seconds'),
+"_seconds",
 smalltalk.method({
-selector: unescape('seconds'),
+selector: "seconds",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getSeconds();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getSeconds();
+return self;},
 args: [],
-source: unescape('seconds%0A%09%3Creturn%20self.getSeconds%28%29%3E'),
+source: "seconds\x0a\x09<return self.getSeconds()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_seconds_'),
+"_seconds_",
 smalltalk.method({
-selector: unescape('seconds%3A'),
+selector: "seconds:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setSeconds(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setSeconds(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('seconds%3A%20aNumber%0A%09%3Cself.setSeconds%28aNumber%29%3E'),
+source: "seconds: aNumber\x0a\x09<self.setSeconds(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_time'),
+"_time",
 smalltalk.method({
-selector: unescape('time'),
+selector: "time",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getTime();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getTime();
+return self;},
 args: [],
-source: unescape('time%0A%09%3Creturn%20self.getTime%28%29%3E'),
+source: "time\x0a\x09<return self.getTime()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_time_'),
+"_time_",
 smalltalk.method({
-selector: unescape('time%3A'),
+selector: "time:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setTime(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setTime(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('time%3A%20aNumber%0A%09%3Cself.setTime%28aNumber%29%3E'),
+source: "time: aNumber\x0a\x09<self.setTime(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_year'),
+"_year",
 smalltalk.method({
-selector: unescape('year'),
+selector: "year",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getFullYear();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.getFullYear();
+return self;},
 args: [],
-source: unescape('year%0A%09%3Creturn%20self.getFullYear%28%29%3E'),
+source: "year\x0a\x09<return self.getFullYear()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date);
 
 smalltalk.addMethod(
-unescape('_year_'),
+"_year_",
 smalltalk.method({
-selector: unescape('year%3A'),
+selector: "year:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setFullYear(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+self.setFullYear(aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('year%3A%20aNumber%0A%09%3Cself.setFullYear%28aNumber%29%3E'),
+source: "year: aNumber\x0a\x09<self.setFullYear(aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2371,809 +2292,115 @@ smalltalk.Date);
 
 
 smalltalk.addMethod(
-unescape('_fromMilliseconds_'),
+"_fromMilliseconds_",
 smalltalk.method({
-selector: unescape('fromMilliseconds%3A'),
+selector: "fromMilliseconds:",
 category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(self, "_new_", [aNumber]);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.send(self, "_new_", [aNumber]);
+return self;},
 args: ["aNumber"],
-source: unescape('fromMilliseconds%3A%20aNumber%0A%09%5Eself%20new%3A%20aNumber'),
+source: "fromMilliseconds: aNumber\x0a\x09^self new: aNumber",
 messageSends: ["new:"],
 referencedClasses: []
 }),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
-unescape('_fromSeconds_'),
+"_fromSeconds_",
 smalltalk.method({
-selector: unescape('fromSeconds%3A'),
+selector: "fromSeconds:",
 category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(self, "_fromMilliseconds_", [($receiver = aNumber).klass === smalltalk.Number ? $receiver * 1000 : smalltalk.send($receiver, "__star", [1000])]);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.send(self, "_fromMilliseconds_", [((($receiver = aNumber).klass === smalltalk.Number) ? $receiver *(1000) : smalltalk.send($receiver, "__star", [(1000)]))]);
+return self;},
 args: ["aNumber"],
-source: unescape('fromSeconds%3A%20aNumber%0A%09%5Eself%20fromMilliseconds%3A%20aNumber%20*%201000'),
-messageSends: ["fromMilliseconds:", unescape("*")],
+source: "fromSeconds: aNumber\x0a\x09^self fromMilliseconds: aNumber * 1000",
+messageSends: ["fromMilliseconds:", "*"],
 referencedClasses: []
 }),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
-unescape('_fromString_'),
+"_fromString_",
 smalltalk.method({
-selector: unescape('fromString%3A'),
+selector: "fromString:",
 category: 'instance creation',
-fn: function (aString) {
-    var self = this;
-    return smalltalk.send(self, "_new_", [aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.send(self, "_new_", [aString]);
+return self;},
 args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09%22Example%3A%20Date%20fromString%28%272011/04/15%2000%3A00%3A00%27%29%22%0A%09%5Eself%20new%3A%20aString'),
+source: "fromString: aString\x0a\x09\x22Example: Date fromString('2011/04/15 00:00:00')\x22\x0a\x09^self new: aString",
 messageSends: ["new:"],
 referencedClasses: []
 }),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
-unescape('_millisecondsToRun_'),
+"_millisecondsToRun_",
 smalltalk.method({
-selector: unescape('millisecondsToRun%3A'),
+selector: "millisecondsToRun:",
 category: 'instance creation',
-fn: function (aBlock) {
-    var self = this;
-    var t = nil;
-    t = smalltalk.send(smalltalk.Date || Date, "_now", []);
-    smalltalk.send(aBlock, "_value", []);
-    return ($receiver = smalltalk.send(smalltalk.Date || Date, "_now", [])).klass === smalltalk.Number ? $receiver - t : smalltalk.send($receiver, "__minus", [t]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+var t=nil;
+(t=smalltalk.send((smalltalk.Date || Date), "_now", []));
+smalltalk.send(aBlock, "_value", []);
+return ((($receiver = smalltalk.send((smalltalk.Date || Date), "_now", [])).klass === smalltalk.Number) ? $receiver -t : smalltalk.send($receiver, "__minus", [t]));
+return self;},
 args: ["aBlock"],
-source: unescape('millisecondsToRun%3A%20aBlock%0A%09%7C%20t%20%7C%0A%09t%20%3A%3D%20Date%20now.%0A%09aBlock%20value.%0A%09%5EDate%20now%20-%20t'),
-messageSends: ["now", "value", unescape("-")],
+source: "millisecondsToRun: aBlock\x0a\x09| t |\x0a\x09t := Date now.\x0a\x09aBlock value.\x0a\x09^Date now - t",
+messageSends: ["now", "value", "-"],
 referencedClasses: ["Date"]
 }),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
-unescape('_new_'),
+"_new_",
 smalltalk.method({
-selector: unescape('new%3A'),
+selector: "new:",
 category: 'instance creation',
-fn: function (anObject) {
-    var self = this;
-    return new Date(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return new Date(anObject);
+return self;},
 args: ["anObject"],
-source: unescape('new%3A%20anObject%0A%09%3Creturn%20new%20Date%28anObject%29%3E'),
+source: "new: anObject\x0a\x09<return new Date(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
-unescape('_now'),
+"_now",
 smalltalk.method({
-selector: unescape('now'),
+selector: "now",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_today", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_today", []);
+return self;},
 args: [],
-source: unescape('now%0A%09%5Eself%20today'),
+source: "now\x0a\x09^self today",
 messageSends: ["today"],
 referencedClasses: []
 }),
 smalltalk.Date.klass);
 
 smalltalk.addMethod(
-unescape('_today'),
+"_today",
 smalltalk.method({
-selector: unescape('today'),
+selector: "today",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_new", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_new", []);
+return self;},
 args: [],
-source: unescape('today%0A%09%5Eself%20new'),
-messageSends: ["new"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-
-smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Date.comment=unescape('The%20Date%20class%20is%20used%20to%20work%20with%20dates%20and%20times.%20Therefore%20%60Date%20today%60%20and%20%60Date%20now%60%20are%20both%20valid%20in%0AAmber%20and%20answer%20the%20same%20date%20object.%0A%0ADate%20wraps%20the%20%60Date%28%29%60%20JavaScript%20constructor%2C%20and%20Smalltalk%20date%20objects%20are%20JavaScript%20date%20objects.')
-smalltalk.addMethod(
-unescape('__plus'),
-smalltalk.method({
-selector: unescape('+'),
-category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self + aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('+%20aDate%0A%09%3Creturn%20self%20+%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__minus'),
-smalltalk.method({
-selector: unescape('-'),
-category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self - aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('-%20aDate%0A%09%3Creturn%20self%20-%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__lt'),
-smalltalk.method({
-selector: unescape('%3C'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self < aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3C%20aDate%0A%09%3Creturn%20self%20%3C%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__lt_eq'),
-smalltalk.method({
-selector: unescape('%3C%3D'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self <= aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3C%3D%20aDate%0A%09%3Creturn%20self%20%3C%3D%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__gt'),
-smalltalk.method({
-selector: unescape('%3E'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self > aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3E%20aDate%0A%09%3Creturn%20self%20%3E%3E%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('__gt_eq'),
-smalltalk.method({
-selector: unescape('%3E%3D'),
-category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self >= aDate;
-    return self;
-},
-args: ["aDate"],
-source: unescape('%3E%3D%20aDate%0A%09%3Creturn%20self%20%3E%3E%3D%20aDate%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asDateString'),
-smalltalk.method({
-selector: unescape('asDateString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toDateString();
-    return self;
-},
-args: [],
-source: unescape('asDateString%0A%09%3Creturn%20self.toDateString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asLocaleString'),
-smalltalk.method({
-selector: unescape('asLocaleString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toLocaleString();
-    return self;
-},
-args: [],
-source: unescape('asLocaleString%0A%09%3Creturn%20self.toLocaleString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asMilliseconds'),
-smalltalk.method({
-selector: unescape('asMilliseconds'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_time", []);
-    return self;
-},
-args: [],
-source: unescape('asMilliseconds%0A%09%5Eself%20time'),
-messageSends: ["time"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asNumber'),
-smalltalk.method({
-selector: unescape('asNumber'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asMilliseconds", []);
-    return self;
-},
-args: [],
-source: unescape('asNumber%0A%09%5Eself%20asMilliseconds'),
-messageSends: ["asMilliseconds"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asString'),
-smalltalk.method({
-selector: unescape('asString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
-args: [],
-source: unescape('asString%0A%09%3Creturn%20self.toString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_asTimeString'),
-smalltalk.method({
-selector: unescape('asTimeString'),
-category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toTimeString();
-    return self;
-},
-args: [],
-source: unescape('asTimeString%0A%09%3Creturn%20self.toTimeString%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_day'),
-smalltalk.method({
-selector: unescape('day'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_dayOfWeek", []);
-    return self;
-},
-args: [],
-source: unescape('day%0A%09%5Eself%20dayOfWeek'),
-messageSends: ["dayOfWeek"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_day_'),
-smalltalk.method({
-selector: unescape('day%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    smalltalk.send(self, "_day_", [aNumber]);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('day%3A%20aNumber%0A%09self%20day%3A%20aNumber'),
-messageSends: ["day:"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfMonth'),
-smalltalk.method({
-selector: unescape('dayOfMonth'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDate();
-    return self;
-},
-args: [],
-source: unescape('dayOfMonth%0A%09%3Creturn%20self.getDate%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfMonth_'),
-smalltalk.method({
-selector: unescape('dayOfMonth%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setDate(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('dayOfMonth%3A%20aNumber%0A%09%3Cself.setDate%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfWeek'),
-smalltalk.method({
-selector: unescape('dayOfWeek'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDay() + 1;
-    return self;
-},
-args: [],
-source: unescape('dayOfWeek%0A%09%3Creturn%20self.getDay%28%29%20+%201%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_dayOfWeek_'),
-smalltalk.method({
-selector: unescape('dayOfWeek%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    return self.setDay(aNumber - 1);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('dayOfWeek%3A%20aNumber%0A%09%3Creturn%20self.setDay%28aNumber%20-%201%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_hours'),
-smalltalk.method({
-selector: unescape('hours'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getHours();
-    return self;
-},
-args: [],
-source: unescape('hours%0A%09%3Creturn%20self.getHours%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_hours_'),
-smalltalk.method({
-selector: unescape('hours%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setHours(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('hours%3A%20aNumber%0A%09%3Cself.setHours%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_milliseconds'),
-smalltalk.method({
-selector: unescape('milliseconds'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMilliseconds();
-    return self;
-},
-args: [],
-source: unescape('milliseconds%0A%09%3Creturn%20self.getMilliseconds%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_milliseconds_'),
-smalltalk.method({
-selector: unescape('milliseconds%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMilliseconds(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('milliseconds%3A%20aNumber%0A%09%3Cself.setMilliseconds%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_minutes'),
-smalltalk.method({
-selector: unescape('minutes'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMinutes();
-    return self;
-},
-args: [],
-source: unescape('minutes%0A%09%3Creturn%20self.getMinutes%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_minutes_'),
-smalltalk.method({
-selector: unescape('minutes%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMinutes(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('minutes%3A%20aNumber%0A%09%3Cself.setMinutes%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_month'),
-smalltalk.method({
-selector: unescape('month'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMonth() + 1;
-    return self;
-},
-args: [],
-source: unescape('month%0A%09%3Creturn%20self.getMonth%28%29%20+%201%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_month_'),
-smalltalk.method({
-selector: unescape('month%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMonth(aNumber - 1);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('month%3A%20aNumber%0A%09%3Cself.setMonth%28aNumber%20-%201%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_printString'),
-smalltalk.method({
-selector: unescape('printString'),
-category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_asString", []);
-    return self;
-},
-args: [],
-source: unescape('printString%0A%09%5Eself%20asString'),
-messageSends: ["asString"],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_seconds'),
-smalltalk.method({
-selector: unescape('seconds'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getSeconds();
-    return self;
-},
-args: [],
-source: unescape('seconds%0A%09%3Creturn%20self.getSeconds%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_seconds_'),
-smalltalk.method({
-selector: unescape('seconds%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setSeconds(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('seconds%3A%20aNumber%0A%09%3Cself.setSeconds%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_time'),
-smalltalk.method({
-selector: unescape('time'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getTime();
-    return self;
-},
-args: [],
-source: unescape('time%0A%09%3Creturn%20self.getTime%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_time_'),
-smalltalk.method({
-selector: unescape('time%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setTime(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('time%3A%20aNumber%0A%09%3Cself.setTime%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_year'),
-smalltalk.method({
-selector: unescape('year'),
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getFullYear();
-    return self;
-},
-args: [],
-source: unescape('year%0A%09%3Creturn%20self.getFullYear%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-unescape('_year_'),
-smalltalk.method({
-selector: unescape('year%3A'),
-category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setFullYear(aNumber);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('year%3A%20aNumber%0A%09%3Cself.setFullYear%28aNumber%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date);
-
-
-smalltalk.addMethod(
-unescape('_fromMilliseconds_'),
-smalltalk.method({
-selector: unescape('fromMilliseconds%3A'),
-category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(self, "_new_", [aNumber]);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('fromMilliseconds%3A%20aNumber%0A%09%5Eself%20new%3A%20aNumber'),
-messageSends: ["new:"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_fromSeconds_'),
-smalltalk.method({
-selector: unescape('fromSeconds%3A'),
-category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(self, "_fromMilliseconds_", [($receiver = aNumber).klass === smalltalk.Number ? $receiver * 1000 : smalltalk.send($receiver, "__star", [1000])]);
-    return self;
-},
-args: ["aNumber"],
-source: unescape('fromSeconds%3A%20aNumber%0A%09%5Eself%20fromMilliseconds%3A%20aNumber%20*%201000'),
-messageSends: ["fromMilliseconds:", unescape("*")],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_fromString_'),
-smalltalk.method({
-selector: unescape('fromString%3A'),
-category: 'instance creation',
-fn: function (aString) {
-    var self = this;
-    return smalltalk.send(self, "_new_", [aString]);
-    return self;
-},
-args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09%22Example%3A%20Date%20fromString%28%272011/04/15%2000%3A00%3A00%27%29%22%0A%09%5Eself%20new%3A%20aString'),
-messageSends: ["new:"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_millisecondsToRun_'),
-smalltalk.method({
-selector: unescape('millisecondsToRun%3A'),
-category: 'instance creation',
-fn: function (aBlock) {
-    var self = this;
-    var t = nil;
-    t = smalltalk.send(smalltalk.Date || Date, "_now", []);
-    smalltalk.send(aBlock, "_value", []);
-    return ($receiver = smalltalk.send(smalltalk.Date || Date, "_now", [])).klass === smalltalk.Number ? $receiver - t : smalltalk.send($receiver, "__minus", [t]);
-    return self;
-},
-args: ["aBlock"],
-source: unescape('millisecondsToRun%3A%20aBlock%0A%09%7C%20t%20%7C%0A%09t%20%3A%3D%20Date%20now.%0A%09aBlock%20value.%0A%09%5EDate%20now%20-%20t'),
-messageSends: ["now", "value", unescape("-")],
-referencedClasses: ["Date"]
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_new_'),
-smalltalk.method({
-selector: unescape('new%3A'),
-category: 'instance creation',
-fn: function (anObject) {
-    var self = this;
-    return new Date(anObject);
-    return self;
-},
-args: ["anObject"],
-source: unescape('new%3A%20anObject%0A%09%3Creturn%20new%20Date%28anObject%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_now'),
-smalltalk.method({
-selector: unescape('now'),
-category: 'instance creation',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_today", []);
-    return self;
-},
-args: [],
-source: unescape('now%0A%09%5Eself%20today'),
-messageSends: ["today"],
-referencedClasses: []
-}),
-smalltalk.Date.klass);
-
-smalltalk.addMethod(
-unescape('_today'),
-smalltalk.method({
-selector: unescape('today'),
-category: 'instance creation',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_new", []);
-    return self;
-},
-args: [],
-source: unescape('today%0A%09%5Eself%20new'),
+source: "today\x0a\x09^self new",
 messageSends: ["new"],
 referencedClasses: []
 }),
@@ -3181,143 +2408,134 @@ smalltalk.Date.klass);
 
 
 smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
-smalltalk.JSObjectProxy.comment=unescape('JSObjectProxy%20handles%20sending%20messages%20to%20JavaScript%20object%2C%20therefore%20accessing%20JavaScript%20objects%20from%20Amber%20is%20transparent.%0AJSOjbectProxy%20makes%20intensive%20use%20of%20%60%23doesNotUnderstand%3A%60.%0A%0A%23%23%20Examples%0A%0AJSObjectProxy%20objects%20are%20instanciated%20by%20Amber%20when%20a%20Smalltalk%20message%20is%20sent%20to%20a%20JavaScript%20object.%0A%0A%20%20%20%20window%20alert%3A%20%27hello%20world%27.%0A%20%20%20%20window%20inspect.%0A%20%20%20%20%28window%20jQuery%3A%20%27body%27%29%20append%3A%20%27hello%20world%27%0A%0ASmalltalk%20messages%20sends%20are%20converted%20to%20JavaScript%20function%20calls%20or%20object%20property%20access%20_%28in%20this%20order%29_.%20If%20n%20one%20of%20them%20match%2C%20a%20%60MessageNotUnderstood%60%20error%20will%20be%20thrown.%20%0A%0A%23%23%20Message%20conversion%20rules%0A%0A-%20%60someUser%20name%60%20becomes%20%20%60someUser.name%60%0A-%20%60someUser%20name%3A%20%27John%27%60%20becomes%20%60someUser%20name%20%3D%20%22John%22%60%0A-%20%60console%20log%3A%20%27hello%20world%27%60%20becomes%20%60console.log%28%27hello%20world%27%29%60%0A-%20%60%28window%20jQuery%3A%20%27foo%27%29%20css%3A%20%27background%27%20color%3A%20%27red%27%60%20becomes%20%60window.jQuery%28%27foo%27%29.css%28%27background%27%2C%20%27red%27%29%60%0A%0A__Note%3A__%20For%20keyword-based%20messages%2C%20only%20the%20first%20keyword%20is%20kept%3A%20%60window%20foo%3A%201%20bar%3A%202%60%20is%20equivalent%20to%20%60window%20foo%3A%201%20baz%3A%202%60.')
+smalltalk.JSObjectProxy.comment="JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.\x0aJSOjbectProxy makes intensive use of `#doesNotUnderstand:`.\x0a\x0a## Examples\x0a\x0aJSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.\x0a\x0a    window alert: 'hello world'.\x0a    window inspect.\x0a    (window jQuery: 'body') append: 'hello world'\x0a\x0aSmalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. \x0a\x0a## Message conversion rules\x0a\x0a- `someUser name` becomes  `someUser.name`\x0a- `someUser name: 'John'` becomes `someUser name = \x22John\x22`\x0a- `console log: 'hello world'` becomes `console.log('hello world')`\x0a- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`\x0a\x0a__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`."
 smalltalk.addMethod(
-unescape('_at_'),
+"_at_",
 smalltalk.method({
-selector: unescape('at%3A'),
+selector: "at:",
 category: 'accessing',
-fn: function (aSymbol) {
-    var self = this;
-    var attr = nil;
-    attr = smalltalk.send(aSymbol, "_asString", []);
-    return self['@jsObject'][attr];
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+var attr=nil;
+(attr=smalltalk.send(aSymbol, "_asString", []));
+return self['@jsObject'][attr];
+return self;},
 args: ["aSymbol"],
-source: unescape('at%3A%20aSymbol%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Creturn%20self%5B%27@jsObject%27%5D%5Battr%5D%3E'),
+source: "at: aSymbol\x0a\x09| attr |\x0a\x09attr := aSymbol asString.\x0a\x09<return self['@jsObject'][attr]>",
 messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_at_put_'),
+"_at_put_",
 smalltalk.method({
-selector: unescape('at%3Aput%3A'),
+selector: "at:put:",
 category: 'accessing',
-fn: function (aSymbol, anObject) {
-    var self = this;
-    var attr = nil;
-    attr = smalltalk.send(aSymbol, "_asString", []);
-    self['@jsObject'][attr] = anObject;
-    return self;
-},
+fn: function (aSymbol, anObject){
+var self=this;
+var attr=nil;
+(attr=smalltalk.send(aSymbol, "_asString", []));
+self['@jsObject'][attr] = anObject;
+return self;},
 args: ["aSymbol", "anObject"],
-source: unescape('at%3A%20aSymbol%20put%3A%20anObject%0A%09%7C%20attr%20%7C%0A%09attr%20%3A%3D%20aSymbol%20asString.%0A%09%3Cself%5B%27@jsObject%27%5D%5Battr%5D%20%3D%20anObject%3E'),
+source: "at: aSymbol put: anObject\x0a\x09| attr |\x0a\x09attr := aSymbol asString.\x0a\x09<self['@jsObject'][attr] = anObject>",
 messageSends: ["asString"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_doesNotUnderstand_'),
+"_doesNotUnderstand_",
 smalltalk.method({
-selector: unescape('doesNotUnderstand%3A'),
+selector: "doesNotUnderstand:",
 category: 'proxy',
-fn: function (aMessage) {
-    var self = this;
-    var obj = nil;
-    var selector = nil;
-    var jsSelector = nil;
-    var arguments = nil;
-    obj = smalltalk.send(self, "_jsObject", []);
-    selector = smalltalk.send(aMessage, "_selector", []);
-    jsSelector = smalltalk.send(selector, "_asJavaScriptSelector", []);
-    arguments = smalltalk.send(aMessage, "_arguments", []);
-    if (obj[jsSelector] != undefined) {
-        return smalltalk.send(obj, jsSelector, arguments);
-    }
-    smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
-    return self;
-},
+fn: function (aMessage){
+var self=this;
+var obj=nil;
+var selector=nil;
+var jsSelector=nil;
+var arguments=nil;
+(obj=smalltalk.send(self, "_jsObject", []));
+(selector=smalltalk.send(aMessage, "_selector", []));
+(jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []));
+(arguments=smalltalk.send(aMessage, "_arguments", []));
+if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
+smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.JSObjectProxy.superclass || nil);
+return self;},
 args: ["aMessage"],
-source: unescape('doesNotUnderstand%3A%20aMessage%0A%09%7C%20obj%20selector%20jsSelector%20arguments%20%7C%0A%09obj%20%3A%3D%20self%20jsObject.%0A%09selector%20%3A%3D%20aMessage%20selector.%0A%09jsSelector%20%3A%3D%20selector%20asJavaScriptSelector.%0A%09arguments%20%3A%3D%20aMessage%20arguments.%0A%09%3Cif%28obj%5BjsSelector%5D%20%21%3D%20undefined%29%20%7Breturn%20smalltalk.send%28obj%2C%20jsSelector%2C%20arguments%29%7D%3E.%0A%09super%20doesNotUnderstand%3A%20aMessage'),
+source: "doesNotUnderstand: aMessage\x0a\x09| obj selector jsSelector arguments |\x0a\x09obj := self jsObject.\x0a\x09selector := aMessage selector.\x0a\x09jsSelector := selector asJavaScriptSelector.\x0a\x09arguments := aMessage arguments.\x0a\x09<if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.\x0a\x09super doesNotUnderstand: aMessage",
 messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_inspectOn_'),
+"_inspectOn_",
 smalltalk.method({
-selector: unescape('inspectOn%3A'),
+selector: "inspectOn:",
 category: 'proxy',
-fn: function (anInspector) {
-    var self = this;
-    var variables = nil;
-    variables = smalltalk.send(smalltalk.Dictionary || Dictionary, "_new", []);
-    smalltalk.send(variables, "_at_put_", [unescape("%23self"), smalltalk.send(self, "_jsObject", [])]);
-    smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
-    for (var i in self['@jsObject']) {
-        variables._at_put_(i, self['@jsObject'][i]);
-    }
-    smalltalk.send(anInspector, "_setVariables_", [variables]);
-    return self;
-},
+fn: function (anInspector){
+var self=this;
+var variables=nil;
+(variables=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(variables, "_at_put_", ["#self", smalltalk.send(self, "_jsObject", [])]);
+smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
+for(var i in self['@jsObject']) {
+		variables._at_put_(i, self['@jsObject'][i]);
+	};
+smalltalk.send(anInspector, "_setVariables_", [variables]);
+return self;},
 args: ["anInspector"],
-source: unescape('inspectOn%3A%20anInspector%0A%09%7C%20variables%20%7C%0A%09variables%20%3A%3D%20Dictionary%20new.%0A%09variables%20at%3A%20%27%23self%27%20put%3A%20self%20jsObject.%0A%09anInspector%20setLabel%3A%20self%20printString.%0A%09%3Cfor%28var%20i%20in%20self%5B%27@jsObject%27%5D%29%20%7B%0A%09%09variables._at_put_%28i%2C%20self%5B%27@jsObject%27%5D%5Bi%5D%29%3B%0A%09%7D%3E.%0A%09anInspector%20setVariables%3A%20variables'),
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09<for(var i in self['@jsObject']) {\x0a\x09\x09variables._at_put_(i, self['@jsObject'][i]);\x0a\x09}>.\x0a\x09anInspector setVariables: variables",
 messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_jsObject'),
+"_jsObject",
 smalltalk.method({
-selector: unescape('jsObject'),
+selector: "jsObject",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@jsObject'];
-    return self;
-},
+fn: function (){
+var self=this;
+return self['@jsObject'];
+return self;},
 args: [],
-source: unescape('jsObject%0A%09%5EjsObject'),
+source: "jsObject\x0a\x09^jsObject",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_jsObject_'),
+"_jsObject_",
 smalltalk.method({
-selector: unescape('jsObject%3A'),
+selector: "jsObject:",
 category: 'accessing',
-fn: function (aJSObject) {
-    var self = this;
-    self['@jsObject'] = aJSObject;
-    return self;
-},
+fn: function (aJSObject){
+var self=this;
+(self['@jsObject']=aJSObject);
+return self;},
 args: ["aJSObject"],
-source: unescape('jsObject%3A%20aJSObject%0A%09jsObject%20%3A%3D%20aJSObject'),
+source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'proxy',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
+return self;},
 args: [],
-source: unescape('printString%0A%09%5Eself%20jsObject%20toString'),
+source: "printString\x0a\x09^self jsObject toString",
 messageSends: ["toString", "jsObject"],
 referencedClasses: []
 }),
@@ -3325,17 +2543,16 @@ smalltalk.JSObjectProxy);
 
 
 smalltalk.addMethod(
-unescape('_on_'),
+"_on_",
 smalltalk.method({
-selector: unescape('on%3A'),
+selector: "on:",
 category: 'instance creation',
-fn: function (aJSObject) {
-    var self = this;
-    return function ($rec) {smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(self, "_new", []));
-    return self;
-},
+fn: function (aJSObject){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_jsObject_", [aJSObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
 args: ["aJSObject"],
-source: unescape('on%3A%20aJSObject%0A%09%5Eself%20new%0A%09%09jsObject%3A%20aJSObject%3B%0A%09%09yourself'),
+source: "on: aJSObject\x0a\x09^self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
 messageSends: ["jsObject:", "yourself", "new"],
 referencedClasses: []
 }),
@@ -3343,752 +2560,738 @@ smalltalk.JSObjectProxy.klass);
 
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Number.comment=unescape('Number%20holds%20the%20most%20general%20methods%20for%20dealing%20with%20numbers.%20%20%0ANumber%20is%20directly%20mapped%20to%20JavaScript%20Number.%0A%0AMost%20arithmetic%20methods%20like%20%60%23+%60%20%60%23/%60%20%60%23-%60%20%60%23max%3A%60%20are%20directly%20inlined%20into%20javascript.%20%0A%0A%23%23Enumerating%0AA%20Number%20can%20be%20used%20to%20evaluate%20a%20Block%20a%20fixed%20number%20of%20times%3A%0A%0A%095%20timesRepeat%3A%20%5BTranscript%20show%3A%20%27This%20will%20be%20printed%205%20times%27%3B%20cr%5D.%0A%09%0A%091%20to%3A%205%20do%3A%20%5B%3AaNumber%7C%20Transcript%20show%3A%20aNumber%20asString%3B%20cr%5D.%0A%09%0A%091%20to%3A%2010%20by%3A%202%20do%3A%20%5B%3AaNumber%7C%20Transcript%20show%3A%20aNumber%20asString%3B%20cr%5D.')
+smalltalk.Number.comment="Number holds the most general methods for dealing with numbers.  \x0aNumber is directly mapped to JavaScript Number.\x0a\x0aMost arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript. \x0a\x0a##Enumerating\x0aA Number can be used to evaluate a Block a fixed number of times:\x0a\x0a\x095 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].\x0a\x09\x0a\x091 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].\x0a\x09\x0a\x091 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr]."
 smalltalk.addMethod(
-unescape('__star'),
+"_&",
 smalltalk.method({
-selector: unescape('*'),
-category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self * aNumber;
-    return self;
-},
+selector: "&",
+category: 'converting',
+fn: function (aNumber){
+var self=this;
+return self & aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('*%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20*%20aNumber%3E'),
+source: "& aNumber\x0a\x09<return self & aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__plus'),
+"__star",
 smalltalk.method({
-selector: unescape('+'),
+selector: "*",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self + aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self * aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('+%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20+%20aNumber%3E'),
+source: "* aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self * aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__minus'),
+"__plus",
 smalltalk.method({
-selector: unescape('-'),
+selector: "+",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self - aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self + aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('-%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20-%20aNumber%3E'),
+source: "+ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self + aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__slash'),
+"__minus",
 smalltalk.method({
-selector: unescape('/'),
+selector: "-",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self / aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self - aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('/%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20/%20aNumber%3E'),
+source: "- aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self - aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__lt'),
+"__slash",
 smalltalk.method({
-selector: unescape('%3C'),
+selector: "/",
+category: 'arithmetic',
+fn: function (aNumber){
+var self=this;
+return self / aNumber;
+return self;},
+args: ["aNumber"],
+source: "/ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self / aNumber>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+"__lt",
+smalltalk.method({
+selector: "<",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self < aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self < aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('%3C%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3C%20aNumber%3E'),
+source: "< aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self < aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__lt_eq'),
+"__lt_eq",
 smalltalk.method({
-selector: unescape('%3C%3D'),
+selector: "<=",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self <= aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self <= aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('%3C%3D%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3C%3D%20aNumber%3E'),
+source: "<= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self <= aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    try {
-        ($receiver = smalltalk.send(aNumber, "_isNumber", [])).klass === smalltalk.Boolean ? !$receiver ? function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();}() : nil : smalltalk.send($receiver, "_ifFalse_", [function () {return function () {throw {name: "stReturn", selector: "__eq", fn: function () {return false;}};}();}]);
-        return Number(self) == aNumber;
-        return self;
-    } catch (e) {
-        if (e.name === "stReturn" && e.selector === "__eq") {
-            return e.fn();
-        }
-        throw e;
-    }
-},
+fn: function (aNumber){
+var self=this;
+var $early={};
+try{((($receiver = smalltalk.send(aNumber, "_isNumber", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
+return Number(self) == aNumber;
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aNumber"],
-source: unescape('%3D%20aNumber%0A%09aNumber%20isNumber%20ifFalse%3A%20%5B%5Efalse%5D.%20%0A%09%3Creturn%20Number%28self%29%20%3D%3D%20aNumber%3E'),
+source: "= aNumber\x0a\x09aNumber isNumber ifFalse: [^false]. \x0a\x09<return Number(self) == aNumber>",
 messageSends: ["ifFalse:", "isNumber"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__gt'),
+"__gt",
 smalltalk.method({
-selector: unescape('%3E'),
+selector: ">",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self > aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self > aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('%3E%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3E%3E%20aNumber%3E'),
+source: "> aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >> aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__gt_eq'),
+"__gt_eq",
 smalltalk.method({
-selector: unescape('%3E%3D'),
+selector: ">=",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self >= aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self >= aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('%3E%3D%20aNumber%0A%09%22Inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%20%3E%3E%3D%20aNumber%3E'),
+source: ">= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >>= aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('__at'),
+"__at",
 smalltalk.method({
-selector: unescape('@'),
+selector: "@",
 category: 'converting',
-fn: function (aNumber) {
-    var self = this;
-    return smalltalk.send(smalltalk.Point || Point, "_x_y_", [self, aNumber]);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.send((smalltalk.Point || Point), "_x_y_", [self, aNumber]);
+return self;},
 args: ["aNumber"],
-source: unescape('@%20aNumber%0A%09%5EPoint%20x%3A%20self%20y%3A%20aNumber'),
+source: "@ aNumber\x0a\x09^Point x: self y: aNumber",
 messageSends: ["x:y:"],
 referencedClasses: ["Point"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_%5C%5C'),
+"_\x5c\x5c",
 smalltalk.method({
-selector: unescape('%5C%5C'),
+selector: "\x5c\x5c",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self % aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return self % aNumber;
+return self;},
 args: ["aNumber"],
-source: unescape('%5C%5C%20aNumber%0A%09%3Creturn%20self%20%25%20aNumber%3E'),
+source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Eself'),
+source: "asJSON\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_asJavascript'),
+"_asJavascript",
 smalltalk.method({
-selector: unescape('asJavascript'),
+selector: "asJavascript",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(unescape("%28"), "__comma", [smalltalk.send(self, "_printString", [])]), "__comma", [unescape("%29")]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send("(", "__comma", [smalltalk.send(self, "_printString", [])]), "__comma", [")"]);
+return self;},
 args: [],
-source: unescape('asJavascript%0A%09%5E%27%28%27%2C%20self%20printString%2C%20%27%29%27'),
-messageSends: [unescape("%2C"), "printString"],
+source: "asJavascript\x0a\x09^'(', self printString, ')'",
+messageSends: [",", "printString"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_asPoint'),
+"_asPoint",
 smalltalk.method({
-selector: unescape('asPoint'),
+selector: "asPoint",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.Point || Point, "_x_y_", [self, self]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.Point || Point), "_x_y_", [self, self]);
+return self;},
 args: [],
-source: unescape('asPoint%0A%09%5EPoint%20x%3A%20self%20y%3A%20self'),
+source: "asPoint\x0a\x09^Point x: self y: self",
 messageSends: ["x:y:"],
 referencedClasses: ["Point"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_printString", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_printString", []);
+return self;},
 args: [],
-source: unescape('asString%0A%09%5Eself%20printString'),
+source: "asString\x0a\x09^self printString",
 messageSends: ["printString"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_atRandom'),
+"_atRandom",
 smalltalk.method({
-selector: unescape('atRandom'),
+selector: "atRandom",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return ($receiver = smalltalk.send(($receiver = smalltalk.send(smalltalk.send(smalltalk.Random || Random, "_new", []), "_next", [])).klass === smalltalk.Number ? $receiver * self : smalltalk.send($receiver, "__star", [self]), "_truncated", [])).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);
-    return self;
-},
+fn: function (){
+var self=this;
+return ((($receiver = smalltalk.send(((($receiver = smalltalk.send(smalltalk.send((smalltalk.Random || Random), "_new", []), "_next", [])).klass === smalltalk.Number) ? $receiver *self : smalltalk.send($receiver, "__star", [self])), "_truncated", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));
+return self;},
 args: [],
-source: unescape('atRandom%0A%20%20%20%20%5E%28Random%20new%20next%20*%20self%29%20truncated%20+%201'),
-messageSends: [unescape("+"), "truncated", unescape("*"), "next", "new"],
+source: "atRandom\x0a    ^(Random new next * self) truncated + 1",
+messageSends: ["+", "truncated", "*", "next", "new"],
 referencedClasses: ["Random"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_clearInterval'),
+"_clearInterval",
 smalltalk.method({
-selector: unescape('clearInterval'),
+selector: "clearInterval",
 category: 'timeouts/intervals',
-fn: function () {
-    var self = this;
-    clearInterval(Number(self));
-    return self;
-},
+fn: function (){
+var self=this;
+clearInterval(Number(self));
+return self;},
 args: [],
-source: unescape('clearInterval%0A%09%3CclearInterval%28Number%28self%29%29%3E'),
+source: "clearInterval\x0a\x09<clearInterval(Number(self))>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_clearTimeout'),
+"_clearTimeout",
 smalltalk.method({
-selector: unescape('clearTimeout'),
+selector: "clearTimeout",
 category: 'timeouts/intervals',
-fn: function () {
-    var self = this;
-    clearTimeout(Number(self));
-    return self;
-},
+fn: function (){
+var self=this;
+clearTimeout(Number(self));
+return self;},
 args: [],
-source: unescape('clearTimeout%0A%09%3CclearTimeout%28Number%28self%29%29%3E'),
+source: "clearTimeout\x0a\x09<clearTimeout(Number(self))>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_copy'),
+"_copy",
 smalltalk.method({
-selector: unescape('copy'),
+selector: "copy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('copy%0A%09%5Eself'),
+source: "copy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_copy", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_copy", []);
+return self;},
 args: [],
-source: unescape('deepCopy%0A%09%5Eself%20copy'),
+source: "deepCopy\x0a\x09^self copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_even'),
+"_even",
 smalltalk.method({
-selector: unescape('even'),
+selector: "even",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(0, "__eq", [smalltalk.send(self, "_\\\\", [2])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((0), "__eq", [smalltalk.send(self, "_\\\\", [(2)])]);
+return self;},
 args: [],
-source: unescape('even%0A%09%5E%200%20%3D%20%28self%20%5C%5C%202%29'),
-messageSends: [unescape("%3D"), unescape("%5C%5C%5C%5C")],
+source: "even\x0a\x09^ 0 = (self \x5c\x5c 2)",
+messageSends: ["=", "\x5c\x5c\x5c\x5c"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_identityHash'),
+"_identityHash",
 smalltalk.method({
-selector: unescape('identityHash'),
+selector: "identityHash",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
+return self;},
 args: [],
-source: unescape('identityHash%0A%09%5Eself%20asString%2C%20%27n%27'),
-messageSends: [unescape("%2C"), "asString"],
+source: "identityHash\x0a\x09^self asString, 'n'",
+messageSends: [",", "asString"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_isNumber'),
+"_isNumber",
 smalltalk.method({
-selector: unescape('isNumber'),
+selector: "isNumber",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return true;
-    return self;
-},
+fn: function (){
+var self=this;
+return true;
+return self;},
 args: [],
-source: unescape('isNumber%0A%09%5Etrue'),
+source: "isNumber\x0a\x09^true",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_isZero'),
+"_isZero",
 smalltalk.method({
-selector: unescape('isZero'),
+selector: "isZero",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "__eq", [0]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "__eq", [(0)]);
+return self;},
 args: [],
-source: unescape('isZero%0A%09%5Eself%20%3D%200'),
-messageSends: [unescape("%3D")],
+source: "isZero\x0a\x09^self = 0",
+messageSends: ["="],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_max_'),
+"_max_",
 smalltalk.method({
-selector: unescape('max%3A'),
+selector: "max:",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return Math.max(self, aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return Math.max(self, aNumber);;
+return self;},
 args: ["aNumber"],
-source: unescape('max%3A%20aNumber%0A%09%3Creturn%20Math.max%28self%2C%20aNumber%29%3B%3E'),
+source: "max: aNumber\x0a\x09<return Math.max(self, aNumber);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_min_'),
+"_min_",
 smalltalk.method({
-selector: unescape('min%3A'),
+selector: "min:",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return Math.min(self, aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return Math.min(self, aNumber);;
+return self;},
 args: ["aNumber"],
-source: unescape('min%3A%20aNumber%0A%09%3Creturn%20Math.min%28self%2C%20aNumber%29%3B%3E'),
+source: "min: aNumber\x0a\x09<return Math.min(self, aNumber);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_negated'),
+"_negated",
 smalltalk.method({
-selector: unescape('negated'),
+selector: "negated",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    return 0 - self;
-    return self;
-},
+fn: function (){
+var self=this;
+return (0) - self;
+return self;},
 args: [],
-source: unescape('negated%0A%09%5E0%20-%20self'),
-messageSends: [unescape("-")],
+source: "negated\x0a\x09^0 - self",
+messageSends: ["-"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_negative'),
+"_negative",
 smalltalk.method({
-selector: unescape('negative'),
+selector: "negative",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return self < 0;
-    return self;
-},
+fn: function (){
+var self=this;
+return self < (0);
+return self;},
 args: [],
-source: unescape('negative%0A%09%22Answer%20whether%20the%20receiver%20is%20mathematically%20negative.%22%0A%0A%09%5E%20self%20%3C%200'),
-messageSends: [unescape("%3C")],
+source: "negative\x0a\x09\x22Answer whether the receiver is mathematically negative.\x22\x0a\x0a\x09^ self < 0",
+messageSends: ["<"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_odd'),
+"_odd",
 smalltalk.method({
-selector: unescape('odd'),
+selector: "odd",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_even", []), "_not", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_even", []), "_not", []);
+return self;},
 args: [],
-source: unescape('odd%0A%09%5E%20self%20even%20not'),
+source: "odd\x0a\x09^ self even not",
 messageSends: ["not", "even"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_positive'),
+"_positive",
 smalltalk.method({
-selector: unescape('positive'),
+selector: "positive",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return self >= 0;
-    return self;
-},
+fn: function (){
+var self=this;
+return self >= (0);
+return self;},
 args: [],
-source: unescape('positive%0A%09%22Answer%20whether%20the%20receiver%20is%20positive%20or%20equal%20to%200.%20%28ST-80%20protocol%29.%22%0A%0A%09%5E%20self%20%3E%3D%200'),
-messageSends: [unescape("%3E%3D")],
+source: "positive\x0a\x09\x22Answer whether the receiver is positive or equal to 0. (ST-80 protocol).\x22\x0a\x0a\x09^ self >= 0",
+messageSends: [">="],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_printShowingDecimalPlaces_'),
+"_printShowingDecimalPlaces_",
 smalltalk.method({
-selector: unescape('printShowingDecimalPlaces%3A'),
+selector: "printShowingDecimalPlaces:",
 category: 'printing',
-fn: function (placesDesired) {
-    var self = this;
-    return self.toFixed(placesDesired);
-    return self;
-},
+fn: function (placesDesired){
+var self=this;
+return self.toFixed(placesDesired);
+return self;},
 args: ["placesDesired"],
-source: unescape('printShowingDecimalPlaces%3A%20placesDesired%0A%09%3Creturn%20self.toFixed%28placesDesired%29%3E'),
+source: "printShowingDecimalPlaces: placesDesired\x0a\x09<return self.toFixed(placesDesired)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return String(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return String(self);
+return self;},
 args: [],
-source: unescape('printString%0A%09%3Creturn%20String%28self%29%3E'),
+source: "printString\x0a\x09<return String(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_rounded'),
+"_rounded",
 smalltalk.method({
-selector: unescape('rounded'),
+selector: "rounded",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return Math.round(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return Math.round(self);;
+return self;},
 args: [],
-source: unescape('rounded%0A%09%3Creturn%20Math.round%28self%29%3B%3E'),
+source: "rounded\x0a\x09<return Math.round(self);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_sqrt'),
+"_sqrt",
 smalltalk.method({
-selector: unescape('sqrt'),
+selector: "sqrt",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    return Math.sqrt(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return Math.sqrt(self);
+return self;},
 args: [],
-source: unescape('sqrt%0A%09%3Creturn%20Math.sqrt%28self%29%3E'),
+source: "sqrt\x0a\x09<return Math.sqrt(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_squared'),
+"_squared",
 smalltalk.method({
-selector: unescape('squared'),
+selector: "squared",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    return self * self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self * self;
+return self;},
 args: [],
-source: unescape('squared%0A%09%5Eself%20*%20self'),
-messageSends: [unescape("*")],
+source: "squared\x0a\x09^self * self",
+messageSends: ["*"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_timesRepeat_'),
+"_timesRepeat_",
 smalltalk.method({
-selector: unescape('timesRepeat%3A'),
+selector: "timesRepeat:",
 category: 'enumerating',
-fn: function (aBlock) {
-    var self = this;
-    var integer = nil;
-    var count = nil;
-    integer = smalltalk.send(self, "_truncated", []);
-    count = 1;
-    (function () {while (!function () {return ($receiver = count).klass === smalltalk.Number ? $receiver > self : smalltalk.send($receiver, "__gt", [self]);}()) {(function () {smalltalk.send(aBlock, "_value", []);return count = ($receiver = count).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);}());}}());
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+var integer=nil;
+var count=nil;
+(integer=smalltalk.send(self, "_truncated", []));
+(count=(1));
+(function(){while(!(function(){return ((($receiver = count).klass === smalltalk.Number) ? $receiver >self : smalltalk.send($receiver, "__gt", [self]));})()) {(function(){smalltalk.send(aBlock, "_value", []);return (count=((($receiver = count).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
+return self;},
 args: ["aBlock"],
-source: unescape('timesRepeat%3A%20aBlock%0A%09%7C%20integer%20count%20%7C%0A%09integer%20%3A%3D%20self%20truncated.%0A%09count%20%3A%3D%201.%0A%09%5Bcount%20%3E%20self%5D%20whileFalse%3A%20%5B%0A%09%20%20%20%20aBlock%20value.%0A%09%20%20%20%20count%20%3A%3D%20count%20+%201%5D'),
-messageSends: ["truncated", "whileFalse:", unescape("%3E"), "value", unescape("+")],
+source: "timesRepeat: aBlock\x0a\x09| integer count |\x0a\x09integer := self truncated.\x0a\x09count := 1.\x0a\x09[count > self] whileFalse: [\x0a\x09    aBlock value.\x0a\x09    count := count + 1]",
+messageSends: ["truncated", "whileFalse:", ">", "value", "+"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_to_'),
+"_to_",
 smalltalk.method({
-selector: unescape('to%3A'),
+selector: "to:",
 category: 'converting',
-fn: function (aNumber) {
-    var self = this;
-    var array = nil;
-    var first = nil;
-    var last = nil;
-    var count = nil;
-    first = smalltalk.send(self, "_truncated", []);
-    last = ($receiver = smalltalk.send(aNumber, "_truncated", [])).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);
-    count = 1;
-    array = smalltalk.send(smalltalk.Array || Array, "_new", []);
-    smalltalk.send(($receiver = last).klass === smalltalk.Number ? $receiver - first : smalltalk.send($receiver, "__minus", [first]), "_timesRepeat_", [function () {smalltalk.send(array, "_at_put_", [count, first]);count = ($receiver = count).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);return first = ($receiver = first).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);}]);
-    return array;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+var array=nil;
+var first=nil;
+var last=nil;
+var count=nil;
+(first=smalltalk.send(self, "_truncated", []));
+(last=((($receiver = smalltalk.send(aNumber, "_truncated", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
+(count=(1));
+(array=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(((($receiver = last).klass === smalltalk.Number) ? $receiver -first : smalltalk.send($receiver, "__minus", [first])), "_timesRepeat_", [(function(){smalltalk.send(array, "_at_put_", [count, first]);(count=((($receiver = count).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (first=((($receiver = first).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})]);
+return array;
+return self;},
 args: ["aNumber"],
-source: unescape('to%3A%20aNumber%0A%09%7C%20array%20first%20last%20count%20%7C%0A%09first%20%3A%3D%20self%20truncated.%0A%09last%20%3A%3D%20aNumber%20truncated%20+%201.%0A%09count%20%3A%3D%201.%0A%09array%20%3A%3D%20Array%20new.%0A%09%28last%20-%20first%29%20timesRepeat%3A%20%5B%0A%09%20%20%20%20array%20at%3A%20count%20put%3A%20first.%0A%09%20%20%20%20count%20%3A%3D%20count%20+%201.%0A%09%20%20%20%20first%20%3A%3D%20first%20+%201%5D.%0A%09%5Earray'),
-messageSends: ["truncated", unescape("+"), "new", "timesRepeat:", unescape("-"), "at:put:"],
+source: "to: aNumber\x0a\x09| array first last count |\x0a\x09first := self truncated.\x0a\x09last := aNumber truncated + 1.\x0a\x09count := 1.\x0a\x09array := Array new.\x0a\x09(last - first) timesRepeat: [\x0a\x09    array at: count put: first.\x0a\x09    count := count + 1.\x0a\x09    first := first + 1].\x0a\x09^array",
+messageSends: ["truncated", "+", "new", "timesRepeat:", "-", "at:put:"],
 referencedClasses: ["Array"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_to_by_'),
+"_to_by_",
 smalltalk.method({
-selector: unescape('to%3Aby%3A'),
+selector: "to:by:",
 category: 'converting',
-fn: function (stop, step) {
-    var self = this;
-    var array = nil;
-    var value = nil;
-    var pos = nil;
-    value = self;
-    array = smalltalk.send(smalltalk.Array || Array, "_new", []);
-    pos = 1;
-    ($receiver = smalltalk.send(step, "__eq", [0])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(self, "_error_", [unescape("step%20must%20be%20non-zero")]);}() : nil : smalltalk.send($receiver, "_ifTrue_", [function () {return smalltalk.send(self, "_error_", [unescape("step%20must%20be%20non-zero")]);}]);
-    ($receiver = ($receiver = step).klass === smalltalk.Number ? $receiver < 0 : smalltalk.send($receiver, "__lt", [0])).klass === smalltalk.Boolean ? $receiver ? function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver >= stop : smalltalk.send($receiver, "__gt_eq", [stop]);}()) {(function () {smalltalk.send(array, "_at_put_", [pos, value]);pos = ($receiver = pos).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}() : function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver <= stop : smalltalk.send($receiver, "__lt_eq", [stop]);}()) {(function () {smalltalk.send(array, "_at_put_", [pos, value]);pos = ($receiver = pos).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver >= stop : smalltalk.send($receiver, "__gt_eq", [stop]);}()) {(function () {smalltalk.send(array, "_at_put_", [pos, value]);pos = ($receiver = pos).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}, function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver <= stop : smalltalk.send($receiver, "__lt_eq", [stop]);}()) {(function () {smalltalk.send(array, "_at_put_", [pos, value]);pos = ($receiver = pos).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}]);
-    return array;
-    return self;
-},
+fn: function (stop, step){
+var self=this;
+var array=nil;
+var value=nil;
+var pos=nil;
+(value=self);
+(array=smalltalk.send((smalltalk.Array || Array), "_new", []));
+(pos=(1));
+((($receiver = smalltalk.send(step, "__eq", [(0)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_error_", ["step must be non-zero"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_error_", ["step must be non-zero"]);})]));
+((($receiver = ((($receiver = step).klass === smalltalk.Number) ? $receiver <(0) : smalltalk.send($receiver, "__lt", [(0)]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver >=stop : smalltalk.send($receiver, "__gt_eq", [stop]));})()) {(function(){smalltalk.send(array, "_at_put_", [pos, value]);(pos=((($receiver = pos).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();})() : (function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver <=stop : smalltalk.send($receiver, "__lt_eq", [stop]));})()) {(function(){smalltalk.send(array, "_at_put_", [pos, value]);(pos=((($receiver = pos).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver >=stop : smalltalk.send($receiver, "__gt_eq", [stop]));})()) {(function(){smalltalk.send(array, "_at_put_", [pos, value]);(pos=((($receiver = pos).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();}), (function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver <=stop : smalltalk.send($receiver, "__lt_eq", [stop]));})()) {(function(){smalltalk.send(array, "_at_put_", [pos, value]);(pos=((($receiver = pos).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();})]));
+return array;
+return self;},
 args: ["stop", "step"],
-source: unescape('to%3A%20stop%20by%3A%20step%0A%09%7C%20array%20value%20pos%20%7C%0A%09value%20%3A%3D%20self.%0A%09array%20%3A%3D%20Array%20new.%0A%09pos%20%3A%3D%201.%0A%09step%20%3D%200%20ifTrue%3A%20%5Bself%20error%3A%20%27step%20must%20be%20non-zero%27%5D.%0A%09step%20%3C%200%0A%09%09ifTrue%3A%20%5B%5B%20value%20%3E%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09array%20at%3A%20pos%20put%3A%20value.%0A%09%20%20%20%20%09%09%09pos%20%3A%3D%20pos%20+%201.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D%0A%09%09ifFalse%3A%20%5B%5B%20value%20%3C%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09array%20at%3A%20pos%20put%3A%20value.%0A%09%20%20%09%09%09pos%20%3A%3D%20pos%20+%201.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D.%0A%09%5Earray'),
-messageSends: ["new", "ifTrue:", unescape("%3D"), "error:", "ifTrue:ifFalse:", unescape("%3C"), "whileTrue:", unescape("%3E%3D"), "at:put:", unescape("+"), unescape("%3C%3D")],
+source: "to: stop by: step\x0a\x09| array value pos |\x0a\x09value := self.\x0a\x09array := Array new.\x0a\x09pos := 1.\x0a\x09step = 0 ifTrue: [self error: 'step must be non-zero'].\x0a\x09step < 0\x0a\x09\x09ifTrue: [[ value >= stop ] whileTrue: [\x0a\x09    \x09\x09\x09array at: pos put: value.\x0a\x09    \x09\x09\x09pos := pos + 1.\x0a\x09    \x09\x09\x09value := value + step]]\x0a\x09\x09ifFalse: [[ value <= stop ] whileTrue: [\x0a\x09    \x09\x09\x09array at: pos put: value.\x0a\x09  \x09\x09\x09pos := pos + 1.\x0a\x09    \x09\x09\x09value := value + step]].\x0a\x09^array",
+messageSends: ["new", "ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", ">=", "at:put:", "+", "<="],
 referencedClasses: ["Array"]
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_to_by_do_'),
+"_to_by_do_",
 smalltalk.method({
-selector: unescape('to%3Aby%3Ado%3A'),
+selector: "to:by:do:",
 category: 'enumerating',
-fn: function (stop, step, aBlock) {
-    var self = this;
-    var value = nil;
-    value = self;
-    ($receiver = smalltalk.send(step, "__eq", [0])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(self, "_error_", [unescape("step%20must%20be%20non-zero")]);}() : nil : smalltalk.send($receiver, "_ifTrue_", [function () {return smalltalk.send(self, "_error_", [unescape("step%20must%20be%20non-zero")]);}]);
-    ($receiver = ($receiver = step).klass === smalltalk.Number ? $receiver < 0 : smalltalk.send($receiver, "__lt", [0])).klass === smalltalk.Boolean ? $receiver ? function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver >= stop : smalltalk.send($receiver, "__gt_eq", [stop]);}()) {(function () {smalltalk.send(aBlock, "_value_", [value]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}() : function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver <= stop : smalltalk.send($receiver, "__lt_eq", [stop]);}()) {(function () {smalltalk.send(aBlock, "_value_", [value]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver >= stop : smalltalk.send($receiver, "__gt_eq", [stop]);}()) {(function () {smalltalk.send(aBlock, "_value_", [value]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}, function () {return function () {while (function () {return ($receiver = value).klass === smalltalk.Number ? $receiver <= stop : smalltalk.send($receiver, "__lt_eq", [stop]);}()) {(function () {smalltalk.send(aBlock, "_value_", [value]);return value = ($receiver = value).klass === smalltalk.Number ? $receiver + step : smalltalk.send($receiver, "__plus", [step]);}());}}();}]);
-    return self;
-},
+fn: function (stop, step, aBlock){
+var self=this;
+var value=nil;
+(value=self);
+((($receiver = smalltalk.send(step, "__eq", [(0)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_error_", ["step must be non-zero"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_error_", ["step must be non-zero"]);})]));
+((($receiver = ((($receiver = step).klass === smalltalk.Number) ? $receiver <(0) : smalltalk.send($receiver, "__lt", [(0)]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver >=stop : smalltalk.send($receiver, "__gt_eq", [stop]));})()) {(function(){smalltalk.send(aBlock, "_value_", [value]);return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();})() : (function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver <=stop : smalltalk.send($receiver, "__lt_eq", [stop]));})()) {(function(){smalltalk.send(aBlock, "_value_", [value]);return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver >=stop : smalltalk.send($receiver, "__gt_eq", [stop]));})()) {(function(){smalltalk.send(aBlock, "_value_", [value]);return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();}), (function(){return (function(){while((function(){return ((($receiver = value).klass === smalltalk.Number) ? $receiver <=stop : smalltalk.send($receiver, "__lt_eq", [stop]));})()) {(function(){smalltalk.send(aBlock, "_value_", [value]);return (value=((($receiver = value).klass === smalltalk.Number) ? $receiver +step : smalltalk.send($receiver, "__plus", [step])));})()}})();})]));
+return self;},
 args: ["stop", "step", "aBlock"],
-source: unescape('to%3A%20stop%20by%3A%20step%20do%3A%20aBlock%0A%09%7C%20value%20%7C%0A%09value%20%3A%3D%20self.%0A%09step%20%3D%200%20ifTrue%3A%20%5Bself%20error%3A%20%27step%20must%20be%20non-zero%27%5D.%0A%09step%20%3C%200%0A%09%09ifTrue%3A%20%5B%5B%20value%20%3E%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09aBlock%20value%3A%20value.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D%0A%09%09ifFalse%3A%20%5B%5B%20value%20%3C%3D%20stop%20%5D%20whileTrue%3A%20%5B%0A%09%20%20%20%20%09%09%09aBlock%20value%3A%20value.%0A%09%20%20%20%20%09%09%09value%20%3A%3D%20value%20+%20step%5D%5D'),
-messageSends: ["ifTrue:", unescape("%3D"), "error:", "ifTrue:ifFalse:", unescape("%3C"), "whileTrue:", unescape("%3E%3D"), "value:", unescape("+"), unescape("%3C%3D")],
+source: "to: stop by: step do: aBlock\x0a\x09| value |\x0a\x09value := self.\x0a\x09step = 0 ifTrue: [self error: 'step must be non-zero'].\x0a\x09step < 0\x0a\x09\x09ifTrue: [[ value >= stop ] whileTrue: [\x0a\x09    \x09\x09\x09aBlock value: value.\x0a\x09    \x09\x09\x09value := value + step]]\x0a\x09\x09ifFalse: [[ value <= stop ] whileTrue: [\x0a\x09    \x09\x09\x09aBlock value: value.\x0a\x09    \x09\x09\x09value := value + step]]",
+messageSends: ["ifTrue:", "=", "error:", "ifTrue:ifFalse:", "<", "whileTrue:", ">=", "value:", "+", "<="],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_to_do_'),
+"_to_do_",
 smalltalk.method({
-selector: unescape('to%3Ado%3A'),
+selector: "to:do:",
 category: 'enumerating',
-fn: function (stop, aBlock) {
-    var self = this;
-    var nextValue = nil;
-    nextValue = self;
-    (function () {while (function () {return ($receiver = nextValue).klass === smalltalk.Number ? $receiver <= stop : smalltalk.send($receiver, "__lt_eq", [stop]);}()) {(function () {smalltalk.send(aBlock, "_value_", [nextValue]);return nextValue = ($receiver = nextValue).klass === smalltalk.Number ? $receiver + 1 : smalltalk.send($receiver, "__plus", [1]);}());}}());
-    return self;
-},
+fn: function (stop, aBlock){
+var self=this;
+var nextValue=nil;
+(nextValue=self);
+(function(){while((function(){return ((($receiver = nextValue).klass === smalltalk.Number) ? $receiver <=stop : smalltalk.send($receiver, "__lt_eq", [stop]));})()) {(function(){smalltalk.send(aBlock, "_value_", [nextValue]);return (nextValue=((($receiver = nextValue).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})()}})();
+return self;},
 args: ["stop", "aBlock"],
-source: unescape('to%3A%20stop%20do%3A%20aBlock%0A%09%22Evaluate%20aBlock%20for%20each%20number%20from%20self%20to%20aNumber.%22%0A%09%7C%20nextValue%20%7C%0A%09nextValue%20%3A%3D%20self.%0A%09%5BnextValue%20%3C%3D%20stop%5D%0A%09%09whileTrue%3A%20%0A%09%09%09%5BaBlock%20value%3A%20nextValue.%0A%09%09%09nextValue%20%3A%3D%20nextValue%20+%201%5D'),
-messageSends: ["whileTrue:", unescape("%3C%3D"), "value:", unescape("+")],
+source: "to: stop do: aBlock\x0a\x09\x22Evaluate aBlock for each number from self to aNumber.\x22\x0a\x09| nextValue |\x0a\x09nextValue := self.\x0a\x09[nextValue <= stop]\x0a\x09\x09whileTrue: \x0a\x09\x09\x09[aBlock value: nextValue.\x0a\x09\x09\x09nextValue := nextValue + 1]",
+messageSends: ["whileTrue:", "<=", "value:", "+"],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 smalltalk.addMethod(
-unescape('_truncated'),
+"_truncated",
 smalltalk.method({
-selector: unescape('truncated'),
+selector: "truncated",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var result = nil;
-    ($receiver = self >= 0).klass === smalltalk.Boolean ? $receiver ? function () {return result = Math.floor(self);}() : function () {return result = Math.floor(self * -1) * -1;}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return result = Math.floor(self);}, function () {return result = Math.floor(self * -1) * -1;}]);
-    return result;
-    return self;
-},
+fn: function (){
+var self=this;
+var result=nil;
+((($receiver = self >= (0)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return result = Math.floor(self);;})() : (function(){return result = (Math.floor(self * (-1)) * (-1));;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return result = Math.floor(self);;}), (function(){return result = (Math.floor(self * (-1)) * (-1));;})]));
+return result;
+return self;},
 args: [],
-source: unescape('truncated%0A%7Cresult%7C%0A%0A%20%20%20%20self%20%3E%3D%200%20%0A%20%20%20%20%20%20%20%20ifTrue%3A%20%5B%3Cresult%20%3D%20Math.floor%28self%29%3B%3E%5D%0A%20%20%20%20%20%20%20%20ifFalse%3A%20%5B%3Cresult%20%3D%20%28Math.floor%28self%20*%20%28-1%29%29%20*%20%28-1%29%29%3B%3E%5D.%0A%0A%20%20%20%20%5E%20result'),
-messageSends: ["ifTrue:ifFalse:", unescape("%3E%3D")],
+source: "truncated\x0a|result|\x0a\x0a    self >= 0 \x0a        ifTrue: [<result = Math.floor(self);>]\x0a        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].\x0a\x0a    ^ result",
+messageSends: ["ifTrue:ifFalse:", ">="],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+"_|",
+smalltalk.method({
+selector: "|",
+category: 'converting',
+fn: function (aNumber){
+var self=this;
+return self | aNumber;
+return self;},
+args: ["aNumber"],
+source: "| aNumber\x0a\x09<return self | aNumber>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
 
 
 smalltalk.addMethod(
-unescape('_pi'),
+"_pi",
 smalltalk.method({
-selector: unescape('pi'),
+selector: "pi",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    return Math.PI;
-    return self;
-},
+fn: function (){
+var self=this;
+return Math.PI;
+return self;},
 args: [],
-source: unescape('pi%0A%09%3Creturn%20Math.PI%3E'),
+source: "pi\x0a\x09<return Math.PI>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4096,330 +3299,309 @@ smalltalk.Number.klass);
 
 
 smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
-smalltalk.Package.comment=unescape('A%20Package%20is%20similar%20to%20a%20%22class%20category%22%20typically%20found%20in%20other%20Smalltalks%20like%20Pharo%20or%20Squeak.%20Amber%20does%20not%20have%20class%20categories%20anymore%2C%20it%20had%20in%20the%20beginning%20but%20now%20each%20class%20in%20the%20system%20knows%20which%20package%20it%20belongs%20to.%0A%0AA%20Package%20has%20a%20name%2C%20an%20Array%20of%20%22requires%22%2C%20a%20comment%20and%20a%20Dictionary%20with%20other%20optional%20key%20value%20attributes.%20A%20Package%20can%20also%20be%20queried%20for%20its%20classes%2C%20but%20it%20will%20then%20resort%20to%20a%20reverse%20scan%20of%20all%20classes%20to%20find%20them.%0APackages%20are%20manipulated%20through%20%22Smalltalk%20current%22%2C%20like%20for%20example%20finding%20one%20based%20on%20a%20name%3A%0A%0A%09Smalltalk%20current%20packageAt%3A%20%27Kernel%27%0A%0A...but%20you%20can%20also%20use%3A%0A%0A%09Package%20named%3A%20%27Kernel%27%0A%0AA%20Package%20differs%20slightly%20from%20a%20Monticello%20package%20which%20can%20span%20multiple%20class%20categories%20using%20a%20naming%20convention%20based%20on%20hyphenation.%20But%20just%20as%20in%20Monticello%20a%20Package%20supports%20%22class%20extensions%22%20so%20a%20Package%0Acan%20define%20behaviors%20in%20foreign%20classes%20using%20a%20naming%20convention%20for%20method%20categories%20where%20the%20category%20starts%20with%20an%20asterisk%20and%20then%20the%20name%20of%20the%20owning%20package%20follows.%20This%20can%20easily%20be%20seen%20in%20for%20example%20class%0AString%20where%20the%20method%20category%20%22*IDE%22%20defines%20%23inspectOn%3A%20which%20thus%20is%20a%20method%20belonging%20to%20the%20IDE%20package.%0A%0AYou%20can%20fetch%20a%20package%20from%20the%20server%3A%0A%0A%09Package%20fetch%3A%20%27Additional-Examples%27')
+smalltalk.Package.comment="A Package is similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aA Package has a name, an Array of \x22requires\x22, a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name:\x0a\x0a\x09Smalltalk current packageAt: 'Kernel'\x0a\x0a...but you can also use:\x0a\x0a\x09Package named: 'Kernel'\x0a\x0aA Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports \x22class extensions\x22 so a Package\x0acan define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class\x0aString where the method category \x22*IDE\x22 defines #inspectOn: which thus is a method belonging to the IDE package.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package fetch: 'Additional-Examples'"
 smalltalk.addMethod(
-unescape('_classes'),
+"_classes",
 smalltalk.method({
-selector: unescape('classes'),
+selector: "classes",
 category: 'classes',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_classes", []), "_select_", [function (c) {return smalltalk.send(smalltalk.send(c, "_package", []), "__eq_eq", [self]);}]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_classes", []), "_select_", [(function(c){return smalltalk.send(smalltalk.send(c, "_package", []), "__eq_eq", [self]);})]);
+return self;},
 args: [],
-source: unescape('classes%0A%09%22We%20need%20to%20do%20a%20reverse%20scan.%22%0A%09%5ESmalltalk%20current%20classes%20select%3A%20%5B%3Ac%20%7C%20c%20package%20%3D%3D%20self%5D'),
-messageSends: ["select:", "classes", "current", unescape("%3D%3D"), "package"],
+source: "classes\x0a\x09\x22We need to do a reverse scan.\x22\x0a\x09^Smalltalk current classes select: [:c | c package == self]",
+messageSends: ["select:", "classes", "current", "==", "package"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_commitPathJs'),
+"_commitPathJs",
 smalltalk.method({
-selector: unescape('commitPathJs'),
+selector: "commitPathJs",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return ($receiver = self['@commitPathJs']) == nil ||
-        $receiver == undefined ? function () {return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);}() : $receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return (($receiver = self['@commitPathJs']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);})() : $receiver;
+return self;},
 args: [],
-source: unescape('commitPathJs%0A%09%5E%20commitPathJs%20ifNil%3A%20%5Bself%20class%20defaultCommitPathJs%5D'),
+source: "commitPathJs\x0a\x09^ commitPathJs ifNil: [self class defaultCommitPathJs]",
 messageSends: ["ifNil:", "defaultCommitPathJs", "class"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_commitPathJs_'),
+"_commitPathJs_",
 smalltalk.method({
-selector: unescape('commitPathJs%3A'),
+selector: "commitPathJs:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self['@commitPathJs'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+(self['@commitPathJs']=aString);
+return self;},
 args: ["aString"],
-source: unescape('commitPathJs%3A%20aString%0A%09commitPathJs%A0%3A%3D%20aString'),
+source: "commitPathJs: aString\x0a\x09commitPathJs := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_commitPathSt'),
+"_commitPathSt",
 smalltalk.method({
-selector: unescape('commitPathSt'),
+selector: "commitPathSt",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return ($receiver = self['@commitPathSt']) == nil ||
-        $receiver == undefined ? function () {return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);}() : $receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return (($receiver = self['@commitPathSt']) == nil || $receiver == undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);})() : $receiver;
+return self;},
 args: [],
-source: unescape('commitPathSt%0A%09%5E%20commitPathSt%20ifNil%3A%20%5Bself%20class%20defaultCommitPathSt%5D'),
+source: "commitPathSt\x0a\x09^ commitPathSt ifNil: [self class defaultCommitPathSt]",
 messageSends: ["ifNil:", "defaultCommitPathSt", "class"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_commitPathSt_'),
+"_commitPathSt_",
 smalltalk.method({
-selector: unescape('commitPathSt%3A'),
+selector: "commitPathSt:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self['@commitPathSt'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+(self['@commitPathSt']=aString);
+return self;},
 args: ["aString"],
-source: unescape('commitPathSt%3A%20aString%0A%09commitPathSt%A0%3A%3D%20aString'),
+source: "commitPathSt: aString\x0a\x09commitPathSt := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_dependencies'),
+"_dependencies",
 smalltalk.method({
-selector: unescape('dependencies'),
+selector: "dependencies",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_propertyAt_ifAbsent_", ["dependencies", function () {return [];}]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_propertyAt_ifAbsent_", ["dependencies", (function(){return [];})]);
+return self;},
 args: [],
-source: unescape('dependencies%0A%09%5Eself%20propertyAt%3A%20%27dependencies%27%20ifAbsent%3A%20%5B%23%28%29%5D'),
+source: "dependencies\x0a\x09^self propertyAt: 'dependencies' ifAbsent: [#()]",
 messageSends: ["propertyAt:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_dependencies_'),
+"_dependencies_",
 smalltalk.method({
-selector: unescape('dependencies%3A'),
+selector: "dependencies:",
 category: 'accessing',
-fn: function (anArray) {
-    var self = this;
-    return smalltalk.send(self, "_propertyAt_put_", ["dependencies", anArray]);
-    return self;
-},
+fn: function (anArray){
+var self=this;
+return smalltalk.send(self, "_propertyAt_put_", ["dependencies", anArray]);
+return self;},
 args: ["anArray"],
-source: unescape('dependencies%3A%20anArray%0A%09%5Eself%20propertyAt%3A%20%27dependencies%27%20put%3A%20anArray'),
+source: "dependencies: anArray\x0a\x09^self propertyAt: 'dependencies' put: anArray",
 messageSends: ["propertyAt:put:"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_jsProperties'),
+"_jsProperties",
 smalltalk.method({
-selector: unescape('jsProperties'),
+selector: "jsProperties",
 category: 'private',
-fn: function () {
-    var self = this;
-    return self.properties;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.properties;
+return self;},
 args: [],
-source: unescape('jsProperties%0A%09%3Creturn%20self.properties%3E'),
+source: "jsProperties\x0a\x09<return self.properties>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_jsProperties_'),
+"_jsProperties_",
 smalltalk.method({
-selector: unescape('jsProperties%3A'),
+selector: "jsProperties:",
 category: 'private',
-fn: function (aJSObject) {
-    var self = this;
-    return self.properties = aJSObject;
-    return self;
-},
+fn: function (aJSObject){
+var self=this;
+return self.properties = aJSObject;
+return self;},
 args: ["aJSObject"],
-source: unescape('jsProperties%3A%20aJSObject%0A%09%3Creturn%20self.properties%20%3D%20aJSObject%3E'),
+source: "jsProperties: aJSObject\x0a\x09<return self.properties = aJSObject>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_name'),
+"_name",
 smalltalk.method({
-selector: unescape('name'),
+selector: "name",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.pkgName;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.pkgName;
+return self;},
 args: [],
-source: unescape('name%0A%09%3Creturn%20self.pkgName%3E'),
+source: "name\x0a\x09<return self.pkgName>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_name_'),
+"_name_",
 smalltalk.method({
-selector: unescape('name%3A'),
+selector: "name:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self.pkgName = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+self.pkgName = aString;
+return self;},
 args: ["aString"],
-source: unescape('name%3A%20aString%0A%09%3Cself.pkgName%20%3D%20aString%3E'),
+source: "name: aString\x0a\x09<self.pkgName = aString>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_name", []);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_name", []);
+return self;},
 args: [],
-source: unescape('printString%0A%09%5Eself%20name'),
+source: "printString\x0a\x09^self name",
 messageSends: ["name"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_properties'),
+"_properties",
 smalltalk.method({
-selector: unescape('properties'),
+selector: "properties",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_readJSObject_", [smalltalk.send(self, "_basicAt_", ["properties"])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_readJSObject_", [smalltalk.send(self, "_basicAt_", ["properties"])]);
+return self;},
 args: [],
-source: unescape('properties%0A%09%5ESmalltalk%20current%20readJSObject%3A%20%28self%20basicAt%3A%20%27properties%27%29'),
+source: "properties\x0a\x09^Smalltalk current readJSObject: (self basicAt: 'properties')",
 messageSends: ["readJSObject:", "current", "basicAt:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_properties_'),
+"_properties_",
 smalltalk.method({
-selector: unescape('properties%3A'),
+selector: "properties:",
 category: 'accessing',
-fn: function (aDict) {
-    var self = this;
-    var object = nil;
-    object = {};
-    smalltalk.send(aDict, "_keysAndValuesDo_", [function (key, value) {return object[key] = value;}]);
-    return self.properties = object;
-    return self;
-},
+fn: function (aDict){
+var self=this;
+var object=nil;
+object = {};;
+smalltalk.send(aDict, "_keysAndValuesDo_", [(function(key, value){return object[key] = value;})]);
+return self.properties = object;
+return self;},
 args: ["aDict"],
-source: unescape('properties%3A%20aDict%0A%09%22We%20store%20it%20as%20a%20javascript%20object.%22%0A%09%0A%09%7C%20object%20%7C%0A%09%3Cobject%20%3D%20%7B%7D%3B%3E.%0A%09aDict%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09%3Cobject%5Bkey%5D%20%3D%20value%3E.%0A%09%5D.%0A%09%3Creturn%20self.properties%20%3D%20object%3E'),
+source: "properties: aDict\x0a\x09\x22We store it as a javascript object.\x22\x0a\x09\x0a\x09| object |\x0a\x09<object = {};>.\x0a\x09aDict keysAndValuesDo: [:key :value |\x0a\x09\x09<object[key] = value>.\x0a\x09].\x0a\x09<return self.properties = object>",
 messageSends: ["keysAndValuesDo:"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_propertiesAsJSON'),
+"_propertiesAsJSON",
 smalltalk.method({
-selector: unescape('propertiesAsJSON'),
+selector: "propertiesAsJSON",
 category: 'private',
-fn: function () {
-    var self = this;
-    return JSON.stringify(self.properties);
-    return self;
-},
+fn: function (){
+var self=this;
+return JSON.stringify(self.properties);
+return self;},
 args: [],
-source: unescape('propertiesAsJSON%0A%09%3Creturn%20JSON.stringify%28self.properties%29%3E'),
+source: "propertiesAsJSON\x0a\x09<return JSON.stringify(self.properties)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_propertyAt_'),
+"_propertyAt_",
 smalltalk.method({
-selector: unescape('propertyAt%3A'),
+selector: "propertyAt:",
 category: 'properties',
-fn: function (key) {
-    var self = this;
-    return self.properties[key];
-    return self;
-},
+fn: function (key){
+var self=this;
+return self.properties[key];
+return self;},
 args: ["key"],
-source: unescape('propertyAt%3A%20key%0A%0A%09%3Creturn%20self.properties%5Bkey%5D%3E'),
+source: "propertyAt: key\x0a\x0a\x09<return self.properties[key]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_propertyAt_ifAbsent_'),
+"_propertyAt_ifAbsent_",
 smalltalk.method({
-selector: unescape('propertyAt%3AifAbsent%3A'),
+selector: "propertyAt:ifAbsent:",
 category: 'properties',
-fn: function (key, block) {
-    var self = this;
-    return ($receiver = smalltalk.send(self, "_propertyAt_", [key])) == nil ||
-        $receiver == undefined ? function () {return smalltalk.send(block, "_value", []);}() : $receiver;
-    return self;
-},
+fn: function (key, block){
+var self=this;
+return (($receiver = smalltalk.send(self, "_propertyAt_", [key])) == nil || $receiver == undefined) ? (function(){return smalltalk.send(block, "_value", []);})() : $receiver;
+return self;},
 args: ["key", "block"],
-source: unescape('propertyAt%3A%20key%20ifAbsent%3A%20block%0A%0A%09%5E%28self%20propertyAt%3A%20key%29%20ifNil%3A%20%5Bblock%20value%5D'),
+source: "propertyAt: key ifAbsent: block\x0a\x0a\x09^(self propertyAt: key) ifNil: [block value]",
 messageSends: ["ifNil:", "propertyAt:", "value"],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_propertyAt_put_'),
+"_propertyAt_put_",
 smalltalk.method({
-selector: unescape('propertyAt%3Aput%3A'),
+selector: "propertyAt:put:",
 category: 'properties',
-fn: function (key, value) {
-    var self = this;
-    return self.properties[key] = value;
-    return self;
-},
+fn: function (key, value){
+var self=this;
+return self.properties[key] = value;
+return self;},
 args: ["key", "value"],
-source: unescape('propertyAt%3A%20key%20put%3A%20value%0A%0A%09%3Creturn%20self.properties%5Bkey%5D%20%3D%20value%3E'),
+source: "propertyAt: key put: value\x0a\x0a\x09<return self.properties[key] = value>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 smalltalk.addMethod(
-unescape('_sortedClasses'),
+"_sortedClasses",
 smalltalk.method({
-selector: unescape('sortedClasses'),
+selector: "sortedClasses",
 category: 'classes',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_sortedClasses_", [smalltalk.send(self, "_classes", [])]);
 return self;},
 args: [],
-source: unescape('sortedClasses%0A%09%22Answer%20all%20classes%20in%20the%20receiver%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%5Eself%20class%20sortedClasses%3A%20self%20classes'),
+source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^self class sortedClasses: self classes",
 messageSends: ["sortedClasses:", "class", "classes"],
 referencedClasses: []
 }),
@@ -4428,203 +3610,190 @@ smalltalk.Package);
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
-unescape('_commitToLocalStorage_'),
+"_commitToLocalStorage_",
 smalltalk.method({
-selector: unescape('commitToLocalStorage%3A'),
+selector: "commitToLocalStorage:",
 category: 'loading-storing',
-fn: function (aPackageName) {
-    var self = this;
-    var key = nil;
-    var sourceCode = nil;
-    key = smalltalk.send("smalltalk.packages.", "__comma", [aPackageName]);
-    sourceCode = smalltalk.send(smalltalk.send(smalltalk.Exporter || Exporter, "_new", []), "_exportPackage_", [aPackageName]);
-    localStorage[key] = escape(sourceCode);
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+var key=nil;
+var sourceCode=nil;
+(key=smalltalk.send("smalltalk.packages.", "__comma", [aPackageName]));
+(sourceCode=smalltalk.send(smalltalk.send((smalltalk.Exporter || Exporter), "_new", []), "_exportPackage_", [aPackageName]));
+localStorage[key] = escape(sourceCode);
+return self;},
 args: ["aPackageName"],
-source: unescape('commitToLocalStorage%3A%20aPackageName%0A%09%7C%20key%20sourceCode%20%7C%0A%09key%20%3A%3D%20%27smalltalk.packages.%27%20%2C%20aPackageName.%0A%09sourceCode%20%3A%3D%20Exporter%20new%20exportPackage%3A%20aPackageName.%0A%09%3ClocalStorage%5Bkey%5D%20%3D%20escape%28sourceCode%29%3E'),
-messageSends: [unescape("%2C"), "exportPackage:", "new"],
+source: "commitToLocalStorage: aPackageName\x0a\x09| key sourceCode |\x0a\x09key := 'smalltalk.packages.' , aPackageName.\x0a\x09sourceCode := Exporter new exportPackage: aPackageName.\x0a\x09<localStorage[key] = escape(sourceCode)>",
+messageSends: [",", "exportPackage:", "new"],
 referencedClasses: ["Exporter"]
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_defaultCommitPathJs'),
+"_defaultCommitPathJs",
 smalltalk.method({
-selector: unescape('defaultCommitPathJs'),
+selector: "defaultCommitPathJs",
 category: 'commit paths',
-fn: function () {
-    var self = this;
-    return ($receiver = self['@defaultCommitPathJs']) == nil ||
-        $receiver == undefined ? function () {return self['@defaultCommitPathJs'] = "js";}() : $receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathJs']) == nil || $receiver == undefined) ? (function(){return (self['@defaultCommitPathJs']="js");})() : $receiver;
+return self;},
 args: [],
-source: unescape('defaultCommitPathJs%0A%09%5E%20defaultCommitPathJs%20ifNil%3A%20%5B%20defaultCommitPathJs%20%3A%3D%20%27js%27%5D'),
+source: "defaultCommitPathJs\x0a\x09^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_defaultCommitPathJs_'),
+"_defaultCommitPathJs_",
 smalltalk.method({
-selector: unescape('defaultCommitPathJs%3A'),
+selector: "defaultCommitPathJs:",
 category: 'commit paths',
-fn: function (aString) {
-    var self = this;
-    self['@defaultCommitPathJs'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+(self['@defaultCommitPathJs']=aString);
+return self;},
 args: ["aString"],
-source: unescape('defaultCommitPathJs%3A%20aString%0A%09defaultCommitPathJs%20%3A%3D%20aString'),
+source: "defaultCommitPathJs: aString\x0a\x09defaultCommitPathJs := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_defaultCommitPathSt'),
+"_defaultCommitPathSt",
 smalltalk.method({
-selector: unescape('defaultCommitPathSt'),
+selector: "defaultCommitPathSt",
 category: 'commit paths',
-fn: function () {
-    var self = this;
-    return ($receiver = self['@defaultCommitPathSt']) == nil ||
-        $receiver == undefined ? function () {return self['@defaultCommitPathSt'] = "st";}() : $receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return (($receiver = self['@defaultCommitPathSt']) == nil || $receiver == undefined) ? (function(){return (self['@defaultCommitPathSt']="st");})() : $receiver;
+return self;},
 args: [],
-source: unescape('defaultCommitPathSt%0A%09%5E%20defaultCommitPathSt%20ifNil%3A%20%5B%20defaultCommitPathSt%20%3A%3D%20%27st%27%5D'),
+source: "defaultCommitPathSt\x0a\x09^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_defaultCommitPathSt_'),
+"_defaultCommitPathSt_",
 smalltalk.method({
-selector: unescape('defaultCommitPathSt%3A'),
+selector: "defaultCommitPathSt:",
 category: 'commit paths',
-fn: function (aString) {
-    var self = this;
-    self['@defaultCommitPathSt'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+(self['@defaultCommitPathSt']=aString);
+return self;},
 args: ["aString"],
-source: unescape('defaultCommitPathSt%3A%20aString%0A%09defaultCommitPathSt%20%3A%3D%20aString'),
+source: "defaultCommitPathSt: aString\x0a\x09defaultCommitPathSt := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_fetch_'),
+"_fetch_",
 smalltalk.method({
-selector: unescape('fetch%3A'),
+selector: "fetch:",
 category: 'loading-storing',
-fn: function (aPackageName) {
-    var self = this;
-    smalltalk.send(self, "_fetch_prefix_", [aPackageName, smalltalk.send(smalltalk.send(self, "_defaultCommitPathJs", []), "__comma", [unescape("/")])]);
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+smalltalk.send(self, "_fetch_prefix_", [aPackageName, smalltalk.send(smalltalk.send(self, "_defaultCommitPathJs", []), "__comma", ["/"])]);
+return self;},
 args: ["aPackageName"],
-source: unescape('fetch%3A%20aPackageName%0A%09self%20fetch%3A%20aPackageName%20prefix%3A%20self%20defaultCommitPathJs%2C%20%27/%27'),
-messageSends: ["fetch:prefix:", unescape("%2C"), "defaultCommitPathJs"],
+source: "fetch: aPackageName\x0a\x09self fetch: aPackageName prefix: self defaultCommitPathJs, '/'",
+messageSends: ["fetch:prefix:", ",", "defaultCommitPathJs"],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_fetch_prefix_'),
+"_fetch_prefix_",
 smalltalk.method({
-selector: unescape('fetch%3Aprefix%3A'),
+selector: "fetch:prefix:",
 category: 'loading-storing',
-fn: function (aPackageName, aPrefix) {
-    var self = this;
-    smalltalk.send(typeof jQuery == "undefined" ? nil : jQuery, "_getScript_onSuccess_", [smalltalk.send(smalltalk.send(aPrefix, "__comma", [aPackageName]), "__comma", [".js"]), function () {return smalltalk.send(smalltalk.Package || Package, "_init_", [aPackageName]);}]);
-    return self;
-},
+fn: function (aPackageName, aPrefix){
+var self=this;
+smalltalk.send((typeof jQuery == 'undefined' ? nil : jQuery), "_getScript_onSuccess_", [smalltalk.send(smalltalk.send(aPrefix, "__comma", [aPackageName]), "__comma", [".js"]), (function(){return smalltalk.send((smalltalk.Package || Package), "_init_", [aPackageName]);})]);
+return self;},
 args: ["aPackageName", "aPrefix"],
-source: unescape('fetch%3A%20aPackageName%20prefix%3A%20aPrefix%0A%09jQuery%20getScript%3A%20%28aPrefix%20%2C%20aPackageName%20%2C%20%27.js%27%29%20onSuccess%3A%20%5B%20Package%20init%3A%20aPackageName%20%5D'),
-messageSends: ["getScript:onSuccess:", unescape("%2C"), "init:"],
+source: "fetch: aPackageName prefix: aPrefix\x0a\x09jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]",
+messageSends: ["getScript:onSuccess:", ",", "init:"],
 referencedClasses: ["Package"]
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_init_'),
+"_init_",
 smalltalk.method({
-selector: unescape('init%3A'),
+selector: "init:",
 category: 'loading-storing',
-fn: function (aPackageName) {
-    var self = this;
-    (function ($rec) {smalltalk.send($rec, "_do_", [function (each) {return smalltalk.init(each);}]);return smalltalk.send($rec, "_do_", [function (each) {return smalltalk.send(each, "_initialize", []);}]);}(smalltalk.send(smalltalk.send(typeof smalltalk == "undefined" ? nil : smalltalk, "_classes", []), "_select_", [function (each) {return each.pkg.pkgName == aPackageName;}])));
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+(function($rec){smalltalk.send($rec, "_do_", [(function(each){return smalltalk.init(each);})]);return smalltalk.send($rec, "_do_", [(function(each){return smalltalk.send(each, "_initialize", []);})]);})(smalltalk.send(smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_classes", []), "_select_", [(function(each){return each.pkg.pkgName == aPackageName;})]));
+return self;},
 args: ["aPackageName"],
-source: unescape('init%3A%20aPackageName%0A%09%28smalltalk%20classes%20select%3A%20%5B%20%3Aeach%20%7C%20%3Ceach.pkg.pkgName%20%3D%3D%20aPackageName%3E%20%5D%29%0A%09%09do%3A%20%5B%20%3Aeach%20%7C%20%3Csmalltalk.init%28each%29%3E%20%5D%3B%0A%09%09do%3A%20%5B%20%3Aeach%20%7C%20each%20initialize%20%5D'),
+source: "init: aPackageName\x0a\x09(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])\x0a\x09\x09do: [ :each | <smalltalk.init(each)> ];\x0a\x09\x09do: [ :each | each initialize ]",
 messageSends: ["do:", "initialize", "select:", "classes"],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_named_'),
+"_named_",
 smalltalk.method({
-selector: unescape('named%3A'),
+selector: "named:",
 category: 'not yet classified',
-fn: function (aPackageName) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_packageAt_", [aPackageName]);
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_", [aPackageName]);
+return self;},
 args: ["aPackageName"],
-source: unescape('named%3A%20aPackageName%0A%0A%09%5ESmalltalk%20current%20packageAt%3A%20aPackageName'),
+source: "named: aPackageName\x0a\x0a\x09^Smalltalk current packageAt: aPackageName",
 messageSends: ["packageAt:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_named_ifAbsent_'),
+"_named_ifAbsent_",
 smalltalk.method({
-selector: unescape('named%3AifAbsent%3A'),
+selector: "named:ifAbsent:",
 category: 'not yet classified',
-fn: function (aPackageName, aBlock) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_packageAt_ifAbsent_", [aPackageName, aBlock]);
-    return self;
-},
+fn: function (aPackageName, aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_packageAt_ifAbsent_", [aPackageName, aBlock]);
+return self;},
 args: ["aPackageName", "aBlock"],
-source: unescape('named%3A%20aPackageName%20ifAbsent%3A%20aBlock%0A%0A%09%5ESmalltalk%20current%20packageAt%3A%20aPackageName%20ifAbsent%3A%20aBlock'),
+source: "named: aPackageName ifAbsent: aBlock\x0a\x0a\x09^Smalltalk current packageAt: aPackageName ifAbsent: aBlock",
 messageSends: ["packageAt:ifAbsent:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_resetCommitPaths'),
+"_resetCommitPaths",
 smalltalk.method({
-selector: unescape('resetCommitPaths'),
+selector: "resetCommitPaths",
 category: 'commit paths',
-fn: function () {
-    var self = this;
-    self['@defaultCommitPathJs'] = nil;
-    self['@defaultCommitPathSt'] = nil;
-    return self;
-},
+fn: function (){
+var self=this;
+(self['@defaultCommitPathJs']=nil);
+(self['@defaultCommitPathSt']=nil);
+return self;},
 args: [],
-source: unescape('resetCommitPaths%0A%20%20%20%20%20%20%20%20defaultCommitPathJs%20%3A%3D%20nil.%0A%20%20%20%20%20%20%20%20defaultCommitPathSt%20%3A%3D%20nil.'),
+source: "resetCommitPaths\x0a        defaultCommitPathJs := nil.\x0a        defaultCommitPathSt := nil.",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
-unescape('_sortedClasses_'),
+"_sortedClasses_",
 smalltalk.method({
-selector: unescape('sortedClasses%3A'),
+selector: "sortedClasses:",
 category: 'sorting',
 fn: function (classes){
 var self=this;
@@ -4642,213 +3811,202 @@ smalltalk.send(nodes, "_do_", [(function(aNode){return smalltalk.send(aNode, "_t
 return expandedClasses;
 return self;},
 args: ["classes"],
-source: unescape('sortedClasses%3A%20classes%0A%09%22Answer%20classes%2C%20sorted%20by%20superclass/subclasses%20and%20by%20class%20name%20for%20common%20subclasses%20%28Issue%20%23143%29%22%0A%0A%09%7C%20children%20others%20nodes%20expandedClasses%20%7C%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09classes%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28classes%20includes%3A%20each%20superclass%29%0A%09%09%09ifFalse%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifTrue%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%20%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassSorterNode%20on%3A%20each%20classes%3A%20others%20level%3A%200%5D.%0A%09nodes%20%3A%3D%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D.%0A%09expandedClasses%20%3A%3D%20Array%20new.%0A%09nodes%20do%3A%20%5B%3AaNode%20%7C%0A%09%09aNode%20traverseClassesWith%3A%20expandedClasses%5D.%0A%09%5EexpandedClasses'),
-messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:classes:level:", "sorted:", unescape("%3C%3D"), "name", "theClass", "new", "traverseClassesWith:"],
+source: "sortedClasses: classes\x0a\x09\x22Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)\x22\x0a\x0a\x09| children others nodes expandedClasses |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [:each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [children add: each]\x0a\x09\x09\x09ifTrue: [others add: each]].\x0a\x09nodes := children collect: [:each |\x0a\x09\x09ClassSorterNode on: each classes: others level: 0].\x0a\x09nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].\x0a\x09expandedClasses := Array new.\x0a\x09nodes do: [:aNode |\x0a\x09\x09aNode traverseClassesWith: expandedClasses].\x0a\x09^expandedClasses",
+messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:classes:level:", "sorted:", "<=", "name", "theClass", "new", "traverseClassesWith:"],
 referencedClasses: ["ClassSorterNode", "Array"]
 }),
 smalltalk.Package.klass);
 
 
 smalltalk.addClass('Point', smalltalk.Object, ['x', 'y'], 'Kernel-Objects');
-smalltalk.Point.comment=unescape('A%20%60Point%60%20represents%20an%20x-y%20pair%20of%20numbers%20usually%20designating%20a%20geometric%20coordinate.%0APoints%20are%20traditionally%20created%20using%20the%20binary%20%60%23@%60%20message%20to%20a%20number%3A%0A%0A%09100@120%0A%0APoints%20can%20then%20be%20arithmetically%20manipulated%3A%0A%0A%09100@100%20+%20%2810@10%29%0A%0A...or%20for%20example%3A%0A%0A%09%28100@100%29%20*%202%0A%0A**NOTE%3A**%20Creating%20a%20Point%20with%20a%20negative%20y-value%20will%20need%20a%20space%20after%20%60@%60%20in%20order%20to%20avoid%20a%20parsing%20error%3A%0A%0A%09100@%20-100%20%22but%20100@-100%20would%20not%20parse%22%0A%0AAmber%20does%20not%20have%20much%20behavior%20in%20this%20class%20out-of-the-box.')
+smalltalk.Point.comment="A `Point` represents an x-y pair of numbers usually designating a geometric coordinate.\x0aPoints are traditionally created using the binary `#@` message to a number:\x0a\x0a\x09100@120\x0a\x0aPoints can then be arithmetically manipulated:\x0a\x0a\x09100@100 + (10@10)\x0a\x0a...or for example:\x0a\x0a\x09(100@100) * 2\x0a\x0a**NOTE:** Creating a Point with a negative y-value will need a space after `@` in order to avoid a parsing error:\x0a\x0a\x09100@ -100 \x22but 100@-100 would not parse\x22\x0a\x0aAmber does not have much behavior in this class out-of-the-box."
 smalltalk.addMethod(
-unescape('__star'),
+"__star",
 smalltalk.method({
-selector: unescape('*'),
+selector: "*",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    return smalltalk.send(smalltalk.Point || Point, "_x_y_", [($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number ? $receiver * smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), ($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number ? $receiver * smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return self;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.send((smalltalk.Point || Point), "_x_y_", [((($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])])), ((($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number) ? $receiver *smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])]))]);
+return self;},
 args: ["aPoint"],
-source: unescape('*%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20*%20aPoint%20asPoint%20x%20y%3A%20self%20y%20*%20aPoint%20asPoint%20y'),
-messageSends: ["x:y:", unescape("*"), "x", "asPoint", "y"],
+source: "* aPoint\x0a\x09^Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y",
+messageSends: ["x:y:", "*", "x", "asPoint", "y"],
 referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('__plus'),
+"__plus",
 smalltalk.method({
-selector: unescape('+'),
+selector: "+",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    return smalltalk.send(smalltalk.Point || Point, "_x_y_", [($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number ? $receiver + smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), ($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number ? $receiver + smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return self;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.send((smalltalk.Point || Point), "_x_y_", [((($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])])), ((($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])]))]);
+return self;},
 args: ["aPoint"],
-source: unescape('+%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20+%20aPoint%20asPoint%20x%20y%3A%20self%20y%20+%20aPoint%20asPoint%20y'),
-messageSends: ["x:y:", unescape("+"), "x", "asPoint", "y"],
+source: "+ aPoint\x0a\x09^Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y",
+messageSends: ["x:y:", "+", "x", "asPoint", "y"],
 referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('__minus'),
+"__minus",
 smalltalk.method({
-selector: unescape('-'),
+selector: "-",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    return smalltalk.send(smalltalk.Point || Point, "_x_y_", [($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number ? $receiver - smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), ($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number ? $receiver - smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return self;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.send((smalltalk.Point || Point), "_x_y_", [((($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])])), ((($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number) ? $receiver -smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])]))]);
+return self;},
 args: ["aPoint"],
-source: unescape('-%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20-%20aPoint%20asPoint%20x%20y%3A%20self%20y%20-%20aPoint%20asPoint%20y'),
-messageSends: ["x:y:", unescape("-"), "x", "asPoint", "y"],
+source: "- aPoint\x0a\x09^Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y",
+messageSends: ["x:y:", "-", "x", "asPoint", "y"],
 referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('__slash'),
+"__slash",
 smalltalk.method({
-selector: unescape('/'),
+selector: "/",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    return smalltalk.send(smalltalk.Point || Point, "_x_y_", [($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number ? $receiver / smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), ($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number ? $receiver / smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return self;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.send((smalltalk.Point || Point), "_x_y_", [((($receiver = smalltalk.send(self, "_x", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])])), ((($receiver = smalltalk.send(self, "_y", [])).klass === smalltalk.Number) ? $receiver /smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", []) : smalltalk.send($receiver, "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])]))]);
+return self;},
 args: ["aPoint"],
-source: unescape('/%20aPoint%0A%09%5EPoint%20x%3A%20self%20x%20/%20aPoint%20asPoint%20x%20y%3A%20self%20y%20/%20aPoint%20asPoint%20y'),
-messageSends: ["x:y:", unescape("/"), "x", "asPoint", "y"],
+source: "/ aPoint\x0a\x09^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y",
+messageSends: ["x:y:", "/", "x", "asPoint", "y"],
 referencedClasses: ["Point"]
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]), "_and_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);}]);
-    return self;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);})]);
+return self;},
 args: ["aPoint"],
-source: unescape('%3D%20aPoint%0A%09%5EaPoint%20class%20%3D%20self%20class%20and%3A%20%5B%0A%09%09%28aPoint%20x%20%3D%20self%20x%29%20%26%20%28aPoint%20y%20%3D%20self%20y%29%5D'),
-messageSends: ["and:", unescape("%3D"), "class", unescape("%26"), "x", "y"],
+source: "= aPoint\x0a\x09^aPoint class = self class and: [\x0a\x09\x09(aPoint x = self x) & (aPoint y = self y)]",
+messageSends: ["and:", "=", "class", "&", "x", "y"],
 referencedClasses: []
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_asPoint'),
+"_asPoint",
 smalltalk.method({
-selector: unescape('asPoint'),
+selector: "asPoint",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('asPoint%0A%09%5Eself'),
+source: "asPoint\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.String || String, "_streamContents_", [function (stream) {smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@x'], "_printString", []), "__comma", [unescape("@")])]);($receiver = smalltalk.send(smalltalk.send(self['@y'], "_notNil", []), "_and_", [function () {return smalltalk.send(self['@y'], "_negative", []);}])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(stream, "_space", []);}() : nil : smalltalk.send($receiver, "_ifTrue_", [function () {return smalltalk.send(stream, "_space", []);}]);return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self['@y'], "_printString", [])]);}]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@x'], "_printString", []), "__comma", ["@"])]);((($receiver = smalltalk.send(smalltalk.send(self['@y'], "_notNil", []), "_and_", [(function(){return smalltalk.send(self['@y'], "_negative", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(stream, "_space", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(stream, "_space", []);})]));return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self['@y'], "_printString", [])]);})]);
+return self;},
 args: [],
-source: unescape('printString%0A%09%22Print%20receiver%20in%20classic%20x@y%20notation.%22%0A%0A%09%5EString%20streamContents%3A%20%5B%3Astream%20%7C%0A%09%09stream%20nextPutAll%3A%20x%20printString%2C%20%27@%27.%0A%09%09%28y%20notNil%20and%3A%20%5By%20negative%5D%29%0A%09%09%09ifTrue%3A%20%5B%0A%09%09%09%09%22Avoid%20ambiguous%20@-%20construct%22%0A%09%09%09%09stream%20space%5D.%0A%09%09stream%20nextPutAll%3A%20y%20printString%5D'),
-messageSends: ["streamContents:", "nextPutAll:", unescape("%2C"), "printString", "ifTrue:", "and:", "notNil", "negative", "space"],
+source: "printString\x0a\x09\x22Print receiver in classic x@y notation.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09stream nextPutAll: x printString, '@'.\x0a\x09\x09(y notNil and: [y negative])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Avoid ambiguous @- construct\x22\x0a\x09\x09\x09\x09stream space].\x0a\x09\x09stream nextPutAll: y printString]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "printString", "ifTrue:", "and:", "notNil", "negative", "space"],
 referencedClasses: ["String"]
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_translateBy_'),
+"_translateBy_",
 smalltalk.method({
-selector: unescape('translateBy%3A'),
+selector: "translateBy:",
 category: 'transforming',
 fn: function (delta){
 var self=this;
 return smalltalk.send(((($receiver = smalltalk.send(delta, "_x", [])).klass === smalltalk.Number) ? $receiver +self['@x'] : smalltalk.send($receiver, "__plus", [self['@x']])), "__at", [((($receiver = smalltalk.send(delta, "_y", [])).klass === smalltalk.Number) ? $receiver +self['@y'] : smalltalk.send($receiver, "__plus", [self['@y']]))]);
 return self;},
 args: ["delta"],
-source: unescape('translateBy%3A%20delta%20%0A%09%22Answer%20a%20Point%20translated%20by%20delta%20%28an%20instance%20of%20Point%29.%22%0A%09%5E%28delta%20x%20+%20x%29%20@%20%28delta%20y%20+%20y%29'),
-messageSends: [unescape("@"), unescape("+"), "x", "y"],
+source: "translateBy: delta \x0a\x09\x22Answer a Point translated by delta (an instance of Point).\x22\x0a\x09^(delta x + x) @ (delta y + y)",
+messageSends: ["@", "+", "x", "y"],
 referencedClasses: []
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_x'),
+"_x",
 smalltalk.method({
-selector: unescape('x'),
+selector: "x",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@x'];
-    return self;
-},
+fn: function (){
+var self=this;
+return self['@x'];
+return self;},
 args: [],
-source: unescape('x%0A%09%5Ex'),
+source: "x\x0a\x09^x",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_x_'),
+"_x_",
 smalltalk.method({
-selector: unescape('x%3A'),
+selector: "x:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self['@x'] = aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+(self['@x']=aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('x%3A%20aNumber%0A%09x%20%3A%3D%20aNumber'),
+source: "x: aNumber\x0a\x09x := aNumber",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_y'),
+"_y",
 smalltalk.method({
-selector: unescape('y'),
+selector: "y",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@y'];
-    return self;
-},
+fn: function (){
+var self=this;
+return self['@y'];
+return self;},
 args: [],
-source: unescape('y%0A%09%5Ey'),
+source: "y\x0a\x09^y",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Point);
 
 smalltalk.addMethod(
-unescape('_y_'),
+"_y_",
 smalltalk.method({
-selector: unescape('y%3A'),
+selector: "y:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self['@y'] = aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+(self['@y']=aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('y%3A%20aNumber%0A%09y%20%3A%3D%20aNumber'),
+source: "y: aNumber\x0a\x09y := aNumber",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4856,17 +4014,16 @@ smalltalk.Point);
 
 
 smalltalk.addMethod(
-unescape('_x_y_'),
+"_x_y_",
 smalltalk.method({
-selector: unescape('x%3Ay%3A'),
+selector: "x:y:",
 category: 'instance creation',
-fn: function (aNumber, anotherNumber) {
-    var self = this;
-    return function ($rec) {smalltalk.send($rec, "_x_", [aNumber]);smalltalk.send($rec, "_y_", [anotherNumber]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(self, "_new", []));
-    return self;
-},
+fn: function (aNumber, anotherNumber){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_x_", [aNumber]);smalltalk.send($rec, "_y_", [anotherNumber]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
 args: ["aNumber", "anotherNumber"],
-source: unescape('x%3A%20aNumber%20y%3A%20anotherNumber%0A%09%5Eself%20new%0A%09%09x%3A%20aNumber%3B%0A%09%09y%3A%20anotherNumber%3B%0A%09%09yourself'),
+source: "x: aNumber y: anotherNumber\x0a\x09^self new\x0a\x09\x09x: aNumber;\x0a\x09\x09y: anotherNumber;\x0a\x09\x09yourself",
 messageSends: ["x:", "y:", "yourself", "new"],
 referencedClasses: []
 }),
@@ -4874,36 +4031,34 @@ smalltalk.Point.klass);
 
 
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Random.comment=unescape('%60Random%60%20is%20a%20random%20number%20generator%20and%20is%20implemented%20as%20a%20trivial%20wrapper%20around%20javascript%20%60Math.random%28%29%60%20and%20is%20used%20like%20this%3A%0A%0A%09Random%20new%20next%0A%0AThis%20will%20return%20a%20float%20x%20where%20x%20%3C%201%20and%20x%20%3E%200.%20If%20you%20want%20a%20random%20integer%20from%201%20to%2010%20you%20can%20use%20%60%23atRandom%60%0A%0A%0910%20atRandom%0A%0A...and%20if%20you%20want%20a%20random%20number%20in%20a%20specific%20interval%20this%20also%20works%3A%0A%0A%09%283%20to%3A%207%29%20atRandom%0A%0A...but%20be%20aware%20that%20%60%23to%3A%60%20does%20not%20create%20an%20Interval%20as%20in%20other%20Smalltalk%20implementations%20but%20in%20fact%20an%20%60Array%60%20of%20numbers%2C%20so%20it%27s%20better%20to%20use%3A%0A%0A%095%20atRandom%20+%202%0A%0ASince%20%60%23atRandom%60%20is%20implemented%20in%20%60SequencableCollection%60%20you%20can%20easy%20pick%20an%20element%20at%20random%3A%0A%0A%09%23%28%27a%27%20%27b%27%20%27c%27%29%20atRandom%0A%0A...or%20perhaps%20a%20letter%20from%20a%20%60String%60%3A%0A%0A%09%27abc%27%20atRandom%0A%0ASince%20Amber%20does%20not%20have%20Characters%20this%20will%20return%20a%20%60String%60%20of%20length%201%20like%20for%20example%20%60%27b%27%60.')
+smalltalk.Random.comment="`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:\x0a\x0a\x09Random new next\x0a\x0aThis will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`\x0a\x0a\x0910 atRandom\x0a\x0a...and if you want a random number in a specific interval this also works:\x0a\x0a\x09(3 to: 7) atRandom\x0a\x0a...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:\x0a\x0a\x095 atRandom + 2\x0a\x0aSince `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:\x0a\x0a\x09#('a' 'b' 'c') atRandom\x0a\x0a...or perhaps a letter from a `String`:\x0a\x0a\x09'abc' atRandom\x0a\x0aSince Amber does not have Characters this will return a `String` of length 1 like for example `'b'`."
 smalltalk.addMethod(
-unescape('_next'),
+"_next",
 smalltalk.method({
-selector: unescape('next'),
+selector: "next",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return Math.random();
-    return self;
-},
+fn: function (){
+var self=this;
+return Math.random();
+return self;},
 args: [],
-source: unescape('next%0A%09%3Creturn%20Math.random%28%29%3E'),
+source: "next\x0a\x09<return Math.random()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Random);
 
 smalltalk.addMethod(
-unescape('_next_'),
+"_next_",
 smalltalk.method({
-selector: unescape('next%3A'),
+selector: "next:",
 category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(1, "_to_", [anInteger]), "_collect_", [function (each) {return smalltalk.send(self, "_next", []);}]);
-    return self;
-},
+fn: function (anInteger){
+var self=this;
+return smalltalk.send(smalltalk.send((1), "_to_", [anInteger]), "_collect_", [(function(each){return smalltalk.send(self, "_next", []);})]);
+return self;},
 args: ["anInteger"],
-source: unescape('next%3A%20anInteger%0A%20%20%20%20%5E%281%20to%3A%20anInteger%29%20collect%3A%20%5B%3Aeach%20%7C%20self%20next%5D'),
+source: "next: anInteger\x0a    ^(1 to: anInteger) collect: [:each | self next]",
 messageSends: ["collect:", "to:", "next"],
 referencedClasses: []
 }),
@@ -4912,324 +4067,306 @@ smalltalk.Random);
 
 
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.Smalltalk.comment=unescape('Smalltalk%20has%20only%20one%20instance%2C%20accessed%20with%20%60Smalltalk%20current%60.%20%0AIt%20represents%20the%20global%20JavaScript%20variable%20%60smalltalk%60%20declared%20in%20%60js/boot.js%60.%0A%0AThe%20%60smalltalk%60%20object%20holds%20all%20class%20and%20packages%20defined%20in%20the%20system.%0A%0A%23%23%20Classes%0A%0AClasses%20can%20be%20accessed%20using%20the%20following%20methods%3A%0A%0A-%20%60%23classes%60%20answers%20the%20full%20list%20of%20Smalltalk%20classes%20in%20the%20system%0A-%20%60%23at%3A%60%20answers%20a%20specific%20class%20of%20%60nil%60%0A%0A%23%23%20Packages%0A%0APackages%20can%20be%20accessed%20using%20the%20following%20methods%3A%0A%0A-%20%60%23packages%60%20answers%20the%20full%20list%20of%20packages%0A-%20%60%23packageAt%3A%60%20answers%20a%20specific%20class%20of%20%60nil%60%0A%0A__note%3A__%20classes%20and%20packages%20are%20accessed%20using%20strings%2C%20not%20symbols%0A%0A%23%23%20Parsing%0A%0AThe%20%60%23parse%3A%60%20method%20is%20used%20to%20parse%20Smalltalk%20source%20code.%20%0AIt%20requires%20the%20%60Compiler%60%20package%20and%20the%20%60js/parser.js%60%20parser%20file%20in%20order%20to%20work')
+smalltalk.Smalltalk.comment="Smalltalk has only one instance, accessed with `Smalltalk current`. \x0aIt represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class of `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific class of `nil`\x0a\x0a__note:__ classes and packages are accessed using strings, not symbols\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Smalltalk source code. \x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work"
 smalltalk.addMethod(
-unescape('_at_'),
+"_at_",
 smalltalk.method({
-selector: unescape('at%3A'),
+selector: "at:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return self[aString];
-    return self;
-},
+fn: function (aString){
+var self=this;
+return self[aString];
+return self;},
 args: ["aString"],
-source: unescape('at%3A%20aString%0A%09%3Creturn%20self%5BaString%5D%3E'),
+source: "at: aString\x0a\x09<return self[aString]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_basicParse_'),
+"_basicParse_",
 smalltalk.method({
-selector: unescape('basicParse%3A'),
+selector: "basicParse:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return smalltalk.parser.parse(aString);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.parser.parse(aString);
+return self;},
 args: ["aString"],
-source: unescape('basicParse%3A%20aString%0A%09%3Creturn%20smalltalk.parser.parse%28aString%29%3E'),
+source: "basicParse: aString\x0a\x09<return smalltalk.parser.parse(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_classes'),
+"_classes",
 smalltalk.method({
-selector: unescape('classes'),
+selector: "classes",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.classes();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.classes();
+return self;},
 args: [],
-source: unescape('classes%0A%09%3Creturn%20self.classes%28%29%3E'),
+source: "classes\x0a\x09<return self.classes()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_createPackage_'),
+"_createPackage_",
 smalltalk.method({
-selector: unescape('createPackage%3A'),
+selector: "createPackage:",
 category: 'private',
-fn: function (packageName) {
-    var self = this;
-    return smalltalk.addPackage(packageName, nil);
-    return self;
-},
+fn: function (packageName){
+var self=this;
+return smalltalk.addPackage(packageName, nil);
+return self;},
 args: ["packageName"],
-source: unescape('createPackage%3A%20packageName%0A%09%22Create%20and%20bind%20a%20new%20package%20with%20given%20name%20and%20return%20it.%22%0A%0A%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%2C%20nil%29%3E'),
+source: "createPackage: packageName\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x0a      <return smalltalk.addPackage(packageName, nil)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_createPackage_properties_'),
+"_createPackage_properties_",
 smalltalk.method({
-selector: unescape('createPackage%3Aproperties%3A'),
+selector: "createPackage:properties:",
 category: 'private',
-fn: function (packageName, aDict) {
-    var self = this;
-    var object = nil;
-    object = {};
-    smalltalk.send(aDict, "_keysAndValuesDo_", [function (key, value) {return object[key] = value;}]);
-    return smalltalk.addPackage(packageName, object);
-    return self;
-},
+fn: function (packageName, aDict){
+var self=this;
+var object=nil;
+object = {};;
+smalltalk.send(aDict, "_keysAndValuesDo_", [(function(key, value){return object[key] = value;})]);
+return smalltalk.addPackage(packageName, object);
+return self;},
 args: ["packageName", "aDict"],
-source: unescape('createPackage%3A%20packageName%20properties%3A%20aDict%0A%09%22Create%20and%20bind%20a%20new%20package%20with%20given%20name%20and%20return%20it.%22%0A%0A%09%7C%20object%20%7C%0A%09%3Cobject%20%3D%20%7B%7D%3B%3E.%0A%09aDict%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09%3Cobject%5Bkey%5D%20%3D%20value%3E.%0A%09%5D.%0A%20%20%20%20%20%20%20%3Creturn%20smalltalk.addPackage%28packageName%2C%20object%29%3E'),
+source: "createPackage: packageName properties: aDict\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x0a\x09| object |\x0a\x09<object = {};>.\x0a\x09aDict keysAndValuesDo: [:key :value |\x0a\x09\x09<object[key] = value>.\x0a\x09].\x0a       <return smalltalk.addPackage(packageName, object)>",
 messageSends: ["keysAndValuesDo:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_deletePackage_'),
+"_deletePackage_",
 smalltalk.method({
-selector: unescape('deletePackage%3A'),
+selector: "deletePackage:",
 category: 'private',
-fn: function (packageName) {
-    var self = this;
-    delete smalltalk.packages[packageName];
-    return self;
-},
+fn: function (packageName){
+var self=this;
+delete smalltalk.packages[packageName];
+return self;},
 args: ["packageName"],
-source: unescape('deletePackage%3A%20packageName%0A%09%22Deletes%20a%20package%20by%20deleting%20its%20binding%2C%20but%20does%20not%20check%20if%20it%20contains%20classes%20etc.%0A%09To%20remove%20a%20package%2C%20use%20%23removePackage%20instead.%22%0A%0A%20%20%20%20%20%20%20%3Cdelete%20smalltalk.packages%5BpackageName%5D%3E'),
+source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a       <delete smalltalk.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_packageAt_'),
+"_packageAt_",
 smalltalk.method({
-selector: unescape('packageAt%3A'),
+selector: "packageAt:",
 category: 'packages',
-fn: function (packageName) {
-    var self = this;
-    return self.packages[packageName];
-    return self;
-},
+fn: function (packageName){
+var self=this;
+return self.packages[packageName];
+return self;},
 args: ["packageName"],
-source: unescape('packageAt%3A%20packageName%0A%20%20%20%20%20%20%20%3Creturn%20self.packages%5BpackageName%5D%3E'),
+source: "packageAt: packageName\x0a       <return self.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_packageAt_ifAbsent_'),
+"_packageAt_ifAbsent_",
 smalltalk.method({
-selector: unescape('packageAt%3AifAbsent%3A'),
+selector: "packageAt:ifAbsent:",
 category: 'packages',
-fn: function (packageName, aBlock) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(self, "_packageAt_", [packageName]), "_ifNil_", [aBlock]);
-    return self;
-},
+fn: function (packageName, aBlock){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_packageAt_", [packageName]), "_ifNil_", [aBlock]);
+return self;},
 args: ["packageName", "aBlock"],
-source: unescape('packageAt%3A%20packageName%20ifAbsent%3A%20aBlock%0A%20%20%20%20%20%20%20%5E%28self%20packageAt%3A%20packageName%29%20ifNil%3A%20aBlock'),
+source: "packageAt: packageName ifAbsent: aBlock\x0a       ^(self packageAt: packageName) ifNil: aBlock",
 messageSends: ["ifNil:", "packageAt:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_packages'),
+"_packages",
 smalltalk.method({
-selector: unescape('packages'),
+selector: "packages",
 category: 'packages',
-fn: function () {
-    var self = this;
-    return self.packages.all();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.packages.all();
+return self;},
 args: [],
-source: unescape('packages%0A%09%22Return%20all%20Package%20instances%20in%20the%20system.%22%0A%0A%09%3Creturn%20self.packages.all%28%29%3E'),
+source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<return self.packages.all()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_parse_'),
+"_parse_",
 smalltalk.method({
-selector: unescape('parse%3A'),
+selector: "parse:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    var result = nil;
-    smalltalk.send(self, "_try_catch_", [function () {return result = smalltalk.send(self, "_basicParse_", [aString]);}, function (ex) {return smalltalk.send(smalltalk.send(self, "_parseError_parsing_", [ex, aString]), "_signal", []);}]);
-    return result;
-    return self;
-},
+fn: function (aString){
+var self=this;
+var result=nil;
+smalltalk.send(self, "_try_catch_", [(function(){return (result=smalltalk.send(self, "_basicParse_", [aString]));}), (function(ex){return smalltalk.send(smalltalk.send(self, "_parseError_parsing_", [ex, aString]), "_signal", []);})]);
+return result;
+return self;},
 args: ["aString"],
-source: unescape('parse%3A%20aString%0A%09%7C%20result%20%7C%20%0A%09self%20try%3A%20%5Bresult%20%3A%3D%20self%20basicParse%3A%20aString%5D%20catch%3A%20%5B%3Aex%20%7C%20%28self%20parseError%3A%20ex%20parsing%3A%20aString%29%20signal%5D.%0A%09%5Eresult'),
+source: "parse: aString\x0a\x09| result | \x0a\x09self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].\x0a\x09^result",
 messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_parseError_parsing_'),
+"_parseError_parsing_",
 smalltalk.method({
-selector: unescape('parseError%3Aparsing%3A'),
+selector: "parseError:parsing:",
 category: 'accessing',
-fn: function (anException, aString) {
-    var self = this;
-    var row = nil;
-    var col = nil;
-    var message = nil;
-    var lines = nil;
-    var badLine = nil;
-    var code = nil;
-    row = anException.line;
-    col = anException.column;
-    message = anException.message;
-    lines = smalltalk.send(aString, "_lines", []);
-    badLine = smalltalk.send(lines, "_at_", [row]);
-    badLine = smalltalk.send(smalltalk.send(smalltalk.send(badLine, "_copyFrom_to_", [1, ($receiver = col).klass === smalltalk.Number ? $receiver - 1 : smalltalk.send($receiver, "__minus", [1])]), "__comma", [unescape("%20%3D%3D%3D%3E")]), "__comma", [smalltalk.send(badLine, "_copyFrom_to_", [col, smalltalk.send(badLine, "_size", [])])]);
-    smalltalk.send(lines, "_at_put_", [row, badLine]);
-    code = smalltalk.send(smalltalk.String || String, "_streamContents_", [function (s) {return smalltalk.send(lines, "_withIndexDo_", [function (l, i) {return smalltalk.send(s, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(i, "_asString", []), "__comma", [": "]), "__comma", [l]), "__comma", [smalltalk.send(smalltalk.String || String, "_lf", [])])]);}]);}]);
-    return smalltalk.send(smalltalk.send(smalltalk.Error || Error, "_new", []), "_messageText_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Parse error on line ", "__comma", [row]), "__comma", [" column "]), "__comma", [col]), "__comma", [" : "]), "__comma", [message]), "__comma", [unescape("%20Below%20is%20code%20with%20line%20numbers%20and%20%3D%3D%3D%3E%20marker%20inserted%3A")]), "__comma", [smalltalk.send(smalltalk.String || String, "_lf", [])]), "__comma", [code])]);
-    return self;
-},
+fn: function (anException, aString){
+var self=this;
+var row=nil;
+var col=nil;
+var message=nil;
+var lines=nil;
+var badLine=nil;
+var code=nil;
+row = anException.line;
+	col = anException.column;
+	message = anException.message;;
+(lines=smalltalk.send(aString, "_lines", []));
+(badLine=smalltalk.send(lines, "_at_", [row]));
+(badLine=smalltalk.send(smalltalk.send(smalltalk.send(badLine, "_copyFrom_to_", [(1), ((($receiver = col).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]))]), "__comma", [" ===>"]), "__comma", [smalltalk.send(badLine, "_copyFrom_to_", [col, smalltalk.send(badLine, "_size", [])])]));
+smalltalk.send(lines, "_at_put_", [row, badLine]);
+(code=smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(s){return smalltalk.send(lines, "_withIndexDo_", [(function(l, i){return smalltalk.send(s, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(i, "_asString", []), "__comma", [": "]), "__comma", [l]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])])]);})]);})]));
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error), "_new", []), "_messageText_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Parse error on line ", "__comma", [row]), "__comma", [" column "]), "__comma", [col]), "__comma", [" : "]), "__comma", [message]), "__comma", [" Below is code with line numbers and ===> marker inserted:"]), "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [code])]);
+return self;},
 args: ["anException", "aString"],
-source: unescape('parseError%3A%20anException%20parsing%3A%20aString%0A%09%7C%20row%20col%20message%20lines%20badLine%20code%20%7C%0A%09%3Crow%20%3D%20anException.line%3B%0A%09col%20%3D%20anException.column%3B%0A%09message%20%3D%20anException.message%3B%3E.%0A%09lines%20%3A%3D%20aString%20lines.%0A%09badLine%20%3A%3D%20lines%20at%3A%20row.%0A%09badLine%20%3A%3D%20%28badLine%20copyFrom%3A%201%20to%3A%20col%20-%201%29%2C%20%27%20%3D%3D%3D%3E%27%2C%20%28badLine%20copyFrom%3A%20%20col%20to%3A%20badLine%20size%29.%0A%09lines%20at%3A%20row%20put%3A%20badLine.%0A%09code%20%3A%3D%20String%20streamContents%3A%20%5B%3As%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20lines%20withIndexDo%3A%20%5B%3Al%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20s%20nextPutAll%3A%20i%20asString%2C%20%27%3A%20%27%2C%20l%2C%20String%20lf%5D%5D.%0A%09%5E%20Error%20new%20messageText%3A%20%28%27Parse%20error%20on%20line%20%27%20%2C%20row%20%2C%20%27%20column%20%27%20%2C%20col%20%2C%20%27%20%3A%20%27%20%2C%20message%20%2C%20%27%20Below%20is%20code%20with%20line%20numbers%20and%20%3D%3D%3D%3E%20marker%20inserted%3A%27%20%2C%20String%20lf%2C%20code%29'),
-messageSends: ["lines", "at:", unescape("%2C"), "copyFrom:to:", unescape("-"), "size", "at:put:", "streamContents:", "withIndexDo:", "nextPutAll:", "asString", "lf", "messageText:", "new"],
+source: "parseError: anException parsing: aString\x0a\x09| row col message lines badLine code |\x0a\x09<row = anException.line;\x0a\x09col = anException.column;\x0a\x09message = anException.message;>.\x0a\x09lines := aString lines.\x0a\x09badLine := lines at: row.\x0a\x09badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).\x0a\x09lines at: row put: badLine.\x0a\x09code := String streamContents: [:s |\x0a                  lines withIndexDo: [:l :i |\x0a                     s nextPutAll: i asString, ': ', l, String lf]].\x0a\x09^ Error new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)",
+messageSends: ["lines", "at:", ",", "copyFrom:to:", "-", "size", "at:put:", "streamContents:", "withIndexDo:", "nextPutAll:", "asString", "lf", "messageText:", "new"],
 referencedClasses: ["String", "Error"]
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_readJSObject_'),
+"_readJSObject_",
 smalltalk.method({
-selector: unescape('readJSObject%3A'),
+selector: "readJSObject:",
 category: 'accessing',
-fn: function (anObject) {
-    var self = this;
-    return self.readJSObject(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return self.readJSObject(anObject);
+return self;},
 args: ["anObject"],
-source: unescape('readJSObject%3A%20anObject%0A%09%3Creturn%20self.readJSObject%28anObject%29%3E'),
+source: "readJSObject: anObject\x0a\x09<return self.readJSObject(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_removeClass_'),
+"_removeClass_",
 smalltalk.method({
-selector: unescape('removeClass%3A'),
+selector: "removeClass:",
 category: 'classes',
-fn: function (aClass) {
-    var self = this;
-    ($receiver = smalltalk.send(aClass, "_isMetaclass", [])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [unescape("%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21")])]);}() : nil : smalltalk.send($receiver, "_ifTrue_", [function () {return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [unescape("%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21")])]);}]);
-    smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);}]);
-    smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);}]);
-    smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
-    return self;
-},
+fn: function (aClass){
+var self=this;
+((($receiver = smalltalk.send(aClass, "_isMetaclass", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [" is a Metaclass and cannot be removed!"])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [" is a Metaclass and cannot be removed!"])]);})]));
+smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);})]);
+smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
+return self;},
 args: ["aClass"],
-source: unescape('removeClass%3A%20aClass%0A%09aClass%20isMetaclass%20ifTrue%3A%20%5Bself%20error%3A%20aClass%20asString%2C%20%27%20is%20a%20Metaclass%20and%20cannot%20be%20removed%21%27%5D.%0A%09aClass%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20removeCompiledMethod%3A%20each%5D.%0A%09aClass%20class%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09aClass%20class%20removeCompiledMethod%3A%20each%5D.%0A%09self%20basicDelete%3A%20aClass%20name'),
-messageSends: ["ifTrue:", "isMetaclass", "error:", unescape("%2C"), "asString", "do:", "values", "methodDictionary", "removeCompiledMethod:", "class", "basicDelete:", "name"],
+source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09aClass removeCompiledMethod: each].\x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09aClass class removeCompiledMethod: each].\x0a\x09self basicDelete: aClass name",
+messageSends: ["ifTrue:", "isMetaclass", "error:", ",", "asString", "do:", "values", "methodDictionary", "removeCompiledMethod:", "class", "basicDelete:", "name"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_removePackage_'),
+"_removePackage_",
 smalltalk.method({
-selector: unescape('removePackage%3A'),
+selector: "removePackage:",
 category: 'packages',
-fn: function (packageName) {
-    var self = this;
-    var pkg = nil;
-    pkg = smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, function () {return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);}]);
-    smalltalk.send(smalltalk.send(pkg, "_classes", []), "_do_", [function (each) {return smalltalk.send(self, "_removeClass_", [each]);}]);
-    smalltalk.send(self, "_deletePackage_", [packageName]);
-    return self;
-},
+fn: function (packageName){
+var self=this;
+var pkg=nil;
+(pkg=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]));
+smalltalk.send(smalltalk.send(pkg, "_classes", []), "_do_", [(function(each){return smalltalk.send(self, "_removeClass_", [each]);})]);
+smalltalk.send(self, "_deletePackage_", [packageName]);
+return self;},
 args: ["packageName"],
-source: unescape('removePackage%3A%20packageName%0A%09%22Removes%20a%20package%20and%20all%20its%20classes.%22%0A%0A%09%7C%20pkg%20%7C%0A%09pkg%20%3A%3D%20self%20packageAt%3A%20packageName%20ifAbsent%3A%20%5Bself%20error%3A%20%27Missing%20package%3A%20%27%2C%20packageName%5D.%0A%09pkg%20classes%20do%3A%20%5B%3Aeach%20%7C%0A%20%20%20%20%20%20%20%20%09self%20removeClass%3A%20each%5D.%0A%09self%20deletePackage%3A%20packageName'),
-messageSends: ["packageAt:ifAbsent:", "error:", unescape("%2C"), "do:", "classes", "removeClass:", "deletePackage:"],
+source: "removePackage: packageName\x0a\x09\x22Removes a package and all its classes.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09pkg classes do: [:each |\x0a        \x09self removeClass: each].\x0a\x09self deletePackage: packageName",
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "do:", "classes", "removeClass:", "deletePackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_renamePackage_to_'),
+"_renamePackage_to_",
 smalltalk.method({
-selector: unescape('renamePackage%3Ato%3A'),
+selector: "renamePackage:to:",
 category: 'packages',
-fn: function (packageName, newName) {
-    var self = this;
-    var pkg = nil;
-    pkg = smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, function () {return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);}]);
-    ($receiver = smalltalk.send(self, "_packageAt_", [newName])) != nil &&
-        $receiver != undefined ? function () {return smalltalk.send(self, "_error_", [smalltalk.send("Already exists a package called: ", "__comma", [newName])]);}() : nil;
-    smalltalk.packages[newName] = smalltalk.packages[packageName];
-    smalltalk.send(pkg, "_name_", [newName]);
-    smalltalk.send(self, "_deletePackage_", [packageName]);
-    return self;
-},
+fn: function (packageName, newName){
+var self=this;
+var pkg=nil;
+(pkg=smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);})]));
+(($receiver = smalltalk.send(self, "_packageAt_", [newName])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_error_", [smalltalk.send("Already exists a package called: ", "__comma", [newName])]);})() : nil;
+smalltalk.packages[newName] = smalltalk.packages[packageName];
+smalltalk.send(pkg, "_name_", [newName]);
+smalltalk.send(self, "_deletePackage_", [packageName]);
+return self;},
 args: ["packageName", "newName"],
-source: unescape('renamePackage%3A%20packageName%20to%3A%20newName%0A%09%22Rename%20a%20package.%22%0A%0A%09%7C%20pkg%20%7C%0A%09pkg%20%3A%3D%20self%20packageAt%3A%20packageName%20ifAbsent%3A%20%5Bself%20error%3A%20%27Missing%20package%3A%20%27%2C%20packageName%5D.%0A%09%28self%20packageAt%3A%20newName%29%20ifNotNil%3A%20%5Bself%20error%3A%20%27Already%20exists%20a%20package%20called%3A%20%27%2C%20newName%5D.%0A%09%3Csmalltalk.packages%5BnewName%5D%20%3D%20smalltalk.packages%5BpackageName%5D%3E.%0A%09pkg%20name%3A%20newName.%0A%09self%20deletePackage%3A%20packageName.'),
-messageSends: ["packageAt:ifAbsent:", "error:", unescape("%2C"), "ifNotNil:", "packageAt:", "name:", "deletePackage:"],
+source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].\x0a\x09<smalltalk.packages[newName] = smalltalk.packages[packageName]>.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "name:", "deletePackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_reservedWords'),
+"_reservedWords",
 smalltalk.method({
-selector: unescape('reservedWords'),
+selector: "reservedWords",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.reservedWords;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.reservedWords;
+return self;},
 args: [],
-source: unescape('reservedWords%0A%09%22JavaScript%20reserved%20words%22%0A%09%3Creturn%20self.reservedWords%3E'),
+source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return self.reservedWords>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
-unescape('_send_to_arguments_'),
+"_send_to_arguments_",
 smalltalk.method({
-selector: unescape('send%3Ato%3Aarguments%3A'),
+selector: "send:to:arguments:",
 category: 'accessing',
-fn: function (aSelector, anObject, aCollection) {
-    var self = this;
-    var selector = nil;
-    selector = smalltalk.send(smalltalk.send(aSelector, "_asString", []), "_asSelector", []);
-    self.send(anObject, selector, aCollection);
-    return self;
-},
+fn: function (aSelector, anObject, aCollection){
+var self=this;
+var selector=nil;
+(selector=smalltalk.send(smalltalk.send(aSelector, "_asString", []), "_asSelector", []));
+self.send(anObject, selector, aCollection);
+return self;},
 args: ["aSelector", "anObject", "aCollection"],
-source: unescape('send%3A%20aSelector%20to%3A%20anObject%20arguments%3A%20aCollection%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20aSelector%20asString%20asSelector.%0A%09%3Cself.send%28anObject%2C%20selector%2C%20aCollection%29%3E'),
+source: "send: aSelector to: anObject arguments: aCollection\x0a\x09| selector |\x0a\x09selector := aSelector asString asSelector.\x0a\x09<self.send(anObject, selector, aCollection)>",
 messageSends: ["asSelector", "asString"],
 referencedClasses: []
 }),
@@ -5238,17 +4375,16 @@ smalltalk.Smalltalk);
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-unescape('_current'),
+"_current",
 smalltalk.method({
-selector: unescape('current'),
+selector: "current",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk;
+return self;},
 args: [],
-source: unescape('current%0A%09%3Creturn%20smalltalk%3E'),
+source: "current\x0a\x09<return smalltalk>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5256,223 +4392,211 @@ smalltalk.Smalltalk.klass);
 
 
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.UndefinedObject.comment=unescape('UndefinedObject%20describes%20the%20behavior%20of%20its%20sole%20instance%2C%20%60nil%60.%20%60nil%60%20represents%20a%20prior%20value%20for%20variables%20that%20have%20not%20been%20initialized%2C%20or%20for%20results%20which%20are%20meaningless.%0A%0A%60nil%60%20is%20the%20Smalltalk%20representation%20of%20the%20%60undefined%60%20JavaScript%20object.')
+smalltalk.UndefinedObject.comment="UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.\x0a\x0a`nil` is the Smalltalk representation of the `undefined` JavaScript object."
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return (typeof null == 'undefined' ? nil : null);
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Enull'),
+source: "asJSON\x0a\x09^null",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('deepCopy%0A%09%5Eself'),
+source: "deepCopy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_ifNil_'),
+"_ifNil_",
 smalltalk.method({
-selector: unescape('ifNil%3A'),
+selector: "ifNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    return smalltalk.send(self, "_ifNil_ifNotNil_", [aBlock, function () {return nil;}]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.send(self, "_ifNil_ifNotNil_", [aBlock, (function(){return nil;})]);
+return self;},
 args: ["aBlock"],
-source: unescape('ifNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself%20ifNil%3A%20aBlock%20ifNotNil%3A%20%5B%5D'),
+source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifNil: aBlock ifNotNil: []",
 messageSends: ["ifNil:ifNotNil:"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_ifNil_ifNotNil_'),
+"_ifNil_ifNotNil_",
 smalltalk.method({
-selector: unescape('ifNil%3AifNotNil%3A'),
+selector: "ifNil:ifNotNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return smalltalk.send(aBlock, "_value", []);
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(aBlock, "_value", []);
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('ifNil%3A%20aBlock%20ifNotNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EaBlock%20value'),
+source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
 messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_ifNotNil_'),
+"_ifNotNil_",
 smalltalk.method({
-selector: unescape('ifNotNil%3A'),
+selector: "ifNotNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return self;
+return self;},
 args: ["aBlock"],
-source: unescape('ifNotNil%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5Eself'),
+source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_ifNotNil_ifNil_'),
+"_ifNotNil_ifNil_",
 smalltalk.method({
-selector: unescape('ifNotNil%3AifNil%3A'),
+selector: "ifNotNil:ifNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    return smalltalk.send(anotherBlock, "_value", []);
-    return self;
-},
+fn: function (aBlock, anotherBlock){
+var self=this;
+return smalltalk.send(anotherBlock, "_value", []);
+return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('ifNotNil%3A%20aBlock%20ifNil%3A%20anotherBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%5EanotherBlock%20value'),
+source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value",
 messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_isNil'),
+"_isNil",
 smalltalk.method({
-selector: unescape('isNil'),
+selector: "isNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return true;
-    return self;
-},
+fn: function (){
+var self=this;
+return true;
+return self;},
 args: [],
-source: unescape('isNil%0A%09%5Etrue'),
+source: "isNil\x0a\x09^true",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_notNil'),
+"_notNil",
 smalltalk.method({
-selector: unescape('notNil'),
+selector: "notNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-    return self;
-},
+fn: function (){
+var self=this;
+return false;
+return self;},
 args: [],
-source: unescape('notNil%0A%09%5Efalse'),
+source: "notNil\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return "nil";
-    return self;
-},
+fn: function (){
+var self=this;
+return "nil";
+return self;},
 args: [],
-source: unescape('printString%0A%20%20%20%20%5E%27nil%27'),
+source: "printString\x0a    ^'nil'",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_shallowCopy",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-    return self;
-},
+fn: function (){
+var self=this;
+return self;
+return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%5Eself'),
+source: "shallowCopy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_'),
+"_subclass_instanceVariableNames_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3A'),
+selector: "subclass:instanceVariableNames:",
 category: 'class creation',
-fn: function (aString, anotherString) {
-    var self = this;
-    return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, anotherString, nil]);
-    return self;
-},
+fn: function (aString, anotherString){
+var self=this;
+return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, anotherString, nil]);
+return self;},
 args: ["aString", "anotherString"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%20package%3A%20nil'),
+source: "subclass: aString instanceVariableNames: anotherString\x0a\x09^self subclass: aString instanceVariableNames: anotherString package: nil",
 messageSends: ["subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_category_'),
+"_subclass_instanceVariableNames_category_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3Acategory%3A'),
+selector: "subclass:instanceVariableNames:category:",
 category: 'class creation',
-fn: function (aString, aString2, aString3) {
-    var self = this;
-    smalltalk.send(self, "_deprecatedAPI", []);
-    return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
-    return self;
-},
+fn: function (aString, aString2, aString3){
+var self=this;
+smalltalk.send(self, "_deprecatedAPI", []);
+return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
+return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%22Kept%20for%20compatibility.%22%0A%09self%20deprecatedAPI.%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^self subclass: aString instanceVariableNames: aString2 package: aString3",
 messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_package_'),
+"_subclass_instanceVariableNames_package_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3Apackage%3A'),
+selector: "subclass:instanceVariableNames:package:",
 category: 'class creation',
-fn: function (aString, aString2, aString3) {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.ClassBuilder || ClassBuilder, "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
-    return self;
-},
+fn: function (aString, aString2, aString3){
+var self=this;
+return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
+return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+source: "subclass: aString instanceVariableNames: aString2 package: aString3\x0a\x09^ClassBuilder new\x0a\x09    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3",
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
 referencedClasses: ["ClassBuilder"]
 }),
@@ -5480,17 +4604,16 @@ smalltalk.UndefinedObject);
 
 
 smalltalk.addMethod(
-unescape('_new'),
+"_new",
 smalltalk.method({
-selector: unescape('new'),
+selector: "new",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["You cannot create new instances of UndefinedObject. Use nil"]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_error_", ["You cannot create new instances of UndefinedObject. Use nil"]);
+return self;},
 args: [],
-source: unescape('new%0A%09%20%20%20%20self%20error%3A%20%27You%20cannot%20create%20new%20instances%20of%20UndefinedObject.%20Use%20nil%27'),
+source: "new\x0a\x09    self error: 'You cannot create new instances of UndefinedObject. Use nil'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
@@ -5499,27 +4622,27 @@ smalltalk.UndefinedObject.klass);
 
 smalltalk.addPackage('Kernel-Classes', {});
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
-smalltalk.Behavior.comment=unescape('Behavior%20is%20the%20superclass%20of%20all%20class%20objects.%20%0A%0AIt%20defines%20the%20protocol%20for%20creating%20instances%20of%20a%20class%20with%20%60%23basicNew%60%20and%20%60%23new%60%20%28see%20%60boot.js%60%20for%20class%20constructors%20details%29.%0AInstances%20know%20about%20the%20subclass/superclass%20relationships%20between%20classes%2C%20contain%20the%20description%20that%20instances%20are%20created%20from%2C%20%0Aand%20hold%20the%20method%20dictionary%20that%27s%20associated%20with%20each%20class.%0A%0ABehavior%20also%20%20provides%20methods%20for%20compiling%20methods%2C%20examining%20the%20method%20dictionary%2C%20and%20iterating%20over%20the%20class%20hierarchy.')
+smalltalk.Behavior.comment="Behavior is the superclass of all class objects. \x0a\x0aIt defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0aInstances know about the subclass/superclass relationships between classes, contain the description that instances are created from, \x0aand hold the method dictionary that's associated with each class.\x0a\x0aBehavior also  provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy."
 smalltalk.addMethod(
-unescape('_addCompiledMethod_'),
+"_addCompiledMethod_",
 smalltalk.method({
-selector: unescape('addCompiledMethod%3A'),
+selector: "addCompiledMethod:",
 category: 'compiling',
 fn: function (aMethod){
 var self=this;
 smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
 return self;},
 args: ["aMethod"],
-source: unescape('addCompiledMethod%3A%20aMethod%0A%09%3Csmalltalk.addMethod%28aMethod.selector._asSelector%28%29%2C%20aMethod%2C%20self%29%3E'),
+source: "addCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_allInstanceVariableNames'),
+"_allInstanceVariableNames",
 smalltalk.method({
-selector: unescape('allInstanceVariableNames'),
+selector: "allInstanceVariableNames",
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -5529,16 +4652,16 @@ var result=nil;
 return result;
 return self;},
 args: [],
-source: unescape('allInstanceVariableNames%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20self%20instanceVariableNames%20copy.%0A%09self%20superclass%20ifNotNil%3A%20%5B%0A%09%20%20%20%20result%20addAll%3A%20self%20superclass%20allInstanceVariableNames%5D.%0A%09%5Eresult'),
+source: "allInstanceVariableNames\x0a\x09| result |\x0a\x09result := self instanceVariableNames copy.\x0a\x09self superclass ifNotNil: [\x0a\x09    result addAll: self superclass allInstanceVariableNames].\x0a\x09^result",
 messageSends: ["copy", "instanceVariableNames", "ifNotNil:", "superclass", "addAll:", "allInstanceVariableNames"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_allSubclasses'),
+"_allSubclasses",
 smalltalk.method({
-selector: unescape('allSubclasses'),
+selector: "allSubclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -5548,179 +4671,192 @@ smalltalk.send(smalltalk.send(self, "_subclasses", []), "_do_", [(function(each)
 return result;
 return self;},
 args: [],
-source: unescape('allSubclasses%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20self%20subclasses.%0A%09self%20subclasses%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20result%20addAll%3A%20each%20allSubclasses%5D.%0A%09%5Eresult'),
+source: "allSubclasses\x0a\x09| result |\x0a\x09result := self subclasses.\x0a\x09self subclasses do: [:each |\x0a\x09    result addAll: each allSubclasses].\x0a\x09^result",
 messageSends: ["subclasses", "do:", "addAll:", "allSubclasses"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_basicNew'),
+"_basicNew",
 smalltalk.method({
-selector: unescape('basicNew'),
+selector: "basicNew",
 category: 'instance creation',
 fn: function (){
 var self=this;
 return new self.fn();
 return self;},
 args: [],
-source: unescape('basicNew%0A%09%3Creturn%20new%20self.fn%28%29%3E'),
+source: "basicNew\x0a\x09<return new self.fn()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_comment'),
+"_canUnderstand_",
 smalltalk.method({
-selector: unescape('comment'),
+selector: "canUnderstand:",
+category: 'testing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_keys", []), "_includes_", [smalltalk.send(aSelector, "_asString", [])]), "_or_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_superclass", []), "_notNil", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_superclass", []), "_canUnderstand_", [aSelector]);})]);})]);
+return self;},
+args: ["aSelector"],
+source: "canUnderstand: aSelector\x0a\x09^(self methodDictionary keys includes: aSelector asString) or: [\x0a\x09\x09self superclass notNil and: [self superclass canUnderstand: aSelector]]",
+messageSends: ["or:", "includes:", "keys", "methodDictionary", "asString", "and:", "notNil", "superclass", "canUnderstand:"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_comment",
+smalltalk.method({
+selector: "comment",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (($receiver = smalltalk.send(self, "_basicAt_", ["comment"])) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver;
 return self;},
 args: [],
-source: unescape('comment%0A%20%20%20%20%5E%28self%20basicAt%3A%20%27comment%27%29%20ifNil%3A%20%5B%27%27%5D'),
+source: "comment\x0a    ^(self basicAt: 'comment') ifNil: ['']",
 messageSends: ["ifNil:", "basicAt:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_comment_'),
+"_comment_",
 smalltalk.method({
-selector: unescape('comment%3A'),
+selector: "comment:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_basicAt_put_", ["comment", aString]);
 return self;},
 args: ["aString"],
-source: unescape('comment%3A%20aString%0A%20%20%20%20self%20basicAt%3A%20%27comment%27%20put%3A%20aString'),
+source: "comment: aString\x0a    self basicAt: 'comment' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_commentStamp'),
+"_commentStamp",
 smalltalk.method({
-selector: unescape('commentStamp'),
+selector: "commentStamp",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_class_", [self]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassCommentReader || ClassCommentReader), "_new", []));
 return self;},
 args: [],
-source: unescape('commentStamp%0A%20%20%20%20%5EClassCommentReader%20new%0A%09class%3A%20self%3B%0A%09yourself'),
+source: "commentStamp\x0a    ^ClassCommentReader new\x0a\x09class: self;\x0a\x09yourself",
 messageSends: ["class:", "yourself", "new"],
 referencedClasses: ["ClassCommentReader"]
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_commentStamp_prior_'),
+"_commentStamp_prior_",
 smalltalk.method({
-selector: unescape('commentStamp%3Aprior%3A'),
+selector: "commentStamp:prior:",
 category: 'accessing',
 fn: function (aStamp, prior){
 var self=this;
 return smalltalk.send(self, "_commentStamp", []);
 return self;},
 args: ["aStamp", "prior"],
-source: unescape('commentStamp%3A%20aStamp%20prior%3A%20prior%0A%20%20%20%20%20%20%20%20%5Eself%20commentStamp'),
+source: "commentStamp: aStamp prior: prior\x0a        ^self commentStamp",
 messageSends: ["commentStamp"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_compile_'),
+"_compile_",
 smalltalk.method({
-selector: unescape('compile%3A'),
+selector: "compile:",
 category: 'compiling',
 fn: function (aString){
 var self=this;
 smalltalk.send(self, "_compile_category_", [aString, ""]);
 return self;},
 args: ["aString"],
-source: unescape('compile%3A%20aString%0A%09self%20compile%3A%20aString%20category%3A%20%27%27'),
+source: "compile: aString\x0a\x09self compile: aString category: ''",
 messageSends: ["compile:category:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_compile_category_'),
+"_compile_category_",
 smalltalk.method({
-selector: unescape('compile%3Acategory%3A'),
+selector: "compile:category:",
 category: 'compiling',
 fn: function (aString, anotherString){
 var self=this;
-var method=nil;
-(method=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [aString, self]));
-smalltalk.send(method, "_category_", [anotherString]);
-smalltalk.send(self, "_addCompiledMethod_", [method]);
+(function($rec){smalltalk.send($rec, "_install_forClass_category_", [aString, self, anotherString]);return smalltalk.send($rec, "_setupClass_", [self]);})(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []));
 return self;},
 args: ["aString", "anotherString"],
-source: unescape('compile%3A%20aString%20category%3A%20anotherString%0A%09%7C%20method%20%7C%0A%09method%20%3A%3D%20Compiler%20new%20load%3A%20aString%20forClass%3A%20self.%0A%09method%20category%3A%20anotherString.%0A%09self%20addCompiledMethod%3A%20method'),
-messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:"],
+source: "compile: aString category: anotherString\x0a\x09Compiler new\x0a\x09\x09install: aString forClass: self category: anotherString;\x0a\x09\x09setupClass: self",
+messageSends: ["install:forClass:category:", "setupClass:", "new"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_inheritsFrom_'),
+"_inheritsFrom_",
 smalltalk.method({
-selector: unescape('inheritsFrom%3A'),
+selector: "inheritsFrom:",
 category: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.send(smalltalk.send(aClass, "_allSubclasses", []), "_includes_", [self]);
 return self;},
 args: ["aClass"],
-source: unescape('inheritsFrom%3A%20aClass%0A%09%5EaClass%20allSubclasses%20includes%3A%20self'),
+source: "inheritsFrom: aClass\x0a\x09^aClass allSubclasses includes: self",
 messageSends: ["includes:", "allSubclasses"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_instanceVariableNames'),
+"_instanceVariableNames",
 smalltalk.method({
-selector: unescape('instanceVariableNames'),
+selector: "instanceVariableNames",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.iVarNames;
 return self;},
 args: [],
-source: unescape('instanceVariableNames%0A%09%3Creturn%20self.iVarNames%3E'),
+source: "instanceVariableNames\x0a\x09<return self.iVarNames>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_methodAt_'),
+"_methodAt_",
 smalltalk.method({
-selector: unescape('methodAt%3A'),
+selector: "methodAt:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.methods(self)[aString];
 return self;},
 args: ["aString"],
-source: unescape('methodAt%3A%20aString%0A%09%3Creturn%20smalltalk.methods%28self%29%5BaString%5D%3E'),
+source: "methodAt: aString\x0a\x09<return smalltalk.methods(self)[aString]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_methodDictionary'),
+"_methodDictionary",
 smalltalk.method({
-selector: unescape('methodDictionary'),
+selector: "methodDictionary",
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -5734,80 +4870,80 @@ var dict = smalltalk.HashedCollection._new();
 	return dict;
 return self;},
 args: [],
-source: unescape('methodDictionary%0A%09%3Cvar%20dict%20%3D%20smalltalk.HashedCollection._new%28%29%3B%0A%09var%20methods%20%3D%20self.fn.prototype.methods%3B%0A%09for%28var%20i%20in%20methods%29%20%7B%0A%09%09if%28methods%5Bi%5D.selector%29%20%7B%0A%09%09%09dict._at_put_%28methods%5Bi%5D.selector%2C%20methods%5Bi%5D%29%3B%0A%09%09%7D%0A%09%7D%3B%0A%09return%20dict%3E'),
+source: "methodDictionary\x0a\x09<var dict = smalltalk.HashedCollection._new();\x0a\x09var methods = self.fn.prototype.methods;\x0a\x09for(var i in methods) {\x0a\x09\x09if(methods[i].selector) {\x0a\x09\x09\x09dict._at_put_(methods[i].selector, methods[i]);\x0a\x09\x09}\x0a\x09};\x0a\x09return dict>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_methodsFor_'),
+"_methodsFor_",
 smalltalk.method({
-selector: unescape('methodsFor%3A'),
+selector: "methodsFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_class_category_", [self, aString]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassCategoryReader || ClassCategoryReader), "_new", []));
 return self;},
 args: ["aString"],
-source: unescape('methodsFor%3A%20aString%0A%09%5EClassCategoryReader%20new%0A%09%20%20%20%20class%3A%20self%20category%3A%20aString%3B%0A%09%20%20%20%20yourself'),
+source: "methodsFor: aString\x0a\x09^ClassCategoryReader new\x0a\x09    class: self category: aString;\x0a\x09    yourself",
 messageSends: ["class:category:", "yourself", "new"],
 referencedClasses: ["ClassCategoryReader"]
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_methodsFor_stamp_'),
+"_methodsFor_stamp_",
 smalltalk.method({
-selector: unescape('methodsFor%3Astamp%3A'),
+selector: "methodsFor:stamp:",
 category: 'accessing',
 fn: function (aString, aStamp){
 var self=this;
 return smalltalk.send(self, "_methodsFor_", [aString]);
 return self;},
 args: ["aString", "aStamp"],
-source: unescape('methodsFor%3A%20aString%20stamp%3A%20aStamp%0A%09%22Added%20for%20compatibility%2C%20right%20now%20ignores%20stamp.%22%0A%09%5Eself%20methodsFor%3A%20aString'),
+source: "methodsFor: aString stamp: aStamp\x0a\x09\x22Added for compatibility, right now ignores stamp.\x22\x0a\x09^self methodsFor: aString",
 messageSends: ["methodsFor:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_name'),
+"_name",
 smalltalk.method({
-selector: unescape('name'),
+selector: "name",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.className || nil;
 return self;},
 args: [],
-source: unescape('name%0A%09%3Creturn%20self.className%20%7C%7C%20nil%3E'),
+source: "name\x0a\x09<return self.className || nil>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_new'),
+"_new",
 smalltalk.method({
-selector: unescape('new'),
+selector: "new",
 category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicNew", []), "_initialize", []);
 return self;},
 args: [],
-source: unescape('new%0A%09%5Eself%20basicNew%20initialize'),
+source: "new\x0a\x09^self basicNew initialize",
 messageSends: ["initialize", "basicNew"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_protocols'),
+"_protocols",
 smalltalk.method({
-selector: unescape('protocols'),
+selector: "protocols",
 category: 'accessing',
 fn: function (){
 var self=this;
@@ -5817,16 +4953,16 @@ smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_do_", [(function
 return smalltalk.send(protocols, "_sort", []);
 return self;},
 args: [],
-source: unescape('protocols%0A%20%20%20%20%7C%20protocols%20%7C%0A%20%20%20%20protocols%20%3A%3D%20Array%20new.%0A%20%20%20%20self%20methodDictionary%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28protocols%20includes%3A%20each%20category%29%20ifFalse%3A%20%5B%0A%09%09protocols%20add%3A%20each%20category%5D%5D.%0A%20%20%20%20%5Eprotocols%20sort'),
+source: "protocols\x0a    | protocols |\x0a    protocols := Array new.\x0a    self methodDictionary do: [:each |\x0a\x09    (protocols includes: each category) ifFalse: [\x0a\x09\x09protocols add: each category]].\x0a    ^protocols sort",
 messageSends: ["new", "do:", "methodDictionary", "ifFalse:", "includes:", "category", "add:", "sort"],
 referencedClasses: ["Array"]
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_protocolsDo_'),
+"_protocolsDo_",
 smalltalk.method({
-selector: unescape('protocolsDo%3A'),
+selector: "protocolsDo:",
 category: 'accessing',
 fn: function (aBlock){
 var self=this;
@@ -5836,32 +4972,32 @@ smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodDictionary", []), "_v
 smalltalk.send(smalltalk.send(self, "_protocols", []), "_do_", [(function(category){return smalltalk.send(aBlock, "_value_value_", [category, smalltalk.send(methodsByCategory, "_at_", [category])]);})]);
 return self;},
 args: ["aBlock"],
-source: unescape('protocolsDo%3A%20aBlock%0A%09%22Execute%20aBlock%20for%20each%20method%20category%20with%0A%09its%20collection%20of%20methods%20in%20the%20sort%20order%20of%20category%20name.%22%0A%0A%09%7C%20methodsByCategory%20%7C%0A%09methodsByCategory%20%3A%3D%20HashedCollection%20new.%0A%09self%20methodDictionary%20values%20do%3A%20%5B%3Am%20%7C%0A%09%09%28methodsByCategory%20at%3A%20m%20category%20ifAbsentPut%3A%20%5BArray%20new%5D%29%0A%20%09%09%09add%3A%20m%5D.%20%0A%09self%20protocols%20do%3A%20%5B%3Acategory%20%7C%0A%09%09aBlock%20value%3A%20category%20value%3A%20%28methodsByCategory%20at%3A%20category%29%5D'),
+source: "protocolsDo: aBlock\x0a\x09\x22Execute aBlock for each method category with\x0a\x09its collection of methods in the sort order of category name.\x22\x0a\x0a\x09| methodsByCategory |\x0a\x09methodsByCategory := HashedCollection new.\x0a\x09self methodDictionary values do: [:m |\x0a\x09\x09(methodsByCategory at: m category ifAbsentPut: [Array new])\x0a \x09\x09\x09add: m]. \x0a\x09self protocols do: [:category |\x0a\x09\x09aBlock value: category value: (methodsByCategory at: category)]",
 messageSends: ["new", "do:", "values", "methodDictionary", "add:", "at:ifAbsentPut:", "category", "protocols", "value:value:", "at:"],
 referencedClasses: ["HashedCollection", "Array"]
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_prototype'),
+"_prototype",
 smalltalk.method({
-selector: unescape('prototype'),
+selector: "prototype",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.fn.prototype;
 return self;},
 args: [],
-source: unescape('prototype%0A%09%3Creturn%20self.fn.prototype%3E'),
+source: "prototype\x0a\x09<return self.fn.prototype>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_removeCompiledMethod_'),
+"_removeCompiledMethod_",
 smalltalk.method({
-selector: unescape('removeCompiledMethod%3A'),
+selector: "removeCompiledMethod:",
 category: 'compiling',
 fn: function (aMethod){
 var self=this;
@@ -5870,55 +5006,55 @@ delete self.fn.prototype[aMethod.selector._asSelector()];
 	smalltalk.init(self);;
 return self;},
 args: ["aMethod"],
-source: unescape('removeCompiledMethod%3A%20aMethod%0A%09%3Cdelete%20self.fn.prototype%5BaMethod.selector._asSelector%28%29%5D%3B%0A%09delete%20self.fn.prototype.methods%5BaMethod.selector%5D%3B%0A%09smalltalk.init%28self%29%3B%3E'),
+source: "removeCompiledMethod: aMethod\x0a\x09<delete self.fn.prototype[aMethod.selector._asSelector()];\x0a\x09delete self.fn.prototype.methods[aMethod.selector];\x0a\x09smalltalk.init(self);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_subclasses'),
+"_subclasses",
 smalltalk.method({
-selector: unescape('subclasses'),
+selector: "subclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.subclasses(self);
 return self;},
 args: [],
-source: unescape('subclasses%0A%09%3Creturn%20smalltalk.subclasses%28self%29%3E'),
+source: "subclasses\x0a\x09<return smalltalk.subclasses(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_superclass'),
+"_superclass",
 smalltalk.method({
-selector: unescape('superclass'),
+selector: "superclass",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.superclass || nil;
 return self;},
 args: [],
-source: unescape('superclass%0A%09%3Creturn%20self.superclass%20%7C%7C%20nil%3E'),
+source: "superclass\x0a\x09<return self.superclass || nil>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-unescape('_withAllSubclasses'),
+"_withAllSubclasses",
 smalltalk.method({
-selector: unescape('withAllSubclasses'),
+selector: "withAllSubclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [smalltalk.send(self, "_allSubclasses", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Array || Array), "_with_", [self]));
 return self;},
 args: [],
-source: unescape('withAllSubclasses%0A%09%5E%28Array%20with%3A%20self%29%20addAll%3A%20self%20allSubclasses%3B%20yourself'),
+source: "withAllSubclasses\x0a\x09^(Array with: self) addAll: self allSubclasses; yourself",
 messageSends: ["addAll:", "allSubclasses", "yourself", "with:"],
 referencedClasses: ["Array"]
 }),
@@ -5927,91 +5063,91 @@ smalltalk.Behavior);
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
-smalltalk.Class.comment=unescape('Class%20is%20__the__%20class%20object.%20%0A%0AInstances%20are%20the%20classes%20of%20the%20system.%0AClass%20creation%20is%20done%20throught%20a%20%60ClassBuilder%60')
+smalltalk.Class.comment="Class is __the__ class object. \x0a\x0aInstances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder`"
 smalltalk.addMethod(
-unescape('_category'),
+"_category",
 smalltalk.method({
-selector: unescape('category'),
+selector: "category",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (($receiver = smalltalk.send(self, "_package", [])) == nil || $receiver == undefined) ? (function(){return "Unclassified";})() : (function(){return smalltalk.send(smalltalk.send(self, "_package", []), "_name", []);})();
 return self;},
 args: [],
-source: unescape('category%0A%09%5Eself%20package%20ifNil%3A%20%5B%27Unclassified%27%5D%20ifNotNil%3A%20%5Bself%20package%20name%5D'),
+source: "category\x0a\x09^self package ifNil: ['Unclassified'] ifNotNil: [self package name]",
 messageSends: ["ifNil:ifNotNil:", "package", "name"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_isClass'),
+"_isClass",
 smalltalk.method({
-selector: unescape('isClass'),
+selector: "isClass",
 category: 'testing',
 fn: function (){
 var self=this;
 return true;
 return self;},
 args: [],
-source: unescape('isClass%0A%09%5Etrue'),
+source: "isClass\x0a\x09^true",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_package'),
+"_package",
 smalltalk.method({
-selector: unescape('package'),
+selector: "package",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.pkg;
 return self;},
 args: [],
-source: unescape('package%0A%09%3Creturn%20self.pkg%3E'),
+source: "package\x0a\x09<return self.pkg>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_package_'),
+"_package_",
 smalltalk.method({
-selector: unescape('package%3A'),
+selector: "package:",
 category: 'accessing',
 fn: function (aPackage){
 var self=this;
 self.pkg = aPackage;
 return self;},
 args: ["aPackage"],
-source: unescape('package%3A%20aPackage%0A%09%3Cself.pkg%20%3D%20aPackage%3E'),
+source: "package: aPackage\x0a\x09<self.pkg = aPackage>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.send(self, "_name", []);
 return self;},
 args: [],
-source: unescape('printString%0A%09%5Eself%20name'),
+source: "printString\x0a\x09^self name",
 messageSends: ["name"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_rename_'),
+"_rename_",
 smalltalk.method({
-selector: unescape('rename%3A'),
+selector: "rename:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
@@ -6022,32 +5158,32 @@ var self=this;
 	;
 return self;},
 args: ["aString"],
-source: unescape('rename%3A%20aString%0A%09%3C%0A%09%09smalltalk%5BaString%5D%20%3D%20self%3B%0A%09%09delete%20smalltalk%5Bself.className%5D%3B%0A%09%09self.className%20%3D%20aString%3B%0A%09%3E'),
+source: "rename: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = self;\x0a\x09\x09delete smalltalk[self.className];\x0a\x09\x09self.className = aString;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_'),
+"_subclass_instanceVariableNames_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3A'),
+selector: "subclass:instanceVariableNames:",
 category: 'class creation',
 fn: function (aString, anotherString){
 var self=this;
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, anotherString, nil]);
 return self;},
 args: ["aString", "anotherString"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%0A%09%22Kept%20for%20compatibility.%22%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20anotherString%20package%3A%20nil'),
+source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for compatibility.\x22\x0a\x09^self subclass: aString instanceVariableNames: anotherString package: nil",
 messageSends: ["subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_category_'),
+"_subclass_instanceVariableNames_category_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3Acategory%3A'),
+selector: "subclass:instanceVariableNames:category:",
 category: 'class creation',
 fn: function (aString, aString2, aString3){
 var self=this;
@@ -6055,39 +5191,39 @@ smalltalk.send(self, "_deprecatedAPI", []);
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
 return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20category%3A%20aString3%0A%09%22Kept%20for%20compatibility.%22%0A%09self%20deprecatedAPI.%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^self subclass: aString instanceVariableNames: aString2 package: aString3",
 messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_classVariableNames_poolDictionaries_category_'),
+"_subclass_instanceVariableNames_classVariableNames_poolDictionaries_category_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3AclassVariableNames%3ApoolDictionaries%3Acategory%3A'),
+selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
 category: 'class creation',
 fn: function (aString, aString2, classVars, pools, aString3){
 var self=this;
 return smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
 return self;},
 args: ["aString", "aString2", "classVars", "pools", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20classVariableNames%3A%20classVars%20poolDictionaries%3A%20pools%20category%3A%20aString3%0A%09%22Just%20ignore%20class%20variables%20and%20pools.%20Added%20for%20compatibility.%22%0A%09%5Eself%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Just ignore class variables and pools. Added for compatibility.\x22\x0a\x09^self subclass: aString instanceVariableNames: aString2 package: aString3",
 messageSends: ["subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-unescape('_subclass_instanceVariableNames_package_'),
+"_subclass_instanceVariableNames_package_",
 smalltalk.method({
-selector: unescape('subclass%3AinstanceVariableNames%3Apackage%3A'),
+selector: "subclass:instanceVariableNames:package:",
 category: 'class creation',
 fn: function (aString, aString2, aString3){
 var self=this;
 return smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, smalltalk.send(aString, "_asString", []), aString2, aString3]);
 return self;},
 args: ["aString", "aString2", "aString3"],
-source: unescape('subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%5EClassBuilder%20new%0A%09%20%20%20%20superclass%3A%20self%20subclass%3A%20aString%20asString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3'),
+source: "subclass: aString instanceVariableNames: aString2 package: aString3\x0a\x09^ClassBuilder new\x0a\x09    superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3",
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new", "asString"],
 referencedClasses: ["ClassBuilder"]
 }),
@@ -6096,67 +5232,67 @@ smalltalk.Class);
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
-smalltalk.Metaclass.comment=unescape('Metaclass%20is%20the%20root%20of%20the%20class%20hierarchy.%0A%0AMetaclass%20instances%20are%20metaclasses%2C%20one%20for%20each%20real%20class.%20%0AMetaclass%20instances%20have%20a%20single%20instance%2C%20which%20they%20hold%20onto%2C%20which%20is%20the%20class%20that%20they%20are%20the%20metaclass%20of.')
+smalltalk.Metaclass.comment="Metaclass is the root of the class hierarchy.\x0a\x0aMetaclass instances are metaclasses, one for each real class. \x0aMetaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of."
 smalltalk.addMethod(
-unescape('_instanceClass'),
+"_instanceClass",
 smalltalk.method({
-selector: unescape('instanceClass'),
+selector: "instanceClass",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.instanceClass;
 return self;},
 args: [],
-source: unescape('instanceClass%0A%09%3Creturn%20self.instanceClass%3E'),
+source: "instanceClass\x0a\x09<return self.instanceClass>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-unescape('_instanceVariableNames_'),
+"_instanceVariableNames_",
 smalltalk.method({
-selector: unescape('instanceVariableNames%3A'),
+selector: "instanceVariableNames:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
 smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder), "_new", []), "_class_instanceVariableNames_", [self, aCollection]);
 return self;},
 args: ["aCollection"],
-source: unescape('instanceVariableNames%3A%20aCollection%0A%09ClassBuilder%20new%0A%09%20%20%20%20class%3A%20self%20instanceVariableNames%3A%20aCollection'),
+source: "instanceVariableNames: aCollection\x0a\x09ClassBuilder new\x0a\x09    class: self instanceVariableNames: aCollection",
 messageSends: ["class:instanceVariableNames:", "new"],
 referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-unescape('_isMetaclass'),
+"_isMetaclass",
 smalltalk.method({
-selector: unescape('isMetaclass'),
+selector: "isMetaclass",
 category: 'testing',
 fn: function (){
 var self=this;
 return true;
 return self;},
 args: [],
-source: unescape('isMetaclass%0A%09%5Etrue'),
+source: "isMetaclass\x0a\x09^true",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_instanceClass", []), "_name", []), "__comma", [" class"]);
 return self;},
 args: [],
-source: unescape('printString%0A%09%5Eself%20instanceClass%20name%2C%20%27%20class%27'),
-messageSends: [unescape("%2C"), "name", "instanceClass"],
+source: "printString\x0a\x09^self instanceClass name, ' class'",
+messageSends: [",", "name", "instanceClass"],
 referencedClasses: []
 }),
 smalltalk.Metaclass);
@@ -6164,11 +5300,11 @@ smalltalk.Metaclass);
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
-smalltalk.ClassBuilder.comment=unescape('ClassBuilder%20is%20responsible%20for%20compiling%20new%20classes%20or%20modifying%20existing%20classes%20in%20the%20system.%0A%0ARather%20than%20using%20ClassBuilder%20directly%20to%20compile%20a%20class%2C%20use%20%60Class%20%3E%3E%20subclass%3AinstanceVariableNames%3Apackage%3A%60.')
+smalltalk.ClassBuilder.comment="ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`."
 smalltalk.addMethod(
-unescape('_addSubclassOf_named_instanceVariableNames_'),
+"_addSubclassOf_named_instanceVariableNames_",
 smalltalk.method({
-selector: unescape('addSubclassOf%3Anamed%3AinstanceVariableNames%3A'),
+selector: "addSubclassOf:named:instanceVariableNames:",
 category: 'private',
 fn: function (aClass, aString, aCollection){
 var self=this;
@@ -6176,16 +5312,16 @@ smalltalk.addClass(aString, aClass, aCollection);
 	    return smalltalk[aString];
 return self;},
 args: ["aClass", "aString", "aCollection"],
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%0A%09%3Csmalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%3E'),
+source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection\x0a\x09<smalltalk.addClass(aString, aClass, aCollection);\x0a\x09    return smalltalk[aString]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_addSubclassOf_named_instanceVariableNames_package_'),
+"_addSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
-selector: unescape('addSubclassOf%3Anamed%3AinstanceVariableNames%3Apackage%3A'),
+selector: "addSubclassOf:named:instanceVariableNames:package:",
 category: 'private',
 fn: function (aClass, aString, aCollection, packageName){
 var self=this;
@@ -6193,16 +5329,16 @@ smalltalk.addClass(aString, aClass, aCollection, packageName);
 	    return smalltalk[aString];
 return self;},
 args: ["aClass", "aString", "aCollection", "packageName"],
-source: unescape('addSubclassOf%3A%20aClass%20named%3A%20aString%20instanceVariableNames%3A%20aCollection%20package%3A%20packageName%0A%09%3Csmalltalk.addClass%28aString%2C%20aClass%2C%20aCollection%2C%20packageName%29%3B%0A%09%20%20%20%20return%20smalltalk%5BaString%5D%3E'),
+source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09    return smalltalk[aString]>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_class_instanceVariableNames_'),
+"_class_instanceVariableNames_",
 smalltalk.method({
-selector: unescape('class%3AinstanceVariableNames%3A'),
+selector: "class:instanceVariableNames:",
 category: 'class creation',
 fn: function (aClass, aString){
 var self=this;
@@ -6211,86 +5347,86 @@ smalltalk.send(aClass, "_basicAt_put_", ["iVarNames", smalltalk.send(self, "_ins
 smalltalk.send(self, "_setupClass_", [aClass]);
 return self;},
 args: ["aClass", "aString"],
-source: unescape('class%3A%20aClass%20instanceVariableNames%3A%20aString%0A%09aClass%20isMetaclass%20ifFalse%3A%20%5Bself%20error%3A%20aClass%20name%2C%20%27%20is%20not%20a%20metaclass%27%5D.%0A%09aClass%20basicAt%3A%20%27iVarNames%27%20put%3A%20%28self%20instanceVariableNamesFor%3A%20aString%29.%0A%09self%20setupClass%3A%20aClass'),
-messageSends: ["ifFalse:", "isMetaclass", "error:", unescape("%2C"), "name", "basicAt:put:", "instanceVariableNamesFor:", "setupClass:"],
+source: "class: aClass instanceVariableNames: aString\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a\x09self setupClass: aClass",
+messageSends: ["ifFalse:", "isMetaclass", "error:", ",", "name", "basicAt:put:", "instanceVariableNamesFor:", "setupClass:"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_copyClass_named_'),
+"_copyClass_named_",
 smalltalk.method({
-selector: unescape('copyClass%3Anamed%3A'),
+selector: "copyClass:named:",
 category: 'private',
 fn: function (aClass, aString){
 var self=this;
 var newClass=nil;
 (newClass=smalltalk.send(self, "_addSubclassOf_named_instanceVariableNames_package_", [smalltalk.send(aClass, "_superclass", []), aString, smalltalk.send(aClass, "_instanceVariableNames", []), smalltalk.send(smalltalk.send(aClass, "_package", []), "_name", [])]));
 smalltalk.send(self, "_setupClass_", [newClass]);
-smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){smalltalk.send(newClass, "_addCompiledMethod_", [smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [smalltalk.send(each, "_source", []), newClass])]);return smalltalk.send(smalltalk.send(smalltalk.send(newClass, "_methodDictionary", []), "_at_", [smalltalk.send(each, "_selector", [])]), "_category_", [smalltalk.send(each, "_category", [])]);})]);
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){smalltalk.send(smalltalk.send(newClass, "_class", []), "_addCompiledMethod_", [smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_load_forClass_", [smalltalk.send(each, "_source", []), smalltalk.send(newClass, "_class", [])])]);return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(newClass, "_class", []), "_methodDictionary", []), "_at_", [smalltalk.send(each, "_selector", [])]), "_category_", [smalltalk.send(each, "_category", [])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_install_forClass_category_", [smalltalk.send(each, "_source", []), newClass, smalltalk.send(each, "_category", [])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_install_forClass_category_", [smalltalk.send(each, "_source", []), smalltalk.send(newClass, "_class", []), smalltalk.send(each, "_category", [])]);})]);
 smalltalk.send(self, "_setupClass_", [newClass]);
 return newClass;
 return self;},
 args: ["aClass", "aString"],
-source: unescape('copyClass%3A%20aClass%20named%3A%20aString%0A%09%7C%20newClass%20%7C%0A%0A%09newClass%20%3A%3D%20self%20%0A%09%09addSubclassOf%3A%20aClass%20superclass%0A%09%09named%3A%20aString%20%0A%09%09instanceVariableNames%3A%20aClass%20instanceVariableNames%20%0A%09%09package%3A%20aClass%20package%20name.%0A%0A%09self%20setupClass%3A%20newClass.%0A%0A%09aClass%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09newClass%20addCompiledMethod%3A%20%28Compiler%20new%20load%3A%20each%20source%20forClass%3A%20newClass%29.%0A%09%09%28newClass%20methodDictionary%20at%3A%20each%20selector%29%20category%3A%20each%20category%5D.%0A%0A%09aClass%20class%20methodDictionary%20values%20do%3A%20%5B%3Aeach%20%7C%0A%09%09newClass%20class%20addCompiledMethod%3A%20%28Compiler%20new%20load%3A%20each%20source%20forClass%3A%20newClass%20class%29.%0A%09%09%28newClass%20class%20methodDictionary%20at%3A%20each%20selector%29%20category%3A%20each%20category%5D.%0A%0A%09self%20setupClass%3A%20newClass.%0A%09%5EnewClass'),
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "setupClass:", "do:", "values", "methodDictionary", "addCompiledMethod:", "load:forClass:", "new", "source", "category:", "at:", "selector", "category", "class"],
+source: "copyClass: aClass named: aString\x0a\x09| newClass |\x0a\x0a\x09newClass := self \x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aClass instanceVariableNames \x0a\x09\x09package: aClass package name.\x0a\x0a\x09self setupClass: newClass.\x0a\x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass category: each category].\x0a\x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass class category: each category].\x0a\x0a\x09self setupClass: newClass.\x0a\x09^newClass",
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "setupClass:", "do:", "values", "methodDictionary", "install:forClass:category:", "new", "source", "category", "class"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_instanceVariableNamesFor_'),
+"_instanceVariableNamesFor_",
 smalltalk.method({
-selector: unescape('instanceVariableNamesFor%3A'),
+selector: "instanceVariableNamesFor:",
 category: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(aString, "_tokenize_", [" "]), "_reject_", [(function(each){return smalltalk.send(each, "_isEmpty", []);})]);
 return self;},
 args: ["aString"],
-source: unescape('instanceVariableNamesFor%3A%20aString%0A%09%5E%28aString%20tokenize%3A%20%27%20%27%29%20reject%3A%20%5B%3Aeach%20%7C%20each%20isEmpty%5D'),
+source: "instanceVariableNamesFor: aString\x0a\x09^(aString tokenize: ' ') reject: [:each | each isEmpty]",
 messageSends: ["reject:", "tokenize:", "isEmpty"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_setupClass_'),
+"_setupClass_",
 smalltalk.method({
-selector: unescape('setupClass%3A'),
+selector: "setupClass:",
 category: 'private',
 fn: function (aClass){
 var self=this;
 smalltalk.init(aClass);;
 return self;},
 args: ["aClass"],
-source: unescape('setupClass%3A%20aClass%0A%09%3Csmalltalk.init%28aClass%29%3B%3E'),
+source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_superclass_subclass_'),
+"_superclass_subclass_",
 smalltalk.method({
-selector: unescape('superclass%3Asubclass%3A'),
+selector: "superclass:subclass:",
 category: 'class creation',
 fn: function (aClass, aString){
 var self=this;
 return smalltalk.send(self, "_superclass_subclass_instanceVariableNames_package_", [aClass, aString, "", nil]);
 return self;},
 args: ["aClass", "aString"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%0A%09%5Eself%20superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20%27%27%20package%3A%20nil'),
+source: "superclass: aClass subclass: aString\x0a\x09^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil",
 messageSends: ["superclass:subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-unescape('_superclass_subclass_instanceVariableNames_package_'),
+"_superclass_subclass_instanceVariableNames_package_",
 smalltalk.method({
-selector: unescape('superclass%3Asubclass%3AinstanceVariableNames%3Apackage%3A'),
+selector: "superclass:subclass:instanceVariableNames:package:",
 category: 'class creation',
 fn: function (aClass, aString, aString2, aString3){
 var self=this;
@@ -6300,7 +5436,7 @@ smalltalk.send(self, "_setupClass_", [newClass]);
 return newClass;
 return self;},
 args: ["aClass", "aString", "aString2", "aString3"],
-source: unescape('superclass%3A%20aClass%20subclass%3A%20aString%20instanceVariableNames%3A%20aString2%20package%3A%20aString3%0A%09%7C%20newClass%20%7C%0A%09newClass%20%3A%3D%20self%20addSubclassOf%3A%20aClass%0A%09%09%09%09named%3A%20aString%20instanceVariableNames%3A%20%28self%20instanceVariableNamesFor%3A%20aString2%29%0A%09%09%09%09package%3A%20%28aString3%20ifNil%3A%20%5B%27unclassified%27%5D%29.%0A%09self%20setupClass%3A%20newClass.%0A%09%5EnewClass'),
+source: "superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3\x0a\x09| newClass |\x0a\x09newClass := self addSubclassOf: aClass\x0a\x09\x09\x09\x09named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)\x0a\x09\x09\x09\x09package: (aString3 ifNil: ['unclassified']).\x0a\x09self setupClass: newClass.\x0a\x09^newClass",
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "instanceVariableNamesFor:", "ifNil:", "setupClass:"],
 referencedClasses: []
 }),
@@ -6309,11 +5445,11 @@ smalltalk.ClassBuilder);
 
 
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel-Classes');
-smalltalk.ClassCategoryReader.comment=unescape('ClassCategoryReader%20represents%20a%20mechanism%20for%20retrieving%20class%20descriptions%20stored%20on%20a%20file.')
+smalltalk.ClassCategoryReader.comment="ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file."
 smalltalk.addMethod(
-unescape('_class_category_'),
+"_class_category_",
 smalltalk.method({
-selector: unescape('class%3Acategory%3A'),
+selector: "class:category:",
 category: 'accessing',
 fn: function (aClass, aString){
 var self=this;
@@ -6321,108 +5457,104 @@ var self=this;
 (self['@category']=aString);
 return self;},
 args: ["aClass", "aString"],
-source: unescape('class%3A%20aClass%20category%3A%20aString%0A%09class%20%3A%3D%20aClass.%0A%09category%20%3A%3D%20aString'),
+source: "class: aClass category: aString\x0a\x09class := aClass.\x0a\x09category := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-unescape('_compileMethod_'),
+"_compileMethod_",
 smalltalk.method({
-selector: unescape('compileMethod%3A'),
+selector: "compileMethod:",
 category: 'private',
 fn: function (aString){
 var self=this;
-var method=nil;
-var compiler=nil;
-(method=smalltalk.send((compiler=smalltalk.send((smalltalk.Compiler || Compiler), "_new", [])), "_load_forClass_", [aString, self['@class']]));
-smalltalk.send(method, "_category_", [self['@category']]);
-smalltalk.send(self['@class'], "_addCompiledMethod_", [method]);
-smalltalk.send(compiler, "_setupClass_", [self['@class']]);
+smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_install_forClass_category_", [aString, self['@class'], self['@category']]);
 return self;},
 args: ["aString"],
-source: unescape('compileMethod%3A%20aString%0A%09%7C%20method%20compiler%20%7C%0A%09method%20%3A%3D%20%28compiler%20%3A%3D%20Compiler%20new%29%20load%3A%20aString%20forClass%3A%20class.%0A%09method%20category%3A%20category.%0A%09class%20addCompiledMethod%3A%20method.%0A%09compiler%20setupClass%3A%20class.'),
-messageSends: ["load:forClass:", "new", "category:", "addCompiledMethod:", "setupClass:"],
+source: "compileMethod: aString\x0a\x09Compiler new install: aString forClass: class category: category",
+messageSends: ["install:forClass:category:", "new"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
+smalltalk.send(self, "_initialize", [], smalltalk.ClassCategoryReader.superclass || nil);
 (self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []));
 return self;},
 args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
+source: "initialize\x0a\x09super initialize.\x0a\x09chunkParser := ChunkParser new.",
 messageSends: ["initialize", "new"],
 referencedClasses: ["ChunkParser"]
 }),
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-unescape('_scanFrom_'),
+"_scanFrom_",
 smalltalk.method({
-selector: unescape('scanFrom%3A'),
+selector: "scanFrom:",
 category: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
 var chunk=nil;
 (function(){while(!(function(){(chunk=smalltalk.send(aChunkParser, "_nextChunk", []));return smalltalk.send(chunk, "_isEmpty", []);})()) {(function(){return smalltalk.send(self, "_compileMethod_", [chunk]);})()}})();
+smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_setupClass_", [self['@class']]);
 return self;},
 args: ["aChunkParser"],
-source: unescape('scanFrom%3A%20aChunkParser%0A%09%7C%20chunk%20%7C%0A%09%5Bchunk%20%3A%3D%20aChunkParser%20nextChunk.%0A%09chunk%20isEmpty%5D%20whileFalse%3A%20%5B%0A%09%20%20%20%20self%20compileMethod%3A%20chunk%5D'),
-messageSends: ["whileFalse:", "nextChunk", "isEmpty", "compileMethod:"],
-referencedClasses: []
+source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09[chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty] whileFalse: [\x0a\x09    self compileMethod: chunk].\x0a\x09Compiler new setupClass: class",
+messageSends: ["whileFalse:", "nextChunk", "isEmpty", "compileMethod:", "setupClass:", "new"],
+referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassCategoryReader);
 
 
 
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel-Classes');
-smalltalk.ClassCommentReader.comment=unescape('ClassCommentReader%20represents%20a%20mechanism%20for%20retrieving%20class%20descriptions%20stored%20on%20a%20file.%0ASee%20%60ClassCategoryReader%60%20too.')
+smalltalk.ClassCommentReader.comment="ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.\x0aSee `ClassCategoryReader` too."
 smalltalk.addMethod(
-unescape('_class_'),
+"_class_",
 smalltalk.method({
-selector: unescape('class%3A'),
+selector: "class:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
 (self['@class']=aClass);
 return self;},
 args: ["aClass"],
-source: unescape('class%3A%20aClass%0A%09class%20%3A%3D%20aClass'),
+source: "class: aClass\x0a\x09class := aClass",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
+smalltalk.send(self, "_initialize", [], smalltalk.ClassCommentReader.superclass || nil);
 (self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []));
 return self;},
 args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09chunkParser%20%3A%3D%20ChunkParser%20new.'),
+source: "initialize\x0a\x09super initialize.\x0a\x09chunkParser := ChunkParser new.",
 messageSends: ["initialize", "new"],
 referencedClasses: ["ChunkParser"]
 }),
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-unescape('_scanFrom_'),
+"_scanFrom_",
 smalltalk.method({
-selector: unescape('scanFrom%3A'),
+selector: "scanFrom:",
 category: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
@@ -6431,23 +5563,23 @@ var chunk=nil;
 ((($receiver = smalltalk.send(chunk, "_isEmpty", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_setComment_", [chunk]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_setComment_", [chunk]);})]));
 return self;},
 args: ["aChunkParser"],
-source: unescape('scanFrom%3A%20aChunkParser%0A%09%7C%20chunk%20%7C%0A%09chunk%20%3A%3D%20aChunkParser%20nextChunk.%0A%09chunk%20isEmpty%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20setComment%3A%20chunk%5D.'),
+source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty ifFalse: [\x0a\x09    self setComment: chunk].",
 messageSends: ["nextChunk", "ifFalse:", "isEmpty", "setComment:"],
 referencedClasses: []
 }),
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-unescape('_setComment_'),
+"_setComment_",
 smalltalk.method({
-selector: unescape('setComment%3A'),
+selector: "setComment:",
 category: 'private',
 fn: function (aString){
 var self=this;
 smalltalk.send(self['@class'], "_comment_", [aString]);
 return self;},
 args: ["aString"],
-source: unescape('setComment%3A%20aString%0A%20%20%20%20class%20comment%3A%20aString'),
+source: "setComment: aString\x0a    class comment: aString",
 messageSends: ["comment:"],
 referencedClasses: []
 }),
@@ -6457,9 +5589,9 @@ smalltalk.ClassCommentReader);
 
 smalltalk.addClass('ClassSorterNode', smalltalk.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
 smalltalk.addMethod(
-unescape('_getNodesFrom_'),
+"_getNodesFrom_",
 smalltalk.method({
-selector: unescape('getNodesFrom%3A'),
+selector: "getNodesFrom:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
@@ -6471,96 +5603,96 @@ smalltalk.send(aCollection, "_do_", [(function(each){return ((($receiver = small
 (self['@nodes']=smalltalk.send(children, "_collect_", [(function(each){return smalltalk.send((smalltalk.ClassSorterNode || ClassSorterNode), "_on_classes_level_", [each, others, ((($receiver = smalltalk.send(self, "_level", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})]));
 return self;},
 args: ["aCollection"],
-source: unescape('getNodesFrom%3A%20aCollection%0A%09%7C%20children%20others%20%7C%0A%09children%20%3A%3D%20%23%28%29.%0A%09others%20%3A%3D%20%23%28%29.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28each%20superclass%20%3D%20self%20theClass%29%0A%09%09%09ifTrue%3A%20%5Bchildren%20add%3A%20each%5D%0A%09%09%09ifFalse%3A%20%5Bothers%20add%3A%20each%5D%5D.%0A%09nodes%3A%3D%20children%20collect%3A%20%5B%3Aeach%20%7C%0A%09%09ClassSorterNode%20on%3A%20each%20classes%3A%20others%20level%3A%20self%20level%20+%201%5D'),
-messageSends: ["do:", "ifTrue:ifFalse:", unescape("%3D"), "superclass", "theClass", "add:", "collect:", "on:classes:level:", unescape("+"), "level"],
+source: "getNodesFrom: aCollection\x0a\x09| children others |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09aCollection do: [:each |\x0a\x09\x09(each superclass = self theClass)\x0a\x09\x09\x09ifTrue: [children add: each]\x0a\x09\x09\x09ifFalse: [others add: each]].\x0a\x09nodes:= children collect: [:each |\x0a\x09\x09ClassSorterNode on: each classes: others level: self level + 1]",
+messageSends: ["do:", "ifTrue:ifFalse:", "=", "superclass", "theClass", "add:", "collect:", "on:classes:level:", "+", "level"],
 referencedClasses: ["ClassSorterNode"]
 }),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-unescape('_level'),
+"_level",
 smalltalk.method({
-selector: unescape('level'),
+selector: "level",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self['@level'];
 return self;},
 args: [],
-source: unescape('level%0A%09%5Elevel'),
+source: "level\x0a\x09^level",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-unescape('_level_'),
+"_level_",
 smalltalk.method({
-selector: unescape('level%3A'),
+selector: "level:",
 category: 'accessing',
 fn: function (anInteger){
 var self=this;
 (self['@level']=anInteger);
 return self;},
 args: ["anInteger"],
-source: unescape('level%3A%20anInteger%0A%09level%20%3A%3D%20anInteger'),
+source: "level: anInteger\x0a\x09level := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-unescape('_nodes'),
+"_nodes",
 smalltalk.method({
-selector: unescape('nodes'),
+selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self['@nodes'];
 return self;},
 args: [],
-source: unescape('nodes%0A%09%5Enodes'),
+source: "nodes\x0a\x09^nodes",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-unescape('_theClass'),
+"_theClass",
 smalltalk.method({
-selector: unescape('theClass'),
+selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self['@theClass'];
 return self;},
 args: [],
-source: unescape('theClass%0A%09%5EtheClass'),
+source: "theClass\x0a\x09^theClass",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-unescape('_theClass_'),
+"_theClass_",
 smalltalk.method({
-selector: unescape('theClass%3A'),
+selector: "theClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
 (self['@theClass']=aClass);
 return self;},
 args: ["aClass"],
-source: unescape('theClass%3A%20aClass%0A%09theClass%20%3A%3D%20aClass'),
+source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-unescape('_traverseClassesWith_'),
+"_traverseClassesWith_",
 smalltalk.method({
-selector: unescape('traverseClassesWith%3A'),
+selector: "traverseClassesWith:",
 category: 'visiting',
 fn: function (aCollection){
 var self=this;
@@ -6568,24 +5700,24 @@ smalltalk.send(aCollection, "_add_", [smalltalk.send(self, "_theClass", [])]);
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_nodes", []), "_sorted_", [(function(a, b){return ((($receiver = smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]));})]), "_do_", [(function(aNode){return smalltalk.send(aNode, "_traverseClassesWith_", [aCollection]);})]);
 return self;},
 args: ["aCollection"],
-source: unescape('traverseClassesWith%3A%20aCollection%0A%09%22sort%20classes%20alphabetically%20Issue%20%23143%22%0A%0A%09aCollection%20add%3A%20self%20theClass.%0A%09%28self%20nodes%20sorted%3A%20%5B%3Aa%20%3Ab%20%7C%20a%20theClass%20name%20%3C%3D%20b%20theClass%20name%20%5D%29%20do%3A%20%5B%3AaNode%20%7C%0A%09%09aNode%20traverseClassesWith%3A%20aCollection%20%5D.'),
-messageSends: ["add:", "theClass", "do:", "sorted:", "nodes", unescape("%3C%3D"), "name", "traverseClassesWith:"],
+source: "traverseClassesWith: aCollection\x0a\x09\x22sort classes alphabetically Issue #143\x22\x0a\x0a\x09aCollection add: self theClass.\x0a\x09(self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |\x0a\x09\x09aNode traverseClassesWith: aCollection ].",
+messageSends: ["add:", "theClass", "do:", "sorted:", "nodes", "<=", "name", "traverseClassesWith:"],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode);
 
 
 smalltalk.addMethod(
-unescape('_on_classes_level_'),
+"_on_classes_level_",
 smalltalk.method({
-selector: unescape('on%3Aclasses%3Alevel%3A'),
+selector: "on:classes:level:",
 category: 'instance creation',
 fn: function (aClass, aCollection, anInteger){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);smalltalk.send($rec, "_level_", [anInteger]);smalltalk.send($rec, "_getNodesFrom_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["aClass", "aCollection", "anInteger"],
-source: unescape('on%3A%20aClass%20classes%3A%20aCollection%20level%3A%20anInteger%0A%09%5Eself%20new%0A%09%09theClass%3A%20aClass%3B%0A%09%09level%3A%20anInteger%3B%0A%09%09getNodesFrom%3A%20aCollection%3B%0A%09%09yourself'),
+source: "on: aClass classes: aCollection level: anInteger\x0a\x09^self new\x0a\x09\x09theClass: aClass;\x0a\x09\x09level: anInteger;\x0a\x09\x09getNodesFrom: aCollection;\x0a\x09\x09yourself",
 messageSends: ["theClass:", "level:", "getNodesFrom:", "yourself", "new"],
 referencedClasses: []
 }),
@@ -6594,365 +5726,340 @@ smalltalk.ClassSorterNode.klass);
 
 smalltalk.addPackage('Kernel-Methods', {});
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.BlockClosure.comment=unescape('A%20BlockClosure%20is%20a%20lexical%20closure.%0AThe%20JavaScript%20representation%20is%20a%20function.%0A%0AA%20BlockClosure%20is%20evaluated%20with%20the%20%60%23value*%60%20methods%20in%20the%20%27evaluating%27%20protocol.')
+smalltalk.BlockClosure.comment="A BlockClosure is a lexical closure.\x0aThe JavaScript representation is a function.\x0a\x0aA BlockClosure is evaluated with the `#value*` methods in the 'evaluating' protocol."
 smalltalk.addMethod(
-unescape('_applyTo_arguments_'),
+"_applyTo_arguments_",
 smalltalk.method({
-selector: unescape('applyTo%3Aarguments%3A'),
+selector: "applyTo:arguments:",
 category: 'evaluating',
-fn: function (anObject, aCollection) {
-    var self = this;
-    return self.apply(anObject, aCollection);
-    return self;
-},
+fn: function (anObject, aCollection){
+var self=this;
+return self.apply(anObject, aCollection);
+return self;},
 args: ["anObject", "aCollection"],
-source: unescape('applyTo%3A%20anObject%20arguments%3A%20aCollection%0A%09%3Creturn%20self.apply%28anObject%2C%20aCollection%29%3E'),
+source: "applyTo: anObject arguments: aCollection\x0a\x09<return self.apply(anObject, aCollection)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_compiledSource'),
+"_compiledSource",
 smalltalk.method({
-selector: unescape('compiledSource'),
+selector: "compiledSource",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
+fn: function (){
+var self=this;
+return self.toString();
+return self;},
 args: [],
-source: unescape('compiledSource%0A%09%3Creturn%20self.toString%28%29%3E'),
+source: "compiledSource\x0a\x09<return self.toString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_ensure_'),
+"_ensure_",
 smalltalk.method({
-selector: unescape('ensure%3A'),
+selector: "ensure:",
 category: 'evaluating',
-fn: function (aBlock) {
-    var self = this;
-    var success = nil;
-    success = false;
-    return smalltalk.send(function () {smalltalk.send(self, "_value", []);success = true;return smalltalk.send(aBlock, "_value", []);}, "_on_do_", [smalltalk.Error || Error, function (ex) {($receiver = success).klass === smalltalk.Boolean ? !$receiver ? function () {return smalltalk.send(aBlock, "_value", []);}() : nil : smalltalk.send($receiver, "_ifFalse_", [function () {return smalltalk.send(aBlock, "_value", []);}]);return smalltalk.send(ex, "_signal", []);}]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+var success=nil;
+(success=false);
+return smalltalk.send((function(){smalltalk.send(self, "_value", []);(success=true);return smalltalk.send(aBlock, "_value", []);}), "_on_do_", [(smalltalk.Error || Error), (function(ex){((($receiver = success).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);})]));return smalltalk.send(ex, "_signal", []);})]);
+return self;},
 args: ["aBlock"],
-source: unescape('ensure%3A%20aBlock%0A%09%7C%20success%20%7C%0A%09success%20%3A%3D%20false.%0A%09%5E%5Bself%20value.%20success%20%3A%3D%20true.%20aBlock%20value%5D%0A%09%09on%3A%20Error%0A%09%09do%3A%20%5B%3Aex%20%7C%0A%09%09%09success%20ifFalse%3A%20%5BaBlock%20value%5D.%0A%09%09%09ex%20signal%5D'),
+source: "ensure: aBlock\x0a\x09| success |\x0a\x09success := false.\x0a\x09^[self value. success := true. aBlock value]\x0a\x09\x09on: Error\x0a\x09\x09do: [:ex |\x0a\x09\x09\x09success ifFalse: [aBlock value].\x0a\x09\x09\x09ex signal]",
 messageSends: ["on:do:", "value", "ifFalse:", "signal"],
 referencedClasses: ["Error"]
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_new'),
+"_new",
 smalltalk.method({
-selector: unescape('new'),
+selector: "new",
 category: 'evaluating',
-fn: function () {
-    var self = this;
-    return new self;
-    return self;
-},
+fn: function (){
+var self=this;
+return new self();
+return self;},
 args: [],
-source: unescape('new%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28%29%3E'),
+source: "new\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_newValue_'),
+"_newValue_",
 smalltalk.method({
-selector: unescape('newValue%3A'),
+selector: "newValue:",
 category: 'evaluating',
-fn: function (anObject) {
-    var self = this;
-    return new self(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return new self(anObject);
+return self;},
 args: ["anObject"],
-source: unescape('newValue%3A%20anObject%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%29%3E'),
+source: "newValue: anObject\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_newValue_value_'),
+"_newValue_value_",
 smalltalk.method({
-selector: unescape('newValue%3Avalue%3A'),
+selector: "newValue:value:",
 category: 'evaluating',
-fn: function (anObject, anObject2) {
-    var self = this;
-    return new self(anObject, anObject2);
-    return self;
-},
+fn: function (anObject, anObject2){
+var self=this;
+return new self(anObject, anObject2);
+return self;},
 args: ["anObject", "anObject2"],
-source: unescape('newValue%3A%20%20anObject%20value%3A%20anObject2%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%2C%20anObject2%29%3E'),
+source: "newValue:  anObject value: anObject2\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_newValue_value_value_'),
+"_newValue_value_value_",
 smalltalk.method({
-selector: unescape('newValue%3Avalue%3Avalue%3A'),
+selector: "newValue:value:value:",
 category: 'evaluating',
-fn: function (anObject, anObject2, anObject3) {
-    var self = this;
-    return new self(anObject, anObject2);
-    return self;
-},
+fn: function (anObject, anObject2, anObject3){
+var self=this;
+return new self(anObject, anObject2);
+return self;},
 args: ["anObject", "anObject2", "anObject3"],
-source: unescape('newValue%3A%20%20anObject%20value%3A%20anObject2%20value%3A%20anObject3%0A%09%22Use%20the%20receiver%20as%20a%20JS%20constructor.%20%0A%09*Do%20not*%20use%20this%20method%20to%20instanciate%20Smalltalk%20objects%21%22%0A%09%3Creturn%20new%20self%28anObject%2C%20anObject2%29%3E'),
+source: "newValue:  anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_numArgs'),
+"_numArgs",
 smalltalk.method({
-selector: unescape('numArgs'),
+selector: "numArgs",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.length;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.length;
+return self;},
 args: [],
-source: unescape('numArgs%0A%09%3Creturn%20self.length%3E'),
+source: "numArgs\x0a\x09<return self.length>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_on_do_'),
+"_on_do_",
 smalltalk.method({
-selector: unescape('on%3Ado%3A'),
+selector: "on:do:",
 category: 'error handling',
-fn: function (anErrorClass, aBlock) {
-    var self = this;
-    return smalltalk.send(self, "_try_catch_", [self, function (error) {return ($receiver = smalltalk.send(error, "_isKindOf_", [anErrorClass])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(aBlock, "_value_", [error]);}() : function () {return smalltalk.send(error, "_signal", []);}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return smalltalk.send(aBlock, "_value_", [error]);}, function () {return smalltalk.send(error, "_signal", []);}]);}]);
-    return self;
-},
+fn: function (anErrorClass, aBlock){
+var self=this;
+return smalltalk.send(self, "_try_catch_", [self, (function(error){return ((($receiver = smalltalk.send(error, "_isKindOf_", [anErrorClass])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value_", [error]);})() : (function(){return smalltalk.send(error, "_signal", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [error]);}), (function(){return smalltalk.send(error, "_signal", []);})]));})]);
+return self;},
 args: ["anErrorClass", "aBlock"],
-source: unescape('on%3A%20anErrorClass%20do%3A%20aBlock%0A%09%5Eself%20try%3A%20self%20catch%3A%20%5B%3Aerror%20%7C%0A%09%20%20%20%20%28error%20isKindOf%3A%20anErrorClass%29%20%0A%09%20%20%20%20%20ifTrue%3A%20%5BaBlock%20value%3A%20error%5D%0A%09%20%20%20%20%20ifFalse%3A%20%5Berror%20signal%5D%5D'),
+source: "on: anErrorClass do: aBlock\x0a\x09^self try: self catch: [:error |\x0a\x09    (error isKindOf: anErrorClass) \x0a\x09     ifTrue: [aBlock value: error]\x0a\x09     ifFalse: [error signal]]",
 messageSends: ["try:catch:", "ifTrue:ifFalse:", "isKindOf:", "value:", "signal"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_timeToRun'),
+"_timeToRun",
 smalltalk.method({
-selector: unescape('timeToRun'),
+selector: "timeToRun",
 category: 'evaluating',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.Date || Date, "_millisecondsToRun_", [self]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.Date || Date), "_millisecondsToRun_", [self]);
+return self;},
 args: [],
-source: unescape('timeToRun%0A%09%22Answer%20the%20number%20of%20milliseconds%20taken%20to%20execute%20this%20block.%22%0A%0A%09%5E%20Date%20millisecondsToRun%3A%20self'),
+source: "timeToRun\x0a\x09\x22Answer the number of milliseconds taken to execute this block.\x22\x0a\x0a\x09^ Date millisecondsToRun: self",
 messageSends: ["millisecondsToRun:"],
 referencedClasses: ["Date"]
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_value'),
+"_value",
 smalltalk.method({
-selector: unescape('value'),
+selector: "value",
 category: 'evaluating',
-fn: function () {
-    var self = this;
-    return self();
-    return self;
-},
+fn: function (){
+var self=this;
+return self();;
+return self;},
 args: [],
-source: unescape('value%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28%29%3B%3E'),
+source: "value\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self();>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_value_'),
+"_value_",
 smalltalk.method({
-selector: unescape('value%3A'),
+selector: "value:",
 category: 'evaluating',
-fn: function (anArg) {
-    var self = this;
-    return self(anArg);
-    return self;
-},
+fn: function (anArg){
+var self=this;
+return self(anArg);;
+return self;},
 args: ["anArg"],
-source: unescape('value%3A%20anArg%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28anArg%29%3B%3E'),
+source: "value: anArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(anArg);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_value_value_'),
+"_value_value_",
 smalltalk.method({
-selector: unescape('value%3Avalue%3A'),
+selector: "value:value:",
 category: 'evaluating',
-fn: function (firstArg, secondArg) {
-    var self = this;
-    return self(firstArg, secondArg);
-    return self;
-},
+fn: function (firstArg, secondArg){
+var self=this;
+return self(firstArg, secondArg);;
+return self;},
 args: ["firstArg", "secondArg"],
-source: unescape('value%3A%20firstArg%20value%3A%20secondArg%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%29%3B%3E'),
+source: "value: firstArg value: secondArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_value_value_value_'),
+"_value_value_value_",
 smalltalk.method({
-selector: unescape('value%3Avalue%3Avalue%3A'),
+selector: "value:value:value:",
 category: 'evaluating',
-fn: function (firstArg, secondArg, thirdArg) {
-    var self = this;
-    return self(firstArg, secondArg, thirdArg);
-    return self;
-},
+fn: function (firstArg, secondArg, thirdArg){
+var self=this;
+return self(firstArg, secondArg, thirdArg);;
+return self;},
 args: ["firstArg", "secondArg", "thirdArg"],
-source: unescape('value%3A%20firstArg%20value%3A%20secondArg%20value%3A%20thirdArg%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Creturn%20self%28firstArg%2C%20secondArg%2C%20thirdArg%29%3B%3E'),
+source: "value: firstArg value: secondArg value: thirdArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_valueWithInterval_'),
+"_valueWithInterval_",
 smalltalk.method({
-selector: unescape('valueWithInterval%3A'),
+selector: "valueWithInterval:",
 category: 'timeout/interval',
-fn: function (aNumber) {
-    var self = this;
-    return setInterval(self, aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return setInterval(self, aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('valueWithInterval%3A%20aNumber%0A%09%3Creturn%20setInterval%28self%2C%20aNumber%29%3E'),
+source: "valueWithInterval: aNumber\x0a\x09<return setInterval(self, aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_valueWithPossibleArguments_'),
+"_valueWithPossibleArguments_",
 smalltalk.method({
-selector: unescape('valueWithPossibleArguments%3A'),
+selector: "valueWithPossibleArguments:",
 category: 'evaluating',
-fn: function (aCollection) {
-    var self = this;
-    return self.apply(null, aCollection);
-    return self;
-},
+fn: function (aCollection){
+var self=this;
+return self.apply(null, aCollection);;
+return self;},
 args: ["aCollection"],
-source: unescape('valueWithPossibleArguments%3A%20aCollection%0A%09%3Creturn%20self.apply%28null%2C%20aCollection%29%3B%3E'),
+source: "valueWithPossibleArguments: aCollection\x0a\x09<return self.apply(null, aCollection);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_valueWithTimeout_'),
+"_valueWithTimeout_",
 smalltalk.method({
-selector: unescape('valueWithTimeout%3A'),
+selector: "valueWithTimeout:",
 category: 'timeout/interval',
-fn: function (aNumber) {
-    var self = this;
-    return setTimeout(self, aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return setTimeout(self, aNumber);
+return self;},
 args: ["aNumber"],
-source: unescape('valueWithTimeout%3A%20aNumber%0A%09%3Creturn%20setTimeout%28self%2C%20aNumber%29%3E'),
+source: "valueWithTimeout: aNumber\x0a\x09<return setTimeout(self, aNumber)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_whileFalse'),
+"_whileFalse",
 smalltalk.method({
-selector: unescape('whileFalse'),
+selector: "whileFalse",
 category: 'controlling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_whileFalse_", [function () {return nil;}]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileFalse_", [(function(){return nil;})]);
+return self;},
 args: [],
-source: unescape('whileFalse%0A%09%22inlined%20in%20the%20Compiler%22%0A%09self%20whileFalse%3A%20%5B%5D'),
+source: "whileFalse\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileFalse: []",
 messageSends: ["whileFalse:"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_whileFalse_'),
+"_whileFalse_",
 smalltalk.method({
-selector: unescape('whileFalse%3A'),
+selector: "whileFalse:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    while (!self()) {
-        aBlock();
-    }
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+while(!self()) {aBlock()};
+return self;},
 args: ["aBlock"],
-source: unescape('whileFalse%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Cwhile%28%21self%28%29%29%20%7BaBlock%28%29%7D%3E'),
+source: "whileFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(!self()) {aBlock()}>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_whileTrue'),
+"_whileTrue",
 smalltalk.method({
-selector: unescape('whileTrue'),
+selector: "whileTrue",
 category: 'controlling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_whileTrue_", [function () {return nil;}]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self, "_whileTrue_", [(function(){return nil;})]);
+return self;},
 args: [],
-source: unescape('whileTrue%0A%09%22inlined%20in%20the%20Compiler%22%0A%09self%20whileTrue%3A%20%5B%5D'),
+source: "whileTrue\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileTrue: []",
 messageSends: ["whileTrue:"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-unescape('_whileTrue_'),
+"_whileTrue_",
 smalltalk.method({
-selector: unescape('whileTrue%3A'),
+selector: "whileTrue:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    while (self()) {
-        aBlock();
-    }
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+while(self()) {aBlock()};
+return self;},
 args: ["aBlock"],
-source: unescape('whileTrue%3A%20aBlock%0A%09%22inlined%20in%20the%20Compiler%22%0A%09%3Cwhile%28self%28%29%29%20%7BaBlock%28%29%7D%3E'),
+source: "whileTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(self()) {aBlock()}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -6961,208 +6068,194 @@ smalltalk.BlockClosure);
 
 
 smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.CompiledMethod.comment=unescape('CompiledMethod%20hold%20the%20source%20and%20compiled%20code%20of%20a%20class%20method.%0A%0AYou%20can%20get%20a%20CompiledMethod%20using%20%60Behavior%3E%3EmethodAt%3A%60%0A%0A%09String%20methodAt%3A%20%27lines%27%0A%0Aand%20read%20the%20source%20code%0A%0A%09%28String%20methodAt%3A%20%27lines%27%29%20source%0A%0ASee%20referenced%20classes%3A%0A%0A%09%28String%20methodAt%3A%20%27lines%27%29%20referencedClasses%0A%0Aor%20messages%20sent%20from%20this%20method%3A%0A%09%0A%09%28String%20methodAt%3A%20%27lines%27%29%20%20messageSends')
+smalltalk.CompiledMethod.comment="CompiledMethod hold the source and compiled code of a class method.\x0a\x0aYou can get a CompiledMethod using `Behavior>>methodAt:`\x0a\x0a\x09String methodAt: 'lines'\x0a\x0aand read the source code\x0a\x0a\x09(String methodAt: 'lines') source\x0a\x0aSee referenced classes:\x0a\x0a\x09(String methodAt: 'lines') referencedClasses\x0a\x0aor messages sent from this method:\x0a\x09\x0a\x09(String methodAt: 'lines')  messageSends"
 smalltalk.addMethod(
-unescape('_arguments'),
+"_arguments",
 smalltalk.method({
-selector: unescape('arguments'),
+selector: "arguments",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.args || [];
-    return self;
-},
+fn: function (){
+var self=this;
+return self.args || [];
+return self;},
 args: [],
-source: unescape('arguments%0A%09%3Creturn%20self.args%20%7C%7C%20%5B%5D%3E'),
+source: "arguments\x0a\x09<return self.args || []>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_category'),
+"_category",
 smalltalk.method({
-selector: unescape('category'),
+selector: "category",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return ($receiver = smalltalk.send(self, "_basicAt_", ["category"])) == nil ||
-        $receiver == undefined ? function () {return "";}() : $receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return (($receiver = smalltalk.send(self, "_basicAt_", ["category"])) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver;
+return self;},
 args: [],
-source: unescape('category%0A%09%5E%28self%20basicAt%3A%20%27category%27%29%20ifNil%3A%20%5B%27%27%5D'),
+source: "category\x0a\x09^(self basicAt: 'category') ifNil: ['']",
 messageSends: ["ifNil:", "basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_category_'),
+"_category_",
 smalltalk.method({
-selector: unescape('category%3A'),
+selector: "category:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["category", aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_basicAt_put_", ["category", aString]);
+return self;},
 args: ["aString"],
-source: unescape('category%3A%20aString%0A%09self%20basicAt%3A%20%27category%27%20put%3A%20aString'),
+source: "category: aString\x0a\x09self basicAt: 'category' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_fn'),
+"_fn",
 smalltalk.method({
-selector: unescape('fn'),
+selector: "fn",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_basicAt_", ["fn"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_basicAt_", ["fn"]);
+return self;},
 args: [],
-source: unescape('fn%0A%09%5Eself%20basicAt%3A%20%27fn%27'),
+source: "fn\x0a\x09^self basicAt: 'fn'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_fn_'),
+"_fn_",
 smalltalk.method({
-selector: unescape('fn%3A'),
+selector: "fn:",
 category: 'accessing',
-fn: function (aBlock) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
+return self;},
 args: ["aBlock"],
-source: unescape('fn%3A%20aBlock%0A%09self%20basicAt%3A%20%27fn%27%20put%3A%20aBlock'),
+source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_messageSends'),
+"_messageSends",
 smalltalk.method({
-selector: unescape('messageSends'),
+selector: "messageSends",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_basicAt_", ["messageSends"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_basicAt_", ["messageSends"]);
+return self;},
 args: [],
-source: unescape('messageSends%0A%09%5Eself%20basicAt%3A%20%27messageSends%27'),
+source: "messageSends\x0a\x09^self basicAt: 'messageSends'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_methodClass'),
+"_methodClass",
 smalltalk.method({
-selector: unescape('methodClass'),
+selector: "methodClass",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_basicAt_", ["methodClass"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_basicAt_", ["methodClass"]);
+return self;},
 args: [],
-source: unescape('methodClass%0A%09%5Eself%20basicAt%3A%20%27methodClass%27'),
+source: "methodClass\x0a\x09^self basicAt: 'methodClass'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_referencedClasses'),
+"_referencedClasses",
 smalltalk.method({
-selector: unescape('referencedClasses'),
+selector: "referencedClasses",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
+return self;},
 args: [],
-source: unescape('referencedClasses%0A%09%5Eself%20basicAt%3A%20%27referencedClasses%27'),
+source: "referencedClasses\x0a\x09^self basicAt: 'referencedClasses'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_selector'),
+"_selector",
 smalltalk.method({
-selector: unescape('selector'),
+selector: "selector",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(self, "_basicAt_", ["selector"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(self, "_basicAt_", ["selector"]);
+return self;},
 args: [],
-source: unescape('selector%0A%09%5Eself%20basicAt%3A%20%27selector%27'),
+source: "selector\x0a\x09^self basicAt: 'selector'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_selector_'),
+"_selector_",
 smalltalk.method({
-selector: unescape('selector%3A'),
+selector: "selector:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
+return self;},
 args: ["aString"],
-source: unescape('selector%3A%20aString%0A%09self%20basicAt%3A%20%27selector%27%20put%3A%20aString'),
+source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_source'),
+"_source",
 smalltalk.method({
-selector: unescape('source'),
+selector: "source",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return ($receiver = smalltalk.send(self, "_basicAt_", ["source"])) == nil ||
-        $receiver == undefined ? function () {return "";}() : $receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return (($receiver = smalltalk.send(self, "_basicAt_", ["source"])) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver;
+return self;},
 args: [],
-source: unescape('source%0A%09%5E%28self%20basicAt%3A%20%27source%27%29%20ifNil%3A%20%5B%27%27%5D'),
+source: "source\x0a\x09^(self basicAt: 'source') ifNil: ['']",
 messageSends: ["ifNil:", "basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-unescape('_source_'),
+"_source_",
 smalltalk.method({
-selector: unescape('source%3A'),
+selector: "source:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["source", aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_basicAt_put_", ["source", aString]);
+return self;},
 args: ["aString"],
-source: unescape('source%3A%20aString%0A%09self%20basicAt%3A%20%27source%27%20put%3A%20aString'),
+source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
@@ -7171,104 +6264,98 @@ smalltalk.CompiledMethod);
 
 
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
-smalltalk.Message.comment=unescape('Generally%2C%20the%20system%20does%20not%20use%20instances%20of%20Message%20for%20efficiency%20reasons.%0AHowever%2C%20when%20a%20message%20is%20not%20understood%20by%20its%20receiver%2C%20the%20interpreter%20will%20make%20up%20an%20instance%20of%20it%20in%20order%20to%20capture%20the%20information%20involved%20in%20an%20actual%20message%20transmission.%20%0AThis%20instance%20is%20sent%20it%20as%20an%20argument%20with%20the%20message%20%60doesNotUnderstand%3A%60%20to%20the%20receiver.%0A%0ASee%20boot.js%2C%20%60messageNotUnderstood%60%20%20and%20its%20counterpart%20%60Object%3E%3EdoesNotUnderstand%3A%60')
+smalltalk.Message.comment="Generally, the system does not use instances of Message for efficiency reasons.\x0aHowever, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. \x0aThis instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.\x0a\x0aSee boot.js, `messageNotUnderstood`  and its counterpart `Object>>doesNotUnderstand:`"
 smalltalk.addMethod(
-unescape('_arguments'),
+"_arguments",
 smalltalk.method({
-selector: unescape('arguments'),
+selector: "arguments",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@arguments'];
-    return self;
-},
+fn: function (){
+var self=this;
+return self['@arguments'];
+return self;},
 args: [],
-source: unescape('arguments%0A%09%5Earguments'),
+source: "arguments\x0a\x09^arguments",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Message);
 
 smalltalk.addMethod(
-unescape('_arguments_'),
+"_arguments_",
 smalltalk.method({
-selector: unescape('arguments%3A'),
+selector: "arguments:",
 category: 'accessing',
-fn: function (anArray) {
-    var self = this;
-    self['@arguments'] = anArray;
-    return self;
-},
+fn: function (anArray){
+var self=this;
+(self['@arguments']=anArray);
+return self;},
 args: ["anArray"],
-source: unescape('arguments%3A%20anArray%0A%09arguments%20%3A%3D%20anArray'),
+source: "arguments: anArray\x0a\x09arguments := anArray",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Message);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.String || String, "_streamContents_", [function (aStream) {return function ($rec) {smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);smalltalk.send($rec, "_nextPutAll_", [self['@selector']]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%29")]);}(aStream);}]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Message.superclass || nil)]);smalltalk.send($rec, "_nextPutAll_", ["("]);smalltalk.send($rec, "_nextPutAll_", [self['@selector']]);return smalltalk.send($rec, "_nextPutAll_", [")"]);})(aStream);})]);
+return self;},
 args: [],
-source: unescape('printString%0A%09%5E%20String%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09aStream%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20super%20printString%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27%28%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20selector%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09%09%09%09nextPutAll%3A%20%27%29%27%20%09%09%09%09%5D'),
+source: "printString\x0a\x09^ String streamContents: [:aStream|  \x0a                                  \x09\x09\x09\x09aStream \x0a                                  \x09\x09\x09\x09\x09nextPutAll: super printString;\x0a                                  \x09\x09\x09\x09\x09nextPutAll: '(';\x0a                                  \x09\x09\x09\x09\x09nextPutAll: selector;\x0a                                  \x09\x09\x09\x09\x09nextPutAll: ')' \x09\x09\x09\x09]",
 messageSends: ["streamContents:", "nextPutAll:", "printString"],
 referencedClasses: ["String"]
 }),
 smalltalk.Message);
 
 smalltalk.addMethod(
-unescape('_selector'),
+"_selector",
 smalltalk.method({
-selector: unescape('selector'),
+selector: "selector",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@selector'];
-    return self;
-},
+fn: function (){
+var self=this;
+return self['@selector'];
+return self;},
 args: [],
-source: unescape('selector%0A%09%5Eselector'),
+source: "selector\x0a\x09^selector",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Message);
 
 smalltalk.addMethod(
-unescape('_selector_'),
+"_selector_",
 smalltalk.method({
-selector: unescape('selector%3A'),
+selector: "selector:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self['@selector'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+(self['@selector']=aString);
+return self;},
 args: ["aString"],
-source: unescape('selector%3A%20aString%0A%09selector%20%3A%3D%20aString'),
+source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Message);
 
 smalltalk.addMethod(
-unescape('_sendTo_'),
+"_sendTo_",
 smalltalk.method({
-selector: unescape('sendTo%3A'),
+selector: "sendTo:",
 category: 'printing',
-fn: function (anObject) {
-    var self = this;
-    smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_send_to_arguments_", [smalltalk.send(self, "_selector", []), anObject, smalltalk.send(self, "_arguments", [])]);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_send_to_arguments_", [smalltalk.send(self, "_selector", []), anObject, smalltalk.send(self, "_arguments", [])]);
+return self;},
 args: ["anObject"],
-source: unescape('sendTo%3A%20anObject%0A%09Smalltalk%20current%20send%3A%20self%20selector%20to%3A%20anObject%20arguments%3A%20self%20arguments'),
+source: "sendTo: anObject\x0a\x09Smalltalk current send: self selector to: anObject arguments: self arguments",
 messageSends: ["send:to:arguments:", "current", "selector", "arguments"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -7276,17 +6363,16 @@ smalltalk.Message);
 
 
 smalltalk.addMethod(
-unescape('_selector_arguments_'),
+"_selector_arguments_",
 smalltalk.method({
-selector: unescape('selector%3Aarguments%3A'),
+selector: "selector:arguments:",
 category: 'instance creation',
-fn: function (aString, anArray) {
-    var self = this;
-    return function ($rec) {smalltalk.send($rec, "_selector_", [aString]);smalltalk.send($rec, "_arguments_", [anArray]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(self, "_new", []));
-    return self;
-},
+fn: function (aString, anArray){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_selector_", [aString]);smalltalk.send($rec, "_arguments_", [anArray]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
+return self;},
 args: ["aString", "anArray"],
-source: unescape('selector%3A%20aString%20arguments%3A%20anArray%0A%09%5Eself%20new%0A%09%09selector%3A%20aString%3B%0A%09%09arguments%3A%20anArray%3B%0A%09%09yourself'),
+source: "selector: aString arguments: anArray\x0a\x09^self new\x0a\x09\x09selector: aString;\x0a\x09\x09arguments: anArray;\x0a\x09\x09yourself",
 messageSends: ["selector:", "arguments:", "yourself", "new"],
 referencedClasses: []
 }),
@@ -7294,104 +6380,98 @@ smalltalk.Message.klass);
 
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.MethodContext.comment=unescape('MethodContext%20holds%20all%20the%20dynamic%20state%20associated%20with%20the%20execution%20of%20either%20a%20method%20activation%20resulting%20from%20a%20message%20send.%20That%20is%20used%20to%20build%20the%20call%20stack%20while%20debugging.%0A%20%20%0AMethodContext%20instances%20are%20JavaScript%20%60SmalltalkMethodContext%60%20objects%20defined%20in%20boot.js%20%0A%0ACurrent%20limitation%3A%20MethodContext%20instances%20are%20not%20created%20on%20Block%20evaluation.%20That%20means%20it%27s%20actually%20impossible%20to%20debug%20inside%20a%20Block.')
+smalltalk.MethodContext.comment="MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.\x0a  \x0aMethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js \x0a\x0aCurrent limitation: MethodContext instances are not created on Block evaluation. That means it's actually impossible to debug inside a Block."
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_class", []), "_printString", []), "__comma", [unescape("%20%3E%3E%20")]), "__comma", [smalltalk.send(self, "_selector", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_class", []), "_printString", []), "__comma", [" >> "]), "__comma", [smalltalk.send(self, "_selector", [])]);
+return self;},
 args: [],
-source: unescape('asString%0A%09%5Eself%20receiver%20class%20printString%2C%20%27%20%3E%3E%20%27%2C%20self%20selector'),
-messageSends: [unescape("%2C"), "printString", "class", "receiver", "selector"],
+source: "asString\x0a\x09^self receiver class printString, ' >> ', self selector",
+messageSends: [",", "printString", "class", "receiver", "selector"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-unescape('_home'),
+"_home",
 smalltalk.method({
-selector: unescape('home'),
+selector: "home",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.homeContext;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.homeContext;
+return self;},
 args: [],
-source: unescape('home%0A%09%3Creturn%20self.homeContext%3E'),
+source: "home\x0a\x09<return self.homeContext>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Object), "__comma", [unescape("%28")]), "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", [unescape("%29")]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.MethodContext.superclass || nil), "__comma", ["("]), "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", [")"]);
+return self;},
 args: [],
-source: unescape('printString%0A%09%5Esuper%20printString%2C%20%27%28%27%2C%20self%20asString%2C%20%27%29%27'),
-messageSends: [unescape("%2C"), "printString", "asString"],
+source: "printString\x0a\x09^super printString, '(', self asString, ')'",
+messageSends: [",", "printString", "asString"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-unescape('_receiver'),
+"_receiver",
 smalltalk.method({
-selector: unescape('receiver'),
+selector: "receiver",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.receiver;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.receiver;
+return self;},
 args: [],
-source: unescape('receiver%0A%09%3Creturn%20self.receiver%3E'),
+source: "receiver\x0a\x09<return self.receiver>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-unescape('_selector'),
+"_selector",
 smalltalk.method({
-selector: unescape('selector'),
+selector: "selector",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk.convertSelector(self.selector);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.convertSelector(self.selector);
+return self;},
 args: [],
-source: unescape('selector%0A%09%3Creturn%20smalltalk.convertSelector%28self.selector%29%3E'),
+source: "selector\x0a\x09<return smalltalk.convertSelector(self.selector)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-unescape('_temps'),
+"_temps",
 smalltalk.method({
-selector: unescape('temps'),
+selector: "temps",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.temps;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.temps;
+return self;},
 args: [],
-source: unescape('temps%0A%09%3Creturn%20self.temps%3E'),
+source: "temps\x0a\x09<return self.temps>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -7402,98 +6482,98 @@ smalltalk.MethodContext);
 smalltalk.addPackage('Kernel-Collections', {});
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (anAssociation) {
+fn: function (anAssociation){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(anAssociation, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_key", []), "__eq", [smalltalk.send(anAssociation, "_key", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_value", []), "__eq", [smalltalk.send(anAssociation, "_value", [])]);})]);})]);
 return self;},
 args: ["anAssociation"],
-source: unescape('%3D%20anAssociation%0A%09%5Eself%20class%20%3D%20anAssociation%20class%20and%3A%20%5B%0A%09%20%20%20%20self%20key%20%3D%20anAssociation%20key%20and%3A%20%5B%0A%09%09self%20value%20%3D%20anAssociation%20value%5D%5D'),
-messageSends: ["and:", unescape("%3D"), "class", "key", "value"],
+source: "= anAssociation\x0a\x09^self class = anAssociation class and: [\x0a\x09    self key = anAssociation key and: [\x0a\x09\x09self value = anAssociation value]]",
+messageSends: ["and:", "=", "class", "key", "value"],
 referencedClasses: []
 }),
 smalltalk.Association);
 
 smalltalk.addMethod(
-unescape('_key'),
+"_key",
 smalltalk.method({
-selector: unescape('key'),
+selector: "key",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@key'];
 return self;},
 args: [],
-source: unescape('key%0A%09%5Ekey'),
+source: "key\x0a\x09^key",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Association);
 
 smalltalk.addMethod(
-unescape('_key_'),
+"_key_",
 smalltalk.method({
-selector: unescape('key%3A'),
+selector: "key:",
 category: 'accessing',
-fn: function (aKey) {
+fn: function (aKey){
 var self=this;
 (self['@key']=aKey);
 return self;},
 args: ["aKey"],
-source: unescape('key%3A%20aKey%0A%09key%20%3A%3D%20aKey'),
+source: "key: aKey\x0a\x09key := aKey",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Association);
 
 smalltalk.addMethod(
-unescape('_storeOn_'),
+"_storeOn_",
 smalltalk.method({
-selector: unescape('storeOn%3A'),
+selector: "storeOn:",
 category: 'comparing',
-fn: function (aStream) {
+fn: function (aStream){
 var self=this;
 smalltalk.send(self['@key'], "_storeOn_", [aStream]);
-smalltalk.send(aStream, "_nextPutAll_", [unescape("-%3E")]);
+smalltalk.send(aStream, "_nextPutAll_", ["->"]);
 smalltalk.send(self['@value'], "_storeOn_", [aStream]);
 return self;},
 args: ["aStream"],
-source: unescape('storeOn%3A%20aStream%0A%09%22Store%20in%20the%20format%20%28key-%3Evalue%29%22%0A%0A%09%22aStream%20nextPutAll%3A%20%27%28%27.%22%0A%09key%20storeOn%3A%20aStream.%0A%09aStream%20nextPutAll%3A%20%27-%3E%27.%0A%09value%20storeOn%3A%20aStream.%0A%09%22aStream%20nextPutAll%3A%20%27%29%27%22'),
+source: "storeOn: aStream\x0a\x09\x22Store in the format (key->value)\x22\x0a\x0a\x09\x22aStream nextPutAll: '('.\x22\x0a\x09key storeOn: aStream.\x0a\x09aStream nextPutAll: '->'.\x0a\x09value storeOn: aStream.\x0a\x09\x22aStream nextPutAll: ')'\x22",
 messageSends: ["storeOn:", "nextPutAll:"],
 referencedClasses: []
 }),
 smalltalk.Association);
 
 smalltalk.addMethod(
-unescape('_value'),
+"_value",
 smalltalk.method({
-selector: unescape('value'),
+selector: "value",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@value'];
 return self;},
 args: [],
-source: unescape('value%0A%09%5Evalue'),
+source: "value\x0a\x09^value",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Association);
 
 smalltalk.addMethod(
-unescape('_value_'),
+"_value_",
 smalltalk.method({
-selector: unescape('value%3A'),
+selector: "value:",
 category: 'accessing',
-fn: function (aValue) {
+fn: function (aValue){
 var self=this;
 (self['@value']=aValue);
 return self;},
 args: ["aValue"],
-source: unescape('value%3A%20aValue%0A%09value%20%3A%3D%20aValue'),
+source: "value: aValue\x0a\x09value := aValue",
 messageSends: [],
 referencedClasses: []
 }),
@@ -7501,16 +6581,16 @@ smalltalk.Association);
 
 
 smalltalk.addMethod(
-unescape('_key_value_'),
+"_key_value_",
 smalltalk.method({
-selector: unescape('key%3Avalue%3A'),
+selector: "key:value:",
 category: 'instance creation',
-fn: function (aKey, aValue) {
+fn: function (aKey, aValue){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_key_", [aKey]);smalltalk.send($rec, "_value_", [aValue]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["aKey", "aValue"],
-source: unescape('key%3A%20aKey%20value%3A%20aValue%0A%09%20%20%20%20%5Eself%20new%0A%09%09key%3A%20aKey%3B%0A%09%09value%3A%20aValue%3B%0A%09%09yourself'),
+source: "key: aKey value: aValue\x0a\x09    ^self new\x0a\x09\x09key: aKey;\x0a\x09\x09value: aValue;\x0a\x09\x09yourself",
 messageSends: ["key:", "value:", "yourself", "new"],
 referencedClasses: []
 }),
@@ -7519,124 +6599,124 @@ smalltalk.Association.klass);
 
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__comma'),
+"__comma",
 smalltalk.method({
-selector: unescape('%2C'),
+selector: ",",
 category: 'copying',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
 return self;},
 args: ["aCollection"],
-source: unescape('%2C%20aCollection%0A%09%5Eself%20copy%20%0A%09%20%20%20%20addAll%3A%20aCollection%3B%20%0A%09%20%20%20%20yourself'),
+source: ", aCollection\x0a\x09^self copy \x0a\x09    addAll: aCollection; \x0a\x09    yourself",
 messageSends: ["addAll:", "yourself", "copy"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_add_'),
+"_add_",
 smalltalk.method({
-selector: unescape('add%3A'),
+selector: "add:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: ["anObject"],
-source: unescape('add%3A%20anObject%0A%09self%20subclassResponsibility'),
+source: "add: anObject\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_addAll_'),
+"_addAll_",
 smalltalk.method({
-selector: unescape('addAll%3A'),
+selector: "addAll:",
 category: 'adding/removing',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_add_", [each]);})]);
 return aCollection;
 return self;},
 args: ["aCollection"],
-source: unescape('addAll%3A%20aCollection%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20self%20add%3A%20each%5D.%0A%09%5EaCollection'),
+source: "addAll: aCollection\x0a\x09aCollection do: [:each |\x0a\x09    self add: each].\x0a\x09^aCollection",
 messageSends: ["do:", "add:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_asArray'),
+"_asArray",
 smalltalk.method({
-selector: unescape('asArray'),
+selector: "asArray",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.Array || Array), "_withAll_", [self]);
 return self;},
 args: [],
-source: unescape('asArray%0A%09%5EArray%20withAll%3A%20self'),
+source: "asArray\x0a\x09^Array withAll: self",
 messageSends: ["withAll:"],
 referencedClasses: ["Array"]
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asArray", []), "_collect_", [(function(each){return smalltalk.send(each, "_asJSON", []);})]);
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Eself%20asArray%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJSON%5D'),
+source: "asJSON\x0a\x09^self asArray collect: [:each | each asJSON]",
 messageSends: ["collect:", "asArray", "asJSON"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_asOrderedCollection'),
+"_asOrderedCollection",
 smalltalk.method({
-selector: unescape('asOrderedCollection'),
+selector: "asOrderedCollection",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_asArray", []);
 return self;},
 args: [],
-source: unescape('asOrderedCollection%0A%09%5Eself%20asArray'),
+source: "asOrderedCollection\x0a\x09^self asArray",
 messageSends: ["asArray"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_asSet'),
+"_asSet",
 smalltalk.method({
-selector: unescape('asSet'),
+selector: "asSet",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.Set || Set), "_withAll_", [self]);
 return self;},
 args: [],
-source: unescape('asSet%0A%09%5ESet%20withAll%3A%20self'),
+source: "asSet\x0a\x09^Set withAll: self",
 messageSends: ["withAll:"],
 referencedClasses: ["Set"]
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_collect_'),
+"_collect_",
 smalltalk.method({
-selector: unescape('collect%3A'),
+selector: "collect:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 var newCollection=nil;
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -7644,82 +6724,82 @@ smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollectio
 return newCollection;
 return self;},
 args: ["aBlock"],
-source: unescape('collect%3A%20aBlock%0A%09%7C%20newCollection%20%7C%0A%09newCollection%20%3A%3D%20self%20class%20new.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20newCollection%20add%3A%20%28aBlock%20value%3A%20each%29%5D.%0A%09%5EnewCollection'),
+source: "collect: aBlock\x0a\x09| newCollection |\x0a\x09newCollection := self class new.\x0a\x09self do: [:each |\x0a\x09    newCollection add: (aBlock value: each)].\x0a\x09^newCollection",
 messageSends: ["new", "class", "do:", "add:", "value:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_copyWith_'),
+"_copyWith_",
 smalltalk.method({
-selector: unescape('copyWith%3A'),
+selector: "copyWith:",
 category: 'copying',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
 return self;},
 args: ["anObject"],
-source: unescape('copyWith%3A%20anObject%0A%09%5Eself%20copy%20add%3A%20anObject%3B%20yourself'),
+source: "copyWith: anObject\x0a\x09^self copy add: anObject; yourself",
 messageSends: ["add:", "yourself", "copy"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_copyWithAll_'),
+"_copyWithAll_",
 smalltalk.method({
-selector: unescape('copyWithAll%3A'),
+selector: "copyWithAll:",
 category: 'copying',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_copy", []));
 return self;},
 args: ["aCollection"],
-source: unescape('copyWithAll%3A%20aCollection%0A%09%5Eself%20copy%20addAll%3A%20aCollection%3B%20yourself'),
+source: "copyWithAll: aCollection\x0a\x09^self copy addAll: aCollection; yourself",
 messageSends: ["addAll:", "yourself", "copy"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_copyWithoutAll_'),
+"_copyWithoutAll_",
 smalltalk.method({
-selector: unescape('copyWithoutAll%3A'),
+selector: "copyWithoutAll:",
 category: 'copying',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return smalltalk.send(self, "_reject_", [(function(each){return smalltalk.send(aCollection, "_includes_", [each]);})]);
 return self;},
 args: ["aCollection"],
-source: unescape('copyWithoutAll%3A%20aCollection%0A%09%22Answer%20a%20copy%20of%20the%20receiver%20that%20does%20not%20contain%20any%20elements%20%0A%09equal%20to%20those%20in%20aCollection.%22%0A%0A%09%5E%20self%20reject%3A%20%5B%3Aeach%20%7C%20aCollection%20includes%3A%20each%5D'),
+source: "copyWithoutAll: aCollection\x0a\x09\x22Answer a copy of the receiver that does not contain any elements \x0a\x09equal to those in aCollection.\x22\x0a\x0a\x09^ self reject: [:each | aCollection includes: each]",
 messageSends: ["reject:", "includes:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_detect_'),
+"_detect_",
 smalltalk.method({
-selector: unescape('detect%3A'),
+selector: "detect:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_detect_ifNone_", [aBlock, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
 args: ["aBlock"],
-source: unescape('detect%3A%20aBlock%0A%09%5Eself%20detect%3A%20aBlock%20ifNone%3A%20%5Bself%20errorNotFound%5D'),
+source: "detect: aBlock\x0a\x09^self detect: aBlock ifNone: [self errorNotFound]",
 messageSends: ["detect:ifNone:", "errorNotFound"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_detect_ifNone_'),
+"_detect_ifNone_",
 smalltalk.method({
-selector: unescape('detect%3AifNone%3A'),
+selector: "detect:ifNone:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock) {
+fn: function (aBlock, anotherBlock){
 var self=this;
 
 		for(var i = 0; i < self.length; i++)
@@ -7729,100 +6809,100 @@ var self=this;
 	;
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%3C%0A%09%09for%28var%20i%20%3D%200%3B%20i%20%3C%20self.length%3B%20i++%29%0A%09%09%09if%28aBlock%28self%5Bi%5D%29%29%0A%09%09%09%09return%20self%5Bi%5D%3B%0A%09%09return%20anotherBlock%28%29%3B%0A%09%3E'),
+source: "detect: aBlock ifNone: anotherBlock\x0a\x09<\x0a\x09\x09for(var i = 0; i < self.length; i++)\x0a\x09\x09\x09if(aBlock(self[i]))\x0a\x09\x09\x09\x09return self[i];\x0a\x09\x09return anotherBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_do_'),
+"_do_",
 smalltalk.method({
-selector: unescape('do%3A'),
+selector: "do:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i]);};
 return self;},
 args: ["aBlock"],
-source: unescape('do%3A%20aBlock%0A%09%3Cfor%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%29%3B%7D%3E'),
+source: "do: aBlock\x0a\x09<for(var i=0;i<self.length;i++){aBlock(self[i]);}>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_do_separatedBy_'),
+"_do_separatedBy_",
 smalltalk.method({
-selector: unescape('do%3AseparatedBy%3A'),
+selector: "do:separatedBy:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock) {
+fn: function (aBlock, anotherBlock){
 var self=this;
 var first=nil;
 (first=true);
 smalltalk.send(self, "_do_", [(function(each){((($receiver = first).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (first=false);})() : (function(){return smalltalk.send(anotherBlock, "_value", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (first=false);}), (function(){return smalltalk.send(anotherBlock, "_value", []);})]));return smalltalk.send(aBlock, "_value_", [each]);})]);
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('do%3A%20aBlock%20separatedBy%3A%20anotherBlock%0A%09%7C%20first%20%7C%0A%09first%20%3A%3D%20true.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20first%0A%09%09ifTrue%3A%20%5Bfirst%20%3A%3D%20false%5D%0A%09%09ifFalse%3A%20%5BanotherBlock%20value%5D.%0A%09%20%20%20%20aBlock%20value%3A%20each%5D'),
+source: "do: aBlock separatedBy: anotherBlock\x0a\x09| first |\x0a\x09first := true.\x0a\x09self do: [:each |\x0a\x09    first\x0a\x09\x09ifTrue: [first := false]\x0a\x09\x09ifFalse: [anotherBlock value].\x0a\x09    aBlock value: each]",
 messageSends: ["do:", "ifTrue:ifFalse:", "value", "value:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_errorNotFound'),
+"_errorNotFound",
 smalltalk.method({
-selector: unescape('errorNotFound'),
+selector: "errorNotFound",
 category: 'error handling',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_error_", ["Object is not in the collection"]);
 return self;},
 args: [],
-source: unescape('errorNotFound%0A%09self%20error%3A%20%27Object%20is%20not%20in%20the%20collection%27'),
+source: "errorNotFound\x0a\x09self error: 'Object is not in the collection'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_ifEmpty_'),
+"_ifEmpty_",
 smalltalk.method({
-selector: unescape('ifEmpty%3A'),
+selector: "ifEmpty:",
 category: 'testing',
 fn: function (aBlock){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return self;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return self;})]));
 return self;},
 args: ["aBlock"],
-source: unescape('ifEmpty%3A%20aBlock%0A%09%22Evaluate%20the%20given%20block%20with%20the%20receiver%20as%20argument%2C%20answering%20its%20value%20if%20the%20receiver%20is%20empty%2C%20otherwise%20answer%20the%20receiver.%20Note%20that%20the%20fact%20that%20this%20method%20returns%20its%20argument%20in%20case%20the%20receiver%20is%20not%20empty%20allows%20one%20to%20write%20expressions%20like%20the%20following%20ones%3A%20self%20classifyMethodAs%3A%20%0A%09%09%28myProtocol%20ifEmpty%3A%20%5B%27As%20yet%20unclassified%27%5D%29%22%0A%09%5E%20self%20isEmpty%20%0A%09%09ifTrue%3A%20%5B%20aBlock%20value%20%5D%0A%09%09ifFalse%3A%20%5B%20self%20%5D'),
+source: "ifEmpty: aBlock\x0a\x09\x22Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs: \x0a\x09\x09(myProtocol ifEmpty: ['As yet unclassified'])\x22\x0a\x09^ self isEmpty \x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ self ]",
 messageSends: ["ifTrue:ifFalse:", "isEmpty", "value"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_ifNotEmpty_'),
+"_ifNotEmpty_",
 smalltalk.method({
-selector: unescape('ifNotEmpty%3A'),
+selector: "ifNotEmpty:",
 category: 'testing',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_notEmpty", []), "_ifTrue_", [aBlock]);
 return self;},
 args: ["aBlock"],
-source: unescape('ifNotEmpty%3A%20aBlock%0A%09self%20notEmpty%20ifTrue%3A%20aBlock.'),
+source: "ifNotEmpty: aBlock\x0a\x09self notEmpty ifTrue: aBlock.",
 messageSends: ["ifTrue:", "notEmpty"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_includes_'),
+"_includes_",
 smalltalk.method({
-selector: unescape('includes%3A'),
+selector: "includes:",
 category: 'testing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 
 		var i = self.length;
@@ -7833,18 +6913,18 @@ var self=this;
 	;
 return self;},
 args: ["anObject"],
-source: unescape('includes%3A%20anObject%0A%09%3C%0A%09%09var%20i%20%3D%20self.length%3B%0A%09%09while%20%28i--%29%20%7B%0A%09%09%09if%20%28smalltalk.send%28self%5Bi%5D%2C%20%22__eq%22%2C%20%5BanObject%5D%29%29%20%7Breturn%20true%3B%7D%09%0A%09%09%7D%0A%09%09return%20false%0A%09%3E'),
+source: "includes: anObject\x0a\x09<\x0a\x09\x09var i = self.length;\x0a\x09\x09while (i--) {\x0a\x09\x09\x09if (smalltalk.send(self[i], \x22__eq\x22, [anObject])) {return true;}\x09\x0a\x09\x09}\x0a\x09\x09return false\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_inject_into_'),
+"_inject_into_",
 smalltalk.method({
-selector: unescape('inject%3Ainto%3A'),
+selector: "inject:into:",
 category: 'enumerating',
-fn: function (anObject, aBlock) {
+fn: function (anObject, aBlock){
 var self=this;
 var result=nil;
 (result=anObject);
@@ -7852,114 +6932,114 @@ smalltalk.send(self, "_do_", [(function(each){return (result=smalltalk.send(aBlo
 return result;
 return self;},
 args: ["anObject", "aBlock"],
-source: unescape('inject%3A%20anObject%20into%3A%20aBlock%0A%09%7C%20result%20%7C%0A%09result%20%3A%3D%20anObject.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%20%0A%09%20%20%20%20result%20%3A%3D%20aBlock%20value%3A%20result%20value%3A%20each%5D.%0A%09%5Eresult'),
+source: "inject: anObject into: aBlock\x0a\x09| result |\x0a\x09result := anObject.\x0a\x09self do: [:each | \x0a\x09    result := aBlock value: result value: each].\x0a\x09^result",
 messageSends: ["do:", "value:value:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_isEmpty'),
+"_isEmpty",
 smalltalk.method({
-selector: unescape('isEmpty'),
+selector: "isEmpty",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)]);
 return self;},
 args: [],
-source: unescape('isEmpty%0A%09%5Eself%20size%20%3D%200'),
-messageSends: [unescape("%3D"), "size"],
+source: "isEmpty\x0a\x09^self size = 0",
+messageSends: ["=", "size"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_notEmpty'),
+"_notEmpty",
 smalltalk.method({
-selector: unescape('notEmpty'),
+selector: "notEmpty",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_not", []);
 return self;},
 args: [],
-source: unescape('notEmpty%0A%09%5Eself%20isEmpty%20not'),
+source: "notEmpty\x0a\x09^self isEmpty not",
 messageSends: ["not", "isEmpty"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_readStream'),
+"_readStream",
 smalltalk.method({
-selector: unescape('readStream'),
+selector: "readStream",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_stream", []);
 return self;},
 args: [],
-source: unescape('readStream%0A%09%5Eself%20stream'),
+source: "readStream\x0a\x09^self stream",
 messageSends: ["stream"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_reject_'),
+"_reject_",
 smalltalk.method({
-selector: unescape('reject%3A'),
+selector: "reject:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 return smalltalk.send(self, "_select_", [(function(each){return smalltalk.send(smalltalk.send(aBlock, "_value_", [each]), "__eq", [false]);})]);
 return self;},
 args: ["aBlock"],
-source: unescape('reject%3A%20aBlock%0A%09%5Eself%20select%3A%20%5B%3Aeach%20%7C%20%28aBlock%20value%3A%20each%29%20%3D%20false%5D'),
-messageSends: ["select:", unescape("%3D"), "value:"],
+source: "reject: aBlock\x0a\x09^self select: [:each | (aBlock value: each) = false]",
+messageSends: ["select:", "=", "value:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_remove_'),
+"_remove_",
 smalltalk.method({
-selector: unescape('remove%3A'),
+selector: "remove:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return smalltalk.send(self, "_remove_ifAbsent_", [anObject, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
 args: ["anObject"],
-source: unescape('remove%3A%20anObject%0A%20%20%20%20%5Eself%20remove%3A%20anObject%20ifAbsent%3A%20%5Bself%20errorNotFound%5D'),
+source: "remove: anObject\x0a    ^self remove: anObject ifAbsent: [self errorNotFound]",
 messageSends: ["remove:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_remove_ifAbsent_'),
+"_remove_ifAbsent_",
 smalltalk.method({
-selector: unescape('remove%3AifAbsent%3A'),
+selector: "remove:ifAbsent:",
 category: 'adding/removing',
-fn: function (anObject, aBlock) {
+fn: function (anObject, aBlock){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: ["anObject", "aBlock"],
-source: unescape('remove%3A%20anObject%20ifAbsent%3A%20aBlock%0A%20%20%20%20self%20subclassResponsibility'),
+source: "remove: anObject ifAbsent: aBlock\x0a    self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_select_'),
+"_select_",
 smalltalk.method({
-selector: unescape('select%3A'),
+selector: "select:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 var stream=nil;
 (stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []));
@@ -7967,71 +7047,71 @@ smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.se
 return smalltalk.send(stream, "_contents", []);
 return self;},
 args: ["aBlock"],
-source: unescape('select%3A%20aBlock%0A%09%7C%20stream%20%7C%0A%09stream%20%3A%3D%20self%20class%20new%20writeStream.%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20%28aBlock%20value%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09stream%20nextPut%3A%20each%5D%5D.%0A%09%5Estream%20contents'),
+source: "select: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [:each |\x0a\x09    (aBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: each]].\x0a\x09^stream contents",
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: [],
-source: unescape('size%0A%09self%20subclassResponsibility'),
+source: "size\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_stream'),
+"_stream",
 smalltalk.method({
-selector: unescape('stream'),
+selector: "stream",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [self]);
 return self;},
 args: [],
-source: unescape('stream%0A%09%5Eself%20streamClass%20on%3A%20self'),
+source: "stream\x0a\x09^self streamClass on: self",
 messageSends: ["on:", "streamClass"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_streamClass'),
+"_streamClass",
 smalltalk.method({
-selector: unescape('streamClass'),
+selector: "streamClass",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_streamClass", []);
 return self;},
 args: [],
-source: unescape('streamClass%0A%09%5Eself%20class%20streamClass'),
+source: "streamClass\x0a\x09^self class streamClass",
 messageSends: ["streamClass", "class"],
 referencedClasses: []
 }),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-unescape('_writeStream'),
+"_writeStream",
 smalltalk.method({
-selector: unescape('writeStream'),
+selector: "writeStream",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_stream", []);
 return self;},
 args: [],
-source: unescape('writeStream%0A%09%5Eself%20stream'),
+source: "writeStream\x0a\x09^self stream",
 messageSends: ["stream"],
 referencedClasses: []
 }),
@@ -8039,96 +7119,96 @@ smalltalk.Collection);
 
 
 smalltalk.addMethod(
-unescape('_new_'),
+"_new_",
 smalltalk.method({
-selector: unescape('new%3A'),
+selector: "new:",
 category: 'instance creation',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 return smalltalk.send(self, "_new", []);
 return self;},
 args: ["anInteger"],
-source: unescape('new%3A%20anInteger%0A%09%5Eself%20new'),
+source: "new: anInteger\x0a\x09^self new",
 messageSends: ["new"],
 referencedClasses: []
 }),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-unescape('_streamClass'),
+"_streamClass",
 smalltalk.method({
-selector: unescape('streamClass'),
+selector: "streamClass",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return (smalltalk.Stream || Stream);
 return self;},
 args: [],
-source: unescape('streamClass%0A%09%20%20%20%20%5EStream'),
+source: "streamClass\x0a\x09    ^Stream",
 messageSends: [],
 referencedClasses: ["Stream"]
 }),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-unescape('_with_'),
+"_with_",
 smalltalk.method({
-selector: unescape('with%3A'),
+selector: "with:",
 category: 'instance creation',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["anObject"],
-source: unescape('with%3A%20anObject%0A%09%20%20%20%20%5Eself%20new%0A%09%09add%3A%20anObject%3B%0A%09%09yourself'),
+source: "with: anObject\x0a\x09    ^self new\x0a\x09\x09add: anObject;\x0a\x09\x09yourself",
 messageSends: ["add:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-unescape('_with_with_'),
+"_with_with_",
 smalltalk.method({
-selector: unescape('with%3Awith%3A'),
+selector: "with:with:",
 category: 'instance creation',
-fn: function (anObject, anotherObject) {
+fn: function (anObject, anotherObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [anObject]);smalltalk.send($rec, "_add_", [anotherObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["anObject", "anotherObject"],
-source: unescape('with%3A%20anObject%20with%3A%20anotherObject%0A%09%20%20%20%20%5Eself%20new%0A%09%09add%3A%20anObject%3B%0A%09%09add%3A%20anotherObject%3B%0A%09%09yourself'),
+source: "with: anObject with: anotherObject\x0a\x09    ^self new\x0a\x09\x09add: anObject;\x0a\x09\x09add: anotherObject;\x0a\x09\x09yourself",
 messageSends: ["add:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-unescape('_with_with_with_'),
+"_with_with_with_",
 smalltalk.method({
-selector: unescape('with%3Awith%3Awith%3A'),
+selector: "with:with:with:",
 category: 'instance creation',
-fn: function (firstObject, secondObject, thirdObject) {
+fn: function (firstObject, secondObject, thirdObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_add_", [firstObject]);smalltalk.send($rec, "_add_", [secondObject]);smalltalk.send($rec, "_add_", [thirdObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["firstObject", "secondObject", "thirdObject"],
-source: unescape('with%3A%20firstObject%20with%3A%20secondObject%20with%3A%20thirdObject%0A%09%20%20%20%20%5Eself%20new%0A%09%09add%3A%20firstObject%3B%0A%09%09add%3A%20secondObject%3B%0A%09%09add%3A%20thirdObject%3B%0A%09%09yourself'),
+source: "with: firstObject with: secondObject with: thirdObject\x0a\x09    ^self new\x0a\x09\x09add: firstObject;\x0a\x09\x09add: secondObject;\x0a\x09\x09add: thirdObject;\x0a\x09\x09yourself",
 messageSends: ["add:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-unescape('_withAll_'),
+"_withAll_",
 smalltalk.method({
-selector: unescape('withAll%3A'),
+selector: "withAll:",
 category: 'instance creation',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_addAll_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["aCollection"],
-source: unescape('withAll%3A%20aCollection%0A%09%20%20%20%20%5Eself%20new%0A%09%09addAll%3A%20aCollection%3B%0A%09%09yourself'),
+source: "withAll: aCollection\x0a\x09    ^self new\x0a\x09\x09addAll: aCollection;\x0a\x09\x09yourself",
 messageSends: ["addAll:", "yourself", "new"],
 referencedClasses: []
 }),
@@ -8136,95 +7216,96 @@ smalltalk.Collection.klass);
 
 
 smalltalk.addClass('HashedCollection', smalltalk.Collection, [], 'Kernel-Collections');
-smalltalk.HashedCollection.comment=unescape('A%20HashedCollection%20is%20a%20traditional%20JavaScript%20object%2C%20or%20a%20Smalltalk%20Dictionary.%0A%0AUnlike%20a%20Dictionary%2C%20it%20can%20only%20have%20strings%20as%20keys.')
+smalltalk.HashedCollection.comment="A HashedCollection is a traditional JavaScript object, or a Smalltalk Dictionary.\x0a\x0aUnlike a Dictionary, it can only have strings as keys."
 smalltalk.addMethod(
-unescape('__comma'),
+"__comma",
 smalltalk.method({
-selector: unescape('%2C'),
+selector: ",",
 category: 'copying',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
 args: ["aCollection"],
-source: unescape('%2C%20aCollection%0A%09self%20shouldNotImplement'),
+source: ", aCollection\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aHashedCollection) {
+fn: function (aHashedCollection){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aHashedCollection, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
-((($receiver = smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aHashedCollection, "_size", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
-(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return smalltalk.send(smalltalk.send(self, "_associations", []), "__eq", [smalltalk.send(aHashedCollection, "_associations", [])])}})})();
+var $early={};
+try{((($receiver = smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aHashedCollection, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
+((($receiver = smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aHashedCollection, "_size", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
+return smalltalk.send(smalltalk.send(self, "_associations", []), "__eq", [smalltalk.send(aHashedCollection, "_associations", [])]);
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aHashedCollection"],
-source: unescape('%3D%20aHashedCollection%0A%09self%20class%20%3D%20aHashedCollection%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20size%20%3D%20aHashedCollection%20size%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%5Eself%20associations%20%3D%20aHashedCollection%20associations'),
-messageSends: ["ifFalse:", unescape("%3D"), "class", "size", "associations"],
+source: "= aHashedCollection\x0a\x09self class = aHashedCollection class ifFalse: [^false].\x0a\x09self size = aHashedCollection size ifFalse: [^false].\x0a\x09^self associations = aHashedCollection associations",
+messageSends: ["ifFalse:", "=", "class", "size", "associations"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_add_'),
+"_add_",
 smalltalk.method({
-selector: unescape('add%3A'),
+selector: "add:",
 category: 'adding/removing',
-fn: function (anAssociation) {
+fn: function (anAssociation){
 var self=this;
 smalltalk.send(self, "_at_put_", [smalltalk.send(anAssociation, "_key", []), smalltalk.send(anAssociation, "_value", [])]);
 return self;},
 args: ["anAssociation"],
-source: unescape('add%3A%20anAssociation%0A%09self%20at%3A%20anAssociation%20key%20put%3A%20anAssociation%20value'),
+source: "add: anAssociation\x0a\x09self at: anAssociation key put: anAssociation value",
 messageSends: ["at:put:", "key", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_addAll_'),
+"_addAll_",
 smalltalk.method({
-selector: unescape('addAll%3A'),
+selector: "addAll:",
 category: 'adding/removing',
-fn: function (aHashedCollection) {
+fn: function (aHashedCollection){
 var self=this;
-smalltalk.send(self, "_addAll_", [smalltalk.send(aHashedCollection, "_associations", [])], smalltalk.Collection);
+smalltalk.send(self, "_addAll_", [smalltalk.send(aHashedCollection, "_associations", [])], smalltalk.HashedCollection.superclass || nil);
 return aHashedCollection;
 return self;},
 args: ["aHashedCollection"],
-source: unescape('addAll%3A%20aHashedCollection%0A%09super%20addAll%3A%20aHashedCollection%20associations.%0A%09%5EaHashedCollection'),
+source: "addAll: aHashedCollection\x0a\x09super addAll: aHashedCollection associations.\x0a\x09^aHashedCollection",
 messageSends: ["addAll:", "associations"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_asDictionary'),
+"_asDictionary",
 smalltalk.method({
-selector: unescape('asDictionary'),
+selector: "asDictionary",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.Dictionary || Dictionary), "_fromPairs_", [smalltalk.send(self, "_associations", [])]);
 return self;},
 args: [],
-source: unescape('asDictionary%0A%09%5EDictionary%20fromPairs%3A%20self%20associations'),
+source: "asDictionary\x0a\x09^Dictionary fromPairs: self associations",
 messageSends: ["fromPairs:", "associations"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
@@ -8234,18 +7315,18 @@ smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltal
 return c;
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%7C%20c%20%7C%0A%09c%20%3A%3D%20self%20class%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%09c%20at%3A%20key%20put%3A%20value%20asJSON%5D.%0A%09%5Ec'),
+source: "asJSON\x0a\x09| c |\x0a\x09c := self class new.\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09\x09c at: key put: value asJSON].\x0a\x09^c",
 messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "asJSON"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_associations'),
+"_associations",
 smalltalk.method({
-selector: unescape('associations'),
+selector: "associations",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 var associations=nil;
 (associations=[]);
@@ -8253,130 +7334,130 @@ smalltalk.send(smalltalk.send(self, "_keys", []), "_do_", [(function(each){retur
 return associations;
 return self;},
 args: [],
-source: unescape('associations%0A%09%7C%20associations%20%7C%0A%09associations%20%3A%3D%20%23%28%29.%0A%09self%20keys%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20associations%20add%3A%20%28Association%20key%3A%20each%20value%3A%20%28self%20at%3A%20each%29%29%5D.%0A%09%5Eassociations'),
+source: "associations\x0a\x09| associations |\x0a\x09associations := #().\x0a\x09self keys do: [:each |\x0a\x09    associations add: (Association key: each value: (self at: each))].\x0a\x09^associations",
 messageSends: ["do:", "keys", "add:", "key:value:", "at:"],
 referencedClasses: ["Association"]
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_associationsDo_'),
+"_associationsDo_",
 smalltalk.method({
-selector: unescape('associationsDo%3A'),
+selector: "associationsDo:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_associations", []), "_do_", [aBlock]);
 return self;},
 args: ["aBlock"],
-source: unescape('associationsDo%3A%20aBlock%0A%09self%20associations%20do%3A%20aBlock'),
+source: "associationsDo: aBlock\x0a\x09self associations do: aBlock",
 messageSends: ["do:", "associations"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_at_'),
+"_at_",
 smalltalk.method({
-selector: unescape('at%3A'),
+selector: "at:",
 category: 'accessing',
-fn: function (aKey) {
+fn: function (aKey){
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
 args: ["aKey"],
-source: unescape('at%3A%20aKey%0A%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5Bself%20errorNotFound%5D'),
+source: "at: aKey\x0a\x09^self at: aKey ifAbsent: [self errorNotFound]",
 messageSends: ["at:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
+"_at_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
+selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_includesKey_", [aKey]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_basicAt_", [aKey]);}), aBlock]);
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20includesKey%3A%20aKey%29%0A%09%09ifTrue%3A%20%5Bself%20basicAt%3A%20aKey%5D%0A%09%09ifFalse%3A%20aBlock'),
+source: "at: aKey ifAbsent: aBlock\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifTrue: [self basicAt: aKey]\x0a\x09\x09ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsentPut_'),
+"_at_ifAbsentPut_",
 smalltalk.method({
-selector: unescape('at%3AifAbsentPut%3A'),
+selector: "at:ifAbsentPut:",
 category: 'accessing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [aKey, (function(){return smalltalk.send(self, "_at_put_", [aKey, smalltalk.send(aBlock, "_value", [])]);})]);
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifAbsentPut%3A%20aBlock%0A%09%5Eself%20at%3A%20aKey%20ifAbsent%3A%20%5B%0A%09%20%20%20%20self%20at%3A%20aKey%20put%3A%20aBlock%20value%5D'),
+source: "at: aKey ifAbsentPut: aBlock\x0a\x09^self at: aKey ifAbsent: [\x0a\x09    self at: aKey put: aBlock value]",
 messageSends: ["at:ifAbsent:", "at:put:", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_at_ifPresent_'),
+"_at_ifPresent_",
 smalltalk.method({
-selector: unescape('at%3AifPresent%3A'),
+selector: "at:ifPresent:",
 category: 'accessing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 return (($receiver = smalltalk.send(self, "_basicAt_", [aKey])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})() : nil;
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D'),
+source: "at: aKey ifPresent: aBlock\x0a\x09^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]",
 messageSends: ["ifNotNil:", "basicAt:", "value:", "at:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_at_ifPresent_ifAbsent_'),
+"_at_ifPresent_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifPresent%3AifAbsent%3A'),
+selector: "at:ifPresent:ifAbsent:",
 category: 'accessing',
-fn: function (aKey, aBlock, anotherBlock) {
+fn: function (aKey, aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNil_ifNotNil_", [anotherBlock, (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
 return self;},
 args: ["aKey", "aBlock", "anotherBlock"],
-source: unescape('at%3A%20aKey%20ifPresent%3A%20aBlock%20ifAbsent%3A%20anotherBlock%0A%09%5E%28self%20basicAt%3A%20aKey%29%0A%09%20%20%20%20ifNil%3A%20anotherBlock%0A%09%20%20%20%20ifNotNil%3A%20%5BaBlock%20value%3A%20%28self%20at%3A%20aKey%29%5D'),
+source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09^(self basicAt: aKey)\x0a\x09    ifNil: anotherBlock\x0a\x09    ifNotNil: [aBlock value: (self at: aKey)]",
 messageSends: ["ifNil:ifNotNil:", "basicAt:", "value:", "at:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_at_put_'),
+"_at_put_",
 smalltalk.method({
-selector: unescape('at%3Aput%3A'),
+selector: "at:put:",
 category: 'accessing',
-fn: function (aKey, aValue) {
+fn: function (aKey, aValue){
 var self=this;
 return smalltalk.send(self, "_basicAt_put_", [aKey, aValue]);
 return self;},
 args: ["aKey", "aValue"],
-source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%5Eself%20basicAt%3A%20aKey%20put%3A%20aValue'),
+source: "at: aKey put: aValue\x0a\x09^self basicAt: aKey put: aValue",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_collect_'),
+"_collect_",
 smalltalk.method({
-selector: unescape('collect%3A'),
+selector: "collect:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 var newDict=nil;
 (newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -8384,34 +7465,34 @@ smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return smalltal
 return newDict;
 return self;},
 args: ["aBlock"],
-source: unescape('collect%3A%20aBlock%0A%09%7C%20newDict%20%7C%0A%09newDict%20%3A%3D%20self%20class%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%20%20%20%20newDict%20at%3A%20key%20put%3A%20%28aBlock%20value%3A%20value%29%5D.%0A%09%5EnewDict'),
+source: "collect: aBlock\x0a\x09| newDict |\x0a\x09newDict := self class new.\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09    newDict at: key put: (aBlock value: value)].\x0a\x09^newDict",
 messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "value:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_copyFrom_to_'),
+"_copyFrom_to_",
 smalltalk.method({
-selector: unescape('copyFrom%3Ato%3A'),
+selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex) {
+fn: function (anIndex, anotherIndex){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
 args: ["anIndex", "anotherIndex"],
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09self%20shouldNotImplement'),
+source: "copyFrom: anIndex to: anotherIndex\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 var copy=nil;
 (copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -8419,84 +7500,85 @@ smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(
 return copy;
 return self;},
 args: [],
-source: unescape('deepCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%20deepCopy%5D.%0A%09%5Ecopy'),
+source: "deepCopy\x0a\x09| copy |\x0a\x09copy := self class new.\x0a\x09self associationsDo: [:each |\x0a\x09    copy at: each key  put: each value deepCopy].\x0a\x09^copy",
 messageSends: ["new", "class", "associationsDo:", "at:put:", "key", "deepCopy", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_detect_ifNone_'),
+"_detect_ifNone_",
 smalltalk.method({
-selector: unescape('detect%3AifNone%3A'),
+selector: "detect:ifNone:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock) {
+fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_values", []), "_detect_ifNone_", [aBlock, anotherBlock]);
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5Eself%20values%20detect%3A%20aBlock%20ifNone%3A%20anotherBlock'),
+source: "detect: aBlock ifNone: anotherBlock\x0a\x09^self values detect: aBlock ifNone: anotherBlock",
 messageSends: ["detect:ifNone:", "values"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_do_'),
+"_do_",
 smalltalk.method({
-selector: unescape('do%3A'),
+selector: "do:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_values", []), "_do_", [aBlock]);
 return self;},
 args: ["aBlock"],
-source: unescape('do%3A%20aBlock%0A%09self%20values%20do%3A%20aBlock'),
+source: "do: aBlock\x0a\x09self values do: aBlock",
 messageSends: ["do:", "values"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_includes_'),
+"_includes_",
 smalltalk.method({
-selector: unescape('includes%3A'),
+selector: "includes:",
 category: 'enumerating',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_values", []), "_includes_", [anObject]);
 return self;},
 args: ["anObject"],
-source: unescape('includes%3A%20anObject%0A%09%5Eself%20values%20includes%3A%20anObject'),
+source: "includes: anObject\x0a\x09^self values includes: anObject",
 messageSends: ["includes:", "values"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_includesKey_'),
+"_includesKey_",
 smalltalk.method({
-selector: unescape('includesKey%3A'),
+selector: "includesKey:",
 category: 'testing',
-fn: function (aKey) {
+fn: function (aKey){
 var self=this;
 return self.hasOwnProperty(aKey);
 return self;},
 args: ["aKey"],
-source: unescape('includesKey%3A%20aKey%0A%09%3Creturn%20self.hasOwnProperty%28aKey%29%3E'),
+source: "includesKey: aKey\x0a\x09<return self.hasOwnProperty(aKey)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_keys'),
+"_keys",
 smalltalk.method({
-selector: unescape('keys'),
+selector: "keys",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 
+		if ('function'===typeof Object.keys) return Object.keys(self);
 		var keys = [];
 		for(var i in self) {
 			if(self.hasOwnProperty(i)) {
@@ -8507,98 +7589,98 @@ var self=this;
 	;
 return self;},
 args: [],
-source: unescape('keys%0A%09%3C%0A%09%09var%20keys%20%3D%20%5B%5D%3B%0A%09%09for%28var%20i%20in%20self%29%20%7B%0A%09%09%09if%28self.hasOwnProperty%28i%29%29%20%7B%0A%09%09%09%09keys.push%28i%29%3B%0A%09%09%09%7D%0A%09%09%7D%3B%0A%09%09return%20keys%3B%0A%09%3E'),
+source: "keys\x0a\x09<\x0a\x09\x09if ('function'===typeof Object.keys) return Object.keys(self);\x0a\x09\x09var keys = [];\x0a\x09\x09for(var i in self) {\x0a\x09\x09\x09if(self.hasOwnProperty(i)) {\x0a\x09\x09\x09\x09keys.push(i);\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09return keys;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_keysAndValuesDo_'),
+"_keysAndValuesDo_",
 smalltalk.method({
-selector: unescape('keysAndValuesDo%3A'),
+selector: "keysAndValuesDo:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(aBlock, "_value_value_", [smalltalk.send(each, "_key", []), smalltalk.send(each, "_value", [])]);})]);
 return self;},
 args: ["aBlock"],
-source: unescape('keysAndValuesDo%3A%20aBlock%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20aBlock%20value%3A%20each%20key%20value%3A%20each%20value%5D'),
+source: "keysAndValuesDo: aBlock\x0a\x09self associationsDo: [:each |\x0a\x09    aBlock value: each key value: each value]",
 messageSends: ["associationsDo:", "value:value:", "key", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Collection)]);return smalltalk.send($rec, "_nextPutAll_", [unescape("%28")]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [unescape("%20-%3E%20")]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [unescape("%20%2C%20")]);})]);return smalltalk.send(aStream, "_nextPutAll_", [unescape("%29")]);})]);
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;},
 args: [],
-source: unescape('printString%0A%09%5EString%20streamContents%3A%20%5B%3AaStream%7C%20%20%0A%09%09aStream%20%0A%09%09%09nextPutAll%3A%20super%20printString%3B%0A%09%09%09nextPutAll%3A%20%27%28%27.%0A%09%09%09%09self%20associations%20%0A%09%09%09%09%09do%3A%20%5B%3AanAssociation%7C%20%20%0A%09%09%09%09%09%09aStream%20%0A%09%09%09%09%09%09%09nextPutAll%3A%20anAssociation%20key%20printString%3B%0A%09%09%09%09%09%09%09%09nextPutAll%3A%20%27%20-%3E%20%27%3B%0A%09%09%09%09%09%09%09%09nextPutAll%3A%20anAssociation%20value%20printString%5D%0A%09%09%09%09%09%09%09separatedBy%3A%20%5BaStream%20nextPutAll%3A%20%27%20%2C%20%27%5D.%0A%09%09%09%09%09%09aStream%20nextPutAll%3A%20%27%29%27%5D'),
+source: "printString\x0a\x09^String streamContents: [:aStream|  \x0a\x09\x09aStream \x0a\x09\x09\x09nextPutAll: super printString;\x0a\x09\x09\x09nextPutAll: '('.\x0a\x09\x09\x09\x09self associations \x0a\x09\x09\x09\x09\x09do: [:anAssociation|  \x0a\x09\x09\x09\x09\x09\x09aStream \x0a\x09\x09\x09\x09\x09\x09\x09nextPutAll: anAssociation key printString;\x0a\x09\x09\x09\x09\x09\x09\x09\x09nextPutAll: ' -> ';\x0a\x09\x09\x09\x09\x09\x09\x09\x09nextPutAll: anAssociation value printString]\x0a\x09\x09\x09\x09\x09\x09\x09separatedBy: [aStream nextPutAll: ' , '].\x0a\x09\x09\x09\x09\x09\x09aStream nextPutAll: ')']",
 messageSends: ["streamContents:", "nextPutAll:", "printString", "do:separatedBy:", "associations", "key", "value"],
 referencedClasses: ["String"]
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_remove_ifAbsent_'),
+"_remove_ifAbsent_",
 smalltalk.method({
-selector: unescape('remove%3AifAbsent%3A'),
+selector: "remove:ifAbsent:",
 category: 'adding/removing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 return smalltalk.send(self, "_removeKey_ifAbsent_", [aKey, aBlock]);
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('remove%3A%20aKey%20ifAbsent%3A%20aBlock%0A%20%20%20%20%5Eself%20removeKey%3A%20aKey%20ifAbsent%3A%20aBlock'),
+source: "remove: aKey ifAbsent: aBlock\x0a    ^self removeKey: aKey ifAbsent: aBlock",
 messageSends: ["removeKey:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_removeKey_'),
+"_removeKey_",
 smalltalk.method({
-selector: unescape('removeKey%3A'),
+selector: "removeKey:",
 category: 'adding/removing',
 fn: function (aKey){
 var self=this;
 return smalltalk.send(self, "_remove_", [aKey]);
 return self;},
 args: ["aKey"],
-source: unescape('removeKey%3A%20aKey%0A%20%20%20%20%5Eself%20remove%3A%20aKey'),
+source: "removeKey: aKey\x0a    ^self remove: aKey",
 messageSends: ["remove:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_removeKey_ifAbsent_'),
+"_removeKey_ifAbsent_",
 smalltalk.method({
-selector: unescape('removeKey%3AifAbsent%3A'),
+selector: "removeKey:ifAbsent:",
 category: 'adding/removing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_includesKey_", [aKey])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(aBlock, "_value", []);})() : (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(aBlock, "_value", []);}), (function(){return smalltalk.send(self, "_basicDelete_", [aKey]);})]));
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%5E%28self%20includesKey%3A%20aKey%29%20%0A%09%09ifFalse%3A%20%5BaBlock%20value%5D%0A%09%09ifTrue%3A%20%5Bself%20basicDelete%3A%20aKey%5D'),
+source: "removeKey: aKey ifAbsent: aBlock\x0a\x09^(self includesKey: aKey) \x0a\x09\x09ifFalse: [aBlock value]\x0a\x09\x09ifTrue: [self basicDelete: aKey]",
 messageSends: ["ifFalse:ifTrue:", "includesKey:", "value", "basicDelete:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_select_'),
+"_select_",
 smalltalk.method({
-selector: unescape('select%3A'),
+selector: "select:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 var newDict=nil;
 (newDict=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -8606,18 +7688,18 @@ smalltalk.send(self, "_keysAndValuesDo_", [(function(key, value){return ((($rece
 return newDict;
 return self;},
 args: ["aBlock"],
-source: unescape('select%3A%20aBlock%0A%09%7C%20newDict%20%7C%0A%09newDict%20%3A%3D%20self%20class%20new.%0A%09self%20keysAndValuesDo%3A%20%5B%3Akey%20%3Avalue%20%7C%0A%09%20%20%20%20%28aBlock%20value%3A%20value%29%20ifTrue%3A%20%5BnewDict%20at%3A%20key%20put%3A%20value%5D%5D.%0A%09%5EnewDict'),
+source: "select: aBlock\x0a\x09| newDict |\x0a\x09newDict := self class new.\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09    (aBlock value: value) ifTrue: [newDict at: key put: value]].\x0a\x09^newDict",
 messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "value:", "at:put:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_shallowCopy",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 var copy=nil;
 (copy=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -8625,57 +7707,57 @@ smalltalk.send(self, "_associationsDo_", [(function(each){return smalltalk.send(
 return copy;
 return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%7C%20copy%20%7C%0A%09copy%20%3A%3D%20self%20class%20new.%0A%09self%20associationsDo%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20copy%20at%3A%20each%20key%20%20put%3A%20each%20value%5D.%0A%09%5Ecopy'),
+source: "shallowCopy\x0a\x09| copy |\x0a\x09copy := self class new.\x0a\x09self associationsDo: [:each |\x0a\x09    copy at: each key  put: each value].\x0a\x09^copy",
 messageSends: ["new", "class", "associationsDo:", "at:put:", "key", "value"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_keys", []), "_size", []);
 return self;},
 args: [],
-source: unescape('size%0A%09%5Eself%20keys%20size'),
+source: "size\x0a\x09^self keys size",
 messageSends: ["size", "keys"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_storeOn_'),
+"_storeOn_",
 smalltalk.method({
-selector: unescape('storeOn%3A'),
+selector: "storeOn:",
 category: 'printing',
-fn: function (aStream) {
+fn: function (aStream){
 var self=this;
-smalltalk.send(aStream, "_nextPutAll_", [unescape("%23%7B")]);
+smalltalk.send(aStream, "_nextPutAll_", ["#{"]);
 smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_storeOn_", [aStream]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [". "]);})]);
-smalltalk.send(aStream, "_nextPutAll_", [unescape("%7D")]);
+smalltalk.send(aStream, "_nextPutAll_", ["}"]);
 return self;},
 args: ["aStream"],
-source: unescape('storeOn%3A%20aStream%0A%09aStream%20nextPutAll%3A%20%27%23%7B%27.%0A%09self%20associations%0A%09%09do%3A%20%5B%3Aeach%20%7C%20each%20storeOn%3A%20aStream%5D%0A%09%09separatedBy%3A%20%5B%20aStream%20nextPutAll%3A%20%27.%20%27%5D.%0A%09aStream%20nextPutAll%3A%20%27%7D%27'),
+source: "storeOn: aStream\x0a\x09aStream nextPutAll: '#{'.\x0a\x09self associations\x0a\x09\x09do: [:each | each storeOn: aStream]\x0a\x09\x09separatedBy: [ aStream nextPutAll: '. '].\x0a\x09aStream nextPutAll: '}'",
 messageSends: ["nextPutAll:", "do:separatedBy:", "associations", "storeOn:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-unescape('_values'),
+"_values",
 smalltalk.method({
-selector: unescape('values'),
+selector: "values",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_keys", []), "_collect_", [(function(each){return smalltalk.send(self, "_at_", [each]);})]);
 return self;},
 args: [],
-source: unescape('values%0A%09%5Eself%20keys%20collect%3A%20%5B%3Aeach%20%7C%20self%20at%3A%20each%5D'),
+source: "values\x0a\x09^self keys collect: [:each | self at: each]",
 messageSends: ["collect:", "keys", "at:"],
 referencedClasses: []
 }),
@@ -8683,11 +7765,11 @@ smalltalk.HashedCollection);
 
 
 smalltalk.addMethod(
-unescape('_fromPairs_'),
+"_fromPairs_",
 smalltalk.method({
-selector: unescape('fromPairs%3A'),
+selector: "fromPairs:",
 category: 'instance creation',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 var dict=nil;
 (dict=smalltalk.send(self, "_new", []));
@@ -8695,7 +7777,7 @@ smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(dict,
 return dict;
 return self;},
 args: ["aCollection"],
-source: unescape('fromPairs%3A%20aCollection%0A%09%7C%20dict%20%7C%0A%09dict%20%3A%3D%20self%20new.%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%20dict%20add%3A%20each%5D.%0A%09%5Edict'),
+source: "fromPairs: aCollection\x0a\x09| dict |\x0a\x09dict := self new.\x0a\x09aCollection do: [:each | dict add: each].\x0a\x09^dict",
 messageSends: ["new", "do:", "add:"],
 referencedClasses: []
 }),
@@ -8704,43 +7786,43 @@ smalltalk.HashedCollection.klass);
 
 smalltalk.addClass('Dictionary', smalltalk.HashedCollection, ['keys', 'values'], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('_asHashedCollection'),
+"_asHashedCollection",
 smalltalk.method({
-selector: unescape('asHashedCollection'),
+selector: "asHashedCollection",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_fromPairs_", [smalltalk.send(self, "_associations", [])]);
 return self;},
 args: [],
-source: unescape('asHashedCollection%0A%09%5EHashedCollection%20fromPairs%3A%20self%20associations'),
+source: "asHashedCollection\x0a\x09^HashedCollection fromPairs: self associations",
 messageSends: ["fromPairs:", "associations"],
 referencedClasses: ["HashedCollection"]
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asHashedCollection", []), "_asJSON", []);
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Eself%20asHashedCollection%20asJSON'),
+source: "asJSON\x0a\x09^self asHashedCollection asJSON",
 messageSends: ["asJSON", "asHashedCollection"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
+"_at_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
+selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (aKey, aBlock) {
+fn: function (aKey, aBlock){
 var self=this;
 
 		var index;
@@ -8755,18 +7837,18 @@ var self=this;
 	;
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('at%3A%20aKey%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09var%20index%3B%0A%09%09for%28var%20i%3D0%3Bi%3Cself%5B%27@keys%27%5D.length%3Bi++%29%7B%0A%09%09%09if%28self%5B%27@keys%27%5D%5Bi%5D.__eq%28aKey%29%29%20%7Bindex%20%3D%20i%3B%7D%0A%09%09%7D%3B%0A%09%09if%28typeof%20index%20%3D%3D%3D%20%27undefined%27%29%20%7B%0A%09%09%09return%20aBlock%28%29%3B%0A%09%09%7D%20else%20%7B%0A%09%09%09return%20self%5B%27@values%27%5D%5Bindex%5D%3B%0A%09%09%7D%0A%09%3E'),
+source: "at: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index;\x0a\x09\x09for(var i=0;i<self['@keys'].length;i++){\x0a\x09\x09\x09if(self['@keys'][i].__eq(aKey)) {index = i;}\x0a\x09\x09};\x0a\x09\x09if(typeof index === 'undefined') {\x0a\x09\x09\x09return aBlock();\x0a\x09\x09} else {\x0a\x09\x09\x09return self['@values'][index];\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_at_put_'),
+"_at_put_",
 smalltalk.method({
-selector: unescape('at%3Aput%3A'),
+selector: "at:put:",
 category: 'accessing',
-fn: function (aKey, aValue) {
+fn: function (aKey, aValue){
 var self=this;
 
 		var index = self['@keys'].indexOf(aKey);
@@ -8781,66 +7863,66 @@ var self=this;
 	;
 return self;},
 args: ["aKey", "aValue"],
-source: unescape('at%3A%20aKey%20put%3A%20aValue%0A%09%3C%0A%09%09var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%09%09if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%09%09%09self%5B%27@values%27%5D.push%28aValue%29%3B%0A%09%09%09self%5B%27@keys%27%5D.push%28aKey%29%3B%0A%09%09%7D%20else%20%7B%0A%09%09%09self%5B%27@values%27%5D%5Bindex%5D%20%3D%20aValue%3B%0A%09%09%7D%3B%0A%0A%09%09return%20aValue%3B%0A%09%3E'),
+source: "at: aKey put: aValue\x0a\x09<\x0a\x09\x09var index = self['@keys'].indexOf(aKey);\x0a\x09\x09if(index === -1) {\x0a\x09\x09\x09self['@values'].push(aValue);\x0a\x09\x09\x09self['@keys'].push(aKey);\x0a\x09\x09} else {\x0a\x09\x09\x09self['@values'][index] = aValue;\x0a\x09\x09};\x0a\x0a\x09\x09return aValue;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_includesKey_'),
+"_includesKey_",
 smalltalk.method({
-selector: unescape('includesKey%3A'),
+selector: "includesKey:",
 category: 'testing',
-fn: function (aKey) {
+fn: function (aKey){
 var self=this;
 return smalltalk.send(self['@keys'], "_includes_", [aKey]);
 return self;},
 args: ["aKey"],
-source: unescape('includesKey%3A%20aKey%0A%09%5Ekeys%20includes%3A%20aKey'),
+source: "includesKey: aKey\x0a\x09^keys includes: aKey",
 messageSends: ["includes:"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
-fn: function () {
+fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.HashedCollection);
+smalltalk.send(self, "_initialize", [], smalltalk.Dictionary.superclass || nil);
 (self['@keys']=[]);
 (self['@values']=[]);
 return self;},
 args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09keys%20%3A%3D%20%23%28%29.%0A%09values%20%3A%3D%20%23%28%29'),
+source: "initialize\x0a\x09super initialize.\x0a\x09keys := #().\x0a\x09values := #()",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_keys'),
+"_keys",
 smalltalk.method({
-selector: unescape('keys'),
+selector: "keys",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self['@keys'], "_copy", []);
 return self;},
 args: [],
-source: unescape('keys%0A%09%5Ekeys%20copy'),
+source: "keys\x0a\x09^keys copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_removeKey_ifAbsent_'),
+"_removeKey_ifAbsent_",
 smalltalk.method({
-selector: unescape('removeKey%3AifAbsent%3A'),
+selector: "removeKey:ifAbsent:",
 category: 'adding/removing',
 fn: function (aKey, aBlock){
 var self=this;
@@ -8857,23 +7939,23 @@ var self=this;
     ;
 return self;},
 args: ["aKey", "aBlock"],
-source: unescape('removeKey%3A%20aKey%20ifAbsent%3A%20aBlock%0A%20%20%20%20%3C%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20index%20%3D%20self%5B%27@keys%27%5D.indexOf%28aKey%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%28index%20%3D%3D%3D%20-1%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20aBlock%28%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20value%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%5B%27@keys%27%5D.splice%28index%2C%201%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%20%3D%20self%5B%27@values%27%5D.splice%28index%2C%201%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20value%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%3E'),
+source: "removeKey: aKey ifAbsent: aBlock\x0a    <\x0a            var index = self['@keys'].indexOf(aKey);\x0a            if(index === -1) {\x0a                return aBlock()\x0a            } else {\x0a                var value;\x0a                self['@keys'].splice(index, 1);\x0a                value = self['@values'].splice(index, 1);\x0a                return value[0];\x0a            };\x0a    >",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-unescape('_values'),
+"_values",
 smalltalk.method({
-selector: unescape('values'),
+selector: "values",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self['@values'], "_copy", []);
 return self;},
 args: [],
-source: unescape('values%0A%09%5Evalues%20copy'),
+source: "values\x0a\x09^values copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
@@ -8883,142 +7965,143 @@ smalltalk.Dictionary);
 
 smalltalk.addClass('SequenceableCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aCollection, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aCollection, "_size", [])]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
-smalltalk.send(self, "_withIndexDo_", [(function(each, i){return ((($receiver = smalltalk.send(smalltalk.send(aCollection, "_at_", [i]), "__eq", [each])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));})]);
-(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return true}})})();
+var $early={};
+try{((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aCollection, "_class", [])]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [smalltalk.send(aCollection, "_size", [])]);})])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
+smalltalk.send(self, "_withIndexDo_", [(function(each, i){return ((($receiver = smalltalk.send(smalltalk.send(aCollection, "_at_", [i]), "__eq", [each])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));})]);
+return true;
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aCollection"],
-source: unescape('%3D%20aCollection%0A%09%28self%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%09%09self%20size%20%3D%20aCollection%20size%5D%29%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09self%20withIndexDo%3A%20%5B%3Aeach%20%3Ai%20%7C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%28aCollection%20at%3A%20i%29%20%3D%20each%20ifFalse%3A%20%5B%5Efalse%5D%5D.%0A%09%5Etrue'),
-messageSends: ["ifFalse:", "and:", unescape("%3D"), "class", "size", "withIndexDo:", "at:"],
+source: "= aCollection\x0a\x09(self class = aCollection class and: [\x0a\x09\x09self size = aCollection size]) ifFalse: [^false].\x0a\x09self withIndexDo: [:each :i |\x0a                 (aCollection at: i) = each ifFalse: [^false]].\x0a\x09^true",
+messageSends: ["ifFalse:", "and:", "=", "class", "size", "withIndexDo:", "at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_addLast_'),
+"_addLast_",
 smalltalk.method({
-selector: unescape('addLast%3A'),
+selector: "addLast:",
 category: 'adding',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_add_", [anObject]);
 return self;},
 args: ["anObject"],
-source: unescape('addLast%3A%20anObject%0A%09self%20add%3A%20anObject'),
+source: "addLast: anObject\x0a\x09self add: anObject",
 messageSends: ["add:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_allButFirst'),
+"_allButFirst",
 smalltalk.method({
-selector: unescape('allButFirst'),
+selector: "allButFirst",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(2), smalltalk.send(self, "_size", [])]);
 return self;},
 args: [],
-source: unescape('allButFirst%0A%09%5Eself%20copyFrom%3A%202%20to%3A%20self%20size'),
+source: "allButFirst\x0a\x09^self copyFrom: 2 to: self size",
 messageSends: ["copyFrom:to:", "size"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_allButLast'),
+"_allButLast",
 smalltalk.method({
-selector: unescape('allButLast'),
+selector: "allButLast",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(1), ((($receiver = smalltalk.send(self, "_size", [])).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)]))]);
 return self;},
 args: [],
-source: unescape('allButLast%0A%09%5Eself%20copyFrom%3A%201%20to%3A%20self%20size%20-%201'),
-messageSends: ["copyFrom:to:", unescape("-"), "size"],
+source: "allButLast\x0a\x09^self copyFrom: 1 to: self size - 1",
+messageSends: ["copyFrom:to:", "-", "size"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_at_'),
+"_at_",
 smalltalk.method({
-selector: unescape('at%3A'),
+selector: "at:",
 category: 'accessing',
-fn: function (anIndex) {
+fn: function (anIndex){
 var self=this;
 return smalltalk.send(self, "_at_ifAbsent_", [anIndex, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
 args: ["anIndex"],
-source: unescape('at%3A%20anIndex%0A%09%5Eself%20at%3A%20anIndex%20ifAbsent%3A%20%5B%0A%09%20%20%20%20self%20errorNotFound%5D'),
+source: "at: anIndex\x0a\x09^self at: anIndex ifAbsent: [\x0a\x09    self errorNotFound]",
 messageSends: ["at:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
+"_at_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
+selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock) {
+fn: function (anIndex, aBlock){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09self%20subclassResponsibility'),
+source: "at: anIndex ifAbsent: aBlock\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_at_put_'),
+"_at_put_",
 smalltalk.method({
-selector: unescape('at%3Aput%3A'),
+selector: "at:put:",
 category: 'accessing',
-fn: function (anIndex, anObject) {
+fn: function (anIndex, anObject){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: ["anIndex", "anObject"],
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09self%20subclassResponsibility'),
+source: "at: anIndex put: anObject\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_atRandom'),
+"_atRandom",
 smalltalk.method({
-selector: unescape('atRandom'),
+selector: "atRandom",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [smalltalk.send(smalltalk.send(self, "_size", []), "_atRandom", [])]);
 return self;},
 args: [],
-source: unescape('atRandom%0A%09%5E%20self%20at%3A%20self%20size%20atRandom'),
+source: "atRandom\x0a\x09^ self at: self size atRandom",
 messageSends: ["at:", "atRandom", "size"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_copyFrom_to_'),
+"_copyFrom_to_",
 smalltalk.method({
-selector: unescape('copyFrom%3Ato%3A'),
+selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex) {
+fn: function (anIndex, anotherIndex){
 var self=this;
 var range=nil;
 var newCollection=nil;
@@ -9028,18 +8111,18 @@ smalltalk.send(range, "_withIndexDo_", [(function(each, i){return smalltalk.send
 return newCollection;
 return self;},
 args: ["anIndex", "anotherIndex"],
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%7C%20range%20newCollection%20%7C%0A%09range%20%3A%3D%20anIndex%20to%3A%20anotherIndex.%0A%09newCollection%20%3A%3D%20self%20class%20new%3A%20range%20size.%0A%09range%20withIndexDo%3A%20%5B%3Aeach%20%3Ai%20%7C%0A%09%20%20%20%20newCollection%20at%3A%20i%20put%3A%20%28self%20at%3A%20each%29%5D.%0A%09%5EnewCollection'),
+source: "copyFrom: anIndex to: anotherIndex\x0a\x09| range newCollection |\x0a\x09range := anIndex to: anotherIndex.\x0a\x09newCollection := self class new: range size.\x0a\x09range withIndexDo: [:each :i |\x0a\x09    newCollection at: i put: (self at: each)].\x0a\x09^newCollection",
 messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 var newCollection=nil;
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]));
@@ -9047,82 +8130,82 @@ smalltalk.send(self, "_withIndexDo_", [(function(each, index){return smalltalk.s
 return newCollection;
 return self;},
 args: [],
-source: unescape('deepCopy%0A%09%7C%20newCollection%20%7C%0A%09newCollection%20%3A%3D%20self%20class%20new%3A%20self%20size.%0A%09self%20withIndexDo%3A%20%5B%3Aeach%20%3Aindex%20%7C%20%0A%09%09newCollection%20at%3A%20index%20put%3A%20each%20deepCopy%5D.%0A%09%5EnewCollection'),
+source: "deepCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [:each :index | \x0a\x09\x09newCollection at: index put: each deepCopy].\x0a\x09^newCollection",
 messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:", "deepCopy"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_first'),
+"_first",
 smalltalk.method({
-selector: unescape('first'),
+selector: "first",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(1)]);
 return self;},
 args: [],
-source: unescape('first%0A%09%5Eself%20at%3A%201'),
+source: "first\x0a\x09^self at: 1",
 messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_first_'),
+"_first_",
 smalltalk.method({
-selector: unescape('first%3A'),
+selector: "first:",
 category: 'accessing',
 fn: function (n){
 var self=this;
 return smalltalk.send(self, "_copyFrom_to_", [(1), n]);
 return self;},
 args: ["n"],
-source: unescape('first%3A%20n%0A%09%22Answer%20the%20first%20n%20elements%20of%20the%20receiver.%0A%09Raise%20an%20error%20if%20there%20are%20not%20enough%20elements.%22%0A%0A%09%5E%20self%20copyFrom%3A%201%20to%3A%20n'),
+source: "first: n\x0a\x09\x22Answer the first n elements of the receiver.\x0a\x09Raise an error if there are not enough elements.\x22\x0a\x0a\x09^ self copyFrom: 1 to: n",
 messageSends: ["copyFrom:to:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_fourth'),
+"_fourth",
 smalltalk.method({
-selector: unescape('fourth'),
+selector: "fourth",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(4)]);
 return self;},
 args: [],
-source: unescape('fourth%0A%09%5Eself%20at%3A%204'),
+source: "fourth\x0a\x09^self at: 4",
 messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_indexOf_'),
+"_indexOf_",
 smalltalk.method({
-selector: unescape('indexOf%3A'),
+selector: "indexOf:",
 category: 'accessing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return smalltalk.send(self, "_indexOf_ifAbsent_", [anObject, (function(){return smalltalk.send(self, "_errorNotFound", []);})]);
 return self;},
 args: ["anObject"],
-source: unescape('indexOf%3A%20anObject%0A%09%5Eself%20indexOf%3A%20anObject%20ifAbsent%3A%20%5Bself%20errorNotFound%5D'),
+source: "indexOf: anObject\x0a\x09^self indexOf: anObject ifAbsent: [self errorNotFound]",
 messageSends: ["indexOf:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_indexOf_ifAbsent_'),
+"_indexOf_ifAbsent_",
 smalltalk.method({
-selector: unescape('indexOf%3AifAbsent%3A'),
+selector: "indexOf:ifAbsent:",
 category: 'accessing',
-fn: function (anObject, aBlock) {
+fn: function (anObject, aBlock){
 var self=this;
 
 		for(var i=0;i<self.length;i++){
@@ -9132,34 +8215,34 @@ var self=this;
 	;
 return self;},
 args: ["anObject", "aBlock"],
-source: unescape('indexOf%3A%20anObject%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%09%7D%0A%09%09return%20aBlock%28%29%3B%0A%09%3E'),
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++){\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_indexOf_startingAt_'),
+"_indexOf_startingAt_",
 smalltalk.method({
-selector: unescape('indexOf%3AstartingAt%3A'),
+selector: "indexOf:startingAt:",
 category: 'accessing',
-fn: function (anObject, start) {
+fn: function (anObject, start){
 var self=this;
 return smalltalk.send(self, "_indexOf_startingAt_ifAbsent_", [anObject, start, (function(){return (0);})]);
 return self;},
 args: ["anObject", "start"],
-source: unescape('indexOf%3A%20anObject%20startingAt%3A%20start%0A%09%22Answer%20the%20index%20of%20the%20first%20occurence%20of%20anElement%20after%20start%0A%09within%20the%20receiver.%20If%20the%20receiver%20does%20not%20contain%20anElement%2C%20%0A%09answer%200.%22%0A%09%5Eself%20indexOf%3A%20anObject%20startingAt%3A%20start%20ifAbsent%3A%20%5B0%5D'),
+source: "indexOf: anObject startingAt: start\x0a\x09\x22Answer the index of the first occurence of anElement after start\x0a\x09within the receiver. If the receiver does not contain anElement, \x0a\x09answer 0.\x22\x0a\x09^self indexOf: anObject startingAt: start ifAbsent: [0]",
 messageSends: ["indexOf:startingAt:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_indexOf_startingAt_ifAbsent_'),
+"_indexOf_startingAt_ifAbsent_",
 smalltalk.method({
-selector: unescape('indexOf%3AstartingAt%3AifAbsent%3A'),
+selector: "indexOf:startingAt:ifAbsent:",
 category: 'accessing',
-fn: function (anObject, start, aBlock) {
+fn: function (anObject, start, aBlock){
 var self=this;
 
 		for(var i=start-1;i<self.length;i++){
@@ -9169,103 +8252,103 @@ var self=this;
 	;
 return self;},
 args: ["anObject", "start", "aBlock"],
-source: unescape('indexOf%3A%20anObject%20startingAt%3A%20start%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%09for%28var%20i%3Dstart-1%3Bi%3Cself.length%3Bi++%29%7B%0A%09%09%09if%28self%5Bi%5D.__eq%28anObject%29%29%20%7Breturn%20i+1%7D%0A%09%09%7D%0A%09%09return%20aBlock%28%29%3B%0A%09%3E'),
+source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=start-1;i<self.length;i++){\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_last'),
+"_last",
 smalltalk.method({
-selector: unescape('last'),
+selector: "last",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [smalltalk.send(self, "_size", [])]);
 return self;},
 args: [],
-source: unescape('last%0A%09%5Eself%20at%3A%20self%20size'),
+source: "last\x0a\x09^self at: self size",
 messageSends: ["at:", "size"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
 var str=nil;
 (str=smalltalk.send("", "_writeStream", []));
-smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Collection), "__comma", [unescape("%20%28")])]);
+smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);
 smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
-smalltalk.send(str, "_nextPutAll_", [unescape("%29")]);
+smalltalk.send(str, "_nextPutAll_", [")"]);
 return smalltalk.send(str, "_contents", []);
 return self;},
 args: [],
-source: unescape('printString%0A%09%7C%20str%20%7C%0A%09str%20%3A%3D%20%27%27%20writeStream.%0A%09str%20nextPutAll%3A%20super%20printString%2C%20%27%20%28%27.%0A%09self%20%0A%09%09do%3A%20%5B%3Aeach%20%7C%20str%20nextPutAll%3A%20each%20printString%5D%0A%09%09separatedBy%3A%20%5Bstr%20nextPutAll%3A%20%27%20%27%5D.%0A%09str%20nextPutAll%3A%20%27%29%27.%0A%09%5Estr%20contents'),
-messageSends: ["writeStream", "nextPutAll:", unescape("%2C"), "printString", "do:separatedBy:", "contents"],
+source: "printString\x0a\x09| str |\x0a\x09str := '' writeStream.\x0a\x09str nextPutAll: super printString, ' ('.\x0a\x09self \x0a\x09\x09do: [:each | str nextPutAll: each printString]\x0a\x09\x09separatedBy: [str nextPutAll: ' '].\x0a\x09str nextPutAll: ')'.\x0a\x09^str contents",
+messageSends: ["writeStream", "nextPutAll:", ",", "printString", "do:separatedBy:", "contents"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_removeLast'),
+"_removeLast",
 smalltalk.method({
-selector: unescape('removeLast'),
+selector: "removeLast",
 category: 'adding',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_remove_", [smalltalk.send(self, "_last", [])]);
 return self;},
 args: [],
-source: unescape('removeLast%0A%09self%20remove%3A%20self%20last'),
+source: "removeLast\x0a\x09self remove: self last",
 messageSends: ["remove:", "last"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_reversed'),
+"_reversed",
 smalltalk.method({
-selector: unescape('reversed'),
+selector: "reversed",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: [],
-source: unescape('reversed%0A%09self%20subclassResponsibility'),
+source: "reversed\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_second'),
+"_second",
 smalltalk.method({
-selector: unescape('second'),
+selector: "second",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(2)]);
 return self;},
 args: [],
-source: unescape('second%0A%09%5Eself%20at%3A%202'),
+source: "second\x0a\x09^self at: 2",
 messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_shallowCopy",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 var newCollection=nil;
 (newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new_", [smalltalk.send(self, "_size", [])]));
@@ -9273,39 +8356,39 @@ smalltalk.send(self, "_withIndexDo_", [(function(each, index){return smalltalk.s
 return newCollection;
 return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%7C%20newCollection%20%7C%0A%09newCollection%20%3A%3D%20self%20class%20new%3A%20self%20size.%0A%09self%20withIndexDo%3A%20%5B%20%3Aeach%20%3Aindex%20%7C%20%0A%09%09newCollection%20at%3A%20index%20put%3A%20each%5D.%0A%09%5EnewCollection'),
+source: "shallowCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index | \x0a\x09\x09newCollection at: index put: each].\x0a\x09^newCollection",
 messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_third'),
+"_third",
 smalltalk.method({
-selector: unescape('third'),
+selector: "third",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_at_", [(3)]);
 return self;},
 args: [],
-source: unescape('third%0A%09%5Eself%20at%3A%203'),
+source: "third\x0a\x09^self at: 3",
 messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-unescape('_withIndexDo_'),
+"_withIndexDo_",
 smalltalk.method({
-selector: unescape('withIndexDo%3A'),
+selector: "withIndexDo:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 for(var i=0;i<self.length;i++){aBlock(self[i], i+1);};
 return self;},
 args: ["aBlock"],
-source: unescape('withIndexDo%3A%20aBlock%0A%09%3Cfor%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%7BaBlock%28self%5Bi%5D%2C%20i+1%29%3B%7D%3E'),
+source: "withIndexDo: aBlock\x0a\x09<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -9315,98 +8398,94 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('_add_'),
+"_add_",
 smalltalk.method({
-selector: unescape('add%3A'),
+selector: "add:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 self.push(anObject); return anObject;;
 return self;},
 args: ["anObject"],
-source: unescape('add%3A%20anObject%0A%09%3Cself.push%28anObject%29%3B%20return%20anObject%3B%3E'),
+source: "add: anObject\x0a\x09<self.push(anObject); return anObject;>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_asJavascript'),
+"_asJavascript",
 smalltalk.method({
-selector: unescape('asJavascript'),
+selector: "asJavascript",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [smalltalk.send(smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJavascript", []);})]), "_join_", [unescape("%2C%20")])]), "__comma", [unescape("%5D")]);
+return smalltalk.send(smalltalk.send("[", "__comma", [smalltalk.send(smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJavascript", []);})]), "_join_", [", "])]), "__comma", ["]"]);
 return self;},
 args: [],
-source: unescape('asJavascript%0A%09%5E%27%5B%27%2C%20%28%28self%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJavascript%5D%29%20join%3A%20%27%2C%20%27%29%2C%20%20%27%5D%27'),
-messageSends: [unescape("%2C"), "join:", "collect:", "asJavascript"],
+source: "asJavascript\x0a\x09^'[', ((self collect: [:each | each asJavascript]) join: ', '),  ']'",
+messageSends: [",", "join:", "collect:", "asJavascript"],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
+"_at_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
+selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock) {
+fn: function (anIndex, aBlock){
 var self=this;
 
-	    var value = self[anIndex - 1];
-	    if(value === undefined) {
-		return aBlock();
-	    } else {
-		return value;
-	    }
+		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
+		return self[anIndex - 1];
 	;
 return self;},
 args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<\x0a\x09\x09if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};\x0a\x09\x09return self[anIndex - 1];\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_at_put_'),
+"_at_put_",
 smalltalk.method({
-selector: unescape('at%3Aput%3A'),
+selector: "at:put:",
 category: 'accessing',
-fn: function (anIndex, anObject) {
+fn: function (anIndex, anObject){
 var self=this;
 return self[anIndex - 1] = anObject;
 return self;},
 args: ["anIndex", "anObject"],
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%20%3D%20anObject%3E'),
+source: "at: anIndex put: anObject\x0a\x09<return self[anIndex - 1] = anObject>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_join_'),
+"_join_",
 smalltalk.method({
-selector: unescape('join%3A'),
+selector: "join:",
 category: 'enumerating',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return self.join(aString);
 return self;},
 args: ["aString"],
-source: unescape('join%3A%20aString%0A%09%3Creturn%20self.join%28aString%29%3E'),
+source: "join: aString\x0a\x09<return self.join(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_remove_'),
+"_remove_",
 smalltalk.method({
-selector: unescape('remove%3A'),
+selector: "remove:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 
 		for(var i=0;i<self.length;i++) {
@@ -9418,82 +8497,82 @@ var self=this;
 	;
 return self;},
 args: ["anObject"],
-source: unescape('remove%3A%20anObject%0A%09%3C%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09%09%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09%09%09self.splice%28i%2C1%29%3B%0A%09%09%09%09break%3B%0A%09%09%09%7D%0A%09%09%7D%0A%09%3E'),
+source: "remove: anObject\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_removeFrom_to_'),
+"_removeFrom_to_",
 smalltalk.method({
-selector: unescape('removeFrom%3Ato%3A'),
+selector: "removeFrom:to:",
 category: 'adding/removing',
-fn: function (aNumber, anotherNumber) {
+fn: function (aNumber, anotherNumber){
 var self=this;
 self.splice(aNumber - 1,anotherNumber - 1);
 return self;},
 args: ["aNumber", "anotherNumber"],
-source: unescape('removeFrom%3A%20aNumber%20to%3A%20anotherNumber%0A%09%3Cself.splice%28aNumber%20-%201%2CanotherNumber%20-%201%29%3E'),
+source: "removeFrom: aNumber to: anotherNumber\x0a\x09<self.splice(aNumber - 1,anotherNumber - 1)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_reversed'),
+"_reversed",
 smalltalk.method({
-selector: unescape('reversed'),
+selector: "reversed",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self._copy().reverse();
 return self;},
 args: [],
-source: unescape('reversed%0A%09%3Creturn%20self._copy%28%29.reverse%28%29%3E'),
+source: "reversed\x0a\x09<return self._copy().reverse()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self.length;
 return self;},
 args: [],
-source: unescape('size%0A%09%3Creturn%20self.length%3E'),
+source: "size\x0a\x09<return self.length>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_sort'),
+"_sort",
 smalltalk.method({
-selector: unescape('sort'),
+selector: "sort",
 category: 'enumerating',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_basicPerform_", ["sort"]);
 return self;},
 args: [],
-source: unescape('sort%0A%20%20%20%20%5Eself%20basicPerform%3A%20%27sort%27'),
+source: "sort\x0a    ^self basicPerform: 'sort'",
 messageSends: ["basicPerform:"],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_sort_'),
+"_sort_",
 smalltalk.method({
-selector: unescape('sort%3A'),
+selector: "sort:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 
 		return self.sort(function(a, b) {
@@ -9502,39 +8581,39 @@ var self=this;
 	;
 return self;},
 args: ["aBlock"],
-source: unescape('sort%3A%20aBlock%0A%09%3C%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%20-1%7D%20else%20%7Breturn%201%7D%0A%09%09%7D%29%0A%09%3E'),
+source: "sort: aBlock\x0a\x09<\x0a\x09\x09return self.sort(function(a, b) {\x0a\x09\x09\x09if(aBlock(a,b)) {return -1} else {return 1}\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_sorted'),
+"_sorted",
 smalltalk.method({
-selector: unescape('sorted'),
+selector: "sorted",
 category: 'enumerating',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort", []);
 return self;},
 args: [],
-source: unescape('sorted%0A%09%5Eself%20copy%20sort'),
+source: "sorted\x0a\x09^self copy sort",
 messageSends: ["sort", "copy"],
 referencedClasses: []
 }),
 smalltalk.Array);
 
 smalltalk.addMethod(
-unescape('_sorted_'),
+"_sorted_",
 smalltalk.method({
-selector: unescape('sorted%3A'),
+selector: "sorted:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
 return self;},
 args: ["aBlock"],
-source: unescape('sorted%3A%20aBlock%0A%09%5Eself%20copy%20sort%3A%20aBlock'),
+source: "sorted: aBlock\x0a\x09^self copy sort: aBlock",
 messageSends: ["sort:", "copy"],
 referencedClasses: []
 }),
@@ -9542,75 +8621,75 @@ smalltalk.Array);
 
 
 smalltalk.addMethod(
-unescape('_new_'),
+"_new_",
 smalltalk.method({
-selector: unescape('new%3A'),
+selector: "new:",
 category: 'instance creation',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 return new Array(anInteger);
 return self;},
 args: ["anInteger"],
-source: unescape('new%3A%20anInteger%0A%09%3Creturn%20new%20Array%28anInteger%29%3E'),
+source: "new: anInteger\x0a\x09<return new Array(anInteger)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-unescape('_with_'),
+"_with_",
 smalltalk.method({
-selector: unescape('with%3A'),
+selector: "with:",
 category: 'instance creation',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(1)]));
 return self;},
 args: ["anObject"],
-source: unescape('with%3A%20anObject%0A%09%20%20%20%20%5E%28self%20new%3A%201%29%0A%09%09at%3A%201%20put%3A%20anObject%3B%0A%09%09yourself'),
+source: "with: anObject\x0a\x09    ^(self new: 1)\x0a\x09\x09at: 1 put: anObject;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "yourself", "new:"],
 referencedClasses: []
 }),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-unescape('_with_with_'),
+"_with_with_",
 smalltalk.method({
-selector: unescape('with%3Awith%3A'),
+selector: "with:with:",
 category: 'instance creation',
-fn: function (anObject, anObject2) {
+fn: function (anObject, anObject2){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(2)]));
 return self;},
 args: ["anObject", "anObject2"],
-source: unescape('with%3A%20anObject%20with%3A%20anObject2%0A%09%20%20%20%20%5E%28self%20new%3A%202%29%0A%09%09at%3A%201%20put%3A%20anObject%3B%0A%09%09at%3A%202%20put%3A%20anObject2%3B%0A%09%09yourself'),
+source: "with: anObject with: anObject2\x0a\x09    ^(self new: 2)\x0a\x09\x09at: 1 put: anObject;\x0a\x09\x09at: 2 put: anObject2;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "yourself", "new:"],
 referencedClasses: []
 }),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-unescape('_with_with_with_'),
+"_with_with_with_",
 smalltalk.method({
-selector: unescape('with%3Awith%3Awith%3A'),
+selector: "with:with:with:",
 category: 'instance creation',
-fn: function (anObject, anObject2, anObject3) {
+fn: function (anObject, anObject2, anObject3){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);smalltalk.send($rec, "_at_put_", [(3), anObject3]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(3)]));
 return self;},
 args: ["anObject", "anObject2", "anObject3"],
-source: unescape('with%3A%20anObject%20with%3A%20anObject2%20with%3A%20anObject3%0A%09%20%20%20%20%5E%28self%20new%3A%203%29%0A%09%09at%3A%201%20put%3A%20anObject%3B%0A%09%09at%3A%202%20put%3A%20anObject2%3B%0A%09%09at%3A%203%20put%3A%20anObject3%3B%0A%09%09yourself'),
+source: "with: anObject with: anObject2 with: anObject3\x0a\x09    ^(self new: 3)\x0a\x09\x09at: 1 put: anObject;\x0a\x09\x09at: 2 put: anObject2;\x0a\x09\x09at: 3 put: anObject3;\x0a\x09\x09yourself",
 messageSends: ["at:put:", "yourself", "new:"],
 referencedClasses: []
 }),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-unescape('_withAll_'),
+"_withAll_",
 smalltalk.method({
-selector: unescape('withAll%3A'),
+selector: "withAll:",
 category: 'instance creation',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 var instance=nil;
 (instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
@@ -9618,319 +8697,7 @@ smalltalk.send(aCollection, "_withIndexDo_", [(function(each, index){return smal
 return instance;
 return self;},
 args: ["aCollection"],
-source: unescape('withAll%3A%20aCollection%0A%09%7C%20instance%20%7C%0A%09instance%20%3A%3D%20self%20new%3A%20aCollection%20size.%0A%09aCollection%20withIndexDo%3A%20%5B%3Aeach%20%3Aindex%20%20%7C%0A%09%09instance%20at%3A%20index%20put%3A%20each%5D.%0A%09%5Einstance'),
-messageSends: ["new:", "size", "withIndexDo:", "at:put:"],
-referencedClasses: []
-}),
-smalltalk.Array.klass);
-
-
-smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.addMethod(
-unescape('_add_'),
-smalltalk.method({
-selector: unescape('add%3A'),
-category: 'adding/removing',
-fn: function (anObject) {
-var self=this;
-self.push(anObject); return anObject;;
-return self;},
-args: ["anObject"],
-source: unescape('add%3A%20anObject%0A%09%3Cself.push%28anObject%29%3B%20return%20anObject%3B%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_asJavascript'),
-smalltalk.method({
-selector: unescape('asJavascript'),
-category: 'converting',
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [smalltalk.send(smalltalk.send(self, "_collect_", [(function(each){return smalltalk.send(each, "_asJavascript", []);})]), "_join_", [unescape("%2C%20")])]), "__comma", [unescape("%5D")]);
-return self;},
-args: [],
-source: unescape('asJavascript%0A%09%5E%27%5B%27%2C%20%28%28self%20collect%3A%20%5B%3Aeach%20%7C%20each%20asJavascript%5D%29%20join%3A%20%27%2C%20%27%29%2C%20%20%27%5D%27'),
-messageSends: [unescape("%2C"), "join:", "collect:", "asJavascript"],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
-smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
-category: 'accessing',
-fn: function (anIndex, aBlock) {
-var self=this;
-
-	    var value = self[anIndex - 1];
-	    if(value === undefined) {
-		return aBlock();
-	    } else {
-		return value;
-	    }
-	;
-return self;},
-args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%3C%0A%09%20%20%20%20var%20value%20%3D%20self%5BanIndex%20-%201%5D%3B%0A%09%20%20%20%20if%28value%20%3D%3D%3D%20undefined%29%20%7B%0A%09%09return%20aBlock%28%29%3B%0A%09%20%20%20%20%7D%20else%20%7B%0A%09%09return%20value%3B%0A%09%20%20%20%20%7D%0A%09%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_at_put_'),
-smalltalk.method({
-selector: unescape('at%3Aput%3A'),
-category: 'accessing',
-fn: function (anIndex, anObject) {
-var self=this;
-return self[anIndex - 1] = anObject;
-return self;},
-args: ["anIndex", "anObject"],
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%20%3D%20anObject%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_join_'),
-smalltalk.method({
-selector: unescape('join%3A'),
-category: 'enumerating',
-fn: function (aString) {
-var self=this;
-return self.join(aString);
-return self;},
-args: ["aString"],
-source: unescape('join%3A%20aString%0A%09%3Creturn%20self.join%28aString%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_remove_'),
-smalltalk.method({
-selector: unescape('remove%3A'),
-category: 'adding/removing',
-fn: function (anObject) {
-var self=this;
-
-		for(var i=0;i<self.length;i++) {
-			if(self[i] == anObject) {
-				self.splice(i,1);
-				break;
-			}
-		}
-	;
-return self;},
-args: ["anObject"],
-source: unescape('remove%3A%20anObject%0A%09%3C%0A%09%09for%28var%20i%3D0%3Bi%3Cself.length%3Bi++%29%20%7B%0A%09%09%09if%28self%5Bi%5D%20%3D%3D%20anObject%29%20%7B%0A%09%09%09%09self.splice%28i%2C1%29%3B%0A%09%09%09%09break%3B%0A%09%09%09%7D%0A%09%09%7D%0A%09%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_removeFrom_to_'),
-smalltalk.method({
-selector: unescape('removeFrom%3Ato%3A'),
-category: 'adding/removing',
-fn: function (aNumber, anotherNumber) {
-var self=this;
-self.splice(aNumber - 1,anotherNumber - 1);
-return self;},
-args: ["aNumber", "anotherNumber"],
-source: unescape('removeFrom%3A%20aNumber%20to%3A%20anotherNumber%0A%09%3Cself.splice%28aNumber%20-%201%2CanotherNumber%20-%201%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_reversed'),
-smalltalk.method({
-selector: unescape('reversed'),
-category: 'converting',
-fn: function () {
-var self=this;
-return self._copy().reverse();
-return self;},
-args: [],
-source: unescape('reversed%0A%09%3Creturn%20self._copy%28%29.reverse%28%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_size'),
-smalltalk.method({
-selector: unescape('size'),
-category: 'accessing',
-fn: function () {
-var self=this;
-return self.length;
-return self;},
-args: [],
-source: unescape('size%0A%09%3Creturn%20self.length%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sort'),
-smalltalk.method({
-selector: unescape('sort'),
-category: 'enumerating',
-fn: function () {
-var self=this;
-return smalltalk.send(self, "_basicPerform_", ["sort"]);
-return self;},
-args: [],
-source: unescape('sort%0A%20%20%20%20%5Eself%20basicPerform%3A%20%27sort%27'),
-messageSends: ["basicPerform:"],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sort_'),
-smalltalk.method({
-selector: unescape('sort%3A'),
-category: 'enumerating',
-fn: function (aBlock) {
-var self=this;
-
-		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return -1} else {return 1}
-		})
-	;
-return self;},
-args: ["aBlock"],
-source: unescape('sort%3A%20aBlock%0A%09%3C%0A%09%09return%20self.sort%28function%28a%2C%20b%29%20%7B%0A%09%09%09if%28aBlock%28a%2Cb%29%29%20%7Breturn%20-1%7D%20else%20%7Breturn%201%7D%0A%09%09%7D%29%0A%09%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sorted'),
-smalltalk.method({
-selector: unescape('sorted'),
-category: 'enumerating',
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort", []);
-return self;},
-args: [],
-source: unescape('sorted%0A%09%5Eself%20copy%20sort'),
-messageSends: ["sort", "copy"],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-smalltalk.addMethod(
-unescape('_sorted_'),
-smalltalk.method({
-selector: unescape('sorted%3A'),
-category: 'enumerating',
-fn: function (aBlock) {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_copy", []), "_sort_", [aBlock]);
-return self;},
-args: ["aBlock"],
-source: unescape('sorted%3A%20aBlock%0A%09%5Eself%20copy%20sort%3A%20aBlock'),
-messageSends: ["sort:", "copy"],
-referencedClasses: []
-}),
-smalltalk.Array);
-
-
-smalltalk.addMethod(
-unescape('_new_'),
-smalltalk.method({
-selector: unescape('new%3A'),
-category: 'instance creation',
-fn: function (anInteger) {
-var self=this;
-return new Array(anInteger);
-return self;},
-args: ["anInteger"],
-source: unescape('new%3A%20anInteger%0A%09%3Creturn%20new%20Array%28anInteger%29%3E'),
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_with_'),
-smalltalk.method({
-selector: unescape('with%3A'),
-category: 'instance creation',
-fn: function (anObject) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(1)]));
-return self;},
-args: ["anObject"],
-source: unescape('with%3A%20anObject%0A%09%20%20%20%20%5E%28self%20new%3A%201%29%0A%09%09at%3A%201%20put%3A%20anObject%3B%0A%09%09yourself'),
-messageSends: ["at:put:", "yourself", "new:"],
-referencedClasses: []
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_with_with_'),
-smalltalk.method({
-selector: unescape('with%3Awith%3A'),
-category: 'instance creation',
-fn: function (anObject, anObject2) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(2)]));
-return self;},
-args: ["anObject", "anObject2"],
-source: unescape('with%3A%20anObject%20with%3A%20anObject2%0A%09%20%20%20%20%5E%28self%20new%3A%202%29%0A%09%09at%3A%201%20put%3A%20anObject%3B%0A%09%09at%3A%202%20put%3A%20anObject2%3B%0A%09%09yourself'),
-messageSends: ["at:put:", "yourself", "new:"],
-referencedClasses: []
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_with_with_with_'),
-smalltalk.method({
-selector: unescape('with%3Awith%3Awith%3A'),
-category: 'instance creation',
-fn: function (anObject, anObject2, anObject3) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", [(1), anObject]);smalltalk.send($rec, "_at_put_", [(2), anObject2]);smalltalk.send($rec, "_at_put_", [(3), anObject3]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new_", [(3)]));
-return self;},
-args: ["anObject", "anObject2", "anObject3"],
-source: unescape('with%3A%20anObject%20with%3A%20anObject2%20with%3A%20anObject3%0A%09%20%20%20%20%5E%28self%20new%3A%203%29%0A%09%09at%3A%201%20put%3A%20anObject%3B%0A%09%09at%3A%202%20put%3A%20anObject2%3B%0A%09%09at%3A%203%20put%3A%20anObject3%3B%0A%09%09yourself'),
-messageSends: ["at:put:", "yourself", "new:"],
-referencedClasses: []
-}),
-smalltalk.Array.klass);
-
-smalltalk.addMethod(
-unescape('_withAll_'),
-smalltalk.method({
-selector: unescape('withAll%3A'),
-category: 'instance creation',
-fn: function (aCollection) {
-var self=this;
-var instance=nil;
-(instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
-smalltalk.send(aCollection, "_withIndexDo_", [(function(each, index){return smalltalk.send(instance, "_at_put_", [index, each]);})]);
-return instance;
-return self;},
-args: ["aCollection"],
-source: unescape('withAll%3A%20aCollection%0A%09%7C%20instance%20%7C%0A%09instance%20%3A%3D%20self%20new%3A%20aCollection%20size.%0A%09aCollection%20withIndexDo%3A%20%5B%3Aeach%20%3Aindex%20%20%7C%0A%09%09instance%20at%3A%20index%20put%3A%20each%5D.%0A%09%5Einstance'),
+source: "withAll: aCollection\x0a\x09| instance |\x0a\x09instance := self new: aCollection size.\x0a\x09aCollection withIndexDo: [:each :index  |\x0a\x09\x09instance at: index put: each].\x0a\x09^instance",
 messageSends: ["new:", "size", "withIndexDo:", "at:put:"],
 referencedClasses: []
 }),
@@ -9939,176 +8706,176 @@ smalltalk.Array.klass);
 
 smalltalk.addClass('CharacterArray', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__comma'),
+"__comma",
 smalltalk.method({
-selector: unescape('%2C'),
+selector: ",",
 category: 'copying',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", [smalltalk.send(aString, "_asString", [])]);
 return self;},
 args: ["aString"],
-source: unescape('%2C%20aString%0A%09%5Eself%20asString%2C%20aString%20asString'),
-messageSends: [unescape("%2C"), "asString"],
+source: ", aString\x0a\x09^self asString, aString asString",
+messageSends: [",", "asString"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_add_'),
+"_add_",
 smalltalk.method({
-selector: unescape('add%3A'),
+selector: "add:",
 category: 'adding',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
 args: ["anObject"],
-source: unescape('add%3A%20anObject%0A%09self%20errorReadOnly'),
+source: "add: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_asLowercase'),
+"_asLowercase",
 smalltalk.method({
-selector: unescape('asLowercase'),
+selector: "asLowercase",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [smalltalk.send(smalltalk.send(self, "_asString", []), "_asLowercase", [])]);
 return self;},
 args: [],
-source: unescape('asLowercase%0A%09%5Eself%20class%20fromString%3A%20self%20asString%20asLowercase'),
+source: "asLowercase\x0a\x09^self class fromString: self asString asLowercase",
 messageSends: ["fromString:", "class", "asLowercase", "asString"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_asNumber'),
+"_asNumber",
 smalltalk.method({
-selector: unescape('asNumber'),
+selector: "asNumber",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asNumber", []);
 return self;},
 args: [],
-source: unescape('asNumber%0A%09%5Eself%20asString%20asNumber'),
+source: "asNumber\x0a\x09^self asString asNumber",
 messageSends: ["asNumber", "asString"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: [],
-source: unescape('asString%0A%09%5Eself%20subclassResponsibility'),
+source: "asString\x0a\x09^self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_asSymbol'),
+"_asSymbol",
 smalltalk.method({
-selector: unescape('asSymbol'),
+selector: "asSymbol",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: [],
-source: unescape('asSymbol%0A%09%5Eself%20subclassResponsibility'),
+source: "asSymbol\x0a\x09^self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_asUppercase'),
+"_asUppercase",
 smalltalk.method({
-selector: unescape('asUppercase'),
+selector: "asUppercase",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [smalltalk.send(smalltalk.send(self, "_asString", []), "_asUppercase", [])]);
 return self;},
 args: [],
-source: unescape('asUppercase%0A%09%5Eself%20class%20fromString%3A%20self%20asString%20asUppercase'),
+source: "asUppercase\x0a\x09^self class fromString: self asString asUppercase",
 messageSends: ["fromString:", "class", "asUppercase", "asString"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_at_put_'),
+"_at_put_",
 smalltalk.method({
-selector: unescape('at%3Aput%3A'),
+selector: "at:put:",
 category: 'accessing',
-fn: function (anIndex, anObject) {
+fn: function (anIndex, anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
 args: ["anIndex", "anObject"],
-source: unescape('at%3A%20anIndex%20put%3A%20anObject%0A%09self%20errorReadOnly'),
+source: "at: anIndex put: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_errorReadOnly'),
+"_errorReadOnly",
 smalltalk.method({
-selector: unescape('errorReadOnly'),
+selector: "errorReadOnly",
 category: 'error handling',
-fn: function () {
+fn: function (){
 var self=this;
-smalltalk.send(self, "_error_", [unescape("Object%20is%20read-only")]);
+smalltalk.send(self, "_error_", ["Object is read-only"]);
 return self;},
 args: [],
-source: unescape('errorReadOnly%0A%09self%20error%3A%20%27Object%20is%20read-only%27'),
+source: "errorReadOnly\x0a\x09self error: 'Object is read-only'",
 messageSends: ["error:"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_printString", []);
 return self;},
 args: [],
-source: unescape('printString%0A%09%5Eself%20asString%20printString'),
+source: "printString\x0a\x09^self asString printString",
 messageSends: ["printString", "asString"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-unescape('_remove_'),
+"_remove_",
 smalltalk.method({
-selector: unescape('remove%3A'),
+selector: "remove:",
 category: 'adding',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_errorReadOnly", []);
 return self;},
 args: ["anObject"],
-source: unescape('remove%3A%20anObject%0A%09self%20errorReadOnly'),
+source: "remove: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
@@ -10116,16 +8883,16 @@ smalltalk.CharacterArray);
 
 
 smalltalk.addMethod(
-unescape('_fromString_'),
+"_fromString_",
 smalltalk.method({
-selector: unescape('fromString%3A'),
+selector: "fromString:",
 category: 'instance creation',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 smalltalk.send(self, "_subclassResponsibility", []);
 return self;},
 args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09self%20subclassResponsibility'),
+source: "fromString: aString\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -10134,399 +8901,417 @@ smalltalk.CharacterArray.klass);
 
 smalltalk.addClass('String', smalltalk.CharacterArray, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__comma'),
+"__comma",
 smalltalk.method({
-selector: unescape('%2C'),
+selector: ",",
 category: 'copying',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return self + aString;
 return self;},
 args: ["aString"],
-source: unescape('%2C%20aString%0A%09%3Creturn%20self%20+%20aString%3E'),
+source: ", aString\x0a\x09<return self + aString>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('__lt'),
+"__lt",
 smalltalk.method({
-selector: unescape('%3C'),
+selector: "<",
 category: 'comparing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return String(self) < aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3C%20aString%0A%09%3Creturn%20String%28self%29%20%3C%20aString._asString%28%29%3E'),
+source: "< aString\x0a\x09<return String(self) < aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('__lt_eq'),
+"__lt_eq",
 smalltalk.method({
-selector: unescape('%3C%3D'),
+selector: "<=",
 category: 'comparing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return String(self) <= aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3C%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3C%3D%20aString._asString%28%29%3E'),
+source: "<= aString\x0a\x09<return String(self) <= aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aString, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
+var $early={};
+try{((($receiver = smalltalk.send(smalltalk.send(aString, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
 return String(self) === String(aString);
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aString"],
-source: unescape('%3D%20aString%0A%09aString%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%3Creturn%20String%28self%29%20%3D%3D%3D%20String%28aString%29%3E'),
-messageSends: ["ifFalse:", unescape("%3D"), "class"],
+source: "= aString\x0a\x09aString class = self class ifFalse: [^false].\x0a\x09<return String(self) === String(aString)>",
+messageSends: ["ifFalse:", "=", "class"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('__gt'),
+"__eq_eq",
 smalltalk.method({
-selector: unescape('%3E'),
+selector: "==",
 category: 'comparing',
-fn: function (aString) {
+fn: function (aString){
+var self=this;
+return smalltalk.send(self, "__eq", [aString]);
+return self;},
+args: ["aString"],
+source: "== aString\x0a\x09^self = aString",
+messageSends: ["="],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+"__gt",
+smalltalk.method({
+selector: ">",
+category: 'comparing',
+fn: function (aString){
 var self=this;
 return String(self) > aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3E%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%20aString._asString%28%29%3E'),
+source: "> aString\x0a\x09<return String(self) >> aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('__gt_eq'),
+"__gt_eq",
 smalltalk.method({
-selector: unescape('%3E%3D'),
+selector: ">=",
 category: 'comparing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return String(self) >= aString._asString();
 return self;},
 args: ["aString"],
-source: unescape('%3E%3D%20aString%0A%09%3Creturn%20String%28self%29%20%3E%3E%3D%20aString._asString%28%29%3E'),
+source: ">= aString\x0a\x09<return String(self) >>= aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Eself'),
+source: "asJSON\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asJavaScriptSelector'),
+"_asJavaScriptSelector",
 smalltalk.method({
-selector: unescape('asJavaScriptSelector'),
+selector: "asJavaScriptSelector",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", [unescape("%5E_"), ""]), "_replace_with_", [unescape("_.*"), ""]);
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asSelector", []), "_replace_with_", ["^_", ""]), "_replace_with_", ["_.*", ""]);
 return self;},
 args: [],
-source: unescape('asJavaScriptSelector%0A%09%5E%28self%20asSelector%20replace%3A%20%27%5E_%27%20with%3A%20%27%27%29%20replace%3A%20%27_.*%27%20with%3A%20%27%27.'),
+source: "asJavaScriptSelector\x0a\x09^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.",
 messageSends: ["replace:with:", "asSelector"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asJavascript'),
+"_asJavascript",
 smalltalk.method({
-selector: unescape('asJavascript'),
+selector: "asJavascript",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
-			return "unescape(\"" + escape(self) + "\")";
+			return "\"" + self.replace(/[\x00-\x1f"\\\x7f-\x9f]/g, function(ch){var c=ch.charCodeAt(0);return "\\x"+("0"+c.toString(16)).slice(-2)}) + "\"";
 		else
 			return "\"" + self + "\"";
 	;
 return self;},
 args: [],
-source: unescape('asJavascript%0A%09%3C%0A%09%09if%28self.search%28/%5E%5Ba-zA-Z0-9_%3A.%24%20%5D*%24/%29%20%3D%3D%20-1%29%0A%09%09%09return%20%22unescape%28%5C%22%22%20+%20escape%28self%29%20+%20%22%5C%22%29%22%3B%0A%09%09else%0A%09%09%09return%20%22%5C%22%22%20+%20self%20+%20%22%5C%22%22%3B%0A%09%3E'),
+source: "asJavascript\x0a\x09<\x0a\x09\x09if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)\x0a\x09\x09\x09return \x22\x5c\x22\x22 + self.replace(/[\x5cx00-\x5cx1f\x22\x5c\x5c\x5cx7f-\x5cx9f]/g, function(ch){var c=ch.charCodeAt(0);return \x22\x5c\x5cx\x22+(\x220\x22+c.toString(16)).slice(-2)}) + \x22\x5c\x22\x22;\x0a\x09\x09else\x0a\x09\x09\x09return \x22\x5c\x22\x22 + self + \x22\x5c\x22\x22;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asLowercase'),
+"_asLowercase",
 smalltalk.method({
-selector: unescape('asLowercase'),
+selector: "asLowercase",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self.toLowerCase();
 return self;},
 args: [],
-source: unescape('asLowercase%0A%09%3Creturn%20self.toLowerCase%28%29%3E'),
+source: "asLowercase\x0a\x09<return self.toLowerCase()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asNumber'),
+"_asNumber",
 smalltalk.method({
-selector: unescape('asNumber'),
+selector: "asNumber",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return Number(self);
 return self;},
 args: [],
-source: unescape('asNumber%0A%09%3Creturn%20Number%28self%29%3E'),
+source: "asNumber\x0a\x09<return Number(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asSelector'),
+"_asSelector",
 smalltalk.method({
-selector: unescape('asSelector'),
+selector: "asSelector",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 var selector=nil;
 (selector=smalltalk.send("_", "__comma", [self]));
 (selector=smalltalk.send(selector, "_replace_with_", [":", "_"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B+%5D"), "_plus"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("-"), "_minus"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B*%5D"), "_star"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B/%5D"), "_slash"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%3E"), "_gt"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%3C"), "_lt"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%3D"), "_eq"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%2C"), "_comma"]));
-(selector=smalltalk.send(selector, "_replace_with_", [unescape("%5B@%5D"), "_at"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["[+]", "_plus"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["-", "_minus"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["[*]", "_star"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["[/]", "_slash"]));
+(selector=smalltalk.send(selector, "_replace_with_", [">", "_gt"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["<", "_lt"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["=", "_eq"]));
+(selector=smalltalk.send(selector, "_replace_with_", [",", "_comma"]));
+(selector=smalltalk.send(selector, "_replace_with_", ["[@]", "_at"]));
 return selector;
 return self;},
 args: [],
-source: unescape('asSelector%0A%09%22If%20you%20change%20this%20method%2C%20change%20smalltalk.convertSelector%20too%20%28see%20js/boot.js%20file%29%22%0A%0A%09%7C%20selector%20%7C%0A%09selector%20%3A%3D%20%27_%27%2C%20self.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3A%27%20with%3A%20%27_%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B+%5D%27%20with%3A%20%27_plus%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27-%27%20with%3A%20%27_minus%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B*%5D%27%20with%3A%20%27_star%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B/%5D%27%20with%3A%20%27_slash%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3E%27%20with%3A%20%27_gt%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3C%27%20with%3A%20%27_lt%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%3D%27%20with%3A%20%27_eq%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%2C%27%20with%3A%20%27_comma%27.%0A%09selector%20%3A%3D%20selector%20replace%3A%20%27%5B@%5D%27%20with%3A%20%27_at%27.%0A%09%5Eselector'),
-messageSends: [unescape("%2C"), "replace:with:"],
+source: "asSelector\x0a\x09\x22If you change this method, change smalltalk.convertSelector too (see js/boot.js file)\x22\x0a\x0a\x09| selector |\x0a\x09selector := '_', self.\x0a\x09selector := selector replace: ':' with: '_'.\x0a\x09selector := selector replace: '[+]' with: '_plus'.\x0a\x09selector := selector replace: '-' with: '_minus'.\x0a\x09selector := selector replace: '[*]' with: '_star'.\x0a\x09selector := selector replace: '[/]' with: '_slash'.\x0a\x09selector := selector replace: '>' with: '_gt'.\x0a\x09selector := selector replace: '<' with: '_lt'.\x0a\x09selector := selector replace: '=' with: '_eq'.\x0a\x09selector := selector replace: ',' with: '_comma'.\x0a\x09selector := selector replace: '[@]' with: '_at'.\x0a\x09^selector",
+messageSends: [",", "replace:with:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('asString%0A%09%5Eself'),
+source: "asString\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asSymbol'),
+"_asSymbol",
 smalltalk.method({
-selector: unescape('asSymbol'),
+selector: "asSymbol",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send((smalltalk.Symbol || Symbol), "_lookup_", [self]);
 return self;},
 args: [],
-source: unescape('asSymbol%0A%09%5ESymbol%20lookup%3A%20self'),
+source: "asSymbol\x0a\x09^Symbol lookup: self",
 messageSends: ["lookup:"],
 referencedClasses: ["Symbol"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asUppercase'),
+"_asUppercase",
 smalltalk.method({
-selector: unescape('asUppercase'),
+selector: "asUppercase",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self.toUpperCase();
 return self;},
 args: [],
-source: unescape('asUppercase%0A%09%3Creturn%20self.toUpperCase%28%29%3E'),
+source: "asUppercase\x0a\x09<return self.toUpperCase()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_asciiValue'),
+"_asciiValue",
 smalltalk.method({
-selector: unescape('asciiValue'),
+selector: "asciiValue",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self.charCodeAt(0);;
 return self;},
 args: [],
-source: unescape('asciiValue%0A%09%3Creturn%20self.charCodeAt%280%29%3B%3E'),
+source: "asciiValue\x0a\x09<return self.charCodeAt(0);>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
+"_at_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
+selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock) {
+fn: function (anIndex, aBlock){
 var self=this;
 return self[anIndex - 1] || aBlock();
 return self;},
 args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%3Creturn%20self%5BanIndex%20-%201%5D%20%7C%7C%20aBlock%28%29%3E'),
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<return self[anIndex - 1] || aBlock()>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_copyFrom_to_'),
+"_copyFrom_to_",
 smalltalk.method({
-selector: unescape('copyFrom%3Ato%3A'),
+selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex) {
+fn: function (anIndex, anotherIndex){
 var self=this;
 return self.substring(anIndex - 1, anotherIndex);
 return self;},
 args: ["anIndex", "anotherIndex"],
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%3Creturn%20self.substring%28anIndex%20-%201%2C%20anotherIndex%29%3E'),
+source: "copyFrom: anIndex to: anotherIndex\x0a\x09<return self.substring(anIndex - 1, anotherIndex)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_shallowCopy", []);
 return self;},
 args: [],
-source: unescape('deepCopy%0A%09%5Eself%20shallowCopy'),
+source: "deepCopy\x0a\x09^self shallowCopy",
 messageSends: ["shallowCopy"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_escaped'),
+"_escaped",
 smalltalk.method({
-selector: unescape('escaped'),
+selector: "escaped",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return escape(self);
 return self;},
 args: [],
-source: unescape('escaped%0A%09%3Creturn%20escape%28self%29%3E'),
+source: "escaped\x0a\x09<return escape(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_includesSubString_'),
+"_includesSubString_",
 smalltalk.method({
-selector: unescape('includesSubString%3A'),
+selector: "includesSubString:",
 category: 'testing',
-fn: function (subString) {
+fn: function (subString){
 var self=this;
  return self.indexOf(subString) != -1 ;
 return self;},
 args: ["subString"],
-source: unescape('includesSubString%3A%20subString%0A%09%3C%20return%20self.indexOf%28subString%29%20%21%3D%20-1%20%3E'),
+source: "includesSubString: subString\x0a\x09< return self.indexOf(subString) != -1 >",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_isString'),
+"_isString",
 smalltalk.method({
-selector: unescape('isString'),
+selector: "isString",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return true;
 return self;},
 args: [],
-source: unescape('isString%0A%09%5Etrue'),
+source: "isString\x0a\x09^true",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_join_'),
+"_join_",
 smalltalk.method({
-selector: unescape('join%3A'),
+selector: "join:",
 category: 'split join',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(stream){return smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(each, "_asString", [])]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [self]);})]);})]);
 return self;},
 args: ["aCollection"],
-source: unescape('join%3A%20aCollection%20%0A%09%5E%20String%0A%09%09streamContents%3A%20%5B%3Astream%20%7C%20aCollection%0A%09%09%09%09do%3A%20%5B%3Aeach%20%7C%20stream%20nextPutAll%3A%20each%20asString%5D%20%0A%09%09%09%09separatedBy%3A%20%5Bstream%20nextPutAll%3A%20self%5D%5D'),
+source: "join: aCollection \x0a\x09^ String\x0a\x09\x09streamContents: [:stream | aCollection\x0a\x09\x09\x09\x09do: [:each | stream nextPutAll: each asString] \x0a\x09\x09\x09\x09separatedBy: [stream nextPutAll: self]]",
 messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"],
 referencedClasses: ["String"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_lineIndicesDo_'),
+"_lineIndicesDo_",
 smalltalk.method({
-selector: unescape('lineIndicesDo%3A'),
+selector: "lineIndicesDo:",
 category: 'split join',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
+var $early={};
 try{var cr=nil;
 var lf=nil;
 var start=nil;
@@ -10539,42 +9324,43 @@ var nextCR=nil;
 (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, (1)]));
 (lf=smalltalk.send((smalltalk.String || String), "_lf", []));
 (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, (1)]));
-(function(){while((function(){return ((($receiver = start).klass === smalltalk.Number) ? $receiver <=sz : smalltalk.send($receiver, "__lt_eq", [sz]));})()) {(function(){((($receiver = smalltalk.send(smalltalk.send(nextLF, "__eq", [(0)]), "_and_", [(function(){return smalltalk.send(nextCR, "__eq", [(0)]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw({name: 'stReturn', selector: '_lineIndicesDo_', fn: function(){return self}})})();})]));return ((($receiver = smalltalk.send(smalltalk.send(nextCR, "__eq", [(0)]), "_or_", [(function(){return smalltalk.send((0) < nextLF, "_and_", [(function(){return ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver <nextCR : smalltalk.send($receiver, "__lt", [nextCR]));})]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})]));})]));})()}})();
+(function(){while((function(){return ((($receiver = start).klass === smalltalk.Number) ? $receiver <=sz : smalltalk.send($receiver, "__lt_eq", [sz]));})()) {(function(){((($receiver = smalltalk.send(smalltalk.send(nextLF, "__eq", [(0)]), "_and_", [(function(){return smalltalk.send(nextCR, "__eq", [(0)]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw $early=[self]})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, sz, sz]);return (function(){throw $early=[self]})();})]));return ((($receiver = smalltalk.send(smalltalk.send(nextCR, "__eq", [(0)]), "_or_", [(function(){return smalltalk.send((0) < nextLF, "_and_", [(function(){return ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver <nextCR : smalltalk.send($receiver, "__lt", [nextCR]));})]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextLF).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){return ((($receiver = smalltalk.send((1) + nextCR, "__eq", [nextLF])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));})() : (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextLF]);(start=(1) + nextLF);(nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));return (nextLF=smalltalk.send(self, "_indexOf_startingAt_", [lf, start]));}), (function(){smalltalk.send(aBlock, "_value_value_value_", [start, ((($receiver = nextCR).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])), nextCR]);(start=(1) + nextCR);return (nextCR=smalltalk.send(self, "_indexOf_startingAt_", [cr, start]));})]));})]));})()}})();
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_lineIndicesDo_'){return e.fn()} throw(e)}},
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aBlock"],
-source: unescape('lineIndicesDo%3A%20aBlock%0A%09%22execute%20aBlock%20with%203%20arguments%20for%20each%20line%3A%0A%09-%20start%20index%20of%20line%0A%09-%20end%20index%20of%20line%20without%20line%20delimiter%0A%09-%20end%20index%20of%20line%20including%20line%20delimiter%28s%29%20CR%2C%20LF%20or%20CRLF%22%0A%09%0A%09%7C%20cr%20lf%20start%20sz%20nextLF%20nextCR%20%7C%0A%09start%20%3A%3D%201.%0A%09sz%20%3A%3D%20self%20size.%0A%09cr%20%3A%3D%20String%20cr.%0A%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%201.%0A%09lf%20%3A%3D%20String%20lf.%0A%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%201.%0A%09%5B%20start%20%3C%3D%20sz%20%5D%20whileTrue%3A%20%5B%0A%09%09%28nextLF%20%3D%200%20and%3A%20%5B%20nextCR%20%3D%200%20%5D%29%0A%09%09%09ifTrue%3A%20%5B%20%22No%20more%20CR%2C%20nor%20LF%2C%20the%20string%20is%20over%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20sz%20value%3A%20sz.%0A%09%09%09%09%09%5Eself%20%5D.%0A%09%09%28nextCR%20%3D%200%20or%3A%20%5B%200%20%3C%20nextLF%20and%3A%20%5B%20nextLF%20%3C%20nextCR%20%5D%20%5D%29%0A%09%09%09ifTrue%3A%20%5B%20%22Found%20a%20LF%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextLF%20-%201%20value%3A%20nextLF.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextLF.%0A%09%09%09%09%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%20start%20%5D%0A%09%09%09ifFalse%3A%20%5B%201%20+%20nextCR%20%3D%20nextLF%0A%09%09%09%09ifTrue%3A%20%5B%20%22Found%20a%20CR-LF%20pair%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextCR%20-%201%20value%3A%20nextLF.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextLF.%0A%09%09%09%09%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%20start.%0A%09%09%09%09%09nextLF%20%3A%3D%20self%20indexOf%3A%20lf%20startingAt%3A%20start%20%5D%0A%09%09%09%09ifFalse%3A%20%5B%20%22Found%20a%20CR%22%0A%09%09%09%09%09aBlock%20value%3A%20start%20value%3A%20nextCR%20-%201%20value%3A%20nextCR.%0A%09%09%09%09%09start%20%3A%3D%201%20+%20nextCR.%0A%09%09%09%09%09nextCR%20%3A%3D%20self%20indexOf%3A%20cr%20startingAt%3A%20start%20%5D%5D%5D'),
-messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", unescape("%3C%3D"), "ifTrue:", "and:", unescape("%3D"), "value:value:value:", "ifTrue:ifFalse:", "or:", unescape("%3C"), unescape("-"), unescape("+")],
+source: "lineIndicesDo: aBlock\x0a\x09\x22execute aBlock with 3 arguments for each line:\x0a\x09- start index of line\x0a\x09- end index of line without line delimiter\x0a\x09- end index of line including line delimiter(s) CR, LF or CRLF\x22\x0a\x09\x0a\x09| cr lf start sz nextLF nextCR |\x0a\x09start := 1.\x0a\x09sz := self size.\x0a\x09cr := String cr.\x0a\x09nextCR := self indexOf: cr startingAt: 1.\x0a\x09lf := String lf.\x0a\x09nextLF := self indexOf: lf startingAt: 1.\x0a\x09[ start <= sz ] whileTrue: [\x0a\x09\x09(nextLF = 0 and: [ nextCR = 0 ])\x0a\x09\x09\x09ifTrue: [ \x22No more CR, nor LF, the string is over\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: sz value: sz.\x0a\x09\x09\x09\x09\x09^self ].\x0a\x09\x09(nextCR = 0 or: [ 0 < nextLF and: [ nextLF < nextCR ] ])\x0a\x09\x09\x09ifTrue: [ \x22Found a LF\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextLF - 1 value: nextLF.\x0a\x09\x09\x09\x09\x09start := 1 + nextLF.\x0a\x09\x09\x09\x09\x09nextLF := self indexOf: lf startingAt: start ]\x0a\x09\x09\x09ifFalse: [ 1 + nextCR = nextLF\x0a\x09\x09\x09\x09ifTrue: [ \x22Found a CR-LF pair\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextCR - 1 value: nextLF.\x0a\x09\x09\x09\x09\x09start := 1 + nextLF.\x0a\x09\x09\x09\x09\x09nextCR := self indexOf: cr startingAt: start.\x0a\x09\x09\x09\x09\x09nextLF := self indexOf: lf startingAt: start ]\x0a\x09\x09\x09\x09ifFalse: [ \x22Found a CR\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextCR - 1 value: nextCR.\x0a\x09\x09\x09\x09\x09start := 1 + nextCR.\x0a\x09\x09\x09\x09\x09nextCR := self indexOf: cr startingAt: start ]]]",
+messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", "<=", "ifTrue:", "and:", "=", "value:value:value:", "ifTrue:ifFalse:", "or:", "<", "-", "+"],
 referencedClasses: ["String"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_lineNumber_'),
+"_lineNumber_",
 smalltalk.method({
-selector: unescape('lineNumber%3A'),
+selector: "lineNumber:",
 category: 'split join',
-fn: function (anIndex) {
+fn: function (anIndex){
 var self=this;
+var $early={};
 try{var lineCount=nil;
 (lineCount=(0));
-smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return ((($receiver = smalltalk.send((lineCount=((($receiver = lineCount).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))), "__eq", [anIndex])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])}})})();})]));})]);
-(function(){throw({name: 'stReturn', selector: '_lineNumber_', fn: function(){return nil}})})();
+smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return ((($receiver = smalltalk.send((lineCount=((($receiver = lineCount).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))), "__eq", [anIndex])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw $early=[smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])]})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw $early=[smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])]})();})]));})]);
+return nil;
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '_lineNumber_'){return e.fn()} throw(e)}},
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["anIndex"],
-source: unescape('lineNumber%3A%20anIndex%0A%09%22Answer%20a%20string%20containing%20the%20characters%20in%20the%20given%20line%20number.%22%0A%0A%09%7C%20lineCount%20%7C%0A%09lineCount%20%3A%3D%200.%0A%09self%20lineIndicesDo%3A%20%5B%3Astart%20%3AendWithoutDelimiters%20%3Aend%20%7C%0A%09%09%28lineCount%20%3A%3D%20lineCount%20+%201%29%20%3D%20anIndex%20ifTrue%3A%20%5B%5Eself%20copyFrom%3A%20start%20to%3A%20endWithoutDelimiters%5D%5D.%0A%09%5Enil'),
-messageSends: ["lineIndicesDo:", "ifTrue:", unescape("%3D"), unescape("+"), "copyFrom:to:"],
+source: "lineNumber: anIndex\x0a\x09\x22Answer a string containing the characters in the given line number.\x22\x0a\x0a\x09| lineCount |\x0a\x09lineCount := 0.\x0a\x09self lineIndicesDo: [:start :endWithoutDelimiters :end |\x0a\x09\x09(lineCount := lineCount + 1) = anIndex ifTrue: [^self copyFrom: start to: endWithoutDelimiters]].\x0a\x09^nil",
+messageSends: ["lineIndicesDo:", "ifTrue:", "=", "+", "copyFrom:to:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_lines'),
+"_lines",
 smalltalk.method({
-selector: unescape('lines'),
+selector: "lines",
 category: 'split join',
-fn: function () {
+fn: function (){
 var self=this;
 var lines=nil;
 (lines=smalltalk.send((smalltalk.Array || Array), "_new", []));
@@ -10582,279 +9368,295 @@ smalltalk.send(self, "_linesDo_", [(function(aLine){return smalltalk.send(lines,
 return lines;
 return self;},
 args: [],
-source: unescape('lines%0A%09%22Answer%20an%20array%20of%20lines%20composing%20this%20receiver%20without%20the%20line%20ending%20delimiters.%22%0A%0A%09%7C%20lines%20%7C%0A%09lines%20%3A%3D%20Array%20new.%0A%09self%20linesDo%3A%20%5B%3AaLine%20%7C%20lines%20add%3A%20aLine%5D.%0A%09%5Elines'),
+source: "lines\x0a\x09\x22Answer an array of lines composing this receiver without the line ending delimiters.\x22\x0a\x0a\x09| lines |\x0a\x09lines := Array new.\x0a\x09self linesDo: [:aLine | lines add: aLine].\x0a\x09^lines",
 messageSends: ["new", "linesDo:", "add:"],
 referencedClasses: ["Array"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_linesDo_'),
+"_linesDo_",
 smalltalk.method({
-selector: unescape('linesDo%3A'),
+selector: "linesDo:",
 category: 'split join',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 smalltalk.send(self, "_lineIndicesDo_", [(function(start, endWithoutDelimiters, end){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_copyFrom_to_", [start, endWithoutDelimiters])]);})]);
 return self;},
 args: ["aBlock"],
-source: unescape('linesDo%3A%20aBlock%0A%09%22Execute%20aBlock%20with%20each%20line%20in%20this%20string.%20The%20terminating%20line%0A%09delimiters%20CR%2C%20LF%20or%20CRLF%20pairs%20are%20not%20included%20in%20what%20is%20passed%20to%20aBlock%22%0A%0A%09self%20lineIndicesDo%3A%20%5B%3Astart%20%3AendWithoutDelimiters%20%3Aend%20%7C%0A%09%09aBlock%20value%3A%20%28self%20copyFrom%3A%20start%20to%3A%20endWithoutDelimiters%29%5D'),
+source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lineIndicesDo: [:start :endWithoutDelimiters :end |\x0a\x09\x09aBlock value: (self copyFrom: start to: endWithoutDelimiters)]",
 messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_match_'),
+"_match_",
 smalltalk.method({
-selector: unescape('match%3A'),
+selector: "match:",
 category: 'regular expressions',
-fn: function (aRegexp) {
+fn: function (aRegexp){
 var self=this;
 return self.search(aRegexp) != -1;
 return self;},
 args: ["aRegexp"],
-source: unescape('match%3A%20aRegexp%0A%09%3Creturn%20self.search%28aRegexp%29%20%21%3D%20-1%3E'),
+source: "match: aRegexp\x0a\x09<return self.search(aRegexp) != -1>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_printNl'),
+"_matchesOf_",
 smalltalk.method({
-selector: unescape('printNl'),
+selector: "matchesOf:",
+category: 'regular expressions',
+fn: function (aRegularExpression){
+var self=this;
+return self.match(aRegularExpression);
+return self;},
+args: ["aRegularExpression"],
+source: "matchesOf: aRegularExpression\x0a      <return self.match(aRegularExpression)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+"_printNl",
+smalltalk.method({
+selector: "printNl",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
 console.log(self);
 return self;},
 args: [],
-source: unescape('printNl%0A%09%3Cconsole.log%28self%29%3E'),
+source: "printNl\x0a\x09<console.log(self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(unescape("%27"), "__comma", [self]), "__comma", [unescape("%27")]);
+return smalltalk.send(smalltalk.send("'", "__comma", [self]), "__comma", ["'"]);
 return self;},
 args: [],
-source: unescape('printString%0A%09%5E%27%27%27%27%2C%20self%2C%20%27%27%27%27'),
-messageSends: [unescape("%2C")],
+source: "printString\x0a\x09^'''', self, ''''",
+messageSends: [","],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_replace_with_'),
+"_replace_with_",
 smalltalk.method({
-selector: unescape('replace%3Awith%3A'),
+selector: "replace:with:",
 category: 'regular expressions',
-fn: function (aString, anotherString) {
+fn: function (aString, anotherString){
 var self=this;
 return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [aString, "g"]), anotherString]);
 return self;},
 args: ["aString", "anotherString"],
-source: unescape('replace%3A%20aString%20with%3A%20anotherString%0A%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20aString%20flag%3A%20%27g%27%29%20with%3A%20anotherString'),
+source: "replace: aString with: anotherString\x0a\x09^self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString",
 messageSends: ["replaceRegexp:with:", "fromString:flag:"],
 referencedClasses: ["RegularExpression"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_replaceRegexp_with_'),
+"_replaceRegexp_with_",
 smalltalk.method({
-selector: unescape('replaceRegexp%3Awith%3A'),
+selector: "replaceRegexp:with:",
 category: 'regular expressions',
-fn: function (aRegexp, aString) {
+fn: function (aRegexp, aString){
 var self=this;
 return self.replace(aRegexp, aString);
 return self;},
 args: ["aRegexp", "aString"],
-source: unescape('replaceRegexp%3A%20aRegexp%20with%3A%20aString%0A%09%3Creturn%20self.replace%28aRegexp%2C%20aString%29%3E'),
+source: "replaceRegexp: aRegexp with: aString\x0a\x09<return self.replace(aRegexp, aString)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_reversed'),
+"_reversed",
 smalltalk.method({
-selector: unescape('reversed'),
+selector: "reversed",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self.split("").reverse().join("");
 return self;},
 args: [],
-source: unescape('reversed%0A%09%3Creturn%20self.split%28%22%22%29.reverse%28%29.join%28%22%22%29%3E'),
+source: "reversed\x0a\x09<return self.split(\x22\x22).reverse().join(\x22\x22)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_shallowCopy",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [self]);
 return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%5Eself%20class%20fromString%3A%20self'),
+source: "shallowCopy\x0a\x09^self class fromString: self",
 messageSends: ["fromString:", "class"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self.length;
 return self;},
 args: [],
-source: unescape('size%0A%09%3Creturn%20self.length%3E'),
+source: "size\x0a\x09<return self.length>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_tokenize_'),
+"_tokenize_",
 smalltalk.method({
-selector: unescape('tokenize%3A'),
+selector: "tokenize:",
 category: 'converting',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return self.split(aString);
 return self;},
 args: ["aString"],
-source: unescape('tokenize%3A%20aString%0A%09%3Creturn%20self.split%28aString%29%3E'),
+source: "tokenize: aString\x0a\x09<return self.split(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_trimBoth'),
+"_trimBoth",
 smalltalk.method({
-selector: unescape('trimBoth'),
+selector: "trimBoth",
 category: 'regular expressions',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(self, "_trimBoth_", [unescape("%5Cs")]);
+return smalltalk.send(self, "_trimBoth_", ["\x5cs"]);
 return self;},
 args: [],
-source: unescape('trimBoth%0A%09%5Eself%20trimBoth%3A%20%27%5Cs%27'),
+source: "trimBoth\x0a\x09^self trimBoth: '\x5cs'",
 messageSends: ["trimBoth:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_trimBoth_'),
+"_trimBoth_",
 smalltalk.method({
-selector: unescape('trimBoth%3A'),
+selector: "trimBoth:",
 category: 'regular expressions',
-fn: function (separators) {
+fn: function (separators){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_trimLeft_", [separators]), "_trimRight_", [separators]);
 return self;},
 args: ["separators"],
-source: unescape('trimBoth%3A%20separators%0A%0A%09%5E%28self%20trimLeft%3A%20separators%29%20trimRight%3A%20separators'),
+source: "trimBoth: separators\x0a\x0a\x09^(self trimLeft: separators) trimRight: separators",
 messageSends: ["trimRight:", "trimLeft:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_trimLeft'),
+"_trimLeft",
 smalltalk.method({
-selector: unescape('trimLeft'),
+selector: "trimLeft",
 category: 'regular expressions',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(self, "_trimLeft_", [unescape("%5Cs")]);
+return smalltalk.send(self, "_trimLeft_", ["\x5cs"]);
 return self;},
 args: [],
-source: unescape('trimLeft%0A%09%5Eself%20trimLeft%3A%20%27%5Cs%27'),
+source: "trimLeft\x0a\x09^self trimLeft: '\x5cs'",
 messageSends: ["trimLeft:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_trimLeft_'),
+"_trimLeft_",
 smalltalk.method({
-selector: unescape('trimLeft%3A'),
+selector: "trimLeft:",
 category: 'regular expressions',
-fn: function (separators) {
+fn: function (separators){
 var self=this;
-return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5E%5B"), "__comma", [separators]), "__comma", [unescape("%5D+")]), "g"]), ""]);
+return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send("^[", "__comma", [separators]), "__comma", ["]+"]), "g"]), ""]);
 return self;},
 args: ["separators"],
-source: unescape('trimLeft%3A%20separators%0A%0A%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5E%5B%27%2C%20separators%2C%20%27%5D+%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
-messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
+source: "trimLeft: separators\x0a\x0a\x09^self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''",
+messageSends: ["replaceRegexp:with:", "fromString:flag:", ","],
 referencedClasses: ["RegularExpression"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_trimRight'),
+"_trimRight",
 smalltalk.method({
-selector: unescape('trimRight'),
+selector: "trimRight",
 category: 'regular expressions',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(self, "_trimRight_", [unescape("%5Cs")]);
+return smalltalk.send(self, "_trimRight_", ["\x5cs"]);
 return self;},
 args: [],
-source: unescape('trimRight%0A%09%5Eself%20trimRight%3A%20%27%5Cs%27'),
+source: "trimRight\x0a\x09^self trimRight: '\x5cs'",
 messageSends: ["trimRight:"],
 referencedClasses: []
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_trimRight_'),
+"_trimRight_",
 smalltalk.method({
-selector: unescape('trimRight%3A'),
+selector: "trimRight:",
 category: 'regular expressions',
-fn: function (separators) {
+fn: function (separators){
 var self=this;
-return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send(unescape("%5B"), "__comma", [separators]), "__comma", [unescape("%5D+%24")]), "g"]), ""]);
+return smalltalk.send(self, "_replaceRegexp_with_", [smalltalk.send((smalltalk.RegularExpression || RegularExpression), "_fromString_flag_", [smalltalk.send(smalltalk.send("[", "__comma", [separators]), "__comma", ["]+$"]), "g"]), ""]);
 return self;},
 args: ["separators"],
-source: unescape('trimRight%3A%20separators%0A%0A%09%5Eself%20replaceRegexp%3A%20%28RegularExpression%20fromString%3A%20%27%5B%27%2C%20separators%2C%20%27%5D+%24%27%20flag%3A%20%27g%27%29%20with%3A%20%27%27'),
-messageSends: ["replaceRegexp:with:", "fromString:flag:", unescape("%2C")],
+source: "trimRight: separators\x0a\x0a\x09^self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''",
+messageSends: ["replaceRegexp:with:", "fromString:flag:", ","],
 referencedClasses: ["RegularExpression"]
 }),
 smalltalk.String);
 
 smalltalk.addMethod(
-unescape('_unescaped'),
+"_unescaped",
 smalltalk.method({
-selector: unescape('unescaped'),
+selector: "unescaped",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return unescape(self);
 return self;},
 args: [],
-source: unescape('unescaped%0A%09%3Creturn%20unescape%28self%29%3E'),
+source: "unescaped\x0a\x09<return unescape(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -10862,107 +9664,107 @@ smalltalk.String);
 
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return '\r';
 return self;},
 args: [],
-source: unescape('cr%0A%09%3Creturn%20%27%5Cr%27%3E'),
+source: "cr\x0a\x09<return '\x5cr'>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_crlf'),
+"_crlf",
 smalltalk.method({
-selector: unescape('crlf'),
+selector: "crlf",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return '\r\n';
 return self;},
 args: [],
-source: unescape('crlf%0A%09%3Creturn%20%27%5Cr%5Cn%27%3E'),
+source: "crlf\x0a\x09<return '\x5cr\x5cn'>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_fromString_'),
+"_fromString_",
 smalltalk.method({
-selector: unescape('fromString%3A'),
+selector: "fromString:",
 category: 'instance creation',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return new self.fn(aString);
 return self;},
 args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09%20%20%20%20%3Creturn%20new%20self.fn%28aString%29%3E'),
+source: "fromString: aString\x0a\x09    <return new self.fn(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_lf'),
+"_lf",
 smalltalk.method({
-selector: unescape('lf'),
+selector: "lf",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return '\n';
 return self;},
 args: [],
-source: unescape('lf%0A%09%3Creturn%20%27%5Cn%27%3E'),
+source: "lf\x0a\x09<return '\x5cn'>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_space'),
+"_space",
 smalltalk.method({
-selector: unescape('space'),
+selector: "space",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return ' ';
 return self;},
 args: [],
-source: unescape('space%0A%09%3Creturn%20%27%20%27%3E'),
+source: "space\x0a\x09<return ' '>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_streamClass'),
+"_streamClass",
 smalltalk.method({
-selector: unescape('streamClass'),
+selector: "streamClass",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return (smalltalk.StringStream || StringStream);
 return self;},
 args: [],
-source: unescape('streamClass%0A%09%20%20%20%20%5EStringStream'),
+source: "streamClass\x0a\x09    ^StringStream",
 messageSends: [],
 referencedClasses: ["StringStream"]
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_streamContents_'),
+"_streamContents_",
 smalltalk.method({
-selector: unescape('streamContents%3A'),
+selector: "streamContents:",
 category: 'instance creation',
-fn: function (blockWithArg) {
+fn: function (blockWithArg){
 var self=this;
 var stream=nil;
 (stream=smalltalk.send(smalltalk.send(self, "_streamClass", []), "_on_", [smalltalk.send((smalltalk.String || String), "_new", [])]));
@@ -10970,39 +9772,39 @@ smalltalk.send(blockWithArg, "_value_", [stream]);
 return smalltalk.send(stream, "_contents", []);
 return self;},
 args: ["blockWithArg"],
-source: unescape('streamContents%3A%20blockWithArg%0A%09%7Cstream%7C%0A%09stream%20%3A%3D%20%28self%20streamClass%20on%3A%20String%20new%29.%0A%09blockWithArg%20value%3A%20stream.%0A%09%5E%20stream%20contents'),
+source: "streamContents: blockWithArg\x0a\x09|stream|\x0a\x09stream := (self streamClass on: String new).\x0a\x09blockWithArg value: stream.\x0a\x09^ stream contents",
 messageSends: ["on:", "streamClass", "new", "value:", "contents"],
 referencedClasses: ["String"]
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_tab'),
+"_tab",
 smalltalk.method({
-selector: unescape('tab'),
+selector: "tab",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return '\t';
 return self;},
 args: [],
-source: unescape('tab%0A%09%3Creturn%20%27%5Ct%27%3E'),
+source: "tab\x0a\x09<return '\x5ct'>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-unescape('_value_'),
+"_value_",
 smalltalk.method({
-selector: unescape('value%3A'),
+selector: "value:",
 category: 'instance creation',
-fn: function (aUTFCharCode) {
+fn: function (aUTFCharCode){
 var self=this;
 return String.fromCharCode(aUTFCharCode);;
 return self;},
 args: ["aUTFCharCode"],
-source: unescape('value%3A%20aUTFCharCode%0A%0A%09%3Creturn%20String.fromCharCode%28aUTFCharCode%29%3B%3E'),
+source: "value: aUTFCharCode\x0a\x0a\x09<return String.fromCharCode(aUTFCharCode);>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -11011,274 +9813,275 @@ smalltalk.String.klass);
 
 smalltalk.addClass('Symbol', smalltalk.CharacterArray, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__lt'),
+"__lt",
 smalltalk.method({
-selector: unescape('%3C'),
+selector: "<",
 category: 'comparing',
-fn: function (aSymbol) {
+fn: function (aSymbol){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver <smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__lt", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
 args: ["aSymbol"],
-source: unescape('%3C%20aSymbol%0A%09%5Eself%20asString%20%3C%20aSymbol%20asString'),
-messageSends: [unescape("%3C"), "asString"],
+source: "< aSymbol\x0a\x09^self asString < aSymbol asString",
+messageSends: ["<", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('__lt_eq'),
+"__lt_eq",
 smalltalk.method({
-selector: unescape('%3C%3D'),
+selector: "<=",
 category: 'comparing',
-fn: function (aSymbol) {
+fn: function (aSymbol){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver <=smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__lt_eq", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
 args: ["aSymbol"],
-source: unescape('%3C%3D%20aSymbol%0A%09%5Eself%20asString%20%3C%3D%20aSymbol%20asString'),
-messageSends: [unescape("%3C%3D"), "asString"],
+source: "<= aSymbol\x0a\x09^self asString <= aSymbol asString",
+messageSends: ["<=", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aSymbol) {
+fn: function (aSymbol){
 var self=this;
-try{((($receiver = smalltalk.send(smalltalk.send(aSymbol, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return false}})})();})]));
-(function(){throw({name: 'stReturn', selector: '__eq', fn: function(){return smalltalk.send(smalltalk.send(self, "_asString", []), "__eq", [smalltalk.send(aSymbol, "_asString", [])])}})})();
+var $early={};
+try{((($receiver = smalltalk.send(smalltalk.send(aSymbol, "_class", []), "__eq", [smalltalk.send(self, "_class", [])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[false]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[false]})();})]));
+return smalltalk.send(smalltalk.send(self, "_asString", []), "__eq", [smalltalk.send(aSymbol, "_asString", [])]);
 return self;
-} catch(e) {if(e.name === 'stReturn' && e.selector === '__eq'){return e.fn()} throw(e)}},
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aSymbol"],
-source: unescape('%3D%20aSymbol%0A%09aSymbol%20class%20%3D%20self%20class%20ifFalse%3A%20%5B%5Efalse%5D.%0A%09%5Eself%20asString%20%3D%20aSymbol%20asString'),
-messageSends: ["ifFalse:", unescape("%3D"), "class", "asString"],
+source: "= aSymbol\x0a\x09aSymbol class = self class ifFalse: [^false].\x0a\x09^self asString = aSymbol asString",
+messageSends: ["ifFalse:", "=", "class", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('__gt'),
+"__gt",
 smalltalk.method({
-selector: unescape('%3E'),
+selector: ">",
 category: 'comparing',
-fn: function (aSymbol) {
+fn: function (aSymbol){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver >smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__gt", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
 args: ["aSymbol"],
-source: unescape('%3E%20aSymbol%0A%09%5Eself%20asString%20%3E%20aSymbol%20asString'),
-messageSends: [unescape("%3E"), "asString"],
+source: "> aSymbol\x0a\x09^self asString > aSymbol asString",
+messageSends: [">", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('__gt_eq'),
+"__gt_eq",
 smalltalk.method({
-selector: unescape('%3E%3D'),
+selector: ">=",
 category: 'comparing',
-fn: function (aSymbol) {
+fn: function (aSymbol){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_asString", [])).klass === smalltalk.Number) ? $receiver >=smalltalk.send(aSymbol, "_asString", []) : smalltalk.send($receiver, "__gt_eq", [smalltalk.send(aSymbol, "_asString", [])]));
 return self;},
 args: ["aSymbol"],
-source: unescape('%3E%3D%20aSymbol%0A%09%5Eself%20asString%20%3E%3D%20aSymbol%20asString'),
-messageSends: [unescape("%3E%3D"), "asString"],
+source: ">= aSymbol\x0a\x09^self asString >= aSymbol asString",
+messageSends: [">=", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_asJSON'),
+"_asJSON",
 smalltalk.method({
-selector: unescape('asJSON'),
+selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asJSON", []);
 return self;},
 args: [],
-source: unescape('asJSON%0A%09%5Eself%20asString%20asJSON'),
+source: "asJSON\x0a\x09^self asString asJSON",
 messageSends: ["asJSON", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_asJavascript'),
+"_asJavascript",
 smalltalk.method({
-selector: unescape('asJavascript'),
+selector: "asJavascript",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(unescape("smalltalk.symbolFor%28%22"), "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", [unescape("%22%29")]);
+return smalltalk.send(smalltalk.send("smalltalk.symbolFor(\x22", "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", ["\x22)"]);
 return self;},
 args: [],
-source: unescape('asJavascript%0A%09%5E%27smalltalk.symbolFor%28%22%27%2C%20self%20asString%2C%20%27%22%29%27'),
-messageSends: [unescape("%2C"), "asString"],
+source: "asJavascript\x0a\x09^'smalltalk.symbolFor(\x22', self asString, '\x22)'",
+messageSends: [",", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_asSelector'),
+"_asSelector",
 smalltalk.method({
-selector: unescape('asSelector'),
+selector: "asSelector",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_asSelector", []);
 return self;},
 args: [],
-source: unescape('asSelector%0A%09%5Eself%20asString%20asSelector'),
+source: "asSelector\x0a\x09^self asString asSelector",
 messageSends: ["asSelector", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_asString'),
+"_asString",
 smalltalk.method({
-selector: unescape('asString'),
+selector: "asString",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self.value;
 return self;},
 args: [],
-source: unescape('asString%0A%09%3Creturn%20self.value%3E'),
+source: "asString\x0a\x09<return self.value>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_asSymbol'),
+"_asSymbol",
 smalltalk.method({
-selector: unescape('asSymbol'),
+selector: "asSymbol",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('asSymbol%0A%09%5Eself'),
+source: "asSymbol\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_at_ifAbsent_'),
+"_at_ifAbsent_",
 smalltalk.method({
-selector: unescape('at%3AifAbsent%3A'),
+selector: "at:ifAbsent:",
 category: 'accessing',
-fn: function (anIndex, aBlock) {
+fn: function (anIndex, aBlock){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_at_ifAbsent_", [anIndex, aBlock]);
 return self;},
 args: ["anIndex", "aBlock"],
-source: unescape('at%3A%20anIndex%20ifAbsent%3A%20aBlock%0A%09%5Eself%20asString%20at%3A%20anIndex%20ifAbsent%3A%20aBlock'),
+source: "at: anIndex ifAbsent: aBlock\x0a\x09^self asString at: anIndex ifAbsent: aBlock",
 messageSends: ["at:ifAbsent:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_copyFrom_to_'),
+"_copyFrom_to_",
 smalltalk.method({
-selector: unescape('copyFrom%3Ato%3A'),
+selector: "copyFrom:to:",
 category: 'copying',
-fn: function (anIndex, anotherIndex) {
+fn: function (anIndex, anotherIndex){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_fromString_", [smalltalk.send(smalltalk.send(self, "_asString", []), "_copyFrom_to_", [anIndex, anotherIndex])]);
 return self;},
 args: ["anIndex", "anotherIndex"],
-source: unescape('copyFrom%3A%20anIndex%20to%3A%20anotherIndex%0A%09%5Eself%20class%20fromString%3A%20%28self%20asString%20copyFrom%3A%20anIndex%20to%3A%20anotherIndex%29'),
+source: "copyFrom: anIndex to: anotherIndex\x0a\x09^self class fromString: (self asString copyFrom: anIndex to: anotherIndex)",
 messageSends: ["fromString:", "class", "copyFrom:to:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_deepCopy'),
+"_deepCopy",
 smalltalk.method({
-selector: unescape('deepCopy'),
+selector: "deepCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('deepCopy%0A%09%5Eself'),
+source: "deepCopy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_isSymbol'),
+"_isSymbol",
 smalltalk.method({
-selector: unescape('isSymbol'),
+selector: "isSymbol",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
 return true;
 return self;},
 args: [],
-source: unescape('isSymbol%0A%09%5Etrue'),
+source: "isSymbol\x0a\x09^true",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_printString'),
+"_printString",
 smalltalk.method({
-selector: unescape('printString'),
+selector: "printString",
 category: 'printing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send(unescape("%23"), "__comma", [smalltalk.send(self, "_asString", [])]);
+return smalltalk.send("#", "__comma", [smalltalk.send(self, "_asString", [])]);
 return self;},
 args: [],
-source: unescape('printString%0A%09%5E%27%23%27%2C%20self%20asString'),
-messageSends: [unescape("%2C"), "asString"],
+source: "printString\x0a\x09^'#', self asString",
+messageSends: [",", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_shallowCopy'),
+"_shallowCopy",
 smalltalk.method({
-selector: unescape('shallowCopy'),
+selector: "shallowCopy",
 category: 'copying',
-fn: function () {
+fn: function (){
 var self=this;
 return self;
 return self;},
 args: [],
-source: unescape('shallowCopy%0A%09%5Eself'),
+source: "shallowCopy\x0a\x09^self",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_size", []);
 return self;},
 args: [],
-source: unescape('size%0A%09%5Eself%20asString%20size'),
+source: "size\x0a\x09^self asString size",
 messageSends: ["size", "asString"],
 referencedClasses: []
 }),
@@ -11286,48 +10089,48 @@ smalltalk.Symbol);
 
 
 smalltalk.addMethod(
-unescape('_basicNew'),
+"_basicNew",
 smalltalk.method({
-selector: unescape('basicNew'),
+selector: "basicNew",
 category: 'instance creation',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
 args: [],
-source: unescape('basicNew%0A%09self%20shouldNotImplement'),
+source: "basicNew\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.Symbol.klass);
 
 smalltalk.addMethod(
-unescape('_fromString_'),
+"_fromString_",
 smalltalk.method({
-selector: unescape('fromString%3A'),
+selector: "fromString:",
 category: 'instance creation',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_lookup_", [aString]);
 return self;},
 args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09%5Eself%20lookup%3A%20aString'),
+source: "fromString: aString\x0a\x09^self lookup: aString",
 messageSends: ["lookup:"],
 referencedClasses: []
 }),
 smalltalk.Symbol.klass);
 
 smalltalk.addMethod(
-unescape('_lookup_'),
+"_lookup_",
 smalltalk.method({
-selector: unescape('lookup%3A'),
+selector: "lookup:",
 category: 'instance creation',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return smalltalk.symbolFor(aString);;
 return self;},
 args: ["aString"],
-source: unescape('lookup%3A%20aString%0A%09%3Creturn%20smalltalk.symbolFor%28aString%29%3B%3E'),
+source: "lookup: aString\x0a\x09<return smalltalk.symbolFor(aString);>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -11336,27 +10139,27 @@ smalltalk.Symbol.klass);
 
 smalltalk.addClass('Set', smalltalk.Collection, ['elements'], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('__eq'),
+"__eq",
 smalltalk.method({
-selector: unescape('%3D'),
+selector: "=",
 category: 'comparing',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [smalltalk.send(aCollection, "_class", [])]), "_and_", [(function(){return smalltalk.send(self['@elements'], "__eq", [smalltalk.send(aCollection, "_asArray", [])]);})]);
 return self;},
 args: ["aCollection"],
-source: unescape('%3D%20aCollection%0A%09%5Eself%20class%20%3D%20aCollection%20class%20and%3A%20%5B%0A%09%09elements%20%3D%20aCollection%20asArray%5D'),
-messageSends: ["and:", unescape("%3D"), "class", "asArray"],
+source: "= aCollection\x0a\x09^self class = aCollection class and: [\x0a\x09\x09elements = aCollection asArray]",
+messageSends: ["and:", "=", "class", "asArray"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_add_'),
+"_add_",
 smalltalk.method({
-selector: unescape('add%3A'),
+selector: "add:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 
 		var found;
@@ -11370,115 +10173,115 @@ var self=this;
 	;
 return self;},
 args: ["anObject"],
-source: unescape('add%3A%20anObject%0A%09%3C%0A%09%09var%20found%3B%0A%09%09for%28var%20i%3D0%3B%20i%20%3C%20self%5B%27@elements%27%5D.length%3B%20i++%29%20%7B%0A%09%09%09if%28anObject%20%3D%3D%20self%5B%27@elements%27%5D%5Bi%5D%29%20%7B%0A%09%09%09%09found%20%3D%20true%3B%0A%09%09%09%09break%3B%0A%09%09%09%7D%0A%09%09%7D%0A%09%09if%28%21found%29%20%7Bself%5B%27@elements%27%5D.push%28anObject%29%7D%0A%09%3E'),
+source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(anObject == self['@elements'][i]) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_asArray'),
+"_asArray",
 smalltalk.method({
-selector: unescape('asArray'),
+selector: "asArray",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self['@elements'], "_copy", []);
 return self;},
 args: [],
-source: unescape('asArray%0A%09%5Eelements%20copy'),
+source: "asArray\x0a\x09^elements copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_detect_ifNone_'),
+"_detect_ifNone_",
 smalltalk.method({
-selector: unescape('detect%3AifNone%3A'),
+selector: "detect:ifNone:",
 category: 'enumerating',
-fn: function (aBlock, anotherBlock) {
+fn: function (aBlock, anotherBlock){
 var self=this;
 return smalltalk.send(self['@elements'], "_detect_ifNone_", [aBlock, anotherBlock]);
 return self;},
 args: ["aBlock", "anotherBlock"],
-source: unescape('detect%3A%20aBlock%20ifNone%3A%20anotherBlock%0A%09%5Eelements%20detect%3A%20aBlock%20ifNone%3A%20anotherBlock'),
+source: "detect: aBlock ifNone: anotherBlock\x0a\x09^elements detect: aBlock ifNone: anotherBlock",
 messageSends: ["detect:ifNone:"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_do_'),
+"_do_",
 smalltalk.method({
-selector: unescape('do%3A'),
+selector: "do:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 smalltalk.send(self['@elements'], "_do_", [aBlock]);
 return self;},
 args: ["aBlock"],
-source: unescape('do%3A%20aBlock%0A%09elements%20do%3A%20aBlock'),
+source: "do: aBlock\x0a\x09elements do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_includes_'),
+"_includes_",
 smalltalk.method({
-selector: unescape('includes%3A'),
+selector: "includes:",
 category: 'testing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 return smalltalk.send(self['@elements'], "_includes_", [anObject]);
 return self;},
 args: ["anObject"],
-source: unescape('includes%3A%20anObject%0A%09%5Eelements%20includes%3A%20anObject'),
+source: "includes: anObject\x0a\x09^elements includes: anObject",
 messageSends: ["includes:"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
-fn: function () {
+fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Collection);
+smalltalk.send(self, "_initialize", [], smalltalk.Set.superclass || nil);
 (self['@elements']=[]);
 return self;},
 args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09elements%20%3A%3D%20%23%28%29'),
+source: "initialize\x0a\x09super initialize.\x0a\x09elements := #()",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_remove_'),
+"_remove_",
 smalltalk.method({
-selector: unescape('remove%3A'),
+selector: "remove:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 smalltalk.send(self['@elements'], "_remove_", [anObject]);
 return self;},
 args: ["anObject"],
-source: unescape('remove%3A%20anObject%0A%09elements%20remove%3A%20anObject'),
+source: "remove: anObject\x0a\x09elements remove: anObject",
 messageSends: ["remove:"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_select_'),
+"_select_",
 smalltalk.method({
-selector: unescape('select%3A'),
+selector: "select:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 var collection=nil;
 (collection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
@@ -11486,23 +10289,23 @@ smalltalk.send(self, "_do_", [(function(each){return ((($receiver = smalltalk.se
 return collection;
 return self;},
 args: ["aBlock"],
-source: unescape('select%3A%20aBlock%0A%09%7C%20collection%20%7C%0A%09collection%20%3A%3D%20self%20class%20new.%20%0A%09self%20do%3A%20%5B%3Aeach%20%7C%0A%09%09%28aBlock%20value%3A%20each%29%20ifTrue%3A%20%5B%0A%09%09%09collection%20add%3A%20each%5D%5D.%0A%09%5Ecollection'),
+source: "select: aBlock\x0a\x09| collection |\x0a\x09collection := self class new. \x0a\x09self do: [:each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09\x09collection add: each]].\x0a\x09^collection",
 messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"],
 referencedClasses: []
 }),
 smalltalk.Set);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self['@elements'], "_size", []);
 return self;},
 args: [],
-source: unescape('size%0A%09%5Eelements%20size'),
+source: "size\x0a\x09^elements size",
 messageSends: ["size"],
 referencedClasses: []
 }),
@@ -11512,48 +10315,48 @@ smalltalk.Set);
 
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('_compile_'),
+"_compile_",
 smalltalk.method({
-selector: unescape('compile%3A'),
+selector: "compile:",
 category: 'evaluating',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return self.compile(aString);
 return self;},
 args: ["aString"],
-source: unescape('compile%3A%20aString%0A%09%3Creturn%20self.compile%28aString%29%3E'),
+source: "compile: aString\x0a\x09<return self.compile(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
-unescape('_exec_'),
+"_exec_",
 smalltalk.method({
-selector: unescape('exec%3A'),
+selector: "exec:",
 category: 'evaluating',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return self.exec(aString) || nil;
 return self;},
 args: ["aString"],
-source: unescape('exec%3A%20aString%0A%09%3Creturn%20self.exec%28aString%29%20%7C%7C%20nil%3E'),
+source: "exec: aString\x0a\x09<return self.exec(aString) || nil>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
-unescape('_test_'),
+"_test_",
 smalltalk.method({
-selector: unescape('test%3A'),
+selector: "test:",
 category: 'evaluating',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return self.test(aString);
 return self;},
 args: ["aString"],
-source: unescape('test%3A%20aString%0A%09%3Creturn%20self.test%28aString%29%3E'),
+source: "test: aString\x0a\x09<return self.test(aString)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -11561,32 +10364,32 @@ smalltalk.RegularExpression);
 
 
 smalltalk.addMethod(
-unescape('_fromString_'),
+"_fromString_",
 smalltalk.method({
-selector: unescape('fromString%3A'),
+selector: "fromString:",
 category: 'instance creation',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 return smalltalk.send(self, "_fromString_flag_", [aString, ""]);
 return self;},
 args: ["aString"],
-source: unescape('fromString%3A%20aString%0A%09%20%20%20%20%5Eself%20fromString%3A%20aString%20flag%3A%20%27%27'),
+source: "fromString: aString\x0a\x09    ^self fromString: aString flag: ''",
 messageSends: ["fromString:flag:"],
 referencedClasses: []
 }),
 smalltalk.RegularExpression.klass);
 
 smalltalk.addMethod(
-unescape('_fromString_flag_'),
+"_fromString_flag_",
 smalltalk.method({
-selector: unescape('fromString%3Aflag%3A'),
+selector: "fromString:flag:",
 category: 'instance creation',
-fn: function (aString, anotherString) {
+fn: function (aString, anotherString){
 var self=this;
 return new RegExp(aString, anotherString);
 return self;},
 args: ["aString", "anotherString"],
-source: unescape('fromString%3A%20aString%20flag%3A%20anotherString%0A%09%3Creturn%20new%20RegExp%28aString%2C%20anotherString%29%3E'),
+source: "fromString: aString flag: anotherString\x0a\x09<return new RegExp(aString, anotherString)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -11595,155 +10398,155 @@ smalltalk.RegularExpression.klass);
 
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('_atEnd'),
+"_atEnd",
 smalltalk.method({
-selector: unescape('atEnd'),
+selector: "atEnd",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_position", []), "__eq", [smalltalk.send(self, "_size", [])]);
 return self;},
 args: [],
-source: unescape('atEnd%0A%09%5Eself%20position%20%3D%20self%20size'),
-messageSends: [unescape("%3D"), "position", "size"],
+source: "atEnd\x0a\x09^self position = self size",
+messageSends: ["=", "position", "size"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_atStart'),
+"_atStart",
 smalltalk.method({
-selector: unescape('atStart'),
+selector: "atStart",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_position", []), "__eq", [(0)]);
 return self;},
 args: [],
-source: unescape('atStart%0A%09%5Eself%20position%20%3D%200'),
-messageSends: [unescape("%3D"), "position"],
+source: "atStart\x0a\x09^self position = 0",
+messageSends: ["=", "position"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_close'),
+"_close",
 smalltalk.method({
-selector: unescape('close'),
+selector: "close",
 category: 'actions',
-fn: function () {
+fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('close'),
+source: "close",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_collection'),
+"_collection",
 smalltalk.method({
-selector: unescape('collection'),
+selector: "collection",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@collection'];
 return self;},
 args: [],
-source: unescape('collection%0A%09%5Ecollection'),
+source: "collection\x0a\x09^collection",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_contents'),
+"_contents",
 smalltalk.method({
-selector: unescape('contents'),
+selector: "contents",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [(1), smalltalk.send(self, "_streamSize", [])]);
 return self;},
 args: [],
-source: unescape('contents%0A%09%5Eself%20collection%0A%09%20%20%20%20copyFrom%3A%201%20%0A%09%20%20%20%20to%3A%20self%20streamSize'),
+source: "contents\x0a\x09^self collection\x0a\x09    copyFrom: 1 \x0a\x09    to: self streamSize",
 messageSends: ["copyFrom:to:", "collection", "streamSize"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_do_'),
+"_do_",
 smalltalk.method({
-selector: unescape('do%3A'),
+selector: "do:",
 category: 'enumerating',
-fn: function (aBlock) {
+fn: function (aBlock){
 var self=this;
 (function(){while(!(function(){return smalltalk.send(self, "_atEnd", []);})()) {(function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_next", [])]);})()}})();
 return self;},
 args: ["aBlock"],
-source: unescape('do%3A%20aBlock%0A%09%5Bself%20atEnd%5D%20whileFalse%3A%20%5BaBlock%20value%3A%20self%20next%5D'),
+source: "do: aBlock\x0a\x09[self atEnd] whileFalse: [aBlock value: self next]",
 messageSends: ["whileFalse:", "atEnd", "value:", "next"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_flush'),
+"_flush",
 smalltalk.method({
-selector: unescape('flush'),
+selector: "flush",
 category: 'actions',
-fn: function () {
+fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('flush'),
+source: "flush",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_isEmpty'),
+"_isEmpty",
 smalltalk.method({
-selector: unescape('isEmpty'),
+selector: "isEmpty",
 category: 'testing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_size", []), "__eq", [(0)]);
 return self;},
 args: [],
-source: unescape('isEmpty%0A%09%5Eself%20size%20%3D%200'),
-messageSends: [unescape("%3D"), "size"],
+source: "isEmpty\x0a\x09^self size = 0",
+messageSends: ["=", "size"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_next'),
+"_next",
 smalltalk.method({
-selector: unescape('next'),
+selector: "next",
 category: 'reading',
-fn: function () {
+fn: function (){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return nil;})() : (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return nil;}), (function(){smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);return smalltalk.send(self['@collection'], "_at_", [smalltalk.send(self, "_position", [])]);})]));
 return self;},
 args: [],
-source: unescape('next%0A%09%5Eself%20atEnd%20%0A%09%09ifTrue%3A%20%5Bnil%5D%0A%09%09ifFalse%3A%20%5B%0A%09%09%09self%20position%3A%20self%20position%20+%201.%20%0A%09%09%09collection%20at%3A%20self%20position%5D'),
-messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", unescape("+"), "position", "at:"],
+source: "next\x0a\x09^self atEnd \x0a\x09\x09ifTrue: [nil]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self position: self position + 1. \x0a\x09\x09\x09collection at: self position]",
+messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", "+", "position", "at:"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_next_'),
+"_next_",
 smalltalk.method({
-selector: unescape('next%3A'),
+selector: "next:",
 category: 'reading',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 var tempCollection=nil;
 (tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []));
@@ -11751,218 +10554,218 @@ smalltalk.send(anInteger, "_timesRepeat_", [(function(){return ((($receiver = sm
 return tempCollection;
 return self;},
 args: ["anInteger"],
-source: unescape('next%3A%20anInteger%0A%09%7C%20tempCollection%20%7C%0A%09tempCollection%20%3A%3D%20self%20collection%20class%20new.%0A%09anInteger%20timesRepeat%3A%20%5B%0A%09%20%20%20%20self%20atEnd%20ifFalse%3A%20%5B%0A%09%09tempCollection%20add%3A%20self%20next%5D%5D.%0A%09%5EtempCollection'),
+source: "next: anInteger\x0a\x09| tempCollection |\x0a\x09tempCollection := self collection class new.\x0a\x09anInteger timesRepeat: [\x0a\x09    self atEnd ifFalse: [\x0a\x09\x09tempCollection add: self next]].\x0a\x09^tempCollection",
 messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", "add:", "next"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_nextPut_'),
+"_nextPut_",
 smalltalk.method({
-selector: unescape('nextPut%3A'),
+selector: "nextPut:",
 category: 'writing',
-fn: function (anObject) {
+fn: function (anObject){
 var self=this;
 smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);
 smalltalk.send(smalltalk.send(self, "_collection", []), "_at_put_", [smalltalk.send(self, "_position", []), anObject]);
 smalltalk.send(self, "_setStreamSize_", [smalltalk.send(smalltalk.send(self, "_streamSize", []), "_max_", [smalltalk.send(self, "_position", [])])]);
 return self;},
 args: ["anObject"],
-source: unescape('nextPut%3A%20anObject%0A%09self%20position%3A%20self%20position%20+%201.%0A%09self%20collection%20at%3A%20self%20position%20put%3A%20anObject.%0A%09self%20setStreamSize%3A%20%28self%20streamSize%20max%3A%20self%20position%29'),
-messageSends: ["position:", unescape("+"), "position", "at:put:", "collection", "setStreamSize:", "max:", "streamSize"],
+source: "nextPut: anObject\x0a\x09self position: self position + 1.\x0a\x09self collection at: self position put: anObject.\x0a\x09self setStreamSize: (self streamSize max: self position)",
+messageSends: ["position:", "+", "position", "at:put:", "collection", "setStreamSize:", "max:", "streamSize"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_nextPutAll_'),
+"_nextPutAll_",
 smalltalk.method({
-selector: unescape('nextPutAll%3A'),
+selector: "nextPutAll:",
 category: 'writing',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_nextPut_", [each]);})]);
 return self;},
 args: ["aCollection"],
-source: unescape('nextPutAll%3A%20aCollection%0A%09aCollection%20do%3A%20%5B%3Aeach%20%7C%0A%09%20%20%20%20self%20nextPut%3A%20each%5D'),
+source: "nextPutAll: aCollection\x0a\x09aCollection do: [:each |\x0a\x09    self nextPut: each]",
 messageSends: ["do:", "nextPut:"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_peek'),
+"_peek",
 smalltalk.method({
-selector: unescape('peek'),
+selector: "peek",
 category: 'reading',
-fn: function () {
+fn: function (){
 var self=this;
 return ((($receiver = smalltalk.send(self, "_atEnd", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);})]));
 return self;},
 args: [],
-source: unescape('peek%0A%09%5Eself%20atEnd%20ifFalse%3A%20%5B%0A%09%20%20%20%20self%20collection%20at%3A%20self%20position%20+%201%5D'),
-messageSends: ["ifFalse:", "atEnd", "at:", "collection", unescape("+"), "position"],
+source: "peek\x0a\x09^self atEnd ifFalse: [\x0a\x09    self collection at: self position + 1]",
+messageSends: ["ifFalse:", "atEnd", "at:", "collection", "+", "position"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_position'),
+"_position",
 smalltalk.method({
-selector: unescape('position'),
+selector: "position",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return (($receiver = self['@position']) == nil || $receiver == undefined) ? (function(){return (self['@position']=(0));})() : $receiver;
 return self;},
 args: [],
-source: unescape('position%0A%09%5Eposition%20ifNil%3A%20%5Bposition%20%3A%3D%200%5D'),
+source: "position\x0a\x09^position ifNil: [position := 0]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_position_'),
+"_position_",
 smalltalk.method({
-selector: unescape('position%3A'),
+selector: "position:",
 category: 'accessing',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 (self['@position']=anInteger);
 return self;},
 args: ["anInteger"],
-source: unescape('position%3A%20anInteger%0A%09position%20%3A%3D%20anInteger'),
+source: "position: anInteger\x0a\x09position := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_reset'),
+"_reset",
 smalltalk.method({
-selector: unescape('reset'),
+selector: "reset",
 category: 'actions',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_position_", [(0)]);
 return self;},
 args: [],
-source: unescape('reset%0A%09self%20position%3A%200'),
+source: "reset\x0a\x09self position: 0",
 messageSends: ["position:"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_resetContents'),
+"_resetContents",
 smalltalk.method({
-selector: unescape('resetContents'),
+selector: "resetContents",
 category: 'actions',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_reset", []);
 smalltalk.send(self, "_setStreamSize_", [(0)]);
 return self;},
 args: [],
-source: unescape('resetContents%0A%09self%20reset.%0A%09self%20setStreamSize%3A%200'),
+source: "resetContents\x0a\x09self reset.\x0a\x09self setStreamSize: 0",
 messageSends: ["reset", "setStreamSize:"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_setCollection_'),
+"_setCollection_",
 smalltalk.method({
-selector: unescape('setCollection%3A'),
+selector: "setCollection:",
 category: 'accessing',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 (self['@collection']=aCollection);
 return self;},
 args: ["aCollection"],
-source: unescape('setCollection%3A%20aCollection%0A%09collection%20%3A%3D%20aCollection'),
+source: "setCollection: aCollection\x0a\x09collection := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_setStreamSize_'),
+"_setStreamSize_",
 smalltalk.method({
-selector: unescape('setStreamSize%3A'),
+selector: "setStreamSize:",
 category: 'accessing',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 (self['@streamSize']=anInteger);
 return self;},
 args: ["anInteger"],
-source: unescape('setStreamSize%3A%20anInteger%0A%09streamSize%20%3A%3D%20anInteger'),
+source: "setStreamSize: anInteger\x0a\x09streamSize := anInteger",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_setToEnd'),
+"_setToEnd",
 smalltalk.method({
-selector: unescape('setToEnd'),
+selector: "setToEnd",
 category: 'positioning',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(self, "_size", [])]);
 return self;},
 args: [],
-source: unescape('setToEnd%0A%09self%20position%3A%20self%20size'),
+source: "setToEnd\x0a\x09self position: self size",
 messageSends: ["position:", "size"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_size'),
+"_size",
 smalltalk.method({
-selector: unescape('size'),
+selector: "size",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_streamSize", []);
 return self;},
 args: [],
-source: unescape('size%0A%09%5Eself%20streamSize'),
+source: "size\x0a\x09^self streamSize",
 messageSends: ["streamSize"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_skip_'),
+"_skip_",
 smalltalk.method({
-selector: unescape('skip%3A'),
+selector: "skip:",
 category: 'positioning',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 smalltalk.send(self, "_position_", [smalltalk.send(((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +anInteger : smalltalk.send($receiver, "__plus", [anInteger])), "_min_max_", [smalltalk.send(self, "_size", []), (0)])]);
 return self;},
 args: ["anInteger"],
-source: unescape('skip%3A%20anInteger%0A%09self%20position%3A%20%28%28self%20position%20+%20anInteger%29%20min%3A%20self%20size%20max%3A%200%29'),
-messageSends: ["position:", "min:max:", unescape("+"), "position", "size"],
+source: "skip: anInteger\x0a\x09self position: ((self position + anInteger) min: self size max: 0)",
+messageSends: ["position:", "min:max:", "+", "position", "size"],
 referencedClasses: []
 }),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-unescape('_streamSize'),
+"_streamSize",
 smalltalk.method({
-selector: unescape('streamSize'),
+selector: "streamSize",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 return self['@streamSize'];
 return self;},
 args: [],
-source: unescape('streamSize%0A%09%5EstreamSize'),
+source: "streamSize\x0a\x09^streamSize",
 messageSends: [],
 referencedClasses: []
 }),
@@ -11970,16 +10773,16 @@ smalltalk.Stream);
 
 
 smalltalk.addMethod(
-unescape('_on_'),
+"_on_",
 smalltalk.method({
-selector: unescape('on%3A'),
+selector: "on:",
 category: 'instance creation',
-fn: function (aCollection) {
+fn: function (aCollection){
 var self=this;
 return (function($rec){smalltalk.send($rec, "_setCollection_", [aCollection]);smalltalk.send($rec, "_setStreamSize_", [smalltalk.send(aCollection, "_size", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
 return self;},
 args: ["aCollection"],
-source: unescape('on%3A%20aCollection%0A%09%20%20%20%20%5Eself%20new%20%0A%09%09setCollection%3A%20aCollection%3B%0A%09%09setStreamSize%3A%20aCollection%20size%3B%0A%09%09yourself'),
+source: "on: aCollection\x0a\x09    ^self new \x0a\x09\x09setCollection: aCollection;\x0a\x09\x09setStreamSize: aCollection size;\x0a\x09\x09yourself",
 messageSends: ["setCollection:", "setStreamSize:", "size", "yourself", "new"],
 referencedClasses: []
 }),
@@ -11988,59 +10791,59 @@ smalltalk.Stream.klass);
 
 smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel-Collections');
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 category: 'writing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
 return self;},
 args: [],
-source: unescape('cr%0A%09%5Eself%20nextPutAll%3A%20String%20cr'),
+source: "cr\x0a\x09^self nextPutAll: String cr",
 messageSends: ["nextPutAll:", "cr"],
 referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-unescape('_crlf'),
+"_crlf",
 smalltalk.method({
-selector: unescape('crlf'),
+selector: "crlf",
 category: 'writing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send((smalltalk.String || String), "_crlf", [])]);
 return self;},
 args: [],
-source: unescape('crlf%0A%09%5Eself%20nextPutAll%3A%20String%20crlf'),
+source: "crlf\x0a\x09^self nextPutAll: String crlf",
 messageSends: ["nextPutAll:", "crlf"],
 referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-unescape('_lf'),
+"_lf",
 smalltalk.method({
-selector: unescape('lf'),
+selector: "lf",
 category: 'writing',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.send(self, "_nextPutAll_", [smalltalk.send((smalltalk.String || String), "_lf", [])]);
 return self;},
 args: [],
-source: unescape('lf%0A%09%5Eself%20nextPutAll%3A%20String%20lf'),
+source: "lf\x0a\x09^self nextPutAll: String lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-unescape('_next_'),
+"_next_",
 smalltalk.method({
-selector: unescape('next%3A'),
+selector: "next:",
 category: 'reading',
-fn: function (anInteger) {
+fn: function (anInteger){
 var self=this;
 var tempCollection=nil;
 (tempCollection=smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_class", []), "_new", []));
@@ -12048,57 +10851,57 @@ smalltalk.send(anInteger, "_timesRepeat_", [(function(){return ((($receiver = sm
 return tempCollection;
 return self;},
 args: ["anInteger"],
-source: unescape('next%3A%20anInteger%0A%09%7C%20tempCollection%20%7C%0A%09tempCollection%20%3A%3D%20self%20collection%20class%20new.%0A%09anInteger%20timesRepeat%3A%20%5B%0A%09%20%20%20%20self%20atEnd%20ifFalse%3A%20%5B%0A%09%09tempCollection%20%3A%3D%20tempCollection%2C%20self%20next%5D%5D.%0A%09%5EtempCollection'),
-messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", unescape("%2C"), "next"],
+source: "next: anInteger\x0a\x09| tempCollection |\x0a\x09tempCollection := self collection class new.\x0a\x09anInteger timesRepeat: [\x0a\x09    self atEnd ifFalse: [\x0a\x09\x09tempCollection := tempCollection, self next]].\x0a\x09^tempCollection",
+messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", ",", "next"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-unescape('_nextPut_'),
+"_nextPut_",
 smalltalk.method({
-selector: unescape('nextPut%3A'),
+selector: "nextPut:",
 category: 'writing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 smalltalk.send(self, "_nextPutAll_", [aString]);
 return self;},
 args: ["aString"],
-source: unescape('nextPut%3A%20aString%0A%09self%20nextPutAll%3A%20aString'),
+source: "nextPut: aString\x0a\x09self nextPutAll: aString",
 messageSends: ["nextPutAll:"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-unescape('_nextPutAll_'),
+"_nextPutAll_",
 smalltalk.method({
-selector: unescape('nextPutAll%3A'),
+selector: "nextPutAll:",
 category: 'writing',
-fn: function (aString) {
+fn: function (aString){
 var self=this;
 smalltalk.send(self, "_setCollection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [(1), smalltalk.send(self, "_position", [])]), "__comma", [aString]), "__comma", [smalltalk.send(smalltalk.send(self, "_collection", []), "_copyFrom_to_", [((($receiver = ((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))).klass === smalltalk.Number) ? $receiver +smalltalk.send(aString, "_size", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(aString, "_size", [])])), smalltalk.send(smalltalk.send(self, "_collection", []), "_size", [])])])]);
 smalltalk.send(self, "_position_", [((($receiver = smalltalk.send(self, "_position", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(aString, "_size", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(aString, "_size", [])]))]);
 smalltalk.send(self, "_setStreamSize_", [smalltalk.send(smalltalk.send(self, "_streamSize", []), "_max_", [smalltalk.send(self, "_position", [])])]);
 return self;},
 args: ["aString"],
-source: unescape('nextPutAll%3A%20aString%0A%09self%20setCollection%3A%20%0A%09%20%20%20%20%28self%20collection%20copyFrom%3A%201%20to%3A%20self%20position%29%2C%0A%09%20%20%20%20aString%2C%0A%09%20%20%20%20%28self%20collection%20copyFrom%3A%20%28self%20position%20+%201%20+%20aString%20size%29%20to%3A%20self%20collection%20size%29.%0A%09self%20position%3A%20self%20position%20+%20aString%20size.%0A%09self%20setStreamSize%3A%20%28self%20streamSize%20max%3A%20self%20position%29'),
-messageSends: ["setCollection:", unescape("%2C"), "copyFrom:to:", "collection", "position", unescape("+"), "size", "position:", "setStreamSize:", "max:", "streamSize"],
+source: "nextPutAll: aString\x0a\x09self setCollection: \x0a\x09    (self collection copyFrom: 1 to: self position),\x0a\x09    aString,\x0a\x09    (self collection copyFrom: (self position + 1 + aString size) to: self collection size).\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",
+messageSends: ["setCollection:", ",", "copyFrom:to:", "collection", "position", "+", "size", "position:", "setStreamSize:", "max:", "streamSize"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-unescape('_space'),
+"_space",
 smalltalk.method({
-selector: unescape('space'),
+selector: "space",
 category: 'writing',
-fn: function () {
+fn: function (){
 var self=this;
 smalltalk.send(self, "_nextPut_", [" "]);
 return self;},
 args: [],
-source: unescape('space%0A%09self%20nextPut%3A%20%27%20%27'),
+source: "space\x0a\x09self nextPut: ' '",
 messageSends: ["nextPut:"],
 referencedClasses: []
 }),
@@ -12109,114 +10912,147 @@ smalltalk.StringStream);
 smalltalk.addPackage('Kernel-Exceptions', {});
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(
-unescape('_context'),
+"_context",
 smalltalk.method({
-selector: unescape('context'),
+selector: "context",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.context;
 return self;},
 args: [],
-source: unescape('context%0A%09%3Creturn%20self.context%3E'),
+source: "context\x0a\x09<return self.context>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Error);
 
 smalltalk.addMethod(
-unescape('_isSmalltalkError'),
+"_isSmalltalkError",
 smalltalk.method({
-selector: unescape('isSmalltalkError'),
+selector: "isSmalltalkError",
 category: 'testing',
 fn: function (){
 var self=this;
 return self.smalltalkError === true;
 return self;},
 args: [],
-source: unescape('isSmalltalkError%0A%09%3Creturn%20self.smalltalkError%20%3D%3D%3D%20true%3E'),
+source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Error);
 
 smalltalk.addMethod(
-unescape('_jsStack'),
+"_jsStack",
 smalltalk.method({
-selector: unescape('jsStack'),
+selector: "jsStack",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self.stack;
 return self;},
 args: [],
-source: unescape('jsStack%0A%09%3Creturn%20self.stack%3E'),
+source: "jsStack\x0a\x09<return self.stack>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Error);
 
 smalltalk.addMethod(
-unescape('_messageText'),
+"_messageText",
 smalltalk.method({
-selector: unescape('messageText'),
+selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self['@messageText'];
 return self;},
 args: [],
-source: unescape('messageText%0A%09%5EmessageText'),
+source: "messageText\x0a\x09^messageText",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Error);
 
 smalltalk.addMethod(
-unescape('_messageText_'),
+"_messageText_",
 smalltalk.method({
-selector: unescape('messageText%3A'),
+selector: "messageText:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
 (self['@messageText']=aString);
 return self;},
 args: ["aString"],
-source: unescape('messageText%3A%20aString%0A%09messageText%20%3A%3D%20aString'),
+source: "messageText: aString\x0a\x09messageText := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Error);
 
 smalltalk.addMethod(
-unescape('_signal'),
+"_signal",
 smalltalk.method({
-selector: unescape('signal'),
+selector: "signal",
 category: 'signaling',
 fn: function (){
 var self=this;
 self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
 return self;},
 args: [],
-source: unescape('signal%0A%09%3Cself.context%20%3D%20smalltalk.getThisContext%28%29%3B%20self.smalltalkError%20%3D%20true%3B%20throw%28self%29%3E'),
+source: "signal\x0a\x09<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+"_signal_",
+smalltalk.method({
+selector: "signal:",
+category: 'signaling',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_messageText_", [aString]);
+smalltalk.send(self, "_signal", []);
+return self;},
+args: ["aString"],
+source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
+messageSends: ["messageText:", "signal"],
 referencedClasses: []
 }),
 smalltalk.Error);
 
 
 smalltalk.addMethod(
-unescape('_signal_'),
+"_signal",
 smalltalk.method({
-selector: unescape('signal%3A'),
+selector: "signal",
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_new", []), "_signal", []);
+return self;},
+args: [],
+source: "signal\x0a\x09^self new signal",
+messageSends: ["signal", "new"],
+referencedClasses: []
+}),
+smalltalk.Error.klass);
+
+smalltalk.addMethod(
+"_signal_",
+smalltalk.method({
+selector: "signal:",
 category: 'instance creation',
 fn: function (aString){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_messageText_", [aString]);return smalltalk.send($rec, "_signal", []);})(smalltalk.send(self, "_new", []));
+return smalltalk.send(smalltalk.send(self, "_new", []), "_signal_", [aString]);
 return self;},
 args: ["aString"],
-source: unescape('signal%3A%20aString%0A%09%20%20%20%20%5Eself%20new%0A%09%09messageText%3A%20aString%3B%0A%09%09signal'),
-messageSends: ["messageText:", "signal", "new"],
+source: "signal: aString\x0a\x09    ^self new\x0a\x09\x09signal: aString",
+messageSends: ["signal:", "new"],
 referencedClasses: []
 }),
 smalltalk.Error.klass);
@@ -12224,80 +11060,80 @@ smalltalk.Error.klass);
 
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 smalltalk.addMethod(
-unescape('_message'),
+"_message",
 smalltalk.method({
-selector: unescape('message'),
+selector: "message",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self['@message'];
 return self;},
 args: [],
-source: unescape('message%0A%09%5Emessage'),
+source: "message\x0a\x09^message",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-unescape('_message_'),
+"_message_",
 smalltalk.method({
-selector: unescape('message%3A'),
+selector: "message:",
 category: 'accessing',
 fn: function (aMessage){
 var self=this;
 (self['@message']=aMessage);
 return self;},
 args: ["aMessage"],
-source: unescape('message%3A%20aMessage%0A%09message%20%3A%3D%20aMessage'),
+source: "message: aMessage\x0a\x09message := aMessage",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-unescape('_messageText'),
+"_messageText",
 smalltalk.method({
-selector: unescape('messageText'),
+selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [unescape("%20does%20not%20understand%20%23")]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_asString", []), "__comma", [" does not understand #"]), "__comma", [smalltalk.send(smalltalk.send(self, "_message", []), "_selector", [])]);
 return self;},
 args: [],
-source: unescape('messageText%0A%09%5Eself%20receiver%20asString%2C%20%27%20does%20not%20understand%20%23%27%2C%20self%20message%20selector'),
-messageSends: [unescape("%2C"), "asString", "receiver", "selector", "message"],
+source: "messageText\x0a\x09^self receiver asString, ' does not understand #', self message selector",
+messageSends: [",", "asString", "receiver", "selector", "message"],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-unescape('_receiver'),
+"_receiver",
 smalltalk.method({
-selector: unescape('receiver'),
+selector: "receiver",
 category: 'accessing',
 fn: function (){
 var self=this;
 return self['@receiver'];
 return self;},
 args: [],
-source: unescape('receiver%0A%09%5Ereceiver'),
+source: "receiver\x0a\x09^receiver",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-unescape('_receiver_'),
+"_receiver_",
 smalltalk.method({
-selector: unescape('receiver%3A'),
+selector: "receiver:",
 category: 'accessing',
 fn: function (anObject){
 var self=this;
 (self['@receiver']=anObject);
 return self;},
 args: ["anObject"],
-source: unescape('receiver%3A%20anObject%0A%09receiver%20%3A%3D%20anObject'),
+source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -12307,9 +11143,9 @@ smalltalk.MessageNotUnderstood);
 
 smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel-Exceptions');
 smalltalk.addMethod(
-unescape('_handleError_'),
+"_handleError_",
 smalltalk.method({
-selector: unescape('handleError%3A'),
+selector: "handleError:",
 category: 'error handling',
 fn: function (anError){
 var self=this;
@@ -12317,72 +11153,72 @@ var self=this;
 smalltalk.send(self, "_logError_", [anError]);
 return self;},
 args: ["anError"],
-source: unescape('handleError%3A%20anError%0A%09anError%20context%20ifNotNil%3A%20%5Bself%20logErrorContext%3A%20anError%20context%5D.%0A%09self%20logError%3A%20anError'),
+source: "handleError: anError\x0a\x09anError context ifNotNil: [self logErrorContext: anError context].\x0a\x09self logError: anError",
 messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-unescape('_log_'),
+"_log_",
 smalltalk.method({
-selector: unescape('log%3A'),
+selector: "log:",
 category: 'private',
 fn: function (aString){
 var self=this;
 smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aString]);
 return self;},
 args: ["aString"],
-source: unescape('log%3A%20aString%0A%09console%20log%3A%20aString'),
+source: "log: aString\x0a\x09console log: aString",
 messageSends: ["log:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-unescape('_logContext_'),
+"_logContext_",
 smalltalk.method({
-selector: unescape('logContext%3A'),
+selector: "logContext:",
 category: 'private',
 fn: function (aContext){
 var self=this;
 (($receiver = smalltalk.send(aContext, "_home", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})() : nil;
-smalltalk.send(self, "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext, "_receiver", []), "_asString", []), "__comma", [unescape("%3E%3E")]), "__comma", [smalltalk.send(aContext, "_selector", [])])]);
+smalltalk.send(self, "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext, "_receiver", []), "_asString", []), "__comma", [">>"]), "__comma", [smalltalk.send(aContext, "_selector", [])])]);
 return self;},
 args: ["aContext"],
-source: unescape('logContext%3A%20aContext%0A%09aContext%20home%20ifNotNil%3A%20%5B%0A%09%09self%20logContext%3A%20aContext%20home%5D.%0A%09self%20log%3A%20aContext%20receiver%20asString%2C%20%27%3E%3E%27%2C%20aContext%20selector'),
-messageSends: ["ifNotNil:", "home", "logContext:", "log:", unescape("%2C"), "asString", "receiver", "selector"],
+source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext receiver asString, '>>', aContext selector",
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", ",", "asString", "receiver", "selector"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-unescape('_logError_'),
+"_logError_",
 smalltalk.method({
-selector: unescape('logError%3A'),
+selector: "logError:",
 category: 'private',
 fn: function (anError){
 var self=this;
 smalltalk.send(self, "_log_", [smalltalk.send(anError, "_messageText", [])]);
 return self;},
 args: ["anError"],
-source: unescape('logError%3A%20anError%0A%09self%20log%3A%20anError%20messageText'),
+source: "logError: anError\x0a\x09self log: anError messageText",
 messageSends: ["log:", "messageText"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-unescape('_logErrorContext_'),
+"_logErrorContext_",
 smalltalk.method({
-selector: unescape('logErrorContext%3A'),
+selector: "logErrorContext:",
 category: 'private',
 fn: function (aContext){
 var self=this;
 (($receiver = aContext) != nil && $receiver != undefined) ? (function(){return (($receiver = smalltalk.send(aContext, "_home", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(self, "_logContext_", [smalltalk.send(aContext, "_home", [])]);})() : nil;})() : nil;
 return self;},
 args: ["aContext"],
-source: unescape('logErrorContext%3A%20aContext%0A%09aContext%20ifNotNil%3A%20%5B%0A%09%09aContext%20home%20ifNotNil%3A%20%5B%0A%09%09%09self%20logContext%3A%20aContext%20home%5D%5D'),
+source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home]]",
 messageSends: ["ifNotNil:", "home", "logContext:"],
 referencedClasses: []
 }),
@@ -12391,64 +11227,64 @@ smalltalk.ErrorHandler);
 
 smalltalk.ErrorHandler.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-unescape('_current'),
+"_current",
 smalltalk.method({
-selector: unescape('current'),
+selector: "current",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", []));})() : $receiver;
 return self;},
 args: [],
-source: unescape('current%0A%09%5Ecurrent%20ifNil%3A%20%5Bcurrent%20%3A%3D%20self%20new%5D'),
+source: "current\x0a\x09^current ifNil: [current := self new]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_register", []);
 return self;},
 args: [],
-source: unescape('initialize%0A%09self%20register'),
+source: "initialize\x0a\x09self register",
 messageSends: ["register"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-unescape('_register'),
+"_register",
 smalltalk.method({
-selector: unescape('register'),
+selector: "register",
 category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send((smalltalk.ErrorHandler || ErrorHandler), "_setCurrent_", [smalltalk.send(self, "_new", [])]);
 return self;},
 args: [],
-source: unescape('register%0A%09ErrorHandler%20setCurrent%3A%20self%20new'),
+source: "register\x0a\x09ErrorHandler setCurrent: self new",
 messageSends: ["setCurrent:", "new"],
 referencedClasses: ["ErrorHandler"]
 }),
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-unescape('_setCurrent_'),
+"_setCurrent_",
 smalltalk.method({
-selector: unescape('setCurrent%3A'),
+selector: "setCurrent:",
 category: 'accessing',
 fn: function (anHandler){
 var self=this;
 (self['@current']=anHandler);
 return self;},
 args: ["anHandler"],
-source: unescape('setCurrent%3A%20anHandler%0A%09current%20%3A%3D%20anHandler'),
+source: "setCurrent: anHandler\x0a\x09current := anHandler",
 messageSends: [],
 referencedClasses: []
 }),
@@ -12458,57 +11294,57 @@ smalltalk.ErrorHandler.klass);
 smalltalk.addPackage('Kernel-Transcript', {});
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
-unescape('_clear'),
+"_clear",
 smalltalk.method({
-selector: unescape('clear'),
+selector: "clear",
 category: 'printing',
 fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('clear%0A%09%22no%20op%22'),
+source: "clear\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 category: 'printing',
 fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('cr%0A%09%22no%20op%22'),
+source: "cr\x0a\x09\x22no op\x22",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_open'),
+"_open",
 smalltalk.method({
-selector: unescape('open'),
+selector: "open",
 category: 'actions',
 fn: function (){
 var self=this;
 
 return self;},
 args: [],
-source: unescape('open'),
+source: "open",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-unescape('_show_'),
+"_show_",
 smalltalk.method({
-selector: unescape('show%3A'),
+selector: "show:",
 category: 'printing',
 fn: function (anObject){
 var self=this;
@@ -12517,7 +11353,7 @@ var string=nil;
 console.log(String(string));
 return self;},
 args: ["anObject"],
-source: unescape('show%3A%20anObject%0A%09%7C%20string%20%7C%0A%09string%20%3A%3D%20anObject%20asString.%0A%09%3Cconsole.log%28String%28string%29%29%3E'),
+source: "show: anObject\x0a\x09| string |\x0a\x09string := anObject asString.\x0a\x09<console.log(String(string))>",
 messageSends: ["asString"],
 referencedClasses: []
 }),
@@ -12525,16 +11361,16 @@ smalltalk.ConsoleTranscript);
 
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
 return self;},
 args: [],
-source: unescape('initialize%0A%09Transcript%20register%3A%20self%20new'),
+source: "initialize\x0a\x09Transcript register: self new",
 messageSends: ["register:", "new"],
 referencedClasses: ["Transcript"]
 }),
@@ -12545,112 +11381,112 @@ smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcr
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-unescape('_clear'),
+"_clear",
 smalltalk.method({
-selector: unescape('clear'),
+selector: "clear",
 category: 'printing',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
 return self;},
 args: [],
-source: unescape('clear%0A%20%20%20%20self%20current%20clear'),
+source: "clear\x0a    self current clear",
 messageSends: ["clear", "current"],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_cr'),
+"_cr",
 smalltalk.method({
-selector: unescape('cr'),
+selector: "cr",
 category: 'printing',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
 return self;},
 args: [],
-source: unescape('cr%0A%20%20%20%20self%20current%20show%3A%20String%20cr'),
+source: "cr\x0a    self current show: String cr",
 messageSends: ["show:", "current", "cr"],
 referencedClasses: ["String"]
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_current'),
+"_current",
 smalltalk.method({
-selector: unescape('current'),
+selector: "current",
 category: 'instance creation',
 fn: function (){
 var self=this;
 return self['@current'];
 return self;},
 args: [],
-source: unescape('current%0A%20%20%20%20%5Ecurrent'),
+source: "current\x0a    ^current",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_new'),
+"_new",
 smalltalk.method({
-selector: unescape('new'),
+selector: "new",
 category: 'instance creation',
 fn: function (){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
 args: [],
-source: unescape('new%0A%20%20%20%20self%20shouldNotImplement'),
+source: "new\x0a    self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_open'),
+"_open",
 smalltalk.method({
-selector: unescape('open'),
+selector: "open",
 category: 'instance creation',
 fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
 return self;},
 args: [],
-source: unescape('open%0A%20%20%20%20self%20current%20open'),
+source: "open\x0a    self current open",
 messageSends: ["open", "current"],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_register_'),
+"_register_",
 smalltalk.method({
-selector: unescape('register%3A'),
+selector: "register:",
 category: 'instance creation',
 fn: function (aTranscript){
 var self=this;
 (self['@current']=aTranscript);
 return self;},
 args: ["aTranscript"],
-source: unescape('register%3A%20aTranscript%0A%09current%20%3A%3D%20aTranscript'),
+source: "register: aTranscript\x0a\x09current := aTranscript",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-unescape('_show_'),
+"_show_",
 smalltalk.method({
-selector: unescape('show%3A'),
+selector: "show:",
 category: 'printing',
 fn: function (anObject){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
 return self;},
 args: ["anObject"],
-source: unescape('show%3A%20anObject%0A%20%20%20%20self%20current%20show%3A%20anObject'),
+source: "show: anObject\x0a    self current show: anObject",
 messageSends: ["show:", "current"],
 referencedClasses: []
 }),
@@ -12660,41 +11496,41 @@ smalltalk.Transcript.klass);
 smalltalk.addPackage('FileServer', {});
 smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'util'], 'FileServer');
 smalltalk.addMethod(
-unescape('_basePath'),
+"_basePath",
 smalltalk.method({
-selector: unescape('basePath'),
+selector: "basePath",
 category: 'accessing',
 fn: function (){
 var self=this;
-return (($receiver = self['@basePath']) == nil || $receiver == undefined) ? (function(){return unescape("./");})() : $receiver;
+return (($receiver = self['@basePath']) == nil || $receiver == undefined) ? (function(){return "./";})() : $receiver;
 return self;},
 args: [],
-source: unescape('basePath%0A%09%5EbasePath%20ifNil%3A%20%5B%27./%27%5D'),
+source: "basePath\x0a\x09^basePath ifNil: ['./']",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_basePath_'),
+"_basePath_",
 smalltalk.method({
-selector: unescape('basePath%3A'),
+selector: "basePath:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
 (self['@basePath']=aString);
 return self;},
 args: ["aString"],
-source: unescape('basePath%3A%20aString%0A%09basePath%20%3A%3D%20aString'),
+source: "basePath: aString\x0a\x09basePath := aString",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_handleGETRequest_respondTo_'),
+"_handleGETRequest_respondTo_",
 smalltalk.method({
-selector: unescape('handleGETRequest%3ArespondTo%3A'),
+selector: "handleGETRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
@@ -12705,33 +11541,33 @@ var filename=nil;
 smalltalk.send(self['@path'], "_exists_do_", [filename, (function(boolean){return ((($receiver = boolean).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_respondNotFoundTo_", [aResponse]);})() : (function(){return smalltalk.send(self, "_respondFileNamed_to_", [filename, aResponse]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_respondNotFoundTo_", [aResponse]);}), (function(){return smalltalk.send(self, "_respondFileNamed_to_", [filename, aResponse]);})]));})]);
 return self;},
 args: ["aRequest", "aResponse"],
-source: unescape('handleGETRequest%3A%20aRequest%20respondTo%3A%20aResponse%0A%09%7C%20uri%20filename%20%7C%0A%09uri%20%3A%3D%20%28url%20parse%3A%20aRequest%20url%29%20pathname.%0A%09filename%20%3A%3D%20path%20join%3A%20self%20basePath%20with%3A%20uri.%0A%09path%20exists%3A%20filename%20do%3A%20%5B%3Aboolean%20%7C%20%0A%09%09boolean%20%0A%09%09%09ifFalse%3A%20%5Bself%20respondNotFoundTo%3A%20aResponse%5D%0A%09%09%09ifTrue%3A%20%5Bself%20respondFileNamed%3A%20filename%20to%3A%20aResponse%5D%5D'),
+source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := (url parse: aRequest url) pathname.\x0a\x09filename := path join: self basePath with: uri.\x0a\x09path exists: filename do: [:boolean | \x0a\x09\x09boolean \x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [self respondFileNamed: filename to: aResponse]]",
 messageSends: ["pathname", "parse:", "url", "join:with:", "basePath", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "respondFileNamed:to:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_handleOPTIONSRequest_respondTo_'),
+"_handleOPTIONSRequest_respondTo_",
 smalltalk.method({
-selector: unescape('handleOPTIONSRequest%3ArespondTo%3A'),
+selector: "handleOPTIONSRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
-smalltalk.send(aResponse, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("Access-Control-Allow-Origin"), "__minus_gt", [unescape("*")]),smalltalk.send(unescape("Access-Control-Allow-Methods"), "__minus_gt", [unescape("GET%2C%20PUT%2C%20POST%2C%20DELETE%2C%20OPTIONS")]),smalltalk.send(unescape("Access-Control-Allow-Headers"), "__minus_gt", [unescape("Content-Type%2C%20Accept")]),smalltalk.send(unescape("Content-Length"), "__minus_gt", [(0)]),smalltalk.send(unescape("Access-Control-Max-Age"), "__minus_gt", [(10)])])]);
+smalltalk.send(aResponse, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"]),smalltalk.send("Access-Control-Allow-Methods", "__minus_gt", ["GET, PUT, POST, DELETE, OPTIONS"]),smalltalk.send("Access-Control-Allow-Headers", "__minus_gt", ["Content-Type, Accept"]),smalltalk.send("Content-Length", "__minus_gt", [(0)]),smalltalk.send("Access-Control-Max-Age", "__minus_gt", [(10)])])]);
 smalltalk.send(aResponse, "_end", []);
 return self;},
 args: ["aRequest", "aResponse"],
-source: unescape('handleOPTIONSRequest%3A%20aRequest%20respondTo%3A%20aResponse%0A%09aResponse%20writeHead%3A%20200%20options%3A%20%23%7B%27Access-Control-Allow-Origin%27%20-%3E%20%27*%27.%0A%09%09%09%09%09%27Access-Control-Allow-Methods%27%20-%3E%20%27GET%2C%20PUT%2C%20POST%2C%20DELETE%2C%20OPTIONS%27.%0A%09%09%09%09%09%27Access-Control-Allow-Headers%27%20-%3E%20%27Content-Type%2C%20Accept%27.%0A%09%09%09%09%09%27Content-Length%27%20-%3E%200.%0A%09%09%09%09%09%27Access-Control-Max-Age%27%20-%3E%2010%7D.%0A%09aResponse%20end'),
-messageSends: ["writeHead:options:", unescape("-%3E"), "end"],
+source: "handleOPTIONSRequest: aRequest respondTo: aResponse\x0a\x09aResponse writeHead: 200 options: #{'Access-Control-Allow-Origin' -> '*'.\x0a\x09\x09\x09\x09\x09'Access-Control-Allow-Methods' -> 'GET, PUT, POST, DELETE, OPTIONS'.\x0a\x09\x09\x09\x09\x09'Access-Control-Allow-Headers' -> 'Content-Type, Accept'.\x0a\x09\x09\x09\x09\x09'Content-Length' -> 0.\x0a\x09\x09\x09\x09\x09'Access-Control-Max-Age' -> 10}.\x0a\x09aResponse end",
+messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_handlePUTRequest_respondTo_'),
+"_handlePUTRequest_respondTo_",
 smalltalk.method({
-selector: unescape('handlePUTRequest%3ArespondTo%3A'),
+selector: "handlePUTRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
@@ -12742,16 +11578,16 @@ smalltalk.send(aRequest, "_on_do_", ["data", (function(data){return smalltalk.se
 smalltalk.send(aRequest, "_on_do_", ["end", (function(){smalltalk.send(stream, "_end", []);return smalltalk.send(self, "_respondOKTo_", [aResponse]);})]);
 return self;},
 args: ["aRequest", "aResponse"],
-source: unescape('handlePUTRequest%3A%20aRequest%20respondTo%3A%20aResponse%0A%09%7Cstream%20%7C%0A%09stream%20%3A%3D%20fs%20createWriteStream%3A%20%27.%27%20%2C%20aRequest%20url.%0A%20%20%20%20%20%20%20%20aRequest%20setEncoding%3A%20%27utf8%27.%0A%20%20%20%20%20%20%20%20aRequest%20on%3A%20%27data%27%20do%3A%20%5B%3Adata%20%7C%20stream%20write%3A%20data%5D.%0A%0A%20%20%20%20%20%20%20%20aRequest%20on%3A%20%27end%27%20do%3A%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20stream%20end.%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20self%20respondOKTo%3A%20aResponse%5D'),
-messageSends: ["createWriteStream:", unescape("%2C"), "url", "setEncoding:", "on:do:", "write:", "end", "respondOKTo:"],
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09|stream |\x0a\x09stream := fs createWriteStream: '.' , aRequest url.\x0a        aRequest setEncoding: 'utf8'.\x0a        aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a        aRequest on: 'end' do: [\x0a                stream end.\x0a                self respondOKTo: aResponse]",
+messageSends: ["createWriteStream:", ",", "url", "setEncoding:", "on:do:", "write:", "end", "respondOKTo:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_handleRequest_respondTo_'),
+"_handleRequest_respondTo_",
 smalltalk.method({
-selector: unescape('handleRequest%3ArespondTo%3A'),
+selector: "handleRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
@@ -12760,20 +11596,20 @@ var self=this;
 ((($receiver = smalltalk.send(smalltalk.send(aRequest, "_method", []), "__eq", ["OPTIONS"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_handleOPTIONSRequest_respondTo_", [aRequest, aResponse]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_handleOPTIONSRequest_respondTo_", [aRequest, aResponse]);})]));
 return self;},
 args: ["aRequest", "aResponse"],
-source: unescape('handleRequest%3A%20aRequest%20respondTo%3A%20aResponse%0A%0A%09aRequest%20method%20%3D%20%27PUT%27%0A%09%09ifTrue%3A%20%5Bself%20handlePUTRequest%3A%20aRequest%20respondTo%3A%20aResponse%5D.%0A%09aRequest%20method%20%3D%20%27GET%27%0A%09%09ifTrue%3A%5Bself%20handleGETRequest%3A%20aRequest%20respondTo%3A%20aResponse%5D.%0A%09aRequest%20method%20%3D%20%27OPTIONS%27%0A%09%09ifTrue%3A%5Bself%20handleOPTIONSRequest%3A%20aRequest%20respondTo%3A%20aResponse%5D'),
-messageSends: ["ifTrue:", unescape("%3D"), "method", "handlePUTRequest:respondTo:", "handleGETRequest:respondTo:", "handleOPTIONSRequest:respondTo:"],
+source: "handleRequest: aRequest respondTo: aResponse\x0a\x0a\x09aRequest method = 'PUT'\x0a\x09\x09ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'GET'\x0a\x09\x09ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'OPTIONS'\x0a\x09\x09ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]",
+messageSends: ["ifTrue:", "=", "method", "handlePUTRequest:respondTo:", "handleGETRequest:respondTo:", "handleOPTIONSRequest:respondTo:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_initialize'),
+"_initialize",
 smalltalk.method({
-selector: unescape('initialize'),
+selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
+smalltalk.send(self, "_initialize", [], smalltalk.FileServer.superclass || nil);
 (self['@path']=smalltalk.send(self, "_require_", ["path"]));
 (self['@http']=smalltalk.send(self, "_require_", ["http"]));
 (self['@fs']=smalltalk.send(self, "_require_", ["fs"]));
@@ -12781,48 +11617,48 @@ smalltalk.send(self, "_initialize", [], smalltalk.Object);
 (self['@url']=smalltalk.send(self, "_require_", ["url"]));
 return self;},
 args: [],
-source: unescape('initialize%0A%09super%20initialize.%0A%09path%20%3A%3D%20self%20require%3A%20%27path%27.%0A%09http%20%3A%3D%20self%20require%3A%20%27http%27.%0A%09fs%20%3A%3D%20self%20require%3A%20%27fs%27.%0A%09util%20%3A%3D%20self%20require%3A%20%27util%27.%0A%09url%20%3A%3D%20self%20require%3A%20%27url%27'),
+source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'",
 messageSends: ["initialize", "require:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_port'),
+"_port",
 smalltalk.method({
-selector: unescape('port'),
+selector: "port",
 category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_class", []), "_port", []);
 return self;},
 args: [],
-source: unescape('port%0A%09%5Eself%20class%20port'),
+source: "port\x0a\x09^self class port",
 messageSends: ["port", "class"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_require_'),
+"_require_",
 smalltalk.method({
-selector: unescape('require%3A'),
+selector: "require:",
 category: 'private',
 fn: function (aModuleString){
 var self=this;
 return smalltalk.send((typeof require == 'undefined' ? nil : require), "_value_", [aModuleString]);
 return self;},
 args: ["aModuleString"],
-source: unescape('require%3A%20aModuleString%0A%09%22call%20to%20the%20require%20function%22%0A%09%5Erequire%20value%3A%20aModuleString'),
+source: "require: aModuleString\x0a\x09\x22call to the require function\x22\x0a\x09^require value: aModuleString",
 messageSends: ["value:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_respondFileNamed_to_'),
+"_respondFileNamed_to_",
 smalltalk.method({
-selector: unescape('respondFileNamed%3Ato%3A'),
+selector: "respondFileNamed:to:",
 category: 'request handling',
 fn: function (aFilename, aResponse){
 var self=this;
@@ -12830,68 +11666,68 @@ var type=nil;
 var filename=nil;
 (filename=aFilename);
 ((($receiver = smalltalk.send(smalltalk.send(self['@fs'], "_statSync_", [aFilename]), "_isDirectory", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (filename=smalltalk.send(filename, "__comma", ["index.html"]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (filename=smalltalk.send(filename, "__comma", ["index.html"]));})]));
-smalltalk.send(self['@fs'], "_readFile_do_", [filename, (function(ex, file){return ((($receiver = smalltalk.send(ex, "_notNil", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_respondInternalErrorTo_", [aResponse]);})() : (function(){(type=smalltalk.send(smalltalk.send(self, "_class", []), "_mimeTypeFor_", [filename]));return (function($rec){smalltalk.send($rec, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("Content-Type"), "__minus_gt", [type])])]);smalltalk.send($rec, "_write_binary_", [file, "binary"]);return smalltalk.send($rec, "_end", []);})(aResponse);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_respondInternalErrorTo_", [aResponse]);}), (function(){(type=smalltalk.send(smalltalk.send(self, "_class", []), "_mimeTypeFor_", [filename]));return (function($rec){smalltalk.send($rec, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("Content-Type"), "__minus_gt", [type])])]);smalltalk.send($rec, "_write_binary_", [file, "binary"]);return smalltalk.send($rec, "_end", []);})(aResponse);})]));})]);
+smalltalk.send(self['@fs'], "_readFile_do_", [filename, (function(ex, file){return ((($receiver = smalltalk.send(ex, "_notNil", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_respondInternalErrorTo_", [aResponse]);})() : (function(){(type=smalltalk.send(smalltalk.send(self, "_class", []), "_mimeTypeFor_", [filename]));((($receiver = smalltalk.send(type, "__eq", ["application/javascript"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (type=smalltalk.send(type, "__comma", [";charset=utf-8"]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (type=smalltalk.send(type, "__comma", [";charset=utf-8"]));})]));return (function($rec){smalltalk.send($rec, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", [type])])]);smalltalk.send($rec, "_write_encoding_", [file, "binary"]);return smalltalk.send($rec, "_end", []);})(aResponse);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_respondInternalErrorTo_", [aResponse]);}), (function(){(type=smalltalk.send(smalltalk.send(self, "_class", []), "_mimeTypeFor_", [filename]));((($receiver = smalltalk.send(type, "__eq", ["application/javascript"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (type=smalltalk.send(type, "__comma", [";charset=utf-8"]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (type=smalltalk.send(type, "__comma", [";charset=utf-8"]));})]));return (function($rec){smalltalk.send($rec, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", [type])])]);smalltalk.send($rec, "_write_encoding_", [file, "binary"]);return smalltalk.send($rec, "_end", []);})(aResponse);})]));})]);
 return self;},
 args: ["aFilename", "aResponse"],
-source: unescape('respondFileNamed%3A%20aFilename%20to%3A%20aResponse%0A%09%7C%20type%20filename%20%7C%0A%0A%09filename%20%3A%3D%20aFilename.%0A%09%28fs%20statSync%3A%20aFilename%29%20isDirectory%20ifTrue%3A%20%5B%0A%20%20%20%20%20%20%20%20%09filename%20%3A%3D%20filename%2C%20%27index.html%27%5D.%0A%0A%09fs%20readFile%3A%20filename%20do%3A%20%5B%3Aex%20%3Afile%20%7C%0A%09%09ex%20notNil%20%0A%09%09%09ifTrue%3A%20%5Bself%20respondInternalErrorTo%3A%20aResponse%5D%0A%09%09%09ifFalse%3A%20%5B%0A%20%20%20%20%20%20%20%20%09%09%09type%20%3A%3D%20self%20class%20mimeTypeFor%3A%20filename.%0A%09%09%09%09aResponse%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09writeHead%3A%20200%20options%3A%20%20%23%7B%27Content-Type%27%20-%3E%20type%7D%3B%0A%09%09%09%09%09write%3A%20file%20binary%3A%20%27binary%27%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%09%09end%5D%5D'),
-messageSends: ["ifTrue:", "isDirectory", "statSync:", unescape("%2C"), "readFile:do:", "ifTrue:ifFalse:", "notNil", "respondInternalErrorTo:", "mimeTypeFor:", "class", "writeHead:options:", unescape("-%3E"), "write:binary:", "end"],
+source: "respondFileNamed: aFilename to: aResponse\x0a\x09| type filename |\x0a\x0a\x09filename := aFilename.\x0a\x09(fs statSync: aFilename) isDirectory ifTrue: [\x0a        \x09filename := filename, 'index.html'].\x0a\x0a\x09fs readFile: filename do: [:ex :file |\x0a\x09\x09ex notNil \x0a\x09\x09\x09ifTrue: [self respondInternalErrorTo: aResponse]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09type := self class mimeTypeFor: filename.\x0a\x09\x09\x09\x09type = 'application/javascript'\x0a\x09\x09\x09\x09\x09ifTrue: [ type:=type,';charset=utf-8' ].\x0a\x09\x09\x09\x09aResponse \x0a\x09\x09\x09\x09\x09writeHead: 200 options:  #{'Content-Type' -> type};\x0a\x09\x09\x09\x09\x09write: file encoding: 'binary';\x0a\x09\x09\x09\x09\x09end]]",
+messageSends: ["ifTrue:", "isDirectory", "statSync:", ",", "readFile:do:", "ifTrue:ifFalse:", "notNil", "respondInternalErrorTo:", "mimeTypeFor:", "class", "=", "writeHead:options:", "->", "write:encoding:", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_respondInternalErrorTo_'),
+"_respondInternalErrorTo_",
 smalltalk.method({
-selector: unescape('respondInternalErrorTo%3A'),
+selector: "respondInternalErrorTo:",
 category: 'request handling',
 fn: function (aResponse){
 var self=this;
-(function($rec){smalltalk.send($rec, "_writeHead_options_", [(500), smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("Content-Type"), "__minus_gt", [unescape("text/plain")])])]);smalltalk.send($rec, "_write_", ["500 Internal server error"]);return smalltalk.send($rec, "_end", []);})(aResponse);
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(500), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"])])]);smalltalk.send($rec, "_write_", ["500 Internal server error"]);return smalltalk.send($rec, "_end", []);})(aResponse);
 return self;},
 args: ["aResponse"],
-source: unescape('respondInternalErrorTo%3A%20aResponse%0A%09aResponse%20%0A%09%09writeHead%3A%20500%20options%3A%20%23%7B%27Content-Type%27%20-%3E%20%27text/plain%27%7D%3B%0A%09%09write%3A%20%27500%20Internal%20server%20error%27%3B%0A%09%09end'),
-messageSends: ["writeHead:options:", unescape("-%3E"), "write:", "end"],
+source: "respondInternalErrorTo: aResponse\x0a\x09aResponse \x0a\x09\x09writeHead: 500 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: '500 Internal server error';\x0a\x09\x09end",
+messageSends: ["writeHead:options:", "->", "write:", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_respondNotFoundTo_'),
+"_respondNotFoundTo_",
 smalltalk.method({
-selector: unescape('respondNotFoundTo%3A'),
+selector: "respondNotFoundTo:",
 category: 'request handling',
 fn: function (aResponse){
 var self=this;
-(function($rec){smalltalk.send($rec, "_writeHead_options_", [(404), smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("Content-Type"), "__minus_gt", [unescape("text/plain")])])]);smalltalk.send($rec, "_write_", ["404 Not found"]);return smalltalk.send($rec, "_end", []);})(aResponse);
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(404), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"])])]);smalltalk.send($rec, "_write_", ["404 Not found"]);return smalltalk.send($rec, "_end", []);})(aResponse);
 return self;},
 args: ["aResponse"],
-source: unescape('respondNotFoundTo%3A%20aResponse%0A%09aResponse%20%0A%09%09writeHead%3A%20404%20options%3A%20%23%7B%27Content-Type%27%20-%3E%20%27text/plain%27%7D%3B%0A%09%09write%3A%20%27404%20Not%20found%27%3B%0A%09%09end'),
-messageSends: ["writeHead:options:", unescape("-%3E"), "write:", "end"],
+source: "respondNotFoundTo: aResponse\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: '404 Not found';\x0a\x09\x09end",
+messageSends: ["writeHead:options:", "->", "write:", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_respondOKTo_'),
+"_respondOKTo_",
 smalltalk.method({
-selector: unescape('respondOKTo%3A'),
+selector: "respondOKTo:",
 category: 'request handling',
 fn: function (aResponse){
 var self=this;
-smalltalk.send(aResponse, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("Content-Type"), "__minus_gt", [unescape("text/plain")]),smalltalk.send(unescape("Access-Control-Allow-Origin"), "__minus_gt", [unescape("*")])])]);
+smalltalk.send(aResponse, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);
 smalltalk.send(aResponse, "_end", []);
 return self;},
 args: ["aResponse"],
-source: unescape('respondOKTo%3A%20aResponse%0A%09aResponse%20%0A%09%09writeHead%3A%20200%20options%3A%20%23%7B%27Content-Type%27%20-%3E%20%27text/plain%27.%20%27Access-Control-Allow-Origin%27%20-%3E%20%27*%27%7D.%0A%09aResponse%20end.'),
-messageSends: ["writeHead:options:", unescape("-%3E"), "end"],
+source: "respondOKTo: aResponse\x0a\x09aResponse \x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.\x0a\x09aResponse end.",
+messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_start'),
+"_start",
 smalltalk.method({
-selector: unescape('start'),
+selector: "start",
 category: 'starting',
 fn: function (){
 var self=this;
@@ -12899,16 +11735,16 @@ smalltalk.send(smalltalk.send(self['@http'], "_createServer_", [(function(reques
 smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Starting file server on port ", "__comma", [smalltalk.send(smalltalk.send(self, "_port", []), "_asString", [])])]);
 return self;},
 args: [],
-source: unescape('start%0A%09%28http%20createServer%3A%20%5B%3Arequest%20%3Aresponse%20%7C%0A%09%20%09self%20handleRequest%3A%20request%20respondTo%3A%20response%5D%29%20listen%3A%20self%20port.%0A%09console%20log%3A%20%27Starting%20file%20server%20on%20port%20%27%2C%20self%20port%20asString'),
-messageSends: ["listen:", "createServer:", "handleRequest:respondTo:", "port", "log:", unescape("%2C"), "asString"],
+source: "start\x0a\x09(http createServer: [:request :response |\x0a\x09 \x09self handleRequest: request respondTo: response]) listen: self port.\x0a\x09console log: 'Starting file server on port ', self port asString",
+messageSends: ["listen:", "createServer:", "handleRequest:respondTo:", "port", "log:", ",", "asString"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_startOn_'),
+"_startOn_",
 smalltalk.method({
-selector: unescape('startOn%3A'),
+selector: "startOn:",
 category: 'starting',
 fn: function (aPort){
 var self=this;
@@ -12916,23 +11752,23 @@ var self=this;
 smalltalk.send(self, "_start", []);
 return self;},
 args: ["aPort"],
-source: unescape('startOn%3A%20aPort%0A%09port%20%3A%3D%20aPort.%0A%09self%20start'),
+source: "startOn: aPort\x0a\x09port := aPort.\x0a\x09self start",
 messageSends: ["start"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
 
 smalltalk.addMethod(
-unescape('_writeData_toFileNamed_'),
+"_writeData_toFileNamed_",
 smalltalk.method({
-selector: unescape('writeData%3AtoFileNamed%3A'),
+selector: "writeData:toFileNamed:",
 category: 'private',
 fn: function (data, aFilename){
 var self=this;
 smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [aFilename]);
 return self;},
 args: ["data", "aFilename"],
-source: unescape('writeData%3A%20data%20toFileNamed%3A%20aFilename%0A%09console%20log%3A%20aFilename'),
+source: "writeData: data toFileNamed: aFilename\x0a\x09console log: aFilename",
 messageSends: ["log:"],
 referencedClasses: []
 }),
@@ -12941,103 +11777,103 @@ smalltalk.FileServer);
 
 smalltalk.FileServer.klass.iVarNames = ['port','mimeTypes'];
 smalltalk.addMethod(
-unescape('_defaultMimeTypes'),
+"_defaultMimeTypes",
 smalltalk.method({
-selector: unescape('defaultMimeTypes'),
+selector: "defaultMimeTypes",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.HashedCollection._fromPairs_([smalltalk.send(unescape("%25"), "__minus_gt", [unescape("application/x-trash")]),smalltalk.send("323", "__minus_gt", [unescape("text/h323")]),smalltalk.send("abw", "__minus_gt", [unescape("application/x-abiword")]),smalltalk.send("ai", "__minus_gt", [unescape("application/postscript")]),smalltalk.send("aif", "__minus_gt", [unescape("audio/x-aiff")]),smalltalk.send("aifc", "__minus_gt", [unescape("audio/x-aiff")]),smalltalk.send("aiff", "__minus_gt", [unescape("audio/x-aiff")]),smalltalk.send("alc", "__minus_gt", [unescape("chemical/x-alchemy")]),smalltalk.send("art", "__minus_gt", [unescape("image/x-jg")]),smalltalk.send("asc", "__minus_gt", [unescape("text/plain")]),smalltalk.send("asf", "__minus_gt", [unescape("video/x-ms-asf")]),smalltalk.send("asn", "__minus_gt", [unescape("chemical/x-ncbi-asn1-spec")]),smalltalk.send("aso", "__minus_gt", [unescape("chemical/x-ncbi-asn1-binary")]),smalltalk.send("asx", "__minus_gt", [unescape("video/x-ms-asf")]),smalltalk.send("au", "__minus_gt", [unescape("audio/basic")]),smalltalk.send("avi", "__minus_gt", [unescape("video/x-msvideo")]),smalltalk.send("b", "__minus_gt", [unescape("chemical/x-molconn-Z")]),smalltalk.send("bak", "__minus_gt", [unescape("application/x-trash")]),smalltalk.send("bat", "__minus_gt", [unescape("application/x-msdos-program")]),smalltalk.send("bcpio", "__minus_gt", [unescape("application/x-bcpio")]),smalltalk.send("bib", "__minus_gt", [unescape("text/x-bibtex")]),smalltalk.send("bin", "__minus_gt", [unescape("application/octet-stream")]),smalltalk.send("bmp", "__minus_gt", [unescape("image/x-ms-bmp")]),smalltalk.send("book", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("bsd", "__minus_gt", [unescape("chemical/x-crossfire")]),smalltalk.send("c", "__minus_gt", [unescape("text/x-csrc")]),smalltalk.send(unescape("c++"), "__minus_gt", [unescape("text/x-c++src")]),smalltalk.send("c3d", "__minus_gt", [unescape("chemical/x-chem3d")]),smalltalk.send("cac", "__minus_gt", [unescape("chemical/x-cache")]),smalltalk.send("cache", "__minus_gt", [unescape("chemical/x-cache")]),smalltalk.send("cascii", "__minus_gt", [unescape("chemical/x-cactvs-binary")]),smalltalk.send("cat", "__minus_gt", [unescape("application/vnd.ms-pki.seccat")]),smalltalk.send("cbin", "__minus_gt", [unescape("chemical/x-cactvs-binary")]),smalltalk.send("cc", "__minus_gt", [unescape("text/x-c++src")]),smalltalk.send("cdf", "__minus_gt", [unescape("application/x-cdf")]),smalltalk.send("cdr", "__minus_gt", [unescape("image/x-coreldraw")]),smalltalk.send("cdt", "__minus_gt", [unescape("image/x-coreldrawtemplate")]),smalltalk.send("cdx", "__minus_gt", [unescape("chemical/x-cdx")]),smalltalk.send("cdy", "__minus_gt", [unescape("application/vnd.cinderella")]),smalltalk.send("cef", "__minus_gt", [unescape("chemical/x-cxf")]),smalltalk.send("cer", "__minus_gt", [unescape("chemical/x-cerius")]),smalltalk.send("chm", "__minus_gt", [unescape("chemical/x-chemdraw")]),smalltalk.send("chrt", "__minus_gt", [unescape("application/x-kchart")]),smalltalk.send("cif", "__minus_gt", [unescape("chemical/x-cif")]),smalltalk.send("class", "__minus_gt", [unescape("application/java-vm")]),smalltalk.send("cls", "__minus_gt", [unescape("text/x-tex")]),smalltalk.send("cmdf", "__minus_gt", [unescape("chemical/x-cmdf")]),smalltalk.send("cml", "__minus_gt", [unescape("chemical/x-cml")]),smalltalk.send("cod", "__minus_gt", [unescape("application/vnd.rim.cod")]),smalltalk.send("com", "__minus_gt", [unescape("application/x-msdos-program")]),smalltalk.send("cpa", "__minus_gt", [unescape("chemical/x-compass")]),smalltalk.send("cpio", "__minus_gt", [unescape("application/x-cpio")]),smalltalk.send("cpp", "__minus_gt", [unescape("text/x-c++src")]),smalltalk.send("cpt", "__minus_gt", [unescape("image/x-corelphotopaint")]),smalltalk.send("crl", "__minus_gt", [unescape("application/x-pkcs7-crl")]),smalltalk.send("crt", "__minus_gt", [unescape("application/x-x509-ca-cert")]),smalltalk.send("csf", "__minus_gt", [unescape("chemical/x-cache-csf")]),smalltalk.send("csh", "__minus_gt", [unescape("text/x-csh")]),smalltalk.send("csm", "__minus_gt", [unescape("chemical/x-csml")]),smalltalk.send("csml", "__minus_gt", [unescape("chemical/x-csml")]),smalltalk.send("css", "__minus_gt", [unescape("text/css")]),smalltalk.send("csv", "__minus_gt", [unescape("text/comma-separated-values")]),smalltalk.send("ctab", "__minus_gt", [unescape("chemical/x-cactvs-binary")]),smalltalk.send("ctx", "__minus_gt", [unescape("chemical/x-ctx")]),smalltalk.send("cu", "__minus_gt", [unescape("application/cu-seeme")]),smalltalk.send("cub", "__minus_gt", [unescape("chemical/x-gaussian-cube")]),smalltalk.send("cxf", "__minus_gt", [unescape("chemical/x-cxf")]),smalltalk.send("cxx", "__minus_gt", [unescape("text/x-c++src")]),smalltalk.send("dat", "__minus_gt", [unescape("chemical/x-mopac-input")]),smalltalk.send("dcr", "__minus_gt", [unescape("application/x-director")]),smalltalk.send("deb", "__minus_gt", [unescape("application/x-debian-package")]),smalltalk.send("dif", "__minus_gt", [unescape("video/dv")]),smalltalk.send("diff", "__minus_gt", [unescape("text/plain")]),smalltalk.send("dir", "__minus_gt", [unescape("application/x-director")]),smalltalk.send("djv", "__minus_gt", [unescape("image/vnd.djvu")]),smalltalk.send("djvu", "__minus_gt", [unescape("image/vnd.djvu")]),smalltalk.send("dl", "__minus_gt", [unescape("video/dl")]),smalltalk.send("dll", "__minus_gt", [unescape("application/x-msdos-program")]),smalltalk.send("dmg", "__minus_gt", [unescape("application/x-apple-diskimage")]),smalltalk.send("dms", "__minus_gt", [unescape("application/x-dms")]),smalltalk.send("doc", "__minus_gt", [unescape("application/msword")]),smalltalk.send("dot", "__minus_gt", [unescape("application/msword")]),smalltalk.send("dv", "__minus_gt", [unescape("video/dv")]),smalltalk.send("dvi", "__minus_gt", [unescape("application/x-dvi")]),smalltalk.send("dx", "__minus_gt", [unescape("chemical/x-jcamp-dx")]),smalltalk.send("dxr", "__minus_gt", [unescape("application/x-director")]),smalltalk.send("emb", "__minus_gt", [unescape("chemical/x-embl-dl-nucleotide")]),smalltalk.send("embl", "__minus_gt", [unescape("chemical/x-embl-dl-nucleotide")]),smalltalk.send("ent", "__minus_gt", [unescape("chemical/x-pdb")]),smalltalk.send("eps", "__minus_gt", [unescape("application/postscript")]),smalltalk.send("etx", "__minus_gt", [unescape("text/x-setext")]),smalltalk.send("exe", "__minus_gt", [unescape("application/x-msdos-program")]),smalltalk.send("ez", "__minus_gt", [unescape("application/andrew-inset")]),smalltalk.send("fb", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("fbdoc", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("fch", "__minus_gt", [unescape("chemical/x-gaussian-checkpoint")]),smalltalk.send("fchk", "__minus_gt", [unescape("chemical/x-gaussian-checkpoint")]),smalltalk.send("fig", "__minus_gt", [unescape("application/x-xfig")]),smalltalk.send("flac", "__minus_gt", [unescape("application/x-flac")]),smalltalk.send("fli", "__minus_gt", [unescape("video/fli")]),smalltalk.send("fm", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("frame", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("frm", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("gal", "__minus_gt", [unescape("chemical/x-gaussian-log")]),smalltalk.send("gam", "__minus_gt", [unescape("chemical/x-gamess-input")]),smalltalk.send("gamin", "__minus_gt", [unescape("chemical/x-gamess-input")]),smalltalk.send("gau", "__minus_gt", [unescape("chemical/x-gaussian-input")]),smalltalk.send("gcd", "__minus_gt", [unescape("text/x-pcs-gcd")]),smalltalk.send("gcf", "__minus_gt", [unescape("application/x-graphing-calculator")]),smalltalk.send("gcg", "__minus_gt", [unescape("chemical/x-gcg8-sequence")]),smalltalk.send("gen", "__minus_gt", [unescape("chemical/x-genbank")]),smalltalk.send("gf", "__minus_gt", [unescape("application/x-tex-gf")]),smalltalk.send("gif", "__minus_gt", [unescape("image/gif")]),smalltalk.send("gjc", "__minus_gt", [unescape("chemical/x-gaussian-input")]),smalltalk.send("gjf", "__minus_gt", [unescape("chemical/x-gaussian-input")]),smalltalk.send("gl", "__minus_gt", [unescape("video/gl")]),smalltalk.send("gnumeric", "__minus_gt", [unescape("application/x-gnumeric")]),smalltalk.send("gpt", "__minus_gt", [unescape("chemical/x-mopac-graph")]),smalltalk.send("gsf", "__minus_gt", [unescape("application/x-font")]),smalltalk.send("gsm", "__minus_gt", [unescape("audio/x-gsm")]),smalltalk.send("gtar", "__minus_gt", [unescape("application/x-gtar")]),smalltalk.send("h", "__minus_gt", [unescape("text/x-chdr")]),smalltalk.send(unescape("h++"), "__minus_gt", [unescape("text/x-c++hdr")]),smalltalk.send("hdf", "__minus_gt", [unescape("application/x-hdf")]),smalltalk.send("hh", "__minus_gt", [unescape("text/x-c++hdr")]),smalltalk.send("hin", "__minus_gt", [unescape("chemical/x-hin")]),smalltalk.send("hpp", "__minus_gt", [unescape("text/x-c++hdr")]),smalltalk.send("hqx", "__minus_gt", [unescape("application/mac-binhex40")]),smalltalk.send("hs", "__minus_gt", [unescape("text/x-haskell")]),smalltalk.send("hta", "__minus_gt", [unescape("application/hta")]),smalltalk.send("htc", "__minus_gt", [unescape("text/x-component")]),smalltalk.send("htm", "__minus_gt", [unescape("text/html")]),smalltalk.send("html", "__minus_gt", [unescape("text/html")]),smalltalk.send("hxx", "__minus_gt", [unescape("text/x-c++hdr")]),smalltalk.send("ica", "__minus_gt", [unescape("application/x-ica")]),smalltalk.send("ice", "__minus_gt", [unescape("x-conference/x-cooltalk")]),smalltalk.send("ico", "__minus_gt", [unescape("image/x-icon")]),smalltalk.send("ics", "__minus_gt", [unescape("text/calendar")]),smalltalk.send("icz", "__minus_gt", [unescape("text/calendar")]),smalltalk.send("ief", "__minus_gt", [unescape("image/ief")]),smalltalk.send("iges", "__minus_gt", [unescape("model/iges")]),smalltalk.send("igs", "__minus_gt", [unescape("model/iges")]),smalltalk.send("iii", "__minus_gt", [unescape("application/x-iphone")]),smalltalk.send("inp", "__minus_gt", [unescape("chemical/x-gamess-input")]),smalltalk.send("ins", "__minus_gt", [unescape("application/x-internet-signup")]),smalltalk.send("iso", "__minus_gt", [unescape("application/x-iso9660-image")]),smalltalk.send("isp", "__minus_gt", [unescape("application/x-internet-signup")]),smalltalk.send("ist", "__minus_gt", [unescape("chemical/x-isostar")]),smalltalk.send("istr", "__minus_gt", [unescape("chemical/x-isostar")]),smalltalk.send("jad", "__minus_gt", [unescape("text/vnd.sun.j2me.app-descriptor")]),smalltalk.send("jar", "__minus_gt", [unescape("application/java-archive")]),smalltalk.send("java", "__minus_gt", [unescape("text/x-java")]),smalltalk.send("jdx", "__minus_gt", [unescape("chemical/x-jcamp-dx")]),smalltalk.send("jmz", "__minus_gt", [unescape("application/x-jmol")]),smalltalk.send("jng", "__minus_gt", [unescape("image/x-jng")]),smalltalk.send("jnlp", "__minus_gt", [unescape("application/x-java-jnlp-file")]),smalltalk.send("jpe", "__minus_gt", [unescape("image/jpeg")]),smalltalk.send("jpeg", "__minus_gt", [unescape("image/jpeg")]),smalltalk.send("jpg", "__minus_gt", [unescape("image/jpeg")]),smalltalk.send("js", "__minus_gt", [unescape("application/javascript")]),smalltalk.send("kar", "__minus_gt", [unescape("audio/midi")]),smalltalk.send("key", "__minus_gt", [unescape("application/pgp-keys")]),smalltalk.send("kil", "__minus_gt", [unescape("application/x-killustrator")]),smalltalk.send("kin", "__minus_gt", [unescape("chemical/x-kinemage")]),smalltalk.send("kpr", "__minus_gt", [unescape("application/x-kpresenter")]),smalltalk.send("kpt", "__minus_gt", [unescape("application/x-kpresenter")]),smalltalk.send("ksp", "__minus_gt", [unescape("application/x-kspread")]),smalltalk.send("kwd", "__minus_gt", [unescape("application/x-kword")]),smalltalk.send("kwt", "__minus_gt", [unescape("application/x-kword")]),smalltalk.send("latex", "__minus_gt", [unescape("application/x-latex")]),smalltalk.send("lha", "__minus_gt", [unescape("application/x-lha")]),smalltalk.send("lhs", "__minus_gt", [unescape("text/x-literate-haskell")]),smalltalk.send("lsf", "__minus_gt", [unescape("video/x-la-asf")]),smalltalk.send("lsx", "__minus_gt", [unescape("video/x-la-asf")]),smalltalk.send("ltx", "__minus_gt", [unescape("text/x-tex")]),smalltalk.send("lzh", "__minus_gt", [unescape("application/x-lzh")]),smalltalk.send("lzx", "__minus_gt", [unescape("application/x-lzx")]),smalltalk.send("m3u", "__minus_gt", [unescape("audio/x-mpegurl")]),smalltalk.send("m4a", "__minus_gt", [unescape("audio/mpeg")]),smalltalk.send("maker", "__minus_gt", [unescape("application/x-maker")]),smalltalk.send("man", "__minus_gt", [unescape("application/x-troff-man")]),smalltalk.send("mcif", "__minus_gt", [unescape("chemical/x-mmcif")]),smalltalk.send("mcm", "__minus_gt", [unescape("chemical/x-macmolecule")]),smalltalk.send("mdb", "__minus_gt", [unescape("application/msaccess")]),smalltalk.send("me", "__minus_gt", [unescape("application/x-troff-me")]),smalltalk.send("mesh", "__minus_gt", [unescape("model/mesh")]),smalltalk.send("mid", "__minus_gt", [unescape("audio/midi")]),smalltalk.send("midi", "__minus_gt", [unescape("audio/midi")]),smalltalk.send("mif", "__minus_gt", [unescape("application/x-mif")]),smalltalk.send("mm", "__minus_gt", [unescape("application/x-freemind")]),smalltalk.send("mmd", "__minus_gt", [unescape("chemical/x-macromodel-input")]),smalltalk.send("mmf", "__minus_gt", [unescape("application/vnd.smaf")]),smalltalk.send("mml", "__minus_gt", [unescape("text/mathml")]),smalltalk.send("mmod", "__minus_gt", [unescape("chemical/x-macromodel-input")]),smalltalk.send("mng", "__minus_gt", [unescape("video/x-mng")]),smalltalk.send("moc", "__minus_gt", [unescape("text/x-moc")]),smalltalk.send("mol", "__minus_gt", [unescape("chemical/x-mdl-molfile")]),smalltalk.send("mol2", "__minus_gt", [unescape("chemical/x-mol2")]),smalltalk.send("moo", "__minus_gt", [unescape("chemical/x-mopac-out")]),smalltalk.send("mop", "__minus_gt", [unescape("chemical/x-mopac-input")]),smalltalk.send("mopcrt", "__minus_gt", [unescape("chemical/x-mopac-input")]),smalltalk.send("mov", "__minus_gt", [unescape("video/quicktime")]),smalltalk.send("movie", "__minus_gt", [unescape("video/x-sgi-movie")]),smalltalk.send("mp2", "__minus_gt", [unescape("audio/mpeg")]),smalltalk.send("mp3", "__minus_gt", [unescape("audio/mpeg")]),smalltalk.send("mp4", "__minus_gt", [unescape("video/mp4")]),smalltalk.send("mpc", "__minus_gt", [unescape("chemical/x-mopac-input")]),smalltalk.send("mpe", "__minus_gt", [unescape("video/mpeg")]),smalltalk.send("mpeg", "__minus_gt", [unescape("video/mpeg")]),smalltalk.send("mpega", "__minus_gt", [unescape("audio/mpeg")]),smalltalk.send("mpg", "__minus_gt", [unescape("video/mpeg")]),smalltalk.send("mpga", "__minus_gt", [unescape("audio/mpeg")]),smalltalk.send("ms", "__minus_gt", [unescape("application/x-troff-ms")]),smalltalk.send("msh", "__minus_gt", [unescape("model/mesh")]),smalltalk.send("msi", "__minus_gt", [unescape("application/x-msi")]),smalltalk.send("mvb", "__minus_gt", [unescape("chemical/x-mopac-vib")]),smalltalk.send("mxu", "__minus_gt", [unescape("video/vnd.mpegurl")]),smalltalk.send("nb", "__minus_gt", [unescape("application/mathematica")]),smalltalk.send("nc", "__minus_gt", [unescape("application/x-netcdf")]),smalltalk.send("nwc", "__minus_gt", [unescape("application/x-nwc")]),smalltalk.send("o", "__minus_gt", [unescape("application/x-object")]),smalltalk.send("oda", "__minus_gt", [unescape("application/oda")]),smalltalk.send("odb", "__minus_gt", [unescape("application/vnd.oasis.opendocument.database")]),smalltalk.send("odc", "__minus_gt", [unescape("application/vnd.oasis.opendocument.chart")]),smalltalk.send("odf", "__minus_gt", [unescape("application/vnd.oasis.opendocument.formula")]),smalltalk.send("odg", "__minus_gt", [unescape("application/vnd.oasis.opendocument.graphics")]),smalltalk.send("odi", "__minus_gt", [unescape("application/vnd.oasis.opendocument.image")]),smalltalk.send("odm", "__minus_gt", [unescape("application/vnd.oasis.opendocument.text-master")]),smalltalk.send("odp", "__minus_gt", [unescape("application/vnd.oasis.opendocument.presentation")]),smalltalk.send("ods", "__minus_gt", [unescape("application/vnd.oasis.opendocument.spreadsheet")]),smalltalk.send("odt", "__minus_gt", [unescape("application/vnd.oasis.opendocument.text")]),smalltalk.send("ogg", "__minus_gt", [unescape("application/ogg")]),smalltalk.send("old", "__minus_gt", [unescape("application/x-trash")]),smalltalk.send("oth", "__minus_gt", [unescape("application/vnd.oasis.opendocument.text-web")]),smalltalk.send("oza", "__minus_gt", [unescape("application/x-oz-application")]),smalltalk.send("p", "__minus_gt", [unescape("text/x-pascal")]),smalltalk.send("p7r", "__minus_gt", [unescape("application/x-pkcs7-certreqresp")]),smalltalk.send("pac", "__minus_gt", [unescape("application/x-ns-proxy-autoconfig")]),smalltalk.send("pas", "__minus_gt", [unescape("text/x-pascal")]),smalltalk.send("pat", "__minus_gt", [unescape("image/x-coreldrawpattern")]),smalltalk.send("pbm", "__minus_gt", [unescape("image/x-portable-bitmap")]),smalltalk.send("pcf", "__minus_gt", [unescape("application/x-font")]),smalltalk.send("pcf.Z", "__minus_gt", [unescape("application/x-font")]),smalltalk.send("pcx", "__minus_gt", [unescape("image/pcx")]),smalltalk.send("pdb", "__minus_gt", [unescape("chemical/x-pdb")]),smalltalk.send("pdf", "__minus_gt", [unescape("application/pdf")]),smalltalk.send("pfa", "__minus_gt", [unescape("application/x-font")]),smalltalk.send("pfb", "__minus_gt", [unescape("application/x-font")]),smalltalk.send("pgm", "__minus_gt", [unescape("image/x-portable-graymap")]),smalltalk.send("pgn", "__minus_gt", [unescape("application/x-chess-pgn")]),smalltalk.send("pgp", "__minus_gt", [unescape("application/pgp-signature")]),smalltalk.send("pk", "__minus_gt", [unescape("application/x-tex-pk")]),smalltalk.send("pl", "__minus_gt", [unescape("text/x-perl")]),smalltalk.send("pls", "__minus_gt", [unescape("audio/x-scpls")]),smalltalk.send("pm", "__minus_gt", [unescape("text/x-perl")]),smalltalk.send("png", "__minus_gt", [unescape("image/png")]),smalltalk.send("pnm", "__minus_gt", [unescape("image/x-portable-anymap")]),smalltalk.send("pot", "__minus_gt", [unescape("text/plain")]),smalltalk.send("ppm", "__minus_gt", [unescape("image/x-portable-pixmap")]),smalltalk.send("pps", "__minus_gt", [unescape("application/vnd.ms-powerpoint")]),smalltalk.send("ppt", "__minus_gt", [unescape("application/vnd.ms-powerpoint")]),smalltalk.send("prf", "__minus_gt", [unescape("application/pics-rules")]),smalltalk.send("prt", "__minus_gt", [unescape("chemical/x-ncbi-asn1-ascii")]),smalltalk.send("ps", "__minus_gt", [unescape("application/postscript")]),smalltalk.send("psd", "__minus_gt", [unescape("image/x-photoshop")]),smalltalk.send("psp", "__minus_gt", [unescape("text/x-psp")]),smalltalk.send("py", "__minus_gt", [unescape("text/x-python")]),smalltalk.send("pyc", "__minus_gt", [unescape("application/x-python-code")]),smalltalk.send("pyo", "__minus_gt", [unescape("application/x-python-code")]),smalltalk.send("qt", "__minus_gt", [unescape("video/quicktime")]),smalltalk.send("qtl", "__minus_gt", [unescape("application/x-quicktimeplayer")]),smalltalk.send("ra", "__minus_gt", [unescape("audio/x-realaudio")]),smalltalk.send("ram", "__minus_gt", [unescape("audio/x-pn-realaudio")]),smalltalk.send("rar", "__minus_gt", [unescape("application/rar")]),smalltalk.send("ras", "__minus_gt", [unescape("image/x-cmu-raster")]),smalltalk.send("rd", "__minus_gt", [unescape("chemical/x-mdl-rdfile")]),smalltalk.send("rdf", "__minus_gt", [unescape("application/rdf+xml")]),smalltalk.send("rgb", "__minus_gt", [unescape("image/x-rgb")]),smalltalk.send("rm", "__minus_gt", [unescape("audio/x-pn-realaudio")]),smalltalk.send("roff", "__minus_gt", [unescape("application/x-troff")]),smalltalk.send("ros", "__minus_gt", [unescape("chemical/x-rosdal")]),smalltalk.send("rpm", "__minus_gt", [unescape("application/x-redhat-package-manager")]),smalltalk.send("rss", "__minus_gt", [unescape("application/rss+xml")]),smalltalk.send("rtf", "__minus_gt", [unescape("text/rtf")]),smalltalk.send("rtx", "__minus_gt", [unescape("text/richtext")]),smalltalk.send("rxn", "__minus_gt", [unescape("chemical/x-mdl-rxnfile")]),smalltalk.send("sct", "__minus_gt", [unescape("text/scriptlet")]),smalltalk.send("sd", "__minus_gt", [unescape("chemical/x-mdl-sdfile")]),smalltalk.send("sd2", "__minus_gt", [unescape("audio/x-sd2")]),smalltalk.send("sda", "__minus_gt", [unescape("application/vnd.stardivision.draw")]),smalltalk.send("sdc", "__minus_gt", [unescape("application/vnd.stardivision.calc")]),smalltalk.send("sdd", "__minus_gt", [unescape("application/vnd.stardivision.impress")]),smalltalk.send("sdf", "__minus_gt", [unescape("chemical/x-mdl-sdfile")]),smalltalk.send("sdp", "__minus_gt", [unescape("application/vnd.stardivision.impress")]),smalltalk.send("sdw", "__minus_gt", [unescape("application/vnd.stardivision.writer")]),smalltalk.send("ser", "__minus_gt", [unescape("application/java-serialized-object")]),smalltalk.send("sgf", "__minus_gt", [unescape("application/x-go-sgf")]),smalltalk.send("sgl", "__minus_gt", [unescape("application/vnd.stardivision.writer-global")]),smalltalk.send("sh", "__minus_gt", [unescape("text/x-sh")]),smalltalk.send("shar", "__minus_gt", [unescape("application/x-shar")]),smalltalk.send("shtml", "__minus_gt", [unescape("text/html")]),smalltalk.send("sid", "__minus_gt", [unescape("audio/prs.sid")]),smalltalk.send("sik", "__minus_gt", [unescape("application/x-trash")]),smalltalk.send("silo", "__minus_gt", [unescape("model/mesh")]),smalltalk.send("sis", "__minus_gt", [unescape("application/vnd.symbian.install")]),smalltalk.send("sit", "__minus_gt", [unescape("application/x-stuffit")]),smalltalk.send("skd", "__minus_gt", [unescape("application/x-koan")]),smalltalk.send("skm", "__minus_gt", [unescape("application/x-koan")]),smalltalk.send("skp", "__minus_gt", [unescape("application/x-koan")]),smalltalk.send("skt", "__minus_gt", [unescape("application/x-koan")]),smalltalk.send("smf", "__minus_gt", [unescape("application/vnd.stardivision.math")]),smalltalk.send("smi", "__minus_gt", [unescape("application/smil")]),smalltalk.send("smil", "__minus_gt", [unescape("application/smil")]),smalltalk.send("snd", "__minus_gt", [unescape("audio/basic")]),smalltalk.send("spc", "__minus_gt", [unescape("chemical/x-galactic-spc")]),smalltalk.send("spl", "__minus_gt", [unescape("application/x-futuresplash")]),smalltalk.send("src", "__minus_gt", [unescape("application/x-wais-source")]),smalltalk.send("stc", "__minus_gt", [unescape("application/vnd.sun.xml.calc.template")]),smalltalk.send("std", "__minus_gt", [unescape("application/vnd.sun.xml.draw.template")]),smalltalk.send("sti", "__minus_gt", [unescape("application/vnd.sun.xml.impress.template")]),smalltalk.send("stl", "__minus_gt", [unescape("application/vnd.ms-pki.stl")]),smalltalk.send("stw", "__minus_gt", [unescape("application/vnd.sun.xml.writer.template")]),smalltalk.send("sty", "__minus_gt", [unescape("text/x-tex")]),smalltalk.send("sv4cpio", "__minus_gt", [unescape("application/x-sv4cpio")]),smalltalk.send("sv4crc", "__minus_gt", [unescape("application/x-sv4crc")]),smalltalk.send("svg", "__minus_gt", [unescape("image/svg+xml")]),smalltalk.send("svgz", "__minus_gt", [unescape("image/svg+xml")]),smalltalk.send("sw", "__minus_gt", [unescape("chemical/x-swissprot")]),smalltalk.send("swf", "__minus_gt", [unescape("application/x-shockwave-flash")]),smalltalk.send("swfl", "__minus_gt", [unescape("application/x-shockwave-flash")]),smalltalk.send("sxc", "__minus_gt", [unescape("application/vnd.sun.xml.calc")]),smalltalk.send("sxd", "__minus_gt", [unescape("application/vnd.sun.xml.draw")]),smalltalk.send("sxg", "__minus_gt", [unescape("application/vnd.sun.xml.writer.global")]),smalltalk.send("sxi", "__minus_gt", [unescape("application/vnd.sun.xml.impress")]),smalltalk.send("sxm", "__minus_gt", [unescape("application/vnd.sun.xml.math")]),smalltalk.send("sxw", "__minus_gt", [unescape("application/vnd.sun.xml.writer")]),smalltalk.send("t", "__minus_gt", [unescape("application/x-troff")]),smalltalk.send("tar", "__minus_gt", [unescape("application/x-tar")]),smalltalk.send("taz", "__minus_gt", [unescape("application/x-gtar")]),smalltalk.send("tcl", "__minus_gt", [unescape("text/x-tcl")]),smalltalk.send("tex", "__minus_gt", [unescape("text/x-tex")]),smalltalk.send("texi", "__minus_gt", [unescape("application/x-texinfo")]),smalltalk.send("texinfo", "__minus_gt", [unescape("application/x-texinfo")]),smalltalk.send("text", "__minus_gt", [unescape("text/plain")]),smalltalk.send("tgf", "__minus_gt", [unescape("chemical/x-mdl-tgf")]),smalltalk.send("tgz", "__minus_gt", [unescape("application/x-gtar")]),smalltalk.send("tif", "__minus_gt", [unescape("image/tiff")]),smalltalk.send("tiff", "__minus_gt", [unescape("image/tiff")]),smalltalk.send("tk", "__minus_gt", [unescape("text/x-tcl")]),smalltalk.send("tm", "__minus_gt", [unescape("text/texmacs")]),smalltalk.send("torrent", "__minus_gt", [unescape("application/x-bittorrent")]),smalltalk.send("tr", "__minus_gt", [unescape("application/x-troff")]),smalltalk.send("ts", "__minus_gt", [unescape("text/texmacs")]),smalltalk.send("tsp", "__minus_gt", [unescape("application/dsptype")]),smalltalk.send("tsv", "__minus_gt", [unescape("text/tab-separated-values")]),smalltalk.send("txt", "__minus_gt", [unescape("text/plain")]),smalltalk.send("udeb", "__minus_gt", [unescape("application/x-debian-package")]),smalltalk.send("uls", "__minus_gt", [unescape("text/iuls")]),smalltalk.send("ustar", "__minus_gt", [unescape("application/x-ustar")]),smalltalk.send("val", "__minus_gt", [unescape("chemical/x-ncbi-asn1-binary")]),smalltalk.send("vcd", "__minus_gt", [unescape("application/x-cdlink")]),smalltalk.send("vcf", "__minus_gt", [unescape("text/x-vcard")]),smalltalk.send("vcs", "__minus_gt", [unescape("text/x-vcalendar")]),smalltalk.send("vmd", "__minus_gt", [unescape("chemical/x-vmd")]),smalltalk.send("vms", "__minus_gt", [unescape("chemical/x-vamas-iso14976")]),smalltalk.send("vor", "__minus_gt", [unescape("application/vnd.stardivision.writer")]),smalltalk.send("vrm", "__minus_gt", [unescape("x-world/x-vrml")]),smalltalk.send("vrml", "__minus_gt", [unescape("x-world/x-vrml")]),smalltalk.send("vsd", "__minus_gt", [unescape("application/vnd.visio")]),smalltalk.send("wad", "__minus_gt", [unescape("application/x-doom")]),smalltalk.send("wav", "__minus_gt", [unescape("audio/x-wav")]),smalltalk.send("wax", "__minus_gt", [unescape("audio/x-ms-wax")]),smalltalk.send("wbmp", "__minus_gt", [unescape("image/vnd.wap.wbmp")]),smalltalk.send("wbxml", "__minus_gt", [unescape("application/vnd.wap.wbxml")]),smalltalk.send("wk", "__minus_gt", [unescape("application/x-123")]),smalltalk.send("wm", "__minus_gt", [unescape("video/x-ms-wm")]),smalltalk.send("wma", "__minus_gt", [unescape("audio/x-ms-wma")]),smalltalk.send("wmd", "__minus_gt", [unescape("application/x-ms-wmd")]),smalltalk.send("wml", "__minus_gt", [unescape("text/vnd.wap.wml")]),smalltalk.send("wmlc", "__minus_gt", [unescape("application/vnd.wap.wmlc")]),smalltalk.send("wmls", "__minus_gt", [unescape("text/vnd.wap.wmlscript")]),smalltalk.send("wmlsc", "__minus_gt", [unescape("application/vnd.wap.wmlscriptc")]),smalltalk.send("wmv", "__minus_gt", [unescape("video/x-ms-wmv")]),smalltalk.send("wmx", "__minus_gt", [unescape("video/x-ms-wmx")]),smalltalk.send("wmz", "__minus_gt", [unescape("application/x-ms-wmz")]),smalltalk.send("wp5", "__minus_gt", [unescape("application/wordperfect5.1")]),smalltalk.send("wpd", "__minus_gt", [unescape("application/wordperfect")]),smalltalk.send("wrl", "__minus_gt", [unescape("x-world/x-vrml")]),smalltalk.send("wsc", "__minus_gt", [unescape("text/scriptlet")]),smalltalk.send("wvx", "__minus_gt", [unescape("video/x-ms-wvx")]),smalltalk.send("wz", "__minus_gt", [unescape("application/x-wingz")]),smalltalk.send("xbm", "__minus_gt", [unescape("image/x-xbitmap")]),smalltalk.send("xcf", "__minus_gt", [unescape("application/x-xcf")]),smalltalk.send("xht", "__minus_gt", [unescape("application/xhtml+xml")]),smalltalk.send("xhtml", "__minus_gt", [unescape("application/xhtml+xml")]),smalltalk.send("xlb", "__minus_gt", [unescape("application/vnd.ms-excel")]),smalltalk.send("xls", "__minus_gt", [unescape("application/vnd.ms-excel")]),smalltalk.send("xlt", "__minus_gt", [unescape("application/vnd.ms-excel")]),smalltalk.send("xml", "__minus_gt", [unescape("application/xml")]),smalltalk.send("xpi", "__minus_gt", [unescape("application/x-xpinstall")]),smalltalk.send("xpm", "__minus_gt", [unescape("image/x-xpixmap")]),smalltalk.send("xsl", "__minus_gt", [unescape("application/xml")]),smalltalk.send("xtel", "__minus_gt", [unescape("chemical/x-xtel")]),smalltalk.send("xul", "__minus_gt", [unescape("application/vnd.mozilla.xul+xml")]),smalltalk.send("xwd", "__minus_gt", [unescape("image/x-xwindowdump")]),smalltalk.send("xyz", "__minus_gt", [unescape("chemical/x-xyz")]),smalltalk.send("zip", "__minus_gt", [unescape("application/zip")]),smalltalk.send("zmt", "__minus_gt", [unescape("chemical/x-mopac-input")]),smalltalk.send(unescape("%7E"), "__minus_gt", [unescape("application/x-trash")])]);
+return smalltalk.HashedCollection._fromPairs_([smalltalk.send("%", "__minus_gt", ["application/x-trash"]),smalltalk.send("323", "__minus_gt", ["text/h323"]),smalltalk.send("abw", "__minus_gt", ["application/x-abiword"]),smalltalk.send("ai", "__minus_gt", ["application/postscript"]),smalltalk.send("aif", "__minus_gt", ["audio/x-aiff"]),smalltalk.send("aifc", "__minus_gt", ["audio/x-aiff"]),smalltalk.send("aiff", "__minus_gt", ["audio/x-aiff"]),smalltalk.send("alc", "__minus_gt", ["chemical/x-alchemy"]),smalltalk.send("art", "__minus_gt", ["image/x-jg"]),smalltalk.send("asc", "__minus_gt", ["text/plain"]),smalltalk.send("asf", "__minus_gt", ["video/x-ms-asf"]),smalltalk.send("asn", "__minus_gt", ["chemical/x-ncbi-asn1-spec"]),smalltalk.send("aso", "__minus_gt", ["chemical/x-ncbi-asn1-binary"]),smalltalk.send("asx", "__minus_gt", ["video/x-ms-asf"]),smalltalk.send("au", "__minus_gt", ["audio/basic"]),smalltalk.send("avi", "__minus_gt", ["video/x-msvideo"]),smalltalk.send("b", "__minus_gt", ["chemical/x-molconn-Z"]),smalltalk.send("bak", "__minus_gt", ["application/x-trash"]),smalltalk.send("bat", "__minus_gt", ["application/x-msdos-program"]),smalltalk.send("bcpio", "__minus_gt", ["application/x-bcpio"]),smalltalk.send("bib", "__minus_gt", ["text/x-bibtex"]),smalltalk.send("bin", "__minus_gt", ["application/octet-stream"]),smalltalk.send("bmp", "__minus_gt", ["image/x-ms-bmp"]),smalltalk.send("book", "__minus_gt", ["application/x-maker"]),smalltalk.send("bsd", "__minus_gt", ["chemical/x-crossfire"]),smalltalk.send("c", "__minus_gt", ["text/x-csrc"]),smalltalk.send("c++", "__minus_gt", ["text/x-c++src"]),smalltalk.send("c3d", "__minus_gt", ["chemical/x-chem3d"]),smalltalk.send("cac", "__minus_gt", ["chemical/x-cache"]),smalltalk.send("cache", "__minus_gt", ["chemical/x-cache"]),smalltalk.send("cascii", "__minus_gt", ["chemical/x-cactvs-binary"]),smalltalk.send("cat", "__minus_gt", ["application/vnd.ms-pki.seccat"]),smalltalk.send("cbin", "__minus_gt", ["chemical/x-cactvs-binary"]),smalltalk.send("cc", "__minus_gt", ["text/x-c++src"]),smalltalk.send("cdf", "__minus_gt", ["application/x-cdf"]),smalltalk.send("cdr", "__minus_gt", ["image/x-coreldraw"]),smalltalk.send("cdt", "__minus_gt", ["image/x-coreldrawtemplate"]),smalltalk.send("cdx", "__minus_gt", ["chemical/x-cdx"]),smalltalk.send("cdy", "__minus_gt", ["application/vnd.cinderella"]),smalltalk.send("cef", "__minus_gt", ["chemical/x-cxf"]),smalltalk.send("cer", "__minus_gt", ["chemical/x-cerius"]),smalltalk.send("chm", "__minus_gt", ["chemical/x-chemdraw"]),smalltalk.send("chrt", "__minus_gt", ["application/x-kchart"]),smalltalk.send("cif", "__minus_gt", ["chemical/x-cif"]),smalltalk.send("class", "__minus_gt", ["application/java-vm"]),smalltalk.send("cls", "__minus_gt", ["text/x-tex"]),smalltalk.send("cmdf", "__minus_gt", ["chemical/x-cmdf"]),smalltalk.send("cml", "__minus_gt", ["chemical/x-cml"]),smalltalk.send("cod", "__minus_gt", ["application/vnd.rim.cod"]),smalltalk.send("com", "__minus_gt", ["application/x-msdos-program"]),smalltalk.send("cpa", "__minus_gt", ["chemical/x-compass"]),smalltalk.send("cpio", "__minus_gt", ["application/x-cpio"]),smalltalk.send("cpp", "__minus_gt", ["text/x-c++src"]),smalltalk.send("cpt", "__minus_gt", ["image/x-corelphotopaint"]),smalltalk.send("crl", "__minus_gt", ["application/x-pkcs7-crl"]),smalltalk.send("crt", "__minus_gt", ["application/x-x509-ca-cert"]),smalltalk.send("csf", "__minus_gt", ["chemical/x-cache-csf"]),smalltalk.send("csh", "__minus_gt", ["text/x-csh"]),smalltalk.send("csm", "__minus_gt", ["chemical/x-csml"]),smalltalk.send("csml", "__minus_gt", ["chemical/x-csml"]),smalltalk.send("css", "__minus_gt", ["text/css"]),smalltalk.send("csv", "__minus_gt", ["text/comma-separated-values"]),smalltalk.send("ctab", "__minus_gt", ["chemical/x-cactvs-binary"]),smalltalk.send("ctx", "__minus_gt", ["chemical/x-ctx"]),smalltalk.send("cu", "__minus_gt", ["application/cu-seeme"]),smalltalk.send("cub", "__minus_gt", ["chemical/x-gaussian-cube"]),smalltalk.send("cxf", "__minus_gt", ["chemical/x-cxf"]),smalltalk.send("cxx", "__minus_gt", ["text/x-c++src"]),smalltalk.send("dat", "__minus_gt", ["chemical/x-mopac-input"]),smalltalk.send("dcr", "__minus_gt", ["application/x-director"]),smalltalk.send("deb", "__minus_gt", ["application/x-debian-package"]),smalltalk.send("dif", "__minus_gt", ["video/dv"]),smalltalk.send("diff", "__minus_gt", ["text/plain"]),smalltalk.send("dir", "__minus_gt", ["application/x-director"]),smalltalk.send("djv", "__minus_gt", ["image/vnd.djvu"]),smalltalk.send("djvu", "__minus_gt", ["image/vnd.djvu"]),smalltalk.send("dl", "__minus_gt", ["video/dl"]),smalltalk.send("dll", "__minus_gt", ["application/x-msdos-program"]),smalltalk.send("dmg", "__minus_gt", ["application/x-apple-diskimage"]),smalltalk.send("dms", "__minus_gt", ["application/x-dms"]),smalltalk.send("doc", "__minus_gt", ["application/msword"]),smalltalk.send("dot", "__minus_gt", ["application/msword"]),smalltalk.send("dv", "__minus_gt", ["video/dv"]),smalltalk.send("dvi", "__minus_gt", ["application/x-dvi"]),smalltalk.send("dx", "__minus_gt", ["chemical/x-jcamp-dx"]),smalltalk.send("dxr", "__minus_gt", ["application/x-director"]),smalltalk.send("emb", "__minus_gt", ["chemical/x-embl-dl-nucleotide"]),smalltalk.send("embl", "__minus_gt", ["chemical/x-embl-dl-nucleotide"]),smalltalk.send("ent", "__minus_gt", ["chemical/x-pdb"]),smalltalk.send("eps", "__minus_gt", ["application/postscript"]),smalltalk.send("etx", "__minus_gt", ["text/x-setext"]),smalltalk.send("exe", "__minus_gt", ["application/x-msdos-program"]),smalltalk.send("ez", "__minus_gt", ["application/andrew-inset"]),smalltalk.send("fb", "__minus_gt", ["application/x-maker"]),smalltalk.send("fbdoc", "__minus_gt", ["application/x-maker"]),smalltalk.send("fch", "__minus_gt", ["chemical/x-gaussian-checkpoint"]),smalltalk.send("fchk", "__minus_gt", ["chemical/x-gaussian-checkpoint"]),smalltalk.send("fig", "__minus_gt", ["application/x-xfig"]),smalltalk.send("flac", "__minus_gt", ["application/x-flac"]),smalltalk.send("fli", "__minus_gt", ["video/fli"]),smalltalk.send("fm", "__minus_gt", ["application/x-maker"]),smalltalk.send("frame", "__minus_gt", ["application/x-maker"]),smalltalk.send("frm", "__minus_gt", ["application/x-maker"]),smalltalk.send("gal", "__minus_gt", ["chemical/x-gaussian-log"]),smalltalk.send("gam", "__minus_gt", ["chemical/x-gamess-input"]),smalltalk.send("gamin", "__minus_gt", ["chemical/x-gamess-input"]),smalltalk.send("gau", "__minus_gt", ["chemical/x-gaussian-input"]),smalltalk.send("gcd", "__minus_gt", ["text/x-pcs-gcd"]),smalltalk.send("gcf", "__minus_gt", ["application/x-graphing-calculator"]),smalltalk.send("gcg", "__minus_gt", ["chemical/x-gcg8-sequence"]),smalltalk.send("gen", "__minus_gt", ["chemical/x-genbank"]),smalltalk.send("gf", "__minus_gt", ["application/x-tex-gf"]),smalltalk.send("gif", "__minus_gt", ["image/gif"]),smalltalk.send("gjc", "__minus_gt", ["chemical/x-gaussian-input"]),smalltalk.send("gjf", "__minus_gt", ["chemical/x-gaussian-input"]),smalltalk.send("gl", "__minus_gt", ["video/gl"]),smalltalk.send("gnumeric", "__minus_gt", ["application/x-gnumeric"]),smalltalk.send("gpt", "__minus_gt", ["chemical/x-mopac-graph"]),smalltalk.send("gsf", "__minus_gt", ["application/x-font"]),smalltalk.send("gsm", "__minus_gt", ["audio/x-gsm"]),smalltalk.send("gtar", "__minus_gt", ["application/x-gtar"]),smalltalk.send("h", "__minus_gt", ["text/x-chdr"]),smalltalk.send("h++", "__minus_gt", ["text/x-c++hdr"]),smalltalk.send("hdf", "__minus_gt", ["application/x-hdf"]),smalltalk.send("hh", "__minus_gt", ["text/x-c++hdr"]),smalltalk.send("hin", "__minus_gt", ["chemical/x-hin"]),smalltalk.send("hpp", "__minus_gt", ["text/x-c++hdr"]),smalltalk.send("hqx", "__minus_gt", ["application/mac-binhex40"]),smalltalk.send("hs", "__minus_gt", ["text/x-haskell"]),smalltalk.send("hta", "__minus_gt", ["application/hta"]),smalltalk.send("htc", "__minus_gt", ["text/x-component"]),smalltalk.send("htm", "__minus_gt", ["text/html"]),smalltalk.send("html", "__minus_gt", ["text/html"]),smalltalk.send("hxx", "__minus_gt", ["text/x-c++hdr"]),smalltalk.send("ica", "__minus_gt", ["application/x-ica"]),smalltalk.send("ice", "__minus_gt", ["x-conference/x-cooltalk"]),smalltalk.send("ico", "__minus_gt", ["image/x-icon"]),smalltalk.send("ics", "__minus_gt", ["text/calendar"]),smalltalk.send("icz", "__minus_gt", ["text/calendar"]),smalltalk.send("ief", "__minus_gt", ["image/ief"]),smalltalk.send("iges", "__minus_gt", ["model/iges"]),smalltalk.send("igs", "__minus_gt", ["model/iges"]),smalltalk.send("iii", "__minus_gt", ["application/x-iphone"]),smalltalk.send("inp", "__minus_gt", ["chemical/x-gamess-input"]),smalltalk.send("ins", "__minus_gt", ["application/x-internet-signup"]),smalltalk.send("iso", "__minus_gt", ["application/x-iso9660-image"]),smalltalk.send("isp", "__minus_gt", ["application/x-internet-signup"]),smalltalk.send("ist", "__minus_gt", ["chemical/x-isostar"]),smalltalk.send("istr", "__minus_gt", ["chemical/x-isostar"]),smalltalk.send("jad", "__minus_gt", ["text/vnd.sun.j2me.app-descriptor"]),smalltalk.send("jar", "__minus_gt", ["application/java-archive"]),smalltalk.send("java", "__minus_gt", ["text/x-java"]),smalltalk.send("jdx", "__minus_gt", ["chemical/x-jcamp-dx"]),smalltalk.send("jmz", "__minus_gt", ["application/x-jmol"]),smalltalk.send("jng", "__minus_gt", ["image/x-jng"]),smalltalk.send("jnlp", "__minus_gt", ["application/x-java-jnlp-file"]),smalltalk.send("jpe", "__minus_gt", ["image/jpeg"]),smalltalk.send("jpeg", "__minus_gt", ["image/jpeg"]),smalltalk.send("jpg", "__minus_gt", ["image/jpeg"]),smalltalk.send("js", "__minus_gt", ["application/javascript"]),smalltalk.send("kar", "__minus_gt", ["audio/midi"]),smalltalk.send("key", "__minus_gt", ["application/pgp-keys"]),smalltalk.send("kil", "__minus_gt", ["application/x-killustrator"]),smalltalk.send("kin", "__minus_gt", ["chemical/x-kinemage"]),smalltalk.send("kpr", "__minus_gt", ["application/x-kpresenter"]),smalltalk.send("kpt", "__minus_gt", ["application/x-kpresenter"]),smalltalk.send("ksp", "__minus_gt", ["application/x-kspread"]),smalltalk.send("kwd", "__minus_gt", ["application/x-kword"]),smalltalk.send("kwt", "__minus_gt", ["application/x-kword"]),smalltalk.send("latex", "__minus_gt", ["application/x-latex"]),smalltalk.send("lha", "__minus_gt", ["application/x-lha"]),smalltalk.send("lhs", "__minus_gt", ["text/x-literate-haskell"]),smalltalk.send("lsf", "__minus_gt", ["video/x-la-asf"]),smalltalk.send("lsx", "__minus_gt", ["video/x-la-asf"]),smalltalk.send("ltx", "__minus_gt", ["text/x-tex"]),smalltalk.send("lzh", "__minus_gt", ["application/x-lzh"]),smalltalk.send("lzx", "__minus_gt", ["application/x-lzx"]),smalltalk.send("m3u", "__minus_gt", ["audio/x-mpegurl"]),smalltalk.send("m4a", "__minus_gt", ["audio/mpeg"]),smalltalk.send("maker", "__minus_gt", ["application/x-maker"]),smalltalk.send("man", "__minus_gt", ["application/x-troff-man"]),smalltalk.send("mcif", "__minus_gt", ["chemical/x-mmcif"]),smalltalk.send("mcm", "__minus_gt", ["chemical/x-macmolecule"]),smalltalk.send("mdb", "__minus_gt", ["application/msaccess"]),smalltalk.send("me", "__minus_gt", ["application/x-troff-me"]),smalltalk.send("mesh", "__minus_gt", ["model/mesh"]),smalltalk.send("mid", "__minus_gt", ["audio/midi"]),smalltalk.send("midi", "__minus_gt", ["audio/midi"]),smalltalk.send("mif", "__minus_gt", ["application/x-mif"]),smalltalk.send("mm", "__minus_gt", ["application/x-freemind"]),smalltalk.send("mmd", "__minus_gt", ["chemical/x-macromodel-input"]),smalltalk.send("mmf", "__minus_gt", ["application/vnd.smaf"]),smalltalk.send("mml", "__minus_gt", ["text/mathml"]),smalltalk.send("mmod", "__minus_gt", ["chemical/x-macromodel-input"]),smalltalk.send("mng", "__minus_gt", ["video/x-mng"]),smalltalk.send("moc", "__minus_gt", ["text/x-moc"]),smalltalk.send("mol", "__minus_gt", ["chemical/x-mdl-molfile"]),smalltalk.send("mol2", "__minus_gt", ["chemical/x-mol2"]),smalltalk.send("moo", "__minus_gt", ["chemical/x-mopac-out"]),smalltalk.send("mop", "__minus_gt", ["chemical/x-mopac-input"]),smalltalk.send("mopcrt", "__minus_gt", ["chemical/x-mopac-input"]),smalltalk.send("mov", "__minus_gt", ["video/quicktime"]),smalltalk.send("movie", "__minus_gt", ["video/x-sgi-movie"]),smalltalk.send("mp2", "__minus_gt", ["audio/mpeg"]),smalltalk.send("mp3", "__minus_gt", ["audio/mpeg"]),smalltalk.send("mp4", "__minus_gt", ["video/mp4"]),smalltalk.send("mpc", "__minus_gt", ["chemical/x-mopac-input"]),smalltalk.send("mpe", "__minus_gt", ["video/mpeg"]),smalltalk.send("mpeg", "__minus_gt", ["video/mpeg"]),smalltalk.send("mpega", "__minus_gt", ["audio/mpeg"]),smalltalk.send("mpg", "__minus_gt", ["video/mpeg"]),smalltalk.send("mpga", "__minus_gt", ["audio/mpeg"]),smalltalk.send("ms", "__minus_gt", ["application/x-troff-ms"]),smalltalk.send("msh", "__minus_gt", ["model/mesh"]),smalltalk.send("msi", "__minus_gt", ["application/x-msi"]),smalltalk.send("mvb", "__minus_gt", ["chemical/x-mopac-vib"]),smalltalk.send("mxu", "__minus_gt", ["video/vnd.mpegurl"]),smalltalk.send("nb", "__minus_gt", ["application/mathematica"]),smalltalk.send("nc", "__minus_gt", ["application/x-netcdf"]),smalltalk.send("nwc", "__minus_gt", ["application/x-nwc"]),smalltalk.send("o", "__minus_gt", ["application/x-object"]),smalltalk.send("oda", "__minus_gt", ["application/oda"]),smalltalk.send("odb", "__minus_gt", ["application/vnd.oasis.opendocument.database"]),smalltalk.send("odc", "__minus_gt", ["application/vnd.oasis.opendocument.chart"]),smalltalk.send("odf", "__minus_gt", ["application/vnd.oasis.opendocument.formula"]),smalltalk.send("odg", "__minus_gt", ["application/vnd.oasis.opendocument.graphics"]),smalltalk.send("odi", "__minus_gt", ["application/vnd.oasis.opendocument.image"]),smalltalk.send("odm", "__minus_gt", ["application/vnd.oasis.opendocument.text-master"]),smalltalk.send("odp", "__minus_gt", ["application/vnd.oasis.opendocument.presentation"]),smalltalk.send("ods", "__minus_gt", ["application/vnd.oasis.opendocument.spreadsheet"]),smalltalk.send("odt", "__minus_gt", ["application/vnd.oasis.opendocument.text"]),smalltalk.send("ogg", "__minus_gt", ["application/ogg"]),smalltalk.send("old", "__minus_gt", ["application/x-trash"]),smalltalk.send("oth", "__minus_gt", ["application/vnd.oasis.opendocument.text-web"]),smalltalk.send("oza", "__minus_gt", ["application/x-oz-application"]),smalltalk.send("p", "__minus_gt", ["text/x-pascal"]),smalltalk.send("p7r", "__minus_gt", ["application/x-pkcs7-certreqresp"]),smalltalk.send("pac", "__minus_gt", ["application/x-ns-proxy-autoconfig"]),smalltalk.send("pas", "__minus_gt", ["text/x-pascal"]),smalltalk.send("pat", "__minus_gt", ["image/x-coreldrawpattern"]),smalltalk.send("pbm", "__minus_gt", ["image/x-portable-bitmap"]),smalltalk.send("pcf", "__minus_gt", ["application/x-font"]),smalltalk.send("pcf.Z", "__minus_gt", ["application/x-font"]),smalltalk.send("pcx", "__minus_gt", ["image/pcx"]),smalltalk.send("pdb", "__minus_gt", ["chemical/x-pdb"]),smalltalk.send("pdf", "__minus_gt", ["application/pdf"]),smalltalk.send("pfa", "__minus_gt", ["application/x-font"]),smalltalk.send("pfb", "__minus_gt", ["application/x-font"]),smalltalk.send("pgm", "__minus_gt", ["image/x-portable-graymap"]),smalltalk.send("pgn", "__minus_gt", ["application/x-chess-pgn"]),smalltalk.send("pgp", "__minus_gt", ["application/pgp-signature"]),smalltalk.send("pk", "__minus_gt", ["application/x-tex-pk"]),smalltalk.send("pl", "__minus_gt", ["text/x-perl"]),smalltalk.send("pls", "__minus_gt", ["audio/x-scpls"]),smalltalk.send("pm", "__minus_gt", ["text/x-perl"]),smalltalk.send("png", "__minus_gt", ["image/png"]),smalltalk.send("pnm", "__minus_gt", ["image/x-portable-anymap"]),smalltalk.send("pot", "__minus_gt", ["text/plain"]),smalltalk.send("ppm", "__minus_gt", ["image/x-portable-pixmap"]),smalltalk.send("pps", "__minus_gt", ["application/vnd.ms-powerpoint"]),smalltalk.send("ppt", "__minus_gt", ["application/vnd.ms-powerpoint"]),smalltalk.send("prf", "__minus_gt", ["application/pics-rules"]),smalltalk.send("prt", "__minus_gt", ["chemical/x-ncbi-asn1-ascii"]),smalltalk.send("ps", "__minus_gt", ["application/postscript"]),smalltalk.send("psd", "__minus_gt", ["image/x-photoshop"]),smalltalk.send("psp", "__minus_gt", ["text/x-psp"]),smalltalk.send("py", "__minus_gt", ["text/x-python"]),smalltalk.send("pyc", "__minus_gt", ["application/x-python-code"]),smalltalk.send("pyo", "__minus_gt", ["application/x-python-code"]),smalltalk.send("qt", "__minus_gt", ["video/quicktime"]),smalltalk.send("qtl", "__minus_gt", ["application/x-quicktimeplayer"]),smalltalk.send("ra", "__minus_gt", ["audio/x-realaudio"]),smalltalk.send("ram", "__minus_gt", ["audio/x-pn-realaudio"]),smalltalk.send("rar", "__minus_gt", ["application/rar"]),smalltalk.send("ras", "__minus_gt", ["image/x-cmu-raster"]),smalltalk.send("rd", "__minus_gt", ["chemical/x-mdl-rdfile"]),smalltalk.send("rdf", "__minus_gt", ["application/rdf+xml"]),smalltalk.send("rgb", "__minus_gt", ["image/x-rgb"]),smalltalk.send("rm", "__minus_gt", ["audio/x-pn-realaudio"]),smalltalk.send("roff", "__minus_gt", ["application/x-troff"]),smalltalk.send("ros", "__minus_gt", ["chemical/x-rosdal"]),smalltalk.send("rpm", "__minus_gt", ["application/x-redhat-package-manager"]),smalltalk.send("rss", "__minus_gt", ["application/rss+xml"]),smalltalk.send("rtf", "__minus_gt", ["text/rtf"]),smalltalk.send("rtx", "__minus_gt", ["text/richtext"]),smalltalk.send("rxn", "__minus_gt", ["chemical/x-mdl-rxnfile"]),smalltalk.send("sct", "__minus_gt", ["text/scriptlet"]),smalltalk.send("sd", "__minus_gt", ["chemical/x-mdl-sdfile"]),smalltalk.send("sd2", "__minus_gt", ["audio/x-sd2"]),smalltalk.send("sda", "__minus_gt", ["application/vnd.stardivision.draw"]),smalltalk.send("sdc", "__minus_gt", ["application/vnd.stardivision.calc"]),smalltalk.send("sdd", "__minus_gt", ["application/vnd.stardivision.impress"]),smalltalk.send("sdf", "__minus_gt", ["chemical/x-mdl-sdfile"]),smalltalk.send("sdp", "__minus_gt", ["application/vnd.stardivision.impress"]),smalltalk.send("sdw", "__minus_gt", ["application/vnd.stardivision.writer"]),smalltalk.send("ser", "__minus_gt", ["application/java-serialized-object"]),smalltalk.send("sgf", "__minus_gt", ["application/x-go-sgf"]),smalltalk.send("sgl", "__minus_gt", ["application/vnd.stardivision.writer-global"]),smalltalk.send("sh", "__minus_gt", ["text/x-sh"]),smalltalk.send("shar", "__minus_gt", ["application/x-shar"]),smalltalk.send("shtml", "__minus_gt", ["text/html"]),smalltalk.send("sid", "__minus_gt", ["audio/prs.sid"]),smalltalk.send("sik", "__minus_gt", ["application/x-trash"]),smalltalk.send("silo", "__minus_gt", ["model/mesh"]),smalltalk.send("sis", "__minus_gt", ["application/vnd.symbian.install"]),smalltalk.send("sit", "__minus_gt", ["application/x-stuffit"]),smalltalk.send("skd", "__minus_gt", ["application/x-koan"]),smalltalk.send("skm", "__minus_gt", ["application/x-koan"]),smalltalk.send("skp", "__minus_gt", ["application/x-koan"]),smalltalk.send("skt", "__minus_gt", ["application/x-koan"]),smalltalk.send("smf", "__minus_gt", ["application/vnd.stardivision.math"]),smalltalk.send("smi", "__minus_gt", ["application/smil"]),smalltalk.send("smil", "__minus_gt", ["application/smil"]),smalltalk.send("snd", "__minus_gt", ["audio/basic"]),smalltalk.send("spc", "__minus_gt", ["chemical/x-galactic-spc"]),smalltalk.send("spl", "__minus_gt", ["application/x-futuresplash"]),smalltalk.send("src", "__minus_gt", ["application/x-wais-source"]),smalltalk.send("stc", "__minus_gt", ["application/vnd.sun.xml.calc.template"]),smalltalk.send("std", "__minus_gt", ["application/vnd.sun.xml.draw.template"]),smalltalk.send("sti", "__minus_gt", ["application/vnd.sun.xml.impress.template"]),smalltalk.send("stl", "__minus_gt", ["application/vnd.ms-pki.stl"]),smalltalk.send("stw", "__minus_gt", ["application/vnd.sun.xml.writer.template"]),smalltalk.send("sty", "__minus_gt", ["text/x-tex"]),smalltalk.send("sv4cpio", "__minus_gt", ["application/x-sv4cpio"]),smalltalk.send("sv4crc", "__minus_gt", ["application/x-sv4crc"]),smalltalk.send("svg", "__minus_gt", ["image/svg+xml"]),smalltalk.send("svgz", "__minus_gt", ["image/svg+xml"]),smalltalk.send("sw", "__minus_gt", ["chemical/x-swissprot"]),smalltalk.send("swf", "__minus_gt", ["application/x-shockwave-flash"]),smalltalk.send("swfl", "__minus_gt", ["application/x-shockwave-flash"]),smalltalk.send("sxc", "__minus_gt", ["application/vnd.sun.xml.calc"]),smalltalk.send("sxd", "__minus_gt", ["application/vnd.sun.xml.draw"]),smalltalk.send("sxg", "__minus_gt", ["application/vnd.sun.xml.writer.global"]),smalltalk.send("sxi", "__minus_gt", ["application/vnd.sun.xml.impress"]),smalltalk.send("sxm", "__minus_gt", ["application/vnd.sun.xml.math"]),smalltalk.send("sxw", "__minus_gt", ["application/vnd.sun.xml.writer"]),smalltalk.send("t", "__minus_gt", ["application/x-troff"]),smalltalk.send("tar", "__minus_gt", ["application/x-tar"]),smalltalk.send("taz", "__minus_gt", ["application/x-gtar"]),smalltalk.send("tcl", "__minus_gt", ["text/x-tcl"]),smalltalk.send("tex", "__minus_gt", ["text/x-tex"]),smalltalk.send("texi", "__minus_gt", ["application/x-texinfo"]),smalltalk.send("texinfo", "__minus_gt", ["application/x-texinfo"]),smalltalk.send("text", "__minus_gt", ["text/plain"]),smalltalk.send("tgf", "__minus_gt", ["chemical/x-mdl-tgf"]),smalltalk.send("tgz", "__minus_gt", ["application/x-gtar"]),smalltalk.send("tif", "__minus_gt", ["image/tiff"]),smalltalk.send("tiff", "__minus_gt", ["image/tiff"]),smalltalk.send("tk", "__minus_gt", ["text/x-tcl"]),smalltalk.send("tm", "__minus_gt", ["text/texmacs"]),smalltalk.send("torrent", "__minus_gt", ["application/x-bittorrent"]),smalltalk.send("tr", "__minus_gt", ["application/x-troff"]),smalltalk.send("ts", "__minus_gt", ["text/texmacs"]),smalltalk.send("tsp", "__minus_gt", ["application/dsptype"]),smalltalk.send("tsv", "__minus_gt", ["text/tab-separated-values"]),smalltalk.send("txt", "__minus_gt", ["text/plain"]),smalltalk.send("udeb", "__minus_gt", ["application/x-debian-package"]),smalltalk.send("uls", "__minus_gt", ["text/iuls"]),smalltalk.send("ustar", "__minus_gt", ["application/x-ustar"]),smalltalk.send("val", "__minus_gt", ["chemical/x-ncbi-asn1-binary"]),smalltalk.send("vcd", "__minus_gt", ["application/x-cdlink"]),smalltalk.send("vcf", "__minus_gt", ["text/x-vcard"]),smalltalk.send("vcs", "__minus_gt", ["text/x-vcalendar"]),smalltalk.send("vmd", "__minus_gt", ["chemical/x-vmd"]),smalltalk.send("vms", "__minus_gt", ["chemical/x-vamas-iso14976"]),smalltalk.send("vor", "__minus_gt", ["application/vnd.stardivision.writer"]),smalltalk.send("vrm", "__minus_gt", ["x-world/x-vrml"]),smalltalk.send("vrml", "__minus_gt", ["x-world/x-vrml"]),smalltalk.send("vsd", "__minus_gt", ["application/vnd.visio"]),smalltalk.send("wad", "__minus_gt", ["application/x-doom"]),smalltalk.send("wav", "__minus_gt", ["audio/x-wav"]),smalltalk.send("wax", "__minus_gt", ["audio/x-ms-wax"]),smalltalk.send("wbmp", "__minus_gt", ["image/vnd.wap.wbmp"]),smalltalk.send("wbxml", "__minus_gt", ["application/vnd.wap.wbxml"]),smalltalk.send("wk", "__minus_gt", ["application/x-123"]),smalltalk.send("wm", "__minus_gt", ["video/x-ms-wm"]),smalltalk.send("wma", "__minus_gt", ["audio/x-ms-wma"]),smalltalk.send("wmd", "__minus_gt", ["application/x-ms-wmd"]),smalltalk.send("wml", "__minus_gt", ["text/vnd.wap.wml"]),smalltalk.send("wmlc", "__minus_gt", ["application/vnd.wap.wmlc"]),smalltalk.send("wmls", "__minus_gt", ["text/vnd.wap.wmlscript"]),smalltalk.send("wmlsc", "__minus_gt", ["application/vnd.wap.wmlscriptc"]),smalltalk.send("wmv", "__minus_gt", ["video/x-ms-wmv"]),smalltalk.send("wmx", "__minus_gt", ["video/x-ms-wmx"]),smalltalk.send("wmz", "__minus_gt", ["application/x-ms-wmz"]),smalltalk.send("wp5", "__minus_gt", ["application/wordperfect5.1"]),smalltalk.send("wpd", "__minus_gt", ["application/wordperfect"]),smalltalk.send("wrl", "__minus_gt", ["x-world/x-vrml"]),smalltalk.send("wsc", "__minus_gt", ["text/scriptlet"]),smalltalk.send("wvx", "__minus_gt", ["video/x-ms-wvx"]),smalltalk.send("wz", "__minus_gt", ["application/x-wingz"]),smalltalk.send("xbm", "__minus_gt", ["image/x-xbitmap"]),smalltalk.send("xcf", "__minus_gt", ["application/x-xcf"]),smalltalk.send("xht", "__minus_gt", ["application/xhtml+xml"]),smalltalk.send("xhtml", "__minus_gt", ["application/xhtml+xml"]),smalltalk.send("xlb", "__minus_gt", ["application/vnd.ms-excel"]),smalltalk.send("xls", "__minus_gt", ["application/vnd.ms-excel"]),smalltalk.send("xlt", "__minus_gt", ["application/vnd.ms-excel"]),smalltalk.send("xml", "__minus_gt", ["application/xml"]),smalltalk.send("xpi", "__minus_gt", ["application/x-xpinstall"]),smalltalk.send("xpm", "__minus_gt", ["image/x-xpixmap"]),smalltalk.send("xsl", "__minus_gt", ["application/xml"]),smalltalk.send("xtel", "__minus_gt", ["chemical/x-xtel"]),smalltalk.send("xul", "__minus_gt", ["application/vnd.mozilla.xul+xml"]),smalltalk.send("xwd", "__minus_gt", ["image/x-xwindowdump"]),smalltalk.send("xyz", "__minus_gt", ["chemical/x-xyz"]),smalltalk.send("zip", "__minus_gt", ["application/zip"]),smalltalk.send("zmt", "__minus_gt", ["chemical/x-mopac-input"]),smalltalk.send("~", "__minus_gt", ["application/x-trash"])]);
 return self;},
 args: [],
-source: unescape('defaultMimeTypes%0A%09%5E%20%23%7B%0A%09%09%27%25%27%20-%3E%20%27application/x-trash%27.%0A%09%09%27323%27%20-%3E%20%27text/h323%27.%0A%09%09%27abw%27%20-%3E%20%27application/x-abiword%27.%0A%09%09%27ai%27%20-%3E%20%27application/postscript%27.%0A%09%09%27aif%27%20-%3E%20%27audio/x-aiff%27.%0A%09%09%27aifc%27%20-%3E%20%27audio/x-aiff%27.%0A%09%09%27aiff%27%20-%3E%20%27audio/x-aiff%27.%0A%09%09%27alc%27%20-%3E%20%27chemical/x-alchemy%27.%0A%09%09%27art%27%20-%3E%20%27image/x-jg%27.%0A%09%09%27asc%27%20-%3E%20%27text/plain%27.%0A%09%09%27asf%27%20-%3E%20%27video/x-ms-asf%27.%0A%09%09%27asn%27%20-%3E%20%27chemical/x-ncbi-asn1-spec%27.%0A%09%09%27aso%27%20-%3E%20%27chemical/x-ncbi-asn1-binary%27.%0A%09%09%27asx%27%20-%3E%20%27video/x-ms-asf%27.%0A%09%09%27au%27%20-%3E%20%27audio/basic%27.%0A%09%09%27avi%27%20-%3E%20%27video/x-msvideo%27.%0A%09%09%27b%27%20-%3E%20%27chemical/x-molconn-Z%27.%0A%09%09%27bak%27%20-%3E%20%27application/x-trash%27.%0A%09%09%27bat%27%20-%3E%20%27application/x-msdos-program%27.%0A%09%09%27bcpio%27%20-%3E%20%27application/x-bcpio%27.%0A%09%09%27bib%27%20-%3E%20%27text/x-bibtex%27.%0A%09%09%27bin%27%20-%3E%20%27application/octet-stream%27.%0A%09%09%27bmp%27%20-%3E%20%27image/x-ms-bmp%27.%0A%09%09%27book%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27bsd%27%20-%3E%20%27chemical/x-crossfire%27.%0A%09%09%27c%27%20-%3E%20%27text/x-csrc%27.%0A%09%09%27c++%27%20-%3E%20%27text/x-c++src%27.%0A%09%09%27c3d%27%20-%3E%20%27chemical/x-chem3d%27.%0A%09%09%27cac%27%20-%3E%20%27chemical/x-cache%27.%0A%09%09%27cache%27%20-%3E%20%27chemical/x-cache%27.%0A%09%09%27cascii%27%20-%3E%20%27chemical/x-cactvs-binary%27.%0A%09%09%27cat%27%20-%3E%20%27application/vnd.ms-pki.seccat%27.%0A%09%09%27cbin%27%20-%3E%20%27chemical/x-cactvs-binary%27.%0A%09%09%27cc%27%20-%3E%20%27text/x-c++src%27.%0A%09%09%27cdf%27%20-%3E%20%27application/x-cdf%27.%0A%09%09%27cdr%27%20-%3E%20%27image/x-coreldraw%27.%0A%09%09%27cdt%27%20-%3E%20%27image/x-coreldrawtemplate%27.%0A%09%09%27cdx%27%20-%3E%20%27chemical/x-cdx%27.%0A%09%09%27cdy%27%20-%3E%20%27application/vnd.cinderella%27.%0A%09%09%27cef%27%20-%3E%20%27chemical/x-cxf%27.%0A%09%09%27cer%27%20-%3E%20%27chemical/x-cerius%27.%0A%09%09%27chm%27%20-%3E%20%27chemical/x-chemdraw%27.%0A%09%09%27chrt%27%20-%3E%20%27application/x-kchart%27.%0A%09%09%27cif%27%20-%3E%20%27chemical/x-cif%27.%0A%09%09%27class%27%20-%3E%20%27application/java-vm%27.%0A%09%09%27cls%27%20-%3E%20%27text/x-tex%27.%0A%09%09%27cmdf%27%20-%3E%20%27chemical/x-cmdf%27.%0A%09%09%27cml%27%20-%3E%20%27chemical/x-cml%27.%0A%09%09%27cod%27%20-%3E%20%27application/vnd.rim.cod%27.%0A%09%09%27com%27%20-%3E%20%27application/x-msdos-program%27.%0A%09%09%27cpa%27%20-%3E%20%27chemical/x-compass%27.%0A%09%09%27cpio%27%20-%3E%20%27application/x-cpio%27.%0A%09%09%27cpp%27%20-%3E%20%27text/x-c++src%27.%0A%09%09%27cpt%27%20-%3E%20%27image/x-corelphotopaint%27.%0A%09%09%27crl%27%20-%3E%20%27application/x-pkcs7-crl%27.%0A%09%09%27crt%27%20-%3E%20%27application/x-x509-ca-cert%27.%0A%09%09%27csf%27%20-%3E%20%27chemical/x-cache-csf%27.%0A%09%09%27csh%27%20-%3E%20%27text/x-csh%27.%0A%09%09%27csm%27%20-%3E%20%27chemical/x-csml%27.%0A%09%09%27csml%27%20-%3E%20%27chemical/x-csml%27.%0A%09%09%27css%27%20-%3E%20%27text/css%27.%0A%09%09%27csv%27%20-%3E%20%27text/comma-separated-values%27.%0A%09%09%27ctab%27%20-%3E%20%27chemical/x-cactvs-binary%27.%0A%09%09%27ctx%27%20-%3E%20%27chemical/x-ctx%27.%0A%09%09%27cu%27%20-%3E%20%27application/cu-seeme%27.%0A%09%09%27cub%27%20-%3E%20%27chemical/x-gaussian-cube%27.%0A%09%09%27cxf%27%20-%3E%20%27chemical/x-cxf%27.%0A%09%09%27cxx%27%20-%3E%20%27text/x-c++src%27.%0A%09%09%27dat%27%20-%3E%20%27chemical/x-mopac-input%27.%0A%09%09%27dcr%27%20-%3E%20%27application/x-director%27.%0A%09%09%27deb%27%20-%3E%20%27application/x-debian-package%27.%0A%09%09%27dif%27%20-%3E%20%27video/dv%27.%0A%09%09%27diff%27%20-%3E%20%27text/plain%27.%0A%09%09%27dir%27%20-%3E%20%27application/x-director%27.%0A%09%09%27djv%27%20-%3E%20%27image/vnd.djvu%27.%0A%09%09%27djvu%27%20-%3E%20%27image/vnd.djvu%27.%0A%09%09%27dl%27%20-%3E%20%27video/dl%27.%0A%09%09%27dll%27%20-%3E%20%27application/x-msdos-program%27.%0A%09%09%27dmg%27%20-%3E%20%27application/x-apple-diskimage%27.%0A%09%09%27dms%27%20-%3E%20%27application/x-dms%27.%0A%09%09%27doc%27%20-%3E%20%27application/msword%27.%0A%09%09%27dot%27%20-%3E%20%27application/msword%27.%0A%09%09%27dv%27%20-%3E%20%27video/dv%27.%0A%09%09%27dvi%27%20-%3E%20%27application/x-dvi%27.%0A%09%09%27dx%27%20-%3E%20%27chemical/x-jcamp-dx%27.%0A%09%09%27dxr%27%20-%3E%20%27application/x-director%27.%0A%09%09%27emb%27%20-%3E%20%27chemical/x-embl-dl-nucleotide%27.%0A%09%09%27embl%27%20-%3E%20%27chemical/x-embl-dl-nucleotide%27.%0A%09%09%27ent%27%20-%3E%20%27chemical/x-pdb%27.%0A%09%09%27eps%27%20-%3E%20%27application/postscript%27.%0A%09%09%27etx%27%20-%3E%20%27text/x-setext%27.%0A%09%09%27exe%27%20-%3E%20%27application/x-msdos-program%27.%0A%09%09%27ez%27%20-%3E%20%27application/andrew-inset%27.%0A%09%09%27fb%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27fbdoc%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27fch%27%20-%3E%20%27chemical/x-gaussian-checkpoint%27.%0A%09%09%27fchk%27%20-%3E%20%27chemical/x-gaussian-checkpoint%27.%0A%09%09%27fig%27%20-%3E%20%27application/x-xfig%27.%0A%09%09%27flac%27%20-%3E%20%27application/x-flac%27.%0A%09%09%27fli%27%20-%3E%20%27video/fli%27.%0A%09%09%27fm%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27frame%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27frm%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27gal%27%20-%3E%20%27chemical/x-gaussian-log%27.%0A%09%09%27gam%27%20-%3E%20%27chemical/x-gamess-input%27.%0A%09%09%27gamin%27%20-%3E%20%27chemical/x-gamess-input%27.%0A%09%09%27gau%27%20-%3E%20%27chemical/x-gaussian-input%27.%0A%09%09%27gcd%27%20-%3E%20%27text/x-pcs-gcd%27.%0A%09%09%27gcf%27%20-%3E%20%27application/x-graphing-calculator%27.%0A%09%09%27gcg%27%20-%3E%20%27chemical/x-gcg8-sequence%27.%0A%09%09%27gen%27%20-%3E%20%27chemical/x-genbank%27.%0A%09%09%27gf%27%20-%3E%20%27application/x-tex-gf%27.%0A%09%09%27gif%27%20-%3E%20%27image/gif%27.%0A%09%09%27gjc%27%20-%3E%20%27chemical/x-gaussian-input%27.%0A%09%09%27gjf%27%20-%3E%20%27chemical/x-gaussian-input%27.%0A%09%09%27gl%27%20-%3E%20%27video/gl%27.%0A%09%09%27gnumeric%27%20-%3E%20%27application/x-gnumeric%27.%0A%09%09%27gpt%27%20-%3E%20%27chemical/x-mopac-graph%27.%0A%09%09%27gsf%27%20-%3E%20%27application/x-font%27.%0A%09%09%27gsm%27%20-%3E%20%27audio/x-gsm%27.%0A%09%09%27gtar%27%20-%3E%20%27application/x-gtar%27.%0A%09%09%27h%27%20-%3E%20%27text/x-chdr%27.%0A%09%09%27h++%27%20-%3E%20%27text/x-c++hdr%27.%0A%09%09%27hdf%27%20-%3E%20%27application/x-hdf%27.%0A%09%09%27hh%27%20-%3E%20%27text/x-c++hdr%27.%0A%09%09%27hin%27%20-%3E%20%27chemical/x-hin%27.%0A%09%09%27hpp%27%20-%3E%20%27text/x-c++hdr%27.%0A%09%09%27hqx%27%20-%3E%20%27application/mac-binhex40%27.%0A%09%09%27hs%27%20-%3E%20%27text/x-haskell%27.%0A%09%09%27hta%27%20-%3E%20%27application/hta%27.%0A%09%09%27htc%27%20-%3E%20%27text/x-component%27.%0A%09%09%27htm%27%20-%3E%20%27text/html%27.%0A%09%09%27html%27%20-%3E%20%27text/html%27.%0A%09%09%27hxx%27%20-%3E%20%27text/x-c++hdr%27.%0A%09%09%27ica%27%20-%3E%20%27application/x-ica%27.%0A%09%09%27ice%27%20-%3E%20%27x-conference/x-cooltalk%27.%0A%09%09%27ico%27%20-%3E%20%27image/x-icon%27.%0A%09%09%27ics%27%20-%3E%20%27text/calendar%27.%0A%09%09%27icz%27%20-%3E%20%27text/calendar%27.%0A%09%09%27ief%27%20-%3E%20%27image/ief%27.%0A%09%09%27iges%27%20-%3E%20%27model/iges%27.%0A%09%09%27igs%27%20-%3E%20%27model/iges%27.%0A%09%09%27iii%27%20-%3E%20%27application/x-iphone%27.%0A%09%09%27inp%27%20-%3E%20%27chemical/x-gamess-input%27.%0A%09%09%27ins%27%20-%3E%20%27application/x-internet-signup%27.%0A%09%09%27iso%27%20-%3E%20%27application/x-iso9660-image%27.%0A%09%09%27isp%27%20-%3E%20%27application/x-internet-signup%27.%0A%09%09%27ist%27%20-%3E%20%27chemical/x-isostar%27.%0A%09%09%27istr%27%20-%3E%20%27chemical/x-isostar%27.%0A%09%09%27jad%27%20-%3E%20%27text/vnd.sun.j2me.app-descriptor%27.%0A%09%09%27jar%27%20-%3E%20%27application/java-archive%27.%0A%09%09%27java%27%20-%3E%20%27text/x-java%27.%0A%09%09%27jdx%27%20-%3E%20%27chemical/x-jcamp-dx%27.%0A%09%09%27jmz%27%20-%3E%20%27application/x-jmol%27.%0A%09%09%27jng%27%20-%3E%20%27image/x-jng%27.%0A%09%09%27jnlp%27%20-%3E%20%27application/x-java-jnlp-file%27.%0A%09%09%27jpe%27%20-%3E%20%27image/jpeg%27.%0A%09%09%27jpeg%27%20-%3E%20%27image/jpeg%27.%0A%09%09%27jpg%27%20-%3E%20%27image/jpeg%27.%0A%09%09%27js%27%20-%3E%20%27application/javascript%27.%0A%09%09%27kar%27%20-%3E%20%27audio/midi%27.%0A%09%09%27key%27%20-%3E%20%27application/pgp-keys%27.%0A%09%09%27kil%27%20-%3E%20%27application/x-killustrator%27.%0A%09%09%27kin%27%20-%3E%20%27chemical/x-kinemage%27.%0A%09%09%27kpr%27%20-%3E%20%27application/x-kpresenter%27.%0A%09%09%27kpt%27%20-%3E%20%27application/x-kpresenter%27.%0A%09%09%27ksp%27%20-%3E%20%27application/x-kspread%27.%0A%09%09%27kwd%27%20-%3E%20%27application/x-kword%27.%0A%09%09%27kwt%27%20-%3E%20%27application/x-kword%27.%0A%09%09%27latex%27%20-%3E%20%27application/x-latex%27.%0A%09%09%27lha%27%20-%3E%20%27application/x-lha%27.%0A%09%09%27lhs%27%20-%3E%20%27text/x-literate-haskell%27.%0A%09%09%27lsf%27%20-%3E%20%27video/x-la-asf%27.%0A%09%09%27lsx%27%20-%3E%20%27video/x-la-asf%27.%0A%09%09%27ltx%27%20-%3E%20%27text/x-tex%27.%0A%09%09%27lzh%27%20-%3E%20%27application/x-lzh%27.%0A%09%09%27lzx%27%20-%3E%20%27application/x-lzx%27.%0A%09%09%27m3u%27%20-%3E%20%27audio/x-mpegurl%27.%0A%09%09%27m4a%27%20-%3E%20%27audio/mpeg%27.%0A%09%09%27maker%27%20-%3E%20%27application/x-maker%27.%0A%09%09%27man%27%20-%3E%20%27application/x-troff-man%27.%0A%09%09%27mcif%27%20-%3E%20%27chemical/x-mmcif%27.%0A%09%09%27mcm%27%20-%3E%20%27chemical/x-macmolecule%27.%0A%09%09%27mdb%27%20-%3E%20%27application/msaccess%27.%0A%09%09%27me%27%20-%3E%20%27application/x-troff-me%27.%0A%09%09%27mesh%27%20-%3E%20%27model/mesh%27.%0A%09%09%27mid%27%20-%3E%20%27audio/midi%27.%0A%09%09%27midi%27%20-%3E%20%27audio/midi%27.%0A%09%09%27mif%27%20-%3E%20%27application/x-mif%27.%0A%09%09%27mm%27%20-%3E%20%27application/x-freemind%27.%0A%09%09%27mmd%27%20-%3E%20%27chemical/x-macromodel-input%27.%0A%09%09%27mmf%27%20-%3E%20%27application/vnd.smaf%27.%0A%09%09%27mml%27%20-%3E%20%27text/mathml%27.%0A%09%09%27mmod%27%20-%3E%20%27chemical/x-macromodel-input%27.%0A%09%09%27mng%27%20-%3E%20%27video/x-mng%27.%0A%09%09%27moc%27%20-%3E%20%27text/x-moc%27.%0A%09%09%27mol%27%20-%3E%20%27chemical/x-mdl-molfile%27.%0A%09%09%27mol2%27%20-%3E%20%27chemical/x-mol2%27.%0A%09%09%27moo%27%20-%3E%20%27chemical/x-mopac-out%27.%0A%09%09%27mop%27%20-%3E%20%27chemical/x-mopac-input%27.%0A%09%09%27mopcrt%27%20-%3E%20%27chemical/x-mopac-input%27.%0A%09%09%27mov%27%20-%3E%20%27video/quicktime%27.%0A%09%09%27movie%27%20-%3E%20%27video/x-sgi-movie%27.%0A%09%09%27mp2%27%20-%3E%20%27audio/mpeg%27.%0A%09%09%27mp3%27%20-%3E%20%27audio/mpeg%27.%0A%09%09%27mp4%27%20-%3E%20%27video/mp4%27.%0A%09%09%27mpc%27%20-%3E%20%27chemical/x-mopac-input%27.%0A%09%09%27mpe%27%20-%3E%20%27video/mpeg%27.%0A%09%09%27mpeg%27%20-%3E%20%27video/mpeg%27.%0A%09%09%27mpega%27%20-%3E%20%27audio/mpeg%27.%0A%09%09%27mpg%27%20-%3E%20%27video/mpeg%27.%0A%09%09%27mpga%27%20-%3E%20%27audio/mpeg%27.%0A%09%09%27ms%27%20-%3E%20%27application/x-troff-ms%27.%0A%09%09%27msh%27%20-%3E%20%27model/mesh%27.%0A%09%09%27msi%27%20-%3E%20%27application/x-msi%27.%0A%09%09%27mvb%27%20-%3E%20%27chemical/x-mopac-vib%27.%0A%09%09%27mxu%27%20-%3E%20%27video/vnd.mpegurl%27.%0A%09%09%27nb%27%20-%3E%20%27application/mathematica%27.%0A%09%09%27nc%27%20-%3E%20%27application/x-netcdf%27.%0A%09%09%27nwc%27%20-%3E%20%27application/x-nwc%27.%0A%09%09%27o%27%20-%3E%20%27application/x-object%27.%0A%09%09%27oda%27%20-%3E%20%27application/oda%27.%0A%09%09%27odb%27%20-%3E%20%27application/vnd.oasis.opendocument.database%27.%0A%09%09%27odc%27%20-%3E%20%27application/vnd.oasis.opendocument.chart%27.%0A%09%09%27odf%27%20-%3E%20%27application/vnd.oasis.opendocument.formula%27.%0A%09%09%27odg%27%20-%3E%20%27application/vnd.oasis.opendocument.graphics%27.%0A%09%09%27odi%27%20-%3E%20%27application/vnd.oasis.opendocument.image%27.%0A%09%09%27odm%27%20-%3E%20%27application/vnd.oasis.opendocument.text-master%27.%0A%09%09%27odp%27%20-%3E%20%27application/vnd.oasis.opendocument.presentation%27.%0A%09%09%27ods%27%20-%3E%20%27application/vnd.oasis.opendocument.spreadsheet%27.%0A%09%09%27odt%27%20-%3E%20%27application/vnd.oasis.opendocument.text%27.%0A%09%09%27ogg%27%20-%3E%20%27application/ogg%27.%0A%09%09%27old%27%20-%3E%20%27application/x-trash%27.%0A%09%09%27oth%27%20-%3E%20%27application/vnd.oasis.opendocument.text-web%27.%0A%09%09%27oza%27%20-%3E%20%27application/x-oz-application%27.%0A%09%09%27p%27%20-%3E%20%27text/x-pascal%27.%0A%09%09%27p7r%27%20-%3E%20%27application/x-pkcs7-certreqresp%27.%0A%09%09%27pac%27%20-%3E%20%27application/x-ns-proxy-autoconfig%27.%0A%09%09%27pas%27%20-%3E%20%27text/x-pascal%27.%0A%09%09%27pat%27%20-%3E%20%27image/x-coreldrawpattern%27.%0A%09%09%27pbm%27%20-%3E%20%27image/x-portable-bitmap%27.%0A%09%09%27pcf%27%20-%3E%20%27application/x-font%27.%0A%09%09%27pcf.Z%27%20-%3E%20%27application/x-font%27.%0A%09%09%27pcx%27%20-%3E%20%27image/pcx%27.%0A%09%09%27pdb%27%20-%3E%20%27chemical/x-pdb%27.%0A%09%09%27pdf%27%20-%3E%20%27application/pdf%27.%0A%09%09%27pfa%27%20-%3E%20%27application/x-font%27.%0A%09%09%27pfb%27%20-%3E%20%27application/x-font%27.%0A%09%09%27pgm%27%20-%3E%20%27image/x-portable-graymap%27.%0A%09%09%27pgn%27%20-%3E%20%27application/x-chess-pgn%27.%0A%09%09%27pgp%27%20-%3E%20%27application/pgp-signature%27.%0A%09%09%27pk%27%20-%3E%20%27application/x-tex-pk%27.%0A%09%09%27pl%27%20-%3E%20%27text/x-perl%27.%0A%09%09%27pls%27%20-%3E%20%27audio/x-scpls%27.%0A%09%09%27pm%27%20-%3E%20%27text/x-perl%27.%0A%09%09%27png%27%20-%3E%20%27image/png%27.%0A%09%09%27pnm%27%20-%3E%20%27image/x-portable-anymap%27.%0A%09%09%27pot%27%20-%3E%20%27text/plain%27.%0A%09%09%27ppm%27%20-%3E%20%27image/x-portable-pixmap%27.%0A%09%09%27pps%27%20-%3E%20%27application/vnd.ms-powerpoint%27.%0A%09%09%27ppt%27%20-%3E%20%27application/vnd.ms-powerpoint%27.%0A%09%09%27prf%27%20-%3E%20%27application/pics-rules%27.%0A%09%09%27prt%27%20-%3E%20%27chemical/x-ncbi-asn1-ascii%27.%0A%09%09%27ps%27%20-%3E%20%27application/postscript%27.%0A%09%09%27psd%27%20-%3E%20%27image/x-photoshop%27.%0A%09%09%27psp%27%20-%3E%20%27text/x-psp%27.%0A%09%09%27py%27%20-%3E%20%27text/x-python%27.%0A%09%09%27pyc%27%20-%3E%20%27application/x-python-code%27.%0A%09%09%27pyo%27%20-%3E%20%27application/x-python-code%27.%0A%09%09%27qt%27%20-%3E%20%27video/quicktime%27.%0A%09%09%27qtl%27%20-%3E%20%27application/x-quicktimeplayer%27.%0A%09%09%27ra%27%20-%3E%20%27audio/x-realaudio%27.%0A%09%09%27ram%27%20-%3E%20%27audio/x-pn-realaudio%27.%0A%09%09%27rar%27%20-%3E%20%27application/rar%27.%0A%09%09%27ras%27%20-%3E%20%27image/x-cmu-raster%27.%0A%09%09%27rd%27%20-%3E%20%27chemical/x-mdl-rdfile%27.%0A%09%09%27rdf%27%20-%3E%20%27application/rdf+xml%27.%0A%09%09%27rgb%27%20-%3E%20%27image/x-rgb%27.%0A%09%09%27rm%27%20-%3E%20%27audio/x-pn-realaudio%27.%0A%09%09%27roff%27%20-%3E%20%27application/x-troff%27.%0A%09%09%27ros%27%20-%3E%20%27chemical/x-rosdal%27.%0A%09%09%27rpm%27%20-%3E%20%27application/x-redhat-package-manager%27.%0A%09%09%27rss%27%20-%3E%20%27application/rss+xml%27.%0A%09%09%27rtf%27%20-%3E%20%27text/rtf%27.%0A%09%09%27rtx%27%20-%3E%20%27text/richtext%27.%0A%09%09%27rxn%27%20-%3E%20%27chemical/x-mdl-rxnfile%27.%0A%09%09%27sct%27%20-%3E%20%27text/scriptlet%27.%0A%09%09%27sd%27%20-%3E%20%27chemical/x-mdl-sdfile%27.%0A%09%09%27sd2%27%20-%3E%20%27audio/x-sd2%27.%0A%09%09%27sda%27%20-%3E%20%27application/vnd.stardivision.draw%27.%0A%09%09%27sdc%27%20-%3E%20%27application/vnd.stardivision.calc%27.%0A%09%09%27sdd%27%20-%3E%20%27application/vnd.stardivision.impress%27.%0A%09%09%27sdf%27%20-%3E%20%27chemical/x-mdl-sdfile%27.%0A%09%09%27sdp%27%20-%3E%20%27application/vnd.stardivision.impress%27.%0A%09%09%27sdw%27%20-%3E%20%27application/vnd.stardivision.writer%27.%0A%09%09%27ser%27%20-%3E%20%27application/java-serialized-object%27.%0A%09%09%27sgf%27%20-%3E%20%27application/x-go-sgf%27.%0A%09%09%27sgl%27%20-%3E%20%27application/vnd.stardivision.writer-global%27.%0A%09%09%27sh%27%20-%3E%20%27text/x-sh%27.%0A%09%09%27shar%27%20-%3E%20%27application/x-shar%27.%0A%09%09%27shtml%27%20-%3E%20%27text/html%27.%0A%09%09%27sid%27%20-%3E%20%27audio/prs.sid%27.%0A%09%09%27sik%27%20-%3E%20%27application/x-trash%27.%0A%09%09%27silo%27%20-%3E%20%27model/mesh%27.%0A%09%09%27sis%27%20-%3E%20%27application/vnd.symbian.install%27.%0A%09%09%27sit%27%20-%3E%20%27application/x-stuffit%27.%0A%09%09%27skd%27%20-%3E%20%27application/x-koan%27.%0A%09%09%27skm%27%20-%3E%20%27application/x-koan%27.%0A%09%09%27skp%27%20-%3E%20%27application/x-koan%27.%0A%09%09%27skt%27%20-%3E%20%27application/x-koan%27.%0A%09%09%27smf%27%20-%3E%20%27application/vnd.stardivision.math%27.%0A%09%09%27smi%27%20-%3E%20%27application/smil%27.%0A%09%09%27smil%27%20-%3E%20%27application/smil%27.%0A%09%09%27snd%27%20-%3E%20%27audio/basic%27.%0A%09%09%27spc%27%20-%3E%20%27chemical/x-galactic-spc%27.%0A%09%09%27spl%27%20-%3E%20%27application/x-futuresplash%27.%0A%09%09%27src%27%20-%3E%20%27application/x-wais-source%27.%0A%09%09%27stc%27%20-%3E%20%27application/vnd.sun.xml.calc.template%27.%0A%09%09%27std%27%20-%3E%20%27application/vnd.sun.xml.draw.template%27.%0A%09%09%27sti%27%20-%3E%20%27application/vnd.sun.xml.impress.template%27.%0A%09%09%27stl%27%20-%3E%20%27application/vnd.ms-pki.stl%27.%0A%09%09%27stw%27%20-%3E%20%27application/vnd.sun.xml.writer.template%27.%0A%09%09%27sty%27%20-%3E%20%27text/x-tex%27.%0A%09%09%27sv4cpio%27%20-%3E%20%27application/x-sv4cpio%27.%0A%09%09%27sv4crc%27%20-%3E%20%27application/x-sv4crc%27.%0A%09%09%27svg%27%20-%3E%20%27image/svg+xml%27.%0A%09%09%27svgz%27%20-%3E%20%27image/svg+xml%27.%0A%09%09%27sw%27%20-%3E%20%27chemical/x-swissprot%27.%0A%09%09%27swf%27%20-%3E%20%27application/x-shockwave-flash%27.%0A%09%09%27swfl%27%20-%3E%20%27application/x-shockwave-flash%27.%0A%09%09%27sxc%27%20-%3E%20%27application/vnd.sun.xml.calc%27.%0A%09%09%27sxd%27%20-%3E%20%27application/vnd.sun.xml.draw%27.%0A%09%09%27sxg%27%20-%3E%20%27application/vnd.sun.xml.writer.global%27.%0A%09%09%27sxi%27%20-%3E%20%27application/vnd.sun.xml.impress%27.%0A%09%09%27sxm%27%20-%3E%20%27application/vnd.sun.xml.math%27.%0A%09%09%27sxw%27%20-%3E%20%27application/vnd.sun.xml.writer%27.%0A%09%09%27t%27%20-%3E%20%27application/x-troff%27.%0A%09%09%27tar%27%20-%3E%20%27application/x-tar%27.%0A%09%09%27taz%27%20-%3E%20%27application/x-gtar%27.%0A%09%09%27tcl%27%20-%3E%20%27text/x-tcl%27.%0A%09%09%27tex%27%20-%3E%20%27text/x-tex%27.%0A%09%09%27texi%27%20-%3E%20%27application/x-texinfo%27.%0A%09%09%27texinfo%27%20-%3E%20%27application/x-texinfo%27.%0A%09%09%27text%27%20-%3E%20%27text/plain%27.%0A%09%09%27tgf%27%20-%3E%20%27chemical/x-mdl-tgf%27.%0A%09%09%27tgz%27%20-%3E%20%27application/x-gtar%27.%0A%09%09%27tif%27%20-%3E%20%27image/tiff%27.%0A%09%09%27tiff%27%20-%3E%20%27image/tiff%27.%0A%09%09%27tk%27%20-%3E%20%27text/x-tcl%27.%0A%09%09%27tm%27%20-%3E%20%27text/texmacs%27.%0A%09%09%27torrent%27%20-%3E%20%27application/x-bittorrent%27.%0A%09%09%27tr%27%20-%3E%20%27application/x-troff%27.%0A%09%09%27ts%27%20-%3E%20%27text/texmacs%27.%0A%09%09%27tsp%27%20-%3E%20%27application/dsptype%27.%0A%09%09%27tsv%27%20-%3E%20%27text/tab-separated-values%27.%0A%09%09%27txt%27%20-%3E%20%27text/plain%27.%0A%09%09%27udeb%27%20-%3E%20%27application/x-debian-package%27.%0A%09%09%27uls%27%20-%3E%20%27text/iuls%27.%0A%09%09%27ustar%27%20-%3E%20%27application/x-ustar%27.%0A%09%09%27val%27%20-%3E%20%27chemical/x-ncbi-asn1-binary%27.%0A%09%09%27vcd%27%20-%3E%20%27application/x-cdlink%27.%0A%09%09%27vcf%27%20-%3E%20%27text/x-vcard%27.%0A%09%09%27vcs%27%20-%3E%20%27text/x-vcalendar%27.%0A%09%09%27vmd%27%20-%3E%20%27chemical/x-vmd%27.%0A%09%09%27vms%27%20-%3E%20%27chemical/x-vamas-iso14976%27.%0A%09%09%27vor%27%20-%3E%20%27application/vnd.stardivision.writer%27.%0A%09%09%27vrm%27%20-%3E%20%27x-world/x-vrml%27.%0A%09%09%27vrml%27%20-%3E%20%27x-world/x-vrml%27.%0A%09%09%27vsd%27%20-%3E%20%27application/vnd.visio%27.%0A%09%09%27wad%27%20-%3E%20%27application/x-doom%27.%0A%09%09%27wav%27%20-%3E%20%27audio/x-wav%27.%0A%09%09%27wax%27%20-%3E%20%27audio/x-ms-wax%27.%0A%09%09%27wbmp%27%20-%3E%20%27image/vnd.wap.wbmp%27.%0A%09%09%27wbxml%27%20-%3E%20%27application/vnd.wap.wbxml%27.%0A%09%09%27wk%27%20-%3E%20%27application/x-123%27.%0A%09%09%27wm%27%20-%3E%20%27video/x-ms-wm%27.%0A%09%09%27wma%27%20-%3E%20%27audio/x-ms-wma%27.%0A%09%09%27wmd%27%20-%3E%20%27application/x-ms-wmd%27.%0A%09%09%27wml%27%20-%3E%20%27text/vnd.wap.wml%27.%0A%09%09%27wmlc%27%20-%3E%20%27application/vnd.wap.wmlc%27.%0A%09%09%27wmls%27%20-%3E%20%27text/vnd.wap.wmlscript%27.%0A%09%09%27wmlsc%27%20-%3E%20%27application/vnd.wap.wmlscriptc%27.%0A%09%09%27wmv%27%20-%3E%20%27video/x-ms-wmv%27.%0A%09%09%27wmx%27%20-%3E%20%27video/x-ms-wmx%27.%0A%09%09%27wmz%27%20-%3E%20%27application/x-ms-wmz%27.%0A%09%09%27wp5%27%20-%3E%20%27application/wordperfect5.1%27.%0A%09%09%27wpd%27%20-%3E%20%27application/wordperfect%27.%0A%09%09%27wrl%27%20-%3E%20%27x-world/x-vrml%27.%0A%09%09%27wsc%27%20-%3E%20%27text/scriptlet%27.%0A%09%09%27wvx%27%20-%3E%20%27video/x-ms-wvx%27.%0A%09%09%27wz%27%20-%3E%20%27application/x-wingz%27.%0A%09%09%27xbm%27%20-%3E%20%27image/x-xbitmap%27.%0A%09%09%27xcf%27%20-%3E%20%27application/x-xcf%27.%0A%09%09%27xht%27%20-%3E%20%27application/xhtml+xml%27.%0A%09%09%27xhtml%27%20-%3E%20%27application/xhtml+xml%27.%0A%09%09%27xlb%27%20-%3E%20%27application/vnd.ms-excel%27.%0A%09%09%27xls%27%20-%3E%20%27application/vnd.ms-excel%27.%0A%09%09%27xlt%27%20-%3E%20%27application/vnd.ms-excel%27.%0A%09%09%27xml%27%20-%3E%20%27application/xml%27.%0A%09%09%27xpi%27%20-%3E%20%27application/x-xpinstall%27.%0A%09%09%27xpm%27%20-%3E%20%27image/x-xpixmap%27.%0A%09%09%27xsl%27%20-%3E%20%27application/xml%27.%0A%09%09%27xtel%27%20-%3E%20%27chemical/x-xtel%27.%0A%09%09%27xul%27%20-%3E%20%27application/vnd.mozilla.xul+xml%27.%0A%09%09%27xwd%27%20-%3E%20%27image/x-xwindowdump%27.%0A%09%09%27xyz%27%20-%3E%20%27chemical/x-xyz%27.%0A%09%09%27zip%27%20-%3E%20%27application/zip%27.%0A%09%09%27zmt%27%20-%3E%20%27chemical/x-mopac-input%27.%0A%09%09%27%7E%27%20-%3E%20%27application/x-trash%27%0A%09%7D'),
-messageSends: [unescape("-%3E")],
+source: "defaultMimeTypes\x0a\x09^ #{\x0a\x09\x09'%' -> 'application/x-trash'.\x0a\x09\x09'323' -> 'text/h323'.\x0a\x09\x09'abw' -> 'application/x-abiword'.\x0a\x09\x09'ai' -> 'application/postscript'.\x0a\x09\x09'aif' -> 'audio/x-aiff'.\x0a\x09\x09'aifc' -> 'audio/x-aiff'.\x0a\x09\x09'aiff' -> 'audio/x-aiff'.\x0a\x09\x09'alc' -> 'chemical/x-alchemy'.\x0a\x09\x09'art' -> 'image/x-jg'.\x0a\x09\x09'asc' -> 'text/plain'.\x0a\x09\x09'asf' -> 'video/x-ms-asf'.\x0a\x09\x09'asn' -> 'chemical/x-ncbi-asn1-spec'.\x0a\x09\x09'aso' -> 'chemical/x-ncbi-asn1-binary'.\x0a\x09\x09'asx' -> 'video/x-ms-asf'.\x0a\x09\x09'au' -> 'audio/basic'.\x0a\x09\x09'avi' -> 'video/x-msvideo'.\x0a\x09\x09'b' -> 'chemical/x-molconn-Z'.\x0a\x09\x09'bak' -> 'application/x-trash'.\x0a\x09\x09'bat' -> 'application/x-msdos-program'.\x0a\x09\x09'bcpio' -> 'application/x-bcpio'.\x0a\x09\x09'bib' -> 'text/x-bibtex'.\x0a\x09\x09'bin' -> 'application/octet-stream'.\x0a\x09\x09'bmp' -> 'image/x-ms-bmp'.\x0a\x09\x09'book' -> 'application/x-maker'.\x0a\x09\x09'bsd' -> 'chemical/x-crossfire'.\x0a\x09\x09'c' -> 'text/x-csrc'.\x0a\x09\x09'c++' -> 'text/x-c++src'.\x0a\x09\x09'c3d' -> 'chemical/x-chem3d'.\x0a\x09\x09'cac' -> 'chemical/x-cache'.\x0a\x09\x09'cache' -> 'chemical/x-cache'.\x0a\x09\x09'cascii' -> 'chemical/x-cactvs-binary'.\x0a\x09\x09'cat' -> 'application/vnd.ms-pki.seccat'.\x0a\x09\x09'cbin' -> 'chemical/x-cactvs-binary'.\x0a\x09\x09'cc' -> 'text/x-c++src'.\x0a\x09\x09'cdf' -> 'application/x-cdf'.\x0a\x09\x09'cdr' -> 'image/x-coreldraw'.\x0a\x09\x09'cdt' -> 'image/x-coreldrawtemplate'.\x0a\x09\x09'cdx' -> 'chemical/x-cdx'.\x0a\x09\x09'cdy' -> 'application/vnd.cinderella'.\x0a\x09\x09'cef' -> 'chemical/x-cxf'.\x0a\x09\x09'cer' -> 'chemical/x-cerius'.\x0a\x09\x09'chm' -> 'chemical/x-chemdraw'.\x0a\x09\x09'chrt' -> 'application/x-kchart'.\x0a\x09\x09'cif' -> 'chemical/x-cif'.\x0a\x09\x09'class' -> 'application/java-vm'.\x0a\x09\x09'cls' -> 'text/x-tex'.\x0a\x09\x09'cmdf' -> 'chemical/x-cmdf'.\x0a\x09\x09'cml' -> 'chemical/x-cml'.\x0a\x09\x09'cod' -> 'application/vnd.rim.cod'.\x0a\x09\x09'com' -> 'application/x-msdos-program'.\x0a\x09\x09'cpa' -> 'chemical/x-compass'.\x0a\x09\x09'cpio' -> 'application/x-cpio'.\x0a\x09\x09'cpp' -> 'text/x-c++src'.\x0a\x09\x09'cpt' -> 'image/x-corelphotopaint'.\x0a\x09\x09'crl' -> 'application/x-pkcs7-crl'.\x0a\x09\x09'crt' -> 'application/x-x509-ca-cert'.\x0a\x09\x09'csf' -> 'chemical/x-cache-csf'.\x0a\x09\x09'csh' -> 'text/x-csh'.\x0a\x09\x09'csm' -> 'chemical/x-csml'.\x0a\x09\x09'csml' -> 'chemical/x-csml'.\x0a\x09\x09'css' -> 'text/css'.\x0a\x09\x09'csv' -> 'text/comma-separated-values'.\x0a\x09\x09'ctab' -> 'chemical/x-cactvs-binary'.\x0a\x09\x09'ctx' -> 'chemical/x-ctx'.\x0a\x09\x09'cu' -> 'application/cu-seeme'.\x0a\x09\x09'cub' -> 'chemical/x-gaussian-cube'.\x0a\x09\x09'cxf' -> 'chemical/x-cxf'.\x0a\x09\x09'cxx' -> 'text/x-c++src'.\x0a\x09\x09'dat' -> 'chemical/x-mopac-input'.\x0a\x09\x09'dcr' -> 'application/x-director'.\x0a\x09\x09'deb' -> 'application/x-debian-package'.\x0a\x09\x09'dif' -> 'video/dv'.\x0a\x09\x09'diff' -> 'text/plain'.\x0a\x09\x09'dir' -> 'application/x-director'.\x0a\x09\x09'djv' -> 'image/vnd.djvu'.\x0a\x09\x09'djvu' -> 'image/vnd.djvu'.\x0a\x09\x09'dl' -> 'video/dl'.\x0a\x09\x09'dll' -> 'application/x-msdos-program'.\x0a\x09\x09'dmg' -> 'application/x-apple-diskimage'.\x0a\x09\x09'dms' -> 'application/x-dms'.\x0a\x09\x09'doc' -> 'application/msword'.\x0a\x09\x09'dot' -> 'application/msword'.\x0a\x09\x09'dv' -> 'video/dv'.\x0a\x09\x09'dvi' -> 'application/x-dvi'.\x0a\x09\x09'dx' -> 'chemical/x-jcamp-dx'.\x0a\x09\x09'dxr' -> 'application/x-director'.\x0a\x09\x09'emb' -> 'chemical/x-embl-dl-nucleotide'.\x0a\x09\x09'embl' -> 'chemical/x-embl-dl-nucleotide'.\x0a\x09\x09'ent' -> 'chemical/x-pdb'.\x0a\x09\x09'eps' -> 'application/postscript'.\x0a\x09\x09'etx' -> 'text/x-setext'.\x0a\x09\x09'exe' -> 'application/x-msdos-program'.\x0a\x09\x09'ez' -> 'application/andrew-inset'.\x0a\x09\x09'fb' -> 'application/x-maker'.\x0a\x09\x09'fbdoc' -> 'application/x-maker'.\x0a\x09\x09'fch' -> 'chemical/x-gaussian-checkpoint'.\x0a\x09\x09'fchk' -> 'chemical/x-gaussian-checkpoint'.\x0a\x09\x09'fig' -> 'application/x-xfig'.\x0a\x09\x09'flac' -> 'application/x-flac'.\x0a\x09\x09'fli' -> 'video/fli'.\x0a\x09\x09'fm' -> 'application/x-maker'.\x0a\x09\x09'frame' -> 'application/x-maker'.\x0a\x09\x09'frm' -> 'application/x-maker'.\x0a\x09\x09'gal' -> 'chemical/x-gaussian-log'.\x0a\x09\x09'gam' -> 'chemical/x-gamess-input'.\x0a\x09\x09'gamin' -> 'chemical/x-gamess-input'.\x0a\x09\x09'gau' -> 'chemical/x-gaussian-input'.\x0a\x09\x09'gcd' -> 'text/x-pcs-gcd'.\x0a\x09\x09'gcf' -> 'application/x-graphing-calculator'.\x0a\x09\x09'gcg' -> 'chemical/x-gcg8-sequence'.\x0a\x09\x09'gen' -> 'chemical/x-genbank'.\x0a\x09\x09'gf' -> 'application/x-tex-gf'.\x0a\x09\x09'gif' -> 'image/gif'.\x0a\x09\x09'gjc' -> 'chemical/x-gaussian-input'.\x0a\x09\x09'gjf' -> 'chemical/x-gaussian-input'.\x0a\x09\x09'gl' -> 'video/gl'.\x0a\x09\x09'gnumeric' -> 'application/x-gnumeric'.\x0a\x09\x09'gpt' -> 'chemical/x-mopac-graph'.\x0a\x09\x09'gsf' -> 'application/x-font'.\x0a\x09\x09'gsm' -> 'audio/x-gsm'.\x0a\x09\x09'gtar' -> 'application/x-gtar'.\x0a\x09\x09'h' -> 'text/x-chdr'.\x0a\x09\x09'h++' -> 'text/x-c++hdr'.\x0a\x09\x09'hdf' -> 'application/x-hdf'.\x0a\x09\x09'hh' -> 'text/x-c++hdr'.\x0a\x09\x09'hin' -> 'chemical/x-hin'.\x0a\x09\x09'hpp' -> 'text/x-c++hdr'.\x0a\x09\x09'hqx' -> 'application/mac-binhex40'.\x0a\x09\x09'hs' -> 'text/x-haskell'.\x0a\x09\x09'hta' -> 'application/hta'.\x0a\x09\x09'htc' -> 'text/x-component'.\x0a\x09\x09'htm' -> 'text/html'.\x0a\x09\x09'html' -> 'text/html'.\x0a\x09\x09'hxx' -> 'text/x-c++hdr'.\x0a\x09\x09'ica' -> 'application/x-ica'.\x0a\x09\x09'ice' -> 'x-conference/x-cooltalk'.\x0a\x09\x09'ico' -> 'image/x-icon'.\x0a\x09\x09'ics' -> 'text/calendar'.\x0a\x09\x09'icz' -> 'text/calendar'.\x0a\x09\x09'ief' -> 'image/ief'.\x0a\x09\x09'iges' -> 'model/iges'.\x0a\x09\x09'igs' -> 'model/iges'.\x0a\x09\x09'iii' -> 'application/x-iphone'.\x0a\x09\x09'inp' -> 'chemical/x-gamess-input'.\x0a\x09\x09'ins' -> 'application/x-internet-signup'.\x0a\x09\x09'iso' -> 'application/x-iso9660-image'.\x0a\x09\x09'isp' -> 'application/x-internet-signup'.\x0a\x09\x09'ist' -> 'chemical/x-isostar'.\x0a\x09\x09'istr' -> 'chemical/x-isostar'.\x0a\x09\x09'jad' -> 'text/vnd.sun.j2me.app-descriptor'.\x0a\x09\x09'jar' -> 'application/java-archive'.\x0a\x09\x09'java' -> 'text/x-java'.\x0a\x09\x09'jdx' -> 'chemical/x-jcamp-dx'.\x0a\x09\x09'jmz' -> 'application/x-jmol'.\x0a\x09\x09'jng' -> 'image/x-jng'.\x0a\x09\x09'jnlp' -> 'application/x-java-jnlp-file'.\x0a\x09\x09'jpe' -> 'image/jpeg'.\x0a\x09\x09'jpeg' -> 'image/jpeg'.\x0a\x09\x09'jpg' -> 'image/jpeg'.\x0a\x09\x09'js' -> 'application/javascript'.\x0a\x09\x09'kar' -> 'audio/midi'.\x0a\x09\x09'key' -> 'application/pgp-keys'.\x0a\x09\x09'kil' -> 'application/x-killustrator'.\x0a\x09\x09'kin' -> 'chemical/x-kinemage'.\x0a\x09\x09'kpr' -> 'application/x-kpresenter'.\x0a\x09\x09'kpt' -> 'application/x-kpresenter'.\x0a\x09\x09'ksp' -> 'application/x-kspread'.\x0a\x09\x09'kwd' -> 'application/x-kword'.\x0a\x09\x09'kwt' -> 'application/x-kword'.\x0a\x09\x09'latex' -> 'application/x-latex'.\x0a\x09\x09'lha' -> 'application/x-lha'.\x0a\x09\x09'lhs' -> 'text/x-literate-haskell'.\x0a\x09\x09'lsf' -> 'video/x-la-asf'.\x0a\x09\x09'lsx' -> 'video/x-la-asf'.\x0a\x09\x09'ltx' -> 'text/x-tex'.\x0a\x09\x09'lzh' -> 'application/x-lzh'.\x0a\x09\x09'lzx' -> 'application/x-lzx'.\x0a\x09\x09'm3u' -> 'audio/x-mpegurl'.\x0a\x09\x09'm4a' -> 'audio/mpeg'.\x0a\x09\x09'maker' -> 'application/x-maker'.\x0a\x09\x09'man' -> 'application/x-troff-man'.\x0a\x09\x09'mcif' -> 'chemical/x-mmcif'.\x0a\x09\x09'mcm' -> 'chemical/x-macmolecule'.\x0a\x09\x09'mdb' -> 'application/msaccess'.\x0a\x09\x09'me' -> 'application/x-troff-me'.\x0a\x09\x09'mesh' -> 'model/mesh'.\x0a\x09\x09'mid' -> 'audio/midi'.\x0a\x09\x09'midi' -> 'audio/midi'.\x0a\x09\x09'mif' -> 'application/x-mif'.\x0a\x09\x09'mm' -> 'application/x-freemind'.\x0a\x09\x09'mmd' -> 'chemical/x-macromodel-input'.\x0a\x09\x09'mmf' -> 'application/vnd.smaf'.\x0a\x09\x09'mml' -> 'text/mathml'.\x0a\x09\x09'mmod' -> 'chemical/x-macromodel-input'.\x0a\x09\x09'mng' -> 'video/x-mng'.\x0a\x09\x09'moc' -> 'text/x-moc'.\x0a\x09\x09'mol' -> 'chemical/x-mdl-molfile'.\x0a\x09\x09'mol2' -> 'chemical/x-mol2'.\x0a\x09\x09'moo' -> 'chemical/x-mopac-out'.\x0a\x09\x09'mop' -> 'chemical/x-mopac-input'.\x0a\x09\x09'mopcrt' -> 'chemical/x-mopac-input'.\x0a\x09\x09'mov' -> 'video/quicktime'.\x0a\x09\x09'movie' -> 'video/x-sgi-movie'.\x0a\x09\x09'mp2' -> 'audio/mpeg'.\x0a\x09\x09'mp3' -> 'audio/mpeg'.\x0a\x09\x09'mp4' -> 'video/mp4'.\x0a\x09\x09'mpc' -> 'chemical/x-mopac-input'.\x0a\x09\x09'mpe' -> 'video/mpeg'.\x0a\x09\x09'mpeg' -> 'video/mpeg'.\x0a\x09\x09'mpega' -> 'audio/mpeg'.\x0a\x09\x09'mpg' -> 'video/mpeg'.\x0a\x09\x09'mpga' -> 'audio/mpeg'.\x0a\x09\x09'ms' -> 'application/x-troff-ms'.\x0a\x09\x09'msh' -> 'model/mesh'.\x0a\x09\x09'msi' -> 'application/x-msi'.\x0a\x09\x09'mvb' -> 'chemical/x-mopac-vib'.\x0a\x09\x09'mxu' -> 'video/vnd.mpegurl'.\x0a\x09\x09'nb' -> 'application/mathematica'.\x0a\x09\x09'nc' -> 'application/x-netcdf'.\x0a\x09\x09'nwc' -> 'application/x-nwc'.\x0a\x09\x09'o' -> 'application/x-object'.\x0a\x09\x09'oda' -> 'application/oda'.\x0a\x09\x09'odb' -> 'application/vnd.oasis.opendocument.database'.\x0a\x09\x09'odc' -> 'application/vnd.oasis.opendocument.chart'.\x0a\x09\x09'odf' -> 'application/vnd.oasis.opendocument.formula'.\x0a\x09\x09'odg' -> 'application/vnd.oasis.opendocument.graphics'.\x0a\x09\x09'odi' -> 'application/vnd.oasis.opendocument.image'.\x0a\x09\x09'odm' -> 'application/vnd.oasis.opendocument.text-master'.\x0a\x09\x09'odp' -> 'application/vnd.oasis.opendocument.presentation'.\x0a\x09\x09'ods' -> 'application/vnd.oasis.opendocument.spreadsheet'.\x0a\x09\x09'odt' -> 'application/vnd.oasis.opendocument.text'.\x0a\x09\x09'ogg' -> 'application/ogg'.\x0a\x09\x09'old' -> 'application/x-trash'.\x0a\x09\x09'oth' -> 'application/vnd.oasis.opendocument.text-web'.\x0a\x09\x09'oza' -> 'application/x-oz-application'.\x0a\x09\x09'p' -> 'text/x-pascal'.\x0a\x09\x09'p7r' -> 'application/x-pkcs7-certreqresp'.\x0a\x09\x09'pac' -> 'application/x-ns-proxy-autoconfig'.\x0a\x09\x09'pas' -> 'text/x-pascal'.\x0a\x09\x09'pat' -> 'image/x-coreldrawpattern'.\x0a\x09\x09'pbm' -> 'image/x-portable-bitmap'.\x0a\x09\x09'pcf' -> 'application/x-font'.\x0a\x09\x09'pcf.Z' -> 'application/x-font'.\x0a\x09\x09'pcx' -> 'image/pcx'.\x0a\x09\x09'pdb' -> 'chemical/x-pdb'.\x0a\x09\x09'pdf' -> 'application/pdf'.\x0a\x09\x09'pfa' -> 'application/x-font'.\x0a\x09\x09'pfb' -> 'application/x-font'.\x0a\x09\x09'pgm' -> 'image/x-portable-graymap'.\x0a\x09\x09'pgn' -> 'application/x-chess-pgn'.\x0a\x09\x09'pgp' -> 'application/pgp-signature'.\x0a\x09\x09'pk' -> 'application/x-tex-pk'.\x0a\x09\x09'pl' -> 'text/x-perl'.\x0a\x09\x09'pls' -> 'audio/x-scpls'.\x0a\x09\x09'pm' -> 'text/x-perl'.\x0a\x09\x09'png' -> 'image/png'.\x0a\x09\x09'pnm' -> 'image/x-portable-anymap'.\x0a\x09\x09'pot' -> 'text/plain'.\x0a\x09\x09'ppm' -> 'image/x-portable-pixmap'.\x0a\x09\x09'pps' -> 'application/vnd.ms-powerpoint'.\x0a\x09\x09'ppt' -> 'application/vnd.ms-powerpoint'.\x0a\x09\x09'prf' -> 'application/pics-rules'.\x0a\x09\x09'prt' -> 'chemical/x-ncbi-asn1-ascii'.\x0a\x09\x09'ps' -> 'application/postscript'.\x0a\x09\x09'psd' -> 'image/x-photoshop'.\x0a\x09\x09'psp' -> 'text/x-psp'.\x0a\x09\x09'py' -> 'text/x-python'.\x0a\x09\x09'pyc' -> 'application/x-python-code'.\x0a\x09\x09'pyo' -> 'application/x-python-code'.\x0a\x09\x09'qt' -> 'video/quicktime'.\x0a\x09\x09'qtl' -> 'application/x-quicktimeplayer'.\x0a\x09\x09'ra' -> 'audio/x-realaudio'.\x0a\x09\x09'ram' -> 'audio/x-pn-realaudio'.\x0a\x09\x09'rar' -> 'application/rar'.\x0a\x09\x09'ras' -> 'image/x-cmu-raster'.\x0a\x09\x09'rd' -> 'chemical/x-mdl-rdfile'.\x0a\x09\x09'rdf' -> 'application/rdf+xml'.\x0a\x09\x09'rgb' -> 'image/x-rgb'.\x0a\x09\x09'rm' -> 'audio/x-pn-realaudio'.\x0a\x09\x09'roff' -> 'application/x-troff'.\x0a\x09\x09'ros' -> 'chemical/x-rosdal'.\x0a\x09\x09'rpm' -> 'application/x-redhat-package-manager'.\x0a\x09\x09'rss' -> 'application/rss+xml'.\x0a\x09\x09'rtf' -> 'text/rtf'.\x0a\x09\x09'rtx' -> 'text/richtext'.\x0a\x09\x09'rxn' -> 'chemical/x-mdl-rxnfile'.\x0a\x09\x09'sct' -> 'text/scriptlet'.\x0a\x09\x09'sd' -> 'chemical/x-mdl-sdfile'.\x0a\x09\x09'sd2' -> 'audio/x-sd2'.\x0a\x09\x09'sda' -> 'application/vnd.stardivision.draw'.\x0a\x09\x09'sdc' -> 'application/vnd.stardivision.calc'.\x0a\x09\x09'sdd' -> 'application/vnd.stardivision.impress'.\x0a\x09\x09'sdf' -> 'chemical/x-mdl-sdfile'.\x0a\x09\x09'sdp' -> 'application/vnd.stardivision.impress'.\x0a\x09\x09'sdw' -> 'application/vnd.stardivision.writer'.\x0a\x09\x09'ser' -> 'application/java-serialized-object'.\x0a\x09\x09'sgf' -> 'application/x-go-sgf'.\x0a\x09\x09'sgl' -> 'application/vnd.stardivision.writer-global'.\x0a\x09\x09'sh' -> 'text/x-sh'.\x0a\x09\x09'shar' -> 'application/x-shar'.\x0a\x09\x09'shtml' -> 'text/html'.\x0a\x09\x09'sid' -> 'audio/prs.sid'.\x0a\x09\x09'sik' -> 'application/x-trash'.\x0a\x09\x09'silo' -> 'model/mesh'.\x0a\x09\x09'sis' -> 'application/vnd.symbian.install'.\x0a\x09\x09'sit' -> 'application/x-stuffit'.\x0a\x09\x09'skd' -> 'application/x-koan'.\x0a\x09\x09'skm' -> 'application/x-koan'.\x0a\x09\x09'skp' -> 'application/x-koan'.\x0a\x09\x09'skt' -> 'application/x-koan'.\x0a\x09\x09'smf' -> 'application/vnd.stardivision.math'.\x0a\x09\x09'smi' -> 'application/smil'.\x0a\x09\x09'smil' -> 'application/smil'.\x0a\x09\x09'snd' -> 'audio/basic'.\x0a\x09\x09'spc' -> 'chemical/x-galactic-spc'.\x0a\x09\x09'spl' -> 'application/x-futuresplash'.\x0a\x09\x09'src' -> 'application/x-wais-source'.\x0a\x09\x09'stc' -> 'application/vnd.sun.xml.calc.template'.\x0a\x09\x09'std' -> 'application/vnd.sun.xml.draw.template'.\x0a\x09\x09'sti' -> 'application/vnd.sun.xml.impress.template'.\x0a\x09\x09'stl' -> 'application/vnd.ms-pki.stl'.\x0a\x09\x09'stw' -> 'application/vnd.sun.xml.writer.template'.\x0a\x09\x09'sty' -> 'text/x-tex'.\x0a\x09\x09'sv4cpio' -> 'application/x-sv4cpio'.\x0a\x09\x09'sv4crc' -> 'application/x-sv4crc'.\x0a\x09\x09'svg' -> 'image/svg+xml'.\x0a\x09\x09'svgz' -> 'image/svg+xml'.\x0a\x09\x09'sw' -> 'chemical/x-swissprot'.\x0a\x09\x09'swf' -> 'application/x-shockwave-flash'.\x0a\x09\x09'swfl' -> 'application/x-shockwave-flash'.\x0a\x09\x09'sxc' -> 'application/vnd.sun.xml.calc'.\x0a\x09\x09'sxd' -> 'application/vnd.sun.xml.draw'.\x0a\x09\x09'sxg' -> 'application/vnd.sun.xml.writer.global'.\x0a\x09\x09'sxi' -> 'application/vnd.sun.xml.impress'.\x0a\x09\x09'sxm' -> 'application/vnd.sun.xml.math'.\x0a\x09\x09'sxw' -> 'application/vnd.sun.xml.writer'.\x0a\x09\x09't' -> 'application/x-troff'.\x0a\x09\x09'tar' -> 'application/x-tar'.\x0a\x09\x09'taz' -> 'application/x-gtar'.\x0a\x09\x09'tcl' -> 'text/x-tcl'.\x0a\x09\x09'tex' -> 'text/x-tex'.\x0a\x09\x09'texi' -> 'application/x-texinfo'.\x0a\x09\x09'texinfo' -> 'application/x-texinfo'.\x0a\x09\x09'text' -> 'text/plain'.\x0a\x09\x09'tgf' -> 'chemical/x-mdl-tgf'.\x0a\x09\x09'tgz' -> 'application/x-gtar'.\x0a\x09\x09'tif' -> 'image/tiff'.\x0a\x09\x09'tiff' -> 'image/tiff'.\x0a\x09\x09'tk' -> 'text/x-tcl'.\x0a\x09\x09'tm' -> 'text/texmacs'.\x0a\x09\x09'torrent' -> 'application/x-bittorrent'.\x0a\x09\x09'tr' -> 'application/x-troff'.\x0a\x09\x09'ts' -> 'text/texmacs'.\x0a\x09\x09'tsp' -> 'application/dsptype'.\x0a\x09\x09'tsv' -> 'text/tab-separated-values'.\x0a\x09\x09'txt' -> 'text/plain'.\x0a\x09\x09'udeb' -> 'application/x-debian-package'.\x0a\x09\x09'uls' -> 'text/iuls'.\x0a\x09\x09'ustar' -> 'application/x-ustar'.\x0a\x09\x09'val' -> 'chemical/x-ncbi-asn1-binary'.\x0a\x09\x09'vcd' -> 'application/x-cdlink'.\x0a\x09\x09'vcf' -> 'text/x-vcard'.\x0a\x09\x09'vcs' -> 'text/x-vcalendar'.\x0a\x09\x09'vmd' -> 'chemical/x-vmd'.\x0a\x09\x09'vms' -> 'chemical/x-vamas-iso14976'.\x0a\x09\x09'vor' -> 'application/vnd.stardivision.writer'.\x0a\x09\x09'vrm' -> 'x-world/x-vrml'.\x0a\x09\x09'vrml' -> 'x-world/x-vrml'.\x0a\x09\x09'vsd' -> 'application/vnd.visio'.\x0a\x09\x09'wad' -> 'application/x-doom'.\x0a\x09\x09'wav' -> 'audio/x-wav'.\x0a\x09\x09'wax' -> 'audio/x-ms-wax'.\x0a\x09\x09'wbmp' -> 'image/vnd.wap.wbmp'.\x0a\x09\x09'wbxml' -> 'application/vnd.wap.wbxml'.\x0a\x09\x09'wk' -> 'application/x-123'.\x0a\x09\x09'wm' -> 'video/x-ms-wm'.\x0a\x09\x09'wma' -> 'audio/x-ms-wma'.\x0a\x09\x09'wmd' -> 'application/x-ms-wmd'.\x0a\x09\x09'wml' -> 'text/vnd.wap.wml'.\x0a\x09\x09'wmlc' -> 'application/vnd.wap.wmlc'.\x0a\x09\x09'wmls' -> 'text/vnd.wap.wmlscript'.\x0a\x09\x09'wmlsc' -> 'application/vnd.wap.wmlscriptc'.\x0a\x09\x09'wmv' -> 'video/x-ms-wmv'.\x0a\x09\x09'wmx' -> 'video/x-ms-wmx'.\x0a\x09\x09'wmz' -> 'application/x-ms-wmz'.\x0a\x09\x09'wp5' -> 'application/wordperfect5.1'.\x0a\x09\x09'wpd' -> 'application/wordperfect'.\x0a\x09\x09'wrl' -> 'x-world/x-vrml'.\x0a\x09\x09'wsc' -> 'text/scriptlet'.\x0a\x09\x09'wvx' -> 'video/x-ms-wvx'.\x0a\x09\x09'wz' -> 'application/x-wingz'.\x0a\x09\x09'xbm' -> 'image/x-xbitmap'.\x0a\x09\x09'xcf' -> 'application/x-xcf'.\x0a\x09\x09'xht' -> 'application/xhtml+xml'.\x0a\x09\x09'xhtml' -> 'application/xhtml+xml'.\x0a\x09\x09'xlb' -> 'application/vnd.ms-excel'.\x0a\x09\x09'xls' -> 'application/vnd.ms-excel'.\x0a\x09\x09'xlt' -> 'application/vnd.ms-excel'.\x0a\x09\x09'xml' -> 'application/xml'.\x0a\x09\x09'xpi' -> 'application/x-xpinstall'.\x0a\x09\x09'xpm' -> 'image/x-xpixmap'.\x0a\x09\x09'xsl' -> 'application/xml'.\x0a\x09\x09'xtel' -> 'chemical/x-xtel'.\x0a\x09\x09'xul' -> 'application/vnd.mozilla.xul+xml'.\x0a\x09\x09'xwd' -> 'image/x-xwindowdump'.\x0a\x09\x09'xyz' -> 'chemical/x-xyz'.\x0a\x09\x09'zip' -> 'application/zip'.\x0a\x09\x09'zmt' -> 'chemical/x-mopac-input'.\x0a\x09\x09'~' -> 'application/x-trash'\x0a\x09}",
+messageSends: ["->"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
 smalltalk.addMethod(
-unescape('_main'),
+"_main",
 smalltalk.method({
-selector: unescape('main'),
+selector: "main",
 category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_new", []), "_startOn_", [smalltalk.send(self, "_port", [])]);
 return self;},
 args: [],
-source: unescape('main%0A%09%5Eself%20new%20startOn%3A%20self%20port'),
+source: "main\x0a\x09^self new startOn: self port",
 messageSends: ["startOn:", "new", "port"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
 smalltalk.addMethod(
-unescape('_mimeTypeFor_'),
+"_mimeTypeFor_",
 smalltalk.method({
-selector: unescape('mimeTypeFor%3A'),
+selector: "mimeTypeFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_mimeTypes", []), "_at_ifAbsent_", [smalltalk.send(aString, "_replace_with_", [unescape(".*%5B%5C.%5D"), ""]), (function(){return unescape("text/plain");})]);
+return smalltalk.send(smalltalk.send(self, "_mimeTypes", []), "_at_ifAbsent_", [smalltalk.send(aString, "_replace_with_", [".*[\x5c.]", ""]), (function(){return "text/plain";})]);
 return self;},
 args: ["aString"],
-source: unescape('mimeTypeFor%3A%20aString%0A%09%5Eself%20mimeTypes%20at%3A%20%28aString%20replace%3A%20%27.*%5B%5C.%5D%27%20with%3A%20%27%27%29%20ifAbsent%3A%20%5B%27text/plain%27%5D'),
+source: "mimeTypeFor: aString\x0a\x09^self mimeTypes at: (aString replace: '.*[\x5c.]' with: '') ifAbsent: ['text/plain']",
 messageSends: ["at:ifAbsent:", "mimeTypes", "replace:with:"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
 smalltalk.addMethod(
-unescape('_mimeTypes'),
+"_mimeTypes",
 smalltalk.method({
-selector: unescape('mimeTypes'),
+selector: "mimeTypes",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (($receiver = self['@mimeTypes']) == nil || $receiver == undefined) ? (function(){return (self['@mimeTypes']=smalltalk.send(self, "_defaultMimeTypes", []));})() : $receiver;
 return self;},
 args: [],
-source: unescape('mimeTypes%0A%09%5EmimeTypes%20ifNil%3A%20%5BmimeTypes%20%3A%3D%20self%20defaultMimeTypes%5D'),
+source: "mimeTypes\x0a\x09^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]",
 messageSends: ["ifNil:", "defaultMimeTypes"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
 smalltalk.addMethod(
-unescape('_port'),
+"_port",
 smalltalk.method({
-selector: unescape('port'),
+selector: "port",
 category: 'accessing',
 fn: function (){
 var self=this;
 return (($receiver = self['@port']) == nil || $receiver == undefined) ? (function(){return (4000);})() : $receiver;
 return self;},
 args: [],
-source: unescape('port%0A%09%5Eport%20ifNil%3A%20%5B4000%5D'),
+source: "port\x0a\x09^port ifNil: [4000]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
 smalltalk.addMethod(
-unescape('_port_'),
+"_port_",
 smalltalk.method({
-selector: unescape('port%3A'),
+selector: "port:",
 category: 'accessing',
 fn: function (aNumber){
 var self=this;
 (self['@port']=aNumber);
 return self;},
 args: ["aNumber"],
-source: unescape('port%3A%20aNumber%0A%09port%20%3A%3D%20aNumber'),
+source: "port: aNumber\x0a\x09port := aNumber",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
 
-smalltalk.init(smalltalk.Object);
+smalltalk.initSubTree(smalltalk.Object); //metaclasses are in through Class
 smalltalk.classes()._do_(function(each) {
 	each._initialize()});
 
