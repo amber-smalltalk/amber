@@ -146,13 +146,10 @@ function Smalltalk(){
 		});
 		that.pkg = spec.pkg;
 		Object.defineProperties(that.fn.prototype, {
-			methods: { enumerable: false, configurable: true, writable: true },
-			inheritedMethods: { enumerable: false, configurable: true, writable: true },
-			klass: { enumerable: false, configurable: true, writable: true }
+			methods: { value: {}, enumerable: false, configurable: true, writable: true },
+			inheritedMethods: { value: {}, enumerable: false, configurable: true, writable: true },
+			klass: { value: that, enumerable: false, configurable: true, writable: true }
 		});
-		that.fn.prototype.methods = {};
-		that.fn.prototype.inheritedMethods = {};
-		that.fn.prototype.klass = that;
 		return that;
 	};
 
