@@ -1163,10 +1163,12 @@ var o=nil;
 (o=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(self, "_deny_", [smalltalk.send(o, "__eq_eq", [smalltalk.send((smalltalk.Object || Object), "_new", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq_eq", [o])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(o, "_yourself", []), "__eq_eq", [o])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq_eq", [smalltalk.send(o, "_yourself", [])])]);
 return self;},
 args: [],
-source: "testIdentity\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o == Object new.\x0a\x09self assert: o == o",
-messageSends: ["new", "deny:", "==", "assert:"],
+source: "testIdentity\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o == Object new.\x0a\x09self assert: o == o.\x0a\x09self assert: o yourself == o.\x0a\x09self assert: o == o yourself",
+messageSends: ["new", "deny:", "==", "assert:", "yourself"],
 referencedClasses: ["Object"]
 }),
 smalltalk.ObjectTest);

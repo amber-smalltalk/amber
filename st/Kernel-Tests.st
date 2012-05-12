@@ -588,7 +588,9 @@ testIdentity
 	| o |
 	o := Object new.
 	self deny: o == Object new.
-	self assert: o == o
+	self assert: o == o.
+	self assert: o yourself == o.
+	self assert: o == o yourself
 !
 
 testIfNil

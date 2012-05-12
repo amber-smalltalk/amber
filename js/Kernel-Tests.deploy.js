@@ -872,6 +872,8 @@ var o=nil;
 (o=smalltalk.send((smalltalk.Object || Object), "_new", []));
 smalltalk.send(self, "_deny_", [smalltalk.send(o, "__eq_eq", [smalltalk.send((smalltalk.Object || Object), "_new", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq_eq", [o])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(o, "_yourself", []), "__eq_eq", [o])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(o, "__eq_eq", [smalltalk.send(o, "_yourself", [])])]);
 return self;}
 }),
 smalltalk.ObjectTest);
