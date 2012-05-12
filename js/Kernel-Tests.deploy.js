@@ -173,6 +173,26 @@ return self;}
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
+"_testIdentity",
+smalltalk.method({
+selector: "testIdentity",
+fn: function (){
+var self=this;
+smalltalk.send(self, "_deny_", [smalltalk.send((0), "__eq_eq", [false])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq_eq", [(0)])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq_eq", [false])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq_eq", [""])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(true, "__eq_eq", [true])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(false, "__eq_eq", [true])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(true, "__eq_eq", [false])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(false, "__eq_eq", [false])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [true])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(true, "_yourself", []), "__eq_eq", [smalltalk.send(true, "_yourself", [])])]);
+return self;}
+}),
+smalltalk.BooleanTest);
+
+smalltalk.addMethod(
 "_testIfTrueIfFalse",
 smalltalk.method({
 selector: "testIfTrueIfFalse",
@@ -1291,6 +1311,21 @@ smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq", ["world"])]);
 smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq", [smalltalk.send("hello", "_yourself", [])])]);
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_yourself", []), "__eq", ["hello"])]);
 smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [(0)])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testIdentity",
+smalltalk.method({
+selector: "testIdentity",
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq_eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq_eq", ["world"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq_eq", [smalltalk.send("hello", "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_yourself", []), "__eq_eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq_eq", [(0)])]);
 return self;}
 }),
 smalltalk.StringTest);
