@@ -58,7 +58,13 @@ class
 !
 
 identityHash
-	<return self.identityHash || (self.identityHash = smalltalk.nextId());>
+	<
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	>
 !
 
 instVarAt: aSymbol
