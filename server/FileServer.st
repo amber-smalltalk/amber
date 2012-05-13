@@ -100,11 +100,13 @@ respondFileNamed: aFilename to: aResponse
 		ex notNil 
 			ifTrue: [self respondInternalErrorTo: aResponse]
 			ifFalse: [
-        			type := self class mimeTypeFor: filename.
+				type := self class mimeTypeFor: filename.
+				type = 'application/javascript'
+					ifTrue: [ type:=type,';charset=utf-8' ].
 				aResponse 
-                          		writeHead: 200 options:  #{'Content-Type' -> type};
-					write: file binary: 'binary';
-                          		end]]
+					writeHead: 200 options:  #{'Content-Type' -> type};
+					write: file encoding: 'binary';
+					end]]
 !
 
 respondInternalErrorTo: aResponse
