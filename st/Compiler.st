@@ -1517,7 +1517,7 @@ performOptimizations: aBoolean
 ! !
 
 AbstractCodeGenerator subclass: #ImpCodeGenerator
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables ivarAliases toIvar mutables assigned'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables mutables assigned target lazyVars'
 	package: 'Compiler'!
 
 !ImpCodeGenerator methodsFor: 'accessing'!
@@ -1548,8 +1548,8 @@ alias: aString
 !
 
 alias: aString mutable: aBoolean
-	(ivarAliases includesKey: toIvar)
-		ifTrue: [ ivarAliases at: toIvar put: aString. aBoolean ifTrue: [ mutables add: toIvar ] ]
+	(lazyVars includesKey: target)
+		ifTrue: [ lazyVars at: target put: aString. aBoolean ifTrue: [ mutables add: target ] ]
 		ifFalse: [ self assign: aString ]
 !
 
@@ -1562,10 +1562,10 @@ assign: aString
 	aString ifNotEmpty: [
 		self disarmAll.
 		closer := ''.
-		toIvar ifNotNil: [ stream nextPutAll:
-			(toIvar = '^' ifTrue: ['return '] ifFalse: [
-				toIvar = '!!' ifTrue: [ closer := ']'. 'throw $early=['] ifFalse: [
-					toIvar, '=']]) ].
+		self ifValueWanted: [ stream nextPutAll:
+			(target = '^' ifTrue: ['return '] ifFalse: [
+				target = '!!' ifTrue: [ closer := ']'. 'throw $early=['] ifFalse: [
+					target, '=']]) ].
 		self makeAssigned.
 		stream nextPutAll: aString, closer, ';', self mylf ]
 !
@@ -1574,79 +1574,73 @@ disarmAll
 | list old |
 	list := mutables.
 	mutables := Set new.
-	old := toIvar.
+	old := self switchTarget: nil.
 	list do: [ :each | | value |
-		toIvar := each.
-		value := ivarAliases at: each.
-		self assign: value
+		self switchTarget: each.
+		self assign: (lazyVars at: each)
 	].
-	toIvar := old
+	self switchTarget: old
+!
+
+ifValueWanted: aBlock
+	target ifNotNil: aBlock
 !
 
 isolate: aBlock
-| old ivar |
-	old := toIvar.
-	ivar := toIvar := self nextIvar.
+| old |
+	old := self switchTarget: self nextLazyvarName.
 	aBlock value.
-	toIvar := old.
-	^ivar
+	^self switchTarget: old
 !
 
 isolated: node
- 	^ self visit: node ivar: self nextIvar
+ 	^ self visit: node targetBeing: self nextLazyvarName
 !
 
 isolatedUse: node
-| old operand |
-	old := toIvar.
-	toIvar := self nextIvar.
+| old |
+	old := self switchTarget: self nextLazyvarName.
 	self visit: node.
-	operand := self useIvar.
-	toIvar := old.
-	^operand
+	^self useValueNamed: (self switchTarget: old)
 !
 
 makeAssigned
-	(ivarAliases includesKey: toIvar) ifTrue: [
-		ivarAliases removeKey: toIvar.
-		ivarAliases at: 'assigned ',toIvar put: nil.
-		assigned add: toIvar ].
+	(lazyVars includesKey: target) ifTrue: [
+		lazyVars removeKey: target.
+		lazyVars at: 'assigned ',target put: nil. "<-- only to retain size, it is used in nextLazyvarName"
+		assigned add: target ].
 !
 
-nextIvar
+nextLazyvarName
 	| name |
-	name := '$', ivarAliases size asString.
-	ivarAliases at: name put: name.
+	name := '$', lazyVars size asString.
+	lazyVars at: name put: name.
 	^name
 !
 
-useIvar
-	^self useIvarIfAbsent: [ self error: 'Absent ivar: ', toIvar ]
+nilIfValueWanted
+	target ifNotNil: [ self alias: 'nil' ]
 !
 
-useIvar: ivar
-| old result |
-	old := toIvar.
-	toIvar := ivar.
-	result := self useIvar.
-	toIvar := old.
-	^ result
+switchTarget: aString
+	| old |
+	old := target.
+	target := aString.
+	^old
 !
 
-useIvarIfAbsent: aBlock
-| val |
-	(assigned includes: toIvar) ifTrue: [ ^toIvar ].
-	mutables remove: toIvar.
-	^ivarAliases at: toIvar ifAbsent: aBlock
+useValueNamed: key
+	| val |
+	(assigned includes: key) ifTrue: [ ^key ].
+	mutables remove: key.
+	^lazyVars at: key
 !
 
-visit: aNode ivar: aString
+visit: aNode targetBeing: aString
 | old |
-	old := toIvar.
-	toIvar := aString.
+	old := self switchTarget: aString.
 	self visit: aNode.
-	toIvar := old.
-	^ aString
+	^ self switchTarget: old.
 ! !
 
 !ImpCodeGenerator methodsFor: 'compiling'!
@@ -1669,8 +1663,8 @@ initialize
 	classReferenced := #().
 	mutables := Set new.
 	assigned := Set new.
-	ivarAliases := HashedCollection new.
-	toIvar := nil
+	lazyVars := HashedCollection new.
+	target := nil
 ! !
 
 !ImpCodeGenerator methodsFor: 'optimizations'!
@@ -1682,7 +1676,7 @@ checkClass: aClassName for: receiver
 
 checkClass: aClassName for: receiver includeIf: aBoolean
 	self prvCheckClass: aClassName for: receiver.
-	stream nextPutAll: (aBoolean ifTrue: ['if(('] ifFalse: ['if(!!(']), (self useIvar: receiver), ')) {'
+	stream nextPutAll: (aBoolean ifTrue: ['if(('] ifFalse: ['if(!!(']), (self useValueNamed: receiver), ')) {'
 !
 
 inline: aSelector receiver: receiver argumentNodes: aCollection
@@ -1693,14 +1687,14 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
 		aCollection first isBlockNode ifTrue: [
 			self checkClass: 'Boolean' for: receiver includeIf: false.
 			self prvPutAndElse: [ self visit: aCollection first nodes first ].
-			self prvPutAndElse: [ toIvar ifNotNil: [ self aliasMutable: 'nil' ] ].
+			self prvPutAndElse: [ self nilIfValueWanted ].
 			^true]].
 
 	(aSelector = 'ifTrue:') ifTrue: [
 		aCollection first isBlockNode ifTrue: [
 			self checkClass: 'Boolean' for: receiver includeIf: true.
 			self prvPutAndElse: [ self visit: aCollection first nodes first ].
-			self prvPutAndElse: [ toIvar ifNotNil: [ self aliasMutable: 'nil' ] ].
+			self prvPutAndElse: [ self nilIfValueWanted ].
 			^true]].
 
 	(aSelector = 'ifTrue:ifFalse:') ifTrue: [
@@ -1723,56 +1717,56 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '<', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '<', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
 	(aSelector = '<=') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '<=', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '<=', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
 	(aSelector = '>') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '>', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '>', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
 	(aSelector = '>=') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '>=', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '>=', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
         (aSelector = '+') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '+', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '+', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
         (aSelector = '-') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '-', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '-', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
         (aSelector = '*') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '*', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '*', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
         (aSelector = '/') ifTrue: [ | operand |
 		operand := self isolatedUse: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self aliasMutable: '(', (self useIvar: receiver), '/', operand, ')' ].
+			self aliasMutable: '(', (self useValueNamed: receiver), '/', operand, ')' ].
 		^{ VerbatimNode new value: operand }].
 
         ^nil
@@ -1788,14 +1782,14 @@ inlineLiteral: aSelector receiverNode: anObject argumentNodes: aCollection
           	(anObject isBlockNode and: [aCollection first isBlockNode]) ifTrue: [ | old |
 			self prvWhileConditionStatement: 'for(;;){' pre: 'if (!!(' condition: anObject post: ')) {'.
 			stream nextPutAll: 'break}', self mylf.
-			self prvPutAndClose: [ self visit: aCollection first nodes first ivar: nil ].
+			self prvPutAndClose: [ self visit: aCollection first nodes first targetBeing: nil ].
 			inlined := true]].
 
 	(aSelector = 'whileFalse:') ifTrue: [
           	(anObject isBlockNode and: [aCollection first isBlockNode]) ifTrue: [ | old |
 			self prvWhileConditionStatement: 'for(;;){' pre: 'if ((' condition: anObject post: ')) {'.
 			stream nextPutAll: 'break}', self mylf.
-			self prvPutAndClose: [ self visit: aCollection first nodes first ivar: nil ].
+			self prvPutAndClose: [ self visit: aCollection first nodes first targetBeing: nil ].
 			inlined := true]].
 
 	(aSelector = 'whileTrue') ifTrue: [
@@ -1884,7 +1878,7 @@ isNode: aNode ofClass: aClass
 prvCheckClass: aClassName for: receiver
 	self makeAssigned.
 	self disarmAll.
-        stream nextPutAll: 'if((', (self useIvar: receiver), ').klass === smalltalk.', aClassName, ') '
+        stream nextPutAll: 'if((', (self useValueNamed: receiver), ').klass === smalltalk.', aClassName, ') '
 !
 
 prvInlineNumberOperator: aSelector on: receiverNode and: operandNode
@@ -1893,7 +1887,7 @@ prvInlineNumberOperator: aSelector on: receiverNode and: operandNode
 			| rcv operand |
 			rcv := self isolated: receiverNode.
 			operand := self isolated: operandNode.
-			self alias: ((self useIvar: rcv), aSelector, (self useIvar: operand)).
+			self alias: ((self useValueNamed: rcv), aSelector, (self useValueNamed: operand)).
 			^true]].
 	^false
 !
@@ -1904,7 +1898,7 @@ prvWhileConditionStatement: stmtString pre: preString condition: anObject post: 
 	x := self isolatedUse: anObject nodes first.
 	x ifEmpty: [ x := '"should not reach - receiver includes ^"' ].
 	stream nextPutAll: preString, x, postString.
-	toIvar ifNotNil: [ self alias: 'nil' ]
+	self nilIfValueWanted
 ! !
 
 !ImpCodeGenerator methodsFor: 'output'!
@@ -1954,7 +1948,7 @@ arrayOfValues: nodes
 	self alias: (String streamContents: [ :str |
 		str nextPutAll: '['.
 		args
-	    		do: [:each | str nextPutAll: (self useIvar: each) ]
+	    		do: [:each | str nextPutAll: (self useValueNamed: each) ]
 	    		separatedBy: [str nextPutAll: ', '].
                 str nextPutAll: ']'
 	])
@@ -1965,9 +1959,9 @@ send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
 	args := self isolate: [ self arrayOfValues: aCollection ].
 	self aliasMutable: (String streamContents: [ :str |
 		str nextPutAll: 'smalltalk.send('.
-		str nextPutAll: (self useIvar: aReceiver).
+		str nextPutAll: (self useValueNamed: aReceiver).
 		str nextPutAll: ', "', aSelector asSelector, '", '.
-		str nextPutAll: (self useIvar: args).
+		str nextPutAll: (self useValueNamed: args).
 		aBoolean ifTrue: [
 			str nextPutAll: ', smalltalk.', (self classNameFor: self currentClass superclass)].
 		str nextPutAll: ')'
@@ -1978,14 +1972,13 @@ sequenceOfNodes: nodes temps: temps
 	nodes isEmpty
 		ifFalse: [ | old index |
 			self putTemps: temps.
-			old := toIvar.
-			toIvar := nil.
+			old :=self switchTarget: nil.
 			index := 0.
 			nodes do: [:each |
 				index := index + 1.
-				index = nodes size ifTrue: [ toIvar := old ].
+				index = nodes size ifTrue: [ self switchTarget: old ].
 			self visit: each ]]
-		ifTrue: [ toIvar ifNotNil: [ self alias: 'nil' ]]
+		ifTrue: [ self nilIfValueWanted ]
 !
 
 visit: aNode
@@ -1995,25 +1988,22 @@ visit: aNode
 visitAssignmentNode: aNode
 | olds oldt |
 	olds := stream.
-	oldt := toIvar.
 	stream := '' writeStream.
-	toIvar := self nextIvar.
+	oldt := self switchTarget: self nextLazyvarName.
 	self visit: aNode left.
-	self assert: (ivarAliases at: toIvar) ~= toIvar.
-	toIvar := self useIvar.
-	self assert: (ivarAliases includesKey: toIvar) not.
+	self assert: (lazyVars at: target) ~= target.
+	self switchTarget: (self useValueNamed: (self switchTarget: nil)).
+	self assert: (lazyVars includesKey: target) not.
 	stream := olds.
 	self visit: aNode right.
-	olds := toIvar.
-	toIvar := oldt.
-	toIvar ifNotNil: [ self aliasMutable: olds ]
+	olds := self switchTarget: oldt.
+	self ifValueWanted: [ self aliasMutable: olds ]
 !
 
 visitBlockNode: aNode
 | oldt olds oldm |
 	self assert: aNode nodes size = 1.
-	oldt := toIvar.
-	toIvar := '^'.
+	oldt := self switchTarget: '^'.
 	olds := stream.
 	stream := '' writeStream.
 	stream nextPutAll: '(function('.
@@ -2031,7 +2021,7 @@ visitBlockNode: aNode
 	mutables := oldm.
 	nestedBlocks := nestedBlocks - 1.
 	stream nextPutAll: '})'.
-	toIvar := oldt.
+	self switchTarget: oldt.
 	oldt := stream contents.
 	stream := olds.
 	self aliasMutable: oldt
@@ -2045,7 +2035,7 @@ visitCascadeNode: aNode
 	| rcv |
 	rcv := self isolated: aNode receiver.
 	self disarmAll.
-	rcv := self useIvar: rcv.
+	rcv := self useValueNamed: rcv.
 	aNode nodes do: [:each |
 		each receiver: (VerbatimNode new value: rcv) ].
 	self sequenceOfNodes: aNode nodes temps: #()
@@ -2064,7 +2054,7 @@ visitDynamicArrayNode: aNode
 visitDynamicDictionaryNode: aNode
 	| elements |
 	elements := self isolate: [ self arrayOfValues: aNode nodes ].
-	self alias: 'smalltalk.HashedCollection._fromPairs_(', (self useIvar: elements), ')'
+	self alias: 'smalltalk.HashedCollection._fromPairs_(', (self useValueNamed: elements), ')'
 !
 
 visitFailure: aFailure
@@ -2086,7 +2076,7 @@ visitMethodNode: aNode
 	unknownVariables := #().
 	tempVariables := #().
 	argVariables := #().
-	ivarAliases := HashedCollection new.
+	lazyVars := HashedCollection new.
 	mutables := Set new.
 	assigned := Set new.
 	stream 
@@ -2103,7 +2093,7 @@ visitMethodNode: aNode
 	    nextPutAll: '){var self=this;', self mylf.
 	str := stream.
 	stream := '' writeStream.
-	toIvar := nil.
+	self switchTarget: nil.
 	self assert: aNode nodes size = 1.
 	self visit: aNode nodes first.
 	assigned ifNotEmpty: [ str nextPutAll: 'var ', (assigned asArray join: ','), ';', self mylf ].
@@ -2114,7 +2104,7 @@ visitMethodNode: aNode
 	(aNode nodes first nodes notEmpty and: [ |checker|
 	    checker := ReturnNodeChecker new.
 	    checker visit: aNode nodes first nodes last.
-	    checker wasReturnNode]) ifFalse: [ toIvar := '^'. self alias: 'self'. toIvar := nil ].
+	    checker wasReturnNode]) ifFalse: [ self switchTarget: '^'. self alias: 'self'. self switchTarget: nil ].
 	earlyReturn ifTrue: [
 	    stream nextPutAll: '} catch(e) {if(e===$early) return e[0]; throw e}'].
 	stream nextPutAll: '}'.
@@ -2137,7 +2127,7 @@ visitReturnNode: aNode
 	    earlyReturn := true].
 	self
 		visit: aNode nodes first
-		ivar: (nestedBlocks > 0 ifTrue: ['!!'] ifFalse: ['^']).
+		targetBeing: (nestedBlocks > 0 ifTrue: ['!!'] ifFalse: ['^']).
 	self alias: ''
 !
 
@@ -2152,8 +2142,8 @@ visitSendNode: aNode
 		].
 
 	rcv := self isolated: aNode receiver.
-        superSend := (ivarAliases at: rcv ifAbsent: []) = 'super'.
-        superSend ifTrue: [ mutables remove: rcv. ivarAliases at: rcv put: 'self' ].
+        superSend := (lazyVars at: rcv ifAbsent: []) = 'super'.
+        superSend ifTrue: [ mutables remove: rcv. lazyVars at: rcv put: 'self' ].
 
 	self performOptimizations 
 		ifTrue: [ | inline |
