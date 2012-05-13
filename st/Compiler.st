@@ -1572,13 +1572,6 @@ ifValueWanted: aBlock
 	target ifNotNil: aBlock
 !
 
-isolate: aBlock
-| old |
-	old := self switchTarget: self nextLazyvarName.
-	aBlock value.
-	^self switchTarget: old
-!
-
 isolated: node
  	^ self visit: node targetBeing: self nextLazyvarName
 !
@@ -1942,21 +1935,9 @@ performOptimizations
 
 !ImpCodeGenerator methodsFor: 'visiting'!
 
-arrayOfValues: nodes
-	| args |
-	args :=nodes collect: [ :node | self isolated: node ].
-	self lazyAssignValue: (String streamContents: [ :str |
-		str nextPutAll: '['.
-		args
-	    		do: [:each | str nextPutAll: (self useValueNamed: each) ]
-	    		separatedBy: [str nextPutAll: ', '].
-                str nextPutAll: ']'
-	])
-!
-
 send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
 	| args |
-	args := self isolate: [ self arrayOfValues: aCollection ].
+	args := self isolated: (DynamicArrayNode new nodes: aCollection; yourself).
 	self lazyAssignExpression: (String streamContents: [ :str |
 		str nextPutAll: 'smalltalk.send('.
 		str nextPutAll: (self useValueNamed: aReceiver).
@@ -2048,12 +2029,20 @@ visitClassReferenceNode: aNode
 !
 
 visitDynamicArrayNode: aNode
-	self arrayOfValues: aNode nodes
+	| args |
+	args :=aNode nodes collect: [ :node | self isolated: node ].
+	self lazyAssignValue: (String streamContents: [ :str |
+		str nextPutAll: '['.
+		args
+	    		do: [:each | str nextPutAll: (self useValueNamed: each) ]
+	    		separatedBy: [str nextPutAll: ', '].
+                str nextPutAll: ']'
+	])
 !
 
 visitDynamicDictionaryNode: aNode
 	| elements |
-	elements := self isolate: [ self arrayOfValues: aNode nodes ].
+	elements := self isolated: (DynamicArrayNode new nodes: aNode nodes; yourself).
 	self lazyAssignValue: 'smalltalk.HashedCollection._fromPairs_(', (self useValueNamed: elements), ')'
 !
 

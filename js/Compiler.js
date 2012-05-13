@@ -2884,24 +2884,6 @@ referencedClasses: []
 smalltalk.ImpCodeGenerator);
 
 smalltalk.addMethod(
-"_arrayOfValues_",
-smalltalk.method({
-selector: "arrayOfValues:",
-category: 'visiting',
-fn: function (nodes){
-var self=this;
-var args=nil;
-(args=smalltalk.send(nodes, "_collect_", [(function(node){return smalltalk.send(self, "_isolated_", [node]);})]));
-smalltalk.send(self, "_lazyAssignValue_", [smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(str){smalltalk.send(str, "_nextPutAll_", ["["]);smalltalk.send(args, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [each])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [", "]);})]);return smalltalk.send(str, "_nextPutAll_", ["]"]);})])]);
-return self;},
-args: ["nodes"],
-source: "arrayOfValues: nodes\x0a\x09| args |\x0a\x09args :=nodes collect: [ :node | self isolated: node ].\x0a\x09self lazyAssignValue: (String streamContents: [ :str |\x0a\x09\x09str nextPutAll: '['.\x0a\x09\x09args\x0a\x09    \x09\x09do: [:each | str nextPutAll: (self useValueNamed: each) ]\x0a\x09    \x09\x09separatedBy: [str nextPutAll: ', '].\x0a                str nextPutAll: ']'\x0a\x09])",
-messageSends: ["collect:", "isolated:", "lazyAssignValue:", "streamContents:", "nextPutAll:", "do:separatedBy:", "useValueNamed:"],
-referencedClasses: ["String"]
-}),
-smalltalk.ImpCodeGenerator);
-
-smalltalk.addMethod(
 "_assert_",
 smalltalk.method({
 selector: "assert:",
@@ -3143,25 +3125,6 @@ return self;},
 args: ["aNode", "aClass"],
 source: "isNode: aNode ofClass: aClass\x0a\x09^aNode isValueNode and: [\x0a          \x09aNode value class = aClass or: [\x0a          \x09\x09aNode value = 'self' and: [self currentClass = aClass]]]",
 messageSends: ["and:", "isValueNode", "or:", "=", "class", "value", "currentClass"],
-referencedClasses: []
-}),
-smalltalk.ImpCodeGenerator);
-
-smalltalk.addMethod(
-"_isolate_",
-smalltalk.method({
-selector: "isolate:",
-category: 'compilation DSL',
-fn: function (aBlock){
-var self=this;
-var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [smalltalk.send(self, "_nextLazyvarName", [])]));
-smalltalk.send(aBlock, "_value", []);
-return smalltalk.send(self, "_switchTarget_", [old]);
-return self;},
-args: ["aBlock"],
-source: "isolate: aBlock\x0a| old |\x0a\x09old := self switchTarget: self nextLazyvarName.\x0a\x09aBlock value.\x0a\x09^self switchTarget: old",
-messageSends: ["switchTarget:", "nextLazyvarName", "value"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3473,13 +3436,13 @@ category: 'visiting',
 fn: function (aSelector, aReceiver, aCollection, aBoolean){
 var self=this;
 var args=nil;
-(args=smalltalk.send(self, "_isolate_", [(function(){return smalltalk.send(self, "_arrayOfValues_", [aCollection]);})]));
+(args=smalltalk.send(self, "_isolated_", [(function($rec){smalltalk.send($rec, "_nodes_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.DynamicArrayNode || DynamicArrayNode), "_new", []))]));
 smalltalk.send(self, "_lazyAssignExpression_", [smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(str){smalltalk.send(str, "_nextPutAll_", ["smalltalk.send("]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [aReceiver])]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(", \x22", "__comma", [smalltalk.send(aSelector, "_asSelector", [])]), "__comma", ["\x22, "])]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [args])]);((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(", smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [smalltalk.send(smalltalk.send(self, "_currentClass", []), "_superclass", [])])])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(", smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [smalltalk.send(smalltalk.send(self, "_currentClass", []), "_superclass", [])])])]);})]));return smalltalk.send(str, "_nextPutAll_", [")"]);})])]);
 return self;},
 args: ["aSelector", "aReceiver", "aCollection", "aBoolean"],
-source: "send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean\x0a\x09| args |\x0a\x09args := self isolate: [ self arrayOfValues: aCollection ].\x0a\x09self lazyAssignExpression: (String streamContents: [ :str |\x0a\x09\x09str nextPutAll: 'smalltalk.send('.\x0a\x09\x09str nextPutAll: (self useValueNamed: aReceiver).\x0a\x09\x09str nextPutAll: ', \x22', aSelector asSelector, '\x22, '.\x0a\x09\x09str nextPutAll: (self useValueNamed: args).\x0a\x09\x09aBoolean ifTrue: [\x0a\x09\x09\x09str nextPutAll: ', smalltalk.', (self classNameFor: self currentClass superclass)].\x0a\x09\x09str nextPutAll: ')'\x0a\x09])",
-messageSends: ["isolate:", "arrayOfValues:", "lazyAssignExpression:", "streamContents:", "nextPutAll:", "useValueNamed:", ",", "asSelector", "ifTrue:", "classNameFor:", "superclass", "currentClass"],
-referencedClasses: ["String"]
+source: "send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean\x0a\x09| args |\x0a\x09args := self isolated: (DynamicArrayNode new nodes: aCollection; yourself).\x0a\x09self lazyAssignExpression: (String streamContents: [ :str |\x0a\x09\x09str nextPutAll: 'smalltalk.send('.\x0a\x09\x09str nextPutAll: (self useValueNamed: aReceiver).\x0a\x09\x09str nextPutAll: ', \x22', aSelector asSelector, '\x22, '.\x0a\x09\x09str nextPutAll: (self useValueNamed: args).\x0a\x09\x09aBoolean ifTrue: [\x0a\x09\x09\x09str nextPutAll: ', smalltalk.', (self classNameFor: self currentClass superclass)].\x0a\x09\x09str nextPutAll: ')'\x0a\x09])",
+messageSends: ["isolated:", "nodes:", "yourself", "new", "lazyAssignExpression:", "streamContents:", "nextPutAll:", "useValueNamed:", ",", "asSelector", "ifTrue:", "classNameFor:", "superclass", "currentClass"],
+referencedClasses: ["DynamicArrayNode", "String"]
 }),
 smalltalk.ImpCodeGenerator);
 
@@ -3734,14 +3697,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
-smalltalk.send(self, "_arrayOfValues_", [smalltalk.send(aNode, "_nodes", [])]);
+var args=nil;
+(args=smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_collect_", [(function(node){return smalltalk.send(self, "_isolated_", [node]);})]));
+smalltalk.send(self, "_lazyAssignValue_", [smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(str){smalltalk.send(str, "_nextPutAll_", ["["]);smalltalk.send(args, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [each])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [", "]);})]);return smalltalk.send(str, "_nextPutAll_", ["]"]);})])]);
 return self;},
 args: ["aNode"],
-source: "visitDynamicArrayNode: aNode\x0a\x09self arrayOfValues: aNode nodes",
-messageSends: ["arrayOfValues:", "nodes"],
-referencedClasses: []
+source: "visitDynamicArrayNode: aNode\x0a\x09| args |\x0a\x09args :=aNode nodes collect: [ :node | self isolated: node ].\x0a\x09self lazyAssignValue: (String streamContents: [ :str |\x0a\x09\x09str nextPutAll: '['.\x0a\x09\x09args\x0a\x09    \x09\x09do: [:each | str nextPutAll: (self useValueNamed: each) ]\x0a\x09    \x09\x09separatedBy: [str nextPutAll: ', '].\x0a                str nextPutAll: ']'\x0a\x09])",
+messageSends: ["collect:", "nodes", "isolated:", "lazyAssignValue:", "streamContents:", "nextPutAll:", "do:separatedBy:", "useValueNamed:"],
+referencedClasses: ["String"]
 }),
 smalltalk.ImpCodeGenerator);
 
@@ -3753,13 +3718,13 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 var elements=nil;
-(elements=smalltalk.send(self, "_isolate_", [(function(){return smalltalk.send(self, "_arrayOfValues_", [smalltalk.send(aNode, "_nodes", [])]);})]));
+(elements=smalltalk.send(self, "_isolated_", [(function($rec){smalltalk.send($rec, "_nodes_", [smalltalk.send(aNode, "_nodes", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.DynamicArrayNode || DynamicArrayNode), "_new", []))]));
 smalltalk.send(self, "_lazyAssignValue_", [smalltalk.send(smalltalk.send("smalltalk.HashedCollection._fromPairs_(", "__comma", [smalltalk.send(self, "_useValueNamed_", [elements])]), "__comma", [")"])]);
 return self;},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09| elements |\x0a\x09elements := self isolate: [ self arrayOfValues: aNode nodes ].\x0a\x09self lazyAssignValue: 'smalltalk.HashedCollection._fromPairs_(', (self useValueNamed: elements), ')'",
-messageSends: ["isolate:", "arrayOfValues:", "nodes", "lazyAssignValue:", ",", "useValueNamed:"],
-referencedClasses: []
+source: "visitDynamicDictionaryNode: aNode\x0a\x09| elements |\x0a\x09elements := self isolated: (DynamicArrayNode new nodes: aNode nodes; yourself).\x0a\x09self lazyAssignValue: 'smalltalk.HashedCollection._fromPairs_(', (self useValueNamed: elements), ')'",
+messageSends: ["isolated:", "nodes:", "nodes", "yourself", "new", "lazyAssignValue:", ",", "useValueNamed:"],
+referencedClasses: ["DynamicArrayNode"]
 }),
 smalltalk.ImpCodeGenerator);
 

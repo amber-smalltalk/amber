@@ -2064,19 +2064,6 @@ return self;}
 smalltalk.ImpCodeGenerator);
 
 smalltalk.addMethod(
-"_arrayOfValues_",
-smalltalk.method({
-selector: "arrayOfValues:",
-fn: function (nodes){
-var self=this;
-var args=nil;
-(args=smalltalk.send(nodes, "_collect_", [(function(node){return smalltalk.send(self, "_isolated_", [node]);})]));
-smalltalk.send(self, "_lazyAssignValue_", [smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(str){smalltalk.send(str, "_nextPutAll_", ["["]);smalltalk.send(args, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [each])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [", "]);})]);return smalltalk.send(str, "_nextPutAll_", ["]"]);})])]);
-return self;}
-}),
-smalltalk.ImpCodeGenerator);
-
-smalltalk.addMethod(
 "_assert_",
 smalltalk.method({
 selector: "assert:",
@@ -2268,20 +2255,6 @@ selector: "isNode:ofClass:",
 fn: function (aNode, aClass) {
 var self=this;
 return smalltalk.send(smalltalk.send(aNode, "_isValueNode", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_value", []), "_class", []), "__eq", [aClass]), "_or_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_value", []), "__eq", ["self"]), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_currentClass", []), "__eq", [aClass]);})]);})]);})]);
-return self;}
-}),
-smalltalk.ImpCodeGenerator);
-
-smalltalk.addMethod(
-"_isolate_",
-smalltalk.method({
-selector: "isolate:",
-fn: function (aBlock){
-var self=this;
-var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [smalltalk.send(self, "_nextLazyvarName", [])]));
-smalltalk.send(aBlock, "_value", []);
-return smalltalk.send(self, "_switchTarget_", [old]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2507,7 +2480,7 @@ selector: "send:to:arguments:superSend:",
 fn: function (aSelector, aReceiver, aCollection, aBoolean){
 var self=this;
 var args=nil;
-(args=smalltalk.send(self, "_isolate_", [(function(){return smalltalk.send(self, "_arrayOfValues_", [aCollection]);})]));
+(args=smalltalk.send(self, "_isolated_", [(function($rec){smalltalk.send($rec, "_nodes_", [aCollection]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.DynamicArrayNode || DynamicArrayNode), "_new", []))]));
 smalltalk.send(self, "_lazyAssignExpression_", [smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(str){smalltalk.send(str, "_nextPutAll_", ["smalltalk.send("]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [aReceiver])]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(", \x22", "__comma", [smalltalk.send(aSelector, "_asSelector", [])]), "__comma", ["\x22, "])]);smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [args])]);((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(", smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [smalltalk.send(smalltalk.send(self, "_currentClass", []), "_superclass", [])])])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(", smalltalk.", "__comma", [smalltalk.send(self, "_classNameFor_", [smalltalk.send(smalltalk.send(self, "_currentClass", []), "_superclass", [])])])]);})]));return smalltalk.send(str, "_nextPutAll_", [")"]);})])]);
 return self;}
 }),
@@ -2703,9 +2676,11 @@ smalltalk.addMethod(
 "_visitDynamicArrayNode_",
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
-smalltalk.send(self, "_arrayOfValues_", [smalltalk.send(aNode, "_nodes", [])]);
+var args=nil;
+(args=smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_collect_", [(function(node){return smalltalk.send(self, "_isolated_", [node]);})]));
+smalltalk.send(self, "_lazyAssignValue_", [smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(str){smalltalk.send(str, "_nextPutAll_", ["["]);smalltalk.send(args, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(self, "_useValueNamed_", [each])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [", "]);})]);return smalltalk.send(str, "_nextPutAll_", ["]"]);})])]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2717,7 +2692,7 @@ selector: "visitDynamicDictionaryNode:",
 fn: function (aNode){
 var self=this;
 var elements=nil;
-(elements=smalltalk.send(self, "_isolate_", [(function(){return smalltalk.send(self, "_arrayOfValues_", [smalltalk.send(aNode, "_nodes", [])]);})]));
+(elements=smalltalk.send(self, "_isolated_", [(function($rec){smalltalk.send($rec, "_nodes_", [smalltalk.send(aNode, "_nodes", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.DynamicArrayNode || DynamicArrayNode), "_new", []))]));
 smalltalk.send(self, "_lazyAssignValue_", [smalltalk.send(smalltalk.send("smalltalk.HashedCollection._fromPairs_(", "__comma", [smalltalk.send(self, "_useValueNamed_", [elements])]), "__comma", [")"])]);
 return self;}
 }),
