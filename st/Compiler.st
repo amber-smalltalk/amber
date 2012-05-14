@@ -1602,13 +1602,18 @@ nilIfValueWanted
 realAssign: aString
 	| closer |
 	aString ifNotEmpty: [
-		self aboutToModifyState.
 		closer := ''.
-		self ifValueWanted: [ stream nextPutAll:
-			(target = '^' ifTrue: ['return '] ifFalse: [
-				target = '!!' ifTrue: [ closer := ']'. 'throw $early=['] ifFalse: [
-					target, '=']]) ].
-		self makeTargetRealVariable.
+		self ifValueWanted: [
+			target = '^' ifTrue: [
+				stream nextPutAll: 'return '
+			] ifFalse: [ target = '!!' ifTrue: [
+				stream nextPutAll: 'throw $early=['. closer := ']'
+			] ifFalse: [
+				self aboutToModifyState.
+				stream nextPutAll: target, '='.
+				self makeTargetRealVariable
+			]]].
+
 		stream nextPutAll: aString, closer, ';', self mylf ]
 !
 
