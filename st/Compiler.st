@@ -1544,15 +1544,10 @@ unknownVariables
 !ImpCodeGenerator methodsFor: 'compilation DSL'!
 
 aboutToModifyState
-| list old |
+| list |
 	list := mutables.
 	mutables := Set new.
-	old := self switchTarget: nil.
-	list do: [ :each | | value |
-		self switchTarget: each.
-		self realAssign: (lazyVars at: each)
-	].
-	self switchTarget: old
+	list do: [ :each | self prvMaterializeLazyvar: each ]
 !
 
 ifValueWanted: aBlock
@@ -1608,6 +1603,13 @@ nilIfValueWanted
 	target ifNotNil: [ self lazyAssignStableValue: 'nil' ]
 !
 
+prvMaterializeLazyvar: lazyName
+	| old |
+	old := self switchTarget: lazyName.
+	self realAssign: (lazyVars at: lazyName).
+	self switchTarget: old
+!
+
 realAssign: aString
 	| closer |
 	aString ifNotEmpty: [
@@ -1630,11 +1632,7 @@ stabilize: lazyName
 	(unstables includes: lazyName) ifTrue: [
 		(mutables includes: lazyName)
 			ifTrue: [ self aboutToModifyState ]
-			ifFalse: [
-				| old |
-				old := self switchTarget: lazyName.
-				self realAssign: (lazyVars at: lazyName).
-				old := self switchTarget: old ]]
+			ifFalse: [ self prvMaterializeLazyvar: lazyName ]]
 !
 
 switchTarget: aString

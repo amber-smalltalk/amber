@@ -2852,17 +2852,13 @@ category: 'compilation DSL',
 fn: function (){
 var self=this;
 var list=nil;
-var old=nil;
 (list=self['@mutables']);
 (self['@mutables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
-(old=smalltalk.send(self, "_switchTarget_", [nil]));
-smalltalk.send(list, "_do_", [(function(each){var value=nil;
-smalltalk.send(self, "_switchTarget_", [each]);return smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [each])]);})]);
-smalltalk.send(self, "_switchTarget_", [old]);
+smalltalk.send(list, "_do_", [(function(each){return smalltalk.send(self, "_prvMaterializeLazyvar_", [each]);})]);
 return self;},
 args: [],
-source: "aboutToModifyState\x0a| list old |\x0a\x09list := mutables.\x0a\x09mutables := Set new.\x0a\x09old := self switchTarget: nil.\x0a\x09list do: [ :each | | value |\x0a\x09\x09self switchTarget: each.\x0a\x09\x09self realAssign: (lazyVars at: each)\x0a\x09].\x0a\x09self switchTarget: old",
-messageSends: ["new", "switchTarget:", "do:", "realAssign:", "at:"],
+source: "aboutToModifyState\x0a| list |\x0a\x09list := mutables.\x0a\x09mutables := Set new.\x0a\x09list do: [ :each | self prvMaterializeLazyvar: each ]",
+messageSends: ["new", "do:", "prvMaterializeLazyvar:"],
 referencedClasses: ["Set"]
 }),
 smalltalk.ImpCodeGenerator);
@@ -3371,6 +3367,25 @@ referencedClasses: ["Number"]
 smalltalk.ImpCodeGenerator);
 
 smalltalk.addMethod(
+"_prvMaterializeLazyvar_",
+smalltalk.method({
+selector: "prvMaterializeLazyvar:",
+category: 'compilation DSL',
+fn: function (lazyName){
+var self=this;
+var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));
+smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);
+smalltalk.send(self, "_switchTarget_", [old]);
+return self;},
+args: ["lazyName"],
+source: "prvMaterializeLazyvar: lazyName\x0a\x09| old |\x0a\x09old := self switchTarget: lazyName.\x0a\x09self realAssign: (lazyVars at: lazyName).\x0a\x09self switchTarget: old",
+messageSends: ["switchTarget:", "realAssign:", "at:"],
+referencedClasses: []
+}),
+smalltalk.ImpCodeGenerator);
+
+smalltalk.addMethod(
 "_prvPutAndClose_",
 smalltalk.method({
 selector: "prvPutAndClose:",
@@ -3504,15 +3519,11 @@ selector: "stabilize:",
 category: 'compilation DSL',
 fn: function (lazyName){
 var self=this;
-((($receiver = smalltalk.send(self['@unstables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})]));})]));
+((($receiver = smalltalk.send(self['@unstables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){return smalltalk.send(self, "_prvMaterializeLazyvar_", [lazyName]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){return smalltalk.send(self, "_prvMaterializeLazyvar_", [lazyName]);})]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){return smalltalk.send(self, "_prvMaterializeLazyvar_", [lazyName]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){return smalltalk.send(self, "_prvMaterializeLazyvar_", [lazyName]);})]));})]));
 return self;},
 args: ["lazyName"],
-source: "stabilize: lazyName\x0a\x09(unstables includes: lazyName) ifTrue: [\x0a\x09\x09(mutables includes: lazyName)\x0a\x09\x09\x09ifTrue: [ self aboutToModifyState ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09| old |\x0a\x09\x09\x09\x09old := self switchTarget: lazyName.\x0a\x09\x09\x09\x09self realAssign: (lazyVars at: lazyName).\x0a\x09\x09\x09\x09old := self switchTarget: old ]]",
-messageSends: ["ifTrue:", "includes:", "ifTrue:ifFalse:", "aboutToModifyState", "switchTarget:", "realAssign:", "at:"],
+source: "stabilize: lazyName\x0a\x09(unstables includes: lazyName) ifTrue: [\x0a\x09\x09(mutables includes: lazyName)\x0a\x09\x09\x09ifTrue: [ self aboutToModifyState ]\x0a\x09\x09\x09ifFalse: [ self prvMaterializeLazyvar: lazyName ]]",
+messageSends: ["ifTrue:", "includes:", "ifTrue:ifFalse:", "aboutToModifyState", "prvMaterializeLazyvar:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
