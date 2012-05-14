@@ -1625,6 +1625,12 @@ realAssign: aString
 		stream nextPutAll: aString, closer, ';', self mylf ]
 !
 
+stabilize: lazyName
+	"temporary, until 'stable' properly implemented"
+	(mutables includes: lazyName)
+		ifTrue: [ self aboutToModifyState ]
+!
+
 switchTarget: aString
 	| old |
 	old := target.
@@ -1983,12 +1989,6 @@ sequenceOfNodes: nodes temps: temps
 				index = nodes size ifTrue: [ self switchTarget: old ].
 			self visit: each ]]
 		ifTrue: [ self nilIfValueWanted ]
-!
-
-stabilize: lazyName
-	"temporary, until 'stable' properly implemented"
-	(mutables includes: lazyName)
-		ifTrue: [ self aboutToModifyState ]
 !
 
 visit: aNode

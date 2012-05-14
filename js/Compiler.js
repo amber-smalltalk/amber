@@ -3500,7 +3500,7 @@ smalltalk.addMethod(
 "_stabilize_",
 smalltalk.method({
 selector: "stabilize:",
-category: 'visiting',
+category: 'compilation DSL',
 fn: function (lazyName){
 var self=this;
 ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);})]));
