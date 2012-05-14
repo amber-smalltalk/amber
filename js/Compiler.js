@@ -2843,7 +2843,7 @@ referencedClasses: []
 smalltalk.FunCodeGenerator.klass);
 
 
-smalltalk.addClass('ImpCodeGenerator', smalltalk.AbstractCodeGenerator, ['stream', 'nestedBlocks', 'earlyReturn', 'currentSelector', 'unknownVariables', 'tempVariables', 'messageSends', 'referencedClasses', 'classReferenced', 'argVariables', 'mutables', 'target', 'lazyVars', 'realVarNames'], 'Compiler');
+smalltalk.addClass('ImpCodeGenerator', smalltalk.AbstractCodeGenerator, ['stream', 'nestedBlocks', 'earlyReturn', 'currentSelector', 'unknownVariables', 'tempVariables', 'messageSends', 'referencedClasses', 'classReferenced', 'argVariables', 'mutables', 'target', 'lazyVars', 'realVarNames', 'unstables'], 'Compiler');
 smalltalk.addMethod(
 "_aboutToModifyState",
 smalltalk.method({
@@ -2982,12 +2982,13 @@ smalltalk.send(self, "_initialize", [], smalltalk.ImpCodeGenerator.superclass ||
 (self['@messageSends']=[]);
 (self['@classReferenced']=[]);
 (self['@mutables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
+(self['@unstables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (self['@realVarNames']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (self['@lazyVars']=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
 (self['@target']=nil);
 return self;},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09stream := '' writeStream. \x0a\x09unknownVariables := #().\x0a\x09tempVariables := #().\x0a\x09argVariables := #().\x0a\x09messageSends := #().\x0a\x09classReferenced := #().\x0a\x09mutables := Set new.\x0a\x09realVarNames := Set new.\x0a\x09lazyVars := HashedCollection new.\x0a\x09target := nil\x0a",
+source: "initialize\x0a\x09super initialize.\x0a\x09stream := '' writeStream. \x0a\x09unknownVariables := #().\x0a\x09tempVariables := #().\x0a\x09argVariables := #().\x0a\x09messageSends := #().\x0a\x09classReferenced := #().\x0a\x09mutables := Set new.\x0a\x09unstables := Set new.\x0a\x09realVarNames := Set new.\x0a\x09lazyVars := HashedCollection new.\x0a\x09target := nil\x0a",
 messageSends: ["initialize", "writeStream", "new"],
 referencedClasses: ["Set", "HashedCollection"]
 }),
@@ -3161,16 +3162,16 @@ referencedClasses: []
 smalltalk.ImpCodeGenerator);
 
 smalltalk.addMethod(
-"_lazyAssign_dependsOnState_",
+"_lazyAssign_dependsOnState_isUnstable_",
 smalltalk.method({
-selector: "lazyAssign:dependsOnState:",
+selector: "lazyAssign:dependsOnState:isUnstable:",
 category: 'compilation DSL',
-fn: function (aString, aBoolean){
+fn: function (aString, aBoolean, anotherBoolean){
 var self=this;
-((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);return ((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));})() : (function(){return smalltalk.send(self, "_realAssign_", [aString]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);return ((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));}), (function(){return smalltalk.send(self, "_realAssign_", [aString]);})]));
+((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));return ((($receiver = anotherBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})]));})() : (function(){return smalltalk.send(self, "_realAssign_", [aString]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));return ((($receiver = anotherBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})]));}), (function(){return smalltalk.send(self, "_realAssign_", [aString]);})]));
 return self;},
-args: ["aString", "aBoolean"],
-source: "lazyAssign: aString dependsOnState: aBoolean\x0a\x09(lazyVars includesKey: target)\x0a\x09\x09ifTrue: [ lazyVars at: target put: aString. aBoolean ifTrue: [ mutables add: target ] ]\x0a\x09\x09ifFalse: [ self realAssign: aString ]",
+args: ["aString", "aBoolean", "anotherBoolean"],
+source: "lazyAssign: aString dependsOnState: aBoolean isUnstable: anotherBoolean\x0a\x09(lazyVars includesKey: target)\x0a\x09\x09ifTrue: [ lazyVars at: target put: aString. aBoolean ifTrue: [ mutables add: target ]. anotherBoolean ifTrue: [ unstables add: target ] ]\x0a\x09\x09ifFalse: [ self realAssign: aString ]",
 messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:put:", "ifTrue:", "add:", "realAssign:"],
 referencedClasses: []
 }),
@@ -3183,11 +3184,11 @@ selector: "lazyAssignStableExpression:",
 category: 'compilation DSL',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, true]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, true, false]);
 return self;},
 args: ["aString"],
-source: "lazyAssignStableExpression: aString\x0a\x09self lazyAssign: aString dependsOnState: true",
-messageSends: ["lazyAssign:dependsOnState:"],
+source: "lazyAssignStableExpression: aString\x0a\x09self lazyAssign: aString dependsOnState: true isUnstable: false",
+messageSends: ["lazyAssign:dependsOnState:isUnstable:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3199,11 +3200,11 @@ selector: "lazyAssignStableValue:",
 category: 'compilation DSL',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, false]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, false, false]);
 return self;},
 args: ["aString"],
-source: "lazyAssignStableValue: aString\x0a\x09self lazyAssign: aString dependsOnState: false",
-messageSends: ["lazyAssign:dependsOnState:"],
+source: "lazyAssignStableValue: aString\x0a\x09self lazyAssign: aString dependsOnState: false isUnstable: false",
+messageSends: ["lazyAssign:dependsOnState:isUnstable:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3215,11 +3216,11 @@ selector: "lazyAssignUnstableExpression:",
 category: 'compilation DSL',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, true]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, true, true]);
 return self;},
 args: ["aString"],
-source: "lazyAssignUnstableExpression: aString\x0a\x09self lazyAssign: aString dependsOnState: true",
-messageSends: ["lazyAssign:dependsOnState:"],
+source: "lazyAssignUnstableExpression: aString\x0a\x09self lazyAssign: aString dependsOnState: true isUnstable: true",
+messageSends: ["lazyAssign:dependsOnState:isUnstable:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3231,11 +3232,11 @@ selector: "lazyAssignUnstableValue:",
 category: 'compilation DSL',
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, true]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, false, true]);
 return self;},
 args: ["aString"],
-source: "lazyAssignUnstableValue: aString\x0a\x09self lazyAssign: aString dependsOnState: true",
-messageSends: ["lazyAssign:dependsOnState:"],
+source: "lazyAssignUnstableValue: aString\x0a\x09self lazyAssign: aString dependsOnState: false isUnstable: true",
+messageSends: ["lazyAssign:dependsOnState:isUnstable:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3247,11 +3248,11 @@ selector: "makeTargetRealVariable",
 category: 'compilation DSL',
 fn: function (){
 var self=this;
-((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})]));
+((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);smalltalk.send(self['@unstables'], "_remove_", [self['@target']]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);smalltalk.send(self['@unstables'], "_remove_", [self['@target']]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})]));
 return self;},
 args: [],
-source: "makeTargetRealVariable\x0a\x09(lazyVars includesKey: target) ifTrue: [\x0a\x09\x09lazyVars removeKey: target.\x0a\x09\x09lazyVars at: 'assigned ',target put: nil. \x22<-- only to retain size, it is used in nextLazyvarName\x22\x0a\x09\x09realVarNames add: target ].",
-messageSends: ["ifTrue:", "includesKey:", "removeKey:", "at:put:", ",", "add:"],
+source: "makeTargetRealVariable\x0a\x09(lazyVars includesKey: target) ifTrue: [\x0a\x09\x09lazyVars removeKey: target.\x0a\x09\x09lazyVars at: 'assigned ',target put: nil. \x22<-- only to retain size, it is used in nextLazyvarName\x22\x0a\x09\x09unstables remove: target.\x0a\x09\x09realVarNames add: target ].",
+messageSends: ["ifTrue:", "includesKey:", "removeKey:", "at:put:", ",", "remove:", "add:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3503,11 +3504,15 @@ selector: "stabilize:",
 category: 'compilation DSL',
 fn: function (lazyName){
 var self=this;
-((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);})]));
+((($receiver = smalltalk.send(self['@unstables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})]));})]));
 return self;},
 args: ["lazyName"],
-source: "stabilize: lazyName\x0a\x09\x22temporary, until 'stable' properly implemented\x22\x0a\x09(mutables includes: lazyName)\x0a\x09\x09ifTrue: [ self aboutToModifyState ]",
-messageSends: ["ifTrue:", "includes:", "aboutToModifyState"],
+source: "stabilize: lazyName\x0a\x09(unstables includes: lazyName) ifTrue: [\x0a\x09\x09(mutables includes: lazyName)\x0a\x09\x09\x09ifTrue: [ self aboutToModifyState ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09| old |\x0a\x09\x09\x09\x09old := self switchTarget: lazyName.\x0a\x09\x09\x09\x09self realAssign: (lazyVars at: lazyName).\x0a\x09\x09\x09\x09old := self switchTarget: old ]]",
+messageSends: ["ifTrue:", "includes:", "ifTrue:ifFalse:", "aboutToModifyState", "switchTarget:", "realAssign:", "at:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);
@@ -3709,14 +3714,15 @@ fn: function (aNode){
 var self=this;
 var rcv=nil;
 (rcv=smalltalk.send(self, "_isolated_", [smalltalk.send(aNode, "_receiver", [])]));
+smalltalk.send(self, "_aboutToModifyState", []);
 smalltalk.send(self, "_stabilize_", [rcv]);
 (rcv=smalltalk.send(self, "_useValueNamed_", [rcv]));
 smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_receiver_", [smalltalk.send(smalltalk.send((smalltalk.VerbatimNode || VerbatimNode), "_new", []), "_value_", [rcv])]);})]);
 smalltalk.send(self, "_sequenceOfNodes_temps_", [smalltalk.send(aNode, "_nodes", []), []]);
 return self;},
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09| rcv |\x0a\x09rcv := self isolated: aNode receiver.\x0a\x09self stabilize: rcv.\x0a\x09rcv := self useValueNamed: rcv.\x0a\x09aNode nodes do: [:each |\x0a\x09\x09each receiver: (VerbatimNode new value: rcv) ].\x0a\x09self sequenceOfNodes: aNode nodes temps: #()",
-messageSends: ["isolated:", "receiver", "stabilize:", "useValueNamed:", "do:", "nodes", "receiver:", "value:", "new", "sequenceOfNodes:temps:"],
+source: "visitCascadeNode: aNode\x0a\x09| rcv |\x0a\x09rcv := self isolated: aNode receiver.\x0a\x09self aboutToModifyState.\x0a\x09self stabilize: rcv.\x0a\x09rcv := self useValueNamed: rcv.\x0a\x09aNode nodes do: [:each |\x0a\x09\x09each receiver: (VerbatimNode new value: rcv) ].\x0a\x09self sequenceOfNodes: aNode nodes temps: #()",
+messageSends: ["isolated:", "receiver", "aboutToModifyState", "stabilize:", "useValueNamed:", "do:", "nodes", "receiver:", "value:", "new", "sequenceOfNodes:temps:"],
 referencedClasses: ["VerbatimNode"]
 }),
 smalltalk.ImpCodeGenerator);
@@ -3826,6 +3832,7 @@ var currentSelector=nil;
 (self['@argVariables']=[]);
 (self['@lazyVars']=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
 (self['@mutables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
+(self['@unstables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (self['@realVarNames']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk.method({"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("selector: \x22", "__comma", [smalltalk.send(aNode, "_selector", [])]), "__comma", ["\x22,"])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
 (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("source: ", "__comma", [smalltalk.send(smalltalk.send(self, "_source", []), "_asJavascript", [])]), "__comma", [","])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
@@ -3852,7 +3859,7 @@ smalltalk.send(self['@stream'], "_nextPutAll_", ["})"]);
 smalltalk.send(self, "_assert_", [smalltalk.send(self['@mutables'], "_isEmpty", [])]);
 return self;},
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09| str currentSelector | \x0a\x09currentSelector := aNode selector asSelector.\x0a\x09nestedBlocks := 0.\x0a\x09earlyReturn := false.\x0a\x09messageSends := #().\x0a\x09referencedClasses := #().\x0a\x09unknownVariables := #().\x0a\x09tempVariables := #().\x0a\x09argVariables := #().\x0a\x09lazyVars := HashedCollection new.\x0a\x09mutables := Set new.\x0a\x09realVarNames := Set new.\x0a\x09stream \x0a\x09    nextPutAll: 'smalltalk.method({'; lf;\x0a\x09    nextPutAll: 'selector: \x22', aNode selector, '\x22,'; lf.\x0a\x09stream nextPutAll: 'source: ', self source asJavascript, ',';lf.\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09aNode arguments \x0a\x09    do: [:each | \x0a\x09\x09argVariables add: each.\x0a\x09\x09stream nextPutAll: each]\x0a\x09    separatedBy: [stream nextPutAll: ', '].\x0a\x09stream \x0a\x09    nextPutAll: '){var self=this;', self mylf.\x0a\x09str := stream.\x0a\x09stream := '' writeStream.\x0a\x09self switchTarget: nil.\x0a\x09self assert: aNode nodes size = 1.\x0a\x09self visit: aNode nodes first.\x0a\x09realVarNames ifNotEmpty: [ str nextPutAll: 'var ', (realVarNames asArray join: ','), ';', self mylf ].\x0a\x09earlyReturn ifTrue: [\x0a\x09    str nextPutAll: 'var $early={}; try{', self mylf].\x0a\x09str nextPutAll: stream contents.\x0a\x09stream := str.\x0a\x09(aNode nodes first nodes notEmpty and: [ |checker|\x0a\x09    checker := ReturnNodeChecker new.\x0a\x09    checker visit: aNode nodes first nodes last.\x0a\x09    checker wasReturnNode]) ifFalse: [ self switchTarget: '^'. self lazyAssignStableValue: 'self'. self switchTarget: nil ].\x0a\x09earlyReturn ifTrue: [\x0a\x09    stream nextPutAll: '} catch(e) {if(e===$early) return e[0]; throw e}'].\x0a\x09stream nextPutAll: '}'.\x0a\x09stream \x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: messageSends asJavascript, ','; lf;\x0a          \x09nextPutAll: 'args: ', argVariables asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09referencedClasses \x0a\x09\x09do: [:each | stream nextPutAll: each printString]\x0a\x09\x09separatedBy: [stream nextPutAll: ','].\x0a\x09stream nextPutAll: ']'.\x0a\x09stream nextPutAll: '})'.\x0a\x09self assert: mutables isEmpty",
+source: "visitMethodNode: aNode\x0a\x09| str currentSelector | \x0a\x09currentSelector := aNode selector asSelector.\x0a\x09nestedBlocks := 0.\x0a\x09earlyReturn := false.\x0a\x09messageSends := #().\x0a\x09referencedClasses := #().\x0a\x09unknownVariables := #().\x0a\x09tempVariables := #().\x0a\x09argVariables := #().\x0a\x09lazyVars := HashedCollection new.\x0a\x09mutables := Set new.\x0a\x09unstables := Set new.\x0a\x09realVarNames := Set new.\x0a\x09stream \x0a\x09    nextPutAll: 'smalltalk.method({'; lf;\x0a\x09    nextPutAll: 'selector: \x22', aNode selector, '\x22,'; lf.\x0a\x09stream nextPutAll: 'source: ', self source asJavascript, ',';lf.\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09aNode arguments \x0a\x09    do: [:each | \x0a\x09\x09argVariables add: each.\x0a\x09\x09stream nextPutAll: each]\x0a\x09    separatedBy: [stream nextPutAll: ', '].\x0a\x09stream \x0a\x09    nextPutAll: '){var self=this;', self mylf.\x0a\x09str := stream.\x0a\x09stream := '' writeStream.\x0a\x09self switchTarget: nil.\x0a\x09self assert: aNode nodes size = 1.\x0a\x09self visit: aNode nodes first.\x0a\x09realVarNames ifNotEmpty: [ str nextPutAll: 'var ', (realVarNames asArray join: ','), ';', self mylf ].\x0a\x09earlyReturn ifTrue: [\x0a\x09    str nextPutAll: 'var $early={}; try{', self mylf].\x0a\x09str nextPutAll: stream contents.\x0a\x09stream := str.\x0a\x09(aNode nodes first nodes notEmpty and: [ |checker|\x0a\x09    checker := ReturnNodeChecker new.\x0a\x09    checker visit: aNode nodes first nodes last.\x0a\x09    checker wasReturnNode]) ifFalse: [ self switchTarget: '^'. self lazyAssignStableValue: 'self'. self switchTarget: nil ].\x0a\x09earlyReturn ifTrue: [\x0a\x09    stream nextPutAll: '} catch(e) {if(e===$early) return e[0]; throw e}'].\x0a\x09stream nextPutAll: '}'.\x0a\x09stream \x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: messageSends asJavascript, ','; lf;\x0a          \x09nextPutAll: 'args: ', argVariables asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09referencedClasses \x0a\x09\x09do: [:each | stream nextPutAll: each printString]\x0a\x09\x09separatedBy: [stream nextPutAll: ','].\x0a\x09stream nextPutAll: ']'.\x0a\x09stream nextPutAll: '})'.\x0a\x09self assert: mutables isEmpty",
 messageSends: ["asSelector", "selector", "new", "nextPutAll:", "lf", ",", "asJavascript", "source", "do:separatedBy:", "arguments", "add:", "mylf", "writeStream", "switchTarget:", "assert:", "=", "size", "nodes", "visit:", "first", "ifNotEmpty:", "join:", "asArray", "ifTrue:", "contents", "ifFalse:", "and:", "notEmpty", "last", "wasReturnNode", "lazyAssignStableValue:", "printString", "isEmpty"],
 referencedClasses: ["HashedCollection", "Set", "ReturnNodeChecker", "String"]
 }),

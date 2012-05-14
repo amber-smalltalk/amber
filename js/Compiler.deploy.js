@@ -2033,7 +2033,7 @@ return self;}
 smalltalk.FunCodeGenerator.klass);
 
 
-smalltalk.addClass('ImpCodeGenerator', smalltalk.AbstractCodeGenerator, ['stream', 'nestedBlocks', 'earlyReturn', 'currentSelector', 'unknownVariables', 'tempVariables', 'messageSends', 'referencedClasses', 'classReferenced', 'argVariables', 'mutables', 'target', 'lazyVars', 'realVarNames'], 'Compiler');
+smalltalk.addClass('ImpCodeGenerator', smalltalk.AbstractCodeGenerator, ['stream', 'nestedBlocks', 'earlyReturn', 'currentSelector', 'unknownVariables', 'tempVariables', 'messageSends', 'referencedClasses', 'classReferenced', 'argVariables', 'mutables', 'target', 'lazyVars', 'realVarNames', 'unstables'], 'Compiler');
 smalltalk.addMethod(
 "_aboutToModifyState",
 smalltalk.method({
@@ -2136,6 +2136,7 @@ smalltalk.send(self, "_initialize", [], smalltalk.ImpCodeGenerator.superclass ||
 (self['@messageSends']=[]);
 (self['@classReferenced']=[]);
 (self['@mutables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
+(self['@unstables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (self['@realVarNames']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (self['@lazyVars']=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
 (self['@target']=nil);
@@ -2281,12 +2282,12 @@ return self;}
 smalltalk.ImpCodeGenerator);
 
 smalltalk.addMethod(
-"_lazyAssign_dependsOnState_",
+"_lazyAssign_dependsOnState_isUnstable_",
 smalltalk.method({
-selector: "lazyAssign:dependsOnState:",
-fn: function (aString, aBoolean){
+selector: "lazyAssign:dependsOnState:isUnstable:",
+fn: function (aString, aBoolean, anotherBoolean){
 var self=this;
-((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);return ((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));})() : (function(){return smalltalk.send(self, "_realAssign_", [aString]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);return ((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));}), (function(){return smalltalk.send(self, "_realAssign_", [aString]);})]));
+((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));return ((($receiver = anotherBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})]));})() : (function(){return smalltalk.send(self, "_realAssign_", [aString]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){smalltalk.send(self['@lazyVars'], "_at_put_", [self['@target'], aString]);((($receiver = aBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@mutables'], "_add_", [self['@target']]);})]));return ((($receiver = anotherBoolean).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self['@unstables'], "_add_", [self['@target']]);})]));}), (function(){return smalltalk.send(self, "_realAssign_", [aString]);})]));
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2297,7 +2298,7 @@ smalltalk.method({
 selector: "lazyAssignStableExpression:",
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, true]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, true, false]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2308,7 +2309,7 @@ smalltalk.method({
 selector: "lazyAssignStableValue:",
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, false]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, false, false]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2319,7 +2320,7 @@ smalltalk.method({
 selector: "lazyAssignUnstableExpression:",
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, true]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, true, true]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2330,7 +2331,7 @@ smalltalk.method({
 selector: "lazyAssignUnstableValue:",
 fn: function (aString){
 var self=this;
-smalltalk.send(self, "_lazyAssign_dependsOnState_", [aString, true]);
+smalltalk.send(self, "_lazyAssign_dependsOnState_isUnstable_", [aString, false, true]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2341,7 +2342,7 @@ smalltalk.method({
 selector: "makeTargetRealVariable",
 fn: function (){
 var self=this;
-((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})]));
+((($receiver = smalltalk.send(self['@lazyVars'], "_includesKey_", [self['@target']])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);smalltalk.send(self['@unstables'], "_remove_", [self['@target']]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(self['@lazyVars'], "_removeKey_", [self['@target']]);smalltalk.send(self['@lazyVars'], "_at_put_", [smalltalk.send("assigned ", "__comma", [self['@target']]), nil]);smalltalk.send(self['@unstables'], "_remove_", [self['@target']]);return smalltalk.send(self['@realVarNames'], "_add_", [self['@target']]);})]));
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2527,7 +2528,11 @@ smalltalk.method({
 selector: "stabilize:",
 fn: function (lazyName){
 var self=this;
-((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);})]));
+((($receiver = smalltalk.send(self['@unstables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})]));})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return ((($receiver = smalltalk.send(self['@mutables'], "_includes_", [lazyName])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_aboutToModifyState", []);})() : (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_aboutToModifyState", []);}), (function(){var old=nil;
+(old=smalltalk.send(self, "_switchTarget_", [lazyName]));smalltalk.send(self, "_realAssign_", [smalltalk.send(self['@lazyVars'], "_at_", [lazyName])]);return (old=smalltalk.send(self, "_switchTarget_", [old]));})]));})]));
 return self;}
 }),
 smalltalk.ImpCodeGenerator);
@@ -2683,6 +2688,7 @@ fn: function (aNode){
 var self=this;
 var rcv=nil;
 (rcv=smalltalk.send(self, "_isolated_", [smalltalk.send(aNode, "_receiver", [])]));
+smalltalk.send(self, "_aboutToModifyState", []);
 smalltalk.send(self, "_stabilize_", [rcv]);
 (rcv=smalltalk.send(self, "_useValueNamed_", [rcv]));
 smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_receiver_", [smalltalk.send(smalltalk.send((smalltalk.VerbatimNode || VerbatimNode), "_new", []), "_value_", [rcv])]);})]);
@@ -2770,6 +2776,7 @@ var currentSelector=nil;
 (self['@argVariables']=[]);
 (self['@lazyVars']=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
 (self['@mutables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
+(self['@unstables']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (self['@realVarNames']=smalltalk.send((smalltalk.Set || Set), "_new", []));
 (function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk.method({"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("selector: \x22", "__comma", [smalltalk.send(aNode, "_selector", [])]), "__comma", ["\x22,"])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
 (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("source: ", "__comma", [smalltalk.send(smalltalk.send(self, "_source", []), "_asJavascript", [])]), "__comma", [","])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);

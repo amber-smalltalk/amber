@@ -1517,7 +1517,7 @@ performOptimizations: aBoolean
 ! !
 
 AbstractCodeGenerator subclass: #ImpCodeGenerator
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables mutables target lazyVars realVarNames'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables mutables target lazyVars realVarNames unstables'
 	package: 'Compiler'!
 
 !ImpCodeGenerator methodsFor: 'accessing'!
@@ -1567,32 +1567,33 @@ isolatedUse: node
 	^self useValueNamed: (self isolated: node)
 !
 
-lazyAssign: aString dependsOnState: aBoolean
+lazyAssign: aString dependsOnState: aBoolean isUnstable: anotherBoolean
 	(lazyVars includesKey: target)
-		ifTrue: [ lazyVars at: target put: aString. aBoolean ifTrue: [ mutables add: target ] ]
+		ifTrue: [ lazyVars at: target put: aString. aBoolean ifTrue: [ mutables add: target ]. anotherBoolean ifTrue: [ unstables add: target ] ]
 		ifFalse: [ self realAssign: aString ]
 !
 
 lazyAssignStableExpression: aString
-	self lazyAssign: aString dependsOnState: true
+	self lazyAssign: aString dependsOnState: true isUnstable: false
 !
 
 lazyAssignStableValue: aString
-	self lazyAssign: aString dependsOnState: false
+	self lazyAssign: aString dependsOnState: false isUnstable: false
 !
 
 lazyAssignUnstableExpression: aString
-	self lazyAssign: aString dependsOnState: true
+	self lazyAssign: aString dependsOnState: true isUnstable: true
 !
 
 lazyAssignUnstableValue: aString
-	self lazyAssign: aString dependsOnState: true
+	self lazyAssign: aString dependsOnState: false isUnstable: true
 !
 
 makeTargetRealVariable
 	(lazyVars includesKey: target) ifTrue: [
 		lazyVars removeKey: target.
 		lazyVars at: 'assigned ',target put: nil. "<-- only to retain size, it is used in nextLazyvarName"
+		unstables remove: target.
 		realVarNames add: target ].
 !
 
@@ -1626,9 +1627,14 @@ realAssign: aString
 !
 
 stabilize: lazyName
-	"temporary, until 'stable' properly implemented"
-	(mutables includes: lazyName)
-		ifTrue: [ self aboutToModifyState ]
+	(unstables includes: lazyName) ifTrue: [
+		(mutables includes: lazyName)
+			ifTrue: [ self aboutToModifyState ]
+			ifFalse: [
+				| old |
+				old := self switchTarget: lazyName.
+				self realAssign: (lazyVars at: lazyName).
+				old := self switchTarget: old ]]
 !
 
 switchTarget: aString
@@ -1671,6 +1677,7 @@ initialize
 	messageSends := #().
 	classReferenced := #().
 	mutables := Set new.
+	unstables := Set new.
 	realVarNames := Set new.
 	lazyVars := HashedCollection new.
 	target := nil
@@ -2044,6 +2051,7 @@ visitBlockSequenceNode: aNode
 visitCascadeNode: aNode
 	| rcv |
 	rcv := self isolated: aNode receiver.
+	self aboutToModifyState.
 	self stabilize: rcv.
 	rcv := self useValueNamed: rcv.
 	aNode nodes do: [:each |
@@ -2096,6 +2104,7 @@ visitMethodNode: aNode
 	argVariables := #().
 	lazyVars := HashedCollection new.
 	mutables := Set new.
+	unstables := Set new.
 	realVarNames := Set new.
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
