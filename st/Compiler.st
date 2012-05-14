@@ -2134,7 +2134,7 @@ visitSendNode: aNode
 
 	rcv := self isolated: aNode receiver.
         superSend := (lazyVars at: rcv ifAbsent: []) = 'super'.
-        superSend ifTrue: [ mutables remove: rcv. lazyVars at: rcv put: 'self' ].
+        superSend ifTrue: [ lazyVars at: rcv put: 'self' ].
 
 	self performOptimizations 
 		ifTrue: [ | inline |
