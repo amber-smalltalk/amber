@@ -1909,13 +1909,12 @@ prvCheckClass: aClassName for: receiver
 !
 
 prvInlineNumberOperator: aSelector on: receiverNode and: operandNode
-	(aSelector = aSelector) ifTrue: [
-		(self isNode: receiverNode ofClass: Number) ifTrue: [
-			| rcv operand |
-			rcv := self isolated: receiverNode.
-			operand := self isolated: operandNode.
-			self lazyAssignUnstableValue: ((self useValueNamed: rcv), aSelector, (self useValueNamed: operand)).
-			^true]].
+	(self isNode: receiverNode ofClass: Number) ifTrue: [
+		| rcv operand |
+		rcv := self isolated: receiverNode.
+		operand := self isolated: operandNode.
+		self lazyAssignUnstableValue: ((self useValueNamed: rcv), aSelector, (self useValueNamed: operand)).
+		^true ].
 	^false
 !
 
