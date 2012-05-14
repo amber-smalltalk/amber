@@ -2264,10 +2264,7 @@ smalltalk.method({
 selector: "isolatedUse:",
 fn: function (node){
 var self=this;
-var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [smalltalk.send(self, "_nextLazyvarName", [])]));
-smalltalk.send(self, "_visit_", [node]);
-return smalltalk.send(self, "_useValueNamed_", [smalltalk.send(self, "_switchTarget_", [old])]);
+return smalltalk.send(self, "_useValueNamed_", [smalltalk.send(self, "_isolated_", [node])]);
 return self;}
 }),
 smalltalk.ImpCodeGenerator);

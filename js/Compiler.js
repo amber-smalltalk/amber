@@ -3135,14 +3135,11 @@ selector: "isolatedUse:",
 category: 'compilation DSL',
 fn: function (node){
 var self=this;
-var old=nil;
-(old=smalltalk.send(self, "_switchTarget_", [smalltalk.send(self, "_nextLazyvarName", [])]));
-smalltalk.send(self, "_visit_", [node]);
-return smalltalk.send(self, "_useValueNamed_", [smalltalk.send(self, "_switchTarget_", [old])]);
+return smalltalk.send(self, "_useValueNamed_", [smalltalk.send(self, "_isolated_", [node])]);
 return self;},
 args: ["node"],
-source: "isolatedUse: node\x0a| old |\x0a\x09old := self switchTarget: self nextLazyvarName.\x0a\x09self visit: node.\x0a\x09^self useValueNamed: (self switchTarget: old)",
-messageSends: ["switchTarget:", "nextLazyvarName", "visit:", "useValueNamed:"],
+source: "isolatedUse: node\x0a\x09^self useValueNamed: (self isolated: node)",
+messageSends: ["useValueNamed:", "isolated:"],
 referencedClasses: []
 }),
 smalltalk.ImpCodeGenerator);

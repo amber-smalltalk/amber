@@ -1564,10 +1564,7 @@ isolated: node
 !
 
 isolatedUse: node
-| old |
-	old := self switchTarget: self nextLazyvarName.
-	self visit: node.
-	^self useValueNamed: (self switchTarget: old)
+	^self useValueNamed: (self isolated: node)
 !
 
 lazyAssign: aString dependsOnState: aBoolean
