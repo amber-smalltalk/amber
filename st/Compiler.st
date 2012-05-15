@@ -837,11 +837,11 @@ accept: aVisitor
 	aVisitor visitClassReferenceNode: self
 ! !
 
-Node subclass: #VerbatimNode
+VariableNode subclass: #LazyvarNode
 	instanceVariableNames: 'value'
 	package: 'Compiler'!
 
-!VerbatimNode methodsFor: 'accessing'!
+!LazyvarNode methodsFor: 'accessing'!
 
 value
 	^value
@@ -851,10 +851,10 @@ value: anObject
 	value := anObject
 ! !
 
-!VerbatimNode methodsFor: 'visiting'!
+!LazyvarNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitVerbatimNode: self
+	aVisitor visitLazyvarNode: self
 ! !
 
 Object subclass: #NodeVisitor
@@ -899,6 +899,10 @@ visitJSStatementNode: aNode
 	self visitNode: aNode
 !
 
+visitLazyvarNode: aNode
+	self visitNode: aNode
+!
+
 visitMethodNode: aNode
 	self visitNode: aNode
 !
@@ -923,10 +927,6 @@ visitValueNode: aNode
 !
 
 visitVariableNode: aNode
-	self visitNode: aNode
-!
-
-visitVerbatimNode: aNode
 	self visitNode: aNode
 ! !
 
@@ -1728,60 +1728,60 @@ inline: aSelector receiver: receiver argumentNodes: aCollection
 	"-- Numbers --"
 
 	(aSelector = '<') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '<', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '<', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
 	(aSelector = '<=') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '<=', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '<=', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
 	(aSelector = '>') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '>', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '>', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
 	(aSelector = '>=') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '>=', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '>=', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
         (aSelector = '+') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '+', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '+', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
         (aSelector = '-') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '-', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '-', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
         (aSelector = '*') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '*', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '*', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
         (aSelector = '/') ifTrue: [ | operand |
-		operand := self isolatedUse: aCollection first.
+		operand := self isolated: aCollection first.
 		self checkClass: 'Number' for: receiver.
 		self prvPutAndElse: [
-			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '/', operand, ')' ].
-		^{ VerbatimNode new value: operand }].
+			self lazyAssignUnstableValue: '(', (self useValueNamed: receiver), '/', (self useValueNamed: operand), ')' ].
+		^{ LazyvarNode new value: operand }].
 
         ^nil
 !
@@ -2050,9 +2050,8 @@ visitCascadeNode: aNode
 	rcv := self isolated: aNode receiver.
 	self aboutToModifyState.
 	self stabilize: rcv.
-	rcv := self useValueNamed: rcv.
 	aNode nodes do: [:each |
-		each receiver: (VerbatimNode new value: rcv) ].
+		each receiver: (LazyvarNode new value: rcv) ].
 	self sequenceOfNodes: aNode nodes temps: #()
 !
 
@@ -2087,6 +2086,10 @@ visitFailure: aFailure
 visitJSStatementNode: aNode
 	self aboutToModifyState.
 	stream nextPutAll: ';', (aNode source replace: '>>' with: '>'), ';', self mylf
+!
+
+visitLazyvarNode: aNode
+	self switchTarget: aNode value
 !
 
 visitMethodNode: aNode
@@ -2206,10 +2209,6 @@ visitVariableNode: aNode
                 				ifFalse: [(self pseudoVariables includes: varName)
 							ifTrue: [ self lazyAssignStableValue: varName ]
 							ifFalse: [ self lazyAssignStableExpression: varName]]]]
-!
-
-visitVerbatimNode: aNode
-	self lazyAssignStableValue: aNode value
 ! !
 
 ImpCodeGenerator class instanceVariableNames: 'performOptimizations'!
