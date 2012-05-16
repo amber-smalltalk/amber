@@ -6,7 +6,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "decrease",
 category: 'actions',
-fn: function (){
+fn: function Counter_decrease(){
 var self=this;
 (self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver -(1) : smalltalk.send($receiver, "__minus", [(1)])));
 smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
@@ -23,7 +23,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "increase",
 category: 'actions',
-fn: function (){
+fn: function Counter_increase(){
 var self=this;
 (self['@count']=((($receiver = self['@count']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
 smalltalk.send(self['@header'], "_contents_", [(function(html){return smalltalk.send(html, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);})]);
@@ -40,7 +40,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function (){
+fn: function Counter_initialize(){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Counter.superclass || nil);
 (self['@count']=(0));
@@ -57,7 +57,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
 category: 'rendering',
-fn: function (html){
+fn: function Counter_renderOn_(html){
 var self=this;
 (self['@header']=(function($rec){smalltalk.send($rec, "_with_", [smalltalk.send(self['@count'], "_asString", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_h1", [])));
 (function($rec){smalltalk.send($rec, "_with_", ["++"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_increase", []);})]);})(smalltalk.send(html, "_button", []));
@@ -76,7 +76,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "tryExample",
 category: 'example',
-fn: function (){
+fn: function Counter_class_tryExample(){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_new", []), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
 return self;},

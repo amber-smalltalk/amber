@@ -5,7 +5,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
 category: 'printing',
-fn: function (){
+fn: function ConsoleTranscript_clear(){
 var self=this;
 
 return self;},
@@ -21,7 +21,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
 category: 'printing',
-fn: function (){
+fn: function ConsoleTranscript_cr(){
 var self=this;
 
 return self;},
@@ -37,7 +37,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
 category: 'actions',
-fn: function (){
+fn: function ConsoleTranscript_open(){
 var self=this;
 
 return self;},
@@ -53,7 +53,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
 category: 'printing',
-fn: function (anObject){
+fn: function ConsoleTranscript_show_(anObject){
 var self=this;
 var string=nil;
 (string=smalltalk.send(anObject, "_asString", []));
@@ -72,7 +72,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function (){
+fn: function ConsoleTranscript_class_initialize(){
 var self=this;
 smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
 return self;},
@@ -92,7 +92,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
 category: 'printing',
-fn: function (){
+fn: function Transcript_class_clear(){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
 return self;},
@@ -108,7 +108,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",
 category: 'printing',
-fn: function (){
+fn: function Transcript_class_cr(){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
 return self;},
@@ -124,7 +124,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
 category: 'instance creation',
-fn: function (){
+fn: function Transcript_class_current(){
 var self=this;
 return self['@current'];
 return self;},
@@ -140,7 +140,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
-fn: function (){
+fn: function Transcript_class_new(){
 var self=this;
 smalltalk.send(self, "_shouldNotImplement", []);
 return self;},
@@ -156,7 +156,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "open",
 category: 'instance creation',
-fn: function (){
+fn: function Transcript_class_open(){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
 return self;},
@@ -172,7 +172,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "register:",
 category: 'instance creation',
-fn: function (aTranscript){
+fn: function Transcript_class_register_(aTranscript){
 var self=this;
 (self['@current']=aTranscript);
 return self;},
@@ -188,7 +188,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "show:",
 category: 'printing',
-fn: function (anObject){
+fn: function Transcript_class_show_(anObject){
 var self=this;
 smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
 return self;},

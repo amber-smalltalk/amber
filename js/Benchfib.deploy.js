@@ -5,7 +5,7 @@ smalltalk.addMethod(
 "_main",
 smalltalk.method({
 selector: "main",
-fn: function (){
+fn: function Benchfib_class_main(){
 var self=this;
 var result=nil;
 (result=smalltalk.send((0), "_tinyBenchmarks", []));
@@ -19,7 +19,7 @@ smalltalk.addMethod(
 "_benchFib",
 smalltalk.method({
 selector: "benchFib",
-fn: function (){
+fn: function Number_benchFib(){
 var self=this;
 return ((($receiver = self < (2)).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (1);})() : (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (1);}), (function(){return ((($receiver = ((($receiver = smalltalk.send(self - (1), "_benchFib", [])).klass === smalltalk.Number) ? $receiver +smalltalk.send(self - (2), "_benchFib", []) : smalltalk.send($receiver, "__plus", [smalltalk.send(self - (2), "_benchFib", [])]))).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));})]));
 return self;}
@@ -30,7 +30,7 @@ smalltalk.addMethod(
 "_benchmark",
 smalltalk.method({
 selector: "benchmark",
-fn: function (){
+fn: function Number_benchmark(){
 var self=this;
 var size=nil;
 var flags=nil;
@@ -48,7 +48,7 @@ smalltalk.addMethod(
 "_jsbenchFib",
 smalltalk.method({
 selector: "jsbenchFib",
-fn: function (){
+fn: function Number_jsbenchFib(){
 var self=this;
 if (this < 2) {
 return 1;
@@ -62,7 +62,7 @@ smalltalk.addMethod(
 "_jsbenchmark",
 smalltalk.method({
 selector: "jsbenchmark",
-fn: function (){
+fn: function Number_jsbenchmark(){
 var self=this;
 
 var size = 8190;
@@ -94,7 +94,7 @@ smalltalk.addMethod(
 "_jstinyBenchmarks",
 smalltalk.method({
 selector: "jstinyBenchmarks",
-fn: function (){
+fn: function Number_jstinyBenchmarks(){
 var self=this;
 var t1=nil;
 var t2=nil;
@@ -114,7 +114,7 @@ smalltalk.addMethod(
 "_tinyBenchmarks",
 smalltalk.method({
 selector: "tinyBenchmarks",
-fn: function (){
+fn: function Number_tinyBenchmarks(){
 var self=this;
 var t1=nil;
 var t2=nil;
