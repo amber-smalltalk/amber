@@ -608,7 +608,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function ClassCategoryReader_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.ClassCategoryReader.superclass || nil);
+smalltalk.send(self, "_initialize", [], ClassCategoryReader_initialize.method.methodClass.superclass || nil);
 (self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []));
 return self;}
 }),
@@ -647,7 +647,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function ClassCommentReader_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.ClassCommentReader.superclass || nil);
+smalltalk.send(self, "_initialize", [], ClassCommentReader_initialize.method.methodClass.superclass || nil);
 (self['@chunkParser']=smalltalk.send((smalltalk.ChunkParser || ChunkParser), "_new", []));
 return self;}
 }),

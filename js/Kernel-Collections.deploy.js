@@ -558,7 +558,7 @@ smalltalk.method({
 selector: "addAll:",
 fn: function HashedCollection_addAll_(aHashedCollection){
 var self=this;
-smalltalk.send(self, "_addAll_", [smalltalk.send(aHashedCollection, "_associations", [])], smalltalk.HashedCollection.superclass || nil);
+smalltalk.send(self, "_addAll_", [smalltalk.send(aHashedCollection, "_associations", [])], HashedCollection_addAll_.method.methodClass.superclass || nil);
 return aHashedCollection;
 return self;}
 }),
@@ -800,7 +800,7 @@ smalltalk.method({
 selector: "printString",
 fn: function HashedCollection_printString(){
 var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], HashedCollection_printString.method.methodClass.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.HashedCollection);
@@ -999,7 +999,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function Dictionary_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Dictionary.superclass || nil);
+smalltalk.send(self, "_initialize", [], Dictionary_initialize.method.methodClass.superclass || nil);
 (self['@keys']=[]);
 (self['@values']=[]);
 return self;}
@@ -1280,7 +1280,7 @@ fn: function SequenceableCollection_printString(){
 var self=this;
 var str=nil;
 (str=smalltalk.send("", "_writeStream", []));
-smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);
+smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], SequenceableCollection_printString.method.methodClass.superclass || nil), "__comma", [" ("])]);
 smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
 smalltalk.send(str, "_nextPutAll_", [")"]);
 return smalltalk.send(str, "_contents", []);
@@ -2662,7 +2662,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function Set_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Set.superclass || nil);
+smalltalk.send(self, "_initialize", [], Set_initialize.method.methodClass.superclass || nil);
 (self['@elements']=[]);
 return self;}
 }),

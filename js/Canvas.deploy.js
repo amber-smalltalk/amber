@@ -611,7 +611,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function HTMLCanvas_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.HTMLCanvas.superclass || nil);
+smalltalk.send(self, "_initialize", [], HTMLCanvas_initialize.method.methodClass.superclass || nil);
 (($receiver = self['@root']) == nil || $receiver == undefined) ? (function(){return (self['@root']=smalltalk.send((smalltalk.TagBrush || TagBrush), "_fromString_canvas_", ["div", self]));})() : $receiver;
 return self;}
 }),
@@ -2082,7 +2082,7 @@ smalltalk.method({
 selector: "with:",
 fn: function StyleTag_with_(aString){
 var self=this;
-((($receiver = smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_isMSIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.StyleTag.superclass || nil);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], smalltalk.StyleTag.superclass || nil);})]));
+((($receiver = smalltalk.send((smalltalk.HTMLCanvas || HTMLCanvas), "_isMSIE", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);})() : (function(){return smalltalk.send(self, "_with_", [aString], StyleTag_with_.method.methodClass.superclass || nil);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_element", []), "_styleSheet", []), "_cssText_", [aString]);}), (function(){return smalltalk.send(self, "_with_", [aString], StyleTag_with_.method.methodClass.superclass || nil);})]));
 return self;}
 }),
 smalltalk.StyleTag);

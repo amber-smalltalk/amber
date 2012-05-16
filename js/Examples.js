@@ -42,7 +42,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function Counter_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Counter.superclass || nil);
+smalltalk.send(self, "_initialize", [], Counter_initialize.method.methodClass.superclass || nil);
 (self['@count']=(0));
 return self;},
 args: [],

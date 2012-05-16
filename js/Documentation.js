@@ -221,7 +221,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function DocChapter_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.DocChapter.superclass || nil);
+smalltalk.send(self, "_initialize", [], DocChapter_initialize.method.methodClass.superclass || nil);
 smalltalk.send(self, "_subscribe", []);
 return self;},
 args: [],
@@ -469,7 +469,7 @@ selector: "cssClass",
 category: 'accessing',
 fn: function ClassDocChapter_cssClass(){
 var self=this;
-return smalltalk.send("doc_class ", "__comma", [smalltalk.send(self, "_cssClass", [], smalltalk.ClassDocChapter.superclass || nil)]);
+return smalltalk.send("doc_class ", "__comma", [smalltalk.send(self, "_cssClass", [], ClassDocChapter_cssClass.method.methodClass.superclass || nil)]);
 return self;},
 args: [],
 source: "cssClass\x0a\x09^'doc_class ', super cssClass",
@@ -517,7 +517,7 @@ selector: "subscribe",
 category: 'subscriptions',
 fn: function ClassDocChapter_subscribe(){
 var self=this;
-smalltalk.send(self, "_subscribe", [], smalltalk.ClassDocChapter.superclass || nil);
+smalltalk.send(self, "_subscribe", [], ClassDocChapter_subscribe.method.methodClass.superclass || nil);
 smalltalk.send(smalltalk.send(self, "_announcer", []), "_on_do_", [(smalltalk.ClassSelectionAnnouncement || ClassSelectionAnnouncement), (function(ann){return ((($receiver = smalltalk.send(smalltalk.send(ann, "_theClass", []), "__eq", [smalltalk.send(self, "_theClass", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_selectChapter_", [self]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_selectChapter_", [self]);})]));})]);
 return self;},
 args: [],
@@ -601,7 +601,7 @@ selector: "cssClass",
 category: 'accessing',
 fn: function ClassesIndexChapter_cssClass(){
 var self=this;
-return smalltalk.send("index_doc ", "__comma", [smalltalk.send(self, "_cssClass", [], smalltalk.ClassesIndexChapter.superclass || nil)]);
+return smalltalk.send("index_doc ", "__comma", [smalltalk.send(self, "_cssClass", [], ClassesIndexChapter_cssClass.method.methodClass.superclass || nil)]);
 return self;},
 args: [],
 source: "cssClass\x0a\x09^'index_doc ', super cssClass",

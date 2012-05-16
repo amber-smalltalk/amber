@@ -1382,7 +1382,7 @@ selector: "setUp",
 category: 'running',
 fn: function PackageWithDefaultCommitPathChangedTest_setUp(){
 var self=this;
-smalltalk.send(self, "_setUp", [], smalltalk.PackageWithDefaultCommitPathChangedTest.superclass || nil);
+smalltalk.send(self, "_setUp", [], PackageWithDefaultCommitPathChangedTest_setUp.method.methodClass.superclass || nil);
 (function($rec){smalltalk.send($rec, "_defaultCommitPathJs_", ["javascripts/"]);return smalltalk.send($rec, "_defaultCommitPathSt_", ["smalltalk/"]);})((smalltalk.Package || Package));
 return self;},
 args: [],

@@ -654,7 +654,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function TabManager_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.TabManager.superclass || nil);
+smalltalk.send(self, "_initialize", [], TabManager_initialize.method.methodClass.superclass || nil);
 (self['@opened']=true);
 smalltalk.send((function(html){return smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["jtalk"]);}), "_appendToJQuery_", [smalltalk.send("body", "_asJQuery", [])]);
 smalltalk.send(smalltalk.send("body", "_asJQuery", []), "_addClass_", ["jtalkBody"]);
@@ -894,7 +894,7 @@ smalltalk.method({
 selector: "current",
 fn: function TabManager_class_current(){
 var self=this;
-return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", [], smalltalk.TabManager.klass.superclass || nil));})() : $receiver;
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", [], TabManager_class_current.method.methodClass.superclass || nil));})() : $receiver;
 return self;}
 }),
 smalltalk.TabManager.klass);
@@ -1366,7 +1366,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function Browser_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Browser.superclass || nil);
+smalltalk.send(self, "_initialize", [], Browser_initialize.method.methodClass.superclass || nil);
 (self['@selectedTab']=smalltalk.symbolFor("instance"));
 (self['@selectedPackage']=smalltalk.send(smalltalk.send(self, "_packages", []), "_first", []));
 (self['@unsavedChanges']=false);
@@ -1933,7 +1933,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function Debugger_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Debugger.superclass || nil);
+smalltalk.send(self, "_initialize", [], Debugger_initialize.method.methodClass.superclass || nil);
 smalltalk.send(self['@unsavedChanges'], "__eq", [false]);
 return self;}
 }),
@@ -2267,7 +2267,7 @@ smalltalk.method({
 selector: "current",
 fn: function IDETranscript_class_current(){
 var self=this;
-return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", [], smalltalk.IDETranscript.klass.superclass || nil));})() : $receiver;
+return (($receiver = self['@current']) == nil || $receiver == undefined) ? (function(){return (self['@current']=smalltalk.send(self, "_new", [], IDETranscript_class_current.method.methodClass.superclass || nil));})() : $receiver;
 return self;}
 }),
 smalltalk.IDETranscript.klass);
@@ -2637,7 +2637,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function ReferencesBrowser_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.ReferencesBrowser.superclass || nil);
+smalltalk.send(self, "_initialize", [], ReferencesBrowser_initialize.method.methodClass.superclass || nil);
 (self['@selector']="");
 return self;}
 }),
@@ -2946,7 +2946,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function TestRunner_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.TestRunner.superclass || nil);
+smalltalk.send(self, "_initialize", [], TestRunner_initialize.method.methodClass.superclass || nil);
 (self['@result']=smalltalk.send((smalltalk.TestResult || TestResult), "_new", []));
 return self;}
 }),
@@ -3478,7 +3478,7 @@ selector: "inspectOn:",
 fn: function String_inspectOn_(anInspector){
 var self=this;
 var label=nil;
-smalltalk.send(self, "_inspectOn_", [anInspector], smalltalk.String.superclass || nil);
+smalltalk.send(self, "_inspectOn_", [anInspector], String_inspectOn_.method.methodClass.superclass || nil);
 ((($receiver = ((($receiver = smalltalk.send(smalltalk.send(self, "_printString", []), "_size", [])).klass === smalltalk.Number) ? $receiver >(30) : smalltalk.send($receiver, "__gt", [(30)]))).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (label=smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", []), "_copyFrom_to_", [(1), (30)]), "__comma", ["...'"]));})() : (function(){return (label=smalltalk.send(self, "_printString", []));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (label=smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", []), "_copyFrom_to_", [(1), (30)]), "__comma", ["...'"]));}), (function(){return (label=smalltalk.send(self, "_printString", []));})]));
 smalltalk.send(anInspector, "_setLabel_", [label]);
 return self;}

@@ -403,7 +403,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function TestResult_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.TestResult.superclass || nil);
+smalltalk.send(self, "_initialize", [], TestResult_initialize.method.methodClass.superclass || nil);
 (self['@timestamp']=smalltalk.send((smalltalk.Date || Date), "_now", []));
 (self['@runs']=(0));
 (self['@errors']=smalltalk.send((smalltalk.Array || Array), "_new", []));

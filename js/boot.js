@@ -328,6 +328,9 @@ function Smalltalk(){
 		Object.defineProperty(klass.fn.prototype, jsSelector, {
 			value: method.fn, configurable: true // not writable - in par with ES6 methods
 		});
+		Object.defineProperty(method.fn, "method", {
+			value: method, configurable: true, writable: true
+		});
 		klass.fn.prototype.methods[method.selector] = method;
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;

@@ -122,7 +122,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function Announcer_initialize(){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Announcer.superclass || nil);
+smalltalk.send(self, "_initialize", [], Announcer_initialize.method.methodClass.superclass || nil);
 (self['@subscriptions']=smalltalk.send((smalltalk.Array || Array), "_new", []));
 return self;},
 args: [],

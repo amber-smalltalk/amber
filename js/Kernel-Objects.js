@@ -1883,7 +1883,7 @@ var arguments=nil;
 (jsSelector=smalltalk.send(selector, "_asJavaScriptSelector", []));
 (arguments=smalltalk.send(aMessage, "_arguments", []));
 if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)};
-smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.JSObjectProxy.superclass || nil);
+smalltalk.send(self, "_doesNotUnderstand_", [aMessage], JSObjectProxy_doesNotUnderstand_.method.methodClass.superclass || nil);
 return self;},
 args: ["aMessage"],
 source: "doesNotUnderstand: aMessage\x0a\x09| obj selector jsSelector arguments |\x0a\x09obj := self jsObject.\x0a\x09selector := aMessage selector.\x0a\x09jsSelector := selector asJavaScriptSelector.\x0a\x09arguments := aMessage arguments.\x0a\x09<if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.\x0a\x09super doesNotUnderstand: aMessage",

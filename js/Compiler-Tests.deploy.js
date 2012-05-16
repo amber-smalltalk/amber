@@ -39,7 +39,7 @@ smalltalk.method({
 selector: "setUp",
 fn: function ImporterTest_setUp(){
 var self=this;
-smalltalk.send(self, "_setUp", [], smalltalk.ImporterTest.superclass || nil);
+smalltalk.send(self, "_setUp", [], ImporterTest_setUp.method.methodClass.superclass || nil);
 smalltalk.send(self, "_cleanUp", []);
 return self;}
 }),
@@ -51,7 +51,7 @@ smalltalk.method({
 selector: "tearDown",
 fn: function ImporterTest_tearDown(){
 var self=this;
-smalltalk.send(self, "_tearDown", [], smalltalk.ImporterTest.superclass || nil);
+smalltalk.send(self, "_tearDown", [], ImporterTest_tearDown.method.methodClass.superclass || nil);
 smalltalk.send(self, "_cleanUp", []);
 return self;}
 }),

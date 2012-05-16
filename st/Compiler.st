@@ -1263,7 +1263,7 @@ send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
                 stream := tmp.
                 str nextPutAll: ']'.
 		aBoolean ifTrue: [
-			str nextPutAll: ', smalltalk.', (self classNameFor: self currentClass), '.superclass || nil'].
+			str nextPutAll: ', ', methodName, '.method.methodClass.superclass || nil'].
 		str nextPutAll: ')']
 !
 
