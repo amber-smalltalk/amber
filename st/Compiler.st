@@ -950,7 +950,7 @@ compileNode: aNode
 ! !
 
 AbstractCodeGenerator subclass: #FunCodeGenerator
-	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables'
+	instanceVariableNames: 'stream nestedBlocks earlyReturn currentSelector unknownVariables tempVariables messageSends referencedClasses classReferenced argVariables methodName'
 	package: 'Compiler'!
 
 !FunCodeGenerator methodsFor: 'accessing'!
@@ -1263,7 +1263,7 @@ send: aSelector to: aReceiver arguments: aCollection superSend: aBoolean
                 stream := tmp.
                 str nextPutAll: ']'.
 		aBoolean ifTrue: [
-			str nextPutAll: ', smalltalk.', (self classNameFor: self currentClass), '.superclass || nil'].
+			str nextPutAll: ', ', methodName, '.method.methodClass.superclass || nil'].
 		str nextPutAll: ')']
 !
 
@@ -1361,7 +1361,7 @@ visitJSStatementNode: aNode
 !
 
 visitMethodNode: aNode
-	| str currentSelector | 
+	| str currentSelector |
 	currentSelector := aNode selector asSelector.
 	nestedBlocks := 0.
 	earlyReturn := false.
@@ -1370,11 +1370,12 @@ visitMethodNode: aNode
 	unknownVariables := #().
 	tempVariables := #().
 	argVariables := #().
+	methodName := (currentClass name replace: ' ' with: '_') , (currentSelector replace: '[^A-Za-z0-9_]' with: '$').
 	stream 
 	    nextPutAll: 'smalltalk.method({'; lf;
 	    nextPutAll: 'selector: "', aNode selector, '",'; lf.
 	stream nextPutAll: 'source: ', self source asJavascript, ',';lf.
-	stream nextPutAll: 'fn: function('.
+	stream nextPutAll: 'fn: function ', methodName, '('.
 	aNode arguments 
 	    do: [:each | 
 		argVariables add: each.
