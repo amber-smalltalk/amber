@@ -1543,7 +1543,7 @@ show: anObject
 renderBoxOn: html
     textarea := html textarea.
     textarea 
-	class: 'jt_transcript';
+	class: 'amber_transcript';
 	at: 'spellcheck' put: 'false'
 !
 

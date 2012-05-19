@@ -3127,10 +3127,10 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 (self['@textarea']=smalltalk.send(html, "_textarea", []));
-(function($rec){smalltalk.send($rec, "_class_", ["jt_transcript"]);return smalltalk.send($rec, "_at_put_", ["spellcheck", "false"]);})(self['@textarea']);
+(function($rec){smalltalk.send($rec, "_class_", ["amber_transcript"]);return smalltalk.send($rec, "_at_put_", ["spellcheck", "false"]);})(self['@textarea']);
 return self;},
 args: ["html"],
-source: "renderBoxOn: html\x0a    textarea := html textarea.\x0a    textarea \x0a\x09class: 'jt_transcript';\x0a\x09at: 'spellcheck' put: 'false'",
+source: "renderBoxOn: html\x0a    textarea := html textarea.\x0a    textarea \x0a\x09class: 'amber_transcript';\x0a\x09at: 'spellcheck' put: 'false'",
 messageSends: ["textarea", "class:", "at:put:"],
 referencedClasses: []
 }),

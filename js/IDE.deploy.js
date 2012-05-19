@@ -2231,7 +2231,7 @@ selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
 (self['@textarea']=smalltalk.send(html, "_textarea", []));
-(function($rec){smalltalk.send($rec, "_class_", ["jt_transcript"]);return smalltalk.send($rec, "_at_put_", ["spellcheck", "false"]);})(self['@textarea']);
+(function($rec){smalltalk.send($rec, "_class_", ["amber_transcript"]);return smalltalk.send($rec, "_at_put_", ["spellcheck", "false"]);})(self['@textarea']);
 return self;}
 }),
 smalltalk.IDETranscript);
