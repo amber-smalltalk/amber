@@ -1083,7 +1083,7 @@ renderButtonsOn: html
 !
 
 renderTabsOn: html
-    tabsList := html ul class: 'jt_tabs jt_browser'.
+    tabsList := html ul class: 'amber_tabs jt_browser'.
     self updateTabsList.
 !
 
@@ -1668,7 +1668,7 @@ renderTopPanelOn: html
 		with: [
 			variablesList := html ul class: 'jt_column variables'.
 			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
-			html div class: 'jt_tabs inspector'; with: [
+			html div class: 'amber_tabs inspector'; with: [
 				html button
 					class: 'jt_button inspector refresh';
 					with: 'Refresh';
