@@ -1092,7 +1092,7 @@ renderTopPanelOn: html
 		class: 'top'; 
 		with: [
 			packagesList := html ul class: 'amber_column browser packages'.
-          		html div class: 'jt_packagesButtons'; with: [
+          		html div class: 'amber_packagesButtons'; with: [
 				html button 
 					title: 'Commit classes in this package to disk';
 					onClick: [self commitPackage];

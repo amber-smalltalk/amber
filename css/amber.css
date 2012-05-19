@@ -275,7 +275,7 @@ body.amberBody {
     height: 100%;
 }
 
-.amberTool .jt_packagesButtons {
+.amberTool .amber_packagesButtons {
     position: absolute;
     top: 149px;
     left: 0;
