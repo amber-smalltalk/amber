@@ -587,7 +587,7 @@ renderTab
 		class: 'amber_box';
 		with: [self renderBoxOn: html].
 	    html div
-		class: 'jt_buttons';
+		class: 'amber_buttons';
 		with: [self renderButtonsOn: html]]
 !
 

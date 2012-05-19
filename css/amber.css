@@ -162,7 +162,7 @@ body.amberBody {
     bottom: 27px;
 }
 
-.amberTool .jt_buttons {
+.amberTool .amber_buttons {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -172,7 +172,7 @@ body.amberBody {
     background: url("../images/sprite.amber.png") 0 0 repeat;
 }
 
-.amberTool .jt_buttons .right {
+.amberTool .amber_buttons .right {
     float: right;
 }
 
@@ -412,7 +412,7 @@ body.amberBody {
     width: 75%;
 }
 
-.amberTool .jt_buttons.inspector {
+.amberTool .amber_buttons.inspector {
     position: absolute;
     top: 150px;
 }
