@@ -504,7 +504,7 @@ renderTabs
 
 renderToolbarOn: html
 	html div 
-		id: 'jt_toolbar';
+		id: 'amber_toolbar';
 		with: [
 			input := html input 
 				class: 'implementors';

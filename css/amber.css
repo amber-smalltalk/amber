@@ -103,18 +103,18 @@ body.amberBody {
     background: url("../images/tinylogo.amber.png") top left no-repeat;
 }
 
-#amber #jt_toolbar {
+#amber #amber_toolbar {
     height: 27px;
     background: url("../images/sprite.amber.png") 0 0;
 }
 
-#amber #jt_toolbar input {
+#amber #amber_toolbar input {
     margin-left: 50px;
     width: 250px;
     margin-top: 5px;
 }
 
-#amber #jt_toolbar #jt_close {
+#amber #amber_toolbar #jt_close {
     position: absolute;
     right: 4px;
     top: 6px;
@@ -124,7 +124,7 @@ body.amberBody {
     cursor: pointer;
 }
 
-#amber #jt_toolbar #jt_close:hover {
+#amber #amber_toolbar #jt_close:hover {
     background: url('../images/offHover.amber.png');
 }
 
