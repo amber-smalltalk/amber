@@ -1045,7 +1045,7 @@ ajaxPutAt: anURL data: aString
 
 renderBottomPanelOn: html
     html div
-	class: 'jt_sourceCode';
+	class: 'amber_sourceCode';
 	with: [
 	    sourceArea := SourceArea new.
 	    sourceArea renderOn: html.
@@ -1380,7 +1380,7 @@ initialize
 
 renderBottomPanelOn: html
 	html div
-		class: 'jt_sourceCode debugger';
+		class: 'amber_sourceCode debugger';
 		with: [
 			sourceArea := SourceArea new.
 			sourceArea renderOn: html].
@@ -1634,7 +1634,7 @@ refresh
 
 renderBottomPanelOn: html
     html div
-	class: 'jt_sourceCode';
+	class: 'amber_sourceCode';
 	with: [
 	    sourceArea := SourceArea new
 		receiver: object;
