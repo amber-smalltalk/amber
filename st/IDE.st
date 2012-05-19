@@ -512,7 +512,7 @@ renderToolbarOn: html
 			input onKeyPress: [:event |
 				event keyCode = 13 ifTrue: [
 				self search: input asJQuery val]].
-			html div id: 'jt_close'; onClick: [self close]]
+			html div id: 'amber_close'; onClick: [self close]]
 ! !
 
 !TabManager methodsFor: 'updating'!

@@ -114,7 +114,7 @@ body.amberBody {
     margin-top: 5px;
 }
 
-#amber #amber_toolbar #jt_close {
+#amber #amber_toolbar #amber_close {
     position: absolute;
     right: 4px;
     top: 6px;
@@ -124,7 +124,7 @@ body.amberBody {
     cursor: pointer;
 }
 
-#amber #amber_toolbar #jt_close:hover {
+#amber #amber_toolbar #amber_close:hover {
     background: url('../images/offHover.amber.png');
 }
 
