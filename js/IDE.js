@@ -1057,11 +1057,11 @@ fn: function (html){
 var self=this;
 smalltalk.send(smalltalk.send(html, "_div", []), "_id_", ["logo"]);
 smalltalk.send(self, "_renderToolbarOn_", [html]);
-(self['@ul']=(function($rec){smalltalk.send($rec, "_id_", ["jtalkTabs"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
+(self['@ul']=(function($rec){smalltalk.send($rec, "_id_", ["amberTabs"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
 smalltalk.send(self, "_renderTabs", []);
 return self;},
 args: ["html"],
-source: "renderOn: html\x0a\x09html div id: 'logo'.\x0a\x09self renderToolbarOn: html.\x0a\x09ul := html ul\x0a\x09\x09id: 'jtalkTabs';\x0a\x09\x09yourself.\x0a\x09self renderTabs",
+source: "renderOn: html\x0a\x09html div id: 'logo'.\x0a\x09self renderToolbarOn: html.\x0a\x09ul := html ul\x0a\x09\x09id: 'amberTabs';\x0a\x09\x09yourself.\x0a\x09self renderTabs",
 messageSends: ["id:", "div", "renderToolbarOn:", "yourself", "ul", "renderTabs"],
 referencedClasses: []
 }),

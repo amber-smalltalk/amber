@@ -464,7 +464,7 @@ renderOn: html
 	html div id: 'logo'.
 	self renderToolbarOn: html.
 	ul := html ul
-		id: 'jtalkTabs';
+		id: 'amberTabs';
 		yourself.
 	self renderTabs
 !

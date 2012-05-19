@@ -2,7 +2,7 @@ body.jtalkBody {
     margin-bottom: 350px;
 }
 
-#jtalkTabs, #amber .jt_tabs {
+#amberTabs, #amber .jt_tabs {
     margin: 0;
     padding: 0;
     background: url("../images/sprite.amber.png") #DBD9C9 0 -27px;
@@ -12,7 +12,7 @@ body.jtalkBody {
     font-weight: bold;
 }
 
-#jtalkTabs li, #amber .jt_tabs li {
+#amberTabs li, #amber .jt_tabs li {
     padding: 0 1px;
     cursor: pointer;
     color: #565656;
@@ -40,42 +40,42 @@ body.jtalkBody {
     line-height: 20px;
 }
 
-#jtalkTabs li:hover .ltab,
+#amberTabs li:hover .ltab,
 #amber .jt_tabs li:hover .ltab {
     background: url("../images/sprite.amber.png") -16px -96px;
 }
 
-#jtalkTabs li:hover .mtab,
+#amberTabs li:hover .mtab,
 #amber .jt_tabs li:hover .mtab {
     background: url("../images/sprite.amber.png") 0 -73px;
 }
 
-#jtalkTabs li:hover .rtab,
+#amberTabs li:hover .rtab,
 #amber .jt_tabs li:hover .rtab {
     background: url("../images/sprite.amber.png") -24px -96px;
 }
 
-#jtalkTabs li.selected,
+#amberTabs li.selected,
 #amber .jt_tabs li.selected {
     color: #111;
 }
 
-#jtalkTabs li.selected .ltab,
+#amberTabs li.selected .ltab,
 #amber .jt_tabs li.selected .ltab {
     background: url("../images/sprite.amber.png") 0px -96px;
 }
 
-#jtalkTabs li.selected .mtab,
+#amberTabs li.selected .mtab,
 #amber .jt_tabs li.selected .mtab {
     background: url("../images/sprite.amber.png") 0 -50px;
 }
 
-#jtalkTabs li.selected .rtab,
+#amberTabs li.selected .rtab,
 #amber .jt_tabs li.selected .rtab {
     background: url("../images/sprite.amber.png") -8px -96px;
 }
 
-#jtalkTabs li .close {
+#amberTabs li .close {
     margin-right: 5px;
     color: #aaa;
 }
