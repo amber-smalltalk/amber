@@ -355,7 +355,7 @@ close
 	ul asJQuery hide.
 	selectedTab hide.
 	self removeBodyMargin.
-	'body' asJQuery removeClass: 'jtalkBody'.
+	'body' asJQuery removeClass: 'amberBody'.
 	opened := false]
 !
 
@@ -384,7 +384,7 @@ onWindowResize: aBlock
 
 open
     opened ifFalse: [
-	'body' asJQuery addClass: 'jtalkBody'.
+	'body' asJQuery addClass: 'amberBody'.
 	'#amber' asJQuery show.
 	ul asJQuery show.
 	self updateBodyMargin.
@@ -415,7 +415,7 @@ selectTab: aWidget
 !
 
 setBodyMargin: anInteger
-    '.jtalkBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
+    '.amberBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
 !
 
 updateBodyMargin
@@ -446,7 +446,7 @@ initialize
     opened := true.
     [:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
     'body' asJQuery 
-	addClass: 'jtalkBody'.
+	addClass: 'amberBody'.
     self appendToJQuery: '#amber' asJQuery.
     self 
 	addTab: IDETranscript current;
