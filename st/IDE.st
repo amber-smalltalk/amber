@@ -584,7 +584,7 @@ renderOn: html
 renderTab
 	div contents: [:html |
 	    html div
-		class: 'jt_box';
+		class: 'amber_box';
 		with: [self renderBoxOn: html].
 	    html div
 		class: 'jt_buttons';
