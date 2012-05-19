@@ -1114,7 +1114,7 @@ renderTopPanelOn: html
 				updateClassesList;
 				updateProtocolsList;
 				updateMethodsList.
-			html div class: 'jt_clear']
+			html div class: 'amber_clear']
 ! !
 
 !Browser methodsFor: 'testing'!
@@ -1677,7 +1677,7 @@ renderTopPanelOn: html
 					class: 'jt_button inspector dive';
 					with: 'Dive'; 
 					onClick: [self dive]].
-			html div class: 'jt_clear'].
+			html div class: 'amber_clear'].
 	self
 		updateVariablesList;
 		updateValueTextarea.
