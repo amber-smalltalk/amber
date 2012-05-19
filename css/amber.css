@@ -140,7 +140,7 @@ body.jtalkBody {
     width: auto !important;
 }
 
-.jtalkTool {
+.amberTool {
     width: 100%;
     color: #333;
     line-height: 1.3em;
@@ -154,7 +154,7 @@ body.jtalkBody {
     background: white;
 }
 
-.jtalkTool .jt_box {
+.amberTool .jt_box {
     width: 100%;
     margin: 0;
     position: absolute;
@@ -162,7 +162,7 @@ body.jtalkBody {
     bottom: 27px;
 }
 
-.jtalkTool .jt_buttons {
+.amberTool .jt_buttons {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -172,16 +172,16 @@ body.jtalkBody {
     background: url("../images/sprite.amber.png") 0 0 repeat;
 }
 
-.jtalkTool .jt_buttons .right {
+.amberTool .jt_buttons .right {
     float: right;
 }
 
-.jtalkTool .important {
+.amberTool .important {
     font-weight: bold;
 }
 
 
-.jtalkTool button {
+.amberTool button {
     border: 1px solid transparent;
     background: transparent;
     padding: 2px 4px;
@@ -189,14 +189,14 @@ body.jtalkBody {
     cursor: pointer;
 }
 
-.jtalkTool button:hover {
+.amberTool button:hover {
     border-top: 1px solid #fff;
     border-left: 1px solid #fff;
     border-right: 1px solid #bbb;
     border-bottom: 1px solid #bbb;
 }
 
-.jtalkTool  button:active {
+.amberTool  button:active {
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
     border-right: 1px solid #fff;
@@ -204,7 +204,7 @@ body.jtalkBody {
     background: #ddd;
 }
 
-.jtalkTool select, #amber input {
+.amberTool select, #amber input {
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
     border-right: 1px solid #fff;
@@ -221,7 +221,7 @@ body.jtalkBody {
     outline: none;
     vertical-align:baseline;
 }
-.jtalkTool select {
+.amberTool select {
     height:18px;
     width: auto;
 }
@@ -229,17 +229,17 @@ body.jtalkBody {
 
 
 
-.jtalkTool li {
+.amberTool li {
     margin: 0;
     padding: 0;
 }
     
-.jtalkTool .source {
+.amberTool .source {
     height: 100%;
 }
 
-.jtalkTool textarea,
-.jtalkTool input {
+.amberTool textarea,
+.amberTool input {
     border: 0 none;
     font-family:  "DejaVu Sans", Helvetica, sans;
     line-height: 1.3em;
@@ -248,7 +248,7 @@ body.jtalkBody {
     padding: 0;
 }
 
-.jtalkTool .CodeMirror {
+.amberTool .CodeMirror {
     border: 0 none;
     font-family:  "DejaVu Sans", Helvetica, sans;
     font-size: 11px;
@@ -257,32 +257,32 @@ body.jtalkBody {
     background: white;
 }
 
-.jtalkTool .CodeMirror-scroll {
+.amberTool .CodeMirror-scroll {
     height: 100%;
 }
 
-.talkTool .CodeMirror-scroll pre {
+.amberTool .CodeMirror-scroll pre {
     font-family: "DejaVu Sans", Helvetica, sans;
 }
 
-.jtalkTool .jt_clear {	 
+.amberTool .jt_clear {	 
     clear: both;
 }
 
-.jtalkTool .jt_transcript,
-.jtalkTool .jt_workspace {
+.amberTool .jt_transcript,
+.amberTool .jt_workspace {
     width: 100%;
     height: 100%;
 }
 
-.jtalkTool .jt_packagesButtons {
+.amberTool .jt_packagesButtons {
     position: absolute;
     top: 149px;
     left: 0;
     z-index: 1;
 }
 
-.jtalkTool .jt_column {
+.amberTool .jt_column {
     width: 25%;
     padding: 0;
     margin: 0;
@@ -297,28 +297,28 @@ body.jtalkBody {
     top: 0;
 }
 
-.jtalkTool .jt_column.classes {
+.amberTool .jt_column.classes {
     left: 25%
 }
 
-.jtalkTool .jt_column.classes ul {
+.amberTool .jt_column.classes ul {
     margin-left: 0;
 }
 
-.jtalkTool .jt_column.classes ul li {
+.amberTool .jt_column.classes ul li {
     padding-left: 10px;
     margin-left: 0;
 }
 
-.jtalkTool .jt_column.protocols {
+.amberTool .jt_column.protocols {
     left: 50%
 }
 
-.jtalkTool .jt_column.methods {
+.amberTool .jt_column.methods {
     left: 75%
 }
 
-.jtalkTool .jt_column li {
+.amberTool .jt_column li {
     list-style-type: none;
     padding-left: 5px;
     cursor: pointer;
@@ -326,26 +326,26 @@ body.jtalkBody {
     font-weight: bold;
 }
 
-.jtalkTool .jt_column li.selected {
+.amberTool .jt_column li.selected {
 	background: #c5c5c5;
 	color: #222;
 }
 
-.jtalkTool .jt_column li:hover {
+.amberTool .jt_column li:hover {
     background: #08c;
     color: white;
 }
 
-#amber .jtalkTool .jt_tabs {
+#amber .amberTool .jt_tabs {
     top: 150px;
     position: absolute;
 }
 
-#amber .jtalkTool .jt_tabs.jt_browser {
+#amber .amberTool .jt_tabs.jt_browser {
     padding-left: 25%;
 }
 
-.jtalkTool .jt_sourceCode {
+.amberTool .jt_sourceCode {
     position: absolute;
     top: 172px;
     bottom: 0;
@@ -353,14 +353,14 @@ body.jtalkBody {
     right: 0;
 }
 
-.jtalkTool .jt_sourceCode textarea.source {
+.amberTool .jt_sourceCode textarea.source {
     width: 100%;
     height: 100%;
 }
 
 /* Debugger & inspector */
 
-.jtalkTool .jt_box .label {
+.amberTool .jt_box .label {
 	width: 100%;
 	font-weight: bold;
 	text-align: center;
@@ -372,21 +372,21 @@ body.jtalkBody {
 	height: 27px;
 }
 
-.jtalkTool .jt_box .jt_column.debugger {
+.amberTool .jt_box .jt_column.debugger {
     top: 178px;
 }
 
-.jtalkTool .jt_box .jt_column.debugger.contexts {
+.amberTool .jt_box .jt_column.debugger.contexts {
     top: 27px;
     width: 100%;
 }
 
-.jtalkTool .jt_sourceCode.debugger {
+.amberTool .jt_sourceCode.debugger {
     width: 60%;
     top: 178px;
 }
 
-.jtalkTool .jt_box .jt_column.debugger.variables {
+.amberTool .jt_box .jt_column.debugger.variables {
     width: 10%;
     left: 60%;
     bottom: 0;
@@ -394,7 +394,7 @@ body.jtalkBody {
     height: auto;
 }
 
-.jtalkTool .jt_box .jt_column.debugger.inspector {
+.amberTool .jt_box .jt_column.debugger.inspector {
     width: 30%;
     left: 70%;
     bottom: 0;
@@ -402,17 +402,17 @@ body.jtalkBody {
     height: auto;
 }
 
-.jtalkTool .jt_button.debugger.inspect {
+.amberTool .jt_button.debugger.inspect {
     position: absolute;
     left: 60%;
 }
 
-.jtalkTool .jt_column.value {
+.amberTool .jt_column.value {
     left: 25%;
     width: 75%;
 }
 
-.jtalkTool .jt_buttons.inspector {
+.amberTool .jt_buttons.inspector {
     position: absolute;
     top: 150px;
 }
@@ -420,74 +420,74 @@ body.jtalkBody {
 
 /* ReferencesBrowser */
 
-.jtalkTool .jt_box .implementors {
+.amberTool .jt_box .implementors {
 	width: 100%
 }
 
-.jtalkTool .jt_box .jt_column.implementors,
-.jtalkTool .jt_box .jt_column.senders,
-.jtalkTool .jt_box .jt_column.referenced_classes,
-.jtalkTool .jt_box .jt_column.matches {
+.amberTool .jt_box .jt_column.implementors,
+.amberTool .jt_box .jt_column.senders,
+.amberTool .jt_box .jt_column.referenced_classes,
+.amberTool .jt_box .jt_column.matches {
 	top: 20px;
 	height: auto;
 	bottom: 0;
 	width: 25%;
 }
 
-.jtalkTool .jt_box .jt_column.senders {
+.amberTool .jt_box .jt_column.senders {
 	left: 25%
 }
 
-.jtalkTool .jt_box .jt_column.referenced_classes {
+.amberTool .jt_box .jt_column.referenced_classes {
         left: 50%
 }
 
-.jtalkTool .jt_box .jt_column.matches {
+.amberTool .jt_box .jt_column.matches {
         left: 75%
 }
 
-.jtalkTool .jt_box .jt_column.implementors .column_label, 
-.jtalkTool .jt_box .jt_column.senders .column_label,
-.jtalkTool .jt_box .jt_column.referenced_classes .column_label,
-.jtalkTool .jt_box .jt_column.matches .column_label {
+.amberTool .jt_box .jt_column.implementors .column_label, 
+.amberTool .jt_box .jt_column.senders .column_label,
+.amberTool .jt_box .jt_column.referenced_classes .column_label,
+.amberTool .jt_box .jt_column.matches .column_label {
 	background: #dbdbdb
 }
 
-.jtalkTool .jt_box .jt_column.implementors .column_label:hover,
-.jtalkTool .jt_box .jt_column.senders .column_label:hover,
-.jtalkTool .jt_box .jt_column.referenced_classes .column_label:hover,
-.jtalkTool .jt_box .jt_column.matches .column_label:hover {
+.amberTool .jt_box .jt_column.implementors .column_label:hover,
+.amberTool .jt_box .jt_column.senders .column_label:hover,
+.amberTool .jt_box .jt_column.referenced_classes .column_label:hover,
+.amberTool .jt_box .jt_column.matches .column_label:hover {
 	font-weight: bold;
 	color: #000;
 	cursor: default
 }
 
 
-.jtalkTool .classes .commented {
+.amberTool .classes .commented {
 		color: #33337F;
 }
 
 
 /* SUnit TestRunner  */
 
-.jtalkTool .jt_column.sunit.packages,
-.jtalkTool .jt_column.sunit.classes {
+.amberTool .jt_column.sunit.packages,
+.amberTool .jt_column.sunit.classes {
 	height: 100%
 }
 
-.jtalkTool .jt_column.sunit.classes li.all,
-.jtalkTool .jt_column.sunit.categories li.all {
+.amberTool .jt_column.sunit.classes li.all,
+.amberTool .jt_column.sunit.categories li.all {
 	background: #e3e3e3;
 	font-weight: bold
 }
 
-.jtalkTool .jt_column.sunit.classes li.all:hover ,
-.jtalkTool .jt_column.sunit.categories li.all:hover {
+.amberTool .jt_column.sunit.classes li.all:hover ,
+.amberTool .jt_column.sunit.categories li.all:hover {
 	background: #0088CC;
 	font-weight: bold
 }
 
-.jtalkTool .sunit.status {
+.amberTool .sunit.status {
 	position: absolute;
 	left: 50%;
 	width: 50%;
@@ -497,21 +497,21 @@ body.jtalkBody {
 }
 
 
-.jtalkTool .sunit.status.success {
+.amberTool .sunit.status.success {
 	background: #43d443;
 }
 
 
-.jtalkTool .sunit.status.failure {
+.amberTool .sunit.status.failure {
 	background: #ecd443;
 }
 
 
-.jtalkTool .sunit.status.error {
+.amberTool .sunit.status.error {
 	background: #e56f3b;
 }
 
-.jtalkTool .progress_bar {
+.amberTool .progress_bar {
 	position: absolute;
 	left: 50%;
 	width: 50%;
@@ -521,12 +521,12 @@ body.jtalkBody {
 	min-height: 20px
 }
 
-.jtalkTool .progress_bar div {
+.amberTool .progress_bar div {
 	background: #0088CC;
 	min-height: 20px;
 }
 
-.jtalkTool .jt_column.results.sunit {
+.amberTool .jt_column.results.sunit {
 	left: 50%;
 	height: auto;
         width: 50%;
@@ -534,11 +534,11 @@ body.jtalkBody {
         bottom: 0;
 }
 
-.jtalkTool .jt_column.sunit.results .errors {
+.amberTool .jt_column.sunit.results .errors {
     color: red;
 }
 
-/*.jtalkTool .jt_column.sunit.results ul {padding: 0; margin: 0}*/
+/*.amberTool .jt_column.sunit.results ul {padding: 0; margin: 0}*/
 
 /* Code mirror overrides */
 .CodeMirror pre {

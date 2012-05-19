@@ -576,7 +576,7 @@ renderButtonsOn: html
 
 renderOn: html
 	div := html div
-		class: 'jtalkTool';
+		class: 'amberTool';
 		yourself.
 	self renderTab
 !

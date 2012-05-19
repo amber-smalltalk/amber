@@ -1007,7 +1007,7 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-(self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["jtalkTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
+(self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["amberTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
 smalltalk.send(self, "_renderTab", []);
 return self;}
 }),

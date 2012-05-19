@@ -1408,11 +1408,11 @@ selector: "renderOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["jtalkTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
+(self['@div']=(function($rec){smalltalk.send($rec, "_class_", ["amberTool"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_div", [])));
 smalltalk.send(self, "_renderTab", []);
 return self;},
 args: ["html"],
-source: "renderOn: html\x0a\x09div := html div\x0a\x09\x09class: 'jtalkTool';\x0a\x09\x09yourself.\x0a\x09self renderTab",
+source: "renderOn: html\x0a\x09div := html div\x0a\x09\x09class: 'amberTool';\x0a\x09\x09yourself.\x0a\x09self renderTab",
 messageSends: ["class:", "yourself", "div", "renderTab"],
 referencedClasses: []
 }),
