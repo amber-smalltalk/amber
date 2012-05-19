@@ -2174,11 +2174,11 @@ selector: "renderTabsOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@tabsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_tabs jt_browser"]));
+(self['@tabsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_tabs amber_browser"]));
 smalltalk.send(self, "_updateTabsList", []);
 return self;},
 args: ["html"],
-source: "renderTabsOn: html\x0a    tabsList := html ul class: 'amber_tabs jt_browser'.\x0a    self updateTabsList.",
+source: "renderTabsOn: html\x0a    tabsList := html ul class: 'amber_tabs amber_browser'.\x0a    self updateTabsList.",
 messageSends: ["class:", "ul", "updateTabsList"],
 referencedClasses: []
 }),

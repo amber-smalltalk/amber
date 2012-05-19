@@ -1558,7 +1558,7 @@ smalltalk.method({
 selector: "renderTabsOn:",
 fn: function (html){
 var self=this;
-(self['@tabsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_tabs jt_browser"]));
+(self['@tabsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_tabs amber_browser"]));
 smalltalk.send(self, "_updateTabsList", []);
 return self;}
 }),

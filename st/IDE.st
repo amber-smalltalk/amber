@@ -1083,7 +1083,7 @@ renderButtonsOn: html
 !
 
 renderTabsOn: html
-    tabsList := html ul class: 'amber_tabs jt_browser'.
+    tabsList := html ul class: 'amber_tabs amber_browser'.
     self updateTabsList.
 !
 
