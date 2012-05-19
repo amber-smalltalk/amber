@@ -402,7 +402,7 @@ body.amberBody {
     height: auto;
 }
 
-.amberTool .jt_button.debugger.inspect {
+.amberTool .amber_button.debugger.inspect {
     position: absolute;
     left: 60%;
 }

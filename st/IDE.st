@@ -1416,7 +1416,7 @@ renderButtonsOn: html
 		with: 'Abandon';
 		onClick: [self close].
 	inspectButton := html button
-		class: 'jt_button debugger inspect';
+		class: 'amber_button debugger inspect';
 		with: 'Inspect';
 		onClick: [self inspectSelectedVariable].
 	 self 
@@ -1670,11 +1670,11 @@ renderTopPanelOn: html
 			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.
 			html div class: 'amber_tabs inspector'; with: [
 				html button
-					class: 'jt_button inspector refresh';
+					class: 'amber_button inspector refresh';
 					with: 'Refresh';
 					onClick: [self refresh].
 				diveButton := html button 
-					class: 'jt_button inspector dive';
+					class: 'amber_button inspector dive';
 					with: 'Dive'; 
 					onClick: [self dive]].
 			html div class: 'amber_clear'].
