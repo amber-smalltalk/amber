@@ -282,7 +282,7 @@ body.amberBody {
     z-index: 1;
 }
 
-.amberTool .jt_column {
+.amberTool .amber_column {
     width: 25%;
     padding: 0;
     margin: 0;
@@ -297,28 +297,28 @@ body.amberBody {
     top: 0;
 }
 
-.amberTool .jt_column.classes {
+.amberTool .amber_column.classes {
     left: 25%
 }
 
-.amberTool .jt_column.classes ul {
+.amberTool .amber_column.classes ul {
     margin-left: 0;
 }
 
-.amberTool .jt_column.classes ul li {
+.amberTool .amber_column.classes ul li {
     padding-left: 10px;
     margin-left: 0;
 }
 
-.amberTool .jt_column.protocols {
+.amberTool .amber_column.protocols {
     left: 50%
 }
 
-.amberTool .jt_column.methods {
+.amberTool .amber_column.methods {
     left: 75%
 }
 
-.amberTool .jt_column li {
+.amberTool .amber_column li {
     list-style-type: none;
     padding-left: 5px;
     cursor: pointer;
@@ -326,12 +326,12 @@ body.amberBody {
     font-weight: bold;
 }
 
-.amberTool .jt_column li.selected {
+.amberTool .amber_column li.selected {
 	background: #c5c5c5;
 	color: #222;
 }
 
-.amberTool .jt_column li:hover {
+.amberTool .amber_column li:hover {
     background: #08c;
     color: white;
 }
@@ -372,11 +372,11 @@ body.amberBody {
 	height: 27px;
 }
 
-.amberTool .amber_box .jt_column.debugger {
+.amberTool .amber_box .amber_column.debugger {
     top: 178px;
 }
 
-.amberTool .amber_box .jt_column.debugger.contexts {
+.amberTool .amber_box .amber_column.debugger.contexts {
     top: 27px;
     width: 100%;
 }
@@ -386,7 +386,7 @@ body.amberBody {
     top: 178px;
 }
 
-.amberTool .amber_box .jt_column.debugger.variables {
+.amberTool .amber_box .amber_column.debugger.variables {
     width: 10%;
     left: 60%;
     bottom: 0;
@@ -394,7 +394,7 @@ body.amberBody {
     height: auto;
 }
 
-.amberTool .amber_box .jt_column.debugger.inspector {
+.amberTool .amber_box .amber_column.debugger.inspector {
     width: 30%;
     left: 70%;
     bottom: 0;
@@ -407,7 +407,7 @@ body.amberBody {
     left: 60%;
 }
 
-.amberTool .jt_column.value {
+.amberTool .amber_column.value {
     left: 25%;
     width: 75%;
 }
@@ -424,39 +424,39 @@ body.amberBody {
 	width: 100%
 }
 
-.amberTool .amber_box .jt_column.implementors,
-.amberTool .amber_box .jt_column.senders,
-.amberTool .amber_box .jt_column.referenced_classes,
-.amberTool .amber_box .jt_column.matches {
+.amberTool .amber_box .amber_column.implementors,
+.amberTool .amber_box .amber_column.senders,
+.amberTool .amber_box .amber_column.referenced_classes,
+.amberTool .amber_box .amber_column.matches {
 	top: 20px;
 	height: auto;
 	bottom: 0;
 	width: 25%;
 }
 
-.amberTool .amber_box .jt_column.senders {
+.amberTool .amber_box .amber_column.senders {
 	left: 25%
 }
 
-.amberTool .amber_box .jt_column.referenced_classes {
+.amberTool .amber_box .amber_column.referenced_classes {
         left: 50%
 }
 
-.amberTool .amber_box .jt_column.matches {
+.amberTool .amber_box .amber_column.matches {
         left: 75%
 }
 
-.amberTool .amber_box .jt_column.implementors .column_label, 
-.amberTool .amber_box .jt_column.senders .column_label,
-.amberTool .amber_box .jt_column.referenced_classes .column_label,
-.amberTool .amber_box .jt_column.matches .column_label {
+.amberTool .amber_box .amber_column.implementors .column_label, 
+.amberTool .amber_box .amber_column.senders .column_label,
+.amberTool .amber_box .amber_column.referenced_classes .column_label,
+.amberTool .amber_box .amber_column.matches .column_label {
 	background: #dbdbdb
 }
 
-.amberTool .amber_box .jt_column.implementors .column_label:hover,
-.amberTool .amber_box .jt_column.senders .column_label:hover,
-.amberTool .amber_box .jt_column.referenced_classes .column_label:hover,
-.amberTool .amber_box .jt_column.matches .column_label:hover {
+.amberTool .amber_box .amber_column.implementors .column_label:hover,
+.amberTool .amber_box .amber_column.senders .column_label:hover,
+.amberTool .amber_box .amber_column.referenced_classes .column_label:hover,
+.amberTool .amber_box .amber_column.matches .column_label:hover {
 	font-weight: bold;
 	color: #000;
 	cursor: default
@@ -470,19 +470,19 @@ body.amberBody {
 
 /* SUnit TestRunner  */
 
-.amberTool .jt_column.sunit.packages,
-.amberTool .jt_column.sunit.classes {
+.amberTool .amber_column.sunit.packages,
+.amberTool .amber_column.sunit.classes {
 	height: 100%
 }
 
-.amberTool .jt_column.sunit.classes li.all,
-.amberTool .jt_column.sunit.categories li.all {
+.amberTool .amber_column.sunit.classes li.all,
+.amberTool .amber_column.sunit.categories li.all {
 	background: #e3e3e3;
 	font-weight: bold
 }
 
-.amberTool .jt_column.sunit.classes li.all:hover ,
-.amberTool .jt_column.sunit.categories li.all:hover {
+.amberTool .amber_column.sunit.classes li.all:hover ,
+.amberTool .amber_column.sunit.categories li.all:hover {
 	background: #0088CC;
 	font-weight: bold
 }
@@ -526,7 +526,7 @@ body.amberBody {
 	min-height: 20px;
 }
 
-.amberTool .jt_column.results.sunit {
+.amberTool .amber_column.results.sunit {
 	left: 50%;
 	height: auto;
         width: 50%;
@@ -534,11 +534,11 @@ body.amberBody {
         bottom: 0;
 }
 
-.amberTool .jt_column.sunit.results .errors {
+.amberTool .amber_column.sunit.results .errors {
     color: red;
 }
 
-/*.amberTool .jt_column.sunit.results ul {padding: 0; margin: 0}*/
+/*.amberTool .amber_column.sunit.results ul {padding: 0; margin: 0}*/
 
 /* Code mirror overrides */
 .CodeMirror pre {

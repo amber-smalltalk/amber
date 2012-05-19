@@ -43,7 +43,7 @@ resetNodes
 
 renderOn: html
 	ul := html ul
-		class: 'jt_column browser classes';
+		class: 'amber_column browser classes';
 		yourself.
 	self updateNodes
 !
@@ -1091,7 +1091,7 @@ renderTopPanelOn: html
 	html div 
 		class: 'top'; 
 		with: [
-			packagesList := html ul class: 'jt_column browser packages'.
+			packagesList := html ul class: 'amber_column browser packages'.
           		html div class: 'jt_packagesButtons'; with: [
 				html button 
 					title: 'Commit classes in this package to disk';
@@ -1107,8 +1107,8 @@ renderTopPanelOn: html
 					with: 'Remove'].
 			classesList := ClassesList on: self.
 			classesList renderOn: html.
-			protocolsList := html ul class: 'jt_column browser protocols'.
-			methodsList := html ul class: 'jt_column browser methods'.
+			protocolsList := html ul class: 'amber_column browser protocols'.
+			methodsList := html ul class: 'amber_column browser methods'.
 			self
 				updateCategoriesList;
 				updateClassesList;
@@ -1384,8 +1384,8 @@ renderBottomPanelOn: html
 		with: [
 			sourceArea := SourceArea new.
 			sourceArea renderOn: html].
-	ul2 := html ul class: 'jt_column debugger variables'.
-	inspector := html div class: 'jt_column debugger inspector'.
+	ul2 := html ul class: 'amber_column debugger variables'.
+	inspector := html div class: 'amber_column debugger inspector'.
 	sourceArea
 		onKeyUp: [self updateStatus]
 !
@@ -1446,7 +1446,7 @@ renderTopPanelOn: html
 				class: 'label';
 				with: self error messageText.
 			ul := html ul 
-				class: 'jt_column debugger contexts';
+				class: 'amber_column debugger contexts';
 				with: [self renderContext: self error context on: html]]
 ! !
 
@@ -1666,8 +1666,8 @@ renderTopPanelOn: html
 	html div 
 		class: 'top'; 
 		with: [
-			variablesList := html ul class: 'jt_column variables'.
-			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
+			variablesList := html ul class: 'amber_column variables'.
+			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.
 			html div class: 'amber_tabs inspector'; with: [
 				html button
 					class: 'jt_button inspector refresh';
@@ -1885,7 +1885,7 @@ renderBoxOn: html
 !
 
 renderImplementorsOn: html
-	implementorsList := html ul class: 'jt_column implementors'.
+	implementorsList := html ul class: 'amber_column implementors'.
 	self updateImplementorsList
 !
 
@@ -1898,17 +1898,17 @@ renderInputOn: html
 !
 
 renderMatchesOn: html
-	matchesList := html ul class: 'jt_column matches'.
+	matchesList := html ul class: 'amber_column matches'.
 	self updateMatchesList
 !
 
 renderReferencedClassesOn: html
-	referencedClassesList := html ul class: 'jt_column referenced_classes'.
+	referencedClassesList := html ul class: 'amber_column referenced_classes'.
 	self updateReferencedClassesList
 !
 
 renderSendersOn: html
-	sendersList := html ul class: 'jt_column senders'.
+	sendersList := html ul class: 'amber_column senders'.
 	self updateSendersList
 ! !
 
@@ -2130,12 +2130,12 @@ renderButtonsOn: html
 !
 
 renderCategoriesOn: html
-	packagesList := html ul class: 'jt_column sunit packages'.
+	packagesList := html ul class: 'amber_column sunit packages'.
 	self updateCategoriesList
 !
 
 renderClassesOn: html
-	classesList := html ul class: 'jt_column sunit classes'.
+	classesList := html ul class: 'amber_column sunit classes'.
 	self updateClassesList
 !
 
@@ -2158,7 +2158,7 @@ renderFailuresOn: html
 renderResultsOn: html
 	statusDiv := html div.
 	html with: self progressBar.
-	methodsList := html ul class: 'jt_column sunit results'.
+	methodsList := html ul class: 'amber_column sunit results'.
 	self updateMethodsList.
 	self updateStatusDiv
 ! !

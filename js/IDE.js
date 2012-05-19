@@ -95,11 +95,11 @@ selector: "renderOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
+(self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["amber_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
 smalltalk.send(self, "_updateNodes", []);
 return self;},
 args: ["html"],
-source: "renderOn: html\x0a\x09ul := html ul\x0a\x09\x09class: 'jt_column browser classes';\x0a\x09\x09yourself.\x0a\x09self updateNodes",
+source: "renderOn: html\x0a\x09ul := html ul\x0a\x09\x09class: 'amber_column browser classes';\x0a\x09\x09yourself.\x0a\x09self updateNodes",
 messageSends: ["class:", "yourself", "ul", "updateNodes"],
 referencedClasses: []
 }),
@@ -2191,10 +2191,10 @@ selector: "renderTopPanelOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser packages"]));(function($rec){smalltalk.send($rec, "_class_", ["jt_packagesButtons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Rename package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename"]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_removePackage", []);})]);return smalltalk.send($rec, "_with_", ["Remove"]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));(self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]));smalltalk.send(self['@classesList'], "_renderOn_", [html]);(self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]));(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]));(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column browser packages"]));(function($rec){smalltalk.send($rec, "_class_", ["jt_packagesButtons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Rename package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename"]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_removePackage", []);})]);return smalltalk.send($rec, "_with_", ["Remove"]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));(self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]));smalltalk.send(self['@classesList'], "_renderOn_", [html]);(self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column browser protocols"]));(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column browser methods"]));(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 return self;},
 args: ["html"],
-source: "renderTopPanelOn: html\x0a\x09html div \x0a\x09\x09class: 'top'; \x0a\x09\x09with: [\x0a\x09\x09\x09packagesList := html ul class: 'jt_column browser packages'.\x0a          \x09\x09html div class: 'jt_packagesButtons'; with: [\x0a\x09\x09\x09\x09html button \x0a\x09\x09\x09\x09\x09title: 'Commit classes in this package to disk';\x0a\x09\x09\x09\x09\x09onClick: [self commitPackage];\x0a\x09\x09\x09\x09\x09with: 'Commit'.\x0a        \x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Rename package';\x0a\x09\x09\x09\x09\x09onClick: [self renamePackage];\x0a\x09\x09\x09\x09\x09with: 'Rename'.\x0a        \x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Remove this package from the system';\x0a\x09\x09\x09\x09\x09onClick: [self removePackage];\x0a\x09\x09\x09\x09\x09with: 'Remove'].\x0a\x09\x09\x09classesList := ClassesList on: self.\x0a\x09\x09\x09classesList renderOn: html.\x0a\x09\x09\x09protocolsList := html ul class: 'jt_column browser protocols'.\x0a\x09\x09\x09methodsList := html ul class: 'jt_column browser methods'.\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09updateCategoriesList;\x0a\x09\x09\x09\x09updateClassesList;\x0a\x09\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09\x09updateMethodsList.\x0a\x09\x09\x09html div class: 'jt_clear']",
+source: "renderTopPanelOn: html\x0a\x09html div \x0a\x09\x09class: 'top'; \x0a\x09\x09with: [\x0a\x09\x09\x09packagesList := html ul class: 'amber_column browser packages'.\x0a          \x09\x09html div class: 'jt_packagesButtons'; with: [\x0a\x09\x09\x09\x09html button \x0a\x09\x09\x09\x09\x09title: 'Commit classes in this package to disk';\x0a\x09\x09\x09\x09\x09onClick: [self commitPackage];\x0a\x09\x09\x09\x09\x09with: 'Commit'.\x0a        \x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Rename package';\x0a\x09\x09\x09\x09\x09onClick: [self renamePackage];\x0a\x09\x09\x09\x09\x09with: 'Rename'.\x0a        \x09\x09\x09html button\x0a\x09\x09\x09\x09\x09title: 'Remove this package from the system';\x0a\x09\x09\x09\x09\x09onClick: [self removePackage];\x0a\x09\x09\x09\x09\x09with: 'Remove'].\x0a\x09\x09\x09classesList := ClassesList on: self.\x0a\x09\x09\x09classesList renderOn: html.\x0a\x09\x09\x09protocolsList := html ul class: 'amber_column browser protocols'.\x0a\x09\x09\x09methodsList := html ul class: 'amber_column browser methods'.\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09updateCategoriesList;\x0a\x09\x09\x09\x09updateClassesList;\x0a\x09\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09\x09updateMethodsList.\x0a\x09\x09\x09html div class: 'jt_clear']",
 messageSends: ["class:", "with:", "ul", "title:", "onClick:", "commitPackage", "button", "renamePackage", "removePackage", "div", "on:", "renderOn:", "updateCategoriesList", "updateClassesList", "updateProtocolsList", "updateMethodsList"],
 referencedClasses: ["ClassesList"]
 }),
@@ -2808,12 +2808,12 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["jt_sourceCode debugger"]);return smalltalk.send($rec, "_with_", [(function(){(self['@sourceArea']=smalltalk.send((smalltalk.SourceArea || SourceArea), "_new", []));return smalltalk.send(self['@sourceArea'], "_renderOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
-(self['@ul2']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column debugger variables"]));
-(self['@inspector']=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_column debugger inspector"]));
+(self['@ul2']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column debugger variables"]));
+(self['@inspector']=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["amber_column debugger inspector"]));
 smalltalk.send(self['@sourceArea'], "_onKeyUp_", [(function(){return smalltalk.send(self, "_updateStatus", []);})]);
 return self;},
 args: ["html"],
-source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'jt_sourceCode debugger';\x0a\x09\x09with: [\x0a\x09\x09\x09sourceArea := SourceArea new.\x0a\x09\x09\x09sourceArea renderOn: html].\x0a\x09ul2 := html ul class: 'jt_column debugger variables'.\x0a\x09inspector := html div class: 'jt_column debugger inspector'.\x0a\x09sourceArea\x0a\x09\x09onKeyUp: [self updateStatus]",
+source: "renderBottomPanelOn: html\x0a\x09html div\x0a\x09\x09class: 'jt_sourceCode debugger';\x0a\x09\x09with: [\x0a\x09\x09\x09sourceArea := SourceArea new.\x0a\x09\x09\x09sourceArea renderOn: html].\x0a\x09ul2 := html ul class: 'amber_column debugger variables'.\x0a\x09inspector := html div class: 'amber_column debugger inspector'.\x0a\x09sourceArea\x0a\x09\x09onKeyUp: [self updateStatus]",
 messageSends: ["class:", "with:", "new", "renderOn:", "div", "ul", "onKeyUp:", "updateStatus"],
 referencedClasses: ["SourceArea"]
 }),
@@ -2886,10 +2886,10 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 (self['@selectedContext']=smalltalk.send(smalltalk.send(self, "_error", []), "_context", []));
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["label"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_error", []), "_messageText", [])]);})(smalltalk.send(html, "_div", []));return (self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column debugger contexts"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(smalltalk.send(self, "_error", []), "_context", []), html]);})]);})(smalltalk.send(html, "_ul", [])));})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["label"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_error", []), "_messageText", [])]);})(smalltalk.send(html, "_div", []));return (self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["amber_column debugger contexts"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(smalltalk.send(self, "_error", []), "_context", []), html]);})]);})(smalltalk.send(html, "_ul", [])));})]);})(smalltalk.send(html, "_div", []));
 return self;},
 args: ["html"],
-source: "renderTopPanelOn: html\x0a\x09selectedContext := self error context.\x0a\x09html div \x0a\x09\x09class: 'top'; \x0a\x09\x09with: [\x0a\x09\x09\x09html div \x0a\x09\x09\x09\x09class: 'label';\x0a\x09\x09\x09\x09with: self error messageText.\x0a\x09\x09\x09ul := html ul \x0a\x09\x09\x09\x09class: 'jt_column debugger contexts';\x0a\x09\x09\x09\x09with: [self renderContext: self error context on: html]]",
+source: "renderTopPanelOn: html\x0a\x09selectedContext := self error context.\x0a\x09html div \x0a\x09\x09class: 'top'; \x0a\x09\x09with: [\x0a\x09\x09\x09html div \x0a\x09\x09\x09\x09class: 'label';\x0a\x09\x09\x09\x09with: self error messageText.\x0a\x09\x09\x09ul := html ul \x0a\x09\x09\x09\x09class: 'amber_column debugger contexts';\x0a\x09\x09\x09\x09with: [self renderContext: self error context on: html]]",
 messageSends: ["context", "error", "class:", "with:", "messageText", "div", "renderContext:on:", "ul"],
 referencedClasses: []
 }),
@@ -3377,11 +3377,11 @@ selector: "renderTopPanelOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@variablesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column variables"]));(self['@valueTextarea']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column value"]);return smalltalk.send($rec, "_at_put_", ["readonly", "readonly"]);})(smalltalk.send(html, "_textarea", [])));(function($rec){smalltalk.send($rec, "_class_", ["amber_tabs inspector"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector refresh"]);smalltalk.send($rec, "_with_", ["Refresh"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_refresh", []);})]);})(smalltalk.send(html, "_button", []));return (self['@diveButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector dive"]);smalltalk.send($rec, "_with_", ["Dive"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_dive", []);})]);})(smalltalk.send(html, "_button", [])));})]);})(smalltalk.send(html, "_div", []));return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@variablesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column variables"]));(self['@valueTextarea']=(function($rec){smalltalk.send($rec, "_class_", ["amber_column value"]);return smalltalk.send($rec, "_at_put_", ["readonly", "readonly"]);})(smalltalk.send(html, "_textarea", [])));(function($rec){smalltalk.send($rec, "_class_", ["amber_tabs inspector"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector refresh"]);smalltalk.send($rec, "_with_", ["Refresh"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_refresh", []);})]);})(smalltalk.send(html, "_button", []));return (self['@diveButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector dive"]);smalltalk.send($rec, "_with_", ["Dive"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_dive", []);})]);})(smalltalk.send(html, "_button", [])));})]);})(smalltalk.send(html, "_div", []));return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 (function($rec){smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateValueTextarea", []);})(self);
 return self;},
 args: ["html"],
-source: "renderTopPanelOn: html\x0a\x09html div \x0a\x09\x09class: 'top'; \x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'jt_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'jt_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [self refresh].\x0a\x09\x09\x09\x09diveButton := html button \x0a\x09\x09\x09\x09\x09class: 'jt_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive'; \x0a\x09\x09\x09\x09\x09onClick: [self dive]].\x0a\x09\x09\x09html div class: 'jt_clear'].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
+source: "renderTopPanelOn: html\x0a\x09html div \x0a\x09\x09class: 'top'; \x0a\x09\x09with: [\x0a\x09\x09\x09variablesList := html ul class: 'amber_column variables'.\x0a\x09\x09\x09valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.\x0a\x09\x09\x09html div class: 'amber_tabs inspector'; with: [\x0a\x09\x09\x09\x09html button\x0a\x09\x09\x09\x09\x09class: 'jt_button inspector refresh';\x0a\x09\x09\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09\x09\x09onClick: [self refresh].\x0a\x09\x09\x09\x09diveButton := html button \x0a\x09\x09\x09\x09\x09class: 'jt_button inspector dive';\x0a\x09\x09\x09\x09\x09with: 'Dive'; \x0a\x09\x09\x09\x09\x09onClick: [self dive]].\x0a\x09\x09\x09html div class: 'jt_clear'].\x0a\x09self\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateValueTextarea.",
 messageSends: ["class:", "with:", "ul", "at:put:", "textarea", "onClick:", "refresh", "button", "dive", "div", "updateVariablesList", "updateValueTextarea"],
 referencedClasses: []
 }),
@@ -3808,11 +3808,11 @@ selector: "renderImplementorsOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@implementorsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column implementors"]));
+(self['@implementorsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column implementors"]));
 smalltalk.send(self, "_updateImplementorsList", []);
 return self;},
 args: ["html"],
-source: "renderImplementorsOn: html\x0a\x09implementorsList := html ul class: 'jt_column implementors'.\x0a\x09self updateImplementorsList",
+source: "renderImplementorsOn: html\x0a\x09implementorsList := html ul class: 'amber_column implementors'.\x0a\x09self updateImplementorsList",
 messageSends: ["class:", "ul", "updateImplementorsList"],
 referencedClasses: []
 }),
@@ -3843,11 +3843,11 @@ selector: "renderMatchesOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@matchesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column matches"]));
+(self['@matchesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column matches"]));
 smalltalk.send(self, "_updateMatchesList", []);
 return self;},
 args: ["html"],
-source: "renderMatchesOn: html\x0a\x09matchesList := html ul class: 'jt_column matches'.\x0a\x09self updateMatchesList",
+source: "renderMatchesOn: html\x0a\x09matchesList := html ul class: 'amber_column matches'.\x0a\x09self updateMatchesList",
 messageSends: ["class:", "ul", "updateMatchesList"],
 referencedClasses: []
 }),
@@ -3860,11 +3860,11 @@ selector: "renderReferencedClassesOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@referencedClassesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column referenced_classes"]));
+(self['@referencedClassesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column referenced_classes"]));
 smalltalk.send(self, "_updateReferencedClassesList", []);
 return self;},
 args: ["html"],
-source: "renderReferencedClassesOn: html\x0a\x09referencedClassesList := html ul class: 'jt_column referenced_classes'.\x0a\x09self updateReferencedClassesList",
+source: "renderReferencedClassesOn: html\x0a\x09referencedClassesList := html ul class: 'amber_column referenced_classes'.\x0a\x09self updateReferencedClassesList",
 messageSends: ["class:", "ul", "updateReferencedClassesList"],
 referencedClasses: []
 }),
@@ -3877,11 +3877,11 @@ selector: "renderSendersOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@sendersList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column senders"]));
+(self['@sendersList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column senders"]));
 smalltalk.send(self, "_updateSendersList", []);
 return self;},
 args: ["html"],
-source: "renderSendersOn: html\x0a\x09sendersList := html ul class: 'jt_column senders'.\x0a\x09self updateSendersList",
+source: "renderSendersOn: html\x0a\x09sendersList := html ul class: 'amber_column senders'.\x0a\x09self updateSendersList",
 messageSends: ["class:", "ul", "updateSendersList"],
 referencedClasses: []
 }),
@@ -4359,11 +4359,11 @@ selector: "renderCategoriesOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit packages"]));
+(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column sunit packages"]));
 smalltalk.send(self, "_updateCategoriesList", []);
 return self;},
 args: ["html"],
-source: "renderCategoriesOn: html\x0a\x09packagesList := html ul class: 'jt_column sunit packages'.\x0a\x09self updateCategoriesList",
+source: "renderCategoriesOn: html\x0a\x09packagesList := html ul class: 'amber_column sunit packages'.\x0a\x09self updateCategoriesList",
 messageSends: ["class:", "ul", "updateCategoriesList"],
 referencedClasses: []
 }),
@@ -4376,11 +4376,11 @@ selector: "renderClassesOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-(self['@classesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit classes"]));
+(self['@classesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column sunit classes"]));
 smalltalk.send(self, "_updateClassesList", []);
 return self;},
 args: ["html"],
-source: "renderClassesOn: html\x0a\x09classesList := html ul class: 'jt_column sunit classes'.\x0a\x09self updateClassesList",
+source: "renderClassesOn: html\x0a\x09classesList := html ul class: 'amber_column sunit classes'.\x0a\x09self updateClassesList",
 messageSends: ["class:", "ul", "updateClassesList"],
 referencedClasses: []
 }),
@@ -4427,12 +4427,12 @@ fn: function (html){
 var self=this;
 (self['@statusDiv']=smalltalk.send(html, "_div", []));
 smalltalk.send(html, "_with_", [smalltalk.send(self, "_progressBar", [])]);
-(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit results"]));
+(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column sunit results"]));
 smalltalk.send(self, "_updateMethodsList", []);
 smalltalk.send(self, "_updateStatusDiv", []);
 return self;},
 args: ["html"],
-source: "renderResultsOn: html\x0a\x09statusDiv := html div.\x0a\x09html with: self progressBar.\x0a\x09methodsList := html ul class: 'jt_column sunit results'.\x0a\x09self updateMethodsList.\x0a\x09self updateStatusDiv",
+source: "renderResultsOn: html\x0a\x09statusDiv := html div.\x0a\x09html with: self progressBar.\x0a\x09methodsList := html ul class: 'amber_column sunit results'.\x0a\x09self updateMethodsList.\x0a\x09self updateStatusDiv",
 messageSends: ["div", "with:", "progressBar", "class:", "ul", "updateMethodsList", "updateStatusDiv"],
 referencedClasses: []
 }),

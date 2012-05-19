@@ -69,7 +69,7 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-(self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
+(self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["amber_column browser classes"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(html, "_ul", [])));
 smalltalk.send(self, "_updateNodes", []);
 return self;}
 }),
@@ -1570,7 +1570,7 @@ smalltalk.method({
 selector: "renderTopPanelOn:",
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser packages"]));(function($rec){smalltalk.send($rec, "_class_", ["jt_packagesButtons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Rename package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename"]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_removePackage", []);})]);return smalltalk.send($rec, "_with_", ["Remove"]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));(self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]));smalltalk.send(self['@classesList'], "_renderOn_", [html]);(self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser protocols"]));(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column browser methods"]));(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column browser packages"]));(function($rec){smalltalk.send($rec, "_class_", ["jt_packagesButtons"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_title_", ["Commit classes in this package to disk"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_commitPackage", []);})]);return smalltalk.send($rec, "_with_", ["Commit"]);})(smalltalk.send(html, "_button", []));(function($rec){smalltalk.send($rec, "_title_", ["Rename package"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_renamePackage", []);})]);return smalltalk.send($rec, "_with_", ["Rename"]);})(smalltalk.send(html, "_button", []));return (function($rec){smalltalk.send($rec, "_title_", ["Remove this package from the system"]);smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_removePackage", []);})]);return smalltalk.send($rec, "_with_", ["Remove"]);})(smalltalk.send(html, "_button", []));})]);})(smalltalk.send(html, "_div", []));(self['@classesList']=smalltalk.send((smalltalk.ClassesList || ClassesList), "_on_", [self]));smalltalk.send(self['@classesList'], "_renderOn_", [html]);(self['@protocolsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column browser protocols"]));(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column browser methods"]));(function($rec){smalltalk.send($rec, "_updateCategoriesList", []);smalltalk.send($rec, "_updateClassesList", []);smalltalk.send($rec, "_updateProtocolsList", []);return smalltalk.send($rec, "_updateMethodsList", []);})(self);return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
 smalltalk.Browser);
@@ -2002,8 +2002,8 @@ selector: "renderBottomPanelOn:",
 fn: function (html){
 var self=this;
 (function($rec){smalltalk.send($rec, "_class_", ["jt_sourceCode debugger"]);return smalltalk.send($rec, "_with_", [(function(){(self['@sourceArea']=smalltalk.send((smalltalk.SourceArea || SourceArea), "_new", []));return smalltalk.send(self['@sourceArea'], "_renderOn_", [html]);})]);})(smalltalk.send(html, "_div", []));
-(self['@ul2']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column debugger variables"]));
-(self['@inspector']=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_column debugger inspector"]));
+(self['@ul2']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column debugger variables"]));
+(self['@inspector']=smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["amber_column debugger inspector"]));
 smalltalk.send(self['@sourceArea'], "_onKeyUp_", [(function(){return smalltalk.send(self, "_updateStatus", []);})]);
 return self;}
 }),
@@ -2060,7 +2060,7 @@ selector: "renderTopPanelOn:",
 fn: function (html){
 var self=this;
 (self['@selectedContext']=smalltalk.send(smalltalk.send(self, "_error", []), "_context", []));
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["label"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_error", []), "_messageText", [])]);})(smalltalk.send(html, "_div", []));return (self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column debugger contexts"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(smalltalk.send(self, "_error", []), "_context", []), html]);})]);})(smalltalk.send(html, "_ul", [])));})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["label"]);return smalltalk.send($rec, "_with_", [smalltalk.send(smalltalk.send(self, "_error", []), "_messageText", [])]);})(smalltalk.send(html, "_div", []));return (self['@ul']=(function($rec){smalltalk.send($rec, "_class_", ["amber_column debugger contexts"]);return smalltalk.send($rec, "_with_", [(function(){return smalltalk.send(self, "_renderContext_on_", [smalltalk.send(smalltalk.send(self, "_error", []), "_context", []), html]);})]);})(smalltalk.send(html, "_ul", [])));})]);})(smalltalk.send(html, "_div", []));
 return self;}
 }),
 smalltalk.Debugger);
@@ -2406,7 +2406,7 @@ smalltalk.method({
 selector: "renderTopPanelOn:",
 fn: function (html){
 var self=this;
-(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@variablesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column variables"]));(self['@valueTextarea']=(function($rec){smalltalk.send($rec, "_class_", ["jt_column value"]);return smalltalk.send($rec, "_at_put_", ["readonly", "readonly"]);})(smalltalk.send(html, "_textarea", [])));(function($rec){smalltalk.send($rec, "_class_", ["amber_tabs inspector"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector refresh"]);smalltalk.send($rec, "_with_", ["Refresh"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_refresh", []);})]);})(smalltalk.send(html, "_button", []));return (self['@diveButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector dive"]);smalltalk.send($rec, "_with_", ["Dive"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_dive", []);})]);})(smalltalk.send(html, "_button", [])));})]);})(smalltalk.send(html, "_div", []));return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
+(function($rec){smalltalk.send($rec, "_class_", ["top"]);return smalltalk.send($rec, "_with_", [(function(){(self['@variablesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column variables"]));(self['@valueTextarea']=(function($rec){smalltalk.send($rec, "_class_", ["amber_column value"]);return smalltalk.send($rec, "_at_put_", ["readonly", "readonly"]);})(smalltalk.send(html, "_textarea", [])));(function($rec){smalltalk.send($rec, "_class_", ["amber_tabs inspector"]);return smalltalk.send($rec, "_with_", [(function(){(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector refresh"]);smalltalk.send($rec, "_with_", ["Refresh"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_refresh", []);})]);})(smalltalk.send(html, "_button", []));return (self['@diveButton']=(function($rec){smalltalk.send($rec, "_class_", ["jt_button inspector dive"]);smalltalk.send($rec, "_with_", ["Dive"]);return smalltalk.send($rec, "_onClick_", [(function(){return smalltalk.send(self, "_dive", []);})]);})(smalltalk.send(html, "_button", [])));})]);})(smalltalk.send(html, "_div", []));return smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["jt_clear"]);})]);})(smalltalk.send(html, "_div", []));
 (function($rec){smalltalk.send($rec, "_updateVariablesList", []);return smalltalk.send($rec, "_updateValueTextarea", []);})(self);
 return self;}
 }),
@@ -2707,7 +2707,7 @@ smalltalk.method({
 selector: "renderImplementorsOn:",
 fn: function (html){
 var self=this;
-(self['@implementorsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column implementors"]));
+(self['@implementorsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column implementors"]));
 smalltalk.send(self, "_updateImplementorsList", []);
 return self;}
 }),
@@ -2732,7 +2732,7 @@ smalltalk.method({
 selector: "renderMatchesOn:",
 fn: function (html){
 var self=this;
-(self['@matchesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column matches"]));
+(self['@matchesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column matches"]));
 smalltalk.send(self, "_updateMatchesList", []);
 return self;}
 }),
@@ -2744,7 +2744,7 @@ smalltalk.method({
 selector: "renderReferencedClassesOn:",
 fn: function (html){
 var self=this;
-(self['@referencedClassesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column referenced_classes"]));
+(self['@referencedClassesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column referenced_classes"]));
 smalltalk.send(self, "_updateReferencedClassesList", []);
 return self;}
 }),
@@ -2756,7 +2756,7 @@ smalltalk.method({
 selector: "renderSendersOn:",
 fn: function (html){
 var self=this;
-(self['@sendersList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column senders"]));
+(self['@sendersList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column senders"]));
 smalltalk.send(self, "_updateSendersList", []);
 return self;}
 }),
@@ -3093,7 +3093,7 @@ smalltalk.method({
 selector: "renderCategoriesOn:",
 fn: function (html){
 var self=this;
-(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit packages"]));
+(self['@packagesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column sunit packages"]));
 smalltalk.send(self, "_updateCategoriesList", []);
 return self;}
 }),
@@ -3105,7 +3105,7 @@ smalltalk.method({
 selector: "renderClassesOn:",
 fn: function (html){
 var self=this;
-(self['@classesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit classes"]));
+(self['@classesList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column sunit classes"]));
 smalltalk.send(self, "_updateClassesList", []);
 return self;}
 }),
@@ -3141,7 +3141,7 @@ fn: function (html){
 var self=this;
 (self['@statusDiv']=smalltalk.send(html, "_div", []));
 smalltalk.send(html, "_with_", [smalltalk.send(self, "_progressBar", [])]);
-(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["jt_column sunit results"]));
+(self['@methodsList']=smalltalk.send(smalltalk.send(html, "_ul", []), "_class_", ["amber_column sunit results"]));
 smalltalk.send(self, "_updateMethodsList", []);
 smalltalk.send(self, "_updateStatusDiv", []);
 return self;}
