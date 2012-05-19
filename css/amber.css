@@ -2,7 +2,7 @@ body.jtalkBody {
     margin-bottom: 350px;
 }
 
-#jtalkTabs, #jtalk .jt_tabs {
+#jtalkTabs, #amber .jt_tabs {
     margin: 0;
     padding: 0;
     background: url("../images/sprite.amber.png") #DBD9C9 0 -27px;
@@ -12,66 +12,66 @@ body.jtalkBody {
     font-weight: bold;
 }
 
-#jtalkTabs li, #jtalk .jt_tabs li {
+#jtalkTabs li, #amber .jt_tabs li {
     padding: 0 1px;
     cursor: pointer;
     color: #565656;
 	max-width: 200px;
 	float:left;
 }
-#jtalk li {
+#amber li {
 	line-height: 14px;
 
 }
-#jtalk .ltab, #jtalk .rtab, #jtalk .mtab {
+#amber .ltab, #amber .rtab, #amber .mtab {
     height: 22px;
     float: left;
 }
 
-#jtalk .ltab, #jtalk .rtab {
+#amber .ltab, #amber .rtab {
     width: 8px;
 }
 
-#jtalk .rtab {
+#amber .rtab {
     margin-right: 1px;
 }
 
-#jtalk .mtab {
+#amber .mtab {
     line-height: 20px;
 }
 
 #jtalkTabs li:hover .ltab,
-#jtalk .jt_tabs li:hover .ltab {
+#amber .jt_tabs li:hover .ltab {
     background: url("../images/sprite.amber.png") -16px -96px;
 }
 
 #jtalkTabs li:hover .mtab,
-#jtalk .jt_tabs li:hover .mtab {
+#amber .jt_tabs li:hover .mtab {
     background: url("../images/sprite.amber.png") 0 -73px;
 }
 
 #jtalkTabs li:hover .rtab,
-#jtalk .jt_tabs li:hover .rtab {
+#amber .jt_tabs li:hover .rtab {
     background: url("../images/sprite.amber.png") -24px -96px;
 }
 
 #jtalkTabs li.selected,
-#jtalk .jt_tabs li.selected {
+#amber .jt_tabs li.selected {
     color: #111;
 }
 
 #jtalkTabs li.selected .ltab,
-#jtalk .jt_tabs li.selected .ltab {
+#amber .jt_tabs li.selected .ltab {
     background: url("../images/sprite.amber.png") 0px -96px;
 }
 
 #jtalkTabs li.selected .mtab,
-#jtalk .jt_tabs li.selected .mtab {
+#amber .jt_tabs li.selected .mtab {
     background: url("../images/sprite.amber.png") 0 -50px;
 }
 
 #jtalkTabs li.selected .rtab,
-#jtalk .jt_tabs li.selected .rtab {
+#amber .jt_tabs li.selected .rtab {
     background: url("../images/sprite.amber.png") -8px -96px;
 }
 
@@ -80,7 +80,7 @@ body.jtalkBody {
     color: #aaa;
 }
 
-#jtalk {
+#amber {
        position: fixed;
        bottom: 0;
        left: 0;
@@ -89,12 +89,12 @@ body.jtalkBody {
        z-index: 1000;
 }
 
-#jtalk, #jtalk button, #jtalk input, #jtalk select {
+#amber, #amber button, #amber input, #amber select {
        font-family: Lucida Grande, Tahoma, sans-serif;
        font-size: 11px;
 }
 
-#jtalk #logo {
+#amber #logo {
     position: absolute;
     top: 3px;
     left: 8px;
@@ -103,18 +103,18 @@ body.jtalkBody {
     background: url("../images/tinylogo.amber.png") top left no-repeat;
 }
 
-#jtalk #jt_toolbar {
+#amber #jt_toolbar {
     height: 27px;
     background: url("../images/sprite.amber.png") 0 0;
 }
 
-#jtalk #jt_toolbar input {
+#amber #jt_toolbar input {
     margin-left: 50px;
     width: 250px;
     margin-top: 5px;
 }
 
-#jtalk #jt_toolbar #jt_close {
+#amber #jt_toolbar #jt_close {
     position: absolute;
     right: 4px;
     top: 6px;
@@ -124,12 +124,12 @@ body.jtalkBody {
     cursor: pointer;
 }
 
-#jtalk #jt_toolbar #jt_close:hover {
+#amber #jt_toolbar #jt_close:hover {
     background: url('../images/offHover.amber.png');
 }
 
 
-#jtalk .ui-resizable-handle {
+#amber .ui-resizable-handle {
     background-color: transparent;
     top: 0;
     cursor: row-resize;
@@ -204,7 +204,7 @@ body.jtalkBody {
     background: #ddd;
 }
 
-.jtalkTool select, #jtalk input {
+.jtalkTool select, #amber input {
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
     border-right: 1px solid #fff;
@@ -336,12 +336,12 @@ body.jtalkBody {
     color: white;
 }
 
-#jtalk .jtalkTool .jt_tabs {
+#amber .jtalkTool .jt_tabs {
     top: 150px;
     position: absolute;
 }
 
-#jtalk .jtalkTool .jt_tabs.jt_browser {
+#amber .jtalkTool .jt_tabs.jt_browser {
     padding-left: 25%;
 }
 

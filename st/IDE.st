@@ -351,7 +351,7 @@ tabs
 
 close
     opened ifTrue: [
-	'#jtalk' asJQuery hide.
+	'#amber' asJQuery hide.
 	ul asJQuery hide.
 	selectedTab hide.
 	self removeBodyMargin.
@@ -371,7 +371,7 @@ newBrowserTab
 !
 
 onResize: aBlock
-    <jQuery('#jtalk').resizable({
+    <jQuery('#amber').resizable({
 	handles: 'n', 
 	resize: aBlock,
 	minHeight: 230
@@ -385,7 +385,7 @@ onWindowResize: aBlock
 open
     opened ifFalse: [
 	'body' asJQuery addClass: 'jtalkBody'.
-	'#jtalk' asJQuery show.
+	'#amber' asJQuery show.
 	ul asJQuery show.
 	self updateBodyMargin.
 	selectedTab show.
@@ -419,18 +419,18 @@ setBodyMargin: anInteger
 !
 
 updateBodyMargin
-    self setBodyMargin: '#jtalk' asJQuery height
+    self setBodyMargin: '#amber' asJQuery height
 !
 
 updatePosition
-    <jQuery('#jtalk').css('top', '').css('bottom', '0px')>
+    <jQuery('#amber').css('top', '').css('bottom', '0px')>
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
 
 addTab: aWidget
     self tabs add: aWidget.
-    aWidget appendToJQuery: '#jtalk' asJQuery.
+    aWidget appendToJQuery: '#amber' asJQuery.
     aWidget hide
 !
 
@@ -444,10 +444,10 @@ removeTab: aWidget
 initialize
     super initialize.
     opened := true.
-    [:html | html div id: 'jtalk'] appendToJQuery: 'body' asJQuery.
+    [:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
     'body' asJQuery 
 	addClass: 'jtalkBody'.
-    self appendToJQuery: '#jtalk' asJQuery.
+    self appendToJQuery: '#amber' asJQuery.
     self 
 	addTab: IDETranscript current;
 	addTab: Workspace new;
