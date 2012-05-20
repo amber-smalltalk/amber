@@ -1658,6 +1658,34 @@ referencedClasses: ["Set", "Error"]
 smalltalk.SetTest);
 
 smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+category: 'tests',
+fn: function (){
+var self=this;
+var set=nil;
+(set=smalltalk.send((smalltalk.Set || Set), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a Set ()", smalltalk.send(set, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(set);
+smalltalk.send(self, "_assert_equals_", ["a Set (1 3)", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", ["foo"]);
+smalltalk.send(self, "_assert_equals_", ["a Set (1 3 'foo')", smalltalk.send(set, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(set);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo')", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo' 3)", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo' 3)", smalltalk.send(set, "_printString", [])]);
+return self;},
+args: [],
+source: "testPrintString\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09self assert: 'a Set ()' equals: ( set printString ).\x0a\x09set add: 1; add: 3.\x0a\x09self assert: 'a Set (1 3)' equals: ( set printString ).\x0a\x09set add: 'foo'.\x0a\x09self assert: 'a Set (1 3 ''foo'')' equals: ( set printString ).\x0a\x09set remove: 1; remove: 3.\x0a\x09self assert: 'a Set (''foo'')' equals: ( set printString ).\x0a\x09set add: 3.\x0a\x09self assert: 'a Set (''foo'' 3)' equals: ( set printString ).\x0a\x09set add: 3.\x0a\x09self assert: 'a Set (''foo'' 3)' equals: ( set printString ).",
+messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"],
+referencedClasses: ["Set"]
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
 "_testSize",
 smalltalk.method({
 selector: "testSize",

@@ -811,6 +811,22 @@ testAt
 	self should: [Set new at: 1 put: 2] raise: Error
 !
 
+testPrintString
+	| set |
+	set := Set new.
+	self assert: 'a Set ()' equals: ( set printString ).
+	set add: 1; add: 3.
+	self assert: 'a Set (1 3)' equals: ( set printString ).
+	set add: 'foo'.
+	self assert: 'a Set (1 3 ''foo'')' equals: ( set printString ).
+	set remove: 1; remove: 3.
+	self assert: 'a Set (''foo'')' equals: ( set printString ).
+	set add: 3.
+	self assert: 'a Set (''foo'' 3)' equals: ( set printString ).
+	set add: 3.
+	self assert: 'a Set (''foo'' 3)' equals: ( set printString ).
+!
+
 testSize
 	self assert: Set new size equals: 0.
 	self assert: (Set withAll: #(1 2 3 4)) size equals: 4.
