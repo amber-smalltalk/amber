@@ -1391,6 +1391,18 @@ initialize
 	elements := #()
 ! !
 
+!Set methodsFor: 'printing'!
+
+printString
+	"print the contents of the Set into a string and return it"
+	^String streamContents: [:aStream |
+		aStream
+			nextPutAll: super printString, ' ('.
+		self do: [:each | aStream nextPutAll: each printString]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream nextPutAll: ')'.]
+! !
+
 !Set methodsFor: 'testing'!
 
 includes: anObject
