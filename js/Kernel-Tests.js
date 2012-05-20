@@ -55,6 +55,34 @@ referencedClasses: []
 }),
 smalltalk.ArrayTest);
 
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+category: 'testing',
+fn: function (){
+var self=this;
+var array=nil;
+(array=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a Array ()", smalltalk.send(array, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(array);
+smalltalk.send(self, "_assert_equals_", ["a Array (1 3)", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_add_", ["foo"]);
+smalltalk.send(self, "_assert_equals_", ["a Array (1 3 'foo')", smalltalk.send(array, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(array);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo')", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_addLast_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3)", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_addLast_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3 3)", smalltalk.send(array, "_printString", [])]);
+return self;},
+args: [],
+source: "testPrintString\x0a\x09| array |\x0a\x09array := Array new.\x0a\x09self assert: 'a Array ()' equals: ( array printString ).\x0a\x09array add: 1; add: 3.\x0a\x09self assert: 'a Array (1 3)' equals: ( array printString ).\x0a\x09array add: 'foo'.\x0a\x09self assert: 'a Array (1 3 ''foo'')' equals: ( array printString ).\x0a\x09array remove: 1; remove: 3.\x0a\x09self assert: 'a Array (''foo'')' equals: ( array printString ).\x0a\x09array addLast: 3.\x0a\x09self assert: 'a Array (''foo'' 3)' equals: ( array printString ).\x0a\x09array addLast: 3.\x0a\x09self assert: 'a Array (''foo'' 3 3)' equals: ( array printString ).",
+messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"],
+referencedClasses: ["Array"]
+}),
+smalltalk.ArrayTest);
+
 
 
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -1626,6 +1654,34 @@ args: [],
 source: "testAt\x0a\x09self should: [Set new at: 1 put: 2] raise: Error",
 messageSends: ["should:raise:", "at:put:", "new"],
 referencedClasses: ["Set", "Error"]
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+category: 'tests',
+fn: function (){
+var self=this;
+var set=nil;
+(set=smalltalk.send((smalltalk.Set || Set), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a Set ()", smalltalk.send(set, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(set);
+smalltalk.send(self, "_assert_equals_", ["a Set (1 3)", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", ["foo"]);
+smalltalk.send(self, "_assert_equals_", ["a Set (1 3 'foo')", smalltalk.send(set, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(set);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo')", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo' 3)", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo' 3)", smalltalk.send(set, "_printString", [])]);
+return self;},
+args: [],
+source: "testPrintString\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09self assert: 'a Set ()' equals: ( set printString ).\x0a\x09set add: 1; add: 3.\x0a\x09self assert: 'a Set (1 3)' equals: ( set printString ).\x0a\x09set add: 'foo'.\x0a\x09self assert: 'a Set (1 3 ''foo'')' equals: ( set printString ).\x0a\x09set remove: 1; remove: 3.\x0a\x09self assert: 'a Set (''foo'')' equals: ( set printString ).\x0a\x09set add: 3.\x0a\x09self assert: 'a Set (''foo'' 3)' equals: ( set printString ).\x0a\x09set add: 3.\x0a\x09self assert: 'a Set (''foo'' 3)' equals: ( set printString ).",
+messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"],
+referencedClasses: ["Set"]
 }),
 smalltalk.SetTest);
 

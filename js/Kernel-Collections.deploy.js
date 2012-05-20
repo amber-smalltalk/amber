@@ -1278,12 +1278,7 @@ smalltalk.method({
 selector: "printString",
 fn: function (){
 var self=this;
-var str=nil;
-(str=smalltalk.send("", "_writeStream", []));
-smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);
-smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
-smalltalk.send(str, "_nextPutAll_", [")"]);
-return smalltalk.send(str, "_contents", []);
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.SequenceableCollection);
@@ -2664,6 +2659,17 @@ fn: function (){
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Set.superclass || nil);
 (self['@elements']=[]);
+return self;}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Set.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.Set);
