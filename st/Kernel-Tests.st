@@ -22,6 +22,22 @@ testFirstN
 
 testIfEmpty
 	self assert: 'zork' equals: ( '' ifEmpty: ['zork'] )
+!
+
+testPrintString
+	| array |
+	array := Array new.
+	self assert: 'a Array ()' equals: ( array printString ).
+	array add: 1; add: 3.
+	self assert: 'a Array (1 3)' equals: ( array printString ).
+	array add: 'foo'.
+	self assert: 'a Array (1 3 ''foo'')' equals: ( array printString ).
+	array remove: 1; remove: 3.
+	self assert: 'a Array (''foo'')' equals: ( array printString ).
+	array addLast: 3.
+	self assert: 'a Array (''foo'' 3)' equals: ( array printString ).
+	array addLast: 3.
+	self assert: 'a Array (''foo'' 3 3)' equals: ( array printString ).
 ! !
 
 TestCase subclass: #BlockClosureTest
