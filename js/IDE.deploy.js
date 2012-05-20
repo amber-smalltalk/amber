@@ -575,7 +575,7 @@ selector: "setEditorOn:",
 fn: function (aTextarea){
 var self=this;
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'jtalk',
+		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,

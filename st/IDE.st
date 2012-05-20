@@ -226,7 +226,7 @@ selectionStart: anInteger
 
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'jtalk',
+		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,

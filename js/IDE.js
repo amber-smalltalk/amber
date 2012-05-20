@@ -801,7 +801,7 @@ category: 'accessing',
 fn: function (aTextarea){
 var self=this;
 self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'jtalk',
+		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,
@@ -809,7 +809,7 @@ self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 	});
 return self;},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'jtalk',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
 referencedClasses: []
 }),
