@@ -721,14 +721,13 @@ withIndexDo: aBlock
 !SequenceableCollection methodsFor: 'printing'!
 
 printString
-	| str |
-	str := '' writeStream.
-	str nextPutAll: super printString, ' ('.
-	self 
-		do: [:each | str nextPutAll: each printString]
-		separatedBy: [str nextPutAll: ' '].
-	str nextPutAll: ')'.
-	^str contents
+	"print the contents of the SequenceableCollection into a string and return it"
+	^String streamContents: [:aStream |
+		aStream
+			nextPutAll: super printString, ' ('.
+		self do: [:each | aStream nextPutAll: each printString]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream nextPutAll: ')'.]
 ! !
 
 SequenceableCollection subclass: #Array
