@@ -453,18 +453,19 @@ select: aBlock
 !HashedCollection methodsFor: 'printing'!
 
 printString
+	"print the contents of the HashedCollection into a string and return the string"
 	^String streamContents: [:aStream|  
 		aStream 
 			nextPutAll: super printString;
 			nextPutAll: '('.
-				self associations 
-					do: [:anAssociation|  
-						aStream 
-							nextPutAll: anAssociation key printString;
-								nextPutAll: ' -> ';
-								nextPutAll: anAssociation value printString]
-							separatedBy: [aStream nextPutAll: ' , '].
-						aStream nextPutAll: ')']
+		self associations
+			do: [:anAssociation|
+				aStream
+					nextPutAll: anAssociation key printString;
+					nextPutAll: ' -> ';
+					nextPutAll: anAssociation value printString]
+			separatedBy: [aStream nextPutAll: ' , '].
+		aStream nextPutAll: ')']
 !
 
 storeOn: aStream
