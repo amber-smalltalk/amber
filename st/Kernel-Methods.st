@@ -273,6 +273,10 @@ home
 	<return self.homeContext>
 !
 
+pc
+	<return self.pc>
+!
+
 printString
 	^super printString, '(', self asString, ')'
 !

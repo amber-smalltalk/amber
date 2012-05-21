@@ -68,6 +68,12 @@ should: aBlock raise: anExceptionClass
 	self assert: ([aBlock value. false] 
 		on: anExceptionClass 
 		do: [:ex | true])
+!
+
+shouldnt: aBlock raise: anExceptionClass
+	self assert: ([aBlock value. true] 
+		on: anExceptionClass 
+		do: [:ex | false])
 ! !
 
 !TestCase class methodsFor: 'accessing'!

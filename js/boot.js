@@ -187,11 +187,11 @@ function Smalltalk(){
 
 			//Methods linking
 			for(var keys=Object.keys(methods),i=0,l=keys.length; i<l; ++i) {
-				var k = keys[i]
+				var k = keys[i];
 				if(!proto.methods[k]) {
 					proto.inheritedMethods[k] = methods[k];
 					Object.defineProperty(proto, methods[k].jsSelector, {
-						value: methods[k].fn, configurable: true // no writable - in par with ES6 methods
+						value: methods[k].fn, configurable: true, writable: true
 					});
 				}
 			}
@@ -326,7 +326,7 @@ function Smalltalk(){
 
 	st.addMethod = function(jsSelector, method, klass) {
 		Object.defineProperty(klass.fn.prototype, jsSelector, {
-			value: method.fn, configurable: true // not writable - in par with ES6 methods
+			value: method.fn, configurable: true, writable: true
 		});
 		klass.fn.prototype.methods[method.selector] = method;
 		method.methodClass = klass;
@@ -512,22 +512,24 @@ function Smalltalk(){
 	};
 };
 
-function SmalltalkMethodContext(receiver, selector, temps, home) {
-	this.receiver = receiver;
-	this.selector = selector;
-	this.temps = temps || {};
+function SmalltalkMethodContext(receiver, selector, temps, home, pc) {
+	this.receiver    = receiver;
+	this.selector    = selector;
+	this.temps       = temps || {};
 	this.homeContext = home;
+    this.pc          = pc || 1;
 };
 
 SmalltalkMethodContext.prototype.copy = function() {
 	var home = this.homeContext;
 	if(home) {home = home.copy()}
 	return new SmalltalkMethodContext(
-			this.receiver, 
-			this.selector, 
-			this.temps, 
-			home
-			);
+		this.receiver, 
+		this.selector, 
+		this.temps, 
+		home,
+        this.pc
+	);
 };
 
 /* Global Smalltalk objects. */

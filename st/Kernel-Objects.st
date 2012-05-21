@@ -83,6 +83,10 @@ size
 	self error: 'Object not indexable'
 !
 
+value
+	^ self
+!
+
 yourself
 	^self
 ! !
