@@ -22,9 +22,9 @@ amber = (function() {
     var nocache = '';
 
 	that.toggleIDE = function() {
-		if ($('#jtalk').length == 0) {
+		if ($('#amber').length == 0) {
 			smalltalk.Browser._open();
-		} else if ($('#jtalk').is(':visible')) {
+		} else if ($('#amber').is(':visible')) {
 			smalltalk.TabManager._current()._close();
 		} else {
 			smalltalk.TabManager._current()._open();
