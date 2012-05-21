@@ -304,13 +304,21 @@ at: aKey ifAbsentPut: aBlock
 !
 
 at: aKey ifPresent: aBlock
-	^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]
+	"Lookup the given key in the receiver. 
+	If it is present, answer the value of evaluating the given block with the value associated with the key. 
+	Otherwise, answer nil."
+	^(self includesKey: aKey)
+		ifTrue: [ aBlock value: (self at: aKey) ]
+		ifFalse: [ nil ]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
-	^(self basicAt: aKey)
-	    ifNil: anotherBlock
-	    ifNotNil: [aBlock value: (self at: aKey)]
+	"Lookup the given key in the receiver. 
+	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key, 
+	otherwise answer the value of absentBlock."
+	^(self includesKey: aKey)
+		ifTrue: [ aBlock value: (self at: aKey) ]
+		ifFalse: anotherBlock
 !
 
 at: aKey put: aValue
