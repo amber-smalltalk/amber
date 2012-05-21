@@ -462,18 +462,19 @@ select: aBlock
 !HashedCollection methodsFor: 'printing'!
 
 printString
+	"print the contents of the HashedCollection into a string and return the string"
 	^String streamContents: [:aStream|  
 		aStream 
 			nextPutAll: super printString;
 			nextPutAll: '('.
-				self associations 
-					do: [:anAssociation|  
-						aStream 
-							nextPutAll: anAssociation key printString;
-								nextPutAll: ' -> ';
-								nextPutAll: anAssociation value printString]
-							separatedBy: [aStream nextPutAll: ' , '].
-						aStream nextPutAll: ')']
+		self associations
+			do: [:anAssociation|
+				aStream
+					nextPutAll: anAssociation key printString;
+					nextPutAll: ' -> ';
+					nextPutAll: anAssociation value printString]
+			separatedBy: [aStream nextPutAll: ' , '].
+		aStream nextPutAll: ')']
 !
 
 storeOn: aStream
@@ -730,14 +731,13 @@ withIndexDo: aBlock
 !SequenceableCollection methodsFor: 'printing'!
 
 printString
-	| str |
-	str := '' writeStream.
-	str nextPutAll: super printString, ' ('.
-	self 
-		do: [:each | str nextPutAll: each printString]
-		separatedBy: [str nextPutAll: ' '].
-	str nextPutAll: ')'.
-	^str contents
+	"print the contents of the SequenceableCollection into a string and return it"
+	^String streamContents: [:aStream |
+		aStream
+			nextPutAll: super printString, ' ('.
+		self do: [:each | aStream nextPutAll: each printString]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream nextPutAll: ')'.]
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1398,6 +1398,18 @@ select: aBlock
 initialize
 	super initialize.
 	elements := #()
+! !
+
+!Set methodsFor: 'printing'!
+
+printString
+	"print the contents of the Set into a string and return it"
+	^String streamContents: [:aStream |
+		aStream
+			nextPutAll: super printString, ' ('.
+		self do: [:each | aStream nextPutAll: each printString]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream nextPutAll: ')'.]
 ! !
 
 !Set methodsFor: 'testing'!

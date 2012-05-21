@@ -40,6 +40,29 @@ return self;}
 }),
 smalltalk.ArrayTest);
 
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+var array=nil;
+(array=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a Array ()", smalltalk.send(array, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(array);
+smalltalk.send(self, "_assert_equals_", ["a Array (1 3)", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_add_", ["foo"]);
+smalltalk.send(self, "_assert_equals_", ["a Array (1 3 'foo')", smalltalk.send(array, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(array);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo')", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_addLast_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3)", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_addLast_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3 3)", smalltalk.send(array, "_printString", [])]);
+return self;}
+}),
+smalltalk.ArrayTest);
+
 
 
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -1205,6 +1228,29 @@ selector: "testAt",
 fn: function (){
 var self=this;
 smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send((smalltalk.Set || Set), "_new", []), "_at_put_", [(1), (2)]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+var set=nil;
+(set=smalltalk.send((smalltalk.Set || Set), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a Set ()", smalltalk.send(set, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(set);
+smalltalk.send(self, "_assert_equals_", ["a Set (1 3)", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", ["foo"]);
+smalltalk.send(self, "_assert_equals_", ["a Set (1 3 'foo')", smalltalk.send(set, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(set);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo')", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo' 3)", smalltalk.send(set, "_printString", [])]);
+smalltalk.send(set, "_add_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Set ('foo' 3)", smalltalk.send(set, "_printString", [])]);
 return self;}
 }),
 smalltalk.SetTest);

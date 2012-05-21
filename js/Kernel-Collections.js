@@ -1159,7 +1159,7 @@ var self=this;
 return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;},
 args: [],
-source: "printString\x0a\x09^String streamContents: [:aStream|  \x0a\x09\x09aStream \x0a\x09\x09\x09nextPutAll: super printString;\x0a\x09\x09\x09nextPutAll: '('.\x0a\x09\x09\x09\x09self associations \x0a\x09\x09\x09\x09\x09do: [:anAssociation|  \x0a\x09\x09\x09\x09\x09\x09aStream \x0a\x09\x09\x09\x09\x09\x09\x09nextPutAll: anAssociation key printString;\x0a\x09\x09\x09\x09\x09\x09\x09\x09nextPutAll: ' -> ';\x0a\x09\x09\x09\x09\x09\x09\x09\x09nextPutAll: anAssociation value printString]\x0a\x09\x09\x09\x09\x09\x09\x09separatedBy: [aStream nextPutAll: ' , '].\x0a\x09\x09\x09\x09\x09\x09aStream nextPutAll: ')']",
+source: "printString\x0a\x09\x22print the contents of the HashedCollection into a string and return the string\x22\x0a\x09^String streamContents: [:aStream|  \x0a\x09\x09aStream \x0a\x09\x09\x09nextPutAll: super printString;\x0a\x09\x09\x09nextPutAll: '('.\x0a\x09\x09self associations\x0a\x09\x09\x09do: [:anAssociation|\x0a\x09\x09\x09\x09aStream\x0a\x09\x09\x09\x09\x09nextPutAll: anAssociation key printString;\x0a\x09\x09\x09\x09\x09nextPutAll: ' -> ';\x0a\x09\x09\x09\x09\x09nextPutAll: anAssociation value printString]\x0a\x09\x09\x09separatedBy: [aStream nextPutAll: ' , '].\x0a\x09\x09aStream nextPutAll: ')']",
 messageSends: ["streamContents:", "nextPutAll:", "printString", "do:separatedBy:", "associations", "key", "value"],
 referencedClasses: ["String"]
 }),
@@ -1819,17 +1819,12 @@ selector: "printString",
 category: 'printing',
 fn: function () {
 var self=this;
-var str=nil;
-(str=smalltalk.send("", "_writeStream", []));
-smalltalk.send(str, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);
-smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(str, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(str, "_nextPutAll_", [" "]);})]);
-smalltalk.send(str, "_nextPutAll_", [")"]);
-return smalltalk.send(str, "_contents", []);
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;},
 args: [],
-source: "printString\x0a\x09| str |\x0a\x09str := '' writeStream.\x0a\x09str nextPutAll: super printString, ' ('.\x0a\x09self \x0a\x09\x09do: [:each | str nextPutAll: each printString]\x0a\x09\x09separatedBy: [str nextPutAll: ' '].\x0a\x09str nextPutAll: ')'.\x0a\x09^str contents",
-messageSends: ["writeStream", "nextPutAll:", ",", "printString", "do:separatedBy:", "contents"],
-referencedClasses: []
+source: "printString\x0a\x09\x22print the contents of the SequenceableCollection into a string and return it\x22\x0a\x09^String streamContents: [:aStream |\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: super printString, ' ('.\x0a\x09\x09self do: [:each | aStream nextPutAll: each printString]\x0a\x09\x09\x09separatedBy: [aStream nextPutAll: ' '].\x0a\x09\x09aStream nextPutAll: ')'.]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "printString", "do:separatedBy:"],
+referencedClasses: ["String"]
 }),
 smalltalk.SequenceableCollection);
 
@@ -3795,6 +3790,22 @@ args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09elements := #()",
 messageSends: ["initialize"],
 referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Set.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
+return self;},
+args: [],
+source: "printString\x0a\x09\x22print the contents of the Set into a string and return it\x22\x0a\x09^String streamContents: [:aStream |\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: super printString, ' ('.\x0a\x09\x09self do: [:each | aStream nextPutAll: each printString]\x0a\x09\x09\x09separatedBy: [aStream nextPutAll: ' '].\x0a\x09\x09aStream nextPutAll: ')'.]",
+messageSends: ["streamContents:", "nextPutAll:", ",", "printString", "do:separatedBy:"],
+referencedClasses: ["String"]
 }),
 smalltalk.Set);
 
