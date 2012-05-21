@@ -1,6 +1,6 @@
 /*! normalize.css 2012-03-11T12:53 UTC - http://github.com/necolas/normalize.css */
 /* normalize.css co-opted for the amber browser */
-#jtalk {
+#amber {
   /* =============================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -219,138 +219,138 @@
      */
 
 }
-#jtalk article,
-#jtalk aside,
-#jtalk details,
-#jtalk figcaption,
-#jtalk figure,
-#jtalk footer,
-#jtalk header,
-#jtalk hgroup,
-#jtalk nav,
-#jtalk section,
-#jtalk summary {
+#amber article,
+#amber aside,
+#amber details,
+#amber figcaption,
+#amber figure,
+#amber footer,
+#amber header,
+#amber hgroup,
+#amber nav,
+#amber section,
+#amber summary {
   display: block;
 }
-#jtalk audio, #jtalk canvas, #jtalk video {
+#amber audio, #amber canvas, #amber video {
   display: inline-block;
   *display: inline;
   *zoom: 1;
 }
-#jtalk audio:not([controls]) {
+#amber audio:not([controls]) {
   display: none;
   height: 0;
 }
-#jtalk [hidden] {
+#amber [hidden] {
   display: none;
 }
-#jtalk button,
-#jtalk input,
-#jtalk select,
-#jtalk textarea {
+#amber button,
+#amber input,
+#amber select,
+#amber textarea {
   font-family: sans-serif;
 }
-#jtalk a:focus {
+#amber a:focus {
   outline: thin dotted;
 }
-#jtalk a:hover, #jtalk a:active {
+#amber a:hover, #amber a:active {
   outline: 0;
 }
-#jtalk h1 {
+#amber h1 {
   font-size: 2em;
   margin: 0.67em 0;
 }
-#jtalk h2 {
+#amber h2 {
   font-size: 1.5em;
   margin: 0.83em 0;
 }
-#jtalk h3 {
+#amber h3 {
   font-size: 1.17em;
   margin: 1em 0;
 }
-#jtalk h4 {
+#amber h4 {
   font-size: 1em;
   margin: 1.33em 0;
 }
-#jtalk h5 {
+#amber h5 {
   font-size: 0.83em;
   margin: 1.67em 0;
 }
-#jtalk h6 {
+#amber h6 {
   font-size: 0.75em;
   margin: 2.33em 0;
 }
-#jtalk abbr[title] {
+#amber abbr[title] {
   border-bottom: 1px dotted;
 }
-#jtalk b, #jtalk strong {
+#amber b, #amber strong {
   font-weight: bold;
 }
-#jtalk blockquote {
+#amber blockquote {
   margin: 1em 40px;
 }
-#jtalk dfn {
+#amber dfn {
   font-style: italic;
 }
-#jtalk mark {
+#amber mark {
   background: #ff0;
   color: #000;
 }
-#jtalk p, #jtalk pre {
+#amber p, #amber pre {
   margin: 1em 0;
 }
-#jtalk pre,
-#jtalk code,
-#jtalk kbd,
-#jtalk samp {
+#amber pre,
+#amber code,
+#amber kbd,
+#amber samp {
   font-family: monospace, serif;
   _font-family: 'courier new', monospace;
   font-size: 1em;
 }
-#jtalk pre {
+#amber pre {
   white-space: pre;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-#jtalk q {
+#amber q {
   quotes: none;
 }
-#jtalk q:before, #jtalk q:after {
+#amber q:before, #amber q:after {
   content: '';
   content: none;
 }
-#jtalk small {
+#amber small {
   font-size: 75%;
 }
-#jtalk sub, #jtalk sup {
+#amber sub, #amber sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
 }
-#jtalk sup {
+#amber sup {
   top: -0.5em;
 }
-#jtalk sub {
+#amber sub {
   bottom: -0.25em;
 }
-#jtalk dl,
-#jtalk menu,
-#jtalk ol,
-#jtalk ul {
+#amber dl,
+#amber menu,
+#amber ol,
+#amber ul {
   margin: 1em 0;
 }
-#jtalk dd {
+#amber dd {
   margin: 0 0 0 40px;
 }
-#jtalk menu, #jtalk ol, #jtalk ul {
+#amber menu, #amber ol, #amber ul {
   padding: 0 0 0 40px;
 }
-#jtalk nav ul, #jtalk nav ol {
+#amber nav ul, #amber nav ol {
   list-style: none;
   list-style-image: none;
 }
-#jtalk img {
+#amber img {
   border: 0;
   /* 1 */
 
@@ -358,21 +358,21 @@
   /* 2 */
 
 }
-#jtalk svg:not(:root) {
+#amber svg:not(:root) {
   overflow: hidden;
 }
-#jtalk figure {
+#amber figure {
   margin: 0;
 }
-#jtalk form {
+#amber form {
   margin: 0;
 }
-#jtalk fieldset {
+#amber fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em;
 }
-#jtalk legend {
+#amber legend {
   border: 0;
   /* 1 */
 
@@ -384,10 +384,10 @@
   /* 3 */
 
 }
-#jtalk button,
-#jtalk input,
-#jtalk select,
-#jtalk textarea {
+#amber button,
+#amber input,
+#amber select,
+#amber textarea {
   font-size: 100%;
   /* 1 */
 
@@ -401,15 +401,15 @@
   /* 3 */
 
 }
-#jtalk button, #jtalk input {
+#amber button, #amber input {
   line-height: normal;
   /* 1 */
 
 }
-#jtalk button,
-#jtalk input[type="button"],
-#jtalk input[type="reset"],
-#jtalk input[type="submit"] {
+#amber button,
+#amber input[type="button"],
+#amber input[type="reset"],
+#amber input[type="submit"] {
   cursor: pointer;
   /* 1 */
 
@@ -420,10 +420,10 @@
   /* 3 */
 
 }
-#jtalk button[disabled], #jtalk input[disabled] {
+#amber button[disabled], #amber input[disabled] {
   cursor: default;
 }
-#jtalk input[type="checkbox"], #jtalk input[type="radio"] {
+#amber input[type="checkbox"], #amber input[type="radio"] {
   box-sizing: border-box;
   /* 1 */
 
@@ -437,7 +437,7 @@
   /* 3 */
 
 }
-#jtalk input[type="search"] {
+#amber input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
 
@@ -447,14 +447,14 @@
 
   box-sizing: content-box;
 }
-#jtalk input[type="search"]::-webkit-search-decoration, #jtalk input[type="search"]::-webkit-search-cancel-button {
+#amber input[type="search"]::-webkit-search-decoration, #amber input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
-#jtalk button::-moz-focus-inner, #jtalk input::-moz-focus-inner {
+#amber button::-moz-focus-inner, #amber input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-#jtalk textarea {
+#amber textarea {
   overflow: auto;
   /* 1 */
 
@@ -462,7 +462,7 @@
   /* 2 */
 
 }
-#jtalk table {
+#amber table {
   border-collapse: collapse;
   border-spacing: 0;
 }

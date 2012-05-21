@@ -43,7 +43,7 @@ resetNodes
 
 renderOn: html
 	ul := html ul
-		class: 'jt_column browser classes';
+		class: 'amber_column browser classes';
 		yourself.
 	self updateNodes
 !
@@ -226,7 +226,7 @@ selectionStart: anInteger
 
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'jtalk',
+		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,
@@ -351,11 +351,11 @@ tabs
 
 close
     opened ifTrue: [
-	'#jtalk' asJQuery hide.
+	'#amber' asJQuery hide.
 	ul asJQuery hide.
 	selectedTab hide.
 	self removeBodyMargin.
-	'body' asJQuery removeClass: 'jtalkBody'.
+	'body' asJQuery removeClass: 'amberBody'.
 	opened := false]
 !
 
@@ -371,7 +371,7 @@ newBrowserTab
 !
 
 onResize: aBlock
-    <jQuery('#jtalk').resizable({
+    <jQuery('#amber').resizable({
 	handles: 'n', 
 	resize: aBlock,
 	minHeight: 230
@@ -384,8 +384,8 @@ onWindowResize: aBlock
 
 open
     opened ifFalse: [
-	'body' asJQuery addClass: 'jtalkBody'.
-	'#jtalk' asJQuery show.
+	'body' asJQuery addClass: 'amberBody'.
+	'#amber' asJQuery show.
 	ul asJQuery show.
 	self updateBodyMargin.
 	selectedTab show.
@@ -415,22 +415,22 @@ selectTab: aWidget
 !
 
 setBodyMargin: anInteger
-    '.jtalkBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
+    '.amberBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
 !
 
 updateBodyMargin
-    self setBodyMargin: '#jtalk' asJQuery height
+    self setBodyMargin: '#amber' asJQuery height
 !
 
 updatePosition
-    <jQuery('#jtalk').css('top', '').css('bottom', '0px')>
+    <jQuery('#amber').css('top', '').css('bottom', '0px')>
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
 
 addTab: aWidget
     self tabs add: aWidget.
-    aWidget appendToJQuery: '#jtalk' asJQuery.
+    aWidget appendToJQuery: '#amber' asJQuery.
     aWidget hide
 !
 
@@ -444,10 +444,10 @@ removeTab: aWidget
 initialize
     super initialize.
     opened := true.
-    [:html | html div id: 'jtalk'] appendToJQuery: 'body' asJQuery.
+    [:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
     'body' asJQuery 
-	addClass: 'jtalkBody'.
-    self appendToJQuery: '#jtalk' asJQuery.
+	addClass: 'amberBody'.
+    self appendToJQuery: '#amber' asJQuery.
     self 
 	addTab: IDETranscript current;
 	addTab: Workspace new;
@@ -464,7 +464,7 @@ renderOn: html
 	html div id: 'logo'.
 	self renderToolbarOn: html.
 	ul := html ul
-		id: 'jtalkTabs';
+		id: 'amberTabs';
 		yourself.
 	self renderTabs
 !
@@ -504,7 +504,7 @@ renderTabs
 
 renderToolbarOn: html
 	html div 
-		id: 'jt_toolbar';
+		id: 'amber_toolbar';
 		with: [
 			input := html input 
 				class: 'implementors';
@@ -512,7 +512,7 @@ renderToolbarOn: html
 			input onKeyPress: [:event |
 				event keyCode = 13 ifTrue: [
 				self search: input asJQuery val]].
-			html div id: 'jt_close'; onClick: [self close]]
+			html div id: 'amber_close'; onClick: [self close]]
 ! !
 
 !TabManager methodsFor: 'updating'!
@@ -576,7 +576,7 @@ renderButtonsOn: html
 
 renderOn: html
 	div := html div
-		class: 'jtalkTool';
+		class: 'amberTool';
 		yourself.
 	self renderTab
 !
@@ -584,10 +584,10 @@ renderOn: html
 renderTab
 	div contents: [:html |
 	    html div
-		class: 'jt_box';
+		class: 'amber_box';
 		with: [self renderBoxOn: html].
 	    html div
-		class: 'jt_buttons';
+		class: 'amber_buttons';
 		with: [self renderButtonsOn: html]]
 !
 
@@ -1045,7 +1045,7 @@ ajaxPutAt: anURL data: aString
 
 renderBottomPanelOn: html
     html div
-	class: 'jt_sourceCode';
+	class: 'amber_sourceCode';
 	with: [
 	    sourceArea := SourceArea new.
 	    sourceArea renderOn: html.
@@ -1083,7 +1083,7 @@ renderButtonsOn: html
 !
 
 renderTabsOn: html
-    tabsList := html ul class: 'jt_tabs jt_browser'.
+    tabsList := html ul class: 'amber_tabs amber_browser'.
     self updateTabsList.
 !
 
@@ -1091,8 +1091,8 @@ renderTopPanelOn: html
 	html div 
 		class: 'top'; 
 		with: [
-			packagesList := html ul class: 'jt_column browser packages'.
-          		html div class: 'jt_packagesButtons'; with: [
+			packagesList := html ul class: 'amber_column browser packages'.
+          		html div class: 'amber_packagesButtons'; with: [
 				html button 
 					title: 'Commit classes in this package to disk';
 					onClick: [self commitPackage];
@@ -1107,14 +1107,14 @@ renderTopPanelOn: html
 					with: 'Remove'].
 			classesList := ClassesList on: self.
 			classesList renderOn: html.
-			protocolsList := html ul class: 'jt_column browser protocols'.
-			methodsList := html ul class: 'jt_column browser methods'.
+			protocolsList := html ul class: 'amber_column browser protocols'.
+			methodsList := html ul class: 'amber_column browser methods'.
 			self
 				updateCategoriesList;
 				updateClassesList;
 				updateProtocolsList;
 				updateMethodsList.
-			html div class: 'jt_clear']
+			html div class: 'amber_clear']
 ! !
 
 !Browser methodsFor: 'testing'!
@@ -1380,12 +1380,12 @@ initialize
 
 renderBottomPanelOn: html
 	html div
-		class: 'jt_sourceCode debugger';
+		class: 'amber_sourceCode debugger';
 		with: [
 			sourceArea := SourceArea new.
 			sourceArea renderOn: html].
-	ul2 := html ul class: 'jt_column debugger variables'.
-	inspector := html div class: 'jt_column debugger inspector'.
+	ul2 := html ul class: 'amber_column debugger variables'.
+	inspector := html div class: 'amber_column debugger inspector'.
 	sourceArea
 		onKeyUp: [self updateStatus]
 !
@@ -1416,7 +1416,7 @@ renderButtonsOn: html
 		with: 'Abandon';
 		onClick: [self close].
 	inspectButton := html button
-		class: 'jt_button debugger inspect';
+		class: 'amber_button debugger inspect';
 		with: 'Inspect';
 		onClick: [self inspectSelectedVariable].
 	 self 
@@ -1446,7 +1446,7 @@ renderTopPanelOn: html
 				class: 'label';
 				with: self error messageText.
 			ul := html ul 
-				class: 'jt_column debugger contexts';
+				class: 'amber_column debugger contexts';
 				with: [self renderContext: self error context on: html]]
 ! !
 
@@ -1543,7 +1543,7 @@ show: anObject
 renderBoxOn: html
     textarea := html textarea.
     textarea 
-	class: 'jt_transcript';
+	class: 'amber_transcript';
 	at: 'spellcheck' put: 'false'
 !
 
@@ -1634,7 +1634,7 @@ refresh
 
 renderBottomPanelOn: html
     html div
-	class: 'jt_sourceCode';
+	class: 'amber_sourceCode';
 	with: [
 	    sourceArea := SourceArea new
 		receiver: object;
@@ -1666,18 +1666,18 @@ renderTopPanelOn: html
 	html div 
 		class: 'top'; 
 		with: [
-			variablesList := html ul class: 'jt_column variables'.
-			valueTextarea := html textarea class: 'jt_column value'; at: 'readonly' put: 'readonly'.
-			html div class: 'jt_tabs inspector'; with: [
+			variablesList := html ul class: 'amber_column variables'.
+			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.
+			html div class: 'amber_tabs inspector'; with: [
 				html button
-					class: 'jt_button inspector refresh';
+					class: 'amber_button inspector refresh';
 					with: 'Refresh';
 					onClick: [self refresh].
 				diveButton := html button 
-					class: 'jt_button inspector dive';
+					class: 'amber_button inspector dive';
 					with: 'Dive'; 
 					onClick: [self dive]].
-			html div class: 'jt_clear'].
+			html div class: 'amber_clear'].
 	self
 		updateVariablesList;
 		updateValueTextarea.
@@ -1885,7 +1885,7 @@ renderBoxOn: html
 !
 
 renderImplementorsOn: html
-	implementorsList := html ul class: 'jt_column implementors'.
+	implementorsList := html ul class: 'amber_column implementors'.
 	self updateImplementorsList
 !
 
@@ -1898,17 +1898,17 @@ renderInputOn: html
 !
 
 renderMatchesOn: html
-	matchesList := html ul class: 'jt_column matches'.
+	matchesList := html ul class: 'amber_column matches'.
 	self updateMatchesList
 !
 
 renderReferencedClassesOn: html
-	referencedClassesList := html ul class: 'jt_column referenced_classes'.
+	referencedClassesList := html ul class: 'amber_column referenced_classes'.
 	self updateReferencedClassesList
 !
 
 renderSendersOn: html
-	sendersList := html ul class: 'jt_column senders'.
+	sendersList := html ul class: 'amber_column senders'.
 	self updateSendersList
 ! !
 
@@ -2130,12 +2130,12 @@ renderButtonsOn: html
 !
 
 renderCategoriesOn: html
-	packagesList := html ul class: 'jt_column sunit packages'.
+	packagesList := html ul class: 'amber_column sunit packages'.
 	self updateCategoriesList
 !
 
 renderClassesOn: html
-	classesList := html ul class: 'jt_column sunit classes'.
+	classesList := html ul class: 'amber_column sunit classes'.
 	self updateClassesList
 !
 
@@ -2158,7 +2158,7 @@ renderFailuresOn: html
 renderResultsOn: html
 	statusDiv := html div.
 	html with: self progressBar.
-	methodsList := html ul class: 'jt_column sunit results'.
+	methodsList := html ul class: 'amber_column sunit results'.
 	self updateMethodsList.
 	self updateStatusDiv
 ! !
