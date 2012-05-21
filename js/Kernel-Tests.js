@@ -490,6 +490,76 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
+"_testIfAbsent",
+smalltalk.method({
+selector: "testIfAbsent",
+category: 'tests',
+fn: function (){
+var self=this;
+var d=nil;
+var visited=nil;
+(visited=false);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_ifAbsent_", ["hello", (function(){return (visited=true);})]);
+smalltalk.send(self, "_assert_", [visited]);
+return self;},
+args: [],
+source: "testIfAbsent\x0a\x0a\x09| d visited |\x0a\x09visited := false.\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' ifAbsent: [ visited := true ].\x0a\x09self assert: visited.",
+messageSends: ["new", "at:ifAbsent:", "assert:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_testIfPresent",
+smalltalk.method({
+selector: "testIfPresent",
+category: 'tests',
+fn: function (){
+var self=this;
+var d=nil;
+var visited=nil;
+var absent=nil;
+(visited=false);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", ["hello", "world"]);
+smalltalk.send(d, "_at_ifPresent_", ["hello", (function(value){return (visited=value);})]);
+smalltalk.send(self, "_assert_", [smalltalk.send(visited, "__eq", ["world"])]);
+(absent=smalltalk.send(d, "_at_ifPresent_", ["bye", (function(value){return (visited=value);})]));
+smalltalk.send(self, "_assert_", [smalltalk.send(absent, "_isNil", [])]);
+return self;},
+args: [],
+source: "testIfPresent\x0a\x0a\x09| d visited absent |\x0a\x09visited := false.\x0a\x09d := Dictionary new.\x0a\x09d at: 'hello' put: 'world'.\x0a\x0a\x09d at: 'hello' ifPresent: [ :value | visited := value ].\x0a\x09self assert: visited = 'world'.\x0a\x0a\x09absent := d at: 'bye' ifPresent: [ :value | visited := value ].\x0a\x09self assert: absent isNil.\x0a",
+messageSends: ["new", "at:put:", "at:ifPresent:", "assert:", "=", "isNil"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_testIfPresentIfAbsent",
+smalltalk.method({
+selector: "testIfPresentIfAbsent",
+category: 'tests',
+fn: function (){
+var self=this;
+var d=nil;
+var visited=nil;
+(visited=false);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", ["hello", "world"]);
+smalltalk.send(d, "_at_ifPresent_ifAbsent_", ["hello", (function(value){return (visited=value);}), (function(){return (visited=true);})]);
+smalltalk.send(self, "_assert_", [smalltalk.send(visited, "__eq", ["world"])]);
+smalltalk.send(d, "_at_ifPresent_ifAbsent_", ["buy", (function(value){return (visited=value);}), (function(){return (visited=true);})]);
+smalltalk.send(self, "_assert_", [visited]);
+return self;},
+args: [],
+source: "testIfPresentIfAbsent\x0a\x0a\x09| d visited |\x0a\x09visited := false.\x0a\x09d := Dictionary new.\x0a\x09d at: 'hello' put: 'world'.\x0a\x0a\x09d at: 'hello' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].\x0a\x09self assert: visited = 'world'.\x0a\x0a\x09d at: 'buy' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].\x0a\x09self assert: visited.",
+messageSends: ["new", "at:put:", "at:ifPresent:ifAbsent:", "assert:", "="],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
 "_testKeys",
 smalltalk.method({
 selector: "testKeys",

@@ -370,6 +370,61 @@ return self;}
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
+"_testIfAbsent",
+smalltalk.method({
+selector: "testIfAbsent",
+fn: function (){
+var self=this;
+var d=nil;
+var visited=nil;
+(visited=false);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_ifAbsent_", ["hello", (function(){return (visited=true);})]);
+smalltalk.send(self, "_assert_", [visited]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_testIfPresent",
+smalltalk.method({
+selector: "testIfPresent",
+fn: function (){
+var self=this;
+var d=nil;
+var visited=nil;
+var absent=nil;
+(visited=false);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", ["hello", "world"]);
+smalltalk.send(d, "_at_ifPresent_", ["hello", (function(value){return (visited=value);})]);
+smalltalk.send(self, "_assert_", [smalltalk.send(visited, "__eq", ["world"])]);
+(absent=smalltalk.send(d, "_at_ifPresent_", ["bye", (function(value){return (visited=value);})]));
+smalltalk.send(self, "_assert_", [smalltalk.send(absent, "_isNil", [])]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_testIfPresentIfAbsent",
+smalltalk.method({
+selector: "testIfPresentIfAbsent",
+fn: function (){
+var self=this;
+var d=nil;
+var visited=nil;
+(visited=false);
+(d=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+smalltalk.send(d, "_at_put_", ["hello", "world"]);
+smalltalk.send(d, "_at_ifPresent_ifAbsent_", ["hello", (function(value){return (visited=value);}), (function(){return (visited=true);})]);
+smalltalk.send(self, "_assert_", [smalltalk.send(visited, "__eq", ["world"])]);
+smalltalk.send(d, "_at_ifPresent_ifAbsent_", ["buy", (function(value){return (visited=value);}), (function(){return (visited=true);})]);
+smalltalk.send(self, "_assert_", [visited]);
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
 "_testKeys",
 smalltalk.method({
 selector: "testKeys",
