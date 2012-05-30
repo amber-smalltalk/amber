@@ -921,7 +921,7 @@ asciiValue
 !
 
 at: anIndex ifAbsent: aBlock
-	<return self[anIndex - 1] || aBlock()>
+	<return String(self)[anIndex - 1] || aBlock()>
 !
 
 escaped
