@@ -949,11 +949,11 @@ selector: "at:ifPresent:",
 category: 'accessing',
 fn: function (aKey, aBlock) {
 var self=this;
-return (($receiver = smalltalk.send(self, "_basicAt_", [aKey])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})() : nil;
+return ((($receiver = smalltalk.send(self, "_includesKey_", [aKey])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})() : (function(){return nil;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);}), (function(){return nil;})]));
 return self;},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifPresent: aBlock\x0a\x09^(self basicAt: aKey) ifNotNil: [aBlock value: (self at: aKey)]",
-messageSends: ["ifNotNil:", "basicAt:", "value:", "at:"],
+source: "at: aKey ifPresent: aBlock\x0a\x09\x22Lookup the given key in the receiver. \x0a\x09If it is present, answer the value of evaluating the given block with the value associated with the key. \x0a\x09Otherwise, answer nil.\x22\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: [ nil ]",
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -965,11 +965,11 @@ selector: "at:ifPresent:ifAbsent:",
 category: 'accessing',
 fn: function (aKey, aBlock, anotherBlock) {
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_basicAt_", [aKey]), "_ifNil_ifNotNil_", [anotherBlock, (function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);})]);
+return smalltalk.send(smalltalk.send(self, "_includesKey_", [aKey]), "_ifTrue_ifFalse_", [(function(){return smalltalk.send(aBlock, "_value_", [smalltalk.send(self, "_at_", [aKey])]);}), anotherBlock]);
 return self;},
 args: ["aKey", "aBlock", "anotherBlock"],
-source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09^(self basicAt: aKey)\x0a\x09    ifNil: anotherBlock\x0a\x09    ifNotNil: [aBlock value: (self at: aKey)]",
-messageSends: ["ifNil:ifNotNil:", "basicAt:", "value:", "at:"],
+source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver. \x0a\x09If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key, \x0a\x09otherwise answer the value of absentBlock.\x22\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: anotherBlock",
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -2732,10 +2732,10 @@ selector: "at:ifAbsent:",
 category: 'accessing',
 fn: function (anIndex, aBlock) {
 var self=this;
-return self[anIndex - 1] || aBlock();
+return String(self)[anIndex - 1] || aBlock();
 return self;},
 args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09<return self[anIndex - 1] || aBlock()>",
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self)[anIndex - 1] || aBlock()>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3798,7 +3798,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Set.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;},

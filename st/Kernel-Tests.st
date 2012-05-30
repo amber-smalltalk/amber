@@ -266,6 +266,44 @@ testEquality
 	self deny: d1 = d2.
 !
 
+testIfAbsent
+
+	| d visited |
+	visited := false.
+	d := Dictionary new.
+
+	d at: 'hello' ifAbsent: [ visited := true ].
+	self assert: visited.
+!
+
+testIfPresent
+
+	| d visited absent |
+	visited := false.
+	d := Dictionary new.
+	d at: 'hello' put: 'world'.
+
+	d at: 'hello' ifPresent: [ :value | visited := value ].
+	self assert: visited = 'world'.
+
+	absent := d at: 'bye' ifPresent: [ :value | visited := value ].
+	self assert: absent isNil.
+!
+
+testIfPresentIfAbsent
+
+	| d visited |
+	visited := false.
+	d := Dictionary new.
+	d at: 'hello' put: 'world'.
+
+	d at: 'hello' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
+	self assert: visited = 'world'.
+
+	d at: 'buy' ifPresent: [ :value | visited := value ] ifAbsent: [ visited := true ].
+	self assert: visited.
+!
+
 testKeys
 	| d |
 
