@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-IR', {});
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['builder', 'source'], 'Compiler-IR');
-smalltalk.IRASTTranslator.comment="I an the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.\x0aI rely on a builder object, instance of IRBuilder."
+smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.\x0aI rely on a builder object, instance of IRBuilder.\x0a\x0aI am myself unable to produce a valid IR as nodes are not resolved. \x0aSee concrete subclasses."
 smalltalk.addMethod(
 "_builder",
 smalltalk.method({
@@ -224,10 +224,10 @@ fn: function () {
 var self=this;
 (($receiver = self['@nextAlias']) == nil || $receiver == undefined) ? (function(){return (self['@nextAlias']=(0));})() : $receiver;
 (self['@nextAlias']=((($receiver = self['@nextAlias']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
-return smalltalk.send("$_", "__comma", [smalltalk.send(self['@nextAlias'], "_asString", [])]);
+return smalltalk.send("$", "__comma", [smalltalk.send(self['@nextAlias'], "_asString", [])]);
 return self;},
 args: [],
-source: "nextAlias\x0a\x09\x22Message sends are assigned, or 'aliased', to internal variables.\x0a\x09Internal variable names are unique, and attached to the annotated send node\x22\x0a\x0a\x09nextAlias ifNil: [nextAlias := 0].\x0a\x09nextAlias := nextAlias + 1.\x0a\x09^ '$_', nextAlias asString",
+source: "nextAlias\x0a\x09\x22Message sends are assigned, or 'aliased', to internal variables.\x0a\x09Internal variable names are unique, and attached to the annotated send node\x22\x0a\x0a\x09nextAlias ifNil: [ nextAlias := 0 ].\x0a\x09nextAlias := nextAlias + 1.\x0a\x09^ '$', nextAlias asString",
 messageSends: ["ifNil:", "+", ",", "asString"],
 referencedClasses: []
 }),
@@ -871,11 +871,11 @@ selector: "emitOn:",
 category: 'emiting',
 fn: function (aStream) {
 var self=this;
-smalltalk.send(aStream, "_nextPutAssignment_to_", [smalltalk.send(smalltalk.send(self, "_instructions", []), "_first", []), smalltalk.send(smalltalk.send(self, "_instructions", []), "_second", [])]);
+smalltalk.send(aStream, "_nextPutAssignment_to_", [smalltalk.send(smalltalk.send(self, "_instructions", []), "_first", []), smalltalk.send(smalltalk.send(self, "_instructions", []), "_last", [])]);
 return self;},
 args: ["aStream"],
-source: "emitOn: aStream\x0a\x09aStream \x0a\x09\x09nextPutAssignment: self instructions first\x0a\x09\x09to: self instructions second",
-messageSends: ["nextPutAssignment:to:", "first", "instructions", "second"],
+source: "emitOn: aStream\x0a\x09aStream \x0a\x09\x09nextPutAssignment: self instructions first \x0a\x09\x09to: self instructions last",
+messageSends: ["nextPutAssignment:to:", "first", "instructions", "last"],
 referencedClasses: []
 }),
 smalltalk.IRAssignment);
@@ -922,11 +922,11 @@ selector: "emitOn:",
 category: 'emiting',
 fn: function (aStream) {
 var self=this;
-smalltalk.send(aStream, "_nextPutClosureWith_arguments_", [(function(){return smalltalk.send(self, "_emitOn_", [aStream], smalltalk.IRClosure.superclass || nil);}), smalltalk.send(smalltalk.send(self, "_arguments", []), "_collect_", [(function(each){return smalltalk.send(each, "_asVariableName", []);})])]);
+smalltalk.send(aStream, "_nextPutClosureWith_arguments_", [(function(){return smalltalk.send(self, "_emitOn_", [aStream], smalltalk.IRClosure.superclass || nil);}), smalltalk.send(self, "_arguments", [])]);
 return self;},
 args: ["aStream"],
-source: "emitOn: aStream\x0a\x09aStream \x0a\x09\x09nextPutClosureWith: [ super emitOn: aStream ]\x0a\x09\x09arguments: (self arguments collect: [ :each | each asVariableName ])",
-messageSends: ["nextPutClosureWith:arguments:", "emitOn:", "collect:", "arguments", "asVariableName"],
+source: "emitOn: aStream\x0a\x09aStream \x0a\x09\x09nextPutClosureWith: [ super emitOn: aStream ] \x0a\x09\x09arguments: self arguments",
+messageSends: ["nextPutClosureWith:arguments:", "emitOn:", "arguments"],
 referencedClasses: []
 }),
 smalltalk.IRClosure);
@@ -1006,11 +1006,11 @@ selector: "emitOn:",
 category: 'emiting',
 fn: function (aStream) {
 var self=this;
-smalltalk.send(aStream, "_nextPutMethodDeclaration_with_", [self, (function(){return smalltalk.send(aStream, "_nextPutFunctionWith_arguments_", [(function(){((($receiver = smalltalk.send(smalltalk.send(self, "_internalVariables", []), "_notEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aStream, "_nextPutVars_", [smalltalk.send(self, "_internalVariables", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(aStream, "_nextPutVars_", [smalltalk.send(self, "_internalVariables", [])]);})]));return smalltalk.send(self, "_emitOn_", [aStream], smalltalk.IRMethod.superclass || nil);}), smalltalk.send(smalltalk.send(self, "_arguments", []), "_collect_", [(function(each){return smalltalk.send(each, "_asVariableName", []);})])]);})]);
+smalltalk.send(aStream, "_nextPutMethodDeclaration_with_", [self, (function(){return smalltalk.send(aStream, "_nextPutFunctionWith_arguments_", [(function(){((($receiver = smalltalk.send(smalltalk.send(self, "_internalVariables", []), "_notEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(aStream, "_nextPutVars_", [smalltalk.send(self, "_internalVariables", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(aStream, "_nextPutVars_", [smalltalk.send(self, "_internalVariables", [])]);})]));return smalltalk.send(self, "_emitOn_", [aStream], smalltalk.IRMethod.superclass || nil);}), smalltalk.send(self, "_arguments", [])]);})]);
 return self;},
 args: ["aStream"],
-source: "emitOn: aStream\x0a\x09aStream \x0a\x09\x09nextPutMethodDeclaration: self\x0a\x09\x09with: [\x0a\x09\x09\x09aStream \x0a\x09\x09\x09\x09nextPutFunctionWith: [ \x0a\x09\x09\x09\x09\x09self internalVariables notEmpty ifTrue: [\x0a\x09\x09\x09\x09\x09\x09aStream nextPutVars: self internalVariables ].\x0a\x09\x09\x09\x09\x09super emitOn: aStream ]\x0a\x09\x09\x09\x09arguments: (self arguments collect: [ :each | each asVariableName ]) ]",
-messageSends: ["nextPutMethodDeclaration:with:", "nextPutFunctionWith:arguments:", "ifTrue:", "notEmpty", "internalVariables", "nextPutVars:", "emitOn:", "collect:", "arguments", "asVariableName"],
+source: "emitOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutMethodDeclaration: self \x0a\x09\x09with: [\x0a\x09\x09\x09aStream \x0a\x09\x09\x09\x09nextPutFunctionWith: [ \x0a\x09\x09\x09\x09\x09self internalVariables notEmpty ifTrue: [\x0a\x09\x09\x09\x09\x09\x09aStream nextPutVars: self internalVariables ].\x0a\x09\x09\x09\x09\x09super emitOn: aStream ]\x0a\x09\x09\x09arguments: self arguments ]",
+messageSends: ["nextPutMethodDeclaration:with:", "nextPutFunctionWith:arguments:", "ifTrue:", "notEmpty", "internalVariables", "nextPutVars:", "emitOn:", "arguments"],
 referencedClasses: []
 }),
 smalltalk.IRMethod);
@@ -1313,6 +1313,7 @@ smalltalk.IRSequence);
 
 
 smalltalk.addClass('IRStatement', smalltalk.IRInstruction, ['pc'], 'Compiler-IR');
+smalltalk.IRStatement.comment="I am a statement instruction. \x0aStatements can be used to control the PC count, among other things."
 smalltalk.addMethod(
 "_emitOn_",
 smalltalk.method({
@@ -1452,6 +1453,7 @@ smalltalk.IRValue);
 
 
 smalltalk.addClass('IRVariable', smalltalk.IRInstruction, ['variable'], 'Compiler-IR');
+smalltalk.IRVariable.comment="I am a variable instruction."
 smalltalk.addMethod(
 "_emitOn_",
 smalltalk.method({
@@ -1550,6 +1552,310 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.IRVerbatim);
+
+
+
+smalltalk.addClass('JSStream', smalltalk.Object, ['stream'], 'Compiler-IR');
+smalltalk.addMethod(
+"_contents",
+smalltalk.method({
+selector: "contents",
+category: 'accessing',
+fn: function () {
+var self=this;
+return smalltalk.send(self['@stream'], "_contents", []);
+return self;},
+args: [],
+source: "contents\x0a\x09^ stream contents",
+messageSends: ["contents"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function () {
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.JSStream.superclass || nil);
+(self['@stream']=smalltalk.send("", "_writeStream", []));
+return self;},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09stream := '' writeStream.",
+messageSends: ["initialize", "writeStream"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_lf",
+smalltalk.method({
+selector: "lf",
+category: 'streaming',
+fn: function () {
+var self=this;
+smalltalk.send(self['@stream'], "_lf", []);
+return self;},
+args: [],
+source: "lf\x0a\x09stream lf",
+messageSends: ["lf"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPut_",
+smalltalk.method({
+selector: "nextPut:",
+category: 'streaming',
+fn: function (aString) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPut_", [aString]);
+return self;},
+args: ["aString"],
+source: "nextPut: aString\x0a\x09stream nextPut: aString",
+messageSends: ["nextPut:"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutAll_",
+smalltalk.method({
+selector: "nextPutAll:",
+category: 'streaming',
+fn: function (aString) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", [aString]);
+return self;},
+args: ["aString"],
+source: "nextPutAll: aString\x0a\x09stream nextPutAll: aString",
+messageSends: ["nextPutAll:"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutAssignment_to_",
+smalltalk.method({
+selector: "nextPutAssignment:to:",
+category: 'streaming',
+fn: function (varInstruction, valueInstruction) {
+var self=this;
+smalltalk.send(varInstruction, "_emitOn_", [self]);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["="]);
+smalltalk.send(valueInstruction, "_emitOn_", [self]);
+return self;},
+args: ["varInstruction", "valueInstruction"],
+source: "nextPutAssignment: varInstruction to: valueInstruction\x0a\x09varInstruction emitOn: self.\x0a\x09stream nextPutAll: '='.\x0a\x09valueInstruction emitOn: self",
+messageSends: ["emitOn:", "nextPutAll:"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutClosureWith_arguments_",
+smalltalk.method({
+selector: "nextPutClosureWith:arguments:",
+category: 'streaming',
+fn: function (aBlock, anArray) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", ["(function("]);
+smalltalk.send(anArray, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asVariableName", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPut_", [","]);})]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["){"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+smalltalk.send(aBlock, "_value", []);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["})"]);
+return self;},
+args: ["aBlock", "anArray"],
+source: "nextPutClosureWith: aBlock arguments: anArray\x0a\x09stream nextPutAll: '(function('.\x0a\x09anArray \x0a\x09\x09do: [ :each | stream nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ stream nextPut: ',' ].\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '})'",
+messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "value"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutFunctionWith_arguments_",
+smalltalk.method({
+selector: "nextPutFunctionWith:arguments:",
+category: 'streaming',
+fn: function (aBlock, anArray) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", ["fn: function("]);
+smalltalk.send(anArray, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asVariableName", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPut_", [","]);})]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["){"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+smalltalk.send(self, "_nextPutVar_", ["$return"]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["var self=this;"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+smalltalk.send(aBlock, "_value", []);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["return $return || self;}"]);
+return self;},
+args: ["aBlock", "anArray"],
+source: "nextPutFunctionWith: aBlock arguments: anArray\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09anArray \x0a\x09\x09do: [ :each | stream nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ stream nextPut: ',' ].\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09self nextPutVar: '$return'.\x0a\x09stream nextPutAll: 'var self=this;'; lf.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: 'return $return || self;}'",
+messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "nextPutVar:", "value"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutMethodDeclaration_with_",
+smalltalk.method({
+selector: "nextPutMethodDeclaration:with:",
+category: 'streaming',
+fn: function (aMethod, aBlock) {
+var self=this;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk.method({"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("selector: \x22", "__comma", [smalltalk.send(aMethod, "_selector", [])]), "__comma", ["\x22,"])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("source: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_source", []), "_asJavascript", [])]), "__comma", [","])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+smalltalk.send(aBlock, "_value", []);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(",", "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", ["messageSends: "])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_messageSends", []), "_asArray", []), "_asJavascript", []), "__comma", [","])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("args: ", "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_arguments", []), "_collect_", [(function(each){return smalltalk.send(each, "_value", []);})]), "_asArray", []), "_asJavascript", [])]), "__comma", [","])]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", ["referencedClasses: ["]);})(self['@stream']);
+smalltalk.send(smalltalk.send(aMethod, "_classReferences", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asJavascript", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [","]);})]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["]"]);return smalltalk.send($rec, "_nextPutAll_", ["})"]);})(self['@stream']);
+return self;},
+args: ["aMethod", "aBlock"],
+source: "nextPutMethodDeclaration: aMethod with: aBlock\x0a\x09stream \x0a\x09\x09nextPutAll: 'smalltalk.method({'; lf;\x0a\x09\x09nextPutAll: 'selector: \x22', aMethod selector, '\x22,'; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.\x0a\x09aBlock value.\x0a\x09stream \x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;\x0a          \x09nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09aMethod classReferences \x0a\x09\x09do: [:each | stream nextPutAll: each asJavascript]\x0a\x09\x09separatedBy: [stream nextPutAll: ','].\x0a\x09stream \x0a\x09\x09nextPutAll: ']';\x0a\x09\x09nextPutAll: '})'",
+messageSends: ["nextPutAll:", "lf", ",", "selector", "asJavascript", "source", "value", "asArray", "messageSends", "collect:", "arguments", "do:separatedBy:", "classReferences"],
+referencedClasses: ["String"]
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutNonLocalReturnHandlingWith_",
+smalltalk.method({
+selector: "nextPutNonLocalReturnHandlingWith:",
+category: 'streaming',
+fn: function (aBlock) {
+var self=this;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["var $early={};"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", ["try {"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+smalltalk.send(aBlock, "_value", []);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", ["}"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", ["catch(e) {if(e===$early)return e[0]; throw e}"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+return self;},
+args: ["aBlock"],
+source: "nextPutNonLocalReturnHandlingWith: aBlock\x0a\x09stream \x0a\x09\x09nextPutAll: 'var $early={};'; lf;\x0a\x09\x09nextPutAll: 'try {'; lf.\x0a\x09aBlock value.\x0a\x09stream \x0a\x09\x09nextPutAll: '}'; lf;\x0a\x09\x09nextPutAll: 'catch(e) {if(e===$early)return e[0]; throw e}'; lf",
+messageSends: ["nextPutAll:", "lf", "value"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutNonLocalReturnWith_",
+smalltalk.method({
+selector: "nextPutNonLocalReturnWith:",
+category: 'streaming',
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", ["(function(){throw $early=["]);
+smalltalk.send(aBlock, "_value", []);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["]})()"]);
+return self;},
+args: ["aBlock"],
+source: "nextPutNonLocalReturnWith: aBlock\x0a\x09stream nextPutAll: '(function(){throw $early=['.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: ']})()'",
+messageSends: ["nextPutAll:", "value"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutReturnWith_",
+smalltalk.method({
+selector: "nextPutReturnWith:",
+category: 'streaming',
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", ["$return="]);
+smalltalk.send(aBlock, "_value", []);
+return self;},
+args: ["aBlock"],
+source: "nextPutReturnWith: aBlock\x0a\x09stream nextPutAll: '$return='.\x0a\x09aBlock value",
+messageSends: ["nextPutAll:", "value"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutSendTo_selector_arguments_",
+smalltalk.method({
+selector: "nextPutSendTo:selector:arguments:",
+category: 'streaming',
+fn: function (receiver, selector, arguments) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", ["smalltalk.send("]);
+smalltalk.send(receiver, "_emitOn_", [self]);
+smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(",\x22", "__comma", [smalltalk.send(selector, "_asSelector", [])]), "__comma", ["\x22,["])]);
+smalltalk.send(arguments, "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_emitOn_", [self]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [","]);})]);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["])"]);
+return self;},
+args: ["receiver", "selector", "arguments"],
+source: "nextPutSendTo: receiver selector: selector arguments: arguments\x0a\x09stream nextPutAll: 'smalltalk.send('.\x0a\x09receiver emitOn: self. \x0a\x09stream nextPutAll: ',\x22', selector asSelector, '\x22,['.\x0a\x09arguments \x0a\x09\x09do: [ :each | each emitOn: self ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: '])'",
+messageSends: ["nextPutAll:", "emitOn:", ",", "asSelector", "do:separatedBy:"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutSequenceWith_",
+smalltalk.method({
+selector: "nextPutSequenceWith:",
+category: 'streaming',
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(aBlock, "_value", []);
+return self;},
+args: ["aBlock"],
+source: "nextPutSequenceWith: aBlock\x0a\x09\x22stream \x0a\x09\x09nextPutAll: 'switch(smalltalk.thisContext.pc){'; lf.\x22\x0a\x09aBlock value.\x0a\x09\x22stream \x0a\x09\x09nextPutAll: '};'; lf\x22",
+messageSends: ["value"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutStatement_with_",
+smalltalk.method({
+selector: "nextPutStatement:with:",
+category: 'streaming',
+fn: function (anInteger, aBlock) {
+var self=this;
+smalltalk.send(aBlock, "_value", []);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [";"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+return self;},
+args: ["anInteger", "aBlock"],
+source: "nextPutStatement: anInteger with: aBlock\x0a\x09\x22stream \x0a\x09\x09nextPutAll: 'case ', anInteger asString, ':'; lf.\x22\x0a\x09aBlock value.\x0a\x09stream \x0a\x09\x09nextPutAll: ';'; lf\x22;\x0a\x09\x09nextPutAll: 'smalltalk.thisContext.pc=', (anInteger + 1) asString, ';'; lf\x22",
+messageSends: ["value", "nextPutAll:", "lf"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutVar_",
+smalltalk.method({
+selector: "nextPutVar:",
+category: 'streaming',
+fn: function (aString) {
+var self=this;
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("var ", "__comma", [aString]), "__comma", [";"])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+return self;},
+args: ["aString"],
+source: "nextPutVar: aString\x0a\x09stream nextPutAll: 'var ', aString, ';'; lf",
+messageSends: ["nextPutAll:", ",", "lf"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutVars_",
+smalltalk.method({
+selector: "nextPutVars:",
+category: 'streaming',
+fn: function (aCollection) {
+var self=this;
+smalltalk.send(self['@stream'], "_nextPutAll_", ["var "]);
+smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [","]);})]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [";"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+return self;},
+args: ["aCollection"],
+source: "nextPutVars: aCollection\x0a\x09stream nextPutAll: 'var '.\x0a\x09aCollection \x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: ';'; lf",
+messageSends: ["nextPutAll:", "do:separatedBy:", "lf"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
 
 
 

@@ -49,6 +49,37 @@ signal: aString
 		signal: aString
 ! !
 
+Error subclass: #Continuation
+	instanceVariableNames: 'context'
+	package: 'Kernel-Exceptions'!
+
+!Continuation methodsFor: 'initialization'!
+
+initializeFromContext: aContext
+	"Add a cc flag to the error object so Smalltalk knows how to handle it"
+
+	super initialize.
+	context := aContext.
+	self basicAt: 'cc' put: true
+!
+
+restore
+	context resume
+!
+
+value: aBlock
+	aBlock value: self.
+	self signal
+! !
+
+!Continuation class methodsFor: 'instance creation'!
+
+currentDo: aBlock
+	^ self new 
+		initializeWithContext: thisContext home;
+		value: aBlock
+! !
+
 Error subclass: #MessageNotUnderstood
 	instanceVariableNames: 'message receiver'
 	package: 'Kernel-Exceptions'!

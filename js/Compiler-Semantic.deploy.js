@@ -1,5 +1,30 @@
 smalltalk.addPackage('Compiler-Semantic', {});
-smalltalk.addClass('LexicalScope', smalltalk.Object, ['temps', 'args', 'outerScope'], 'Compiler-Semantic');
+smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
+smalltalk.addMethod(
+"_variableName",
+smalltalk.method({
+selector: "variableName",
+fn: function () {
+var self=this;
+return self['@variableName'];
+return self;}
+}),
+smalltalk.InvalidAssignmentError);
+
+smalltalk.addMethod(
+"_variableName_",
+smalltalk.method({
+selector: "variableName:",
+fn: function (aString) {
+var self=this;
+(self['@variableName']=aString);
+return self;}
+}),
+smalltalk.InvalidAssignmentError);
+
+
+
+smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.addMethod(
 "_addArg_",
 smalltalk.method({
@@ -94,6 +119,28 @@ return self;}
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
+"_node",
+smalltalk.method({
+selector: "node",
+fn: function () {
+var self=this;
+return self['@node'];
+return self;}
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+"_node_",
+smalltalk.method({
+selector: "node:",
+fn: function (aNode) {
+var self=this;
+(self['@node']=aNode);
+return self;}
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
 "_outerScope",
 smalltalk.method({
 selector: "outerScope",
@@ -111,6 +158,17 @@ selector: "outerScope:",
 fn: function (aLexicalScope) {
 var self=this;
 (self['@outerScope']=aLexicalScope);
+return self;}
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+"_scopeLevel",
+smalltalk.method({
+selector: "scopeLevel",
+fn: function () {
+var self=this;
+return ((($receiver = (($receiver = smalltalk.send(self, "_outerScope", [])) == nil || $receiver == undefined) ? (function(){return (0);})() : (function(){return smalltalk.send(smalltalk.send(self, "_outerScope", []), "_scopeLevel", []);})()).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));
 return self;}
 }),
 smalltalk.LexicalScope);
@@ -636,6 +694,18 @@ return self;}
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
+"_visitCascadeNode_",
+smalltalk.method({
+selector: "visitCascadeNode:",
+fn: function (aNode) {
+var self=this;
+smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_receiver_", [smalltalk.send(aNode, "_receiver", [])]);})]);
+smalltalk.send(self, "_visitCascadeNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
+return self;}
+}),
+smalltalk.SemanticAnalyzer);
+
+smalltalk.addMethod(
 "_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
@@ -684,7 +754,7 @@ selector: "visitSendNode:",
 fn: function (aNode) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_messageSends", []), "_add_", [smalltalk.send(aNode, "_selector", [])]);
-smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_beUsed", []);
+(($receiver = smalltalk.send(aNode, "_receiver", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_beUsed", []);})() : nil;
 smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);
 smalltalk.send(self, "_visitSendNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;}
@@ -725,83 +795,5 @@ return (function($rec){smalltalk.send($rec, "_theClass_", [aClass]);return small
 return self;}
 }),
 smalltalk.SemanticAnalyzer.klass);
-
-
-smalltalk.addClass('SemanticError', smalltalk.Error, [], 'Compiler-Semantic');
-
-
-smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;}
-}),
-smalltalk.InvalidAssignmentError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;}
-}),
-smalltalk.InvalidAssignmentError);
-
-
-
-smalltalk.addClass('ShadowingVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;}
-}),
-smalltalk.ShadowingVariableError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;}
-}),
-smalltalk.ShadowingVariableError);
-
-
-
-smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;}
-}),
-smalltalk.UnknownVariableError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;}
-}),
-smalltalk.UnknownVariableError);
-
 
 

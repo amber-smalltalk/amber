@@ -91,6 +91,23 @@ return self;}
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
+"_testScopeLevel",
+smalltalk.method({
+selector: "testScopeLevel",
+fn: function () {
+var self=this;
+var src=nil;
+var ast=nil;
+(src="foo | a | a + 1. [ [ | b | b := a ] ]");
+(ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
+smalltalk.send(self['@analyzer'], "_visit_", [ast]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(ast, "_scope", []), "_scopeLevel", []), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(ast, "_nodes", []), "_first", []), "_nodes", []), "_last", []), "_nodes", []), "_first", []), "_nodes", []), "_first", []), "_scope", []), "_scopeLevel", []), "__eq", [(3)])]);
+return self;}
+}),
+smalltalk.SemanticAnalyzerTest);
+
+smalltalk.addMethod(
 "_testUnknownVariables",
 smalltalk.method({
 selector: "testUnknownVariables",

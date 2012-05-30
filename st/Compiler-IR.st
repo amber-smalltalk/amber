@@ -3,8 +3,11 @@ NodeVisitor subclass: #IRASTTranslator
 	instanceVariableNames: 'builder source'
 	package: 'Compiler-IR'!
 !IRASTTranslator commentStamp!
-I an the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.
-I rely on a builder object, instance of IRBuilder.!
+I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.
+I rely on a builder object, instance of IRBuilder.
+
+I am myself unable to produce a valid IR as nodes are not resolved. 
+See concrete subclasses.!
 
 !IRASTTranslator methodsFor: 'accessing'!
 
@@ -98,9 +101,9 @@ nextAlias
 	"Message sends are assigned, or 'aliased', to internal variables.
 	Internal variable names are unique, and attached to the annotated send node"
 
-	nextAlias ifNil: [nextAlias := 0].
+	nextAlias ifNil: [ nextAlias := 0 ].
 	nextAlias := nextAlias + 1.
-	^ '$_', nextAlias asString
+	^ '$', nextAlias asString
 ! !
 
 !IRASTResolver methodsFor: 'visiting'!
@@ -326,8 +329,8 @@ IRInstruction subclass: #IRAssignment
 
 emitOn: aStream
 	aStream 
-		nextPutAssignment: self instructions first
-		to: self instructions second
+		nextPutAssignment: self instructions first 
+		to: self instructions last
 ! !
 
 IRInstruction subclass: #IRClosure
@@ -348,8 +351,8 @@ arguments: aCollection
 
 emitOn: aStream
 	aStream 
-		nextPutClosureWith: [ super emitOn: aStream ]
-		arguments: (self arguments collect: [ :each | each asVariableName ])
+		nextPutClosureWith: [ super emitOn: aStream ] 
+		arguments: self arguments
 ! !
 
 IRInstruction subclass: #IRMethod
@@ -407,15 +410,15 @@ source: aString
 !IRMethod methodsFor: 'emiting'!
 
 emitOn: aStream
-	aStream 
-		nextPutMethodDeclaration: self
+	aStream
+		nextPutMethodDeclaration: self 
 		with: [
 			aStream 
 				nextPutFunctionWith: [ 
 					self internalVariables notEmpty ifTrue: [
 						aStream nextPutVars: self internalVariables ].
 					super emitOn: aStream ]
-				arguments: (self arguments collect: [ :each | each asVariableName ]) ]
+			arguments: self arguments ]
 ! !
 
 IRInstruction subclass: #IRNonLocalReturn
@@ -519,6 +522,9 @@ emitOn: aStream
 IRInstruction subclass: #IRStatement
 	instanceVariableNames: 'pc'
 	package: 'Compiler-IR'!
+!IRStatement commentStamp!
+I am a statement instruction. 
+Statements can be used to control the PC count, among other things.!
 
 !IRStatement methodsFor: 'accessing'!
 
@@ -580,6 +586,8 @@ emitOn: aStream
 IRInstruction subclass: #IRVariable
 	instanceVariableNames: 'variable'
 	package: 'Compiler-IR'!
+!IRVariable commentStamp!
+I am a variable instruction.!
 
 !IRVariable methodsFor: 'accessing'!
 
@@ -615,6 +623,144 @@ source: aString
 
 emitOn: aStream
 	aStream nextPutAll: self source, ';'
+! !
+
+Object subclass: #JSStream
+	instanceVariableNames: 'stream'
+	package: 'Compiler-IR'!
+
+!JSStream methodsFor: 'accessing'!
+
+contents
+	^ stream contents
+! !
+
+!JSStream methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	stream := '' writeStream.
+! !
+
+!JSStream methodsFor: 'streaming'!
+
+lf
+	stream lf
+!
+
+nextPut: aString
+	stream nextPut: aString
+!
+
+nextPutAll: aString
+	stream nextPutAll: aString
+!
+
+nextPutAssignment: varInstruction to: valueInstruction
+	varInstruction emitOn: self.
+	stream nextPutAll: '='.
+	valueInstruction emitOn: self
+!
+
+nextPutClosureWith: aBlock arguments: anArray
+	stream nextPutAll: '(function('.
+	anArray 
+		do: [ :each | stream nextPutAll: each asVariableName ]
+		separatedBy: [ stream nextPut: ',' ].
+	stream nextPutAll: '){'; lf.
+	aBlock value.
+	stream nextPutAll: '})'
+!
+
+nextPutFunctionWith: aBlock arguments: anArray
+	stream nextPutAll: 'fn: function('.
+	anArray 
+		do: [ :each | stream nextPutAll: each asVariableName ]
+		separatedBy: [ stream nextPut: ',' ].
+	stream nextPutAll: '){'; lf.
+	self nextPutVar: '$return'.
+	stream nextPutAll: 'var self=this;'; lf.
+	aBlock value.
+	stream nextPutAll: 'return $return || self;}'
+!
+
+nextPutMethodDeclaration: aMethod with: aBlock
+	stream 
+		nextPutAll: 'smalltalk.method({'; lf;
+		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
+	aBlock value.
+	stream 
+		nextPutAll: ',', String lf, 'messageSends: ';
+		nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;
+          	nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
+		nextPutAll: 'referencedClasses: ['.
+	aMethod classReferences 
+		do: [:each | stream nextPutAll: each asJavascript]
+		separatedBy: [stream nextPutAll: ','].
+	stream 
+		nextPutAll: ']';
+		nextPutAll: '})'
+!
+
+nextPutNonLocalReturnHandlingWith: aBlock
+	stream 
+		nextPutAll: 'var $early={};'; lf;
+		nextPutAll: 'try {'; lf.
+	aBlock value.
+	stream 
+		nextPutAll: '}'; lf;
+		nextPutAll: 'catch(e) {if(e===$early)return e[0]; throw e}'; lf
+!
+
+nextPutNonLocalReturnWith: aBlock
+	stream nextPutAll: '(function(){throw $early=['.
+	aBlock value.
+	stream nextPutAll: ']})()'
+!
+
+nextPutReturnWith: aBlock
+	stream nextPutAll: '$return='.
+	aBlock value
+!
+
+nextPutSendTo: receiver selector: selector arguments: arguments
+	stream nextPutAll: 'smalltalk.send('.
+	receiver emitOn: self. 
+	stream nextPutAll: ',"', selector asSelector, '",['.
+	arguments 
+		do: [ :each | each emitOn: self ]
+		separatedBy: [ stream nextPutAll: ',' ].
+	stream nextPutAll: '])'
+!
+
+nextPutSequenceWith: aBlock
+	"stream 
+		nextPutAll: 'switch(smalltalk.thisContext.pc){'; lf."
+	aBlock value.
+	"stream 
+		nextPutAll: '};'; lf"
+!
+
+nextPutStatement: anInteger with: aBlock
+	"stream 
+		nextPutAll: 'case ', anInteger asString, ':'; lf."
+	aBlock value.
+	stream 
+		nextPutAll: ';'; lf";
+		nextPutAll: 'smalltalk.thisContext.pc=', (anInteger + 1) asString, ';'; lf"
+!
+
+nextPutVar: aString
+	stream nextPutAll: 'var ', aString, ';'; lf
+!
+
+nextPutVars: aCollection
+	stream nextPutAll: 'var '.
+	aCollection 
+		do: [ :each | stream nextPutAll: each ]
+		separatedBy: [ stream nextPutAll: ',' ].
+	stream nextPutAll: ';'; lf
 ! !
 
 !BlockClosure methodsFor: '*Compiler-IR'!

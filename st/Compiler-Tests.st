@@ -59,6 +59,17 @@ testScope2
 	self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.
 !
 
+testScopeLevel
+	| src ast |
+
+	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
+	ast := smalltalk parse: src.
+	analyzer visit: ast.
+
+	self assert: ast scope scopeLevel = 1.
+	self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel = 3
+!
+
 testUnknownVariables
 	| src ast |
 

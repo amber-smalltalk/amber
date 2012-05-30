@@ -85,6 +85,7 @@ amber = (function() {
 				'Canvas',
 				'SUnit',
 				'Importer-Exporter',
+				'Compiler-Exceptions',
 				'Compiler-Core',
 				'Compiler-AST',
 				'Compiler-Visitors',

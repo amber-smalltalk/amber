@@ -115,18 +115,10 @@ accept: aVisitor
 ! !
 
 Node subclass: #BlockNode
-	instanceVariableNames: 'parameters scope inlined'
+	instanceVariableNames: 'parameters scope'
 	package: 'Compiler-AST'!
 
 !BlockNode methodsFor: 'accessing'!
-
-inlined
-	^inlined ifNil: [false]
-!
-
-inlined: aBoolean
-	inlined := aBoolean
-!
 
 parameters
 	^parameters ifNil: [parameters := Array new]

@@ -259,7 +259,7 @@ smalltalk.AssignmentNode);
 
 
 
-smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope', 'inlined'], 'Compiler-AST');
+smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -267,28 +267,6 @@ selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
 smalltalk.send(aVisitor, "_visitBlockNode_", [self]);
-return self;}
-}),
-smalltalk.BlockNode);
-
-smalltalk.addMethod(
-"_inlined",
-smalltalk.method({
-selector: "inlined",
-fn: function () {
-var self=this;
-return (($receiver = self['@inlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
-return self;}
-}),
-smalltalk.BlockNode);
-
-smalltalk.addMethod(
-"_inlined_",
-smalltalk.method({
-selector: "inlined:",
-fn: function (aBoolean) {
-var self=this;
-(self['@inlined']=aBoolean);
 return self;}
 }),
 smalltalk.BlockNode);

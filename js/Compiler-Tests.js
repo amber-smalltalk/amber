@@ -121,6 +121,28 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
+"_testScopeLevel",
+smalltalk.method({
+selector: "testScopeLevel",
+category: 'tests',
+fn: function () {
+var self=this;
+var src=nil;
+var ast=nil;
+(src="foo | a | a + 1. [ [ | b | b := a ] ]");
+(ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
+smalltalk.send(self['@analyzer'], "_visit_", [ast]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(ast, "_scope", []), "_scopeLevel", []), "__eq", [(1)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(ast, "_nodes", []), "_first", []), "_nodes", []), "_last", []), "_nodes", []), "_first", []), "_nodes", []), "_first", []), "_scope", []), "_scopeLevel", []), "__eq", [(3)])]);
+return self;},
+args: [],
+source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel = 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel = 3",
+messageSends: ["parse:", "visit:", "assert:", "=", "scopeLevel", "scope", "first", "nodes", "last"],
+referencedClasses: []
+}),
+smalltalk.SemanticAnalyzerTest);
+
+smalltalk.addMethod(
 "_testUnknownVariables",
 smalltalk.method({
 selector: "testUnknownVariables",

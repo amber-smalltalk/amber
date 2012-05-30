@@ -1,5 +1,41 @@
 smalltalk.addPackage('Compiler-Semantic', {});
-smalltalk.addClass('LexicalScope', smalltalk.Object, ['temps', 'args', 'outerScope'], 'Compiler-Semantic');
+smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
+smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned."
+smalltalk.addMethod(
+"_variableName",
+smalltalk.method({
+selector: "variableName",
+category: 'accessing',
+fn: function () {
+var self=this;
+return self['@variableName'];
+return self;},
+args: [],
+source: "variableName\x0a\x09^ variableName",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.InvalidAssignmentError);
+
+smalltalk.addMethod(
+"_variableName_",
+smalltalk.method({
+selector: "variableName:",
+category: 'accessing',
+fn: function (aString) {
+var self=this;
+(self['@variableName']=aString);
+return self;},
+args: ["aString"],
+source: "variableName: aString\x0a\x09variableName := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.InvalidAssignmentError);
+
+
+
+smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope."
 smalltalk.addMethod(
 "_addArg_",
@@ -135,6 +171,38 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
+"_node",
+smalltalk.method({
+selector: "node",
+category: 'accessing',
+fn: function () {
+var self=this;
+return self['@node'];
+return self;},
+args: [],
+source: "node\x0a\x09\x22Answer the node in which I am defined\x22\x0a\x09\x0a\x09^ node",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+"_node_",
+smalltalk.method({
+selector: "node:",
+category: 'accessing',
+fn: function (aNode) {
+var self=this;
+(self['@node']=aNode);
+return self;},
+args: ["aNode"],
+source: "node: aNode\x0a\x09node := aNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
 "_outerScope",
 smalltalk.method({
 selector: "outerScope",
@@ -162,6 +230,22 @@ return self;},
 args: ["aLexicalScope"],
 source: "outerScope: aLexicalScope\x0a\x09outerScope := aLexicalScope",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+"_scopeLevel",
+smalltalk.method({
+selector: "scopeLevel",
+category: 'accessing',
+fn: function () {
+var self=this;
+return ((($receiver = (($receiver = smalltalk.send(self, "_outerScope", [])) == nil || $receiver == undefined) ? (function(){return (0);})() : (function(){return smalltalk.send(smalltalk.send(self, "_outerScope", []), "_scopeLevel", []);})()).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]));
+return self;},
+args: [],
+source: "scopeLevel\x0a\x09^ (self outerScope \x0a\x09\x09ifNil: [ 0 ]\x0a\x09\x09ifNotNil: [ self outerScope scopeLevel ]) + 1",
+messageSends: ["+", "ifNil:ifNotNil:", "outerScope", "scopeLevel"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -538,6 +622,7 @@ smalltalk.ArgVar);
 
 
 smalltalk.addClass('ClassRefVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
+smalltalk.ClassRefVar.comment="I am an class reference variable"
 smalltalk.addMethod(
 "_alias",
 smalltalk.method({
@@ -915,6 +1000,23 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
+"_visitCascadeNode_",
+smalltalk.method({
+selector: "visitCascadeNode:",
+category: 'visiting',
+fn: function (aNode) {
+var self=this;
+smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_receiver_", [smalltalk.send(aNode, "_receiver", [])]);})]);
+smalltalk.send(self, "_visitCascadeNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
+return self;},
+args: ["aNode"],
+source: "visitCascadeNode: aNode\x0a\x09\x22Populate the receiver into all children\x22\x0a\x09aNode nodes do: [ :each | each receiver: aNode receiver ].\x0a\x09super visitCascadeNode: aNode",
+messageSends: ["do:", "nodes", "receiver:", "receiver", "visitCascadeNode:"],
+referencedClasses: []
+}),
+smalltalk.SemanticAnalyzer);
+
+smalltalk.addMethod(
 "_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
@@ -979,13 +1081,13 @@ category: 'visiting',
 fn: function (aNode) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_messageSends", []), "_add_", [smalltalk.send(aNode, "_selector", [])]);
-smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_beUsed", []);
+(($receiver = smalltalk.send(aNode, "_receiver", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_beUsed", []);})() : nil;
 smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);
 smalltalk.send(self, "_visitSendNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09self messageSends add: aNode selector.\x0a\x09aNode receiver beUsed.\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09each beUsed ].\x0a\x09super visitSendNode: aNode",
-messageSends: ["add:", "messageSends", "selector", "beUsed", "receiver", "do:", "arguments", "visitSendNode:"],
+source: "visitSendNode: aNode\x0a\x09self messageSends add: aNode selector.\x0a\x09aNode receiver ifNotNil: [\x0a\x09\x09aNode receiver beUsed ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09each beUsed ].\x0a\x09super visitSendNode: aNode",
+messageSends: ["add:", "messageSends", "selector", "ifNotNil:", "receiver", "beUsed", "do:", "arguments", "visitSendNode:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1039,117 +1141,5 @@ messageSends: ["theClass:", "yourself", "new"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer.klass);
-
-
-smalltalk.addClass('SemanticError', smalltalk.Error, [], 'Compiler-Semantic');
-smalltalk.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling"
-
-
-smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned."
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-category: 'accessing',
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.InvalidAssignmentError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-category: 'accessing',
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.InvalidAssignmentError);
-
-
-
-smalltalk.addClass('ShadowingVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope."
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-category: 'accessing',
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ShadowingVariableError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-category: 'accessing',
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ShadowingVariableError);
-
-
-
-smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects."
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-category: 'accessing',
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.UnknownVariableError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-category: 'accessing',
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.UnknownVariableError);
-
 
 

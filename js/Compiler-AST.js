@@ -375,7 +375,7 @@ smalltalk.AssignmentNode);
 
 
 
-smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope', 'inlined'], 'Compiler-AST');
+smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -388,38 +388,6 @@ return self;},
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitBlockNode: self",
 messageSends: ["visitBlockNode:"],
-referencedClasses: []
-}),
-smalltalk.BlockNode);
-
-smalltalk.addMethod(
-"_inlined",
-smalltalk.method({
-selector: "inlined",
-category: 'accessing',
-fn: function () {
-var self=this;
-return (($receiver = self['@inlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
-return self;},
-args: [],
-source: "inlined\x0a\x09^inlined ifNil: [false]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.BlockNode);
-
-smalltalk.addMethod(
-"_inlined_",
-smalltalk.method({
-selector: "inlined:",
-category: 'accessing',
-fn: function (aBoolean) {
-var self=this;
-(self['@inlined']=aBoolean);
-return self;},
-args: ["aBoolean"],
-source: "inlined: aBoolean\x0a\x09inlined := aBoolean",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockNode);

@@ -1,6 +1,22 @@
 Smalltalk current createPackage: 'Compiler-Semantic' properties: #{}!
+SemanticError subclass: #InvalidAssignmentError
+	instanceVariableNames: 'variableName'
+	package: 'Compiler-Semantic'!
+!InvalidAssignmentError commentStamp!
+I get signaled when a pseudo variable gets assigned.!
+
+!InvalidAssignmentError methodsFor: 'accessing'!
+
+variableName
+	^ variableName
+!
+
+variableName: aString
+	variableName := aString
+! !
+
 Object subclass: #LexicalScope
-	instanceVariableNames: 'temps args outerScope'
+	instanceVariableNames: 'node temps args outerScope'
 	package: 'Compiler-Semantic'!
 !LexicalScope commentStamp!
 I represent a lexical scope where variable names are associated with ScopeVars
@@ -38,12 +54,28 @@ methodScope
 		self outerScope methodScope ]
 !
 
+node
+	"Answer the node in which I am defined"
+	
+	^ node
+!
+
+node: aNode
+	node := aNode
+!
+
 outerScope
 	^ outerScope
 !
 
 outerScope: aLexicalScope
 	outerScope := aLexicalScope
+!
+
+scopeLevel
+	^ (self outerScope 
+		ifNil: [ 0 ]
+		ifNotNil: [ self outerScope scopeLevel ]) + 1
 !
 
 temps
@@ -198,6 +230,8 @@ isArgVar
 ScopeVar subclass: #ClassRefVar
 	instanceVariableNames: ''
 	package: 'Compiler-Semantic'!
+!ClassRefVar commentStamp!
+I am an class reference variable!
 
 !ClassRefVar methodsFor: 'accessing'!
 
@@ -359,6 +393,12 @@ visitBlockNode: aNode
 	self popScope
 !
 
+visitCascadeNode: aNode
+	"Populate the receiver into all children"
+	aNode nodes do: [ :each | each receiver: aNode receiver ].
+	super visitCascadeNode: aNode
+!
+
 visitClassReferenceNode: aNode
 	self classReferences add: aNode value.
 	aNode binding: (ClassRefVar new name: aNode value; yourself)
@@ -392,7 +432,8 @@ visitReturnNode: aNode
 
 visitSendNode: aNode
 	self messageSends add: aNode selector.
-	aNode receiver beUsed.
+	aNode receiver ifNotNil: [
+		aNode receiver beUsed ].
 	aNode arguments do: [ :each |
 		each beUsed ].
 	super visitSendNode: aNode
@@ -421,64 +462,5 @@ on: aClass
 	^ self new
 		theClass: aClass;
 		yourself
-! !
-
-Error subclass: #SemanticError
-	instanceVariableNames: ''
-	package: 'Compiler-Semantic'!
-!SemanticError commentStamp!
-I represent an abstract semantic error thrown by the SemanticAnalyzer.
-Semantic errors can be unknown variable errors, etc.
-See my subclasses for concrete errors.
-
-The IDE should catch instances of Semantic error to deal with them when compiling!
-
-SemanticError subclass: #InvalidAssignmentError
-	instanceVariableNames: 'variableName'
-	package: 'Compiler-Semantic'!
-!InvalidAssignmentError commentStamp!
-I get signaled when a pseudo variable gets assigned.!
-
-!InvalidAssignmentError methodsFor: 'accessing'!
-
-variableName
-	^ variableName
-!
-
-variableName: aString
-	variableName := aString
-! !
-
-SemanticError subclass: #ShadowingVariableError
-	instanceVariableNames: 'variableName'
-	package: 'Compiler-Semantic'!
-!ShadowingVariableError commentStamp!
-I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.!
-
-!ShadowingVariableError methodsFor: 'accessing'!
-
-variableName
-	^ variableName
-!
-
-variableName: aString
-	variableName := aString
-! !
-
-SemanticError subclass: #UnknownVariableError
-	instanceVariableNames: 'variableName'
-	package: 'Compiler-Semantic'!
-!UnknownVariableError commentStamp!
-I get signaled when a variable is not defined.
-The default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.!
-
-!UnknownVariableError methodsFor: 'accessing'!
-
-variableName
-	^ variableName
-!
-
-variableName: aString
-	variableName := aString
 ! !
 
