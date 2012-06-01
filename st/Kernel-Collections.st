@@ -1054,6 +1054,12 @@ shallowCopy
 	^self class fromString: self
 ! !
 
+!String methodsFor: 'enumerating'!
+
+do: aBlock
+	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i));}>
+! !
+
 !String methodsFor: 'printing'!
 
 printNl
