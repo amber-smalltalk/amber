@@ -220,6 +220,77 @@ testInstanceVariableNames
 	self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')
 ! !
 
+TestCase subclass: #CollectionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!CollectionTest methodsFor: 'accessing'!
+
+collection
+	^ self collectionClass withAll: self defaultValues
+!
+
+collectionClass
+	^ self class collectionClass
+!
+
+defaultValues
+	^ #('a' 1 2 #e)
+! !
+
+!CollectionTest methodsFor: 'convenience'!
+
+assertSameContents: aCollection 	as: anotherCollection
+	self assert: aCollection size = anotherCollection size.
+	aCollection do: [ :each |
+		self assert: (aCollection at: each) = (anotherCollection at: each) ]
+! !
+
+!CollectionTest methodsFor: 'testing'!
+
+testAsArray
+	self 
+		assertSameContents: self collection 
+		as: self collection asArray
+!
+
+testAsOrderedCollection
+	self 
+		assertSameContents: self collection 
+		as: self collection asOrderedCollection
+!
+
+testAsSet
+	| c set |
+	c := self collectionClass withAll: #('a' 'b' 'c' 1 2 1 'a').
+	set := c asSet.
+	self assert: set size = 5.
+	c do: [ :each |
+		self assert: (set includes: each) ]
+!
+
+testIsEmpty
+	self assert: self collectionClass new isEmpty.
+	self deny: self collection isEmpty
+!
+
+testSize
+	self assert: self collectionClass new size = 0.
+	self assert: self collection size = 4
+! !
+
+!CollectionTest class methodsFor: 'accessing'!
+
+collectionClass
+	^ nil
+! !
+
+!CollectionTest class methodsFor: 'testing'!
+
+isAbstract
+	^ self collectionClass notNil
+! !
+
 TestCase subclass: #DictionaryTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
