@@ -1,29 +1,4 @@
 smalltalk.addPackage('Compiler-Semantic', {});
-smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;}
-}),
-smalltalk.InvalidAssignmentError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;}
-}),
-smalltalk.InvalidAssignmentError);
-
-
-
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.addMethod(
 "_addArg_",
@@ -413,7 +388,29 @@ return self;}
 smalltalk.ScopeVar.klass);
 
 
-smalltalk.addClass('AliasVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
+smalltalk.addClass('AliasVar', smalltalk.ScopeVar, ['node'], 'Compiler-Semantic');
+smalltalk.addMethod(
+"_node",
+smalltalk.method({
+selector: "node",
+fn: function () {
+var self=this;
+return self['@node'];
+return self;}
+}),
+smalltalk.AliasVar);
+
+smalltalk.addMethod(
+"_node_",
+smalltalk.method({
+selector: "node:",
+fn: function (aNode) {
+var self=this;
+(self['@node']=aNode);
+return self;}
+}),
+smalltalk.AliasVar);
+
 
 
 smalltalk.addClass('ArgVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');

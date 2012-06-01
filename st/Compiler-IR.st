@@ -116,7 +116,10 @@ resolve: aNode
 		alias := self nextAlias.
 		self builder method internalVariables add: alias.
 		self builder assignment
-			with: [ self builder variable: (AliasVar new name: alias) ];
+			with: [ self builder variable: (AliasVar new 
+				name: alias;
+				node: aNode;
+				yourself) ];
 			with: [ self visit: aNode resolving: false ].
 			aNode alias: alias ]
 !
@@ -133,7 +136,10 @@ visit: aNode resolving: aBoolean
 !
 
 visitAliased: aNode
-	^ self builder variable: (AliasVar new name: aNode alias)
+	^ self builder variable: (AliasVar new 
+		name: aNode alias;
+		node: aNode;
+		yourself)
 ! !
 
 Object subclass: #IRBuilder
@@ -313,6 +319,12 @@ emitOn: aStream
 		each emitOn: aStream ]
 ! !
 
+!IRInstruction methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRInstruction: self
+! !
+
 !IRInstruction class methodsFor: 'instance creation'!
 
 on: aBuilder
@@ -331,6 +343,12 @@ emitOn: aStream
 	aStream 
 		nextPutAssignment: self instructions first 
 		to: self instructions last
+! !
+
+!IRAssignment methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRAssignment: self
 ! !
 
 IRInstruction subclass: #IRClosure
@@ -353,6 +371,12 @@ emitOn: aStream
 	aStream 
 		nextPutClosureWith: [ super emitOn: aStream ] 
 		arguments: self arguments
+! !
+
+!IRClosure methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRClosure: self
 ! !
 
 IRInstruction subclass: #IRMethod
@@ -409,6 +433,10 @@ source: aString
 
 !IRMethod methodsFor: 'emiting'!
 
+accept: aVisitor
+	aVisitor visitIRMethod: self
+!
+
 emitOn: aStream
 	aStream
 		nextPutMethodDeclaration: self 
@@ -437,6 +465,12 @@ emitOn: aStream
 		super emitOn: aStream ]
 ! !
 
+!IRNonLocalReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRNonLocalReturn: self
+! !
+
 IRInstruction subclass: #IRNonLocalReturnHandling
 	instanceVariableNames: ''
 	package: 'Compiler-IR'!
@@ -451,6 +485,12 @@ emitOn: aStream
 		super emitOn: aStream ]
 ! !
 
+!IRNonLocalReturnHandling methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRNonLocalReturnHandling: self
+! !
+
 IRInstruction subclass: #IRReturn
 	instanceVariableNames: ''
 	package: 'Compiler-IR'!
@@ -462,6 +502,12 @@ I am a local return instruction.!
 emitOn: aStream
 	aStream nextPutReturnWith: [
 		super emitOn: aStream ]
+! !
+
+!IRReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRReturn: self
 ! !
 
 IRInstruction subclass: #IRSend
@@ -499,6 +545,12 @@ superSend: aBoolean
 	superSend := aBoolean
 ! !
 
+!IRSend methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRSend: self
+! !
+
 IRInstruction subclass: #IRSequence
 	instanceVariableNames: ''
 	package: 'Compiler-IR'!
@@ -519,6 +571,12 @@ emitOn: aStream
 		super emitOn: aStream ]
 ! !
 
+!IRSequence methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRSequence: self
+! !
+
 IRInstruction subclass: #IRStatement
 	instanceVariableNames: 'pc'
 	package: 'Compiler-IR'!
@@ -537,6 +595,12 @@ pc
 emitOn: aStream
 	aStream nextPutStatement: self pc with: [
 		super emitOn: aStream ]
+! !
+
+!IRStatement methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRStatement: self
 ! !
 
 IRInstruction subclass: #IRTempDeclaration
@@ -561,6 +625,12 @@ emitOn: aStream
 	aStream nextPutVar: self name asVariableName
 ! !
 
+!IRTempDeclaration methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRTempDeclaration: self
+! !
+
 IRInstruction subclass: #IRValue
 	instanceVariableNames: 'value'
 	package: 'Compiler-IR'!
@@ -571,16 +641,22 @@ I am the simplest possible instruction. I represent a value.!
 
 value
 	^value
-!
-
-value: aString
-	value := aString
 ! !
 
 !IRValue methodsFor: 'emiting'!
 
+accept: aVisitor
+	aVisitor visitIRValue: self
+!
+
 emitOn: aStream
 	aStream nextPutAll: self value asJavascript
+! !
+
+!IRValue methodsFor: 'visiting'!
+
+value: aString
+	value := aString
 ! !
 
 IRInstruction subclass: #IRVariable
@@ -600,6 +676,12 @@ variable: aScopeVariable
 ! !
 
 !IRVariable methodsFor: 'emiting'!
+
+accept: aVisitor
+	aVisitor visitIRVariable: self
+! !
+
+!IRVariable methodsFor: 'visiting'!
 
 emitOn: aStream
 	aStream nextPutAll: self variable alias
@@ -623,6 +705,78 @@ source: aString
 
 emitOn: aStream
 	aStream nextPutAll: self source, ';'
+! !
+
+!IRVerbatim methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRVerbatim: self
+! !
+
+Object subclass: #IRVisitor
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRVisitor methodsFor: 'visiting'!
+
+visit: anIRInstruction
+	anIRInstruction accept: self
+!
+
+visitIRAssignment: anIRAssignment
+	self visitIRInstruction: anIRAssignment
+!
+
+visitIRClosure: anIRClosure
+	self visitIRInstruction: anIRClosure
+!
+
+visitIRInstruction: anIRInstruction
+	anIRInstruction instructions do: [ :each | self visit: each ]
+!
+
+visitIRMethod: anIRMethod
+	self visitIRInstruction: anIRMethod
+!
+
+visitIRNonLocalReturn: anIRNonLocalReturn
+	self visitIRInstruction: anIRNonLocalReturn
+!
+
+visitIRNonLocalReturnHandling: anIRNonLocalReturnHandling
+	self visitIRInstruction: anIRNonLocalReturnHandling
+!
+
+visitIRReturn: anIRReturn
+	self visitIRInstruction: anIRReturn
+!
+
+visitIRSend: anIRSend
+	self visitIRInstruction: anIRSend
+!
+
+visitIRSequence: anIRSequence
+	self visitIRInstruction: anIRSequence
+!
+
+visitIRStatement: anIRStatement
+	self visitIRInstruction: anIRStatement
+!
+
+visitIRTempDeclaration: anIRTempDeclaration
+	self visitIRInstruction: anIRTempDeclaration
+!
+
+visitIRValue: anIRValue
+	self visitIRInstruction: anIRValue
+!
+
+visitIRVariable: anIRVariable
+	self visitIRInstruction: anIRVariable
+!
+
+visitIRVerbatim: anIRVerbatim
+	self visitIRInstruction: anIRVerbatim
 ! !
 
 Object subclass: #JSStream

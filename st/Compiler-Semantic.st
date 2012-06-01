@@ -1,20 +1,4 @@
 Smalltalk current createPackage: 'Compiler-Semantic' properties: #{}!
-SemanticError subclass: #InvalidAssignmentError
-	instanceVariableNames: 'variableName'
-	package: 'Compiler-Semantic'!
-!InvalidAssignmentError commentStamp!
-I get signaled when a pseudo variable gets assigned.!
-
-!InvalidAssignmentError methodsFor: 'accessing'!
-
-variableName
-	^ variableName
-!
-
-variableName: aString
-	variableName := aString
-! !
-
 Object subclass: #LexicalScope
 	instanceVariableNames: 'node temps args outerScope'
 	package: 'Compiler-Semantic'!
@@ -210,10 +194,20 @@ on: aString
 ! !
 
 ScopeVar subclass: #AliasVar
-	instanceVariableNames: ''
+	instanceVariableNames: 'node'
 	package: 'Compiler-Semantic'!
 !AliasVar commentStamp!
 I am an internally defined variable by the compiler!
+
+!AliasVar methodsFor: 'accessing'!
+
+node
+	^ node
+!
+
+node: aNode
+	node := aNode
+! !
 
 ScopeVar subclass: #ArgVar
 	instanceVariableNames: ''

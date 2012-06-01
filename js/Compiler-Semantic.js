@@ -1,40 +1,4 @@
 smalltalk.addPackage('Compiler-Semantic', {});
-smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Semantic');
-smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned."
-smalltalk.addMethod(
-"_variableName",
-smalltalk.method({
-selector: "variableName",
-category: 'accessing',
-fn: function () {
-var self=this;
-return self['@variableName'];
-return self;},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.InvalidAssignmentError);
-
-smalltalk.addMethod(
-"_variableName_",
-smalltalk.method({
-selector: "variableName:",
-category: 'accessing',
-fn: function (aString) {
-var self=this;
-(self['@variableName']=aString);
-return self;},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.InvalidAssignmentError);
-
-
-
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope."
 smalltalk.addMethod(
@@ -597,8 +561,40 @@ referencedClasses: []
 smalltalk.ScopeVar.klass);
 
 
-smalltalk.addClass('AliasVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
+smalltalk.addClass('AliasVar', smalltalk.ScopeVar, ['node'], 'Compiler-Semantic');
 smalltalk.AliasVar.comment="I am an internally defined variable by the compiler"
+smalltalk.addMethod(
+"_node",
+smalltalk.method({
+selector: "node",
+category: 'accessing',
+fn: function () {
+var self=this;
+return self['@node'];
+return self;},
+args: [],
+source: "node\x0a\x09^ node",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AliasVar);
+
+smalltalk.addMethod(
+"_node_",
+smalltalk.method({
+selector: "node:",
+category: 'accessing',
+fn: function (aNode) {
+var self=this;
+(self['@node']=aNode);
+return self;},
+args: ["aNode"],
+source: "node: aNode\x0a\x09node := aNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AliasVar);
+
 
 
 smalltalk.addClass('ArgVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');

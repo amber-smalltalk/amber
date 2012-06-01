@@ -17,6 +17,22 @@ See my subclasses for concrete errors.
 
 The IDE should catch instances of Semantic error to deal with them when compiling!
 
+SemanticError subclass: #InvalidAssignmentError
+	instanceVariableNames: 'variableName'
+	package: 'Compiler-Exceptions'!
+!InvalidAssignmentError commentStamp!
+I get signaled when a pseudo variable gets assigned.!
+
+!InvalidAssignmentError methodsFor: 'accessing'!
+
+variableName
+	^ variableName
+!
+
+variableName: aString
+	variableName := aString
+! !
+
 SemanticError subclass: #ShadowingVariableError
 	instanceVariableNames: 'variableName'
 	package: 'Compiler-Exceptions'!
