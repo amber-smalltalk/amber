@@ -2713,10 +2713,10 @@ selector: "at:ifAbsent:",
 category: 'accessing',
 fn: function (anIndex, aBlock) {
 var self=this;
-return String(self)[anIndex - 1] || aBlock();
+return String(self).charAt(anIndex - 1) || aBlock();
 return self;},
 args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self)[anIndex - 1] || aBlock()>",
+source: "at: anIndex ifAbsent: aBlock\x0a\x09<return String(self).charAt(anIndex - 1) || aBlock()>",
 messageSends: [],
 referencedClasses: []
 }),

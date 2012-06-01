@@ -1921,7 +1921,7 @@ smalltalk.method({
 selector: "at:ifAbsent:",
 fn: function (anIndex, aBlock) {
 var self=this;
-return String(self)[anIndex - 1] || aBlock();
+return String(self).charAt(anIndex - 1) || aBlock();
 return self;}
 }),
 smalltalk.String);
