@@ -106,6 +106,10 @@ testSelectors
 
 !TestCase class methodsFor: 'testing'!
 
+isAbstract
+	^ self name = 'TestCase'
+!
+
 shouldInheritSelectors
 	^self ~= self lookupHierarchyRoot
 ! !

@@ -1963,6 +1963,17 @@ return self;}
 smalltalk.String);
 
 smalltalk.addMethod(
+"_do_",
+smalltalk.method({
+selector: "do:",
+fn: function (aBlock) {
+var self=this;
+for(var i=0;i<self.length;i++){aBlock(self.charAt(i));};
+return self;}
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_escaped",
 smalltalk.method({
 selector: "escaped",

@@ -1985,7 +1985,7 @@ TabWidget subclass: #TestRunner
 !TestRunner methodsFor: 'accessing'!
 
 allClasses
-	^TestCase allSubclasses
+	^TestCase allSubclasses select: [ :each | each isAbstract not ]
 !
 
 classes

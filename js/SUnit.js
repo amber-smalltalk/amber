@@ -264,6 +264,22 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
+"_isAbstract",
+smalltalk.method({
+selector: "isAbstract",
+category: 'testing',
+fn: function () {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_name", []), "__eq", ["TestCase"]);
+return self;},
+args: [],
+source: "isAbstract\x0a\x09^ self name = 'TestCase'",
+messageSends: ["=", "name"],
+referencedClasses: []
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
 "_lookupHierarchyRoot",
 smalltalk.method({
 selector: "lookupHierarchyRoot",

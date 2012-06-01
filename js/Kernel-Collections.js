@@ -2774,6 +2774,22 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
+"_do_",
+smalltalk.method({
+selector: "do:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+for(var i=0;i<self.length;i++){aBlock(self.charAt(i));};
+return self;},
+args: ["aBlock"],
+source: "do: aBlock\x0a\x09<for(var i=0;i<self.length;i++){aBlock(self.charAt(i));}>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_escaped",
 smalltalk.method({
 selector: "escaped",

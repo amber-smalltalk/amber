@@ -184,6 +184,17 @@ return self;}
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
+"_isAbstract",
+smalltalk.method({
+selector: "isAbstract",
+fn: function () {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_name", []), "__eq", ["TestCase"]);
+return self;}
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
 "_lookupHierarchyRoot",
 smalltalk.method({
 selector: "lookupHierarchyRoot",
