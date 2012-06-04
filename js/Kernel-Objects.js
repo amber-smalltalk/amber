@@ -2195,6 +2195,22 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
+"_abs",
+smalltalk.method({
+selector: "abs",
+category: 'arithmetic',
+fn: function () {
+var self=this;
+return Math.abs(self);;
+return self;},
+args: [],
+source: "abs\x0a\x09^ <Math.abs(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
 "_asJSON",
 smalltalk.method({
 selector: "asJSON",

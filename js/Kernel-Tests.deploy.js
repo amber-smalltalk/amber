@@ -1,70 +1,4 @@
 smalltalk.addPackage('Kernel-Tests', {});
-smalltalk.addClass('ArrayTest', smalltalk.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-"_testAtIfAbsent",
-smalltalk.method({
-selector: "testAtIfAbsent",
-fn: function () {
-var self=this;
-var array=nil;
-(array=["hello", "world"]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_", [(1)]), "hello"]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_", [(2)]), "world"]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(2), (function(){return "not found";})]), "world"]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(0), (function(){return "not found";})]), "not found"]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(-10), (function(){return "not found";})]), "not found"]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(3), (function(){return "not found";})]), "not found"]);
-return self;}
-}),
-smalltalk.ArrayTest);
-
-smalltalk.addMethod(
-"_testFirstN",
-smalltalk.method({
-selector: "testFirstN",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", [[(1),(2),(3)], smalltalk.send([(1),(2),(3),(4),(5)], "_first_", [(3)])]);
-return self;}
-}),
-smalltalk.ArrayTest);
-
-smalltalk.addMethod(
-"_testIfEmpty",
-smalltalk.method({
-selector: "testIfEmpty",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", ["zork", smalltalk.send("", "_ifEmpty_", [(function(){return "zork";})])]);
-return self;}
-}),
-smalltalk.ArrayTest);
-
-smalltalk.addMethod(
-"_testPrintString",
-smalltalk.method({
-selector: "testPrintString",
-fn: function () {
-var self=this;
-var array=nil;
-(array=smalltalk.send((smalltalk.Array || Array), "_new", []));
-smalltalk.send(self, "_assert_equals_", ["a Array ()", smalltalk.send(array, "_printString", [])]);
-(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(array);
-smalltalk.send(self, "_assert_equals_", ["a Array (1 3)", smalltalk.send(array, "_printString", [])]);
-smalltalk.send(array, "_add_", ["foo"]);
-smalltalk.send(self, "_assert_equals_", ["a Array (1 3 'foo')", smalltalk.send(array, "_printString", [])]);
-(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(array);
-smalltalk.send(self, "_assert_equals_", ["a Array ('foo')", smalltalk.send(array, "_printString", [])]);
-smalltalk.send(array, "_addLast_", [(3)]);
-smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3)", smalltalk.send(array, "_printString", [])]);
-smalltalk.send(array, "_addLast_", [(3)]);
-smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3 3)", smalltalk.send(array, "_printString", [])]);
-return self;}
-}),
-smalltalk.ArrayTest);
-
-
-
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_testCompiledSource",
@@ -323,7 +257,7 @@ selector: "assertSameContents:as:",
 fn: function (aCollection, anotherCollection) {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(aCollection, "_size", []), "__eq", [smalltalk.send(anotherCollection, "_size", [])])]);
-smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(aCollection, "_at_", [each]), "__eq", [smalltalk.send(anotherCollection, "_at_", [each])])]);})]);
+smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(aCollection, "_occurrencesOf_", [each]), "__eq", [smalltalk.send(anotherCollection, "_occurrencesOf_", [each])])]);})]);
 return self;}
 }),
 smalltalk.CollectionTest);
@@ -351,12 +285,34 @@ return self;}
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
+"_collectionWithDuplicates",
+smalltalk.method({
+selector: "collectionWithDuplicates",
+fn: function () {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_collectionClass", []), "_withAll_", [["a", "b", "c", (1), (2), (1), "a"]]);
+return self;}
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
 "_defaultValues",
 smalltalk.method({
 selector: "defaultValues",
 fn: function () {
 var self=this;
-return ["a", (1), (2), smalltalk.symbolFor("e")];
+return [(1), (2), (3), (-4)];
+return self;}
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+"_isCollectionReadOnly",
+smalltalk.method({
+selector: "isCollectionReadOnly",
+fn: function () {
+var self=this;
+return false;
 return self;}
 }),
 smalltalk.CollectionTest);
@@ -391,10 +347,49 @@ fn: function () {
 var self=this;
 var c=nil;
 var set=nil;
-(c=smalltalk.send(smalltalk.send(self, "_collectionClass", []), "_withAll_", [["a", "b", "c", (1), (2), (1), "a"]]));
+(c=smalltalk.send(self, "_collectionWithDuplicates", []));
 (set=smalltalk.send(c, "_asSet", []));
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(set, "_size", []), "__eq", [(5)])]);
 smalltalk.send(c, "_do_", [(function(each){return smalltalk.send(self, "_assert_", [smalltalk.send(set, "_includes_", [each])]);})]);
+return self;}
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+"_testCollect",
+smalltalk.method({
+selector: "testCollect",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection=[(1), (2), (3), (4)]);
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_collect_", [(function(each){return smalltalk.send(each, "_abs", []);})]), newCollection]);
+return self;}
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+"_testDetect",
+smalltalk.method({
+selector: "testDetect",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_detect_", [(function(each){return ((($receiver = each).klass === smalltalk.Number) ? $receiver <(0) : smalltalk.send($receiver, "__lt", [(0)]));})]), "__eq", [(-4)])]);
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_detect_", [(function(each){return smalltalk.send(each, "__eq", [(6)]);})]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+"_testDo",
+smalltalk.method({
+selector: "testDo",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection), "_new", []));
+smalltalk.send(smalltalk.send(self, "_collection", []), "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [each]);})]);
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(self, "_collection", []), newCollection]);
 return self;}
 }),
 smalltalk.CollectionTest);
@@ -407,6 +402,19 @@ fn: function () {
 var self=this;
 smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_collectionClass", []), "_new", []), "_isEmpty", [])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_isEmpty", [])]);
+return self;}
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+"_testSelect",
+smalltalk.method({
+selector: "testSelect",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection=[(2), (-4)]);
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_select_", [(function(each){return smalltalk.send(each, "_even", []);})]), newCollection]);
 return self;}
 }),
 smalltalk.CollectionTest);
@@ -441,13 +449,71 @@ smalltalk.method({
 selector: "isAbstract",
 fn: function () {
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_collectionClass", []), "_notNil", []);
+return smalltalk.send(smalltalk.send(self, "_collectionClass", []), "_isNil", []);
 return self;}
 }),
 smalltalk.CollectionTest.klass);
 
 
-smalltalk.addClass('DictionaryTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addClass('HashedCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_collection",
+smalltalk.method({
+selector: "collection",
+fn: function () {
+var self=this;
+return smalltalk.HashedCollection._fromPairs_([smalltalk.send("a", "__minus_gt", [(1)]),smalltalk.send("b", "__minus_gt", [(2)]),smalltalk.send("c", "__minus_gt", [(3)]),smalltalk.send("d", "__minus_gt", [(-4)])]);
+return self;}
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+"_collectionWithDuplicates",
+smalltalk.method({
+selector: "collectionWithDuplicates",
+fn: function () {
+var self=this;
+return smalltalk.HashedCollection._fromPairs_([smalltalk.send("a", "__minus_gt", [(1)]),smalltalk.send("b", "__minus_gt", [(2)]),smalltalk.send("c", "__minus_gt", [(3)]),smalltalk.send("d", "__minus_gt", [(-4)]),smalltalk.send("e", "__minus_gt", [(1)]),smalltalk.send("f", "__minus_gt", [(2)]),smalltalk.send("g", "__minus_gt", [(10)])]);
+return self;}
+}),
+smalltalk.HashedCollectionTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function () {
+var self=this;
+return (smalltalk.HashedCollection || HashedCollection);
+return self;}
+}),
+smalltalk.HashedCollectionTest.klass);
+
+
+smalltalk.addClass('DictionaryTest', smalltalk.HashedCollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_collection",
+smalltalk.method({
+selector: "collection",
+fn: function () {
+var self=this;
+return (function($rec){smalltalk.send($rec, "_at_put_", [(1), (1)]);smalltalk.send($rec, "_at_put_", ["a", (2)]);smalltalk.send($rec, "_at_put_", [true, (3)]);smalltalk.send($rec, "_at_put_", [(4), (-4)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+return self;}
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_collectionWithDuplicates",
+smalltalk.method({
+selector: "collectionWithDuplicates",
+fn: function () {
+var self=this;
+return (function($rec){smalltalk.send($rec, "_at_put_", [(1), (1)]);smalltalk.send($rec, "_at_put_", ["a", (2)]);smalltalk.send($rec, "_at_put_", [true, (3)]);smalltalk.send($rec, "_at_put_", [(4), (-4)]);smalltalk.send($rec, "_at_put_", ["b", (1)]);smalltalk.send($rec, "_at_put_", [(3), (3)]);smalltalk.send($rec, "_at_put_", [false, (12)]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+return self;}
+}),
+smalltalk.DictionaryTest);
+
 smalltalk.addMethod(
 "_testAccessing",
 smalltalk.method({
@@ -661,6 +727,546 @@ return self;}
 smalltalk.DictionaryTest);
 
 
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function () {
+var self=this;
+return (smalltalk.Dictionary || Dictionary);
+return self;}
+}),
+smalltalk.DictionaryTest.klass);
+
+
+smalltalk.addClass('SequenceableCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testAt",
+smalltalk.method({
+selector: "testAt",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [(4)]), "__eq", [(-4)])]);
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_at_", [(5)]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.SequenceableCollectionTest);
+
+smalltalk.addMethod(
+"_testAtIfAbsent",
+smalltalk.method({
+selector: "testAtIfAbsent",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_at_ifAbsent_", [((($receiver = smalltalk.send(smalltalk.send(self, "_collection", []), "_size", [])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), (function(){return "none";})]), "__eq", ["none"])]);
+return self;}
+}),
+smalltalk.SequenceableCollectionTest);
+
+
+
+smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testAtIfAbsent",
+smalltalk.method({
+selector: "testAtIfAbsent",
+fn: function () {
+var self=this;
+var array=nil;
+(array=["hello", "world"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_", [(1)]), "hello"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_", [(2)]), "world"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(2), (function(){return "not found";})]), "world"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(0), (function(){return "not found";})]), "not found"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(-10), (function(){return "not found";})]), "not found"]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(array, "_at_ifAbsent_", [(3), (function(){return "not found";})]), "not found"]);
+return self;}
+}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+"_testFirstN",
+smalltalk.method({
+selector: "testFirstN",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", [[(1),(2),(3)], smalltalk.send([(1),(2),(3),(4),(5)], "_first_", [(3)])]);
+return self;}
+}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+"_testIfEmpty",
+smalltalk.method({
+selector: "testIfEmpty",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["zork", smalltalk.send("", "_ifEmpty_", [(function(){return "zork";})])]);
+return self;}
+}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function () {
+var self=this;
+var array=nil;
+(array=smalltalk.send((smalltalk.Array || Array), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a Array ()", smalltalk.send(array, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_add_", [(1)]);return smalltalk.send($rec, "_add_", [(3)]);})(array);
+smalltalk.send(self, "_assert_equals_", ["a Array (1 3)", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_add_", ["foo"]);
+smalltalk.send(self, "_assert_equals_", ["a Array (1 3 'foo')", smalltalk.send(array, "_printString", [])]);
+(function($rec){smalltalk.send($rec, "_remove_", [(1)]);return smalltalk.send($rec, "_remove_", [(3)]);})(array);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo')", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_addLast_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3)", smalltalk.send(array, "_printString", [])]);
+smalltalk.send(array, "_addLast_", [(3)]);
+smalltalk.send(self, "_assert_equals_", ["a Array ('foo' 3 3)", smalltalk.send(array, "_printString", [])]);
+return self;}
+}),
+smalltalk.ArrayTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function () {
+var self=this;
+return (smalltalk.Array || Array);
+return self;}
+}),
+smalltalk.ArrayTest.klass);
+
+
+smalltalk.addClass('StringTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_collection",
+smalltalk.method({
+selector: "collection",
+fn: function () {
+var self=this;
+return "hello";
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_collectionWithDuplicates",
+smalltalk.method({
+selector: "collectionWithDuplicates",
+fn: function () {
+var self=this;
+return "abbaerte";
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testAddRemove",
+smalltalk.method({
+selector: "testAddRemove",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_add_", ["a"]);}), (smalltalk.Error || Error)]);
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_remove_", ["h"]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testAsArray",
+smalltalk.method({
+selector: "testAsArray",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_asArray", []), "__eq", [["h", "e", "l", "l", "o"]])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testAt",
+smalltalk.method({
+selector: "testAt",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(1)]), "__eq", ["h"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(5)]), "__eq", ["o"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_ifAbsent_", [(6), (function(){return nil;})]), "__eq", [nil])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testAtPut",
+smalltalk.method({
+selector: "testAtPut",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testCollect",
+smalltalk.method({
+selector: "testCollect",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection="hheelllloo");
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_collect_", [(function(each){return smalltalk.send(each, "__comma", [each]);})]), newCollection]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testCopyWithoutAll",
+smalltalk.method({
+selector: "testCopyWithoutAll",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send("*hello* *world*", "_copyWithoutAll_", ["*"])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testDetect",
+smalltalk.method({
+selector: "testDetect",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_detect_", [(function(each){return smalltalk.send(each, "__eq", ["h"]);})]), "__eq", ["h"])]);
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_detect_", [(function(each){return smalltalk.send(each, "__eq", [(6)]);})]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testEquality",
+smalltalk.method({
+selector: "testEquality",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq", ["world"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq", [smalltalk.send("hello", "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_yourself", []), "__eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [(0)])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testIdentity",
+smalltalk.method({
+selector: "testIdentity",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq_eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq_eq", ["world"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq_eq", [smalltalk.send("hello", "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_yourself", []), "__eq_eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq_eq", [(0)])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testIncludesSubString",
+smalltalk.method({
+selector: "testIncludesSubString",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send("amber", "_includesSubString_", ["ber"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("amber", "_includesSubString_", ["zork"])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testJoin",
+smalltalk.method({
+selector: "testJoin",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["hello,world", smalltalk.send(",", "_join_", [["hello", "world"]])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testSelect",
+smalltalk.method({
+selector: "testSelect",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection="o");
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_select_", [(function(each){return smalltalk.send(each, "__eq", ["o"]);})]), newCollection]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testSize",
+smalltalk.method({
+selector: "testSize",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send("smalltalk", "_size", []), (9)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send("", "_size", []), (0)]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+"_testStreamContents",
+smalltalk.method({
+selector: "testStreamContents",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", ["hello"]);smalltalk.send($rec, "_space", []);return smalltalk.send($rec, "_nextPutAll_", ["world"]);})(aStream);})])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function () {
+var self=this;
+return (smalltalk.String || String);
+return self;}
+}),
+smalltalk.StringTest.klass);
+
+
+smalltalk.addClass('SymbolTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_collection",
+smalltalk.method({
+selector: "collection",
+fn: function () {
+var self=this;
+return smalltalk.symbolFor("hello");
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_collectionWithDuplicates",
+smalltalk.method({
+selector: "collectionWithDuplicates",
+fn: function () {
+var self=this;
+return smalltalk.symbolFor("phhaaarorra");
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testAsString",
+smalltalk.method({
+selector: "testAsString",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("hello"), "_asString", []), "hello"]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testAsSymbol",
+smalltalk.method({
+selector: "testAsSymbol",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_asSymbol", [])])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testAt",
+smalltalk.method({
+selector: "testAt",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_", [(1)]), "__eq", ["h"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_", [(5)]), "__eq", ["o"])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_ifAbsent_", [(6), (function(){return nil;})]), "__eq", [nil])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testAtPut",
+smalltalk.method({
+selector: "testAtPut",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testCollect",
+smalltalk.method({
+selector: "testCollect",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection=smalltalk.symbolFor("hheelllloo"));
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_collect_", [(function(each){return smalltalk.send(each, "__comma", [each]);})]), newCollection]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testComparing",
+smalltalk.method({
+selector: "testComparing",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >smalltalk.symbolFor("aa") : smalltalk.send($receiver, "__gt", [smalltalk.symbolFor("aa")]))]);
+smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__gt", [smalltalk.symbolFor("ba")]))]);
+smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver <smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt", [smalltalk.symbolFor("ba")]))]);
+smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("bb")).klass === smalltalk.Number) ? $receiver <smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt", [smalltalk.symbolFor("ba")]))]);
+smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >=smalltalk.symbolFor("aa") : smalltalk.send($receiver, "__gt_eq", [smalltalk.symbolFor("aa")]))]);
+smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >=smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__gt_eq", [smalltalk.symbolFor("ba")]))]);
+smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver <=smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt_eq", [smalltalk.symbolFor("ba")]))]);
+smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("bb")).klass === smalltalk.Number) ? $receiver <=smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt_eq", [smalltalk.symbolFor("ba")]))]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testCopying",
+smalltalk.method({
+selector: "testCopying",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_copy", []), "__eq_eq", [smalltalk.symbolFor("hello")])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_deepCopy", []), "__eq_eq", [smalltalk.symbolFor("hello")])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testDetect",
+smalltalk.method({
+selector: "testDetect",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_collection", []), "_detect_", [(function(each){return smalltalk.send(each, "__eq", ["h"]);})]), "__eq", ["h"])]);
+smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(smalltalk.send(self, "_collection", []), "_detect_", [(function(each){return smalltalk.send(each, "__eq", ["z"]);})]);}), (smalltalk.Error || Error)]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testEquality",
+smalltalk.method({
+selector: "testEquality",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.symbolFor("hello")])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.symbolFor("world")])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", []), "__eq", [smalltalk.symbolFor("hello")])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", ["hello"])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq", [smalltalk.symbolFor("hello")])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testIdentity",
+smalltalk.method({
+selector: "testIdentity",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.symbolFor("hello")])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.symbolFor("world")])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", []), "__eq", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_asString", []), "_asSymbol", [])])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testIsEmpty",
+smalltalk.method({
+selector: "testIsEmpty",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_isEmpty", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("", "_asSymbol", []), "_isEmpty", [])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testIsSymbolIsString",
+smalltalk.method({
+selector: "testIsSymbolIsString",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "_isSymbol", [])]);
+smalltalk.send(self, "_deny_", [smalltalk.send("hello", "_isSymbol", [])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "_isString", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send("hello", "_isString", [])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testSelect",
+smalltalk.method({
+selector: "testSelect",
+fn: function () {
+var self=this;
+var newCollection=nil;
+(newCollection="o");
+smalltalk.send(self, "_assertSameContents_as_", [smalltalk.send(smalltalk.send(self, "_collection", []), "_select_", [(function(each){return smalltalk.send(each, "__eq", ["o"]);})]), newCollection]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testSize",
+smalltalk.method({
+selector: "testSize",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("a"), "_size", []), (1)]);
+smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("aaaaa"), "_size", []), (5)]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function () {
+var self=this;
+return (smalltalk.Symbol || Symbol);
+return self;}
+}),
+smalltalk.SymbolTest.klass);
+
 
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
@@ -756,6 +1362,18 @@ smalltalk.JSObjectProxyTest);
 
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testAbs",
+smalltalk.method({
+selector: "testAbs",
+fn: function () {
+var self=this;
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((4), "_abs", []), "__eq", [(4)])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send((-4), "_abs", []), "__eq", [(4)])]);
+return self;}
+}),
+smalltalk.NumberTest);
+
 smalltalk.addMethod(
 "_testArithmetic",
 smalltalk.method({
@@ -1473,278 +2091,6 @@ smalltalk.send(self, "_assert_equals_", [smalltalk.send(set, "_asArray", []), [(
 return self;}
 }),
 smalltalk.SetTest);
-
-
-
-smalltalk.addClass('StringTest', smalltalk.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-"_testAddRemove",
-smalltalk.method({
-selector: "testAddRemove",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_add_", ["a"]);}), (smalltalk.Error || Error)]);
-smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_remove_", ["h"]);}), (smalltalk.Error || Error)]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testAsArray",
-smalltalk.method({
-selector: "testAsArray",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_asArray", []), "__eq", [["h", "e", "l", "l", "o"]])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testAt",
-smalltalk.method({
-selector: "testAt",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(1)]), "__eq", ["h"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_", [(5)]), "__eq", ["o"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_at_ifAbsent_", [(6), (function(){return nil;})]), "__eq", [nil])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testAtPut",
-smalltalk.method({
-selector: "testAtPut",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testCopyWithoutAll",
-smalltalk.method({
-selector: "testCopyWithoutAll",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send("*hello* *world*", "_copyWithoutAll_", ["*"])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testEquality",
-smalltalk.method({
-selector: "testEquality",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq", ["hello"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq", ["world"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq", [smalltalk.send("hello", "_yourself", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_yourself", []), "__eq", ["hello"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq", [(0)])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testIdentity",
-smalltalk.method({
-selector: "testIdentity",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq_eq", ["hello"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq_eq", ["world"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send("hello", "__eq_eq", [smalltalk.send("hello", "_yourself", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send("hello", "_yourself", []), "__eq_eq", ["hello"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("", "__eq_eq", [(0)])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testIncludesSubString",
-smalltalk.method({
-selector: "testIncludesSubString",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send("amber", "_includesSubString_", ["ber"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("amber", "_includesSubString_", ["zork"])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testJoin",
-smalltalk.method({
-selector: "testJoin",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", ["hello,world", smalltalk.send(",", "_join_", [["hello", "world"]])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testSize",
-smalltalk.method({
-selector: "testSize",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", [smalltalk.send("smalltalk", "_size", []), (9)]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send("", "_size", []), (0)]);
-return self;}
-}),
-smalltalk.StringTest);
-
-smalltalk.addMethod(
-"_testStreamContents",
-smalltalk.method({
-selector: "testStreamContents",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", ["hello world", smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return (function($rec){smalltalk.send($rec, "_nextPutAll_", ["hello"]);smalltalk.send($rec, "_space", []);return smalltalk.send($rec, "_nextPutAll_", ["world"]);})(aStream);})])]);
-return self;}
-}),
-smalltalk.StringTest);
-
-
-
-smalltalk.addClass('SymbolTest', smalltalk.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-"_testAsString",
-smalltalk.method({
-selector: "testAsString",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("hello"), "_asString", []), "hello"]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAsSymbol",
-smalltalk.method({
-selector: "testAsSymbol",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_asSymbol", [])])]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAt",
-smalltalk.method({
-selector: "testAt",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_", [(1)]), "__eq", ["h"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_", [(5)]), "__eq", ["o"])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_at_ifAbsent_", [(6), (function(){return nil;})]), "__eq", [nil])]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAtPut",
-smalltalk.method({
-selector: "testAtPut",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send("hello", "_at_put_", [(1), "a"]);}), (smalltalk.Error || Error)]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testComparing",
-smalltalk.method({
-selector: "testComparing",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >smalltalk.symbolFor("aa") : smalltalk.send($receiver, "__gt", [smalltalk.symbolFor("aa")]))]);
-smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__gt", [smalltalk.symbolFor("ba")]))]);
-smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver <smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt", [smalltalk.symbolFor("ba")]))]);
-smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("bb")).klass === smalltalk.Number) ? $receiver <smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt", [smalltalk.symbolFor("ba")]))]);
-smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >=smalltalk.symbolFor("aa") : smalltalk.send($receiver, "__gt_eq", [smalltalk.symbolFor("aa")]))]);
-smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver >=smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__gt_eq", [smalltalk.symbolFor("ba")]))]);
-smalltalk.send(self, "_assert_", [((($receiver = smalltalk.symbolFor("ab")).klass === smalltalk.Number) ? $receiver <=smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt_eq", [smalltalk.symbolFor("ba")]))]);
-smalltalk.send(self, "_deny_", [((($receiver = smalltalk.symbolFor("bb")).klass === smalltalk.Number) ? $receiver <=smalltalk.symbolFor("ba") : smalltalk.send($receiver, "__lt_eq", [smalltalk.symbolFor("ba")]))]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testCopying",
-smalltalk.method({
-selector: "testCopying",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_copy", []), "__eq_eq", [smalltalk.symbolFor("hello")])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_deepCopy", []), "__eq_eq", [smalltalk.symbolFor("hello")])]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testEquality",
-smalltalk.method({
-selector: "testEquality",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.symbolFor("hello")])]);
-smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.symbolFor("world")])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", []), "__eq", [smalltalk.symbolFor("hello")])]);
-smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", ["hello"])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("hello", "__eq", [smalltalk.symbolFor("hello")])]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testIdentity",
-smalltalk.method({
-selector: "testIdentity",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.symbolFor("hello")])]);
-smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq_eq", [smalltalk.symbolFor("world")])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "__eq", [smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_yourself", []), "__eq", [smalltalk.send(smalltalk.send(smalltalk.symbolFor("hello"), "_asString", []), "_asSymbol", [])])]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testIsSymbolIsString",
-smalltalk.method({
-selector: "testIsSymbolIsString",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "_isSymbol", [])]);
-smalltalk.send(self, "_deny_", [smalltalk.send("hello", "_isSymbol", [])]);
-smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "_isString", [])]);
-smalltalk.send(self, "_assert_", [smalltalk.send("hello", "_isString", [])]);
-return self;}
-}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testSize",
-smalltalk.method({
-selector: "testSize",
-fn: function () {
-var self=this;
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("a"), "_size", []), (1)]);
-smalltalk.send(self, "_assert_equals_", [smalltalk.send(smalltalk.symbolFor("aaaaa"), "_size", []), (5)]);
-return self;}
-}),
-smalltalk.SymbolTest);
 
 
 

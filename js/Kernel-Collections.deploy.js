@@ -166,10 +166,10 @@ smalltalk.method({
 selector: "collect:",
 fn: function (aBlock) {
 var self=this;
-var newCollection=nil;
-(newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
-smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [smalltalk.send(aBlock, "_value_", [each])]);})]);
-return newCollection;
+var stream=nil;
+(stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []));
+smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(stream, "_nextPut_", [smalltalk.send(aBlock, "_value_", [each])]);})]);
+return smalltalk.send(stream, "_contents", []);
 return self;}
 }),
 smalltalk.Collection);
@@ -1578,8 +1578,10 @@ selector: "withAll:",
 fn: function (aCollection) {
 var self=this;
 var instance=nil;
+var index=nil;
+(index=(1));
 (instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
-smalltalk.send(aCollection, "_withIndexDo_", [(function(each, index){return smalltalk.send(instance, "_at_put_", [index, each]);})]);
+smalltalk.send(aCollection, "_do_", [(function(each){smalltalk.send(instance, "_at_put_", [index, each]);return (index=((($receiver = index).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})]);
 return instance;
 return self;}
 }),
@@ -2270,6 +2272,17 @@ return self;}
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+fn: function (aBlock) {
+var self=this;
+for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);};
+return self;}
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 "_cr",
@@ -2500,6 +2513,17 @@ return self;}
 smalltalk.Symbol);
 
 smalltalk.addMethod(
+"_collect_",
+smalltalk.method({
+selector: "collect:",
+fn: function (aBlock) {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asString", []), "_collect_", [aBlock]), "_asSymbol", []);
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
 "_copyFrom_to_",
 smalltalk.method({
 selector: "copyFrom:to:",
@@ -2517,6 +2541,28 @@ selector: "deepCopy",
 fn: function () {
 var self=this;
 return self;
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_detect_",
+smalltalk.method({
+selector: "detect:",
+fn: function (aBlock) {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_detect_", [aBlock]);
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_do_",
+smalltalk.method({
+selector: "do:",
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asString", []), "_do_", [aBlock]);
 return self;}
 }),
 smalltalk.Symbol);
@@ -2544,6 +2590,17 @@ return self;}
 smalltalk.Symbol);
 
 smalltalk.addMethod(
+"_select_",
+smalltalk.method({
+selector: "select:",
+fn: function (aBlock) {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asString", []), "_select_", [aBlock]), "_asSymbol", []);
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
 "_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
@@ -2561,6 +2618,17 @@ selector: "size",
 fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_asString", []), "_size", []);
+return self;}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asString", []), "_withIndexDo_", [aBlock]);
 return self;}
 }),
 smalltalk.Symbol);

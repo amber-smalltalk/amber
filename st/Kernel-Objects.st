@@ -756,6 +756,10 @@ identityHash
 	<return self % aNumber>
 !
 
+abs
+	^ <Math.abs(self);>
+!
+
 max: aNumber
 	<return Math.max(self, aNumber);>
 !

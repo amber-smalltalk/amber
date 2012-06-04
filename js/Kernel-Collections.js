@@ -237,14 +237,14 @@ selector: "collect:",
 category: 'enumerating',
 fn: function (aBlock) {
 var self=this;
-var newCollection=nil;
-(newCollection=smalltalk.send(smalltalk.send(self, "_class", []), "_new", []));
-smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(newCollection, "_add_", [smalltalk.send(aBlock, "_value_", [each])]);})]);
-return newCollection;
+var stream=nil;
+(stream=smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_new", []), "_writeStream", []));
+smalltalk.send(self, "_do_", [(function(each){return smalltalk.send(stream, "_nextPut_", [smalltalk.send(aBlock, "_value_", [each])]);})]);
+return smalltalk.send(stream, "_contents", []);
 return self;},
 args: ["aBlock"],
-source: "collect: aBlock\x0a\x09| newCollection |\x0a\x09newCollection := self class new.\x0a\x09self do: [:each |\x0a\x09    newCollection add: (aBlock value: each)].\x0a\x09^newCollection",
-messageSends: ["new", "class", "do:", "add:", "value:"],
+source: "collect: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09stream nextPut: (aBlock value: each) ].\x0a\x09^stream contents",
+messageSends: ["writeStream", "new", "class", "do:", "nextPut:", "value:", "contents"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -2225,13 +2225,15 @@ category: 'instance creation',
 fn: function (aCollection) {
 var self=this;
 var instance=nil;
+var index=nil;
+(index=(1));
 (instance=smalltalk.send(self, "_new_", [smalltalk.send(aCollection, "_size", [])]));
-smalltalk.send(aCollection, "_withIndexDo_", [(function(each, index){return smalltalk.send(instance, "_at_put_", [index, each]);})]);
+smalltalk.send(aCollection, "_do_", [(function(each){smalltalk.send(instance, "_at_put_", [index, each]);return (index=((($receiver = index).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));})]);
 return instance;
 return self;},
 args: ["aCollection"],
-source: "withAll: aCollection\x0a\x09| instance |\x0a\x09instance := self new: aCollection size.\x0a\x09aCollection withIndexDo: [:each :index  |\x0a\x09\x09instance at: index put: each].\x0a\x09^instance",
-messageSends: ["new:", "size", "withIndexDo:", "at:put:"],
+source: "withAll: aCollection\x0a\x09| instance index |\x0a\x09index := 1.\x0a\x09instance := self new: aCollection size.\x0a\x09aCollection do: [:each  |\x0a\x09\x09instance at: index put: each.\x0a\x09\x09index := index + 1].\x0a\x09^instance",
+messageSends: ["new:", "size", "do:", "at:put:", "+"],
 referencedClasses: []
 }),
 smalltalk.Array.klass);
@@ -3211,6 +3213,22 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);};
+return self;},
+args: ["aBlock"],
+source: "withIndexDo: aBlock\x0a\x09<for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);}>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
 
 smalltalk.addMethod(
 "_cr",
@@ -3541,6 +3559,22 @@ referencedClasses: []
 smalltalk.Symbol);
 
 smalltalk.addMethod(
+"_collect_",
+smalltalk.method({
+selector: "collect:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asString", []), "_collect_", [aBlock]), "_asSymbol", []);
+return self;},
+args: ["aBlock"],
+source: "collect: aBlock\x0a\x09^ (self asString collect: aBlock) asSymbol",
+messageSends: ["asSymbol", "collect:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
 "_copyFrom_to_",
 smalltalk.method({
 selector: "copyFrom:to:",
@@ -3568,6 +3602,38 @@ return self;},
 args: [],
 source: "deepCopy\x0a\x09^self",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_detect_",
+smalltalk.method({
+selector: "detect:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_asString", []), "_detect_", [aBlock]);
+return self;},
+args: ["aBlock"],
+source: "detect: aBlock\x0a\x09^ self asString detect: aBlock",
+messageSends: ["detect:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_do_",
+smalltalk.method({
+selector: "do:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asString", []), "_do_", [aBlock]);
+return self;},
+args: ["aBlock"],
+source: "do: aBlock\x0a\x09self asString do: aBlock",
+messageSends: ["do:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);
@@ -3605,6 +3671,22 @@ referencedClasses: []
 smalltalk.Symbol);
 
 smalltalk.addMethod(
+"_select_",
+smalltalk.method({
+selector: "select:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_asString", []), "_select_", [aBlock]), "_asSymbol", []);
+return self;},
+args: ["aBlock"],
+source: "select: aBlock\x0a\x09^ (self asString select: aBlock) asSymbol",
+messageSends: ["asSymbol", "select:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
 "_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
@@ -3632,6 +3714,22 @@ return self;},
 args: [],
 source: "size\x0a\x09^self asString size",
 messageSends: ["size", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+category: 'enumerating',
+fn: function (aBlock) {
+var self=this;
+smalltalk.send(smalltalk.send(self, "_asString", []), "_withIndexDo_", [aBlock]);
+return self;},
+args: ["aBlock"],
+source: "withIndexDo: aBlock\x0a\x09self asString withIndexDo: aBlock",
+messageSends: ["withIndexDo:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);

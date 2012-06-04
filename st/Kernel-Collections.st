@@ -147,11 +147,11 @@ copyWithoutAll: aCollection
 !Collection methodsFor: 'enumerating'!
 
 collect: aBlock
-	| newCollection |
-	newCollection := self class new.
-	self do: [:each |
-	    newCollection add: (aBlock value: each)].
-	^newCollection
+	| stream |
+	stream := self class new writeStream.
+	self do: [ :each |
+		stream nextPut: (aBlock value: each) ].
+	^stream contents
 !
 
 detect: aBlock
@@ -854,10 +854,12 @@ with: anObject with: anObject2 with: anObject3
 !
 
 withAll: aCollection
-	| instance |
+	| instance index |
+	index := 1.
 	instance := self new: aCollection size.
-	aCollection withIndexDo: [:each :index  |
-		instance at: index put: each].
+	aCollection do: [:each  |
+		instance at: index put: each.
+		index := index + 1].
 	^instance
 ! !
 
@@ -1067,6 +1069,10 @@ shallowCopy
 
 do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i));}>
+!
+
+withIndexDo: aBlock
+	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);}>
 ! !
 
 !String methodsFor: 'printing'!
@@ -1320,6 +1326,28 @@ deepCopy
 
 shallowCopy
 	^self
+! !
+
+!Symbol methodsFor: 'enumerating'!
+
+collect: aBlock
+	^ (self asString collect: aBlock) asSymbol
+!
+
+detect: aBlock
+	^ self asString detect: aBlock
+!
+
+do: aBlock
+	self asString do: aBlock
+!
+
+select: aBlock
+	^ (self asString select: aBlock) asSymbol
+!
+
+withIndexDo: aBlock
+	self asString withIndexDo: aBlock
 ! !
 
 !Symbol methodsFor: 'printing'!

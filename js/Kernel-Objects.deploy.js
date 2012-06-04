@@ -1535,6 +1535,17 @@ return self;}
 smalltalk.Number);
 
 smalltalk.addMethod(
+"_abs",
+smalltalk.method({
+selector: "abs",
+fn: function () {
+var self=this;
+return Math.abs(self);;
+return self;}
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
 "_asJSON",
 smalltalk.method({
 selector: "asJSON",
