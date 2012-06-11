@@ -797,7 +797,9 @@ commitPackage
 !
 
 compile
+    | currentEditLine |
     self disableSaveButton.
+    currentEditLine := sourceArea editor getCursor.
     selectedTab = #comment 
 	ifTrue: [
 			selectedClass ifNotNil: [
@@ -805,7 +807,8 @@ compile
 	ifFalse: [
 			(selectedProtocol notNil or: [selectedMethod notNil])
 				ifFalse: [self compileDefinition]
-				ifTrue: [self compileMethodDefinition]]
+				ifTrue: [self compileMethodDefinition]].
+    sourceArea editor setCursor: currentEditLine.
 !
 
 compileClassComment
