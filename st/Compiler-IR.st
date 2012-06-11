@@ -70,6 +70,7 @@ visitReturnNode: aNode
 visitSendNode: aNode
 	self builder send
 		selector: aNode selector;
+		superSend: aNode superSend;
 		with: [
 			self visit: aNode receiver.
 			(aNode arguments do: [ :each | self visit: each ]) ]
@@ -256,6 +257,10 @@ initialize
 	super initialize.
 	root := method := IRMethod on: self
 ! !
+
+Object subclass: #IRInliner
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
 
 Object subclass: #IRInstruction
 	instanceVariableNames: 'builder instructions'
@@ -779,6 +784,17 @@ visitIRVerbatim: anIRVerbatim
 	self visitIRInstruction: anIRVerbatim
 ! !
 
+IRVisitor subclass: #IRJSTranslator
+	instanceVariableNames: 'stream'
+	package: 'Compiler-IR'!
+
+!IRJSTranslator methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	stream := JSStream new.
+! !
+
 Object subclass: #JSStream
 	instanceVariableNames: 'stream'
 	package: 'Compiler-IR'!
@@ -832,10 +848,9 @@ nextPutFunctionWith: aBlock arguments: anArray
 		do: [ :each | stream nextPutAll: each asVariableName ]
 		separatedBy: [ stream nextPut: ',' ].
 	stream nextPutAll: '){'; lf.
-	self nextPutVar: '$return'.
 	stream nextPutAll: 'var self=this;'; lf.
 	aBlock value.
-	stream nextPutAll: 'return $return || self;}'
+	stream nextPutAll: 'return self;}'
 !
 
 nextPutMethodDeclaration: aMethod with: aBlock
@@ -874,7 +889,7 @@ nextPutNonLocalReturnWith: aBlock
 !
 
 nextPutReturnWith: aBlock
-	stream nextPutAll: '$return='.
+	stream nextPutAll: 'return '.
 	aBlock value
 !
 

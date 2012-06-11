@@ -368,11 +368,13 @@ allowUnknownVariables
 !SemanticAnalyzer methodsFor: 'visiting'!
 
 visitAssignmentNode: aNode
+	super visitAssignmentNode: aNode.
 	(self pseudoVariables includes: aNode left value) ifTrue: [
-		self errorInvalidAssignment: aNode left ].
+		self errorInvalidAssignment: aNode left value ].
+	aNode left binding isArgVar ifTrue: [
+		self errorInvalidAssignment: aNode left value ].
 	aNode left beAssigned.
 	aNode right beUsed.
-	super visitAssignmentNode: aNode
 !
 
 visitBlockNode: aNode
@@ -425,6 +427,11 @@ visitReturnNode: aNode
 !
 
 visitSendNode: aNode
+
+	aNode receiver value = 'super' ifTrue: [
+		aNode superSend: true.
+		aNode receiver value: 'self'].
+
 	self messageSends add: aNode selector.
 	aNode receiver ifNotNil: [
 		aNode receiver beUsed ].

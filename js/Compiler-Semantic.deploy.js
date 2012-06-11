@@ -667,10 +667,11 @@ smalltalk.method({
 selector: "visitAssignmentNode:",
 fn: function (aNode) {
 var self=this;
-((($receiver = smalltalk.send(smalltalk.send(self, "_pseudoVariables", []), "_includes_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(aNode, "_left", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(aNode, "_left", [])]);})]));
+smalltalk.send(self, "_visitAssignmentNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
+((($receiver = smalltalk.send(smalltalk.send(self, "_pseudoVariables", []), "_includes_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})]));
+((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_left", []), "_binding", []), "_isArgVar", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})]));
 smalltalk.send(smalltalk.send(aNode, "_left", []), "_beAssigned", []);
 smalltalk.send(smalltalk.send(aNode, "_right", []), "_beUsed", []);
-smalltalk.send(self, "_visitAssignmentNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;}
 }),
 smalltalk.SemanticAnalyzer);
@@ -750,6 +751,7 @@ smalltalk.method({
 selector: "visitSendNode:",
 fn: function (aNode) {
 var self=this;
+((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value", []), "__eq", ["super"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aNode, "_superSend_", [true]);return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aNode, "_superSend_", [true]);return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);})]));
 smalltalk.send(smalltalk.send(self, "_messageSends", []), "_add_", [smalltalk.send(aNode, "_selector", [])]);
 (($receiver = smalltalk.send(aNode, "_receiver", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_beUsed", []);})() : nil;
 smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);

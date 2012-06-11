@@ -924,7 +924,7 @@ smalltalk.ReturnNode);
 
 
 
-smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver'], 'Compiler-AST');
+smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -1082,6 +1082,38 @@ var self=this;
 return self;},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_superSend",
+smalltalk.method({
+selector: "superSend",
+category: 'accessing',
+fn: function () {
+var self=this;
+return (($receiver = self['@superSend']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;},
+args: [],
+source: "superSend\x0a\x09^ superSend ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_superSend_",
+smalltalk.method({
+selector: "superSend:",
+category: 'accessing',
+fn: function (aBoolean) {
+var self=this;
+(self['@superSend']=aBoolean);
+return self;},
+args: ["aBoolean"],
+source: "superSend: aBoolean\x0a\x09superSend := aBoolean",
 messageSends: [],
 referencedClasses: []
 }),

@@ -643,7 +643,7 @@ smalltalk.ReturnNode);
 
 
 
-smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver'], 'Compiler-AST');
+smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -752,6 +752,28 @@ selector: "selector:",
 fn: function (aString) {
 var self=this;
 (self['@selector']=aString);
+return self;}
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_superSend",
+smalltalk.method({
+selector: "superSend",
+fn: function () {
+var self=this;
+return (($receiver = self['@superSend']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;}
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_superSend_",
+smalltalk.method({
+selector: "superSend:",
+fn: function (aBoolean) {
+var self=this;
+(self['@superSend']=aBoolean);
 return self;}
 }),
 smalltalk.SendNode);

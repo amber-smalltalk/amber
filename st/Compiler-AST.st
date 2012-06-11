@@ -307,7 +307,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #SendNode
-	instanceVariableNames: 'selector arguments receiver'
+	instanceVariableNames: 'selector arguments receiver superSend'
 	package: 'Compiler-AST'!
 
 !SendNode methodsFor: 'accessing'!
@@ -352,6 +352,14 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+superSend
+	^ superSend ifNil: [ false ]
+!
+
+superSend: aBoolean
+	superSend := aBoolean
 !
 
 valueForReceiver: anObject

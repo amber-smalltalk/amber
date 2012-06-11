@@ -963,14 +963,15 @@ selector: "visitAssignmentNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-((($receiver = smalltalk.send(smalltalk.send(self, "_pseudoVariables", []), "_includes_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(aNode, "_left", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(aNode, "_left", [])]);})]));
+smalltalk.send(self, "_visitAssignmentNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
+((($receiver = smalltalk.send(smalltalk.send(self, "_pseudoVariables", []), "_includes_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})]));
+((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_left", []), "_binding", []), "_isArgVar", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_errorInvalidAssignment_", [smalltalk.send(smalltalk.send(aNode, "_left", []), "_value", [])]);})]));
 smalltalk.send(smalltalk.send(aNode, "_left", []), "_beAssigned", []);
 smalltalk.send(smalltalk.send(aNode, "_right", []), "_beUsed", []);
-smalltalk.send(self, "_visitAssignmentNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;},
 args: ["aNode"],
-source: "visitAssignmentNode: aNode\x0a\x09(self pseudoVariables includes: aNode left value) ifTrue: [\x0a\x09\x09self errorInvalidAssignment: aNode left ].\x0a\x09aNode left beAssigned.\x0a\x09aNode right beUsed.\x0a\x09super visitAssignmentNode: aNode",
-messageSends: ["ifTrue:", "includes:", "pseudoVariables", "value", "left", "errorInvalidAssignment:", "beAssigned", "beUsed", "right", "visitAssignmentNode:"],
+source: "visitAssignmentNode: aNode\x0a\x09super visitAssignmentNode: aNode.\x0a\x09(self pseudoVariables includes: aNode left value) ifTrue: [\x0a\x09\x09self errorInvalidAssignment: aNode left value ].\x0a\x09aNode left binding isArgVar ifTrue: [\x0a\x09\x09self errorInvalidAssignment: aNode left value ].\x0a\x09aNode left beAssigned.\x0a\x09aNode right beUsed.",
+messageSends: ["visitAssignmentNode:", "ifTrue:", "includes:", "pseudoVariables", "value", "left", "errorInvalidAssignment:", "isArgVar", "binding", "beAssigned", "beUsed", "right"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1076,14 +1077,15 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
+((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value", []), "__eq", ["super"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aNode, "_superSend_", [true]);return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aNode, "_superSend_", [true]);return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);})]));
 smalltalk.send(smalltalk.send(self, "_messageSends", []), "_add_", [smalltalk.send(aNode, "_selector", [])]);
 (($receiver = smalltalk.send(aNode, "_receiver", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_beUsed", []);})() : nil;
 smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);
 smalltalk.send(self, "_visitSendNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09self messageSends add: aNode selector.\x0a\x09aNode receiver ifNotNil: [\x0a\x09\x09aNode receiver beUsed ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09each beUsed ].\x0a\x09super visitSendNode: aNode",
-messageSends: ["add:", "messageSends", "selector", "ifNotNil:", "receiver", "beUsed", "do:", "arguments", "visitSendNode:"],
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' ifTrue: [\x0a\x09\x09aNode superSend: true.\x0a\x09\x09aNode receiver value: 'self'].\x0a\x0a\x09self messageSends add: aNode selector.\x0a\x09aNode receiver ifNotNil: [\x0a\x09\x09aNode receiver beUsed ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09each beUsed ].\x0a\x09super visitSendNode: aNode",
+messageSends: ["ifTrue:", "=", "value", "receiver", "superSend:", "value:", "add:", "messageSends", "selector", "ifNotNil:", "beUsed", "do:", "arguments", "visitSendNode:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);

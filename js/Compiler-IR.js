@@ -154,11 +154,11 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_selector_", [smalltalk.send(aNode, "_selector", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);return smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);})]);})(smalltalk.send(smalltalk.send(self, "_builder", []), "_send", []));
+(function($rec){smalltalk.send($rec, "_selector_", [smalltalk.send(aNode, "_selector", [])]);smalltalk.send($rec, "_superSend_", [smalltalk.send(aNode, "_superSend", [])]);return smalltalk.send($rec, "_with_", [(function(){smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);return smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);})]);})(smalltalk.send(smalltalk.send(self, "_builder", []), "_send", []));
 return self;},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09self builder send\x0a\x09\x09selector: aNode selector;\x0a\x09\x09with: [\x0a\x09\x09\x09self visit: aNode receiver.\x0a\x09\x09\x09(aNode arguments do: [ :each | self visit: each ]) ]",
-messageSends: ["selector:", "selector", "with:", "visit:", "receiver", "do:", "arguments", "send", "builder"],
+source: "visitSendNode: aNode\x0a\x09self builder send\x0a\x09\x09selector: aNode selector;\x0a\x09\x09superSend: aNode superSend;\x0a\x09\x09with: [\x0a\x09\x09\x09self visit: aNode receiver.\x0a\x09\x09\x09(aNode arguments do: [ :each | self visit: each ]) ]",
+messageSends: ["selector:", "selector", "superSend:", "superSend", "with:", "visit:", "receiver", "do:", "arguments", "send", "builder"],
 referencedClasses: []
 }),
 smalltalk.IRASTTranslator);
@@ -676,6 +676,9 @@ referencedClasses: []
 }),
 smalltalk.IRBuilder);
 
+
+
+smalltalk.addClass('IRInliner', smalltalk.Object, [], 'Compiler-IR');
 
 
 smalltalk.addClass('IRInstruction', smalltalk.Object, ['builder', 'instructions'], 'Compiler-IR');
@@ -2022,6 +2025,26 @@ smalltalk.IRVisitor);
 
 
 
+smalltalk.addClass('IRJSTranslator', smalltalk.IRVisitor, ['stream'], 'Compiler-IR');
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function () {
+var self=this;
+smalltalk.send(self, "_initialize", [], smalltalk.IRJSTranslator.superclass || nil);
+(self['@stream']=smalltalk.send((smalltalk.JSStream || JSStream), "_new", []));
+return self;},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09stream := JSStream new.",
+messageSends: ["initialize", "new"],
+referencedClasses: ["JSStream"]
+}),
+smalltalk.IRJSTranslator);
+
+
+
 smalltalk.addClass('JSStream', smalltalk.Object, ['stream'], 'Compiler-IR');
 smalltalk.addMethod(
 "_contents",
@@ -2152,14 +2175,13 @@ var self=this;
 smalltalk.send(self['@stream'], "_nextPutAll_", ["fn: function("]);
 smalltalk.send(anArray, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asVariableName", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPut_", [","]);})]);
 (function($rec){smalltalk.send($rec, "_nextPutAll_", ["){"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(self, "_nextPutVar_", ["$return"]);
 (function($rec){smalltalk.send($rec, "_nextPutAll_", ["var self=this;"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
 smalltalk.send(aBlock, "_value", []);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["return $return || self;}"]);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["return self;}"]);
 return self;},
 args: ["aBlock", "anArray"],
-source: "nextPutFunctionWith: aBlock arguments: anArray\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09anArray \x0a\x09\x09do: [ :each | stream nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ stream nextPut: ',' ].\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09self nextPutVar: '$return'.\x0a\x09stream nextPutAll: 'var self=this;'; lf.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: 'return $return || self;}'",
-messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "nextPutVar:", "value"],
+source: "nextPutFunctionWith: aBlock arguments: anArray\x0a\x09stream nextPutAll: 'fn: function('.\x0a\x09anArray \x0a\x09\x09do: [ :each | stream nextPutAll: each asVariableName ]\x0a\x09\x09separatedBy: [ stream nextPut: ',' ].\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09stream nextPutAll: 'var self=this;'; lf.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: 'return self;}'",
+messageSends: ["nextPutAll:", "do:separatedBy:", "asVariableName", "nextPut:", "lf", "value"],
 referencedClasses: []
 }),
 smalltalk.JSStream);
@@ -2227,11 +2249,11 @@ selector: "nextPutReturnWith:",
 category: 'streaming',
 fn: function (aBlock) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["$return="]);
+smalltalk.send(self['@stream'], "_nextPutAll_", ["return "]);
 smalltalk.send(aBlock, "_value", []);
 return self;},
 args: ["aBlock"],
-source: "nextPutReturnWith: aBlock\x0a\x09stream nextPutAll: '$return='.\x0a\x09aBlock value",
+source: "nextPutReturnWith: aBlock\x0a\x09stream nextPutAll: 'return '.\x0a\x09aBlock value",
 messageSends: ["nextPutAll:", "value"],
 referencedClasses: []
 }),
