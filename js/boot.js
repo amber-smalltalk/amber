@@ -232,11 +232,11 @@ function Smalltalk(){
 
 	st.methods = function(klass) {
 		var methods = {};
-		var copyFrom = klass.fn.prototype.methods;
+		var copyFrom = klass.fn.prototype.inheritedMethods;
 		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
 			methods[k[i]] = copyFrom[k[i]];
 		}
-		copyFrom = klass.fn.prototype.inheritedMethods;
+		copyFrom = klass.fn.prototype.methods;
 		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
 			methods[k[i]] = copyFrom[k[i]];
 		}
