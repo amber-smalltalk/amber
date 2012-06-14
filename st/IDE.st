@@ -2033,7 +2033,9 @@ statusInfo
 testCases
 	| testCases |
 	testCases := #().
-	self selectedClasses do: [:each | testCases addAll: each buildSuite].
+	(self selectedClasses
+		select: [:each | self selectedCategories includes: each category])
+		do: [:each | testCases addAll: each buildSuite].
 	^testCases
 ! !
 

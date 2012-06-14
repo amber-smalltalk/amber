@@ -4564,16 +4564,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "testCases",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
 var testCases=nil;
 (testCases=[]);
-smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_do_", [(function(each){return smalltalk.send(testCases, "_addAll_", [smalltalk.send(each, "_buildSuite", [])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_includes_", [smalltalk.send(each, "_category", [])]);})]), "_do_", [(function(each){return smalltalk.send(testCases, "_addAll_", [smalltalk.send(each, "_buildSuite", [])]);})]);
 return testCases;
 return self;},
 args: [],
-source: "testCases\x0a\x09| testCases |\x0a\x09testCases := #().\x0a\x09self selectedClasses do: [:each | testCases addAll: each buildSuite].\x0a\x09^testCases",
-messageSends: ["do:", "selectedClasses", "addAll:", "buildSuite"],
+source: "testCases\x0a\x09| testCases |\x0a\x09testCases := #().\x0a\x09(self selectedClasses\x0a\x09\x09select: [:each | self selectedCategories includes: each category])\x0a\x09\x09do: [:each | testCases addAll: each buildSuite].\x0a\x09^testCases",
+messageSends: ["do:", "select:", "selectedClasses", "includes:", "selectedCategories", "category", "addAll:", "buildSuite"],
 referencedClasses: []
 }),
 smalltalk.TestRunner);
