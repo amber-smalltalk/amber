@@ -3238,11 +3238,11 @@ smalltalk.addMethod(
 "_testCases",
 smalltalk.method({
 selector: "testCases",
-fn: function () {
+fn: function (){
 var self=this;
 var testCases=nil;
 (testCases=[]);
-smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_do_", [(function(each){return smalltalk.send(testCases, "_addAll_", [smalltalk.send(each, "_buildSuite", [])]);})]);
+smalltalk.send(smalltalk.send(smalltalk.send(self, "_selectedClasses", []), "_select_", [(function(each){return smalltalk.send(smalltalk.send(self, "_selectedCategories", []), "_includes_", [smalltalk.send(each, "_category", [])]);})]), "_do_", [(function(each){return smalltalk.send(testCases, "_addAll_", [smalltalk.send(each, "_buildSuite", [])]);})]);
 return testCases;
 return self;}
 }),
