@@ -1,13 +1,10 @@
 Smalltalk current createPackage: 'Compiler-IR' properties: #{}!
 NodeVisitor subclass: #IRASTTranslator
-	instanceVariableNames: 'builder source'
+	instanceVariableNames: 'builder source theClass'
 	package: 'Compiler-IR'!
 !IRASTTranslator commentStamp!
 I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.
-I rely on a builder object, instance of IRBuilder.
-
-I am myself unable to produce a valid IR as nodes are not resolved. 
-See concrete subclasses.!
+I rely on a builder object, instance of IRBuilder.!
 
 !IRASTTranslator methodsFor: 'accessing'!
 
@@ -25,6 +22,14 @@ source
 
 source: aString
 	source := aString
+!
+
+theClass
+	^ theClass
+!
+
+theClass: aClass
+	theClass := aClass
 ! !
 
 !IRASTTranslator methodsFor: 'visiting'!
@@ -37,8 +42,16 @@ visitAssignmentNode: aNode
 
 visitBlockNode: aNode
 	self builder closure 
-		with: [ super visitBlockNode: aNode ];
+		with: [ 
+			aNode scope temps do: [ :each |
+				self builder tempDeclaration name: each name ].
+			super visitBlockNode: aNode ];
 		arguments: aNode parameters
+!
+
+visitBlockSequenceNode: aNode
+	self builder blockSequence with: [
+		aNode nodes do: [ :each | self visit: each ]]
 !
 
 visitJSStatementNode: aNode
@@ -47,6 +60,7 @@ visitJSStatementNode: aNode
 
 visitMethodNode: aNode
 	self builder method 
+		scope: aNode scope;
 		source: self source;
 		arguments: aNode arguments;
 		selector: aNode selector;
@@ -58,7 +72,11 @@ visitMethodNode: aNode
 	aNode hasNonLocalReturn 
 		ifTrue: [ self builder nonLocalReturnHandling with: [
 			super visitMethodNode: aNode ]]
-		ifFalse: [ super visitMethodNode: aNode ]
+		ifFalse: [ super visitMethodNode: aNode ].
+
+	aNode hasLocalReturn ifFalse: [
+		self builder return with: [
+			self builder variable: (aNode scope pseudoVars at: 'self') ]]
 !
 
 visitReturnNode: aNode
@@ -68,12 +86,13 @@ visitReturnNode: aNode
 !
 
 visitSendNode: aNode
-	self builder send
-		selector: aNode selector;
-		superSend: aNode superSend;
-		with: [
-			self visit: aNode receiver.
-			(aNode arguments do: [ :each | self visit: each ]) ]
+	| send |
+	send := self builder send.
+	send selector: aNode selector.
+	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
+	send with: [
+		self visit: aNode receiver.
+		(aNode arguments do: [ :each | self visit: each ]) ]
 !
 
 visitSequenceNode: aNode
@@ -113,16 +132,16 @@ resolve: aNode
 	aNode isBlockSequenceNode ifFalse: [
 		aNode nodes do: [ :each | self resolve: each ]].
 	aNode shouldBeAliased ifTrue: [
-		| alias |
-		alias := self nextAlias.
-		self builder method internalVariables add: alias.
-		self builder assignment
-			with: [ self builder variable: (AliasVar new 
-				name: alias;
-				node: aNode;
-				yourself) ];
-			with: [ self visit: aNode resolving: false ].
-			aNode alias: alias ]
+			| alias |
+			alias := self nextAlias.
+			self builder method internalVariables add: alias.
+			self builder alias
+				with: [ self builder variable: (AliasVar new 
+					name: alias;
+					node: aNode;
+					yourself) ];
+				with: [ self visit: aNode resolving: false ].
+				aNode alias: alias ]
 !
 
 visit: aNode
@@ -141,6 +160,15 @@ visitAliased: aNode
 		name: aNode alias;
 		node: aNode;
 		yourself)
+!
+
+visitCascadeNode: aNode
+	"Special care must be taken for cascade nodes.
+	Only the last node should be aliased if any"
+
+	aNode nodes allButLast do: [ :each |
+		self visit: each resolving: false ].
+	self visit: aNode nodes last
 ! !
 
 Object subclass: #IRBuilder
@@ -175,12 +203,20 @@ add: aClass
 	^ self root append: (aClass on: self)
 !
 
+alias
+	^ self add: IRAlias
+!
+
 append: anObject
 	^root append: anObject
 !
 
 assignment
 	^ self add: IRAssignment
+!
+
+blockSequence
+	^ self add: IRBlockSequence
 !
 
 closure
@@ -258,10 +294,6 @@ initialize
 	root := method := IRMethod on: self
 ! !
 
-Object subclass: #IRInliner
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-
 Object subclass: #IRInstruction
 	instanceVariableNames: 'builder instructions'
 	package: 'Compiler-IR'!
@@ -314,14 +346,14 @@ with: anObject
 	anObject appendToInstruction: self
 ! !
 
-!IRInstruction methodsFor: 'emiting'!
+!IRInstruction methodsFor: 'testing'!
 
-emitOn: aStream
-	"Just emit all sub instructions to aStream.
-	Subclasses should not forget to call `super emitOn:`"
+isClosure
+	^ false
+!
 
-	self instructions do: [ :each |
-		each emitOn: aStream ]
+isInlined
+	^ false
 ! !
 
 !IRInstruction methodsFor: 'visiting'!
@@ -339,16 +371,8 @@ on: aBuilder
 ! !
 
 IRInstruction subclass: #IRAssignment
-	instanceVariableNames: 'left right'
+	instanceVariableNames: ''
 	package: 'Compiler-IR'!
-
-!IRAssignment methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream 
-		nextPutAssignment: self instructions first 
-		to: self instructions last
-! !
 
 !IRAssignment methodsFor: 'visiting'!
 
@@ -356,8 +380,73 @@ accept: aVisitor
 	aVisitor visitIRAssignment: self
 ! !
 
-IRInstruction subclass: #IRClosure
-	instanceVariableNames: 'arguments'
+IRAssignment subclass: #IRAlias
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRAlias methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRAlias: self
+! !
+
+IRInstruction subclass: #IRNonLocalReturn
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRNonLocalReturn commentStamp!
+I am a non local return instruction.
+Non local returns are handled using a try/catch JS statement.
+
+See IRNonLocalReturnHandling class!
+
+!IRNonLocalReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRNonLocalReturn: self
+! !
+
+IRInstruction subclass: #IRNonLocalReturnHandling
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRNonLocalReturnHandling commentStamp!
+I represent a non local return handling instruction.
+Non local returns are handled with a try/catch statement!
+
+!IRNonLocalReturnHandling methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRNonLocalReturnHandling: self
+! !
+
+IRInstruction subclass: #IRReturn
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRReturn commentStamp!
+I am a local return instruction.!
+
+!IRReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRReturn: self
+! !
+
+IRInstruction subclass: #IRScopedInstruction
+	instanceVariableNames: 'scope'
+	package: 'Compiler-IR'!
+
+!IRScopedInstruction methodsFor: 'accessing'!
+
+scope
+	^ scope
+!
+
+scope: aScope
+	aScope instruction: self.
+	scope := aScope
+! !
+
+IRScopedInstruction subclass: #IRClosure
+	instanceVariableNames: 'arguments inlined'
 	package: 'Compiler-IR'!
 
 !IRClosure methodsFor: 'accessing'!
@@ -368,14 +457,24 @@ arguments
 
 arguments: aCollection
 	arguments := aCollection
+!
+
+inlined
+	^ inlined ifNil: [ false ]
+!
+
+inlined: aBoolean
+	inlined := aBoolean
 ! !
 
-!IRClosure methodsFor: 'emiting'!
+!IRClosure methodsFor: 'testing'!
 
-emitOn: aStream
-	aStream 
-		nextPutClosureWith: [ super emitOn: aStream ] 
-		arguments: self arguments
+isClosure
+	^ true
+!
+
+isInlined
+	^ self inlined
 ! !
 
 !IRClosure methodsFor: 'visiting'!
@@ -384,8 +483,8 @@ accept: aVisitor
 	aVisitor visitIRClosure: self
 ! !
 
-IRInstruction subclass: #IRMethod
-	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables source'
+IRScopedInstruction subclass: #IRMethod
+	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -436,102 +535,34 @@ source: aString
 	source := aString
 ! !
 
-!IRMethod methodsFor: 'emiting'!
+!IRMethod methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitIRMethod: self
-!
-
-emitOn: aStream
-	aStream
-		nextPutMethodDeclaration: self 
-		with: [
-			aStream 
-				nextPutFunctionWith: [ 
-					self internalVariables notEmpty ifTrue: [
-						aStream nextPutVars: self internalVariables ].
-					super emitOn: aStream ]
-			arguments: self arguments ]
-! !
-
-IRInstruction subclass: #IRNonLocalReturn
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRNonLocalReturn commentStamp!
-I am a non local return instruction.
-Non local returns are handled using a try/catch JS statement.
-
-See IRNonLocalReturnHandling class!
-
-!IRNonLocalReturn methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream nextPutNonLocalReturnWith: [
-		super emitOn: aStream ]
-! !
-
-!IRNonLocalReturn methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitIRNonLocalReturn: self
-! !
-
-IRInstruction subclass: #IRNonLocalReturnHandling
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRNonLocalReturnHandling commentStamp!
-I represent a non local return handling instruction.
-Non local returns are handled with a try/catch statement!
-
-!IRNonLocalReturnHandling methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream nextPutNonLocalReturnHandlingWith: [
-		super emitOn: aStream ]
-! !
-
-!IRNonLocalReturnHandling methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitIRNonLocalReturnHandling: self
-! !
-
-IRInstruction subclass: #IRReturn
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRReturn commentStamp!
-I am a local return instruction.!
-
-!IRReturn methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream nextPutReturnWith: [
-		super emitOn: aStream ]
-! !
-
-!IRReturn methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitIRReturn: self
 ! !
 
 IRInstruction subclass: #IRSend
-	instanceVariableNames: 'selector superSend'
+	instanceVariableNames: 'selector classSend inlined'
 	package: 'Compiler-IR'!
 !IRSend commentStamp!
 I am a message send instruction.!
 
 !IRSend methodsFor: 'accessing'!
 
-emitOn: aStream
+classSend
+	^ classSend
+!
 
-	aStream nextPutAll: 'smalltalk.send('.
-	self instructions first emitOn: aStream.
-	aStream nextPutAll:  ',"', self selector asSelector, '", ['.
-	self instructions allButFirst
-		do: [ :each | each emitOn: aStream ]
-		separatedBy: [ aStream nextPutAll: ',' ].
-	aStream nextPutAll: '])'
+classSend: aClass
+	classSend := aClass
+!
+
+inlined
+	^ inlined ifNil: [ false ]
+!
+
+inlined: aBoolean
+	inlined := aBoolean
 !
 
 selector
@@ -540,14 +571,12 @@ selector
 
 selector: aString
 	selector := aString
-!
+! !
 
-superSend
-	^ superSend ifNil: [ false ]
-!
+!IRSend methodsFor: 'testing'!
 
-superSend: aBoolean
-	superSend := aBoolean
+isInlined
+	^ self inlined
 ! !
 
 !IRSend methodsFor: 'visiting'!
@@ -560,26 +589,26 @@ IRInstruction subclass: #IRSequence
 	instanceVariableNames: ''
 	package: 'Compiler-IR'!
 
-!IRSequence methodsFor: 'emiting'!
+!IRSequence methodsFor: 'adding'!
 
 appendInstruction: anIRInstruction
 	self instructions add: ((IRStatement on: self builder) with: anIRInstruction)
-!
-
-emitOn: aStream
-	aStream nextPutSequenceWith: [
-		"self instructions do: [ :each |
-			((IRStatement on: self builder)
-				pc: self builder nextPc;
-				with: each;
-				yourself) emitOn: aStream ]"
-		super emitOn: aStream ]
 ! !
 
 !IRSequence methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitIRSequence: self
+! !
+
+IRSequence subclass: #IRBlockSequence
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRBlockSequence methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRBlockSequence: self
 ! !
 
 IRInstruction subclass: #IRStatement
@@ -593,13 +622,6 @@ Statements can be used to control the PC count, among other things.!
 
 pc
 	^ pc ifNil: [pc := self builder nextPc]
-! !
-
-!IRStatement methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream nextPutStatement: self pc with: [
-		super emitOn: aStream ]
 ! !
 
 !IRStatement methodsFor: 'visiting'!
@@ -624,12 +646,6 @@ name: aString
 	name := aString
 ! !
 
-!IRTempDeclaration methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream nextPutVar: self name asVariableName
-! !
-
 !IRTempDeclaration methodsFor: 'visiting'!
 
 accept: aVisitor
@@ -646,22 +662,16 @@ I am the simplest possible instruction. I represent a value.!
 
 value
 	^value
-! !
-
-!IRValue methodsFor: 'emiting'!
-
-accept: aVisitor
-	aVisitor visitIRValue: self
 !
 
-emitOn: aStream
-	aStream nextPutAll: self value asJavascript
+value: aString
+	value := aString
 ! !
 
 !IRValue methodsFor: 'visiting'!
 
-value: aString
-	value := aString
+accept: aVisitor
+	aVisitor visitIRValue: self
 ! !
 
 IRInstruction subclass: #IRVariable
@@ -680,16 +690,10 @@ variable: aScopeVariable
 	variable := aScopeVariable
 ! !
 
-!IRVariable methodsFor: 'emiting'!
+!IRVariable methodsFor: 'visiting'!
 
 accept: aVisitor
 	aVisitor visitIRVariable: self
-! !
-
-!IRVariable methodsFor: 'visiting'!
-
-emitOn: aStream
-	aStream nextPutAll: self variable alias
 ! !
 
 IRInstruction subclass: #IRVerbatim
@@ -704,12 +708,6 @@ source
 
 source: aString
 	source := aString
-! !
-
-!IRVerbatim methodsFor: 'emiting'!
-
-emitOn: aStream
-	aStream nextPutAll: self source, ';'
 ! !
 
 !IRVerbatim methodsFor: 'visiting'!
@@ -728,8 +726,16 @@ visit: anIRInstruction
 	anIRInstruction accept: self
 !
 
+visitIRAlias: anIRAlias
+	self visitIRAssignment: anIRAlias
+!
+
 visitIRAssignment: anIRAssignment
 	self visitIRInstruction: anIRAssignment
+!
+
+visitIRBlockSequence: anIRBlockSequence
+	self visitIRSequence: anIRBlockSequence
 !
 
 visitIRClosure: anIRClosure
@@ -788,11 +794,119 @@ IRVisitor subclass: #IRJSTranslator
 	instanceVariableNames: 'stream'
 	package: 'Compiler-IR'!
 
+!IRJSTranslator methodsFor: 'accessing'!
+
+contents
+	^ self stream contents
+!
+
+stream
+	^ stream
+!
+
+stream: aStream
+	stream := aStream
+! !
+
 !IRJSTranslator methodsFor: 'initialization'!
 
 initialize
 	super initialize.
 	stream := JSStream new.
+! !
+
+!IRJSTranslator methodsFor: 'visiting'!
+
+visitIRAssignment: anIRAssignment
+	self visit: anIRAssignment instructions first.
+	self stream nextPutAssignment.
+	self visit: anIRAssignment instructions last.
+!
+
+visitIRBlockSequence: anIRBlockSequence
+	self stream nextPutSequenceWith: [
+		anIRBlockSequence instructions notEmpty ifTrue: [
+			anIRBlockSequence instructions allButLast do: [ :each | 
+				self visit: each ].
+			self stream nextPutReturn.
+			self visit: anIRBlockSequence instructions last ]]
+!
+
+visitIRClosure: anIRClosure
+	self stream 
+		nextPutClosureWith: [ super visitIRClosure: anIRClosure ] 
+		arguments: anIRClosure arguments
+!
+
+visitIRMethod: anIRMethod
+	self stream
+		nextPutMethodDeclaration: anIRMethod 
+		with: [ self stream 
+			nextPutFunctionWith: [ 
+				anIRMethod internalVariables notEmpty ifTrue: [
+					self stream nextPutVars: anIRMethod internalVariables ].
+				super visitIRMethod: anIRMethod ]
+			arguments: anIRMethod arguments ]
+!
+
+visitIRNonLocalReturn: anIRNonLocalReturn
+	self stream nextPutNonLocalReturnWith: [
+		super visitIRNonLocalReturn: anIRNonLocalReturn ]
+!
+
+visitIRNonLocalReturnHandling: anIRNonLocalReturnHandling
+	self stream nextPutNonLocalReturnHandlingWith: [
+		super visitIRNonLocalReturnHandling: anIRNonLocalReturnHandling ]
+!
+
+visitIRReturn: anIRReturn
+	self stream nextPutReturnWith: [
+		super visitIRReturn: anIRReturn ]
+!
+
+visitIRSend: anIRSend
+	self stream nextPutAll: 'smalltalk.send('.
+	self visit: anIRSend instructions first.
+	self stream nextPutAll:  ',"', anIRSend selector asSelector, '",['.
+	anIRSend instructions allButFirst
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	self stream nextPutAll: ']'.
+	anIRSend classSend ifNotNil: [  
+		self stream nextPutAll: ',', anIRSend classSend asJavascript ].
+	self stream nextPutAll: ')'
+!
+
+visitIRSequence: anIRSequence
+	self stream nextPutSequenceWith: [
+		"self instructions do: [ :each |
+			((IRStatement on: self builder)
+				pc: self builder nextPc;
+				with: each;
+				yourself) emitOn: aStream ]"
+		super visitIRSequence: anIRSequence ]
+!
+
+visitIRStatement: anIRStatement
+	self stream nextPutStatementWith: [
+		super visitIRStatement: anIRStatement ]
+!
+
+visitIRTempDeclaration: anIRTempDeclaration
+	self stream nextPutVar: anIRTempDeclaration name asVariableName
+!
+
+visitIRValue: anIRValue
+	self stream nextPutAll: anIRValue value asJavascript
+!
+
+visitIRVariable: anIRVariable
+	self stream nextPutAll: anIRVariable variable alias
+!
+
+visitIRVerbatim: anIRVerbatim
+	self stream nextPutStatementWith: [
+		self stream nextPutAll: anIRVerbatim source ]
 ! !
 
 Object subclass: #JSStream
@@ -826,10 +940,8 @@ nextPutAll: aString
 	stream nextPutAll: aString
 !
 
-nextPutAssignment: varInstruction to: valueInstruction
-	varInstruction emitOn: self.
-	stream nextPutAll: '='.
-	valueInstruction emitOn: self
+nextPutAssignment
+	stream nextPutAll: '='
 !
 
 nextPutClosureWith: aBlock arguments: anArray
@@ -850,7 +962,7 @@ nextPutFunctionWith: aBlock arguments: anArray
 	stream nextPutAll: '){'; lf.
 	stream nextPutAll: 'var self=this;'; lf.
 	aBlock value.
-	stream nextPutAll: 'return self;}'
+	stream nextPutAll: '}'
 !
 
 nextPutMethodDeclaration: aMethod with: aBlock
@@ -888,8 +1000,12 @@ nextPutNonLocalReturnWith: aBlock
 	stream nextPutAll: ']})()'
 !
 
+nextPutReturn
+	stream nextPutAll: 'return '
+!
+
 nextPutReturnWith: aBlock
-	stream nextPutAll: 'return '.
+	self nextPutReturn.
 	aBlock value
 !
 
@@ -912,12 +1028,14 @@ nextPutSequenceWith: aBlock
 !
 
 nextPutStatement: anInteger with: aBlock
-	"stream 
-		nextPutAll: 'case ', anInteger asString, ':'; lf."
+	stream nextPutAll: 'case ', anInteger asString, ':'; lf.
+	self nextPutStatementWith: aBlock.
+	stream nextPutAll: 'smalltalk.thisContext.pc=', (anInteger + 1) asString, ';'; lf
+!
+
+nextPutStatementWith: aBlock
 	aBlock value.
-	stream 
-		nextPutAll: ';'; lf";
-		nextPutAll: 'smalltalk.thisContext.pc=', (anInteger + 1) asString, ';'; lf"
+	stream nextPutAll: ';'; lf
 !
 
 nextPutVar: aString

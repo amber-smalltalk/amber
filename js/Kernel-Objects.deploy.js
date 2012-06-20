@@ -2604,6 +2604,17 @@ return self;}
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
+"_pseudoVariableNames",
+smalltalk.method({
+selector: "pseudoVariableNames",
+fn: function () {
+var self=this;
+return ["self", "super", "nil", "true", "false"];
+return self;}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
 "_readJSObject_",
 smalltalk.method({
 selector: "readJSObject:",

@@ -216,6 +216,12 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 	    superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
+!Class methodsFor: 'converting'!
+
+asJavascript
+	^ 'smalltalk.', self name
+! !
+
 !Class methodsFor: 'printing'!
 
 printString
@@ -246,6 +252,12 @@ instanceClass
 instanceVariableNames: aCollection
 	ClassBuilder new
 	    class: self instanceVariableNames: aCollection
+! !
+
+!Metaclass methodsFor: 'converting'!
+
+asJavascript
+	^ 'smalltalk.', self instanceClass name, '.klass'
 ! !
 
 !Metaclass methodsFor: 'printing'!

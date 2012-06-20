@@ -231,15 +231,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "recompile:",
 category: 'compiling',
-fn: function (aClass) {
+fn: function (aClass){
 var self=this;
-smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){return smalltalk.send(self, "_install_forClass_category_", [smalltalk.send(each, "_source", []), aClass, smalltalk.send(each, "_category", [])]);})]);
+smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_name", []), "__comma", [" >> "]), "__comma", [smalltalk.send(each, "_selector", [])])]);return smalltalk.send(self, "_install_forClass_category_", [smalltalk.send(each, "_source", []), aClass, smalltalk.send(each, "_category", [])]);})]);
 smalltalk.send(self, "_setupClass_", [aClass]);
 ((($receiver = smalltalk.send(aClass, "_isMetaclass", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_recompile_", [smalltalk.send(aClass, "_class", [])]);})]));
 return self;},
 args: ["aClass"],
-source: "recompile: aClass\x0a\x09aClass methodDictionary do: [:each |\x0a\x09\x09self install: each source forClass: aClass category: each category].\x0a\x09self setupClass: aClass.\x0a\x09aClass isMetaclass ifFalse: [self recompile: aClass class]",
-messageSends: ["do:", "methodDictionary", "install:forClass:category:", "source", "category", "setupClass:", "ifFalse:", "isMetaclass", "recompile:", "class"],
+source: "recompile: aClass\x0a\x09aClass methodDictionary do: [:each |\x0a\x09\x09console log: aClass name, ' >> ', each selector.\x0a\x09\x09self install: each source forClass: aClass category: each category].\x0a\x09self setupClass: aClass.\x0a\x09aClass isMetaclass ifFalse: [self recompile: aClass class]",
+messageSends: ["do:", "methodDictionary", "log:", ",", "name", "selector", "install:forClass:category:", "source", "category", "setupClass:", "ifFalse:", "isMetaclass", "recompile:", "class"],
 referencedClasses: []
 }),
 smalltalk.Compiler);
@@ -479,13 +479,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitClassReferenceNode:",
 category: 'visiting',
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+smalltalk.send(self, "_visitVariableNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09self visitNode: aNode",
-messageSends: ["visitNode:"],
+source: "visitClassReferenceNode: aNode\x0a\x09self visitVariableNode: aNode",
+messageSends: ["visitVariableNode:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);
@@ -795,14 +795,28 @@ var ir=nil;
 var stream=nil;
 smalltalk.send(smalltalk.send(self, "_semanticAnalyzer", []), "_visit_", [aNode]);
 (ir=(function($rec){smalltalk.send($rec, "_visit_", [aNode]);return smalltalk.send($rec, "_builder", []);})(smalltalk.send(self, "_translator", [])));
-(stream=smalltalk.send((smalltalk.JSStream || JSStream), "_new", []));
-smalltalk.send(ir, "_emitOn_", [stream]);
-return smalltalk.send(stream, "_contents", []);
+return (function($rec){smalltalk.send($rec, "_visit_", [smalltalk.send(ir, "_method", [])]);return smalltalk.send($rec, "_contents", []);})(smalltalk.send(self, "_irTranslator", []));
 return self;},
 args: ["aNode"],
-source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode; builder.\x0a\x09stream := JSStream new.\x0a\x09ir emitOn: stream.\x0a\x09^ stream contents",
-messageSends: ["visit:", "semanticAnalyzer", "builder", "translator", "new", "emitOn:", "contents"],
-referencedClasses: ["JSStream"]
+source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode; builder.\x0a\x09^ self irTranslator\x0a\x09\x09visit: ir method;\x0a\x09\x09contents",
+messageSends: ["visit:", "semanticAnalyzer", "builder", "translator", "method", "contents", "irTranslator"],
+referencedClasses: []
+}),
+smalltalk.CodeGenerator);
+
+smalltalk.addMethod(
+"_irTranslator",
+smalltalk.method({
+selector: "irTranslator",
+category: 'compiling',
+fn: function () {
+var self=this;
+return smalltalk.send((smalltalk.IRJSTranslator || IRJSTranslator), "_new", []);
+return self;},
+args: [],
+source: "irTranslator\x0a\x09^ IRJSTranslator new",
+messageSends: ["new"],
+referencedClasses: ["IRJSTranslator"]
 }),
 smalltalk.CodeGenerator);
 
@@ -827,13 +841,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "translator",
 category: 'compiling',
-fn: function () {
+fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRASTResolver || IRASTResolver), "_new", []));
+return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_theClass_", [smalltalk.send(self, "_currentClass", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRASTResolver || IRASTResolver), "_new", []));
 return self;},
 args: [],
-source: "translator\x0a\x09^ IRASTResolver new\x0a\x09\x09source: self source;\x0a\x09\x09yourself",
-messageSends: ["source:", "source", "yourself", "new"],
+source: "translator\x0a\x09^ IRASTResolver new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
+messageSends: ["source:", "source", "theClass:", "currentClass", "yourself", "new"],
 referencedClasses: ["IRASTResolver"]
 }),
 smalltalk.CodeGenerator);

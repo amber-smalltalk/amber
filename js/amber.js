@@ -88,7 +88,6 @@ amber = (function() {
 				'Compiler-Exceptions',
 				'Compiler-Core',
 				'Compiler-AST',
-				'Compiler-Visitors',
 				'Compiler-Semantic',
 				'Compiler-IR',
 				'Compiler-Tests',

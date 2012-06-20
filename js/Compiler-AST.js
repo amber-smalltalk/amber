@@ -492,6 +492,38 @@ referencedClasses: []
 smalltalk.CascadeNode);
 
 smalltalk.addMethod(
+"_alias",
+smalltalk.method({
+selector: "alias",
+category: 'accessing',
+fn: function () {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_nodes", []), "_last", []), "_alias", []);
+return self;},
+args: [],
+source: "alias\x0a\x09^self nodes last alias",
+messageSends: ["alias", "last", "nodes"],
+referencedClasses: []
+}),
+smalltalk.CascadeNode);
+
+smalltalk.addMethod(
+"_beUsed",
+smalltalk.method({
+selector: "beUsed",
+category: 'accessing',
+fn: function () {
+var self=this;
+smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);
+return self;},
+args: [],
+source: "beUsed\x0a\x09self nodes do: [ :each | each beUsed ]",
+messageSends: ["do:", "nodes", "beUsed"],
+referencedClasses: []
+}),
+smalltalk.CascadeNode);
+
+smalltalk.addMethod(
 "_receiver",
 smalltalk.method({
 selector: "receiver",
@@ -712,10 +744,26 @@ referencedClasses: []
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
+"_hasLocalReturn",
+smalltalk.method({
+selector: "hasLocalReturn",
+category: 'testing',
+fn: function () {
+var self=this;
+return (($receiver = smalltalk.send(self, "_scope", [])) == nil || $receiver == undefined) ? (function(){return false;})() : (function(){return smalltalk.send(smalltalk.send(self, "_scope", []), "_hasLocalReturn", []);})();
+return self;},
+args: [],
+source: "hasLocalReturn\x0a\x09^ self scope\x0a\x09\x09ifNil: [ false ]\x0a\x09\x09ifNotNil: [ self scope hasLocalReturn ]",
+messageSends: ["ifNil:ifNotNil:", "scope", "hasLocalReturn"],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
 "_hasNonLocalReturn",
 smalltalk.method({
 selector: "hasNonLocalReturn",
-category: 'accessing',
+category: 'testing',
 fn: function () {
 var self=this;
 return (($receiver = smalltalk.send(self, "_scope", [])) == nil || $receiver == undefined) ? (function(){return false;})() : (function(){return smalltalk.send(smalltalk.send(self, "_scope", []), "_hasNonLocalReturn", []);})();
@@ -1442,11 +1490,12 @@ selector: "beAssigned",
 category: 'accessing',
 fn: function () {
 var self=this;
+smalltalk.send(smalltalk.send(self, "_binding", []), "_validateAssignment", []);
 (self['@assigned']=true);
 return self;},
 args: [],
-source: "beAssigned\x0a\x09assigned := true",
-messageSends: [],
+source: "beAssigned\x0a\x09self binding validateAssignment.\x0a\x09assigned := true",
+messageSends: ["validateAssignment", "binding"],
 referencedClasses: []
 }),
 smalltalk.VariableNode);
@@ -1474,13 +1523,12 @@ selector: "binding:",
 category: 'accessing',
 fn: function (aScopeVar) {
 var self=this;
-((($receiver = smalltalk.send(aScopeVar, "_isKindOf_", [(smalltalk.SemanticAnalyzer || SemanticAnalyzer)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_halt", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_halt", []);})]));
 (self['@binding']=aScopeVar);
 return self;},
 args: ["aScopeVar"],
-source: "binding: aScopeVar\x0a\x09(aScopeVar isKindOf: SemanticAnalyzer) ifTrue: [ self halt ].\x0a\x09binding := aScopeVar",
-messageSends: ["ifTrue:", "isKindOf:", "halt"],
-referencedClasses: ["SemanticAnalyzer"]
+source: "binding: aScopeVar\x0a\x09binding := aScopeVar",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.VariableNode);
 

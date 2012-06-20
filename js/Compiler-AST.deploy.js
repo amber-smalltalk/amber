@@ -341,6 +341,28 @@ return self;}
 smalltalk.CascadeNode);
 
 smalltalk.addMethod(
+"_alias",
+smalltalk.method({
+selector: "alias",
+fn: function () {
+var self=this;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_nodes", []), "_last", []), "_alias", []);
+return self;}
+}),
+smalltalk.CascadeNode);
+
+smalltalk.addMethod(
+"_beUsed",
+smalltalk.method({
+selector: "beUsed",
+fn: function () {
+var self=this;
+smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);
+return self;}
+}),
+smalltalk.CascadeNode);
+
+smalltalk.addMethod(
 "_receiver",
 smalltalk.method({
 selector: "receiver",
@@ -491,6 +513,17 @@ selector: "classReferences:",
 fn: function (aCollection) {
 var self=this;
 (self['@classReferences']=aCollection);
+return self;}
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_hasLocalReturn",
+smalltalk.method({
+selector: "hasLocalReturn",
+fn: function () {
+var self=this;
+return (($receiver = smalltalk.send(self, "_scope", [])) == nil || $receiver == undefined) ? (function(){return false;})() : (function(){return smalltalk.send(smalltalk.send(self, "_scope", []), "_hasLocalReturn", []);})();
 return self;}
 }),
 smalltalk.MethodNode);
@@ -1005,6 +1038,7 @@ smalltalk.method({
 selector: "beAssigned",
 fn: function () {
 var self=this;
+smalltalk.send(smalltalk.send(self, "_binding", []), "_validateAssignment", []);
 (self['@assigned']=true);
 return self;}
 }),
@@ -1027,7 +1061,6 @@ smalltalk.method({
 selector: "binding:",
 fn: function (aScopeVar) {
 var self=this;
-((($receiver = smalltalk.send(aScopeVar, "_isKindOf_", [(smalltalk.SemanticAnalyzer || SemanticAnalyzer)])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_halt", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_halt", []);})]));
 (self['@binding']=aScopeVar);
 return self;}
 }),

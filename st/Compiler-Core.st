@@ -97,6 +97,7 @@ parseExpression: aString
 
 recompile: aClass
 	aClass methodDictionary do: [:each |
+		console log: aClass name, ' >> ', each selector.
 		self install: each source forClass: aClass category: each category].
 	self setupClass: aClass.
 	aClass isMetaclass ifFalse: [self recompile: aClass class]
@@ -158,7 +159,7 @@ visitCascadeNode: aNode
 !
 
 visitClassReferenceNode: aNode
-	self visitNode: aNode
+	self visitVariableNode: aNode
 !
 
 visitDynamicArrayNode: aNode
@@ -258,9 +259,13 @@ compileNode: aNode
 	| ir stream |
 	self semanticAnalyzer visit: aNode.
 	ir := self translator visit: aNode; builder.
-	stream := JSStream new.
-	ir emitOn: stream.
-	^ stream contents
+	^ self irTranslator
+		visit: ir method;
+		contents
+!
+
+irTranslator
+	^ IRJSTranslator new
 !
 
 semanticAnalyzer
@@ -270,6 +275,7 @@ semanticAnalyzer
 translator
 	^ IRASTResolver new
 		source: self source;
+		theClass: self currentClass;
 		yourself
 ! !
 

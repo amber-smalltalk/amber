@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Semantic' properties: #{}!
 Object subclass: #LexicalScope
-	instanceVariableNames: 'node temps args outerScope'
+	instanceVariableNames: 'node instruction temps args outerScope'
 	package: 'Compiler-Semantic'!
 !LexicalScope commentStamp!
 I represent a lexical scope where variable names are associated with ScopeVars
@@ -20,8 +20,17 @@ args
 !
 
 bindingFor: aStringOrNode
-	^ self args at: aStringOrNode value ifAbsent: [
-		self temps at: aStringOrNode value ifAbsent: [ nil ]]
+	^ self pseudoVars at: aStringOrNode value ifAbsent: [ 
+		self args at: aStringOrNode value ifAbsent: [
+			self temps at: aStringOrNode value ifAbsent: [ nil ]]]
+!
+
+instruction
+	^ instruction
+!
+
+instruction: anIRInstruction
+	instruction := anIRInstruction
 !
 
 lookupVariable: aNode
@@ -56,6 +65,10 @@ outerScope: aLexicalScope
 	outerScope := aLexicalScope
 !
 
+pseudoVars
+	^ self methodScope pseudoVars
+!
+
 scopeLevel
 	^ (self outerScope 
 		ifNil: [ 0 ]
@@ -85,7 +98,7 @@ isMethodScope
 ! !
 
 LexicalScope subclass: #MethodLexicalScope
-	instanceVariableNames: 'iVars unknownVariables nonLocalReturn'
+	instanceVariableNames: 'iVars unknownVariables localReturn nonLocalReturn'
 	package: 'Compiler-Semantic'!
 !MethodLexicalScope commentStamp!
 I represent a method scope.!
@@ -105,6 +118,14 @@ iVars
 	^ iVars ifNil: [ iVars := Dictionary new ]
 !
 
+localReturn
+	^ localReturn ifNil: [ false ]
+!
+
+localReturn: aBoolean
+	localReturn := aBoolean
+!
+
 methodScope
 	^ self
 !
@@ -117,18 +138,32 @@ nonLocalReturn: aBoolean
 	nonLocalReturn := aBoolean
 !
 
+pseudoVars
+	pseudoVars ifNil: [
+		pseudoVars := Dictionary new.
+		Smalltalk current pseudoVariableNames do: [ :each |
+			pseudoVars at: each put: ((PseudoVar on: each)
+				scope: self methodScope;
+				yourself) ]].
+	^ pseudoVars
+!
+
 unknownVariables
 	^ unknownVariables ifNil: [ unknownVariables := OrderedCollection new ]
 ! !
 
 !MethodLexicalScope methodsFor: 'adding'!
 
-addIvar: aString
+addIVar: aString
 	self iVars at: aString put: (InstanceVar on: aString).
 	(self iVars at: aString) scope: self
 ! !
 
 !MethodLexicalScope methodsFor: 'testing'!
+
+hasLocalReturn
+	^ self localReturn
+!
 
 hasNonLocalReturn
 	^ self nonLocalReturn
@@ -173,7 +208,15 @@ isArgVar
 	^ false
 !
 
+isClassRefVar
+	^ false
+!
+
 isInstanceVar
+	^ false
+!
+
+isPseudoVar
 	^ false
 !
 
@@ -183,6 +226,13 @@ isTempVar
 
 isUnknownVar
 	^ false
+!
+
+validateAssignment
+	(self isArgVar or: [ self isPseudoVar ]) ifTrue: [
+		InvalidAssignmentError new
+			variableName: self name;
+			signal]
 ! !
 
 !ScopeVar class methodsFor: 'instance creation'!
@@ -230,7 +280,13 @@ I am an class reference variable!
 !ClassRefVar methodsFor: 'accessing'!
 
 alias
-	^ '(Smalltalk.', self name, ' || ', self name, ')'
+	^ '(smalltalk.', self name, ' || ', self name, ')'
+! !
+
+!ClassRefVar methodsFor: 'testing'!
+
+isClassRefVar
+	^ true
 ! !
 
 ScopeVar subclass: #InstanceVar
@@ -242,10 +298,30 @@ I am an instance variable of a method or block.!
 !InstanceVar methodsFor: 'testing'!
 
 alias
-	^ 'self["@', self name, ']'
+	^ 'self["@', self name, '"]'
 !
 
 isInstanceVar
+	^ true
+! !
+
+ScopeVar subclass: #PseudoVar
+	instanceVariableNames: ''
+	package: 'Compiler-Semantic'!
+!PseudoVar commentStamp!
+I am an pseudo variable.
+
+The five Smalltalk pseudo variables are: 'self', 'super', 'nil', 'true' and 'false'!
+
+!PseudoVar methodsFor: 'accessing'!
+
+alias
+	^ self name
+! !
+
+!PseudoVar methodsFor: 'testing'!
+
+isPseudoVar
 	^ true
 ! !
 
@@ -302,12 +378,6 @@ theClass: aClass
 ! !
 
 !SemanticAnalyzer methodsFor: 'error handling'!
-
-errorInvalidAssignment: aString
-	InvalidAssignmentError new
-		variableName: aString;
-		signal
-!
 
 errorShadowingVariable: aString
 	ShadowingVariableError new
@@ -369,12 +439,8 @@ allowUnknownVariables
 
 visitAssignmentNode: aNode
 	super visitAssignmentNode: aNode.
-	(self pseudoVariables includes: aNode left value) ifTrue: [
-		self errorInvalidAssignment: aNode left value ].
-	aNode left binding isArgVar ifTrue: [
-		self errorInvalidAssignment: aNode left value ].
 	aNode left beAssigned.
-	aNode right beUsed.
+	aNode right beUsed
 !
 
 visitBlockNode: aNode
@@ -391,8 +457,11 @@ visitBlockNode: aNode
 
 visitCascadeNode: aNode
 	"Populate the receiver into all children"
-	aNode nodes do: [ :each | each receiver: aNode receiver ].
-	super visitCascadeNode: aNode
+	aNode nodes do: [ :each | 
+		each receiver: aNode receiver ].
+	super visitCascadeNode: aNode.
+	aNode nodes first superSend ifTrue: [
+		aNode nodes do: [ :each | each superSend: true ]]
 !
 
 visitClassReferenceNode: aNode
@@ -419,9 +488,11 @@ visitMethodNode: aNode
 !
 
 visitReturnNode: aNode
-	currentScope isMethodScope ifFalse: [
-		currentScope methodScope nonLocalReturn: true.
-		aNode nonLocalReturn: true ].
+	currentScope isMethodScope 
+		ifTrue: [ currentScope localReturn: true ]
+		ifFalse: [
+			currentScope methodScope nonLocalReturn: true.
+			aNode nonLocalReturn: true ].
 	aNode nodes first beUsed.
 	super visitReturnNode: aNode
 !

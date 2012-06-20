@@ -1,4 +1,94 @@
 smalltalk.addPackage('Compiler-Tests', {});
+smalltalk.addClass('IRASTTranslatorTest', smalltalk.TestCase, [], 'Compiler-Tests');
+smalltalk.addMethod(
+"_testIRMethod",
+smalltalk.method({
+selector: "testIRMethod",
+fn: function (){
+var self=this;
+
+return self;}
+}),
+smalltalk.IRASTTranslatorTest);
+
+
+
+smalltalk.addClass('ScopeVarTest', smalltalk.TestCase, [], 'Compiler-Tests');
+smalltalk.addMethod(
+"_testClassRefVar",
+smalltalk.method({
+selector: "testClassRefVar",
+fn: function (){
+var self=this;
+var node=nil;
+(node=(function($rec){smalltalk.send($rec, "_value_", ["Object"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.ClassReferenceNode || ClassReferenceNode), "_new", [])));
+smalltalk.send(smalltalk.send((smalltalk.SemanticAnalyzer || SemanticAnalyzer), "_new", []), "_visit_", [node]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(node, "_binding", []), "_isClassRefVar", [])]);
+return self;}
+}),
+smalltalk.ScopeVarTest);
+
+smalltalk.addMethod(
+"_testInstanceVar",
+smalltalk.method({
+selector: "testInstanceVar",
+fn: function (){
+var self=this;
+var node=nil;
+var scope=nil;
+(node=(function($rec){smalltalk.send($rec, "_value_", ["bzzz"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.VariableNode || VariableNode), "_new", [])));
+(scope=smalltalk.send((smalltalk.MethodLexicalScope || MethodLexicalScope), "_new", []));
+smalltalk.send(scope, "_addIVar_", ["bzzz"]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(scope, "_bindingFor_", [node]), "_isInstanceVar", [])]);
+return self;}
+}),
+smalltalk.ScopeVarTest);
+
+smalltalk.addMethod(
+"_testPseudoVar",
+smalltalk.method({
+selector: "testPseudoVar",
+fn: function (){
+var self=this;
+var node=nil;
+var pseudoVars=nil;
+(pseudoVars=["self", "super", "true", "false", "nil"]);
+smalltalk.send(pseudoVars, "_do_", [(function(each){(node=(function($rec){smalltalk.send($rec, "_value_", [each]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.VariableNode || VariableNode), "_new", [])));return smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.MethodLexicalScope || MethodLexicalScope), "_new", []), "_bindingFor_", [node]), "_isPseudoVar", [])]);})]);
+return self;}
+}),
+smalltalk.ScopeVarTest);
+
+smalltalk.addMethod(
+"_testTempVar",
+smalltalk.method({
+selector: "testTempVar",
+fn: function (){
+var self=this;
+var node=nil;
+var scope=nil;
+(node=(function($rec){smalltalk.send($rec, "_value_", ["bzzz"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.VariableNode || VariableNode), "_new", [])));
+(scope=smalltalk.send((smalltalk.MethodLexicalScope || MethodLexicalScope), "_new", []));
+smalltalk.send(scope, "_addTemp_", ["bzzz"]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(scope, "_bindingFor_", [node]), "_isTempVar", [])]);
+return self;}
+}),
+smalltalk.ScopeVarTest);
+
+smalltalk.addMethod(
+"_testUnknownVar",
+smalltalk.method({
+selector: "testUnknownVar",
+fn: function (){
+var self=this;
+var node=nil;
+(node=(function($rec){smalltalk.send($rec, "_value_", ["bzzz"]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.VariableNode || VariableNode), "_new", [])));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.MethodLexicalScope || MethodLexicalScope), "_new", []), "_bindingFor_", [node]), "_isNil", [])]);
+return self;}
+}),
+smalltalk.ScopeVarTest);
+
+
+
 smalltalk.addClass('SemanticAnalyzerTest', smalltalk.TestCase, ['analyzer'], 'Compiler-Tests');
 smalltalk.addMethod(
 "_setUp",

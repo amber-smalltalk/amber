@@ -3718,6 +3718,22 @@ referencedClasses: ["String", "ParseError"]
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
+"_pseudoVariableNames",
+smalltalk.method({
+selector: "pseudoVariableNames",
+category: 'packages',
+fn: function () {
+var self=this;
+return ["self", "super", "nil", "true", "false"];
+return self;},
+args: [],
+source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false')",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
 "_readJSObject_",
 smalltalk.method({
 selector: "readJSObject:",

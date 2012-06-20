@@ -1,4 +1,66 @@
 Smalltalk current createPackage: 'Compiler-Tests' properties: #{}!
+TestCase subclass: #IRASTTranslatorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!IRASTTranslatorTest methodsFor: 'tests'!
+
+testIRMethod
+! !
+
+TestCase subclass: #ScopeVarTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ScopeVarTest methodsFor: 'tests'!
+
+testClassRefVar
+	| node |
+	node := ClassReferenceNode new
+		value: 'Object';
+		yourself.
+	SemanticAnalyzer new visit: node.
+	self assert: node binding isClassRefVar
+!
+
+testInstanceVar
+	| node scope |
+	node := VariableNode new
+		value: 'bzzz';
+		yourself.
+	scope := MethodLexicalScope new.
+	scope addIVar: 'bzzz'.
+	self assert: (scope bindingFor: node) isInstanceVar
+!
+
+testPseudoVar
+	| node pseudoVars |
+	pseudoVars := #('self' 'super' 'true' 'false' 'nil').
+	pseudoVars do: [:each |
+		node := VariableNode new
+		value: each;
+		yourself.
+		self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar ]
+!
+
+testTempVar
+	| node scope |
+	node := VariableNode new
+		value: 'bzzz';
+		yourself.
+	scope := MethodLexicalScope new.
+	scope addTemp: 'bzzz'.
+	self assert: (scope bindingFor: node) isTempVar
+!
+
+testUnknownVar
+	| node |
+	node := VariableNode new
+		value: 'bzzz';
+		yourself.
+	self assert: (MethodLexicalScope new bindingFor: node) isNil
+! !
+
 TestCase subclass: #SemanticAnalyzerTest
 	instanceVariableNames: 'analyzer'
 	package: 'Compiler-Tests'!

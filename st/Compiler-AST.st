@@ -154,6 +154,14 @@ Node subclass: #CascadeNode
 
 !CascadeNode methodsFor: 'accessing'!
 
+alias
+	^self nodes last alias
+!
+
+beUsed
+	self nodes do: [ :each | each beUsed ]
+!
+
 receiver
 	^receiver
 !
@@ -230,12 +238,6 @@ classReferences: aCollection
 	classReferences := aCollection
 !
 
-hasNonLocalReturn
-	^ self scope
-		ifNil: [ false ]
-		ifNotNil: [ self scope hasNonLocalReturn ]
-!
-
 messageSends
 	^ messageSends
 !
@@ -272,6 +274,18 @@ source: aString
 
 canAliasChildren
 	^ false
+!
+
+hasLocalReturn
+	^ self scope
+		ifNil: [ false ]
+		ifNotNil: [ self scope hasLocalReturn ]
+!
+
+hasNonLocalReturn
+	^ self scope
+		ifNil: [ false ]
+		ifNotNil: [ self scope hasNonLocalReturn ]
 ! !
 
 !MethodNode methodsFor: 'visiting'!
@@ -490,6 +504,7 @@ assigned: aBoolean
 !
 
 beAssigned
+	self binding validateAssignment.
 	assigned := true
 !
 
@@ -498,7 +513,6 @@ binding
 !
 
 binding: aScopeVar
-	(aScopeVar isKindOf: SemanticAnalyzer) ifTrue: [ self halt ].
 	binding := aScopeVar
 ! !
 

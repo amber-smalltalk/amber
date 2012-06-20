@@ -1436,6 +1436,10 @@ packages
 	<return self.packages.all()>
 !
 
+pseudoVariableNames
+	^ #('self' 'super' 'nil' 'true' 'false')
+!
+
 removePackage: packageName
 	"Removes a package and all its classes."
 

@@ -443,6 +443,22 @@ smalltalk.Behavior);
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.Class.comment="Class is __the__ class object. \x0a\x0aInstances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder`"
 smalltalk.addMethod(
+"_asJavascript",
+smalltalk.method({
+selector: "asJavascript",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_name", [])]);
+return self;},
+args: [],
+source: "asJavascript\x0a\x09^ 'smalltalk.', self name",
+messageSends: [",", "name"],
+referencedClasses: []
+}),
+smalltalk.Class);
+
+smalltalk.addMethod(
 "_category",
 smalltalk.method({
 selector: "category",
@@ -611,6 +627,27 @@ smalltalk.Class);
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.Metaclass.comment="Metaclass is the root of the class hierarchy.\x0a\x0aMetaclass instances are metaclasses, one for each real class. \x0aMetaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of."
+smalltalk.addMethod(
+"_asJavascript",
+smalltalk.method({
+selector: "asJavascript",
+category: 'converting',
+fn: function (){
+var self=this;
+var $1,$2,$3,$4;
+$1=smalltalk.send(self,"_instanceClass",[]);
+$2=smalltalk.send($1,"_name",[]);
+$3=smalltalk.send("smalltalk.","__comma",[$2]);
+$4=smalltalk.send($3,"__comma",[".klass"]);
+return $4;
+},
+args: [],
+source: "asJavascript\x0a\x09^ 'smalltalk.', self instanceClass name, '.klass'",
+messageSends: [",", "name", "instanceClass"],
+referencedClasses: []
+}),
+smalltalk.Metaclass);
+
 smalltalk.addMethod(
 "_instanceClass",
 smalltalk.method({

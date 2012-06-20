@@ -311,6 +311,17 @@ smalltalk.Behavior);
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.addMethod(
+"_asJavascript",
+smalltalk.method({
+selector: "asJavascript",
+fn: function (){
+var self=this;
+return smalltalk.send("smalltalk.", "__comma", [smalltalk.send(self, "_name", [])]);
+return self;}
+}),
+smalltalk.Class);
+
+smalltalk.addMethod(
 "_category",
 smalltalk.method({
 selector: "category",
@@ -428,6 +439,22 @@ smalltalk.Class);
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
+smalltalk.addMethod(
+"_asJavascript",
+smalltalk.method({
+selector: "asJavascript",
+fn: function (){
+var self=this;
+var $1,$2,$3,$4;
+$1=smalltalk.send(self,"_instanceClass",[]);
+$2=smalltalk.send($1,"_name",[]);
+$3=smalltalk.send("smalltalk.","__comma",[$2]);
+$4=smalltalk.send($3,"__comma",[".klass"]);
+return $4;
+}
+}),
+smalltalk.Metaclass);
+
 smalltalk.addMethod(
 "_instanceClass",
 smalltalk.method({
