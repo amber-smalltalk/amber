@@ -17,6 +17,10 @@ See my subclasses for concrete errors.
 
 The IDE should catch instances of Semantic error to deal with them when compiling!
 
+SemanticError subclass: #InliningError
+	instanceVariableNames: 'variableName'
+	package: 'Compiler-Exceptions'!
+
 SemanticError subclass: #InvalidAssignmentError
 	instanceVariableNames: 'variableName'
 	package: 'Compiler-Exceptions'!

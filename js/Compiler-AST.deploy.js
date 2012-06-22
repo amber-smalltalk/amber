@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'alias'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'alias', 'canBeInlined'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -62,6 +62,28 @@ selector: "canAliasChildren",
 fn: function () {
 var self=this;
 return true;
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_canBeInlined",
+smalltalk.method({
+selector: "canBeInlined",
+fn: function (){
+var self=this;
+return (($receiver = self['@canBeInlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_canBeInlined_",
+smalltalk.method({
+selector: "canBeInlined:",
+fn: function (aBoolean){
+var self=this;
+(self['@canBeInlined']=aBoolean);
 return self;}
 }),
 smalltalk.Node);
@@ -267,6 +289,17 @@ selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
 smalltalk.send(aVisitor, "_visitBlockNode_", [self]);
+return self;}
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+"_canInlineNonLocalReturns",
+smalltalk.method({
+selector: "canInlineNonLocalReturns",
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_canBeInlined", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_outerScope", []), "_node", []), "_canInlineNonLocalReturns", []);})]);
 return self;}
 }),
 smalltalk.BlockNode);
@@ -496,6 +529,17 @@ return self;}
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
+"_canInlineNonLocalReturns",
+smalltalk.method({
+selector: "canInlineNonLocalReturns",
+fn: function (){
+var self=this;
+return true;
+return self;}
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
 "_classReferences",
 smalltalk.method({
 selector: "classReferences",
@@ -629,7 +673,7 @@ smalltalk.MethodNode);
 
 
 
-smalltalk.addClass('ReturnNode', smalltalk.Node, ['nonLocalReturn'], 'Compiler-AST');
+smalltalk.addClass('ReturnNode', smalltalk.Node, ['nonLocalReturn', 'canBeInlined'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({

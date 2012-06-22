@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'alias'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'alias', 'canBeInlined'], 'Compiler-AST');
 smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree."
 smalltalk.addMethod(
 "_accept_",
@@ -92,6 +92,38 @@ return true;
 return self;},
 args: [],
 source: "canAliasChildren\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_canBeInlined",
+smalltalk.method({
+selector: "canBeInlined",
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@canBeInlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;},
+args: [],
+source: "canBeInlined\x0a\x09^ canBeInlined ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_canBeInlined_",
+smalltalk.method({
+selector: "canBeInlined:",
+category: 'accessing',
+fn: function (aBoolean){
+var self=this;
+(self['@canBeInlined']=aBoolean);
+return self;},
+args: ["aBoolean"],
+source: "canBeInlined: aBoolean\x0a\x09canBeInlined := aBoolean",
 messageSends: [],
 referencedClasses: []
 }),
@@ -388,6 +420,22 @@ return self;},
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09aVisitor visitBlockNode: self",
 messageSends: ["visitBlockNode:"],
+referencedClasses: []
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+"_canInlineNonLocalReturns",
+smalltalk.method({
+selector: "canInlineNonLocalReturns",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_canBeInlined", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_outerScope", []), "_node", []), "_canInlineNonLocalReturns", []);})]);
+return self;},
+args: [],
+source: "canInlineNonLocalReturns\x0a\x09^ self canBeInlined and: [\x0a\x09\x09self scope outerScope node canInlineNonLocalReturns]",
+messageSends: ["and:", "canBeInlined", "canInlineNonLocalReturns", "node", "outerScope", "scope"],
 referencedClasses: []
 }),
 smalltalk.BlockNode);
@@ -712,6 +760,22 @@ referencedClasses: []
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
+"_canInlineNonLocalReturns",
+smalltalk.method({
+selector: "canInlineNonLocalReturns",
+category: 'testing',
+fn: function (){
+var self=this;
+return true;
+return self;},
+args: [],
+source: "canInlineNonLocalReturns\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
 "_classReferences",
 smalltalk.method({
 selector: "classReferences",
@@ -905,7 +969,7 @@ smalltalk.MethodNode);
 
 
 
-smalltalk.addClass('ReturnNode', smalltalk.Node, ['nonLocalReturn'], 'Compiler-AST');
+smalltalk.addClass('ReturnNode', smalltalk.Node, ['nonLocalReturn', 'canBeInlined'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({

@@ -9,6 +9,9 @@ smalltalk.addClass('SemanticError', smalltalk.CompilerError, [], 'Compiler-Excep
 smalltalk.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling"
 
 
+smalltalk.addClass('InliningError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
+
+
 smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned."
 smalltalk.addMethod(

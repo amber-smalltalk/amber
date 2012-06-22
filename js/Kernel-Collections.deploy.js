@@ -1428,19 +1428,20 @@ return self;}
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_remove_",
+"_remove_ifAbsent_",
 smalltalk.method({
-selector: "remove:",
-fn: function (anObject) {
+selector: "remove:ifAbsent:",
+fn: function (anObject, aBlock){
 var self=this;
 
 		for(var i=0;i<self.length;i++) {
 			if(self[i] == anObject) {
 				self.splice(i,1);
-				break;
+				return self;
 			}
 		}
 	;
+smalltalk.send(aBlock, "_value", []);
 return self;}
 }),
 smalltalk.Array);

@@ -2014,24 +2014,25 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_remove_",
+"_remove_ifAbsent_",
 smalltalk.method({
-selector: "remove:",
+selector: "remove:ifAbsent:",
 category: 'adding/removing',
-fn: function (anObject) {
+fn: function (anObject, aBlock){
 var self=this;
 
 		for(var i=0;i<self.length;i++) {
 			if(self[i] == anObject) {
 				self.splice(i,1);
-				break;
+				return self;
 			}
 		}
 	;
+smalltalk.send(aBlock, "_value", []);
 return self;},
-args: ["anObject"],
-source: "remove: anObject\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09>",
-messageSends: [],
+args: ["anObject", "aBlock"],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09>.\x0a\x09aBlock value",
+messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.Array);

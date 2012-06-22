@@ -90,6 +90,7 @@ amber = (function() {
 				'Compiler-AST',
 				'Compiler-Semantic',
 				'Compiler-IR',
+				'Compiler-Inlining',
 				'Compiler-Tests',
 				'parser',
 				'IDE',

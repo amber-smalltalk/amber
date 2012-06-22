@@ -60,7 +60,6 @@ visitJSStatementNode: aNode
 
 visitMethodNode: aNode
 	self builder method 
-		scope: aNode scope;
 		source: self source;
 		arguments: aNode arguments;
 		selector: aNode selector;
@@ -352,7 +351,7 @@ isClosure
 	^ false
 !
 
-isInlined
+isReturn
 	^ false
 ! !
 
@@ -390,91 +389,24 @@ accept: aVisitor
 	aVisitor visitIRAlias: self
 ! !
 
-IRInstruction subclass: #IRNonLocalReturn
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRNonLocalReturn commentStamp!
-I am a non local return instruction.
-Non local returns are handled using a try/catch JS statement.
-
-See IRNonLocalReturnHandling class!
-
-!IRNonLocalReturn methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitIRNonLocalReturn: self
-! !
-
-IRInstruction subclass: #IRNonLocalReturnHandling
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRNonLocalReturnHandling commentStamp!
-I represent a non local return handling instruction.
-Non local returns are handled with a try/catch statement!
-
-!IRNonLocalReturnHandling methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitIRNonLocalReturnHandling: self
-! !
-
-IRInstruction subclass: #IRReturn
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRReturn commentStamp!
-I am a local return instruction.!
-
-!IRReturn methodsFor: 'visiting'!
-
-accept: aVisitor
-	aVisitor visitIRReturn: self
-! !
-
-IRInstruction subclass: #IRScopedInstruction
-	instanceVariableNames: 'scope'
-	package: 'Compiler-IR'!
-
-!IRScopedInstruction methodsFor: 'accessing'!
-
-scope
-	^ scope
-!
-
-scope: aScope
-	aScope instruction: self.
-	scope := aScope
-! !
-
-IRScopedInstruction subclass: #IRClosure
-	instanceVariableNames: 'arguments inlined'
+IRInstruction subclass: #IRClosure
+	instanceVariableNames: 'arguments'
 	package: 'Compiler-IR'!
 
 !IRClosure methodsFor: 'accessing'!
 
 arguments
-	^ arguments
+	^ arguments ifNil: [ #() ]
 !
 
 arguments: aCollection
 	arguments := aCollection
-!
-
-inlined
-	^ inlined ifNil: [ false ]
-!
-
-inlined: aBoolean
-	inlined := aBoolean
 ! !
 
 !IRClosure methodsFor: 'testing'!
 
 isClosure
 	^ true
-!
-
-isInlined
-	^ self inlined
 ! !
 
 !IRClosure methodsFor: 'visiting'!
@@ -483,7 +415,7 @@ accept: aVisitor
 	aVisitor visitIRClosure: self
 ! !
 
-IRScopedInstruction subclass: #IRMethod
+IRInstruction subclass: #IRMethod
 	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
@@ -541,8 +473,54 @@ accept: aVisitor
 	aVisitor visitIRMethod: self
 ! !
 
+IRInstruction subclass: #IRNonLocalReturnHandling
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRNonLocalReturnHandling commentStamp!
+I represent a non local return handling instruction.
+Non local returns are handled with a try/catch statement!
+
+!IRNonLocalReturnHandling methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRNonLocalReturnHandling: self
+! !
+
+IRInstruction subclass: #IRReturn
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRReturn commentStamp!
+I am a local return instruction.!
+
+!IRReturn methodsFor: 'testing'!
+
+isReturn
+	^ true
+! !
+
+!IRReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRReturn: self
+! !
+
+IRReturn subclass: #IRNonLocalReturn
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRNonLocalReturn commentStamp!
+I am a non local return instruction.
+Non local returns are handled using a try/catch JS statement.
+
+See IRNonLocalReturnHandling class!
+
+!IRNonLocalReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRNonLocalReturn: self
+! !
+
 IRInstruction subclass: #IRSend
-	instanceVariableNames: 'selector classSend inlined'
+	instanceVariableNames: 'selector classSend'
 	package: 'Compiler-IR'!
 !IRSend commentStamp!
 I am a message send instruction.!
@@ -557,26 +535,12 @@ classSend: aClass
 	classSend := aClass
 !
 
-inlined
-	^ inlined ifNil: [ false ]
-!
-
-inlined: aBoolean
-	inlined := aBoolean
-!
-
 selector
 	^ selector
 !
 
 selector: aString
 	selector := aString
-! !
-
-!IRSend methodsFor: 'testing'!
-
-isInlined
-	^ self inlined
 ! !
 
 !IRSend methodsFor: 'visiting'!
@@ -622,6 +586,12 @@ Statements can be used to control the PC count, among other things.!
 
 pc
 	^ pc ifNil: [pc := self builder nextPc]
+! !
+
+!IRStatement methodsFor: 'testing'!
+
+isReturn
+	^ self instructions first isReturn
 ! !
 
 !IRStatement methodsFor: 'visiting'!
@@ -742,6 +712,18 @@ visitIRClosure: anIRClosure
 	self visitIRInstruction: anIRClosure
 !
 
+visitIRInlinedClosure: anIRClosure
+	self visitIRClosure: anIRClosure
+!
+
+visitIRInlinedIfTrue: anIRInlinedIfTrue
+	self visitIRInlinedSend: anIRInlinedIfTrue
+!
+
+visitIRInlinedSend: anIRInlinedSend
+	self visitIRSend: anIRInlinedSend
+!
+
 visitIRInstruction: anIRInstruction
 	anIRInstruction instructions do: [ :each | self visit: each ]
 !
@@ -828,7 +810,8 @@ visitIRBlockSequence: anIRBlockSequence
 		anIRBlockSequence instructions notEmpty ifTrue: [
 			anIRBlockSequence instructions allButLast do: [ :each | 
 				self visit: each ].
-			self stream nextPutReturn.
+			anIRBlockSequence instructions last isReturn ifFalse: [
+				self stream nextPutReturn ].
 			self visit: anIRBlockSequence instructions last ]]
 !
 
@@ -965,6 +948,14 @@ nextPutFunctionWith: aBlock arguments: anArray
 	stream nextPutAll: '}'
 !
 
+nextPutIf: aBlock with: anotherBlock
+	stream nextPutAll: 'if('.
+	aBlock value.
+	stream nextPutAll: '){'; lf.
+	anotherBlock value.
+	stream nextPutAll: '}'
+!
+
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream 
 		nextPutAll: 'smalltalk.method({'; lf;
@@ -995,9 +986,9 @@ nextPutNonLocalReturnHandlingWith: aBlock
 !
 
 nextPutNonLocalReturnWith: aBlock
-	stream nextPutAll: '(function(){throw $early=['.
+	stream nextPutAll: 'throw $early=['.
 	aBlock value.
-	stream nextPutAll: ']})()'
+	stream nextPutAll: ']'
 !
 
 nextPutReturn

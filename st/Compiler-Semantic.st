@@ -98,7 +98,7 @@ isMethodScope
 ! !
 
 LexicalScope subclass: #MethodLexicalScope
-	instanceVariableNames: 'iVars unknownVariables localReturn nonLocalReturn'
+	instanceVariableNames: 'iVars unknownVariables localReturn nonLocalReturns'
 	package: 'Compiler-Semantic'!
 !MethodLexicalScope commentStamp!
 I represent a method scope.!
@@ -138,6 +138,10 @@ nonLocalReturn: aBoolean
 	nonLocalReturn := aBoolean
 !
 
+nonLocalReturns
+	^ nonLocalReturns ifNil: [ nonLocalReturns := OrderedCollection new ]
+!
+
 pseudoVars
 	pseudoVars ifNil: [
 		pseudoVars := Dictionary new.
@@ -157,6 +161,14 @@ unknownVariables
 addIVar: aString
 	self iVars at: aString put: (InstanceVar on: aString).
 	(self iVars at: aString) scope: self
+!
+
+addNonLocalReturn: aNode
+	self nonLocalReturns add: aNode
+!
+
+removeNonLocalReturn: aNode
+	self nonLocalReturns remove: aNode ifAbsent: []
 ! !
 
 !MethodLexicalScope methodsFor: 'testing'!
@@ -166,7 +178,7 @@ hasLocalReturn
 !
 
 hasNonLocalReturn
-	^ self nonLocalReturn
+	^ self nonLocalReturns notEmpty
 !
 
 isMethodScope
@@ -446,6 +458,7 @@ visitAssignmentNode: aNode
 visitBlockNode: aNode
 	self pushScope: self newBlockScope.
 	aNode scope: currentScope.
+	currentScope node: aNode.
 	
 	aNode parameters do: [ :each | 
 		self validateVariableScope: each.
@@ -472,6 +485,7 @@ visitClassReferenceNode: aNode
 visitMethodNode: aNode
 	self pushScope: self newMethodScope.
 	aNode scope: currentScope.
+	currentScope node: aNode.
 
 	self theClass allInstanceVariableNames do: [:each | 
 		currentScope addIVar: each ].
@@ -491,7 +505,7 @@ visitReturnNode: aNode
 	currentScope isMethodScope 
 		ifTrue: [ currentScope localReturn: true ]
 		ifFalse: [
-			currentScope methodScope nonLocalReturn: true.
+			currentScope methodScope addNonLocalReturn: aNode.
 			aNode nonLocalReturn: true ].
 	aNode nodes first beUsed.
 	super visitReturnNode: aNode
@@ -507,7 +521,7 @@ visitSendNode: aNode
 	aNode receiver ifNotNil: [
 		aNode receiver beUsed ].
 	aNode arguments do: [ :each |
-		each beUsed ].
+		each isSendNode ifTrue: [ each beUsed ]].
 	super visitSendNode: aNode
 !
 

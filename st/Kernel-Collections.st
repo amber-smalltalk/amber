@@ -775,15 +775,16 @@ add: anObject
 	<self.push(anObject); return anObject;>
 !
 
-remove: anObject
+remove: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
 			if(self[i] == anObject) {
 				self.splice(i,1);
-				break;
+				return self;
 			}
 		}
-	>
+	>.
+	aBlock value
 !
 
 removeFrom: aNumber to: anotherNumber

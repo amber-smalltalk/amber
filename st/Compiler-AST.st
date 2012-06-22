@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes used alias'
+	instanceVariableNames: 'nodes used alias canBeInlined'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.!
@@ -21,6 +21,14 @@ alias: aString
 
 beUsed
 	used := true
+!
+
+canBeInlined
+	^ canBeInlined ifNil: [ false ]
+!
+
+canBeInlined: aBoolean
+	canBeInlined := aBoolean
 !
 
 nodes
@@ -137,6 +145,11 @@ scope: aLexicalScope
 ! !
 
 !BlockNode methodsFor: 'testing'!
+
+canInlineNonLocalReturns
+	^ self canBeInlined and: [
+		self scope outerScope node canInlineNonLocalReturns]
+!
 
 isBlockNode
 	^true
@@ -276,6 +289,10 @@ canAliasChildren
 	^ false
 !
 
+canInlineNonLocalReturns
+	^ true
+!
+
 hasLocalReturn
 	^ self scope
 		ifNil: [ false ]
@@ -295,7 +312,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #ReturnNode
-	instanceVariableNames: 'nonLocalReturn'
+	instanceVariableNames: 'nonLocalReturn canBeInlined'
 	package: 'Compiler-AST'!
 
 !ReturnNode methodsFor: 'accessing'!
