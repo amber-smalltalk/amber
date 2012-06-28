@@ -165,7 +165,7 @@ smalltalk.addMethod(
 "_recompile_",
 smalltalk.method({
 selector: "recompile:",
-fn: function (aClass){
+fn: function (aClass) {
 var self=this;
 smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_name", []), "__comma", [" >> "]), "__comma", [smalltalk.send(each, "_selector", [])])]);return smalltalk.send(self, "_install_forClass_category_", [smalltalk.send(each, "_source", []), aClass, smalltalk.send(each, "_category", [])]);})]);
 smalltalk.send(self, "_setupClass_", [aClass]);
@@ -274,7 +274,7 @@ smalltalk.method({
 selector: "visit:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(aNode, "_accept_", [self]);
+return smalltalk.send(aNode, "_accept_", [self]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -285,7 +285,7 @@ smalltalk.method({
 selector: "visitAll:",
 fn: function (aCollection) {
 var self=this;
-smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
+return smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -296,7 +296,7 @@ smalltalk.method({
 selector: "visitAssignmentNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -307,7 +307,7 @@ smalltalk.method({
 selector: "visitBlockNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -318,7 +318,7 @@ smalltalk.method({
 selector: "visitBlockSequenceNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitSequenceNode_", [aNode]);
+return smalltalk.send(self, "_visitSequenceNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -329,7 +329,7 @@ smalltalk.method({
 selector: "visitCascadeNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -338,9 +338,9 @@ smalltalk.addMethod(
 "_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitVariableNode_", [aNode]);
+return smalltalk.send(self, "_visitVariableNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -351,7 +351,7 @@ smalltalk.method({
 selector: "visitDynamicArrayNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -362,7 +362,7 @@ smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -373,7 +373,7 @@ smalltalk.method({
 selector: "visitJSStatementNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -384,7 +384,7 @@ smalltalk.method({
 selector: "visitMethodNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -395,7 +395,7 @@ smalltalk.method({
 selector: "visitNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
+return smalltalk.send(self, "_visitAll_", [smalltalk.send(aNode, "_nodes", [])]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -406,7 +406,7 @@ smalltalk.method({
 selector: "visitReturnNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -417,7 +417,7 @@ smalltalk.method({
 selector: "visitSendNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -428,7 +428,7 @@ smalltalk.method({
 selector: "visitSequenceNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -439,7 +439,7 @@ smalltalk.method({
 selector: "visitValueNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -450,7 +450,7 @@ smalltalk.method({
 selector: "visitVariableNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;}
 }),
 smalltalk.NodeVisitor);
@@ -558,8 +558,8 @@ var self=this;
 var ir=nil;
 var stream=nil;
 smalltalk.send(smalltalk.send(self, "_semanticAnalyzer", []), "_visit_", [aNode]);
-(ir=(function($rec){smalltalk.send($rec, "_visit_", [aNode]);return smalltalk.send($rec, "_builder", []);})(smalltalk.send(self, "_translator", [])));
-return (function($rec){smalltalk.send($rec, "_visit_", [smalltalk.send(ir, "_method", [])]);return smalltalk.send($rec, "_contents", []);})(smalltalk.send(self, "_irTranslator", []));
+(ir=smalltalk.send(smalltalk.send(self, "_translator", []), "_visit_", [aNode]));
+return (function($rec){smalltalk.send($rec, "_visit_", [ir]);return smalltalk.send($rec, "_contents", []);})(smalltalk.send(self, "_irTranslator", []));
 return self;}
 }),
 smalltalk.CodeGenerator);
@@ -590,9 +590,9 @@ smalltalk.addMethod(
 "_translator",
 smalltalk.method({
 selector: "translator",
-fn: function (){
+fn: function () {
 var self=this;
-return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_theClass_", [smalltalk.send(self, "_currentClass", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRASTResolver || IRASTResolver), "_new", []));
+return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_theClass_", [smalltalk.send(self, "_currentClass", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRASTTranslator || IRASTTranslator), "_new", []));
 return self;}
 }),
 smalltalk.CodeGenerator);

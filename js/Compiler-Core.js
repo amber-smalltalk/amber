@@ -231,7 +231,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "recompile:",
 category: 'compiling',
-fn: function (aClass){
+fn: function (aClass) {
 var self=this;
 smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_do_", [(function(each){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_name", []), "__comma", [" >> "]), "__comma", [smalltalk.send(each, "_selector", [])])]);return smalltalk.send(self, "_install_forClass_category_", [smalltalk.send(each, "_source", []), aClass, smalltalk.send(each, "_category", [])]);})]);
 smalltalk.send(self, "_setupClass_", [aClass]);
@@ -385,10 +385,10 @@ selector: "visit:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(aNode, "_accept_", [self]);
+return smalltalk.send(aNode, "_accept_", [self]);
 return self;},
 args: ["aNode"],
-source: "visit: aNode\x0a\x09aNode accept: self",
+source: "visit: aNode\x0a\x09^ aNode accept: self",
 messageSends: ["accept:"],
 referencedClasses: []
 }),
@@ -401,10 +401,10 @@ selector: "visitAll:",
 category: 'visiting',
 fn: function (aCollection) {
 var self=this;
-smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
+return smalltalk.send(aCollection, "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
 return self;},
 args: ["aCollection"],
-source: "visitAll: aCollection\x0a\x09aCollection do: [ :each | self visit: each ]",
+source: "visitAll: aCollection\x0a\x09^ aCollection do: [ :each | self visit: each ]",
 messageSends: ["do:", "visit:"],
 referencedClasses: []
 }),
@@ -417,10 +417,10 @@ selector: "visitAssignmentNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitAssignmentNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitAssignmentNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -433,10 +433,10 @@ selector: "visitBlockNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitBlockNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -449,10 +449,10 @@ selector: "visitBlockSequenceNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitSequenceNode_", [aNode]);
+return smalltalk.send(self, "_visitSequenceNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitBlockSequenceNode: aNode\x0a\x09self visitSequenceNode: aNode",
+source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
 messageSends: ["visitSequenceNode:"],
 referencedClasses: []
 }),
@@ -465,10 +465,10 @@ selector: "visitCascadeNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitCascadeNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -479,12 +479,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitClassReferenceNode:",
 category: 'visiting',
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitVariableNode_", [aNode]);
+return smalltalk.send(self, "_visitVariableNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09self visitVariableNode: aNode",
+source: "visitClassReferenceNode: aNode\x0a\x09^ self visitVariableNode: aNode",
 messageSends: ["visitVariableNode:"],
 referencedClasses: []
 }),
@@ -497,10 +497,10 @@ selector: "visitDynamicArrayNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitDynamicArrayNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitDynamicArrayNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -513,10 +513,10 @@ selector: "visitDynamicDictionaryNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitDynamicDictionaryNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -529,10 +529,10 @@ selector: "visitJSStatementNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitJSStatementNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitJSStatementNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -545,10 +545,10 @@ selector: "visitMethodNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitMethodNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -561,11 +561,11 @@ selector: "visitNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
+return smalltalk.send(self, "_visitAll_", [smalltalk.send(aNode, "_nodes", [])]);
 return self;},
 args: ["aNode"],
-source: "visitNode: aNode\x0a\x09aNode nodes do: [ :each | self visit: each ]",
-messageSends: ["do:", "nodes", "visit:"],
+source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
+messageSends: ["visitAll:", "nodes"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);
@@ -577,10 +577,10 @@ selector: "visitReturnNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitReturnNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitReturnNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -593,10 +593,10 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitSendNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -609,10 +609,10 @@ selector: "visitSequenceNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitSequenceNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitSequenceNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -625,10 +625,10 @@ selector: "visitValueNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitValueNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitValueNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -641,10 +641,10 @@ selector: "visitVariableNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_visitNode_", [aNode]);
+return smalltalk.send(self, "_visitNode_", [aNode]);
 return self;},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09self visitNode: aNode",
+source: "visitVariableNode: aNode\x0a\x09^ self visitNode: aNode",
 messageSends: ["visitNode:"],
 referencedClasses: []
 }),
@@ -794,12 +794,12 @@ var self=this;
 var ir=nil;
 var stream=nil;
 smalltalk.send(smalltalk.send(self, "_semanticAnalyzer", []), "_visit_", [aNode]);
-(ir=(function($rec){smalltalk.send($rec, "_visit_", [aNode]);return smalltalk.send($rec, "_builder", []);})(smalltalk.send(self, "_translator", [])));
-return (function($rec){smalltalk.send($rec, "_visit_", [smalltalk.send(ir, "_method", [])]);return smalltalk.send($rec, "_contents", []);})(smalltalk.send(self, "_irTranslator", []));
+(ir=smalltalk.send(smalltalk.send(self, "_translator", []), "_visit_", [aNode]));
+return (function($rec){smalltalk.send($rec, "_visit_", [ir]);return smalltalk.send($rec, "_contents", []);})(smalltalk.send(self, "_irTranslator", []));
 return self;},
 args: ["aNode"],
-source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode; builder.\x0a\x09^ self irTranslator\x0a\x09\x09visit: ir method;\x0a\x09\x09contents",
-messageSends: ["visit:", "semanticAnalyzer", "builder", "translator", "method", "contents", "irTranslator"],
+source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09^ self irTranslator\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
+messageSends: ["visit:", "semanticAnalyzer", "translator", "contents", "irTranslator"],
 referencedClasses: []
 }),
 smalltalk.CodeGenerator);
@@ -841,14 +841,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "translator",
 category: 'compiling',
-fn: function (){
+fn: function () {
 var self=this;
-return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_theClass_", [smalltalk.send(self, "_currentClass", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRASTResolver || IRASTResolver), "_new", []));
+return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_theClass_", [smalltalk.send(self, "_currentClass", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRASTTranslator || IRASTTranslator), "_new", []));
 return self;},
 args: [],
-source: "translator\x0a\x09^ IRASTResolver new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
+source: "translator\x0a\x09^ IRASTTranslator new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
 messageSends: ["source:", "source", "theClass:", "currentClass", "yourself", "new"],
-referencedClasses: ["IRASTResolver"]
+referencedClasses: ["IRASTTranslator"]
 }),
 smalltalk.CodeGenerator);
 

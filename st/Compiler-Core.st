@@ -135,71 +135,71 @@ Object subclass: #NodeVisitor
 !NodeVisitor methodsFor: 'visiting'!
 
 visit: aNode
-	aNode accept: self
+	^ aNode accept: self
 !
 
 visitAll: aCollection
-	aCollection do: [ :each | self visit: each ]
+	^ aCollection do: [ :each | self visit: each ]
 !
 
 visitAssignmentNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitBlockNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitBlockSequenceNode: aNode
-	self visitSequenceNode: aNode
+	^ self visitSequenceNode: aNode
 !
 
 visitCascadeNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitClassReferenceNode: aNode
-	self visitVariableNode: aNode
+	^ self visitVariableNode: aNode
 !
 
 visitDynamicArrayNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitJSStatementNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitMethodNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitNode: aNode
-	aNode nodes do: [ :each | self visit: each ]
+	^ self visitAll: aNode nodes
 !
 
 visitReturnNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitSendNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitSequenceNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitValueNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 !
 
 visitVariableNode: aNode
-	self visitNode: aNode
+	^ self visitNode: aNode
 ! !
 
 NodeVisitor subclass: #AbstractCodeGenerator
@@ -258,9 +258,9 @@ AbstractCodeGenerator subclass: #CodeGenerator
 compileNode: aNode
 	| ir stream |
 	self semanticAnalyzer visit: aNode.
-	ir := self translator visit: aNode; builder.
+	ir := self translator visit: aNode.
 	^ self irTranslator
-		visit: ir method;
+		visit: ir;
 		contents
 !
 
@@ -273,7 +273,7 @@ semanticAnalyzer
 !
 
 translator
-	^ IRASTResolver new
+	^ IRASTTranslator new
 		source: self source;
 		theClass: self currentClass;
 		yourself

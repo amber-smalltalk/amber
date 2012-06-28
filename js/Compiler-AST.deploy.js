@@ -1,12 +1,12 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'alias', 'canBeInlined'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'assignedTo', 'alias', 'canBeInlined'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitNode_", [self]);
+return smalltalk.send(aVisitor, "_visitNode_", [self]);
 return self;}
 }),
 smalltalk.Node);
@@ -45,6 +45,28 @@ return self;}
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_assignedTo",
+smalltalk.method({
+selector: "assignedTo",
+fn: function () {
+var self=this;
+return self['@assignedTo'];
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_assignedTo_",
+smalltalk.method({
+selector: "assignedTo:",
+fn: function (aScopeVar) {
+var self=this;
+(self['@assignedTo']=aScopeVar);
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_beUsed",
 smalltalk.method({
 selector: "beUsed",
@@ -70,7 +92,7 @@ smalltalk.addMethod(
 "_canBeInlined",
 smalltalk.method({
 selector: "canBeInlined",
-fn: function (){
+fn: function () {
 var self=this;
 return (($receiver = self['@canBeInlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
 return self;}
@@ -81,7 +103,7 @@ smalltalk.addMethod(
 "_canBeInlined_",
 smalltalk.method({
 selector: "canBeInlined:",
-fn: function (aBoolean){
+fn: function (aBoolean) {
 var self=this;
 (self['@canBeInlined']=aBoolean);
 return self;}
@@ -95,6 +117,17 @@ selector: "isAliased",
 fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_alias", []), "_notNil", []);
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_isAssignmentNode",
+smalltalk.method({
+selector: "isAssignmentNode",
+fn: function () {
+var self=this;
+return false;
 return self;}
 }),
 smalltalk.Node);
@@ -218,7 +251,18 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitAssignmentNode_", [self]);
+return smalltalk.send(aVisitor, "_visitAssignmentNode_", [self]);
+return self;}
+}),
+smalltalk.AssignmentNode);
+
+smalltalk.addMethod(
+"_isAssignmentNode",
+smalltalk.method({
+selector: "isAssignmentNode",
+fn: function () {
+var self=this;
+return true;
 return self;}
 }),
 smalltalk.AssignmentNode);
@@ -288,7 +332,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitBlockNode_", [self]);
+return smalltalk.send(aVisitor, "_visitBlockNode_", [self]);
 return self;}
 }),
 smalltalk.BlockNode);
@@ -297,7 +341,7 @@ smalltalk.addMethod(
 "_canInlineNonLocalReturns",
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_canBeInlined", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_outerScope", []), "_node", []), "_canInlineNonLocalReturns", []);})]);
 return self;}
@@ -368,7 +412,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitCascadeNode_", [self]);
+return smalltalk.send(aVisitor, "_visitCascadeNode_", [self]);
 return self;}
 }),
 smalltalk.CascadeNode);
@@ -426,7 +470,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitDynamicArrayNode_", [self]);
+return smalltalk.send(aVisitor, "_visitDynamicArrayNode_", [self]);
 return self;}
 }),
 smalltalk.DynamicArrayNode);
@@ -440,7 +484,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitDynamicDictionaryNode_", [self]);
+return smalltalk.send(aVisitor, "_visitDynamicDictionaryNode_", [self]);
 return self;}
 }),
 smalltalk.DynamicDictionaryNode);
@@ -454,7 +498,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitJSStatementNode_", [self]);
+return smalltalk.send(aVisitor, "_visitJSStatementNode_", [self]);
 return self;}
 }),
 smalltalk.JSStatementNode);
@@ -490,7 +534,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitMethodNode_", [self]);
+return smalltalk.send(aVisitor, "_visitMethodNode_", [self]);
 return self;}
 }),
 smalltalk.MethodNode);
@@ -532,7 +576,7 @@ smalltalk.addMethod(
 "_canInlineNonLocalReturns",
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
-fn: function (){
+fn: function () {
 var self=this;
 return true;
 return self;}
@@ -680,7 +724,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitReturnNode_", [self]);
+return smalltalk.send(aVisitor, "_visitReturnNode_", [self]);
 return self;}
 }),
 smalltalk.ReturnNode);
@@ -727,7 +771,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitSendNode_", [self]);
+return smalltalk.send(aVisitor, "_visitSendNode_", [self]);
 return self;}
 }),
 smalltalk.SendNode);
@@ -875,7 +919,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitSequenceNode_", [self]);
+return smalltalk.send(aVisitor, "_visitSequenceNode_", [self]);
 return self;}
 }),
 smalltalk.SequenceNode);
@@ -955,7 +999,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitBlockSequenceNode_", [self]);
+return smalltalk.send(aVisitor, "_visitBlockSequenceNode_", [self]);
 return self;}
 }),
 smalltalk.BlockSequenceNode);
@@ -980,7 +1024,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitValueNode_", [self]);
+return smalltalk.send(aVisitor, "_visitValueNode_", [self]);
 return self;}
 }),
 smalltalk.ValueNode);
@@ -1038,7 +1082,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitVariableNode_", [self]);
+return smalltalk.send(aVisitor, "_visitVariableNode_", [self]);
 return self;}
 }),
 smalltalk.VariableNode);
@@ -1119,7 +1163,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-smalltalk.send(aVisitor, "_visitClassReferenceNode_", [self]);
+return smalltalk.send(aVisitor, "_visitClassReferenceNode_", [self]);
 return self;}
 }),
 smalltalk.ClassReferenceNode);

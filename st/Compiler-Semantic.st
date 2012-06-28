@@ -452,7 +452,7 @@ allowUnknownVariables
 visitAssignmentNode: aNode
 	super visitAssignmentNode: aNode.
 	aNode left beAssigned.
-	aNode right beUsed
+	aNode right assignedTo: aNode left binding
 !
 
 visitBlockNode: aNode
@@ -507,7 +507,6 @@ visitReturnNode: aNode
 		ifFalse: [
 			currentScope methodScope addNonLocalReturn: aNode.
 			aNode nonLocalReturn: true ].
-	aNode nodes first beUsed.
 	super visitReturnNode: aNode
 !
 
@@ -522,6 +521,7 @@ visitSendNode: aNode
 		aNode receiver beUsed ].
 	aNode arguments do: [ :each |
 		each isSendNode ifTrue: [ each beUsed ]].
+
 	super visitSendNode: aNode
 !
 

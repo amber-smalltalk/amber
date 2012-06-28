@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes used alias canBeInlined'
+	instanceVariableNames: 'nodes used assignedTo alias canBeInlined'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.!
@@ -17,6 +17,14 @@ alias
 
 alias: aString
 	alias := aString
+!
+
+assignedTo
+	^ assignedTo
+!
+
+assignedTo: aScopeVar
+	assignedTo := aScopeVar
 !
 
 beUsed
@@ -59,6 +67,10 @@ isAliased
 	^ self alias notNil
 !
 
+isAssignmentNode
+	^ false
+!
+
 isBlockNode
 	^false
 !
@@ -86,7 +98,7 @@ shouldBeAliased
 !Node methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitNode: self
+	^ aVisitor visitNode: self
 ! !
 
 Node subclass: #AssignmentNode
@@ -116,10 +128,16 @@ right: aNode
 	right := aNode
 ! !
 
+!AssignmentNode methodsFor: 'testing'!
+
+isAssignmentNode
+	^ true
+! !
+
 !AssignmentNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitAssignmentNode: self
+	^ aVisitor visitAssignmentNode: self
 ! !
 
 Node subclass: #BlockNode
@@ -158,7 +176,7 @@ isBlockNode
 !BlockNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitBlockNode: self
+	^ aVisitor visitBlockNode: self
 ! !
 
 Node subclass: #CascadeNode
@@ -186,7 +204,7 @@ receiver: aNode
 !CascadeNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitCascadeNode: self
+	^ aVisitor visitCascadeNode: self
 ! !
 
 Node subclass: #DynamicArrayNode
@@ -196,7 +214,7 @@ Node subclass: #DynamicArrayNode
 !DynamicArrayNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitDynamicArrayNode: self
+	^ aVisitor visitDynamicArrayNode: self
 ! !
 
 Node subclass: #DynamicDictionaryNode
@@ -206,7 +224,7 @@ Node subclass: #DynamicDictionaryNode
 !DynamicDictionaryNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitDynamicDictionaryNode: self
+	^ aVisitor visitDynamicDictionaryNode: self
 ! !
 
 Node subclass: #JSStatementNode
@@ -226,7 +244,7 @@ source: aString
 !JSStatementNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitJSStatementNode: self
+	^ aVisitor visitJSStatementNode: self
 ! !
 
 Node subclass: #MethodNode
@@ -308,7 +326,7 @@ hasNonLocalReturn
 !MethodNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitMethodNode: self
+	^ aVisitor visitMethodNode: self
 ! !
 
 Node subclass: #ReturnNode
@@ -334,7 +352,7 @@ shouldBeAliased
 !ReturnNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitReturnNode: self
+	^ aVisitor visitReturnNode: self
 ! !
 
 Node subclass: #SendNode
@@ -412,7 +430,7 @@ isSendNode
 !SendNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitSendNode: self
+	^ aVisitor visitSendNode: self
 ! !
 
 Node subclass: #SequenceNode
@@ -453,7 +471,7 @@ canAliasChildren
 !SequenceNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitSequenceNode: self
+	^ aVisitor visitSequenceNode: self
 ! !
 
 SequenceNode subclass: #BlockSequenceNode
@@ -469,7 +487,7 @@ isBlockSequenceNode
 !BlockSequenceNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitBlockSequenceNode: self
+	^ aVisitor visitBlockSequenceNode: self
 ! !
 
 Node subclass: #ValueNode
@@ -499,7 +517,7 @@ shouldBeAliased
 !ValueNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitValueNode: self
+	^ aVisitor visitValueNode: self
 ! !
 
 ValueNode subclass: #VariableNode
@@ -536,7 +554,7 @@ binding: aScopeVar
 !VariableNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitVariableNode: self
+	^ aVisitor visitVariableNode: self
 ! !
 
 VariableNode subclass: #ClassReferenceNode
@@ -546,6 +564,6 @@ VariableNode subclass: #ClassReferenceNode
 !ClassReferenceNode methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitClassReferenceNode: self
+	^ aVisitor visitClassReferenceNode: self
 ! !
 
