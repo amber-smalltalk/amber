@@ -93,6 +93,14 @@ addTemp: aString
 
 !LexicalScope methodsFor: 'testing'!
 
+canInlineNonLocalReturns
+	^ self isInlined and: [ self outerScope canInlineNonLocalReturns ]
+!
+
+isInlined
+	^ self instruction isInlined
+!
+
 isMethodScope
 	^ false
 ! !
@@ -130,14 +138,6 @@ methodScope
 	^ self
 !
 
-nonLocalReturn
-	^ nonLocalReturn ifNil: [ false ]
-!
-
-nonLocalReturn: aBoolean
-	nonLocalReturn := aBoolean
-!
-
 nonLocalReturns
 	^ nonLocalReturns ifNil: [ nonLocalReturns := OrderedCollection new ]
 !
@@ -163,15 +163,19 @@ addIVar: aString
 	(self iVars at: aString) scope: self
 !
 
-addNonLocalReturn: aNode
-	self nonLocalReturns add: aNode
+addNonLocalReturn: aScope
+	self nonLocalReturns add: aScope
 !
 
-removeNonLocalReturn: aNode
-	self nonLocalReturns remove: aNode ifAbsent: []
+removeNonLocalReturn: aScope
+	self nonLocalReturns remove: aScope ifAbsent: []
 ! !
 
 !MethodLexicalScope methodsFor: 'testing'!
+
+canInlineNonLocalReturns
+	^ true
+!
 
 hasLocalReturn
 	^ self localReturn
@@ -451,8 +455,7 @@ allowUnknownVariables
 
 visitAssignmentNode: aNode
 	super visitAssignmentNode: aNode.
-	aNode left beAssigned.
-	aNode right assignedTo: aNode left binding
+	aNode left beAssigned
 !
 
 visitBlockNode: aNode
@@ -502,11 +505,10 @@ visitMethodNode: aNode
 !
 
 visitReturnNode: aNode
-	currentScope isMethodScope 
-		ifTrue: [ currentScope localReturn: true ]
+	aNode scope: currentScope.
+	currentScope isMethodScope
 		ifFalse: [
-			currentScope methodScope addNonLocalReturn: aNode.
-			aNode nonLocalReturn: true ].
+			currentScope methodScope addNonLocalReturn: currentScope ].
 	super visitReturnNode: aNode
 !
 
@@ -517,11 +519,6 @@ visitSendNode: aNode
 		aNode receiver value: 'self'].
 
 	self messageSends add: aNode selector.
-	aNode receiver ifNotNil: [
-		aNode receiver beUsed ].
-	aNode arguments do: [ :each |
-		each isSendNode ifTrue: [ each beUsed ]].
-
 	super visitSendNode: aNode
 !
 

@@ -44,6 +44,15 @@ theClass
 
 theClass: aClass
 	theClass := aClass
+!
+
+withSequence: aSequence do: aBlock
+	| outerSequence |
+	outerSequence := self sequence.
+	self sequence: aSequence.
+	aBlock value.
+	self sequence: outerSequence.
+	^ aSequence
 ! !
 
 !IRASTTranslator methodsFor: 'visiting'!
@@ -86,6 +95,7 @@ visitBlockNode: aNode
 	| closure |
 	closure := IRClosure new
 		arguments: aNode parameters;
+		scope: aNode scope;
 		yourself.
 	aNode scope temps do: [ :each |
 		closure add: (IRTempDeclaration new 
@@ -96,19 +106,17 @@ visitBlockNode: aNode
 !
 
 visitBlockSequenceNode: aNode
-	| seq |
-	seq := IRBlockSequence new.
-	self sequence: seq.
-	aNode nodes do: [ :each | 
-		self sequence add: (self visit: each) ].
-	^ seq
+	^ self
+		withSequence: IRBlockSequence new
+		do: [ aNode nodes do: [ :each | 
+			self sequence add: (self visit: each) ]]
 !
 
 visitCascadeNode: aNode
 	| alias |
 
 	aNode receiver isValueNode ifFalse: [ 
-		alias := self sequence add: (self alias: aNode receiver).
+		alias := self alias: aNode receiver.
 		aNode nodes do: [ :each |
 			each receiver: (VariableNode new binding: alias variable) ]].
 
@@ -132,6 +140,7 @@ visitMethodNode: aNode
 		selector: aNode selector;
 		messageSends: aNode messageSends;
 		classReferences: aNode classReferences;
+		scope: aNode scope;
 		yourself).
 
 	aNode scope temps do: [ :each |
@@ -139,14 +148,9 @@ visitMethodNode: aNode
 			name: each name;
 			yourself) ].
 
-	aNode hasNonLocalReturn 
-		ifTrue: [ | handling |
-			handling := IRNonLocalReturnHandling new.
-			aNode nodes do: [ :each | handling add: (self visit: each) ].
-			self method add: handling ]
-		ifFalse: [ aNode nodes do: [ :each | self method add: (self visit: each) ]].
+	aNode nodes do: [ :each | self method add: (self visit: each) ].
 
-	aNode hasLocalReturn ifFalse: [
+	aNode scope hasLocalReturn ifFalse: [
 		(self method add: IRReturn new) add: (IRVariable new
 			variable: (aNode scope pseudoVars at: 'self');
 			yourself) ].
@@ -159,6 +163,7 @@ visitReturnNode: aNode
 	return := aNode nonLocalReturn 
 		ifTrue: [ IRNonLocalReturn new ]
 		ifFalse: [ IRReturn new ].
+	return scope: aNode scope.
 	aNode nodes do: [ :each | return add: (self visit: each) ].
 	^ return
 !
@@ -179,12 +184,13 @@ visitSendNode: aNode
 !
 
 visitSequenceNode: aNode
-	| seq |
-	seq := IRSequence new.
-	self sequence: seq.
-	aNode nodes do: [ :each | 
-		self sequence add: (self visit: each) ].
-	^ seq
+	^ self 
+		withSequence: IRSequence new 	
+		do: [
+			aNode nodes do: [ :each | | instruction |
+				instruction := self visit: each.
+				instruction isVariable ifFalse: [
+					self sequence add: instruction ]]]
 !
 
 visitValueNode: aNode
@@ -248,6 +254,10 @@ replaceWith: anIRInstruction
 
 !IRInstruction methodsFor: 'testing'!
 
+canBeAssigned
+	^ true
+!
+
 isClosure
 	^ false
 !
@@ -302,7 +312,21 @@ accept: aVisitor
 	^ aVisitor visitIRAlias: self
 ! !
 
-IRInstruction subclass: #IRClosure
+IRInstruction subclass: #IRScopedInstruction
+	instanceVariableNames: 'scope'
+	package: 'Compiler-IR'!
+
+!IRScopedInstruction methodsFor: 'accessing'!
+
+scope
+	^ scope
+!
+
+scope: aScope
+	scope := aScope
+! !
+
+IRScopedInstruction subclass: #IRClosure
 	instanceVariableNames: 'arguments'
 	package: 'Compiler-IR'!
 
@@ -314,6 +338,11 @@ arguments
 
 arguments: aCollection
 	arguments := aCollection
+!
+
+scope: aScope
+	super scope: aScope.
+	aScope instruction: self
 ! !
 
 !IRClosure methodsFor: 'testing'!
@@ -328,7 +357,7 @@ accept: aVisitor
 	^ aVisitor visitIRClosure: self
 ! !
 
-IRInstruction subclass: #IRMethod
+IRScopedInstruction subclass: #IRMethod
 	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
@@ -364,6 +393,11 @@ messageSends: aCollection
 	messageSends := aCollection
 !
 
+scope: aScope
+	super scope: aScope.
+	aScope instruction: self
+!
+
 selector
 	^ selector
 !
@@ -386,26 +420,17 @@ accept: aVisitor
 	^ aVisitor visitIRMethod: self
 ! !
 
-IRInstruction subclass: #IRNonLocalReturnHandling
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRNonLocalReturnHandling commentStamp!
-I represent a non local return handling instruction.
-Non local returns are handled with a try/catch statement!
-
-!IRNonLocalReturnHandling methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRNonLocalReturnHandling: self
-! !
-
-IRInstruction subclass: #IRReturn
+IRScopedInstruction subclass: #IRReturn
 	instanceVariableNames: ''
 	package: 'Compiler-IR'!
 !IRReturn commentStamp!
 I am a local return instruction.!
 
 !IRReturn methodsFor: 'testing'!
+
+canBeAssigned
+	^ false
+!
 
 isReturn
 	^ true
@@ -506,6 +531,10 @@ I am a statement instruction.
 Statements can be used to control the PC count, among other things.!
 
 !IRStatement methodsFor: 'testing'!
+
+canBeAssigned
+	^ self instructions first canBeAssigned
+!
 
 isReturn
 	^ self instructions first isReturn
@@ -643,12 +672,16 @@ visitIRInlinedClosure: anIRClosure
 	^ self visitIRClosure: anIRClosure
 !
 
+visitIRInlinedIfFalse: anIRInlinedIfFalse
+	^ self visitIRInlinedSend: anIRInlinedIfFalse
+!
+
 visitIRInlinedIfTrue: anIRInlinedIfTrue
 	^ self visitIRInlinedSend: anIRInlinedIfTrue
 !
 
 visitIRInlinedNonLocalReturn: anIRNonLocalReturn
-	^ self visitIRNonLocalReturn: anIRNonLocalReturn anIRNonLocalReturn
+	^ self visitIRReturn: anIRNonLocalReturn
 !
 
 visitIRInlinedSend: anIRInlinedSend
@@ -656,7 +689,8 @@ visitIRInlinedSend: anIRInlinedSend
 !
 
 visitIRInstruction: anIRInstruction
-	^ anIRInstruction instructions do: [ :each | self visit: each ]
+	anIRInstruction instructions do: [ :each | self visit: each ].
+	^ anIRInstruction
 !
 
 visitIRMethod: anIRMethod
@@ -760,18 +794,17 @@ visitIRMethod: anIRMethod
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
 						each variable alias ]) ].
-				super visitIRMethod: anIRMethod ]
+				anIRMethod scope hasNonLocalReturn 
+					ifTrue: [
+						self stream nextPutNonLocalReturnHandlingWith: [
+							super visitIRMethod: anIRMethod ]]
+					ifFalse: [ super visitIRMethod: anIRMethod ]]
 			arguments: anIRMethod arguments ]
 !
 
 visitIRNonLocalReturn: anIRNonLocalReturn
 	self stream nextPutNonLocalReturnWith: [
 		super visitIRNonLocalReturn: anIRNonLocalReturn ]
-!
-
-visitIRNonLocalReturnHandling: anIRNonLocalReturnHandling
-	self stream nextPutNonLocalReturnHandlingWith: [
-		super visitIRNonLocalReturnHandling: anIRNonLocalReturnHandling ]
 !
 
 visitIRReturn: anIRReturn
@@ -803,10 +836,8 @@ visitIRSequence: anIRSequence
 !
 
 visitIRStatement: anIRStatement
-	(anIRStatement instructions size = 1 and: [
-		anIRStatement instructions first isVariable ]) ifFalse: [
-			self stream nextPutStatementWith: [
-				super visitIRStatement: anIRStatement ]]
+	self stream nextPutStatementWith: [
+		super visitIRStatement: anIRStatement ]
 !
 
 visitIRTempDeclaration: anIRTempDeclaration

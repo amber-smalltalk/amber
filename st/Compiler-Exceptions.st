@@ -29,6 +29,10 @@ I get signaled when a pseudo variable gets assigned.!
 
 !InvalidAssignmentError methodsFor: 'accessing'!
 
+messageText
+	^ ' Invalid assignment to variable: ', self variableName
+!
+
 variableName
 	^ variableName
 !
@@ -44,6 +48,10 @@ SemanticError subclass: #ShadowingVariableError
 I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.!
 
 !ShadowingVariableError methodsFor: 'accessing'!
+
+messageText
+	^ 'Variable shadowing error: ', self variableName, ' is already defined'
+!
 
 variableName
 	^ variableName

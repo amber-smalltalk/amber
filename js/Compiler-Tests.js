@@ -161,18 +161,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "testNonLocalReturn",
 category: 'tests',
-fn: function () {
+fn: function (){
 var self=this;
 var src=nil;
 var ast=nil;
 (src="foo | a | a + 1. ^ a");
 (ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
 smalltalk.send(self['@analyzer'], "_visit_", [ast]);
-smalltalk.send(self, "_deny_", [smalltalk.send(ast, "_hasNonLocalReturn", [])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send(ast, "_scope", []), "_hasNonLocalReturn", [])]);
 return self;},
 args: [],
-source: "testNonLocalReturn\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. ^ a'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast hasNonLocalReturn",
-messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn"],
+source: "testNonLocalReturn\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. ^ a'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast scope hasNonLocalReturn",
+messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -182,18 +182,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "testNonLocalReturn2",
 category: 'tests',
-fn: function () {
+fn: function (){
 var self=this;
 var src=nil;
 var ast=nil;
 (src="foo | a | a + 1. [ [ ^ a] ]");
 (ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
 smalltalk.send(self['@analyzer'], "_visit_", [ast]);
-smalltalk.send(self, "_assert_", [smalltalk.send(ast, "_hasNonLocalReturn", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(ast, "_scope", []), "_hasNonLocalReturn", [])]);
 return self;},
 args: [],
-source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast hasNonLocalReturn",
-messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn"],
+source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope hasNonLocalReturn",
+messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzerTest);

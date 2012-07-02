@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes used assignedTo alias canBeInlined'
+	instanceVariableNames: 'nodes'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.!
@@ -11,44 +11,8 @@ addNode: aNode
 	self nodes add: aNode
 !
 
-alias
-	^ alias
-!
-
-alias: aString
-	alias := aString
-!
-
-assignedTo
-	^ assignedTo
-!
-
-assignedTo: aScopeVar
-	assignedTo := aScopeVar
-!
-
-beUsed
-	used := true
-!
-
-canBeInlined
-	^ canBeInlined ifNil: [ false ]
-!
-
-canBeInlined: aBoolean
-	canBeInlined := aBoolean
-!
-
 nodes
 	^nodes ifNil: [nodes := Array new]
-!
-
-used
-	^ used ifNil: [ false ]
-!
-
-used: aBoolean
-	used := aBoolean
 ! !
 
 !Node methodsFor: 'building'!
@@ -58,14 +22,6 @@ nodes: aCollection
 ! !
 
 !Node methodsFor: 'testing'!
-
-canAliasChildren
-	^ true
-!
-
-isAliased
-	^ self alias notNil
-!
 
 isAssignmentNode
 	^ false
@@ -83,16 +39,8 @@ isSendNode
 	^false
 !
 
-isUsed
-	^ self used
-!
-
 isValueNode
 	^false
-!
-
-shouldBeAliased
-	^ self isUsed and: [ self alias isNil ]
 ! !
 
 !Node methodsFor: 'visiting'!
@@ -112,8 +60,7 @@ left
 !
 
 left: aNode
-	left := aNode.
-	left assigned: true
+	left := aNode
 !
 
 nodes
@@ -164,11 +111,6 @@ scope: aLexicalScope
 
 !BlockNode methodsFor: 'testing'!
 
-canInlineNonLocalReturns
-	^ self canBeInlined and: [
-		self scope outerScope node canInlineNonLocalReturns]
-!
-
 isBlockNode
 	^true
 ! !
@@ -184,14 +126,6 @@ Node subclass: #CascadeNode
 	package: 'Compiler-AST'!
 
 !CascadeNode methodsFor: 'accessing'!
-
-alias
-	^self nodes last alias
-!
-
-beUsed
-	self nodes do: [ :each | each beUsed ]
-!
 
 receiver
 	^receiver
@@ -301,28 +235,6 @@ source: aString
 	source := aString
 ! !
 
-!MethodNode methodsFor: 'testing'!
-
-canAliasChildren
-	^ false
-!
-
-canInlineNonLocalReturns
-	^ true
-!
-
-hasLocalReturn
-	^ self scope
-		ifNil: [ false ]
-		ifNotNil: [ self scope hasLocalReturn ]
-!
-
-hasNonLocalReturn
-	^ self scope
-		ifNil: [ false ]
-		ifNotNil: [ self scope hasNonLocalReturn ]
-! !
-
 !MethodNode methodsFor: 'visiting'!
 
 accept: aVisitor
@@ -330,23 +242,23 @@ accept: aVisitor
 ! !
 
 Node subclass: #ReturnNode
-	instanceVariableNames: 'nonLocalReturn canBeInlined'
+	instanceVariableNames: 'scope'
 	package: 'Compiler-AST'!
 
 !ReturnNode methodsFor: 'accessing'!
 
-nonLocalReturn
-	^ nonLocalReturn ifNil: [ false ]
+scope
+	^ scope
 !
 
-nonLocalReturn: aBoolean
-	nonLocalReturn := aBoolean
+scope: aLexicalScope
+	scope := aLexicalScope
 ! !
 
 !ReturnNode methodsFor: 'testing'!
 
-shouldBeAliased
-	^ false
+nonLocalReturn
+	^ self scope isMethodScope not
 ! !
 
 !ReturnNode methodsFor: 'visiting'!
@@ -462,10 +374,6 @@ asBlockSequenceNode
 	    nodes: self nodes;
 	    temps: self temps;
 	    yourself
-!
-
-canAliasChildren
-	^ false
 ! !
 
 !SequenceNode methodsFor: 'visiting'!
@@ -508,10 +416,6 @@ value: anObject
 
 isValueNode
 	^true
-!
-
-shouldBeAliased
-	^ false
 ! !
 
 !ValueNode methodsFor: 'visiting'!

@@ -88,7 +88,7 @@ testNonLocalReturn
 	ast := smalltalk parse: src.
 	analyzer visit: ast.
 
-	self deny: ast hasNonLocalReturn
+	self deny: ast scope hasNonLocalReturn
 !
 
 testNonLocalReturn2
@@ -98,7 +98,7 @@ testNonLocalReturn2
 	ast := smalltalk parse: src.
 	analyzer visit: ast.
 
-	self assert: ast hasNonLocalReturn
+	self assert: ast scope hasNonLocalReturn
 !
 
 testScope

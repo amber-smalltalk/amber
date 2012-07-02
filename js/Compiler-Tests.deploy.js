@@ -120,14 +120,14 @@ smalltalk.addMethod(
 "_testNonLocalReturn",
 smalltalk.method({
 selector: "testNonLocalReturn",
-fn: function () {
+fn: function (){
 var self=this;
 var src=nil;
 var ast=nil;
 (src="foo | a | a + 1. ^ a");
 (ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
 smalltalk.send(self['@analyzer'], "_visit_", [ast]);
-smalltalk.send(self, "_deny_", [smalltalk.send(ast, "_hasNonLocalReturn", [])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.send(ast, "_scope", []), "_hasNonLocalReturn", [])]);
 return self;}
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -136,14 +136,14 @@ smalltalk.addMethod(
 "_testNonLocalReturn2",
 smalltalk.method({
 selector: "testNonLocalReturn2",
-fn: function () {
+fn: function (){
 var self=this;
 var src=nil;
 var ast=nil;
 (src="foo | a | a + 1. [ [ ^ a] ]");
 (ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
 smalltalk.send(self['@analyzer'], "_visit_", [ast]);
-smalltalk.send(self, "_assert_", [smalltalk.send(ast, "_hasNonLocalReturn", [])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(ast, "_scope", []), "_hasNonLocalReturn", [])]);
 return self;}
 }),
 smalltalk.SemanticAnalyzerTest);

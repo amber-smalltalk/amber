@@ -13,6 +13,17 @@ smalltalk.addClass('InliningError', smalltalk.SemanticError, ['variableName'], '
 
 smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+fn: function (){
+var self=this;
+return smalltalk.send(" Invalid assignment to variable: ", "__comma", [smalltalk.send(self, "_variableName", [])]);
+return self;}
+}),
+smalltalk.InvalidAssignmentError);
+
+smalltalk.addMethod(
 "_variableName",
 smalltalk.method({
 selector: "variableName",
@@ -37,6 +48,17 @@ smalltalk.InvalidAssignmentError);
 
 
 smalltalk.addClass('ShadowingVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
+smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send("Variable shadowing error: ", "__comma", [smalltalk.send(self, "_variableName", [])]), "__comma", [" is already defined"]);
+return self;}
+}),
+smalltalk.ShadowingVariableError);
+
 smalltalk.addMethod(
 "_variableName",
 smalltalk.method({

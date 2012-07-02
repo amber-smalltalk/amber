@@ -41,7 +41,7 @@ accept: aVisitor
 	aVisitor visitIRInlinedClosure: self
 ! !
 
-IRNonLocalReturn subclass: #IRInlinedNonLocalReturn
+IRReturn subclass: #IRInlinedNonLocalReturn
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
 
@@ -71,6 +71,16 @@ isInlined
 
 accept: aVisitor
 	aVisitor visitInlinedSend: self
+! !
+
+IRInlinedSend subclass: #IRInlinedIfFalse
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRInlinedIfFalse methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRInlinedIfFalse: self
 ! !
 
 IRInlinedSend subclass: #IRInlinedIfTrue
@@ -115,21 +125,28 @@ sendInliner
 !
 
 visitIRAssignment: anIRAssignment
-	^ (self shouldInlineAssignment: anIRAssignment) 
+	(self shouldInlineAssignment: anIRAssignment) 
 		ifTrue: [ self assignmentInliner inlineAssignment: anIRAssignment ]
 		ifFalse: [ super visitIRAssignment: anIRAssignment ]
 !
 
-visitIRSend: anIRSend
-	^ (self shouldInlineSend: anIRSend)
-		ifTrue: [ self sendInliner inlineSend: anIRSend ]
-		ifFalse: [ super visitIRSend: anIRSend ]
+visitIRNonLocalReturn: anIRNonLocalReturn
+	| localReturn |
+	anIRNonLocalReturn scope canInlineNonLocalReturns ifTrue: [
+		anIRNonLocalReturn scope methodScope removeNonLocalReturn: anIRNonLocalReturn scope.
+		localReturn := IRInlinedNonLocalReturn new
+			scope: anIRNonLocalReturn scope;
+			yourself.
+		anIRNonLocalReturn instructions do: [ :each |
+			localReturn add: each ].
+		anIRNonLocalReturn replaceWith: localReturn ].
+	super visitIRNonLocalReturn: anIRNonLocalReturn
 !
 
-visitSendNode: aNode
-	aNode canBeInlined
-		ifTrue: [ self sendInliner inlineSend: aNode ]
-		ifFalse: [ super visitSendNode: aNode ]
+visitIRSend: anIRSend
+	(self shouldInlineSend: anIRSend)
+		ifTrue: [ self sendInliner inlineSend: anIRSend ]
+		ifFalse: [ super visitIRSend: anIRSend ]
 ! !
 
 IRJSTranslator subclass: #IRInliningJSTranslator
@@ -144,10 +161,19 @@ visitIRInlinedAssignment: anIRInlinedAssignment
 
 visitIRInlinedClosure: anIRInlinedClosure
 	anIRInlinedClosure instructions allButLast do: [ :each | self visit: each ].
-	anIRInlinedClosure assignTo ifNotNil: [
-		self stream nextPutAll: anIRInlinedClosure assignTo variable alias.
-		self stream nextPutAssignment ].
+	(anIRInlinedClosure assignTo notNil and: [
+		anIRInlinedClosure instructions last canBeAssigned ]) ifTrue: [
+			self stream nextPutAll: anIRInlinedClosure assignTo variable alias.
+			self stream nextPutAssignment ].
 	self visit: anIRInlinedClosure instructions last
+!
+
+visitIRInlinedIfFalse: anIRInlinedIfFalse
+	self stream 
+		nextPutIf: [ 
+			self stream nextPutAll: '!!'.
+			self visit: anIRInlinedIfFalse instructions first ]
+		with: [ self visit: anIRInlinedIfFalse instructions last ]
 !
 
 visitIRInlinedIfTrue: anIRInlinedIfTrue
@@ -192,16 +218,30 @@ inliningError: aString
 
 !IRSendInliner methodsFor: 'inlining'!
 
+ifFalse: anIRInstruction
+	| inlinedSend inlinedClosure |
+
+	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
+	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
+
+	inlinedClosure := self inlineClosure: anIRInstruction.
+
+	inlinedSend := IRInlinedIfFalse new.
+	inlinedSend
+		add: self send instructions first;
+		add: inlinedClosure.
+
+	self send replaceWith: inlinedSend.
+	^ inlinedSend
+!
+
 ifTrue: anIRInstruction
 	| inlinedSend inlinedClosure |
 
 	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
 	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
 
-	inlinedClosure := self inlinedClosure.
-	anIRInstruction instructions do: [ :each |
-		instruction := (self translator visit: each) first.
-		inlinedClosure add: instruction ].
+	inlinedClosure := self inlineClosure: anIRInstruction.
 
 	inlinedSend := IRInlinedIfTrue new.
 	inlinedSend
@@ -212,6 +252,15 @@ ifTrue: anIRInstruction
 	^ inlinedSend
 !
 
+inlineClosure: anIRClosure
+	| inlinedClosure |
+	inlinedClosure := self inlinedClosure.
+	inlinedClosure scope: anIRClosure scope.
+	anIRClosure instructions first instructions do: [ :each |
+		inlinedClosure add: (self translator visit: each) ].
+	^ inlinedClosure
+!
+
 inlineSend: anIRSend
 	self send: anIRSend.
 	self perform: self send selector withArguments: self send instructions allButFirst
@@ -220,7 +269,7 @@ inlineSend: anIRSend
 !IRSendInliner class methodsFor: 'accessing'!
 
 inlinedSelectors
-	^ #('ifTrue:')
+	^ #('ifTrue:' 'ifFalse:')
 ! !
 
 IRSendInliner subclass: #IRAssignmentInliner

@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'used', 'assignedTo', 'alias', 'canBeInlined'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -18,105 +18,6 @@ selector: "addNode:",
 fn: function (aNode) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_nodes", []), "_add_", [aNode]);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_alias",
-smalltalk.method({
-selector: "alias",
-fn: function () {
-var self=this;
-return self['@alias'];
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_alias_",
-smalltalk.method({
-selector: "alias:",
-fn: function (aString) {
-var self=this;
-(self['@alias']=aString);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_assignedTo",
-smalltalk.method({
-selector: "assignedTo",
-fn: function () {
-var self=this;
-return self['@assignedTo'];
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_assignedTo_",
-smalltalk.method({
-selector: "assignedTo:",
-fn: function (aScopeVar) {
-var self=this;
-(self['@assignedTo']=aScopeVar);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_beUsed",
-smalltalk.method({
-selector: "beUsed",
-fn: function () {
-var self=this;
-(self['@used']=true);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_canAliasChildren",
-smalltalk.method({
-selector: "canAliasChildren",
-fn: function () {
-var self=this;
-return true;
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_canBeInlined",
-smalltalk.method({
-selector: "canBeInlined",
-fn: function () {
-var self=this;
-return (($receiver = self['@canBeInlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_canBeInlined_",
-smalltalk.method({
-selector: "canBeInlined:",
-fn: function (aBoolean) {
-var self=this;
-(self['@canBeInlined']=aBoolean);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_isAliased",
-smalltalk.method({
-selector: "isAliased",
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_alias", []), "_notNil", []);
 return self;}
 }),
 smalltalk.Node);
@@ -166,17 +67,6 @@ return self;}
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isUsed",
-smalltalk.method({
-selector: "isUsed",
-fn: function () {
-var self=this;
-return smalltalk.send(self, "_used", []);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
 "_isValueNode",
 smalltalk.method({
 selector: "isValueNode",
@@ -205,39 +95,6 @@ selector: "nodes:",
 fn: function (aCollection) {
 var self=this;
 (self['@nodes']=aCollection);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_shouldBeAliased",
-smalltalk.method({
-selector: "shouldBeAliased",
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_isUsed", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_alias", []), "_isNil", []);})]);
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_used",
-smalltalk.method({
-selector: "used",
-fn: function () {
-var self=this;
-return (($receiver = self['@used']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
-return self;}
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-"_used_",
-smalltalk.method({
-selector: "used:",
-fn: function (aBoolean) {
-var self=this;
-(self['@used']=aBoolean);
 return self;}
 }),
 smalltalk.Node);
@@ -282,10 +139,9 @@ smalltalk.addMethod(
 "_left_",
 smalltalk.method({
 selector: "left:",
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
 (self['@left']=aNode);
-smalltalk.send(self['@left'], "_assigned_", [true]);
 return self;}
 }),
 smalltalk.AssignmentNode);
@@ -333,17 +189,6 @@ selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
 return smalltalk.send(aVisitor, "_visitBlockNode_", [self]);
-return self;}
-}),
-smalltalk.BlockNode);
-
-smalltalk.addMethod(
-"_canInlineNonLocalReturns",
-smalltalk.method({
-selector: "canInlineNonLocalReturns",
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(self, "_canBeInlined", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_outerScope", []), "_node", []), "_canInlineNonLocalReturns", []);})]);
 return self;}
 }),
 smalltalk.BlockNode);
@@ -413,28 +258,6 @@ selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
 return smalltalk.send(aVisitor, "_visitCascadeNode_", [self]);
-return self;}
-}),
-smalltalk.CascadeNode);
-
-smalltalk.addMethod(
-"_alias",
-smalltalk.method({
-selector: "alias",
-fn: function () {
-var self=this;
-return smalltalk.send(smalltalk.send(smalltalk.send(self, "_nodes", []), "_last", []), "_alias", []);
-return self;}
-}),
-smalltalk.CascadeNode);
-
-smalltalk.addMethod(
-"_beUsed",
-smalltalk.method({
-selector: "beUsed",
-fn: function () {
-var self=this;
-smalltalk.send(smalltalk.send(self, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_beUsed", []);})]);
 return self;}
 }),
 smalltalk.CascadeNode);
@@ -562,28 +385,6 @@ return self;}
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_canAliasChildren",
-smalltalk.method({
-selector: "canAliasChildren",
-fn: function () {
-var self=this;
-return false;
-return self;}
-}),
-smalltalk.MethodNode);
-
-smalltalk.addMethod(
-"_canInlineNonLocalReturns",
-smalltalk.method({
-selector: "canInlineNonLocalReturns",
-fn: function () {
-var self=this;
-return true;
-return self;}
-}),
-smalltalk.MethodNode);
-
-smalltalk.addMethod(
 "_classReferences",
 smalltalk.method({
 selector: "classReferences",
@@ -601,28 +402,6 @@ selector: "classReferences:",
 fn: function (aCollection) {
 var self=this;
 (self['@classReferences']=aCollection);
-return self;}
-}),
-smalltalk.MethodNode);
-
-smalltalk.addMethod(
-"_hasLocalReturn",
-smalltalk.method({
-selector: "hasLocalReturn",
-fn: function () {
-var self=this;
-return (($receiver = smalltalk.send(self, "_scope", [])) == nil || $receiver == undefined) ? (function(){return false;})() : (function(){return smalltalk.send(smalltalk.send(self, "_scope", []), "_hasLocalReturn", []);})();
-return self;}
-}),
-smalltalk.MethodNode);
-
-smalltalk.addMethod(
-"_hasNonLocalReturn",
-smalltalk.method({
-selector: "hasNonLocalReturn",
-fn: function () {
-var self=this;
-return (($receiver = smalltalk.send(self, "_scope", [])) == nil || $receiver == undefined) ? (function(){return false;})() : (function(){return smalltalk.send(smalltalk.send(self, "_scope", []), "_hasNonLocalReturn", []);})();
 return self;}
 }),
 smalltalk.MethodNode);
@@ -717,7 +496,7 @@ smalltalk.MethodNode);
 
 
 
-smalltalk.addClass('ReturnNode', smalltalk.Node, ['nonLocalReturn', 'canBeInlined'], 'Compiler-AST');
+smalltalk.addClass('ReturnNode', smalltalk.Node, ['scope'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -733,31 +512,31 @@ smalltalk.addMethod(
 "_nonLocalReturn",
 smalltalk.method({
 selector: "nonLocalReturn",
-fn: function () {
+fn: function (){
 var self=this;
-return (($receiver = self['@nonLocalReturn']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_isMethodScope", []), "_not", []);
 return self;}
 }),
 smalltalk.ReturnNode);
 
 smalltalk.addMethod(
-"_nonLocalReturn_",
+"_scope",
 smalltalk.method({
-selector: "nonLocalReturn:",
-fn: function (aBoolean) {
+selector: "scope",
+fn: function (){
 var self=this;
-(self['@nonLocalReturn']=aBoolean);
+return self['@scope'];
 return self;}
 }),
 smalltalk.ReturnNode);
 
 smalltalk.addMethod(
-"_shouldBeAliased",
+"_scope_",
 smalltalk.method({
-selector: "shouldBeAliased",
-fn: function () {
+selector: "scope:",
+fn: function (aLexicalScope){
 var self=this;
-return false;
+(self['@scope']=aLexicalScope);
 return self;}
 }),
 smalltalk.ReturnNode);
@@ -936,17 +715,6 @@ return self;}
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
-"_canAliasChildren",
-smalltalk.method({
-selector: "canAliasChildren",
-fn: function () {
-var self=this;
-return false;
-return self;}
-}),
-smalltalk.SequenceNode);
-
-smalltalk.addMethod(
 "_scope",
 smalltalk.method({
 selector: "scope",
@@ -1036,17 +804,6 @@ selector: "isValueNode",
 fn: function () {
 var self=this;
 return true;
-return self;}
-}),
-smalltalk.ValueNode);
-
-smalltalk.addMethod(
-"_shouldBeAliased",
-smalltalk.method({
-selector: "shouldBeAliased",
-fn: function () {
-var self=this;
-return false;
 return self;}
 }),
 smalltalk.ValueNode);
