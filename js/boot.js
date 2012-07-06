@@ -335,11 +335,11 @@ function Smalltalk(){
 
 	/* Handles unhandled errors during message sends */
 
-	st.send = function(receiver, selector, args, klass) {
+	st.send = function(receiver, selector, args, klass, index) {
 		if(st.thisContext) {
-			return withContextSend(receiver, selector, args, klass);
+			return withContextSend(receiver, selector, args, klass, index);
 		} else {
-			try {return withContextSend(receiver, selector, args, klass)}
+			try {return withContextSend(receiver, selector, args, klass, index)}
 			catch(error) {
 				// Reset the context stack in any case
 				st.thisContext = undefined;
@@ -352,15 +352,15 @@ function Smalltalk(){
 		}
 	};
 
-	function withContextSend(receiver, selector, args, klass) {
-		var call, imp;
+	function withContextSend(receiver, selector, args, klass, index) {
+		var call, method;
 		if(receiver == null) {
 			receiver = nil;
 		}
-		imp = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
-		if(imp) {
-			var context = pushContext(receiver, selector, imp, args);
-			call = imp.apply(receiver, args);
+		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+		if(method) {
+			var context = pushContext(receiver, selector, method, args, index);
+			call = method.apply(receiver, args);
 			popContext(context);
 			return call;
 		} else {
@@ -442,10 +442,10 @@ function Smalltalk(){
 		}
 	};
 
-	function pushContext(receiver, selector, method, temps) {
+	function pushContext(receiver, selector, method, temps, index) {
 		var c = st.oldContext, tc = st.thisContext;
 		if (!c) {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, method, temps, tc);
+			return st.thisContext = new SmalltalkMethodContext(receiver, selector, method, temps, index, tc);
 		}
 		st.oldContext = null;
 		c.homeContext = tc;
@@ -453,6 +453,7 @@ function Smalltalk(){
 		c.receiver    = receiver;
         c.selector    = selector;
 		c.method      = method;
+        c.index       = index;
 		c.temps       = temps || {};
 		return st.thisContext = c;
 	};
@@ -512,15 +513,24 @@ function Smalltalk(){
 		}
 		return object;
 	};
+
+    /* Boolean assertion */
+    st.assert = function(boolean) {
+        if(boolean.klass === smalltalk.Boolean) {
+            return boolean;
+        } else {
+            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+        }
+    }
 };
 
-function SmalltalkMethodContext(receiver, selector, method, temps, home, pc) {
+function SmalltalkMethodContext(receiver, selector, method, temps, index, home) {
 	this.receiver    = receiver;
     this.selector    = selector;
 	this.method      = method;
 	this.temps       = temps || {};
+    this.index       = index;
 	this.homeContext = home;
-    this.pc          = pc || 1;
 
     this.resume = function() {
         //Brutally set the receiver as thisContext, then re-enter the function
@@ -537,8 +547,8 @@ SmalltalkMethodContext.prototype.copy = function() {
         this.selector,
 		this.method, 
 		this.temps, 
-		home,
-        this.pc
+        this.index,
+		home
 	);
 };
 

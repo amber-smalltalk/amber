@@ -88,7 +88,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isInlined", []), "_and_", [(function(){return smalltalk.send(smalltalk.send(self, "_outerScope", []), "_canInlineNonLocalReturns", []);})]);
 return self;},
@@ -136,7 +136,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_instruction", []), "_isInlined", []);
 return self;},
@@ -336,7 +336,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "addNonLocalReturn:",
 category: 'adding',
-fn: function (aScope){
+fn: function (aScope) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_nonLocalReturns", []), "_add_", [aScope]);
 return self;},
@@ -384,7 +384,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return true;
 return self;},
@@ -545,7 +545,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeNonLocalReturn:",
 category: 'adding',
-fn: function (aScope){
+fn: function (aScope) {
 var self=this;
 smalltalk.send(smalltalk.send(self, "_nonLocalReturns", []), "_remove_ifAbsent_", [aScope, (function(){return nil;})]);
 return self;},
@@ -1063,12 +1063,12 @@ selector: "messageSends",
 category: 'accessing',
 fn: function () {
 var self=this;
-return (($receiver = self['@messageSends']) == nil || $receiver == undefined) ? (function(){return (self['@messageSends']=smalltalk.send((smalltalk.Set || Set), "_new", []));})() : $receiver;
+return (($receiver = self['@messageSends']) == nil || $receiver == undefined) ? (function(){return (self['@messageSends']=smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));})() : $receiver;
 return self;},
 args: [],
-source: "messageSends\x0a\x09^ messageSends ifNil: [ messageSends := Set new ]",
+source: "messageSends\x0a\x09^ messageSends ifNil: [ messageSends := Dictionary new ]",
 messageSends: ["ifNil:", "new"],
-referencedClasses: ["Set"]
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.SemanticAnalyzer);
 
@@ -1222,7 +1222,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAssignmentNode:",
 category: 'visiting',
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
 smalltalk.send(self, "_visitAssignmentNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 smalltalk.send(smalltalk.send(aNode, "_left", []), "_beAssigned", []);
@@ -1319,12 +1319,12 @@ smalltalk.send(self['@currentScope'], "_node_", [aNode]);
 smalltalk.send(smalltalk.send(smalltalk.send(self, "_theClass", []), "_allInstanceVariableNames", []), "_do_", [(function(each){return smalltalk.send(self['@currentScope'], "_addIVar_", [each]);})]);
 smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [(function(each){smalltalk.send(self, "_validateVariableScope_", [each]);return smalltalk.send(self['@currentScope'], "_addArg_", [each]);})]);
 smalltalk.send(self, "_visitMethodNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
-(function($rec){smalltalk.send($rec, "_classReferences_", [smalltalk.send(self, "_classReferences", [])]);return smalltalk.send($rec, "_messageSends_", [smalltalk.send(self, "_messageSends", [])]);})(aNode);
+(function($rec){smalltalk.send($rec, "_classReferences_", [smalltalk.send(self, "_classReferences", [])]);return smalltalk.send($rec, "_messageSends_", [smalltalk.send(smalltalk.send(self, "_messageSends", []), "_keys", [])]);})(aNode);
 smalltalk.send(self, "_popScope", []);
 return self;},
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [:each | \x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each | \x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode \x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09messageSends: self messageSends.\x0a\x09self popScope",
-messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "messageSends:", "messageSends", "popScope"],
+source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [:each | \x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each | \x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode \x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09messageSends: self messageSends keys.\x0a\x09self popScope",
+messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "messageSends:", "keys", "messageSends", "popScope"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1334,15 +1334,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReturnNode:",
 category: 'visiting',
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
 smalltalk.send(aNode, "_scope_", [self['@currentScope']]);
-((($receiver = smalltalk.send(self['@currentScope'], "_isMethodScope", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send(self['@currentScope'], "_methodScope", []), "_addNonLocalReturn_", [self['@currentScope']]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self['@currentScope'], "_methodScope", []), "_addNonLocalReturn_", [self['@currentScope']]);})]));
+((($receiver = smalltalk.send(self['@currentScope'], "_isMethodScope", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self['@currentScope'], "_localReturn_", [true]);})() : (function(){return smalltalk.send(smalltalk.send(self['@currentScope'], "_methodScope", []), "_addNonLocalReturn_", [self['@currentScope']]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self['@currentScope'], "_localReturn_", [true]);}), (function(){return smalltalk.send(smalltalk.send(self['@currentScope'], "_methodScope", []), "_addNonLocalReturn_", [self['@currentScope']]);})]));
 smalltalk.send(self, "_visitReturnNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;},
 args: ["aNode"],
-source: "visitReturnNode: aNode\x0a\x09aNode scope: currentScope.\x0a\x09currentScope isMethodScope\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09currentScope methodScope addNonLocalReturn: currentScope ].\x0a\x09super visitReturnNode: aNode",
-messageSends: ["scope:", "ifFalse:", "isMethodScope", "addNonLocalReturn:", "methodScope", "visitReturnNode:"],
+source: "visitReturnNode: aNode\x0a\x09aNode scope: currentScope.\x0a\x09currentScope isMethodScope\x0a\x09\x09ifTrue: [ currentScope localReturn: true ]\x0a\x09\x09ifFalse: [ currentScope methodScope addNonLocalReturn: currentScope ].\x0a\x09super visitReturnNode: aNode",
+messageSends: ["scope:", "ifTrue:ifFalse:", "isMethodScope", "localReturn:", "addNonLocalReturn:", "methodScope", "visitReturnNode:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1352,15 +1352,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
 category: 'visiting',
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
 ((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value", []), "__eq", ["super"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){smalltalk.send(aNode, "_superSend_", [true]);return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){smalltalk.send(aNode, "_superSend_", [true]);return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);})]));
-smalltalk.send(smalltalk.send(self, "_messageSends", []), "_add_", [smalltalk.send(aNode, "_selector", [])]);
+smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_ifPresent_ifAbsent_", [smalltalk.send(aNode, "_selector", []), (function(){return smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_put_", [smalltalk.send(aNode, "_selector", []), ((($receiver = smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_", [smalltalk.send(aNode, "_selector", [])])).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)]))]);}), (function(){return smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_put_", [smalltalk.send(aNode, "_selector", []), (1)]);})]);
+smalltalk.send(aNode, "_index_", [smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_", [smalltalk.send(aNode, "_selector", [])])]);
 smalltalk.send(self, "_visitSendNode_", [aNode], smalltalk.SemanticAnalyzer.superclass || nil);
 return self;},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' ifTrue: [\x0a\x09\x09aNode superSend: true.\x0a\x09\x09aNode receiver value: 'self'].\x0a\x0a\x09self messageSends add: aNode selector.\x0a\x09super visitSendNode: aNode",
-messageSends: ["ifTrue:", "=", "value", "receiver", "superSend:", "value:", "add:", "messageSends", "selector", "visitSendNode:"],
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' ifTrue: [\x0a\x09\x09aNode superSend: true.\x0a\x09\x09aNode receiver value: 'self' ].\x0a\x0a\x09self messageSends \x0a\x09\x09at: aNode selector\x0a\x09\x09ifPresent: [ self messageSends at: aNode selector put: (self messageSends at: aNode selector) + 1 ]\x0a\x09\x09ifAbsent: [ self messageSends at: aNode selector put: 1 ].\x0a\x0a\x09aNode index: (self messageSends at: aNode selector).\x0a\x0a\x09super visitSendNode: aNode",
+messageSends: ["ifTrue:", "=", "value", "receiver", "superSend:", "value:", "at:ifPresent:ifAbsent:", "messageSends", "selector", "at:put:", "+", "at:", "index:", "visitSendNode:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);

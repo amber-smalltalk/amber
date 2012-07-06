@@ -139,7 +139,7 @@ smalltalk.addMethod(
 "_left_",
 smalltalk.method({
 selector: "left:",
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
 (self['@left']=aNode);
 return self;}
@@ -512,7 +512,7 @@ smalltalk.addMethod(
 "_nonLocalReturn",
 smalltalk.method({
 selector: "nonLocalReturn",
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_isMethodScope", []), "_not", []);
 return self;}
@@ -523,7 +523,7 @@ smalltalk.addMethod(
 "_scope",
 smalltalk.method({
 selector: "scope",
-fn: function (){
+fn: function () {
 var self=this;
 return self['@scope'];
 return self;}
@@ -534,7 +534,7 @@ smalltalk.addMethod(
 "_scope_",
 smalltalk.method({
 selector: "scope:",
-fn: function (aLexicalScope){
+fn: function (aLexicalScope) {
 var self=this;
 (self['@scope']=aLexicalScope);
 return self;}
@@ -543,7 +543,7 @@ smalltalk.ReturnNode);
 
 
 
-smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend'], 'Compiler-AST');
+smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -586,6 +586,28 @@ var self=this;
 var first=nil;
 (first=(function($rec){smalltalk.send($rec, "_selector_", [smalltalk.send(self, "_selector", [])]);smalltalk.send($rec, "_arguments_", [smalltalk.send(self, "_arguments", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.SendNode || SendNode), "_new", [])));
 return (function($rec){smalltalk.send($rec, "_receiver_", [smalltalk.send(self, "_receiver", [])]);smalltalk.send($rec, "_nodes_", [smalltalk.send(smalltalk.send((smalltalk.Array || Array), "_with_", [first]), "__comma", [aCollection])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.CascadeNode || CascadeNode), "_new", []));
+return self;}
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_index",
+smalltalk.method({
+selector: "index",
+fn: function () {
+var self=this;
+return self['@index'];
+return self;}
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_index_",
+smalltalk.method({
+selector: "index:",
+fn: function (anInteger) {
+var self=this;
+(self['@index']=anInteger);
 return self;}
 }),
 smalltalk.SendNode);

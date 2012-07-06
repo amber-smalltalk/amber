@@ -378,7 +378,7 @@ classReferences
 !
 
 messageSends
-	^ messageSends ifNil: [ messageSends := Set new ]
+	^ messageSends ifNil: [ messageSends := Dictionary new ]
 !
 
 pseudoVariables
@@ -500,15 +500,15 @@ visitMethodNode: aNode
 
 	aNode 
 		classReferences: self classReferences;
-		messageSends: self messageSends.
+		messageSends: self messageSends keys.
 	self popScope
 !
 
 visitReturnNode: aNode
 	aNode scope: currentScope.
 	currentScope isMethodScope
-		ifFalse: [
-			currentScope methodScope addNonLocalReturn: currentScope ].
+		ifTrue: [ currentScope localReturn: true ]
+		ifFalse: [ currentScope methodScope addNonLocalReturn: currentScope ].
 	super visitReturnNode: aNode
 !
 
@@ -516,9 +516,15 @@ visitSendNode: aNode
 
 	aNode receiver value = 'super' ifTrue: [
 		aNode superSend: true.
-		aNode receiver value: 'self'].
+		aNode receiver value: 'self' ].
 
-	self messageSends add: aNode selector.
+	self messageSends 
+		at: aNode selector
+		ifPresent: [ self messageSends at: aNode selector put: (self messageSends at: aNode selector) + 1 ]
+		ifAbsent: [ self messageSends at: aNode selector put: 1 ].
+
+	aNode index: (self messageSends at: aNode selector).
+
 	super visitSendNode: aNode
 !
 

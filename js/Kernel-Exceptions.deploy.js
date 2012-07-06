@@ -102,56 +102,6 @@ return self;}
 smalltalk.Error.klass);
 
 
-smalltalk.addClass('Continuation', smalltalk.Error, ['context'], 'Kernel-Exceptions');
-smalltalk.addMethod(
-"_initializeFromContext_",
-smalltalk.method({
-selector: "initializeFromContext:",
-fn: function (aContext) {
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Continuation.superclass || nil);
-(self['@context']=aContext);
-smalltalk.send(self, "_basicAt_put_", ["cc", true]);
-return self;}
-}),
-smalltalk.Continuation);
-
-smalltalk.addMethod(
-"_restore",
-smalltalk.method({
-selector: "restore",
-fn: function () {
-var self=this;
-smalltalk.send(self['@context'], "_resume", []);
-return self;}
-}),
-smalltalk.Continuation);
-
-smalltalk.addMethod(
-"_value_",
-smalltalk.method({
-selector: "value:",
-fn: function (aBlock) {
-var self=this;
-smalltalk.send(aBlock, "_value_", [self]);
-smalltalk.send(self, "_signal", []);
-return self;}
-}),
-smalltalk.Continuation);
-
-
-smalltalk.addMethod(
-"_currentDo_",
-smalltalk.method({
-selector: "currentDo:",
-fn: function (aBlock) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_initializeWithContext_", [smalltalk.send((smalltalk.getThisContext()), "_home", [])]);return smalltalk.send($rec, "_value_", [aBlock]);})(smalltalk.send(self, "_new", []));
-return self;}
-}),
-smalltalk.Continuation.klass);
-
-
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 smalltalk.addMethod(
 "_message",
@@ -207,6 +157,31 @@ var self=this;
 return self;}
 }),
 smalltalk.MessageNotUnderstood);
+
+
+
+smalltalk.addClass('NonBooleanReceiver', smalltalk.Error, ['object'], 'Kernel-Exceptions');
+smalltalk.addMethod(
+"_object",
+smalltalk.method({
+selector: "object",
+fn: function () {
+var self=this;
+return self['@object'];
+return self;}
+}),
+smalltalk.NonBooleanReceiver);
+
+smalltalk.addMethod(
+"_object_",
+smalltalk.method({
+selector: "object:",
+fn: function (anObject) {
+var self=this;
+(self['@object']=anObject);
+return self;}
+}),
+smalltalk.NonBooleanReceiver);
 
 
 

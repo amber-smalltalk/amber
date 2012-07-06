@@ -147,76 +147,6 @@ referencedClasses: []
 smalltalk.Error.klass);
 
 
-smalltalk.addClass('Continuation', smalltalk.Error, ['context'], 'Kernel-Exceptions');
-smalltalk.addMethod(
-"_initializeFromContext_",
-smalltalk.method({
-selector: "initializeFromContext:",
-category: 'initialization',
-fn: function (aContext) {
-var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Continuation.superclass || nil);
-(self['@context']=aContext);
-smalltalk.send(self, "_basicAt_put_", ["cc", true]);
-return self;},
-args: ["aContext"],
-source: "initializeFromContext: aContext\x0a\x09\x22Add a cc flag to the error object so Smalltalk knows how to handle it\x22\x0a\x0a\x09super initialize.\x0a\x09context := aContext.\x0a\x09self basicAt: 'cc' put: true",
-messageSends: ["initialize", "basicAt:put:"],
-referencedClasses: []
-}),
-smalltalk.Continuation);
-
-smalltalk.addMethod(
-"_restore",
-smalltalk.method({
-selector: "restore",
-category: 'initialization',
-fn: function () {
-var self=this;
-smalltalk.send(self['@context'], "_resume", []);
-return self;},
-args: [],
-source: "restore\x0a\x09context resume",
-messageSends: ["resume"],
-referencedClasses: []
-}),
-smalltalk.Continuation);
-
-smalltalk.addMethod(
-"_value_",
-smalltalk.method({
-selector: "value:",
-category: 'initialization',
-fn: function (aBlock) {
-var self=this;
-smalltalk.send(aBlock, "_value_", [self]);
-smalltalk.send(self, "_signal", []);
-return self;},
-args: ["aBlock"],
-source: "value: aBlock\x0a\x09aBlock value: self.\x0a\x09self signal",
-messageSends: ["value:", "signal"],
-referencedClasses: []
-}),
-smalltalk.Continuation);
-
-
-smalltalk.addMethod(
-"_currentDo_",
-smalltalk.method({
-selector: "currentDo:",
-category: 'instance creation',
-fn: function (aBlock) {
-var self=this;
-return (function($rec){smalltalk.send($rec, "_initializeWithContext_", [smalltalk.send((smalltalk.getThisContext()), "_home", [])]);return smalltalk.send($rec, "_value_", [aBlock]);})(smalltalk.send(self, "_new", []));
-return self;},
-args: ["aBlock"],
-source: "currentDo: aBlock\x0a\x09^ self new \x0a\x09\x09initializeWithContext: thisContext home;\x0a\x09\x09value: aBlock",
-messageSends: ["initializeWithContext:", "home", "value:", "new"],
-referencedClasses: []
-}),
-smalltalk.Continuation.klass);
-
-
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 smalltalk.addMethod(
 "_message",
@@ -297,6 +227,41 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
+
+
+
+smalltalk.addClass('NonBooleanReceiver', smalltalk.Error, ['object'], 'Kernel-Exceptions');
+smalltalk.addMethod(
+"_object",
+smalltalk.method({
+selector: "object",
+category: 'accessing',
+fn: function () {
+var self=this;
+return self['@object'];
+return self;},
+args: [],
+source: "object\x0a\x09^ object",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NonBooleanReceiver);
+
+smalltalk.addMethod(
+"_object_",
+smalltalk.method({
+selector: "object:",
+category: 'accessing',
+fn: function (anObject) {
+var self=this;
+(self['@object']=anObject);
+return self;},
+args: ["anObject"],
+source: "object: anObject\x0a\x09object := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NonBooleanReceiver);
 
 
 

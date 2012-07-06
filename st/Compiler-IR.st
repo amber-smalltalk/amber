@@ -171,7 +171,9 @@ visitReturnNode: aNode
 visitSendNode: aNode
 	| send receiver arguments |
 	send := IRSend new.
-	send selector: aNode selector.
+	send 
+		selector: aNode selector;
+		index: aNode index.
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
 
 	receiver := self visit: aNode receiver.
@@ -458,7 +460,7 @@ accept: aVisitor
 ! !
 
 IRInstruction subclass: #IRSend
-	instanceVariableNames: 'selector classSend'
+	instanceVariableNames: 'selector classSend index'
 	package: 'Compiler-IR'!
 !IRSend commentStamp!
 I am a message send instruction.!
@@ -471,6 +473,14 @@ classSend
 
 classSend: aClass
 	classSend := aClass
+!
+
+index
+	^ index
+!
+
+index: anInteger
+	index := anInteger
 !
 
 selector
@@ -820,8 +830,15 @@ visitIRSend: anIRSend
 		do: [ :each | self visit: each ]
 		separatedBy: [ self stream nextPutAll: ',' ].
 	self stream nextPutAll: ']'.
-	anIRSend classSend ifNotNil: [  
-		self stream nextPutAll: ',', anIRSend classSend asJavascript ].
+	anIRSend index > 1 
+		ifTrue: [
+			anIRSend classSend 
+				ifNil: [ self stream nextPutAll: ',undefined' ]
+				ifNotNil: [ self stream nextPutAll: ',', anIRSend classSend asJavascript ].
+			self stream nextPutAll: ',', anIRSend index asJavascript ]
+		ifFalse: [
+			anIRSend classSend ifNotNil: [  
+				self stream nextPutAll: ',', anIRSend classSend asJavascript ]].
 	self stream nextPutAll: ')'
 !
 

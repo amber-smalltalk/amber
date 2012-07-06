@@ -201,7 +201,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "left:",
 category: 'accessing',
-fn: function (aNode){
+fn: function (aNode) {
 var self=this;
 (self['@left']=aNode);
 return self;},
@@ -734,7 +734,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "nonLocalReturn",
 category: 'testing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(smalltalk.send(self, "_scope", []), "_isMethodScope", []), "_not", []);
 return self;},
@@ -750,7 +750,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "scope",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return self['@scope'];
 return self;},
@@ -766,7 +766,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "scope:",
 category: 'accessing',
-fn: function (aLexicalScope){
+fn: function (aLexicalScope) {
 var self=this;
 (self['@scope']=aLexicalScope);
 return self;},
@@ -779,7 +779,7 @@ smalltalk.ReturnNode);
 
 
 
-smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend'], 'Compiler-AST');
+smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -843,6 +843,38 @@ args: ["aCollection"],
 source: "cascadeNodeWithMessages: aCollection\x0a\x09| first |\x0a\x09first := SendNode new\x0a\x09    selector: self selector;\x0a\x09    arguments: self arguments;\x0a\x09    yourself.\x0a\x09^CascadeNode new\x0a\x09    receiver: self receiver;\x0a\x09    nodes: (Array with: first), aCollection;\x0a\x09    yourself",
 messageSends: ["selector:", "selector", "arguments:", "arguments", "yourself", "new", "receiver:", "receiver", "nodes:", ",", "with:"],
 referencedClasses: ["SendNode", "Array", "CascadeNode"]
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_index",
+smalltalk.method({
+selector: "index",
+category: 'accessing',
+fn: function () {
+var self=this;
+return self['@index'];
+return self;},
+args: [],
+source: "index\x0a\x09^ index",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+"_index_",
+smalltalk.method({
+selector: "index:",
+category: 'accessing',
+fn: function (anInteger) {
+var self=this;
+(self['@index']=anInteger);
+return self;},
+args: ["anInteger"],
+source: "index: anInteger\x0a\x09index := anInteger",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.SendNode);
 

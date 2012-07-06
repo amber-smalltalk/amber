@@ -160,25 +160,30 @@ visitIRInlinedAssignment: anIRInlinedAssignment
 !
 
 visitIRInlinedClosure: anIRInlinedClosure
-	anIRInlinedClosure instructions allButLast do: [ :each | self visit: each ].
-	(anIRInlinedClosure assignTo notNil and: [
-		anIRInlinedClosure instructions last canBeAssigned ]) ifTrue: [
-			self stream nextPutAll: anIRInlinedClosure assignTo variable alias.
-			self stream nextPutAssignment ].
-	self visit: anIRInlinedClosure instructions last
+	anIRInlinedClosure instructions ifNotEmpty: [
+		anIRInlinedClosure instructions allButLast do: [ :each | self visit: each ].
+		(anIRInlinedClosure assignTo notNil and: [
+			anIRInlinedClosure instructions last canBeAssigned ]) ifTrue: [
+				self stream nextPutAll: anIRInlinedClosure assignTo variable alias.
+				self stream nextPutAssignment ].
+		self visit: anIRInlinedClosure instructions last ]
 !
 
 visitIRInlinedIfFalse: anIRInlinedIfFalse
 	self stream 
 		nextPutIf: [ 
-			self stream nextPutAll: '!!'.
-			self visit: anIRInlinedIfFalse instructions first ]
+			self stream nextPutAll: '!! smalltalk.assert('.
+			self visit: anIRInlinedIfFalse instructions first.
+			self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfFalse instructions last ]
 !
 
 visitIRInlinedIfTrue: anIRInlinedIfTrue
 	self stream 
-		nextPutIf: [ self visit: anIRInlinedIfTrue instructions first ]
+		nextPutIf: [ 
+			self stream nextPutAll: 'smalltalk.assert('. 
+			self visit: anIRInlinedIfTrue instructions first.
+			self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrue instructions last ]
 ! !
 

@@ -268,7 +268,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #SendNode
-	instanceVariableNames: 'selector arguments receiver superSend'
+	instanceVariableNames: 'selector arguments receiver superSend index'
 	package: 'Compiler-AST'!
 
 !SendNode methodsFor: 'accessing'!
@@ -291,6 +291,14 @@ cascadeNodeWithMessages: aCollection
 	    receiver: self receiver;
 	    nodes: (Array with: first), aCollection;
 	    yourself
+!
+
+index
+	^ index
+!
+
+index: anInteger
+	index := anInteger
 !
 
 nodes
