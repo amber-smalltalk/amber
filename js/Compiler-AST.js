@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'shouldBeInlined'], 'Compiler-AST');
 smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree."
 smalltalk.addMethod(
 "_accept_",
@@ -82,6 +82,22 @@ referencedClasses: []
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_isReturnNode",
+smalltalk.method({
+selector: "isReturnNode",
+category: 'testing',
+fn: function () {
+var self=this;
+return false;
+return self;},
+args: [],
+source: "isReturnNode\x0a\x09^false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_isSendNode",
 smalltalk.method({
 selector: "isSendNode",
@@ -140,6 +156,38 @@ var self=this;
 return self;},
 args: ["aCollection"],
 source: "nodes: aCollection\x0a\x09nodes := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_shouldBeInlined",
+smalltalk.method({
+selector: "shouldBeInlined",
+category: 'accessing',
+fn: function () {
+var self=this;
+return (($receiver = self['@shouldBeInlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;},
+args: [],
+source: "shouldBeInlined\x0a\x09^ shouldBeInlined ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_shouldBeInlined_",
+smalltalk.method({
+selector: "shouldBeInlined:",
+category: 'accessing',
+fn: function (aBoolean) {
+var self=this;
+(self['@shouldBeInlined']=aBoolean);
+return self;},
+args: ["aBoolean"],
+source: "shouldBeInlined: aBoolean\x0a\x09shouldBeInlined := aBoolean",
 messageSends: [],
 referencedClasses: []
 }),
@@ -725,6 +773,22 @@ return self;},
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitReturnNode: self",
 messageSends: ["visitReturnNode:"],
+referencedClasses: []
+}),
+smalltalk.ReturnNode);
+
+smalltalk.addMethod(
+"_isReturnNode",
+smalltalk.method({
+selector: "isReturnNode",
+category: 'testing',
+fn: function () {
+var self=this;
+return true;
+return self;},
+args: [],
+source: "isReturnNode\x0a\x09^ true",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ReturnNode);

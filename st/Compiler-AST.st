@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes'
+	instanceVariableNames: 'nodes shouldBeInlined'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.!
@@ -13,6 +13,14 @@ addNode: aNode
 
 nodes
 	^nodes ifNil: [nodes := Array new]
+!
+
+shouldBeInlined
+	^ shouldBeInlined ifNil: [ false ]
+!
+
+shouldBeInlined: aBoolean
+	shouldBeInlined := aBoolean
 ! !
 
 !Node methodsFor: 'building'!
@@ -32,6 +40,10 @@ isBlockNode
 !
 
 isBlockSequenceNode
+	^false
+!
+
+isReturnNode
 	^false
 !
 
@@ -256,6 +268,10 @@ scope: aLexicalScope
 ! !
 
 !ReturnNode methodsFor: 'testing'!
+
+isReturnNode
+	^ true
+!
 
 nonLocalReturn
 	^ self scope isMethodScope not

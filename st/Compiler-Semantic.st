@@ -514,16 +514,17 @@ visitReturnNode: aNode
 
 visitSendNode: aNode
 
-	aNode receiver value = 'super' ifTrue: [
-		aNode superSend: true.
-		aNode receiver value: 'self' ].
+	aNode receiver value = 'super' 
+		ifTrue: [
+			aNode superSend: true.
+			aNode receiver value: 'self' ]
+		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
+			aNode shouldBeInlined: true ]].
 
-	self messageSends 
-		at: aNode selector
-		ifPresent: [ self messageSends at: aNode selector put: (self messageSends at: aNode selector) + 1 ]
-		ifAbsent: [ self messageSends at: aNode selector put: 1 ].
+	self messageSends at: aNode selector ifAbsentPut: [ Set new ].
+	(self messageSends at: aNode selector) add: aNode.
 
-	aNode index: (self messageSends at: aNode selector).
+	aNode index: (self messageSends at: aNode selector) size.
 
 	super visitSendNode: aNode
 !

@@ -63,7 +63,7 @@ alias: aNode
 		variable: (AliasVar new name: '$', self nextAlias); 
 		yourself.
 
-	self sequence add: (IRAlias new
+	self sequence add: (IRAssignment new
 		add: variable;
 		add: (self visit: aNode);
 		yourself).
@@ -74,9 +74,20 @@ alias: aNode
 !
 
 visitAssignmentNode: aNode
+	| left right assignment |
+	right := self visit: aNode right.
+	left := self visit: aNode left.
+	self sequence add: (IRAssignment new 
+		add: left;
+		add: right;
+		yourself).
+	^ left
+!
+
+visitAssignmentNode: aNode aliasing: aBoolean
 	| left right |
 	
-	aNode right isAssignmentNode 
+	aBoolean 
 		ifTrue: [ | assignment |
 			assignment := self visit: aNode right.
 			self sequence add: assignment.
@@ -108,8 +119,13 @@ visitBlockNode: aNode
 visitBlockSequenceNode: aNode
 	^ self
 		withSequence: IRBlockSequence new
-		do: [ aNode nodes do: [ :each | 
-			self sequence add: (self visit: each) ]]
+		do: [ 
+			aNode nodes ifNotEmpty: [
+				aNode nodes allButLast do: [ :each | 
+					self sequence add: (self visit: each) ].
+				aNode nodes last isReturnNode 
+					ifFalse: [ self sequence add: (IRReturn new add: (self visit: aNode nodes last); yourself) ]
+					ifTrue: [ self sequence add: (self visit: aNode nodes last) ]]]
 !
 
 visitCascadeNode: aNode
@@ -164,7 +180,8 @@ visitReturnNode: aNode
 		ifTrue: [ IRNonLocalReturn new ]
 		ifFalse: [ IRReturn new ].
 	return scope: aNode scope.
-	aNode nodes do: [ :each | return add: (self visit: each) ].
+	aNode nodes do: [ :each |
+		return add: (self visit: each) ].
 	^ return
 !
 
@@ -177,7 +194,10 @@ visitSendNode: aNode
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
 
 	receiver := self visit: aNode receiver.
-	arguments := aNode arguments collect: [ :each | self visit: each ].
+	arguments := aNode arguments collect: [ :each | 
+		each shouldBeInlined
+			ifTrue: [ self alias: each ]
+			ifFalse: [ self visit: each ]].
 
 	send add: receiver.
 	arguments do: [ :each | send add: each ].
@@ -268,11 +288,23 @@ isInlined
 	^ false
 !
 
+isLocalReturn
+	^ false
+!
+
 isReturn
 	^ false
 !
 
 isSend
+	^ false
+!
+
+isSequence
+	^ false
+!
+
+isTempDeclaration
 	^ false
 !
 
@@ -302,16 +334,6 @@ IRInstruction subclass: #IRAssignment
 
 accept: aVisitor
 	^ aVisitor visitIRAssignment: self
-! !
-
-IRAssignment subclass: #IRAlias
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-
-!IRAlias methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRAlias: self
 ! !
 
 IRInstruction subclass: #IRScopedInstruction
@@ -345,6 +367,10 @@ arguments: aCollection
 scope: aScope
 	super scope: aScope.
 	aScope instruction: self
+!
+
+sequence
+	^ self instructions last
 ! !
 
 !IRClosure methodsFor: 'testing'!
@@ -434,6 +460,14 @@ canBeAssigned
 	^ false
 !
 
+isLocalReturn
+	^ self isReturn
+!
+
+isNonLocalReturn
+	^ self isLocalReturn not
+!
+
 isReturn
 	^ true
 ! !
@@ -452,6 +486,12 @@ I am a non local return instruction.
 Non local returns are handled using a try/catch JS statement.
 
 See IRNonLocalReturnHandling class!
+
+!IRNonLocalReturn methodsFor: 'testing'!
+
+isLocalReturn
+	^ false
+! !
 
 !IRNonLocalReturn methodsFor: 'visiting'!
 
@@ -507,14 +547,10 @@ IRInstruction subclass: #IRSequence
 	instanceVariableNames: ''
 	package: 'Compiler-IR'!
 
-!IRSequence methodsFor: 'adding'!
+!IRSequence methodsFor: 'testing'!
 
-add: anIRInstruction
-	| statement |
-	statement := IRStatement new.
-	statement add: anIRInstruction.
-	self instructions add: statement.
-	^ anIRInstruction
+isSequence
+	^ true
 ! !
 
 !IRSequence methodsFor: 'visiting'!
@@ -531,29 +567,6 @@ IRSequence subclass: #IRBlockSequence
 
 accept: aVisitor
 	^ aVisitor visitIRBlockSequence: self
-! !
-
-IRInstruction subclass: #IRStatement
-	instanceVariableNames: ''
-	package: 'Compiler-IR'!
-!IRStatement commentStamp!
-I am a statement instruction. 
-Statements can be used to control the PC count, among other things.!
-
-!IRStatement methodsFor: 'testing'!
-
-canBeAssigned
-	^ self instructions first canBeAssigned
-!
-
-isReturn
-	^ self instructions first isReturn
-! !
-
-!IRStatement methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRStatement: self
 ! !
 
 IRInstruction subclass: #IRTempDeclaration
@@ -576,6 +589,10 @@ name: aString
 
 accept: aVisitor
 	^ aVisitor visitIRTempDeclaration: self
+!
+
+isTempDeclaration
+	^ true
 ! !
 
 IRInstruction subclass: #IRValue
@@ -658,10 +675,6 @@ visit: anIRInstruction
 	^ anIRInstruction accept: self
 !
 
-visitIRAlias: anIRAlias
-	^ self visitIRAssignment: anIRAlias
-!
-
 visitIRAssignment: anIRAssignment
 	^ self visitIRInstruction: anIRAssignment
 !
@@ -672,30 +685,6 @@ visitIRBlockSequence: anIRBlockSequence
 
 visitIRClosure: anIRClosure
 	^ self visitIRInstruction: anIRClosure
-!
-
-visitIRInlinedAssignment: anIRInlinedAssignment
-	^ self visitIRAssignment: anIRInlinedAssignment
-!
-
-visitIRInlinedClosure: anIRClosure
-	^ self visitIRClosure: anIRClosure
-!
-
-visitIRInlinedIfFalse: anIRInlinedIfFalse
-	^ self visitIRInlinedSend: anIRInlinedIfFalse
-!
-
-visitIRInlinedIfTrue: anIRInlinedIfTrue
-	^ self visitIRInlinedSend: anIRInlinedIfTrue
-!
-
-visitIRInlinedNonLocalReturn: anIRNonLocalReturn
-	^ self visitIRReturn: anIRNonLocalReturn
-!
-
-visitIRInlinedSend: anIRInlinedSend
-	^ self visitIRSend: anIRInlinedSend
 !
 
 visitIRInstruction: anIRInstruction
@@ -725,10 +714,6 @@ visitIRSend: anIRSend
 
 visitIRSequence: anIRSequence
 	^ self visitIRInstruction: anIRSequence
-!
-
-visitIRStatement: anIRStatement
-	^ self visitIRInstruction: anIRStatement
 !
 
 visitIRTempDeclaration: anIRTempDeclaration
@@ -780,16 +765,6 @@ visitIRAssignment: anIRAssignment
 	self visit: anIRAssignment instructions last.
 !
 
-visitIRBlockSequence: anIRBlockSequence
-	self stream nextPutSequenceWith: [
-		anIRBlockSequence instructions notEmpty ifTrue: [
-			anIRBlockSequence instructions allButLast do: [ :each | 
-				self visit: each ].
-			anIRBlockSequence instructions last isReturn ifFalse: [
-				self stream nextPutReturn ].
-			self visit: anIRBlockSequence instructions last ]]
-!
-
 visitIRClosure: anIRClosure
 	self stream 
 		nextPutClosureWith: [ super visitIRClosure: anIRClosure ] 
@@ -835,7 +810,7 @@ visitIRSend: anIRSend
 			anIRSend classSend 
 				ifNil: [ self stream nextPutAll: ',undefined' ]
 				ifNotNil: [ self stream nextPutAll: ',', anIRSend classSend asJavascript ].
-			self stream nextPutAll: ',', anIRSend index asJavascript ]
+			self stream nextPutAll: ',', anIRSend index asString ]
 		ifFalse: [
 			anIRSend classSend ifNotNil: [  
 				self stream nextPutAll: ',', anIRSend classSend asJavascript ]].
@@ -844,17 +819,8 @@ visitIRSend: anIRSend
 
 visitIRSequence: anIRSequence
 	self stream nextPutSequenceWith: [
-		"self instructions do: [ :each |
-			((IRStatement on: self builder)
-				pc: self builder nextPc;
-				with: each;
-				yourself) emitOn: aStream ]"
-		super visitIRSequence: anIRSequence ]
-!
-
-visitIRStatement: anIRStatement
-	self stream nextPutStatementWith: [
-		super visitIRStatement: anIRStatement ]
+		anIRSequence instructions do: [ :each |
+			self stream nextPutStatementWith: (self visit: each) ]]
 !
 
 visitIRTempDeclaration: anIRTempDeclaration

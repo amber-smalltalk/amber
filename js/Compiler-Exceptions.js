@@ -19,7 +19,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(" Invalid assignment to variable: ", "__comma", [smalltalk.send(self, "_variableName", [])]);
 return self;},
@@ -71,7 +71,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
-fn: function (){
+fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send("Variable shadowing error: ", "__comma", [smalltalk.send(self, "_variableName", [])]), "__comma", [" is already defined"]);
 return self;},

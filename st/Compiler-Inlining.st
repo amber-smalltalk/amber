@@ -16,18 +16,8 @@ accept: aVisitor
 ! !
 
 IRClosure subclass: #IRInlinedClosure
-	instanceVariableNames: 'assignTo'
+	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
-
-!IRInlinedClosure methodsFor: 'accessing'!
-
-assignTo
-	^ assignTo
-!
-
-assignTo: aScopeVar
-	assignTo := aScopeVar
-! !
 
 !IRInlinedClosure methodsFor: 'testing'!
 
@@ -41,7 +31,23 @@ accept: aVisitor
 	aVisitor visitIRInlinedClosure: self
 ! !
 
-IRReturn subclass: #IRInlinedNonLocalReturn
+IRReturn subclass: #IRInlinedReturn
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRInlinedReturn methodsFor: 'testing'!
+
+isInlined
+	^ true
+! !
+
+!IRInlinedReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRInlinedReturn: self
+! !
+
+IRInlinedReturn subclass: #IRInlinedNonLocalReturn
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
 
@@ -93,9 +99,89 @@ accept: aVisitor
 	aVisitor visitIRInlinedIfTrue: self
 ! !
 
+IRBlockSequence subclass: #IRInlinedSequence
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRInlinedSequence methodsFor: 'testing'!
+
+isInlined
+	^ true
+! !
+
+!IRInlinedSequence methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRInlinedSequence: self
+! !
+
+IRInlinedSequence subclass: #IRAssigningInlinedSequence
+	instanceVariableNames: 'assignTo'
+	package: 'Compiler-Inlining'!
+
+!IRAssigningInlinedSequence methodsFor: 'accessing'!
+
+accept: aVisitor
+	^ aVisitor visitIRAssigningInlinedSequence: self
+!
+
+assignTo
+	^ assignTo
+!
+
+assignTo: anIRInstruction
+	assignTo := anIRInstruction
+! !
+
+IRInlinedSequence subclass: #IRReturningInlinedSequence
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRReturningInlinedSequence methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRReturningInlinedSequence: self
+! !
+
+IRReturningInlinedSequence subclass: #IRNonLocalReturningInlinedSequence
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRNonLocalReturningInlinedSequence methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRNonLocalReturningInlinedSequence: self
+! !
+
 IRVisitor subclass: #IRInliner
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+
+!IRInliner methodsFor: 'factory'!
+
+assignmentInliner
+	^ IRAssignmentInliner new 
+		translator: self;
+		yourself
+!
+
+nonLocalReturnInliner
+	^ IRNonLocalReturnInliner new 
+		translator: self;
+		yourself
+!
+
+returnInliner
+	^ IRReturnInliner new 
+		translator: self;
+		yourself
+!
+
+sendInliner
+	^ IRSendInliner new 
+		translator: self;
+		yourself
+! !
 
 !IRInliner methodsFor: 'testing'!
 
@@ -105,46 +191,53 @@ shouldInlineAssignment: anIRAssignment
 			self shouldInlineSend: (anIRAssignment instructions last) ]]
 !
 
+shouldInlineReturn: anIRReturn
+	^ anIRReturn isInlined not and: [ 
+		anIRReturn instructions first isSend and: [	
+			self shouldInlineSend: (anIRReturn instructions first) ]]
+!
+
 shouldInlineSend: anIRSend
 	^ anIRSend isInlined not and: [
-		IRSendInliner inlinedSelectors includes: anIRSend selector ]
+		IRSendInliner shouldInline: anIRSend ]
 ! !
 
 !IRInliner methodsFor: 'visiting'!
 
-assignmentInliner
-	^ IRAssignmentInliner new 
-		translator: self;
-		yourself
-!
-
-sendInliner
-	^ IRSendInliner new 
-		translator: self;
-		yourself
+transformNonLocalReturn: anIRNonLocalReturn
+	| localReturn |
+	anIRNonLocalReturn scope canInlineNonLocalReturns ifTrue: [
+		anIRNonLocalReturn scope methodScope removeNonLocalReturn: anIRNonLocalReturn scope.
+		localReturn := IRReturn new
+			scope: anIRNonLocalReturn scope;
+			yourself.
+		anIRNonLocalReturn instructions do: [ :each |
+			localReturn add: each ].
+		anIRNonLocalReturn replaceWith: localReturn.
+		^ localReturn ].
+	^ super visitIRNonLocalReturn: anIRNonLocalReturn
 !
 
 visitIRAssignment: anIRAssignment
-	(self shouldInlineAssignment: anIRAssignment) 
+	^ (self shouldInlineAssignment: anIRAssignment) 
 		ifTrue: [ self assignmentInliner inlineAssignment: anIRAssignment ]
 		ifFalse: [ super visitIRAssignment: anIRAssignment ]
 !
 
 visitIRNonLocalReturn: anIRNonLocalReturn
-	| localReturn |
-	anIRNonLocalReturn scope canInlineNonLocalReturns ifTrue: [
-		anIRNonLocalReturn scope methodScope removeNonLocalReturn: anIRNonLocalReturn scope.
-		localReturn := IRInlinedNonLocalReturn new
-			scope: anIRNonLocalReturn scope;
-			yourself.
-		anIRNonLocalReturn instructions do: [ :each |
-			localReturn add: each ].
-		anIRNonLocalReturn replaceWith: localReturn ].
-	super visitIRNonLocalReturn: anIRNonLocalReturn
+	^ (self shouldInlineReturn: anIRNonLocalReturn) 
+		ifTrue: [ self nonLocalReturnInliner inlineReturn: anIRNonLocalReturn ]
+		ifFalse: [ self transformNonLocalReturn: anIRNonLocalReturn ]
+!
+
+visitIRReturn: anIRReturn
+	^ (self shouldInlineReturn: anIRReturn) 
+		ifTrue: [ self returnInliner inlineReturn: anIRReturn ]
+		ifFalse: [ super visitIRReturn: anIRReturn ]
 !
 
 visitIRSend: anIRSend
-	(self shouldInlineSend: anIRSend)
+	^ (self shouldInlineSend: anIRSend)
 		ifTrue: [ self sendInliner inlineSend: anIRSend ]
 		ifFalse: [ super visitIRSend: anIRSend ]
 ! !
@@ -155,36 +248,85 @@ IRJSTranslator subclass: #IRInliningJSTranslator
 
 !IRInliningJSTranslator methodsFor: 'visiting'!
 
+visitIRAssigningInlinedSequence: anIRInlinedSequence
+
+	anIRInlinedSequence instructions allButLast do: [ :each | 
+		self stream nextPutStatementWith: [ self visit: each ]].
+
+	self stream nextPutStatementWith: [
+		anIRInlinedSequence instructions last canBeAssigned 
+			ifTrue: [
+				self stream 
+					nextPutAll: anIRInlinedSequence assignTo variable alias;
+                                	nextPutAssignment.
+				self visit: anIRInlinedSequence instructions last ]
+			ifFalse: [ self visit: anIRInlinedSequence instructions last ]]
+!
+
 visitIRInlinedAssignment: anIRInlinedAssignment
 	self visit: anIRInlinedAssignment instructions last
 !
 
 visitIRInlinedClosure: anIRInlinedClosure
-	anIRInlinedClosure instructions ifNotEmpty: [
-		anIRInlinedClosure instructions allButLast do: [ :each | self visit: each ].
-		(anIRInlinedClosure assignTo notNil and: [
-			anIRInlinedClosure instructions last canBeAssigned ]) ifTrue: [
-				self stream nextPutAll: anIRInlinedClosure assignTo variable alias.
-				self stream nextPutAssignment ].
-		self visit: anIRInlinedClosure instructions last ]
+	anIRInlinedClosure instructions do: [ :each |
+		self visit: each ]
 !
 
 visitIRInlinedIfFalse: anIRInlinedIfFalse
-	self stream 
-		nextPutIf: [ 
-			self stream nextPutAll: '!! smalltalk.assert('.
-			self visit: anIRInlinedIfFalse instructions first.
-			self stream nextPutAll: ')' ]
+	self stream nextPutIf: [ 
+		self stream nextPutAll: '!! smalltalk.assert('.
+		self visit: anIRInlinedIfFalse instructions first.
+		self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfFalse instructions last ]
 !
 
 visitIRInlinedIfTrue: anIRInlinedIfTrue
-	self stream 
-		nextPutIf: [ 
-			self stream nextPutAll: 'smalltalk.assert('. 
-			self visit: anIRInlinedIfTrue instructions first.
-			self stream nextPutAll: ')' ]
+	self stream nextPutIf: [ 
+		self stream nextPutAll: 'smalltalk.assert('. 
+		self visit: anIRInlinedIfTrue instructions first.
+		self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrue instructions last ]
+!
+
+visitIRInlinedNonLocalReturn: anIRInlinedReturn
+	self stream nextPutStatementWith: [
+		self visit: anIRInlinedReturn instructions last ].
+	self stream nextPutNonLocalReturnWith: [ ]
+!
+
+visitIRInlinedReturn: anIRInlinedReturn
+	self visit: anIRInlinedReturn instructions last
+!
+
+visitIRInlinedSequence: anIRInlinedSequence
+	anIRInlinedSequence instructions do: [ :each | 
+		self stream nextPutStatementWith: [ self visit: each ]]
+!
+
+visitIRNonLocalReturningInlinedSequence: anIRInlinedSequence
+
+	anIRInlinedSequence instructions allButLast do: [ :each | 
+		self stream nextPutStatementWith: [ self visit: each ]].
+
+	self stream nextPutStatementWith: [
+		anIRInlinedSequence instructions last canBeAssigned 
+			ifTrue: [
+				self stream nextPutNonLocalReturnWith: [
+					self visit: anIRInlinedSequence instructions last ]]
+			ifFalse: [ self visit: anIRInlinedSequence instructions last ]]
+!
+
+visitIRReturningInlinedSequence: anIRInlinedSequence
+
+	anIRInlinedSequence instructions allButLast do: [ :each | 
+		self stream nextPutStatementWith: [ self visit: each ]].
+
+	self stream nextPutStatementWith: [
+		anIRInlinedSequence instructions last canBeAssigned 
+			ifTrue: [
+				self stream nextPutReturn.
+				self visit: anIRInlinedSequence instructions last ]
+			ifFalse: [ self visit: anIRInlinedSequence instructions last ]]
 ! !
 
 Object subclass: #IRSendInliner
@@ -194,10 +336,6 @@ Object subclass: #IRSendInliner
 I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods.!
 
 !IRSendInliner methodsFor: 'accessing'!
-
-inlinedClosure
-	^ IRInlinedClosure new
-!
 
 send
 	^ send
@@ -219,6 +357,16 @@ translator: anASTTranslator
 
 inliningError: aString
 	InliningError signal: aString
+! !
+
+!IRSendInliner methodsFor: 'factory'!
+
+inlinedClosure
+	^ IRInlinedClosure new
+!
+
+inlinedSequence
+	^ IRInlinedSequence new
 ! !
 
 !IRSendInliner methodsFor: 'inlining'!
@@ -258,11 +406,29 @@ ifTrue: anIRInstruction
 !
 
 inlineClosure: anIRClosure
-	| inlinedClosure |
+	| inlinedClosure sequence statements |
 	inlinedClosure := self inlinedClosure.
 	inlinedClosure scope: anIRClosure scope.
-	anIRClosure instructions first instructions do: [ :each |
-		inlinedClosure add: (self translator visit: each) ].
+
+	"Add the possible temp declarations"
+	anIRClosure instructions do: [ :each | 
+		each isSequence ifFalse: [
+			inlinedClosure add: each ]].
+
+	"Add a block sequence"
+	sequence := self inlinedSequence.
+	inlinedClosure add: sequence.
+
+	"Get all the statements"
+	statements := anIRClosure instructions last instructions.
+	
+	statements ifNotEmpty: [
+		statements allButLast do: [ :each | sequence add: (self translator visit: each) ].
+		"Inlined closures don't have implicit local returns"
+		statements last isLocalReturn 
+			ifTrue: [ sequence add: (self translator visit: statements last instructions first) ]
+			ifFalse: [ sequence add: (self translator visit: statements last) ]].
+
 	^ inlinedClosure
 !
 
@@ -275,6 +441,13 @@ inlineSend: anIRSend
 
 inlinedSelectors
 	^ #('ifTrue:' 'ifFalse:')
+!
+
+shouldInline: anIRInstruction
+	(self inlinedSelectors includes: anIRInstruction selector) ifFalse: [ ^ false ].
+	anIRInstruction instructions allButFirst do: [ :each |
+		each isClosure ifFalse: [ ^ false ]].
+	^ true
 ! !
 
 IRSendInliner subclass: #IRAssignmentInliner
@@ -289,10 +462,12 @@ assignment
 
 assignment: aNode
 	assignment := aNode
-!
+! !
 
-inlinedClosure
-	^ super inlinedClosure
+!IRAssignmentInliner methodsFor: 'factory'!
+
+inlinedSequence
+	^ IRAssigningInlinedSequence new
 		assignTo: self assignment instructions first;
 		yourself
 ! !
@@ -308,6 +483,46 @@ inlineAssignment: anIRAssignment
 	anIRAssignment replaceWith: inlinedAssignment.
 	self inlineSend: inlinedAssignment instructions last.
 	^ inlinedAssignment
+! !
+
+IRSendInliner subclass: #IRReturnInliner
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRReturnInliner methodsFor: 'factory'!
+
+inlinedReturn
+	^ IRInlinedReturn new
+!
+
+inlinedSequence
+	^ IRReturningInlinedSequence new
+! !
+
+!IRReturnInliner methodsFor: 'inlining'!
+
+inlineReturn: anIRReturn
+	| return |
+	return := self inlinedReturn.
+	anIRReturn instructions do: [ :each |
+		return add: each ].
+	anIRReturn replaceWith: return.
+	self inlineSend: return instructions last.
+	^ return
+! !
+
+IRReturnInliner subclass: #IRNonLocalReturnInliner
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRNonLocalReturnInliner methodsFor: 'factory'!
+
+inlinedReturn
+	^ IRInlinedNonLocalReturn new
+!
+
+inlinedSequence
+	^ IRNonLocalReturningInlinedSequence new
 ! !
 
 CodeGenerator subclass: #InliningCodeGenerator

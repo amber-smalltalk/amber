@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'shouldBeInlined'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -56,6 +56,17 @@ return self;}
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_isReturnNode",
+smalltalk.method({
+selector: "isReturnNode",
+fn: function () {
+var self=this;
+return false;
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_isSendNode",
 smalltalk.method({
 selector: "isSendNode",
@@ -95,6 +106,28 @@ selector: "nodes:",
 fn: function (aCollection) {
 var self=this;
 (self['@nodes']=aCollection);
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_shouldBeInlined",
+smalltalk.method({
+selector: "shouldBeInlined",
+fn: function () {
+var self=this;
+return (($receiver = self['@shouldBeInlined']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_shouldBeInlined_",
+smalltalk.method({
+selector: "shouldBeInlined:",
+fn: function (aBoolean) {
+var self=this;
+(self['@shouldBeInlined']=aBoolean);
 return self;}
 }),
 smalltalk.Node);
@@ -504,6 +537,17 @@ selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
 return smalltalk.send(aVisitor, "_visitReturnNode_", [self]);
+return self;}
+}),
+smalltalk.ReturnNode);
+
+smalltalk.addMethod(
+"_isReturnNode",
+smalltalk.method({
+selector: "isReturnNode",
+fn: function () {
+var self=this;
+return true;
 return self;}
 }),
 smalltalk.ReturnNode);
