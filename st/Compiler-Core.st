@@ -2,6 +2,11 @@ Smalltalk current createPackage: 'Compiler-Core' properties: #{}!
 Object subclass: #Compiler
 	instanceVariableNames: 'currentClass source unknownVariables codeGeneratorClass'
 	package: 'Compiler-Core'!
+!Compiler commentStamp!
+I provide the public interface for compiling Amber source code into JavaScript.
+
+The code generator used to produce JavaScript can be plugged with `#codeGeneratorClass`. 
+The default code generator is an instance of `InlinedCodeGenerator`!
 
 !Compiler methodsFor: 'accessing'!
 
@@ -127,10 +132,14 @@ recompileAll
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!
+!DoIt commentStamp!
+`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.!
 
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!
+!NodeVisitor commentStamp!
+I am the abstract super class of all AST node visitors.!
 
 !NodeVisitor methodsFor: 'visiting'!
 
@@ -205,6 +214,8 @@ visitVariableNode: aNode
 NodeVisitor subclass: #AbstractCodeGenerator
 	instanceVariableNames: 'currentClass source'
 	package: 'Compiler-Core'!
+!AbstractCodeGenerator commentStamp!
+I am the abstract super class of all code generators and provide their common API.!
 
 !AbstractCodeGenerator methodsFor: 'accessing'!
 
@@ -252,6 +263,9 @@ compileNode: aNode
 AbstractCodeGenerator subclass: #CodeGenerator
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!
+!CodeGenerator commentStamp!
+I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.
+See `InliningCodeGenerator` for an optimized JavaScript code generation.!
 
 !CodeGenerator methodsFor: 'compiling'!
 

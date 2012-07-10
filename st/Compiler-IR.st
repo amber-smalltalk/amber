@@ -84,24 +84,6 @@ visitAssignmentNode: aNode
 	^ left
 !
 
-visitAssignmentNode: aNode aliasing: aBoolean
-	| left right |
-	
-	aBoolean 
-		ifTrue: [ | assignment |
-			assignment := self visit: aNode right.
-			self sequence add: assignment.
-			right :=  assignment instructions first ]
-		ifFalse: [ right := self visit: aNode right ].
-
-	left := self visit: aNode left.
-	
-	^ IRAssignment new 
-		add: left;
-		add: right;
-		yourself
-!
-
 visitBlockNode: aNode
 	| closure |
 	closure := IRClosure new
@@ -140,6 +122,20 @@ visitCascadeNode: aNode
 		self sequence add: (self visit: each) ].
 
 	^ self alias: aNode nodes last
+!
+
+visitDynamicArrayNode: aNode
+	| array |
+	array := IRDynamicArray new.
+	aNode nodes do: [ :each | array add: (self visit: each) ].
+	^ array
+!
+
+visitDynamicDictionaryNode: aNode
+	| dictionary |
+	dictionary := IRDynamicDictionary new.
+	aNode nodes do: [ :each | dictionary add: (self visit: each) ].
+	^ dictionary
 !
 
 visitJSStatementNode: aNode
@@ -193,7 +189,10 @@ visitSendNode: aNode
 		index: aNode index.
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
 
-	receiver := self visit: aNode receiver.
+	receiver := aNode receiver shouldBeInlined 
+		ifTrue: [ self alias: aNode receiver ]
+		ifFalse: [ self visit: aNode receiver ].
+
 	arguments := aNode arguments collect: [ :each | 
 		each shouldBeInlined
 			ifTrue: [ self alias: each ]
@@ -334,6 +333,26 @@ IRInstruction subclass: #IRAssignment
 
 accept: aVisitor
 	^ aVisitor visitIRAssignment: self
+! !
+
+IRInstruction subclass: #IRDynamicArray
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRDynamicArray methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRDynamicArray: self
+! !
+
+IRInstruction subclass: #IRDynamicDictionary
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRDynamicDictionary methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRDynamicDictionary: self
 ! !
 
 IRInstruction subclass: #IRScopedInstruction
@@ -687,6 +706,14 @@ visitIRClosure: anIRClosure
 	^ self visitIRInstruction: anIRClosure
 !
 
+visitIRDynamicArray: anIRDynamicArray
+	^ self visitIRInstruction: anIRDynamicArray
+!
+
+visitIRDynamicDictionary: anIRDynamicDictionary
+	^ self visitIRInstruction: anIRDynamicDictionary
+!
+
 visitIRInstruction: anIRInstruction
 	anIRInstruction instructions do: [ :each | self visit: each ].
 	^ anIRInstruction
@@ -771,6 +798,22 @@ visitIRClosure: anIRClosure
 		arguments: anIRClosure arguments
 !
 
+visitIRDynamicArray: anIRDynamicArray
+	self stream nextPutAll: '['.
+	anIRDynamicArray instructions
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	stream nextPutAll: ']'
+!
+
+visitIRDynamicDictionary: anIRDynamicDictionary
+	self stream nextPutAll: 'smalltalk.HashedCollection._fromPairs_(['.
+		anIRDynamicDictionary instructions 
+			do: [ :each | self visit: each ]
+			separatedBy: [self stream nextPutAll: ',' ].
+	self stream nextPutAll: '])'
+!
+
 visitIRMethod: anIRMethod
 	self stream
 		nextPutMethodDeclaration: anIRMethod 
@@ -805,15 +848,15 @@ visitIRSend: anIRSend
 		do: [ :each | self visit: each ]
 		separatedBy: [ self stream nextPutAll: ',' ].
 	self stream nextPutAll: ']'.
-	anIRSend index > 1 
+	"anIRSend index > 1 
 		ifTrue: [
 			anIRSend classSend 
 				ifNil: [ self stream nextPutAll: ',undefined' ]
 				ifNotNil: [ self stream nextPutAll: ',', anIRSend classSend asJavascript ].
 			self stream nextPutAll: ',', anIRSend index asString ]
-		ifFalse: [
+		ifFalse: ["
 			anIRSend classSend ifNotNil: [  
-				self stream nextPutAll: ',', anIRSend classSend asJavascript ]].
+				self stream nextPutAll: ',', anIRSend classSend asJavascript ]"]".
 	self stream nextPutAll: ')'
 !
 

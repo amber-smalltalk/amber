@@ -2,6 +2,8 @@ Smalltalk current createPackage: 'Compiler-Inlining' properties: #{}!
 IRAssignment subclass: #IRInlinedAssignment
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedAssignment commentStamp!
+I represent an inlined assignment instruction.!
 
 !IRInlinedAssignment methodsFor: 'testing'!
 
@@ -18,6 +20,8 @@ accept: aVisitor
 IRClosure subclass: #IRInlinedClosure
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedClosure commentStamp!
+I represent an inlined closure instruction.!
 
 !IRInlinedClosure methodsFor: 'testing'!
 
@@ -34,6 +38,8 @@ accept: aVisitor
 IRReturn subclass: #IRInlinedReturn
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedReturn commentStamp!
+I represent an inlined local return instruction.!
 
 !IRInlinedReturn methodsFor: 'testing'!
 
@@ -50,6 +56,8 @@ accept: aVisitor
 IRInlinedReturn subclass: #IRInlinedNonLocalReturn
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedNonLocalReturn commentStamp!
+I represent an inlined non local return instruction.!
 
 !IRInlinedNonLocalReturn methodsFor: 'testing'!
 
@@ -66,6 +74,8 @@ accept: aVisitor
 IRSend subclass: #IRInlinedSend
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedSend commentStamp!
+I am the abstract super class of inlined message send instructions.!
 
 !IRInlinedSend methodsFor: 'testing'!
 
@@ -102,6 +112,8 @@ accept: aVisitor
 IRBlockSequence subclass: #IRInlinedSequence
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedSequence commentStamp!
+I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`).!
 
 !IRInlinedSequence methodsFor: 'testing'!
 
@@ -156,6 +168,10 @@ accept: aVisitor
 IRVisitor subclass: #IRInliner
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInliner commentStamp!
+I visit an IR tree, inlining message sends and block closures.
+
+Message selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`!
 
 !IRInliner methodsFor: 'factory'!
 
@@ -205,6 +221,8 @@ shouldInlineSend: anIRSend
 !IRInliner methodsFor: 'visiting'!
 
 transformNonLocalReturn: anIRNonLocalReturn
+	"Replace a non local return into a local return"
+
 	| localReturn |
 	anIRNonLocalReturn scope canInlineNonLocalReturns ifTrue: [
 		anIRNonLocalReturn scope methodScope removeNonLocalReturn: anIRNonLocalReturn scope.
@@ -245,6 +263,8 @@ visitIRSend: anIRSend
 IRJSTranslator subclass: #IRInliningJSTranslator
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInliningJSTranslator commentStamp!
+I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance).!
 
 !IRInliningJSTranslator methodsFor: 'visiting'!
 
@@ -434,7 +454,7 @@ inlineClosure: anIRClosure
 
 inlineSend: anIRSend
 	self send: anIRSend.
-	self perform: self send selector withArguments: self send instructions allButFirst
+	^ self perform: self send selector withArguments: self send instructions allButFirst
 ! !
 
 !IRSendInliner class methodsFor: 'accessing'!
@@ -453,6 +473,20 @@ shouldInline: anIRInstruction
 IRSendInliner subclass: #IRAssignmentInliner
 	instanceVariableNames: 'assignment'
 	package: 'Compiler-Inlining'!
+!IRAssignmentInliner commentStamp!
+I inline message sends together with assignments by moving them around into the inline closure instructions. 
+
+##Example
+
+	foo
+		| a |
+		a := true ifTrue: [ 1 ]
+
+Will produce:
+
+	if(smalltalk.assert(true) {
+		a = 1;
+	};!
 
 !IRAssignmentInliner methodsFor: 'accessing'!
 
@@ -488,6 +522,8 @@ inlineAssignment: anIRAssignment
 IRSendInliner subclass: #IRReturnInliner
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRReturnInliner commentStamp!
+I inline message sends with inlined closure together with a return instruction.!
 
 !IRReturnInliner methodsFor: 'factory'!
 
@@ -528,6 +564,8 @@ inlinedSequence
 CodeGenerator subclass: #InliningCodeGenerator
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!InliningCodeGenerator commentStamp!
+I am a specialized code generator that uses inlining to produce more optimized JavaScript output!
 
 !InliningCodeGenerator methodsFor: 'compiling'!
 

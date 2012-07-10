@@ -335,11 +335,11 @@ function Smalltalk(){
 
 	/* Handles unhandled errors during message sends */
 
-	st.send = function(receiver, selector, args, klass, index) {
+	st.send = function(receiver, selector, args, klass) {
 		if(st.thisContext) {
-			return withContextSend(receiver, selector, args, klass, index);
+			return withContextSend(receiver, selector, args, klass);
 		} else {
-			try {return withContextSend(receiver, selector, args, klass, index)}
+			try {return withContextSend(receiver, selector, args, klass)}
 			catch(error) {
 				// Reset the context stack in any case
 				st.thisContext = undefined;
@@ -352,14 +352,14 @@ function Smalltalk(){
 		}
 	};
 
-	function withContextSend(receiver, selector, args, klass, index) {
+	function withContextSend(receiver, selector, args, klass) {
 		var call, method;
 		if(receiver == null) {
 			receiver = nil;
 		}
 		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(method) {
-			var context = pushContext(receiver, selector, method, args, index);
+			var context = pushContext(receiver, selector, method, args);
 			call = method.apply(receiver, args);
 			popContext(context);
 			return call;
@@ -442,10 +442,10 @@ function Smalltalk(){
 		}
 	};
 
-	function pushContext(receiver, selector, method, temps, index) {
+	function pushContext(receiver, selector, method, temps) {
 		var c = st.oldContext, tc = st.thisContext;
 		if (!c) {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, method, temps, index, tc);
+			return st.thisContext = new SmalltalkMethodContext(receiver, selector, method, temps, tc);
 		}
 		st.oldContext = null;
 		c.homeContext = tc;
@@ -453,7 +453,6 @@ function Smalltalk(){
 		c.receiver    = receiver;
         c.selector    = selector;
 		c.method      = method;
-        c.index       = index;
 		c.temps       = temps || {};
 		return st.thisContext = c;
 	};
@@ -524,12 +523,11 @@ function Smalltalk(){
     }
 };
 
-function SmalltalkMethodContext(receiver, selector, method, temps, index, home) {
+function SmalltalkMethodContext(receiver, selector, method, temps, home) {
 	this.receiver    = receiver;
     this.selector    = selector;
 	this.method      = method;
 	this.temps       = temps || {};
-    this.index       = index;
 	this.homeContext = home;
 
     this.resume = function() {
@@ -547,7 +545,6 @@ SmalltalkMethodContext.prototype.copy = function() {
         this.selector,
 		this.method, 
 		this.temps, 
-        this.index,
 		home
 	);
 };

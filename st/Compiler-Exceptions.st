@@ -2,10 +2,15 @@ Smalltalk current createPackage: 'Compiler-Exceptions' properties: #{}!
 Error subclass: #CompilerError
 	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!
+!CompilerError commentStamp!
+I am the common superclass of all compiling errors.!
 
 CompilerError subclass: #ParseError
 	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!
+!ParseError commentStamp!
+Instance of ParseError are signaled on any parsing error. 
+See `Smalltalk >> #parse:`!
 
 CompilerError subclass: #SemanticError
 	instanceVariableNames: ''
@@ -18,8 +23,10 @@ See my subclasses for concrete errors.
 The IDE should catch instances of Semantic error to deal with them when compiling!
 
 SemanticError subclass: #InliningError
-	instanceVariableNames: 'variableName'
+	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!
+!InliningError commentStamp!
+Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.!
 
 SemanticError subclass: #InvalidAssignmentError
 	instanceVariableNames: 'variableName'

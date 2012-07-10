@@ -8,7 +8,7 @@ smalltalk.addClass('ParseError', smalltalk.CompilerError, [], 'Compiler-Exceptio
 smalltalk.addClass('SemanticError', smalltalk.CompilerError, [], 'Compiler-Exceptions');
 
 
-smalltalk.addClass('InliningError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
+smalltalk.addClass('InliningError', smalltalk.SemanticError, [], 'Compiler-Exceptions');
 
 
 smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');

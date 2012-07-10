@@ -1,5 +1,6 @@
 smalltalk.addPackage('Compiler-Core', {});
 smalltalk.addClass('Compiler', smalltalk.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
+smalltalk.Compiler.comment="I provide the public interface for compiling Amber source code into JavaScript.\x0a\x0aThe code generator used to produce JavaScript can be plugged with `#codeGeneratorClass`. \x0aThe default code generator is an instance of `InlinedCodeGenerator`"
 smalltalk.addMethod(
 "_codeGeneratorClass",
 smalltalk.method({
@@ -375,9 +376,11 @@ smalltalk.Compiler.klass);
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler-Core');
+smalltalk.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`."
 
 
 smalltalk.addClass('NodeVisitor', smalltalk.Object, [], 'Compiler-Core');
+smalltalk.NodeVisitor.comment="I am the abstract super class of all AST node visitors."
 smalltalk.addMethod(
 "_visit_",
 smalltalk.method({
@@ -653,6 +656,7 @@ smalltalk.NodeVisitor);
 
 
 smalltalk.addClass('AbstractCodeGenerator', smalltalk.NodeVisitor, ['currentClass', 'source'], 'Compiler-Core');
+smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API."
 smalltalk.addMethod(
 "_classNameFor_",
 smalltalk.method({
@@ -784,6 +788,7 @@ smalltalk.AbstractCodeGenerator);
 
 
 smalltalk.addClass('CodeGenerator', smalltalk.AbstractCodeGenerator, [], 'Compiler-Core');
+smalltalk.CodeGenerator.comment="I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.\x0aSee `InliningCodeGenerator` for an optimized JavaScript code generation."
 smalltalk.addMethod(
 "_compileNode_",
 smalltalk.method({
