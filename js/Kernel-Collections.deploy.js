@@ -809,9 +809,9 @@ smalltalk.addMethod(
 "_printString",
 smalltalk.method({
 selector: "printString",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(anAssociation, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.HashedCollection);

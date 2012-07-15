@@ -475,9 +475,7 @@ printString
 		self associations
 			do: [:anAssociation|
 				aStream
-					nextPutAll: anAssociation key printString;
-					nextPutAll: ' -> ';
-					nextPutAll: anAssociation value printString]
+					nextPutAll: anAssociation printString]
 			separatedBy: [aStream nextPutAll: ' , '].
 		aStream nextPutAll: ')']
 !
