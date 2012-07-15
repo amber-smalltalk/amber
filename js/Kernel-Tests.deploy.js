@@ -65,6 +65,54 @@ smalltalk.ArrayTest);
 
 
 
+smalltalk.addClass('AssociationTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testEqualAssociations",
+smalltalk.method({
+selector: "testEqualAssociations",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var anotherAssociation=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+(anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+smalltalk.send(self, "_assert_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testNotEqualAssociations",
+smalltalk.method({
+selector: "testNotEqualAssociations",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var anotherAssociation=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+(anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY2", "VALUE2"]));
+smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(anAssociation, "__eq", [anotherAssociation]), "_not", [])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var returnString=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+(returnString=smalltalk.send(anAssociation, "_printString", []));
+smalltalk.send(self, "_assert_", [smalltalk.send("'KEY'->'VALUE'", "__eq", [returnString])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_testCompiledSource",

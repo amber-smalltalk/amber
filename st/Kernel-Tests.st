@@ -40,6 +40,39 @@ testPrintString
 	self assert: 'a Array (''foo'' 3 3)' equals: ( array printString ).
 ! !
 
+TestCase subclass: #AssociationTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AssociationTest methodsFor: 'tests'!
+
+testEqualAssociations
+	"Test if two equal Association objects compare to true"
+	| anAssociation anotherAssociation |
+	anAssociation := Association key: 'KEY' value: 'VALUE'.
+	anotherAssociation := Association key: 'KEY' value: 'VALUE'.
+
+	self assert: (anAssociation = anotherAssociation).
+!
+
+testNotEqualAssociations
+	"Test if two unequal Association objects compare to false"
+	| anAssociation anotherAssociation |
+	anAssociation := Association key: 'KEY' value: 'VALUE'.
+	anotherAssociation := Association key: 'KEY2' value: 'VALUE2'.
+
+	self assert: (anAssociation = anotherAssociation) not.
+!
+
+testPrintString
+	"Test if the output of the printString message is correct"
+	| anAssociation returnString |
+	anAssociation := Association key: 'KEY' value: 'VALUE'.
+	returnString := anAssociation printString.
+
+	self assert: ('''KEY''->''VALUE''' = returnString).
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
