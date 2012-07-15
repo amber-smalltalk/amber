@@ -27,16 +27,22 @@ value: aValue
 	^self class = anAssociation class and: [
 	    self key = anAssociation key and: [
 		self value = anAssociation value]]
+! !
+
+!Association methodsFor: 'printing'!
+
+printString
+	"print the contents of the Association into a string and return the string"
+	^String streamContents: [:aStream |
+		self storeOn: aStream]
 !
 
 storeOn: aStream
-	"Store in the format (key->value)"
+	"Store in the format: key->value"
 
-	"aStream nextPutAll: '('."
 	key storeOn: aStream.
 	aStream nextPutAll: '->'.
 	value storeOn: aStream.
-	"aStream nextPutAll: ')'"
 ! !
 
 !Association class methodsFor: 'instance creation'!

@@ -34,10 +34,21 @@ return self;}
 smalltalk.Association);
 
 smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return smalltalk.send(self, "_storeOn_", [aStream]);})]);
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
 "_storeOn_",
 smalltalk.method({
 selector: "storeOn:",
-fn: function (aStream) {
+fn: function (aStream){
 var self=this;
 smalltalk.send(self['@key'], "_storeOn_", [aStream]);
 smalltalk.send(aStream, "_nextPutAll_", ["->"]);

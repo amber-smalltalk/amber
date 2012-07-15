@@ -49,18 +49,34 @@ referencedClasses: []
 smalltalk.Association);
 
 smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return smalltalk.send(self, "_storeOn_", [aStream]);})]);
+return self;},
+args: [],
+source: "printString\x0a\x09\x22print the contents of the Association into a string and return the string\x22\x0a\x09^String streamContents: [:aStream |\x0a\x09\x09self storeOn: aStream]",
+messageSends: ["streamContents:", "storeOn:"],
+referencedClasses: ["String"]
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
 "_storeOn_",
 smalltalk.method({
 selector: "storeOn:",
-category: 'comparing',
-fn: function (aStream) {
+category: 'printing',
+fn: function (aStream){
 var self=this;
 smalltalk.send(self['@key'], "_storeOn_", [aStream]);
 smalltalk.send(aStream, "_nextPutAll_", ["->"]);
 smalltalk.send(self['@value'], "_storeOn_", [aStream]);
 return self;},
 args: ["aStream"],
-source: "storeOn: aStream\x0a\x09\x22Store in the format (key->value)\x22\x0a\x0a\x09\x22aStream nextPutAll: '('.\x22\x0a\x09key storeOn: aStream.\x0a\x09aStream nextPutAll: '->'.\x0a\x09value storeOn: aStream.\x0a\x09\x22aStream nextPutAll: ')'\x22",
+source: "storeOn: aStream\x0a\x09\x22Store in the format: key->value\x22\x0a\x0a\x09key storeOn: aStream.\x0a\x09aStream nextPutAll: '->'.\x0a\x09value storeOn: aStream.",
 messageSends: ["storeOn:", "nextPutAll:"],
 referencedClasses: []
 }),
