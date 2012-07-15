@@ -1026,6 +1026,11 @@ testJoin
 	self assert: 'hello,world' equals: (',' join: #('hello' 'world'))
 !
 
+testPrintString
+
+	self assert: '''test_string''' equals: 'test_string' printString.
+!
+
 testSize
 	self assert: 'smalltalk' size equals: 9.
 	self assert: '' size equals: 0

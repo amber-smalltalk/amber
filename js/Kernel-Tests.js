@@ -2106,6 +2106,22 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["'test_string'", smalltalk.send("test_string", "_printString", [])]);
+return self;},
+args: [],
+source: "testPrintString\x0a\x0a\x09self assert: '''test_string''' equals: 'test_string' printString.",
+messageSends: ["assert:equals:", "printString"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
 "_testSize",
 smalltalk.method({
 selector: "testSize",

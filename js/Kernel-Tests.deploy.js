@@ -1571,6 +1571,17 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["'test_string'", smalltalk.send("test_string", "_printString", [])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
 "_testSize",
 smalltalk.method({
 selector: "testSize",
