@@ -99,12 +99,12 @@ var value=nil;
 (key="KEY_STRING");
 (value="VALUE_STRING");
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", [key, value]));
-smalltalk.send(self, "_assert_", [smalltalk.send(key, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(value, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [key, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [value, smalltalk.send(anAssociation, "_value", [])]);
 return self;},
 args: [],
-source: "testClassCreation\x0a\x09\x22Test if Associatin object created via the class method contains correct values\x22\x0a\x09| anAssociation key value|\x0a\x09key := 'KEY_STRING'.\x0a\x09value := 'VALUE_STRING'.\x0a\x09anAssociation := Association key: key value: value.\x0a\x0a\x09self assert: (key = anAssociation key).\x0a\x09self assert: (value = anAssociation value).",
-messageSends: ["key:value:", "assert:", "=", "key", "value"],
+source: "testClassCreation\x0a\x09\x22Test if Associatin object created via the class method contains correct values\x22\x0a\x09| anAssociation key value|\x0a\x09key := 'KEY_STRING'.\x0a\x09value := 'VALUE_STRING'.\x0a\x09anAssociation := Association key: key value: value.\x0a\x0a\x09self assert: key equals: anAssociation key.\x0a\x09self assert: value equals: anAssociation value.",
+messageSends: ["key:value:", "assert:equals:", "key", "value"],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);
@@ -120,11 +120,11 @@ var anAssociation=nil;
 var anotherAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
-smalltalk.send(self, "_assert_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
+smalltalk.send(self, "_assert_equals_", [anAssociation, anotherAssociation]);
 return self;},
 args: [],
-source: "testEqualAssociations\x0a\x09\x22Test if two equal Association objects compare to true\x22\x0a\x09| anAssociation anotherAssociation |\x0a\x09anAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x09anotherAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x0a\x09self assert: (anAssociation = anotherAssociation).",
-messageSends: ["key:value:", "assert:", "="],
+source: "testEqualAssociations\x0a\x09\x22Test if two equal Association objects compare to true\x22\x0a\x09| anAssociation anotherAssociation |\x0a\x09anAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x09anotherAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x0a\x09self assert: anAssociation equals: anotherAssociation.",
+messageSends: ["key:value:", "assert:equals:"],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);
@@ -141,12 +141,12 @@ var key=nil;
 (key="KEY_STRING");
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
 smalltalk.send(anAssociation, "_key_", [key]);
-smalltalk.send(self, "_assert_", [smalltalk.send(key, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [key, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_value", [])]);
 return self;},
 args: [],
-source: "testKeyAccess\x0a\x09\x22Test getter and setter messages for Association keys\x22\x0a\x09| anAssociation key |\x0a\x09key := 'KEY_STRING'.\x0a\x09anAssociation := Association new.\x0a\x09anAssociation key: key.\x0a\x0a\x09self assert: (key = anAssociation key).\x0a\x09self assert: (nil = anAssociation value).",
-messageSends: ["new", "key:", "assert:", "=", "key", "value"],
+source: "testKeyAccess\x0a\x09\x22Test getter and setter messages for Association keys\x22\x0a\x09| anAssociation key |\x0a\x09key := 'KEY_STRING'.\x0a\x09anAssociation := Association new.\x0a\x0a\x09anAssociation key: key.\x0a\x0a\x09self assert: key equals: anAssociation key.\x0a\x09self assert: nil equals: anAssociation value.",
+messageSends: ["new", "key:", "assert:equals:", "key", "value"],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);
@@ -162,11 +162,11 @@ var anAssociation=nil;
 var anotherAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY2", "VALUE2"]));
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(anAssociation, "__eq", [anotherAssociation]), "_not", [])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
 return self;},
 args: [],
-source: "testNotEqualAssociations\x0a\x09\x22Test if two unequal Association objects compare to false\x22\x0a\x09| anAssociation anotherAssociation |\x0a\x09anAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x09anotherAssociation := Association key: 'KEY2' value: 'VALUE2'.\x0a\x0a\x09self assert: (anAssociation = anotherAssociation) not.",
-messageSends: ["key:value:", "assert:", "not", "="],
+source: "testNotEqualAssociations\x0a\x09\x22Test if two unequal Association objects compare to false\x22\x0a\x09| anAssociation anotherAssociation |\x0a\x09anAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x09anotherAssociation := Association key: 'KEY2' value: 'VALUE2'.\x0a\x0a\x09self deny: (anAssociation = anotherAssociation).",
+messageSends: ["key:value:", "deny:", "="],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);
@@ -182,11 +182,11 @@ var anAssociation=nil;
 var returnString=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (returnString=smalltalk.send(anAssociation, "_printString", []));
-smalltalk.send(self, "_assert_", [smalltalk.send("'KEY'->'VALUE'", "__eq", [returnString])]);
+smalltalk.send(self, "_assert_equals_", ["'KEY'->'VALUE'", returnString]);
 return self;},
 args: [],
-source: "testPrintString\x0a\x09\x22Test if the output of the printString message is correct\x22\x0a\x09| anAssociation returnString |\x0a\x09anAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x09returnString := anAssociation printString.\x0a\x0a\x09self assert: ('''KEY''->''VALUE''' = returnString).",
-messageSends: ["key:value:", "printString", "assert:", "="],
+source: "testPrintString\x0a\x09\x22Test if the output of the printString message is correct\x22\x0a\x09| anAssociation returnString |\x0a\x09anAssociation := Association key: 'KEY' value: 'VALUE'.\x0a\x09returnString := anAssociation printString.\x0a\x0a\x09self assert: '''KEY''->''VALUE''' equals: returnString.",
+messageSends: ["key:value:", "printString", "assert:equals:"],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);
@@ -200,12 +200,12 @@ fn: function (){
 var self=this;
 var anAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_value", [])]);
 return self;},
 args: [],
-source: "testUninitializedObject\x0a\x09\x22Test if uninitialized Associatin object contains correct values\x22\x0a\x09| anAssociation |\x0a\x09anAssociation := Association new.\x0a\x0a\x09self assert: (nil = anAssociation key).\x0a\x09self assert: (nil = anAssociation value).",
-messageSends: ["new", "assert:", "=", "key", "value"],
+source: "testUninitializedObject\x0a\x09\x22Test if uninitialized Associatin object contains correct values\x22\x0a\x09| anAssociation |\x0a\x09anAssociation := Association new.\x0a\x0a\x09self assert: nil equals: anAssociation key.\x0a\x09self assert: nil equals: anAssociation value.",
+messageSends: ["new", "assert:equals:", "key", "value"],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);
@@ -222,12 +222,12 @@ var value=nil;
 (value="VALUE_STRING");
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
 smalltalk.send(anAssociation, "_value_", [value]);
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(value, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [value, smalltalk.send(anAssociation, "_value", [])]);
 return self;},
 args: [],
-source: "testValueAccess\x0a\x09\x22Test getter and setter messages for Association values\x22\x0a\x09| anAssociation value |\x0a\x09value := 'VALUE_STRING'.\x0a\x09anAssociation := Association new.\x0a\x09anAssociation value: value.\x0a\x0a\x09self assert: (nil = anAssociation key).\x0a\x09self assert: (value = anAssociation value).",
-messageSends: ["new", "value:", "assert:", "=", "key", "value"],
+source: "testValueAccess\x0a\x09\x22Test getter and setter messages for Association values\x22\x0a\x09| anAssociation value |\x0a\x09value := 'VALUE_STRING'.\x0a\x09anAssociation := Association new.\x0a\x0a\x09anAssociation value: value.\x0a\x0a\x09self assert: nil equals: anAssociation key.\x0a\x09self assert: value equals: anAssociation value.",
+messageSends: ["new", "value:", "assert:equals:", "key", "value"],
 referencedClasses: ["Association"]
 }),
 smalltalk.AssociationTest);

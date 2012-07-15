@@ -78,8 +78,8 @@ var value=nil;
 (key="KEY_STRING");
 (value="VALUE_STRING");
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", [key, value]));
-smalltalk.send(self, "_assert_", [smalltalk.send(key, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(value, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [key, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [value, smalltalk.send(anAssociation, "_value", [])]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -94,7 +94,7 @@ var anAssociation=nil;
 var anotherAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
-smalltalk.send(self, "_assert_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
+smalltalk.send(self, "_assert_equals_", [anAssociation, anotherAssociation]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -110,8 +110,8 @@ var key=nil;
 (key="KEY_STRING");
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
 smalltalk.send(anAssociation, "_key_", [key]);
-smalltalk.send(self, "_assert_", [smalltalk.send(key, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [key, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_value", [])]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -126,7 +126,7 @@ var anAssociation=nil;
 var anotherAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY2", "VALUE2"]));
-smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(anAssociation, "__eq", [anotherAssociation]), "_not", [])]);
+smalltalk.send(self, "_deny_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -141,7 +141,7 @@ var anAssociation=nil;
 var returnString=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (returnString=smalltalk.send(anAssociation, "_printString", []));
-smalltalk.send(self, "_assert_", [smalltalk.send("'KEY'->'VALUE'", "__eq", [returnString])]);
+smalltalk.send(self, "_assert_equals_", ["'KEY'->'VALUE'", returnString]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -154,8 +154,8 @@ fn: function (){
 var self=this;
 var anAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_value", [])]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -171,8 +171,8 @@ var value=nil;
 (value="VALUE_STRING");
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
 smalltalk.send(anAssociation, "_value_", [value]);
-smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
-smalltalk.send(self, "_assert_", [smalltalk.send(value, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [value, smalltalk.send(anAssociation, "_value", [])]);
 return self;}
 }),
 smalltalk.AssociationTest);

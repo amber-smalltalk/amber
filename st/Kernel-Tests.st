@@ -53,8 +53,8 @@ testClassCreation
 	value := 'VALUE_STRING'.
 	anAssociation := Association key: key value: value.
 
-	self assert: (key = anAssociation key).
-	self assert: (value = anAssociation value).
+	self assert: key equals: anAssociation key.
+	self assert: value equals: anAssociation value.
 !
 
 testEqualAssociations
@@ -63,7 +63,7 @@ testEqualAssociations
 	anAssociation := Association key: 'KEY' value: 'VALUE'.
 	anotherAssociation := Association key: 'KEY' value: 'VALUE'.
 
-	self assert: (anAssociation = anotherAssociation).
+	self assert: anAssociation equals: anotherAssociation.
 !
 
 testKeyAccess
@@ -71,10 +71,11 @@ testKeyAccess
 	| anAssociation key |
 	key := 'KEY_STRING'.
 	anAssociation := Association new.
+
 	anAssociation key: key.
 
-	self assert: (key = anAssociation key).
-	self assert: (nil = anAssociation value).
+	self assert: key equals: anAssociation key.
+	self assert: nil equals: anAssociation value.
 !
 
 testNotEqualAssociations
@@ -83,7 +84,7 @@ testNotEqualAssociations
 	anAssociation := Association key: 'KEY' value: 'VALUE'.
 	anotherAssociation := Association key: 'KEY2' value: 'VALUE2'.
 
-	self assert: (anAssociation = anotherAssociation) not.
+	self deny: (anAssociation = anotherAssociation).
 !
 
 testPrintString
@@ -92,7 +93,7 @@ testPrintString
 	anAssociation := Association key: 'KEY' value: 'VALUE'.
 	returnString := anAssociation printString.
 
-	self assert: ('''KEY''->''VALUE''' = returnString).
+	self assert: '''KEY''->''VALUE''' equals: returnString.
 !
 
 testUninitializedObject
@@ -100,8 +101,8 @@ testUninitializedObject
 	| anAssociation |
 	anAssociation := Association new.
 
-	self assert: (nil = anAssociation key).
-	self assert: (nil = anAssociation value).
+	self assert: nil equals: anAssociation key.
+	self assert: nil equals: anAssociation value.
 !
 
 testValueAccess
@@ -109,10 +110,11 @@ testValueAccess
 	| anAssociation value |
 	value := 'VALUE_STRING'.
 	anAssociation := Association new.
+
 	anAssociation value: value.
 
-	self assert: (nil = anAssociation key).
-	self assert: (value = anAssociation value).
+	self assert: nil equals: anAssociation key.
+	self assert: value equals: anAssociation value.
 ! !
 
 TestCase subclass: #BlockClosureTest
