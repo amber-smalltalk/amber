@@ -67,6 +67,24 @@ smalltalk.ArrayTest);
 
 smalltalk.addClass('AssociationTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
+"_testClassCreation",
+smalltalk.method({
+selector: "testClassCreation",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var key=nil;
+var value=nil;
+(key="KEY_STRING");
+(value="VALUE_STRING");
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", [key, value]));
+smalltalk.send(self, "_assert_", [smalltalk.send(key, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(value, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
 "_testEqualAssociations",
 smalltalk.method({
 selector: "testEqualAssociations",
@@ -77,6 +95,23 @@ var anotherAssociation=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 smalltalk.send(self, "_assert_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testKeyAccess",
+smalltalk.method({
+selector: "testKeyAccess",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var key=nil;
+(key="KEY_STRING");
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
+smalltalk.send(anAssociation, "_key_", [key]);
+smalltalk.send(self, "_assert_", [smalltalk.send(key, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
 return self;}
 }),
 smalltalk.AssociationTest);
@@ -107,6 +142,37 @@ var returnString=nil;
 (anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
 (returnString=smalltalk.send(anAssociation, "_printString", []));
 smalltalk.send(self, "_assert_", [smalltalk.send("'KEY'->'VALUE'", "__eq", [returnString])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testUninitializedObject",
+smalltalk.method({
+selector: "testUninitializedObject",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
+smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testValueAccess",
+smalltalk.method({
+selector: "testValueAccess",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var value=nil;
+(value="VALUE_STRING");
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
+smalltalk.send(anAssociation, "_value_", [value]);
+smalltalk.send(self, "_assert_", [smalltalk.send(nil, "__eq", [smalltalk.send(anAssociation, "_key", [])])]);
+smalltalk.send(self, "_assert_", [smalltalk.send(value, "__eq", [smalltalk.send(anAssociation, "_value", [])])]);
 return self;}
 }),
 smalltalk.AssociationTest);

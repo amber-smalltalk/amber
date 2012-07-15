@@ -46,6 +46,17 @@ TestCase subclass: #AssociationTest
 
 !AssociationTest methodsFor: 'tests'!
 
+testClassCreation
+	"Test if Associatin object created via the class method contains correct values"
+	| anAssociation key value|
+	key := 'KEY_STRING'.
+	value := 'VALUE_STRING'.
+	anAssociation := Association key: key value: value.
+
+	self assert: (key = anAssociation key).
+	self assert: (value = anAssociation value).
+!
+
 testEqualAssociations
 	"Test if two equal Association objects compare to true"
 	| anAssociation anotherAssociation |
@@ -53,6 +64,17 @@ testEqualAssociations
 	anotherAssociation := Association key: 'KEY' value: 'VALUE'.
 
 	self assert: (anAssociation = anotherAssociation).
+!
+
+testKeyAccess
+	"Test getter and setter messages for Association keys"
+	| anAssociation key |
+	key := 'KEY_STRING'.
+	anAssociation := Association new.
+	anAssociation key: key.
+
+	self assert: (key = anAssociation key).
+	self assert: (nil = anAssociation value).
 !
 
 testNotEqualAssociations
@@ -71,6 +93,26 @@ testPrintString
 	returnString := anAssociation printString.
 
 	self assert: ('''KEY''->''VALUE''' = returnString).
+!
+
+testUninitializedObject
+	"Test if uninitialized Associatin object contains correct values"
+	| anAssociation |
+	anAssociation := Association new.
+
+	self assert: (nil = anAssociation key).
+	self assert: (nil = anAssociation value).
+!
+
+testValueAccess
+	"Test getter and setter messages for Association values"
+	| anAssociation value |
+	value := 'VALUE_STRING'.
+	anAssociation := Association new.
+	anAssociation value: value.
+
+	self assert: (nil = anAssociation key).
+	self assert: (value = anAssociation value).
 ! !
 
 TestCase subclass: #BlockClosureTest
