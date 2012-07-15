@@ -1728,6 +1728,17 @@ return self;}
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["#symbol", smalltalk.send(smalltalk.symbolFor("symbol"), "_printString", [])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
 "_testSize",
 smalltalk.method({
 selector: "testSize",

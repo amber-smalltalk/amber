@@ -1114,6 +1114,11 @@ testIsSymbolIsString
 	self assert: 'hello' isString
 !
 
+testPrintString
+
+	self assert: '#symbol' equals: #symbol printString.
+!
+
 testSize
 	self assert: #a size equals: 1.
 	self assert: #aaaaa size equals: 5

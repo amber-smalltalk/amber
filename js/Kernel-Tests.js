@@ -2323,6 +2323,22 @@ referencedClasses: []
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["#symbol", smalltalk.send(smalltalk.symbolFor("symbol"), "_printString", [])]);
+return self;},
+args: [],
+source: "testPrintString\x0a\x0a\x09self assert: '#symbol' equals: #symbol printString.",
+messageSends: ["assert:equals:", "printString"],
+referencedClasses: []
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
 "_testSize",
 smalltalk.method({
 selector: "testSize",
