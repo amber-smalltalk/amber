@@ -844,6 +844,31 @@ smalltalk.DictionaryTest);
 
 
 
+smalltalk.addClass('HashedCollectionTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+category: 'tests',
+fn: function (){
+var self=this;
+var aHashedCollection=nil;
+(aHashedCollection=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection()", smalltalk.send(aHashedCollection, "_printString", [])]);
+smalltalk.send(aHashedCollection, "_at_put_", ["key1", (1)]);
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection('key1'->1)", smalltalk.send(aHashedCollection, "_printString", [])]);
+smalltalk.send(aHashedCollection, "_at_put_", ["key2", (2)]);
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection('key1'->1 , 'key2'->2)", smalltalk.send(aHashedCollection, "_printString", [])]);
+return self;},
+args: [],
+source: "testPrintString\x0a\x09\x22test if the printString message returns the correct string representation\x22\x0a\x09| aHashedCollection |\x0a\x09aHashedCollection := HashedCollection new.\x0a\x09self assert: 'a HashedCollection()' equals: aHashedCollection printString.\x0a\x0a\x09aHashedCollection at: 'key1' put: 1.\x0a\x09self assert: 'a HashedCollection(''key1''->1)' equals: aHashedCollection printString.\x0a\x0a\x09aHashedCollection at: 'key2' put: 2.\x0a\x09self assert: 'a HashedCollection(''key1''->1 , ''key2''->2)' equals: aHashedCollection printString.",
+messageSends: ["new", "assert:equals:", "printString", "at:put:"],
+referencedClasses: ["HashedCollection"]
+}),
+smalltalk.HashedCollectionTest);
+
+
+
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_jsObject",

@@ -461,6 +461,25 @@ testValues
 	self assert: d values = #(2 3 4)
 ! !
 
+TestCase subclass: #HashedCollectionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!HashedCollectionTest methodsFor: 'tests'!
+
+testPrintString
+	"test if the printString message returns the correct string representation"
+	| aHashedCollection |
+	aHashedCollection := HashedCollection new.
+	self assert: 'a HashedCollection()' equals: aHashedCollection printString.
+
+	aHashedCollection at: 'key1' put: 1.
+	self assert: 'a HashedCollection(''key1''->1)' equals: aHashedCollection printString.
+
+	aHashedCollection at: 'key2' put: 2.
+	self assert: 'a HashedCollection(''key1''->1 , ''key2''->2)' equals: aHashedCollection printString.
+! !
+
 TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

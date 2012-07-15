@@ -644,6 +644,26 @@ smalltalk.DictionaryTest);
 
 
 
+smalltalk.addClass('HashedCollectionTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+var aHashedCollection=nil;
+(aHashedCollection=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection()", smalltalk.send(aHashedCollection, "_printString", [])]);
+smalltalk.send(aHashedCollection, "_at_put_", ["key1", (1)]);
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection('key1'->1)", smalltalk.send(aHashedCollection, "_printString", [])]);
+smalltalk.send(aHashedCollection, "_at_put_", ["key2", (2)]);
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection('key1'->1 , 'key2'->2)", smalltalk.send(aHashedCollection, "_printString", [])]);
+return self;}
+}),
+smalltalk.HashedCollectionTest);
+
+
+
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_jsObject",
