@@ -99,6 +99,16 @@ accept: aVisitor
 	aVisitor visitIRInlinedIfFalse: self
 ! !
 
+IRInlinedSend subclass: #IRInlinedIfNil
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRInlinedIfNil methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRInlinedIfNil: self
+! !
+
 IRInlinedSend subclass: #IRInlinedIfTrue
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
@@ -107,6 +117,16 @@ IRInlinedSend subclass: #IRInlinedIfTrue
 
 accept: aVisitor
 	aVisitor visitIRInlinedIfTrue: self
+! !
+
+IRInlinedSend subclass: #IRInlinedIfTrueIfFalse
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRInlinedIfTrueIfFalse methodsFor: 'visiting'!
+
+accept: aVisitor
+	aVisitor visitIRInlinedIfTrueIfFalse: self
 ! !
 
 IRBlockSequence subclass: #IRInlinedSequence
@@ -300,12 +320,30 @@ visitIRInlinedIfFalse: anIRInlinedIfFalse
 		with: [ self visit: anIRInlinedIfFalse instructions last ]
 !
 
+visitIRInlinedIfNil: anIRInlinedIfNil
+	self stream nextPutIf: [ 
+		self stream nextPutAll: '($receiver = '. 
+		self visit: anIRInlinedIfNil instructions first.
+		self stream nextPutAll: ') == nil || $receiver == undefined' ]
+		with: [ self visit: anIRInlinedIfNil instructions last ]
+!
+
 visitIRInlinedIfTrue: anIRInlinedIfTrue
 	self stream nextPutIf: [ 
 		self stream nextPutAll: 'smalltalk.assert('. 
 		self visit: anIRInlinedIfTrue instructions first.
 		self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrue instructions last ]
+!
+
+visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse
+	self stream 
+		nextPutIfElse: [ 
+			self stream nextPutAll: 'smalltalk.assert('. 
+			self visit: anIRInlinedIfTrueIfFalse instructions first.
+			self stream nextPutAll: ')' ]
+		with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]
+		with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]
 !
 
 visitIRInlinedNonLocalReturn: anIRInlinedReturn
@@ -392,37 +430,23 @@ inlinedSequence
 !IRSendInliner methodsFor: 'inlining'!
 
 ifFalse: anIRInstruction
-	| inlinedSend inlinedClosure |
+	^ self inlinedSend: IRInlinedIfFalse new with: anIRInstruction
+!
 
-	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
-	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
+ifFalse: anIRInstruction ifTrue: anotherIRInstruction
+	^ self perform: #ifTrue:ifFalse: withArguments: { anotherIRInstruction. anIRInstruction }
+!
 
-	inlinedClosure := self inlineClosure: anIRInstruction.
-
-	inlinedSend := IRInlinedIfFalse new.
-	inlinedSend
-		add: self send instructions first;
-		add: inlinedClosure.
-
-	self send replaceWith: inlinedSend.
-	^ inlinedSend
+ifNil: anIRInstruction
+	^ self inlinedSend: IRInlinedIfNil new with: anIRInstruction
 !
 
 ifTrue: anIRInstruction
-	| inlinedSend inlinedClosure |
+	^ self inlinedSend: IRInlinedIfTrue new with: anIRInstruction
+!
 
-	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
-	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
-
-	inlinedClosure := self inlineClosure: anIRInstruction.
-
-	inlinedSend := IRInlinedIfTrue new.
-	inlinedSend
-		add: self send instructions first;
-		add: inlinedClosure.
-
-	self send replaceWith: inlinedSend.
-	^ inlinedSend
+ifTrue: anIRInstruction ifFalse: anotherIRInstruction
+	^ self inlinedSend: IRInlinedIfTrueIfFalse new with: anIRInstruction with: anotherIRInstruction
 !
 
 inlineClosure: anIRClosure
@@ -452,15 +476,69 @@ inlineClosure: anIRClosure
 	^ inlinedClosure
 !
 
+inlineMessageBlock: anIRInstruction with: anotherIRInstruction
+	| inlinedSend inlinedClosure |
+
+	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
+	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
+
+	inlinedClosure := self inlineClosure: anIRInstruction.
+
+	inlinedSend := anotherIRInstruction.
+	inlinedSend
+		add: self send instructions first;
+		add: inlinedClosure.
+
+	self send replaceWith: inlinedSend.
+	^ inlinedSend
+!
+
 inlineSend: anIRSend
 	self send: anIRSend.
 	^ self perform: self send selector withArguments: self send instructions allButFirst
+!
+
+inlinedSend: inlinedSend with: anIRInstruction
+	| inlinedClosure |
+
+	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
+	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
+
+	inlinedClosure := self inlineClosure: anIRInstruction.
+
+	inlinedSend
+		add: self send instructions first;
+		add: inlinedClosure.
+
+	self send replaceWith: inlinedSend.
+	^ inlinedSend
+!
+
+inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
+	| inlinedClosure1 inclinedClosure2 |
+
+	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
+	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
+
+	anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
+	anotherIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
+
+	inlinedClosure := self inlineClosure: anIRInstruction.
+	inlinedClosure2 := self inlineClosure: anotherIRInstruction.
+
+	inlinedSend
+		add: self send instructions first;
+		add: inlinedClosure;
+		add: inlinedClosure2.
+
+	self send replaceWith: inlinedSend.
+	^ inlinedSend
 ! !
 
 !IRSendInliner class methodsFor: 'accessing'!
 
 inlinedSelectors
-	^ #('ifTrue:' 'ifFalse:')
+	^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:')
 !
 
 shouldInline: anIRInstruction

@@ -6,12 +6,20 @@ smalltalk.method({
 selector: "alias:",
 fn: function (aNode) {
 var self=this;
-var variable=nil;
-(variable=(function($rec){smalltalk.send($rec, "_variable_", [smalltalk.send(smalltalk.send((smalltalk.AliasVar || AliasVar), "_new", []), "_name_", [smalltalk.send("$", "__comma", [smalltalk.send(self, "_nextAlias", [])])])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRVariable || IRVariable), "_new", [])));
-smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [(function($rec){smalltalk.send($rec, "_add_", [variable]);smalltalk.send($rec, "_add_", [smalltalk.send(self, "_visit_", [aNode])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRAssignment || IRAssignment), "_new", []))]);
-smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_internalVariables", []), "_add_", [variable]);
+var $1,$2,$3,$4;
+var variable;
+$1=smalltalk.send((smalltalk.IRVariable || IRVariable),"_new",[]);
+smalltalk.send($1,"_variable_",[smalltalk.send(smalltalk.send((smalltalk.AliasVar || AliasVar),"_new",[]),"_name_",[smalltalk.send("$","__comma",[smalltalk.send(self,"_nextAlias",[])])])]);
+$2=smalltalk.send($1,"_yourself",[]);
+variable=$2;
+$3=smalltalk.send((smalltalk.IRAssignment || IRAssignment),"_new",[]);
+smalltalk.send($3,"_add_",[variable]);
+smalltalk.send($3,"_add_",[smalltalk.send(self,"_visit_",[aNode])]);
+$4=smalltalk.send($3,"_yourself",[]);
+smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[$4]);
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_method",[]),"_internalVariables",[]),"_add_",[variable]);
 return variable;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -21,8 +29,8 @@ smalltalk.method({
 selector: "method",
 fn: function () {
 var self=this;
-return self['@method'];
-return self;}
+return self["@method"];
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -32,7 +40,7 @@ smalltalk.method({
 selector: "method:",
 fn: function (anIRMethod) {
 var self=this;
-(self['@method']=anIRMethod);
+self["@method"]=anIRMethod;
 return self;}
 }),
 smalltalk.IRASTTranslator);
@@ -43,10 +51,13 @@ smalltalk.method({
 selector: "nextAlias",
 fn: function () {
 var self=this;
-(($receiver = self['@nextAlias']) == nil || $receiver == undefined) ? (function(){return (self['@nextAlias']=(0));})() : $receiver;
-(self['@nextAlias']=((($receiver = self['@nextAlias']).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])));
-return smalltalk.send(self['@nextAlias'], "_asString", []);
-return self;}
+smalltalk.send(self["@nextAlias"],"_ifNil_",[(function(){
+self["@nextAlias"]=(0);
+return self["@nextAlias"];
+})]);
+self["@nextAlias"]=smalltalk.send(self["@nextAlias"],"__plus",[(1)]);
+return smalltalk.send(self["@nextAlias"],"_asString",[]);
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -56,8 +67,8 @@ smalltalk.method({
 selector: "sequence",
 fn: function () {
 var self=this;
-return self['@sequence'];
-return self;}
+return self["@sequence"];
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -67,7 +78,7 @@ smalltalk.method({
 selector: "sequence:",
 fn: function (anIRSequence) {
 var self=this;
-(self['@sequence']=anIRSequence);
+self["@sequence"]=anIRSequence;
 return self;}
 }),
 smalltalk.IRASTTranslator);
@@ -78,8 +89,8 @@ smalltalk.method({
 selector: "source",
 fn: function () {
 var self=this;
-return self['@source'];
-return self;}
+return self["@source"];
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -89,7 +100,7 @@ smalltalk.method({
 selector: "source:",
 fn: function (aString) {
 var self=this;
-(self['@source']=aString);
+self["@source"]=aString;
 return self;}
 }),
 smalltalk.IRASTTranslator);
@@ -100,8 +111,8 @@ smalltalk.method({
 selector: "theClass",
 fn: function () {
 var self=this;
-return self['@theClass'];
-return self;}
+return self["@theClass"];
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -111,7 +122,7 @@ smalltalk.method({
 selector: "theClass:",
 fn: function (aClass) {
 var self=this;
-(self['@theClass']=aClass);
+self["@theClass"]=aClass;
 return self;}
 }),
 smalltalk.IRASTTranslator);
@@ -122,14 +133,19 @@ smalltalk.method({
 selector: "visitAssignmentNode:",
 fn: function (aNode) {
 var self=this;
-var left=nil;
-var right=nil;
-var assignment=nil;
-(right=smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_right", [])]));
-(left=smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_left", [])]));
-smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [(function($rec){smalltalk.send($rec, "_add_", [left]);smalltalk.send($rec, "_add_", [right]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRAssignment || IRAssignment), "_new", []))]);
+var $1,$2;
+var left;
+var right;
+var assignment;
+right=smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_right",[])]);
+left=smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_left",[])]);
+$1=smalltalk.send((smalltalk.IRAssignment || IRAssignment),"_new",[]);
+smalltalk.send($1,"_add_",[left]);
+smalltalk.send($1,"_add_",[right]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[$2]);
 return left;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -139,12 +155,24 @@ smalltalk.method({
 selector: "visitBlockNode:",
 fn: function (aNode) {
 var self=this;
-var closure=nil;
-(closure=(function($rec){smalltalk.send($rec, "_arguments_", [smalltalk.send(aNode, "_parameters", [])]);smalltalk.send($rec, "_scope_", [smalltalk.send(aNode, "_scope", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRClosure || IRClosure), "_new", [])));
-smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_temps", []), "_do_", [(function(each){return smalltalk.send(closure, "_add_", [(function($rec){smalltalk.send($rec, "_name_", [smalltalk.send(each, "_name", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRTempDeclaration || IRTempDeclaration), "_new", []))]);})]);
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(closure, "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);
+var $1,$2,$3,$4;
+var closure;
+$1=smalltalk.send((smalltalk.IRClosure || IRClosure),"_new",[]);
+smalltalk.send($1,"_arguments_",[smalltalk.send(aNode,"_parameters",[])]);
+smalltalk.send($1,"_scope_",[smalltalk.send(aNode,"_scope",[])]);
+$2=smalltalk.send($1,"_yourself",[]);
+closure=$2;
+smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_scope",[]),"_temps",[]),"_do_",[(function(each){
+$3=smalltalk.send((smalltalk.IRTempDeclaration || IRTempDeclaration),"_new",[]);
+smalltalk.send($3,"_name_",[smalltalk.send(each,"_name",[])]);
+$4=smalltalk.send($3,"_yourself",[]);
+return smalltalk.send(closure,"_add_",[$4]);
+})]);
+smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+return smalltalk.send(closure,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
 return closure;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -154,8 +182,23 @@ smalltalk.method({
 selector: "visitBlockSequenceNode:",
 fn: function (aNode) {
 var self=this;
-return smalltalk.send(self, "_withSequence_do_", [smalltalk.send((smalltalk.IRBlockSequence || IRBlockSequence), "_new", []), (function(){return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_ifNotEmpty_", [(function(){smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_allButLast", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);return ((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", []), "_isReturnNode", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [(function($rec){smalltalk.send($rec, "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []))]);})() : (function(){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [(function($rec){smalltalk.send($rec, "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []))]);}), (function(){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);})]));})]);})]);
-return self;}
+var $1,$2;
+return smalltalk.send(self,"_withSequence_do_",[smalltalk.send((smalltalk.IRBlockSequence || IRBlockSequence),"_new",[]),(function(){
+return smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_ifNotEmpty_",[(function(){
+smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_allButLast",[]),"_do_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_last",[]),"_isReturnNode",[]),"_ifFalse_ifTrue_",[(function(){
+$1=smalltalk.send((smalltalk.IRReturn || IRReturn),"_new",[]);
+smalltalk.send($1,"_add_",[smalltalk.send(self,"_visit_",[smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_last",[])])]);
+$2=smalltalk.send($1,"_yourself",[]);
+return smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[$2]);
+}),(function(){
+return smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[smalltalk.send(self,"_visit_",[smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_last",[])])]);
+})]);
+})]);
+})]);
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -165,11 +208,19 @@ smalltalk.method({
 selector: "visitCascadeNode:",
 fn: function (aNode) {
 var self=this;
-var alias=nil;
-((($receiver = smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_isValueNode", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){(alias=smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]));return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_receiver_", [smalltalk.send(smalltalk.send((smalltalk.VariableNode || VariableNode), "_new", []), "_binding_", [smalltalk.send(alias, "_variable", [])])]);})]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){(alias=smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]));return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(each, "_receiver_", [smalltalk.send(smalltalk.send((smalltalk.VariableNode || VariableNode), "_new", []), "_binding_", [smalltalk.send(alias, "_variable", [])])]);})]);})]));
-smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_allButLast", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);
-return smalltalk.send(self, "_alias_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])]);
-return self;}
+var alias;
+if(! smalltalk.assert(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_isValueNode",[]))){
+alias=smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
+alias;
+smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+return smalltalk.send(each,"_receiver_",[smalltalk.send(smalltalk.send((smalltalk.VariableNode || VariableNode),"_new",[]),"_binding_",[smalltalk.send(alias,"_variable",[])])]);
+})]);
+};
+smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_allButLast",[]),"_do_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
+return smalltalk.send(self,"_alias_",[smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_last",[])]);
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -179,11 +230,13 @@ smalltalk.method({
 selector: "visitDynamicArrayNode:",
 fn: function (aNode) {
 var self=this;
-var array=nil;
-(array=smalltalk.send((smalltalk.IRDynamicArray || IRDynamicArray), "_new", []));
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(array, "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);
+var array;
+array=smalltalk.send((smalltalk.IRDynamicArray || IRDynamicArray),"_new",[]);
+smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+return smalltalk.send(array,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
 return array;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -193,11 +246,13 @@ smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 fn: function (aNode) {
 var self=this;
-var dictionary=nil;
-(dictionary=smalltalk.send((smalltalk.IRDynamicDictionary || IRDynamicDictionary), "_new", []));
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(dictionary, "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);
+var dictionary;
+dictionary=smalltalk.send((smalltalk.IRDynamicDictionary || IRDynamicDictionary),"_new",[]);
+smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+return smalltalk.send(dictionary,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
 return dictionary;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -207,8 +262,12 @@ smalltalk.method({
 selector: "visitJSStatementNode:",
 fn: function (aNode) {
 var self=this;
-return (function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(aNode, "_source", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRVerbatim || IRVerbatim), "_new", []));
-return self;}
+var $1,$2;
+$1=smalltalk.send((smalltalk.IRVerbatim || IRVerbatim),"_new",[]);
+smalltalk.send($1,"_source_",[smalltalk.send(aNode,"_source",[])]);
+$2=smalltalk.send($1,"_yourself",[]);
+return $2;
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -218,12 +277,33 @@ smalltalk.method({
 selector: "visitMethodNode:",
 fn: function (aNode) {
 var self=this;
-smalltalk.send(self, "_method_", [(function($rec){smalltalk.send($rec, "_source_", [smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_arguments_", [smalltalk.send(aNode, "_arguments", [])]);smalltalk.send($rec, "_selector_", [smalltalk.send(aNode, "_selector", [])]);smalltalk.send($rec, "_messageSends_", [smalltalk.send(aNode, "_messageSends", [])]);smalltalk.send($rec, "_classReferences_", [smalltalk.send(aNode, "_classReferences", [])]);smalltalk.send($rec, "_scope_", [smalltalk.send(aNode, "_scope", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRMethod || IRMethod), "_new", []))]);
-smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_temps", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [(function($rec){smalltalk.send($rec, "_name_", [smalltalk.send(each, "_name", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRTempDeclaration || IRTempDeclaration), "_new", []))]);})]);
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);
-((($receiver = smalltalk.send(smalltalk.send(aNode, "_scope", []), "_hasLocalReturn", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", [])]), "_add_", [(function($rec){smalltalk.send($rec, "_variable_", [smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_pseudoVars", []), "_at_", ["self"])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRVariable || IRVariable), "_new", []))]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", [])]), "_add_", [(function($rec){smalltalk.send($rec, "_variable_", [smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_pseudoVars", []), "_at_", ["self"])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRVariable || IRVariable), "_new", []))]);})]));
-return smalltalk.send(self, "_method", []);
-return self;}
+var $1,$2,$3,$4,$5,$6;
+$1=smalltalk.send((smalltalk.IRMethod || IRMethod),"_new",[]);
+smalltalk.send($1,"_source_",[smalltalk.send(self,"_source",[])]);
+smalltalk.send($1,"_arguments_",[smalltalk.send(aNode,"_arguments",[])]);
+smalltalk.send($1,"_selector_",[smalltalk.send(aNode,"_selector",[])]);
+smalltalk.send($1,"_messageSends_",[smalltalk.send(aNode,"_messageSends",[])]);
+smalltalk.send($1,"_classReferences_",[smalltalk.send(aNode,"_classReferences",[])]);
+smalltalk.send($1,"_scope_",[smalltalk.send(aNode,"_scope",[])]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(self,"_method_",[$2]);
+smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_scope",[]),"_temps",[]),"_do_",[(function(each){
+$3=smalltalk.send((smalltalk.IRTempDeclaration || IRTempDeclaration),"_new",[]);
+smalltalk.send($3,"_name_",[smalltalk.send(each,"_name",[])]);
+$4=smalltalk.send($3,"_yourself",[]);
+return smalltalk.send(smalltalk.send(self,"_method",[]),"_add_",[$4]);
+})]);
+smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_method",[]),"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
+if(! smalltalk.assert(smalltalk.send(smalltalk.send(aNode,"_scope",[]),"_hasLocalReturn",[]))){
+$5=smalltalk.send((smalltalk.IRVariable || IRVariable),"_new",[]);
+smalltalk.send($5,"_variable_",[smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_scope",[]),"_pseudoVars",[]),"_at_",["self"])]);
+$6=smalltalk.send($5,"_yourself",[]);
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_method",[]),"_add_",[smalltalk.send((smalltalk.IRReturn || IRReturn),"_new",[])]),"_add_",[$6]);
+};
+return smalltalk.send(self,"_method",[]);
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -233,12 +313,18 @@ smalltalk.method({
 selector: "visitReturnNode:",
 fn: function (aNode) {
 var self=this;
-var return_=nil;
-(return_=((($receiver = smalltalk.send(aNode, "_nonLocalReturn", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);})() : (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);}), (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})])));
-smalltalk.send(return_, "_scope_", [smalltalk.send(aNode, "_scope", [])]);
-smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(return_, "_add_", [smalltalk.send(self, "_visit_", [each])]);})]);
+var return_;
+return_=smalltalk.send(smalltalk.send(aNode,"_nonLocalReturn",[]),"_ifTrue_ifFalse_",[(function(){
+return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn),"_new",[]);
+}),(function(){
+return smalltalk.send((smalltalk.IRReturn || IRReturn),"_new",[]);
+})]);
+smalltalk.send(return_,"_scope_",[smalltalk.send(aNode,"_scope",[])]);
+smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+return smalltalk.send(return_,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
 return return_;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -248,18 +334,34 @@ smalltalk.method({
 selector: "visitSendNode:",
 fn: function (aNode) {
 var self=this;
-var send=nil;
-var receiver=nil;
-var arguments=nil;
-(send=smalltalk.send((smalltalk.IRSend || IRSend), "_new", []));
-(function($rec){smalltalk.send($rec, "_selector_", [smalltalk.send(aNode, "_selector", [])]);return smalltalk.send($rec, "_index_", [smalltalk.send(aNode, "_index", [])]);})(send);
-((($receiver = smalltalk.send(aNode, "_superSend", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);})]));
-(receiver=((($receiver = smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeInlined", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);})() : (function(){return smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);}), (function(){return smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);})])));
-(arguments=smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_collect_", [(function(each){return ((($receiver = smalltalk.send(each, "_shouldBeInlined", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_alias_", [each]);})() : (function(){return smalltalk.send(self, "_visit_", [each]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_alias_", [each]);}), (function(){return smalltalk.send(self, "_visit_", [each]);})]));})]));
-smalltalk.send(send, "_add_", [receiver]);
-smalltalk.send(arguments, "_do_", [(function(each){return smalltalk.send(send, "_add_", [each]);})]);
+var $1;
+var send;
+var receiver;
+var arguments;
+send=smalltalk.send((smalltalk.IRSend || IRSend),"_new",[]);
+smalltalk.send(send,"_selector_",[smalltalk.send(aNode,"_selector",[])]);
+$1=smalltalk.send(send,"_index_",[smalltalk.send(aNode,"_index",[])]);
+if(smalltalk.assert(smalltalk.send(aNode,"_superSend",[]))){
+smalltalk.send(send,"_classSend_",[smalltalk.send(smalltalk.send(self,"_theClass",[]),"_superclass",[])]);
+};
+receiver=smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeInlined",[]),"_ifTrue_ifFalse_",[(function(){
+return smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
+}),(function(){
+return smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_receiver",[])]);
+})]);
+arguments=smalltalk.send(smalltalk.send(aNode,"_arguments",[]),"_collect_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_shouldBeInlined",[]),"_ifTrue_ifFalse_",[(function(){
+return smalltalk.send(self,"_alias_",[each]);
+}),(function(){
+return smalltalk.send(self,"_visit_",[each]);
+})]);
+})]);
+smalltalk.send(send,"_add_",[receiver]);
+smalltalk.send(arguments,"_do_",[(function(each){
+return smalltalk.send(send,"_add_",[each]);
+})]);
 return send;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -269,9 +371,17 @@ smalltalk.method({
 selector: "visitSequenceNode:",
 fn: function (aNode) {
 var self=this;
-return smalltalk.send(self, "_withSequence_do_", [smalltalk.send((smalltalk.IRSequence || IRSequence), "_new", []), (function(){return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){var instruction=nil;
-(instruction=smalltalk.send(self, "_visit_", [each]));return ((($receiver = smalltalk.send(instruction, "_isVariable", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [instruction]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [instruction]);})]));})]);})]);
-return self;}
+return smalltalk.send(self,"_withSequence_do_",[smalltalk.send((smalltalk.IRSequence || IRSequence),"_new",[]),(function(){
+return smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
+var instruction;
+instruction=smalltalk.send(self,"_visit_",[each]);
+instruction;
+if(! smalltalk.assert(smalltalk.send(instruction,"_isVariable",[]))){
+return smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[instruction]);
+};
+})]);
+})]);
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -281,8 +391,12 @@ smalltalk.method({
 selector: "visitValueNode:",
 fn: function (aNode) {
 var self=this;
-return (function($rec){smalltalk.send($rec, "_value_", [smalltalk.send(aNode, "_value", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRValue || IRValue), "_new", []));
-return self;}
+var $1,$2;
+$1=smalltalk.send((smalltalk.IRValue || IRValue),"_new",[]);
+smalltalk.send($1,"_value_",[smalltalk.send(aNode,"_value",[])]);
+$2=smalltalk.send($1,"_yourself",[]);
+return $2;
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -292,8 +406,12 @@ smalltalk.method({
 selector: "visitVariableNode:",
 fn: function (aNode) {
 var self=this;
-return (function($rec){smalltalk.send($rec, "_variable_", [smalltalk.send(aNode, "_binding", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRVariable || IRVariable), "_new", []));
-return self;}
+var $1,$2;
+$1=smalltalk.send((smalltalk.IRVariable || IRVariable),"_new",[]);
+smalltalk.send($1,"_variable_",[smalltalk.send(aNode,"_binding",[])]);
+$2=smalltalk.send($1,"_yourself",[]);
+return $2;
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -303,13 +421,13 @@ smalltalk.method({
 selector: "withSequence:do:",
 fn: function (aSequence, aBlock) {
 var self=this;
-var outerSequence=nil;
-(outerSequence=smalltalk.send(self, "_sequence", []));
-smalltalk.send(self, "_sequence_", [aSequence]);
-smalltalk.send(aBlock, "_value", []);
-smalltalk.send(self, "_sequence_", [outerSequence]);
+var outerSequence;
+outerSequence=smalltalk.send(self,"_sequence",[]);
+smalltalk.send(self,"_sequence_",[aSequence]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self,"_sequence_",[outerSequence]);
 return aSequence;
-return self;}
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -322,8 +440,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRInstruction_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRInstruction_",[self]);
+}
 }),
 smalltalk.IRInstruction);
 
@@ -333,9 +451,9 @@ smalltalk.method({
 selector: "add:",
 fn: function (anObject) {
 var self=this;
-smalltalk.send(anObject, "_parent_", [self]);
-return smalltalk.send(smalltalk.send(self, "_instructions", []), "_add_", [anObject]);
-return self;}
+smalltalk.send(anObject,"_parent_",[self]);
+return smalltalk.send(smalltalk.send(self,"_instructions",[]),"_add_",[anObject]);
+}
 }),
 smalltalk.IRInstruction);
 
@@ -346,7 +464,7 @@ selector: "canBeAssigned",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -356,8 +474,11 @@ smalltalk.method({
 selector: "instructions",
 fn: function () {
 var self=this;
-return (($receiver = self['@instructions']) == nil || $receiver == undefined) ? (function(){return (self['@instructions']=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection), "_new", []));})() : $receiver;
-return self;}
+return smalltalk.send(self["@instructions"],"_ifNil_",[(function(){
+self["@instructions"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+return self["@instructions"];
+})]);
+}
 }),
 smalltalk.IRInstruction);
 
@@ -368,7 +489,7 @@ selector: "isClosure",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -379,7 +500,7 @@ selector: "isInlined",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -390,7 +511,7 @@ selector: "isLocalReturn",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -401,7 +522,7 @@ selector: "isReturn",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -412,7 +533,7 @@ selector: "isSend",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -423,7 +544,7 @@ selector: "isSequence",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -434,7 +555,7 @@ selector: "isTempDeclaration",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -445,7 +566,7 @@ selector: "isVariable",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRInstruction);
 
@@ -455,8 +576,8 @@ smalltalk.method({
 selector: "parent",
 fn: function () {
 var self=this;
-return self['@parent'];
-return self;}
+return self["@parent"];
+}
 }),
 smalltalk.IRInstruction);
 
@@ -466,7 +587,7 @@ smalltalk.method({
 selector: "parent:",
 fn: function (anIRInstruction) {
 var self=this;
-(self['@parent']=anIRInstruction);
+self["@parent"]=anIRInstruction;
 return self;}
 }),
 smalltalk.IRInstruction);
@@ -477,7 +598,7 @@ smalltalk.method({
 selector: "remove",
 fn: function () {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_parent", []), "_remove_", [self]);
+smalltalk.send(smalltalk.send(self,"_parent",[]),"_remove_",[self]);
 return self;}
 }),
 smalltalk.IRInstruction);
@@ -488,7 +609,7 @@ smalltalk.method({
 selector: "remove:",
 fn: function (anIRInstruction) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_instructions", []), "_remove_", [anIRInstruction]);
+smalltalk.send(smalltalk.send(self,"_instructions",[]),"_remove_",[anIRInstruction]);
 return self;}
 }),
 smalltalk.IRInstruction);
@@ -499,8 +620,8 @@ smalltalk.method({
 selector: "replace:with:",
 fn: function (anIRInstruction, anotherIRInstruction) {
 var self=this;
-smalltalk.send(anotherIRInstruction, "_parent_", [self]);
-smalltalk.send(smalltalk.send(self, "_instructions", []), "_at_put_", [smalltalk.send(smalltalk.send(self, "_instructions", []), "_indexOf_", [anIRInstruction]), anotherIRInstruction]);
+smalltalk.send(anotherIRInstruction,"_parent_",[self]);
+smalltalk.send(smalltalk.send(self,"_instructions",[]),"_at_put_",[smalltalk.send(smalltalk.send(self,"_instructions",[]),"_indexOf_",[anIRInstruction]),anotherIRInstruction]);
 return self;}
 }),
 smalltalk.IRInstruction);
@@ -511,7 +632,7 @@ smalltalk.method({
 selector: "replaceWith:",
 fn: function (anIRInstruction) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_parent", []), "_replace_with_", [self, anIRInstruction]);
+smalltalk.send(smalltalk.send(self,"_parent",[]),"_replace_with_",[self,anIRInstruction]);
 return self;}
 }),
 smalltalk.IRInstruction);
@@ -523,8 +644,12 @@ smalltalk.method({
 selector: "on:",
 fn: function (aBuilder) {
 var self=this;
-return (function($rec){smalltalk.send($rec, "_builder_", [aBuilder]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send(self, "_new", []));
-return self;}
+var $1,$2;
+$1=smalltalk.send(self,"_new",[]);
+smalltalk.send($1,"_builder_",[aBuilder]);
+$2=smalltalk.send($1,"_yourself",[]);
+return $2;
+}
 }),
 smalltalk.IRInstruction.klass);
 
@@ -536,8 +661,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRAssignment_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRAssignment_",[self]);
+}
 }),
 smalltalk.IRAssignment);
 
@@ -550,8 +675,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRDynamicArray_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRDynamicArray_",[self]);
+}
 }),
 smalltalk.IRDynamicArray);
 
@@ -564,8 +689,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRDynamicDictionary_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRDynamicDictionary_",[self]);
+}
 }),
 smalltalk.IRDynamicDictionary);
 
@@ -578,8 +703,8 @@ smalltalk.method({
 selector: "scope",
 fn: function () {
 var self=this;
-return self['@scope'];
-return self;}
+return self["@scope"];
+}
 }),
 smalltalk.IRScopedInstruction);
 
@@ -589,7 +714,7 @@ smalltalk.method({
 selector: "scope:",
 fn: function (aScope) {
 var self=this;
-(self['@scope']=aScope);
+self["@scope"]=aScope;
 return self;}
 }),
 smalltalk.IRScopedInstruction);
@@ -603,8 +728,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRClosure_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRClosure_",[self]);
+}
 }),
 smalltalk.IRClosure);
 
@@ -614,8 +739,10 @@ smalltalk.method({
 selector: "arguments",
 fn: function () {
 var self=this;
-return (($receiver = self['@arguments']) == nil || $receiver == undefined) ? (function(){return [];})() : $receiver;
-return self;}
+return smalltalk.send(self["@arguments"],"_ifNil_",[(function(){
+return [];
+})]);
+}
 }),
 smalltalk.IRClosure);
 
@@ -625,7 +752,7 @@ smalltalk.method({
 selector: "arguments:",
 fn: function (aCollection) {
 var self=this;
-(self['@arguments']=aCollection);
+self["@arguments"]=aCollection;
 return self;}
 }),
 smalltalk.IRClosure);
@@ -637,7 +764,7 @@ selector: "isClosure",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRClosure);
 
@@ -647,8 +774,8 @@ smalltalk.method({
 selector: "scope:",
 fn: function (aScope) {
 var self=this;
-smalltalk.send(self, "_scope_", [aScope], smalltalk.IRClosure.superclass || nil);
-smalltalk.send(aScope, "_instruction_", [self]);
+smalltalk.send(self,"_scope_",[aScope],smalltalk.IRScopedInstruction);
+smalltalk.send(aScope,"_instruction_",[self]);
 return self;}
 }),
 smalltalk.IRClosure);
@@ -659,8 +786,8 @@ smalltalk.method({
 selector: "sequence",
 fn: function () {
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_instructions", []), "_last", []);
-return self;}
+return smalltalk.send(smalltalk.send(self,"_instructions",[]),"_last",[]);
+}
 }),
 smalltalk.IRClosure);
 
@@ -673,8 +800,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRMethod_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRMethod_",[self]);
+}
 }),
 smalltalk.IRMethod);
 
@@ -684,8 +811,8 @@ smalltalk.method({
 selector: "arguments",
 fn: function () {
 var self=this;
-return self['@arguments'];
-return self;}
+return self["@arguments"];
+}
 }),
 smalltalk.IRMethod);
 
@@ -695,7 +822,7 @@ smalltalk.method({
 selector: "arguments:",
 fn: function (aCollection) {
 var self=this;
-(self['@arguments']=aCollection);
+self["@arguments"]=aCollection;
 return self;}
 }),
 smalltalk.IRMethod);
@@ -706,8 +833,8 @@ smalltalk.method({
 selector: "classReferences",
 fn: function () {
 var self=this;
-return self['@classReferences'];
-return self;}
+return self["@classReferences"];
+}
 }),
 smalltalk.IRMethod);
 
@@ -717,7 +844,7 @@ smalltalk.method({
 selector: "classReferences:",
 fn: function (aCollection) {
 var self=this;
-(self['@classReferences']=aCollection);
+self["@classReferences"]=aCollection;
 return self;}
 }),
 smalltalk.IRMethod);
@@ -728,8 +855,11 @@ smalltalk.method({
 selector: "internalVariables",
 fn: function () {
 var self=this;
-return (($receiver = self['@internalVariables']) == nil || $receiver == undefined) ? (function(){return (self['@internalVariables']=smalltalk.send((smalltalk.Set || Set), "_new", []));})() : $receiver;
-return self;}
+return smalltalk.send(self["@internalVariables"],"_ifNil_",[(function(){
+self["@internalVariables"]=smalltalk.send((smalltalk.Set || Set),"_new",[]);
+return self["@internalVariables"];
+})]);
+}
 }),
 smalltalk.IRMethod);
 
@@ -739,8 +869,8 @@ smalltalk.method({
 selector: "messageSends",
 fn: function () {
 var self=this;
-return self['@messageSends'];
-return self;}
+return self["@messageSends"];
+}
 }),
 smalltalk.IRMethod);
 
@@ -750,7 +880,7 @@ smalltalk.method({
 selector: "messageSends:",
 fn: function (aCollection) {
 var self=this;
-(self['@messageSends']=aCollection);
+self["@messageSends"]=aCollection;
 return self;}
 }),
 smalltalk.IRMethod);
@@ -761,8 +891,8 @@ smalltalk.method({
 selector: "scope:",
 fn: function (aScope) {
 var self=this;
-smalltalk.send(self, "_scope_", [aScope], smalltalk.IRMethod.superclass || nil);
-smalltalk.send(aScope, "_instruction_", [self]);
+smalltalk.send(self,"_scope_",[aScope],smalltalk.IRScopedInstruction);
+smalltalk.send(aScope,"_instruction_",[self]);
 return self;}
 }),
 smalltalk.IRMethod);
@@ -773,8 +903,8 @@ smalltalk.method({
 selector: "selector",
 fn: function () {
 var self=this;
-return self['@selector'];
-return self;}
+return self["@selector"];
+}
 }),
 smalltalk.IRMethod);
 
@@ -784,7 +914,7 @@ smalltalk.method({
 selector: "selector:",
 fn: function (aString) {
 var self=this;
-(self['@selector']=aString);
+self["@selector"]=aString;
 return self;}
 }),
 smalltalk.IRMethod);
@@ -795,8 +925,8 @@ smalltalk.method({
 selector: "source",
 fn: function () {
 var self=this;
-return self['@source'];
-return self;}
+return self["@source"];
+}
 }),
 smalltalk.IRMethod);
 
@@ -806,7 +936,7 @@ smalltalk.method({
 selector: "source:",
 fn: function (aString) {
 var self=this;
-(self['@source']=aString);
+self["@source"]=aString;
 return self;}
 }),
 smalltalk.IRMethod);
@@ -820,8 +950,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRReturn_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRReturn_",[self]);
+}
 }),
 smalltalk.IRReturn);
 
@@ -832,7 +962,7 @@ selector: "canBeAssigned",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRReturn);
 
@@ -842,8 +972,8 @@ smalltalk.method({
 selector: "isLocalReturn",
 fn: function () {
 var self=this;
-return smalltalk.send(self, "_isReturn", []);
-return self;}
+return smalltalk.send(self,"_isReturn",[]);
+}
 }),
 smalltalk.IRReturn);
 
@@ -853,8 +983,8 @@ smalltalk.method({
 selector: "isNonLocalReturn",
 fn: function () {
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_isLocalReturn", []), "_not", []);
-return self;}
+return smalltalk.send(smalltalk.send(self,"_isLocalReturn",[]),"_not",[]);
+}
 }),
 smalltalk.IRReturn);
 
@@ -865,7 +995,7 @@ selector: "isReturn",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRReturn);
 
@@ -878,8 +1008,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRNonLocalReturn_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRNonLocalReturn_",[self]);
+}
 }),
 smalltalk.IRNonLocalReturn);
 
@@ -890,7 +1020,7 @@ selector: "isLocalReturn",
 fn: function () {
 var self=this;
 return false;
-return self;}
+}
 }),
 smalltalk.IRNonLocalReturn);
 
@@ -903,8 +1033,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRSend_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRSend_",[self]);
+}
 }),
 smalltalk.IRSend);
 
@@ -914,8 +1044,8 @@ smalltalk.method({
 selector: "classSend",
 fn: function () {
 var self=this;
-return self['@classSend'];
-return self;}
+return self["@classSend"];
+}
 }),
 smalltalk.IRSend);
 
@@ -925,7 +1055,7 @@ smalltalk.method({
 selector: "classSend:",
 fn: function (aClass) {
 var self=this;
-(self['@classSend']=aClass);
+self["@classSend"]=aClass;
 return self;}
 }),
 smalltalk.IRSend);
@@ -936,8 +1066,8 @@ smalltalk.method({
 selector: "index",
 fn: function () {
 var self=this;
-return self['@index'];
-return self;}
+return self["@index"];
+}
 }),
 smalltalk.IRSend);
 
@@ -947,7 +1077,7 @@ smalltalk.method({
 selector: "index:",
 fn: function (anInteger) {
 var self=this;
-(self['@index']=anInteger);
+self["@index"]=anInteger;
 return self;}
 }),
 smalltalk.IRSend);
@@ -959,7 +1089,7 @@ selector: "isSend",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRSend);
 
@@ -969,8 +1099,8 @@ smalltalk.method({
 selector: "selector",
 fn: function () {
 var self=this;
-return self['@selector'];
-return self;}
+return self["@selector"];
+}
 }),
 smalltalk.IRSend);
 
@@ -980,7 +1110,7 @@ smalltalk.method({
 selector: "selector:",
 fn: function (aString) {
 var self=this;
-(self['@selector']=aString);
+self["@selector"]=aString;
 return self;}
 }),
 smalltalk.IRSend);
@@ -994,8 +1124,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRSequence_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRSequence_",[self]);
+}
 }),
 smalltalk.IRSequence);
 
@@ -1006,7 +1136,7 @@ selector: "isSequence",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRSequence);
 
@@ -1019,8 +1149,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRBlockSequence_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRBlockSequence_",[self]);
+}
 }),
 smalltalk.IRBlockSequence);
 
@@ -1033,8 +1163,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRTempDeclaration_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRTempDeclaration_",[self]);
+}
 }),
 smalltalk.IRTempDeclaration);
 
@@ -1045,7 +1175,7 @@ selector: "isTempDeclaration",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRTempDeclaration);
 
@@ -1055,8 +1185,8 @@ smalltalk.method({
 selector: "name",
 fn: function () {
 var self=this;
-return self['@name'];
-return self;}
+return self["@name"];
+}
 }),
 smalltalk.IRTempDeclaration);
 
@@ -1066,7 +1196,7 @@ smalltalk.method({
 selector: "name:",
 fn: function (aString) {
 var self=this;
-(self['@name']=aString);
+self["@name"]=aString;
 return self;}
 }),
 smalltalk.IRTempDeclaration);
@@ -1080,8 +1210,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRValue_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRValue_",[self]);
+}
 }),
 smalltalk.IRValue);
 
@@ -1091,8 +1221,8 @@ smalltalk.method({
 selector: "value",
 fn: function () {
 var self=this;
-return self['@value'];
-return self;}
+return self["@value"];
+}
 }),
 smalltalk.IRValue);
 
@@ -1102,7 +1232,7 @@ smalltalk.method({
 selector: "value:",
 fn: function (aString) {
 var self=this;
-(self['@value']=aString);
+self["@value"]=aString;
 return self;}
 }),
 smalltalk.IRValue);
@@ -1116,8 +1246,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRVariable_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRVariable_",[self]);
+}
 }),
 smalltalk.IRVariable);
 
@@ -1128,7 +1258,7 @@ selector: "isVariable",
 fn: function () {
 var self=this;
 return true;
-return self;}
+}
 }),
 smalltalk.IRVariable);
 
@@ -1138,8 +1268,8 @@ smalltalk.method({
 selector: "variable",
 fn: function () {
 var self=this;
-return self['@variable'];
-return self;}
+return self["@variable"];
+}
 }),
 smalltalk.IRVariable);
 
@@ -1149,7 +1279,7 @@ smalltalk.method({
 selector: "variable:",
 fn: function (aScopeVariable) {
 var self=this;
-(self['@variable']=aScopeVariable);
+self["@variable"]=aScopeVariable;
 return self;}
 }),
 smalltalk.IRVariable);
@@ -1163,8 +1293,8 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor) {
 var self=this;
-return smalltalk.send(aVisitor, "_visitIRVerbatim_", [self]);
-return self;}
+return smalltalk.send(aVisitor,"_visitIRVerbatim_",[self]);
+}
 }),
 smalltalk.IRVerbatim);
 
@@ -1174,8 +1304,8 @@ smalltalk.method({
 selector: "source",
 fn: function () {
 var self=this;
-return self['@source'];
-return self;}
+return self["@source"];
+}
 }),
 smalltalk.IRVerbatim);
 
@@ -1185,7 +1315,7 @@ smalltalk.method({
 selector: "source:",
 fn: function (aString) {
 var self=this;
-(self['@source']=aString);
+self["@source"]=aString;
 return self;}
 }),
 smalltalk.IRVerbatim);
@@ -1199,8 +1329,8 @@ smalltalk.method({
 selector: "visit:",
 fn: function (anIRInstruction) {
 var self=this;
-return smalltalk.send(anIRInstruction, "_accept_", [self]);
-return self;}
+return smalltalk.send(anIRInstruction,"_accept_",[self]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1210,8 +1340,8 @@ smalltalk.method({
 selector: "visitIRAssignment:",
 fn: function (anIRAssignment) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRAssignment]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRAssignment]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1221,8 +1351,8 @@ smalltalk.method({
 selector: "visitIRBlockSequence:",
 fn: function (anIRBlockSequence) {
 var self=this;
-return smalltalk.send(self, "_visitIRSequence_", [anIRBlockSequence]);
-return self;}
+return smalltalk.send(self,"_visitIRSequence_",[anIRBlockSequence]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1232,8 +1362,8 @@ smalltalk.method({
 selector: "visitIRClosure:",
 fn: function (anIRClosure) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRClosure]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRClosure]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1243,8 +1373,8 @@ smalltalk.method({
 selector: "visitIRDynamicArray:",
 fn: function (anIRDynamicArray) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRDynamicArray]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRDynamicArray]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1254,8 +1384,8 @@ smalltalk.method({
 selector: "visitIRDynamicDictionary:",
 fn: function (anIRDynamicDictionary) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRDynamicDictionary]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRDynamicDictionary]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1265,9 +1395,11 @@ smalltalk.method({
 selector: "visitIRInstruction:",
 fn: function (anIRInstruction) {
 var self=this;
-smalltalk.send(smalltalk.send(anIRInstruction, "_instructions", []), "_do_", [(function(each){return smalltalk.send(self, "_visit_", [each]);})]);
+smalltalk.send(smalltalk.send(anIRInstruction,"_instructions",[]),"_do_",[(function(each){
+return smalltalk.send(self,"_visit_",[each]);
+})]);
 return anIRInstruction;
-return self;}
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1277,8 +1409,8 @@ smalltalk.method({
 selector: "visitIRMethod:",
 fn: function (anIRMethod) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRMethod]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRMethod]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1288,8 +1420,8 @@ smalltalk.method({
 selector: "visitIRNonLocalReturn:",
 fn: function (anIRNonLocalReturn) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRNonLocalReturn]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRNonLocalReturn]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1299,8 +1431,8 @@ smalltalk.method({
 selector: "visitIRNonLocalReturnHandling:",
 fn: function (anIRNonLocalReturnHandling) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRNonLocalReturnHandling]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRNonLocalReturnHandling]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1310,8 +1442,8 @@ smalltalk.method({
 selector: "visitIRReturn:",
 fn: function (anIRReturn) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRReturn]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRReturn]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1321,8 +1453,8 @@ smalltalk.method({
 selector: "visitIRSend:",
 fn: function (anIRSend) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRSend]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRSend]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1332,8 +1464,8 @@ smalltalk.method({
 selector: "visitIRSequence:",
 fn: function (anIRSequence) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRSequence]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRSequence]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1343,8 +1475,8 @@ smalltalk.method({
 selector: "visitIRTempDeclaration:",
 fn: function (anIRTempDeclaration) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRTempDeclaration]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRTempDeclaration]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1354,8 +1486,8 @@ smalltalk.method({
 selector: "visitIRValue:",
 fn: function (anIRValue) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRValue]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRValue]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1365,8 +1497,8 @@ smalltalk.method({
 selector: "visitIRVariable:",
 fn: function (anIRVariable) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRVariable]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRVariable]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1376,8 +1508,8 @@ smalltalk.method({
 selector: "visitIRVerbatim:",
 fn: function (anIRVerbatim) {
 var self=this;
-return smalltalk.send(self, "_visitIRInstruction_", [anIRVerbatim]);
-return self;}
+return smalltalk.send(self,"_visitIRInstruction_",[anIRVerbatim]);
+}
 }),
 smalltalk.IRVisitor);
 
@@ -1390,8 +1522,8 @@ smalltalk.method({
 selector: "contents",
 fn: function () {
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_stream", []), "_contents", []);
-return self;}
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_contents",[]);
+}
 }),
 smalltalk.IRJSTranslator);
 
@@ -1401,8 +1533,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function () {
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.IRJSTranslator.superclass || nil);
-(self['@stream']=smalltalk.send((smalltalk.JSStream || JSStream), "_new", []));
+smalltalk.send(self,"_initialize",[],smalltalk.IRVisitor);
+self["@stream"]=smalltalk.send((smalltalk.JSStream || JSStream),"_new",[]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1413,8 +1545,8 @@ smalltalk.method({
 selector: "stream",
 fn: function () {
 var self=this;
-return self['@stream'];
-return self;}
+return self["@stream"];
+}
 }),
 smalltalk.IRJSTranslator);
 
@@ -1424,7 +1556,7 @@ smalltalk.method({
 selector: "stream:",
 fn: function (aStream) {
 var self=this;
-(self['@stream']=aStream);
+self["@stream"]=aStream;
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1435,9 +1567,9 @@ smalltalk.method({
 selector: "visitIRAssignment:",
 fn: function (anIRAssignment) {
 var self=this;
-smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(anIRAssignment, "_instructions", []), "_first", [])]);
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAssignment", []);
-smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(anIRAssignment, "_instructions", []), "_last", [])]);
+smalltalk.send(self,"_visit_",[smalltalk.send(smalltalk.send(anIRAssignment,"_instructions",[]),"_first",[])]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAssignment",[]);
+smalltalk.send(self,"_visit_",[smalltalk.send(smalltalk.send(anIRAssignment,"_instructions",[]),"_last",[])]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1448,7 +1580,9 @@ smalltalk.method({
 selector: "visitIRClosure:",
 fn: function (anIRClosure) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutClosureWith_arguments_", [(function(){return smalltalk.send(self, "_visitIRClosure_", [anIRClosure], smalltalk.IRJSTranslator.superclass || nil);}), smalltalk.send(anIRClosure, "_arguments", [])]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutClosureWith_arguments_",[(function(){
+return smalltalk.send(self,"_visitIRClosure_",[anIRClosure],smalltalk.IRVisitor);
+}),smalltalk.send(anIRClosure,"_arguments",[])]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1459,9 +1593,13 @@ smalltalk.method({
 selector: "visitIRDynamicArray:",
 fn: function (anIRDynamicArray) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["["]);
-smalltalk.send(smalltalk.send(anIRDynamicArray, "_instructions", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [","]);})]);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["]"]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["["]);
+smalltalk.send(smalltalk.send(anIRDynamicArray,"_instructions",[]),"_do_separatedBy_",[(function(each){
+return smalltalk.send(self,"_visit_",[each]);
+}),(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[","]);
+})]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["]"]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1472,9 +1610,13 @@ smalltalk.method({
 selector: "visitIRDynamicDictionary:",
 fn: function (anIRDynamicDictionary) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["smalltalk.HashedCollection._fromPairs_(["]);
-smalltalk.send(smalltalk.send(anIRDynamicDictionary, "_instructions", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [","]);})]);
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["])"]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["smalltalk.HashedCollection._fromPairs_(["]);
+smalltalk.send(smalltalk.send(anIRDynamicDictionary,"_instructions",[]),"_do_separatedBy_",[(function(each){
+return smalltalk.send(self,"_visit_",[each]);
+}),(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[","]);
+})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["])"]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1485,7 +1627,22 @@ smalltalk.method({
 selector: "visitIRMethod:",
 fn: function (anIRMethod) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutMethodDeclaration_with_", [anIRMethod, (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutFunctionWith_arguments_", [(function(){((($receiver = smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_notEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutVars_", [smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_asArray", []), "_collect_", [(function(each){return smalltalk.send(smalltalk.send(each, "_variable", []), "_alias", []);})])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutVars_", [smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_asArray", []), "_collect_", [(function(each){return smalltalk.send(smalltalk.send(each, "_variable", []), "_alias", []);})])]);})]));return ((($receiver = smalltalk.send(smalltalk.send(anIRMethod, "_scope", []), "_hasNonLocalReturn", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutNonLocalReturnHandlingWith_", [(function(){return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRJSTranslator.superclass || nil);})]);})() : (function(){return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRJSTranslator.superclass || nil);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutNonLocalReturnHandlingWith_", [(function(){return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRJSTranslator.superclass || nil);})]);}), (function(){return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRJSTranslator.superclass || nil);})]));}), smalltalk.send(anIRMethod, "_arguments", [])]);})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutMethodDeclaration_with_",[anIRMethod,(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutFunctionWith_arguments_",[(function(){
+if(smalltalk.assert(smalltalk.send(smalltalk.send(anIRMethod,"_internalVariables",[]),"_notEmpty",[]))){
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutVars_",[smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod,"_internalVariables",[]),"_asArray",[]),"_collect_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_variable",[]),"_alias",[]);
+})])]);
+};
+return smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod,"_scope",[]),"_hasNonLocalReturn",[]),"_ifTrue_ifFalse_",[(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutNonLocalReturnHandlingWith_",[(function(){
+return smalltalk.send(self,"_visitIRMethod_",[anIRMethod],smalltalk.IRVisitor);
+})]);
+}),(function(){
+return smalltalk.send(self,"_visitIRMethod_",[anIRMethod],smalltalk.IRVisitor);
+})]);
+}),smalltalk.send(anIRMethod,"_arguments",[])]);
+})]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1496,7 +1653,9 @@ smalltalk.method({
 selector: "visitIRNonLocalReturn:",
 fn: function (anIRNonLocalReturn) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutNonLocalReturnWith_", [(function(){return smalltalk.send(self, "_visitIRNonLocalReturn_", [anIRNonLocalReturn], smalltalk.IRJSTranslator.superclass || nil);})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutNonLocalReturnWith_",[(function(){
+return smalltalk.send(self,"_visitIRNonLocalReturn_",[anIRNonLocalReturn],smalltalk.IRVisitor);
+})]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1507,7 +1666,9 @@ smalltalk.method({
 selector: "visitIRReturn:",
 fn: function (anIRReturn) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutReturnWith_", [(function(){return smalltalk.send(self, "_visitIRReturn_", [anIRReturn], smalltalk.IRJSTranslator.superclass || nil);})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutReturnWith_",[(function(){
+return smalltalk.send(self,"_visitIRReturn_",[anIRReturn],smalltalk.IRVisitor);
+})]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1518,13 +1679,19 @@ smalltalk.method({
 selector: "visitIRSend:",
 fn: function (anIRSend) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["smalltalk.send("]);
-smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(anIRSend, "_instructions", []), "_first", [])]);
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(smalltalk.send(",\x22", "__comma", [smalltalk.send(smalltalk.send(anIRSend, "_selector", []), "_asSelector", [])]), "__comma", ["\x22,["])]);
-smalltalk.send(smalltalk.send(smalltalk.send(anIRSend, "_instructions", []), "_allButFirst", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self, "_visit_", [each]);}), (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [","]);})]);
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["]"]);
-(($receiver = smalltalk.send(anIRSend, "_classSend", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(",", "__comma", [smalltalk.send(smalltalk.send(anIRSend, "_classSend", []), "_asJavascript", [])])]);})() : nil;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [")"]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["smalltalk.send("]);
+smalltalk.send(self,"_visit_",[smalltalk.send(smalltalk.send(anIRSend,"_instructions",[]),"_first",[])]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(smalltalk.send(",\x22","__comma",[smalltalk.send(smalltalk.send(anIRSend,"_selector",[]),"_asSelector",[])]),"__comma",["\x22,["])]);
+smalltalk.send(smalltalk.send(smalltalk.send(anIRSend,"_instructions",[]),"_allButFirst",[]),"_do_separatedBy_",[(function(each){
+return smalltalk.send(self,"_visit_",[each]);
+}),(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[","]);
+})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["]"]);
+smalltalk.send(smalltalk.send(anIRSend,"_classSend",[]),"_ifNotNil_",[(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(",","__comma",[smalltalk.send(smalltalk.send(anIRSend,"_classSend",[]),"_asJavascript",[])])]);
+})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[")"]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1535,7 +1702,11 @@ smalltalk.method({
 selector: "visitIRSequence:",
 fn: function (anIRSequence) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutSequenceWith_", [(function(){return smalltalk.send(smalltalk.send(anIRSequence, "_instructions", []), "_do_", [(function(each){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutStatementWith_", [smalltalk.send(self, "_visit_", [each])]);})]);})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutSequenceWith_",[(function(){
+return smalltalk.send(smalltalk.send(anIRSequence,"_instructions",[]),"_do_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutStatementWith_",[smalltalk.send(self,"_visit_",[each])]);
+})]);
+})]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1546,7 +1717,7 @@ smalltalk.method({
 selector: "visitIRTempDeclaration:",
 fn: function (anIRTempDeclaration) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutVar_", [smalltalk.send(smalltalk.send(anIRTempDeclaration, "_name", []), "_asVariableName", [])]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutVar_",[smalltalk.send(smalltalk.send(anIRTempDeclaration,"_name",[]),"_asVariableName",[])]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1557,7 +1728,7 @@ smalltalk.method({
 selector: "visitIRValue:",
 fn: function (anIRValue) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(smalltalk.send(anIRValue, "_value", []), "_asJavascript", [])]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(smalltalk.send(anIRValue,"_value",[]),"_asJavascript",[])]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1568,7 +1739,7 @@ smalltalk.method({
 selector: "visitIRVariable:",
 fn: function (anIRVariable) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(smalltalk.send(anIRVariable, "_variable", []), "_alias", [])]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(smalltalk.send(anIRVariable,"_variable",[]),"_alias",[])]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1579,7 +1750,9 @@ smalltalk.method({
 selector: "visitIRVerbatim:",
 fn: function (anIRVerbatim) {
 var self=this;
-smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutStatementWith_", [(function(){return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(anIRVerbatim, "_source", [])]);})]);
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutStatementWith_",[(function(){
+return smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(anIRVerbatim,"_source",[])]);
+})]);
 return self;}
 }),
 smalltalk.IRJSTranslator);
@@ -1593,8 +1766,8 @@ smalltalk.method({
 selector: "contents",
 fn: function () {
 var self=this;
-return smalltalk.send(self['@stream'], "_contents", []);
-return self;}
+return smalltalk.send(self["@stream"],"_contents",[]);
+}
 }),
 smalltalk.JSStream);
 
@@ -1604,8 +1777,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function () {
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.JSStream.superclass || nil);
-(self['@stream']=smalltalk.send("", "_writeStream", []));
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
+self["@stream"]=smalltalk.send("","_writeStream",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1616,7 +1789,7 @@ smalltalk.method({
 selector: "lf",
 fn: function () {
 var self=this;
-smalltalk.send(self['@stream'], "_lf", []);
+smalltalk.send(self["@stream"],"_lf",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1627,7 +1800,7 @@ smalltalk.method({
 selector: "nextPut:",
 fn: function (aString) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPut_", [aString]);
+smalltalk.send(self["@stream"],"_nextPut_",[aString]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1638,7 +1811,7 @@ smalltalk.method({
 selector: "nextPutAll:",
 fn: function (aString) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", [aString]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[aString]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1649,7 +1822,7 @@ smalltalk.method({
 selector: "nextPutAssignment",
 fn: function () {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["="]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["="]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1660,11 +1833,17 @@ smalltalk.method({
 selector: "nextPutClosureWith:arguments:",
 fn: function (aBlock, anArray) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["(function("]);
-smalltalk.send(anArray, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asVariableName", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPut_", [","]);})]);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["){"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(aBlock, "_value", []);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["})"]);
+var $1;
+smalltalk.send(self["@stream"],"_nextPutAll_",["(function("]);
+smalltalk.send(anArray,"_do_separatedBy_",[(function(each){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(each,"_asVariableName",[])]);
+}),(function(){
+return smalltalk.send(self["@stream"],"_nextPut_",[","]);
+})]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["){"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["})"]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1675,12 +1854,19 @@ smalltalk.method({
 selector: "nextPutFunctionWith:arguments:",
 fn: function (aBlock, anArray) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["fn: function("]);
-smalltalk.send(anArray, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asVariableName", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPut_", [","]);})]);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["){"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["var self=this;"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(aBlock, "_value", []);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["}"]);
+var $1,$2;
+smalltalk.send(self["@stream"],"_nextPutAll_",["fn: function("]);
+smalltalk.send(anArray,"_do_separatedBy_",[(function(each){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(each,"_asVariableName",[])]);
+}),(function(){
+return smalltalk.send(self["@stream"],"_nextPut_",[","]);
+})]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["){"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["var self=this;"]);
+$2=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["}"]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1691,11 +1877,33 @@ smalltalk.method({
 selector: "nextPutIf:with:",
 fn: function (aBlock, anotherBlock) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["if("]);
-smalltalk.send(aBlock, "_value", []);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["){"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(anotherBlock, "_value", []);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["}"]);
+var $1;
+smalltalk.send(self["@stream"],"_nextPutAll_",["if("]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["){"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(anotherBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["}"]);
+return self;}
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutIfElse_with_with_",
+smalltalk.method({
+selector: "nextPutIfElse:with:with:",
+fn: function (aBlock, ifBlock, elseBlock) {
+var self=this;
+var $1,$2;
+smalltalk.send(self["@stream"],"_nextPutAll_",["if("]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["){"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(ifBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["} else {"]);
+$2=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(elseBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["}"]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1706,11 +1914,29 @@ smalltalk.method({
 selector: "nextPutMethodDeclaration:with:",
 fn: function (aMethod, aBlock) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["smalltalk.method({"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("selector: \x22", "__comma", [smalltalk.send(aMethod, "_selector", [])]), "__comma", ["\x22,"])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("source: ", "__comma", [smalltalk.send(smalltalk.send(aMethod, "_source", []), "_asJavascript", [])]), "__comma", [","])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(aBlock, "_value", []);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(",", "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", ["messageSends: "])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_messageSends", []), "_asArray", []), "_asJavascript", []), "__comma", [","])]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("args: ", "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod, "_arguments", []), "_collect_", [(function(each){return smalltalk.send(each, "_value", []);})]), "_asArray", []), "_asJavascript", [])]), "__comma", [","])]);smalltalk.send($rec, "_lf", []);return smalltalk.send($rec, "_nextPutAll_", ["referencedClasses: ["]);})(self['@stream']);
-smalltalk.send(smalltalk.send(aMethod, "_classReferences", []), "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(each, "_asJavascript", [])]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [","]);})]);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["]"]);return smalltalk.send($rec, "_nextPutAll_", ["})"]);})(self['@stream']);
+var $1,$2,$3;
+smalltalk.send(self["@stream"],"_nextPutAll_",["smalltalk.method({"]);
+smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("selector: \x22","__comma",[smalltalk.send(aMethod,"_selector",[])]),"__comma",["\x22,"])]);
+smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("source: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_source",[]),"_asJavascript",[])]),"__comma",[","])]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(",","__comma",[smalltalk.send((smalltalk.String || String),"_lf",[])]),"__comma",["messageSends: "])]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_messageSends",[]),"_asArray",[]),"_asJavascript",[]),"__comma",[","])]);
+smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("args: ","__comma",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_arguments",[]),"_collect_",[(function(each){
+return smalltalk.send(each,"_value",[]);
+})]),"_asArray",[]),"_asJavascript",[])]),"__comma",[","])]);
+smalltalk.send(self["@stream"],"_lf",[]);
+$2=smalltalk.send(self["@stream"],"_nextPutAll_",["referencedClasses: ["]);
+smalltalk.send(smalltalk.send(aMethod,"_classReferences",[]),"_do_separatedBy_",[(function(each){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(each,"_asJavascript",[])]);
+}),(function(){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[","]);
+})]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["]"]);
+$3=smalltalk.send(self["@stream"],"_nextPutAll_",["})"]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1721,9 +1947,16 @@ smalltalk.method({
 selector: "nextPutNonLocalReturnHandlingWith:",
 fn: function (aBlock) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["var $early={};"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", ["try {"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(aBlock, "_value", []);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", ["}"]);smalltalk.send($rec, "_lf", []);smalltalk.send($rec, "_nextPutAll_", ["catch(e) {if(e===$early)return e[0]; throw e}"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+var $1,$2;
+smalltalk.send(self["@stream"],"_nextPutAll_",["var $early={};"]);
+smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["try {"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["}"]);
+smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["catch(e) {if(e===$early)return e[0]; throw e}"]);
+$2=smalltalk.send(self["@stream"],"_lf",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1734,9 +1967,9 @@ smalltalk.method({
 selector: "nextPutNonLocalReturnWith:",
 fn: function (aBlock) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["throw $early=["]);
-smalltalk.send(aBlock, "_value", []);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["]"]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["throw $early=["]);
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["]"]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1747,7 +1980,7 @@ smalltalk.method({
 selector: "nextPutReturn",
 fn: function () {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["return "]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["return "]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1758,8 +1991,8 @@ smalltalk.method({
 selector: "nextPutReturnWith:",
 fn: function (aBlock) {
 var self=this;
-smalltalk.send(self, "_nextPutReturn", []);
-smalltalk.send(aBlock, "_value", []);
+smalltalk.send(self,"_nextPutReturn",[]);
+smalltalk.send(aBlock,"_value",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1770,11 +2003,15 @@ smalltalk.method({
 selector: "nextPutSendTo:selector:arguments:",
 fn: function (receiver, selector, arguments) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["smalltalk.send("]);
-smalltalk.send(receiver, "_emitOn_", [self]);
-smalltalk.send(self['@stream'], "_nextPutAll_", [smalltalk.send(smalltalk.send(",\x22", "__comma", [smalltalk.send(selector, "_asSelector", [])]), "__comma", ["\x22,["])]);
-smalltalk.send(arguments, "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_emitOn_", [self]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [","]);})]);
-smalltalk.send(self['@stream'], "_nextPutAll_", ["])"]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["smalltalk.send("]);
+smalltalk.send(receiver,"_emitOn_",[self]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(",\x22","__comma",[smalltalk.send(selector,"_asSelector",[])]),"__comma",["\x22,["])]);
+smalltalk.send(arguments,"_do_separatedBy_",[(function(each){
+return smalltalk.send(each,"_emitOn_",[self]);
+}),(function(){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[","]);
+})]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["])"]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1785,7 +2022,7 @@ smalltalk.method({
 selector: "nextPutSequenceWith:",
 fn: function (aBlock) {
 var self=this;
-smalltalk.send(aBlock, "_value", []);
+smalltalk.send(aBlock,"_value",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1796,9 +2033,12 @@ smalltalk.method({
 selector: "nextPutStatement:with:",
 fn: function (anInteger, aBlock) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("case ", "__comma", [smalltalk.send(anInteger, "_asString", [])]), "__comma", [":"])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
-smalltalk.send(self, "_nextPutStatementWith_", [aBlock]);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("smalltalk.thisContext.pc=", "__comma", [smalltalk.send(((($receiver = anInteger).klass === smalltalk.Number) ? $receiver +(1) : smalltalk.send($receiver, "__plus", [(1)])), "_asString", [])]), "__comma", [";"])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+var $1,$2;
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("case ","__comma",[smalltalk.send(anInteger,"_asString",[])]),"__comma",[":"])]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self,"_nextPutStatementWith_",[aBlock]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("smalltalk.thisContext.pc=","__comma",[smalltalk.send(smalltalk.send(anInteger,"__plus",[(1)]),"_asString",[])]),"__comma",[";"])]);
+$2=smalltalk.send(self["@stream"],"_lf",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1809,8 +2049,10 @@ smalltalk.method({
 selector: "nextPutStatementWith:",
 fn: function (aBlock) {
 var self=this;
-smalltalk.send(aBlock, "_value", []);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [";"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+var $1;
+smalltalk.send(aBlock,"_value",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[";"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1821,7 +2063,9 @@ smalltalk.method({
 selector: "nextPutVar:",
 fn: function (aString) {
 var self=this;
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("var ", "__comma", [aString]), "__comma", [";"])]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+var $1;
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("var ","__comma",[aString]),"__comma",[";"])]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1832,9 +2076,15 @@ smalltalk.method({
 selector: "nextPutVars:",
 fn: function (aCollection) {
 var self=this;
-smalltalk.send(self['@stream'], "_nextPutAll_", ["var "]);
-smalltalk.send(aCollection, "_do_separatedBy_", [(function(each){return smalltalk.send(self['@stream'], "_nextPutAll_", [each]);}), (function(){return smalltalk.send(self['@stream'], "_nextPutAll_", [","]);})]);
-(function($rec){smalltalk.send($rec, "_nextPutAll_", [";"]);return smalltalk.send($rec, "_lf", []);})(self['@stream']);
+var $1;
+smalltalk.send(self["@stream"],"_nextPutAll_",["var "]);
+smalltalk.send(aCollection,"_do_separatedBy_",[(function(each){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[each]);
+}),(function(){
+return smalltalk.send(self["@stream"],"_nextPutAll_",[","]);
+})]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[";"]);
+$1=smalltalk.send(self["@stream"],"_lf",[]);
 return self;}
 }),
 smalltalk.JSStream);
@@ -1858,8 +2108,12 @@ smalltalk.method({
 selector: "asVariableName",
 fn: function () {
 var self=this;
-return ((($receiver = smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk), "_current", []), "_reservedWords", []), "_includes_", [self])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "__comma", ["_"]);})() : (function(){return self;})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "__comma", ["_"]);}), (function(){return self;})]));
-return self;}
+return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_reservedWords",[]),"_includes_",[self]),"_ifTrue_ifFalse_",[(function(){
+return smalltalk.send(self,"__comma",["_"]);
+}),(function(){
+return self;
+})]);
+}
 }),
 smalltalk.String);
 

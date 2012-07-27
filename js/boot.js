@@ -172,33 +172,33 @@ function Smalltalk(){
 	   metaclasses. */
 	   
 	st.init = function(klass) {
-		st.initSubTree(klass);
+		st.initClass(klass);
 		if(klass.klass && !klass.meta) {
-			st.initSubTree(klass.klass);
+			st.initClass(klass.klass);
 		}
 	};
 
-	st.initSubTree = function(klass) {
+	st.initClass = function(klass) {
 		var subclasses = st.subclasses(klass);
-		var methods, proto = klass.fn.prototype;
+		var methods, prototype = klass.fn.prototype;
 
 		if(klass.superclass && klass.superclass !== nil) {
 			methods = st.methods(klass.superclass);
 
 			//Methods linking
-			for(var keys=Object.keys(methods),i=0,l=keys.length; i<l; ++i) {
-				var k = keys[i];
-				if(!proto.methods[k]) {
-					proto.inheritedMethods[k] = methods[k];
-					Object.defineProperty(proto, methods[k].jsSelector, {
-						value: methods[k].fn, configurable: true, writable: true
+			for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
+				var key = keys[i];
+				if(!prototype.methods[key]) {
+					prototype.inheritedMethods[key] = methods[key];
+					Object.defineProperty(prototype, methods[key].jsSelector, {
+						value: methods[key].fn, configurable: true, writable: true
 					});
 				}
 			}
 		}
 
-		for(var i=0;i<subclasses.length;i++) {
-			st.initSubTree(subclasses[i]);
+		for(var i=0; i<subclasses.length; i++) {
+			st.initClass(subclasses[i]);
 		}
 	};
 
@@ -218,7 +218,7 @@ function Smalltalk(){
 
 	st.classes = function() {
 		var classes = [], names = Object.keys(st), l = names.length;
-		for (var i=0; i<l; ++i) {
+		for (var i=0; i<l; i++) {
 			var name = names[i];
 			if (name.search(/^[A-Z]/) !== -1) {
 				classes.push(st[name]);
@@ -232,13 +232,13 @@ function Smalltalk(){
 
 	st.methods = function(klass) {
 		var methods = {};
-		var copyFrom = klass.fn.prototype.methods;
-		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
-			methods[k[i]] = copyFrom[k[i]];
+		inheritedMethods = klass.fn.prototype.inheritedMethods;
+		for(var i=0, keys=Object.keys(inheritedMethods); i<keys.length; i++) {
+			methods[keys[i]] = inheritedMethods[keys[i]];
 		}
-		copyFrom = klass.fn.prototype.inheritedMethods;
-		for(var i=0, k=Object.keys(copyFrom), l=k.length; i<l; ++i) {
-			methods[k[i]] = copyFrom[k[i]];
+		var inheritedMethods = klass.fn.prototype.methods;
+		for(var i=0, keys=Object.keys(inheritedMethods); i<keys.length; i++) {
+			methods[keys[i]] = inheritedMethods[keys[i]];
 		}
 		return methods;
 	};
@@ -249,8 +249,8 @@ function Smalltalk(){
 	st.subclasses = function(klass) {
 		var subclasses = [];
 		var classes = st.classes();
-		for(var i=0, l=classes.length; i<l; ++i) {
-			var c = classes[i]
+		for(var i=0; i < classes.length; i++) {
+			var c = classes[i];
 			if(c.fn) {
 				//Classes
 				if(c.superclass === klass) {
@@ -304,7 +304,7 @@ function Smalltalk(){
 	};
 
 	/* Add a class to the smalltalk object, creating a new one if needed.
-	   Package is lazily created if it does not exist with given name.*/
+	   A Package is lazily created if it does not exist with given name. */
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
 		var pkg = st.addPackage(pkgName);
@@ -372,7 +372,6 @@ function Smalltalk(){
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        //Do not handle continuation exceptions
         if(!error.cc) {
 		    smalltalk.ErrorHandler._current()._handleError_(error);
         }

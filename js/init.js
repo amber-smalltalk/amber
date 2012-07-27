@@ -1,4 +1,4 @@
-smalltalk.initSubTree(smalltalk.Object); //metaclasses are in through Class
+smalltalk.init(smalltalk.Object); //metaclasses are in through Class
 smalltalk.classes()._do_(function(each) {
 	each._initialize()});
 

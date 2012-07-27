@@ -947,6 +947,16 @@ nextPutIf: aBlock with: anotherBlock
 	stream nextPutAll: '}'
 !
 
+nextPutIfElse: aBlock with: ifBlock with: elseBlock
+	stream nextPutAll: 'if('.
+	aBlock value.
+	stream nextPutAll: '){'; lf.
+	ifBlock value.
+	stream nextPutAll: '} else {'; lf.
+	elseBlock value.
+	stream nextPutAll: '}'
+!
+
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream 
 		nextPutAll: 'smalltalk.method({'; lf;
