@@ -40,6 +40,83 @@ testPrintString
 	self assert: 'a Array (''foo'' 3 3)' equals: ( array printString ).
 ! !
 
+TestCase subclass: #AssociationTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AssociationTest methodsFor: 'tests'!
+
+testClassCreation
+	"Test if Associatin object created via the class method contains correct values"
+	| anAssociation key value|
+	key := 'KEY_STRING'.
+	value := 'VALUE_STRING'.
+	anAssociation := Association key: key value: value.
+
+	self assert: key equals: anAssociation key.
+	self assert: value equals: anAssociation value.
+!
+
+testEqualAssociations
+	"Test if two equal Association objects compare to true"
+	| anAssociation anotherAssociation |
+	anAssociation := Association key: 'KEY' value: 'VALUE'.
+	anotherAssociation := Association key: 'KEY' value: 'VALUE'.
+
+	self assert: anAssociation equals: anotherAssociation.
+!
+
+testKeyAccess
+	"Test getter and setter messages for Association keys"
+	| anAssociation key |
+	key := 'KEY_STRING'.
+	anAssociation := Association new.
+
+	anAssociation key: key.
+
+	self assert: key equals: anAssociation key.
+	self assert: nil equals: anAssociation value.
+!
+
+testNotEqualAssociations
+	"Test if two unequal Association objects compare to false"
+	| anAssociation anotherAssociation |
+	anAssociation := Association key: 'KEY' value: 'VALUE'.
+	anotherAssociation := Association key: 'KEY2' value: 'VALUE2'.
+
+	self deny: (anAssociation = anotherAssociation).
+!
+
+testPrintString
+	"Test if the output of the printString message is correct"
+	| anAssociation returnString |
+	anAssociation := Association key: 'KEY' value: 'VALUE'.
+	returnString := anAssociation printString.
+
+	self assert: '''KEY''->''VALUE''' equals: returnString.
+!
+
+testUninitializedObject
+	"Test if uninitialized Associatin object contains correct values"
+	| anAssociation |
+	anAssociation := Association new.
+
+	self assert: nil equals: anAssociation key.
+	self assert: nil equals: anAssociation value.
+!
+
+testValueAccess
+	"Test getter and setter messages for Association values"
+	| anAssociation value |
+	value := 'VALUE_STRING'.
+	anAssociation := Association new.
+
+	anAssociation value: value.
+
+	self assert: nil equals: anAssociation key.
+	self assert: value equals: anAssociation value.
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -382,6 +459,25 @@ testValues
 	d at: 3 put: 4.
 
 	self assert: d values = #(2 3 4)
+! !
+
+TestCase subclass: #HashedCollectionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!HashedCollectionTest methodsFor: 'tests'!
+
+testPrintString
+	"test if the printString message returns the correct string representation"
+	| aHashedCollection |
+	aHashedCollection := HashedCollection new.
+	self assert: 'a HashedCollection()' equals: aHashedCollection printString.
+
+	aHashedCollection at: 'key1' put: 1.
+	self assert: 'a HashedCollection(''key1''->1)' equals: aHashedCollection printString.
+
+	aHashedCollection at: 'key2' put: 2.
+	self assert: 'a HashedCollection(''key1''->1 , ''key2''->2)' equals: aHashedCollection printString.
 ! !
 
 TestCase subclass: #JSObjectProxyTest
@@ -949,6 +1045,11 @@ testJoin
 	self assert: 'hello,world' equals: (',' join: #('hello' 'world'))
 !
 
+testPrintString
+
+	self assert: '''test_string''' equals: 'test_string' printString.
+!
+
 testSize
 	self assert: 'smalltalk' size equals: 9.
 	self assert: '' size equals: 0
@@ -1030,6 +1131,11 @@ testIsSymbolIsString
 	self deny: 'hello' isSymbol.
 	self deny: #hello isString.
 	self assert: 'hello' isString
+!
+
+testPrintString
+
+	self assert: '#symbol' equals: #symbol printString.
 !
 
 testSize
