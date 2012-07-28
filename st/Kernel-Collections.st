@@ -205,6 +205,18 @@ errorNotFound
 	self error: 'Object is not in the collection'
 ! !
 
+!Collection methodsFor: 'printing'!
+
+printString
+	"print the contents of the Collection into a string and return it"
+	^String streamContents: [:aStream |
+		aStream
+			nextPutAll: super printString, ' ('.
+		self do: [:each | aStream nextPutAll: each printString]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream nextPutAll: ')'.]
+! !
+
 !Collection methodsFor: 'testing'!
 
 ifEmpty: aBlock
@@ -468,15 +480,11 @@ select: aBlock
 
 printString
 	"print the contents of the HashedCollection into a string and return the string"
-	^String streamContents: [:aStream|  
-		aStream 
-			nextPutAll: super printString;
-			nextPutAll: '('.
+	^String streamContents: [:aStream |
+		aStream nextPutAll: 'a ', self class name, '('.
 		self associations
-			do: [:anAssociation|
-				aStream
-					nextPutAll: anAssociation printString]
-			separatedBy: [aStream nextPutAll: ' , '].
+			do: [:each | each storeOn: aStream]
+			separatedBy: [ aStream nextPutAll: ' , '].
 		aStream nextPutAll: ')']
 !
 
@@ -729,18 +737,6 @@ shallowCopy
 
 withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
-! !
-
-!SequenceableCollection methodsFor: 'printing'!
-
-printString
-	"print the contents of the SequenceableCollection into a string and return it"
-	^String streamContents: [:aStream |
-		aStream
-			nextPutAll: super printString, ' ('.
-		self do: [:each | aStream nextPutAll: each printString]
-			separatedBy: [aStream nextPutAll: ' '].
-		aStream nextPutAll: ')'.]
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1407,18 +1403,6 @@ select: aBlock
 initialize
 	super initialize.
 	elements := #()
-! !
-
-!Set methodsFor: 'printing'!
-
-printString
-	"print the contents of the Set into a string and return it"
-	^String streamContents: [:aStream |
-		aStream
-			nextPutAll: super printString, ' ('.
-		self do: [:each | aStream nextPutAll: each printString]
-			separatedBy: [aStream nextPutAll: ' '].
-		aStream nextPutAll: ')'.]
 ! !
 
 !Set methodsFor: 'testing'!
