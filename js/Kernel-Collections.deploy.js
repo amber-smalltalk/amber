@@ -34,10 +34,21 @@ return self;}
 smalltalk.Association);
 
 smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){return smalltalk.send(self, "_storeOn_", [aStream]);})]);
+return self;}
+}),
+smalltalk.Association);
+
+smalltalk.addMethod(
 "_storeOn_",
 smalltalk.method({
 selector: "storeOn:",
-fn: function (aStream) {
+fn: function (aStream){
 var self=this;
 smalltalk.send(self['@key'], "_storeOn_", [aStream]);
 smalltalk.send(aStream, "_nextPutAll_", ["->"]);
@@ -340,6 +351,17 @@ selector: "notEmpty",
 fn: function () {
 var self=this;
 return smalltalk.send(smalltalk.send(self, "_isEmpty", []), "_not", []);
+return self;}
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Collection.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.Collection);
@@ -798,9 +820,9 @@ smalltalk.addMethod(
 "_printString",
 smalltalk.method({
 selector: "printString",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.HashedCollection.superclass || nil)]);return smalltalk.send($rec, "_nextPutAll_", ["("]);})(aStream);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(anAssociation){return (function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_key", []), "_printString", [])]);smalltalk.send($rec, "_nextPutAll_", [" -> "]);return smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(anAssociation, "_value", []), "_printString", [])]);})(aStream);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
+return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send("a ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])]), "__comma", ["("])]);smalltalk.send(smalltalk.send(self, "_associations", []), "_do_separatedBy_", [(function(each){return smalltalk.send(each, "_storeOn_", [aStream]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" , "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.HashedCollection);
@@ -1268,17 +1290,6 @@ selector: "last",
 fn: function () {
 var self=this;
 return smalltalk.send(self, "_at_", [smalltalk.send(self, "_size", [])]);
-return self;}
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_printString",
-smalltalk.method({
-selector: "printString",
-fn: function () {
-var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.SequenceableCollection.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.SequenceableCollection);
@@ -2670,17 +2681,6 @@ fn: function () {
 var self=this;
 smalltalk.send(self, "_initialize", [], smalltalk.Set.superclass || nil);
 (self['@elements']=[]);
-return self;}
-}),
-smalltalk.Set);
-
-smalltalk.addMethod(
-"_printString",
-smalltalk.method({
-selector: "printString",
-fn: function () {
-var self=this;
-return smalltalk.send((smalltalk.String || String), "_streamContents_", [(function(aStream){smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Set.superclass || nil), "__comma", [" ("])]);smalltalk.send(self, "_do_separatedBy_", [(function(each){return smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(each, "_printString", [])]);}), (function(){return smalltalk.send(aStream, "_nextPutAll_", [" "]);})]);return smalltalk.send(aStream, "_nextPutAll_", [")"]);})]);
 return self;}
 }),
 smalltalk.Set);
