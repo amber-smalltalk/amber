@@ -65,6 +65,120 @@ smalltalk.ArrayTest);
 
 
 
+smalltalk.addClass('AssociationTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testClassCreation",
+smalltalk.method({
+selector: "testClassCreation",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var key=nil;
+var value=nil;
+(key="KEY_STRING");
+(value="VALUE_STRING");
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", [key, value]));
+smalltalk.send(self, "_assert_equals_", [key, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [value, smalltalk.send(anAssociation, "_value", [])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testEqualAssociations",
+smalltalk.method({
+selector: "testEqualAssociations",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var anotherAssociation=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+(anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+smalltalk.send(self, "_assert_equals_", [anAssociation, anotherAssociation]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testKeyAccess",
+smalltalk.method({
+selector: "testKeyAccess",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var key=nil;
+(key="KEY_STRING");
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
+smalltalk.send(anAssociation, "_key_", [key]);
+smalltalk.send(self, "_assert_equals_", [key, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_value", [])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testNotEqualAssociations",
+smalltalk.method({
+selector: "testNotEqualAssociations",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var anotherAssociation=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+(anotherAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY2", "VALUE2"]));
+smalltalk.send(self, "_deny_", [smalltalk.send(anAssociation, "__eq", [anotherAssociation])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var returnString=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_key_value_", ["KEY", "VALUE"]));
+(returnString=smalltalk.send(anAssociation, "_printString", []));
+smalltalk.send(self, "_assert_equals_", ["'KEY'->'VALUE'", returnString]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testUninitializedObject",
+smalltalk.method({
+selector: "testUninitializedObject",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_value", [])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+smalltalk.addMethod(
+"_testValueAccess",
+smalltalk.method({
+selector: "testValueAccess",
+fn: function (){
+var self=this;
+var anAssociation=nil;
+var value=nil;
+(value="VALUE_STRING");
+(anAssociation=smalltalk.send((smalltalk.Association || Association), "_new", []));
+smalltalk.send(anAssociation, "_value_", [value]);
+smalltalk.send(self, "_assert_equals_", [nil, smalltalk.send(anAssociation, "_key", [])]);
+smalltalk.send(self, "_assert_equals_", [value, smalltalk.send(anAssociation, "_value", [])]);
+return self;}
+}),
+smalltalk.AssociationTest);
+
+
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_testCompiledSource",
@@ -659,6 +773,26 @@ smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(d, "_values", []
 return self;}
 }),
 smalltalk.DictionaryTest);
+
+
+
+smalltalk.addClass('HashedCollectionTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+var aHashedCollection=nil;
+(aHashedCollection=smalltalk.send((smalltalk.HashedCollection || HashedCollection), "_new", []));
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection()", smalltalk.send(aHashedCollection, "_printString", [])]);
+smalltalk.send(aHashedCollection, "_at_put_", ["key1", (1)]);
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection('key1'->1)", smalltalk.send(aHashedCollection, "_printString", [])]);
+smalltalk.send(aHashedCollection, "_at_put_", ["key2", (2)]);
+smalltalk.send(self, "_assert_equals_", ["a HashedCollection('key1'->1 , 'key2'->2)", smalltalk.send(aHashedCollection, "_printString", [])]);
+return self;}
+}),
+smalltalk.HashedCollectionTest);
 
 
 
@@ -1589,6 +1723,17 @@ return self;}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["'test_string'", smalltalk.send("test_string", "_printString", [])]);
+return self;}
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
 "_testSize",
 smalltalk.method({
 selector: "testSize",
@@ -1730,6 +1875,17 @@ smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.symbolFor("hello"), "
 smalltalk.send(self, "_deny_", [smalltalk.send("hello", "_isSymbol", [])]);
 smalltalk.send(self, "_deny_", [smalltalk.send(smalltalk.symbolFor("hello"), "_isString", [])]);
 smalltalk.send(self, "_assert_", [smalltalk.send("hello", "_isString", [])]);
+return self;}
+}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testPrintString",
+smalltalk.method({
+selector: "testPrintString",
+fn: function (){
+var self=this;
+smalltalk.send(self, "_assert_equals_", ["#symbol", smalltalk.send(smalltalk.symbolFor("symbol"), "_printString", [])]);
 return self;}
 }),
 smalltalk.SymbolTest);
