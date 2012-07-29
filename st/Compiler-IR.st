@@ -177,7 +177,7 @@ visitReturnNode: aNode
 		ifFalse: [ IRReturn new ].
 	return scope: aNode scope.
 	aNode nodes do: [ :each |
-		return add: (self visit: each) ].
+		return add: (self alias: each) ].
 	^ return
 !
 

@@ -405,21 +405,15 @@ selector: "visitReturnNode:",
 category: 'visiting',
 fn: function (aNode) {
 var self=this;
-var return_;
-return_=smalltalk.send(smalltalk.send(aNode,"_nonLocalReturn",[]),"_ifTrue_ifFalse_",[(function(){
-return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn),"_new",[]);
-}),(function(){
-return smalltalk.send((smalltalk.IRReturn || IRReturn),"_new",[]);
-})]);
-smalltalk.send(return_,"_scope_",[smalltalk.send(aNode,"_scope",[])]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(return_,"_add_",[smalltalk.send(self,"_visit_",[each])]);
-})]);
+var return_=nil;
+(return_=((($receiver = smalltalk.send(aNode, "_nonLocalReturn", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);})() : (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);}), (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})])));
+smalltalk.send(return_, "_scope_", [smalltalk.send(aNode, "_scope", [])]);
+smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(return_, "_add_", [smalltalk.send(self, "_alias_", [each])]);})]);
 return return_;
-},
+return self;},
 args: ["aNode"],
-source: "visitReturnNode: aNode\x0a\x09| return |\x0a\x09return := aNode nonLocalReturn \x0a\x09\x09ifTrue: [ IRNonLocalReturn new ]\x0a\x09\x09ifFalse: [ IRReturn new ].\x0a\x09return scope: aNode scope.\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09return add: (self visit: each) ].\x0a\x09^ return",
-messageSends: ["ifTrue:ifFalse:", "new", "nonLocalReturn", "scope:", "scope", "do:", "add:", "visit:", "nodes"],
+source: "visitReturnNode: aNode\x0a\x09| return |\x0a\x09return := aNode nonLocalReturn \x0a\x09\x09ifTrue: [ IRNonLocalReturn new ]\x0a\x09\x09ifFalse: [ IRReturn new ].\x0a\x09return scope: aNode scope.\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09return add: (self alias: each) ].\x0a\x09^ return",
+messageSends: ["ifTrue:ifFalse:", "nonLocalReturn", "new", "scope:", "scope", "do:", "nodes", "add:", "alias:"],
 referencedClasses: ["IRNonLocalReturn", "IRReturn"]
 }),
 smalltalk.IRASTTranslator);

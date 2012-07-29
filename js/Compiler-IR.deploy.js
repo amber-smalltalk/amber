@@ -313,18 +313,12 @@ smalltalk.method({
 selector: "visitReturnNode:",
 fn: function (aNode) {
 var self=this;
-var return_;
-return_=smalltalk.send(smalltalk.send(aNode,"_nonLocalReturn",[]),"_ifTrue_ifFalse_",[(function(){
-return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn),"_new",[]);
-}),(function(){
-return smalltalk.send((smalltalk.IRReturn || IRReturn),"_new",[]);
-})]);
-smalltalk.send(return_,"_scope_",[smalltalk.send(aNode,"_scope",[])]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(return_,"_add_",[smalltalk.send(self,"_visit_",[each])]);
-})]);
+var return_=nil;
+(return_=((($receiver = smalltalk.send(aNode, "_nonLocalReturn", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);})() : (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);}), (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})])));
+smalltalk.send(return_, "_scope_", [smalltalk.send(aNode, "_scope", [])]);
+smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [(function(each){return smalltalk.send(return_, "_add_", [smalltalk.send(self, "_alias_", [each])]);})]);
 return return_;
-}
+return self;}
 }),
 smalltalk.IRASTTranslator);
 
