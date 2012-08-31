@@ -89,7 +89,8 @@ amber = (function() {
 				'SUnit',
 				'Examples',
 				'Benchfib',
-				'Kernel-Tests'
+				'Kernel-Tests',
+                'Nemo'
 			]);
 		}
 

@@ -322,6 +322,22 @@ return self;}
 smalltalk.Class);
 
 smalltalk.addMethod(
+"_definition",
+smalltalk.method({
+selector: "definition",
+fn: function (){
+var self=this;
+var stream=nil;
+(stream=smalltalk.send("", "_writeStream", []));
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send(self, "_superclass", []), "_asString", [])]);smalltalk.send($rec, "_nextPutAll_", [" subclass: #"]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_name", [])]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send((smalltalk.String || String), "_lf", []), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])])]);return smalltalk.send($rec, "_nextPutAll_", ["instanceVariableNames: '"]);})(stream);
+smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(smalltalk.send("'", "__comma", [smalltalk.send((smalltalk.String || String), "_lf", [])]), "__comma", [smalltalk.send((smalltalk.String || String), "_tab", [])])]);smalltalk.send($rec, "_nextPutAll_", ["package: '"]);smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_category", [])]);return smalltalk.send($rec, "_nextPutAll_", ["'"]);})(stream);
+return smalltalk.send(stream, "_contents", []);
+return self;}
+}),
+smalltalk.Class);
+
+smalltalk.addMethod(
 "_isClass",
 smalltalk.method({
 selector: "isClass",

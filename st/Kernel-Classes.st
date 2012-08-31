@@ -177,6 +177,26 @@ category
 	^self package ifNil: ['Unclassified'] ifNotNil: [self package name]
 !
 
+definition
+	| stream |
+	stream := '' writeStream.
+	stream 
+	    nextPutAll: self superclass asString;
+	    nextPutAll: ' subclass: #';
+	    nextPutAll: self name;
+	    nextPutAll: String lf, String tab;
+	    nextPutAll: 'instanceVariableNames: '''.
+	self instanceVariableNames 
+	    do: [:each | stream nextPutAll: each] 
+	    separatedBy: [stream nextPutAll: ' '].
+	stream
+	    nextPutAll: '''', String lf, String tab;
+	    nextPutAll: 'package: ''';
+	    nextPutAll: self category;
+	    nextPutAll: ''''.
+	^stream contents
+!
+
 package
 	<return self.pkg>
 !
