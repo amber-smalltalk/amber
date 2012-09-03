@@ -69,10 +69,7 @@ try{var string=nil;
 var result=nil;
 (string=smalltalk.send(aMessage, "_data", []));
 ((($receiver = smalltalk.send(string, "_isString", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return (function(){throw $early=[self]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return (function(){throw $early=[self]})();})]));
-smalltalk.send((smalltalk.Transcript || Transcript), "_show_", [string]);
-(result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_evaluateExpression_", [string]));
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [result]);
-smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send(result, "_asNemoString", [])]);
+smalltalk.send((function(){return (result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []), "_evaluateExpression_", [string]));}), "_on_do_", [(smalltalk.Error || Error), (function(ex){return (function(){throw $early=[smalltalk.send(self['@socket'], "_send_", [smalltalk.send(ex, "_asNemoString", [])])]})();})]);
 smalltalk.send(self['@socket'], "_send_", [smalltalk.send(result, "_asNemoString", [])]);
 return self;
 } catch(e) {if(e===$early)return e[0]; throw e}}
@@ -143,10 +140,21 @@ smalltalk.method({
 selector: "asNemo",
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_at_put_", ["name", smalltalk.send(self, "_name", [])]);smalltalk.send($rec, "_at_put_", ["superclass", (($receiver = smalltalk.send(self, "_superclass", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_superclass", []), "_name", []);})() : nil]);smalltalk.send($rec, "_at_put_", ["classComment", smalltalk.send(self, "_comment", [])]);smalltalk.send($rec, "_at_put_", ["definition", smalltalk.send(self, "_definition", [])]);smalltalk.send($rec, "_at_put_", ["package", smalltalk.send(self, "_category", [])]);return smalltalk.send($rec, "_asNemo", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+return (function($rec){smalltalk.send($rec, "_at_put_", ["name", smalltalk.send(self, "_name", [])]);smalltalk.send($rec, "_at_put_", ["superclass", (($receiver = smalltalk.send(self, "_superclass", [])) != nil && $receiver != undefined) ? (function(){return smalltalk.send(smalltalk.send(self, "_superclass", []), "_name", []);})() : nil]);smalltalk.send($rec, "_at_put_", ["classComment", smalltalk.send(self, "_comment", [])]);smalltalk.send($rec, "_at_put_", ["definition", smalltalk.send(self, "_definition", [])]);smalltalk.send($rec, "_at_put_", ["package", smalltalk.send(self, "_category", [])]);smalltalk.send($rec, "_at_put_", ["instVarNames", smalltalk.send(self, "_instanceVariableNames", [])]);return smalltalk.send($rec, "_asNemo", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
 return self;}
 }),
 smalltalk.Class);
+
+smalltalk.addMethod(
+"_asNemo",
+smalltalk.method({
+selector: "asNemo",
+fn: function (){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_at_put_", ["definition", smalltalk.send(self, "_definition", [])]);smalltalk.send($rec, "_at_put_", ["instVarNames", smalltalk.send(self, "_instanceVariableNames", [])]);return smalltalk.send($rec, "_asNemo", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+return self;}
+}),
+smalltalk.Metaclass);
 
 smalltalk.addMethod(
 "_asNemo",
@@ -194,6 +202,28 @@ return self;
 return self;}
 }),
 smalltalk.String);
+
+smalltalk.addMethod(
+"_asNemo",
+smalltalk.method({
+selector: "asNemo",
+fn: function (){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_at_put_", ["name", smalltalk.send(self, "_selector", [])]);smalltalk.send($rec, "_at_put_", ["protocol", smalltalk.send(self, "_category", [])]);smalltalk.send($rec, "_at_put_", ["sourceCode", smalltalk.send(self, "_source", [])]);smalltalk.send($rec, "_at_put_", ["compiledSource", smalltalk.send(smalltalk.send(self, "_fn", []), "_compiledSource", [])]);smalltalk.send($rec, "_at_put_", ["messageSends", smalltalk.send(self, "_messageSends", [])]);return smalltalk.send($rec, "_asNemo", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+return self;}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_asNemo",
+smalltalk.method({
+selector: "asNemo",
+fn: function (){
+var self=this;
+return (function($rec){smalltalk.send($rec, "_at_put_", ["error", smalltalk.send(self, "_messageText", [])]);return smalltalk.send($rec, "_asNemo", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []));
+return self;}
+}),
+smalltalk.Error);
 
 smalltalk.addMethod(
 "_asNemo",

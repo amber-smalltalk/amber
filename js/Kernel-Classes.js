@@ -174,11 +174,16 @@ selector: "compile:category:",
 category: 'compiling',
 fn: function (aString, anotherString){
 var self=this;
-(function($rec){smalltalk.send($rec, "_install_forClass_category_", [aString, self, anotherString]);return smalltalk.send($rec, "_setupClass_", [self]);})(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []));
+var compiler=nil;
+var method=nil;
+(compiler=smalltalk.send((smalltalk.Compiler || Compiler), "_new", []));
+(method=smalltalk.send(compiler, "_install_forClass_category_", [aString, self, anotherString]));
+smalltalk.send(compiler, "_setupClass_", [self]);
+return smalltalk.send(method, "_selector", []);
 return self;},
 args: ["aString", "anotherString"],
-source: "compile: aString category: anotherString\x0a\x09Compiler new\x0a\x09\x09install: aString forClass: self category: anotherString;\x0a\x09\x09setupClass: self",
-messageSends: ["install:forClass:category:", "setupClass:", "new"],
+source: "compile: aString category: anotherString\x0a\x09| compiler method |\x0a\x09compiler := Compiler new.\x0a\x09method := compiler install: aString forClass: self category: anotherString.\x0a\x09compiler setupClass: self.\x0a\x09^ method selector",
+messageSends: ["new", "install:forClass:category:", "setupClass:", "selector"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.Behavior);
@@ -386,6 +391,22 @@ return self;},
 args: ["aMethod"],
 source: "removeCompiledMethod: aMethod\x0a\x09<delete self.fn.prototype[aMethod.selector._asSelector()];\x0a\x09delete self.fn.prototype.methods[aMethod.selector];\x0a\x09smalltalk.init(self);>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_removeSelector_",
+smalltalk.method({
+selector: "removeSelector:",
+category: 'compiling',
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_removeCompiledMethod_", [smalltalk.send(self, "_methodAt_", [aString])]);
+return self;},
+args: ["aString"],
+source: "removeSelector: aString\x0a\x09self removeCompiledMethod: (self methodAt: aString)",
+messageSends: ["removeCompiledMethod:", "methodAt:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -632,6 +653,27 @@ smalltalk.Class);
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.Metaclass.comment="Metaclass is the root of the class hierarchy.\x0a\x0aMetaclass instances are metaclasses, one for each real class. \x0aMetaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of."
+smalltalk.addMethod(
+"_definition",
+smalltalk.method({
+selector: "definition",
+category: 'accessing',
+fn: function (){
+var self=this;
+var stream=nil;
+(stream=smalltalk.send("", "_writeStream", []));
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_asString", [])]);return smalltalk.send($rec, "_nextPutAll_", [" instanceVariableNames: '"]);})(stream);
+smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);
+smalltalk.send(stream, "_nextPutAll_", ["'"]);
+return smalltalk.send(stream, "_contents", []);
+return self;},
+args: [],
+source: "definition\x0a\x09 | stream |\x0a\x09stream := '' writeStream.\x0a\x09stream \x0a\x09    nextPutAll: self asString;\x0a\x09    nextPutAll: ' instanceVariableNames: '''.\x0a\x09self instanceVariableNames\x0a\x09    do: [:each | stream nextPutAll: each]\x0a\x09    separatedBy: [stream nextPutAll: ' '].\x0a\x09stream nextPutAll: ''''.\x0a    ^stream contents",
+messageSends: ["writeStream", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames", "contents"],
+referencedClasses: []
+}),
+smalltalk.Metaclass);
+
 smalltalk.addMethod(
 "_instanceClass",
 smalltalk.method({

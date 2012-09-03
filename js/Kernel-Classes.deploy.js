@@ -122,7 +122,12 @@ smalltalk.method({
 selector: "compile:category:",
 fn: function (aString, anotherString){
 var self=this;
-(function($rec){smalltalk.send($rec, "_install_forClass_category_", [aString, self, anotherString]);return smalltalk.send($rec, "_setupClass_", [self]);})(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []));
+var compiler=nil;
+var method=nil;
+(compiler=smalltalk.send((smalltalk.Compiler || Compiler), "_new", []));
+(method=smalltalk.send(compiler, "_install_forClass_category_", [aString, self, anotherString]));
+smalltalk.send(compiler, "_setupClass_", [self]);
+return smalltalk.send(method, "_selector", []);
 return self;}
 }),
 smalltalk.Behavior);
@@ -270,6 +275,17 @@ var self=this;
 delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
 	smalltalk.init(self);;
+return self;}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_removeSelector_",
+smalltalk.method({
+selector: "removeSelector:",
+fn: function (aString){
+var self=this;
+smalltalk.send(self, "_removeCompiledMethod_", [smalltalk.send(self, "_methodAt_", [aString])]);
 return self;}
 }),
 smalltalk.Behavior);
@@ -444,6 +460,22 @@ smalltalk.Class);
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
+smalltalk.addMethod(
+"_definition",
+smalltalk.method({
+selector: "definition",
+fn: function (){
+var self=this;
+var stream=nil;
+(stream=smalltalk.send("", "_writeStream", []));
+(function($rec){smalltalk.send($rec, "_nextPutAll_", [smalltalk.send(self, "_asString", [])]);return smalltalk.send($rec, "_nextPutAll_", [" instanceVariableNames: '"]);})(stream);
+smalltalk.send(smalltalk.send(self, "_instanceVariableNames", []), "_do_separatedBy_", [(function(each){return smalltalk.send(stream, "_nextPutAll_", [each]);}), (function(){return smalltalk.send(stream, "_nextPutAll_", [" "]);})]);
+smalltalk.send(stream, "_nextPutAll_", ["'"]);
+return smalltalk.send(stream, "_contents", []);
+return self;}
+}),
+smalltalk.Metaclass);
+
 smalltalk.addMethod(
 "_instanceClass",
 smalltalk.method({

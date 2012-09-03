@@ -17,7 +17,7 @@ createDefaultSocket
 
 createLocalSocketOn: aPort
 
-	^ self createSocketOn: 'ws://localhost:',aPort asString,'/nemo'
+	^ self createSocketOn: 'ws://localhost:', aPort asString, '/nemo'
 !
 
 createSocketOn: uri
@@ -37,11 +37,9 @@ handleMessage: aMessage
 	string := aMessage data.
 	string isString ifFalse: [ ^ self ].
 
-	Transcript show: string.
-
-	result := Compiler new evaluateExpression: string.
-	console log: result.
-	console log: result asNemoString.
+	[ result := Compiler new evaluateExpression: string ]
+		on: Error
+		do: [ :ex | ^ socket send: ex asNemoString ].
 	socket send: result asNemoString
 !
 
@@ -81,6 +79,16 @@ asNemo
 		at: 'classComment' put: self comment;
 		at: 'definition' put: self definition;
 		at: 'package' put: self category;
+		at: 'instVarNames' put: self instanceVariableNames;
+		asNemo
+! !
+
+!Metaclass methodsFor: '*Nemo'!
+
+asNemo
+	^ Dictionary new
+		at: 'definition' put: self definition;
+		at: 'instVarNames' put: self instanceVariableNames;
 		asNemo
 ! !
 
@@ -110,6 +118,26 @@ asNemo
 
 asNemo
 	^ self
+! !
+
+!CompiledMethod methodsFor: '*Nemo'!
+
+asNemo
+	^ Dictionary new
+		at: 'name' put: self selector;
+		at: 'protocol' put: self category;
+		at: 'sourceCode' put: self source;
+		at: 'compiledSource' put: self fn compiledSource;
+		at: 'messageSends' put: self messageSends;
+		asNemo
+! !
+
+!Error methodsFor: '*Nemo'!
+
+asNemo
+	^ Dictionary new
+		at: 'error' put: self messageText;
+		asNemo
 ! !
 
 !Package methodsFor: '*Nemo'!

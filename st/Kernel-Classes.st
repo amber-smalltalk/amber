@@ -130,15 +130,21 @@ compile: aString
 !
 
 compile: aString category: anotherString
-	Compiler new
-		install: aString forClass: self category: anotherString;
-		setupClass: self
+	| compiler method |
+	compiler := Compiler new.
+	method := compiler install: aString forClass: self category: anotherString.
+	compiler setupClass: self.
+	^ method selector
 !
 
 removeCompiledMethod: aMethod
 	<delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
 	smalltalk.init(self);>
+!
+
+removeSelector: aString
+	self removeCompiledMethod: (self methodAt: aString)
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -258,6 +264,19 @@ Metaclass instances are metaclasses, one for each real class.
 Metaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of.!
 
 !Metaclass methodsFor: 'accessing'!
+
+definition
+	 | stream |
+	stream := '' writeStream.
+	stream 
+	    nextPutAll: self asString;
+	    nextPutAll: ' instanceVariableNames: '''.
+	self instanceVariableNames
+	    do: [:each | stream nextPutAll: each]
+	    separatedBy: [stream nextPutAll: ' '].
+	stream nextPutAll: ''''.
+    ^stream contents
+!
 
 instanceClass
 	<return self.instanceClass>
