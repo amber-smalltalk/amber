@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes shouldBeInlined'
+	instanceVariableNames: 'nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.!
@@ -13,6 +13,14 @@ addNode: aNode
 
 nodes
 	^nodes ifNil: [nodes := Array new]
+!
+
+shouldBeAliased
+	^ shouldBeAliased ifNil: [ false ]
+!
+
+shouldBeAliased: aBoolean
+	shouldBeAliased := aBoolean
 !
 
 shouldBeInlined

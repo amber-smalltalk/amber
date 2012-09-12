@@ -183,24 +183,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitAssignmentNode:",
 category: 'visiting',
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
-var $1,$2;
-var left;
-var right;
-var assignment;
-right=smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_right",[])]);
-left=smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_left",[])]);
-$1=smalltalk.send((smalltalk.IRAssignment || IRAssignment),"_new",[]);
-smalltalk.send($1,"_add_",[left]);
-smalltalk.send($1,"_add_",[right]);
-$2=smalltalk.send($1,"_yourself",[]);
-smalltalk.send(smalltalk.send(self,"_sequence",[]),"_add_",[$2]);
+var left=nil;
+var right=nil;
+var assignment=nil;
+(right=smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_right", [])]));
+(left=smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_left", [])]));
+smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [(function($rec){smalltalk.send($rec, "_add_", [left]);smalltalk.send($rec, "_add_", [right]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.IRAssignment || IRAssignment), "_new", []))]);
 return left;
-},
+return self;},
 args: ["aNode"],
 source: "visitAssignmentNode: aNode\x0a\x09| left right assignment |\x0a\x09right := self visit: aNode right.\x0a\x09left := self visit: aNode left.\x0a\x09self sequence add: (IRAssignment new \x0a\x09\x09add: left;\x0a\x09\x09add: right;\x0a\x09\x09yourself).\x0a\x09^ left",
-messageSends: ["visit:", "right", "left", "add:", "new", "yourself", "sequence"],
+messageSends: ["visit:", "right", "left", "add:", "sequence", "yourself", "new"],
 referencedClasses: ["IRAssignment"]
 }),
 smalltalk.IRASTTranslator);
@@ -403,7 +398,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitReturnNode:",
 category: 'visiting',
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
 var return_=nil;
 (return_=((($receiver = smalltalk.send(aNode, "_nonLocalReturn", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);})() : (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send((smalltalk.IRNonLocalReturn || IRNonLocalReturn), "_new", []);}), (function(){return smalltalk.send((smalltalk.IRReturn || IRReturn), "_new", []);})])));
@@ -423,39 +418,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
 category: 'visiting',
-fn: function (aNode) {
+fn: function (aNode){
 var self=this;
-var $1;
-var send;
-var receiver;
-var arguments;
-send=smalltalk.send((smalltalk.IRSend || IRSend),"_new",[]);
-smalltalk.send(send,"_selector_",[smalltalk.send(aNode,"_selector",[])]);
-$1=smalltalk.send(send,"_index_",[smalltalk.send(aNode,"_index",[])]);
-if(smalltalk.assert(smalltalk.send(aNode,"_superSend",[]))){
-smalltalk.send(send,"_classSend_",[smalltalk.send(smalltalk.send(self,"_theClass",[]),"_superclass",[])]);
-};
-receiver=smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeInlined",[]),"_ifTrue_ifFalse_",[(function(){
-return smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
-}),(function(){
-return smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_receiver",[])]);
-})]);
-arguments=smalltalk.send(smalltalk.send(aNode,"_arguments",[]),"_collect_",[(function(each){
-return smalltalk.send(smalltalk.send(each,"_shouldBeInlined",[]),"_ifTrue_ifFalse_",[(function(){
-return smalltalk.send(self,"_alias_",[each]);
-}),(function(){
-return smalltalk.send(self,"_visit_",[each]);
-})]);
-})]);
-smalltalk.send(send,"_add_",[receiver]);
-smalltalk.send(arguments,"_do_",[(function(each){
-return smalltalk.send(send,"_add_",[each]);
-})]);
+var send=nil;
+var receiver=nil;
+var arguments=nil;
+(send=smalltalk.send((smalltalk.IRSend || IRSend), "_new", []));
+(function($rec){smalltalk.send($rec, "_selector_", [smalltalk.send(aNode, "_selector", [])]);return smalltalk.send($rec, "_index_", [smalltalk.send(aNode, "_index", [])]);})(send);
+((($receiver = smalltalk.send(aNode, "_superSend", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);})]));
+(receiver=((($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeInlined", []), "_or_", [(function(){return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeAliased", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);})() : (function(){return smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);}), (function(){return smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);})])));
+(arguments=smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_collect_", [(function(each){return ((($receiver = smalltalk.send(each, "_shouldBeInlined", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_alias_", [each]);})() : (function(){return smalltalk.send(self, "_visit_", [each]);})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return smalltalk.send(self, "_alias_", [each]);}), (function(){return smalltalk.send(self, "_visit_", [each]);})]));})]));
+smalltalk.send(send, "_add_", [receiver]);
+smalltalk.send(arguments, "_do_", [(function(each){return smalltalk.send(send, "_add_", [each]);})]);
 return send;
-},
+return self;},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| send receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a\x0a\x09receiver := aNode receiver shouldBeInlined \x0a\x09\x09ifTrue: [ self alias: aNode receiver ]\x0a\x09\x09ifFalse: [ self visit: aNode receiver ].\x0a\x0a\x09arguments := aNode arguments collect: [ :each | \x0a\x09\x09each shouldBeInlined\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ]].\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
-messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "classSend:", "superclass", "theClass", "superSend", "ifTrue:ifFalse:", "alias:", "receiver", "visit:", "shouldBeInlined", "collect:", "arguments", "add:", "do:"],
+source: "visitSendNode: aNode\x0a\x09| send receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a\x0a\x09receiver := (aNode receiver shouldBeInlined or: [ aNode receiver shouldBeAliased ])\x0a\x09\x09ifTrue: [ self alias: aNode receiver ]\x0a\x09\x09ifFalse: [ self visit: aNode receiver ].\x0a\x0a\x09arguments := aNode arguments collect: [ :each | \x0a\x09\x09each shouldBeInlined\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ]].\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
+messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "superSend", "classSend:", "superclass", "theClass", "ifTrue:ifFalse:", "or:", "shouldBeInlined", "receiver", "shouldBeAliased", "alias:", "visit:", "collect:", "arguments", "add:", "do:"],
 referencedClasses: ["IRSend"]
 }),
 smalltalk.IRASTTranslator);

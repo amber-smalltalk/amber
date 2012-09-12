@@ -189,7 +189,7 @@ visitSendNode: aNode
 		index: aNode index.
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
 
-	receiver := aNode receiver shouldBeInlined 
+	receiver := (aNode receiver shouldBeInlined or: [ aNode receiver shouldBeAliased ])
 		ifTrue: [ self alias: aNode receiver ]
 		ifFalse: [ self visit: aNode receiver ].
 

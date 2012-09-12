@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'shouldBeInlined'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree."
 smalltalk.addMethod(
 "_accept_",
@@ -156,6 +156,38 @@ var self=this;
 return self;},
 args: ["aCollection"],
 source: "nodes: aCollection\x0a\x09nodes := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_shouldBeAliased",
+smalltalk.method({
+selector: "shouldBeAliased",
+category: 'accessing',
+fn: function (){
+var self=this;
+return (($receiver = self['@shouldBeAliased']) == nil || $receiver == undefined) ? (function(){return false;})() : $receiver;
+return self;},
+args: [],
+source: "shouldBeAliased\x0a\x09^ shouldBeAliased ifNil: [ false ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_shouldBeAliased_",
+smalltalk.method({
+selector: "shouldBeAliased:",
+category: 'accessing',
+fn: function (aBoolean){
+var self=this;
+(self['@shouldBeAliased']=aBoolean);
+return self;},
+args: ["aBoolean"],
+source: "shouldBeAliased: aBoolean\x0a\x09shouldBeAliased := aBoolean",
 messageSends: [],
 referencedClasses: []
 }),

@@ -519,7 +519,8 @@ visitSendNode: aNode
 			aNode superSend: true.
 			aNode receiver value: 'self' ]
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
-			aNode shouldBeInlined: true ]].
+			aNode shouldBeInlined: true.
+			aNode receiver isValueNode ifFalse: [ aNode receiver shouldBeAliased: true ] ] ].
 
 	self messageSends at: aNode selector ifAbsentPut: [ Set new ].
 	(self messageSends at: aNode selector) add: aNode.
