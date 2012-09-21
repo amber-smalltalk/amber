@@ -1398,7 +1398,7 @@ reservedWords
 send: aSelector to: anObject arguments: aCollection
 	| selector |
 	selector := aSelector asString asSelector.
-	<self.send(anObject, selector, aCollection)>
+	<return self.send(anObject, selector, aCollection)>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
