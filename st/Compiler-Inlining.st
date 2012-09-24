@@ -99,14 +99,14 @@ accept: aVisitor
 	aVisitor visitIRInlinedIfFalse: self
 ! !
 
-IRInlinedSend subclass: #IRInlinedIfNil
+IRInlinedSend subclass: #IRInlinedIfNilIfNotNil
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
 
-!IRInlinedIfNil methodsFor: 'visiting'!
+!IRInlinedIfNilIfNotNil methodsFor: 'visiting'!
 
 accept: aVisitor
-	aVisitor visitIRInlinedIfNil: self
+	aVisitor visitIRInlinedIfNilIfNotNil: self
 ! !
 
 IRInlinedSend subclass: #IRInlinedIfTrue
@@ -328,6 +328,16 @@ visitIRInlinedIfNil: anIRInlinedIfNil
 		with: [ self visit: anIRInlinedIfNil instructions last ]
 !
 
+visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
+	self stream 
+		nextPutIfElse: [ 
+			self stream nextPutAll: '($receiver = '. 
+			self visit: anIRInlinedIfNilIfNotNil instructions first.
+			self stream nextPutAll: ') == nil || $receiver == undefined' ]
+		with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
+		with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]
+!
+
 visitIRInlinedIfTrue: anIRInlinedIfTrue
 	self stream nextPutIf: [ 
 		self stream nextPutAll: 'smalltalk.assert('. 
@@ -438,7 +448,35 @@ ifFalse: anIRInstruction ifTrue: anotherIRInstruction
 !
 
 ifNil: anIRInstruction
-	^ self inlinedSend: IRInlinedIfNil new with: anIRInstruction
+	^ self 
+		inlinedSend: IRInlinedIfNilIfNotNil new 
+		with: anIRInstruction
+		with: (IRClosure new
+			scope: anIRInstruction scope copy;
+			add: (IRBlockSequence new
+				add: self send instructions first;
+				yourself);
+			yourself)
+!
+
+ifNil: anIRInstruction ifNotNil: anotherIRInstruction
+	^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anIRInstruction with: anotherIRInstruction
+!
+
+ifNotNil: anIRInstruction
+	^ self 
+		inlinedSend: IRInlinedIfNilIfNotNil new
+		with: (IRClosure new
+			scope: anIRInstruction scope copy;
+			add: (IRBlockSequence new
+				add: self send instructions first;
+				yourself);
+			yourself)
+		with: anIRInstruction
+!
+
+ifNotNil: anIRInstruction ifNil: anotherIRInstruction
+	^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anotherIRInstruction with: anIRInstruction
 !
 
 ifTrue: anIRInstruction
@@ -451,6 +489,7 @@ ifTrue: anIRInstruction ifFalse: anotherIRInstruction
 
 inlineClosure: anIRClosure
 	| inlinedClosure sequence statements |
+
 	inlinedClosure := self inlinedClosure.
 	inlinedClosure scope: anIRClosure scope.
 
@@ -538,7 +577,7 @@ inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
 !IRSendInliner class methodsFor: 'accessing'!
 
 inlinedSelectors
-	^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:')
+	^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:' 'ifNotNil:' 'ifNil:ifNotNil:' 'ifNotNil:ifNil')
 !
 
 shouldInline: anIRInstruction

@@ -59,6 +59,9 @@ withSequence: aSequence do: aBlock
 
 alias: aNode
 	| variable |
+
+	aNode isValueNode ifTrue: [ ^ self visit: aNode ].
+
 	variable := IRVariable new 
 		variable: (AliasVar new name: '$', self nextAlias); 
 		yourself.
