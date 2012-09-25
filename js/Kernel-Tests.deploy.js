@@ -642,9 +642,9 @@ smalltalk.addMethod(
 "_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
-fn: function () {
+fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_equals_", ["a Dictionary('firstname' -> 'James' , 'lastname' -> 'Bond')", (function($rec){smalltalk.send($rec, "_at_put_", ["firstname", "James"]);smalltalk.send($rec, "_at_put_", ["lastname", "Bond"]);return smalltalk.send($rec, "_printString", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []))]);
+smalltalk.send(self, "_assert_equals_", ["a Dictionary('firstname'->'James' , 'lastname'->'Bond')", (function($rec){smalltalk.send($rec, "_at_put_", ["firstname", "James"]);smalltalk.send($rec, "_at_put_", ["lastname", "Bond"]);return smalltalk.send($rec, "_printString", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []))]);
 return self;}
 }),
 smalltalk.DictionaryTest);

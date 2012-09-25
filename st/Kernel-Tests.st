@@ -435,7 +435,7 @@ testKeys
 
 testPrintString
 	self
-		assert: 'a Dictionary(''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')' 
+		assert: 'a Dictionary(''firstname''->''James'' , ''lastname''->''Bond'')' 
 		equals: (Dictionary new 
                          	at:'firstname' put: 'James';
                         	at:'lastname' put: 'Bond';

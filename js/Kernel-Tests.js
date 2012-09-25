@@ -873,12 +873,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "testPrintString",
 category: 'tests',
-fn: function () {
+fn: function (){
 var self=this;
-smalltalk.send(self, "_assert_equals_", ["a Dictionary('firstname' -> 'James' , 'lastname' -> 'Bond')", (function($rec){smalltalk.send($rec, "_at_put_", ["firstname", "James"]);smalltalk.send($rec, "_at_put_", ["lastname", "Bond"]);return smalltalk.send($rec, "_printString", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []))]);
+smalltalk.send(self, "_assert_equals_", ["a Dictionary('firstname'->'James' , 'lastname'->'Bond')", (function($rec){smalltalk.send($rec, "_at_put_", ["firstname", "James"]);smalltalk.send($rec, "_at_put_", ["lastname", "Bond"]);return smalltalk.send($rec, "_printString", []);})(smalltalk.send((smalltalk.Dictionary || Dictionary), "_new", []))]);
 return self;},
 args: [],
-source: "testPrintString\x0a\x09self\x0a\x09\x09assert: 'a Dictionary(''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')' \x0a\x09\x09equals: (Dictionary new \x0a                         \x09at:'firstname' put: 'James';\x0a                        \x09at:'lastname' put: 'Bond';\x0a                        \x09printString)",
+source: "testPrintString\x0a\x09self\x0a\x09\x09assert: 'a Dictionary(''firstname''->''James'' , ''lastname''->''Bond'')' \x0a\x09\x09equals: (Dictionary new \x0a                         \x09at:'firstname' put: 'James';\x0a                        \x09at:'lastname' put: 'Bond';\x0a                        \x09printString)",
 messageSends: ["assert:equals:", "at:put:", "printString", "new"],
 referencedClasses: ["Dictionary"]
 }),
