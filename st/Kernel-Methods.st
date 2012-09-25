@@ -241,7 +241,7 @@ printString
 !
 
 sendTo: anObject
-	Smalltalk current send: self selector to: anObject arguments: self arguments
+	^ Smalltalk current send: self selector to: anObject arguments: self arguments
 ! !
 
 !Message class methodsFor: 'instance creation'!
