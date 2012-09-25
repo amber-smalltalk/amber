@@ -132,6 +132,22 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
+"_isBlockScope",
+smalltalk.method({
+selector: "isBlockScope",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_isMethodScope", []), "_not", []);
+return self;},
+args: [],
+source: "isBlockScope\x0a\x09^ self isMethodScope not",
+messageSends: ["not", "isMethodScope"],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
 "_isInlined",
 smalltalk.method({
 selector: "isInlined",

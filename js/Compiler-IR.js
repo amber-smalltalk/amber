@@ -8,25 +8,28 @@ selector: "alias:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var $early = {};
-    try {
-        var variable = nil;
-        ($receiver = smalltalk.send(aNode, "_isValueNode", [])).klass === smalltalk.Boolean ? $receiver ? function () {return function () {throw $early = [smalltalk.send(self, "_visit_", [aNode])];}();}() : nil : smalltalk.send($receiver, "_ifTrue_", [function () {return function () {throw $early = [smalltalk.send(self, "_visit_", [aNode])];}();}]);
-        variable = function ($rec) {smalltalk.send($rec, "_variable_", [smalltalk.send(smalltalk.send(smalltalk.AliasVar || AliasVar, "_new", []), "_name_", [smalltalk.send("$", "__comma", [smalltalk.send(self, "_nextAlias", [])])])]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(smalltalk.IRVariable || IRVariable, "_new", []));
-        smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [function ($rec) {smalltalk.send($rec, "_add_", [variable]);smalltalk.send($rec, "_add_", [smalltalk.send(self, "_visit_", [aNode])]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(smalltalk.IRAssignment || IRAssignment, "_new", []))]);
-        smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_internalVariables", []), "_add_", [variable]);
-        return variable;
-        return self;
-    } catch (e) {
-        if (e === $early) {
-            return e[0];
-        }
-        throw e;
+    var $1, $2, $3, $4, $5, $6;
+    var variable;
+    $1 = smalltalk.send(aNode, "_isValueNode", []);
+    if (smalltalk.assert($1)) {
+        $2 = smalltalk.send(self, "_visit_", [aNode]);
+        return $2;
     }
+    $3 = smalltalk.send(smalltalk.IRVariable || IRVariable, "_new", []);
+    smalltalk.send($3, "_variable_", [smalltalk.send(smalltalk.send(smalltalk.AliasVar || AliasVar, "_new", []), "_name_", [smalltalk.send("$", "__comma", [smalltalk.send(self, "_nextAlias", [])])])]);
+    $4 = smalltalk.send($3, "_yourself", []);
+    variable = $4;
+    $5 = smalltalk.send(smalltalk.IRAssignment || IRAssignment, "_new", []);
+    smalltalk.send($5, "_add_", [variable]);
+    smalltalk.send($5, "_add_", [smalltalk.send(self, "_visit_", [aNode])]);
+    $6 = smalltalk.send($5, "_yourself", []);
+    smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [$6]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_internalVariables", []), "_add_", [variable]);
+    return variable;
 },
 args: ["aNode"],
 source: "alias: aNode\x0a\x09| variable |\x0a\x0a\x09aNode isValueNode ifTrue: [ ^ self visit: aNode ].\x0a\x0a\x09variable := IRVariable new \x0a\x09\x09variable: (AliasVar new name: '$', self nextAlias); \x0a\x09\x09yourself.\x0a\x0a\x09self sequence add: (IRAssignment new\x0a\x09\x09add: variable;\x0a\x09\x09add: (self visit: aNode);\x0a\x09\x09yourself).\x0a\x0a\x09self method internalVariables add: variable.\x0a\x0a\x09^ variable",
-messageSends: ["ifTrue:", "isValueNode", "visit:", "variable:", "name:", "new", ",", "nextAlias", "yourself", "add:", "sequence", "internalVariables", "method"],
+messageSends: ["ifTrue:", "visit:", "isValueNode", "variable:", "name:", ",", "nextAlias", "new", "yourself", "add:", "sequence", "internalVariables", "method"],
 referencedClasses: ["AliasVar", "IRVariable", "IRAssignment"]
 }),
 smalltalk.IRASTTranslator);
@@ -71,9 +74,16 @@ selector: "nextAlias",
 category: 'accessing',
 fn: function () {
     var self = this;
-    smalltalk.send(self['@nextAlias'], "_ifNil_", [function () {self['@nextAlias'] = 0;return self['@nextAlias'];}]);
+    var $1;
+    if (($receiver = self['@nextAlias']) == nil || $receiver == undefined) {
+        self['@nextAlias'] = 0;
+        self['@nextAlias'];
+    } else {
+        self['@nextAlias'];
+    }
     self['@nextAlias'] = smalltalk.send(self['@nextAlias'], "__plus", [1]);
-    return smalltalk.send(self['@nextAlias'], "_asString", []);
+    $1 = smalltalk.send(self['@nextAlias'], "_asString", []);
+    return $1;
 },
 args: [],
 source: "nextAlias\x0a\x09nextAlias ifNil: [ nextAlias := 0 ].\x0a\x09nextAlias := nextAlias + 1.\x0a\x09^ nextAlias asString",
@@ -188,18 +198,22 @@ selector: "visitAssignmentNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var left = nil;
-    var right = nil;
-    var assignment = nil;
+    var $1, $2;
+    var left;
+    var right;
+    var assignment;
     right = smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_right", [])]);
     left = smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_left", [])]);
-    smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [function ($rec) {smalltalk.send($rec, "_add_", [left]);smalltalk.send($rec, "_add_", [right]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(smalltalk.IRAssignment || IRAssignment, "_new", []))]);
+    $1 = smalltalk.send(smalltalk.IRAssignment || IRAssignment, "_new", []);
+    smalltalk.send($1, "_add_", [left]);
+    smalltalk.send($1, "_add_", [right]);
+    $2 = smalltalk.send($1, "_yourself", []);
+    smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [$2]);
     return left;
-    return self;
 },
 args: ["aNode"],
 source: "visitAssignmentNode: aNode\x0a\x09| left right assignment |\x0a\x09right := self visit: aNode right.\x0a\x09left := self visit: aNode left.\x0a\x09self sequence add: (IRAssignment new \x0a\x09\x09add: left;\x0a\x09\x09add: right;\x0a\x09\x09yourself).\x0a\x09^ left",
-messageSends: ["visit:", "right", "left", "add:", "sequence", "yourself", "new"],
+messageSends: ["visit:", "right", "left", "add:", "new", "yourself", "sequence"],
 referencedClasses: ["IRAssignment"]
 }),
 smalltalk.IRASTTranslator);
@@ -236,13 +250,13 @@ selector: "visitBlockSequenceNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var $1, $2;
-    return smalltalk.send(self, "_withSequence_do_", [smalltalk.send(smalltalk.IRBlockSequence || IRBlockSequence, "_new", []), function () {return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_ifNotEmpty_", [function () {smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_allButLast", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);}]);return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", []), "_isReturnNode", []), "_ifFalse_ifTrue_", [function () {$1 = smalltalk.send(smalltalk.IRReturn || IRReturn, "_new", []);smalltalk.send($1, "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);$2 = smalltalk.send($1, "_yourself", []);return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [$2]);}, function () {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);}]);}]);}]);
+    return smalltalk.send(self, "_withSequence_do_", [smalltalk.send(smalltalk.IRBlockSequence || IRBlockSequence, "_new", []), function () {return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_ifNotEmpty_", [function () {smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_allButLast", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);}]);return ($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", []), "_isReturnNode", [])).klass === smalltalk.Boolean ? !$receiver ? function () {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [function ($rec) {smalltalk.send($rec, "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(smalltalk.IRBlockReturn || IRBlockReturn, "_new", []))]);}() : function () {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);}() : smalltalk.send($receiver, "_ifFalse_ifTrue_", [function () {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [function ($rec) {smalltalk.send($rec, "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);return smalltalk.send($rec, "_yourself", []);}(smalltalk.send(smalltalk.IRBlockReturn || IRBlockReturn, "_new", []))]);}, function () {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])])]);}]);}]);}]);
+    return self;
 },
 args: ["aNode"],
-source: "visitBlockSequenceNode: aNode\x0a\x09^ self\x0a\x09\x09withSequence: IRBlockSequence new\x0a\x09\x09do: [ \x0a\x09\x09\x09aNode nodes ifNotEmpty: [\x0a\x09\x09\x09\x09aNode nodes allButLast do: [ :each | \x0a\x09\x09\x09\x09\x09self sequence add: (self visit: each) ].\x0a\x09\x09\x09\x09aNode nodes last isReturnNode \x0a\x09\x09\x09\x09\x09ifFalse: [ self sequence add: (IRReturn new add: (self visit: aNode nodes last); yourself) ]\x0a\x09\x09\x09\x09\x09ifTrue: [ self sequence add: (self visit: aNode nodes last) ]]]",
-messageSends: ["withSequence:do:", "new", "ifNotEmpty:", "do:", "add:", "visit:", "sequence", "allButLast", "nodes", "ifFalse:ifTrue:", "last", "yourself", "isReturnNode"],
-referencedClasses: ["IRBlockSequence", "IRReturn"]
+source: "visitBlockSequenceNode: aNode\x0a\x09^ self\x0a\x09\x09withSequence: IRBlockSequence new\x0a\x09\x09do: [ \x0a\x09\x09\x09aNode nodes ifNotEmpty: [\x0a\x09\x09\x09\x09aNode nodes allButLast do: [ :each | \x0a\x09\x09\x09\x09\x09self sequence add: (self visit: each) ].\x0a\x09\x09\x09\x09aNode nodes last isReturnNode \x0a\x09\x09\x09\x09\x09ifFalse: [ self sequence add: (IRBlockReturn new add: (self visit: aNode nodes last); yourself) ]\x0a\x09\x09\x09\x09\x09ifTrue: [ self sequence add: (self visit: aNode nodes last) ]]]",
+messageSends: ["withSequence:do:", "new", "ifNotEmpty:", "nodes", "do:", "allButLast", "add:", "sequence", "visit:", "ifFalse:ifTrue:", "isReturnNode", "last", "yourself"],
+referencedClasses: ["IRBlockSequence", "IRBlockReturn"]
 }),
 smalltalk.IRASTTranslator);
 
@@ -253,13 +267,16 @@ selector: "visitCascadeNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
+    var $1, $2;
     var alias;
-    if (!smalltalk.assert(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_isValueNode", []))) {
+    $1 = smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_isValueNode", []);
+    if (!smalltalk.assert($1)) {
         alias = smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);
         smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [function (each) {return smalltalk.send(each, "_receiver_", [smalltalk.send(smalltalk.send(smalltalk.VariableNode || VariableNode, "_new", []), "_binding_", [smalltalk.send(alias, "_variable", [])])]);}]);
     }
     smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_allButLast", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);}]);
-    return smalltalk.send(self, "_alias_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])]);
+    $2 = smalltalk.send(self, "_alias_", [smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_last", [])]);
+    return $2;
 },
 args: ["aNode"],
 source: "visitCascadeNode: aNode\x0a\x09| alias |\x0a\x0a\x09aNode receiver isValueNode ifFalse: [ \x0a\x09\x09alias := self alias: aNode receiver.\x0a\x09\x09aNode nodes do: [ :each |\x0a\x09\x09\x09each receiver: (VariableNode new binding: alias variable) ]].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self alias: aNode nodes last",
@@ -313,11 +330,12 @@ selector: "visitJSStatementNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var $1, $2;
-    $1 = smalltalk.send(smalltalk.IRVerbatim || IRVerbatim, "_new", []);
-    smalltalk.send($1, "_source_", [smalltalk.send(aNode, "_source", [])]);
-    $2 = smalltalk.send($1, "_yourself", []);
-    return $2;
+    var $2, $3, $1;
+    $2 = smalltalk.send(smalltalk.IRVerbatim || IRVerbatim, "_new", []);
+    smalltalk.send($2, "_source_", [smalltalk.send(aNode, "_source", [])]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 },
 args: ["aNode"],
 source: "visitJSStatementNode: aNode\x0a\x09^ IRVerbatim new\x0a\x09\x09source: aNode source;\x0a\x09\x09yourself",
@@ -333,7 +351,7 @@ selector: "visitMethodNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var $1, $2, $3, $4, $5, $6;
+    var $1, $2, $3, $4, $5, $6, $7, $8;
     $1 = smalltalk.send(smalltalk.IRMethod || IRMethod, "_new", []);
     smalltalk.send($1, "_source_", [smalltalk.send(self, "_source", [])]);
     smalltalk.send($1, "_arguments_", [smalltalk.send(aNode, "_arguments", [])]);
@@ -345,13 +363,15 @@ fn: function (aNode) {
     smalltalk.send(self, "_method_", [$2]);
     smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_temps", []), "_do_", [function (each) {$3 = smalltalk.send(smalltalk.IRTempDeclaration || IRTempDeclaration, "_new", []);smalltalk.send($3, "_name_", [smalltalk.send(each, "_name", [])]);$4 = smalltalk.send($3, "_yourself", []);return smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [$4]);}]);
     smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [smalltalk.send(self, "_visit_", [each])]);}]);
-    if (!smalltalk.assert(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_hasLocalReturn", []))) {
-        $5 = smalltalk.send(smalltalk.IRVariable || IRVariable, "_new", []);
-        smalltalk.send($5, "_variable_", [smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_pseudoVars", []), "_at_", ["self"])]);
-        $6 = smalltalk.send($5, "_yourself", []);
-        smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [smalltalk.send(smalltalk.IRReturn || IRReturn, "_new", [])]), "_add_", [$6]);
+    $5 = smalltalk.send(smalltalk.send(aNode, "_scope", []), "_hasLocalReturn", []);
+    if (!smalltalk.assert($5)) {
+        $6 = smalltalk.send(smalltalk.IRVariable || IRVariable, "_new", []);
+        smalltalk.send($6, "_variable_", [smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_scope", []), "_pseudoVars", []), "_at_", ["self"])]);
+        $7 = smalltalk.send($6, "_yourself", []);
+        smalltalk.send(smalltalk.send(smalltalk.send(self, "_method", []), "_add_", [smalltalk.send(smalltalk.IRReturn || IRReturn, "_new", [])]), "_add_", [$7]);
     }
-    return smalltalk.send(self, "_method", []);
+    $8 = smalltalk.send(self, "_method", []);
+    return $8;
 },
 args: ["aNode"],
 source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09messageSends: aNode messageSends;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
@@ -367,16 +387,21 @@ selector: "visitReturnNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var return_ = nil;
-    return_ = ($receiver = smalltalk.send(aNode, "_nonLocalReturn", [])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(smalltalk.IRNonLocalReturn || IRNonLocalReturn, "_new", []);}() : function () {return smalltalk.send(smalltalk.IRReturn || IRReturn, "_new", []);}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return smalltalk.send(smalltalk.IRNonLocalReturn || IRNonLocalReturn, "_new", []);}, function () {return smalltalk.send(smalltalk.IRReturn || IRReturn, "_new", []);}]);
+    var $1;
+    var return_;
+    $1 = smalltalk.send(aNode, "_nonLocalReturn", []);
+    if (smalltalk.assert($1)) {
+        return_ = smalltalk.send(smalltalk.IRNonLocalReturn || IRNonLocalReturn, "_new", []);
+    } else {
+        return_ = smalltalk.send(smalltalk.IRReturn || IRReturn, "_new", []);
+    }
     smalltalk.send(return_, "_scope_", [smalltalk.send(aNode, "_scope", [])]);
     smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [function (each) {return smalltalk.send(return_, "_add_", [smalltalk.send(self, "_alias_", [each])]);}]);
     return return_;
-    return self;
 },
 args: ["aNode"],
 source: "visitReturnNode: aNode\x0a\x09| return |\x0a\x09return := aNode nonLocalReturn \x0a\x09\x09ifTrue: [ IRNonLocalReturn new ]\x0a\x09\x09ifFalse: [ IRReturn new ].\x0a\x09return scope: aNode scope.\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09return add: (self alias: each) ].\x0a\x09^ return",
-messageSends: ["ifTrue:ifFalse:", "nonLocalReturn", "new", "scope:", "scope", "do:", "nodes", "add:", "alias:"],
+messageSends: ["ifTrue:ifFalse:", "new", "nonLocalReturn", "scope:", "scope", "do:", "add:", "alias:", "nodes"],
 referencedClasses: ["IRNonLocalReturn", "IRReturn"]
 }),
 smalltalk.IRASTTranslator);
@@ -388,22 +413,31 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var send = nil;
-    var receiver = nil;
-    var arguments = nil;
+    var $1, $2, $3, $4;
+    var send;
+    var receiver;
+    var arguments;
     send = smalltalk.send(smalltalk.IRSend || IRSend, "_new", []);
-    (function ($rec) {smalltalk.send($rec, "_selector_", [smalltalk.send(aNode, "_selector", [])]);return smalltalk.send($rec, "_index_", [smalltalk.send(aNode, "_index", [])]);}(send));
-    ($receiver = smalltalk.send(aNode, "_superSend", [])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);}() : nil : smalltalk.send($receiver, "_ifTrue_", [function () {return smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);}]);
-    receiver = ($receiver = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeInlined", []), "_or_", [function () {return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeAliased", []);}])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);}() : function () {return smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);}, function () {return smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);}]);
-    arguments = smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_collect_", [function (each) {return ($receiver = smalltalk.send(each, "_shouldBeInlined", [])).klass === smalltalk.Boolean ? $receiver ? function () {return smalltalk.send(self, "_alias_", [each]);}() : function () {return smalltalk.send(self, "_visit_", [each]);}() : smalltalk.send($receiver, "_ifTrue_ifFalse_", [function () {return smalltalk.send(self, "_alias_", [each]);}, function () {return smalltalk.send(self, "_visit_", [each]);}]);}]);
+    smalltalk.send(send, "_selector_", [smalltalk.send(aNode, "_selector", [])]);
+    $1 = smalltalk.send(send, "_index_", [smalltalk.send(aNode, "_index", [])]);
+    $2 = smalltalk.send(aNode, "_superSend", []);
+    if (smalltalk.assert($2)) {
+        smalltalk.send(send, "_classSend_", [smalltalk.send(smalltalk.send(self, "_theClass", []), "_superclass", [])]);
+    }
+    $3 = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeInlined", []), "_or_", [function () {return smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeAliased", []);}]);
+    if (smalltalk.assert($3)) {
+        receiver = smalltalk.send(self, "_alias_", [smalltalk.send(aNode, "_receiver", [])]);
+    } else {
+        receiver = smalltalk.send(self, "_visit_", [smalltalk.send(aNode, "_receiver", [])]);
+    }
+    arguments = smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_collect_", [function (each) {$4 = smalltalk.send(each, "_shouldBeInlined", []);if (smalltalk.assert($4)) {return smalltalk.send(self, "_alias_", [each]);} else {return smalltalk.send(self, "_visit_", [each]);}}]);
     smalltalk.send(send, "_add_", [receiver]);
     smalltalk.send(arguments, "_do_", [function (each) {return smalltalk.send(send, "_add_", [each]);}]);
     return send;
-    return self;
 },
 args: ["aNode"],
 source: "visitSendNode: aNode\x0a\x09| send receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a\x0a\x09receiver := (aNode receiver shouldBeInlined or: [ aNode receiver shouldBeAliased ])\x0a\x09\x09ifTrue: [ self alias: aNode receiver ]\x0a\x09\x09ifFalse: [ self visit: aNode receiver ].\x0a\x0a\x09arguments := aNode arguments collect: [ :each | \x0a\x09\x09each shouldBeInlined\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ]].\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
-messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "superSend", "classSend:", "superclass", "theClass", "ifTrue:ifFalse:", "or:", "shouldBeInlined", "receiver", "shouldBeAliased", "alias:", "visit:", "collect:", "arguments", "add:", "do:"],
+messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "classSend:", "superclass", "theClass", "superSend", "ifTrue:ifFalse:", "alias:", "receiver", "visit:", "or:", "shouldBeAliased", "shouldBeInlined", "collect:", "arguments", "add:", "do:"],
 referencedClasses: ["IRSend"]
 }),
 smalltalk.IRASTTranslator);
@@ -415,7 +449,9 @@ selector: "visitSequenceNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    return smalltalk.send(self, "_withSequence_do_", [smalltalk.send(smalltalk.IRSequence || IRSequence, "_new", []), function () {return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [function (each) {var instruction;instruction = smalltalk.send(self, "_visit_", [each]);if (!smalltalk.assert(smalltalk.send(instruction, "_isVariable", []))) {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [instruction]);}}]);}]);
+    var $2, $1;
+    $1 = smalltalk.send(self, "_withSequence_do_", [smalltalk.send(smalltalk.IRSequence || IRSequence, "_new", []), function () {return smalltalk.send(smalltalk.send(aNode, "_nodes", []), "_do_", [function (each) {var instruction;instruction = smalltalk.send(self, "_visit_", [each]);$2 = smalltalk.send(instruction, "_isVariable", []);if (!smalltalk.assert($2)) {return smalltalk.send(smalltalk.send(self, "_sequence", []), "_add_", [instruction]);}}]);}]);
+    return $1;
 },
 args: ["aNode"],
 source: "visitSequenceNode: aNode\x0a\x09^ self \x0a\x09\x09withSequence: IRSequence new \x09\x0a\x09\x09do: [\x0a\x09\x09\x09aNode nodes do: [ :each | | instruction |\x0a\x09\x09\x09\x09instruction := self visit: each.\x0a\x09\x09\x09\x09instruction isVariable ifFalse: [\x0a\x09\x09\x09\x09\x09self sequence add: instruction ]]]",
@@ -431,11 +467,12 @@ selector: "visitValueNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var $1, $2;
-    $1 = smalltalk.send(smalltalk.IRValue || IRValue, "_new", []);
-    smalltalk.send($1, "_value_", [smalltalk.send(aNode, "_value", [])]);
-    $2 = smalltalk.send($1, "_yourself", []);
-    return $2;
+    var $2, $3, $1;
+    $2 = smalltalk.send(smalltalk.IRValue || IRValue, "_new", []);
+    smalltalk.send($2, "_value_", [smalltalk.send(aNode, "_value", [])]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 },
 args: ["aNode"],
 source: "visitValueNode: aNode\x0a\x09^ IRValue new \x0a\x09\x09value: aNode value; \x0a\x09\x09yourself",
@@ -451,11 +488,12 @@ selector: "visitVariableNode:",
 category: 'visiting',
 fn: function (aNode) {
     var self = this;
-    var $1, $2;
-    $1 = smalltalk.send(smalltalk.IRVariable || IRVariable, "_new", []);
-    smalltalk.send($1, "_variable_", [smalltalk.send(aNode, "_binding", [])]);
-    $2 = smalltalk.send($1, "_yourself", []);
-    return $2;
+    var $2, $3, $1;
+    $2 = smalltalk.send(smalltalk.IRVariable || IRVariable, "_new", []);
+    smalltalk.send($2, "_variable_", [smalltalk.send(aNode, "_binding", [])]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 },
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09^ IRVariable new \x0a\x09\x09variable: aNode binding; \x0a\x09\x09yourself",
@@ -496,7 +534,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRInstruction_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRInstruction_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRInstruction: self",
@@ -512,8 +552,10 @@ selector: "add:",
 category: 'building',
 fn: function (anObject) {
     var self = this;
+    var $1;
     smalltalk.send(anObject, "_parent_", [self]);
-    return smalltalk.send(smalltalk.send(self, "_instructions", []), "_add_", [anObject]);
+    $1 = smalltalk.send(smalltalk.send(self, "_instructions", []), "_add_", [anObject]);
+    return $1;
 },
 args: ["anObject"],
 source: "add: anObject\x0a\x09anObject parent: self.\x0a\x09^ self instructions add: anObject",
@@ -545,7 +587,15 @@ selector: "instructions",
 category: 'accessing',
 fn: function () {
     var self = this;
-    return smalltalk.send(self['@instructions'], "_ifNil_", [function () {self['@instructions'] = smalltalk.send(smalltalk.OrderedCollection || OrderedCollection, "_new", []);return self['@instructions'];}]);
+    var $1;
+    if (($receiver = self['@instructions']) == nil ||
+        $receiver == undefined) {
+        self['@instructions'] = smalltalk.send(smalltalk.OrderedCollection || OrderedCollection, "_new", []);
+        $1 = self['@instructions'];
+    } else {
+        $1 = self['@instructions'];
+    }
+    return $1;
 },
 args: [],
 source: "instructions\x0a\x09^ instructions ifNil: [ instructions := OrderedCollection new ]",
@@ -792,11 +842,12 @@ selector: "on:",
 category: 'instance creation',
 fn: function (aBuilder) {
     var self = this;
-    var $1, $2;
-    $1 = smalltalk.send(self, "_new", []);
-    smalltalk.send($1, "_builder_", [aBuilder]);
-    $2 = smalltalk.send($1, "_yourself", []);
-    return $2;
+    var $2, $3, $1;
+    $2 = smalltalk.send(self, "_new", []);
+    smalltalk.send($2, "_builder_", [aBuilder]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 },
 args: ["aBuilder"],
 source: "on: aBuilder\x0a\x09^ self new\x0a\x09\x09builder: aBuilder;\x0a\x09\x09yourself",
@@ -814,7 +865,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRAssignment_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRAssignment_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRAssignment: self",
@@ -833,7 +886,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRDynamicArray_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRDynamicArray_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRDynamicArray: self",
@@ -852,7 +907,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRDynamicDictionary_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRDynamicDictionary_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRDynamicDictionary: self",
@@ -907,7 +964,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRClosure_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRClosure_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRClosure: self",
@@ -923,7 +982,13 @@ selector: "arguments",
 category: 'accessing',
 fn: function () {
     var self = this;
-    return smalltalk.send(self['@arguments'], "_ifNil_", [function () {return [];}]);
+    var $1;
+    if (($receiver = self['@arguments']) == nil || $receiver == undefined) {
+        $1 = [];
+    } else {
+        $1 = self['@arguments'];
+    }
+    return $1;
 },
 args: [],
 source: "arguments\x0a\x09^ arguments ifNil: [ #() ]",
@@ -990,7 +1055,9 @@ selector: "sequence",
 category: 'accessing',
 fn: function () {
     var self = this;
-    return smalltalk.send(smalltalk.send(self, "_instructions", []), "_last", []);
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_instructions", []), "_last", []);
+    return $1;
 },
 args: [],
 source: "sequence\x0a\x09^ self instructions last",
@@ -1010,7 +1077,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRMethod_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRMethod_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRMethod: self",
@@ -1092,7 +1161,15 @@ selector: "internalVariables",
 category: 'accessing',
 fn: function () {
     var self = this;
-    return smalltalk.send(self['@internalVariables'], "_ifNil_", [function () {self['@internalVariables'] = smalltalk.send(smalltalk.Set || Set, "_new", []);return self['@internalVariables'];}]);
+    var $1;
+    if (($receiver = self['@internalVariables']) == nil ||
+        $receiver == undefined) {
+        self['@internalVariables'] = smalltalk.send(smalltalk.Set || Set, "_new", []);
+        $1 = self['@internalVariables'];
+    } else {
+        $1 = self['@internalVariables'];
+    }
+    return $1;
 },
 args: [],
 source: "internalVariables\x0a\x09^ internalVariables ifNil: [ internalVariables := Set new ]",
@@ -1229,7 +1306,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRReturn_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRReturn_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRReturn: self",
@@ -1255,17 +1334,35 @@ referencedClasses: []
 smalltalk.IRReturn);
 
 smalltalk.addMethod(
+"_isBlockReturn",
+smalltalk.method({
+selector: "isBlockReturn",
+category: 'testing',
+fn: function () {
+    var self = this;
+    return false;
+    return self;
+},
+args: [],
+source: "isBlockReturn\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRReturn);
+
+smalltalk.addMethod(
 "_isLocalReturn",
 smalltalk.method({
 selector: "isLocalReturn",
 category: 'testing',
 fn: function () {
     var self = this;
-    return smalltalk.send(self, "_isReturn", []);
+    return true;
+    return self;
 },
 args: [],
-source: "isLocalReturn\x0a\x09^ self isReturn",
-messageSends: ["isReturn"],
+source: "isLocalReturn\x0a\x09^ true",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.IRReturn);
@@ -1277,7 +1374,9 @@ selector: "isNonLocalReturn",
 category: 'testing',
 fn: function () {
     var self = this;
-    return smalltalk.send(smalltalk.send(self, "_isLocalReturn", []), "_not", []);
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_isLocalReturn", []), "_not", []);
+    return $1;
 },
 args: [],
 source: "isNonLocalReturn\x0a\x09^ self isLocalReturn not",
@@ -1304,6 +1403,44 @@ smalltalk.IRReturn);
 
 
 
+smalltalk.addClass('IRBlockReturn', smalltalk.IRReturn, [], 'Compiler-IR');
+smalltalk.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction."
+smalltalk.addMethod(
+"_accept_",
+smalltalk.method({
+selector: "accept:",
+category: 'visiting',
+fn: function (aVisitor) {
+    var self = this;
+    return smalltalk.send(aVisitor, "_visitIRBlockReturn_", [self]);
+    return self;
+},
+args: ["aVisitor"],
+source: "accept: aVisitor\x0a\x09^ aVisitor visitIRBlockReturn: self",
+messageSends: ["visitIRBlockReturn:"],
+referencedClasses: []
+}),
+smalltalk.IRBlockReturn);
+
+smalltalk.addMethod(
+"_isBlockReturn",
+smalltalk.method({
+selector: "isBlockReturn",
+category: 'testing',
+fn: function () {
+    var self = this;
+    return true;
+    return self;
+},
+args: [],
+source: "isBlockReturn\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRBlockReturn);
+
+
+
 smalltalk.addClass('IRNonLocalReturn', smalltalk.IRReturn, [], 'Compiler-IR');
 smalltalk.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JS statement.\x0a\x0aSee IRNonLocalReturnHandling class"
 smalltalk.addMethod(
@@ -1313,7 +1450,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRNonLocalReturn_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRNonLocalReturn_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRNonLocalReturn: self",
@@ -1349,7 +1488,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRSend_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRSend_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRSend: self",
@@ -1483,7 +1624,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRSequence_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRSequence_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRSequence: self",
@@ -1518,7 +1661,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRBlockSequence_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRBlockSequence_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRBlockSequence: self",
@@ -1538,7 +1683,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRTempDeclaration_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRTempDeclaration_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRTempDeclaration: self",
@@ -1607,7 +1754,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRValue_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRValue_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRValue: self",
@@ -1660,7 +1809,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRVariable_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRVariable_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRVariable: self",
@@ -1728,7 +1879,9 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor) {
     var self = this;
-    return smalltalk.send(aVisitor, "_visitIRVerbatim_", [self]);
+    var $1;
+    $1 = smalltalk.send(aVisitor, "_visitIRVerbatim_", [self]);
+    return $1;
 },
 args: ["aVisitor"],
 source: "accept: aVisitor\x0a\x09^ aVisitor visitIRVerbatim: self",
@@ -1780,7 +1933,9 @@ selector: "visit:",
 category: 'visiting',
 fn: function (anIRInstruction) {
     var self = this;
-    return smalltalk.send(anIRInstruction, "_accept_", [self]);
+    var $1;
+    $1 = smalltalk.send(anIRInstruction, "_accept_", [self]);
+    return $1;
 },
 args: ["anIRInstruction"],
 source: "visit: anIRInstruction\x0a\x09^ anIRInstruction accept: self",
@@ -1796,11 +1951,30 @@ selector: "visitIRAssignment:",
 category: 'visiting',
 fn: function (anIRAssignment) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRAssignment]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRAssignment]);
+    return $1;
 },
 args: ["anIRAssignment"],
 source: "visitIRAssignment: anIRAssignment\x0a\x09^ self visitIRInstruction: anIRAssignment",
 messageSends: ["visitIRInstruction:"],
+referencedClasses: []
+}),
+smalltalk.IRVisitor);
+
+smalltalk.addMethod(
+"_visitIRBlockReturn_",
+smalltalk.method({
+selector: "visitIRBlockReturn:",
+category: 'visiting',
+fn: function (anIRBlockReturn) {
+    var self = this;
+    return smalltalk.send(self, "_visitIRReturn_", [anIRBlockReturn]);
+    return self;
+},
+args: ["anIRBlockReturn"],
+source: "visitIRBlockReturn: anIRBlockReturn\x0a\x09^ self visitIRReturn: anIRBlockReturn",
+messageSends: ["visitIRReturn:"],
 referencedClasses: []
 }),
 smalltalk.IRVisitor);
@@ -1812,7 +1986,9 @@ selector: "visitIRBlockSequence:",
 category: 'visiting',
 fn: function (anIRBlockSequence) {
     var self = this;
-    return smalltalk.send(self, "_visitIRSequence_", [anIRBlockSequence]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRSequence_", [anIRBlockSequence]);
+    return $1;
 },
 args: ["anIRBlockSequence"],
 source: "visitIRBlockSequence: anIRBlockSequence\x0a\x09^ self visitIRSequence: anIRBlockSequence",
@@ -1828,7 +2004,9 @@ selector: "visitIRClosure:",
 category: 'visiting',
 fn: function (anIRClosure) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRClosure]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRClosure]);
+    return $1;
 },
 args: ["anIRClosure"],
 source: "visitIRClosure: anIRClosure\x0a\x09^ self visitIRInstruction: anIRClosure",
@@ -1844,7 +2022,9 @@ selector: "visitIRDynamicArray:",
 category: 'visiting',
 fn: function (anIRDynamicArray) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRDynamicArray]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRDynamicArray]);
+    return $1;
 },
 args: ["anIRDynamicArray"],
 source: "visitIRDynamicArray: anIRDynamicArray\x0a\x09^ self visitIRInstruction: anIRDynamicArray",
@@ -1860,11 +2040,47 @@ selector: "visitIRDynamicDictionary:",
 category: 'visiting',
 fn: function (anIRDynamicDictionary) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRDynamicDictionary]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRDynamicDictionary]);
+    return $1;
 },
 args: ["anIRDynamicDictionary"],
 source: "visitIRDynamicDictionary: anIRDynamicDictionary\x0a\x09^ self visitIRInstruction: anIRDynamicDictionary",
 messageSends: ["visitIRInstruction:"],
+referencedClasses: []
+}),
+smalltalk.IRVisitor);
+
+smalltalk.addMethod(
+"_visitIRInlinedClosure_",
+smalltalk.method({
+selector: "visitIRInlinedClosure:",
+category: 'visiting',
+fn: function (anIRInlinedClosure) {
+    var self = this;
+    return smalltalk.send(self, "_visitIRClosure_", [anIRInlinedClosure]);
+    return self;
+},
+args: ["anIRInlinedClosure"],
+source: "visitIRInlinedClosure: anIRInlinedClosure\x0a\x09^ self visitIRClosure: anIRInlinedClosure",
+messageSends: ["visitIRClosure:"],
+referencedClasses: []
+}),
+smalltalk.IRVisitor);
+
+smalltalk.addMethod(
+"_visitIRInlinedSequence_",
+smalltalk.method({
+selector: "visitIRInlinedSequence:",
+category: 'visiting',
+fn: function (anIRInlinedSequence) {
+    var self = this;
+    return smalltalk.send(self, "_visitIRSequence_", [anIRInlinedSequence]);
+    return self;
+},
+args: ["anIRInlinedSequence"],
+source: "visitIRInlinedSequence: anIRInlinedSequence\x0a\x09^ self visitIRSequence: anIRInlinedSequence",
+messageSends: ["visitIRSequence:"],
 referencedClasses: []
 }),
 smalltalk.IRVisitor);
@@ -1893,7 +2109,9 @@ selector: "visitIRMethod:",
 category: 'visiting',
 fn: function (anIRMethod) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRMethod]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRMethod]);
+    return $1;
 },
 args: ["anIRMethod"],
 source: "visitIRMethod: anIRMethod\x0a\x09^ self visitIRInstruction: anIRMethod",
@@ -1909,7 +2127,9 @@ selector: "visitIRNonLocalReturn:",
 category: 'visiting',
 fn: function (anIRNonLocalReturn) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRNonLocalReturn]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRNonLocalReturn]);
+    return $1;
 },
 args: ["anIRNonLocalReturn"],
 source: "visitIRNonLocalReturn: anIRNonLocalReturn\x0a\x09^ self visitIRInstruction: anIRNonLocalReturn",
@@ -1925,7 +2145,9 @@ selector: "visitIRNonLocalReturnHandling:",
 category: 'visiting',
 fn: function (anIRNonLocalReturnHandling) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRNonLocalReturnHandling]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRNonLocalReturnHandling]);
+    return $1;
 },
 args: ["anIRNonLocalReturnHandling"],
 source: "visitIRNonLocalReturnHandling: anIRNonLocalReturnHandling\x0a\x09^ self visitIRInstruction: anIRNonLocalReturnHandling",
@@ -1941,7 +2163,9 @@ selector: "visitIRReturn:",
 category: 'visiting',
 fn: function (anIRReturn) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRReturn]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRReturn]);
+    return $1;
 },
 args: ["anIRReturn"],
 source: "visitIRReturn: anIRReturn\x0a\x09^ self visitIRInstruction: anIRReturn",
@@ -1957,7 +2181,9 @@ selector: "visitIRSend:",
 category: 'visiting',
 fn: function (anIRSend) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRSend]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRSend]);
+    return $1;
 },
 args: ["anIRSend"],
 source: "visitIRSend: anIRSend\x0a\x09^ self visitIRInstruction: anIRSend",
@@ -1973,7 +2199,9 @@ selector: "visitIRSequence:",
 category: 'visiting',
 fn: function (anIRSequence) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRSequence]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRSequence]);
+    return $1;
 },
 args: ["anIRSequence"],
 source: "visitIRSequence: anIRSequence\x0a\x09^ self visitIRInstruction: anIRSequence",
@@ -1989,7 +2217,9 @@ selector: "visitIRTempDeclaration:",
 category: 'visiting',
 fn: function (anIRTempDeclaration) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRTempDeclaration]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRTempDeclaration]);
+    return $1;
 },
 args: ["anIRTempDeclaration"],
 source: "visitIRTempDeclaration: anIRTempDeclaration\x0a\x09^ self visitIRInstruction: anIRTempDeclaration",
@@ -2005,7 +2235,9 @@ selector: "visitIRValue:",
 category: 'visiting',
 fn: function (anIRValue) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRValue]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRValue]);
+    return $1;
 },
 args: ["anIRValue"],
 source: "visitIRValue: anIRValue\x0a\x09^ self visitIRInstruction: anIRValue",
@@ -2021,7 +2253,9 @@ selector: "visitIRVariable:",
 category: 'visiting',
 fn: function (anIRVariable) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRVariable]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRVariable]);
+    return $1;
 },
 args: ["anIRVariable"],
 source: "visitIRVariable: anIRVariable\x0a\x09^ self visitIRInstruction: anIRVariable",
@@ -2037,7 +2271,9 @@ selector: "visitIRVerbatim:",
 category: 'visiting',
 fn: function (anIRVerbatim) {
     var self = this;
-    return smalltalk.send(self, "_visitIRInstruction_", [anIRVerbatim]);
+    var $1;
+    $1 = smalltalk.send(self, "_visitIRInstruction_", [anIRVerbatim]);
+    return $1;
 },
 args: ["anIRVerbatim"],
 source: "visitIRVerbatim: anIRVerbatim\x0a\x09^ self visitIRInstruction: anIRVerbatim",
@@ -2056,7 +2292,9 @@ selector: "contents",
 category: 'accessing',
 fn: function () {
     var self = this;
-    return smalltalk.send(smalltalk.send(self, "_stream", []), "_contents", []);
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_stream", []), "_contents", []);
+    return $1;
 },
 args: [],
 source: "contents\x0a\x09^ self stream contents",
@@ -2197,7 +2435,8 @@ selector: "visitIRMethod:",
 category: 'visiting',
 fn: function (anIRMethod) {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutMethodDeclaration_with_", [anIRMethod, function () {return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutFunctionWith_arguments_", [function () {if (smalltalk.assert(smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_notEmpty", []))) {smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutVars_", [smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_asArray", []), "_collect_", [function (each) {return smalltalk.send(smalltalk.send(each, "_variable", []), "_alias", []);}])]);}return smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod, "_scope", []), "_hasNonLocalReturn", []), "_ifTrue_ifFalse_", [function () {return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutNonLocalReturnHandlingWith_", [function () {return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRVisitor);}]);}, function () {return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRVisitor);}]);}, smalltalk.send(anIRMethod, "_arguments", [])]);}]);
+    var $1, $2;
+    smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutMethodDeclaration_with_", [anIRMethod, function () {return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutFunctionWith_arguments_", [function () {$1 = smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_notEmpty", []);if (smalltalk.assert($1)) {smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutVars_", [smalltalk.send(smalltalk.send(smalltalk.send(anIRMethod, "_internalVariables", []), "_asArray", []), "_collect_", [function (each) {return smalltalk.send(smalltalk.send(each, "_variable", []), "_alias", []);}])]);}$2 = smalltalk.send(smalltalk.send(anIRMethod, "_scope", []), "_hasNonLocalReturn", []);if (smalltalk.assert($2)) {return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutNonLocalReturnHandlingWith_", [function () {return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRVisitor);}]);} else {return smalltalk.send(self, "_visitIRMethod_", [anIRMethod], smalltalk.IRVisitor);}}, smalltalk.send(anIRMethod, "_arguments", [])]);}]);
     return self;
 },
 args: ["anIRMethod"],
@@ -2248,12 +2487,17 @@ selector: "visitIRSend:",
 category: 'visiting',
 fn: function (anIRSend) {
     var self = this;
+    var $1;
     smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["smalltalk.send("]);
     smalltalk.send(self, "_visit_", [smalltalk.send(smalltalk.send(anIRSend, "_instructions", []), "_first", [])]);
     smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(smalltalk.send(",\"", "__comma", [smalltalk.send(smalltalk.send(anIRSend, "_selector", []), "_asSelector", [])]), "__comma", ["\",["])]);
     smalltalk.send(smalltalk.send(smalltalk.send(anIRSend, "_instructions", []), "_allButFirst", []), "_do_separatedBy_", [function (each) {return smalltalk.send(self, "_visit_", [each]);}, function () {return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [","]);}]);
     smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", ["]"]);
-    smalltalk.send(smalltalk.send(anIRSend, "_classSend", []), "_ifNotNil_", [function () {return smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(",", "__comma", [smalltalk.send(smalltalk.send(anIRSend, "_classSend", []), "_asJavascript", [])])]);}]);
+    $1 = smalltalk.send(anIRSend, "_classSend", []);
+    if (($receiver = $1) == nil || $receiver == undefined) {
+    } else {
+        smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [smalltalk.send(",", "__comma", [smalltalk.send(smalltalk.send(anIRSend, "_classSend", []), "_asJavascript", [])])]);
+    }
     smalltalk.send(smalltalk.send(self, "_stream", []), "_nextPutAll_", [")"]);
     return self;
 },
@@ -2359,7 +2603,9 @@ selector: "contents",
 category: 'accessing',
 fn: function () {
     var self = this;
-    return smalltalk.send(self['@stream'], "_contents", []);
+    var $1;
+    $1 = smalltalk.send(self['@stream'], "_contents", []);
+    return $1;
 },
 args: [],
 source: "contents\x0a\x09^ stream contents",

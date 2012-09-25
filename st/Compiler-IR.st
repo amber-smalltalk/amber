@@ -109,7 +109,7 @@ visitBlockSequenceNode: aNode
 				aNode nodes allButLast do: [ :each | 
 					self sequence add: (self visit: each) ].
 				aNode nodes last isReturnNode 
-					ifFalse: [ self sequence add: (IRReturn new add: (self visit: aNode nodes last); yourself) ]
+					ifFalse: [ self sequence add: (IRBlockReturn new add: (self visit: aNode nodes last); yourself) ]
 					ifTrue: [ self sequence add: (self visit: aNode nodes last) ]]]
 !
 
@@ -482,8 +482,12 @@ canBeAssigned
 	^ false
 !
 
+isBlockReturn
+	^ false
+!
+
 isLocalReturn
-	^ self isReturn
+	^ true
 !
 
 isNonLocalReturn
@@ -498,6 +502,24 @@ isReturn
 
 accept: aVisitor
 	^ aVisitor visitIRReturn: self
+! !
+
+IRReturn subclass: #IRBlockReturn
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+!IRBlockReturn commentStamp!
+Smalltalk blocks return their last statement. I am a implicit block return instruction.!
+
+!IRBlockReturn methodsFor: 'testing'!
+
+isBlockReturn
+	^ true
+! !
+
+!IRBlockReturn methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRBlockReturn: self
 ! !
 
 IRReturn subclass: #IRNonLocalReturn
@@ -701,6 +723,10 @@ visitIRAssignment: anIRAssignment
 	^ self visitIRInstruction: anIRAssignment
 !
 
+visitIRBlockReturn: anIRBlockReturn
+	^ self visitIRReturn: anIRBlockReturn
+!
+
 visitIRBlockSequence: anIRBlockSequence
 	^ self visitIRSequence: anIRBlockSequence
 !
@@ -715,6 +741,14 @@ visitIRDynamicArray: anIRDynamicArray
 
 visitIRDynamicDictionary: anIRDynamicDictionary
 	^ self visitIRInstruction: anIRDynamicDictionary
+!
+
+visitIRInlinedClosure: anIRInlinedClosure
+	^ self visitIRClosure: anIRInlinedClosure
+!
+
+visitIRInlinedSequence: anIRInlinedSequence
+	^ self visitIRSequence: anIRInlinedSequence
 !
 
 visitIRInstruction: anIRInstruction

@@ -147,44 +147,6 @@ accept: aVisitor
 	aVisitor visitIRInlinedSequence: self
 ! !
 
-IRInlinedSequence subclass: #IRAssigningInlinedSequence
-	instanceVariableNames: 'assignTo'
-	package: 'Compiler-Inlining'!
-
-!IRAssigningInlinedSequence methodsFor: 'accessing'!
-
-accept: aVisitor
-	^ aVisitor visitIRAssigningInlinedSequence: self
-!
-
-assignTo
-	^ assignTo
-!
-
-assignTo: anIRInstruction
-	assignTo := anIRInstruction
-! !
-
-IRInlinedSequence subclass: #IRReturningInlinedSequence
-	instanceVariableNames: ''
-	package: 'Compiler-Inlining'!
-
-!IRReturningInlinedSequence methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRReturningInlinedSequence: self
-! !
-
-IRReturningInlinedSequence subclass: #IRNonLocalReturningInlinedSequence
-	instanceVariableNames: ''
-	package: 'Compiler-Inlining'!
-
-!IRNonLocalReturningInlinedSequence methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRNonLocalReturningInlinedSequence: self
-! !
-
 IRVisitor subclass: #IRInliner
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
@@ -288,21 +250,6 @@ I am a specialized JavaScript translator able to write inlined IR instructions t
 
 !IRInliningJSTranslator methodsFor: 'visiting'!
 
-visitIRAssigningInlinedSequence: anIRInlinedSequence
-
-	anIRInlinedSequence instructions allButLast do: [ :each | 
-		self stream nextPutStatementWith: [ self visit: each ]].
-
-	self stream nextPutStatementWith: [
-		anIRInlinedSequence instructions last canBeAssigned 
-			ifTrue: [
-				self stream 
-					nextPutAll: anIRInlinedSequence assignTo variable alias;
-                                	nextPutAssignment.
-				self visit: anIRInlinedSequence instructions last ]
-			ifFalse: [ self visit: anIRInlinedSequence instructions last ]]
-!
-
 visitIRInlinedAssignment: anIRInlinedAssignment
 	self visit: anIRInlinedAssignment instructions last
 !
@@ -369,32 +316,6 @@ visitIRInlinedReturn: anIRInlinedReturn
 visitIRInlinedSequence: anIRInlinedSequence
 	anIRInlinedSequence instructions do: [ :each | 
 		self stream nextPutStatementWith: [ self visit: each ]]
-!
-
-visitIRNonLocalReturningInlinedSequence: anIRInlinedSequence
-
-	anIRInlinedSequence instructions allButLast do: [ :each | 
-		self stream nextPutStatementWith: [ self visit: each ]].
-
-	self stream nextPutStatementWith: [
-		anIRInlinedSequence instructions last canBeAssigned 
-			ifTrue: [
-				self stream nextPutNonLocalReturnWith: [
-					self visit: anIRInlinedSequence instructions last ]]
-			ifFalse: [ self visit: anIRInlinedSequence instructions last ]]
-!
-
-visitIRReturningInlinedSequence: anIRInlinedSequence
-
-	anIRInlinedSequence instructions allButLast do: [ :each | 
-		self stream nextPutStatementWith: [ self visit: each ]].
-
-	self stream nextPutStatementWith: [
-		anIRInlinedSequence instructions last canBeAssigned 
-			ifTrue: [
-				self stream nextPutReturn.
-				self visit: anIRInlinedSequence instructions last ]
-			ifFalse: [ self visit: anIRInlinedSequence instructions last ]]
 ! !
 
 Object subclass: #IRSendInliner
@@ -506,35 +427,21 @@ inlineClosure: anIRClosure
 	statements := anIRClosure instructions last instructions.
 	
 	statements ifNotEmpty: [
-		statements allButLast do: [ :each | sequence add: (self translator visit: each) ].
+		statements allButLast do: [ :each | sequence add: each ].
+
 		"Inlined closures don't have implicit local returns"
-		statements last isLocalReturn 
-			ifTrue: [ sequence add: (self translator visit: statements last instructions first) ]
-			ifFalse: [ sequence add: (self translator visit: statements last) ]].
+		(statements last isReturn and: [ statements last isBlockReturn ])
+			ifTrue: [ sequence add: statements last instructions first ]
+			ifFalse: [ sequence add: statements last ] ].
 
 	^ inlinedClosure
 !
 
-inlineMessageBlock: anIRInstruction with: anotherIRInstruction
-	| inlinedSend inlinedClosure |
-
-	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
-	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
-
-	inlinedClosure := self inlineClosure: anIRInstruction.
-
-	inlinedSend := anotherIRInstruction.
-	inlinedSend
-		add: self send instructions first;
-		add: inlinedClosure.
-
-	self send replaceWith: inlinedSend.
-	^ inlinedSend
-!
-
 inlineSend: anIRSend
 	self send: anIRSend.
-	^ self perform: self send selector withArguments: self send instructions allButFirst
+	^ self 
+		perform: self send selector 
+		withArguments: self send instructions allButFirst
 !
 
 inlinedSend: inlinedSend with: anIRInstruction
@@ -543,18 +450,19 @@ inlinedSend: inlinedSend with: anIRInstruction
 	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
 	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
 
-	inlinedClosure := self inlineClosure: anIRInstruction.
+	inlinedClosure := self translator visit: (self inlineClosure: anIRInstruction).
 
 	inlinedSend
 		add: self send instructions first;
 		add: inlinedClosure.
 
 	self send replaceWith: inlinedSend.
+
 	^ inlinedSend
 !
 
 inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
-	| inlinedClosure1 inclinedClosure2 |
+	| inlinedClosure1 inlinedClosure2 |
 
 	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
 	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
@@ -562,12 +470,13 @@ inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
 	anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
 	anotherIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
 
-	inlinedClosure := self inlineClosure: anIRInstruction.
-	inlinedClosure2 := self inlineClosure: anotherIRInstruction.
+	inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).
+	inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).
+
 
 	inlinedSend
 		add: self send instructions first;
-		add: inlinedClosure;
+		add: inlinedClosure1;
 		add: inlinedClosure2.
 
 	self send replaceWith: inlinedSend.
@@ -615,14 +524,6 @@ assignment: aNode
 	assignment := aNode
 ! !
 
-!IRAssignmentInliner methodsFor: 'factory'!
-
-inlinedSequence
-	^ IRAssigningInlinedSequence new
-		assignTo: self assignment instructions first;
-		yourself
-! !
-
 !IRAssignmentInliner methodsFor: 'inlining'!
 
 inlineAssignment: anIRAssignment
@@ -634,6 +535,50 @@ inlineAssignment: anIRAssignment
 	anIRAssignment replaceWith: inlinedAssignment.
 	self inlineSend: inlinedAssignment instructions last.
 	^ inlinedAssignment
+!
+
+inlineClosure: anIRClosure
+	| inlinedClosure statements |
+
+	inlinedClosure := super inlineClosure: anIRClosure.
+	statements := inlinedClosure instructions last instructions.
+	
+	statements ifNotEmpty: [
+		statements last canBeAssigned ifTrue: [
+			statements last replaceWith: (IRAssignment new
+				add: self assignment instructions first;
+				add: statements last copy;
+				yourself) ] ].
+
+	^ inlinedClosure
+! !
+
+IRSendInliner subclass: #IRNonLocalReturnInliner
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+
+!IRNonLocalReturnInliner methodsFor: 'factory'!
+
+inlinedReturn
+	^ IRInlinedNonLocalReturn new
+! !
+
+!IRNonLocalReturnInliner methodsFor: 'inlining'!
+
+inlineClosure: anIRClosure
+	"| inlinedClosure statements |
+
+	inlinedClosure := super inlineClosure: anIRClosure.
+	statements := inlinedClosure instructions last instructions.
+	
+	statements ifNotEmpty: [
+		statements last replaceWith: (IRNonLocalReturn new
+			add: statements last copy;
+			yourself) ].
+
+	^ inlinedClosure"
+
+	^ super inlineCLosure: anIRClosure
 ! !
 
 IRSendInliner subclass: #IRReturnInliner
@@ -646,13 +591,24 @@ I inline message sends with inlined closure together with a return instruction.!
 
 inlinedReturn
 	^ IRInlinedReturn new
-!
-
-inlinedSequence
-	^ IRReturningInlinedSequence new
 ! !
 
 !IRReturnInliner methodsFor: 'inlining'!
+
+inlineClosure: anIRClosure
+	| closure statements |
+
+	closure := super inlineClosure: anIRClosure.
+	statements := closure instructions last instructions.
+	
+	statements ifNotEmpty: [
+		statements last isReturn
+			ifFalse: [ statements last replaceWith: (IRReturn new
+				add: statements last copy;
+				yourself)] ].
+
+	^ closure
+!
 
 inlineReturn: anIRReturn
 	| return |
@@ -662,20 +618,6 @@ inlineReturn: anIRReturn
 	anIRReturn replaceWith: return.
 	self inlineSend: return instructions last.
 	^ return
-! !
-
-IRReturnInliner subclass: #IRNonLocalReturnInliner
-	instanceVariableNames: ''
-	package: 'Compiler-Inlining'!
-
-!IRNonLocalReturnInliner methodsFor: 'factory'!
-
-inlinedReturn
-	^ IRInlinedNonLocalReturn new
-!
-
-inlinedSequence
-	^ IRNonLocalReturningInlinedSequence new
 ! !
 
 CodeGenerator subclass: #InliningCodeGenerator
@@ -688,9 +630,11 @@ I am a specialized code generator that uses inlining to produce more optimized J
 
 compileNode: aNode
 	| ir stream |
+
 	self semanticAnalyzer visit: aNode.
 	ir := self translator visit: aNode.
 	self inliner visit: ir.
+
 	^ self irTranslator
 		visit: ir;
 		contents

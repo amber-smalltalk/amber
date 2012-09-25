@@ -97,6 +97,10 @@ canInlineNonLocalReturns
 	^ self isInlined and: [ self outerScope canInlineNonLocalReturns ]
 !
 
+isBlockScope
+	^ self isMethodScope not
+!
+
 isInlined
 	^ self instruction isInlined
 !

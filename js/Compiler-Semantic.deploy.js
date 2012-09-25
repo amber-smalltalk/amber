@@ -91,6 +91,17 @@ return self;}
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
+"_isBlockScope",
+smalltalk.method({
+selector: "isBlockScope",
+fn: function (){
+var self=this;
+return smalltalk.send(smalltalk.send(self, "_isMethodScope", []), "_not", []);
+return self;}
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
 "_isInlined",
 smalltalk.method({
 selector: "isInlined",
