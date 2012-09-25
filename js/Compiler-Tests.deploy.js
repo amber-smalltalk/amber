@@ -523,8 +523,22 @@ var src;
 var ast;
 src="foo | a | b + a";
 ast=smalltalk.send(smalltalk,"_parse_",[src]);
-smalltalk.send(self["@analyzer"],"_visit_",[ast]);
-smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(smalltalk.send(ast,"_scope",[]),"_unknownVariables",[]),"__eq",[["b"]])]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@analyzer"],"_visit_",[ast]);
+}),(smalltalk.UnknownVariableError || UnknownVariableError)]);
+return self}
+}),
+smalltalk.SemanticAnalyzerTest);
+
+smalltalk.addMethod(
+"_testUnknownVariablesInWindow",
+smalltalk.method({
+selector: "testUnknownVariablesInWindow",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(smalltalk,"_parse_",["foo jQuery"]);
+}),(smalltalk.UnknownVariableError || UnknownVariableError)]);
 return self}
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -539,8 +553,9 @@ var src;
 var ast;
 src="foo | a b | [ c + 1. [ a + 1. d + 1 ]]";
 ast=smalltalk.send(smalltalk,"_parse_",[src]);
-smalltalk.send(self["@analyzer"],"_visit_",[ast]);
-smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(smalltalk.send(ast,"_scope",[]),"_unknownVariables",[]),"__eq",[["c", "d"]])]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@analyzer"],"_visit_",[ast]);
+}),(smalltalk.UnknownVariableError || UnknownVariableError)]);
 return self}
 }),
 smalltalk.SemanticAnalyzerTest);

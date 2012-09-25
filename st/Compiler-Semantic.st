@@ -406,12 +406,15 @@ errorShadowingVariable: aString
 !
 
 errorUnknownVariable: aNode
-	self allowUnknownVariables 
-		ifTrue: [ currentScope methodScope unknownVariables add: aNode value ]
-		ifFalse: [ 
+	"Throw an error if the variable is undeclared in the global JS scope (i.e. window)"
+
+	(window at: aNode value) 
+		ifNil: [ 
 			UnknownVariableError new
 				variableName: aNode value;
 				signal ]
+		ifNotNil: [
+			currentScope methodScope unknownVariables add: aNode value. ]
 ! !
 
 !SemanticAnalyzer methodsFor: 'factory'!
@@ -447,12 +450,6 @@ validateVariableScope: aString
 
 	(currentScope lookupVariable: aString) ifNotNil: [
 		self errorShadowingVariable: aString ]
-! !
-
-!SemanticAnalyzer methodsFor: 'testing'!
-
-allowUnknownVariables
-	^ true
 ! !
 
 !SemanticAnalyzer methodsFor: 'visiting'!

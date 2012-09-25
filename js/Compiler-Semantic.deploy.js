@@ -835,17 +835,6 @@ smalltalk.UnknownVar);
 
 smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends'], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_allowUnknownVariables",
-smalltalk.method({
-selector: "allowUnknownVariables",
-fn: function (){
-var self=this;
-return true;
-}
-}),
-smalltalk.SemanticAnalyzer);
-
-smalltalk.addMethod(
 "_classReferences",
 smalltalk.method({
 selector: "classReferences",
@@ -884,14 +873,14 @@ selector: "errorUnknownVariable:",
 fn: function (aNode){
 var self=this;
 var $1,$2,$3;
-$1=smalltalk.send(self,"_allowUnknownVariables",[]);
-if(smalltalk.assert($1)){
-smalltalk.send(smalltalk.send(smalltalk.send(self["@currentScope"],"_methodScope",[]),"_unknownVariables",[]),"_add_",[smalltalk.send(aNode,"_value",[])]);
-} else {
+$1=smalltalk.send(window,"_at_",[smalltalk.send(aNode,"_value",[])]);
+if(($receiver = $1) == nil || $receiver == undefined){
 $2=smalltalk.send((smalltalk.UnknownVariableError || UnknownVariableError),"_new",[]);
 smalltalk.send($2,"_variableName_",[smalltalk.send(aNode,"_value",[])]);
 $3=smalltalk.send($2,"_signal",[]);
 $3;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self["@currentScope"],"_methodScope",[]),"_unknownVariables",[]),"_add_",[smalltalk.send(aNode,"_value",[])]);
 };
 return self}
 }),

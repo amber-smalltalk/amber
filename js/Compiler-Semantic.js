@@ -1146,22 +1146,6 @@ smalltalk.UnknownVar);
 smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends'], 'Compiler-Semantic');
 smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes."
 smalltalk.addMethod(
-"_allowUnknownVariables",
-smalltalk.method({
-selector: "allowUnknownVariables",
-category: 'testing',
-fn: function (){
-var self=this;
-return true;
-},
-args: [],
-source: "allowUnknownVariables\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SemanticAnalyzer);
-
-smalltalk.addMethod(
 "_classReferences",
 smalltalk.method({
 selector: "classReferences",
@@ -1211,19 +1195,19 @@ category: 'error handling',
 fn: function (aNode){
 var self=this;
 var $1,$2,$3;
-$1=smalltalk.send(self,"_allowUnknownVariables",[]);
-if(smalltalk.assert($1)){
-smalltalk.send(smalltalk.send(smalltalk.send(self["@currentScope"],"_methodScope",[]),"_unknownVariables",[]),"_add_",[smalltalk.send(aNode,"_value",[])]);
-} else {
+$1=smalltalk.send(window,"_at_",[smalltalk.send(aNode,"_value",[])]);
+if(($receiver = $1) == nil || $receiver == undefined){
 $2=smalltalk.send((smalltalk.UnknownVariableError || UnknownVariableError),"_new",[]);
 smalltalk.send($2,"_variableName_",[smalltalk.send(aNode,"_value",[])]);
 $3=smalltalk.send($2,"_signal",[]);
 $3;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self["@currentScope"],"_methodScope",[]),"_unknownVariables",[]),"_add_",[smalltalk.send(aNode,"_value",[])]);
 };
 return self},
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09self allowUnknownVariables \x0a\x09\x09ifTrue: [ currentScope methodScope unknownVariables add: aNode value ]\x0a\x09\x09ifFalse: [ \x0a\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09signal ]",
-messageSends: ["ifTrue:ifFalse:", "add:", "value", "unknownVariables", "methodScope", "variableName:", "new", "signal", "allowUnknownVariables"],
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window)\x22\x0a\x0a\x09(window at: aNode value) \x0a\x09\x09ifNil: [ \x0a\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09signal ]\x0a\x09\x09ifNotNil: [\x0a\x09\x09\x09currentScope methodScope unknownVariables add: aNode value. ]",
+messageSends: ["ifNil:ifNotNil:", "variableName:", "value", "new", "signal", "add:", "unknownVariables", "methodScope", "at:"],
 referencedClasses: ["UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzer);

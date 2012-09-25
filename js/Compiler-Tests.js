@@ -694,13 +694,32 @@ var src;
 var ast;
 src="foo | a | b + a";
 ast=smalltalk.send(smalltalk,"_parse_",[src]);
-smalltalk.send(self["@analyzer"],"_visit_",[ast]);
-smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(smalltalk.send(ast,"_scope",[]),"_unknownVariables",[]),"__eq",[["b"]])]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@analyzer"],"_visit_",[ast]);
+}),(smalltalk.UnknownVariableError || UnknownVariableError)]);
 return self},
 args: [],
-source: "testUnknownVariables\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | b + a'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope unknownVariables = #('b')",
-messageSends: ["parse:", "visit:", "assert:", "=", "unknownVariables", "scope"],
-referencedClasses: []
+source: "testUnknownVariables\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | b + a'.\x0a\x09ast := smalltalk parse: src.\x0a\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
+messageSends: ["parse:", "should:raise:", "visit:"],
+referencedClasses: ["UnknownVariableError"]
+}),
+smalltalk.SemanticAnalyzerTest);
+
+smalltalk.addMethod(
+"_testUnknownVariablesInWindow",
+smalltalk.method({
+selector: "testUnknownVariablesInWindow",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(smalltalk,"_parse_",["foo jQuery"]);
+}),(smalltalk.UnknownVariableError || UnknownVariableError)]);
+return self},
+args: [],
+source: "testUnknownVariablesInWindow\x0a\x0a\x09self shouldnt: [ smalltalk parse: 'foo jQuery' ] raise: UnknownVariableError",
+messageSends: ["shouldnt:raise:", "parse:"],
+referencedClasses: ["UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -715,13 +734,14 @@ var src;
 var ast;
 src="foo | a b | [ c + 1. [ a + 1. d + 1 ]]";
 ast=smalltalk.send(smalltalk,"_parse_",[src]);
-smalltalk.send(self["@analyzer"],"_visit_",[ast]);
-smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(smalltalk.send(ast,"_scope",[]),"_unknownVariables",[]),"__eq",[["c", "d"]])]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@analyzer"],"_visit_",[ast]);
+}),(smalltalk.UnknownVariableError || UnknownVariableError)]);
 return self},
 args: [],
-source: "testUnknownVariablesWithScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope unknownVariables = #('c' 'd' )",
-messageSends: ["parse:", "visit:", "assert:", "=", "unknownVariables", "scope"],
-referencedClasses: []
+source: "testUnknownVariablesWithScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
+messageSends: ["parse:", "should:raise:", "visit:"],
+referencedClasses: ["UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzerTest);
 

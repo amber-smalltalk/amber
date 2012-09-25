@@ -302,9 +302,13 @@ testUnknownVariables
 
 	src := 'foo | a | b + a'.
 	ast := smalltalk parse: src.
-	analyzer visit: ast.
 
-	self assert: ast scope unknownVariables = #('b')
+	self should: [ analyzer visit: ast ] raise: UnknownVariableError
+!
+
+testUnknownVariablesInWindow
+
+	self shouldnt: [ smalltalk parse: 'foo jQuery' ] raise: UnknownVariableError
 !
 
 testUnknownVariablesWithScope
@@ -312,9 +316,8 @@ testUnknownVariablesWithScope
 
 	src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.
 	ast := smalltalk parse: src.
-	analyzer visit: ast.
-
-	self assert: ast scope unknownVariables = #('c' 'd' )
+	
+	self should: [ analyzer visit: ast ] raise: UnknownVariableError
 !
 
 testVariableShadowing
