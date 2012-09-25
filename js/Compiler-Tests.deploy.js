@@ -7,7 +7,7 @@ selector: "codeGeneratorClass",
 fn: function (){
 var self=this;
 return (smalltalk.CodeGenerator || CodeGenerator);
-return self;}
+}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -17,8 +17,13 @@ smalltalk.method({
 selector: "compiler",
 fn: function (){
 var self=this;
-return (function($rec){smalltalk.send($rec, "_codeGeneratorClass_", [smalltalk.send(self, "_codeGeneratorClass", [])]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.Compiler || Compiler), "_new", []));
-return self;}
+var $2,$3,$1;
+$2=smalltalk.send((smalltalk.Compiler || Compiler),"_new",[]);
+smalltalk.send($2,"_codeGeneratorClass_",[smalltalk.send(self,"_codeGeneratorClass",[])]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -28,8 +33,8 @@ smalltalk.method({
 selector: "setUp",
 fn: function (){
 var self=this;
-(self['@receiver']=smalltalk.send(smalltalk.send(self, "_targetClass", []), "_new", []));
-return self;}
+self["@receiver"]=smalltalk.send(smalltalk.send(self,"_targetClass",[]),"_new",[]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -37,15 +42,15 @@ smalltalk.addMethod(
 "_should_return_",
 smalltalk.method({
 selector: "should:return:",
-fn: function (aString, anObject){
+fn: function (aString,anObject){
 var self=this;
-var method=nil;
-var result=nil;
-(method=smalltalk.send(smalltalk.send(self, "_compiler", []), "_install_forClass_category_", [aString, smalltalk.send(self, "_targetClass", []), "tests"]));
-(result=smalltalk.send(self['@receiver'], "_perform_", [smalltalk.send(method, "_selector", [])]));
-smalltalk.send(smalltalk.send(self, "_targetClass", []), "_removeCompiledMethod_", [method]);
-smalltalk.send(self, "_assert_equals_", [anObject, result]);
-return self;}
+var method;
+var result;
+method=smalltalk.send(smalltalk.send(self,"_compiler",[]),"_install_forClass_category_",[aString,smalltalk.send(self,"_targetClass",[]),"tests"]);
+result=smalltalk.send(self["@receiver"],"_perform_",[smalltalk.send(method,"_selector",[])]);
+smalltalk.send(smalltalk.send(self,"_targetClass",[]),"_removeCompiledMethod_",[method]);
+smalltalk.send(self,"_assert_equals_",[anObject,result]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -56,7 +61,7 @@ selector: "targetClass",
 fn: function (){
 var self=this;
 return (smalltalk.DoIt || DoIt);
-return self;}
+}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -66,8 +71,7 @@ smalltalk.method({
 selector: "tearDown",
 fn: function (){
 var self=this;
-
-return self;}
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -77,10 +81,10 @@ smalltalk.method({
 selector: "testAssignment",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo | a | a := true ifTrue: [ 1 ]. ^ a", (1)]);
-smalltalk.send(self, "_should_return_", ["foo | a | a := false ifTrue: [ 1 ]. ^ a", nil]);
-smalltalk.send(self, "_should_return_", ["foo | a | ^ a := true ifTrue: [ 1 ]", (1)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo | a | a := true ifTrue: [ 1 ]. ^ a",(1)]);
+smalltalk.send(self,"_should_return_",["foo | a | a := false ifTrue: [ 1 ]. ^ a",nil]);
+smalltalk.send(self,"_should_return_",["foo | a | ^ a := true ifTrue: [ 1 ]",(1)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -90,10 +94,10 @@ smalltalk.method({
 selector: "testBlockReturn",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]", [(2), (3), (4)]]);
-smalltalk.send(self, "_should_return_", ["foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]", [(2), (3), (4)]]);
-smalltalk.send(self, "_should_return_", ["foo ^ #(1 2 3) collect: [ :each | each odd ifTrue: [ each + 1 ] ifFalse: [ each - 1 ] ]", [(2), (1), (4)]]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]",[(2), (3), (4)]]);
+smalltalk.send(self,"_should_return_",["foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]",[(2), (3), (4)]]);
+smalltalk.send(self,"_should_return_",["foo ^ #(1 2 3) collect: [ :each | each odd ifTrue: [ each + 1 ] ifFalse: [ each - 1 ] ]",[(2), (1), (4)]]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -103,8 +107,8 @@ smalltalk.method({
 selector: "testCascades",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ Array new add: 3; add: 4; yourself", [(3), (4)]]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ Array new add: 3; add: 4; yourself",[(3), (4)]]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -114,16 +118,16 @@ smalltalk.method({
 selector: "testLiterals",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ 1", (1)]);
-smalltalk.send(self, "_should_return_", ["foo ^ 'hello'", "hello"]);
-smalltalk.send(self, "_should_return_", ["foo ^ #(1 2 3 4)", [(1), (2), (3), (4)]]);
-smalltalk.send(self, "_should_return_", ["foo ^ {1. [:x | x ] value: 2. 3. [4] value}", [(1), (2), (3), (4)]]);
-smalltalk.send(self, "_should_return_", ["foo ^ true", true]);
-smalltalk.send(self, "_should_return_", ["foo ^ false", false]);
-smalltalk.send(self, "_should_return_", ["foo ^ #{1->2. 3->4}", smalltalk.HashedCollection._fromPairs_([smalltalk.send((1), "__minus_gt", [(2)]),smalltalk.send((3), "__minus_gt", [(4)])])]);
-smalltalk.send(self, "_should_return_", ["foo ^ #hello", smalltalk.symbolFor("hello")]);
-smalltalk.send(self, "_should_return_", ["foo ^ -123.456", (-123.456)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ 1",(1)]);
+smalltalk.send(self,"_should_return_",["foo ^ 'hello'","hello"]);
+smalltalk.send(self,"_should_return_",["foo ^ #(1 2 3 4)",[(1), (2), (3), (4)]]);
+smalltalk.send(self,"_should_return_",["foo ^ {1. [:x | x ] value: 2. 3. [4] value}",[(1), (2), (3), (4)]]);
+smalltalk.send(self,"_should_return_",["foo ^ true",true]);
+smalltalk.send(self,"_should_return_",["foo ^ false",false]);
+smalltalk.send(self,"_should_return_",["foo ^ #{1->2. 3->4}",smalltalk.HashedCollection._fromPairs_([smalltalk.send((1),"__minus_gt",[(2)]),smalltalk.send((3),"__minus_gt",[(4)])])]);
+smalltalk.send(self,"_should_return_",["foo ^ #hello",smalltalk.symbolFor("hello")]);
+smalltalk.send(self,"_should_return_",["foo ^ -123.456",(-123.456)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -133,12 +137,12 @@ smalltalk.method({
 selector: "testLocalReturn",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ 1", (1)]);
-smalltalk.send(self, "_should_return_", ["foo ^ 1 + 1", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ", self['@receiver']]);
-smalltalk.send(self, "_should_return_", ["foo self asString", self['@receiver']]);
-smalltalk.send(self, "_should_return_", ["foo | a b | a := 1. b := 2. ^ a + b", (3)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ 1",(1)]);
+smalltalk.send(self,"_should_return_",["foo ^ 1 + 1",(2)]);
+smalltalk.send(self,"_should_return_",["foo ",self["@receiver"]]);
+smalltalk.send(self,"_should_return_",["foo self asString",self["@receiver"]]);
+smalltalk.send(self,"_should_return_",["foo | a b | a := 1. b := 2. ^ a + b",(3)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -148,12 +152,12 @@ smalltalk.method({
 selector: "testMessageSends",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ 1 asString", "1"]);
-smalltalk.send(self, "_should_return_", ["foo ^ 1 + 1", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ^ 1 + 2 * 3", (9)]);
-smalltalk.send(self, "_should_return_", ["foo ^ 1 to: 3", [(1), (2), (3)]]);
-smalltalk.send(self, "_should_return_", ["foo ^ 1 to: 5 by: 2", [(1), (3), (5)]]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ 1 asString","1"]);
+smalltalk.send(self,"_should_return_",["foo ^ 1 + 1",(2)]);
+smalltalk.send(self,"_should_return_",["foo ^ 1 + 2 * 3",(9)]);
+smalltalk.send(self,"_should_return_",["foo ^ 1 to: 3",[(1), (2), (3)]]);
+smalltalk.send(self,"_should_return_",["foo ^ 1 to: 5 by: 2",[(1), (3), (5)]]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -163,11 +167,11 @@ smalltalk.method({
 selector: "testNestedIfTrue",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]", (1)]);
-smalltalk.send(self, "_should_return_", ["foo ^ true ifTrue: [ false ifTrue: [ 1 ] ]", nil]);
-smalltalk.send(self, "_should_return_", ["foo true ifTrue: [ false ifFalse: [ ^ 1 ] ]", (1)]);
-smalltalk.send(self, "_should_return_", ["foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]", self['@receiver']]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]",(1)]);
+smalltalk.send(self,"_should_return_",["foo ^ true ifTrue: [ false ifTrue: [ 1 ] ]",nil]);
+smalltalk.send(self,"_should_return_",["foo true ifTrue: [ false ifFalse: [ ^ 1 ] ]",(1)]);
+smalltalk.send(self,"_should_return_",["foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]",self["@receiver"]]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -177,11 +181,11 @@ smalltalk.method({
 selector: "testNonLocalReturn",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo [ ^ 1 ] value", (1)]);
-smalltalk.send(self, "_should_return_", ["foo [ ^ 1 + 1 ] value", (2)]);
-smalltalk.send(self, "_should_return_", ["foo | a b | a := 1. b := 2. [ ^ a + b ] value. self halt", (3)]);
-smalltalk.send(self, "_should_return_", ["foo [ :x | ^ x + x ] value: 4. ^ 2", (8)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo [ ^ 1 ] value",(1)]);
+smalltalk.send(self,"_should_return_",["foo [ ^ 1 + 1 ] value",(2)]);
+smalltalk.send(self,"_should_return_",["foo | a b | a := 1. b := 2. [ ^ a + b ] value. self halt",(3)]);
+smalltalk.send(self,"_should_return_",["foo [ :x | ^ x + x ] value: 4. ^ 2",(8)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -191,11 +195,11 @@ smalltalk.method({
 selector: "testifFalse",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo true ifFalse: [ ^ 1 ]", self['@receiver']]);
-smalltalk.send(self, "_should_return_", ["foo false ifFalse: [ ^ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ^ true ifFalse: [ 1 ]", nil]);
-smalltalk.send(self, "_should_return_", ["foo ^ false ifFalse: [ 2 ]", (2)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo true ifFalse: [ ^ 1 ]",self["@receiver"]]);
+smalltalk.send(self,"_should_return_",["foo false ifFalse: [ ^ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo ^ true ifFalse: [ 1 ]",nil]);
+smalltalk.send(self,"_should_return_",["foo ^ false ifFalse: [ 2 ]",(2)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -205,11 +209,11 @@ smalltalk.method({
 selector: "testifFalseIfTrue",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo true ifFalse: [ ^ 1 ] ifTrue: [ ^ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo false ifFalse: [ ^ 2 ] ifTrue: [ ^1 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ^ true ifFalse: [ 1 ] ifTrue: [ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ^ false ifFalse: [ 2 ] ifTrue: [ 1 ]", (2)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo true ifFalse: [ ^ 1 ] ifTrue: [ ^ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo false ifFalse: [ ^ 2 ] ifTrue: [ ^1 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo ^ true ifFalse: [ 1 ] ifTrue: [ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo ^ false ifFalse: [ 2 ] ifTrue: [ 1 ]",(2)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -219,11 +223,11 @@ smalltalk.method({
 selector: "testifNil",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ 1 ifNil: [ 2 ]", (1)]);
-smalltalk.send(self, "_should_return_", ["foo ^ nil ifNil: [ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo 1 ifNil: [ ^ 2 ]", self['@receiver']]);
-smalltalk.send(self, "_should_return_", ["foo nil ifNil: [ ^ 2 ]", (2)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ 1 ifNil: [ 2 ]",(1)]);
+smalltalk.send(self,"_should_return_",["foo ^ nil ifNil: [ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo 1 ifNil: [ ^ 2 ]",self["@receiver"]]);
+smalltalk.send(self,"_should_return_",["foo nil ifNil: [ ^ 2 ]",(2)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -233,11 +237,11 @@ smalltalk.method({
 selector: "testifNilIfNotNil",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ 1 ifNil: [ 2 ] ifNotNil: [ 3 ]", (3)]);
-smalltalk.send(self, "_should_return_", ["foo ^ nil ifNil: [ 2 ] ifNotNil: [ 3 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo 1 ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]", (3)]);
-smalltalk.send(self, "_should_return_", ["foo nil ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]", (2)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ 1 ifNil: [ 2 ] ifNotNil: [ 3 ]",(3)]);
+smalltalk.send(self,"_should_return_",["foo ^ nil ifNil: [ 2 ] ifNotNil: [ 3 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo 1 ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]",(3)]);
+smalltalk.send(self,"_should_return_",["foo nil ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]",(2)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -247,11 +251,11 @@ smalltalk.method({
 selector: "testifNotNil",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo ^ 1 ifNotNil: [ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ^ nil ifNotNil: [ 2 ]", nil]);
-smalltalk.send(self, "_should_return_", ["foo 1 ifNotNil: [ ^ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo nil ifNotNil: [ ^ 2 ]", self['@receiver']]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo ^ 1 ifNotNil: [ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo ^ nil ifNotNil: [ 2 ]",nil]);
+smalltalk.send(self,"_should_return_",["foo 1 ifNotNil: [ ^ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo nil ifNotNil: [ ^ 2 ]",self["@receiver"]]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -261,11 +265,11 @@ smalltalk.method({
 selector: "testifTrue",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo false ifTrue: [ ^ 1 ]", self['@receiver']]);
-smalltalk.send(self, "_should_return_", ["foo true ifTrue: [ ^ 2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo ^ false ifTrue: [ 1 ]", nil]);
-smalltalk.send(self, "_should_return_", ["foo ^ true ifTrue: [ 2 ]", (2)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo false ifTrue: [ ^ 1 ]",self["@receiver"]]);
+smalltalk.send(self,"_should_return_",["foo true ifTrue: [ ^ 2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo ^ false ifTrue: [ 1 ]",nil]);
+smalltalk.send(self,"_should_return_",["foo ^ true ifTrue: [ 2 ]",(2)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -275,11 +279,11 @@ smalltalk.method({
 selector: "testifTrueIfFalse",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_should_return_", ["foo false ifTrue: [ ^ 1 ] ifFalse: [ ^2 ]", (2)]);
-smalltalk.send(self, "_should_return_", ["foo true ifTrue: [ ^ 1 ] ifFalse: [ ^ 2 ]", (1)]);
-smalltalk.send(self, "_should_return_", ["foo ^ false ifTrue: [ 2 ] ifFalse: [ 1 ]", (1)]);
-smalltalk.send(self, "_should_return_", ["foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]", (2)]);
-return self;}
+smalltalk.send(self,"_should_return_",["foo false ifTrue: [ ^ 1 ] ifFalse: [ ^2 ]",(2)]);
+smalltalk.send(self,"_should_return_",["foo true ifTrue: [ ^ 1 ] ifFalse: [ ^ 2 ]",(1)]);
+smalltalk.send(self,"_should_return_",["foo ^ false ifTrue: [ 2 ] ifFalse: [ 1 ]",(1)]);
+smalltalk.send(self,"_should_return_",["foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]",(2)]);
+return self}
 }),
 smalltalk.CodeGeneratorTest);
 
@@ -293,7 +297,7 @@ selector: "codeGeneratorClass",
 fn: function (){
 var self=this;
 return (smalltalk.InliningCodeGenerator || InliningCodeGenerator);
-return self;}
+}
 }),
 smalltalk.InliningCodeGeneratorTest);
 
@@ -417,12 +421,14 @@ smalltalk.method({
 selector: "testAssignment",
 fn: function (){
 var self=this;
-var src=nil;
-var ast=nil;
-(src="foo self := 1");
-(ast=smalltalk.send((typeof smalltalk == 'undefined' ? nil : smalltalk), "_parse_", [src]));
-smalltalk.send(self, "_should_raise_", [(function(){return smalltalk.send(self['@analyzer'], "_visit_", [ast]);}), (smalltalk.InvalidAssignmentError || InvalidAssignmentError)]);
-return self;}
+var src;
+var ast;
+src="foo self := 1";
+ast=smalltalk.send(smalltalk,"_parse_",[src]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@analyzer"],"_visit_",[ast]);
+}),(smalltalk.InvalidAssignmentError || InvalidAssignmentError)]);
+return self}
 }),
 smalltalk.SemanticAnalyzerTest);
 

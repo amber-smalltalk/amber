@@ -6,8 +6,8 @@ smalltalk.method({
 selector: "announcementClass",
 fn: function (){
 var self=this;
-return self['@announcementClass'];
-return self;}
+return self["@announcementClass"];
+}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -17,8 +17,8 @@ smalltalk.method({
 selector: "announcementClass:",
 fn: function (aClass){
 var self=this;
-(self['@announcementClass']=aClass);
-return self;}
+self["@announcementClass"]=aClass;
+return self}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -28,8 +28,8 @@ smalltalk.method({
 selector: "block",
 fn: function (){
 var self=this;
-return self['@block'];
-return self;}
+return self["@block"];
+}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -39,8 +39,8 @@ smalltalk.method({
 selector: "block:",
 fn: function (aBlock){
 var self=this;
-(self['@block']=aBlock);
-return self;}
+self["@block"]=aBlock;
+return self}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -50,8 +50,12 @@ smalltalk.method({
 selector: "deliver:",
 fn: function (anAnnouncement){
 var self=this;
-((($receiver = smalltalk.send(self, "_handlesAnnouncement_", [anAnnouncement])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(smalltalk.send(self, "_block", []), "_value_", [anAnnouncement]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(smalltalk.send(self, "_block", []), "_value_", [anAnnouncement]);})]));
-return self;}
+var $1;
+$1=smalltalk.send(self,"_handlesAnnouncement_",[anAnnouncement]);
+if(smalltalk.assert($1)){
+smalltalk.send(smalltalk.send(self,"_block",[]),"_value_",[anAnnouncement]);
+};
+return self}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -61,8 +65,10 @@ smalltalk.method({
 selector: "handlesAnnouncement:",
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.send(anAnnouncement, "_isKindOf_", [smalltalk.send(self, "_announcementClass", [])]);
-return self;}
+var $1;
+$1=smalltalk.send(anAnnouncement,"_isKindOf_",[smalltalk.send(self,"_announcementClass",[])]);
+return $1;
+}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -75,8 +81,10 @@ smalltalk.method({
 selector: "announce:",
 fn: function (anAnnouncement){
 var self=this;
-smalltalk.send(self['@subscriptions'], "_do_", [(function(each){return smalltalk.send(each, "_deliver_", [anAnnouncement]);})]);
-return self;}
+smalltalk.send(self["@subscriptions"],"_do_",[(function(each){
+return smalltalk.send(each,"_deliver_",[anAnnouncement]);
+})]);
+return self}
 }),
 smalltalk.Announcer);
 
@@ -86,9 +94,9 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Announcer.superclass || nil);
-(self['@subscriptions']=smalltalk.send((smalltalk.Array || Array), "_new", []));
-return self;}
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
+self["@subscriptions"]=smalltalk.send((smalltalk.Array || Array),"_new",[]);
+return self}
 }),
 smalltalk.Announcer);
 
@@ -96,10 +104,15 @@ smalltalk.addMethod(
 "_on_do_",
 smalltalk.method({
 selector: "on:do:",
-fn: function (aClass, aBlock){
+fn: function (aClass,aBlock){
 var self=this;
-smalltalk.send(self['@subscriptions'], "_add_", [(function($rec){smalltalk.send($rec, "_block_", [aBlock]);smalltalk.send($rec, "_announcementClass_", [aClass]);return smalltalk.send($rec, "_yourself", []);})(smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription), "_new", []))]);
-return self;}
+var $1,$2;
+$1=smalltalk.send((smalltalk.AnnouncementSubscription || AnnouncementSubscription),"_new",[]);
+smalltalk.send($1,"_block_",[aBlock]);
+smalltalk.send($1,"_announcementClass_",[aClass]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(self["@subscriptions"],"_add_",[$2]);
+return self}
 }),
 smalltalk.Announcer);
 

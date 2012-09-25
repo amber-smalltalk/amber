@@ -11,7 +11,7 @@ The default code generator is an instance of `InlinedCodeGenerator`!
 !Compiler methodsFor: 'accessing'!
 
 codeGeneratorClass
-	^codeGeneratorClass ifNil: [FunCodeGenerator]
+	^codeGeneratorClass ifNil: [InliningCodeGenerator]
 !
 
 codeGeneratorClass: aClass

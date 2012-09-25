@@ -6,8 +6,7 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-
-return self;}
+return self}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -17,8 +16,7 @@ smalltalk.method({
 selector: "cr",
 fn: function (){
 var self=this;
-
-return self;}
+return self}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -28,8 +26,7 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-
-return self;}
+return self}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -39,10 +36,11 @@ smalltalk.method({
 selector: "show:",
 fn: function (anObject){
 var self=this;
-var string=nil;
-(string=smalltalk.send(anObject, "_asString", []));
+var string;
+string=smalltalk.send(anObject,"_asString",[]);
 console.log(String(string));
-return self;}
+;
+return self}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -53,8 +51,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send((smalltalk.Transcript || Transcript), "_register_", [smalltalk.send(self, "_new", [])]);
-return self;}
+smalltalk.send((smalltalk.Transcript || Transcript),"_register_",[smalltalk.send(self,"_new",[])]);
+return self}
 }),
 smalltalk.ConsoleTranscript.klass);
 
@@ -68,8 +66,8 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_clear", []);
-return self;}
+smalltalk.send(smalltalk.send(self,"_current",[]),"_clear",[]);
+return self}
 }),
 smalltalk.Transcript.klass);
 
@@ -79,8 +77,8 @@ smalltalk.method({
 selector: "cr",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [smalltalk.send((smalltalk.String || String), "_cr", [])]);
-return self;}
+smalltalk.send(smalltalk.send(self,"_current",[]),"_show_",[smalltalk.send((smalltalk.String || String),"_cr",[])]);
+return self}
 }),
 smalltalk.Transcript.klass);
 
@@ -90,8 +88,8 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-return self['@current'];
-return self;}
+return self["@current"];
+}
 }),
 smalltalk.Transcript.klass);
 
@@ -101,8 +99,8 @@ smalltalk.method({
 selector: "new",
 fn: function (){
 var self=this;
-smalltalk.send(self, "_shouldNotImplement", []);
-return self;}
+smalltalk.send(self,"_shouldNotImplement",[]);
+return self}
 }),
 smalltalk.Transcript.klass);
 
@@ -112,8 +110,8 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_open", []);
-return self;}
+smalltalk.send(smalltalk.send(self,"_current",[]),"_open",[]);
+return self}
 }),
 smalltalk.Transcript.klass);
 
@@ -123,8 +121,8 @@ smalltalk.method({
 selector: "register:",
 fn: function (aTranscript){
 var self=this;
-(self['@current']=aTranscript);
-return self;}
+self["@current"]=aTranscript;
+return self}
 }),
 smalltalk.Transcript.klass);
 
@@ -134,8 +132,8 @@ smalltalk.method({
 selector: "show:",
 fn: function (anObject){
 var self=this;
-smalltalk.send(smalltalk.send(self, "_current", []), "_show_", [anObject]);
-return self;}
+smalltalk.send(smalltalk.send(self,"_current",[]),"_show_",[anObject]);
+return self}
 }),
 smalltalk.Transcript.klass);
 

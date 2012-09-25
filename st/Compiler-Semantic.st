@@ -110,7 +110,7 @@ isMethodScope
 ! !
 
 LexicalScope subclass: #MethodLexicalScope
-	instanceVariableNames: 'iVars unknownVariables localReturn nonLocalReturns'
+	instanceVariableNames: 'iVars pseudoVars unknownVariables localReturn nonLocalReturns'
 	package: 'Compiler-Semantic'!
 !MethodLexicalScope commentStamp!
 I represent a method scope.!
