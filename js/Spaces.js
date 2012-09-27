@@ -68,14 +68,20 @@ selector: "do:",
 category: 'evaluating',
 fn: function (aBlock) {
     var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self['@frame'], "_contentWindow", []), "_eval_", [smalltalk.send(smalltalk.send("(", "__comma", [smalltalk.send(aBlock, "_compiledSource", [])]), "__comma", [")()"])]);
-    return $1;
+    var $1, $2, $3;
+    $1 = smalltalk.send(self, "_isConnected", []);
+    if (!smalltalk.assert($1)) {
+        $2 = smalltalk.send(smalltalk.ObjectSpaceConnectionError ||
+            ObjectSpaceConnectionError, "_signal", []);
+        return $2;
+    }
+    $3 = smalltalk.send(smalltalk.send(self['@frame'], "_contentWindow", []), "_eval_", [smalltalk.send(smalltalk.send("(", "__comma", [smalltalk.send(aBlock, "_compiledSource", [])]), "__comma", [")()"])]);
+    return $3;
 },
 args: ["aBlock"],
-source: "do: aBlock\x0a\x09^ frame contentWindow eval: '(', aBlock compiledSource, ')()'",
-messageSends: ["eval:", ",", "compiledSource", "contentWindow"],
-referencedClasses: []
+source: "do: aBlock\x0a\x09self isConnected ifFalse: [ ^ ObjectSpaceConnectionError signal ].\x0a\x09^ frame contentWindow eval: '(', aBlock compiledSource, ')()'",
+messageSends: ["ifFalse:", "signal", "isConnected", "eval:", ",", "compiledSource", "contentWindow"],
+referencedClasses: ["ObjectSpaceConnectionError"]
 }),
 smalltalk.ObjectSpace);
 
@@ -109,6 +115,24 @@ fn: function () {
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self create",
 messageSends: ["initialize", "create"],
+referencedClasses: []
+}),
+smalltalk.ObjectSpace);
+
+smalltalk.addMethod(
+"_isConnected",
+smalltalk.method({
+selector: "isConnected",
+category: 'initialization',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_frame", []), "_notNil", []);
+    return $1;
+},
+args: [],
+source: "isConnected\x0a\x09^ self frame notNil",
+messageSends: ["notNil", "frame"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpace);
@@ -170,6 +194,25 @@ referencedClasses: []
 smalltalk.ObjectSpace.klass);
 
 
+smalltalk.addClass('ObjectSpaceConnectionError', smalltalk.Error, [], 'Spaces');
+smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return "The ObjectSpace is not connected";
+},
+args: [],
+source: "messageText\x0a\x09^ 'The ObjectSpace is not connected'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ObjectSpaceConnectionError);
+
+
+
 smalltalk.addClass('ObjectSpaceTest', smalltalk.TestCase, ['space'], 'Spaces');
 smalltalk.addMethod(
 "_setUp",
@@ -196,13 +239,31 @@ category: 'initialization',
 fn: function () {
     var self = this;
     smalltalk.send(self['@space'], "_destroy", []);
-    self['@space'] = nil;
     return self;
 },
 args: [],
-source: "tearDown\x0a\x09space destroy.\x0a\x09space := nil",
+source: "tearDown\x0a\x09space destroy",
 messageSends: ["destroy"],
 referencedClasses: []
+}),
+smalltalk.ObjectSpaceTest);
+
+smalltalk.addMethod(
+"_testConnection",
+smalltalk.method({
+selector: "testConnection",
+category: 'tests',
+fn: function () {
+    var self = this;
+    smalltalk.send(self['@space'], "_destroy", []);
+    smalltalk.send(self, "_deny_", [smalltalk.send(self['@space'], "_isConnected", [])]);
+    smalltalk.send(self, "_should_raise_", [function () {return smalltalk.send(self['@space'], "_do_", [function () {}]);}, smalltalk.ObjectSpaceConnectionError || ObjectSpaceConnectionError]);
+    return self;
+},
+args: [],
+source: "testConnection\x0a\x09space destroy.\x0a\x09self deny: space isConnected.\x0a\x09self should: [ space do: [] ] raise: ObjectSpaceConnectionError",
+messageSends: ["destroy", "deny:", "isConnected", "should:raise:", "do:"],
+referencedClasses: ["ObjectSpaceConnectionError"]
 }),
 smalltalk.ObjectSpaceTest);
 
@@ -214,11 +275,12 @@ category: 'tests',
 fn: function () {
     var self = this;
     smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(self['@space'], "_frame", []), "_notNil", [])]);
+    smalltalk.send(self, "_assert_", [smalltalk.send(self['@space'], "_isConnected", [])]);
     return self;
 },
 args: [],
-source: "testCreate\x0a\x0a\x09self assert: space frame notNil",
-messageSends: ["assert:", "notNil", "frame"],
+source: "testCreate\x0a\x0a\x09self assert: space frame notNil.\x0a\x09self assert: space isConnected",
+messageSends: ["assert:", "notNil", "frame", "isConnected"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpaceTest);

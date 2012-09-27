@@ -51,9 +51,15 @@ smalltalk.method({
 selector: "do:",
 fn: function (aBlock) {
     var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self['@frame'], "_contentWindow", []), "_eval_", [smalltalk.send(smalltalk.send("(", "__comma", [smalltalk.send(aBlock, "_compiledSource", [])]), "__comma", [")()"])]);
-    return $1;
+    var $1, $2, $3;
+    $1 = smalltalk.send(self, "_isConnected", []);
+    if (!smalltalk.assert($1)) {
+        $2 = smalltalk.send(smalltalk.ObjectSpaceConnectionError ||
+            ObjectSpaceConnectionError, "_signal", []);
+        return $2;
+    }
+    $3 = smalltalk.send(smalltalk.send(self['@frame'], "_contentWindow", []), "_eval_", [smalltalk.send(smalltalk.send("(", "__comma", [smalltalk.send(aBlock, "_compiledSource", [])]), "__comma", [")()"])]);
+    return $3;
 }
 }),
 smalltalk.ObjectSpace);
@@ -78,6 +84,19 @@ fn: function () {
     smalltalk.send(self, "_initialize", [], smalltalk.Object);
     smalltalk.send(self, "_create", []);
     return self;
+}
+}),
+smalltalk.ObjectSpace);
+
+smalltalk.addMethod(
+"_isConnected",
+smalltalk.method({
+selector: "isConnected",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_frame", []), "_notNil", []);
+    return $1;
 }
 }),
 smalltalk.ObjectSpace);
@@ -124,6 +143,20 @@ fn: function (aFrame) {
 smalltalk.ObjectSpace.klass);
 
 
+smalltalk.addClass('ObjectSpaceConnectionError', smalltalk.Error, [], 'Spaces');
+smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+fn: function () {
+    var self = this;
+    return "The ObjectSpace is not connected";
+}
+}),
+smalltalk.ObjectSpaceConnectionError);
+
+
+
 smalltalk.addClass('ObjectSpaceTest', smalltalk.TestCase, ['space'], 'Spaces');
 smalltalk.addMethod(
 "_setUp",
@@ -144,7 +177,20 @@ selector: "tearDown",
 fn: function () {
     var self = this;
     smalltalk.send(self['@space'], "_destroy", []);
-    self['@space'] = nil;
+    return self;
+}
+}),
+smalltalk.ObjectSpaceTest);
+
+smalltalk.addMethod(
+"_testConnection",
+smalltalk.method({
+selector: "testConnection",
+fn: function () {
+    var self = this;
+    smalltalk.send(self['@space'], "_destroy", []);
+    smalltalk.send(self, "_deny_", [smalltalk.send(self['@space'], "_isConnected", [])]);
+    smalltalk.send(self, "_should_raise_", [function () {return smalltalk.send(self['@space'], "_do_", [function () {}]);}, smalltalk.ObjectSpaceConnectionError || ObjectSpaceConnectionError]);
     return self;
 }
 }),
@@ -157,6 +203,7 @@ selector: "testCreate",
 fn: function () {
     var self = this;
     smalltalk.send(self, "_assert_", [smalltalk.send(smalltalk.send(self['@space'], "_frame", []), "_notNil", [])]);
+    smalltalk.send(self, "_assert_", [smalltalk.send(self['@space'], "_isConnected", [])]);
     return self;
 }
 }),

@@ -27,6 +27,7 @@ frame
 !ObjectSpace methodsFor: 'evaluating'!
 
 do: aBlock
+	self isConnected ifFalse: [ ^ ObjectSpaceConnectionError signal ].
 	^ frame contentWindow eval: '(', aBlock compiledSource, ')()'
 ! !
 
@@ -54,6 +55,10 @@ create
 initialize
 	super initialize.
 	self create
+!
+
+isConnected
+	^ self frame notNil
 ! !
 
 !ObjectSpace methodsFor: 'releasing'!
@@ -77,6 +82,16 @@ on: aFrame
 		yourself
 ! !
 
+Error subclass: #ObjectSpaceConnectionError
+	instanceVariableNames: ''
+	package: 'Spaces'!
+
+!ObjectSpaceConnectionError methodsFor: 'accessing'!
+
+messageText
+	^ 'The ObjectSpace is not connected'
+! !
+
 TestCase subclass: #ObjectSpaceTest
 	instanceVariableNames: 'space'
 	package: 'Spaces'!
@@ -88,15 +103,21 @@ setUp
 !
 
 tearDown
-	space destroy.
-	space := nil
+	space destroy
 ! !
 
 !ObjectSpaceTest methodsFor: 'tests'!
 
+testConnection
+	space destroy.
+	self deny: space isConnected.
+	self should: [ space do: [] ] raise: ObjectSpaceConnectionError
+!
+
 testCreate
 
-	self assert: space frame notNil
+	self assert: space frame notNil.
+	self assert: space isConnected
 !
 
 testEvaluation
