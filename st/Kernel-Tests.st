@@ -851,15 +851,12 @@ testPropertyThatReturnsEmptyString
 !
 
 testYourself
-	|body|
-	body := 'body' asJQuery
-				addClass: 'amber';
-				yourself.
+	| object |
+	object := self jsObject
+		d: 'test';
+		yourself.
 
-	self assert: (body hasClass: 'amber').
-
-	body removeClass: 'amber'.
-	self deny: (body hasClass: 'amber').
+	self assert: object d equals: 'test'
 ! !
 
 TestCase subclass: #NumberTest

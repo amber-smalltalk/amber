@@ -2041,19 +2041,17 @@ category: 'tests',
 fn: function () {
     var self = this;
     var $1, $2;
-    var body;
-    $1 = smalltalk.send("body", "_asJQuery", []);
-    smalltalk.send($1, "_addClass_", ["amber"]);
+    var object;
+    $1 = smalltalk.send(self, "_jsObject", []);
+    smalltalk.send($1, "_d_", ["test"]);
     $2 = smalltalk.send($1, "_yourself", []);
-    body = $2;
-    smalltalk.send(self, "_assert_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
-    smalltalk.send(body, "_removeClass_", ["amber"]);
-    smalltalk.send(self, "_deny_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+    object = $2;
+    smalltalk.send(self, "_assert_equals_", [smalltalk.send(object, "_d", []), "test"]);
     return self;
 },
 args: [],
-source: "testYourself\x0a\x09|body|\x0a\x09body := 'body' asJQuery\x0a\x09\x09\x09\x09addClass: 'amber';\x0a\x09\x09\x09\x09yourself.\x0a\x0a\x09self assert: (body hasClass: 'amber').\x0a\x0a\x09body removeClass: 'amber'.\x0a\x09self deny: (body hasClass: 'amber').",
-messageSends: ["addClass:", "asJQuery", "yourself", "assert:", "hasClass:", "removeClass:", "deny:"],
+source: "testYourself\x0a\x09| object |\x0a\x09object := self jsObject\x0a\x09\x09d: 'test';\x0a\x09\x09yourself.\x0a\x0a\x09self assert: object d equals: 'test'",
+messageSends: ["d:", "jsObject", "yourself", "assert:equals:", "d"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxyTest);

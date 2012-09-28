@@ -1545,14 +1545,12 @@ selector: "testYourself",
 fn: function () {
     var self = this;
     var $1, $2;
-    var body;
-    $1 = smalltalk.send("body", "_asJQuery", []);
-    smalltalk.send($1, "_addClass_", ["amber"]);
+    var object;
+    $1 = smalltalk.send(self, "_jsObject", []);
+    smalltalk.send($1, "_d_", ["test"]);
     $2 = smalltalk.send($1, "_yourself", []);
-    body = $2;
-    smalltalk.send(self, "_assert_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
-    smalltalk.send(body, "_removeClass_", ["amber"]);
-    smalltalk.send(self, "_deny_", [smalltalk.send(body, "_hasClass_", ["amber"])]);
+    object = $2;
+    smalltalk.send(self, "_assert_equals_", [smalltalk.send(object, "_d", []), "test"]);
     return self;
 }
 }),
