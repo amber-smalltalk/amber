@@ -816,7 +816,7 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
@@ -833,13 +833,7 @@ testMessageSend
 !
 
 testMethodWithArguments
-	self deny: ('body' asJQuery hasClass: 'amber').
-
-	'body' asJQuery addClass: 'amber'.
-	self assert: ('body' asJQuery hasClass: 'amber').
-
-	'body' asJQuery removeClass: 'amber'.
-	self deny: ('body' asJQuery hasClass: 'amber').
+	self assert: (self jsObject c: 1) equals: 1
 !
 
 testPrinting
@@ -847,11 +841,13 @@ testPrinting
 !
 
 testPropertyThatReturnsEmptyString
-	<document.location.hash = ''>.
-	self assert: '' equals: document location hash.
+	| object |
 
-	document location hash: 'test'.
-	self assert: '#test' equals: document location hash.
+	object := self jsObject.
+	self assert: '' equals: object d.
+
+	object d: 'hello'.
+	self assert: 'hello' equals: object d
 !
 
 testYourself

@@ -200,6 +200,10 @@ subclassResponsibility
 	self error: 'This method is a responsibility of a subclass'
 !
 
+throw: anObject
+	< throw anObject >
+!
+
 try: aBlock catch: anotherBlock
 	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
 	return result;>
