@@ -408,12 +408,16 @@ errorShadowingVariable: aString
 errorUnknownVariable: aNode
 	"Throw an error if the variable is undeclared in the global JS scope (i.e. window)"
 
-	(window at: aNode value) 
-		ifNil: [ 
+	| notDefined |
+
+	notDefined := <eval('typeof ' + aNode._value() + ' == "undefined"')>.
+
+	notDefined
+		ifTrue: [ 
 			UnknownVariableError new
 				variableName: aNode value;
 				signal ]
-		ifNotNil: [
+		ifFalse: [
 			currentScope methodScope unknownVariables add: aNode value. ]
 ! !
 
