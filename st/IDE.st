@@ -1174,6 +1174,8 @@ updateProtocolsList
 !
 
 updateSourceAndButtons
+	| currentProtocol |
+
 	self disableSaveButton.
 	classButtons contents: [:html |
 		html button
@@ -1206,9 +1208,12 @@ updateSourceAndButtons
 				html option
 					class: 'important';
 					with: 'New...'.
+                currentProtocol := selectedProtocol.
+                (currentProtocol isNil and: [ selectedMethod notNil ])
+                	ifTrue: [ currentProtocol := selectedMethod category].
 				self protocols do: [:each |
 					option := html option with: each.
-					selectedProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ]].
+					currentProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ]].
 		selectedMethod isNil ifFalse: [
 			referencesSelect := html select.
                         referencesSelect
