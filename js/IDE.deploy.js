@@ -435,6 +435,17 @@ fn: function () {
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self,"_editor",[]),"_focus",[]);
+return self}
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
 "_handleKeyDown_",
 smalltalk.method({
 selector: "handleKeyDown:",
@@ -547,11 +558,11 @@ smalltalk.addMethod(
 "_printIt",
 smalltalk.method({
 selector: "printIt",
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_print_", [smalltalk.send(smalltalk.send(self, "_doIt", []), "_printString", [])]);
-    return self;
-}
+fn: function (){
+var self=this;
+smalltalk.send(self,"_print_",[smalltalk.send(smalltalk.send(self,"_doIt",[]),"_printString",[])]);
+smalltalk.send(self,"_focus",[]);
+return self}
 }),
 smalltalk.SourceArea);
 
@@ -4405,6 +4416,18 @@ fn: function (html) {
     $10 = smalltalk.send($9, "_onClick_", [function () {return smalltalk.send(self, "_clearWorkspace", []);}]);
     return self;
 }
+}),
+smalltalk.Workspace);
+
+smalltalk.addMethod(
+"_show",
+smalltalk.method({
+selector: "show",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_show",[],smalltalk.TabWidget);
+smalltalk.send(self["@sourceArea"],"_focus",[]);
+return self}
 }),
 smalltalk.Workspace);
 
