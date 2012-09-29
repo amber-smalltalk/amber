@@ -728,14 +728,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printIt",
 category: 'actions',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_print_", [smalltalk.send(smalltalk.send(self, "_doIt", []), "_printString", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self,"_print_",[smalltalk.send(smalltalk.send(self,"_doIt",[]),"_printString",[])]);
+smalltalk.send(smalltalk.send(self,"_editor",[]),"_focus",[]);
+return self},
 args: [],
-source: "printIt\x0a    self print: self doIt printString",
-messageSends: ["print:", "printString", "doIt"],
+source: "printIt\x0a    self print: self doIt printString.\x0a    self editor focus.",
+messageSends: ["print:", "printString", "doIt", "focus", "editor"],
 referencedClasses: []
 }),
 smalltalk.SourceArea);

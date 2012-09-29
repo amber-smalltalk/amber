@@ -547,11 +547,11 @@ smalltalk.addMethod(
 "_printIt",
 smalltalk.method({
 selector: "printIt",
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_print_", [smalltalk.send(smalltalk.send(self, "_doIt", []), "_printString", [])]);
-    return self;
-}
+fn: function (){
+var self=this;
+smalltalk.send(self,"_print_",[smalltalk.send(smalltalk.send(self,"_doIt",[]),"_printString",[])]);
+smalltalk.send(smalltalk.send(self,"_editor",[]),"_focus",[]);
+return self}
 }),
 smalltalk.SourceArea);
 

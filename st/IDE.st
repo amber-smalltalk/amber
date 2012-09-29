@@ -305,7 +305,8 @@ print: aString
 !
 
 printIt
-    self print: self doIt printString
+    self print: self doIt printString.
+    self editor focus.
 ! !
 
 !SourceArea methodsFor: 'events'!
