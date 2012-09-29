@@ -9,5 +9,8 @@ server/FileServer*.js
 # Ignoring compiled files in st
 st/*.js
 
+# Ignoring run.js in test/
+test/run.js
+
 # In case amber is also saved in a local Subversion
 .svn
