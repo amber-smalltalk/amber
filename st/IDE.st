@@ -2047,7 +2047,9 @@ testCases
 !TestRunner methodsFor: 'actions'!
 
 performFailure: aTestCase
-	aTestCase perform: aTestCase selector
+	aTestCase setUp.
+    [ aTestCase perform: aTestCase selector ]
+  		ensure: [ aTestCase tearDown ]
 !
 
 run: aCollection

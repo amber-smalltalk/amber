@@ -3901,7 +3901,8 @@ smalltalk.method({
 selector: "performFailure:",
 fn: function (aTestCase) {
     var self = this;
-    smalltalk.send(aTestCase, "_perform_", [smalltalk.send(aTestCase, "_selector", [])]);
+    smalltalk.send(aTestCase, "_setUp", []);
+    smalltalk.send(function () {return smalltalk.send(aTestCase, "_perform_", [smalltalk.send(aTestCase, "_selector", [])]);}, "_ensure_", [function () {return smalltalk.send(aTestCase, "_tearDown", []);}]);
     return self;
 }
 }),
