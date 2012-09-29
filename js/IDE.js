@@ -580,6 +580,22 @@ referencedClasses: ["Importer"]
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send(self,"_editor",[]),"_focus",[]);
+return self},
+args: [],
+source: "focus\x0a      self editor focus.",
+messageSends: ["focus", "editor"],
+referencedClasses: []
+}),
+smalltalk.SourceArea);
+
+smalltalk.addMethod(
 "_handleKeyDown_",
 smalltalk.method({
 selector: "handleKeyDown:",
@@ -731,11 +747,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 smalltalk.send(self,"_print_",[smalltalk.send(smalltalk.send(self,"_doIt",[]),"_printString",[])]);
-smalltalk.send(smalltalk.send(self,"_editor",[]),"_focus",[]);
+smalltalk.send(self,"_focus",[]);
 return self},
 args: [],
-source: "printIt\x0a    self print: self doIt printString.\x0a    self editor focus.",
-messageSends: ["print:", "printString", "doIt", "focus", "editor"],
+source: "printIt\x0a    self print: self doIt printString.\x0a\x09self focus.",
+messageSends: ["print:", "printString", "doIt", "focus"],
 referencedClasses: []
 }),
 smalltalk.SourceArea);
@@ -5804,6 +5820,23 @@ fn: function (html) {
 args: ["html"],
 source: "renderButtonsOn: html\x0a    html button\x0a\x09with: 'DoIt';\x0a\x09title: 'ctrl+d';\x0a\x09onClick: [self doIt].\x0a    html button\x0a\x09with: 'PrintIt';\x0a\x09title: 'ctrl+p';\x0a\x09onClick: [self printIt].\x0a    html button\x0a\x09with: 'InspectIt';\x0a\x09title: 'ctrl+i';\x0a\x09onClick: [self inspectIt].\x0a    html button\x0a\x09with: 'FileIn';\x0a\x09title: 'ctrl+f';\x0a\x09onClick: [self fileIn].\x0a    html button\x0a\x09with: 'Clear workspace';\x0a\x09onClick: [self clearWorkspace]",
 messageSends: ["with:", "button", "title:", "onClick:", "doIt", "printIt", "inspectIt", "fileIn", "clearWorkspace"],
+referencedClasses: []
+}),
+smalltalk.Workspace);
+
+smalltalk.addMethod(
+"_show",
+smalltalk.method({
+selector: "show",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_show",[],smalltalk.TabWidget);
+smalltalk.send(self["@sourceArea"],"_focus",[]);
+return self},
+args: [],
+source: "show\x0a\x09super show.\x0a\x09sourceArea focus.",
+messageSends: ["show", "focus"],
 referencedClasses: []
 }),
 smalltalk.Workspace);
