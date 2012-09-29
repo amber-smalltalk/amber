@@ -156,7 +156,7 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.6.4.min.js'));
+			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.8.2.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
