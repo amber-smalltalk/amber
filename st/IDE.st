@@ -267,6 +267,10 @@ fileIn
     Importer new import: self currentLineOrSelection readStream
 !
 
+focus
+      self editor focus.
+!
+
 handleKeyDown: anEvent
     <if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
@@ -305,7 +309,8 @@ print: aString
 !
 
 printIt
-    self print: self doIt printString
+    self print: self doIt printString.
+	self focus.
 ! !
 
 !SourceArea methodsFor: 'events'!
@@ -2260,6 +2265,11 @@ inspectIt
 
 printIt
 	sourceArea printIt
+!
+
+show
+	super show.
+	sourceArea focus.
 ! !
 
 !Workspace methodsFor: 'rendering'!
