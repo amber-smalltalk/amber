@@ -1,7 +1,104 @@
-body {
-    padding-top: 40px;
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
 }
 
 a {
     cursor: pointer;
 }
+
+.navbar-fixed-top i {
+    opacity: 0.2;
+    margin-right: 10px;
+}
+
+.navbar-fixed-top .active i {
+    opacity: 0.6;
+}
+
+.nav-pills.nav-stacked > li > a {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    padding: 3px 0;
+    margin: 0;
+}
+
+#container {
+    position: fixed;
+    top: 40px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#container .panes {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#container .panes .pane {
+    overflow: auto;
+}
+
+#container .panes .pane {
+    overflow: auto;
+}
+
+#container .panes.horizontal > .pane {
+    height: 50%;
+    min-height: 50px;
+}
+
+#container .panes.vertical > .pane {
+    width: 50%;
+    display: inline;
+    float: left;
+    height: 100%;
+}
+
+#container .splitter {
+    z-index: 10;
+    background: #E6E6E6;
+    outline: 1px solid #bbb;
+}
+
+#container .splitter.vertical {
+    width: 6px;
+    height: 100%;
+    float: left;
+    cursor: e-resize;
+    background-image: url('/images/vsplitter.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#container .splitter.horizontal {
+    height: 5px;
+    cursor: s-resize;
+    background-image: url('/images/hsplitter.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hl_widget.focused {
+    background: #ffe;
+}
+
