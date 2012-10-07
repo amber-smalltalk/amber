@@ -912,7 +912,7 @@ visitIRValue: anIRValue
 !
 
 visitIRVariable: anIRVariable
-	anIRVariable name = 'thisContext'
+	anIRVariable variable name = 'thisContext'
     	ifTrue: [ self stream nextPutAll: 'smalltalk.getThisContext()' ]
       	ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]
 !
