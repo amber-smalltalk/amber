@@ -385,10 +385,6 @@ messageSends
 	^ messageSends ifNil: [ messageSends := Dictionary new ]
 !
 
-pseudoVariables
-	^#('self' 'super' 'true' 'false' 'nil' 'thisContext')
-!
-
 theClass
 	^ theClass
 !

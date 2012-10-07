@@ -963,17 +963,6 @@ fn: function () {
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_pseudoVariables",
-smalltalk.method({
-selector: "pseudoVariables",
-fn: function () {
-    var self = this;
-    return ["self", "super", "true", "false", "nil", "thisContext"];
-}
-}),
-smalltalk.SemanticAnalyzer);
-
-smalltalk.addMethod(
 "_pushScope_",
 smalltalk.method({
 selector: "pushScope:",

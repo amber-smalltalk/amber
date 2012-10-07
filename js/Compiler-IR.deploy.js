@@ -1935,7 +1935,13 @@ smalltalk.method({
 selector: "visitIRVariable:",
 fn: function (anIRVariable){
 var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(anIRVariable,"_name",[]),"__eq",["thisContext"]);
+if(smalltalk.assert($1)){
+smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["smalltalk.getThisContext()"]);
+} else {
 smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(smalltalk.send(anIRVariable,"_variable",[]),"_alias",[])]);
+};
 return self}
 }),
 smalltalk.IRJSTranslator);

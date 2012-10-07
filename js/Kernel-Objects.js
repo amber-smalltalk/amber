@@ -4083,12 +4083,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVariableNames",
 category: 'packages',
-fn: function () {
-    var self = this;
-    return ["self", "super", "nil", "true", "false"];
+fn: function (){
+var self=this;
+return ["self", "super", "nil", "true", "false", "thisContext"];
 },
 args: [],
-source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false')",
+source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",
 messageSends: [],
 referencedClasses: []
 }),

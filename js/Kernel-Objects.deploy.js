@@ -2963,9 +2963,9 @@ smalltalk.addMethod(
 "_pseudoVariableNames",
 smalltalk.method({
 selector: "pseudoVariableNames",
-fn: function () {
-    var self = this;
-    return ["self", "super", "nil", "true", "false"];
+fn: function (){
+var self=this;
+return ["self", "super", "nil", "true", "false", "thisContext"];
 }
 }),
 smalltalk.Smalltalk);

@@ -1441,7 +1441,7 @@ packages
 !
 
 pseudoVariableNames
-	^ #('self' 'super' 'nil' 'true' 'false')
+	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
 !
 
 removePackage: packageName

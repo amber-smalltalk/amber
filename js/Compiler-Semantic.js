@@ -1314,22 +1314,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_pseudoVariables",
-smalltalk.method({
-selector: "pseudoVariables",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return ["self", "super", "true", "false", "nil", "thisContext"];
-},
-args: [],
-source: "pseudoVariables\x0a\x09^#('self' 'super' 'true' 'false' 'nil' 'thisContext')",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SemanticAnalyzer);
-
-smalltalk.addMethod(
 "_pushScope_",
 smalltalk.method({
 selector: "pushScope:",
