@@ -2632,7 +2632,7 @@ category: 'visiting',
 fn: function (anIRVariable){
 var self=this;
 var $1;
-$1=smalltalk.send(smalltalk.send(anIRVariable,"_name",[]),"__eq",["thisContext"]);
+$1=smalltalk.send(smalltalk.send(smalltalk.send(anIRVariable,"_variable",[]),"_name",[]),"__eq",["thisContext"]);
 if(smalltalk.assert($1)){
 smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",["smalltalk.getThisContext()"]);
 } else {
@@ -2640,7 +2640,7 @@ smalltalk.send(smalltalk.send(self,"_stream",[]),"_nextPutAll_",[smalltalk.send(
 };
 return self},
 args: ["anIRVariable"],
-source: "visitIRVariable: anIRVariable\x0a\x09anIRVariable name = 'thisContext'\x0a    \x09ifTrue: [ self stream nextPutAll: 'smalltalk.getThisContext()' ]\x0a      \x09ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]",
+source: "visitIRVariable: anIRVariable\x0a\x09anIRVariable variable name = 'thisContext'\x0a    \x09ifTrue: [ self stream nextPutAll: 'smalltalk.getThisContext()' ]\x0a      \x09ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]",
 messageSends: ["ifTrue:ifFalse:", "nextPutAll:", "stream", "alias", "variable", "=", "name"],
 referencedClasses: []
 }),
