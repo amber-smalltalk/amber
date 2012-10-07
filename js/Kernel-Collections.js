@@ -552,6 +552,36 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
+"_intersection_",
+smalltalk.method({
+selector: "intersection:",
+category: 'enumerating',
+fn: function (aCollection){
+var self=this;
+var $1,$2;
+var set;
+var outputSet;
+set=smalltalk.send(self,"_asSet",[]);
+outputSet=smalltalk.send((smalltalk.Set || Set),"_new",[]);
+smalltalk.send(aCollection,"_do_",[(function(each){
+$1=smalltalk.send(smalltalk.send(set,"_includes_",[each]),"_and_",[(function(){
+return smalltalk.send(smalltalk.send(outputSet,"_includes_",[each]),"_not",[]);
+})]);
+if(smalltalk.assert($1)){
+return smalltalk.send(outputSet,"_add_",[each]);
+};
+})]);
+$2=smalltalk.send(smalltalk.send(self,"_class",[]),"_withAll_",[smalltalk.send(outputSet,"_asArray",[])]);
+return $2;
+},
+args: ["aCollection"],
+source: "intersection: aCollection\x0a\x09\x22Answer the set theoretic intersection of two collections.\x22\x0a\x0a\x09| set outputSet |\x0a\x09\x0a\x09set := self asSet.\x0a\x09outputSet := Set new.\x0a\x09\x0a\x09aCollection do: [ :each |\x0a\x09\x09((set includes: each) and: [(outputSet includes: each) not])\x0a\x09\x09\x09ifTrue: [ \x0a\x09\x09\x09\x09outputSet add: each]].\x0a\x09\x09\x0a\x09^ self class withAll: outputSet asArray",
+messageSends: ["asSet", "new", "do:", "ifTrue:", "add:", "and:", "not", "includes:", "withAll:", "asArray", "class"],
+referencedClasses: ["Set"]
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
 "_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
@@ -2067,15 +2097,15 @@ category: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 
-		for(var i=0;i<self.length;i++){
-			if(self[i].__eq(anObject)) {return i+1}
-		}
+		for(var i=0;i<self.length;i++) {
+			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+		};
 		return aBlock();
 	;
 ;
 return self},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++){\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock();\x0a\x09>",
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3753,6 +3783,23 @@ return '\r\n';
 return self},
 args: [],
 source: "crlf\x0a\x09<return '\x5cr\x5cn'>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+"_fromCharCode_",
+smalltalk.method({
+selector: "fromCharCode:",
+category: 'instance creation',
+fn: function (anInteger){
+var self=this;
+return String.fromCharCode(anInteger);
+;
+return self},
+args: ["anInteger"],
+source: "fromCharCode: anInteger\x0a\x09<return String.fromCharCode(anInteger)>",
 messageSends: [],
 referencedClasses: []
 }),

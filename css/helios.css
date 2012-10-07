@@ -1,3 +1,7 @@
+body {
+    font-size: 13px;
+}
+
 .clearfix:after {
 	content: ".";
 	display: block;
@@ -23,6 +27,19 @@ a {
     cursor: pointer;
 }
 
+.btn, .btn-group > .btn, .btn-group > .dropdown-menu {
+    font-size: 13px;
+    padding: 2px 13px;
+}
+
+.navbar-inner {
+    min-height: 30px;
+}
+
+.navbar .nav > li > a {
+    padding: 5px 15px;
+}
+
 .navbar-fixed-top i {
     opacity: 0.2;
     margin-right: 10px;
@@ -36,13 +53,33 @@ a {
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    padding: 3px 0;
+    padding: 3px;
     margin: 0;
 }
 
+[class^="icon-"], [class*=" icon-"] {
+    margin-right: 2px;
+}
+
+/* .nav-pills.nav-stacked > li > a { */
+/*     width: 14px; */
+/*     height: 14px; */
+/*     display: inline-block; */
+/*     margin-right: 4px; */
+/* } */
+
+.nav-pills > .active > a, .nav-pills > .active > a:hover {
+    background: #ccc;
+}
+
+.focused .nav-pills > .active > a, .nav-pills > .active > a:hover {
+    background: #08C;
+}
+
+
 #container {
     position: fixed;
-    top: 40px;
+    top: 30px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -62,6 +99,66 @@ a {
     overflow: auto;
 }
 
+#container .panes .pane > div {
+    height: 100%;
+    position: relative;
+}
+
+#container .panes .pane .nav-pills {
+    position: absolute;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 37px;
+    width: 100%;
+    margin: 0;
+}
+
+#container .panes .pane .pane_actions {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 26px;
+    bottom: 0;
+    background: #E5E5E5;
+    border-top: 1px solid #bbb;
+    padding: 5px 0;
+    margin: 0;
+    text-align: center;
+}
+
+#container .panes .pane .pane_actions .info {
+    padding: 10px 5px 5px;
+    font-weight: bold;
+    color: #666;
+    line-height: 20px;
+}
+
+
+#container .panes .pane .pane_actions .btn-group {
+    display: inline;
+    margin-left: 5px;
+}
+
+#container .panes .pane .pane_actions .btn-group .btn {
+    margin: 0;
+}
+
+#container .panes .pane .pane_actions .btn-group.switch .btn.active:first-child {
+    background: #5AD;
+    color: white;
+    text-shadow: 0 1px 0 #333;
+}
+
+#container .panes .pane .pane_actions .btn {
+    margin-left: 5px;
+}
+
+#container .panes .pane .class_side .nav-pills {
+    font-weight: bold;
+    background: #ffd;
+}
+
+
 #container .panes.horizontal > .pane {
     height: 50%;
     min-height: 50px;
@@ -77,11 +174,11 @@ a {
 #container .splitter {
     z-index: 10;
     background: #E6E6E6;
-    outline: 1px solid #bbb;
+    border: 1px solid #bbb;
 }
 
 #container .splitter.vertical {
-    width: 6px;
+    width: 4px;
     height: 100%;
     float: left;
     cursor: e-resize;
@@ -91,14 +188,33 @@ a {
 }
 
 #container .splitter.horizontal {
-    height: 5px;
+    height: 4px;
     cursor: s-resize;
     background-image: url('/images/hsplitter.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.hl_widget.focused {
-    background: #ffe;
+
+.key_helper {
+    z-index: 20;
+    position: fixed;
+    bottom: 0px;
+    background: #EEE;
+    width: 100%;
+    border-top: 1px solid #AAA;
+    font-size: 11px;
 }
 
+.key_helper .command {
+    padding: 0 10px;
+}
+
+.key_helper .label {
+    padding: 0 4px;
+}
+
+.key_helper .action {
+    padding: 0 5px;
+    color: #666;
+}

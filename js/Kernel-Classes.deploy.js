@@ -49,6 +49,28 @@ return result;
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_allSuperclasses",
+smalltalk.method({
+selector: "allSuperclasses",
+fn: function (){
+var self=this;
+var $1,$3,$4,$2;
+$1=smalltalk.send(self,"_superclass",[]);
+if(($receiver = $1) == nil || $receiver == undefined){
+return [];
+} else {
+$1;
+};
+$3=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_with_",[smalltalk.send(self,"_superclass",[])]);
+smalltalk.send($3,"_addAll_",[smalltalk.send(smalltalk.send(self,"_superclass",[]),"_allSuperclasses",[])]);
+$4=smalltalk.send($3,"_yourself",[]);
+$2=$4;
+return $2;
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_basicNew",
 smalltalk.method({
 selector: "basicNew",
@@ -161,6 +183,17 @@ return self}
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_definition",
+smalltalk.method({
+selector: "definition",
+fn: function (){
+var self=this;
+return "";
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_inheritsFrom_",
 smalltalk.method({
 selector: "inheritsFrom:",
@@ -217,6 +250,19 @@ return self}
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_methods",
+smalltalk.method({
+selector: "methods",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_methodDictionary",[]),"_values",[]);
+return $1;
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_methodsFor_",
 smalltalk.method({
 selector: "methodsFor:",
@@ -240,6 +286,21 @@ fn: function (aString,aStamp){
 var self=this;
 var $1;
 $1=smalltalk.send(self,"_methodsFor_",[aString]);
+return $1;
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_methodsInProtocol_",
+smalltalk.method({
+selector: "methodsInProtocol:",
+fn: function (aString){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodDictionary",[]),"_values",[]),"_select_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_protocol",[]),"__eq",[aString]);
+})]);
 return $1;
 }
 }),
@@ -338,6 +399,19 @@ return self}
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_selectors",
+smalltalk.method({
+selector: "selectors",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_methodDictionary",[]),"_keys",[]);
+return $1;
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_subclasses",
 smalltalk.method({
 selector: "subclasses",
@@ -358,6 +432,30 @@ var self=this;
 return self.superclass || nil;
 ;
 return self}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_theMetaClass",
+smalltalk.method({
+selector: "theMetaClass",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_class",[]);
+return $1;
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_theNonMetaClass",
+smalltalk.method({
+selector: "theNonMetaClass",
+fn: function (){
+var self=this;
+return self;
+}
 }),
 smalltalk.Behavior);
 
@@ -406,6 +504,36 @@ $1="Unclassified";
 } else {
 $1=smalltalk.send(smalltalk.send(self,"_package",[]),"_name",[]);
 };
+return $1;
+}
+}),
+smalltalk.Class);
+
+smalltalk.addMethod(
+"_definition",
+smalltalk.method({
+selector: "definition",
+fn: function (){
+var self=this;
+var $2,$3,$1;
+$1=smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(stream){
+smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(smalltalk.send(self,"_superclass",[]),"_asString",[])]);
+smalltalk.send(stream,"_nextPutAll_",[" subclass: #"]);
+smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(self,"_name",[])]);
+smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(smalltalk.send((smalltalk.String || String),"_lf",[]),"__comma",[smalltalk.send((smalltalk.String || String),"_tab",[])])]);
+$2=smalltalk.send(stream,"_nextPutAll_",["instanceVariableNames: '"]);
+$2;
+smalltalk.send(smalltalk.send(self,"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
+return smalltalk.send(stream,"_nextPutAll_",[each]);
+}),(function(){
+return smalltalk.send(stream,"_nextPutAll_",[" "]);
+})]);
+smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(smalltalk.send("'","__comma",[smalltalk.send((smalltalk.String || String),"_lf",[])]),"__comma",[smalltalk.send((smalltalk.String || String),"_tab",[])])]);
+smalltalk.send(stream,"_nextPutAll_",["package: '"]);
+smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(self,"_category",[])]);
+$3=smalltalk.send(stream,"_nextPutAll_",["'"]);
+return $3;
+})]);
 return $1;
 }
 }),
@@ -545,6 +673,30 @@ return $1;
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
+"_definition",
+smalltalk.method({
+selector: "definition",
+fn: function (){
+var self=this;
+var $2,$1;
+$1=smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(stream){
+smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(self,"_asString",[])]);
+smalltalk.send(stream,"_nextPutAll_",[" class "]);
+$2=smalltalk.send(stream,"_nextPutAll_",["instanceVariableNames: '"]);
+$2;
+smalltalk.send(smalltalk.send(self,"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
+return smalltalk.send(stream,"_nextPutAll_",[each]);
+}),(function(){
+return smalltalk.send(stream,"_nextPutAll_",[" "]);
+})]);
+return smalltalk.send(stream,"_nextPutAll_",["'"]);
+})]);
+return $1;
+}
+}),
+smalltalk.Metaclass);
+
+smalltalk.addMethod(
 "_instanceClass",
 smalltalk.method({
 selector: "instanceClass",
@@ -586,6 +738,30 @@ fn: function (){
 var self=this;
 var $1;
 $1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_instanceClass",[]),"_name",[]),"__comma",[" class"]);
+return $1;
+}
+}),
+smalltalk.Metaclass);
+
+smalltalk.addMethod(
+"_theMetaClass",
+smalltalk.method({
+selector: "theMetaClass",
+fn: function (){
+var self=this;
+return self;
+}
+}),
+smalltalk.Metaclass);
+
+smalltalk.addMethod(
+"_theNonMetaClass",
+smalltalk.method({
+selector: "theNonMetaClass",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_instanceClass",[]);
 return $1;
 }
 }),

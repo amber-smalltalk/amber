@@ -57,15 +57,6 @@ return $1;
 smalltalk.HLContainer.klass);
 
 
-smalltalk.addClass('HLPane', smalltalk.Widget, [], 'Helios-Layout');
-
-
-smalltalk.addClass('HLHorizontalPane', smalltalk.HLPane, [], 'Helios-Layout');
-
-
-smalltalk.addClass('HLVerticalPane', smalltalk.HLPane, [], 'Helios-Layout');
-
-
 smalltalk.addClass('HLSplitter', smalltalk.Widget, ['firstWidget', 'secondWidget', 'firstPane', 'secondPane', 'splitter'], 'Helios-Layout');
 smalltalk.addMethod(
 "_cssClass",
@@ -254,13 +245,23 @@ smalltalk.method({
 selector: "resize",
 fn: function (){
 var self=this;
+smalltalk.send(self,"_resize_",[smalltalk.send(smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_offset",[]),"_top",[])]);
+return self}
+}),
+smalltalk.HLHorizontalSplitter);
+
+smalltalk.addMethod(
+"_resize_",
+smalltalk.method({
+selector: "resize:",
+fn: function (anInteger){
+var self=this;
 var container;
 var position;
 container=smalltalk.send(smalltalk.send(self["@firstPane"],"_asJQuery",[]),"_parent",[]);
-position=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_offset",[]),"_top",[]),"__minus",[smalltalk.send(smalltalk.send(container,"_offset",[]),"_top",[])]);
+position=smalltalk.send(anInteger,"__minus",[smalltalk.send(smalltalk.send(container,"_offset",[]),"_top",[])]);
 smalltalk.send(smalltalk.send(self["@firstPane"],"_asJQuery",[]),"_height_",[smalltalk.send(smalltalk.send(position,"_min_",[smalltalk.send(smalltalk.send(container,"_height",[]),"__minus",[(100)])]),"_max_",[(100)])]);
 smalltalk.send(smalltalk.send(self["@secondPane"],"_asJQuery",[]),"_height_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(container,"_height",[]),"__minus",[position]),"_min_",[smalltalk.send(smalltalk.send(container,"_height",[]),"__minus",[(100)])]),"_max_",[(100)]),"__minus",[(6)])]);
-smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_css_value_",["top",(0)]);
 smalltalk.send(self,"_resize",[],smalltalk.HLSplitter);
 return self}
 }),
@@ -272,9 +273,22 @@ smalltalk.method({
 selector: "setupSplitter",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_draggable_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("axis","__minus_gt",["y"]),smalltalk.send("stop","__minus_gt",[(function(){
-return smalltalk.send(self,"_resize",[]);
+smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_draggable_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("axis","__minus_gt",["y"]),smalltalk.send("containment","__minus_gt",[smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_parent",[])]),smalltalk.send("helper","__minus_gt",["clone"]),smalltalk.send("start","__minus_gt",[(function(e,ui){
+return smalltalk.send(self,"_startResizing_",[smalltalk.send(ui,"_helper",[])]);
+})]),smalltalk.send("drag","__minus_gt",[(function(e,ui){
+return smalltalk.send(self,"_resize_",[smalltalk.send(smalltalk.send(ui,"_offset",[]),"_top",[])]);
 })])])]);
+return self}
+}),
+smalltalk.HLHorizontalSplitter);
+
+smalltalk.addMethod(
+"_startResizing_",
+smalltalk.method({
+selector: "startResizing:",
+fn: function (aSplitter){
+var self=this;
+smalltalk.send(aSplitter,"_width_",[smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_width",[])]);
 return self}
 }),
 smalltalk.HLHorizontalSplitter);
@@ -314,13 +328,23 @@ smalltalk.method({
 selector: "resize",
 fn: function (){
 var self=this;
+smalltalk.send(self,"_resize_",[smalltalk.send(smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_offset",[]),"_left",[])]);
+return self}
+}),
+smalltalk.HLVerticalSplitter);
+
+smalltalk.addMethod(
+"_resize_",
+smalltalk.method({
+selector: "resize:",
+fn: function (anInteger){
+var self=this;
 var container;
 var position;
 container=smalltalk.send(smalltalk.send(self["@firstPane"],"_asJQuery",[]),"_parent",[]);
-position=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_offset",[]),"_left",[]),"__minus",[smalltalk.send(smalltalk.send(container,"_offset",[]),"_left",[])]);
+position=smalltalk.send(anInteger,"__minus",[smalltalk.send(smalltalk.send(container,"_offset",[]),"_left",[])]);
 smalltalk.send(smalltalk.send(self["@firstPane"],"_asJQuery",[]),"_width_",[smalltalk.send(smalltalk.send(position,"_min_",[smalltalk.send(smalltalk.send(container,"_width",[]),"__minus",[(100)])]),"_max_",[(100)])]);
 smalltalk.send(smalltalk.send(self["@secondPane"],"_asJQuery",[]),"_width_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(container,"_width",[]),"__minus",[position]),"_min_",[smalltalk.send(smalltalk.send(container,"_width",[]),"__minus",[(100)])]),"_max_",[(100)]),"__minus",[(6)])]);
-smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_css_value_",["left",(0)]);
 smalltalk.send(self,"_resize",[],smalltalk.HLSplitter);
 return self}
 }),
@@ -332,9 +356,22 @@ smalltalk.method({
 selector: "setupSplitter",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_draggable_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("axis","__minus_gt",["x"]),smalltalk.send("stop","__minus_gt",[(function(){
-return smalltalk.send(self,"_resize",[]);
+smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_draggable_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("axis","__minus_gt",["x"]),smalltalk.send("containment","__minus_gt",[smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_parent",[])]),smalltalk.send("helper","__minus_gt",["clone"]),smalltalk.send("start","__minus_gt",[(function(e,ui){
+return smalltalk.send(self,"_startResizing_",[smalltalk.send(ui,"_helper",[])]);
+})]),smalltalk.send("drag","__minus_gt",[(function(e,ui){
+return smalltalk.send(self,"_resize_",[smalltalk.send(smalltalk.send(ui,"_offset",[]),"_left",[])]);
 })])])]);
+return self}
+}),
+smalltalk.HLVerticalSplitter);
+
+smalltalk.addMethod(
+"_startResizing_",
+smalltalk.method({
+selector: "startResizing:",
+fn: function (aSplitter){
+var self=this;
+smalltalk.send(aSplitter,"_height_",[smalltalk.send(smalltalk.send(self["@splitter"],"_asJQuery",[]),"_height",[])]);
 return self}
 }),
 smalltalk.HLVerticalSplitter);

@@ -195,6 +195,22 @@ inject: anObject into: aBlock
 	^result
 !
 
+intersection: aCollection
+	"Answer the set theoretic intersection of two collections."
+
+	| set outputSet |
+	
+	set := self asSet.
+	outputSet := Set new.
+	
+	aCollection do: [ :each |
+		((set includes: each) and: [(outputSet includes: each) not])
+			ifTrue: [ 
+				outputSet add: each]].
+		
+	^ self class withAll: outputSet asArray
+!
+
 reject: aBlock
 	^self select: [:each | (aBlock value: each) = false]
 !
@@ -654,9 +670,9 @@ indexOf: anObject
 
 indexOf: anObject ifAbsent: aBlock
 	<
-		for(var i=0;i<self.length;i++){
-			if(self[i].__eq(anObject)) {return i+1}
-		}
+		for(var i=0;i<self.length;i++) {
+			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+		};
 		return aBlock();
 	>
 !
@@ -1239,6 +1255,10 @@ tab
 ! !
 
 !String class methodsFor: 'instance creation'!
+
+fromCharCode: anInteger
+	<return String.fromCharCode(anInteger)>
+!
 
 fromString: aString
 	    <return new self.fn(aString)>

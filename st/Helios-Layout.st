@@ -31,18 +31,6 @@ with: aSplitter
         yourself
 ! !
 
-Widget subclass: #HLPane
-	instanceVariableNames: ''
-	package: 'Helios-Layout'!
-
-HLPane subclass: #HLHorizontalPane
-	instanceVariableNames: ''
-	package: 'Helios-Layout'!
-
-HLPane subclass: #HLVerticalPane
-	instanceVariableNames: ''
-	package: 'Helios-Layout'!
-
 Widget subclass: #HLSplitter
 	instanceVariableNames: 'firstWidget secondWidget firstPane secondPane splitter'
 	package: 'Helios-Layout'!
@@ -126,24 +114,34 @@ panesCssClass
 !HLHorizontalSplitter methodsFor: 'actions'!
 
 resize
+	self resize: splitter asJQuery offset top
+!
+
+resize: anInteger
 	| container position |
     
     container := firstPane asJQuery parent.
-    position := splitter asJQuery offset top - container offset top.
+    position := anInteger - container offset top.
     
 	firstPane asJQuery height: ((position min: container height - 100) max: 100).
     secondPane asJQuery height: (((container height - position) min: container height - 100) max: 100) - 6.
     
-   "Put the splitter div back to a relative position" 
-    splitter asJQuery css: 'top' value: 0.
-    
     super resize
+!
+
+startResizing: aSplitter
+	aSplitter width: splitter asJQuery width
 ! !
 
 !HLHorizontalSplitter methodsFor: 'rendering'!
 
 setupSplitter
-	splitter asJQuery draggable: #{ 'axis' -> 'y'. 'stop' -> [ self resize ] }
+	splitter asJQuery draggable: #{ 
+    	'axis' -> 'y'. 
+        'containment' -> splitter asJQuery parent.
+        'helper' -> 'clone'.
+        'start' -> [ :e :ui | self startResizing: ui helper ].
+        'drag' -> [ :e :ui | self resize: ui offset top ] }
 ! !
 
 HLSplitter subclass: #HLVerticalSplitter
@@ -163,24 +161,34 @@ panesCssClass
 !HLVerticalSplitter methodsFor: 'actions'!
 
 resize
+	self resize: splitter asJQuery offset left
+!
+
+resize: anInteger
 	| container position |
     
     container := firstPane asJQuery parent.
-    position := splitter asJQuery offset left - container offset left.
+    position := anInteger - container offset left.
     
 	firstPane asJQuery width: ((position min: container width - 100) max: 100).
     secondPane asJQuery width: (((container width - position) min: container width - 100) max: 100) - 6.
     
-   "Put the splitter div back to a relative position" 
-    splitter asJQuery css: 'left' value: 0.
-    
     super resize
+!
+
+startResizing: aSplitter
+	aSplitter height: splitter asJQuery height
 ! !
 
 !HLVerticalSplitter methodsFor: 'rendering'!
 
 setupSplitter
-	splitter asJQuery draggable: #{ 'axis' -> 'x'. 'stop' -> [ self resize ] }
+	splitter asJQuery draggable: #{ 
+    	'axis' -> 'x'. 
+        'containment' -> splitter asJQuery parent.
+        'helper' -> 'clone'.
+        'start' -> [ :e :ui | self startResizing: ui helper ].
+        'drag' -> [ :e :ui | self resize: ui offset left ] }
 ! !
 
 !Object methodsFor: '*Helios-Layout'!
