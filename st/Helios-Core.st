@@ -456,7 +456,7 @@ next
 
 next: aWidget
 	next := aWidget.
-    aWidget previous: self
+    aWidget previous = self ifFalse: [ aWidget previous: self ]
 !
 
 previous
@@ -464,7 +464,8 @@ previous
 !
 
 previous: aWidget
-	previous := aWidget
+	previous := aWidget.
+    aWidget next = self ifFalse: [ aWidget next: self ]
 ! !
 
 !HLNavigationListWidget methodsFor: 'actions'!

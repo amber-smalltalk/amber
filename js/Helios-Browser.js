@@ -179,10 +179,11 @@ fn: function (aBindingGroup){
 var self=this;
 var $1;
 smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(66),"Browse"]);
-$1=smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(71),"Go to"]);
+smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(71),"Go to"]);
+$1=smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(84),"Toggle"]);
 return self},
 args: ["aBindingGroup"],
-source: "registerBindingsOn: aBindingGroup\x0a\x09aBindingGroup \x0a    \x09addGroupKey: 66 labelled: 'Browse';\x0a        addGroupKey: 71 labelled: 'Go to'",
+source: "registerBindingsOn: aBindingGroup\x0a\x09aBindingGroup \x0a    \x09addGroupKey: 66 labelled: 'Browse';\x0a        addGroupKey: 71 labelled: 'Go to';\x0a        addGroupKey: 84 labelled: 'Toggle'",
 messageSends: ["addGroupKey:labelled:"],
 referencedClasses: []
 }),
@@ -524,6 +525,32 @@ referencedClasses: []
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
+"_registerBindingsOn_",
+smalltalk.method({
+selector: "registerBindingsOn:",
+category: 'keybindings',
+fn: function (aBindingGroup){
+var self=this;
+var $1,$2;
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(67),"Classes",(function(){
+return smalltalk.send(self,"_focus",[]);
+})]);
+$1=smalltalk.send(aBindingGroup,"_at_",["Toggle"]);
+smalltalk.send($1,"_addActionKey_labelled_callback_",[(73),"Instance side",(function(){
+return smalltalk.send(self,"_showInstance_",[true]);
+})]);
+$2=smalltalk.send($1,"_addActionKey_labelled_callback_",[(67),"Class side",(function(){
+return smalltalk.send(self,"_showInstance_",[false]);
+})]);
+return self},
+args: ["aBindingGroup"],
+source: "registerBindingsOn: aBindingGroup\x0a\x09(aBindingGroup at: 'Go to') \x0a    \x09addActionKey: 67 labelled: 'Classes' callback: [ self focus ].\x0a    (aBindingGroup at: 'Toggle') \x0a    \x09addActionKey: 73 labelled: 'Instance side' callback: [ self showInstance: true ];\x0a        addActionKey: 67 labelled: 'Class side' callback: [  self showInstance: false ]",
+messageSends: ["addActionKey:labelled:callback:", "focus", "at:", "showInstance:"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
 "_renderButtonsOn_",
 smalltalk.method({
 selector: "renderButtonsOn:",
@@ -538,14 +565,14 @@ $2=smalltalk.send($1,"_with_",[(function(){
 $3=smalltalk.send(html,"_button",[]);
 smalltalk.send($3,"_class_",[smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(str){
 smalltalk.send(str,"_nextPutAll_",["btn"]);
-$4=smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance",[]);
+$4=smalltalk.send(self,"_showInstance",[]);
 if(smalltalk.assert($4)){
 return smalltalk.send(str,"_nextPutAll_",[" active"]);
 };
 })])]);
 smalltalk.send($3,"_with_",["Instance"]);
 $5=smalltalk.send($3,"_onClick_",[(function(){
-return smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance_",[true]);
+return smalltalk.send(self,"_showInstance_",[true]);
 })]);
 $5;
 $6=smalltalk.send(html,"_button",[]);
@@ -568,8 +595,8 @@ smalltalk.send($9,"_at_put_",["data-toggle","button"]);
 $10=smalltalk.send($9,"_with_",["Comment"]);
 return self},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html div \x0a        class: 'btn-group';\x0a\x09\x09at: 'data-toggle' put: 'buttons-radio';\x0a\x09\x09with: [ \x0a           \x09html button \x0a                class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self model showInstance ifTrue: [ \x0a                    \x09str nextPutAll: ' active'] ]);\x0a  \x09\x09\x09\x09with: 'Instance';\x0a                onClick: [ self model showInstance: true ].\x0a  \x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self model showInstance ifFalse: [ \x0a                    \x09str nextPutAll: ' active'] ]);\x0a  \x09\x09\x09\x09with: 'Class';\x0a\x09\x09\x09\x09onClick: [ self model showInstance: false ] ].\x0a                 \x0a  \x09html button \x0a           \x09class: 'btn';\x0a            at: 'data-toggle' put: 'button';\x0a  \x09\x09\x09with: 'Comment'",
-messageSends: ["class:", "div", "at:put:", "with:", "streamContents:", "nextPutAll:", "ifTrue:", "showInstance", "model", "button", "onClick:", "showInstance:", "ifFalse:"],
+source: "renderButtonsOn: html\x0a\x09html div \x0a        class: 'btn-group';\x0a\x09\x09at: 'data-toggle' put: 'buttons-radio';\x0a\x09\x09with: [ \x0a           \x09html button \x0a                class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self showInstance ifTrue: [ \x0a                    \x09str nextPutAll: ' active'] ]);\x0a  \x09\x09\x09\x09with: 'Instance';\x0a                onClick: [ self showInstance: true ].\x0a  \x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self model showInstance ifFalse: [ \x0a                    \x09str nextPutAll: ' active'] ]);\x0a  \x09\x09\x09\x09with: 'Class';\x0a\x09\x09\x09\x09onClick: [ self model showInstance: false ] ].\x0a                 \x0a  \x09html button \x0a           \x09class: 'btn';\x0a            at: 'data-toggle' put: 'button';\x0a  \x09\x09\x09with: 'Comment'",
+messageSends: ["class:", "div", "at:put:", "with:", "streamContents:", "nextPutAll:", "ifTrue:", "showInstance", "button", "onClick:", "showInstance:", "ifFalse:", "model"],
 referencedClasses: ["String"]
 }),
 smalltalk.HLClassesListWidget);
@@ -700,21 +727,35 @@ referencedClasses: []
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
+"_showInstance",
+smalltalk.method({
+selector: "showInstance",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance",[]);
+return $1;
+},
+args: [],
+source: "showInstance\x0a\x09^ self model showInstance",
+messageSends: ["showInstance", "model"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
 "_showInstance_",
 smalltalk.method({
 selector: "showInstance:",
 category: 'actions',
 fn: function (aBoolean){
 var self=this;
-var $1;
-$1=smalltalk.send(aBoolean,"__eq",[smalltalk.send(smalltalk.send(self,"_browser",[]),"_showInstance",[])]);
-if(! smalltalk.assert($1)){
-smalltalk.send(smalltalk.send(self,"_browser",[]),"_showInstance_",[aBoolean]);
-};
+smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance_",[aBoolean]);
 return self},
 args: ["aBoolean"],
-source: "showInstance: aBoolean\x0a\x09aBoolean = self browser showInstance ifFalse: [\x0a\x09\x09self browser showInstance: aBoolean ]",
-messageSends: ["ifFalse:", "showInstance:", "browser", "=", "showInstance"],
+source: "showInstance: aBoolean\x0a\x09self model showInstance: aBoolean",
+messageSends: ["showInstance:", "model"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -729,11 +770,14 @@ var self=this;
 smalltalk.send(anAnnouncer,"_on_do_",[(smalltalk.HLPackageSelected || HLPackageSelected),(function(ann){
 return smalltalk.send(self,"_packageSelected_",[smalltalk.send(ann,"_item",[])]);
 })]);
+smalltalk.send(anAnnouncer,"_on_do_",[(smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
+return smalltalk.send(self,"_refresh",[]);
+})]);
 return self},
 args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer\x0a\x09anAnnouncer on: HLPackageSelected do: [ :ann |\x0a    \x09self packageSelected: ann item ]\x0a    ",
-messageSends: ["on:do:", "packageSelected:", "item"],
-referencedClasses: ["HLPackageSelected"]
+source: "subscribeTo: anAnnouncer\x0a\x09anAnnouncer on: HLPackageSelected do: [ :ann |\x0a    \x09self packageSelected: ann item ].\x0a    anAnnouncer on: HLShowInstanceToggled do: [ :ann |\x0a    \x09self refresh ]",
+messageSends: ["on:do:", "packageSelected:", "item", "refresh"],
+referencedClasses: ["HLPackageSelected", "HLShowInstanceToggled"]
 }),
 smalltalk.HLClassesListWidget);
 
@@ -962,6 +1006,24 @@ referencedClasses: []
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
+"_registerBindingsOn_",
+smalltalk.method({
+selector: "registerBindingsOn:",
+category: 'keybindings',
+fn: function (aBindingGroup){
+var self=this;
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(77),"Methods",(function(){
+return smalltalk.send(self,"_focus",[]);
+})]);
+return self},
+args: ["aBindingGroup"],
+source: "registerBindingsOn: aBindingGroup\x0a\x09(aBindingGroup at: 'Go to') \x0a    \x09addActionKey: 77 labelled: 'Methods' callback: [ self focus ]",
+messageSends: ["addActionKey:labelled:callback:", "focus", "at:"],
+referencedClasses: []
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
 "_renderContentOn_",
 smalltalk.method({
 selector: "renderContentOn:",
@@ -1108,12 +1170,12 @@ selector: "registerBindingsOn:",
 category: 'keybindings',
 fn: function (aBindingGroup){
 var self=this;
-smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(67),"Packages",(function(){
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(80),"Packages",(function(){
 return smalltalk.send(self,"_focus",[]);
 })]);
 return self},
 args: ["aBindingGroup"],
-source: "registerBindingsOn: aBindingGroup\x0a\x09(aBindingGroup at: 'Go to') \x0a    \x09addActionKey: 67 labelled: 'Packages' callback: [ self focus ]",
+source: "registerBindingsOn: aBindingGroup\x0a\x09(aBindingGroup at: 'Go to') \x0a    \x09addActionKey: 80 labelled: 'Packages' callback: [ self focus ]",
 messageSends: ["addActionKey:labelled:callback:", "focus", "at:"],
 referencedClasses: []
 }),
@@ -1129,7 +1191,7 @@ var self=this;
 var $1,$2,$3,$5,$6,$7,$8,$4,$9,$10;
 $1=smalltalk.send(html,"_span",[]);
 smalltalk.send($1,"_class_",["info"]);
-$2=smalltalk.send($1,"_with_",["Auto commit is"]);
+$2=smalltalk.send($1,"_with_",["Auto commit"]);
 $3=smalltalk.send(html,"_div",[]);
 smalltalk.send($3,"_class_",["btn-group switch"]);
 smalltalk.send($3,"_at_put_",["data-toggle","buttons-radio"]);
@@ -1149,10 +1211,10 @@ return $8;
 })]);
 $9=smalltalk.send(html,"_a",[]);
 smalltalk.send($9,"_class_",["btn"]);
-$10=smalltalk.send($9,"_with_",["Commit now"]);
+$10=smalltalk.send($9,"_with_",["Commit"]);
 return self},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x0a\x09html span class: 'info'; with: 'Auto commit is'.\x0a\x09html div \x0a        class: 'btn-group switch';\x0a\x09\x09at: 'data-toggle' put: 'buttons-radio';\x0a\x09\x09with: [ \x0a           \x09html button \x0a                class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn' ]);\x0a  \x09\x09\x09\x09with: 'On'.\x0a  \x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn active' ]);\x0a  \x09\x09\x09\x09with: 'Off' ].\x0a                \x0a    html a \x0a         \x09class: 'btn';\x0a\x09\x09\x09with: 'Commit now'.",
+source: "renderButtonsOn: html\x0a\x0a\x09html span class: 'info'; with: 'Auto commit'.\x0a\x09html div \x0a        class: 'btn-group switch';\x0a\x09\x09at: 'data-toggle' put: 'buttons-radio';\x0a\x09\x09with: [ \x0a           \x09html button \x0a                class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn' ]);\x0a  \x09\x09\x09\x09with: 'On'.\x0a  \x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn active' ]);\x0a  \x09\x09\x09\x09with: 'Off' ].\x0a                \x0a    html a \x0a         \x09class: 'btn';\x0a\x09\x09\x09with: 'Commit'.",
 messageSends: ["class:", "span", "with:", "div", "at:put:", "streamContents:", "nextPutAll:", "button", "a"],
 referencedClasses: ["String"]
 }),
@@ -1220,6 +1282,24 @@ args: ["aClass"],
 source: "classSelected: aClass\x0a    self selectedItem: nil.\x0a    \x0a    self items: (aClass\x0a    \x09ifNil: [ Array with: self allProtocol ]\x0a      \x09ifNotNil: [ \x0a        \x09(Array with: self allProtocol) \x0a            \x09addAll: aClass protocols; \x0a                yourself ]).\x0a\x0a    self refresh",
 messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "with:", "allProtocol", "addAll:", "protocols", "yourself", "refresh"],
 referencedClasses: ["Array"]
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_registerBindingsOn_",
+smalltalk.method({
+selector: "registerBindingsOn:",
+category: 'keybindings',
+fn: function (aBindingGroup){
+var self=this;
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(84),"Protocols",(function(){
+return smalltalk.send(self,"_focus",[]);
+})]);
+return self},
+args: ["aBindingGroup"],
+source: "registerBindingsOn: aBindingGroup\x0a\x09(aBindingGroup at: 'Go to') \x0a    \x09addActionKey: 84 labelled: 'Protocols' callback: [ self focus ]",
+messageSends: ["addActionKey:labelled:callback:", "focus", "at:"],
+referencedClasses: []
 }),
 smalltalk.HLProtocolsListWidget);
 

@@ -138,7 +138,8 @@ fn: function (aBindingGroup){
 var self=this;
 var $1;
 smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(66),"Browse"]);
-$1=smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(71),"Go to"]);
+smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(71),"Go to"]);
+$1=smalltalk.send(aBindingGroup,"_addGroupKey_labelled_",[(84),"Toggle"]);
 return self}
 }),
 smalltalk.HLBrowser);
@@ -394,6 +395,27 @@ return self}
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
+"_registerBindingsOn_",
+smalltalk.method({
+selector: "registerBindingsOn:",
+fn: function (aBindingGroup){
+var self=this;
+var $1,$2;
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(67),"Classes",(function(){
+return smalltalk.send(self,"_focus",[]);
+})]);
+$1=smalltalk.send(aBindingGroup,"_at_",["Toggle"]);
+smalltalk.send($1,"_addActionKey_labelled_callback_",[(73),"Instance side",(function(){
+return smalltalk.send(self,"_showInstance_",[true]);
+})]);
+$2=smalltalk.send($1,"_addActionKey_labelled_callback_",[(67),"Class side",(function(){
+return smalltalk.send(self,"_showInstance_",[false]);
+})]);
+return self}
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
 "_renderButtonsOn_",
 smalltalk.method({
 selector: "renderButtonsOn:",
@@ -407,14 +429,14 @@ $2=smalltalk.send($1,"_with_",[(function(){
 $3=smalltalk.send(html,"_button",[]);
 smalltalk.send($3,"_class_",[smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(str){
 smalltalk.send(str,"_nextPutAll_",["btn"]);
-$4=smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance",[]);
+$4=smalltalk.send(self,"_showInstance",[]);
 if(smalltalk.assert($4)){
 return smalltalk.send(str,"_nextPutAll_",[" active"]);
 };
 })])]);
 smalltalk.send($3,"_with_",["Instance"]);
 $5=smalltalk.send($3,"_onClick_",[(function(){
-return smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance_",[true]);
+return smalltalk.send(self,"_showInstance_",[true]);
 })]);
 $5;
 $6=smalltalk.send(html,"_button",[]);
@@ -535,16 +557,25 @@ return self}
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
+"_showInstance",
+smalltalk.method({
+selector: "showInstance",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance",[]);
+return $1;
+}
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
 "_showInstance_",
 smalltalk.method({
 selector: "showInstance:",
 fn: function (aBoolean){
 var self=this;
-var $1;
-$1=smalltalk.send(aBoolean,"__eq",[smalltalk.send(smalltalk.send(self,"_browser",[]),"_showInstance",[])]);
-if(! smalltalk.assert($1)){
-smalltalk.send(smalltalk.send(self,"_browser",[]),"_showInstance_",[aBoolean]);
-};
+smalltalk.send(smalltalk.send(self,"_model",[]),"_showInstance_",[aBoolean]);
 return self}
 }),
 smalltalk.HLClassesListWidget);
@@ -557,6 +588,9 @@ fn: function (anAnnouncer){
 var self=this;
 smalltalk.send(anAnnouncer,"_on_do_",[(smalltalk.HLPackageSelected || HLPackageSelected),(function(ann){
 return smalltalk.send(self,"_packageSelected_",[smalltalk.send(ann,"_item",[])]);
+})]);
+smalltalk.send(anAnnouncer,"_on_do_",[(smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
+return smalltalk.send(self,"_refresh",[]);
 })]);
 return self}
 }),
@@ -737,6 +771,19 @@ return self}
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
+"_registerBindingsOn_",
+smalltalk.method({
+selector: "registerBindingsOn:",
+fn: function (aBindingGroup){
+var self=this;
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(77),"Methods",(function(){
+return smalltalk.send(self,"_focus",[]);
+})]);
+return self}
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
 "_renderContentOn_",
 smalltalk.method({
 selector: "renderContentOn:",
@@ -847,7 +894,7 @@ smalltalk.method({
 selector: "registerBindingsOn:",
 fn: function (aBindingGroup){
 var self=this;
-smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(67),"Packages",(function(){
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(80),"Packages",(function(){
 return smalltalk.send(self,"_focus",[]);
 })]);
 return self}
@@ -863,7 +910,7 @@ var self=this;
 var $1,$2,$3,$5,$6,$7,$8,$4,$9,$10;
 $1=smalltalk.send(html,"_span",[]);
 smalltalk.send($1,"_class_",["info"]);
-$2=smalltalk.send($1,"_with_",["Auto commit is"]);
+$2=smalltalk.send($1,"_with_",["Auto commit"]);
 $3=smalltalk.send(html,"_div",[]);
 smalltalk.send($3,"_class_",["btn-group switch"]);
 smalltalk.send($3,"_at_put_",["data-toggle","buttons-radio"]);
@@ -883,7 +930,7 @@ return $8;
 })]);
 $9=smalltalk.send(html,"_a",[]);
 smalltalk.send($9,"_class_",["btn"]);
-$10=smalltalk.send($9,"_with_",["Commit now"]);
+$10=smalltalk.send($9,"_with_",["Commit"]);
 return self}
 }),
 smalltalk.HLPackagesListWidget);
@@ -934,6 +981,19 @@ $1=$3;
 };
 smalltalk.send(self,"_items_",[$1]);
 smalltalk.send(self,"_refresh",[]);
+return self}
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_registerBindingsOn_",
+smalltalk.method({
+selector: "registerBindingsOn:",
+fn: function (aBindingGroup){
+var self=this;
+smalltalk.send(smalltalk.send(aBindingGroup,"_at_",["Go to"]),"_addActionKey_labelled_callback_",[(84),"Protocols",(function(){
+return smalltalk.send(self,"_focus",[]);
+})]);
 return self}
 }),
 smalltalk.HLProtocolsListWidget);

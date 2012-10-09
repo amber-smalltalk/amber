@@ -25,6 +25,17 @@ shortcut
 	^ String fromCharCode: self key
 ! !
 
+!HLBinding methodsFor: 'actions'!
+
+applyOn: aKeyBinder
+	self subclassResponsibility
+! !
+
+!HLBinding methodsFor: 'rendering'!
+
+renderOn: aBindingHelper html: html
+! !
+
 !HLBinding methodsFor: 'testing'!
 
 isBindingAction
@@ -56,6 +67,12 @@ callback
 
 callback: aBlock
 	callback := aBlock
+! !
+
+!HLBindingAction methodsFor: 'actions'!
+
+applyOn: aKeyBinder
+	aKeyBinder applyBindingAction: self
 ! !
 
 !HLBindingAction methodsFor: 'testing'!
@@ -90,7 +107,7 @@ at: aString
       	ifNone: [ nil ]
 !
 
-atkey: anInteger
+atKey: anInteger
 	^ self bindings 
     	detect: [ :each | each key = anInteger ]
       	ifNone: [ nil ]
@@ -98,6 +115,18 @@ atkey: anInteger
 
 bindings
 	^ bindings ifNil: [ bindings := OrderedCollection new ]
+! !
+
+!HLBindingGroup methodsFor: 'actions'!
+
+applyOn: aKeyBinder
+	aKeyBinder applyBindingGroup: self
+! !
+
+!HLBindingGroup methodsFor: 'rendering'!
+
+renderOn: aBindingHelper html: html
+	aBindingHelper renderBindingGroup: self on: html
 ! !
 
 !HLBindingGroup methodsFor: 'testing'!
@@ -112,19 +141,22 @@ Object subclass: #HLKeyBinder
 
 !HLKeyBinder methodsFor: 'accessing'!
 
+activationKey
+	"SPACE"
+	^ 32
+!
+
 bindings
 	^ bindings ifNil: [ bindings := HLBindingGroup new ]
 !
 
-helper
-	^ helper ifNil: [ helper := HLKeyBinderHelper on: self ]
+escapeKey
+	"ESC"
+	^ 27
 !
 
-modifierKey
-	^ modifierKey ifNil: [
-		modifierKey = (navigator platform match: 'Mac')
-			ifTrue: [ 91 ]
-			ifFalse: [ 17 ] ]
+helper
+	^ helper ifNil: [ helper := HLKeyBinderHelper on: self ]
 !
 
 selectedBinding
@@ -139,13 +171,17 @@ activate
 !
 
 applyBinding: aBinding
-    aBinding isBindingGroup
-    	ifTrue: [
-			selectedBinding := aBinding.
-    		self helper refresh ]
-        ifFalse: [ 
-			aBinding callback value.
-			self deactivate ]
+    aBinding applyOn: self
+!
+
+applyBindingAction: aBinding
+    aBinding callback value.
+	self deactivate
+!
+
+applyBindingGroup: aBinding
+    selectedBinding := aBinding.
+    self helper refresh
 !
 
 deactivate
@@ -161,6 +197,20 @@ flushBindings
 
 !HLKeyBinder methodsFor: 'events'!
 
+handleActiveKeyDown: event
+
+	"ESC or ctrl+g deactivate the keyBinder"
+	(event which = self escapeKey or: [
+		event which = 71 and: [ event ctrlKey ] ])
+        	ifTrue: [ 
+            	self deactivate.
+				event preventDefault.
+				^ false ].
+            
+    "Handle the keybinding"
+    ^ self handleBindingFor: event
+!
+
 handleBindingFor: anEvent
 	| binding |
     binding := self selectedBinding atKey: anEvent which.
@@ -171,28 +221,24 @@ handleBindingFor: anEvent
 		^ false ]
 !
 
-handleBindingKey: anInteger
+handleInactiveKeyDown: event
+	event which = self activationKey ifTrue: [
+          (self systemIsMac
+                ifTrue: [ event metaKey ]
+                  ifFalse: [  event ctrlKey ])  ifTrue: [
+					self activate. 
+               		 event preventDefault. 
+                	^ false ] ]
 !
 
 handleKeyDown: event
-	self isActive
-    	ifTrue: [ 
-        	self handleBindingKey: event which ]
-      	ifFalse: [
-          	event which = self modifierKey ifTrue: [
-				self activate. 
-                event preventDefault. 
-                ^ false ] ]
-!
-
-handleKeyUp: event
-	event which = self modifierKey ifTrue: [
-      	self deactivate ]
+	^ self isActive
+    	ifTrue: [ self handleActiveKeyDown: event ]
+      	ifFalse: [ self handleInactiveKeyDown: event ]
 !
 
 setupEvents
-	(window jQuery: 'body') keydown: [ :event | self handleKeyDown: event ].
-    (window jQuery: 'body') keyup: [ :event | self handleKeyUp: event ]
+	(window jQuery: 'body') keydown: [ :event | self handleKeyDown: event ]
 ! !
 
 !HLKeyBinder methodsFor: 'initialization'!
@@ -206,6 +252,10 @@ initialize
 
 isActive
 	^ active ifNil: [ false ]
+!
+
+systemIsMac
+	^ navigator platform match: 'Mac'
 ! !
 
 HLWidget subclass: #HLKeyBinderHelper
@@ -229,7 +279,7 @@ selectedBinding
 !HLKeyBinderHelper methodsFor: 'actions'!
 
 hide
-	(window jQuery: '.key_helper') remove
+	rootDiv asJQuery remove
 !
 
 show
@@ -244,16 +294,33 @@ registerBindings
 
 !HLKeyBinderHelper methodsFor: 'rendering'!
 
-renderBindingsOn: html
-	self selectedBinding bindings do: [ :each |
-		html span class: 'command'; with: [
-			html span class: 'label'; with: each shortcut asLowercase.
-  			html span class: 'action'; with: each label ] ]
+renderBindingGroup: aBindingGroup on: html
+	(aBindingGroup bindings 
+    	sorted: [ :a :b | a key < b key ])
+        do: [ :each |
+			html span class: 'command'; with: [
+				html span class: 'label'; with: each shortcut asLowercase.
+  				html a 
+                	class: 'action'; 
+                    with: each label;
+  					onClick: [ self keyBinder applyBinding: each ] ] ]
+!
+
+renderBindingOn: html
+	self selectedBinding renderOn: self html: html
 !
 
 renderContentOn: html
 	html div class: 'key_helper'; with: [
-      	self renderBindingsOn: html ]
+      	self 
+        	renderSelectionOn:html;
+          	renderBindingOn: html ]
+!
+
+renderSelectionOn: html
+		html span 
+        	class: 'selected'; 
+            with: (self selectedBinding label ifNil: [ 'Action' ])
 ! !
 
 !HLKeyBinderHelper class methodsFor: 'instance creation'!

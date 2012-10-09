@@ -26,7 +26,8 @@ model: aModel
 registerBindingsOn: aBindingGroup
 	aBindingGroup 
     	addGroupKey: 66 labelled: 'Browse';
-        addGroupKey: 71 labelled: 'Go to'
+        addGroupKey: 71 labelled: 'Go to';
+        addGroupKey: 84 labelled: 'Toggle'
 ! !
 
 !HLBrowser methodsFor: 'rendering'!
@@ -158,6 +159,10 @@ iconForItem: aClass
 	^ aClass theNonMetaClass comment isEmpty
     	ifFalse: [ 'icon-none' ]
       	ifTrue: [ 'icon-question-sign' ]
+!
+
+showInstance
+	^ self model showInstance
 ! !
 
 !HLClassesListWidget methodsFor: 'actions'!
@@ -187,15 +192,26 @@ selectItem: aClass
 !
 
 showInstance: aBoolean
-	aBoolean = self browser showInstance ifFalse: [
-		self browser showInstance: aBoolean ]
+	self model showInstance: aBoolean
 ! !
 
 !HLClassesListWidget methodsFor: 'announcements'!
 
 subscribeTo: anAnnouncer
 	anAnnouncer on: HLPackageSelected do: [ :ann |
-    	self packageSelected: ann item ]
+    	self packageSelected: ann item ].
+    anAnnouncer on: HLShowInstanceToggled do: [ :ann |
+    	self refresh ]
+! !
+
+!HLClassesListWidget methodsFor: 'keybindings'!
+
+registerBindingsOn: aBindingGroup
+	(aBindingGroup at: 'Go to') 
+    	addActionKey: 67 labelled: 'Classes' callback: [ self focus ].
+    (aBindingGroup at: 'Toggle') 
+    	addActionKey: 73 labelled: 'Instance side' callback: [ self showInstance: true ];
+        addActionKey: 67 labelled: 'Class side' callback: [  self showInstance: false ]
 ! !
 
 !HLClassesListWidget methodsFor: 'rendering'!
@@ -208,10 +224,10 @@ renderButtonsOn: html
            	html button 
                 class: (String streamContents: [ :str |
                 	str nextPutAll: 'btn'.
-                    self model showInstance ifTrue: [ 
+                    self showInstance ifTrue: [ 
                     	str nextPutAll: ' active'] ]);
   				with: 'Instance';
-                onClick: [ self model showInstance: true ].
+                onClick: [ self showInstance: true ].
   			html button
   				class: (String streamContents: [ :str |
                 	str nextPutAll: 'btn'.
@@ -360,6 +376,13 @@ initialize
     self flushSelectorsCache
 ! !
 
+!HLMethodsListWidget methodsFor: 'keybindings'!
+
+registerBindingsOn: aBindingGroup
+	(aBindingGroup at: 'Go to') 
+    	addActionKey: 77 labelled: 'Methods' callback: [ self focus ]
+! !
+
 !HLMethodsListWidget methodsFor: 'rendering'!
 
 renderContentOn: html
@@ -413,14 +436,14 @@ selectItem: aPackage
 
 registerBindingsOn: aBindingGroup
 	(aBindingGroup at: 'Go to') 
-    	addActionKey: 67 labelled: 'Packages' callback: [ self focus ]
+    	addActionKey: 80 labelled: 'Packages' callback: [ self focus ]
 ! !
 
 !HLPackagesListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
 
-	html span class: 'info'; with: 'Auto commit is'.
+	html span class: 'info'; with: 'Auto commit'.
 	html div 
         class: 'btn-group switch';
 		at: 'data-toggle' put: 'buttons-radio';
@@ -436,7 +459,7 @@ renderButtonsOn: html
                 
     html a 
          	class: 'btn';
-			with: 'Commit now'.
+			with: 'Commit'.
 ! !
 
 HLBrowserListWidget subclass: #HLProtocolsListWidget
@@ -480,6 +503,13 @@ subscribeTo: anAnnouncer
     	self classSelected: ann item ].
     anAnnouncer on: HLShowInstanceToggled do: [ :ann |
     	self classSelected: self model selectedClass ]
+! !
+
+!HLProtocolsListWidget methodsFor: 'keybindings'!
+
+registerBindingsOn: aBindingGroup
+	(aBindingGroup at: 'Go to') 
+    	addActionKey: 84 labelled: 'Protocols' callback: [ self focus ]
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!

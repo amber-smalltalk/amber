@@ -29,7 +29,7 @@ a {
 
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
     font-size: 13px;
-    padding: 2px 13px;
+    padding: 2px 8px;
 }
 
 .navbar-inner {
@@ -200,10 +200,11 @@ a {
     z-index: 20;
     position: fixed;
     bottom: 0px;
-    background: #EEE;
+    background: #ddd;
     width: 100%;
     border-top: 1px solid #AAA;
     font-size: 11px;
+    height: 22px;
 }
 
 .key_helper .command {
@@ -212,9 +213,23 @@ a {
 
 .key_helper .label {
     padding: 0 4px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom: 1px solid #666;
+    border-right: 1px solid #666;
+    font-family: monospace;
 }
 
 .key_helper .action {
     padding: 0 5px;
     color: #666;
+}
+
+.key_helper .selected {
+    background: #0C8;
+    height: 30px;
+    padding: 4px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 #666;
 }

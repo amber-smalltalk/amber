@@ -1,6 +1,17 @@
 smalltalk.addPackage('Helios-KeyBindings', {});
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
+"_applyOn_",
+smalltalk.method({
+selector: "applyOn:",
+fn: function (aKeyBinder){
+var self=this;
+smalltalk.send(self,"_subclassResponsibility",[]);
+return self}
+}),
+smalltalk.HLBinding);
+
+smalltalk.addMethod(
 "_isBindingAction",
 smalltalk.method({
 selector: "isBindingAction",
@@ -67,6 +78,16 @@ return self}
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
+"_renderOn_html_",
+smalltalk.method({
+selector: "renderOn:html:",
+fn: function (aBindingHelper,html){
+var self=this;
+return self}
+}),
+smalltalk.HLBinding);
+
+smalltalk.addMethod(
 "_shortcut",
 smalltalk.method({
 selector: "shortcut",
@@ -99,6 +120,17 @@ smalltalk.HLBinding.klass);
 
 
 smalltalk.addClass('HLBindingAction', smalltalk.HLBinding, ['callback'], 'Helios-KeyBindings');
+smalltalk.addMethod(
+"_applyOn_",
+smalltalk.method({
+selector: "applyOn:",
+fn: function (aKeyBinder){
+var self=this;
+smalltalk.send(aKeyBinder,"_applyBindingAction_",[self]);
+return self}
+}),
+smalltalk.HLBindingAction);
+
 smalltalk.addMethod(
 "_callback",
 smalltalk.method({
@@ -175,6 +207,17 @@ return self}
 smalltalk.HLBindingGroup);
 
 smalltalk.addMethod(
+"_applyOn_",
+smalltalk.method({
+selector: "applyOn:",
+fn: function (aKeyBinder){
+var self=this;
+smalltalk.send(aKeyBinder,"_applyBindingGroup_",[self]);
+return self}
+}),
+smalltalk.HLBindingGroup);
+
+smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
@@ -192,9 +235,9 @@ return $1;
 smalltalk.HLBindingGroup);
 
 smalltalk.addMethod(
-"_atkey_",
+"_atKey_",
 smalltalk.method({
-selector: "atkey:",
+selector: "atKey:",
 fn: function (anInteger){
 var self=this;
 var $1;
@@ -237,6 +280,17 @@ return true;
 }),
 smalltalk.HLBindingGroup);
 
+smalltalk.addMethod(
+"_renderOn_html_",
+smalltalk.method({
+selector: "renderOn:html:",
+fn: function (aBindingHelper,html){
+var self=this;
+smalltalk.send(aBindingHelper,"_renderBindingGroup_on_",[self,html]);
+return self}
+}),
+smalltalk.HLBindingGroup);
+
 
 
 smalltalk.addClass('HLKeyBinder', smalltalk.Object, ['modifierKey', 'active', 'helper', 'bindings', 'selectedBinding'], 'Helios-KeyBindings');
@@ -253,21 +307,47 @@ return self}
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
+"_activationKey",
+smalltalk.method({
+selector: "activationKey",
+fn: function (){
+var self=this;
+return (32);
+}
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
 "_applyBinding_",
 smalltalk.method({
 selector: "applyBinding:",
 fn: function (aBinding){
 var self=this;
-var $1;
-$1=smalltalk.send(aBinding,"_isBindingGroup",[]);
-if(smalltalk.assert($1)){
-self["@selectedBinding"]=aBinding;
-self["@selectedBinding"];
-smalltalk.send(smalltalk.send(self,"_helper",[]),"_refresh",[]);
-} else {
+smalltalk.send(aBinding,"_applyOn_",[self]);
+return self}
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+"_applyBindingAction_",
+smalltalk.method({
+selector: "applyBindingAction:",
+fn: function (aBinding){
+var self=this;
 smalltalk.send(smalltalk.send(aBinding,"_callback",[]),"_value",[]);
 smalltalk.send(self,"_deactivate",[]);
-};
+return self}
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+"_applyBindingGroup_",
+smalltalk.method({
+selector: "applyBindingGroup:",
+fn: function (aBinding){
+var self=this;
+self["@selectedBinding"]=aBinding;
+smalltalk.send(smalltalk.send(self,"_helper",[]),"_refresh",[]);
 return self}
 }),
 smalltalk.HLKeyBinder);
@@ -304,6 +384,17 @@ return self}
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
+"_escapeKey",
+smalltalk.method({
+selector: "escapeKey",
+fn: function (){
+var self=this;
+return (27);
+}
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
 "_flushBindings",
 smalltalk.method({
 selector: "flushBindings",
@@ -312,6 +403,29 @@ var self=this;
 self["@bindings"]=nil;
 self["@helper"]=nil;
 return self}
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+"_handleActiveKeyDown_",
+smalltalk.method({
+selector: "handleActiveKeyDown:",
+fn: function (event){
+var self=this;
+var $1,$2;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_escapeKey",[])]),"_or_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[(71)]),"_and_",[(function(){
+return smalltalk.send(event,"_ctrlKey",[]);
+})]);
+})]);
+if(smalltalk.assert($1)){
+smalltalk.send(self,"_deactivate",[]);
+smalltalk.send(event,"_preventDefault",[]);
+return false;
+};
+$2=smalltalk.send(self,"_handleBindingFor_",[event]);
+return $2;
+}
 }),
 smalltalk.HLKeyBinder);
 
@@ -335,27 +449,20 @@ return self}
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
-"_handleBindingKey_",
+"_handleInactiveKeyDown_",
 smalltalk.method({
-selector: "handleBindingKey:",
-fn: function (anInteger){
-var self=this;
-return self}
-}),
-smalltalk.HLKeyBinder);
-
-smalltalk.addMethod(
-"_handleKeyDown_",
-smalltalk.method({
-selector: "handleKeyDown:",
+selector: "handleInactiveKeyDown:",
 fn: function (event){
 var self=this;
-var $1,$2;
-$1=smalltalk.send(self,"_isActive",[]);
+var $1,$3,$2;
+$1=smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_activationKey",[])]);
 if(smalltalk.assert($1)){
-smalltalk.send(self,"_handleBindingKey_",[smalltalk.send(event,"_which",[])]);
+$3=smalltalk.send(self,"_systemIsMac",[]);
+if(smalltalk.assert($3)){
+$2=smalltalk.send(event,"_metaKey",[]);
 } else {
-$2=smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_modifierKey",[])]);
+$2=smalltalk.send(event,"_ctrlKey",[]);
+};
 if(smalltalk.assert($2)){
 smalltalk.send(self,"_activate",[]);
 smalltalk.send(event,"_preventDefault",[]);
@@ -367,17 +474,20 @@ return self}
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
-"_handleKeyUp_",
+"_handleKeyDown_",
 smalltalk.method({
-selector: "handleKeyUp:",
+selector: "handleKeyDown:",
 fn: function (event){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_modifierKey",[])]);
-if(smalltalk.assert($1)){
-smalltalk.send(self,"_deactivate",[]);
+var $2,$1;
+$2=smalltalk.send(self,"_isActive",[]);
+if(smalltalk.assert($2)){
+$1=smalltalk.send(self,"_handleActiveKeyDown_",[event]);
+} else {
+$1=smalltalk.send(self,"_handleInactiveKeyDown_",[event]);
 };
-return self}
+return $1;
+}
 }),
 smalltalk.HLKeyBinder);
 
@@ -429,28 +539,6 @@ return $1;
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
-"_modifierKey",
-smalltalk.method({
-selector: "modifierKey",
-fn: function (){
-var self=this;
-var $2,$1;
-if(($receiver = self["@modifierKey"]) == nil || $receiver == undefined){
-$2=smalltalk.send(self["@modifierKey"],"__eq",[smalltalk.send(smalltalk.send(navigator,"_platform",[]),"_match_",["Mac"])]);
-if(smalltalk.assert($2)){
-$1=(91);
-} else {
-$1=(17);
-};
-} else {
-$1=self["@modifierKey"];
-};
-return $1;
-}
-}),
-smalltalk.HLKeyBinder);
-
-smalltalk.addMethod(
 "_selectedBinding",
 smalltalk.method({
 selector: "selectedBinding",
@@ -476,10 +564,20 @@ var self=this;
 smalltalk.send(smalltalk.send(window,"_jQuery_",["body"]),"_keydown_",[(function(event){
 return smalltalk.send(self,"_handleKeyDown_",[event]);
 })]);
-smalltalk.send(smalltalk.send(window,"_jQuery_",["body"]),"_keyup_",[(function(event){
-return smalltalk.send(self,"_handleKeyUp_",[event]);
-})]);
 return self}
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+"_systemIsMac",
+smalltalk.method({
+selector: "systemIsMac",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(navigator,"_platform",[]),"_match_",["Mac"]);
+return $1;
+}
 }),
 smalltalk.HLKeyBinder);
 
@@ -492,7 +590,7 @@ smalltalk.method({
 selector: "hide",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(window,"_jQuery_",[".key_helper"]),"_remove",[]);
+smalltalk.send(smalltalk.send(self["@rootDiv"],"_asJQuery",[]),"_remove",[]);
 return self}
 }),
 smalltalk.HLKeyBinderHelper);
@@ -530,13 +628,15 @@ return self}
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(
-"_renderBindingsOn_",
+"_renderBindingGroup_on_",
 smalltalk.method({
-selector: "renderBindingsOn:",
-fn: function (html){
+selector: "renderBindingGroup:on:",
+fn: function (aBindingGroup,html){
 var self=this;
 var $1,$3,$4,$5,$6,$2;
-smalltalk.send(smalltalk.send(smalltalk.send(self,"_selectedBinding",[]),"_bindings",[]),"_do_",[(function(each){
+smalltalk.send(smalltalk.send(smalltalk.send(aBindingGroup,"_bindings",[]),"_sorted_",[(function(a,b){
+return smalltalk.send(smalltalk.send(a,"_key",[]),"__lt",[smalltalk.send(b,"_key",[])]);
+})]),"_do_",[(function(each){
 $1=smalltalk.send(html,"_span",[]);
 smalltalk.send($1,"_class_",["command"]);
 $2=smalltalk.send($1,"_with_",[(function(){
@@ -544,13 +644,27 @@ $3=smalltalk.send(html,"_span",[]);
 smalltalk.send($3,"_class_",["label"]);
 $4=smalltalk.send($3,"_with_",[smalltalk.send(smalltalk.send(each,"_shortcut",[]),"_asLowercase",[])]);
 $4;
-$5=smalltalk.send(html,"_span",[]);
+$5=smalltalk.send(html,"_a",[]);
 smalltalk.send($5,"_class_",["action"]);
-$6=smalltalk.send($5,"_with_",[smalltalk.send(each,"_label",[])]);
+smalltalk.send($5,"_with_",[smalltalk.send(each,"_label",[])]);
+$6=smalltalk.send($5,"_onClick_",[(function(){
+return smalltalk.send(smalltalk.send(self,"_keyBinder",[]),"_applyBinding_",[each]);
+})]);
 return $6;
 })]);
 return $2;
 })]);
+return self}
+}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_renderBindingOn_",
+smalltalk.method({
+selector: "renderBindingOn:",
+fn: function (html){
+var self=this;
+smalltalk.send(smalltalk.send(self,"_selectedBinding",[]),"_renderOn_html_",[self,html]);
 return self}
 }),
 smalltalk.HLKeyBinderHelper);
@@ -561,12 +675,34 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-var $1,$2;
+var $1,$3,$2;
 $1=smalltalk.send(html,"_div",[]);
 smalltalk.send($1,"_class_",["key_helper"]);
 $2=smalltalk.send($1,"_with_",[(function(){
-return smalltalk.send(self,"_renderBindingsOn_",[html]);
+smalltalk.send(self,"_renderSelectionOn_",[html]);
+$3=smalltalk.send(self,"_renderBindingOn_",[html]);
+return $3;
 })]);
+return self}
+}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_renderSelectionOn_",
+smalltalk.method({
+selector: "renderSelectionOn:",
+fn: function (html){
+var self=this;
+var $1,$4,$3,$2;
+$1=smalltalk.send(html,"_span",[]);
+smalltalk.send($1,"_class_",["selected"]);
+$4=smalltalk.send(smalltalk.send(self,"_selectedBinding",[]),"_label",[]);
+if(($receiver = $4) == nil || $receiver == undefined){
+$3="Action";
+} else {
+$3=$4;
+};
+$2=smalltalk.send($1,"_with_",[$3]);
 return self}
 }),
 smalltalk.HLKeyBinderHelper);

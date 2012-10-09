@@ -1360,12 +1360,16 @@ selector: "next:",
 category: 'accessing',
 fn: function (aWidget){
 var self=this;
+var $1;
 self["@next"]=aWidget;
+$1=smalltalk.send(smalltalk.send(aWidget,"_previous",[]),"__eq",[self]);
+if(! smalltalk.assert($1)){
 smalltalk.send(aWidget,"_previous_",[self]);
+};
 return self},
 args: ["aWidget"],
-source: "next: aWidget\x0a\x09next := aWidget.\x0a    aWidget previous: self",
-messageSends: ["previous:"],
+source: "next: aWidget\x0a\x09next := aWidget.\x0a    aWidget previous = self ifFalse: [ aWidget previous: self ]",
+messageSends: ["ifFalse:", "previous:", "=", "previous"],
 referencedClasses: []
 }),
 smalltalk.HLNavigationListWidget);
@@ -1415,11 +1419,16 @@ selector: "previous:",
 category: 'accessing',
 fn: function (aWidget){
 var self=this;
+var $1;
 self["@previous"]=aWidget;
+$1=smalltalk.send(smalltalk.send(aWidget,"_next",[]),"__eq",[self]);
+if(! smalltalk.assert($1)){
+smalltalk.send(aWidget,"_next_",[self]);
+};
 return self},
 args: ["aWidget"],
-source: "previous: aWidget\x0a\x09previous := aWidget",
-messageSends: [],
+source: "previous: aWidget\x0a\x09previous := aWidget.\x0a    aWidget next = self ifFalse: [ aWidget next: self ]",
+messageSends: ["ifFalse:", "next:", "=", "next"],
 referencedClasses: []
 }),
 smalltalk.HLNavigationListWidget);
