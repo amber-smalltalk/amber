@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>using Processing.js with Amber Smalltalk</title> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+    <meta name="author" content="Stefan Krecher" /> 
+    <link rel="stylesheet" type="text/css" href='css/style.css' /> 
+    <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/> 
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'> 
+    <script type='text/javascript' src='../../js/amber.js'></script> 
+    <script type='text/javascript' src='../../js/lib/showdown.js'></script> 
+	<script type="text/javascript" src="processing-1.4.1.js"></script>
+  </head> 
+  <body> 
+	A Clock made with <a href="http://processingjs.org">Processing.js</a> and Amber
+	<p>Examine the <button onClick="smalltalk.Browser._openOn_(smalltalk.ProcessingClock)"> ProcessingClock class</button></p> 
+	<p><canvas id="canvas1" width="200" height="200"></canvas></p>
+	<script id="script1" type="text/javascript">
+		// Simple way to attach js code to the canvas is by using a function
+		function sketchProc(processing) {
+			// Override draw function, by default it will be called 60 times per second
+			processing.draw = function() {};
+		}
+
+		var canvas = document.getElementById("canvas1");
+		// attaching the sketchProc function to the canvas
+		var p = new Processing(canvas, sketchProc);
+	</script>
+	   
+	<script type='text/javascript'> loadAmber(
+		{
+			files: ['Processing-Examples.js'],
+			prefix: 'examples/processing/js',
+			packages: [ 'Processing-Examples' ],
+			ready: function() {
+				smalltalk.ProcessingClock._init() 
+			}
+		}) 
+	</script> 
+	
+  </body> 
+</html> 
