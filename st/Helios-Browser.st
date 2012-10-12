@@ -27,7 +27,12 @@ registerBindingsOn: aBindingGroup
 	aBindingGroup 
     	addGroupKey: 66 labelled: 'Browse';
         addGroupKey: 71 labelled: 'Go to';
-        addGroupKey: 84 labelled: 'Toggle'
+        addGroupKey: 84 labelled: 'Toggle'.
+        
+   	HLBrowserCommand withAllSubclasses do: [ :each |
+   		each key ifNotNil: [
+  			(aBindingGroup at: each bindingGroup) 
+  				add: (each on: self model) asBinding ] ]
 ! !
 
 !HLBrowser methodsFor: 'rendering'!
@@ -114,24 +119,6 @@ model: aBrowserModel
     model subscribe: self
 ! !
 
-!HLBrowserListWidget methodsFor: 'actions'!
-
-ensureSelection
-	self selectedItem 
-    	ifNil: [
-      		self items ifNotEmpty: [
-  				self selectItem: self items first.
-  				self refresh ] ]
-		ifNotNil: [ self selectItem: self selectedItem ]
-! !
-
-!HLBrowserListWidget methodsFor: 'events'!
-
-focus
-	super focus.
-    self ensureSelection
-! !
-
 !HLBrowserListWidget class methodsFor: 'instance creation'!
 
 on: aModel
@@ -201,17 +188,9 @@ subscribeTo: anAnnouncer
 	anAnnouncer on: HLPackageSelected do: [ :ann |
     	self packageSelected: ann item ].
     anAnnouncer on: HLShowInstanceToggled do: [ :ann |
-    	self refresh ]
-! !
-
-!HLClassesListWidget methodsFor: 'keybindings'!
-
-registerBindingsOn: aBindingGroup
-	(aBindingGroup at: 'Go to') 
-    	addActionKey: 67 labelled: 'Classes' callback: [ self focus ].
-    (aBindingGroup at: 'Toggle') 
-    	addActionKey: 73 labelled: 'Instance side' callback: [ self showInstance: true ];
-        addActionKey: 67 labelled: 'Class side' callback: [  self showInstance: false ]
+    	self refresh ].
+    anAnnouncer on: HLClassSelected do: [ :ann |
+    	self focus ]
 ! !
 
 !HLClassesListWidget methodsFor: 'rendering'!
@@ -343,7 +322,7 @@ protocolSelected: aString
     self items: (self model selectedClass 
     	ifNil: [ #() ]
       	ifNotNil: [ aString
-    		ifNil: [ self model selectedClass methods ]
+    		ifNil: [ #() ]
       		ifNotNil: [ self methodsInProtocol: aString ] ]).
         
     self refresh
@@ -351,7 +330,7 @@ protocolSelected: aString
 
 selectItem: aCompiledMethod
 	super selectItem: aCompiledMethod.
-    self model selectedMethod: aCompiledMethod
+   	self model selectedMethod: aCompiledMethod
 ! !
 
 !HLMethodsListWidget methodsFor: 'announcements'!
@@ -360,7 +339,9 @@ subscribeTo: anAnnouncer
 	anAnnouncer on: HLProtocolSelected do: [ :ann |
     	self protocolSelected: ann item ].
     anAnnouncer on: HLShowInstanceToggled do: [ :ann |
-    	self protocolSelected: nil ]
+    	self protocolSelected: nil ].
+    anAnnouncer on: HLMethodSelected do: [ :ann |
+    	self focus ]
 ! !
 
 !HLMethodsListWidget methodsFor: 'cache'!
@@ -374,13 +355,6 @@ flushSelectorsCache
 initialize
 	super initialize.
     self flushSelectorsCache
-! !
-
-!HLMethodsListWidget methodsFor: 'keybindings'!
-
-registerBindingsOn: aBindingGroup
-	(aBindingGroup at: 'Go to') 
-    	addActionKey: 77 labelled: 'Methods' callback: [ self focus ]
 ! !
 
 !HLMethodsListWidget methodsFor: 'rendering'!
@@ -432,11 +406,11 @@ selectItem: aPackage
     self model selectedPackage: aPackage
 ! !
 
-!HLPackagesListWidget methodsFor: 'keybindings'!
+!HLPackagesListWidget methodsFor: 'announcements'!
 
-registerBindingsOn: aBindingGroup
-	(aBindingGroup at: 'Go to') 
-    	addActionKey: 80 labelled: 'Packages' callback: [ self focus ]
+subscribeTo: anAnnouncer
+    anAnnouncer on: HLPackageSelected do: [ :ann |
+    	self focus ]
 ! !
 
 !HLPackagesListWidget methodsFor: 'rendering'!
@@ -473,7 +447,7 @@ allProtocol
 !
 
 selectedItem
-	^ super selectedItem ifNil: [ self allProtocol ]
+	^ super selectedItem" ifNil: [ self allProtocol ]"
 ! !
 
 !HLProtocolsListWidget methodsFor: 'actions'!
@@ -502,14 +476,9 @@ subscribeTo: anAnnouncer
 	anAnnouncer on: HLClassSelected do: [ :ann |
     	self classSelected: ann item ].
     anAnnouncer on: HLShowInstanceToggled do: [ :ann |
-    	self classSelected: self model selectedClass ]
-! !
-
-!HLProtocolsListWidget methodsFor: 'keybindings'!
-
-registerBindingsOn: aBindingGroup
-	(aBindingGroup at: 'Go to') 
-    	addActionKey: 84 labelled: 'Protocols' callback: [ self focus ]
+    	self classSelected: self model selectedClass ].
+    anAnnouncer on: HLProtocolSelected do: [ :ann |
+    	self focus ]
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!
@@ -549,16 +518,17 @@ selectedClass
 !
 
 selectedClass: aClass
-	aClass 
-    	ifNil: [ selectedClass := nil ]
-      	ifNotNil: [
-			self showInstance 
-    			ifTrue: [ selectedClass := aClass theNonMetaClass ]
-      			ifFalse: [ selectedClass := aClass theMetaClass ] ].
+	selectedClass = aClass ifFalse: [
+		aClass 
+    		ifNil: [ selectedClass := nil ]
+      		ifNotNil: [
+				self showInstance 
+    				ifTrue: [ selectedClass := aClass theNonMetaClass ]
+      				ifFalse: [ selectedClass := aClass theMetaClass ] ].
     
-    self 
-    	selectedMethod: nil;
-        selectedProtocol: nil.
+   		self 
+    		selectedMethod: nil;
+       	 	selectedProtocol: nil ].
         
    self announcer announce: (HLClassSelected on: self selectedClass)
 !
@@ -568,7 +538,8 @@ selectedMethod
 !
 
 selectedMethod: aCompiledMethod
-	selectedMethod := aCompiledMethod.
+	selectedMethod = aCompiledMethod ifFalse: [
+		selectedMethod := aCompiledMethod ].
     
     self announcer announce: (HLMethodSelected on: aCompiledMethod)
 !
@@ -578,9 +549,9 @@ selectedPackage
 !
 
 selectedPackage: aPackage
-
-	selectedPackage := aPackage.
-    self selectedClass: nil.
+	selectedPackage = aPackage ifFalse: [
+		selectedPackage := aPackage.
+    	self selectedClass: nil ].
     
     self announcer announce: (HLPackageSelected on: aPackage)
 !
@@ -590,9 +561,9 @@ selectedProtocol
 !
 
 selectedProtocol: aString
-	selectedProtocol := aString.
-    
-    self selectedMethod: nil.
+	selectedProtocol = aString ifFalse: [
+      	selectedProtocol := aString.
+    	self selectedMethod: nil ].
     
     self announcer announce: (HLProtocolSelected on: aString)
 !

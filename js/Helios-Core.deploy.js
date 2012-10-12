@@ -970,7 +970,8 @@ smalltalk.method({
 selector: "setupKeyBindings",
 fn: function (){
 var self=this;
-var $1,$2;
+var $1,$2,$3;
+var next;
 smalltalk.send(smalltalk.send(self["@hiddenInput"],"_asJQuery",[]),"_unbind_",["keydown"]);
 smalltalk.send(smalltalk.send(self["@hiddenInput"],"_asJQuery",[]),"_keydown_",[(function(e){
 var selected;
@@ -982,7 +983,16 @@ smalltalk.send(self,"_activateListItem_",[smalltalk.send(selected,"_prev",[])]);
 };
 $2=smalltalk.send(smalltalk.send(e,"_which",[]),"__eq",[(40)]);
 if(smalltalk.assert($2)){
-return smalltalk.send(self,"_activateListItem_",[smalltalk.send(selected,"_next",[])]);
+next=smalltalk.send(selected,"_next",[]);
+next;
+$3=smalltalk.send(next,"_get_",[(0)]);
+if(($receiver = $3) == nil || $receiver == undefined){
+next=smalltalk.send(window,"_jQuery_",[".focused .nav-pills li:first-child"]);
+next;
+} else {
+$3;
+};
+return smalltalk.send(self,"_activateListItem_",[next]);
 };
 })]);
 return self}

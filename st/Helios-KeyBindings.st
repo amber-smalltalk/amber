@@ -97,6 +97,12 @@ addActionKey: anInteger labelled: aString callback: aBlock
         yourself)
 !
 
+addActionKey: anInteger labelled: aString command: aCommand
+	self add: ((HLBindingAction on: anInteger labelled: aString)
+    	command: aCommand;
+        yourself)
+!
+
 addGroupKey: anInteger labelled: aString
 	self add: (HLBindingGroup on: anInteger labelled: aString)
 !

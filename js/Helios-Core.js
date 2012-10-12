@@ -1216,7 +1216,7 @@ return $3;
 })]);
 return self},
 args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a    li\x0a    \x09class: (self cssClassForItem: anObject);\x0a        at: 'list-data' put: (self items indexOf: anObject) asString;\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery.\x0a                \x09\x22self selectItem: anObject\x22 ] ]",
+source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a    li\x0a    \x09class: (self cssClassForItem: anObject);\x0a        at: 'list-data' put: (self items indexOf: anObject) asString;\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
 messageSends: ["li", "class:", "cssClassForItem:", "at:put:", "asString", "indexOf:", "items", "with:", "iconForItem:", "tag:", "renderItemLabel:on:", "a", "onClick:", "activateListItem:", "asJQuery"],
 referencedClasses: []
 }),
@@ -1311,7 +1311,8 @@ selector: "setupKeyBindings",
 category: 'events',
 fn: function (){
 var self=this;
-var $1,$2;
+var $1,$2,$3;
+var next;
 smalltalk.send(smalltalk.send(self["@hiddenInput"],"_asJQuery",[]),"_unbind_",["keydown"]);
 smalltalk.send(smalltalk.send(self["@hiddenInput"],"_asJQuery",[]),"_keydown_",[(function(e){
 var selected;
@@ -1323,13 +1324,22 @@ smalltalk.send(self,"_activateListItem_",[smalltalk.send(selected,"_prev",[])]);
 };
 $2=smalltalk.send(smalltalk.send(e,"_which",[]),"__eq",[(40)]);
 if(smalltalk.assert($2)){
-return smalltalk.send(self,"_activateListItem_",[smalltalk.send(selected,"_next",[])]);
+next=smalltalk.send(selected,"_next",[]);
+next;
+$3=smalltalk.send(next,"_get_",[(0)]);
+if(($receiver = $3) == nil || $receiver == undefined){
+next=smalltalk.send(window,"_jQuery_",[".focused .nav-pills li:first-child"]);
+next;
+} else {
+$3;
+};
+return smalltalk.send(self,"_activateListItem_",[next]);
 };
 })]);
 return self},
 args: [],
-source: "setupKeyBindings\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e | | selected |\x0a    \x09selected := window jQuery: '.focused .nav-pills .active'.\x0a        e which = 38 ifTrue: [ \x0a        \x09self activateListItem: selected prev ].\x0a      \x09e which = 40 ifTrue: [\x0a\x09\x09\x09self activateListItem: selected next ] ]",
-messageSends: ["unbind:", "asJQuery", "keydown:", "jQuery:", "ifTrue:", "activateListItem:", "prev", "=", "which", "next"],
+source: "setupKeyBindings\x0a\x09| next |\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e | | selected |\x0a    \x09selected := window jQuery: '.focused .nav-pills .active'.\x0a        e which = 38 ifTrue: [ \x0a        \x09self activateListItem: selected prev ].\x0a      \x09e which = 40 ifTrue: [\x0a          \x09next := selected next.\x0a            (next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].\x0a\x09\x09\x09self activateListItem: next ] ]",
+messageSends: ["unbind:", "asJQuery", "keydown:", "jQuery:", "ifTrue:", "activateListItem:", "prev", "=", "which", "next", "ifNil:", "get:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

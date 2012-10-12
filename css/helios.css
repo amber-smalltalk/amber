@@ -68,9 +68,16 @@ a {
 /*     margin-right: 4px; */
 /* } */
 
-.nav-pills > .active > a, .nav-pills > .active > a:hover {
+.nav-pills > .active > a {
     background: #ccc;
+    color: #fff;
 }
+
+/* .focused .nav-pills{ */
+/*     box-shadow: inset 0 0 4px #000AFF; */
+/*     -webkit-box-shadow: inset 0 0 4px #000AFF; */
+/*     -moz-box-shadow: inset 0 0 4px #000AFF; */
+/* } */
 
 .focused .nav-pills > .active > a, .nav-pills > .active > a:hover {
     background: #08C;
@@ -106,7 +113,7 @@ a {
 
 #container .panes .pane .nav-pills {
     position: absolute;
-    overflow-y: scroll;
+    overflow-y: auto;
     top: 0;
     bottom: 37px;
     width: 100%;

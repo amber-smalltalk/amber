@@ -393,6 +393,7 @@ selectItem: anObject
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings
+	| next |
 	hiddenInput asJQuery unbind: 'keydown'.
 
 	hiddenInput asJQuery keydown: [ :e | | selected |
@@ -400,7 +401,9 @@ setupKeyBindings
         e which = 38 ifTrue: [ 
         	self activateListItem: selected prev ].
       	e which = 40 ifTrue: [
-			self activateListItem: selected next ] ]
+          	next := selected next.
+            (next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].
+			self activateListItem: next ] ]
 ! !
 
 !HLListWidget methodsFor: 'rendering'!
@@ -431,8 +434,7 @@ renderItem: anObject on: html
             		(html tag: 'i') class: (self iconForItem: anObject).
   					self renderItemLabel: anObject on: html ];
 				onClick: [
-                  	self activateListItem: li asJQuery.
-                	"self selectItem: anObject" ] ]
+                  	self activateListItem: li asJQuery ] ]
 !
 
 renderItemLabel: anObject on: html
