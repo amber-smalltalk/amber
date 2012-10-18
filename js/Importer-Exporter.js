@@ -734,9 +734,9 @@ category: 'not yet classified',
 fn: function (packageName,aString){
 var self=this;
 var $1,$2;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]),"_classes",[]),"_do_",[(function(each){
-smalltalk.init(each);
+smalltalk.init(smalltalk.Object);
 ;
+smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]),"_classes",[]),"_do_",[(function(each){
 return smalltalk.send(each,"_initialize",[]);
 })]);
 $1=smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]);
@@ -744,7 +744,7 @@ smalltalk.send($1,"_commitPathJs_",[smalltalk.send(smalltalk.send("/","__comma",
 $2=smalltalk.send($1,"_commitPathSt_",[smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/st"])]);
 return self},
 args: ["packageName", "aString"],
-source: "initializePackageNamed: packageName prefix: aString\x0a\x0a\x09(Package named: packageName) classes do: [ :each |\x0a    \x09<smalltalk.init(each)>.\x0a        each initialize. ].\x0a        \x0a    (Package named: packageName) \x0a    \x09commitPathJs: '/', aString, '/js';\x0a        commitPathSt: '/', aString, '/st'",
+source: "initializePackageNamed: packageName prefix: aString\x0a\x0a\x09\x0a    <smalltalk.init(smalltalk.Object)>.\x0a\x0a\x09(Package named: packageName) classes do: [ :each |\x0a        each initialize. ].\x0a        \x0a    (Package named: packageName) \x0a    \x09commitPathJs: '/', aString, '/js';\x0a        commitPathSt: '/', aString, '/st'",
 messageSends: ["do:", "initialize", "classes", "named:", "commitPathJs:", ",", "commitPathSt:"],
 referencedClasses: ["Package"]
 }),
