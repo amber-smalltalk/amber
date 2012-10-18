@@ -600,3 +600,72 @@ smalltalk.Importer);
 
 
 
+smalltalk.addClass('PackageLoader', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addMethod(
+"_initializePackageNamed_prefix_",
+smalltalk.method({
+selector: "initializePackageNamed:prefix:",
+fn: function (packageName,aString){
+var self=this;
+var $1,$2;
+smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]),"_classes",[]),"_do_",[(function(each){
+smalltalk.init(each);
+;
+return smalltalk.send(each,"_initialize",[]);
+})]);
+$1=smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]);
+smalltalk.send($1,"_commitPathJs_",[smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/js"])]);
+$2=smalltalk.send($1,"_commitPathSt_",[smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/st"])]);
+return self}
+}),
+smalltalk.PackageLoader);
+
+smalltalk.addMethod(
+"_loadPackage_prefix_",
+smalltalk.method({
+selector: "loadPackage:prefix:",
+fn: function (packageName,aString){
+var self=this;
+var $1;
+var url;
+url=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/js/"]),"__comma",[packageName]),"__comma",[".js"]);
+smalltalk.send(jQuery,"_ajax_options_",[url,smalltalk.HashedCollection._fromPairs_([smalltalk.send("type","__minus_gt",["GET"]),smalltalk.send("dataType","__minus_gt",["script"]),smalltalk.send("complete","__minus_gt",[(function(jqXHR,textStatus){
+$1=smalltalk.send(smalltalk.send(jqXHR,"_readyState",[]),"__eq",[(4)]);
+if(smalltalk.assert($1)){
+return smalltalk.send(self,"_initializePackageNamed_prefix_",[packageName,aString]);
+};
+})]),smalltalk.send("error","__minus_gt",[(function(){
+return smalltalk.send(window,"_alert_",[smalltalk.send("Could not load package at:  ","__comma",[url])]);
+})])])]);
+return self}
+}),
+smalltalk.PackageLoader);
+
+smalltalk.addMethod(
+"_loadPackages_prefix_",
+smalltalk.method({
+selector: "loadPackages:prefix:",
+fn: function (aCollection,aString){
+var self=this;
+smalltalk.send(aCollection,"_do_",[(function(each){
+return smalltalk.send(self,"_loadPackage_prefix_",[each,aString]);
+})]);
+return self}
+}),
+smalltalk.PackageLoader);
+
+
+smalltalk.addMethod(
+"_loadPackages_prefix_",
+smalltalk.method({
+selector: "loadPackages:prefix:",
+fn: function (aCollection,aString){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_loadPackages_prefix_",[aCollection,aString]);
+return $1;
+}
+}),
+smalltalk.PackageLoader.klass);
+
+

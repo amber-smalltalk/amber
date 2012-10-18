@@ -341,3 +341,46 @@ import: aStream
                                   	result scanFrom: parser]]]
 ! !
 
+Object subclass: #PackageLoader
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+
+!PackageLoader methodsFor: 'not yet classified'!
+
+initializePackageNamed: packageName prefix: aString
+
+	(Package named: packageName) classes do: [ :each |
+    	<smalltalk.init(each)>.
+        each initialize. ].
+        
+    (Package named: packageName) 
+    	commitPathJs: '/', aString, '/js';
+        commitPathSt: '/', aString, '/st'
+!
+
+loadPackage: packageName prefix: aString	
+	| url |
+    url := '/', aString, '/js/', packageName, '.js'.
+	jQuery 
+		ajax: url
+        options: #{
+			'type' -> 'GET'.
+			'dataType' -> 'script'.
+    		'complete' -> [ :jqXHR :textStatus | 
+				jqXHR readyState = 4 
+                	ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
+			'error' -> [ window alert: 'Could not load package at:  ', url ]
+		}
+!
+
+loadPackages: aCollection prefix: aString
+	aCollection do: [ :each |
+    	self loadPackage: each prefix: aString ]
+! !
+
+!PackageLoader class methodsFor: 'not yet classified'!
+
+loadPackages: aCollection prefix: aString
+	^ self new loadPackages: aCollection prefix: aString
+! !
+
