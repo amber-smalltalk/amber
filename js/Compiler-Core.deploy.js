@@ -149,6 +149,7 @@ var compiled;
 compiled=smalltalk.send(self,"_eval_",[smalltalk.send(self,"_compile_forClass_",[aString,aBehavior])]);
 smalltalk.send(compiled,"_category_",[anotherString]);
 smalltalk.send(aBehavior,"_addCompiledMethod_",[compiled]);
+smalltalk.send(self,"_setupClass_",[aBehavior]);
 return compiled;
 }
 }),

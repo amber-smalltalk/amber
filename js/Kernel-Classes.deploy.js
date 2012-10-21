@@ -6,8 +6,14 @@ smalltalk.method({
 selector: "addCompiledMethod:",
 fn: function (aMethod){
 var self=this;
+var $1,$2;
 smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
 ;
+$1=smalltalk.send((smalltalk.MethodAdded || MethodAdded),"_new",[]);
+smalltalk.send($1,"_theClass_",[self]);
+smalltalk.send($1,"_method_",[aMethod]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$2]);
 return self}
 }),
 smalltalk.Behavior);
@@ -101,7 +107,12 @@ smalltalk.method({
 selector: "comment:",
 fn: function (aString){
 var self=this;
+var $1,$2;
 smalltalk.send(self,"_basicAt_put_",["comment",aString]);
+$1=smalltalk.send((smalltalk.ClassCommentChanged || ClassCommentChanged),"_new",[]);
+smalltalk.send($1,"_theClass_",[self]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_new",[]),"_announce_",[$2]);
 return self}
 }),
 smalltalk.Behavior);
@@ -152,10 +163,7 @@ smalltalk.method({
 selector: "compile:category:",
 fn: function (aString,anotherString){
 var self=this;
-var $1,$2;
-$1=smalltalk.send((smalltalk.Compiler || Compiler),"_new",[]);
-smalltalk.send($1,"_install_forClass_category_",[aString,self,anotherString]);
-$2=smalltalk.send($1,"_setupClass_",[self]);
+smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler),"_new",[]),"_install_forClass_category_",[aString,self,anotherString]);
 return self}
 }),
 smalltalk.Behavior);
@@ -329,10 +337,16 @@ smalltalk.method({
 selector: "removeCompiledMethod:",
 fn: function (aMethod){
 var self=this;
+var $1,$2;
 delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
 	smalltalk.init(self);;
 ;
+$1=smalltalk.send((smalltalk.MethodRemoved || MethodRemoved),"_new",[]);
+smalltalk.send($1,"_theClass_",[self]);
+smalltalk.send($1,"_method_",[aMethod]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$2]);
 return self}
 }),
 smalltalk.Behavior);
@@ -465,12 +479,7 @@ smalltalk.method({
 selector: "rename:",
 fn: function (aString){
 var self=this;
-
-		smalltalk[aString] = self;
-		delete smalltalk[self.className];
-		self.className = aString;
-	;
-;
+smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder),"_new",[]),"_renameClass_to_",[self,aString]);
 return self}
 }),
 smalltalk.Class);
@@ -626,12 +635,16 @@ smalltalk.method({
 selector: "class:instanceVariableNames:",
 fn: function (aClass,aString){
 var self=this;
-var $1;
+var $1,$2,$3;
 $1=smalltalk.send(aClass,"_isMetaclass",[]);
 if(! smalltalk.assert($1)){
 smalltalk.send(self,"_error_",[smalltalk.send(smalltalk.send(aClass,"_name",[]),"__comma",[" is not a metaclass"])]);
 };
 smalltalk.send(aClass,"_basicAt_put_",["iVarNames",smalltalk.send(self,"_instanceVariableNamesFor_",[aString])]);
+$2=smalltalk.send((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged),"_new",[]);
+smalltalk.send($2,"_theClass_",[aClass]);
+$3=smalltalk.send($2,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_new",[]),"_announce_",[$3]);
 smalltalk.send(self,"_setupClass_",[aClass]);
 return self}
 }),
@@ -674,6 +687,27 @@ return $1;
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
+"_renameClass_to_",
+smalltalk.method({
+selector: "renameClass:to:",
+fn: function (aClass,aString){
+var self=this;
+var $1,$2;
+
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	;
+;
+$1=smalltalk.send((smalltalk.ClassRenamed || ClassRenamed),"_new",[]);
+smalltalk.send($1,"_theClass_",[aClass]);
+$2=smalltalk.send($1,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$2]);
+return self}
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 "_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
@@ -704,7 +738,7 @@ smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
 fn: function (aClass,aString,aString2,aString3){
 var self=this;
-var $1;
+var $1,$2,$3;
 var newClass;
 if(($receiver = aString3) == nil || $receiver == undefined){
 $1="unclassified";
@@ -713,6 +747,10 @@ $1=aString3;
 };
 newClass=smalltalk.send(self,"_addSubclassOf_named_instanceVariableNames_package_",[aClass,aString,smalltalk.send(self,"_instanceVariableNamesFor_",[aString2]),$1]);
 smalltalk.send(self,"_setupClass_",[newClass]);
+$2=smalltalk.send((smalltalk.ClassAdded || ClassAdded),"_new",[]);
+smalltalk.send($2,"_theClass_",[newClass]);
+$3=smalltalk.send($2,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$3]);
 return newClass;
 }
 }),

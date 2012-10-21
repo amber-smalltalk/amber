@@ -59,3 +59,77 @@ on: aClass do: aBlock
 		yourself)
 ! !
 
+Announcer subclass: #SystemAnnouncer
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+SystemAnnouncer class instanceVariableNames: 'current'!
+
+!SystemAnnouncer class methodsFor: 'accessing'!
+
+current
+	^ current ifNil: [ current := super new ]
+! !
+
+!SystemAnnouncer class methodsFor: 'instance creation'!
+
+new
+	self shouldNotImplement
+! !
+
+Object subclass: #SystemAnnouncement
+	instanceVariableNames: 'theClass'
+	package: 'Kernel-Announcements'!
+
+!SystemAnnouncement methodsFor: 'accessing'!
+
+theClass
+	^ theClass
+!
+
+theClass: aClass
+	theClass := aClass
+! !
+
+SystemAnnouncement subclass: #ClassAdded
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+SystemAnnouncement subclass: #ClassCommentChanged
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+SystemAnnouncement subclass: #ClassDefinitionChanged
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+SystemAnnouncement subclass: #ClassRemoved
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+SystemAnnouncement subclass: #ClassRenamed
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+SystemAnnouncement subclass: #MethodAnnouncement
+	instanceVariableNames: 'method'
+	package: 'Kernel-Announcements'!
+
+!MethodAnnouncement methodsFor: 'accessing'!
+
+method
+	^ method
+!
+
+method: aCompiledMethod
+	method := aCompiledMethod
+! !
+
+MethodAnnouncement subclass: #MethodAdded
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
+MethodAnnouncement subclass: #MethodRemoved
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+

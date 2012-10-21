@@ -201,11 +201,12 @@ var compiled;
 compiled=smalltalk.send(self,"_eval_",[smalltalk.send(self,"_compile_forClass_",[aString,aBehavior])]);
 smalltalk.send(compiled,"_category_",[anotherString]);
 smalltalk.send(aBehavior,"_addCompiledMethod_",[compiled]);
+smalltalk.send(self,"_setupClass_",[aBehavior]);
 return compiled;
 },
 args: ["aString", "aBehavior", "anotherString"],
-source: "install: aString forClass: aBehavior category: anotherString\x0a\x09| compiled |\x0a\x09compiled := self eval: (self compile: aString forClass: aBehavior).\x0a\x09compiled category: anotherString.\x0a\x09aBehavior addCompiledMethod: compiled.\x0a\x09^compiled",
-messageSends: ["eval:", "compile:forClass:", "category:", "addCompiledMethod:"],
+source: "install: aString forClass: aBehavior category: anotherString\x0a\x09| compiled |\x0a\x09compiled := self eval: (self compile: aString forClass: aBehavior).\x0a\x09compiled category: anotherString.\x0a\x09aBehavior addCompiledMethod: compiled.\x0a    self setupClass: aBehavior.\x0a\x09^compiled",
+messageSends: ["eval:", "compile:forClass:", "category:", "addCompiledMethod:", "setupClass:"],
 referencedClasses: []
 }),
 smalltalk.Compiler);

@@ -34,7 +34,11 @@ comment
 !
 
 comment: aString
-    self basicAt: 'comment' put: aString
+    self basicAt: 'comment' put: aString.
+    SystemAnnouncer new
+    	announce: (ClassCommentChanged new
+        	theClass: self;
+            yourself)
 !
 
 commentStamp
@@ -122,7 +126,13 @@ withAllSubclasses
 !Behavior methodsFor: 'compiling'!
 
 addCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
+	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>.
+    
+    SystemAnnouncer current
+   		announce: (MethodAdded new
+        	theClass: self;
+            method: aMethod;
+            yourself)
 !
 
 compile: aString
@@ -131,14 +141,21 @@ compile: aString
 
 compile: aString category: anotherString
 	Compiler new
-		install: aString forClass: self category: anotherString;
-		setupClass: self
+		install: aString 
+        forClass: self 
+        category: anotherString
 !
 
 removeCompiledMethod: aMethod
 	<delete self.fn.prototype[aMethod.selector._asSelector()];
 	delete self.fn.prototype.methods[aMethod.selector];
-	smalltalk.init(self);>
+	smalltalk.init(self);>.
+    
+    SystemAnnouncer current
+   		announce: (MethodRemoved new
+        	theClass: self;
+            method: aMethod;
+            yourself)
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -186,11 +203,7 @@ package: aPackage
 !
 
 rename: aString
-	<
-		smalltalk[aString] = self;
-		delete smalltalk[self.className];
-		self.className = aString;
-	>
+	ClassBuilder new renameClass: self to: aString
 ! !
 
 !Class methodsFor: 'class creation'!
@@ -285,7 +298,26 @@ Rather than using ClassBuilder directly to compile a class, use `Class >> subcla
 class: aClass instanceVariableNames: aString
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
 	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+    
+    SystemAnnouncer new
+    	announce: (ClassDefinitionChanged new
+        	theClass: aClass;
+            yourself).
+    
 	self setupClass: aClass
+!
+
+renameClass: aClass to: aString
+	<
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	>.
+    
+    SystemAnnouncer current
+    	announce: (ClassRenamed new
+        	theClass: aClass;
+            yourself)
 !
 
 superclass: aClass subclass: aString
@@ -294,10 +326,17 @@ superclass: aClass subclass: aString
 
 superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
 	| newClass |
-	newClass := self addSubclassOf: aClass
-				named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-				package: (aString3 ifNil: ['unclassified']).
+	
+    newClass := self addSubclassOf: aClass
+		named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
+		package: (aString3 ifNil: ['unclassified']).
 	self setupClass: newClass.
+    
+    SystemAnnouncer current 
+    	announce: (ClassAdded new
+        	theClass: newClass;
+            yourself).
+    
 	^newClass
 ! !
 

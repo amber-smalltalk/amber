@@ -89,6 +89,7 @@ install: aString forClass: aBehavior category: anotherString
 	compiled := self eval: (self compile: aString forClass: aBehavior).
 	compiled category: anotherString.
 	aBehavior addCompiledMethod: compiled.
+    self setupClass: aBehavior.
 	^compiled
 !
 
