@@ -112,7 +112,7 @@ smalltalk.send(self,"_basicAt_put_",["comment",aString]);
 $1=smalltalk.send((smalltalk.ClassCommentChanged || ClassCommentChanged),"_new",[]);
 smalltalk.send($1,"_theClass_",[self]);
 $2=smalltalk.send($1,"_yourself",[]);
-smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_new",[]),"_announce_",[$2]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$2]);
 return self}
 }),
 smalltalk.Behavior);
@@ -644,7 +644,7 @@ smalltalk.send(aClass,"_basicAt_put_",["iVarNames",smalltalk.send(self,"_instanc
 $2=smalltalk.send((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged),"_new",[]);
 smalltalk.send($2,"_theClass_",[aClass]);
 $3=smalltalk.send($2,"_yourself",[]);
-smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_new",[]),"_announce_",[$3]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$3]);
 smalltalk.send(self,"_setupClass_",[aClass]);
 return self}
 }),

@@ -35,7 +35,7 @@ comment
 
 comment: aString
     self basicAt: 'comment' put: aString.
-    SystemAnnouncer new
+    SystemAnnouncer current
     	announce: (ClassCommentChanged new
         	theClass: self;
             yourself)
@@ -299,7 +299,7 @@ class: aClass instanceVariableNames: aString
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
 	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
     
-    SystemAnnouncer new
+    SystemAnnouncer current
     	announce: (ClassDefinitionChanged new
         	theClass: aClass;
             yourself).

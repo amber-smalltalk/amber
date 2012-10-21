@@ -62,6 +62,8 @@ on: aClass do: aBlock
 Announcer subclass: #SystemAnnouncer
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!SystemAnnouncer commentStamp!
+My unique instance #current is the global announcer handling all Amber system-related announces!
 
 SystemAnnouncer class instanceVariableNames: 'current'!
 
@@ -80,6 +82,8 @@ new
 Object subclass: #SystemAnnouncement
 	instanceVariableNames: 'theClass'
 	package: 'Kernel-Announcements'!
+!SystemAnnouncement commentStamp!
+I am the superclass of all system announcements!
 
 !SystemAnnouncement methodsFor: 'accessing'!
 
@@ -94,22 +98,36 @@ theClass: aClass
 SystemAnnouncement subclass: #ClassAdded
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ClassAdded commentStamp!
+I am emitted when a class is added to the system.
+See ClassBuilder >> #addSubclassOf:... methods!
 
 SystemAnnouncement subclass: #ClassCommentChanged
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ClassCommentChanged commentStamp!
+I am emitted when the comment of a class changes. (Behavior >> #comment)!
 
 SystemAnnouncement subclass: #ClassDefinitionChanged
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ClassDefinitionChanged commentStamp!
+I am emitted when the defintion of a class changes.
+See ClassBuilder >> #class:instanceVariableNames:!
 
 SystemAnnouncement subclass: #ClassRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ClassRemoved commentStamp!
+I am emitted when a class is removed.
+See Smalltalk >> #removeClass:!
 
 SystemAnnouncement subclass: #ClassRenamed
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ClassRenamed commentStamp!
+I am emitted when a class is renamed.
+See ClassBuilder >> #renameClass:to:!
 
 SystemAnnouncement subclass: #MethodAnnouncement
 	instanceVariableNames: 'method'

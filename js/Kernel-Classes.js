@@ -144,11 +144,11 @@ smalltalk.send(self,"_basicAt_put_",["comment",aString]);
 $1=smalltalk.send((smalltalk.ClassCommentChanged || ClassCommentChanged),"_new",[]);
 smalltalk.send($1,"_theClass_",[self]);
 $2=smalltalk.send($1,"_yourself",[]);
-smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_new",[]),"_announce_",[$2]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$2]);
 return self},
 args: ["aString"],
-source: "comment: aString\x0a    self basicAt: 'comment' put: aString.\x0a    SystemAnnouncer new\x0a    \x09announce: (ClassCommentChanged new\x0a        \x09theClass: self;\x0a            yourself)",
-messageSends: ["basicAt:put:", "announce:", "theClass:", "new", "yourself"],
+source: "comment: aString\x0a    self basicAt: 'comment' put: aString.\x0a    SystemAnnouncer current\x0a    \x09announce: (ClassCommentChanged new\x0a        \x09theClass: self;\x0a            yourself)",
+messageSends: ["basicAt:put:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassCommentChanged", "SystemAnnouncer"]
 }),
 smalltalk.Behavior);
@@ -869,12 +869,12 @@ smalltalk.send(aClass,"_basicAt_put_",["iVarNames",smalltalk.send(self,"_instanc
 $2=smalltalk.send((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged),"_new",[]);
 smalltalk.send($2,"_theClass_",[aClass]);
 $3=smalltalk.send($2,"_yourself",[]);
-smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_new",[]),"_announce_",[$3]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$3]);
 smalltalk.send(self,"_setupClass_",[aClass]);
 return self},
 args: ["aClass", "aString"],
-source: "class: aClass instanceVariableNames: aString\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a    SystemAnnouncer new\x0a    \x09announce: (ClassDefinitionChanged new\x0a        \x09theClass: aClass;\x0a            yourself).\x0a    \x0a\x09self setupClass: aClass",
-messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:", "instanceVariableNamesFor:", "announce:", "theClass:", "new", "yourself", "setupClass:"],
+source: "class: aClass instanceVariableNames: aString\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassDefinitionChanged new\x0a        \x09theClass: aClass;\x0a            yourself).\x0a    \x0a\x09self setupClass: aClass",
+messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:", "instanceVariableNamesFor:", "announce:", "theClass:", "new", "yourself", "current", "setupClass:"],
 referencedClasses: ["ClassDefinitionChanged", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);

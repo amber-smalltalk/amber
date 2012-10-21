@@ -1417,11 +1417,19 @@ send: aSelector to: anObject arguments: aCollection
 
 removeClass: aClass
 	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
+    
 	aClass methodDictionary values do: [:each |
 		aClass removeCompiledMethod: each].
+        
 	aClass class methodDictionary values do: [:each |
 		aClass class removeCompiledMethod: each].
-	self basicDelete: aClass name
+        
+	self basicDelete: aClass name.
+    
+    SystemAnnouncer current
+    	announce: (ClassRemoved new
+        	theClass: aClass;
+            yourself)
 ! !
 
 !Smalltalk methodsFor: 'packages'!

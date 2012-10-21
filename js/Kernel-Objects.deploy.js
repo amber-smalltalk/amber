@@ -2986,18 +2986,25 @@ smalltalk.addMethod(
 "_removeClass_",
 smalltalk.method({
 selector: "removeClass:",
-fn: function (aClass) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(aClass, "_isMetaclass", []);
-    if (smalltalk.assert($1)) {
-        smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [" is a Metaclass and cannot be removed!"])]);
-    }
-    smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);}]);
-    smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);}]);
-    smalltalk.send(self, "_basicDelete_", [smalltalk.send(aClass, "_name", [])]);
-    return self;
-}
+fn: function (aClass){
+var self=this;
+var $1,$2,$3;
+$1=smalltalk.send(aClass,"_isMetaclass",[]);
+if(smalltalk.assert($1)){
+smalltalk.send(self,"_error_",[smalltalk.send(smalltalk.send(aClass,"_asString",[]),"__comma",[" is a Metaclass and cannot be removed!"])]);
+};
+smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_methodDictionary",[]),"_values",[]),"_do_",[(function(each){
+return smalltalk.send(aClass,"_removeCompiledMethod_",[each]);
+})]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_methodDictionary",[]),"_values",[]),"_do_",[(function(each){
+return smalltalk.send(smalltalk.send(aClass,"_class",[]),"_removeCompiledMethod_",[each]);
+})]);
+smalltalk.send(self,"_basicDelete_",[smalltalk.send(aClass,"_name",[])]);
+$2=smalltalk.send((smalltalk.ClassRemoved || ClassRemoved),"_new",[]);
+smalltalk.send($2,"_theClass_",[aClass]);
+$3=smalltalk.send($2,"_yourself",[]);
+smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$3]);
+return self}
 }),
 smalltalk.Smalltalk);
 
