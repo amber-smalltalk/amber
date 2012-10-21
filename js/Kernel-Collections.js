@@ -4254,6 +4254,24 @@ referencedClasses: []
 smalltalk.Symbol);
 
 smalltalk.addMethod(
+"_value_",
+smalltalk.method({
+selector: "value:",
+category: 'evaluating',
+fn: function (anObject){
+var self=this;
+var $1;
+$1=smalltalk.send(anObject,"_perform_",[self]);
+return $1;
+},
+args: ["anObject"],
+source: "value: anObject \x0a\x09^anObject perform: self",
+messageSends: ["perform:"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
 "_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",

@@ -2810,11 +2810,11 @@ smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
-fn: function (aString) {
-    var self = this;
-    return self[aString];
-    return self;
-}
+fn: function (aSymbol){
+var self=this;
+return self[aSymbol._asString()];
+;
+return self}
 }),
 smalltalk.Smalltalk);
 

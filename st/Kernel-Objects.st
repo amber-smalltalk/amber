@@ -1365,8 +1365,8 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 
 !Smalltalk methodsFor: 'accessing'!
 
-at: aString
-	<return self[aString]>
+at: aSymbol
+	<return self[aSymbol._asString()]>
 !
 
 basicParse: aString

@@ -189,9 +189,9 @@ smalltalk.addMethod(
 "_methodAt_",
 smalltalk.method({
 selector: "methodAt:",
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return smalltalk.methods(self)[aString];
+return smalltalk.methods(self)[aSymbol._asString()];
 ;
 return self}
 }),

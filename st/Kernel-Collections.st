@@ -1351,6 +1351,12 @@ withIndexDo: aBlock
 	self asString withIndexDo: aBlock
 ! !
 
+!Symbol methodsFor: 'evaluating'!
+
+value: anObject 
+	^anObject perform: self
+! !
+
 !Symbol methodsFor: 'printing'!
 
 isSymbol

@@ -256,13 +256,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "methodAt:",
 category: 'accessing',
-fn: function (aString){
+fn: function (aSymbol){
 var self=this;
-return smalltalk.methods(self)[aString];
+return smalltalk.methods(self)[aSymbol._asString()];
 ;
 return self},
-args: ["aString"],
-source: "methodAt: aString\x0a\x09<return smalltalk.methods(self)[aString]>",
+args: ["aSymbol"],
+source: "methodAt: aSymbol\x0a\x09<return smalltalk.methods(self)[aSymbol._asString()]>",
 messageSends: [],
 referencedClasses: []
 }),

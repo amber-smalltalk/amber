@@ -51,8 +51,8 @@ instanceVariableNames
 	<return self.iVarNames>
 !
 
-methodAt: aString
-	<return smalltalk.methods(self)[aString]>
+methodAt: aSymbol
+	<return smalltalk.methods(self)[aSymbol._asString()]>
 !
 
 methodDictionary

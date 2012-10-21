@@ -3153,6 +3153,19 @@ return $1;
 smalltalk.Symbol);
 
 smalltalk.addMethod(
+"_value_",
+smalltalk.method({
+selector: "value:",
+fn: function (anObject){
+var self=this;
+var $1;
+$1=smalltalk.send(anObject,"_perform_",[self]);
+return $1;
+}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
 "_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",

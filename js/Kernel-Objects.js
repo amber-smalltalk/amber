@@ -3875,13 +3875,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return self[aString];
-    return self;
-},
-args: ["aString"],
-source: "at: aString\x0a\x09<return self[aString]>",
+fn: function (aSymbol){
+var self=this;
+return self[aSymbol._asString()];
+;
+return self},
+args: ["aSymbol"],
+source: "at: aSymbol\x0a\x09<return self[aSymbol._asString()]>",
 messageSends: [],
 referencedClasses: []
 }),
