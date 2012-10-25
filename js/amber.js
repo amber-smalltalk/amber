@@ -177,8 +177,9 @@ amber = (function() {
 		window.smalltalkReady = function() {
 			if (spec.ready) {
 				spec.ready();
-			}
-		}
+			};
+            evaluateSmalltalkScripts();
+		};
 
 		loadAllJS(); 
 	};
@@ -223,6 +224,17 @@ amber = (function() {
 		var scriptString = '<script src="' + src + '" type="text/javascript"></script>';
 		document.write(scriptString);
 	};
+
+    function evaluateSmalltalkScripts() {
+        jQuery(document).ready(function() {
+            jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
+                smalltalk.send(
+                    smalltalk.send(smalltalk.Compiler, '_new'),
+                    '_evaluateExpression_',
+                    [jQuery(elt).html()])
+            });
+        })
+    };
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
