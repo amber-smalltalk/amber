@@ -391,8 +391,13 @@ HLBrowserListWidget subclass: #HLPackagesListWidget
 
 !HLPackagesListWidget methodsFor: 'accessing'!
 
+initializeItems
+	^ items := self model packages sort:[:a :b|
+						a name < b name]
+!
+
 items
-	^ items ifNil: [ items := self model packages ]
+	^ items ifNil: [self initializeItems]
 ! !
 
 !HLPackagesListWidget methodsFor: 'actions'!
