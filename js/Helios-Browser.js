@@ -1007,24 +1007,44 @@ referencedClasses: ["HLClassesListFocus"]
 smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
+"_initializeItems",
+smalltalk.method({
+selector: "initializeItems",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+self["@items"]=smalltalk.send(smalltalk.send(smalltalk.send(self,"_model",[]),"_packages",[]),"_sort_",[(function(a,b){
+return smalltalk.send(smalltalk.send(a,"_name",[]),"__lt",[smalltalk.send(b,"_name",[])]);
+})]);
+$1=self["@items"];
+return $1;
+},
+args: [],
+source: "initializeItems\x0a\x09^ items := self model packages sort:[:a :b|\x0a\x09\x09\x09\x09\x09\x09a name < b name]",
+messageSends: ["sort:", "<", "name", "packages", "model"],
+referencedClasses: []
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@items']) == nil || $receiver == undefined) {
-        self['@items'] = smalltalk.send(smalltalk.send(self, "_model", []), "_packages", []);
-        $1 = self['@items'];
-    } else {
-        $1 = self['@items'];
-    }
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@items"]) == nil || $receiver == undefined){
+$1=smalltalk.send(self,"_initializeItems",[]);
+} else {
+$1=self["@items"];
+};
+return $1;
 },
 args: [],
-source: "items\x0a\x09^ items ifNil: [ items := self model packages ]",
-messageSends: ["ifNil:", "packages", "model"],
+source: "items\x0a\x09^ items ifNil: [self initializeItems]",
+messageSends: ["ifNil:", "initializeItems"],
 referencedClasses: []
 }),
 smalltalk.HLPackagesListWidget);

@@ -757,19 +757,34 @@ fn: function () {
 smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
+"_initializeItems",
+smalltalk.method({
+selector: "initializeItems",
+fn: function (){
+var self=this;
+var $1;
+self["@items"]=smalltalk.send(smalltalk.send(smalltalk.send(self,"_model",[]),"_packages",[]),"_sort_",[(function(a,b){
+return smalltalk.send(smalltalk.send(a,"_name",[]),"__lt",[smalltalk.send(b,"_name",[])]);
+})]);
+$1=self["@items"];
+return $1;
+}
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@items']) == nil || $receiver == undefined) {
-        self['@items'] = smalltalk.send(smalltalk.send(self, "_model", []), "_packages", []);
-        $1 = self['@items'];
-    } else {
-        $1 = self['@items'];
-    }
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@items"]) == nil || $receiver == undefined){
+$1=smalltalk.send(self,"_initializeItems",[]);
+} else {
+$1=self["@items"];
+};
+return $1;
 }
 }),
 smalltalk.HLPackagesListWidget);
