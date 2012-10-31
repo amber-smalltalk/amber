@@ -412,6 +412,31 @@ return result;
 smalltalk.Collection);
 
 smalltalk.addMethod(
+"_intersection_",
+smalltalk.method({
+selector: "intersection:",
+fn: function (aCollection){
+var self=this;
+var $1,$2;
+var set;
+var outputSet;
+set=smalltalk.send(self,"_asSet",[]);
+outputSet=smalltalk.send((smalltalk.Set || Set),"_new",[]);
+smalltalk.send(aCollection,"_do_",[(function(each){
+$1=smalltalk.send(smalltalk.send(set,"_includes_",[each]),"_and_",[(function(){
+return smalltalk.send(smalltalk.send(outputSet,"_includes_",[each]),"_not",[]);
+})]);
+if(smalltalk.assert($1)){
+return smalltalk.send(outputSet,"_add_",[each]);
+};
+})]);
+$2=smalltalk.send(smalltalk.send(self,"_class",[]),"_withAll_",[smalltalk.send(outputSet,"_asArray",[])]);
+return $2;
+}
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
 "_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
@@ -1550,9 +1575,9 @@ selector: "indexOf:ifAbsent:",
 fn: function (anObject,aBlock){
 var self=this;
 
-		for(var i=0;i<self.length;i++){
-			if(self[i].__eq(anObject)) {return i+1}
-		}
+		for(var i=0;i<self.length;i++) {
+			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+		};
 		return aBlock();
 	;
 ;
@@ -2792,6 +2817,18 @@ selector: "crlf",
 fn: function (){
 var self=this;
 return '\r\n';
+;
+return self}
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+"_fromCharCode_",
+smalltalk.method({
+selector: "fromCharCode:",
+fn: function (anInteger){
+var self=this;
+return String.fromCharCode(anInteger);
 ;
 return self}
 }),

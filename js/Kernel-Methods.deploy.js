@@ -369,6 +369,19 @@ return $1;
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
+"_protocol",
+smalltalk.method({
+selector: "protocol",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_category",[]);
+return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
 "_referencedClasses",
 smalltalk.method({
 selector: "referencedClasses",
