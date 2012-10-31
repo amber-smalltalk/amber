@@ -228,10 +228,8 @@ handleBindingFor: anEvent
 !
 
 handleInactiveKeyDown: event
-	event which = self activationKey ifTrue: [
-          (self systemIsMac
-                ifTrue: [ event metaKey ]
-                  ifFalse: [  event ctrlKey ])  ifTrue: [
+      event which = self activationKey ifTrue: [
+      		event ctrlKey  ifTrue: [
 					self activate. 
                		 event preventDefault. 
                 	^ false ] ]

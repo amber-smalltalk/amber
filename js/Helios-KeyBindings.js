@@ -648,28 +648,22 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "handleInactiveKeyDown:",
 category: 'events',
-fn: function (event) {
-    var self = this;
-    var $1, $3, $2;
-    $1 = smalltalk.send(smalltalk.send(event, "_which", []), "__eq", [smalltalk.send(self, "_activationKey", [])]);
-    if (smalltalk.assert($1)) {
-        $3 = smalltalk.send(self, "_systemIsMac", []);
-        if (smalltalk.assert($3)) {
-            $2 = smalltalk.send(event, "_metaKey", []);
-        } else {
-            $2 = smalltalk.send(event, "_ctrlKey", []);
-        }
-        if (smalltalk.assert($2)) {
-            smalltalk.send(self, "_activate", []);
-            smalltalk.send(event, "_preventDefault", []);
-            return false;
-        }
-    }
-    return self;
-},
+fn: function (event){
+var self=this;
+var $1,$2;
+$1=smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_activationKey",[])]);
+if(smalltalk.assert($1)){
+$2=smalltalk.send(event,"_ctrlKey",[]);
+if(smalltalk.assert($2)){
+smalltalk.send(self,"_activate",[]);
+smalltalk.send(event,"_preventDefault",[]);
+return false;
+};
+};
+return self},
 args: ["event"],
-source: "handleInactiveKeyDown: event\x0a\x09event which = self activationKey ifTrue: [\x0a          (self systemIsMac\x0a                ifTrue: [ event metaKey ]\x0a                  ifFalse: [  event ctrlKey ])  ifTrue: [\x0a\x09\x09\x09\x09\x09self activate. \x0a               \x09\x09 event preventDefault. \x0a                \x09^ false ] ]",
-messageSends: ["ifTrue:", "activate", "preventDefault", "ifTrue:ifFalse:", "metaKey", "ctrlKey", "systemIsMac", "=", "activationKey", "which"],
+source: "handleInactiveKeyDown: event\x0a      event which = self activationKey ifTrue: [\x0a      \x09\x09event ctrlKey  ifTrue: [\x0a\x09\x09\x09\x09\x09self activate. \x0a               \x09\x09 event preventDefault. \x0a                \x09^ false ] ]",
+messageSends: ["ifTrue:", "activate", "preventDefault", "ctrlKey", "=", "activationKey", "which"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinder);

@@ -472,25 +472,19 @@ smalltalk.addMethod(
 "_handleInactiveKeyDown_",
 smalltalk.method({
 selector: "handleInactiveKeyDown:",
-fn: function (event) {
-    var self = this;
-    var $1, $3, $2;
-    $1 = smalltalk.send(smalltalk.send(event, "_which", []), "__eq", [smalltalk.send(self, "_activationKey", [])]);
-    if (smalltalk.assert($1)) {
-        $3 = smalltalk.send(self, "_systemIsMac", []);
-        if (smalltalk.assert($3)) {
-            $2 = smalltalk.send(event, "_metaKey", []);
-        } else {
-            $2 = smalltalk.send(event, "_ctrlKey", []);
-        }
-        if (smalltalk.assert($2)) {
-            smalltalk.send(self, "_activate", []);
-            smalltalk.send(event, "_preventDefault", []);
-            return false;
-        }
-    }
-    return self;
-}
+fn: function (event){
+var self=this;
+var $1,$2;
+$1=smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_activationKey",[])]);
+if(smalltalk.assert($1)){
+$2=smalltalk.send(event,"_ctrlKey",[]);
+if(smalltalk.assert($2)){
+smalltalk.send(self,"_activate",[]);
+smalltalk.send(event,"_preventDefault",[]);
+return false;
+};
+};
+return self}
 }),
 smalltalk.HLKeyBinder);
 
