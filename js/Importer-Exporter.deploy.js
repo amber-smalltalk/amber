@@ -608,9 +608,9 @@ selector: "initializePackageNamed:prefix:",
 fn: function (packageName,aString){
 var self=this;
 var $1,$2;
-smalltalk.init(smalltalk.Object);
-;
 smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]),"_classes",[]),"_do_",[(function(each){
+smalltalk.init(each);
+;
 return smalltalk.send(each,"_initialize",[]);
 })]);
 $1=smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]);

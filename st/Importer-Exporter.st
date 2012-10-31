@@ -349,10 +349,8 @@ Object subclass: #PackageLoader
 
 initializePackageNamed: packageName prefix: aString
 
-	
-    <smalltalk.init(smalltalk.Object)>.
-
 	(Package named: packageName) classes do: [ :each |
+    	<smalltalk.init(each)>.
         each initialize. ].
         
     (Package named: packageName) 

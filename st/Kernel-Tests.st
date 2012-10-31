@@ -1092,7 +1092,11 @@ testInstVars
 testNilUndefined
 	"nil in Smalltalk is the undefined object in JS"
 
-	self assert: nil = undefined
+	| notDefined |
+    
+    <notDefined = undefined>.
+
+	self assert: nil = notDefined
 !
 
 testYourself
