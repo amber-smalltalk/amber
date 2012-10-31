@@ -29,6 +29,15 @@ allSubclasses
 	^result
 !
 
+allSuperclasses
+	
+    self superclass ifNil: [ ^ #() ].
+    
+	^ (OrderedCollection with: self superclass) 
+    	addAll: self superclass allSuperclasses;
+        yourself
+!
+
 comment
     ^(self basicAt: 'comment') ifNil: ['']
 !
@@ -51,6 +60,10 @@ commentStamp: aStamp prior: prior
         ^self commentStamp
 !
 
+definition
+	^ ''
+!
+
 instanceVariableNames
 	<return self.iVarNames>
 !
@@ -70,6 +83,10 @@ methodDictionary
 	return dict>
 !
 
+methods
+	^ self methodDictionary values
+!
+
 methodsFor: aString
 	^ClassCategoryReader new
 	    class: self category: aString;
@@ -79,6 +96,10 @@ methodsFor: aString
 methodsFor: aString stamp: aStamp
 	"Added for compatibility, right now ignores stamp."
 	^self methodsFor: aString
+!
+
+methodsInProtocol: aString
+	^ self methodDictionary values select: [ :each | each protocol = aString ]
 !
 
 name
@@ -111,12 +132,24 @@ prototype
 	<return self.fn.prototype>
 !
 
+selectors
+	^ self methodDictionary keys
+!
+
 subclasses
 	<return smalltalk.subclasses(self)>
 !
 
 superclass
 	<return self.superclass || nil>
+!
+
+theMetaClass
+	^ self class
+!
+
+theNonMetaClass
+	^ self
 !
 
 withAllSubclasses
@@ -194,6 +227,24 @@ category
 	^self package ifNil: ['Unclassified'] ifNotNil: [self package name]
 !
 
+definition
+	^ String streamContents: [ :stream |
+		stream 
+	    	nextPutAll: self superclass asString;
+	    	nextPutAll: ' subclass: #';
+	    	nextPutAll: self name;
+	    	nextPutAll: String lf, String tab;
+	    	nextPutAll: 'instanceVariableNames: '''.
+		self instanceVariableNames 
+          	do: [ :each | stream nextPutAll: each ] 
+	    	separatedBy: [ stream nextPutAll: ' ' ].
+		stream
+	    	nextPutAll: '''', String lf, String tab;
+	    	nextPutAll: 'package: ''';
+	    	nextPutAll: self category;
+	    	nextPutAll: '''' ]
+!
+
 package
 	<return self.pkg>
 !
@@ -258,6 +309,18 @@ Metaclass instances have a single instance, which they hold onto, which is the c
 
 !Metaclass methodsFor: 'accessing'!
 
+definition
+	^ String streamContents: [ :stream |
+		stream 
+	   	 	nextPutAll: self asString;
+	    	nextPutAll: ' class ';
+	    	nextPutAll: 'instanceVariableNames: '''.
+		self instanceVariableNames
+	    	do: [ :each | stream nextPutAll: each ]
+	    	separatedBy: [ stream nextPutAll: ' ' ].
+		stream nextPutAll: '''' ]
+!
+
 instanceClass
 	<return self.instanceClass>
 !
@@ -265,6 +328,14 @@ instanceClass
 instanceVariableNames: aCollection
 	ClassBuilder new
 	    class: self instanceVariableNames: aCollection
+!
+
+theMetaClass
+	^ self
+!
+
+theNonMetaClass
+	^ self instanceClass
 ! !
 
 !Metaclass methodsFor: 'converting'!

@@ -181,6 +181,10 @@ methodClass
 	^self basicAt: 'methodClass'
 !
 
+protocol
+	^ self category
+!
+
 referencedClasses
 	^self basicAt: 'referencedClasses'
 !
