@@ -1,4 +1,5 @@
 CodeMirror.defineMode('smalltalk', function(config, modeConfig) {
+	config.indentWithTabs = true;
 
 	var specialChars = /[+\-/\\*~<>=@%|&?!.:;^]/;
 	var keywords = /true|false|nil|self|super|thisContext/;
