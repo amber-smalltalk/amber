@@ -24,5 +24,11 @@
     },
     "scripts": {
         "test": "./test/run_build.sh"
+    },
+    "devDependencies": {
+      "grunt" : "*",
+      "grunt-shell" : "*",
+      "grunt-image-embed" : "*",
+      "grunt-contrib-mincss" : "*"
     }
 }
