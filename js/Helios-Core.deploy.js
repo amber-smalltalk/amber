@@ -1,4 +1,87 @@
 smalltalk.addPackage('Helios-Core', {});
+smalltalk.addClass('HLEnvironment', smalltalk.Object, [], 'Helios-Core');
+smalltalk.addMethod(
+"_eval_on_",
+smalltalk.method({
+selector: "eval:on:",
+fn: function (someCode,aReceiver){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_subclassResponsibility",[]);
+return $1;
+}
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_packages",
+smalltalk.method({
+selector: "packages",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_subclassResponsibility",[]);
+return $1;
+}
+}),
+smalltalk.HLEnvironment);
+
+
+
+smalltalk.addClass('HLLocalEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addMethod(
+"_eval_on_",
+smalltalk.method({
+selector: "eval:on:",
+fn: function (someCode,aReceiver){
+var self=this;
+var $1,$2;
+var $early={};
+try {
+var compiler;
+compiler=smalltalk.send((smalltalk.Compiler || Compiler),"_new",[]);
+smalltalk.send((function(){
+return smalltalk.send(compiler,"_parseExpression_",[someCode]);
+}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+$1=smalltalk.send(window,"_alert_",[smalltalk.send(ex,"_messageText",[])]);
+throw $early=[$1];
+})]);
+$2=smalltalk.send(smalltalk.send(smalltalk.send(compiler,"_eval_",[smalltalk.send(compiler,"_compile_forClass_",[smalltalk.send(smalltalk.send("doIt ^[","__comma",[someCode]),"__comma",["] value"]),(smalltalk.DoIt || DoIt)])]),"_fn",[]),"_applyTo_arguments_",[aReceiver,[]]);
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_packages",
+smalltalk.method({
+selector: "packages",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_packages",[]);
+return $1;
+}
+}),
+smalltalk.HLLocalEnvironment);
+
+
+
+smalltalk.addClass('HLRemoveEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addMethod(
+"_packages",
+smalltalk.method({
+selector: "packages",
+fn: function (){
+var self=this;
+return self}
+}),
+smalltalk.HLRemoveEnvironment);
+
+
+
 smalltalk.addClass('HLSourceArea', smalltalk.Widget, ['editor', 'textarea', 'div', 'receiver', 'onDoIt'], 'Helios-Core');
 smalltalk.addMethod(
 "_clear",
@@ -1114,9 +1197,6 @@ smalltalk.HLNavigationListWidget);
 
 
 
-smalltalk.addClass('HLInspector', smalltalk.HLWidget, [], 'Helios-Core');
-
-
 smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'keyBinder'], 'Helios-Core');
 smalltalk.addMethod(
 "_activate_",
@@ -1463,41 +1543,5 @@ return (600);
 }
 }),
 smalltalk.HLTranscript.klass);
-
-
-smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, [], 'Helios-Core');
-
-smalltalk.addMethod(
-"_canBeOpenAsTab",
-smalltalk.method({
-selector: "canBeOpenAsTab",
-fn: function (){
-var self=this;
-return true;
-}
-}),
-smalltalk.HLWorkspace.klass);
-
-smalltalk.addMethod(
-"_tabLabel",
-smalltalk.method({
-selector: "tabLabel",
-fn: function (){
-var self=this;
-return "Workspace";
-}
-}),
-smalltalk.HLWorkspace.klass);
-
-smalltalk.addMethod(
-"_tabPriority",
-smalltalk.method({
-selector: "tabPriority",
-fn: function (){
-var self=this;
-return (10);
-}
-}),
-smalltalk.HLWorkspace.klass);
 
 

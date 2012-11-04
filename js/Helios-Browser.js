@@ -1281,25 +1281,55 @@ referencedClasses: ["Announcer"]
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_beLocal",
+smalltalk.method({
+selector: "beLocal",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initializeEnvironment",[]);
+return self},
+args: [],
+source: "beLocal\x0a\x0a\x09self initializeEnvironment\x0a",
+messageSends: ["initializeEnvironment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_beRemoteOn_port_",
+smalltalk.method({
+selector: "beRemoteOn:port:",
+category: 'actions',
+fn: function (anIPAddress,aPort){
+var self=this;
+return self},
+args: ["anIPAddress", "aPort"],
+source: "beRemoteOn: anIPAddress port: aPort\x0a\x0a\x09\x22to-do\x22\x0a    \x0a    \x22environment := HLRemoteEnvironment on: anIPAddress port: aPort\x0a    \x0a    ...kind of stuff\x22\x0a    \x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_environment",
 smalltalk.method({
 selector: "environment",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@environment']) == nil || $receiver == undefined) {
-        self['@environment'] = smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []);
-        $1 = self['@environment'];
-    } else {
-        $1 = self['@environment'];
-    }
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@environment"]) == nil || $receiver == undefined){
+$1=smalltalk.send(self,"_initializeEnvironment",[]);
+} else {
+$1=self["@environment"];
+};
+return $1;
 },
 args: [],
-source: "environment\x0a\x09^ environment ifNil: [ environment := Smalltalk current ]",
-messageSends: ["ifNil:", "current"],
-referencedClasses: ["Smalltalk"]
+source: "environment\x0a\x09^ environment ifNil: [ self initializeEnvironment ]",
+messageSends: ["ifNil:", "initializeEnvironment"],
+referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
 
@@ -1317,6 +1347,25 @@ args: ["anEnvironment"],
 source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_initializeEnvironment",
+smalltalk.method({
+selector: "initializeEnvironment",
+category: 'initialization',
+fn: function (){
+var self=this;
+var $1;
+self["@environment"]=smalltalk.send((smalltalk.HLLocalEnvironment || HLLocalEnvironment),"_new",[]);
+$1=self["@environment"];
+return $1;
+},
+args: [],
+source: "initializeEnvironment\x0a\x09^ environment := HLLocalEnvironment new",
+messageSends: ["new"],
+referencedClasses: ["HLLocalEnvironment"]
 }),
 smalltalk.HLBrowserModel);
 
@@ -1615,6 +1664,27 @@ referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
 
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+category: 'actions',
+fn: function (anEnvironment){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send(self,"_new",[]);
+smalltalk.send($2,"_environment_",[anEnvironment]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+},
+args: ["anEnvironment"],
+source: "on: anEnvironment\x0a\x0a\x09^ self new\x0a    \x09environment: anEnvironment;\x0a        yourself",
+messageSends: ["environment:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel.klass);
 
 
 smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'sourceArea'], 'Helios-Browser');

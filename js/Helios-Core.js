@@ -1,4 +1,113 @@
 smalltalk.addPackage('Helios-Core', {});
+smalltalk.addClass('HLEnvironment', smalltalk.Object, [], 'Helios-Core');
+smalltalk.HLEnvironment.comment="Abstract class defining common behavior for local and remote environments"
+smalltalk.addMethod(
+"_eval_on_",
+smalltalk.method({
+selector: "eval:on:",
+category: 'actions',
+fn: function (someCode,aReceiver){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_subclassResponsibility",[]);
+return $1;
+},
+args: ["someCode", "aReceiver"],
+source: "eval: someCode on: aReceiver\x0a\x0a\x09^ self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_packages",
+smalltalk.method({
+selector: "packages",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_subclassResponsibility",[]);
+return $1;
+},
+args: [],
+source: "packages\x0a\x0a\x09^ self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+
+
+smalltalk.addClass('HLLocalEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addMethod(
+"_eval_on_",
+smalltalk.method({
+selector: "eval:on:",
+category: 'actions',
+fn: function (someCode,aReceiver){
+var self=this;
+var $1,$2;
+var $early={};
+try {
+var compiler;
+compiler=smalltalk.send((smalltalk.Compiler || Compiler),"_new",[]);
+smalltalk.send((function(){
+return smalltalk.send(compiler,"_parseExpression_",[someCode]);
+}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+$1=smalltalk.send(window,"_alert_",[smalltalk.send(ex,"_messageText",[])]);
+throw $early=[$1];
+})]);
+$2=smalltalk.send(smalltalk.send(smalltalk.send(compiler,"_eval_",[smalltalk.send(compiler,"_compile_forClass_",[smalltalk.send(smalltalk.send("doIt ^[","__comma",[someCode]),"__comma",["] value"]),(smalltalk.DoIt || DoIt)])]),"_fn",[]),"_applyTo_arguments_",[aReceiver,[]]);
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+},
+args: ["someCode", "aReceiver"],
+source: "eval: someCode on: aReceiver\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: someCode] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^(compiler eval: (compiler compile: 'doIt ^[', someCode, '] value' forClass: DoIt)) fn applyTo: aReceiver arguments: #()",
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "applyTo:arguments:", "fn", "eval:", "compile:forClass:", ","],
+referencedClasses: ["Compiler", "Error", "DoIt"]
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_packages",
+smalltalk.method({
+selector: "packages",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_packages",[]);
+return $1;
+},
+args: [],
+source: "packages\x0a\x0a\x09^ Smalltalk current packages",
+messageSends: ["packages", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.HLLocalEnvironment);
+
+
+
+smalltalk.addClass('HLRemoveEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addMethod(
+"_packages",
+smalltalk.method({
+selector: "packages",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self},
+args: [],
+source: "packages\x0a\x09\x22Answer the remote environment's packages\x22\x0a  \x0a\x09\x22to-do\x22\x0a    \x0a    \x22Note for future self and friends:\x0a    the problem with remote stuff is that the answers shouldn't be expected to be\x0a    received in a syncrhonous fashion. Everything network is asyc, so you *are going to deal with callbacks* here\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveEnvironment);
+
+
+
 smalltalk.addClass('HLSourceArea', smalltalk.Widget, ['editor', 'textarea', 'div', 'receiver', 'onDoIt'], 'Helios-Core');
 smalltalk.addMethod(
 "_clear",
@@ -1494,9 +1603,6 @@ smalltalk.HLNavigationListWidget);
 
 
 
-smalltalk.addClass('HLInspector', smalltalk.HLWidget, [], 'Helios-Core');
-
-
 smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'keyBinder'], 'Helios-Core');
 smalltalk.addMethod(
 "_activate_",
@@ -1948,56 +2054,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLTranscript.klass);
-
-
-smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, [], 'Helios-Core');
-
-smalltalk.addMethod(
-"_canBeOpenAsTab",
-smalltalk.method({
-selector: "canBeOpenAsTab",
-category: 'testing',
-fn: function (){
-var self=this;
-return true;
-},
-args: [],
-source: "canBeOpenAsTab\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLWorkspace.klass);
-
-smalltalk.addMethod(
-"_tabLabel",
-smalltalk.method({
-selector: "tabLabel",
-category: 'accessing',
-fn: function (){
-var self=this;
-return "Workspace";
-},
-args: [],
-source: "tabLabel\x0a\x09^ 'Workspace'",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLWorkspace.klass);
-
-smalltalk.addMethod(
-"_tabPriority",
-smalltalk.method({
-selector: "tabPriority",
-category: 'accessing',
-fn: function (){
-var self=this;
-return (10);
-},
-args: [],
-source: "tabPriority\x0a\x09^ 10",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLWorkspace.klass);
 
 

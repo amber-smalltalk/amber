@@ -507,7 +507,7 @@ allProtocol
 !
 
 environment
-	^ environment ifNil: [ environment := Smalltalk current ]
+	^ environment ifNil: [ self initializeEnvironment ]
 !
 
 environment: anEnvironment
@@ -598,6 +598,22 @@ showInstance: aBoolean
     self announcer announce: HLShowInstanceToggled new
 ! !
 
+!HLBrowserModel methodsFor: 'actions'!
+
+beLocal
+
+	self initializeEnvironment
+!
+
+beRemoteOn: anIPAddress port: aPort
+
+	"to-do"
+    
+    "environment := HLRemoteEnvironment on: anIPAddress port: aPort
+    
+    ...kind of stuff"
+! !
+
 !HLBrowserModel methodsFor: 'announcements'!
 
 announcer
@@ -606,6 +622,21 @@ announcer
 
 subscribe: aWidget
 	aWidget subscribeTo: self announcer
+! !
+
+!HLBrowserModel methodsFor: 'initialization'!
+
+initializeEnvironment
+	^ environment := HLLocalEnvironment new
+! !
+
+!HLBrowserModel class methodsFor: 'actions'!
+
+on: anEnvironment
+
+	^ self new
+    	environment: anEnvironment;
+        yourself
 ! !
 
 HLWidget subclass: #HLBrowserSourceWidget

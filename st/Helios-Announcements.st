@@ -3,6 +3,43 @@ Object subclass: #HLAnnouncement
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLCodeHandled
+	instanceVariableNames: 'code'
+	package: 'Helios-Announcements'!
+
+!HLCodeHandled methodsFor: 'accessing'!
+
+code
+
+	^ code
+!
+
+code: aModel
+
+	code := aModel
+! !
+
+!HLCodeHandled class methodsFor: 'actions'!
+
+on: aCodeModel
+
+	^ self new 
+    	code: aCodeModel;
+        yourself
+! !
+
+HLCodeHandled subclass: #HLDoItRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLCodeHandled subclass: #HLInspectItRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLCodeHandled subclass: #HLPrintItRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLAnnouncement subclass: #HLItemSelected
 	instanceVariableNames: 'item'
 	package: 'Helios-Announcements'!

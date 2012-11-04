@@ -1,4 +1,61 @@
 Smalltalk current createPackage: 'Helios-Core' properties: #{}!
+Object subclass: #HLEnvironment
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLEnvironment commentStamp!
+Abstract class defining common behavior for local and remote environments!
+
+!HLEnvironment methodsFor: 'accessing'!
+
+packages
+
+	^ self subclassResponsibility
+! !
+
+!HLEnvironment methodsFor: 'actions'!
+
+eval: someCode on: aReceiver
+
+	^ self subclassResponsibility
+! !
+
+HLEnvironment subclass: #HLLocalEnvironment
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLLocalEnvironment methodsFor: 'accessing'!
+
+packages
+
+	^ Smalltalk current packages
+! !
+
+!HLLocalEnvironment methodsFor: 'actions'!
+
+eval: someCode on: aReceiver
+	| compiler  |
+	compiler := Compiler new.
+	[compiler parseExpression: someCode] on: Error do: [:ex |
+		^window alert: ex messageText].
+	^(compiler eval: (compiler compile: 'doIt ^[', someCode, '] value' forClass: DoIt)) fn applyTo: aReceiver arguments: #()
+! !
+
+HLEnvironment subclass: #HLRemoveEnvironment
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLRemoveEnvironment methodsFor: 'accessing'!
+
+packages
+	"Answer the remote environment's packages"
+  
+	"to-do"
+    
+    "Note for future self and friends:
+    the problem with remote stuff is that the answers shouldn't be expected to be
+    received in a syncrhonous fashion. Everything network is asyc, so you *are going to deal with callbacks* here"
+! !
+
 Widget subclass: #HLSourceArea
 	instanceVariableNames: 'editor textarea div receiver onDoIt'
 	package: 'Helios-Core'!
@@ -492,10 +549,6 @@ setupKeyBindings
         	self previousFocus ] ]
 ! !
 
-HLWidget subclass: #HLInspector
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
 HLWidget subclass: #HLManager
 	instanceVariableNames: 'tabs activeTab keyBinder'
 	package: 'Helios-Core'!
@@ -665,26 +718,6 @@ tabPriority
 ! !
 
 !HLTranscript class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ true
-! !
-
-HLWidget subclass: #HLWorkspace
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
-!HLWorkspace class methodsFor: 'accessing'!
-
-tabLabel
-	^ 'Workspace'
-!
-
-tabPriority
-	^ 10
-! !
-
-!HLWorkspace class methodsFor: 'testing'!
 
 canBeOpenAsTab
 	^ true
