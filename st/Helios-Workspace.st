@@ -149,12 +149,41 @@ clear
       self val: ''
 !
 
+doIt
+	| result |
+
+	result:=  model 
+    				doIt: self currentLineOrSelection 
+        			do: self doItReaction.
+        
+	self announcer announce: (HLDoItRequested on: model).
+	^ result
+!
+
 editor
 	^editor
 !
 
 focus
       self editor focus
+!
+
+inspectIt
+
+	| result newInspector |
+
+	result:=  self doIt.
+       
+	self announcer announce: (HLInspectItRequested on: model).
+	newInspector := self makeInspectorOn: result.
+	newInspector open
+!
+
+makeInspectorOn: anObject
+
+	^ HLInspector new 
+		inspect: self;
+		yourself
 !
 
 observeWrapper
@@ -173,6 +202,18 @@ print: aString
 	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
 	editor setCursor: (editor getCursor: true).
 	editor setSelection: stop end: start
+!
+
+printIt
+
+	| result |
+
+	result:=  self doIt.
+       
+	self announcer announce: (HLPrintItRequested on: model).
+
+    self print: result printString.
+	self focus.
 !
 
 setEditorOn: aTextarea
@@ -195,17 +236,13 @@ initializeDoItReaction
 !HLCodeWidget methodsFor: 'reactions'!
 
 onDoIt
-	| result |
-
-	result:=  model 
-    				doIt: self currentLineOrSelection 
-        			do: self doItReaction.
-        
-	self announcer announce: (HLDoItRequested on: model).
-	^ result
+	
+    self doIt
 !
 
 onInspectIt
+
+	self inspectIt
 !
 
 onKeyDown: anEvent
@@ -231,16 +268,7 @@ onKeyDown: anEvent
 
 onPrintIt
 
-	| result |
-
-	result:=  model 
-    				doIt: self currentLineOrSelection 
-        			do: self doItReaction.
-        
-	self announcer announce: (HLPrintItRequested on: model).
-
-    self print: result printString.
-	self focus.
+	self printIt
 ! !
 
 !HLCodeWidget methodsFor: 'rendering'!

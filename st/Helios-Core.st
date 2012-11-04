@@ -40,11 +40,11 @@ eval: someCode on: aReceiver
 	^(compiler eval: (compiler compile: 'doIt ^[', someCode, '] value' forClass: DoIt)) fn applyTo: aReceiver arguments: #()
 ! !
 
-HLEnvironment subclass: #HLRemoveEnvironment
+HLEnvironment subclass: #HLRemoteEnvironment
 	instanceVariableNames: ''
 	package: 'Helios-Core'!
 
-!HLRemoveEnvironment methodsFor: 'accessing'!
+!HLRemoteEnvironment methodsFor: 'accessing'!
 
 packages
 	"Answer the remote environment's packages"
@@ -54,6 +54,46 @@ packages
     "Note for future self and friends:
     the problem with remote stuff is that the answers shouldn't be expected to be
     received in a syncrhonous fashion. Everything network is asyc, so you *are going to deal with callbacks* here"
+! !
+
+!HLRemoteEnvironment methodsFor: 'actions'!
+
+eval: someCode on: aReceiver
+
+	"Note for future self and friends:
+    whatever way this compilation happens on the other side, 
+    it should return a proxy to the remote resulting object"
+    
+    self notYetImplemented
+! !
+
+Object subclass: #HLRemoteObject
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLRemoteObject commentStamp!
+This is a local proxy to a remote object.
+Tipically useful for evaluating and inspecting and interacting with instances of a remote VM.!
+
+!HLRemoteObject methodsFor: 'actions'!
+
+doesNotUnderstand: aMessage
+
+	"to-do
+
+	aham, blah blah
+
+	super doesNotUnderstand: aMessage"
+!
+
+inspectOn: anInspector
+
+	"to-do"
+
+	"this is a source of so much fun..."
+!
+
+printString
+	^ 'this is a remote object'
 ! !
 
 Widget subclass: #HLSourceArea

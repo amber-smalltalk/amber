@@ -69,7 +69,18 @@ smalltalk.HLLocalEnvironment);
 
 
 
-smalltalk.addClass('HLRemoveEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addClass('HLRemoteEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addMethod(
+"_eval_on_",
+smalltalk.method({
+selector: "eval:on:",
+fn: function (someCode,aReceiver){
+var self=this;
+smalltalk.send(self,"_notYetImplemented",[]);
+return self}
+}),
+smalltalk.HLRemoteEnvironment);
+
 smalltalk.addMethod(
 "_packages",
 smalltalk.method({
@@ -78,7 +89,41 @@ fn: function (){
 var self=this;
 return self}
 }),
-smalltalk.HLRemoveEnvironment);
+smalltalk.HLRemoteEnvironment);
+
+
+
+smalltalk.addClass('HLRemoteObject', smalltalk.Object, [], 'Helios-Core');
+smalltalk.addMethod(
+"_doesNotUnderstand_",
+smalltalk.method({
+selector: "doesNotUnderstand:",
+fn: function (aMessage){
+var self=this;
+return self}
+}),
+smalltalk.HLRemoteObject);
+
+smalltalk.addMethod(
+"_inspectOn_",
+smalltalk.method({
+selector: "inspectOn:",
+fn: function (anInspector){
+var self=this;
+return self}
+}),
+smalltalk.HLRemoteObject);
+
+smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return "this is a remote object";
+}
+}),
+smalltalk.HLRemoteObject);
 
 
 

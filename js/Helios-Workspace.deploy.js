@@ -209,6 +209,20 @@ return $1;
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_doIt",
+smalltalk.method({
+selector: "doIt",
+fn: function (){
+var self=this;
+var result;
+result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItRequested || HLDoItRequested),"_on_",[self["@model"]])]);
+return result;
+}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_doItReaction",
 smalltalk.method({
 selector: "doItReaction",
@@ -274,6 +288,38 @@ return $1;
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_inspectIt",
+smalltalk.method({
+selector: "inspectIt",
+fn: function (){
+var self=this;
+var result;
+var newInspector;
+result=smalltalk.send(self,"_doIt",[]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLInspectItRequested || HLInspectItRequested),"_on_",[self["@model"]])]);
+newInspector=smalltalk.send(self,"_makeInspectorOn_",[result]);
+smalltalk.send(newInspector,"_open",[]);
+return self}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_makeInspectorOn_",
+smalltalk.method({
+selector: "makeInspectorOn:",
+fn: function (anObject){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send((smalltalk.HLInspector || HLInspector),"_new",[]);
+smalltalk.send($2,"_inspect_",[self]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_model",
 smalltalk.method({
 selector: "model",
@@ -314,11 +360,8 @@ smalltalk.method({
 selector: "onDoIt",
 fn: function (){
 var self=this;
-var result;
-result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItRequested || HLDoItRequested),"_on_",[self["@model"]])]);
-return result;
-}
+smalltalk.send(self,"_doIt",[]);
+return self}
 }),
 smalltalk.HLCodeWidget);
 
@@ -328,6 +371,7 @@ smalltalk.method({
 selector: "onInspectIt",
 fn: function (){
 var self=this;
+smalltalk.send(self,"_inspectIt",[]);
 return self}
 }),
 smalltalk.HLCodeWidget);
@@ -366,11 +410,7 @@ smalltalk.method({
 selector: "onPrintIt",
 fn: function (){
 var self=this;
-var result;
-result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLPrintItRequested || HLPrintItRequested),"_on_",[self["@model"]])]);
-smalltalk.send(self,"_print_",[smalltalk.send(result,"_printString",[])]);
-smalltalk.send(self,"_focus",[]);
+smalltalk.send(self,"_printIt",[]);
 return self}
 }),
 smalltalk.HLCodeWidget);
@@ -392,6 +432,21 @@ smalltalk.send(stop,"_at_put_",["ch",smalltalk.send(smalltalk.send(smalltalk.sen
 smalltalk.send(self["@editor"],"_replaceSelection_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"__comma",[" "]),"__comma",[aString]),"__comma",[" "])]);
 smalltalk.send(self["@editor"],"_setCursor_",[smalltalk.send(self["@editor"],"_getCursor_",[true])]);
 smalltalk.send(self["@editor"],"_setSelection_end_",[stop,start]);
+return self}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_printIt",
+smalltalk.method({
+selector: "printIt",
+fn: function (){
+var self=this;
+var result;
+result=smalltalk.send(self,"_doIt",[]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLPrintItRequested || HLPrintItRequested),"_on_",[self["@model"]])]);
+smalltalk.send(self,"_print_",[smalltalk.send(result,"_printString",[])]);
+smalltalk.send(self,"_focus",[]);
 return self}
 }),
 smalltalk.HLCodeWidget);

@@ -90,7 +90,23 @@ smalltalk.HLLocalEnvironment);
 
 
 
-smalltalk.addClass('HLRemoveEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addClass('HLRemoteEnvironment', smalltalk.HLEnvironment, [], 'Helios-Core');
+smalltalk.addMethod(
+"_eval_on_",
+smalltalk.method({
+selector: "eval:on:",
+category: 'actions',
+fn: function (someCode,aReceiver){
+var self=this;
+smalltalk.send(self,"_notYetImplemented",[]);
+return self},
+args: ["someCode", "aReceiver"],
+source: "eval: someCode on: aReceiver\x0a\x0a\x09\x22Note for future self and friends:\x0a    whatever way this compilation happens on the other side, \x0a    it should return a proxy to the remote resulting object\x22\x0a    \x0a    self notYetImplemented",
+messageSends: ["notYetImplemented"],
+referencedClasses: []
+}),
+smalltalk.HLRemoteEnvironment);
+
 smalltalk.addMethod(
 "_packages",
 smalltalk.method({
@@ -104,7 +120,57 @@ source: "packages\x0a\x09\x22Answer the remote environment's packages\x22\x0a  \
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRemoveEnvironment);
+smalltalk.HLRemoteEnvironment);
+
+
+
+smalltalk.addClass('HLRemoteObject', smalltalk.Object, [], 'Helios-Core');
+smalltalk.HLRemoteObject.comment="This is a local proxy to a remote object.\x0aTipically useful for evaluating and inspecting and interacting with instances of a remote VM.\x0a"
+smalltalk.addMethod(
+"_doesNotUnderstand_",
+smalltalk.method({
+selector: "doesNotUnderstand:",
+category: 'actions',
+fn: function (aMessage){
+var self=this;
+return self},
+args: ["aMessage"],
+source: "doesNotUnderstand: aMessage\x0a\x0a\x09\x22to-do\x0a\x0a\x09aham, blah blah\x0a\x0a\x09super doesNotUnderstand: aMessage\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoteObject);
+
+smalltalk.addMethod(
+"_inspectOn_",
+smalltalk.method({
+selector: "inspectOn:",
+category: 'actions',
+fn: function (anInspector){
+var self=this;
+return self},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x0a\x09\x22to-do\x22\x0a\x0a\x09\x22this is a source of so much fun...\x22\x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoteObject);
+
+smalltalk.addMethod(
+"_printString",
+smalltalk.method({
+selector: "printString",
+category: 'actions',
+fn: function (){
+var self=this;
+return "this is a remote object";
+},
+args: [],
+source: "printString\x0a\x09^ 'this is a remote object'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoteObject);
 
 
 

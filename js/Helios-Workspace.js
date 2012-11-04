@@ -284,6 +284,25 @@ referencedClasses: []
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_doIt",
+smalltalk.method({
+selector: "doIt",
+category: 'actions',
+fn: function (){
+var self=this;
+var result;
+result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItRequested || HLDoItRequested),"_on_",[self["@model"]])]);
+return result;
+},
+args: [],
+source: "doIt\x0a\x09| result |\x0a\x0a\x09result:=  model \x0a    \x09\x09\x09\x09doIt: self currentLineOrSelection \x0a        \x09\x09\x09do: self doItReaction.\x0a        \x0a\x09self announcer announce: (HLDoItRequested on: model).\x0a\x09^ result        ",
+messageSends: ["doIt:do:", "currentLineOrSelection", "doItReaction", "announce:", "on:", "announcer"],
+referencedClasses: ["HLDoItRequested"]
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_doItReaction",
 smalltalk.method({
 selector: "doItReaction",
@@ -374,6 +393,48 @@ referencedClasses: []
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_inspectIt",
+smalltalk.method({
+selector: "inspectIt",
+category: 'actions',
+fn: function (){
+var self=this;
+var result;
+var newInspector;
+result=smalltalk.send(self,"_doIt",[]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLInspectItRequested || HLInspectItRequested),"_on_",[self["@model"]])]);
+newInspector=smalltalk.send(self,"_makeInspectorOn_",[result]);
+smalltalk.send(newInspector,"_open",[]);
+return self},
+args: [],
+source: "inspectIt\x0a\x0a\x09| result newInspector |\x0a\x0a\x09result:=  self doIt.\x0a       \x0a\x09self announcer announce: (HLInspectItRequested on: model).\x0a\x09newInspector := self makeInspectorOn: result.\x0a\x09newInspector open",
+messageSends: ["doIt", "announce:", "on:", "announcer", "makeInspectorOn:", "open"],
+referencedClasses: ["HLInspectItRequested"]
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_makeInspectorOn_",
+smalltalk.method({
+selector: "makeInspectorOn:",
+category: 'actions',
+fn: function (anObject){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send((smalltalk.HLInspector || HLInspector),"_new",[]);
+smalltalk.send($2,"_inspect_",[self]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+},
+args: ["anObject"],
+source: "makeInspectorOn: anObject\x0a\x0a\x09^ HLInspector new \x0a\x09\x09inspect: self;\x0a\x09\x09yourself",
+messageSends: ["inspect:", "new", "yourself"],
+referencedClasses: ["HLInspector"]
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_model",
 smalltalk.method({
 selector: "model",
@@ -430,15 +491,12 @@ selector: "onDoIt",
 category: 'reactions',
 fn: function (){
 var self=this;
-var result;
-result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItRequested || HLDoItRequested),"_on_",[self["@model"]])]);
-return result;
-},
+smalltalk.send(self,"_doIt",[]);
+return self},
 args: [],
-source: "onDoIt\x0a\x09| result |\x0a\x0a\x09result:=  model \x0a    \x09\x09\x09\x09doIt: self currentLineOrSelection \x0a        \x09\x09\x09do: self doItReaction.\x0a        \x0a\x09self announcer announce: (HLDoItRequested on: model).\x0a\x09^ result        ",
-messageSends: ["doIt:do:", "currentLineOrSelection", "doItReaction", "announce:", "on:", "announcer"],
-referencedClasses: ["HLDoItRequested"]
+source: "onDoIt\x0a\x09\x0a    self doIt",
+messageSends: ["doIt"],
+referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
 
@@ -449,10 +507,11 @@ selector: "onInspectIt",
 category: 'reactions',
 fn: function (){
 var self=this;
+smalltalk.send(self,"_inspectIt",[]);
 return self},
 args: [],
-source: "onInspectIt",
-messageSends: [],
+source: "onInspectIt\x0a\x0a\x09self inspectIt",
+messageSends: ["inspectIt"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
@@ -497,16 +556,12 @@ selector: "onPrintIt",
 category: 'reactions',
 fn: function (){
 var self=this;
-var result;
-result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLPrintItRequested || HLPrintItRequested),"_on_",[self["@model"]])]);
-smalltalk.send(self,"_print_",[smalltalk.send(result,"_printString",[])]);
-smalltalk.send(self,"_focus",[]);
+smalltalk.send(self,"_printIt",[]);
 return self},
 args: [],
-source: "onPrintIt\x0a\x0a\x09| result |\x0a\x0a\x09result:=  model \x0a    \x09\x09\x09\x09doIt: self currentLineOrSelection \x0a        \x09\x09\x09do: self doItReaction.\x0a        \x0a\x09self announcer announce: (HLPrintItRequested on: model).\x0a\x0a    self print: result printString.\x0a\x09self focus.",
-messageSends: ["doIt:do:", "currentLineOrSelection", "doItReaction", "announce:", "on:", "announcer", "print:", "printString", "focus"],
-referencedClasses: ["HLPrintItRequested"]
+source: "onPrintIt\x0a\x0a\x09self printIt",
+messageSends: ["printIt"],
+referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
 
@@ -533,6 +588,26 @@ args: ["aString"],
 source: "print: aString\x0a\x09| start stop |\x0a\x09start := HashedCollection new.\x0a\x09stop := HashedCollection new.\x0a\x09start at: 'line' put: (editor getCursor: false) line.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a\x09stop at: 'line' put: (start at: 'line').\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
 messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", "+", "size", "replaceSelection:", ",", "getSelection", "setCursor:", "setSelection:end:"],
 referencedClasses: ["HashedCollection"]
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_printIt",
+smalltalk.method({
+selector: "printIt",
+category: 'actions',
+fn: function (){
+var self=this;
+var result;
+result=smalltalk.send(self,"_doIt",[]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLPrintItRequested || HLPrintItRequested),"_on_",[self["@model"]])]);
+smalltalk.send(self,"_print_",[smalltalk.send(result,"_printString",[])]);
+smalltalk.send(self,"_focus",[]);
+return self},
+args: [],
+source: "printIt\x0a\x0a\x09| result |\x0a\x0a\x09result:=  self doIt.\x0a       \x0a\x09self announcer announce: (HLPrintItRequested on: model).\x0a\x0a    self print: result printString.\x0a\x09self focus.",
+messageSends: ["doIt", "announce:", "on:", "announcer", "print:", "printString", "focus"],
+referencedClasses: ["HLPrintItRequested"]
 }),
 smalltalk.HLCodeWidget);
 
