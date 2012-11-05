@@ -58,6 +58,9 @@ referencedClasses: []
 smalltalk.HLCodeHandled.klass);
 
 
+smalltalk.addClass('HLDoItExecuted', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLDoItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
 
 

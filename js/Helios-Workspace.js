@@ -23,20 +23,19 @@ referencedClasses: []
 smalltalk.HLCodeModel);
 
 smalltalk.addMethod(
-"_doIt_do_",
+"_doIt_",
 smalltalk.method({
-selector: "doIt:do:",
+selector: "doIt:",
 category: 'actions',
-fn: function (someCode,aReaction){
+fn: function (someCode){
 var self=this;
-var result;
-result=smalltalk.send(smalltalk.send(self,"_environment",[]),"_eval_on_",[someCode,smalltalk.send(self,"_receiver",[])]);
-smalltalk.send(aReaction,"_value_",[result]);
-return result;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_environment",[]),"_eval_on_",[someCode,smalltalk.send(self,"_receiver",[])]);
+return $1;
 },
-args: ["someCode", "aReaction"],
-source: "doIt: someCode do: aReaction\x0a\x0a\x09| result |\x0a    result := self environment eval: someCode on: self receiver.\x0a\x09aReaction value: result.\x0a    ^result",
-messageSends: ["eval:on:", "receiver", "environment", "value:"],
+args: ["someCode"],
+source: "doIt: someCode\x0a\x0a\x09^ self environment eval: someCode on: self receiver",
+messageSends: ["eval:on:", "receiver", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLCodeModel);
@@ -207,7 +206,7 @@ referencedClasses: []
 smalltalk.HLCodeModel.klass);
 
 
-smalltalk.addClass('HLCodeWidget', smalltalk.HLWidget, ['model', 'wrapper', 'code', 'editor', 'doItReaction'], 'Helios-Workspace');
+smalltalk.addClass('HLCodeWidget', smalltalk.HLWidget, ['model', 'wrapper', 'code', 'editor'], 'Helios-Workspace');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -291,52 +290,15 @@ category: 'actions',
 fn: function (){
 var self=this;
 var result;
-result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
 smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItRequested || HLDoItRequested),"_on_",[self["@model"]])]);
+result=smalltalk.send(self["@model"],"_doIt_",[smalltalk.send(self,"_currentLineOrSelection",[])]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItExecuted || HLDoItExecuted),"_on_",[self["@model"]])]);
 return result;
 },
 args: [],
-source: "doIt\x0a\x09| result |\x0a\x0a\x09result:=  model \x0a    \x09\x09\x09\x09doIt: self currentLineOrSelection \x0a        \x09\x09\x09do: self doItReaction.\x0a        \x0a\x09self announcer announce: (HLDoItRequested on: model).\x0a\x09^ result        ",
-messageSends: ["doIt:do:", "currentLineOrSelection", "doItReaction", "announce:", "on:", "announcer"],
-referencedClasses: ["HLDoItRequested"]
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_doItReaction",
-smalltalk.method({
-selector: "doItReaction",
-category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-if(($receiver = self["@doItReaction"]) == nil || $receiver == undefined){
-$1=smalltalk.send(self,"_initializeDoItReaction",[]);
-} else {
-$1=self["@doItReaction"];
-};
-return $1;
-},
-args: [],
-source: "doItReaction\x0a\x0a\x09^ doItReaction ifNil:[self initializeDoItReaction]",
-messageSends: ["ifNil:", "initializeDoItReaction"],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_doItReaction_",
-smalltalk.method({
-selector: "doItReaction:",
-category: 'accessing',
-fn: function (aBlock){
-var self=this;
-self["@doItReaction"]=aBlock;
-return self},
-args: ["aBlock"],
-source: "doItReaction: aBlock\x0a\x0a\x09doItReaction := aBlock",
-messageSends: [],
-referencedClasses: []
+source: "doIt\x0a\x09| result |\x0a\x0a\x09self announcer announce: (HLDoItRequested on: model).\x0a\x0a\x09result:=  model doIt: self currentLineOrSelection.\x0a\x0a\x09self announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result        ",
+messageSends: ["announce:", "on:", "announcer", "doIt:", "currentLineOrSelection"],
+referencedClasses: ["HLDoItRequested", "HLDoItExecuted"]
 }),
 smalltalk.HLCodeWidget);
 
@@ -368,26 +330,6 @@ return self},
 args: [],
 source: "focus\x0a      self editor focus",
 messageSends: ["focus", "editor"],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_initializeDoItReaction",
-smalltalk.method({
-selector: "initializeDoItReaction",
-category: 'initialization',
-fn: function (){
-var self=this;
-var $1;
-self["@doItReaction"]=(function(){
-});
-$1=self["@doItReaction"];
-return $1;
-},
-args: [],
-source: "initializeDoItReaction\x0a\x0a\x09^ doItReaction := [\x22no-op\x22]",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);

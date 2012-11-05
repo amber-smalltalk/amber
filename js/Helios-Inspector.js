@@ -167,11 +167,15 @@ selector: "inspect:",
 category: 'actions',
 fn: function (anObject){
 var self=this;
+var $1;
 smalltalk.send(smalltalk.send(self,"_model",[]),"_inspect_on_",[anObject,self]);
+smalltalk.send(self,"_refreshVariables",[]);
+smalltalk.send(self,"_refreshDisplay",[]);
+$1=smalltalk.send(self,"_yourself",[]);
 return self},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x0a\x09self model inspect: anObject on: self ",
-messageSends: ["inspect:on:", "model"],
+source: "inspect: anObject\x0a\x0a\x09self model inspect: anObject on: self.\x0a    \x0a\x09self \x0a    \x09refreshVariables;\x0a\x09\x09refreshDisplay;\x0a        yourself",
+messageSends: ["inspect:on:", "model", "refreshVariables", "refreshDisplay", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -242,16 +246,14 @@ var self=this;
 var $2,$3,$1;
 $2=smalltalk.send((smalltalk.HLCodeWidget || HLCodeWidget),"_new",[]);
 smalltalk.send($2,"_model_",[smalltalk.send(self["@model"],"_code",[])]);
-smalltalk.send($2,"_doItReaction_",[(function(){
-return smalltalk.send(self,"_refresh",[]);
-})]);
+smalltalk.send($2,"_receiver_",[smalltalk.send(self["@model"],"_inspectee",[])]);
 $3=smalltalk.send($2,"_yourself",[]);
 $1=$3;
 return $1;
 },
 args: [],
-source: "makeCode\x0a\x0a\x09^ HLCodeWidget new\x0a    \x09model: model code;\x0a\x09\x09doItReaction: [self refresh];\x0a        yourself.\x0a        \x0a",
-messageSends: ["model:", "code", "new", "doItReaction:", "refresh", "yourself"],
+source: "makeCode\x0a\x0a\x09^ HLCodeWidget new\x0a    \x09model: model code;\x0a        receiver: model inspectee;\x0a        yourself.\x0a        \x0a",
+messageSends: ["model:", "code", "new", "receiver:", "inspectee", "yourself"],
 referencedClasses: ["HLCodeWidget"]
 }),
 smalltalk.HLInspector);
@@ -345,11 +347,14 @@ selector: "observeCode",
 category: 'actions',
 fn: function (){
 var self=this;
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_code",[]),"_announcer",[]),"_on_do_",[(smalltalk.HLDoItExecuted || HLDoItExecuted),(function(){
+return smalltalk.send(self,"_onDoneIt",[]);
+})]);
 return self},
 args: [],
-source: "observeCode\x0a\x0a",
-messageSends: [],
-referencedClasses: []
+source: "observeCode\x0a\x0a\x09self code announcer \x0a    \x09on: HLDoItExecuted \x0a        do: [self onDoneIt]\x0a",
+messageSends: ["on:do:", "onDoneIt", "announcer", "code"],
+referencedClasses: ["HLDoItExecuted"]
 }),
 smalltalk.HLInspector);
 
@@ -390,6 +395,22 @@ return self},
 args: [],
 source: "onDoIt",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+"_onDoneIt",
+smalltalk.method({
+selector: "onDoneIt",
+category: 'reactions',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_refresh",[]);
+return self},
+args: [],
+source: "onDoneIt\x0a\x0a\x09self refresh",
+messageSends: ["refresh"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -479,14 +500,11 @@ selector: "refresh",
 category: 'actions',
 fn: function (){
 var self=this;
-var $1;
 smalltalk.send(self,"_inspect_",[smalltalk.send(self,"_inspectee",[])]);
-smalltalk.send(self,"_refreshVariables",[]);
-$1=smalltalk.send(self,"_refreshDisplay",[]);
 return self},
 args: [],
-source: "refresh\x0a\x0a\x09self \x0a\x09\x09inspect: self inspectee; \x0a\x09\x09refreshVariables;\x0a\x09\x09refreshDisplay",
-messageSends: ["inspect:", "inspectee", "refreshVariables", "refreshDisplay"],
+source: "refresh\x0a\x0a\x09self inspect: self inspectee",
+messageSends: ["inspect:", "inspectee"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);

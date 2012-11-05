@@ -126,7 +126,11 @@ smalltalk.method({
 selector: "inspect:",
 fn: function (anObject){
 var self=this;
+var $1;
 smalltalk.send(smalltalk.send(self,"_model",[]),"_inspect_on_",[anObject,self]);
+smalltalk.send(self,"_refreshVariables",[]);
+smalltalk.send(self,"_refreshDisplay",[]);
+$1=smalltalk.send(self,"_yourself",[]);
 return self}
 }),
 smalltalk.HLInspector);
@@ -181,9 +185,7 @@ var self=this;
 var $2,$3,$1;
 $2=smalltalk.send((smalltalk.HLCodeWidget || HLCodeWidget),"_new",[]);
 smalltalk.send($2,"_model_",[smalltalk.send(self["@model"],"_code",[])]);
-smalltalk.send($2,"_doItReaction_",[(function(){
-return smalltalk.send(self,"_refresh",[]);
-})]);
+smalltalk.send($2,"_receiver_",[smalltalk.send(self["@model"],"_inspectee",[])]);
 $3=smalltalk.send($2,"_yourself",[]);
 $1=$3;
 return $1;
@@ -259,6 +261,9 @@ smalltalk.method({
 selector: "observeCode",
 fn: function (){
 var self=this;
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_code",[]),"_announcer",[]),"_on_do_",[(smalltalk.HLDoItExecuted || HLDoItExecuted),(function(){
+return smalltalk.send(self,"_onDoneIt",[]);
+})]);
 return self}
 }),
 smalltalk.HLInspector);
@@ -290,6 +295,17 @@ smalltalk.method({
 selector: "onDoIt",
 fn: function (){
 var self=this;
+return self}
+}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+"_onDoneIt",
+smalltalk.method({
+selector: "onDoneIt",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_refresh",[]);
 return self}
 }),
 smalltalk.HLInspector);
@@ -353,10 +369,7 @@ smalltalk.method({
 selector: "refresh",
 fn: function (){
 var self=this;
-var $1;
 smalltalk.send(self,"_inspect_",[smalltalk.send(self,"_inspectee",[])]);
-smalltalk.send(self,"_refreshVariables",[]);
-$1=smalltalk.send(self,"_refreshDisplay",[]);
 return self}
 }),
 smalltalk.HLInspector);

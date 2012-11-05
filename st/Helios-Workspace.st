@@ -27,12 +27,9 @@ receiver: anObject
 
 !HLCodeModel methodsFor: 'actions'!
 
-doIt: someCode do: aReaction
+doIt: someCode
 
-	| result |
-    result := self environment eval: someCode on: self receiver.
-	aReaction value: result.
-    ^result
+	^ self environment eval: someCode on: self receiver
 !
 
 subscribe: aWidget
@@ -63,7 +60,7 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLCodeWidget
-	instanceVariableNames: 'model wrapper code editor doItReaction'
+	instanceVariableNames: 'model wrapper code editor'
 	package: 'Helios-Workspace'!
 
 !HLCodeWidget methodsFor: 'accessing'!
@@ -80,16 +77,6 @@ currentLineOrSelection
     ^editor somethingSelected
 		ifFalse: [self currentLine]
 		ifTrue: [self selection]
-!
-
-doItReaction
-
-	^ doItReaction ifNil:[self initializeDoItReaction]
-!
-
-doItReaction: aBlock
-
-	doItReaction := aBlock
 !
 
 model
@@ -152,11 +139,12 @@ clear
 doIt
 	| result |
 
-	result:=  model 
-    				doIt: self currentLineOrSelection 
-        			do: self doItReaction.
-        
 	self announcer announce: (HLDoItRequested on: model).
+
+	result:=  model doIt: self currentLineOrSelection.
+
+	self announcer announce: (HLDoItExecuted on: model).
+
 	^ result
 !
 
@@ -224,13 +212,6 @@ setEditorOn: aTextarea
                 matchBrackets: true,
                 electricChars: false
 	})>
-! !
-
-!HLCodeWidget methodsFor: 'initialization'!
-
-initializeDoItReaction
-
-	^ doItReaction := ["no-op"]
 ! !
 
 !HLCodeWidget methodsFor: 'reactions'!

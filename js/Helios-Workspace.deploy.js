@@ -18,15 +18,14 @@ return $1;
 smalltalk.HLCodeModel);
 
 smalltalk.addMethod(
-"_doIt_do_",
+"_doIt_",
 smalltalk.method({
-selector: "doIt:do:",
-fn: function (someCode,aReaction){
+selector: "doIt:",
+fn: function (someCode){
 var self=this;
-var result;
-result=smalltalk.send(smalltalk.send(self,"_environment",[]),"_eval_on_",[someCode,smalltalk.send(self,"_receiver",[])]);
-smalltalk.send(aReaction,"_value_",[result]);
-return result;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_environment",[]),"_eval_on_",[someCode,smalltalk.send(self,"_receiver",[])]);
+return $1;
 }
 }),
 smalltalk.HLCodeModel);
@@ -152,7 +151,7 @@ return $1;
 smalltalk.HLCodeModel.klass);
 
 
-smalltalk.addClass('HLCodeWidget', smalltalk.HLWidget, ['model', 'wrapper', 'code', 'editor', 'doItReaction'], 'Helios-Workspace');
+smalltalk.addClass('HLCodeWidget', smalltalk.HLWidget, ['model', 'wrapper', 'code', 'editor'], 'Helios-Workspace');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -215,38 +214,11 @@ selector: "doIt",
 fn: function (){
 var self=this;
 var result;
-result=smalltalk.send(self["@model"],"_doIt_do_",[smalltalk.send(self,"_currentLineOrSelection",[]),smalltalk.send(self,"_doItReaction",[])]);
 smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItRequested || HLDoItRequested),"_on_",[self["@model"]])]);
+result=smalltalk.send(self["@model"],"_doIt_",[smalltalk.send(self,"_currentLineOrSelection",[])]);
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLDoItExecuted || HLDoItExecuted),"_on_",[self["@model"]])]);
 return result;
 }
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_doItReaction",
-smalltalk.method({
-selector: "doItReaction",
-fn: function (){
-var self=this;
-var $1;
-if(($receiver = self["@doItReaction"]) == nil || $receiver == undefined){
-$1=smalltalk.send(self,"_initializeDoItReaction",[]);
-} else {
-$1=self["@doItReaction"];
-};
-return $1;
-}
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_doItReaction_",
-smalltalk.method({
-selector: "doItReaction:",
-fn: function (aBlock){
-var self=this;
-self["@doItReaction"]=aBlock;
-return self}
 }),
 smalltalk.HLCodeWidget);
 
@@ -269,21 +241,6 @@ fn: function (){
 var self=this;
 smalltalk.send(smalltalk.send(self,"_editor",[]),"_focus",[]);
 return self}
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_initializeDoItReaction",
-smalltalk.method({
-selector: "initializeDoItReaction",
-fn: function (){
-var self=this;
-var $1;
-self["@doItReaction"]=(function(){
-});
-$1=self["@doItReaction"];
-return $1;
-}
 }),
 smalltalk.HLCodeWidget);
 

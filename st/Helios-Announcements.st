@@ -28,6 +28,10 @@ on: aCodeModel
         yourself
 ! !
 
+HLCodeHandled subclass: #HLDoItExecuted
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLCodeHandled subclass: #HLDoItRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

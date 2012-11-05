@@ -66,14 +66,19 @@ ensureModel
 
 inspect: anObject
 
-	self model inspect: anObject on: self
+	self model inspect: anObject on: self.
+    
+	self 
+    	refreshVariables;
+		refreshDisplay;
+        yourself
 !
 
 makeCode
 
 	^ HLCodeWidget new
     	model: model code;
-		doItReaction: [self refresh];
+        receiver: model inspectee;
         yourself.
 !
 
@@ -92,6 +97,10 @@ makeVariables
 !
 
 observeCode
+
+	self code announcer 
+    	on: HLDoItExecuted 
+        do: [self onDoneIt]
 !
 
 observeVariables
@@ -112,10 +121,7 @@ open
 
 refresh
 
-	self 
-		inspect: self inspectee; 
-		refreshVariables;
-		refreshDisplay
+	self inspect: self inspectee
 !
 
 refreshDisplay
@@ -164,6 +170,11 @@ initializeVariables
 !HLInspector methodsFor: 'reactions'!
 
 onDoIt
+!
+
+onDoneIt
+
+	self refresh
 !
 
 onInspectIt
