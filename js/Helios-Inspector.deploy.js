@@ -279,12 +279,26 @@ $1=smalltalk.send(smalltalk.send(self,"_variables",[]),"_announcer",[]);
 smalltalk.send($1,"_on_do_",[(smalltalk.HLRefreshRequested || HLRefreshRequested),(function(ann){
 return smalltalk.send(self,"_onRefresh",[]);
 })]);
+smalltalk.send($1,"_on_do_",[(smalltalk.HLDiveRequested || HLDiveRequested),(function(){
+return smalltalk.send(self,"_onDive",[]);
+})]);
 $2=smalltalk.send($1,"_yourself",[]);
 $3=smalltalk.send(smalltalk.send(self,"_model",[]),"_announcer",[]);
 smalltalk.send($3,"_on_do_",[(smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected),(function(ann){
 return smalltalk.send(self,"_onInstanceVariableSelected",[]);
 })]);
 $4=smalltalk.send($3,"_yourself",[]);
+return self}
+}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+"_onDive",
+smalltalk.method({
+selector: "onDive",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_inspect_",[smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedInstVarObject",[])]);
 return self}
 }),
 smalltalk.HLInspector);
@@ -326,6 +340,7 @@ smalltalk.method({
 selector: "onInstanceVariableSelected",
 fn: function (){
 var self=this;
+smalltalk.send(smalltalk.send(self,"_code",[]),"_receiver_",[smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedInstVarObject",[])]);
 smalltalk.send(self,"_refreshDisplay",[]);
 return self}
 }),

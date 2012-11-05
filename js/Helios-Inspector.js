@@ -370,6 +370,9 @@ $1=smalltalk.send(smalltalk.send(self,"_variables",[]),"_announcer",[]);
 smalltalk.send($1,"_on_do_",[(smalltalk.HLRefreshRequested || HLRefreshRequested),(function(ann){
 return smalltalk.send(self,"_onRefresh",[]);
 })]);
+smalltalk.send($1,"_on_do_",[(smalltalk.HLDiveRequested || HLDiveRequested),(function(){
+return smalltalk.send(self,"_onDive",[]);
+})]);
 $2=smalltalk.send($1,"_yourself",[]);
 $3=smalltalk.send(smalltalk.send(self,"_model",[]),"_announcer",[]);
 smalltalk.send($3,"_on_do_",[(smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected),(function(ann){
@@ -378,9 +381,25 @@ return smalltalk.send(self,"_onInstanceVariableSelected",[]);
 $4=smalltalk.send($3,"_yourself",[]);
 return self},
 args: [],
-source: "observeVariables\x0a\x0a\x09self variables announcer \x0a    \x09on: HLRefreshRequested do:[:ann| self onRefresh];\x0a        yourself.\x0a\x0a\x09self model announcer\x0a        on: HLInstanceVariableSelected do:[:ann| self onInstanceVariableSelected];\x0a        yourself.\x0a        ",
-messageSends: ["on:do:", "onRefresh", "announcer", "variables", "yourself", "onInstanceVariableSelected", "model"],
-referencedClasses: ["HLRefreshRequested", "HLInstanceVariableSelected"]
+source: "observeVariables\x0a\x0a\x09self variables announcer \x0a    \x09on: HLRefreshRequested do:[:ann| self onRefresh];\x0a        on: HLDiveRequested do:[self onDive];\x0a        yourself.\x0a\x0a\x09self model announcer\x0a        on: HLInstanceVariableSelected do:[:ann| self onInstanceVariableSelected];\x0a        yourself.\x0a        ",
+messageSends: ["on:do:", "onRefresh", "announcer", "variables", "onDive", "yourself", "onInstanceVariableSelected", "model"],
+referencedClasses: ["HLRefreshRequested", "HLDiveRequested", "HLInstanceVariableSelected"]
+}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+"_onDive",
+smalltalk.method({
+selector: "onDive",
+category: 'reactions',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_inspect_",[smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedInstVarObject",[])]);
+return self},
+args: [],
+source: "onDive\x0a\x0a\x09self inspect: self model selectedInstVarObject",
+messageSends: ["inspect:", "selectedInstVarObject", "model"],
+referencedClasses: []
 }),
 smalltalk.HLInspector);
 
@@ -437,11 +456,12 @@ selector: "onInstanceVariableSelected",
 category: 'reactions',
 fn: function (){
 var self=this;
+smalltalk.send(smalltalk.send(self,"_code",[]),"_receiver_",[smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedInstVarObject",[])]);
 smalltalk.send(self,"_refreshDisplay",[]);
 return self},
 args: [],
-source: "onInstanceVariableSelected\x0a\x0a\x09self refreshDisplay",
-messageSends: ["refreshDisplay"],
+source: "onInstanceVariableSelected\x0a\x0a\x09self code receiver: self model selectedInstVarObject.\x0a\x09self refreshDisplay",
+messageSends: ["receiver:", "selectedInstVarObject", "model", "code", "refreshDisplay"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -1057,7 +1077,7 @@ var self=this;
 smalltalk.send(self,"_selection_",[anInstVarName]);
 return self},
 args: ["anInstVarName"],
-source: "selectedInstVar: anInstVarName\x0a\x0a    self selection: anInstVarName\x0a\x0a\x09\x22self selection: (self variables keyAtValue: anInstVarObject)\x22",
+source: "selectedInstVar: anInstVarName\x0a\x0a    self selection: anInstVarName",
 messageSends: ["selection:"],
 referencedClasses: []
 }),

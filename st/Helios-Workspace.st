@@ -158,19 +158,17 @@ focus
 
 inspectIt
 
-	| result newInspector |
-
-	result:=  self doIt.
+	| newInspector |
        
 	self announcer announce: (HLInspectItRequested on: model).
-	newInspector := self makeInspectorOn: result.
+	newInspector := self makeInspectorOn: self doIt.
 	newInspector open
 !
 
 makeInspectorOn: anObject
 
 	^ HLInspector new 
-		inspect: self;
+		inspect: anObject;
 		yourself
 !
 

@@ -107,6 +107,7 @@ observeVariables
 
 	self variables announcer 
     	on: HLRefreshRequested do:[:ann| self onRefresh];
+        on: HLDiveRequested do:[self onDive];
         yourself.
 
 	self model announcer
@@ -169,6 +170,11 @@ initializeVariables
 
 !HLInspector methodsFor: 'reactions'!
 
+onDive
+
+	self inspect: self model selectedInstVarObject
+!
+
 onDoIt
 !
 
@@ -182,6 +188,7 @@ onInspectIt
 
 onInstanceVariableSelected
 
+	self code receiver: self model selectedInstVarObject.
 	self refreshDisplay
 !
 
@@ -344,8 +351,6 @@ instVarObjectAt: anInstVarName
 selectedInstVar: anInstVarName
 
     self selection: anInstVarName
-
-	"self selection: (self variables keyAtValue: anInstVarObject)"
 !
 
 subscribe: aWidget

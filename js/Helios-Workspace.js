@@ -341,16 +341,14 @@ selector: "inspectIt",
 category: 'actions',
 fn: function (){
 var self=this;
-var result;
 var newInspector;
-result=smalltalk.send(self,"_doIt",[]);
 smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLInspectItRequested || HLInspectItRequested),"_on_",[self["@model"]])]);
-newInspector=smalltalk.send(self,"_makeInspectorOn_",[result]);
+newInspector=smalltalk.send(self,"_makeInspectorOn_",[smalltalk.send(self,"_doIt",[])]);
 smalltalk.send(newInspector,"_open",[]);
 return self},
 args: [],
-source: "inspectIt\x0a\x0a\x09| result newInspector |\x0a\x0a\x09result:=  self doIt.\x0a       \x0a\x09self announcer announce: (HLInspectItRequested on: model).\x0a\x09newInspector := self makeInspectorOn: result.\x0a\x09newInspector open",
-messageSends: ["doIt", "announce:", "on:", "announcer", "makeInspectorOn:", "open"],
+source: "inspectIt\x0a\x0a\x09| newInspector |\x0a       \x0a\x09self announcer announce: (HLInspectItRequested on: model).\x0a\x09newInspector := self makeInspectorOn: self doIt.\x0a\x09newInspector open",
+messageSends: ["announce:", "on:", "announcer", "makeInspectorOn:", "doIt", "open"],
 referencedClasses: ["HLInspectItRequested"]
 }),
 smalltalk.HLCodeWidget);
@@ -364,13 +362,13 @@ fn: function (anObject){
 var self=this;
 var $2,$3,$1;
 $2=smalltalk.send((smalltalk.HLInspector || HLInspector),"_new",[]);
-smalltalk.send($2,"_inspect_",[self]);
+smalltalk.send($2,"_inspect_",[anObject]);
 $3=smalltalk.send($2,"_yourself",[]);
 $1=$3;
 return $1;
 },
 args: ["anObject"],
-source: "makeInspectorOn: anObject\x0a\x0a\x09^ HLInspector new \x0a\x09\x09inspect: self;\x0a\x09\x09yourself",
+source: "makeInspectorOn: anObject\x0a\x0a\x09^ HLInspector new \x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
 messageSends: ["inspect:", "new", "yourself"],
 referencedClasses: ["HLInspector"]
 }),

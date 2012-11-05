@@ -250,11 +250,9 @@ smalltalk.method({
 selector: "inspectIt",
 fn: function (){
 var self=this;
-var result;
 var newInspector;
-result=smalltalk.send(self,"_doIt",[]);
 smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLInspectItRequested || HLInspectItRequested),"_on_",[self["@model"]])]);
-newInspector=smalltalk.send(self,"_makeInspectorOn_",[result]);
+newInspector=smalltalk.send(self,"_makeInspectorOn_",[smalltalk.send(self,"_doIt",[])]);
 smalltalk.send(newInspector,"_open",[]);
 return self}
 }),
@@ -268,7 +266,7 @@ fn: function (anObject){
 var self=this;
 var $2,$3,$1;
 $2=smalltalk.send((smalltalk.HLInspector || HLInspector),"_new",[]);
-smalltalk.send($2,"_inspect_",[self]);
+smalltalk.send($2,"_inspect_",[anObject]);
 $3=smalltalk.send($2,"_yourself",[]);
 $1=$3;
 return $1;
