@@ -1287,6 +1287,25 @@ referencedClasses: []
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
+"_initializeItems",
+smalltalk.method({
+selector: "initializeItems",
+category: 'initializing',
+fn: function (){
+var self=this;
+var $1;
+self["@items"]=[];
+$1=self["@items"];
+return $1;
+},
+args: [],
+source: "initializeItems\x0a\x09^ items := #()",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
@@ -1295,15 +1314,15 @@ fn: function (){
 var self=this;
 var $1;
 if(($receiver = self["@items"]) == nil || $receiver == undefined){
-$1=[];
+$1=smalltalk.send(self,"_initializeItems",[]);
 } else {
 $1=self["@items"];
 };
 return $1;
 },
 args: [],
-source: "items\x0a\x09^ items ifNil: [ #() ]",
-messageSends: ["ifNil:"],
+source: "items\x0a\x09^ items ifNil: [ self initializeItems ]",
+messageSends: ["ifNil:", "initializeItems"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

@@ -40,6 +40,10 @@ HLCodeHandled subclass: #HLPrintItRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLDiveRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLAnnouncement subclass: #HLItemSelected
 	instanceVariableNames: 'item'
 	package: 'Helios-Announcements'!
@@ -66,6 +70,10 @@ HLItemSelected subclass: #HLClassSelected
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLItemSelected subclass: #HLInstanceVariableSelected
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLItemSelected subclass: #HLMethodSelected
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
@@ -75,6 +83,10 @@ HLItemSelected subclass: #HLPackageSelected
 	package: 'Helios-Announcements'!
 
 HLItemSelected subclass: #HLProtocolSelected
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLRefreshRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 

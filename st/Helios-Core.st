@@ -445,7 +445,7 @@ iconForItem: anObject
 !
 
 items
-	^ items ifNil: [ #() ]
+	^ items ifNil: [ self initializeItems ]
 !
 
 items: aCollection
@@ -501,6 +501,12 @@ setupKeyBindings
           	next := selected next.
             (next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].
 			self activateListItem: next ] ]
+! !
+
+!HLListWidget methodsFor: 'initializing'!
+
+initializeItems
+	^ items := #()
 ! !
 
 !HLListWidget methodsFor: 'rendering'!

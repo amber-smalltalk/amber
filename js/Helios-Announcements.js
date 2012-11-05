@@ -67,6 +67,9 @@ smalltalk.addClass('HLInspectItRequested', smalltalk.HLCodeHandled, [], 'Helios-
 smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLItemSelected', smalltalk.HLAnnouncement, ['item'], 'Helios-Announcements');
 smalltalk.addMethod(
 "_item",
@@ -126,6 +129,9 @@ smalltalk.HLItemSelected.klass);
 smalltalk.addClass('HLClassSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLInstanceVariableSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLMethodSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
 
 
@@ -133,6 +139,9 @@ smalltalk.addClass('HLPackageSelected', smalltalk.HLItemSelected, [], 'Helios-An
 
 
 smalltalk.addClass('HLProtocolSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLRefreshRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
 smalltalk.addClass('HLShowCommentToggled', smalltalk.HLAnnouncement, [], 'Helios-Announcements');

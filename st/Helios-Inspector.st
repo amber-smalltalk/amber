@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Helios-Inspector' properties: #{}!
 HLWidget subclass: #HLInspector
-	instanceVariableNames: 'model variables display code'
+	instanceVariableNames: 'model variables display code label'
 	package: 'Helios-Inspector'!
 
 !HLInspector methodsFor: 'accessing'!
@@ -25,6 +25,11 @@ inspectee: anObject
 	self model inspectee: anObject
 !
 
+label
+	
+    ^ label ifNil:[self initializeLabel]
+!
+
 model
 
 	^ model ifNil:[self initializeModel]
@@ -40,7 +45,7 @@ model: aModel
 
 tabLabel
 	
-    ^ model inspectee printString
+    ^ self label
 !
 
 variables
@@ -54,12 +59,13 @@ ensureModel
 	"Sends the #model: initialization message if needed."
 
 	model ifNil:[
-		self model: self model]
+		self model: self model.
+		self observeVariables]
 !
 
 inspect: anObject
 
-	self model inspectee: anObject
+	self model inspect: anObject on: self
 !
 
 makeCode
@@ -87,6 +93,14 @@ makeVariables
 observeCode
 !
 
+observeVariables
+
+	self variables announcer 
+    	on: HLRefreshRequested do:[:ann| self onRefresh];
+        on: HLInstanceVariableSelected do:[:ann| self onInstanceVariableSelected];
+        yourself
+!
+
 open
 
 	HLManager current addTab: (HLTab on: self labelled: self tabLabel)
@@ -96,8 +110,27 @@ refresh
 
 	self 
 		inspect: self inspectee; 
-		updateVariablesList;
-		updateValueTextarea
+		refreshVariables;
+		refreshDisplay
+!
+
+refreshDisplay
+
+	self display refresh
+!
+
+refreshVariables
+
+	self variables refresh
+!
+
+setLabel: aString
+	label := aString
+!
+
+setVariables: aDictionary
+
+	self model variables: aDictionary
 ! !
 
 !HLInspector methodsFor: 'initialization'!
@@ -109,6 +142,10 @@ initializeCode
 
 initializeDisplay
 	^ display := self makeDisplay
+!
+
+initializeLabel
+	^ label := model inspectee printString
 !
 
 initializeModel
@@ -128,7 +165,17 @@ onDoIt
 onInspectIt
 !
 
+onInstanceVariableSelected
+
+	self halt.
+!
+
 onPrintIt
+!
+
+onRefresh
+
+	self refresh
 ! !
 
 !HLInspector methodsFor: 'rendering'!
@@ -180,7 +227,7 @@ model: aModel
 
 renderContentOn: html
 	
-    html div with: 'display'
+    html div with: model selection printString
 ! !
 
 Object subclass: #HLInspectorModel
@@ -224,6 +271,16 @@ selection
 selection: anObject
 
 	selection := anObject
+!
+
+variables
+
+	^ variables
+!
+
+variables: aCollection
+
+	variables := aCollection
 ! !
 
 !HLInspectorModel methodsFor: 'actions'!
@@ -240,6 +297,13 @@ beRemoteOn: anIPAddress port: aPort
     "environment := HLRemoteEnvironment on: anIPAddress port: aPort
     
     ...kind of stuff"
+!
+
+inspect: anObject on: anInspector
+
+	inspectee := anObject.
+	variables := #().
+	inspectee inspectOn: anInspector
 !
 
 subscribe: aWidget
@@ -299,10 +363,15 @@ on: anEnvironment
 ! !
 
 HLNavigationListWidget subclass: #HLInspectorVariables
-	instanceVariableNames: 'model'
+	instanceVariableNames: 'announcer model list diveButton'
 	package: 'Helios-Inspector'!
 
 !HLInspectorVariables methodsFor: 'accessing'!
+
+announcer
+
+	^ announcer ifNil:[self initializeAnnouncer]
+!
 
 model
 	
@@ -312,12 +381,55 @@ model
 model: aModel
 	
     model := aModel
+!
+
+selection
+
+	^ model selection
+!
+
+variables
+
+	^ model variables
+! !
+
+!HLInspectorVariables methodsFor: 'actions'!
+
+refresh
+
+	self resetItems.
+    
+    super refresh
+!
+
+resetItems
+
+	items := nil
+! !
+
+!HLInspectorVariables methodsFor: 'initialization'!
+
+initializeAnnouncer
+
+	^ announcer := Announcer new
+!
+
+initializeItems
+	^ items := self model variables keys
 ! !
 
 !HLInspectorVariables methodsFor: 'rendering'!
 
-renderContentOn: html
-	
-    html div with: 'variables'
+renderButtonsOn: html
+
+	html button
+			class: 'btn';
+			with: 'Refresh';
+			onClick: [self announcer announce: HLRefreshRequested new].
+
+	diveButton := html button 
+				class: 'btn';
+				with: 'Dive'; 
+				onClick: [self announcer announce: HLDiveRequested new]
 ! !
 

@@ -950,6 +950,20 @@ return "";
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
+"_initializeItems",
+smalltalk.method({
+selector: "initializeItems",
+fn: function (){
+var self=this;
+var $1;
+self["@items"]=[];
+$1=self["@items"];
+return $1;
+}
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
@@ -957,7 +971,7 @@ fn: function (){
 var self=this;
 var $1;
 if(($receiver = self["@items"]) == nil || $receiver == undefined){
-$1=[];
+$1=smalltalk.send(self,"_initializeItems",[]);
 } else {
 $1=self["@items"];
 };
