@@ -1751,6 +1751,28 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
+"_keyAtValue_",
+smalltalk.method({
+selector: "keyAtValue:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_associations",[]),"_detect_ifNone_",[(function(k,v){
+return smalltalk.send(v,"__eq_eq",[anObject]);
+}),(function(){
+return smalltalk.send(self,"_error_",["Not found"]);
+})]),"_key",[]);
+return $1;
+},
+args: ["anObject"],
+source: "keyAtValue: anObject\x0a\x0a\x09^ (self associations \x0a    \x09detect:[:k :v| v == anObject] \x0a    \x09ifNone:[self error: 'Not found']) key",
+messageSends: ["key", "detect:ifNone:", "==", "error:", "associations"],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
 "_keys",
 smalltalk.method({
 selector: "keys",
@@ -1791,6 +1813,24 @@ return self},
 args: ["aKey", "aBlock"],
 source: "removeKey: aKey ifAbsent: aBlock\x0a    <\x0a            var index = self['@keys'].indexOf(aKey);\x0a            if(index === -1) {\x0a                return aBlock()\x0a            } else {\x0a                var value;\x0a                self['@keys'].splice(index, 1);\x0a                value = self['@values'].splice(index, 1);\x0a                return value[0];\x0a            };\x0a    >",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+"_valueAt_",
+smalltalk.method({
+selector: "valueAt:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_associationsDo_",[(2)]);
+return $1;
+},
+args: ["anObject"],
+source: "valueAt: anObject\x0a\x0a\x09^ self associationsDo:2",
+messageSends: ["associationsDo:"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);

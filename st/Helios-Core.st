@@ -1,4 +1,101 @@
 Smalltalk current createPackage: 'Helios-Core' properties: #{}!
+Object subclass: #HLEnvironment
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLEnvironment commentStamp!
+Abstract class defining common behavior for local and remote environments!
+
+!HLEnvironment methodsFor: 'accessing'!
+
+packages
+
+	^ self subclassResponsibility
+! !
+
+!HLEnvironment methodsFor: 'actions'!
+
+eval: someCode on: aReceiver
+
+	^ self subclassResponsibility
+! !
+
+HLEnvironment subclass: #HLLocalEnvironment
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLLocalEnvironment methodsFor: 'accessing'!
+
+packages
+
+	^ Smalltalk current packages
+! !
+
+!HLLocalEnvironment methodsFor: 'actions'!
+
+eval: someCode on: aReceiver
+	| compiler  |
+	compiler := Compiler new.
+	[compiler parseExpression: someCode] on: Error do: [:ex |
+		^window alert: ex messageText].
+	^(compiler eval: (compiler compile: 'doIt ^[', someCode, '] value' forClass: DoIt)) fn applyTo: aReceiver arguments: #()
+! !
+
+HLEnvironment subclass: #HLRemoteEnvironment
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
+!HLRemoteEnvironment methodsFor: 'accessing'!
+
+packages
+	"Answer the remote environment's packages"
+  
+	"to-do"
+    
+    "Note for future self and friends:
+    the problem with remote stuff is that the answers shouldn't be expected to be
+    received in a syncrhonous fashion. Everything network is asyc, so you *are going to deal with callbacks* here"
+! !
+
+!HLRemoteEnvironment methodsFor: 'actions'!
+
+eval: someCode on: aReceiver
+
+	"Note for future self and friends:
+    whatever way this compilation happens on the other side, 
+    it should return a proxy to the remote resulting object"
+    
+    self notYetImplemented
+! !
+
+Object subclass: #HLRemoteObject
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLRemoteObject commentStamp!
+This is a local proxy to a remote object.
+Tipically useful for evaluating and inspecting and interacting with instances of a remote VM.!
+
+!HLRemoteObject methodsFor: 'actions'!
+
+doesNotUnderstand: aMessage
+
+	"to-do
+
+	aham, blah blah
+
+	super doesNotUnderstand: aMessage"
+!
+
+inspectOn: anInspector
+
+	"to-do"
+
+	"this is a source of so much fun..."
+!
+
+printString
+	^ 'this is a remote object'
+! !
+
 Widget subclass: #HLSourceArea
 	instanceVariableNames: 'editor textarea div receiver onDoIt'
 	package: 'Helios-Core'!
@@ -348,7 +445,7 @@ iconForItem: anObject
 !
 
 items
-	^ items ifNil: [ #() ]
+	^ items ifNil: [ self initializeItems ]
 !
 
 items: aCollection
@@ -404,6 +501,12 @@ setupKeyBindings
           	next := selected next.
             (next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].
 			self activateListItem: next ] ]
+! !
+
+!HLListWidget methodsFor: 'initializing'!
+
+initializeItems
+	^ items := #()
 ! !
 
 !HLListWidget methodsFor: 'rendering'!
@@ -491,10 +594,6 @@ setupKeyBindings
 		e which = 37 ifTrue: [ 
         	self previousFocus ] ]
 ! !
-
-HLWidget subclass: #HLInspector
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
 
 HLWidget subclass: #HLManager
 	instanceVariableNames: 'tabs activeTab keyBinder'
@@ -665,26 +764,6 @@ tabPriority
 ! !
 
 !HLTranscript class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ true
-! !
-
-HLWidget subclass: #HLWorkspace
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
-!HLWorkspace class methodsFor: 'accessing'!
-
-tabLabel
-	^ 'Workspace'
-!
-
-tabPriority
-	^ 10
-! !
-
-!HLWorkspace class methodsFor: 'testing'!
 
 canBeOpenAsTab
 	^ true

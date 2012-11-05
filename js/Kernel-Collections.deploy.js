@@ -1315,6 +1315,23 @@ return self}
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
+"_keyAtValue_",
+smalltalk.method({
+selector: "keyAtValue:",
+fn: function (anObject){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_associations",[]),"_detect_ifNone_",[(function(k,v){
+return smalltalk.send(v,"__eq_eq",[anObject]);
+}),(function(){
+return smalltalk.send(self,"_error_",["Not found"]);
+})]),"_key",[]);
+return $1;
+}
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
 "_keys",
 smalltalk.method({
 selector: "keys",
@@ -1346,6 +1363,19 @@ var self=this;
     ;
 ;
 return self}
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+"_valueAt_",
+smalltalk.method({
+selector: "valueAt:",
+fn: function (anObject){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_associationsDo_",[(2)]);
+return $1;
+}
 }),
 smalltalk.Dictionary);
 

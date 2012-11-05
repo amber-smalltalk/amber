@@ -966,19 +966,39 @@ fn: function () {
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_beLocal",
+smalltalk.method({
+selector: "beLocal",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initializeEnvironment",[]);
+return self}
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_beRemoteOn_port_",
+smalltalk.method({
+selector: "beRemoteOn:port:",
+fn: function (anIPAddress,aPort){
+var self=this;
+return self}
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_environment",
 smalltalk.method({
 selector: "environment",
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@environment']) == nil || $receiver == undefined) {
-        self['@environment'] = smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []);
-        $1 = self['@environment'];
-    } else {
-        $1 = self['@environment'];
-    }
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@environment"]) == nil || $receiver == undefined){
+$1=smalltalk.send(self,"_initializeEnvironment",[]);
+} else {
+$1=self["@environment"];
+};
+return $1;
 }
 }),
 smalltalk.HLBrowserModel);
@@ -991,6 +1011,20 @@ fn: function (anEnvironment) {
     var self = this;
     self['@environment'] = anEnvironment;
     return self;
+}
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_initializeEnvironment",
+smalltalk.method({
+selector: "initializeEnvironment",
+fn: function (){
+var self=this;
+var $1;
+self["@environment"]=smalltalk.send((smalltalk.HLLocalEnvironment || HLLocalEnvironment),"_new",[]);
+$1=self["@environment"];
+return $1;
 }
 }),
 smalltalk.HLBrowserModel);
@@ -1220,6 +1254,22 @@ fn: function (aWidget) {
 }),
 smalltalk.HLBrowserModel);
 
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (anEnvironment){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send(self,"_new",[]);
+smalltalk.send($2,"_environment_",[anEnvironment]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+}
+}),
+smalltalk.HLBrowserModel.klass);
 
 
 smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'sourceArea'], 'Helios-Browser');
