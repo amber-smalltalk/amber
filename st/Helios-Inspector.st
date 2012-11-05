@@ -58,9 +58,10 @@ variables
 ensureModel
 	"Sends the #model: initialization message if needed."
 
+	self observeVariables.
+        
 	model ifNil:[
-		self model: self model.
-		self observeVariables]
+		self model: self model]
 !
 
 inspect: anObject
@@ -97,8 +98,11 @@ observeVariables
 
 	self variables announcer 
     	on: HLRefreshRequested do:[:ann| self onRefresh];
+        yourself.
+
+	self model announcer
         on: HLInstanceVariableSelected do:[:ann| self onInstanceVariableSelected];
-        yourself
+        yourself.
 !
 
 open
@@ -167,7 +171,7 @@ onInspectIt
 
 onInstanceVariableSelected
 
-	self halt.
+	self refreshDisplay
 !
 
 onPrintIt
@@ -227,7 +231,7 @@ model: aModel
 
 renderContentOn: html
 	
-    html div with: model selection printString
+    html div with: model selectedInstVarObject printString
 ! !
 
 Object subclass: #HLInspectorModel
@@ -263,6 +267,11 @@ inspectee: anObject
 	inspectee := anObject
 !
 
+selectedInstVarObject
+
+	^ self instVarObjectAt: self selection
+!
+
 selection
 
 	^ selection ifNil:[self initializeSelection]
@@ -270,7 +279,9 @@ selection
 
 selection: anObject
 
-	selection := anObject
+	selection := anObject.
+
+	self announcer announce: (HLInstanceVariableSelected on: selection)
 !
 
 variables
@@ -304,6 +315,16 @@ inspect: anObject on: anInspector
 	inspectee := anObject.
 	variables := #().
 	inspectee inspectOn: anInspector
+!
+
+instVarObjectAt: anInstVarName
+
+	^ self variables at: anInstVarName
+!
+
+selectedInstVar: anInstVarObject
+    self halt.
+	self selection: (self variables keyAtValue: anInstVarObject)
 !
 
 subscribe: aWidget
@@ -416,6 +437,15 @@ initializeAnnouncer
 
 initializeItems
 	^ items := self model variables keys
+! !
+
+!HLInspectorVariables methodsFor: 'reactions'!
+
+selectItem: anObject
+
+	super selectItem: anObject.
+    
+    self model selectedInstVar: anObject
 ! !
 
 !HLInspectorVariables methodsFor: 'rendering'!

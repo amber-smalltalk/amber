@@ -40,9 +40,9 @@ smalltalk.method({
 selector: "ensureModel",
 fn: function (){
 var self=this;
+smalltalk.send(self,"_observeVariables",[]);
 if(($receiver = self["@model"]) == nil || $receiver == undefined){
 smalltalk.send(self,"_model_",[smalltalk.send(self,"_model",[])]);
-smalltalk.send(self,"_observeVariables",[]);
 } else {
 self["@model"];
 };
@@ -269,15 +269,17 @@ smalltalk.method({
 selector: "observeVariables",
 fn: function (){
 var self=this;
-var $1,$2;
+var $1,$2,$3,$4;
 $1=smalltalk.send(smalltalk.send(self,"_variables",[]),"_announcer",[]);
 smalltalk.send($1,"_on_do_",[(smalltalk.HLRefreshRequested || HLRefreshRequested),(function(ann){
 return smalltalk.send(self,"_onRefresh",[]);
 })]);
-smalltalk.send($1,"_on_do_",[(smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected),(function(ann){
+$2=smalltalk.send($1,"_yourself",[]);
+$3=smalltalk.send(smalltalk.send(self,"_model",[]),"_announcer",[]);
+smalltalk.send($3,"_on_do_",[(smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected),(function(ann){
 return smalltalk.send(self,"_onInstanceVariableSelected",[]);
 })]);
-$2=smalltalk.send($1,"_yourself",[]);
+$4=smalltalk.send($3,"_yourself",[]);
 return self}
 }),
 smalltalk.HLInspector);
@@ -308,7 +310,7 @@ smalltalk.method({
 selector: "onInstanceVariableSelected",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_halt",[]);
+smalltalk.send(self,"_refreshDisplay",[]);
 return self}
 }),
 smalltalk.HLInspector);
@@ -509,7 +511,7 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(html,"_div",[]),"_with_",[smalltalk.send(smalltalk.send(self["@model"],"_selection",[]),"_printString",[])]);
+smalltalk.send(smalltalk.send(html,"_div",[]),"_with_",[smalltalk.send(smalltalk.send(self["@model"],"_selectedInstVarObject",[]),"_printString",[])]);
 return self}
 }),
 smalltalk.HLInspectorDisplay);
@@ -692,6 +694,19 @@ return self}
 smalltalk.HLInspectorModel);
 
 smalltalk.addMethod(
+"_instVarObjectAt_",
+smalltalk.method({
+selector: "instVarObjectAt:",
+fn: function (anInstVarName){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_variables",[]),"_at_",[anInstVarName]);
+return $1;
+}
+}),
+smalltalk.HLInspectorModel);
+
+smalltalk.addMethod(
 "_onKeyDown_",
 smalltalk.method({
 selector: "onKeyDown:",
@@ -720,6 +735,31 @@ return self}
 smalltalk.HLInspectorModel);
 
 smalltalk.addMethod(
+"_selectedInstVar_",
+smalltalk.method({
+selector: "selectedInstVar:",
+fn: function (anInstVarObject){
+var self=this;
+smalltalk.send(self,"_halt",[]);
+smalltalk.send(self,"_selection_",[smalltalk.send(smalltalk.send(self,"_variables",[]),"_keyAtValue_",[anInstVarObject])]);
+return self}
+}),
+smalltalk.HLInspectorModel);
+
+smalltalk.addMethod(
+"_selectedInstVarObject",
+smalltalk.method({
+selector: "selectedInstVarObject",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_instVarObjectAt_",[smalltalk.send(self,"_selection",[])]);
+return $1;
+}
+}),
+smalltalk.HLInspectorModel);
+
+smalltalk.addMethod(
 "_selection",
 smalltalk.method({
 selector: "selection",
@@ -743,6 +783,7 @@ selector: "selection:",
 fn: function (anObject){
 var self=this;
 self["@selection"]=anObject;
+smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected),"_on_",[self["@selection"]])]);
 return self}
 }),
 smalltalk.HLInspectorModel);
@@ -909,6 +950,18 @@ selector: "resetItems",
 fn: function (){
 var self=this;
 self["@items"]=nil;
+return self}
+}),
+smalltalk.HLInspectorVariables);
+
+smalltalk.addMethod(
+"_selectItem_",
+smalltalk.method({
+selector: "selectItem:",
+fn: function (anObject){
+var self=this;
+smalltalk.send(self,"_selectItem_",[anObject],smalltalk.HLNavigationListWidget);
+smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedInstVar_",[anObject]);
 return self}
 }),
 smalltalk.HLInspectorVariables);

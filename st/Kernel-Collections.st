@@ -570,8 +570,20 @@ at: aKey put: aValue
 	>
 !
 
+keyAtValue: anObject
+
+	^ (self associations 
+    	detect:[:k :v| v == anObject] 
+    	ifNone:[self error: 'Not found']) key
+!
+
 keys
 	^keys copy
+!
+
+valueAt: anObject
+
+	^ self associationsDo:2
 !
 
 values
