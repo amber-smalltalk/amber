@@ -702,11 +702,36 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(html,"_div",[]),"_with_",[smalltalk.send(smalltalk.send(self["@model"],"_selectedInstVarObject",[]),"_printString",[])]);
+smalltalk.send(smalltalk.send(html,"_div",[]),"_with_",[smalltalk.send(self,"_selectionDisplayString",[])]);
 return self},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09\x0a    html div with: model selectedInstVarObject printString\x0a    ",
-messageSends: ["with:", "printString", "selectedInstVarObject", "div"],
+source: "renderContentOn: html\x0a\x09\x0a    html div with: self selectionDisplayString\x0a    ",
+messageSends: ["with:", "selectionDisplayString", "div"],
+referencedClasses: []
+}),
+smalltalk.HLInspectorDisplay);
+
+smalltalk.addMethod(
+"_selectionDisplayString",
+smalltalk.method({
+selector: "selectionDisplayString",
+category: 'rendering',
+fn: function (){
+var self=this;
+var $2,$1;
+var selection;
+selection=smalltalk.send(self["@model"],"_selection",[]);
+$2=smalltalk.send(smalltalk.send(smalltalk.send(self["@model"],"_variables",[]),"_keys",[]),"_includes_",[selection]);
+if(smalltalk.assert($2)){
+$1=smalltalk.send(smalltalk.send(self["@model"],"_instVarObjectAt_",[selection]),"_printString",[]);
+} else {
+$1="";
+};
+return $1;
+},
+args: [],
+source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables keys includes: selection)\x0a    \x09ifTrue:[(model instVarObjectAt: selection) printString]\x0a      \x09ifFalse:['']",
+messageSends: ["selection", "ifTrue:ifFalse:", "printString", "instVarObjectAt:", "includes:", "keys", "variables"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorDisplay);
@@ -892,13 +917,13 @@ category: 'initialization',
 fn: function (){
 var self=this;
 var $1;
-self["@selection"]=smalltalk.send(self,"_inspectee",[]);
+self["@selection"]="";
 $1=self["@selection"];
 return $1;
 },
 args: [],
-source: "initializeSelection\x0a\x0a\x09^ selection := self inspectee",
-messageSends: ["inspectee"],
+source: "initializeSelection\x0a\x0a\x09^ selection := ''",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLInspectorModel);
@@ -1009,14 +1034,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedInstVar:",
 category: 'actions',
-fn: function (anInstVarObject){
+fn: function (anInstVarName){
 var self=this;
-smalltalk.send(self,"_halt",[]);
-smalltalk.send(self,"_selection_",[smalltalk.send(smalltalk.send(self,"_variables",[]),"_keyAtValue_",[anInstVarObject])]);
+smalltalk.send(self,"_selection_",[anInstVarName]);
 return self},
-args: ["anInstVarObject"],
-source: "selectedInstVar: anInstVarObject\x0a    self halt.\x0a\x09self selection: (self variables keyAtValue: anInstVarObject)",
-messageSends: ["halt", "selection:", "keyAtValue:", "variables"],
+args: ["anInstVarName"],
+source: "selectedInstVar: anInstVarName\x0a\x0a    self selection: anInstVarName\x0a\x0a\x09\x22self selection: (self variables keyAtValue: anInstVarObject)\x22",
+messageSends: ["selection:"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorModel);
@@ -1315,7 +1339,7 @@ smalltalk.send(self,"_selectItem_",[anObject],smalltalk.HLNavigationListWidget);
 smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedInstVar_",[anObject]);
 return self},
 args: ["anObject"],
-source: "selectItem: anObject\x0a\x0a\x09super selectItem: anObject.\x0a    \x0a    self model selectedInstVar: anObject",
+source: "selectItem: anObject\x0a\x09   \x0a\x09super selectItem: anObject.\x0a    \x0a    self model selectedInstVar: anObject",
 messageSends: ["selectItem:", "selectedInstVar:", "model"],
 referencedClasses: []
 }),

@@ -231,7 +231,15 @@ model: aModel
 
 renderContentOn: html
 	
-    html div with: model selectedInstVarObject printString
+    html div with: self selectionDisplayString
+!
+
+selectionDisplayString
+	|selection|
+	selection := model selection.
+    ^ (model variables keys includes: selection)
+    	ifTrue:[(model instVarObjectAt: selection) printString]
+      	ifFalse:['']
 ! !
 
 Object subclass: #HLInspectorModel
@@ -322,9 +330,11 @@ instVarObjectAt: anInstVarName
 	^ self variables at: anInstVarName
 !
 
-selectedInstVar: anInstVarObject
-    self halt.
-	self selection: (self variables keyAtValue: anInstVarObject)
+selectedInstVar: anInstVarName
+
+    self selection: anInstVarName
+
+	"self selection: (self variables keyAtValue: anInstVarObject)"
 !
 
 subscribe: aWidget
@@ -348,7 +358,7 @@ initializeEnvironment
 
 initializeSelection
 
-	^ selection := self inspectee
+	^ selection := ''
 ! !
 
 !HLInspectorModel methodsFor: 'reactions'!
@@ -442,7 +452,7 @@ initializeItems
 !HLInspectorVariables methodsFor: 'reactions'!
 
 selectItem: anObject
-
+	   
 	super selectItem: anObject.
     
     self model selectedInstVar: anObject

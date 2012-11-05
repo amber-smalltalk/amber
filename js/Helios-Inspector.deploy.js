@@ -511,8 +511,28 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-smalltalk.send(smalltalk.send(html,"_div",[]),"_with_",[smalltalk.send(smalltalk.send(self["@model"],"_selectedInstVarObject",[]),"_printString",[])]);
+smalltalk.send(smalltalk.send(html,"_div",[]),"_with_",[smalltalk.send(self,"_selectionDisplayString",[])]);
 return self}
+}),
+smalltalk.HLInspectorDisplay);
+
+smalltalk.addMethod(
+"_selectionDisplayString",
+smalltalk.method({
+selector: "selectionDisplayString",
+fn: function (){
+var self=this;
+var $2,$1;
+var selection;
+selection=smalltalk.send(self["@model"],"_selection",[]);
+$2=smalltalk.send(smalltalk.send(smalltalk.send(self["@model"],"_variables",[]),"_keys",[]),"_includes_",[selection]);
+if(smalltalk.assert($2)){
+$1=smalltalk.send(smalltalk.send(self["@model"],"_instVarObjectAt_",[selection]),"_printString",[]);
+} else {
+$1="";
+};
+return $1;
+}
 }),
 smalltalk.HLInspectorDisplay);
 
@@ -651,7 +671,7 @@ selector: "initializeSelection",
 fn: function (){
 var self=this;
 var $1;
-self["@selection"]=smalltalk.send(self,"_inspectee",[]);
+self["@selection"]="";
 $1=self["@selection"];
 return $1;
 }
@@ -738,10 +758,9 @@ smalltalk.addMethod(
 "_selectedInstVar_",
 smalltalk.method({
 selector: "selectedInstVar:",
-fn: function (anInstVarObject){
+fn: function (anInstVarName){
 var self=this;
-smalltalk.send(self,"_halt",[]);
-smalltalk.send(self,"_selection_",[smalltalk.send(smalltalk.send(self,"_variables",[]),"_keyAtValue_",[anInstVarObject])]);
+smalltalk.send(self,"_selection_",[anInstVarName]);
 return self}
 }),
 smalltalk.HLInspectorModel);
