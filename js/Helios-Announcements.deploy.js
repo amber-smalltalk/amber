@@ -7,9 +7,9 @@ smalltalk.addMethod(
 "_code",
 smalltalk.method({
 selector: "code",
-fn: function (){
-var self=this;
-return self["@code"];
+fn: function () {
+    var self = this;
+    return self['@code'];
 }
 }),
 smalltalk.HLCodeHandled);
@@ -18,10 +18,11 @@ smalltalk.addMethod(
 "_code_",
 smalltalk.method({
 selector: "code:",
-fn: function (aModel){
-var self=this;
-self["@code"]=aModel;
-return self}
+fn: function (aModel) {
+    var self = this;
+    self['@code'] = aModel;
+    return self;
+}
 }),
 smalltalk.HLCodeHandled);
 
@@ -30,14 +31,14 @@ smalltalk.addMethod(
 "_on_",
 smalltalk.method({
 selector: "on:",
-fn: function (aCodeModel){
-var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(self,"_new",[]);
-smalltalk.send($2,"_code_",[aCodeModel]);
-$3=smalltalk.send($2,"_yourself",[]);
-$1=$3;
-return $1;
+fn: function (aCodeModel) {
+    var self = this;
+    var $2, $3, $1;
+    $2 = smalltalk.send(self, "_new", []);
+    smalltalk.send($2, "_code_", [aCodeModel]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 }
 }),
 smalltalk.HLCodeHandled.klass);
@@ -63,9 +64,9 @@ smalltalk.addMethod(
 "_item",
 smalltalk.method({
 selector: "item",
-fn: function (){
-var self=this;
-return self["@item"];
+fn: function () {
+    var self = this;
+    return self['@item'];
 }
 }),
 smalltalk.HLItemSelected);
@@ -74,10 +75,11 @@ smalltalk.addMethod(
 "_item_",
 smalltalk.method({
 selector: "item:",
-fn: function (anObject){
-var self=this;
-self["@item"]=anObject;
-return self}
+fn: function (anObject) {
+    var self = this;
+    self['@item'] = anObject;
+    return self;
+}
 }),
 smalltalk.HLItemSelected);
 
@@ -86,14 +88,14 @@ smalltalk.addMethod(
 "_on_",
 smalltalk.method({
 selector: "on:",
-fn: function (anItem){
-var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(self,"_new",[]);
-smalltalk.send($2,"_item_",[anItem]);
-$3=smalltalk.send($2,"_yourself",[]);
-$1=$3;
-return $1;
+fn: function (anItem) {
+    var self = this;
+    var $2, $3, $1;
+    $2 = smalltalk.send(self, "_new", []);
+    smalltalk.send($2, "_item_", [anItem]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 }
 }),
 smalltalk.HLItemSelected.klass);

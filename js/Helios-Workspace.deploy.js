@@ -8,10 +8,24 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@announcer']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeAnnouncer", []);
+        self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
+        $1 = self['@announcer'];
     } else {
         $1 = self['@announcer'];
     }
+    return $1;
+}
+}),
+smalltalk.HLCodeModel);
+
+smalltalk.addMethod(
+"_defaultReceiver",
+smalltalk.method({
+selector: "defaultReceiver",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.DoIt || DoIt, "_new", []);
     return $1;
 }
 }),
@@ -38,7 +52,7 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@environment']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeEnvironment", []);
+        $1 = smalltalk.send(smalltalk.send(smalltalk.HLManager || HLManager, "_current", []), "_environment", []);
     } else {
         $1 = self['@environment'];
     }
@@ -60,54 +74,19 @@ fn: function (anEnvironment) {
 smalltalk.HLCodeModel);
 
 smalltalk.addMethod(
-"_initializeAnnouncer",
-smalltalk.method({
-selector: "initializeAnnouncer",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
-    $1 = self['@announcer'];
-    return $1;
-}
-}),
-smalltalk.HLCodeModel);
-
-smalltalk.addMethod(
-"_initializeEnvironment",
-smalltalk.method({
-selector: "initializeEnvironment",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@environment'] = smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []);
-    $1 = self['@environment'];
-    return $1;
-}
-}),
-smalltalk.HLCodeModel);
-
-smalltalk.addMethod(
-"_initializeReceiver",
-smalltalk.method({
-selector: "initializeReceiver",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@receiver'] = smalltalk.send(smalltalk.DoIt || DoIt, "_new", []);
-    $1 = self['@receiver'];
-    return $1;
-}
-}),
-smalltalk.HLCodeModel);
-
-smalltalk.addMethod(
 "_receiver",
 smalltalk.method({
 selector: "receiver",
 fn: function () {
     var self = this;
-    return self['@receiver'];
+    var $1;
+    if (($receiver = self['@receiver']) == nil || $receiver == undefined) {
+        self['@receiver'] = smalltalk.send(self, "_defaultReceiver", []);
+        $1 = self['@receiver'];
+    } else {
+        $1 = self['@receiver'];
+    }
+    return $1;
 }
 }),
 smalltalk.HLCodeModel);
@@ -176,6 +155,32 @@ fn: function () {
     var self = this;
     smalltalk.send(self, "_val_", [""]);
     return self;
+}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_contents",
+smalltalk.method({
+selector: "contents",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@editor'], "_getValue", []);
+    return $1;
+}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_contents_",
+smalltalk.method({
+selector: "contents:",
+fn: function (aString) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@editor'], "_setValue_", [aString]);
+    return $1;
 }
 }),
 smalltalk.HLCodeWidget);
@@ -286,7 +291,14 @@ smalltalk.method({
 selector: "model",
 fn: function () {
     var self = this;
-    return self['@model'];
+    var $1;
+    if (($receiver = self['@model']) == nil || $receiver == undefined) {
+        self['@model'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_new", []);
+        $1 = self['@model'];
+    } else {
+        $1 = self['@model'];
+    }
+    return $1;
 }
 }),
 smalltalk.HLCodeWidget);
@@ -443,13 +455,28 @@ fn: function (anObject) {
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_renderContentOn_",
+smalltalk.method({
+selector: "renderContentOn:",
+fn: function (html) {
+    var self = this;
+    self['@code'] = smalltalk.send(html, "_textarea", []);
+    smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@code'], "_element", [])]);
+    smalltalk.send(self, "_observeWrapper", []);
+    return self;
+}
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_renderOn_",
 smalltalk.method({
 selector: "renderOn:",
 fn: function (html) {
     var self = this;
     self['@wrapper'] = smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["code"]);
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_observeWrapper", []), "_wrapper", []), "_with_", [function () {self['@code'] = smalltalk.send(html, "_textarea", []);return self['@code'];}]);
+    smalltalk.send(self, "_observeWrapper", []);
+    smalltalk.send(self['@wrapper'], "_with_", [function () {self['@code'] = smalltalk.send(html, "_textarea", []);return self['@code'];}]);
     smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@code'], "_element", [])]);
     return self;
 }
@@ -556,92 +583,25 @@ fn: function (aString) {
 }),
 smalltalk.HLCodeWidget);
 
+
+
+smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['model', 'codeWidget'], 'Helios-Workspace');
 smalltalk.addMethod(
-"_wrapper",
+"_codeWidget",
 smalltalk.method({
-selector: "wrapper",
-fn: function () {
-    var self = this;
-    return self['@wrapper'];
-}
-}),
-smalltalk.HLCodeWidget);
-
-
-
-smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['model', 'code'], 'Helios-Workspace');
-smalltalk.addMethod(
-"_code",
-smalltalk.method({
-selector: "code",
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@code']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeCode", []);
-    } else {
-        $1 = self['@code'];
-    }
-    return $1;
-}
-}),
-smalltalk.HLWorkspace);
-
-smalltalk.addMethod(
-"_ensureModel",
-smalltalk.method({
-selector: "ensureModel",
-fn: function () {
-    var self = this;
-    if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        smalltalk.send(self, "_model_", [smalltalk.send(self, "_model", [])]);
-    } else {
-        self['@model'];
-    }
-    return self;
-}
-}),
-smalltalk.HLWorkspace);
-
-smalltalk.addMethod(
-"_initializeCode",
-smalltalk.method({
-selector: "initializeCode",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@code'] = smalltalk.send(self, "_makeCode", []);
-    $1 = self['@code'];
-    return $1;
-}
-}),
-smalltalk.HLWorkspace);
-
-smalltalk.addMethod(
-"_initializeModel",
-smalltalk.method({
-selector: "initializeModel",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@model'] = smalltalk.send(smalltalk.HLWorkspaceModel || HLWorkspaceModel, "_new", []);
-    $1 = self['@model'];
-    return $1;
-}
-}),
-smalltalk.HLWorkspace);
-
-smalltalk.addMethod(
-"_makeCode",
-smalltalk.method({
-selector: "makeCode",
+selector: "codeWidget",
 fn: function () {
     var self = this;
     var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self['@model'], "_code", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
+    if (($receiver = self['@codeWidget']) == nil || $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(smalltalk.send(self, "_model", []), "_code", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@codeWidget'] = $3;
+        $1 = self['@codeWidget'];
+    } else {
+        $1 = self['@codeWidget'];
+    }
     return $1;
 }
 }),
@@ -655,7 +615,8 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeModel", []);
+        smalltalk.send(self, "_model_", [smalltalk.send(smalltalk.HLWorkspaceModel || HLWorkspaceModel, "_new", [])]);
+        $1 = self['@model'];
     } else {
         $1 = self['@model'];
     }
@@ -671,17 +632,17 @@ selector: "model:",
 fn: function (aModel) {
     var self = this;
     self['@model'] = aModel;
-    smalltalk.send(smalltalk.send(self, "_code", []), "_model_", [smalltalk.send(aModel, "_code", [])]);
-    smalltalk.send(self, "_observeCode", []);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_model_", [smalltalk.send(aModel, "_code", [])]);
+    smalltalk.send(self, "_observeCodeWidget", []);
     return self;
 }
 }),
 smalltalk.HLWorkspace);
 
 smalltalk.addMethod(
-"_observeCode",
+"_observeCodeWidget",
 smalltalk.method({
-selector: "observeCode",
+selector: "observeCodeWidget",
 fn: function () {
     var self = this;
     return self;
@@ -728,8 +689,7 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html) {
     var self = this;
-    smalltalk.send(self, "_ensureModel", []);
-    smalltalk.send(html, "_with_", [smalltalk.send(self, "_code", [])]);
+    smalltalk.send(html, "_with_", [smalltalk.send(self, "_codeWidget", [])]);
     return self;
 }
 }),
@@ -779,7 +739,8 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@announcer']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeAnnouncer", []);
+        self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
+        $1 = self['@announcer'];
     } else {
         $1 = self['@announcer'];
     }
@@ -796,7 +757,7 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@code']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeCode", []);
+        $1 = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_on_", [smalltalk.send(self, "_environment", [])]);
     } else {
         $1 = self['@code'];
     }
@@ -830,34 +791,6 @@ fn: function (anEnvironment) {
     var self = this;
     self['@environment'] = anEnvironment;
     return self;
-}
-}),
-smalltalk.HLWorkspaceModel);
-
-smalltalk.addMethod(
-"_initializeAnnouncer",
-smalltalk.method({
-selector: "initializeAnnouncer",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
-    $1 = self['@announcer'];
-    return $1;
-}
-}),
-smalltalk.HLWorkspaceModel);
-
-smalltalk.addMethod(
-"_initializeCode",
-smalltalk.method({
-selector: "initializeCode",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@code'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_on_", [smalltalk.send(self, "_environment", [])]);
-    $1 = self['@code'];
-    return $1;
 }
 }),
 smalltalk.HLWorkspaceModel);

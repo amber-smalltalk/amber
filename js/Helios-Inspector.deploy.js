@@ -1,16 +1,21 @@
 smalltalk.addPackage('Helios-Inspector', {});
-smalltalk.addClass('HLInspector', smalltalk.HLWidget, ['model', 'variables', 'display', 'code', 'label'], 'Helios-Inspector');
+smalltalk.addClass('HLInspector', smalltalk.HLWidget, ['model', 'variablesWidget', 'displayWidget', 'codeWidget', 'label'], 'Helios-Inspector');
 smalltalk.addMethod(
-"_code",
+"_codeWidget",
 smalltalk.method({
-selector: "code",
+selector: "codeWidget",
 fn: function () {
     var self = this;
-    var $1;
-    if (($receiver = self['@code']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeCode", []);
+    var $2, $3, $1;
+    if (($receiver = self['@codeWidget']) == nil || $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(self['@model'], "_code", [])]);
+        smalltalk.send($2, "_receiver_", [smalltalk.send(self['@model'], "_inspectee", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@codeWidget'] = $3;
+        $1 = self['@codeWidget'];
     } else {
-        $1 = self['@code'];
+        $1 = self['@codeWidget'];
     }
     return $1;
 }
@@ -18,104 +23,22 @@ fn: function () {
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_display",
+"_displayWidget",
 smalltalk.method({
-selector: "display",
+selector: "displayWidget",
 fn: function () {
     var self = this;
-    var $1;
-    if (($receiver = self['@display']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeDisplay", []);
+    var $2, $3, $1;
+    if (($receiver = self['@displayWidget']) == nil ||
+        $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLInspectorDisplayWidget || HLInspectorDisplayWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@displayWidget'] = $3;
+        $1 = self['@displayWidget'];
     } else {
-        $1 = self['@display'];
+        $1 = self['@displayWidget'];
     }
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_ensureModel",
-smalltalk.method({
-selector: "ensureModel",
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_observeVariables", []);
-    if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        smalltalk.send(self, "_model_", [smalltalk.send(self, "_model", [])]);
-    } else {
-        self['@model'];
-    }
-    return self;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeCode",
-smalltalk.method({
-selector: "initializeCode",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@code'] = smalltalk.send(self, "_makeCode", []);
-    $1 = self['@code'];
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeDisplay",
-smalltalk.method({
-selector: "initializeDisplay",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@display'] = smalltalk.send(self, "_makeDisplay", []);
-    $1 = self['@display'];
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeLabel",
-smalltalk.method({
-selector: "initializeLabel",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@label'] = smalltalk.send(smalltalk.send(self['@model'], "_inspectee", []), "_printString", []);
-    $1 = self['@label'];
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeModel",
-smalltalk.method({
-selector: "initializeModel",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@model'] = smalltalk.send(smalltalk.HLInspectorModel || HLInspectorModel, "_new", []);
-    $1 = self['@model'];
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeVariables",
-smalltalk.method({
-selector: "initializeVariables",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@variables'] = smalltalk.send(self, "_makeVariables", []);
-    $1 = self['@variables'];
     return $1;
 }
 }),
@@ -129,9 +52,8 @@ fn: function (anObject) {
     var self = this;
     var $1;
     smalltalk.send(smalltalk.send(self, "_model", []), "_inspect_on_", [anObject, self]);
-    smalltalk.send(self, "_refreshVariables", []);
-    smalltalk.send(self, "_refreshDisplay", []);
-    $1 = smalltalk.send(self, "_yourself", []);
+    smalltalk.send(self, "_refreshVariablesWidget", []);
+    $1 = smalltalk.send(self, "_refreshDisplayWidget", []);
     return self;
 }
 }),
@@ -170,59 +92,10 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@label']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeLabel", []);
+        $1 = smalltalk.send(smalltalk.send(self['@model'], "_inspectee", []), "_printString", []);
     } else {
         $1 = self['@label'];
     }
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_makeCode",
-smalltalk.method({
-selector: "makeCode",
-fn: function () {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self['@model'], "_code", [])]);
-    smalltalk.send($2, "_receiver_", [smalltalk.send(self['@model'], "_inspectee", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_makeDisplay",
-smalltalk.method({
-selector: "makeDisplay",
-fn: function () {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLInspectorDisplay || HLInspectorDisplay, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_makeVariables",
-smalltalk.method({
-selector: "makeVariables",
-fn: function () {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLInspectorVariables || HLInspectorVariables, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
     return $1;
 }
 }),
@@ -236,7 +109,8 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeModel", []);
+        smalltalk.send(self, "_model_", [smalltalk.send(smalltalk.HLInspectorModel || HLInspectorModel, "_new", [])]);
+        $1 = self['@model'];
     } else {
         $1 = self['@model'];
     }
@@ -251,40 +125,51 @@ smalltalk.method({
 selector: "model:",
 fn: function (aModel) {
     var self = this;
+    var $1;
     self['@model'] = aModel;
-    smalltalk.send(smalltalk.send(self, "_code", []), "_model_", [smalltalk.send(aModel, "_code", [])]);
-    smalltalk.send(self, "_observeCode", []);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_model_", [smalltalk.send(aModel, "_code", [])]);
+    smalltalk.send(self, "_observeCodeWidget", []);
+    smalltalk.send(self, "_observeVariablesWidget", []);
+    $1 = smalltalk.send(self, "_observeModel", []);
     return self;
 }
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_observeCode",
+"_observeCodeWidget",
 smalltalk.method({
-selector: "observeCode",
+selector: "observeCodeWidget",
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_code", []), "_announcer", []), "_on_do_", [smalltalk.HLDoItExecuted || HLDoItExecuted, function () {return smalltalk.send(self, "_onDoneIt", []);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_announcer", []), "_on_do_", [smalltalk.HLDoItExecuted || HLDoItExecuted, function () {return smalltalk.send(self, "_onDoneIt", []);}]);
     return self;
 }
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_observeVariables",
+"_observeModel",
 smalltalk.method({
-selector: "observeVariables",
+selector: "observeModel",
 fn: function () {
     var self = this;
-    var $1, $2, $3, $4;
-    $1 = smalltalk.send(smalltalk.send(self, "_variables", []), "_announcer", []);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected, function (ann) {return smalltalk.send(self, "_onInstanceVariableSelected", []);}]);
+    return self;
+}
+}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+"_observeVariablesWidget",
+smalltalk.method({
+selector: "observeVariablesWidget",
+fn: function () {
+    var self = this;
+    var $1, $2;
+    $1 = smalltalk.send(smalltalk.send(self, "_variablesWidget", []), "_announcer", []);
     smalltalk.send($1, "_on_do_", [smalltalk.HLRefreshRequested || HLRefreshRequested, function (ann) {return smalltalk.send(self, "_onRefresh", []);}]);
-    smalltalk.send($1, "_on_do_", [smalltalk.HLDiveRequested || HLDiveRequested, function () {return smalltalk.send(self, "_onDive", []);}]);
-    $2 = smalltalk.send($1, "_yourself", []);
-    $3 = smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []);
-    smalltalk.send($3, "_on_do_", [smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected, function (ann) {return smalltalk.send(self, "_onInstanceVariableSelected", []);}]);
-    $4 = smalltalk.send($3, "_yourself", []);
+    $2 = smalltalk.send($1, "_on_do_", [smalltalk.HLDiveRequested || HLDiveRequested, function () {return smalltalk.send(self, "_onDive", []);}]);
     return self;
 }
 }),
@@ -297,17 +182,6 @@ selector: "onDive",
 fn: function () {
     var self = this;
     smalltalk.send(self, "_inspect_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedInstVarObject", [])]);
-    return self;
-}
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_onDoIt",
-smalltalk.method({
-selector: "onDoIt",
-fn: function () {
-    var self = this;
     return self;
 }
 }),
@@ -342,8 +216,8 @@ smalltalk.method({
 selector: "onInstanceVariableSelected",
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_code", []), "_receiver_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedInstVarObject", [])]);
-    smalltalk.send(self, "_refreshDisplay", []);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_receiver_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedInstVarObject", [])]);
+    smalltalk.send(self, "_refreshDisplayWidget", []);
     return self;
 }
 }),
@@ -397,24 +271,24 @@ fn: function () {
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_refreshDisplay",
+"_refreshDisplayWidget",
 smalltalk.method({
-selector: "refreshDisplay",
+selector: "refreshDisplayWidget",
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_display", []), "_refresh", []);
+    smalltalk.send(smalltalk.send(self, "_displayWidget", []), "_refresh", []);
     return self;
 }
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_refreshVariables",
+"_refreshVariablesWidget",
 smalltalk.method({
-selector: "refreshVariables",
+selector: "refreshVariablesWidget",
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_variables", []), "_refresh", []);
+    smalltalk.send(smalltalk.send(self, "_variablesWidget", []), "_refresh", []);
     return self;
 }
 }),
@@ -426,8 +300,7 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html) {
     var self = this;
-    smalltalk.send(self, "_ensureModel", []);
-    smalltalk.send(html, "_with_", [smalltalk.send(smalltalk.HLContainer || HLContainer, "_with_", [smalltalk.send(smalltalk.HLHorizontalSplitter || HLHorizontalSplitter, "_with_with_", [smalltalk.send(smalltalk.HLVerticalSplitter || HLVerticalSplitter, "_with_with_", [smalltalk.send(self, "_variables", []), smalltalk.send(self, "_display", [])]), smalltalk.send(self, "_code", [])])])]);
+    smalltalk.send(html, "_with_", [smalltalk.send(smalltalk.HLContainer || HLContainer, "_with_", [smalltalk.send(smalltalk.HLHorizontalSplitter || HLHorizontalSplitter, "_with_with_", [smalltalk.send(smalltalk.HLVerticalSplitter || HLVerticalSplitter, "_with_with_", [smalltalk.send(self, "_variablesWidget", []), smalltalk.send(self, "_displayWidget", [])]), smalltalk.send(self, "_codeWidget", [])])])]);
     return self;
 }
 }),
@@ -471,16 +344,22 @@ fn: function () {
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_variables",
+"_variablesWidget",
 smalltalk.method({
-selector: "variables",
+selector: "variablesWidget",
 fn: function () {
     var self = this;
-    var $1;
-    if (($receiver = self['@variables']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeVariables", []);
+    var $2, $3, $1;
+    if (($receiver = self['@variablesWidget']) == nil ||
+        $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLInspectorVariablesWidget ||
+            HLInspectorVariablesWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@variablesWidget'] = $3;
+        $1 = self['@variablesWidget'];
     } else {
-        $1 = self['@variables'];
+        $1 = self['@variablesWidget'];
     }
     return $1;
 }
@@ -522,7 +401,7 @@ fn: function () {
 smalltalk.HLInspector.klass);
 
 
-smalltalk.addClass('HLInspectorDisplay', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
+smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
 "_model",
 smalltalk.method({
@@ -532,7 +411,7 @@ fn: function () {
     return self['@model'];
 }
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 "_model_",
@@ -544,7 +423,7 @@ fn: function (aModel) {
     return self;
 }
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 "_renderContentOn_",
@@ -556,7 +435,7 @@ fn: function (html) {
     return self;
 }
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 "_selectionDisplayString",
@@ -576,7 +455,7 @@ fn: function () {
     return $1;
 }
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 
 
@@ -589,7 +468,8 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@announcer']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeAnnouncer", []);
+        self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
+        $1 = self['@announcer'];
     } else {
         $1 = self['@announcer'];
     }
@@ -606,7 +486,8 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@code']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeCode", []);
+        self['@code'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_on_", [smalltalk.send(self, "_environment", [])]);
+        $1 = self['@code'];
     } else {
         $1 = self['@code'];
     }
@@ -640,48 +521,6 @@ fn: function (anEnvironment) {
     var self = this;
     self['@environment'] = anEnvironment;
     return self;
-}
-}),
-smalltalk.HLInspectorModel);
-
-smalltalk.addMethod(
-"_initializeAnnouncer",
-smalltalk.method({
-selector: "initializeAnnouncer",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
-    $1 = self['@announcer'];
-    return $1;
-}
-}),
-smalltalk.HLInspectorModel);
-
-smalltalk.addMethod(
-"_initializeCode",
-smalltalk.method({
-selector: "initializeCode",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@code'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_on_", [smalltalk.send(self, "_environment", [])]);
-    $1 = self['@code'];
-    return $1;
-}
-}),
-smalltalk.HLInspectorModel);
-
-smalltalk.addMethod(
-"_initializeSelection",
-smalltalk.method({
-selector: "initializeSelection",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@selection'] = "";
-    $1 = self['@selection'];
-    return $1;
 }
 }),
 smalltalk.HLInspectorModel);
@@ -797,7 +636,7 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@selection']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeSelection", []);
+        $1 = "";
     } else {
         $1 = self['@selection'];
     }
@@ -872,7 +711,7 @@ fn: function (anEnvironment) {
 smalltalk.HLInspectorModel.klass);
 
 
-smalltalk.addClass('HLInspectorVariables', smalltalk.HLNavigationListWidget, ['announcer', 'model', 'list', 'diveButton'], 'Helios-Inspector');
+smalltalk.addClass('HLInspectorVariablesWidget', smalltalk.HLNavigationListWidget, ['announcer', 'model', 'list', 'diveButton'], 'Helios-Inspector');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -881,42 +720,28 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@announcer']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeAnnouncer", []);
+        self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
+        $1 = self['@announcer'];
     } else {
         $1 = self['@announcer'];
     }
     return $1;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
-"_initializeAnnouncer",
+"_defaultItems",
 smalltalk.method({
-selector: "initializeAnnouncer",
+selector: "defaultItems",
 fn: function () {
     var self = this;
     var $1;
-    self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
-    $1 = self['@announcer'];
+    $1 = smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_variables", []), "_keys", []);
     return $1;
 }
 }),
-smalltalk.HLInspectorVariables);
-
-smalltalk.addMethod(
-"_initializeItems",
-smalltalk.method({
-selector: "initializeItems",
-fn: function () {
-    var self = this;
-    var $1;
-    self['@items'] = smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_variables", []), "_keys", []);
-    $1 = self['@items'];
-    return $1;
-}
-}),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_model",
@@ -927,7 +752,7 @@ fn: function () {
     return self['@model'];
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_model_",
@@ -939,7 +764,7 @@ fn: function (aModel) {
     return self;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_refresh",
@@ -952,7 +777,7 @@ fn: function () {
     return self;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_renderButtonsOn_",
@@ -973,7 +798,7 @@ fn: function (html) {
     return self;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_resetItems",
@@ -985,7 +810,7 @@ fn: function () {
     return self;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_selectItem_",
@@ -998,7 +823,7 @@ fn: function (anObject) {
     return self;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_selection",
@@ -1011,7 +836,7 @@ fn: function () {
     return $1;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_variables",
@@ -1024,7 +849,7 @@ fn: function () {
     return $1;
 }
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 
 

@@ -113,10 +113,14 @@ model
 !
 
 model: aBrowserModel
-	"TODO: unsubscribe from previous model"
-    
 	model := aBrowserModel.
-    model subscribe: self
+    
+    self observeModel
+! !
+
+!HLBrowserListWidget methodsFor: 'actions'!
+
+observeModel
 ! !
 
 !HLBrowserListWidget class methodsFor: 'instance creation'!
@@ -162,15 +166,11 @@ focusProtocolsListWidget
 	self model announcer announce: HLProtocolsListFocus new
 !
 
-packageSelected: aPackage
-    self selectedItem: nil.
-    
-    self items: (aPackage 
-    	ifNil: [ #() ]
-  		ifNotNil: [ (aPackage classes 
-        	collect: [ :each | each theNonMetaClass ]) asSet asArray ]).
-
-    self refresh
+observeModel
+	self model announcer 
+    	on: HLPackageSelected do: [ :ann | self onPackageSelected: ann item ];
+    	on: HLShowInstanceToggled do: [ :ann | self onShowInstanceToggled ];
+		on: HLClassSelected do: [ :ann | self onClassSelected: ann item ]
 !
 
 selectItem: aClass
@@ -182,15 +182,25 @@ showInstance: aBoolean
 	self model showInstance: aBoolean
 ! !
 
-!HLClassesListWidget methodsFor: 'announcements'!
+!HLClassesListWidget methodsFor: 'reactions'!
 
-subscribeTo: anAnnouncer
-	anAnnouncer on: HLPackageSelected do: [ :ann |
-    	self packageSelected: ann item ].
-    anAnnouncer on: HLShowInstanceToggled do: [ :ann |
-    	self refresh ].
-    anAnnouncer on: HLClassSelected do: [ :ann |
-    	self focus ]
+onClassSelected: aClass
+	self focus
+!
+
+onPackageSelected: aPackage
+    self selectedItem: nil.
+    
+    self items: (aPackage 
+    	ifNil: [ #() ]
+  		ifNotNil: [ (aPackage classes 
+        	collect: [ :each | each theNonMetaClass ]) asSet asArray ]).
+
+    self refresh
+!
+
+onShowInstanceToggled
+	self refresh
 ! !
 
 !HLClassesListWidget methodsFor: 'rendering'!
@@ -316,32 +326,18 @@ selectorsCache
 
 !HLMethodsListWidget methodsFor: 'actions'!
 
-protocolSelected: aString
-    self selectedItem: nil.
-    
-    self items: (self model selectedClass 
-    	ifNil: [ #() ]
-      	ifNotNil: [ aString
-    		ifNil: [ #() ]
-      		ifNotNil: [ self methodsInProtocol: aString ] ]).
-        
-    self refresh
+observeModel
+	self model announcer on: HLProtocolSelected do: [ :ann |
+    	self onProtocolSelected: ann item ].
+    self model announcer on: HLShowInstanceToggled do: [ :ann |
+    	self onProtocolSelected: nil ].
+    self model announcer on: HLMethodSelected do: [ :ann |
+    	self onMethodSelected: ann item ]
 !
 
 selectItem: aCompiledMethod
 	super selectItem: aCompiledMethod.
    	self model selectedMethod: aCompiledMethod
-! !
-
-!HLMethodsListWidget methodsFor: 'announcements'!
-
-subscribeTo: anAnnouncer
-	anAnnouncer on: HLProtocolSelected do: [ :ann |
-    	self protocolSelected: ann item ].
-    anAnnouncer on: HLShowInstanceToggled do: [ :ann |
-    	self protocolSelected: nil ].
-    anAnnouncer on: HLMethodSelected do: [ :ann |
-    	self focus ]
 ! !
 
 !HLMethodsListWidget methodsFor: 'cache'!
@@ -355,6 +351,24 @@ flushSelectorsCache
 initialize
 	super initialize.
     self flushSelectorsCache
+! !
+
+!HLMethodsListWidget methodsFor: 'reactions'!
+
+onMethodSelected: aMethod
+	self focus
+!
+
+onProtocolSelected: aString
+    self selectedItem: nil.
+    
+    self items: (self model selectedClass 
+    	ifNil: [ #() ]
+      	ifNotNil: [ aString
+    		ifNil: [ #() ]
+      		ifNotNil: [ self methodsInProtocol: aString ] ]).
+        
+    self refresh
 ! !
 
 !HLMethodsListWidget methodsFor: 'rendering'!
@@ -406,16 +420,20 @@ focusClassesListWidget
 	self model announcer announce: HLClassesListFocus new
 !
 
+observeModel
+    self model announcer on: HLPackageSelected do: [ :ann |
+    	self onPackageSelected: ann item ]
+!
+
 selectItem: aPackage
 	super selectItem: aPackage.
     self model selectedPackage: aPackage
 ! !
 
-!HLPackagesListWidget methodsFor: 'announcements'!
+!HLPackagesListWidget methodsFor: 'reactions'!
 
-subscribeTo: anAnnouncer
-    anAnnouncer on: HLPackageSelected do: [ :ann |
-    	self focus ]
+onPackageSelected: aPackage
+	self focus
 ! !
 
 !HLPackagesListWidget methodsFor: 'rendering'!
@@ -457,7 +475,23 @@ selectedItem
 
 !HLProtocolsListWidget methodsFor: 'actions'!
 
-classSelected: aClass
+observeModel
+	self model announcer on: HLClassSelected do: [ :ann |
+    	self onClassSelected: ann item ].
+    self model announcer on: HLShowInstanceToggled do: [ :ann |
+    	self onClassSelected: self model selectedClass ].
+    self model announcer on: HLProtocolSelected do: [ :ann |
+    	self onProtocolSelected: ann item ]
+!
+
+selectItem: aString
+	super selectItem: aString.
+    self model selectedProtocol: aString
+! !
+
+!HLProtocolsListWidget methodsFor: 'reactions'!
+
+onClassSelected: aClass
     self selectedItem: nil.
     
     self items: (aClass
@@ -470,20 +504,8 @@ classSelected: aClass
     self refresh
 !
 
-selectItem: aString
-	super selectItem: aString.
-    self model selectedProtocol: aString
-! !
-
-!HLProtocolsListWidget methodsFor: 'announcements'!
-
-subscribeTo: anAnnouncer
-	anAnnouncer on: HLClassSelected do: [ :ann |
-    	self classSelected: ann item ].
-    anAnnouncer on: HLShowInstanceToggled do: [ :ann |
-    	self classSelected: self model selectedClass ].
-    anAnnouncer on: HLProtocolSelected do: [ :ann |
-    	self focus ]
+onProtocolSelected: aString
+	self focus
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!
@@ -507,7 +529,7 @@ allProtocol
 !
 
 environment
-	^ environment ifNil: [ self initializeEnvironment ]
+	^ environment ifNil: [ HLManager current environment ]
 !
 
 environment: anEnvironment
@@ -598,22 +620,6 @@ showInstance: aBoolean
     self announcer announce: HLShowInstanceToggled new
 ! !
 
-!HLBrowserModel methodsFor: 'actions'!
-
-beLocal
-
-	self initializeEnvironment
-!
-
-beRemoteOn: anIPAddress port: aPort
-
-	"to-do"
-    
-    "environment := HLRemoteEnvironment on: anIPAddress port: aPort
-    
-    ...kind of stuff"
-! !
-
 !HLBrowserModel methodsFor: 'announcements'!
 
 announcer
@@ -622,12 +628,6 @@ announcer
 
 subscribe: aWidget
 	aWidget subscribeTo: self announcer
-! !
-
-!HLBrowserModel methodsFor: 'initialization'!
-
-initializeEnvironment
-	^ environment := HLLocalEnvironment new
 ! !
 
 !HLBrowserModel class methodsFor: 'actions'!
@@ -640,17 +640,21 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLBrowserSourceWidget
-	instanceVariableNames: 'model sourceArea'
+	instanceVariableNames: 'model codeWidget'
 	package: 'Helios-Browser'!
 
 !HLBrowserSourceWidget methodsFor: 'accessing'!
+
+codeWidget
+	^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]
+!
 
 contents
 	^ self sourceArea contents
 !
 
 contents: aString
-	self sourceArea contents: aString
+	self codeWidget contents: aString
 !
 
 model
@@ -658,51 +662,46 @@ model
 !
 
 model: aBrowserModel
-	"TODO: unsubscribe from previous model"
-    
 	model := aBrowserModel.
-    model subscribe: self
-!
-
-sourceArea
-	^ sourceArea ifNil: [ sourceArea := HLSourceArea new ]
+    
+    self observeModel
 ! !
 
 !HLBrowserSourceWidget methodsFor: 'actions'!
 
-classSelected: aClass
+observeModel
+	self model announcer on: HLMethodSelected do: [ :ann |
+    	self onMethodSelected: ann item ].
+    self model announcer on: HLClassSelected do: [ :ann |
+    	self onClassSelected: ann item ].
+    self model announcer on: HLProtocolSelected do: [ :ann |
+    	self onProtocolSelected: ann item ]
+! !
+
+!HLBrowserSourceWidget methodsFor: 'reactions'!
+
+onClassSelected: aClass
 	aClass ifNil: [ ^ self contents: '' ].
     
     self contents: aClass definition
 !
 
-methodSelected: aCompiledMethod
+onMethodSelected: aCompiledMethod
 	aCompiledMethod ifNil: [ ^ self contents: '' ].
     
     self contents: aCompiledMethod source
 !
 
-protocolSelected: aString
+onProtocolSelected: aString
 	self model selectedClass ifNil: [ ^ self contents: '' ].
     
     self contents: self model selectedClass definition
 ! !
 
-!HLBrowserSourceWidget methodsFor: 'announcements'!
-
-subscribeTo: anAnnouncer
-	anAnnouncer on: HLMethodSelected do: [ :ann |
-    	self methodSelected: ann item ].
-    anAnnouncer on: HLClassSelected do: [ :ann |
-    	self classSelected: ann item ].
-    anAnnouncer on: HLProtocolSelected do: [ :ann |
-    	self protocolSelected: ann item ]
-! !
-
 !HLBrowserSourceWidget methodsFor: 'rendering'!
 
 renderContentOn: html
-	self sourceArea renderOn: html
+	self codeWidget renderOn: html
 ! !
 
 !HLBrowserSourceWidget class methodsFor: 'instance creation'!

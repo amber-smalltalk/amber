@@ -1,171 +1,4 @@
 Smalltalk current createPackage: 'Helios-Core' properties: #{}!
-Widget subclass: #HLSourceArea
-	instanceVariableNames: 'editor textarea div receiver onDoIt'
-	package: 'Helios-Core'!
-
-!HLSourceArea methodsFor: 'accessing'!
-
-contents
-    ^editor getValue
-!
-
-contents: aString
-    editor setValue: aString
-!
-
-currentLine
-    ^editor getLine: (editor getCursor line)
-!
-
-currentLineOrSelection
-    ^editor somethingSelected
-	ifFalse: [self currentLine]
-	ifTrue: [self selection]
-!
-
-editor
-	^editor
-!
-
-onDoIt
-	^onDoIt
-!
-
-onDoIt: aBlock
-	onDoIt := aBlock
-!
-
-receiver
-	^receiver ifNil: [DoIt new]
-!
-
-receiver: anObject
-	receiver := anObject
-!
-
-selection
-	^editor getSelection
-!
-
-selectionEnd
-   ^textarea element selectionEnd
-!
-
-selectionEnd: anInteger
-   textarea element selectionEnd: anInteger
-!
-
-selectionStart
-   ^textarea element selectionStart
-!
-
-selectionStart: anInteger
-   textarea element selectionStart: anInteger
-!
-
-setEditorOn: aTextarea
-	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'amber',
-                lineNumbers: true,
-                enterMode: 'flat',
-                matchBrackets: true,
-                electricChars: false
-	})>
-!
-
-val
-    ^editor getValue
-!
-
-val: aString
-    editor setValue: aString
-! !
-
-!HLSourceArea methodsFor: 'actions'!
-
-clear
-      self contents: ''
-!
-
-doIt
-    | result |
-    result := self eval: self currentLineOrSelection.
-    self onDoIt ifNotNil: [self onDoIt value].
-    ^result
-!
-
-eval: aString
-	| compiler  |
-	compiler := Compiler new.
-	[compiler parseExpression: aString] on: Error do: [:ex |
-		^window alert: ex messageText].
-	^(compiler eval: (compiler compile: 'doIt ^[', aString, '] value' forClass: DoIt)) fn applyTo: self receiver arguments: #()
-!
-
-fileIn
-    Importer new import: self currentLineOrSelection readStream
-!
-
-handleKeyDown: anEvent
-    <if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
-!
-
-inspectIt
-    self doIt inspect
-!
-
-print: aString
-	| start stop |
-	start := HashedCollection new.
-	stop := HashedCollection new.
-	start at: 'line' put: (editor getCursor: false) line.
-	start at: 'ch' put: (editor getCursor: false) ch.
-	stop at: 'line' put: (start at: 'line').
-	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
-	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
-	editor setCursor: (editor getCursor: true).
-	editor setSelection: stop end: start
-!
-
-printIt
-    self print: self doIt printString
-! !
-
-!HLSourceArea methodsFor: 'events'!
-
-onKeyDown: aBlock
-	div onKeyDown: aBlock
-!
-
-onKeyUp: aBlock
-	div onKeyUp: aBlock
-! !
-
-!HLSourceArea methodsFor: 'rendering'!
-
-renderOn: html
-    div := html div class: 'source'.
-    div with: [textarea := html textarea].
-    self setEditorOn: textarea element.
-    div onKeyDown: [:e | self handleKeyDown: e]
-! !
-
 Object subclass: #HLTab
 	instanceVariableNames: 'widget label'
 	package: 'Helios-Core'!
@@ -216,18 +49,17 @@ on: aWidget labelled: aString
 ! !
 
 Widget subclass: #HLWidget
-	instanceVariableNames: 'rootDiv'
+	instanceVariableNames: 'wrapper'
 	package: 'Helios-Core'!
 
 !HLWidget methodsFor: 'accessing'!
 
 manager
 	^ HLManager current
-! !
+!
 
-!HLWidget methodsFor: 'announcements'!
-
-subscribeTo: anAnnouncer
+wrapper
+	^ wrapper
 ! !
 
 !HLWidget methodsFor: 'keybindings'!
@@ -247,17 +79,17 @@ renderContentOn: html
 renderOn: html
     self registerBindings.
 
-	rootDiv := html div with: [
+	wrapper := html div with: [
     	self renderContentOn: html ]
 ! !
 
 !HLWidget methodsFor: 'updating'!
 
 refresh
-	rootDiv ifNil: [ ^ self ].
+	self wrapper ifNil: [ ^ self ].
     
-	rootDiv asJQuery empty.
-    [ :html | self renderContentOn: html ] appendToJQuery: rootDiv asJQuery
+	self wrapper asJQuery empty.
+    [ :html | self renderContentOn: html ] appendToJQuery: self wrapper asJQuery
 ! !
 
 !HLWidget class methodsFor: 'accessing'!
@@ -305,7 +137,7 @@ focus
 !
 
 hasFocus
-	^ rootDiv notNil and: [ rootDiv asJQuery hasClass: self focusClass ]
+	^ self wrapper notNil and: [ self wrapper asJQuery hasClass: self focusClass ]
 ! !
 
 !HLFocusableWidget methodsFor: 'rendering'!
@@ -316,15 +148,15 @@ renderContentOn: html
 renderHiddenInputOn: html
 	hiddenInput := html input
     	style: 'position: absolute; left: -100000px;';
-    	onBlur: [ rootDiv asJQuery removeClass: self focusClass ];
-        onFocus: [ rootDiv asJQuery addClass: self focusClass ]
+    	onBlur: [ self wrapper asJQuery removeClass: self focusClass ];
+        onFocus: [ self wrapper asJQuery addClass: self focusClass ]
 !
 
 renderOn: html
 	self registerBindings.
 	self renderHiddenInputOn: html.
     
-    rootDiv := html div 
+    wrapper := html div 
     	class: 'hl_widget'; 
         onClick: [ hiddenInput asJQuery focus ];
         with: [
@@ -348,7 +180,7 @@ iconForItem: anObject
 !
 
 items
-	^ items ifNil: [ self initializeItems ]
+	^ items ifNil: [ items := self defaultItems ]
 !
 
 items: aCollection
@@ -390,6 +222,12 @@ selectItem: anObject
 	self selectedItem: anObject
 ! !
 
+!HLListWidget methodsFor: 'defaults'!
+
+defaultItems
+	^ #()
+! !
+
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings
@@ -404,12 +242,6 @@ setupKeyBindings
           	next := selected next.
             (next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].
 			self activateListItem: next ] ]
-! !
-
-!HLListWidget methodsFor: 'initializing'!
-
-initializeItems
-	^ items := #()
 ! !
 
 !HLListWidget methodsFor: 'rendering'!

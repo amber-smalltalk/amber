@@ -337,12 +337,28 @@ category: 'accessing',
 fn: function (aBrowserModel) {
     var self = this;
     self['@model'] = aBrowserModel;
-    smalltalk.send(self['@model'], "_subscribe_", [self]);
+    smalltalk.send(self, "_observeModel", []);
     return self;
 },
 args: ["aBrowserModel"],
-source: "model: aBrowserModel\x0a\x09\x22TODO: unsubscribe from previous model\x22\x0a    \x0a\x09model := aBrowserModel.\x0a    model subscribe: self",
-messageSends: ["subscribe:"],
+source: "model: aBrowserModel\x0a\x09model := aBrowserModel.\x0a    \x0a    self observeModel",
+messageSends: ["observeModel"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserListWidget);
+
+smalltalk.addMethod(
+"_observeModel",
+smalltalk.method({
+selector: "observeModel",
+category: 'actions',
+fn: function () {
+    var self = this;
+    return self;
+},
+args: [],
+source: "observeModel",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLBrowserListWidget);
@@ -465,10 +481,48 @@ referencedClasses: []
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
-"_packageSelected_",
+"_observeModel",
 smalltalk.method({
-selector: "packageSelected:",
+selector: "observeModel",
 category: 'actions',
+fn: function () {
+    var self = this;
+    var $1, $2;
+    $1 = smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []);
+    smalltalk.send($1, "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_onPackageSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send($1, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_onShowInstanceToggled", []);}]);
+    $2 = smalltalk.send($1, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+},
+args: [],
+source: "observeModel\x0a\x09self model announcer \x0a    \x09on: HLPackageSelected do: [ :ann | self onPackageSelected: ann item ];\x0a    \x09on: HLShowInstanceToggled do: [ :ann | self onShowInstanceToggled ];\x0a\x09\x09on: HLClassSelected do: [ :ann | self onClassSelected: ann item ]",
+messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model", "onShowInstanceToggled", "onClassSelected:"],
+referencedClasses: ["HLPackageSelected", "HLShowInstanceToggled", "HLClassSelected"]
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onClassSelected_",
+smalltalk.method({
+selector: "onClassSelected:",
+category: 'reactions',
+fn: function (aClass) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
+},
+args: ["aClass"],
+source: "onClassSelected: aClass\x0a\x09self focus",
+messageSends: ["focus"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onPackageSelected_",
+smalltalk.method({
+selector: "onPackageSelected:",
+category: 'reactions',
 fn: function (aPackage) {
     var self = this;
     var $1;
@@ -483,8 +537,25 @@ fn: function (aPackage) {
     return self;
 },
 args: ["aPackage"],
-source: "packageSelected: aPackage\x0a    self selectedItem: nil.\x0a    \x0a    self items: (aPackage \x0a    \x09ifNil: [ #() ]\x0a  \x09\x09ifNotNil: [ (aPackage classes \x0a        \x09collect: [ :each | each theNonMetaClass ]) asSet asArray ]).\x0a\x0a    self refresh",
+source: "onPackageSelected: aPackage\x0a    self selectedItem: nil.\x0a    \x0a    self items: (aPackage \x0a    \x09ifNil: [ #() ]\x0a  \x09\x09ifNotNil: [ (aPackage classes \x0a        \x09collect: [ :each | each theNonMetaClass ]) asSet asArray ]).\x0a\x0a    self refresh",
 messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "asArray", "asSet", "collect:", "theNonMetaClass", "classes", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onShowInstanceToggled",
+smalltalk.method({
+selector: "onShowInstanceToggled",
+category: 'reactions',
+fn: function () {
+    var self = this;
+    smalltalk.send(self, "_refresh", []);
+    return self;
+},
+args: [],
+source: "onShowInstanceToggled\x0a\x09self refresh",
+messageSends: ["refresh"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -611,11 +682,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
 category: 'actions',
-fn: function (aClass){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aClass],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedClass_",[aClass]);
-return self},
+fn: function (aClass) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aClass], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass_", [aClass]);
+    return self;
+},
 args: ["aClass"],
 source: "selectItem: aClass\x0a\x09super selectItem: aClass.\x0a    self model selectedClass: aClass",
 messageSends: ["selectItem:", "selectedClass:", "model"],
@@ -655,25 +727,6 @@ args: ["aBoolean"],
 source: "showInstance: aBoolean\x0a\x09self model showInstance: aBoolean",
 messageSends: ["showInstance:", "model"],
 referencedClasses: []
-}),
-smalltalk.HLClassesListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-category: 'announcements',
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_packageSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_refresh", []);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
-    return self;
-},
-args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer\x0a\x09anAnnouncer on: HLPackageSelected do: [ :ann |\x0a    \x09self packageSelected: ann item ].\x0a    anAnnouncer on: HLShowInstanceToggled do: [ :ann |\x0a    \x09self refresh ].\x0a    anAnnouncer on: HLClassSelected do: [ :ann |\x0a    \x09self focus ]",
-messageSends: ["on:do:", "packageSelected:", "item", "refresh", "focus"],
-referencedClasses: ["HLPackageSelected", "HLShowInstanceToggled", "HLClassSelected"]
 }),
 smalltalk.HLClassesListWidget);
 
@@ -827,6 +880,72 @@ referencedClasses: []
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
+"_observeModel",
+smalltalk.method({
+selector: "observeModel",
+category: 'actions',
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [nil]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_onMethodSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+},
+args: [],
+source: "observeModel\x0a\x09self model announcer on: HLProtocolSelected do: [ :ann |\x0a    \x09self onProtocolSelected: ann item ].\x0a    self model announcer on: HLShowInstanceToggled do: [ :ann |\x0a    \x09self onProtocolSelected: nil ].\x0a    self model announcer on: HLMethodSelected do: [ :ann |\x0a    \x09self onMethodSelected: ann item ]",
+messageSends: ["on:do:", "onProtocolSelected:", "item", "announcer", "model", "onMethodSelected:"],
+referencedClasses: ["HLProtocolSelected", "HLShowInstanceToggled", "HLMethodSelected"]
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_onMethodSelected_",
+smalltalk.method({
+selector: "onMethodSelected:",
+category: 'reactions',
+fn: function (aMethod) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
+},
+args: ["aMethod"],
+source: "onMethodSelected: aMethod\x0a\x09self focus",
+messageSends: ["focus"],
+referencedClasses: []
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_onProtocolSelected_",
+smalltalk.method({
+selector: "onProtocolSelected:",
+category: 'reactions',
+fn: function (aString) {
+    var self = this;
+    var $2, $1;
+    smalltalk.send(self, "_selectedItem_", [nil]);
+    $2 = smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", []);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = [];
+    } else {
+        if (($receiver = aString) == nil || $receiver == undefined) {
+            $1 = [];
+        } else {
+            $1 = smalltalk.send(self, "_methodsInProtocol_", [aString]);
+        }
+    }
+    smalltalk.send(self, "_items_", [$1]);
+    smalltalk.send(self, "_refresh", []);
+    return self;
+},
+args: ["aString"],
+source: "onProtocolSelected: aString\x0a    self selectedItem: nil.\x0a    \x0a    self items: (self model selectedClass \x0a    \x09ifNil: [ #() ]\x0a      \x09ifNotNil: [ aString\x0a    \x09\x09ifNil: [ #() ]\x0a      \x09\x09ifNotNil: [ self methodsInProtocol: aString ] ]).\x0a        \x0a    self refresh",
+messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "methodsInProtocol:", "selectedClass", "model", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
 "_overrideSelectors",
 smalltalk.method({
 selector: "overrideSelectors",
@@ -859,35 +978,6 @@ args: [],
 source: "overridenSelectors\x0a\x09^ self selectorsCache \x0a    \x09at: 'overriden'\x0a        ifAbsentPut: [ \x0a        \x09self model selectedClass allSubclasses\x0a\x09\x09\x09\x09inject: Set new into: [ :acc :each | acc addAll: each selectors; yourself ] ]",
 messageSends: ["at:ifAbsentPut:", "inject:into:", "new", "addAll:", "selectors", "yourself", "allSubclasses", "selectedClass", "model", "selectorsCache"],
 referencedClasses: ["Set"]
-}),
-smalltalk.HLMethodsListWidget);
-
-smalltalk.addMethod(
-"_protocolSelected_",
-smalltalk.method({
-selector: "protocolSelected:",
-category: 'actions',
-fn: function (aString){
-var self=this;
-var $2,$1;
-smalltalk.send(self,"_selectedItem_",[nil]);
-$2=smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedClass",[]);
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=[];
-} else {
-if(($receiver = aString) == nil || $receiver == undefined){
-$1=[];
-} else {
-$1=smalltalk.send(self,"_methodsInProtocol_",[aString]);
-};
-};
-smalltalk.send(self,"_items_",[$1]);
-smalltalk.send(self,"_refresh",[]);
-return self},
-args: ["aString"],
-source: "protocolSelected: aString\x0a    self selectedItem: nil.\x0a    \x0a    self items: (self model selectedClass \x0a    \x09ifNil: [ #() ]\x0a      \x09ifNotNil: [ aString\x0a    \x09\x09ifNil: [ #() ]\x0a      \x09\x09ifNotNil: [ self methodsInProtocol: aString ] ]).\x0a        \x0a    self refresh",
-messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "methodsInProtocol:", "selectedClass", "model", "refresh"],
-referencedClasses: []
 }),
 smalltalk.HLMethodsListWidget);
 
@@ -939,11 +1029,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
 category: 'actions',
-fn: function (aCompiledMethod){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aCompiledMethod],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedMethod_",[aCompiledMethod]);
-return self},
+fn: function (aCompiledMethod) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aCompiledMethod], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedMethod_", [aCompiledMethod]);
+    return self;
+},
 args: ["aCompiledMethod"],
 source: "selectItem: aCompiledMethod\x0a\x09super selectItem: aCompiledMethod.\x0a   \x09self model selectedMethod: aCompiledMethod",
 messageSends: ["selectItem:", "selectedMethod:", "model"],
@@ -964,25 +1055,6 @@ args: [],
 source: "selectorsCache\x0a\x09^ selectorsCache",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.HLMethodsListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-category: 'announcements',
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_protocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_protocolSelected_", [nil]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
-    return self;
-},
-args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer\x0a\x09anAnnouncer on: HLProtocolSelected do: [ :ann |\x0a    \x09self protocolSelected: ann item ].\x0a    anAnnouncer on: HLShowInstanceToggled do: [ :ann |\x0a    \x09self protocolSelected: nil ].\x0a    anAnnouncer on: HLMethodSelected do: [ :ann |\x0a    \x09self focus ]",
-messageSends: ["on:do:", "protocolSelected:", "item", "focus"],
-referencedClasses: ["HLProtocolSelected", "HLShowInstanceToggled", "HLMethodSelected"]
 }),
 smalltalk.HLMethodsListWidget);
 
@@ -1011,14 +1083,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeItems",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-self["@items"]=smalltalk.send(smalltalk.send(smalltalk.send(self,"_model",[]),"_packages",[]),"_sort_",[(function(a,b){
-return smalltalk.send(smalltalk.send(a,"_name",[]),"__lt",[smalltalk.send(b,"_name",[])]);
-})]);
-$1=self["@items"];
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    self['@items'] = smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_packages", []), "_sort_", [function (a, b) {return smalltalk.send(smalltalk.send(a, "_name", []), "__lt", [smalltalk.send(b, "_name", [])]);}]);
+    $1 = self['@items'];
+    return $1;
 },
 args: [],
 source: "initializeItems\x0a\x09^ items := self model packages sort:[:a :b|\x0a\x09\x09\x09\x09\x09\x09a name < b name]",
@@ -1032,19 +1102,53 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "items",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-if(($receiver = self["@items"]) == nil || $receiver == undefined){
-$1=smalltalk.send(self,"_initializeItems",[]);
-} else {
-$1=self["@items"];
-};
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    if (($receiver = self['@items']) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(self, "_initializeItems", []);
+    } else {
+        $1 = self['@items'];
+    }
+    return $1;
 },
 args: [],
 source: "items\x0a\x09^ items ifNil: [self initializeItems]",
 messageSends: ["ifNil:", "initializeItems"],
+referencedClasses: []
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+"_observeModel",
+smalltalk.method({
+selector: "observeModel",
+category: 'actions',
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_onPackageSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+},
+args: [],
+source: "observeModel\x0a    self model announcer on: HLPackageSelected do: [ :ann |\x0a    \x09self onPackageSelected: ann item ]",
+messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model"],
+referencedClasses: ["HLPackageSelected"]
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+"_onPackageSelected_",
+smalltalk.method({
+selector: "onPackageSelected:",
+category: 'reactions',
+fn: function (aPackage) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
+},
+args: ["aPackage"],
+source: "onPackageSelected: aPackage\x0a\x09self focus",
+messageSends: ["focus"],
 referencedClasses: []
 }),
 smalltalk.HLPackagesListWidget);
@@ -1081,32 +1185,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
 category: 'actions',
-fn: function (aPackage){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aPackage],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedPackage_",[aPackage]);
-return self},
+fn: function (aPackage) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aPackage], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedPackage_", [aPackage]);
+    return self;
+},
 args: ["aPackage"],
 source: "selectItem: aPackage\x0a\x09super selectItem: aPackage.\x0a    self model selectedPackage: aPackage",
 messageSends: ["selectItem:", "selectedPackage:", "model"],
 referencedClasses: []
-}),
-smalltalk.HLPackagesListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-category: 'announcements',
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
-    return self;
-},
-args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer\x0a    anAnnouncer on: HLPackageSelected do: [ :ann |\x0a    \x09self focus ]",
-messageSends: ["on:do:", "focus"],
-referencedClasses: ["HLPackageSelected"]
 }),
 smalltalk.HLPackagesListWidget);
 
@@ -1132,10 +1220,29 @@ referencedClasses: []
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(
-"_classSelected_",
+"_observeModel",
 smalltalk.method({
-selector: "classSelected:",
+selector: "observeModel",
 category: 'actions',
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+},
+args: [],
+source: "observeModel\x0a\x09self model announcer on: HLClassSelected do: [ :ann |\x0a    \x09self onClassSelected: ann item ].\x0a    self model announcer on: HLShowInstanceToggled do: [ :ann |\x0a    \x09self onClassSelected: self model selectedClass ].\x0a    self model announcer on: HLProtocolSelected do: [ :ann |\x0a    \x09self onProtocolSelected: ann item ]",
+messageSends: ["on:do:", "onClassSelected:", "item", "announcer", "model", "selectedClass", "onProtocolSelected:"],
+referencedClasses: ["HLClassSelected", "HLShowInstanceToggled", "HLProtocolSelected"]
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_onClassSelected_",
+smalltalk.method({
+selector: "onClassSelected:",
+category: 'reactions',
 fn: function (aClass) {
     var self = this;
     var $2, $3, $1;
@@ -1153,9 +1260,26 @@ fn: function (aClass) {
     return self;
 },
 args: ["aClass"],
-source: "classSelected: aClass\x0a    self selectedItem: nil.\x0a    \x0a    self items: (aClass\x0a    \x09ifNil: [ Array with: self allProtocol ]\x0a      \x09ifNotNil: [ \x0a        \x09(Array with: self allProtocol) \x0a            \x09addAll: aClass protocols; \x0a                yourself ]).\x0a\x0a    self refresh",
+source: "onClassSelected: aClass\x0a    self selectedItem: nil.\x0a    \x0a    self items: (aClass\x0a    \x09ifNil: [ Array with: self allProtocol ]\x0a      \x09ifNotNil: [ \x0a        \x09(Array with: self allProtocol) \x0a            \x09addAll: aClass protocols; \x0a                yourself ]).\x0a\x0a    self refresh",
 messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "with:", "allProtocol", "addAll:", "protocols", "yourself", "refresh"],
 referencedClasses: ["Array"]
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_onProtocolSelected_",
+smalltalk.method({
+selector: "onProtocolSelected:",
+category: 'reactions',
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
+},
+args: ["aString"],
+source: "onProtocolSelected: aString\x0a\x09self focus",
+messageSends: ["focus"],
+referencedClasses: []
 }),
 smalltalk.HLProtocolsListWidget);
 
@@ -1189,11 +1313,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectItem:",
 category: 'actions',
-fn: function (aString){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aString],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedProtocol_",[aString]);
-return self},
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aString], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedProtocol_", [aString]);
+    return self;
+},
 args: ["aString"],
 source: "selectItem: aString\x0a\x09super selectItem: aString.\x0a    self model selectedProtocol: aString",
 messageSends: ["selectItem:", "selectedProtocol:", "model"],
@@ -1206,35 +1331,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedItem",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_selectedItem",[],smalltalk.HLBrowserListWidget);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_selectedItem", [], smalltalk.HLBrowserListWidget);
+    return $1;
 },
 args: [],
 source: "selectedItem\x0a\x09^ super selectedItem\x22 ifNil: [ self allProtocol ]\x22",
 messageSends: ["selectedItem"],
 referencedClasses: []
-}),
-smalltalk.HLProtocolsListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-category: 'announcements',
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_classSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_classSelected_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
-    return self;
-},
-args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer\x0a\x09anAnnouncer on: HLClassSelected do: [ :ann |\x0a    \x09self classSelected: ann item ].\x0a    anAnnouncer on: HLShowInstanceToggled do: [ :ann |\x0a    \x09self classSelected: self model selectedClass ].\x0a    anAnnouncer on: HLProtocolSelected do: [ :ann |\x0a    \x09self focus ]",
-messageSends: ["on:do:", "classSelected:", "item", "selectedClass", "model", "focus"],
-referencedClasses: ["HLClassSelected", "HLShowInstanceToggled", "HLProtocolSelected"]
 }),
 smalltalk.HLProtocolsListWidget);
 
@@ -1281,55 +1387,24 @@ referencedClasses: ["Announcer"]
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_beLocal",
-smalltalk.method({
-selector: "beLocal",
-category: 'actions',
-fn: function (){
-var self=this;
-smalltalk.send(self,"_initializeEnvironment",[]);
-return self},
-args: [],
-source: "beLocal\x0a\x0a\x09self initializeEnvironment\x0a",
-messageSends: ["initializeEnvironment"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_beRemoteOn_port_",
-smalltalk.method({
-selector: "beRemoteOn:port:",
-category: 'actions',
-fn: function (anIPAddress,aPort){
-var self=this;
-return self},
-args: ["anIPAddress", "aPort"],
-source: "beRemoteOn: anIPAddress port: aPort\x0a\x0a\x09\x22to-do\x22\x0a    \x0a    \x22environment := HLRemoteEnvironment on: anIPAddress port: aPort\x0a    \x0a    ...kind of stuff\x22\x0a    \x0a",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
 "_environment",
 smalltalk.method({
 selector: "environment",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-if(($receiver = self["@environment"]) == nil || $receiver == undefined){
-$1=smalltalk.send(self,"_initializeEnvironment",[]);
-} else {
-$1=self["@environment"];
-};
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    if (($receiver = self['@environment']) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(smalltalk.send(smalltalk.HLManager || HLManager, "_current", []), "_environment", []);
+    } else {
+        $1 = self['@environment'];
+    }
+    return $1;
 },
 args: [],
-source: "environment\x0a\x09^ environment ifNil: [ self initializeEnvironment ]",
-messageSends: ["ifNil:", "initializeEnvironment"],
-referencedClasses: []
+source: "environment\x0a\x09^ environment ifNil: [ HLManager current environment ]",
+messageSends: ["ifNil:", "environment", "current"],
+referencedClasses: ["HLManager"]
 }),
 smalltalk.HLBrowserModel);
 
@@ -1347,25 +1422,6 @@ args: ["anEnvironment"],
 source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_initializeEnvironment",
-smalltalk.method({
-selector: "initializeEnvironment",
-category: 'initialization',
-fn: function (){
-var self=this;
-var $1;
-self["@environment"]=smalltalk.send((smalltalk.HLLocalEnvironment || HLLocalEnvironment),"_new",[]);
-$1=self["@environment"];
-return $1;
-},
-args: [],
-source: "initializeEnvironment\x0a\x09^ environment := HLLocalEnvironment new",
-messageSends: ["new"],
-referencedClasses: ["HLLocalEnvironment"]
 }),
 smalltalk.HLBrowserModel);
 
@@ -1408,30 +1464,30 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedClass:",
 category: 'accessing',
-fn: function (aClass){
-var self=this;
-var $1,$2,$3;
-$1=smalltalk.send(self["@selectedClass"],"__eq",[aClass]);
-if(! smalltalk.assert($1)){
-if(($receiver = aClass) == nil || $receiver == undefined){
-self["@selectedClass"]=nil;
-self["@selectedClass"];
-} else {
-$2=smalltalk.send(self,"_showInstance",[]);
-if(smalltalk.assert($2)){
-self["@selectedClass"]=smalltalk.send(aClass,"_theNonMetaClass",[]);
-self["@selectedClass"];
-} else {
-self["@selectedClass"]=smalltalk.send(aClass,"_theMetaClass",[]);
-self["@selectedClass"];
-};
-};
-smalltalk.send(self,"_selectedMethod_",[nil]);
-$3=smalltalk.send(self,"_selectedProtocol_",[nil]);
-$3;
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLClassSelected || HLClassSelected),"_on_",[smalltalk.send(self,"_selectedClass",[])])]);
-return self},
+fn: function (aClass) {
+    var self = this;
+    var $1, $2, $3;
+    $1 = smalltalk.send(self['@selectedClass'], "__eq", [aClass]);
+    if (!smalltalk.assert($1)) {
+        if (($receiver = aClass) == nil || $receiver == undefined) {
+            self['@selectedClass'] = nil;
+            self['@selectedClass'];
+        } else {
+            $2 = smalltalk.send(self, "_showInstance", []);
+            if (smalltalk.assert($2)) {
+                self['@selectedClass'] = smalltalk.send(aClass, "_theNonMetaClass", []);
+                self['@selectedClass'];
+            } else {
+                self['@selectedClass'] = smalltalk.send(aClass, "_theMetaClass", []);
+                self['@selectedClass'];
+            }
+        }
+        smalltalk.send(self, "_selectedMethod_", [nil]);
+        $3 = smalltalk.send(self, "_selectedProtocol_", [nil]);
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLClassSelected || HLClassSelected, "_on_", [smalltalk.send(self, "_selectedClass", [])])]);
+    return self;
+},
 args: ["aClass"],
 source: "selectedClass: aClass\x0a\x09selectedClass = aClass ifFalse: [\x0a\x09\x09aClass \x0a    \x09\x09ifNil: [ selectedClass := nil ]\x0a      \x09\x09ifNotNil: [\x0a\x09\x09\x09\x09self showInstance \x0a    \x09\x09\x09\x09ifTrue: [ selectedClass := aClass theNonMetaClass ]\x0a      \x09\x09\x09\x09ifFalse: [ selectedClass := aClass theMetaClass ] ].\x0a    \x0a   \x09\x09self \x0a    \x09\x09selectedMethod: nil;\x0a       \x09 \x09selectedProtocol: nil ].\x0a        \x0a   self announcer announce: (HLClassSelected on: self selectedClass)",
 messageSends: ["ifFalse:", "ifNil:ifNotNil:", "ifTrue:ifFalse:", "theNonMetaClass", "theMetaClass", "showInstance", "selectedMethod:", "selectedProtocol:", "=", "announce:", "on:", "selectedClass", "announcer"],
@@ -1460,16 +1516,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedMethod:",
 category: 'accessing',
-fn: function (aCompiledMethod){
-var self=this;
-var $1;
-$1=smalltalk.send(self["@selectedMethod"],"__eq",[aCompiledMethod]);
-if(! smalltalk.assert($1)){
-self["@selectedMethod"]=aCompiledMethod;
-self["@selectedMethod"];
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLMethodSelected || HLMethodSelected),"_on_",[aCompiledMethod])]);
-return self},
+fn: function (aCompiledMethod) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@selectedMethod'], "__eq", [aCompiledMethod]);
+    if (!smalltalk.assert($1)) {
+        self['@selectedMethod'] = aCompiledMethod;
+        self['@selectedMethod'];
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLMethodSelected || HLMethodSelected, "_on_", [aCompiledMethod])]);
+    return self;
+},
 args: ["aCompiledMethod"],
 source: "selectedMethod: aCompiledMethod\x0a\x09selectedMethod = aCompiledMethod ifFalse: [\x0a\x09\x09selectedMethod := aCompiledMethod ].\x0a    \x0a    self announcer announce: (HLMethodSelected on: aCompiledMethod)",
 messageSends: ["ifFalse:", "=", "announce:", "on:", "announcer"],
@@ -1498,17 +1555,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedPackage:",
 category: 'accessing',
-fn: function (aPackage){
-var self=this;
-var $1;
-$1=smalltalk.send(self["@selectedPackage"],"__eq",[aPackage]);
-if(! smalltalk.assert($1)){
-self["@selectedPackage"]=aPackage;
-self["@selectedPackage"];
-smalltalk.send(self,"_selectedClass_",[nil]);
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLPackageSelected || HLPackageSelected),"_on_",[aPackage])]);
-return self},
+fn: function (aPackage) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@selectedPackage'], "__eq", [aPackage]);
+    if (!smalltalk.assert($1)) {
+        self['@selectedPackage'] = aPackage;
+        self['@selectedPackage'];
+        smalltalk.send(self, "_selectedClass_", [nil]);
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLPackageSelected || HLPackageSelected, "_on_", [aPackage])]);
+    return self;
+},
 args: ["aPackage"],
 source: "selectedPackage: aPackage\x0a\x09selectedPackage = aPackage ifFalse: [\x0a\x09\x09selectedPackage := aPackage.\x0a    \x09self selectedClass: nil ].\x0a    \x0a    self announcer announce: (HLPackageSelected on: aPackage)",
 messageSends: ["ifFalse:", "selectedClass:", "=", "announce:", "on:", "announcer"],
@@ -1537,17 +1595,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selectedProtocol:",
 category: 'accessing',
-fn: function (aString){
-var self=this;
-var $1;
-$1=smalltalk.send(self["@selectedProtocol"],"__eq",[aString]);
-if(! smalltalk.assert($1)){
-self["@selectedProtocol"]=aString;
-self["@selectedProtocol"];
-smalltalk.send(self,"_selectedMethod_",[nil]);
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLProtocolSelected || HLProtocolSelected),"_on_",[aString])]);
-return self},
+fn: function (aString) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@selectedProtocol'], "__eq", [aString]);
+    if (!smalltalk.assert($1)) {
+        self['@selectedProtocol'] = aString;
+        self['@selectedProtocol'];
+        smalltalk.send(self, "_selectedMethod_", [nil]);
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLProtocolSelected || HLProtocolSelected, "_on_", [aString])]);
+    return self;
+},
 args: ["aString"],
 source: "selectedProtocol: aString\x0a\x09selectedProtocol = aString ifFalse: [\x0a      \x09selectedProtocol := aString.\x0a    \x09self selectedMethod: nil ].\x0a    \x0a    self announcer announce: (HLProtocolSelected on: aString)",
 messageSends: ["ifFalse:", "selectedMethod:", "=", "announce:", "on:", "announcer"],
@@ -1670,14 +1729,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'actions',
-fn: function (anEnvironment){
-var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(self,"_new",[]);
-smalltalk.send($2,"_environment_",[anEnvironment]);
-$3=smalltalk.send($2,"_yourself",[]);
-$1=$3;
-return $1;
+fn: function (anEnvironment) {
+    var self = this;
+    var $2, $3, $1;
+    $2 = smalltalk.send(self, "_new", []);
+    smalltalk.send($2, "_environment_", [anEnvironment]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 },
 args: ["anEnvironment"],
 source: "on: anEnvironment\x0a\x0a\x09^ self new\x0a    \x09environment: anEnvironment;\x0a        yourself",
@@ -1687,27 +1746,27 @@ referencedClasses: []
 smalltalk.HLBrowserModel.klass);
 
 
-smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'sourceArea'], 'Helios-Browser');
+smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'codeWidget'], 'Helios-Browser');
 smalltalk.addMethod(
-"_classSelected_",
+"_codeWidget",
 smalltalk.method({
-selector: "classSelected:",
-category: 'actions',
-fn: function (aClass) {
+selector: "codeWidget",
+category: 'accessing',
+fn: function () {
     var self = this;
     var $1;
-    if (($receiver = aClass) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_contents_", [""]);
-        return $1;
+    if (($receiver = self['@codeWidget']) == nil || $receiver == undefined) {
+        self['@codeWidget'] = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
+        $1 = self['@codeWidget'];
     } else {
+        $1 = self['@codeWidget'];
     }
-    smalltalk.send(self, "_contents_", [smalltalk.send(aClass, "_definition", [])]);
-    return self;
+    return $1;
 },
-args: ["aClass"],
-source: "classSelected: aClass\x0a\x09aClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aClass definition",
-messageSends: ["ifNil:", "contents:", "definition"],
-referencedClasses: []
+args: [],
+source: "codeWidget\x0a\x09^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["HLCodeWidget"]
 }),
 smalltalk.HLBrowserSourceWidget);
 
@@ -1736,35 +1795,12 @@ selector: "contents:",
 category: 'accessing',
 fn: function (aString) {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_sourceArea", []), "_contents_", [aString]);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_contents_", [aString]);
     return self;
 },
 args: ["aString"],
-source: "contents: aString\x0a\x09self sourceArea contents: aString",
-messageSends: ["contents:", "sourceArea"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-"_methodSelected_",
-smalltalk.method({
-selector: "methodSelected:",
-category: 'actions',
-fn: function (aCompiledMethod) {
-    var self = this;
-    var $1;
-    if (($receiver = aCompiledMethod) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_contents_", [""]);
-        return $1;
-    } else {
-    }
-    smalltalk.send(self, "_contents_", [smalltalk.send(aCompiledMethod, "_source", [])]);
-    return self;
-},
-args: ["aCompiledMethod"],
-source: "methodSelected: aCompiledMethod\x0a\x09aCompiledMethod ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aCompiledMethod source",
-messageSends: ["ifNil:", "contents:", "source"],
+source: "contents: aString\x0a\x09self codeWidget contents: aString",
+messageSends: ["contents:", "codeWidget"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserSourceWidget);
@@ -1793,21 +1829,86 @@ category: 'accessing',
 fn: function (aBrowserModel) {
     var self = this;
     self['@model'] = aBrowserModel;
-    smalltalk.send(self['@model'], "_subscribe_", [self]);
+    smalltalk.send(self, "_observeModel", []);
     return self;
 },
 args: ["aBrowserModel"],
-source: "model: aBrowserModel\x0a\x09\x22TODO: unsubscribe from previous model\x22\x0a    \x0a\x09model := aBrowserModel.\x0a    model subscribe: self",
-messageSends: ["subscribe:"],
+source: "model: aBrowserModel\x0a\x09model := aBrowserModel.\x0a    \x0a    self observeModel",
+messageSends: ["observeModel"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserSourceWidget);
 
 smalltalk.addMethod(
-"_protocolSelected_",
+"_observeModel",
 smalltalk.method({
-selector: "protocolSelected:",
+selector: "observeModel",
 category: 'actions',
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_onMethodSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+},
+args: [],
+source: "observeModel\x0a\x09self model announcer on: HLMethodSelected do: [ :ann |\x0a    \x09self onMethodSelected: ann item ].\x0a    self model announcer on: HLClassSelected do: [ :ann |\x0a    \x09self onClassSelected: ann item ].\x0a    self model announcer on: HLProtocolSelected do: [ :ann |\x0a    \x09self onProtocolSelected: ann item ]",
+messageSends: ["on:do:", "onMethodSelected:", "item", "announcer", "model", "onClassSelected:", "onProtocolSelected:"],
+referencedClasses: ["HLMethodSelected", "HLClassSelected", "HLProtocolSelected"]
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onClassSelected_",
+smalltalk.method({
+selector: "onClassSelected:",
+category: 'reactions',
+fn: function (aClass) {
+    var self = this;
+    var $1;
+    if (($receiver = aClass) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(self, "_contents_", [""]);
+        return $1;
+    } else {
+    }
+    smalltalk.send(self, "_contents_", [smalltalk.send(aClass, "_definition", [])]);
+    return self;
+},
+args: ["aClass"],
+source: "onClassSelected: aClass\x0a\x09aClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aClass definition",
+messageSends: ["ifNil:", "contents:", "definition"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onMethodSelected_",
+smalltalk.method({
+selector: "onMethodSelected:",
+category: 'reactions',
+fn: function (aCompiledMethod) {
+    var self = this;
+    var $1;
+    if (($receiver = aCompiledMethod) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(self, "_contents_", [""]);
+        return $1;
+    } else {
+    }
+    smalltalk.send(self, "_contents_", [smalltalk.send(aCompiledMethod, "_source", [])]);
+    return self;
+},
+args: ["aCompiledMethod"],
+source: "onMethodSelected: aCompiledMethod\x0a\x09aCompiledMethod ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aCompiledMethod source",
+messageSends: ["ifNil:", "contents:", "source"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onProtocolSelected_",
+smalltalk.method({
+selector: "onProtocolSelected:",
+category: 'reactions',
 fn: function (aString) {
     var self = this;
     var $1, $2;
@@ -1821,7 +1922,7 @@ fn: function (aString) {
     return self;
 },
 args: ["aString"],
-source: "protocolSelected: aString\x0a\x09self model selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: self model selectedClass definition",
+source: "onProtocolSelected: aString\x0a\x09self model selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: self model selectedClass definition",
 messageSends: ["ifNil:", "contents:", "selectedClass", "model", "definition"],
 referencedClasses: []
 }),
@@ -1834,55 +1935,13 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html) {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_sourceArea", []), "_renderOn_", [html]);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_renderOn_", [html]);
     return self;
 },
 args: ["html"],
-source: "renderContentOn: html\x0a\x09self sourceArea renderOn: html",
-messageSends: ["renderOn:", "sourceArea"],
+source: "renderContentOn: html\x0a\x09self codeWidget renderOn: html",
+messageSends: ["renderOn:", "codeWidget"],
 referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-"_sourceArea",
-smalltalk.method({
-selector: "sourceArea",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@sourceArea']) == nil || $receiver == undefined) {
-        self['@sourceArea'] = smalltalk.send(smalltalk.HLSourceArea || HLSourceArea, "_new", []);
-        $1 = self['@sourceArea'];
-    } else {
-        $1 = self['@sourceArea'];
-    }
-    return $1;
-},
-args: [],
-source: "sourceArea\x0a\x09^ sourceArea ifNil: [ sourceArea := HLSourceArea new ]",
-messageSends: ["ifNil:", "new"],
-referencedClasses: ["HLSourceArea"]
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-category: 'announcements',
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_methodSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_classSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_protocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    return self;
-},
-args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer\x0a\x09anAnnouncer on: HLMethodSelected do: [ :ann |\x0a    \x09self methodSelected: ann item ].\x0a    anAnnouncer on: HLClassSelected do: [ :ann |\x0a    \x09self classSelected: ann item ].\x0a    anAnnouncer on: HLProtocolSelected do: [ :ann |\x0a    \x09self protocolSelected: ann item ]",
-messageSends: ["on:do:", "methodSelected:", "item", "classSelected:", "protocolSelected:"],
-referencedClasses: ["HLMethodSelected", "HLClassSelected", "HLProtocolSelected"]
 }),
 smalltalk.HLBrowserSourceWidget);
 

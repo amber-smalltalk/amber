@@ -256,7 +256,18 @@ selector: "model:",
 fn: function (aBrowserModel) {
     var self = this;
     self['@model'] = aBrowserModel;
-    smalltalk.send(self['@model'], "_subscribe_", [self]);
+    smalltalk.send(self, "_observeModel", []);
+    return self;
+}
+}),
+smalltalk.HLBrowserListWidget);
+
+smalltalk.addMethod(
+"_observeModel",
+smalltalk.method({
+selector: "observeModel",
+fn: function () {
+    var self = this;
     return self;
 }
 }),
@@ -350,9 +361,37 @@ fn: function (aClass) {
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
-"_packageSelected_",
+"_observeModel",
 smalltalk.method({
-selector: "packageSelected:",
+selector: "observeModel",
+fn: function () {
+    var self = this;
+    var $1, $2;
+    $1 = smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []);
+    smalltalk.send($1, "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_onPackageSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send($1, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_onShowInstanceToggled", []);}]);
+    $2 = smalltalk.send($1, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+}
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onClassSelected_",
+smalltalk.method({
+selector: "onClassSelected:",
+fn: function (aClass) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
+}
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onPackageSelected_",
+smalltalk.method({
+selector: "onPackageSelected:",
 fn: function (aPackage) {
     var self = this;
     var $1;
@@ -363,6 +402,18 @@ fn: function (aPackage) {
         $1 = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aPackage, "_classes", []), "_collect_", [function (each) {return smalltalk.send(each, "_theNonMetaClass", []);}]), "_asSet", []), "_asArray", []);
     }
     smalltalk.send(self, "_items_", [$1]);
+    smalltalk.send(self, "_refresh", []);
+    return self;
+}
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onShowInstanceToggled",
+smalltalk.method({
+selector: "onShowInstanceToggled",
+fn: function () {
+    var self = this;
     smalltalk.send(self, "_refresh", []);
     return self;
 }
@@ -460,11 +511,12 @@ smalltalk.addMethod(
 "_selectItem_",
 smalltalk.method({
 selector: "selectItem:",
-fn: function (aClass){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aClass],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedClass_",[aClass]);
-return self}
+fn: function (aClass) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aClass], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass_", [aClass]);
+    return self;
+}
 }),
 smalltalk.HLClassesListWidget);
 
@@ -488,20 +540,6 @@ selector: "showInstance:",
 fn: function (aBoolean) {
     var self = this;
     smalltalk.send(smalltalk.send(self, "_model", []), "_showInstance_", [aBoolean]);
-    return self;
-}
-}),
-smalltalk.HLClassesListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_packageSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_refresh", []);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
     return self;
 }
 }),
@@ -622,6 +660,57 @@ fn: function (aString) {
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
+"_observeModel",
+smalltalk.method({
+selector: "observeModel",
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [nil]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_onMethodSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+}
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_onMethodSelected_",
+smalltalk.method({
+selector: "onMethodSelected:",
+fn: function (aMethod) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
+}
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_onProtocolSelected_",
+smalltalk.method({
+selector: "onProtocolSelected:",
+fn: function (aString) {
+    var self = this;
+    var $2, $1;
+    smalltalk.send(self, "_selectedItem_", [nil]);
+    $2 = smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", []);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = [];
+    } else {
+        if (($receiver = aString) == nil || $receiver == undefined) {
+            $1 = [];
+        } else {
+            $1 = smalltalk.send(self, "_methodsInProtocol_", [aString]);
+        }
+    }
+    smalltalk.send(self, "_items_", [$1]);
+    smalltalk.send(self, "_refresh", []);
+    return self;
+}
+}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
 "_overrideSelectors",
 smalltalk.method({
 selector: "overrideSelectors",
@@ -644,30 +733,6 @@ fn: function () {
     $1 = smalltalk.send(smalltalk.send(self, "_selectorsCache", []), "_at_ifAbsentPut_", ["overriden", function () {return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", []), "_allSubclasses", []), "_inject_into_", [smalltalk.send(smalltalk.Set || Set, "_new", []), function (acc, each) {smalltalk.send(acc, "_addAll_", [smalltalk.send(each, "_selectors", [])]);$2 = smalltalk.send(acc, "_yourself", []);return $2;}]);}]);
     return $1;
 }
-}),
-smalltalk.HLMethodsListWidget);
-
-smalltalk.addMethod(
-"_protocolSelected_",
-smalltalk.method({
-selector: "protocolSelected:",
-fn: function (aString){
-var self=this;
-var $2,$1;
-smalltalk.send(self,"_selectedItem_",[nil]);
-$2=smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedClass",[]);
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=[];
-} else {
-if(($receiver = aString) == nil || $receiver == undefined){
-$1=[];
-} else {
-$1=smalltalk.send(self,"_methodsInProtocol_",[aString]);
-};
-};
-smalltalk.send(self,"_items_",[$1]);
-smalltalk.send(self,"_refresh",[]);
-return self}
 }),
 smalltalk.HLMethodsListWidget);
 
@@ -708,11 +773,12 @@ smalltalk.addMethod(
 "_selectItem_",
 smalltalk.method({
 selector: "selectItem:",
-fn: function (aCompiledMethod){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aCompiledMethod],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedMethod_",[aCompiledMethod]);
-return self}
+fn: function (aCompiledMethod) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aCompiledMethod], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedMethod_", [aCompiledMethod]);
+    return self;
+}
 }),
 smalltalk.HLMethodsListWidget);
 
@@ -723,20 +789,6 @@ selector: "selectorsCache",
 fn: function () {
     var self = this;
     return self['@selectorsCache'];
-}
-}),
-smalltalk.HLMethodsListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_protocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_protocolSelected_", [nil]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
-    return self;
 }
 }),
 smalltalk.HLMethodsListWidget);
@@ -760,14 +812,12 @@ smalltalk.addMethod(
 "_initializeItems",
 smalltalk.method({
 selector: "initializeItems",
-fn: function (){
-var self=this;
-var $1;
-self["@items"]=smalltalk.send(smalltalk.send(smalltalk.send(self,"_model",[]),"_packages",[]),"_sort_",[(function(a,b){
-return smalltalk.send(smalltalk.send(a,"_name",[]),"__lt",[smalltalk.send(b,"_name",[])]);
-})]);
-$1=self["@items"];
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    self['@items'] = smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_packages", []), "_sort_", [function (a, b) {return smalltalk.send(smalltalk.send(a, "_name", []), "__lt", [smalltalk.send(b, "_name", [])]);}]);
+    $1 = self['@items'];
+    return $1;
 }
 }),
 smalltalk.HLPackagesListWidget);
@@ -776,15 +826,39 @@ smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
-fn: function (){
-var self=this;
-var $1;
-if(($receiver = self["@items"]) == nil || $receiver == undefined){
-$1=smalltalk.send(self,"_initializeItems",[]);
-} else {
-$1=self["@items"];
-};
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    if (($receiver = self['@items']) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(self, "_initializeItems", []);
+    } else {
+        $1 = self['@items'];
+    }
+    return $1;
+}
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+"_observeModel",
+smalltalk.method({
+selector: "observeModel",
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_onPackageSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+}
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+"_onPackageSelected_",
+smalltalk.method({
+selector: "onPackageSelected:",
+fn: function (aPackage) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
+    return self;
 }
 }),
 smalltalk.HLPackagesListWidget);
@@ -815,21 +889,10 @@ smalltalk.addMethod(
 "_selectItem_",
 smalltalk.method({
 selector: "selectItem:",
-fn: function (aPackage){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aPackage],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedPackage_",[aPackage]);
-return self}
-}),
-smalltalk.HLPackagesListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-fn: function (anAnnouncer) {
+fn: function (aPackage) {
     var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLPackageSelected || HLPackageSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
+    smalltalk.send(self, "_selectItem_", [aPackage], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedPackage_", [aPackage]);
     return self;
 }
 }),
@@ -852,9 +915,23 @@ fn: function () {
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(
-"_classSelected_",
+"_observeModel",
 smalltalk.method({
-selector: "classSelected:",
+selector: "observeModel",
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+}
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_onClassSelected_",
+smalltalk.method({
+selector: "onClassSelected:",
 fn: function (aClass) {
     var self = this;
     var $2, $3, $1;
@@ -869,6 +946,18 @@ fn: function (aClass) {
     }
     smalltalk.send(self, "_items_", [$1]);
     smalltalk.send(self, "_refresh", []);
+    return self;
+}
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_onProtocolSelected_",
+smalltalk.method({
+selector: "onProtocolSelected:",
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_focus", []);
     return self;
 }
 }),
@@ -898,11 +987,12 @@ smalltalk.addMethod(
 "_selectItem_",
 smalltalk.method({
 selector: "selectItem:",
-fn: function (aString){
-var self=this;
-smalltalk.send(self,"_selectItem_",[aString],smalltalk.HLBrowserListWidget);
-smalltalk.send(smalltalk.send(self,"_model",[]),"_selectedProtocol_",[aString]);
-return self}
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_selectItem_", [aString], smalltalk.HLBrowserListWidget);
+    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedProtocol_", [aString]);
+    return self;
+}
 }),
 smalltalk.HLProtocolsListWidget);
 
@@ -910,25 +1000,11 @@ smalltalk.addMethod(
 "_selectedItem",
 smalltalk.method({
 selector: "selectedItem",
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_selectedItem",[],smalltalk.HLBrowserListWidget);
-return $1;
-}
-}),
-smalltalk.HLProtocolsListWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-fn: function (anAnnouncer) {
+fn: function () {
     var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_classSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLShowInstanceToggled || HLShowInstanceToggled, function (ann) {return smalltalk.send(self, "_classSelected_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_focus", []);}]);
-    return self;
+    var $1;
+    $1 = smalltalk.send(self, "_selectedItem", [], smalltalk.HLBrowserListWidget);
+    return $1;
 }
 }),
 smalltalk.HLProtocolsListWidget);
@@ -966,39 +1042,18 @@ fn: function () {
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_beLocal",
-smalltalk.method({
-selector: "beLocal",
-fn: function (){
-var self=this;
-smalltalk.send(self,"_initializeEnvironment",[]);
-return self}
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_beRemoteOn_port_",
-smalltalk.method({
-selector: "beRemoteOn:port:",
-fn: function (anIPAddress,aPort){
-var self=this;
-return self}
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
 "_environment",
 smalltalk.method({
 selector: "environment",
-fn: function (){
-var self=this;
-var $1;
-if(($receiver = self["@environment"]) == nil || $receiver == undefined){
-$1=smalltalk.send(self,"_initializeEnvironment",[]);
-} else {
-$1=self["@environment"];
-};
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    if (($receiver = self['@environment']) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(smalltalk.send(smalltalk.HLManager || HLManager, "_current", []), "_environment", []);
+    } else {
+        $1 = self['@environment'];
+    }
+    return $1;
 }
 }),
 smalltalk.HLBrowserModel);
@@ -1011,20 +1066,6 @@ fn: function (anEnvironment) {
     var self = this;
     self['@environment'] = anEnvironment;
     return self;
-}
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_initializeEnvironment",
-smalltalk.method({
-selector: "initializeEnvironment",
-fn: function (){
-var self=this;
-var $1;
-self["@environment"]=smalltalk.send((smalltalk.HLLocalEnvironment || HLLocalEnvironment),"_new",[]);
-$1=self["@environment"];
-return $1;
 }
 }),
 smalltalk.HLBrowserModel);
@@ -1057,30 +1098,30 @@ smalltalk.addMethod(
 "_selectedClass_",
 smalltalk.method({
 selector: "selectedClass:",
-fn: function (aClass){
-var self=this;
-var $1,$2,$3;
-$1=smalltalk.send(self["@selectedClass"],"__eq",[aClass]);
-if(! smalltalk.assert($1)){
-if(($receiver = aClass) == nil || $receiver == undefined){
-self["@selectedClass"]=nil;
-self["@selectedClass"];
-} else {
-$2=smalltalk.send(self,"_showInstance",[]);
-if(smalltalk.assert($2)){
-self["@selectedClass"]=smalltalk.send(aClass,"_theNonMetaClass",[]);
-self["@selectedClass"];
-} else {
-self["@selectedClass"]=smalltalk.send(aClass,"_theMetaClass",[]);
-self["@selectedClass"];
-};
-};
-smalltalk.send(self,"_selectedMethod_",[nil]);
-$3=smalltalk.send(self,"_selectedProtocol_",[nil]);
-$3;
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLClassSelected || HLClassSelected),"_on_",[smalltalk.send(self,"_selectedClass",[])])]);
-return self}
+fn: function (aClass) {
+    var self = this;
+    var $1, $2, $3;
+    $1 = smalltalk.send(self['@selectedClass'], "__eq", [aClass]);
+    if (!smalltalk.assert($1)) {
+        if (($receiver = aClass) == nil || $receiver == undefined) {
+            self['@selectedClass'] = nil;
+            self['@selectedClass'];
+        } else {
+            $2 = smalltalk.send(self, "_showInstance", []);
+            if (smalltalk.assert($2)) {
+                self['@selectedClass'] = smalltalk.send(aClass, "_theNonMetaClass", []);
+                self['@selectedClass'];
+            } else {
+                self['@selectedClass'] = smalltalk.send(aClass, "_theMetaClass", []);
+                self['@selectedClass'];
+            }
+        }
+        smalltalk.send(self, "_selectedMethod_", [nil]);
+        $3 = smalltalk.send(self, "_selectedProtocol_", [nil]);
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLClassSelected || HLClassSelected, "_on_", [smalltalk.send(self, "_selectedClass", [])])]);
+    return self;
+}
 }),
 smalltalk.HLBrowserModel);
 
@@ -1099,16 +1140,17 @@ smalltalk.addMethod(
 "_selectedMethod_",
 smalltalk.method({
 selector: "selectedMethod:",
-fn: function (aCompiledMethod){
-var self=this;
-var $1;
-$1=smalltalk.send(self["@selectedMethod"],"__eq",[aCompiledMethod]);
-if(! smalltalk.assert($1)){
-self["@selectedMethod"]=aCompiledMethod;
-self["@selectedMethod"];
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLMethodSelected || HLMethodSelected),"_on_",[aCompiledMethod])]);
-return self}
+fn: function (aCompiledMethod) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@selectedMethod'], "__eq", [aCompiledMethod]);
+    if (!smalltalk.assert($1)) {
+        self['@selectedMethod'] = aCompiledMethod;
+        self['@selectedMethod'];
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLMethodSelected || HLMethodSelected, "_on_", [aCompiledMethod])]);
+    return self;
+}
 }),
 smalltalk.HLBrowserModel);
 
@@ -1127,17 +1169,18 @@ smalltalk.addMethod(
 "_selectedPackage_",
 smalltalk.method({
 selector: "selectedPackage:",
-fn: function (aPackage){
-var self=this;
-var $1;
-$1=smalltalk.send(self["@selectedPackage"],"__eq",[aPackage]);
-if(! smalltalk.assert($1)){
-self["@selectedPackage"]=aPackage;
-self["@selectedPackage"];
-smalltalk.send(self,"_selectedClass_",[nil]);
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLPackageSelected || HLPackageSelected),"_on_",[aPackage])]);
-return self}
+fn: function (aPackage) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@selectedPackage'], "__eq", [aPackage]);
+    if (!smalltalk.assert($1)) {
+        self['@selectedPackage'] = aPackage;
+        self['@selectedPackage'];
+        smalltalk.send(self, "_selectedClass_", [nil]);
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLPackageSelected || HLPackageSelected, "_on_", [aPackage])]);
+    return self;
+}
 }),
 smalltalk.HLBrowserModel);
 
@@ -1156,17 +1199,18 @@ smalltalk.addMethod(
 "_selectedProtocol_",
 smalltalk.method({
 selector: "selectedProtocol:",
-fn: function (aString){
-var self=this;
-var $1;
-$1=smalltalk.send(self["@selectedProtocol"],"__eq",[aString]);
-if(! smalltalk.assert($1)){
-self["@selectedProtocol"]=aString;
-self["@selectedProtocol"];
-smalltalk.send(self,"_selectedMethod_",[nil]);
-};
-smalltalk.send(smalltalk.send(self,"_announcer",[]),"_announce_",[smalltalk.send((smalltalk.HLProtocolSelected || HLProtocolSelected),"_on_",[aString])]);
-return self}
+fn: function (aString) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self['@selectedProtocol'], "__eq", [aString]);
+    if (!smalltalk.assert($1)) {
+        self['@selectedProtocol'] = aString;
+        self['@selectedProtocol'];
+        smalltalk.send(self, "_selectedMethod_", [nil]);
+    }
+    smalltalk.send(smalltalk.send(self, "_announcer", []), "_announce_", [smalltalk.send(smalltalk.HLProtocolSelected || HLProtocolSelected, "_on_", [aString])]);
+    return self;
+}
 }),
 smalltalk.HLBrowserModel);
 
@@ -1259,34 +1303,34 @@ smalltalk.addMethod(
 "_on_",
 smalltalk.method({
 selector: "on:",
-fn: function (anEnvironment){
-var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(self,"_new",[]);
-smalltalk.send($2,"_environment_",[anEnvironment]);
-$3=smalltalk.send($2,"_yourself",[]);
-$1=$3;
-return $1;
+fn: function (anEnvironment) {
+    var self = this;
+    var $2, $3, $1;
+    $2 = smalltalk.send(self, "_new", []);
+    smalltalk.send($2, "_environment_", [anEnvironment]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 }
 }),
 smalltalk.HLBrowserModel.klass);
 
 
-smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'sourceArea'], 'Helios-Browser');
+smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'codeWidget'], 'Helios-Browser');
 smalltalk.addMethod(
-"_classSelected_",
+"_codeWidget",
 smalltalk.method({
-selector: "classSelected:",
-fn: function (aClass) {
+selector: "codeWidget",
+fn: function () {
     var self = this;
     var $1;
-    if (($receiver = aClass) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_contents_", [""]);
-        return $1;
+    if (($receiver = self['@codeWidget']) == nil || $receiver == undefined) {
+        self['@codeWidget'] = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
+        $1 = self['@codeWidget'];
     } else {
+        $1 = self['@codeWidget'];
     }
-    smalltalk.send(self, "_contents_", [smalltalk.send(aClass, "_definition", [])]);
-    return self;
+    return $1;
 }
 }),
 smalltalk.HLBrowserSourceWidget);
@@ -1310,25 +1354,7 @@ smalltalk.method({
 selector: "contents:",
 fn: function (aString) {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_sourceArea", []), "_contents_", [aString]);
-    return self;
-}
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-"_methodSelected_",
-smalltalk.method({
-selector: "methodSelected:",
-fn: function (aCompiledMethod) {
-    var self = this;
-    var $1;
-    if (($receiver = aCompiledMethod) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_contents_", [""]);
-        return $1;
-    } else {
-    }
-    smalltalk.send(self, "_contents_", [smalltalk.send(aCompiledMethod, "_source", [])]);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_contents_", [aString]);
     return self;
 }
 }),
@@ -1352,16 +1378,66 @@ selector: "model:",
 fn: function (aBrowserModel) {
     var self = this;
     self['@model'] = aBrowserModel;
-    smalltalk.send(self['@model'], "_subscribe_", [self]);
+    smalltalk.send(self, "_observeModel", []);
     return self;
 }
 }),
 smalltalk.HLBrowserSourceWidget);
 
 smalltalk.addMethod(
-"_protocolSelected_",
+"_observeModel",
 smalltalk.method({
-selector: "protocolSelected:",
+selector: "observeModel",
+fn: function () {
+    var self = this;
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_onMethodSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_onClassSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_onProtocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    return self;
+}
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onClassSelected_",
+smalltalk.method({
+selector: "onClassSelected:",
+fn: function (aClass) {
+    var self = this;
+    var $1;
+    if (($receiver = aClass) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(self, "_contents_", [""]);
+        return $1;
+    } else {
+    }
+    smalltalk.send(self, "_contents_", [smalltalk.send(aClass, "_definition", [])]);
+    return self;
+}
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onMethodSelected_",
+smalltalk.method({
+selector: "onMethodSelected:",
+fn: function (aCompiledMethod) {
+    var self = this;
+    var $1;
+    if (($receiver = aCompiledMethod) == nil || $receiver == undefined) {
+        $1 = smalltalk.send(self, "_contents_", [""]);
+        return $1;
+    } else {
+    }
+    smalltalk.send(self, "_contents_", [smalltalk.send(aCompiledMethod, "_source", [])]);
+    return self;
+}
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onProtocolSelected_",
+smalltalk.method({
+selector: "onProtocolSelected:",
 fn: function (aString) {
     var self = this;
     var $1, $2;
@@ -1383,39 +1459,7 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html) {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_sourceArea", []), "_renderOn_", [html]);
-    return self;
-}
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-"_sourceArea",
-smalltalk.method({
-selector: "sourceArea",
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@sourceArea']) == nil || $receiver == undefined) {
-        self['@sourceArea'] = smalltalk.send(smalltalk.HLSourceArea || HLSourceArea, "_new", []);
-        $1 = self['@sourceArea'];
-    } else {
-        $1 = self['@sourceArea'];
-    }
-    return $1;
-}
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-"_subscribeTo_",
-smalltalk.method({
-selector: "subscribeTo:",
-fn: function (anAnnouncer) {
-    var self = this;
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLMethodSelected || HLMethodSelected, function (ann) {return smalltalk.send(self, "_methodSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLClassSelected || HLClassSelected, function (ann) {return smalltalk.send(self, "_classSelected_", [smalltalk.send(ann, "_item", [])]);}]);
-    smalltalk.send(anAnnouncer, "_on_do_", [smalltalk.HLProtocolSelected || HLProtocolSelected, function (ann) {return smalltalk.send(self, "_protocolSelected_", [smalltalk.send(ann, "_item", [])]);}]);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_renderOn_", [html]);
     return self;
 }
 }),

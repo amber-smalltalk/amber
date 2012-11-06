@@ -1,163 +1,56 @@
 smalltalk.addPackage('Helios-Inspector', {});
-smalltalk.addClass('HLInspector', smalltalk.HLWidget, ['model', 'variables', 'display', 'code', 'label'], 'Helios-Inspector');
+smalltalk.addClass('HLInspector', smalltalk.HLWidget, ['model', 'variablesWidget', 'displayWidget', 'codeWidget', 'label'], 'Helios-Inspector');
 smalltalk.addMethod(
-"_code",
+"_codeWidget",
 smalltalk.method({
-selector: "code",
+selector: "codeWidget",
 category: 'accessing',
 fn: function () {
     var self = this;
-    var $1;
-    if (($receiver = self['@code']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeCode", []);
+    var $2, $3, $1;
+    if (($receiver = self['@codeWidget']) == nil || $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(self['@model'], "_code", [])]);
+        smalltalk.send($2, "_receiver_", [smalltalk.send(self['@model'], "_inspectee", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@codeWidget'] = $3;
+        $1 = self['@codeWidget'];
     } else {
-        $1 = self['@code'];
+        $1 = self['@codeWidget'];
     }
     return $1;
 },
 args: [],
-source: "code\x0a\x0a\x09^ code ifNil:[self initializeCode]",
-messageSends: ["ifNil:", "initializeCode"],
-referencedClasses: []
+source: "codeWidget\x0a\x09^ codeWidget ifNil: [\x0a\x09\x09codeWidget := HLCodeWidget new\x0a    \x09\x09model: model code;\x0a        \x09receiver: model inspectee;\x0a        \x09yourself ]",
+messageSends: ["ifNil:", "model:", "code", "new", "receiver:", "inspectee", "yourself"],
+referencedClasses: ["HLCodeWidget"]
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_display",
+"_displayWidget",
 smalltalk.method({
-selector: "display",
+selector: "displayWidget",
 category: 'accessing',
 fn: function () {
     var self = this;
-    var $1;
-    if (($receiver = self['@display']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeDisplay", []);
+    var $2, $3, $1;
+    if (($receiver = self['@displayWidget']) == nil ||
+        $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLInspectorDisplayWidget || HLInspectorDisplayWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@displayWidget'] = $3;
+        $1 = self['@displayWidget'];
     } else {
-        $1 = self['@display'];
+        $1 = self['@displayWidget'];
     }
     return $1;
 },
 args: [],
-source: "display\x0a\x0a\x09^ display ifNil:[self initializeDisplay]",
-messageSends: ["ifNil:", "initializeDisplay"],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_ensureModel",
-smalltalk.method({
-selector: "ensureModel",
-category: 'actions',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_observeVariables", []);
-    if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        smalltalk.send(self, "_model_", [smalltalk.send(self, "_model", [])]);
-    } else {
-        self['@model'];
-    }
-    return self;
-},
-args: [],
-source: "ensureModel\x0a\x09\x22Sends the #model: initialization message if needed.\x22\x0a\x0a\x09self observeVariables.\x0a        \x0a\x09model ifNil:[\x0a\x09\x09self model: self model]\x0a\x09",
-messageSends: ["observeVariables", "ifNil:", "model:", "model"],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeCode",
-smalltalk.method({
-selector: "initializeCode",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@code'] = smalltalk.send(self, "_makeCode", []);
-    $1 = self['@code'];
-    return $1;
-},
-args: [],
-source: "initializeCode\x0a\x0a\x09^ code := self makeCode.",
-messageSends: ["makeCode"],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeDisplay",
-smalltalk.method({
-selector: "initializeDisplay",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@display'] = smalltalk.send(self, "_makeDisplay", []);
-    $1 = self['@display'];
-    return $1;
-},
-args: [],
-source: "initializeDisplay\x0a\x09^ display := self makeDisplay",
-messageSends: ["makeDisplay"],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeLabel",
-smalltalk.method({
-selector: "initializeLabel",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@label'] = smalltalk.send(smalltalk.send(self['@model'], "_inspectee", []), "_printString", []);
-    $1 = self['@label'];
-    return $1;
-},
-args: [],
-source: "initializeLabel\x0a\x09^ label := model inspectee printString",
-messageSends: ["printString", "inspectee"],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeModel",
-smalltalk.method({
-selector: "initializeModel",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@model'] = smalltalk.send(smalltalk.HLInspectorModel || HLInspectorModel, "_new", []);
-    $1 = self['@model'];
-    return $1;
-},
-args: [],
-source: "initializeModel\x0a\x0a\x09^ model := HLInspectorModel new",
-messageSends: ["new"],
-referencedClasses: ["HLInspectorModel"]
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_initializeVariables",
-smalltalk.method({
-selector: "initializeVariables",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@variables'] = smalltalk.send(self, "_makeVariables", []);
-    $1 = self['@variables'];
-    return $1;
-},
-args: [],
-source: "initializeVariables\x0a\x09^ variables := self makeVariables",
-messageSends: ["makeVariables"],
-referencedClasses: []
+source: "displayWidget\x0a\x09^ displayWidget ifNil: [\x0a\x09\x09displayWidget := HLInspectorDisplayWidget new\x0a    \x09\x09model: self model;\x0a        \x09yourself ]",
+messageSends: ["ifNil:", "model:", "model", "new", "yourself"],
+referencedClasses: ["HLInspectorDisplayWidget"]
 }),
 smalltalk.HLInspector);
 
@@ -170,14 +63,13 @@ fn: function (anObject) {
     var self = this;
     var $1;
     smalltalk.send(smalltalk.send(self, "_model", []), "_inspect_on_", [anObject, self]);
-    smalltalk.send(self, "_refreshVariables", []);
-    smalltalk.send(self, "_refreshDisplay", []);
-    $1 = smalltalk.send(self, "_yourself", []);
+    smalltalk.send(self, "_refreshVariablesWidget", []);
+    $1 = smalltalk.send(self, "_refreshDisplayWidget", []);
     return self;
 },
 args: ["anObject"],
-source: "inspect: anObject\x0a\x0a\x09self model inspect: anObject on: self.\x0a    \x0a\x09self \x0a    \x09refreshVariables;\x0a\x09\x09refreshDisplay;\x0a        yourself",
-messageSends: ["inspect:on:", "model", "refreshVariables", "refreshDisplay", "yourself"],
+source: "inspect: anObject\x0a\x09self model inspect: anObject on: self.\x0a    \x0a\x09self \x0a    \x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
+messageSends: ["inspect:on:", "model", "refreshVariablesWidget", "refreshDisplayWidget"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -194,7 +86,7 @@ fn: function () {
     return $1;
 },
 args: [],
-source: "inspectee\x0a\x0a\x09^ self model inspectee",
+source: "inspectee\x0a\x09^ self model inspectee",
 messageSends: ["inspectee", "model"],
 referencedClasses: []
 }),
@@ -211,7 +103,7 @@ fn: function (anObject) {
     return self;
 },
 args: ["anObject"],
-source: "inspectee: anObject\x0a\x0a\x09self model inspectee: anObject",
+source: "inspectee: anObject\x0a\x09self model inspectee: anObject",
 messageSends: ["inspectee:", "model"],
 referencedClasses: []
 }),
@@ -226,80 +118,16 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@label']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeLabel", []);
+        $1 = smalltalk.send(smalltalk.send(self['@model'], "_inspectee", []), "_printString", []);
     } else {
         $1 = self['@label'];
     }
     return $1;
 },
 args: [],
-source: "label\x0a\x09\x0a    ^ label ifNil:[self initializeLabel]",
-messageSends: ["ifNil:", "initializeLabel"],
+source: "label\x0a    ^ label ifNil: [ model inspectee printString ]",
+messageSends: ["ifNil:", "printString", "inspectee"],
 referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_makeCode",
-smalltalk.method({
-selector: "makeCode",
-category: 'actions',
-fn: function () {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLCodeWidget || HLCodeWidget, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self['@model'], "_code", [])]);
-    smalltalk.send($2, "_receiver_", [smalltalk.send(self['@model'], "_inspectee", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
-args: [],
-source: "makeCode\x0a\x0a\x09^ HLCodeWidget new\x0a    \x09model: model code;\x0a        receiver: model inspectee;\x0a        yourself.\x0a        \x0a",
-messageSends: ["model:", "code", "new", "receiver:", "inspectee", "yourself"],
-referencedClasses: ["HLCodeWidget"]
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_makeDisplay",
-smalltalk.method({
-selector: "makeDisplay",
-category: 'actions',
-fn: function () {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLInspectorDisplay || HLInspectorDisplay, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
-args: [],
-source: "makeDisplay\x0a\x0a\x09^ HLInspectorDisplay new\x0a    \x09model: self model;\x0a        yourself\x0a",
-messageSends: ["model:", "model", "new", "yourself"],
-referencedClasses: ["HLInspectorDisplay"]
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_makeVariables",
-smalltalk.method({
-selector: "makeVariables",
-category: 'actions',
-fn: function () {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(smalltalk.HLInspectorVariables || HLInspectorVariables, "_new", []);
-    smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
-args: [],
-source: "makeVariables\x0a\x0a\x09^ HLInspectorVariables new\x0a    \x09model: self model;\x0a        yourself\x0a",
-messageSends: ["model:", "model", "new", "yourself"],
-referencedClasses: ["HLInspectorVariables"]
 }),
 smalltalk.HLInspector);
 
@@ -312,16 +140,17 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeModel", []);
+        smalltalk.send(self, "_model_", [smalltalk.send(smalltalk.HLInspectorModel || HLInspectorModel, "_new", [])]);
+        $1 = self['@model'];
     } else {
         $1 = self['@model'];
     }
     return $1;
 },
 args: [],
-source: "model\x0a\x0a\x09^ model ifNil:[self initializeModel]",
-messageSends: ["ifNil:", "initializeModel"],
-referencedClasses: []
+source: "model\x0a\x09^ model ifNil: [ \x0a    \x09self model: HLInspectorModel new.\x0a\x09\x09model ]",
+messageSends: ["ifNil:", "model:", "new"],
+referencedClasses: ["HLInspectorModel"]
 }),
 smalltalk.HLInspector);
 
@@ -332,56 +161,72 @@ selector: "model:",
 category: 'accessing',
 fn: function (aModel) {
     var self = this;
+    var $1;
     self['@model'] = aModel;
-    smalltalk.send(smalltalk.send(self, "_code", []), "_model_", [smalltalk.send(aModel, "_code", [])]);
-    smalltalk.send(self, "_observeCode", []);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_model_", [smalltalk.send(aModel, "_code", [])]);
+    smalltalk.send(self, "_observeCodeWidget", []);
+    smalltalk.send(self, "_observeVariablesWidget", []);
+    $1 = smalltalk.send(self, "_observeModel", []);
     return self;
 },
 args: ["aModel"],
-source: "model: aModel\x0a\x0a\x09model := aModel.\x0a     \x0a    self code model: aModel code.\x0a    self observeCode.\x0a    ",
-messageSends: ["model:", "code", "observeCode"],
+source: "model: aModel\x0a\x09model := aModel. \x0a    self codeWidget model: aModel code.\x0a    \x0a    self \x0a        observeCodeWidget;\x0a    \x09observeVariablesWidget;\x0a        observeModel",
+messageSends: ["model:", "code", "codeWidget", "observeCodeWidget", "observeVariablesWidget", "observeModel"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_observeCode",
+"_observeCodeWidget",
 smalltalk.method({
-selector: "observeCode",
+selector: "observeCodeWidget",
 category: 'actions',
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_code", []), "_announcer", []), "_on_do_", [smalltalk.HLDoItExecuted || HLDoItExecuted, function () {return smalltalk.send(self, "_onDoneIt", []);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_announcer", []), "_on_do_", [smalltalk.HLDoItExecuted || HLDoItExecuted, function () {return smalltalk.send(self, "_onDoneIt", []);}]);
     return self;
 },
 args: [],
-source: "observeCode\x0a\x0a\x09self code announcer \x0a    \x09on: HLDoItExecuted \x0a        do: [self onDoneIt]\x0a",
-messageSends: ["on:do:", "onDoneIt", "announcer", "code"],
+source: "observeCodeWidget\x0a\x09self codeWidget announcer \x0a    \x09on: HLDoItExecuted \x0a        do: [ self onDoneIt ]\x0a",
+messageSends: ["on:do:", "onDoneIt", "announcer", "codeWidget"],
 referencedClasses: ["HLDoItExecuted"]
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_observeVariables",
+"_observeModel",
 smalltalk.method({
-selector: "observeVariables",
+selector: "observeModel",
 category: 'actions',
 fn: function () {
     var self = this;
-    var $1, $2, $3, $4;
-    $1 = smalltalk.send(smalltalk.send(self, "_variables", []), "_announcer", []);
-    smalltalk.send($1, "_on_do_", [smalltalk.HLRefreshRequested || HLRefreshRequested, function (ann) {return smalltalk.send(self, "_onRefresh", []);}]);
-    smalltalk.send($1, "_on_do_", [smalltalk.HLDiveRequested || HLDiveRequested, function () {return smalltalk.send(self, "_onDive", []);}]);
-    $2 = smalltalk.send($1, "_yourself", []);
-    $3 = smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []);
-    smalltalk.send($3, "_on_do_", [smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected, function (ann) {return smalltalk.send(self, "_onInstanceVariableSelected", []);}]);
-    $4 = smalltalk.send($3, "_yourself", []);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_announcer", []), "_on_do_", [smalltalk.HLInstanceVariableSelected || HLInstanceVariableSelected, function (ann) {return smalltalk.send(self, "_onInstanceVariableSelected", []);}]);
     return self;
 },
 args: [],
-source: "observeVariables\x0a\x0a\x09self variables announcer \x0a    \x09on: HLRefreshRequested do:[:ann| self onRefresh];\x0a        on: HLDiveRequested do:[self onDive];\x0a        yourself.\x0a\x0a\x09self model announcer\x0a        on: HLInstanceVariableSelected do:[:ann| self onInstanceVariableSelected];\x0a        yourself.\x0a        ",
-messageSends: ["on:do:", "onRefresh", "announcer", "variables", "onDive", "yourself", "onInstanceVariableSelected", "model"],
-referencedClasses: ["HLRefreshRequested", "HLDiveRequested", "HLInstanceVariableSelected"]
+source: "observeModel\x0a\x09self model announcer\x0a        on: HLInstanceVariableSelected do: [ :ann | self onInstanceVariableSelected ]",
+messageSends: ["on:do:", "onInstanceVariableSelected", "announcer", "model"],
+referencedClasses: ["HLInstanceVariableSelected"]
+}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+"_observeVariablesWidget",
+smalltalk.method({
+selector: "observeVariablesWidget",
+category: 'actions',
+fn: function () {
+    var self = this;
+    var $1, $2;
+    $1 = smalltalk.send(smalltalk.send(self, "_variablesWidget", []), "_announcer", []);
+    smalltalk.send($1, "_on_do_", [smalltalk.HLRefreshRequested || HLRefreshRequested, function (ann) {return smalltalk.send(self, "_onRefresh", []);}]);
+    $2 = smalltalk.send($1, "_on_do_", [smalltalk.HLDiveRequested || HLDiveRequested, function () {return smalltalk.send(self, "_onDive", []);}]);
+    return self;
+},
+args: [],
+source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a    \x09on: HLRefreshRequested do: [ :ann | self onRefresh ];\x0a        on: HLDiveRequested do:[ self onDive ]\x0a        ",
+messageSends: ["on:do:", "onRefresh", "announcer", "variablesWidget", "onDive"],
+referencedClasses: ["HLRefreshRequested", "HLDiveRequested"]
 }),
 smalltalk.HLInspector);
 
@@ -398,22 +243,6 @@ fn: function () {
 args: [],
 source: "onDive\x0a\x0a\x09self inspect: self model selectedInstVarObject",
 messageSends: ["inspect:", "selectedInstVarObject", "model"],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-"_onDoIt",
-smalltalk.method({
-selector: "onDoIt",
-category: 'reactions',
-fn: function () {
-    var self = this;
-    return self;
-},
-args: [],
-source: "onDoIt",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -458,13 +287,13 @@ selector: "onInstanceVariableSelected",
 category: 'reactions',
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_code", []), "_receiver_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedInstVarObject", [])]);
-    smalltalk.send(self, "_refreshDisplay", []);
+    smalltalk.send(smalltalk.send(self, "_codeWidget", []), "_receiver_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedInstVarObject", [])]);
+    smalltalk.send(self, "_refreshDisplayWidget", []);
     return self;
 },
 args: [],
-source: "onInstanceVariableSelected\x0a\x0a\x09self code receiver: self model selectedInstVarObject.\x0a\x09self refreshDisplay",
-messageSends: ["receiver:", "selectedInstVarObject", "model", "code", "refreshDisplay"],
+source: "onInstanceVariableSelected\x0a\x09self codeWidget receiver: self model selectedInstVarObject.\x0a\x09self refreshDisplayWidget",
+messageSends: ["receiver:", "selectedInstVarObject", "model", "codeWidget", "refreshDisplayWidget"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -513,7 +342,7 @@ fn: function () {
     return self;
 },
 args: [],
-source: "open\x0a\x0a\x09HLManager current addTab: (HLTab on: self labelled: self tabLabel)\x0a",
+source: "open\x0a\x09HLManager current addTab: (HLTab on: self labelled: self tabLabel)\x0a",
 messageSends: ["addTab:", "on:labelled:", "tabLabel", "current"],
 referencedClasses: ["HLTab", "HLManager"]
 }),
@@ -530,42 +359,42 @@ fn: function () {
     return self;
 },
 args: [],
-source: "refresh\x0a\x0a\x09self inspect: self inspectee",
+source: "refresh\x0a\x09self inspect: self inspectee",
 messageSends: ["inspect:", "inspectee"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_refreshDisplay",
+"_refreshDisplayWidget",
 smalltalk.method({
-selector: "refreshDisplay",
+selector: "refreshDisplayWidget",
 category: 'actions',
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_display", []), "_refresh", []);
+    smalltalk.send(smalltalk.send(self, "_displayWidget", []), "_refresh", []);
     return self;
 },
 args: [],
-source: "refreshDisplay\x0a\x0a\x09self display refresh",
-messageSends: ["refresh", "display"],
+source: "refreshDisplayWidget\x0a\x09self displayWidget refresh",
+messageSends: ["refresh", "displayWidget"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_refreshVariables",
+"_refreshVariablesWidget",
 smalltalk.method({
-selector: "refreshVariables",
+selector: "refreshVariablesWidget",
 category: 'actions',
 fn: function () {
     var self = this;
-    smalltalk.send(smalltalk.send(self, "_variables", []), "_refresh", []);
+    smalltalk.send(smalltalk.send(self, "_variablesWidget", []), "_refresh", []);
     return self;
 },
 args: [],
-source: "refreshVariables\x0a\x0a\x09self variables refresh",
-messageSends: ["refresh", "variables"],
+source: "refreshVariablesWidget\x0a\x09self variablesWidget refresh",
+messageSends: ["refresh", "variablesWidget"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -577,13 +406,12 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html) {
     var self = this;
-    smalltalk.send(self, "_ensureModel", []);
-    smalltalk.send(html, "_with_", [smalltalk.send(smalltalk.HLContainer || HLContainer, "_with_", [smalltalk.send(smalltalk.HLHorizontalSplitter || HLHorizontalSplitter, "_with_with_", [smalltalk.send(smalltalk.HLVerticalSplitter || HLVerticalSplitter, "_with_with_", [smalltalk.send(self, "_variables", []), smalltalk.send(self, "_display", [])]), smalltalk.send(self, "_code", [])])])]);
+    smalltalk.send(html, "_with_", [smalltalk.send(smalltalk.HLContainer || HLContainer, "_with_", [smalltalk.send(smalltalk.HLHorizontalSplitter || HLHorizontalSplitter, "_with_with_", [smalltalk.send(smalltalk.HLVerticalSplitter || HLVerticalSplitter, "_with_with_", [smalltalk.send(self, "_variablesWidget", []), smalltalk.send(self, "_displayWidget", [])]), smalltalk.send(self, "_codeWidget", [])])])]);
     return self;
 },
 args: ["html"],
-source: "renderContentOn: html\x0a\x0a\x09self ensureModel.\x0a    \x0a   \x09html with: (HLContainer with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            \x09\x09with: self variables\x0a            \x09    with: self display)\x0a        with: self code))\x0a ",
-messageSends: ["ensureModel", "with:", "with:with:", "variables", "display", "code"],
+source: "renderContentOn: html\x0a   \x09html with: (HLContainer with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            \x09\x09with: self variablesWidget\x0a            \x09    with: self displayWidget)\x0a        with: self codeWidget))\x0a ",
+messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget"],
 referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter", "HLContainer"]
 }),
 smalltalk.HLInspector);
@@ -616,7 +444,7 @@ fn: function (aDictionary) {
     return self;
 },
 args: ["aDictionary"],
-source: "setVariables: aDictionary\x0a\x0a\x09self model variables: aDictionary",
+source: "setVariables: aDictionary\x0a\x09self model variables: aDictionary",
 messageSends: ["variables:", "model"],
 referencedClasses: []
 }),
@@ -634,31 +462,37 @@ fn: function () {
     return $1;
 },
 args: [],
-source: "tabLabel\x0a\x09\x0a    ^ self label",
+source: "tabLabel\x0a    ^ self label",
 messageSends: ["label"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
-"_variables",
+"_variablesWidget",
 smalltalk.method({
-selector: "variables",
+selector: "variablesWidget",
 category: 'accessing',
 fn: function () {
     var self = this;
-    var $1;
-    if (($receiver = self['@variables']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeVariables", []);
+    var $2, $3, $1;
+    if (($receiver = self['@variablesWidget']) == nil ||
+        $receiver == undefined) {
+        $2 = smalltalk.send(smalltalk.HLInspectorVariablesWidget ||
+            HLInspectorVariablesWidget, "_new", []);
+        smalltalk.send($2, "_model_", [smalltalk.send(self, "_model", [])]);
+        $3 = smalltalk.send($2, "_yourself", []);
+        self['@variablesWidget'] = $3;
+        $1 = self['@variablesWidget'];
     } else {
-        $1 = self['@variables'];
+        $1 = self['@variablesWidget'];
     }
     return $1;
 },
 args: [],
-source: "variables\x0a\x0a\x09^ variables ifNil:[self initializeVariables]",
-messageSends: ["ifNil:", "initializeVariables"],
-referencedClasses: []
+source: "variablesWidget\x0a\x09^ variablesWidget ifNil: [\x0a\x09\x09variablesWidget := HLInspectorVariablesWidget new\x0a    \x09\x09model: self model;\x0a        \x09yourself ]",
+messageSends: ["ifNil:", "model:", "model", "new", "yourself"],
+referencedClasses: ["HLInspectorVariablesWidget"]
 }),
 smalltalk.HLInspector);
 
@@ -712,7 +546,7 @@ referencedClasses: []
 smalltalk.HLInspector.klass);
 
 
-smalltalk.addClass('HLInspectorDisplay', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
+smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
 "_model",
 smalltalk.method({
@@ -727,7 +561,7 @@ source: "model\x0a\x0a\x09^ model",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 "_model_",
@@ -744,7 +578,7 @@ source: "model: aModel\x0a\x0a\x09model := aModel",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 "_renderContentOn_",
@@ -761,7 +595,7 @@ source: "renderContentOn: html\x0a\x09\x0a    html div with: self selectionDispl
 messageSends: ["with:", "selectionDisplayString", "div"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
 "_selectionDisplayString",
@@ -786,7 +620,7 @@ source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model sel
 messageSends: ["selection", "ifTrue:ifFalse:", "printString", "instVarObjectAt:", "includes:", "keys", "variables"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorDisplay);
+smalltalk.HLInspectorDisplayWidget);
 
 
 
@@ -800,16 +634,17 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@announcer']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeAnnouncer", []);
+        self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
+        $1 = self['@announcer'];
     } else {
         $1 = self['@announcer'];
     }
     return $1;
 },
 args: [],
-source: "announcer\x0a\x09^ announcer ifNil: [ self initializeAnnouncer ]",
-messageSends: ["ifNil:", "initializeAnnouncer"],
-referencedClasses: []
+source: "announcer\x0a\x09^ announcer ifNil: [announcer := Announcer new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["Announcer"]
 }),
 smalltalk.HLInspectorModel);
 
@@ -822,16 +657,17 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@code']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeCode", []);
+        self['@code'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_on_", [smalltalk.send(self, "_environment", [])]);
+        $1 = self['@code'];
     } else {
         $1 = self['@code'];
     }
     return $1;
 },
 args: [],
-source: "code\x0a\x09\x22Answers the code model working for this workspace model\x22\x0a\x09^ code ifNil:[self initializeCode]",
-messageSends: ["ifNil:", "initializeCode"],
-referencedClasses: []
+source: "code\x0a\x09\x22Answers the code model working for this workspace model\x22\x0a\x09^ code ifNil:[ code := HLCodeModel on: self environment ]",
+messageSends: ["ifNil:", "on:", "environment"],
+referencedClasses: ["HLCodeModel"]
 }),
 smalltalk.HLInspectorModel);
 
@@ -875,63 +711,6 @@ referencedClasses: []
 smalltalk.HLInspectorModel);
 
 smalltalk.addMethod(
-"_initializeAnnouncer",
-smalltalk.method({
-selector: "initializeAnnouncer",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
-    $1 = self['@announcer'];
-    return $1;
-},
-args: [],
-source: "initializeAnnouncer\x0a\x09^ announcer := Announcer new",
-messageSends: ["new"],
-referencedClasses: ["Announcer"]
-}),
-smalltalk.HLInspectorModel);
-
-smalltalk.addMethod(
-"_initializeCode",
-smalltalk.method({
-selector: "initializeCode",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@code'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_on_", [smalltalk.send(self, "_environment", [])]);
-    $1 = self['@code'];
-    return $1;
-},
-args: [],
-source: "initializeCode\x0a\x0a\x09^ code := HLCodeModel on: self environment",
-messageSends: ["on:", "environment"],
-referencedClasses: ["HLCodeModel"]
-}),
-smalltalk.HLInspectorModel);
-
-smalltalk.addMethod(
-"_initializeSelection",
-smalltalk.method({
-selector: "initializeSelection",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@selection'] = "";
-    $1 = self['@selection'];
-    return $1;
-},
-args: [],
-source: "initializeSelection\x0a\x0a\x09^ selection := ''",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLInspectorModel);
-
-smalltalk.addMethod(
 "_inspect_on_",
 smalltalk.method({
 selector: "inspect:on:",
@@ -944,7 +723,7 @@ fn: function (anObject, anInspector) {
     return self;
 },
 args: ["anObject", "anInspector"],
-source: "inspect: anObject on: anInspector\x0a\x0a\x09inspectee := anObject.\x0a\x09variables := #().\x0a\x09inspectee inspectOn: anInspector    \x0a",
+source: "inspect: anObject on: anInspector\x0a\x09inspectee := anObject.\x0a\x09variables := #().\x0a\x09inspectee inspectOn: anInspector    \x0a",
 messageSends: ["inspectOn:"],
 referencedClasses: []
 }),
@@ -960,7 +739,7 @@ fn: function () {
     return self['@inspectee'];
 },
 args: [],
-source: "inspectee \x0a\x0a\x09^ inspectee ",
+source: "inspectee \x0a\x09^ inspectee ",
 messageSends: [],
 referencedClasses: []
 }),
@@ -977,7 +756,7 @@ fn: function (anObject) {
     return self;
 },
 args: ["anObject"],
-source: "inspectee: anObject \x0a\x0a\x09inspectee := anObject\x0a    ",
+source: "inspectee: anObject \x0a\x09inspectee := anObject\x0a    ",
 messageSends: [],
 referencedClasses: []
 }),
@@ -995,7 +774,7 @@ fn: function (anInstVarName) {
     return $1;
 },
 args: ["anInstVarName"],
-source: "instVarObjectAt: anInstVarName\x0a\x0a\x09^ self variables at: anInstVarName",
+source: "instVarObjectAt: anInstVarName\x0a\x09^ self variables at: anInstVarName",
 messageSends: ["at:", "variables"],
 referencedClasses: []
 }),
@@ -1045,7 +824,7 @@ fn: function (anInstVarName) {
     return self;
 },
 args: ["anInstVarName"],
-source: "selectedInstVar: anInstVarName\x0a\x0a    self selection: anInstVarName",
+source: "selectedInstVar: anInstVarName\x0a    self selection: anInstVarName",
 messageSends: ["selection:"],
 referencedClasses: []
 }),
@@ -1063,7 +842,7 @@ fn: function () {
     return $1;
 },
 args: [],
-source: "selectedInstVarObject\x0a\x0a\x09^ self instVarObjectAt: self selection\x0a    ",
+source: "selectedInstVarObject\x0a\x09^ self instVarObjectAt: self selection\x0a    ",
 messageSends: ["instVarObjectAt:", "selection"],
 referencedClasses: []
 }),
@@ -1078,15 +857,15 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@selection']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeSelection", []);
+        $1 = "";
     } else {
         $1 = self['@selection'];
     }
     return $1;
 },
 args: [],
-source: "selection\x0a\x0a\x09^ selection ifNil:[self initializeSelection] ",
-messageSends: ["ifNil:", "initializeSelection"],
+source: "selection\x0a\x09^ selection ifNil:[ '' ] ",
+messageSends: ["ifNil:"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorModel);
@@ -1103,7 +882,7 @@ fn: function (anObject) {
     return self;
 },
 args: ["anObject"],
-source: "selection: anObject\x0a\x0a\x09selection := anObject.\x0a\x0a\x09self announcer announce: (HLInstanceVariableSelected on: selection)\x0a    ",
+source: "selection: anObject\x0a\x09selection := anObject.\x0a\x0a\x09self announcer announce: (HLInstanceVariableSelected on: selection)\x0a    ",
 messageSends: ["announce:", "on:", "announcer"],
 referencedClasses: ["HLInstanceVariableSelected"]
 }),
@@ -1136,7 +915,7 @@ fn: function () {
     return self['@variables'];
 },
 args: [],
-source: "variables\x0a\x0a\x09^ variables",
+source: "variables\x0a\x09^ variables",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1153,7 +932,7 @@ fn: function (aCollection) {
     return self;
 },
 args: ["aCollection"],
-source: "variables: aCollection\x0a\x0a\x09variables := aCollection\x0a    ",
+source: "variables: aCollection\x0a\x09variables := aCollection\x0a    ",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1182,7 +961,7 @@ referencedClasses: []
 smalltalk.HLInspectorModel.klass);
 
 
-smalltalk.addClass('HLInspectorVariables', smalltalk.HLNavigationListWidget, ['announcer', 'model', 'list', 'diveButton'], 'Helios-Inspector');
+smalltalk.addClass('HLInspectorVariablesWidget', smalltalk.HLNavigationListWidget, ['announcer', 'model', 'list', 'diveButton'], 'Helios-Inspector');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -1192,56 +971,37 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@announcer']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeAnnouncer", []);
+        self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
+        $1 = self['@announcer'];
     } else {
         $1 = self['@announcer'];
     }
     return $1;
 },
 args: [],
-source: "announcer\x0a\x0a\x09^ announcer ifNil:[self initializeAnnouncer]",
-messageSends: ["ifNil:", "initializeAnnouncer"],
-referencedClasses: []
-}),
-smalltalk.HLInspectorVariables);
-
-smalltalk.addMethod(
-"_initializeAnnouncer",
-smalltalk.method({
-selector: "initializeAnnouncer",
-category: 'initialization',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@announcer'] = smalltalk.send(smalltalk.Announcer || Announcer, "_new", []);
-    $1 = self['@announcer'];
-    return $1;
-},
-args: [],
-source: "initializeAnnouncer\x0a\x0a\x09^ announcer := Announcer new",
-messageSends: ["new"],
+source: "announcer\x0a\x09^ announcer ifNil:[ announcer := Announcer new ]",
+messageSends: ["ifNil:", "new"],
 referencedClasses: ["Announcer"]
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
-"_initializeItems",
+"_defaultItems",
 smalltalk.method({
-selector: "initializeItems",
-category: 'initialization',
+selector: "defaultItems",
+category: 'defaults',
 fn: function () {
     var self = this;
     var $1;
-    self['@items'] = smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_variables", []), "_keys", []);
-    $1 = self['@items'];
+    $1 = smalltalk.send(smalltalk.send(smalltalk.send(self, "_model", []), "_variables", []), "_keys", []);
     return $1;
 },
 args: [],
-source: "initializeItems\x0a\x09^ items := self model variables keys",
+source: "defaultItems\x0a\x09^ self model variables keys",
 messageSends: ["keys", "variables", "model"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_model",
@@ -1253,11 +1013,11 @@ fn: function () {
     return self['@model'];
 },
 args: [],
-source: "model\x0a\x09\x0a    ^ model\x0a        ",
+source: "model\x0a    ^ model\x0a        ",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_model_",
@@ -1270,11 +1030,11 @@ fn: function (aModel) {
     return self;
 },
 args: ["aModel"],
-source: "model: aModel\x0a\x09\x0a    model := aModel\x0a        ",
+source: "model: aModel\x0a    model := aModel\x0a        ",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_refresh",
@@ -1288,11 +1048,11 @@ fn: function () {
     return self;
 },
 args: [],
-source: "refresh\x0a\x0a\x09self resetItems.\x0a    \x0a    super refresh\x0a    ",
+source: "refresh\x0a\x09self resetItems.\x0a    super refresh\x0a    ",
 messageSends: ["resetItems", "refresh"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_renderButtonsOn_",
@@ -1318,7 +1078,7 @@ source: "renderButtonsOn: html\x0a\x0a\x09html button\x0a\x09\x09\x09class: 'btn
 messageSends: ["class:", "button", "with:", "onClick:", "announce:", "new", "announcer"],
 referencedClasses: ["HLRefreshRequested", "HLDiveRequested"]
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_resetItems",
@@ -1331,11 +1091,11 @@ fn: function () {
     return self;
 },
 args: [],
-source: "resetItems\x0a\x0a\x09items := nil",
+source: "resetItems\x0a\x09items := nil",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_selectItem_",
@@ -1349,11 +1109,11 @@ fn: function (anObject) {
     return self;
 },
 args: ["anObject"],
-source: "selectItem: anObject\x0a\x09   \x0a\x09super selectItem: anObject.\x0a    \x0a    self model selectedInstVar: anObject",
+source: "selectItem: anObject\x0a\x09super selectItem: anObject.\x0a    self model selectedInstVar: anObject",
 messageSends: ["selectItem:", "selectedInstVar:", "model"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_selection",
@@ -1367,11 +1127,11 @@ fn: function () {
     return $1;
 },
 args: [],
-source: "selection\x0a\x0a\x09^ model selection",
+source: "selection\x0a\x09^ model selection",
 messageSends: ["selection"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 "_variables",
@@ -1385,11 +1145,11 @@ fn: function () {
     return $1;
 },
 args: [],
-source: "variables\x0a\x0a\x09^ model variables",
+source: "variables\x0a\x09^ model variables",
 messageSends: ["variables"],
 referencedClasses: []
 }),
-smalltalk.HLInspectorVariables);
+smalltalk.HLInspectorVariablesWidget);
 
 
 

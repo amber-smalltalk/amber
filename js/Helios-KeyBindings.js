@@ -648,19 +648,20 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "handleInactiveKeyDown:",
 category: 'events',
-fn: function (event){
-var self=this;
-var $1,$2;
-$1=smalltalk.send(smalltalk.send(event,"_which",[]),"__eq",[smalltalk.send(self,"_activationKey",[])]);
-if(smalltalk.assert($1)){
-$2=smalltalk.send(event,"_ctrlKey",[]);
-if(smalltalk.assert($2)){
-smalltalk.send(self,"_activate",[]);
-smalltalk.send(event,"_preventDefault",[]);
-return false;
-};
-};
-return self},
+fn: function (event) {
+    var self = this;
+    var $1, $2;
+    $1 = smalltalk.send(smalltalk.send(event, "_which", []), "__eq", [smalltalk.send(self, "_activationKey", [])]);
+    if (smalltalk.assert($1)) {
+        $2 = smalltalk.send(event, "_ctrlKey", []);
+        if (smalltalk.assert($2)) {
+            smalltalk.send(self, "_activate", []);
+            smalltalk.send(event, "_preventDefault", []);
+            return false;
+        }
+    }
+    return self;
+},
 args: ["event"],
 source: "handleInactiveKeyDown: event\x0a      event which = self activationKey ifTrue: [\x0a      \x09\x09event ctrlKey  ifTrue: [\x0a\x09\x09\x09\x09\x09self activate. \x0a               \x09\x09 event preventDefault. \x0a                \x09^ false ] ]",
 messageSends: ["ifTrue:", "activate", "preventDefault", "ctrlKey", "=", "activationKey", "which"],

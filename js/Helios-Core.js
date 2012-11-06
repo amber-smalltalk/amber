@@ -1,546 +1,4 @@
 smalltalk.addPackage('Helios-Core', {});
-smalltalk.addClass('HLSourceArea', smalltalk.Widget, ['editor', 'textarea', 'div', 'receiver', 'onDoIt'], 'Helios-Core');
-smalltalk.addMethod(
-"_clear",
-smalltalk.method({
-selector: "clear",
-category: 'actions',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_contents_", [""]);
-    return self;
-},
-args: [],
-source: "clear\x0a      self contents: ''",
-messageSends: ["contents:"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_contents",
-smalltalk.method({
-selector: "contents",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
-},
-args: [],
-source: "contents\x0a    ^editor getValue",
-messageSends: ["getValue"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_contents_",
-smalltalk.method({
-selector: "contents:",
-category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return self;
-},
-args: ["aString"],
-source: "contents: aString\x0a    editor setValue: aString",
-messageSends: ["setValue:"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_currentLine",
-smalltalk.method({
-selector: "currentLine",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getLine_", [smalltalk.send(smalltalk.send(self['@editor'], "_getCursor", []), "_line", [])]);
-    return $1;
-},
-args: [],
-source: "currentLine\x0a    ^editor getLine: (editor getCursor line)",
-messageSends: ["getLine:", "line", "getCursor"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_currentLineOrSelection",
-smalltalk.method({
-selector: "currentLineOrSelection",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self['@editor'], "_somethingSelected", []);
-    if (smalltalk.assert($2)) {
-        $1 = smalltalk.send(self, "_selection", []);
-    } else {
-        $1 = smalltalk.send(self, "_currentLine", []);
-    }
-    return $1;
-},
-args: [],
-source: "currentLineOrSelection\x0a    ^editor somethingSelected\x0a\x09ifFalse: [self currentLine]\x0a\x09ifTrue: [self selection]",
-messageSends: ["ifFalse:ifTrue:", "currentLine", "selection", "somethingSelected"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_doIt",
-smalltalk.method({
-selector: "doIt",
-category: 'actions',
-fn: function () {
-    var self = this;
-    var $1;
-    var result;
-    result = smalltalk.send(self, "_eval_", [smalltalk.send(self, "_currentLineOrSelection", [])]);
-    $1 = smalltalk.send(self, "_onDoIt", []);
-    if (($receiver = $1) == nil || $receiver == undefined) {
-    } else {
-        smalltalk.send(smalltalk.send(self, "_onDoIt", []), "_value", []);
-    }
-    return result;
-},
-args: [],
-source: "doIt\x0a    | result |\x0a    result := self eval: self currentLineOrSelection.\x0a    self onDoIt ifNotNil: [self onDoIt value].\x0a    ^result",
-messageSends: ["eval:", "currentLineOrSelection", "ifNotNil:", "value", "onDoIt"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_editor",
-smalltalk.method({
-selector: "editor",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@editor'];
-},
-args: [],
-source: "editor\x0a\x09^editor",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_eval_",
-smalltalk.method({
-selector: "eval:",
-category: 'actions',
-fn: function (aString) {
-    var self = this;
-    var $1, $2;
-    var $early = {};
-    try {
-        var compiler;
-        compiler = smalltalk.send(smalltalk.Compiler || Compiler, "_new", []);
-        smalltalk.send(function () {return smalltalk.send(compiler, "_parseExpression_", [aString]);}, "_on_do_", [smalltalk.Error || Error, function (ex) {$1 = smalltalk.send(window, "_alert_", [smalltalk.send(ex, "_messageText", [])]);throw $early = [$1];}]);
-        $2 = smalltalk.send(smalltalk.send(smalltalk.send(compiler, "_eval_", [smalltalk.send(compiler, "_compile_forClass_", [smalltalk.send(smalltalk.send("doIt ^[", "__comma", [aString]), "__comma", ["] value"]), smalltalk.DoIt || DoIt])]), "_fn", []), "_applyTo_arguments_", [smalltalk.send(self, "_receiver", []), []]);
-        return $2;
-    } catch (e) {
-        if (e === $early) {
-            return e[0];
-        }
-        throw e;
-    }
-},
-args: ["aString"],
-source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: aString] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^(compiler eval: (compiler compile: 'doIt ^[', aString, '] value' forClass: DoIt)) fn applyTo: self receiver arguments: #()",
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "applyTo:arguments:", "receiver", "fn", "eval:", "compile:forClass:", ","],
-referencedClasses: ["Compiler", "Error", "DoIt"]
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_fileIn",
-smalltalk.method({
-selector: "fileIn",
-category: 'actions',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(smalltalk.Importer || Importer, "_new", []), "_import_", [smalltalk.send(smalltalk.send(self, "_currentLineOrSelection", []), "_readStream", [])]);
-    return self;
-},
-args: [],
-source: "fileIn\x0a    Importer new import: self currentLineOrSelection readStream",
-messageSends: ["import:", "readStream", "currentLineOrSelection", "new"],
-referencedClasses: ["Importer"]
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_handleKeyDown_",
-smalltalk.method({
-selector: "handleKeyDown:",
-category: 'actions',
-fn: function (anEvent) {
-    var self = this;
-    if (anEvent.ctrlKey) {
-        if (anEvent.keyCode === 80) {
-            self._printIt();
-            anEvent.preventDefault();
-            return false;
-        }
-        if (anEvent.keyCode === 68) {
-            self._doIt();
-            anEvent.preventDefault();
-            return false;
-        }
-        if (anEvent.keyCode === 73) {
-            self._inspectIt();
-            anEvent.preventDefault();
-            return false;
-        }
-    }
-    return self;
-},
-args: ["anEvent"],
-source: "handleKeyDown: anEvent\x0a    <if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_inspectIt",
-smalltalk.method({
-selector: "inspectIt",
-category: 'actions',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_doIt", []), "_inspect", []);
-    return self;
-},
-args: [],
-source: "inspectIt\x0a    self doIt inspect",
-messageSends: ["inspect", "doIt"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_onDoIt",
-smalltalk.method({
-selector: "onDoIt",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@onDoIt'];
-},
-args: [],
-source: "onDoIt\x0a\x09^onDoIt",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_onDoIt_",
-smalltalk.method({
-selector: "onDoIt:",
-category: 'accessing',
-fn: function (aBlock) {
-    var self = this;
-    self['@onDoIt'] = aBlock;
-    return self;
-},
-args: ["aBlock"],
-source: "onDoIt: aBlock\x0a\x09onDoIt := aBlock",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_onKeyDown_",
-smalltalk.method({
-selector: "onKeyDown:",
-category: 'events',
-fn: function (aBlock) {
-    var self = this;
-    smalltalk.send(self['@div'], "_onKeyDown_", [aBlock]);
-    return self;
-},
-args: ["aBlock"],
-source: "onKeyDown: aBlock\x0a\x09div onKeyDown: aBlock",
-messageSends: ["onKeyDown:"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_onKeyUp_",
-smalltalk.method({
-selector: "onKeyUp:",
-category: 'events',
-fn: function (aBlock) {
-    var self = this;
-    smalltalk.send(self['@div'], "_onKeyUp_", [aBlock]);
-    return self;
-},
-args: ["aBlock"],
-source: "onKeyUp: aBlock\x0a\x09div onKeyUp: aBlock",
-messageSends: ["onKeyUp:"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_print_",
-smalltalk.method({
-selector: "print:",
-category: 'actions',
-fn: function (aString) {
-    var self = this;
-    var start;
-    var stop;
-    start = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    stop = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
-    smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
-    smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
-    smalltalk.send(stop, "_at_put_", ["ch", smalltalk.send(smalltalk.send(smalltalk.send(start, "_at_", ["ch"]), "__plus", [smalltalk.send(aString, "_size", [])]), "__plus", [2])]);
-    smalltalk.send(self['@editor'], "_replaceSelection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@editor'], "_getSelection", []), "__comma", [" "]), "__comma", [aString]), "__comma", [" "])]);
-    smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], "_getCursor_", [true])]);
-    smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
-    return self;
-},
-args: ["aString"],
-source: "print: aString\x0a\x09| start stop |\x0a\x09start := HashedCollection new.\x0a\x09stop := HashedCollection new.\x0a\x09start at: 'line' put: (editor getCursor: false) line.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a\x09stop at: 'line' put: (start at: 'line').\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
-messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", "+", "size", "replaceSelection:", ",", "getSelection", "setCursor:", "setSelection:end:"],
-referencedClasses: ["HashedCollection"]
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_printIt",
-smalltalk.method({
-selector: "printIt",
-category: 'actions',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_print_", [smalltalk.send(smalltalk.send(self, "_doIt", []), "_printString", [])]);
-    return self;
-},
-args: [],
-source: "printIt\x0a    self print: self doIt printString",
-messageSends: ["print:", "printString", "doIt"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_receiver",
-smalltalk.method({
-selector: "receiver",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@receiver']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(smalltalk.DoIt || DoIt, "_new", []);
-    } else {
-        $1 = self['@receiver'];
-    }
-    return $1;
-},
-args: [],
-source: "receiver\x0a\x09^receiver ifNil: [DoIt new]",
-messageSends: ["ifNil:", "new"],
-referencedClasses: ["DoIt"]
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_receiver_",
-smalltalk.method({
-selector: "receiver:",
-category: 'accessing',
-fn: function (anObject) {
-    var self = this;
-    self['@receiver'] = anObject;
-    return self;
-},
-args: ["anObject"],
-source: "receiver: anObject\x0a\x09receiver := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_renderOn_",
-smalltalk.method({
-selector: "renderOn:",
-category: 'rendering',
-fn: function (html) {
-    var self = this;
-    self['@div'] = smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["source"]);
-    smalltalk.send(self['@div'], "_with_", [function () {self['@textarea'] = smalltalk.send(html, "_textarea", []);return self['@textarea'];}]);
-    smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@textarea'], "_element", [])]);
-    smalltalk.send(self['@div'], "_onKeyDown_", [function (e) {return smalltalk.send(self, "_handleKeyDown_", [e]);}]);
-    return self;
-},
-args: ["html"],
-source: "renderOn: html\x0a    div := html div class: 'source'.\x0a    div with: [textarea := html textarea].\x0a    self setEditorOn: textarea element.\x0a    div onKeyDown: [:e | self handleKeyDown: e]",
-messageSends: ["class:", "div", "with:", "textarea", "setEditorOn:", "element", "onKeyDown:", "handleKeyDown:"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_selection",
-smalltalk.method({
-selector: "selection",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getSelection", []);
-    return $1;
-},
-args: [],
-source: "selection\x0a\x09^editor getSelection",
-messageSends: ["getSelection"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_selectionEnd",
-smalltalk.method({
-selector: "selectionEnd",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionEnd", []);
-    return $1;
-},
-args: [],
-source: "selectionEnd\x0a   ^textarea element selectionEnd",
-messageSends: ["selectionEnd", "element"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_selectionEnd_",
-smalltalk.method({
-selector: "selectionEnd:",
-category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionEnd_", [anInteger]);
-    return self;
-},
-args: ["anInteger"],
-source: "selectionEnd: anInteger\x0a   textarea element selectionEnd: anInteger",
-messageSends: ["selectionEnd:", "element"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_selectionStart",
-smalltalk.method({
-selector: "selectionStart",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionStart", []);
-    return $1;
-},
-args: [],
-source: "selectionStart\x0a   ^textarea element selectionStart",
-messageSends: ["selectionStart", "element"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_selectionStart_",
-smalltalk.method({
-selector: "selectionStart:",
-category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(self['@textarea'], "_element", []), "_selectionStart_", [anInteger]);
-    return self;
-},
-args: ["anInteger"],
-source: "selectionStart: anInteger\x0a   textarea element selectionStart: anInteger",
-messageSends: ["selectionStart:", "element"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_setEditorOn_",
-smalltalk.method({
-selector: "setEditorOn:",
-category: 'accessing',
-fn: function (aTextarea) {
-    var self = this;
-    self['@editor'] = CodeMirror.fromTextArea(aTextarea, {theme: "amber", lineNumbers: true, enterMode: "flat", matchBrackets: true, electricChars: false});
-    return self;
-},
-args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_val",
-smalltalk.method({
-selector: "val",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
-},
-args: [],
-source: "val\x0a    ^editor getValue",
-messageSends: ["getValue"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-smalltalk.addMethod(
-"_val_",
-smalltalk.method({
-selector: "val:",
-category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return self;
-},
-args: ["aString"],
-source: "val: aString\x0a    editor setValue: aString",
-messageSends: ["setValue:"],
-referencedClasses: []
-}),
-smalltalk.HLSourceArea);
-
-
-
 smalltalk.addClass('HLTab', smalltalk.Object, ['widget', 'label'], 'Helios-Core');
 smalltalk.addMethod(
 "_activate",
@@ -708,7 +166,7 @@ referencedClasses: []
 smalltalk.HLTab.klass);
 
 
-smalltalk.addClass('HLWidget', smalltalk.Widget, ['rootDiv'], 'Helios-Core');
+smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
 smalltalk.addMethod(
 "_manager",
 smalltalk.method({
@@ -734,18 +192,19 @@ selector: "refresh",
 category: 'updating',
 fn: function () {
     var self = this;
-    if (($receiver = self['@rootDiv']) == nil || $receiver == undefined) {
+    var $1;
+    $1 = smalltalk.send(self, "_wrapper", []);
+    if (($receiver = $1) == nil || $receiver == undefined) {
         return self;
     } else {
-        self['@rootDiv'];
     }
-    smalltalk.send(smalltalk.send(self['@rootDiv'], "_asJQuery", []), "_empty", []);
-    smalltalk.send(function (html) {return smalltalk.send(self, "_renderContentOn_", [html]);}, "_appendToJQuery_", [smalltalk.send(self['@rootDiv'], "_asJQuery", [])]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_wrapper", []), "_asJQuery", []), "_empty", []);
+    smalltalk.send(function (html) {return smalltalk.send(self, "_renderContentOn_", [html]);}, "_appendToJQuery_", [smalltalk.send(smalltalk.send(self, "_wrapper", []), "_asJQuery", [])]);
     return self;
 },
 args: [],
-source: "refresh\x0a\x09rootDiv ifNil: [ ^ self ].\x0a    \x0a\x09rootDiv asJQuery empty.\x0a    [ :html | self renderContentOn: html ] appendToJQuery: rootDiv asJQuery",
-messageSends: ["ifNil:", "empty", "asJQuery", "appendToJQuery:", "renderContentOn:"],
+source: "refresh\x0a\x09self wrapper ifNil: [ ^ self ].\x0a    \x0a\x09self wrapper asJQuery empty.\x0a    [ :html | self renderContentOn: html ] appendToJQuery: self wrapper asJQuery",
+messageSends: ["ifNil:", "wrapper", "empty", "asJQuery", "appendToJQuery:", "renderContentOn:"],
 referencedClasses: []
 }),
 smalltalk.HLWidget);
@@ -807,27 +266,27 @@ category: 'rendering',
 fn: function (html) {
     var self = this;
     smalltalk.send(self, "_registerBindings", []);
-    self['@rootDiv'] = smalltalk.send(smalltalk.send(html, "_div", []), "_with_", [function () {return smalltalk.send(self, "_renderContentOn_", [html]);}]);
+    self['@wrapper'] = smalltalk.send(smalltalk.send(html, "_div", []), "_with_", [function () {return smalltalk.send(self, "_renderContentOn_", [html]);}]);
     return self;
 },
 args: ["html"],
-source: "renderOn: html\x0a    self registerBindings.\x0a\x0a\x09rootDiv := html div with: [\x0a    \x09self renderContentOn: html ]",
+source: "renderOn: html\x0a    self registerBindings.\x0a\x0a\x09wrapper := html div with: [\x0a    \x09self renderContentOn: html ]",
 messageSends: ["registerBindings", "with:", "renderContentOn:", "div"],
 referencedClasses: []
 }),
 smalltalk.HLWidget);
 
 smalltalk.addMethod(
-"_subscribeTo_",
+"_wrapper",
 smalltalk.method({
-selector: "subscribeTo:",
-category: 'announcements',
-fn: function (anAnnouncer) {
+selector: "wrapper",
+category: 'accessing',
+fn: function () {
     var self = this;
-    return self;
+    return self['@wrapper'];
 },
-args: ["anAnnouncer"],
-source: "subscribeTo: anAnnouncer",
+args: [],
+source: "wrapper\x0a\x09^ wrapper",
 messageSends: [],
 referencedClasses: []
 }),
@@ -962,12 +421,12 @@ category: 'events',
 fn: function () {
     var self = this;
     var $1;
-    $1 = smalltalk.send(smalltalk.send(self['@rootDiv'], "_notNil", []), "_and_", [function () {return smalltalk.send(smalltalk.send(self['@rootDiv'], "_asJQuery", []), "_hasClass_", [smalltalk.send(self, "_focusClass", [])]);}]);
+    $1 = smalltalk.send(smalltalk.send(smalltalk.send(self, "_wrapper", []), "_notNil", []), "_and_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_wrapper", []), "_asJQuery", []), "_hasClass_", [smalltalk.send(self, "_focusClass", [])]);}]);
     return $1;
 },
 args: [],
-source: "hasFocus\x0a\x09^ rootDiv notNil and: [ rootDiv asJQuery hasClass: self focusClass ]",
-messageSends: ["and:", "hasClass:", "focusClass", "asJQuery", "notNil"],
+source: "hasFocus\x0a\x09^ self wrapper notNil and: [ self wrapper asJQuery hasClass: self focusClass ]",
+messageSends: ["and:", "hasClass:", "focusClass", "asJQuery", "wrapper", "notNil"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -998,14 +457,14 @@ fn: function (html) {
     var $1, $2;
     $1 = smalltalk.send(html, "_input", []);
     smalltalk.send($1, "_style_", ["position: absolute; left: -100000px;"]);
-    smalltalk.send($1, "_onBlur_", [function () {return smalltalk.send(smalltalk.send(self['@rootDiv'], "_asJQuery", []), "_removeClass_", [smalltalk.send(self, "_focusClass", [])]);}]);
-    $2 = smalltalk.send($1, "_onFocus_", [function () {return smalltalk.send(smalltalk.send(self['@rootDiv'], "_asJQuery", []), "_addClass_", [smalltalk.send(self, "_focusClass", [])]);}]);
+    smalltalk.send($1, "_onBlur_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_wrapper", []), "_asJQuery", []), "_removeClass_", [smalltalk.send(self, "_focusClass", [])]);}]);
+    $2 = smalltalk.send($1, "_onFocus_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_wrapper", []), "_asJQuery", []), "_addClass_", [smalltalk.send(self, "_focusClass", [])]);}]);
     self['@hiddenInput'] = $2;
     return self;
 },
 args: ["html"],
-source: "renderHiddenInputOn: html\x0a\x09hiddenInput := html input\x0a    \x09style: 'position: absolute; left: -100000px;';\x0a    \x09onBlur: [ rootDiv asJQuery removeClass: self focusClass ];\x0a        onFocus: [ rootDiv asJQuery addClass: self focusClass ]",
-messageSends: ["style:", "input", "onBlur:", "removeClass:", "focusClass", "asJQuery", "onFocus:", "addClass:"],
+source: "renderHiddenInputOn: html\x0a\x09hiddenInput := html input\x0a    \x09style: 'position: absolute; left: -100000px;';\x0a    \x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
+messageSends: ["style:", "input", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -1024,11 +483,11 @@ fn: function (html) {
     smalltalk.send($1, "_class_", ["hl_widget"]);
     smalltalk.send($1, "_onClick_", [function () {return smalltalk.send(smalltalk.send(self['@hiddenInput'], "_asJQuery", []), "_focus", []);}]);
     $2 = smalltalk.send($1, "_with_", [function () {return smalltalk.send(self, "_renderContentOn_", [html]);}]);
-    self['@rootDiv'] = $2;
+    self['@wrapper'] = $2;
     return self;
 },
 args: ["html"],
-source: "renderOn: html\x0a\x09self registerBindings.\x0a\x09self renderHiddenInputOn: html.\x0a    \x0a    rootDiv := html div \x0a    \x09class: 'hl_widget'; \x0a        onClick: [ hiddenInput asJQuery focus ];\x0a        with: [\x0a\x09\x09\x09self renderContentOn: html ]",
+source: "renderOn: html\x0a\x09self registerBindings.\x0a\x09self renderHiddenInputOn: html.\x0a    \x0a    wrapper := html div \x0a    \x09class: 'hl_widget'; \x0a        onClick: [ hiddenInput asJQuery focus ];\x0a        with: [\x0a\x09\x09\x09self renderContentOn: html ]",
 messageSends: ["registerBindings", "renderHiddenInputOn:", "class:", "div", "onClick:", "focus", "asJQuery", "with:", "renderContentOn:"],
 referencedClasses: []
 }),
@@ -1098,6 +557,22 @@ referencedClasses: []
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
+"_defaultItems",
+smalltalk.method({
+selector: "defaultItems",
+category: 'defaults',
+fn: function () {
+    var self = this;
+    return [];
+},
+args: [],
+source: "defaultItems\x0a\x09^ #()",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_iconForItem_",
 smalltalk.method({
 selector: "iconForItem:",
@@ -1114,25 +589,6 @@ referencedClasses: []
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
-"_initializeItems",
-smalltalk.method({
-selector: "initializeItems",
-category: 'initializing',
-fn: function () {
-    var self = this;
-    var $1;
-    self['@items'] = [];
-    $1 = self['@items'];
-    return $1;
-},
-args: [],
-source: "initializeItems\x0a\x09^ items := #()",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLListWidget);
-
-smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
@@ -1141,15 +597,16 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@items']) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(self, "_initializeItems", []);
+        self['@items'] = smalltalk.send(self, "_defaultItems", []);
+        $1 = self['@items'];
     } else {
         $1 = self['@items'];
     }
     return $1;
 },
 args: [],
-source: "items\x0a\x09^ items ifNil: [ self initializeItems ]",
-messageSends: ["ifNil:", "initializeItems"],
+source: "items\x0a\x09^ items ifNil: [ items := self defaultItems ]",
+messageSends: ["ifNil:", "defaultItems"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
