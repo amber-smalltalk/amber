@@ -276,7 +276,7 @@ code
 !
 
 environment
-	^ environment ifNil: [ self initializeEnvironment]
+	^ environment ifNil: [ HLManager current environment ]
 !
 
 environment: anEnvironment
@@ -322,20 +322,6 @@ variables: aCollection
 
 !HLInspectorModel methodsFor: 'actions'!
 
-beLocal
-
-	self initializeEnvironment
-!
-
-beRemoteOn: anIPAddress port: aPort
-
-	"to-do"
-    
-    "environment := HLRemoteEnvironment on: anIPAddress port: aPort
-    
-    ...kind of stuff"
-!
-
 inspect: anObject on: anInspector
 
 	inspectee := anObject.
@@ -366,10 +352,6 @@ initializeAnnouncer
 initializeCode
 
 	^ code := HLCodeModel on: self environment
-!
-
-initializeEnvironment
-	^ environment := HLLocalEnvironment new
 !
 
 initializeSelection

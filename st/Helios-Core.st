@@ -596,13 +596,23 @@ setupKeyBindings
 ! !
 
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab keyBinder'
+	instanceVariableNames: 'tabs activeTab keyBinder environment'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
 
 activeTab
 	^ activeTab
+!
+
+environment
+	"The default environment used by all Helios objects"
+    
+	^ environment ifNil: [ environment := self defaultEnvironment ]
+!
+
+environment: anEnvironment
+	environment := anEnvironment
 !
 
 keyBinder
@@ -636,6 +646,12 @@ removeTab: aTab
 
 	self tabs remove: aTab.
 	self refresh
+! !
+
+!HLManager methodsFor: 'defaults'!
+
+defaultEnvironment
+	^ HLLocalEnvironment new
 ! !
 
 !HLManager methodsFor: 'initialization'!

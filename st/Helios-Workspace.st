@@ -366,7 +366,7 @@ code
 !
 
 environment
-	^ environment ifNil: [ self initializeEnvironment]
+	^ environment ifNil: [ HLManager current environment ]
 !
 
 environment: anEnvironment
@@ -374,20 +374,6 @@ environment: anEnvironment
 ! !
 
 !HLWorkspaceModel methodsFor: 'actions'!
-
-beLocal
-
-	self initializeEnvironment
-!
-
-beRemoteOn: anIPAddress port: aPort
-
-	"to-do"
-    
-    "environment := HLRemoteEnvironment on: anIPAddress port: aPort
-    
-    ...kind of stuff"
-!
 
 subscribe: aWidget
 	aWidget subscribeTo: self announcer
@@ -402,10 +388,6 @@ initializeAnnouncer
 initializeCode
 
 	^ code := HLCodeModel on: self environment
-!
-
-initializeEnvironment
-	^ environment := HLLocalEnvironment new
 ! !
 
 !HLWorkspaceModel methodsFor: 'reactions'!
