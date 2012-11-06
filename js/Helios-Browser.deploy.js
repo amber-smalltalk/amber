@@ -1286,18 +1286,6 @@ fn: function (aBoolean) {
 }),
 smalltalk.HLBrowserModel);
 
-smalltalk.addMethod(
-"_subscribe_",
-smalltalk.method({
-selector: "subscribe:",
-fn: function (aWidget) {
-    var self = this;
-    smalltalk.send(aWidget, "_subscribeTo_", [smalltalk.send(self, "_announcer", [])]);
-    return self;
-}
-}),
-smalltalk.HLBrowserModel);
-
 
 smalltalk.addMethod(
 "_on_",

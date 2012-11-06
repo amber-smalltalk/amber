@@ -528,6 +528,10 @@ allProtocol
 	^ '-- All --'
 !
 
+announcer
+	^ announcer ifNil: [ announcer := Announcer new ]
+!
+
 environment
 	^ environment ifNil: [ HLManager current environment ]
 !
@@ -618,16 +622,6 @@ showInstance: aBoolean
     	  	ifFalse: [ self selectedClass theMetaClass ]) ].
     
     self announcer announce: HLShowInstanceToggled new
-! !
-
-!HLBrowserModel methodsFor: 'announcements'!
-
-announcer
-	^ announcer ifNil: [ announcer := Announcer new ]
-!
-
-subscribe: aWidget
-	aWidget subscribeTo: self announcer
 ! !
 
 !HLBrowserModel class methodsFor: 'actions'!

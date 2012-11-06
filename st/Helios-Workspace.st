@@ -66,7 +66,7 @@ contents
 !
 
 contents: aString
-	^ editor setValue: aString
+	editor setValue: aString
 !
 
 currentLine
@@ -80,7 +80,9 @@ currentLineOrSelection
 !
 
 model
-	^ model ifNil: [ model := HLCodeModel new ]
+	^ model ifNil: [ 
+    	self model: HLCodeModel new.
+		model ]
 !
 
 model: aModel
@@ -113,20 +115,12 @@ selectionStart
 
 selectionStart: anInteger
    code element selectionStart: anInteger
-!
-
-val
-	^ code getValue
-!
-
-val: aString
-    code setValue: aString
 ! !
 
 !HLCodeWidget methodsFor: 'actions'!
 
 clear
-      self val: ''
+      self contents: ''
 !
 
 doIt
@@ -250,13 +244,6 @@ renderContentOn: html
     self setEditorOn: code element.
     
     self observeWrapper
-!
-
-renderOn: html
-    wrapper := html div class: 'code'.
-    self observeWrapper.
-    wrapper with: [code := html textarea].
-    self setEditorOn: code element.
 ! !
 
 HLWidget subclass: #HLWorkspace
@@ -344,12 +331,6 @@ environment
 
 environment: anEnvironment
 	environment := anEnvironment
-! !
-
-!HLWorkspaceModel methodsFor: 'actions'!
-
-subscribe: aWidget
-	aWidget subscribeTo: self announcer
 ! !
 
 !HLWorkspaceModel methodsFor: 'reactions'!

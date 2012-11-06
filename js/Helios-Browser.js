@@ -1367,7 +1367,7 @@ smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
 selector: "announcer",
-category: 'announcements',
+category: 'accessing',
 fn: function () {
     var self = this;
     var $1;
@@ -1703,23 +1703,6 @@ args: ["aBoolean"],
 source: "showInstance: aBoolean\x0a\x09showInstance := aBoolean.\x0a    \x0a    self selectedClass ifNotNil: [\x0a    \x09self selectedClass: (aBoolean\x0a    \x09\x09ifTrue: [self selectedClass theNonMetaClass ]\x0a    \x09  \x09ifFalse: [ self selectedClass theMetaClass ]) ].\x0a    \x0a    self announcer announce: HLShowInstanceToggled new",
 messageSends: ["ifNotNil:", "selectedClass:", "ifTrue:ifFalse:", "theNonMetaClass", "selectedClass", "theMetaClass", "announce:", "new", "announcer"],
 referencedClasses: ["HLShowInstanceToggled"]
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_subscribe_",
-smalltalk.method({
-selector: "subscribe:",
-category: 'announcements',
-fn: function (aWidget) {
-    var self = this;
-    smalltalk.send(aWidget, "_subscribeTo_", [smalltalk.send(self, "_announcer", [])]);
-    return self;
-},
-args: ["aWidget"],
-source: "subscribe: aWidget\x0a\x09aWidget subscribeTo: self announcer",
-messageSends: ["subscribeTo:", "announcer"],
-referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
 

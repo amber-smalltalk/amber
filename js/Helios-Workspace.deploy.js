@@ -153,7 +153,7 @@ smalltalk.method({
 selector: "clear",
 fn: function () {
     var self = this;
-    smalltalk.send(self, "_val_", [""]);
+    smalltalk.send(self, "_contents_", [""]);
     return self;
 }
 }),
@@ -163,11 +163,11 @@ smalltalk.addMethod(
 "_contents",
 smalltalk.method({
 selector: "contents",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self["@editor"],"_getValue",[]);
+return $1;
 }
 }),
 smalltalk.HLCodeWidget);
@@ -176,12 +176,10 @@ smalltalk.addMethod(
 "_contents_",
 smalltalk.method({
 selector: "contents:",
-fn: function (aString) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return $1;
-}
+fn: function (aString){
+var self=this;
+smalltalk.send(self["@editor"],"_setValue_",[aString]);
+return self}
 }),
 smalltalk.HLCodeWidget);
 
@@ -293,7 +291,7 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        self['@model'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_new", []);
+        smalltalk.send(self, "_model_", [smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_new", [])]);
         $1 = self['@model'];
     } else {
         $1 = self['@model'];
@@ -307,11 +305,10 @@ smalltalk.addMethod(
 "_model_",
 smalltalk.method({
 selector: "model:",
-fn: function (aModel) {
-    var self = this;
-    self['@model'] = aModel;
-    return self;
-}
+fn: function (aModel){
+var self=this;
+self["@model"]=aModel;
+return self}
 }),
 smalltalk.HLCodeWidget);
 
@@ -458,28 +455,12 @@ smalltalk.addMethod(
 "_renderContentOn_",
 smalltalk.method({
 selector: "renderContentOn:",
-fn: function (html) {
-    var self = this;
-    self['@code'] = smalltalk.send(html, "_textarea", []);
-    smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@code'], "_element", [])]);
-    smalltalk.send(self, "_observeWrapper", []);
-    return self;
-}
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_renderOn_",
-smalltalk.method({
-selector: "renderOn:",
-fn: function (html) {
-    var self = this;
-    self['@wrapper'] = smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["code"]);
-    smalltalk.send(self, "_observeWrapper", []);
-    smalltalk.send(self['@wrapper'], "_with_", [function () {self['@code'] = smalltalk.send(html, "_textarea", []);return self['@code'];}]);
-    smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@code'], "_element", [])]);
-    return self;
-}
+fn: function (html){
+var self=this;
+self["@code"]=smalltalk.send(html,"_textarea",[]);
+smalltalk.send(self,"_setEditorOn_",[smalltalk.send(self["@code"],"_element",[])]);
+smalltalk.send(self,"_observeWrapper",[]);
+return self}
 }),
 smalltalk.HLCodeWidget);
 
@@ -553,31 +534,6 @@ selector: "setEditorOn:",
 fn: function (aTextarea) {
     var self = this;
     self['@editor'] = CodeMirror.fromTextArea(aTextarea, {theme: "amber", lineNumbers: true, enterMode: "flat", matchBrackets: true, electricChars: false});
-    return self;
-}
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_val",
-smalltalk.method({
-selector: "val",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@code'], "_getValue", []);
-    return $1;
-}
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_val_",
-smalltalk.method({
-selector: "val:",
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@code'], "_setValue_", [aString]);
     return self;
 }
 }),
@@ -818,18 +774,6 @@ fn: function (anEvent) {
             return false;
         }
     }
-    return self;
-}
-}),
-smalltalk.HLWorkspaceModel);
-
-smalltalk.addMethod(
-"_subscribe_",
-smalltalk.method({
-selector: "subscribe:",
-fn: function (aWidget) {
-    var self = this;
-    smalltalk.send(aWidget, "_subscribeTo_", [smalltalk.send(self, "_announcer", [])]);
     return self;
 }
 }),

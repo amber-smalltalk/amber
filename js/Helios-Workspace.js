@@ -204,12 +204,12 @@ selector: "clear",
 category: 'actions',
 fn: function () {
     var self = this;
-    smalltalk.send(self, "_val_", [""]);
+    smalltalk.send(self, "_contents_", [""]);
     return self;
 },
 args: [],
-source: "clear\x0a      self val: ''",
-messageSends: ["val:"],
+source: "clear\x0a      self contents: ''",
+messageSends: ["contents:"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
@@ -219,11 +219,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "contents",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self["@editor"],"_getValue",[]);
+return $1;
 },
 args: [],
 source: "contents\x0a\x09^ editor getValue",
@@ -237,14 +237,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "contents:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return $1;
-},
+fn: function (aString){
+var self=this;
+smalltalk.send(self["@editor"],"_setValue_",[aString]);
+return self},
 args: ["aString"],
-source: "contents: aString\x0a\x09^ editor setValue: aString",
+source: "contents: aString\x0a\x09editor setValue: aString",
 messageSends: ["setValue:"],
 referencedClasses: []
 }),
@@ -394,7 +392,7 @@ fn: function () {
     var self = this;
     var $1;
     if (($receiver = self['@model']) == nil || $receiver == undefined) {
-        self['@model'] = smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_new", []);
+        smalltalk.send(self, "_model_", [smalltalk.send(smalltalk.HLCodeModel || HLCodeModel, "_new", [])]);
         $1 = self['@model'];
     } else {
         $1 = self['@model'];
@@ -402,8 +400,8 @@ fn: function () {
     return $1;
 },
 args: [],
-source: "model\x0a\x09^ model ifNil: [ model := HLCodeModel new ]",
-messageSends: ["ifNil:", "new"],
+source: "model\x0a\x09^ model ifNil: [ \x0a    \x09self model: HLCodeModel new.\x0a\x09\x09model ]",
+messageSends: ["ifNil:", "model:", "new"],
 referencedClasses: ["HLCodeModel"]
 }),
 smalltalk.HLCodeWidget);
@@ -413,11 +411,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
 category: 'accessing',
-fn: function (aModel) {
-    var self = this;
-    self['@model'] = aModel;
-    return self;
-},
+fn: function (aModel){
+var self=this;
+self["@model"]=aModel;
+return self},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel",
 messageSends: [],
@@ -614,36 +611,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "renderContentOn:",
 category: 'rendering',
-fn: function (html) {
-    var self = this;
-    self['@code'] = smalltalk.send(html, "_textarea", []);
-    smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@code'], "_element", [])]);
-    smalltalk.send(self, "_observeWrapper", []);
-    return self;
-},
+fn: function (html){
+var self=this;
+self["@code"]=smalltalk.send(html,"_textarea",[]);
+smalltalk.send(self,"_setEditorOn_",[smalltalk.send(self["@code"],"_element",[])]);
+smalltalk.send(self,"_observeWrapper",[]);
+return self},
 args: ["html"],
 source: "renderContentOn: html\x0a    code := html textarea.\x0a    self setEditorOn: code element.\x0a    \x0a    self observeWrapper",
 messageSends: ["textarea", "setEditorOn:", "element", "observeWrapper"],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_renderOn_",
-smalltalk.method({
-selector: "renderOn:",
-category: 'rendering',
-fn: function (html) {
-    var self = this;
-    self['@wrapper'] = smalltalk.send(smalltalk.send(html, "_div", []), "_class_", ["code"]);
-    smalltalk.send(self, "_observeWrapper", []);
-    smalltalk.send(self['@wrapper'], "_with_", [function () {self['@code'] = smalltalk.send(html, "_textarea", []);return self['@code'];}]);
-    smalltalk.send(self, "_setEditorOn_", [smalltalk.send(self['@code'], "_element", [])]);
-    return self;
-},
-args: ["html"],
-source: "renderOn: html\x0a    wrapper := html div class: 'code'.\x0a    self observeWrapper.\x0a    wrapper with: [code := html textarea].\x0a    self setEditorOn: code element.\x0a    \x0a",
-messageSends: ["class:", "div", "observeWrapper", "with:", "textarea", "setEditorOn:", "element"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
@@ -749,41 +725,6 @@ fn: function (aTextarea) {
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_val",
-smalltalk.method({
-selector: "val",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@code'], "_getValue", []);
-    return $1;
-},
-args: [],
-source: "val\x0a\x09^ code getValue",
-messageSends: ["getValue"],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-"_val_",
-smalltalk.method({
-selector: "val:",
-category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@code'], "_setValue_", [aString]);
-    return self;
-},
-args: ["aString"],
-source: "val: aString\x0a    code setValue: aString",
-messageSends: ["setValue:"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
@@ -1104,23 +1045,6 @@ fn: function (anEvent) {
 args: ["anEvent"],
 source: "onKeyDown: anEvent\x0a\x0a\x09<if(anEvent.ctrlKey) {\x0a\x09\x09if(anEvent.keyCode === 80) { //ctrl+p\x0a\x09\x09\x09self._printIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 68) { //ctrl+d\x0a\x09\x09\x09self._doIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09\x09if(anEvent.keyCode === 73) { //ctrl+i\x0a\x09\x09\x09self._inspectIt();\x0a\x09\x09\x09anEvent.preventDefault();\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09}>",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLWorkspaceModel);
-
-smalltalk.addMethod(
-"_subscribe_",
-smalltalk.method({
-selector: "subscribe:",
-category: 'actions',
-fn: function (aWidget) {
-    var self = this;
-    smalltalk.send(aWidget, "_subscribeTo_", [smalltalk.send(self, "_announcer", [])]);
-    return self;
-},
-args: ["aWidget"],
-source: "subscribe: aWidget\x0a\x09aWidget subscribeTo: self announcer",
-messageSends: ["subscribeTo:", "announcer"],
 referencedClasses: []
 }),
 smalltalk.HLWorkspaceModel);

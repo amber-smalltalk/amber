@@ -79,8 +79,8 @@ renderContentOn: html
 renderOn: html
     self registerBindings.
 
-	wrapper := html div with: [
-    	self renderContentOn: html ]
+	wrapper := html div.
+    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery
 ! !
 
 !HLWidget methodsFor: 'updating'!
@@ -197,6 +197,10 @@ selectedItem: anObject
 
 !HLListWidget methodsFor: 'actions'!
 
+activateFirstListItem
+	self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))
+!
+
 activateListItem: aListItem
 	| parent position |
     
@@ -216,6 +220,12 @@ activateListItem: aListItem
         
    "Activate the corresponding item"
    self selectItem: (self items at: (aListItem attr: 'list-data') asNumber)
+!
+
+focus
+	super focus.
+    self items isEmpty ifFalse: [ 
+		self selectedItem ifNil: [ self activateFirstListItem ] ]
 !
 
 selectItem: anObject

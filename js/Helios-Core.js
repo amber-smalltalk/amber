@@ -263,15 +263,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
 category: 'rendering',
-fn: function (html) {
-    var self = this;
-    smalltalk.send(self, "_registerBindings", []);
-    self['@wrapper'] = smalltalk.send(smalltalk.send(html, "_div", []), "_with_", [function () {return smalltalk.send(self, "_renderContentOn_", [html]);}]);
-    return self;
-},
+fn: function (html){
+var self=this;
+smalltalk.send(self,"_registerBindings",[]);
+self["@wrapper"]=smalltalk.send(html,"_div",[]);
+smalltalk.send((function(renderer){
+return smalltalk.send(self,"_renderContentOn_",[renderer]);
+}),"_appendToJQuery_",[smalltalk.send(self["@wrapper"],"_asJQuery",[])]);
+return self},
 args: ["html"],
-source: "renderOn: html\x0a    self registerBindings.\x0a\x0a\x09wrapper := html div with: [\x0a    \x09self renderContentOn: html ]",
-messageSends: ["registerBindings", "with:", "renderContentOn:", "div"],
+source: "renderOn: html\x0a    self registerBindings.\x0a\x0a\x09wrapper := html div.\x0a    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery",
+messageSends: ["registerBindings", "div", "appendToJQuery:", "asJQuery", "renderContentOn:"],
 referencedClasses: []
 }),
 smalltalk.HLWidget);
@@ -497,6 +499,22 @@ smalltalk.HLFocusableWidget);
 
 smalltalk.addClass('HLListWidget', smalltalk.HLFocusableWidget, ['items', 'selectedItem'], 'Helios-Core');
 smalltalk.addMethod(
+"_activateFirstListItem",
+smalltalk.method({
+selector: "activateFirstListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_activateListItem_",[smalltalk.send(window,"_jQuery_",[smalltalk.send(smalltalk.send(smalltalk.send(self["@wrapper"],"_asJQuery",[]),"_find_",["li"]),"_get_",[(0)])])]);
+return self},
+args: [],
+source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))",
+messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_activateListItem_",
 smalltalk.method({
 selector: "activateListItem:",
@@ -568,6 +586,32 @@ fn: function () {
 args: [],
 source: "defaultItems\x0a\x09^ #()",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+category: 'actions',
+fn: function (){
+var self=this;
+var $1,$2;
+smalltalk.send(self,"_focus",[],smalltalk.HLFocusableWidget);
+$1=smalltalk.send(smalltalk.send(self,"_items",[]),"_isEmpty",[]);
+if(! smalltalk.assert($1)){
+$2=smalltalk.send(self,"_selectedItem",[]);
+if(($receiver = $2) == nil || $receiver == undefined){
+smalltalk.send(self,"_activateFirstListItem",[]);
+} else {
+$2;
+};
+};
+return self},
+args: [],
+source: "focus\x0a\x09super focus.\x0a    self items isEmpty ifFalse: [ \x0a\x09\x09self selectedItem ifNil: [ self activateFirstListItem ] ]",
+messageSends: ["focus", "ifFalse:", "ifNil:", "activateFirstListItem", "selectedItem", "isEmpty", "items"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

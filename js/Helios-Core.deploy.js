@@ -192,12 +192,14 @@ smalltalk.addMethod(
 "_renderOn_",
 smalltalk.method({
 selector: "renderOn:",
-fn: function (html) {
-    var self = this;
-    smalltalk.send(self, "_registerBindings", []);
-    self['@wrapper'] = smalltalk.send(smalltalk.send(html, "_div", []), "_with_", [function () {return smalltalk.send(self, "_renderContentOn_", [html]);}]);
-    return self;
-}
+fn: function (html){
+var self=this;
+smalltalk.send(self,"_registerBindings",[]);
+self["@wrapper"]=smalltalk.send(html,"_div",[]);
+smalltalk.send((function(renderer){
+return smalltalk.send(self,"_renderContentOn_",[renderer]);
+}),"_appendToJQuery_",[smalltalk.send(self["@wrapper"],"_asJQuery",[])]);
+return self}
 }),
 smalltalk.HLWidget);
 
@@ -362,6 +364,17 @@ smalltalk.HLFocusableWidget);
 
 smalltalk.addClass('HLListWidget', smalltalk.HLFocusableWidget, ['items', 'selectedItem'], 'Helios-Core');
 smalltalk.addMethod(
+"_activateFirstListItem",
+smalltalk.method({
+selector: "activateFirstListItem",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_activateListItem_",[smalltalk.send(window,"_jQuery_",[smalltalk.send(smalltalk.send(smalltalk.send(self["@wrapper"],"_asJQuery",[]),"_find_",["li"]),"_get_",[(0)])])]);
+return self}
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_activateListItem_",
 smalltalk.method({
 selector: "activateListItem:",
@@ -419,6 +432,27 @@ fn: function () {
     var self = this;
     return [];
 }
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+fn: function (){
+var self=this;
+var $1,$2;
+smalltalk.send(self,"_focus",[],smalltalk.HLFocusableWidget);
+$1=smalltalk.send(smalltalk.send(self,"_items",[]),"_isEmpty",[]);
+if(! smalltalk.assert($1)){
+$2=smalltalk.send(self,"_selectedItem",[]);
+if(($receiver = $2) == nil || $receiver == undefined){
+smalltalk.send(self,"_activateFirstListItem",[]);
+} else {
+$2;
+};
+};
+return self}
 }),
 smalltalk.HLListWidget);
 
