@@ -6,11 +6,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "applyTo:arguments:",
 category: 'evaluating',
-fn: function (anObject,aCollection){
-var self=this;
-return self.apply(anObject, aCollection);
-;
-return self},
+fn: function (anObject, aCollection) {
+    var self = this;
+    return self.apply(anObject, aCollection);
+    return self;
+},
 args: ["anObject", "aCollection"],
 source: "applyTo: anObject arguments: aCollection\x0a\x09<return self.apply(anObject, aCollection)>",
 messageSends: [],
@@ -23,11 +23,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "compiledSource",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.toString();
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.toString();
+    return self;
+},
 args: [],
 source: "compiledSource\x0a\x09<return self.toString()>",
 messageSends: [],
@@ -40,23 +40,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ensure:",
 category: 'evaluating',
-fn: function (aBlock){
-var self=this;
-var $1;
-var success;
-success=false;
-$1=smalltalk.send((function(){
-smalltalk.send(self,"_value",[]);
-success=true;
-success;
-return smalltalk.send(aBlock,"_value",[]);
-}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
-if(! smalltalk.assert(success)){
-smalltalk.send(aBlock,"_value",[]);
-};
-return smalltalk.send(ex,"_signal",[]);
-})]);
-return $1;
+fn: function (aBlock) {
+    var self = this;
+    var $1;
+    var success;
+    success = false;
+    $1 = smalltalk.send(function () {smalltalk.send(self, "_value", []);success = true;success;return smalltalk.send(aBlock, "_value", []);}, "_on_do_", [smalltalk.Error || Error, function (ex) {if (!smalltalk.assert(success)) {smalltalk.send(aBlock, "_value", []);}return smalltalk.send(ex, "_signal", []);}]);
+    return $1;
 },
 args: ["aBlock"],
 source: "ensure: aBlock\x0a\x09| success |\x0a\x09success := false.\x0a\x09^[self value. success := true. aBlock value]\x0a\x09\x09on: Error\x0a\x09\x09do: [:ex |\x0a\x09\x09\x09success ifFalse: [aBlock value].\x0a\x09\x09\x09ex signal]",
@@ -70,11 +60,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
 category: 'evaluating',
-fn: function (){
-var self=this;
-return new self();
-;
-return self},
+fn: function () {
+    var self = this;
+    return new self;
+    return self;
+},
 args: [],
 source: "new\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self()>",
 messageSends: [],
@@ -87,11 +77,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "newValue:",
 category: 'evaluating',
-fn: function (anObject){
-var self=this;
-return new self(anObject);
-;
-return self},
+fn: function (anObject) {
+    var self = this;
+    return new self(anObject);
+    return self;
+},
 args: ["anObject"],
 source: "newValue: anObject\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject)>",
 messageSends: [],
@@ -104,11 +94,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "newValue:value:",
 category: 'evaluating',
-fn: function (anObject,anObject2){
-var self=this;
-return new self(anObject, anObject2);
-;
-return self},
+fn: function (anObject, anObject2) {
+    var self = this;
+    return new self(anObject, anObject2);
+    return self;
+},
 args: ["anObject", "anObject2"],
 source: "newValue:  anObject value: anObject2\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
 messageSends: [],
@@ -121,11 +111,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "newValue:value:value:",
 category: 'evaluating',
-fn: function (anObject,anObject2,anObject3){
-var self=this;
-return new self(anObject, anObject2);
-;
-return self},
+fn: function (anObject, anObject2, anObject3) {
+    var self = this;
+    return new self(anObject, anObject2);
+    return self;
+},
 args: ["anObject", "anObject2", "anObject3"],
 source: "newValue:  anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
 messageSends: [],
@@ -138,11 +128,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "numArgs",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.length;
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.length;
+    return self;
+},
 args: [],
 source: "numArgs\x0a\x09<return self.length>",
 messageSends: [],
@@ -155,18 +145,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:do:",
 category: 'error handling',
-fn: function (anErrorClass,aBlock){
-var self=this;
-var $2,$1;
-$1=smalltalk.send(self,"_try_catch_",[self,(function(error){
-$2=smalltalk.send(error,"_isKindOf_",[anErrorClass]);
-if(smalltalk.assert($2)){
-return smalltalk.send(aBlock,"_value_",[error]);
-} else {
-return smalltalk.send(error,"_signal",[]);
-};
-})]);
-return $1;
+fn: function (anErrorClass, aBlock) {
+    var self = this;
+    var $2, $1;
+    $1 = smalltalk.send(self, "_try_catch_", [self, function (error) {$2 = smalltalk.send(error, "_isKindOf_", [anErrorClass]);if (smalltalk.assert($2)) {return smalltalk.send(aBlock, "_value_", [error]);} else {return smalltalk.send(error, "_signal", []);}}]);
+    return $1;
 },
 args: ["anErrorClass", "aBlock"],
 source: "on: anErrorClass do: aBlock\x0a\x09^self try: self catch: [:error |\x0a\x09    (error isKindOf: anErrorClass) \x0a\x09     ifTrue: [aBlock value: error]\x0a\x09     ifFalse: [error signal]]",
@@ -180,11 +163,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "timeToRun",
 category: 'evaluating',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send((smalltalk.Date || Date),"_millisecondsToRun_",[self]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.Date || Date, "_millisecondsToRun_", [self]);
+    return $1;
 },
 args: [],
 source: "timeToRun\x0a\x09\x22Answer the number of milliseconds taken to execute this block.\x22\x0a\x0a\x09^ Date millisecondsToRun: self",
@@ -198,11 +181,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
 category: 'evaluating',
-fn: function (){
-var self=this;
-return self();;
-;
-return self},
+fn: function () {
+    var self = this;
+    return self();
+    return self;
+},
 args: [],
 source: "value\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self();>",
 messageSends: [],
@@ -215,11 +198,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
 category: 'evaluating',
-fn: function (anArg){
-var self=this;
-return self(anArg);;
-;
-return self},
+fn: function (anArg) {
+    var self = this;
+    return self(anArg);
+    return self;
+},
 args: ["anArg"],
 source: "value: anArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(anArg);>",
 messageSends: [],
@@ -232,11 +215,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value:value:",
 category: 'evaluating',
-fn: function (firstArg,secondArg){
-var self=this;
-return self(firstArg, secondArg);;
-;
-return self},
+fn: function (firstArg, secondArg) {
+    var self = this;
+    return self(firstArg, secondArg);
+    return self;
+},
 args: ["firstArg", "secondArg"],
 source: "value: firstArg value: secondArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg);>",
 messageSends: [],
@@ -249,11 +232,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value:value:value:",
 category: 'evaluating',
-fn: function (firstArg,secondArg,thirdArg){
-var self=this;
-return self(firstArg, secondArg, thirdArg);;
-;
-return self},
+fn: function (firstArg, secondArg, thirdArg) {
+    var self = this;
+    return self(firstArg, secondArg, thirdArg);
+    return self;
+},
 args: ["firstArg", "secondArg", "thirdArg"],
 source: "value: firstArg value: secondArg value: thirdArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
 messageSends: [],
@@ -266,11 +249,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "valueWithInterval:",
 category: 'timeout/interval',
-fn: function (aNumber){
-var self=this;
-return setInterval(self, aNumber);
-;
-return self},
+fn: function (aNumber) {
+    var self = this;
+    return setInterval(self, aNumber);
+    return self;
+},
 args: ["aNumber"],
 source: "valueWithInterval: aNumber\x0a\x09<return setInterval(self, aNumber)>",
 messageSends: [],
@@ -283,11 +266,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "valueWithPossibleArguments:",
 category: 'evaluating',
-fn: function (aCollection){
-var self=this;
-return self.apply(null, aCollection);;
-;
-return self},
+fn: function (aCollection) {
+    var self = this;
+    return self.apply(null, aCollection);
+    return self;
+},
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09<return self.apply(null, aCollection);>",
 messageSends: [],
@@ -300,11 +283,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "valueWithTimeout:",
 category: 'timeout/interval',
-fn: function (aNumber){
-var self=this;
-return setTimeout(self, aNumber);
-;
-return self},
+fn: function (aNumber) {
+    var self = this;
+    return setTimeout(self, aNumber);
+    return self;
+},
 args: ["aNumber"],
 source: "valueWithTimeout: aNumber\x0a\x09<return setTimeout(self, aNumber)>",
 messageSends: [],
@@ -317,11 +300,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "whileFalse",
 category: 'controlling',
-fn: function (){
-var self=this;
-smalltalk.send(self,"_whileFalse_",[(function(){
-})]);
-return self},
+fn: function () {
+    var self = this;
+    smalltalk.send(self, "_whileFalse_", [function () {}]);
+    return self;
+},
 args: [],
 source: "whileFalse\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileFalse: []",
 messageSends: ["whileFalse:"],
@@ -334,11 +317,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "whileFalse:",
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-while(!self()) {aBlock()};
-;
-return self},
+fn: function (aBlock) {
+    var self = this;
+    while (!self()) {
+        aBlock();
+    }
+    return self;
+},
 args: ["aBlock"],
 source: "whileFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(!self()) {aBlock()}>",
 messageSends: [],
@@ -351,11 +336,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "whileTrue",
 category: 'controlling',
-fn: function (){
-var self=this;
-smalltalk.send(self,"_whileTrue_",[(function(){
-})]);
-return self},
+fn: function () {
+    var self = this;
+    smalltalk.send(self, "_whileTrue_", [function () {}]);
+    return self;
+},
 args: [],
 source: "whileTrue\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileTrue: []",
 messageSends: ["whileTrue:"],
@@ -368,11 +353,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "whileTrue:",
 category: 'controlling',
-fn: function (aBlock){
-var self=this;
-while(self()) {aBlock()};
-;
-return self},
+fn: function (aBlock) {
+    var self = this;
+    while (self()) {
+        aBlock();
+    }
+    return self;
+},
 args: ["aBlock"],
 source: "whileTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(self()) {aBlock()}>",
 messageSends: [],
@@ -389,11 +376,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.args || [];
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.args || [];
+    return self;
+},
 args: [],
 source: "arguments\x0a\x09<return self.args || []>",
 messageSends: [],
@@ -406,16 +393,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $2,$1;
-$2=smalltalk.send(self,"_basicAt_",["category"]);
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $2 = smalltalk.send(self, "_basicAt_", ["category"]);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = "";
+    } else {
+        $1 = $2;
+    }
+    return $1;
 },
 args: [],
 source: "category\x0a\x09^(self basicAt: 'category') ifNil: ['']",
@@ -429,13 +416,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "category:",
 category: 'accessing',
-fn: function (aString){
-var self=this;
-smalltalk.send(self,"_basicAt_put_",["category",aString]);
-return self},
+fn: function (aString) {
+    var self = this;
+    var $1;
+    var oldCategory;
+    oldCategory = smalltalk.send(self, "_category", []);
+    smalltalk.send(self, "_basicAt_put_", ["category", aString]);
+    $1 = smalltalk.send(self, "_methodClass", []);
+    if (($receiver = $1) == nil || $receiver == undefined) {
+    } else {
+        smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_addElement_", [aString]);
+        smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_methods", []), "_select_", [function (each) {return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [oldCategory]);}]), "_ifEmpty_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_removeElement_", [oldCategory]);}]);
+    }
+    return self;
+},
 args: ["aString"],
-source: "category: aString\x0a\x09self basicAt: 'category' put: aString",
-messageSends: ["basicAt:put:"],
+source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organizer addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organizer removeElement: oldCategory ] ]",
+messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organizer", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
@@ -445,11 +442,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fn",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_basicAt_",["fn"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["fn"]);
+    return $1;
 },
 args: [],
 source: "fn\x0a\x09^self basicAt: 'fn'",
@@ -463,10 +460,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fn:",
 category: 'accessing',
-fn: function (aBlock){
-var self=this;
-smalltalk.send(self,"_basicAt_put_",["fn",aBlock]);
-return self},
+fn: function (aBlock) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
+    return self;
+},
 args: ["aBlock"],
 source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
 messageSends: ["basicAt:put:"],
@@ -479,11 +477,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageSends",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_basicAt_",["messageSends"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["messageSends"]);
+    return $1;
 },
 args: [],
 source: "messageSends\x0a\x09^self basicAt: 'messageSends'",
@@ -497,11 +495,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "methodClass",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_basicAt_",["methodClass"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["methodClass"]);
+    return $1;
 },
 args: [],
 source: "methodClass\x0a\x09^self basicAt: 'methodClass'",
@@ -515,11 +513,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "protocol",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_category",[]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_category", []);
+    return $1;
 },
 args: [],
 source: "protocol\x0a\x09^ self category",
@@ -533,11 +531,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "referencedClasses",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_basicAt_",["referencedClasses"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
+    return $1;
 },
 args: [],
 source: "referencedClasses\x0a\x09^self basicAt: 'referencedClasses'",
@@ -551,11 +549,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_basicAt_",["selector"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["selector"]);
+    return $1;
 },
 args: [],
 source: "selector\x0a\x09^self basicAt: 'selector'",
@@ -569,10 +567,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
-fn: function (aString){
-var self=this;
-smalltalk.send(self,"_basicAt_put_",["selector",aString]);
-return self},
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
+    return self;
+},
 args: ["aString"],
 source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
 messageSends: ["basicAt:put:"],
@@ -585,16 +584,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $2,$1;
-$2=smalltalk.send(self,"_basicAt_",["source"]);
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $2 = smalltalk.send(self, "_basicAt_", ["source"]);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = "";
+    } else {
+        $1 = $2;
+    }
+    return $1;
 },
 args: [],
 source: "source\x0a\x09^(self basicAt: 'source') ifNil: ['']",
@@ -608,10 +607,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
-fn: function (aString){
-var self=this;
-smalltalk.send(self,"_basicAt_put_",["source",aString]);
-return self},
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["source", aString]);
+    return self;
+},
 args: ["aString"],
 source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
 messageSends: ["basicAt:put:"],
@@ -628,9 +628,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self["@arguments"];
+fn: function () {
+    var self = this;
+    return self['@arguments'];
 },
 args: [],
 source: "arguments\x0a\x09^arguments",
@@ -644,10 +644,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments:",
 category: 'accessing',
-fn: function (anArray){
-var self=this;
-self["@arguments"]=anArray;
-return self},
+fn: function (anArray) {
+    var self = this;
+    self['@arguments'] = anArray;
+    return self;
+},
 args: ["anArray"],
 source: "arguments: anArray\x0a\x09arguments := anArray",
 messageSends: [],
@@ -660,17 +661,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function (){
-var self=this;
-var $2,$1;
-$1=smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(aStream){
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(self,"_printString",[],smalltalk.Object)]);
-smalltalk.send(aStream,"_nextPutAll_",["("]);
-smalltalk.send(aStream,"_nextPutAll_",[self["@selector"]]);
-$2=smalltalk.send(aStream,"_nextPutAll_",[")"]);
-return $2;
-})]);
-return $1;
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $1 = smalltalk.send(smalltalk.String || String, "_streamContents_", [function (aStream) {smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(self, "_printString", [], smalltalk.Object)]);smalltalk.send(aStream, "_nextPutAll_", ["("]);smalltalk.send(aStream, "_nextPutAll_", [self['@selector']]);$2 = smalltalk.send(aStream, "_nextPutAll_", [")"]);return $2;}]);
+    return $1;
 },
 args: [],
 source: "printString\x0a\x09^ String streamContents: [:aStream|  \x0a                                  \x09\x09\x09\x09aStream \x0a                                  \x09\x09\x09\x09\x09nextPutAll: super printString;\x0a                                  \x09\x09\x09\x09\x09nextPutAll: '(';\x0a                                  \x09\x09\x09\x09\x09nextPutAll: selector;\x0a                                  \x09\x09\x09\x09\x09nextPutAll: ')' \x09\x09\x09\x09]",
@@ -684,9 +679,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self["@selector"];
+fn: function () {
+    var self = this;
+    return self['@selector'];
 },
 args: [],
 source: "selector\x0a\x09^selector",
@@ -700,10 +695,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
-fn: function (aString){
-var self=this;
-self["@selector"]=aString;
-return self},
+fn: function (aString) {
+    var self = this;
+    self['@selector'] = aString;
+    return self;
+},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
 messageSends: [],
@@ -716,11 +712,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sendTo:",
 category: 'printing',
-fn: function (anObject){
-var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_send_to_arguments_",[smalltalk.send(self,"_selector",[]),anObject,smalltalk.send(self,"_arguments",[])]);
-return $1;
+fn: function (anObject) {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_send_to_arguments_", [smalltalk.send(self, "_selector", []), anObject, smalltalk.send(self, "_arguments", [])]);
+    return $1;
 },
 args: ["anObject"],
 source: "sendTo: anObject\x0a\x09^ Smalltalk current send: self selector to: anObject arguments: self arguments",
@@ -735,15 +731,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:arguments:",
 category: 'instance creation',
-fn: function (aString,anArray){
-var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(self,"_new",[]);
-smalltalk.send($2,"_selector_",[aString]);
-smalltalk.send($2,"_arguments_",[anArray]);
-$3=smalltalk.send($2,"_yourself",[]);
-$1=$3;
-return $1;
+fn: function (aString, anArray) {
+    var self = this;
+    var $2, $3, $1;
+    $2 = smalltalk.send(self, "_new", []);
+    smalltalk.send($2, "_selector_", [aString]);
+    smalltalk.send($2, "_arguments_", [anArray]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    $1 = $3;
+    return $1;
 },
 args: ["aString", "anArray"],
 source: "selector: aString arguments: anArray\x0a\x09^self new\x0a\x09\x09selector: aString;\x0a\x09\x09arguments: anArray;\x0a\x09\x09yourself",
@@ -760,11 +756,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_receiver",[]),"_class",[]),"_printString",[]),"__comma",[" >> "]),"__comma",[smalltalk.send(self,"_selector",[])]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_receiver", []), "_class", []), "_printString", []), "__comma", [" >> "]), "__comma", [smalltalk.send(self, "_selector", [])]);
+    return $1;
 },
 args: [],
 source: "asString\x0a\x09^self receiver class printString, ' >> ', self selector",
@@ -778,11 +774,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "home",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.homeContext;
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.homeContext;
+    return self;
+},
 args: [],
 source: "home\x0a\x09<return self.homeContext>",
 messageSends: [],
@@ -795,11 +791,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "pc",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.pc;
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.pc;
+    return self;
+},
 args: [],
 source: "pc\x0a\x09<return self.pc>",
 messageSends: [],
@@ -812,11 +808,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_printString",[],smalltalk.Object),"__comma",["("]),"__comma",[smalltalk.send(self,"_asString",[])]),"__comma",[")"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_printString", [], smalltalk.Object), "__comma", ["("]), "__comma", [smalltalk.send(self, "_asString", [])]), "__comma", [")"]);
+    return $1;
 },
 args: [],
 source: "printString\x0a\x09^super printString, '(', self asString, ')'",
@@ -830,11 +826,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "receiver",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.receiver;
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.receiver;
+    return self;
+},
 args: [],
 source: "receiver\x0a\x09<return self.receiver>",
 messageSends: [],
@@ -847,11 +843,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.convertSelector(self.selector);
-;
-return self},
+fn: function () {
+    var self = this;
+    return smalltalk.convertSelector(self.selector);
+    return self;
+},
 args: [],
 source: "selector\x0a\x09<return smalltalk.convertSelector(self.selector)>",
 messageSends: [],
@@ -864,11 +860,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "temps",
 category: 'accessing',
-fn: function (){
-var self=this;
-return self.temps;
-;
-return self},
+fn: function () {
+    var self = this;
+    return self.temps;
+    return self;
+},
 args: [],
 source: "temps\x0a\x09<return self.temps>",
 messageSends: [],

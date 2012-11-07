@@ -66,6 +66,9 @@ function SmalltalkOrganizer() {
 };
 
 SmalltalkOrganizer.prototype.addElement = function(el) {
+    if(typeof el === 'undefined' || el === nil) {
+        return false;
+    }
     if(this.elements.indexOf(el) == -1) {
         this.elements.push(el);
     }

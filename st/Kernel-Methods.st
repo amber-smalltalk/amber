@@ -162,7 +162,16 @@ category
 !
 
 category: aString
-	self basicAt: 'category' put: aString
+	| oldCategory |
+    oldCategory := self category.
+	self basicAt: 'category' put: aString.
+    
+    self methodClass ifNotNil: [
+    	self methodClass organizer addElement: aString.
+    
+		(self methodClass methods 
+    		select: [ :each | each category = oldCategory ])
+        	ifEmpty: [ self methodClass organizer removeElement: oldCategory ] ]
 !
 
 fn

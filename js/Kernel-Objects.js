@@ -3003,19 +3003,53 @@ smalltalk.Number.klass);
 
 smalltalk.addClass('Organizer', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
+"_addElement_",
+smalltalk.method({
+selector: "addElement:",
+category: 'accessing',
+fn: function (anObject) {
+    var self = this;
+    self.addElement(anObject);
+    return self;
+},
+args: ["anObject"],
+source: "addElement: anObject\x0a\x09<self.addElement(anObject)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Organizer);
+
+smalltalk.addMethod(
 "_elements",
 smalltalk.method({
 selector: "elements",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_basicAt_",["elements"]),"_copy",[]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_basicAt_", ["elements"]), "_copy", []);
+    return $1;
 },
 args: [],
 source: "elements\x0a\x09^ (self basicAt: 'elements') copy",
 messageSends: ["copy", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Organizer);
+
+smalltalk.addMethod(
+"_removeElement_",
+smalltalk.method({
+selector: "removeElement:",
+category: 'accessing',
+fn: function (anObject) {
+    var self = this;
+    self.removeElement(anObject);
+    return self;
+},
+args: ["anObject"],
+source: "removeElement: anObject\x0a\x09<self.removeElement(anObject)>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Organizer);
@@ -3029,11 +3063,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
 category: 'classes',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_organization",[]),"_elements",[]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(smalltalk.send(self, "_organization", []), "_elements", []);
+    return $1;
 },
 args: [],
 source: "classes\x0a\x09^ self organization elements",
@@ -3231,11 +3265,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "organization",
 category: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_basicAt_",["organization"]);
-return $1;
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["organization"]);
+    return $1;
 },
 args: [],
 source: "organization\x0a\x09^ self basicAt: 'organization'",
@@ -3914,11 +3948,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
-fn: function (aSymbol){
-var self=this;
-return self[aSymbol._asString()];
-;
-return self},
+fn: function (aSymbol) {
+    var self = this;
+    return self[aSymbol._asString()];
+    return self;
+},
 args: ["aSymbol"],
 source: "at: aSymbol\x0a\x09<return self[aSymbol._asString()]>",
 messageSends: [],
@@ -4002,11 +4036,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deleteClass:",
 category: 'private',
-fn: function (aClass){
-var self=this;
-self.removeClass(aClass);
-;
-return self},
+fn: function (aClass) {
+    var self = this;
+    self.removeClass(aClass);
+    return self;
+},
 args: ["aClass"],
 source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a    \x0a\x09<self.removeClass(aClass)>",
 messageSends: [],
@@ -4139,9 +4173,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVariableNames",
 category: 'packages',
-fn: function (){
-var self=this;
-return ["self", "super", "nil", "true", "false", "thisContext"];
+fn: function () {
+    var self = this;
+    return ["self", "super", "nil", "true", "false", "thisContext"];
 },
 args: [],
 source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",
@@ -4172,25 +4206,22 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeClass:",
 category: 'classes',
-fn: function (aClass){
-var self=this;
-var $1,$2,$3;
-$1=smalltalk.send(aClass,"_isMetaclass",[]);
-if(smalltalk.assert($1)){
-smalltalk.send(self,"_error_",[smalltalk.send(smalltalk.send(aClass,"_asString",[]),"__comma",[" is a Metaclass and cannot be removed!"])]);
-};
-smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_methodDictionary",[]),"_values",[]),"_do_",[(function(each){
-return smalltalk.send(aClass,"_removeCompiledMethod_",[each]);
-})]);
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_methodDictionary",[]),"_values",[]),"_do_",[(function(each){
-return smalltalk.send(smalltalk.send(aClass,"_class",[]),"_removeCompiledMethod_",[each]);
-})]);
-smalltalk.send(self,"_deleteClass_",[aClass]);
-$2=smalltalk.send((smalltalk.ClassRemoved || ClassRemoved),"_new",[]);
-smalltalk.send($2,"_theClass_",[aClass]);
-$3=smalltalk.send($2,"_yourself",[]);
-smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$3]);
-return self},
+fn: function (aClass) {
+    var self = this;
+    var $1, $2, $3;
+    $1 = smalltalk.send(aClass, "_isMetaclass", []);
+    if (smalltalk.assert($1)) {
+        smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [" is a Metaclass and cannot be removed!"])]);
+    }
+    smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);}]);
+    smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);}]);
+    smalltalk.send(self, "_deleteClass_", [aClass]);
+    $2 = smalltalk.send(smalltalk.ClassRemoved || ClassRemoved, "_new", []);
+    smalltalk.send($2, "_theClass_", [aClass]);
+    $3 = smalltalk.send($2, "_yourself", []);
+    smalltalk.send(smalltalk.send(smalltalk.SystemAnnouncer || SystemAnnouncer, "_current", []), "_announce_", [$3]);
+    return self;
+},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a    \x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09aClass removeCompiledMethod: each].\x0a        \x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09aClass class removeCompiledMethod: each].\x0a        \x0a\x09self deleteClass: aClass.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassRemoved new\x0a        \x09theClass: aClass;\x0a            yourself)",
 messageSends: ["ifTrue:", "error:", ",", "asString", "isMetaclass", "do:", "removeCompiledMethod:", "values", "methodDictionary", "class", "deleteClass:", "announce:", "theClass:", "new", "yourself", "current"],

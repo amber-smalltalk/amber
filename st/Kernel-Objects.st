@@ -996,8 +996,16 @@ Object subclass: #Organizer
 
 !Organizer methodsFor: 'accessing'!
 
+addElement: anObject
+	<self.addElement(anObject)>
+!
+
 elements
 	^ (self basicAt: 'elements') copy
+!
+
+removeElement: anObject
+	<self.removeElement(anObject)>
 ! !
 
 Object subclass: #Package
