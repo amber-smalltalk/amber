@@ -990,6 +990,16 @@ pi
 	<return Math.PI>
 ! !
 
+Object subclass: #Organizer
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+
+!Organizer methodsFor: 'accessing'!
+
+elements
+	^ (self basicAt: 'elements') copy
+! !
+
 Object subclass: #Package
 	instanceVariableNames: 'commitPathJs commitPathSt'
 	package: 'Kernel-Objects'!
@@ -1047,6 +1057,10 @@ name: aString
 	<self.pkgName = aString>
 !
 
+organization
+	^ self basicAt: 'organization'
+!
+
 properties
 	^Smalltalk current readJSObject: (self basicAt: 'properties')
 !
@@ -1065,8 +1079,7 @@ properties: aDict
 !Package methodsFor: 'classes'!
 
 classes
-	"We need to do a reverse scan."
-	^Smalltalk current classes select: [:c | c package == self]
+	^ self organization elements
 !
 
 sortedClasses
@@ -1373,10 +1386,6 @@ basicParse: aString
 	<return smalltalk.parser.parse(aString)>
 !
 
-classes
-	<return self.classes()>
-!
-
 parse: aString
 	| result | 
 	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
@@ -1415,6 +1424,10 @@ send: aSelector to: anObject arguments: aCollection
 
 !Smalltalk methodsFor: 'classes'!
 
+classes
+	<return self.classes()>
+!
+
 removeClass: aClass
 	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
     
@@ -1424,7 +1437,7 @@ removeClass: aClass
 	aClass class methodDictionary values do: [:each |
 		aClass class removeCompiledMethod: each].
         
-	self basicDelete: aClass name.
+	self deleteClass: aClass.
     
     SystemAnnouncer current
     	announce: (ClassRemoved new
@@ -1490,6 +1503,12 @@ createPackage: packageName properties: aDict
 		<object[key] = value>.
 	].
        <return smalltalk.addPackage(packageName, object)>
+!
+
+deleteClass: aClass
+	"Deletes a class by deleting its binding only. Use #removeClass instead"
+    
+	<self.removeClass(aClass)>
 !
 
 deletePackage: packageName

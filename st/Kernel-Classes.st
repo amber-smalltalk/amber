@@ -106,13 +106,12 @@ name
 	<return self.className || nil>
 !
 
+organization
+	^ self basicAt: 'organization'
+!
+
 protocols
-    | protocols |
-    protocols := Array new.
-    self methodDictionary do: [:each |
-	    (protocols includes: each category) ifFalse: [
-		protocols add: each category]].
-    ^protocols sort
+   ^ self organization elements sorted
 !
 
 protocolsDo: aBlock
@@ -180,9 +179,10 @@ compile: aString category: anotherString
 !
 
 removeCompiledMethod: aMethod
-	<delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector];
-	smalltalk.init(self);>.
+	<
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    >.
     
     SystemAnnouncer current
    		announce: (MethodRemoved new

@@ -340,22 +340,27 @@ return $1;
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_organization",
+smalltalk.method({
+selector: "organization",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_basicAt_",["organization"]);
+return $1;
+}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_protocols",
 smalltalk.method({
 selector: "protocols",
 fn: function (){
 var self=this;
-var $1,$2;
-var protocols;
-protocols=smalltalk.send((smalltalk.Array || Array),"_new",[]);
-smalltalk.send(smalltalk.send(self,"_methodDictionary",[]),"_do_",[(function(each){
-$1=smalltalk.send(protocols,"_includes_",[smalltalk.send(each,"_category",[])]);
-if(! smalltalk.assert($1)){
-return smalltalk.send(protocols,"_add_",[smalltalk.send(each,"_category",[])]);
-};
-})]);
-$2=smalltalk.send(protocols,"_sort",[]);
-return $2;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_organization",[]),"_elements",[]),"_sorted",[]);
+return $1;
 }
 }),
 smalltalk.Behavior);
@@ -399,9 +404,10 @@ selector: "removeCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 var $1,$2;
-delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector];
-	smalltalk.init(self);;
+
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    ;
 ;
 $1=smalltalk.send((smalltalk.MethodRemoved || MethodRemoved),"_new",[]);
 smalltalk.send($1,"_theClass_",[self]);

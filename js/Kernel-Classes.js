@@ -456,28 +456,38 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_organization",
+smalltalk.method({
+selector: "organization",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_basicAt_",["organization"]);
+return $1;
+},
+args: [],
+source: "organization\x0a\x09^ self basicAt: 'organization'",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_protocols",
 smalltalk.method({
 selector: "protocols",
 category: 'accessing',
 fn: function (){
 var self=this;
-var $1,$2;
-var protocols;
-protocols=smalltalk.send((smalltalk.Array || Array),"_new",[]);
-smalltalk.send(smalltalk.send(self,"_methodDictionary",[]),"_do_",[(function(each){
-$1=smalltalk.send(protocols,"_includes_",[smalltalk.send(each,"_category",[])]);
-if(! smalltalk.assert($1)){
-return smalltalk.send(protocols,"_add_",[smalltalk.send(each,"_category",[])]);
-};
-})]);
-$2=smalltalk.send(protocols,"_sort",[]);
-return $2;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_organization",[]),"_elements",[]),"_sorted",[]);
+return $1;
 },
 args: [],
-source: "protocols\x0a    | protocols |\x0a    protocols := Array new.\x0a    self methodDictionary do: [:each |\x0a\x09    (protocols includes: each category) ifFalse: [\x0a\x09\x09protocols add: each category]].\x0a    ^protocols sort",
-messageSends: ["new", "do:", "ifFalse:", "add:", "category", "includes:", "methodDictionary", "sort"],
-referencedClasses: ["Array"]
+source: "protocols\x0a   ^ self organization elements sorted",
+messageSends: ["sorted", "elements", "organization"],
+referencedClasses: []
 }),
 smalltalk.Behavior);
 
@@ -531,9 +541,10 @@ category: 'compiling',
 fn: function (aMethod){
 var self=this;
 var $1,$2;
-delete self.fn.prototype[aMethod.selector._asSelector()];
-	delete self.fn.prototype.methods[aMethod.selector];
-	smalltalk.init(self);;
+
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    ;
 ;
 $1=smalltalk.send((smalltalk.MethodRemoved || MethodRemoved),"_new",[]);
 smalltalk.send($1,"_theClass_",[self]);
@@ -542,7 +553,7 @@ $2=smalltalk.send($1,"_yourself",[]);
 smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$2]);
 return self},
 args: ["aMethod"],
-source: "removeCompiledMethod: aMethod\x0a\x09<delete self.fn.prototype[aMethod.selector._asSelector()];\x0a\x09delete self.fn.prototype.methods[aMethod.selector];\x0a\x09smalltalk.init(self);>.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodRemoved new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
+source: "removeCompiledMethod: aMethod\x0a\x09<\x0a    \x09smalltalk.removeMethod(aMethod)\x0a\x09\x09smalltalk.init(self);\x0a    >.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodRemoved new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
 messageSends: ["announce:", "theClass:", "new", "method:", "yourself", "current"],
 referencedClasses: ["MethodRemoved", "SystemAnnouncer"]
 }),

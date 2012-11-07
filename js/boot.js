@@ -33,7 +33,7 @@
    |
    ==================================================================== */
 
-/* Make that console is defined */
+/* Make sure that console is defined */
 
 if (typeof console === "undefined") {
 	this.console = {
@@ -47,19 +47,39 @@ if (typeof console === "undefined") {
 
 /* Smalltalk constructors definition */
 
-function SmalltalkObject(){}
-function SmalltalkBehavior(){}
-function SmalltalkClass(){}
-function SmalltalkPackage(){}
+function SmalltalkObject(){};
+function SmalltalkBehavior(){};
+function SmalltalkClass(){};
+function SmalltalkPackage(){};
 function SmalltalkMetaclass(){
 	this.meta = true;
-}
-function SmalltalkMethod(){}
-function SmalltalkNil(){}
+};
+function SmalltalkMethod(){};
+function SmalltalkNil(){};
 
 function SmalltalkSymbol(string){
 	this.value = string;
-}
+};
+
+function SmalltalkOrganizer() {
+    this.elements = [];
+};
+
+SmalltalkOrganizer.prototype.addElement = function(el) {
+    if(this.elements.indexOf(el) == -1) {
+        this.elements.push(el);
+    }
+};
+
+SmalltalkOrganizer.prototype.removeElement = function(el) {
+    for(var i=0; i<this.elements.length; i++) {
+        if(this.elements[i] == el) {
+            this.elements.splice(i, 1);
+            break;
+        }
+    }
+};
+
 
 function Smalltalk(){
 
@@ -108,6 +128,7 @@ function Smalltalk(){
 	function pkg(spec) {
 		var that = new SmalltalkPackage();
 		that.pkgName = spec.pkgName;
+        that.organization = new SmalltalkOrganizer();
 		that.properties = spec.properties || {};
 		return that;
 	};
@@ -123,6 +144,7 @@ function Smalltalk(){
 		var that = setupClass(meta.instanceClass, spec);
 		that.className = spec.className;
 		meta.className = spec.className + ' class';
+        that.organization = new SmalltalkOrganizer();
 		if(spec.superclass) {
 			that.superclass = spec.superclass;
 			meta.superclass = spec.superclass.klass;
@@ -131,7 +153,8 @@ function Smalltalk(){
 	}
 	
 	function metaclass() {
-		var meta = setupClass(new SmalltalkMetaclass(), {});
+		var meta = setupClass(new SmalltalkMetaclass(), {})
+        meta.organization = new SmalltalkOrganizer();
 		meta.instanceClass = new meta.fn;
 		return meta;
 	}
@@ -320,9 +343,16 @@ function Smalltalk(){
 				iVarNames: iVarNames
 			});
 		}
+
+        pkg.organization.addElement(st[className]);
 	};
 
-	/* Add a method to a class */
+    st.removeClass = function(klass) {
+        klass.pkg.organization.removeElement(klass);
+        delete st[klass.className];
+    };
+
+	/* Add/remove a method to/from a class */
 
 	st.addMethod = function(jsSelector, method, klass) {
 		Object.defineProperty(klass.fn.prototype, jsSelector, {
@@ -331,7 +361,27 @@ function Smalltalk(){
 		klass.fn.prototype.methods[method.selector] = method;
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;
+
+        klass.organization.addElement(method.category);
 	};
+
+    st.removeMethod = function(method) {
+        var protocol = method.category;
+        var shouldDeleteProtocol;
+        var klass = method.methodClass;
+
+        delete klass.fn.prototype[method.selector._asSelector()];
+	    delete klass.fn.prototype.methods[method.selector];
+
+        for(var i=0; i<klass.fn.prototype.methods; i++) {
+            if(klass.fn.prototype.methods[i].category == protocol) {
+                shouldDeleteProtocol = true;
+            };
+        };
+        if(shouldDeleteProtocol) {
+            klass.organization.removeElement(protocol)
+        };
+    };
 
 	/* Handles unhandled errors during message sends */
 
@@ -570,6 +620,7 @@ smalltalk.wrapClassName("Behavior", "Kernel", SmalltalkBehavior, smalltalk.Objec
 smalltalk.wrapClassName("Class", "Kernel", SmalltalkClass, smalltalk.Behavior);
 smalltalk.wrapClassName("Metaclass", "Kernel", SmalltalkMetaclass, smalltalk.Behavior);
 smalltalk.wrapClassName("CompiledMethod", "Kernel", SmalltalkMethod, smalltalk.Object);
+smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object);
 
 smalltalk.Object.klass.superclass = smalltalk.Class;
 

@@ -3001,6 +3001,27 @@ referencedClasses: []
 smalltalk.Number.klass);
 
 
+smalltalk.addClass('Organizer', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.addMethod(
+"_elements",
+smalltalk.method({
+selector: "elements",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_basicAt_",["elements"]),"_copy",[]);
+return $1;
+},
+args: [],
+source: "elements\x0a\x09^ (self basicAt: 'elements') copy",
+messageSends: ["copy", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Organizer);
+
+
+
 smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
 smalltalk.Package.comment="A Package is similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aA Package has a name, an Array of \x22requires\x22, a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name:\x0a\x0a\x09Smalltalk current packageAt: 'Kernel'\x0a\x0a...but you can also use:\x0a\x0a\x09Package named: 'Kernel'\x0a\x0aA Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports \x22class extensions\x22 so a Package\x0acan define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class\x0aString where the method category \x22*IDE\x22 defines #inspectOn: which thus is a method belonging to the IDE package.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package fetch: 'Additional-Examples'"
 smalltalk.addMethod(
@@ -3008,16 +3029,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
 category: 'classes',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_classes", []), "_select_", [function (c) {return smalltalk.send(smalltalk.send(c, "_package", []), "__eq_eq", [self]);}]);
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_organization",[]),"_elements",[]);
+return $1;
 },
 args: [],
-source: "classes\x0a\x09\x22We need to do a reverse scan.\x22\x0a\x09^Smalltalk current classes select: [:c | c package == self]",
-messageSends: ["select:", "==", "package", "classes", "current"],
-referencedClasses: ["Smalltalk"]
+source: "classes\x0a\x09^ self organization elements",
+messageSends: ["elements", "organization"],
+referencedClasses: []
 }),
 smalltalk.Package);
 
@@ -3201,6 +3222,24 @@ fn: function (aString) {
 args: ["aString"],
 source: "name: aString\x0a\x09<self.pkgName = aString>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+"_organization",
+smalltalk.method({
+selector: "organization",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_basicAt_",["organization"]);
+return $1;
+},
+args: [],
+source: "organization\x0a\x09^ self basicAt: 'organization'",
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -3908,7 +3947,7 @@ smalltalk.addMethod(
 "_classes",
 smalltalk.method({
 selector: "classes",
-category: 'accessing',
+category: 'classes',
 fn: function () {
     var self = this;
     return self.classes();
@@ -3954,6 +3993,23 @@ fn: function (packageName, aDict) {
 args: ["packageName", "aDict"],
 source: "createPackage: packageName properties: aDict\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x0a\x09| object |\x0a\x09<object = {};>.\x0a\x09aDict keysAndValuesDo: [:key :value |\x0a\x09\x09<object[key] = value>.\x0a\x09].\x0a       <return smalltalk.addPackage(packageName, object)>",
 messageSends: ["keysAndValuesDo:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+"_deleteClass_",
+smalltalk.method({
+selector: "deleteClass:",
+category: 'private',
+fn: function (aClass){
+var self=this;
+self.removeClass(aClass);
+;
+return self},
+args: ["aClass"],
+source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a    \x0a\x09<self.removeClass(aClass)>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -4129,15 +4185,15 @@ return smalltalk.send(aClass,"_removeCompiledMethod_",[each]);
 smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_methodDictionary",[]),"_values",[]),"_do_",[(function(each){
 return smalltalk.send(smalltalk.send(aClass,"_class",[]),"_removeCompiledMethod_",[each]);
 })]);
-smalltalk.send(self,"_basicDelete_",[smalltalk.send(aClass,"_name",[])]);
+smalltalk.send(self,"_deleteClass_",[aClass]);
 $2=smalltalk.send((smalltalk.ClassRemoved || ClassRemoved),"_new",[]);
 smalltalk.send($2,"_theClass_",[aClass]);
 $3=smalltalk.send($2,"_yourself",[]);
 smalltalk.send(smalltalk.send((smalltalk.SystemAnnouncer || SystemAnnouncer),"_current",[]),"_announce_",[$3]);
 return self},
 args: ["aClass"],
-source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a    \x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09aClass removeCompiledMethod: each].\x0a        \x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09aClass class removeCompiledMethod: each].\x0a        \x0a\x09self basicDelete: aClass name.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassRemoved new\x0a        \x09theClass: aClass;\x0a            yourself)",
-messageSends: ["ifTrue:", "error:", ",", "asString", "isMetaclass", "do:", "removeCompiledMethod:", "values", "methodDictionary", "class", "basicDelete:", "name", "announce:", "theClass:", "new", "yourself", "current"],
+source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a    \x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09aClass removeCompiledMethod: each].\x0a        \x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09aClass class removeCompiledMethod: each].\x0a        \x0a\x09self deleteClass: aClass.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassRemoved new\x0a        \x09theClass: aClass;\x0a            yourself)",
+messageSends: ["ifTrue:", "error:", ",", "asString", "isMetaclass", "do:", "removeCompiledMethod:", "values", "methodDictionary", "class", "deleteClass:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassRemoved", "SystemAnnouncer"]
 }),
 smalltalk.Smalltalk);
