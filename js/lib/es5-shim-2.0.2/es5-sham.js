@@ -30,6 +30,19 @@ if (!Object.getPrototypeOf) {
     };
 }
 
+
+var call = Function.prototype.call;
+var prototypeOfObject = Object.prototype;
+var owns = call.bind(prototypeOfObject.hasOwnProperty);
+var supportsAccessors;
+if ((supportsAccessors = owns(prototypeOfObject, "__defineGetter__"))) {
+  defineGetter = call.bind(prototypeOfObject.__defineGetter__);
+  defineSetter = call.bind(prototypeOfObject.__defineSetter__);
+  lookupGetter = call.bind(prototypeOfObject.__lookupGetter__);
+  lookupSetter = call.bind(prototypeOfObject.__lookupSetter__);
+}
+
+
 // ES5 15.2.3.3
 // http://es5.github.com/#x15.2.3.3
 if (!Object.getOwnPropertyDescriptor) {
