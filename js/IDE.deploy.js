@@ -2354,29 +2354,128 @@ smalltalk.addMethod(
 "_updateSourceAndButtons",
 smalltalk.method({
 selector: "updateSourceAndButtons",
-fn: function () {
-    var self = this;
-    var $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $14, $15, $16, $17, $18, $19, $13, $20, $22, $23, $24, $25, $21, $26, $27;
-    var currentProtocol;
-    smalltalk.send(self, "_disableSaveButton", []);
-    smalltalk.send(self['@classButtons'], "_contents_", [function (html) {$1 = smalltalk.send(html, "_button", []);smalltalk.send($1, "_title_", ["Create a new class"]);smalltalk.send($1, "_onClick_", [function () {return smalltalk.send(self, "_addNewClass", []);}]);$2 = smalltalk.send($1, "_with_", ["New class"]);$2;$3 = smalltalk.send(html, "_button", []);smalltalk.send($3, "_with_", ["Rename class"]);$4 = smalltalk.send($3, "_onClick_", [function () {return smalltalk.send(self, "_renameClass", []);}]);$4;$5 = smalltalk.send(html, "_button", []);smalltalk.send($5, "_with_", ["Copy class"]);$6 = smalltalk.send($5, "_onClick_", [function () {return smalltalk.send(self, "_copyClass", []);}]);$6;$7 = smalltalk.send(html, "_button", []);smalltalk.send($7, "_with_", ["Remove class"]);$8 = smalltalk.send($7, "_onClick_", [function () {return smalltalk.send(self, "_removeClass", []);}]);$8;$9 = smalltalk.send(html, "_button", []);smalltalk.send($9, "_with_", ["References"]);$10 = smalltalk.send($9, "_onClick_", [function () {return smalltalk.send(self, "_searchClassReferences", []);}]);return $10;}]);
-    smalltalk.send(self['@methodButtons'], "_contents_", [function (html) {var protocolSelect;var referencesSelect;$11 = smalltalk.send(html, "_button", []);smalltalk.send($11, "_with_", ["Remove method"]);$12 = smalltalk.send($11, "_onClick_", [function () {return smalltalk.send(self, "_removeMethod", []);}]);$12;protocolSelect = smalltalk.send(html, "_select", []);smalltalk.send(protocolSelect, "_onChange_", [function () {return smalltalk.send(self, "_setMethodProtocol_", [smalltalk.send(smalltalk.send(protocolSelect, "_asJQuery", []), "_val", [])]);}]);$13 = smalltalk.send(protocolSelect, "_with_", [function () {$14 = smalltalk.send(html, "_option", []);smalltalk.send($14, "_with_", ["Method protocol"]);$15 = smalltalk.send($14, "_at_put_", ["disabled", "disabled"]);$15;$16 = smalltalk.send(html, "_option", []);smalltalk.send($16, "_class_", ["important"]);$17 = smalltalk.send($16, "_with_", ["New..."]);$17;currentProtocol = self['@selectedProtocol'];currentProtocol;$18 = smalltalk.send(smalltalk.send(currentProtocol, "_isNil", []), "_and_", [function () {return smalltalk.send(self['@selectedMethod'], "_notNil", []);}]);if (smalltalk.assert($18)) {currentProtocol = smalltalk.send(self['@selectedMethod'], "_category", []);currentProtocol;}return smalltalk.send(smalltalk.send(self, "_protocols", []), "_do_", [function (each) {option = smalltalk.send(smalltalk.send(html, "_option", []), "_with_", [each]);option;$19 = smalltalk.send(currentProtocol, "__eq", [each]);if (smalltalk.assert($19)) {return smalltalk.send(option, "_at_put_", ["selected", "selected"]);}}]);}]);$13;$20 = smalltalk.send(self['@selectedMethod'], "_isNil", []);if (!smalltalk.assert($20)) {referencesSelect = smalltalk.send(html, "_select", []);smalltalk.send(referencesSelect, "_onChange_", [function () {return smalltalk.send(self, "_searchReferencesOf_", [smalltalk.send(smalltalk.send(referencesSelect, "_asJQuery", []), "_val", [])]);}]);$21 = smalltalk.send(referencesSelect, "_with_", [function () {var option;$22 = smalltalk.send(html, "_option", []);smalltalk.send($22, "_with_", ["References"]);$23 = smalltalk.send($22, "_at_put_", ["disabled", "disabled"]);$23;$24 = smalltalk.send(html, "_option", []);smalltalk.send($24, "_class_", ["important"]);$25 = smalltalk.send($24, "_with_", [smalltalk.send(self['@selectedMethod'], "_selector", [])]);$25;return smalltalk.send(smalltalk.send(smalltalk.send(self['@selectedMethod'], "_messageSends", []), "_sorted", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(html, "_option", []), "_with_", [each]);}]);}]);return $21;}}]);
-    $26 = smalltalk.send(self['@selectedMethod'], "_isNil", []);
-    if (smalltalk.assert($26)) {
-        smalltalk.send(self, "_hideMethodButtons", []);
-        $27 = smalltalk.send(smalltalk.send(self['@selectedClass'], "_isNil", []), "_or_", [function () {return smalltalk.send(self['@selectedProtocol'], "_notNil", []);}]);
-        if (smalltalk.assert($27)) {
-            smalltalk.send(self, "_hideClassButtons", []);
-        } else {
-            smalltalk.send(self, "_showClassButtons", []);
-        }
-    } else {
-        smalltalk.send(self, "_hideClassButtons", []);
-        smalltalk.send(self, "_showMethodButtons", []);
-    }
-    smalltalk.send(self['@sourceArea'], "_val_", [smalltalk.send(self, "_source", [])]);
-    return self;
-}
+fn: function (){
+var self=this;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$14,$15,$16,$17,$18,$19,$13,$20,$22,$23,$24,$25,$21,$26,$27;
+var currentProtocol;
+smalltalk.send(self,"_disableSaveButton",[]);
+smalltalk.send(self["@classButtons"],"_contents_",[(function(html){
+$1=smalltalk.send(html,"_button",[]);
+smalltalk.send($1,"_title_",["Create a new class"]);
+smalltalk.send($1,"_onClick_",[(function(){
+return smalltalk.send(self,"_addNewClass",[]);
+})]);
+$2=smalltalk.send($1,"_with_",["New class"]);
+$2;
+$3=smalltalk.send(html,"_button",[]);
+smalltalk.send($3,"_with_",["Rename class"]);
+$4=smalltalk.send($3,"_onClick_",[(function(){
+return smalltalk.send(self,"_renameClass",[]);
+})]);
+$4;
+$5=smalltalk.send(html,"_button",[]);
+smalltalk.send($5,"_with_",["Copy class"]);
+$6=smalltalk.send($5,"_onClick_",[(function(){
+return smalltalk.send(self,"_copyClass",[]);
+})]);
+$6;
+$7=smalltalk.send(html,"_button",[]);
+smalltalk.send($7,"_with_",["Remove class"]);
+$8=smalltalk.send($7,"_onClick_",[(function(){
+return smalltalk.send(self,"_removeClass",[]);
+})]);
+$8;
+$9=smalltalk.send(html,"_button",[]);
+smalltalk.send($9,"_with_",["References"]);
+$10=smalltalk.send($9,"_onClick_",[(function(){
+return smalltalk.send(self,"_searchClassReferences",[]);
+})]);
+return $10;
+})]);
+smalltalk.send(self["@methodButtons"],"_contents_",[(function(html){
+var protocolSelect;
+var referencesSelect;
+$11=smalltalk.send(html,"_button",[]);
+smalltalk.send($11,"_with_",["Remove method"]);
+$12=smalltalk.send($11,"_onClick_",[(function(){
+return smalltalk.send(self,"_removeMethod",[]);
+})]);
+$12;
+protocolSelect=smalltalk.send(html,"_select",[]);
+protocolSelect;
+smalltalk.send(protocolSelect,"_onChange_",[(function(){
+return smalltalk.send(self,"_setMethodProtocol_",[smalltalk.send(smalltalk.send(protocolSelect,"_asJQuery",[]),"_val",[])]);
+})]);
+$13=smalltalk.send(protocolSelect,"_with_",[(function(){
+$14=smalltalk.send(html,"_option",[]);
+smalltalk.send($14,"_with_",["Method protocol"]);
+$15=smalltalk.send($14,"_at_put_",["disabled","disabled"]);
+$15;
+$16=smalltalk.send(html,"_option",[]);
+smalltalk.send($16,"_class_",["important"]);
+$17=smalltalk.send($16,"_with_",["New..."]);
+$17;
+currentProtocol=self["@selectedProtocol"];
+currentProtocol;
+$18=smalltalk.send(smalltalk.send(currentProtocol,"_isNil",[]),"_and_",[(function(){
+return smalltalk.send(self["@selectedMethod"],"_notNil",[]);
+})]);
+if(smalltalk.assert($18)){
+currentProtocol=smalltalk.send(self["@selectedMethod"],"_category",[]);
+currentProtocol;
+};
+return smalltalk.send(smalltalk.send(self,"_protocols",[]),"_do_",[(function(each){
+option=smalltalk.send(smalltalk.send(html,"_option",[]),"_with_",[each]);
+option;
+$19=smalltalk.send(currentProtocol,"__eq",[each]);
+if(smalltalk.assert($19)){
+return smalltalk.send(option,"_at_put_",["selected","selected"]);
+};
+})]);
+})]);
+$13;
+$20=smalltalk.send(self["@selectedMethod"],"_isNil",[]);
+if(! smalltalk.assert($20)){
+referencesSelect=smalltalk.send(html,"_select",[]);
+referencesSelect;
+smalltalk.send(referencesSelect,"_onChange_",[(function(){
+return smalltalk.send(self,"_searchReferencesOf_",[smalltalk.send(smalltalk.send(referencesSelect,"_asJQuery",[]),"_val",[])]);
+})]);
+$21=smalltalk.send(referencesSelect,"_with_",[(function(){
+var option;
+$22=smalltalk.send(html,"_option",[]);
+smalltalk.send($22,"_with_",["References"]);
+smalltalk.send($22,"_at_put_",["disabled","disabled"]);
+$23=smalltalk.send($22,"_at_put_",["selected","selected"]);
+$23;
+$24=smalltalk.send(html,"_option",[]);
+smalltalk.send($24,"_class_",["important"]);
+$25=smalltalk.send($24,"_with_",[smalltalk.send(self["@selectedMethod"],"_selector",[])]);
+$25;
+return smalltalk.send(smalltalk.send(smalltalk.send(self["@selectedMethod"],"_messageSends",[]),"_sorted",[]),"_do_",[(function(each){
+return smalltalk.send(smalltalk.send(html,"_option",[]),"_with_",[each]);
+})]);
+})]);
+return $21;
+};
+})]);
+$26=smalltalk.send(self["@selectedMethod"],"_isNil",[]);
+if(smalltalk.assert($26)){
+smalltalk.send(self,"_hideMethodButtons",[]);
+$27=smalltalk.send(smalltalk.send(self["@selectedClass"],"_isNil",[]),"_or_",[(function(){
+return smalltalk.send(self["@selectedProtocol"],"_notNil",[]);
+})]);
+if(smalltalk.assert($27)){
+smalltalk.send(self,"_hideClassButtons",[]);
+} else {
+smalltalk.send(self,"_showClassButtons",[]);
+};
+} else {
+smalltalk.send(self,"_hideClassButtons",[]);
+smalltalk.send(self,"_showMethodButtons",[]);
+};
+smalltalk.send(self["@sourceArea"],"_val_",[smalltalk.send(self,"_source",[])]);
+return self}
 }),
 smalltalk.Browser);
 
