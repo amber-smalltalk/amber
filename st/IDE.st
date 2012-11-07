@@ -1226,7 +1226,8 @@ updateSourceAndButtons
 				with: [ |option|
 					html option
 						with: 'References';
-						at: 'disabled' put: 'disabled'.
+						at: 'disabled' put: 'disabled';
+                        at: 'selected' put: 'selected'.
 					html option
 						class: 'important';
 						with: selectedMethod selector.
