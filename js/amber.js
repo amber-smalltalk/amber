@@ -56,7 +56,8 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('compat.js');
+		addJSToLoad('lib/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('lib/es5-shim-2.0.2/es5-sham.min.js');
 		addJSToLoad('boot.js');
 
 		if (deploy) {
