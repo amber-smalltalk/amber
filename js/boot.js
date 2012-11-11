@@ -382,6 +382,7 @@ function Smalltalk(){
 	};
 
 	/* Answer all registered Smalltalk classes */
+    //TODO: remove the function and make smalltalk.classes a simple property
 
 	st.classes = function() {
 		return classes;
@@ -684,6 +685,7 @@ function Smalltalk(){
 	};
 
     /* Convert a Smalltalk selector into a JS selector */
+
     st.selector = function(string) {
         var selector = '_' + string;
 	    selector = selector.replace(/:/g, '_');
@@ -754,6 +756,7 @@ function Smalltalk(){
 	};
 
     /* Boolean assertion */
+
     st.assert = function(boolean) {
         if(boolean.klass === smalltalk.Boolean) {
             return boolean;
@@ -761,6 +764,8 @@ function Smalltalk(){
             smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
         }
     }
+
+    /* Smalltalk initilization. Called on page load */
 
     st.initialize = function() {
         if(initialized) {return false};
