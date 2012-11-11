@@ -45,6 +45,24 @@ if (typeof console === "undefined") {
 	};
 }
 
+/* Array extensions */
+
+Array.prototype.addElement = function(el) {
+    if(this.indexOf(el) == -1) {
+        this.push(el);
+    }
+};
+
+Array.prototype.removeElement = function(el) {
+    for(var i=0; i<this.length; i++) {
+        if(this[i] == el) {
+            this.splice(i, 1);
+            break;
+        }
+    }
+};
+
+
 /* Smalltalk constructors definition */
 
 function SmalltalkObject(){};
@@ -75,23 +93,14 @@ SmalltalkMethod.prototype    = new SmalltalkObject();
 SmalltalkPackage.prototype   = new SmalltalkObject();
 SmalltalkOrganizer.prototype = new SmalltalkObject();
 
-SmalltalkOrganizer.prototype.addElement = function(el) {
-    if(typeof el === 'undefined' || el === nil) {
-        return false;
-    }
-    if(this.elements.indexOf(el) == -1) {
-        this.elements.push(el);
-    }
-};
+SmalltalkBehavior.prototype.constructor  = SmalltalkBehavior;
+SmalltalkClass.prototype.constructor     = SmalltalkClass;
+SmalltalkMetaclass.prototype.constructor = SmalltalkMetaclass;
 
-SmalltalkOrganizer.prototype.removeElement = function(el) {
-    for(var i=0; i<this.elements.length; i++) {
-        if(this.elements[i] == el) {
-            this.elements.splice(i, 1);
-            break;
-        }
-    }
-};
+SmalltalkNil.prototype.constructor       = SmalltalkNil;
+SmalltalkMethod.prototype.constructor    = SmalltalkMethod;
+SmalltalkPackage.prototype.constructor   = SmalltalkPackage;
+SmalltalkOrganizer.prototype.constructor = SmalltalkOrganizer;
 
 
 function Smalltalk(){
@@ -113,7 +122,11 @@ function Smalltalk(){
 		'public', 'return', 'static', 'switch', 'this', 'throw',
 		'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
 
-    
+    /* Smalltalk classes */
+
+    var classes = [];
+    var wrappedClasses = [];
+
     /* Method not implemented handlers selectors */
 
     var dnuHandlers = [];
@@ -124,7 +137,7 @@ function Smalltalk(){
         }
     };
     
-    /* DNU handler method */
+    /* Dnu handler method */
 
     var dnu = function(selector) {
         return function() {
@@ -172,8 +185,8 @@ function Smalltalk(){
 	   Superclass linking is *not* handled here, see smalltalk.init()  */
 
 	function klass(spec) {
-		var spec = spec || {};
-		var meta = metaclass();
+		spec = spec || {};
+		var meta = metaclass(spec);
 		var that = meta.instanceClass;
         setupClass(that, spec);
 		
@@ -188,13 +201,26 @@ function Smalltalk(){
 		return that;
 	}
 	
-	function metaclass() {
-		var metaclass = new SmalltalkMetaclass();
-        setupClass(metaclass)
-        metaclass.organization = new SmalltalkOrganizer();
-        metaclass.fn.prototype = new SmalltalkClass();
-		metaclass.instanceClass = new metaclass.fn;
-		return metaclass;
+	function metaclass(spec) {
+        var superConstructor;
+        spec = spec || {};
+
+        if(spec.superclass) {
+            superConstructor = spec.superclass.klass.fn;
+        } else {
+            superConstructor = SmalltalkClass;
+        }
+
+		var that = new SmalltalkMetaclass();
+        that.fn            = function() {};
+        that.organization  = new SmalltalkOrganizer();
+        that.fn.prototype  = new superConstructor();
+        that.fn.prototype.constructor = that.fn;
+
+        setupClass(that);
+
+		that.instanceClass = new that.fn();
+		return that;
 	}
 	
 	function setupClass(klass, spec) {
@@ -205,11 +231,11 @@ function Smalltalk(){
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
 
-		Object.defineProperty(klass, "toString", {
+        Object.defineProperty(klass, "toString", {
 			value: function() { return 'Smalltalk ' + this.className; }, 
             configurable: true
 		});
-
+        
 		Object.defineProperties(klass, {
 			methods: { value: {}, enumerable: false, configurable: true, writable: true }
 		});
@@ -230,6 +256,7 @@ function Smalltalk(){
 		that.category          = spec.category;
 		that.source            = spec.source;
 		that.messageSends      = spec.messageSends || [];
+		that.superSends        = spec.superSends || [];
 		that.referencedClasses = spec.referencedClasses || [];
 		that.fn                = spec.fn;
 		return that;
@@ -248,19 +275,26 @@ function Smalltalk(){
     st.initClass = function(klass) {
         if(klass.wrapped) {
             copySuperclass(klass);
-        } else {
+        } 
+        else {
             installSuperclass(klass);
         }
 
         if(klass === smalltalk.Object || klass.wrapped) {
-            installDNUHandlers(klass);
+            installDnuHandlers(klass);
         }
     };
 
     var installSuperclass = function(klass) {
+        // only if the klass has not been initialized yet.
+        if(klass.fn.prototype._yourself) { return false; };
+
         if(klass.superclass && klass.superclass !== nil) {
-            // klass.fn.prototype = new klass.superclass.fn();
-            // klass.fn.prototype.constructor = klass.fn;
+            klass.fn.prototype = new klass.superclass.fn();
+            klass.fn.prototype.constructor = klass.fn;
+            Object.defineProperties(klass.fn.prototype, {
+			    klass: { value: klass, enumerable: false, configurable: true, writable: true }
+		    });
             reinstallMethods(klass);
         }
     };
@@ -292,45 +326,24 @@ function Smalltalk(){
 		}
     };
 
-
-	// st.initClass = function(klass) {
-	// 	var subclasses = st.subclasses(klass);
-	// 	var methods, prototype = klass.fn.prototype;
-
-	// 	if(klass.superclass && klass.superclass !== nil) {
-	// 		methods = st.allMethods(klass.superclass);
-
-	// 		// Methods linking
-	// 		for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
-	// 			var key = keys[i];
-	// 			if(!klass.methods[key]) {
-	// 				klass.inheritedMethods[key] = methods[key];
-	// 				Object.defineProperty(prototype, methods[key].jsSelector, {
-	// 					value: methods[key].fn, configurable: true, writable: true
-	// 				});
-	// 			}
-	// 		}
-	// 	}
-
-	// 	for(var i=0; i<subclasses.length; i++) {
-	// 		st.initClass(subclasses[i]);
-	// 	}
-	// };
-
-    /* Install all DNU methods in klass */
-
-    installDNUHandlers = function(klass) {
-        console.log('installing DNU handlers for ' + klass.className);
-        var prototype = klass.fn.prototype;
-
+    var installDnuHandlers = function(klass) {
         for(var i=0; i<dnuHandlers.length; i++) {
             var selector = dnuHandlers[i]._asSelector();
-            if(!prototype[selector]) {
-                Object.defineProperty(prototype, selector, {
-                    value: dnu(selector), configurable: true, writable: true
-                });
-            }
+            installDnuHandler(selector, klass);
         }
+    };
+
+    var installDnuHandler = function(selector, klass) {
+        if(!klass.fn.prototype[selector]) {
+            Object.defineProperty(klass.fn.prototype, selector, {
+                value: dnu(selector), configurable: true, writable: true
+            })
+        }
+    };
+
+    /* Super sends handling */
+    // TODO
+    var installSuperSendHandler = function(selector, klass) {
     };
 
 	/* Answer all registered Packages as Array */
@@ -346,35 +359,14 @@ function Smalltalk(){
 	};
 
 	/* Answer all registered Smalltalk classes */
-    //TODO: register classes in an array!
 
 	st.classes = function() {
-		var classes = [], names = Object.keys(st), l = names.length;
-		for (var i=0; i<l; i++) {
-			var name = names[i];
-			if (name.search(/^[A-Z]/) !== -1) {
-				classes.push(st[name]);
-			}
-		}
 		return classes;
 	};
 
-
-	/* Answer all methods (included inherited ones) of klass. */
-
-	// st.allMethods = function(klass) {
-	// 	var methods = {};
-	// 	var inheritedMethods = klass.inheritedMethods;
-	// 	for(var i=0, keys=Object.keys(inheritedMethods); i<keys.length; i++) {
-	// 		methods[keys[i]] = inheritedMethods[keys[i]];
-	// 	}
-	// 	inheritedMethods = klass.methods;
-	// 	for(var i=0, keys=Object.keys(inheritedMethods); i<keys.length; i++) {
-	// 		methods[keys[i]] = inheritedMethods[keys[i]];
-	// 	}
-	// 	return methods;
-	// };
-
+    st.wrappedClasses = function() {
+        return wrappedClasses;
+    };
 
 	/* Answer the direct subclasses of klass. */
 
@@ -413,6 +405,10 @@ function Smalltalk(){
 			fn:         fn,
             wrapped:    wrapped
 		});
+
+        classes.addElement(st[className]);
+        if(wrapped) {wrappedClasses.addElement(st[className])};
+        pkg.organization.elements.addElement(st[className]);
 	};
 
 	/* Create an alias for an existing class */
@@ -444,11 +440,14 @@ function Smalltalk(){
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
 		var pkg = st.addPackage(pkgName);
-		if(st[className]) {
+		if(st[className] && st[className].superclass === superclass) {
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
 			st[className].pkg = pkg || st[className].pkg;
 		} else {
+            if(st[className]) {
+                st.removeClass(st[className]);
+            };
 			st[className] = klass({
 				className: className, 
 				superclass: superclass,
@@ -457,11 +456,13 @@ function Smalltalk(){
 			});
 		}
 
-        pkg.organization.addElement(st[className]);
+        classes.addElement(st[className]);
+        pkg.organization.elements.addElement(st[className]);
 	};
 
     st.removeClass = function(klass) {
-        klass.pkg.organization.removeElement(klass);
+        klass.pkg.organization.elements.removeElement(klass);
+        classes.removeElement(klass);
         delete st[klass.className];
     };
 
@@ -475,10 +476,14 @@ function Smalltalk(){
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;
 
-        klass.organization.addElement(method.category);
+        klass.organization.elements.addElement(method.category);
 
         for(var i=0; i<method.messageSends.length; i++) {
             addDnuHandler(method.messageSends[i]);
+        };
+
+        for(var i=0; i<method.superSends.length; i++) {
+            addSuperSendHandler(method.superSends[i], klass);
         };
 	};
 
@@ -496,7 +501,7 @@ function Smalltalk(){
             };
         };
         if(shouldDeleteProtocol) {
-            klass.organization.removeElement(protocol)
+            klass.organization.elements.removeElement(protocol)
         };
     };
 
@@ -535,15 +540,38 @@ function Smalltalk(){
 		}
 	};
 
+	st.withContext = function(fn, receiver, selector, method, args) {
+		if(st.thisContext) {
+			return inContext(fn);
+		} else {
+			try {return inContext(fn)}
+			catch(error) {
+				// Reset the context stack in any case
+				st.thisContext = undefined;
+				if(error.smalltalkError) {
+					handleError(error);
+				} else {
+					throw(error);
+				}
+			}
+		}
+	};
+    
+	function inContext(fn, receiver, selector, method, args) {
+		var context = pushContext(receiver, selector, method, args);
+		var result = fn();
+		popContext(context);
+		return result;
+	};
+
+
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler 
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        if(!error.cc) {
-		    smalltalk.ErrorHandler._current()._handleError_(error);
-        }
+        smalltalk.ErrorHandler._current()._handleError_(error);
 	};
-
+    
 	/* Handles #dnu: *and* JavaScript method calls.
 	   if the receiver has no klass, we consider it a JS object (outside of the
 	   Amber system). Else assume that the receiver understands #doesNotUnderstand: */
@@ -689,6 +717,9 @@ function Smalltalk(){
     }
 };
 
+Smalltalk.prototype = new SmalltalkObject();
+Smalltalk.prototype.constructor = Smalltalk;
+
 function SmalltalkMethodContext(receiver, selector, method, temps, home) {
 	this.receiver    = receiver;
     this.selector    = selector;
@@ -703,6 +734,9 @@ function SmalltalkMethodContext(receiver, selector, method, temps, home) {
     };
 };
 
+SmalltalkMethodContext.prototype = new SmalltalkObject();
+SmalltalkMethodContext.prototype.constructor = SmalltalkMethodContext;
+
 SmalltalkMethodContext.prototype.copy = function() {
 	var home = this.homeContext;
 	if(home) {home = home.copy()}
@@ -715,79 +749,36 @@ SmalltalkMethodContext.prototype.copy = function() {
 	);
 };
 
-/* Global Smalltalk objects. */
-
-var nil = new SmalltalkNil();
-var smalltalk = new Smalltalk();
 
 if(this.jQuery) {
 	this.jQuery.allowJavaScriptCalls = true;
 }
 
 
+var nil       = new SmalltalkNil();
+var smalltalk = new Smalltalk();
+
+/* 
+ * Answer the smalltalk representation of o. 
+ * Used in message sends
+ */
+
+var _st = function(o) {
+    if(typeof o === 'undefined') {return nil};
+    if(o.klass) {return o};
+    return smalltalk.JSObjectProxy._on_(o);
+}; 
+
+
 /***************************************** BOOTSTRAP ******************************************/
 
-/* Boostrap Object, Behavior, Class and Metaclass */
-// (function() {
-//     var objectClass, behaviorClass, classClass, metaclassClass;
-    
-//     var setupMetaclass = function(metaclass) {
-//         metaclass = new SmalltalkMetaclass();
-//         metaclass.fn = function() {};
-//         metaclass.fn.prototype = new SmalltalkClass();
-//     };
-
-//     objectClass = new SmalltalkMetaclass();
-//     objectClass.fn = function() {};
-//     objectClass.fn.prototype = new SmalltalkClass();
-
-//     behaviorClass = new SmalltalkMetaclass();
-//     behaviorClass.fn = function() {};
-//     behaviorClass.fn.prototype = new SmalltalkClass();
-
-//     classClass = new SmalltalkMetaclass();
-//     classClass.fn = function() {};
-//     classClass.fn.prototype = new SmalltalkClass();
-
-//     metaclassClass = new SmalltalkMetaclass();
-//     metaclassClass.fn = function() {};
-//     metaclassClass.fn.prototype = new SmalltalkClass();
-
-//     smalltalk.Behavior = new behaviorClass.fn();
-//     smalltalk.Behavior.fn = SmalltalkBehavior;
-//     smalltalk.Behavior.klass = behaviorClass;
-//     behaviorClass.superclass = smalltalk.Class;
-
-//     smalltalk.Class = new classClass.fn();
-//     smalltalk.Class.fn = SmalltalkClass;
-//     smalltalk.Class.klass = classClass;
-//     classClass.superclass = smalltalk.Class;
-
-//     smalltalk.Metaclass = new metaclassClass.fn();
-//     smalltalk.Metaclass.fn = SmalltalkMetaclass;
-//     smalltalk.Metaclass.klass = metaclassClass;
-//     metaclassClass.superclass = smalltalk.Class;
-
-//     smalltalk.Object = new objectClass.fn();
-//     smalltalk.Object.fn = SmalltalkObject;
-//     smalltalk.Object.klass = objectClass;
-//     objectClass.superclass = smalltalk.Class;
-
-//     smalltalk.setupClass(objectClass);
-//     smalltalk.setupClass(behaviorClass);
-//     smalltalk.setupClass(classClass);
-//     smalltalk.setupClass(metaclassClass);
-//     smalltalk.setupClass(smalltalk.Object);
-//     smalltalk.setupClass(smalltalk.Behavior);
-//     smalltalk.setupClass(smalltalk.Class);
-//     smalltalk.setupClass(smalltalk.Metaclass);
-// })();
-
-
-smalltalk.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, false);
+smalltalk.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
 smalltalk.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, smalltalk.Object, false);
 smalltalk.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, smalltalk.Behavior, false);
 smalltalk.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, smalltalk.Behavior, false);
+
+smalltalk.Object.klass.superclass = smalltalk.Class;
+
 
 smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
 smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
@@ -795,12 +786,11 @@ smalltalk.wrapClassName("CompiledMethod", "Kernel-Objects", SmalltalkMethod, sma
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
 
 
-
 smalltalk.wrapClassName("Number", "Kernel", Number, smalltalk.Object);
 smalltalk.wrapClassName("BlockClosure", "Kernel", Function, smalltalk.Object);
 smalltalk.wrapClassName("Boolean", "Kernel", Boolean, smalltalk.Object);
 smalltalk.wrapClassName("Date", "Kernel", Date, smalltalk.Object);
-smalltalk.wrapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Object);
+smalltalk.wrapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Object, false);
 
 smalltalk.wrapClassName("Collection", "Kernel", null, smalltalk.Object, false);
 smalltalk.wrapClassName("SequenceableCollection", "Kernel", null, smalltalk.Collection, false);
