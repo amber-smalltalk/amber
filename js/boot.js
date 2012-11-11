@@ -48,6 +48,7 @@ if (typeof console === "undefined") {
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
+    if(typeof el === 'undefined') { return false; };
     if(this.indexOf(el) == -1) {
         this.push(el);
     }
@@ -121,6 +122,8 @@ function Smalltalk(){
 		'if', 'in', 'instanceof', 'native', 'new', 'private', 'protected', 
 		'public', 'return', 'static', 'switch', 'this', 'throw',
 		'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
+
+    var initialized = false;
 
     /* Smalltalk classes */
 
@@ -322,28 +325,48 @@ function Smalltalk(){
 
     var reinstallMethods = function(klass) {
         for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
-            installMethod(klass.methods[keys[i]], klass)
+            installMethod(klass.methods[keys[i]], klass);
 		}
     };
 
     var installDnuHandlers = function(klass) {
         for(var i=0; i<dnuHandlers.length; i++) {
-            var selector = dnuHandlers[i]._asSelector();
-            installDnuHandler(selector, klass);
+            installDnuHandler(dnuHandlers[i], klass);
         }
     };
 
-    var installDnuHandler = function(selector, klass) {
+    var installDnuHandler = function(string, klass) {
+        var selector = st.selector(string);
         if(!klass.fn.prototype[selector]) {
             Object.defineProperty(klass.fn.prototype, selector, {
                 value: dnu(selector), configurable: true, writable: true
-            })
+            });
+        }
+    };
+
+    var installNewDnuHandler = function(string) {
+        if(dnuHandlers.indexOf(string) === -1) {
+            addDnuHandler(string);
+            installDnuHandler(string, smalltalk.Object);
+            for(var i=0; i<wrappedClasses.length; i++) {
+                installDnuHandler(string, wrappedClasses[i]);
+            };
         }
     };
 
     /* Super sends handling */
-    // TODO
-    var installSuperSendHandler = function(selector, klass) {
+
+    var installSuperSendHandler = function(string, klass) {
+        var selector = st.selector(string);
+        var superSelector = st.superSelector(string);
+        var fn = klass.superclass[selector];
+        if(!fn) {
+            fn = dnu(selector);
+        };
+
+        Object.defineProperty(klass.fn.prototype, superSelector, {
+            value: fn, configurable: true, writable: true
+        });
     };
 
 	/* Answer all registered Packages as Array */
@@ -412,6 +435,7 @@ function Smalltalk(){
 	};
 
 	/* Create an alias for an existing class */
+
 	st.alias = function(klass, alias) {
 		st[alias] = klass;
 	}
@@ -478,12 +502,14 @@ function Smalltalk(){
 
         klass.organization.elements.addElement(method.category);
 
-        for(var i=0; i<method.messageSends.length; i++) {
-            addDnuHandler(method.messageSends[i]);
+        for(var i=0; i<method.superSends.length; i++) {
+            installSuperSendHandler(method.superSends[i], klass);
         };
 
-        for(var i=0; i<method.superSends.length; i++) {
-            addSuperSendHandler(method.superSends[i], klass);
+        if(initialized) {
+            for(var i=0; i<method.messageSends.length; i++) {
+                installNewDnuHandler(method.messageSends[i]);
+            };
         };
 	};
 
@@ -492,7 +518,7 @@ function Smalltalk(){
         var shouldDeleteProtocol;
         var klass = method.methodClass;
 
-        delete klass.fn.prototype[method.selector._asSelector()];
+        delete klass.fn.prototype[st.selector(method.selector)];
 	    delete klass.methods[method.selector];
 
         for(var i=0; i<klass.methods; i++) {
@@ -501,7 +527,7 @@ function Smalltalk(){
             };
         };
         if(shouldDeleteProtocol) {
-            klass.organization.elements.removeElement(protocol)
+            klass.organization.elements.removeElement(protocol);
         };
     };
 
@@ -657,6 +683,26 @@ function Smalltalk(){
 		st.oldContext = context;
 	};
 
+    /* Convert a Smalltalk selector into a JS selector */
+    st.selector = function(string) {
+        var selector = '_' + string;
+	    selector = selector.replace(/:/g, '_');
+	    selector = selector.replace(/[+]/g, '_plus');
+	    selector = selector.replace(/-/g, '_minus');
+	    selector = selector.replace(/[*]/g ,'_star');
+	    selector = selector.replace(/[\/]/g ,'_slash');
+	    selector = selector.replace(/>/g ,'_gt');
+	    selector = selector.replace(/</g ,'_lt');
+	    selector = selector.replace(/=/g ,'_eq');
+	    selector = selector.replace(/,/g ,'_comma');
+	    selector = selector.replace(/[@]/g ,'_at');
+        return selector
+    };
+
+    st.superSelector = function(string) {
+        return '$super' + st.selector(string);
+    };
+    
 	/* Convert a string to a valid smalltalk selector.
 	   if you modify the following functions, also change String>>asSelector
 	   accordingly */
@@ -715,6 +761,19 @@ function Smalltalk(){
             smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
         }
     }
+
+    st.initialize = function() {
+        if(initialized) {return false};
+
+        classes.forEach(function(klass) {
+            st.init(klass);
+        });
+        classes.forEach(function(klass) {
+            klass._initialize();
+        });
+
+        initialized = true;
+    };
 };
 
 Smalltalk.prototype = new SmalltalkObject();

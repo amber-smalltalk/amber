@@ -154,6 +154,7 @@ visitMethodNode: aNode
 		arguments: aNode arguments;
 		selector: aNode selector;
 		messageSends: aNode messageSends;
+        superSends: aNode superSends;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
 		yourself).
@@ -408,7 +409,7 @@ accept: aVisitor
 ! !
 
 IRScopedInstruction subclass: #IRMethod
-	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables'
+	instanceVariableNames: 'source selector classReferences messageSends superSends arguments internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -462,6 +463,14 @@ source
 
 source: aString
 	source := aString
+!
+
+superSends
+	^ superSends
+!
+
+superSends: aCollection
+	superSends := aCollection
 ! !
 
 !IRMethod methodsFor: 'visiting'!
@@ -1005,7 +1014,9 @@ nextPutMethodDeclaration: aMethod with: aBlock
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
 		nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;
-          	nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
+		nextPutAll: 'superSends: ';
+		nextPutAll: aMethod superSends asArray asJavascript, ','; lf;
+        nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	aMethod classReferences 
 		do: [:each | stream nextPutAll: each asJavascript]
@@ -1038,16 +1049,6 @@ nextPutReturn
 nextPutReturnWith: aBlock
 	self nextPutReturn.
 	aBlock value
-!
-
-nextPutSendTo: receiver selector: selector arguments: arguments
-	stream nextPutAll: 'smalltalk.send('.
-	receiver emitOn: self. 
-	stream nextPutAll: ',"', selector asSelector, '",['.
-	arguments 
-		do: [ :each | each emitOn: self ]
-		separatedBy: [ stream nextPutAll: ',' ].
-	stream nextPutAll: '])'
 !
 
 nextPutSequenceWith: aBlock

@@ -1,9 +1,4 @@
-smalltalk.classes().forEach(function(each) {
-    smalltalk.init(each);
-});
-smalltalk.classes().forEach(function(each) {
-	each._initialize()
-});
+smalltalk.initialize();
 
 /* Similar to jQuery(document).ready() */
 

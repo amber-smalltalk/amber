@@ -1039,25 +1039,15 @@ asNumber
 !
 
 asSelector
-	"If you change this method, change smalltalk.convertSelector too (see js/boot.js file)"
-
-	| selector |
-	selector := '_', self.
-	selector := selector replace: ':' with: '_'.
-	selector := selector replace: '[+]' with: '_plus'.
-	selector := selector replace: '-' with: '_minus'.
-	selector := selector replace: '[*]' with: '_star'.
-	selector := selector replace: '[/]' with: '_slash'.
-	selector := selector replace: '>' with: '_gt'.
-	selector := selector replace: '<' with: '_lt'.
-	selector := selector replace: '=' with: '_eq'.
-	selector := selector replace: ',' with: '_comma'.
-	selector := selector replace: '[@]' with: '_at'.
-	^selector
+	<return smalltalk.selector(this)>
 !
 
 asString
 	^self
+!
+
+asSuperSelector
+	<return smalltalk.superSelector(self)>
 !
 
 asSymbol
@@ -1341,6 +1331,10 @@ asSelector
 
 asString
 	<return self.value>
+!
+
+asSuperSelector
+	^self asString asSuperSelector
 !
 
 asSymbol

@@ -3104,23 +3104,12 @@ selector: "asSelector",
 category: 'converting',
 fn: function (){
 var self=this;
-var selector;
-selector=smalltalk.send("_","__comma",[self]);
-selector=smalltalk.send(selector,"_replace_with_",[":","_"]);
-selector=smalltalk.send(selector,"_replace_with_",["[+]","_plus"]);
-selector=smalltalk.send(selector,"_replace_with_",["-","_minus"]);
-selector=smalltalk.send(selector,"_replace_with_",["[*]","_star"]);
-selector=smalltalk.send(selector,"_replace_with_",["[/]","_slash"]);
-selector=smalltalk.send(selector,"_replace_with_",[">","_gt"]);
-selector=smalltalk.send(selector,"_replace_with_",["<","_lt"]);
-selector=smalltalk.send(selector,"_replace_with_",["=","_eq"]);
-selector=smalltalk.send(selector,"_replace_with_",[",","_comma"]);
-selector=smalltalk.send(selector,"_replace_with_",["[@]","_at"]);
-return selector;
-},
+return smalltalk.selector(this);
+;
+return self},
 args: [],
-source: "asSelector\x0a\x09\x22If you change this method, change smalltalk.convertSelector too (see js/boot.js file)\x22\x0a\x0a\x09| selector |\x0a\x09selector := '_', self.\x0a\x09selector := selector replace: ':' with: '_'.\x0a\x09selector := selector replace: '[+]' with: '_plus'.\x0a\x09selector := selector replace: '-' with: '_minus'.\x0a\x09selector := selector replace: '[*]' with: '_star'.\x0a\x09selector := selector replace: '[/]' with: '_slash'.\x0a\x09selector := selector replace: '>' with: '_gt'.\x0a\x09selector := selector replace: '<' with: '_lt'.\x0a\x09selector := selector replace: '=' with: '_eq'.\x0a\x09selector := selector replace: ',' with: '_comma'.\x0a\x09selector := selector replace: '[@]' with: '_at'.\x0a\x09^selector",
-messageSends: [",", "replace:with:"],
+source: "asSelector\x0a\x09<return smalltalk.selector(this)>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -3136,6 +3125,23 @@ return self;
 },
 args: [],
 source: "asString\x0a\x09^self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+"_asSuperSelector",
+smalltalk.method({
+selector: "asSuperSelector",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.superSelector(self);
+;
+return self},
+args: [],
+source: "asSuperSelector\x0a\x09<return smalltalk.superSelector(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4130,6 +4136,24 @@ return self},
 args: [],
 source: "asString\x0a\x09<return self.value>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_asSuperSelector",
+smalltalk.method({
+selector: "asSuperSelector",
+category: 'converting',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_asString",[]),"_asSuperSelector",[]);
+return $1;
+},
+args: [],
+source: "asSuperSelector\x0a\x09^self asString asSuperSelector",
+messageSends: ["asSuperSelector", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);

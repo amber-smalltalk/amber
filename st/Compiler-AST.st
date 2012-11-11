@@ -202,7 +202,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends'
+	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
 	package: 'Compiler-AST'!
 
 !MethodNode methodsFor: 'accessing'!
@@ -253,6 +253,14 @@ source
 
 source: aString
 	source := aString
+!
+
+superSends
+	^ superSends
+!
+
+superSends: aCollection
+	superSends := aCollection
 ! !
 
 !MethodNode methodsFor: 'visiting'!

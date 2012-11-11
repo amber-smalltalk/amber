@@ -385,6 +385,7 @@ smalltalk.send($1,"_source_",[smalltalk.send(self,"_source",[])]);
 smalltalk.send($1,"_arguments_",[smalltalk.send(aNode,"_arguments",[])]);
 smalltalk.send($1,"_selector_",[smalltalk.send(aNode,"_selector",[])]);
 smalltalk.send($1,"_messageSends_",[smalltalk.send(aNode,"_messageSends",[])]);
+smalltalk.send($1,"_superSends_",[smalltalk.send(aNode,"_superSends",[])]);
 smalltalk.send($1,"_classReferences_",[smalltalk.send(aNode,"_classReferences",[])]);
 smalltalk.send($1,"_scope_",[smalltalk.send(aNode,"_scope",[])]);
 $2=smalltalk.send($1,"_yourself",[]);
@@ -409,8 +410,8 @@ $8=smalltalk.send(self,"_method",[]);
 return $8;
 },
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09messageSends: aNode messageSends;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
-messageSends: ["method:", "source:", "source", "new", "arguments:", "arguments", "selector:", "selector", "messageSends:", "messageSends", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "add:", "name:", "name", "method", "temps", "visit:", "nodes", "ifFalse:", "variable:", "at:", "pseudoVars", "hasLocalReturn"],
+source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09messageSends: aNode messageSends;\x0a        superSends: aNode superSends;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
+messageSends: ["method:", "source:", "source", "new", "arguments:", "arguments", "selector:", "selector", "messageSends:", "messageSends", "superSends:", "superSends", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "add:", "name:", "name", "method", "temps", "visit:", "nodes", "ifFalse:", "variable:", "at:", "pseudoVars", "hasLocalReturn"],
 referencedClasses: ["IRMethod", "IRTempDeclaration", "IRVariable", "IRReturn"]
 }),
 smalltalk.IRASTTranslator);
@@ -1117,7 +1118,7 @@ smalltalk.IRClosure);
 
 
 
-smalltalk.addClass('IRMethod', smalltalk.IRScopedInstruction, ['source', 'selector', 'classReferences', 'messageSends', 'arguments', 'internalVariables'], 'Compiler-IR');
+smalltalk.addClass('IRMethod', smalltalk.IRScopedInstruction, ['source', 'selector', 'classReferences', 'messageSends', 'superSends', 'arguments', 'internalVariables'], 'Compiler-IR');
 smalltalk.IRMethod.comment="I am a method instruction"
 smalltalk.addMethod(
 "_accept_",
@@ -1332,6 +1333,38 @@ self["@source"]=aString;
 return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRMethod);
+
+smalltalk.addMethod(
+"_superSends",
+smalltalk.method({
+selector: "superSends",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self["@superSends"];
+},
+args: [],
+source: "superSends\x0a\x09^ superSends",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRMethod);
+
+smalltalk.addMethod(
+"_superSends_",
+smalltalk.method({
+selector: "superSends:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+self["@superSends"]=aCollection;
+return self},
+args: ["aCollection"],
+source: "superSends: aCollection\x0a\x09superSends := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2885,6 +2918,9 @@ smalltalk.send(aBlock,"_value",[]);
 smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(",","__comma",[smalltalk.send((smalltalk.String || String),"_lf",[])]),"__comma",["messageSends: "])]);
 smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_messageSends",[]),"_asArray",[]),"_asJavascript",[]),"__comma",[","])]);
 smalltalk.send(self["@stream"],"_lf",[]);
+smalltalk.send(self["@stream"],"_nextPutAll_",["superSends: "]);
+smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_superSends",[]),"_asArray",[]),"_asJavascript",[]),"__comma",[","])]);
+smalltalk.send(self["@stream"],"_lf",[]);
 smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send("args: ","__comma",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_arguments",[]),"_collect_",[(function(each){
 return smalltalk.send(each,"_value",[]);
 })]),"_asArray",[]),"_asJavascript",[])]),"__comma",[","])]);
@@ -2899,8 +2935,8 @@ smalltalk.send(self["@stream"],"_nextPutAll_",["]"]);
 $3=smalltalk.send(self["@stream"],"_nextPutAll_",["})"]);
 return self},
 args: ["aMethod", "aBlock"],
-source: "nextPutMethodDeclaration: aMethod with: aBlock\x0a\x09stream \x0a\x09\x09nextPutAll: 'smalltalk.method({'; lf;\x0a\x09\x09nextPutAll: 'selector: \x22', aMethod selector, '\x22,'; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.\x0a\x09aBlock value.\x0a\x09stream \x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;\x0a          \x09nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09aMethod classReferences \x0a\x09\x09do: [:each | stream nextPutAll: each asJavascript]\x0a\x09\x09separatedBy: [stream nextPutAll: ','].\x0a\x09stream \x0a\x09\x09nextPutAll: ']';\x0a\x09\x09nextPutAll: '})'",
-messageSends: ["nextPutAll:", "lf", ",", "selector", "asJavascript", "source", "value", "asArray", "messageSends", "collect:", "arguments", "do:separatedBy:", "classReferences"],
+source: "nextPutMethodDeclaration: aMethod with: aBlock\x0a\x09stream \x0a\x09\x09nextPutAll: 'smalltalk.method({'; lf;\x0a\x09\x09nextPutAll: 'selector: \x22', aMethod selector, '\x22,'; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.\x0a\x09aBlock value.\x0a\x09stream \x0a\x09\x09nextPutAll: ',', String lf, 'messageSends: ';\x0a\x09\x09nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'superSends: ';\x0a\x09\x09nextPutAll: aMethod superSends asArray asJavascript, ','; lf;\x0a        nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ['.\x0a\x09aMethod classReferences \x0a\x09\x09do: [:each | stream nextPutAll: each asJavascript]\x0a\x09\x09separatedBy: [stream nextPutAll: ','].\x0a\x09stream \x0a\x09\x09nextPutAll: ']';\x0a\x09\x09nextPutAll: '})'",
+messageSends: ["nextPutAll:", "lf", ",", "selector", "asJavascript", "source", "value", "asArray", "messageSends", "superSends", "collect:", "arguments", "do:separatedBy:", "classReferences"],
 referencedClasses: ["String"]
 }),
 smalltalk.JSStream);
@@ -2977,30 +3013,6 @@ return self},
 args: ["aBlock"],
 source: "nextPutReturnWith: aBlock\x0a\x09self nextPutReturn.\x0a\x09aBlock value",
 messageSends: ["nextPutReturn", "value"],
-referencedClasses: []
-}),
-smalltalk.JSStream);
-
-smalltalk.addMethod(
-"_nextPutSendTo_selector_arguments_",
-smalltalk.method({
-selector: "nextPutSendTo:selector:arguments:",
-category: 'streaming',
-fn: function (receiver,selector,arguments){
-var self=this;
-smalltalk.send(self["@stream"],"_nextPutAll_",["smalltalk.send("]);
-smalltalk.send(receiver,"_emitOn_",[self]);
-smalltalk.send(self["@stream"],"_nextPutAll_",[smalltalk.send(smalltalk.send(",\x22","__comma",[smalltalk.send(selector,"_asSelector",[])]),"__comma",["\x22,["])]);
-smalltalk.send(arguments,"_do_separatedBy_",[(function(each){
-return smalltalk.send(each,"_emitOn_",[self]);
-}),(function(){
-return smalltalk.send(self["@stream"],"_nextPutAll_",[","]);
-})]);
-smalltalk.send(self["@stream"],"_nextPutAll_",["])"]);
-return self},
-args: ["receiver", "selector", "arguments"],
-source: "nextPutSendTo: receiver selector: selector arguments: arguments\x0a\x09stream nextPutAll: 'smalltalk.send('.\x0a\x09receiver emitOn: self. \x0a\x09stream nextPutAll: ',\x22', selector asSelector, '\x22,['.\x0a\x09arguments \x0a\x09\x09do: [ :each | each emitOn: self ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: '])'",
-messageSends: ["nextPutAll:", "emitOn:", ",", "asSelector", "do:separatedBy:"],
 referencedClasses: []
 }),
 smalltalk.JSStream);
