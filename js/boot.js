@@ -567,7 +567,7 @@ function Smalltalk(){
 
     /* Boolean assertion */
     st.assert = function(boolean) {
-        if(boolean.klass === smalltalk.Boolean) {
+        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
             return boolean;
         } else {
             smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
