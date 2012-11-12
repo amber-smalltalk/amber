@@ -322,6 +322,24 @@ return self}
 }),
 smalltalk.BooleanTest);
 
+smalltalk.addMethod(
+"_testNonBooleanError",
+smalltalk.method({
+selector: "testNonBooleanError",
+fn: function (){
+var self=this;
+var b;
+b= '' ;
+;
+smalltalk.send(self,"_should_raise_",[(function(){
+if(smalltalk.assert(self["@nonBoolean"])){
+} else {
+};
+}),(smalltalk.NonBooleanReceiver || NonBooleanReceiver)]);
+return self}
+}),
+smalltalk.BooleanTest);
+
 
 
 smalltalk.addClass('ClassBuilderTest', smalltalk.TestCase, ['builder', 'theClass'], 'Kernel-Tests');

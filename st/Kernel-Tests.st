@@ -150,6 +150,12 @@ testLogicKeywords
 		assert: (false or: [ 1 > 0 ]); 
 		assert: ((1 > 0) or: [ false ]); 
 		assert: ((1 > 0) or: [ 1 > 2 ])
+!
+
+testNonBooleanError
+	|b|
+    b := < '' >.
+    self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
 ! !
 
 TestCase subclass: #ClassBuilderTest
