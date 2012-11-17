@@ -1,0 +1,3 @@
+[submodule "examples/googlecharts"]
+	path = examples/googlecharts
+	url = git://github.com/tomrake/googlecharts.git
