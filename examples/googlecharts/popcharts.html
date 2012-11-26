@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script src="../../js/amber.js" type="text/javascript"></script>
+    <script type="text/javascript">
+		 loadAmber({
+			files: ['GoogleCharts.js','GoogleChartsExamples'],
+			prefix: 'examples/googlecharts/js', // path for js files i think
+			ready: function() {
+			  $(function() {
+				smalltalk.PopupChartApp._new(); // Start the smalltalk App
+			  });
+		}}); 
+	</script>
+  </head>
+  <body>
+       <h1>My First Google Chart Project</h1>
+	   
+       <button onclick="smalltalk.Browser._open()">class browser</button>
+	   <button id="popPieChart">pop pie chart</button>
+	   <div id="pie_chart_div"></div>
+	   <button id="popScatterChart">pop scatter chart</button>
+	   <div id="scatter_chart_div"></div>
+           <button id="popGaugeChart">pop gauge chart</button>
+	   <div id="gauge_chart_div"></div>
+           <button id="popGeoMarkersChart">pop Geo Markers Chart</button>
+           <div id="geo_markers_chart_div"></div>
+    
+
+  </body>
+</html>
