@@ -2312,7 +2312,7 @@ smalltalk.method({
 selector: "asSelector",
 fn: function (){
 var self=this;
-return smalltalk.selector(this);
+return smalltalk.selector(self);
 ;
 return self}
 }),
@@ -2326,18 +2326,6 @@ fn: function (){
 var self=this;
 return self;
 }
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_asSuperSelector",
-smalltalk.method({
-selector: "asSuperSelector",
-fn: function (){
-var self=this;
-return smalltalk.superSelector(self);
-;
-return self}
 }),
 smalltalk.String);
 

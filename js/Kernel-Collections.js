@@ -3104,11 +3104,11 @@ selector: "asSelector",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.selector(this);
+return smalltalk.selector(self);
 ;
 return self},
 args: [],
-source: "asSelector\x0a\x09<return smalltalk.selector(this)>",
+source: "asSelector\x0a\x09<return smalltalk.selector(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3125,23 +3125,6 @@ return self;
 },
 args: [],
 source: "asString\x0a\x09^self",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_asSuperSelector",
-smalltalk.method({
-selector: "asSuperSelector",
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.superSelector(self);
-;
-return self},
-args: [],
-source: "asSuperSelector\x0a\x09<return smalltalk.superSelector(self)>",
 messageSends: [],
 referencedClasses: []
 }),

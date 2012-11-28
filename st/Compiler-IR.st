@@ -576,6 +576,12 @@ index: anInteger
 	index := anInteger
 !
 
+javascriptSelector
+	^ self classSend 
+    	ifNil: [ self selector asSelector ]
+      	ifNotNil: [ self selector asSuperSelector ]
+!
+
 selector
 	^ selector
 !
@@ -887,6 +893,29 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
+	anIRSend classSend 
+    	ifNil: [
+			self stream nextPutAll: '_st('.
+			self visit: anIRSend instructions first.
+   		 	self stream nextPutAll: ').', anIRSend selector asSelector, '('.
+			anIRSend instructions allButFirst
+				do: [ :each | self visit: each ]
+				separatedBy: [ self stream nextPutAll: ',' ].
+			self stream nextPutAll: ')' ]
+		ifNotNil: [ 
+			self stream 
+            	nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
+				nextPutAll: anIRSend selector asSelector, '.apply(';
+				nextPutAll: '_st('.
+			self visit: anIRSend instructions first.
+			self stream nextPutAll: '), ['.
+			anIRSend instructions allButFirst
+				do: [ :each | self visit: each ]
+				separatedBy: [ self stream nextPutAll: ',' ].
+			self stream nextPutAll: '])' ]
+!
+
+visitIRSendOld: anIRSend
 	self stream nextPutAll: 'smalltalk.send('.
 	self visit: anIRSend instructions first.
 	self stream nextPutAll:  ',"', anIRSend selector asSelector, '",['.
@@ -976,6 +1005,16 @@ nextPutClosureWith: aBlock arguments: anArray
 	stream nextPutAll: '})'
 !
 
+nextPutContextFor: aMethod during: aBlock
+	self nextPutAll: 'return smalltalk.withContext(function() {'.
+    aBlock value.
+    self 
+    	nextPutAll: '}, self, ';
+        nextPutAll: aMethod selector asJavascript, ', ';
+        nextPutAll: aMethod arguments asJavascript;
+        nextPutAll: ')'
+!
+
 nextPutFunctionWith: aBlock arguments: anArray
 	stream nextPutAll: 'fn: function('.
 	anArray 
@@ -1009,13 +1048,11 @@ nextPutMethodDeclaration: aMethod with: aBlock
 	stream 
 		nextPutAll: 'smalltalk.method({'; lf;
 		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
-		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf. 
 	aBlock value.
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
 		nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;
-		nextPutAll: 'superSends: ';
-		nextPutAll: aMethod superSends asArray asJavascript, ','; lf;
         nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	aMethod classReferences 

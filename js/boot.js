@@ -13,23 +13,23 @@
    | Amber is released under the MIT license
    |
    | Permission is hereby granted, free of charge, to any person obtaining
-   | a copy of this software and associated documentation files (the 
-   | 'Software'), to deal in the Software without restriction, including 
-   | without limitation the rights to use, copy, modify, merge, publish, 
-   | distribute, sublicense, and/or sell copies of the Software, and to 
-   | permit persons to whom the Software is furnished to do so, subject to 
+   | a copy of this software and associated documentation files (the
+   | 'Software'), to deal in the Software without restriction, including
+   | without limitation the rights to use, copy, modify, merge, publish,
+   | distribute, sublicense, and/or sell copies of the Software, and to
+   | permit persons to whom the Software is furnished to do so, subject to
    | the following conditions:
    |
-   | The above copyright notice and this permission notice shall be 
+   | The above copyright notice and this permission notice shall be
    | included in all copies or substantial portions of the Software.
    |
-   | THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, 
-   | EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-   | MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-   | IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
-   | CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-   | TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-   | SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+   | THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+   | EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   | MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+   | IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+   | CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+   | TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+   | SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    |
    ==================================================================== */
 
@@ -109,7 +109,7 @@ function Smalltalk(){
 	var st = this;
 
 	/* This is the current call context object. While it is publicly available,
-	   Use smalltalk.getThisContext() instead which will answer a safe copy of 
+	   Use smalltalk.getThisContext() instead which will answer a safe copy of
 	   the current context */
 
 	st.thisContext = undefined;
@@ -117,9 +117,9 @@ function Smalltalk(){
 	/* List of all reserved words in JavaScript. They may not be used as variables
 	   in Smalltalk. */
 
-	st.reservedWords = ['break', 'case', 'catch', 'char', 'class', 'continue', 'debugger', 
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
-		'if', 'in', 'instanceof', 'native', 'new', 'private', 'protected', 
+	st.reservedWords = ['break', 'case', 'catch', 'char', 'class', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'native', 'new', 'private', 'protected',
 		'public', 'return', 'static', 'switch', 'this', 'throw',
 		'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
 
@@ -139,7 +139,7 @@ function Smalltalk(){
             dnuHandlers.push(string);
         }
     };
-    
+
     /* Dnu handler method */
 
     var dnu = function(selector) {
@@ -182,8 +182,8 @@ function Smalltalk(){
 		return that;
 	};
 
-	/* Smalltalk class creation. A class is an instance of an automatically 
-	   created metaclass object. Newly created classes (not their metaclass) 
+	/* Smalltalk class creation. A class is an instance of an automatically
+	   created metaclass object. Newly created classes (not their metaclass)
 	   should be added to the smalltalk object, see smalltalk.addClass().
 	   Superclass linking is *not* handled here, see smalltalk.init()  */
 
@@ -192,7 +192,7 @@ function Smalltalk(){
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
         setupClass(that, spec);
-		
+
         that.className = spec.className;
         that.wrapped   = spec.wrapped || false;
 		meta.className = spec.className + ' class';
@@ -203,7 +203,7 @@ function Smalltalk(){
 		}
 		return that;
 	}
-	
+
 	function metaclass(spec) {
         var superConstructor;
         spec = spec || {};
@@ -225,7 +225,7 @@ function Smalltalk(){
 		that.instanceClass = new that.fn();
 		return that;
 	}
-	
+
 	function setupClass(klass, spec) {
         spec = spec || {};
         if(!klass.fn) {
@@ -235,16 +235,26 @@ function Smalltalk(){
 		klass.pkg = spec.pkg;
 
         Object.defineProperty(klass, "toString", {
-			value: function() { return 'Smalltalk ' + this.className; }, 
+			value: function() { return 'Smalltalk ' + this.className; },
             configurable: true
 		});
-        
+
 		Object.defineProperties(klass, {
-			methods: { value: {}, enumerable: false, configurable: true, writable: true }
+			methods: { 
+                value: {}, 
+                enumerable: false, 
+                configurable: true, 
+                writable: true 
+            }
 		});
 
         Object.defineProperties(klass.fn.prototype, {
-			klass: { value: klass, enumerable: false, configurable: true, writable: true }
+			klass: { 
+                value: klass, 
+                enumerable: false, 
+                configurable: true, 
+                writable: true 
+            }
 		});
 	};
 
@@ -259,7 +269,6 @@ function Smalltalk(){
 		that.category          = spec.category;
 		that.source            = spec.source;
 		that.messageSends      = spec.messageSends || [];
-		that.superSends        = spec.superSends || [];
 		that.referencedClasses = spec.referencedClasses || [];
 		that.fn                = spec.fn;
 		return that;
@@ -267,7 +276,7 @@ function Smalltalk(){
 
 	/* Initialize a class in its class hierarchy. Handle both classes and
 	   metaclasses. */
-	   
+
 	st.init = function(klass) {
 		st.initClass(klass);
 		if(klass.klass && !klass.meta) {
@@ -278,7 +287,7 @@ function Smalltalk(){
     st.initClass = function(klass) {
         if(klass.wrapped) {
             copySuperclass(klass);
-        } 
+        }
         else {
             installSuperclass(klass);
         }
@@ -354,21 +363,6 @@ function Smalltalk(){
         }
     };
 
-    /* Super sends handling */
-
-    var installSuperSendHandler = function(string, klass) {
-        var selector = st.selector(string);
-        var superSelector = st.superSelector(string);
-        var fn = klass.superclass[selector];
-        if(!fn) {
-            fn = dnu(selector);
-        };
-
-        Object.defineProperty(klass.fn.prototype, superSelector, {
-            value: fn, configurable: true, writable: true
-        });
-    };
-
 	/* Answer all registered Packages as Array */
     // TODO: Remove this hack
 
@@ -382,7 +376,7 @@ function Smalltalk(){
 	};
 
 	/* Answer all registered Smalltalk classes */
-    //TODO: remove the function and make smalltalk.classes a simple property
+    //TODO: remove the function and make smalltalk.classes an array
 
 	st.classes = function() {
 		return classes;
@@ -414,7 +408,7 @@ function Smalltalk(){
 		return subclasses;
 	};
 
-	/* Create a new class wrapping a JavaScript constructor, and add it to the 
+	/* Create a new class wrapping a JavaScript constructor, and add it to the
 	   global smalltalk object. Package is lazily created if it does not exist with given name. */
 
 	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
@@ -423,9 +417,9 @@ function Smalltalk(){
         }
 		var pkg = st.addPackage(pkgName);
 		st[className] = klass({
-			className:  className, 
+			className:  className,
 			superclass: superclass,
-			pkg:        pkg, 
+			pkg:        pkg,
 			fn:         fn,
             wrapped:    wrapped
 		});
@@ -455,7 +449,7 @@ function Smalltalk(){
 		} else {
 			if(properties) {
 				st.packages[pkgName].properties = properties;
-			}	
+			}
 		}
 		return st.packages[pkgName];
 	};
@@ -474,7 +468,7 @@ function Smalltalk(){
                 st.removeClass(st[className]);
             };
 			st[className] = klass({
-				className: className, 
+				className: className,
 				superclass: superclass,
 				pkg: pkg,
 				iVarNames: iVarNames
@@ -497,18 +491,16 @@ function Smalltalk(){
 		Object.defineProperty(klass.fn.prototype, jsSelector, {
 			value: method.fn, configurable: true, writable: true
 		});
+
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;
 
         klass.organization.elements.addElement(method.category);
 
-        for(var i=0; i<method.superSends.length; i++) {
-            installSuperSendHandler(method.superSends[i], klass);
-        };
-
-        if(initialized) {
-            for(var i=0; i<method.messageSends.length; i++) {
+        for(var i=0; i<method.messageSends.length; i++) {
+            addDnuHandler(method.messageSends[i]);
+            if(initialized) {
                 installNewDnuHandler(method.messageSends[i]);
             };
         };
@@ -567,11 +559,11 @@ function Smalltalk(){
 		}
 	};
 
-	st.withContext = function(fn, receiver, selector, method, args) {
+	st.withContext = function(fn, receiver, selector, args) {
 		if(st.thisContext) {
-			return inContext(fn);
+			return inContext(fn, receiver, selector, args);
 		} else {
-			try {return inContext(fn)}
+			try {return inContext(fn, receiver, selector, args)}
 			catch(error) {
 				// Reset the context stack in any case
 				st.thisContext = undefined;
@@ -583,22 +575,22 @@ function Smalltalk(){
 			}
 		}
 	};
-    
-	function inContext(fn, receiver, selector, method, args) {
-		var context = pushContext(receiver, selector, method, args);
+
+	function inContext(fn, receiver, selector, args) {
+		var context = pushContext(receiver, selector, args);
 		var result = fn();
 		popContext(context);
 		return result;
 	};
 
 
-	/* Handles Smalltalk errors. Triggers the registered ErrorHandler 
+	/* Handles Smalltalk errors. Triggers the registered ErrorHandler
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
         smalltalk.ErrorHandler._current()._handleError_(error);
 	};
-    
+
 	/* Handles #dnu: *and* JavaScript method calls.
 	   if the receiver has no klass, we consider it a JS object (outside of the
 	   Amber system). Else assume that the receiver understands #doesNotUnderstand: */
@@ -609,7 +601,7 @@ function Smalltalk(){
 			return callJavaScriptMethod(receiver, selector, args);
 		}
 
-		/* Handles not understood messages. Also see the Amber counter-part 
+		/* Handles not understood messages. Also see the Amber counter-part
 		   Object>>doesNotUnderstand: */
 
 		return receiver._doesNotUnderstand_(
@@ -623,7 +615,7 @@ function Smalltalk(){
 	   Else try wrapping a JSObjectProxy around the receiver.
 
        If the object property is a function, then call it, except if it starts with
-       an uppercase character (we probably want to answer the function itself in this 
+       an uppercase character (we probably want to answer the function itself in this
        case and send it #new from Amber).
 
 	   Converts keyword-based selectors by using the first
@@ -663,17 +655,16 @@ function Smalltalk(){
 		}
 	};
 
-	function pushContext(receiver, selector, method, temps) {
+	function pushContext(receiver, selector, temps) {
 		var c = st.oldContext, tc = st.thisContext;
 		if (!c) {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, method, temps, tc);
+			return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps, tc);
 		}
 		st.oldContext = null;
 		c.homeContext = tc;
         c.pc          = 1;
 		c.receiver    = receiver;
-        c.selector    = selector;
-		c.method      = method;
+        c.selector    = selector || "";
 		c.temps       = temps || {};
 		return st.thisContext = c;
 	};
@@ -689,10 +680,14 @@ function Smalltalk(){
     st.selector = function(string) {
         var selector = '_' + string;
 	    selector = selector.replace(/:/g, '_');
+	    selector = selector.replace(/[\&]/g, '_and');
+	    selector = selector.replace(/[\|]/g, '_or');
 	    selector = selector.replace(/[+]/g, '_plus');
 	    selector = selector.replace(/-/g, '_minus');
 	    selector = selector.replace(/[*]/g ,'_star');
 	    selector = selector.replace(/[\/]/g ,'_slash');
+	    selector = selector.replace(/[\\]/g ,'_backslash');
+	    selector = selector.replace(/[\~]/g ,'_tild');
 	    selector = selector.replace(/>/g ,'_gt');
 	    selector = selector.replace(/</g ,'_lt');
 	    selector = selector.replace(/=/g ,'_eq');
@@ -701,10 +696,6 @@ function Smalltalk(){
         return selector
     };
 
-    st.superSelector = function(string) {
-        return '$super' + st.selector(string);
-    };
-    
 	/* Convert a string to a valid smalltalk selector.
 	   if you modify the following functions, also change String>>asSelector
 	   accordingly */
@@ -724,15 +715,19 @@ function Smalltalk(){
 	function convertBinarySelector(selector) {
 		return selector
 			.replace(/^_/, '')
-			.replace(/_plus/, '+')
-			.replace(/_minus/, '-')
-			.replace(/_star/, '*')
-			.replace(/_slash/, '/')
-			.replace(/_gt/, '>')
-			.replace(/_lt/, '<')
-			.replace(/_eq/, '=')
-			.replace(/_comma/, ',')
-			.replace(/_at/, '@')
+			.replace(/_and/g, '&')
+			.replace(/_or/g, '|')
+			.replace(/_plus/g, '+')
+			.replace(/_minus/g, '-')
+			.replace(/_star/g, '*')
+			.replace(/_slash/g, '/')
+			.replace(/_backslash/g, '\\')
+			.replace(/_tild/g, '~')
+			.replace(/_gt/g, '>')
+			.replace(/_lt/g, '<')
+			.replace(/_eq/g, '=')
+			.replace(/_comma/g, ',')
+			.replace(/_at/g, '@')
 	};
 
 	/* Converts a JavaScript object to valid Smalltalk Object */
@@ -747,7 +742,7 @@ function Smalltalk(){
 		for(var i in js) {
 			if(readObject) {
 				object._at_put_(i, st.readJSObject(js[i]));
-			} 
+			}
 			if(readArray) {
 				object[i] = st.readJSObject(js[i]);
 			}
@@ -765,7 +760,7 @@ function Smalltalk(){
         }
     }
 
-    /* Smalltalk initilization. Called on page load */
+    /* Smalltalk initialization. Called on page load */
 
     st.initialize = function() {
         if(initialized) {return false};
@@ -784,18 +779,18 @@ function Smalltalk(){
 Smalltalk.prototype = new SmalltalkObject();
 Smalltalk.prototype.constructor = Smalltalk;
 
-function SmalltalkMethodContext(receiver, selector, method, temps, home) {
+function SmalltalkMethodContext(receiver, selector, temps, home) {
 	this.receiver    = receiver;
     this.selector    = selector;
-	this.method      = method;
 	this.temps       = temps || {};
 	this.homeContext = home;
 
-    this.resume = function() {
-        //Brutally set the receiver as thisContext, then re-enter the function
-        smalltalk.thisContext = this;
-        return this.method.apply(receiver, temps);
-    };
+    // TODO: adapt.
+    // this.resume = function() {
+    //     //Brutally set the receiver as thisContext, then re-enter the function
+    //     smalltalk.thisContext = this;
+    //     return this.method.apply(receiver, temps);
+    // };
 };
 
 SmalltalkMethodContext.prototype = new SmalltalkObject();
@@ -805,10 +800,9 @@ SmalltalkMethodContext.prototype.copy = function() {
 	var home = this.homeContext;
 	if(home) {home = home.copy()}
 	return new SmalltalkMethodContext(
-		this.receiver, 
+		this.receiver,
         this.selector,
-		this.method, 
-		this.temps, 
+		this.temps,
 		home
 	);
 };
@@ -822,8 +816,8 @@ if(this.jQuery) {
 var nil       = new SmalltalkNil();
 var smalltalk = new Smalltalk();
 
-/* 
- * Answer the smalltalk representation of o. 
+/*
+ * Answer the smalltalk representation of o.
  * Used in message sends
  */
 
@@ -831,7 +825,7 @@ var _st = function(o) {
     if(typeof o === 'undefined') {return nil};
     if(o.klass) {return o};
     return smalltalk.JSObjectProxy._on_(o);
-}; 
+};
 
 
 /***************************************** BOOTSTRAP ******************************************/

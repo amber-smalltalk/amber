@@ -1039,15 +1039,11 @@ asNumber
 !
 
 asSelector
-	<return smalltalk.selector(this)>
+	<return smalltalk.selector(self)>
 !
 
 asString
 	^self
-!
-
-asSuperSelector
-	<return smalltalk.superSelector(self)>
 !
 
 asSymbol

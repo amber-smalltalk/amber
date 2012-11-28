@@ -69,12 +69,12 @@ instanceVariableNames
 !
 
 methodAt: aSymbol
-	<return smalltalk.methods(self)[aSymbol._asString()]>
+	^ self methodDictionary at: aSymbol asString
 !
 
 methodDictionary
 	<var dict = smalltalk.HashedCollection._new();
-	var methods = self.fn.prototype.methods;
+	var methods = self.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
 			dict._at_put_(methods[i].selector, methods[i]);

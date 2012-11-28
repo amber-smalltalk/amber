@@ -309,12 +309,13 @@ selector: "methodAt:",
 category: 'accessing',
 fn: function (aSymbol){
 var self=this;
-return smalltalk.methods(self)[aSymbol._asString()];
-;
-return self},
+var $1;
+$1=_st(_st(self)._methodDictionary())._at_(_st(aSymbol)._asString());
+return $1;
+},
 args: ["aSymbol"],
-source: "methodAt: aSymbol\x0a\x09<return smalltalk.methods(self)[aSymbol._asString()]>",
-messageSends: [],
+source: "methodAt: aSymbol\x0a\x09^ self methodDictionary at: aSymbol asString",
+messageSends: ["at:", "asString", "methodDictionary"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
