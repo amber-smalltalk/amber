@@ -791,33 +791,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_inspectOn_",
-smalltalk.method({
-selector: "inspectOn:",
-category: '',
-fn: function (anInspector) {
-    var self = this;
-    var $1;
-    var variables;
-    variables = smalltalk.send(smalltalk.Dictionary || Dictionary, "_new", []);
-    smalltalk.send(variables, "_at_put_", ["#self", self]);
-    smalltalk.send(variables, "_at_put_", ["#home", smalltalk.send(self, "_home", [])]);
-    smalltalk.send(variables, "_at_put_", ["#receiver", smalltalk.send(self, "_receiver", [])]);
-    smalltalk.send(variables, "_at_put_", ["#selector", smalltalk.send(self, "_selector", [])]);
-    smalltalk.send(variables, "_at_put_", ["#temps", smalltalk.send(self, "_temps", [])]);
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [function (each) {return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(self, "_instVarAt_", [each])]);}]);
-    smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
-    $1 = smalltalk.send(anInspector, "_setVariables_", [variables]);
-    return self;
-},
-args: [object Object],
-source: "",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.MethodContext);
-
-smalltalk.addMethod(
 "_pc",
 smalltalk.method({
 selector: "pc",
