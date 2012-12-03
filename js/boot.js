@@ -147,7 +147,6 @@ function Smalltalk(){
 		var that = setupClass(meta.instanceClass, spec);
 		that.className = spec.className;
 		meta.className = spec.className + ' class';
-        that.organization = new SmalltalkOrganizer();
 		if(spec.superclass) {
 			that.superclass = spec.superclass;
 			meta.superclass = spec.superclass.klass;
@@ -157,7 +156,6 @@ function Smalltalk(){
 	
 	function metaclass() {
 		var meta = setupClass(new SmalltalkMetaclass(), {})
-        meta.organization = new SmalltalkOrganizer();
 		meta.instanceClass = new meta.fn;
 		return meta;
 	}
@@ -169,6 +167,7 @@ function Smalltalk(){
 			value: function() { return 'Smalltalk ' + this.className; }, 
             configurable: true // no writable - in par with ES6 methods
 		});
+        that.organization = new SmalltalkOrganizer();
 		that.pkg = spec.pkg;
 		Object.defineProperties(that.fn.prototype, {
 			methods: { value: {}, enumerable: false, configurable: true, writable: true },
