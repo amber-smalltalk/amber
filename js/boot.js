@@ -581,12 +581,6 @@ function SmalltalkMethodContext(receiver, selector, method, temps, home) {
 	this.method      = method;
 	this.temps       = temps || {};
 	this.homeContext = home;
-
-    this.resume = function() {
-        //Brutally set the receiver as thisContext, then re-enter the function
-        smalltalk.thisContext = this;
-        return this.method.apply(receiver, temps);
-    };
 };
 
 SmalltalkMethodContext.prototype.copy = function() {
@@ -599,6 +593,12 @@ SmalltalkMethodContext.prototype.copy = function() {
 		this.temps, 
 		home
 	);
+};
+
+SmalltalkMethodContext.prototype.resume = function() {
+    //Brutally set the receiver as thisContext, then re-enter the function
+    smalltalk.thisContext = this;
+    return this.method.apply(receiver, temps);
 };
 
 /* Global Smalltalk objects. */
