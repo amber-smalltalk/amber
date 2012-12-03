@@ -298,20 +298,24 @@ smalltalk.addMethod(
 "_category_",
 smalltalk.method({
 selector: "category:",
-fn: function (aString) {
-    var self = this;
-    var $1;
-    var oldCategory;
-    oldCategory = smalltalk.send(self, "_category", []);
-    smalltalk.send(self, "_basicAt_put_", ["category", aString]);
-    $1 = smalltalk.send(self, "_methodClass", []);
-    if (($receiver = $1) == nil || $receiver == undefined) {
-    } else {
-        smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_addElement_", [aString]);
-        smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_methods", []), "_select_", [function (each) {return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [oldCategory]);}]), "_ifEmpty_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_removeElement_", [oldCategory]);}]);
-    }
-    return self;
-}
+fn: function (aString){
+var self=this;
+var $1;
+var oldCategory;
+oldCategory=smalltalk.send(self,"_category",[]);
+smalltalk.send(self,"_basicAt_put_",["category",aString]);
+$1=smalltalk.send(self,"_methodClass",[]);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_addElement_",[aString]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_methods",[]),"_select_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_category",[]),"__eq",[oldCategory]);
+})]),"_ifEmpty_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_removeElement_",[oldCategory]);
+})]);
+};
+return self}
 }),
 smalltalk.CompiledMethod);
 
@@ -562,6 +566,28 @@ selector: "home",
 fn: function () {
     var self = this;
     return self.homeContext;
+    return self;
+}
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+"_inspectOn_",
+smalltalk.method({
+selector: "inspectOn:",
+fn: function (anInspector) {
+    var self = this;
+    var $1;
+    var variables;
+    variables = smalltalk.send(smalltalk.Dictionary || Dictionary, "_new", []);
+    smalltalk.send(variables, "_at_put_", ["#self", self]);
+    smalltalk.send(variables, "_at_put_", ["#home", smalltalk.send(self, "_home", [])]);
+    smalltalk.send(variables, "_at_put_", ["#receiver", smalltalk.send(self, "_receiver", [])]);
+    smalltalk.send(variables, "_at_put_", ["#selector", smalltalk.send(self, "_selector", [])]);
+    smalltalk.send(variables, "_at_put_", ["#temps", smalltalk.send(self, "_temps", [])]);
+    smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_instanceVariableNames", []), "_do_", [function (each) {return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(self, "_instVarAt_", [each])]);}]);
+    smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
+    $1 = smalltalk.send(anInspector, "_setVariables_", [variables]);
     return self;
 }
 }),
