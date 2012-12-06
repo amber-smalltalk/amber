@@ -82,23 +82,20 @@ function SmalltalkOrganizer() {
     this.elements = [];
 }
 
-SmalltalkBehavior.prototype  = new SmalltalkObject();
-SmalltalkClass.prototype     = new SmalltalkBehavior();
-SmalltalkMetaclass.prototype = new SmalltalkBehavior();
+function inherits(child, parent) {
+	child.prototype = Object.create(parent.prototype, {
+		constructor: { value: child,
+			enumerable: false, configurable: true, writable: true }
+	});
+}
 
-SmalltalkNil.prototype       = new SmalltalkObject();
-SmalltalkMethod.prototype    = new SmalltalkObject();
-SmalltalkPackage.prototype   = new SmalltalkObject();
-SmalltalkOrganizer.prototype = new SmalltalkObject();
-
-SmalltalkBehavior.prototype.constructor  = SmalltalkBehavior;
-SmalltalkClass.prototype.constructor     = SmalltalkClass;
-SmalltalkMetaclass.prototype.constructor = SmalltalkMetaclass;
-
-SmalltalkNil.prototype.constructor       = SmalltalkNil;
-SmalltalkMethod.prototype.constructor    = SmalltalkMethod;
-SmalltalkPackage.prototype.constructor   = SmalltalkPackage;
-SmalltalkOrganizer.prototype.constructor = SmalltalkOrganizer;
+inherits(SmalltalkBehavior, SmalltalkObject);
+inherits(SmalltalkClass, SmalltalkBehavior);
+inherits(SmalltalkMetaclass, SmalltalkBehavior);
+inherits(SmalltalkNil, SmalltalkObject);
+inherits(SmalltalkMethod, SmalltalkObject);
+inherits(SmalltalkPackage, SmalltalkObject);
+inherits(SmalltalkOrganizer, SmalltalkObject);
 
 
 function Smalltalk() {
@@ -214,8 +211,7 @@ function Smalltalk() {
 		var that = new SmalltalkMetaclass();
         that.fn            = function() {};
         that.organization  = new SmalltalkOrganizer();
-        that.fn.prototype  = new superConstructor();
-        that.fn.prototype.constructor = that.fn;
+        inherits(that.fn, superConstructor);
 
         setupClass(that);
 
@@ -290,8 +286,7 @@ function Smalltalk() {
 		if(klass.fn.prototype._yourself) { return false; }
 
 		if(klass.superclass && klass.superclass !== nil) {
-            klass.fn.prototype = new klass.superclass.fn();
-            klass.fn.prototype.constructor = klass.fn;
+            inherits(klass.fn, klass.superclass.fn);
             Object.defineProperties(klass.fn.prototype, {
 			    klass: { value: klass, enumerable: false, configurable: true, writable: true }
 		    });
@@ -776,8 +771,7 @@ function Smalltalk() {
     };
 }
 
-Smalltalk.prototype = new SmalltalkObject();
-Smalltalk.prototype.constructor = Smalltalk;
+inherits(Smalltalk, SmalltalkObject);
 
 function SmalltalkMethodContext(receiver, selector, method, temps, home) {
 	this.receiver    = receiver;
@@ -793,8 +787,7 @@ function SmalltalkMethodContext(receiver, selector, method, temps, home) {
     };
 }
 
-SmalltalkMethodContext.prototype = new SmalltalkObject();
-SmalltalkMethodContext.prototype.constructor = SmalltalkMethodContext;
+inherits(SmalltalkMethodContext, SmalltalkObject);
 
 SmalltalkMethodContext.prototype.copy = function() {
 	var home = this.homeContext;
