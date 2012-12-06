@@ -131,20 +131,20 @@ function Smalltalk() {
 
     var dnuHandlers = [];
 
-    var addDnuHandler = function(string) {
+    function addDnuHandler(string) {
         if(dnuHandlers.indexOf(string) == -1) {
             dnuHandlers.push(string);
         }
-    };
-    
-    /* Dnu handler method */
+	}
 
-    var dnu = function(selector) {
+	/* Dnu handler method */
+
+    function dnu(selector) {
         return function() {
             var args = Array.prototype.slice.call(arguments);
             return messageNotUnderstood(this, selector, args);
         };
-    };
+	}
 
 	/* The symbol table ensures symbol unicity */
 
@@ -285,7 +285,7 @@ function Smalltalk() {
         }
     };
 
-    var installSuperclass = function(klass) {
+    function installSuperclass(klass) {
         // only if the klass has not been initialized yet.
 		if(klass.fn.prototype._yourself) { return false; }
 
@@ -297,9 +297,9 @@ function Smalltalk() {
 		    });
             reinstallMethods(klass);
         }
-    };
+	}
 
-    var copySuperclass = function(klass, superclass) {
+	function copySuperclass(klass, superclass) {
         superclass = superclass || klass.superclass;
         if(superclass && superclass !== nil) {
 			for(var keys = Object.keys(superclass.methods), i=0; i<keys.length; i++) {
@@ -312,36 +312,36 @@ function Smalltalk() {
                 copySuperclass(klass, superclass.superclass);
             }
         }
-    };
+	}
 
-    var installMethod = function(method, klass) {
+	function installMethod(method, klass) {
         Object.defineProperty(klass.fn.prototype, method.jsSelector, {
 			value: method.fn, configurable: true, writable: true
 		});
-    };
+	}
 
-    var reinstallMethods = function(klass) {
+	function reinstallMethods(klass) {
         for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
             installMethod(klass.methods[keys[i]], klass);
 		}
-    };
+	}
 
-    var installDnuHandlers = function(klass) {
+	function installDnuHandlers(klass) {
         for(var i=0; i<dnuHandlers.length; i++) {
             installDnuHandler(dnuHandlers[i], klass);
         }
-    };
+	}
 
-    var installDnuHandler = function(string, klass) {
+	function installDnuHandler(string, klass) {
         var selector = st.selector(string);
         if(!klass.fn.prototype[selector]) {
             Object.defineProperty(klass.fn.prototype, selector, {
                 value: dnu(selector), configurable: true, writable: true
             });
         }
-    };
+	}
 
-    var installNewDnuHandler = function(string) {
+	function installNewDnuHandler(string) {
         if(dnuHandlers.indexOf(string) === -1) {
             addDnuHandler(string);
             installDnuHandler(string, smalltalk.Object);
@@ -349,11 +349,11 @@ function Smalltalk() {
                 installDnuHandler(string, wrappedClasses[i]);
 			}
 		}
-    };
+	}
 
-    /* Super sends handling */
+	/* Super sends handling */
 
-    var installSuperSendHandler = function(string, klass) {
+    function installSuperSendHandler(string, klass) {
         var selector = st.selector(string);
         var superSelector = st.superSelector(string);
         var fn = klass.superclass[selector];
@@ -364,7 +364,7 @@ function Smalltalk() {
 		Object.defineProperty(klass.fn.prototype, superSelector, {
             value: fn, configurable: true, writable: true
         });
-    };
+	}
 
 	/* Answer all registered Packages as Array */
     // TODO: Remove this hack
