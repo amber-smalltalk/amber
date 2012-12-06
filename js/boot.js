@@ -719,7 +719,7 @@ function Smalltalk() {
 			.replace(/_eq/g, '=')
 			.replace(/_comma/g, ',')
 			.replace(/_at/g, '@')
-	};
+	}
 
 	/* Converts a JavaScript object to valid Smalltalk Object */
 	st.readJSObject = function(js) {
@@ -781,7 +781,7 @@ function SmalltalkMethodContext(receiver, selector, temps, home) {
     //     smalltalk.thisContext = this;
     //     return this.method.apply(receiver, temps);
     // };
-};
+}
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
