@@ -190,7 +190,6 @@ function Smalltalk() {
         that.className = spec.className;
         that.wrapped   = spec.wrapped || false;
 		meta.className = spec.className + ' class';
-        that.organization = new SmalltalkOrganizer();
 		if(spec.superclass) {
 			that.superclass = spec.superclass;
 			meta.superclass = spec.superclass.klass;
@@ -199,18 +198,17 @@ function Smalltalk() {
 	}
 
 	function metaclass(spec) {
-        var superConstructor;
-        spec = spec || {};
+		var superConstructor;
+		spec = spec || {};
 
-        if(spec.superclass) {
-            superConstructor = spec.superclass.klass.fn;
-        } else {
-            superConstructor = SmalltalkClass;
-        }
+		if(spec.superclass) {
+			superConstructor = spec.superclass.klass.fn;
+		} else {
+			superConstructor = SmalltalkClass;
+		}
 
 		var that = new SmalltalkMetaclass();
         that.fn            = function() {};
-        that.organization  = new SmalltalkOrganizer();
         inherits(that.fn, superConstructor);
 
         setupClass(that);
@@ -232,12 +230,13 @@ function Smalltalk() {
             configurable: true
 		});
 
+		klass.organization = new SmalltalkOrganizer();
 		Object.defineProperties(klass, {
-			methods: { 
-                value: {}, 
-                enumerable: false, 
-                configurable: true, 
-                writable: true 
+			methods: {
+                value: {},
+                enumerable: false,
+                configurable: true,
+                writable: true
             }
 		});
 
