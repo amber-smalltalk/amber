@@ -48,7 +48,7 @@ if(typeof console === "undefined") {
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
-	if(typeof el === 'undefined') { return false; }
+	if(typeof el === 'undefined') { return; }
 	if(this.indexOf(el) == -1) {
         this.push(el);
     }
@@ -292,7 +292,7 @@ function Smalltalk() {
 
     function installSuperclass(klass) {
         // only if the klass has not been initialized yet.
-		if(klass.fn.prototype._yourself) { return false; }
+		if(klass.fn.prototype._yourself) { return; }
 
 		if(klass.superclass && klass.superclass !== nil) {
             inherits(klass.fn, klass.superclass.fn);
@@ -528,6 +528,7 @@ function Smalltalk() {
 				st.thisContext = undefined;
 				if(error.smalltalkError) {
 					handleError(error);
+					return nil;
 				} else {
 					throw(error);
 				}
@@ -561,6 +562,7 @@ function Smalltalk() {
 				st.thisContext = undefined;
 				if(error.smalltalkError) {
 					handleError(error);
+					return nil;
 				} else {
 					throw(error);
 				}
@@ -640,9 +642,7 @@ function Smalltalk() {
 	/* Handle thisContext pseudo variable */
 
 	st.getThisContext = function() {
-		if(st.thisContext) {
-			return st.thisContext.copy();
-		}
+		return st.thisContext ? st.thisContext.copy() : nil;
 	};
 
 	function pushContext(receiver, selector, temps) {
@@ -748,13 +748,14 @@ function Smalltalk() {
 			return boolean;
 		} else {
 			st.NonBooleanReceiver._new()._object_(boolean)._signal();
+			//TODO return sane value
 		}
 	};
 
     /* Smalltalk initialization. Called on page load */
 
     st.initialize = function() {
-		if(initialized) {return false}
+		if(initialized) { return; }
 
 		classes.forEach(function(klass) {
             st.init(klass);
