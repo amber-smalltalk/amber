@@ -185,7 +185,8 @@ function Smalltalk() {
 		spec = spec || {};
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
-        setupClass(that, spec);
+		that.fn = spec.fn || function() {};
+		setupClass(that, spec);
 
         that.className = spec.className;
         that.wrapped   = spec.wrapped || false;
@@ -198,30 +199,19 @@ function Smalltalk() {
 	}
 
 	function metaclass(spec) {
-		var superConstructor;
 		spec = spec || {};
-
-		if(spec.superclass) {
-			superConstructor = spec.superclass.klass.fn;
-		} else {
-			superConstructor = SmalltalkClass;
-		}
-
 		var that = new SmalltalkMetaclass();
-        that.fn            = function() {};
-        inherits(that.fn, superConstructor);
-
-        setupClass(that);
-
+		inherits(
+			that.fn = function() {},
+			spec.superclass ? spec.superclass.klass.fn : SmalltalkClass
+		);
+		setupClass(that);
 		that.instanceClass = new that.fn();
 		return that;
 	}
 
 	function setupClass(klass, spec) {
         spec = spec || {};
-        if(!klass.fn) {
-		    klass.fn = spec.fn || function() {};
-        }
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
 
