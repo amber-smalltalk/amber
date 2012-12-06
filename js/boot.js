@@ -35,7 +35,7 @@
 
 /* Make sure that console is defined */
 
-if (typeof console === "undefined") {
+if(typeof console === "undefined") {
 	this.console = {
 		log: function() {},
 		warn: function() {},
@@ -48,8 +48,8 @@ if (typeof console === "undefined") {
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
-    if(typeof el === 'undefined') { return false; };
-    if(this.indexOf(el) == -1) {
+	if(typeof el === 'undefined') { return false; }
+	if(this.indexOf(el) == -1) {
         this.push(el);
     }
 };
@@ -66,24 +66,21 @@ Array.prototype.removeElement = function(el) {
 
 /* Smalltalk constructors definition */
 
-function SmalltalkObject(){};
-function SmalltalkBehavior(){};
-function SmalltalkClass(){};
-function SmalltalkMetaclass(){
+function SmalltalkObject() {}
+function SmalltalkBehavior() {}
+function SmalltalkClass() {}
+function SmalltalkMetaclass() {
 	this.meta = true;
-};
-
-function SmalltalkPackage(){};
-function SmalltalkMethod(){};
-function SmalltalkNil(){};
-
-function SmalltalkSymbol(string){
+}
+function SmalltalkPackage() {}
+function SmalltalkMethod() {}
+function SmalltalkNil() {}
+function SmalltalkSymbol(string) {
 	this.value = string;
-};
-
+}
 function SmalltalkOrganizer() {
     this.elements = [];
-};
+}
 
 SmalltalkBehavior.prototype  = new SmalltalkObject();
 SmalltalkClass.prototype     = new SmalltalkBehavior();
@@ -104,7 +101,7 @@ SmalltalkPackage.prototype.constructor   = SmalltalkPackage;
 SmalltalkOrganizer.prototype.constructor = SmalltalkOrganizer;
 
 
-function Smalltalk(){
+function Smalltalk() {
 
 	var st = this;
 
@@ -155,7 +152,7 @@ function Smalltalk(){
 	st.symbolFor = function(string) {
 		if(symbolTable[string] === undefined) {
 			symbolTable[string] = new SmalltalkSymbol(string);
-		};
+		}
 
 		return symbolTable[string];
 	};
@@ -180,9 +177,9 @@ function Smalltalk(){
         that.organization = new SmalltalkOrganizer();
 		that.properties = spec.properties || {};
 		return that;
-	};
+	}
 
-	/* Smalltalk class creation. A class is an instance of an automatically 
+	/* Smalltalk class creation. A class is an instance of an automatically
 	   created metaclass object. Newly created classes (not their metaclass) 
 	   should be added to the smalltalk object, see smalltalk.addClass().
 	   Superclass linking is *not* handled here, see smalltalk.init()  */
@@ -229,7 +226,7 @@ function Smalltalk(){
 	function setupClass(klass, spec) {
         spec = spec || {};
         if(!klass.fn) {
-		    klass.fn = spec.fn || function(){};
+		    klass.fn = spec.fn || function() {};
         }
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
@@ -246,7 +243,7 @@ function Smalltalk(){
         Object.defineProperties(klass.fn.prototype, {
 			klass: { value: klass, enumerable: false, configurable: true, writable: true }
 		});
-	};
+	}
 
 	/* Smalltalk method object. To add a method to a class,
 	   use smalltalk.addMethod() */
@@ -290,9 +287,9 @@ function Smalltalk(){
 
     var installSuperclass = function(klass) {
         // only if the klass has not been initialized yet.
-        if(klass.fn.prototype._yourself) { return false; };
+		if(klass.fn.prototype._yourself) { return false; }
 
-        if(klass.superclass && klass.superclass !== nil) {
+		if(klass.superclass && klass.superclass !== nil) {
             klass.fn.prototype = new klass.superclass.fn();
             klass.fn.prototype.constructor = klass.fn;
             Object.defineProperties(klass.fn.prototype, {
@@ -350,8 +347,8 @@ function Smalltalk(){
             installDnuHandler(string, smalltalk.Object);
             for(var i=0; i<wrappedClasses.length; i++) {
                 installDnuHandler(string, wrappedClasses[i]);
-            };
-        }
+			}
+		}
     };
 
     /* Super sends handling */
@@ -362,9 +359,9 @@ function Smalltalk(){
         var fn = klass.superclass[selector];
         if(!fn) {
             fn = dnu(selector);
-        };
+		}
 
-        Object.defineProperty(klass.fn.prototype, superSelector, {
+		Object.defineProperty(klass.fn.prototype, superSelector, {
             value: fn, configurable: true, writable: true
         });
     };
@@ -375,7 +372,7 @@ function Smalltalk(){
 	st.packages.all = function() {
 		var packages = [];
 		for(var i in st.packages) {
-			if (!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
+			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
 			packages.push(st.packages[i]);
 		}
 		return packages
@@ -431,15 +428,15 @@ function Smalltalk(){
 		});
 
         classes.addElement(st[className]);
-        if(wrapped) {wrappedClasses.addElement(st[className])};
-        pkg.organization.elements.addElement(st[className]);
+		if(wrapped) {wrappedClasses.addElement(st[className])}
+		pkg.organization.elements.addElement(st[className]);
 	};
 
 	/* Create an alias for an existing class */
 
 	st.alias = function(klass, alias) {
 		st[alias] = klass;
-	}
+	};
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
 	   If pkgName is null or empty we return nil, which is an allowed package for a class.
@@ -472,7 +469,7 @@ function Smalltalk(){
 		} else {
             if(st[className]) {
                 st.removeClass(st[className]);
-            };
+			}
 			st[className] = klass({
 				className: className, 
 				superclass: superclass,
@@ -505,13 +502,13 @@ function Smalltalk(){
 
         for(var i=0; i<method.superSends.length; i++) {
             installSuperSendHandler(method.superSends[i], klass);
-        };
+		}
 
-        if(initialized) {
+		if(initialized) {
             for(var i=0; i<method.messageSends.length; i++) {
                 installNewDnuHandler(method.messageSends[i]);
-            };
-        };
+			}
+		}
 	};
 
     st.removeMethod = function(method) {
@@ -525,12 +522,12 @@ function Smalltalk(){
         for(var i=0; i<klass.methods; i++) {
             if(klass.methods[i].category == protocol) {
                 shouldDeleteProtocol = true;
-            };
-        };
-        if(shouldDeleteProtocol) {
+			}
+		}
+		if(shouldDeleteProtocol) {
             klass.organization.elements.removeElement(protocol);
-        };
-    };
+		}
+	};
 
 	/* Handles unhandled errors during message sends */
 
@@ -565,7 +562,7 @@ function Smalltalk(){
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
 		}
-	};
+	}
 
 	st.withContext = function(fn, receiver, selector, method, args) {
 		if(st.thisContext) {
@@ -589,16 +586,15 @@ function Smalltalk(){
 		var result = fn();
 		popContext(context);
 		return result;
-	};
+	}
 
-
-	/* Handles Smalltalk errors. Triggers the registered ErrorHandler 
+	/* Handles Smalltalk errors. Triggers the registered ErrorHandler
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
         smalltalk.ErrorHandler._current()._handleError_(error);
-	};
-    
+	}
+
 	/* Handles #dnu: *and* JavaScript method calls.
 	   if the receiver has no klass, we consider it a JS object (outside of the
 	   Amber system). Else assume that the receiver understands #doesNotUnderstand: */
@@ -617,7 +613,7 @@ function Smalltalk(){
 				._selector_(st.convertSelector(selector))
 				._arguments_(args)
 				);
-	};
+	}
 
 	/* Call a method of a JS object, or answer a property if it exists.
 	   Else try wrapping a JSObjectProxy around the receiver.
@@ -647,8 +643,7 @@ function Smalltalk(){
 		}
 
 		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
-	};
-
+	}
 
 	/* Reuse one old context stored in oldContext */
 
@@ -665,7 +660,7 @@ function Smalltalk(){
 
 	function pushContext(receiver, selector, method, temps) {
 		var c = st.oldContext, tc = st.thisContext;
-		if (!c) {
+		if(!c) {
 			return st.thisContext = new SmalltalkMethodContext(receiver, selector, method, temps, tc);
 		}
 		st.oldContext = null;
@@ -676,15 +671,15 @@ function Smalltalk(){
 		c.method      = method;
 		c.temps       = temps || {};
 		return st.thisContext = c;
-	};
+	}
 
 	function popContext(context) {
 		st.thisContext = context.homeContext;
 		context.homeContext = undefined;
 		st.oldContext = context;
-	};
+	}
 
-    /* Convert a Smalltalk selector into a JS selector */
+	/* Convert a Smalltalk selector into a JS selector */
 
     st.selector = function(string) {
         var selector = '_' + string;
@@ -719,7 +714,7 @@ function Smalltalk(){
 
 	function convertKeywordSelector(selector) {
 		return selector.replace(/^_/, '').replace(/_/g, ':');
-	};
+	}
 
 	function convertBinarySelector(selector) {
 		return selector
@@ -733,7 +728,7 @@ function Smalltalk(){
 			.replace(/_eq/, '=')
 			.replace(/_comma/, ',')
 			.replace(/_at/, '@')
-	};
+	}
 
 	/* Converts a JavaScript object to valid Smalltalk Object */
 	st.readJSObject = function(js) {
@@ -758,19 +753,19 @@ function Smalltalk(){
     /* Boolean assertion */
 
     st.assert = function(boolean) {
-        if(boolean.klass === smalltalk.Boolean) {
-            return boolean;
-        } else {
-            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
-        }
-    }
+		if(boolean.klass === smalltalk.Boolean) {
+			return boolean;
+		} else {
+			smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+		}
+	};
 
     /* Smalltalk initilization. Called on page load */
 
     st.initialize = function() {
-        if(initialized) {return false};
+		if(initialized) {return false}
 
-        classes.forEach(function(klass) {
+		classes.forEach(function(klass) {
             st.init(klass);
         });
         classes.forEach(function(klass) {
@@ -779,7 +774,7 @@ function Smalltalk(){
 
         initialized = true;
     };
-};
+}
 
 Smalltalk.prototype = new SmalltalkObject();
 Smalltalk.prototype.constructor = Smalltalk;
@@ -796,7 +791,7 @@ function SmalltalkMethodContext(receiver, selector, method, temps, home) {
         smalltalk.thisContext = this;
         return this.method.apply(receiver, temps);
     };
-};
+}
 
 SmalltalkMethodContext.prototype = new SmalltalkObject();
 SmalltalkMethodContext.prototype.constructor = SmalltalkMethodContext;
@@ -828,9 +823,9 @@ var smalltalk = new Smalltalk();
  */
 
 var _st = function(o) {
-    if(typeof o === 'undefined') {return nil};
-    if(o.klass) {return o};
-    return smalltalk.JSObjectProxy._on_(o);
+	if(typeof o === 'undefined') {return nil}
+	if(o.klass) {return o}
+	return smalltalk.JSObjectProxy._on_(o);
 }; 
 
 
