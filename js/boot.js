@@ -148,7 +148,7 @@ function Smalltalk() {
 
 	/* The symbol table ensures symbol unicity */
 
-	symbolTable = {};
+	var symbolTable = {};
 	st.symbolFor = function(string) {
 		if(symbolTable[string] === undefined) {
 			symbolTable[string] = new SmalltalkSymbol(string);
@@ -159,7 +159,7 @@ function Smalltalk() {
 
 	/* Unique ID number generator */
 
-	oid = 0;
+	var oid = 0;
 	st.nextId = function() {
 		oid += 1;
 		return oid;
