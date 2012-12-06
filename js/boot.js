@@ -542,7 +542,7 @@ function Smalltalk() {
 		}
 		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(method) {
-			var context = pushContext(receiver, selector, method, args);
+			var context = pushContext(receiver, selector, args);
 			call = method.apply(receiver, args);
 			popContext(context);
 			return call;
