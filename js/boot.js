@@ -285,7 +285,7 @@ function Smalltalk() {
             installSuperclass(klass);
         }
 
-        if(klass === smalltalk.Object || klass.wrapped) {
+        if(klass === st.Object || klass.wrapped) {
             installDnuHandlers(klass);
         }
     };
@@ -348,7 +348,7 @@ function Smalltalk() {
 	function installNewDnuHandler(string) {
         if(dnuHandlers.indexOf(string) === -1) {
             addDnuHandler(string);
-            installDnuHandler(string, smalltalk.Object);
+            installDnuHandler(string, st.Object);
             for(var i=0; i<wrappedClasses.length; i++) {
                 installDnuHandler(string, wrappedClasses[i]);
 			}
@@ -579,7 +579,7 @@ function Smalltalk() {
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        smalltalk.ErrorHandler._current()._handleError_(error);
+        st.ErrorHandler._current()._handleError_(error);
 	}
 
 	/* Handles #dnu: *and* JavaScript method calls.
@@ -728,7 +728,7 @@ function Smalltalk() {
 		var readArray = (js.constructor === Array);
 
 		if(readObject) {
-			object = smalltalk.Dictionary._new();
+			object = st.Dictionary._new();
 		}
 		for(var i in js) {
 			if(readObject) {
@@ -744,10 +744,10 @@ function Smalltalk() {
     /* Boolean assertion */
 
     st.assert = function(boolean) {
-		if(boolean.klass === smalltalk.Boolean) {
+		if(boolean.klass === st.Boolean) {
 			return boolean;
 		} else {
-			smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+			st.NonBooleanReceiver._new()._object_(boolean)._signal();
 		}
 	};
 
