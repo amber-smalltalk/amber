@@ -48,7 +48,7 @@ if(typeof console === "undefined") {
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
-	if(typeof el === 'undefined') { return false; }
+	if(typeof el === 'undefined') { return; }
 	if(this.indexOf(el) == -1) {
         this.push(el);
     }
@@ -185,12 +185,12 @@ function Smalltalk() {
 		spec = spec || {};
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
-        setupClass(that, spec);
+		that.fn = spec.fn || function() {};
+		setupClass(that, spec);
 
         that.className = spec.className;
         that.wrapped   = spec.wrapped || false;
 		meta.className = spec.className + ' class';
-        that.organization = new SmalltalkOrganizer();
 		if(spec.superclass) {
 			that.superclass = spec.superclass;
 			meta.superclass = spec.superclass.klass;
@@ -199,31 +199,19 @@ function Smalltalk() {
 	}
 
 	function metaclass(spec) {
-        var superConstructor;
-        spec = spec || {};
-
-        if(spec.superclass) {
-            superConstructor = spec.superclass.klass.fn;
-        } else {
-            superConstructor = SmalltalkClass;
-        }
-
+		spec = spec || {};
 		var that = new SmalltalkMetaclass();
-        that.fn            = function() {};
-        that.organization  = new SmalltalkOrganizer();
-        inherits(that.fn, superConstructor);
-
-        setupClass(that);
-
+		inherits(
+			that.fn = function() {},
+			spec.superclass ? spec.superclass.klass.fn : SmalltalkClass
+		);
+		setupClass(that);
 		that.instanceClass = new that.fn();
 		return that;
 	}
 
 	function setupClass(klass, spec) {
         spec = spec || {};
-        if(!klass.fn) {
-		    klass.fn = spec.fn || function() {};
-        }
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
 
@@ -232,12 +220,13 @@ function Smalltalk() {
             configurable: true
 		});
 
+		klass.organization = new SmalltalkOrganizer();
 		Object.defineProperties(klass, {
-			methods: { 
-                value: {}, 
-                enumerable: false, 
-                configurable: true, 
-                writable: true 
+			methods: {
+                value: {},
+                enumerable: false,
+                configurable: true,
+                writable: true
             }
 		});
 
@@ -285,14 +274,14 @@ function Smalltalk() {
             installSuperclass(klass);
         }
 
-        if(klass === smalltalk.Object || klass.wrapped) {
+        if(klass === st.Object || klass.wrapped) {
             installDnuHandlers(klass);
         }
     };
 
     function installSuperclass(klass) {
         // only if the klass has not been initialized yet.
-		if(klass.fn.prototype._yourself) { return false; }
+		if(klass.fn.prototype._yourself) { return; }
 
 		if(klass.superclass && klass.superclass !== nil) {
             inherits(klass.fn, klass.superclass.fn);
@@ -348,7 +337,7 @@ function Smalltalk() {
 	function installNewDnuHandler(string) {
         if(dnuHandlers.indexOf(string) === -1) {
             addDnuHandler(string);
-            installDnuHandler(string, smalltalk.Object);
+            installDnuHandler(string, st.Object);
             for(var i=0; i<wrappedClasses.length; i++) {
                 installDnuHandler(string, wrappedClasses[i]);
 			}
@@ -528,6 +517,7 @@ function Smalltalk() {
 				st.thisContext = undefined;
 				if(error.smalltalkError) {
 					handleError(error);
+					return nil;
 				} else {
 					throw(error);
 				}
@@ -542,7 +532,7 @@ function Smalltalk() {
 		}
 		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(method) {
-			var context = pushContext(receiver, selector, method, args);
+			var context = pushContext(receiver, selector, args);
 			call = method.apply(receiver, args);
 			popContext(context);
 			return call;
@@ -561,6 +551,7 @@ function Smalltalk() {
 				st.thisContext = undefined;
 				if(error.smalltalkError) {
 					handleError(error);
+					return nil;
 				} else {
 					throw(error);
 				}
@@ -579,7 +570,7 @@ function Smalltalk() {
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        smalltalk.ErrorHandler._current()._handleError_(error);
+        st.ErrorHandler._current()._handleError_(error);
 	}
 
 	/* Handles #dnu: *and* JavaScript method calls.
@@ -640,9 +631,7 @@ function Smalltalk() {
 	/* Handle thisContext pseudo variable */
 
 	st.getThisContext = function() {
-		if(st.thisContext) {
-			return st.thisContext.copy();
-		}
+		return st.thisContext ? st.thisContext.copy() : nil;
 	};
 
 	function pushContext(receiver, selector, temps) {
@@ -719,7 +708,7 @@ function Smalltalk() {
 			.replace(/_eq/g, '=')
 			.replace(/_comma/g, ',')
 			.replace(/_at/g, '@')
-	};
+	}
 
 	/* Converts a JavaScript object to valid Smalltalk Object */
 	st.readJSObject = function(js) {
@@ -728,7 +717,7 @@ function Smalltalk() {
 		var readArray = (js.constructor === Array);
 
 		if(readObject) {
-			object = smalltalk.Dictionary._new();
+			object = st.Dictionary._new();
 		}
 		for(var i in js) {
 			if(readObject) {
@@ -744,17 +733,18 @@ function Smalltalk() {
     /* Boolean assertion */
 
     st.assert = function(boolean) {
-		if(boolean.klass === smalltalk.Boolean) {
+		if(boolean.klass === st.Boolean) {
 			return boolean;
 		} else {
-			smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+			st.NonBooleanReceiver._new()._object_(boolean)._signal();
+			//TODO return sane value
 		}
 	};
 
     /* Smalltalk initialization. Called on page load */
 
     st.initialize = function() {
-		if(initialized) {return false}
+		if(initialized) { return; }
 
 		classes.forEach(function(klass) {
             st.init(klass);
@@ -781,7 +771,7 @@ function SmalltalkMethodContext(receiver, selector, temps, home) {
     //     smalltalk.thisContext = this;
     //     return this.method.apply(receiver, temps);
     // };
-};
+}
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
