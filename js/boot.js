@@ -124,24 +124,33 @@ function Smalltalk() {
     var classes = [];
     var wrappedClasses = [];
 
-    /* Method not implemented handlers selectors */
+    /* Method not implemented handlers */
 
-    var dnuHandlers = [];
+	var dnu = {
+		methods: [],
+		selectors: [],
 
-    function addDnuHandler(string) {
-        if(dnuHandlers.indexOf(string) == -1) {
-            dnuHandlers.push(string);
-        }
-	}
+		get: function (string) {
+			var index = this.selectors.indexOf(string);
+			if(index !== -1) {
+				return this.methods[index];
+			}
+			this.selectors.push(string);
+			var selector = st.selector(string);
+			var method = {jsSelector: selector, fn: this.createHandler(selector)};
+			this.methods.push(method);
+			return method;
+		},
 
-	/* Dnu handler method */
+		/* Dnu handler method */
 
-    function dnu(selector) {
-        return function() {
-            var args = Array.prototype.slice.call(arguments);
-            return messageNotUnderstood(this, selector, args);
-        };
-	}
+		createHandler: function (selector) {
+			return function () {
+				var args = Array.prototype.slice.call(arguments);
+				return messageNotUnderstood(this, selector, args);
+			};
+		}
+	};
 
 	/* The symbol table ensures symbol unicity */
 
@@ -307,6 +316,12 @@ function Smalltalk() {
 		});
 	}
 
+	function installMethodIfAbsent(method, klass) {
+		if(!klass.fn.prototype[method.jsSelector]) {
+			installMethod(method, klass);
+		}
+	}
+
 	function reinstallMethods(klass) {
         for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
             installMethod(klass.methods[keys[i]], klass);
@@ -314,25 +329,16 @@ function Smalltalk() {
 	}
 
 	function installDnuHandlers(klass) {
-        for(var i=0; i<dnuHandlers.length; i++) {
-            installDnuHandler(dnuHandlers[i], klass);
+		var m = dnu.methods;
+        for(var i=0; i<m.length; i++) {
+			installMethodIfAbsent(m[i], klass);
         }
 	}
 
-	function installDnuHandler(string, klass) {
-        var selector = st.selector(string);
-        if(!klass.fn.prototype[selector]) {
-			installMethod({jsSelector: selector, fn: dnu(selector)}, klass);
-        }
-	}
-
-	function installNewDnuHandler(string) {
-        if(dnuHandlers.indexOf(string) === -1) {
-            addDnuHandler(string);
-            installDnuHandler(string, st.Object);
-            for(var i=0; i<wrappedClasses.length; i++) {
-                installDnuHandler(string, wrappedClasses[i]);
-			}
+	function installNewDnuHandler(newHandler) {
+		installMethodIfAbsent(newHandler, st.Object);
+		for(var i = 0; i < wrappedClasses.length; i++) {
+			installMethodIfAbsent(newHandler, wrappedClasses[i]);
 		}
 	}
 
@@ -469,9 +475,9 @@ function Smalltalk() {
         klass.organization.elements.addElement(method.category);
 
         for(var i=0; i<method.messageSends.length; i++) {
-            addDnuHandler(method.messageSends[i]);
+            var dnuHandler = dnu.get(method.messageSends[i]);
             if(initialized) {
-                installNewDnuHandler(method.messageSends[i]);
+                installNewDnuHandler(dnuHandler);
 			}
 		}
 	};
