@@ -295,18 +295,13 @@ function Smalltalk() {
 	}
 
 	function copySuperclass(klass, superclass) {
-        superclass = superclass || klass.superclass;
-        if(superclass && superclass !== nil) {
-			for(var keys = Object.keys(superclass.methods), i=0; i<keys.length; i++) {
-                var method = superclass.methods[keys[i]];
-				if(!klass.fn.prototype[method.jsSelector]) {
-                    installMethod(method, klass);
-				}
+		for (superclass = superclass || klass.superclass;
+			 superclass && superclass !== nil;
+			 superclass = superclass.superclass) {
+			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
+				installMethodIfAbsent(superclass.methods[keys[i]], klass);
 			}
-            if(superclass.superclass) {
-                copySuperclass(klass, superclass.superclass);
-            }
-        }
+		}
 	}
 
 	function installMethod(method, klass) {
