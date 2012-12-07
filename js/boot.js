@@ -229,15 +229,7 @@ function Smalltalk() {
                 writable: true
             }
 		});
-
-        Object.defineProperties(klass.fn.prototype, {
-			klass: { 
-                value: klass, 
-                enumerable: false, 
-                configurable: true, 
-                writable: true 
-            }
-		});
+		wireKlass(klass);
 	}
 
 	/* Smalltalk method object. To add a method to a class,
@@ -279,16 +271,20 @@ function Smalltalk() {
         }
     };
 
-    function installSuperclass(klass) {
+	function wireKlass(klass) {
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass, enumerable: false, configurable: true, writable: true
+		});
+	}
+
+	function installSuperclass(klass) {
         // only if the klass has not been initialized yet.
 		if(klass.fn.prototype._yourself) { return; }
 
 		if(klass.superclass && klass.superclass !== nil) {
             inherits(klass.fn, klass.superclass.fn);
-            Object.defineProperties(klass.fn.prototype, {
-			    klass: { value: klass, enumerable: false, configurable: true, writable: true }
-		    });
-            reinstallMethods(klass);
+			wireKlass(klass);
+			reinstallMethods(klass);
         }
 	}
 
