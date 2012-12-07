@@ -217,17 +217,13 @@ function Smalltalk() {
 
         Object.defineProperty(klass, "toString", {
 			value: function() { return 'Smalltalk ' + this.className; },
-            configurable: true
+            enumerable:false, configurable: true, writable: false
 		});
 
 		klass.organization = new SmalltalkOrganizer();
-		Object.defineProperties(klass, {
-			methods: {
-                value: {},
-                enumerable: false,
-                configurable: true,
-                writable: true
-            }
+		Object.defineProperty(klass, "methods", {
+			value: {},
+			enumerable: false, configurable: true, writable: true
 		});
 		wireKlass(klass);
 	}
@@ -273,7 +269,8 @@ function Smalltalk() {
 
 	function wireKlass(klass) {
 		Object.defineProperty(klass.fn.prototype, "klass", {
-			value: klass, enumerable: false, configurable: true, writable: true
+			value: klass,
+			enumerable: false, configurable: true, writable: true
 		});
 	}
 
@@ -305,7 +302,8 @@ function Smalltalk() {
 
 	function installMethod(method, klass) {
         Object.defineProperty(klass.fn.prototype, method.jsSelector, {
-			value: method.fn, configurable: true, writable: true
+			value: method.fn,
+			enumerable: false, configurable: true, writable: true
 		});
 	}
 
