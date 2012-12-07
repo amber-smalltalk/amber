@@ -124,24 +124,33 @@ function Smalltalk() {
     var classes = [];
     var wrappedClasses = [];
 
-    /* Method not implemented handlers selectors */
+    /* Method not implemented handlers */
 
-    var dnuHandlers = [];
+	var dnu = {
+		methods: [],
+		selectors: [],
 
-    function addDnuHandler(string) {
-        if(dnuHandlers.indexOf(string) == -1) {
-            dnuHandlers.push(string);
-        }
-	}
+		get: function (string) {
+			var index = this.selectors.indexOf(string);
+			if(index !== -1) {
+				return this.methods[index];
+			}
+			this.selectors.push(string);
+			var selector = st.selector(string);
+			var method = {jsSelector: selector, fn: this.createHandler(selector)};
+			this.methods.push(method);
+			return method;
+		},
 
-	/* Dnu handler method */
+		/* Dnu handler method */
 
-    function dnu(selector) {
-        return function() {
-            var args = Array.prototype.slice.call(arguments);
-            return messageNotUnderstood(this, selector, args);
-        };
-	}
+		createHandler: function (selector) {
+			return function () {
+				var args = Array.prototype.slice.call(arguments);
+				return messageNotUnderstood(this, selector, args);
+			};
+		}
+	};
 
 	/* The symbol table ensures symbol unicity */
 
@@ -217,27 +226,15 @@ function Smalltalk() {
 
         Object.defineProperty(klass, "toString", {
 			value: function() { return 'Smalltalk ' + this.className; },
-            configurable: true
+            enumerable:false, configurable: true, writable: false
 		});
 
 		klass.organization = new SmalltalkOrganizer();
-		Object.defineProperties(klass, {
-			methods: {
-                value: {},
-                enumerable: false,
-                configurable: true,
-                writable: true
-            }
+		Object.defineProperty(klass, "methods", {
+			value: {},
+			enumerable: false, configurable: true, writable: true
 		});
-
-        Object.defineProperties(klass.fn.prototype, {
-			klass: { 
-                value: klass, 
-                enumerable: false, 
-                configurable: true, 
-                writable: true 
-            }
-		});
+		wireKlass(klass);
 	}
 
 	/* Smalltalk method object. To add a method to a class,
@@ -279,38 +276,45 @@ function Smalltalk() {
         }
     };
 
-    function installSuperclass(klass) {
+	function wireKlass(klass) {
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
+	}
+
+	function installSuperclass(klass) {
         // only if the klass has not been initialized yet.
 		if(klass.fn.prototype._yourself) { return; }
 
 		if(klass.superclass && klass.superclass !== nil) {
             inherits(klass.fn, klass.superclass.fn);
-            Object.defineProperties(klass.fn.prototype, {
-			    klass: { value: klass, enumerable: false, configurable: true, writable: true }
-		    });
-            reinstallMethods(klass);
+			wireKlass(klass);
+			reinstallMethods(klass);
         }
 	}
 
 	function copySuperclass(klass, superclass) {
-        superclass = superclass || klass.superclass;
-        if(superclass && superclass !== nil) {
-			for(var keys = Object.keys(superclass.methods), i=0; i<keys.length; i++) {
-                var method = superclass.methods[keys[i]];
-				if(!klass.fn.prototype[method.jsSelector]) {
-                    installMethod(method, klass);
-				}
+		for (superclass = superclass || klass.superclass;
+			 superclass && superclass !== nil;
+			 superclass = superclass.superclass) {
+			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
+				installMethodIfAbsent(superclass.methods[keys[i]], klass);
 			}
-            if(superclass.superclass) {
-                copySuperclass(klass, superclass.superclass);
-            }
-        }
+		}
 	}
 
 	function installMethod(method, klass) {
         Object.defineProperty(klass.fn.prototype, method.jsSelector, {
-			value: method.fn, configurable: true, writable: true
+			value: method.fn,
+			enumerable: false, configurable: true, writable: true
 		});
+	}
+
+	function installMethodIfAbsent(method, klass) {
+		if(!klass.fn.prototype[method.jsSelector]) {
+			installMethod(method, klass);
+		}
 	}
 
 	function reinstallMethods(klass) {
@@ -320,27 +324,16 @@ function Smalltalk() {
 	}
 
 	function installDnuHandlers(klass) {
-        for(var i=0; i<dnuHandlers.length; i++) {
-            installDnuHandler(dnuHandlers[i], klass);
+		var m = dnu.methods;
+        for(var i=0; i<m.length; i++) {
+			installMethodIfAbsent(m[i], klass);
         }
 	}
 
-	function installDnuHandler(string, klass) {
-        var selector = st.selector(string);
-        if(!klass.fn.prototype[selector]) {
-            Object.defineProperty(klass.fn.prototype, selector, {
-                value: dnu(selector), configurable: true, writable: true
-            });
-        }
-	}
-
-	function installNewDnuHandler(string) {
-        if(dnuHandlers.indexOf(string) === -1) {
-            addDnuHandler(string);
-            installDnuHandler(string, st.Object);
-            for(var i=0; i<wrappedClasses.length; i++) {
-                installDnuHandler(string, wrappedClasses[i]);
-			}
+	function installNewDnuHandler(newHandler) {
+		installMethodIfAbsent(newHandler, st.Object);
+		for(var i = 0; i < wrappedClasses.length; i++) {
+			installMethodIfAbsent(newHandler, wrappedClasses[i]);
 		}
 	}
 
@@ -469,20 +462,17 @@ function Smalltalk() {
 	/* Add/remove a method to/from a class */
 
 	st.addMethod = function(jsSelector, method, klass) {
-		Object.defineProperty(klass.fn.prototype, jsSelector, {
-			value: method.fn, configurable: true, writable: true
-		});
-
+		method.jsSelector = jsSelector;
+		installMethod(method, klass);
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
-		method.jsSelector = jsSelector;
 
         klass.organization.elements.addElement(method.category);
 
         for(var i=0; i<method.messageSends.length; i++) {
-            addDnuHandler(method.messageSends[i]);
+            var dnuHandler = dnu.get(method.messageSends[i]);
             if(initialized) {
-                installNewDnuHandler(method.messageSends[i]);
+                installNewDnuHandler(dnuHandler);
 			}
 		}
 	};
