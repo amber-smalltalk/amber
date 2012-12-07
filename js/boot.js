@@ -324,9 +324,7 @@ function Smalltalk() {
 	function installDnuHandler(string, klass) {
         var selector = st.selector(string);
         if(!klass.fn.prototype[selector]) {
-            Object.defineProperty(klass.fn.prototype, selector, {
-                value: dnu(selector), configurable: true, writable: true
-            });
+			installMethod({jsSelector: selector, fn: dnu(selector)}, klass);
         }
 	}
 
@@ -465,13 +463,10 @@ function Smalltalk() {
 	/* Add/remove a method to/from a class */
 
 	st.addMethod = function(jsSelector, method, klass) {
-		Object.defineProperty(klass.fn.prototype, jsSelector, {
-			value: method.fn, configurable: true, writable: true
-		});
-
+		method.jsSelector = jsSelector;
+		installMethod(method, klass);
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
-		method.jsSelector = jsSelector;
 
         klass.organization.elements.addElement(method.category);
 
