@@ -99,7 +99,7 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-KERNEL="boot Kernel-Objects Kernel-Classes Kernel-Methods Kernel-Collections Kernel-Exceptions Kernel-Transcript"
+KERNEL="boot Kernel-Objects Kernel-Classes Kernel-Methods Kernel-Collections Kernel-Exceptions Kernel-Transcript Kernel-Announcements"
 COMPILER="$KERNEL parser Compiler"
 
 # Predefined initializer
