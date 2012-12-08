@@ -11882,4 +11882,11 @@ smalltalk.classes()._do_(function(each) {
 if(this.smalltalkReady) {
     this.smalltalkReady();
 }
+
+var arguments = process.argv.slice(2);
+
+if(2 === arguments.length && '-p' === arguments[0]) {
+    smalltalk.FileServer._port_(arguments[1]);
+}
+
 smalltalk.FileServer._main()
