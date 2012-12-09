@@ -573,6 +573,14 @@ mimeTypeFor: aString
 !FileServer class methodsFor: 'initialization'!
 
 main
+	| arguments portOption port|
+	arguments := process argv.
+	portOption := arguments at: 3 ifAbsent: [nil].
+	port := arguments at: 4 ifAbsent: [nil].
+
+	('-p' = portOption and: [port notNil]) ifTrue: [
+		FileServer port: port.
+	].
 	^self new startOn: self port
 ! !
 
