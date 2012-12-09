@@ -2125,7 +2125,7 @@ printFailures
 !
 
 printPasses
-	^(self result total - self result errors size - self result failures size) asString , ' passes, '
+	^(self result runs - self result errors size - self result failures size) asString , ' passes, '
 !
 
 printTotal
