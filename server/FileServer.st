@@ -1,5 +1,5 @@
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url basePath util'
+	instanceVariableNames: 'path http fs url port basePath util'
 	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
