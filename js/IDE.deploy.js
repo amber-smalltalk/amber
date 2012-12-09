@@ -4048,11 +4048,11 @@ smalltalk.addMethod(
 "_printPasses",
 smalltalk.method({
 selector: "printPasses",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_result", []), "_total", []), "__minus", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_result", []), "_errors", []), "_size", [])]), "__minus", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_result", []), "_failures", []), "_size", [])]), "_asString", []), "__comma", [" passes, "]);
-    return $1;
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_result",[]),"_runs",[]),"__minus",[smalltalk.send(smalltalk.send(smalltalk.send(self,"_result",[]),"_errors",[]),"_size",[])]),"__minus",[smalltalk.send(smalltalk.send(smalltalk.send(self,"_result",[]),"_failures",[]),"_size",[])]),"_asString",[]),"__comma",[" passes, "]);
+return $1;
 }
 }),
 smalltalk.TestRunner);
