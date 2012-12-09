@@ -98,7 +98,9 @@ respondFileNamed: aFilename to: aResponse
 
 	fs readFile: filename do: [:ex :file |
 		ex notNil 
-			ifTrue: [self respondInternalErrorTo: aResponse]
+			ifTrue: [
+				console log: filename, ' does not exist'.
+				self respondInternalErrorTo: aResponse]
 			ifFalse: [
 				type := self class mimeTypeFor: filename.
 				type = 'application/javascript'
