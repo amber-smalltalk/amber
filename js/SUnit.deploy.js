@@ -1,4 +1,29 @@
 smalltalk.addPackage('SUnit', {});
+smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
+smalltalk.addMethod(
+"_result",
+smalltalk.method({
+selector: "result",
+fn: function (){
+var self=this;
+return self["@result"];
+}
+}),
+smalltalk.ResultAnnouncement);
+
+smalltalk.addMethod(
+"_result_",
+smalltalk.method({
+selector: "result:",
+fn: function (aTestResult){
+var self=this;
+self["@result"]=aTestResult;
+return self}
+}),
+smalltalk.ResultAnnouncement);
+
+
+
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
 "_assert_",
@@ -420,5 +445,96 @@ fn: function (aNumber) {
 }),
 smalltalk.TestResult);
 
+
+
+smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer'], 'SUnit');
+smalltalk.addMethod(
+"_announcer",
+smalltalk.method({
+selector: "announcer",
+fn: function (){
+var self=this;
+return self["@announcer"];
+}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.TabWidget);
+self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
+self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_result",
+smalltalk.method({
+selector: "result",
+fn: function (){
+var self=this;
+return self["@result"];
+}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_run",
+smalltalk.method({
+selector: "run",
+fn: function (){
+var self=this;
+smalltalk.send(self["@result"],"_total_",[smalltalk.send(self["@suite"],"_size",[])]);
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+smalltalk.send(self["@suite"],"_do_",[(function(each){
+return smalltalk.send((function(){
+smalltalk.send(each,"_runCaseFor_",[self["@result"]]);
+return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+}),"_valueWithTimeout_",[(100)]);
+})]);
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_suite_",
+smalltalk.method({
+selector: "suite:",
+fn: function (aCollection){
+var self=this;
+self["@suite"]=aCollection;
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+
+smalltalk.addMethod(
+"_new",
+smalltalk.method({
+selector: "new",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldNotImplement",[]);
+return self}
+}),
+smalltalk.TestSuiteRunner.klass);
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (aCollection){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_new",[],smalltalk.TabWidget.klass),"_suite_",[aCollection]);
+return $1;
+}
+}),
+smalltalk.TestSuiteRunner.klass);
 
 

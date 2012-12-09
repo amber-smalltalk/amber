@@ -5502,21 +5502,26 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "run:",
 category: 'actions',
-fn: function (aCollection) {
-    var self = this;
-    var $1;
-    self['@result'] = smalltalk.send(smalltalk.TestResult || TestResult, "_new", []);
-    smalltalk.send(self, "_updateStatusDiv", []);
-    $1 = smalltalk.send(self, "_updateMethodsList", []);
-    smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [0]);
-    smalltalk.send(self['@result'], "_total_", [smalltalk.send(aCollection, "_size", [])]);
-    smalltalk.send(aCollection, "_do_", [function (each) {return smalltalk.send(function () {smalltalk.send(each, "_runCaseFor_", [self['@result']]);smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@result'], "_runs", []), "__slash", [smalltalk.send(self['@result'], "_total", [])]), "__star", [100])]);smalltalk.send(self, "_updateStatusDiv", []);return smalltalk.send(self, "_updateMethodsList", []);}, "_valueWithTimeout_", [100]);}]);
-    return self;
-},
+fn: function (aCollection){
+var self=this;
+var $1;
+var worker;
+worker=smalltalk.send((smalltalk.TestSuiteRunner || TestSuiteRunner),"_on_",[aCollection]);
+self["@result"]=smalltalk.send(worker,"_result",[]);
+smalltalk.send(smalltalk.send(worker,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+$1=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[self["@result"]]);
+if(smalltalk.assert($1)){
+smalltalk.send(smalltalk.send(self,"_progressBar",[]),"_updatePercent_",[smalltalk.send(smalltalk.send(smalltalk.send(self["@result"],"_runs",[]),"__slash",[smalltalk.send(self["@result"],"_total",[])]),"__star",[(100)])]);
+smalltalk.send(self,"_updateStatusDiv",[]);
+return smalltalk.send(self,"_updateMethodsList",[]);
+};
+})]);
+smalltalk.send(worker,"_run",[]);
+return self},
 args: ["aCollection"],
-source: "run: aCollection\x0a\x09result := TestResult new.\x0a\x09self \x0a\x09\x09updateStatusDiv;\x0a\x09\x09updateMethodsList.\x0a\x09self progressBar updatePercent: 0.\x0a\x09result total: aCollection size.\x0a\x09aCollection do: [:each | \x0a\x09\x09[each runCaseFor: result.\x0a\x09\x09self progressBar updatePercent: result runs / result total * 100.\x0a\x09\x09self updateStatusDiv.\x0a\x09\x09self updateMethodsList] valueWithTimeout: 100].",
-messageSends: ["new", "updateStatusDiv", "updateMethodsList", "updatePercent:", "progressBar", "total:", "size", "do:", "valueWithTimeout:", "runCaseFor:", "*", "/", "total", "runs"],
-referencedClasses: ["TestResult"]
+source: "run: aCollection\x0a| worker |\x0a\x09worker := TestSuiteRunner on: aCollection.\x0a\x09result := worker result.\x0a    worker announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result ifTrue: [\x0a\x09\x09\x09self progressBar updatePercent: result runs / result total * 100.\x0a\x09\x09\x09self updateStatusDiv.\x0a\x09\x09\x09self updateMethodsList\x0a  \x09\x09]\x0a\x09].\x0a\x09worker run",
+messageSends: ["on:", "result", "on:do:", "ifTrue:", "updatePercent:", "*", "/", "total", "runs", "progressBar", "updateStatusDiv", "updateMethodsList", "==", "announcer", "run"],
+referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"]
 }),
 smalltalk.TestRunner);
 
