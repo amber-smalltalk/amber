@@ -132,8 +132,10 @@ startOn: aPort
 
 start
 	(http createServer: [:request :response |
-	 	self handleRequest: request respondTo: response]) listen: self port.
-	console log: 'Starting file server on port ', self port asString
+	      self handleRequest: request respondTo: response])
+	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
+	      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];
+	      listen: self port.
 ! !
 
 FileServer class instanceVariableNames: 'port mimeTypes'!
