@@ -369,15 +369,18 @@ function Smalltalk(){
 
     st.removeMethod = function(method) {
         var protocol = method.category;
-        var shouldDeleteProtocol;
         var klass = method.methodClass;
+		var methods = klass.fn.prototype.methods;
 
-        delete klass.fn.prototype[method.selector._asSelector()];
-	    delete klass.fn.prototype.methods[method.selector];
+		delete klass.fn.prototype[method.selector._asSelector()];
+		delete methods[method.selector];
 
-        for(var i=0; i<klass.fn.prototype.methods; i++) {
-            if(klass.fn.prototype.methods[i].category == protocol) {
-                shouldDeleteProtocol = true;
+		var selectors = Object.keys(methods);
+		var shouldDeleteProtocol = true;
+		for(var i= 0, l = selectors.length; i<l; i++) {
+            if(methods[selectors[i]].category === protocol) {
+                shouldDeleteProtocol = false;
+				break;
             };
         };
         if(shouldDeleteProtocol) {
