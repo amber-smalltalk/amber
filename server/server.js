@@ -14021,15 +14021,21 @@ selector: "handlePUTRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
+var $early={};
+try{var file=nil;
 var stream=nil;
-(stream=smalltalk.send(self['@fs'], "_createWriteStream_", [smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])])]));
+(file=smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])]));
+(stream=smalltalk.send(self['@fs'], "_createWriteStream_", [file]));
+smalltalk.send(stream, "_on_do_", ["error", (function(error){smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("Error creating WriteStream for file ", "__comma", [file])]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["\x5ctDid you forget to create the necessary js/ or st/ directory in your project?"]);return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("\x5ctThe exact error is: ", "__comma", [error])]);})]);
+((($receiver = smalltalk.send(stream, "_writable", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})]));
 smalltalk.send(aRequest, "_setEncoding_", ["utf8"]);
 smalltalk.send(aRequest, "_on_do_", ["data", (function(data){return smalltalk.send(stream, "_write_", [data]);})]);
 smalltalk.send(aRequest, "_on_do_", ["end", (function(){smalltalk.send(stream, "_end", []);return smalltalk.send(self, "_respondOKTo_", [aResponse]);})]);
-return self;},
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09|stream |\x0a\x09stream := fs createWriteStream: '.' , aRequest url.\x0a        aRequest setEncoding: 'utf8'.\x0a        aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a        aRequest on: 'end' do: [\x0a                stream end.\x0a                self respondOKTo: aResponse]",
-messageSends: ["createWriteStream:", ",", "url", "setEncoding:", "on:do:", "write:", "end", "respondOKTo:"],
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '\x5ctDid you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '\x5ctThe exact error is: ', error].\x0a\x09stream writable ifFalse: [\x0a\x09\x09console log: 'Could not write to ', file.\x0a\x09\x09^nil].\x0a        aRequest setEncoding: 'utf8'.\x0a        aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a        aRequest on: 'end' do: [\x0a                stream end.\x0a                self respondOKTo: aResponse]",
+messageSends: [",", "url", "createWriteStream:", "on:do:", "warn:", "ifFalse:", "writable", "log:", "setEncoding:", "write:", "end", "respondOKTo:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);

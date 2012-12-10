@@ -78,8 +78,17 @@ handleGETRequest: aRequest respondTo: aResponse
 !
 
 handlePUTRequest: aRequest respondTo: aResponse
-	|stream |
-	stream := fs createWriteStream: '.' , aRequest url.
+	| file stream |
+	file := '.', aRequest url.
+	stream := fs createWriteStream: file.
+	stream on: 'error' do: [:error |
+		"TODO: notify Amber about the error, otherwise the user might not notice and lose his work."
+		console warn: 'Error creating WriteStream for file ', file.
+		console warn: '\tDid you forget to create the necessary js/ or st/ directory in your project?'.
+		console warn: '\tThe exact error is: ', error].
+	stream writable ifFalse: [
+		console log: 'Could not write to ', file.
+		^nil].
         aRequest setEncoding: 'utf8'.
         aRequest on: 'data' do: [:data | stream write: data].
 
