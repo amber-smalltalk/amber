@@ -84,8 +84,8 @@ handlePUTRequest: aRequest respondTo: aResponse
 	stream on: 'error' do: [:error |
 		"TODO: notify Amber about the error, otherwise the user might not notice and lose his work."
 		console warn: 'Error creating WriteStream for file ', file.
-		console warn: '\tDid you forget to create the necessary js/ or st/ directory in your project?'.
-		console warn: '\tThe exact error is: ', error].
+		console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.
+		console warn: '    The exact error is: ', error].
 	stream writable ifFalse: [
 		console log: 'Could not write to ', file.
 		^nil].
