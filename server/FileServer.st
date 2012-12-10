@@ -25,6 +25,15 @@ initialize
 	fs := self require: 'fs'.
 	util := self require: 'util'.
 	url := self require: 'url'
+!
+
+checkDirectoryLayout
+	(path existsSync: self basePath, 'index.html') ifFalse: [
+		console warn: 'Warning: project directory does not contain index.html'].
+	(path existsSync: self basePath, 'st') ifFalse: [
+		console warn: 'Warning: project directory is missing an "st" directory'].
+	(path existsSync: self basePath, 'js') ifFalse: [
+		console warn: 'Warning: roject directory is missing a "js" directory'].
 ! !
 
 !FileServer methodsFor: 'private'!
@@ -577,14 +586,16 @@ mimeTypeFor: aString
 !FileServer class methodsFor: 'initialization'!
 
 main
-	| arguments portOption port|
+	| fileServer arguments portOption port|
+	fileServer := self new.
+	fileServer checkDirectoryLayout.
+
 	arguments := process argv.
 	portOption := arguments at: 3 ifAbsent: [nil].
 	port := arguments at: 4 ifAbsent: [nil].
-
 	('-p' = portOption and: [port notNil]) ifTrue: [
-		FileServer port: port.
+		fileServer port: port.
 	].
-	^self new startOn: self port
+	^fileServer start
 ! !
 
