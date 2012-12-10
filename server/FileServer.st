@@ -98,7 +98,9 @@ respondFileNamed: aFilename to: aResponse
 
 	fs readFile: filename do: [:ex :file |
 		ex notNil 
-			ifTrue: [self respondInternalErrorTo: aResponse]
+			ifTrue: [
+				console log: filename, ' does not exist'.
+				self respondInternalErrorTo: aResponse]
 			ifFalse: [
 				type := self class mimeTypeFor: filename.
 				type = 'application/javascript'
@@ -132,8 +134,10 @@ startOn: aPort
 
 start
 	(http createServer: [:request :response |
-	 	self handleRequest: request respondTo: response]) listen: self port.
-	console log: 'Starting file server on port ', self port asString
+	      self handleRequest: request respondTo: response])
+	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
+	      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];
+	      listen: self port.
 ! !
 
 FileServer class instanceVariableNames: 'port mimeTypes'!
@@ -573,6 +577,14 @@ mimeTypeFor: aString
 !FileServer class methodsFor: 'initialization'!
 
 main
+	| arguments portOption port|
+	arguments := process argv.
+	portOption := arguments at: 3 ifAbsent: [nil].
+	port := arguments at: 4 ifAbsent: [nil].
+
+	('-p' = portOption and: [port notNil]) ifTrue: [
+		FileServer port: port.
+	].
 	^self new startOn: self port
 ! !
 
