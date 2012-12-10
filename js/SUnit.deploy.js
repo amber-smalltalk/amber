@@ -465,7 +465,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_initialize",[],smalltalk.TabWidget);
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
 self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
 return self}
@@ -531,7 +531,7 @@ selector: "on:",
 fn: function (aCollection){
 var self=this;
 var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[],smalltalk.TabWidget.klass),"_suite_",[aCollection]);
+$1=smalltalk.send(smalltalk.send(self,"_new",[],smalltalk.Object.klass),"_suite_",[aCollection]);
 return $1;
 }
 }),
