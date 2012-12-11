@@ -215,12 +215,17 @@ suite: aCollection
 !TestSuiteRunner methodsFor: 'actions'!
 
 run
+	| worker index |
 	result total: suite size.
     announcer announce: (ResultAnnouncement new result: result).
-	suite do: [:each | [
-      	each runCaseFor: result.
-	    announcer announce: (ResultAnnouncement new result: result)
-	] valueWithTimeout: 100]
+    index := 1.
+    worker := [ index <= suite size ifTrue: [
+		(suite at: index) runCaseFor: result.
+        index := index + 1.
+		announcer announce: (ResultAnnouncement new result: result).
+        worker valueWithTimeout: 0
+	]].
+	(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!

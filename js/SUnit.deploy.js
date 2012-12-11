@@ -489,13 +489,24 @@ smalltalk.method({
 selector: "run",
 fn: function (){
 var self=this;
+var $1;
+var worker;
+var index;
 smalltalk.send(self["@result"],"_total_",[smalltalk.send(self["@suite"],"_size",[])]);
 smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
-smalltalk.send(self["@suite"],"_do_",[(function(each){
-return smalltalk.send((function(){
-smalltalk.send(each,"_runCaseFor_",[self["@result"]]);
-return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
-}),"_valueWithTimeout_",[(100)]);
+index=(1);
+worker=(function(){
+$1=smalltalk.send(index,"__lt_eq",[smalltalk.send(self["@suite"],"_size",[])]);
+if(smalltalk.assert($1)){
+smalltalk.send(smalltalk.send(self["@suite"],"_at_",[index]),"_runCaseFor_",[self["@result"]]);
+index=smalltalk.send(index,"__plus",[(1)]);
+index;
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
+};
+});
+smalltalk.send(smalltalk.send(smalltalk.send(self["@suite"],"_size",[]),"_min_",[(25)]),"_timesRepeat_",[(function(){
+return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
 })]);
 return self}
 }),
