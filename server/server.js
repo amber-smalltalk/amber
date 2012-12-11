@@ -369,15 +369,18 @@ function Smalltalk(){
 
     st.removeMethod = function(method) {
         var protocol = method.category;
-        var shouldDeleteProtocol;
         var klass = method.methodClass;
+		var methods = klass.fn.prototype.methods;
 
-        delete klass.fn.prototype[method.selector._asSelector()];
-	    delete klass.fn.prototype.methods[method.selector];
+		delete klass.fn.prototype[method.selector._asSelector()];
+		delete methods[method.selector];
 
-        for(var i=0; i<klass.fn.prototype.methods; i++) {
-            if(klass.fn.prototype.methods[i].category == protocol) {
-                shouldDeleteProtocol = true;
+		var selectors = Object.keys(methods);
+		var shouldDeleteProtocol = true;
+		for(var i= 0, l = selectors.length; i<l; i++) {
+            if(methods[selectors[i]].category === protocol) {
+                shouldDeleteProtocol = false;
+				break;
             };
         };
         if(shouldDeleteProtocol) {
@@ -13957,6 +13960,24 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
+"_checkDirectoryLayout",
+smalltalk.method({
+selector: "checkDirectoryLayout",
+category: 'initialization',
+fn: function (){
+var self=this;
+((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["index.html"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory does not contain index.html"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory does not contain index.html"]);})]));
+((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["st"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing an \x22st\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing an \x22st\x22 directory"]);})]));
+((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["js"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: roject directory is missing a \x22js\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: roject directory is missing a \x22js\x22 directory"]);})]));
+return self;},
+args: [],
+source: "checkDirectoryLayout\x0a\x09(path existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html'].\x0a\x09(path existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(path existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: roject directory is missing a \x22js\x22 directory'].",
+messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 "_handleGETRequest_respondTo_",
 smalltalk.method({
 selector: "handleGETRequest:respondTo:",
@@ -14000,15 +14021,21 @@ selector: "handlePUTRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
+var $early={};
+try{var file=nil;
 var stream=nil;
-(stream=smalltalk.send(self['@fs'], "_createWriteStream_", [smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])])]));
+(file=smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])]));
+(stream=smalltalk.send(self['@fs'], "_createWriteStream_", [file]));
+smalltalk.send(stream, "_on_do_", ["error", (function(error){smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("Error creating WriteStream for file ", "__comma", [file])]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["    Did you forget to create the necessary js/ or st/ directory in your project?"]);return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("    The exact error is: ", "__comma", [error])]);})]);
+((($receiver = smalltalk.send(stream, "_writable", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})]));
 smalltalk.send(aRequest, "_setEncoding_", ["utf8"]);
 smalltalk.send(aRequest, "_on_do_", ["data", (function(data){return smalltalk.send(stream, "_write_", [data]);})]);
 smalltalk.send(aRequest, "_on_do_", ["end", (function(){smalltalk.send(stream, "_end", []);return smalltalk.send(self, "_respondOKTo_", [aResponse]);})]);
-return self;},
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09|stream |\x0a\x09stream := fs createWriteStream: '.' , aRequest url.\x0a        aRequest setEncoding: 'utf8'.\x0a        aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a        aRequest on: 'end' do: [\x0a                stream end.\x0a                self respondOKTo: aResponse]",
-messageSends: ["createWriteStream:", ",", "url", "setEncoding:", "on:do:", "write:", "end", "respondOKTo:"],
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09\x22TODO: notify Amber about the error, otherwise the user might not notice and lose his work.\x22\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error].\x0a\x09stream writable ifFalse: [\x0a\x09\x09console log: 'Could not write to ', file.\x0a\x09\x09^nil].\x0a        aRequest setEncoding: 'utf8'.\x0a        aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a        aRequest on: 'end' do: [\x0a                stream end.\x0a                self respondOKTo: aResponse]",
+messageSends: [",", "url", "createWriteStream:", "on:do:", "warn:", "ifFalse:", "writable", "log:", "setEncoding:", "write:", "end", "respondOKTo:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14160,11 +14187,10 @@ selector: "start",
 category: 'starting',
 fn: function (){
 var self=this;
-var server=nil;
 (function($rec){smalltalk.send($rec, "_on_do_", ["error", (function(error){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Error starting server: ", "__comma", [error])]);})]);smalltalk.send($rec, "_on_do_", ["listening", (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Starting file server on port ", "__comma", [smalltalk.send(smalltalk.send(self, "_port", []), "_asString", [])])]);})]);return smalltalk.send($rec, "_listen_", [smalltalk.send(self, "_port", [])]);})(smalltalk.send(self['@http'], "_createServer_", [(function(request, response){return smalltalk.send(self, "_handleRequest_respondTo_", [request, response]);})]));
 return self;},
 args: [],
-source: "start\x0a\x09| server |\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];\x0a\x09      listen: self port.",
+source: "start\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];\x0a\x09      listen: self port.",
 messageSends: ["on:do:", "log:", ",", "asString", "port", "listen:", "createServer:", "handleRequest:respondTo:"],
 referencedClasses: []
 }),
@@ -14228,19 +14254,22 @@ selector: "main",
 category: 'initialization',
 fn: function (){
 var self=this;
+var fileServer=nil;
 var arguments=nil;
 var portOption=nil;
 var port=nil;
+(fileServer=smalltalk.send(self, "_new", []));
+smalltalk.send(fileServer, "_checkDirectoryLayout", []);
 (arguments=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
 (portOption=smalltalk.send(arguments, "_at_ifAbsent_", [(3), (function(){return nil;})]));
 (self['@port']=smalltalk.send(arguments, "_at_ifAbsent_", [(4), (function(){return nil;})]));
-((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [portOption]), "_and_", [(function(){return smalltalk.send(self['@port'], "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send((smalltalk.FileServer || FileServer), "_port_", [self['@port']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send((smalltalk.FileServer || FileServer), "_port_", [self['@port']]);})]));
-return smalltalk.send(smalltalk.send(self, "_new", []), "_startOn_", [smalltalk.send(self, "_port", [])]);
+((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [portOption]), "_and_", [(function(){return smalltalk.send(self['@port'], "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [self['@port']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [self['@port']]);})]));
+return smalltalk.send(fileServer, "_start", []);
 return self;},
 args: [],
-source: "main\x0a\x09| arguments portOption port|\x0a\x09arguments := process argv.\x0a\x09portOption := arguments at: 3 ifAbsent: [nil].\x0a\x09port := arguments at: 4 ifAbsent: [nil].\x0a\x0a\x09('-p' = portOption and: [port notNil]) ifTrue: [\x0a\x09\x09FileServer port: port.\x0a\x09].\x0a\x09^self new startOn: self port",
-messageSends: ["argv", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "startOn:", "new", "port"],
-referencedClasses: ["FileServer"]
+source: "main\x0a\x09| fileServer arguments portOption port|\x0a\x09fileServer := self new.\x0a\x09fileServer checkDirectoryLayout.\x0a\x0a\x09arguments := process argv.\x0a\x09portOption := arguments at: 3 ifAbsent: [nil].\x0a\x09port := arguments at: 4 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [port notNil]) ifTrue: [\x0a\x09\x09fileServer port: port.\x0a\x09].\x0a\x09^fileServer start",
+messageSends: ["new", "checkDirectoryLayout", "argv", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "start"],
+referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
