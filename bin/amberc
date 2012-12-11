@@ -216,7 +216,8 @@ done
 LIBS="$TOBASE $TOLOAD"
 
 # Get a unique tempdir and make it get auto removed on exit
-TMPDIR=`mktemp -d amberc.XXXXXX`
+TMPDIR=`mktemp -d amberc.XXXXXX 2>>/dev/null` ||\
+    TMPDIR=/tmp/amberc.$$.`date +%s` && mkdir -p $TMPDIR
 trap "rm -rf $TMPDIR" EXIT
 
 
