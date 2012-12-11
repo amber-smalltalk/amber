@@ -685,11 +685,11 @@ worker=(function(){
 $1=smalltalk.send(index,"__lt_eq",[smalltalk.send(self["@suite"],"_size",[])]);
 if(smalltalk.assert($1)){
 return smalltalk.send((function(){
-smalltalk.send(self,"_runCase_for_",[smalltalk.send(self["@suite"],"_at_",[index]),self["@result"]]);
-return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+return smalltalk.send(self,"_runCase_for_",[smalltalk.send(self["@suite"],"_at_",[index]),self["@result"]]);
 }),"_ensure_",[(function(){
 index=smalltalk.send(index,"__plus",[(1)]);
 index;
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
 return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
 })]);
 };
@@ -699,7 +699,7 @@ return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
 })]);
 return self},
 args: [],
-source: "run\x0a\x09| worker index |\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a    index := 1.\x0a    worker := [ index <= suite size ifTrue: [\x0a        [ self runCase: (suite at: index)  for: result.\x0a\x09\x09announcer announce: (ResultAnnouncement new result: result). ]\x0a      \x09ensure: [ index := index + 1.\x0a        worker valueWithTimeout: 0 ]\x0a\x09]].\x0a\x09(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]",
+source: "run\x0a\x09| worker index |\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a    index := 1.\x0a    worker := [ index <= suite size ifTrue: [\x0a        [ self runCase: (suite at: index)  for: result ]\x0a        ensure: [ index := index + 1.\x0a        announcer announce: (ResultAnnouncement new result: result). \x0a        worker valueWithTimeout: 0 ]\x0a\x09]].\x0a\x09(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]",
 messageSends: ["total:", "size", "announce:", "result:", "new", "ifTrue:", "ensure:", "+", "valueWithTimeout:", "runCase:for:", "at:", "<=", "timesRepeat:", "min:"],
 referencedClasses: ["ResultAnnouncement"]
 }),

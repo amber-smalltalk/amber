@@ -218,9 +218,9 @@ run
     announcer announce: (ResultAnnouncement new result: result).
     index := 1.
     worker := [ index <= suite size ifTrue: [
-        [ self runCase: (suite at: index)  for: result.
-		announcer announce: (ResultAnnouncement new result: result). ]
-      	ensure: [ index := index + 1.
+        [ self runCase: (suite at: index)  for: result ]
+        ensure: [ index := index + 1.
+        announcer announce: (ResultAnnouncement new result: result). 
         worker valueWithTimeout: 0 ]
 	]].
 	(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]

@@ -499,11 +499,11 @@ worker=(function(){
 $1=smalltalk.send(index,"__lt_eq",[smalltalk.send(self["@suite"],"_size",[])]);
 if(smalltalk.assert($1)){
 return smalltalk.send((function(){
-smalltalk.send(self,"_runCase_for_",[smalltalk.send(self["@suite"],"_at_",[index]),self["@result"]]);
-return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+return smalltalk.send(self,"_runCase_for_",[smalltalk.send(self["@suite"],"_at_",[index]),self["@result"]]);
 }),"_ensure_",[(function(){
 index=smalltalk.send(index,"__plus",[(1)]);
 index;
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
 return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
 })]);
 };
