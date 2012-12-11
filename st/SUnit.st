@@ -1,4 +1,18 @@
 Smalltalk current createPackage: 'SUnit' properties: #{}!
+Object subclass: #ResultAnnouncement
+	instanceVariableNames: 'result'
+	package: 'SUnit'!
+
+!ResultAnnouncement methodsFor: 'accessing'!
+
+result
+	^result
+!
+
+result: aTestResult
+	result := aTestResult
+! !
+
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector'
 	package: 'SUnit'!
@@ -178,5 +192,52 @@ initialize
 	errors := Array new.
 	failures := Array new.
 	total := 0
+! !
+
+Object subclass: #TestSuiteRunner
+	instanceVariableNames: 'suite result announcer'
+	package: 'SUnit'!
+
+!TestSuiteRunner methodsFor: 'accessing'!
+
+announcer
+	^announcer
+!
+
+result
+	^result
+!
+
+suite: aCollection
+	suite := aCollection
+! !
+
+!TestSuiteRunner methodsFor: 'actions'!
+
+run
+	result total: suite size.
+    announcer announce: (ResultAnnouncement new result: result).
+	suite do: [:each | [
+      	each runCaseFor: result.
+	    announcer announce: (ResultAnnouncement new result: result)
+	] valueWithTimeout: 100]
+! !
+
+!TestSuiteRunner methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	announcer := Announcer new.
+    result := TestResult new
+! !
+
+!TestSuiteRunner class methodsFor: 'instance creation'!
+
+new
+	self shouldNotImplement
+!
+
+on: aCollection
+	^super new suite: aCollection
 ! !
 

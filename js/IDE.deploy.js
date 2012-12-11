@@ -4201,17 +4201,22 @@ smalltalk.addMethod(
 "_run_",
 smalltalk.method({
 selector: "run:",
-fn: function (aCollection) {
-    var self = this;
-    var $1;
-    self['@result'] = smalltalk.send(smalltalk.TestResult || TestResult, "_new", []);
-    smalltalk.send(self, "_updateStatusDiv", []);
-    $1 = smalltalk.send(self, "_updateMethodsList", []);
-    smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [0]);
-    smalltalk.send(self['@result'], "_total_", [smalltalk.send(aCollection, "_size", [])]);
-    smalltalk.send(aCollection, "_do_", [function (each) {return smalltalk.send(function () {smalltalk.send(each, "_runCaseFor_", [self['@result']]);smalltalk.send(smalltalk.send(self, "_progressBar", []), "_updatePercent_", [smalltalk.send(smalltalk.send(smalltalk.send(self['@result'], "_runs", []), "__slash", [smalltalk.send(self['@result'], "_total", [])]), "__star", [100])]);smalltalk.send(self, "_updateStatusDiv", []);return smalltalk.send(self, "_updateMethodsList", []);}, "_valueWithTimeout_", [100]);}]);
-    return self;
-}
+fn: function (aCollection){
+var self=this;
+var $1;
+var worker;
+worker=smalltalk.send((smalltalk.TestSuiteRunner || TestSuiteRunner),"_on_",[aCollection]);
+self["@result"]=smalltalk.send(worker,"_result",[]);
+smalltalk.send(smalltalk.send(worker,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+$1=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[self["@result"]]);
+if(smalltalk.assert($1)){
+smalltalk.send(smalltalk.send(self,"_progressBar",[]),"_updatePercent_",[smalltalk.send(smalltalk.send(smalltalk.send(self["@result"],"_runs",[]),"__slash",[smalltalk.send(self["@result"],"_total",[])]),"__star",[(100)])]);
+smalltalk.send(self,"_updateStatusDiv",[]);
+return smalltalk.send(self,"_updateMethodsList",[]);
+};
+})]);
+smalltalk.send(worker,"_run",[]);
+return self}
 }),
 smalltalk.TestRunner);
 
