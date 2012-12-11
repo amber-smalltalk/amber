@@ -1,4 +1,39 @@
 smalltalk.addPackage('SUnit', {});
+smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
+smalltalk.addMethod(
+"_result",
+smalltalk.method({
+selector: "result",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self["@result"];
+},
+args: [],
+source: "result\x0a\x09^result",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ResultAnnouncement);
+
+smalltalk.addMethod(
+"_result_",
+smalltalk.method({
+selector: "result:",
+category: 'accessing',
+fn: function (aTestResult){
+var self=this;
+self["@result"]=aTestResult;
+return self},
+args: ["aTestResult"],
+source: "result: aTestResult\x0a\x09result := aTestResult",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ResultAnnouncement);
+
+
+
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
 "_assert_",
@@ -580,5 +615,131 @@ referencedClasses: []
 }),
 smalltalk.TestResult);
 
+
+
+smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer'], 'SUnit');
+smalltalk.addMethod(
+"_announcer",
+smalltalk.method({
+selector: "announcer",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self["@announcer"];
+},
+args: [],
+source: "announcer\x0a\x09^announcer",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
+self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
+self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
+return self},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new",
+messageSends: ["initialize", "new"],
+referencedClasses: ["Announcer", "TestResult"]
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_result",
+smalltalk.method({
+selector: "result",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self["@result"];
+},
+args: [],
+source: "result\x0a\x09^result",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_run",
+smalltalk.method({
+selector: "run",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self["@result"],"_total_",[smalltalk.send(self["@suite"],"_size",[])]);
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+smalltalk.send(self["@suite"],"_do_",[(function(each){
+return smalltalk.send((function(){
+smalltalk.send(each,"_runCaseFor_",[self["@result"]]);
+return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+}),"_valueWithTimeout_",[(100)]);
+})]);
+return self},
+args: [],
+source: "run\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a\x09suite do: [:each | [\x0a      \x09each runCaseFor: result.\x0a\x09    announcer announce: (ResultAnnouncement new result: result)\x0a\x09] valueWithTimeout: 100]\x0a",
+messageSends: ["total:", "size", "announce:", "result:", "new", "do:", "valueWithTimeout:", "runCaseFor:"],
+referencedClasses: ["ResultAnnouncement"]
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_suite_",
+smalltalk.method({
+selector: "suite:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+self["@suite"]=aCollection;
+return self},
+args: ["aCollection"],
+source: "suite: aCollection\x0a\x09suite := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestSuiteRunner);
+
+
+smalltalk.addMethod(
+"_new",
+smalltalk.method({
+selector: "new",
+category: 'instance creation',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldNotImplement",[]);
+return self},
+args: [],
+source: "new\x0a\x09self shouldNotImplement",
+messageSends: ["shouldNotImplement"],
+referencedClasses: []
+}),
+smalltalk.TestSuiteRunner.klass);
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_new",[],smalltalk.Object.klass),"_suite_",[aCollection]);
+return $1;
+},
+args: ["aCollection"],
+source: "on: aCollection\x0a\x09^super new suite: aCollection",
+messageSends: ["suite:", "new"],
+referencedClasses: []
+}),
+smalltalk.TestSuiteRunner.klass);
 
 
