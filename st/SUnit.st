@@ -192,6 +192,22 @@ initialize
 	total := 0
 ! !
 
+!TestResult methodsFor: 'running'!
+
+nextRunDo: aBlock
+"Runs aBlock with index of next run
+or does nothing if no more runs"
+^self runs == self total
+	ifFalse: [ aBlock value: self runs + 1 ]
+!
+
+runCase: aTestCase
+	[[	self increaseRuns.
+    	aTestCase runCase]
+	on: TestFailure do: [:ex | self addFailure: aTestCase]]
+	on: Error do: [:ex | self addError: aTestCase]
+! !
+
 Object subclass: #TestSuiteRunner
 	instanceVariableNames: 'suite result announcer'
 	package: 'SUnit'!
@@ -213,24 +229,14 @@ suite: aCollection
 !TestSuiteRunner methodsFor: 'actions'!
 
 run
-	| worker index |
+	| worker |
 	result total: suite size.
     announcer announce: (ResultAnnouncement new result: result).
-    index := 1.
-    worker := [ index <= suite size ifTrue: [
-        [ self runCase: (suite at: index)  for: result ]
-        ensure: [ index := index + 1.
-        announcer announce: (ResultAnnouncement new result: result). 
-        worker valueWithTimeout: 0 ]
-	]].
+    worker := [ result nextRunDo: [ :index |
+		[ result runCase: (suite at: index) ]
+		ensure: [ worker valueWithTimeout: 0.
+        	announcer announce: (ResultAnnouncement new result: result) ]]].
 	(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]
-!
-
-runCase: aTestCase for: aTestResult
-	[[	aTestResult increaseRuns.
-    	aTestCase runCase]
-	on: TestFailure do: [:ex | aTestResult addFailure: aTestCase]]
-	on: Error do: [:ex | aTestResult addError: aTestCase]
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!
