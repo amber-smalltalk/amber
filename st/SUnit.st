@@ -37,17 +37,15 @@ signalFailure: aString
 
 !TestCase methodsFor: 'running'!
 
-performTestFor: aResult
-	[[self perform: self selector]
-		on: TestFailure do: [:ex | aResult addFailure: self]]
-		on: Error do: [:ex | aResult addError: self]
+performTest
+	self perform: self selector
 !
 
-runCaseFor: aTestResult
-	self setUp.
-	aTestResult increaseRuns.
-	self performTestFor: aTestResult.
-	self tearDown
+runCase
+	[	self setUp.
+		self performTest ] ensure: [
+		self tearDown.
+		"self cleanUpInstanceVariables" ]
 !
 
 setUp
@@ -215,12 +213,24 @@ suite: aCollection
 !TestSuiteRunner methodsFor: 'actions'!
 
 run
+	| worker index |
 	result total: suite size.
     announcer announce: (ResultAnnouncement new result: result).
-	suite do: [:each | [
-      	each runCaseFor: result.
-	    announcer announce: (ResultAnnouncement new result: result)
-	] valueWithTimeout: 100]
+    index := 1.
+    worker := [ index <= suite size ifTrue: [
+        [ self runCase: (suite at: index)  for: result.
+		announcer announce: (ResultAnnouncement new result: result). ]
+      	ensure: [ index := index + 1.
+        worker valueWithTimeout: 0 ]
+	]].
+	(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]
+!
+
+runCase: aTestCase for: aTestResult
+	[[	aTestResult increaseRuns.
+    	aTestCase runCase]
+	on: TestFailure do: [:ex | aTestResult addFailure: aTestCase]]
+	on: Error do: [:ex | aTestResult addError: aTestCase]
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!
