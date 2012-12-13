@@ -1137,7 +1137,7 @@ smalltalk.UnknownVar);
 
 
 
-smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends'], 'Compiler-Semantic');
+smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
 smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes."
 smalltalk.addMethod(
 "_classReferences",
@@ -1332,6 +1332,29 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
+"_superSends",
+smalltalk.method({
+selector: "superSends",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@superSends"]) == nil || $receiver == undefined){
+self["@superSends"]=smalltalk.send((smalltalk.Dictionary || Dictionary),"_new",[]);
+$1=self["@superSends"];
+} else {
+$1=self["@superSends"];
+};
+return $1;
+},
+args: [],
+source: "superSends\x0a\x09^ superSends ifNil: [ superSends := Dictionary new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.SemanticAnalyzer);
+
+smalltalk.addMethod(
 "_theClass",
 smalltalk.method({
 selector: "theClass",
@@ -1476,23 +1499,28 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitMethodNode:",
 category: 'visiting',
-fn: function (aNode) {
-    var self = this;
-    var $1;
-    smalltalk.send(self, "_pushScope_", [smalltalk.send(self, "_newMethodScope", [])]);
-    smalltalk.send(aNode, "_scope_", [self['@currentScope']]);
-    smalltalk.send(self['@currentScope'], "_node_", [aNode]);
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_theClass", []), "_allInstanceVariableNames", []), "_do_", [function (each) {return smalltalk.send(self['@currentScope'], "_addIVar_", [each]);}]);
-    smalltalk.send(smalltalk.send(aNode, "_arguments", []), "_do_", [function (each) {smalltalk.send(self, "_validateVariableScope_", [each]);return smalltalk.send(self['@currentScope'], "_addArg_", [each]);}]);
-    smalltalk.send(self, "_visitMethodNode_", [aNode], smalltalk.NodeVisitor);
-    smalltalk.send(aNode, "_classReferences_", [smalltalk.send(self, "_classReferences", [])]);
-    $1 = smalltalk.send(aNode, "_messageSends_", [smalltalk.send(smalltalk.send(self, "_messageSends", []), "_keys", [])]);
-    smalltalk.send(self, "_popScope", []);
-    return self;
-},
+fn: function (aNode){
+var self=this;
+var $1;
+smalltalk.send(self,"_pushScope_",[smalltalk.send(self,"_newMethodScope",[])]);
+smalltalk.send(aNode,"_scope_",[self["@currentScope"]]);
+smalltalk.send(self["@currentScope"],"_node_",[aNode]);
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_theClass",[]),"_allInstanceVariableNames",[]),"_do_",[(function(each){
+return smalltalk.send(self["@currentScope"],"_addIVar_",[each]);
+})]);
+smalltalk.send(smalltalk.send(aNode,"_arguments",[]),"_do_",[(function(each){
+smalltalk.send(self,"_validateVariableScope_",[each]);
+return smalltalk.send(self["@currentScope"],"_addArg_",[each]);
+})]);
+smalltalk.send(self,"_visitMethodNode_",[aNode],smalltalk.NodeVisitor);
+smalltalk.send(aNode,"_classReferences_",[smalltalk.send(self,"_classReferences",[])]);
+smalltalk.send(aNode,"_messageSends_",[smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_keys",[])]);
+$1=smalltalk.send(aNode,"_superSends_",[smalltalk.send(smalltalk.send(self,"_superSends",[]),"_keys",[])]);
+smalltalk.send(self,"_popScope",[]);
+return self},
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [:each | \x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each | \x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode \x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09messageSends: self messageSends keys.\x0a\x09self popScope",
-messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "addIVar:", "allInstanceVariableNames", "theClass", "validateVariableScope:", "addArg:", "arguments", "visitMethodNode:", "classReferences:", "classReferences", "messageSends:", "keys", "messageSends", "popScope"],
+source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [:each | \x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each | \x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode \x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09messageSends: self messageSends keys;\x0a        superSends: self superSends keys.\x0a\x09self popScope",
+messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "addIVar:", "allInstanceVariableNames", "theClass", "validateVariableScope:", "addArg:", "arguments", "visitMethodNode:", "classReferences:", "classReferences", "messageSends:", "keys", "messageSends", "superSends:", "superSends", "popScope"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1527,33 +1555,38 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "visitSendNode:",
 category: 'visiting',
-fn: function (aNode) {
-    var self = this;
-    var $1, $2, $3;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value", []), "__eq", ["super"]);
-    if (smalltalk.assert($1)) {
-        smalltalk.send(aNode, "_superSend_", [true]);
-        smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);
-    } else {
-        $2 = smalltalk.send(smalltalk.send(smalltalk.IRSendInliner || IRSendInliner, "_inlinedSelectors", []), "_includes_", [smalltalk.send(aNode, "_selector", [])]);
-        if (smalltalk.assert($2)) {
-            smalltalk.send(aNode, "_shouldBeInlined_", [true]);
-            $3 = smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_isValueNode", []);
-            if (!smalltalk.assert($3)) {
-                smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeAliased_", [true]);
-            }
-        }
-    }
-    smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_ifAbsentPut_", [smalltalk.send(aNode, "_selector", []), function () {return smalltalk.send(smalltalk.Set || Set, "_new", []);}]);
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_", [smalltalk.send(aNode, "_selector", [])]), "_add_", [aNode]);
-    smalltalk.send(aNode, "_index_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_", [smalltalk.send(aNode, "_selector", [])]), "_size", [])]);
-    smalltalk.send(self, "_visitSendNode_", [aNode], smalltalk.NodeVisitor);
-    return self;
-},
+fn: function (aNode){
+var self=this;
+var $1,$2,$3;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_value",[]),"__eq",["super"]);
+if(smalltalk.assert($1)){
+smalltalk.send(aNode,"_superSend_",[true]);
+smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_value_",["self"]);
+smalltalk.send(smalltalk.send(self,"_superSends",[]),"_at_ifAbsentPut_",[smalltalk.send(aNode,"_selector",[]),(function(){
+return smalltalk.send((smalltalk.Set || Set),"_new",[]);
+})]);
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_superSends",[]),"_at_",[smalltalk.send(aNode,"_selector",[])]),"_add_",[aNode]);
+} else {
+$2=smalltalk.send(smalltalk.send((smalltalk.IRSendInliner || IRSendInliner),"_inlinedSelectors",[]),"_includes_",[smalltalk.send(aNode,"_selector",[])]);
+if(smalltalk.assert($2)){
+smalltalk.send(aNode,"_shouldBeInlined_",[true]);
+$3=smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_isValueNode",[]);
+if(! smalltalk.assert($3)){
+smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeAliased_",[true]);
+};
+};
+};
+smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_at_ifAbsentPut_",[smalltalk.send(aNode,"_selector",[]),(function(){
+return smalltalk.send((smalltalk.Set || Set),"_new",[]);
+})]);
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_at_",[smalltalk.send(aNode,"_selector",[])]),"_add_",[aNode]);
+smalltalk.send(aNode,"_index_",[smalltalk.send(smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_at_",[smalltalk.send(aNode,"_selector",[])]),"_size",[])]);
+smalltalk.send(self,"_visitSendNode_",[aNode],smalltalk.NodeVisitor);
+return self},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self' ]\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver isValueNode ifFalse: [ aNode receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
-messageSends: ["ifTrue:ifFalse:", "superSend:", "value:", "receiver", "ifTrue:", "shouldBeInlined:", "ifFalse:", "shouldBeAliased:", "isValueNode", "includes:", "selector", "inlinedSelectors", "=", "value", "at:ifAbsentPut:", "new", "messageSends", "add:", "at:", "index:", "size", "visitSendNode:"],
-referencedClasses: ["IRSendInliner", "Set"]
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a          \x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver isValueNode ifFalse: [ aNode receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
+messageSends: ["ifTrue:ifFalse:", "superSend:", "value:", "receiver", "at:ifAbsentPut:", "selector", "new", "superSends", "add:", "at:", "ifTrue:", "shouldBeInlined:", "ifFalse:", "shouldBeAliased:", "isValueNode", "includes:", "inlinedSelectors", "=", "value", "messageSends", "index:", "size", "visitSendNode:"],
+referencedClasses: ["Set", "IRSendInliner"]
 }),
 smalltalk.SemanticAnalyzer);
 

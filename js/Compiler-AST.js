@@ -629,7 +629,7 @@ smalltalk.JSStatementNode);
 
 
 
-smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends'], 'Compiler-AST');
+smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends', 'superSends'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -841,6 +841,38 @@ self["@source"]=aString;
 return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_superSends",
+smalltalk.method({
+selector: "superSends",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self["@superSends"];
+},
+args: [],
+source: "superSends\x0a\x09^ superSends",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_superSends_",
+smalltalk.method({
+selector: "superSends:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+self["@superSends"]=aCollection;
+return self},
+args: ["aCollection"],
+source: "superSends: aCollection\x0a\x09superSends := aCollection",
 messageSends: [],
 referencedClasses: []
 }),

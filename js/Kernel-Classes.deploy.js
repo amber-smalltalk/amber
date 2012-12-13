@@ -232,9 +232,10 @@ smalltalk.method({
 selector: "methodAt:",
 fn: function (aSymbol){
 var self=this;
-return smalltalk.methods(self)[aSymbol._asString()];
-;
-return self}
+var $1;
+$1=_st(_st(self)._methodDictionary())._at_(_st(aSymbol)._asString());
+return $1;
+}
 }),
 smalltalk.Behavior);
 
@@ -245,7 +246,7 @@ selector: "methodDictionary",
 fn: function (){
 var self=this;
 var dict = smalltalk.HashedCollection._new();
-	var methods = self.fn.prototype.methods;
+	var methods = self.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
 			dict._at_put_(methods[i].selector, methods[i]);

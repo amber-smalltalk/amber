@@ -370,7 +370,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope theClass classReferences messageSends'
+	instanceVariableNames: 'currentScope theClass classReferences messageSends superSends'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -383,6 +383,10 @@ classReferences
 
 messageSends
 	^ messageSends ifNil: [ messageSends := Dictionary new ]
+!
+
+superSends
+	^ superSends ifNil: [ superSends := Dictionary new ]
 !
 
 theClass
@@ -501,7 +505,8 @@ visitMethodNode: aNode
 
 	aNode 
 		classReferences: self classReferences;
-		messageSends: self messageSends keys.
+		messageSends: self messageSends keys;
+        superSends: self superSends keys.
 	self popScope
 !
 
@@ -518,7 +523,10 @@ visitSendNode: aNode
 	aNode receiver value = 'super' 
 		ifTrue: [
 			aNode superSend: true.
-			aNode receiver value: 'self' ]
+			aNode receiver value: 'self'.
+			self superSends at: aNode selector ifAbsentPut: [ Set new ].
+			(self superSends at: aNode selector) add: aNode ]
+          
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
 			aNode shouldBeInlined: true.
 			aNode receiver isValueNode ifFalse: [ aNode receiver shouldBeAliased: true ] ] ].

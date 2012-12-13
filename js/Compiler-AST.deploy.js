@@ -453,7 +453,7 @@ smalltalk.JSStatementNode);
 
 
 
-smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends'], 'Compiler-AST');
+smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends', 'superSends'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -601,6 +601,28 @@ selector: "source:",
 fn: function (aString){
 var self=this;
 self["@source"]=aString;
+return self}
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_superSends",
+smalltalk.method({
+selector: "superSends",
+fn: function (){
+var self=this;
+return self["@superSends"];
+}
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_superSends_",
+smalltalk.method({
+selector: "superSends:",
+fn: function (aCollection){
+var self=this;
+self["@superSends"]=aCollection;
 return self}
 }),
 smalltalk.MethodNode);

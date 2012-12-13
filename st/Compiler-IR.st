@@ -154,6 +154,7 @@ visitMethodNode: aNode
 		arguments: aNode arguments;
 		selector: aNode selector;
 		messageSends: aNode messageSends;
+        superSends: aNode superSends;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
 		yourself).
@@ -408,7 +409,7 @@ accept: aVisitor
 ! !
 
 IRScopedInstruction subclass: #IRMethod
-	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables'
+	instanceVariableNames: 'source selector classReferences messageSends superSends arguments internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -462,6 +463,14 @@ source
 
 source: aString
 	source := aString
+!
+
+superSends
+	^ superSends
+!
+
+superSends: aCollection
+	superSends := aCollection
 ! !
 
 !IRMethod methodsFor: 'visiting'!
@@ -565,6 +574,12 @@ index
 
 index: anInteger
 	index := anInteger
+!
+
+javascriptSelector
+	^ self classSend 
+    	ifNil: [ self selector asSelector ]
+      	ifNotNil: [ self selector asSuperSelector ]
 !
 
 selector
@@ -878,6 +893,29 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
+	anIRSend classSend 
+    	ifNil: [
+			self stream nextPutAll: '_st('.
+			self visit: anIRSend instructions first.
+   		 	self stream nextPutAll: ').', anIRSend selector asSelector, '('.
+			anIRSend instructions allButFirst
+				do: [ :each | self visit: each ]
+				separatedBy: [ self stream nextPutAll: ',' ].
+			self stream nextPutAll: ')' ]
+		ifNotNil: [ 
+			self stream 
+            	nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
+				nextPutAll: anIRSend selector asSelector, '.apply(';
+				nextPutAll: '_st('.
+			self visit: anIRSend instructions first.
+			self stream nextPutAll: '), ['.
+			anIRSend instructions allButFirst
+				do: [ :each | self visit: each ]
+				separatedBy: [ self stream nextPutAll: ',' ].
+			self stream nextPutAll: '])' ]
+!
+
+visitIRSendOld: anIRSend
 	self stream nextPutAll: 'smalltalk.send('.
 	self visit: anIRSend instructions first.
 	self stream nextPutAll:  ',"', anIRSend selector asSelector, '",['.
@@ -967,6 +1005,16 @@ nextPutClosureWith: aBlock arguments: anArray
 	stream nextPutAll: '})'
 !
 
+nextPutContextFor: aMethod during: aBlock
+	self nextPutAll: 'return smalltalk.withContext(function() {'.
+    aBlock value.
+    self 
+    	nextPutAll: '}, self, ';
+        nextPutAll: aMethod selector asJavascript, ', ';
+        nextPutAll: aMethod arguments asJavascript;
+        nextPutAll: ')'
+!
+
 nextPutFunctionWith: aBlock arguments: anArray
 	stream nextPutAll: 'fn: function('.
 	anArray 
@@ -1000,12 +1048,12 @@ nextPutMethodDeclaration: aMethod with: aBlock
 	stream 
 		nextPutAll: 'smalltalk.method({'; lf;
 		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
-		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf. 
 	aBlock value.
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
 		nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;
-          	nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
+        nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	aMethod classReferences 
 		do: [:each | stream nextPutAll: each asJavascript]
@@ -1038,16 +1086,6 @@ nextPutReturn
 nextPutReturnWith: aBlock
 	self nextPutReturn.
 	aBlock value
-!
-
-nextPutSendTo: receiver selector: selector arguments: arguments
-	stream nextPutAll: 'smalltalk.send('.
-	receiver emitOn: self. 
-	stream nextPutAll: ',"', selector asSelector, '",['.
-	arguments 
-		do: [ :each | each emitOn: self ]
-		separatedBy: [ stream nextPutAll: ',' ].
-	stream nextPutAll: '])'
 !
 
 nextPutSequenceWith: aBlock
