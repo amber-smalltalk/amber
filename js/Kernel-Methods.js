@@ -416,23 +416,27 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "category:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    var $1;
-    var oldCategory;
-    oldCategory = smalltalk.send(self, "_category", []);
-    smalltalk.send(self, "_basicAt_put_", ["category", aString]);
-    $1 = smalltalk.send(self, "_methodClass", []);
-    if (($receiver = $1) == nil || $receiver == undefined) {
-    } else {
-        smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_addElement_", [aString]);
-        smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_methods", []), "_select_", [function (each) {return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [oldCategory]);}]), "_ifEmpty_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_removeElement_", [oldCategory]);}]);
-    }
-    return self;
-},
+fn: function (aString){
+var self=this;
+var $1;
+var oldCategory;
+oldCategory=smalltalk.send(self,"_category",[]);
+smalltalk.send(self,"_basicAt_put_",["category",aString]);
+$1=smalltalk.send(self,"_methodClass",[]);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_addElement_",[aString]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_methods",[]),"_select_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_category",[]),"__eq",[oldCategory]);
+})]),"_ifEmpty_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_removeElement_",[oldCategory]);
+})]);
+};
+return self},
 args: ["aString"],
-source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organizer addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organizer removeElement: oldCategory ] ]",
-messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organizer", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
+source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organization addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]",
+messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);

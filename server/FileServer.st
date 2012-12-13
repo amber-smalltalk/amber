@@ -25,6 +25,15 @@ initialize
 	fs := self require: 'fs'.
 	util := self require: 'util'.
 	url := self require: 'url'
+!
+
+checkDirectoryLayout
+	(path existsSync: self basePath, 'index.html') ifFalse: [
+		console warn: 'Warning: project directory does not contain index.html'].
+	(path existsSync: self basePath, 'st') ifFalse: [
+		console warn: 'Warning: project directory is missing an "st" directory'].
+	(path existsSync: self basePath, 'js') ifFalse: [
+		console warn: 'Warning: roject directory is missing a "js" directory'].
 ! !
 
 !FileServer methodsFor: 'private'!
@@ -69,8 +78,17 @@ handleGETRequest: aRequest respondTo: aResponse
 !
 
 handlePUTRequest: aRequest respondTo: aResponse
-	|stream |
-	stream := fs createWriteStream: '.' , aRequest url.
+	| file stream |
+	file := '.', aRequest url.
+	stream := fs createWriteStream: file.
+	stream on: 'error' do: [:error |
+		"TODO: notify Amber about the error, otherwise the user might not notice and lose his work."
+		console warn: 'Error creating WriteStream for file ', file.
+		console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.
+		console warn: '    The exact error is: ', error].
+	stream writable ifFalse: [
+		console log: 'Could not write to ', file.
+		^nil].
         aRequest setEncoding: 'utf8'.
         aRequest on: 'data' do: [:data | stream write: data].
 
@@ -98,7 +116,9 @@ respondFileNamed: aFilename to: aResponse
 
 	fs readFile: filename do: [:ex :file |
 		ex notNil 
-			ifTrue: [self respondInternalErrorTo: aResponse]
+			ifTrue: [
+				console log: filename, ' does not exist'.
+				self respondInternalErrorTo: aResponse]
 			ifFalse: [
 				type := self class mimeTypeFor: filename.
 				type = 'application/javascript'
@@ -132,8 +152,10 @@ startOn: aPort
 
 start
 	(http createServer: [:request :response |
-	 	self handleRequest: request respondTo: response]) listen: self port.
-	console log: 'Starting file server on port ', self port asString
+	      self handleRequest: request respondTo: response])
+	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
+	      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];
+	      listen: self port.
 ! !
 
 FileServer class instanceVariableNames: 'port mimeTypes'!
@@ -573,6 +595,16 @@ mimeTypeFor: aString
 !FileServer class methodsFor: 'initialization'!
 
 main
-	^self new startOn: self port
+	| fileServer arguments portOption port|
+	fileServer := self new.
+	fileServer checkDirectoryLayout.
+
+	arguments := process argv.
+	portOption := arguments at: 3 ifAbsent: [nil].
+	port := arguments at: 4 ifAbsent: [nil].
+	('-p' = portOption and: [port notNil]) ifTrue: [
+		fileServer port: port.
+	].
+	^fileServer start
 ! !
 

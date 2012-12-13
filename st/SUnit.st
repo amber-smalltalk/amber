@@ -1,4 +1,18 @@
 Smalltalk current createPackage: 'SUnit' properties: #{}!
+Object subclass: #ResultAnnouncement
+	instanceVariableNames: 'result'
+	package: 'SUnit'!
+
+!ResultAnnouncement methodsFor: 'accessing'!
+
+result
+	^result
+!
+
+result: aTestResult
+	result := aTestResult
+! !
+
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector'
 	package: 'SUnit'!
@@ -23,17 +37,15 @@ signalFailure: aString
 
 !TestCase methodsFor: 'running'!
 
-performTestFor: aResult
-	[[self perform: self selector]
-		on: TestFailure do: [:ex | aResult addFailure: self]]
-		on: Error do: [:ex | aResult addError: self]
+performTest
+	self perform: self selector
 !
 
-runCaseFor: aTestResult
-	self setUp.
-	aTestResult increaseRuns.
-	self performTestFor: aTestResult.
-	self tearDown
+runCase
+	[	self setUp.
+		self performTest ] ensure: [
+		self tearDown.
+		"self cleanUpInstanceVariables" ]
 !
 
 setUp
@@ -178,5 +190,70 @@ initialize
 	errors := Array new.
 	failures := Array new.
 	total := 0
+! !
+
+!TestResult methodsFor: 'running'!
+
+nextRunDo: aBlock
+"Runs aBlock with index of next run
+or does nothing if no more runs"
+^self runs == self total
+	ifFalse: [ aBlock value: self runs + 1 ]
+!
+
+runCase: aTestCase
+	[[	self increaseRuns.
+    	aTestCase runCase]
+	on: TestFailure do: [:ex | self addFailure: aTestCase]]
+	on: Error do: [:ex | self addError: aTestCase]
+! !
+
+Object subclass: #TestSuiteRunner
+	instanceVariableNames: 'suite result announcer'
+	package: 'SUnit'!
+
+!TestSuiteRunner methodsFor: 'accessing'!
+
+announcer
+	^announcer
+!
+
+result
+	^result
+!
+
+suite: aCollection
+	suite := aCollection
+! !
+
+!TestSuiteRunner methodsFor: 'actions'!
+
+run
+	| worker |
+	result total: suite size.
+    announcer announce: (ResultAnnouncement new result: result).
+    worker := [ result nextRunDo: [ :index |
+		[ result runCase: (suite at: index) ]
+		ensure: [ worker valueWithTimeout: 0.
+        	announcer announce: (ResultAnnouncement new result: result) ]]].
+	(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]
+! !
+
+!TestSuiteRunner methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	announcer := Announcer new.
+    result := TestResult new
+! !
+
+!TestSuiteRunner class methodsFor: 'instance creation'!
+
+new
+	self shouldNotImplement
+!
+
+on: aCollection
+	^super new suite: aCollection
 ! !
 

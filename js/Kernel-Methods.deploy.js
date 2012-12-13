@@ -298,20 +298,24 @@ smalltalk.addMethod(
 "_category_",
 smalltalk.method({
 selector: "category:",
-fn: function (aString) {
-    var self = this;
-    var $1;
-    var oldCategory;
-    oldCategory = smalltalk.send(self, "_category", []);
-    smalltalk.send(self, "_basicAt_put_", ["category", aString]);
-    $1 = smalltalk.send(self, "_methodClass", []);
-    if (($receiver = $1) == nil || $receiver == undefined) {
-    } else {
-        smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_addElement_", [aString]);
-        smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_methods", []), "_select_", [function (each) {return smalltalk.send(smalltalk.send(each, "_category", []), "__eq", [oldCategory]);}]), "_ifEmpty_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(self, "_methodClass", []), "_organizer", []), "_removeElement_", [oldCategory]);}]);
-    }
-    return self;
-}
+fn: function (aString){
+var self=this;
+var $1;
+var oldCategory;
+oldCategory=smalltalk.send(self,"_category",[]);
+smalltalk.send(self,"_basicAt_put_",["category",aString]);
+$1=smalltalk.send(self,"_methodClass",[]);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_addElement_",[aString]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_methods",[]),"_select_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_category",[]),"__eq",[oldCategory]);
+})]),"_ifEmpty_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_removeElement_",[oldCategory]);
+})]);
+};
+return self}
 }),
 smalltalk.CompiledMethod);
 

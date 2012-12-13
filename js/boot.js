@@ -214,8 +214,8 @@ function Smalltalk() {
 			that.fn = function() {},
 			spec.superclass ? spec.superclass.klass.fn : SmalltalkClass
 		);
-		setupClass(that);
 		that.instanceClass = new that.fn();
+        setupClass(that);
 		return that;
 	}
 
@@ -479,21 +479,24 @@ function Smalltalk() {
 
     st.removeMethod = function(method) {
         var protocol = method.category;
-        var shouldDeleteProtocol;
         var klass = method.methodClass;
 
         delete klass.fn.prototype[st.selector(method.selector)];
 	    delete klass.methods[method.selector];
 
-        for(var i=0; i<klass.methods; i++) {
-            if(klass.methods[i].category == protocol) {
-                shouldDeleteProtocol = true;
-			}
-		}
-		if(shouldDeleteProtocol) {
-            klass.organization.elements.removeElement(protocol);
-		}
-	};
+		var selectors = Object.keys(klass.methods);
+		var shouldDeleteProtocol = true;
+
+		for(var i = 0, l = selectors.length; i<l; i++) {
+            if(klass.methods[selectors[i]].category === protocol) {
+                shouldDeleteProtocol = false;
+				break;
+            };
+        };
+        if(shouldDeleteProtocol) {
+            klass.organization.elements.removeElement(protocol)
+        };
+    };
 
 	/* Handles unhandled errors during message sends */
 
@@ -723,13 +726,12 @@ function Smalltalk() {
     /* Boolean assertion */
 
     st.assert = function(boolean) {
-		if(boolean.klass === st.Boolean) {
-			return boolean;
-		} else {
-			st.NonBooleanReceiver._new()._object_(boolean)._signal();
-			//TODO return sane value
-		}
-	};
+        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
+            return boolean;
+        } else {
+            st.NonBooleanReceiver._new()._object_(boolean)._signal();
+        }
+    };
 
     /* Smalltalk initialization. Called on page load */
 
@@ -754,13 +756,6 @@ function SmalltalkMethodContext(receiver, selector, temps, home) {
     this.selector    = selector;
 	this.temps       = temps || {};
 	this.homeContext = home;
-
-    // TODO: adapt.
-    // this.resume = function() {
-    //     //Brutally set the receiver as thisContext, then re-enter the function
-    //     smalltalk.thisContext = this;
-    //     return this.method.apply(receiver, temps);
-    // };
 }
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
@@ -776,14 +771,20 @@ SmalltalkMethodContext.prototype.copy = function() {
 	);
 };
 
+SmalltalkMethodContext.prototype.resume = function() {
+    //Brutally set the receiver as thisContext, then re-enter the function
+    smalltalk.thisContext = this;
+    return this.method.apply(receiver, temps);
+};
+
+/* Global Smalltalk objects. */
+
+var nil = new SmalltalkNil();
+var smalltalk = new Smalltalk();
 
 if(this.jQuery) {
 	this.jQuery.allowJavaScriptCalls = true;
 }
-
-
-var nil       = new SmalltalkNil();
-var smalltalk = new Smalltalk();
 
 /*
  * Answer the smalltalk representation of o.

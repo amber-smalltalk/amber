@@ -1226,7 +1226,8 @@ updateSourceAndButtons
 				with: [ |option|
 					html option
 						with: 'References';
-						at: 'disabled' put: 'disabled'.
+						at: 'disabled' put: 'disabled';
+                        at: 'selected' put: 'selected'.
 					html option
 						class: 'important';
 						with: selectedMethod selector.
@@ -2058,17 +2059,17 @@ performFailure: aTestCase
 !
 
 run: aCollection
-	result := TestResult new.
-	self 
-		updateStatusDiv;
-		updateMethodsList.
-	self progressBar updatePercent: 0.
-	result total: aCollection size.
-	aCollection do: [:each | 
-		[each runCaseFor: result.
-		self progressBar updatePercent: result runs / result total * 100.
-		self updateStatusDiv.
-		self updateMethodsList] valueWithTimeout: 100].
+| worker |
+	worker := TestSuiteRunner on: aCollection.
+	result := worker result.
+    worker announcer on: ResultAnnouncement do: [:ann |
+    	ann result == result ifTrue: [
+			self progressBar updatePercent: result runs / result total * 100.
+			self updateStatusDiv.
+			self updateMethodsList
+  		]
+	].
+	worker run
 !
 
 selectAllCategories
@@ -2124,7 +2125,7 @@ printFailures
 !
 
 printPasses
-	^(self result total - self result errors size - self result failures size) asString , ' passes, '
+	^(self result runs - self result errors size - self result failures size) asString , ' passes, '
 !
 
 printTotal

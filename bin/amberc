@@ -99,8 +99,8 @@ if [ -z $1 ] ; then
 fi
 
 # Define our predefined library combinations
-KERNEL="boot Kernel-Objects Kernel-Classes Kernel-Methods Kernel-Collections Kernel-Exceptions Kernel-Transcript"
-COMPILER="$KERNEL parser Compiler"
+KERNEL="boot Kernel-Objects Kernel-Classes Kernel-Methods Kernel-Collections Kernel-Exceptions Kernel-Transcript Kernel-Announcements"
+COMPILER="$KERNEL parser Compiler Compiler-Exceptions"
 
 # Predefined initializer
 INITIALIZER="$AMBER/js/init.js"
@@ -216,7 +216,8 @@ done
 LIBS="$TOBASE $TOLOAD"
 
 # Get a unique tempdir and make it get auto removed on exit
-TMPDIR=`mktemp -d amberc.XXXXXX`
+TMPDIR=`mktemp -d amberc.XXXXXX 2>>/dev/null` ||\
+    TMPDIR=/tmp/amberc.$$.`date +%s` && mkdir -p $TMPDIR
 trap "rm -rf $TMPDIR" EXIT
 
 

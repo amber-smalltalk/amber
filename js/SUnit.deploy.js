@@ -1,4 +1,29 @@
 smalltalk.addPackage('SUnit', {});
+smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
+smalltalk.addMethod(
+"_result",
+smalltalk.method({
+selector: "result",
+fn: function (){
+var self=this;
+return self["@result"];
+}
+}),
+smalltalk.ResultAnnouncement);
+
+smalltalk.addMethod(
+"_result_",
+smalltalk.method({
+selector: "result:",
+fn: function (aTestResult){
+var self=this;
+self["@result"]=aTestResult;
+return self}
+}),
+smalltalk.ResultAnnouncement);
+
+
+
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
 smalltalk.addMethod(
 "_assert_",
@@ -52,29 +77,29 @@ fn: function (aBoolean) {
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_performTestFor_",
+"_performTest",
 smalltalk.method({
-selector: "performTestFor:",
-fn: function (aResult) {
-    var self = this;
-    smalltalk.send(function () {return smalltalk.send(function () {return smalltalk.send(self, "_perform_", [smalltalk.send(self, "_selector", [])]);}, "_on_do_", [smalltalk.TestFailure || TestFailure, function (ex) {return smalltalk.send(aResult, "_addFailure_", [self]);}]);}, "_on_do_", [smalltalk.Error || Error, function (ex) {return smalltalk.send(aResult, "_addError_", [self]);}]);
-    return self;
-}
+selector: "performTest",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_perform_",[smalltalk.send(self,"_selector",[])]);
+return self}
 }),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_runCaseFor_",
+"_runCase",
 smalltalk.method({
-selector: "runCaseFor:",
-fn: function (aTestResult) {
-    var self = this;
-    smalltalk.send(self, "_setUp", []);
-    smalltalk.send(aTestResult, "_increaseRuns", []);
-    smalltalk.send(self, "_performTestFor_", [aTestResult]);
-    smalltalk.send(self, "_tearDown", []);
-    return self;
-}
+selector: "runCase",
+fn: function (){
+var self=this;
+smalltalk.send((function(){
+smalltalk.send(self,"_setUp",[]);
+return smalltalk.send(self,"_performTest",[]);
+}),"_ensure_",[(function(){
+return smalltalk.send(self,"_tearDown",[]);
+})]);
+return self}
 }),
 smalltalk.TestCase);
 
@@ -353,6 +378,42 @@ fn: function () {
 smalltalk.TestResult);
 
 smalltalk.addMethod(
+"_nextRunDo_",
+smalltalk.method({
+selector: "nextRunDo:",
+fn: function (aBlock){
+var self=this;
+var $2,$1;
+$2=smalltalk.send(smalltalk.send(self,"_runs",[]),"__eq_eq",[smalltalk.send(self,"_total",[])]);
+if(! smalltalk.assert($2)){
+$1=smalltalk.send(aBlock,"_value_",[smalltalk.send(smalltalk.send(self,"_runs",[]),"__plus",[(1)])]);
+};
+return $1;
+}
+}),
+smalltalk.TestResult);
+
+smalltalk.addMethod(
+"_runCase_",
+smalltalk.method({
+selector: "runCase:",
+fn: function (aTestCase){
+var self=this;
+smalltalk.send((function(){
+return smalltalk.send((function(){
+smalltalk.send(self,"_increaseRuns",[]);
+return smalltalk.send(aTestCase,"_runCase",[]);
+}),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
+return smalltalk.send(self,"_addFailure_",[aTestCase]);
+})]);
+}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+return smalltalk.send(self,"_addError_",[aTestCase]);
+})]);
+return self}
+}),
+smalltalk.TestResult);
+
+smalltalk.addMethod(
 "_runs",
 smalltalk.method({
 selector: "runs",
@@ -420,5 +481,104 @@ fn: function (aNumber) {
 }),
 smalltalk.TestResult);
 
+
+
+smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer'], 'SUnit');
+smalltalk.addMethod(
+"_announcer",
+smalltalk.method({
+selector: "announcer",
+fn: function (){
+var self=this;
+return self["@announcer"];
+}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
+self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
+self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_result",
+smalltalk.method({
+selector: "result",
+fn: function (){
+var self=this;
+return self["@result"];
+}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_run",
+smalltalk.method({
+selector: "run",
+fn: function (){
+var self=this;
+var worker;
+smalltalk.send(self["@result"],"_total_",[smalltalk.send(self["@suite"],"_size",[])]);
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+worker=(function(){
+return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
+return smalltalk.send((function(){
+return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
+}),"_ensure_",[(function(){
+smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
+return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+})]);
+})]);
+});
+smalltalk.send(smalltalk.send(smalltalk.send(self["@suite"],"_size",[]),"_min_",[(25)]),"_timesRepeat_",[(function(){
+return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
+})]);
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_suite_",
+smalltalk.method({
+selector: "suite:",
+fn: function (aCollection){
+var self=this;
+self["@suite"]=aCollection;
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+
+smalltalk.addMethod(
+"_new",
+smalltalk.method({
+selector: "new",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldNotImplement",[]);
+return self}
+}),
+smalltalk.TestSuiteRunner.klass);
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (aCollection){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_new",[],smalltalk.Object.klass),"_suite_",[aCollection]);
+return $1;
+}
+}),
+smalltalk.TestSuiteRunner.klass);
 
 
