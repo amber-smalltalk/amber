@@ -2312,20 +2312,9 @@ smalltalk.method({
 selector: "asSelector",
 fn: function (){
 var self=this;
-var selector;
-selector=smalltalk.send("_","__comma",[self]);
-selector=smalltalk.send(selector,"_replace_with_",[":","_"]);
-selector=smalltalk.send(selector,"_replace_with_",["[+]","_plus"]);
-selector=smalltalk.send(selector,"_replace_with_",["-","_minus"]);
-selector=smalltalk.send(selector,"_replace_with_",["[*]","_star"]);
-selector=smalltalk.send(selector,"_replace_with_",["[/]","_slash"]);
-selector=smalltalk.send(selector,"_replace_with_",[">","_gt"]);
-selector=smalltalk.send(selector,"_replace_with_",["<","_lt"]);
-selector=smalltalk.send(selector,"_replace_with_",["=","_eq"]);
-selector=smalltalk.send(selector,"_replace_with_",[",","_comma"]);
-selector=smalltalk.send(selector,"_replace_with_",["[@]","_at"]);
-return selector;
-}
+return smalltalk.selector(self);
+;
+return self}
 }),
 smalltalk.String);
 
@@ -3070,6 +3059,19 @@ var self=this;
 return self.value;
 ;
 return self}
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_asSuperSelector",
+smalltalk.method({
+selector: "asSuperSelector",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_asString",[]),"_asSuperSelector",[]);
+return $1;
+}
 }),
 smalltalk.Symbol);
 

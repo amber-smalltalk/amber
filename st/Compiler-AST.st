@@ -1,9 +1,11 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes shouldBeInlined shouldBeAliased'
+	instanceVariableNames: 'position nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
-I am the abstract root class of the abstract syntax tree.!
+I am the abstract root class of the abstract syntax tree.
+
+position: holds a point containing lline- and column number of the symbol location in the original source file!
 
 !Node methodsFor: 'accessing'!
 
@@ -13,6 +15,10 @@ addNode: aNode
 
 nodes
 	^nodes ifNil: [nodes := Array new]
+!
+
+position
+	^position ifNil: [position := 0@0]
 !
 
 shouldBeAliased
@@ -35,6 +41,10 @@ shouldBeInlined: aBoolean
 
 nodes: aCollection
 	nodes := aCollection
+!
+
+position: aPosition
+	position := aPosition
 ! !
 
 !Node methodsFor: 'testing'!
@@ -202,7 +212,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends'
+	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
 	package: 'Compiler-AST'!
 
 !MethodNode methodsFor: 'accessing'!
@@ -253,6 +263,14 @@ source
 
 source: aString
 	source := aString
+!
+
+superSends
+	^ superSends
+!
+
+superSends: aCollection
+	superSends := aCollection
 ! !
 
 !MethodNode methodsFor: 'visiting'!

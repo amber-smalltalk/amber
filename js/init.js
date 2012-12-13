@@ -1,6 +1,4 @@
-smalltalk.init(smalltalk.Object); //metaclasses are in through Class
-smalltalk.classes()._do_(function(each) {
-	each._initialize()});
+smalltalk.initialize();
 
 /* Similar to jQuery(document).ready() */
 

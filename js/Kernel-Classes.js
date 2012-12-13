@@ -309,12 +309,13 @@ selector: "methodAt:",
 category: 'accessing',
 fn: function (aSymbol){
 var self=this;
-return smalltalk.methods(self)[aSymbol._asString()];
-;
-return self},
+var $1;
+$1=_st(_st(self)._methodDictionary())._at_(_st(aSymbol)._asString());
+return $1;
+},
 args: ["aSymbol"],
-source: "methodAt: aSymbol\x0a\x09<return smalltalk.methods(self)[aSymbol._asString()]>",
-messageSends: [],
+source: "methodAt: aSymbol\x0a\x09^ self methodDictionary at: aSymbol asString",
+messageSends: ["at:", "asString", "methodDictionary"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -327,7 +328,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var dict = smalltalk.HashedCollection._new();
-	var methods = self.fn.prototype.methods;
+	var methods = self.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
 			dict._at_put_(methods[i].selector, methods[i]);
@@ -337,7 +338,7 @@ var dict = smalltalk.HashedCollection._new();
 ;
 return self},
 args: [],
-source: "methodDictionary\x0a\x09<var dict = smalltalk.HashedCollection._new();\x0a\x09var methods = self.fn.prototype.methods;\x0a\x09for(var i in methods) {\x0a\x09\x09if(methods[i].selector) {\x0a\x09\x09\x09dict._at_put_(methods[i].selector, methods[i]);\x0a\x09\x09}\x0a\x09};\x0a\x09return dict>",
+source: "methodDictionary\x0a\x09<var dict = smalltalk.HashedCollection._new();\x0a\x09var methods = self.methods;\x0a\x09for(var i in methods) {\x0a\x09\x09if(methods[i].selector) {\x0a\x09\x09\x09dict._at_put_(methods[i].selector, methods[i]);\x0a\x09\x09}\x0a\x09};\x0a\x09return dict>",
 messageSends: [],
 referencedClasses: []
 }),

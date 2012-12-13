@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
-smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree."
+smalltalk.addClass('Node', smalltalk.Object, ['position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
+smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aposition: holds a point containing lline- and column number of the symbol location in the original source file"
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -165,6 +165,45 @@ self["@nodes"]=aCollection;
 return self},
 args: ["aCollection"],
 source: "nodes: aCollection\x0a\x09nodes := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_position",
+smalltalk.method({
+selector: "position",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@position"]) == nil || $receiver == undefined){
+self["@position"]=_st((0)).__at((0));
+$1=self["@position"];
+} else {
+$1=self["@position"];
+};
+return $1;
+},
+args: [],
+source: "position\x0a\x09^position ifNil: [position := 0@0]",
+messageSends: ["ifNil:", "@"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_position_",
+smalltalk.method({
+selector: "position:",
+category: 'building',
+fn: function (aPosition){
+var self=this;
+self["@position"]=aPosition;
+return self},
+args: ["aPosition"],
+source: "position: aPosition\x0a\x09position := aPosition",
 messageSends: [],
 referencedClasses: []
 }),
@@ -629,7 +668,7 @@ smalltalk.JSStatementNode);
 
 
 
-smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends'], 'Compiler-AST');
+smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends', 'superSends'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -841,6 +880,38 @@ self["@source"]=aString;
 return self},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_superSends",
+smalltalk.method({
+selector: "superSends",
+category: 'accessing',
+fn: function (){
+var self=this;
+return self["@superSends"];
+},
+args: [],
+source: "superSends\x0a\x09^ superSends",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+"_superSends_",
+smalltalk.method({
+selector: "superSends:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+self["@superSends"]=aCollection;
+return self},
+args: ["aCollection"],
+source: "superSends: aCollection\x0a\x09superSends := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
