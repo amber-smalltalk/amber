@@ -100,7 +100,7 @@ fi
 
 # Define our predefined library combinations
 KERNEL="boot Kernel-Objects Kernel-Classes Kernel-Methods Kernel-Collections Kernel-Exceptions Kernel-Transcript Kernel-Announcements"
-COMPILER="$KERNEL parser Compiler Compiler-Exceptions"
+COMPILER="$KERNEL parser Compiler Compiler-Exceptions Compiler-Core Compiler-AST Compiler-IR Compiler-Inlining Compiler-Semantic"
 
 # Predefined initializer
 INITIALIZER="$AMBER/js/init.js"
