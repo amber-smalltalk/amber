@@ -793,6 +793,7 @@ if(this.jQuery) {
 
 var _st = function(o) {
 	if(typeof o === 'undefined') {return nil}
+	if(null === o) {return nil}
 	if(o.klass) {return o}
 	return smalltalk.JSObjectProxy._on_(o);
 }; 
