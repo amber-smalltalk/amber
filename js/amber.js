@@ -87,6 +87,7 @@ amber = (function() {
 				'SUnit',
 				'Importer-Exporter',
 				'Compiler-Exceptions',
+				'Compiler-Interpreter',
 				'Compiler-Core',
 				'Compiler-AST',
 				'Compiler-Semantic',
