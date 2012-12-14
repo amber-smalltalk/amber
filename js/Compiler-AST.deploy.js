@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-AST', {});
-smalltalk.addClass('Node', smalltalk.Object, ['nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
+smalltalk.addClass('Node', smalltalk.Object, ['position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -115,6 +115,35 @@ selector: "nodes:",
 fn: function (aCollection){
 var self=this;
 self["@nodes"]=aCollection;
+return self}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_position",
+smalltalk.method({
+selector: "position",
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@position"]) == nil || $receiver == undefined){
+self["@position"]=_st((0)).__at((0));
+$1=self["@position"];
+} else {
+$1=self["@position"];
+};
+return $1;
+}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_position_",
+smalltalk.method({
+selector: "position:",
+fn: function (aPosition){
+var self=this;
+self["@position"]=aPosition;
 return self}
 }),
 smalltalk.Node);
