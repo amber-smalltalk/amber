@@ -968,7 +968,7 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_~_eq",
+"__tild_eq",
 smalltalk.method({
 selector: "~=",
 category: 'comparing',
@@ -986,7 +986,7 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_~~",
+"__tild_tild",
 smalltalk.method({
 selector: "~~",
 category: 'comparing',
@@ -1024,7 +1024,7 @@ smalltalk.Object.klass);
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Boolean.comment="Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.\x0a\x0aBoolean defines the protocol for logic testing operations and conditional control structures for the logical values.\x0aBoolean instances are weither `true` or `false`."
 smalltalk.addMethod(
-"_&",
+"__and",
 smalltalk.method({
 selector: "&",
 category: 'controlling',
@@ -1281,7 +1281,7 @@ referencedClasses: []
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-"_|",
+"__or",
 smalltalk.method({
 selector: "|",
 category: 'controlling',
@@ -1300,6 +1300,262 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Boolean);
+
+
+
+smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.CompiledMethod.comment="CompiledMethod hold the source and compiled code of a class method.\x0a\x0aYou can get a CompiledMethod using `Behavior>>methodAt:`\x0a\x0a\x09String methodAt: 'lines'\x0a\x0aand read the source code\x0a\x0a\x09(String methodAt: 'lines') source\x0a\x0aSee referenced classes:\x0a\x0a\x09(String methodAt: 'lines') referencedClasses\x0a\x0aor messages sent from this method:\x0a\x09\x0a\x09(String methodAt: 'lines')  messageSends"
+smalltalk.addMethod(
+"_arguments",
+smalltalk.method({
+selector: "arguments",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    return self.args || [];
+    return self;
+},
+args: [],
+source: "arguments\x0a\x09<return self.args || []>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_category",
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $2 = smalltalk.send(self, "_basicAt_", ["category"]);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = "";
+    } else {
+        $1 = $2;
+    }
+    return $1;
+},
+args: [],
+source: "category\x0a\x09^(self basicAt: 'category') ifNil: ['']",
+messageSends: ["ifNil:", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_category_",
+smalltalk.method({
+selector: "category:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+var $1;
+var oldCategory;
+oldCategory=smalltalk.send(self,"_category",[]);
+smalltalk.send(self,"_basicAt_put_",["category",aString]);
+$1=smalltalk.send(self,"_methodClass",[]);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_addElement_",[aString]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_methods",[]),"_select_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_category",[]),"__eq",[oldCategory]);
+})]),"_ifEmpty_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_removeElement_",[oldCategory]);
+})]);
+};
+return self},
+args: ["aString"],
+source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organization addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]",
+messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_fn",
+smalltalk.method({
+selector: "fn",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["fn"]);
+    return $1;
+},
+args: [],
+source: "fn\x0a\x09^self basicAt: 'fn'",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_fn_",
+smalltalk.method({
+selector: "fn:",
+category: 'accessing',
+fn: function (aBlock) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
+    return self;
+},
+args: ["aBlock"],
+source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
+messageSends: ["basicAt:put:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_messageSends",
+smalltalk.method({
+selector: "messageSends",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["messageSends"]);
+    return $1;
+},
+args: [],
+source: "messageSends\x0a\x09^self basicAt: 'messageSends'",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_methodClass",
+smalltalk.method({
+selector: "methodClass",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["methodClass"]);
+    return $1;
+},
+args: [],
+source: "methodClass\x0a\x09^self basicAt: 'methodClass'",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_protocol",
+smalltalk.method({
+selector: "protocol",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_category", []);
+    return $1;
+},
+args: [],
+source: "protocol\x0a\x09^ self category",
+messageSends: ["category"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_referencedClasses",
+smalltalk.method({
+selector: "referencedClasses",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
+    return $1;
+},
+args: [],
+source: "referencedClasses\x0a\x09^self basicAt: 'referencedClasses'",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_selector",
+smalltalk.method({
+selector: "selector",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["selector"]);
+    return $1;
+},
+args: [],
+source: "selector\x0a\x09^self basicAt: 'selector'",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_selector_",
+smalltalk.method({
+selector: "selector:",
+category: 'accessing',
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
+    return self;
+},
+args: ["aString"],
+source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
+messageSends: ["basicAt:put:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_source",
+smalltalk.method({
+selector: "source",
+category: 'accessing',
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $2 = smalltalk.send(self, "_basicAt_", ["source"]);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = "";
+    } else {
+        $1 = $2;
+    }
+    return $1;
+},
+args: [],
+source: "source\x0a\x09^(self basicAt: 'source') ifNil: ['']",
+messageSends: ["ifNil:", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_source_",
+smalltalk.method({
+selector: "source:",
+category: 'accessing',
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["source", aString]);
+    return self;
+},
+args: ["aString"],
+source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
+messageSends: ["basicAt:put:"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
 
 
 
@@ -2169,7 +2425,7 @@ smalltalk.JSObjectProxy.klass);
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Number.comment="Number holds the most general methods for dealing with numbers.  \x0aNumber is directly mapped to JavaScript Number.\x0a\x0aMost arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript. \x0a\x0a##Enumerating\x0aA Number can be used to evaluate a Block a fixed number of times:\x0a\x0a\x095 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].\x0a\x09\x0a\x091 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].\x0a\x09\x0a\x091 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr]."
 smalltalk.addMethod(
-"_&",
+"__and",
 smalltalk.method({
 selector: "&",
 category: 'converting',
@@ -2362,7 +2618,7 @@ referencedClasses: ["Point"]
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_\x5c\x5c",
+"__backslash_backslash",
 smalltalk.method({
 selector: "\x5c\x5c",
 category: 'arithmetic',
@@ -2966,7 +3222,7 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_|",
+"__or",
 smalltalk.method({
 selector: "|",
 category: 'converting',
@@ -3007,13 +3263,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "addElement:",
 category: 'accessing',
-fn: function (anObject) {
-    var self = this;
-    self.addElement(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+self.elements.addElement(anObject);
+;
+return self},
 args: ["anObject"],
-source: "addElement: anObject\x0a\x09<self.addElement(anObject)>",
+source: "addElement: anObject\x0a\x09<self.elements.addElement(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3042,13 +3298,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeElement:",
 category: 'accessing',
-fn: function (anObject) {
-    var self = this;
-    self.removeElement(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+self.elements.removeElement(anObject);
+;
+return self},
 args: ["anObject"],
-source: "removeElement: anObject\x0a\x09<self.removeElement(anObject)>",
+source: "removeElement: anObject\x0a\x09<self.elements.removeElement(anObject)>",
 messageSends: [],
 referencedClasses: []
 }),

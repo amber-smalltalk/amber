@@ -1,42 +1,4 @@
 smalltalk.addPackage('Compiler-Interpreter', {});
-smalltalk.addClass('ASTBlockClosure', smalltalk.BlockClosure, ['astNode'], 'Compiler-Interpreter');
-smalltalk.addMethod(
-"_astNode",
-smalltalk.method({
-selector: "astNode",
-fn: function (){
-var self=this;
-return self["@astNode"];
-}
-}),
-smalltalk.ASTBlockClosure);
-
-smalltalk.addMethod(
-"_astNode_",
-smalltalk.method({
-selector: "astNode:",
-fn: function (aNode){
-var self=this;
-self["@astNode"]=aNode;
-return self}
-}),
-smalltalk.ASTBlockClosure);
-
-smalltalk.addMethod(
-"_value",
-smalltalk.method({
-selector: "value",
-fn: function (){
-var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send((smalltalk.ASTInterpreter || ASTInterpreter),"_current",[]),"_blockValue_",[self]);
-return $1;
-}
-}),
-smalltalk.ASTBlockClosure);
-
-
-
 smalltalk.addClass('ASTInterpreter', smalltalk.NodeVisitor, ['currentNode', 'context', 'shouldReturn'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 "_blockValue_",
@@ -132,11 +94,10 @@ smalltalk.method({
 selector: "visitBlockNode:",
 fn: function (aNode){
 var self=this;
-var $2,$3,$1;
-$2=smalltalk.send((smalltalk.ASTBlockClosure || ASTBlockClosure),"_new",[]);
-smalltalk.send($2,"_astNode_",[aNode]);
-$3=smalltalk.send($2,"_yourself",[]);
-$1=$3;
+var $1;
+$1=(function(){
+return _st(self)._interpretNode_(_st(_st(aNode)._nodes())._first());
+});
 return $1;
 }
 }),
@@ -150,7 +111,7 @@ fn: function (aNode){
 var self=this;
 var $1;
 self["@shouldReturn"]=true;
-$1=smalltalk.send(self,"_interpret_",[smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_first",[])]);
+$1=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._first());
 return $1;
 }
 }),
@@ -165,11 +126,11 @@ var self=this;
 var $1;
 var receiver;
 var arguments;
-receiver=smalltalk.send(self,"_interpret_",[smalltalk.send(aNode,"_receiver",[])]);
-arguments=smalltalk.send(smalltalk.send(aNode,"_arguments",[]),"_collect_",[(function(each){
-return smalltalk.send(self,"_interpret_",[each]);
-})]);
-$1=smalltalk.send(self,"_send_to_arguments_",[smalltalk.send(aNode,"_selector",[]),receiver,arguments]);
+receiver=_st(self)._interpretNode_(_st(aNode)._receiver());
+arguments=_st(_st(aNode)._arguments())._collect_((function(each){
+return _st(self)._interpretNode_(each);
+}));
+$1=_st(self)._send_to_arguments_(_st(aNode)._selector(),receiver,arguments);
 return $1;
 }
 }),
@@ -184,15 +145,15 @@ var self=this;
 var $1;
 var $early={};
 try {
-smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_allButLast",[]),"_do_",[(function(each){
+_st(_st(_st(aNode)._nodes())._allButLast())._do_((function(each){
 var value;
-value=smalltalk.send(self,"_interpret_",[each]);
+value=_st(self)._interpretNode_(each);
 value;
 if(smalltalk.assert(self["@shouldReturn"])){
 throw $early=[value];
 };
-})]);
-$1=smalltalk.send(self,"_interpret_",[smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_last",[])]);
+}));
+$1=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
 return $1;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -214,34 +175,80 @@ return $1;
 smalltalk.ASTInterpreter);
 
 
-smalltalk.ASTInterpreter.klass.iVarNames = ['current'];
+
+smalltalk.addClass('ASTInterpretorTest', smalltalk.TestCase, [], 'Compiler-Interpreter');
 smalltalk.addMethod(
-"_current",
+"_analyze_forClass_",
 smalltalk.method({
-selector: "current",
-fn: function (){
+selector: "analyze:forClass:",
+fn: function (aNode,aClass){
+var self=this;
+_st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(aClass))._visit_(aNode);
+return aNode;
+}
+}),
+smalltalk.ASTInterpretorTest);
+
+smalltalk.addMethod(
+"_interpret_",
+smalltalk.method({
+selector: "interpret:",
+fn: function (aString){
 var self=this;
 var $1;
-if(($receiver = self["@current"]) == nil || $receiver == undefined){
-self["@current"]=smalltalk.send(self,"_new",[],smalltalk.NodeVisitor.klass);
-$1=self["@current"];
-} else {
-$1=self["@current"];
-};
+$1=_st(_st((smalltalk.ASTInterpreter || ASTInterpreter))._new())._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
 return $1;
 }
 }),
-smalltalk.ASTInterpreter.klass);
+smalltalk.ASTInterpretorTest);
 
 smalltalk.addMethod(
-"_new",
+"_parse_",
 smalltalk.method({
-selector: "new",
+selector: "parse:",
+fn: function (aString){
+var self=this;
+var $1;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
+return $1;
+}
+}),
+smalltalk.ASTInterpretorTest);
+
+smalltalk.addMethod(
+"_parse_forClass_",
+smalltalk.method({
+selector: "parse:forClass:",
+fn: function (aString,aClass){
+var self=this;
+var $1;
+$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
+return $1;
+}
+}),
+smalltalk.ASTInterpretorTest);
+
+smalltalk.addMethod(
+"_testBinarySend",
+smalltalk.method({
+selector: "testBinarySend",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_shouldNotImplement",[]);
+_st(self)._assert_equals_(_st(self)._interpret_("foo 2+3+4"),(9));
 return self}
 }),
-smalltalk.ASTInterpreter.klass);
+smalltalk.ASTInterpretorTest);
+
+smalltalk.addMethod(
+"_testBlockLiteral",
+smalltalk.method({
+selector: "testBlockLiteral",
+fn: function (){
+var self=this;
+_st(self)._assert_(false);
+return self}
+}),
+smalltalk.ASTInterpretorTest);
+
 
 

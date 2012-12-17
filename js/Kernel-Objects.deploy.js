@@ -697,7 +697,7 @@ fn: function () {
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_~_eq",
+"__tild_eq",
 smalltalk.method({
 selector: "~=",
 fn: function (anObject) {
@@ -710,7 +710,7 @@ fn: function (anObject) {
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_~~",
+"__tild_tild",
 smalltalk.method({
 selector: "~~",
 fn: function (anObject) {
@@ -737,7 +737,7 @@ smalltalk.Object.klass);
 
 smalltalk.addClass('Boolean', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
-"_&",
+"__and",
 smalltalk.method({
 selector: "&",
 fn: function (aBoolean) {
@@ -924,7 +924,7 @@ fn: function () {
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-"_|",
+"__or",
 smalltalk.method({
 selector: "|",
 fn: function (aBoolean) {
@@ -938,6 +938,196 @@ fn: function (aBoolean) {
 }
 }),
 smalltalk.Boolean);
+
+
+
+smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.addMethod(
+"_arguments",
+smalltalk.method({
+selector: "arguments",
+fn: function () {
+    var self = this;
+    return self.args || [];
+    return self;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_category",
+smalltalk.method({
+selector: "category",
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $2 = smalltalk.send(self, "_basicAt_", ["category"]);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = "";
+    } else {
+        $1 = $2;
+    }
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_category_",
+smalltalk.method({
+selector: "category:",
+fn: function (aString){
+var self=this;
+var $1;
+var oldCategory;
+oldCategory=smalltalk.send(self,"_category",[]);
+smalltalk.send(self,"_basicAt_put_",["category",aString]);
+$1=smalltalk.send(self,"_methodClass",[]);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_addElement_",[aString]);
+smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_methods",[]),"_select_",[(function(each){
+return smalltalk.send(smalltalk.send(each,"_category",[]),"__eq",[oldCategory]);
+})]),"_ifEmpty_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_removeElement_",[oldCategory]);
+})]);
+};
+return self}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_fn",
+smalltalk.method({
+selector: "fn",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["fn"]);
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_fn_",
+smalltalk.method({
+selector: "fn:",
+fn: function (aBlock) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
+    return self;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_messageSends",
+smalltalk.method({
+selector: "messageSends",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["messageSends"]);
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_methodClass",
+smalltalk.method({
+selector: "methodClass",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["methodClass"]);
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_protocol",
+smalltalk.method({
+selector: "protocol",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_category", []);
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_referencedClasses",
+smalltalk.method({
+selector: "referencedClasses",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_selector",
+smalltalk.method({
+selector: "selector",
+fn: function () {
+    var self = this;
+    var $1;
+    $1 = smalltalk.send(self, "_basicAt_", ["selector"]);
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_selector_",
+smalltalk.method({
+selector: "selector:",
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
+    return self;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_source",
+smalltalk.method({
+selector: "source",
+fn: function () {
+    var self = this;
+    var $2, $1;
+    $2 = smalltalk.send(self, "_basicAt_", ["source"]);
+    if (($receiver = $2) == nil || $receiver == undefined) {
+        $1 = "";
+    } else {
+        $1 = $2;
+    }
+    return $1;
+}
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_source_",
+smalltalk.method({
+selector: "source:",
+fn: function (aString) {
+    var self = this;
+    smalltalk.send(self, "_basicAt_put_", ["source", aString]);
+    return self;
+}
+}),
+smalltalk.CompiledMethod);
 
 
 
@@ -1564,7 +1754,7 @@ smalltalk.JSObjectProxy.klass);
 
 smalltalk.addClass('Number', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
-"_&",
+"__and",
 smalltalk.method({
 selector: "&",
 fn: function (aNumber) {
@@ -1702,7 +1892,7 @@ fn: function (aNumber) {
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_\x5c\x5c",
+"__backslash_backslash",
 smalltalk.method({
 selector: "\x5c\x5c",
 fn: function (aNumber) {
@@ -2146,7 +2336,7 @@ fn: function () {
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_|",
+"__or",
 smalltalk.method({
 selector: "|",
 fn: function (aNumber) {
@@ -2176,11 +2366,11 @@ smalltalk.addMethod(
 "_addElement_",
 smalltalk.method({
 selector: "addElement:",
-fn: function (anObject) {
-    var self = this;
-    self.addElement(anObject);
-    return self;
-}
+fn: function (anObject){
+var self=this;
+self.elements.addElement(anObject);
+;
+return self}
 }),
 smalltalk.Organizer);
 
@@ -2201,11 +2391,11 @@ smalltalk.addMethod(
 "_removeElement_",
 smalltalk.method({
 selector: "removeElement:",
-fn: function (anObject) {
-    var self = this;
-    self.removeElement(anObject);
-    return self;
-}
+fn: function (anObject){
+var self=this;
+self.elements.removeElement(anObject);
+;
+return self}
 }),
 smalltalk.Organizer);
 

@@ -1,27 +1,4 @@
 Smalltalk current createPackage: 'Compiler-Interpreter' properties: #{}!
-BlockClosure subclass: #ASTBlockClosure
-	instanceVariableNames: 'astNode'
-	package: 'Compiler-Interpreter'!
-!ASTBlockClosure commentStamp!
-ASTBlockClosure is polymorph with BlockClosure. 
-An ASTBlockClosure is used to interpret a BlockNode, and override all "primitive" methods (#value and co).!
-
-!ASTBlockClosure methodsFor: 'accessing'!
-
-astNode
-	^ astNode
-!
-
-astNode: aNode
-	astNode := aNode
-! !
-
-!ASTBlockClosure methodsFor: 'evaluating'!
-
-value
-	^ ASTInterpreter current blockValue: self
-! !
-
 NodeVisitor subclass: #ASTInterpreter
 	instanceVariableNames: 'currentNode context shouldReturn'
 	package: 'Compiler-Interpreter'!
@@ -66,47 +43,69 @@ send: aSelector to: anObject arguments: aCollection
 !ASTInterpreter methodsFor: 'visiting'!
 
 visitBlockNode: aNode
-	^ ASTBlockClosure new
-    	astNode: aNode;
-        yourself
+    ^ [ self interpretNode: aNode nodes first ]
 !
 
 visitReturnNode: aNode
 	shouldReturn := true.
-    ^ self interpret: aNode nodes first
+    ^ self interpretNode: aNode nodes first
 !
 
 visitSendNode: aNode
 	"TODO: Handle super sends"
 	| receiver arguments |
     
-    receiver := self interpret: aNode receiver.
+    receiver := self interpretNode: aNode receiver.
     arguments := aNode arguments collect: [ :each |
-		self interpret: each ].
+		self interpretNode: each ].
     
     ^ self send: aNode selector to: receiver arguments: arguments
 !
 
 visitSequenceNode: aNode
 	aNode nodes allButLast do: [ :each | | value |
-        value := self interpret: each.
+        value := self interpretNode: each.
 		shouldReturn ifTrue: [ ^ value ] ].
-    ^ self interpret: aNode nodes last
+    ^ self interpretNode: aNode nodes last
 !
 
 visitValueNode: aNode
 	^ aNode value
 ! !
 
-ASTInterpreter class instanceVariableNames: 'current'!
+TestCase subclass: #ASTInterpretorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Interpreter'!
 
-!ASTInterpreter class methodsFor: 'instance creation'!
+!ASTInterpretorTest methodsFor: 'accessing'!
 
-current
-	^ current ifNil: [ current := super new ]
+analyze: aNode forClass: aClass
+	(SemanticAnalyzer on: aClass) visit: aNode.
+    ^ aNode
 !
 
-new
-	self shouldNotImplement
+interpret: aString
+	"the food is a methodNode. Interpret the sequenceNode only"
+    ^ ASTInterpreter new
+    	interpret: (self parse: aString forClass: Object) 
+        	nodes first
+!
+
+parse: aString
+	^ Smalltalk current parse: aString
+!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
+! !
+
+!ASTInterpretorTest methodsFor: 'tests'!
+
+testBinarySend
+	self assert: (self interpret: 'foo 2+3+4') equals: 9
+!
+
+testBlockLiteral
+	self assert: false
 ! !
 

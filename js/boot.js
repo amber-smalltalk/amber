@@ -534,11 +534,11 @@ function Smalltalk() {
 		}
 	}
 
-	st.withContext = function(fn, receiver, selector, args) {
+	st.withContext = function(fn, receiver, selector, args, lookupClass) {
 		if(st.thisContext) {
-			return inContext(fn, receiver, selector, args);
+			return inContext(fn, receiver, selector, args, lookupClass);
 		} else {
-			try {return inContext(fn, receiver, selector, args)}
+			try {return inContext(fn, receiver, selector, args, lookupClass)}
 			catch(error) {
 				// Reset the context stack in any case
 				st.thisContext = undefined;
@@ -552,9 +552,9 @@ function Smalltalk() {
 		}
 	};
 
-	function inContext(fn, receiver, selector, args) {
-		var context = pushContext(receiver, selector, args);
-		var result = fn();
+	function inContext(fn, receiver, selector, args, lookupClass) {
+		var context = pushContext(receiver, selector, args, lookupClass);
+		var result = fn(context);
 		popContext(context);
 		return result;
 	}
@@ -580,10 +580,10 @@ function Smalltalk() {
 		   Object>>doesNotUnderstand: */
 
 		return receiver._doesNotUnderstand_(
-				st.Message._new()
+			st.Message._new()
 				._selector_(st.convertSelector(selector))
 				._arguments_(args)
-				);
+		);
 	}
 
 	/* Call a method of a JS object, or answer a property if it exists.
@@ -627,10 +627,10 @@ function Smalltalk() {
 		return st.thisContext ? st.thisContext.copy() : nil;
 	};
 
-	function pushContext(receiver, selector, temps) {
+	function pushContext(receiver, selector, locals, lookupClass) {
 		var c = st.oldContext, tc = st.thisContext;
 		if(!c) {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, temps, tc);
+			return st.thisContext = new SmalltalkMethodContext(receiver, selector, locals, tc, lookupClass);
 
 		}
 		st.oldContext = null;
@@ -638,7 +638,7 @@ function Smalltalk() {
         c.pc          = 1;
 		c.receiver    = receiver;
         c.selector    = selector || "";
-		c.temps       = temps || {};
+		c.locals      = locals || {};
 		return st.thisContext = c;
 	}
 
@@ -751,11 +751,12 @@ function Smalltalk() {
 
 inherits(Smalltalk, SmalltalkObject);
 
-function SmalltalkMethodContext(receiver, selector, temps, home) {
+function SmalltalkMethodContext(receiver, selector, locals, home, lookupClass) {
 	this.receiver    = receiver;
     this.selector    = selector;
-	this.temps       = temps || {};
+	this.locals      = locals || {};
 	this.homeContext = home;
+    this.lookupClass = lookupClass;
 }
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
@@ -769,6 +770,16 @@ SmalltalkMethodContext.prototype.copy = function() {
 		this.temps,
 		home
 	);
+};
+
+SmalltalkMethodContext.prototype.method = function() {
+    var method;
+    var lookup = this.lookupClass || this.receiver.klass;
+    while(!method && lookup) {
+        method = lookup.methods[smalltalk.convertSelector(this.selector)];
+        lookup = lookup.superclass
+    }
+    return method;
 };
 
 SmalltalkMethodContext.prototype.resume = function() {
