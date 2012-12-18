@@ -69,7 +69,7 @@ reference      = variable / classReference
 
 keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg}}
 
-binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("").replace(/\\/g, '\\\\')}
+binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("")}
 unarySelector  = identifier
 
 keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg: arg}})+ {

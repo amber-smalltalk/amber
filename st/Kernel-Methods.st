@@ -286,6 +286,14 @@ home
 	<return self.homeContext>
 !
 
+locals
+	<return self.locals>
+!
+
+method
+	<return self.method()>
+!
+
 pc
 	<return self.pc>
 !
@@ -303,6 +311,6 @@ selector
 !
 
 temps
-	<return self.temps>
+	^ self locals
 ! !
 

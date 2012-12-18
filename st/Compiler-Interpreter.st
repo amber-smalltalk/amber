@@ -46,6 +46,21 @@ visitBlockNode: aNode
     ^ [ self interpretNode: aNode nodes first ]
 !
 
+visitCascadeNode: aNode
+
+    aNode nodes allButLast
+    	do: [ :each | 
+        	each receiver: aNode receiver.
+			self interpretNode: each ].
+            
+	aNode nodes last receiver: aNode receiver.
+    ^ self interpretNode: aNode nodes last
+!
+
+visitJSStatementNode: aNode
+	self halt
+!
+
 visitReturnNode: aNode
 	shouldReturn := true.
     ^ self interpretNode: aNode nodes first
@@ -73,11 +88,11 @@ visitValueNode: aNode
 	^ aNode value
 ! !
 
-TestCase subclass: #ASTInterpretorTest
+TestCase subclass: #ASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Interpreter'!
 
-!ASTInterpretorTest methodsFor: 'accessing'!
+!ASTInterpreterTest methodsFor: 'accessing'!
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
@@ -99,13 +114,15 @@ parse: aString forClass: aClass
 	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
-!ASTInterpretorTest methodsFor: 'tests'!
+!ASTInterpreterTest methodsFor: 'tests'!
 
 testBinarySend
 	self assert: (self interpret: 'foo 2+3+4') equals: 9
 !
 
 testBlockLiteral
-	self assert: false
+	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
+    self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
+    self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
 ! !
 

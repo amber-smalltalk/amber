@@ -1,40 +1,4 @@
 Smalltalk current createPackage: 'Compiler-Tests' properties: #{}!
-TestCase subclass: #ASTInterpretorTest
-	instanceVariableNames: ''
-	package: 'Compiler-Interpreter'!
-
-!ASTInterpretorTest methodsFor: 'accessing'!
-
-analyze: aNode forClass: aClass
-	(SemanticAnalyzer on: aClass) visit: aNode.
-    ^ aNode
-!
-
-interpret: aString
-	"the food is a methodNode. Interpret the sequenceNode only"
-    ^ ASTInterpreter new
-    	interpret: (self parse: aString forClass: Object) 
-        	nodes first
-!
-
-parse: aString
-	^ Smalltalk current parse: aString
-!
-
-parse: aString forClass: aClass
-	^ self analyze: (self parse: aString) forClass: aClass
-! !
-
-!ASTInterpretorTest methodsFor: 'tests'!
-
-testBinarySend
-	self assert: (self interpret: 'foo 2+3+4') equals: 9
-!
-
-testBlockLiteral
-	self assert: false
-! !
-
 TestCase subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!

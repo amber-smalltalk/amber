@@ -151,6 +151,7 @@ visitMethodNode: aNode
 
 	self method: (IRMethod new
 		source: self source;
+        theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;
 		messageSends: aNode messageSends;
@@ -409,7 +410,7 @@ accept: aVisitor
 ! !
 
 IRScopedInstruction subclass: #IRMethod
-	instanceVariableNames: 'source selector classReferences messageSends superSends arguments internalVariables'
+	instanceVariableNames: 'theClass source selector classReferences messageSends superSends arguments internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -471,6 +472,14 @@ superSends
 
 superSends: aCollection
 	superSends := aCollection
+!
+
+theClass
+	^ theClass
+!
+
+theClass: aClass
+	theClass := aClass
 ! !
 
 !IRMethod methodsFor: 'visiting'!
@@ -871,6 +880,7 @@ visitIRMethod: anIRMethod
 		nextPutMethodDeclaration: anIRMethod 
 		with: [ self stream 
 			nextPutFunctionWith: [ 
+            	self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
 						each variable alias ]) ].
@@ -878,7 +888,7 @@ visitIRMethod: anIRMethod
 					ifTrue: [
 						self stream nextPutNonLocalReturnHandlingWith: [
 							super visitIRMethod: anIRMethod ]]
-					ifFalse: [ super visitIRMethod: anIRMethod ]]
+					ifFalse: [ super visitIRMethod: anIRMethod ]]]
 			arguments: anIRMethod arguments ]
 !
 
@@ -1006,12 +1016,16 @@ nextPutClosureWith: aBlock arguments: anArray
 !
 
 nextPutContextFor: aMethod during: aBlock
-	self nextPutAll: 'return smalltalk.withContext(function() {'.
+	self nextPutAll: 'return smalltalk.withContext(function($ctx) { '.
     aBlock value.
     self 
     	nextPutAll: '}, self, ';
-        nextPutAll: aMethod selector asJavascript, ', ';
-        nextPutAll: aMethod arguments asJavascript;
+        nextPutAll: aMethod selector asJavascript, ', ['.
+    aMethod arguments 
+    	do: [ :each | self nextPutAll: each ]
+      	separatedBy: [ self nextPutAll: ','  ].
+    self nextPutAll: '], ';
+        nextPutAll: aMethod theClass asJavascript;
         nextPutAll: ')'
 !
 

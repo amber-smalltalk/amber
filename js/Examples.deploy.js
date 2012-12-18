@@ -6,11 +6,11 @@ smalltalk.method({
 selector: "decrease",
 fn: function (){
 var self=this;
-self["@count"]=smalltalk.send(self["@count"],"__minus",[(1)]);
-smalltalk.send(self["@header"],"_contents_",[(function(html){
-return smalltalk.send(html,"_with_",[smalltalk.send(self["@count"],"_asString",[])]);
-})]);
-return self}
+return smalltalk.withContext(function($ctx) { self["@count"]=_st(self["@count"]).__minus((1));
+_st(self["@header"])._contents_((function(html){
+return _st(html)._with_(_st(self["@count"])._asString());
+}));
+return self}, self, "decrease", [], smalltalk.Counter)}
 }),
 smalltalk.Counter);
 
@@ -20,11 +20,11 @@ smalltalk.method({
 selector: "increase",
 fn: function (){
 var self=this;
-self["@count"]=smalltalk.send(self["@count"],"__plus",[(1)]);
-smalltalk.send(self["@header"],"_contents_",[(function(html){
-return smalltalk.send(html,"_with_",[smalltalk.send(self["@count"],"_asString",[])]);
-})]);
-return self}
+return smalltalk.withContext(function($ctx) { self["@count"]=_st(self["@count"]).__plus((1));
+_st(self["@header"])._contents_((function(html){
+return _st(html)._with_(_st(self["@count"])._asString());
+}));
+return self}, self, "increase", [], smalltalk.Counter)}
 }),
 smalltalk.Counter);
 
@@ -34,9 +34,9 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_initialize",[],smalltalk.Widget);
+return smalltalk.withContext(function($ctx) { smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
 self["@count"]=(0);
-return self}
+return self}, self, "initialize", [], smalltalk.Counter)}
 }),
 smalltalk.Counter);
 
@@ -46,22 +46,22 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-var $1,$2,$3,$4,$5,$6;
-$1=smalltalk.send(html,"_h1",[]);
-smalltalk.send($1,"_with_",[smalltalk.send(self["@count"],"_asString",[])]);
-$2=smalltalk.send($1,"_yourself",[]);
+return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4,$5,$6;
+$1=_st(html)._h1();
+_st($1)._with_(_st(self["@count"])._asString());
+$2=_st($1)._yourself();
 self["@header"]=$2;
-$3=smalltalk.send(html,"_button",[]);
-smalltalk.send($3,"_with_",["++"]);
-$4=smalltalk.send($3,"_onClick_",[(function(){
-return smalltalk.send(self,"_increase",[]);
-})]);
-$5=smalltalk.send(html,"_button",[]);
-smalltalk.send($5,"_with_",["--"]);
-$6=smalltalk.send($5,"_onClick_",[(function(){
-return smalltalk.send(self,"_decrease",[]);
-})]);
-return self}
+$3=_st(html)._button();
+_st($3)._with_("++");
+$4=_st($3)._onClick_((function(){
+return _st(self)._increase();
+}));
+$5=_st(html)._button();
+_st($5)._with_("--");
+$6=_st($5)._onClick_((function(){
+return _st(self)._decrease();
+}));
+return self}, self, "renderOn:", [html], smalltalk.Counter)}
 }),
 smalltalk.Counter);
 
@@ -72,8 +72,8 @@ smalltalk.method({
 selector: "tryExample",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send(self,"_new",[]),"_appendToJQuery_",[smalltalk.send("body","_asJQuery",[])]);
-return self}
+return smalltalk.withContext(function($ctx) { _st(_st(self)._new())._appendToJQuery_(_st("body")._asJQuery());
+return self}, self, "tryExample", [], smalltalk.Counter.klass)}
 }),
 smalltalk.Counter.klass);
 

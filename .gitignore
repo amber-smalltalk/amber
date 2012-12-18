@@ -14,3 +14,4 @@ test/run.js
 
 # In case amber is also saved in a local Subversion
 .svn
+/node_modules/*

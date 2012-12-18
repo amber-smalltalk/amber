@@ -6,34 +6,34 @@ smalltalk.method({
 selector: "nextChunk",
 fn: function (){
 var self=this;
-var $1,$2,$3;
+return smalltalk.withContext(function($ctx) { var $1,$2,$3;
 var $early={};
 try {
 var char_;
 var result;
 var chunk;
-result=smalltalk.send("","_writeStream",[]);
-smalltalk.send((function(){
-char_=smalltalk.send(self["@stream"],"_next",[]);
+result=_st("")._writeStream();
+_st((function(){
+char_=_st(self["@stream"])._next();
 char_;
-return smalltalk.send(char_,"_notNil",[]);
-}),"_whileTrue_",[(function(){
-$1=smalltalk.send(char_,"__eq",["!"]);
+return _st(char_)._notNil();
+}))._whileTrue_((function(){
+$1=_st(char_).__eq("!");
 if(smalltalk.assert($1)){
-$2=smalltalk.send(smalltalk.send(self["@stream"],"_peek",[]),"__eq",["!"]);
+$2=_st(_st(self["@stream"])._peek()).__eq("!");
 if(smalltalk.assert($2)){
-smalltalk.send(self["@stream"],"_next",[]);
+_st(self["@stream"])._next();
 } else {
-$3=smalltalk.send(smalltalk.send(result,"_contents",[]),"_trimBoth",[]);
+$3=_st(_st(result)._contents())._trimBoth();
 throw $early=[$3];
 };
 };
-return smalltalk.send(result,"_nextPut_",[char_]);
-})]);
+return _st(result)._nextPut_(char_);
+}));
 return nil;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}
+}, self, "nextChunk", [], smalltalk.ChunkParser)}
 }),
 smalltalk.ChunkParser);
 
@@ -43,8 +43,8 @@ smalltalk.method({
 selector: "stream:",
 fn: function (aStream){
 var self=this;
-self["@stream"]=aStream;
-return self}
+return smalltalk.withContext(function($ctx) { self["@stream"]=aStream;
+return self}, self, "stream:", [aStream], smalltalk.ChunkParser)}
 }),
 smalltalk.ChunkParser);
 
@@ -55,10 +55,10 @@ smalltalk.method({
 selector: "on:",
 fn: function (aStream){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_stream_",[aStream]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(self)._new())._stream_(aStream);
 return $1;
-}
+}, self, "on:", [aStream], smalltalk.ChunkParser.klass)}
 }),
 smalltalk.ChunkParser.klass);
 
@@ -70,20 +70,20 @@ smalltalk.method({
 selector: "classNameFor:",
 fn: function (aClass){
 var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(aClass,"_isMetaclass",[]);
+return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+$2=_st(aClass)._isMetaclass();
 if(smalltalk.assert($2)){
-$1=smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_instanceClass",[]),"_name",[]),"__comma",[".klass"]);
+$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
 } else {
-$3=smalltalk.send(aClass,"_isNil",[]);
+$3=_st(aClass)._isNil();
 if(smalltalk.assert($3)){
 $1="nil";
 } else {
-$1=smalltalk.send(aClass,"_name",[]);
+$1=_st(aClass)._name();
 };
 };
 return $1;
-}
+}, self, "classNameFor:", [aClass], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -93,14 +93,14 @@ smalltalk.method({
 selector: "exportAll",
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(stream){
-return smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_packages",[]),"_do_",[(function(pkg){
-return smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(self,"_exportPackage_",[smalltalk.send(pkg,"_name",[])])]);
-})]);
-})]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+return _st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packages())._do_((function(pkg){
+return _st(stream)._nextPutAll_(_st(self)._exportPackage_(_st(pkg)._name()));
+}));
+}));
 return $1;
-}
+}, self, "exportAll", [], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -110,15 +110,15 @@ smalltalk.method({
 selector: "exportClass:",
 fn: function (aClass){
 var self=this;
-var $1;
-$1=smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(stream){
-smalltalk.send(self,"_exportDefinitionOf_on_",[aClass,stream]);
-smalltalk.send(self,"_exportMethodsOf_on_",[aClass,stream]);
-smalltalk.send(self,"_exportMetaDefinitionOf_on_",[aClass,stream]);
-return smalltalk.send(self,"_exportMethodsOf_on_",[smalltalk.send(aClass,"_class",[]),stream]);
-})]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+_st(self)._exportDefinitionOf_on_(aClass,stream);
+_st(self)._exportMethodsOf_on_(aClass,stream);
+_st(self)._exportMetaDefinitionOf_on_(aClass,stream);
+return _st(self)._exportMethodsOf_on_(_st(aClass)._class(),stream);
+}));
 return $1;
-}
+}, self, "exportClass:", [aClass], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -128,30 +128,30 @@ smalltalk.method({
 selector: "exportDefinitionOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1,$2,$3,$4;
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.addClass("]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("'","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])]),"__comma",["', "])]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("smalltalk.","__comma",[smalltalk.send(self,"_classNameFor_",[smalltalk.send(aClass,"_superclass",[])])])]);
-$1=smalltalk.send(aStream,"_nextPutAll_",[", ["]);
-smalltalk.send(smalltalk.send(aClass,"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
-return smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("'","__comma",[each]),"__comma",["'"])]);
+return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4;
+_st(aStream)._nextPutAll_("smalltalk.addClass(");
+_st(aStream)._nextPutAll_(_st(_st("'").__comma(_st(self)._classNameFor_(aClass))).__comma("', "));
+_st(aStream)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(_st(aClass)._superclass())));
+$1=_st(aStream)._nextPutAll_(", [");
+_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+return _st(aStream)._nextPutAll_(_st(_st("'").__comma(each)).__comma("'"));
 }),(function(){
-return smalltalk.send(aStream,"_nextPutAll_",[", "]);
-})]);
-smalltalk.send(aStream,"_nextPutAll_",["], '"]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(aClass,"_category",[]),"__comma",["'"])]);
-$2=smalltalk.send(aStream,"_nextPutAll_",[");"]);
-$3=smalltalk.send(smalltalk.send(aClass,"_comment",[]),"_notEmpty",[]);
+return _st(aStream)._nextPutAll_(", ");
+}));
+_st(aStream)._nextPutAll_("], '");
+_st(aStream)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
+$2=_st(aStream)._nextPutAll_(");");
+$3=_st(_st(aClass)._comment())._notEmpty();
 if(smalltalk.assert($3)){
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk."]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(self,"_classNameFor_",[aClass])]);
-smalltalk.send(aStream,"_nextPutAll_",[".comment="]);
-$4=smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(aClass,"_comment",[]),"_asJavascript",[])]);
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_("smalltalk.");
+_st(aStream)._nextPutAll_(_st(self)._classNameFor_(aClass));
+_st(aStream)._nextPutAll_(".comment=");
+$4=_st(aStream)._nextPutAll_(_st(_st(aClass)._comment())._asJavascript());
 $4;
 };
-smalltalk.send(aStream,"_lf",[]);
-return self}
+_st(aStream)._lf();
+return self}, self, "exportDefinitionOf:on:", [aClass,aStream], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -161,20 +161,20 @@ smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1,$2;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_instanceVariableNames",[]),"_isEmpty",[]);
+return smalltalk.withContext(function($ctx) { var $1,$2;
+$1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
 if(! smalltalk.assert($1)){
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("smalltalk.","__comma",[smalltalk.send(self,"_classNameFor_",[smalltalk.send(aClass,"_class",[])])])]);
-$2=smalltalk.send(aStream,"_nextPutAll_",[".iVarNames = ["]);
+_st(aStream)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(_st(aClass)._class())));
+$2=_st(aStream)._nextPutAll_(".iVarNames = [");
 $2;
-smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
-return smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("'","__comma",[each]),"__comma",["'"])]);
+_st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
+return _st(aStream)._nextPutAll_(_st(_st("'").__comma(each)).__comma("'"));
 }),(function(){
-return smalltalk.send(aStream,"_nextPutAll_",[","]);
-})]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("];","__comma",[smalltalk.send((smalltalk.String || String),"_lf",[])])]);
+return _st(aStream)._nextPutAll_(",");
+}));
+_st(aStream)._nextPutAll_(_st("];").__comma(_st((smalltalk.String || String))._lf()));
 };
-return self}
+return self}, self, "exportMetaDefinitionOf:on:", [aClass,aStream], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -184,34 +184,34 @@ smalltalk.method({
 selector: "exportMethod:of:on:",
 fn: function (aMethod,aClass,aStream){
 var self=this;
-var $1,$2;
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.addMethod("]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_selector",[]),"_asSelector",[]),"_asJavascript",[]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.method({"]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("selector: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_selector",[]),"_asJavascript",[])]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("category: '","__comma",[smalltalk.send(aMethod,"_category",[])]),"__comma",["',"])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("fn: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_fn",[]),"_compiledSource",[])]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("args: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_arguments",[]),"_asJavascript",[])]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("source: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_source",[]),"_asJavascript",[])]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("messageSends: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_messageSends",[]),"_asJavascript",[])]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-$1=smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("referencedClasses: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_referencedClasses",[]),"_asJavascript",[])])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",["}),"]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("smalltalk.","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])])]);
-smalltalk.send(aStream,"_nextPutAll_",[");"]);
-smalltalk.send(aStream,"_lf",[]);
-$2=smalltalk.send(aStream,"_lf",[]);
-return self}
+return smalltalk.withContext(function($ctx) { var $1,$2;
+_st(aStream)._nextPutAll_("smalltalk.addMethod(");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st(_st(_st(aMethod)._selector())._asSelector())._asJavascript()).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_("smalltalk.method({");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("selector: ").__comma(_st(_st(aMethod)._selector())._asJavascript())).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("category: '").__comma(_st(aMethod)._category())).__comma("',"));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("fn: ").__comma(_st(_st(aMethod)._fn())._compiledSource())).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("args: ").__comma(_st(_st(aMethod)._arguments())._asJavascript())).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("source: ").__comma(_st(_st(aMethod)._source())._asJavascript())).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("messageSends: ").__comma(_st(_st(aMethod)._messageSends())._asJavascript())).__comma(","));
+_st(aStream)._lf();
+$1=_st(aStream)._nextPutAll_(_st("referencedClasses: ").__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_("}),");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(aClass)));
+_st(aStream)._nextPutAll_(");");
+_st(aStream)._lf();
+$2=_st(aStream)._lf();
+return self}, self, "exportMethod:of:on:", [aMethod,aClass,aStream], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -221,17 +221,17 @@ smalltalk.method({
 selector: "exportMethodsOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1;
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_methodDictionary",[]),"_values",[]),"_sorted_",[(function(a,b){
-return smalltalk.send(smalltalk.send(a,"_selector",[]),"__lt_eq",[smalltalk.send(b,"_selector",[])]);
-})]),"_do_",[(function(each){
-$1=smalltalk.send(smalltalk.send(each,"_category",[]),"_match_",["^\x5c*"]);
+return smalltalk.withContext(function($ctx) { var $1;
+_st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+})))._do_((function(each){
+$1=_st(_st(each)._category())._match_("^\x5c*");
 if(! smalltalk.assert($1)){
-return smalltalk.send(self,"_exportMethod_of_on_",[each,aClass,aStream]);
+return _st(self)._exportMethod_of_on_(each,aClass,aStream);
 };
-})]);
-smalltalk.send(aStream,"_lf",[]);
-return self}
+}));
+_st(aStream)._lf();
+return self}, self, "exportMethodsOf:on:", [aClass,aStream], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -241,19 +241,19 @@ smalltalk.method({
 selector: "exportPackage:",
 fn: function (packageName){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var package;
-$1=smalltalk.send((smalltalk.String || String),"_streamContents_",[(function(stream){
-package=smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_packageAt_",[packageName]);
+$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+package=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packageAt_(packageName);
 package;
-smalltalk.send(self,"_exportPackageDefinitionOf_on_",[package,stream]);
-smalltalk.send(smalltalk.send(smalltalk.send(package,"_sortedClasses",[]),"_asSet",[]),"_do_",[(function(each){
-return smalltalk.send(stream,"_nextPutAll_",[smalltalk.send(self,"_exportClass_",[each])]);
-})]);
-return smalltalk.send(self,"_exportPackageExtensionsOf_on_",[package,stream]);
-})]);
+_st(self)._exportPackageDefinitionOf_on_(package,stream);
+_st(_st(_st(package)._sortedClasses())._asSet())._do_((function(each){
+return _st(stream)._nextPutAll_(_st(self)._exportClass_(each));
+}));
+return _st(self)._exportPackageExtensionsOf_on_(package,stream);
+}));
 return $1;
-}
+}, self, "exportPackage:", [packageName], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -263,11 +263,11 @@ smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
 fn: function (package,aStream){
 var self=this;
-var $1;
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.addPackage("]);
-$1=smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("'","__comma",[smalltalk.send(package,"_name",[])]),"__comma",["', "]),"__comma",[smalltalk.send(package,"_propertiesAsJSON",[])]),"__comma",[");"])]);
-smalltalk.send(aStream,"_lf",[]);
-return self}
+return smalltalk.withContext(function($ctx) { var $1;
+_st(aStream)._nextPutAll_("smalltalk.addPackage(");
+$1=_st(aStream)._nextPutAll_(_st(_st(_st(_st("'").__comma(_st(package)._name())).__comma("', ")).__comma(_st(package)._propertiesAsJSON())).__comma(");"));
+_st(aStream)._lf();
+return self}, self, "exportPackageDefinitionOf:on:", [package,aStream], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -277,22 +277,22 @@ smalltalk.method({
 selector: "exportPackageExtensionsOf:on:",
 fn: function (package,aStream){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var name;
-name=smalltalk.send(package,"_name",[]);
-smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_sortedClasses_",[smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_classes",[])]),"_do_",[(function(each){
-return smalltalk.send([each,smalltalk.send(each,"_class",[])],"_do_",[(function(aClass){
-return smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_methodDictionary",[]),"_values",[]),"_sorted_",[(function(a,b){
-return smalltalk.send(smalltalk.send(a,"_selector",[]),"__lt_eq",[smalltalk.send(b,"_selector",[])]);
-})]),"_do_",[(function(method){
-$1=smalltalk.send(smalltalk.send(method,"_category",[]),"_match_",[smalltalk.send("^\x5c*","__comma",[name])]);
+name=_st(package)._name();
+_st(_st((smalltalk.Package || Package))._sortedClasses_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes()))._do_((function(each){
+return _st([each,_st(each)._class()])._do_((function(aClass){
+return _st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+})))._do_((function(method){
+$1=_st(_st(method)._category())._match_(_st("^\x5c*").__comma(name));
 if(smalltalk.assert($1)){
-return smalltalk.send(self,"_exportMethod_of_on_",[method,aClass,aStream]);
+return _st(self)._exportMethod_of_on_(method,aClass,aStream);
 };
-})]);
-})]);
-})]);
-return self}
+}));
+}));
+}));
+return self}, self, "exportPackageExtensionsOf:on:", [package,aStream], smalltalk.Exporter)}
 }),
 smalltalk.Exporter);
 
@@ -305,10 +305,10 @@ smalltalk.method({
 selector: "chunkEscape:",
 fn: function (aString){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(aString,"_replace_with_",["!","!!"]),"_trimBoth",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(aString)._replace_with_("!","!!"))._trimBoth();
 return $1;
-}
+}, self, "chunkEscape:", [aString], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -318,20 +318,20 @@ smalltalk.method({
 selector: "classNameFor:",
 fn: function (aClass){
 var self=this;
-var $2,$3,$1;
-$2=smalltalk.send(aClass,"_isMetaclass",[]);
+return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+$2=_st(aClass)._isMetaclass();
 if(smalltalk.assert($2)){
-$1=smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_instanceClass",[]),"_name",[]),"__comma",[" class"]);
+$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(" class");
 } else {
-$3=smalltalk.send(aClass,"_isNil",[]);
+$3=_st(aClass)._isNil();
 if(smalltalk.assert($3)){
 $1="nil";
 } else {
-$1=smalltalk.send(aClass,"_name",[]);
+$1=_st(aClass)._name();
 };
 };
 return $1;
-}
+}, self, "classNameFor:", [aClass], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -341,30 +341,30 @@ smalltalk.method({
 selector: "exportDefinitionOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1,$2,$3,$4;
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(self,"_classNameFor_",[smalltalk.send(aClass,"_superclass",[])])]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(" subclass: #","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])])]);
-smalltalk.send(aStream,"_lf",[]);
-$1=smalltalk.send(aStream,"_nextPutAll_",["\x09instanceVariableNames: '"]);
-smalltalk.send(smalltalk.send(aClass,"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
-return smalltalk.send(aStream,"_nextPutAll_",[each]);
+return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4;
+_st(aStream)._nextPutAll_(_st(self)._classNameFor_(_st(aClass)._superclass()));
+_st(aStream)._nextPutAll_(_st(" subclass: #").__comma(_st(self)._classNameFor_(aClass)));
+_st(aStream)._lf();
+$1=_st(aStream)._nextPutAll_("\x09instanceVariableNames: '");
+_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+return _st(aStream)._nextPutAll_(each);
 }),(function(){
-return smalltalk.send(aStream,"_nextPutAll_",[" "]);
-})]);
-smalltalk.send(aStream,"_nextPutAll_",["'"]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("\x09package: '","__comma",[smalltalk.send(aClass,"_category",[])]),"__comma",["'!"])]);
-$2=smalltalk.send(aStream,"_lf",[]);
-$3=smalltalk.send(smalltalk.send(aClass,"_comment",[]),"_notEmpty",[]);
+return _st(aStream)._nextPutAll_(" ");
+}));
+_st(aStream)._nextPutAll_("'");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("\x09package: '").__comma(_st(aClass)._category())).__comma("'!"));
+$2=_st(aStream)._lf();
+$3=_st(_st(aClass)._comment())._notEmpty();
 if(smalltalk.assert($3)){
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("!","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])]),"__comma",[" commentStamp!"])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(self,"_chunkEscape_",[smalltalk.send(aClass,"_comment",[])]),"__comma",["!"])]);
-$4=smalltalk.send(aStream,"_lf",[]);
+_st(aStream)._nextPutAll_(_st(_st("!").__comma(_st(self)._classNameFor_(aClass))).__comma(" commentStamp!"));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st(self)._chunkEscape_(_st(aClass)._comment())).__comma("!"));
+$4=_st(aStream)._lf();
 $4;
 };
-smalltalk.send(aStream,"_lf",[]);
-return self}
+_st(aStream)._lf();
+return self}, self, "exportDefinitionOf:on:", [aClass,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -374,23 +374,23 @@ smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1,$2,$3;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_instanceVariableNames",[]),"_isEmpty",[]);
+return smalltalk.withContext(function($ctx) { var $1,$2,$3;
+$1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
 if(! smalltalk.assert($1)){
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(self,"_classNameFor_",[smalltalk.send(aClass,"_class",[])])]);
-$2=smalltalk.send(aStream,"_nextPutAll_",[" instanceVariableNames: '"]);
+_st(aStream)._nextPutAll_(_st(self)._classNameFor_(_st(aClass)._class()));
+$2=_st(aStream)._nextPutAll_(" instanceVariableNames: '");
 $2;
-smalltalk.send(smalltalk.send(smalltalk.send(aClass,"_class",[]),"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
-return smalltalk.send(aStream,"_nextPutAll_",[each]);
+_st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
+return _st(aStream)._nextPutAll_(each);
 }),(function(){
-return smalltalk.send(aStream,"_nextPutAll_",[" "]);
-})]);
-smalltalk.send(aStream,"_nextPutAll_",["'!"]);
-smalltalk.send(aStream,"_lf",[]);
-$3=smalltalk.send(aStream,"_lf",[]);
+return _st(aStream)._nextPutAll_(" ");
+}));
+_st(aStream)._nextPutAll_("'!");
+_st(aStream)._lf();
+$3=_st(aStream)._lf();
 $3;
 };
-return self}
+return self}, self, "exportMetaDefinitionOf:on:", [aClass,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -400,13 +400,13 @@ smalltalk.method({
 selector: "exportMethod:of:on:",
 fn: function (aMethod,aClass,aStream){
 var self=this;
-var $1;
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(self,"_chunkEscape_",[smalltalk.send(aMethod,"_source",[])])]);
-smalltalk.send(aStream,"_lf",[]);
-$1=smalltalk.send(aStream,"_nextPutAll_",["!"]);
-return self}
+return smalltalk.withContext(function($ctx) { var $1;
+_st(aStream)._lf();
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(self)._chunkEscape_(_st(aMethod)._source()));
+_st(aStream)._lf();
+$1=_st(aStream)._nextPutAll_("!");
+return self}, self, "exportMethod:of:on:", [aMethod,aClass,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -416,18 +416,18 @@ smalltalk.method({
 selector: "exportMethods:category:of:on:",
 fn: function (methods,category,aClass,aStream){
 var self=this;
-var $1,$2;
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("!","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])])]);
-$1=smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(" methodsFor: '","__comma",[category]),"__comma",["'!"])]);
-smalltalk.send(smalltalk.send(methods,"_sorted_",[(function(a,b){
-return smalltalk.send(smalltalk.send(a,"_selector",[]),"__lt_eq",[smalltalk.send(b,"_selector",[])]);
-})]),"_do_",[(function(each){
-return smalltalk.send(self,"_exportMethod_of_on_",[each,aClass,aStream]);
-})]);
-smalltalk.send(aStream,"_nextPutAll_",[" !"]);
-smalltalk.send(aStream,"_lf",[]);
-$2=smalltalk.send(aStream,"_lf",[]);
-return self}
+return smalltalk.withContext(function($ctx) { var $1,$2;
+_st(aStream)._nextPutAll_(_st("!").__comma(_st(self)._classNameFor_(aClass)));
+$1=_st(aStream)._nextPutAll_(_st(_st(" methodsFor: '").__comma(category)).__comma("'!"));
+_st(_st(methods)._sorted_((function(a,b){
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+})))._do_((function(each){
+return _st(self)._exportMethod_of_on_(each,aClass,aStream);
+}));
+_st(aStream)._nextPutAll_(" !");
+_st(aStream)._lf();
+$2=_st(aStream)._lf();
+return self}, self, "exportMethods:category:of:on:", [methods,category,aClass,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -437,24 +437,24 @@ smalltalk.method({
 selector: "exportMethodsOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var map;
-map=smalltalk.send((smalltalk.Dictionary || Dictionary),"_new",[]);
-smalltalk.send(aClass,"_protocolsDo_",[(function(category,methods){
-$1=smalltalk.send(category,"_match_",["^\x5c*"]);
+map=_st((smalltalk.Dictionary || Dictionary))._new();
+_st(aClass)._protocolsDo_((function(category,methods){
+$1=_st(category)._match_("^\x5c*");
 if(! smalltalk.assert($1)){
-return smalltalk.send(map,"_at_put_",[category,methods]);
+return _st(map)._at_put_(category,methods);
 };
-})]);
-smalltalk.send(smalltalk.send(smalltalk.send(map,"_keys",[]),"_sorted_",[(function(a,b){
-return smalltalk.send(a,"__lt_eq",[b]);
-})]),"_do_",[(function(category){
+}));
+_st(_st(_st(map)._keys())._sorted_((function(a,b){
+return _st(a).__lt_eq(b);
+})))._do_((function(category){
 var methods;
-methods=smalltalk.send(map,"_at_",[category]);
+methods=_st(map)._at_(category);
 methods;
-return smalltalk.send(self,"_exportMethods_category_of_on_",[methods,category,aClass,aStream]);
-})]);
-return self}
+return _st(self)._exportMethods_category_of_on_(methods,category,aClass,aStream);
+}));
+return self}, self, "exportMethodsOf:on:", [aClass,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -464,10 +464,10 @@ smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
 fn: function (package,aStream){
 var self=this;
-var $1;
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Smalltalk current createPackage: '","__comma",[smalltalk.send(package,"_name",[])]),"__comma",["' properties: "]),"__comma",[smalltalk.send(smalltalk.send(package,"_properties",[]),"_storeString",[])]),"__comma",["!"])]);
-$1=smalltalk.send(aStream,"_lf",[]);
-return self}
+return smalltalk.withContext(function($ctx) { var $1;
+_st(aStream)._nextPutAll_(_st(_st(_st(_st("Smalltalk current createPackage: '").__comma(_st(package)._name())).__comma("' properties: ")).__comma(_st(_st(package)._properties())._storeString())).__comma("!"));
+$1=_st(aStream)._lf();
+return self}, self, "exportPackageDefinitionOf:on:", [package,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -477,31 +477,31 @@ smalltalk.method({
 selector: "exportPackageExtensionsOf:on:",
 fn: function (package,aStream){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var name;
 var map;
-name=smalltalk.send(package,"_name",[]);
-smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_sortedClasses_",[smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_classes",[])]),"_do_",[(function(each){
-return smalltalk.send([each,smalltalk.send(each,"_class",[])],"_do_",[(function(aClass){
-map=smalltalk.send((smalltalk.Dictionary || Dictionary),"_new",[]);
+name=_st(package)._name();
+_st(_st((smalltalk.Package || Package))._sortedClasses_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes()))._do_((function(each){
+return _st([each,_st(each)._class()])._do_((function(aClass){
+map=_st((smalltalk.Dictionary || Dictionary))._new();
 map;
-smalltalk.send(aClass,"_protocolsDo_",[(function(category,methods){
-$1=smalltalk.send(category,"_match_",[smalltalk.send("^\x5c*","__comma",[name])]);
+_st(aClass)._protocolsDo_((function(category,methods){
+$1=_st(category)._match_(_st("^\x5c*").__comma(name));
 if(smalltalk.assert($1)){
-return smalltalk.send(map,"_at_put_",[category,methods]);
+return _st(map)._at_put_(category,methods);
 };
-})]);
-return smalltalk.send(smalltalk.send(smalltalk.send(map,"_keys",[]),"_sorted_",[(function(a,b){
-return smalltalk.send(a,"__lt_eq",[b]);
-})]),"_do_",[(function(category){
+}));
+return _st(_st(_st(map)._keys())._sorted_((function(a,b){
+return _st(a).__lt_eq(b);
+})))._do_((function(category){
 var methods;
-methods=smalltalk.send(map,"_at_",[category]);
+methods=_st(map)._at_(category);
 methods;
-return smalltalk.send(self,"_exportMethods_category_of_on_",[methods,category,aClass,aStream]);
-})]);
-})]);
-})]);
-return self}
+return _st(self)._exportMethods_category_of_on_(methods,category,aClass,aStream);
+}));
+}));
+}));
+return self}, self, "exportPackageExtensionsOf:on:", [package,aStream], smalltalk.ChunkExporter)}
 }),
 smalltalk.ChunkExporter);
 
@@ -514,21 +514,21 @@ smalltalk.method({
 selector: "exportDefinitionOf:on:",
 fn: function (aClass,aStream){
 var self=this;
-var $1,$2;
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.addClass("]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("'","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])]),"__comma",["', "])]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("smalltalk.","__comma",[smalltalk.send(self,"_classNameFor_",[smalltalk.send(aClass,"_superclass",[])])])]);
-$1=smalltalk.send(aStream,"_nextPutAll_",[", ["]);
-smalltalk.send(smalltalk.send(aClass,"_instanceVariableNames",[]),"_do_separatedBy_",[(function(each){
-return smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("'","__comma",[each]),"__comma",["'"])]);
+return smalltalk.withContext(function($ctx) { var $1,$2;
+_st(aStream)._nextPutAll_("smalltalk.addClass(");
+_st(aStream)._nextPutAll_(_st(_st("'").__comma(_st(self)._classNameFor_(aClass))).__comma("', "));
+_st(aStream)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(_st(aClass)._superclass())));
+$1=_st(aStream)._nextPutAll_(", [");
+_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+return _st(aStream)._nextPutAll_(_st(_st("'").__comma(each)).__comma("'"));
 }),(function(){
-return smalltalk.send(aStream,"_nextPutAll_",[", "]);
-})]);
-smalltalk.send(aStream,"_nextPutAll_",["], '"]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(aClass,"_category",[]),"__comma",["'"])]);
-$2=smalltalk.send(aStream,"_nextPutAll_",[");"]);
-smalltalk.send(aStream,"_lf",[]);
-return self}
+return _st(aStream)._nextPutAll_(", ");
+}));
+_st(aStream)._nextPutAll_("], '");
+_st(aStream)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
+$2=_st(aStream)._nextPutAll_(");");
+_st(aStream)._lf();
+return self}, self, "exportDefinitionOf:on:", [aClass,aStream], smalltalk.StrippedExporter)}
 }),
 smalltalk.StrippedExporter);
 
@@ -538,24 +538,24 @@ smalltalk.method({
 selector: "exportMethod:of:on:",
 fn: function (aMethod,aClass,aStream){
 var self=this;
-var $1;
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.addMethod("]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aMethod,"_selector",[]),"_asSelector",[]),"_asJavascript",[]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",["smalltalk.method({"]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send(smalltalk.send("selector: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_selector",[]),"_asJavascript",[])]),"__comma",[","])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("fn: ","__comma",[smalltalk.send(smalltalk.send(aMethod,"_fn",[]),"_compiledSource",[])])]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",["}),"]);
-smalltalk.send(aStream,"_lf",[]);
-smalltalk.send(aStream,"_nextPutAll_",[smalltalk.send("smalltalk.","__comma",[smalltalk.send(self,"_classNameFor_",[aClass])])]);
-smalltalk.send(aStream,"_nextPutAll_",[");"]);
-smalltalk.send(aStream,"_lf",[]);
-$1=smalltalk.send(aStream,"_lf",[]);
-return self}
+return smalltalk.withContext(function($ctx) { var $1;
+_st(aStream)._nextPutAll_("smalltalk.addMethod(");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st(_st(_st(aMethod)._selector())._asSelector())._asJavascript()).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_("smalltalk.method({");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st(_st("selector: ").__comma(_st(_st(aMethod)._selector())._asJavascript())).__comma(","));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st("fn: ").__comma(_st(_st(aMethod)._fn())._compiledSource()));
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_("}),");
+_st(aStream)._lf();
+_st(aStream)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(aClass)));
+_st(aStream)._nextPutAll_(");");
+_st(aStream)._lf();
+$1=_st(aStream)._lf();
+return self}, self, "exportMethod:of:on:", [aMethod,aClass,aStream], smalltalk.StrippedExporter)}
 }),
 smalltalk.StrippedExporter);
 
@@ -568,33 +568,33 @@ smalltalk.method({
 selector: "import:",
 fn: function (aStream){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var chunk;
 var result;
 var parser;
 var lastEmpty;
-parser=smalltalk.send((smalltalk.ChunkParser || ChunkParser),"_on_",[aStream]);
+parser=_st((smalltalk.ChunkParser || ChunkParser))._on_(aStream);
 lastEmpty=false;
-smalltalk.send((function(){
-chunk=smalltalk.send(parser,"_nextChunk",[]);
+_st((function(){
+chunk=_st(parser)._nextChunk();
 chunk;
-return smalltalk.send(chunk,"_isNil",[]);
-}),"_whileFalse_",[(function(){
-$1=smalltalk.send(chunk,"_isEmpty",[]);
+return _st(chunk)._isNil();
+}))._whileFalse_((function(){
+$1=_st(chunk)._isEmpty();
 if(smalltalk.assert($1)){
 lastEmpty=true;
 return lastEmpty;
 } else {
-result=smalltalk.send(smalltalk.send((smalltalk.Compiler || Compiler),"_new",[]),"_evaluateExpression_",[chunk]);
+result=_st(_st((smalltalk.Compiler || Compiler))._new())._evaluateExpression_(chunk);
 result;
 if(smalltalk.assert(lastEmpty)){
 lastEmpty=false;
 lastEmpty;
-return smalltalk.send(result,"_scanFrom_",[parser]);
+return _st(result)._scanFrom_(parser);
 };
 };
-})]);
-return self}
+}));
+return self}, self, "import:", [aStream], smalltalk.Importer)}
 }),
 smalltalk.Importer);
 
@@ -607,16 +607,16 @@ smalltalk.method({
 selector: "initializePackageNamed:prefix:",
 fn: function (packageName,aString){
 var self=this;
-var $1,$2;
-smalltalk.send(smalltalk.send(smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]),"_classes",[]),"_do_",[(function(each){
+return smalltalk.withContext(function($ctx) { var $1,$2;
+_st(_st(_st((smalltalk.Package || Package))._named_(packageName))._classes())._do_((function(each){
 smalltalk.init(each);
 ;
-return smalltalk.send(each,"_initialize",[]);
-})]);
-$1=smalltalk.send((smalltalk.Package || Package),"_named_",[packageName]);
-smalltalk.send($1,"_commitPathJs_",[smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/js"])]);
-$2=smalltalk.send($1,"_commitPathSt_",[smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/st"])]);
-return self}
+return _st(each)._initialize();
+}));
+$1=_st((smalltalk.Package || Package))._named_(packageName);
+_st($1)._commitPathJs_(_st(_st("/").__comma(aString)).__comma("/js"));
+$2=_st($1)._commitPathSt_(_st(_st("/").__comma(aString)).__comma("/st"));
+return self}, self, "initializePackageNamed:prefix:", [packageName,aString], smalltalk.PackageLoader)}
 }),
 smalltalk.PackageLoader);
 
@@ -626,18 +626,18 @@ smalltalk.method({
 selector: "loadPackage:prefix:",
 fn: function (packageName,aString){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var url;
-url=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("/","__comma",[aString]),"__comma",["/js/"]),"__comma",[packageName]),"__comma",[".js"]);
-smalltalk.send(jQuery,"_ajax_options_",[url,smalltalk.HashedCollection._fromPairs_([smalltalk.send("type","__minus_gt",["GET"]),smalltalk.send("dataType","__minus_gt",["script"]),smalltalk.send("complete","__minus_gt",[(function(jqXHR,textStatus){
-$1=smalltalk.send(smalltalk.send(jqXHR,"_readyState",[]),"__eq",[(4)]);
+url=_st(_st(_st(_st("/").__comma(aString)).__comma("/js/")).__comma(packageName)).__comma(".js");
+_st(jQuery)._ajax_options_(url,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("GET"),_st("dataType").__minus_gt("script"),_st("complete").__minus_gt((function(jqXHR,textStatus){
+$1=_st(_st(jqXHR)._readyState()).__eq((4));
 if(smalltalk.assert($1)){
-return smalltalk.send(self,"_initializePackageNamed_prefix_",[packageName,aString]);
+return _st(self)._initializePackageNamed_prefix_(packageName,aString);
 };
-})]),smalltalk.send("error","__minus_gt",[(function(){
-return smalltalk.send(window,"_alert_",[smalltalk.send("Could not load package at:  ","__comma",[url])]);
-})])])]);
-return self}
+})),_st("error").__minus_gt((function(){
+return _st(window)._alert_(_st("Could not load package at:  ").__comma(url));
+}))]));
+return self}, self, "loadPackage:prefix:", [packageName,aString], smalltalk.PackageLoader)}
 }),
 smalltalk.PackageLoader);
 
@@ -647,10 +647,10 @@ smalltalk.method({
 selector: "loadPackages:prefix:",
 fn: function (aCollection,aString){
 var self=this;
-smalltalk.send(aCollection,"_do_",[(function(each){
-return smalltalk.send(self,"_loadPackage_prefix_",[each,aString]);
-})]);
-return self}
+return smalltalk.withContext(function($ctx) { _st(aCollection)._do_((function(each){
+return _st(self)._loadPackage_prefix_(each,aString);
+}));
+return self}, self, "loadPackages:prefix:", [aCollection,aString], smalltalk.PackageLoader)}
 }),
 smalltalk.PackageLoader);
 
@@ -661,10 +661,10 @@ smalltalk.method({
 selector: "loadPackages:prefix:",
 fn: function (aCollection,aString){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_loadPackages_prefix_",[aCollection,aString]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(self)._new())._loadPackages_prefix_(aCollection,aString);
 return $1;
-}
+}, self, "loadPackages:prefix:", [aCollection,aString], smalltalk.PackageLoader.klass)}
 }),
 smalltalk.PackageLoader.klass);
 

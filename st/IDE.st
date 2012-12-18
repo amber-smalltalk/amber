@@ -1333,7 +1333,7 @@ label
 !
 
 method
-	^selectedContext receiver class methodAt: selectedContext selector
+	^selectedContext method
 !
 
 receiver
@@ -2367,24 +2367,6 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	elements withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!Date methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables

@@ -6,9 +6,9 @@ smalltalk.method({
 selector: "context",
 fn: function (){
 var self=this;
-return self.context;
+return smalltalk.withContext(function($ctx) { return self.context;
 ;
-return self}
+return self}, self, "context", [], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -18,9 +18,9 @@ smalltalk.method({
 selector: "isSmalltalkError",
 fn: function (){
 var self=this;
-return self.smalltalkError === true;
+return smalltalk.withContext(function($ctx) { return self.smalltalkError === true;
 ;
-return self}
+return self}, self, "isSmalltalkError", [], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -30,9 +30,9 @@ smalltalk.method({
 selector: "jsStack",
 fn: function (){
 var self=this;
-return self.stack;
+return smalltalk.withContext(function($ctx) { return self.stack;
 ;
-return self}
+return self}, self, "jsStack", [], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -42,8 +42,8 @@ smalltalk.method({
 selector: "messageText",
 fn: function (){
 var self=this;
-return self["@messageText"];
-}
+return smalltalk.withContext(function($ctx) { return self["@messageText"];
+}, self, "messageText", [], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -53,8 +53,8 @@ smalltalk.method({
 selector: "messageText:",
 fn: function (aString){
 var self=this;
-self["@messageText"]=aString;
-return self}
+return smalltalk.withContext(function($ctx) { self["@messageText"]=aString;
+return self}, self, "messageText:", [aString], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -64,9 +64,9 @@ smalltalk.method({
 selector: "signal",
 fn: function (){
 var self=this;
-self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
+return smalltalk.withContext(function($ctx) { self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
 ;
-return self}
+return self}, self, "signal", [], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -76,9 +76,9 @@ smalltalk.method({
 selector: "signal:",
 fn: function (aString){
 var self=this;
-smalltalk.send(self,"_messageText_",[aString]);
-smalltalk.send(self,"_signal",[]);
-return self}
+return smalltalk.withContext(function($ctx) { _st(self)._messageText_(aString);
+_st(self)._signal();
+return self}, self, "signal:", [aString], smalltalk.Error)}
 }),
 smalltalk.Error);
 
@@ -89,10 +89,10 @@ smalltalk.method({
 selector: "signal",
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_signal",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(self)._new())._signal();
 return $1;
-}
+}, self, "signal", [], smalltalk.Error.klass)}
 }),
 smalltalk.Error.klass);
 
@@ -102,10 +102,10 @@ smalltalk.method({
 selector: "signal:",
 fn: function (aString){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_signal_",[aString]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(self)._new())._signal_(aString);
 return $1;
-}
+}, self, "signal:", [aString], smalltalk.Error.klass)}
 }),
 smalltalk.Error.klass);
 
@@ -117,8 +117,8 @@ smalltalk.method({
 selector: "message",
 fn: function (){
 var self=this;
-return self["@message"];
-}
+return smalltalk.withContext(function($ctx) { return self["@message"];
+}, self, "message", [], smalltalk.MessageNotUnderstood)}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -128,8 +128,8 @@ smalltalk.method({
 selector: "message:",
 fn: function (aMessage){
 var self=this;
-self["@message"]=aMessage;
-return self}
+return smalltalk.withContext(function($ctx) { self["@message"]=aMessage;
+return self}, self, "message:", [aMessage], smalltalk.MessageNotUnderstood)}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -139,10 +139,10 @@ smalltalk.method({
 selector: "messageText",
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_receiver",[]),"_asString",[]),"__comma",[" does not understand #"]),"__comma",[smalltalk.send(smalltalk.send(self,"_message",[]),"_selector",[])]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(_st(_st(self)._receiver())._asString()).__comma(" does not understand #")).__comma(_st(_st(self)._message())._selector());
 return $1;
-}
+}, self, "messageText", [], smalltalk.MessageNotUnderstood)}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -152,8 +152,8 @@ smalltalk.method({
 selector: "receiver",
 fn: function (){
 var self=this;
-return self["@receiver"];
-}
+return smalltalk.withContext(function($ctx) { return self["@receiver"];
+}, self, "receiver", [], smalltalk.MessageNotUnderstood)}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -163,8 +163,8 @@ smalltalk.method({
 selector: "receiver:",
 fn: function (anObject){
 var self=this;
-self["@receiver"]=anObject;
-return self}
+return smalltalk.withContext(function($ctx) { self["@receiver"]=anObject;
+return self}, self, "receiver:", [anObject], smalltalk.MessageNotUnderstood)}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -177,8 +177,8 @@ smalltalk.method({
 selector: "object",
 fn: function (){
 var self=this;
-return self["@object"];
-}
+return smalltalk.withContext(function($ctx) { return self["@object"];
+}, self, "object", [], smalltalk.NonBooleanReceiver)}
 }),
 smalltalk.NonBooleanReceiver);
 
@@ -188,8 +188,8 @@ smalltalk.method({
 selector: "object:",
 fn: function (anObject){
 var self=this;
-self["@object"]=anObject;
-return self}
+return smalltalk.withContext(function($ctx) { self["@object"]=anObject;
+return self}, self, "object:", [anObject], smalltalk.NonBooleanReceiver)}
 }),
 smalltalk.NonBooleanReceiver);
 
@@ -202,15 +202,15 @@ smalltalk.method({
 selector: "handleError:",
 fn: function (anError){
 var self=this;
-var $1;
-$1=smalltalk.send(anError,"_context",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(anError)._context();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logErrorContext_",[smalltalk.send(anError,"_context",[])]);
+_st(self)._logErrorContext_(_st(anError)._context());
 };
-smalltalk.send(self,"_logError_",[anError]);
-return self}
+_st(self)._logError_(anError);
+return self}, self, "handleError:", [anError], smalltalk.ErrorHandler)}
 }),
 smalltalk.ErrorHandler);
 
@@ -220,8 +220,8 @@ smalltalk.method({
 selector: "log:",
 fn: function (aString){
 var self=this;
-smalltalk.send(console,"_log_",[aString]);
-return self}
+return smalltalk.withContext(function($ctx) { _st(console)._log_(aString);
+return self}, self, "log:", [aString], smalltalk.ErrorHandler)}
 }),
 smalltalk.ErrorHandler);
 
@@ -231,15 +231,15 @@ smalltalk.method({
 selector: "logContext:",
 fn: function (aContext){
 var self=this;
-var $1;
-$1=smalltalk.send(aContext,"_home",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(aContext)._home();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logContext_",[smalltalk.send(aContext,"_home",[])]);
+_st(self)._logContext_(_st(aContext)._home());
 };
-smalltalk.send(self,"_log_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext,"_receiver",[]),"_asString",[]),"__comma",[">>"]),"__comma",[smalltalk.send(aContext,"_selector",[])])]);
-return self}
+_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(aContext)._selector()));
+return self}, self, "logContext:", [aContext], smalltalk.ErrorHandler)}
 }),
 smalltalk.ErrorHandler);
 
@@ -249,8 +249,8 @@ smalltalk.method({
 selector: "logError:",
 fn: function (anError){
 var self=this;
-smalltalk.send(self,"_log_",[smalltalk.send(anError,"_messageText",[])]);
-return self}
+return smalltalk.withContext(function($ctx) { _st(self)._log_(_st(anError)._messageText());
+return self}, self, "logError:", [anError], smalltalk.ErrorHandler)}
 }),
 smalltalk.ErrorHandler);
 
@@ -260,18 +260,18 @@ smalltalk.method({
 selector: "logErrorContext:",
 fn: function (aContext){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 if(($receiver = aContext) == nil || $receiver == undefined){
 aContext;
 } else {
-$1=smalltalk.send(aContext,"_home",[]);
+$1=_st(aContext)._home();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logContext_",[smalltalk.send(aContext,"_home",[])]);
+_st(self)._logContext_(_st(aContext)._home());
 };
 };
-return self}
+return self}, self, "logErrorContext:", [aContext], smalltalk.ErrorHandler)}
 }),
 smalltalk.ErrorHandler);
 
@@ -283,15 +283,15 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 if(($receiver = self["@current"]) == nil || $receiver == undefined){
-self["@current"]=smalltalk.send(self,"_new",[]);
+self["@current"]=_st(self)._new();
 $1=self["@current"];
 } else {
 $1=self["@current"];
 };
 return $1;
-}
+}, self, "current", [], smalltalk.ErrorHandler.klass)}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -301,8 +301,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_register",[]);
-return self}
+return smalltalk.withContext(function($ctx) { _st(self)._register();
+return self}, self, "initialize", [], smalltalk.ErrorHandler.klass)}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -312,8 +312,8 @@ smalltalk.method({
 selector: "register",
 fn: function (){
 var self=this;
-smalltalk.send((smalltalk.ErrorHandler || ErrorHandler),"_setCurrent_",[smalltalk.send(self,"_new",[])]);
-return self}
+return smalltalk.withContext(function($ctx) { _st((smalltalk.ErrorHandler || ErrorHandler))._setCurrent_(_st(self)._new());
+return self}, self, "register", [], smalltalk.ErrorHandler.klass)}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -323,8 +323,8 @@ smalltalk.method({
 selector: "setCurrent:",
 fn: function (anHandler){
 var self=this;
-self["@current"]=anHandler;
-return self}
+return smalltalk.withContext(function($ctx) { self["@current"]=anHandler;
+return self}, self, "setCurrent:", [anHandler], smalltalk.ErrorHandler.klass)}
 }),
 smalltalk.ErrorHandler.klass);
 

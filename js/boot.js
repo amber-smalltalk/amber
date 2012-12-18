@@ -499,6 +499,7 @@ function Smalltalk() {
     };
 
 	/* Handles unhandled errors during message sends */
+    // TODO: simply send the message ans handle #dnu:
 
 	st.send = function(receiver, selector, args, klass) {
 		if(st.thisContext) {
@@ -518,6 +519,7 @@ function Smalltalk() {
 		}
 	};
 
+    //TODO: remove
 	function withContextSend(receiver, selector, args, klass) {
 		var call, method;
 		if(receiver == null) {
@@ -536,6 +538,7 @@ function Smalltalk() {
 
 	st.withContext = function(fn, receiver, selector, args, lookupClass) {
 		if(st.thisContext) {
+            st.thisContext.pc++;
 			return inContext(fn, receiver, selector, args, lookupClass);
 		} else {
 			try {return inContext(fn, receiver, selector, args, lookupClass)}
@@ -634,11 +637,12 @@ function Smalltalk() {
 
 		}
 		st.oldContext = null;
+
 		c.homeContext = tc;
-        c.pc          = 1;
 		c.receiver    = receiver;
         c.selector    = selector || "";
 		c.locals      = locals || {};
+        c.lookupClass = lookupClass;
 		return st.thisContext = c;
 	}
 
@@ -751,12 +755,13 @@ function Smalltalk() {
 
 inherits(Smalltalk, SmalltalkObject);
 
-function SmalltalkMethodContext(receiver, selector, locals, home, lookupClass) {
+function SmalltalkMethodContext(receiver, selector, locals, home, lookupClass, pc) {
 	this.receiver    = receiver;
     this.selector    = selector;
 	this.locals      = locals || {};
 	this.homeContext = home;
     this.lookupClass = lookupClass;
+    this.pc          = pc || 0;
 }
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
@@ -767,8 +772,10 @@ SmalltalkMethodContext.prototype.copy = function() {
 	return new SmalltalkMethodContext(
 		this.receiver,
         this.selector,
-		this.temps,
-		home
+		this.locals,
+		home,
+        this.lookupClass,
+        this.pc
 	);
 };
 

@@ -845,6 +845,10 @@ identityHash
 	<return self % aNumber>
 !
 
+\\ aNumber
+	<return self % aNumber>
+!
+
 abs
 	^ <Math.abs(self);>
 !

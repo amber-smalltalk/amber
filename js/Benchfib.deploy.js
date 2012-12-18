@@ -7,10 +7,10 @@ smalltalk.method({
 selector: "main",
 fn: function (){
 var self=this;
-var result;
-result=smalltalk.send((0),"_tinyBenchmarks",[]);
-smalltalk.send(console,"_log_",[smalltalk.send("0 tinyBenchmarks => ","__comma",[result])]);
-return self}
+return smalltalk.withContext(function($ctx) { var result;
+result=_st((0))._tinyBenchmarks();
+_st(console)._log_(_st("0 tinyBenchmarks => ").__comma(result));
+return self}, self, "main", [], smalltalk.Benchfib.klass)}
 }),
 smalltalk.Benchfib.klass);
 
@@ -21,15 +21,15 @@ smalltalk.method({
 selector: "benchFib",
 fn: function (){
 var self=this;
-var $2,$1;
-$2=smalltalk.send(self,"__lt",[(2)]);
+return smalltalk.withContext(function($ctx) { var $2,$1;
+$2=_st(self).__lt((2));
 if(smalltalk.assert($2)){
 $1=(1);
 } else {
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"__minus",[(1)]),"_benchFib",[]),"__plus",[smalltalk.send(smalltalk.send(self,"__minus",[(2)]),"_benchFib",[])]),"__plus",[(1)]);
+$1=_st(_st(_st(_st(self).__minus((1)))._benchFib()).__plus(_st(_st(self).__minus((2)))._benchFib())).__plus((1));
 };
 return $1;
-}
+}, self, "benchFib", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 
@@ -39,42 +39,42 @@ smalltalk.method({
 selector: "benchmark",
 fn: function (){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var size;
 var flags;
 var prime;
 var k;
 var count;
 size=(8190);
-smalltalk.send((1),"_to_do_",[self,(function(iter){
+_st((1))._to_do_(self,(function(iter){
 count=(0);
 count;
-flags=smalltalk.send((smalltalk.Array || Array),"_new",[]);
+flags=_st((smalltalk.Array || Array))._new();
 flags;
-smalltalk.send(size,"_timesRepeat_",[(function(){
-return smalltalk.send(flags,"_add_",[true]);
-})]);
-return smalltalk.send((1),"_to_do_",[size,(function(i){
-$1=smalltalk.send(flags,"_at_",[i]);
+_st(size)._timesRepeat_((function(){
+return _st(flags)._add_(true);
+}));
+return _st((1))._to_do_(size,(function(i){
+$1=_st(flags)._at_(i);
 if(smalltalk.assert($1)){
-prime=smalltalk.send(i,"__plus",[(1)]);
+prime=_st(i).__plus((1));
 prime;
-k=smalltalk.send(i,"__plus",[prime]);
+k=_st(i).__plus(prime);
 k;
-smalltalk.send((function(){
-return smalltalk.send(k,"__lt_eq",[size]);
-}),"_whileTrue_",[(function(){
-smalltalk.send(flags,"_at_put_",[k,false]);
-k=smalltalk.send(k,"__plus",[prime]);
+_st((function(){
+return _st(k).__lt_eq(size);
+}))._whileTrue_((function(){
+_st(flags)._at_put_(k,false);
+k=_st(k).__plus(prime);
 return k;
-})]);
-count=smalltalk.send(count,"__plus",[(1)]);
+}));
+count=_st(count).__plus((1));
 return count;
 };
-})]);
-})]);
+}));
+}));
 return count;
-}
+}, self, "benchmark", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 
@@ -84,12 +84,12 @@ smalltalk.method({
 selector: "jsbenchFib",
 fn: function (){
 var self=this;
-if (this < 2) {
+return smalltalk.withContext(function($ctx) { if (this < 2) {
 return 1;
 } else {
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
 ;
-return self}
+return self}, self, "jsbenchFib", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 
@@ -99,7 +99,7 @@ smalltalk.method({
 selector: "jsbenchmark",
 fn: function (){
 var self=this;
-
+return smalltalk.withContext(function($ctx) { 
 var size = 8190;
 var count;
 for (var z=0;z<this;z++) {
@@ -122,7 +122,7 @@ for (var z=0;z<this;z++) {
 }
 return count;
 ;
-return self}
+return self}, self, "jsbenchmark", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 
@@ -132,38 +132,38 @@ smalltalk.method({
 selector: "jstinyBenchmarks",
 fn: function (){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var t1;
 var t2;
 var r;
 var n1;
 var n2;
 n1=(1);
-smalltalk.send((function(){
-t1=smalltalk.send((smalltalk.Date || Date),"_millisecondsToRun_",[(function(){
-return smalltalk.send(n1,"_jsbenchmark",[]);
-})]);
+_st((function(){
+t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return _st(n1)._jsbenchmark();
+}));
 t1;
-return smalltalk.send(t1,"__lt",[(1000)]);
-}),"_whileTrue_",[(function(){
-n1=smalltalk.send(n1,"__star",[(2)]);
+return _st(t1).__lt((1000));
+}))._whileTrue_((function(){
+n1=_st(n1).__star((2));
 return n1;
-})]);
+}));
 n2=(28);
-smalltalk.send((function(){
-t2=smalltalk.send((smalltalk.Date || Date),"_millisecondsToRun_",[(function(){
-r=smalltalk.send(n2,"_jsbenchFib",[]);
+_st((function(){
+t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+r=_st(n2)._jsbenchFib();
 return r;
-})]);
+}));
 t2;
-return smalltalk.send(t2,"__lt",[(1000)]);
-}),"_whileTrue_",[(function(){
-n2=smalltalk.send(n2,"__plus",[(1)]);
+return _st(t2).__lt((1000));
+}))._whileTrue_((function(){
+n2=_st(n2).__plus((1));
 return n2;
-})]);
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(n1,"__star",[(500000)]),"__star",[(1000)]),"__slash",[t1]),"_printString",[]),"__comma",[" bytecodes/sec; "]),"__comma",[smalltalk.send(smalltalk.send(smalltalk.send(r,"__star",[(1000)]),"__slash",[t2]),"_printString",[])]),"__comma",[" sends/sec"]);
+}));
+$1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
 return $1;
-}
+}, self, "jstinyBenchmarks", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 
@@ -173,38 +173,38 @@ smalltalk.method({
 selector: "tinyBenchmarks",
 fn: function (){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 var t1;
 var t2;
 var r;
 var n1;
 var n2;
 n1=(1);
-smalltalk.send((function(){
-t1=smalltalk.send((smalltalk.Date || Date),"_millisecondsToRun_",[(function(){
-return smalltalk.send(n1,"_benchmark",[]);
-})]);
+_st((function(){
+t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return _st(n1)._benchmark();
+}));
 t1;
-return smalltalk.send(t1,"__lt",[(1000)]);
-}),"_whileTrue_",[(function(){
-n1=smalltalk.send(n1,"__star",[(2)]);
+return _st(t1).__lt((1000));
+}))._whileTrue_((function(){
+n1=_st(n1).__star((2));
 return n1;
-})]);
+}));
 n2=(16);
-smalltalk.send((function(){
-t2=smalltalk.send((smalltalk.Date || Date),"_millisecondsToRun_",[(function(){
-r=smalltalk.send(n2,"_benchFib",[]);
+_st((function(){
+t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+r=_st(n2)._benchFib();
 return r;
-})]);
+}));
 t2;
-return smalltalk.send(t2,"__lt",[(1000)]);
-}),"_whileTrue_",[(function(){
-n2=smalltalk.send(n2,"__plus",[(1)]);
+return _st(t2).__lt((1000));
+}))._whileTrue_((function(){
+n2=_st(n2).__plus((1));
 return n2;
-})]);
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(n1,"__star",[(500000)]),"__star",[(1000)]),"__slash",[t1]),"_printString",[]),"__comma",[" bytecodes/sec; "]),"__comma",[smalltalk.send(smalltalk.send(smalltalk.send(r,"__star",[(1000)]),"__slash",[t2]),"_printString",[])]),"__comma",[" sends/sec"]);
+}));
+$1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
 return $1;
-}
+}, self, "tinyBenchmarks", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 

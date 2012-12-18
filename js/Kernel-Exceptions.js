@@ -7,9 +7,9 @@ selector: "context",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self.context;
+return smalltalk.withContext(function($ctx) { return self.context;
 ;
-return self},
+return self}, self, "context", [], smalltalk.Error)},
 args: [],
 source: "context\x0a\x09<return self.context>",
 messageSends: [],
@@ -24,9 +24,9 @@ selector: "isSmalltalkError",
 category: 'testing',
 fn: function (){
 var self=this;
-return self.smalltalkError === true;
+return smalltalk.withContext(function($ctx) { return self.smalltalkError === true;
 ;
-return self},
+return self}, self, "isSmalltalkError", [], smalltalk.Error)},
 args: [],
 source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
 messageSends: [],
@@ -41,9 +41,9 @@ selector: "jsStack",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self.stack;
+return smalltalk.withContext(function($ctx) { return self.stack;
 ;
-return self},
+return self}, self, "jsStack", [], smalltalk.Error)},
 args: [],
 source: "jsStack\x0a\x09<return self.stack>",
 messageSends: [],
@@ -58,8 +58,8 @@ selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@messageText"];
-},
+return smalltalk.withContext(function($ctx) { return self["@messageText"];
+}, self, "messageText", [], smalltalk.Error)},
 args: [],
 source: "messageText\x0a\x09^messageText",
 messageSends: [],
@@ -74,8 +74,8 @@ selector: "messageText:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-self["@messageText"]=aString;
-return self},
+return smalltalk.withContext(function($ctx) { self["@messageText"]=aString;
+return self}, self, "messageText:", [aString], smalltalk.Error)},
 args: ["aString"],
 source: "messageText: aString\x0a\x09messageText := aString",
 messageSends: [],
@@ -90,9 +90,9 @@ selector: "signal",
 category: 'signaling',
 fn: function (){
 var self=this;
-self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
+return smalltalk.withContext(function($ctx) { self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
 ;
-return self},
+return self}, self, "signal", [], smalltalk.Error)},
 args: [],
 source: "signal\x0a\x09<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>",
 messageSends: [],
@@ -107,9 +107,9 @@ selector: "signal:",
 category: 'signaling',
 fn: function (aString){
 var self=this;
-smalltalk.send(self,"_messageText_",[aString]);
-smalltalk.send(self,"_signal",[]);
-return self},
+return smalltalk.withContext(function($ctx) { _st(self)._messageText_(aString);
+_st(self)._signal();
+return self}, self, "signal:", [aString], smalltalk.Error)},
 args: ["aString"],
 source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
 messageSends: ["messageText:", "signal"],
@@ -125,10 +125,10 @@ selector: "signal",
 category: 'instance creation',
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_signal",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(self)._new())._signal();
 return $1;
-},
+}, self, "signal", [], smalltalk.Error.klass)},
 args: [],
 source: "signal\x0a\x09^self new signal",
 messageSends: ["signal", "new"],
@@ -143,10 +143,10 @@ selector: "signal:",
 category: 'instance creation',
 fn: function (aString){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_signal_",[aString]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(self)._new())._signal_(aString);
 return $1;
-},
+}, self, "signal:", [aString], smalltalk.Error.klass)},
 args: ["aString"],
 source: "signal: aString\x0a\x09    ^self new\x0a\x09\x09signal: aString",
 messageSends: ["signal:", "new"],
@@ -163,8 +163,8 @@ selector: "message",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@message"];
-},
+return smalltalk.withContext(function($ctx) { return self["@message"];
+}, self, "message", [], smalltalk.MessageNotUnderstood)},
 args: [],
 source: "message\x0a\x09^message",
 messageSends: [],
@@ -179,8 +179,8 @@ selector: "message:",
 category: 'accessing',
 fn: function (aMessage){
 var self=this;
-self["@message"]=aMessage;
-return self},
+return smalltalk.withContext(function($ctx) { self["@message"]=aMessage;
+return self}, self, "message:", [aMessage], smalltalk.MessageNotUnderstood)},
 args: ["aMessage"],
 source: "message: aMessage\x0a\x09message := aMessage",
 messageSends: [],
@@ -195,10 +195,10 @@ selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_receiver",[]),"_asString",[]),"__comma",[" does not understand #"]),"__comma",[smalltalk.send(smalltalk.send(self,"_message",[]),"_selector",[])]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(_st(_st(self)._receiver())._asString()).__comma(" does not understand #")).__comma(_st(_st(self)._message())._selector());
 return $1;
-},
+}, self, "messageText", [], smalltalk.MessageNotUnderstood)},
 args: [],
 source: "messageText\x0a\x09^self receiver asString, ' does not understand #', self message selector",
 messageSends: [",", "selector", "message", "asString", "receiver"],
@@ -213,8 +213,8 @@ selector: "receiver",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@receiver"];
-},
+return smalltalk.withContext(function($ctx) { return self["@receiver"];
+}, self, "receiver", [], smalltalk.MessageNotUnderstood)},
 args: [],
 source: "receiver\x0a\x09^receiver",
 messageSends: [],
@@ -229,8 +229,8 @@ selector: "receiver:",
 category: 'accessing',
 fn: function (anObject){
 var self=this;
-self["@receiver"]=anObject;
-return self},
+return smalltalk.withContext(function($ctx) { self["@receiver"]=anObject;
+return self}, self, "receiver:", [anObject], smalltalk.MessageNotUnderstood)},
 args: ["anObject"],
 source: "receiver: anObject\x0a\x09receiver := anObject",
 messageSends: [],
@@ -248,8 +248,8 @@ selector: "object",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@object"];
-},
+return smalltalk.withContext(function($ctx) { return self["@object"];
+}, self, "object", [], smalltalk.NonBooleanReceiver)},
 args: [],
 source: "object\x0a\x09^ object",
 messageSends: [],
@@ -264,8 +264,8 @@ selector: "object:",
 category: 'accessing',
 fn: function (anObject){
 var self=this;
-self["@object"]=anObject;
-return self},
+return smalltalk.withContext(function($ctx) { self["@object"]=anObject;
+return self}, self, "object:", [anObject], smalltalk.NonBooleanReceiver)},
 args: ["anObject"],
 source: "object: anObject\x0a\x09object := anObject",
 messageSends: [],
@@ -283,15 +283,15 @@ selector: "handleError:",
 category: 'error handling',
 fn: function (anError){
 var self=this;
-var $1;
-$1=smalltalk.send(anError,"_context",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(anError)._context();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logErrorContext_",[smalltalk.send(anError,"_context",[])]);
+_st(self)._logErrorContext_(_st(anError)._context());
 };
-smalltalk.send(self,"_logError_",[anError]);
-return self},
+_st(self)._logError_(anError);
+return self}, self, "handleError:", [anError], smalltalk.ErrorHandler)},
 args: ["anError"],
 source: "handleError: anError\x0a\x09anError context ifNotNil: [self logErrorContext: anError context].\x0a\x09self logError: anError",
 messageSends: ["ifNotNil:", "logErrorContext:", "context", "logError:"],
@@ -306,8 +306,8 @@ selector: "log:",
 category: 'private',
 fn: function (aString){
 var self=this;
-smalltalk.send(console,"_log_",[aString]);
-return self},
+return smalltalk.withContext(function($ctx) { _st(console)._log_(aString);
+return self}, self, "log:", [aString], smalltalk.ErrorHandler)},
 args: ["aString"],
 source: "log: aString\x0a\x09console log: aString",
 messageSends: ["log:"],
@@ -322,15 +322,15 @@ selector: "logContext:",
 category: 'private',
 fn: function (aContext){
 var self=this;
-var $1;
-$1=smalltalk.send(aContext,"_home",[]);
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(aContext)._home();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logContext_",[smalltalk.send(aContext,"_home",[])]);
+_st(self)._logContext_(_st(aContext)._home());
 };
-smalltalk.send(self,"_log_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext,"_receiver",[]),"_asString",[]),"__comma",[">>"]),"__comma",[smalltalk.send(aContext,"_selector",[])])]);
-return self},
+_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(aContext)._selector()));
+return self}, self, "logContext:", [aContext], smalltalk.ErrorHandler)},
 args: ["aContext"],
 source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext receiver asString, '>>', aContext selector",
 messageSends: ["ifNotNil:", "logContext:", "home", "log:", ",", "selector", "asString", "receiver"],
@@ -345,8 +345,8 @@ selector: "logError:",
 category: 'private',
 fn: function (anError){
 var self=this;
-smalltalk.send(self,"_log_",[smalltalk.send(anError,"_messageText",[])]);
-return self},
+return smalltalk.withContext(function($ctx) { _st(self)._log_(_st(anError)._messageText());
+return self}, self, "logError:", [anError], smalltalk.ErrorHandler)},
 args: ["anError"],
 source: "logError: anError\x0a\x09self log: anError messageText",
 messageSends: ["log:", "messageText"],
@@ -361,18 +361,18 @@ selector: "logErrorContext:",
 category: 'private',
 fn: function (aContext){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 if(($receiver = aContext) == nil || $receiver == undefined){
 aContext;
 } else {
-$1=smalltalk.send(aContext,"_home",[]);
+$1=_st(aContext)._home();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logContext_",[smalltalk.send(aContext,"_home",[])]);
+_st(self)._logContext_(_st(aContext)._home());
 };
 };
-return self},
+return self}, self, "logErrorContext:", [aContext], smalltalk.ErrorHandler)},
 args: ["aContext"],
 source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home]]",
 messageSends: ["ifNotNil:", "logContext:", "home"],
@@ -389,15 +389,15 @@ selector: "current",
 category: 'accessing',
 fn: function (){
 var self=this;
-var $1;
+return smalltalk.withContext(function($ctx) { var $1;
 if(($receiver = self["@current"]) == nil || $receiver == undefined){
-self["@current"]=smalltalk.send(self,"_new",[]);
+self["@current"]=_st(self)._new();
 $1=self["@current"];
 } else {
 $1=self["@current"];
 };
 return $1;
-},
+}, self, "current", [], smalltalk.ErrorHandler.klass)},
 args: [],
 source: "current\x0a\x09^current ifNil: [current := self new]",
 messageSends: ["ifNil:", "new"],
@@ -412,8 +412,8 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self,"_register",[]);
-return self},
+return smalltalk.withContext(function($ctx) { _st(self)._register();
+return self}, self, "initialize", [], smalltalk.ErrorHandler.klass)},
 args: [],
 source: "initialize\x0a\x09self register",
 messageSends: ["register"],
@@ -428,8 +428,8 @@ selector: "register",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send((smalltalk.ErrorHandler || ErrorHandler),"_setCurrent_",[smalltalk.send(self,"_new",[])]);
-return self},
+return smalltalk.withContext(function($ctx) { _st((smalltalk.ErrorHandler || ErrorHandler))._setCurrent_(_st(self)._new());
+return self}, self, "register", [], smalltalk.ErrorHandler.klass)},
 args: [],
 source: "register\x0a\x09ErrorHandler setCurrent: self new",
 messageSends: ["setCurrent:", "new"],
@@ -444,8 +444,8 @@ selector: "setCurrent:",
 category: 'accessing',
 fn: function (anHandler){
 var self=this;
-self["@current"]=anHandler;
-return self},
+return smalltalk.withContext(function($ctx) { self["@current"]=anHandler;
+return self}, self, "setCurrent:", [anHandler], smalltalk.ErrorHandler.klass)},
 args: ["anHandler"],
 source: "setCurrent: anHandler\x0a\x09current := anHandler",
 messageSends: [],
