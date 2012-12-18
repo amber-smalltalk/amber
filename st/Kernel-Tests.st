@@ -153,9 +153,7 @@ testLogicKeywords
 !
 
 testNonBooleanError
-	|b|
-    b := < '' >.
-    self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
+    self should: ['' ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
 ! !
 
 TestCase subclass: #ClassBuilderTest
@@ -1100,7 +1098,7 @@ testNilUndefined
 
 	| notDefined |
     
-    <notDefined = undefined>.
+    notDefined := window at: '__this_is_undefined'.
 
 	self assert: nil = notDefined
 !

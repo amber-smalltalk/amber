@@ -408,11 +408,7 @@ errorShadowingVariable: aString
 errorUnknownVariable: aNode
 	"Throw an error if the variable is undeclared in the global JS scope (i.e. window)"
 
-	| notDefined |
-
-	notDefined := <eval('typeof ' + aNode._value() + ' == "undefined"')>.
-
-	notDefined
+	(self isVariableGloballyUndefined: aNode value)
 		ifTrue: [ 
 			UnknownVariableError new
 				variableName: aNode value;
@@ -454,6 +450,12 @@ validateVariableScope: aString
 
 	(currentScope lookupVariable: aString) ifNotNil: [
 		self errorShadowingVariable: aString ]
+! !
+
+!SemanticAnalyzer methodsFor: 'testing'!
+
+isVariableGloballyUndefined: aString
+	<return eval('typeof ' + aString + ' == "undefined"')>
 ! !
 
 !SemanticAnalyzer methodsFor: 'visiting'!

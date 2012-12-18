@@ -68,15 +68,11 @@ identityHash
 !
 
 instVarAt: aSymbol
-	| varname |
-	varname := aSymbol asString.
-	<return self['@'+varname]>
+	<return self['@'+aSymbol._asString()]>
 !
 
 instVarAt: aSymbol put: anObject
-	| varname |
-	varname := aSymbol asString.
-	<self['@' + varname] = anObject>
+	<self['@' + aSymbol._asString()] = anObject>
 !
 
 size
@@ -229,9 +225,7 @@ perform: aSymbol
 !
 
 perform: aSymbol withArguments: aCollection
-	| selector |
-	selector := aSymbol asSelector.
-	<return smalltalk.send(self, selector, aCollection)>
+	<return smalltalk.send(self, aSymbol._asSelector(), aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
@@ -503,6 +497,10 @@ methodClass
 	^self basicAt: 'methodClass'
 !
 
+printString
+	^ self methodClass name, ' >> ', self selector
+!
+
 protocol
 	^ self category
 !
@@ -741,15 +739,11 @@ __Note:__ For keyword-based messages, only the first keyword is kept: `window fo
 !JSObjectProxy methodsFor: 'accessing'!
 
 at: aSymbol
-	| attr |
-	attr := aSymbol asString.
-	<return self['@jsObject'][attr]>
+	<return self['@jsObject'][aSymbol._asString()]>
 !
 
 at: aSymbol put: anObject
-	| attr |
-	attr := aSymbol asString.
-	<self['@jsObject'][attr] = anObject>
+	<self['@jsObject'][aSymbol._asString()] = anObject>
 !
 
 jsObject
@@ -762,25 +756,37 @@ jsObject: aJSObject
 
 !JSObjectProxy methodsFor: 'proxy'!
 
+canUnderstand: aSelector
+	<return self._jsObject()[aSelector._asJavaScriptSelector()] !!= undefined>
+!
+
 doesNotUnderstand: aMessage
 	| obj selector jsSelector arguments |
 	obj := self jsObject.
 	selector := aMessage selector.
 	jsSelector := selector asJavaScriptSelector.
 	arguments := aMessage arguments.
-	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
+    (self canUnderstand: selector) ifTrue: [
+      	^ Smalltalk current basicSend: jsSelector to: obj arguments: arguments ].
 	super doesNotUnderstand: aMessage
 !
 
 inspectOn: anInspector
 	| variables |
-	variables := Dictionary new.
+	variables := self inspectorVariables.
 	variables at: '#self' put: self jsObject.
 	anInspector setLabel: self printString.
-	<for(var i in self['@jsObject']) {
-		variables._at_put_(i, self['@jsObject'][i]);
-	}>.
 	anInspector setVariables: variables
+!
+
+inspectorVariables
+	<
+    	var variables = smalltalk.Dictionary._new();
+        for(var i in self['@jsObject']) {
+			variables._at_put_(i, self['@jsObject'][i]);
+		};
+        return variables
+    >
 !
 
 printString
@@ -966,13 +972,13 @@ to: stop by: step
 !
 
 truncated
-|result|
-
-    self >= 0 
-        ifTrue: [<result = Math.floor(self);>]
-        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
-
-    ^ result
+	<
+    	if(self >>= 0) {
+        	return Math.floor(self);
+        } else {
+        	return Math.floor(self * (-1)) * (-1);
+        }
+    >
 !
 
 | aNumber
@@ -1165,8 +1171,7 @@ properties
 properties: aDict
 	"We store it as a javascript object."
 	
-	| object |
-	<object = {};>.
+	<var object = {};>.
 	aDict keysAndValuesDo: [:key :value |
 		<object[key] = value>.
 	].
@@ -1483,6 +1488,10 @@ basicParse: aString
 	<return smalltalk.parser.parse(aString)>
 !
 
+basicSend: aSelector to: anObject arguments: aCollection
+	<return self.send(anObject, aSelector, aCollection)>
+!
+
 parse: aString
 	| result | 
 	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
@@ -1491,9 +1500,9 @@ parse: aString
 
 parseError: anException parsing: aString
 	| row col message lines badLine code |
-	<row = anException.line;
-	col = anException.column;
-	message = anException.message;>.
+	row := anException basicAt: 'line'.
+    col := anException basicAt: 'column'.
+    message := anException basicAt: 'message'.
 	lines := aString lines.
 	badLine := lines at: row.
 	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
@@ -1514,9 +1523,7 @@ reservedWords
 !
 
 send: aSelector to: anObject arguments: aCollection
-	| selector |
-	selector := aSelector asString asSelector.
-	<return self.send(anObject, selector, aCollection)>
+	^ self basicSend: aSelector asString asSelector to: anObject arguments: aCollection
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -1552,6 +1559,10 @@ packageAt: packageName ifAbsent: aBlock
        ^(self packageAt: packageName) ifNil: aBlock
 !
 
+packageAt: packageName put: aPackage
+       <return self.packages[packageName] = aPackage>
+!
+
 packages
 	"Return all Package instances in the system."
 
@@ -1578,7 +1589,7 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
+	self packageAt: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
 ! !
@@ -1594,8 +1605,7 @@ createPackage: packageName
 createPackage: packageName properties: aDict
 	"Create and bind a new package with given name and return it."
 
-	| object |
-	<object = {};>.
+	<var object = {};>.
 	aDict keysAndValuesDo: [:key :value |
 		<object[key] = value>.
 	].
@@ -1649,6 +1659,9 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'converting'!
+
+accept: aVisitor
+!
 
 asJSON
 	^null

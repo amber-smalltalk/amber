@@ -394,17 +394,14 @@ selector: "testNonBooleanError",
 category: 'tests',
 fn: function (){
 var self=this;
-var b;
-b= '' ;
-;
-smalltalk.send(self,"_should_raise_",[(function(){
-if(smalltalk.assert(self["@nonBoolean"])){
+return smalltalk.withContext(function($ctx) { _st(self)._should_raise_((function(){
+if(smalltalk.assert("")){
 } else {
 };
-}),(smalltalk.NonBooleanReceiver || NonBooleanReceiver)]);
-return self},
+}),(smalltalk.NonBooleanReceiver || NonBooleanReceiver));
+return self}, self, "testNonBooleanError", [], smalltalk.BooleanTest)},
 args: [],
-source: "testNonBooleanError\x0a\x09|b|\x0a    b := < '' >.\x0a    self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver",
+source: "testNonBooleanError\x0a    self should: ['' ifTrue: [] ifFalse: []] raise: NonBooleanReceiver",
 messageSends: ["should:raise:", "ifTrue:ifFalse:"],
 referencedClasses: ["NonBooleanReceiver"]
 }),
@@ -2725,13 +2722,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx) { var notDefined;
-notDefined = undefined;
-;
+notDefined=_st(window)._at_("__this_is_undefined");
 _st(self)._assert_(_st(nil).__eq(notDefined));
 return self}, self, "testNilUndefined", [], smalltalk.ObjectTest)},
 args: [],
-source: "testNilUndefined\x0a\x09\x22nil in Smalltalk is the undefined object in JS\x22\x0a\x0a\x09| notDefined |\x0a    \x0a    <notDefined = undefined>.\x0a\x0a\x09self assert: nil = notDefined",
-messageSends: ["assert:", "="],
+source: "testNilUndefined\x0a\x09\x22nil in Smalltalk is the undefined object in JS\x22\x0a\x0a\x09| notDefined |\x0a    \x0a    notDefined := window at: '__this_is_undefined'.\x0a\x0a\x09self assert: nil = notDefined",
+messageSends: ["at:", "assert:", "="],
 referencedClasses: []
 }),
 smalltalk.ObjectTest);

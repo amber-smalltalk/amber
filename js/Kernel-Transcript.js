@@ -52,14 +52,12 @@ selector: "show:",
 category: 'printing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var string;
-string=_st(anObject)._asString();
-console.log(String(string));
+return smalltalk.withContext(function($ctx) { console.log(String(string._asString()));
 ;
 return self}, self, "show:", [anObject], smalltalk.ConsoleTranscript)},
 args: ["anObject"],
-source: "show: anObject\x0a\x09| string |\x0a\x09string := anObject asString.\x0a\x09<console.log(String(string))>",
-messageSends: ["asString"],
+source: "show: anObject\x0a\x09<console.log(String(string._asString()))>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ConsoleTranscript);

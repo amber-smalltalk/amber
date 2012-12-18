@@ -328,15 +328,12 @@ smalltalk.method({
 selector: "testNonBooleanError",
 fn: function (){
 var self=this;
-var b;
-b= '' ;
-;
-smalltalk.send(self,"_should_raise_",[(function(){
-if(smalltalk.assert(self["@nonBoolean"])){
+return smalltalk.withContext(function($ctx) { _st(self)._should_raise_((function(){
+if(smalltalk.assert("")){
 } else {
 };
-}),(smalltalk.NonBooleanReceiver || NonBooleanReceiver)]);
-return self}
+}),(smalltalk.NonBooleanReceiver || NonBooleanReceiver));
+return self}, self, "testNonBooleanError", [], smalltalk.BooleanTest)}
 }),
 smalltalk.BooleanTest);
 
@@ -2089,8 +2086,7 @@ selector: "testNilUndefined",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx) { var notDefined;
-notDefined = undefined;
-;
+notDefined=_st(window)._at_("__this_is_undefined");
 _st(self)._assert_(_st(nil).__eq(notDefined));
 return self}, self, "testNilUndefined", [], smalltalk.ObjectTest)}
 }),

@@ -1194,23 +1194,38 @@ selector: "errorUnknownVariable:",
 category: 'error handling',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2;
-var notDefined;
-notDefined=eval('typeof ' + aNode._value() + ' == "undefined"');
-;
-if(smalltalk.assert(notDefined)){
-$1=_st((smalltalk.UnknownVariableError || UnknownVariableError))._new();
-_st($1)._variableName_(_st(aNode)._value());
-$2=_st($1)._signal();
-$2;
+return smalltalk.withContext(function($ctx) { var $1,$2,$3;
+$1=_st(self)._isVariableGloballyUndefined_(_st(aNode)._value());
+if(smalltalk.assert($1)){
+$2=_st((smalltalk.UnknownVariableError || UnknownVariableError))._new();
+_st($2)._variableName_(_st(aNode)._value());
+$3=_st($2)._signal();
+$3;
 } else {
 _st(_st(_st(self["@currentScope"])._methodScope())._unknownVariables())._add_(_st(aNode)._value());
 };
 return self}, self, "errorUnknownVariable:", [aNode], smalltalk.SemanticAnalyzer)},
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window)\x22\x0a\x0a\x09| notDefined |\x0a\x0a\x09notDefined := <eval('typeof ' + aNode._value() + ' == \x22undefined\x22')>.\x0a\x0a\x09notDefined\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09signal ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09currentScope methodScope unknownVariables add: aNode value. ]",
-messageSends: ["ifTrue:ifFalse:", "variableName:", "value", "new", "signal", "add:", "unknownVariables", "methodScope"],
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window)\x22\x0a\x0a\x09(self isVariableGloballyUndefined: aNode value)\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09signal ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09currentScope methodScope unknownVariables add: aNode value. ]",
+messageSends: ["ifTrue:ifFalse:", "variableName:", "value", "new", "signal", "add:", "unknownVariables", "methodScope", "isVariableGloballyUndefined:"],
 referencedClasses: ["UnknownVariableError"]
+}),
+smalltalk.SemanticAnalyzer);
+
+smalltalk.addMethod(
+"_isVariableGloballyUndefined_",
+smalltalk.method({
+selector: "isVariableGloballyUndefined:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx) { return eval('typeof ' + aString + ' == "undefined"');
+;
+return self}, self, "isVariableGloballyUndefined:", [aString], smalltalk.SemanticAnalyzer)},
+args: ["aString"],
+source: "isVariableGloballyUndefined: aString\x0a\x09<return eval('typeof ' + aString + ' == \x22undefined\x22')>",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
 

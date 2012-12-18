@@ -36,9 +36,7 @@ smalltalk.method({
 selector: "show:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var string;
-string=_st(anObject)._asString();
-console.log(String(string));
+return smalltalk.withContext(function($ctx) { console.log(String(string._asString()));
 ;
 return self}, self, "show:", [anObject], smalltalk.ConsoleTranscript)}
 }),
