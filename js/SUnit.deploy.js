@@ -483,7 +483,7 @@ smalltalk.TestResult);
 
 
 
-smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer'], 'SUnit');
+smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer', 'worker'], 'SUnit');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -504,6 +504,15 @@ var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
 self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
+self["@worker"]=(function(){
+return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
+return smalltalk.send((function(){
+return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
+}),"_ensure_",[(function(){
+return smalltalk.send(self,"_resume",[]);
+})]);
+})]);
+});
 return self}
 }),
 smalltalk.TestSuiteRunner);
@@ -520,25 +529,25 @@ return self["@result"];
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
+"_resume",
+smalltalk.method({
+selector: "resume",
+fn: function (){
+var self=this;
+smalltalk.send(self["@worker"],"_fork",[]);
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+return self}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
 "_run",
 smalltalk.method({
 selector: "run",
 fn: function (){
 var self=this;
-var worker;
 smalltalk.send(self["@result"],"_total_",[smalltalk.send(self["@suite"],"_size",[])]);
-smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
-worker=(function(){
-return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
-return smalltalk.send((function(){
-return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
-}),"_ensure_",[(function(){
-smalltalk.send(worker,"_fork",[]);
-return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
-})]);
-})]);
-});
-smalltalk.send(worker,"_fork",[]);
+smalltalk.send(self,"_resume",[]);
 return self}
 }),
 smalltalk.TestSuiteRunner);

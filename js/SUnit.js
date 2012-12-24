@@ -663,7 +663,7 @@ smalltalk.TestResult);
 
 
 
-smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer'], 'SUnit');
+smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer', 'worker'], 'SUnit');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -690,10 +690,19 @@ var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
 self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
+self["@worker"]=(function(){
+return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
+return smalltalk.send((function(){
+return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
+}),"_ensure_",[(function(){
+return smalltalk.send(self,"_resume",[]);
+})]);
+})]);
+});
 return self},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new",
-messageSends: ["initialize", "new"],
+source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new.\x0a    worker := [ result nextRunDo: [ :index |\x0a\x09\x09[ result runCase: (suite at: index) ]\x0a\x09\x09ensure: [ self resume ]]].\x0a",
+messageSends: ["initialize", "new", "nextRunDo:", "ensure:", "resume", "runCase:", "at:"],
 referencedClasses: ["Announcer", "TestResult"]
 }),
 smalltalk.TestSuiteRunner);
@@ -715,31 +724,36 @@ referencedClasses: []
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
+"_resume",
+smalltalk.method({
+selector: "resume",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self["@worker"],"_fork",[]);
+smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
+return self},
+args: [],
+source: "resume\x0a\x09worker fork.\x0a    announcer announce: (ResultAnnouncement new result: result)\x0a",
+messageSends: ["fork", "announce:", "result:", "new"],
+referencedClasses: ["ResultAnnouncement"]
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
 "_run",
 smalltalk.method({
 selector: "run",
 category: 'actions',
 fn: function (){
 var self=this;
-var worker;
 smalltalk.send(self["@result"],"_total_",[smalltalk.send(self["@suite"],"_size",[])]);
-smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
-worker=(function(){
-return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
-return smalltalk.send((function(){
-return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
-}),"_ensure_",[(function(){
-smalltalk.send(worker,"_fork",[]);
-return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
-})]);
-})]);
-});
-smalltalk.send(worker,"_fork",[]);
+smalltalk.send(self,"_resume",[]);
 return self},
 args: [],
-source: "run\x0a\x09| worker |\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a    worker := [ result nextRunDo: [ :index |\x0a\x09\x09[ result runCase: (suite at: index) ]\x0a\x09\x09ensure: [ worker fork.\x0a        \x09announcer announce: (ResultAnnouncement new result: result) ]]].\x0a\x09worker fork",
-messageSends: ["total:", "size", "announce:", "result:", "new", "nextRunDo:", "ensure:", "fork", "runCase:", "at:"],
-referencedClasses: ["ResultAnnouncement"]
+source: "run\x0a\x09result total: suite size.\x0a\x09self resume",
+messageSends: ["total:", "size", "resume"],
+referencedClasses: []
 }),
 smalltalk.TestSuiteRunner);
 

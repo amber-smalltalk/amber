@@ -209,7 +209,7 @@ runCase: aTestCase
 ! !
 
 Object subclass: #TestSuiteRunner
-	instanceVariableNames: 'suite result announcer'
+	instanceVariableNames: 'suite result announcer worker'
 	package: 'SUnit'!
 
 !TestSuiteRunner methodsFor: 'accessing'!
@@ -228,15 +228,14 @@ suite: aCollection
 
 !TestSuiteRunner methodsFor: 'actions'!
 
+resume
+	worker fork.
+    announcer announce: (ResultAnnouncement new result: result)
+!
+
 run
-	| worker |
 	result total: suite size.
-    announcer announce: (ResultAnnouncement new result: result).
-    worker := [ result nextRunDo: [ :index |
-		[ result runCase: (suite at: index) ]
-		ensure: [ worker fork.
-        	announcer announce: (ResultAnnouncement new result: result) ]]].
-	worker fork
+	self resume
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!
@@ -244,7 +243,10 @@ run
 initialize
 	super initialize.
 	announcer := Announcer new.
-    result := TestResult new
+    result := TestResult new.
+    worker := [ result nextRunDo: [ :index |
+		[ result runCase: (suite at: index) ]
+		ensure: [ self resume ]]].
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!
