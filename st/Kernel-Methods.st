@@ -121,6 +121,10 @@ valueWithPossibleArguments: aCollection
 
 !BlockClosure methodsFor: 'timeout/interval'!
 
+fork
+	ForkPool default fork: self
+!
+
 valueWithInterval: aNumber
 	<return setInterval(self, aNumber)>
 !
@@ -212,6 +216,48 @@ source
 
 source: aString
 	self basicAt: 'source' put: aString
+! !
+
+Object subclass: #ForkPool
+	instanceVariableNames: 'poolSize maxPoolSize queue worker'
+	package: 'Kernel-Methods'!
+
+!ForkPool methodsFor: 'action'!
+
+addWorker
+	worker valueWithTimeout: 0.
+    poolSize := poolSize + 1
+!
+
+fork: aBlock
+	poolSize < maxPoolSize ifTrue: [ self addWorker ].
+	queue back: aBlock
+! !
+
+!ForkPool methodsFor: 'initialization'!
+
+initialize
+	poolSize := 0.
+    maxPoolSize := self class defaultMaxPoolSize.
+    queue := Queue new.
+    worker := [
+		| block |
+        poolSize := poolSize - 1.
+		block := queue frontIfAbsent: [ ^nil ].
+        [ block value ] ensure: [ self addWorker ]
+	].
+! !
+
+ForkPool class instanceVariableNames: 'default'!
+
+!ForkPool class methodsFor: 'accessing'!
+
+default
+	^default ifNil: [ default := self new ]
+!
+
+defaultMaxPoolSize
+	^100
 ! !
 
 Object subclass: #Message

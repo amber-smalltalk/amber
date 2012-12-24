@@ -56,6 +56,22 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
+"_fork",
+smalltalk.method({
+selector: "fork",
+category: 'timeout/interval',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((smalltalk.ForkPool || ForkPool),"_default",[]),"_fork_",[self]);
+return self},
+args: [],
+source: "fork\x0a\x09ForkPool default fork: self",
+messageSends: ["fork:", "default"],
+referencedClasses: ["ForkPool"]
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
 "_new",
 smalltalk.method({
 selector: "new",
@@ -623,6 +639,123 @@ referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
+
+
+smalltalk.addClass('ForkPool', smalltalk.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
+smalltalk.addMethod(
+"_addWorker",
+smalltalk.method({
+selector: "addWorker",
+category: 'action',
+fn: function (){
+var self=this;
+smalltalk.send(self["@worker"],"_valueWithTimeout_",[(0)]);
+self["@poolSize"]=smalltalk.send(self["@poolSize"],"__plus",[(1)]);
+return self},
+args: [],
+source: "addWorker\x0a\x09worker valueWithTimeout: 0.\x0a    poolSize := poolSize + 1",
+messageSends: ["valueWithTimeout:", "+"],
+referencedClasses: []
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_fork_",
+smalltalk.method({
+selector: "fork:",
+category: 'action',
+fn: function (aBlock){
+var self=this;
+var $1;
+$1=smalltalk.send(self["@poolSize"],"__lt",[self["@maxPoolSize"]]);
+if(smalltalk.assert($1)){
+smalltalk.send(self,"_addWorker",[]);
+};
+smalltalk.send(self["@queue"],"_back_",[aBlock]);
+return self},
+args: ["aBlock"],
+source: "fork: aBlock\x0a\x09poolSize < maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue back: aBlock",
+messageSends: ["ifTrue:", "addWorker", "<", "back:"],
+referencedClasses: []
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+var $early={};
+try {
+self["@poolSize"]=(0);
+self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
+self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
+self["@worker"]=(function(){
+var block;
+self["@poolSize"]=smalltalk.send(self["@poolSize"],"__minus",[(1)]);
+self["@poolSize"];
+block=smalltalk.send(self["@queue"],"_frontIfAbsent_",[(function(){
+throw $early=[nil];
+})]);
+block;
+return smalltalk.send((function(){
+return smalltalk.send(block,"_value",[]);
+}),"_ensure_",[(function(){
+return smalltalk.send(self,"_addWorker",[]);
+})]);
+});
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+},
+args: [],
+source: "initialize\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    worker := [\x0a\x09\x09| block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ ^nil ].\x0a        [ block value ] ensure: [ self addWorker ]\x0a\x09].",
+messageSends: ["defaultMaxPoolSize", "class", "new", "-", "frontIfAbsent:", "ensure:", "addWorker", "value"],
+referencedClasses: ["Queue"]
+}),
+smalltalk.ForkPool);
+
+
+smalltalk.ForkPool.klass.iVarNames = ['default'];
+smalltalk.addMethod(
+"_default",
+smalltalk.method({
+selector: "default",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@default"]) == nil || $receiver == undefined){
+self["@default"]=smalltalk.send(self,"_new",[]);
+$1=self["@default"];
+} else {
+$1=self["@default"];
+};
+return $1;
+},
+args: [],
+source: "default\x0a\x09^default ifNil: [ default := self new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+smalltalk.ForkPool.klass);
+
+smalltalk.addMethod(
+"_defaultMaxPoolSize",
+smalltalk.method({
+selector: "defaultMaxPoolSize",
+category: 'accessing',
+fn: function (){
+var self=this;
+return (100);
+},
+args: [],
+source: "defaultMaxPoolSize\x0a\x09^100",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ForkPool.klass);
 
 
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
