@@ -237,15 +237,17 @@ fork: aBlock
 !ForkPool methodsFor: 'initialization'!
 
 initialize
+	| sentinel |
 	poolSize := 0.
     maxPoolSize := self class defaultMaxPoolSize.
     queue := Queue new.
+    sentinel := Object new.
     worker := [
 		| block |
         poolSize := poolSize - 1.
-		block := queue frontIfAbsent: [ ^nil ].
-        [ block value ] ensure: [ self addWorker ]
-	].
+		block := queue frontIfAbsent: [ sentinel ].
+        block == sentinel ifFalse: [
+        	[ block value ] ensure: [ self addWorker ]]].
 ! !
 
 ForkPool class instanceVariableNames: 'default'!
@@ -258,6 +260,10 @@ default
 
 defaultMaxPoolSize
 	^100
+!
+
+resetDefault
+	default := nil
 ! !
 
 Object subclass: #Message

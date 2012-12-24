@@ -687,32 +687,34 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-var $early={};
-try {
+var $1;
+var sentinel;
 self["@poolSize"]=(0);
 self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
 self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
+sentinel=smalltalk.send((smalltalk.Object || Object),"_new",[]);
 self["@worker"]=(function(){
 var block;
 self["@poolSize"]=smalltalk.send(self["@poolSize"],"__minus",[(1)]);
 self["@poolSize"];
 block=smalltalk.send(self["@queue"],"_frontIfAbsent_",[(function(){
-throw $early=[nil];
+return sentinel;
 })]);
 block;
+$1=smalltalk.send(block,"__eq_eq",[sentinel]);
+if(! smalltalk.assert($1)){
 return smalltalk.send((function(){
 return smalltalk.send(block,"_value",[]);
 }),"_ensure_",[(function(){
 return smalltalk.send(self,"_addWorker",[]);
 })]);
+};
 });
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-},
+return self},
 args: [],
-source: "initialize\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    worker := [\x0a\x09\x09| block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ ^nil ].\x0a        [ block value ] ensure: [ self addWorker ]\x0a\x09].",
-messageSends: ["defaultMaxPoolSize", "class", "new", "-", "frontIfAbsent:", "ensure:", "addWorker", "value"],
-referencedClasses: ["Queue"]
+source: "initialize\x0a\x09| sentinel |\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    sentinel := Object new.\x0a    worker := [\x0a\x09\x09| block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]].",
+messageSends: ["defaultMaxPoolSize", "class", "new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
+referencedClasses: ["Queue", "Object"]
 }),
 smalltalk.ForkPool);
 
@@ -752,6 +754,22 @@ return (100);
 },
 args: [],
 source: "defaultMaxPoolSize\x0a\x09^100",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ForkPool.klass);
+
+smalltalk.addMethod(
+"_resetDefault",
+smalltalk.method({
+selector: "resetDefault",
+category: 'accessing',
+fn: function (){
+var self=this;
+self["@default"]=nil;
+return self},
+args: [],
+source: "resetDefault\x0a\x09default := nil",
 messageSends: [],
 referencedClasses: []
 }),

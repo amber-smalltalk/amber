@@ -499,28 +499,30 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-var $early={};
-try {
+var $1;
+var sentinel;
 self["@poolSize"]=(0);
 self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
 self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
+sentinel=smalltalk.send((smalltalk.Object || Object),"_new",[]);
 self["@worker"]=(function(){
 var block;
 self["@poolSize"]=smalltalk.send(self["@poolSize"],"__minus",[(1)]);
 self["@poolSize"];
 block=smalltalk.send(self["@queue"],"_frontIfAbsent_",[(function(){
-throw $early=[nil];
+return sentinel;
 })]);
 block;
+$1=smalltalk.send(block,"__eq_eq",[sentinel]);
+if(! smalltalk.assert($1)){
 return smalltalk.send((function(){
 return smalltalk.send(block,"_value",[]);
 }),"_ensure_",[(function(){
 return smalltalk.send(self,"_addWorker",[]);
 })]);
+};
 });
 return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}
 }),
 smalltalk.ForkPool);
 
@@ -552,6 +554,17 @@ fn: function (){
 var self=this;
 return (100);
 }
+}),
+smalltalk.ForkPool.klass);
+
+smalltalk.addMethod(
+"_resetDefault",
+smalltalk.method({
+selector: "resetDefault",
+fn: function (){
+var self=this;
+self["@default"]=nil;
+return self}
 }),
 smalltalk.ForkPool.klass);
 
