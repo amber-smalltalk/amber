@@ -56,13 +56,7 @@ applyTo: anObject arguments: aCollection
 !
 
 ensure: aBlock
-	| success |
-	success := false.
-	^[self value. success := true. aBlock value]
-		on: Error
-		do: [:ex |
-			success ifFalse: [aBlock value].
-			ex signal]
+	<try{self()}finally{return aBlock._value()}>
 !
 
 new
