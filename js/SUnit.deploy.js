@@ -533,14 +533,12 @@ return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
 return smalltalk.send((function(){
 return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
 }),"_ensure_",[(function(){
-smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
+smalltalk.send(worker,"_fork",[]);
 return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
 })]);
 })]);
 });
-smalltalk.send(smalltalk.send(smalltalk.send(self["@suite"],"_size",[]),"_min_",[(25)]),"_timesRepeat_",[(function(){
-return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
-})]);
+smalltalk.send(worker,"_fork",[]);
 return self}
 }),
 smalltalk.TestSuiteRunner);
