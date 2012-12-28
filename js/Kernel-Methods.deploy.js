@@ -28,14 +28,11 @@ smalltalk.addMethod(
 "_ensure_",
 smalltalk.method({
 selector: "ensure:",
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    var success;
-    success = false;
-    $1 = smalltalk.send(function () {smalltalk.send(self, "_value", []);success = true;success;return smalltalk.send(aBlock, "_value", []);}, "_on_do_", [smalltalk.Error || Error, function (ex) {if (!smalltalk.assert(success)) {smalltalk.send(aBlock, "_value", []);}return smalltalk.send(ex, "_signal", []);}]);
-    return $1;
-}
+fn: function (aBlock){
+var self=this;
+try{self()}finally{return aBlock._value()};
+;
+return self}
 }),
 smalltalk.BlockClosure);
 

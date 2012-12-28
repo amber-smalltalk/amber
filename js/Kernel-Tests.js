@@ -39,6 +39,28 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
+"_testEnsureRaises",
+smalltalk.method({
+selector: "testEnsureRaises",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((function(){
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error),"_new",[]),"_signal",[]);
+}),"_ensure_",[(function(){
+return true;
+})]);
+}),(smalltalk.Error || Error)]);
+return self},
+args: [],
+source: "testEnsureRaises\x0a\x09self should: [[Error new signal] ensure: [true]] raise: Error",
+messageSends: ["should:raise:", "ensure:", "signal", "new"],
+referencedClasses: ["Error"]
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
 "_testNumArgs",
 smalltalk.method({
 selector: "testNumArgs",
