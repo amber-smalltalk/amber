@@ -10,7 +10,7 @@ testCompiledSource
 !
 
 testEnsure
-	self assert: ([Error new] ensure: [true])
+	self assert: 3 equals: ([3] ensure: [4])
 !
 
 testEnsureRaises

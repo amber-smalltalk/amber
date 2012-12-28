@@ -25,16 +25,16 @@ selector: "testEnsure",
 category: 'tests',
 fn: function (){
 var self=this;
-smalltalk.send(self,"_assert_",[smalltalk.send((function(){
-return smalltalk.send((smalltalk.Error || Error),"_new",[]);
+smalltalk.send(self,"_assert_equals_",[(3),smalltalk.send((function(){
+return (3);
 }),"_ensure_",[(function(){
-return true;
+return (4);
 })])]);
 return self},
 args: [],
-source: "testEnsure\x0a\x09self assert: ([Error new] ensure: [true])",
-messageSends: ["assert:", "ensure:", "new"],
-referencedClasses: ["Error"]
+source: "testEnsure\x0a\x09self assert: 3 equals: ([3] ensure: [4])",
+messageSends: ["assert:equals:", "ensure:"],
+referencedClasses: []
 }),
 smalltalk.BlockClosureTest);
 

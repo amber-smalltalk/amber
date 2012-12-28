@@ -30,7 +30,7 @@ smalltalk.method({
 selector: "ensure:",
 fn: function (aBlock){
 var self=this;
-try{self()}finally{return aBlock._value()};
+try{return self()}finally{aBlock._value()};
 ;
 return self}
 }),
