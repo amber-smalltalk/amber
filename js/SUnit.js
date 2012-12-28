@@ -42,24 +42,43 @@ selector: "execute:",
 category: 'running',
 fn: function (aBlock){
 var self=this;
+var $1,$2,$3,$4;
+smalltalk.send(self["@testCase"],"_context_",[self]);
 smalltalk.send((function(){
 return smalltalk.send((function(){
 return smalltalk.send((function(){
 return smalltalk.send(aBlock,"_ensure_",[(function(){
-smalltalk.send(self["@result"],"_increaseRuns",[]);
+smalltalk.send(self["@testCase"],"_context_",[nil]);
+$1=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(! smalltalk.assert($1)){
 return smalltalk.send(self["@testCase"],"_tearDown",[]);
+};
 })]);
 }),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
+$2=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(smalltalk.assert($2)){
+smalltalk.send(self["@testCase"],"_finished",[]);
+};
 return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
 })]);
 }),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+$3=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(smalltalk.assert($3)){
+smalltalk.send(self["@testCase"],"_finished",[]);
+};
 return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
 })]);
-}),"_ensure_",[self["@finished"]]);
+}),"_ensure_",[(function(){
+$4=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(! smalltalk.assert($4)){
+smalltalk.send(self["@result"],"_increaseRuns",[]);
+return smalltalk.send(self["@finished"],"_value",[]);
+};
+})]);
 return self},
 args: ["aBlock"],
-source: "execute: aBlock\x0a\x09[[[\x09aBlock\x0a        \x09ensure: [ result increaseRuns. testCase tearDown ]]\x0a\x09\x09\x09on: TestFailure do: [:ex | result addFailure: testCase]]\x0a\x09\x09\x09on: Error do: [:ex | result addError: testCase]]\x0a\x09\x09\x09ensure: finished",
-messageSends: ["ensure:", "on:do:", "addError:", "addFailure:", "increaseRuns", "tearDown"],
+source: "execute: aBlock\x0a    testCase context: self.\x0a\x09[[[\x09aBlock\x0a        \x09ensure: [ testCase context: nil.\x0a\x09\x09\x09\x09testCase isAsync ifFalse: [ testCase tearDown ]]]\x0a\x09\x09\x09on: TestFailure do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addFailure: testCase]]\x0a\x09\x09\x09on: Error do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addError: testCase]]\x0a\x09\x09\x09ensure: [ testCase isAsync ifFalse: [\x0a                result increaseRuns.\x0a                finished value ]]",
+messageSends: ["context:", "ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "on:do:", "ifTrue:", "finished", "addError:", "addFailure:", "tearDown"],
 referencedClasses: ["Error", "TestFailure"]
 }),
 smalltalk.RunningTestContext);
@@ -156,7 +175,7 @@ referencedClasses: []
 smalltalk.RunningTestContext.klass);
 
 
-smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
+smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 smalltalk.addMethod(
 "_assert_",
 smalltalk.method({
@@ -212,6 +231,45 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_async_",
+smalltalk.method({
+selector: "async:",
+category: 'async',
+fn: function (aBlock){
+var self=this;
+var $1;
+var c;
+smalltalk.send(self,"_mustBeAsync_",["#async"]);
+c=self["@context"];
+$1=(function(){
+return smalltalk.send(c,"_execute_",[aBlock]);
+});
+return $1;
+},
+args: ["aBlock"],
+source: "async: aBlock\x0a\x09| c |\x0a\x09self mustBeAsync: '#async'.\x0a    c := context.\x0a    ^[ c execute: aBlock ]",
+messageSends: ["mustBeAsync:", "execute:"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_context_",
+smalltalk.method({
+selector: "context:",
+category: 'accessing',
+fn: function (aRunningTestContext){
+var self=this;
+self["@context"]=aRunningTestContext;
+return self},
+args: ["aRunningTestContext"],
+source: "context: aRunningTestContext\x0a\x09context := aRunningTestContext",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_deny_",
 smalltalk.method({
 selector: "deny:",
@@ -229,16 +287,88 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_finished",
+smalltalk.method({
+selector: "finished",
+category: 'async',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_mustBeAsync_",["#finished"]);
+self["@asyncTimeout"]=nil;
+return self},
+args: [],
+source: "finished\x0a\x09self mustBeAsync: '#finished'.\x0a\x09asyncTimeout := nil",
+messageSends: ["mustBeAsync:"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_graceTime_",
+smalltalk.method({
+selector: "graceTime:",
+category: 'async',
+fn: function (millis){
+var self=this;
+self["@asyncTimeout"]=true;
+return self},
+args: ["millis"],
+source: "graceTime: millis\x0a\x09asyncTimeout := true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_isAsync",
+smalltalk.method({
+selector: "isAsync",
+category: 'async',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self["@asyncTimeout"],"_notNil",[]);
+return $1;
+},
+args: [],
+source: "isAsync\x0a\x09^asyncTimeout notNil",
+messageSends: ["notNil"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_mustBeAsync_",
+smalltalk.method({
+selector: "mustBeAsync:",
+category: 'async',
+fn: function (aString){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_isAsync",[]);
+if(! smalltalk.assert($1)){
+smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
+};
+return self},
+args: ["aString"],
+source: "mustBeAsync: aString\x0a\x09self isAsync ifFalse: [ self error: aString, ' used without prior #graceTime:' ]",
+messageSends: ["ifFalse:", "error:", ",", "isAsync"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_performTest",
 smalltalk.method({
 selector: "performTest",
 category: 'running',
 fn: function (){
 var self=this;
+self["@asyncTimeout"]=nil;
 smalltalk.send(self,"_perform_",[smalltalk.send(self,"_selector",[])]);
 return self},
 args: [],
-source: "performTest\x0a\x09self perform: self selector\x0a",
+source: "performTest\x0a\x09asyncTimeout := nil.\x0a\x09self perform: self selector\x0a",
 messageSends: ["perform:", "selector"],
 referencedClasses: []
 }),

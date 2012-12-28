@@ -34,11 +34,15 @@ testCase: aTestCase
 !RunningTestContext methodsFor: 'running'!
 
 execute: aBlock
+    testCase context: self.
 	[[[	aBlock
-        	ensure: [ result increaseRuns. testCase tearDown ]]
-			on: TestFailure do: [:ex | result addFailure: testCase]]
-			on: Error do: [:ex | result addError: testCase]]
-			ensure: finished
+        	ensure: [ testCase context: nil.
+				testCase isAsync ifFalse: [ testCase tearDown ]]]
+			on: TestFailure do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addFailure: testCase]]
+			on: Error do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addError: testCase]]
+			ensure: [ testCase isAsync ifFalse: [
+                result increaseRuns.
+                finished value ]]
 !
 
 start
@@ -56,10 +60,14 @@ testCase: aTestCase result: aTestResult finished: aBlock
 ! !
 
 Object subclass: #TestCase
-	instanceVariableNames: 'testSelector'
+	instanceVariableNames: 'testSelector asyncTimeout context'
 	package: 'SUnit'!
 
 !TestCase methodsFor: 'accessing'!
+
+context: aRunningTestContext
+	context := aRunningTestContext
+!
 
 selector
 	^testSelector
@@ -67,6 +75,32 @@ selector
 
 setTestSelector: aSelector
 	testSelector := aSelector
+! !
+
+!TestCase methodsFor: 'async'!
+
+async: aBlock
+	| c |
+	self mustBeAsync: '#async'.
+    c := context.
+    ^[ c execute: aBlock ]
+!
+
+finished
+	self mustBeAsync: '#finished'.
+	asyncTimeout := nil
+!
+
+graceTime: millis
+	asyncTimeout := true
+!
+
+isAsync
+	^asyncTimeout notNil
+!
+
+mustBeAsync: aString
+	self isAsync ifFalse: [ self error: aString, ' used without prior #graceTime:' ]
 ! !
 
 !TestCase methodsFor: 'private'!
@@ -80,6 +114,7 @@ signalFailure: aString
 !TestCase methodsFor: 'running'!
 
 performTest
+	asyncTimeout := nil.
 	self perform: self selector
 !
 
