@@ -5240,15 +5240,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "performFailure:",
 category: 'actions',
-fn: function (aTestCase) {
-    var self = this;
-    smalltalk.send(aTestCase, "_setUp", []);
-    smalltalk.send(function () {return smalltalk.send(aTestCase, "_perform_", [smalltalk.send(aTestCase, "_selector", [])]);}, "_ensure_", [function () {return smalltalk.send(aTestCase, "_tearDown", []);}]);
-    return self;
-},
+fn: function (aTestCase){
+var self=this;
+smalltalk.send(aTestCase,"_runCase",[]);
+return self},
 args: ["aTestCase"],
-source: "performFailure: aTestCase\x0a\x09aTestCase setUp.\x0a    [ aTestCase perform: aTestCase selector ]\x0a  \x09\x09ensure: [ aTestCase tearDown ]",
-messageSends: ["setUp", "ensure:", "tearDown", "perform:", "selector"],
+source: "performFailure: aTestCase\x0a\x09aTestCase runCase",
+messageSends: ["runCase"],
 referencedClasses: []
 }),
 smalltalk.TestRunner);
