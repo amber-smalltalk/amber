@@ -13,6 +13,10 @@ testEnsure
 	self assert: ([Error new] ensure: [true])
 !
 
+testEnsureRaises
+	self should: [[Error new signal] ensure: [true]] raise: Error
+!
+
 testNumArgs
 	self assert: [] numArgs equals: 0.
 	self assert: [:a :b | ] numArgs equals: 2

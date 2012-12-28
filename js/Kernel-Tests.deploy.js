@@ -29,6 +29,23 @@ return self}
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
+"_testEnsureRaises",
+smalltalk.method({
+selector: "testEnsureRaises",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((function(){
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error),"_new",[]),"_signal",[]);
+}),"_ensure_",[(function(){
+return true;
+})]);
+}),(smalltalk.Error || Error)]);
+return self}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
 "_testNumArgs",
 smalltalk.method({
 selector: "testNumArgs",

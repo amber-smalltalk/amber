@@ -40,18 +40,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ensure:",
 category: 'evaluating',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    var success;
-    success = false;
-    $1 = smalltalk.send(function () {smalltalk.send(self, "_value", []);success = true;success;return smalltalk.send(aBlock, "_value", []);}, "_on_do_", [smalltalk.Error || Error, function (ex) {if (!smalltalk.assert(success)) {smalltalk.send(aBlock, "_value", []);}return smalltalk.send(ex, "_signal", []);}]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+try{self()}finally{return aBlock._value()};
+;
+return self},
 args: ["aBlock"],
-source: "ensure: aBlock\x0a\x09| success |\x0a\x09success := false.\x0a\x09^[self value. success := true. aBlock value]\x0a\x09\x09on: Error\x0a\x09\x09do: [:ex |\x0a\x09\x09\x09success ifFalse: [aBlock value].\x0a\x09\x09\x09ex signal]",
-messageSends: ["on:do:", "ifFalse:", "value", "signal"],
-referencedClasses: ["Error"]
+source: "ensure: aBlock\x0a\x09<try{self()}finally{return aBlock._value()}>",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
