@@ -44,11 +44,15 @@ performTest
 runCase
 	[	self setUp.
 		self performTest ] ensure: [
-		self tearDown.
-		"self cleanUpInstanceVariables" ]
+		self tearDown ]
 !
 
 setUp
+!
+
+startCase
+	self setUp.
+	self performTest
 !
 
 tearDown
@@ -202,8 +206,8 @@ or does nothing if no more runs"
 !
 
 runCase: aTestCase
-	[[	self increaseRuns.
-    	aTestCase runCase]
+	[[[	self increaseRuns.
+    	aTestCase startCase ] ensure: [ aTestCase tearDown ]]
 	on: TestFailure do: [:ex | self addFailure: aTestCase]]
 	on: Error do: [:ex | self addError: aTestCase]
 ! !

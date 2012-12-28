@@ -189,6 +189,18 @@ fn: function (aString) {
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_startCase",
+smalltalk.method({
+selector: "startCase",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_setUp",[]);
+smalltalk.send(self,"_performTest",[]);
+return self}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_tearDown",
 smalltalk.method({
 selector: "tearDown",
@@ -401,8 +413,12 @@ fn: function (aTestCase){
 var self=this;
 smalltalk.send((function(){
 return smalltalk.send((function(){
+return smalltalk.send((function(){
 smalltalk.send(self,"_increaseRuns",[]);
-return smalltalk.send(aTestCase,"_runCase",[]);
+return smalltalk.send(aTestCase,"_startCase",[]);
+}),"_ensure_",[(function(){
+return smalltalk.send(aTestCase,"_tearDown",[]);
+})]);
 }),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
 return smalltalk.send(self,"_addFailure_",[aTestCase]);
 })]);

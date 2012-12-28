@@ -137,7 +137,7 @@ return smalltalk.send(self,"_tearDown",[]);
 })]);
 return self},
 args: [],
-source: "runCase\x0a\x09[\x09self setUp.\x0a\x09\x09self performTest ] ensure: [\x0a\x09\x09self tearDown.\x0a\x09\x09\x22self cleanUpInstanceVariables\x22 ]\x0a",
+source: "runCase\x0a\x09[\x09self setUp.\x0a\x09\x09self performTest ] ensure: [\x0a\x09\x09self tearDown ]\x0a",
 messageSends: ["ensure:", "tearDown", "setUp", "performTest"],
 referencedClasses: []
 }),
@@ -260,6 +260,23 @@ args: ["aString"],
 source: "signalFailure: aString\x0a\x09TestFailure new\x0a\x09\x09messageText: aString;\x0a\x09\x09signal",
 messageSends: ["messageText:", "new", "signal"],
 referencedClasses: ["TestFailure"]
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_startCase",
+smalltalk.method({
+selector: "startCase",
+category: 'running',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_setUp",[]);
+smalltalk.send(self,"_performTest",[]);
+return self},
+args: [],
+source: "startCase\x0a\x09self setUp.\x0a\x09self performTest\x0a",
+messageSends: ["setUp", "performTest"],
+referencedClasses: []
 }),
 smalltalk.TestCase);
 
@@ -552,8 +569,12 @@ fn: function (aTestCase){
 var self=this;
 smalltalk.send((function(){
 return smalltalk.send((function(){
+return smalltalk.send((function(){
 smalltalk.send(self,"_increaseRuns",[]);
-return smalltalk.send(aTestCase,"_runCase",[]);
+return smalltalk.send(aTestCase,"_startCase",[]);
+}),"_ensure_",[(function(){
+return smalltalk.send(aTestCase,"_tearDown",[]);
+})]);
 }),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
 return smalltalk.send(self,"_addFailure_",[aTestCase]);
 })]);
@@ -562,8 +583,8 @@ return smalltalk.send(self,"_addError_",[aTestCase]);
 })]);
 return self},
 args: ["aTestCase"],
-source: "runCase: aTestCase\x0a\x09[[\x09self increaseRuns.\x0a    \x09aTestCase runCase]\x0a\x09on: TestFailure do: [:ex | self addFailure: aTestCase]]\x0a\x09on: Error do: [:ex | self addError: aTestCase]\x0a",
-messageSends: ["on:do:", "addError:", "addFailure:", "increaseRuns", "runCase"],
+source: "runCase: aTestCase\x0a\x09[[[\x09self increaseRuns.\x0a    \x09aTestCase startCase ] ensure: [ aTestCase tearDown ]]\x0a\x09on: TestFailure do: [:ex | self addFailure: aTestCase]]\x0a\x09on: Error do: [:ex | self addError: aTestCase]\x0a",
+messageSends: ["on:do:", "addError:", "addFailure:", "ensure:", "tearDown", "increaseRuns", "startCase"],
 referencedClasses: ["Error", "TestFailure"]
 }),
 smalltalk.TestResult);
