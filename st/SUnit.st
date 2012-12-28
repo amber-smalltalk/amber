@@ -14,7 +14,7 @@ result: aTestResult
 ! !
 
 Object subclass: #RunningTestContext
-	instanceVariableNames: 'finished testCase result'
+	instanceVariableNames: 'finished testCase result step'
 	package: 'SUnit'!
 
 !RunningTestContext methodsFor: 'accessing'!
@@ -31,18 +31,25 @@ testCase: aTestCase
 	testCase := aTestCase
 ! !
 
+!RunningTestContext methodsFor: 'private'!
+
+exception: anException ifNotAsync: aBlock
+	testCase isAsync
+		ifTrue: [ step := [ testCase finished. anException signal ]]
+		ifFalse: [ aBlock value ]
+! !
+
 !RunningTestContext methodsFor: 'running'!
 
 execute: aBlock
-    testCase context: self.
-	[[[	aBlock
-        	ensure: [ testCase context: nil.
-				testCase isAsync ifFalse: [ testCase tearDown ]]]
-			on: TestFailure do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addFailure: testCase]]
-			on: Error do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addError: testCase]]
-			ensure: [ testCase isAsync ifFalse: [
-                result increaseRuns.
-                finished value ]]
+    step := aBlock.
+	[ step isNil ] whileFalse: [
+	    testCase context: self.
+		[[[	step
+        		ensure: [ testCase context: nil. step := nil. testCase isAsync ifFalse: [ testCase tearDown ]]]
+				on: TestFailure do: [:ex | self exception: ex ifNotAsync: [ result addFailure: testCase]]]
+				on: Error do: [:ex | self exception: ex ifNotAsync: [ result addError: testCase]]]
+				ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ]]]
 !
 
 start

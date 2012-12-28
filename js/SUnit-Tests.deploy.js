@@ -9,10 +9,24 @@ var self=this;
 self["@flag"]="bad";
 smalltalk.send(self,"_graceTime_",[(10)]);
 self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_error_",["Intentional"]);
-smalltalk.send(self,"_finished",[]);
 self["@flag"]="ok";
-return self["@flag"];
+self["@flag"];
+return smalltalk.send(self,"_error_",["Intentional"]);
+})]),"_valueWithTimeout_",[(5)]);
+return self}
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeErrorFailingInTearDown",
+smalltalk.method({
+selector: "fakeErrorFailingInTearDown",
+fn: function (){
+var self=this;
+self["@flag"]="bad";
+smalltalk.send(self,"_graceTime_",[(10)]);
+self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_error_",["Intentional"]);
 })]),"_valueWithTimeout_",[(5)]);
 return self}
 }),
@@ -27,10 +41,9 @@ var self=this;
 self["@flag"]="bad";
 smalltalk.send(self,"_graceTime_",[(10)]);
 self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_assert_",[false]);
-smalltalk.send(self,"_finished",[]);
 self["@flag"]="ok";
-return self["@flag"];
+self["@flag"];
+return smalltalk.send(self,"_assert_",[false]);
 })]),"_valueWithTimeout_",[(5)]);
 return self}
 }),
@@ -44,6 +57,21 @@ fn: function (){
 var self=this;
 self["@flag"]="ok";
 return self}
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_sortedSelectors_",
+smalltalk.method({
+selector: "sortedSelectors:",
+fn: function (aCollection){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(aCollection,"_collect_",[(function(each){
+return smalltalk.send(each,"_selector",[]);
+})]),"_sorted",[]);
+return $1;
+}
 }),
 smalltalk.SUnitAsyncTest);
 
@@ -69,15 +97,15 @@ var suite;
 var runner;
 var result;
 var assertBlock;
-suite=[smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",["fakeError"]),smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",["fakeFailure"]),smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",["testPass"])];
+suite=smalltalk.send(["fakeError", "fakeErrorFailingInTearDown", "fakeFailure", "testPass"],"_collect_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",[each]);
+})]);
 runner=smalltalk.send((smalltalk.TestSuiteRunner || TestSuiteRunner),"_on_",[suite]);
 smalltalk.send(self,"_graceTime_",[(200)]);
 result=smalltalk.send(runner,"_result",[]);
 assertBlock=smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_assert_equals_",[(1),smalltalk.send(smalltalk.send(result,"_errors",[]),"_size",[])]);
-smalltalk.send(self,"_assert_equals_",["fakeError",smalltalk.send(smalltalk.send(smalltalk.send(result,"_errors",[]),"_first",[]),"_selector",[])]);
-smalltalk.send(self,"_assert_equals_",[(1),smalltalk.send(smalltalk.send(result,"_failures",[]),"_size",[])]);
-smalltalk.send(self,"_assert_equals_",["fakeFailure",smalltalk.send(smalltalk.send(smalltalk.send(result,"_failures",[]),"_first",[]),"_selector",[])]);
+smalltalk.send(self,"_assert_equals_",[["fakeError"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_errors",[])])]);
+smalltalk.send(self,"_assert_equals_",[["fakeErrorFailingInTearDown", "fakeFailure"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_failures",[])])]);
 return smalltalk.send(self,"_finished",[]);
 })]);
 smalltalk.send(smalltalk.send(runner,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){

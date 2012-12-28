@@ -3,6 +3,12 @@ TestCase subclass: #SUnitAsyncTest
 	instanceVariableNames: 'flag'
 	package: 'SUnit-Tests'!
 
+!SUnitAsyncTest methodsFor: 'private'!
+
+sortedSelectors: aCollection
+	^(aCollection collect: [:each | each selector]) sorted
+! !
+
 !SUnitAsyncTest methodsFor: 'running'!
 
 setUp
@@ -18,26 +24,30 @@ tearDown
 fakeError
 	flag := 'bad'.
 	self graceTime: 10.
-    flag := (self async: [ self error: 'Intentional'. self finished. flag := 'ok' ]) valueWithTimeout: 5
+    flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 5
+!
+
+fakeErrorFailingInTearDown
+	flag := 'bad'.
+	self graceTime: 10.
+    flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 5
 !
 
 fakeFailure
 	flag := 'bad'.
 	self graceTime: 10.
-    flag := (self async: [ self assert: false. self finished. flag := 'ok' ]) valueWithTimeout: 5
+    flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5
 !
 
 testAsyncErrorsAndFailuresWork
 	| suite runner result assertBlock |
-	suite := { self class selector: 'fakeError'. self class selector: 'fakeFailure'. self class selector: 'testPass' }.
+	suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].
     runner := TestSuiteRunner on: suite.
     self graceTime: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: 1 equals: result errors size.
-		self assert: 'fakeError' equals: result errors first selector.
-		self assert: 1 equals: result failures size.
-		self assert: 'fakeFailure' equals: result failures first selector.
+		self assert: #('fakeError') equals: (self sortedSelectors: result errors).
+		self assert: #('fakeErrorFailingInTearDown' 'fakeFailure') equals: (self sortedSelectors: result failures).
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |

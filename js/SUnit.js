@@ -34,7 +34,33 @@ smalltalk.ResultAnnouncement);
 
 
 
-smalltalk.addClass('RunningTestContext', smalltalk.Object, ['finished', 'testCase', 'result'], 'SUnit');
+smalltalk.addClass('RunningTestContext', smalltalk.Object, ['finished', 'testCase', 'result', 'step'], 'SUnit');
+smalltalk.addMethod(
+"_exception_ifNotAsync_",
+smalltalk.method({
+selector: "exception:ifNotAsync:",
+category: 'private',
+fn: function (anException,aBlock){
+var self=this;
+var $1;
+$1=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(smalltalk.assert($1)){
+self["@step"]=(function(){
+smalltalk.send(self["@testCase"],"_finished",[]);
+return smalltalk.send(anException,"_signal",[]);
+});
+self["@step"];
+} else {
+smalltalk.send(aBlock,"_value",[]);
+};
+return self},
+args: ["anException", "aBlock"],
+source: "exception: anException ifNotAsync: aBlock\x0a\x09testCase isAsync\x0a\x09\x09ifTrue: [ step := [ testCase finished. anException signal ]]\x0a\x09\x09ifFalse: [ aBlock value ]\x0a",
+messageSends: ["ifTrue:ifFalse:", "finished", "signal", "value", "isAsync"],
+referencedClasses: []
+}),
+smalltalk.RunningTestContext);
+
 smalltalk.addMethod(
 "_execute_",
 smalltalk.method({
@@ -42,43 +68,46 @@ selector: "execute:",
 category: 'running',
 fn: function (aBlock){
 var self=this;
-var $1,$2,$3,$4;
-smalltalk.send(self["@testCase"],"_context_",[self]);
+var $1,$2;
+self["@step"]=aBlock;
 smalltalk.send((function(){
+return smalltalk.send(self["@step"],"_isNil",[]);
+}),"_whileFalse_",[(function(){
+smalltalk.send(self["@testCase"],"_context_",[self]);
 return smalltalk.send((function(){
 return smalltalk.send((function(){
-return smalltalk.send(aBlock,"_ensure_",[(function(){
+return smalltalk.send((function(){
+return smalltalk.send(self["@step"],"_ensure_",[(function(){
 smalltalk.send(self["@testCase"],"_context_",[nil]);
+self["@step"]=nil;
+self["@step"];
 $1=smalltalk.send(self["@testCase"],"_isAsync",[]);
 if(! smalltalk.assert($1)){
 return smalltalk.send(self["@testCase"],"_tearDown",[]);
 };
 })]);
 }),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
-$2=smalltalk.send(self["@testCase"],"_isAsync",[]);
-if(smalltalk.assert($2)){
-smalltalk.send(self["@testCase"],"_finished",[]);
-};
+return smalltalk.send(self,"_exception_ifNotAsync_",[ex,(function(){
 return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
 })]);
+})]);
 }),"_on_do_",[(smalltalk.Error || Error),(function(ex){
-$3=smalltalk.send(self["@testCase"],"_isAsync",[]);
-if(smalltalk.assert($3)){
-smalltalk.send(self["@testCase"],"_finished",[]);
-};
+return smalltalk.send(self,"_exception_ifNotAsync_",[ex,(function(){
 return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
 })]);
+})]);
 }),"_ensure_",[(function(){
-$4=smalltalk.send(self["@testCase"],"_isAsync",[]);
-if(! smalltalk.assert($4)){
+$2=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(! smalltalk.assert($2)){
 smalltalk.send(self["@result"],"_increaseRuns",[]);
 return smalltalk.send(self["@finished"],"_value",[]);
 };
 })]);
+})]);
 return self},
 args: ["aBlock"],
-source: "execute: aBlock\x0a    testCase context: self.\x0a\x09[[[\x09aBlock\x0a        \x09ensure: [ testCase context: nil.\x0a\x09\x09\x09\x09testCase isAsync ifFalse: [ testCase tearDown ]]]\x0a\x09\x09\x09on: TestFailure do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addFailure: testCase]]\x0a\x09\x09\x09on: Error do: [:ex | testCase isAsync ifTrue: [ testCase finished ]. result addError: testCase]]\x0a\x09\x09\x09ensure: [ testCase isAsync ifFalse: [\x0a                result increaseRuns.\x0a                finished value ]]",
-messageSends: ["context:", "ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "on:do:", "ifTrue:", "finished", "addError:", "addFailure:", "tearDown"],
+source: "execute: aBlock\x0a    step := aBlock.\x0a\x09[ step isNil ] whileFalse: [\x0a\x09    testCase context: self.\x0a\x09\x09[[[\x09step\x0a        \x09\x09ensure: [ testCase context: nil. step := nil. testCase isAsync ifFalse: [ testCase tearDown ]]]\x0a\x09\x09\x09\x09on: TestFailure do: [:ex | self exception: ex ifNotAsync: [ result addFailure: testCase]]]\x0a\x09\x09\x09\x09on: Error do: [:ex | self exception: ex ifNotAsync: [ result addError: testCase]]]\x0a\x09\x09\x09\x09ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ]]]",
+messageSends: ["whileFalse:", "context:", "ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "on:do:", "exception:ifNotAsync:", "addError:", "addFailure:", "tearDown", "isNil"],
 referencedClasses: ["Error", "TestFailure"]
 }),
 smalltalk.RunningTestContext);

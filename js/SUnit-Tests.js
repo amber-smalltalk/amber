@@ -10,15 +10,34 @@ var self=this;
 self["@flag"]="bad";
 smalltalk.send(self,"_graceTime_",[(10)]);
 self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_error_",["Intentional"]);
-smalltalk.send(self,"_finished",[]);
 self["@flag"]="ok";
-return self["@flag"];
+self["@flag"];
+return smalltalk.send(self,"_error_",["Intentional"]);
 })]),"_valueWithTimeout_",[(5)]);
 return self},
 args: [],
-source: "fakeError\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    flag := (self async: [ self error: 'Intentional'. self finished. flag := 'ok' ]) valueWithTimeout: 5\x0a",
-messageSends: ["graceTime:", "valueWithTimeout:", "async:", "error:", "finished"],
+source: "fakeError\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 5\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "error:"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeErrorFailingInTearDown",
+smalltalk.method({
+selector: "fakeErrorFailingInTearDown",
+category: 'tests',
+fn: function (){
+var self=this;
+self["@flag"]="bad";
+smalltalk.send(self,"_graceTime_",[(10)]);
+self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_error_",["Intentional"]);
+})]),"_valueWithTimeout_",[(5)]);
+return self},
+args: [],
+source: "fakeErrorFailingInTearDown\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 5\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "error:"],
 referencedClasses: []
 }),
 smalltalk.SUnitAsyncTest);
@@ -33,15 +52,14 @@ var self=this;
 self["@flag"]="bad";
 smalltalk.send(self,"_graceTime_",[(10)]);
 self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_assert_",[false]);
-smalltalk.send(self,"_finished",[]);
 self["@flag"]="ok";
-return self["@flag"];
+self["@flag"];
+return smalltalk.send(self,"_assert_",[false]);
 })]),"_valueWithTimeout_",[(5)]);
 return self},
 args: [],
-source: "fakeFailure\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    flag := (self async: [ self assert: false. self finished. flag := 'ok' ]) valueWithTimeout: 5\x0a",
-messageSends: ["graceTime:", "valueWithTimeout:", "async:", "assert:", "finished"],
+source: "fakeFailure\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "assert:"],
 referencedClasses: []
 }),
 smalltalk.SUnitAsyncTest);
@@ -58,6 +76,26 @@ return self},
 args: [],
 source: "setUp\x0a\x09flag := 'ok'\x0a",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_sortedSelectors_",
+smalltalk.method({
+selector: "sortedSelectors:",
+category: 'private',
+fn: function (aCollection){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(aCollection,"_collect_",[(function(each){
+return smalltalk.send(each,"_selector",[]);
+})]),"_sorted",[]);
+return $1;
+},
+args: ["aCollection"],
+source: "sortedSelectors: aCollection\x0a\x09^(aCollection collect: [:each | each selector]) sorted",
+messageSends: ["sorted", "collect:", "selector"],
 referencedClasses: []
 }),
 smalltalk.SUnitAsyncTest);
@@ -90,15 +128,15 @@ var suite;
 var runner;
 var result;
 var assertBlock;
-suite=[smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",["fakeError"]),smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",["fakeFailure"]),smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",["testPass"])];
+suite=smalltalk.send(["fakeError", "fakeErrorFailingInTearDown", "fakeFailure", "testPass"],"_collect_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",[each]);
+})]);
 runner=smalltalk.send((smalltalk.TestSuiteRunner || TestSuiteRunner),"_on_",[suite]);
 smalltalk.send(self,"_graceTime_",[(200)]);
 result=smalltalk.send(runner,"_result",[]);
 assertBlock=smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_assert_equals_",[(1),smalltalk.send(smalltalk.send(result,"_errors",[]),"_size",[])]);
-smalltalk.send(self,"_assert_equals_",["fakeError",smalltalk.send(smalltalk.send(smalltalk.send(result,"_errors",[]),"_first",[]),"_selector",[])]);
-smalltalk.send(self,"_assert_equals_",[(1),smalltalk.send(smalltalk.send(result,"_failures",[]),"_size",[])]);
-smalltalk.send(self,"_assert_equals_",["fakeFailure",smalltalk.send(smalltalk.send(smalltalk.send(result,"_failures",[]),"_first",[]),"_selector",[])]);
+smalltalk.send(self,"_assert_equals_",[["fakeError"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_errors",[])])]);
+smalltalk.send(self,"_assert_equals_",[["fakeErrorFailingInTearDown", "fakeFailure"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_failures",[])])]);
 return smalltalk.send(self,"_finished",[]);
 })]);
 smalltalk.send(smalltalk.send(runner,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
@@ -111,8 +149,8 @@ return smalltalk.send($2,"_ifTrue_",[assertBlock]);
 smalltalk.send(runner,"_run",[]);
 return self},
 args: [],
-source: "testAsyncErrorsAndFailuresWork\x0a\x09| suite runner result assertBlock |\x0a\x09suite := { self class selector: 'fakeError'. self class selector: 'fakeFailure'. self class selector: 'testPass' }.\x0a    runner := TestSuiteRunner on: suite.\x0a    self graceTime: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: 1 equals: result errors size.\x0a\x09\x09self assert: 'fakeError' equals: result errors first selector.\x0a\x09\x09self assert: 1 equals: result failures size.\x0a\x09\x09self assert: 'fakeFailure' equals: result failures first selector.\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
-messageSends: ["selector:", "class", "on:", "graceTime:", "result", "async:", "assert:equals:", "size", "errors", "selector", "first", "failures", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"],
+source: "testAsyncErrorsAndFailuresWork\x0a\x09| suite runner result assertBlock |\x0a\x09suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].\x0a    runner := TestSuiteRunner on: suite.\x0a    self graceTime: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: #('fakeError') equals: (self sortedSelectors: result errors).\x0a\x09\x09self assert: #('fakeErrorFailingInTearDown' 'fakeFailure') equals: (self sortedSelectors: result failures).\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
+messageSends: ["collect:", "selector:", "class", "on:", "graceTime:", "result", "async:", "assert:equals:", "sortedSelectors:", "errors", "failures", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"],
 referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"]
 }),
 smalltalk.SUnitAsyncTest);
