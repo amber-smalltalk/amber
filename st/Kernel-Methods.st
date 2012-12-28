@@ -56,7 +56,7 @@ applyTo: anObject arguments: aCollection
 !
 
 ensure: aBlock
-	<try{self()}finally{return aBlock._value()}>
+	<try{return self()}finally{aBlock._value()}>
 !
 
 new
