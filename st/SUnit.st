@@ -234,9 +234,9 @@ run
     announcer announce: (ResultAnnouncement new result: result).
     worker := [ result nextRunDo: [ :index |
 		[ result runCase: (suite at: index) ]
-		ensure: [ worker valueWithTimeout: 0.
+		ensure: [ worker fork.
         	announcer announce: (ResultAnnouncement new result: result) ]]].
-	(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]
+	worker fork
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!

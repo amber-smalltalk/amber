@@ -729,18 +729,16 @@ return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
 return smalltalk.send((function(){
 return smalltalk.send(self["@result"],"_runCase_",[smalltalk.send(self["@suite"],"_at_",[index])]);
 }),"_ensure_",[(function(){
-smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
+smalltalk.send(worker,"_fork",[]);
 return smalltalk.send(self["@announcer"],"_announce_",[smalltalk.send(smalltalk.send((smalltalk.ResultAnnouncement || ResultAnnouncement),"_new",[]),"_result_",[self["@result"]])]);
 })]);
 })]);
 });
-smalltalk.send(smalltalk.send(smalltalk.send(self["@suite"],"_size",[]),"_min_",[(25)]),"_timesRepeat_",[(function(){
-return smalltalk.send(worker,"_valueWithTimeout_",[(0)]);
-})]);
+smalltalk.send(worker,"_fork",[]);
 return self},
 args: [],
-source: "run\x0a\x09| worker |\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a    worker := [ result nextRunDo: [ :index |\x0a\x09\x09[ result runCase: (suite at: index) ]\x0a\x09\x09ensure: [ worker valueWithTimeout: 0.\x0a        \x09announcer announce: (ResultAnnouncement new result: result) ]]].\x0a\x09(suite size min: 25) timesRepeat: [ worker valueWithTimeout: 0 ]",
-messageSends: ["total:", "size", "announce:", "result:", "new", "nextRunDo:", "ensure:", "valueWithTimeout:", "runCase:", "at:", "timesRepeat:", "min:"],
+source: "run\x0a\x09| worker |\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a    worker := [ result nextRunDo: [ :index |\x0a\x09\x09[ result runCase: (suite at: index) ]\x0a\x09\x09ensure: [ worker fork.\x0a        \x09announcer announce: (ResultAnnouncement new result: result) ]]].\x0a\x09worker fork",
+messageSends: ["total:", "size", "announce:", "result:", "new", "nextRunDo:", "ensure:", "fork", "runCase:", "at:"],
 referencedClasses: ["ResultAnnouncement"]
 }),
 smalltalk.TestSuiteRunner);
