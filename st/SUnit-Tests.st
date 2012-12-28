@@ -80,5 +80,14 @@ testPass
 	flag := 'bad'.
 	self graceTime: 10.
     flag := (self async: [ self assert: true. self finished. flag := 'ok' ]) valueWithTimeout: 5
+!
+
+testTwoAsyncPassesWithFinishedOnlyOneIsRun
+	| x |
+	flag := 'bad'.
+	self graceTime: 10.
+    x := 0.
+    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.
+    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.
 ! !
 

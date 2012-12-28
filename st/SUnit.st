@@ -90,7 +90,7 @@ async: aBlock
 	| c |
 	self mustBeAsync: '#async'.
     c := context.
-    ^[ c execute: aBlock ]
+    ^[ self isAsync ifTrue: [ c execute: aBlock ]]
 !
 
 finished

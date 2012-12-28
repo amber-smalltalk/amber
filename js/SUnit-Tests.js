@@ -245,5 +245,40 @@ referencedClasses: []
 }),
 smalltalk.SUnitAsyncTest);
 
+smalltalk.addMethod(
+"_testTwoAsyncPassesWithFinishedOnlyOneIsRun",
+smalltalk.method({
+selector: "testTwoAsyncPassesWithFinishedOnlyOneIsRun",
+category: 'tests',
+fn: function (){
+var self=this;
+var x;
+self["@flag"]="bad";
+smalltalk.send(self,"_graceTime_",[(10)]);
+x=(0);
+self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_finished",[]);
+self["@flag"]="ok";
+self["@flag"];
+x=smalltalk.send(x,"__plus",[(1)]);
+x;
+return smalltalk.send(self,"_assert_equals_",[(1),x]);
+})]),"_valueWithTimeout_",[(0)]);
+self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_finished",[]);
+self["@flag"]="ok";
+self["@flag"];
+x=smalltalk.send(x,"__plus",[(1)]);
+x;
+return smalltalk.send(self,"_assert_equals_",[(1),x]);
+})]),"_valueWithTimeout_",[(0)]);
+return self},
+args: [],
+source: "testTwoAsyncPassesWithFinishedOnlyOneIsRun\x0a\x09| x |\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    x := 0.\x0a    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.\x0a    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "finished", "+", "assert:equals:"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
 
 

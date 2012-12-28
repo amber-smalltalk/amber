@@ -190,5 +190,35 @@ return self}
 }),
 smalltalk.SUnitAsyncTest);
 
+smalltalk.addMethod(
+"_testTwoAsyncPassesWithFinishedOnlyOneIsRun",
+smalltalk.method({
+selector: "testTwoAsyncPassesWithFinishedOnlyOneIsRun",
+fn: function (){
+var self=this;
+var x;
+self["@flag"]="bad";
+smalltalk.send(self,"_graceTime_",[(10)]);
+x=(0);
+self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_finished",[]);
+self["@flag"]="ok";
+self["@flag"];
+x=smalltalk.send(x,"__plus",[(1)]);
+x;
+return smalltalk.send(self,"_assert_equals_",[(1),x]);
+})]),"_valueWithTimeout_",[(0)]);
+self["@flag"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_finished",[]);
+self["@flag"]="ok";
+self["@flag"];
+x=smalltalk.send(x,"__plus",[(1)]);
+x;
+return smalltalk.send(self,"_assert_equals_",[(1),x]);
+})]),"_valueWithTimeout_",[(0)]);
+return self}
+}),
+smalltalk.SUnitAsyncTest);
+
 
 

@@ -266,18 +266,21 @@ selector: "async:",
 category: 'async',
 fn: function (aBlock){
 var self=this;
-var $1;
+var $2,$1;
 var c;
 smalltalk.send(self,"_mustBeAsync_",["#async"]);
 c=self["@context"];
 $1=(function(){
+$2=smalltalk.send(self,"_isAsync",[]);
+if(smalltalk.assert($2)){
 return smalltalk.send(c,"_execute_",[aBlock]);
+};
 });
 return $1;
 },
 args: ["aBlock"],
-source: "async: aBlock\x0a\x09| c |\x0a\x09self mustBeAsync: '#async'.\x0a    c := context.\x0a    ^[ c execute: aBlock ]",
-messageSends: ["mustBeAsync:", "execute:"],
+source: "async: aBlock\x0a\x09| c |\x0a\x09self mustBeAsync: '#async'.\x0a    c := context.\x0a    ^[ self isAsync ifTrue: [ c execute: aBlock ]]",
+messageSends: ["mustBeAsync:", "ifTrue:", "execute:", "isAsync"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
