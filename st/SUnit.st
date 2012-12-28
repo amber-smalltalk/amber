@@ -13,6 +13,48 @@ result: aTestResult
 	result := aTestResult
 ! !
 
+Object subclass: #RunningTestContext
+	instanceVariableNames: 'finished testCase result'
+	package: 'SUnit'!
+
+!RunningTestContext methodsFor: 'accessing'!
+
+finished: aBlock
+	finished := aBlock
+!
+
+result: aTestResult
+	result := aTestResult
+!
+
+testCase: aTestCase
+	testCase := aTestCase
+! !
+
+!RunningTestContext methodsFor: 'running'!
+
+execute: aBlock
+	[[[	aBlock
+        	ensure: [ result increaseRuns. testCase tearDown ]]
+			on: TestFailure do: [:ex | result addFailure: testCase]]
+			on: Error do: [:ex | result addError: testCase]]
+			ensure: finished
+!
+
+start
+	self execute: [ testCase setUp. testCase performTest ]
+! !
+
+!RunningTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase result: aTestResult finished: aBlock
+	^self new
+        testCase: aTestCase;
+        result: aTestResult;
+        finished: aBlock;
+        yourself
+! !
+
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector'
 	package: 'SUnit'!
@@ -48,11 +90,6 @@ runCase
 !
 
 setUp
-!
-
-startCase
-	self setUp.
-	self performTest
 !
 
 tearDown
@@ -203,17 +240,10 @@ nextRunDo: aBlock
 or does nothing if no more runs"
 ^self runs == self total
 	ifFalse: [ aBlock value: self runs + 1 ]
-!
-
-runCase: aTestCase
-	[[[	self increaseRuns.
-    	aTestCase startCase ] ensure: [ aTestCase tearDown ]]
-	on: TestFailure do: [:ex | self addFailure: aTestCase]]
-	on: Error do: [:ex | self addError: aTestCase]
 ! !
 
 Object subclass: #TestSuiteRunner
-	instanceVariableNames: 'suite result announcer worker'
+	instanceVariableNames: 'suite result announcer runNextTest'
 	package: 'SUnit'!
 
 !TestSuiteRunner methodsFor: 'accessing'!
@@ -233,7 +263,7 @@ suite: aCollection
 !TestSuiteRunner methodsFor: 'actions'!
 
 resume
-	worker fork.
+	runNextTest fork.
     announcer announce: (ResultAnnouncement new result: result)
 !
 
@@ -248,9 +278,8 @@ initialize
 	super initialize.
 	announcer := Announcer new.
     result := TestResult new.
-    worker := [ result nextRunDo: [ :index |
-		[ result runCase: (suite at: index) ]
-		ensure: [ self resume ]]].
+    runNextTest := [ result nextRunDo: [ :index |
+    	(RunningTestContext testCase: (suite at: index) result: result finished: [ self resume ]) start ]].
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!
