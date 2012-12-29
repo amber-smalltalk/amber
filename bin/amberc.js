@@ -206,9 +206,11 @@ function check_for_closure_compiler() {
 		if (null !== error) {
 			throw(new Error('java is not installed and is needed for -O, -A or -o (Closure compiler).'));
 		}
-		if (!path.existsSync(defaults.closure_jar)) {
-			throw(new Error('Can not find Closure compiler at ' + defaults.closure_jar));
-		}
+		path.exists(defaults.closure_jar, function(exists) {
+			if (!exists) {
+				throw(new Error('Can not find Closure compiler at ' + defaults.closure_jar));
+			}
+		});
 	});
 }
 
