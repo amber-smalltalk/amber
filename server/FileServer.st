@@ -595,15 +595,15 @@ mimeTypeFor: aString
 !FileServer class methodsFor: 'initialization'!
 
 main
-	| fileServer arguments portOption port|
+	| fileServer arguments portOption portNumber|
 	fileServer := self new.
 	fileServer checkDirectoryLayout.
 
 	arguments := process argv.
 	portOption := arguments at: 3 ifAbsent: [nil].
-	port := arguments at: 4 ifAbsent: [nil].
-	('-p' = portOption and: [port notNil]) ifTrue: [
-		fileServer port: port.
+	portNumber := arguments at: 4 ifAbsent: [nil].
+	('-p' = portOption and: [portNumber notNil]) ifTrue: [
+		fileServer port: portNumber.
 	].
 	^fileServer start
 ! !

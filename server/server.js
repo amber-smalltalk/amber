@@ -568,11 +568,11 @@ function Smalltalk(){
 	};
 
     /* Boolean assertion */
-    st.assert = function(aBoolean) {
-        if ((undefined !== aBoolean) && (aBoolean.klass === smalltalk.Boolean)) {
-            return aBoolean;
+    st.assert = function(boolean) {
+        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
+            return boolean;
         } else {
-            smalltalk.NonBooleanReceiver._new()._object_(aBoolean)._signal();
+            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
         }
     }
 };
@@ -14257,17 +14257,17 @@ var self=this;
 var fileServer=nil;
 var arguments=nil;
 var portOption=nil;
-var port=nil;
+var portNumber=nil;
 (fileServer=smalltalk.send(self, "_new", []));
 smalltalk.send(fileServer, "_checkDirectoryLayout", []);
 (arguments=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
 (portOption=smalltalk.send(arguments, "_at_ifAbsent_", [(3), (function(){return nil;})]));
-(self['@port']=smalltalk.send(arguments, "_at_ifAbsent_", [(4), (function(){return nil;})]));
-((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [portOption]), "_and_", [(function(){return smalltalk.send(self['@port'], "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [self['@port']]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [self['@port']]);})]));
+(portNumber=smalltalk.send(arguments, "_at_ifAbsent_", [(4), (function(){return nil;})]));
+((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [portOption]), "_and_", [(function(){return smalltalk.send(portNumber, "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [portNumber]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [portNumber]);})]));
 return smalltalk.send(fileServer, "_start", []);
 return self;},
 args: [],
-source: "main\x0a\x09| fileServer arguments portOption port|\x0a\x09fileServer := self new.\x0a\x09fileServer checkDirectoryLayout.\x0a\x0a\x09arguments := process argv.\x0a\x09portOption := arguments at: 3 ifAbsent: [nil].\x0a\x09port := arguments at: 4 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [port notNil]) ifTrue: [\x0a\x09\x09fileServer port: port.\x0a\x09].\x0a\x09^fileServer start",
+source: "main\x0a\x09| fileServer arguments portOption portNumber|\x0a\x09fileServer := self new.\x0a\x09fileServer checkDirectoryLayout.\x0a\x0a\x09arguments := process argv.\x0a\x09portOption := arguments at: 3 ifAbsent: [nil].\x0a\x09portNumber := arguments at: 4 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [portNumber notNil]) ifTrue: [\x0a\x09\x09fileServer port: portNumber.\x0a\x09].\x0a\x09^fileServer start",
 messageSends: ["new", "checkDirectoryLayout", "argv", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "start"],
 referencedClasses: []
 }),
