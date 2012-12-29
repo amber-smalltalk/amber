@@ -568,11 +568,11 @@ function Smalltalk(){
 	};
 
     /* Boolean assertion */
-    st.assert = function(boolean) {
-        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
-            return boolean;
+    st.assert = function(aBoolean) {
+        if ((undefined !== aBoolean) && (aBoolean.klass === smalltalk.Boolean)) {
+            return aBoolean;
         } else {
-            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+            smalltalk.NonBooleanReceiver._new()._object_(aBoolean)._signal();
         }
     }
 };
