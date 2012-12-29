@@ -47,6 +47,7 @@ if (3 > process.argv.length) {
 	usage();
 } else {
 	var files = handle_options(process.argv.slice(2));
+	check_for_closure_compiler();
 	var compilerFiles = resolve_libraries();
 	collect_files(files);
 	create_compiler(compilerFiles);
@@ -78,18 +79,15 @@ function handle_options(optionsArray) {
 			case '-o':
 				defaults.closure = true;
 				defaults.closure_parts = true;
-				check_for_closure_compiler();
 				break;
 			case '-O':
 				defaults.closure = true;
 				defaults.closure_full = true;
-				check_for_closure_compiler();
 				break;
 			case '-A':
 				defaults.closure = true;
 				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
 				defaults.closure_full = true;
-				check_for_closure_compiler();
 				break;
 			case '-d':
 				defaults.deploy = true;
