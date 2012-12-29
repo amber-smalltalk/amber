@@ -380,11 +380,19 @@ selector: "graceTime:",
 category: 'async',
 fn: function (millis){
 var self=this;
+if(($receiver = self["@asyncTimeout"]) == nil || $receiver == undefined){
+self["@asyncTimeout"];
+} else {
+smalltalk.send(self["@asyncTimeout"],"_clearTimeout",[]);
+};
 self["@asyncTimeout"]=true;
+self["@asyncTimeout"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_assert_description_",[false,"SUnit grace time exhausted"]);
+})]),"_valueWithTimeout_",[millis]);
 return self},
 args: ["millis"],
-source: "graceTime: millis\x0a\x09asyncTimeout := true",
-messageSends: [],
+source: "graceTime: millis\x0a\x09asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].\x0a\x09asyncTimeout := true. \x22to allow async:\x22\x0a\x09asyncTimeout :=\x0a\x09\x09(self async: [ self assert: false description: 'SUnit grace time exhausted' ])\x0a        valueWithTimeout: millis",
+messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);

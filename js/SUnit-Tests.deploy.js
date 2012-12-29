@@ -50,6 +50,54 @@ return self}
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
+"_fakeMultipleGraceTimeFailing",
+smalltalk.method({
+selector: "fakeMultipleGraceTimeFailing",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_graceTime_",[(100)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_graceTime_",[(5)]);
+return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(10)]);
+})]),"_valueWithTimeout_",[(5)]);
+return self}
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeMultipleGraceTimePassing",
+smalltalk.method({
+selector: "fakeMultipleGraceTimePassing",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_graceTime_",[(10)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_graceTime_",[(20)]);
+return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(10)]);
+})]),"_valueWithTimeout_",[(5)]);
+return self}
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeTimeout",
+smalltalk.method({
+selector: "fakeTimeout",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_graceTime_",[(4)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(5)]);
+return self}
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
 "_setUp",
 smalltalk.method({
 selector: "setUp",
@@ -186,6 +234,40 @@ smalltalk.send(self,"_finished",[]);
 self["@flag"]="ok";
 return self["@flag"];
 })]),"_valueWithTimeout_",[(5)]);
+return self}
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_testTimeoutsWork",
+smalltalk.method({
+selector: "testTimeoutsWork",
+fn: function (){
+var self=this;
+var $1,$2;
+var suite;
+var runner;
+var result;
+var assertBlock;
+suite=smalltalk.send(["fakeTimeout", "fakeMultipleGraceTimeFailing", "fakeMultipleGraceTimePassing", "testPass"],"_collect_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",[each]);
+})]);
+runner=smalltalk.send((smalltalk.TestSuiteRunner || TestSuiteRunner),"_on_",[suite]);
+smalltalk.send(self,"_graceTime_",[(200)]);
+result=smalltalk.send(runner,"_result",[]);
+assertBlock=smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(result,"_errors",[]),"_isEmpty",[])]);
+smalltalk.send(self,"_assert_equals_",[["fakeMultipleGraceTimeFailing", "fakeTimeout"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_failures",[])])]);
+return smalltalk.send(self,"_finished",[]);
+})]);
+smalltalk.send(smalltalk.send(runner,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+$1=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[result]);
+if(smalltalk.assert($1)){
+$2=smalltalk.send(smalltalk.send(result,"_runs",[]),"__eq",[smalltalk.send(result,"_total",[])]);
+return smalltalk.send($2,"_ifTrue_",[assertBlock]);
+};
+})]);
+smalltalk.send(runner,"_run",[]);
 return self}
 }),
 smalltalk.SUnitAsyncTest);

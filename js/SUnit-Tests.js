@@ -65,6 +65,69 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
+"_fakeMultipleGraceTimeFailing",
+smalltalk.method({
+selector: "fakeMultipleGraceTimeFailing",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_graceTime_",[(100)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_graceTime_",[(5)]);
+return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(10)]);
+})]),"_valueWithTimeout_",[(5)]);
+return self},
+args: [],
+source: "fakeMultipleGraceTimeFailing\x0a\x09self graceTime: 100.\x0a    (self async: [\x0a\x09\x09self graceTime: 5.\x0a        (self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "finished"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeMultipleGraceTimePassing",
+smalltalk.method({
+selector: "fakeMultipleGraceTimePassing",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_graceTime_",[(10)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_graceTime_",[(20)]);
+return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(10)]);
+})]),"_valueWithTimeout_",[(5)]);
+return self},
+args: [],
+source: "fakeMultipleGraceTimePassing\x0a\x09self graceTime: 10.\x0a    (self async: [\x0a\x09\x09self graceTime: 20.\x0a        (self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "finished"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeTimeout",
+smalltalk.method({
+selector: "fakeTimeout",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_graceTime_",[(4)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(5)]);
+return self},
+args: [],
+source: "fakeTimeout\x0a\x09self graceTime: 4.\x0a    (self async: [ self finished ]) valueWithTimeout: 5\x0a",
+messageSends: ["graceTime:", "valueWithTimeout:", "async:", "finished"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
 "_setUp",
 smalltalk.method({
 selector: "setUp",
@@ -242,6 +305,45 @@ args: [],
 source: "testPass\x0a\x09flag := 'bad'.\x0a\x09self graceTime: 10.\x0a    flag := (self async: [ self assert: true. self finished. flag := 'ok' ]) valueWithTimeout: 5\x0a",
 messageSends: ["graceTime:", "valueWithTimeout:", "async:", "assert:", "finished"],
 referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_testTimeoutsWork",
+smalltalk.method({
+selector: "testTimeoutsWork",
+category: 'tests',
+fn: function (){
+var self=this;
+var $1,$2;
+var suite;
+var runner;
+var result;
+var assertBlock;
+suite=smalltalk.send(["fakeTimeout", "fakeMultipleGraceTimeFailing", "fakeMultipleGraceTimePassing", "testPass"],"_collect_",[(function(each){
+return smalltalk.send(smalltalk.send(self,"_class",[]),"_selector_",[each]);
+})]);
+runner=smalltalk.send((smalltalk.TestSuiteRunner || TestSuiteRunner),"_on_",[suite]);
+smalltalk.send(self,"_graceTime_",[(200)]);
+result=smalltalk.send(runner,"_result",[]);
+assertBlock=smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(result,"_errors",[]),"_isEmpty",[])]);
+smalltalk.send(self,"_assert_equals_",[["fakeMultipleGraceTimeFailing", "fakeTimeout"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_failures",[])])]);
+return smalltalk.send(self,"_finished",[]);
+})]);
+smalltalk.send(smalltalk.send(runner,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+$1=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[result]);
+if(smalltalk.assert($1)){
+$2=smalltalk.send(smalltalk.send(result,"_runs",[]),"__eq",[smalltalk.send(result,"_total",[])]);
+return smalltalk.send($2,"_ifTrue_",[assertBlock]);
+};
+})]);
+smalltalk.send(runner,"_run",[]);
+return self},
+args: [],
+source: "testTimeoutsWork\x0a\x09| suite runner result assertBlock |\x0a\x09suite := #('fakeTimeout' 'fakeMultipleGraceTimeFailing' 'fakeMultipleGraceTimePassing' 'testPass') collect: [ :each | self class selector: each ].\x0a    runner := TestSuiteRunner on: suite.\x0a    self graceTime: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: result errors isEmpty.\x0a\x09\x09self assert: #('fakeMultipleGraceTimeFailing' 'fakeTimeout') equals: (self sortedSelectors: result failures).\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
+messageSends: ["collect:", "selector:", "class", "on:", "graceTime:", "result", "async:", "assert:", "isEmpty", "errors", "assert:equals:", "sortedSelectors:", "failures", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"],
+referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"]
 }),
 smalltalk.SUnitAsyncTest);
 

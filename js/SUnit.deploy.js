@@ -289,7 +289,15 @@ smalltalk.method({
 selector: "graceTime:",
 fn: function (millis){
 var self=this;
+if(($receiver = self["@asyncTimeout"]) == nil || $receiver == undefined){
+self["@asyncTimeout"];
+} else {
+smalltalk.send(self["@asyncTimeout"],"_clearTimeout",[]);
+};
 self["@asyncTimeout"]=true;
+self["@asyncTimeout"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_assert_description_",[false,"SUnit grace time exhausted"]);
+})]),"_valueWithTimeout_",[millis]);
 return self}
 }),
 smalltalk.TestCase);

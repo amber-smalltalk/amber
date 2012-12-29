@@ -39,6 +39,27 @@ fakeFailure
     flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5
 !
 
+fakeMultipleGraceTimeFailing
+	self graceTime: 100.
+    (self async: [
+		self graceTime: 5.
+        (self async: [ self finished ]) valueWithTimeout: 10
+	]) valueWithTimeout: 5
+!
+
+fakeMultipleGraceTimePassing
+	self graceTime: 10.
+    (self async: [
+		self graceTime: 20.
+        (self async: [ self finished ]) valueWithTimeout: 10
+	]) valueWithTimeout: 5
+!
+
+fakeTimeout
+	self graceTime: 4.
+    (self async: [ self finished ]) valueWithTimeout: 5
+!
+
 testAsyncErrorsAndFailuresWork
 	| suite runner result assertBlock |
 	suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].
@@ -80,6 +101,22 @@ testPass
 	flag := 'bad'.
 	self graceTime: 10.
     flag := (self async: [ self assert: true. self finished. flag := 'ok' ]) valueWithTimeout: 5
+!
+
+testTimeoutsWork
+	| suite runner result assertBlock |
+	suite := #('fakeTimeout' 'fakeMultipleGraceTimeFailing' 'fakeMultipleGraceTimePassing' 'testPass') collect: [ :each | self class selector: each ].
+    runner := TestSuiteRunner on: suite.
+    self graceTime: 200.
+	result := runner result.
+    assertBlock := self async: [
+		self assert: result errors isEmpty.
+		self assert: #('fakeMultipleGraceTimeFailing' 'fakeTimeout') equals: (self sortedSelectors: result failures).
+		self finished
+  	].
+    runner announcer on: ResultAnnouncement do: [:ann |
+    	ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].
+	runner run
 !
 
 testTwoAsyncPassesWithFinishedOnlyOneIsRun

@@ -118,7 +118,11 @@ finished
 !
 
 graceTime: millis
-	asyncTimeout := true
+	asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].
+	asyncTimeout := true. "to allow async:"
+	asyncTimeout :=
+		(self async: [ self assert: false description: 'SUnit grace time exhausted' ])
+        valueWithTimeout: millis
 !
 
 isAsync
