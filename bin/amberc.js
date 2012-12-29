@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 // This is a "compiler" for Amber code. Run without arguments for help.
-//
-// Get Amber root directory from the location of this script so that
-// we can find the st and js directories etc.
 
 var path = require('path'),
 	util = require('util'),
@@ -15,14 +12,16 @@ var smalltalk = {};
 
 console.time('Compile Time');
 
+// Get Amber root directory from the location of this script so that
+// we can find the st and js directories etc.
 var AMBER_DIR = path.join(path.dirname(process.argv[1]), '..');
 AMBER_DIR = path.normalize(AMBER_DIR);
 console.log('$AMBER: ' + AMBER_DIR);
 
 var defaults = function() {
 	var kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods', 'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript', 'Kernel-Announcements'];
-	var compiler_libs = ['parser', 'Compiler', 'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
-	// suffix -> undefined?
+	var compiler_libs = ['parser', 'Compiler', 'Compiler-Exceptions'];//, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
+
 	return {
 		'compiler_libraries': kernel_libraries.concat(compiler_libs),
 		'init': path.join(AMBER_DIR, 'js', 'init.js'),
@@ -304,6 +303,7 @@ function create_compiler(compilerFilesArray) {
 	});
 	content = content + 'return smalltalk;})();';
 	smalltalk = eval(content);
+	console.log('Compiler loaded');
 };
 
 
