@@ -568,11 +568,11 @@ function Smalltalk(){
 	};
 
     /* Boolean assertion */
-    st.assert = function(boolean) {
-        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
-            return boolean;
+    st.assert = function(aBoolean) {
+        if ((undefined !== aBoolean) && (aBoolean.klass === smalltalk.Boolean)) {
+            return aBoolean;
         } else {
-            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+            smalltalk.NonBooleanReceiver._new()._object_(aBoolean)._signal();
         }
     }
 };
@@ -932,7 +932,7 @@ selector: "deprecatedAPI",
 category: 'error handling',
 fn: function () {
     var self = this;
-    smalltalk.send(console, "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(thisContext, "_home", []), "_asString", []), "__comma", [" is deprecated! (in "]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(thisContext, "_home", []), "_home", []), "_asString", [])]), "__comma", [")"])]);
+    smalltalk.send(console, "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.getThisContext(), "_home", []), "_asString", []), "__comma", [" is deprecated! (in "]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.getThisContext(), "_home", []), "_home", []), "_asString", [])]), "__comma", [")"])]);
     return self;
 },
 args: [],
@@ -13988,10 +13988,10 @@ var uri=nil;
 var filename=nil;
 (uri=smalltalk.send(smalltalk.send(self['@url'], "_parse_", [smalltalk.send(aRequest, "_url", [])]), "_pathname", []));
 (filename=smalltalk.send(self['@path'], "_join_with_", [smalltalk.send(self, "_basePath", []), uri]));
-smalltalk.send(self['@path'], "_exists_do_", [filename, (function(boolean){return ((($receiver = boolean).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_respondNotFoundTo_", [aResponse]);})() : (function(){return smalltalk.send(self, "_respondFileNamed_to_", [filename, aResponse]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_respondNotFoundTo_", [aResponse]);}), (function(){return smalltalk.send(self, "_respondFileNamed_to_", [filename, aResponse]);})]));})]);
+smalltalk.send(self['@path'], "_exists_do_", [filename, (function(aBoolean){return ((($receiver = aBoolean).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_respondNotFoundTo_", [aResponse]);})() : (function(){return smalltalk.send(self, "_respondFileNamed_to_", [filename, aResponse]);})()) : smalltalk.send($receiver, "_ifFalse_ifTrue_", [(function(){return smalltalk.send(self, "_respondNotFoundTo_", [aResponse]);}), (function(){return smalltalk.send(self, "_respondFileNamed_to_", [filename, aResponse]);})]));})]);
 return self;},
 args: ["aRequest", "aResponse"],
-source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := (url parse: aRequest url) pathname.\x0a\x09filename := path join: self basePath with: uri.\x0a\x09path exists: filename do: [:boolean | \x0a\x09\x09boolean \x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [self respondFileNamed: filename to: aResponse]]",
+source: "handleGETRequest: aRequest respondTo: aResponse\x0a\x09| uri filename |\x0a\x09uri := (url parse: aRequest url) pathname.\x0a\x09filename := path join: self basePath with: uri.\x0a\x09path exists: filename do: [:aBoolean |\x0a\x09\x09aBoolean\x0a\x09\x09\x09ifFalse: [self respondNotFoundTo: aResponse]\x0a\x09\x09\x09ifTrue: [self respondFileNamed: filename to: aResponse]]",
 messageSends: ["pathname", "parse:", "url", "join:with:", "basePath", "exists:do:", "ifFalse:ifTrue:", "respondNotFoundTo:", "respondFileNamed:to:"],
 referencedClasses: []
 }),

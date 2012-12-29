@@ -71,8 +71,8 @@ handleGETRequest: aRequest respondTo: aResponse
 	| uri filename |
 	uri := (url parse: aRequest url) pathname.
 	filename := path join: self basePath with: uri.
-	path exists: filename do: [:boolean | 
-		boolean 
+	path exists: filename do: [:aBoolean |
+		aBoolean
 			ifFalse: [self respondNotFoundTo: aResponse]
 			ifTrue: [self respondFileNamed: filename to: aResponse]]
 !
