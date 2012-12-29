@@ -241,10 +241,8 @@ function resolve_libraries() {
 	});
 
 	// Resolve libraries listed in defaults.load
-	var toLoad = [];
 	defaults.load.forEach(function(file) {
 		var resolvedFile = resolve_js(file);
-		toLoad.push(resolvedFile);
 		compilerFiles.push(resolvedFile);
 		defaults.libraries.push(resolvedFile);
 	});
