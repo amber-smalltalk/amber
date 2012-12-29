@@ -6,25 +6,22 @@ var path = require('path'),
 	fs = require('fs'),
 	exec = require('child_process').exec;
 
-// the evaluated compiler will be stored in this variable
-// see create_compiler()
-var smalltalk = {};
-
 console.time('Compile Time');
 
-// Get Amber root directory from the location of this script so that
-// we can find the st and js directories etc.
-var AMBER_DIR = path.join(path.dirname(process.argv[1]), '..');
-AMBER_DIR = path.normalize(AMBER_DIR);
-console.log('$AMBER: ' + AMBER_DIR);
-
 var defaults = function() {
+	// Get Amber root directory from the location of this script so that
+	// we can find the st and js directories etc.
+	var amber_dir = path.join(path.dirname(process.argv[1]), '..');
+	amber_dir = path.normalize(amber_dir);
+
 	var kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods', 'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript', 'Kernel-Announcements'];
 	var compiler_libs = ['parser', 'Compiler', 'Compiler-Exceptions'];//, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
 
 	return {
+		'amber_dir': amber_dir,
+		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
 		'compiler_libraries': kernel_libraries.concat(compiler_libs),
-		'init': path.join(AMBER_DIR, 'js', 'init.js'),
+		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
 		'base': kernel_libraries,
@@ -45,6 +42,7 @@ var defaults = function() {
 	};
 }();
 
+
 if (3 > process.argv.length) {
 	usage();
 } else {
@@ -57,6 +55,7 @@ if (3 > process.argv.length) {
 		compose_js_files();
 	}
 }
+
 
 function handle_options(optionsArray) {
 	var nonOptions = [];
@@ -116,6 +115,7 @@ function handle_options(optionsArray) {
 	
 	return nonOptions;
 }
+
 
 // print options and exit
 function usage() {
@@ -196,6 +196,7 @@ function usage() {
 	process.exit();
 }
 
+
 function check_for_closure_compiler() {
 	if (!defaults.closure) {
 		return;
@@ -214,9 +215,10 @@ function check_for_closure_compiler() {
 	});
 }
 
+
 function resolve_js(filename) {
 	var jsFile = filename + defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(AMBER_DIR, 'js', jsFile);
+	var amberJsFile = path.join(defaults.amber_dir, 'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	if (path.existsSync(jsFile)) {
 		return jsFile;
@@ -270,7 +272,7 @@ function collect_files(filesArray) {
 	while (undefined !== currentFile) {
 		var suffix = path.extname(currentFile);
 		var category = path.basename(currentFile, '.st');
-		var amberFile = path.join(AMBER_DIR, 'st', currentFile);
+		var amberFile = path.join(defaults.amber_dir, 'st', currentFile);
 		switch (suffix) {
 			case '.st':
 				if (path.existsSync(currentFile)) {
@@ -295,6 +297,7 @@ function collect_files(filesArray) {
 	};
 }
 
+
 function create_compiler(compilerFilesArray) {
 	// load all files from parameter <-> require?
 	// create compiler in memory -> should be faster
@@ -304,7 +307,7 @@ function create_compiler(compilerFilesArray) {
 		content = content + fs.readFileSync(file);
 	});
 	content = content + 'return smalltalk;})();';
-	smalltalk = eval(content);
+	defaults.smalltalk = eval(content);
 	console.log('Compiler loaded');
 };
 
@@ -398,14 +401,14 @@ function node_compile(filesArray) {
 		if (/\.st/.test(val)) {
 			console.log("Reading file " + val);
 			code = fs.readFileSync(val, "utf8");
-			smalltalk.Importer._new()._import_(code._stream());
+			defaults.smalltalk.Importer._new()._import_(code._stream());
 		} else {
 			console.log("Exporting " + (defaults.deploy ? "(debug + deploy)" : "(debug)") + " category "
 				+ val + " as " + val + defaults.suffix_used + ".js" + (defaults.deploy ? " and " + val + defaults.suffix_used + ".deploy.js" : ""));
-			fs.writeFile(val + defaults.suffix_used + ".js", smalltalk.Exporter._new()._exportPackage_(val), function(err){
+			fs.writeFile(val + defaults.suffix_used + ".js", defaults.smalltalk.Exporter._new()._exportPackage_(val), function(err){
 				if (err) throw err;
 				if (defaults.deploy) {
-					fs.writeFile(val + defaults.suffix_used + ".deploy.js", smalltalk.StrippedExporter._new()._exportPackage_(val), function(err){
+					fs.writeFile(val + defaults.suffix_used + ".deploy.js", defaults.smalltalk.StrippedExporter._new()._exportPackage_(val), function(err){
 						if (err) throw err;
 					});
 				};
@@ -413,6 +416,7 @@ function node_compile(filesArray) {
 		}
 	});
 }
+
 
 function closure_compile(sourceFile, minifiedFile) {
 	// exec is asynchronous
