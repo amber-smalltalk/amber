@@ -807,27 +807,6 @@ referencedClasses: ["Date", "Array"]
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_nextRunDo_",
-smalltalk.method({
-selector: "nextRunDo:",
-category: 'running',
-fn: function (aBlock){
-var self=this;
-var $2,$1;
-$2=smalltalk.send(smalltalk.send(self,"_runs",[]),"__eq_eq",[smalltalk.send(self,"_total",[])]);
-if(! smalltalk.assert($2)){
-$1=smalltalk.send(aBlock,"_value_",[smalltalk.send(smalltalk.send(self,"_runs",[]),"__plus",[(1)])]);
-};
-return $1;
-},
-args: ["aBlock"],
-source: "nextRunDo: aBlock\x0a\x22Runs aBlock with index of next run\x0aor does nothing if no more runs\x22\x0a^self runs == self total\x0a\x09ifFalse: [ aBlock value: self runs + 1 ]",
-messageSends: ["ifFalse:", "value:", "+", "runs", "==", "total"],
-referencedClasses: []
-}),
-smalltalk.TestResult);
-
-smalltalk.addMethod(
 "_runs",
 smalltalk.method({
 selector: "runs",
@@ -940,27 +919,50 @@ referencedClasses: []
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
+"_contextOf_",
+smalltalk.method({
+selector: "contextOf:",
+category: 'private',
+fn: function (anInteger){
+var self=this;
+var $1;
+$1=smalltalk.send((smalltalk.RunningTestContext || RunningTestContext),"_testCase_result_finished_",[smalltalk.send(self["@suite"],"_at_",[anInteger]),self["@result"],(function(){
+return smalltalk.send(self,"_resume",[]);
+})]);
+return $1;
+},
+args: ["anInteger"],
+source: "contextOf: anInteger\x0a   \x09^RunningTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]\x0a",
+messageSends: ["testCase:result:finished:", "at:", "resume"],
+referencedClasses: ["RunningTestContext"]
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+var $1;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
 self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
 self["@runNextTest"]=(function(){
-return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
-return smalltalk.send(smalltalk.send((smalltalk.RunningTestContext || RunningTestContext),"_testCase_result_finished_",[smalltalk.send(self["@suite"],"_at_",[index]),self["@result"],(function(){
-return smalltalk.send(self,"_resume",[]);
-})]),"_start",[]);
-})]);
+var runs;
+runs=smalltalk.send(self["@result"],"_runs",[]);
+runs;
+$1=smalltalk.send(runs,"__lt",[smalltalk.send(self["@result"],"_total",[])]);
+if(smalltalk.assert($1)){
+return smalltalk.send(smalltalk.send(self,"_contextOf_",[smalltalk.send(runs,"__plus",[(1)])]),"_start",[]);
+};
 });
 return self},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new.\x0a    runNextTest := [ result nextRunDo: [ :index |\x0a    \x09(RunningTestContext testCase: (suite at: index) result: result finished: [ self resume ]) start ]].\x0a",
-messageSends: ["initialize", "new", "nextRunDo:", "start", "testCase:result:finished:", "at:", "resume"],
-referencedClasses: ["Announcer", "TestResult", "RunningTestContext"]
+source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new.\x0a    runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].\x0a",
+messageSends: ["initialize", "new", "runs", "ifTrue:", "start", "contextOf:", "+", "<", "total"],
+referencedClasses: ["Announcer", "TestResult"]
 }),
 smalltalk.TestSuiteRunner);
 

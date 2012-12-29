@@ -597,22 +597,6 @@ fn: function () {
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_nextRunDo_",
-smalltalk.method({
-selector: "nextRunDo:",
-fn: function (aBlock){
-var self=this;
-var $2,$1;
-$2=smalltalk.send(smalltalk.send(self,"_runs",[]),"__eq_eq",[smalltalk.send(self,"_total",[])]);
-if(! smalltalk.assert($2)){
-$1=smalltalk.send(aBlock,"_value_",[smalltalk.send(smalltalk.send(self,"_runs",[]),"__plus",[(1)])]);
-};
-return $1;
-}
-}),
-smalltalk.TestResult);
-
-smalltalk.addMethod(
 "_runs",
 smalltalk.method({
 selector: "runs",
@@ -695,20 +679,38 @@ return self["@announcer"];
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
+"_contextOf_",
+smalltalk.method({
+selector: "contextOf:",
+fn: function (anInteger){
+var self=this;
+var $1;
+$1=smalltalk.send((smalltalk.RunningTestContext || RunningTestContext),"_testCase_result_finished_",[smalltalk.send(self["@suite"],"_at_",[anInteger]),self["@result"],(function(){
+return smalltalk.send(self,"_resume",[]);
+})]);
+return $1;
+}
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+var $1;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@announcer"]=smalltalk.send((smalltalk.Announcer || Announcer),"_new",[]);
 self["@result"]=smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]);
 self["@runNextTest"]=(function(){
-return smalltalk.send(self["@result"],"_nextRunDo_",[(function(index){
-return smalltalk.send(smalltalk.send((smalltalk.RunningTestContext || RunningTestContext),"_testCase_result_finished_",[smalltalk.send(self["@suite"],"_at_",[index]),self["@result"],(function(){
-return smalltalk.send(self,"_resume",[]);
-})]),"_start",[]);
-})]);
+var runs;
+runs=smalltalk.send(self["@result"],"_runs",[]);
+runs;
+$1=smalltalk.send(runs,"__lt",[smalltalk.send(self["@result"],"_total",[])]);
+if(smalltalk.assert($1)){
+return smalltalk.send(smalltalk.send(self,"_contextOf_",[smalltalk.send(runs,"__plus",[(1)])]),"_start",[]);
+};
 });
 return self}
 }),

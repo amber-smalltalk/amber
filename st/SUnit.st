@@ -275,15 +275,6 @@ initialize
 	total := 0
 ! !
 
-!TestResult methodsFor: 'running'!
-
-nextRunDo: aBlock
-"Runs aBlock with index of next run
-or does nothing if no more runs"
-^self runs == self total
-	ifFalse: [ aBlock value: self runs + 1 ]
-! !
-
 Object subclass: #TestSuiteRunner
 	instanceVariableNames: 'suite result announcer runNextTest'
 	package: 'SUnit'!
@@ -320,8 +311,13 @@ initialize
 	super initialize.
 	announcer := Announcer new.
     result := TestResult new.
-    runNextTest := [ result nextRunDo: [ :index |
-    	(RunningTestContext testCase: (suite at: index) result: result finished: [ self resume ]) start ]].
+    runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].
+! !
+
+!TestSuiteRunner methodsFor: 'private'!
+
+contextOf: anInteger
+   	^RunningTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!
