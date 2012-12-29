@@ -316,16 +316,14 @@ function compile() {
 		}
 	});
 	
-	if (!defaults.closure_parts) {
-		return;
+	if (defaults.closure_parts) {
+		console.log('Compiling all js files using Google closure compiler.');
+		var allJsFiles = defaults.compiled.concat(defaults.libraries);
+		allJsFiles.forEach(function(file) {
+			var minifiedName = path.basename(file, '.js') + '.min.js';
+			closure_compile(file, minifiedName);
+		});
 	}
-	
-	console.log('Compiling all js files using Google closure compiler.');
-	var allJsFiles = defaults.compiled.concat(defaults.libraries);
-	allJsFiles.forEach(function(file) {
-		var minifiedName = path.basename(file, '.js') + '.min.js';
-		closure_compile(file, minifiedName);
-	});
 
 	if (undefined !== defaults.program) {
 		compose_js_files();
@@ -334,50 +332,49 @@ function compile() {
 
 
 function compose_js_files() {
+	var program_files = [];
+
+	if (undefined !== defaults.libraries) {
+		console.log('Collecting libraries: ' + defaults.libraries);
+		program_files.push.apply(program_files, defaults.libraries);
+	}
+
+	if (undefined !== defaults.compiled) {
+		console.log('Collecting compiled files: ' + defaults.compiled);
+		program_files.push.apply(program_files, defaults.compiled);
+	}
+
+	if (undefined !== defaults.init) {
+		console.log('Adding initializer ' + defaults.init);
+		program_files.push(defaults.init);
+	}
+
+	console.log('Writing program file: %s.js', defaults.program);
+
 	var fileStream = fs.createWriteStream(defaults.program + '.js');
 	fileStream.on('error', function(error) {
 		console.log(error);
 	});
 
-	if (undefined !== defaults.libraries) {
-		console.log('Collecting libraries: ' + defaults.libraries);
-		defaults.libraries.forEach(function(file) {
+	program_files.forEach(function(file) {
+		console.log('Checking : ' + file);
+		if(path.existsSync(file)) {
 			fileStream.write(fs.readFileSync(file));
-		});
-	}
-
-	if (undefined !== defaults.compiled) {
-		console.log('Collecting compiled files: ' + defaults.compiled);
-		defaults.compiled.forEach(function(file) {
-			fileStream.write(fs.readFileSync(file));
-		});
-	}
-
-	if (undefined !== defaults.init) {
-		console.log('Checking for init file: ' + defaults.init);
-		if (!path.existsSync(defaults.init)) {
-			throw(new Error('Can not find init file ' + defaults.init));
+		} else {
+			throw(new Error('Can not find file ' + file));
 		}
-		console.log('Adding initializer ' + defaults.init);
-		fileStream.write(fs.readFileSync(defaults.init));
-	}
-
+	});
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
 		fileStream.write('smalltalk.' + defaults.main + '._main()');
 	}
-	
-	if (undefined !== defaults.mainfile) {
-		console.log('Checking for main file: ' + defaults.mainfile);
-		if (!path.existsSync(defaults.mainFile)) {
-			throw(new Error('Can not find main file ' + defaults.mainfile));
-		}
+
+	if (undefined !== defaults.mainfile && path.existsSync(defaults.mainfile)) {
 		console.log('Adding main file: ' + defaults.mainfile);
 		fileStream.write(fs.readFileSync(defaults.mainfile));
 	}
 
-	console.log('Writing program file: %s.js', defaults.program);
-	fileStream.end()
+	fileStream.end();
 	console.log('Done.');
 
 	if (!defaults.closure_full) {
