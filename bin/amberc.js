@@ -315,19 +315,12 @@ function compile() {
 			throw(new Error('Compilation failed of: ' + file));
 		}
 	});
-	
-	if (defaults.closure_parts) {
-		console.log('Compiling all js files using Google closure compiler.');
-		var allJsFiles = defaults.compiled.concat(defaults.libraries);
-		allJsFiles.forEach(function(file) {
-			var minifiedName = path.basename(file, '.js') + '.min.js';
-			closure_compile(file, minifiedName);
-		});
-	}
 
 	if (undefined !== defaults.program) {
 		compose_js_files();
 	}
+	
+	optimize();
 }
 
 
@@ -376,12 +369,6 @@ function compose_js_files() {
 
 	fileStream.end();
 	console.log('Done.');
-
-	if (!defaults.closure_full) {
-		return;
-	}
-	console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
-	closure_compile(defaults.program + '.js', defaults.program + '.min.js');
 }
 
 
@@ -405,6 +392,22 @@ function node_compile(filesArray) {
 			}
 		}
 	});
+}
+
+
+function optimize() {
+	if (defaults.closure_parts) {
+		console.log('Compiling all js files using Google closure compiler.');
+		var allJsFiles = defaults.compiled.concat(defaults.libraries);
+		allJsFiles.forEach(function(file) {
+			var minifiedName = path.basename(file, '.js') + '.min.js';
+			closure_compile(file, minifiedName);
+		});
+	}
+	if (defaults.closure_full) {
+		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
+		closure_compile(defaults.program + '.js', defaults.program + '.min.js');
+	}
 }
 
 
