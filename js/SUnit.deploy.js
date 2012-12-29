@@ -159,6 +159,34 @@ return $1;
 smalltalk.RunningTestContext.klass);
 
 
+smalltalk.addClass('ErroringTestContext', smalltalk.RunningTestContext, [], 'SUnit');
+smalltalk.addMethod(
+"_exception_ifNotAsync_",
+smalltalk.method({
+selector: "exception:ifNotAsync:",
+fn: function (anException,aBlock){
+var self=this;
+smalltalk.send(anException,"_signal",[]);
+return self}
+}),
+smalltalk.ErroringTestContext);
+
+
+smalltalk.addMethod(
+"_testCase_",
+smalltalk.method({
+selector: "testCase:",
+fn: function (aTestCase){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_testCase_result_finished_",[aTestCase,smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]),(function(){
+})]);
+return $1;
+}
+}),
+smalltalk.ErroringTestContext.klass);
+
+
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 smalltalk.addMethod(
 "_assert_",
@@ -312,12 +340,7 @@ smalltalk.method({
 selector: "runCase",
 fn: function (){
 var self=this;
-smalltalk.send((function(){
-smalltalk.send(self,"_setUp",[]);
-return smalltalk.send(self,"_performTest",[]);
-}),"_ensure_",[(function(){
-return smalltalk.send(self,"_tearDown",[]);
-})]);
+smalltalk.send(smalltalk.send((smalltalk.ErroringTestContext || ErroringTestContext),"_testCase_",[self]),"_start",[]);
 return self}
 }),
 smalltalk.TestCase);

@@ -66,6 +66,25 @@ testCase: aTestCase result: aTestResult finished: aBlock
         yourself
 ! !
 
+RunningTestContext subclass: #ErroringTestContext
+	instanceVariableNames: ''
+	package: 'SUnit'!
+
+!ErroringTestContext methodsFor: 'private'!
+
+exception: anException ifNotAsync: aBlock
+	anException signal
+! !
+
+!ErroringTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase
+	^self
+        testCase: aTestCase
+        result: TestResult new
+        finished: []
+! !
+
 Object subclass: #TestCase
 	instanceVariableNames: 'testSelector asyncTimeout context'
 	package: 'SUnit'!
@@ -126,9 +145,9 @@ performTest
 !
 
 runCase
-	[	self setUp.
-		self performTest ] ensure: [
-		self tearDown ]
+	"Runs a test case in isolated context, leaking all errors."
+
+	(ErroringTestContext testCase: self) start
 !
 
 setUp

@@ -204,6 +204,44 @@ referencedClasses: []
 smalltalk.RunningTestContext.klass);
 
 
+smalltalk.addClass('ErroringTestContext', smalltalk.RunningTestContext, [], 'SUnit');
+smalltalk.addMethod(
+"_exception_ifNotAsync_",
+smalltalk.method({
+selector: "exception:ifNotAsync:",
+category: 'private',
+fn: function (anException,aBlock){
+var self=this;
+smalltalk.send(anException,"_signal",[]);
+return self},
+args: ["anException", "aBlock"],
+source: "exception: anException ifNotAsync: aBlock\x0a\x09anException signal",
+messageSends: ["signal"],
+referencedClasses: []
+}),
+smalltalk.ErroringTestContext);
+
+
+smalltalk.addMethod(
+"_testCase_",
+smalltalk.method({
+selector: "testCase:",
+category: 'instance creation',
+fn: function (aTestCase){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_testCase_result_finished_",[aTestCase,smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]),(function(){
+})]);
+return $1;
+},
+args: ["aTestCase"],
+source: "testCase: aTestCase\x0a\x09^self\x0a        testCase: aTestCase\x0a        result: TestResult new\x0a        finished: []",
+messageSends: ["testCase:result:finished:", "new"],
+referencedClasses: ["TestResult"]
+}),
+smalltalk.ErroringTestContext.klass);
+
+
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 smalltalk.addMethod(
 "_assert_",
@@ -413,17 +451,12 @@ selector: "runCase",
 category: 'running',
 fn: function (){
 var self=this;
-smalltalk.send((function(){
-smalltalk.send(self,"_setUp",[]);
-return smalltalk.send(self,"_performTest",[]);
-}),"_ensure_",[(function(){
-return smalltalk.send(self,"_tearDown",[]);
-})]);
+smalltalk.send(smalltalk.send((smalltalk.ErroringTestContext || ErroringTestContext),"_testCase_",[self]),"_start",[]);
 return self},
 args: [],
-source: "runCase\x0a\x09[\x09self setUp.\x0a\x09\x09self performTest ] ensure: [\x0a\x09\x09self tearDown ]\x0a",
-messageSends: ["ensure:", "tearDown", "setUp", "performTest"],
-referencedClasses: []
+source: "runCase\x0a\x09\x22Runs a test case in isolated context, leaking all errors.\x22\x0a\x0a\x09(ErroringTestContext testCase: self) start",
+messageSends: ["start", "testCase:"],
+referencedClasses: ["ErroringTestContext"]
 }),
 smalltalk.TestCase);
 
