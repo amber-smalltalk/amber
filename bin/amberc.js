@@ -46,15 +46,7 @@ var defaults = function() {
 if (3 > process.argv.length) {
 	usage();
 } else {
-	var files = handle_options(process.argv.slice(2));
-	check_for_closure_compiler();
-	var compilerFiles = resolve_libraries();
-	collect_files(files);
-	create_compiler(compilerFiles);
-	compile();
-	if (undefined !== defaults.program) {
-		compose_js_files();
-	}
+	handle_options(process.argv.slice(2));
 }
 
 
@@ -110,8 +102,10 @@ function handle_options(optionsArray) {
 		};
 		currentItem = optionsArray.shift();
 	}
+
+	check_for_closure_compiler();
 	
-	return nonOptions;
+	collect_files(nonOptions);
 }
 
 
@@ -228,37 +222,6 @@ function resolve_js(filename) {
 }
 
 
-function resolve_libraries() {
-	// Resolve libraries listed in defaults.base
-	defaults.base.forEach(function(file) {
-		defaults.libraries.push(resolve_js(file));
-	});
-
-	// Resolve libraries listed in defaults.compiler
-	var compilerFiles = [];
-	defaults.compiler_libraries.forEach(function(file) {
-		compilerFiles.push(resolve_js(file));
-	});
-
-	// Resolve libraries listed in defaults.load
-	defaults.load.forEach(function(file) {
-		var resolvedFile = resolve_js(file);
-		compilerFiles.push(resolvedFile);
-		defaults.libraries.push(resolvedFile);
-	});
-
-	// check and add init.js
-	var initFile = defaults.init;
-	if ('.js' !== path.extname(initFile)) {
-		initFile = resolve_js(initFile);
-		defaults.init = initFile;
-	}
-	compilerFiles.push(initFile);
-	
-	return compilerFiles;
-}
-
-
 // --------------------------------------------------
 // Collect libraries and Smalltalk files looking
 // both locally and in $AMBER/js and $AMBER/st 
@@ -291,6 +254,38 @@ function collect_files(filesArray) {
 		};
 		currentFile = filesArray.shift();
 	};
+	resolve_libraries();
+}
+
+
+function resolve_libraries() {
+	// Resolve libraries listed in defaults.base
+	defaults.base.forEach(function(file) {
+		defaults.libraries.push(resolve_js(file));
+	});
+
+	// Resolve libraries listed in defaults.compiler
+	var compilerFiles = [];
+	defaults.compiler_libraries.forEach(function(file) {
+		compilerFiles.push(resolve_js(file));
+	});
+
+	// Resolve libraries listed in defaults.load
+	defaults.load.forEach(function(file) {
+		var resolvedFile = resolve_js(file);
+		compilerFiles.push(resolvedFile);
+		defaults.libraries.push(resolvedFile);
+	});
+
+	// check and add init.js
+	var initFile = defaults.init;
+	if ('.js' !== path.extname(initFile)) {
+		initFile = resolve_js(initFile);
+		defaults.init = initFile;
+	}
+	compilerFiles.push(initFile);
+	
+	create_compiler(compilerFiles);
 }
 
 
@@ -305,6 +300,8 @@ function create_compiler(compilerFilesArray) {
 	content = content + 'return smalltalk;})();';
 	defaults.smalltalk = eval(content);
 	console.log('Compiler loaded');
+	
+	compile();
 };
 
 
@@ -329,6 +326,10 @@ function compile() {
 		var minifiedName = path.basename(file, '.js') + '.min.js';
 		closure_compile(file, minifiedName);
 	});
+
+	if (undefined !== defaults.program) {
+		compose_js_files();
+	}
 }
 
 
