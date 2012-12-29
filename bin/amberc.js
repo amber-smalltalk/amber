@@ -405,14 +405,10 @@ function node_compile(filesArray) {
 		} else {
 			console.log("Exporting " + (defaults.deploy ? "(debug + deploy)" : "(debug)") + " category "
 				+ val + " as " + val + defaults.suffix_used + ".js" + (defaults.deploy ? " and " + val + defaults.suffix_used + ".deploy.js" : ""));
-			fs.writeFile(val + defaults.suffix_used + ".js", defaults.smalltalk.Exporter._new()._exportPackage_(val), function(err){
-				if (err) throw err;
-				if (defaults.deploy) {
-					fs.writeFile(val + defaults.suffix_used + ".deploy.js", defaults.smalltalk.StrippedExporter._new()._exportPackage_(val), function(err){
-						if (err) throw err;
-					});
-				};
-			});
+			fs.writeFileSync(val + defaults.suffix_used + ".js", defaults.smalltalk.Exporter._new()._exportPackage_(val));
+			if (defaults.deploy) {
+				fs.writeFileSync(val + defaults.suffix_used + ".deploy.js", defaults.smalltalk.StrippedExporter._new()._exportPackage_(val));
+			}
 		}
 	});
 }
