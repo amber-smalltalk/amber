@@ -433,6 +433,7 @@ function optimize() {
 		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
 		closure_compile(defaults.program + '.js', defaults.program + '.min.js');
 	}
+	console.timeEnd('Compile Time');
 }
 
 
@@ -454,5 +455,3 @@ function closure_compile(sourceFile, minifiedFile) {
 		}
 	);
 }
-
-console.timeEnd('Compile Time');
