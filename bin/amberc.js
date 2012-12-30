@@ -91,7 +91,9 @@ if (3 > process.argv.length) {
 
 
 function handle_options(optionsArray) {
-	var nonOptions = [];
+	var stFiles = [];
+	var jsFiles = [];
+	var programName = [];
 	var currentItem = optionsArray.shift();
 
 	while(undefined !== currentItem) {
@@ -138,13 +140,31 @@ function handle_options(optionsArray) {
 				usage();
 				break;
 			default:
-				nonOptions.push(currentItem);
+				var fileSuffix = path.extname(currentItem);
+				switch (fileSuffix) {
+					case '.st':
+						stFiles.push(currentItem);
+						break;
+					case '.js':
+						jsFiles.push(currentItem);
+						break;
+					default:
+						// Will end up being the last non js/st argument
+						programName.push(currentItem);
+						break;
+				};
 		};
 		currentItem = optionsArray.shift();
 	}
 
+	if(1 < programName.length) {
+		throw new Error('More than one name for ProgramName given: ' + programName);
+	} else {
+		defaults.program = programName[0];
+	}
+
 	check_for_closure_compiler(function() {
-		collect_files(nonOptions);
+		collect_files(stFiles, jsFiles);
 	});
 }
 
@@ -308,33 +328,7 @@ function always_resolve(callback) {
 // Collect libraries and Smalltalk files looking
 // both locally and in $AMBER/js and $AMBER/st 
 // --------------------------------------------------
-function collect_files(filesArray) {
-	var stFiles = [];
-	var jsFiles = [];
-	var programName = [];
-	filesArray.forEach(function(currentFile) {
-		var fileSuffix = path.extname(currentFile);
-		switch (fileSuffix) {
-			case '.st':
-				stFiles.push(currentFile);
-				break;
-			case '.js':
-				jsFiles.push(currentFile);
-				break;
-			default:
-				// Will end up being the last non js/st argument
-				programName.push(currentFile);
-				break;
-		};
-	});
-
-	if(1 < programName.length) {
-		throw new Error('More than one name for ProgramName given: ' + programName);
-	} else {
-		defaults.program = programName[0];
-	}
-
-	// collecting files starts here!!
+function collect_files(stFiles, jsFiles) {
 	var collected_files = new Combo(function() {
 		resolve_libraries();
 	});
