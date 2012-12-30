@@ -267,12 +267,11 @@ function resolve_js(filename) {
 // both locally and in $AMBER/js and $AMBER/st 
 // --------------------------------------------------
 function collect_files(filesArray) {
-	var currentFile = filesArray.shift();
-	while (undefined !== currentFile) {
-		var suffix = path.extname(currentFile);
+	filesArray.forEach(function(currentFile) {
+		var fileSuffix = path.extname(currentFile);
 		var category = path.basename(currentFile, '.st');
 		var amberFile = path.join(defaults.amber_dir, 'st', currentFile);
-		switch (suffix) {
+		switch (fileSuffix) {
 			case '.st':
 				if (path.existsSync(currentFile)) {
 					defaults.compile.push(currentFile);
@@ -294,8 +293,7 @@ function collect_files(filesArray) {
 				defaults.program = currentFile
 				break;
 		};
-		currentFile = filesArray.shift();
-	};
+	});
 	resolve_libraries();
 }
 
