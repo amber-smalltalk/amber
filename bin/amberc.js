@@ -348,16 +348,31 @@ function create_compiler(compilerFilesArray) {
 
 
 function compile() {
-	console.log('Compiling collected .st files to .js')
+	console.log('Compiling collected .st files')
 	// import .st files
-	defaults.compile.forEach(function(stFile) {
-		if (/\.st/.test(stFile)) {
-			console.log("Importing: " + stFile);
-			var code = fs.readFileSync(stFile, "utf8");
-			defaults.smalltalk.Importer._new()._import_(code._stream());
-		}
+	var imports = new Combo(function() {
+		Array.prototype.slice.call(arguments).forEach(function(code) {
+			// get element 0 of code since all return values are stored inside an array by Combo
+			defaults.smalltalk.Importer._new()._import_(code[0]._stream());
+		});
+		category_export();
 	});
 
+	defaults.compile.forEach(function(stFile) {
+		if (/\.st/.test(stFile)) {
+			console.log('Importing: ' + stFile);
+			fs.readFile(stFile, 'utf8', function(err, data) {
+				if (!err)
+					imports.add()(data);
+				else
+					throw new Error('Could not import: ' + stFile);
+			});
+		}
+	});
+}
+
+
+function category_export() {
 	// export categories as .js
 	map(defaults.compiled_categories, function(category, callback) {
 		var jsFile = category + defaults.suffix_used + '.js';
