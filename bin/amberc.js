@@ -59,12 +59,12 @@ var defaults = function() {
 	return {
 		'amber_dir': amber_dir,
 		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
+		'base': kernel_libraries,
 		'compiler_libraries': kernel_libraries.concat(compiler_libs),
+		'load': [],
 		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
-		'base': kernel_libraries,
-		'load': [],
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
@@ -149,7 +149,9 @@ function handle_options(optionsArray) {
 }
 
 
-// print options and exit
+/**
+ * print usage options and exit
+ */
 function usage() {
 	console.log('Usage: $0 [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
 	console.log('          [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]');
@@ -229,6 +231,13 @@ function usage() {
 }
 
 
+/**
+ * Checks if the java executable exists and afterwards,
+ * if compiler.jar exists at the path stored in defaults.closure_jar.
+ * All closure related entries are set to false upon failure.
+ *
+ * callback gets called in any case.
+ */
 function check_for_closure_compiler(callback) {
 	if (defaults.closure) {
 		exec('which java', function(error, stdout, stderr) {
@@ -258,17 +267,40 @@ function check_for_closure_compiler(callback) {
 }
 
 
-function resolve_js(filename) {
+/**
+ * Check if the file given as parameter exists in the local directory or in $AMBER/js/.
+ * '.js' is appended first.
+ *
+ * @param filename name of a file without '.js' prefix
+ * @param callback gets called on success with path to .js file as parameter
+ */
+function resolve_js(filename, callback) {
 	var jsFile = filename + defaults.loadsuffix + '.js';
 	var amberJsFile = path.join(defaults.amber_dir, 'js', jsFile);
 	console.log('Resolving: ' + jsFile);
-	if (path.existsSync(jsFile)) {
-		return jsFile;
-	} else if (path.existsSync(amberJsFile)) {
-		return amberJsFile;
-	} else {
-		throw(new Error('JavaScript file not found: ' + jsFile));
-	}
+	path.exists(jsFile, function(exists) {
+		if (exists) {
+			callback(jsFile);
+		} else {
+			path.exists(amberJsFile, function(exists) {
+				if (exists) {
+					callback(amberJsFile);
+				} else {
+					throw(new Error('JavaScript file not found: ' + jsFile));
+				}
+			});
+		}
+	});
+}
+
+
+/**
+ * Always evaluates the callback parameter.
+ * Used by Combo blocks to always call the next function,
+ * even if all of the other functions did not run.
+ */
+function always_resolve(callback) {
+	callback();
 }
 
 
@@ -277,56 +309,144 @@ function resolve_js(filename) {
 // both locally and in $AMBER/js and $AMBER/st 
 // --------------------------------------------------
 function collect_files(filesArray) {
+	var stFiles = [];
+	var jsFiles = [];
+	var programName = [];
 	filesArray.forEach(function(currentFile) {
 		var fileSuffix = path.extname(currentFile);
-		var category = path.basename(currentFile, '.st');
-		var amberFile = path.join(defaults.amber_dir, 'st', currentFile);
 		switch (fileSuffix) {
 			case '.st':
-				if (path.existsSync(currentFile)) {
-					defaults.compile.push(currentFile);
-					defaults.compiled_categories.push(category);
-					defaults.compiled.push(category + defaults.suffix_used + '.js');
-				} else if (path.existsSync(amberFile)) {
-					defaults.compile.push(amberFile);
-					defaults.compiled_categories.push(category);
-					defaults.compiled.push(category + defaults.suffix_used + '.js');
-				} else {
-					throw(new Error('File not found: ' + currentFile));
-				}
+				stFiles.push(currentFile);
 				break;
 			case '.js':
-				defaults.libraries.push(resolve_js(currentFile));
+				jsFiles.push(currentFile);
 				break;
 			default:
 				// Will end up being the last non js/st argument
-				defaults.program = currentFile
+				programName.push(currentFile);
 				break;
 		};
 	});
-	resolve_libraries();
+
+	if(1 < programName.length) {
+		throw new Error('More than one name for ProgramName given: ' + programName);
+	} else {
+		defaults.program = programName[0];
+	}
+
+	// collecting files starts here!!
+	var collected_files = new Combo(function() {
+		resolve_libraries();
+	});
+	collect_st_files(stFiles, collected_files.add());
+	collect_js_files(jsFiles, collected_files.add());
+}
+
+
+function collect_st_files(stFiles, callback) {
+	var collected_st_files = new Combo(function() {
+		Array.prototype.slice.call(arguments).forEach(function(data) {
+			if (undefined !== data[0]) {
+				var stFile = data[0];
+				var stCategory = data[1];
+				defaults.compile.push(stFile);
+				defaults.compiled_categories.push(stCategory);
+				defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
+			}
+		});
+		callback();
+	});
+
+	stFiles.forEach(function(stFile) {
+		var _callback = collected_st_files.add();
+		console.log('Checking: ' + stFile);
+		var category = path.basename(stFile, '.st');
+		var amberStFile = path.join(defaults.amber_dir, 'st', stFile);
+		path.exists(stFile, function(exists) {
+			if (exists) {
+				_callback(stFile, category);
+			} else {
+				path.exists(amberJsFile, function(exists) {
+					if (exists) {
+						_callback(amberStFile, category);
+					} else {
+						throw(new Error('JavaScript file not found: ' + jsFile));
+					}
+				});
+			}
+		});
+	});
+
+	always_resolve(collected_st_files.add());
+}
+
+
+function collect_js_files(jsFiles, callback) {
+	var collected_js_files = new Combo(function() {
+		Array.prototype.slice.call(arguments).forEach(function(file) {
+			if (undefined !== file[0]) {
+				defaults.libraries.push(file[0]);
+			}
+		});
+		callback();
+	});
+
+	jsFiles.forEach(function(jsFile) {
+		resolve_js(currentFile, collected_js_files.add());
+	});
+
+	always_resolve(collected_js_files.add());
 }
 
 
 function resolve_libraries() {
 	// Resolve libraries listed in defaults.base
-	defaults.base.forEach(function(file) {
-		defaults.libraries.push(resolve_js(file));
+	var all_resolved = new Combo(function(resolved_library_files, resolved_compiler_files) {
+		resolve_init(resolved_compiler_files[0]);
+	});
+	resolve_kernel(all_resolved.add());
+	resolve_compiler(all_resolved.add());
+}
+
+
+function resolve_kernel(callback) {
+	var kernel_files = defaults.base.concat(defaults.load);
+	var kernel_resolved = new Combo(function() {
+		Array.prototype.slice.call(arguments).forEach(function(file) {
+			if (undefined !== file[0]) {
+				defaults.libraries.push(file[0]);
+			}
+		});
+		callback(null);
 	});
 
-	// Resolve libraries listed in defaults.compiler
-	var compilerFiles = [];
-	defaults.compiler_libraries.forEach(function(file) {
-		compilerFiles.push(resolve_js(file));
+	kernel_files.forEach(function(file) {
+		resolve_js(file, kernel_resolved.add());
 	});
 
-	// Resolve libraries listed in defaults.load
-	defaults.load.forEach(function(file) {
-		var resolvedFile = resolve_js(file);
-		compilerFiles.push(resolvedFile);
-		defaults.libraries.push(resolvedFile);
+	always_resolve(kernel_resolved.add());
+}
+
+function resolve_compiler(callback) {
+	// Resolve compiler libraries
+	var compiler_files = defaults.compiler_libraries.concat(defaults.load);
+	var compiler_resolved = new Combo(function() {
+		var compilerFiles = [];
+		Array.prototype.slice.call(arguments).forEach(function(file) {
+			if (undefined !== file[0]) {
+				compilerFiles.push(file[0]);
+			}
+		});
+		callback(compilerFiles);
+	});
+	compiler_files.forEach(function(file) {
+		resolve_js(file, compiler_resolved.add());
 	});
 
+	always_resolve(compiler_resolved.add());
+}
+
+function resolve_init(compilerFiles) {
 	// check and add init.js
 	var initFile = defaults.init;
 	if ('.js' !== path.extname(initFile)) {
