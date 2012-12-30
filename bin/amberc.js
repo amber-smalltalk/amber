@@ -52,6 +52,7 @@ var defaults = function() {
 		'deploy': false,
 		'libraries': [],
 		'compile': [],
+		'compiled_categories': [],
 		'compiled': [],
 		'program': undefined
 	};
@@ -250,10 +251,12 @@ function collect_files(filesArray) {
 		switch (suffix) {
 			case '.st':
 				if (path.existsSync(currentFile)) {
-					defaults.compile.push(currentFile, category);
+					defaults.compile.push(currentFile);
+					defaults.compiled_categories.push(category);
 					defaults.compiled.push(category + defaults.suffix_used + '.js');
 				} else if (path.existsSync(amberFile)) {
-					defaults.compile.push(amberFile, category);
+					defaults.compile.push(amberFile);
+					defaults.compiled_categories.push(category);
 					defaults.compiled.push(category + defaults.suffix_used + '.js');
 				} else {
 					throw(new Error('File not found: ' + currentFile));
@@ -322,7 +325,7 @@ function create_compiler(compilerFilesArray) {
 
 function compile() {
 	console.log('Compiling collected .st files to .js')
-	node_compile(defaults.compile);
+	node_compile(defaults.compile, defaults.compiled_categories);
 
 	console.log('Verifying if all .st files were compiled');
 	map(defaults.compiled, function(file, callback) {
@@ -341,24 +344,26 @@ function compile() {
 }
 
 
-function node_compile(filesArray) {
-	// The filesArray variable is a series of .st filenames and category names.
-	// If it is a .st file we import it, if it is a category name we export it
-	// as aCategoryName.js.
+function node_compile(smalltalkFiles, categories) {
+	// the smalltalkFiles variable is a series of .st filenames to be imported
+	// the categories variable holds category names to be exported as aCategoryName.js.
 
-	// If it ends with .st, import it, otherwise export category as .js
-	filesArray.forEach(function(val, index, array) {
+	// import .st files
+	smalltalkFiles.forEach(function(val) {
 		if (/\.st/.test(val)) {
-			console.log("Reading file " + val);
-			code = fs.readFileSync(val, "utf8");
+			console.log("Importing: " + val);
+			var code = fs.readFileSync(val, "utf8");
 			defaults.smalltalk.Importer._new()._import_(code._stream());
-		} else {
-			console.log("Exporting " + (defaults.deploy ? "(debug + deploy)" : "(debug)") + " category "
-				+ val + " as " + val + defaults.suffix_used + ".js" + (defaults.deploy ? " and " + val + defaults.suffix_used + ".deploy.js" : ""));
-			fs.writeFileSync(val + defaults.suffix_used + ".js", defaults.smalltalk.Exporter._new()._exportPackage_(val));
-			if (defaults.deploy) {
-				fs.writeFileSync(val + defaults.suffix_used + ".deploy.js", defaults.smalltalk.StrippedExporter._new()._exportPackage_(val));
-			}
+		}
+	});
+
+	// export categories as .js
+	categories.forEach(function(val) {
+		console.log("Exporting " + (defaults.deploy ? "(debug + deploy)" : "(debug)") + " category "
+			+ val + " as " + val + defaults.suffix_used + ".js" + (defaults.deploy ? " and " + val + defaults.suffix_used + ".deploy.js" : ""));
+		fs.writeFileSync(val + defaults.suffix_used + ".js", defaults.smalltalk.Exporter._new()._exportPackage_(val));
+		if (defaults.deploy) {
+			fs.writeFileSync(val + defaults.suffix_used + ".deploy.js", defaults.smalltalk.StrippedExporter._new()._exportPackage_(val));
 		}
 	});
 }
