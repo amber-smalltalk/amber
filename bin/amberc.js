@@ -6,6 +6,11 @@ var path = require('path'),
 	fs = require('fs'),
 	exec = require('child_process').exec;
 
+
+/**
+ * Map the async filter function onto array and evaluate callback, once all have finished.
+ * Taken from: http://howtonode.org/control-flow-part-iii
+ */
 function map(array, filter, callback) {
 	var counter = array.length;
 	var new_array = [];
@@ -21,6 +26,11 @@ function map(array, filter, callback) {
 	});
 }
 
+
+/**
+ * Combine several async functions and evaluate callback once all of them have finished.
+ * Taken from: http://howtonode.org/control-flow
+ */
 function Combo(callback) {
   this.callback = callback;
   this.items = 0;
@@ -47,6 +57,9 @@ Combo.prototype = {
 
 console.time('Compile Time');
 
+/**
+ * Stores default values.
+ */
 var defaults = function() {
 	// Get Amber root directory from the location of this script so that
 	// we can find the st and js directories etc.
@@ -83,6 +96,9 @@ var defaults = function() {
 }();
 
 
+/**
+ * Main program flow starts here.
+ */
 if (3 > process.argv.length) {
 	usage();
 } else {
@@ -90,6 +106,10 @@ if (3 > process.argv.length) {
 }
 
 
+/**
+ * Process given program options and update defaults values.
+ * Followed by check_for_closure_compiler() and then collect_files().
+ */
 function handle_options(optionsArray) {
 	var stFiles = [];
 	var jsFiles = [];
@@ -170,7 +190,7 @@ function handle_options(optionsArray) {
 
 
 /**
- * print usage options and exit
+ * Print usage options and exit.
  */
 function usage() {
 	console.log('Usage: $0 [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
@@ -324,10 +344,11 @@ function always_resolve(callback) {
 }
 
 
-// --------------------------------------------------
-// Collect libraries and Smalltalk files looking
-// both locally and in $AMBER/js and $AMBER/st 
-// --------------------------------------------------
+/**
+ * Collect libraries and Smalltalk files looking
+ * both locally and in $AMBER/js and $AMBER/st.
+ * Followed by resolve_libraries().
+ */
 function collect_files(stFiles, jsFiles) {
 	var collected_files = new Combo(function() {
 		resolve_libraries();
@@ -337,6 +358,11 @@ function collect_files(stFiles, jsFiles) {
 }
 
 
+/**
+ * Resolve st files given by stFiles and add them to defaults.compile.
+ * Respective categories get added to defaults.compile_categories.
+ * callback is evaluated afterwards.
+ */
 function collect_st_files(stFiles, callback) {
 	var collected_st_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
@@ -375,6 +401,10 @@ function collect_st_files(stFiles, callback) {
 }
 
 
+/**
+ * Resolve js files given by jsFiles and add them to defaults.libraries.
+ * callback is evaluated afterwards.
+ */
 function collect_js_files(jsFiles, callback) {
 	var collected_js_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(file) {
@@ -393,6 +423,10 @@ function collect_js_files(jsFiles, callback) {
 }
 
 
+/**
+ * Resolve kernel and compiler files.
+ * Followed by resolve_init().
+ */
 function resolve_libraries() {
 	// Resolve libraries listed in defaults.base
 	var all_resolved = new Combo(function(resolved_library_files, resolved_compiler_files) {
@@ -403,6 +437,10 @@ function resolve_libraries() {
 }
 
 
+/**
+ * Resolve .js files needed by kernel
+ * callback is evaluated afterwards.
+ */
 function resolve_kernel(callback) {
 	var kernel_files = defaults.base.concat(defaults.load);
 	var kernel_resolved = new Combo(function() {
@@ -421,6 +459,11 @@ function resolve_kernel(callback) {
 	always_resolve(kernel_resolved.add());
 }
 
+
+/**
+ * Resolve .js files needed by compiler.
+ * callback is evaluated afterwards with resolved files as argument.
+ */
 function resolve_compiler(callback) {
 	// Resolve compiler libraries
 	var compiler_files = defaults.compiler_libraries.concat(defaults.load);
@@ -440,6 +483,11 @@ function resolve_compiler(callback) {
 	always_resolve(compiler_resolved.add());
 }
 
+
+/**
+ * Resolves default.init and adds it to compilerFiles.
+ * Followed by create_compiler().
+ */
 function resolve_init(compilerFiles) {
 	// check and add init.js
 	var initFile = defaults.init;
@@ -453,6 +501,11 @@ function resolve_init(compilerFiles) {
 }
 
 
+/**
+ * Read all .js files needed by compiler and eval() them.
+ * The finished Compiler gets stored in defaults.smalltalk.
+ * Followed by compile().
+ */
 function create_compiler(compilerFilesArray) {
 	var compiler_files = new Combo(function() {
 		var content = '(function() {';
@@ -474,6 +527,10 @@ function create_compiler(compilerFilesArray) {
 };
 
 
+/**
+ * Compile all given .st files by importing them.
+ * Followed by category_export().
+ */
 function compile() {
 	console.log('Compiling collected .st files')
 	// import .st files
@@ -499,6 +556,10 @@ function compile() {
 }
 
 
+/**
+ * Export compiled categories to JavaScript files.
+ * Followed by verify().
+ */
 function category_export() {
 	// export categories as .js
 	map(defaults.compiled_categories, function(category, callback) {
@@ -520,6 +581,10 @@ function category_export() {
 }
 
 
+/**
+ * Verify if all .st files have been compiled.
+ * Followed by compose_js_files() and optimize().
+ */
 function verify() {
 	console.log('Verifying if all .st files were compiled');
 	map(defaults.compiled, function(file, callback) {
@@ -530,15 +595,21 @@ function verify() {
 					throw(new Error('Compilation failed of: ' + file));
 			});
 		}, function(err, result) {
-			if (undefined !== defaults.program) {
-				compose_js_files();
-			}
+			compose_js_files();
 			optimize();
 	});
 }
 
 
+/**
+ * Synchronous function.
+ * Concatenates compiled JavaScript files into one file in the correct order.
+ * The name of the produced file is given by defaults.program (set by the last commandline option).
+ */
 function compose_js_files() {
+	if (undefined !== defaults.program) {
+		return;
+	}
 	var program_files = [];
 
 	if (undefined !== defaults.libraries) {
@@ -586,24 +657,37 @@ function compose_js_files() {
 }
 
 
+/**
+ * Optimize created JavaScript files with Google Closure compiler depending
+ * on the flags: defaults.closure_parts, defaults.closure_full.
+ */
 function optimize() {
+	var optimization_done = new Combo(function() {
+			console.timeEnd('Compile Time');
+	});
+
 	if (defaults.closure_parts) {
 		console.log('Compiling all js files using Google closure compiler.');
 		var allJsFiles = defaults.compiled.concat(defaults.libraries);
 		allJsFiles.forEach(function(file) {
 			var minifiedName = path.basename(file, '.js') + '.min.js';
-			closure_compile(file, minifiedName);
+			closure_compile(file, minifiedName, optimization_done.add());
 		});
 	}
 	if (defaults.closure_full) {
 		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
-		closure_compile(defaults.program + '.js', defaults.program + '.min.js');
+		closure_compile(defaults.program + '.js', defaults.program + '.min.js', optimization_done.add());
 	}
-	console.timeEnd('Compile Time');
+
+	always_resolve(optimization_done.add());
 }
 
 
-function closure_compile(sourceFile, minifiedFile) {
+/**
+ * Compile sourceFile into minifiedFile with Google Closure compiler.
+ * callback gets executed once finished.
+ */
+function closure_compile(sourceFile, minifiedFile, callback) {
 	// exec is asynchronous
 	exec(
 		'java -jar ' +
@@ -618,6 +702,7 @@ function closure_compile(sourceFile, minifiedFile) {
 				console.log(stdout);
 				console.log(' '+ minifiedFile + ' built.');
 			}
+			callback();
 		}
 	);
 }
