@@ -6,6 +6,21 @@ var path = require('path'),
 	fs = require('fs'),
 	exec = require('child_process').exec;
 
+function map(array, filter, callback) {
+	var counter = array.length;
+	var new_array = [];
+	array.forEach(function (item, index) {
+		filter(item, function (err, result) {
+			if (err) { callback(err); return; }
+			new_array[index] = result;
+			counter--;
+			if (counter === 0) {
+				callback(null, new_array);
+			}
+		});
+	});
+}
+
 console.time('Compile Time');
 
 var defaults = function() {
