@@ -332,18 +332,23 @@ function resolve_libraries() {
 
 
 function create_compiler(compilerFilesArray) {
-	// load all files from parameter <-> require?
-	// create compiler in memory -> should be faster
-	var content = '(function() {';
+	var compiler_files = new Combo(function() {
+		var content = '(function() {';
+		Array.prototype.slice.call(arguments).forEach(function(data) {
+			// data is an array where index 0 is the error code and index 1 contains the data
+			content += data[1];
+		});
+		content = content + 'return smalltalk;})();';
+		defaults.smalltalk = eval(content);
+		console.log('Compiler loaded');
+
+		compile();
+	});
+
 	compilerFilesArray.forEach(function(file) {
 		console.log('Loading file: ' + file);
-		content = content + fs.readFileSync(file);
+		fs.readFile(file, compiler_files.add());
 	});
-	content = content + 'return smalltalk;})();';
-	defaults.smalltalk = eval(content);
-	console.log('Compiler loaded');
-	
-	compile();
 };
 
 
