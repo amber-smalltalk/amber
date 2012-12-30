@@ -47,6 +47,7 @@ smalltalk.parser = (function(){
         "string": parse_string,
         "symbol": parse_symbol,
         "number": parse_number,
+        "hex": parse_hex,
         "float": parse_float,
         "integer": parse_integer,
         "literalArray": parse_literalArray,
@@ -770,15 +771,94 @@ smalltalk.parser = (function(){
         var pos0;
         
         pos0 = pos;
-        result0 = parse_float();
+        result0 = parse_hex();
         if (result0 === null) {
-          result0 = parse_integer();
+          result0 = parse_float();
+          if (result0 === null) {
+            result0 = parse_integer();
+          }
         }
         if (result0 !== null) {
           result0 = (function(offset, n) {
                              return smalltalk.ValueNode._new()
                                     ._value_(n)
                          })(pos0, result0);
+        }
+        if (result0 === null) {
+          pos = pos0;
+        }
+        return result0;
+      }
+      
+      function parse_hex() {
+        var result0, result1, result2, result3;
+        var pos0, pos1;
+        
+        pos0 = pos;
+        pos1 = pos;
+        if (/^[\-]/.test(input.charAt(pos))) {
+          result0 = input.charAt(pos);
+          pos++;
+        } else {
+          result0 = null;
+          if (reportFailures === 0) {
+            matchFailed("[\\-]");
+          }
+        }
+        result0 = result0 !== null ? result0 : "";
+        if (result0 !== null) {
+          if (input.substr(pos, 3) === "16r") {
+            result1 = "16r";
+            pos += 3;
+          } else {
+            result1 = null;
+            if (reportFailures === 0) {
+              matchFailed("\"16r\"");
+            }
+          }
+          if (result1 !== null) {
+            if (/^[0-9a-zA-Z]/.test(input.charAt(pos))) {
+              result3 = input.charAt(pos);
+              pos++;
+            } else {
+              result3 = null;
+              if (reportFailures === 0) {
+                matchFailed("[0-9a-zA-Z]");
+              }
+            }
+            if (result3 !== null) {
+              result2 = [];
+              while (result3 !== null) {
+                result2.push(result3);
+                if (/^[0-9a-zA-Z]/.test(input.charAt(pos))) {
+                  result3 = input.charAt(pos);
+                  pos++;
+                } else {
+                  result3 = null;
+                  if (reportFailures === 0) {
+                    matchFailed("[0-9a-zA-Z]");
+                  }
+                }
+              }
+            } else {
+              result2 = null;
+            }
+            if (result2 !== null) {
+              result0 = [result0, result1, result2];
+            } else {
+              result0 = null;
+              pos = pos1;
+            }
+          } else {
+            result0 = null;
+            pos = pos1;
+          }
+        } else {
+          result0 = null;
+          pos = pos1;
+        }
+        if (result0 !== null) {
+          result0 = (function(offset, neg, num) {return parseInt((neg + num.join("")), 16)})(pos0, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1271,7 +1351,8 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, val) {
-                               return smalltalk.ValueNode._new()._value_(val)
+                               return smalltalk.ValueNode._new()
+                                      ._value_(val)
                            })(pos0, result0);
         }
         if (result0 === null) {
@@ -3103,7 +3184,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, val) {
                              return smalltalk.JSStatementNode._new()
-                                   ._source_(val.join(""))
+                                    ._source_(val.join(""))
                          })(pos0, result0[1]);
         }
         if (result0 === null) {
@@ -3159,9 +3240,9 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, pattern, sequence) {
                               return smalltalk.MethodNode._new()
-                                    ._selector_(pattern[0])
-                                    ._arguments_(pattern[1])
-                                    ._nodes_([sequence])
+                                     ._selector_(pattern[0])
+                                     ._arguments_(pattern[1])
+                                     ._nodes_([sequence])
                          })(pos0, result0[1], result0[3]);
         }
         if (result0 === null) {

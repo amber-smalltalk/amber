@@ -19,10 +19,11 @@ symbol         = "#"val:(
                       return smalltalk.ValueNode._new()
                              ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
                   }
-number         = n:(float / integer) {
+number         = n:(hex / float / integer) {
                      return smalltalk.ValueNode._new()
                             ._value_(n)
                  }
+hex            = neg:[-]? "16r" num:[0-9a-zA-Z]+ {return parseInt((neg + num.join("")), 16)}
 float          = neg:[-]?int:[0-9]+ "." dec:[0-9]+ {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)}
 integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10))}
 literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
