@@ -543,11 +543,12 @@ function compile() {
 	});
 
 	defaults.compile.forEach(function(stFile) {
+		var callback = imports.add();
 		if (/\.st/.test(stFile)) {
 			console.log('Importing: ' + stFile);
 			fs.readFile(stFile, 'utf8', function(err, data) {
 				if (!err)
-					imports.add()(data);
+					callback(data);
 				else
 					throw new Error('Could not import: ' + stFile);
 			});
