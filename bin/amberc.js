@@ -325,17 +325,19 @@ function compile() {
 	node_compile(defaults.compile);
 
 	console.log('Verifying if all .st files were compiled');
-	defaults.compiled.forEach(function(file) {
-		if (!path.existsSync(file)) {
-			throw(new Error('Compilation failed of: ' + file));
-		}
+	map(defaults.compiled, function(file, callback) {
+			path.exists(file, function(exists) {
+				if (exists)
+					callback(null, null);
+				else
+					throw(new Error('Compilation failed of: ' + file));
+			});
+		}, function(err, result) {
+			if (undefined !== defaults.program) {
+				compose_js_files();
+			}
+			optimize();
 	});
-
-	if (undefined !== defaults.program) {
-		compose_js_files();
-	}
-	
-	optimize();
 }
 
 
