@@ -335,19 +335,22 @@ function compile() {
 	});
 
 	// export categories as .js
-	defaults.compiled_categories.forEach(function(category) {
+	map(defaults.compiled_categories, function(category, callback) {
 		var jsFile = category + defaults.suffix_used + '.js';
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
 			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
-		fs.writeFileSync(jsFile, defaults.smalltalk.Exporter._new()._exportPackage_(category));
-		if (defaults.deploy) {
-			fs.writeFileSync(jsFileDeploy, defaults.smalltalk.StrippedExporter._new()._exportPackage_(category));
-		}
+		fs.writeFile(jsFile, defaults.smalltalk.Exporter._new()._exportPackage_(category), function(err) {
+			if (defaults.deploy) {
+				fs.writeFile(jsFileDeploy, defaults.smalltalk.StrippedExporter._new()._exportPackage_(category), callback);
+			} else {
+				callback(null, null);
+			}
+		});
+	}, function(err, result){
+		verify();
 	});
-
-	verify();
 }
 
 
