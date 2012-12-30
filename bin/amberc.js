@@ -325,8 +325,33 @@ function create_compiler(compilerFilesArray) {
 
 function compile() {
 	console.log('Compiling collected .st files to .js')
-	node_compile(defaults.compile, defaults.compiled_categories);
+	// import .st files
+	defaults.compile.forEach(function(stFile) {
+		if (/\.st/.test(stFile)) {
+			console.log("Importing: " + stFile);
+			var code = fs.readFileSync(stFile, "utf8");
+			defaults.smalltalk.Importer._new()._import_(code._stream());
+		}
+	});
 
+	// export categories as .js
+	defaults.compiled_categories.forEach(function(category) {
+		var jsFile = category + defaults.suffix_used + '.js';
+		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
+		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
+			+ ' category ' + category + ' as ' + jsFile
+			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
+		fs.writeFileSync(jsFile, defaults.smalltalk.Exporter._new()._exportPackage_(category));
+		if (defaults.deploy) {
+			fs.writeFileSync(jsFileDeploy, defaults.smalltalk.StrippedExporter._new()._exportPackage_(category));
+		}
+	});
+
+	verify();
+}
+
+
+function verify() {
 	console.log('Verifying if all .st files were compiled');
 	map(defaults.compiled, function(file, callback) {
 			path.exists(file, function(exists) {
@@ -340,31 +365,6 @@ function compile() {
 				compose_js_files();
 			}
 			optimize();
-	});
-}
-
-
-function node_compile(smalltalkFiles, categories) {
-	// the smalltalkFiles variable is a series of .st filenames to be imported
-	// the categories variable holds category names to be exported as aCategoryName.js.
-
-	// import .st files
-	smalltalkFiles.forEach(function(val) {
-		if (/\.st/.test(val)) {
-			console.log("Importing: " + val);
-			var code = fs.readFileSync(val, "utf8");
-			defaults.smalltalk.Importer._new()._import_(code._stream());
-		}
-	});
-
-	// export categories as .js
-	categories.forEach(function(val) {
-		console.log("Exporting " + (defaults.deploy ? "(debug + deploy)" : "(debug)") + " category "
-			+ val + " as " + val + defaults.suffix_used + ".js" + (defaults.deploy ? " and " + val + defaults.suffix_used + ".deploy.js" : ""));
-		fs.writeFileSync(val + defaults.suffix_used + ".js", defaults.smalltalk.Exporter._new()._exportPackage_(val));
-		if (defaults.deploy) {
-			fs.writeFileSync(val + defaults.suffix_used + ".deploy.js", defaults.smalltalk.StrippedExporter._new()._exportPackage_(val));
-		}
 	});
 }
 
