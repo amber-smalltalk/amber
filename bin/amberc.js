@@ -143,9 +143,9 @@ function handle_options(optionsArray) {
 		currentItem = optionsArray.shift();
 	}
 
-	check_for_closure_compiler();
-	
-	collect_files(nonOptions);
+	check_for_closure_compiler(function() {
+		collect_files(nonOptions);
+	});
 }
 
 
@@ -229,22 +229,32 @@ function usage() {
 }
 
 
-function check_for_closure_compiler() {
-	if (!defaults.closure) {
-		return;
-	}
-	
-	exec('which java', function(error, stdout, stderr) {
-		// stdout contains path to java executable
-		if (null !== error) {
-			throw(new Error('java is not installed and is needed for -O, -A or -o (Closure compiler).'));
-		}
-		path.exists(defaults.closure_jar, function(exists) {
-			if (!exists) {
-				throw(new Error('Can not find Closure compiler at ' + defaults.closure_jar));
+function check_for_closure_compiler(callback) {
+	if (defaults.closure) {
+		exec('which java', function(error, stdout, stderr) {
+			// stdout contains path to java executable
+			if (null !== error) {
+				console.warn('java is not installed and is needed for -O, -A or -o (Closure compiler).');
+				defaults.closure = false;
+				defaults.closure_parts = false;
+				defaults.closure_full = false;
+				callback();
+				return;
 			}
+			path.exists(defaults.closure_jar, function(exists) {
+				if (!exists) {
+					console.warn('Can not find Closure compiler at: ' + defaults.closure_jar);
+					defaults.closure = false;
+					defaults.closure_parts = false;
+					defaults.closure_full = false;
+					callback();
+					return;
+				}
+			});
 		});
-	});
+	} else {
+		callback();
+	}
 }
 
 
