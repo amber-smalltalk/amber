@@ -1,5 +1,5 @@
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url port basePath util'
+	instanceVariableNames: 'path http fs url port basePath util username password'
 	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
@@ -14,6 +14,11 @@ basePath: aString
 
 port
 	^self class port
+!
+
+username: aUsername password: aPassword
+	username := aUsername.
+	password := aPassword.
 ! !
 
 !FileServer methodsFor: 'initialization'!
@@ -45,6 +50,27 @@ require: aModuleString
 
 writeData: data toFileNamed: aFilename
 	console log: aFilename
+!
+
+isAuthenticated: aRequest response: aResponse
+	| header token auth parts|
+	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175"
+	"get authentication header"
+	header := (aRequest headers at: 'authorization') ifNil:[''].
+	(header isEmpty)
+	ifTrue: [^false]
+	ifFalse: [
+		"get authentication token"
+		token := (header tokenize: ' ') ifNil:[''].
+		"convert back from base64"
+		<auth = new Buffer(token[1], 'base64').toString()>.
+		"split token at colon"
+		parts := auth tokenize: ':'.
+
+		((username = (parts at: 1)) and: [password = (parts at: 2)])
+			ifTrue: [^true]
+			ifFalse: [^false]
+	].
 ! !
 
 !FileServer methodsFor: 'request handling'!
@@ -79,6 +105,8 @@ handleGETRequest: aRequest respondTo: aResponse
 
 handlePUTRequest: aRequest respondTo: aResponse
 	| file stream |
+	(self isAuthenticated: aRequest response: aResponse)
+		ifFalse: [self respondAuthenticationRequiredTo: aResponse].
 	file := '.', aRequest url.
 	stream := fs createWriteStream: file.
 	stream on: 'error' do: [:error |
@@ -89,13 +117,12 @@ handlePUTRequest: aRequest respondTo: aResponse
 	stream writable ifFalse: [
 		console log: 'Could not write to ', file.
 		^nil].
-        aRequest setEncoding: 'utf8'.
-        aRequest on: 'data' do: [:data | stream write: data].
+		aRequest setEncoding: 'utf8'.
+		aRequest on: 'data' do: [:data | stream write: data].
 
-        aRequest on: 'end' do: [
-                stream end.
-                self respondOKTo: aResponse]
-
+		aRequest on: 'end' do: [
+			stream end.
+			self respondOKTo: aResponse]
 !
 
 handleOPTIONSRequest: aRequest respondTo: aResponse
@@ -136,11 +163,17 @@ respondInternalErrorTo: aResponse
 		end
 !
 
+respondAuthenticationRequiredTo: aResponse
+	aResponse
+		writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm="Secured Developer Area"'};
+		write: '<html><body>Authentication needed</body></html>'.
+	aResponse end.
+!
+
 respondOKTo: aResponse
 	aResponse 
 		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.
 	aResponse end.
-					
 ! !
 
 !FileServer methodsFor: 'starting'!
@@ -605,6 +638,7 @@ main
 	('-p' = portOption and: [portNumber notNil]) ifTrue: [
 		fileServer port: portNumber.
 	].
+	fileServer username: 'Amber' password: 'Dev'.
 	^fileServer start
 ! !
 
