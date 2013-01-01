@@ -71,6 +71,9 @@ isAuthenticated: aRequest response: aResponse
 	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175
 	 and https://gist.github.com/1686663"
 	| header token auth parts|
+
+	(username isNil and: [password isNil]) ifTrue: [^true].
+
 	"get authentication header"
 	header := (aRequest headers at: 'authorization') ifNil:[''].
 	(header isEmpty)
