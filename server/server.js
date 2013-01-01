@@ -14218,10 +14218,10 @@ fn: function (){
 var self=this;
 ((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["index.html"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory does not contain index.html"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory does not contain index.html"]);})]));
 ((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["st"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing an \x22st\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing an \x22st\x22 directory"]);})]));
-((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["js"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: roject directory is missing a \x22js\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: roject directory is missing a \x22js\x22 directory"]);})]));
+((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["js"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing a \x22js\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing a \x22js\x22 directory"]);})]));
 return self;},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(path existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html'].\x0a\x09(path existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(path existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: roject directory is missing a \x22js\x22 directory'].",
+source: "checkDirectoryLayout\x0a\x09(path existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html'].\x0a\x09(path existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(path existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
 messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
 referencedClasses: []
 }),
@@ -14323,9 +14323,11 @@ smalltalk.send(self, "_initialize", [], smalltalk.FileServer.superclass || nil);
 (self['@util']=smalltalk.send(self, "_require_", ["util"]));
 (self['@url']=smalltalk.send(self, "_require_", ["url"]));
 (self['@port']=smalltalk.send(smalltalk.send(self, "_class", []), "_defaultPort", []));
+(self['@username']=nil);
+(self['@password']=nil);
 return self;},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09port := self class defaultPort.",
+source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.",
 messageSends: ["initialize", "require:", "defaultPort", "class"],
 referencedClasses: []
 }),
@@ -14348,7 +14350,7 @@ var parts=nil;
 return self;
 } catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["aRequest", "aResponse"],
-source: "isAuthenticated: aRequest response: aResponse\x0a\x09| header token auth parts|\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x22\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09<auth = new Buffer(token[1], 'base64').toString()>.\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^true]\x0a\x09\x09\x09ifFalse: [^false]\x0a\x09].",
+source: "isAuthenticated: aRequest response: aResponse\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x0a\x09 and https://gist.github.com/1686663\x22\x0a\x09| header token auth parts|\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09<auth = new Buffer(token[1], 'base64').toString()>.\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^true]\x0a\x09\x09\x09ifFalse: [^false]\x0a\x09].",
 messageSends: ["ifNil:", "at:", "headers", "ifTrue:ifFalse:", "isEmpty", "tokenize:", "and:", "="],
 referencedClasses: []
 }),
@@ -14557,6 +14559,28 @@ smalltalk.FileServer);
 
 smalltalk.FileServer.klass.iVarNames = ['mimeTypes'];
 smalltalk.addMethod(
+"_createServerWithArguments_",
+smalltalk.method({
+selector: "createServerWithArguments:",
+category: 'initialization',
+fn: function (arguments){
+var self=this;
+var fileServer=nil;
+(fileServer=smalltalk.send(self, "_new", []));
+(portOption=smalltalk.send(arguments, "_at_ifAbsent_", [(1), (function(){return nil;})]));
+(portNumber=smalltalk.send(arguments, "_at_ifAbsent_", [(2), (function(){return nil;})]));
+((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [(typeof portOption == 'undefined' ? nil : portOption)]), "_and_", [(function(){return smalltalk.send((typeof portNumber == 'undefined' ? nil : portNumber), "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [(typeof portNumber == 'undefined' ? nil : portNumber)]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [(typeof portNumber == 'undefined' ? nil : portNumber)]);})]));
+smalltalk.send(fileServer, "_username_password_", ["Amber", "Dev"]);
+return fileServer;
+return self;},
+args: ["arguments"],
+source: "createServerWithArguments: arguments\x0a\x09| fileServer |\x0a\x09fileServer := self new.\x0a\x09portOption := arguments at: 1 ifAbsent: [nil].\x0a\x09portNumber := arguments at: 2 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [portNumber notNil]) ifTrue: [\x0a\x09\x09fileServer port: portNumber.\x0a\x09].\x0a\x09fileServer username: 'Amber' password: 'Dev'.\x0a\x09^fileServer.",
+messageSends: ["new", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "username:password:"],
+referencedClasses: []
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
 "_defaultMimeTypes",
 smalltalk.method({
 selector: "defaultMimeTypes",
@@ -14599,19 +14623,16 @@ var fileServer=nil;
 var arguments=nil;
 var portOption=nil;
 var portNumber=nil;
-(fileServer=smalltalk.send(self, "_new", []));
-smalltalk.send(fileServer, "_checkDirectoryLayout", []);
 (arguments=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
-(portOption=smalltalk.send(arguments, "_at_ifAbsent_", [(3), (function(){return nil;})]));
-(portNumber=smalltalk.send(arguments, "_at_ifAbsent_", [(4), (function(){return nil;})]));
-((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [portOption]), "_and_", [(function(){return smalltalk.send(portNumber, "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [portNumber]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [portNumber]);})]));
-smalltalk.send(fileServer, "_username_password_", ["Amber", "Dev"]);
+smalltalk.send(arguments, "_removeFrom_to_", [(1), (3)]);
+(fileServer=smalltalk.send((smalltalk.FileServer || FileServer), "_createServerWithArguments_", [arguments]));
+smalltalk.send(fileServer, "_checkDirectoryLayout", []);
 return smalltalk.send(fileServer, "_start", []);
 return self;},
 args: [],
-source: "main\x0a\x09| fileServer arguments portOption portNumber|\x0a\x09fileServer := self new.\x0a\x09fileServer checkDirectoryLayout.\x0a\x0a\x09arguments := process argv.\x0a\x09portOption := arguments at: 3 ifAbsent: [nil].\x0a\x09portNumber := arguments at: 4 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [portNumber notNil]) ifTrue: [\x0a\x09\x09fileServer port: portNumber.\x0a\x09].\x0a\x09fileServer username: 'Amber' password: 'Dev'.\x0a\x09^fileServer start",
-messageSends: ["new", "checkDirectoryLayout", "argv", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "username:password:", "start"],
-referencedClasses: []
+source: "main\x0a\x09| fileServer arguments portOption portNumber|\x0a\x09arguments := process argv.\x0a\x09arguments removeFrom: 1 to: 3.\x0a\x09fileServer := FileServer createServerWithArguments: arguments.\x0a\x0a\x09fileServer checkDirectoryLayout.\x0a\x09^fileServer start",
+messageSends: ["argv", "removeFrom:to:", "createServerWithArguments:", "checkDirectoryLayout", "start"],
+referencedClasses: ["FileServer"]
 }),
 smalltalk.FileServer.klass);
 
