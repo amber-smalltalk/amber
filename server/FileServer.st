@@ -635,17 +635,21 @@ mimeTypes
 
 mimeTypeFor: aString
 	^self mimeTypes at: (aString replace: '.*[\.]' with: '') ifAbsent: ['text/plain']
+!
+
+commandLineActions
+	^#{
+		'-p' -> [:fileServer :value | fileServer port: value].
+		'--username' -> [:fileServer :value | fileServer username: value].
+		'--password' -> [:fileServer :value | fileServer password: value]
+	}
 ! !
 
 !FileServer class methodsFor: 'initialization'!
 
 createServerWithArguments: options
 	| server actions popFront front optionName optionValue |
-	actions := #{
-		'-p' -> [:fileServer :value | fileServer port: value].
-		'--username' -> [:fileServer :value | fileServer username: value].
-		'--password' -> [:fileServer :value | fileServer password: value]
-	}.
+	actions := FileServer commandLineActions.
 
 	popFront := [:args |
 		front := args first.

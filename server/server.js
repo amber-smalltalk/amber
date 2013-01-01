@@ -14591,6 +14591,22 @@ smalltalk.FileServer);
 
 smalltalk.FileServer.klass.iVarNames = ['mimeTypes'];
 smalltalk.addMethod(
+"_commandLineActions",
+smalltalk.method({
+selector: "commandLineActions",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.HashedCollection._fromPairs_([smalltalk.send("-p", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_port_", [value]);})]),smalltalk.send("--username", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_username_", [value]);})]),smalltalk.send("--password", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_password_", [value]);})])]);
+return self;},
+args: [],
+source: "commandLineActions\x0a\x09^#{\x0a\x09\x09'-p' -> [:fileServer :value | fileServer port: value].\x0a\x09\x09'--username' -> [:fileServer :value | fileServer username: value].\x0a\x09\x09'--password' -> [:fileServer :value | fileServer password: value]\x0a\x09}",
+messageSends: ["->", "port:", "username:", "password:"],
+referencedClasses: []
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
 "_createServerWithArguments_",
 smalltalk.method({
 selector: "createServerWithArguments:",
@@ -14604,7 +14620,7 @@ var popFront=nil;
 var front=nil;
 var optionName=nil;
 var optionValue=nil;
-(actions=smalltalk.HashedCollection._fromPairs_([smalltalk.send("-p", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_port_", [value]);})]),smalltalk.send("--username", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_username_", [value]);})]),smalltalk.send("--password", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_password_", [value]);})])]));
+(actions=smalltalk.send((smalltalk.FileServer || FileServer), "_commandLineActions", []));
 (popFront=(function(args){(front=smalltalk.send(args, "_first", []));smalltalk.send(args, "_remove_", [front]);return front;}));
 (server=smalltalk.send(self, "_new", []));
 smalltalk.send(options, "_ifEmpty_", [(function(){return (function(){throw $early=[server]})();})]);
@@ -14613,9 +14629,9 @@ return server;
 return self;
 } catch(e) {if(e===$early)return e[0]; throw e}},
 args: ["options"],
-source: "createServerWithArguments: options\x0a\x09| server actions popFront front optionName optionValue |\x0a\x09actions := #{\x0a\x09\x09'-p' -> [:fileServer :value | fileServer port: value].\x0a\x09\x09'--username' -> [:fileServer :value | fileServer username: value].\x0a\x09\x09'--password' -> [:fileServer :value | fileServer password: value]\x0a\x09}.\x0a\x09\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x09\x09(actions at: optionName ifAbsent: []) value: server value: optionValue.\x0a\x09].\x0a\x0a\x09^server.",
-messageSends: ["->", "port:", "username:", "password:", "first", "remove:", "new", "ifEmpty:", "whileTrue:", "notEmpty", "value:", "value:value:", "at:ifAbsent:"],
-referencedClasses: []
+source: "createServerWithArguments: options\x0a\x09| server actions popFront front optionName optionValue |\x0a\x09actions := FileServer commandLineActions.\x0a\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x09(options size even) ifFalse: [console log: 'Using default parameters.\x5cn\x5ctNot enough arguments: ' , options. ^server].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x09\x09(actions at: optionName ifAbsent: []) value: server value: optionValue.\x0a\x09].\x0a\x0a\x09^server.",
+messageSends: ["commandLineActions", "first", "remove:", "new", "ifEmpty:", "ifFalse:", "even", "size", "log:", ",", "whileTrue:", "notEmpty", "value:", "value:value:", "at:ifAbsent:"],
+referencedClasses: ["FileServer"]
 }),
 smalltalk.FileServer.klass);
 
