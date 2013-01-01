@@ -14360,11 +14360,11 @@ selector: "port",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_port", []);
+return self['@port'];
 return self;},
 args: [],
-source: "port\x0a\x09^self class port",
-messageSends: ["port", "class"],
+source: "port\x0a\x09^port",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer);

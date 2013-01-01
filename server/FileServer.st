@@ -13,7 +13,7 @@ basePath: aString
 !
 
 port
-	^self class port
+	^port
 !
 
 port: aNumber
