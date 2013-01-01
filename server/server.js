@@ -14357,6 +14357,22 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
+"_password_",
+smalltalk.method({
+selector: "password:",
+category: 'accessing',
+fn: function (aPassword){
+var self=this;
+(self['@password']=aPassword);
+return self;},
+args: ["aPassword"],
+source: "password: aPassword\x0a\x09password := aPassword.",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 "_port",
 smalltalk.method({
 selector: "port",
@@ -14524,6 +14540,22 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
+"_username_",
+smalltalk.method({
+selector: "username:",
+category: 'accessing',
+fn: function (aUsername){
+var self=this;
+(self['@username']=aUsername);
+return self;},
+args: ["aUsername"],
+source: "username: aUsername\x0a\x09username := aUsername.",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 "_username_password_",
 smalltalk.method({
 selector: "username:password:",
@@ -14563,19 +14595,26 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "createServerWithArguments:",
 category: 'initialization',
-fn: function (arguments){
+fn: function (options){
 var self=this;
-var fileServer=nil;
-(fileServer=smalltalk.send(self, "_new", []));
-(portOption=smalltalk.send(arguments, "_at_ifAbsent_", [(1), (function(){return nil;})]));
-(portNumber=smalltalk.send(arguments, "_at_ifAbsent_", [(2), (function(){return nil;})]));
-((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [(typeof portOption == 'undefined' ? nil : portOption)]), "_and_", [(function(){return smalltalk.send((typeof portNumber == 'undefined' ? nil : portNumber), "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [(typeof portNumber == 'undefined' ? nil : portNumber)]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [(typeof portNumber == 'undefined' ? nil : portNumber)]);})]));
-smalltalk.send(fileServer, "_username_password_", ["Amber", "Dev"]);
-return fileServer;
-return self;},
-args: ["arguments"],
-source: "createServerWithArguments: arguments\x0a\x09| fileServer |\x0a\x09fileServer := self new.\x0a\x09portOption := arguments at: 1 ifAbsent: [nil].\x0a\x09portNumber := arguments at: 2 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [portNumber notNil]) ifTrue: [\x0a\x09\x09fileServer port: portNumber.\x0a\x09].\x0a\x09fileServer username: 'Amber' password: 'Dev'.\x0a\x09^fileServer.",
-messageSends: ["new", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "username:password:"],
+var $early={};
+try{var server=nil;
+var actions=nil;
+var popFront=nil;
+var front=nil;
+var optionName=nil;
+var optionValue=nil;
+(actions=smalltalk.HashedCollection._fromPairs_([smalltalk.send("-p", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_port_", [value]);})]),smalltalk.send("--username", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_username_", [value]);})]),smalltalk.send("--password", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_password_", [value]);})])]));
+(popFront=(function(args){(front=smalltalk.send(args, "_first", []));smalltalk.send(args, "_remove_", [front]);return front;}));
+(server=smalltalk.send(self, "_new", []));
+smalltalk.send(options, "_ifEmpty_", [(function(){return (function(){throw $early=[server]})();})]);
+(function(){while((function(){return smalltalk.send(options, "_notEmpty", []);})()) {(function(){(optionName=smalltalk.send(popFront, "_value_", [options]));(optionValue=smalltalk.send(popFront, "_value_", [options]));return smalltalk.send(smalltalk.send(actions, "_at_ifAbsent_", [optionName, (function(){return nil;})]), "_value_value_", [server, optionValue]);})()}})();
+return server;
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
+args: ["options"],
+source: "createServerWithArguments: options\x0a\x09| server actions popFront front optionName optionValue |\x0a\x09actions := #{\x0a\x09\x09'-p' -> [:fileServer :value | fileServer port: value].\x0a\x09\x09'--username' -> [:fileServer :value | fileServer username: value].\x0a\x09\x09'--password' -> [:fileServer :value | fileServer password: value]\x0a\x09}.\x0a\x09\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x09\x09(actions at: optionName ifAbsent: []) value: server value: optionValue.\x0a\x09].\x0a\x0a\x09^server.",
+messageSends: ["->", "port:", "username:", "password:", "first", "remove:", "new", "ifEmpty:", "whileTrue:", "notEmpty", "value:", "value:value:", "at:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
@@ -14620,17 +14659,15 @@ category: 'initialization',
 fn: function (){
 var self=this;
 var fileServer=nil;
-var arguments=nil;
-var portOption=nil;
-var portNumber=nil;
-(arguments=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
-smalltalk.send(arguments, "_removeFrom_to_", [(1), (3)]);
-(fileServer=smalltalk.send((smalltalk.FileServer || FileServer), "_createServerWithArguments_", [arguments]));
+var args=nil;
+(args=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
+smalltalk.send(args, "_removeFrom_to_", [(1), (3)]);
+(fileServer=smalltalk.send((smalltalk.FileServer || FileServer), "_createServerWithArguments_", [args]));
 smalltalk.send(fileServer, "_checkDirectoryLayout", []);
 return smalltalk.send(fileServer, "_start", []);
 return self;},
 args: [],
-source: "main\x0a\x09| fileServer arguments portOption portNumber|\x0a\x09arguments := process argv.\x0a\x09arguments removeFrom: 1 to: 3.\x0a\x09fileServer := FileServer createServerWithArguments: arguments.\x0a\x0a\x09fileServer checkDirectoryLayout.\x0a\x09^fileServer start",
+source: "main\x0a\x09| fileServer args |\x0a\x09args := process argv.\x0a\x09args removeFrom: 1 to: 3.\x0a\x0a\x09fileServer := FileServer createServerWithArguments: args.\x0a\x0a\x09fileServer checkDirectoryLayout.\x0a\x09^fileServer start",
 messageSends: ["argv", "removeFrom:to:", "createServerWithArguments:", "checkDirectoryLayout", "start"],
 referencedClasses: ["FileServer"]
 }),

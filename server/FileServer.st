@@ -639,18 +639,39 @@ mimeTypeFor: aString
 
 !FileServer class methodsFor: 'initialization'!
 
-main
-	| fileServer arguments portOption portNumber|
-	fileServer := self new.
-	fileServer checkDirectoryLayout.
+createServerWithArguments: options
+	| server actions popFront front optionName optionValue |
+	actions := #{
+		'-p' -> [:fileServer :value | fileServer port: value].
+		'--username' -> [:fileServer :value | fileServer username: value].
+		'--password' -> [:fileServer :value | fileServer password: value]
+	}.
 
-	arguments := process argv.
-	portOption := arguments at: 3 ifAbsent: [nil].
-	portNumber := arguments at: 4 ifAbsent: [nil].
-	('-p' = portOption and: [portNumber notNil]) ifTrue: [
-		fileServer port: portNumber.
+	popFront := [:args |
+		front := args first.
+		args remove: front.
+		front].
+	server := self new.
+
+	options ifEmpty: [^server].
+
+	[options notEmpty] whileTrue: [
+		optionName  := popFront value: options.
+		optionValue := popFront value: options.
+		(actions at: optionName ifAbsent: []) value: server value: optionValue.
 	].
-	fileServer username: 'Amber' password: 'Dev'.
+
+	^server.
+!
+
+main
+	| fileServer args |
+	args := process argv.
+	args removeFrom: 1 to: 3.
+
+	fileServer := FileServer createServerWithArguments: args.
+
+	fileServer checkDirectoryLayout.
 	^fileServer start
 ! !
 
