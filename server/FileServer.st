@@ -20,6 +20,14 @@ port: aNumber
 	port := aNumber
 !
 
+username: aUsername
+	username := aUsername.
+!
+
+password: aPassword
+	password := aPassword.
+!
+
 username: aUsername password: aPassword
 	username := aUsername.
 	password := aPassword.
@@ -35,6 +43,8 @@ initialize
 	util := self require: 'util'.
 	url := self require: 'url'.
 	port := self class defaultPort.
+	username := nil.
+	password := nil.
 !
 
 checkDirectoryLayout
@@ -43,7 +53,7 @@ checkDirectoryLayout
 	(path existsSync: self basePath, 'st') ifFalse: [
 		console warn: 'Warning: project directory is missing an "st" directory'].
 	(path existsSync: self basePath, 'js') ifFalse: [
-		console warn: 'Warning: roject directory is missing a "js" directory'].
+		console warn: 'Warning: project directory is missing a "js" directory'].
 ! !
 
 !FileServer methodsFor: 'private'!
@@ -58,8 +68,9 @@ writeData: data toFileNamed: aFilename
 !
 
 isAuthenticated: aRequest response: aResponse
+	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175
+	 and https://gist.github.com/1686663"
 	| header token auth parts|
-	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175"
 	"get authentication header"
 	header := (aRequest headers at: 'authorization') ifNil:[''].
 	(header isEmpty)
