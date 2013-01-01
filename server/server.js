@@ -14370,6 +14370,22 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
+"_port_",
+smalltalk.method({
+selector: "port:",
+category: 'accessing',
+fn: function (aNumber){
+var self=this;
+(self['@port']=aNumber);
+return self;},
+args: ["aNumber"],
+source: "port: aNumber\x0a\x09port := aNumber",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 "_require_",
 smalltalk.method({
 selector: "require:",
@@ -14626,22 +14642,6 @@ return self;},
 args: [],
 source: "port\x0a\x09^port ifNil: [4000]",
 messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.FileServer.klass);
-
-smalltalk.addMethod(
-"_port_",
-smalltalk.method({
-selector: "port:",
-category: 'accessing',
-fn: function (aNumber){
-var self=this;
-(self['@port']=aNumber);
-return self;},
-args: ["aNumber"],
-source: "port: aNumber\x0a\x09port := aNumber",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);

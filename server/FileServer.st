@@ -16,6 +16,10 @@ port
 	^self class port
 !
 
+port: aNumber
+	port := aNumber
+!
+
 username: aUsername password: aPassword
 	username := aUsername.
 	password := aPassword.
@@ -197,10 +201,6 @@ FileServer class instanceVariableNames: 'port mimeTypes'!
 
 port
 	^port ifNil: [4000]
-!
-
-port: aNumber
-	port := aNumber
 !
 
 defaultMimeTypes
