@@ -33,7 +33,8 @@ initialize
 	http := self require: 'http'.
 	fs := self require: 'fs'.
 	util := self require: 'util'.
-	url := self require: 'url'
+	url := self require: 'url'.
+	port := self class defaultPort.
 !
 
 checkDirectoryLayout
@@ -183,7 +184,7 @@ respondOKTo: aResponse
 !FileServer methodsFor: 'starting'!
 
 startOn: aPort
-	port := aPort.
+	self port: aPort.
 	self start
 !
 
@@ -195,12 +196,12 @@ start
 	      listen: self port.
 ! !
 
-FileServer class instanceVariableNames: 'port mimeTypes'!
+FileServer class instanceVariableNames: 'mimeTypes'!
 
 !FileServer class methodsFor: 'accessing'!
 
-port
-	^port ifNil: [4000]
+defaultPort
+	^4000
 !
 
 defaultMimeTypes
