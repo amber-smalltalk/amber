@@ -14624,6 +14624,7 @@ var optionValue=nil;
 (popFront=(function(args){(front=smalltalk.send(args, "_first", []));smalltalk.send(args, "_remove_", [front]);return front;}));
 (server=smalltalk.send(self, "_new", []));
 smalltalk.send(options, "_ifEmpty_", [(function(){return (function(){throw $early=[server]})();})]);
+((($receiver = smalltalk.send(smalltalk.send(options, "_size", []), "_even", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Using default parameters.\x5cn\x5ctNot enough arguments: ", "__comma", [options])]);return (function(){throw $early=[server]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Using default parameters.\x5cn\x5ctNot enough arguments: ", "__comma", [options])]);return (function(){throw $early=[server]})();})]));
 (function(){while((function(){return smalltalk.send(options, "_notEmpty", []);})()) {(function(){(optionName=smalltalk.send(popFront, "_value_", [options]));(optionValue=smalltalk.send(popFront, "_value_", [options]));return smalltalk.send(smalltalk.send(actions, "_at_ifAbsent_", [optionName, (function(){return nil;})]), "_value_value_", [server, optionValue]);})()}})();
 return server;
 return self;

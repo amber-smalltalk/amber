@@ -658,6 +658,7 @@ createServerWithArguments: options
 	server := self new.
 
 	options ifEmpty: [^server].
+	(options size even) ifFalse: [console log: 'Using default parameters. Not enough arguments: ' , options. ^server].
 
 	[options notEmpty] whileTrue: [
 		optionName  := popFront value: options.
