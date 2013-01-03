@@ -73,9 +73,7 @@ var path = require('path'),
 
 console.time('Compile Time');
 
-function AmberC() {
-	this.defaults = createDefaults();
-};
+function AmberC() {}
 
 
 /**
@@ -120,11 +118,13 @@ var createDefaults = function(){
 /**
  * Main function for executing the compiler.
  */
-AmberC.prototype.main = function() {
-	if (3 > process.argv.length) {
+AmberC.prototype.main = function(parameters) {
+	var options = parameters || process.argv.slice(2);
+	if (1 > options.length) {
 		this.usage();
 	} else {
-		this.handle_options(process.argv.slice(2));
+		this.defaults = createDefaults();
+		this.handle_options(options);
 	}
 };
 
