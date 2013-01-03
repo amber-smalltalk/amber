@@ -739,5 +739,7 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 	);
 };
 
+module.exports = new AmberC();
+
 var amberc = new AmberC();
 amberc.main();
