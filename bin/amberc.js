@@ -1,10 +1,11 @@
 /**
  * This is a "compiler" for Amber code.
- * Create and run it the following way:
- *     var amberc = new AmberC();
- *     amberc.main();
+ * Put the following code into compiler.js:
+ *     var amberc = require('amberc');
+ *     var compiler = new amberc.Compiler('path/to/amber', ['/optional/path/to/compiler.jar]);
+ *     compiler.main();
  *
- * Execute the JS file without arguments or with -h / --help for help.
+ * Execute 'node compiler.js' without arguments or with -h / --help for help.
  */
 
 /**
