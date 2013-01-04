@@ -1,6 +1,13 @@
 #!/usr/bin/env node
 
+var path = require('path');
 var amberc = require('./amberc.js');
 
-var compiler = new amberc.Compiler();
+// Get Amber root directory from the location of this script so that
+// we can find the st and js directories etc.
+var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..'));
+// Get default location of compiler.jar
+var closure_jar = path.resolve(path.join(process.env['HOME'], 'compiler.jar'));
+
+var compiler = new amberc.Compiler(amber_dir, closure_jar);
 compiler.main();

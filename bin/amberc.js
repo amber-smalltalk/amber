@@ -72,17 +72,19 @@ var path = require('path'),
 
 console.time('Compile Time');
 
-function AmberC() {
-	// Get Amber root directory from the location of this script so that
-	// we can find the st and js directories etc.
-	this.amber_dir = path.normalize( path.join(path.dirname(process.argv[1]), '..') );
+/**
+ * AmberC constructor function.
+ * amber_dir: points to the location of an amber installation
+ * closure_jar: location of compiler.jar (can be left undefined)
+ */
+function AmberC(amber_dir, closure_jar) {
+	this.amber_dir = amber_dir;
+	this.closure_jar = closure_jar;
 	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-	                          'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
-	                          'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Compiler',
-	                                'Compiler-Exceptions']);
-	                                //, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
-	this.closure_jar = path.resolve(path.join(process.env['HOME'], 'compiler.jar'));
+	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
+	                         'Kernel-Announcements'];
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Compiler', 'Compiler-Exceptions']);
+	                          //, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
 }
 
 
