@@ -11,7 +11,7 @@
  * Map the async filter function onto array and evaluate callback, once all have finished.
  * Taken from: http://howtonode.org/control-flow-part-iii
  */
-function map(array, filter, callback) {
+function async_map(array, filter, callback) {
 	var counter = array.length;
 	var new_array = [];
 	array.forEach(function (item, index) {
@@ -592,7 +592,7 @@ AmberC.prototype.category_export = function() {
 	var defaults = this.defaults;
 	var self = this;
 	// export categories as .js
-	map(defaults.compiled_categories, function(category, callback) {
+	async_map(defaults.compiled_categories, function(category, callback) {
 		var jsFile = category + defaults.suffix_used + '.js';
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
@@ -618,7 +618,7 @@ AmberC.prototype.category_export = function() {
 AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
 	var self = this;
-	map(this.defaults.compiled, function(file, callback) {
+	async_map(this.defaults.compiled, function(file, callback) {
 			path.exists(file, function(exists) {
 				if (exists)
 					callback(null, null);
