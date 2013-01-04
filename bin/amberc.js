@@ -740,4 +740,4 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 	);
 };
 
-module.exports = new AmberC();
+module.exports.Compiler = AmberC;
