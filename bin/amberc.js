@@ -217,7 +217,7 @@ AmberC.prototype.handle_options = function(optionsArray) {
  * Print usage options and exit.
  */
 AmberC.prototype.usage = function() {
-	console.log('Usage: $0 [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
+	console.log('Usage: amberc [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
 	console.log('          [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]');
 	console.log('');
 	console.log('   amberc compiles Amber files - either separately or into a complete runnable');
@@ -232,24 +232,24 @@ AmberC.prototype.usage = function() {
 	console.log('     Files are compiled into .js files before concatenation.');
 	console.log('     If not found we look in $AMBER/st/.');
 	console.log('');
-	console.log('     NOTE: Each file is currently considered to be a fileout of a single class');
+	console.log('     NOTE: Each .st file is currently considered to be a fileout of a single class');
 	console.log('     category of the same name as the file!');
 	console.log('');
-	console.log('   If no Program is specified each given .st file will be compiled into');
-	console.log('   a .js file. Otherwise a <Program>.js file is linked together based on');
-	console.log('   the options:');
-	console.log('');
+	console.log('   If no <Program> is specified each given .st file will be compiled into');
+	console.log('   a matching .js file. Otherwise a <Program>.js file is linked together based on');
+	console.log('   the given options:');
 	console.log('  -l library1,library2');
-	console.log('     Additionally add listed JavaScript libraries (no spaces or .js) in listed order.');
+	console.log('     Add listed JavaScript libraries in listed order.');
+	console.log('     Libraries are not separated by spaces or end with .js.');
 	console.log('');
 	console.log('  -i init_file');
 	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
 	console.log('');
 	console.log('  -m main_class');
-	console.log('     Add at end a call to #main in class <main_class>.');
+	console.log('     Add a call to the class method main_class>>main at the end of <Program>.');
 	console.log('');
 	console.log('  -M main_file');
-	console.log('     Add at end javascript file <main_file> acting as main.');
+	console.log('     Add <main_file> at the end of <Program.js> acting as #main.');
 	console.log('');
 	console.log('  -o');
 	console.log('     Optimize each .js file using the Google closure compiler.');
@@ -263,14 +263,14 @@ AmberC.prototype.usage = function() {
 	console.log('');
 	console.log('  -d');
 	console.log('     Additionally export code for deploy - stripped from source etc.');
-	console.log('     Uses suffix ".deploy.js" in addition to any explicit given suffic using -s.');
+	console.log('     Uses suffix ".deploy.js" in addition to any explicit suffic set by -s.');
 	console.log('');
 	console.log('  -s suffix');
-	console.log('     Add <suffix> to compiled js files so that File.st is compiled into');
+	console.log('     Add <suffix> to compiled .js files. File.st is then compiled into');
 	console.log('     File.<suffix>.js.');
 	console.log('');
 	console.log('  -S suffix');
-	console.log('     Use <suffix> for all libraries accessed using -L or -l. This makes it possible');
+	console.log('     Use <suffix> for all libraries accessed using -l. This makes it possible');
 	console.log('     to have multiple flavors of Amber and libraries in the same place.');
 	console.log('');
 	console.log('');
@@ -280,16 +280,17 @@ AmberC.prototype.usage = function() {
 	console.log('');
 	console.log('        amberc Kernel-Objects.st');
 	console.log('');
-	console.log('     Compile Hello.st to Hello.js and create complete program called');
-	console.log('     Program.js and adding a call to class method #main in class Hello:');
+	console.log('     Compile Hello.st to Hello.js and create complete program called Program.js.');
+	console.log('     Additionally add a call to the class method Hello>>main:');
 	console.log('');
 	console.log('        amberc -m Hello Hello.st Program');
 	console.log('');
-	console.log('     Compile two .st files into corresponding .js files,');
-	console.log('     and link with specific myboot.js, myKernel.js, myinit.js');
-	console.log('     and main.js and create complete program called Program.js:');
+	console.log('     Compile Cat1.st and Cat2.st files into corresponding .js files.');
+	console.log('     Link them with myboot.js and myKernel.js and add myinit.js as custom');
+	console.log('     initializer file. Add main.js last which contains the startup code');
+	console.log('      and merge everything into a complete program named Program.js:');
 	console.log('');
-	console.log('        amberc -M main.js myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program');
+	console.log('        amberc -M main.js -i myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program');
 
 	process.exit();
 };
@@ -308,7 +309,7 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 		exec('which java', function(error, stdout, stderr) {
 			// stdout contains path to java executable
 			if (null !== error) {
-				console.warn('java is not installed and is needed for -O, -A or -o (Closure compiler).');
+				console.warn('java is not installed but is needed for -O, -A or -o (Closure compiler).');
 				defaults.closure = false;
 				defaults.closure_parts = false;
 				defaults.closure_full = false;
