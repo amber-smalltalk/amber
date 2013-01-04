@@ -743,3 +743,5 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 };
 
 module.exports.Compiler = AmberC;
+module.exports.Combo = Combo;
+module.exports.map = async_map;
