@@ -26,9 +26,9 @@
         "test": "./test/run_build.sh"
     },
     "devDependencies": {
-      "grunt" : "*",
-      "grunt-shell" : "*",
-      "grunt-image-embed" : "*",
-      "grunt-contrib-mincss" : "*"
+      "pegjs": "~0.7.0",
+      "grunt": "~0.3.17",
+      "grunt-image-embed": "~0.1.3",
+      "grunt-contrib-mincss": "~0.3.2"
     }
 }
