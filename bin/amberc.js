@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * This is a "compiler" for Amber code.
  * Create and run it the following way:
@@ -740,6 +739,3 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 };
 
 module.exports = new AmberC();
-
-var amberc = new AmberC();
-amberc.main();

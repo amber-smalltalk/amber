@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var amberc = require('./amberc.js');
+amberc.main();
