@@ -72,26 +72,26 @@ var path = require('path'),
 
 console.time('Compile Time');
 
-function AmberC() {}
+function AmberC() {
+	// Get Amber root directory from the location of this script so that
+	// we can find the st and js directories etc.
+	this.amber_dir = path.normalize( path.join(path.dirname(process.argv[1]), '..') );
+	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	                          'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
+	                          'Kernel-Announcements'];
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Compiler',
+	                                'Compiler-Exceptions']);
+	                                //, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
+	this.closure_jar = path.resolve(path.join(process.env['HOME'], 'compiler.jar'));
+}
 
 
 /**
  * Default values.
  */
-var createDefaults = function(){
-	// Get Amber root directory from the location of this script so that
-	// we can find the st and js directories etc.
-	var amber_dir = path.join(path.dirname(process.argv[1]), '..');
-	amber_dir = path.normalize(amber_dir);
-
-	var kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods', 'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript', 'Kernel-Announcements'];
-	var compiler_libs = ['parser', 'Compiler', 'Compiler-Exceptions'];//, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
-
+var createDefaults = function(amber_dir){
 	return {
-		'amber_dir': amber_dir,
 		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
-		'base': kernel_libraries,
-		'compiler_libraries': kernel_libraries.concat(compiler_libs),
 		'load': [],
 		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
@@ -100,7 +100,6 @@ var createDefaults = function(){
 		'closure_parts': false,
 		'closure_full': false,
 		'closure_options': '',
-		'closure_jar': path.resolve(path.join(process.env['HOME'], 'compiler.jar')),
 		'suffix': '',
 		'loadsuffix': '',
 		'suffix_used': '',
@@ -122,7 +121,7 @@ AmberC.prototype.main = function(parameters) {
 	if (1 > options.length) {
 		this.usage();
 	} else {
-		this.defaults = createDefaults();
+		this.defaults = createDefaults(this.amber_dir);
 		this.handle_options(options);
 	}
 };
@@ -298,13 +297,14 @@ AmberC.prototype.usage = function() {
 
 /**
  * Checks if the java executable exists and afterwards,
- * if compiler.jar exists at the path stored in defaults.closure_jar.
+ * if compiler.jar exists at the path stored in this.closure_jar.
  * All closure related entries are set to false upon failure.
  *
  * callback gets called in any case.
  */
 AmberC.prototype.check_for_closure_compiler = function(callback) {
 	var defaults = this.defaults;
+	var self = this;
 	if (defaults.closure) {
 		exec('which java', function(error, stdout, stderr) {
 			// stdout contains path to java executable
@@ -316,9 +316,9 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 				callback();
 				return;
 			}
-			path.exists(defaults.closure_jar, function(exists) {
+			path.exists(self.closure_jar, function(exists) {
 				if (!exists) {
-					console.warn('Can not find Closure compiler at: ' + defaults.closure_jar);
+					console.warn('Can not find Closure compiler at: ' + self.closure_jar);
 					defaults.closure = false;
 					defaults.closure_parts = false;
 					defaults.closure_full = false;
@@ -342,7 +342,7 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
 	var jsFile = filename + this.defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(this.defaults.amber_dir, 'js', jsFile);
+	var amberJsFile = path.join(this.amber_dir, 'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	path.exists(jsFile, function(exists) {
 		if (exists) {
@@ -382,6 +382,7 @@ AmberC.prototype.collect_files = function(stFiles, jsFiles) {
  */
 AmberC.prototype.collect_st_files = function(stFiles, callback) {
 	var defaults = this.defaults;
+	var self = this;
 	var collected_st_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			if (undefined !== data[0]) {
@@ -399,7 +400,7 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 		var _callback = collected_st_files.add();
 		console.log('Checking: ' + stFile);
 		var category = path.basename(stFile, '.st');
-		var amberStFile = path.join(defaults.amber_dir, 'st', stFile);
+		var amberStFile = path.join(self.amber_dir, 'st', stFile);
 		path.exists(stFile, function(exists) {
 			if (exists) {
 				_callback(stFile, category);
@@ -447,7 +448,7 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
  * Followed by resolve_init().
  */
 AmberC.prototype.resolve_libraries = function() {
-	// Resolve libraries listed in defaults.base
+	// Resolve libraries listed in this.kernel_libraries
 	var self = this;
 	var all_resolved = new Combo(function(resolved_library_files, resolved_compiler_files) {
 		self.resolve_init(resolved_compiler_files[0]);
@@ -463,7 +464,7 @@ AmberC.prototype.resolve_libraries = function() {
  */
 AmberC.prototype.resolve_kernel = function(callback) {
 	var self = this;
-	var kernel_files = this.defaults.base.concat(this.defaults.load);
+	var kernel_files = this.kernel_libraries.concat(this.defaults.load);
 	var kernel_resolved = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(file) {
 			if (undefined !== file[0]) {
@@ -487,7 +488,7 @@ AmberC.prototype.resolve_kernel = function(callback) {
  */
 AmberC.prototype.resolve_compiler = function(callback) {
 	// Resolve compiler libraries
-	var compiler_files = this.defaults.compiler_libraries.concat(this.defaults.load);
+	var compiler_files = this.compiler_libraries.concat(this.defaults.load);
 	var compiler_resolved = new Combo(function() {
 		var compilerFiles = [];
 		Array.prototype.slice.call(arguments).forEach(function(file) {
@@ -514,7 +515,7 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 	// check and add init.js
 	var initFile = this.defaults.init;
 	if ('.js' !== path.extname(initFile)) {
-		initFile = resolve_js(initFile);
+		initFile = this.resolve_js(initFile);
 		this.defaults.init = initFile;
 	}
 	compilerFiles.push(initFile);
@@ -723,7 +724,7 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 	var self = this;
 	exec(
 		'java -jar ' +
-		self.defaults.closure_jar + ' ' +
+		self.closure_jar + ' ' +
 		self.defaults.closure_options +
 		' --js '+ sourceFile +
 		' --js_output_file '+ minifiedFile,
