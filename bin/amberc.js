@@ -71,8 +71,6 @@ var path = require('path'),
 	fs = require('fs'),
 	exec = require('child_process').exec;
 
-console.time('Compile Time');
-
 /**
  * AmberC constructor function.
  * amber_dir: points to the location of an amber installation
@@ -120,7 +118,9 @@ var createDefaults = function(amber_dir){
  * Main function for executing the compiler.
  */
 AmberC.prototype.main = function(parameters) {
+	console.time('Compile Time');
 	var options = parameters || process.argv.slice(2);
+
 	if (1 > options.length) {
 		this.usage();
 	} else {
