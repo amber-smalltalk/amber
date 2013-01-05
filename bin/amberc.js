@@ -633,7 +633,6 @@ AmberC.prototype.verify = function() {
 			});
 		}, function(err, result) {
 			self.compose_js_files();
-			self.optimize();
 	});
 };
 
@@ -667,16 +666,20 @@ AmberC.prototype.compose_js_files = function() {
 
 	console.log('Writing program file: %s.js', defaults.program);
 
-	var fileStream = fs.createWriteStream(defaults.program + '.js');
+	var fileStream = fs.createWriteStream(defaults.program + defaults.suffix_used + '.js');
 	fileStream.on('error', function(error) {
 		fileStream.end();
 		console.log(error);
 	});
+	var self = this;
+	fileStream.on('close', function(){
+		self.optimize();
+	});
 
 	program_files.forEach(function(file) {
-		console.log('Checking : ' + file);
 		if(path.existsSync(file)) {
-			fileStream.write(fs.readFileSync(file));
+			console.log('Adding : ' + file);
+			console.log(fileStream.write(fs.readFileSync(file)));
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
