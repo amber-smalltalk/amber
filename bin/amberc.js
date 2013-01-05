@@ -345,7 +345,8 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
-	var jsFile = filename + this.defaults.loadsuffix + '.js';
+	var baseName = path.basename(filename, '.js');
+	var jsFile = baseName + this.defaults.loadsuffix + '.js';
 	var amberJsFile = path.join(this.amber_dir, 'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	path.exists(jsFile, function(exists) {
