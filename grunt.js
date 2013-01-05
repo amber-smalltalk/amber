@@ -1,12 +1,14 @@
 module.exports = function(grunt) {
 
-  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadTasks('./grunt/tasks');
+
   grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-contrib-mincss');
 
   grunt.registerTask('build:deploy', 'shell:compileDeploy concat:deploy min');
   grunt.registerTask('build:dev', 'shell:compileDev concat:css imageEmbed mincss css2js concat:dev');
-  grunt.registerTask('default', 'build:deploy build:dev');
+//  grunt.registerTask('default', 'build:deploy build:dev');
+  grunt.registerTask('default', 'amberc');
 
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -15,6 +17,7 @@ module.exports = function(grunt) {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
     },
 
+/*
     shell: {
       compileDeploy: {
         stdout: true,
@@ -31,7 +34,7 @@ module.exports = function(grunt) {
           'tmp/amber-compiled'
       }
     },
-
+*/
     concat: {
       deploy: {
         src: ['tmp/amber-compiled.deploy.js'],
@@ -104,5 +107,4 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('File "' + this.data.dest + '" created.');
   });
-
 };
