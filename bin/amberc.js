@@ -640,7 +640,7 @@ AmberC.prototype.verify = function() {
  */
 AmberC.prototype.compose_js_files = function() {
 	var defaults = this.defaults;
-	if (undefined !== defaults.program) {
+	if (undefined === defaults.program) {
 		return;
 	}
 	var program_files = [];
