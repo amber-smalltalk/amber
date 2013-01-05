@@ -75,25 +75,6 @@ module.exports = function(grunt) {
       }
     },
 
-/*
-    shell: {
-      compileDeploy: {
-        stdout: true,
-        command: 'bin/amberc -l Kernel-Announcements ' +
-          'tmp/amber-compiled.deploy'
-      },
-      compileDev: {
-        stdout: true,
-        command: 'bin/amberc -l ' +
-          'Compiler-Exceptions,Compiler-Core,Compiler-AST,Compiler-Semantic,Compiler-IR,Compiler-Inlining,' +
-          'parser,Importer-Exporter,Kernel-Announcements,' +
-          'SUnit,Compiler-Tests,Kernel-Tests,' +
-          'Canvas,IDE,compat ' +
-          'tmp/amber-compiled'
-      }
-    },
-*/
-
     lint: {
       amber: ['js/*.js'],
       server: ['server/*.js'],
