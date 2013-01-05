@@ -13,6 +13,10 @@
  * Taken from: http://howtonode.org/control-flow-part-iii
  */
 function async_map(array, filter, callback) {
+	if (0 === array.length) {
+		callback(null, null);
+		return;
+	}
 	var counter = array.length;
 	var new_array = [];
 	array.forEach(function (item, index) {
