@@ -650,12 +650,12 @@ AmberC.prototype.compose_js_files = function() {
 	}
 	var program_files = [];
 
-	if (undefined !== defaults.libraries) {
+	if (0 !== defaults.libraries.length) {
 		console.log('Collecting libraries: ' + defaults.libraries);
 		program_files.push.apply(program_files, defaults.libraries);
 	}
 
-	if (undefined !== defaults.compiled) {
+	if (0 !== defaults.compiled.length) {
 		console.log('Collecting compiled files: ' + defaults.compiled);
 		program_files.push.apply(program_files, defaults.compiled);
 	}
