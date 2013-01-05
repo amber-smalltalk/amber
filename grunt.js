@@ -61,6 +61,16 @@ module.exports = function(grunt) {
         src: ['Examples.st'],
         libraries: ['Canvas', 'IDE']
       },
+      amber_dev: {
+        working_dir: 'js',
+        src: ['Kernel-Objects.js', 'Kernel-Classes.js', 'Kernel-Methods.js', 'Kernel-Collections.js',
+              'Kernel-Exceptions.js', 'Kernel-Transcript.js', 'Kernel-Announcements.js',
+              'Compiler.js', 'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
+              'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
+              'Kernel-Tests.js', 'Compiler-Tests.js',
+              'Canvas.js', 'IDE.js', 'SUnit.js', 'Documentation.js', 'Examples.js'],
+        output_name: 'amber'
+      },
       server: {
         working_dir: 'server',
         src: ['FileServer.st'],
