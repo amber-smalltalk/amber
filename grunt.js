@@ -54,6 +54,15 @@ module.exports = function(grunt) {
       }
     },
 */
+
+    lint: {
+      amber: ['js/*.js'],
+      server: ['server/*.js'],
+      repl: ['repl/*.js'],
+      tests: ['test/*.js'],
+      grunt: ['grunt.js', 'grunt/**/*.js']
+    },
+
     concat: {
       deploy: {
         src: ['tmp/amber-compiled.deploy.js'],
@@ -113,7 +122,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerMultiTask('css2js', 'Embed CSS into JS', function() {
-    var cssContent = grunt.task.directive(grunt.file.expandFiles(this.data.src)[0], grunt.file.read)
+    var cssContent = grunt.task.directive(grunt.file.expandFiles(this.data.src)[0], grunt.file.read);
     var content =
       "var css='"+cssContent+"';" +
       "var cssTag = document.createElement('link');" +
