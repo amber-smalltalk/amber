@@ -375,8 +375,12 @@ AmberC.prototype.collect_files = function(stFiles, jsFiles) {
 	var collected_files = new Combo(function() {
 		self.resolve_libraries();
 	});
-	this.collect_st_files(stFiles, collected_files.add());
-	this.collect_js_files(jsFiles, collected_files.add());
+	if (0 !== stFiles.length) {
+		self.collect_st_files(stFiles, collected_files.add());
+	}
+	if (0 !== jsFiles.length) {
+		self.collect_js_files(jsFiles, collected_files.add());
+	}
 };
 
 
@@ -390,13 +394,11 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 	var self = this;
 	var collected_st_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
-			if (undefined !== data[0]) {
-				var stFile = data[0];
-				var stCategory = data[1];
-				defaults.compile.push(stFile);
-				defaults.compiled_categories.push(stCategory);
-				defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
-			}
+			var stFile = data[0];
+			var stCategory = data[1];
+			defaults.compile.push(stFile);
+			defaults.compiled_categories.push(stCategory);
+			defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
 		});
 		callback();
 	});
@@ -420,8 +422,6 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 			}
 		});
 	});
-
-	always_resolve(collected_st_files.add());
 };
 
 
@@ -433,9 +433,7 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
 	var self = this;
 	var collected_js_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(file) {
-			if (undefined !== file[0]) {
-				self.defaults.libraries.push(file[0]);
-			}
+			self.defaults.libraries.push(file[0]);
 		});
 		callback();
 	});
@@ -443,8 +441,6 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
 	jsFiles.forEach(function(jsFile) {
 		self.resolve_js(jsFile, collected_js_files.add());
 	});
-
-	always_resolve(collected_js_files.add());
 };
 
 
