@@ -90,7 +90,7 @@ function AmberC(amber_dir, closure_jar) {
 /**
  * Default values.
  */
-var createDefaults = function(amber_dir){
+var createDefaults = function(amber_dir, finished_callback){
 	return {
 		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
 		'load': [],
@@ -109,7 +109,8 @@ var createDefaults = function(amber_dir){
 		'compile': [],
 		'compiled_categories': [],
 		'compiled': [],
-		'program': undefined
+		'program': undefined,
+		'finished_callback': finished_callback
 	};
 };
 
@@ -117,14 +118,14 @@ var createDefaults = function(amber_dir){
 /**
  * Main function for executing the compiler.
  */
-AmberC.prototype.main = function(parameters) {
+AmberC.prototype.main = function(parameters, finished_callback) {
 	console.time('Compile Time');
 	var options = parameters || process.argv.slice(2);
 
 	if (1 > options.length) {
 		this.usage();
 	} else {
-		this.defaults = createDefaults(this.amber_dir);
+		this.defaults = createDefaults(this.amber_dir, finished_callback);
 		this.handle_options(options);
 	}
 };
@@ -699,6 +700,9 @@ AmberC.prototype.optimize = function() {
 	var self = this;
 	var optimization_done = new Combo(function() {
 		console.timeEnd('Compile Time');
+		if (undefined !== defaults.finished_callback) {
+			defaults.finished_callback();
+		}
 	});
 
 	if (defaults.closure_parts) {
