@@ -17,6 +17,25 @@ module.exports = function(grunt) {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
     },
 
+    amberc: {
+      _config: {
+        amber_dir: process.cwd(),
+        closure_jar: ''
+      },
+      server: {
+        working_dir: 'server',
+        src: ['FileServer.st'],
+        main_class: 'FileServer',
+        output_name: 'server'
+      },
+      repl: {
+        working_dir: 'repl',
+        src: ['REPL.st'],
+        main_class: 'Repl',
+        output_name: 'amber'
+      }
+    },
+
 /*
     shell: {
       compileDeploy: {
