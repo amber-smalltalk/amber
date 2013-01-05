@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   var path = require('path');
+  var fs = require('fs');
   var amberc = require('../../bin/amberc.js');
 
   /**
@@ -11,16 +12,17 @@ module.exports = function(grunt) {
          closure_jar: ''               // optional
        },
        helloWorld: {
-         src: ['HelloWorld.st'],             // REQUIRED
-         working_dir: 'projects/HelloWorld', // optional
-         main_class: 'HelloWorld',           // optional
-         output_name: 'helloWorld',          // optional
-         libraries: 'Canvas',                // optional
-         init: 'myInit',                     // optional
-         main_file: 'myMain.js',             // optional
-         deploy: true,                       // optional
-         output_suffix: 'mySuffix',          // optional
-         library_suffix: '-0.9',             // optional
+         src: ['HelloWorld.st'],                // REQUIRED
+         working_dir: 'projects/HelloWorld/st', // optional
+         target_dir: 'projects/HelloWorld/js',  // optional
+         main_class: 'HelloWorld',              // optional
+         output_name: 'helloWorld',            // optional
+         libraries: 'Canvas',                  // optional
+         init: 'myInit',                       // optional
+         main_file: 'myMain.js',               // optional
+         deploy: true,                         // optional
+         output_suffix: 'mySuffix',            // optional
+         library_suffix: '-0.9',               // optional
        },
      },
 
@@ -48,8 +50,21 @@ module.exports = function(grunt) {
     
     // run the compiler
     // change back to the old working directory and call the async callback once finished
+    var self = this;
     compiler.main(parameters, function(){
+      if (undefined !== self.data.target_dir) {
+        var absolute_target_dir = path.join(current_dir, self.data.target_dir);
+        replaceFileSuffix_moveToTargetDir(self.data.src, absolute_target_dir);
+        // if deploy is set also copy the deploy files
+        if (self.data.deploy) {
+          var suffix = self.data.output_suffix || 'deploy';
+          suffix = '.' + suffix + '.js';
+          replaceFileSuffix_moveToTargetDir(self.data.src, absolute_target_dir, suffix);
+        }
+      }
+      // reset working directory
       grunt.file.setBase(current_dir);
+      // signal that task has finished
       done();
     });
   });
@@ -102,4 +117,21 @@ module.exports = function(grunt) {
     return parameters;
   }
 
+
+  /**
+   * Replace '.st' suffix of \p files with '.js' or with \p replace_suffix if this parameter is given.
+   * Afterwards move the files with replaced suffix to \p target_dir if the files exist.
+   */
+  function replaceFileSuffix_moveToTargetDir(files, target_dir, replace_suffix) {
+    var suffix = replace_suffix || '.js';
+    var compiledFiles = files.map(function(item) {
+      return item.replace(/.st$/g, suffix);
+    });
+
+    compiledFiles.forEach(function(file) {
+      if (path.existsSync(file)) {
+        fs.renameSync(file, path.join(target_dir, file));
+      }
+    });
+  }
 };
