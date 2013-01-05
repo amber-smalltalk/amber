@@ -22,6 +22,35 @@ module.exports = function(grunt) {
         amber_dir: process.cwd(),
         closure_jar: ''
       },
+      amber_kernel: {
+        working_dir: 'st',
+        src: ['Kernel-Objects.st', 'Kernel-Classes.st', 'Kernel-Methods.st', 'Kernel-Collections.st',
+              'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st'],
+      },
+      amber_compiler: {
+        working_dir: 'st',
+        src: ['Compiler.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
+              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st']
+      },
+      amber_canvas: {
+        working_dir: 'st',
+        src: ['Canvas.st', 'SUnit.st']
+      },
+      amber_IDE: {
+        working_dir: 'st',
+        src: ['IDE.st', 'Documentation.st'],
+        libraries: ['Canvas']
+      },
+      amber_tests: {
+        working_dir: 'st',
+        src: ['Kernel-Tests.st', 'Compiler-Tests.st'],
+        libraries: ['SUnit']
+      },
+      amber_examples: {
+        working_dir: 'st',
+        src: ['Examples.st'],
+        libraries: ['Canvas', 'IDE']
+      },
       server: {
         working_dir: 'server',
         src: ['FileServer.st'],
