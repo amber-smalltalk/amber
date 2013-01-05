@@ -440,7 +440,7 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
 	});
 
 	jsFiles.forEach(function(jsFile) {
-		self.resolve_js(currentFile, collected_js_files.add());
+		self.resolve_js(jsFile, collected_js_files.add());
 	});
 
 	always_resolve(collected_js_files.add());
