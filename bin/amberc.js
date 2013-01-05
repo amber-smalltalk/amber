@@ -409,11 +409,11 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 			if (exists) {
 				_callback(stFile, category);
 			} else {
-				path.exists(amberJsFile, function(exists) {
+				path.exists(amberStFile, function(exists) {
 					if (exists) {
 						_callback(amberStFile, category);
 					} else {
-						throw(new Error('JavaScript file not found: ' + jsFile));
+						throw(new Error('Smalltalk file not found: ' + amberStFile));
 					}
 				});
 			}
