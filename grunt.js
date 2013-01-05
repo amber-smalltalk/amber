@@ -24,30 +24,40 @@ module.exports = function(grunt) {
       },
       amber_kernel: {
         working_dir: 'st',
+        target_dir : 'js',
         src: ['Kernel-Objects.st', 'Kernel-Classes.st', 'Kernel-Methods.st', 'Kernel-Collections.st',
               'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st'],
+        deploy: true
       },
       amber_compiler: {
         working_dir: 'st',
+        target_dir : 'js',
         src: ['Compiler.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
-              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st']
+              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st'],
+        deploy: true
       },
       amber_canvas: {
         working_dir: 'st',
-        src: ['Canvas.st', 'SUnit.st']
+        target_dir : 'js',
+        src: ['Canvas.st', 'SUnit.st'],
+        deploy: true
       },
       amber_IDE: {
         working_dir: 'st',
+        target_dir : 'js',
         src: ['IDE.st', 'Documentation.st'],
-        libraries: ['Canvas']
+        libraries: ['Canvas'],
+        deploy: true
       },
       amber_tests: {
         working_dir: 'st',
+        target_dir : 'js',
         src: ['Kernel-Tests.st', 'Compiler-Tests.st'],
         libraries: ['SUnit']
       },
       amber_examples: {
         working_dir: 'st',
+        target_dir : 'js',
         src: ['Examples.st'],
         libraries: ['Canvas', 'IDE']
       },
