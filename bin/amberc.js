@@ -562,8 +562,10 @@ AmberC.prototype.compile = function() {
 	var self = this;
 	var imports = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(code) {
-			// get element 0 of code since all return values are stored inside an array by Combo
-			self.defaults.smalltalk.Importer._new()._import_(code[0]._stream());
+			if (undefined !== code[0]) {
+				// get element 0 of code since all return values are stored inside an array by Combo
+				self.defaults.smalltalk.Importer._new()._import_(code[0]._stream());
+			}
 		});
 		self.category_export();
 	});
@@ -580,6 +582,7 @@ AmberC.prototype.compile = function() {
 			});
 		}
 	});
+	always_resolve(imports.add());
 };
 
 
