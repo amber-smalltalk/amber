@@ -669,6 +669,7 @@ AmberC.prototype.compose_js_files = function() {
 
 	var fileStream = fs.createWriteStream(defaults.program + '.js');
 	fileStream.on('error', function(error) {
+		fileStream.end();
 		console.log(error);
 	});
 
@@ -677,6 +678,7 @@ AmberC.prototype.compose_js_files = function() {
 		if(path.existsSync(file)) {
 			fileStream.write(fs.readFileSync(file));
 		} else {
+			fileStream.end();
 			throw(new Error('Can not find file ' + file));
 		}
 	});
@@ -690,8 +692,8 @@ AmberC.prototype.compose_js_files = function() {
 		fileStream.write(fs.readFileSync(defaults.mainfile));
 	}
 
-	fileStream.end();
 	console.log('Done.');
+	fileStream.end();
 };
 
 
