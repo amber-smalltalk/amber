@@ -1765,6 +1765,23 @@ return self}
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
+"_testHexNumbers",
+smalltalk.method({
+selector: "testHexNumbers",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send((9),"__eq",[(9)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((10),"_truncated",[]),"__eq",[(10)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((11),"_truncated",[]),"__eq",[(11)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((12),"_truncated",[]),"__eq",[(12)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((13),"_truncated",[]),"__eq",[(13)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((14),"_truncated",[]),"__eq",[(14)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((15),"_truncated",[]),"__eq",[(15)])]);
+return self}
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
 "_testIdentity",
 smalltalk.method({
 selector: "testIdentity",

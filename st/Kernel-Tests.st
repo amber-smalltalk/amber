@@ -931,6 +931,17 @@ testEquality
 	self deny: 0 = ''
 !
 
+testHexNumbers
+
+	self assert: 16r9 = 9.
+	self assert: 16rA truncated = 10.
+	self assert: 16rB truncated = 11.
+	self assert: 16rC truncated = 12.
+	self assert: 16rD truncated = 13.
+	self assert: 16rE truncated = 14.
+	self assert: 16rF truncated = 15
+!
+
 testIdentity
 	self assert: 1 == 1.
 	self assert: 0 == 0.

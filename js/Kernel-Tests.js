@@ -2300,6 +2300,28 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
+"_testHexNumbers",
+smalltalk.method({
+selector: "testHexNumbers",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send((9),"__eq",[(9)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((10),"_truncated",[]),"__eq",[(10)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((11),"_truncated",[]),"__eq",[(11)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((12),"_truncated",[]),"__eq",[(12)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((13),"_truncated",[]),"__eq",[(13)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((14),"_truncated",[]),"__eq",[(14)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((15),"_truncated",[]),"__eq",[(15)])]);
+return self},
+args: [],
+source: "testHexNumbers\x0a\x0a\x09self assert: 16r9 = 9.\x0a\x09self assert: 16rA truncated = 10.\x0a\x09self assert: 16rB truncated = 11.\x0a\x09self assert: 16rC truncated = 12.\x0a\x09self assert: 16rD truncated = 13.\x0a\x09self assert: 16rE truncated = 14.\x0a\x09self assert: 16rF truncated = 15",
+messageSends: ["assert:", "=", "truncated"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
 "_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
