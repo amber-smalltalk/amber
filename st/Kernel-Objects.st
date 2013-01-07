@@ -973,16 +973,6 @@ positive
 	^ self >= 0
 ! !
 
-!Number methodsFor: 'timeouts/intervals'!
-
-clearInterval
-	<clearInterval(Number(self))>
-!
-
-clearTimeout
-	<clearTimeout(Number(self))>
-! !
-
 !Number class methodsFor: 'instance creation'!
 
 pi
@@ -1546,6 +1536,40 @@ Smalltalk class instanceVariableNames: 'current'!
 
 current
 	<return smalltalk>
+! !
+
+Object subclass: #Timeout
+	instanceVariableNames: 'rawTimeout'
+	package: 'Kernel-Objects'!
+!Timeout commentStamp!
+I am wrapping the returns from set{Timeout,Interval}.
+
+Number suffices in browsers, but node.js returns an object.!
+
+!Timeout methodsFor: 'accessing'!
+
+rawTimeout: anObject
+	rawTimeout := anObject
+! !
+
+!Timeout methodsFor: 'timeout/interval'!
+
+clearInterval
+	| local |
+    local := rawTimeout.
+	<clearInterval(local)>
+!
+
+clearTimeout
+	| local |
+    local := rawTimeout.
+	<clearTimeout(local)>
+! !
+
+!Timeout class methodsFor: 'instance creation'!
+
+on: anObject
+	^self new rawTimeout: anObject; yourself
 ! !
 
 Object subclass: #UndefinedObject

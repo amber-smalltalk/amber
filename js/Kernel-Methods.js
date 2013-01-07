@@ -262,15 +262,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "valueWithInterval:",
 category: 'timeout/interval',
-fn: function (aNumber) {
-    var self = this;
-    return setInterval(self, aNumber);
-    return self;
+fn: function (aNumber){
+var self=this;
+var $1;
+var local;
+local = setInterval(self, aNumber);
+;
+$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
+return $1;
 },
 args: ["aNumber"],
-source: "valueWithInterval: aNumber\x0a\x09<return setInterval(self, aNumber)>",
-messageSends: [],
-referencedClasses: []
+source: "valueWithInterval: aNumber\x0a\x09| local |\x0a\x09<local = setInterval(self, aNumber)>.\x0a    ^ Timeout on: local",
+messageSends: ["on:"],
+referencedClasses: ["Timeout"]
 }),
 smalltalk.BlockClosure);
 
@@ -296,15 +300,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "valueWithTimeout:",
 category: 'timeout/interval',
-fn: function (aNumber) {
-    var self = this;
-    return setTimeout(self, aNumber);
-    return self;
+fn: function (aNumber){
+var self=this;
+var $1;
+var local;
+local = setTimeout(self, aNumber);
+;
+$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
+return $1;
 },
 args: ["aNumber"],
-source: "valueWithTimeout: aNumber\x0a\x09<return setTimeout(self, aNumber)>",
-messageSends: [],
-referencedClasses: []
+source: "valueWithTimeout: aNumber\x0a\x09| local |\x0a\x09<local = setTimeout(self, aNumber)>.\x0a    ^ Timeout on: local",
+messageSends: ["on:"],
+referencedClasses: ["Timeout"]
 }),
 smalltalk.BlockClosure);
 

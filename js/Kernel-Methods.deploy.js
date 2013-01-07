@@ -185,10 +185,14 @@ smalltalk.addMethod(
 "_valueWithInterval_",
 smalltalk.method({
 selector: "valueWithInterval:",
-fn: function (aNumber) {
-    var self = this;
-    return setInterval(self, aNumber);
-    return self;
+fn: function (aNumber){
+var self=this;
+var $1;
+var local;
+local = setInterval(self, aNumber);
+;
+$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
+return $1;
 }
 }),
 smalltalk.BlockClosure);
@@ -209,10 +213,14 @@ smalltalk.addMethod(
 "_valueWithTimeout_",
 smalltalk.method({
 selector: "valueWithTimeout:",
-fn: function (aNumber) {
-    var self = this;
-    return setTimeout(self, aNumber);
-    return self;
+fn: function (aNumber){
+var self=this;
+var $1;
+var local;
+local = setTimeout(self, aNumber);
+;
+$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
+return $1;
 }
 }),
 smalltalk.BlockClosure);
