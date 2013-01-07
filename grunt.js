@@ -165,4 +165,16 @@ module.exports = function(grunt) {
 
     grunt.log.writeln('File "' + this.data.dest + '" created.');
   });
+
+  grunt.registerMultiTask('pegjs', 'Generate JavaScript parser from PEG.js description', function() {
+    var PEG = require('pegjs');
+    var pegOptions = {
+      cache: this.data.cache || false,
+      trackLineAndColumn: this.data.trackLineAndColumn || false
+    };
+    var export_var = this.data.export_var || 'module.exports';
+    var parser = PEG.buildParser(grunt.file.read(this.data.src), pegOptions);
+    var content = export_var + ' = ' + parser.toSource() + ';\n';
+    grunt.file.write(this.data.dest, content);
+  });
 };
