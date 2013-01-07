@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     pkg: '<json:package.json>',
 
     meta: {
-      banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+      banner: '/*!\n <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \n License: <%= pkg.license.type %> \n*/\n'
     },
 
     pegjs: {
