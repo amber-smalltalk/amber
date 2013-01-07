@@ -17,6 +17,14 @@ module.exports = function(grunt) {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */\n'
     },
 
+    pegjs: {
+      amber_parser: {
+        src: 'js/parser.pegjs',
+        dest: 'js/parser.js',
+        export_var: 'smalltalk.parser'
+      }
+    },
+
     amberc: {
       _config: {
         amber_dir: process.cwd(),
