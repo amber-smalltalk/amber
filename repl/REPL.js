@@ -61,7 +61,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.Object);
+smalltalk.send(self, "_initialize", [], smalltalk.Repl.superclass || nil);
 (self['@readline']=smalltalk.send((typeof require == 'undefined' ? nil : require), "_value_", ["readline"]));
 (self['@util']=smalltalk.send((typeof require == 'undefined' ? nil : require), "_value_", ["util"]));
 return self;},
