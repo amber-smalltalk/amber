@@ -4629,6 +4629,108 @@ smalltalk.Set);
 
 
 
+smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
+smalltalk.addMethod(
+"_back_",
+smalltalk.method({
+selector: "back:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+smalltalk.send(self["@write"],"_add_",[anObject]);
+return self},
+args: ["anObject"],
+source: "back: anObject\x0a\x09write add: anObject\x0a",
+messageSends: ["add:"],
+referencedClasses: []
+}),
+smalltalk.Queue);
+
+smalltalk.addMethod(
+"_front",
+smalltalk.method({
+selector: "front",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_frontIfAbsent_",[(function(){
+return smalltalk.send(self,"_error_",["Cannot read from empty Queue."]);
+})]);
+return $1;
+},
+args: [],
+source: "front\x0a    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']\x0a",
+messageSends: ["frontIfAbsent:", "error:"],
+referencedClasses: []
+}),
+smalltalk.Queue);
+
+smalltalk.addMethod(
+"_frontIfAbsent_",
+smalltalk.method({
+selector: "frontIfAbsent:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+var $1,$2,$3;
+var $early={};
+try {
+var result;
+result=smalltalk.send(self["@read"],"_at_ifAbsent_",[self["@readIndex"],(function(){
+$1=smalltalk.send(self["@write"],"_isEmpty",[]);
+if(smalltalk.assert($1)){
+$2=smalltalk.send(self["@readIndex"],"__gt",[(1)]);
+if(smalltalk.assert($2)){
+self["@read"]=[];
+self["@read"];
+self["@readIndex"]=(1);
+self["@readIndex"];
+};
+$3=smalltalk.send(aBlock,"_value",[]);
+throw $early=[$3];
+};
+self["@read"]=self["@write"];
+self["@read"];
+self["@readIndex"]=(1);
+self["@readIndex"];
+self["@write"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+self["@write"];
+return smalltalk.send(self["@read"],"_first",[]);
+})]);
+smalltalk.send(self["@read"],"_at_put_",[self["@readIndex"],nil]);
+self["@readIndex"]=smalltalk.send(self["@readIndex"],"__plus",[(1)]);
+return result;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+},
+args: ["aBlock"],
+source: "frontIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a    \x09read := write.\x0a    \x09readIndex := 1.\x0a    \x09write := OrderedCollection new.\x0a    \x09read first ].\x0a    read at: readIndex put: nil.\x0a    readIndex := readIndex + 1.\x0a    ^result\x0a",
+messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first", "at:put:", "+"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.Queue);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+self["@read"]=[];
+self["@readIndex"]=(1);
+self["@write"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+return self},
+args: [],
+source: "initialize\x0a\x09read := #().\x0a    readIndex := 1.\x0a    write := OrderedCollection new",
+messageSends: ["new"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.Queue);
+
+
+
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.addMethod(
 "_compile_",

@@ -3,10 +3,10 @@
 # javascript files from them, for both debug and deployment.
 #
 # Where we find the current runnable code and where we put our js files on install
-JS	:= ../js/
+JS      := ../js/
 
 # The compiler script
-AMBERC	:= ../bin/amberc
+AMBERC  := ../bin/amberc
 
 # Generic flags to AMBERC
 FLAGS   := -d
@@ -23,8 +23,14 @@ all: $(OBJECTS)
 # First we copy the core javascript files from current working files
 # into this directory. These files are hand written or generated using
 # other tools (parser.js). $@ is the target name.
-boot.js init.js parser.js:
+boot.js init.js:
 	cp ../js/$@ .
+
+# generate the parser
+# $@ is the target
+# $< is the prerequisite
+parser.js: ../js/parser.pegjs
+	pegjs -e smalltalk.parser $< $@
 
 # Then we compile Kernel-*.st files depending on having boot.js, init.js and parser.js
 # $< means the first dependency - in other words Kernel-*.st

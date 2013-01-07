@@ -728,12 +728,11 @@ function Smalltalk() {
 	};
 
     /* Boolean assertion */
-
-    st.assert = function(boolean) {
-        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
-            return boolean;
+    st.assert = function(shouldBeBoolean) {
+        if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
+            return shouldBeBoolean;
         } else {
-            st.NonBooleanReceiver._new()._object_(boolean)._signal();
+            smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
         }
     };
 

@@ -1477,6 +1477,43 @@ includes: anObject
 	^elements includes: anObject
 ! !
 
+Object subclass: #Queue
+	instanceVariableNames: 'read readIndex write'
+	package: 'Kernel-Collections'!
+
+!Queue methodsFor: 'accessing'!
+
+back: anObject
+	write add: anObject
+!
+
+front
+    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']
+!
+
+frontIfAbsent: aBlock
+	| result |
+	result := read at: readIndex ifAbsent: [
+		write isEmpty ifTrue: [
+			readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].
+			^aBlock value ].
+    	read := write.
+    	readIndex := 1.
+    	write := OrderedCollection new.
+    	read first ].
+    read at: readIndex put: nil.
+    readIndex := readIndex + 1.
+    ^result
+! !
+
+!Queue methodsFor: 'initialization'!
+
+initialize
+	read := #().
+    readIndex := 1.
+    write := OrderedCollection new
+! !
+
 Object subclass: #RegularExpression
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
