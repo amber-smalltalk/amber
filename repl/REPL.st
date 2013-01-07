@@ -31,7 +31,7 @@ eval: buffer
 	| result |
 	buffer isEmpty ifFalse: [
 		self try: [
-			result := Compiler new loadExpression: buffer.
+			result := Compiler new evaluateExpression: buffer.
 			Transcript show: result]
 		catch: [:e |
 			e isSmalltalkError
