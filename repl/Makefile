@@ -1,5 +1,5 @@
 repl.js: REPL.st
-	../bin/amberc -m Repl REPL.st amber
+	../bin/amberc -m Repl -l Compiler,parser REPL.st amber
 
 run: repl.js
 	../bin/amber
