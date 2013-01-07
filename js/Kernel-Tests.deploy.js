@@ -19,10 +19,10 @@ smalltalk.method({
 selector: "testEnsure",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_assert_",[smalltalk.send((function(){
-return smalltalk.send((smalltalk.Error || Error),"_new",[]);
+smalltalk.send(self,"_assert_equals_",[(3),smalltalk.send((function(){
+return (3);
 }),"_ensure_",[(function(){
-return true;
+return (4);
 })])]);
 return self}
 }),

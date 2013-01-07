@@ -42,11 +42,11 @@ selector: "ensure:",
 category: 'evaluating',
 fn: function (aBlock){
 var self=this;
-try{self()}finally{return aBlock._value()};
+try{return self()}finally{aBlock._value()};
 ;
 return self},
 args: ["aBlock"],
-source: "ensure: aBlock\x0a\x09<try{self()}finally{return aBlock._value()}>",
+source: "ensure: aBlock\x0a\x09<try{return self()}finally{aBlock._value()}>",
 messageSends: [],
 referencedClasses: []
 }),
