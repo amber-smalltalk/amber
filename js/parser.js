@@ -47,6 +47,7 @@ smalltalk.parser = (function(){
         "string": parse_string,
         "symbol": parse_symbol,
         "number": parse_number,
+        "hex": parse_hex,
         "float": parse_float,
         "integer": parse_integer,
         "literalArray": parse_literalArray,
@@ -627,9 +628,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, val) {
-                       	   return smalltalk.ValueNode._new()
-                       	   	._value_(val.join("").replace(/\"/ig, '"'))
-        	         })(pos0, result0[1]);
+                             return smalltalk.ValueNode._new()
+                                    ._value_(val.join("").replace(/\"/ig, '"'))
+                         })(pos0, result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -755,9 +756,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, val) {
-        		  		    return smalltalk.ValueNode._new()
-                       	   		    	   ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
-                       	 })(pos0, result0[1]);
+                              return smalltalk.ValueNode._new()
+                                     ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
+                          })(pos0, result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -770,15 +771,94 @@ smalltalk.parser = (function(){
         var pos0;
         
         pos0 = pos;
-        result0 = parse_float();
+        result0 = parse_hex();
         if (result0 === null) {
-          result0 = parse_integer();
+          result0 = parse_float();
+          if (result0 === null) {
+            result0 = parse_integer();
+          }
         }
         if (result0 !== null) {
           result0 = (function(offset, n) {
-        		  return smalltalk.ValueNode._new()
-                       	   	._value_(n)
-                       	 })(pos0, result0);
+                             return smalltalk.ValueNode._new()
+                                    ._value_(n)
+                         })(pos0, result0);
+        }
+        if (result0 === null) {
+          pos = pos0;
+        }
+        return result0;
+      }
+      
+      function parse_hex() {
+        var result0, result1, result2, result3;
+        var pos0, pos1;
+        
+        pos0 = pos;
+        pos1 = pos;
+        if (/^[\-]/.test(input.charAt(pos))) {
+          result0 = input.charAt(pos);
+          pos++;
+        } else {
+          result0 = null;
+          if (reportFailures === 0) {
+            matchFailed("[\\-]");
+          }
+        }
+        result0 = result0 !== null ? result0 : "";
+        if (result0 !== null) {
+          if (input.substr(pos, 3) === "16r") {
+            result1 = "16r";
+            pos += 3;
+          } else {
+            result1 = null;
+            if (reportFailures === 0) {
+              matchFailed("\"16r\"");
+            }
+          }
+          if (result1 !== null) {
+            if (/^[0-9a-zA-Z]/.test(input.charAt(pos))) {
+              result3 = input.charAt(pos);
+              pos++;
+            } else {
+              result3 = null;
+              if (reportFailures === 0) {
+                matchFailed("[0-9a-zA-Z]");
+              }
+            }
+            if (result3 !== null) {
+              result2 = [];
+              while (result3 !== null) {
+                result2.push(result3);
+                if (/^[0-9a-zA-Z]/.test(input.charAt(pos))) {
+                  result3 = input.charAt(pos);
+                  pos++;
+                } else {
+                  result3 = null;
+                  if (reportFailures === 0) {
+                    matchFailed("[0-9a-zA-Z]");
+                  }
+                }
+              }
+            } else {
+              result2 = null;
+            }
+            if (result2 !== null) {
+              result0 = [result0, result1, result2];
+            } else {
+              result0 = null;
+              pos = pos1;
+            }
+          } else {
+            result0 = null;
+            pos = pos1;
+          }
+        } else {
+          result0 = null;
+          pos = pos1;
+        }
+        if (result0 !== null) {
+          result0 = (function(offset, neg, num) {return parseInt((neg + num.join("")), 16)})(pos0, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1055,9 +1135,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, lits) {
-        		  return smalltalk.ValueNode._new()
-                       	   	._value_(lits)
-                       	 })(pos0, result0[2]);
+                             return smalltalk.ValueNode._new()
+                                    ._value_(lits)
+                         })(pos0, result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1136,9 +1216,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, expressions) {
-        	       	  return smalltalk.DynamicArrayNode._new()
-        		        ._nodes_(expressions)
-        		  })(pos0, result0[2]);
+                             return smalltalk.DynamicArrayNode._new()
+                                    ._nodes_(expressions)
+                         })(pos0, result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1202,9 +1282,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, expressions) {
-        	       	  return smalltalk.DynamicDictionaryNode._new()
-        		        ._nodes_(expressions)
-        		  })(pos0, result0[2]);
+                                return smalltalk.DynamicDictionaryNode._new()
+                                       ._nodes_(expressions)
+                            })(pos0, result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1271,8 +1351,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, val) {
-        			return smalltalk.ValueNode._new()._value_(val)
-        		    })(pos0, result0);
+                               return smalltalk.ValueNode._new()
+                                      ._value_(val)
+                           })(pos0, result0);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1316,9 +1397,9 @@ smalltalk.parser = (function(){
         result0 = parse_varIdentifier();
         if (result0 !== null) {
           result0 = (function(offset, identifier) {
-        		  return smalltalk.VariableNode._new()
-        			._value_(identifier)
-        		  })(pos0, result0);
+                             return smalltalk.VariableNode._new()
+                                    ._value_(identifier)
+                         })(pos0, result0);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1334,9 +1415,9 @@ smalltalk.parser = (function(){
         result0 = parse_className();
         if (result0 !== null) {
           result0 = (function(offset, className) {
-        		  return smalltalk.ClassReferenceNode._new()
-        		  	._value_(className)
-        		  })(pos0, result0);
+                             return smalltalk.ClassReferenceNode._new()
+                                    ._value_(className)
+                         })(pos0, result0);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1515,7 +1596,7 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, pairs) {
-        	             var keywords = [];
+                             var keywords = [];
                              var params = [];
                              for(var i=0;i<pairs.length;i++){
                                  keywords.push(pairs[i].key);
@@ -1523,8 +1604,8 @@ smalltalk.parser = (function(){
                              for(var i=0;i<pairs.length;i++){
                                  params.push(pairs[i].arg);
                              }
-        		     return [keywords.join(""), params]
-        	         })(pos0, result0);
+                             return [keywords.join(""), params]
+                         })(pos0, result0);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1693,12 +1774,12 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, first, others) {
-        	       	     var result = [first];
-        		     for(var i=0;i<others.length;i++) {
-        		 	 result.push(others[i]);
-        		     }
-        		     return result;
-        	       })(pos0, result0[0], result0[1]);
+                             var result = [first];
+                             for(var i=0;i<others.length;i++) {
+                                 result.push(others[i]);
+                             }
+                             return result;
+                         })(pos0, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1753,10 +1834,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, variable, expression) {
-        	       	     return smalltalk.AssignmentNode._new()
-        	       	     	._left_(variable)
-        	       	     	._right_(expression)
-        		 })(pos0, result0[0], result0[4]);
+                             return smalltalk.AssignmentNode._new()
+                                    ._left_(variable)
+                                    ._right_(expression)
+                         })(pos0, result0[0], result0[4]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -1820,9 +1901,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, expression) {
-        	       	     return smalltalk.ReturnNode._new()
-        	       	     	._nodes_([expression])
-        	       })(pos0, result0[2]);
+                             return smalltalk.ReturnNode._new()
+                                    ._nodes_([expression])
+                         })(pos0, result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2264,10 +2345,10 @@ smalltalk.parser = (function(){
           }
           if (result0 !== null) {
             result0 = (function(offset, exps, ret) {
-                	      	  var expressions = exps;
-                		  expressions.push(ret);
-                		  return expressions
-            		})(pos0, result0[0], result0[4]);
+                                 var expressions = exps;
+                                 expressions.push(ret);
+                                 return expressions
+                             })(pos0, result0[0], result0[4]);
           }
           if (result0 === null) {
             pos = pos0;
@@ -2312,8 +2393,8 @@ smalltalk.parser = (function(){
             }
             if (result0 !== null) {
               result0 = (function(offset, expressions) {
-                  	          return expressions || []
-              	        })(pos0, result0[0]);
+                                   return expressions || []
+                               })(pos0, result0[0]);
             }
             if (result0 === null) {
               pos = pos0;
@@ -2358,10 +2439,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, temps, statements) {
-        	      	  return smalltalk.SequenceNode._new()
-        	      	  	._temps_(temps || [])
-        	      	  	._nodes_(statements || [])
-        		})(pos0, result0[0], result0[2]);
+                             return smalltalk.SequenceNode._new()
+                                    ._temps_(temps || [])
+                                    ._nodes_(statements || [])
+                         })(pos0, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2438,10 +2519,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, params, sequence) {
-        	          return smalltalk.BlockNode._new()
-        	          	._parameters_(params || [])
-        	          	._nodes_([sequence._asBlockSequenceNode()])
-        		})(pos0, result0[2], result0[4]);
+                             return smalltalk.BlockNode._new()
+                                    ._parameters_(params || [])
+                                    ._nodes_([sequence._asBlockSequenceNode()])
+                         })(pos0, result0[2], result0[4]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2506,9 +2587,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, selector) {
-        	      	return smalltalk.SendNode._new()
-        	      		._selector_(selector)
-        	      })(pos0, result0[1]);
+                             return smalltalk.SendNode._new()
+                                    ._selector_(selector)
+                         })(pos0, result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2550,13 +2631,13 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, message, tail) {
-        		  if(tail) {
-                  	      return tail._valueForReceiver_(message);
-              		  }
-              		  else {
-                  	      return message;
-              		  }
-          	      })(pos0, result0[0], result0[2]);
+                             if(tail) {
+                                 return tail._valueForReceiver_(message);
+                             }
+                             else {
+                                 return message;
+                             }
+                         })(pos0, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2592,13 +2673,13 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, receiver, tail) {
-        		  if(tail) {
-                  	      return tail._valueForReceiver_(receiver);
-              		  }
-              		  else {
-                  	      return receiver;
-              		  }
-        	      })(pos0, result0[0], result0[2]);
+                             if(tail) {
+                                 return tail._valueForReceiver_(receiver);
+                             }
+                             else {
+                                 return receiver;
+                             }
+                         })(pos0, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2642,10 +2723,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, selector, arg) {
-        	          return smalltalk.SendNode._new()
-        	          	._selector_(selector)
-        	          	._arguments_([arg])
-        	      })(pos0, result0[1], result0[3]);
+                             return smalltalk.SendNode._new()
+                                    ._selector_(selector)
+                                    ._arguments_([arg])
+                         })(pos0, result0[1], result0[3]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2675,13 +2756,13 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, message, tail) {
-              	          if(tail) {
-                  	      return tail._valueForReceiver_(message);
-              		  }
-              		  else {
-                  	      return message;
-              		  }
-          	      })(pos0, result0[0], result0[1]);
+                             if(tail) {
+                                 return tail._valueForReceiver_(message);
+                              }
+                             else {
+                                 return message;
+                             }
+                         })(pos0, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2711,13 +2792,13 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, receiver, tail) {
-        	      	  if(tail) {
-                  	      return tail._valueForReceiver_(receiver);
-              		  }
-              		  else {
-                  	      return receiver;
-              		  }
-        	      })(pos0, result0[0], result0[1]);
+                             if(tail) {
+                                 return tail._valueForReceiver_(receiver);
+                             }
+                             else {
+                                 return receiver;
+                             }
+                         })(pos0, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2795,16 +2876,16 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, pairs) {
-              		  var selector = [];
-              		  var args = [];
-              		  for(var i=0;i<pairs.length;i++) {
-                  	      selector.push(pairs[i].key);
-                  	      args.push(pairs[i].arg);
-              		  }
-              		  return smalltalk.SendNode._new()
-              		  	._selector_(selector.join(""))
-              		  	._arguments_(args)
-          	      })(pos0, result0[1]);
+                             var selector = [];
+                             var args = [];
+                              for(var i=0;i<pairs.length;i++) {
+                                  selector.push(pairs[i].key);
+                                  args.push(pairs[i].arg);
+                              }
+                              return smalltalk.SendNode._new()
+                                     ._selector_(selector.join(""))
+                                     ._arguments_(args)
+                         })(pos0, result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2833,8 +2914,8 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, receiver, tail) {
-        	          return tail._valueForReceiver_(receiver);
-        	      })(pos0, result0[0], result0[1]);
+                             return tail._valueForReceiver_(receiver);
+                         })(pos0, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -2986,15 +3067,15 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, send, messages) {
-        		var cascade = [];
-              		cascade.push(send);
-              		for(var i=0;i<messages.length;i++) {
-                  		cascade.push(messages[i]);
-              		}
-              		return smalltalk.CascadeNode._new()
-                  	       ._receiver_(send._receiver())
-                  	       ._nodes_(cascade)
-          	      })(pos0, result0[1], result0[2]);
+                             var cascade = [];
+                             cascade.push(send);
+                             for(var i=0;i<messages.length;i++) {
+                                 cascade.push(messages[i]);
+                             }
+                             return smalltalk.CascadeNode._new()
+                                    ._receiver_(send._receiver())
+                                    ._nodes_(cascade)
+                         })(pos0, result0[1], result0[2]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -3102,9 +3183,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, val) {
-        		return smalltalk.JSStatementNode._new()
-        			._source_(val.join(""))
-          	      })(pos0, result0[1]);
+                             return smalltalk.JSStatementNode._new()
+                                    ._source_(val.join(""))
+                         })(pos0, result0[1]);
         }
         if (result0 === null) {
           pos = pos0;
@@ -3158,11 +3239,11 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result0 = (function(offset, pattern, sequence) {
-        	      	return smalltalk.MethodNode._new()
-        		       ._selector_(pattern[0])
-        		       ._arguments_(pattern[1])
-        		       ._nodes_([sequence])
-        	      })(pos0, result0[1], result0[3]);
+                              return smalltalk.MethodNode._new()
+                                     ._selector_(pattern[0])
+                                     ._arguments_(pattern[1])
+                                     ._nodes_([sequence])
+                         })(pos0, result0[1], result0[3]);
         }
         if (result0 === null) {
           pos = pos0;
