@@ -1731,3 +1731,48 @@ space
 	self nextPut: ' '
 ! !
 
+StringStream subclass: #LocalStorageStream
+	instanceVariableNames: 'key'
+	package: 'Kernel-Collections'!
+
+!LocalStorageStream methodsFor: 'actions'!
+
+close
+	self flush.
+	super close
+!
+
+flush
+	"Flush written data to local storage"
+	|kString data|
+	kString := key.
+	data := self contents.
+	<localStorage[kString] = data>.
+	super flush
+! !
+
+!LocalStorageStream methodsFor: 'initialization'!
+
+initializeWithKey: kString
+	|data|
+	key := kString.
+	<data = localStorage[kString]>.
+	data := data ifNil: [''].
+	super initialize;
+		setCollection: data;
+		setStreamSize: data size
+! !
+
+!LocalStorageStream class methodsFor: 'instance creation'!
+
+key: kString
+	"Initialize with local storage key"
+	^ self basicNew
+		initializeWithKey: kString;
+		yourself
+!
+
+new
+	^ self key: 'smalltalk.scratch'
+! !
+

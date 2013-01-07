@@ -5385,3 +5385,112 @@ smalltalk.StringStream);
 
 
 
+smalltalk.addClass('LocalStorageStream', smalltalk.StringStream, ['key'], 'Kernel-Collections');
+smalltalk.addMethod(
+"_close",
+smalltalk.method({
+selector: "close",
+category: 'actions',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_flush",[]);
+smalltalk.send(self,"_close",[],smalltalk.StringStream);
+return self},
+args: [],
+source: "close\x0a\x09self flush.\x0a\x09super close",
+messageSends: ["flush", "close"],
+referencedClasses: []
+}),
+smalltalk.LocalStorageStream);
+
+smalltalk.addMethod(
+"_flush",
+smalltalk.method({
+selector: "flush",
+category: 'actions',
+fn: function (){
+var self=this;
+var kString;
+var data;
+kString=self["@key"];
+data=smalltalk.send(self,"_contents",[]);
+localStorage[kString] = data;
+;
+smalltalk.send(self,"_flush",[],smalltalk.StringStream);
+return self},
+args: [],
+source: "flush\x0a\x09\x22Flush written data to local storage\x22\x0a\x09|kString data|\x0a\x09kString := key.\x0a\x09data := self contents.\x0a\x09<localStorage[kString] = data>.\x0a\x09super flush",
+messageSends: ["contents", "flush"],
+referencedClasses: []
+}),
+smalltalk.LocalStorageStream);
+
+smalltalk.addMethod(
+"_initializeWithKey_",
+smalltalk.method({
+selector: "initializeWithKey:",
+category: 'initialization',
+fn: function (kString){
+var self=this;
+var $1;
+var data;
+self["@key"]=kString;
+data = localStorage[kString];
+;
+if(($receiver = data) == nil || $receiver == undefined){
+data="";
+} else {
+data=data;
+};
+smalltalk.send(self,"_initialize",[],smalltalk.StringStream);
+smalltalk.send(self,"_setCollection_",[data],smalltalk.StringStream);
+$1=smalltalk.send(self,"_setStreamSize_",[smalltalk.send(data,"_size",[])],smalltalk.StringStream);
+return self},
+args: ["kString"],
+source: "initializeWithKey: kString\x0a\x09|data|\x0a\x09key := kString.\x0a\x09<data = localStorage[kString]>.\x0a\x09data := data ifNil: [''].\x0a\x09super initialize;\x0a\x09\x09setCollection: data;\x0a\x09\x09setStreamSize: data size\x0a    ",
+messageSends: ["ifNil:", "initialize", "setCollection:", "setStreamSize:", "size"],
+referencedClasses: []
+}),
+smalltalk.LocalStorageStream);
+
+
+smalltalk.addMethod(
+"_key_",
+smalltalk.method({
+selector: "key:",
+category: 'instance creation',
+fn: function (kString){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send(self,"_basicNew",[]);
+smalltalk.send($2,"_initializeWithKey_",[kString]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+},
+args: ["kString"],
+source: "key: kString\x0a\x09\x22Initialize with local storage key\x22\x0a\x09^ self basicNew\x0a\x09\x09initializeWithKey: kString;\x0a\x09\x09yourself",
+messageSends: ["initializeWithKey:", "basicNew", "yourself"],
+referencedClasses: []
+}),
+smalltalk.LocalStorageStream.klass);
+
+smalltalk.addMethod(
+"_new",
+smalltalk.method({
+selector: "new",
+category: 'instance creation',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_key_",["smalltalk.scratch"]);
+return $1;
+},
+args: [],
+source: "new\x0a\x09^ self key: 'smalltalk.scratch'",
+messageSends: ["key:"],
+referencedClasses: []
+}),
+smalltalk.LocalStorageStream.klass);
+
+
