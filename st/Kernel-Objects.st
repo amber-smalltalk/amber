@@ -683,7 +683,7 @@ doesNotUnderstand: aMessage
 	selector := aMessage selector.
 	jsSelector := selector asJavaScriptSelector.
 	arguments := aMessage arguments.
-	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
+	<if(jsSelector in obj) {return smalltalk.send(obj, jsSelector, arguments)}>.
 	super doesNotUnderstand: aMessage
 !
 

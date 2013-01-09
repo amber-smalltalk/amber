@@ -1470,22 +1470,20 @@ smalltalk.addMethod(
 "_doesNotUnderstand_",
 smalltalk.method({
 selector: "doesNotUnderstand:",
-fn: function (aMessage) {
-    var self = this;
-    var obj;
-    var selector;
-    var jsSelector;
-    var arguments;
-    obj = smalltalk.send(self, "_jsObject", []);
-    selector = smalltalk.send(aMessage, "_selector", []);
-    jsSelector = smalltalk.send(selector, "_asJavaScriptSelector", []);
-    arguments = smalltalk.send(aMessage, "_arguments", []);
-    if (obj[jsSelector] != undefined) {
-        return smalltalk.send(obj, jsSelector, arguments);
-    }
-    smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
-    return self;
-}
+fn: function (aMessage){
+var self=this;
+var obj;
+var selector;
+var jsSelector;
+var arguments;
+obj=smalltalk.send(self,"_jsObject",[]);
+selector=smalltalk.send(aMessage,"_selector",[]);
+jsSelector=smalltalk.send(selector,"_asJavaScriptSelector",[]);
+arguments=smalltalk.send(aMessage,"_arguments",[]);
+if(jsSelector in obj) {return smalltalk.send(obj, jsSelector, arguments)};
+;
+smalltalk.send(self,"_doesNotUnderstand_",[aMessage],smalltalk.Object);
+return self}
 }),
 smalltalk.JSObjectProxy);
 

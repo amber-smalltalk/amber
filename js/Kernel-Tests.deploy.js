@@ -1596,7 +1596,7 @@ smalltalk.method({
 selector: "jsObject",
 fn: function (){
 var self=this;
-return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''};
+return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null};
 ;
 return self}
 }),
@@ -1661,6 +1661,22 @@ object=smalltalk.send(self,"_jsObject",[]);
 smalltalk.send(self,"_assert_equals_",["",smalltalk.send(object,"_d",[])]);
 smalltalk.send(object,"_d_",["hello"]);
 smalltalk.send(self,"_assert_equals_",["hello",smalltalk.send(object,"_d",[])]);
+return self}
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+"_testPropertyThatReturnsUndefined",
+smalltalk.method({
+selector: "testPropertyThatReturnsUndefined",
+fn: function (){
+var self=this;
+var object;
+object=smalltalk.send(self,"_jsObject",[]);
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(object,"_e",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(object,"_e",[]),"_isNil",[])]);
 return self}
 }),
 smalltalk.JSObjectProxyTest);
