@@ -97,11 +97,19 @@ function Smalltalk(){
 	/* List of all reserved words in JavaScript. They may not be used as variables
 	   in Smalltalk. */
 
-	st.reservedWords = ['break', 'case', 'catch', 'char', 'class', 'continue', 'debugger', 
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
-		'if', 'in', 'instanceof', 'new', 'private', 'protected', 
-		'public', 'return', 'static', 'switch', 'this', 'throw',
-		'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
+	// list of reserved JavaScript keywords as of
+	//   http://es5.github.com/#x7.6.1.1
+	// and
+	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
+	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
+		'try', 'typeof', 'var', 'void', 'while', 'with',
+		// ES5: future use: http://es5.github.com/#x7.6.1.2
+		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
+		// ES5: future use in strict mode
+		'implements', 'interface', 'let', 'package', 'private', 'protected',
+		'public', 'static', 'yield'];
 
 	/* The symbol table ensures symbol unicity */
 
@@ -568,11 +576,11 @@ function Smalltalk(){
 	};
 
     /* Boolean assertion */
-    st.assert = function(boolean) {
-        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
-            return boolean;
+    st.assert = function(shouldBeBoolean) {
+        if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
+            return shouldBeBoolean;
         } else {
-            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+            smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
         }
     }
 };
@@ -6842,11 +6850,11 @@ selector: "ensure:",
 category: 'evaluating',
 fn: function (aBlock){
 var self=this;
-try{self()}finally{return aBlock._value()};
+try{return self()}finally{aBlock._value()};
 ;
 return self},
 args: ["aBlock"],
-source: "ensure: aBlock\x0a\x09<try{self()}finally{return aBlock._value()}>",
+source: "ensure: aBlock\x0a\x09<try{return self()}finally{aBlock._value()}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -14271,22 +14279,20 @@ selector: "handlePUTRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
-var $early={};
-try{var file=nil;
+var file=nil;
 var stream=nil;
 ((($receiver = smalltalk.send(self, "_isAuthenticated_response_", [aRequest, aResponse])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_respondAuthenticationRequiredTo_", [aResponse]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_respondAuthenticationRequiredTo_", [aResponse]);})]));
 (file=smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])]));
 (stream=smalltalk.send(self['@fs'], "_createWriteStream_", [file]));
-smalltalk.send(stream, "_on_do_", ["error", (function(error){smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("Error creating WriteStream for file ", "__comma", [file])]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["    Did you forget to create the necessary js/ or st/ directory in your project?"]);return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("    The exact error is: ", "__comma", [error])]);})]);
-((($receiver = smalltalk.send(stream, "_writable", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})]));
+smalltalk.send(stream, "_on_do_", ["error", (function(error){smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("Error creating WriteStream for file ", "__comma", [file])]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["    Did you forget to create the necessary js/ or st/ directory in your project?"]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("    The exact error is: ", "__comma", [error])]);return smalltalk.send(self, "_respondNotCreatedTo_", [aResponse]);})]);
+smalltalk.send(stream, "_on_do_", ["close", (function(){return smalltalk.send(self, "_respondCreatedTo_", [aResponse]);})]);
 smalltalk.send(aRequest, "_setEncoding_", ["utf8"]);
 smalltalk.send(aRequest, "_on_do_", ["data", (function(data){return smalltalk.send(stream, "_write_", [data]);})]);
-smalltalk.send(aRequest, "_on_do_", ["end", (function(){smalltalk.send(stream, "_end", []);return smalltalk.send(self, "_respondOKTo_", [aResponse]);})]);
-return self;
-} catch(e) {if(e===$early)return e[0]; throw e}},
+smalltalk.send(aRequest, "_on_do_", ["end", (function(){return ((($receiver = smalltalk.send(stream, "_writable", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(stream, "_end", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(stream, "_end", []);})]));})]);
+return self;},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest response: aResponse)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse].\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09\x22TODO: notify Amber about the error, otherwise the user might not notice and lose his work.\x22\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error].\x0a\x09stream writable ifFalse: [\x0a\x09\x09console log: 'Could not write to ', file.\x0a\x09\x09^nil].\x0a\x09\x09aRequest setEncoding: 'utf8'.\x0a\x09\x09aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a\x09\x09aRequest on: 'end' do: [\x0a\x09\x09\x09stream end.\x0a\x09\x09\x09self respondOKTo: aResponse]",
-messageSends: ["ifFalse:", "isAuthenticated:response:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "writable", "log:", "setEncoding:", "write:", "end", "respondOKTo:"],
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest response: aResponse)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
+messageSends: ["ifFalse:", "isAuthenticated:response:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "respondNotCreatedTo:", "respondCreatedTo:", "setEncoding:", "write:", "ifTrue:", "writable", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14303,7 +14309,7 @@ var self=this;
 ((($receiver = smalltalk.send(smalltalk.send(aRequest, "_method", []), "__eq", ["OPTIONS"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_handleOPTIONSRequest_respondTo_", [aRequest, aResponse]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_handleOPTIONSRequest_respondTo_", [aRequest, aResponse]);})]));
 return self;},
 args: ["aRequest", "aResponse"],
-source: "handleRequest: aRequest respondTo: aResponse\x0a\x0a\x09aRequest method = 'PUT'\x0a\x09\x09ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'GET'\x0a\x09\x09ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'OPTIONS'\x0a\x09\x09ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]",
+source: "handleRequest: aRequest respondTo: aResponse\x0a\x09aRequest method = 'PUT'\x0a\x09\x09ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'GET'\x0a\x09\x09ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'OPTIONS'\x0a\x09\x09ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]",
 messageSends: ["ifTrue:", "=", "method", "handlePUTRequest:respondTo:", "handleGETRequest:respondTo:", "handleOPTIONSRequest:respondTo:"],
 referencedClasses: []
 }),
@@ -14316,7 +14322,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.FileServer.superclass || nil);
+smalltalk.send((typeof super_ == 'undefined' ? nil : super_), "_initialize", []);
 (self['@path']=smalltalk.send(self, "_require_", ["path"]));
 (self['@http']=smalltalk.send(self, "_require_", ["http"]));
 (self['@fs']=smalltalk.send(self, "_require_", ["fs"]));
@@ -14428,12 +14434,27 @@ selector: "respondAuthenticationRequiredTo:",
 category: 'request handling',
 fn: function (aResponse){
 var self=this;
-(function($rec){smalltalk.send($rec, "_writeHead_options_", [(401), smalltalk.HashedCollection._fromPairs_([smalltalk.send("WWW-Authenticate", "__minus_gt", ["Basic realm=\x22Secured Developer Area\x22"])])]);return smalltalk.send($rec, "_write_", ["<html><body>Authentication needed</body></html>"]);})(aResponse);
-smalltalk.send(aResponse, "_end", []);
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(401), smalltalk.HashedCollection._fromPairs_([smalltalk.send("WWW-Authenticate", "__minus_gt", ["Basic realm=\x22Secured Developer Area\x22"])])]);smalltalk.send($rec, "_write_", ["<html><body>Authentication needed</body></html>"]);return smalltalk.send($rec, "_end", []);})(aResponse);
 return self;},
 args: ["aResponse"],
-source: "respondAuthenticationRequiredTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm=\x22Secured Developer Area\x22'};\x0a\x09\x09write: '<html><body>Authentication needed</body></html>'.\x0a\x09aResponse end.",
+source: "respondAuthenticationRequiredTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm=\x22Secured Developer Area\x22'};\x0a\x09\x09write: '<html><body>Authentication needed</body></html>';\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "->", "write:", "end"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_respondCreatedTo_",
+smalltalk.method({
+selector: "respondCreatedTo:",
+category: 'request handling',
+fn: function (aResponse){
+var self=this;
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(201), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);return smalltalk.send($rec, "_end", []);})(aResponse);
+return self;},
+args: ["aResponse"],
+source: "respondCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14475,6 +14496,22 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
+"_respondNotCreatedTo_",
+smalltalk.method({
+selector: "respondNotCreatedTo:",
+category: 'request handling',
+fn: function (aResponse){
+var self=this;
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(400), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"])])]);smalltalk.send($rec, "_write_", ["File could not be created. Did you forget to create the st/js directories on the server?"]);return smalltalk.send($rec, "_end", []);})(aResponse);
+return self;},
+args: ["aResponse"],
+source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the st/js directories on the server?';\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "write:", "end"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 "_respondNotFoundTo_",
 smalltalk.method({
 selector: "respondNotFoundTo:",
@@ -14497,11 +14534,10 @@ selector: "respondOKTo:",
 category: 'request handling',
 fn: function (aResponse){
 var self=this;
-smalltalk.send(aResponse, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);
-smalltalk.send(aResponse, "_end", []);
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);return smalltalk.send($rec, "_end", []);})(aResponse);
 return self;},
 args: ["aResponse"],
-source: "respondOKTo: aResponse\x0a\x09aResponse \x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.\x0a\x09aResponse end.",
+source: "respondOKTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
