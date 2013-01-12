@@ -330,9 +330,11 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 					defaults.closure = false;
 					defaults.closure_parts = false;
 					defaults.closure_full = false;
-					callback();
-					return;
+				} else {
+					console.warn('Closure compiler found at: ' + self.closure_jar);
 				}
+				callback();
+				return;
 			});
 		});
 	} else {
