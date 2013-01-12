@@ -679,7 +679,7 @@ AmberC.prototype.compose_js_files = function() {
 	program_files.forEach(function(file) {
 		if(path.existsSync(file)) {
 			console.log('Adding : ' + file);
-			console.log(fileStream.write(fs.readFileSync(file)));
+			fileStream.write(fs.readFileSync(file));
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
