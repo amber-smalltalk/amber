@@ -104,7 +104,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
-		'closure_options': '',
+		'closure_options': ' --language_in=ECMASCRIPT5 ',
 		'suffix': '',
 		'loadsuffix': '',
 		'suffix_used': '',
@@ -330,9 +330,11 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 					defaults.closure = false;
 					defaults.closure_parts = false;
 					defaults.closure_full = false;
-					callback();
-					return;
+				} else {
+					console.warn('Closure compiler found at: ' + self.closure_jar);
 				}
+				callback();
+				return;
 			});
 		});
 	} else {
@@ -679,7 +681,7 @@ AmberC.prototype.compose_js_files = function() {
 	program_files.forEach(function(file) {
 		if(path.existsSync(file)) {
 			console.log('Adding : ' + file);
-			console.log(fileStream.write(fs.readFileSync(file)));
+			fileStream.write(fs.readFileSync(file));
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
