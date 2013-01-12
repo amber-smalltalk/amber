@@ -117,22 +117,25 @@ handlePUTRequest: aRequest respondTo: aResponse
 	| file stream |
 	(self isAuthenticated: aRequest response: aResponse)
 		ifFalse: [self respondAuthenticationRequiredTo: aResponse].
+
 	file := '.', aRequest url.
 	stream := fs createWriteStream: file.
+
 	stream on: 'error' do: [:error |
-		"TODO: notify Amber about the error, otherwise the user might not notice and lose his work."
 		console warn: 'Error creating WriteStream for file ', file.
 		console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.
-		console warn: '    The exact error is: ', error].
-	stream writable ifFalse: [
-		console log: 'Could not write to ', file.
-		^nil].
-		aRequest setEncoding: 'utf8'.
-		aRequest on: 'data' do: [:data | stream write: data].
+		console warn: '    The exact error is: ', error.
+		self respondNotCreatedTo: aResponse].
 
-		aRequest on: 'end' do: [
-			stream end.
-			self respondOKTo: aResponse]
+	stream on: 'close' do: [
+		self respondCreatedTo: aResponse].
+
+	aRequest setEncoding: 'utf8'.
+	aRequest on: 'data' do: [:data |
+		stream write: data].
+
+	aRequest on: 'end' do: [
+		stream writable ifTrue: [stream end]]
 !
 
 handleOPTIONSRequest: aRequest respondTo: aResponse
