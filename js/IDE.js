@@ -1760,14 +1760,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ajaxPutAt:data:",
 category: 'network',
-fn: function (anURL, aString) {
-    var self = this;
-    smalltalk.send(jQuery, "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]), smalltalk.send("data", "__minus_gt", [aString]), smalltalk.send("contentType", "__minus_gt", ["text/plain;charset=UTF-8"]), smalltalk.send("error", "__minus_gt", [function () {return smalltalk.send(window, "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);}])])]);
-    return self;
-},
-args: ["anURL", "aString"],
-source: "ajaxPutAt: anURL data: aString\x0a\x09jQuery \x0a\x09\x09ajax: anURL\x09options: #{\x09'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'error' -> [window alert: 'PUT request failed at:  ', anURL] }",
-messageSends: ["ajax:options:", "->", "alert:", ","],
+fn: function (aURL,aString){
+var self=this;
+smalltalk.send(jQuery,"_ajax_options_",[aURL,smalltalk.HashedCollection._fromPairs_([smalltalk.send("type","__minus_gt",["PUT"]),smalltalk.send("data","__minus_gt",[aString]),smalltalk.send("contentType","__minus_gt",["text/plain;charset=UTF-8"]),smalltalk.send("error","__minus_gt",[(function(xhr){
+return smalltalk.send(window,"_alert_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Commiting ","__comma",[aURL]),"__comma",[" failed with reason: \x22"]),"__comma",[smalltalk.send(xhr,"_responseText",[])]),"__comma",["\x22"])]);
+})])])]);
+return self},
+args: ["aURL", "aString"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL\x09options: #{\x09'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:options:", "->", "alert:", ",", "responseText"],
 referencedClasses: []
 }),
 smalltalk.Browser);

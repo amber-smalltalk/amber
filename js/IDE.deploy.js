@@ -1314,11 +1314,12 @@ smalltalk.addMethod(
 "_ajaxPutAt_data_",
 smalltalk.method({
 selector: "ajaxPutAt:data:",
-fn: function (anURL, aString) {
-    var self = this;
-    smalltalk.send(jQuery, "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]), smalltalk.send("data", "__minus_gt", [aString]), smalltalk.send("contentType", "__minus_gt", ["text/plain;charset=UTF-8"]), smalltalk.send("error", "__minus_gt", [function () {return smalltalk.send(window, "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);}])])]);
-    return self;
-}
+fn: function (aURL,aString){
+var self=this;
+smalltalk.send(jQuery,"_ajax_options_",[aURL,smalltalk.HashedCollection._fromPairs_([smalltalk.send("type","__minus_gt",["PUT"]),smalltalk.send("data","__minus_gt",[aString]),smalltalk.send("contentType","__minus_gt",["text/plain;charset=UTF-8"]),smalltalk.send("error","__minus_gt",[(function(xhr){
+return smalltalk.send(window,"_alert_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Commiting ","__comma",[aURL]),"__comma",[" failed with reason: \x22"]),"__comma",[smalltalk.send(xhr,"_responseText",[])]),"__comma",["\x22"])]);
+})])])]);
+return self}
 }),
 smalltalk.Browser);
 

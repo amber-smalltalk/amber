@@ -1041,12 +1041,12 @@ initialize
 
 !Browser methodsFor: 'network'!
 
-ajaxPutAt: anURL data: aString
-	jQuery 
-		ajax: anURL	options: #{	'type' -> 'PUT'.
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL	options: #{	'type' -> 'PUT'.
 								'data' -> aString.
 								'contentType' -> 'text/plain;charset=UTF-8'.
-								'error' -> [window alert: 'PUT request failed at:  ', anURL] }
+								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
 !Browser methodsFor: 'rendering'!
