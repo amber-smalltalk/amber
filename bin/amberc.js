@@ -104,7 +104,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
-		'closure_options': '',
+		'closure_options': ' --language_in=ECMASCRIPT5 ',
 		'suffix': '',
 		'loadsuffix': '',
 		'suffix_used': '',
