@@ -790,15 +790,15 @@ cancelChanges
 
 commitPackage
 	selectedPackage ifNotNil: [ |package|
-               						 package := Package named: selectedPackage.
-               						 {	Exporter 			-> (package commitPathJs, '/', selectedPackage, '.js').
-                        					StrippedExporter 	-> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-                       						 ChunkExporter 		-> (package commitPathSt, '/', selectedPackage, '.st') 			} 
-                 
-                						do: [:commitStrategy| |fileContents|
-                                                                     	fileContents := (commitStrategy key new exportPackage: selectedPackage).
-                                                                     	self ajaxPutAt: commitStrategy value data:  fileContents]
-         						]
+		package := Package named: selectedPackage.
+		{  	Exporter              -> (package commitPathJs, '/', selectedPackage, '.js').
+			StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').
+			ChunkExporter    -> (package commitPathSt, '/', selectedPackage, '.st')
+		} do: [:commitStrategy| |fileContents|
+			fileContents := (commitStrategy key new exportPackage: selectedPackage).
+			self ajaxPutAt: commitStrategy value data:  fileContents
+  		]
+	]
 !
 
 compile

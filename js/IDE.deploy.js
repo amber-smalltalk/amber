@@ -1425,18 +1425,22 @@ smalltalk.addMethod(
 "_commitPackage",
 smalltalk.method({
 selector: "commitPackage",
-fn: function () {
-    var self = this;
-    if (($receiver = self['@selectedPackage']) == nil ||
-        $receiver == undefined) {
-        self['@selectedPackage'];
-    } else {
-        var package;
-        package = smalltalk.send(smalltalk.Package || Package, "_named_", [self['@selectedPackage']]);
-        smalltalk.send([smalltalk.send(smalltalk.Exporter || Exporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]), smalltalk.send(smalltalk.StrippedExporter || StrippedExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]), smalltalk.send(smalltalk.ChunkExporter || ChunkExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathSt", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])])], "_do_", [function (commitStrategy) {var fileContents;fileContents = smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy, "_key", []), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_ajaxPutAt_data_", [smalltalk.send(commitStrategy, "_value", []), fileContents]);}]);
-    }
-    return self;
-}
+fn: function (){
+var self=this;
+if(($receiver = self["@selectedPackage"]) == nil || $receiver == undefined){
+self["@selectedPackage"];
+} else {
+var package;
+package=smalltalk.send((smalltalk.Package || Package),"_named_",[self["@selectedPackage"]]);
+package;
+smalltalk.send([smalltalk.send((smalltalk.Exporter || Exporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".js"])]),smalltalk.send((smalltalk.StrippedExporter || StrippedExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".deploy.js"])]),smalltalk.send((smalltalk.ChunkExporter || ChunkExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathSt",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".st"])])],"_do_",[(function(commitStrategy){
+var fileContents;
+fileContents=smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy,"_key",[]),"_new",[]),"_exportPackage_",[self["@selectedPackage"]]);
+fileContents;
+return smalltalk.send(self,"_ajaxPutAt_data_",[smalltalk.send(commitStrategy,"_value",[]),fileContents]);
+})]);
+};
+return self}
 }),
 smalltalk.Browser);
 

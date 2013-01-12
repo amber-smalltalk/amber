@@ -1906,20 +1906,24 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPackage",
 category: 'actions',
-fn: function () {
-    var self = this;
-    if (($receiver = self['@selectedPackage']) == nil ||
-        $receiver == undefined) {
-        self['@selectedPackage'];
-    } else {
-        var package;
-        package = smalltalk.send(smalltalk.Package || Package, "_named_", [self['@selectedPackage']]);
-        smalltalk.send([smalltalk.send(smalltalk.Exporter || Exporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]), smalltalk.send(smalltalk.StrippedExporter || StrippedExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]), smalltalk.send(smalltalk.ChunkExporter || ChunkExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathSt", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])])], "_do_", [function (commitStrategy) {var fileContents;fileContents = smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy, "_key", []), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_ajaxPutAt_data_", [smalltalk.send(commitStrategy, "_value", []), fileContents]);}]);
-    }
-    return self;
-},
+fn: function (){
+var self=this;
+if(($receiver = self["@selectedPackage"]) == nil || $receiver == undefined){
+self["@selectedPackage"];
+} else {
+var package;
+package=smalltalk.send((smalltalk.Package || Package),"_named_",[self["@selectedPackage"]]);
+package;
+smalltalk.send([smalltalk.send((smalltalk.Exporter || Exporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".js"])]),smalltalk.send((smalltalk.StrippedExporter || StrippedExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".deploy.js"])]),smalltalk.send((smalltalk.ChunkExporter || ChunkExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathSt",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".st"])])],"_do_",[(function(commitStrategy){
+var fileContents;
+fileContents=smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy,"_key",[]),"_new",[]),"_exportPackage_",[self["@selectedPackage"]]);
+fileContents;
+return smalltalk.send(self,"_ajaxPutAt_data_",[smalltalk.send(commitStrategy,"_value",[]),fileContents]);
+})]);
+};
+return self},
 args: [],
-source: "commitPackage\x0a\x09selectedPackage ifNotNil: [ |package|\x0a               \x09\x09\x09\x09\x09\x09 package := Package named: selectedPackage.\x0a               \x09\x09\x09\x09\x09\x09 {\x09Exporter \x09\x09\x09-> (package commitPathJs, '/', selectedPackage, '.js').\x0a                        \x09\x09\x09\x09\x09StrippedExporter \x09-> (package commitPathJs, '/', selectedPackage, '.deploy.js').\x0a                       \x09\x09\x09\x09\x09\x09 ChunkExporter \x09\x09-> (package commitPathSt, '/', selectedPackage, '.st') \x09\x09\x09} \x0a                 \x0a                \x09\x09\x09\x09\x09\x09do: [:commitStrategy| |fileContents|\x0a                                                                     \x09fileContents := (commitStrategy key new exportPackage: selectedPackage).\x0a                                                                     \x09self ajaxPutAt: commitStrategy value data:  fileContents]\x0a         \x09\x09\x09\x09\x09\x09]",
+source: "commitPackage\x0a\x09selectedPackage ifNotNil: [ |package|\x0a\x09\x09package := Package named: selectedPackage.\x0a\x09\x09{  \x09Exporter              -> (package commitPathJs, '/', selectedPackage, '.js').\x0a\x09\x09\x09StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').\x0a\x09\x09\x09ChunkExporter    -> (package commitPathSt, '/', selectedPackage, '.st')\x0a\x09\x09} do: [:commitStrategy| |fileContents|\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: selectedPackage).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data:  fileContents\x0a  \x09\x09]\x0a\x09]",
 messageSends: ["ifNotNil:", "named:", "do:", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "commitPathJs", "commitPathSt"],
 referencedClasses: ["Package", "Exporter", "StrippedExporter", "ChunkExporter"]
 }),
