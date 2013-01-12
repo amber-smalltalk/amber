@@ -94,22 +94,13 @@ isAuthenticated: aRequest response: aResponse
 
 !FileServer methodsFor: 'request handling'!
 
-respondNotFoundTo: aResponse
-	aResponse 
-		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
-		write: '404 Not found';
-		end
-!
-
 handleRequest: aRequest respondTo: aResponse
-
 	aRequest method = 'PUT'
 		ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].
 	aRequest method = 'GET'
 		ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].
 	aRequest method = 'OPTIONS'
 		ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]
-
 !
 
 handleGETRequest: aRequest respondTo: aResponse
@@ -185,14 +176,34 @@ respondInternalErrorTo: aResponse
 respondAuthenticationRequiredTo: aResponse
 	aResponse
 		writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm="Secured Developer Area"'};
-		write: '<html><body>Authentication needed</body></html>'.
-	aResponse end.
+		write: '<html><body>Authentication needed</body></html>';
+		end.
+!
+
+respondNotFoundTo: aResponse
+	aResponse 
+		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
+		write: '404 Not found';
+		end
+!
+
+respondNotCreatedTo: aResponse
+	aResponse
+		writeHead: 400 options: #{'Content-Type' -> 'text/plain'};
+		write: 'File could not be created. Did you forget to create the st/js directories on the server?';
+		end.
+!
+
+respondCreatedTo: aResponse
+	aResponse
+		writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
 !
 
 respondOKTo: aResponse
-	aResponse 
-		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.
-	aResponse end.
+	aResponse
+		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
 ! !
 
 !FileServer methodsFor: 'starting'!
