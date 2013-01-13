@@ -25,6 +25,19 @@ return self}, self, "addTemp:", [aString], smalltalk.LexicalScope)}
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
+"_alias",
+smalltalk.method({
+selector: "alias",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st("$ctx").__comma(_st(_st(self)._scopeLevel())._asString());
+return $1;
+}, self, "alias", [], smalltalk.LexicalScope)}
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
 "_allVariableNames",
 smalltalk.method({
 selector: "allVariableNames",
@@ -806,6 +819,19 @@ smalltalk.PseudoVar);
 
 
 smalltalk.addClass('TempVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
+smalltalk.addMethod(
+"_alias",
+smalltalk.method({
+selector: "alias",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(_st(_st(self)._scope())._alias()).__comma(".")).__comma(smalltalk.ScopeVar.fn.prototype._alias.apply(_st(self), []));
+return $1;
+}, self, "alias", [], smalltalk.TempVar)}
+}),
+smalltalk.TempVar);
+
 smalltalk.addMethod(
 "_isTempVar",
 smalltalk.method({

@@ -96,6 +96,7 @@ visitBlockNode: aNode
 	aNode scope temps do: [ :each |
 		closure add: (IRTempDeclaration new 
 			name: each name;
+            scope: aNode scope;
 			yourself) ].
 	aNode nodes do: [ :each | closure add: (self visit: each) ].
 	^ closure
@@ -163,6 +164,7 @@ visitMethodNode: aNode
 	aNode scope temps do: [ :each |
 		self method add: (IRTempDeclaration new
 			name: each name;
+            scope: aNode scope;
 			yourself) ].
 
 	aNode nodes do: [ :each | self method add: (self visit: each) ].
@@ -561,6 +563,26 @@ accept: aVisitor
 	^ aVisitor visitIRNonLocalReturn: self
 ! !
 
+IRScopedInstruction subclass: #IRTempDeclaration
+	instanceVariableNames: 'name'
+	package: 'Compiler-IR'!
+
+!IRTempDeclaration methodsFor: 'accessing'!
+
+name
+	^ name
+!
+
+name: aString
+	name := aString
+! !
+
+!IRTempDeclaration methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRTempDeclaration: self
+! !
+
 IRInstruction subclass: #IRSend
 	instanceVariableNames: 'selector classSend index'
 	package: 'Compiler-IR'!
@@ -635,32 +657,6 @@ IRSequence subclass: #IRBlockSequence
 
 accept: aVisitor
 	^ aVisitor visitIRBlockSequence: self
-! !
-
-IRInstruction subclass: #IRTempDeclaration
-	instanceVariableNames: 'name'
-	package: 'Compiler-IR'!
-!IRTempDeclaration commentStamp!
-I am a temporary variable declaration instruction!
-
-!IRTempDeclaration methodsFor: 'accessing'!
-
-name
-	^ name
-!
-
-name: aString
-	name := aString
-! !
-
-!IRTempDeclaration methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRTempDeclaration: self
-!
-
-isTempDeclaration
-	^ true
 ! !
 
 IRInstruction subclass: #IRValue
@@ -855,7 +851,10 @@ visitIRAssignment: anIRAssignment
 
 visitIRClosure: anIRClosure
 	self stream 
-		nextPutClosureWith: [ super visitIRClosure: anIRClosure ] 
+		nextPutClosureWith: [ 
+        	self stream 
+            	nextPutBlockContextFor: anIRClosure
+                during: [ super visitIRClosure: anIRClosure ] ]
 		arguments: anIRClosure arguments
 !
 
@@ -952,7 +951,9 @@ visitIRSequence: anIRSequence
 !
 
 visitIRTempDeclaration: anIRTempDeclaration
-	self stream nextPutVar: anIRTempDeclaration name asVariableName
+	self stream 
+    	nextPutAll: anIRTempDeclaration scope alias, '.', anIRTempDeclaration name, '=nil;'; 
+        lf
 !
 
 visitIRValue: anIRValue
@@ -1005,6 +1006,14 @@ nextPutAssignment
 	stream nextPutAll: '='
 !
 
+nextPutBlockContextFor: anIRClosure during: aBlock
+	self 
+    	nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') { '; 
+        nextPutAll: String cr.
+    aBlock value.
+    self nextPutAll: '})'
+!
+
 nextPutClosureWith: aBlock arguments: anArray
 	stream nextPutAll: '(function('.
 	anArray 
@@ -1016,7 +1025,9 @@ nextPutClosureWith: aBlock arguments: anArray
 !
 
 nextPutContextFor: aMethod during: aBlock
-	self nextPutAll: 'return smalltalk.withContext(function($ctx) { '.
+	self 
+    	nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; 
+        nextPutAll: String cr.
     aBlock value.
     self 
     	nextPutAll: '}, self, ';

@@ -221,26 +221,26 @@ selector: "visitBlockNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4;
-var closure;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 $1=_st((smalltalk.IRClosure || IRClosure))._new();
 _st($1)._arguments_(_st(aNode)._parameters());
 _st($1)._scope_(_st(aNode)._scope());
 $2=_st($1)._yourself();
-closure=$2;
+$ctx1.closure=$2;
 _st(_st(_st(aNode)._scope())._temps())._do_((function(each){
 $3=_st((smalltalk.IRTempDeclaration || IRTempDeclaration))._new();
 _st($3)._name_(_st(each)._name());
+_st($3)._scope_(_st(aNode)._scope());
 $4=_st($3)._yourself();
-return _st(closure)._add_($4);
+return _st($ctx1.closure)._add_($4);
 }));
 _st(_st(aNode)._nodes())._do_((function(each){
-return _st(closure)._add_(_st(self)._visit_(each));
+return _st($ctx1.closure)._add_(_st(self)._visit_(each));
 }));
-return closure;
+return $ctx1.closure;
 }, self, "visitBlockNode:", [aNode], smalltalk.IRASTTranslator)},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09| closure |\x0a\x09closure := IRClosure new\x0a\x09\x09arguments: aNode parameters;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself.\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09closure add: (IRTempDeclaration new \x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09yourself) ].\x0a\x09aNode nodes do: [ :each | closure add: (self visit: each) ].\x0a\x09^ closure",
+source: "visitBlockNode: aNode\x0a\x09| closure |\x0a\x09closure := IRClosure new\x0a\x09\x09arguments: aNode parameters;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself.\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09closure add: (IRTempDeclaration new \x0a\x09\x09\x09name: each name;\x0a            scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x09aNode nodes do: [ :each | closure add: (self visit: each) ].\x0a\x09^ closure",
 messageSends: ["arguments:", "parameters", "new", "scope:", "scope", "yourself", "do:", "add:", "name:", "name", "temps", "visit:", "nodes"],
 referencedClasses: ["IRClosure", "IRTempDeclaration"]
 }),
@@ -379,7 +379,7 @@ selector: "visitMethodNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4,$5,$6,$7,$8;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=_st((smalltalk.IRMethod || IRMethod))._new();
 _st($1)._source_(_st(self)._source());
 _st($1)._theClass_(_st(self)._theClass());
@@ -394,6 +394,7 @@ _st(self)._method_($2);
 _st(_st(_st(aNode)._scope())._temps())._do_((function(each){
 $3=_st((smalltalk.IRTempDeclaration || IRTempDeclaration))._new();
 _st($3)._name_(_st(each)._name());
+_st($3)._scope_(_st(aNode)._scope());
 $4=_st($3)._yourself();
 return _st(_st(self)._method())._add_($4);
 }));
@@ -411,7 +412,7 @@ $8=_st(self)._method();
 return $8;
 }, self, "visitMethodNode:", [aNode], smalltalk.IRASTTranslator)},
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source;\x0a        theClass: self theClass;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09messageSends: aNode messageSends;\x0a        superSends: aNode superSends;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
+source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source;\x0a        theClass: self theClass;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09messageSends: aNode messageSends;\x0a        superSends: aNode superSends;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a            scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [\x0a\x09\x09(self method add: IRReturn new) add: (IRVariable new\x0a\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ self method",
 messageSends: ["method:", "source:", "source", "new", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "messageSends:", "messageSends", "superSends:", "superSends", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "add:", "name:", "name", "method", "temps", "visit:", "nodes", "ifFalse:", "variable:", "at:", "pseudoVars", "hasLocalReturn"],
 referencedClasses: ["IRMethod", "IRTempDeclaration", "IRVariable", "IRReturn"]
 }),
@@ -1585,6 +1586,59 @@ smalltalk.IRNonLocalReturn);
 
 
 
+smalltalk.addClass('IRTempDeclaration', smalltalk.IRScopedInstruction, ['name'], 'Compiler-IR');
+smalltalk.addMethod(
+"_accept_",
+smalltalk.method({
+selector: "accept:",
+category: 'visiting',
+fn: function (aVisitor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aVisitor)._visitIRTempDeclaration_(self);
+return $1;
+}, self, "accept:", [aVisitor], smalltalk.IRTempDeclaration)},
+args: ["aVisitor"],
+source: "accept: aVisitor\x0a\x09^ aVisitor visitIRTempDeclaration: self",
+messageSends: ["visitIRTempDeclaration:"],
+referencedClasses: []
+}),
+smalltalk.IRTempDeclaration);
+
+smalltalk.addMethod(
+"_name",
+smalltalk.method({
+selector: "name",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self["@name"];
+}, self, "name", [], smalltalk.IRTempDeclaration)},
+args: [],
+source: "name\x0a\x09^ name",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRTempDeclaration);
+
+smalltalk.addMethod(
+"_name_",
+smalltalk.method({
+selector: "name:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@name"]=aString;
+return self}, self, "name:", [aString], smalltalk.IRTempDeclaration)},
+args: ["aString"],
+source: "name: aString\x0a\x09name := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.IRTempDeclaration);
+
+
+
 smalltalk.addClass('IRSend', smalltalk.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
 smalltalk.IRSend.comment="I am a message send instruction. "
 smalltalk.addMethod(
@@ -1797,76 +1851,6 @@ messageSends: ["visitIRBlockSequence:"],
 referencedClasses: []
 }),
 smalltalk.IRBlockSequence);
-
-
-
-smalltalk.addClass('IRTempDeclaration', smalltalk.IRInstruction, ['name'], 'Compiler-IR');
-smalltalk.IRTempDeclaration.comment="I am a temporary variable declaration instruction"
-smalltalk.addMethod(
-"_accept_",
-smalltalk.method({
-selector: "accept:",
-category: 'visiting',
-fn: function (aVisitor){
-var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
-$1=_st(aVisitor)._visitIRTempDeclaration_(self);
-return $1;
-}, self, "accept:", [aVisitor], smalltalk.IRTempDeclaration)},
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitIRTempDeclaration: self",
-messageSends: ["visitIRTempDeclaration:"],
-referencedClasses: []
-}),
-smalltalk.IRTempDeclaration);
-
-smalltalk.addMethod(
-"_isTempDeclaration",
-smalltalk.method({
-selector: "isTempDeclaration",
-category: 'visiting',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx) { return true;
-}, self, "isTempDeclaration", [], smalltalk.IRTempDeclaration)},
-args: [],
-source: "isTempDeclaration\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.IRTempDeclaration);
-
-smalltalk.addMethod(
-"_name",
-smalltalk.method({
-selector: "name",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx) { return self["@name"];
-}, self, "name", [], smalltalk.IRTempDeclaration)},
-args: [],
-source: "name\x0a\x09^ name",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.IRTempDeclaration);
-
-smalltalk.addMethod(
-"_name_",
-smalltalk.method({
-selector: "name:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx) { self["@name"]=aString;
-return self}, self, "name:", [aString], smalltalk.IRTempDeclaration)},
-args: ["aString"],
-source: "name: aString\x0a\x09name := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.IRTempDeclaration);
 
 
 
@@ -2504,13 +2488,15 @@ selector: "visitIRClosure:",
 category: 'visiting',
 fn: function (anIRClosure){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutClosureWith_arguments_((function(){
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutClosureWith_arguments_((function(){
+return _st(_st(self)._stream())._nextPutBlockContextFor_during_(anIRClosure,(function(){
 return smalltalk.IRVisitor.fn.prototype._visitIRClosure_.apply(_st(self), [anIRClosure]);
+}));
 }),_st(anIRClosure)._arguments());
 return self}, self, "visitIRClosure:", [anIRClosure], smalltalk.IRJSTranslator)},
 args: ["anIRClosure"],
-source: "visitIRClosure: anIRClosure\x0a\x09self stream \x0a\x09\x09nextPutClosureWith: [ super visitIRClosure: anIRClosure ] \x0a\x09\x09arguments: anIRClosure arguments",
-messageSends: ["nextPutClosureWith:arguments:", "visitIRClosure:", "arguments", "stream"],
+source: "visitIRClosure: anIRClosure\x0a\x09self stream \x0a\x09\x09nextPutClosureWith: [ \x0a        \x09self stream \x0a            \x09nextPutBlockContextFor: anIRClosure\x0a                during: [ super visitIRClosure: anIRClosure ] ]\x0a\x09\x09arguments: anIRClosure arguments",
+messageSends: ["nextPutClosureWith:arguments:", "nextPutBlockContextFor:during:", "visitIRClosure:", "stream", "arguments"],
 referencedClasses: []
 }),
 smalltalk.IRJSTranslator);
@@ -2732,11 +2718,14 @@ selector: "visitIRTempDeclaration:",
 category: 'visiting',
 fn: function (anIRTempDeclaration){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutVar_(_st(_st(anIRTempDeclaration)._name())._asVariableName());
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(self)._stream();
+_st($1)._nextPutAll_(_st(_st(_st(_st(_st(anIRTempDeclaration)._scope())._alias()).__comma(".")).__comma(_st(anIRTempDeclaration)._name())).__comma("=nil;"));
+$2=_st($1)._lf();
 return self}, self, "visitIRTempDeclaration:", [anIRTempDeclaration], smalltalk.IRJSTranslator)},
 args: ["anIRTempDeclaration"],
-source: "visitIRTempDeclaration: anIRTempDeclaration\x0a\x09self stream nextPutVar: anIRTempDeclaration name asVariableName",
-messageSends: ["nextPutVar:", "asVariableName", "name", "stream"],
+source: "visitIRTempDeclaration: anIRTempDeclaration\x0a\x09self stream \x0a    \x09nextPutAll: anIRTempDeclaration scope alias, '.', anIRTempDeclaration name, '=nil;'; \x0a        lf",
+messageSends: ["nextPutAll:", ",", "name", "alias", "scope", "stream", "lf"],
 referencedClasses: []
 }),
 smalltalk.IRJSTranslator);
@@ -2900,6 +2889,26 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
+"_nextPutBlockContextFor_during_",
+smalltalk.method({
+selector: "nextPutBlockContextFor:during:",
+category: 'streaming',
+fn: function (anIRClosure,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._nextPutAll_(_st(_st("return smalltalk.withContext(function(").__comma(_st(_st(anIRClosure)._scope())._alias())).__comma(") { "));
+$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._cr());
+_st(aBlock)._value();
+_st(self)._nextPutAll_("})");
+return self}, self, "nextPutBlockContextFor:during:", [anIRClosure,aBlock], smalltalk.JSStream)},
+args: ["anIRClosure", "aBlock"],
+source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09self \x0a    \x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') { '; \x0a        nextPutAll: String cr.\x0a    aBlock value.\x0a    self nextPutAll: '})'",
+messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value"],
+referencedClasses: ["String"]
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
 "_nextPutClosureWith_arguments_",
 smalltalk.method({
 selector: "nextPutClosureWith:arguments:",
@@ -2932,11 +2941,12 @@ selector: "nextPutContextFor:during:",
 category: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2;
-_st(self)._nextPutAll_("return smalltalk.withContext(function($ctx) { ");
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+_st(self)._nextPutAll_(_st(_st("return smalltalk.withContext(function(").__comma(_st(_st(aMethod)._scope())._alias())).__comma(") { "));
+$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._cr());
 _st(aBlock)._value();
 _st(self)._nextPutAll_("}, self, ");
-$1=_st(self)._nextPutAll_(_st(_st(_st(aMethod)._selector())._asJavascript()).__comma(", ["));
+$2=_st(self)._nextPutAll_(_st(_st(_st(aMethod)._selector())._asJavascript()).__comma(", ["));
 _st(_st(aMethod)._arguments())._do_separatedBy_((function(each){
 return _st(self)._nextPutAll_(each);
 }),(function(){
@@ -2944,12 +2954,12 @@ return _st(self)._nextPutAll_(",");
 }));
 _st(self)._nextPutAll_("], ");
 _st(self)._nextPutAll_(_st(_st(aMethod)._theClass())._asJavascript());
-$2=_st(self)._nextPutAll_(")");
+$3=_st(self)._nextPutAll_(")");
 return self}, self, "nextPutContextFor:during:", [aMethod,aBlock], smalltalk.JSStream)},
 args: ["aMethod", "aBlock"],
-source: "nextPutContextFor: aMethod during: aBlock\x0a\x09self nextPutAll: 'return smalltalk.withContext(function($ctx) { '.\x0a    aBlock value.\x0a    self \x0a    \x09nextPutAll: '}, self, ';\x0a        nextPutAll: aMethod selector asJavascript, ', ['.\x0a    aMethod arguments \x0a    \x09do: [ :each | self nextPutAll: each ]\x0a      \x09separatedBy: [ self nextPutAll: ','  ].\x0a    self nextPutAll: '], ';\x0a        nextPutAll: aMethod theClass asJavascript;\x0a        nextPutAll: ')'",
-messageSends: ["nextPutAll:", "value", ",", "asJavascript", "selector", "do:separatedBy:", "arguments", "theClass"],
-referencedClasses: []
+source: "nextPutContextFor: aMethod during: aBlock\x0a\x09self \x0a    \x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; \x0a        nextPutAll: String cr.\x0a    aBlock value.\x0a    self \x0a    \x09nextPutAll: '}, self, ';\x0a        nextPutAll: aMethod selector asJavascript, ', ['.\x0a    aMethod arguments \x0a    \x09do: [ :each | self nextPutAll: each ]\x0a      \x09separatedBy: [ self nextPutAll: ','  ].\x0a    self nextPutAll: '], ';\x0a        nextPutAll: aMethod theClass asJavascript;\x0a        nextPutAll: ')'",
+messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value", "asJavascript", "selector", "do:separatedBy:", "arguments", "theClass"],
+referencedClasses: ["String"]
 }),
 smalltalk.JSStream);
 

@@ -36,6 +36,24 @@ referencedClasses: ["TempVar"]
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
+"_alias",
+smalltalk.method({
+selector: "alias",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st("$ctx").__comma(_st(_st(self)._scopeLevel())._asString());
+return $1;
+}, self, "alias", [], smalltalk.LexicalScope)},
+args: [],
+source: "alias\x0a\x09^ '$ctx', self scopeLevel asString",
+messageSends: [",", "asString", "scopeLevel"],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
 "_allVariableNames",
 smalltalk.method({
 selector: "allVariableNames",
@@ -1105,6 +1123,24 @@ smalltalk.PseudoVar);
 
 smalltalk.addClass('TempVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.TempVar.comment="I am an temporary variable of a method or block."
+smalltalk.addMethod(
+"_alias",
+smalltalk.method({
+selector: "alias",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx) { var $1;
+$1=_st(_st(_st(_st(self)._scope())._alias()).__comma(".")).__comma(smalltalk.ScopeVar.fn.prototype._alias.apply(_st(self), []));
+return $1;
+}, self, "alias", [], smalltalk.TempVar)},
+args: [],
+source: "alias\x0a\x09^ self scope alias, '.', super alias",
+messageSends: [",", "alias", "scope"],
+referencedClasses: []
+}),
+smalltalk.TempVar);
+
 smalltalk.addMethod(
 "_isTempVar",
 smalltalk.method({
