@@ -97,11 +97,19 @@ function Smalltalk(){
 	/* List of all reserved words in JavaScript. They may not be used as variables
 	   in Smalltalk. */
 
-	st.reservedWords = ['break', 'case', 'catch', 'char', 'class', 'continue', 'debugger', 
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function', 
-		'if', 'in', 'instanceof', 'new', 'private', 'protected', 
-		'public', 'return', 'static', 'switch', 'this', 'throw',
-		'try', 'typeof', 'var', 'void', 'while', 'with', 'yield'];
+	// list of reserved JavaScript keywords as of
+	//   http://es5.github.com/#x7.6.1.1
+	// and
+	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
+	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
+		'try', 'typeof', 'var', 'void', 'while', 'with',
+		// ES5: future use: http://es5.github.com/#x7.6.1.2
+		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
+		// ES5: future use in strict mode
+		'implements', 'interface', 'let', 'package', 'private', 'protected',
+		'public', 'static', 'yield'];
 
 	/* The symbol table ensures symbol unicity */
 
@@ -568,11 +576,11 @@ function Smalltalk(){
 	};
 
     /* Boolean assertion */
-    st.assert = function(boolean) {
-        if ((undefined !== boolean) && (boolean.klass === smalltalk.Boolean)) {
-            return boolean;
+    st.assert = function(shouldBeBoolean) {
+        if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
+            return shouldBeBoolean;
         } else {
-            smalltalk.NonBooleanReceiver._new()._object_(boolean)._signal();
+            smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
         }
     }
 };
@@ -6840,18 +6848,31 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ensure:",
 category: 'evaluating',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    var success;
-    success = false;
-    $1 = smalltalk.send(function () {smalltalk.send(self, "_value", []);success = true;success;return smalltalk.send(aBlock, "_value", []);}, "_on_do_", [smalltalk.Error || Error, function (ex) {if (!smalltalk.assert(success)) {smalltalk.send(aBlock, "_value", []);}return smalltalk.send(ex, "_signal", []);}]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+try{return self()}finally{aBlock._value()};
+;
+return self},
 args: ["aBlock"],
-source: "ensure: aBlock\x0a\x09| success |\x0a\x09success := false.\x0a\x09^[self value. success := true. aBlock value]\x0a\x09\x09on: Error\x0a\x09\x09do: [:ex |\x0a\x09\x09\x09success ifFalse: [aBlock value].\x0a\x09\x09\x09ex signal]",
-messageSends: ["on:do:", "ifFalse:", "value", "signal"],
-referencedClasses: ["Error"]
+source: "ensure: aBlock\x0a\x09<try{return self()}finally{aBlock._value()}>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+"_fork",
+smalltalk.method({
+selector: "fork",
+category: 'timeout/interval',
+fn: function (){
+var self=this;
+smalltalk.send(smalltalk.send((smalltalk.ForkPool || ForkPool),"_default",[]),"_fork_",[self]);
+return self},
+args: [],
+source: "fork\x0a\x09ForkPool default fork: self",
+messageSends: ["fork:", "default"],
+referencedClasses: ["ForkPool"]
 }),
 smalltalk.BlockClosure);
 
@@ -7423,6 +7444,141 @@ referencedClasses: []
 }),
 smalltalk.CompiledMethod);
 
+
+
+smalltalk.addClass('ForkPool', smalltalk.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
+smalltalk.addMethod(
+"_addWorker",
+smalltalk.method({
+selector: "addWorker",
+category: 'action',
+fn: function (){
+var self=this;
+smalltalk.send(self["@worker"],"_valueWithTimeout_",[(0)]);
+self["@poolSize"]=smalltalk.send(self["@poolSize"],"__plus",[(1)]);
+return self},
+args: [],
+source: "addWorker\x0a\x09worker valueWithTimeout: 0.\x0a    poolSize := poolSize + 1",
+messageSends: ["valueWithTimeout:", "+"],
+referencedClasses: []
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_fork_",
+smalltalk.method({
+selector: "fork:",
+category: 'action',
+fn: function (aBlock){
+var self=this;
+var $1;
+$1=smalltalk.send(self["@poolSize"],"__lt",[self["@maxPoolSize"]]);
+if(smalltalk.assert($1)){
+smalltalk.send(self,"_addWorker",[]);
+};
+smalltalk.send(self["@queue"],"_back_",[aBlock]);
+return self},
+args: ["aBlock"],
+source: "fork: aBlock\x0a\x09poolSize < maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue back: aBlock",
+messageSends: ["ifTrue:", "addWorker", "<", "back:"],
+referencedClasses: []
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+var $1;
+var sentinel;
+self["@poolSize"]=(0);
+self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
+self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
+sentinel=smalltalk.send((smalltalk.Object || Object),"_new",[]);
+self["@worker"]=(function(){
+var block;
+self["@poolSize"]=smalltalk.send(self["@poolSize"],"__minus",[(1)]);
+self["@poolSize"];
+block=smalltalk.send(self["@queue"],"_frontIfAbsent_",[(function(){
+return sentinel;
+})]);
+block;
+$1=smalltalk.send(block,"__eq_eq",[sentinel]);
+if(! smalltalk.assert($1)){
+return smalltalk.send((function(){
+return smalltalk.send(block,"_value",[]);
+}),"_ensure_",[(function(){
+return smalltalk.send(self,"_addWorker",[]);
+})]);
+};
+});
+return self},
+args: [],
+source: "initialize\x0a\x09| sentinel |\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    sentinel := Object new.\x0a    worker := [\x0a\x09\x09| block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]].",
+messageSends: ["defaultMaxPoolSize", "class", "new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
+referencedClasses: ["Queue", "Object"]
+}),
+smalltalk.ForkPool);
+
+
+smalltalk.ForkPool.klass.iVarNames = ['default'];
+smalltalk.addMethod(
+"_default",
+smalltalk.method({
+selector: "default",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+if(($receiver = self["@default"]) == nil || $receiver == undefined){
+self["@default"]=smalltalk.send(self,"_new",[]);
+$1=self["@default"];
+} else {
+$1=self["@default"];
+};
+return $1;
+},
+args: [],
+source: "default\x0a\x09^default ifNil: [ default := self new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+smalltalk.ForkPool.klass);
+
+smalltalk.addMethod(
+"_defaultMaxPoolSize",
+smalltalk.method({
+selector: "defaultMaxPoolSize",
+category: 'accessing',
+fn: function (){
+var self=this;
+return (100);
+},
+args: [],
+source: "defaultMaxPoolSize\x0a\x09^100",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ForkPool.klass);
+
+smalltalk.addMethod(
+"_resetDefault",
+smalltalk.method({
+selector: "resetDefault",
+category: 'accessing',
+fn: function (){
+var self=this;
+self["@default"]=nil;
+return self},
+args: [],
+source: "resetDefault\x0a\x09default := nil",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ForkPool.klass);
 
 
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
@@ -12302,6 +12458,108 @@ smalltalk.Set);
 
 
 
+smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
+smalltalk.addMethod(
+"_back_",
+smalltalk.method({
+selector: "back:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+smalltalk.send(self["@write"],"_add_",[anObject]);
+return self},
+args: ["anObject"],
+source: "back: anObject\x0a\x09write add: anObject\x0a",
+messageSends: ["add:"],
+referencedClasses: []
+}),
+smalltalk.Queue);
+
+smalltalk.addMethod(
+"_front",
+smalltalk.method({
+selector: "front",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_frontIfAbsent_",[(function(){
+return smalltalk.send(self,"_error_",["Cannot read from empty Queue."]);
+})]);
+return $1;
+},
+args: [],
+source: "front\x0a    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']\x0a",
+messageSends: ["frontIfAbsent:", "error:"],
+referencedClasses: []
+}),
+smalltalk.Queue);
+
+smalltalk.addMethod(
+"_frontIfAbsent_",
+smalltalk.method({
+selector: "frontIfAbsent:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+var $1,$2,$3;
+var $early={};
+try {
+var result;
+result=smalltalk.send(self["@read"],"_at_ifAbsent_",[self["@readIndex"],(function(){
+$1=smalltalk.send(self["@write"],"_isEmpty",[]);
+if(smalltalk.assert($1)){
+$2=smalltalk.send(self["@readIndex"],"__gt",[(1)]);
+if(smalltalk.assert($2)){
+self["@read"]=[];
+self["@read"];
+self["@readIndex"]=(1);
+self["@readIndex"];
+};
+$3=smalltalk.send(aBlock,"_value",[]);
+throw $early=[$3];
+};
+self["@read"]=self["@write"];
+self["@read"];
+self["@readIndex"]=(1);
+self["@readIndex"];
+self["@write"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+self["@write"];
+return smalltalk.send(self["@read"],"_first",[]);
+})]);
+smalltalk.send(self["@read"],"_at_put_",[self["@readIndex"],nil]);
+self["@readIndex"]=smalltalk.send(self["@readIndex"],"__plus",[(1)]);
+return result;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+},
+args: ["aBlock"],
+source: "frontIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a    \x09read := write.\x0a    \x09readIndex := 1.\x0a    \x09write := OrderedCollection new.\x0a    \x09read first ].\x0a    read at: readIndex put: nil.\x0a    readIndex := readIndex + 1.\x0a    ^result\x0a",
+messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first", "at:put:", "+"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.Queue);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+self["@read"]=[];
+self["@readIndex"]=(1);
+self["@write"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+return self},
+args: [],
+source: "initialize\x0a\x09read := #().\x0a    readIndex := 1.\x0a    write := OrderedCollection new",
+messageSends: ["new"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.Queue);
+
+
+
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.addMethod(
 "_compile_",
@@ -13926,7 +14184,7 @@ smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-An
 
 
 smalltalk.addPackage('FileServer', {});
-smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'util'], 'FileServer');
+smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'util', 'username', 'password'], 'FileServer');
 smalltalk.addMethod(
 "_basePath",
 smalltalk.method({
@@ -13968,10 +14226,10 @@ fn: function (){
 var self=this;
 ((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["index.html"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory does not contain index.html"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory does not contain index.html"]);})]));
 ((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["st"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing an \x22st\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing an \x22st\x22 directory"]);})]));
-((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["js"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: roject directory is missing a \x22js\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: roject directory is missing a \x22js\x22 directory"]);})]));
+((($receiver = smalltalk.send(self['@path'], "_existsSync_", [smalltalk.send(smalltalk.send(self, "_basePath", []), "__comma", ["js"])])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing a \x22js\x22 directory"]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["Warning: project directory is missing a \x22js\x22 directory"]);})]));
 return self;},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(path existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html'].\x0a\x09(path existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(path existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: roject directory is missing a \x22js\x22 directory'].",
+source: "checkDirectoryLayout\x0a\x09(path existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html'].\x0a\x09(path existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(path existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
 messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
 referencedClasses: []
 }),
@@ -14021,21 +14279,20 @@ selector: "handlePUTRequest:respondTo:",
 category: 'request handling',
 fn: function (aRequest, aResponse){
 var self=this;
-var $early={};
-try{var file=nil;
+var file=nil;
 var stream=nil;
+((($receiver = smalltalk.send(self, "_isAuthenticated_response_", [aRequest, aResponse])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){return smalltalk.send(self, "_respondAuthenticationRequiredTo_", [aResponse]);})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){return smalltalk.send(self, "_respondAuthenticationRequiredTo_", [aResponse]);})]));
 (file=smalltalk.send(".", "__comma", [smalltalk.send(aRequest, "_url", [])]));
 (stream=smalltalk.send(self['@fs'], "_createWriteStream_", [file]));
-smalltalk.send(stream, "_on_do_", ["error", (function(error){smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("Error creating WriteStream for file ", "__comma", [file])]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["    Did you forget to create the necessary js/ or st/ directory in your project?"]);return smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("    The exact error is: ", "__comma", [error])]);})]);
-((($receiver = smalltalk.send(stream, "_writable", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Could not write to ", "__comma", [file])]);return (function(){throw $early=[nil]})();})]));
+smalltalk.send(stream, "_on_do_", ["error", (function(error){smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("Error creating WriteStream for file ", "__comma", [file])]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", ["    Did you forget to create the necessary js/ or st/ directory in your project?"]);smalltalk.send((typeof console == 'undefined' ? nil : console), "_warn_", [smalltalk.send("    The exact error is: ", "__comma", [error])]);return smalltalk.send(self, "_respondNotCreatedTo_", [aResponse]);})]);
+smalltalk.send(stream, "_on_do_", ["close", (function(){return smalltalk.send(self, "_respondCreatedTo_", [aResponse]);})]);
 smalltalk.send(aRequest, "_setEncoding_", ["utf8"]);
 smalltalk.send(aRequest, "_on_do_", ["data", (function(data){return smalltalk.send(stream, "_write_", [data]);})]);
-smalltalk.send(aRequest, "_on_do_", ["end", (function(){smalltalk.send(stream, "_end", []);return smalltalk.send(self, "_respondOKTo_", [aResponse]);})]);
-return self;
-} catch(e) {if(e===$early)return e[0]; throw e}},
+smalltalk.send(aRequest, "_on_do_", ["end", (function(){return ((($receiver = smalltalk.send(stream, "_writable", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(stream, "_end", []);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(stream, "_end", []);})]));})]);
+return self;},
 args: ["aRequest", "aResponse"],
-source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09\x22TODO: notify Amber about the error, otherwise the user might not notice and lose his work.\x22\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error].\x0a\x09stream writable ifFalse: [\x0a\x09\x09console log: 'Could not write to ', file.\x0a\x09\x09^nil].\x0a        aRequest setEncoding: 'utf8'.\x0a        aRequest on: 'data' do: [:data | stream write: data].\x0a\x0a        aRequest on: 'end' do: [\x0a                stream end.\x0a                self respondOKTo: aResponse]",
-messageSends: [",", "url", "createWriteStream:", "on:do:", "warn:", "ifFalse:", "writable", "log:", "setEncoding:", "write:", "end", "respondOKTo:"],
+source: "handlePUTRequest: aRequest respondTo: aResponse\x0a\x09| file stream |\x0a\x09(self isAuthenticated: aRequest response: aResponse)\x0a\x09\x09ifFalse: [self respondAuthenticationRequiredTo: aResponse].\x0a\x0a\x09file := '.', aRequest url.\x0a\x09stream := fs createWriteStream: file.\x0a\x0a\x09stream on: 'error' do: [:error |\x0a\x09\x09console warn: 'Error creating WriteStream for file ', file.\x0a\x09\x09console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.\x0a\x09\x09console warn: '    The exact error is: ', error.\x0a\x09\x09self respondNotCreatedTo: aResponse].\x0a\x0a\x09stream on: 'close' do: [\x0a\x09\x09self respondCreatedTo: aResponse].\x0a\x0a\x09aRequest setEncoding: 'utf8'.\x0a\x09aRequest on: 'data' do: [:data |\x0a\x09\x09stream write: data].\x0a\x0a\x09aRequest on: 'end' do: [\x0a\x09\x09stream writable ifTrue: [stream end]]",
+messageSends: ["ifFalse:", "isAuthenticated:response:", "respondAuthenticationRequiredTo:", ",", "url", "createWriteStream:", "on:do:", "warn:", "respondNotCreatedTo:", "respondCreatedTo:", "setEncoding:", "write:", "ifTrue:", "writable", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14052,7 +14309,7 @@ var self=this;
 ((($receiver = smalltalk.send(smalltalk.send(aRequest, "_method", []), "__eq", ["OPTIONS"])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(self, "_handleOPTIONSRequest_respondTo_", [aRequest, aResponse]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(self, "_handleOPTIONSRequest_respondTo_", [aRequest, aResponse]);})]));
 return self;},
 args: ["aRequest", "aResponse"],
-source: "handleRequest: aRequest respondTo: aResponse\x0a\x0a\x09aRequest method = 'PUT'\x0a\x09\x09ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'GET'\x0a\x09\x09ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'OPTIONS'\x0a\x09\x09ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]",
+source: "handleRequest: aRequest respondTo: aResponse\x0a\x09aRequest method = 'PUT'\x0a\x09\x09ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'GET'\x0a\x09\x09ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].\x0a\x09aRequest method = 'OPTIONS'\x0a\x09\x09ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]",
 messageSends: ["ifTrue:", "=", "method", "handlePUTRequest:respondTo:", "handleGETRequest:respondTo:", "handleOPTIONSRequest:respondTo:"],
 referencedClasses: []
 }),
@@ -14065,16 +14322,59 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-smalltalk.send(self, "_initialize", [], smalltalk.FileServer.superclass || nil);
+smalltalk.send((typeof super_ == 'undefined' ? nil : super_), "_initialize", []);
 (self['@path']=smalltalk.send(self, "_require_", ["path"]));
 (self['@http']=smalltalk.send(self, "_require_", ["http"]));
 (self['@fs']=smalltalk.send(self, "_require_", ["fs"]));
 (self['@util']=smalltalk.send(self, "_require_", ["util"]));
 (self['@url']=smalltalk.send(self, "_require_", ["url"]));
+(self['@port']=smalltalk.send(smalltalk.send(self, "_class", []), "_defaultPort", []));
+(self['@username']=nil);
+(self['@password']=nil);
 return self;},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'",
-messageSends: ["initialize", "require:"],
+source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.",
+messageSends: ["initialize", "require:", "defaultPort", "class"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_isAuthenticated_response_",
+smalltalk.method({
+selector: "isAuthenticated:response:",
+category: 'private',
+fn: function (aRequest, aResponse){
+var self=this;
+var $early={};
+try{var header=nil;
+var token=nil;
+var auth=nil;
+var parts=nil;
+((($receiver = smalltalk.send(smalltalk.send(self['@username'], "_isNil", []), "_and_", [(function(){return smalltalk.send(self['@password'], "_isNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw $early=[true]})();})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return (function(){throw $early=[true]})();})]));
+(header=(($receiver = smalltalk.send(smalltalk.send(aRequest, "_headers", []), "_at_", ["authorization"])) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver);
+((($receiver = smalltalk.send(header, "_isEmpty", [])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw $early=[false]})();})() : (function(){(token=(($receiver = smalltalk.send(header, "_tokenize_", [" "])) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver);auth = new Buffer(token[1], 'base64').toString();(parts=smalltalk.send(auth, "_tokenize_", [":"]));return ((($receiver = smalltalk.send(smalltalk.send(self['@username'], "__eq", [smalltalk.send(parts, "_at_", [(1)])]), "_and_", [(function(){return smalltalk.send(self['@password'], "__eq", [smalltalk.send(parts, "_at_", [(2)])]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw $early=[true]})();})() : (function(){return (function(){throw $early=[false]})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function(){throw $early=[true]})();}), (function(){return (function(){throw $early=[false]})();})]));})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function(){throw $early=[false]})();}), (function(){(token=(($receiver = smalltalk.send(header, "_tokenize_", [" "])) == nil || $receiver == undefined) ? (function(){return "";})() : $receiver);auth = new Buffer(token[1], 'base64').toString();(parts=smalltalk.send(auth, "_tokenize_", [":"]));return ((($receiver = smalltalk.send(smalltalk.send(self['@username'], "__eq", [smalltalk.send(parts, "_at_", [(1)])]), "_and_", [(function(){return smalltalk.send(self['@password'], "__eq", [smalltalk.send(parts, "_at_", [(2)])]);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return (function(){throw $early=[true]})();})() : (function(){return (function(){throw $early=[false]})();})()) : smalltalk.send($receiver, "_ifTrue_ifFalse_", [(function(){return (function(){throw $early=[true]})();}), (function(){return (function(){throw $early=[false]})();})]));})]));
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
+args: ["aRequest", "aResponse"],
+source: "isAuthenticated: aRequest response: aResponse\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x0a\x09 and https://gist.github.com/1686663\x22\x0a\x09| header token auth parts|\x0a\x0a\x09(username isNil and: [password isNil]) ifTrue: [^true].\x0a\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09<auth = new Buffer(token[1], 'base64').toString()>.\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^true]\x0a\x09\x09\x09ifFalse: [^false]\x0a\x09].",
+messageSends: ["ifTrue:", "and:", "isNil", "ifNil:", "at:", "headers", "ifTrue:ifFalse:", "isEmpty", "tokenize:", "="],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_password_",
+smalltalk.method({
+selector: "password:",
+category: 'accessing',
+fn: function (aPassword){
+var self=this;
+(self['@password']=aPassword);
+return self;},
+args: ["aPassword"],
+source: "password: aPassword\x0a\x09password := aPassword.",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14086,11 +14386,27 @@ selector: "port",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.send(smalltalk.send(self, "_class", []), "_port", []);
+return self['@port'];
 return self;},
 args: [],
-source: "port\x0a\x09^self class port",
-messageSends: ["port", "class"],
+source: "port\x0a\x09^port",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_port_",
+smalltalk.method({
+selector: "port:",
+category: 'accessing',
+fn: function (aNumber){
+var self=this;
+(self['@port']=aNumber);
+return self;},
+args: ["aNumber"],
+source: "port: aNumber\x0a\x09port := aNumber",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14107,6 +14423,38 @@ return self;},
 args: ["aModuleString"],
 source: "require: aModuleString\x0a\x09\x22call to the require function\x22\x0a\x09^require value: aModuleString",
 messageSends: ["value:"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_respondAuthenticationRequiredTo_",
+smalltalk.method({
+selector: "respondAuthenticationRequiredTo:",
+category: 'request handling',
+fn: function (aResponse){
+var self=this;
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(401), smalltalk.HashedCollection._fromPairs_([smalltalk.send("WWW-Authenticate", "__minus_gt", ["Basic realm=\x22Secured Developer Area\x22"])])]);smalltalk.send($rec, "_write_", ["<html><body>Authentication needed</body></html>"]);return smalltalk.send($rec, "_end", []);})(aResponse);
+return self;},
+args: ["aResponse"],
+source: "respondAuthenticationRequiredTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm=\x22Secured Developer Area\x22'};\x0a\x09\x09write: '<html><body>Authentication needed</body></html>';\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "write:", "end"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_respondCreatedTo_",
+smalltalk.method({
+selector: "respondCreatedTo:",
+category: 'request handling',
+fn: function (aResponse){
+var self=this;
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(201), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);return smalltalk.send($rec, "_end", []);})(aResponse);
+return self;},
+args: ["aResponse"],
+source: "respondCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14148,6 +14496,22 @@ referencedClasses: []
 smalltalk.FileServer);
 
 smalltalk.addMethod(
+"_respondNotCreatedTo_",
+smalltalk.method({
+selector: "respondNotCreatedTo:",
+category: 'request handling',
+fn: function (aResponse){
+var self=this;
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(400), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"])])]);smalltalk.send($rec, "_write_", ["File could not be created. Did you forget to create the st/js directories on the server?"]);return smalltalk.send($rec, "_end", []);})(aResponse);
+return self;},
+args: ["aResponse"],
+source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the st/js directories on the server?';\x0a\x09\x09end.",
+messageSends: ["writeHead:options:", "->", "write:", "end"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
 "_respondNotFoundTo_",
 smalltalk.method({
 selector: "respondNotFoundTo:",
@@ -14170,11 +14534,10 @@ selector: "respondOKTo:",
 category: 'request handling',
 fn: function (aResponse){
 var self=this;
-smalltalk.send(aResponse, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);
-smalltalk.send(aResponse, "_end", []);
+(function($rec){smalltalk.send($rec, "_writeHead_options_", [(200), smalltalk.HashedCollection._fromPairs_([smalltalk.send("Content-Type", "__minus_gt", ["text/plain"]),smalltalk.send("Access-Control-Allow-Origin", "__minus_gt", ["*"])])]);return smalltalk.send($rec, "_end", []);})(aResponse);
 return self;},
 args: ["aResponse"],
-source: "respondOKTo: aResponse\x0a\x09aResponse \x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.\x0a\x09aResponse end.",
+source: "respondOKTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
 messageSends: ["writeHead:options:", "->", "end"],
 referencedClasses: []
 }),
@@ -14203,12 +14566,45 @@ selector: "startOn:",
 category: 'starting',
 fn: function (aPort){
 var self=this;
-(self['@port']=aPort);
+smalltalk.send(self, "_port_", [aPort]);
 smalltalk.send(self, "_start", []);
 return self;},
 args: ["aPort"],
-source: "startOn: aPort\x0a\x09port := aPort.\x0a\x09self start",
-messageSends: ["start"],
+source: "startOn: aPort\x0a\x09self port: aPort.\x0a\x09self start",
+messageSends: ["port:", "start"],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_username_",
+smalltalk.method({
+selector: "username:",
+category: 'accessing',
+fn: function (aUsername){
+var self=this;
+(self['@username']=aUsername);
+return self;},
+args: ["aUsername"],
+source: "username: aUsername\x0a\x09username := aUsername.",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+"_username_password_",
+smalltalk.method({
+selector: "username:password:",
+category: 'accessing',
+fn: function (aUsername, aPassword){
+var self=this;
+(self['@username']=aUsername);
+(self['@password']=aPassword);
+return self;},
+args: ["aUsername", "aPassword"],
+source: "username: aUsername password: aPassword\x0a\x09username := aUsername.\x0a\x09password := aPassword.",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -14230,7 +14626,53 @@ referencedClasses: []
 smalltalk.FileServer);
 
 
-smalltalk.FileServer.klass.iVarNames = ['port','mimeTypes'];
+smalltalk.FileServer.klass.iVarNames = ['mimeTypes'];
+smalltalk.addMethod(
+"_commandLineActions",
+smalltalk.method({
+selector: "commandLineActions",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.HashedCollection._fromPairs_([smalltalk.send("-p", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_port_", [value]);})]),smalltalk.send("--username", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_username_", [value]);})]),smalltalk.send("--password", "__minus_gt", [(function(fileServer, value){return smalltalk.send(fileServer, "_password_", [value]);})])]);
+return self;},
+args: [],
+source: "commandLineActions\x0a\x09^#{\x0a\x09\x09'-p' -> [:fileServer :value | fileServer port: value].\x0a\x09\x09'--username' -> [:fileServer :value | fileServer username: value].\x0a\x09\x09'--password' -> [:fileServer :value | fileServer password: value]\x0a\x09}",
+messageSends: ["->", "port:", "username:", "password:"],
+referencedClasses: []
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
+"_createServerWithArguments_",
+smalltalk.method({
+selector: "createServerWithArguments:",
+category: 'initialization',
+fn: function (options){
+var self=this;
+var $early={};
+try{var server=nil;
+var actions=nil;
+var popFront=nil;
+var front=nil;
+var optionName=nil;
+var optionValue=nil;
+(actions=smalltalk.send((smalltalk.FileServer || FileServer), "_commandLineActions", []));
+(popFront=(function(args){(front=smalltalk.send(args, "_first", []));smalltalk.send(args, "_remove_", [front]);return front;}));
+(server=smalltalk.send(self, "_new", []));
+smalltalk.send(options, "_ifEmpty_", [(function(){return (function(){throw $early=[server]})();})]);
+((($receiver = smalltalk.send(smalltalk.send(options, "_size", []), "_even", [])).klass === smalltalk.Boolean) ? (! $receiver ? (function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Using default parameters. Not enough arguments: ", "__comma", [options])]);return (function(){throw $early=[server]})();})() : nil) : smalltalk.send($receiver, "_ifFalse_", [(function(){smalltalk.send((typeof console == 'undefined' ? nil : console), "_log_", [smalltalk.send("Using default parameters. Not enough arguments: ", "__comma", [options])]);return (function(){throw $early=[server]})();})]));
+(function(){while((function(){return smalltalk.send(options, "_notEmpty", []);})()) {(function(){(optionName=smalltalk.send(popFront, "_value_", [options]));(optionValue=smalltalk.send(popFront, "_value_", [options]));return smalltalk.send(smalltalk.send(actions, "_at_ifAbsent_", [optionName, (function(){return nil;})]), "_value_value_", [server, optionValue]);})()}})();
+return server;
+return self;
+} catch(e) {if(e===$early)return e[0]; throw e}},
+args: ["options"],
+source: "createServerWithArguments: options\x0a\x09| server actions popFront front optionName optionValue |\x0a\x09actions := FileServer commandLineActions.\x0a\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x09(options size even) ifFalse: [console log: 'Using default parameters. Not enough arguments: ' , options. ^server].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x09\x09(actions at: optionName ifAbsent: []) value: server value: optionValue.\x0a\x09].\x0a\x0a\x09^server.",
+messageSends: ["commandLineActions", "first", "remove:", "new", "ifEmpty:", "ifFalse:", "even", "size", "log:", ",", "whileTrue:", "notEmpty", "value:", "value:value:", "at:ifAbsent:"],
+referencedClasses: ["FileServer"]
+}),
+smalltalk.FileServer.klass);
+
 smalltalk.addMethod(
 "_defaultMimeTypes",
 smalltalk.method({
@@ -14248,6 +14690,22 @@ referencedClasses: []
 smalltalk.FileServer.klass);
 
 smalltalk.addMethod(
+"_defaultPort",
+smalltalk.method({
+selector: "defaultPort",
+category: 'accessing',
+fn: function (){
+var self=this;
+return (4000);
+return self;},
+args: [],
+source: "defaultPort\x0a\x09^4000",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
 "_main",
 smalltalk.method({
 selector: "main",
@@ -14255,21 +14713,17 @@ category: 'initialization',
 fn: function (){
 var self=this;
 var fileServer=nil;
-var arguments=nil;
-var portOption=nil;
-var portNumber=nil;
-(fileServer=smalltalk.send(self, "_new", []));
+var args=nil;
+(args=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
+smalltalk.send(args, "_removeFrom_to_", [(1), (3)]);
+(fileServer=smalltalk.send((smalltalk.FileServer || FileServer), "_createServerWithArguments_", [args]));
 smalltalk.send(fileServer, "_checkDirectoryLayout", []);
-(arguments=smalltalk.send((typeof process == 'undefined' ? nil : process), "_argv", []));
-(portOption=smalltalk.send(arguments, "_at_ifAbsent_", [(3), (function(){return nil;})]));
-(portNumber=smalltalk.send(arguments, "_at_ifAbsent_", [(4), (function(){return nil;})]));
-((($receiver = smalltalk.send(smalltalk.send("-p", "__eq", [portOption]), "_and_", [(function(){return smalltalk.send(portNumber, "_notNil", []);})])).klass === smalltalk.Boolean) ? ($receiver ? (function(){return smalltalk.send(fileServer, "_port_", [portNumber]);})() : nil) : smalltalk.send($receiver, "_ifTrue_", [(function(){return smalltalk.send(fileServer, "_port_", [portNumber]);})]));
 return smalltalk.send(fileServer, "_start", []);
 return self;},
 args: [],
-source: "main\x0a\x09| fileServer arguments portOption portNumber|\x0a\x09fileServer := self new.\x0a\x09fileServer checkDirectoryLayout.\x0a\x0a\x09arguments := process argv.\x0a\x09portOption := arguments at: 3 ifAbsent: [nil].\x0a\x09portNumber := arguments at: 4 ifAbsent: [nil].\x0a\x09('-p' = portOption and: [portNumber notNil]) ifTrue: [\x0a\x09\x09fileServer port: portNumber.\x0a\x09].\x0a\x09^fileServer start",
-messageSends: ["new", "checkDirectoryLayout", "argv", "at:ifAbsent:", "ifTrue:", "and:", "=", "notNil", "port:", "start"],
-referencedClasses: []
+source: "main\x0a\x09| fileServer args |\x0a\x09args := process argv.\x0a\x09args removeFrom: 1 to: 3.\x0a\x0a\x09fileServer := FileServer createServerWithArguments: args.\x0a\x0a\x09fileServer checkDirectoryLayout.\x0a\x09^fileServer start",
+messageSends: ["argv", "removeFrom:to:", "createServerWithArguments:", "checkDirectoryLayout", "start"],
+referencedClasses: ["FileServer"]
 }),
 smalltalk.FileServer.klass);
 
@@ -14301,38 +14755,6 @@ return self;},
 args: [],
 source: "mimeTypes\x0a\x09^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]",
 messageSends: ["ifNil:", "defaultMimeTypes"],
-referencedClasses: []
-}),
-smalltalk.FileServer.klass);
-
-smalltalk.addMethod(
-"_port",
-smalltalk.method({
-selector: "port",
-category: 'accessing',
-fn: function (){
-var self=this;
-return (($receiver = self['@port']) == nil || $receiver == undefined) ? (function(){return (4000);})() : $receiver;
-return self;},
-args: [],
-source: "port\x0a\x09^port ifNil: [4000]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.FileServer.klass);
-
-smalltalk.addMethod(
-"_port_",
-smalltalk.method({
-selector: "port:",
-category: 'accessing',
-fn: function (aNumber){
-var self=this;
-(self['@port']=aNumber);
-return self;},
-args: ["aNumber"],
-source: "port: aNumber\x0a\x09port := aNumber",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);

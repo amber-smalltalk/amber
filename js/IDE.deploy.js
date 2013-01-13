@@ -536,21 +536,26 @@ smalltalk.addMethod(
 "_print_",
 smalltalk.method({
 selector: "print:",
-fn: function (aString) {
-    var self = this;
-    var start;
-    var stop;
-    start = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    stop = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
-    smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
-    smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
-    smalltalk.send(stop, "_at_put_", ["ch", smalltalk.send(smalltalk.send(smalltalk.send(start, "_at_", ["ch"]), "__plus", [smalltalk.send(aString, "_size", [])]), "__plus", [2])]);
-    smalltalk.send(self['@editor'], "_replaceSelection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@editor'], "_getSelection", []), "__comma", [" "]), "__comma", [aString]), "__comma", [" "])]);
-    smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], "_getCursor_", [true])]);
-    smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
-    return self;
-}
+fn: function (aString){
+var self=this;
+var start;
+var stop;
+var currentLine;
+currentLine=smalltalk.send(smalltalk.send(self["@editor"],"_getCursor_",[false]),"_line",[]);
+start=smalltalk.send((smalltalk.HashedCollection || HashedCollection),"_new",[]);
+smalltalk.send(start,"_at_put_",["line",currentLine]);
+smalltalk.send(start,"_at_put_",["ch",smalltalk.send(smalltalk.send(self["@editor"],"_getCursor_",[false]),"_ch",[])]);
+smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"_ifEmpty_",[(function(){
+smalltalk.send(start,"_at_put_",["ch",smalltalk.send(smalltalk.send(self["@editor"],"_getLine_",[currentLine]),"_size",[])]);
+return smalltalk.send(self["@editor"],"_setSelection_end_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("line","__minus_gt",[currentLine]),smalltalk.send("ch","__minus_gt",[(0)])]),start]);
+})]);
+stop=smalltalk.send((smalltalk.HashedCollection || HashedCollection),"_new",[]);
+smalltalk.send(stop,"_at_put_",["line",currentLine]);
+smalltalk.send(stop,"_at_put_",["ch",smalltalk.send(smalltalk.send(smalltalk.send(start,"_at_",["ch"]),"__plus",[smalltalk.send(aString,"_size",[])]),"__plus",[(2)])]);
+smalltalk.send(self["@editor"],"_replaceSelection_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"__comma",[" "]),"__comma",[aString]),"__comma",[" "])]);
+smalltalk.send(self["@editor"],"_setCursor_",[smalltalk.send(self["@editor"],"_getCursor_",[true])]);
+smalltalk.send(self["@editor"],"_setSelection_end_",[stop,start]);
+return self}
 }),
 smalltalk.SourceArea);
 
@@ -1314,11 +1319,12 @@ smalltalk.addMethod(
 "_ajaxPutAt_data_",
 smalltalk.method({
 selector: "ajaxPutAt:data:",
-fn: function (anURL, aString) {
-    var self = this;
-    smalltalk.send(jQuery, "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]), smalltalk.send("data", "__minus_gt", [aString]), smalltalk.send("contentType", "__minus_gt", ["text/plain;charset=UTF-8"]), smalltalk.send("error", "__minus_gt", [function () {return smalltalk.send(window, "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);}])])]);
-    return self;
-}
+fn: function (aURL,aString){
+var self=this;
+smalltalk.send(jQuery,"_ajax_options_",[aURL,smalltalk.HashedCollection._fromPairs_([smalltalk.send("type","__minus_gt",["PUT"]),smalltalk.send("data","__minus_gt",[aString]),smalltalk.send("contentType","__minus_gt",["text/plain;charset=UTF-8"]),smalltalk.send("error","__minus_gt",[(function(xhr){
+return smalltalk.send(window,"_alert_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Commiting ","__comma",[aURL]),"__comma",[" failed with reason: \x22"]),"__comma",[smalltalk.send(xhr,"_responseText",[])]),"__comma",["\x22"])]);
+})])])]);
+return self}
 }),
 smalltalk.Browser);
 
@@ -1425,18 +1431,22 @@ smalltalk.addMethod(
 "_commitPackage",
 smalltalk.method({
 selector: "commitPackage",
-fn: function () {
-    var self = this;
-    if (($receiver = self['@selectedPackage']) == nil ||
-        $receiver == undefined) {
-        self['@selectedPackage'];
-    } else {
-        var package;
-        package = smalltalk.send(smalltalk.Package || Package, "_named_", [self['@selectedPackage']]);
-        smalltalk.send([smalltalk.send(smalltalk.Exporter || Exporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]), smalltalk.send(smalltalk.StrippedExporter || StrippedExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]), smalltalk.send(smalltalk.ChunkExporter || ChunkExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathSt", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])])], "_do_", [function (commitStrategy) {var fileContents;fileContents = smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy, "_key", []), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_ajaxPutAt_data_", [smalltalk.send(commitStrategy, "_value", []), fileContents]);}]);
-    }
-    return self;
-}
+fn: function (){
+var self=this;
+if(($receiver = self["@selectedPackage"]) == nil || $receiver == undefined){
+self["@selectedPackage"];
+} else {
+var package;
+package=smalltalk.send((smalltalk.Package || Package),"_named_",[self["@selectedPackage"]]);
+package;
+smalltalk.send([smalltalk.send((smalltalk.Exporter || Exporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".js"])]),smalltalk.send((smalltalk.StrippedExporter || StrippedExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".deploy.js"])]),smalltalk.send((smalltalk.ChunkExporter || ChunkExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathSt",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".st"])])],"_do_",[(function(commitStrategy){
+var fileContents;
+fileContents=smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy,"_key",[]),"_new",[]),"_exportPackage_",[self["@selectedPackage"]]);
+fileContents;
+return smalltalk.send(self,"_ajaxPutAt_data_",[smalltalk.send(commitStrategy,"_value",[]),fileContents]);
+})]);
+};
+return self}
 }),
 smalltalk.Browser);
 

@@ -296,13 +296,20 @@ inspectIt
 !
 
 print: aString
-	| start stop |
+	| start stop currentLine |
+    currentLine := (editor getCursor: false) line.
 	start := HashedCollection new.
-	stop := HashedCollection new.
-	start at: 'line' put: (editor getCursor: false) line.
+	start at: 'line' put: currentLine.
 	start at: 'ch' put: (editor getCursor: false) ch.
-	stop at: 'line' put: (start at: 'line').
+    (editor getSelection) ifEmpty: [
+    	"select current line if selection is empty"
+    	start at: 'ch' put: (editor getLine: currentLine) size.
+        editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.
+    ].
+	stop := HashedCollection new.
+	stop at: 'line' put: currentLine.
 	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
+
 	editor replaceSelection: (editor getSelection, ' ', aString, ' ').
 	editor setCursor: (editor getCursor: true).
 	editor setSelection: stop end: start
@@ -790,15 +797,15 @@ cancelChanges
 
 commitPackage
 	selectedPackage ifNotNil: [ |package|
-               						 package := Package named: selectedPackage.
-               						 {	Exporter 			-> (package commitPathJs, '/', selectedPackage, '.js').
-                        					StrippedExporter 	-> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-                       						 ChunkExporter 		-> (package commitPathSt, '/', selectedPackage, '.st') 			} 
-                 
-                						do: [:commitStrategy| |fileContents|
-                                                                     	fileContents := (commitStrategy key new exportPackage: selectedPackage).
-                                                                     	self ajaxPutAt: commitStrategy value data:  fileContents]
-         						]
+		package := Package named: selectedPackage.
+		{  	Exporter              -> (package commitPathJs, '/', selectedPackage, '.js').
+			StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').
+			ChunkExporter    -> (package commitPathSt, '/', selectedPackage, '.st')
+		} do: [:commitStrategy| |fileContents|
+			fileContents := (commitStrategy key new exportPackage: selectedPackage).
+			self ajaxPutAt: commitStrategy value data:  fileContents
+  		]
+	]
 !
 
 compile
@@ -1041,12 +1048,12 @@ initialize
 
 !Browser methodsFor: 'network'!
 
-ajaxPutAt: anURL data: aString
-	jQuery 
-		ajax: anURL	options: #{	'type' -> 'PUT'.
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL	options: #{	'type' -> 'PUT'.
 								'data' -> aString.
 								'contentType' -> 'text/plain;charset=UTF-8'.
-								'error' -> [window alert: 'PUT request failed at:  ', anURL] }
+								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
 !Browser methodsFor: 'rendering'!

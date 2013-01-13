@@ -717,24 +717,29 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "print:",
 category: 'actions',
-fn: function (aString) {
-    var self = this;
-    var start;
-    var stop;
-    start = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    stop = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
-    smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
-    smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
-    smalltalk.send(stop, "_at_put_", ["ch", smalltalk.send(smalltalk.send(smalltalk.send(start, "_at_", ["ch"]), "__plus", [smalltalk.send(aString, "_size", [])]), "__plus", [2])]);
-    smalltalk.send(self['@editor'], "_replaceSelection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@editor'], "_getSelection", []), "__comma", [" "]), "__comma", [aString]), "__comma", [" "])]);
-    smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], "_getCursor_", [true])]);
-    smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+var start;
+var stop;
+var currentLine;
+currentLine=smalltalk.send(smalltalk.send(self["@editor"],"_getCursor_",[false]),"_line",[]);
+start=smalltalk.send((smalltalk.HashedCollection || HashedCollection),"_new",[]);
+smalltalk.send(start,"_at_put_",["line",currentLine]);
+smalltalk.send(start,"_at_put_",["ch",smalltalk.send(smalltalk.send(self["@editor"],"_getCursor_",[false]),"_ch",[])]);
+smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"_ifEmpty_",[(function(){
+smalltalk.send(start,"_at_put_",["ch",smalltalk.send(smalltalk.send(self["@editor"],"_getLine_",[currentLine]),"_size",[])]);
+return smalltalk.send(self["@editor"],"_setSelection_end_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("line","__minus_gt",[currentLine]),smalltalk.send("ch","__minus_gt",[(0)])]),start]);
+})]);
+stop=smalltalk.send((smalltalk.HashedCollection || HashedCollection),"_new",[]);
+smalltalk.send(stop,"_at_put_",["line",currentLine]);
+smalltalk.send(stop,"_at_put_",["ch",smalltalk.send(smalltalk.send(smalltalk.send(start,"_at_",["ch"]),"__plus",[smalltalk.send(aString,"_size",[])]),"__plus",[(2)])]);
+smalltalk.send(self["@editor"],"_replaceSelection_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"__comma",[" "]),"__comma",[aString]),"__comma",[" "])]);
+smalltalk.send(self["@editor"],"_setCursor_",[smalltalk.send(self["@editor"],"_getCursor_",[true])]);
+smalltalk.send(self["@editor"],"_setSelection_end_",[stop,start]);
+return self},
 args: ["aString"],
-source: "print: aString\x0a\x09| start stop |\x0a\x09start := HashedCollection new.\x0a\x09stop := HashedCollection new.\x0a\x09start at: 'line' put: (editor getCursor: false) line.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a\x09stop at: 'line' put: (start at: 'line').\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
-messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", "+", "size", "replaceSelection:", ",", "getSelection", "setCursor:", "setSelection:end:"],
+source: "print: aString\x0a\x09| start stop currentLine |\x0a    currentLine := (editor getCursor: false) line.\x0a\x09start := HashedCollection new.\x0a\x09start at: 'line' put: currentLine.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a    (editor getSelection) ifEmpty: [\x0a    \x09\x22select current line if selection is empty\x22\x0a    \x09start at: 'ch' put: (editor getLine: currentLine) size.\x0a        editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.\x0a    ].\x0a\x09stop := HashedCollection new.\x0a\x09stop at: 'line' put: currentLine.\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
+messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "size", "getLine:", "setSelection:end:", "->", "getSelection", "+", "at:", "replaceSelection:", ",", "setCursor:"],
 referencedClasses: ["HashedCollection"]
 }),
 smalltalk.SourceArea);
@@ -1760,14 +1765,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ajaxPutAt:data:",
 category: 'network',
-fn: function (anURL, aString) {
-    var self = this;
-    smalltalk.send(jQuery, "_ajax_options_", [anURL, smalltalk.HashedCollection._fromPairs_([smalltalk.send("type", "__minus_gt", ["PUT"]), smalltalk.send("data", "__minus_gt", [aString]), smalltalk.send("contentType", "__minus_gt", ["text/plain;charset=UTF-8"]), smalltalk.send("error", "__minus_gt", [function () {return smalltalk.send(window, "_alert_", [smalltalk.send("PUT request failed at:  ", "__comma", [anURL])]);}])])]);
-    return self;
-},
-args: ["anURL", "aString"],
-source: "ajaxPutAt: anURL data: aString\x0a\x09jQuery \x0a\x09\x09ajax: anURL\x09options: #{\x09'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'error' -> [window alert: 'PUT request failed at:  ', anURL] }",
-messageSends: ["ajax:options:", "->", "alert:", ","],
+fn: function (aURL,aString){
+var self=this;
+smalltalk.send(jQuery,"_ajax_options_",[aURL,smalltalk.HashedCollection._fromPairs_([smalltalk.send("type","__minus_gt",["PUT"]),smalltalk.send("data","__minus_gt",[aString]),smalltalk.send("contentType","__minus_gt",["text/plain;charset=UTF-8"]),smalltalk.send("error","__minus_gt",[(function(xhr){
+return smalltalk.send(window,"_alert_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Commiting ","__comma",[aURL]),"__comma",[" failed with reason: \x22"]),"__comma",[smalltalk.send(xhr,"_responseText",[])]),"__comma",["\x22"])]);
+})])])]);
+return self},
+args: ["aURL", "aString"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL\x09options: #{\x09'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:options:", "->", "alert:", ",", "responseText"],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -1906,20 +1912,24 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPackage",
 category: 'actions',
-fn: function () {
-    var self = this;
-    if (($receiver = self['@selectedPackage']) == nil ||
-        $receiver == undefined) {
-        self['@selectedPackage'];
-    } else {
-        var package;
-        package = smalltalk.send(smalltalk.Package || Package, "_named_", [self['@selectedPackage']]);
-        smalltalk.send([smalltalk.send(smalltalk.Exporter || Exporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".js"])]), smalltalk.send(smalltalk.StrippedExporter || StrippedExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathJs", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".deploy.js"])]), smalltalk.send(smalltalk.ChunkExporter || ChunkExporter, "__minus_gt", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package, "_commitPathSt", []), "__comma", ["/"]), "__comma", [self['@selectedPackage']]), "__comma", [".st"])])], "_do_", [function (commitStrategy) {var fileContents;fileContents = smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy, "_key", []), "_new", []), "_exportPackage_", [self['@selectedPackage']]);return smalltalk.send(self, "_ajaxPutAt_data_", [smalltalk.send(commitStrategy, "_value", []), fileContents]);}]);
-    }
-    return self;
-},
+fn: function (){
+var self=this;
+if(($receiver = self["@selectedPackage"]) == nil || $receiver == undefined){
+self["@selectedPackage"];
+} else {
+var package;
+package=smalltalk.send((smalltalk.Package || Package),"_named_",[self["@selectedPackage"]]);
+package;
+smalltalk.send([smalltalk.send((smalltalk.Exporter || Exporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".js"])]),smalltalk.send((smalltalk.StrippedExporter || StrippedExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathJs",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".deploy.js"])]),smalltalk.send((smalltalk.ChunkExporter || ChunkExporter),"__minus_gt",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(package,"_commitPathSt",[]),"__comma",["/"]),"__comma",[self["@selectedPackage"]]),"__comma",[".st"])])],"_do_",[(function(commitStrategy){
+var fileContents;
+fileContents=smalltalk.send(smalltalk.send(smalltalk.send(commitStrategy,"_key",[]),"_new",[]),"_exportPackage_",[self["@selectedPackage"]]);
+fileContents;
+return smalltalk.send(self,"_ajaxPutAt_data_",[smalltalk.send(commitStrategy,"_value",[]),fileContents]);
+})]);
+};
+return self},
 args: [],
-source: "commitPackage\x0a\x09selectedPackage ifNotNil: [ |package|\x0a               \x09\x09\x09\x09\x09\x09 package := Package named: selectedPackage.\x0a               \x09\x09\x09\x09\x09\x09 {\x09Exporter \x09\x09\x09-> (package commitPathJs, '/', selectedPackage, '.js').\x0a                        \x09\x09\x09\x09\x09StrippedExporter \x09-> (package commitPathJs, '/', selectedPackage, '.deploy.js').\x0a                       \x09\x09\x09\x09\x09\x09 ChunkExporter \x09\x09-> (package commitPathSt, '/', selectedPackage, '.st') \x09\x09\x09} \x0a                 \x0a                \x09\x09\x09\x09\x09\x09do: [:commitStrategy| |fileContents|\x0a                                                                     \x09fileContents := (commitStrategy key new exportPackage: selectedPackage).\x0a                                                                     \x09self ajaxPutAt: commitStrategy value data:  fileContents]\x0a         \x09\x09\x09\x09\x09\x09]",
+source: "commitPackage\x0a\x09selectedPackage ifNotNil: [ |package|\x0a\x09\x09package := Package named: selectedPackage.\x0a\x09\x09{  \x09Exporter              -> (package commitPathJs, '/', selectedPackage, '.js').\x0a\x09\x09\x09StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').\x0a\x09\x09\x09ChunkExporter    -> (package commitPathSt, '/', selectedPackage, '.st')\x0a\x09\x09} do: [:commitStrategy| |fileContents|\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: selectedPackage).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data:  fileContents\x0a  \x09\x09]\x0a\x09]",
 messageSends: ["ifNotNil:", "named:", "do:", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "commitPathJs", "commitPathSt"],
 referencedClasses: ["Package", "Exporter", "StrippedExporter", "ChunkExporter"]
 }),

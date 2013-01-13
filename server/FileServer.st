@@ -1,5 +1,5 @@
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url port basePath util'
+	instanceVariableNames: 'path http fs url port basePath util username password'
 	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
@@ -13,7 +13,24 @@ basePath: aString
 !
 
 port
-	^self class port
+	^port
+!
+
+port: aNumber
+	port := aNumber
+!
+
+username: aUsername
+	username := aUsername.
+!
+
+password: aPassword
+	password := aPassword.
+!
+
+username: aUsername password: aPassword
+	username := aUsername.
+	password := aPassword.
 ! !
 
 !FileServer methodsFor: 'initialization'!
@@ -24,7 +41,10 @@ initialize
 	http := self require: 'http'.
 	fs := self require: 'fs'.
 	util := self require: 'util'.
-	url := self require: 'url'
+	url := self require: 'url'.
+	port := self class defaultPort.
+	username := nil.
+	password := nil.
 !
 
 checkDirectoryLayout
@@ -33,7 +53,7 @@ checkDirectoryLayout
 	(path existsSync: self basePath, 'st') ifFalse: [
 		console warn: 'Warning: project directory is missing an "st" directory'].
 	(path existsSync: self basePath, 'js') ifFalse: [
-		console warn: 'Warning: roject directory is missing a "js" directory'].
+		console warn: 'Warning: project directory is missing a "js" directory'].
 ! !
 
 !FileServer methodsFor: 'private'!
@@ -45,26 +65,42 @@ require: aModuleString
 
 writeData: data toFileNamed: aFilename
 	console log: aFilename
+!
+
+isAuthenticated: aRequest response: aResponse
+	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175
+	 and https://gist.github.com/1686663"
+	| header token auth parts|
+
+	(username isNil and: [password isNil]) ifTrue: [^true].
+
+	"get authentication header"
+	header := (aRequest headers at: 'authorization') ifNil:[''].
+	(header isEmpty)
+	ifTrue: [^false]
+	ifFalse: [
+		"get authentication token"
+		token := (header tokenize: ' ') ifNil:[''].
+		"convert back from base64"
+		<auth = new Buffer(token[1], 'base64').toString()>.
+		"split token at colon"
+		parts := auth tokenize: ':'.
+
+		((username = (parts at: 1)) and: [password = (parts at: 2)])
+			ifTrue: [^true]
+			ifFalse: [^false]
+	].
 ! !
 
 !FileServer methodsFor: 'request handling'!
 
-respondNotFoundTo: aResponse
-	aResponse 
-		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
-		write: '404 Not found';
-		end
-!
-
 handleRequest: aRequest respondTo: aResponse
-
 	aRequest method = 'PUT'
 		ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].
 	aRequest method = 'GET'
 		ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].
 	aRequest method = 'OPTIONS'
 		ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]
-
 !
 
 handleGETRequest: aRequest respondTo: aResponse
@@ -79,23 +115,27 @@ handleGETRequest: aRequest respondTo: aResponse
 
 handlePUTRequest: aRequest respondTo: aResponse
 	| file stream |
+	(self isAuthenticated: aRequest response: aResponse)
+		ifFalse: [self respondAuthenticationRequiredTo: aResponse].
+
 	file := '.', aRequest url.
 	stream := fs createWriteStream: file.
+
 	stream on: 'error' do: [:error |
-		"TODO: notify Amber about the error, otherwise the user might not notice and lose his work."
 		console warn: 'Error creating WriteStream for file ', file.
 		console warn: '    Did you forget to create the necessary js/ or st/ directory in your project?'.
-		console warn: '    The exact error is: ', error].
-	stream writable ifFalse: [
-		console log: 'Could not write to ', file.
-		^nil].
-        aRequest setEncoding: 'utf8'.
-        aRequest on: 'data' do: [:data | stream write: data].
+		console warn: '    The exact error is: ', error.
+		self respondNotCreatedTo: aResponse].
 
-        aRequest on: 'end' do: [
-                stream end.
-                self respondOKTo: aResponse]
+	stream on: 'close' do: [
+		self respondCreatedTo: aResponse].
 
+	aRequest setEncoding: 'utf8'.
+	aRequest on: 'data' do: [:data |
+		stream write: data].
+
+	aRequest on: 'end' do: [
+		stream writable ifTrue: [stream end]]
 !
 
 handleOPTIONSRequest: aRequest respondTo: aResponse
@@ -136,17 +176,43 @@ respondInternalErrorTo: aResponse
 		end
 !
 
-respondOKTo: aResponse
+respondAuthenticationRequiredTo: aResponse
+	aResponse
+		writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm="Secured Developer Area"'};
+		write: '<html><body>Authentication needed</body></html>';
+		end.
+!
+
+respondNotFoundTo: aResponse
 	aResponse 
-		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'}.
-	aResponse end.
-					
+		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
+		write: '404 Not found';
+		end
+!
+
+respondNotCreatedTo: aResponse
+	aResponse
+		writeHead: 400 options: #{'Content-Type' -> 'text/plain'};
+		write: 'File could not be created. Did you forget to create the st/js directories on the server?';
+		end.
+!
+
+respondCreatedTo: aResponse
+	aResponse
+		writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
+!
+
+respondOKTo: aResponse
+	aResponse
+		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
 ! !
 
 !FileServer methodsFor: 'starting'!
 
 startOn: aPort
-	port := aPort.
+	self port: aPort.
 	self start
 !
 
@@ -158,16 +224,12 @@ start
 	      listen: self port.
 ! !
 
-FileServer class instanceVariableNames: 'port mimeTypes'!
+FileServer class instanceVariableNames: 'mimeTypes'!
 
 !FileServer class methodsFor: 'accessing'!
 
-port
-	^port ifNil: [4000]
-!
-
-port: aNumber
-	port := aNumber
+defaultPort
+	^4000
 !
 
 defaultMimeTypes
@@ -590,21 +652,48 @@ mimeTypes
 
 mimeTypeFor: aString
 	^self mimeTypes at: (aString replace: '.*[\.]' with: '') ifAbsent: ['text/plain']
+!
+
+commandLineActions
+	^#{
+		'-p' -> [:fileServer :value | fileServer port: value].
+		'--username' -> [:fileServer :value | fileServer username: value].
+		'--password' -> [:fileServer :value | fileServer password: value]
+	}
 ! !
 
 !FileServer class methodsFor: 'initialization'!
 
-main
-	| fileServer arguments portOption portNumber|
-	fileServer := self new.
-	fileServer checkDirectoryLayout.
+createServerWithArguments: options
+	| server actions popFront front optionName optionValue |
+	actions := FileServer commandLineActions.
 
-	arguments := process argv.
-	portOption := arguments at: 3 ifAbsent: [nil].
-	portNumber := arguments at: 4 ifAbsent: [nil].
-	('-p' = portOption and: [portNumber notNil]) ifTrue: [
-		fileServer port: portNumber.
+	popFront := [:args |
+		front := args first.
+		args remove: front.
+		front].
+	server := self new.
+
+	options ifEmpty: [^server].
+	(options size even) ifFalse: [console log: 'Using default parameters. Not enough arguments: ' , options. ^server].
+
+	[options notEmpty] whileTrue: [
+		optionName  := popFront value: options.
+		optionValue := popFront value: options.
+		(actions at: optionName ifAbsent: []) value: server value: optionValue.
 	].
+
+	^server.
+!
+
+main
+	| fileServer args |
+	args := process argv.
+	args removeFrom: 1 to: 3.
+
+	fileServer := FileServer createServerWithArguments: args.
+
+	fileServer checkDirectoryLayout.
 	^fileServer start
 ! !
 
