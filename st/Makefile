@@ -30,7 +30,7 @@ boot.js init.js:
 # $@ is the target
 # $< is the prerequisite
 parser.js: ../js/parser.pegjs
-	pegjs -e smalltalk.parser $< $@
+	pegjs --track-line-and-column --cache -e smalltalk.parser $< $@
 
 # Then we compile Kernel-*.st files depending on having boot.js, init.js and parser.js
 # $< means the first dependency - in other words Kernel-*.st
