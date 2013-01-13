@@ -536,21 +536,26 @@ smalltalk.addMethod(
 "_print_",
 smalltalk.method({
 selector: "print:",
-fn: function (aString) {
-    var self = this;
-    var start;
-    var stop;
-    start = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    stop = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    smalltalk.send(start, "_at_put_", ["line", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_line", [])]);
-    smalltalk.send(start, "_at_put_", ["ch", smalltalk.send(smalltalk.send(self['@editor'], "_getCursor_", [false]), "_ch", [])]);
-    smalltalk.send(stop, "_at_put_", ["line", smalltalk.send(start, "_at_", ["line"])]);
-    smalltalk.send(stop, "_at_put_", ["ch", smalltalk.send(smalltalk.send(smalltalk.send(start, "_at_", ["ch"]), "__plus", [smalltalk.send(aString, "_size", [])]), "__plus", [2])]);
-    smalltalk.send(self['@editor'], "_replaceSelection_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self['@editor'], "_getSelection", []), "__comma", [" "]), "__comma", [aString]), "__comma", [" "])]);
-    smalltalk.send(self['@editor'], "_setCursor_", [smalltalk.send(self['@editor'], "_getCursor_", [true])]);
-    smalltalk.send(self['@editor'], "_setSelection_end_", [stop, start]);
-    return self;
-}
+fn: function (aString){
+var self=this;
+var start;
+var stop;
+var currentLine;
+currentLine=smalltalk.send(smalltalk.send(self["@editor"],"_getCursor_",[false]),"_line",[]);
+start=smalltalk.send((smalltalk.HashedCollection || HashedCollection),"_new",[]);
+smalltalk.send(start,"_at_put_",["line",currentLine]);
+smalltalk.send(start,"_at_put_",["ch",smalltalk.send(smalltalk.send(self["@editor"],"_getCursor_",[false]),"_ch",[])]);
+smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"_ifEmpty_",[(function(){
+smalltalk.send(start,"_at_put_",["ch",smalltalk.send(smalltalk.send(self["@editor"],"_getLine_",[currentLine]),"_size",[])]);
+return smalltalk.send(self["@editor"],"_setSelection_end_",[smalltalk.HashedCollection._fromPairs_([smalltalk.send("line","__minus_gt",[currentLine]),smalltalk.send("ch","__minus_gt",[(0)])]),start]);
+})]);
+stop=smalltalk.send((smalltalk.HashedCollection || HashedCollection),"_new",[]);
+smalltalk.send(stop,"_at_put_",["line",currentLine]);
+smalltalk.send(stop,"_at_put_",["ch",smalltalk.send(smalltalk.send(smalltalk.send(start,"_at_",["ch"]),"__plus",[smalltalk.send(aString,"_size",[])]),"__plus",[(2)])]);
+smalltalk.send(self["@editor"],"_replaceSelection_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self["@editor"],"_getSelection",[]),"__comma",[" "]),"__comma",[aString]),"__comma",[" "])]);
+smalltalk.send(self["@editor"],"_setCursor_",[smalltalk.send(self["@editor"],"_getCursor_",[true])]);
+smalltalk.send(self["@editor"],"_setSelection_end_",[stop,start]);
+return self}
 }),
 smalltalk.SourceArea);
 
