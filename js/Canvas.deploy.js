@@ -2484,3 +2484,15 @@ return self}
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+"_asJQuery",
+smalltalk.method({
+selector: "asJQuery",
+fn: function (){
+var self=this;
+return jQuery(self['@jsObject']);
+;
+return self}
+}),
+smalltalk.JSObjectProxy);
+

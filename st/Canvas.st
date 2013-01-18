@@ -882,3 +882,9 @@ asJQuery
     <return jQuery(String(self))>
 ! !
 
+!JSObjectProxy methodsFor: '*Canvas'!
+
+asJQuery
+    <return jQuery(self['@jsObject'])>
+! !
+
