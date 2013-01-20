@@ -159,3 +159,25 @@ smalltalk.UnknownVariableError);
 
 
 
+smalltalk.addClass('RethrowErrorHandler', smalltalk.ErrorHandler, [], 'Compiler-Exceptions');
+smalltalk.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted."
+smalltalk.addMethod(
+"_handleError_",
+smalltalk.method({
+selector: "handleError:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+smalltalk.send(self,"_handleError_",[anError],smalltalk.ErrorHandler);
+throw anError;
+;
+return self},
+args: ["anError"],
+source: "handleError: anError\x0a\x09super handleError: anError.\x0a    <throw anError>",
+messageSends: ["handleError:"],
+referencedClasses: []
+}),
+smalltalk.RethrowErrorHandler);
+
+
+
