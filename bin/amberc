@@ -3,6 +3,11 @@
 var path = require('path');
 var amberc = require('./amberc.js');
 
+// get parameters passed to the command line script
+// discard the first two parameters which are the node binary and the script name
+var parameters = process.argv.slice(2);
+
+
 // Get Amber root directory from the location of this script so that
 // we can find the st and js directories etc.
 var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..'));
@@ -10,4 +15,4 @@ var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..'));
 var closure_jar = path.resolve(path.join(process.env['HOME'], 'compiler.jar'));
 
 var compiler = new amberc.Compiler(amber_dir, closure_jar);
-compiler.main();
+compiler.main(parameters);

@@ -124,13 +124,12 @@ var createDefaults = function(amber_dir, finished_callback){
  */
 AmberC.prototype.main = function(parameters, finished_callback) {
 	console.time('Compile Time');
-	var options = parameters || process.argv.slice(2);
 
-	if (1 > options.length) {
+	if (1 > parameters.length) {
 		this.usage();
 	} else {
 		this.defaults = createDefaults(this.amber_dir, finished_callback);
-		this.handle_options(options);
+		this.handle_options(parameters);
 		var self = this;
 		this.check_for_closure_compiler(function(){
 			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
