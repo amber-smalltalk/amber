@@ -100,7 +100,6 @@ var createDefaults = function(amber_dir, finished_callback){
 	}
 
 	return {
-		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
 		'load': [],
 		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
@@ -128,14 +127,15 @@ var createDefaults = function(amber_dir, finished_callback){
 /**
  * Main function for executing the compiler.
  */
-AmberC.prototype.main = function(parameters, finished_callback) {
+AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
 	if (undefined !== finished_callback) {
-		parameters.finished_callback = finished_callback;
+		configuration.finished_callback = finished_callback;
 	}
 
-	if (this.check_parameters_ok(parameters)) {
-		this.defaults = parameters;
+	if (this.check_configuration_ok(configuration)) {
+		this.defaults = configuration;
+		this.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
 		var self = this;
 		this.check_for_closure_compiler(function(){
 			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
@@ -147,7 +147,7 @@ AmberC.prototype.main = function(parameters, finished_callback) {
 /**
  * Check if the passed in parameters are sufficient/nonconflicting
  */
-AmberC.prototype.check_parameters_ok = function(parameters) {
+AmberC.prototype.check_configuration_ok = function(parameters) {
 	return (undefined !== parameters);
 };
 
