@@ -954,6 +954,51 @@ testIdentity
 	self deny: 1 == 2
 !
 
+testInvalidHexNumbers
+
+	self should: [16rG] raise: MessageNotUnderstood.
+   	self should: [16rg] raise: MessageNotUnderstood.
+	self should: [16rH] raise: MessageNotUnderstood.
+   	self should: [16rh] raise: MessageNotUnderstood.
+	self should: [16rI] raise: MessageNotUnderstood.
+   	self should: [16ri] raise: MessageNotUnderstood.
+	self should: [16rJ] raise: MessageNotUnderstood.
+   	self should: [16rj] raise: MessageNotUnderstood.
+	self should: [16rK] raise: MessageNotUnderstood.
+   	self should: [16rk] raise: MessageNotUnderstood.
+	self should: [16rL] raise: MessageNotUnderstood.
+   	self should: [16rl] raise: MessageNotUnderstood.
+	self should: [16rM] raise: MessageNotUnderstood.
+   	self should: [16rm] raise: MessageNotUnderstood.
+	self should: [16rN] raise: MessageNotUnderstood.
+   	self should: [16rn] raise: MessageNotUnderstood.
+	self should: [16rO] raise: MessageNotUnderstood.
+   	self should: [16ro] raise: MessageNotUnderstood.
+	self should: [16rP] raise: MessageNotUnderstood.
+   	self should: [16rp] raise: MessageNotUnderstood.
+	self should: [16rQ] raise: MessageNotUnderstood.
+   	self should: [16rq] raise: MessageNotUnderstood.
+	self should: [16rR] raise: MessageNotUnderstood.
+   	self should: [16rr] raise: MessageNotUnderstood.
+	self should: [16rS] raise: MessageNotUnderstood.
+   	self should: [16rs] raise: MessageNotUnderstood.
+	self should: [16rT] raise: MessageNotUnderstood.
+   	self should: [16rt] raise: MessageNotUnderstood.
+	self should: [16rU] raise: MessageNotUnderstood.
+   	self should: [16ru] raise: MessageNotUnderstood.
+	self should: [16rV] raise: MessageNotUnderstood.
+   	self should: [16rv] raise: MessageNotUnderstood.
+	self should: [16rW] raise: MessageNotUnderstood.
+   	self should: [16rw] raise: MessageNotUnderstood.
+	self should: [16rX] raise: MessageNotUnderstood.
+   	self should: [16rx] raise: MessageNotUnderstood.
+	self should: [16rY] raise: MessageNotUnderstood.
+   	self should: [16ry] raise: MessageNotUnderstood.
+	self should: [16rZ] raise: MessageNotUnderstood.
+   	self should: [16rz] raise: MessageNotUnderstood.
+    self should: [16rABcdEfZ] raise: MessageNotUnderstood.
+!
+
 testMinMax
 	
 	self assert: (2 max: 5) equals: 5.
