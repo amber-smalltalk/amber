@@ -145,10 +145,20 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 
 
 /**
- * Check if the passed in parameters are sufficient/nonconflicting
+ * Check if the passed in configuration object has sufficient/nonconflicting values
  */
-AmberC.prototype.check_configuration_ok = function(parameters) {
-	return (undefined !== parameters);
+AmberC.prototype.check_configuration_ok = function(configuration) {
+	if (undefined === configuration) {
+		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
+	}
+	if (undefined === configuration.init) {
+		throw new Error('AmberC.check_configuration_ok(): init value missing in configuration object');
+	}
+
+	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.lenght) {
+		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
+	}
+	return true;
 };
 
 
