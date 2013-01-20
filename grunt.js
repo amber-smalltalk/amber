@@ -21,6 +21,8 @@ module.exports = function(grunt) {
       amber_parser: {
         src: 'js/parser.pegjs',
         dest: 'js/parser.js',
+        trackLineAndColumn: true,
+        cache: false,
         export_var: 'smalltalk.parser'
       }
     },
