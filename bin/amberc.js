@@ -131,6 +131,10 @@ AmberC.prototype.main = function(parameters, finished_callback) {
 	} else {
 		this.defaults = createDefaults(this.amber_dir, finished_callback);
 		this.handle_options(options);
+		var self = this;
+		this.check_for_closure_compiler(function(){
+			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
+		});
 	}
 };
 
@@ -140,11 +144,11 @@ AmberC.prototype.main = function(parameters, finished_callback) {
  * Followed by check_for_closure_compiler() and then collect_files().
  */
 AmberC.prototype.handle_options = function(optionsArray) {
-	var stFiles = [];
-	var jsFiles = [];
 	var programName = [];
 	var currentItem = optionsArray.shift();
 	var defaults = this.defaults;
+	defaults.stFiles = [];
+	defaults.jsFiles = [];
 
 	while(undefined !== currentItem) {
 		switch(currentItem) {
@@ -193,10 +197,10 @@ AmberC.prototype.handle_options = function(optionsArray) {
 				var fileSuffix = path.extname(currentItem);
 				switch (fileSuffix) {
 					case '.st':
-						stFiles.push(currentItem);
+						defaults.stFiles.push(currentItem);
 						break;
 					case '.js':
-						jsFiles.push(currentItem);
+						defaults.jsFiles.push(currentItem);
 						break;
 					default:
 						// Will end up being the last non js/st argument
@@ -212,11 +216,6 @@ AmberC.prototype.handle_options = function(optionsArray) {
 	} else {
 		defaults.program = programName[0];
 	}
-
-	var self = this;
-	this.check_for_closure_compiler(function(){
-		self.collect_files(stFiles, jsFiles)
-	});
 };
 
 
