@@ -95,12 +95,18 @@ function AmberC(amber_dir, closure_jar) {
  * Default values.
  */
 var createDefaults = function(amber_dir, finished_callback){
+	if (undefined === amber_dir) {
+		throw new Error('createDefaults() function needs a valid amber_dir parameter');
+	}
+
 	return {
 		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
 		'load': [],
 		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
+		'stFiles': [],
+		'jsFiles': [],
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
@@ -124,11 +130,12 @@ var createDefaults = function(amber_dir, finished_callback){
  */
 AmberC.prototype.main = function(parameters, finished_callback) {
 	console.time('Compile Time');
+	if (undefined !== finished_callback) {
+		parameters.finished_callback = finished_callback;
+	}
 
-	this.defaults = createDefaults(this.amber_dir, finished_callback);
-	this.handle_options(parameters);
-
-	if (this.check_parameters_ok(this.defaults)) {
+	if (this.check_parameters_ok(parameters)) {
+		this.defaults = parameters;
 		var self = this;
 		this.check_for_closure_compiler(function(){
 			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
@@ -142,86 +149,6 @@ AmberC.prototype.main = function(parameters, finished_callback) {
  */
 AmberC.prototype.check_parameters_ok = function(parameters) {
 	return (undefined !== parameters);
-};
-
-
-/**
- * Process given program options and update defaults values.
- * Followed by check_for_closure_compiler() and then collect_files().
- */
-AmberC.prototype.handle_options = function(optionsArray) {
-	var programName = [];
-	var currentItem = optionsArray.shift();
-	var defaults = this.defaults;
-	defaults.stFiles = [];
-	defaults.jsFiles = [];
-
-	while(undefined !== currentItem) {
-		switch(currentItem) {
-			case '-l':
-				defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
-				break;
-			case '-i':
-				defaults.init = optionsArray.shift();
-				break;
-			case '-m':
-				defaults.main = optionsArray.shift();
-				break;
-			case '-M':
-				defaults.mainfile = optionsArray.shift();
-				break;
-			case '-o':
-				defaults.closure = true;
-				defaults.closure_parts = true;
-				break;
-			case '-O':
-				defaults.closure = true;
-				defaults.closure_full = true;
-				break;
-			case '-A':
-				defaults.closure = true;
-				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
-				defaults.closure_full = true;
-				break;
-			case '-d':
-				defaults.deploy = true;
-				break;
-			case '-s':
-				defaults.suffix = optionsArray.shift();
-				defaults.suffix_used = defaults.suffix;
-				break;
-			case '-S':
-				defaults.loadsuffix = optionsArray.shift();
-				defaults.suffix_used = defaults.suffix;
-				break;
-			case '-h':
-			case '--help':
-			case '?':
-				this.usage();
-				break;
-			default:
-				var fileSuffix = path.extname(currentItem);
-				switch (fileSuffix) {
-					case '.st':
-						defaults.stFiles.push(currentItem);
-						break;
-					case '.js':
-						defaults.jsFiles.push(currentItem);
-						break;
-					default:
-						// Will end up being the last non js/st argument
-						programName.push(currentItem);
-						break;
-				};
-		};
-		currentItem = optionsArray.shift();
-	}
-
-	if(1 < programName.length) {
-		throw new Error('More than one name for ProgramName given: ' + programName);
-	} else {
-		defaults.program = programName[0];
-	}
 };
 
 
@@ -681,5 +608,6 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 };
 
 module.exports.Compiler = AmberC;
+module.exports.createDefaults = createDefaults;
 module.exports.Combo = Combo;
 module.exports.map = async_map;

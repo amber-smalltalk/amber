@@ -20,11 +20,94 @@ var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..'));
 // Get default location of compiler.jar
 var closure_jar = path.resolve(path.join(process.env['HOME'], 'compiler.jar'));
 
-var compiler = new amberc.Compiler(amber_dir, closure_jar);
-compiler.main(parameters);
+var compiler = new amberc.Compiler(amber_dir);
+
+var configuration = handle_options(parameters, amber_dir);
+
+compiler.main(configuration);
+
+
+/**
+ * Process given program options and update defaults values.
+ * Followed by check_for_closure_compiler() and then collect_files().
+ */
+function handle_options(optionsArray, amber_dir) {
+	var programName = [];
+	var currentItem = optionsArray.shift();
+	var defaults = amberc.createDefaults(amber_dir);
+
+	while(undefined !== currentItem) {
+		switch(currentItem) {
+			case '-l':
+				defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
+				break;
+			case '-i':
+				defaults.init = optionsArray.shift();
+				break;
+			case '-m':
+				defaults.main = optionsArray.shift();
+				break;
+			case '-M':
+				defaults.mainfile = optionsArray.shift();
+				break;
+			case '-o':
+				defaults.closure = true;
+				defaults.closure_parts = true;
+				break;
+			case '-O':
+				defaults.closure = true;
+				defaults.closure_full = true;
+				break;
+			case '-A':
+				defaults.closure = true;
+				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
+				defaults.closure_full = true;
+				break;
+			case '-d':
+				defaults.deploy = true;
+				break;
+			case '-s':
+				defaults.suffix = optionsArray.shift();
+				defaults.suffix_used = defaults.suffix;
+				break;
+			case '-S':
+				defaults.loadsuffix = optionsArray.shift();
+				defaults.suffix_used = defaults.suffix;
+				break;
+			case '-h':
+			case '--help':
+			case '?':
+				this.usage();
+				break;
+			default:
+				var fileSuffix = path.extname(currentItem);
+				switch (fileSuffix) {
+					case '.st':
+						defaults.stFiles.push(currentItem);
+						break;
+					case '.js':
+						defaults.jsFiles.push(currentItem);
+						break;
+					default:
+						// Will end up being the last non js/st argument
+						programName.push(currentItem);
+						break;
+				};
+		};
+		currentItem = optionsArray.shift();
+	}
+
+	if(1 < programName.length) {
+		throw new Error('More than one name for ProgramName given: ' + programName);
+	} else {
+		defaults.program = programName[0];
+	}
+	return defaults;
+};
+
 
 // print available flags
-var print_usage = function() {
+function print_usage() {
 	console.log('Usage: amberc [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
 	console.log('          [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]');
 	console.log('');
