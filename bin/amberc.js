@@ -406,6 +406,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 		content = content + 'return smalltalk;})();';
 		self.defaults.smalltalk = eval(content);
 		console.log('Compiler loaded');
+		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
 		self.compile();
 	});
