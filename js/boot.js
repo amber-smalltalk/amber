@@ -440,17 +440,18 @@ function Smalltalk(){
 		}
 	};
 
-	// store old window.onerror handler
-	var oldOnError = window.onerror;
-	window.onerror = function(errorMessage, url, lineNumber) {
-		smalltalk.Error._signal_('JavaScript error: ' + errorMessage + ' (' + url + ':' + lineNumber + ')');
-		// call the old handler if it was overwritten by Amber
-		if (oldOnError) {
-			return oldOnError(errorMessage, url, lineNumber);
-		}
-		return false;
-	};
-
+	if ('undefined' !== typeof window) {
+		// store old window.onerror handler if we are running in a browser
+		var oldOnError = window.onerror;
+		window.onerror = function(errorMessage, url, lineNumber) {
+			smalltalk.Error._signal_('JavaScript error: ' + errorMessage + ' (' + url + ':' + lineNumber + ')');
+			// call the old handler if it was overwritten by Amber
+			if (oldOnError) {
+				return oldOnError(errorMessage, url, lineNumber);
+			}
+			return false;
+		};
+	}
 	/* Handles #dnu: *and* JavaScript method calls.
 	   if the receiver has no klass, we consider it a JS object (outside of the
 	   Amber system). Else assume that the receiver understands #doesNotUnderstand: */
