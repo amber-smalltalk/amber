@@ -826,7 +826,7 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
@@ -858,6 +858,14 @@ testPropertyThatReturnsEmptyString
 
 	object d: 'hello'.
 	self assert: 'hello' equals: object d
+!
+
+testPropertyThatReturnsUndefined
+	| object |
+
+	object := self jsObject.
+	self shouldnt: [ object e ]  raise: MessageNotUnderstood.
+    self assert: object e isNil
 !
 
 testYourself

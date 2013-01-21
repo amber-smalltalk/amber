@@ -2072,11 +2072,11 @@ selector: "jsObject",
 category: 'accessing',
 fn: function (){
 var self=this;
-return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''};
+return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null};
 ;
 return self},
 args: [],
-source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''}>",
+source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2167,6 +2167,27 @@ args: [],
 source: "testPropertyThatReturnsEmptyString\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self assert: '' equals: object d.\x0a\x0a\x09object d: 'hello'.\x0a\x09self assert: 'hello' equals: object d",
 messageSends: ["jsObject", "assert:equals:", "d", "d:"],
 referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+"_testPropertyThatReturnsUndefined",
+smalltalk.method({
+selector: "testPropertyThatReturnsUndefined",
+category: 'tests',
+fn: function (){
+var self=this;
+var object;
+object=smalltalk.send(self,"_jsObject",[]);
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(object,"_e",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(object,"_e",[]),"_isNil",[])]);
+return self},
+args: [],
+source: "testPropertyThatReturnsUndefined\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self shouldnt: [ object e ]  raise: MessageNotUnderstood.\x0a    self assert: object e isNil\x0a",
+messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"],
+referencedClasses: ["MessageNotUnderstood"]
 }),
 smalltalk.JSObjectProxyTest);
 
