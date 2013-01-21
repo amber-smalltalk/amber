@@ -1,6 +1,46 @@
 smalltalk.addPackage('Kernel-Tests', {});
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
+"_testCanClearInterval",
+smalltalk.method({
+selector: "testCanClearInterval",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(smalltalk.send((function(){
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error),"_new",[]),"_signal",[]);
+}),"_valueWithInterval_",[(0)]),"_clearInterval",[]);
+}),(smalltalk.Error || Error)]);
+return self},
+args: [],
+source: "testCanClearInterval\x0a\x09self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error",
+messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"],
+referencedClasses: ["Error"]
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+"_testCanClearTimeout",
+smalltalk.method({
+selector: "testCanClearTimeout",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(smalltalk.send((function(){
+return smalltalk.send(smalltalk.send((smalltalk.Error || Error),"_new",[]),"_signal",[]);
+}),"_valueWithTimeout_",[(0)]),"_clearTimeout",[]);
+}),(smalltalk.Error || Error)]);
+return self},
+args: [],
+source: "testCanClearTimeout\x0a\x09self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error",
+messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"],
+referencedClasses: ["Error"]
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
 "_testCompiledSource",
 smalltalk.method({
 selector: "testCompiledSource",
