@@ -2045,24 +2045,22 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "doesNotUnderstand:",
 category: 'proxy',
-fn: function (aMessage) {
-    var self = this;
-    var obj;
-    var selector;
-    var jsSelector;
-    var arguments;
-    obj = smalltalk.send(self, "_jsObject", []);
-    selector = smalltalk.send(aMessage, "_selector", []);
-    jsSelector = smalltalk.send(selector, "_asJavaScriptSelector", []);
-    arguments = smalltalk.send(aMessage, "_arguments", []);
-    if (obj[jsSelector] != undefined) {
-        return smalltalk.send(obj, jsSelector, arguments);
-    }
-    smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
-    return self;
-},
+fn: function (aMessage){
+var self=this;
+var obj;
+var selector;
+var jsSelector;
+var arguments;
+obj=smalltalk.send(self,"_jsObject",[]);
+selector=smalltalk.send(aMessage,"_selector",[]);
+jsSelector=smalltalk.send(selector,"_asJavaScriptSelector",[]);
+arguments=smalltalk.send(aMessage,"_arguments",[]);
+if(jsSelector in obj) {return smalltalk.send(obj, jsSelector, arguments)};
+;
+smalltalk.send(self,"_doesNotUnderstand_",[aMessage],smalltalk.Object);
+return self},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09| obj selector jsSelector arguments |\x0a\x09obj := self jsObject.\x0a\x09selector := aMessage selector.\x0a\x09jsSelector := selector asJavaScriptSelector.\x0a\x09arguments := aMessage arguments.\x0a\x09<if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.\x0a\x09super doesNotUnderstand: aMessage",
+source: "doesNotUnderstand: aMessage\x0a\x09| obj selector jsSelector arguments |\x0a\x09obj := self jsObject.\x0a\x09selector := aMessage selector.\x0a\x09jsSelector := selector asJavaScriptSelector.\x0a\x09arguments := aMessage arguments.\x0a\x09<if(jsSelector in obj) {return smalltalk.send(obj, jsSelector, arguments)}>.\x0a\x09super doesNotUnderstand: aMessage",
 messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
 referencedClasses: []
 }),
