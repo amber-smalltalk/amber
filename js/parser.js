@@ -97,10 +97,11 @@ smalltalk.parser = (function(){
         startRule = "method";
       }
       
-      var pos = 0;
+      var pos = { offset: 0, line: 1, column: 1, seenCR: false };
       var reportFailures = 0;
-      var rightmostFailuresPos = 0;
+      var rightmostFailuresPos = { offset: 0, line: 1, column: 1, seenCR: false };
       var rightmostFailuresExpected = [];
+      var cache = {};
       
       function padLeft(input, padding, length) {
         var result = input;
@@ -129,13 +130,43 @@ smalltalk.parser = (function(){
         return '\\' + escapeChar + padLeft(charCode.toString(16).toUpperCase(), '0', length);
       }
       
+      function clone(object) {
+        var result = {};
+        for (var key in object) {
+          result[key] = object[key];
+        }
+        return result;
+      }
+      
+      function advance(pos, n) {
+        var endOffset = pos.offset + n;
+        
+        for (var offset = pos.offset; offset < endOffset; offset++) {
+          var ch = input.charAt(offset);
+          if (ch === "\n") {
+            if (!pos.seenCR) { pos.line++; }
+            pos.column = 1;
+            pos.seenCR = false;
+          } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
+            pos.line++;
+            pos.column = 1;
+            pos.seenCR = true;
+          } else {
+            pos.column++;
+            pos.seenCR = false;
+          }
+        }
+        
+        pos.offset += n;
+      }
+      
       function matchFailed(failure) {
-        if (pos < rightmostFailuresPos) {
+        if (pos.offset < rightmostFailuresPos.offset) {
           return;
         }
         
-        if (pos > rightmostFailuresPos) {
-          rightmostFailuresPos = pos;
+        if (pos.offset > rightmostFailuresPos.offset) {
+          rightmostFailuresPos = clone(pos);
           rightmostFailuresExpected = [];
         }
         
@@ -143,11 +174,18 @@ smalltalk.parser = (function(){
       }
       
       function parse_separator() {
+        var cacheKey = "separator@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         
-        if (/^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/.test(input.charAt(pos))) {
-          result1 = input.charAt(pos);
-          pos++;
+        if (/^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/.test(input.charAt(pos.offset))) {
+          result1 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result1 = null;
           if (reportFailures === 0) {
@@ -158,9 +196,9 @@ smalltalk.parser = (function(){
           result0 = [];
           while (result1 !== null) {
             result0.push(result1);
-            if (/^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/.test(input.charAt(pos))) {
-              result1 = input.charAt(pos);
-              pos++;
+            if (/^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/.test(input.charAt(pos.offset))) {
+              result1 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result1 = null;
               if (reportFailures === 0) {
@@ -171,17 +209,29 @@ smalltalk.parser = (function(){
         } else {
           result0 = null;
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_comments() {
+        var cacheKey = "comments@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0;
         
-        pos0 = pos;
-        if (/^["]/.test(input.charAt(pos))) {
-          result1 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        if (/^["]/.test(input.charAt(pos.offset))) {
+          result1 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result1 = null;
           if (reportFailures === 0) {
@@ -190,9 +240,9 @@ smalltalk.parser = (function(){
         }
         if (result1 !== null) {
           result2 = [];
-          if (/^[^"]/.test(input.charAt(pos))) {
-            result3 = input.charAt(pos);
-            pos++;
+          if (/^[^"]/.test(input.charAt(pos.offset))) {
+            result3 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result3 = null;
             if (reportFailures === 0) {
@@ -201,9 +251,9 @@ smalltalk.parser = (function(){
           }
           while (result3 !== null) {
             result2.push(result3);
-            if (/^[^"]/.test(input.charAt(pos))) {
-              result3 = input.charAt(pos);
-              pos++;
+            if (/^[^"]/.test(input.charAt(pos.offset))) {
+              result3 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result3 = null;
               if (reportFailures === 0) {
@@ -212,9 +262,9 @@ smalltalk.parser = (function(){
             }
           }
           if (result2 !== null) {
-            if (/^["]/.test(input.charAt(pos))) {
-              result3 = input.charAt(pos);
-              pos++;
+            if (/^["]/.test(input.charAt(pos.offset))) {
+              result3 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result3 = null;
               if (reportFailures === 0) {
@@ -225,24 +275,24 @@ smalltalk.parser = (function(){
               result1 = [result1, result2, result3];
             } else {
               result1 = null;
-              pos = pos0;
+              pos = clone(pos0);
             }
           } else {
             result1 = null;
-            pos = pos0;
+            pos = clone(pos0);
           }
         } else {
           result1 = null;
-          pos = pos0;
+          pos = clone(pos0);
         }
         if (result1 !== null) {
           result0 = [];
           while (result1 !== null) {
             result0.push(result1);
-            pos0 = pos;
-            if (/^["]/.test(input.charAt(pos))) {
-              result1 = input.charAt(pos);
-              pos++;
+            pos0 = clone(pos);
+            if (/^["]/.test(input.charAt(pos.offset))) {
+              result1 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result1 = null;
               if (reportFailures === 0) {
@@ -251,9 +301,9 @@ smalltalk.parser = (function(){
             }
             if (result1 !== null) {
               result2 = [];
-              if (/^[^"]/.test(input.charAt(pos))) {
-                result3 = input.charAt(pos);
-                pos++;
+              if (/^[^"]/.test(input.charAt(pos.offset))) {
+                result3 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result3 = null;
                 if (reportFailures === 0) {
@@ -262,9 +312,9 @@ smalltalk.parser = (function(){
               }
               while (result3 !== null) {
                 result2.push(result3);
-                if (/^[^"]/.test(input.charAt(pos))) {
-                  result3 = input.charAt(pos);
-                  pos++;
+                if (/^[^"]/.test(input.charAt(pos.offset))) {
+                  result3 = input.charAt(pos.offset);
+                  advance(pos, 1);
                 } else {
                   result3 = null;
                   if (reportFailures === 0) {
@@ -273,9 +323,9 @@ smalltalk.parser = (function(){
                 }
               }
               if (result2 !== null) {
-                if (/^["]/.test(input.charAt(pos))) {
-                  result3 = input.charAt(pos);
-                  pos++;
+                if (/^["]/.test(input.charAt(pos.offset))) {
+                  result3 = input.charAt(pos.offset);
+                  advance(pos, 1);
                 } else {
                   result3 = null;
                   if (reportFailures === 0) {
@@ -286,24 +336,36 @@ smalltalk.parser = (function(){
                   result1 = [result1, result2, result3];
                 } else {
                   result1 = null;
-                  pos = pos0;
+                  pos = clone(pos0);
                 }
               } else {
                 result1 = null;
-                pos = pos0;
+                pos = clone(pos0);
               }
             } else {
               result1 = null;
-              pos = pos0;
+              pos = clone(pos0);
             }
           }
         } else {
           result0 = null;
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_ws() {
+        var cacheKey = "ws@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         
         result0 = [];
@@ -318,18 +380,30 @@ smalltalk.parser = (function(){
             result1 = parse_comments();
           }
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_identifier() {
+        var cacheKey = "identifier@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[a-zA-Z]/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[a-zA-Z]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -338,9 +412,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos))) {
-            result2 = input.charAt(pos);
-            pos++;
+          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -349,9 +423,9 @@ smalltalk.parser = (function(){
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -363,30 +437,42 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, first, others) {return first + others.join("")})(pos0, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_varIdentifier() {
+        var cacheKey = "varIdentifier@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[a-z]/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[a-z]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -395,9 +481,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos))) {
-            result2 = input.charAt(pos);
-            pos++;
+          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -406,9 +492,9 @@ smalltalk.parser = (function(){
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -420,32 +506,44 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, first, others) {return first + others.join("")})(pos0, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_keyword() {
+        var cacheKey = "keyword@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_identifier();
         if (result0 !== null) {
-          if (/^[:]/.test(input.charAt(pos))) {
-            result1 = input.charAt(pos);
-            pos++;
+          if (/^[:]/.test(input.charAt(pos.offset))) {
+            result1 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result1 = null;
             if (reportFailures === 0) {
@@ -456,30 +554,42 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, first, last) {return first + last})(pos0, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, last) {return first + last})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_className() {
+        var cacheKey = "className@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[A-Z]/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[A-Z]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -488,9 +598,9 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos))) {
-            result2 = input.charAt(pos);
-            pos++;
+          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -499,9 +609,9 @@ smalltalk.parser = (function(){
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -513,30 +623,42 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, first, others) {return first + others.join("")})(pos0, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_string() {
+        var cacheKey = "string@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1, pos2;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[']/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[']/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -545,10 +667,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          pos2 = pos;
-          if (input.substr(pos, 2) === "''") {
+          pos2 = clone(pos);
+          if (input.substr(pos.offset, 2) === "''") {
             result2 = "''";
-            pos += 2;
+            advance(pos, 2);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -556,15 +678,15 @@ smalltalk.parser = (function(){
             }
           }
           if (result2 !== null) {
-            result2 = (function(offset) {return "'"})(pos2);
+            result2 = (function(offset, line, column) {return "'"})(pos2.offset, pos2.line, pos2.column);
           }
           if (result2 === null) {
-            pos = pos2;
+            pos = clone(pos2);
           }
           if (result2 === null) {
-            if (/^[^']/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[^']/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -574,10 +696,10 @@ smalltalk.parser = (function(){
           }
           while (result2 !== null) {
             result1.push(result2);
-            pos2 = pos;
-            if (input.substr(pos, 2) === "''") {
+            pos2 = clone(pos);
+            if (input.substr(pos.offset, 2) === "''") {
               result2 = "''";
-              pos += 2;
+              advance(pos, 2);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -585,15 +707,15 @@ smalltalk.parser = (function(){
               }
             }
             if (result2 !== null) {
-              result2 = (function(offset) {return "'"})(pos2);
+              result2 = (function(offset, line, column) {return "'"})(pos2.offset, pos2.line, pos2.column);
             }
             if (result2 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
             if (result2 === null) {
-              if (/^[^']/.test(input.charAt(pos))) {
-                result2 = input.charAt(pos);
-                pos++;
+              if (/^[^']/.test(input.charAt(pos.offset))) {
+                result2 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result2 = null;
                 if (reportFailures === 0) {
@@ -603,9 +725,9 @@ smalltalk.parser = (function(){
             }
           }
           if (result1 !== null) {
-            if (/^[']/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[']/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -616,37 +738,49 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, val) {
+          result0 = (function(offset, line, column, val) {
                              return smalltalk.ValueNode._new()
                                     ._value_(val.join("").replace(/\"/ig, '"'))
-                         })(pos0, result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_symbol() {
+        var cacheKey = "symbol@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1, pos2;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 35) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 35) {
           result0 = "#";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -655,10 +789,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          pos2 = pos;
-          if (/^[a-zA-Z0-9:]/.test(input.charAt(pos))) {
-            result3 = input.charAt(pos);
-            pos++;
+          pos2 = clone(pos);
+          if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+            result3 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result3 = null;
             if (reportFailures === 0) {
@@ -669,9 +803,9 @@ smalltalk.parser = (function(){
             result2 = [];
             while (result3 !== null) {
               result2.push(result3);
-              if (/^[a-zA-Z0-9:]/.test(input.charAt(pos))) {
-                result3 = input.charAt(pos);
-                pos++;
+              if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+                result3 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result3 = null;
                 if (reportFailures === 0) {
@@ -683,27 +817,27 @@ smalltalk.parser = (function(){
             result2 = null;
           }
           if (result2 !== null) {
-            result2 = (function(offset, digits) {return digits.join("")})(pos2, result2);
+            result2 = (function(offset, line, column, digits) {return digits.join("")})(pos2.offset, pos2.line, pos2.column, result2);
           }
           if (result2 === null) {
-            pos = pos2;
+            pos = clone(pos2);
           }
           if (result2 === null) {
-            pos2 = pos;
+            pos2 = clone(pos);
             result2 = parse_string();
             if (result2 !== null) {
-              result2 = (function(offset, node) {return node._value()})(pos2, result2);
+              result2 = (function(offset, line, column, node) {return node._value()})(pos2.offset, pos2.line, pos2.column, result2);
             }
             if (result2 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
           }
           while (result2 !== null) {
             result1.push(result2);
-            pos2 = pos;
-            if (/^[a-zA-Z0-9:]/.test(input.charAt(pos))) {
-              result3 = input.charAt(pos);
-              pos++;
+            pos2 = clone(pos);
+            if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+              result3 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result3 = null;
               if (reportFailures === 0) {
@@ -714,9 +848,9 @@ smalltalk.parser = (function(){
               result2 = [];
               while (result3 !== null) {
                 result2.push(result3);
-                if (/^[a-zA-Z0-9:]/.test(input.charAt(pos))) {
-                  result3 = input.charAt(pos);
-                  pos++;
+                if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+                  result3 = input.charAt(pos.offset);
+                  advance(pos, 1);
                 } else {
                   result3 = null;
                   if (reportFailures === 0) {
@@ -728,19 +862,19 @@ smalltalk.parser = (function(){
               result2 = null;
             }
             if (result2 !== null) {
-              result2 = (function(offset, digits) {return digits.join("")})(pos2, result2);
+              result2 = (function(offset, line, column, digits) {return digits.join("")})(pos2.offset, pos2.line, pos2.column, result2);
             }
             if (result2 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
             if (result2 === null) {
-              pos2 = pos;
+              pos2 = clone(pos);
               result2 = parse_string();
               if (result2 !== null) {
-                result2 = (function(offset, node) {return node._value()})(pos2, result2);
+                result2 = (function(offset, line, column, node) {return node._value()})(pos2.offset, pos2.line, pos2.column, result2);
               }
               if (result2 === null) {
-                pos = pos2;
+                pos = clone(pos2);
               }
             }
           }
@@ -748,29 +882,41 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, val) {
+          result0 = (function(offset, line, column, val) {
                               return smalltalk.ValueNode._new()
                                      ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
-                          })(pos0, result0[1]);
+                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_number() {
+        var cacheKey = "number@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         var pos0;
         
-        pos0 = pos;
+        pos0 = clone(pos);
         result0 = parse_hex();
         if (result0 === null) {
           result0 = parse_float();
@@ -779,26 +925,38 @@ smalltalk.parser = (function(){
           }
         }
         if (result0 !== null) {
-          result0 = (function(offset, n) {
+          result0 = (function(offset, line, column, n) {
                              return smalltalk.ValueNode._new()
                                     ._value_(n)
-                         })(pos0, result0);
+                         })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_hex() {
+        var cacheKey = "hex@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[\-]/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[\-]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -807,9 +965,9 @@ smalltalk.parser = (function(){
         }
         result0 = result0 !== null ? result0 : "";
         if (result0 !== null) {
-          if (input.substr(pos, 3) === "16r") {
+          if (input.substr(pos.offset, 3) === "16r") {
             result1 = "16r";
-            pos += 3;
+            advance(pos, 3);
           } else {
             result1 = null;
             if (reportFailures === 0) {
@@ -817,26 +975,26 @@ smalltalk.parser = (function(){
             }
           }
           if (result1 !== null) {
-            if (/^[0-9a-zA-Z]/.test(input.charAt(pos))) {
-              result3 = input.charAt(pos);
-              pos++;
+            if (/^[0-9a-fA-F]/.test(input.charAt(pos.offset))) {
+              result3 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result3 = null;
               if (reportFailures === 0) {
-                matchFailed("[0-9a-zA-Z]");
+                matchFailed("[0-9a-fA-F]");
               }
             }
             if (result3 !== null) {
               result2 = [];
               while (result3 !== null) {
                 result2.push(result3);
-                if (/^[0-9a-zA-Z]/.test(input.charAt(pos))) {
-                  result3 = input.charAt(pos);
-                  pos++;
+                if (/^[0-9a-fA-F]/.test(input.charAt(pos.offset))) {
+                  result3 = input.charAt(pos.offset);
+                  advance(pos, 1);
                 } else {
                   result3 = null;
                   if (reportFailures === 0) {
-                    matchFailed("[0-9a-zA-Z]");
+                    matchFailed("[0-9a-fA-F]");
                   }
                 }
               }
@@ -847,34 +1005,46 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, neg, num) {return parseInt((neg + num.join("")), 16)})(pos0, result0[0], result0[2]);
+          result0 = (function(offset, line, column, neg, num) {return parseInt((neg + num.join("")), 16)})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_float() {
+        var cacheKey = "float@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[\-]/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[\-]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -883,9 +1053,9 @@ smalltalk.parser = (function(){
         }
         result0 = result0 !== null ? result0 : "";
         if (result0 !== null) {
-          if (/^[0-9]/.test(input.charAt(pos))) {
-            result2 = input.charAt(pos);
-            pos++;
+          if (/^[0-9]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -896,9 +1066,9 @@ smalltalk.parser = (function(){
             result1 = [];
             while (result2 !== null) {
               result1.push(result2);
-              if (/^[0-9]/.test(input.charAt(pos))) {
-                result2 = input.charAt(pos);
-                pos++;
+              if (/^[0-9]/.test(input.charAt(pos.offset))) {
+                result2 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result2 = null;
                 if (reportFailures === 0) {
@@ -910,9 +1080,9 @@ smalltalk.parser = (function(){
             result1 = null;
           }
           if (result1 !== null) {
-            if (input.charCodeAt(pos) === 46) {
+            if (input.charCodeAt(pos.offset) === 46) {
               result2 = ".";
-              pos++;
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -920,9 +1090,9 @@ smalltalk.parser = (function(){
               }
             }
             if (result2 !== null) {
-              if (/^[0-9]/.test(input.charAt(pos))) {
-                result4 = input.charAt(pos);
-                pos++;
+              if (/^[0-9]/.test(input.charAt(pos.offset))) {
+                result4 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result4 = null;
                 if (reportFailures === 0) {
@@ -933,9 +1103,9 @@ smalltalk.parser = (function(){
                 result3 = [];
                 while (result4 !== null) {
                   result3.push(result4);
-                  if (/^[0-9]/.test(input.charAt(pos))) {
-                    result4 = input.charAt(pos);
-                    pos++;
+                  if (/^[0-9]/.test(input.charAt(pos.offset))) {
+                    result4 = input.charAt(pos.offset);
+                    advance(pos, 1);
                   } else {
                     result4 = null;
                     if (reportFailures === 0) {
@@ -950,38 +1120,50 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, neg, int, dec) {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)})(pos0, result0[0], result0[1], result0[3]);
+          result0 = (function(offset, line, column, neg, int, dec) {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1], result0[3]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_integer() {
+        var cacheKey = "integer@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (/^[\-]/.test(input.charAt(pos))) {
-          result0 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[\-]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -990,9 +1172,9 @@ smalltalk.parser = (function(){
         }
         result0 = result0 !== null ? result0 : "";
         if (result0 !== null) {
-          if (/^[0-9]/.test(input.charAt(pos))) {
-            result2 = input.charAt(pos);
-            pos++;
+          if (/^[0-9]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -1003,9 +1185,9 @@ smalltalk.parser = (function(){
             result1 = [];
             while (result2 !== null) {
               result1.push(result2);
-              if (/^[0-9]/.test(input.charAt(pos))) {
-                result2 = input.charAt(pos);
-                pos++;
+              if (/^[0-9]/.test(input.charAt(pos.offset))) {
+                result2 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result2 = null;
                 if (reportFailures === 0) {
@@ -1020,30 +1202,42 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, neg, digits) {return (parseInt(neg+digits.join(""), 10))})(pos0, result0[0], result0[1]);
+          result0 = (function(offset, line, column, neg, digits) {return (parseInt(neg+digits.join(""), 10))})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_literalArray() {
+        var cacheKey = "literalArray@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1, pos2, pos3;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.substr(pos, 2) === "#(") {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.substr(pos.offset, 2) === "#(") {
           result0 = "#(";
-          pos += 2;
+          advance(pos, 2);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -1054,8 +1248,8 @@ smalltalk.parser = (function(){
           result1 = parse_ws();
           if (result1 !== null) {
             result2 = [];
-            pos2 = pos;
-            pos3 = pos;
+            pos2 = clone(pos);
+            pos3 = clone(pos);
             result3 = parse_literal();
             if (result3 !== null) {
               result4 = parse_ws();
@@ -1063,22 +1257,22 @@ smalltalk.parser = (function(){
                 result3 = [result3, result4];
               } else {
                 result3 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
             } else {
               result3 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
             if (result3 !== null) {
-              result3 = (function(offset, lit) {return lit._value()})(pos2, result3[0]);
+              result3 = (function(offset, line, column, lit) {return lit._value()})(pos2.offset, pos2.line, pos2.column, result3[0]);
             }
             if (result3 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
             while (result3 !== null) {
               result2.push(result3);
-              pos2 = pos;
-              pos3 = pos;
+              pos2 = clone(pos);
+              pos3 = clone(pos);
               result3 = parse_literal();
               if (result3 !== null) {
                 result4 = parse_ws();
@@ -1086,25 +1280,25 @@ smalltalk.parser = (function(){
                   result3 = [result3, result4];
                 } else {
                   result3 = null;
-                  pos = pos3;
+                  pos = clone(pos3);
                 }
               } else {
                 result3 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
               if (result3 !== null) {
-                result3 = (function(offset, lit) {return lit._value()})(pos2, result3[0]);
+                result3 = (function(offset, line, column, lit) {return lit._value()})(pos2.offset, pos2.line, pos2.column, result3[0]);
               }
               if (result3 === null) {
-                pos = pos2;
+                pos = clone(pos2);
               }
             }
             if (result2 !== null) {
               result3 = parse_ws();
               if (result3 !== null) {
-                if (input.charCodeAt(pos) === 41) {
+                if (input.charCodeAt(pos.offset) === 41) {
                   result4 = ")";
-                  pos++;
+                  advance(pos, 1);
                 } else {
                   result4 = null;
                   if (reportFailures === 0) {
@@ -1115,45 +1309,57 @@ smalltalk.parser = (function(){
                   result0 = [result0, result1, result2, result3, result4];
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, lits) {
+          result0 = (function(offset, line, column, lits) {
                              return smalltalk.ValueNode._new()
                                     ._value_(lits)
-                         })(pos0, result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_dynamicArray() {
+        var cacheKey = "dynamicArray@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4, result5;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 123) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 123) {
           result0 = "{";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -1168,9 +1374,9 @@ smalltalk.parser = (function(){
             if (result2 !== null) {
               result3 = parse_ws();
               if (result3 !== null) {
-                if (input.charCodeAt(pos) === 46) {
+                if (input.charCodeAt(pos.offset) === 46) {
                   result4 = ".";
-                  pos++;
+                  advance(pos, 1);
                 } else {
                   result4 = null;
                   if (reportFailures === 0) {
@@ -1179,9 +1385,9 @@ smalltalk.parser = (function(){
                 }
                 result4 = result4 !== null ? result4 : "";
                 if (result4 !== null) {
-                  if (input.charCodeAt(pos) === 125) {
+                  if (input.charCodeAt(pos.offset) === 125) {
                     result5 = "}";
-                    pos++;
+                    advance(pos, 1);
                   } else {
                     result5 = null;
                     if (reportFailures === 0) {
@@ -1192,49 +1398,61 @@ smalltalk.parser = (function(){
                     result0 = [result0, result1, result2, result3, result4, result5];
                   } else {
                     result0 = null;
-                    pos = pos1;
+                    pos = clone(pos1);
                   }
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, expressions) {
+          result0 = (function(offset, line, column, expressions) {
                              return smalltalk.DynamicArrayNode._new()
                                     ._nodes_(expressions)
-                         })(pos0, result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_dynamicDictionary() {
+        var cacheKey = "dynamicDictionary@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.substr(pos, 2) === "#{") {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.substr(pos.offset, 2) === "#{") {
           result0 = "#{";
-          pos += 2;
+          advance(pos, 2);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -1249,9 +1467,9 @@ smalltalk.parser = (function(){
             if (result2 !== null) {
               result3 = parse_ws();
               if (result3 !== null) {
-                if (input.charCodeAt(pos) === 125) {
+                if (input.charCodeAt(pos.offset) === 125) {
                   result4 = "}";
-                  pos++;
+                  advance(pos, 1);
                 } else {
                   result4 = null;
                   if (reportFailures === 0) {
@@ -1262,45 +1480,57 @@ smalltalk.parser = (function(){
                   result0 = [result0, result1, result2, result3, result4];
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, expressions) {
+          result0 = (function(offset, line, column, expressions) {
                                 return smalltalk.DynamicDictionaryNode._new()
                                        ._nodes_(expressions)
-                            })(pos0, result0[2]);
+                            })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_pseudoVariable() {
+        var cacheKey = "pseudoVariable@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.substr(pos, 4) === "true") {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.substr(pos.offset, 4) === "true") {
           result0 = "true";
-          pos += 4;
+          advance(pos, 4);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -1308,16 +1538,16 @@ smalltalk.parser = (function(){
           }
         }
         if (result0 !== null) {
-          result0 = (function(offset) {return true})(pos1);
+          result0 = (function(offset, line, column) {return true})(pos1.offset, pos1.line, pos1.column);
         }
         if (result0 === null) {
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 === null) {
-          pos1 = pos;
-          if (input.substr(pos, 5) === "false") {
+          pos1 = clone(pos);
+          if (input.substr(pos.offset, 5) === "false") {
             result0 = "false";
-            pos += 5;
+            advance(pos, 5);
           } else {
             result0 = null;
             if (reportFailures === 0) {
@@ -1325,16 +1555,16 @@ smalltalk.parser = (function(){
             }
           }
           if (result0 !== null) {
-            result0 = (function(offset) {return false})(pos1);
+            result0 = (function(offset, line, column) {return false})(pos1.offset, pos1.line, pos1.column);
           }
           if (result0 === null) {
-            pos = pos1;
+            pos = clone(pos1);
           }
           if (result0 === null) {
-            pos1 = pos;
-            if (input.substr(pos, 3) === "nil") {
+            pos1 = clone(pos);
+            if (input.substr(pos.offset, 3) === "nil") {
               result0 = "nil";
-              pos += 3;
+              advance(pos, 3);
             } else {
               result0 = null;
               if (reportFailures === 0) {
@@ -1342,26 +1572,38 @@ smalltalk.parser = (function(){
               }
             }
             if (result0 !== null) {
-              result0 = (function(offset) {return nil})(pos1);
+              result0 = (function(offset, line, column) {return nil})(pos1.offset, pos1.line, pos1.column);
             }
             if (result0 === null) {
-              pos = pos1;
+              pos = clone(pos1);
             }
           }
         }
         if (result0 !== null) {
-          result0 = (function(offset, val) {
+          result0 = (function(offset, line, column, val) {
                                return smalltalk.ValueNode._new()
                                       ._value_(val)
-                           })(pos0, result0);
+                           })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_literal() {
+        var cacheKey = "literal@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         
         result0 = parse_pseudoVariable();
@@ -1386,61 +1628,109 @@ smalltalk.parser = (function(){
             }
           }
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_variable() {
+        var cacheKey = "variable@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         var pos0;
         
-        pos0 = pos;
+        pos0 = clone(pos);
         result0 = parse_varIdentifier();
         if (result0 !== null) {
-          result0 = (function(offset, identifier) {
+          result0 = (function(offset, line, column, identifier) {
                              return smalltalk.VariableNode._new()
                                     ._value_(identifier)
-                         })(pos0, result0);
+                         })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_classReference() {
+        var cacheKey = "classReference@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         var pos0;
         
-        pos0 = pos;
+        pos0 = clone(pos);
         result0 = parse_className();
         if (result0 !== null) {
-          result0 = (function(offset, className) {
+          result0 = (function(offset, line, column, className) {
                              return smalltalk.ClassReferenceNode._new()
                                     ._value_(className)
-                         })(pos0, result0);
+                         })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_reference() {
+        var cacheKey = "reference@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         
         result0 = parse_variable();
         if (result0 === null) {
           result0 = parse_classReference();
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_keywordPair() {
+        var cacheKey = "keywordPair@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_keyword();
         if (result0 !== null) {
           result1 = parse_ws();
@@ -1452,37 +1742,49 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, key, arg) {return {key:key, arg: arg}})(pos0, result0[0], result0[2]);
+          result0 = (function(offset, line, column, key, arg) {return {key:key, arg: arg}})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_binarySelector() {
+        var cacheKey = "binarySelector@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         var pos0;
         
-        pos0 = pos;
-        if (/^[\\+*\/=><,@%~|&\-]/.test(input.charAt(pos))) {
-          result1 = input.charAt(pos);
-          pos++;
+        pos0 = clone(pos);
+        if (/^[\\+*\/=><,@%~|&\-]/.test(input.charAt(pos.offset))) {
+          result1 = input.charAt(pos.offset);
+          advance(pos, 1);
         } else {
           result1 = null;
           if (reportFailures === 0) {
@@ -1493,9 +1795,9 @@ smalltalk.parser = (function(){
           result0 = [];
           while (result1 !== null) {
             result0.push(result1);
-            if (/^[\\+*\/=><,@%~|&\-]/.test(input.charAt(pos))) {
-              result1 = input.charAt(pos);
-              pos++;
+            if (/^[\\+*\/=><,@%~|&\-]/.test(input.charAt(pos.offset))) {
+              result1 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result1 = null;
               if (reportFailures === 0) {
@@ -1507,21 +1809,33 @@ smalltalk.parser = (function(){
           result0 = null;
         }
         if (result0 !== null) {
-          result0 = (function(offset, bin) {return bin.join("").replace(/\\/g, '\\\\')})(pos0, result0);
+          result0 = (function(offset, line, column, bin) {return bin.join("").replace(/\\/g, '\\\\')})(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_keywordPattern() {
+        var cacheKey = "keywordPattern@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1, pos2;
         
-        pos0 = pos;
-        pos1 = pos;
-        pos2 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        pos2 = clone(pos);
         result1 = parse_ws();
         if (result1 !== null) {
           result2 = parse_keyword();
@@ -1533,32 +1847,32 @@ smalltalk.parser = (function(){
                 result1 = [result1, result2, result3, result4];
               } else {
                 result1 = null;
-                pos = pos2;
+                pos = clone(pos2);
               }
             } else {
               result1 = null;
-              pos = pos2;
+              pos = clone(pos2);
             }
           } else {
             result1 = null;
-            pos = pos2;
+            pos = clone(pos2);
           }
         } else {
           result1 = null;
-          pos = pos2;
+          pos = clone(pos2);
         }
         if (result1 !== null) {
-          result1 = (function(offset, key, arg) {return {key:key, arg: arg}})(pos1, result1[1], result1[3]);
+          result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg}})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
         }
         if (result1 === null) {
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result1 !== null) {
           result0 = [];
           while (result1 !== null) {
             result0.push(result1);
-            pos1 = pos;
-            pos2 = pos;
+            pos1 = clone(pos);
+            pos2 = clone(pos);
             result1 = parse_ws();
             if (result1 !== null) {
               result2 = parse_keyword();
@@ -1570,32 +1884,32 @@ smalltalk.parser = (function(){
                     result1 = [result1, result2, result3, result4];
                   } else {
                     result1 = null;
-                    pos = pos2;
+                    pos = clone(pos2);
                   }
                 } else {
                   result1 = null;
-                  pos = pos2;
+                  pos = clone(pos2);
                 }
               } else {
                 result1 = null;
-                pos = pos2;
+                pos = clone(pos2);
               }
             } else {
               result1 = null;
-              pos = pos2;
+              pos = clone(pos2);
             }
             if (result1 !== null) {
-              result1 = (function(offset, key, arg) {return {key:key, arg: arg}})(pos1, result1[1], result1[3]);
+              result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg}})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
             }
             if (result1 === null) {
-              pos = pos1;
+              pos = clone(pos1);
             }
           }
         } else {
           result0 = null;
         }
         if (result0 !== null) {
-          result0 = (function(offset, pairs) {
+          result0 = (function(offset, line, column, pairs) {
                              var keywords = [];
                              var params = [];
                              for(var i=0;i<pairs.length;i++){
@@ -1605,20 +1919,32 @@ smalltalk.parser = (function(){
                                  params.push(pairs[i].arg);
                              }
                              return [keywords.join(""), params]
-                         })(pos0, result0);
+                         })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_binaryPattern() {
+        var cacheKey = "binaryPattern@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
           result1 = parse_binarySelector();
@@ -1630,35 +1956,47 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, selector, arg) {return [selector, [arg]]})(pos0, result0[1], result0[3]);
+          result0 = (function(offset, line, column, selector, arg) {return [selector, [arg]]})(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_unaryPattern() {
+        var cacheKey = "unaryPattern@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
           result1 = parse_identifier();
@@ -1666,22 +2004,34 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, selector) {return [selector, []]})(pos0, result0[1]);
+          result0 = (function(offset, line, column, selector) {return [selector, []]})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_expression() {
+        var cacheKey = "expression@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         
         result0 = parse_assignment();
@@ -1697,20 +2047,32 @@ smalltalk.parser = (function(){
             }
           }
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_expressionList() {
+        var cacheKey = "expressionList@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
-          if (input.charCodeAt(pos) === 46) {
+          if (input.charCodeAt(pos.offset) === 46) {
             result1 = ".";
-            pos++;
+            advance(pos, 1);
           } else {
             result1 = null;
             if (reportFailures === 0) {
@@ -1725,35 +2087,47 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, expression) {return expression})(pos0, result0[3]);
+          result0 = (function(offset, line, column, expression) {return expression})(pos0.offset, pos0.line, pos0.column, result0[3]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_expressions() {
+        var cacheKey = "expressions@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_expression();
         if (result0 !== null) {
           result1 = [];
@@ -1766,40 +2140,52 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, first, others) {
+          result0 = (function(offset, line, column, first, others) {
                              var result = [first];
                              for(var i=0;i<others.length;i++) {
                                  result.push(others[i]);
                              }
                              return result;
-                         })(pos0, result0[0], result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_assignment() {
+        var cacheKey = "assignment@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_variable();
         if (result0 !== null) {
           result1 = parse_ws();
           if (result1 !== null) {
-            if (input.substr(pos, 2) === ":=") {
+            if (input.substr(pos.offset, 2) === ":=") {
               result2 = ":=";
-              pos += 2;
+              advance(pos, 2);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -1814,46 +2200,58 @@ smalltalk.parser = (function(){
                   result0 = [result0, result1, result2, result3, result4];
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, variable, expression) {
+          result0 = (function(offset, line, column, variable, expression) {
                              return smalltalk.AssignmentNode._new()
                                     ._left_(variable)
                                     ._right_(expression)
-                         })(pos0, result0[0], result0[4]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_ret() {
+        var cacheKey = "ret@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 94) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 94) {
           result0 = "^";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -1867,9 +2265,9 @@ smalltalk.parser = (function(){
             if (result2 !== null) {
               result3 = parse_ws();
               if (result3 !== null) {
-                if (input.charCodeAt(pos) === 46) {
+                if (input.charCodeAt(pos.offset) === 46) {
                   result4 = ".";
-                  pos++;
+                  advance(pos, 1);
                 } else {
                   result4 = null;
                   if (reportFailures === 0) {
@@ -1881,45 +2279,57 @@ smalltalk.parser = (function(){
                   result0 = [result0, result1, result2, result3, result4];
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, expression) {
+          result0 = (function(offset, line, column, expression) {
                              return smalltalk.ReturnNode._new()
                                     ._nodes_([expression])
-                         })(pos0, result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_temps() {
+        var cacheKey = "temps@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1, pos2, pos3;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 124) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 124) {
           result0 = "|";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -1928,8 +2338,8 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          pos2 = pos;
-          pos3 = pos;
+          pos2 = clone(pos);
+          pos3 = clone(pos);
           result2 = parse_ws();
           if (result2 !== null) {
             result3 = parse_identifier();
@@ -1939,26 +2349,26 @@ smalltalk.parser = (function(){
                 result2 = [result2, result3, result4];
               } else {
                 result2 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
             } else {
               result2 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
           } else {
             result2 = null;
-            pos = pos3;
+            pos = clone(pos3);
           }
           if (result2 !== null) {
-            result2 = (function(offset, variable) {return variable})(pos2, result2[1]);
+            result2 = (function(offset, line, column, variable) {return variable})(pos2.offset, pos2.line, pos2.column, result2[1]);
           }
           if (result2 === null) {
-            pos = pos2;
+            pos = clone(pos2);
           }
           while (result2 !== null) {
             result1.push(result2);
-            pos2 = pos;
-            pos3 = pos;
+            pos2 = clone(pos);
+            pos3 = clone(pos);
             result2 = parse_ws();
             if (result2 !== null) {
               result3 = parse_identifier();
@@ -1968,27 +2378,27 @@ smalltalk.parser = (function(){
                   result2 = [result2, result3, result4];
                 } else {
                   result2 = null;
-                  pos = pos3;
+                  pos = clone(pos3);
                 }
               } else {
                 result2 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
             } else {
               result2 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
             if (result2 !== null) {
-              result2 = (function(offset, variable) {return variable})(pos2, result2[1]);
+              result2 = (function(offset, line, column, variable) {return variable})(pos2.offset, pos2.line, pos2.column, result2[1]);
             }
             if (result2 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
           }
           if (result1 !== null) {
-            if (input.charCodeAt(pos) === 124) {
+            if (input.charCodeAt(pos.offset) === 124) {
               result2 = "|";
-              pos++;
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -1999,38 +2409,50 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, vars) {return vars})(pos0, result0[1]);
+          result0 = (function(offset, line, column, vars) {return vars})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_blockParamList() {
+        var cacheKey = "blockParamList@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1, pos2, pos3;
         
-        pos0 = pos;
-        pos1 = pos;
-        pos2 = pos;
-        pos3 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        pos2 = clone(pos);
+        pos3 = clone(pos);
         result1 = parse_ws();
         if (result1 !== null) {
-          if (input.charCodeAt(pos) === 58) {
+          if (input.charCodeAt(pos.offset) === 58) {
             result2 = ":";
-            pos++;
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -2045,37 +2467,37 @@ smalltalk.parser = (function(){
                 result1 = [result1, result2, result3, result4];
               } else {
                 result1 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
             } else {
               result1 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
           } else {
             result1 = null;
-            pos = pos3;
+            pos = clone(pos3);
           }
         } else {
           result1 = null;
-          pos = pos3;
+          pos = clone(pos3);
         }
         if (result1 !== null) {
-          result1 = (function(offset, param) {return param})(pos2, result1[3]);
+          result1 = (function(offset, line, column, param) {return param})(pos2.offset, pos2.line, pos2.column, result1[3]);
         }
         if (result1 === null) {
-          pos = pos2;
+          pos = clone(pos2);
         }
         if (result1 !== null) {
           result0 = [];
           while (result1 !== null) {
             result0.push(result1);
-            pos2 = pos;
-            pos3 = pos;
+            pos2 = clone(pos);
+            pos3 = clone(pos);
             result1 = parse_ws();
             if (result1 !== null) {
-              if (input.charCodeAt(pos) === 58) {
+              if (input.charCodeAt(pos.offset) === 58) {
                 result2 = ":";
-                pos++;
+                advance(pos, 1);
               } else {
                 result2 = null;
                 if (reportFailures === 0) {
@@ -2090,25 +2512,25 @@ smalltalk.parser = (function(){
                     result1 = [result1, result2, result3, result4];
                   } else {
                     result1 = null;
-                    pos = pos3;
+                    pos = clone(pos3);
                   }
                 } else {
                   result1 = null;
-                  pos = pos3;
+                  pos = clone(pos3);
                 }
               } else {
                 result1 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
             } else {
               result1 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
             if (result1 !== null) {
-              result1 = (function(offset, param) {return param})(pos2, result1[3]);
+              result1 = (function(offset, line, column, param) {return param})(pos2.offset, pos2.line, pos2.column, result1[3]);
             }
             if (result1 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
           }
         } else {
@@ -2117,9 +2539,9 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result1 = parse_ws();
           if (result1 !== null) {
-            if (input.charCodeAt(pos) === 124) {
+            if (input.charCodeAt(pos.offset) === 124) {
               result2 = "|";
-              pos++;
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -2130,34 +2552,46 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, params) {return params})(pos0, result0[0]);
+          result0 = (function(offset, line, column, params) {return params})(pos0.offset, pos0.line, pos0.column, result0[0]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_subexpression() {
+        var cacheKey = "subexpression@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 40) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 40) {
           result0 = "(";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -2171,9 +2605,9 @@ smalltalk.parser = (function(){
             if (result2 !== null) {
               result3 = parse_ws();
               if (result3 !== null) {
-                if (input.charCodeAt(pos) === 41) {
+                if (input.charCodeAt(pos.offset) === 41) {
                   result4 = ")";
-                  pos++;
+                  advance(pos, 1);
                 } else {
                   result4 = null;
                   if (reportFailures === 0) {
@@ -2184,45 +2618,57 @@ smalltalk.parser = (function(){
                   result0 = [result0, result1, result2, result3, result4];
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, expression) {return expression})(pos0, result0[2]);
+          result0 = (function(offset, line, column, expression) {return expression})(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_statements() {
+        var cacheKey = "statements@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4, result5, result6;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ret();
         if (result0 !== null) {
           result1 = [];
-          if (/^[.]/.test(input.charAt(pos))) {
-            result2 = input.charAt(pos);
-            pos++;
+          if (/^[.]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -2231,9 +2677,9 @@ smalltalk.parser = (function(){
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[.]/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[.]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -2245,28 +2691,28 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, ret) {return [ret]})(pos0, result0[0]);
+          result0 = (function(offset, line, column, ret) {return [ret]})(pos0.offset, pos0.line, pos0.column, result0[0]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
         if (result0 === null) {
-          pos0 = pos;
-          pos1 = pos;
+          pos0 = clone(pos);
+          pos1 = clone(pos);
           result0 = parse_expressions();
           if (result0 !== null) {
             result1 = parse_ws();
             if (result1 !== null) {
-              if (/^[.]/.test(input.charAt(pos))) {
-                result3 = input.charAt(pos);
-                pos++;
+              if (/^[.]/.test(input.charAt(pos.offset))) {
+                result3 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result3 = null;
                 if (reportFailures === 0) {
@@ -2277,9 +2723,9 @@ smalltalk.parser = (function(){
                 result2 = [];
                 while (result3 !== null) {
                   result2.push(result3);
-                  if (/^[.]/.test(input.charAt(pos))) {
-                    result3 = input.charAt(pos);
-                    pos++;
+                  if (/^[.]/.test(input.charAt(pos.offset))) {
+                    result3 = input.charAt(pos.offset);
+                    advance(pos, 1);
                   } else {
                     result3 = null;
                     if (reportFailures === 0) {
@@ -2296,9 +2742,9 @@ smalltalk.parser = (function(){
                   result4 = parse_ret();
                   if (result4 !== null) {
                     result5 = [];
-                    if (/^[.]/.test(input.charAt(pos))) {
-                      result6 = input.charAt(pos);
-                      pos++;
+                    if (/^[.]/.test(input.charAt(pos.offset))) {
+                      result6 = input.charAt(pos.offset);
+                      advance(pos, 1);
                     } else {
                       result6 = null;
                       if (reportFailures === 0) {
@@ -2307,9 +2753,9 @@ smalltalk.parser = (function(){
                     }
                     while (result6 !== null) {
                       result5.push(result6);
-                      if (/^[.]/.test(input.charAt(pos))) {
-                        result6 = input.charAt(pos);
-                        pos++;
+                      if (/^[.]/.test(input.charAt(pos.offset))) {
+                        result6 = input.charAt(pos.offset);
+                        advance(pos, 1);
                       } else {
                         result6 = null;
                         if (reportFailures === 0) {
@@ -2321,48 +2767,48 @@ smalltalk.parser = (function(){
                       result0 = [result0, result1, result2, result3, result4, result5];
                     } else {
                       result0 = null;
-                      pos = pos1;
+                      pos = clone(pos1);
                     }
                   } else {
                     result0 = null;
-                    pos = pos1;
+                    pos = clone(pos1);
                   }
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
           if (result0 !== null) {
-            result0 = (function(offset, exps, ret) {
+            result0 = (function(offset, line, column, exps, ret) {
                                  var expressions = exps;
                                  expressions.push(ret);
                                  return expressions
-                             })(pos0, result0[0], result0[4]);
+                             })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
           }
           if (result0 === null) {
-            pos = pos0;
+            pos = clone(pos0);
           }
           if (result0 === null) {
-            pos0 = pos;
-            pos1 = pos;
+            pos0 = clone(pos);
+            pos1 = clone(pos);
             result0 = parse_expressions();
             result0 = result0 !== null ? result0 : "";
             if (result0 !== null) {
               result1 = [];
-              if (/^[.]/.test(input.charAt(pos))) {
-                result2 = input.charAt(pos);
-                pos++;
+              if (/^[.]/.test(input.charAt(pos.offset))) {
+                result2 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result2 = null;
                 if (reportFailures === 0) {
@@ -2371,9 +2817,9 @@ smalltalk.parser = (function(){
               }
               while (result2 !== null) {
                 result1.push(result2);
-                if (/^[.]/.test(input.charAt(pos))) {
-                  result2 = input.charAt(pos);
-                  pos++;
+                if (/^[.]/.test(input.charAt(pos.offset))) {
+                  result2 = input.charAt(pos.offset);
+                  advance(pos, 1);
                 } else {
                   result2 = null;
                   if (reportFailures === 0) {
@@ -2385,31 +2831,43 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
             if (result0 !== null) {
-              result0 = (function(offset, expressions) {
+              result0 = (function(offset, line, column, expressions) {
                                    return expressions || []
-                               })(pos0, result0[0]);
+                               })(pos0.offset, pos0.line, pos0.column, result0[0]);
             }
             if (result0 === null) {
-              pos = pos0;
+              pos = clone(pos0);
             }
           }
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_sequence() {
+        var cacheKey = "sequence@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_temps();
         result0 = result0 !== null ? result0 : "";
         if (result0 !== null) {
@@ -2423,42 +2881,54 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, temps, statements) {
+          result0 = (function(offset, line, column, temps, statements) {
                              return smalltalk.SequenceNode._new()
                                     ._temps_(temps || [])
                                     ._nodes_(statements || [])
-                         })(pos0, result0[0], result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_block() {
+        var cacheKey = "block@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4, result5, result6;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 91) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 91) {
           result0 = "[";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -2478,9 +2948,9 @@ smalltalk.parser = (function(){
                 if (result4 !== null) {
                   result5 = parse_ws();
                   if (result5 !== null) {
-                    if (input.charCodeAt(pos) === 93) {
+                    if (input.charCodeAt(pos.offset) === 93) {
                       result6 = "]";
-                      pos++;
+                      advance(pos, 1);
                     } else {
                       result6 = null;
                       if (reportFailures === 0) {
@@ -2491,46 +2961,58 @@ smalltalk.parser = (function(){
                       result0 = [result0, result1, result2, result3, result4, result5, result6];
                     } else {
                       result0 = null;
-                      pos = pos1;
+                      pos = clone(pos1);
                     }
                   } else {
                     result0 = null;
-                    pos = pos1;
+                    pos = clone(pos1);
                   }
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, params, sequence) {
+          result0 = (function(offset, line, column, params, sequence) {
                              return smalltalk.BlockNode._new()
                                     ._parameters_(params || [])
                                     ._nodes_([sequence._asBlockSequenceNode()])
-                         })(pos0, result0[2], result0[4]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[2], result0[4]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_operand() {
+        var cacheKey = "operand@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         
         result0 = parse_literal();
@@ -2540,24 +3022,36 @@ smalltalk.parser = (function(){
             result0 = parse_subexpression();
           }
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_unaryMessage() {
+        var cacheKey = "unaryMessage@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1, pos2;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
           result1 = parse_identifier();
           if (result1 !== null) {
-            pos2 = pos;
+            pos2 = clone(pos);
             reportFailures++;
-            if (/^[:]/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[:]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -2569,40 +3063,52 @@ smalltalk.parser = (function(){
               result2 = "";
             } else {
               result2 = null;
-              pos = pos2;
+              pos = clone(pos2);
             }
             if (result2 !== null) {
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, selector) {
+          result0 = (function(offset, line, column, selector) {
                              return smalltalk.SendNode._new()
                                     ._selector_(selector)
-                         })(pos0, result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_unaryTail() {
+        var cacheKey = "unaryTail@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_unaryMessage();
         if (result0 !== null) {
           result1 = parse_ws();
@@ -2615,42 +3121,54 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, message, tail) {
+          result0 = (function(offset, line, column, message, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(message);
                              }
                              else {
                                  return message;
                              }
-                         })(pos0, result0[0], result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_unarySend() {
+        var cacheKey = "unarySend@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_operand();
         if (result0 !== null) {
           result1 = parse_ws();
@@ -2661,38 +3179,50 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, receiver, tail) {
+          result0 = (function(offset, line, column, receiver, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(receiver);
                              }
                              else {
                                  return receiver;
                              }
-                         })(pos0, result0[0], result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_binaryMessage() {
+        var cacheKey = "binaryMessage@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
           result1 = parse_binarySelector();
@@ -2707,39 +3237,51 @@ smalltalk.parser = (function(){
                 result0 = [result0, result1, result2, result3];
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, selector, arg) {
+          result0 = (function(offset, line, column, selector, arg) {
                              return smalltalk.SendNode._new()
                                     ._selector_(selector)
                                     ._arguments_([arg])
-                         })(pos0, result0[1], result0[3]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_binaryTail() {
+        var cacheKey = "binaryTail@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_binaryMessage();
         if (result0 !== null) {
           result1 = parse_binaryTail();
@@ -2748,34 +3290,46 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, message, tail) {
+          result0 = (function(offset, line, column, message, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(message);
                               }
                              else {
                                  return message;
                              }
-                         })(pos0, result0[0], result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_binarySend() {
+        var cacheKey = "binarySend@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_unarySend();
         if (result0 !== null) {
           result1 = parse_binaryTail();
@@ -2784,38 +3338,50 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, receiver, tail) {
+          result0 = (function(offset, line, column, receiver, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(receiver);
                              }
                              else {
                                  return receiver;
                              }
-                         })(pos0, result0[0], result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_keywordMessage() {
+        var cacheKey = "keywordMessage@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3;
         var pos0, pos1, pos2, pos3;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
-          pos2 = pos;
-          pos3 = pos;
+          pos2 = clone(pos);
+          pos3 = clone(pos);
           result2 = parse_keywordPair();
           if (result2 !== null) {
             result3 = parse_ws();
@@ -2823,24 +3389,24 @@ smalltalk.parser = (function(){
               result2 = [result2, result3];
             } else {
               result2 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
           } else {
             result2 = null;
-            pos = pos3;
+            pos = clone(pos3);
           }
           if (result2 !== null) {
-            result2 = (function(offset, pair) {return pair})(pos2, result2[0]);
+            result2 = (function(offset, line, column, pair) {return pair})(pos2.offset, pos2.line, pos2.column, result2[0]);
           }
           if (result2 === null) {
-            pos = pos2;
+            pos = clone(pos2);
           }
           if (result2 !== null) {
             result1 = [];
             while (result2 !== null) {
               result1.push(result2);
-              pos2 = pos;
-              pos3 = pos;
+              pos2 = clone(pos);
+              pos3 = clone(pos);
               result2 = parse_keywordPair();
               if (result2 !== null) {
                 result3 = parse_ws();
@@ -2848,17 +3414,17 @@ smalltalk.parser = (function(){
                   result2 = [result2, result3];
                 } else {
                   result2 = null;
-                  pos = pos3;
+                  pos = clone(pos3);
                 }
               } else {
                 result2 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
               if (result2 !== null) {
-                result2 = (function(offset, pair) {return pair})(pos2, result2[0]);
+                result2 = (function(offset, line, column, pair) {return pair})(pos2.offset, pos2.line, pos2.column, result2[0]);
               }
               if (result2 === null) {
-                pos = pos2;
+                pos = clone(pos2);
               }
             }
           } else {
@@ -2868,14 +3434,14 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, pairs) {
+          result0 = (function(offset, line, column, pairs) {
                              var selector = [];
                              var args = [];
                               for(var i=0;i<pairs.length;i++) {
@@ -2885,20 +3451,32 @@ smalltalk.parser = (function(){
                               return smalltalk.SendNode._new()
                                      ._selector_(selector.join(""))
                                      ._arguments_(args)
-                         })(pos0, result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_keywordSend() {
+        var cacheKey = "keywordSend@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_binarySend();
         if (result0 !== null) {
           result1 = parse_keywordMessage();
@@ -2906,24 +3484,36 @@ smalltalk.parser = (function(){
             result0 = [result0, result1];
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, receiver, tail) {
+          result0 = (function(offset, line, column, receiver, tail) {
                              return tail._valueForReceiver_(receiver);
-                         })(pos0, result0[0], result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_message() {
+        var cacheKey = "message@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0;
         
         result0 = parse_binaryMessage();
@@ -2933,15 +3523,27 @@ smalltalk.parser = (function(){
             result0 = parse_keywordMessage();
           }
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_cascade() {
+        var cacheKey = "cascade@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4, result5, result6, result7;
         var pos0, pos1, pos2, pos3;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
           result1 = parse_keywordSend();
@@ -2949,13 +3551,13 @@ smalltalk.parser = (function(){
             result1 = parse_binarySend();
           }
           if (result1 !== null) {
-            pos2 = pos;
-            pos3 = pos;
+            pos2 = clone(pos);
+            pos3 = clone(pos);
             result3 = parse_ws();
             if (result3 !== null) {
-              if (input.charCodeAt(pos) === 59) {
+              if (input.charCodeAt(pos.offset) === 59) {
                 result4 = ";";
-                pos++;
+                advance(pos, 1);
               } else {
                 result4 = null;
                 if (reportFailures === 0) {
@@ -2972,41 +3574,41 @@ smalltalk.parser = (function(){
                       result3 = [result3, result4, result5, result6, result7];
                     } else {
                       result3 = null;
-                      pos = pos3;
+                      pos = clone(pos3);
                     }
                   } else {
                     result3 = null;
-                    pos = pos3;
+                    pos = clone(pos3);
                   }
                 } else {
                   result3 = null;
-                  pos = pos3;
+                  pos = clone(pos3);
                 }
               } else {
                 result3 = null;
-                pos = pos3;
+                pos = clone(pos3);
               }
             } else {
               result3 = null;
-              pos = pos3;
+              pos = clone(pos3);
             }
             if (result3 !== null) {
-              result3 = (function(offset, mess) {return mess})(pos2, result3[3]);
+              result3 = (function(offset, line, column, mess) {return mess})(pos2.offset, pos2.line, pos2.column, result3[3]);
             }
             if (result3 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
             if (result3 !== null) {
               result2 = [];
               while (result3 !== null) {
                 result2.push(result3);
-                pos2 = pos;
-                pos3 = pos;
+                pos2 = clone(pos);
+                pos3 = clone(pos);
                 result3 = parse_ws();
                 if (result3 !== null) {
-                  if (input.charCodeAt(pos) === 59) {
+                  if (input.charCodeAt(pos.offset) === 59) {
                     result4 = ";";
-                    pos++;
+                    advance(pos, 1);
                   } else {
                     result4 = null;
                     if (reportFailures === 0) {
@@ -3023,29 +3625,29 @@ smalltalk.parser = (function(){
                           result3 = [result3, result4, result5, result6, result7];
                         } else {
                           result3 = null;
-                          pos = pos3;
+                          pos = clone(pos3);
                         }
                       } else {
                         result3 = null;
-                        pos = pos3;
+                        pos = clone(pos3);
                       }
                     } else {
                       result3 = null;
-                      pos = pos3;
+                      pos = clone(pos3);
                     }
                   } else {
                     result3 = null;
-                    pos = pos3;
+                    pos = clone(pos3);
                   }
                 } else {
                   result3 = null;
-                  pos = pos3;
+                  pos = clone(pos3);
                 }
                 if (result3 !== null) {
-                  result3 = (function(offset, mess) {return mess})(pos2, result3[3]);
+                  result3 = (function(offset, line, column, mess) {return mess})(pos2.offset, pos2.line, pos2.column, result3[3]);
                 }
                 if (result3 === null) {
-                  pos = pos2;
+                  pos = clone(pos2);
                 }
               }
             } else {
@@ -3055,18 +3657,18 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, send, messages) {
+          result0 = (function(offset, line, column, send, messages) {
                              var cascade = [];
                              cascade.push(send);
                              for(var i=0;i<messages.length;i++) {
@@ -3075,23 +3677,35 @@ smalltalk.parser = (function(){
                              return smalltalk.CascadeNode._new()
                                     ._receiver_(send._receiver())
                                     ._nodes_(cascade)
-                         })(pos0, result0[1], result0[2]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1], result0[2]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_jsStatement() {
+        var cacheKey = "jsStatement@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2;
         var pos0, pos1, pos2;
         
-        pos0 = pos;
-        pos1 = pos;
-        if (input.charCodeAt(pos) === 60) {
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (input.charCodeAt(pos.offset) === 60) {
           result0 = "<";
-          pos++;
+          advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
@@ -3100,10 +3714,10 @@ smalltalk.parser = (function(){
         }
         if (result0 !== null) {
           result1 = [];
-          pos2 = pos;
-          if (input.substr(pos, 2) === ">>") {
+          pos2 = clone(pos);
+          if (input.substr(pos.offset, 2) === ">>") {
             result2 = ">>";
-            pos += 2;
+            advance(pos, 2);
           } else {
             result2 = null;
             if (reportFailures === 0) {
@@ -3111,15 +3725,15 @@ smalltalk.parser = (function(){
             }
           }
           if (result2 !== null) {
-            result2 = (function(offset) {return ">"})(pos2);
+            result2 = (function(offset, line, column) {return ">"})(pos2.offset, pos2.line, pos2.column);
           }
           if (result2 === null) {
-            pos = pos2;
+            pos = clone(pos2);
           }
           if (result2 === null) {
-            if (/^[^>]/.test(input.charAt(pos))) {
-              result2 = input.charAt(pos);
-              pos++;
+            if (/^[^>]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -3129,10 +3743,10 @@ smalltalk.parser = (function(){
           }
           while (result2 !== null) {
             result1.push(result2);
-            pos2 = pos;
-            if (input.substr(pos, 2) === ">>") {
+            pos2 = clone(pos);
+            if (input.substr(pos.offset, 2) === ">>") {
               result2 = ">>";
-              pos += 2;
+              advance(pos, 2);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -3140,15 +3754,15 @@ smalltalk.parser = (function(){
               }
             }
             if (result2 !== null) {
-              result2 = (function(offset) {return ">"})(pos2);
+              result2 = (function(offset, line, column) {return ">"})(pos2.offset, pos2.line, pos2.column);
             }
             if (result2 === null) {
-              pos = pos2;
+              pos = clone(pos2);
             }
             if (result2 === null) {
-              if (/^[^>]/.test(input.charAt(pos))) {
-                result2 = input.charAt(pos);
-                pos++;
+              if (/^[^>]/.test(input.charAt(pos.offset))) {
+                result2 = input.charAt(pos.offset);
+                advance(pos, 1);
               } else {
                 result2 = null;
                 if (reportFailures === 0) {
@@ -3158,9 +3772,9 @@ smalltalk.parser = (function(){
             }
           }
           if (result1 !== null) {
-            if (input.charCodeAt(pos) === 62) {
+            if (input.charCodeAt(pos.offset) === 62) {
               result2 = ">";
-              pos++;
+              advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
@@ -3171,34 +3785,46 @@ smalltalk.parser = (function(){
               result0 = [result0, result1, result2];
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, val) {
+          result0 = (function(offset, line, column, val) {
                              return smalltalk.JSStatementNode._new()
                                     ._source_(val.join(""))
-                         })(pos0, result0[1]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
       function parse_method() {
+        var cacheKey = "method@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
         var result0, result1, result2, result3, result4;
         var pos0, pos1;
         
-        pos0 = pos;
-        pos1 = pos;
+        pos0 = clone(pos);
+        pos1 = clone(pos);
         result0 = parse_ws();
         if (result0 !== null) {
           result1 = parse_keywordPattern();
@@ -3219,35 +3845,40 @@ smalltalk.parser = (function(){
                   result0 = [result0, result1, result2, result3, result4];
                 } else {
                   result0 = null;
-                  pos = pos1;
+                  pos = clone(pos1);
                 }
               } else {
                 result0 = null;
-                pos = pos1;
+                pos = clone(pos1);
               }
             } else {
               result0 = null;
-              pos = pos1;
+              pos = clone(pos1);
             }
           } else {
             result0 = null;
-            pos = pos1;
+            pos = clone(pos1);
           }
         } else {
           result0 = null;
-          pos = pos1;
+          pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, pattern, sequence) {
+          result0 = (function(offset, line, column, pattern, sequence) {
                               return smalltalk.MethodNode._new()
                                      ._selector_(pattern[0])
                                      ._arguments_(pattern[1])
                                      ._nodes_([sequence])
-                         })(pos0, result0[1], result0[3]);
+                         })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
         }
         if (result0 === null) {
-          pos = pos0;
+          pos = clone(pos0);
         }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
         return result0;
       }
       
@@ -3266,36 +3897,6 @@ smalltalk.parser = (function(){
         return cleanExpected;
       }
       
-      function computeErrorPosition() {
-        /*
-         * The first idea was to use |String.split| to break the input up to the
-         * error position along newlines and derive the line and column from
-         * there. However IE's |split| implementation is so broken that it was
-         * enough to prevent it.
-         */
-        
-        var line = 1;
-        var column = 1;
-        var seenCR = false;
-        
-        for (var i = 0; i < Math.max(pos, rightmostFailuresPos); i++) {
-          var ch = input.charAt(i);
-          if (ch === "\n") {
-            if (!seenCR) { line++; }
-            column = 1;
-            seenCR = false;
-          } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
-            line++;
-            column = 1;
-            seenCR = true;
-          } else {
-            column++;
-            seenCR = false;
-          }
-        }
-        
-        return { line: line, column: column };
-      }
       
       
       var result = parseFunctions[startRule]();
@@ -3306,28 +3907,28 @@ smalltalk.parser = (function(){
        * 1. The parser successfully parsed the whole input.
        *
        *    - |result !== null|
-       *    - |pos === input.length|
+       *    - |pos.offset === input.length|
        *    - |rightmostFailuresExpected| may or may not contain something
        *
        * 2. The parser successfully parsed only a part of the input.
        *
        *    - |result !== null|
-       *    - |pos < input.length|
+       *    - |pos.offset < input.length|
        *    - |rightmostFailuresExpected| may or may not contain something
        *
        * 3. The parser did not successfully parse any part of the input.
        *
        *   - |result === null|
-       *   - |pos === 0|
+       *   - |pos.offset === 0|
        *   - |rightmostFailuresExpected| contains at least one failure
        *
        * All code following this comment (including called functions) must
        * handle these states.
        */
-      if (result === null || pos !== input.length) {
-        var offset = Math.max(pos, rightmostFailuresPos);
+      if (result === null || pos.offset !== input.length) {
+        var offset = Math.max(pos.offset, rightmostFailuresPos.offset);
         var found = offset < input.length ? input.charAt(offset) : null;
-        var errorPosition = computeErrorPosition();
+        var errorPosition = pos.offset > rightmostFailuresPos.offset ? pos : rightmostFailuresPos;
         
         throw new this.SyntaxError(
           cleanupExpected(rightmostFailuresExpected),
