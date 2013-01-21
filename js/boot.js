@@ -435,9 +435,20 @@ function Smalltalk(){
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        if(!error.cc) {
-		    smalltalk.ErrorHandler._current()._handleError_(error);
-        }
+		if(!error.cc) {
+			smalltalk.ErrorHandler._current()._handleError_(error);
+		}
+	};
+
+	// store old window.onerror handler
+	var oldOnError = window.onerror;
+	window.onerror = function(errorMessage, url, lineNumber) {
+		smalltalk.Error._signal_('JavaScript error: ' + errorMessage + ' (' + url + ':' + lineNumber + ')');
+		// call the old handler if it was overwritten by Amber
+		if (oldOnError) {
+			return oldOnError(errorMessage, url, lineNumber);
+		}
+		return false;
 	};
 
 	/* Handles #dnu: *and* JavaScript method calls.
