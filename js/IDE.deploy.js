@@ -315,11 +315,11 @@ smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_register", []);
-    return self;
-}
+fn: function (){
+var self=this;
+smalltalk.send(self,"_register",[]);
+smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_setupGlobalErrorHandler",[]);
+return self}
 }),
 smalltalk.DebugErrorHandler.klass);
 

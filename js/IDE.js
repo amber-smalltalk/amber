@@ -421,15 +421,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_register", []);
-    return self;
-},
+fn: function (){
+var self=this;
+smalltalk.send(self,"_register",[]);
+smalltalk.send(smalltalk.send((smalltalk.Smalltalk || Smalltalk),"_current",[]),"_setupGlobalErrorHandler",[]);
+return self},
 args: [],
-source: "initialize\x0a\x09self register",
-messageSends: ["register"],
-referencedClasses: []
+source: "initialize\x0a\x09self register.\x0a    Smalltalk current setupGlobalErrorHandler",
+messageSends: ["register", "setupGlobalErrorHandler", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.DebugErrorHandler.klass);
 
