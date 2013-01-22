@@ -1453,6 +1453,12 @@ removeClass: aClass
             yourself)
 ! !
 
+!Smalltalk methodsFor: 'initialization'!
+
+setupGlobalErrorHandler
+	<return self.setupGlobalErrorHandler()>
+! !
+
 !Smalltalk methodsFor: 'packages'!
 
 packageAt: packageName

@@ -4310,6 +4310,23 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+"_setupGlobalErrorHandler",
+smalltalk.method({
+selector: "setupGlobalErrorHandler",
+category: 'initialization',
+fn: function (){
+var self=this;
+return self.setupGlobalErrorHandler();
+;
+return self},
+args: [],
+source: "setupGlobalErrorHandler\x0a\x09<return self.setupGlobalErrorHandler()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
