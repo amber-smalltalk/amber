@@ -459,16 +459,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "instVarAt:",
 category: 'accessing',
-fn: function (aSymbol) {
-    var self = this;
-    var varname;
-    varname = smalltalk.send(aSymbol, "_asString", []);
-    return self["@" + varname];
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self['@'+aSymbol._asString()];
+;
+return self}, self, "instVarAt:", [aSymbol], smalltalk.Object)},
 args: ["aSymbol"],
-source: "instVarAt: aSymbol\x0a\x09| varname |\x0a\x09varname := aSymbol asString.\x0a\x09<return self['@'+varname]>",
-messageSends: ["asString"],
+source: "instVarAt: aSymbol\x0a\x09<return self['@'+aSymbol._asString()]>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -478,16 +476,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "instVarAt:put:",
 category: 'accessing',
-fn: function (aSymbol, anObject) {
-    var self = this;
-    var varname;
-    varname = smalltalk.send(aSymbol, "_asString", []);
-    self["@" + varname] = anObject;
-    return self;
-},
+fn: function (aSymbol,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self['@' + aSymbol._asString()] = anObject;
+;
+return self}, self, "instVarAt:put:", [aSymbol,anObject], smalltalk.Object)},
 args: ["aSymbol", "anObject"],
-source: "instVarAt: aSymbol put: anObject\x0a\x09| varname |\x0a\x09varname := aSymbol asString.\x0a\x09<self['@' + varname] = anObject>",
-messageSends: ["asString"],
+source: "instVarAt: aSymbol put: anObject\x0a\x09<self['@' + aSymbol._asString()] = anObject>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -704,16 +700,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "perform:withArguments:",
 category: 'message handling',
-fn: function (aSymbol, aCollection) {
-    var self = this;
-    var selector;
-    selector = smalltalk.send(aSymbol, "_asSelector", []);
-    return smalltalk.send(self, selector, aCollection);
-    return self;
-},
+fn: function (aSymbol,aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.send(self, aSymbol._asSelector(), aCollection);
+;
+return self}, self, "perform:withArguments:", [aSymbol,aCollection], smalltalk.Object)},
 args: ["aSymbol", "aCollection"],
-source: "perform: aSymbol withArguments: aCollection\x0a\x09| selector |\x0a\x09selector := aSymbol asSelector.\x0a\x09<return smalltalk.send(self, selector, aCollection)>",
-messageSends: ["asSelector"],
+source: "perform: aSymbol withArguments: aCollection\x0a\x09<return smalltalk.send(self, aSymbol._asSelector(), aCollection)>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -2259,20 +2253,37 @@ smalltalk.Date.klass);
 smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');
 smalltalk.JSObjectProxy.comment="JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.\x0aJSOjbectProxy makes intensive use of `#doesNotUnderstand:`.\x0a\x0a## Examples\x0a\x0aJSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.\x0a\x0a    window alert: 'hello world'.\x0a    window inspect.\x0a    (window jQuery: 'body') append: 'hello world'\x0a\x0aSmalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown. \x0a\x0a## Message conversion rules\x0a\x0a- `someUser name` becomes  `someUser.name`\x0a- `someUser name: 'John'` becomes `someUser name = \x22John\x22`\x0a- `console log: 'hello world'` becomes `console.log('hello world')`\x0a- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`\x0a\x0a__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`."
 smalltalk.addMethod(
+"_addObjectVariablesTo_",
+smalltalk.method({
+selector: "addObjectVariablesTo:",
+category: 'proxy',
+fn: function (aDictionary){
+var self=this;
+return smalltalk.withContext(function($ctx1) { for(var i in self['@jsObject']) {
+		aDictionary._at_put_(i, self['@jsObject'][i]);
+	};
+;
+return self}, self, "addObjectVariablesTo:", [aDictionary], smalltalk.JSObjectProxy)},
+args: ["aDictionary"],
+source: "addObjectVariablesTo: aDictionary\x0a\x09<for(var i in self['@jsObject']) {\x0a\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09}>.",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
-fn: function (aSymbol) {
-    var self = this;
-    var attr;
-    attr = smalltalk.send(aSymbol, "_asString", []);
-    return self['@jsObject'][attr];
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self['@jsObject'][aSymbol._asString()];
+;
+return self}, self, "at:", [aSymbol], smalltalk.JSObjectProxy)},
 args: ["aSymbol"],
-source: "at: aSymbol\x0a\x09| attr |\x0a\x09attr := aSymbol asString.\x0a\x09<return self['@jsObject'][attr]>",
-messageSends: ["asString"],
+source: "at: aSymbol\x0a\x09<return self['@jsObject'][aSymbol._asString()]>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -2282,16 +2293,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
-fn: function (aSymbol, anObject) {
-    var self = this;
-    var attr;
-    attr = smalltalk.send(aSymbol, "_asString", []);
-    self['@jsObject'][attr] = anObject;
-    return self;
-},
+fn: function (aSymbol,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self['@jsObject'][aSymbol._asString()] = anObject;
+;
+return self}, self, "at:put:", [aSymbol,anObject], smalltalk.JSObjectProxy)},
 args: ["aSymbol", "anObject"],
-source: "at: aSymbol put: anObject\x0a\x09| attr |\x0a\x09attr := aSymbol asString.\x0a\x09<self['@jsObject'][attr] = anObject>",
-messageSends: ["asString"],
+source: "at: aSymbol put: anObject\x0a\x09<self['@jsObject'][aSymbol._asString()] = anObject>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -2301,25 +2310,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "doesNotUnderstand:",
 category: 'proxy',
-fn: function (aMessage) {
-    var self = this;
-    var obj;
-    var selector;
-    var jsSelector;
-    var arguments;
-    obj = smalltalk.send(self, "_jsObject", []);
-    selector = smalltalk.send(aMessage, "_selector", []);
-    jsSelector = smalltalk.send(selector, "_asJavaScriptSelector", []);
-    arguments = smalltalk.send(aMessage, "_arguments", []);
-    if (obj[jsSelector] != undefined) {
-        return smalltalk.send(obj, jsSelector, arguments);
-    }
-    smalltalk.send(self, "_doesNotUnderstand_", [aMessage], smalltalk.Object);
-    return self;
-},
+fn: function (aMessage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
+        var object = self._jsObject();
+    	if(jsSelector in object) {
+        	return smalltalk.send(object, jsSelector, aMessage._arguments());
+        }
+    ;
+;
+smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+return self}, self, "doesNotUnderstand:", [aMessage], smalltalk.JSObjectProxy)},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09| obj selector jsSelector arguments |\x0a\x09obj := self jsObject.\x0a\x09selector := aMessage selector.\x0a\x09jsSelector := selector asJavaScriptSelector.\x0a\x09arguments := aMessage arguments.\x0a\x09<if(obj[jsSelector] != undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.\x0a\x09super doesNotUnderstand: aMessage",
-messageSends: ["jsObject", "selector", "asJavaScriptSelector", "arguments", "doesNotUnderstand:"],
+source: "doesNotUnderstand: aMessage\x0a\x09<\x0a    \x09var jsSelector = aMessage._selector()._asJavaScriptSelector();\x0a        var object = self._jsObject();\x0a    \x09if(jsSelector in object) {\x0a        \x09return smalltalk.send(object, jsSelector, aMessage._arguments());\x0a        }\x0a    >.\x0a    \x0a\x09super doesNotUnderstand: aMessage",
+messageSends: ["doesNotUnderstand:"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -2329,21 +2334,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",
 category: 'proxy',
-fn: function (anInspector) {
-    var self = this;
-    var variables;
-    variables = smalltalk.send(smalltalk.Dictionary || Dictionary, "_new", []);
-    smalltalk.send(variables, "_at_put_", ["#self", smalltalk.send(self, "_jsObject", [])]);
-    smalltalk.send(anInspector, "_setLabel_", [smalltalk.send(self, "_printString", [])]);
-    for (var i in self['@jsObject']) {
-        variables._at_put_(i, self['@jsObject'][i]);
-    }
-    smalltalk.send(anInspector, "_setVariables_", [variables]);
-    return self;
-},
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.variables=nil;
+$ctx1.variables=_st((smalltalk.Dictionary || Dictionary))._new();
+_st($ctx1.variables)._at_put_("#self",_st(self)._jsObject());
+_st(anInspector)._setLabel_(_st(self)._printString());
+_st(self)._addObjectVariablesTo_($ctx1.variables);
+_st(anInspector)._setVariables_($ctx1.variables);
+return self}, self, "inspectOn:", [anInspector], smalltalk.JSObjectProxy)},
 args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09<for(var i in self['@jsObject']) {\x0a\x09\x09variables._at_put_(i, self['@jsObject'][i]);\x0a\x09}>.\x0a\x09anInspector setVariables: variables",
-messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "setVariables:"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
+messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.JSObjectProxy);
@@ -3202,21 +3204,20 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "truncated",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    var result;
-    $1 = smalltalk.send(self, "__gt_eq", [0]);
-    if (smalltalk.assert($1)) {
-        result = Math.floor(self);
-    } else {
-        result = Math.floor(self * -1) * -1;
-    }
-    return result;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	if(self >= 0) {
+        	return Math.floor(self);
+        } else {
+        	return Math.floor(self * (-1)) * (-1);
+        };
+    ;
+;
+return self}, self, "truncated", [], smalltalk.Number)},
 args: [],
-source: "truncated\x0a|result|\x0a\x0a    self >= 0 \x0a        ifTrue: [<result = Math.floor(self);>]\x0a        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].\x0a\x0a    ^ result",
-messageSends: ["ifTrue:ifFalse:", ">="],
+source: "truncated\x0a\x09<\x0a    \x09if(self >>= 0) {\x0a        \x09return Math.floor(self);\x0a        } else {\x0a        \x09return Math.floor(self * (-1)) * (-1);\x0a        };\x0a    >",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -3567,26 +3568,6 @@ args: [],
 source: "properties\x0a\x09^Smalltalk current readJSObject: (self basicAt: 'properties')",
 messageSends: ["readJSObject:", "basicAt:", "current"],
 referencedClasses: ["Smalltalk"]
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-"_properties_",
-smalltalk.method({
-selector: "properties:",
-category: 'accessing',
-fn: function (aDict) {
-    var self = this;
-    var object;
-    object = {};
-    smalltalk.send(aDict, "_keysAndValuesDo_", [function (key, value) {return object[key] = value;}]);
-    return self.properties = object;
-    return self;
-},
-args: ["aDict"],
-source: "properties: aDict\x0a\x09\x22We store it as a javascript object.\x22\x0a\x09\x0a\x09| object |\x0a\x09<object = {};>.\x0a\x09aDict keysAndValuesDo: [:key :value |\x0a\x09\x09<object[key] = value>.\x0a\x09].\x0a\x09<return self.properties = object>",
-messageSends: ["keysAndValuesDo:"],
-referencedClasses: []
 }),
 smalltalk.Package);
 
@@ -4254,35 +4235,15 @@ smalltalk.addMethod(
 "_createPackage_",
 smalltalk.method({
 selector: "createPackage:",
-category: 'private',
-fn: function (packageName) {
-    var self = this;
-    return smalltalk.addPackage(packageName, nil);
-    return self;
-},
+category: 'packages',
+fn: function (packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.addPackage(packageName);
+;
+return self}, self, "createPackage:", [packageName], smalltalk.Smalltalk)},
 args: ["packageName"],
-source: "createPackage: packageName\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x0a      <return smalltalk.addPackage(packageName, nil)>",
+source: "createPackage: packageName\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a       <return smalltalk.addPackage(packageName)>",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
-"_createPackage_properties_",
-smalltalk.method({
-selector: "createPackage:properties:",
-category: 'private',
-fn: function (packageName, aDict) {
-    var self = this;
-    var object;
-    object = {};
-    smalltalk.send(aDict, "_keysAndValuesDo_", [function (key, value) {return object[key] = value;}]);
-    return smalltalk.addPackage(packageName, object);
-    return self;
-},
-args: ["packageName", "aDict"],
-source: "createPackage: packageName properties: aDict\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x0a\x09| object |\x0a\x09<object = {};>.\x0a\x09aDict keysAndValuesDo: [:key :value |\x0a\x09\x09<object[key] = value>.\x0a\x09].\x0a       <return smalltalk.addPackage(packageName, object)>",
-messageSends: ["keysAndValuesDo:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -4291,7 +4252,7 @@ smalltalk.addMethod(
 "_deleteClass_",
 smalltalk.method({
 selector: "deleteClass:",
-category: 'private',
+category: 'classes',
 fn: function (aClass) {
     var self = this;
     self.removeClass(aClass);
@@ -4308,7 +4269,7 @@ smalltalk.addMethod(
 "_deletePackage_",
 smalltalk.method({
 selector: "deletePackage:",
-category: 'private',
+category: 'packages',
 fn: function (packageName) {
     var self = this;
     delete smalltalk.packages[packageName];
@@ -4396,31 +4357,17 @@ smalltalk.addMethod(
 "_parseError_parsing_",
 smalltalk.method({
 selector: "parseError:parsing:",
-category: 'accessing',
-fn: function (anException, aString) {
-    var self = this;
-    var $1;
-    var row;
-    var col;
-    var message;
-    var lines;
-    var badLine;
-    var code;
-    row = anException.line;
-    col = anException.column;
-    message = anException.message;
-    lines = smalltalk.send(aString, "_lines", []);
-    badLine = smalltalk.send(lines, "_at_", [row]);
-    badLine = smalltalk.send(smalltalk.send(smalltalk.send(badLine, "_copyFrom_to_", [1, smalltalk.send(col, "__minus", [1])]), "__comma", [" ===>"]), "__comma", [smalltalk.send(badLine, "_copyFrom_to_", [col, smalltalk.send(badLine, "_size", [])])]);
-    smalltalk.send(lines, "_at_put_", [row, badLine]);
-    code = smalltalk.send(smalltalk.String || String, "_streamContents_", [function (s) {return smalltalk.send(lines, "_withIndexDo_", [function (l, i) {return smalltalk.send(s, "_nextPutAll_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(i, "_asString", []), "__comma", [": "]), "__comma", [l]), "__comma", [smalltalk.send(smalltalk.String || String, "_lf", [])])]);}]);}]);
-    $1 = smalltalk.send(smalltalk.send(smalltalk.ParseError || ParseError, "_new", []), "_messageText_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send("Parse error on line ", "__comma", [row]), "__comma", [" column "]), "__comma", [col]), "__comma", [" : "]), "__comma", [message]), "__comma", [" Below is code with line numbers and ===> marker inserted:"]), "__comma", [smalltalk.send(smalltalk.String || String, "_lf", [])]), "__comma", [code])]);
-    return $1;
-},
+category: 'error handling',
+fn: function (anException,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.ParseError || ParseError))._new())._messageText_(_st(_st(_st(_st(_st("Parse error on line ").__comma(_st(anException)._basicAt_("line"))).__comma(" column ")).__comma(_st(anException)._basicAt_("column"))).__comma(" : Unexpected character ")).__comma(_st(anException)._basicAt_("found")));
+return $1;
+}, self, "parseError:parsing:", [anException,aString], smalltalk.Smalltalk)},
 args: ["anException", "aString"],
-source: "parseError: anException parsing: aString\x0a\x09| row col message lines badLine code |\x0a\x09<row = anException.line;\x0a\x09col = anException.column;\x0a\x09message = anException.message;>.\x0a\x09lines := aString lines.\x0a\x09badLine := lines at: row.\x0a\x09badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).\x0a\x09lines at: row put: badLine.\x0a\x09code := String streamContents: [:s |\x0a                  lines withIndexDo: [:l :i |\x0a                     s nextPutAll: i asString, ': ', l, String lf]].\x0a\x09^ ParseError new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)",
-messageSends: ["lines", "at:", ",", "copyFrom:to:", "size", "-", "at:put:", "streamContents:", "withIndexDo:", "nextPutAll:", "lf", "asString", "messageText:", "new"],
-referencedClasses: ["String", "ParseError"]
+source: "parseError: anException parsing: aString\x0a\x09^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')",
+messageSends: ["messageText:", ",", "basicAt:", "new"],
+referencedClasses: ["ParseError"]
 }),
 smalltalk.Smalltalk);
 
@@ -4545,25 +4492,6 @@ fn: function () {
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return self.reservedWords>",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
-"_send_to_arguments_",
-smalltalk.method({
-selector: "send:to:arguments:",
-category: 'accessing',
-fn: function (aSelector, anObject, aCollection) {
-    var self = this;
-    var selector;
-    selector = smalltalk.send(smalltalk.send(aSelector, "_asString", []), "_asSelector", []);
-    return self.send(anObject, selector, aCollection);
-    return self;
-},
-args: ["aSelector", "anObject", "aCollection"],
-source: "send: aSelector to: anObject arguments: aCollection\x0a\x09| selector |\x0a\x09selector := aSelector asString asSelector.\x0a\x09<return self.send(anObject, selector, aCollection)>",
-messageSends: ["asSelector", "asString"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

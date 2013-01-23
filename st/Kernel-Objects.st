@@ -68,15 +68,11 @@ identityHash
 !
 
 instVarAt: aSymbol
-	| varname |
-	varname := aSymbol asString.
-	<return self['@'+varname]>
+	<return self['@'+aSymbol._asString()]>
 !
 
 instVarAt: aSymbol put: anObject
-	| varname |
-	varname := aSymbol asString.
-	<self['@' + varname] = anObject>
+	<self['@' + aSymbol._asString()] = anObject>
 !
 
 size
@@ -229,9 +225,7 @@ perform: aSymbol
 !
 
 perform: aSymbol withArguments: aCollection
-	| selector |
-	selector := aSymbol asSelector.
-	<return smalltalk.send(self, selector, aCollection)>
+	<return smalltalk.send(self, aSymbol._asSelector(), aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
@@ -741,15 +735,11 @@ __Note:__ For keyword-based messages, only the first keyword is kept: `window fo
 !JSObjectProxy methodsFor: 'accessing'!
 
 at: aSymbol
-	| attr |
-	attr := aSymbol asString.
-	<return self['@jsObject'][attr]>
+	<return self['@jsObject'][aSymbol._asString()]>
 !
 
 at: aSymbol put: anObject
-	| attr |
-	attr := aSymbol asString.
-	<self['@jsObject'][attr] = anObject>
+	<self['@jsObject'][aSymbol._asString()] = anObject>
 !
 
 jsObject
@@ -762,13 +752,21 @@ jsObject: aJSObject
 
 !JSObjectProxy methodsFor: 'proxy'!
 
+addObjectVariablesTo: aDictionary
+	<for(var i in self['@jsObject']) {
+		aDictionary._at_put_(i, self['@jsObject'][i]);
+	}>.
+!
+
 doesNotUnderstand: aMessage
-	| obj selector jsSelector arguments |
-	obj := self jsObject.
-	selector := aMessage selector.
-	jsSelector := selector asJavaScriptSelector.
-	arguments := aMessage arguments.
-	<if(obj[jsSelector] !!= undefined) {return smalltalk.send(obj, jsSelector, arguments)}>.
+	<
+    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
+        var object = self._jsObject();
+    	if(jsSelector in object) {
+        	return smalltalk.send(object, jsSelector, aMessage._arguments());
+        }
+    >.
+    
 	super doesNotUnderstand: aMessage
 !
 
@@ -777,9 +775,7 @@ inspectOn: anInspector
 	variables := Dictionary new.
 	variables at: '#self' put: self jsObject.
 	anInspector setLabel: self printString.
-	<for(var i in self['@jsObject']) {
-		variables._at_put_(i, self['@jsObject'][i]);
-	}>.
+	self addObjectVariablesTo: variables.
 	anInspector setVariables: variables
 !
 
@@ -962,13 +958,13 @@ to: stop by: step
 !
 
 truncated
-|result|
-
-    self >= 0 
-        ifTrue: [<result = Math.floor(self);>]
-        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
-
-    ^ result
+	<
+    	if(self >>= 0) {
+        	return Math.floor(self);
+        } else {
+        	return Math.floor(self * (-1)) * (-1);
+        };
+    >
 !
 
 | aNumber
@@ -1156,17 +1152,6 @@ organization
 
 properties
 	^Smalltalk current readJSObject: (self basicAt: 'properties')
-!
-
-properties: aDict
-	"We store it as a javascript object."
-	
-	| object |
-	<object = {};>.
-	aDict keysAndValuesDo: [:key :value |
-		<object[key] = value>.
-	].
-	<return self.properties = object>
 ! !
 
 !Package methodsFor: 'classes'!
@@ -1485,21 +1470,6 @@ parse: aString
 	^result
 !
 
-parseError: anException parsing: aString
-	| row col message lines badLine code |
-	<row = anException.line;
-	col = anException.column;
-	message = anException.message;>.
-	lines := aString lines.
-	badLine := lines at: row.
-	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
-	lines at: row put: badLine.
-	code := String streamContents: [:s |
-                  lines withIndexDo: [:l :i |
-                     s nextPutAll: i asString, ': ', l, String lf]].
-	^ ParseError new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
-!
-
 readJSObject: anObject
 	<return self.readJSObject(anObject)>
 !
@@ -1507,18 +1477,18 @@ readJSObject: anObject
 reservedWords
 	"JavaScript reserved words"
 	<return self.reservedWords>
-!
-
-send: aSelector to: anObject arguments: aCollection
-	| selector |
-	selector := aSelector asString asSelector.
-	<return self.send(anObject, selector, aCollection)>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
 
 classes
 	<return self.classes()>
+!
+
+deleteClass: aClass
+	"Deletes a class by deleting its binding only. Use #removeClass instead"
+    
+	<self.removeClass(aClass)>
 !
 
 removeClass: aClass
@@ -1538,7 +1508,25 @@ removeClass: aClass
             yourself)
 ! !
 
+!Smalltalk methodsFor: 'error handling'!
+
+parseError: anException parsing: aString
+	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
+! !
+
 !Smalltalk methodsFor: 'packages'!
+
+createPackage: packageName
+	"Create and bind a new package with given name and return it."
+       <return smalltalk.addPackage(packageName)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+       <delete smalltalk.packages[packageName]>
+!
 
 packageAt: packageName
        <return self.packages[packageName]>
@@ -1577,38 +1565,6 @@ renamePackage: packageName to: newName
 	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
 	pkg name: newName.
 	self deletePackage: packageName.
-! !
-
-!Smalltalk methodsFor: 'private'!
-
-createPackage: packageName
-	"Create and bind a new package with given name and return it."
-
-      <return smalltalk.addPackage(packageName, nil)>
-!
-
-createPackage: packageName properties: aDict
-	"Create and bind a new package with given name and return it."
-
-	| object |
-	<object = {};>.
-	aDict keysAndValuesDo: [:key :value |
-		<object[key] = value>.
-	].
-       <return smalltalk.addPackage(packageName, object)>
-!
-
-deleteClass: aClass
-	"Deletes a class by deleting its binding only. Use #removeClass instead"
-    
-	<self.removeClass(aClass)>
-!
-
-deletePackage: packageName
-	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
-	To remove a package, use #removePackage instead."
-
-       <delete smalltalk.packages[packageName]>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!

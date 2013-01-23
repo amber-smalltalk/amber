@@ -2072,11 +2072,11 @@ selector: "jsObject",
 category: 'accessing',
 fn: function (){
 var self=this;
-return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''};
+return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null};
 ;
 return self},
 args: [],
-source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''}>",
+source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2167,6 +2167,27 @@ args: [],
 source: "testPropertyThatReturnsEmptyString\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self assert: '' equals: object d.\x0a\x0a\x09object d: 'hello'.\x0a\x09self assert: 'hello' equals: object d",
 messageSends: ["jsObject", "assert:equals:", "d", "d:"],
 referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+"_testPropertyThatReturnsUndefined",
+smalltalk.method({
+selector: "testPropertyThatReturnsUndefined",
+category: 'tests',
+fn: function (){
+var self=this;
+var object;
+object=smalltalk.send(self,"_jsObject",[]);
+smalltalk.send(self,"_shouldnt_raise_",[(function(){
+return smalltalk.send(object,"_e",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(object,"_e",[]),"_isNil",[])]);
+return self},
+args: [],
+source: "testPropertyThatReturnsUndefined\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self shouldnt: [ object e ]  raise: MessageNotUnderstood.\x0a    self assert: object e isNil\x0a",
+messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"],
+referencedClasses: ["MessageNotUnderstood"]
 }),
 smalltalk.JSObjectProxyTest);
 
@@ -2300,6 +2321,28 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
+"_testHexNumbers",
+smalltalk.method({
+selector: "testHexNumbers",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send((9),"__eq",[(9)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((10),"_truncated",[]),"__eq",[(10)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((11),"_truncated",[]),"__eq",[(11)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((12),"_truncated",[]),"__eq",[(12)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((13),"_truncated",[]),"__eq",[(13)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((14),"_truncated",[]),"__eq",[(14)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send((15),"_truncated",[]),"__eq",[(15)])]);
+return self},
+args: [],
+source: "testHexNumbers\x0a\x0a\x09self assert: 16r9 = 9.\x0a\x09self assert: 16rA truncated = 10.\x0a\x09self assert: 16rB truncated = 11.\x0a\x09self assert: 16rC truncated = 12.\x0a\x09self assert: 16rD truncated = 13.\x0a\x09self assert: 16rE truncated = 14.\x0a\x09self assert: 16rF truncated = 15",
+messageSends: ["assert:", "=", "truncated"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
 "_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
@@ -2318,6 +2361,144 @@ args: [],
 source: "testIdentity\x0a\x09self assert: 1 == 1.\x0a\x09self assert: 0 == 0.\x0a\x09self deny: 1 == 0.\x0a\x0a\x09self assert: 1 yourself == 1.\x0a\x09self assert: 1 == 1 yourself.\x0a\x09self assert: 1 yourself == 1 yourself.\x0a\x09\x0a\x09self deny: 1 == 2",
 messageSends: ["assert:", "==", "deny:", "yourself"],
 referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+"_testInvalidHexNumbers",
+smalltalk.method({
+selector: "testInvalidHexNumbers",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rG",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rg",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rH",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rh",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rI",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_ri",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rJ",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rj",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rK",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rk",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rL",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rl",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rM",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rm",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rN",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rn",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rO",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_ro",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rP",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rp",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rQ",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rq",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rR",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rr",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rS",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rs",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rT",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rt",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rU",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_ru",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rV",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rv",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rW",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rw",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rX",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rx",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rY",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_ry",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rZ",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((16),"_rz",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send((11259375),"_Z",[]);
+}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood)]);
+return self},
+args: [],
+source: "testInvalidHexNumbers\x0a\x0a\x09self should: [16rG] raise: MessageNotUnderstood.\x0a   \x09self should: [16rg] raise: MessageNotUnderstood.\x0a\x09self should: [16rH] raise: MessageNotUnderstood.\x0a   \x09self should: [16rh] raise: MessageNotUnderstood.\x0a\x09self should: [16rI] raise: MessageNotUnderstood.\x0a   \x09self should: [16ri] raise: MessageNotUnderstood.\x0a\x09self should: [16rJ] raise: MessageNotUnderstood.\x0a   \x09self should: [16rj] raise: MessageNotUnderstood.\x0a\x09self should: [16rK] raise: MessageNotUnderstood.\x0a   \x09self should: [16rk] raise: MessageNotUnderstood.\x0a\x09self should: [16rL] raise: MessageNotUnderstood.\x0a   \x09self should: [16rl] raise: MessageNotUnderstood.\x0a\x09self should: [16rM] raise: MessageNotUnderstood.\x0a   \x09self should: [16rm] raise: MessageNotUnderstood.\x0a\x09self should: [16rN] raise: MessageNotUnderstood.\x0a   \x09self should: [16rn] raise: MessageNotUnderstood.\x0a\x09self should: [16rO] raise: MessageNotUnderstood.\x0a   \x09self should: [16ro] raise: MessageNotUnderstood.\x0a\x09self should: [16rP] raise: MessageNotUnderstood.\x0a   \x09self should: [16rp] raise: MessageNotUnderstood.\x0a\x09self should: [16rQ] raise: MessageNotUnderstood.\x0a   \x09self should: [16rq] raise: MessageNotUnderstood.\x0a\x09self should: [16rR] raise: MessageNotUnderstood.\x0a   \x09self should: [16rr] raise: MessageNotUnderstood.\x0a\x09self should: [16rS] raise: MessageNotUnderstood.\x0a   \x09self should: [16rs] raise: MessageNotUnderstood.\x0a\x09self should: [16rT] raise: MessageNotUnderstood.\x0a   \x09self should: [16rt] raise: MessageNotUnderstood.\x0a\x09self should: [16rU] raise: MessageNotUnderstood.\x0a   \x09self should: [16ru] raise: MessageNotUnderstood.\x0a\x09self should: [16rV] raise: MessageNotUnderstood.\x0a   \x09self should: [16rv] raise: MessageNotUnderstood.\x0a\x09self should: [16rW] raise: MessageNotUnderstood.\x0a   \x09self should: [16rw] raise: MessageNotUnderstood.\x0a\x09self should: [16rX] raise: MessageNotUnderstood.\x0a   \x09self should: [16rx] raise: MessageNotUnderstood.\x0a\x09self should: [16rY] raise: MessageNotUnderstood.\x0a   \x09self should: [16ry] raise: MessageNotUnderstood.\x0a\x09self should: [16rZ] raise: MessageNotUnderstood.\x0a   \x09self should: [16rz] raise: MessageNotUnderstood.\x0a    self should: [16rABcdEfZ] raise: MessageNotUnderstood.",
+messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"],
+referencedClasses: ["MessageNotUnderstood"]
 }),
 smalltalk.NumberTest);
 
@@ -2553,6 +2734,23 @@ smalltalk.ObjectMock);
 
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
+"_notDefined",
+smalltalk.method({
+selector: "notDefined",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return undefined;;
+;
+return self}, self, "notDefined", [], smalltalk.ObjectTest)},
+args: [],
+source: "notDefined\x0a\x09<return undefined;>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ObjectTest);
+
+smalltalk.addMethod(
 "_testBasicAccess",
 smalltalk.method({
 selector: "testBasicAccess",
@@ -2746,14 +2944,11 @@ selector: "testNilUndefined",
 category: 'tests',
 fn: function (){
 var self=this;
-var notDefined;
-notDefined = undefined;
-;
-smalltalk.send(self,"_assert_",[smalltalk.send(nil,"__eq",[notDefined])]);
-return self},
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(nil).__eq(_st(self)._notDefined()));
+return self}, self, "testNilUndefined", [], smalltalk.ObjectTest)},
 args: [],
-source: "testNilUndefined\x0a\x09\x22nil in Smalltalk is the undefined object in JS\x22\x0a\x0a\x09| notDefined |\x0a    \x0a    <notDefined = undefined>.\x0a\x0a\x09self assert: nil = notDefined",
-messageSends: ["assert:", "="],
+source: "testNilUndefined\x0a\x09\x22nil in Smalltalk is the undefined object in JS\x22\x0a\x0a\x09self assert: nil = self notDefined",
+messageSends: ["assert:", "=", "notDefined"],
 referencedClasses: []
 }),
 smalltalk.ObjectTest);

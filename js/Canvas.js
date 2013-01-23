@@ -3480,3 +3480,20 @@ referencedClasses: []
 }),
 smalltalk.String);
 
+smalltalk.addMethod(
+"_asJQuery",
+smalltalk.method({
+selector: "asJQuery",
+category: '*Canvas',
+fn: function (){
+var self=this;
+return jQuery(self['@jsObject']);
+;
+return self},
+args: [],
+source: "asJQuery\x0a    <return jQuery(self['@jsObject'])>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
