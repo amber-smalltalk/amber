@@ -975,26 +975,26 @@ smalltalk.parser = (function(){
             }
           }
           if (result1 !== null) {
-            if (/^[0-9a-zA-Z]/.test(input.charAt(pos.offset))) {
+            if (/^[0-9a-fA-F]/.test(input.charAt(pos.offset))) {
               result3 = input.charAt(pos.offset);
               advance(pos, 1);
             } else {
               result3 = null;
               if (reportFailures === 0) {
-                matchFailed("[0-9a-zA-Z]");
+                matchFailed("[0-9a-fA-F]");
               }
             }
             if (result3 !== null) {
               result2 = [];
               while (result3 !== null) {
                 result2.push(result3);
-                if (/^[0-9a-zA-Z]/.test(input.charAt(pos.offset))) {
+                if (/^[0-9a-fA-F]/.test(input.charAt(pos.offset))) {
                   result3 = input.charAt(pos.offset);
                   advance(pos, 1);
                 } else {
                   result3 = null;
                   if (reportFailures === 0) {
-                    matchFailed("[0-9a-zA-Z]");
+                    matchFailed("[0-9a-fA-F]");
                   }
                 }
               }
