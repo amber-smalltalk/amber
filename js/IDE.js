@@ -426,14 +426,19 @@ category: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.Debugger || Debugger))._new();
+_st((function(){
+return smalltalk.withContext(function($ctx2) { $1=_st((smalltalk.Debugger || Debugger))._new();
 _st($1)._error_(anError);
 $2=_st($1)._open();
+return $2;
+})}))._on_do_((smalltalk.Error || Error),(function(error){
+return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.ErrorHandler || ErrorHandler))._new())._handleError_(error);
+})}));
 return self}, self, "handleError:", [anError], smalltalk.DebugErrorHandler)},
 args: ["anError"],
-source: "handleError: anError\x0a\x09Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open",
-messageSends: ["error:", "new", "open"],
-referencedClasses: ["Debugger"]
+source: "handleError: anError\x0a\x09[ Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ErrorHandler new handleError: error ]",
+messageSends: ["on:do:", "handleError:", "new", "error:", "open"],
+referencedClasses: ["Error", "ErrorHandler", "Debugger"]
 }),
 smalltalk.DebugErrorHandler);
 

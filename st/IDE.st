@@ -156,9 +156,10 @@ ErrorHandler subclass: #DebugErrorHandler
 !DebugErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
-	Debugger new
+	[ Debugger new
 		error: anError;
-		open
+		open ] on: Error do: [ :error |
+			ErrorHandler new handleError: error ]
 ! !
 
 !DebugErrorHandler class methodsFor: 'initialization'!

@@ -325,9 +325,14 @@ selector: "handleError:",
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.Debugger || Debugger))._new();
+_st((function(){
+return smalltalk.withContext(function($ctx2) { $1=_st((smalltalk.Debugger || Debugger))._new();
 _st($1)._error_(anError);
 $2=_st($1)._open();
+return $2;
+})}))._on_do_((smalltalk.Error || Error),(function(error){
+return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.ErrorHandler || ErrorHandler))._new())._handleError_(error);
+})}));
 return self}, self, "handleError:", [anError], smalltalk.DebugErrorHandler)}
 }),
 smalltalk.DebugErrorHandler);
