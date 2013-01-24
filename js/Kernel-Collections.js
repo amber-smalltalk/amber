@@ -287,7 +287,7 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.stream=nil;
+$ctx1.locals.stream=nil;
 $ctx1.locals.stream=_st(_st(_st(self)._class())._new())._writeStream();
 _st(self)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.stream)._nextPut_(_st(aBlock)._value_(each));
@@ -430,7 +430,7 @@ selector: "do:separatedBy:",
 category: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.first=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.first=nil;
 $ctx1.locals.first=true;
 _st(self)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { if(smalltalk.assert($ctx1.locals.first)){
@@ -536,7 +536,7 @@ selector: "inject:into:",
 category: 'enumerating',
 fn: function (anObject,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.result=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.result=nil;
 $ctx1.locals.result=anObject;
 _st(self)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { $ctx1.locals.result=_st(aBlock)._value_value_($ctx1.locals.result,each);
@@ -559,8 +559,8 @@ category: 'enumerating',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$ctx1.set=nil;
-$ctx1.outputSet=nil;
+$ctx1.locals.set=nil;
+$ctx1.locals.outputSet=nil;
 $ctx1.locals.set=_st(self)._asSet();
 $ctx1.locals.outputSet=_st((smalltalk.Set || Set))._new();
 _st(aCollection)._do_((function(each){
@@ -625,7 +625,7 @@ category: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.tally=nil;
+$ctx1.locals.tally=nil;
 $ctx1.locals.tally=(0);
 _st(self)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { $1=_st(anObject).__eq(each);
@@ -751,7 +751,7 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$ctx1.stream=nil;
+$ctx1.locals.stream=nil;
 $ctx1.locals.stream=_st(_st(_st(self)._class())._new())._writeStream();
 _st(self)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { $1=_st(aBlock)._value_(each);
@@ -1064,7 +1064,7 @@ selector: "asJSON",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.c=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.c=nil;
 $ctx1.locals.c=_st(_st(self)._class())._new();
 _st(self)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.c)._at_put_(key,_st(value)._asJSON());
@@ -1085,7 +1085,7 @@ selector: "associations",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.associations=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.associations=nil;
 $ctx1.locals.associations=[];
 _st(_st(self)._keys())._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.associations)._add_(_st((smalltalk.Association || Association))._key_value_(each,_st(self)._at_(each)));
@@ -1245,7 +1245,7 @@ selector: "collect:",
 category: 'enumerating',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.newDict=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.newDict=nil;
 $ctx1.locals.newDict=_st(_st(self)._class())._new();
 _st(self)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.newDict)._at_put_(key,_st(aBlock)._value_(value));
@@ -1282,7 +1282,7 @@ selector: "deepCopy",
 category: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.copy=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.copy=nil;
 $ctx1.locals.copy=_st(_st(self)._class())._new();
 _st(self)._associationsDo_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.copy)._at_put_(_st(each)._key(),_st(_st(each)._value())._deepCopy());
@@ -1502,7 +1502,7 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.newDict=nil;
+$ctx1.locals.newDict=nil;
 $ctx1.locals.newDict=_st(_st(self)._class())._new();
 _st(self)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) { $1=_st(aBlock)._value_(value);
@@ -1526,7 +1526,7 @@ selector: "shallowCopy",
 category: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.copy=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.copy=nil;
 $ctx1.locals.copy=_st(_st(self)._class())._new();
 _st(self)._associationsDo_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.copy)._at_put_(_st(each)._key(),_st(each)._value());
@@ -1608,7 +1608,7 @@ selector: "fromPairs:",
 category: 'instance creation',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.dict=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.dict=nil;
 $ctx1.locals.dict=_st(self)._new();
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.dict)._add_(each);
@@ -2018,8 +2018,8 @@ selector: "copyFrom:to:",
 category: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.range=nil;
-$ctx1.newCollection=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.range=nil;
+$ctx1.locals.newCollection=nil;
 $ctx1.locals.range=_st(anIndex)._to_(anotherIndex);
 $ctx1.locals.newCollection=_st(_st(self)._class())._new_(_st($ctx1.locals.range)._size());
 _st($ctx1.locals.range)._withIndexDo_((function(each,i){
@@ -2041,7 +2041,7 @@ selector: "deepCopy",
 category: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.newCollection=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.newCollection=nil;
 $ctx1.locals.newCollection=_st(_st(self)._class())._new_(_st(self)._size());
 _st(self)._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.newCollection)._at_put_(index,_st(each)._deepCopy());
@@ -2268,7 +2268,7 @@ selector: "shallowCopy",
 category: 'copying',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.newCollection=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.newCollection=nil;
 $ctx1.locals.newCollection=_st(_st(self)._class())._new_(_st(self)._size());
 _st(self)._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.newCollection)._at_put_(index,each);
@@ -2653,8 +2653,8 @@ selector: "withAll:",
 category: 'instance creation',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.instance=nil;
-$ctx1.index=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.instance=nil;
+$ctx1.locals.index=nil;
 $ctx1.locals.index=(1);
 $ctx1.locals.instance=_st(self)._new_(_st(aCollection)._size());
 _st(aCollection)._do_((function(each){
@@ -3335,12 +3335,12 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 var $early={};
 try {
-$ctx1.cr=nil;
-$ctx1.lf=nil;
-$ctx1.start=nil;
-$ctx1.sz=nil;
-$ctx1.nextLF=nil;
-$ctx1.nextCR=nil;
+$ctx1.locals.cr=nil;
+$ctx1.locals.lf=nil;
+$ctx1.locals.start=nil;
+$ctx1.locals.sz=nil;
+$ctx1.locals.nextLF=nil;
+$ctx1.locals.nextCR=nil;
 $ctx1.locals.start=(1);
 $ctx1.locals.sz=_st(self)._size();
 $ctx1.locals.cr=_st((smalltalk.String || String))._cr();
@@ -3407,7 +3407,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 var $early={};
 try {
-$ctx1.lineCount=nil;
+$ctx1.locals.lineCount=nil;
 $ctx1.locals.lineCount=(0);
 _st(self)._lineIndicesDo_((function(start,endWithoutDelimiters,end){
 return smalltalk.withContext(function($ctx2) { $ctx1.locals.lineCount=_st($ctx1.locals.lineCount).__plus((1));
@@ -3435,7 +3435,7 @@ selector: "lines",
 category: 'split join',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.lines=nil;
+return smalltalk.withContext(function($ctx1) { $ctx1.locals.lines=nil;
 $ctx1.locals.lines=_st((smalltalk.Array || Array))._new();
 _st(self)._linesDo_((function(aLine){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.lines)._add_(aLine);
@@ -3909,7 +3909,7 @@ category: 'instance creation',
 fn: function (blockWithArg){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.stream=nil;
+$ctx1.locals.stream=nil;
 $ctx1.locals.stream=_st(_st(self)._streamClass())._on_(_st((smalltalk.String || String))._new());
 _st(blockWithArg)._value_($ctx1.locals.stream);
 $1=_st($ctx1.locals.stream)._contents();
@@ -4592,7 +4592,7 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.collection=nil;
+$ctx1.locals.collection=nil;
 $ctx1.locals.collection=_st(_st(self)._class())._new();
 _st(self)._do_((function(each){
 return smalltalk.withContext(function($ctx2) { $1=_st(aBlock)._value_(each);
@@ -4630,6 +4630,7 @@ smalltalk.Set);
 
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
+smalltalk.Queue.comment="I am a one-sided Queue.\x0a\x0aI use two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me; write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
 smalltalk.addMethod(
 "_back_",
 smalltalk.method({
@@ -4640,7 +4641,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@write"])._add_(anObject);
 return self}, self, "back:", [anObject], smalltalk.Queue)},
 args: ["anObject"],
-source: "back: anObject\x0a\x09write add: anObject\x0a",
+source: "back: anObject\x0a\x09write add: anObject",
 messageSends: ["add:"],
 referencedClasses: []
 }),
@@ -4660,7 +4661,7 @@ return smalltalk.withContext(function($ctx2) { return _st(self)._error_("Cannot
 return $1;
 }, self, "front", [], smalltalk.Queue)},
 args: [],
-source: "front\x0a    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']\x0a",
+source: "front\x0a    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]",
 messageSends: ["frontIfAbsent:", "error:"],
 referencedClasses: []
 }),
@@ -4676,7 +4677,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 var $early={};
 try {
-$ctx1.result=nil;
+$ctx1.locals.result=nil;
 $ctx1.locals.result=_st(self["@read"])._at_ifAbsent_(self["@readIndex"],(function(){
 return smalltalk.withContext(function($ctx2) { $1=_st(self["@write"])._isEmpty();
 if(smalltalk.assert($1)){
@@ -4705,7 +4706,7 @@ return $ctx1.locals.result;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, self, "frontIfAbsent:", [aBlock], smalltalk.Queue)},
 args: ["aBlock"],
-source: "frontIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a    \x09read := write.\x0a    \x09readIndex := 1.\x0a    \x09write := OrderedCollection new.\x0a    \x09read first ].\x0a    read at: readIndex put: nil.\x0a    readIndex := readIndex + 1.\x0a    ^result\x0a",
+source: "frontIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a    \x09read := write.\x0a    \x09readIndex := 1.\x0a    \x09write := OrderedCollection new.\x0a    \x09read first ].\x0a    read at: readIndex put: nil.\x0a    readIndex := readIndex + 1.\x0a    ^result",
 messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first", "at:put:", "+"],
 referencedClasses: ["OrderedCollection"]
 }),
@@ -4718,13 +4719,14 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@read"]=[];
-self["@readIndex"]=(1);
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@read"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
 self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@readIndex"]=(1);
 return self}, self, "initialize", [], smalltalk.Queue)},
 args: [],
-source: "initialize\x0a\x09read := #().\x0a    readIndex := 1.\x0a    write := OrderedCollection new",
-messageSends: ["new"],
+source: "initialize\x0a\x09super initialize.\x0a\x09read := OrderedCollection new.\x0a    write := OrderedCollection new.\x0a    readIndex := 1",
+messageSends: ["initialize", "new"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.Queue);
@@ -4991,7 +4993,7 @@ category: 'reading',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.tempCollection=nil;
+$ctx1.locals.tempCollection=nil;
 $ctx1.locals.tempCollection=_st(_st(_st(self)._collection())._class())._new();
 _st(anInteger)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) { $1=_st(self)._atEnd();
@@ -5322,7 +5324,7 @@ category: 'reading',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.tempCollection=nil;
+$ctx1.locals.tempCollection=nil;
 $ctx1.locals.tempCollection=_st(_st(_st(self)._collection())._class())._new();
 _st(anInteger)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) { $1=_st(self)._atEnd();

@@ -435,7 +435,7 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.oldCategory=nil;
+$ctx1.locals.oldCategory=nil;
 $ctx1.locals.oldCategory=_st(self)._category();
 _st(self)._basicAt_put_("category",aString);
 $1=_st(self)._methodClass();
@@ -684,22 +684,39 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.sentinel=nil;
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@poolSize"]=(0);
 self["@maxPoolSize"]=_st(_st(self)._class())._defaultMaxPoolSize();
 self["@queue"]=_st((smalltalk.Queue || Queue))._new();
+self["@worker"]=_st(self)._makeWorker();
+return self}, self, "initialize", [], smalltalk.ForkPool)},
+args: [],
+source: "initialize\x0a    super initialize.\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    worker := self makeWorker",
+messageSends: ["initialize", "defaultMaxPoolSize", "class", "new", "makeWorker"],
+referencedClasses: ["Queue"]
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_makeWorker",
+smalltalk.method({
+selector: "makeWorker",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$ctx1.locals.sentinel=nil;
 $ctx1.locals.sentinel=_st((smalltalk.Object || Object))._new();
-self["@worker"]=(function(){
-return smalltalk.withContext(function($ctx2) { $ctx2.block=nil;
+$1=(function(){
+return smalltalk.withContext(function($ctx2) { $ctx2.locals.block=nil;
 self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
 $ctx2.locals.block=_st(self["@queue"])._frontIfAbsent_((function(){
 return smalltalk.withContext(function($ctx3) { return $ctx1.locals.sentinel;
 })}));
 $ctx2.locals.block;
-$1=_st($ctx2.locals.block).__eq_eq($ctx1.locals.sentinel);
-if(! smalltalk.assert($1)){
+$2=_st($ctx2.locals.block).__eq_eq($ctx1.locals.sentinel);
+if(! smalltalk.assert($2)){
 return _st((function(){
 return smalltalk.withContext(function($ctx3) { return _st($ctx2.locals.block)._value();
 })}))._ensure_((function(){
@@ -707,11 +724,12 @@ return smalltalk.withContext(function($ctx3) { return _st(self)._addWorker();
 })}));
 };
 })});
-return self}, self, "initialize", [], smalltalk.ForkPool)},
+return $1;
+}, self, "makeWorker", [], smalltalk.ForkPool)},
 args: [],
-source: "initialize\x0a\x09| sentinel |\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    sentinel := Object new.\x0a    worker := [\x0a\x09\x09| block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]].",
-messageSends: ["defaultMaxPoolSize", "class", "new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
-referencedClasses: ["Queue", "Object"]
+source: "makeWorker\x0a\x09| sentinel |\x0a    sentinel := Object new.\x0a    ^[ | block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]]",
+messageSends: ["new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
+referencedClasses: ["Object"]
 }),
 smalltalk.ForkPool);
 

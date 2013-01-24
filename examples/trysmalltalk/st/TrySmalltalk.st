@@ -323,8 +323,9 @@ doingVSPrinting
 	^ Lesson
 title: 'Doing VS Printing: Doing' 
 contents: 
-'"Cool !! (I like to say Cooool :) ). You''ve just executed a Smalltalk expression. More precisely, you sent the message ''next'' to
-ProfStef class (it''s me !!).
+'"Cool !! (I like to say Cooool :) ).
+You''ve just executed a Smalltalk expression.
+More precisely, you sent the message ''next'' to ProfStef class (it''s me !!).
 
 Note you can run this tutorial again by evaluating: ''ProfStef go''. 
 ''ProfStef previous'' returns to the previous lesson.
@@ -613,7 +614,9 @@ pharoEnvironment
 	^ Lesson
 title: 'Pharo environment' 
 contents: 
-'"Every Smalltalk system is full of objects. There are windows, text, numbers, dates, colors, points and much more. You can interact with objects in a much more direct way than is possible with other programming languages.
+'"Every Smalltalk system is full of objects.
+There are windows, text, numbers, dates, colors, points and much more.
+You can interact with objects in a much more direct way than is possible with other programming languages.
 
 Every object understands the message ''explore''. As a result, you get an Explorer window that shows details about the object."
 
@@ -634,7 +637,8 @@ printing
 	^ Lesson
 title: 'Doing VS Printing: Printing' 
 contents: 
-'"Now you''re a Do It master !! Let''s talk about printing. It''s a Do It which prints the result next to the expression you''ve selected.
+'"Now you''re a Do It master !! Let''s talk about printing.
+It''s a Do It which prints the result next to the expression you''ve selected.
 For example, select the text below, and click on ''PrintIt'':"
 
 1 + 2.
@@ -705,7 +709,7 @@ theEnd
 	^ Lesson
 title: 'Tutorial done !!' 
 contents: 
-'"This tutorial is done. Enjoy programming Smalltalk with JTalk. 
+'"This tutorial is done. Enjoy programming Smalltalk with Amber. 
 
 You can run this tutorial again by evaluating: ProfStef go.
 

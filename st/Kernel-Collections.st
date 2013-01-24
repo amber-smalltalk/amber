@@ -1480,6 +1480,16 @@ includes: anObject
 Object subclass: #Queue
 	instanceVariableNames: 'read readIndex write'
 	package: 'Kernel-Collections'!
+!Queue commentStamp!
+I am a one-sided Queue.
+
+I use two OrderedCollections inside,
+`read` is at the front, is not modified and only read using `readIndex`.
+`write` is at the back and is appended new items.
+When `read` is exhausted, `write` is promoted to `read` and new `write` is created.
+
+As a consequence, no data moving is done by me; write appending may do data moving
+when growing `write`, but this is left to engine to implement as good as it chooses to.!
 
 !Queue methodsFor: 'accessing'!
 
@@ -1488,7 +1498,7 @@ back: anObject
 !
 
 front
-    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']
+    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
 !
 
 frontIfAbsent: aBlock
@@ -1509,9 +1519,10 @@ frontIfAbsent: aBlock
 !Queue methodsFor: 'initialization'!
 
 initialize
-	read := #().
-    readIndex := 1.
-    write := OrderedCollection new
+	super initialize.
+	read := OrderedCollection new.
+    write := OrderedCollection new.
+    readIndex := 1
 ! !
 
 Object subclass: #RegularExpression
