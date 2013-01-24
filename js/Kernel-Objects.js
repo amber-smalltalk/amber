@@ -918,18 +918,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "try:catch:",
 category: 'error handling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    try {
-        result = aBlock();
-    } catch (e) {
-        result = anotherBlock(e);
-    }
-    return result;
-    return self;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+try{return aBlock()} catch(e) {return anotherBlock(e)};
+;
+return self},
 args: ["aBlock", "anotherBlock"],
-source: "try: aBlock catch: anotherBlock\x0a\x09<try{result = aBlock()} catch(e) {result = anotherBlock(e)};\x0a\x09return result;>",
+source: "try: aBlock catch: anotherBlock\x0a\x09<try{return aBlock()} catch(e) {return anotherBlock(e)}>",
 messageSends: [],
 referencedClasses: []
 }),
