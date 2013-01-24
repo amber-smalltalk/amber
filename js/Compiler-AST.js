@@ -8,7 +8,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.Node)},
@@ -26,7 +26,7 @@ selector: "addNode:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._nodes())._add_(aNode);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._nodes())._add_(aNode);
 return self}, self, "addNode:", [aNode], smalltalk.Node)},
 args: ["aNode"],
 source: "addNode: aNode\x0a\x09self nodes add: aNode",
@@ -42,7 +42,7 @@ selector: "isAssignmentNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return false;
+return smalltalk.withContext(function($ctx1) { return false;
 }, self, "isAssignmentNode", [], smalltalk.Node)},
 args: [],
 source: "isAssignmentNode\x0a\x09^ false",
@@ -58,7 +58,7 @@ selector: "isBlockNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return false;
+return smalltalk.withContext(function($ctx1) { return false;
 }, self, "isBlockNode", [], smalltalk.Node)},
 args: [],
 source: "isBlockNode\x0a\x09^false",
@@ -74,7 +74,7 @@ selector: "isBlockSequenceNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return false;
+return smalltalk.withContext(function($ctx1) { return false;
 }, self, "isBlockSequenceNode", [], smalltalk.Node)},
 args: [],
 source: "isBlockSequenceNode\x0a\x09^false",
@@ -90,7 +90,7 @@ selector: "isReturnNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return false;
+return smalltalk.withContext(function($ctx1) { return false;
 }, self, "isReturnNode", [], smalltalk.Node)},
 args: [],
 source: "isReturnNode\x0a\x09^false",
@@ -106,7 +106,7 @@ selector: "isSendNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return false;
+return smalltalk.withContext(function($ctx1) { return false;
 }, self, "isSendNode", [], smalltalk.Node)},
 args: [],
 source: "isSendNode\x0a\x09^false",
@@ -122,7 +122,7 @@ selector: "isValueNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return false;
+return smalltalk.withContext(function($ctx1) { return false;
 }, self, "isValueNode", [], smalltalk.Node)},
 args: [],
 source: "isValueNode\x0a\x09^false",
@@ -138,7 +138,7 @@ selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@nodes"]) == nil || $receiver == undefined){
 self["@nodes"]=_st((smalltalk.Array || Array))._new();
 $1=self["@nodes"];
@@ -161,7 +161,7 @@ selector: "nodes:",
 category: 'building',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@nodes"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@nodes"]=aCollection;
 return self}, self, "nodes:", [aCollection], smalltalk.Node)},
 args: ["aCollection"],
 source: "nodes: aCollection\x0a\x09nodes := aCollection",
@@ -177,7 +177,7 @@ selector: "position",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@position"]) == nil || $receiver == undefined){
 self["@position"]=_st((0)).__at((0));
 $1=self["@position"];
@@ -200,7 +200,7 @@ selector: "position:",
 category: 'building',
 fn: function (aPosition){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@position"]=aPosition;
+return smalltalk.withContext(function($ctx1) { self["@position"]=aPosition;
 return self}, self, "position:", [aPosition], smalltalk.Node)},
 args: ["aPosition"],
 source: "position: aPosition\x0a\x09position := aPosition",
@@ -216,7 +216,7 @@ selector: "shouldBeAliased",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@shouldBeAliased"]) == nil || $receiver == undefined){
 $1=false;
 } else {
@@ -238,7 +238,7 @@ selector: "shouldBeAliased:",
 category: 'accessing',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@shouldBeAliased"]=aBoolean;
+return smalltalk.withContext(function($ctx1) { self["@shouldBeAliased"]=aBoolean;
 return self}, self, "shouldBeAliased:", [aBoolean], smalltalk.Node)},
 args: ["aBoolean"],
 source: "shouldBeAliased: aBoolean\x0a\x09shouldBeAliased := aBoolean",
@@ -254,7 +254,7 @@ selector: "shouldBeInlined",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@shouldBeInlined"]) == nil || $receiver == undefined){
 $1=false;
 } else {
@@ -276,7 +276,7 @@ selector: "shouldBeInlined:",
 category: 'accessing',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@shouldBeInlined"]=aBoolean;
+return smalltalk.withContext(function($ctx1) { self["@shouldBeInlined"]=aBoolean;
 return self}, self, "shouldBeInlined:", [aBoolean], smalltalk.Node)},
 args: ["aBoolean"],
 source: "shouldBeInlined: aBoolean\x0a\x09shouldBeInlined := aBoolean",
@@ -295,7 +295,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitAssignmentNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.AssignmentNode)},
@@ -313,7 +313,7 @@ selector: "isAssignmentNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isAssignmentNode", [], smalltalk.AssignmentNode)},
 args: [],
 source: "isAssignmentNode\x0a\x09^ true",
@@ -329,7 +329,7 @@ selector: "left",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@left"];
+return smalltalk.withContext(function($ctx1) { return self["@left"];
 }, self, "left", [], smalltalk.AssignmentNode)},
 args: [],
 source: "left\x0a\x09^left",
@@ -345,7 +345,7 @@ selector: "left:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@left"]=aNode;
+return smalltalk.withContext(function($ctx1) { self["@left"]=aNode;
 return self}, self, "left:", [aNode], smalltalk.AssignmentNode)},
 args: ["aNode"],
 source: "left: aNode\x0a\x09left := aNode",
@@ -361,7 +361,7 @@ selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.Array || Array))._with_with_(_st(self)._left(),_st(self)._right());
 return $1;
 }, self, "nodes", [], smalltalk.AssignmentNode)},
@@ -379,7 +379,7 @@ selector: "right",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@right"];
+return smalltalk.withContext(function($ctx1) { return self["@right"];
 }, self, "right", [], smalltalk.AssignmentNode)},
 args: [],
 source: "right\x0a\x09^right",
@@ -395,7 +395,7 @@ selector: "right:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@right"]=aNode;
+return smalltalk.withContext(function($ctx1) { self["@right"]=aNode;
 return self}, self, "right:", [aNode], smalltalk.AssignmentNode)},
 args: ["aNode"],
 source: "right: aNode\x0a\x09right := aNode",
@@ -414,7 +414,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitBlockNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.BlockNode)},
@@ -432,7 +432,7 @@ selector: "isBlockNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isBlockNode", [], smalltalk.BlockNode)},
 args: [],
 source: "isBlockNode\x0a\x09^true",
@@ -448,7 +448,7 @@ selector: "parameters",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@parameters"]) == nil || $receiver == undefined){
 self["@parameters"]=_st((smalltalk.Array || Array))._new();
 $1=self["@parameters"];
@@ -471,7 +471,7 @@ selector: "parameters:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@parameters"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@parameters"]=aCollection;
 return self}, self, "parameters:", [aCollection], smalltalk.BlockNode)},
 args: ["aCollection"],
 source: "parameters: aCollection\x0a\x09parameters := aCollection",
@@ -487,7 +487,7 @@ selector: "scope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@scope"];
+return smalltalk.withContext(function($ctx1) { return self["@scope"];
 }, self, "scope", [], smalltalk.BlockNode)},
 args: [],
 source: "scope\x0a\x09^ scope",
@@ -503,7 +503,7 @@ selector: "scope:",
 category: 'accessing',
 fn: function (aLexicalScope){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@scope"]=aLexicalScope;
+return smalltalk.withContext(function($ctx1) { self["@scope"]=aLexicalScope;
 return self}, self, "scope:", [aLexicalScope], smalltalk.BlockNode)},
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
@@ -522,7 +522,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitCascadeNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.CascadeNode)},
@@ -540,7 +540,7 @@ selector: "receiver",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@receiver"];
+return smalltalk.withContext(function($ctx1) { return self["@receiver"];
 }, self, "receiver", [], smalltalk.CascadeNode)},
 args: [],
 source: "receiver\x0a\x09^receiver",
@@ -556,7 +556,7 @@ selector: "receiver:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@receiver"]=aNode;
+return smalltalk.withContext(function($ctx1) { self["@receiver"]=aNode;
 return self}, self, "receiver:", [aNode], smalltalk.CascadeNode)},
 args: ["aNode"],
 source: "receiver: aNode\x0a\x09receiver := aNode",
@@ -575,7 +575,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitDynamicArrayNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.DynamicArrayNode)},
@@ -596,7 +596,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitDynamicDictionaryNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.DynamicDictionaryNode)},
@@ -617,7 +617,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitJSStatementNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.JSStatementNode)},
@@ -635,7 +635,7 @@ selector: "source",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@source"]) == nil || $receiver == undefined){
 $1="";
 } else {
@@ -657,7 +657,7 @@ selector: "source:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@source"]=aString;
+return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
 return self}, self, "source:", [aString], smalltalk.JSStatementNode)},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
@@ -676,7 +676,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitMethodNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.MethodNode)},
@@ -694,7 +694,7 @@ selector: "arguments",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@arguments"]) == nil || $receiver == undefined){
 $1=[];
 } else {
@@ -716,7 +716,7 @@ selector: "arguments:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@arguments"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@arguments"]=aCollection;
 return self}, self, "arguments:", [aCollection], smalltalk.MethodNode)},
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09arguments := aCollection",
@@ -732,7 +732,7 @@ selector: "classReferences",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@classReferences"];
+return smalltalk.withContext(function($ctx1) { return self["@classReferences"];
 }, self, "classReferences", [], smalltalk.MethodNode)},
 args: [],
 source: "classReferences\x0a\x09^ classReferences",
@@ -748,7 +748,7 @@ selector: "classReferences:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@classReferences"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@classReferences"]=aCollection;
 return self}, self, "classReferences:", [aCollection], smalltalk.MethodNode)},
 args: ["aCollection"],
 source: "classReferences: aCollection\x0a\x09classReferences := aCollection",
@@ -764,7 +764,7 @@ selector: "messageSends",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@messageSends"];
+return smalltalk.withContext(function($ctx1) { return self["@messageSends"];
 }, self, "messageSends", [], smalltalk.MethodNode)},
 args: [],
 source: "messageSends\x0a\x09^ messageSends",
@@ -780,7 +780,7 @@ selector: "messageSends:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@messageSends"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@messageSends"]=aCollection;
 return self}, self, "messageSends:", [aCollection], smalltalk.MethodNode)},
 args: ["aCollection"],
 source: "messageSends: aCollection\x0a\x09messageSends := aCollection",
@@ -796,7 +796,7 @@ selector: "scope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@scope"];
+return smalltalk.withContext(function($ctx1) { return self["@scope"];
 }, self, "scope", [], smalltalk.MethodNode)},
 args: [],
 source: "scope\x0a\x09^ scope",
@@ -812,7 +812,7 @@ selector: "scope:",
 category: 'accessing',
 fn: function (aMethodScope){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@scope"]=aMethodScope;
+return smalltalk.withContext(function($ctx1) { self["@scope"]=aMethodScope;
 return self}, self, "scope:", [aMethodScope], smalltalk.MethodNode)},
 args: ["aMethodScope"],
 source: "scope: aMethodScope\x0a\x09scope := aMethodScope",
@@ -828,7 +828,7 @@ selector: "selector",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@selector"];
+return smalltalk.withContext(function($ctx1) { return self["@selector"];
 }, self, "selector", [], smalltalk.MethodNode)},
 args: [],
 source: "selector\x0a\x09^selector",
@@ -844,7 +844,7 @@ selector: "selector:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@selector"]=aString;
+return smalltalk.withContext(function($ctx1) { self["@selector"]=aString;
 return self}, self, "selector:", [aString], smalltalk.MethodNode)},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
@@ -860,7 +860,7 @@ selector: "source",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@source"];
+return smalltalk.withContext(function($ctx1) { return self["@source"];
 }, self, "source", [], smalltalk.MethodNode)},
 args: [],
 source: "source\x0a\x09^source",
@@ -876,7 +876,7 @@ selector: "source:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@source"]=aString;
+return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
 return self}, self, "source:", [aString], smalltalk.MethodNode)},
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
@@ -892,7 +892,7 @@ selector: "superSends",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@superSends"];
+return smalltalk.withContext(function($ctx1) { return self["@superSends"];
 }, self, "superSends", [], smalltalk.MethodNode)},
 args: [],
 source: "superSends\x0a\x09^ superSends",
@@ -908,7 +908,7 @@ selector: "superSends:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@superSends"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@superSends"]=aCollection;
 return self}, self, "superSends:", [aCollection], smalltalk.MethodNode)},
 args: ["aCollection"],
 source: "superSends: aCollection\x0a\x09superSends := aCollection",
@@ -927,7 +927,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitReturnNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.ReturnNode)},
@@ -945,7 +945,7 @@ selector: "isReturnNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isReturnNode", [], smalltalk.ReturnNode)},
 args: [],
 source: "isReturnNode\x0a\x09^ true",
@@ -961,7 +961,7 @@ selector: "nonLocalReturn",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._scope())._isMethodScope())._not();
 return $1;
 }, self, "nonLocalReturn", [], smalltalk.ReturnNode)},
@@ -979,7 +979,7 @@ selector: "scope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@scope"];
+return smalltalk.withContext(function($ctx1) { return self["@scope"];
 }, self, "scope", [], smalltalk.ReturnNode)},
 args: [],
 source: "scope\x0a\x09^ scope",
@@ -995,7 +995,7 @@ selector: "scope:",
 category: 'accessing',
 fn: function (aLexicalScope){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@scope"]=aLexicalScope;
+return smalltalk.withContext(function($ctx1) { self["@scope"]=aLexicalScope;
 return self}, self, "scope:", [aLexicalScope], smalltalk.ReturnNode)},
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
@@ -1014,7 +1014,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitSendNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.SendNode)},
@@ -1032,7 +1032,7 @@ selector: "arguments",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@arguments"]) == nil || $receiver == undefined){
 self["@arguments"]=[];
 $1=self["@arguments"];
@@ -1055,7 +1055,7 @@ selector: "arguments:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@arguments"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@arguments"]=aCollection;
 return self}, self, "arguments:", [aCollection], smalltalk.SendNode)},
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09arguments := aCollection",
@@ -1071,16 +1071,16 @@ selector: "cascadeNodeWithMessages:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$4,$5,$3;
-var first;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$5,$3;
+$ctx1.first=nil;
 $1=_st((smalltalk.SendNode || SendNode))._new();
 _st($1)._selector_(_st(self)._selector());
 _st($1)._arguments_(_st(self)._arguments());
 $2=_st($1)._yourself();
-first=$2;
+$ctx1.locals.first=$2;
 $4=_st((smalltalk.CascadeNode || CascadeNode))._new();
 _st($4)._receiver_(_st(self)._receiver());
-_st($4)._nodes_(_st(_st((smalltalk.Array || Array))._with_(first)).__comma(aCollection));
+_st($4)._nodes_(_st(_st((smalltalk.Array || Array))._with_($ctx1.locals.first)).__comma(aCollection));
 $5=_st($4)._yourself();
 $3=$5;
 return $3;
@@ -1099,7 +1099,7 @@ selector: "index",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@index"];
+return smalltalk.withContext(function($ctx1) { return self["@index"];
 }, self, "index", [], smalltalk.SendNode)},
 args: [],
 source: "index\x0a\x09^ index",
@@ -1115,7 +1115,7 @@ selector: "index:",
 category: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@index"]=anInteger;
+return smalltalk.withContext(function($ctx1) { self["@index"]=anInteger;
 return self}, self, "index:", [anInteger], smalltalk.SendNode)},
 args: ["anInteger"],
 source: "index: anInteger\x0a\x09index := anInteger",
@@ -1131,7 +1131,7 @@ selector: "isSendNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isSendNode", [], smalltalk.SendNode)},
 args: [],
 source: "isSendNode\x0a\x09^ true",
@@ -1147,7 +1147,7 @@ selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st((smalltalk.Array || Array))._withAll_(_st(self)._arguments());
 _st($2)._add_(_st(self)._receiver());
 $3=_st($2)._yourself();
@@ -1168,7 +1168,7 @@ selector: "receiver",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@receiver"];
+return smalltalk.withContext(function($ctx1) { return self["@receiver"];
 }, self, "receiver", [], smalltalk.SendNode)},
 args: [],
 source: "receiver\x0a\x09^receiver",
@@ -1184,7 +1184,7 @@ selector: "receiver:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@receiver"]=aNode;
+return smalltalk.withContext(function($ctx1) { self["@receiver"]=aNode;
 return self}, self, "receiver:", [aNode], smalltalk.SendNode)},
 args: ["aNode"],
 source: "receiver: aNode\x0a\x09receiver := aNode",
@@ -1200,7 +1200,7 @@ selector: "selector",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@selector"];
+return smalltalk.withContext(function($ctx1) { return self["@selector"];
 }, self, "selector", [], smalltalk.SendNode)},
 args: [],
 source: "selector\x0a\x09^selector",
@@ -1216,7 +1216,7 @@ selector: "selector:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@selector"]=aString;
+return smalltalk.withContext(function($ctx1) { self["@selector"]=aString;
 return self}, self, "selector:", [aString], smalltalk.SendNode)},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
@@ -1232,7 +1232,7 @@ selector: "superSend",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@superSend"]) == nil || $receiver == undefined){
 $1=false;
 } else {
@@ -1254,7 +1254,7 @@ selector: "superSend:",
 category: 'accessing',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@superSend"]=aBoolean;
+return smalltalk.withContext(function($ctx1) { self["@superSend"]=aBoolean;
 return self}, self, "superSend:", [aBoolean], smalltalk.SendNode)},
 args: ["aBoolean"],
 source: "superSend: aBoolean\x0a\x09superSend := aBoolean",
@@ -1270,7 +1270,7 @@ selector: "valueForReceiver:",
 category: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$4,$3,$5,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$4,$3,$5,$1;
 $2=_st((smalltalk.SendNode || SendNode))._new();
 $4=_st(self)._receiver();
 if(($receiver = $4) == nil || $receiver == undefined){
@@ -1302,7 +1302,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitSequenceNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.SequenceNode)},
@@ -1320,7 +1320,7 @@ selector: "asBlockSequenceNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st((smalltalk.BlockSequenceNode || BlockSequenceNode))._new();
 _st($2)._nodes_(_st(self)._nodes());
 _st($2)._temps_(_st(self)._temps());
@@ -1342,7 +1342,7 @@ selector: "scope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@scope"];
+return smalltalk.withContext(function($ctx1) { return self["@scope"];
 }, self, "scope", [], smalltalk.SequenceNode)},
 args: [],
 source: "scope\x0a\x09^ scope",
@@ -1358,7 +1358,7 @@ selector: "scope:",
 category: 'accessing',
 fn: function (aLexicalScope){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@scope"]=aLexicalScope;
+return smalltalk.withContext(function($ctx1) { self["@scope"]=aLexicalScope;
 return self}, self, "scope:", [aLexicalScope], smalltalk.SequenceNode)},
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
@@ -1374,7 +1374,7 @@ selector: "temps",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@temps"]) == nil || $receiver == undefined){
 $1=[];
 } else {
@@ -1396,7 +1396,7 @@ selector: "temps:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@temps"]=aCollection;
+return smalltalk.withContext(function($ctx1) { self["@temps"]=aCollection;
 return self}, self, "temps:", [aCollection], smalltalk.SequenceNode)},
 args: ["aCollection"],
 source: "temps: aCollection\x0a\x09temps := aCollection",
@@ -1415,7 +1415,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitBlockSequenceNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.BlockSequenceNode)},
@@ -1433,7 +1433,7 @@ selector: "isBlockSequenceNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isBlockSequenceNode", [], smalltalk.BlockSequenceNode)},
 args: [],
 source: "isBlockSequenceNode\x0a\x09^true",
@@ -1452,7 +1452,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitValueNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.ValueNode)},
@@ -1470,7 +1470,7 @@ selector: "isValueNode",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isValueNode", [], smalltalk.ValueNode)},
 args: [],
 source: "isValueNode\x0a\x09^true",
@@ -1486,7 +1486,7 @@ selector: "value",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@value"];
+return smalltalk.withContext(function($ctx1) { return self["@value"];
 }, self, "value", [], smalltalk.ValueNode)},
 args: [],
 source: "value\x0a\x09^value",
@@ -1502,7 +1502,7 @@ selector: "value:",
 category: 'accessing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@value"]=anObject;
+return smalltalk.withContext(function($ctx1) { self["@value"]=anObject;
 return self}, self, "value:", [anObject], smalltalk.ValueNode)},
 args: ["anObject"],
 source: "value: anObject\x0a\x09value := anObject",
@@ -1521,7 +1521,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitVariableNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.VariableNode)},
@@ -1539,7 +1539,7 @@ selector: "alias",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._binding())._alias();
 return $1;
 }, self, "alias", [], smalltalk.VariableNode)},
@@ -1557,7 +1557,7 @@ selector: "assigned",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@assigned"]) == nil || $receiver == undefined){
 $1=false;
 } else {
@@ -1579,7 +1579,7 @@ selector: "assigned:",
 category: 'accessing',
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@assigned"]=aBoolean;
+return smalltalk.withContext(function($ctx1) { self["@assigned"]=aBoolean;
 return self}, self, "assigned:", [aBoolean], smalltalk.VariableNode)},
 args: ["aBoolean"],
 source: "assigned: aBoolean\x0a\x09assigned := aBoolean",
@@ -1595,7 +1595,7 @@ selector: "beAssigned",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._binding())._validateAssignment();
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._binding())._validateAssignment();
 self["@assigned"]=true;
 return self}, self, "beAssigned", [], smalltalk.VariableNode)},
 args: [],
@@ -1612,7 +1612,7 @@ selector: "binding",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@binding"];
+return smalltalk.withContext(function($ctx1) { return self["@binding"];
 }, self, "binding", [], smalltalk.VariableNode)},
 args: [],
 source: "binding\x0a\x09^ binding",
@@ -1628,7 +1628,7 @@ selector: "binding:",
 category: 'accessing',
 fn: function (aScopeVar){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@binding"]=aScopeVar;
+return smalltalk.withContext(function($ctx1) { self["@binding"]=aScopeVar;
 return self}, self, "binding:", [aScopeVar], smalltalk.VariableNode)},
 args: ["aScopeVar"],
 source: "binding: aScopeVar\x0a\x09binding := aScopeVar",
@@ -1647,7 +1647,7 @@ selector: "accept:",
 category: 'visiting',
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitClassReferenceNode_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.ClassReferenceNode)},

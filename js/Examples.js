@@ -8,10 +8,10 @@ selector: "decrease",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@count"]=_st(self["@count"]).__minus((1));
+return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__minus((1));
 _st(self["@header"])._contents_((function(html){
-return _st(html)._with_(_st(self["@count"])._asString());
-}));
+return smalltalk.withContext(function($ctx2) { return _st(html)._with_(_st(self["@count"])._asString());
+})}));
 return self}, self, "decrease", [], smalltalk.Counter)},
 args: [],
 source: "decrease\x0a    count := count - 1.\x0a    header contents: [:html | html with: count asString]",
@@ -27,10 +27,10 @@ selector: "increase",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@count"]=_st(self["@count"]).__plus((1));
+return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__plus((1));
 _st(self["@header"])._contents_((function(html){
-return _st(html)._with_(_st(self["@count"])._asString());
-}));
+return smalltalk.withContext(function($ctx2) { return _st(html)._with_(_st(self["@count"])._asString());
+})}));
 return self}, self, "increase", [], smalltalk.Counter)},
 args: [],
 source: "increase\x0a    count := count + 1.\x0a    header contents: [:html | html with: count asString]",
@@ -46,7 +46,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
 self["@count"]=(0);
 return self}, self, "initialize", [], smalltalk.Counter)},
 args: [],
@@ -63,7 +63,7 @@ selector: "renderOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 $1=_st(html)._h1();
 _st($1)._with_(_st(self["@count"])._asString());
 $2=_st($1)._yourself();
@@ -71,13 +71,13 @@ self["@header"]=$2;
 $3=_st(html)._button();
 _st($3)._with_("++");
 $4=_st($3)._onClick_((function(){
-return _st(self)._increase();
-}));
+return smalltalk.withContext(function($ctx2) { return _st(self)._increase();
+})}));
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
-return _st(self)._decrease();
-}));
+return smalltalk.withContext(function($ctx2) { return _st(self)._decrease();
+})}));
 return self}, self, "renderOn:", [html], smalltalk.Counter)},
 args: ["html"],
 source: "renderOn: html\x0a    header := html h1 \x0a\x09with: count asString;\x0a\x09yourself.\x0a    html button\x0a\x09with: '++';\x0a\x09onClick: [self increase].\x0a    html button\x0a\x09with: '--';\x0a\x09onClick: [self decrease]",
@@ -94,7 +94,7 @@ selector: "tryExample",
 category: 'example',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._new())._appendToJQuery_(_st("body")._asJQuery());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._new())._appendToJQuery_(_st("body")._asJQuery());
 return self}, self, "tryExample", [], smalltalk.Counter.klass)},
 args: [],
 source: "tryExample\x0a\x09\x22In order to play with the Counter, just select the\x0a\x09doit below and press the Do it button. Then take a\x0a\x09look in the HTML document above the IDE.\x22\x0a\x0a\x09\x22Counter tryExample\x22\x0a        self new appendToJQuery: 'body' asJQuery",

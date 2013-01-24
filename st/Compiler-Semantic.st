@@ -11,6 +11,10 @@ Each context (method/closure) get a fresh scope that inherits from its outer sco
 
 !LexicalScope methodsFor: 'accessing'!
 
+alias
+	^ '$ctx', self scopeLevel asString
+!
+
 allVariableNames
 	^ self args keys, self temps keys
 !
@@ -70,9 +74,10 @@ pseudoVars
 !
 
 scopeLevel
-	^ (self outerScope 
-		ifNil: [ 0 ]
-		ifNotNil: [ self outerScope scopeLevel ]) + 1
+	self outerScope ifNil: [ ^ 1 ].
+	self isInlined ifTrue: [ ^ self outerScope scopeLevel ].
+    
+	^ self outerScope scopeLevel + 1
 !
 
 temps
@@ -102,7 +107,8 @@ isBlockScope
 !
 
 isInlined
-	^ self instruction isInlined
+	^ self instruction notNil and: [
+      	self instruction isInlined ]
 !
 
 isMethodScope
@@ -350,6 +356,12 @@ ScopeVar subclass: #TempVar
 	package: 'Compiler-Semantic'!
 !TempVar commentStamp!
 I am an temporary variable of a method or block.!
+
+!TempVar methodsFor: 'accessing'!
+
+alias
+	^ self scope alias, '.locals.', super alias
+! !
 
 !TempVar methodsFor: 'testing'!
 

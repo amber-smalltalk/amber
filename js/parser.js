@@ -1809,7 +1809,7 @@ smalltalk.parser = (function(){
           result0 = null;
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, bin) {return bin.join("").replace(/\\/g, '\\\\')})(pos0.offset, pos0.line, pos0.column, result0);
+          result0 = (function(offset, line, column, bin) {return bin.join("")})(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
           pos = clone(pos0);

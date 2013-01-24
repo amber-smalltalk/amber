@@ -924,26 +924,6 @@ visitIRSend: anIRSend
 			self stream nextPutAll: '])' ]
 !
 
-visitIRSendOld: anIRSend
-	self stream nextPutAll: 'smalltalk.send('.
-	self visit: anIRSend instructions first.
-	self stream nextPutAll:  ',"', anIRSend selector asSelector, '",['.
-	anIRSend instructions allButFirst
-		do: [ :each | self visit: each ]
-		separatedBy: [ self stream nextPutAll: ',' ].
-	self stream nextPutAll: ']'.
-	"anIRSend index > 1 
-		ifTrue: [
-			anIRSend classSend 
-				ifNil: [ self stream nextPutAll: ',undefined' ]
-				ifNotNil: [ self stream nextPutAll: ',', anIRSend classSend asJavascript ].
-			self stream nextPutAll: ',', anIRSend index asString ]
-		ifFalse: ["
-			anIRSend classSend ifNotNil: [  
-				self stream nextPutAll: ',', anIRSend classSend asJavascript ]"]".
-	self stream nextPutAll: ')'
-!
-
 visitIRSequence: anIRSequence
 	self stream nextPutSequenceWith: [
 		anIRSequence instructions do: [ :each |
@@ -952,7 +932,7 @@ visitIRSequence: anIRSequence
 
 visitIRTempDeclaration: anIRTempDeclaration
 	self stream 
-    	nextPutAll: anIRTempDeclaration scope alias, '.', anIRTempDeclaration name, '=nil;'; 
+    	nextPutAll: anIRTempDeclaration scope alias, '.locals.', anIRTempDeclaration name, '=nil;'; 
         lf
 !
 
@@ -1033,7 +1013,7 @@ nextPutContextFor: aMethod during: aBlock
     	nextPutAll: '}, self, ';
         nextPutAll: aMethod selector asJavascript, ', ['.
     aMethod arguments 
-    	do: [ :each | self nextPutAll: each ]
+    	do: [ :each | self nextPutAll: each asVariableName ]
       	separatedBy: [ self nextPutAll: ','  ].
     self nextPutAll: '], ';
         nextPutAll: aMethod theClass asJavascript;

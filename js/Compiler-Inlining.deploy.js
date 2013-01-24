@@ -6,7 +6,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitIRInlinedAssignment_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.IRInlinedAssignment)}
@@ -19,7 +19,7 @@ smalltalk.method({
 selector: "isInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isInlined", [], smalltalk.IRInlinedAssignment)}
 }),
 smalltalk.IRInlinedAssignment);
@@ -33,7 +33,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitIRInlinedClosure_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitIRInlinedClosure_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedClosure)}
 }),
 smalltalk.IRInlinedClosure);
@@ -44,7 +44,7 @@ smalltalk.method({
 selector: "isInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isInlined", [], smalltalk.IRInlinedClosure)}
 }),
 smalltalk.IRInlinedClosure);
@@ -58,7 +58,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitIRInlinedReturn_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.IRInlinedReturn)}
@@ -71,7 +71,7 @@ smalltalk.method({
 selector: "isInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isInlined", [], smalltalk.IRInlinedReturn)}
 }),
 smalltalk.IRInlinedReturn);
@@ -85,7 +85,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitIRInlinedNonLocalReturn_(self);
 return $1;
 }, self, "accept:", [aVisitor], smalltalk.IRInlinedNonLocalReturn)}
@@ -98,7 +98,7 @@ smalltalk.method({
 selector: "isInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isInlined", [], smalltalk.IRInlinedNonLocalReturn)}
 }),
 smalltalk.IRInlinedNonLocalReturn);
@@ -112,7 +112,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitInlinedSend_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitInlinedSend_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedSend)}
 }),
 smalltalk.IRInlinedSend);
@@ -123,7 +123,7 @@ smalltalk.method({
 selector: "isInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isInlined", [], smalltalk.IRInlinedSend)}
 }),
 smalltalk.IRInlinedSend);
@@ -137,7 +137,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitIRInlinedIfFalse_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitIRInlinedIfFalse_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedIfFalse)}
 }),
 smalltalk.IRInlinedIfFalse);
@@ -151,7 +151,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitIRInlinedIfNilIfNotNil_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitIRInlinedIfNilIfNotNil_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedIfNilIfNotNil)}
 }),
 smalltalk.IRInlinedIfNilIfNotNil);
@@ -165,7 +165,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitIRInlinedIfTrue_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitIRInlinedIfTrue_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedIfTrue)}
 }),
 smalltalk.IRInlinedIfTrue);
@@ -179,7 +179,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitIRInlinedIfTrueIfFalse_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitIRInlinedIfTrueIfFalse_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedIfTrueIfFalse)}
 }),
 smalltalk.IRInlinedIfTrueIfFalse);
@@ -193,7 +193,7 @@ smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aVisitor)._visitIRInlinedSequence_(self);
+return smalltalk.withContext(function($ctx1) { _st(aVisitor)._visitIRInlinedSequence_(self);
 return self}, self, "accept:", [aVisitor], smalltalk.IRInlinedSequence)}
 }),
 smalltalk.IRInlinedSequence);
@@ -204,7 +204,7 @@ smalltalk.method({
 selector: "isInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return true;
+return smalltalk.withContext(function($ctx1) { return true;
 }, self, "isInlined", [], smalltalk.IRInlinedSequence)}
 }),
 smalltalk.IRInlinedSequence);
@@ -218,7 +218,7 @@ smalltalk.method({
 selector: "assignmentInliner",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st((smalltalk.IRAssignmentInliner || IRAssignmentInliner))._new();
 _st($2)._translator_(self);
 $3=_st($2)._yourself();
@@ -234,7 +234,7 @@ smalltalk.method({
 selector: "nonLocalReturnInliner",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st((smalltalk.IRNonLocalReturnInliner || IRNonLocalReturnInliner))._new();
 _st($2)._translator_(self);
 $3=_st($2)._yourself();
@@ -250,7 +250,7 @@ smalltalk.method({
 selector: "returnInliner",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st((smalltalk.IRReturnInliner || IRReturnInliner))._new();
 _st($2)._translator_(self);
 $3=_st($2)._yourself();
@@ -266,7 +266,7 @@ smalltalk.method({
 selector: "sendInliner",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st((smalltalk.IRSendInliner || IRSendInliner))._new();
 _st($2)._translator_(self);
 $3=_st($2)._yourself();
@@ -282,12 +282,12 @@ smalltalk.method({
 selector: "shouldInlineAssignment:",
 fn: function (anIRAssignment){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(anIRAssignment)._isInlined())._not())._and_((function(){
-return _st(_st(_st(_st(anIRAssignment)._instructions())._last())._isSend())._and_((function(){
-return _st(self)._shouldInlineSend_(_st(_st(anIRAssignment)._instructions())._last());
-}));
-}));
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(_st(anIRAssignment)._instructions())._last())._isSend())._and_((function(){
+return smalltalk.withContext(function($ctx3) { return _st(self)._shouldInlineSend_(_st(_st(anIRAssignment)._instructions())._last());
+})}));
+})}));
 return $1;
 }, self, "shouldInlineAssignment:", [anIRAssignment], smalltalk.IRInliner)}
 }),
@@ -299,12 +299,12 @@ smalltalk.method({
 selector: "shouldInlineReturn:",
 fn: function (anIRReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(anIRReturn)._isInlined())._not())._and_((function(){
-return _st(_st(_st(_st(anIRReturn)._instructions())._first())._isSend())._and_((function(){
-return _st(self)._shouldInlineSend_(_st(_st(anIRReturn)._instructions())._first());
-}));
-}));
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(_st(anIRReturn)._instructions())._first())._isSend())._and_((function(){
+return smalltalk.withContext(function($ctx3) { return _st(self)._shouldInlineSend_(_st(_st(anIRReturn)._instructions())._first());
+})}));
+})}));
 return $1;
 }, self, "shouldInlineReturn:", [anIRReturn], smalltalk.IRInliner)}
 }),
@@ -316,10 +316,10 @@ smalltalk.method({
 selector: "shouldInlineSend:",
 fn: function (anIRSend){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(anIRSend)._isInlined())._not())._and_((function(){
-return _st((smalltalk.IRSendInliner || IRSendInliner))._shouldInline_(anIRSend);
-}));
+return smalltalk.withContext(function($ctx2) { return _st((smalltalk.IRSendInliner || IRSendInliner))._shouldInline_(anIRSend);
+})}));
 return $1;
 }, self, "shouldInlineSend:", [anIRSend], smalltalk.IRInliner)}
 }),
@@ -331,21 +331,21 @@ smalltalk.method({
 selector: "transformNonLocalReturn:",
 fn: function (anIRNonLocalReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4;
-var localReturn;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+$ctx1.localReturn=nil;
 $1=_st(_st(anIRNonLocalReturn)._scope())._canInlineNonLocalReturns();
 if(smalltalk.assert($1)){
 _st(_st(_st(anIRNonLocalReturn)._scope())._methodScope())._removeNonLocalReturn_(_st(anIRNonLocalReturn)._scope());
 $2=_st((smalltalk.IRReturn || IRReturn))._new();
 _st($2)._scope_(_st(anIRNonLocalReturn)._scope());
 $3=_st($2)._yourself();
-localReturn=$3;
-localReturn;
+$ctx1.locals.localReturn=$3;
+$ctx1.locals.localReturn;
 _st(_st(anIRNonLocalReturn)._instructions())._do_((function(each){
-return _st(localReturn)._add_(each);
-}));
-_st(anIRNonLocalReturn)._replaceWith_(localReturn);
-return localReturn;
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.localReturn)._add_(each);
+})}));
+_st(anIRNonLocalReturn)._replaceWith_($ctx1.locals.localReturn);
+return $ctx1.locals.localReturn;
 };
 $4=smalltalk.IRVisitor.fn.prototype._visitIRNonLocalReturn_.apply(_st(self), [anIRNonLocalReturn]);
 return $4;
@@ -359,7 +359,7 @@ smalltalk.method({
 selector: "visitIRAssignment:",
 fn: function (anIRAssignment){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._shouldInlineAssignment_(anIRAssignment);
 if(smalltalk.assert($2)){
 $1=_st(_st(self)._assignmentInliner())._inlineAssignment_(anIRAssignment);
@@ -377,7 +377,7 @@ smalltalk.method({
 selector: "visitIRNonLocalReturn:",
 fn: function (anIRNonLocalReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._shouldInlineReturn_(anIRNonLocalReturn);
 if(smalltalk.assert($2)){
 $1=_st(_st(self)._nonLocalReturnInliner())._inlineReturn_(anIRNonLocalReturn);
@@ -395,7 +395,7 @@ smalltalk.method({
 selector: "visitIRReturn:",
 fn: function (anIRReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._shouldInlineReturn_(anIRReturn);
 if(smalltalk.assert($2)){
 $1=_st(_st(self)._returnInliner())._inlineReturn_(anIRReturn);
@@ -413,7 +413,7 @@ smalltalk.method({
 selector: "visitIRSend:",
 fn: function (anIRSend){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._shouldInlineSend_(anIRSend);
 if(smalltalk.assert($2)){
 $1=_st(_st(self)._sendInliner())._inlineSend_(anIRSend);
@@ -434,7 +434,7 @@ smalltalk.method({
 selector: "visitIRInlinedAssignment:",
 fn: function (anIRInlinedAssignment){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._visit_(_st(_st(anIRInlinedAssignment)._instructions())._last());
+return smalltalk.withContext(function($ctx1) { _st(self)._visit_(_st(_st(anIRInlinedAssignment)._instructions())._last());
 return self}, self, "visitIRInlinedAssignment:", [anIRInlinedAssignment], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -445,9 +445,9 @@ smalltalk.method({
 selector: "visitIRInlinedClosure:",
 fn: function (anIRInlinedClosure){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(anIRInlinedClosure)._instructions())._do_((function(each){
-return _st(self)._visit_(each);
-}));
+return smalltalk.withContext(function($ctx1) { _st(_st(anIRInlinedClosure)._instructions())._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(each);
+})}));
 return self}, self, "visitIRInlinedClosure:", [anIRInlinedClosure], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -458,13 +458,13 @@ smalltalk.method({
 selector: "visitIRInlinedIfFalse:",
 fn: function (anIRInlinedIfFalse){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutIf_with_((function(){
-_st(_st(self)._stream())._nextPutAll_("! smalltalk.assert(");
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutIf_with_((function(){
+return smalltalk.withContext(function($ctx2) { _st(_st(self)._stream())._nextPutAll_("! smalltalk.assert(");
 _st(self)._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(")");
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._last());
-}));
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._last());
+})}));
 return self}, self, "visitIRInlinedIfFalse:", [anIRInlinedIfFalse], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -475,13 +475,13 @@ smalltalk.method({
 selector: "visitIRInlinedIfNil:",
 fn: function (anIRInlinedIfNil){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutIf_with_((function(){
-_st(_st(self)._stream())._nextPutAll_("($receiver = ");
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutIf_with_((function(){
+return smalltalk.withContext(function($ctx2) { _st(_st(self)._stream())._nextPutAll_("($receiver = ");
 _st(self)._visit_(_st(_st(anIRInlinedIfNil)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(") == nil || $receiver == undefined");
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfNil)._instructions())._last());
-}));
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfNil)._instructions())._last());
+})}));
 return self}, self, "visitIRInlinedIfNil:", [anIRInlinedIfNil], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -492,15 +492,15 @@ smalltalk.method({
 selector: "visitIRInlinedIfNilIfNotNil:",
 fn: function (anIRInlinedIfNilIfNotNil){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutIfElse_with_with_((function(){
-_st(_st(self)._stream())._nextPutAll_("($receiver = ");
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutIfElse_with_with_((function(){
+return smalltalk.withContext(function($ctx2) { _st(_st(self)._stream())._nextPutAll_("($receiver = ");
 _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(") == nil || $receiver == undefined");
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._second());
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._third());
-}));
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._second());
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._third());
+})}));
 return self}, self, "visitIRInlinedIfNilIfNotNil:", [anIRInlinedIfNilIfNotNil], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -511,13 +511,13 @@ smalltalk.method({
 selector: "visitIRInlinedIfTrue:",
 fn: function (anIRInlinedIfTrue){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutIf_with_((function(){
-_st(_st(self)._stream())._nextPutAll_("smalltalk.assert(");
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutIf_with_((function(){
+return smalltalk.withContext(function($ctx2) { _st(_st(self)._stream())._nextPutAll_("smalltalk.assert(");
 _st(self)._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(")");
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._last());
-}));
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._last());
+})}));
 return self}, self, "visitIRInlinedIfTrue:", [anIRInlinedIfTrue], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -528,15 +528,15 @@ smalltalk.method({
 selector: "visitIRInlinedIfTrueIfFalse:",
 fn: function (anIRInlinedIfTrueIfFalse){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutIfElse_with_with_((function(){
-_st(_st(self)._stream())._nextPutAll_("smalltalk.assert(");
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutIfElse_with_with_((function(){
+return smalltalk.withContext(function($ctx2) { _st(_st(self)._stream())._nextPutAll_("smalltalk.assert(");
 _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(")");
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._second());
-}),(function(){
-return _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._third());
-}));
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._second());
+})}),(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._third());
+})}));
 return self}, self, "visitIRInlinedIfTrueIfFalse:", [anIRInlinedIfTrueIfFalse], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -547,11 +547,11 @@ smalltalk.method({
 selector: "visitIRInlinedNonLocalReturn:",
 fn: function (anIRInlinedReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._stream())._nextPutStatementWith_((function(){
-return _st(self)._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
-}));
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutStatementWith_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
+})}));
 _st(_st(self)._stream())._nextPutNonLocalReturnWith_((function(){
-}));
+return smalltalk.withContext(function($ctx2) { })}));
 return self}, self, "visitIRInlinedNonLocalReturn:", [anIRInlinedReturn], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -562,7 +562,7 @@ smalltalk.method({
 selector: "visitIRInlinedReturn:",
 fn: function (anIRInlinedReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
+return smalltalk.withContext(function($ctx1) { _st(self)._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
 return self}, self, "visitIRInlinedReturn:", [anIRInlinedReturn], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -573,11 +573,11 @@ smalltalk.method({
 selector: "visitIRInlinedSequence:",
 fn: function (anIRInlinedSequence){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(anIRInlinedSequence)._instructions())._do_((function(each){
-return _st(_st(self)._stream())._nextPutStatementWith_((function(){
-return _st(self)._visit_(each);
-}));
-}));
+return smalltalk.withContext(function($ctx1) { _st(_st(anIRInlinedSequence)._instructions())._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(_st(self)._stream())._nextPutStatementWith_((function(){
+return smalltalk.withContext(function($ctx3) { return _st(self)._visit_(each);
+})}));
+})}));
 return self}, self, "visitIRInlinedSequence:", [anIRInlinedSequence], smalltalk.IRInliningJSTranslator)}
 }),
 smalltalk.IRInliningJSTranslator);
@@ -591,7 +591,7 @@ smalltalk.method({
 selector: "ifFalse:",
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._inlinedSend_with_(_st((smalltalk.IRInlinedIfFalse || IRInlinedIfFalse))._new(),anIRInstruction);
 return $1;
 }, self, "ifFalse:", [anIRInstruction], smalltalk.IRSendInliner)}
@@ -604,7 +604,7 @@ smalltalk.method({
 selector: "ifFalse:ifTrue:",
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._perform_withArguments_(smalltalk.symbolFor("ifTrue:ifFalse:"),[anotherIRInstruction,anIRInstruction]);
 return $1;
 }, self, "ifFalse:ifTrue:", [anIRInstruction,anotherIRInstruction], smalltalk.IRSendInliner)}
@@ -617,7 +617,7 @@ smalltalk.method({
 selector: "ifNil:",
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$4,$5,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
 $2=_st((smalltalk.IRClosure || IRClosure))._new();
 _st($2)._scope_(_st(_st(anIRInstruction)._scope())._copy());
 $3=_st((smalltalk.IRBlockSequence || IRBlockSequence))._new();
@@ -637,7 +637,7 @@ smalltalk.method({
 selector: "ifNil:ifNotNil:",
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._inlinedSend_with_with_(_st((smalltalk.IRInlinedIfNilIfNotNil || IRInlinedIfNilIfNotNil))._new(),anIRInstruction,anotherIRInstruction);
 return $1;
 }, self, "ifNil:ifNotNil:", [anIRInstruction,anotherIRInstruction], smalltalk.IRSendInliner)}
@@ -650,7 +650,7 @@ smalltalk.method({
 selector: "ifNotNil:",
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$4,$5,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
 $2=_st((smalltalk.IRClosure || IRClosure))._new();
 _st($2)._scope_(_st(_st(anIRInstruction)._scope())._copy());
 $3=_st((smalltalk.IRBlockSequence || IRBlockSequence))._new();
@@ -670,7 +670,7 @@ smalltalk.method({
 selector: "ifNotNil:ifNil:",
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._inlinedSend_with_with_(_st((smalltalk.IRInlinedIfNilIfNotNil || IRInlinedIfNilIfNotNil))._new(),anotherIRInstruction,anIRInstruction);
 return $1;
 }, self, "ifNotNil:ifNil:", [anIRInstruction,anotherIRInstruction], smalltalk.IRSendInliner)}
@@ -683,7 +683,7 @@ smalltalk.method({
 selector: "ifTrue:",
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._inlinedSend_with_(_st((smalltalk.IRInlinedIfTrue || IRInlinedIfTrue))._new(),anIRInstruction);
 return $1;
 }, self, "ifTrue:", [anIRInstruction], smalltalk.IRSendInliner)}
@@ -696,7 +696,7 @@ smalltalk.method({
 selector: "ifTrue:ifFalse:",
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._inlinedSend_with_with_(_st((smalltalk.IRInlinedIfTrueIfFalse || IRInlinedIfTrueIfFalse))._new(),anIRInstruction,anotherIRInstruction);
 return $1;
 }, self, "ifTrue:ifFalse:", [anIRInstruction,anotherIRInstruction], smalltalk.IRSendInliner)}
@@ -709,35 +709,35 @@ smalltalk.method({
 selector: "inlineClosure:",
 fn: function (anIRClosure){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2;
-var inlinedClosure;
-var sequence;
-var statements;
-inlinedClosure=_st(self)._inlinedClosure();
-_st(inlinedClosure)._scope_(_st(anIRClosure)._scope());
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$ctx1.inlinedClosure=nil;
+$ctx1.sequence=nil;
+$ctx1.statements=nil;
+$ctx1.locals.inlinedClosure=_st(self)._inlinedClosure();
+_st($ctx1.locals.inlinedClosure)._scope_(_st(anIRClosure)._scope());
 _st(_st(anIRClosure)._instructions())._do_((function(each){
-$1=_st(each)._isSequence();
+return smalltalk.withContext(function($ctx2) { $1=_st(each)._isSequence();
 if(! smalltalk.assert($1)){
-return _st(inlinedClosure)._add_(each);
+return _st($ctx1.locals.inlinedClosure)._add_(each);
 };
-}));
-sequence=_st(self)._inlinedSequence();
-_st(inlinedClosure)._add_(sequence);
-statements=_st(_st(_st(anIRClosure)._instructions())._last())._instructions();
-_st(statements)._ifNotEmpty_((function(){
-_st(_st(statements)._allButLast())._do_((function(each){
-return _st(sequence)._add_(each);
-}));
-$2=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
-return _st(_st(statements)._last())._isBlockReturn();
-}));
+})}));
+$ctx1.locals.sequence=_st(self)._inlinedSequence();
+_st($ctx1.locals.inlinedClosure)._add_($ctx1.locals.sequence);
+$ctx1.locals.statements=_st(_st(_st(anIRClosure)._instructions())._last())._instructions();
+_st($ctx1.locals.statements)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) { _st(_st($ctx1.locals.statements)._allButLast())._do_((function(each){
+return smalltalk.withContext(function($ctx3) { return _st($ctx1.locals.sequence)._add_(each);
+})}));
+$2=_st(_st(_st($ctx1.locals.statements)._last())._isReturn())._and_((function(){
+return smalltalk.withContext(function($ctx3) { return _st(_st($ctx1.locals.statements)._last())._isBlockReturn();
+})}));
 if(smalltalk.assert($2)){
-return _st(sequence)._add_(_st(_st(_st(statements)._last())._instructions())._first());
+return _st($ctx1.locals.sequence)._add_(_st(_st(_st($ctx1.locals.statements)._last())._instructions())._first());
 } else {
-return _st(sequence)._add_(_st(statements)._last());
+return _st($ctx1.locals.sequence)._add_(_st($ctx1.locals.statements)._last());
 };
-}));
-return inlinedClosure;
+})}));
+return $ctx1.locals.inlinedClosure;
 }, self, "inlineClosure:", [anIRClosure], smalltalk.IRSendInliner)}
 }),
 smalltalk.IRSendInliner);
@@ -748,7 +748,7 @@ smalltalk.method({
 selector: "inlineSend:",
 fn: function (anIRSend){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 _st(self)._send_(anIRSend);
 $1=_st(self)._perform_withArguments_(_st(_st(self)._send())._selector(),_st(_st(_st(self)._send())._instructions())._allButFirst());
 return $1;
@@ -762,7 +762,7 @@ smalltalk.method({
 selector: "inlinedClosure",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRInlinedClosure || IRInlinedClosure))._new();
 return $1;
 }, self, "inlinedClosure", [], smalltalk.IRSendInliner)}
@@ -775,8 +775,8 @@ smalltalk.method({
 selector: "inlinedSend:with:",
 fn: function (inlinedSend,anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3;
-var inlinedClosure;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$ctx1.inlinedClosure=nil;
 $1=_st(anIRInstruction)._isClosure();
 if(! smalltalk.assert($1)){
 _st(self)._inliningError_("Message argument should be a block");
@@ -785,9 +785,9 @@ $2=_st(_st(_st(anIRInstruction)._arguments())._size()).__eq((0));
 if(! smalltalk.assert($2)){
 _st(self)._inliningError_("Inlined block should have zero argument");
 };
-inlinedClosure=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anIRInstruction));
+$ctx1.locals.inlinedClosure=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anIRInstruction));
 _st(inlinedSend)._add_(_st(_st(_st(self)._send())._instructions())._first());
-$3=_st(inlinedSend)._add_(inlinedClosure);
+$3=_st(inlinedSend)._add_($ctx1.locals.inlinedClosure);
 _st(_st(self)._send())._replaceWith_(inlinedSend);
 return inlinedSend;
 }, self, "inlinedSend:with:", [inlinedSend,anIRInstruction], smalltalk.IRSendInliner)}
@@ -800,9 +800,9 @@ smalltalk.method({
 selector: "inlinedSend:with:with:",
 fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3,$4,$5;
-var inlinedClosure1;
-var inlinedClosure2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
+$ctx1.inlinedClosure1=nil;
+$ctx1.inlinedClosure2=nil;
 $1=_st(anIRInstruction)._isClosure();
 if(! smalltalk.assert($1)){
 _st(self)._inliningError_("Message argument should be a block");
@@ -819,11 +819,11 @@ $4=_st(_st(_st(anotherIRInstruction)._arguments())._size()).__eq((0));
 if(! smalltalk.assert($4)){
 _st(self)._inliningError_("Inlined block should have zero argument");
 };
-inlinedClosure1=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anIRInstruction));
-inlinedClosure2=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anotherIRInstruction));
+$ctx1.locals.inlinedClosure1=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anIRInstruction));
+$ctx1.locals.inlinedClosure2=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anotherIRInstruction));
 _st(inlinedSend)._add_(_st(_st(_st(self)._send())._instructions())._first());
-_st(inlinedSend)._add_(inlinedClosure1);
-$5=_st(inlinedSend)._add_(inlinedClosure2);
+_st(inlinedSend)._add_($ctx1.locals.inlinedClosure1);
+$5=_st(inlinedSend)._add_($ctx1.locals.inlinedClosure2);
 _st(_st(self)._send())._replaceWith_(inlinedSend);
 return inlinedSend;
 }, self, "inlinedSend:with:with:", [inlinedSend,anIRInstruction,anotherIRInstruction], smalltalk.IRSendInliner)}
@@ -836,7 +836,7 @@ smalltalk.method({
 selector: "inlinedSequence",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRInlinedSequence || IRInlinedSequence))._new();
 return $1;
 }, self, "inlinedSequence", [], smalltalk.IRSendInliner)}
@@ -849,7 +849,7 @@ smalltalk.method({
 selector: "inliningError:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st((smalltalk.InliningError || InliningError))._signal_(aString);
+return smalltalk.withContext(function($ctx1) { _st((smalltalk.InliningError || InliningError))._signal_(aString);
 return self}, self, "inliningError:", [aString], smalltalk.IRSendInliner)}
 }),
 smalltalk.IRSendInliner);
@@ -860,7 +860,7 @@ smalltalk.method({
 selector: "send",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@send"];
+return smalltalk.withContext(function($ctx1) { return self["@send"];
 }, self, "send", [], smalltalk.IRSendInliner)}
 }),
 smalltalk.IRSendInliner);
@@ -871,7 +871,7 @@ smalltalk.method({
 selector: "send:",
 fn: function (anIRSend){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@send"]=anIRSend;
+return smalltalk.withContext(function($ctx1) { self["@send"]=anIRSend;
 return self}, self, "send:", [anIRSend], smalltalk.IRSendInliner)}
 }),
 smalltalk.IRSendInliner);
@@ -882,7 +882,7 @@ smalltalk.method({
 selector: "translator",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@translator"];
+return smalltalk.withContext(function($ctx1) { return self["@translator"];
 }, self, "translator", [], smalltalk.IRSendInliner)}
 }),
 smalltalk.IRSendInliner);
@@ -893,7 +893,7 @@ smalltalk.method({
 selector: "translator:",
 fn: function (anASTTranslator){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@translator"]=anASTTranslator;
+return smalltalk.withContext(function($ctx1) { self["@translator"]=anASTTranslator;
 return self}, self, "translator:", [anASTTranslator], smalltalk.IRSendInliner)}
 }),
 smalltalk.IRSendInliner);
@@ -905,7 +905,7 @@ smalltalk.method({
 selector: "inlinedSelectors",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return ["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil"];
+return smalltalk.withContext(function($ctx1) { return ["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil"];
 }, self, "inlinedSelectors", [], smalltalk.IRSendInliner.klass)}
 }),
 smalltalk.IRSendInliner.klass);
@@ -916,7 +916,7 @@ smalltalk.method({
 selector: "shouldInline:",
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 var $early={};
 try {
 $1=_st(_st(self)._inlinedSelectors())._includes_(_st(anIRInstruction)._selector());
@@ -924,11 +924,11 @@ if(! smalltalk.assert($1)){
 return false;
 };
 _st(_st(_st(anIRInstruction)._instructions())._allButFirst())._do_((function(each){
-$2=_st(each)._isClosure();
+return smalltalk.withContext(function($ctx2) { $2=_st(each)._isClosure();
 if(! smalltalk.assert($2)){
 throw $early=[false];
 };
-}));
+})}));
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -944,7 +944,7 @@ smalltalk.method({
 selector: "assignment",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@assignment"];
+return smalltalk.withContext(function($ctx1) { return self["@assignment"];
 }, self, "assignment", [], smalltalk.IRAssignmentInliner)}
 }),
 smalltalk.IRAssignmentInliner);
@@ -955,7 +955,7 @@ smalltalk.method({
 selector: "assignment:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@assignment"]=aNode;
+return smalltalk.withContext(function($ctx1) { self["@assignment"]=aNode;
 return self}, self, "assignment:", [aNode], smalltalk.IRAssignmentInliner)}
 }),
 smalltalk.IRAssignmentInliner);
@@ -966,15 +966,15 @@ smalltalk.method({
 selector: "inlineAssignment:",
 fn: function (anIRAssignment){
 var self=this;
-return smalltalk.withContext(function($ctx) { var inlinedAssignment;
+return smalltalk.withContext(function($ctx1) { $ctx1.inlinedAssignment=nil;
 _st(self)._assignment_(anIRAssignment);
-inlinedAssignment=_st((smalltalk.IRInlinedAssignment || IRInlinedAssignment))._new();
+$ctx1.locals.inlinedAssignment=_st((smalltalk.IRInlinedAssignment || IRInlinedAssignment))._new();
 _st(_st(anIRAssignment)._instructions())._do_((function(each){
-return _st(inlinedAssignment)._add_(each);
-}));
-_st(anIRAssignment)._replaceWith_(inlinedAssignment);
-_st(self)._inlineSend_(_st(_st(inlinedAssignment)._instructions())._last());
-return inlinedAssignment;
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.inlinedAssignment)._add_(each);
+})}));
+_st(anIRAssignment)._replaceWith_($ctx1.locals.inlinedAssignment);
+_st(self)._inlineSend_(_st(_st($ctx1.locals.inlinedAssignment)._instructions())._last());
+return $ctx1.locals.inlinedAssignment;
 }, self, "inlineAssignment:", [anIRAssignment], smalltalk.IRAssignmentInliner)}
 }),
 smalltalk.IRAssignmentInliner);
@@ -985,22 +985,22 @@ smalltalk.method({
 selector: "inlineClosure:",
 fn: function (anIRClosure){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3;
-var inlinedClosure;
-var statements;
-inlinedClosure=smalltalk.IRSendInliner.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
-statements=_st(_st(_st(inlinedClosure)._instructions())._last())._instructions();
-_st(statements)._ifNotEmpty_((function(){
-$1=_st(_st(statements)._last())._canBeAssigned();
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$ctx1.inlinedClosure=nil;
+$ctx1.statements=nil;
+$ctx1.locals.inlinedClosure=smalltalk.IRSendInliner.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
+$ctx1.locals.statements=_st(_st(_st($ctx1.locals.inlinedClosure)._instructions())._last())._instructions();
+_st($ctx1.locals.statements)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) { $1=_st(_st($ctx1.locals.statements)._last())._canBeAssigned();
 if(smalltalk.assert($1)){
 $2=_st((smalltalk.IRAssignment || IRAssignment))._new();
 _st($2)._add_(_st(_st(_st(self)._assignment())._instructions())._first());
-_st($2)._add_(_st(_st(statements)._last())._copy());
+_st($2)._add_(_st(_st($ctx1.locals.statements)._last())._copy());
 $3=_st($2)._yourself();
-return _st(_st(statements)._last())._replaceWith_($3);
+return _st(_st($ctx1.locals.statements)._last())._replaceWith_($3);
 };
-}));
-return inlinedClosure;
+})}));
+return $ctx1.locals.inlinedClosure;
 }, self, "inlineClosure:", [anIRClosure], smalltalk.IRAssignmentInliner)}
 }),
 smalltalk.IRAssignmentInliner);
@@ -1014,7 +1014,7 @@ smalltalk.method({
 selector: "inlineClosure:",
 fn: function (anIRClosure){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=smalltalk.IRSendInliner.fn.prototype._inlineCLosure_.apply(_st(self), [anIRClosure]);
 return $1;
 }, self, "inlineClosure:", [anIRClosure], smalltalk.IRNonLocalReturnInliner)}
@@ -1027,7 +1027,7 @@ smalltalk.method({
 selector: "inlinedReturn",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRInlinedNonLocalReturn || IRInlinedNonLocalReturn))._new();
 return $1;
 }, self, "inlinedReturn", [], smalltalk.IRNonLocalReturnInliner)}
@@ -1043,21 +1043,21 @@ smalltalk.method({
 selector: "inlineClosure:",
 fn: function (anIRClosure){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2,$3;
-var closure;
-var statements;
-closure=smalltalk.IRSendInliner.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
-statements=_st(_st(_st(closure)._instructions())._last())._instructions();
-_st(statements)._ifNotEmpty_((function(){
-$1=_st(_st(statements)._last())._isReturn();
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$ctx1.closure=nil;
+$ctx1.statements=nil;
+$ctx1.locals.closure=smalltalk.IRSendInliner.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
+$ctx1.locals.statements=_st(_st(_st($ctx1.locals.closure)._instructions())._last())._instructions();
+_st($ctx1.locals.statements)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) { $1=_st(_st($ctx1.locals.statements)._last())._isReturn();
 if(! smalltalk.assert($1)){
 $2=_st((smalltalk.IRReturn || IRReturn))._new();
-_st($2)._add_(_st(_st(statements)._last())._copy());
+_st($2)._add_(_st(_st($ctx1.locals.statements)._last())._copy());
 $3=_st($2)._yourself();
-return _st(_st(statements)._last())._replaceWith_($3);
+return _st(_st($ctx1.locals.statements)._last())._replaceWith_($3);
 };
-}));
-return closure;
+})}));
+return $ctx1.locals.closure;
 }, self, "inlineClosure:", [anIRClosure], smalltalk.IRReturnInliner)}
 }),
 smalltalk.IRReturnInliner);
@@ -1068,14 +1068,14 @@ smalltalk.method({
 selector: "inlineReturn:",
 fn: function (anIRReturn){
 var self=this;
-return smalltalk.withContext(function($ctx) { var return_;
-return_=_st(self)._inlinedReturn();
+return smalltalk.withContext(function($ctx1) { $ctx1.return=nil;
+$ctx1.locals.return_=_st(self)._inlinedReturn();
 _st(_st(anIRReturn)._instructions())._do_((function(each){
-return _st(return_)._add_(each);
-}));
-_st(anIRReturn)._replaceWith_(return_);
-_st(self)._inlineSend_(_st(_st(return_)._instructions())._last());
-return return_;
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.return_)._add_(each);
+})}));
+_st(anIRReturn)._replaceWith_($ctx1.locals.return_);
+_st(self)._inlineSend_(_st(_st($ctx1.locals.return_)._instructions())._last());
+return $ctx1.locals.return_;
 }, self, "inlineReturn:", [anIRReturn], smalltalk.IRReturnInliner)}
 }),
 smalltalk.IRReturnInliner);
@@ -1086,7 +1086,7 @@ smalltalk.method({
 selector: "inlinedReturn",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRInlinedReturn || IRInlinedReturn))._new();
 return $1;
 }, self, "inlinedReturn", [], smalltalk.IRReturnInliner)}
@@ -1102,14 +1102,14 @@ smalltalk.method({
 selector: "compileNode:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
-var ir;
-var stream;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$ctx1.ir=nil;
+$ctx1.stream=nil;
 _st(_st(self)._semanticAnalyzer())._visit_(aNode);
-ir=_st(_st(self)._translator())._visit_(aNode);
-_st(_st(self)._inliner())._visit_(ir);
+$ctx1.locals.ir=_st(_st(self)._translator())._visit_(aNode);
+_st(_st(self)._inliner())._visit_($ctx1.locals.ir);
 $2=_st(self)._irTranslator();
-_st($2)._visit_(ir);
+_st($2)._visit_($ctx1.locals.ir);
 $3=_st($2)._contents();
 $1=$3;
 return $1;
@@ -1123,7 +1123,7 @@ smalltalk.method({
 selector: "inliner",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRInliner || IRInliner))._new();
 return $1;
 }, self, "inliner", [], smalltalk.InliningCodeGenerator)}
@@ -1136,7 +1136,7 @@ smalltalk.method({
 selector: "irTranslator",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRInliningJSTranslator || IRInliningJSTranslator))._new();
 return $1;
 }, self, "irTranslator", [], smalltalk.InliningCodeGenerator)}

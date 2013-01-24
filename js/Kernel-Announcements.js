@@ -7,7 +7,7 @@ selector: "announcementClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@announcementClass"];
+return smalltalk.withContext(function($ctx1) { return self["@announcementClass"];
 }, self, "announcementClass", [], smalltalk.AnnouncementSubscription)},
 args: [],
 source: "announcementClass\x0a\x09^announcementClass",
@@ -23,7 +23,7 @@ selector: "announcementClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@announcementClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { self["@announcementClass"]=aClass;
 return self}, self, "announcementClass:", [aClass], smalltalk.AnnouncementSubscription)},
 args: ["aClass"],
 source: "announcementClass: aClass\x0a\x09announcementClass := aClass",
@@ -39,7 +39,7 @@ selector: "block",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@block"];
+return smalltalk.withContext(function($ctx1) { return self["@block"];
 }, self, "block", [], smalltalk.AnnouncementSubscription)},
 args: [],
 source: "block\x0a\x09^block",
@@ -55,7 +55,7 @@ selector: "block:",
 category: 'accessing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@block"]=aBlock;
+return smalltalk.withContext(function($ctx1) { self["@block"]=aBlock;
 return self}, self, "block:", [aBlock], smalltalk.AnnouncementSubscription)},
 args: ["aBlock"],
 source: "block: aBlock\x0a\x09block := aBlock",
@@ -71,7 +71,7 @@ selector: "deliver:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
 _st(_st(self)._block())._value_(anAnnouncement);
@@ -91,7 +91,7 @@ selector: "handlesAnnouncement:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(anAnnouncement)._isKindOf_(_st(self)._announcementClass());
 return $1;
 }, self, "handlesAnnouncement:", [anAnnouncement], smalltalk.AnnouncementSubscription)},
@@ -112,9 +112,9 @@ selector: "announce:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self["@subscriptions"])._do_((function(each){
-return _st(each)._deliver_(anAnnouncement);
-}));
+return smalltalk.withContext(function($ctx1) { _st(self["@subscriptions"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(each)._deliver_(anAnnouncement);
+})}));
 return self}, self, "announce:", [anAnnouncement], smalltalk.Announcer)},
 args: ["anAnnouncement"],
 source: "announce: anAnnouncement\x0a\x09subscriptions do: [:each |\x0a\x09\x09each deliver: anAnnouncement]",
@@ -130,7 +130,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@subscriptions"]=_st((smalltalk.Array || Array))._new();
 return self}, self, "initialize", [], smalltalk.Announcer)},
 args: [],
@@ -147,7 +147,7 @@ selector: "on:do:",
 category: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st((smalltalk.AnnouncementSubscription || AnnouncementSubscription))._new();
 _st($1)._block_(aBlock);
 _st($1)._announcementClass_(aClass);
@@ -174,7 +174,7 @@ selector: "current",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 if(($receiver = self["@current"]) == nil || $receiver == undefined){
 self["@current"]=smalltalk.Announcer.klass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
@@ -197,7 +197,7 @@ selector: "new",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._shouldNotImplement();
+return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
 return self}, self, "new", [], smalltalk.SystemAnnouncer.klass)},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
@@ -216,7 +216,7 @@ selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@theClass"];
+return smalltalk.withContext(function($ctx1) { return self["@theClass"];
 }, self, "theClass", [], smalltalk.SystemAnnouncement)},
 args: [],
 source: "theClass\x0a\x09^ theClass",
@@ -232,7 +232,7 @@ selector: "theClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@theClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
 return self}, self, "theClass:", [aClass], smalltalk.SystemAnnouncement)},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
@@ -271,7 +271,7 @@ selector: "method",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@method"];
+return smalltalk.withContext(function($ctx1) { return self["@method"];
 }, self, "method", [], smalltalk.MethodAnnouncement)},
 args: [],
 source: "method\x0a\x09^ method",
@@ -287,7 +287,7 @@ selector: "method:",
 category: 'accessing',
 fn: function (aCompiledMethod){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@method"]=aCompiledMethod;
+return smalltalk.withContext(function($ctx1) { self["@method"]=aCompiledMethod;
 return self}, self, "method:", [aCompiledMethod], smalltalk.MethodAnnouncement)},
 args: ["aCompiledMethod"],
 source: "method: aCompiledMethod\x0a\x09method := aCompiledMethod",

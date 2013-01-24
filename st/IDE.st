@@ -1340,7 +1340,7 @@ label
 !
 
 method
-	^selectedContext method
+	^selectedContext receiver class methodAt: selectedContext selector
 !
 
 receiver

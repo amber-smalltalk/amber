@@ -6,7 +6,7 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self}, self, "clear", [], smalltalk.ConsoleTranscript)}
+return smalltalk.withContext(function($ctx1) { return self}, self, "clear", [], smalltalk.ConsoleTranscript)}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -16,7 +16,7 @@ smalltalk.method({
 selector: "cr",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self}, self, "cr", [], smalltalk.ConsoleTranscript)}
+return smalltalk.withContext(function($ctx1) { return self}, self, "cr", [], smalltalk.ConsoleTranscript)}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -26,7 +26,7 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self}, self, "open", [], smalltalk.ConsoleTranscript)}
+return smalltalk.withContext(function($ctx1) { return self}, self, "open", [], smalltalk.ConsoleTranscript)}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -36,7 +36,7 @@ smalltalk.method({
 selector: "show:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { console.log(String(string._asString()));
+return smalltalk.withContext(function($ctx1) { console.log(String(string._asString()));
 ;
 return self}, self, "show:", [anObject], smalltalk.ConsoleTranscript)}
 }),
@@ -49,7 +49,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st((smalltalk.Transcript || Transcript))._register_(_st(self)._new());
+return smalltalk.withContext(function($ctx1) { _st((smalltalk.Transcript || Transcript))._register_(_st(self)._new());
 return self}, self, "initialize", [], smalltalk.ConsoleTranscript.klass)}
 }),
 smalltalk.ConsoleTranscript.klass);
@@ -64,7 +64,7 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._current())._clear();
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._clear();
 return self}, self, "clear", [], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);
@@ -75,7 +75,7 @@ smalltalk.method({
 selector: "cr",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._current())._show_(_st((smalltalk.String || String))._cr());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._show_(_st((smalltalk.String || String))._cr());
 return self}, self, "cr", [], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);
@@ -86,7 +86,7 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@current"];
+return smalltalk.withContext(function($ctx1) { return self["@current"];
 }, self, "current", [], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);
@@ -97,7 +97,7 @@ smalltalk.method({
 selector: "new",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._shouldNotImplement();
+return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
 return self}, self, "new", [], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);
@@ -108,7 +108,7 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._current())._open();
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._open();
 return self}, self, "open", [], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);
@@ -119,7 +119,7 @@ smalltalk.method({
 selector: "register:",
 fn: function (aTranscript){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@current"]=aTranscript;
+return smalltalk.withContext(function($ctx1) { self["@current"]=aTranscript;
 return self}, self, "register:", [aTranscript], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);
@@ -130,7 +130,7 @@ smalltalk.method({
 selector: "show:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._current())._show_(anObject);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._show_(anObject);
 return self}, self, "show:", [anObject], smalltalk.Transcript.klass)}
 }),
 smalltalk.Transcript.klass);

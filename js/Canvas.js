@@ -7,7 +7,7 @@ selector: "a",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("a");
 return $1;
 }, self, "a", [], smalltalk.HTMLCanvas)},
@@ -25,7 +25,7 @@ selector: "abbr",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("abbr");
 return $1;
 }, self, "abbr", [], smalltalk.HTMLCanvas)},
@@ -43,7 +43,7 @@ selector: "address",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("address");
 return $1;
 }, self, "address", [], smalltalk.HTMLCanvas)},
@@ -61,7 +61,7 @@ selector: "area",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("area");
 return $1;
 }, self, "area", [], smalltalk.HTMLCanvas)},
@@ -79,7 +79,7 @@ selector: "article",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("article");
 return $1;
 }, self, "article", [], smalltalk.HTMLCanvas)},
@@ -97,7 +97,7 @@ selector: "aside",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("aside");
 return $1;
 }, self, "aside", [], smalltalk.HTMLCanvas)},
@@ -115,7 +115,7 @@ selector: "audio",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("audio");
 return $1;
 }, self, "audio", [], smalltalk.HTMLCanvas)},
@@ -133,7 +133,7 @@ selector: "base",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("base");
 return $1;
 }, self, "base", [], smalltalk.HTMLCanvas)},
@@ -151,7 +151,7 @@ selector: "blockquote",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("blockquote");
 return $1;
 }, self, "blockquote", [], smalltalk.HTMLCanvas)},
@@ -169,7 +169,7 @@ selector: "body",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("body");
 return $1;
 }, self, "body", [], smalltalk.HTMLCanvas)},
@@ -187,7 +187,7 @@ selector: "br",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("br");
 return $1;
 }, self, "br", [], smalltalk.HTMLCanvas)},
@@ -205,7 +205,7 @@ selector: "button",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("button");
 return $1;
 }, self, "button", [], smalltalk.HTMLCanvas)},
@@ -223,7 +223,7 @@ selector: "canvas",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("canvas");
 return $1;
 }, self, "canvas", [], smalltalk.HTMLCanvas)},
@@ -241,7 +241,7 @@ selector: "caption",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("caption");
 return $1;
 }, self, "caption", [], smalltalk.HTMLCanvas)},
@@ -259,7 +259,7 @@ selector: "cite",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("cite");
 return $1;
 }, self, "cite", [], smalltalk.HTMLCanvas)},
@@ -277,7 +277,7 @@ selector: "code",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("code");
 return $1;
 }, self, "code", [], smalltalk.HTMLCanvas)},
@@ -295,7 +295,7 @@ selector: "col",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("col");
 return $1;
 }, self, "col", [], smalltalk.HTMLCanvas)},
@@ -313,7 +313,7 @@ selector: "colgroup",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("colgroup");
 return $1;
 }, self, "colgroup", [], smalltalk.HTMLCanvas)},
@@ -331,7 +331,7 @@ selector: "command",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("command");
 return $1;
 }, self, "command", [], smalltalk.HTMLCanvas)},
@@ -349,7 +349,7 @@ selector: "datalist",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("datalist");
 return $1;
 }, self, "datalist", [], smalltalk.HTMLCanvas)},
@@ -367,7 +367,7 @@ selector: "dd",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("dd");
 return $1;
 }, self, "dd", [], smalltalk.HTMLCanvas)},
@@ -385,7 +385,7 @@ selector: "del",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("del");
 return $1;
 }, self, "del", [], smalltalk.HTMLCanvas)},
@@ -403,7 +403,7 @@ selector: "details",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("details");
 return $1;
 }, self, "details", [], smalltalk.HTMLCanvas)},
@@ -421,7 +421,7 @@ selector: "div",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("div");
 return $1;
 }, self, "div", [], smalltalk.HTMLCanvas)},
@@ -439,7 +439,7 @@ selector: "div:",
 category: 'tags',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._div())._with_(aBlock);
 return $1;
 }, self, "div:", [aBlock], smalltalk.HTMLCanvas)},
@@ -457,7 +457,7 @@ selector: "dl",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("dl");
 return $1;
 }, self, "dl", [], smalltalk.HTMLCanvas)},
@@ -475,7 +475,7 @@ selector: "dt",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("dt");
 return $1;
 }, self, "dt", [], smalltalk.HTMLCanvas)},
@@ -493,7 +493,7 @@ selector: "em",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("em");
 return $1;
 }, self, "em", [], smalltalk.HTMLCanvas)},
@@ -511,7 +511,7 @@ selector: "embed",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("embed");
 return $1;
 }, self, "embed", [], smalltalk.HTMLCanvas)},
@@ -529,7 +529,7 @@ selector: "fieldset",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("fieldset");
 return $1;
 }, self, "fieldset", [], smalltalk.HTMLCanvas)},
@@ -547,7 +547,7 @@ selector: "figcaption",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("figcaption");
 return $1;
 }, self, "figcaption", [], smalltalk.HTMLCanvas)},
@@ -565,7 +565,7 @@ selector: "figure",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("figure");
 return $1;
 }, self, "figure", [], smalltalk.HTMLCanvas)},
@@ -583,7 +583,7 @@ selector: "footer",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("footer");
 return $1;
 }, self, "footer", [], smalltalk.HTMLCanvas)},
@@ -601,7 +601,7 @@ selector: "form",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("form");
 return $1;
 }, self, "form", [], smalltalk.HTMLCanvas)},
@@ -619,7 +619,7 @@ selector: "h1",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("h1");
 return $1;
 }, self, "h1", [], smalltalk.HTMLCanvas)},
@@ -637,7 +637,7 @@ selector: "h1:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._h1())._with_(anObject);
 return $1;
 }, self, "h1:", [anObject], smalltalk.HTMLCanvas)},
@@ -655,7 +655,7 @@ selector: "h2",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("h2");
 return $1;
 }, self, "h2", [], smalltalk.HTMLCanvas)},
@@ -673,7 +673,7 @@ selector: "h2:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._h2())._with_(anObject);
 return $1;
 }, self, "h2:", [anObject], smalltalk.HTMLCanvas)},
@@ -691,7 +691,7 @@ selector: "h3",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("h3");
 return $1;
 }, self, "h3", [], smalltalk.HTMLCanvas)},
@@ -709,7 +709,7 @@ selector: "h3:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._h3())._with_(anObject);
 return $1;
 }, self, "h3:", [anObject], smalltalk.HTMLCanvas)},
@@ -727,7 +727,7 @@ selector: "h4",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("h4");
 return $1;
 }, self, "h4", [], smalltalk.HTMLCanvas)},
@@ -745,7 +745,7 @@ selector: "h4:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._h4())._with_(anObject);
 return $1;
 }, self, "h4:", [anObject], smalltalk.HTMLCanvas)},
@@ -763,7 +763,7 @@ selector: "h5",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("h5");
 return $1;
 }, self, "h5", [], smalltalk.HTMLCanvas)},
@@ -781,7 +781,7 @@ selector: "h5:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._h5())._with_(anObject);
 return $1;
 }, self, "h5:", [anObject], smalltalk.HTMLCanvas)},
@@ -799,7 +799,7 @@ selector: "h6",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("h6");
 return $1;
 }, self, "h6", [], smalltalk.HTMLCanvas)},
@@ -817,7 +817,7 @@ selector: "h6:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._h6())._with_(anObject);
 return $1;
 }, self, "h6:", [anObject], smalltalk.HTMLCanvas)},
@@ -835,7 +835,7 @@ selector: "head",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("head");
 return $1;
 }, self, "head", [], smalltalk.HTMLCanvas)},
@@ -853,7 +853,7 @@ selector: "header",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("header");
 return $1;
 }, self, "header", [], smalltalk.HTMLCanvas)},
@@ -871,7 +871,7 @@ selector: "hgroup",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("hgroup");
 return $1;
 }, self, "hgroup", [], smalltalk.HTMLCanvas)},
@@ -889,7 +889,7 @@ selector: "hr",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("hr");
 return $1;
 }, self, "hr", [], smalltalk.HTMLCanvas)},
@@ -907,7 +907,7 @@ selector: "html",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("html");
 return $1;
 }, self, "html", [], smalltalk.HTMLCanvas)},
@@ -925,7 +925,7 @@ selector: "iframe",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("iframe");
 return $1;
 }, self, "iframe", [], smalltalk.HTMLCanvas)},
@@ -943,7 +943,7 @@ selector: "iframe:",
 category: 'tags',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._iframe())._src_(aString);
 return $1;
 }, self, "iframe:", [aString], smalltalk.HTMLCanvas)},
@@ -961,7 +961,7 @@ selector: "img",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("img");
 return $1;
 }, self, "img", [], smalltalk.HTMLCanvas)},
@@ -979,7 +979,7 @@ selector: "img:",
 category: 'tags',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._img())._src_(aString);
 return $1;
 }, self, "img:", [aString], smalltalk.HTMLCanvas)},
@@ -997,7 +997,7 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 if(($receiver = self["@root"]) == nil || $receiver == undefined){
 self["@root"]=_st((smalltalk.TagBrush || TagBrush))._fromString_canvas_("div",self);
 self["@root"];
@@ -1019,7 +1019,7 @@ selector: "initializeFromJQuery:",
 category: 'initialization',
 fn: function (aJQuery){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@root"]=_st((smalltalk.TagBrush || TagBrush))._fromJQuery_canvas_(aJQuery,self);
+return smalltalk.withContext(function($ctx1) { self["@root"]=_st((smalltalk.TagBrush || TagBrush))._fromJQuery_canvas_(aJQuery,self);
 return self}, self, "initializeFromJQuery:", [aJQuery], smalltalk.HTMLCanvas)},
 args: ["aJQuery"],
 source: "initializeFromJQuery: aJQuery\x0a    root := TagBrush fromJQuery: aJQuery canvas: self",
@@ -1035,7 +1035,7 @@ selector: "input",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("input");
 return $1;
 }, self, "input", [], smalltalk.HTMLCanvas)},
@@ -1053,7 +1053,7 @@ selector: "label",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("label");
 return $1;
 }, self, "label", [], smalltalk.HTMLCanvas)},
@@ -1071,7 +1071,7 @@ selector: "legend",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("legend");
 return $1;
 }, self, "legend", [], smalltalk.HTMLCanvas)},
@@ -1089,7 +1089,7 @@ selector: "li",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("li");
 return $1;
 }, self, "li", [], smalltalk.HTMLCanvas)},
@@ -1107,7 +1107,7 @@ selector: "li:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._li())._with_(anObject);
 return $1;
 }, self, "li:", [anObject], smalltalk.HTMLCanvas)},
@@ -1125,7 +1125,7 @@ selector: "link",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("link");
 return $1;
 }, self, "link", [], smalltalk.HTMLCanvas)},
@@ -1143,7 +1143,7 @@ selector: "map",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("map");
 return $1;
 }, self, "map", [], smalltalk.HTMLCanvas)},
@@ -1161,7 +1161,7 @@ selector: "mark",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("mark");
 return $1;
 }, self, "mark", [], smalltalk.HTMLCanvas)},
@@ -1179,7 +1179,7 @@ selector: "menu",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("menu");
 return $1;
 }, self, "menu", [], smalltalk.HTMLCanvas)},
@@ -1197,7 +1197,7 @@ selector: "meta",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("meta");
 return $1;
 }, self, "meta", [], smalltalk.HTMLCanvas)},
@@ -1215,7 +1215,7 @@ selector: "nav",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("nav");
 return $1;
 }, self, "nav", [], smalltalk.HTMLCanvas)},
@@ -1233,7 +1233,7 @@ selector: "newTag:",
 category: 'tags',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.TagBrush || TagBrush))._fromString_canvas_(aString,self);
 return $1;
 }, self, "newTag:", [aString], smalltalk.HTMLCanvas)},
@@ -1251,7 +1251,7 @@ selector: "noscript",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("noscript");
 return $1;
 }, self, "noscript", [], smalltalk.HTMLCanvas)},
@@ -1269,7 +1269,7 @@ selector: "object",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("object");
 return $1;
 }, self, "object", [], smalltalk.HTMLCanvas)},
@@ -1287,7 +1287,7 @@ selector: "ol",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("ol");
 return $1;
 }, self, "ol", [], smalltalk.HTMLCanvas)},
@@ -1305,7 +1305,7 @@ selector: "ol:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._ol())._with_(anObject);
 return $1;
 }, self, "ol:", [anObject], smalltalk.HTMLCanvas)},
@@ -1323,7 +1323,7 @@ selector: "optgroup",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("optgroup");
 return $1;
 }, self, "optgroup", [], smalltalk.HTMLCanvas)},
@@ -1341,7 +1341,7 @@ selector: "option",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("option");
 return $1;
 }, self, "option", [], smalltalk.HTMLCanvas)},
@@ -1359,7 +1359,7 @@ selector: "output",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("output");
 return $1;
 }, self, "output", [], smalltalk.HTMLCanvas)},
@@ -1377,7 +1377,7 @@ selector: "p",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("p");
 return $1;
 }, self, "p", [], smalltalk.HTMLCanvas)},
@@ -1395,7 +1395,7 @@ selector: "p:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._p())._with_(anObject);
 return $1;
 }, self, "p:", [anObject], smalltalk.HTMLCanvas)},
@@ -1413,7 +1413,7 @@ selector: "param",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("param");
 return $1;
 }, self, "param", [], smalltalk.HTMLCanvas)},
@@ -1431,7 +1431,7 @@ selector: "pre",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("pre");
 return $1;
 }, self, "pre", [], smalltalk.HTMLCanvas)},
@@ -1449,7 +1449,7 @@ selector: "progress",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("progress");
 return $1;
 }, self, "progress", [], smalltalk.HTMLCanvas)},
@@ -1467,7 +1467,7 @@ selector: "root",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@root"];
+return smalltalk.withContext(function($ctx1) { return self["@root"];
 }, self, "root", [], smalltalk.HTMLCanvas)},
 args: [],
 source: "root\x0a    ^root",
@@ -1483,7 +1483,7 @@ selector: "root:",
 category: 'accessing',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@root"]=aTagBrush;
+return smalltalk.withContext(function($ctx1) { self["@root"]=aTagBrush;
 return self}, self, "root:", [aTagBrush], smalltalk.HTMLCanvas)},
 args: ["aTagBrush"],
 source: "root: aTagBrush\x0a    root := aTagBrush",
@@ -1499,7 +1499,7 @@ selector: "script",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("script");
 return $1;
 }, self, "script", [], smalltalk.HTMLCanvas)},
@@ -1517,7 +1517,7 @@ selector: "section",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("section");
 return $1;
 }, self, "section", [], smalltalk.HTMLCanvas)},
@@ -1535,7 +1535,7 @@ selector: "select",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("select");
 return $1;
 }, self, "select", [], smalltalk.HTMLCanvas)},
@@ -1553,7 +1553,7 @@ selector: "small",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("small");
 return $1;
 }, self, "small", [], smalltalk.HTMLCanvas)},
@@ -1571,7 +1571,7 @@ selector: "source",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("source");
 return $1;
 }, self, "source", [], smalltalk.HTMLCanvas)},
@@ -1589,7 +1589,7 @@ selector: "span",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("span");
 return $1;
 }, self, "span", [], smalltalk.HTMLCanvas)},
@@ -1607,7 +1607,7 @@ selector: "span:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._span())._with_(anObject);
 return $1;
 }, self, "span:", [anObject], smalltalk.HTMLCanvas)},
@@ -1625,7 +1625,7 @@ selector: "strong",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("strong");
 return $1;
 }, self, "strong", [], smalltalk.HTMLCanvas)},
@@ -1643,7 +1643,7 @@ selector: "strong:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._strong())._with_(anObject);
 return $1;
 }, self, "strong:", [anObject], smalltalk.HTMLCanvas)},
@@ -1661,7 +1661,7 @@ selector: "style",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self["@root"])._addBrush_(_st((smalltalk.StyleTag || StyleTag))._canvas_(self));
 return $1;
 }, self, "style", [], smalltalk.HTMLCanvas)},
@@ -1679,7 +1679,7 @@ selector: "style:",
 category: 'tags',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(self)._style();
 _st($2)._with_(aString);
 $3=_st($2)._yourself();
@@ -1700,7 +1700,7 @@ selector: "sub",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("sub");
 return $1;
 }, self, "sub", [], smalltalk.HTMLCanvas)},
@@ -1718,7 +1718,7 @@ selector: "summary",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("summary");
 return $1;
 }, self, "summary", [], smalltalk.HTMLCanvas)},
@@ -1736,7 +1736,7 @@ selector: "sup",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("sup");
 return $1;
 }, self, "sup", [], smalltalk.HTMLCanvas)},
@@ -1754,7 +1754,7 @@ selector: "table",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("table");
 return $1;
 }, self, "table", [], smalltalk.HTMLCanvas)},
@@ -1772,7 +1772,7 @@ selector: "tag:",
 category: 'tags',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self["@root"])._addBrush_(_st(self)._newTag_(aString));
 return $1;
 }, self, "tag:", [aString], smalltalk.HTMLCanvas)},
@@ -1790,7 +1790,7 @@ selector: "tbody",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("tbody");
 return $1;
 }, self, "tbody", [], smalltalk.HTMLCanvas)},
@@ -1808,7 +1808,7 @@ selector: "td",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("td");
 return $1;
 }, self, "td", [], smalltalk.HTMLCanvas)},
@@ -1826,7 +1826,7 @@ selector: "textarea",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("textarea");
 return $1;
 }, self, "textarea", [], smalltalk.HTMLCanvas)},
@@ -1844,7 +1844,7 @@ selector: "tfoot",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("tfoot");
 return $1;
 }, self, "tfoot", [], smalltalk.HTMLCanvas)},
@@ -1862,7 +1862,7 @@ selector: "th",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("th");
 return $1;
 }, self, "th", [], smalltalk.HTMLCanvas)},
@@ -1880,7 +1880,7 @@ selector: "thead",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("thead");
 return $1;
 }, self, "thead", [], smalltalk.HTMLCanvas)},
@@ -1898,7 +1898,7 @@ selector: "time",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("time");
 return $1;
 }, self, "time", [], smalltalk.HTMLCanvas)},
@@ -1916,7 +1916,7 @@ selector: "title",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("title");
 return $1;
 }, self, "title", [], smalltalk.HTMLCanvas)},
@@ -1934,7 +1934,7 @@ selector: "tr",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("tr");
 return $1;
 }, self, "tr", [], smalltalk.HTMLCanvas)},
@@ -1952,7 +1952,7 @@ selector: "ul",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("ul");
 return $1;
 }, self, "ul", [], smalltalk.HTMLCanvas)},
@@ -1970,7 +1970,7 @@ selector: "ul:",
 category: 'tags',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._ul())._with_(anObject);
 return $1;
 }, self, "ul:", [anObject], smalltalk.HTMLCanvas)},
@@ -1988,7 +1988,7 @@ selector: "video",
 category: 'tags',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._tag_("video");
 return $1;
 }, self, "video", [], smalltalk.HTMLCanvas)},
@@ -2006,7 +2006,7 @@ selector: "with:",
 category: 'adding',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._root())._with_(anObject);
 return $1;
 }, self, "with:", [anObject], smalltalk.HTMLCanvas)},
@@ -2025,7 +2025,7 @@ selector: "browserVersion",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(jQuery)._at_(smalltalk.symbolFor("browser")))._version();
 return $1;
 }, self, "browserVersion", [], smalltalk.HTMLCanvas.klass)},
@@ -2043,7 +2043,7 @@ selector: "isMSIE",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(jQuery)._at_(smalltalk.symbolFor("browser")))._at_(smalltalk.symbolFor("msie")))._notNil();
 return $1;
 }, self, "isMSIE", [], smalltalk.HTMLCanvas.klass)},
@@ -2061,7 +2061,7 @@ selector: "isMozilla",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(jQuery)._at_(smalltalk.symbolFor("browser")))._at_(smalltalk.symbolFor("mozilla")))._notNil();
 return $1;
 }, self, "isMozilla", [], smalltalk.HTMLCanvas.klass)},
@@ -2079,7 +2079,7 @@ selector: "isOpera",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(jQuery)._at_(smalltalk.symbolFor("browser")))._at_(smalltalk.symbolFor("opera")))._notNil();
 return $1;
 }, self, "isOpera", [], smalltalk.HTMLCanvas.klass)},
@@ -2097,7 +2097,7 @@ selector: "isWebkit",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(jQuery)._at_(smalltalk.symbolFor("browser")))._at_(smalltalk.symbolFor("webkit")))._notNil();
 return $1;
 }, self, "isWebkit", [], smalltalk.HTMLCanvas.klass)},
@@ -2115,7 +2115,7 @@ selector: "onJQuery:",
 category: 'instance creation',
 fn: function (aJQuery){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(self)._basicNew();
 _st($2)._initializeFromJQuery_(aJQuery);
 _st($2)._initialize();
@@ -2139,7 +2139,7 @@ selector: "accesskey:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("accesskey",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("accesskey",aString);
 return self}, self, "accesskey:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "accesskey: aString\x0a\x09self at: 'accesskey' put: aString",
@@ -2155,7 +2155,7 @@ selector: "action:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("action",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("action",aString);
 return self}, self, "action:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "action: aString\x0a\x09self at: 'action' put: aString",
@@ -2171,7 +2171,7 @@ selector: "addBrush:",
 category: 'adding',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._appendChild_(_st(aTagBrush)._element());
+return smalltalk.withContext(function($ctx1) { _st(self)._appendChild_(_st(aTagBrush)._element());
 return aTagBrush;
 }, self, "addBrush:", [aTagBrush], smalltalk.TagBrush)},
 args: ["aTagBrush"],
@@ -2188,7 +2188,7 @@ selector: "align:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("align",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("align",aString);
 return self}, self, "align:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "align: aString\x0a\x09self at: 'align' put: aString",
@@ -2204,7 +2204,7 @@ selector: "alt:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("alt",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("alt",aString);
 return self}, self, "alt:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "alt: aString\x0a\x09self at: 'alt' put: aString",
@@ -2220,7 +2220,7 @@ selector: "append:",
 category: 'adding',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(anObject)._appendToBrush_(self);
+return smalltalk.withContext(function($ctx1) { _st(anObject)._appendToBrush_(self);
 return self}, self, "append:", [anObject], smalltalk.TagBrush)},
 args: ["anObject"],
 source: "append: anObject\x0a    anObject appendToBrush: self",
@@ -2236,11 +2236,11 @@ selector: "appendBlock:",
 category: 'adding',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { var root;
-root=_st(self["@canvas"])._root();
+return smalltalk.withContext(function($ctx1) { $ctx1.root=nil;
+$ctx1.locals.root=_st(self["@canvas"])._root();
 _st(self["@canvas"])._root_(self);
 _st(aBlock)._value_(self["@canvas"]);
-_st(self["@canvas"])._root_(root);
+_st(self["@canvas"])._root_($ctx1.locals.root);
 return self}, self, "appendBlock:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "appendBlock: aBlock\x0a    | root |\x0a    root := canvas root.\x0a    canvas root: self.\x0a    aBlock value: canvas.\x0a    canvas root: root",
@@ -2256,7 +2256,7 @@ selector: "appendChild:",
 category: 'adding',
 fn: function (anElement){
 var self=this;
-return smalltalk.withContext(function($ctx) { var element=self['@element'];
+return smalltalk.withContext(function($ctx1) { var element=self['@element'];
  	if (null == element.canHaveChildren || element.canHaveChildren) {
 		element.appendChild(anElement);
  	} else {
@@ -2278,7 +2278,7 @@ selector: "appendString:",
 category: 'adding',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._appendChild_(_st(self)._createTextNodeFor_(aString));
+return smalltalk.withContext(function($ctx1) { _st(self)._appendChild_(_st(self)._createTextNodeFor_(aString));
 return self}, self, "appendString:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "appendString: aString\x0a    self appendChild: (self createTextNodeFor: aString)",
@@ -2294,7 +2294,7 @@ selector: "appendToBrush:",
 category: 'adding',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aTagBrush)._addBrush_(self);
+return smalltalk.withContext(function($ctx1) { _st(aTagBrush)._addBrush_(self);
 return self}, self, "appendToBrush:", [aTagBrush], smalltalk.TagBrush)},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a    aTagBrush addBrush: self",
@@ -2310,7 +2310,7 @@ selector: "asJQuery",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(window)._jQuery_(_st(self)._element());
 return $1;
 }, self, "asJQuery", [], smalltalk.TagBrush)},
@@ -2328,7 +2328,7 @@ selector: "at:put:",
 category: 'attributes',
 fn: function (aString,aValue){
 var self=this;
-return smalltalk.withContext(function($ctx) { self['@element'].setAttribute(aString, aValue);
+return smalltalk.withContext(function($ctx1) { self['@element'].setAttribute(aString, aValue);
 ;
 return self}, self, "at:put:", [aString,aValue], smalltalk.TagBrush)},
 args: ["aString", "aValue"],
@@ -2345,7 +2345,7 @@ selector: "class:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { self['@element'].className = aString;
+return smalltalk.withContext(function($ctx1) { self['@element'].className = aString;
 ;
 return self}, self, "class:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
@@ -2362,7 +2362,7 @@ selector: "cols:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("cols",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("cols",aString);
 return self}, self, "cols:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "cols: aString\x0a\x09self at: 'cols' put: aString",
@@ -2378,7 +2378,7 @@ selector: "contenteditable:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("contenteditable",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("contenteditable",aString);
 return self}, self, "contenteditable:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "contenteditable: aString\x0a\x09self at: 'contenteditable' put: aString",
@@ -2394,7 +2394,7 @@ selector: "contents:",
 category: 'adding',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 _st(self)._empty();
 $1=_st(self)._append_(anObject);
 return self}, self, "contents:", [anObject], smalltalk.TagBrush)},
@@ -2412,7 +2412,7 @@ selector: "contextmenu:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("contextmenu",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("contextmenu",aString);
 return self}, self, "contextmenu:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "contextmenu: aString\x0a\x09self at: 'contextmenu' put: aString",
@@ -2428,7 +2428,7 @@ selector: "createElementFor:",
 category: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { return document.createElement(String(aString));
+return smalltalk.withContext(function($ctx1) { return document.createElement(String(aString));
 ;
 return self}, self, "createElementFor:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
@@ -2445,7 +2445,7 @@ selector: "createTextNodeFor:",
 category: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { return document.createTextNode(String(aString));
+return smalltalk.withContext(function($ctx1) { return document.createTextNode(String(aString));
 ;
 return self}, self, "createTextNodeFor:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
@@ -2462,7 +2462,7 @@ selector: "draggable:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("draggable",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("draggable",aString);
 return self}, self, "draggable:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "draggable: aString\x0a\x09self at: 'draggable' put: aString",
@@ -2478,7 +2478,7 @@ selector: "element",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self["@element"];
+return smalltalk.withContext(function($ctx1) { return self["@element"];
 }, self, "element", [], smalltalk.TagBrush)},
 args: [],
 source: "element\x0a    ^element",
@@ -2494,7 +2494,7 @@ selector: "empty",
 category: 'adding',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._empty();
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._empty();
 return self}, self, "empty", [], smalltalk.TagBrush)},
 args: [],
 source: "empty\x0a\x09self asJQuery empty",
@@ -2510,7 +2510,7 @@ selector: "for:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("for",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("for",aString);
 return self}, self, "for:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "for: aString\x0a\x09self at: 'for' put: aString",
@@ -2526,7 +2526,7 @@ selector: "height:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("height",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("height",aString);
 return self}, self, "height:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "height: aString\x0a    self  at: 'height' put: aString",
@@ -2542,7 +2542,7 @@ selector: "hidden",
 category: 'attributes',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("hidden","hidden");
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("hidden","hidden");
 return self}, self, "hidden", [], smalltalk.TagBrush)},
 args: [],
 source: "hidden\x0a\x09self at: 'hidden' put: 'hidden'",
@@ -2558,7 +2558,7 @@ selector: "href:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("href",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("href",aString);
 return self}, self, "href:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "href: aString\x0a    self at: 'href' put: aString",
@@ -2574,7 +2574,7 @@ selector: "id:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("id",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("id",aString);
 return self}, self, "id:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "id: aString\x0a    self at: 'id' put: aString",
@@ -2590,7 +2590,7 @@ selector: "initializeFromJQuery:canvas:",
 category: 'initialization',
 fn: function (aJQuery,aCanvas){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@element"]=_st(aJQuery)._get_((0));
+return smalltalk.withContext(function($ctx1) { self["@element"]=_st(aJQuery)._get_((0));
 self["@canvas"]=aCanvas;
 return self}, self, "initializeFromJQuery:canvas:", [aJQuery,aCanvas], smalltalk.TagBrush)},
 args: ["aJQuery", "aCanvas"],
@@ -2607,7 +2607,7 @@ selector: "initializeFromString:canvas:",
 category: 'initialization',
 fn: function (aString,aCanvas){
 var self=this;
-return smalltalk.withContext(function($ctx) { self["@element"]=_st(self)._createElementFor_(aString);
+return smalltalk.withContext(function($ctx1) { self["@element"]=_st(self)._createElementFor_(aString);
 self["@canvas"]=aCanvas;
 return self}, self, "initializeFromString:canvas:", [aString,aCanvas], smalltalk.TagBrush)},
 args: ["aString", "aCanvas"],
@@ -2624,7 +2624,7 @@ selector: "media:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("media",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("media",aString);
 return self}, self, "media:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "media: aString\x0a    self at: 'media' put: aString",
@@ -2640,7 +2640,7 @@ selector: "method:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("method",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("method",aString);
 return self}, self, "method:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "method: aString\x0a\x09self at: 'method' put: aString",
@@ -2656,7 +2656,7 @@ selector: "name:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("name",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("name",aString);
 return self}, self, "name:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "name: aString\x0a\x09self at: 'name' put: aString",
@@ -2672,7 +2672,7 @@ selector: "onBlur:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("blur",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("blur",aBlock);
 return self}, self, "onBlur:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onBlur: aBlock\x0a    self asJQuery bind: 'blur' do: aBlock",
@@ -2688,7 +2688,7 @@ selector: "onChange:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("change",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("change",aBlock);
 return self}, self, "onChange:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onChange: aBlock\x0a    self asJQuery bind: 'change' do: aBlock",
@@ -2704,7 +2704,7 @@ selector: "onClick:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("click",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("click",aBlock);
 return self}, self, "onClick:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onClick: aBlock\x0a    self asJQuery bind: 'click' do: aBlock",
@@ -2720,7 +2720,7 @@ selector: "onDblClick:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("dblclick",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("dblclick",aBlock);
 return self}, self, "onDblClick:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onDblClick: aBlock\x0a\x09self asJQuery bind: 'dblclick' do: aBlock",
@@ -2736,7 +2736,7 @@ selector: "onFocus:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("focus",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("focus",aBlock);
 return self}, self, "onFocus:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onFocus: aBlock\x0a    self asJQuery bind: 'focus' do: aBlock",
@@ -2752,7 +2752,7 @@ selector: "onFocusIn:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("focusin",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("focusin",aBlock);
 return self}, self, "onFocusIn:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onFocusIn: aBlock\x0a\x09self asJQuery bind: 'focusin' do: aBlock",
@@ -2768,7 +2768,7 @@ selector: "onFocusOut:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("focusout",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("focusout",aBlock);
 return self}, self, "onFocusOut:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onFocusOut: aBlock\x0a\x09self asJQuery bind: 'focusout' do: aBlock",
@@ -2784,7 +2784,7 @@ selector: "onHover:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("hover",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("hover",aBlock);
 return self}, self, "onHover:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onHover: aBlock\x0a\x09self asJQuery bind: 'hover' do: aBlock",
@@ -2800,7 +2800,7 @@ selector: "onKeyDown:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("keydown",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("keydown",aBlock);
 return self}, self, "onKeyDown:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onKeyDown: aBlock\x0a    self asJQuery bind: 'keydown' do: aBlock",
@@ -2816,7 +2816,7 @@ selector: "onKeyPress:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("keypress",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("keypress",aBlock);
 return self}, self, "onKeyPress:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onKeyPress: aBlock\x0a    self asJQuery bind: 'keypress' do: aBlock",
@@ -2832,7 +2832,7 @@ selector: "onKeyUp:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("keyup",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("keyup",aBlock);
 return self}, self, "onKeyUp:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onKeyUp: aBlock\x0a    self asJQuery bind: 'keyup' do: aBlock",
@@ -2848,7 +2848,7 @@ selector: "onMouseDown:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mousedown",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mousedown",aBlock);
 return self}, self, "onMouseDown:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseDown: aBlock\x0a\x09self asJQuery bind: 'mousedown' do: aBlock",
@@ -2864,7 +2864,7 @@ selector: "onMouseEnter:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mouseenter",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mouseenter",aBlock);
 return self}, self, "onMouseEnter:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseEnter: aBlock\x0a\x09self asJQuery bind: 'mouseenter' do: aBlock",
@@ -2880,7 +2880,7 @@ selector: "onMouseLeave:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mouseleave",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mouseleave",aBlock);
 return self}, self, "onMouseLeave:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseLeave: aBlock\x0a\x09self asJQuery bind: 'mouseleave' do: aBlock",
@@ -2896,7 +2896,7 @@ selector: "onMouseMove:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mousemove",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mousemove",aBlock);
 return self}, self, "onMouseMove:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseMove: aBlock\x0a\x09self asJQuery bind: 'mousemove' do: aBlock",
@@ -2912,7 +2912,7 @@ selector: "onMouseOut:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mouseout",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mouseout",aBlock);
 return self}, self, "onMouseOut:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseOut: aBlock\x0a\x09self asJQuery bind: 'mouseout' do: aBlock",
@@ -2928,7 +2928,7 @@ selector: "onMouseOver:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mouseover",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mouseover",aBlock);
 return self}, self, "onMouseOver:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseOver: aBlock\x0a\x09self asJQuery bind: 'mouseover' do: aBlock",
@@ -2944,7 +2944,7 @@ selector: "onMouseUp:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("mouseup",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("mouseup",aBlock);
 return self}, self, "onMouseUp:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onMouseUp: aBlock\x0a\x09self asJQuery bind: 'mouseup' do: aBlock",
@@ -2960,7 +2960,7 @@ selector: "onSelect:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("select",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("select",aBlock);
 return self}, self, "onSelect:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onSelect: aBlock\x0a\x09self asJQuery bind: 'select' do: aBlock",
@@ -2976,7 +2976,7 @@ selector: "onSubmit:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("submit",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("submit",aBlock);
 return self}, self, "onSubmit:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onSubmit: aBlock\x0a\x09self asJQuery bind: 'submit' do: aBlock",
@@ -2992,7 +2992,7 @@ selector: "onUnload:",
 category: 'events',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(_st(self)._asJQuery())._bind_do_("unload",aBlock);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asJQuery())._bind_do_("unload",aBlock);
 return self}, self, "onUnload:", [aBlock], smalltalk.TagBrush)},
 args: ["aBlock"],
 source: "onUnload: aBlock\x0a\x09self asJQuery bind: 'unload' do: aBlock",
@@ -3008,7 +3008,7 @@ selector: "placeholder:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("placeholder",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("placeholder",aString);
 return self}, self, "placeholder:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "placeholder: aString\x0a\x09self at: 'placeholder' put: aString",
@@ -3024,7 +3024,7 @@ selector: "rel:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("rel",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("rel",aString);
 return self}, self, "rel:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "rel: aString\x0a    self  at: 'rel' put: aString",
@@ -3040,7 +3040,7 @@ selector: "removeAt:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { self['@element'].removeAttribute(aString);
+return smalltalk.withContext(function($ctx1) { self['@element'].removeAttribute(aString);
 ;
 return self}, self, "removeAt:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
@@ -3057,7 +3057,7 @@ selector: "rows:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("rows",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("rows",aString);
 return self}, self, "rows:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "rows: aString\x0a\x09self at: 'rows' put: aString",
@@ -3073,7 +3073,7 @@ selector: "src:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("src",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("src",aString);
 return self}, self, "src:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "src: aString\x0a    self  at: 'src' put: aString",
@@ -3089,7 +3089,7 @@ selector: "style:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("style",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("style",aString);
 return self}, self, "style:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "style: aString\x0a    self at: 'style' put: aString",
@@ -3105,7 +3105,7 @@ selector: "tabindex:",
 category: 'attributes',
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("tabindex",aNumber);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("tabindex",aNumber);
 return self}, self, "tabindex:", [aNumber], smalltalk.TagBrush)},
 args: ["aNumber"],
 source: "tabindex: aNumber\x0a\x09self at: 'tabindex' put: aNumber",
@@ -3121,7 +3121,7 @@ selector: "target:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("target",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("target",aString);
 return self}, self, "target:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "target: aString\x0a\x09self at: 'target' put: aString",
@@ -3137,7 +3137,7 @@ selector: "title:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("title",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("title",aString);
 return self}, self, "title:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "title: aString\x0a    self at: 'title' put: aString",
@@ -3153,7 +3153,7 @@ selector: "type:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("type",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("type",aString);
 return self}, self, "type:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "type: aString\x0a    self at: 'type' put: aString",
@@ -3169,7 +3169,7 @@ selector: "valign:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("valign",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("valign",aString);
 return self}, self, "valign:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "valign: aString\x0a\x09self at: 'valign' put: aString",
@@ -3185,7 +3185,7 @@ selector: "value:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("value",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("value",aString);
 return self}, self, "value:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "value: aString\x0a    self  at: 'value' put: aString",
@@ -3201,7 +3201,7 @@ selector: "width:",
 category: 'attributes',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._at_put_("width",aString);
+return smalltalk.withContext(function($ctx1) { _st(self)._at_put_("width",aString);
 return self}, self, "width:", [aString], smalltalk.TagBrush)},
 args: ["aString"],
 source: "width: aString\x0a    self  at: 'width' put: aString",
@@ -3217,7 +3217,7 @@ selector: "with:",
 category: 'adding',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._append_(anObject);
+return smalltalk.withContext(function($ctx1) { _st(self)._append_(anObject);
 return self}, self, "with:", [anObject], smalltalk.TagBrush)},
 args: ["anObject"],
 source: "with: anObject\x0a    self append: anObject",
@@ -3234,7 +3234,7 @@ selector: "fromJQuery:canvas:",
 category: 'instance creation',
 fn: function (aJQuery,aCanvas){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._initializeFromJQuery_canvas_(aJQuery,aCanvas);
 $3=_st($2)._yourself();
@@ -3255,7 +3255,7 @@ selector: "fromString:canvas:",
 category: 'instance creation',
 fn: function (aString,aCanvas){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._initializeFromString_canvas_(aString,aCanvas);
 $3=_st($2)._yourself();
@@ -3279,7 +3279,7 @@ selector: "with:",
 category: 'adding',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.HTMLCanvas || HTMLCanvas))._isMSIE();
 if(smalltalk.assert($1)){
 _st(_st(_st(self)._element())._styleSheet())._cssText_(aString);
@@ -3302,7 +3302,7 @@ selector: "canvas:",
 category: 'instance creation',
 fn: function (aCanvas){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._initializeFromString_canvas_("style",aCanvas);
 $3=_st($2)._yourself();
@@ -3325,7 +3325,7 @@ selector: "appendToBrush:",
 category: 'adding',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._appendToJQuery_(_st(aTagBrush)._asJQuery());
+return smalltalk.withContext(function($ctx1) { _st(self)._appendToJQuery_(_st(aTagBrush)._asJQuery());
 return self}, self, "appendToBrush:", [aTagBrush], smalltalk.Widget)},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a    self appendToJQuery: aTagBrush asJQuery",
@@ -3341,7 +3341,7 @@ selector: "appendToJQuery:",
 category: 'adding',
 fn: function (aJQuery){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._renderOn_(_st((smalltalk.HTMLCanvas || HTMLCanvas))._onJQuery_(aJQuery));
+return smalltalk.withContext(function($ctx1) { _st(self)._renderOn_(_st((smalltalk.HTMLCanvas || HTMLCanvas))._onJQuery_(aJQuery));
 return self}, self, "appendToJQuery:", [aJQuery], smalltalk.Widget)},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a   self renderOn: (HTMLCanvas onJQuery: aJQuery)",
@@ -3357,7 +3357,7 @@ selector: "renderOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx) { return self}, self, "renderOn:", [html], smalltalk.Widget)},
+return smalltalk.withContext(function($ctx1) { return self}, self, "renderOn:", [html], smalltalk.Widget)},
 args: ["html"],
 source: "renderOn: html\x0a    self",
 messageSends: [],
@@ -3374,7 +3374,7 @@ selector: "appendToBrush:",
 category: '*Canvas',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aTagBrush)._append_(_st(self)._asString());
+return smalltalk.withContext(function($ctx1) { _st(aTagBrush)._append_(_st(self)._asString());
 return self}, self, "appendToBrush:", [aTagBrush], smalltalk.Object)},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a    aTagBrush append: self asString",
@@ -3390,7 +3390,7 @@ selector: "appendToJQuery:",
 category: '*Canvas',
 fn: function (aJQuery){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aJQuery)._append_(_st(self)._asString());
+return smalltalk.withContext(function($ctx1) { _st(aJQuery)._append_(_st(self)._asString());
 return self}, self, "appendToJQuery:", [aJQuery], smalltalk.Object)},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a    aJQuery append: self asString",
@@ -3406,7 +3406,7 @@ selector: "appendToBrush:",
 category: '*Canvas',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aTagBrush)._appendBlock_(self);
+return smalltalk.withContext(function($ctx1) { _st(aTagBrush)._appendBlock_(self);
 return self}, self, "appendToBrush:", [aTagBrush], smalltalk.BlockClosure)},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a    aTagBrush appendBlock: self",
@@ -3422,7 +3422,7 @@ selector: "appendToJQuery:",
 category: '*Canvas',
 fn: function (aJQuery){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(self)._value_(_st((smalltalk.HTMLCanvas || HTMLCanvas))._onJQuery_(aJQuery));
+return smalltalk.withContext(function($ctx1) { _st(self)._value_(_st((smalltalk.HTMLCanvas || HTMLCanvas))._onJQuery_(aJQuery));
 return self}, self, "appendToJQuery:", [aJQuery], smalltalk.BlockClosure)},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a    self value: (HTMLCanvas onJQuery: aJQuery)",
@@ -3438,7 +3438,7 @@ selector: "appendToBrush:",
 category: '*Canvas',
 fn: function (aTagBrush){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aTagBrush)._appendString_(self);
+return smalltalk.withContext(function($ctx1) { _st(aTagBrush)._appendString_(self);
 return self}, self, "appendToBrush:", [aTagBrush], smalltalk.String)},
 args: ["aTagBrush"],
 source: "appendToBrush: aTagBrush\x0a    aTagBrush appendString: self",
@@ -3454,7 +3454,7 @@ selector: "appendToJQuery:",
 category: '*Canvas',
 fn: function (aJQuery){
 var self=this;
-return smalltalk.withContext(function($ctx) { _st(aJQuery)._append_(self);
+return smalltalk.withContext(function($ctx1) { _st(aJQuery)._append_(self);
 return self}, self, "appendToJQuery:", [aJQuery], smalltalk.String)},
 args: ["aJQuery"],
 source: "appendToJQuery: aJQuery\x0a    aJQuery append: self",
@@ -3470,7 +3470,7 @@ selector: "asJQuery",
 category: '*Canvas',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { return jQuery(String(self));
+return smalltalk.withContext(function($ctx1) { return jQuery(String(self));
 ;
 return self}, self, "asJQuery", [], smalltalk.String)},
 args: [],
@@ -3487,9 +3487,9 @@ selector: "asJQuery",
 category: '*Canvas',
 fn: function (){
 var self=this;
-return jQuery(self['@jsObject']);
+return smalltalk.withContext(function($ctx1) { return jQuery(self['@jsObject']);
 ;
-return self},
+return self}, self, "asJQuery", [], smalltalk.JSObjectProxy)},
 args: [],
 source: "asJQuery\x0a    <return jQuery(self['@jsObject'])>",
 messageSends: [],

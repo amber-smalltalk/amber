@@ -6,12 +6,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "->",
 category: 'converting',
-fn: function (anObject) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Association || Association, "_key_value_", [self, anObject]);
-    return $1;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Association || Association))._key_value_(self,anObject);
+return $1;
+}, self, "->", [anObject], smalltalk.Object)},
 args: ["anObject"],
 source: "-> anObject\x0a\x09^Association key: self value: anObject",
 messageSends: ["key:value:"],
@@ -24,12 +24,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__eq_eq", [anObject]);
-    return $1;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__eq_eq(anObject);
+return $1;
+}, self, "=", [anObject], smalltalk.Object)},
 args: ["anObject"],
 source: "= anObject\x0a\x09^self == anObject",
 messageSends: ["=="],
@@ -42,12 +42,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "==",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_identityHash", []), "__eq", [smalltalk.send(anObject, "_identityHash", [])]);
-    return $1;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._identityHash()).__eq(_st(anObject)._identityHash());
+return $1;
+}, self, "==", [anObject], smalltalk.Object)},
 args: ["anObject"],
 source: "== anObject\x0a\x09^self identityHash = anObject identityHash",
 messageSends: ["=", "identityHash"],
@@ -60,13 +60,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var variables;
-    variables = smalltalk.send(smalltalk.HashedCollection || HashedCollection, "_new", []);
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_class", []), "_allInstanceVariableNames", []), "_do_", [function (each) {return smalltalk.send(variables, "_at_put_", [each, smalltalk.send(smalltalk.send(self, "_instVarAt_", [each]), "_asJSON", [])]);}]);
-    return variables;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.variables=nil;
+$ctx1.locals.variables=_st((smalltalk.HashedCollection || HashedCollection))._new();
+_st(_st(_st(self)._class())._allInstanceVariableNames())._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.variables)._at_put_(each,_st(_st(self)._instVarAt_(each))._asJSON());
+})}));
+return $ctx1.locals.variables;
+}, self, "asJSON", [], smalltalk.Object)},
 args: [],
 source: "asJSON\x0a\x09| variables |\x0a\x09variables := HashedCollection new.\x0a\x09self class allInstanceVariableNames do: [:each |\x0a\x09\x09variables at: each put: (self instVarAt: each) asJSON].\x0a\x09^variables",
 messageSends: ["new", "do:", "at:put:", "asJSON", "instVarAt:", "allInstanceVariableNames", "class"],
@@ -79,12 +81,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSONString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.JSON || JSON, "_stringify_", [smalltalk.send(self, "_asJSON", [])]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.JSON || JSON))._stringify_(_st(self)._asJSON());
+return $1;
+}, self, "asJSONString", [], smalltalk.Object)},
 args: [],
 source: "asJSONString\x0a\x09^JSON stringify: self asJSON",
 messageSends: ["stringify:", "asJSON"],
@@ -97,12 +99,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_asString", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._asString();
+return $1;
+}, self, "asJavascript", [], smalltalk.Object)},
 args: [],
 source: "asJavascript\x0a\x09^self asString",
 messageSends: ["asString"],
@@ -115,12 +117,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_printString", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._printString();
+return $1;
+}, self, "asString", [], smalltalk.Object)},
 args: [],
 source: "asString\x0a\x09^self printString",
 messageSends: ["printString"],
@@ -133,11 +135,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicAt:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return self[aString];
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self[aString];
+;
+return self}, self, "basicAt:", [aString], smalltalk.Object)},
 args: ["aString"],
 source: "basicAt: aString\x0a\x09<return self[aString]>",
 messageSends: [],
@@ -150,11 +152,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicAt:put:",
 category: 'accessing',
-fn: function (aString, anObject) {
-    var self = this;
-    return self[aString] = anObject;
-    return self;
-},
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self[aString] = anObject;
+;
+return self}, self, "basicAt:put:", [aString,anObject], smalltalk.Object)},
 args: ["aString", "anObject"],
 source: "basicAt: aString put: anObject\x0a\x09<return self[aString] = anObject>",
 messageSends: [],
@@ -167,12 +169,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicDelete:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    delete self[aString];
-    return aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { delete self[aString]; return aString;
+;
+return self}, self, "basicDelete:", [aString], smalltalk.Object)},
 args: ["aString"],
 source: "basicDelete: aString\x0a    <delete self[aString]; return aString>",
 messageSends: [],
@@ -185,12 +186,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicPerform:",
 category: 'message handling',
-fn: function (aSymbol) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicPerform_withArguments_", [aSymbol, []]);
-    return $1;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicPerform_withArguments_(aSymbol,[]);
+return $1;
+}, self, "basicPerform:", [aSymbol], smalltalk.Object)},
 args: ["aSymbol"],
 source: "basicPerform: aSymbol \x0a\x09^self basicPerform: aSymbol withArguments: #()",
 messageSends: ["basicPerform:withArguments:"],
@@ -203,11 +204,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicPerform:withArguments:",
 category: 'message handling',
-fn: function (aSymbol, aCollection) {
-    var self = this;
-    return self[aSymbol].apply(self, aCollection);
-    return self;
-},
+fn: function (aSymbol,aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self[aSymbol].apply(self, aCollection);;
+;
+return self}, self, "basicPerform:withArguments:", [aSymbol,aCollection], smalltalk.Object)},
 args: ["aSymbol", "aCollection"],
 source: "basicPerform: aSymbol withArguments: aCollection\x0a\x09<return self[aSymbol].apply(self, aCollection);>",
 messageSends: [],
@@ -220,11 +221,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "class",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.klass;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.klass;
+;
+return self}, self, "class", [], smalltalk.Object)},
 args: [],
 source: "class\x0a\x09<return self.klass>",
 messageSends: [],
@@ -237,12 +238,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_shallowCopy", []), "_postCopy", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._shallowCopy())._postCopy();
+return $1;
+}, self, "copy", [], smalltalk.Object)},
 args: [],
 source: "copy\x0a\x09^self shallowCopy postCopy",
 messageSends: ["postCopy", "shallowCopy"],
@@ -255,17 +256,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    var copy = self.klass._new();
-    for (var i in self) {
-        if (/^@.+/.test(i)) {
-            copy[i] = self[i]._deepCopy();
-        }
-    }
-    return copy;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {     
+	    var copy = self.klass._new();
+	    for(var i in self) {
+		if(/^@.+/.test(i)) {
+		    copy[i] = self[i]._deepCopy();
+		}
+	    }
+	    return copy;
+	;
+;
+return self}, self, "deepCopy", [], smalltalk.Object)},
 args: [],
 source: "deepCopy\x0a\x09<    \x0a\x09    var copy = self.klass._new();\x0a\x09    for(var i in self) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09    copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09    }\x0a\x09    return copy;\x0a\x09>",
 messageSends: [],
@@ -278,11 +281,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deprecatedAPI",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(console, "_warn_", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.getThisContext(), "_home", []), "_asString", []), "__comma", [" is deprecated! (in "]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.getThisContext(), "_home", []), "_home", []), "_asString", [])]), "__comma", [")"])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(console)._warn_(_st(_st(_st(_st(_st(smalltalk.getThisContext())._home())._asString()).__comma(" is deprecated! (in ")).__comma(_st(_st(_st(smalltalk.getThisContext())._home())._home())._asString())).__comma(")"));
+return self}, self, "deprecatedAPI", [], smalltalk.Object)},
 args: [],
 source: "deprecatedAPI\x0a\x09\x22Just a simple way to deprecate methods.\x0a\x09#deprecatedAPI is in the 'error handling' protocol even if it doesn't throw an error,\x0a\x09but it could in the future.\x22\x0a\x09console warn: thisContext home asString, ' is deprecated! (in ', thisContext home home asString, ')'",
 messageSends: ["warn:", ",", "asString", "home"],
@@ -295,15 +297,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "doesNotUnderstand:",
 category: 'error handling',
-fn: function (aMessage) {
-    var self = this;
-    var $1, $2;
-    $1 = smalltalk.send(smalltalk.MessageNotUnderstood || MessageNotUnderstood, "_new", []);
-    smalltalk.send($1, "_receiver_", [self]);
-    smalltalk.send($1, "_message_", [aMessage]);
-    $2 = smalltalk.send($1, "_signal", []);
-    return self;
-},
+fn: function (aMessage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st((smalltalk.MessageNotUnderstood || MessageNotUnderstood))._new();
+_st($1)._receiver_(self);
+_st($1)._message_(aMessage);
+$2=_st($1)._signal();
+return self}, self, "doesNotUnderstand:", [aMessage], smalltalk.Object)},
 args: ["aMessage"],
 source: "doesNotUnderstand: aMessage\x0a\x09MessageNotUnderstood new\x0a\x09\x09receiver: self;\x0a\x09\x09message: aMessage;\x0a\x09\x09signal",
 messageSends: ["receiver:", "new", "message:", "signal"],
@@ -316,11 +317,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "error:",
 category: 'error handling',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(smalltalk.Error || Error, "_signal_", [aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st((smalltalk.Error || Error))._signal_(aString);
+return self}, self, "error:", [aString], smalltalk.Object)},
 args: ["aString"],
 source: "error: aString\x0a\x09Error signal: aString",
 messageSends: ["signal:"],
@@ -333,11 +333,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "halt",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["Halt encountered"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._error_("Halt encountered");
+return self}, self, "halt", [], smalltalk.Object)},
 args: [],
 source: "halt\x0a\x09self error: 'Halt encountered'",
 messageSends: ["error:"],
@@ -350,17 +349,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "identityHash",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var hash = self.identityHash;
-    if (hash) {
-        return hash;
-    }
-    hash = smalltalk.nextId();
-    Object.defineProperty(self, "identityHash", {value: hash});
-    return hash;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+	var hash=self.identityHash;
+	if (hash) return hash;
+	hash=smalltalk.nextId();
+	Object.defineProperty(self, 'identityHash', {value:hash});
+	return hash;
+	;
+;
+return self}, self, "identityHash", [], smalltalk.Object)},
 args: [],
 source: "identityHash\x0a\x09<\x0a\x09var hash=self.identityHash;\x0a\x09if (hash) return hash;\x0a\x09hash=smalltalk.nextId();\x0a\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09return hash;\x0a\x09>",
 messageSends: [],
@@ -373,10 +372,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "ifNil:", [aBlock], smalltalk.Object)},
 args: ["aBlock"],
 source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self",
 messageSends: [],
@@ -389,12 +388,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:ifNotNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(anotherBlock, "_value", []);
-    return $1;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(anotherBlock)._value();
+return $1;
+}, self, "ifNil:ifNotNil:", [aBlock,anotherBlock], smalltalk.Object)},
 args: ["aBlock", "anotherBlock"],
 source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value",
 messageSends: ["value"],
@@ -407,12 +406,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(aBlock, "_value", []);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aBlock)._value();
+return $1;
+}, self, "ifNotNil:", [aBlock], smalltalk.Object)},
 args: ["aBlock"],
 source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
 messageSends: ["value"],
@@ -425,12 +424,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:ifNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(aBlock, "_value", []);
-    return $1;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aBlock)._value();
+return $1;
+}, self, "ifNotNil:ifNil:", [aBlock,anotherBlock], smalltalk.Object)},
 args: ["aBlock", "anotherBlock"],
 source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
 messageSends: ["value"],
@@ -443,10 +442,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, self, "initialize", [], smalltalk.Object)},
 args: [],
 source: "initialize",
 messageSends: [],
@@ -493,10 +491,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isClass",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isClass", [], smalltalk.Object)},
 args: [],
 source: "isClass\x0a\x09^false",
 messageSends: [],
@@ -509,17 +507,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isKindOf:",
 category: 'testing',
-fn: function (aClass) {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "_isMemberOf_", [aClass]);
-    if (smalltalk.assert($2)) {
-        $1 = true;
-    } else {
-        $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_inheritsFrom_", [aClass]);
-    }
-    return $1;
-},
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self)._isMemberOf_(aClass);
+if(smalltalk.assert($2)){
+$1=true;
+} else {
+$1=_st(_st(self)._class())._inheritsFrom_(aClass);
+};
+return $1;
+}, self, "isKindOf:", [aClass], smalltalk.Object)},
 args: ["aClass"],
 source: "isKindOf: aClass\x0a\x09^(self isMemberOf: aClass)\x0a\x09    ifTrue: [true]\x0a\x09    ifFalse: [self class inheritsFrom: aClass]",
 messageSends: ["ifTrue:ifFalse:", "inheritsFrom:", "class", "isMemberOf:"],
@@ -532,12 +530,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isMemberOf:",
 category: 'testing',
-fn: function (aClass) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_class", []), "__eq", [aClass]);
-    return $1;
-},
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class()).__eq(aClass);
+return $1;
+}, self, "isMemberOf:", [aClass], smalltalk.Object)},
 args: ["aClass"],
 source: "isMemberOf: aClass\x0a\x09^self class = aClass",
 messageSends: ["=", "class"],
@@ -550,10 +548,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isMetaclass",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isMetaclass", [], smalltalk.Object)},
 args: [],
 source: "isMetaclass\x0a\x09^false",
 messageSends: [],
@@ -566,10 +564,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isNil", [], smalltalk.Object)},
 args: [],
 source: "isNil\x0a\x09^false",
 messageSends: [],
@@ -582,10 +580,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isNumber",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isNumber", [], smalltalk.Object)},
 args: [],
 source: "isNumber\x0a\x09^false",
 messageSends: [],
@@ -598,10 +596,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isParseFailure",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isParseFailure", [], smalltalk.Object)},
 args: [],
 source: "isParseFailure\x0a\x09^false",
 messageSends: [],
@@ -614,10 +612,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isString",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isString", [], smalltalk.Object)},
 args: [],
 source: "isString\x0a\x09^false",
 messageSends: [],
@@ -630,10 +628,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isSymbol",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isSymbol", [], smalltalk.Object)},
 args: [],
 source: "isSymbol\x0a\x09^false",
 messageSends: [],
@@ -646,12 +644,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "log:block:",
 category: 'printing',
-fn: function (aString, aBlock) {
-    var self = this;
-    var result;
-    smalltalk.send(console, "_log_", [smalltalk.send(smalltalk.send(aString, "__comma", [" time: "]), "__comma", [smalltalk.send(smalltalk.send(smalltalk.Date || Date, "_millisecondsToRun_", [function () {result = smalltalk.send(aBlock, "_value", []);return result;}]), "_printString", [])])]);
-    return result;
-},
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.result=nil;
+_st(console)._log_(_st(_st(aString).__comma(" time: ")).__comma(_st(_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.result=_st(aBlock)._value();
+return $ctx1.locals.result;
+})})))._printString()));
+return $ctx1.locals.result;
+}, self, "log:block:", [aString,aBlock], smalltalk.Object)},
 args: ["aString", "aBlock"],
 source: "log: aString block: aBlock\x0a\x0a\x09| result |\x0a\x09console log:  aString,  ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.\x0a\x09^result",
 messageSends: ["log:", ",", "printString", "millisecondsToRun:", "value"],
@@ -664,12 +665,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "notNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_isNil", []), "_not", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._isNil())._not();
+return $1;
+}, self, "notNil", [], smalltalk.Object)},
 args: [],
 source: "notNil\x0a\x09^self isNil not",
 messageSends: ["not", "isNil"],
@@ -682,12 +683,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "perform:",
 category: 'message handling',
-fn: function (aSymbol) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_perform_withArguments_", [aSymbol, []]);
-    return $1;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._perform_withArguments_(aSymbol,[]);
+return $1;
+}, self, "perform:", [aSymbol], smalltalk.Object)},
 args: ["aSymbol"],
 source: "perform: aSymbol\x0a\x09^self perform: aSymbol withArguments: #()",
 messageSends: ["perform:withArguments:"],
@@ -717,10 +718,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "postCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, self, "postCopy", [], smalltalk.Object)},
 args: [],
 source: "postCopy",
 messageSends: [],
@@ -733,11 +733,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printNl",
 category: 'printing',
-fn: function () {
-    var self = this;
-    console.log(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { console.log(self);
+;
+return self}, self, "printNl", [], smalltalk.Object)},
 args: [],
 source: "printNl\x0a\x09<console.log(self)>",
 messageSends: [],
@@ -750,12 +750,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send("a ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st("a ").__comma(_st(_st(self)._class())._name());
+return $1;
+}, self, "printString", [], smalltalk.Object)},
 args: [],
 source: "printString\x0a\x09^'a ', self class name",
 messageSends: [",", "name", "class"],
@@ -768,12 +768,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "respondsTo:",
 category: 'testing',
-fn: function (aSelector) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_canUnderstand_", [aSelector]);
-    return $1;
-},
+fn: function (aSelector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._canUnderstand_(aSelector);
+return $1;
+}, self, "respondsTo:", [aSelector], smalltalk.Object)},
 args: ["aSelector"],
 source: "respondsTo: aSelector\x0a\x09^self class canUnderstand: aSelector",
 messageSends: ["canUnderstand:", "class"],
@@ -786,17 +786,19 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    var copy = self.klass._new();
-    for (var i in self) {
-        if (/^@.+/.test(i)) {
-            copy[i] = self[i];
-        }
-    }
-    return copy;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+	    var copy = self.klass._new();
+	    for(var i in self) {
+		if(/^@.+/.test(i)) {
+		    copy[i] = self[i];
+		}
+	    }
+	    return copy;
+	;
+;
+return self}, self, "shallowCopy", [], smalltalk.Object)},
 args: [],
 source: "shallowCopy\x0a\x09<\x0a\x09    var copy = self.klass._new();\x0a\x09    for(var i in self) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09    copy[i] = self[i];\x0a\x09\x09}\x0a\x09    }\x0a\x09    return copy;\x0a\x09>",
 messageSends: [],
@@ -809,11 +811,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shouldNotImplement",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", [smalltalk.send("This method should not be implemented in ", "__comma", [smalltalk.send(smalltalk.send(self, "_class", []), "_name", [])])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._error_(_st("This method should not be implemented in ").__comma(_st(_st(self)._class())._name()));
+return self}, self, "shouldNotImplement", [], smalltalk.Object)},
 args: [],
 source: "shouldNotImplement\x0a\x09self error: 'This method should not be implemented in ', self class name",
 messageSends: ["error:", ",", "name", "class"],
@@ -826,11 +827,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "size",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["Object not indexable"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._error_("Object not indexable");
+return self}, self, "size", [], smalltalk.Object)},
 args: [],
 source: "size\x0a\x09self error: 'Object not indexable'",
 messageSends: ["error:"],
@@ -843,11 +843,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "storeOn:",
 category: 'printing',
-fn: function (aStream) {
-    var self = this;
-    smalltalk.send(aStream, "_nextPutAll_", [smalltalk.send(self, "_printString", [])]);
-    return self;
-},
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._printString());
+return self}, self, "storeOn:", [aStream], smalltalk.Object)},
 args: ["aStream"],
 source: "storeOn: aStream\x0a\x09aStream nextPutAll: self printString",
 messageSends: ["nextPutAll:", "printString"],
@@ -860,12 +859,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "storeString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.String || String, "_streamContents_", [function (s) {return smalltalk.send(self, "_storeOn_", [s]);}]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.String || String))._streamContents_((function(s){
+return smalltalk.withContext(function($ctx2) { return _st(self)._storeOn_(s);
+})}));
+return $1;
+}, self, "storeString", [], smalltalk.Object)},
 args: [],
 source: "storeString\x0a\x09\x22Answer a String representation of the receiver from which the receiver \x0a\x09can be reconstructed.\x22\x0a\x0a\x09^ String streamContents: [:s | self storeOn: s]",
 messageSends: ["streamContents:", "storeOn:"],
@@ -878,11 +879,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "subclassResponsibility",
 category: 'error handling',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["This method is a responsibility of a subclass"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._error_("This method is a responsibility of a subclass");
+return self}, self, "subclassResponsibility", [], smalltalk.Object)},
 args: [],
 source: "subclassResponsibility\x0a\x09self error: 'This method is a responsibility of a subclass'",
 messageSends: ["error:"],
@@ -895,11 +895,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "throw:",
 category: 'error handling',
-fn: function (anObject) {
-    var self = this;
-    throw anObject;
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  throw anObject ;
+;
+return self}, self, "throw:", [anObject], smalltalk.Object)},
 args: ["anObject"],
 source: "throw: anObject\x0a\x09< throw anObject >",
 messageSends: [],
@@ -912,16 +912,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "try:catch:",
 category: 'error handling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    try {
-        result = aBlock();
-    } catch (e) {
-        result = anotherBlock(e);
-    }
-    return result;
-    return self;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { try{result = aBlock()} catch(e) {result = anotherBlock(e)};
+	return result;;
+;
+return self}, self, "try:catch:", [aBlock,anotherBlock], smalltalk.Object)},
 args: ["aBlock", "anotherBlock"],
 source: "try: aBlock catch: anotherBlock\x0a\x09<try{result = aBlock()} catch(e) {result = anotherBlock(e)};\x0a\x09return result;>",
 messageSends: [],
@@ -934,10 +930,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "value", [], smalltalk.Object)},
 args: [],
 source: "value\x0a\x09^ self",
 messageSends: [],
@@ -950,10 +946,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "yourself",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "yourself", [], smalltalk.Object)},
 args: [],
 source: "yourself\x0a\x09^self",
 messageSends: [],
@@ -966,12 +962,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "~=",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "__eq", [anObject]), "__eq", [false]);
-    return $1;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self).__eq(anObject)).__eq(false);
+return $1;
+}, self, "~=", [anObject], smalltalk.Object)},
 args: ["anObject"],
 source: "~= anObject\x0a\x09^(self = anObject) = false",
 messageSends: ["="],
@@ -984,12 +980,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "~~",
 category: 'comparing',
-fn: function (anObject) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "__eq_eq", [anObject]), "__eq", [false]);
-    return $1;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self).__eq_eq(anObject)).__eq(false);
+return $1;
+}, self, "~~", [anObject], smalltalk.Object)},
 args: ["anObject"],
 source: "~~ anObject\x0a\x09^(self == anObject) = false",
 messageSends: ["=", "=="],
@@ -1003,10 +999,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, self, "initialize", [], smalltalk.Object.klass)},
 args: [],
 source: "initialize\x0a\x09\x22no op\x22",
 messageSends: [],
@@ -1022,15 +1017,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "&",
 category: 'controlling',
-fn: function (aBoolean) {
-    var self = this;
-    if (self == true) {
-        return aBoolean;
-    } else {
-        return false;
-    }
-    return self;
-},
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+	    if(self == true) {
+		return aBoolean;
+	    } else {
+		return false;
+	    }
+	;
+;
+return self}, self, "&", [aBoolean], smalltalk.Boolean)},
 args: ["aBoolean"],
 source: "& aBoolean\x0a\x09<\x0a\x09    if(self == true) {\x0a\x09\x09return aBoolean;\x0a\x09    } else {\x0a\x09\x09return false;\x0a\x09    }\x0a\x09>",
 messageSends: [],
@@ -1043,16 +1040,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aBoolean) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(aBoolean, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]);
-    if (!smalltalk.assert($1)) {
-        return false;
-    }
-    return Boolean(self == true) == aBoolean;
-    return self;
-},
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(aBoolean)._class()).__eq(_st(self)._class());
+if(! smalltalk.assert($1)){
+return false;
+};
+return Boolean(self == true) == aBoolean;
+;
+return self}, self, "=", [aBoolean], smalltalk.Boolean)},
 args: ["aBoolean"],
 source: "= aBoolean\x0a\x09aBoolean class = self class ifFalse: [^false].\x0a\x09<return Boolean(self == true) == aBoolean>",
 messageSends: ["ifFalse:", "=", "class"],
@@ -1065,12 +1062,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "==",
 category: 'comparing',
-fn: function (aBoolean) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__eq", [aBoolean]);
-    return $1;
-},
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__eq(aBoolean);
+return $1;
+}, self, "==", [aBoolean], smalltalk.Boolean)},
 args: ["aBoolean"],
 source: "== aBoolean\x0a\x09^self = aBoolean",
 messageSends: ["="],
@@ -1083,13 +1080,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "and:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "__eq", [true]);
-    $1 = smalltalk.send($2, "_ifTrue_ifFalse_", [aBlock, function () {return false;}]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self).__eq(true);
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) { return false;
+})}));
+return $1;
+}, self, "and:", [aBlock], smalltalk.Boolean)},
 args: ["aBlock"],
 source: "and: aBlock\x0a\x09^self = true\x0a\x09    ifTrue: aBlock\x0a\x09    ifFalse: [false]",
 messageSends: ["ifTrue:ifFalse:", "="],
@@ -1102,10 +1101,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "asJSON", [], smalltalk.Boolean)},
 args: [],
 source: "asJSON\x0a\x09^self",
 messageSends: [],
@@ -1118,10 +1117,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "deepCopy", [], smalltalk.Boolean)},
 args: [],
 source: "deepCopy\x0a\x09^self",
 messageSends: [],
@@ -1134,12 +1133,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_ifTrue_ifFalse_", [function () {}, aBlock]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._ifTrue_ifFalse_((function(){
+return smalltalk.withContext(function($ctx2) { })}),aBlock);
+return $1;
+}, self, "ifFalse:", [aBlock], smalltalk.Boolean)},
 args: ["aBlock"],
 source: "ifFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifTrue: [] ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:"],
@@ -1152,12 +1152,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:ifTrue:",
 category: 'controlling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_ifTrue_ifFalse_", [anotherBlock, aBlock]);
-    return $1;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._ifTrue_ifFalse_(anotherBlock,aBlock);
+return $1;
+}, self, "ifFalse:ifTrue:", [aBlock,anotherBlock], smalltalk.Boolean)},
 args: ["aBlock", "anotherBlock"],
 source: "ifFalse: aBlock ifTrue: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifTrue: anotherBlock ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:"],
@@ -1170,12 +1170,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifTrue:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_ifTrue_ifFalse_", [aBlock, function () {}]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._ifTrue_ifFalse_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) { })}));
+return $1;
+}, self, "ifTrue:", [aBlock], smalltalk.Boolean)},
 args: ["aBlock"],
 source: "ifTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifTrue: aBlock ifFalse: []",
 messageSends: ["ifTrue:ifFalse:"],
@@ -1188,15 +1189,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifTrue:ifFalse:",
 category: 'controlling',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    if (self == true) {
-        return aBlock();
-    } else {
-        return anotherBlock();
-    }
-    return self;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+	    if(self == true) {
+		return aBlock();
+	    } else {
+		return anotherBlock();
+	    }
+	;
+;
+return self}, self, "ifTrue:ifFalse:", [aBlock,anotherBlock], smalltalk.Boolean)},
 args: ["aBlock", "anotherBlock"],
 source: "ifTrue: aBlock ifFalse: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<\x0a\x09    if(self == true) {\x0a\x09\x09return aBlock();\x0a\x09    } else {\x0a\x09\x09return anotherBlock();\x0a\x09    }\x0a\x09>",
 messageSends: [],
@@ -1209,12 +1212,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "not",
 category: 'controlling',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__eq", [false]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__eq(false);
+return $1;
+}, self, "not", [], smalltalk.Boolean)},
 args: [],
 source: "not\x0a\x09^self = false",
 messageSends: ["="],
@@ -1227,13 +1230,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "or:",
 category: 'controlling',
-fn: function (aBlock) {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "__eq", [true]);
-    $1 = smalltalk.send($2, "_ifTrue_ifFalse_", [function () {return true;}, aBlock]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self).__eq(true);
+$1=_st($2)._ifTrue_ifFalse_((function(){
+return smalltalk.withContext(function($ctx2) { return true;
+})}),aBlock);
+return $1;
+}, self, "or:", [aBlock], smalltalk.Boolean)},
 args: ["aBlock"],
 source: "or: aBlock\x0a\x09^self = true\x0a\x09    ifTrue: [true]\x0a\x09    ifFalse: aBlock",
 messageSends: ["ifTrue:ifFalse:", "="],
@@ -1246,11 +1251,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.toString();
+;
+return self}, self, "printString", [], smalltalk.Boolean)},
 args: [],
 source: "printString\x0a\x09<return self.toString()>",
 messageSends: [],
@@ -1263,10 +1268,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "shallowCopy", [], smalltalk.Boolean)},
 args: [],
 source: "shallowCopy\x0a\x09^self",
 messageSends: [],
@@ -1279,15 +1284,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "|",
 category: 'controlling',
-fn: function (aBoolean) {
-    var self = this;
-    if (self == true) {
-        return true;
-    } else {
-        return aBoolean;
-    }
-    return self;
-},
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+	    if(self == true) {
+		return true;
+	    } else {
+		return aBoolean;
+	    }
+	;
+;
+return self}, self, "|", [aBoolean], smalltalk.Boolean)},
 args: ["aBoolean"],
 source: "| aBoolean\x0a\x09<\x0a\x09    if(self == true) {\x0a\x09\x09return true;\x0a\x09    } else {\x0a\x09\x09return aBoolean;\x0a\x09    }\x0a\x09>",
 messageSends: [],
@@ -1304,11 +1311,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.args || [];
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.args || [];
+;
+return self}, self, "arguments", [], smalltalk.CompiledMethod)},
 args: [],
 source: "arguments\x0a\x09<return self.args || []>",
 messageSends: [],
@@ -1321,17 +1328,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "category",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "_basicAt_", ["category"]);
-    if (($receiver = $2) == nil || $receiver == undefined) {
-        $1 = "";
-    } else {
-        $1 = $2;
-    }
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self)._basicAt_("category");
+if(($receiver = $2) == nil || $receiver == undefined){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, self, "category", [], smalltalk.CompiledMethod)},
 args: [],
 source: "category\x0a\x09^(self basicAt: 'category') ifNil: ['']",
 messageSends: ["ifNil:", "basicAt:"],
@@ -1346,22 +1353,22 @@ selector: "category:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-var $1;
-var oldCategory;
-oldCategory=smalltalk.send(self,"_category",[]);
-smalltalk.send(self,"_basicAt_put_",["category",aString]);
-$1=smalltalk.send(self,"_methodClass",[]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.oldCategory=nil;
+$ctx1.locals.oldCategory=_st(self)._category();
+_st(self)._basicAt_put_("category",aString);
+$1=_st(self)._methodClass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_addElement_",[aString]);
-smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_methods",[]),"_select_",[(function(each){
-return smalltalk.send(smalltalk.send(each,"_category",[]),"__eq",[oldCategory]);
-})]),"_ifEmpty_",[(function(){
-return smalltalk.send(smalltalk.send(smalltalk.send(self,"_methodClass",[]),"_organization",[]),"_removeElement_",[oldCategory]);
-})]);
+_st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
+_st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(_st(each)._category()).__eq($ctx1.locals.oldCategory);
+})})))._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._methodClass())._organization())._removeElement_($ctx1.locals.oldCategory);
+})}));
 };
-return self},
+return self}, self, "category:", [aString], smalltalk.CompiledMethod)},
 args: ["aString"],
 source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organization addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]",
 messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
@@ -1374,12 +1381,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fn",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicAt_", ["fn"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicAt_("fn");
+return $1;
+}, self, "fn", [], smalltalk.CompiledMethod)},
 args: [],
 source: "fn\x0a\x09^self basicAt: 'fn'",
 messageSends: ["basicAt:"],
@@ -1392,11 +1399,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fn:",
 category: 'accessing',
-fn: function (aBlock) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["fn", aBlock]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("fn",aBlock);
+return self}, self, "fn:", [aBlock], smalltalk.CompiledMethod)},
 args: ["aBlock"],
 source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
 messageSends: ["basicAt:put:"],
@@ -1409,12 +1415,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "messageSends",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicAt_", ["messageSends"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicAt_("messageSends");
+return $1;
+}, self, "messageSends", [], smalltalk.CompiledMethod)},
 args: [],
 source: "messageSends\x0a\x09^self basicAt: 'messageSends'",
 messageSends: ["basicAt:"],
@@ -1427,12 +1433,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "methodClass",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicAt_", ["methodClass"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicAt_("methodClass");
+return $1;
+}, self, "methodClass", [], smalltalk.CompiledMethod)},
 args: [],
 source: "methodClass\x0a\x09^self basicAt: 'methodClass'",
 messageSends: ["basicAt:"],
@@ -1445,12 +1451,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "protocol",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_category", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._category();
+return $1;
+}, self, "protocol", [], smalltalk.CompiledMethod)},
 args: [],
 source: "protocol\x0a\x09^ self category",
 messageSends: ["category"],
@@ -1463,12 +1469,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "referencedClasses",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicAt_", ["referencedClasses"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicAt_("referencedClasses");
+return $1;
+}, self, "referencedClasses", [], smalltalk.CompiledMethod)},
 args: [],
 source: "referencedClasses\x0a\x09^self basicAt: 'referencedClasses'",
 messageSends: ["basicAt:"],
@@ -1481,12 +1487,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicAt_", ["selector"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicAt_("selector");
+return $1;
+}, self, "selector", [], smalltalk.CompiledMethod)},
 args: [],
 source: "selector\x0a\x09^self basicAt: 'selector'",
 messageSends: ["basicAt:"],
@@ -1499,11 +1505,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["selector", aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("selector",aString);
+return self}, self, "selector:", [aString], smalltalk.CompiledMethod)},
 args: ["aString"],
 source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
 messageSends: ["basicAt:put:"],
@@ -1516,17 +1521,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "source",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "_basicAt_", ["source"]);
-    if (($receiver = $2) == nil || $receiver == undefined) {
-        $1 = "";
-    } else {
-        $1 = $2;
-    }
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self)._basicAt_("source");
+if(($receiver = $2) == nil || $receiver == undefined){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, self, "source", [], smalltalk.CompiledMethod)},
 args: [],
 source: "source\x0a\x09^(self basicAt: 'source') ifNil: ['']",
 messageSends: ["ifNil:", "basicAt:"],
@@ -1539,11 +1544,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self, "_basicAt_put_", ["source", aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("source",aString);
+return self}, self, "source:", [aString], smalltalk.CompiledMethod)},
 args: ["aString"],
 source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
 messageSends: ["basicAt:put:"],
@@ -1560,11 +1564,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
 category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self + aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self + aDate;
+;
+return self}, self, "+", [aDate], smalltalk.Date)},
 args: ["aDate"],
 source: "+ aDate\x0a\x09<return self + aDate>",
 messageSends: [],
@@ -1577,11 +1581,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "-",
 category: 'arithmetic',
-fn: function (aDate) {
-    var self = this;
-    return self - aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self - aDate;
+;
+return self}, self, "-", [aDate], smalltalk.Date)},
 args: ["aDate"],
 source: "- aDate\x0a\x09<return self - aDate>",
 messageSends: [],
@@ -1594,11 +1598,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self < aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self < aDate;
+;
+return self}, self, "<", [aDate], smalltalk.Date)},
 args: ["aDate"],
 source: "< aDate\x0a\x09<return self < aDate>",
 messageSends: [],
@@ -1611,11 +1615,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self <= aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self <= aDate;
+;
+return self}, self, "<=", [aDate], smalltalk.Date)},
 args: ["aDate"],
 source: "<= aDate\x0a\x09<return self <= aDate>",
 messageSends: [],
@@ -1628,11 +1632,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self > aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self > aDate;
+;
+return self}, self, ">", [aDate], smalltalk.Date)},
 args: ["aDate"],
 source: "> aDate\x0a\x09<return self >> aDate>",
 messageSends: [],
@@ -1645,11 +1649,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
 category: 'comparing',
-fn: function (aDate) {
-    var self = this;
-    return self >= aDate;
-    return self;
-},
+fn: function (aDate){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self >= aDate;
+;
+return self}, self, ">=", [aDate], smalltalk.Date)},
 args: ["aDate"],
 source: ">= aDate\x0a\x09<return self >>= aDate>",
 messageSends: [],
@@ -1662,11 +1666,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asDateString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toDateString();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.toDateString();
+;
+return self}, self, "asDateString", [], smalltalk.Date)},
 args: [],
 source: "asDateString\x0a\x09<return self.toDateString()>",
 messageSends: [],
@@ -1679,11 +1683,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asLocaleString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toLocaleString();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.toLocaleString();
+;
+return self}, self, "asLocaleString", [], smalltalk.Date)},
 args: [],
 source: "asLocaleString\x0a\x09<return self.toLocaleString()>",
 messageSends: [],
@@ -1696,12 +1700,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asMilliseconds",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_time", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._time();
+return $1;
+}, self, "asMilliseconds", [], smalltalk.Date)},
 args: [],
 source: "asMilliseconds\x0a\x09^self time",
 messageSends: ["time"],
@@ -1714,12 +1718,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asNumber",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_asMilliseconds", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._asMilliseconds();
+return $1;
+}, self, "asNumber", [], smalltalk.Date)},
 args: [],
 source: "asNumber\x0a\x09^self asMilliseconds",
 messageSends: ["asMilliseconds"],
@@ -1732,11 +1736,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toString();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.toString();
+;
+return self}, self, "asString", [], smalltalk.Date)},
 args: [],
 source: "asString\x0a\x09<return self.toString()>",
 messageSends: [],
@@ -1749,11 +1753,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asTimeString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self.toTimeString();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.toTimeString();
+;
+return self}, self, "asTimeString", [], smalltalk.Date)},
 args: [],
 source: "asTimeString\x0a\x09<return self.toTimeString()>",
 messageSends: [],
@@ -1766,12 +1770,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "day",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_dayOfWeek", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._dayOfWeek();
+return $1;
+}, self, "day", [], smalltalk.Date)},
 args: [],
 source: "day\x0a\x09^self dayOfWeek",
 messageSends: ["dayOfWeek"],
@@ -1784,11 +1788,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "day:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    smalltalk.send(self, "_dayOfWeek_", [aNumber]);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._dayOfWeek_(aNumber);
+return self}, self, "day:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "day: aNumber\x0a\x09self dayOfWeek: aNumber",
 messageSends: ["dayOfWeek:"],
@@ -1801,11 +1804,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfMonth",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDate();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getDate();
+;
+return self}, self, "dayOfMonth", [], smalltalk.Date)},
 args: [],
 source: "dayOfMonth\x0a\x09<return self.getDate()>",
 messageSends: [],
@@ -1818,11 +1821,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfMonth:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setDate(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setDate(aNumber);
+;
+return self}, self, "dayOfMonth:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "dayOfMonth: aNumber\x0a\x09<self.setDate(aNumber)>",
 messageSends: [],
@@ -1835,11 +1838,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfWeek",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getDay() + 1;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getDay() + 1;
+;
+return self}, self, "dayOfWeek", [], smalltalk.Date)},
 args: [],
 source: "dayOfWeek\x0a\x09<return self.getDay() + 1>",
 messageSends: [],
@@ -1852,11 +1855,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "dayOfWeek:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    return self.setDay(aNumber - 1);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.setDay(aNumber - 1);
+;
+return self}, self, "dayOfWeek:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "dayOfWeek: aNumber\x0a\x09<return self.setDay(aNumber - 1)>",
 messageSends: [],
@@ -1869,11 +1872,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "hours",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getHours();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getHours();
+;
+return self}, self, "hours", [], smalltalk.Date)},
 args: [],
 source: "hours\x0a\x09<return self.getHours()>",
 messageSends: [],
@@ -1886,11 +1889,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "hours:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setHours(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setHours(aNumber);
+;
+return self}, self, "hours:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "hours: aNumber\x0a\x09<self.setHours(aNumber)>",
 messageSends: [],
@@ -1903,11 +1906,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "milliseconds",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMilliseconds();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getMilliseconds();
+;
+return self}, self, "milliseconds", [], smalltalk.Date)},
 args: [],
 source: "milliseconds\x0a\x09<return self.getMilliseconds()>",
 messageSends: [],
@@ -1920,11 +1923,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "milliseconds:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMilliseconds(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setMilliseconds(aNumber);
+;
+return self}, self, "milliseconds:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "milliseconds: aNumber\x0a\x09<self.setMilliseconds(aNumber)>",
 messageSends: [],
@@ -1937,11 +1940,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "minutes",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMinutes();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getMinutes();
+;
+return self}, self, "minutes", [], smalltalk.Date)},
 args: [],
 source: "minutes\x0a\x09<return self.getMinutes()>",
 messageSends: [],
@@ -1954,11 +1957,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "minutes:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMinutes(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setMinutes(aNumber);
+;
+return self}, self, "minutes:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "minutes: aNumber\x0a\x09<self.setMinutes(aNumber)>",
 messageSends: [],
@@ -1971,11 +1974,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "month",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getMonth() + 1;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getMonth() + 1;
+;
+return self}, self, "month", [], smalltalk.Date)},
 args: [],
 source: "month\x0a\x09<return self.getMonth() + 1>",
 messageSends: [],
@@ -1988,11 +1991,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "month:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setMonth(aNumber - 1);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setMonth(aNumber - 1);
+;
+return self}, self, "month:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "month: aNumber\x0a\x09<self.setMonth(aNumber - 1)>",
 messageSends: [],
@@ -2005,12 +2008,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_asString", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._asString();
+return $1;
+}, self, "printString", [], smalltalk.Date)},
 args: [],
 source: "printString\x0a\x09^self asString",
 messageSends: ["asString"],
@@ -2023,11 +2026,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "seconds",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getSeconds();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getSeconds();
+;
+return self}, self, "seconds", [], smalltalk.Date)},
 args: [],
 source: "seconds\x0a\x09<return self.getSeconds()>",
 messageSends: [],
@@ -2040,11 +2043,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "seconds:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setSeconds(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setSeconds(aNumber);
+;
+return self}, self, "seconds:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "seconds: aNumber\x0a\x09<self.setSeconds(aNumber)>",
 messageSends: [],
@@ -2057,11 +2060,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "time",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getTime();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getTime();
+;
+return self}, self, "time", [], smalltalk.Date)},
 args: [],
 source: "time\x0a\x09<return self.getTime()>",
 messageSends: [],
@@ -2074,11 +2077,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "time:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setTime(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setTime(aNumber);
+;
+return self}, self, "time:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "time: aNumber\x0a\x09<self.setTime(aNumber)>",
 messageSends: [],
@@ -2091,11 +2094,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "year",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.getFullYear();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.getFullYear();
+;
+return self}, self, "year", [], smalltalk.Date)},
 args: [],
 source: "year\x0a\x09<return self.getFullYear()>",
 messageSends: [],
@@ -2108,11 +2111,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "year:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self.setFullYear(aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.setFullYear(aNumber);
+;
+return self}, self, "year:", [aNumber], smalltalk.Date)},
 args: ["aNumber"],
 source: "year: aNumber\x0a\x09<self.setFullYear(aNumber)>",
 messageSends: [],
@@ -2126,12 +2129,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromMilliseconds:",
 category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_new_", [aNumber]);
-    return $1;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._new_(aNumber);
+return $1;
+}, self, "fromMilliseconds:", [aNumber], smalltalk.Date.klass)},
 args: ["aNumber"],
 source: "fromMilliseconds: aNumber\x0a\x09^self new: aNumber",
 messageSends: ["new:"],
@@ -2144,12 +2147,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromSeconds:",
 category: 'instance creation',
-fn: function (aNumber) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_fromMilliseconds_", [smalltalk.send(aNumber, "__star", [1000])]);
-    return $1;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._fromMilliseconds_(_st(aNumber).__star((1000)));
+return $1;
+}, self, "fromSeconds:", [aNumber], smalltalk.Date.klass)},
 args: ["aNumber"],
 source: "fromSeconds: aNumber\x0a\x09^self fromMilliseconds: aNumber * 1000",
 messageSends: ["fromMilliseconds:", "*"],
@@ -2162,12 +2165,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
-fn: function (aString) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_new_", [aString]);
-    return $1;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._new_(aString);
+return $1;
+}, self, "fromString:", [aString], smalltalk.Date.klass)},
 args: ["aString"],
 source: "fromString: aString\x0a\x09\x22Example: Date fromString('2011/04/15 00:00:00')\x22\x0a\x09^self new: aString",
 messageSends: ["new:"],
@@ -2180,15 +2183,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "millisecondsToRun:",
 category: 'instance creation',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    var t;
-    t = smalltalk.send(smalltalk.Date || Date, "_now", []);
-    smalltalk.send(aBlock, "_value", []);
-    $1 = smalltalk.send(smalltalk.send(smalltalk.Date || Date, "_now", []), "__minus", [t]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.t=nil;
+$ctx1.locals.t=_st((smalltalk.Date || Date))._now();
+_st(aBlock)._value();
+$1=_st(_st((smalltalk.Date || Date))._now()).__minus($ctx1.locals.t);
+return $1;
+}, self, "millisecondsToRun:", [aBlock], smalltalk.Date.klass)},
 args: ["aBlock"],
 source: "millisecondsToRun: aBlock\x0a\x09| t |\x0a\x09t := Date now.\x0a\x09aBlock value.\x0a\x09^Date now - t",
 messageSends: ["now", "value", "-"],
@@ -2201,11 +2204,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "new:",
 category: 'instance creation',
-fn: function (anObject) {
-    var self = this;
-    return new Date(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return new Date(anObject);
+;
+return self}, self, "new:", [anObject], smalltalk.Date.klass)},
 args: ["anObject"],
 source: "new: anObject\x0a\x09<return new Date(anObject)>",
 messageSends: [],
@@ -2218,12 +2221,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "now",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_today", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._today();
+return $1;
+}, self, "now", [], smalltalk.Date.klass)},
 args: [],
 source: "now\x0a\x09^self today",
 messageSends: ["today"],
@@ -2236,12 +2239,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "today",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_new", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._new();
+return $1;
+}, self, "today", [], smalltalk.Date.klass)},
 args: [],
 source: "today\x0a\x09^self new",
 messageSends: ["new"],
@@ -2337,11 +2340,11 @@ category: 'proxy',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { $ctx1.variables=nil;
-$ctx1.variables=_st((smalltalk.Dictionary || Dictionary))._new();
-_st($ctx1.variables)._at_put_("#self",_st(self)._jsObject());
+$ctx1.locals.variables=_st((smalltalk.Dictionary || Dictionary))._new();
+_st($ctx1.locals.variables)._at_put_("#self",_st(self)._jsObject());
 _st(anInspector)._setLabel_(_st(self)._printString());
-_st(self)._addObjectVariablesTo_($ctx1.variables);
-_st(anInspector)._setVariables_($ctx1.variables);
+_st(self)._addObjectVariablesTo_($ctx1.locals.variables);
+_st(anInspector)._setVariables_($ctx1.locals.variables);
 return self}, self, "inspectOn:", [anInspector], smalltalk.JSObjectProxy)},
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
@@ -2355,10 +2358,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "jsObject",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@jsObject'];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self["@jsObject"];
+}, self, "jsObject", [], smalltalk.JSObjectProxy)},
 args: [],
 source: "jsObject\x0a\x09^jsObject",
 messageSends: [],
@@ -2371,11 +2374,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "jsObject:",
 category: 'accessing',
-fn: function (aJSObject) {
-    var self = this;
-    self['@jsObject'] = aJSObject;
-    return self;
-},
+fn: function (aJSObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@jsObject"]=aJSObject;
+return self}, self, "jsObject:", [aJSObject], smalltalk.JSObjectProxy)},
 args: ["aJSObject"],
 source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
 messageSends: [],
@@ -2388,12 +2390,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'proxy',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_jsObject", []), "_toString", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._jsObject())._toString();
+return $1;
+}, self, "printString", [], smalltalk.JSObjectProxy)},
 args: [],
 source: "printString\x0a\x09^self jsObject toString",
 messageSends: ["toString", "jsObject"],
@@ -2407,15 +2409,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
-fn: function (aJSObject) {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(self, "_new", []);
-    smalltalk.send($2, "_jsObject_", [aJSObject]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
+fn: function (aJSObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._jsObject_(aJSObject);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, self, "on:", [aJSObject], smalltalk.JSObjectProxy.klass)},
 args: ["aJSObject"],
 source: "on: aJSObject\x0a\x09^self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
 messageSends: ["jsObject:", "new", "yourself"],
@@ -2431,11 +2433,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "&",
 category: 'converting',
-fn: function (aNumber) {
-    var self = this;
-    return self & aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self & aNumber;
+;
+return self}, self, "&", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "& aNumber\x0a\x09<return self & aNumber>",
 messageSends: [],
@@ -2448,11 +2450,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "*",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self * aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self * aNumber;
+;
+return self}, self, "*", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "* aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self * aNumber>",
 messageSends: [],
@@ -2465,11 +2467,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self + aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self + aNumber;
+;
+return self}, self, "+", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "+ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self + aNumber>",
 messageSends: [],
@@ -2482,11 +2484,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "-",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self - aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self - aNumber;
+;
+return self}, self, "-", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "- aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self - aNumber>",
 messageSends: [],
@@ -2499,11 +2501,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "/",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self / aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self / aNumber;
+;
+return self}, self, "/", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "/ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self / aNumber>",
 messageSends: [],
@@ -2516,11 +2518,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self < aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self < aNumber;
+;
+return self}, self, "<", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "< aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self < aNumber>",
 messageSends: [],
@@ -2533,11 +2535,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "<=",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self <= aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self <= aNumber;
+;
+return self}, self, "<=", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "<= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self <= aNumber>",
 messageSends: [],
@@ -2550,16 +2552,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(aNumber, "_isNumber", []);
-    if (!smalltalk.assert($1)) {
-        return false;
-    }
-    return Number(self) == aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aNumber)._isNumber();
+if(! smalltalk.assert($1)){
+return false;
+};
+return Number(self) == aNumber;
+;
+return self}, self, "=", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "= aNumber\x0a\x09aNumber isNumber ifFalse: [^false]. \x0a\x09<return Number(self) == aNumber>",
 messageSends: ["ifFalse:", "isNumber"],
@@ -2572,11 +2574,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self > aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self > aNumber;
+;
+return self}, self, ">", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "> aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >> aNumber>",
 messageSends: [],
@@ -2589,11 +2591,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: ">=",
 category: 'comparing',
-fn: function (aNumber) {
-    var self = this;
-    return self >= aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self >= aNumber;
+;
+return self}, self, ">=", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: ">= aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self >>= aNumber>",
 messageSends: [],
@@ -2606,16 +2608,33 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "@",
 category: 'converting',
-fn: function (aNumber) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Point || Point, "_x_y_", [self, aNumber]);
-    return $1;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Point || Point))._x_y_(self,aNumber);
+return $1;
+}, self, "@", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "@ aNumber\x0a\x09^Point x: self y: aNumber",
 messageSends: ["x:y:"],
 referencedClasses: ["Point"]
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+"__backslash",
+smalltalk.method({
+selector: "\x5c",
+category: 'arithmetic',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self % aNumber;
+;
+return self}, self, "\x5c\x5c", [aNumber], smalltalk.Number)},
+args: ["aNumber"],
+source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Number);
 
@@ -2641,12 +2660,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "abs",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = Math.abs(self);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=Math.abs(self);;
+;
+return $1;
+}, self, "abs", [], smalltalk.Number)},
 args: [],
 source: "abs\x0a\x09^ <Math.abs(self);>",
 messageSends: [],
@@ -2659,10 +2679,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "asJSON", [], smalltalk.Number)},
 args: [],
 source: "asJSON\x0a\x09^self",
 messageSends: [],
@@ -2675,12 +2695,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send("(", "__comma", [smalltalk.send(self, "_printString", [])]), "__comma", [")"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st("(").__comma(_st(self)._printString())).__comma(")");
+return $1;
+}, self, "asJavascript", [], smalltalk.Number)},
 args: [],
 source: "asJavascript\x0a\x09^'(', self printString, ')'",
 messageSends: [",", "printString"],
@@ -2693,12 +2713,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asPoint",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Point || Point, "_x_y_", [self, self]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Point || Point))._x_y_(self,self);
+return $1;
+}, self, "asPoint", [], smalltalk.Number)},
 args: [],
 source: "asPoint\x0a\x09^Point x: self y: self",
 messageSends: ["x:y:"],
@@ -2711,12 +2731,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_printString", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._printString();
+return $1;
+}, self, "asString", [], smalltalk.Number)},
 args: [],
 source: "asString\x0a\x09^self printString",
 messageSends: ["printString"],
@@ -2729,12 +2749,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "atRandom",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.Random || Random, "_new", []), "_next", []), "__star", [self]), "_truncated", []), "__plus", [1]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(_st(_st((smalltalk.Random || Random))._new())._next()).__star(self))._truncated()).__plus((1));
+return $1;
+}, self, "atRandom", [], smalltalk.Number)},
 args: [],
 source: "atRandom\x0a    ^(Random new next * self) truncated + 1",
 messageSends: ["+", "truncated", "*", "next", "new"],
@@ -2747,11 +2767,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "clearInterval",
 category: 'timeouts/intervals',
-fn: function () {
-    var self = this;
-    clearInterval(Number(self));
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { clearInterval(Number(self));
+;
+return self}, self, "clearInterval", [], smalltalk.Number)},
 args: [],
 source: "clearInterval\x0a\x09<clearInterval(Number(self))>",
 messageSends: [],
@@ -2764,11 +2784,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "clearTimeout",
 category: 'timeouts/intervals',
-fn: function () {
-    var self = this;
-    clearTimeout(Number(self));
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { clearTimeout(Number(self));
+;
+return self}, self, "clearTimeout", [], smalltalk.Number)},
 args: [],
 source: "clearTimeout\x0a\x09<clearTimeout(Number(self))>",
 messageSends: [],
@@ -2781,10 +2801,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "copy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "copy", [], smalltalk.Number)},
 args: [],
 source: "copy\x0a\x09^self",
 messageSends: [],
@@ -2797,12 +2817,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_copy", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._copy();
+return $1;
+}, self, "deepCopy", [], smalltalk.Number)},
 args: [],
 source: "deepCopy\x0a\x09^self copy",
 messageSends: ["copy"],
@@ -2815,15 +2835,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "even",
 category: 'testing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(0, "__eq", [smalltalk.send(self, "_\\\\", [2])]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((0)).__eq(_st(self).__backslash_backslash((2)));
+return $1;
+}, self, "even", [], smalltalk.Number)},
 args: [],
 source: "even\x0a\x09^ 0 = (self \x5c\x5c 2)",
-messageSends: ["=", "\x5c\x5c\x5c\x5c"],
+messageSends: ["=", "\x5c\x5c"],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2833,12 +2853,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "identityHash",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_asString", []), "__comma", ["n"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._asString()).__comma("n");
+return $1;
+}, self, "identityHash", [], smalltalk.Number)},
 args: [],
 source: "identityHash\x0a\x09^self asString, 'n'",
 messageSends: [",", "asString"],
@@ -2851,10 +2871,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isNumber",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return true;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, self, "isNumber", [], smalltalk.Number)},
 args: [],
 source: "isNumber\x0a\x09^true",
 messageSends: [],
@@ -2867,12 +2887,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isZero",
 category: 'testing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__eq", [0]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__eq((0));
+return $1;
+}, self, "isZero", [], smalltalk.Number)},
 args: [],
 source: "isZero\x0a\x09^self = 0",
 messageSends: ["="],
@@ -2885,11 +2905,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "max:",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return Math.max(self, aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return Math.max(self, aNumber);;
+;
+return self}, self, "max:", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "max: aNumber\x0a\x09<return Math.max(self, aNumber);>",
 messageSends: [],
@@ -2902,11 +2922,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "min:",
 category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return Math.min(self, aNumber);
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return Math.min(self, aNumber);;
+;
+return self}, self, "min:", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "min: aNumber\x0a\x09<return Math.min(self, aNumber);>",
 messageSends: [],
@@ -2919,12 +2939,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "negated",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(0, "__minus", [self]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((0)).__minus(self);
+return $1;
+}, self, "negated", [], smalltalk.Number)},
 args: [],
 source: "negated\x0a\x09^0 - self",
 messageSends: ["-"],
@@ -2937,12 +2957,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "negative",
 category: 'testing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__lt", [0]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__lt((0));
+return $1;
+}, self, "negative", [], smalltalk.Number)},
 args: [],
 source: "negative\x0a\x09\x22Answer whether the receiver is mathematically negative.\x22\x0a\x0a\x09^ self < 0",
 messageSends: ["<"],
@@ -2955,12 +2975,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "odd",
 category: 'testing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_even", []), "_not", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._even())._not();
+return $1;
+}, self, "odd", [], smalltalk.Number)},
 args: [],
 source: "odd\x0a\x09^ self even not",
 messageSends: ["not", "even"],
@@ -2973,12 +2993,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "positive",
 category: 'testing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__gt_eq", [0]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__gt_eq((0));
+return $1;
+}, self, "positive", [], smalltalk.Number)},
 args: [],
 source: "positive\x0a\x09\x22Answer whether the receiver is positive or equal to 0. (ST-80 protocol).\x22\x0a\x0a\x09^ self >= 0",
 messageSends: [">="],
@@ -2991,11 +3011,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printShowingDecimalPlaces:",
 category: 'printing',
-fn: function (placesDesired) {
-    var self = this;
-    return self.toFixed(placesDesired);
-    return self;
-},
+fn: function (placesDesired){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.toFixed(placesDesired);
+;
+return self}, self, "printShowingDecimalPlaces:", [placesDesired], smalltalk.Number)},
 args: ["placesDesired"],
 source: "printShowingDecimalPlaces: placesDesired\x0a\x09<return self.toFixed(placesDesired)>",
 messageSends: [],
@@ -3008,11 +3028,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return String(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return String(self);
+;
+return self}, self, "printString", [], smalltalk.Number)},
 args: [],
 source: "printString\x0a\x09<return String(self)>",
 messageSends: [],
@@ -3025,11 +3045,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "rounded",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return Math.round(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return Math.round(self);;
+;
+return self}, self, "rounded", [], smalltalk.Number)},
 args: [],
 source: "rounded\x0a\x09<return Math.round(self);>",
 messageSends: [],
@@ -3042,11 +3062,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sqrt",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    return Math.sqrt(self);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return Math.sqrt(self);
+;
+return self}, self, "sqrt", [], smalltalk.Number)},
 args: [],
 source: "sqrt\x0a\x09<return Math.sqrt(self)>",
 messageSends: [],
@@ -3059,12 +3079,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "squared",
 category: 'arithmetic',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "__star", [self]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self).__star(self);
+return $1;
+}, self, "squared", [], smalltalk.Number)},
 args: [],
 source: "squared\x0a\x09^self * self",
 messageSends: ["*"],
@@ -3077,15 +3097,20 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "timesRepeat:",
 category: 'enumerating',
-fn: function (aBlock) {
-    var self = this;
-    var integer;
-    var count;
-    integer = smalltalk.send(self, "_truncated", []);
-    count = 1;
-    smalltalk.send(function () {return smalltalk.send(count, "__gt", [self]);}, "_whileFalse_", [function () {smalltalk.send(aBlock, "_value", []);count = smalltalk.send(count, "__plus", [1]);return count;}]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.integer=nil;
+$ctx1.count=nil;
+$ctx1.locals.integer=_st(self)._truncated();
+$ctx1.locals.count=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.count).__gt(self);
+})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) { _st(aBlock)._value();
+$ctx1.locals.count=_st($ctx1.locals.count).__plus((1));
+return $ctx1.locals.count;
+})}));
+return self}, self, "timesRepeat:", [aBlock], smalltalk.Number)},
 args: ["aBlock"],
 source: "timesRepeat: aBlock\x0a\x09| integer count |\x0a\x09integer := self truncated.\x0a\x09count := 1.\x0a\x09[count > self] whileFalse: [\x0a\x09    aBlock value.\x0a\x09    count := count + 1]",
 messageSends: ["truncated", "whileFalse:", "value", "+", ">"],
@@ -3098,19 +3123,25 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "to:",
 category: 'converting',
-fn: function (aNumber) {
-    var self = this;
-    var array;
-    var first;
-    var last;
-    var count;
-    first = smalltalk.send(self, "_truncated", []);
-    last = smalltalk.send(smalltalk.send(aNumber, "_truncated", []), "__plus", [1]);
-    count = 1;
-    array = smalltalk.send(smalltalk.Array || Array, "_new", []);
-    smalltalk.send(smalltalk.send(last, "__minus", [first]), "_timesRepeat_", [function () {smalltalk.send(array, "_at_put_", [count, first]);count = smalltalk.send(count, "__plus", [1]);count;first = smalltalk.send(first, "__plus", [1]);return first;}]);
-    return array;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.array=nil;
+$ctx1.first=nil;
+$ctx1.last=nil;
+$ctx1.count=nil;
+$ctx1.locals.first=_st(self)._truncated();
+$ctx1.locals.last=_st(_st(aNumber)._truncated()).__plus((1));
+$ctx1.locals.count=(1);
+$ctx1.locals.array=_st((smalltalk.Array || Array))._new();
+_st(_st($ctx1.locals.last).__minus($ctx1.locals.first))._timesRepeat_((function(){
+return smalltalk.withContext(function($ctx2) { _st($ctx1.locals.array)._at_put_($ctx1.locals.count,$ctx1.locals.first);
+$ctx1.locals.count=_st($ctx1.locals.count).__plus((1));
+$ctx1.locals.count;
+$ctx1.locals.first=_st($ctx1.locals.first).__plus((1));
+return $ctx1.locals.first;
+})}));
+return $ctx1.locals.array;
+}, self, "to:", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "to: aNumber\x0a\x09| array first last count |\x0a\x09first := self truncated.\x0a\x09last := aNumber truncated + 1.\x0a\x09count := 1.\x0a\x09array := Array new.\x0a\x09(last - first) timesRepeat: [\x0a\x09    array at: count put: first.\x0a\x09    count := count + 1.\x0a\x09    first := first + 1].\x0a\x09^array",
 messageSends: ["truncated", "+", "new", "timesRepeat:", "at:put:", "-"],
@@ -3123,27 +3154,43 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "to:by:",
 category: 'converting',
-fn: function (stop, step) {
-    var self = this;
-    var $1, $2;
-    var array;
-    var value;
-    var pos;
-    value = self;
-    array = smalltalk.send(smalltalk.Array || Array, "_new", []);
-    pos = 1;
-    $1 = smalltalk.send(step, "__eq", [0]);
-    if (smalltalk.assert($1)) {
-        smalltalk.send(self, "_error_", ["step must be non-zero"]);
-    }
-    $2 = smalltalk.send(step, "__lt", [0]);
-    if (smalltalk.assert($2)) {
-        smalltalk.send(function () {return smalltalk.send(value, "__gt_eq", [stop]);}, "_whileTrue_", [function () {smalltalk.send(array, "_at_put_", [pos, value]);pos = smalltalk.send(pos, "__plus", [1]);pos;value = smalltalk.send(value, "__plus", [step]);return value;}]);
-    } else {
-        smalltalk.send(function () {return smalltalk.send(value, "__lt_eq", [stop]);}, "_whileTrue_", [function () {smalltalk.send(array, "_at_put_", [pos, value]);pos = smalltalk.send(pos, "__plus", [1]);pos;value = smalltalk.send(value, "__plus", [step]);return value;}]);
-    }
-    return array;
-},
+fn: function (stop,step){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$ctx1.array=nil;
+$ctx1.value=nil;
+$ctx1.pos=nil;
+$ctx1.locals.value=self;
+$ctx1.locals.array=_st((smalltalk.Array || Array))._new();
+$ctx1.locals.pos=(1);
+$1=_st(step).__eq((0));
+if(smalltalk.assert($1)){
+_st(self)._error_("step must be non-zero");
+};
+$2=_st(step).__lt((0));
+if(smalltalk.assert($2)){
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.value).__gt_eq(stop);
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { _st($ctx1.locals.array)._at_put_($ctx1.locals.pos,$ctx1.locals.value);
+$ctx1.locals.pos=_st($ctx1.locals.pos).__plus((1));
+$ctx1.locals.pos;
+$ctx1.locals.value=_st($ctx1.locals.value).__plus(step);
+return $ctx1.locals.value;
+})}));
+} else {
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.value).__lt_eq(stop);
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { _st($ctx1.locals.array)._at_put_($ctx1.locals.pos,$ctx1.locals.value);
+$ctx1.locals.pos=_st($ctx1.locals.pos).__plus((1));
+$ctx1.locals.pos;
+$ctx1.locals.value=_st($ctx1.locals.value).__plus(step);
+return $ctx1.locals.value;
+})}));
+};
+return $ctx1.locals.array;
+}, self, "to:by:", [stop,step], smalltalk.Number)},
 args: ["stop", "step"],
 source: "to: stop by: step\x0a\x09| array value pos |\x0a\x09value := self.\x0a\x09array := Array new.\x0a\x09pos := 1.\x0a\x09step = 0 ifTrue: [self error: 'step must be non-zero'].\x0a\x09step < 0\x0a\x09\x09ifTrue: [[ value >= stop ] whileTrue: [\x0a\x09    \x09\x09\x09array at: pos put: value.\x0a\x09    \x09\x09\x09pos := pos + 1.\x0a\x09    \x09\x09\x09value := value + step]]\x0a\x09\x09ifFalse: [[ value <= stop ] whileTrue: [\x0a\x09    \x09\x09\x09array at: pos put: value.\x0a\x09  \x09\x09\x09pos := pos + 1.\x0a\x09    \x09\x09\x09value := value + step]].\x0a\x09^array",
 messageSends: ["new", "ifTrue:", "error:", "=", "ifTrue:ifFalse:", "whileTrue:", "at:put:", "+", ">=", "<=", "<"],
@@ -3156,23 +3203,34 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "to:by:do:",
 category: 'enumerating',
-fn: function (stop, step, aBlock) {
-    var self = this;
-    var $1, $2;
-    var value;
-    value = self;
-    $1 = smalltalk.send(step, "__eq", [0]);
-    if (smalltalk.assert($1)) {
-        smalltalk.send(self, "_error_", ["step must be non-zero"]);
-    }
-    $2 = smalltalk.send(step, "__lt", [0]);
-    if (smalltalk.assert($2)) {
-        smalltalk.send(function () {return smalltalk.send(value, "__gt_eq", [stop]);}, "_whileTrue_", [function () {smalltalk.send(aBlock, "_value_", [value]);value = smalltalk.send(value, "__plus", [step]);return value;}]);
-    } else {
-        smalltalk.send(function () {return smalltalk.send(value, "__lt_eq", [stop]);}, "_whileTrue_", [function () {smalltalk.send(aBlock, "_value_", [value]);value = smalltalk.send(value, "__plus", [step]);return value;}]);
-    }
-    return self;
-},
+fn: function (stop,step,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$ctx1.value=nil;
+$ctx1.locals.value=self;
+$1=_st(step).__eq((0));
+if(smalltalk.assert($1)){
+_st(self)._error_("step must be non-zero");
+};
+$2=_st(step).__lt((0));
+if(smalltalk.assert($2)){
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.value).__gt_eq(stop);
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { _st(aBlock)._value_($ctx1.locals.value);
+$ctx1.locals.value=_st($ctx1.locals.value).__plus(step);
+return $ctx1.locals.value;
+})}));
+} else {
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.value).__lt_eq(stop);
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { _st(aBlock)._value_($ctx1.locals.value);
+$ctx1.locals.value=_st($ctx1.locals.value).__plus(step);
+return $ctx1.locals.value;
+})}));
+};
+return self}, self, "to:by:do:", [stop,step,aBlock], smalltalk.Number)},
 args: ["stop", "step", "aBlock"],
 source: "to: stop by: step do: aBlock\x0a\x09| value |\x0a\x09value := self.\x0a\x09step = 0 ifTrue: [self error: 'step must be non-zero'].\x0a\x09step < 0\x0a\x09\x09ifTrue: [[ value >= stop ] whileTrue: [\x0a\x09    \x09\x09\x09aBlock value: value.\x0a\x09    \x09\x09\x09value := value + step]]\x0a\x09\x09ifFalse: [[ value <= stop ] whileTrue: [\x0a\x09    \x09\x09\x09aBlock value: value.\x0a\x09    \x09\x09\x09value := value + step]]",
 messageSends: ["ifTrue:", "error:", "=", "ifTrue:ifFalse:", "whileTrue:", "value:", "+", ">=", "<=", "<"],
@@ -3185,13 +3243,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "to:do:",
 category: 'enumerating',
-fn: function (stop, aBlock) {
-    var self = this;
-    var nextValue;
-    nextValue = self;
-    smalltalk.send(function () {return smalltalk.send(nextValue, "__lt_eq", [stop]);}, "_whileTrue_", [function () {smalltalk.send(aBlock, "_value_", [nextValue]);nextValue = smalltalk.send(nextValue, "__plus", [1]);return nextValue;}]);
-    return self;
-},
+fn: function (stop,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.nextValue=nil;
+$ctx1.locals.nextValue=self;
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.nextValue).__lt_eq(stop);
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { _st(aBlock)._value_($ctx1.locals.nextValue);
+$ctx1.locals.nextValue=_st($ctx1.locals.nextValue).__plus((1));
+return $ctx1.locals.nextValue;
+})}));
+return self}, self, "to:do:", [stop,aBlock], smalltalk.Number)},
 args: ["stop", "aBlock"],
 source: "to: stop do: aBlock\x0a\x09\x22Evaluate aBlock for each number from self to aNumber.\x22\x0a\x09| nextValue |\x0a\x09nextValue := self.\x0a\x09[nextValue <= stop]\x0a\x09\x09whileTrue: \x0a\x09\x09\x09[aBlock value: nextValue.\x0a\x09\x09\x09nextValue := nextValue + 1]",
 messageSends: ["whileTrue:", "value:", "+", "<="],
@@ -3227,11 +3290,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "|",
 category: 'converting',
-fn: function (aNumber) {
-    var self = this;
-    return self | aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self | aNumber;
+;
+return self}, self, "|", [aNumber], smalltalk.Number)},
 args: ["aNumber"],
 source: "| aNumber\x0a\x09<return self | aNumber>",
 messageSends: [],
@@ -3245,11 +3308,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "pi",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    return Math.PI;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return Math.PI;
+;
+return self}, self, "pi", [], smalltalk.Number.klass)},
 args: [],
 source: "pi\x0a\x09<return Math.PI>",
 messageSends: [],
@@ -3281,12 +3344,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "elements",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_basicAt_", ["elements"]), "_copy", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._basicAt_("elements"))._copy();
+return $1;
+}, self, "elements", [], smalltalk.Organizer)},
 args: [],
 source: "elements\x0a\x09^ (self basicAt: 'elements') copy",
 messageSends: ["copy", "basicAt:"],
@@ -3320,12 +3383,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
 category: 'classes',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_organization", []), "_elements", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._organization())._elements();
+return $1;
+}, self, "classes", [], smalltalk.Package)},
 args: [],
 source: "classes\x0a\x09^ self organization elements",
 messageSends: ["elements", "organization"],
@@ -3338,17 +3401,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathJs",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@commitPathJs']) == nil ||
-        $receiver == undefined) {
-        $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathJs", []);
-    } else {
-        $1 = self['@commitPathJs'];
-    }
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+if(($receiver = self["@commitPathJs"]) == nil || $receiver == undefined){
+$1=_st(_st(self)._class())._defaultCommitPathJs();
+} else {
+$1=self["@commitPathJs"];
+};
+return $1;
+}, self, "commitPathJs", [], smalltalk.Package)},
 args: [],
 source: "commitPathJs\x0a\x09^ commitPathJs ifNil: [self class defaultCommitPathJs]",
 messageSends: ["ifNil:", "defaultCommitPathJs", "class"],
@@ -3361,11 +3423,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathJs:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self['@commitPathJs'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@commitPathJs"]=aString;
+return self}, self, "commitPathJs:", [aString], smalltalk.Package)},
 args: ["aString"],
 source: "commitPathJs: aString\x0a\x09commitPathJs := aString",
 messageSends: [],
@@ -3378,17 +3439,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathSt",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@commitPathSt']) == nil ||
-        $receiver == undefined) {
-        $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_defaultCommitPathSt", []);
-    } else {
-        $1 = self['@commitPathSt'];
-    }
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+if(($receiver = self["@commitPathSt"]) == nil || $receiver == undefined){
+$1=_st(_st(self)._class())._defaultCommitPathSt();
+} else {
+$1=self["@commitPathSt"];
+};
+return $1;
+}, self, "commitPathSt", [], smalltalk.Package)},
 args: [],
 source: "commitPathSt\x0a\x09^ commitPathSt ifNil: [self class defaultCommitPathSt]",
 messageSends: ["ifNil:", "defaultCommitPathSt", "class"],
@@ -3401,11 +3461,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPathSt:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self['@commitPathSt'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@commitPathSt"]=aString;
+return self}, self, "commitPathSt:", [aString], smalltalk.Package)},
 args: ["aString"],
 source: "commitPathSt: aString\x0a\x09commitPathSt := aString",
 messageSends: [],
@@ -3418,12 +3477,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "dependencies",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_propertyAt_ifAbsent_", ["dependencies", function () {return [];}]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._propertyAt_ifAbsent_("dependencies",(function(){
+return smalltalk.withContext(function($ctx2) { return [];
+})}));
+return $1;
+}, self, "dependencies", [], smalltalk.Package)},
 args: [],
 source: "dependencies\x0a\x09^self propertyAt: 'dependencies' ifAbsent: [#()]",
 messageSends: ["propertyAt:ifAbsent:"],
@@ -3436,12 +3497,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "dependencies:",
 category: 'accessing',
-fn: function (anArray) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_propertyAt_put_", ["dependencies", anArray]);
-    return $1;
-},
+fn: function (anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._propertyAt_put_("dependencies",anArray);
+return $1;
+}, self, "dependencies:", [anArray], smalltalk.Package)},
 args: ["anArray"],
 source: "dependencies: anArray\x0a\x09^self propertyAt: 'dependencies' put: anArray",
 messageSends: ["propertyAt:put:"],
@@ -3454,11 +3515,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "jsProperties",
 category: 'private',
-fn: function () {
-    var self = this;
-    return self.properties;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.properties;
+;
+return self}, self, "jsProperties", [], smalltalk.Package)},
 args: [],
 source: "jsProperties\x0a\x09<return self.properties>",
 messageSends: [],
@@ -3471,11 +3532,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "jsProperties:",
 category: 'private',
-fn: function (aJSObject) {
-    var self = this;
-    return self.properties = aJSObject;
-    return self;
-},
+fn: function (aJSObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.properties = aJSObject;
+;
+return self}, self, "jsProperties:", [aJSObject], smalltalk.Package)},
 args: ["aJSObject"],
 source: "jsProperties: aJSObject\x0a\x09<return self.properties = aJSObject>",
 messageSends: [],
@@ -3488,11 +3549,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "name",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.pkgName;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.pkgName;
+;
+return self}, self, "name", [], smalltalk.Package)},
 args: [],
 source: "name\x0a\x09<return self.pkgName>",
 messageSends: [],
@@ -3505,11 +3566,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "name:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    self.pkgName = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.pkgName = aString;
+;
+return self}, self, "name:", [aString], smalltalk.Package)},
 args: ["aString"],
 source: "name: aString\x0a\x09<self.pkgName = aString>",
 messageSends: [],
@@ -3522,12 +3583,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "organization",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_basicAt_", ["organization"]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._basicAt_("organization");
+return $1;
+}, self, "organization", [], smalltalk.Package)},
 args: [],
 source: "organization\x0a\x09^ self basicAt: 'organization'",
 messageSends: ["basicAt:"],
@@ -3540,12 +3601,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_name", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._name();
+return $1;
+}, self, "printString", [], smalltalk.Package)},
 args: [],
 source: "printString\x0a\x09^self name",
 messageSends: ["name"],
@@ -3558,12 +3619,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "properties",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_readJSObject_", [smalltalk.send(self, "_basicAt_", ["properties"])]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._readJSObject_(_st(self)._basicAt_("properties"));
+return $1;
+}, self, "properties", [], smalltalk.Package)},
 args: [],
 source: "properties\x0a\x09^Smalltalk current readJSObject: (self basicAt: 'properties')",
 messageSends: ["readJSObject:", "basicAt:", "current"],
@@ -3576,11 +3637,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "propertiesAsJSON",
 category: 'private',
-fn: function () {
-    var self = this;
-    return JSON.stringify(self.properties);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return JSON.stringify(self.properties);
+;
+return self}, self, "propertiesAsJSON", [], smalltalk.Package)},
 args: [],
 source: "propertiesAsJSON\x0a\x09<return JSON.stringify(self.properties)>",
 messageSends: [],
@@ -3593,11 +3654,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "propertyAt:",
 category: 'properties',
-fn: function (key) {
-    var self = this;
-    return self.properties[key];
-    return self;
-},
+fn: function (key){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.properties[key];
+;
+return self}, self, "propertyAt:", [key], smalltalk.Package)},
 args: ["key"],
 source: "propertyAt: key\x0a\x0a\x09<return self.properties[key]>",
 messageSends: [],
@@ -3610,17 +3671,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "propertyAt:ifAbsent:",
 category: 'properties',
-fn: function (key, block) {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "_propertyAt_", [key]);
-    if (($receiver = $2) == nil || $receiver == undefined) {
-        $1 = smalltalk.send(block, "_value", []);
-    } else {
-        $1 = $2;
-    }
-    return $1;
-},
+fn: function (key,block){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self)._propertyAt_(key);
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(block)._value();
+} else {
+$1=$2;
+};
+return $1;
+}, self, "propertyAt:ifAbsent:", [key,block], smalltalk.Package)},
 args: ["key", "block"],
 source: "propertyAt: key ifAbsent: block\x0a\x0a\x09^(self propertyAt: key) ifNil: [block value]",
 messageSends: ["ifNil:", "value", "propertyAt:"],
@@ -3633,11 +3694,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "propertyAt:put:",
 category: 'properties',
-fn: function (key, value) {
-    var self = this;
-    return self.properties[key] = value;
-    return self;
-},
+fn: function (key,value){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.properties[key] = value;
+;
+return self}, self, "propertyAt:put:", [key,value], smalltalk.Package)},
 args: ["key", "value"],
 source: "propertyAt: key put: value\x0a\x0a\x09<return self.properties[key] = value>",
 messageSends: [],
@@ -3650,12 +3711,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sortedClasses",
 category: 'classes',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_sortedClasses_", [smalltalk.send(self, "_classes", [])]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._sortedClasses_(_st(self)._classes());
+return $1;
+}, self, "sortedClasses", [], smalltalk.Package)},
 args: [],
 source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^self class sortedClasses: self classes",
 messageSends: ["sortedClasses:", "classes", "class"],
@@ -3670,15 +3731,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "commitToLocalStorage:",
 category: 'loading-storing',
-fn: function (aPackageName) {
-    var self = this;
-    var key;
-    var sourceCode;
-    key = smalltalk.send("smalltalk.packages.", "__comma", [aPackageName]);
-    sourceCode = smalltalk.send(smalltalk.send(smalltalk.Exporter || Exporter, "_new", []), "_exportPackage_", [aPackageName]);
-    localStorage[key] = escape(sourceCode);
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.key=nil;
+$ctx1.sourceCode=nil;
+$ctx1.locals.key=_st("smalltalk.packages.").__comma(aPackageName);
+$ctx1.locals.sourceCode=_st(_st((smalltalk.Exporter || Exporter))._new())._exportPackage_(aPackageName);
+localStorage[key] = escape(sourceCode);
+;
+return self}, self, "commitToLocalStorage:", [aPackageName], smalltalk.Package.klass)},
 args: ["aPackageName"],
 source: "commitToLocalStorage: aPackageName\x0a\x09| key sourceCode |\x0a\x09key := 'smalltalk.packages.' , aPackageName.\x0a\x09sourceCode := Exporter new exportPackage: aPackageName.\x0a\x09<localStorage[key] = escape(sourceCode)>",
 messageSends: [",", "exportPackage:", "new"],
@@ -3691,18 +3752,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultCommitPathJs",
 category: 'commit paths',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@defaultCommitPathJs']) == nil ||
-        $receiver == undefined) {
-        self['@defaultCommitPathJs'] = "js";
-        $1 = self['@defaultCommitPathJs'];
-    } else {
-        $1 = self['@defaultCommitPathJs'];
-    }
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+if(($receiver = self["@defaultCommitPathJs"]) == nil || $receiver == undefined){
+self["@defaultCommitPathJs"]="js";
+$1=self["@defaultCommitPathJs"];
+} else {
+$1=self["@defaultCommitPathJs"];
+};
+return $1;
+}, self, "defaultCommitPathJs", [], smalltalk.Package.klass)},
 args: [],
 source: "defaultCommitPathJs\x0a\x09^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']",
 messageSends: ["ifNil:"],
@@ -3715,11 +3775,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultCommitPathJs:",
 category: 'commit paths',
-fn: function (aString) {
-    var self = this;
-    self['@defaultCommitPathJs'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@defaultCommitPathJs"]=aString;
+return self}, self, "defaultCommitPathJs:", [aString], smalltalk.Package.klass)},
 args: ["aString"],
 source: "defaultCommitPathJs: aString\x0a\x09defaultCommitPathJs := aString",
 messageSends: [],
@@ -3732,18 +3791,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultCommitPathSt",
 category: 'commit paths',
-fn: function () {
-    var self = this;
-    var $1;
-    if (($receiver = self['@defaultCommitPathSt']) == nil ||
-        $receiver == undefined) {
-        self['@defaultCommitPathSt'] = "st";
-        $1 = self['@defaultCommitPathSt'];
-    } else {
-        $1 = self['@defaultCommitPathSt'];
-    }
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+if(($receiver = self["@defaultCommitPathSt"]) == nil || $receiver == undefined){
+self["@defaultCommitPathSt"]="st";
+$1=self["@defaultCommitPathSt"];
+} else {
+$1=self["@defaultCommitPathSt"];
+};
+return $1;
+}, self, "defaultCommitPathSt", [], smalltalk.Package.klass)},
 args: [],
 source: "defaultCommitPathSt\x0a\x09^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']",
 messageSends: ["ifNil:"],
@@ -3756,11 +3814,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultCommitPathSt:",
 category: 'commit paths',
-fn: function (aString) {
-    var self = this;
-    self['@defaultCommitPathSt'] = aString;
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@defaultCommitPathSt"]=aString;
+return self}, self, "defaultCommitPathSt:", [aString], smalltalk.Package.klass)},
 args: ["aString"],
 source: "defaultCommitPathSt: aString\x0a\x09defaultCommitPathSt := aString",
 messageSends: [],
@@ -3773,11 +3830,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fetch:",
 category: 'loading-storing',
-fn: function (aPackageName) {
-    var self = this;
-    smalltalk.send(self, "_fetch_prefix_", [aPackageName, smalltalk.send(smalltalk.send(self, "_defaultCommitPathJs", []), "__comma", ["/"])]);
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._fetch_prefix_(aPackageName,_st(_st(self)._defaultCommitPathJs()).__comma("/"));
+return self}, self, "fetch:", [aPackageName], smalltalk.Package.klass)},
 args: ["aPackageName"],
 source: "fetch: aPackageName\x0a\x09self fetch: aPackageName prefix: self defaultCommitPathJs, '/'",
 messageSends: ["fetch:prefix:", ",", "defaultCommitPathJs"],
@@ -3790,11 +3846,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "fetch:prefix:",
 category: 'loading-storing',
-fn: function (aPackageName, aPrefix) {
-    var self = this;
-    smalltalk.send(jQuery, "_getScript_onSuccess_", [smalltalk.send(smalltalk.send(aPrefix, "__comma", [aPackageName]), "__comma", [".js"]), function () {return smalltalk.send(smalltalk.Package || Package, "_init_", [aPackageName]);}]);
-    return self;
-},
+fn: function (aPackageName,aPrefix){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(jQuery)._getScript_onSuccess_(_st(_st(aPrefix).__comma(aPackageName)).__comma(".js"),(function(){
+return smalltalk.withContext(function($ctx2) { return _st((smalltalk.Package || Package))._init_(aPackageName);
+})}));
+return self}, self, "fetch:prefix:", [aPackageName,aPrefix], smalltalk.Package.klass)},
 args: ["aPackageName", "aPrefix"],
 source: "fetch: aPackageName prefix: aPrefix\x0a\x09jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]",
 messageSends: ["getScript:onSuccess:", ",", "init:"],
@@ -3807,14 +3864,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "init:",
 category: 'loading-storing',
-fn: function (aPackageName) {
-    var self = this;
-    var $1, $2;
-    $1 = smalltalk.send(smalltalk.send(smalltalk, "_classes", []), "_select_", [function (each) {return each.pkg.pkgName == aPackageName;}]);
-    smalltalk.send($1, "_do_", [function (each) {return smalltalk.init(each);}]);
-    $2 = smalltalk.send($1, "_do_", [function (each) {return smalltalk.send(each, "_initialize", []);}]);
-    return self;
-},
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(smalltalk)._classes())._select_((function(each){
+return smalltalk.withContext(function($ctx2) { return each.pkg.pkgName == aPackageName;
+;
+})}));
+_st($1)._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return smalltalk.init(each);
+;
+})}));
+$2=_st($1)._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(each)._initialize();
+})}));
+return self}, self, "init:", [aPackageName], smalltalk.Package.klass)},
 args: ["aPackageName"],
 source: "init: aPackageName\x0a\x09(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])\x0a\x09\x09do: [ :each | <smalltalk.init(each)> ];\x0a\x09\x09do: [ :each | each initialize ]",
 messageSends: ["do:", "select:", "classes", "initialize"],
@@ -3827,12 +3891,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "named:",
 category: 'not yet classified',
-fn: function (aPackageName) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_packageAt_", [aPackageName]);
-    return $1;
-},
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packageAt_(aPackageName);
+return $1;
+}, self, "named:", [aPackageName], smalltalk.Package.klass)},
 args: ["aPackageName"],
 source: "named: aPackageName\x0a\x0a\x09^Smalltalk current packageAt: aPackageName",
 messageSends: ["packageAt:", "current"],
@@ -3845,12 +3909,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "named:ifAbsent:",
 category: 'not yet classified',
-fn: function (aPackageName, aBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.Smalltalk || Smalltalk, "_current", []), "_packageAt_ifAbsent_", [aPackageName, aBlock]);
-    return $1;
-},
+fn: function (aPackageName,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packageAt_ifAbsent_(aPackageName,aBlock);
+return $1;
+}, self, "named:ifAbsent:", [aPackageName,aBlock], smalltalk.Package.klass)},
 args: ["aPackageName", "aBlock"],
 source: "named: aPackageName ifAbsent: aBlock\x0a\x0a\x09^Smalltalk current packageAt: aPackageName ifAbsent: aBlock",
 messageSends: ["packageAt:ifAbsent:", "current"],
@@ -3863,12 +3927,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "resetCommitPaths",
 category: 'commit paths',
-fn: function () {
-    var self = this;
-    self['@defaultCommitPathJs'] = nil;
-    self['@defaultCommitPathSt'] = nil;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@defaultCommitPathJs"]=nil;
+self["@defaultCommitPathSt"]=nil;
+return self}, self, "resetCommitPaths", [], smalltalk.Package.klass)},
 args: [],
 source: "resetCommitPaths\x0a        defaultCommitPathJs := nil.\x0a        defaultCommitPathSt := nil.",
 messageSends: [],
@@ -3881,22 +3944,35 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "sortedClasses:",
 category: 'sorting',
-fn: function (classes) {
-    var self = this;
-    var $1;
-    var children;
-    var others;
-    var nodes;
-    var expandedClasses;
-    children = [];
-    others = [];
-    smalltalk.send(classes, "_do_", [function (each) {$1 = smalltalk.send(classes, "_includes_", [smalltalk.send(each, "_superclass", [])]);if (smalltalk.assert($1)) {return smalltalk.send(others, "_add_", [each]);} else {return smalltalk.send(children, "_add_", [each]);}}]);
-    nodes = smalltalk.send(children, "_collect_", [function (each) {return smalltalk.send(smalltalk.ClassSorterNode || ClassSorterNode, "_on_classes_level_", [each, others, 0]);}]);
-    nodes = smalltalk.send(nodes, "_sorted_", [function (a, b) {return smalltalk.send(smalltalk.send(smalltalk.send(a, "_theClass", []), "_name", []), "__lt_eq", [smalltalk.send(smalltalk.send(b, "_theClass", []), "_name", [])]);}]);
-    expandedClasses = smalltalk.send(smalltalk.Array || Array, "_new", []);
-    smalltalk.send(nodes, "_do_", [function (aNode) {return smalltalk.send(aNode, "_traverseClassesWith_", [expandedClasses]);}]);
-    return expandedClasses;
-},
+fn: function (classes){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.children=nil;
+$ctx1.others=nil;
+$ctx1.nodes=nil;
+$ctx1.expandedClasses=nil;
+$ctx1.locals.children=[];
+$ctx1.locals.others=[];
+_st(classes)._do_((function(each){
+return smalltalk.withContext(function($ctx2) { $1=_st(classes)._includes_(_st(each)._superclass());
+if(smalltalk.assert($1)){
+return _st($ctx1.locals.others)._add_(each);
+} else {
+return _st($ctx1.locals.children)._add_(each);
+};
+})}));
+$ctx1.locals.nodes=_st($ctx1.locals.children)._collect_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st((smalltalk.ClassSorterNode || ClassSorterNode))._on_classes_level_(each,$ctx1.locals.others,(0));
+})}));
+$ctx1.locals.nodes=_st($ctx1.locals.nodes)._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(a)._theClass())._name()).__lt_eq(_st(_st(b)._theClass())._name());
+})}));
+$ctx1.locals.expandedClasses=_st((smalltalk.Array || Array))._new();
+_st($ctx1.locals.nodes)._do_((function(aNode){
+return smalltalk.withContext(function($ctx2) { return _st(aNode)._traverseClassesWith_($ctx1.locals.expandedClasses);
+})}));
+return $ctx1.locals.expandedClasses;
+}, self, "sortedClasses:", [classes], smalltalk.Package.klass)},
 args: ["classes"],
 source: "sortedClasses: classes\x0a\x09\x22Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)\x22\x0a\x0a\x09| children others nodes expandedClasses |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [:each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [children add: each]\x0a\x09\x09\x09ifTrue: [others add: each]].\x0a\x09nodes := children collect: [:each |\x0a\x09\x09ClassSorterNode on: each classes: others level: 0].\x0a\x09nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].\x0a\x09expandedClasses := Array new.\x0a\x09nodes do: [:aNode |\x0a\x09\x09aNode traverseClassesWith: expandedClasses].\x0a\x09^expandedClasses",
 messageSends: ["do:", "ifFalse:ifTrue:", "add:", "includes:", "superclass", "collect:", "on:classes:level:", "sorted:", "<=", "name", "theClass", "new", "traverseClassesWith:"],
@@ -3912,12 +3988,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "*",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Point || Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__star", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return $1;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Point || Point))._x_y_(_st(_st(self)._x()).__star(_st(_st(aPoint)._asPoint())._x()),_st(_st(self)._y()).__star(_st(_st(aPoint)._asPoint())._y()));
+return $1;
+}, self, "*", [aPoint], smalltalk.Point)},
 args: ["aPoint"],
 source: "* aPoint\x0a\x09^Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y",
 messageSends: ["x:y:", "*", "x", "asPoint", "y"],
@@ -3930,12 +4006,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "+",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Point || Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__plus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return $1;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Point || Point))._x_y_(_st(_st(self)._x()).__plus(_st(_st(aPoint)._asPoint())._x()),_st(_st(self)._y()).__plus(_st(_st(aPoint)._asPoint())._y()));
+return $1;
+}, self, "+", [aPoint], smalltalk.Point)},
 args: ["aPoint"],
 source: "+ aPoint\x0a\x09^Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y",
 messageSends: ["x:y:", "+", "x", "asPoint", "y"],
@@ -3948,12 +4024,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "-",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Point || Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__minus", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return $1;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Point || Point))._x_y_(_st(_st(self)._x()).__minus(_st(_st(aPoint)._asPoint())._x()),_st(_st(self)._y()).__minus(_st(_st(aPoint)._asPoint())._y()));
+return $1;
+}, self, "-", [aPoint], smalltalk.Point)},
 args: ["aPoint"],
 source: "- aPoint\x0a\x09^Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y",
 messageSends: ["x:y:", "-", "x", "asPoint", "y"],
@@ -3966,12 +4042,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "/",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.Point || Point, "_x_y_", [smalltalk.send(smalltalk.send(self, "_x", []), "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_x", [])]), smalltalk.send(smalltalk.send(self, "_y", []), "__slash", [smalltalk.send(smalltalk.send(aPoint, "_asPoint", []), "_y", [])])]);
-    return $1;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.Point || Point))._x_y_(_st(_st(self)._x()).__slash(_st(_st(aPoint)._asPoint())._x()),_st(_st(self)._y()).__slash(_st(_st(aPoint)._asPoint())._y()));
+return $1;
+}, self, "/", [aPoint], smalltalk.Point)},
 args: ["aPoint"],
 source: "/ aPoint\x0a\x09^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y",
 messageSends: ["x:y:", "/", "x", "asPoint", "y"],
@@ -3984,12 +4060,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
 category: 'arithmetic',
-fn: function (aPoint) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_class", []), "__eq", [smalltalk.send(self, "_class", [])]), "_and_", [function () {return smalltalk.send(smalltalk.send(smalltalk.send(aPoint, "_x", []), "__eq", [smalltalk.send(self, "_x", [])]), "_&", [smalltalk.send(smalltalk.send(aPoint, "_y", []), "__eq", [smalltalk.send(self, "_y", [])])]);}]);
-    return $1;
-},
+fn: function (aPoint){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(aPoint)._class()).__eq(_st(self)._class()))._and_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(aPoint)._x()).__eq(_st(self)._x())).__and(_st(_st(aPoint)._y()).__eq(_st(self)._y()));
+})}));
+return $1;
+}, self, "=", [aPoint], smalltalk.Point)},
 args: ["aPoint"],
 source: "= aPoint\x0a\x09^aPoint class = self class and: [\x0a\x09\x09(aPoint x = self x) & (aPoint y = self y)]",
 messageSends: ["and:", "&", "=", "y", "x", "class"],
@@ -4002,10 +4080,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asPoint",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "asPoint", [], smalltalk.Point)},
 args: [],
 source: "asPoint\x0a\x09^self",
 messageSends: [],
@@ -4018,12 +4096,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    var $2, $1;
-    $1 = smalltalk.send(smalltalk.String || String, "_streamContents_", [function (stream) {smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(smalltalk.send(self['@x'], "_printString", []), "__comma", ["@"])]);$2 = smalltalk.send(smalltalk.send(self['@y'], "_notNil", []), "_and_", [function () {return smalltalk.send(self['@y'], "_negative", []);}]);if (smalltalk.assert($2)) {smalltalk.send(stream, "_space", []);}return smalltalk.send(stream, "_nextPutAll_", [smalltalk.send(self['@y'], "_printString", [])]);}]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) { _st(stream)._nextPutAll_(_st(_st(self["@x"])._printString()).__comma("@"));
+$2=_st(_st(self["@y"])._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx3) { return _st(self["@y"])._negative();
+})}));
+if(smalltalk.assert($2)){
+_st(stream)._space();
+};
+return _st(stream)._nextPutAll_(_st(self["@y"])._printString());
+})}));
+return $1;
+}, self, "printString", [], smalltalk.Point)},
 args: [],
 source: "printString\x0a\x09\x22Print receiver in classic x@y notation.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09stream nextPutAll: x printString, '@'.\x0a\x09\x09(y notNil and: [y negative])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Avoid ambiguous @- construct\x22\x0a\x09\x09\x09\x09stream space].\x0a\x09\x09stream nextPutAll: y printString]",
 messageSends: ["streamContents:", "nextPutAll:", ",", "printString", "ifTrue:", "space", "and:", "negative", "notNil"],
@@ -4036,12 +4123,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "translateBy:",
 category: 'transforming',
-fn: function (delta) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(delta, "_x", []), "__plus", [self['@x']]), "__at", [smalltalk.send(smalltalk.send(delta, "_y", []), "__plus", [self['@y']])]);
-    return $1;
-},
+fn: function (delta){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(delta)._x()).__plus(self["@x"])).__at(_st(_st(delta)._y()).__plus(self["@y"]));
+return $1;
+}, self, "translateBy:", [delta], smalltalk.Point)},
 args: ["delta"],
 source: "translateBy: delta \x0a\x09\x22Answer a Point translated by delta (an instance of Point).\x22\x0a\x09^(delta x + x) @ (delta y + y)",
 messageSends: ["@", "+", "y", "x"],
@@ -4054,10 +4141,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "x",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@x'];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self["@x"];
+}, self, "x", [], smalltalk.Point)},
 args: [],
 source: "x\x0a\x09^x",
 messageSends: [],
@@ -4070,11 +4157,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "x:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self['@x'] = aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@x"]=aNumber;
+return self}, self, "x:", [aNumber], smalltalk.Point)},
 args: ["aNumber"],
 source: "x: aNumber\x0a\x09x := aNumber",
 messageSends: [],
@@ -4087,10 +4173,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "y",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@y'];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self["@y"];
+}, self, "y", [], smalltalk.Point)},
 args: [],
 source: "y\x0a\x09^y",
 messageSends: [],
@@ -4103,11 +4189,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "y:",
 category: 'accessing',
-fn: function (aNumber) {
-    var self = this;
-    self['@y'] = aNumber;
-    return self;
-},
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@y"]=aNumber;
+return self}, self, "y:", [aNumber], smalltalk.Point)},
 args: ["aNumber"],
 source: "y: aNumber\x0a\x09y := aNumber",
 messageSends: [],
@@ -4121,16 +4206,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "x:y:",
 category: 'instance creation',
-fn: function (aNumber, anotherNumber) {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(self, "_new", []);
-    smalltalk.send($2, "_x_", [aNumber]);
-    smalltalk.send($2, "_y_", [anotherNumber]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
+fn: function (aNumber,anotherNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._x_(aNumber);
+_st($2)._y_(anotherNumber);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, self, "x:y:", [aNumber,anotherNumber], smalltalk.Point.klass)},
 args: ["aNumber", "anotherNumber"],
 source: "x: aNumber y: anotherNumber\x0a\x09^self new\x0a\x09\x09x: aNumber;\x0a\x09\x09y: anotherNumber;\x0a\x09\x09yourself",
 messageSends: ["x:", "new", "y:", "yourself"],
@@ -4146,11 +4231,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return Math.random();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return Math.random();
+;
+return self}, self, "next", [], smalltalk.Random)},
 args: [],
 source: "next\x0a\x09<return Math.random()>",
 messageSends: [],
@@ -4163,12 +4248,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "next:",
 category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(1, "_to_", [anInteger]), "_collect_", [function (each) {return smalltalk.send(self, "_next", []);}]);
-    return $1;
-},
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((1))._to_(anInteger))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(self)._next();
+})}));
+return $1;
+}, self, "next:", [anInteger], smalltalk.Random)},
 args: ["anInteger"],
 source: "next: anInteger\x0a    ^(1 to: anInteger) collect: [:each | self next]",
 messageSends: ["collect:", "next", "to:"],
@@ -4185,11 +4272,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
-fn: function (aSymbol) {
-    var self = this;
-    return self[aSymbol._asString()];
-    return self;
-},
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self[aSymbol._asString()];
+;
+return self}, self, "at:", [aSymbol], smalltalk.Smalltalk)},
 args: ["aSymbol"],
 source: "at: aSymbol\x0a\x09<return self[aSymbol._asString()]>",
 messageSends: [],
@@ -4202,11 +4289,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "basicParse:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    return smalltalk.parser.parse(aString);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.parser.parse(aString);
+;
+return self}, self, "basicParse:", [aString], smalltalk.Smalltalk)},
 args: ["aString"],
 source: "basicParse: aString\x0a\x09<return smalltalk.parser.parse(aString)>",
 messageSends: [],
@@ -4219,11 +4306,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
 category: 'classes',
-fn: function () {
-    var self = this;
-    return self.classes();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.classes();
+;
+return self}, self, "classes", [], smalltalk.Smalltalk)},
 args: [],
 source: "classes\x0a\x09<return self.classes()>",
 messageSends: [],
@@ -4253,11 +4340,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deleteClass:",
 category: 'classes',
-fn: function (aClass) {
-    var self = this;
-    self.removeClass(aClass);
-    return self;
-},
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.removeClass(aClass);
+;
+return self}, self, "deleteClass:", [aClass], smalltalk.Smalltalk)},
 args: ["aClass"],
 source: "deleteClass: aClass\x0a\x09\x22Deletes a class by deleting its binding only. Use #removeClass instead\x22\x0a    \x0a\x09<self.removeClass(aClass)>",
 messageSends: [],
@@ -4270,11 +4357,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deletePackage:",
 category: 'packages',
-fn: function (packageName) {
-    var self = this;
-    delete smalltalk.packages[packageName];
-    return self;
-},
+fn: function (packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { delete smalltalk.packages[packageName];
+;
+return self}, self, "deletePackage:", [packageName], smalltalk.Smalltalk)},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a       <delete smalltalk.packages[packageName]>",
 messageSends: [],
@@ -4287,11 +4374,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "packageAt:",
 category: 'packages',
-fn: function (packageName) {
-    var self = this;
-    return self.packages[packageName];
-    return self;
-},
+fn: function (packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.packages[packageName];
+;
+return self}, self, "packageAt:", [packageName], smalltalk.Smalltalk)},
 args: ["packageName"],
 source: "packageAt: packageName\x0a       <return self.packages[packageName]>",
 messageSends: [],
@@ -4304,13 +4391,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "packageAt:ifAbsent:",
 category: 'packages',
-fn: function (packageName, aBlock) {
-    var self = this;
-    var $2, $1;
-    $2 = smalltalk.send(self, "_packageAt_", [packageName]);
-    $1 = smalltalk.send($2, "_ifNil_", [aBlock]);
-    return $1;
-},
+fn: function (packageName,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self)._packageAt_(packageName);
+$1=_st($2)._ifNil_(aBlock);
+return $1;
+}, self, "packageAt:ifAbsent:", [packageName,aBlock], smalltalk.Smalltalk)},
 args: ["packageName", "aBlock"],
 source: "packageAt: packageName ifAbsent: aBlock\x0a       ^(self packageAt: packageName) ifNil: aBlock",
 messageSends: ["ifNil:", "packageAt:"],
@@ -4323,11 +4410,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "packages",
 category: 'packages',
-fn: function () {
-    var self = this;
-    return self.packages.all();
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.packages.all();
+;
+return self}, self, "packages", [], smalltalk.Smalltalk)},
 args: [],
 source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<return self.packages.all()>",
 messageSends: [],
@@ -4340,12 +4427,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "parse:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    var result;
-    smalltalk.send(self, "_try_catch_", [function () {result = smalltalk.send(self, "_basicParse_", [aString]);return result;}, function (ex) {return smalltalk.send(smalltalk.send(self, "_parseError_parsing_", [ex, aString]), "_signal", []);}]);
-    return result;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.result=nil;
+_st(self)._try_catch_((function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.result=_st(self)._basicParse_(aString);
+return $ctx1.locals.result;
+})}),(function(ex){
+return smalltalk.withContext(function($ctx2) { return _st(_st(self)._parseError_parsing_(ex,aString))._signal();
+})}));
+return $ctx1.locals.result;
+}, self, "parse:", [aString], smalltalk.Smalltalk)},
 args: ["aString"],
 source: "parse: aString\x0a\x09| result | \x0a\x09self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].\x0a\x09^result",
 messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:"],
@@ -4376,10 +4468,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVariableNames",
 category: 'packages',
-fn: function () {
-    var self = this;
-    return ["self", "super", "nil", "true", "false", "thisContext"];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return ["self", "super", "nil", "true", "false", "thisContext"];
+}, self, "pseudoVariableNames", [], smalltalk.Smalltalk)},
 args: [],
 source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",
 messageSends: [],
@@ -4392,11 +4484,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "readJSObject:",
 category: 'accessing',
-fn: function (anObject) {
-    var self = this;
-    return self.readJSObject(anObject);
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.readJSObject(anObject);
+;
+return self}, self, "readJSObject:", [anObject], smalltalk.Smalltalk)},
 args: ["anObject"],
 source: "readJSObject: anObject\x0a\x09<return self.readJSObject(anObject)>",
 messageSends: [],
@@ -4409,22 +4501,25 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removeClass:",
 category: 'classes',
-fn: function (aClass) {
-    var self = this;
-    var $1, $2, $3;
-    $1 = smalltalk.send(aClass, "_isMetaclass", []);
-    if (smalltalk.assert($1)) {
-        smalltalk.send(self, "_error_", [smalltalk.send(smalltalk.send(aClass, "_asString", []), "__comma", [" is a Metaclass and cannot be removed!"])]);
-    }
-    smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(aClass, "_removeCompiledMethod_", [each]);}]);
-    smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aClass, "_class", []), "_methodDictionary", []), "_values", []), "_do_", [function (each) {return smalltalk.send(smalltalk.send(aClass, "_class", []), "_removeCompiledMethod_", [each]);}]);
-    smalltalk.send(self, "_deleteClass_", [aClass]);
-    $2 = smalltalk.send(smalltalk.ClassRemoved || ClassRemoved, "_new", []);
-    smalltalk.send($2, "_theClass_", [aClass]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    smalltalk.send(smalltalk.send(smalltalk.SystemAnnouncer || SystemAnnouncer, "_current", []), "_announce_", [$3]);
-    return self;
-},
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st(aClass)._isMetaclass();
+if(smalltalk.assert($1)){
+_st(self)._error_(_st(_st(aClass)._asString()).__comma(" is a Metaclass and cannot be removed!"));
+};
+_st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(aClass)._removeCompiledMethod_(each);
+})}));
+_st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(_st(aClass)._class())._removeCompiledMethod_(each);
+})}));
+_st(self)._deleteClass_(aClass);
+$2=_st((smalltalk.ClassRemoved || ClassRemoved))._new();
+_st($2)._theClass_(aClass);
+$3=_st($2)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
+return self}, self, "removeClass:", [aClass], smalltalk.Smalltalk)},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a    \x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09aClass removeCompiledMethod: each].\x0a        \x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09aClass class removeCompiledMethod: each].\x0a        \x0a\x09self deleteClass: aClass.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassRemoved new\x0a        \x09theClass: aClass;\x0a            yourself)",
 messageSends: ["ifTrue:", "error:", ",", "asString", "isMetaclass", "do:", "removeCompiledMethod:", "values", "methodDictionary", "class", "deleteClass:", "announce:", "theClass:", "new", "yourself", "current"],
@@ -4437,14 +4532,17 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "removePackage:",
 category: 'packages',
-fn: function (packageName) {
-    var self = this;
-    var pkg;
-    pkg = smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, function () {return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);}]);
-    smalltalk.send(smalltalk.send(pkg, "_classes", []), "_do_", [function (each) {return smalltalk.send(self, "_removeClass_", [each]);}]);
-    smalltalk.send(self, "_deletePackage_", [packageName]);
-    return self;
-},
+fn: function (packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { $ctx1.pkg=nil;
+$ctx1.locals.pkg=_st(self)._packageAt_ifAbsent_(packageName,(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._error_(_st("Missing package: ").__comma(packageName));
+})}));
+_st(_st($ctx1.locals.pkg)._classes())._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(self)._removeClass_(each);
+})}));
+_st(self)._deletePackage_(packageName);
+return self}, self, "removePackage:", [packageName], smalltalk.Smalltalk)},
 args: ["packageName"],
 source: "removePackage: packageName\x0a\x09\x22Removes a package and all its classes.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09pkg classes do: [:each |\x0a        \x09self removeClass: each].\x0a\x09self deletePackage: packageName",
 messageSends: ["packageAt:ifAbsent:", "error:", ",", "do:", "removeClass:", "classes", "deletePackage:"],
@@ -4457,21 +4555,24 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "renamePackage:to:",
 category: 'packages',
-fn: function (packageName, newName) {
-    var self = this;
-    var $1;
-    var pkg;
-    pkg = smalltalk.send(self, "_packageAt_ifAbsent_", [packageName, function () {return smalltalk.send(self, "_error_", [smalltalk.send("Missing package: ", "__comma", [packageName])]);}]);
-    $1 = smalltalk.send(self, "_packageAt_", [newName]);
-    if (($receiver = $1) == nil || $receiver == undefined) {
-    } else {
-        smalltalk.send(self, "_error_", [smalltalk.send("Already exists a package called: ", "__comma", [newName])]);
-    }
-    smalltalk.packages[newName] = smalltalk.packages[packageName];
-    smalltalk.send(pkg, "_name_", [newName]);
-    smalltalk.send(self, "_deletePackage_", [packageName]);
-    return self;
-},
+fn: function (packageName,newName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.pkg=nil;
+$ctx1.locals.pkg=_st(self)._packageAt_ifAbsent_(packageName,(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._error_(_st("Missing package: ").__comma(packageName));
+})}));
+$1=_st(self)._packageAt_(newName);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(self)._error_(_st("Already exists a package called: ").__comma(newName));
+};
+smalltalk.packages[newName] = smalltalk.packages[packageName];
+;
+_st($ctx1.locals.pkg)._name_(newName);
+_st(self)._deletePackage_(packageName);
+return self}, self, "renamePackage:to:", [packageName,newName], smalltalk.Smalltalk)},
 args: ["packageName", "newName"],
 source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].\x0a\x09<smalltalk.packages[newName] = smalltalk.packages[packageName]>.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
 messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "name:", "deletePackage:"],
@@ -4484,11 +4585,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "reservedWords",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self.reservedWords;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self.reservedWords;
+;
+return self}, self, "reservedWords", [], smalltalk.Smalltalk)},
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return self.reservedWords>",
 messageSends: [],
@@ -4503,11 +4604,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return smalltalk;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk;
+;
+return self}, self, "current", [], smalltalk.Smalltalk.klass)},
 args: [],
 source: "current\x0a\x09<return smalltalk>",
 messageSends: [],
@@ -4523,10 +4624,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
-fn: function () {
-    var self = this;
-    return null;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return null;
+}, self, "asJSON", [], smalltalk.UndefinedObject)},
 args: [],
 source: "asJSON\x0a\x09^null",
 messageSends: [],
@@ -4539,10 +4640,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "deepCopy", [], smalltalk.UndefinedObject)},
 args: [],
 source: "deepCopy\x0a\x09^self",
 messageSends: [],
@@ -4555,12 +4656,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_ifNil_ifNotNil_", [aBlock, function () {}]);
-    return $1;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._ifNil_ifNotNil_(aBlock,(function(){
+return smalltalk.withContext(function($ctx2) { })}));
+return $1;
+}, self, "ifNil:", [aBlock], smalltalk.UndefinedObject)},
 args: ["aBlock"],
 source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self ifNil: aBlock ifNotNil: []",
 messageSends: ["ifNil:ifNotNil:"],
@@ -4573,12 +4675,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNil:ifNotNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(aBlock, "_value", []);
-    return $1;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aBlock)._value();
+return $1;
+}, self, "ifNil:ifNotNil:", [aBlock,anotherBlock], smalltalk.UndefinedObject)},
 args: ["aBlock", "anotherBlock"],
 source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
 messageSends: ["value"],
@@ -4591,10 +4693,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:",
 category: 'testing',
-fn: function (aBlock) {
-    var self = this;
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "ifNotNil:", [aBlock], smalltalk.UndefinedObject)},
 args: ["aBlock"],
 source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^self",
 messageSends: [],
@@ -4607,12 +4709,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "ifNotNil:ifNil:",
 category: 'testing',
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(anotherBlock, "_value", []);
-    return $1;
-},
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(anotherBlock)._value();
+return $1;
+}, self, "ifNotNil:ifNil:", [aBlock,anotherBlock], smalltalk.UndefinedObject)},
 args: ["aBlock", "anotherBlock"],
 source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value",
 messageSends: ["value"],
@@ -4625,10 +4727,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "isNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return true;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, self, "isNil", [], smalltalk.UndefinedObject)},
 args: [],
 source: "isNil\x0a\x09^true",
 messageSends: [],
@@ -4641,10 +4743,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "notNil",
 category: 'testing',
-fn: function () {
-    var self = this;
-    return false;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "notNil", [], smalltalk.UndefinedObject)},
 args: [],
 source: "notNil\x0a\x09^false",
 messageSends: [],
@@ -4657,10 +4759,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "printString",
 category: 'printing',
-fn: function () {
-    var self = this;
-    return "nil";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "nil";
+}, self, "printString", [], smalltalk.UndefinedObject)},
 args: [],
 source: "printString\x0a    ^'nil'",
 messageSends: [],
@@ -4673,10 +4775,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "shallowCopy", [], smalltalk.UndefinedObject)},
 args: [],
 source: "shallowCopy\x0a\x09^self",
 messageSends: [],
@@ -4689,12 +4791,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:instanceVariableNames:",
 category: 'class creation',
-fn: function (aString, anotherString) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, anotherString, nil]);
-    return $1;
-},
+fn: function (aString,anotherString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._subclass_instanceVariableNames_package_(aString,anotherString,nil);
+return $1;
+}, self, "subclass:instanceVariableNames:", [aString,anotherString], smalltalk.UndefinedObject)},
 args: ["aString", "anotherString"],
 source: "subclass: aString instanceVariableNames: anotherString\x0a\x09^self subclass: aString instanceVariableNames: anotherString package: nil",
 messageSends: ["subclass:instanceVariableNames:package:"],
@@ -4707,13 +4809,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:instanceVariableNames:category:",
 category: 'class creation',
-fn: function (aString, aString2, aString3) {
-    var self = this;
-    var $1;
-    smalltalk.send(self, "_deprecatedAPI", []);
-    $1 = smalltalk.send(self, "_subclass_instanceVariableNames_package_", [aString, aString2, aString3]);
-    return $1;
-},
+fn: function (aString,aString2,aString3){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._deprecatedAPI();
+$1=_st(self)._subclass_instanceVariableNames_package_(aString,aString2,aString3);
+return $1;
+}, self, "subclass:instanceVariableNames:category:", [aString,aString2,aString3], smalltalk.UndefinedObject)},
 args: ["aString", "aString2", "aString3"],
 source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^self subclass: aString instanceVariableNames: aString2 package: aString3",
 messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"],
@@ -4726,12 +4828,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "subclass:instanceVariableNames:package:",
 category: 'class creation',
-fn: function (aString, aString2, aString3) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.ClassBuilder || ClassBuilder, "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
-    return $1;
-},
+fn: function (aString,aString2,aString3){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,aString,aString2,aString3);
+return $1;
+}, self, "subclass:instanceVariableNames:package:", [aString,aString2,aString3], smalltalk.UndefinedObject)},
 args: ["aString", "aString2", "aString3"],
 source: "subclass: aString instanceVariableNames: aString2 package: aString3\x0a\x09^ClassBuilder new\x0a\x09    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3",
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "new"],
@@ -4745,11 +4847,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
-fn: function () {
-    var self = this;
-    smalltalk.send(self, "_error_", ["You cannot create new instances of UndefinedObject. Use nil"]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._error_("You cannot create new instances of UndefinedObject. Use nil");
+return self}, self, "new", [], smalltalk.UndefinedObject.klass)},
 args: [],
 source: "new\x0a\x09    self error: 'You cannot create new instances of UndefinedObject. Use nil'",
 messageSends: ["error:"],

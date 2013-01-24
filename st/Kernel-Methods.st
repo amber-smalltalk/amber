@@ -300,7 +300,7 @@ printString
 !
 
 sendTo: anObject
-	^ Smalltalk current send: self selector to: anObject arguments: self arguments
+	^ anObject perform: self selector withArguments: self arguments
 ! !
 
 !Message class methodsFor: 'instance creation'!
@@ -334,10 +334,6 @@ home
 
 locals
 	<return self.locals>
-!
-
-method
-	<return self.method()>
 !
 
 pc

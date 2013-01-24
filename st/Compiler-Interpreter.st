@@ -22,10 +22,6 @@ initialize
 
 !ASTInterpreter methodsFor: 'interpreting'!
 
-blockValue: anASTBlockClosure
-	^ self interpret: anASTBlockClosure astNode nodes first
-!
-
 interpret: aNode
 	shouldReturn := false.
     ^ self interpretNode: aNode
@@ -36,8 +32,12 @@ interpretNode: aNode
     ^ self visit: aNode
 !
 
-send: aSelector to: anObject arguments: aCollection
-	^ anObject perform: aSelector withArguments: aCollection
+messageFromSendNode: aSendNode
+	^ Message new
+    	selector: aSendNode selector;
+        arguments: (aSendNode arguments collect: [ :each |
+        	self interpretNode: each ]);
+        yourself
 ! !
 
 !ASTInterpreter methodsFor: 'visiting'!
@@ -47,14 +47,22 @@ visitBlockNode: aNode
 !
 
 visitCascadeNode: aNode
+	"TODO: Handle super sends"
+	| receiver |
+    
+    receiver := self interpretNode: aNode receiver.
 
     aNode nodes allButLast
     	do: [ :each | 
-        	each receiver: aNode receiver.
-			self interpretNode: each ].
-            
-	aNode nodes last receiver: aNode receiver.
-    ^ self interpretNode: aNode nodes last
+        	(self messageFromSendNode: each)
+            	sendTo: receiver ].
+
+    ^ (self messageFromSendNode: aNode nodes last)
+            	sendTo: receiver
+!
+
+visitClassReferenceNode: aNode
+	^ Smalltalk current at: aNode value
 !
 
 visitJSStatementNode: aNode
@@ -68,13 +76,9 @@ visitReturnNode: aNode
 
 visitSendNode: aNode
 	"TODO: Handle super sends"
-	| receiver arguments |
     
-    receiver := self interpretNode: aNode receiver.
-    arguments := aNode arguments collect: [ :each |
-		self interpretNode: each ].
-    
-    ^ self send: aNode selector to: receiver arguments: arguments
+    ^ (self messageFromSendNode: aNode)
+    	sendTo: (self interpretNode: aNode receiver)
 !
 
 visitSequenceNode: aNode
@@ -124,5 +128,9 @@ testBlockLiteral
 	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
     self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
     self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
+!
+
+testCascade
+	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
 ! !
 

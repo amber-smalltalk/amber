@@ -8,9 +8,9 @@ selector: "main",
 category: 'not yet classified',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var result;
-result=_st((0))._tinyBenchmarks();
-_st(console)._log_(_st("0 tinyBenchmarks => ").__comma(result));
+return smalltalk.withContext(function($ctx1) { $ctx1.result=nil;
+$ctx1.locals.result=_st((0))._tinyBenchmarks();
+_st(console)._log_(_st("0 tinyBenchmarks => ").__comma($ctx1.locals.result));
 return self}, self, "main", [], smalltalk.Benchfib.klass)},
 args: [],
 source: "main\x0a\x0a\x09| result |\x0a\x09result := 0 tinyBenchmarks.\x0a\x09console log: '0 tinyBenchmarks => ' , result",
@@ -27,7 +27,7 @@ selector: "benchFib",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self).__lt((2));
 if(smalltalk.assert($2)){
 $1=(1);
@@ -50,41 +50,41 @@ selector: "benchmark",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
-var size;
-var flags;
-var prime;
-var k;
-var count;
-size=(8190);
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.size=nil;
+$ctx1.flags=nil;
+$ctx1.prime=nil;
+$ctx1.k=nil;
+$ctx1.count=nil;
+$ctx1.locals.size=(8190);
 _st((1))._to_do_(self,(function(iter){
-count=(0);
-count;
-flags=_st((smalltalk.Array || Array))._new();
-flags;
-_st(size)._timesRepeat_((function(){
-return _st(flags)._add_(true);
-}));
-return _st((1))._to_do_(size,(function(i){
-$1=_st(flags)._at_(i);
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.count=(0);
+$ctx1.locals.count;
+$ctx1.locals.flags=_st((smalltalk.Array || Array))._new();
+$ctx1.locals.flags;
+_st($ctx1.locals.size)._timesRepeat_((function(){
+return smalltalk.withContext(function($ctx3) { return _st($ctx1.locals.flags)._add_(true);
+})}));
+return _st((1))._to_do_($ctx1.locals.size,(function(i){
+return smalltalk.withContext(function($ctx3) { $1=_st($ctx1.locals.flags)._at_(i);
 if(smalltalk.assert($1)){
-prime=_st(i).__plus((1));
-prime;
-k=_st(i).__plus(prime);
-k;
+$ctx1.locals.prime=_st(i).__plus((1));
+$ctx1.locals.prime;
+$ctx1.locals.k=_st(i).__plus($ctx1.locals.prime);
+$ctx1.locals.k;
 _st((function(){
-return _st(k).__lt_eq(size);
-}))._whileTrue_((function(){
-_st(flags)._at_put_(k,false);
-k=_st(k).__plus(prime);
-return k;
-}));
-count=_st(count).__plus((1));
-return count;
+return smalltalk.withContext(function($ctx4) { return _st($ctx1.locals.k).__lt_eq($ctx1.locals.size);
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx4) { _st($ctx1.locals.flags)._at_put_($ctx1.locals.k,false);
+$ctx1.locals.k=_st($ctx1.locals.k).__plus($ctx1.locals.prime);
+return $ctx1.locals.k;
+})}));
+$ctx1.locals.count=_st($ctx1.locals.count).__plus((1));
+return $ctx1.locals.count;
 };
-}));
-}));
-return count;
+})}));
+})}));
+return $ctx1.locals.count;
 }, self, "benchmark", [], smalltalk.Number)},
 args: [],
 source: "benchmark \x0a\x09\x22Handy bytecode-heavy benchmark\x22\x0a\x09\x22(500000 // time to run) = approx bytecodes per second\x22\x0a\x09\x225000000 // (Time millisecondsToRun: [10 benchmark]) * 1000\x22\x0a\x09\x223059000 on a Mac 8100/100\x22\x0a    | size flags prime k count |\x0a    size := 8190.\x0a    1 to: self do:\x0a        [:iter |\x0a        count := 0.\x0a        flags := Array new.\x0a        size timesRepeat: [ flags add: true].\x0a        1 to: size do:\x0a            [:i | (flags at: i) ifTrue:\x0a                [prime := i+1.\x0a                k := i + prime.\x0a                [k <= size] whileTrue:\x0a                    [flags at: k put: false.\x0a                    k := k + prime].\x0a                count := count + 1]]].\x0a    ^ count",
@@ -100,7 +100,7 @@ selector: "jsbenchFib",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { if (this < 2) {
+return smalltalk.withContext(function($ctx1) { if (this < 2) {
 return 1;
 } else {
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
@@ -120,7 +120,7 @@ selector: "jsbenchmark",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { 
+return smalltalk.withContext(function($ctx1) { 
 var size = 8190;
 var count;
 for (var z=0;z<this;z++) {
@@ -158,36 +158,36 @@ selector: "jstinyBenchmarks",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
-var t1;
-var t2;
-var r;
-var n1;
-var n2;
-n1=(1);
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.t1=nil;
+$ctx1.t2=nil;
+$ctx1.r=nil;
+$ctx1.n1=nil;
+$ctx1.n2=nil;
+$ctx1.locals.n1=(1);
 _st((function(){
-t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
-return _st(n1)._jsbenchmark();
-}));
-t1;
-return _st(t1).__lt((1000));
-}))._whileTrue_((function(){
-n1=_st(n1).__star((2));
-return n1;
-}));
-n2=(28);
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) { return _st($ctx1.locals.n1)._jsbenchmark();
+})}));
+$ctx1.locals.t1;
+return _st($ctx1.locals.t1).__lt((1000));
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.n1=_st($ctx1.locals.n1).__star((2));
+return $ctx1.locals.n1;
+})}));
+$ctx1.locals.n2=(28);
 _st((function(){
-t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
-r=_st(n2)._jsbenchFib();
-return r;
-}));
-t2;
-return _st(t2).__lt((1000));
-}))._whileTrue_((function(){
-n2=_st(n2).__plus((1));
-return n2;
-}));
-$1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) { $ctx1.locals.r=_st($ctx1.locals.n2)._jsbenchFib();
+return $ctx1.locals.r;
+})}));
+$ctx1.locals.t2;
+return _st($ctx1.locals.t2).__lt((1000));
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.n2=_st($ctx1.locals.n2).__plus((1));
+return $ctx1.locals.n2;
+})}));
+$1=_st(_st(_st(_st(_st(_st(_st($ctx1.locals.n1).__star((500000))).__star((1000))).__slash($ctx1.locals.t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st($ctx1.locals.r).__star((1000))).__slash($ctx1.locals.t2))._printString())).__comma(" sends/sec");
 return $1;
 }, self, "jstinyBenchmarks", [], smalltalk.Number)},
 args: [],
@@ -204,36 +204,36 @@ selector: "tinyBenchmarks",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx) { var $1;
-var t1;
-var t2;
-var r;
-var n1;
-var n2;
-n1=(1);
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.t1=nil;
+$ctx1.t2=nil;
+$ctx1.r=nil;
+$ctx1.n1=nil;
+$ctx1.n2=nil;
+$ctx1.locals.n1=(1);
 _st((function(){
-t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
-return _st(n1)._benchmark();
-}));
-t1;
-return _st(t1).__lt((1000));
-}))._whileTrue_((function(){
-n1=_st(n1).__star((2));
-return n1;
-}));
-n2=(16);
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) { return _st($ctx1.locals.n1)._benchmark();
+})}));
+$ctx1.locals.t1;
+return _st($ctx1.locals.t1).__lt((1000));
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.n1=_st($ctx1.locals.n1).__star((2));
+return $ctx1.locals.n1;
+})}));
+$ctx1.locals.n2=(16);
 _st((function(){
-t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
-r=_st(n2)._benchFib();
-return r;
-}));
-t2;
-return _st(t2).__lt((1000));
-}))._whileTrue_((function(){
-n2=_st(n2).__plus((1));
-return n2;
-}));
-$1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) { $ctx1.locals.r=_st($ctx1.locals.n2)._benchFib();
+return $ctx1.locals.r;
+})}));
+$ctx1.locals.t2;
+return _st($ctx1.locals.t2).__lt((1000));
+})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.n2=_st($ctx1.locals.n2).__plus((1));
+return $ctx1.locals.n2;
+})}));
+$1=_st(_st(_st(_st(_st(_st(_st($ctx1.locals.n1).__star((500000))).__star((1000))).__slash($ctx1.locals.t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st($ctx1.locals.r).__star((1000))).__slash($ctx1.locals.t2))._printString())).__comma(" sends/sec");
 return $1;
 }, self, "tinyBenchmarks", [], smalltalk.Number)},
 args: [],
