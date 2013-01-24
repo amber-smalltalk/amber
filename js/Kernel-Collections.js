@@ -4623,6 +4623,7 @@ smalltalk.Set);
 
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
+smalltalk.Queue.comment="I am a one-sided Queue.\x0a\x0aI use two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me; write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
 smalltalk.addMethod(
 "_back_",
 smalltalk.method({
@@ -4711,13 +4712,14 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@read"]=[];
 self["@readIndex"]=(1);
 self["@write"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
 return self},
 args: [],
-source: "initialize\x0a\x09read := #().\x0a    readIndex := 1.\x0a    write := OrderedCollection new",
-messageSends: ["new"],
+source: "initialize\x0a\x09super initialize.\x0a\x09read := #().\x0a    readIndex := 1.\x0a    write := OrderedCollection new",
+messageSends: ["initialize", "new"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.Queue);

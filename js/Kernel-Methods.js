@@ -684,13 +684,30 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-var $1;
-var sentinel;
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@poolSize"]=(0);
 self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
 self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
+self["@worker"]=smalltalk.send(self,"_makeWorker",[]);
+return self},
+args: [],
+source: "initialize\x0a    super initialize.\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    worker := self makeWorker",
+messageSends: ["initialize", "defaultMaxPoolSize", "class", "new", "makeWorker"],
+referencedClasses: ["Queue"]
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_makeWorker",
+smalltalk.method({
+selector: "makeWorker",
+category: 'initialization',
+fn: function (){
+var self=this;
+var $2,$1;
+var sentinel;
 sentinel=smalltalk.send((smalltalk.Object || Object),"_new",[]);
-self["@worker"]=(function(){
+$1=(function(){
 var block;
 self["@poolSize"]=smalltalk.send(self["@poolSize"],"__minus",[(1)]);
 self["@poolSize"];
@@ -698,8 +715,8 @@ block=smalltalk.send(self["@queue"],"_frontIfAbsent_",[(function(){
 return sentinel;
 })]);
 block;
-$1=smalltalk.send(block,"__eq_eq",[sentinel]);
-if(! smalltalk.assert($1)){
+$2=smalltalk.send(block,"__eq_eq",[sentinel]);
+if(! smalltalk.assert($2)){
 return smalltalk.send((function(){
 return smalltalk.send(block,"_value",[]);
 }),"_ensure_",[(function(){
@@ -707,11 +724,12 @@ return smalltalk.send(self,"_addWorker",[]);
 })]);
 };
 });
-return self},
+return $1;
+},
 args: [],
-source: "initialize\x0a\x09| sentinel |\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    sentinel := Object new.\x0a    worker := [\x0a\x09\x09| block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]].",
-messageSends: ["defaultMaxPoolSize", "class", "new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
-referencedClasses: ["Queue", "Object"]
+source: "makeWorker\x0a\x09| sentinel |\x0a    sentinel := Object new.\x0a    ^[ | block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]]",
+messageSends: ["new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
+referencedClasses: ["Object"]
 }),
 smalltalk.ForkPool);
 

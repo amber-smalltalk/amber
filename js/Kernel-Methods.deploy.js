@@ -496,13 +496,25 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-var $1;
-var sentinel;
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@poolSize"]=(0);
 self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
 self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
+self["@worker"]=smalltalk.send(self,"_makeWorker",[]);
+return self}
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_makeWorker",
+smalltalk.method({
+selector: "makeWorker",
+fn: function (){
+var self=this;
+var $2,$1;
+var sentinel;
 sentinel=smalltalk.send((smalltalk.Object || Object),"_new",[]);
-self["@worker"]=(function(){
+$1=(function(){
 var block;
 self["@poolSize"]=smalltalk.send(self["@poolSize"],"__minus",[(1)]);
 self["@poolSize"];
@@ -510,8 +522,8 @@ block=smalltalk.send(self["@queue"],"_frontIfAbsent_",[(function(){
 return sentinel;
 })]);
 block;
-$1=smalltalk.send(block,"__eq_eq",[sentinel]);
-if(! smalltalk.assert($1)){
+$2=smalltalk.send(block,"__eq_eq",[sentinel]);
+if(! smalltalk.assert($2)){
 return smalltalk.send((function(){
 return smalltalk.send(block,"_value",[]);
 }),"_ensure_",[(function(){
@@ -519,7 +531,8 @@ return smalltalk.send(self,"_addWorker",[]);
 })]);
 };
 });
-return self}
+return $1;
+}
 }),
 smalltalk.ForkPool);
 

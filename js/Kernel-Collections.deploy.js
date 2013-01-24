@@ -3499,6 +3499,7 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@read"]=[];
 self["@readIndex"]=(1);
 self["@write"]=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
