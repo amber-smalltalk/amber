@@ -156,10 +156,9 @@ ErrorHandler subclass: #DebugErrorHandler
 !DebugErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
-	[Debugger new
+	Debugger new
 		error: anError;
-		open] on: Error do: [:error |
-			ErrorHandler new handleError: error]
+		open
 ! !
 
 !DebugErrorHandler class methodsFor: 'initialization'!
@@ -1340,7 +1339,7 @@ label
 !
 
 method
-	^selectedContext receiver class methodAt: selectedContext selector
+	^selectedContext receiver class lookupSelector: selectedContext selector
 !
 
 receiver
@@ -1412,12 +1411,13 @@ renderBottomPanelOn: html
 !
 
 renderBoxOn: html
-    self 
+   self 
 	renderTopPanelOn: html;
 	renderBottomPanelOn: html
 !
 
 renderButtonsOn: html
+	self inspect.
 	saveButton := html button
 		with: 'Save';
 		onClick: [self save].

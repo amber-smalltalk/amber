@@ -426,19 +426,14 @@ category: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st((function(){
-return smalltalk.withContext(function($ctx2) { $1=_st((smalltalk.Debugger || Debugger))._new();
+$1=_st((smalltalk.Debugger || Debugger))._new();
 _st($1)._error_(anError);
 $2=_st($1)._open();
-return $2;
-})}))._on_do_((smalltalk.Error || Error),(function(error){
-return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.ErrorHandler || ErrorHandler))._new())._handleError_(error);
-})}));
 return self}, self, "handleError:", [anError], smalltalk.DebugErrorHandler)},
 args: ["anError"],
-source: "handleError: anError\x0a\x09[Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open] on: Error do: [:error |\x0a\x09\x09\x09ErrorHandler new handleError: error]",
-messageSends: ["on:do:", "handleError:", "new", "error:", "open"],
-referencedClasses: ["Error", "ErrorHandler", "Debugger"]
+source: "handleError: anError\x0a\x09Debugger new\x0a\x09\x09error: anError;\x0a\x09\x09open",
+messageSends: ["error:", "new", "open"],
+referencedClasses: ["Debugger"]
 }),
 smalltalk.DebugErrorHandler);
 
@@ -3743,12 +3738,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self["@selectedContext"])._receiver())._class())._methodAt_(_st(self["@selectedContext"])._selector());
+$1=_st(_st(_st(self["@selectedContext"])._receiver())._class())._lookupSelector_(_st(self["@selectedContext"])._selector());
 return $1;
 }, self, "method", [], smalltalk.Debugger)},
 args: [],
-source: "method\x0a\x09^selectedContext receiver class methodAt: selectedContext selector",
-messageSends: ["methodAt:", "selector", "class", "receiver"],
+source: "method\x0a\x09^selectedContext receiver class lookupSelector: selectedContext selector",
+messageSends: ["lookupSelector:", "selector", "class", "receiver"],
 referencedClasses: []
 }),
 smalltalk.Debugger);
@@ -3828,7 +3823,7 @@ _st(self)._renderTopPanelOn_(html);
 $1=_st(self)._renderBottomPanelOn_(html);
 return self}, self, "renderBoxOn:", [html], smalltalk.Debugger)},
 args: ["html"],
-source: "renderBoxOn: html\x0a    self \x0a\x09renderTopPanelOn: html;\x0a\x09renderBottomPanelOn: html",
+source: "renderBoxOn: html\x0a   self \x0a\x09renderTopPanelOn: html;\x0a\x09renderBottomPanelOn: html",
 messageSends: ["renderTopPanelOn:", "renderBottomPanelOn:"],
 referencedClasses: []
 }),
@@ -3842,6 +3837,7 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
+_st(self)._inspect();
 $1=_st(html)._button();
 _st($1)._with_("Save");
 $2=_st($1)._onClick_((function(){
@@ -3886,8 +3882,8 @@ _st(self)._updateVariablesList();
 $15=_st(self)._updateInspector();
 return self}, self, "renderButtonsOn:", [html], smalltalk.Debugger)},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09saveButton := html button\x0a\x09\x09with: 'Save';\x0a\x09\x09onClick: [self save].\x0a\x09html button\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [sourceArea doIt].\x0a\x09html button\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [sourceArea printIt].\x0a\x09html button\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [sourceArea inspectIt].\x0a\x09html button \x0a\x09\x09with: 'Proceed';\x0a\x09\x09onClick: [self proceed].\x0a\x09html button\x0a\x09\x09with: 'Abandon';\x0a\x09\x09onClick: [self close].\x0a\x09inspectButton := html button\x0a\x09\x09class: 'amber_button debugger inspect';\x0a\x09\x09with: 'Inspect';\x0a\x09\x09onClick: [self inspectSelectedVariable].\x0a\x09 self \x0a\x09\x09updateSourceArea;\x0a\x09\x09updateStatus;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateInspector",
-messageSends: ["with:", "button", "onClick:", "save", "doIt", "printIt", "inspectIt", "proceed", "close", "class:", "inspectSelectedVariable", "updateSourceArea", "updateStatus", "updateVariablesList", "updateInspector"],
+source: "renderButtonsOn: html\x0a\x09self inspect.\x0a\x09saveButton := html button\x0a\x09\x09with: 'Save';\x0a\x09\x09onClick: [self save].\x0a\x09html button\x0a\x09\x09with: 'DoIt';\x0a\x09\x09onClick: [sourceArea doIt].\x0a\x09html button\x0a\x09\x09with: 'PrintIt';\x0a\x09\x09onClick: [sourceArea printIt].\x0a\x09html button\x0a\x09\x09with: 'InspectIt';\x0a\x09\x09onClick: [sourceArea inspectIt].\x0a\x09html button \x0a\x09\x09with: 'Proceed';\x0a\x09\x09onClick: [self proceed].\x0a\x09html button\x0a\x09\x09with: 'Abandon';\x0a\x09\x09onClick: [self close].\x0a\x09inspectButton := html button\x0a\x09\x09class: 'amber_button debugger inspect';\x0a\x09\x09with: 'Inspect';\x0a\x09\x09onClick: [self inspectSelectedVariable].\x0a\x09 self \x0a\x09\x09updateSourceArea;\x0a\x09\x09updateStatus;\x0a\x09\x09updateVariablesList;\x0a\x09\x09updateInspector",
+messageSends: ["inspect", "with:", "button", "onClick:", "save", "doIt", "printIt", "inspectIt", "proceed", "close", "class:", "inspectSelectedVariable", "updateSourceArea", "updateStatus", "updateVariablesList", "updateInspector"],
 referencedClasses: []
 }),
 smalltalk.Debugger);

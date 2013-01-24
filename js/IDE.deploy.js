@@ -325,14 +325,9 @@ selector: "handleError:",
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st((function(){
-return smalltalk.withContext(function($ctx2) { $1=_st((smalltalk.Debugger || Debugger))._new();
+$1=_st((smalltalk.Debugger || Debugger))._new();
 _st($1)._error_(anError);
 $2=_st($1)._open();
-return $2;
-})}))._on_do_((smalltalk.Error || Error),(function(error){
-return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.ErrorHandler || ErrorHandler))._new())._handleError_(error);
-})}));
 return self}, self, "handleError:", [anError], smalltalk.DebugErrorHandler)}
 }),
 smalltalk.DebugErrorHandler);
@@ -2947,7 +2942,7 @@ selector: "method",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self["@selectedContext"])._receiver())._class())._methodAt_(_st(self["@selectedContext"])._selector());
+$1=_st(_st(_st(self["@selectedContext"])._receiver())._class())._lookupSelector_(_st(self["@selectedContext"])._selector());
 return $1;
 }, self, "method", [], smalltalk.Debugger)}
 }),
@@ -3021,6 +3016,7 @@ selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
+_st(self)._inspect();
 $1=_st(html)._button();
 _st($1)._with_("Save");
 $2=_st($1)._onClick_((function(){

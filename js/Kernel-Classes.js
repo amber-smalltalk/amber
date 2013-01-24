@@ -268,6 +268,24 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_includesSelector_",
+smalltalk.method({
+selector: "includesSelector:",
+category: 'testing',
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._methodDictionary())._includesKey_(_st(aSymbol)._asString());
+return $1;
+}, self, "includesSelector:", [aSymbol], smalltalk.Behavior)},
+args: ["aSymbol"],
+source: "includesSelector: aSymbol\x0a\x09^ self methodDictionary includesKey: aSymbol asString",
+messageSends: ["includesKey:", "asString", "methodDictionary"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_inheritsFrom_",
 smalltalk.method({
 selector: "inheritsFrom:",
@@ -298,6 +316,40 @@ return self}, self, "instanceVariableNames", [], smalltalk.Behavior)},
 args: [],
 source: "instanceVariableNames\x0a\x09<return self.iVarNames>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_lookupSelector_",
+smalltalk.method({
+selector: "lookupSelector:",
+category: 'accessing',
+fn: function (selector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+var $early={};
+try {
+$ctx1.locals.lookupClass=nil;
+$ctx1.locals.lookupClass=self;
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.lookupClass).__eq(nil);
+})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) { $1=_st($ctx1.locals.lookupClass)._includesSelector_(selector);
+if(smalltalk.assert($1)){
+$2=_st($ctx1.locals.lookupClass)._methodAt_(selector);
+throw $early=[$2];
+};
+$ctx1.locals.lookupClass=_st($ctx1.locals.lookupClass)._superclass();
+return $ctx1.locals.lookupClass;
+})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, self, "lookupSelector:", [selector], smalltalk.Behavior)},
+args: ["selector"],
+source: "lookupSelector: selector\x0a\x09\x22Look up the given selector in my methodDictionary.\x0a\x09Return the corresponding method if found.\x0a\x09Otherwise chase the superclass chain and try again.\x0a\x09Return nil if no method is found.\x22\x0a    \x0a\x09| lookupClass |\x0a    \x0a\x09lookupClass := self.\x0a\x09[ lookupClass = nil ] whileFalse: [\x0a      \x09(lookupClass includesSelector: selector)\x0a\x09\x09\x09\x09ifTrue: [ ^ lookupClass methodAt: selector ].\x0a\x09\x09\x09lookupClass := lookupClass superclass ].\x0a\x09^ nil",
+messageSends: ["whileFalse:", "ifTrue:", "methodAt:", "includesSelector:", "superclass", "="],
 referencedClasses: []
 }),
 smalltalk.Behavior);

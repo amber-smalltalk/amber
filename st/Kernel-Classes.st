@@ -68,6 +68,22 @@ instanceVariableNames
 	<return self.iVarNames>
 !
 
+lookupSelector: selector
+	"Look up the given selector in my methodDictionary.
+	Return the corresponding method if found.
+	Otherwise chase the superclass chain and try again.
+	Return nil if no method is found."
+    
+	| lookupClass |
+    
+	lookupClass := self.
+	[ lookupClass = nil ] whileFalse: [
+      	(lookupClass includesSelector: selector)
+				ifTrue: [ ^ lookupClass methodAt: selector ].
+			lookupClass := lookupClass superclass ].
+	^ nil
+!
+
 methodAt: aSymbol
 	^ self methodDictionary at: aSymbol asString
 !
@@ -206,6 +222,10 @@ new
 canUnderstand: aSelector
 	^(self methodDictionary keys includes: aSelector asString) or: [
 		self superclass notNil and: [self superclass canUnderstand: aSelector]]
+!
+
+includesSelector: aSymbol
+	^ self methodDictionary includesKey: aSymbol asString
 !
 
 inheritsFrom: aClass

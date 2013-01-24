@@ -202,6 +202,19 @@ return smalltalk.withContext(function($ctx1) { return "";
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_includesSelector_",
+smalltalk.method({
+selector: "includesSelector:",
+fn: function (aSymbol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._methodDictionary())._includesKey_(_st(aSymbol)._asString());
+return $1;
+}, self, "includesSelector:", [aSymbol], smalltalk.Behavior)}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_inheritsFrom_",
 smalltalk.method({
 selector: "inheritsFrom:",
@@ -223,6 +236,35 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { return self.iVarNames;
 ;
 return self}, self, "instanceVariableNames", [], smalltalk.Behavior)}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_lookupSelector_",
+smalltalk.method({
+selector: "lookupSelector:",
+fn: function (selector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+var $early={};
+try {
+$ctx1.locals.lookupClass=nil;
+$ctx1.locals.lookupClass=self;
+_st((function(){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.lookupClass).__eq(nil);
+})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) { $1=_st($ctx1.locals.lookupClass)._includesSelector_(selector);
+if(smalltalk.assert($1)){
+$2=_st($ctx1.locals.lookupClass)._methodAt_(selector);
+throw $early=[$2];
+};
+$ctx1.locals.lookupClass=_st($ctx1.locals.lookupClass)._superclass();
+return $ctx1.locals.lookupClass;
+})}));
+return nil;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, self, "lookupSelector:", [selector], smalltalk.Behavior)}
 }),
 smalltalk.Behavior);
 
