@@ -107,6 +107,20 @@ testNonLocalReturn
 	self should: 'foo [ :x | ^ x + x ] value: 4. ^ 2' return: 8
 !
 
+testSendReceiverAndArgumentsOrdered
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ Array with: x with: (true ifTrue: [ x := 2 ])
+' return: #(1 2).
+
+	self should: 'foo
+  | x |
+  x := Array.
+  ^ x with: x with: (true ifTrue: [ x := 2 ])
+' return: {Array. 2}.
+!
+
 testifFalse
 	self should: 'foo true ifFalse: [ ^ 1 ]' return: receiver.
 	self should: 'foo false ifFalse: [ ^ 2 ]' return: 2.

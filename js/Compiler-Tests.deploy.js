@@ -201,6 +201,18 @@ fn: function () {
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testSendReceiverAndArgumentsOrdered",
+smalltalk.method({
+selector: "testSendReceiverAndArgumentsOrdered",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a",[(1), (2)]]);
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a",[(smalltalk.Array || Array),(2)]]);
+return self}
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testifFalse",
 smalltalk.method({
 selector: "testifFalse",

@@ -8,7 +8,7 @@ fn: function (aNode){
 var self=this;
 var $1,$2,$3,$4,$5,$6;
 var variable;
-$1=smalltalk.send(aNode,"_isValueNode",[]);
+$1=smalltalk.send(aNode,"_isImmutable",[]);
 if(smalltalk.assert($1)){
 $2=smalltalk.send(self,"_visit_",[aNode]);
 return $2;
@@ -111,6 +111,40 @@ fn: function (aString){
 var self=this;
 self["@source"]=aString;
 return self}
+}),
+smalltalk.IRASTTranslator);
+
+smalltalk.addMethod(
+"_temporallyDependentList_",
+smalltalk.method({
+selector: "temporallyDependentList:",
+fn: function (nodes){
+var self=this;
+var $1,$3,$2;
+var threshold;
+var result;
+threshold=(0);
+smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
+$1=smalltalk.send(smalltalk.send(each,"_shouldBeInlined",[]),"_or_",[(function(){
+return smalltalk.send(each,"_shouldBeAliased",[]);
+})]);
+if(smalltalk.assert($1)){
+threshold=i;
+return threshold;
+};
+})]);
+result=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
+$3=smalltalk.send(i,"__lt_eq",[threshold]);
+if(smalltalk.assert($3)){
+$2=smalltalk.send(self,"_alias_",[each]);
+} else {
+$2=smalltalk.send(self,"_visit_",[each]);
+};
+return smalltalk.send(result,"_add_",[$2]);
+})]);
+return result;
+}
 }),
 smalltalk.IRASTTranslator);
 
@@ -221,7 +255,7 @@ fn: function (aNode){
 var self=this;
 var $1,$2;
 var alias;
-$1=smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_isValueNode",[]);
+$1=smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_isImmutable",[]);
 if(! smalltalk.assert($1)){
 alias=smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
 alias;
@@ -353,8 +387,9 @@ smalltalk.method({
 selector: "visitSendNode:",
 fn: function (aNode){
 var self=this;
-var $1,$2,$3,$4;
+var $1,$2;
 var send;
+var all;
 var receiver;
 var arguments;
 send=smalltalk.send((smalltalk.IRSend || IRSend),"_new",[]);
@@ -364,22 +399,9 @@ $2=smalltalk.send(aNode,"_superSend",[]);
 if(smalltalk.assert($2)){
 smalltalk.send(send,"_classSend_",[smalltalk.send(smalltalk.send(self,"_theClass",[]),"_superclass",[])]);
 };
-$3=smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeInlined",[]),"_or_",[(function(){
-return smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeAliased",[]);
-})]);
-if(smalltalk.assert($3)){
-receiver=smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
-} else {
-receiver=smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_receiver",[])]);
-};
-arguments=smalltalk.send(smalltalk.send(aNode,"_arguments",[]),"_collect_",[(function(each){
-$4=smalltalk.send(each,"_shouldBeInlined",[]);
-if(smalltalk.assert($4)){
-return smalltalk.send(self,"_alias_",[each]);
-} else {
-return smalltalk.send(self,"_visit_",[each]);
-};
-})]);
+all=smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send([smalltalk.send(aNode,"_receiver",[])],"__comma",[smalltalk.send(aNode,"_arguments",[])])]);
+receiver=smalltalk.send(all,"_first",[]);
+arguments=smalltalk.send(all,"_allButFirst",[]);
 smalltalk.send(send,"_add_",[receiver]);
 smalltalk.send(arguments,"_do_",[(function(each){
 return smalltalk.send(send,"_add_",[each]);

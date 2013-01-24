@@ -1125,29 +1125,27 @@ smalltalk.addMethod(
 "_visitSendNode_",
 smalltalk.method({
 selector: "visitSendNode:",
-fn: function (aNode) {
-    var self = this;
-    var $1, $2, $3;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value", []), "__eq", ["super"]);
-    if (smalltalk.assert($1)) {
-        smalltalk.send(aNode, "_superSend_", [true]);
-        smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_value_", ["self"]);
-    } else {
-        $2 = smalltalk.send(smalltalk.send(smalltalk.IRSendInliner || IRSendInliner, "_inlinedSelectors", []), "_includes_", [smalltalk.send(aNode, "_selector", [])]);
-        if (smalltalk.assert($2)) {
-            smalltalk.send(aNode, "_shouldBeInlined_", [true]);
-            $3 = smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_isValueNode", []);
-            if (!smalltalk.assert($3)) {
-                smalltalk.send(smalltalk.send(aNode, "_receiver", []), "_shouldBeAliased_", [true]);
-            }
-        }
-    }
-    smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_ifAbsentPut_", [smalltalk.send(aNode, "_selector", []), function () {return smalltalk.send(smalltalk.Set || Set, "_new", []);}]);
-    smalltalk.send(smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_", [smalltalk.send(aNode, "_selector", [])]), "_add_", [aNode]);
-    smalltalk.send(aNode, "_index_", [smalltalk.send(smalltalk.send(smalltalk.send(self, "_messageSends", []), "_at_", [smalltalk.send(aNode, "_selector", [])]), "_size", [])]);
-    smalltalk.send(self, "_visitSendNode_", [aNode], smalltalk.NodeVisitor);
-    return self;
-}
+fn: function (aNode){
+var self=this;
+var $1,$2;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_value",[]),"__eq",["super"]);
+if(smalltalk.assert($1)){
+smalltalk.send(aNode,"_superSend_",[true]);
+smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_value_",["self"]);
+} else {
+$2=smalltalk.send(smalltalk.send((smalltalk.IRSendInliner || IRSendInliner),"_inlinedSelectors",[]),"_includes_",[smalltalk.send(aNode,"_selector",[])]);
+if(smalltalk.assert($2)){
+smalltalk.send(aNode,"_shouldBeInlined_",[true]);
+smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeAliased_",[true]);
+};
+};
+smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_at_ifAbsentPut_",[smalltalk.send(aNode,"_selector",[]),(function(){
+return smalltalk.send((smalltalk.Set || Set),"_new",[]);
+})]);
+smalltalk.send(smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_at_",[smalltalk.send(aNode,"_selector",[])]),"_add_",[aNode]);
+smalltalk.send(aNode,"_index_",[smalltalk.send(smalltalk.send(smalltalk.send(self,"_messageSends",[]),"_at_",[smalltalk.send(aNode,"_selector",[])]),"_size",[])]);
+smalltalk.send(self,"_visitSendNode_",[aNode],smalltalk.NodeVisitor);
+return self}
 }),
 smalltalk.SemanticAnalyzer);
 
