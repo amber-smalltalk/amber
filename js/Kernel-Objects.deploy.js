@@ -661,16 +661,11 @@ smalltalk.addMethod(
 "_try_catch_",
 smalltalk.method({
 selector: "try:catch:",
-fn: function (aBlock, anotherBlock) {
-    var self = this;
-    try {
-        result = aBlock();
-    } catch (e) {
-        result = anotherBlock(e);
-    }
-    return result;
-    return self;
-}
+fn: function (aBlock,anotherBlock){
+var self=this;
+try{return aBlock()} catch(e) {return anotherBlock(e)};
+;
+return self}
 }),
 smalltalk.Object);
 
