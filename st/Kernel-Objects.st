@@ -201,8 +201,7 @@ throw: anObject
 !
 
 try: aBlock catch: anotherBlock
-	<try{result = aBlock()} catch(e) {result = anotherBlock(e)};
-	return result;>
+	<try{return aBlock()} catch(e) {return anotherBlock(e)}>
 ! !
 
 !Object methodsFor: 'initialization'!

@@ -145,7 +145,9 @@ selector: "instruction",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@instruction"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@instruction"];
+return $1;
 }, self, "instruction", [], smalltalk.LexicalScope)},
 args: [],
 source: "instruction\x0a\x09^ instruction",
@@ -231,8 +233,8 @@ selector: "lookupVariable:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.lookup=nil;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$ctx1.locals.lookup=nil;
 $ctx1.locals.lookup=_st(self)._bindingFor_(aNode);
 if(($receiver = $ctx1.locals.lookup) == nil || $receiver == undefined){
 $1=_st(self)._outerScope();
@@ -245,7 +247,8 @@ $ctx1.locals.lookup;
 } else {
 $ctx1.locals.lookup;
 };
-return $ctx1.locals.lookup;
+$2=$ctx1.locals.lookup;
+return $2;
 }, self, "lookupVariable:", [aNode], smalltalk.LexicalScope)},
 args: ["aNode"],
 source: "lookupVariable: aNode\x0a\x09| lookup |\x0a\x09lookup := (self bindingFor: aNode).\x0a\x09lookup ifNil: [\x0a\x09\x09lookup := self outerScope ifNotNil: [ \x0a\x09\x09\x09(self outerScope lookupVariable: aNode) ]].\x0a\x09^ lookup",
@@ -284,7 +287,9 @@ selector: "node",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@node"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@node"];
+return $1;
 }, self, "node", [], smalltalk.LexicalScope)},
 args: [],
 source: "node\x0a\x09\x22Answer the node in which I am defined\x22\x0a\x09\x0a\x09^ node",
@@ -316,7 +321,9 @@ selector: "outerScope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@outerScope"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@outerScope"];
+return $1;
 }, self, "outerScope", [], smalltalk.LexicalScope)},
 args: [],
 source: "outerScope\x0a\x09^ outerScope",
@@ -627,7 +634,9 @@ selector: "methodScope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self;
+return $1;
 }, self, "methodScope", [], smalltalk.MethodLexicalScope)},
 args: [],
 source: "methodScope\x0a\x09^ self",
@@ -666,7 +675,7 @@ selector: "pseudoVars",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 if(($receiver = self["@pseudoVars"]) == nil || $receiver == undefined){
 self["@pseudoVars"]=_st((smalltalk.Dictionary || Dictionary))._new();
 self["@pseudoVars"];
@@ -679,7 +688,8 @@ return _st(self["@pseudoVars"])._at_put_(each,$2);
 } else {
 self["@pseudoVars"];
 };
-return self["@pseudoVars"];
+$3=self["@pseudoVars"];
+return $3;
 }, self, "pseudoVars", [], smalltalk.MethodLexicalScope)},
 args: [],
 source: "pseudoVars\x0a\x09pseudoVars ifNil: [\x0a\x09\x09pseudoVars := Dictionary new.\x0a\x09\x09Smalltalk current pseudoVariableNames do: [ :each |\x0a\x09\x09\x09pseudoVars at: each put: ((PseudoVar on: each)\x0a\x09\x09\x09\x09scope: self methodScope;\x0a\x09\x09\x09\x09yourself) ]].\x0a\x09^ pseudoVars",
@@ -853,7 +863,9 @@ selector: "name",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@name"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@name"];
+return $1;
 }, self, "name", [], smalltalk.ScopeVar)},
 args: [],
 source: "name\x0a\x09^ name",
@@ -885,7 +897,9 @@ selector: "scope",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@scope"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@scope"];
+return $1;
 }, self, "scope", [], smalltalk.ScopeVar)},
 args: [],
 source: "scope\x0a\x09^ scope",
@@ -967,7 +981,9 @@ selector: "node",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@node"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@node"];
+return $1;
 }, self, "node", [], smalltalk.AliasVar)},
 args: [],
 source: "node\x0a\x09^ node",
@@ -1420,7 +1436,9 @@ selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@theClass"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
 }, self, "theClass", [], smalltalk.SemanticAnalyzer)},
 args: [],
 source: "theClass\x0a\x09^ theClass",
@@ -1562,7 +1580,7 @@ selector: "visitMethodNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st(self)._pushScope_(_st(self)._newMethodScope());
 _st(aNode)._scope_(self["@currentScope"]);
 _st(self["@currentScope"])._node_(aNode);
@@ -1574,9 +1592,10 @@ return smalltalk.withContext(function($ctx2) { _st(self)._validateVariableScope
 return _st(self["@currentScope"])._addArg_(each);
 })}));
 smalltalk.NodeVisitor.fn.prototype._visitMethodNode_.apply(_st(self), [aNode]);
-_st(aNode)._classReferences_(_st(self)._classReferences());
-_st(aNode)._messageSends_(_st(_st(self)._messageSends())._keys());
-$1=_st(aNode)._superSends_(_st(_st(self)._superSends())._keys());
+$1=aNode;
+_st($1)._classReferences_(_st(self)._classReferences());
+_st($1)._messageSends_(_st(_st(self)._messageSends())._keys());
+$2=_st($1)._superSends_(_st(_st(self)._superSends())._keys());
 _st(self)._popScope();
 return self}, self, "visitMethodNode:", [aNode], smalltalk.SemanticAnalyzer)},
 args: ["aNode"],
@@ -1617,7 +1636,7 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(_st(_st(aNode)._receiver())._value()).__eq("super");
 if(smalltalk.assert($1)){
 _st(aNode)._superSend_(true);
@@ -1630,10 +1649,7 @@ _st(_st(_st(self)._superSends())._at_(_st(aNode)._selector()))._add_(aNode);
 $2=_st(_st((smalltalk.IRSendInliner || IRSendInliner))._inlinedSelectors())._includes_(_st(aNode)._selector());
 if(smalltalk.assert($2)){
 _st(aNode)._shouldBeInlined_(true);
-$3=_st(_st(aNode)._receiver())._isValueNode();
-if(! smalltalk.assert($3)){
 _st(_st(aNode)._receiver())._shouldBeAliased_(true);
-};
 };
 };
 _st(_st(self)._messageSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
@@ -1644,8 +1660,8 @@ _st(aNode)._index_(_st(_st(_st(self)._messageSends())._at_(_st(aNode)._selector(
 smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 return self}, self, "visitSendNode:", [aNode], smalltalk.SemanticAnalyzer)},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a          \x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver isValueNode ifFalse: [ aNode receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
-messageSends: ["ifTrue:ifFalse:", "superSend:", "value:", "receiver", "at:ifAbsentPut:", "selector", "new", "superSends", "add:", "at:", "ifTrue:", "shouldBeInlined:", "ifFalse:", "shouldBeAliased:", "isValueNode", "includes:", "inlinedSelectors", "=", "value", "messageSends", "index:", "size", "visitSendNode:"],
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super' \x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a          \x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver shouldBeAliased: true ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
+messageSends: ["ifTrue:ifFalse:", "superSend:", "value:", "receiver", "at:ifAbsentPut:", "selector", "new", "superSends", "add:", "at:", "ifTrue:", "shouldBeInlined:", "shouldBeAliased:", "includes:", "inlinedSelectors", "=", "value", "messageSends", "index:", "size", "visitSendNode:"],
 referencedClasses: ["Set", "IRSendInliner"]
 }),
 smalltalk.SemanticAnalyzer);
@@ -1677,18 +1693,19 @@ selector: "visitVariableNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$1;
-$2=_st(self["@currentScope"])._lookupVariable_(aNode);
-if(($receiver = $2) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$2;
+$1=aNode;
+$3=_st(self["@currentScope"])._lookupVariable_(aNode);
+if(($receiver = $3) == nil || $receiver == undefined){
 _st(self)._errorUnknownVariable_(aNode);
-$3=_st((smalltalk.UnknownVar || UnknownVar))._new();
-_st($3)._name_(_st(aNode)._value());
-$4=_st($3)._yourself();
-$1=$4;
+$4=_st((smalltalk.UnknownVar || UnknownVar))._new();
+_st($4)._name_(_st(aNode)._value());
+$5=_st($4)._yourself();
+$2=$5;
 } else {
-$1=$2;
+$2=$3;
 };
-_st(aNode)._binding_($1);
+_st($1)._binding_($2);
 return self}, self, "visitVariableNode:", [aNode], smalltalk.SemanticAnalyzer)},
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09\x22Bind a ScopeVar to aNode by doing a lookup in the current scope.\x0a\x09If no ScopeVar is found, bind a UnknowVar and throw an error\x22\x0a\x0a\x09aNode binding: ((currentScope lookupVariable: aNode) ifNil: [ \x0a\x09\x09self errorUnknownVariable: aNode.\x0a\x09\x09UnknownVar new name: aNode value; yourself ])",

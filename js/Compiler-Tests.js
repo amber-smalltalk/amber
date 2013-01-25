@@ -260,6 +260,23 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testSendReceiverAndArgumentsOrdered",
+smalltalk.method({
+selector: "testSendReceiverAndArgumentsOrdered",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a",[(1), (2)]]);
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a",[(smalltalk.Array || Array),(2)]]);
+return self},
+args: [],
+source: "testSendReceiverAndArgumentsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a' return: #(1 2).\x0a\x0a\x09self should: 'foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a' return: {Array. 2}.\x0a",
+messageSends: ["should:return:"],
+referencedClasses: ["Array"]
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testifFalse",
 smalltalk.method({
 selector: "testifFalse",

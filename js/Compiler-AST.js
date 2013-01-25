@@ -84,6 +84,22 @@ referencedClasses: []
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isImmutable\x0a\x09^false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_isReturnNode",
 smalltalk.method({
 selector: "isReturnNode",
@@ -1464,6 +1480,24 @@ referencedClasses: []
 smalltalk.ValueNode);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+var $1;
+$1=true;
+return $1;
+},
+args: [],
+source: "isImmutable\x0a\x09^true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ValueNode);
+
+smalltalk.addMethod(
 "_isValueNode",
 smalltalk.method({
 selector: "isValueNode",
@@ -1632,6 +1666,22 @@ return smalltalk.withContext(function($ctx1) { self["@binding"]=aScopeVar;
 return self}, self, "binding:", [aScopeVar], smalltalk.VariableNode)},
 args: ["aScopeVar"],
 source: "binding: aScopeVar\x0a\x09binding := aScopeVar",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.VariableNode);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return false;
+},
+args: [],
+source: "isImmutable\x0a\x09^false",
 messageSends: [],
 referencedClasses: []
 }),

@@ -61,6 +61,10 @@ isBlockSequenceNode
 	^false
 !
 
+isImmutable
+	^false
+!
+
 isReturnNode
 	^false
 !
@@ -464,6 +468,10 @@ value: anObject
 
 !ValueNode methodsFor: 'testing'!
 
+isImmutable
+	^true
+!
+
 isValueNode
 	^true
 ! !
@@ -503,6 +511,12 @@ binding
 
 binding: aScopeVar
 	binding := aScopeVar
+! !
+
+!VariableNode methodsFor: 'testing'!
+
+isImmutable
+	^false
 ! !
 
 !VariableNode methodsFor: 'visiting'!

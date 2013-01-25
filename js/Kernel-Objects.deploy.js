@@ -657,8 +657,7 @@ smalltalk.method({
 selector: "try:catch:",
 fn: function (aBlock,anotherBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { try{result = aBlock()} catch(e) {result = anotherBlock(e)};
-	return result;;
+return smalltalk.withContext(function($ctx1) { try{return aBlock()} catch(e) {return anotherBlock(e)};
 ;
 return self}, self, "try:catch:", [aBlock,anotherBlock], smalltalk.Object)}
 }),
@@ -980,7 +979,7 @@ selector: "category:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.oldCategory=nil;
+$ctx1.locals.oldCategory=nil;
 $ctx1.locals.oldCategory=_st(self)._category();
 _st(self)._basicAt_put_("category",aString);
 $1=_st(self)._methodClass();
