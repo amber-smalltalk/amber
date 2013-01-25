@@ -60,7 +60,7 @@ withSequence: aSequence do: aBlock
 alias: aNode
 	| variable |
 
-	aNode isValueNode ifTrue: [ ^ self visit: aNode ].
+	aNode isImmutable ifTrue: [ ^ self visit: aNode ].
 
 	variable := IRVariable new 
 		variable: (AliasVar new name: '$', self nextAlias); 
@@ -74,6 +74,23 @@ alias: aNode
 	self method internalVariables add: variable.
 
 	^ variable
+!
+
+temporallyDependentList: nodes
+	| threshold result |
+    threshold := 0.
+    
+    nodes withIndexDo: [ :each :i |
+        (each shouldBeInlined or: [ each shouldBeAliased ])
+		    ifTrue: [ threshold := i ]].
+
+	result := OrderedCollection new.
+	nodes withIndexDo: [ :each :i | 
+		result add: (i <= threshold
+			ifTrue: [ self alias: each ]
+			ifFalse: [ self visit: each ])].
+
+    ^result
 !
 
 visitAssignmentNode: aNode
@@ -116,7 +133,7 @@ visitBlockSequenceNode: aNode
 visitCascadeNode: aNode
 	| alias |
 
-	aNode receiver isValueNode ifFalse: [ 
+	aNode receiver isImmutable ifFalse: [ 
 		alias := self alias: aNode receiver.
 		aNode nodes do: [ :each |
 			each receiver: (VariableNode new binding: alias variable) ]].
@@ -185,21 +202,16 @@ visitReturnNode: aNode
 !
 
 visitSendNode: aNode
-	| send receiver arguments |
+	| send all receiver arguments |
 	send := IRSend new.
 	send 
 		selector: aNode selector;
 		index: aNode index.
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
-
-	receiver := (aNode receiver shouldBeInlined or: [ aNode receiver shouldBeAliased ])
-		ifTrue: [ self alias: aNode receiver ]
-		ifFalse: [ self visit: aNode receiver ].
-
-	arguments := aNode arguments collect: [ :each | 
-		each shouldBeInlined
-			ifTrue: [ self alias: each ]
-			ifFalse: [ self visit: each ]].
+    
+    all := self temporallyDependentList: { aNode receiver }, aNode arguments.
+	receiver := all first.
+	arguments := all allButFirst.
 
 	send add: receiver.
 	arguments do: [ :each | send add: each ].

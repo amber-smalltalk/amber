@@ -58,6 +58,17 @@ return false;
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return false;
+}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_isReturnNode",
 smalltalk.method({
 selector: "isReturnNode",
@@ -1007,6 +1018,19 @@ return $1;
 smalltalk.ValueNode);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+var $1;
+$1=true;
+return $1;
+}
+}),
+smalltalk.ValueNode);
+
+smalltalk.addMethod(
 "_isValueNode",
 smalltalk.method({
 selector: "isValueNode",
@@ -1127,6 +1151,17 @@ fn: function (aScopeVar){
 var self=this;
 self["@binding"]=aScopeVar;
 return self}
+}),
+smalltalk.VariableNode);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return false;
+}
 }),
 smalltalk.VariableNode);
 

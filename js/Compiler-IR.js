@@ -10,7 +10,7 @@ fn: function (aNode){
 var self=this;
 var $1,$2,$3,$4,$5,$6;
 var variable;
-$1=smalltalk.send(aNode,"_isValueNode",[]);
+$1=smalltalk.send(aNode,"_isImmutable",[]);
 if(smalltalk.assert($1)){
 $2=smalltalk.send(self,"_visit_",[aNode]);
 return $2;
@@ -28,8 +28,8 @@ smalltalk.send(smalltalk.send(smalltalk.send(self,"_method",[]),"_internalVariab
 return variable;
 },
 args: ["aNode"],
-source: "alias: aNode\x0a\x09| variable |\x0a\x0a\x09aNode isValueNode ifTrue: [ ^ self visit: aNode ].\x0a\x0a\x09variable := IRVariable new \x0a\x09\x09variable: (AliasVar new name: '$', self nextAlias); \x0a\x09\x09yourself.\x0a\x0a\x09self sequence add: (IRAssignment new\x0a\x09\x09add: variable;\x0a\x09\x09add: (self visit: aNode);\x0a\x09\x09yourself).\x0a\x0a\x09self method internalVariables add: variable.\x0a\x0a\x09^ variable",
-messageSends: ["ifTrue:", "visit:", "isValueNode", "variable:", "name:", ",", "nextAlias", "new", "yourself", "add:", "sequence", "internalVariables", "method"],
+source: "alias: aNode\x0a\x09| variable |\x0a\x0a\x09aNode isImmutable ifTrue: [ ^ self visit: aNode ].\x0a\x0a\x09variable := IRVariable new \x0a\x09\x09variable: (AliasVar new name: '$', self nextAlias); \x0a\x09\x09yourself.\x0a\x0a\x09self sequence add: (IRAssignment new\x0a\x09\x09add: variable;\x0a\x09\x09add: (self visit: aNode);\x0a\x09\x09yourself).\x0a\x0a\x09self method internalVariables add: variable.\x0a\x0a\x09^ variable",
+messageSends: ["ifTrue:", "visit:", "isImmutable", "variable:", "name:", ",", "nextAlias", "new", "yourself", "add:", "sequence", "internalVariables", "method"],
 referencedClasses: ["AliasVar", "IRVariable", "IRAssignment"]
 }),
 smalltalk.IRASTTranslator);
@@ -152,6 +152,45 @@ args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.IRASTTranslator);
+
+smalltalk.addMethod(
+"_temporallyDependentList_",
+smalltalk.method({
+selector: "temporallyDependentList:",
+category: 'visiting',
+fn: function (nodes){
+var self=this;
+var $1,$3,$2;
+var threshold;
+var result;
+threshold=(0);
+smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
+$1=smalltalk.send(smalltalk.send(each,"_shouldBeInlined",[]),"_or_",[(function(){
+return smalltalk.send(each,"_shouldBeAliased",[]);
+})]);
+if(smalltalk.assert($1)){
+threshold=i;
+return threshold;
+};
+})]);
+result=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
+smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
+$3=smalltalk.send(i,"__lt_eq",[threshold]);
+if(smalltalk.assert($3)){
+$2=smalltalk.send(self,"_alias_",[each]);
+} else {
+$2=smalltalk.send(self,"_visit_",[each]);
+};
+return smalltalk.send(result,"_add_",[$2]);
+})]);
+return result;
+},
+args: ["nodes"],
+source: "temporallyDependentList: nodes\x0a\x09| threshold result |\x0a    threshold := 0.\x0a    \x0a    nodes withIndexDo: [ :each :i |\x0a        (each shouldBeInlined or: [ each shouldBeAliased ])\x0a\x09\x09    ifTrue: [ threshold := i ]].\x0a\x0a\x09result := OrderedCollection new.\x0a\x09nodes withIndexDo: [ :each :i | \x0a\x09\x09result add: (i <= threshold\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ])].\x0a\x0a    ^result\x0a",
+messageSends: ["withIndexDo:", "ifTrue:", "or:", "shouldBeAliased", "shouldBeInlined", "new", "add:", "ifTrue:ifFalse:", "alias:", "visit:", "<="],
+referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.IRASTTranslator);
 
@@ -288,7 +327,7 @@ fn: function (aNode){
 var self=this;
 var $1,$2;
 var alias;
-$1=smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_isValueNode",[]);
+$1=smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_isImmutable",[]);
 if(! smalltalk.assert($1)){
 alias=smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
 alias;
@@ -303,8 +342,8 @@ $2=smalltalk.send(self,"_alias_",[smalltalk.send(smalltalk.send(aNode,"_nodes",[
 return $2;
 },
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09| alias |\x0a\x0a\x09aNode receiver isValueNode ifFalse: [ \x0a\x09\x09alias := self alias: aNode receiver.\x0a\x09\x09aNode nodes do: [ :each |\x0a\x09\x09\x09each receiver: (VariableNode new binding: alias variable) ]].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self alias: aNode nodes last",
-messageSends: ["ifFalse:", "alias:", "receiver", "do:", "receiver:", "binding:", "variable", "new", "nodes", "isValueNode", "add:", "visit:", "sequence", "allButLast", "last"],
+source: "visitCascadeNode: aNode\x0a\x09| alias |\x0a\x0a\x09aNode receiver isImmutable ifFalse: [ \x0a\x09\x09alias := self alias: aNode receiver.\x0a\x09\x09aNode nodes do: [ :each |\x0a\x09\x09\x09each receiver: (VariableNode new binding: alias variable) ]].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self alias: aNode nodes last",
+messageSends: ["ifFalse:", "alias:", "receiver", "do:", "receiver:", "binding:", "variable", "new", "nodes", "isImmutable", "add:", "visit:", "sequence", "allButLast", "last"],
 referencedClasses: ["VariableNode"]
 }),
 smalltalk.IRASTTranslator);
@@ -450,8 +489,9 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-var $1,$2,$3,$4;
+var $1,$2;
 var send;
+var all;
 var receiver;
 var arguments;
 send=smalltalk.send((smalltalk.IRSend || IRSend),"_new",[]);
@@ -461,22 +501,9 @@ $2=smalltalk.send(aNode,"_superSend",[]);
 if(smalltalk.assert($2)){
 smalltalk.send(send,"_classSend_",[smalltalk.send(smalltalk.send(self,"_theClass",[]),"_superclass",[])]);
 };
-$3=smalltalk.send(smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeInlined",[]),"_or_",[(function(){
-return smalltalk.send(smalltalk.send(aNode,"_receiver",[]),"_shouldBeAliased",[]);
-})]);
-if(smalltalk.assert($3)){
-receiver=smalltalk.send(self,"_alias_",[smalltalk.send(aNode,"_receiver",[])]);
-} else {
-receiver=smalltalk.send(self,"_visit_",[smalltalk.send(aNode,"_receiver",[])]);
-};
-arguments=smalltalk.send(smalltalk.send(aNode,"_arguments",[]),"_collect_",[(function(each){
-$4=smalltalk.send(each,"_shouldBeInlined",[]);
-if(smalltalk.assert($4)){
-return smalltalk.send(self,"_alias_",[each]);
-} else {
-return smalltalk.send(self,"_visit_",[each]);
-};
-})]);
+all=smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send([smalltalk.send(aNode,"_receiver",[])],"__comma",[smalltalk.send(aNode,"_arguments",[])])]);
+receiver=smalltalk.send(all,"_first",[]);
+arguments=smalltalk.send(all,"_allButFirst",[]);
 smalltalk.send(send,"_add_",[receiver]);
 smalltalk.send(arguments,"_do_",[(function(each){
 return smalltalk.send(send,"_add_",[each]);
@@ -484,8 +511,8 @@ return smalltalk.send(send,"_add_",[each]);
 return send;
 },
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| send receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a\x0a\x09receiver := (aNode receiver shouldBeInlined or: [ aNode receiver shouldBeAliased ])\x0a\x09\x09ifTrue: [ self alias: aNode receiver ]\x0a\x09\x09ifFalse: [ self visit: aNode receiver ].\x0a\x0a\x09arguments := aNode arguments collect: [ :each | \x0a\x09\x09each shouldBeInlined\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ]].\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
-messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "classSend:", "superclass", "theClass", "superSend", "ifTrue:ifFalse:", "alias:", "receiver", "visit:", "or:", "shouldBeAliased", "shouldBeInlined", "collect:", "arguments", "add:", "do:"],
+source: "visitSendNode: aNode\x0a\x09| send all receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a    \x0a    all := self temporallyDependentList: { aNode receiver }, aNode arguments.\x0a\x09receiver := all first.\x0a\x09arguments := all allButFirst.\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send\x0a",
+messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "classSend:", "superclass", "theClass", "superSend", "temporallyDependentList:", ",", "arguments", "receiver", "first", "allButFirst", "add:", "do:"],
 referencedClasses: ["IRSend"]
 }),
 smalltalk.IRASTTranslator);
