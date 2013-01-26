@@ -78,18 +78,27 @@ testDynamicDictionaryElementsOrdered
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
-testDynamicDictionaryInnerElementsOrdered
-"This test is commented out.
-The treatment that help in case of send node,
-dynamic array node and testDynamicDictionaryElementsOrdered
-cases, does not help here"
-
-"	self should: 'foo
+testInnerTemporalDependentElementsOrdered
+	self should: 'foo
+  | x |
+  x := Array.
+  ^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
+' return: {'foo'->Array. 'bar'->2}.
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
+' return: {'foo'->1. 'bar'->2}.
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
+' return: {'foo'->1. 'bar'->2}.
+	self should: 'foo
   | x |
   x := 1.
   ^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
 ' return: #{'foo'->1. 'bar'->2}.
-"
 !
 
 testLiterals
