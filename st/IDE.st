@@ -165,7 +165,8 @@ handleError: anError
 !DebugErrorHandler class methodsFor: 'initialization'!
 
 initialize
-	self register
+	self register.
+    Smalltalk current setupGlobalErrorHandler
 ! !
 
 Widget subclass: #SourceArea

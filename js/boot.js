@@ -62,25 +62,25 @@ function SmalltalkSymbol(string){
 };
 
 function SmalltalkOrganizer() {
-    this.elements = [];
+	this.elements = [];
 };
 
 SmalltalkOrganizer.prototype.addElement = function(el) {
-    if(typeof el === 'undefined' || el === nil) {
-        return false;
-    }
-    if(this.elements.indexOf(el) == -1) {
-        this.elements.push(el);
-    }
+	if(typeof el === 'undefined' || el === nil) {
+		return false;
+	}
+	if(this.elements.indexOf(el) == -1) {
+		this.elements.push(el);
+	}
 };
 
 SmalltalkOrganizer.prototype.removeElement = function(el) {
-    for(var i=0; i<this.elements.length; i++) {
-        if(this.elements[i] == el) {
-            this.elements.splice(i, 1);
-            break;
-        }
-    }
+	for(var i=0; i<this.elements.length; i++) {
+		if(this.elements[i] == el) {
+			this.elements.splice(i, 1);
+			break;
+		}
+	}
 };
 
 
@@ -354,13 +354,13 @@ function Smalltalk(){
 			});
 		}
 
-        pkg.organization.addElement(st[className]);
+		pkg.organization.addElement(st[className]);
 	};
 
-    st.removeClass = function(klass) {
-        klass.pkg.organization.removeElement(klass);
-        delete st[klass.className];
-    };
+	st.removeClass = function(klass) {
+		klass.pkg.organization.removeElement(klass);
+		delete st[klass.className];
+	};
 
 	/* Add/remove a method to/from a class */
 
@@ -372,12 +372,12 @@ function Smalltalk(){
 		method.methodClass = klass;
 		method.jsSelector = jsSelector;
 
-        klass.organization.addElement(method.category);
+		klass.organization.addElement(method.category);
 	};
 
-    st.removeMethod = function(method) {
-        var protocol = method.category;
-        var klass = method.methodClass;
+	st.removeMethod = function(method) {
+		var protocol = method.category;
+		var klass = method.methodClass;
 		var methods = klass.fn.prototype.methods;
 
 		delete klass.fn.prototype[method.selector._asSelector()];
@@ -386,15 +386,15 @@ function Smalltalk(){
 		var selectors = Object.keys(methods);
 		var shouldDeleteProtocol = true;
 		for(var i= 0, l = selectors.length; i<l; i++) {
-            if(methods[selectors[i]].category === protocol) {
-                shouldDeleteProtocol = false;
+			if(methods[selectors[i]].category === protocol) {
+				shouldDeleteProtocol = false;
 				break;
-            };
-        };
-        if(shouldDeleteProtocol) {
-            klass.organization.removeElement(protocol)
-        };
-    };
+			};
+		};
+		if(shouldDeleteProtocol) {
+			klass.organization.removeElement(protocol)
+		};
+	};
 
 	/* Handles unhandled errors during message sends */
 
@@ -435,9 +435,28 @@ function Smalltalk(){
 	   (See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        if(!error.cc) {
-		    smalltalk.ErrorHandler._current()._handleError_(error);
-        }
+		if(!error.cc) {
+			smalltalk.ErrorHandler._current()._handleError_(error);
+		}
+	};
+
+	/*
+	   Catch JavaScript errors and signal them as Smalltalk Error object.
+	 */
+	st.setupGlobalErrorHandler = function() {
+		if ('undefined' !== typeof window) {
+			// Amber is running in the browser
+			// store old window.onerror handler if we are running in a browser
+			var oldOnError = window.onerror;
+			window.onerror = function(errorMessage, url, lineNumber) {
+				smalltalk.Error._signal_('JavaScript error: ' + errorMessage + ' (' + url + ':' + lineNumber + ')');
+				// call the old handler if it was overwritten by Amber
+				if (oldOnError) {
+					return oldOnError(errorMessage, url, lineNumber);
+				}
+				return false;
+			};
+		}
 	};
 
 	/* Handles #dnu: *and* JavaScript method calls.
@@ -463,9 +482,9 @@ function Smalltalk(){
 	/* Call a method of a JS object, or answer a property if it exists.
 	   Else try wrapping a JSObjectProxy around the receiver.
 
-       If the object property is a function, then call it, except if it starts with
-       an uppercase character (we probably want to answer the function itself in this 
-       case and send it #new from Amber).
+	   If the object property is a function, then call it, except if it starts with
+	   an uppercase character (we probably want to answer the function itself in this 
+	   case and send it #new from Amber).
 
 	   Converts keyword-based selectors by using the first
 	   keyword only, but keeping all message arguments.
@@ -511,9 +530,9 @@ function Smalltalk(){
 		}
 		st.oldContext = null;
 		c.homeContext = tc;
-        c.pc          = 1;
+		c.pc          = 1;
 		c.receiver    = receiver;
-        c.selector    = selector;
+		c.selector    = selector;
 		c.method      = method;
 		c.temps       = temps || {};
 		return st.thisContext = c;
@@ -575,19 +594,19 @@ function Smalltalk(){
 		return object;
 	};
 
-    /* Boolean assertion */
-    st.assert = function(shouldBeBoolean) {
-        if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
-            return shouldBeBoolean;
-        } else {
-            smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
-        }
-    }
+	/* Boolean assertion */
+	st.assert = function(shouldBeBoolean) {
+		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
+			return shouldBeBoolean;
+		} else {
+			smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+		}
+	}
 };
 
 function SmalltalkMethodContext(receiver, selector, method, temps, home) {
 	this.receiver    = receiver;
-    this.selector    = selector;
+	this.selector    = selector;
 	this.method      = method;
 	this.temps       = temps || {};
 	this.homeContext = home;
@@ -598,7 +617,7 @@ SmalltalkMethodContext.prototype.copy = function() {
 	if(home) {home = home.copy()}
 	return new SmalltalkMethodContext(
 		this.receiver, 
-        this.selector,
+		this.selector,
 		this.method, 
 		this.temps, 
 		home
@@ -606,9 +625,9 @@ SmalltalkMethodContext.prototype.copy = function() {
 };
 
 SmalltalkMethodContext.prototype.resume = function() {
-    //Brutally set the receiver as thisContext, then re-enter the function
-    smalltalk.thisContext = this;
-    return this.method.apply(receiver, temps);
+	//Brutally set the receiver as thisContext, then re-enter the function
+	smalltalk.thisContext = this;
+	return this.method.apply(receiver, temps);
 };
 
 /* Global Smalltalk objects. */

@@ -3126,6 +3126,18 @@ fn: function (aSelector, anObject, aCollection) {
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+"_setupGlobalErrorHandler",
+smalltalk.method({
+selector: "setupGlobalErrorHandler",
+fn: function (){
+var self=this;
+return self.setupGlobalErrorHandler();
+;
+return self}
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
