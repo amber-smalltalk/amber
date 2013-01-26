@@ -164,6 +164,53 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testDynamicArrayElementsOrdered",
+smalltalk.method({
+selector: "testDynamicArrayElementsOrdered",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a",[(1), (2)]]);
+return self},
+args: [],
+source: "testDynamicArrayElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a' return: #(1 2).\x0a",
+messageSends: ["should:return:"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
+"_testDynamicDictionaryElementsOrdered",
+smalltalk.method({
+selector: "testDynamicDictionaryElementsOrdered",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := 'foo'->1.\x0a  ^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([smalltalk.send("foo","__minus_gt",[(1)]),smalltalk.send("bar","__minus_gt",[(2)])])]);
+return self},
+args: [],
+source: "testDynamicDictionaryElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := ''foo''->1.\x0a  ^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.\x0a",
+messageSends: ["should:return:", "->"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
+"_testDynamicDictionaryInnerElementsOrdered",
+smalltalk.method({
+selector: "testDynamicDictionaryInnerElementsOrdered",
+category: 'tests',
+fn: function (){
+var self=this;
+return self},
+args: [],
+source: "testDynamicDictionaryInnerElementsOrdered\x0a\x22This test is commented out.\x0aThe treatment that help in case of send node,\x0adynamic array node and testDynamicDictionaryElementsOrdered\x0acases, does not help here\x22\x0a\x0a\x22\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.\x0a\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testLiterals",
 smalltalk.method({
 selector: "testLiterals",

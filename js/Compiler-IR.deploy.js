@@ -278,12 +278,14 @@ smalltalk.method({
 selector: "visitDynamicArrayNode:",
 fn: function (aNode){
 var self=this;
+var $1;
 var array;
 array=smalltalk.send((smalltalk.IRDynamicArray || IRDynamicArray),"_new",[]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(array,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+smalltalk.send(smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send(aNode,"_nodes",[])]),"_do_",[(function(each){
+return smalltalk.send(array,"_add_",[each]);
 })]);
-return array;
+$1=array;
+return $1;
 }
 }),
 smalltalk.IRASTTranslator);
@@ -294,12 +296,14 @@ smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 fn: function (aNode){
 var self=this;
+var $1;
 var dictionary;
 dictionary=smalltalk.send((smalltalk.IRDynamicDictionary || IRDynamicDictionary),"_new",[]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(dictionary,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+smalltalk.send(smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send(aNode,"_nodes",[])]),"_do_",[(function(each){
+return smalltalk.send(dictionary,"_add_",[each]);
 })]);
-return dictionary;
+$1=dictionary;
+return $1;
 }
 }),
 smalltalk.IRASTTranslator);

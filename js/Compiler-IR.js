@@ -355,16 +355,18 @@ selector: "visitDynamicArrayNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+var $1;
 var array;
 array=smalltalk.send((smalltalk.IRDynamicArray || IRDynamicArray),"_new",[]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(array,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+smalltalk.send(smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send(aNode,"_nodes",[])]),"_do_",[(function(each){
+return smalltalk.send(array,"_add_",[each]);
 })]);
-return array;
+$1=array;
+return $1;
 },
 args: ["aNode"],
-source: "visitDynamicArrayNode: aNode\x0a\x09| array |\x0a\x09array := IRDynamicArray new.\x0a\x09aNode nodes do: [ :each | array add: (self visit: each) ].\x0a\x09^ array",
-messageSends: ["new", "do:", "add:", "visit:", "nodes"],
+source: "visitDynamicArrayNode: aNode\x0a\x09| array |\x0a\x09array := IRDynamicArray new.\x0a\x09(self temporallyDependentList: aNode nodes) do: [:each | array add: each].\x0a\x09^ array",
+messageSends: ["new", "do:", "add:", "temporallyDependentList:", "nodes"],
 referencedClasses: ["IRDynamicArray"]
 }),
 smalltalk.IRASTTranslator);
@@ -376,16 +378,18 @@ selector: "visitDynamicDictionaryNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+var $1;
 var dictionary;
 dictionary=smalltalk.send((smalltalk.IRDynamicDictionary || IRDynamicDictionary),"_new",[]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(dictionary,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+smalltalk.send(smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send(aNode,"_nodes",[])]),"_do_",[(function(each){
+return smalltalk.send(dictionary,"_add_",[each]);
 })]);
-return dictionary;
+$1=dictionary;
+return $1;
 },
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09| dictionary |\x0a\x09dictionary := IRDynamicDictionary new.\x0a\x09aNode nodes do: [ :each | dictionary add: (self visit: each) ].\x0a\x09^ dictionary",
-messageSends: ["new", "do:", "add:", "visit:", "nodes"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09| dictionary |\x0a\x09dictionary := IRDynamicDictionary new.\x0a    (self temporallyDependentList: aNode nodes) do: [:each | dictionary add: each].\x0a\x09^ dictionary",
+messageSends: ["new", "do:", "add:", "temporallyDependentList:", "nodes"],
 referencedClasses: ["IRDynamicDictionary"]
 }),
 smalltalk.IRASTTranslator);

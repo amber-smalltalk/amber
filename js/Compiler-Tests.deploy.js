@@ -119,6 +119,38 @@ fn: function () {
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testDynamicArrayElementsOrdered",
+smalltalk.method({
+selector: "testDynamicArrayElementsOrdered",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a",[(1), (2)]]);
+return self}
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
+"_testDynamicDictionaryElementsOrdered",
+smalltalk.method({
+selector: "testDynamicDictionaryElementsOrdered",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_return_",["foo\x0a  | x |\x0a  x := 'foo'->1.\x0a  ^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([smalltalk.send("foo","__minus_gt",[(1)]),smalltalk.send("bar","__minus_gt",[(2)])])]);
+return self}
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
+"_testDynamicDictionaryInnerElementsOrdered",
+smalltalk.method({
+selector: "testDynamicDictionaryInnerElementsOrdered",
+fn: function (){
+var self=this;
+return self}
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testLiterals",
 smalltalk.method({
 selector: "testLiterals",
