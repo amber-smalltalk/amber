@@ -88,7 +88,7 @@ value
 !
 
 yourself
-	^self
+	<return self.valueOf()>
 ! !
 
 !Object methodsFor: 'comparing'!
