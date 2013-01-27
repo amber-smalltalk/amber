@@ -81,7 +81,7 @@ temporallyDependentList: nodes
     threshold := 0.
     
     nodes withIndexDo: [ :each :i |
-        (each shouldBeInlined or: [ each shouldBeAliased ])
+        each subtreeNeedsAliasing
 		    ifTrue: [ threshold := i ]].
 
 	result := OrderedCollection new.

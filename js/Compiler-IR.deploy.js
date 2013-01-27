@@ -120,14 +120,12 @@ smalltalk.method({
 selector: "temporallyDependentList:",
 fn: function (nodes){
 var self=this;
-var $1,$3,$2;
+var $1,$2,$4,$3,$5;
 var threshold;
 var result;
 threshold=(0);
 smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
-$1=smalltalk.send(smalltalk.send(each,"_shouldBeInlined",[]),"_or_",[(function(){
-return smalltalk.send(each,"_shouldBeAliased",[]);
-})]);
+$1=smalltalk.send(each,"_subtreeNeedsAliasing",[]);
 if(smalltalk.assert($1)){
 threshold=i;
 return threshold;
@@ -135,15 +133,17 @@ return threshold;
 })]);
 result=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
 smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
-$3=smalltalk.send(i,"__lt_eq",[threshold]);
-if(smalltalk.assert($3)){
-$2=smalltalk.send(self,"_alias_",[each]);
+$2=result;
+$4=smalltalk.send(i,"__lt_eq",[threshold]);
+if(smalltalk.assert($4)){
+$3=smalltalk.send(self,"_alias_",[each]);
 } else {
-$2=smalltalk.send(self,"_visit_",[each]);
+$3=smalltalk.send(self,"_visit_",[each]);
 };
-return smalltalk.send(result,"_add_",[$2]);
+return smalltalk.send($2,"_add_",[$3]);
 })]);
-return result;
+$5=result;
+return $5;
 }
 }),
 smalltalk.IRASTTranslator);

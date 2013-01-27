@@ -262,6 +262,37 @@ referencedClasses: []
 }),
 smalltalk.Node);
 
+smalltalk.addMethod(
+"_subtreeNeedsAliasing",
+smalltalk.method({
+selector: "subtreeNeedsAliasing",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+var $early={};
+try {
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_shouldBeAliased",[]),"_or_",[(function(){
+return smalltalk.send(self,"_shouldBeInlined",[]);
+})]),"_or_",[(function(){
+smalltalk.send(smalltalk.send(self,"_nodes",[]),"_detect_ifNone_",[(function(node){
+return smalltalk.send(node,"_subtreeNeedsAliasing",[]);
+}),(function(){
+throw $early=[false];
+})]);
+return true;
+})]);
+return $1;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+},
+args: [],
+source: "subtreeNeedsAliasing\x0a    ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a        self nodes detect: [ :node | node subtreeNeedsAliasing ] ifNone: [ ^false ].\x0a        true\x0a    ]",
+messageSends: ["or:", "detect:ifNone:", "subtreeNeedsAliasing", "nodes", "shouldBeInlined", "shouldBeAliased"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
 
 
 smalltalk.addClass('AssignmentNode', smalltalk.Node, ['left', 'right'], 'Compiler-AST');
