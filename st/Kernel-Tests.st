@@ -121,6 +121,21 @@ testIfTrueIfFalse
 	self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
 !
 
+testIfTrueIfFalseWithBoxing
+ 
+	self assert: (true boxed ifTrue: ['alternative block']) = 'alternative block'.
+	self assert: (true boxed ifFalse: ['alternative block']) = nil.
+
+	self assert: (false boxed ifTrue: ['alternative block']) = nil.
+	self assert: (false boxed ifFalse: ['alternative block']) = 'alternative block'.
+
+	self assert: (false boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
+	self assert: (false boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
+
+	self assert: (true boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
+	self assert: (true boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+!
+
 testLogic
  
 	"Trivial logic table"
@@ -1411,5 +1426,11 @@ testIfNil
 testIsNil
 	self assert: nil isNil.
 	self deny: nil notNil.
+! !
+
+!Boolean methodsFor: '*Kernel-Tests'!
+
+boxed
+	^self
 ! !
 
