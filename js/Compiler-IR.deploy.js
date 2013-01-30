@@ -120,14 +120,12 @@ smalltalk.method({
 selector: "temporallyDependentList:",
 fn: function (nodes){
 var self=this;
-var $1,$3,$2;
+var $1,$2,$4,$3,$5;
 var threshold;
 var result;
 threshold=(0);
 smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
-$1=smalltalk.send(smalltalk.send(each,"_shouldBeInlined",[]),"_or_",[(function(){
-return smalltalk.send(each,"_shouldBeAliased",[]);
-})]);
+$1=smalltalk.send(each,"_subtreeNeedsAliasing",[]);
 if(smalltalk.assert($1)){
 threshold=i;
 return threshold;
@@ -135,15 +133,17 @@ return threshold;
 })]);
 result=smalltalk.send((smalltalk.OrderedCollection || OrderedCollection),"_new",[]);
 smalltalk.send(nodes,"_withIndexDo_",[(function(each,i){
-$3=smalltalk.send(i,"__lt_eq",[threshold]);
-if(smalltalk.assert($3)){
-$2=smalltalk.send(self,"_alias_",[each]);
+$2=result;
+$4=smalltalk.send(i,"__lt_eq",[threshold]);
+if(smalltalk.assert($4)){
+$3=smalltalk.send(self,"_alias_",[each]);
 } else {
-$2=smalltalk.send(self,"_visit_",[each]);
+$3=smalltalk.send(self,"_visit_",[each]);
 };
-return smalltalk.send(result,"_add_",[$2]);
+return smalltalk.send($2,"_add_",[$3]);
 })]);
-return result;
+$5=result;
+return $5;
 }
 }),
 smalltalk.IRASTTranslator);
@@ -278,12 +278,14 @@ smalltalk.method({
 selector: "visitDynamicArrayNode:",
 fn: function (aNode){
 var self=this;
+var $1;
 var array;
 array=smalltalk.send((smalltalk.IRDynamicArray || IRDynamicArray),"_new",[]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(array,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+smalltalk.send(smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send(aNode,"_nodes",[])]),"_do_",[(function(each){
+return smalltalk.send(array,"_add_",[each]);
 })]);
-return array;
+$1=array;
+return $1;
 }
 }),
 smalltalk.IRASTTranslator);
@@ -294,12 +296,14 @@ smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 fn: function (aNode){
 var self=this;
+var $1;
 var dictionary;
 dictionary=smalltalk.send((smalltalk.IRDynamicDictionary || IRDynamicDictionary),"_new",[]);
-smalltalk.send(smalltalk.send(aNode,"_nodes",[]),"_do_",[(function(each){
-return smalltalk.send(dictionary,"_add_",[smalltalk.send(self,"_visit_",[each])]);
+smalltalk.send(smalltalk.send(self,"_temporallyDependentList_",[smalltalk.send(aNode,"_nodes",[])]),"_do_",[(function(each){
+return smalltalk.send(dictionary,"_add_",[each]);
 })]);
-return dictionary;
+$1=dictionary;
+return $1;
 }
 }),
 smalltalk.IRASTTranslator);
