@@ -33,8 +33,7 @@ shouldBeInlined: aBoolean
 
 subtreeNeedsAliasing
     ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
-        self nodes detect: [ :node | node subtreeNeedsAliasing ] ifNone: [ ^false ].
-        true
+        (self nodes detect: [ :node | node subtreeNeedsAliasing ] ifNone: [ false ]) ~= false
     ]
 ! !
 
