@@ -1292,16 +1292,6 @@ updateTabsList
 	    onClick: [self selectTab: #comment]]
 ! !
 
-!Browser class methodsFor: 'accessing'!
-
-commitPathJs
-	^'js'
-!
-
-commitPathSt
-	^'st'
-! !
-
 !Browser class methodsFor: 'convenience'!
 
 open
