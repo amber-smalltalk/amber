@@ -2476,6 +2476,34 @@ smalltalk.Package);
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
+"_commitPathsFromLoader",
+smalltalk.method({
+selector: "commitPathsFromLoader",
+fn: function (){
+var self=this;
+var $1,$2;
+var js;
+var st;
+var cp = smalltalk['@@commitPath'];
+        if (cp) { js = cp.js; st = cp.st; };
+;
+$1=js;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(self,"_defaultCommitPathJs_",[js]);
+};
+$2=st;
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+smalltalk.send(self,"_defaultCommitPathSt_",[st]);
+};
+return self}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
 "_commitToLocalStorage_",
 smalltalk.method({
 selector: "commitToLocalStorage:",
@@ -2589,6 +2617,18 @@ fn: function (aPackageName) {
     $2 = smalltalk.send($1, "_do_", [function (each) {return smalltalk.send(each, "_initialize", []);}]);
     return self;
 }
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.Object.klass);
+smalltalk.send(self,"_commitPathsFromLoader",[]);
+return self}
 }),
 smalltalk.Package.klass);
 

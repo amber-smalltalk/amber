@@ -3422,6 +3422,39 @@ smalltalk.Package);
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
+"_commitPathsFromLoader",
+smalltalk.method({
+selector: "commitPathsFromLoader",
+category: 'commit paths',
+fn: function (){
+var self=this;
+var $1,$2;
+var js;
+var st;
+var cp = smalltalk['@@commitPath'];
+        if (cp) { js = cp.js; st = cp.st; };
+;
+$1=js;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(self,"_defaultCommitPathJs_",[js]);
+};
+$2=st;
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+smalltalk.send(self,"_defaultCommitPathSt_",[st]);
+};
+return self},
+args: [],
+source: "commitPathsFromLoader\x0a\x09| js st |\x0a    <var cp = smalltalk['@@commitPath'];\x0a        if (cp) { js = cp.js; st = cp.st; }>.\x0a    js ifNotNil: [ self defaultCommitPathJs: js ].\x0a    st ifNotNil: [ self defaultCommitPathSt: st ].",
+messageSends: ["ifNotNil:", "defaultCommitPathJs:", "defaultCommitPathSt:"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
 "_commitToLocalStorage_",
 smalltalk.method({
 selector: "commitToLocalStorage:",
@@ -3574,6 +3607,23 @@ fn: function (aPackageName) {
 args: ["aPackageName"],
 source: "init: aPackageName\x0a\x09(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])\x0a\x09\x09do: [ :each | <smalltalk.init(each)> ];\x0a\x09\x09do: [ :each | each initialize ]",
 messageSends: ["do:", "select:", "classes", "initialize"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_initialize",[],smalltalk.Object.klass);
+smalltalk.send(self,"_commitPathsFromLoader",[]);
+return self},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a    self commitPathsFromLoader",
+messageSends: ["initialize", "commitPathsFromLoader"],
 referencedClasses: []
 }),
 smalltalk.Package.klass);
