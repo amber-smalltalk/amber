@@ -186,6 +186,27 @@ return self}
 }),
 smalltalk.Node);
 
+smalltalk.addMethod(
+"_subtreeNeedsAliasing",
+smalltalk.method({
+selector: "subtreeNeedsAliasing",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(smalltalk.send(self,"_shouldBeAliased",[]),"_or_",[(function(){
+return smalltalk.send(self,"_shouldBeInlined",[]);
+})]),"_or_",[(function(){
+return smalltalk.send(smalltalk.send(smalltalk.send(self,"_nodes",[]),"_detect_ifNone_",[(function(node){
+return smalltalk.send(node,"_subtreeNeedsAliasing",[]);
+}),(function(){
+return false;
+})]),"_~_eq",[false]);
+})]);
+return $1;
+}
+}),
+smalltalk.Node);
+
 
 
 smalltalk.addClass('AssignmentNode', smalltalk.Node, ['left', 'right'], 'Compiler-AST');
