@@ -103,13 +103,14 @@ amber = (function() {
 		}
 
 		var additionalFiles = spec.packages || spec.files;
+        var commitPathForInit = null;
 		if (additionalFiles) {
-			loadPackages(additionalFiles, spec.prefix, spec.packageHome);
+			commitPathForInit = loadPackages(additionalFiles, spec.prefix, spec.packageHome);
 		}
 
 		// Be sure to setup & initialize smalltalk classes
 		addJSToLoad('init.js');
-		initializeSmalltalk();
+		initializeSmalltalk(commitPathForInit);
 	};
 
 	function loadPackages(names, prefix, urlHome){
@@ -121,6 +122,11 @@ amber = (function() {
 			name = names[i].split(/\.js$/)[0];
 			addJSToLoad(name + '.js', prefix, urlHome);
 		}
+
+        return  {
+            js: urlHome+prefix,
+            st: urlHome+'st'
+        };
 	};
 
 	function addJSToLoad(name, prefix, urlHome) {
@@ -175,8 +181,12 @@ amber = (function() {
 	};
 
 	// This will be called after JS files have been loaded
-	function initializeSmalltalk() {
+	function initializeSmalltalk(commitPath) {
 		window.smalltalkReady = function() {
+            if (commitPath) {
+                smalltalk['@@commitPath'] = commitPath;
+                smalltalk.Package._commitPathsFromLoader();
+            }
 			if (spec.ready) {
 				spec.ready();
 			};

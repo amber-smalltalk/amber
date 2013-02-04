@@ -6,7 +6,7 @@ smalltalk.method({
 selector: "alias:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7;
 $ctx1.locals.variable=nil;
 $1=_st(aNode)._isImmutable();
 if(smalltalk.assert($1)){
@@ -23,7 +23,8 @@ _st($5)._add_(_st(self)._visit_(aNode));
 $6=_st($5)._yourself();
 _st(_st(self)._sequence())._add_($6);
 _st(_st(_st(self)._method())._internalVariables())._add_($ctx1.locals.variable);
-return $ctx1.locals.variable;
+$7=$ctx1.locals.variable;
+return $7;
 }, self, "alias:", [aNode], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -34,7 +35,9 @@ smalltalk.method({
 selector: "method",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@method"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@method"];
+return $1;
 }, self, "method", [], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -56,16 +59,17 @@ smalltalk.method({
 selector: "nextAlias",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@nextAlias"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=self["@nextAlias"];
+if(($receiver = $1) == nil || $receiver == undefined){
 self["@nextAlias"]=(0);
 self["@nextAlias"];
 } else {
-self["@nextAlias"];
+$1;
 };
 self["@nextAlias"]=_st(self["@nextAlias"]).__plus((1));
-$1=_st(self["@nextAlias"])._asString();
-return $1;
+$2=_st(self["@nextAlias"])._asString();
+return $2;
 }, self, "nextAlias", [], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -76,7 +80,9 @@ smalltalk.method({
 selector: "sequence",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@sequence"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@sequence"];
+return $1;
 }, self, "sequence", [], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -98,7 +104,9 @@ smalltalk.method({
 selector: "source",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@source"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@source"];
+return $1;
 }, self, "source", [], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -120,31 +128,34 @@ smalltalk.method({
 selector: "temporallyDependentList:",
 fn: function (nodes){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$8,$7,$5,$9;
 $ctx1.locals.threshold=nil;
 $ctx1.locals.result=nil;
 $ctx1.locals.threshold=(0);
-_st(nodes)._withIndexDo_((function(each,i){
-return smalltalk.withContext(function($ctx2) { $1=_st(_st(each)._shouldBeInlined())._or_((function(){
-return smalltalk.withContext(function($ctx3) { return _st(each)._shouldBeAliased();
-})}));
-if(smalltalk.assert($1)){
+$1=nodes;
+$2=(function(each,i){
+return smalltalk.withContext(function($ctx2) { $3=_st(each)._subtreeNeedsAliasing();
+if(smalltalk.assert($3)){
 $ctx1.locals.threshold=i;
 return $ctx1.locals.threshold;
 };
-})}));
+})});
+_st($1)._withIndexDo_($2);
 $ctx1.locals.result=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-_st(nodes)._withIndexDo_((function(each,i){
-return smalltalk.withContext(function($ctx2) { $3=_st(i).__lt_eq($ctx1.locals.threshold);
-if(smalltalk.assert($3)){
-$2=_st(self)._alias_(each);
+$4=nodes;
+$5=(function(each,i){
+return smalltalk.withContext(function($ctx2) { $6=$ctx1.locals.result;
+$8=_st(i).__lt_eq($ctx1.locals.threshold);
+if(smalltalk.assert($8)){
+$7=_st(self)._alias_(each);
 } else {
-$2=_st(self)._visit_(each);
+$7=_st(self)._visit_(each);
 };
-return _st($ctx1.locals.result)._add_($2);
-})}));
-$4=$ctx1.locals.result;
-return $4;
+return _st($6)._add_($7);
+})});
+_st($4)._withIndexDo_($5);
+$9=$ctx1.locals.result;
+return $9;
 }, self, "temporallyDependentList:", [nodes], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -155,7 +166,9 @@ smalltalk.method({
 selector: "theClass",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@theClass"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
 }, self, "theClass", [], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -229,23 +242,28 @@ smalltalk.method({
 selector: "visitBlockSequenceNode:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$1;
-$1=_st(self)._withSequence_do_(_st((smalltalk.IRBlockSequence || IRBlockSequence))._new(),(function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(aNode)._nodes())._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$7,$8,$9,$6,$4,$1;
+$2=self;
+$3=_st((smalltalk.IRBlockSequence || IRBlockSequence))._new();
+$4=(function(){
+return smalltalk.withContext(function($ctx2) { $5=_st(aNode)._nodes();
+$6=(function(){
 return smalltalk.withContext(function($ctx3) { _st(_st(_st(aNode)._nodes())._allButLast())._do_((function(each){
 return smalltalk.withContext(function($ctx4) { return _st(_st(self)._sequence())._add_(_st(self)._visit_(each));
 })}));
-$2=_st(_st(_st(aNode)._nodes())._last())._isReturnNode();
-if(smalltalk.assert($2)){
+$7=_st(_st(_st(aNode)._nodes())._last())._isReturnNode();
+if(smalltalk.assert($7)){
 return _st(_st(self)._sequence())._add_(_st(self)._visit_(_st(_st(aNode)._nodes())._last()));
 } else {
-$3=_st((smalltalk.IRBlockReturn || IRBlockReturn))._new();
-_st($3)._add_(_st(self)._visit_(_st(_st(aNode)._nodes())._last()));
-$4=_st($3)._yourself();
-return _st(_st(self)._sequence())._add_($4);
+$8=_st((smalltalk.IRBlockReturn || IRBlockReturn))._new();
+_st($8)._add_(_st(self)._visit_(_st(_st(aNode)._nodes())._last()));
+$9=_st($8)._yourself();
+return _st(_st(self)._sequence())._add_($9);
 };
-})}));
-})}));
+})});
+return _st($5)._ifNotEmpty_($6);
+})});
+$1=_st($2)._withSequence_do_($3,$4);
 return $1;
 }, self, "visitBlockSequenceNode:", [aNode], smalltalk.IRASTTranslator)}
 }),
@@ -285,8 +303,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $ctx1.locals.array=nil;
 $ctx1.locals.array=_st((smalltalk.IRDynamicArray || IRDynamicArray))._new();
-_st(_st(aNode)._nodes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.array)._add_(_st(self)._visit_(each));
+_st(_st(self)._temporallyDependentList_(_st(aNode)._nodes()))._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.array)._add_(each);
 })}));
 $1=$ctx1.locals.array;
 return $1;
@@ -303,8 +321,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $ctx1.locals.dictionary=nil;
 $ctx1.locals.dictionary=_st((smalltalk.IRDynamicDictionary || IRDynamicDictionary))._new();
-_st(_st(aNode)._nodes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.dictionary)._add_(_st(self)._visit_(each));
+_st(_st(self)._temporallyDependentList_(_st(aNode)._nodes()))._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.dictionary)._add_(each);
 })}));
 $1=$ctx1.locals.dictionary;
 return $1;
@@ -431,18 +449,23 @@ smalltalk.method({
 selector: "visitSequenceNode:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$1=_st(self)._withSequence_do_(_st((smalltalk.IRSequence || IRSequence))._new(),(function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(aNode)._nodes())._do_((function(each){
+return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$7,$6,$4,$1;
+$2=self;
+$3=_st((smalltalk.IRSequence || IRSequence))._new();
+$4=(function(){
+return smalltalk.withContext(function($ctx2) { $5=_st(aNode)._nodes();
+$6=(function(each){
 return smalltalk.withContext(function($ctx3) { $ctx3.locals.instruction=nil;
 $ctx3.locals.instruction=_st(self)._visit_(each);
 $ctx3.locals.instruction;
-$2=_st($ctx3.locals.instruction)._isVariable();
-if(! smalltalk.assert($2)){
+$7=_st($ctx3.locals.instruction)._isVariable();
+if(! smalltalk.assert($7)){
 return _st(_st(self)._sequence())._add_($ctx3.locals.instruction);
 };
-})}));
-})}));
+})});
+return _st($5)._do_($6);
+})});
+$1=_st($2)._withSequence_do_($3,$4);
 return $1;
 }, self, "visitSequenceNode:", [aNode], smalltalk.IRASTTranslator)}
 }),
@@ -486,12 +509,14 @@ smalltalk.method({
 selector: "withSequence:do:",
 fn: function (aSequence,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.locals.outerSequence=nil;
+return smalltalk.withContext(function($ctx1) { var $1;
+$ctx1.locals.outerSequence=nil;
 $ctx1.locals.outerSequence=_st(self)._sequence();
 _st(self)._sequence_(aSequence);
 _st(aBlock)._value();
 _st(self)._sequence_($ctx1.locals.outerSequence);
-return aSequence;
+$1=aSequence;
+return $1;
 }, self, "withSequence:do:", [aSequence,aBlock], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
@@ -543,12 +568,13 @@ smalltalk.method({
 selector: "instructions",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@instructions"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@instructions"];
+if(($receiver = $2) == nil || $receiver == undefined){
 self["@instructions"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
 $1=self["@instructions"];
 } else {
-$1=self["@instructions"];
+$1=$2;
 };
 return $1;
 }, self, "instructions", [], smalltalk.IRInstruction)}
@@ -825,11 +851,12 @@ smalltalk.method({
 selector: "arguments",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@arguments"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@arguments"];
+if(($receiver = $2) == nil || $receiver == undefined){
 $1=[];
 } else {
-$1=self["@arguments"];
+$1=$2;
 };
 return $1;
 }, self, "arguments", [], smalltalk.IRClosure)}
@@ -953,12 +980,13 @@ smalltalk.method({
 selector: "internalVariables",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@internalVariables"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@internalVariables"];
+if(($receiver = $2) == nil || $receiver == undefined){
 self["@internalVariables"]=_st((smalltalk.Set || Set))._new();
 $1=self["@internalVariables"];
 } else {
-$1=self["@internalVariables"];
+$1=$2;
 };
 return $1;
 }, self, "internalVariables", [], smalltalk.IRMethod)}
@@ -1941,27 +1969,35 @@ smalltalk.method({
 selector: "visitIRMethod:",
 fn: function (anIRMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(_st(self)._stream())._nextPutMethodDeclaration_with_(anIRMethod,(function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(self)._stream())._nextPutFunctionWith_arguments_((function(){
-return smalltalk.withContext(function($ctx3) { return _st(_st(self)._stream())._nextPutContextFor_during_(anIRMethod,(function(){
-return smalltalk.withContext(function($ctx4) { $1=_st(_st(anIRMethod)._internalVariables())._notEmpty();
-if(smalltalk.assert($1)){
+return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$6,$7,$9,$10,$8,$5,$3;
+$1=_st(self)._stream();
+$2=anIRMethod;
+$3=(function(){
+return smalltalk.withContext(function($ctx2) { $4=_st(self)._stream();
+$5=(function(){
+return smalltalk.withContext(function($ctx3) { $6=_st(self)._stream();
+$7=anIRMethod;
+$8=(function(){
+return smalltalk.withContext(function($ctx4) { $9=_st(_st(anIRMethod)._internalVariables())._notEmpty();
+if(smalltalk.assert($9)){
 _st(_st(self)._stream())._nextPutVars_(_st(_st(_st(anIRMethod)._internalVariables())._asArray())._collect_((function(each){
 return smalltalk.withContext(function($ctx5) { return _st(_st(each)._variable())._alias();
 })})));
 };
-$2=_st(_st(anIRMethod)._scope())._hasNonLocalReturn();
-if(smalltalk.assert($2)){
+$10=_st(_st(anIRMethod)._scope())._hasNonLocalReturn();
+if(smalltalk.assert($10)){
 return _st(_st(self)._stream())._nextPutNonLocalReturnHandlingWith_((function(){
 return smalltalk.withContext(function($ctx5) { return smalltalk.IRVisitor.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]);
 })}));
 } else {
 return smalltalk.IRVisitor.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMethod]);
 };
-})}));
-})}),_st(anIRMethod)._arguments());
-})}));
+})});
+return _st($6)._nextPutContextFor_during_($7,$8);
+})});
+return _st($4)._nextPutFunctionWith_arguments_($5,_st(anIRMethod)._arguments());
+})});
+_st($1)._nextPutMethodDeclaration_with_($2,$3);
 return self}, self, "visitIRMethod:", [anIRMethod], smalltalk.IRJSTranslator)}
 }),
 smalltalk.IRJSTranslator);

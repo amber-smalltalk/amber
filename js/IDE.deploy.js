@@ -2802,28 +2802,6 @@ smalltalk.Browser);
 
 
 smalltalk.addMethod(
-"_commitPathJs",
-smalltalk.method({
-selector: "commitPathJs",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return "js";
-}, self, "commitPathJs", [], smalltalk.Browser.klass)}
-}),
-smalltalk.Browser.klass);
-
-smalltalk.addMethod(
-"_commitPathSt",
-smalltalk.method({
-selector: "commitPathSt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return "st";
-}, self, "commitPathSt", [], smalltalk.Browser.klass)}
-}),
-smalltalk.Browser.klass);
-
-smalltalk.addMethod(
 "_open",
 smalltalk.method({
 selector: "open",

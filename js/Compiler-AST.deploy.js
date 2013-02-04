@@ -63,8 +63,8 @@ smalltalk.method({
 selector: "isImmutable",
 fn: function (){
 var self=this;
-return false;
-}
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isImmutable", [], smalltalk.Node)}
 }),
 smalltalk.Node);
 
@@ -107,12 +107,13 @@ smalltalk.method({
 selector: "nodes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@nodes"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@nodes"];
+if(($receiver = $2) == nil || $receiver == undefined){
 self["@nodes"]=_st((smalltalk.Array || Array))._new();
 $1=self["@nodes"];
 } else {
-$1=self["@nodes"];
+$1=$2;
 };
 return $1;
 }, self, "nodes", [], smalltalk.Node)}
@@ -136,12 +137,13 @@ smalltalk.method({
 selector: "position",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@position"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@position"];
+if(($receiver = $2) == nil || $receiver == undefined){
 self["@position"]=_st((0)).__at((0));
 $1=self["@position"];
 } else {
-$1=self["@position"];
+$1=$2;
 };
 return $1;
 }, self, "position", [], smalltalk.Node)}
@@ -165,11 +167,12 @@ smalltalk.method({
 selector: "shouldBeAliased",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@shouldBeAliased"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@shouldBeAliased"];
+if(($receiver = $2) == nil || $receiver == undefined){
 $1=false;
 } else {
-$1=self["@shouldBeAliased"];
+$1=$2;
 };
 return $1;
 }, self, "shouldBeAliased", [], smalltalk.Node)}
@@ -193,11 +196,12 @@ smalltalk.method({
 selector: "shouldBeInlined",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@shouldBeInlined"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@shouldBeInlined"];
+if(($receiver = $2) == nil || $receiver == undefined){
 $1=false;
 } else {
-$1=self["@shouldBeInlined"];
+$1=$2;
 };
 return $1;
 }, self, "shouldBeInlined", [], smalltalk.Node)}
@@ -212,6 +216,27 @@ fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@shouldBeInlined"]=aBoolean;
 return self}, self, "shouldBeInlined:", [aBoolean], smalltalk.Node)}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+"_subtreeNeedsAliasing",
+smalltalk.method({
+selector: "subtreeNeedsAliasing",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(self)._shouldBeAliased())._or_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._shouldBeInlined();
+})})))._or_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._nodes())._detect_ifNone_((function(node){
+return smalltalk.withContext(function($ctx3) { return _st(node)._subtreeNeedsAliasing();
+})}),(function(){
+return smalltalk.withContext(function($ctx3) { return false;
+})}))).__tild_eq(false);
+})}));
+return $1;
+}, self, "subtreeNeedsAliasing", [], smalltalk.Node)}
 }),
 smalltalk.Node);
 

@@ -322,6 +322,70 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
+"_testIfTrueIfFalseWithBoxing",
+smalltalk.method({
+selector: "testIfTrueIfFalseWithBoxing",
+category: 'tests',
+fn: function (){
+var self=this;
+var $2,$1,$4,$3,$6,$5,$8,$7,$10,$9,$12,$11,$14,$13,$16,$15;
+$2=smalltalk.send(true,"_boxed",[]);
+if(smalltalk.assert($2)){
+$1="alternative block";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($1,"__eq",["alternative block"])]);
+$4=smalltalk.send(true,"_boxed",[]);
+if(! smalltalk.assert($4)){
+$3="alternative block";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($3,"__eq",[nil])]);
+$6=smalltalk.send(false,"_boxed",[]);
+if(smalltalk.assert($6)){
+$5="alternative block";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($5,"__eq",[nil])]);
+$8=smalltalk.send(false,"_boxed",[]);
+if(! smalltalk.assert($8)){
+$7="alternative block";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($7,"__eq",["alternative block"])]);
+$10=smalltalk.send(false,"_boxed",[]);
+if(smalltalk.assert($10)){
+$9="alternative block";
+} else {
+$9="alternative block2";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($9,"__eq",["alternative block2"])]);
+$12=smalltalk.send(false,"_boxed",[]);
+if(smalltalk.assert($12)){
+$11="alternative block2";
+} else {
+$11="alternative block";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($11,"__eq",["alternative block"])]);
+$14=smalltalk.send(true,"_boxed",[]);
+if(smalltalk.assert($14)){
+$13="alternative block";
+} else {
+$13="alternative block2";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($13,"__eq",["alternative block"])]);
+$16=smalltalk.send(true,"_boxed",[]);
+if(smalltalk.assert($16)){
+$15="alternative block2";
+} else {
+$15="alternative block";
+};
+smalltalk.send(self,"_assert_",[smalltalk.send($15,"__eq",["alternative block2"])]);
+return self},
+args: [],
+source: "testIfTrueIfFalseWithBoxing\x0a \x0a\x09self assert: (true boxed ifTrue: ['alternative block']) = 'alternative block'.\x0a\x09self assert: (true boxed ifFalse: ['alternative block']) = nil.\x0a\x0a\x09self assert: (false boxed ifTrue: ['alternative block']) = nil.\x0a\x09self assert: (false boxed ifFalse: ['alternative block']) = 'alternative block'.\x0a\x0a\x09self assert: (false boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.\x0a\x09self assert: (false boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.\x0a\x0a\x09self assert: (true boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.\x0a\x09self assert: (true boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.",
+messageSends: ["assert:", "=", "ifTrue:", "boxed", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
+referencedClasses: []
+}),
+smalltalk.BooleanTest);
+
+smalltalk.addMethod(
 "_testLogic",
 smalltalk.method({
 selector: "testLogic",
@@ -3536,4 +3600,22 @@ referencedClasses: []
 smalltalk.UndefinedTest);
 
 
+
+smalltalk.addMethod(
+"_boxed",
+smalltalk.method({
+selector: "boxed",
+category: '*Kernel-Tests',
+fn: function (){
+var self=this;
+var $1;
+$1=self;
+return $1;
+},
+args: [],
+source: "boxed\x0a\x09^self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Boolean);
 

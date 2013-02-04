@@ -62,6 +62,45 @@ testCascades
 	self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)
 !
 
+testDynamicArrayElementsOrdered
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ { x. true ifTrue: [ x := 2 ] }
+' return: #(1 2).
+!
+
+testDynamicDictionaryElementsOrdered
+	self should: 'foo
+  | x |
+  x := ''foo''->1.
+  ^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }
+' return: #{'foo'->1. 'bar'->2}.
+!
+
+testInnerTemporalDependentElementsOrdered
+	self should: 'foo
+  | x |
+  x := Array.
+  ^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
+' return: {'foo'->Array. 'bar'->2}.
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
+' return: {'foo'->1. 'bar'->2}.
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
+' return: {'foo'->1. 'bar'->2}.
+	self should: 'foo
+  | x |
+  x := 1.
+  ^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
+' return: #{'foo'->1. 'bar'->2}.
+!
+
 testLiterals
 	self should: 'foo ^ 1' return: 1.
 	self should: 'foo ^ ''hello''' return: 'hello'.

@@ -81,7 +81,7 @@ temporallyDependentList: nodes
     threshold := 0.
     
     nodes withIndexDo: [ :each :i |
-        (each shouldBeInlined or: [ each shouldBeAliased ])
+        each subtreeNeedsAliasing
 		    ifTrue: [ threshold := i ]].
 
 	result := OrderedCollection new.
@@ -148,14 +148,14 @@ visitCascadeNode: aNode
 visitDynamicArrayNode: aNode
 	| array |
 	array := IRDynamicArray new.
-	aNode nodes do: [ :each | array add: (self visit: each) ].
+	(self temporallyDependentList: aNode nodes) do: [:each | array add: each].
 	^ array
 !
 
 visitDynamicDictionaryNode: aNode
 	| dictionary |
 	dictionary := IRDynamicDictionary new.
-	aNode nodes do: [ :each | dictionary add: (self visit: each) ].
+    (self temporallyDependentList: aNode nodes) do: [:each | dictionary add: each].
 	^ dictionary
 !
 
