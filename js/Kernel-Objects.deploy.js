@@ -684,10 +684,11 @@ smalltalk.addMethod(
 "_yourself",
 smalltalk.method({
 selector: "yourself",
-fn: function () {
-    var self = this;
-    return self;
-}
+fn: function (){
+var self=this;
+return self.valueOf();
+;
+return self}
 }),
 smalltalk.Object);
 
