@@ -1136,6 +1136,14 @@ Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 
 !Package class methodsFor: 'commit paths'!
 
+commitPathsFromLoader
+	| js st |
+    <var cp = smalltalk['@@commitPath'];
+        if (cp) { js = cp.js; st = cp.st; }>.
+    js ifNotNil: [ self defaultCommitPathJs: js ].
+    st ifNotNil: [ self defaultCommitPathSt: st ].
+!
+
 defaultCommitPathJs
 	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
 !
@@ -1155,6 +1163,13 @@ defaultCommitPathSt: aString
 resetCommitPaths
         defaultCommitPathJs := nil.
         defaultCommitPathSt := nil.
+! !
+
+!Package class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    self commitPathsFromLoader
 ! !
 
 !Package class methodsFor: 'loading-storing'!
