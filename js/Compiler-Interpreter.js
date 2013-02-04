@@ -1,4 +1,222 @@
 smalltalk.addPackage('Compiler-Interpreter', {});
+smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['outerContext', 'pc', 'locals', 'receiver', 'selector'], 'Compiler-Interpreter');
+smalltalk.addMethod(
+"_initializeFromMethodContext_",
+smalltalk.method({
+selector: "initializeFromMethodContext:",
+category: 'accessing',
+fn: function (aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._pc_(_st(aMethodContext)._pc());
+_st(self)._receiver_(_st(aMethodContext)._receiver());
+_st(self)._selector_(_st(aMethodContext)._selector());
+$1=_st(aMethodContext)._outerContext();
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(self)._outerContext_(_st(_st(self)._class())._fromMethodContext_(_st(aMethodContext)._outerContext()));
+};
+_st(_st(aMethodContext)._locals())._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) { return _st(_st(self)._locals())._at_put_(key,value);
+})}));
+return self}, self, "initializeFromMethodContext:", [aMethodContext], smalltalk.AIContext)},
+args: ["aMethodContext"],
+source: "initializeFromMethodContext: aMethodContext\x0a\x09self pc: aMethodContext pc.\x0a    self receiver: aMethodContext receiver.\x0a    self selector: aMethodContext selector.\x0a    aMethodContext outerContext ifNotNil: [\x0a\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a    aMethodContext locals keysAndValuesDo: [ :key :value |\x0a    \x09self locals at: key put: value ]\x0a    ",
+messageSends: ["pc:", "pc", "receiver:", "receiver", "selector:", "selector", "ifNotNil:", "outerContext:", "fromMethodContext:", "outerContext", "class", "keysAndValuesDo:", "at:put:", "locals"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_locals",
+smalltalk.method({
+selector: "locals",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@locals"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@locals"]=_st((smalltalk.Dictionary || Dictionary))._new();
+$1=self["@locals"];
+} else {
+$1=$2;
+};
+return $1;
+}, self, "locals", [], smalltalk.AIContext)},
+args: [],
+source: "locals\x0a\x09^ locals ifNil: [ locals := Dictionary new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_outerContext",
+smalltalk.method({
+selector: "outerContext",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@outerContext"];
+return $1;
+}, self, "outerContext", [], smalltalk.AIContext)},
+args: [],
+source: "outerContext\x0a\x09^ outerContext",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_outerContext_",
+smalltalk.method({
+selector: "outerContext:",
+category: 'accessing',
+fn: function (anAIContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@outerContext"]=anAIContext;
+return self}, self, "outerContext:", [anAIContext], smalltalk.AIContext)},
+args: ["anAIContext"],
+source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_pc",
+smalltalk.method({
+selector: "pc",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@pc"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@pc"]=(0);
+$1=self["@pc"];
+} else {
+$1=$2;
+};
+return $1;
+}, self, "pc", [], smalltalk.AIContext)},
+args: [],
+source: "pc\x0a\x09^ pc ifNil: [ pc := 0 ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_pc_",
+smalltalk.method({
+selector: "pc:",
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@pc"]=anInteger;
+return self}, self, "pc:", [anInteger], smalltalk.AIContext)},
+args: ["anInteger"],
+source: "pc: anInteger\x0a\x09pc := anInteger",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_receiver",
+smalltalk.method({
+selector: "receiver",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@receiver"];
+return $1;
+}, self, "receiver", [], smalltalk.AIContext)},
+args: [],
+source: "receiver\x0a\x09^ receiver",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_receiver_",
+smalltalk.method({
+selector: "receiver:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@receiver"]=anObject;
+return self}, self, "receiver:", [anObject], smalltalk.AIContext)},
+args: ["anObject"],
+source: "receiver: anObject\x0a\x09receiver := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_selector",
+smalltalk.method({
+selector: "selector",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@selector"];
+return $1;
+}, self, "selector", [], smalltalk.AIContext)},
+args: [],
+source: "selector\x0a\x09^ selector",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+"_selector_",
+smalltalk.method({
+selector: "selector:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@selector"]=aString;
+return self}, self, "selector:", [aString], smalltalk.AIContext)},
+args: ["aString"],
+source: "selector: aString\x0a\x09selector := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+
+smalltalk.addMethod(
+"_fromMethodContext_",
+smalltalk.method({
+selector: "fromMethodContext:",
+category: 'instance creation',
+fn: function (aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._initializeFromMethodContext_(aMethodContext);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, self, "fromMethodContext:", [aMethodContext], smalltalk.AIContext.klass)},
+args: ["aMethodContext"],
+source: "fromMethodContext: aMethodContext\x0a\x09^ self new \x0a    \x09initializeFromMethodContext: aMethodContext;\x0a        yourself",
+messageSends: ["initializeFromMethodContext:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.AIContext.klass);
+
+
 smalltalk.addClass('ASTInterpreter', smalltalk.NodeVisitor, ['currentNode', 'context', 'shouldReturn'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 "_context",
@@ -21,12 +239,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
 category: 'accessing',
-fn: function (aMethodContext){
+fn: function (anAIContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@context"]=aMethodContext;
-return self}, self, "context:", [aMethodContext], smalltalk.ASTInterpreter)},
-args: ["aMethodContext"],
-source: "context: aMethodContext\x0a\x09context := aMethodContext",
+return smalltalk.withContext(function($ctx1) { self["@context"]=anAIContext;
+return self}, self, "context:", [anAIContext], smalltalk.ASTInterpreter)},
+args: ["anAIContext"],
+source: "context: anAIContext\x0a\x09context := anAIContext",
 messageSends: [],
 referencedClasses: []
 }),

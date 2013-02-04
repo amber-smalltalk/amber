@@ -340,6 +340,10 @@ locals
 	<return self.locals>
 !
 
+outerContext
+	^ self home
+!
+
 pc
 	<return self.pc>
 !
@@ -353,7 +357,13 @@ receiver
 !
 
 selector
-	<return smalltalk.convertSelector(self.selector)>
+	<
+    	if(self.selector) {
+        	return smalltalk.convertSelector(self.selector);
+        } else {
+        	return nil;
+        }
+    >
 !
 
 temps

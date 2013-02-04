@@ -749,6 +749,16 @@ jsObject: aJSObject
 	jsObject := aJSObject
 ! !
 
+!JSObjectProxy methodsFor: 'enumerating'!
+
+keysAndValuesDo: aBlock
+	<
+    	for(var i in self['@jsObject']) {
+			aBlock._value_(i, self['@jsObject'][i]);
+		}
+    >
+! !
+
 !JSObjectProxy methodsFor: 'proxy'!
 
 addObjectVariablesTo: aDictionary

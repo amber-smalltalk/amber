@@ -978,6 +978,24 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
+"_outerContext",
+smalltalk.method({
+selector: "outerContext",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._home();
+return $1;
+}, self, "outerContext", [], smalltalk.MethodContext)},
+args: [],
+source: "outerContext\x0a\x09^ self home",
+messageSends: ["home"],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
 "_pc",
 smalltalk.method({
 selector: "pc",
@@ -1036,11 +1054,17 @@ selector: "selector",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.convertSelector(self.selector);
+return smalltalk.withContext(function($ctx1) { 
+    	if(self.selector) {
+        	return smalltalk.convertSelector(self.selector);
+        } else {
+        	return nil;
+        }
+    ;
 ;
 return self}, self, "selector", [], smalltalk.MethodContext)},
 args: [],
-source: "selector\x0a\x09<return smalltalk.convertSelector(self.selector)>",
+source: "selector\x0a\x09<\x0a    \x09if(self.selector) {\x0a        \x09return smalltalk.convertSelector(self.selector);\x0a        } else {\x0a        \x09return nil;\x0a        }\x0a    >",
 messageSends: [],
 referencedClasses: []
 }),

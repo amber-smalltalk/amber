@@ -1720,6 +1720,22 @@ return self}, self, "jsObject:", [aJSObject], smalltalk.JSObjectProxy)}
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_keysAndValuesDo_",
+smalltalk.method({
+selector: "keysAndValuesDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	for(var i in self['@jsObject']) {
+			aBlock._value_(i, self['@jsObject'][i]);
+		}
+    ;
+;
+return self}, self, "keysAndValuesDo:", [aBlock], smalltalk.JSObjectProxy)}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_printString",
 smalltalk.method({
 selector: "printString",

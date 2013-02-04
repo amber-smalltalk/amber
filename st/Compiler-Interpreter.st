@@ -1,4 +1,64 @@
 Smalltalk current createPackage: 'Compiler-Interpreter' properties: #{}!
+NodeVisitor subclass: #AIContext
+	instanceVariableNames: 'outerContext pc locals receiver selector'
+	package: 'Compiler-Interpreter'!
+
+!AIContext methodsFor: 'accessing'!
+
+initializeFromMethodContext: aMethodContext
+	self pc: aMethodContext pc.
+    self receiver: aMethodContext receiver.
+    self selector: aMethodContext selector.
+    aMethodContext outerContext ifNotNil: [
+		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
+    aMethodContext locals keysAndValuesDo: [ :key :value |
+    	self locals at: key put: value ]
+!
+
+locals
+	^ locals ifNil: [ locals := Dictionary new ]
+!
+
+outerContext
+	^ outerContext
+!
+
+outerContext: anAIContext
+	outerContext := anAIContext
+!
+
+pc
+	^ pc ifNil: [ pc := 0 ]
+!
+
+pc: anInteger
+	pc := anInteger
+!
+
+receiver
+	^ receiver
+!
+
+receiver: anObject
+	receiver := anObject
+!
+
+selector
+	^ selector
+!
+
+selector: aString
+	selector := aString
+! !
+
+!AIContext class methodsFor: 'instance creation'!
+
+fromMethodContext: aMethodContext
+	^ self new 
+    	initializeFromMethodContext: aMethodContext;
+        yourself
+! !
+
 NodeVisitor subclass: #ASTInterpreter
 	instanceVariableNames: 'currentNode context shouldReturn'
 	package: 'Compiler-Interpreter'!
@@ -9,8 +69,8 @@ context
 	^ context
 !
 
-context: aMethodContext
-	context := aMethodContext
+context: anAIContext
+	context := anAIContext
 ! !
 
 !ASTInterpreter methodsFor: 'initialization'!

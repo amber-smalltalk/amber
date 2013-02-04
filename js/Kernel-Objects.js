@@ -2385,6 +2385,27 @@ referencedClasses: []
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_keysAndValuesDo_",
+smalltalk.method({
+selector: "keysAndValuesDo:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	for(var i in self['@jsObject']) {
+			aBlock._value_(i, self['@jsObject'][i]);
+		}
+    ;
+;
+return self}, self, "keysAndValuesDo:", [aBlock], smalltalk.JSObjectProxy)},
+args: ["aBlock"],
+source: "keysAndValuesDo: aBlock\x0a\x09<\x0a    \x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aBlock._value_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a    >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_printString",
 smalltalk.method({
 selector: "printString",

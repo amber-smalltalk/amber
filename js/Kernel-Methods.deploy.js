@@ -714,6 +714,19 @@ return self}, self, "locals", [], smalltalk.MethodContext)}
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
+"_outerContext",
+smalltalk.method({
+selector: "outerContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._home();
+return $1;
+}, self, "outerContext", [], smalltalk.MethodContext)}
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
 "_pc",
 smalltalk.method({
 selector: "pc",
@@ -756,7 +769,13 @@ smalltalk.method({
 selector: "selector",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.convertSelector(self.selector);
+return smalltalk.withContext(function($ctx1) { 
+    	if(self.selector) {
+        	return smalltalk.convertSelector(self.selector);
+        } else {
+        	return nil;
+        }
+    ;
 ;
 return self}, self, "selector", [], smalltalk.MethodContext)}
 }),
