@@ -19,7 +19,7 @@ amber = (function() {
 	var spec;
 	var jsToLoad = [];
 	var loadJS;
-    var nocache = '';
+	var nocache = '';
 
 	that.toggleIDE = function() {
 		if ($('#amber').length == 0) {
@@ -102,7 +102,7 @@ amber = (function() {
 		}
 
 		var additionalFiles = spec.packages || spec.files;
-        var commitPathForInit = null;
+		var commitPathForInit = null;
 		if (additionalFiles) {
 			commitPathForInit = loadPackages(additionalFiles, spec.prefix, spec.packageHome);
 		}
@@ -115,28 +115,28 @@ amber = (function() {
 	function loadPackages(names, prefix, urlHome){
 		var name, url;
 		var prefix = prefix || 'js';
-    var urlHome = urlHome || home;
+		var urlHome = urlHome || home;
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
 			addJSToLoad(name + '.js', prefix, urlHome);
 		}
 
-        return  {
-            js: urlHome+prefix,
-            st: urlHome+'st'
-        };
+		return  {
+			js: urlHome+prefix,
+			st: urlHome+'st'
+		};
 	};
 
 	function addJSToLoad(name, prefix, urlHome) {
-    var urlHome = urlHome || home;
+	var urlHome = urlHome || home;
 		jsToLoad.push(buildJSURL(name, prefix, urlHome));
 	};
 
 	function buildJSURL(name, prefix, urlHome) {
 		var prefix = prefix || 'js';
 		var name = name;
-    var urlHome = urlHome || home;
+		var urlHome = urlHome || home;
 
 		if (!deploy) {
 			name = name + nocache;
@@ -182,14 +182,14 @@ amber = (function() {
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk(commitPath) {
 		window.smalltalkReady = function() {
-            if (commitPath) {
-                smalltalk['@@commitPath'] = commitPath;
-                smalltalk.Package._commitPathsFromLoader();
-            }
+			if (commitPath) {
+				smalltalk['@@commitPath'] = commitPath;
+				smalltalk.Package._commitPathsFromLoader();
+			}
 			if (spec.ready) {
 				spec.ready();
 			};
-            evaluateSmalltalkScripts();
+			evaluateSmalltalkScripts();
 		};
 
 		loadAllJS(); 
@@ -236,16 +236,16 @@ amber = (function() {
 		document.write(scriptString);
 	};
 
-    function evaluateSmalltalkScripts() {
-        jQuery(document).ready(function() {
-            jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
-                smalltalk.send(
-                    smalltalk.send(smalltalk.Compiler, '_new'),
-                    '_evaluateExpression_',
-                    [jQuery(elt).html()])
-            });
-        })
-    };
+	function evaluateSmalltalkScripts() {
+		jQuery(document).ready(function() {
+			jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
+				smalltalk.send(
+					smalltalk.send(smalltalk.Compiler, '_new'),
+					'_evaluateExpression_',
+					[jQuery(elt).html()])
+			});
+		})
+	};
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
