@@ -56,9 +56,9 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('lib/es5-shim-2.0.2/es5-shim.min.js');
-		addJSToLoad('lib/es5-shim-2.0.2/es5-sham.min.js');
-		addJSToLoad('boot.js');
+		addJSToLoad('js/lib/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('js/lib/es5-shim-2.0.2/es5-sham.min.js');
+		addJSToLoad('js/boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -108,7 +108,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('init.js');
+		addJSToLoad('js/init.js');
 		initializeSmalltalk(commitPathForInit);
 	};
 
@@ -129,14 +129,42 @@ amber = (function() {
 	};
 
 	function addJSToLoad(name, prefix, urlHome) {
-	var urlHome = urlHome || home;
+		var urlHome = urlHome || home;
 		jsToLoad.push(buildJSURL(name, prefix, urlHome));
 	};
 
+	function resolve(base, path) {
+		if (/(^|:)\/\//.test(path)) {
+			// path: [http:]//foo.com/bar/; base: whatever/
+			// -> http://foo.com/bar/
+			return path;
+		}
+		if (!/^\//.test(path)) {
+			// path: relative/; base: whatever/
+			// -> whatever/relative/
+			return base + path;
+		}
+		var match = base.match(/^(([^:/]*:|^)\/\/[^/]*)/);
+		if (match) {
+			// path: /absolute/; base: [http:]//foo.com/whatever/
+			// -> [http:]//foo.com/absolute/
+			return match[1] + path;
+		}
+		// path: /absolute/; base: whatever/path/
+		// -> /absolute/
+		return path;
+	}
+
 	function buildJSURL(name, prefix, urlHome) {
-		var prefix = prefix || 'js';
+		var prefix = prefix || '';
 		var name = name;
 		var urlHome = urlHome || home;
+
+		var parts = name.match(/^(.*\/)([^/]*)$/);
+		if (parts) {
+			name = parts[2];
+			urlHome = resolve(urlHome, parts[1]);
+		}
 
 		if (!deploy) {
 			name = name + nocache;
@@ -163,18 +191,18 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.8.2.min.js'));
+			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-1.8.2.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
 	};
 
 	function loadIDEDependencies() {
-		addJSToLoad('lib/jQuery/jquery.textarea.js');
-		addJSToLoad('lib/CodeMirror/codemirror.js');
-		addJSToLoad('lib/CodeMirror/smalltalk.js');
+		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
+		addJSToLoad('js/lib/CodeMirror/codemirror.js');
+		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
 		loadCSS('lib/CodeMirror/amber.css', 'js');
 	};
