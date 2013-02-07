@@ -84,11 +84,11 @@ size
 !
 
 value
-	^ self
+	<return self.valueOf()>
 !
 
 yourself
-	<return self.valueOf()>
+	^ self
 ! !
 
 !Object methodsFor: 'comparing'!

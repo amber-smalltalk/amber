@@ -935,12 +935,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return self.valueOf();
+;
+return self},
 args: [],
-source: "value\x0a\x09^ self",
+source: "value\x0a\x09<return self.valueOf()>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -953,11 +954,12 @@ selector: "yourself",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self.valueOf();
-;
-return self},
+var $1;
+$1=self;
+return $1;
+},
 args: [],
-source: "yourself\x0a\x09<return self.valueOf()>",
+source: "yourself\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
