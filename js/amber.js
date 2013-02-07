@@ -97,7 +97,8 @@ amber = (function() {
 				'IDE',
 				'Examples',
 				'Benchfib',
-				'Kernel-Tests'
+				'Kernel-Tests',
+                'SUnit-Tests'
 			]);
 		}
 

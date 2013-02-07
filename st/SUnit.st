@@ -13,11 +13,87 @@ result: aTestResult
 	result := aTestResult
 ! !
 
+Object subclass: #RunningTestContext
+	instanceVariableNames: 'finished testCase result step'
+	package: 'SUnit'!
+
+!RunningTestContext methodsFor: 'accessing'!
+
+finished: aBlock
+	finished := aBlock
+!
+
+result: aTestResult
+	result := aTestResult
+!
+
+testCase: aTestCase
+	testCase := aTestCase
+! !
+
+!RunningTestContext methodsFor: 'private'!
+
+exception: anException ifNotAsync: aBlock
+	testCase isAsync
+		ifTrue: [ step := [ testCase finished. anException signal ]]
+		ifFalse: [ aBlock value ]
+! !
+
+!RunningTestContext methodsFor: 'running'!
+
+execute: aBlock
+    step := aBlock.
+	[ step isNil ] whileFalse: [
+	    testCase context: self.
+		[[[	step
+        		ensure: [ testCase context: nil. step := nil. testCase isAsync ifFalse: [ testCase tearDown ]]]
+				on: TestFailure do: [:ex | self exception: ex ifNotAsync: [ result addFailure: testCase]]]
+				on: Error do: [:ex | self exception: ex ifNotAsync: [ result addError: testCase]]]
+				ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ]]]
+!
+
+start
+	self execute: [ testCase setUp. testCase performTest ]
+! !
+
+!RunningTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase result: aTestResult finished: aBlock
+	^self new
+        testCase: aTestCase;
+        result: aTestResult;
+        finished: aBlock;
+        yourself
+! !
+
+RunningTestContext subclass: #ErroringTestContext
+	instanceVariableNames: ''
+	package: 'SUnit'!
+
+!ErroringTestContext methodsFor: 'private'!
+
+exception: anException ifNotAsync: aBlock
+	anException signal
+! !
+
+!ErroringTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase
+	^self
+        testCase: aTestCase
+        result: TestResult new
+        finished: []
+! !
+
 Object subclass: #TestCase
-	instanceVariableNames: 'testSelector'
+	instanceVariableNames: 'testSelector asyncTimeout context'
 	package: 'SUnit'!
 
 !TestCase methodsFor: 'accessing'!
+
+context: aRunningTestContext
+	context := aRunningTestContext
+!
 
 selector
 	^testSelector
@@ -25,6 +101,36 @@ selector
 
 setTestSelector: aSelector
 	testSelector := aSelector
+! !
+
+!TestCase methodsFor: 'async'!
+
+async: aBlock
+	| c |
+	self mustBeAsync: '#async'.
+    c := context.
+    ^[ self isAsync ifTrue: [ c execute: aBlock ]]
+!
+
+finished
+	self mustBeAsync: '#finished'.
+	asyncTimeout := nil
+!
+
+graceTime: millis
+	asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].
+	asyncTimeout := true. "to allow async:"
+	asyncTimeout :=
+		(self async: [ self assert: false description: 'SUnit grace time exhausted' ])
+        valueWithTimeout: millis
+!
+
+isAsync
+	^asyncTimeout notNil
+!
+
+mustBeAsync: aString
+	self isAsync ifFalse: [ self error: aString, ' used without prior #graceTime:' ]
 ! !
 
 !TestCase methodsFor: 'private'!
@@ -38,14 +144,14 @@ signalFailure: aString
 !TestCase methodsFor: 'running'!
 
 performTest
+	asyncTimeout := nil.
 	self perform: self selector
 !
 
 runCase
-	[	self setUp.
-		self performTest ] ensure: [
-		self tearDown.
-		"self cleanUpInstanceVariables" ]
+	"Runs a test case in isolated context, leaking all errors."
+
+	(ErroringTestContext testCase: self) start
 !
 
 setUp
@@ -192,24 +298,8 @@ initialize
 	total := 0
 ! !
 
-!TestResult methodsFor: 'running'!
-
-nextRunDo: aBlock
-"Runs aBlock with index of next run
-or does nothing if no more runs"
-^self runs == self total
-	ifFalse: [ aBlock value: self runs + 1 ]
-!
-
-runCase: aTestCase
-	[[	self increaseRuns.
-    	aTestCase runCase]
-	on: TestFailure do: [:ex | self addFailure: aTestCase]]
-	on: Error do: [:ex | self addError: aTestCase]
-! !
-
 Object subclass: #TestSuiteRunner
-	instanceVariableNames: 'suite result announcer'
+	instanceVariableNames: 'suite result announcer runNextTest'
 	package: 'SUnit'!
 
 !TestSuiteRunner methodsFor: 'accessing'!
@@ -228,15 +318,14 @@ suite: aCollection
 
 !TestSuiteRunner methodsFor: 'actions'!
 
+resume
+	runNextTest fork.
+    announcer announce: (ResultAnnouncement new result: result)
+!
+
 run
-	| worker |
 	result total: suite size.
-    announcer announce: (ResultAnnouncement new result: result).
-    worker := [ result nextRunDo: [ :index |
-		[ result runCase: (suite at: index) ]
-		ensure: [ worker fork.
-        	announcer announce: (ResultAnnouncement new result: result) ]]].
-	worker fork
+	self resume
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!
@@ -244,7 +333,14 @@ run
 initialize
 	super initialize.
 	announcer := Announcer new.
-    result := TestResult new
+    result := TestResult new.
+    runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].
+! !
+
+!TestSuiteRunner methodsFor: 'private'!
+
+contextOf: anInteger
+   	^RunningTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!
