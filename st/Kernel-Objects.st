@@ -1555,15 +1555,17 @@ rawTimeout: anObject
 !Timeout methodsFor: 'timeout/interval'!
 
 clearInterval
-	| local |
-    local := rawTimeout.
-	<clearInterval(local)>
+	<
+    	var interval = self["@rawTimeout"];
+		clearInterval(interval);
+    >
 !
 
 clearTimeout
-	| local |
-    local := rawTimeout.
-	<clearTimeout(local)>
+	<
+    	var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+    >
 ! !
 
 !Timeout class methodsFor: 'instance creation'!

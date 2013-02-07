@@ -4353,13 +4353,14 @@ selector: "clearInterval",
 category: 'timeout/interval',
 fn: function (){
 var self=this;
-var local;
-local=self["@rawTimeout"];
-clearInterval(local);
+
+    	var interval = self["@rawTimeout"];
+		clearInterval(interval);
+    ;
 ;
 return self},
 args: [],
-source: "clearInterval\x0a\x09| local |\x0a    local := rawTimeout.\x0a\x09<clearInterval(local)>",
+source: "clearInterval\x0a\x09<\x0a    \x09var interval = self[\x22@rawTimeout\x22];\x0a\x09\x09clearInterval(interval);\x0a    >",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4372,13 +4373,14 @@ selector: "clearTimeout",
 category: 'timeout/interval',
 fn: function (){
 var self=this;
-var local;
-local=self["@rawTimeout"];
-clearTimeout(local);
+
+    	var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+    ;
 ;
 return self},
 args: [],
-source: "clearTimeout\x0a\x09| local |\x0a    local := rawTimeout.\x0a\x09<clearTimeout(local)>",
+source: "clearTimeout\x0a\x09<\x0a    \x09var timeout = self[\x22@rawTimeout\x22];\x0a\x09\x09clearTimeout(timeout);\x0a    >",
 messageSends: [],
 referencedClasses: []
 }),

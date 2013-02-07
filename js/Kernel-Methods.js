@@ -264,17 +264,16 @@ selector: "valueWithInterval:",
 category: 'timeout/interval',
 fn: function (aNumber){
 var self=this;
-var $1;
-var local;
-local = setInterval(self, aNumber);
+
+    	var interval = setInterval(self, aNumber);
+    	return smalltalk.Timeout._on_(interval);
+    ;
 ;
-$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
-return $1;
-},
+return self},
 args: ["aNumber"],
-source: "valueWithInterval: aNumber\x0a\x09| local |\x0a\x09<local = setInterval(self, aNumber)>.\x0a    ^ Timeout on: local",
-messageSends: ["on:"],
-referencedClasses: ["Timeout"]
+source: "valueWithInterval: aNumber\x0a\x09<\x0a    \x09var interval = setInterval(self, aNumber);\x0a    \x09return smalltalk.Timeout._on_(interval);\x0a    >",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
@@ -302,17 +301,16 @@ selector: "valueWithTimeout:",
 category: 'timeout/interval',
 fn: function (aNumber){
 var self=this;
-var $1;
-var local;
-local = setTimeout(self, aNumber);
+
+    	var timeout = setTimeout(self, aNumber);
+    	return smalltalk.Timeout._on_(timeout);
+    ;
 ;
-$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
-return $1;
-},
+return self},
 args: ["aNumber"],
-source: "valueWithTimeout: aNumber\x0a\x09| local |\x0a\x09<local = setTimeout(self, aNumber)>.\x0a    ^ Timeout on: local",
-messageSends: ["on:"],
-referencedClasses: ["Timeout"]
+source: "valueWithTimeout: aNumber\x0a\x09<\x0a    \x09var timeout = setTimeout(self, aNumber);\x0a    \x09return smalltalk.Timeout._on_(timeout);\x0a    >",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.BlockClosure);
 
@@ -647,6 +645,7 @@ smalltalk.CompiledMethod);
 
 
 smalltalk.addClass('ForkPool', smalltalk.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
+smalltalk.ForkPool.comment="A ForkPool is responsible for handling forked blocks.\x0aThe pool size sets the maximum concurrent forked blocks.\x0a\x0aThe default instance is accessed with `ForkPool default`"
 smalltalk.addMethod(
 "_addWorker",
 smalltalk.method({
@@ -665,6 +664,24 @@ referencedClasses: []
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
+"_defaultMaxPoolSize",
+smalltalk.method({
+selector: "defaultMaxPoolSize",
+category: 'defaults',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
+return $1;
+},
+args: [],
+source: "defaultMaxPoolSize\x0a\x09^ self class defaultMaxPoolSize",
+messageSends: ["defaultMaxPoolSize", "class"],
+referencedClasses: []
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
 "_fork_",
 smalltalk.method({
 selector: "fork:",
@@ -672,15 +689,15 @@ category: 'action',
 fn: function (aBlock){
 var self=this;
 var $1;
-$1=smalltalk.send(self["@poolSize"],"__lt",[self["@maxPoolSize"]]);
+$1=smalltalk.send(self["@poolSize"],"__lt",[smalltalk.send(self,"_maxPoolSize",[])]);
 if(smalltalk.assert($1)){
 smalltalk.send(self,"_addWorker",[]);
 };
 smalltalk.send(self["@queue"],"_back_",[aBlock]);
 return self},
 args: ["aBlock"],
-source: "fork: aBlock\x0a\x09poolSize < maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue back: aBlock",
-messageSends: ["ifTrue:", "addWorker", "<", "back:"],
+source: "fork: aBlock\x0a\x09poolSize < self maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue back: aBlock",
+messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "back:"],
 referencedClasses: []
 }),
 smalltalk.ForkPool);
@@ -694,13 +711,12 @@ fn: function (){
 var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@poolSize"]=(0);
-self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
 self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
 self["@worker"]=smalltalk.send(self,"_makeWorker",[]);
 return self},
 args: [],
-source: "initialize\x0a    super initialize.\x0a\x09poolSize := 0.\x0a    maxPoolSize := self class defaultMaxPoolSize.\x0a    queue := Queue new.\x0a    worker := self makeWorker",
-messageSends: ["initialize", "defaultMaxPoolSize", "class", "new", "makeWorker"],
+source: "initialize\x0a    super initialize.\x0a    \x0a\x09poolSize := 0.\x0a    queue := Queue new.\x0a    worker := self makeWorker",
+messageSends: ["initialize", "new", "makeWorker"],
 referencedClasses: ["Queue"]
 }),
 smalltalk.ForkPool);
@@ -738,6 +754,45 @@ args: [],
 source: "makeWorker\x0a\x09| sentinel |\x0a    sentinel := Object new.\x0a    ^[ | block |\x0a        poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a        block == sentinel ifFalse: [\x0a        \x09[ block value ] ensure: [ self addWorker ]]]",
 messageSends: ["new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
 referencedClasses: ["Object"]
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_maxPoolSize",
+smalltalk.method({
+selector: "maxPoolSize",
+category: 'accessing',
+fn: function (){
+var self=this;
+var $2,$1;
+$2=self["@maxPoolSize"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=smalltalk.send(self,"_defaultMaxPoolSize",[]);
+} else {
+$1=$2;
+};
+return $1;
+},
+args: [],
+source: "maxPoolSize\x0a\x09^ maxPoolSize ifNil: [ self defaultMaxPoolSize ]",
+messageSends: ["ifNil:", "defaultMaxPoolSize"],
+referencedClasses: []
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_maxPoolSize_",
+smalltalk.method({
+selector: "maxPoolSize:",
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+self["@maxPoolSize"]=anInteger;
+return self},
+args: ["anInteger"],
+source: "maxPoolSize: anInteger\x0a\x09maxPoolSize := anInteger",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.ForkPool);
 

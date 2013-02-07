@@ -3167,9 +3167,10 @@ smalltalk.method({
 selector: "clearInterval",
 fn: function (){
 var self=this;
-var local;
-local=self["@rawTimeout"];
-clearInterval(local);
+
+    	var interval = self["@rawTimeout"];
+		clearInterval(interval);
+    ;
 ;
 return self}
 }),
@@ -3181,9 +3182,10 @@ smalltalk.method({
 selector: "clearTimeout",
 fn: function (){
 var self=this;
-var local;
-local=self["@rawTimeout"];
-clearTimeout(local);
+
+    	var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+    ;
 ;
 return self}
 }),

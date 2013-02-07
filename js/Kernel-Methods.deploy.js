@@ -187,13 +187,12 @@ smalltalk.method({
 selector: "valueWithInterval:",
 fn: function (aNumber){
 var self=this;
-var $1;
-var local;
-local = setInterval(self, aNumber);
+
+    	var interval = setInterval(self, aNumber);
+    	return smalltalk.Timeout._on_(interval);
+    ;
 ;
-$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
-return $1;
-}
+return self}
 }),
 smalltalk.BlockClosure);
 
@@ -215,13 +214,12 @@ smalltalk.method({
 selector: "valueWithTimeout:",
 fn: function (aNumber){
 var self=this;
-var $1;
-var local;
-local = setTimeout(self, aNumber);
+
+    	var timeout = setTimeout(self, aNumber);
+    	return smalltalk.Timeout._on_(timeout);
+    ;
 ;
-$1=smalltalk.send((smalltalk.Timeout || Timeout),"_on_",[local]);
-return $1;
-}
+return self}
 }),
 smalltalk.BlockClosure);
 
@@ -483,13 +481,26 @@ return self}
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
+"_defaultMaxPoolSize",
+smalltalk.method({
+selector: "defaultMaxPoolSize",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
+return $1;
+}
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
 "_fork_",
 smalltalk.method({
 selector: "fork:",
 fn: function (aBlock){
 var self=this;
 var $1;
-$1=smalltalk.send(self["@poolSize"],"__lt",[self["@maxPoolSize"]]);
+$1=smalltalk.send(self["@poolSize"],"__lt",[smalltalk.send(self,"_maxPoolSize",[])]);
 if(smalltalk.assert($1)){
 smalltalk.send(self,"_addWorker",[]);
 };
@@ -506,7 +517,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
 self["@poolSize"]=(0);
-self["@maxPoolSize"]=smalltalk.send(smalltalk.send(self,"_class",[]),"_defaultMaxPoolSize",[]);
 self["@queue"]=smalltalk.send((smalltalk.Queue || Queue),"_new",[]);
 self["@worker"]=smalltalk.send(self,"_makeWorker",[]);
 return self}
@@ -541,6 +551,35 @@ return smalltalk.send(self,"_addWorker",[]);
 });
 return $1;
 }
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_maxPoolSize",
+smalltalk.method({
+selector: "maxPoolSize",
+fn: function (){
+var self=this;
+var $2,$1;
+$2=self["@maxPoolSize"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=smalltalk.send(self,"_defaultMaxPoolSize",[]);
+} else {
+$1=$2;
+};
+return $1;
+}
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_maxPoolSize_",
+smalltalk.method({
+selector: "maxPoolSize:",
+fn: function (anInteger){
+var self=this;
+self["@maxPoolSize"]=anInteger;
+return self}
 }),
 smalltalk.ForkPool);
 

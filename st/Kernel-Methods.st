@@ -120,15 +120,17 @@ fork
 !
 
 valueWithInterval: aNumber
-	| local |
-	<local = setInterval(self, aNumber)>.
-    ^ Timeout on: local
+	<
+    	var interval = setInterval(self, aNumber);
+    	return smalltalk.Timeout._on_(interval);
+    >
 !
 
 valueWithTimeout: aNumber
-	| local |
-	<local = setTimeout(self, aNumber)>.
-    ^ Timeout on: local
+	<
+    	var timeout = setTimeout(self, aNumber);
+    	return smalltalk.Timeout._on_(timeout);
+    >
 ! !
 
 Object subclass: #CompiledMethod
@@ -219,6 +221,21 @@ source: aString
 Object subclass: #ForkPool
 	instanceVariableNames: 'poolSize maxPoolSize queue worker'
 	package: 'Kernel-Methods'!
+!ForkPool commentStamp!
+A ForkPool is responsible for handling forked blocks.
+The pool size sets the maximum concurrent forked blocks.
+
+The default instance is accessed with `ForkPool default`!
+
+!ForkPool methodsFor: 'accessing'!
+
+maxPoolSize
+	^ maxPoolSize ifNil: [ self defaultMaxPoolSize ]
+!
+
+maxPoolSize: anInteger
+	maxPoolSize := anInteger
+! !
 
 !ForkPool methodsFor: 'action'!
 
@@ -228,16 +245,22 @@ addWorker
 !
 
 fork: aBlock
-	poolSize < maxPoolSize ifTrue: [ self addWorker ].
+	poolSize < self maxPoolSize ifTrue: [ self addWorker ].
 	queue back: aBlock
+! !
+
+!ForkPool methodsFor: 'defaults'!
+
+defaultMaxPoolSize
+	^ self class defaultMaxPoolSize
 ! !
 
 !ForkPool methodsFor: 'initialization'!
 
 initialize
     super initialize.
+    
 	poolSize := 0.
-    maxPoolSize := self class defaultMaxPoolSize.
     queue := Queue new.
     worker := self makeWorker
 !
