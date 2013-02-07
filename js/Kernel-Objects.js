@@ -934,7 +934,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { return self;
 }, self, "value", [], smalltalk.Object)},
 args: [],
-source: "value\x0a\x09^ self",
+source: "value\x0a\x09<return self.valueOf()>",
 messageSends: [],
 referencedClasses: []
 }),

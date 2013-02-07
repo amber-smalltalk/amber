@@ -669,8 +669,9 @@ smalltalk.method({
 selector: "value",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self;
-}, self, "value", [], smalltalk.Object)}
+return self.valueOf();
+;
+return self}
 }),
 smalltalk.Object);
 

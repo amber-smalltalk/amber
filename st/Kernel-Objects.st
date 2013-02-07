@@ -80,7 +80,7 @@ size
 !
 
 value
-	^ self
+	<return self.valueOf()>
 !
 
 yourself
