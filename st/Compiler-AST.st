@@ -35,12 +35,6 @@ shouldBeInlined
 
 shouldBeInlined: aBoolean
 	shouldBeInlined := aBoolean
-!
-
-subtreeNeedsAliasing
-    ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
-        (self nodes detect: [ :node | node subtreeNeedsAliasing ] ifNone: [ false ]) ~= false
-    ]
 ! !
 
 !Node methodsFor: 'building'!
@@ -81,6 +75,11 @@ isSendNode
 
 isValueNode
 	^false
+!
+
+subtreeNeedsAliasing
+    ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
+        (self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
 ! !
 
 !Node methodsFor: 'visiting'!

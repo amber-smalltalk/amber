@@ -36,6 +36,49 @@ referencedClasses: ["AliasVar", "IRVariable", "IRAssignment"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
+"_aliasTemporally_",
+smalltalk.method({
+selector: "aliasTemporally:",
+category: 'visiting',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$8,$7,$5,$9;
+$ctx1.locals.threshold=nil;
+$ctx1.locals.result=nil;
+$ctx1.locals.threshold=(0);
+$1=aCollection;
+$2=(function(each,i){
+return smalltalk.withContext(function($ctx2) { $3=_st(each)._subtreeNeedsAliasing();
+if(smalltalk.assert($3)){
+$ctx1.locals.threshold=i;
+return $ctx1.locals.threshold;
+};
+})});
+_st($1)._withIndexDo_($2);
+$ctx1.locals.result=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+$4=aCollection;
+$5=(function(each,i){
+return smalltalk.withContext(function($ctx2) { $6=$ctx1.locals.result;
+$8=_st(i).__lt_eq($ctx1.locals.threshold);
+if(smalltalk.assert($8)){
+$7=_st(self)._alias_(each);
+} else {
+$7=_st(self)._visit_(each);
+};
+return _st($6)._add_($7);
+})});
+_st($4)._withIndexDo_($5);
+$9=$ctx1.locals.result;
+return $9;
+}, self, "aliasTemporally:", [aCollection], smalltalk.IRASTTranslator)},
+args: ["aCollection"],
+source: "aliasTemporally: aCollection\x0a\x09\x22https://github.com/NicolasPetton/amber/issues/296\x0a    \x0a    If a node is aliased, all preceding ones are aliased as well.\x0a    The tree is iterated twice. First we get the aliasing dependency, \x0a    then the aliasing itself is done\x22\x0a\x0a\x09| threshold result |\x0a    threshold := 0.\x0a    \x0a    aCollection withIndexDo: [ :each :i |\x0a        each subtreeNeedsAliasing\x0a\x09\x09    ifTrue: [ threshold := i ]].\x0a\x0a\x09result := OrderedCollection new.\x0a\x09aCollection withIndexDo: [ :each :i | \x0a\x09\x09result add: (i <= threshold\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ])].\x0a\x0a    ^result",
+messageSends: ["withIndexDo:", "ifTrue:", "subtreeNeedsAliasing", "new", "add:", "ifTrue:ifFalse:", "alias:", "visit:", "<="],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.IRASTTranslator);
+
+smalltalk.addMethod(
 "_method",
 smalltalk.method({
 selector: "method",
@@ -160,49 +203,6 @@ args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.IRASTTranslator);
-
-smalltalk.addMethod(
-"_temporallyDependentList_",
-smalltalk.method({
-selector: "temporallyDependentList:",
-category: 'visiting',
-fn: function (nodes){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$8,$7,$5,$9;
-$ctx1.locals.threshold=nil;
-$ctx1.locals.result=nil;
-$ctx1.locals.threshold=(0);
-$1=nodes;
-$2=(function(each,i){
-return smalltalk.withContext(function($ctx2) { $3=_st(each)._subtreeNeedsAliasing();
-if(smalltalk.assert($3)){
-$ctx1.locals.threshold=i;
-return $ctx1.locals.threshold;
-};
-})});
-_st($1)._withIndexDo_($2);
-$ctx1.locals.result=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-$4=nodes;
-$5=(function(each,i){
-return smalltalk.withContext(function($ctx2) { $6=$ctx1.locals.result;
-$8=_st(i).__lt_eq($ctx1.locals.threshold);
-if(smalltalk.assert($8)){
-$7=_st(self)._alias_(each);
-} else {
-$7=_st(self)._visit_(each);
-};
-return _st($6)._add_($7);
-})});
-_st($4)._withIndexDo_($5);
-$9=$ctx1.locals.result;
-return $9;
-}, self, "temporallyDependentList:", [nodes], smalltalk.IRASTTranslator)},
-args: ["nodes"],
-source: "temporallyDependentList: nodes\x0a\x09| threshold result |\x0a    threshold := 0.\x0a    \x0a    nodes withIndexDo: [ :each :i |\x0a        each subtreeNeedsAliasing\x0a\x09\x09    ifTrue: [ threshold := i ]].\x0a\x0a\x09result := OrderedCollection new.\x0a\x09nodes withIndexDo: [ :each :i | \x0a\x09\x09result add: (i <= threshold\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ])].\x0a\x0a    ^result",
-messageSends: ["withIndexDo:", "ifTrue:", "subtreeNeedsAliasing", "new", "add:", "ifTrue:ifFalse:", "alias:", "visit:", "<="],
-referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.IRASTTranslator);
 
@@ -380,15 +380,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $ctx1.locals.array=nil;
 $ctx1.locals.array=_st((smalltalk.IRDynamicArray || IRDynamicArray))._new();
-_st(_st(self)._temporallyDependentList_(_st(aNode)._nodes()))._do_((function(each){
+_st(_st(self)._aliasTemporally_(_st(aNode)._nodes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.array)._add_(each);
 })}));
 $1=$ctx1.locals.array;
 return $1;
 }, self, "visitDynamicArrayNode:", [aNode], smalltalk.IRASTTranslator)},
 args: ["aNode"],
-source: "visitDynamicArrayNode: aNode\x0a\x09| array |\x0a\x09array := IRDynamicArray new.\x0a\x09(self temporallyDependentList: aNode nodes) do: [:each | array add: each].\x0a\x09^ array",
-messageSends: ["new", "do:", "add:", "temporallyDependentList:", "nodes"],
+source: "visitDynamicArrayNode: aNode\x0a\x09| array |\x0a\x09array := IRDynamicArray new.\x0a\x09(self aliasTemporally: aNode nodes) do: [:each | array add: each].\x0a\x09^ array",
+messageSends: ["new", "do:", "add:", "aliasTemporally:", "nodes"],
 referencedClasses: ["IRDynamicArray"]
 }),
 smalltalk.IRASTTranslator);
@@ -403,15 +403,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $ctx1.locals.dictionary=nil;
 $ctx1.locals.dictionary=_st((smalltalk.IRDynamicDictionary || IRDynamicDictionary))._new();
-_st(_st(self)._temporallyDependentList_(_st(aNode)._nodes()))._do_((function(each){
+_st(_st(self)._aliasTemporally_(_st(aNode)._nodes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.dictionary)._add_(each);
 })}));
 $1=$ctx1.locals.dictionary;
 return $1;
 }, self, "visitDynamicDictionaryNode:", [aNode], smalltalk.IRASTTranslator)},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09| dictionary |\x0a\x09dictionary := IRDynamicDictionary new.\x0a    (self temporallyDependentList: aNode nodes) do: [:each | dictionary add: each].\x0a\x09^ dictionary",
-messageSends: ["new", "do:", "add:", "temporallyDependentList:", "nodes"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09| dictionary |\x0a\x09dictionary := IRDynamicDictionary new.\x0a    (self aliasTemporally: aNode nodes) do: [:each | dictionary add: each].\x0a\x09^ dictionary",
+messageSends: ["new", "do:", "add:", "aliasTemporally:", "nodes"],
 referencedClasses: ["IRDynamicDictionary"]
 }),
 smalltalk.IRASTTranslator);
@@ -532,7 +532,7 @@ $3=_st(aNode)._superSend();
 if(smalltalk.assert($3)){
 _st($ctx1.locals.send)._classSend_(_st(_st(self)._theClass())._superclass());
 };
-$ctx1.locals.all=_st(self)._temporallyDependentList_(_st([_st(aNode)._receiver()]).__comma(_st(aNode)._arguments()));
+$ctx1.locals.all=_st(self)._aliasTemporally_(_st([_st(aNode)._receiver()]).__comma(_st(aNode)._arguments()));
 $ctx1.locals.receiver=_st($ctx1.locals.all)._first();
 $ctx1.locals.arguments=_st($ctx1.locals.all)._allButFirst();
 _st($ctx1.locals.send)._add_($ctx1.locals.receiver);
@@ -543,8 +543,8 @@ $4=$ctx1.locals.send;
 return $4;
 }, self, "visitSendNode:", [aNode], smalltalk.IRASTTranslator)},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| send all receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a    \x0a    all := self temporallyDependentList: { aNode receiver }, aNode arguments.\x0a\x09receiver := all first.\x0a\x09arguments := all allButFirst.\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
-messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "classSend:", "superclass", "theClass", "superSend", "temporallyDependentList:", ",", "arguments", "receiver", "first", "allButFirst", "add:", "do:"],
+source: "visitSendNode: aNode\x0a\x09| send all receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send \x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a    \x0a    all := self aliasTemporally: { aNode receiver }, aNode arguments.\x0a\x09receiver := all first.\x0a\x09arguments := all allButFirst.\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
+messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "classSend:", "superclass", "theClass", "superSend", "aliasTemporally:", ",", "arguments", "receiver", "first", "allButFirst", "add:", "do:"],
 referencedClasses: ["IRSend"]
 }),
 smalltalk.IRASTTranslator);

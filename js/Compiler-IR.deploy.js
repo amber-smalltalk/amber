@@ -30,6 +30,44 @@ return $7;
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
+"_aliasTemporally_",
+smalltalk.method({
+selector: "aliasTemporally:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$8,$7,$5,$9;
+$ctx1.locals.threshold=nil;
+$ctx1.locals.result=nil;
+$ctx1.locals.threshold=(0);
+$1=aCollection;
+$2=(function(each,i){
+return smalltalk.withContext(function($ctx2) { $3=_st(each)._subtreeNeedsAliasing();
+if(smalltalk.assert($3)){
+$ctx1.locals.threshold=i;
+return $ctx1.locals.threshold;
+};
+})});
+_st($1)._withIndexDo_($2);
+$ctx1.locals.result=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+$4=aCollection;
+$5=(function(each,i){
+return smalltalk.withContext(function($ctx2) { $6=$ctx1.locals.result;
+$8=_st(i).__lt_eq($ctx1.locals.threshold);
+if(smalltalk.assert($8)){
+$7=_st(self)._alias_(each);
+} else {
+$7=_st(self)._visit_(each);
+};
+return _st($6)._add_($7);
+})});
+_st($4)._withIndexDo_($5);
+$9=$ctx1.locals.result;
+return $9;
+}, self, "aliasTemporally:", [aCollection], smalltalk.IRASTTranslator)}
+}),
+smalltalk.IRASTTranslator);
+
+smalltalk.addMethod(
 "_method",
 smalltalk.method({
 selector: "method",
@@ -119,44 +157,6 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
 return self}, self, "source:", [aString], smalltalk.IRASTTranslator)}
-}),
-smalltalk.IRASTTranslator);
-
-smalltalk.addMethod(
-"_temporallyDependentList_",
-smalltalk.method({
-selector: "temporallyDependentList:",
-fn: function (nodes){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$8,$7,$5,$9;
-$ctx1.locals.threshold=nil;
-$ctx1.locals.result=nil;
-$ctx1.locals.threshold=(0);
-$1=nodes;
-$2=(function(each,i){
-return smalltalk.withContext(function($ctx2) { $3=_st(each)._subtreeNeedsAliasing();
-if(smalltalk.assert($3)){
-$ctx1.locals.threshold=i;
-return $ctx1.locals.threshold;
-};
-})});
-_st($1)._withIndexDo_($2);
-$ctx1.locals.result=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-$4=nodes;
-$5=(function(each,i){
-return smalltalk.withContext(function($ctx2) { $6=$ctx1.locals.result;
-$8=_st(i).__lt_eq($ctx1.locals.threshold);
-if(smalltalk.assert($8)){
-$7=_st(self)._alias_(each);
-} else {
-$7=_st(self)._visit_(each);
-};
-return _st($6)._add_($7);
-})});
-_st($4)._withIndexDo_($5);
-$9=$ctx1.locals.result;
-return $9;
-}, self, "temporallyDependentList:", [nodes], smalltalk.IRASTTranslator)}
 }),
 smalltalk.IRASTTranslator);
 
@@ -303,7 +303,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $ctx1.locals.array=nil;
 $ctx1.locals.array=_st((smalltalk.IRDynamicArray || IRDynamicArray))._new();
-_st(_st(self)._temporallyDependentList_(_st(aNode)._nodes()))._do_((function(each){
+_st(_st(self)._aliasTemporally_(_st(aNode)._nodes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.array)._add_(each);
 })}));
 $1=$ctx1.locals.array;
@@ -321,7 +321,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $ctx1.locals.dictionary=nil;
 $ctx1.locals.dictionary=_st((smalltalk.IRDynamicDictionary || IRDynamicDictionary))._new();
-_st(_st(self)._temporallyDependentList_(_st(aNode)._nodes()))._do_((function(each){
+_st(_st(self)._aliasTemporally_(_st(aNode)._nodes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.dictionary)._add_(each);
 })}));
 $1=$ctx1.locals.dictionary;
@@ -430,7 +430,7 @@ $3=_st(aNode)._superSend();
 if(smalltalk.assert($3)){
 _st($ctx1.locals.send)._classSend_(_st(_st(self)._theClass())._superclass());
 };
-$ctx1.locals.all=_st(self)._temporallyDependentList_(_st([_st(aNode)._receiver()]).__comma(_st(aNode)._arguments()));
+$ctx1.locals.all=_st(self)._aliasTemporally_(_st([_st(aNode)._receiver()]).__comma(_st(aNode)._arguments()));
 $ctx1.locals.receiver=_st($ctx1.locals.all)._first();
 $ctx1.locals.arguments=_st($ctx1.locals.all)._allButFirst();
 _st($ctx1.locals.send)._add_($ctx1.locals.receiver);

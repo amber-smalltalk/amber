@@ -229,8 +229,8 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) { return _st(self)._shouldBeInlined();
 })})))._or_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._nodes())._detect_ifNone_((function(node){
-return smalltalk.withContext(function($ctx3) { return _st(node)._subtreeNeedsAliasing();
+return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._nodes())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx3) { return _st(each)._subtreeNeedsAliasing();
 })}),(function(){
 return smalltalk.withContext(function($ctx3) { return false;
 })}))).__tild_eq(false);

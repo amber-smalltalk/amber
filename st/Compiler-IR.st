@@ -76,16 +76,22 @@ alias: aNode
 	^ variable
 !
 
-temporallyDependentList: nodes
+aliasTemporally: aCollection
+	"https://github.com/NicolasPetton/amber/issues/296
+    
+    If a node is aliased, all preceding ones are aliased as well.
+    The tree is iterated twice. First we get the aliasing dependency, 
+    then the aliasing itself is done"
+
 	| threshold result |
     threshold := 0.
     
-    nodes withIndexDo: [ :each :i |
+    aCollection withIndexDo: [ :each :i |
         each subtreeNeedsAliasing
 		    ifTrue: [ threshold := i ]].
 
 	result := OrderedCollection new.
-	nodes withIndexDo: [ :each :i | 
+	aCollection withIndexDo: [ :each :i | 
 		result add: (i <= threshold
 			ifTrue: [ self alias: each ]
 			ifFalse: [ self visit: each ])].
@@ -148,14 +154,14 @@ visitCascadeNode: aNode
 visitDynamicArrayNode: aNode
 	| array |
 	array := IRDynamicArray new.
-	(self temporallyDependentList: aNode nodes) do: [:each | array add: each].
+	(self aliasTemporally: aNode nodes) do: [:each | array add: each].
 	^ array
 !
 
 visitDynamicDictionaryNode: aNode
 	| dictionary |
 	dictionary := IRDynamicDictionary new.
-    (self temporallyDependentList: aNode nodes) do: [:each | dictionary add: each].
+    (self aliasTemporally: aNode nodes) do: [:each | dictionary add: each].
 	^ dictionary
 !
 
@@ -213,7 +219,7 @@ visitSendNode: aNode
 		index: aNode index.
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
     
-    all := self temporallyDependentList: { aNode receiver }, aNode arguments.
+    all := self aliasTemporally: { aNode receiver }, aNode arguments.
 	receiver := all first.
 	arguments := all allButFirst.
 
