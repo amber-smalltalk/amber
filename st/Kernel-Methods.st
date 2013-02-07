@@ -120,11 +120,15 @@ fork
 !
 
 valueWithInterval: aNumber
-	<return setInterval(self, aNumber)>
+	| local |
+	<local = setInterval(self, aNumber)>.
+    ^ Timeout on: local
 !
 
 valueWithTimeout: aNumber
-	<return setTimeout(self, aNumber)>
+	| local |
+	<local = setTimeout(self, aNumber)>.
+    ^ Timeout on: local
 ! !
 
 Object subclass: #CompiledMethod

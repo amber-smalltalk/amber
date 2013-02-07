@@ -1786,30 +1786,6 @@ fn: function () {
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_clearInterval",
-smalltalk.method({
-selector: "clearInterval",
-fn: function () {
-    var self = this;
-    clearInterval(Number(self));
-    return self;
-}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-"_clearTimeout",
-smalltalk.method({
-selector: "clearTimeout",
-fn: function () {
-    var self = this;
-    clearTimeout(Number(self));
-    return self;
-}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 "_copy",
 smalltalk.method({
 selector: "copy",
@@ -3182,6 +3158,64 @@ fn: function () {
 }
 }),
 smalltalk.Smalltalk.klass);
+
+
+smalltalk.addClass('Timeout', smalltalk.Object, ['rawTimeout'], 'Kernel-Objects');
+smalltalk.addMethod(
+"_clearInterval",
+smalltalk.method({
+selector: "clearInterval",
+fn: function (){
+var self=this;
+var local;
+local=self["@rawTimeout"];
+clearInterval(local);
+;
+return self}
+}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+"_clearTimeout",
+smalltalk.method({
+selector: "clearTimeout",
+fn: function (){
+var self=this;
+var local;
+local=self["@rawTimeout"];
+clearTimeout(local);
+;
+return self}
+}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+"_rawTimeout_",
+smalltalk.method({
+selector: "rawTimeout:",
+fn: function (anObject){
+var self=this;
+self["@rawTimeout"]=anObject;
+return self}
+}),
+smalltalk.Timeout);
+
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (anObject){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send(self,"_new",[]);
+smalltalk.send($2,"_rawTimeout_",[anObject]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+}
+}),
+smalltalk.Timeout.klass);
 
 
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel-Objects');
