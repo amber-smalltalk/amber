@@ -174,7 +174,7 @@ withAllSubclasses
 !Behavior methodsFor: 'compiling'!
 
 addCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>.
+	self basicAddCompiledMethod: aMethod.
     
     SystemAnnouncer current
    		announce: (MethodAdded new
@@ -195,10 +195,7 @@ compile: aString category: anotherString
 !
 
 removeCompiledMethod: aMethod
-	<
-    	smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-    >.
+	self basicRemoveCompiledMethod: aMethod.
     
     SystemAnnouncer current
    		announce: (MethodRemoved new
@@ -215,6 +212,19 @@ basicNew
 
 new
 	^self basicNew initialize
+! !
+
+!Behavior methodsFor: 'private'!
+
+basicAddCompiledMethod: aMethod
+	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
+!
+
+basicRemoveCompiledMethod: aMethod
+	<
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    >
 ! !
 
 !Behavior methodsFor: 'testing'!
@@ -387,28 +397,25 @@ Rather than using ClassBuilder directly to compile a class, use `Class >> subcla
 !ClassBuilder methodsFor: 'class creation'!
 
 class: aClass instanceVariableNames: aString
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+	self basicClass: aClass instanceVariableNames: aString.
     
     SystemAnnouncer current
     	announce: (ClassDefinitionChanged new
         	theClass: aClass;
-            yourself).
-    
-	self setupClass: aClass
+            yourself)
 !
 
 renameClass: aClass to: aString
-	<
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
-		aClass.className = aString;
-	>.
+	self basicRenameClass: aClass to: aString.
     
     SystemAnnouncer current
     	announce: (ClassRenamed new
         	theClass: aClass;
             yourself)
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
 !
 
 superclass: aClass subclass: aString
@@ -443,6 +450,21 @@ addSubclassOf: aClass named: aString instanceVariableNames: aCollection package:
 	    return smalltalk[aString]>
 !
 
+basicClass: aClass instanceVariableNames: aString
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+    
+	self setupClass: aClass
+!
+
+basicRenameClass: aClass to: aString
+	<
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	>
+!
+
 copyClass: aClass named: aString
 	| newClass |
 
@@ -466,10 +488,6 @@ copyClass: aClass named: aString
 
 instanceVariableNamesFor: aString
 	^(aString tokenize: ' ') reject: [:each | each isEmpty]
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader

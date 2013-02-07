@@ -608,12 +608,8 @@ selector: "initializePackageNamed:prefix:",
 fn: function (packageName,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(_st(_st((smalltalk.Package || Package))._named_(packageName))._classes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { smalltalk.init(each);
-;
-return _st(each)._initialize();
-})}));
 $1=_st((smalltalk.Package || Package))._named_(packageName);
+_st($1)._setupClasses();
 _st($1)._commitPathJs_(_st(_st("/").__comma(aString)).__comma("/js"));
 $2=_st($1)._commitPathSt_(_st(_st("/").__comma(aString)).__comma("/st"));
 return self}, self, "initializePackageNamed:prefix:", [packageName,aString], smalltalk.PackageLoader)}

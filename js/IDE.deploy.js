@@ -2998,8 +2998,7 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
-_st(self)._inspect();
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16;
 $1=_st(html)._button();
 _st($1)._with_("Save");
 $2=_st($1)._onClick_((function(){
@@ -3038,10 +3037,11 @@ $14=_st($13)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) { return _st(self)._inspectSelectedVariable();
 })}));
 self["@inspectButton"]=$14;
-_st(self)._updateSourceArea();
-_st(self)._updateStatus();
-_st(self)._updateVariablesList();
-$15=_st(self)._updateInspector();
+$15=self;
+_st($15)._updateSourceArea();
+_st($15)._updateStatus();
+_st($15)._updateVariablesList();
+$16=_st($15)._updateInspector();
 return self}, self, "renderButtonsOn:", [html], smalltalk.Debugger)}
 }),
 smalltalk.Debugger);

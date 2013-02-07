@@ -7,8 +7,7 @@ selector: "addCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
-;
+_st(self)._basicAddCompiledMethod_(aMethod);
 $1=_st((smalltalk.MethodAdded || MethodAdded))._new();
 _st($1)._theClass_(self);
 _st($1)._method_(aMethod);
@@ -77,6 +76,17 @@ return $2;
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_basicAddCompiledMethod_",
+smalltalk.method({
+selector: "basicAddCompiledMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
+return self}, self, "basicAddCompiledMethod:", [aMethod], smalltalk.Behavior)}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_basicNew",
 smalltalk.method({
 selector: "basicNew",
@@ -85,6 +95,20 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { return new self.fn();
 ;
 return self}, self, "basicNew", [], smalltalk.Behavior)}
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_basicRemoveCompiledMethod_",
+smalltalk.method({
+selector: "basicRemoveCompiledMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    ;
+return self}, self, "basicRemoveCompiledMethod:", [aMethod], smalltalk.Behavior)}
 }),
 smalltalk.Behavior);
 
@@ -447,11 +471,7 @@ selector: "removeCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-
-    	smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-    ;
-;
+_st(self)._basicRemoveCompiledMethod_(aMethod);
 $1=_st((smalltalk.MethodRemoved || MethodRemoved))._new();
 _st($1)._theClass_(self);
 _st($1)._method_(aMethod);
@@ -855,22 +875,49 @@ return self}, self, "addSubclassOf:named:instanceVariableNames:package:", [aClas
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_class_instanceVariableNames_",
+"_basicClass_instanceVariableNames_",
 smalltalk.method({
-selector: "class:instanceVariableNames:",
+selector: "basicClass:instanceVariableNames:",
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
 };
 _st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aString));
-$2=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
-_st($2)._theClass_(aClass);
-$3=_st($2)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
 _st(self)._setupClass_(aClass);
+return self}, self, "basicClass:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)}
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_basicRenameClass_to_",
+smalltalk.method({
+selector: "basicRenameClass:to:",
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	;
+return self}, self, "basicRenameClass:to:", [aClass,aString], smalltalk.ClassBuilder)}
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_class_instanceVariableNames_",
+smalltalk.method({
+selector: "class:instanceVariableNames:",
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self)._basicClass_instanceVariableNames_(aClass,aString);
+$1=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
+_st($1)._theClass_(aClass);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, self, "class:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)}
 }),
 smalltalk.ClassBuilder);
@@ -918,12 +965,7 @@ selector: "renameClass:to:",
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
-		aClass.className = aString;
-	;
-;
+_st(self)._basicRenameClass_to_(aClass,aString);
 $1=_st((smalltalk.ClassRenamed || ClassRenamed))._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();

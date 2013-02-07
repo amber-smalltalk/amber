@@ -123,17 +123,17 @@ testIfTrueIfFalse
 
 testIfTrueIfFalseWithBoxing
  
-	self assert: (true boxed ifTrue: ['alternative block']) = 'alternative block'.
-	self assert: (true boxed ifFalse: ['alternative block']) = nil.
+	self assert: (true yourself ifTrue: ['alternative block']) = 'alternative block'.
+	self assert: (true yourself ifFalse: ['alternative block']) = nil.
 
-	self assert: (false boxed ifTrue: ['alternative block']) = nil.
-	self assert: (false boxed ifFalse: ['alternative block']) = 'alternative block'.
+	self assert: (false yourself ifTrue: ['alternative block']) = nil.
+	self assert: (false yourself ifFalse: ['alternative block']) = 'alternative block'.
 
-	self assert: (false boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
-	self assert: (false boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
+	self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
+	self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
 
-	self assert: (true boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
-	self assert: (true boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+	self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
+	self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
 !
 
 testLogic
@@ -172,9 +172,7 @@ testLogicKeywords
 !
 
 testNonBooleanError
-	|b|
-    b := < '' >.
-    self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
+    self should: [ '' ifTrue: [] ifFalse: [] ] raise: NonBooleanReceiver
 ! !
 
 TestCase subclass: #ClassBuilderTest
@@ -1426,11 +1424,5 @@ testIfNil
 testIsNil
 	self assert: nil isNil.
 	self deny: nil notNil.
-! !
-
-!Boolean methodsFor: '*Kernel-Tests'!
-
-boxed
-	^self
 ! !
 

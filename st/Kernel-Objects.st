@@ -277,6 +277,10 @@ ifNotNil: aBlock ifNil: anotherBlock
 	^aBlock value
 !
 
+isBoolean
+	^ false
+!
+
 isClass
 	^false
 !
@@ -341,8 +345,12 @@ Boolean instances are weither `true` or `false`.!
 !Boolean methodsFor: 'comparing'!
 
 = aBoolean
-	aBoolean class = self class ifFalse: [^false].
-	<return Boolean(self == true) == aBoolean>
+	<
+    	if(!! aBoolean._isBoolean || !! aBoolean._isBoolean()) {
+        	return false;
+        }
+    	return Boolean(self == true) == aBoolean
+    >
 !
 
 == aBoolean
@@ -433,6 +441,12 @@ shallowCopy
 
 printString
 	<return self.toString()>
+! !
+
+!Boolean methodsFor: 'testing'!
+
+isBoolean
+	^ true
 ! !
 
 Object subclass: #CompiledMethod
@@ -762,21 +776,24 @@ keysAndValuesDo: aBlock
 !JSObjectProxy methodsFor: 'proxy'!
 
 addObjectVariablesTo: aDictionary
-	<for(var i in self['@jsObject']) {
-		aDictionary._at_put_(i, self['@jsObject'][i]);
-	}>.
+	<
+    	for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, self['@jsObject'][i]);
+		}
+    >
 !
 
 doesNotUnderstand: aMessage
-	<
-    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
-        var object = self._jsObject();
-    	if(jsSelector in object) {
-        	return smalltalk.send(object, jsSelector, aMessage._arguments());
-        }
-    >.
     
-	super doesNotUnderstand: aMessage
+   ^ (self canForwardMessage: aMessage) 
+    	ifTrue: [ self forwardMessage: aMessage ]
+        ifFalse: [ ^ super doesNotUnderstand: aMessage ]
+!
+
+forwardMessage: aMessage
+	<
+    	return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
+    >
 !
 
 inspectOn: anInspector
@@ -790,6 +807,19 @@ inspectOn: anInspector
 
 printString
 	^self jsObject toString
+! !
+
+!JSObjectProxy methodsFor: 'testing'!
+
+canForwardMessage: aMessage
+	<
+    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
+    	if(jsSelector in self._jsObject()) {
+        	return true
+        } else {
+        	return false;
+        }
+    >
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
@@ -855,7 +885,7 @@ identityHash
 !
 
 abs
-	^ <Math.abs(self);>
+	<return Math.abs(self);>
 !
 
 max: aNumber
@@ -891,8 +921,12 @@ squared
 !
 
 = aNumber
-	aNumber isNumber ifFalse: [^false]. 
-	<return Number(self) == aNumber>
+	<
+    	if(!! aNumber._isNumber || !! aNumber._isNumber()) {
+        	return false;
+        }
+    	return Number(self) == aNumber
+    >
 !
 
 > aNumber
@@ -1173,6 +1207,12 @@ classes
 	^ self organization elements
 !
 
+setupClasses
+	self classes
+		do: [ :each | ClassBuilder new setupClass: each ];
+		do: [ :each | each initialize ]
+!
+
 sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
@@ -1218,6 +1258,18 @@ propertyAt: key put: value
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 
+!Package class methodsFor: 'accessing'!
+
+named: aPackageName
+
+	^Smalltalk current packageAt: aPackageName
+!
+
+named: aPackageName ifAbsent: aBlock
+
+	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+! !
+
 !Package class methodsFor: 'commit paths'!
 
 defaultCommitPathJs
@@ -1243,37 +1295,15 @@ resetCommitPaths
 
 !Package class methodsFor: 'loading-storing'!
 
-commitToLocalStorage: aPackageName
-	| key sourceCode |
-	key := 'smalltalk.packages.' , aPackageName.
-	sourceCode := Exporter new exportPackage: aPackageName.
-	<localStorage[key] = escape(sourceCode)>
-!
-
 fetch: aPackageName
 	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
 !
 
 fetch: aPackageName prefix: aPrefix
-	jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]
-!
-
-init: aPackageName
-	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
-		do: [ :each | <smalltalk.init(each)> ];
-		do: [ :each | each initialize ]
-! !
-
-!Package class methodsFor: 'not yet classified'!
-
-named: aPackageName
-
-	^Smalltalk current packageAt: aPackageName
-!
-
-named: aPackageName ifAbsent: aBlock
-
-	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+	jQuery 
+    	getScript: (aPrefix , aPackageName , '.js') 
+        onSuccess: [ 
+        	(Package named: aPackageName) setupClasses ]
 ! !
 
 !Package class methodsFor: 'sorting'!
@@ -1473,10 +1503,6 @@ at: aSymbol
 	<return self[aSymbol._asString()]>
 !
 
-basicParse: aString
-	<return smalltalk.parser.parse(aString)>
-!
-
 parse: aString
 	| result | 
 	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
@@ -1575,9 +1601,15 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
+    (self basicAt: 'packages') at: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
+! !
+
+!Smalltalk methodsFor: 'private'!
+
+basicParse: aString
+	<return smalltalk.parser.parse(aString)>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!

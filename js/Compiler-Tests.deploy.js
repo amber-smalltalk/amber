@@ -579,21 +579,6 @@ return self}, self, "testUnknownVariables", [], smalltalk.SemanticAnalyzerTest)}
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testUnknownVariablesDefinedInJS",
-smalltalk.method({
-selector: "testUnknownVariablesDefinedInJS",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) {  var someVariable = 1 ;
-;
-_st(self)._shouldnt_raise_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(smalltalk)._parse_("foo someVariable");
-})}),(smalltalk.UnknownVariableError || UnknownVariableError));
-return self}, self, "testUnknownVariablesDefinedInJS", [], smalltalk.SemanticAnalyzerTest)}
-}),
-smalltalk.SemanticAnalyzerTest);
-
-smalltalk.addMethod(
 "_testUnknownVariablesWithScope",
 smalltalk.method({
 selector: "testUnknownVariablesWithScope",

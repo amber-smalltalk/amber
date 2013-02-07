@@ -359,13 +359,6 @@ testUnknownVariables
 	self should: [ analyzer visit: ast ] raise: UnknownVariableError
 !
 
-testUnknownVariablesDefinedInJS
-
-	< var someVariable = 1 >.
-
-	self shouldnt: [ smalltalk parse: 'foo someVariable' ] raise: UnknownVariableError
-!
-
 testUnknownVariablesWithScope
 	| src ast |
 

@@ -9,8 +9,7 @@ category: 'compiling',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
-;
+_st(self)._basicAddCompiledMethod_(aMethod);
 $1=_st((smalltalk.MethodAdded || MethodAdded))._new();
 _st($1)._theClass_(self);
 _st($1)._method_(aMethod);
@@ -18,8 +17,8 @@ $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, self, "addCompiledMethod:", [aMethod], smalltalk.Behavior)},
 args: ["aMethod"],
-source: "addCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodAdded new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
-messageSends: ["announce:", "theClass:", "new", "method:", "yourself", "current"],
+source: "addCompiledMethod: aMethod\x0a\x09self basicAddCompiledMethod: aMethod.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodAdded new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
+messageSends: ["basicAddCompiledMethod:", "announce:", "theClass:", "new", "method:", "yourself", "current"],
 referencedClasses: ["MethodAdded", "SystemAnnouncer"]
 }),
 smalltalk.Behavior);
@@ -98,6 +97,22 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_basicAddCompiledMethod_",
+smalltalk.method({
+selector: "basicAddCompiledMethod:",
+category: 'private',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
+return self}, self, "basicAddCompiledMethod:", [aMethod], smalltalk.Behavior)},
+args: ["aMethod"],
+source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_basicNew",
 smalltalk.method({
 selector: "basicNew",
@@ -109,6 +124,25 @@ return smalltalk.withContext(function($ctx1) { return new self.fn();
 return self}, self, "basicNew", [], smalltalk.Behavior)},
 args: [],
 source: "basicNew\x0a\x09<return new self.fn()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_basicRemoveCompiledMethod_",
+smalltalk.method({
+selector: "basicRemoveCompiledMethod:",
+category: 'private',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    ;
+return self}, self, "basicRemoveCompiledMethod:", [aMethod], smalltalk.Behavior)},
+args: ["aMethod"],
+source: "basicRemoveCompiledMethod: aMethod\x0a\x09<\x0a    \x09smalltalk.removeMethod(aMethod)\x0a\x09\x09smalltalk.init(self);\x0a    >",
 messageSends: [],
 referencedClasses: []
 }),
@@ -594,11 +628,7 @@ category: 'compiling',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-
-    	smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-    ;
-;
+_st(self)._basicRemoveCompiledMethod_(aMethod);
 $1=_st((smalltalk.MethodRemoved || MethodRemoved))._new();
 _st($1)._theClass_(self);
 _st($1)._method_(aMethod);
@@ -606,8 +636,8 @@ $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, self, "removeCompiledMethod:", [aMethod], smalltalk.Behavior)},
 args: ["aMethod"],
-source: "removeCompiledMethod: aMethod\x0a\x09<\x0a    \x09smalltalk.removeMethod(aMethod)\x0a\x09\x09smalltalk.init(self);\x0a    >.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodRemoved new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
-messageSends: ["announce:", "theClass:", "new", "method:", "yourself", "current"],
+source: "removeCompiledMethod: aMethod\x0a\x09self basicRemoveCompiledMethod: aMethod.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodRemoved new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
+messageSends: ["basicRemoveCompiledMethod:", "announce:", "theClass:", "new", "method:", "yourself", "current"],
 referencedClasses: ["MethodRemoved", "SystemAnnouncer"]
 }),
 smalltalk.Behavior);
@@ -1149,27 +1179,64 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
+"_basicClass_instanceVariableNames_",
+smalltalk.method({
+selector: "basicClass:instanceVariableNames:",
+category: 'private',
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aClass)._isMetaclass();
+if(! smalltalk.assert($1)){
+_st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
+};
+_st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aString));
+_st(self)._setupClass_(aClass);
+return self}, self, "basicClass:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)},
+args: ["aClass", "aString"],
+source: "basicClass: aClass instanceVariableNames: aString\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a\x09self setupClass: aClass",
+messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:", "instanceVariableNamesFor:", "setupClass:"],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_basicRenameClass_to_",
+smalltalk.method({
+selector: "basicRenameClass:to:",
+category: 'private',
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	;
+return self}, self, "basicRenameClass:to:", [aClass,aString], smalltalk.ClassBuilder)},
+args: ["aClass", "aString"],
+source: "basicRenameClass: aClass to: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = aClass;\x0a\x09\x09delete smalltalk[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 "_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
 category: 'class creation',
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-$1=_st(aClass)._isMetaclass();
-if(! smalltalk.assert($1)){
-_st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
-};
-_st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aString));
-$2=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
-_st($2)._theClass_(aClass);
-$3=_st($2)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
-_st(self)._setupClass_(aClass);
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self)._basicClass_instanceVariableNames_(aClass,aString);
+$1=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
+_st($1)._theClass_(aClass);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, self, "class:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)},
 args: ["aClass", "aString"],
-source: "class: aClass instanceVariableNames: aString\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassDefinitionChanged new\x0a        \x09theClass: aClass;\x0a            yourself).\x0a    \x0a\x09self setupClass: aClass",
-messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:", "instanceVariableNamesFor:", "announce:", "theClass:", "new", "yourself", "current", "setupClass:"],
+source: "class: aClass instanceVariableNames: aString\x0a\x09self basicClass: aClass instanceVariableNames: aString.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassDefinitionChanged new\x0a        \x09theClass: aClass;\x0a            yourself)",
+messageSends: ["basicClass:instanceVariableNames:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassDefinitionChanged", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
@@ -1228,20 +1295,15 @@ category: 'class creation',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
-		aClass.className = aString;
-	;
-;
+_st(self)._basicRenameClass_to_(aClass,aString);
 $1=_st((smalltalk.ClassRenamed || ClassRenamed))._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, self, "renameClass:to:", [aClass,aString], smalltalk.ClassBuilder)},
 args: ["aClass", "aString"],
-source: "renameClass: aClass to: aString\x0a\x09<\x0a\x09\x09smalltalk[aString] = aClass;\x0a\x09\x09delete smalltalk[aClass.className];\x0a\x09\x09aClass.className = aString;\x0a\x09>.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassRenamed new\x0a        \x09theClass: aClass;\x0a            yourself)\x0a    \x09",
-messageSends: ["announce:", "theClass:", "new", "yourself", "current"],
+source: "renameClass: aClass to: aString\x0a\x09self basicRenameClass: aClass to: aString.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassRenamed new\x0a        \x09theClass: aClass;\x0a            yourself)\x0a    \x09",
+messageSends: ["basicRenameClass:to:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassRenamed", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
@@ -1250,7 +1312,7 @@ smalltalk.addMethod(
 "_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
-category: 'private',
+category: 'class creation',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);;

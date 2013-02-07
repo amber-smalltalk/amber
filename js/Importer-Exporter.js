@@ -730,22 +730,18 @@ smalltalk.addMethod(
 "_initializePackageNamed_prefix_",
 smalltalk.method({
 selector: "initializePackageNamed:prefix:",
-category: 'not yet classified',
+category: 'laoding',
 fn: function (packageName,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(_st(_st((smalltalk.Package || Package))._named_(packageName))._classes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { smalltalk.init(each);
-;
-return _st(each)._initialize();
-})}));
 $1=_st((smalltalk.Package || Package))._named_(packageName);
+_st($1)._setupClasses();
 _st($1)._commitPathJs_(_st(_st("/").__comma(aString)).__comma("/js"));
 $2=_st($1)._commitPathSt_(_st(_st("/").__comma(aString)).__comma("/st"));
 return self}, self, "initializePackageNamed:prefix:", [packageName,aString], smalltalk.PackageLoader)},
 args: ["packageName", "aString"],
-source: "initializePackageNamed: packageName prefix: aString\x0a\x0a\x09(Package named: packageName) classes do: [ :each |\x0a    \x09<smalltalk.init(each)>.\x0a        each initialize. ].\x0a        \x0a    (Package named: packageName) \x0a    \x09commitPathJs: '/', aString, '/js';\x0a        commitPathSt: '/', aString, '/st'",
-messageSends: ["do:", "initialize", "classes", "named:", "commitPathJs:", ",", "commitPathSt:"],
+source: "initializePackageNamed: packageName prefix: aString\x0a\x0a\x09(Package named: packageName) \x0a    \x09setupClasses;\x0a        commitPathJs: '/', aString, '/js';\x0a        commitPathSt: '/', aString, '/st'",
+messageSends: ["setupClasses", "named:", "commitPathJs:", ",", "commitPathSt:"],
 referencedClasses: ["Package"]
 }),
 smalltalk.PackageLoader);
@@ -754,7 +750,7 @@ smalltalk.addMethod(
 "_loadPackage_prefix_",
 smalltalk.method({
 selector: "loadPackage:prefix:",
-category: 'not yet classified',
+category: 'laoding',
 fn: function (packageName,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -780,7 +776,7 @@ smalltalk.addMethod(
 "_loadPackages_prefix_",
 smalltalk.method({
 selector: "loadPackages:prefix:",
-category: 'not yet classified',
+category: 'laoding',
 fn: function (aCollection,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(aCollection)._do_((function(each){

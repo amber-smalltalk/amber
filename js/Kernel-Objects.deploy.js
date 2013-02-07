@@ -351,6 +351,17 @@ return self}, self, "instVarAt:put:", [aSymbol,anObject], smalltalk.Object)}
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isBoolean",
+smalltalk.method({
+selector: "isBoolean",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, self, "isBoolean", [], smalltalk.Object)}
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isClass",
 smalltalk.method({
 selector: "isClass",
@@ -669,9 +680,8 @@ smalltalk.method({
 selector: "value",
 fn: function (){
 var self=this;
-return self.valueOf();
-;
-return self}
+return smalltalk.withContext(function($ctx1) { return self;
+}, self, "value", [], smalltalk.Object)}
 }),
 smalltalk.Object);
 
@@ -749,13 +759,12 @@ smalltalk.method({
 selector: "=",
 fn: function (aBoolean){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(aBoolean)._class()).__eq(_st(self)._class());
-if(! smalltalk.assert($1)){
-return false;
-};
-return Boolean(self == true) == aBoolean;
-;
+return smalltalk.withContext(function($ctx1) { 
+    	if(! aBoolean._isBoolean || ! aBoolean._isBoolean()) {
+        	return false;
+        }
+    	return Boolean(self == true) == aBoolean
+    ;
 return self}, self, "=", [aBoolean], smalltalk.Boolean)}
 }),
 smalltalk.Boolean);
@@ -867,6 +876,17 @@ return smalltalk.withContext(function($ctx1) {
 	;
 ;
 return self}, self, "ifTrue:ifFalse:", [aBlock,anotherBlock], smalltalk.Boolean)}
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+"_isBoolean",
+smalltalk.method({
+selector: "isBoolean",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, self, "isBoolean", [], smalltalk.Boolean)}
 }),
 smalltalk.Boolean);
 
@@ -1631,10 +1651,11 @@ smalltalk.method({
 selector: "addObjectVariablesTo:",
 fn: function (aDictionary){
 var self=this;
-return smalltalk.withContext(function($ctx1) { for(var i in self['@jsObject']) {
-		aDictionary._at_put_(i, self['@jsObject'][i]);
-	};
-;
+return smalltalk.withContext(function($ctx1) { 
+    	for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, self['@jsObject'][i]);
+		}
+    ;
 return self}, self, "addObjectVariablesTo:", [aDictionary], smalltalk.JSObjectProxy)}
 }),
 smalltalk.JSObjectProxy);
@@ -1664,21 +1685,52 @@ return self}, self, "at:put:", [aSymbol,anObject], smalltalk.JSObjectProxy)}
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_canForwardMessage_",
+smalltalk.method({
+selector: "canForwardMessage:",
+fn: function (aMessage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
+    	if(jsSelector in self._jsObject()) {
+        	return true
+        } else {
+        	return false;
+        }
+    ;
+return self}, self, "canForwardMessage:", [aMessage], smalltalk.JSObjectProxy)}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_doesNotUnderstand_",
 smalltalk.method({
 selector: "doesNotUnderstand:",
 fn: function (aMessage){
 var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._canForwardMessage_(aMessage);
+if(smalltalk.assert($2)){
+$1=_st(self)._forwardMessage_(aMessage);
+} else {
+$3=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+return $3;
+};
+return $1;
+}, self, "doesNotUnderstand:", [aMessage], smalltalk.JSObjectProxy)}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_forwardMessage_",
+smalltalk.method({
+selector: "forwardMessage:",
+fn: function (aMessage){
+var self=this;
 return smalltalk.withContext(function($ctx1) { 
-    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
-        var object = self._jsObject();
-    	if(jsSelector in object) {
-        	return smalltalk.send(object, jsSelector, aMessage._arguments());
-        }
+    	return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
     ;
-;
-smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-return self}, self, "doesNotUnderstand:", [aMessage], smalltalk.JSObjectProxy)}
+return self}, self, "forwardMessage:", [aMessage], smalltalk.JSObjectProxy)}
 }),
 smalltalk.JSObjectProxy);
 
@@ -1858,13 +1910,12 @@ smalltalk.method({
 selector: "=",
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(aNumber)._isNumber();
-if(! smalltalk.assert($1)){
-return false;
-};
-return Number(self) == aNumber;
-;
+return smalltalk.withContext(function($ctx1) { 
+    	if(! aNumber._isNumber || ! aNumber._isNumber()) {
+        	return false;
+        }
+    	return Number(self) == aNumber
+    ;
 return self}, self, "=", [aNumber], smalltalk.Number)}
 }),
 smalltalk.Number);
@@ -1936,11 +1987,8 @@ smalltalk.method({
 selector: "abs",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=Math.abs(self);;
-;
-return $1;
-}, self, "abs", [], smalltalk.Number)}
+return smalltalk.withContext(function($ctx1) { return Math.abs(self);;
+return self}, self, "abs", [], smalltalk.Number)}
 }),
 smalltalk.Number);
 
@@ -2711,6 +2759,24 @@ return self}, self, "propertyAt:put:", [key,value], smalltalk.Package)}
 smalltalk.Package);
 
 smalltalk.addMethod(
+"_setupClasses",
+smalltalk.method({
+selector: "setupClasses",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(self)._classes();
+_st($1)._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._setupClass_(each);
+})}));
+$2=_st($1)._do_((function(each){
+return smalltalk.withContext(function($ctx2) { return _st(each)._initialize();
+})}));
+return self}, self, "setupClasses", [], smalltalk.Package)}
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
 "_sortedClasses",
 smalltalk.method({
 selector: "sortedClasses",
@@ -2725,22 +2791,6 @@ smalltalk.Package);
 
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
-smalltalk.addMethod(
-"_commitToLocalStorage_",
-smalltalk.method({
-selector: "commitToLocalStorage:",
-fn: function (aPackageName){
-var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.key=nil;
-$ctx1.sourceCode=nil;
-$ctx1.locals.key=_st("smalltalk.packages.").__comma(aPackageName);
-$ctx1.locals.sourceCode=_st(_st((smalltalk.Exporter || Exporter))._new())._exportPackage_(aPackageName);
-localStorage[key] = escape(sourceCode);
-;
-return self}, self, "commitToLocalStorage:", [aPackageName], smalltalk.Package.klass)}
-}),
-smalltalk.Package.klass);
-
 smalltalk.addMethod(
 "_defaultCommitPathJs",
 smalltalk.method({
@@ -2817,31 +2867,9 @@ selector: "fetch:prefix:",
 fn: function (aPackageName,aPrefix){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(jQuery)._getScript_onSuccess_(_st(_st(aPrefix).__comma(aPackageName)).__comma(".js"),(function(){
-return smalltalk.withContext(function($ctx2) { return _st((smalltalk.Package || Package))._init_(aPackageName);
+return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.Package || Package))._named_(aPackageName))._setupClasses();
 })}));
 return self}, self, "fetch:prefix:", [aPackageName,aPrefix], smalltalk.Package.klass)}
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-"_init_",
-smalltalk.method({
-selector: "init:",
-fn: function (aPackageName){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st(_st(smalltalk)._classes())._select_((function(each){
-return smalltalk.withContext(function($ctx2) { return each.pkg.pkgName == aPackageName;
-;
-})}));
-_st($1)._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return smalltalk.init(each);
-;
-})}));
-$2=_st($1)._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(each)._initialize();
-})}));
-return self}, self, "init:", [aPackageName], smalltalk.Package.klass)}
 }),
 smalltalk.Package.klass);
 
@@ -3343,7 +3371,7 @@ selector: "renamePackage:to:",
 fn: function (packageName,newName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.pkg=nil;
+$ctx1.locals.pkg=nil;
 $ctx1.locals.pkg=_st(self)._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) { return _st(self)._error_(_st("Missing package: ").__comma(packageName));
 })}));
@@ -3353,8 +3381,7 @@ $1;
 } else {
 _st(self)._error_(_st("Already exists a package called: ").__comma(newName));
 };
-smalltalk.packages[newName] = smalltalk.packages[packageName];
-;
+_st(_st(self)._basicAt_("packages"))._at_put_(newName,$ctx1.locals.pkg);
 _st($ctx1.locals.pkg)._name_(newName);
 _st(self)._deletePackage_(packageName);
 return self}, self, "renamePackage:to:", [packageName,newName], smalltalk.Smalltalk)}

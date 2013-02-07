@@ -1817,10 +1817,9 @@ return smalltalk.withContext(function($ctx1) {
 				self.splice(i,1);
 				return self;
 			}
-		}
+		};
+        aBlock._value();
 	;
-;
-_st(aBlock)._value();
 return self}, self, "remove:ifAbsent:", [anObject,aBlock], smalltalk.Array)}
 }),
 smalltalk.Array);
@@ -2193,13 +2192,12 @@ smalltalk.method({
 selector: "=",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(aString)._class()).__eq(_st(self)._class());
-if(! smalltalk.assert($1)){
-return false;
-};
-return String(self) === String(aString);
-;
+return smalltalk.withContext(function($ctx1) { 
+    	if(! aString._isString || ! aString._isString()) {
+        	return false;
+        }
+    	return String(self) === String(aString)
+    ;
 return self}, self, "=", [aString], smalltalk.String)}
 }),
 smalltalk.String);

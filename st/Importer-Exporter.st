@@ -345,16 +345,13 @@ Object subclass: #PackageLoader
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 
-!PackageLoader methodsFor: 'not yet classified'!
+!PackageLoader methodsFor: 'laoding'!
 
 initializePackageNamed: packageName prefix: aString
 
-	(Package named: packageName) classes do: [ :each |
-    	<smalltalk.init(each)>.
-        each initialize. ].
-        
-    (Package named: packageName) 
-    	commitPathJs: '/', aString, '/js';
+	(Package named: packageName) 
+    	setupClasses;
+        commitPathJs: '/', aString, '/js';
         commitPathSt: '/', aString, '/st'
 !
 

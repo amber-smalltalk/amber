@@ -774,26 +774,6 @@ referencedClasses: ["UnknownVariableError"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testUnknownVariablesDefinedInJS",
-smalltalk.method({
-selector: "testUnknownVariablesDefinedInJS",
-category: 'tests',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) {  var someVariable = 1 ;
-;
-_st(self)._shouldnt_raise_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(smalltalk)._parse_("foo someVariable");
-})}),(smalltalk.UnknownVariableError || UnknownVariableError));
-return self}, self, "testUnknownVariablesDefinedInJS", [], smalltalk.SemanticAnalyzerTest)},
-args: [],
-source: "testUnknownVariablesDefinedInJS\x0a\x0a\x09< var someVariable = 1 >.\x0a\x0a\x09self shouldnt: [ smalltalk parse: 'foo someVariable' ] raise: UnknownVariableError",
-messageSends: ["shouldnt:raise:", "parse:"],
-referencedClasses: ["UnknownVariableError"]
-}),
-smalltalk.SemanticAnalyzerTest);
-
-smalltalk.addMethod(
 "_testUnknownVariablesWithScope",
 smalltalk.method({
 selector: "testUnknownVariablesWithScope",

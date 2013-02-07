@@ -1408,7 +1408,6 @@ renderBoxOn: html
 !
 
 renderButtonsOn: html
-	self inspect.
 	saveButton := html button
 		with: 'Save';
 		onClick: [self save].

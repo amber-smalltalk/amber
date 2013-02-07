@@ -810,9 +810,9 @@ remove: anObject ifAbsent: aBlock
 				self.splice(i,1);
 				return self;
 			}
-		}
-	>.
-	aBlock value
+		};
+        aBlock._value();
+	>
 !
 
 removeFrom: aNumber to: anotherNumber
@@ -995,8 +995,12 @@ unescaped
 !
 
 = aString
-	aString class = self class ifFalse: [^false].
-	<return String(self) === String(aString)>
+	<
+    	if(!! aString._isString || !! aString._isString()) {
+        	return false;
+        }
+    	return String(self) === String(aString)
+    >
 !
 
 == aString

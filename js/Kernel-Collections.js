@@ -2424,14 +2424,13 @@ return smalltalk.withContext(function($ctx1) {
 				self.splice(i,1);
 				return self;
 			}
-		}
+		};
+        aBlock._value();
 	;
-;
-_st(aBlock)._value();
 return self}, self, "remove:ifAbsent:", [anObject,aBlock], smalltalk.Array)},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09>.\x0a\x09aBlock value",
-messageSends: ["value"],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a        aBlock._value();\x0a\x09>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Array);
@@ -2940,17 +2939,16 @@ selector: "=",
 category: 'comparing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(aString)._class()).__eq(_st(self)._class());
-if(! smalltalk.assert($1)){
-return false;
-};
-return String(self) === String(aString);
-;
+return smalltalk.withContext(function($ctx1) { 
+    	if(! aString._isString || ! aString._isString()) {
+        	return false;
+        }
+    	return String(self) === String(aString)
+    ;
 return self}, self, "=", [aString], smalltalk.String)},
 args: ["aString"],
-source: "= aString\x0a\x09aString class = self class ifFalse: [^false].\x0a\x09<return String(self) === String(aString)>",
-messageSends: ["ifFalse:", "=", "class"],
+source: "= aString\x0a\x09<\x0a    \x09if(! aString._isString || ! aString._isString()) {\x0a        \x09return false;\x0a        }\x0a    \x09return String(self) === String(aString)\x0a    >",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.String);
