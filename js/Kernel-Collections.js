@@ -4628,7 +4628,7 @@ smalltalk.Set);
 
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
-smalltalk.Queue.comment="I am a one-sided Queue.\x0a\x0aI use two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me; write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
+smalltalk.Queue.comment="A Queue am a one-sided queue.\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by the Queue; write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
 smalltalk.addMethod(
 "_back_",
 smalltalk.method({

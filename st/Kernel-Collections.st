@@ -1485,14 +1485,14 @@ Object subclass: #Queue
 	instanceVariableNames: 'read readIndex write'
 	package: 'Kernel-Collections'!
 !Queue commentStamp!
-I am a one-sided Queue.
+A Queue am a one-sided queue.
 
-I use two OrderedCollections inside,
+A Queue uses two OrderedCollections inside,
 `read` is at the front, is not modified and only read using `readIndex`.
 `write` is at the back and is appended new items.
 When `read` is exhausted, `write` is promoted to `read` and new `write` is created.
 
-As a consequence, no data moving is done by me; write appending may do data moving
+As a consequence, no data moving is done by the Queue; write appending may do data moving
 when growing `write`, but this is left to engine to implement as good as it chooses to.!
 
 !Queue methodsFor: 'accessing'!
