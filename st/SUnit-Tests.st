@@ -77,12 +77,7 @@ fakeFailure
     flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5
 !
 
-fakeTimeout
-	self timeout: 4.
-    (self async: [ self finished ]) valueWithTimeout: 5
-!
-
-fakeTimeoutFailing
+fakeMultipleTimeoutFailing
 	self timeout: 100.
     (self async: [
 		self timeout: 5.
@@ -90,12 +85,17 @@ fakeTimeoutFailing
 	]) valueWithTimeout: 5
 !
 
-fakeTimeoutPassing
+fakeMultipleTimeoutPassing
 	self timeout: 10.
     (self async: [
 		self timeout: 20.
         (self async: [ self finished ]) valueWithTimeout: 10
 	]) valueWithTimeout: 5
+!
+
+fakeTimeout
+	self timeout: 4.
+    (self async: [ self finished ]) valueWithTimeout: 5
 ! !
 
 !SUnitAsyncTest methodsFor: 'private'!

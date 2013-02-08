@@ -195,6 +195,50 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
+"_fakeMultipleTimeoutFailing",
+smalltalk.method({
+selector: "fakeMultipleTimeoutFailing",
+category: 'helpers',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_timeout_",[(100)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_timeout_",[(5)]);
+return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(10)]);
+})]),"_valueWithTimeout_",[(5)]);
+return self},
+args: [],
+source: "fakeMultipleTimeoutFailing\x0a\x09self timeout: 100.\x0a    (self async: [\x0a\x09\x09self timeout: 5.\x0a        (self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5\x0a",
+messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
+"_fakeMultipleTimeoutPassing",
+smalltalk.method({
+selector: "fakeMultipleTimeoutPassing",
+category: 'helpers',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_timeout_",[(10)]);
+smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+smalltalk.send(self,"_timeout_",[(20)]);
+return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_finished",[]);
+})]),"_valueWithTimeout_",[(10)]);
+})]),"_valueWithTimeout_",[(5)]);
+return self},
+args: [],
+source: "fakeMultipleTimeoutPassing\x0a\x09self timeout: 10.\x0a    (self async: [\x0a\x09\x09self timeout: 20.\x0a        (self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5\x0a",
+messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
+referencedClasses: []
+}),
+smalltalk.SUnitAsyncTest);
+
+smalltalk.addMethod(
 "_fakeTimeout",
 smalltalk.method({
 selector: "fakeTimeout",
@@ -208,50 +252,6 @@ return smalltalk.send(self,"_finished",[]);
 return self},
 args: [],
 source: "fakeTimeout\x0a\x09self timeout: 4.\x0a    (self async: [ self finished ]) valueWithTimeout: 5\x0a",
-messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
-referencedClasses: []
-}),
-smalltalk.SUnitAsyncTest);
-
-smalltalk.addMethod(
-"_fakeTimeoutFailing",
-smalltalk.method({
-selector: "fakeTimeoutFailing",
-category: 'helpers',
-fn: function (){
-var self=this;
-smalltalk.send(self,"_timeout_",[(100)]);
-smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_timeout_",[(5)]);
-return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-return smalltalk.send(self,"_finished",[]);
-})]),"_valueWithTimeout_",[(10)]);
-})]),"_valueWithTimeout_",[(5)]);
-return self},
-args: [],
-source: "fakeTimeoutFailing\x0a\x09self timeout: 100.\x0a    (self async: [\x0a\x09\x09self timeout: 5.\x0a        (self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5\x0a",
-messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
-referencedClasses: []
-}),
-smalltalk.SUnitAsyncTest);
-
-smalltalk.addMethod(
-"_fakeTimeoutPassing",
-smalltalk.method({
-selector: "fakeTimeoutPassing",
-category: 'helpers',
-fn: function (){
-var self=this;
-smalltalk.send(self,"_timeout_",[(10)]);
-smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-smalltalk.send(self,"_timeout_",[(20)]);
-return smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-return smalltalk.send(self,"_finished",[]);
-})]),"_valueWithTimeout_",[(10)]);
-})]),"_valueWithTimeout_",[(5)]);
-return self},
-args: [],
-source: "fakeTimeoutPassing\x0a\x09self timeout: 10.\x0a    (self async: [\x0a\x09\x09self timeout: 20.\x0a        (self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5\x0a",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
 referencedClasses: []
 }),
