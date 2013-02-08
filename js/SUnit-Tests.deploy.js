@@ -135,12 +135,12 @@ return self}
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testAsyncErrorsAndFailuresWork",
+"_testAsyncErrorsAndFailures",
 smalltalk.method({
-selector: "testAsyncErrorsAndFailuresWork",
+selector: "testAsyncErrorsAndFailures",
 fn: function (){
 var self=this;
-var $1,$2;
+var $1,$2,$4,$6,$5,$3;
 var suite;
 var runner;
 var result;
@@ -156,13 +156,17 @@ smalltalk.send(self,"_assert_equals_",[["fakeError"],smalltalk.send(self,"_sorte
 smalltalk.send(self,"_assert_equals_",[["fakeErrorFailingInTearDown", "fakeFailure"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_failures",[])])]);
 return smalltalk.send(self,"_finished",[]);
 })]);
-smalltalk.send(smalltalk.send(runner,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
-$1=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[result]);
-if(smalltalk.assert($1)){
-$2=smalltalk.send(smalltalk.send(result,"_runs",[]),"__eq",[smalltalk.send(result,"_total",[])]);
-return smalltalk.send($2,"_ifTrue_",[assertBlock]);
-};
-})]);
+$1=smalltalk.send(runner,"_announcer",[]);
+$2=(smalltalk.ResultAnnouncement || ResultAnnouncement);
+$3=(function(ann){
+$4=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[result]);
+$5=(function(){
+$6=smalltalk.send(smalltalk.send(result,"_runs",[]),"__eq",[smalltalk.send(result,"_total",[])]);
+return smalltalk.send($6,"_ifTrue_",[assertBlock]);
+});
+return smalltalk.send($4,"_ifTrue_",[$5]);
+});
+smalltalk.send($1,"_on_do_",[$2,$3]);
 smalltalk.send(runner,"_run",[]);
 return self}
 }),
@@ -239,12 +243,12 @@ return self}
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testTimeoutsWork",
+"_testTimeouts",
 smalltalk.method({
-selector: "testTimeoutsWork",
+selector: "testTimeouts",
 fn: function (){
 var self=this;
-var $1,$2;
+var $1,$2,$4,$6,$5,$3;
 var suite;
 var runner;
 var result;
@@ -260,13 +264,17 @@ smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(result,"_errors",[
 smalltalk.send(self,"_assert_equals_",[["fakeMultipleGraceTimeFailing", "fakeTimeout"],smalltalk.send(self,"_sortedSelectors_",[smalltalk.send(result,"_failures",[])])]);
 return smalltalk.send(self,"_finished",[]);
 })]);
-smalltalk.send(smalltalk.send(runner,"_announcer",[]),"_on_do_",[(smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
-$1=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[result]);
-if(smalltalk.assert($1)){
-$2=smalltalk.send(smalltalk.send(result,"_runs",[]),"__eq",[smalltalk.send(result,"_total",[])]);
-return smalltalk.send($2,"_ifTrue_",[assertBlock]);
-};
-})]);
+$1=smalltalk.send(runner,"_announcer",[]);
+$2=(smalltalk.ResultAnnouncement || ResultAnnouncement);
+$3=(function(ann){
+$4=smalltalk.send(smalltalk.send(ann,"_result",[]),"__eq_eq",[result]);
+$5=(function(){
+$6=smalltalk.send(smalltalk.send(result,"_runs",[]),"__eq",[smalltalk.send(result,"_total",[])]);
+return smalltalk.send($6,"_ifTrue_",[assertBlock]);
+});
+return smalltalk.send($4,"_ifTrue_",[$5]);
+});
+smalltalk.send($1,"_on_do_",[$2,$3]);
 smalltalk.send(runner,"_run",[]);
 return self}
 }),

@@ -60,7 +60,7 @@ fakeTimeout
     (self async: [ self finished ]) valueWithTimeout: 5
 !
 
-testAsyncErrorsAndFailuresWork
+testAsyncErrorsAndFailures
 	| suite runner result assertBlock |
 	suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].
     runner := TestSuiteRunner on: suite.
@@ -103,7 +103,7 @@ testPass
     flag := (self async: [ self assert: true. self finished. flag := 'ok' ]) valueWithTimeout: 5
 !
 
-testTimeoutsWork
+testTimeouts
 	| suite runner result assertBlock |
 	suite := #('fakeTimeout' 'fakeMultipleGraceTimeFailing' 'fakeMultipleGraceTimePassing' 'testPass') collect: [ :each | self class selector: each ].
     runner := TestSuiteRunner on: suite.
