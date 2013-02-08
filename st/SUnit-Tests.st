@@ -1,25 +1,63 @@
 Smalltalk current createPackage: 'SUnit-Tests' properties: #{}!
+TestCase subclass: #ExampleSetTest
+	instanceVariableNames: 'empty full'
+	package: 'SUnit-Tests'!
+!ExampleSetTest commentStamp!
+ExampleSetTest is taken from Pharo 1.4.
+
+THe purpose of this class is to demonstrate a simple use case of the test framework.!
+
+!ExampleSetTest methodsFor: 'running'!
+
+setUp
+	empty := Set new.
+	full := Set with: 5 with: #abc
+! !
+
+!ExampleSetTest methodsFor: 'tests'!
+
+testAdd
+	empty add: 5.
+	self assert: (empty includes: 5)
+!
+
+testGrow
+	empty addAll: (1 to: 100).
+	self assert: empty size = 100
+!
+
+testIllegal
+	self 
+		should: [empty at: 5] 
+		raise: Error.
+	self 
+		should: [empty at: 5 put: #abc] 
+		raise: Error
+!
+
+testIncludes
+	self assert: (full includes: 5).
+	self assert: (full includes: #abc)
+!
+
+testOccurrences
+	self assert: (empty occurrencesOf: 0) = 0.
+	self assert: (full occurrencesOf: 5) = 1.
+	full add: 5.
+	self assert: (full occurrencesOf: 5) = 1
+!
+
+testRemove
+	full remove: 5.
+	self assert: (full includes: #abc).
+	self deny: (full includes: 5)
+! !
+
 TestCase subclass: #SUnitAsyncTest
 	instanceVariableNames: 'flag'
 	package: 'SUnit-Tests'!
 
-!SUnitAsyncTest methodsFor: 'private'!
-
-sortedSelectors: aCollection
-	^(aCollection collect: [:each | each selector]) sorted
-! !
-
-!SUnitAsyncTest methodsFor: 'running'!
-
-setUp
-	flag := 'ok'
-!
-
-tearDown
-	self assert: 'ok' equals: flag
-! !
-
-!SUnitAsyncTest methodsFor: 'tests'!
+!SUnitAsyncTest methodsFor: 'helpers'!
 
 fakeError
 	flag := 'bad'.
@@ -58,7 +96,25 @@ fakeMultipleGraceTimePassing
 fakeTimeout
 	self graceTime: 4.
     (self async: [ self finished ]) valueWithTimeout: 5
+! !
+
+!SUnitAsyncTest methodsFor: 'private'!
+
+sortedSelectors: aCollection
+	^(aCollection collect: [:each | each selector]) sorted
+! !
+
+!SUnitAsyncTest methodsFor: 'running'!
+
+setUp
+	flag := 'ok'
 !
+
+tearDown
+	self assert: 'ok' equals: flag
+! !
+
+!SUnitAsyncTest methodsFor: 'tests'!
 
 testAsyncErrorsAndFailures
 	| suite runner result assertBlock |

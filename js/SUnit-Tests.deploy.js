@@ -1,4 +1,98 @@
 smalltalk.addPackage('SUnit-Tests', {});
+smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
+smalltalk.addMethod(
+"_setUp",
+smalltalk.method({
+selector: "setUp",
+fn: function (){
+var self=this;
+self["@empty"]=smalltalk.send((smalltalk.Set || Set),"_new",[]);
+self["@full"]=smalltalk.send((smalltalk.Set || Set),"_with_with_",[(5),smalltalk.symbolFor("abc")]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testAdd",
+smalltalk.method({
+selector: "testAdd",
+fn: function (){
+var self=this;
+smalltalk.send(self["@empty"],"_add_",[(5)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@empty"],"_includes_",[(5)])]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testGrow",
+smalltalk.method({
+selector: "testGrow",
+fn: function (){
+var self=this;
+smalltalk.send(self["@empty"],"_addAll_",[smalltalk.send((1),"_to_",[(100)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@empty"],"_size",[]),"__eq",[(100)])]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testIllegal",
+smalltalk.method({
+selector: "testIllegal",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@empty"],"_at_",[(5)]);
+}),(smalltalk.Error || Error)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@empty"],"_at_put_",[(5),smalltalk.symbolFor("abc")]);
+}),(smalltalk.Error || Error)]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testIncludes",
+smalltalk.method({
+selector: "testIncludes",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@full"],"_includes_",[(5)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@full"],"_includes_",[smalltalk.symbolFor("abc")])]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testOccurrences",
+smalltalk.method({
+selector: "testOccurrences",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@empty"],"_occurrencesOf_",[(0)]),"__eq",[(0)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@full"],"_occurrencesOf_",[(5)]),"__eq",[(1)])]);
+smalltalk.send(self["@full"],"_add_",[(5)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@full"],"_occurrencesOf_",[(5)]),"__eq",[(1)])]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testRemove",
+smalltalk.method({
+selector: "testRemove",
+fn: function (){
+var self=this;
+smalltalk.send(self["@full"],"_remove_",[(5)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@full"],"_includes_",[smalltalk.symbolFor("abc")])]);
+smalltalk.send(self,"_deny_",[smalltalk.send(self["@full"],"_includes_",[(5)])]);
+return self}
+}),
+smalltalk.ExampleSetTest);
+
+
+
 smalltalk.addClass('SUnitAsyncTest', smalltalk.TestCase, ['flag'], 'SUnit-Tests');
 smalltalk.addMethod(
 "_fakeError",

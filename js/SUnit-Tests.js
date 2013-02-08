@@ -1,10 +1,140 @@
 smalltalk.addPackage('SUnit-Tests', {});
+smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
+smalltalk.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0aTHe purpose of this class is to demonstrate a simple use case of the test framework."
+smalltalk.addMethod(
+"_setUp",
+smalltalk.method({
+selector: "setUp",
+category: 'running',
+fn: function (){
+var self=this;
+self["@empty"]=smalltalk.send((smalltalk.Set || Set),"_new",[]);
+self["@full"]=smalltalk.send((smalltalk.Set || Set),"_with_with_",[(5),smalltalk.symbolFor("abc")]);
+return self},
+args: [],
+source: "setUp\x0a\x09empty := Set new.\x0a\x09full := Set with: 5 with: #abc",
+messageSends: ["new", "with:with:"],
+referencedClasses: ["Set"]
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testAdd",
+smalltalk.method({
+selector: "testAdd",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self["@empty"],"_add_",[(5)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@empty"],"_includes_",[(5)])]);
+return self},
+args: [],
+source: "testAdd\x0a\x09empty add: 5.\x0a\x09self assert: (empty includes: 5)",
+messageSends: ["add:", "assert:", "includes:"],
+referencedClasses: []
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testGrow",
+smalltalk.method({
+selector: "testGrow",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self["@empty"],"_addAll_",[smalltalk.send((1),"_to_",[(100)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@empty"],"_size",[]),"__eq",[(100)])]);
+return self},
+args: [],
+source: "testGrow\x0a\x09empty addAll: (1 to: 100).\x0a\x09self assert: empty size = 100",
+messageSends: ["addAll:", "to:", "assert:", "=", "size"],
+referencedClasses: []
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testIllegal",
+smalltalk.method({
+selector: "testIllegal",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@empty"],"_at_",[(5)]);
+}),(smalltalk.Error || Error)]);
+smalltalk.send(self,"_should_raise_",[(function(){
+return smalltalk.send(self["@empty"],"_at_put_",[(5),smalltalk.symbolFor("abc")]);
+}),(smalltalk.Error || Error)]);
+return self},
+args: [],
+source: "testIllegal\x0a\x09self \x0a\x09\x09should: [empty at: 5] \x0a\x09\x09raise: Error.\x0a\x09self \x0a\x09\x09should: [empty at: 5 put: #abc] \x0a\x09\x09raise: Error",
+messageSends: ["should:raise:", "at:", "at:put:"],
+referencedClasses: ["Error"]
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testIncludes",
+smalltalk.method({
+selector: "testIncludes",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@full"],"_includes_",[(5)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@full"],"_includes_",[smalltalk.symbolFor("abc")])]);
+return self},
+args: [],
+source: "testIncludes\x0a\x09self assert: (full includes: 5).\x0a\x09self assert: (full includes: #abc)",
+messageSends: ["assert:", "includes:"],
+referencedClasses: []
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testOccurrences",
+smalltalk.method({
+selector: "testOccurrences",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@empty"],"_occurrencesOf_",[(0)]),"__eq",[(0)])]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@full"],"_occurrencesOf_",[(5)]),"__eq",[(1)])]);
+smalltalk.send(self["@full"],"_add_",[(5)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(smalltalk.send(self["@full"],"_occurrencesOf_",[(5)]),"__eq",[(1)])]);
+return self},
+args: [],
+source: "testOccurrences\x0a\x09self assert: (empty occurrencesOf: 0) = 0.\x0a\x09self assert: (full occurrencesOf: 5) = 1.\x0a\x09full add: 5.\x0a\x09self assert: (full occurrencesOf: 5) = 1",
+messageSends: ["assert:", "=", "occurrencesOf:", "add:"],
+referencedClasses: []
+}),
+smalltalk.ExampleSetTest);
+
+smalltalk.addMethod(
+"_testRemove",
+smalltalk.method({
+selector: "testRemove",
+category: 'tests',
+fn: function (){
+var self=this;
+smalltalk.send(self["@full"],"_remove_",[(5)]);
+smalltalk.send(self,"_assert_",[smalltalk.send(self["@full"],"_includes_",[smalltalk.symbolFor("abc")])]);
+smalltalk.send(self,"_deny_",[smalltalk.send(self["@full"],"_includes_",[(5)])]);
+return self},
+args: [],
+source: "testRemove\x0a\x09full remove: 5.\x0a\x09self assert: (full includes: #abc).\x0a\x09self deny: (full includes: 5)",
+messageSends: ["remove:", "assert:", "includes:", "deny:"],
+referencedClasses: []
+}),
+smalltalk.ExampleSetTest);
+
+
+
 smalltalk.addClass('SUnitAsyncTest', smalltalk.TestCase, ['flag'], 'SUnit-Tests');
 smalltalk.addMethod(
 "_fakeError",
 smalltalk.method({
 selector: "fakeError",
-category: 'tests',
+category: 'helpers',
 fn: function (){
 var self=this;
 self["@flag"]="bad";
@@ -26,7 +156,7 @@ smalltalk.addMethod(
 "_fakeErrorFailingInTearDown",
 smalltalk.method({
 selector: "fakeErrorFailingInTearDown",
-category: 'tests',
+category: 'helpers',
 fn: function (){
 var self=this;
 self["@flag"]="bad";
@@ -46,7 +176,7 @@ smalltalk.addMethod(
 "_fakeFailure",
 smalltalk.method({
 selector: "fakeFailure",
-category: 'tests',
+category: 'helpers',
 fn: function (){
 var self=this;
 self["@flag"]="bad";
@@ -68,7 +198,7 @@ smalltalk.addMethod(
 "_fakeMultipleGraceTimeFailing",
 smalltalk.method({
 selector: "fakeMultipleGraceTimeFailing",
-category: 'tests',
+category: 'helpers',
 fn: function (){
 var self=this;
 smalltalk.send(self,"_graceTime_",[(100)]);
@@ -90,7 +220,7 @@ smalltalk.addMethod(
 "_fakeMultipleGraceTimePassing",
 smalltalk.method({
 selector: "fakeMultipleGraceTimePassing",
-category: 'tests',
+category: 'helpers',
 fn: function (){
 var self=this;
 smalltalk.send(self,"_graceTime_",[(10)]);
@@ -112,7 +242,7 @@ smalltalk.addMethod(
 "_fakeTimeout",
 smalltalk.method({
 selector: "fakeTimeout",
-category: 'tests',
+category: 'helpers',
 fn: function (){
 var self=this;
 smalltalk.send(self,"_graceTime_",[(4)]);
