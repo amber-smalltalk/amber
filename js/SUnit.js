@@ -160,11 +160,11 @@ var self=this;
 var $1;
 $1=smalltalk.send(self,"_isAsync",[]);
 if(! smalltalk.assert($1)){
-smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
+smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #timeout:"])]);
 };
 return self},
 args: ["aString"],
-source: "errorIfNotAsync: aString\x0a\x09self isAsync ifFalse: [ \x0a    \x09self error: aString, ' used without prior #graceTime:' ]",
+source: "errorIfNotAsync: aString\x0a\x09self isAsync ifFalse: [ \x0a    \x09self error: aString, ' used without prior #timeout:' ]",
 messageSends: ["ifFalse:", "error:", ",", "isAsync"],
 referencedClasses: []
 }),
@@ -183,32 +183,6 @@ return self},
 args: [],
 source: "finished\x0a\x09self errorIfNotAsync: '#finished'.\x0a\x09asyncTimeout := nil",
 messageSends: ["errorIfNotAsync:"],
-referencedClasses: []
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-"_graceTime_",
-smalltalk.method({
-selector: "graceTime:",
-category: 'async',
-fn: function (millis){
-var self=this;
-var $1;
-$1=self["@asyncTimeout"];
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-smalltalk.send(self["@asyncTimeout"],"_clearTimeout",[]);
-};
-self["@asyncTimeout"]=true;
-self["@asyncTimeout"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-return smalltalk.send(self,"_assert_description_",[false,"SUnit grace time exhausted"]);
-})]),"_valueWithTimeout_",[millis]);
-return self},
-args: ["millis"],
-source: "graceTime: millis\x0a\x09asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].\x0a\x09asyncTimeout := true. \x22to allow async:\x22\x0a\x09asyncTimeout :=\x0a\x09\x09(self async: [ self assert: false description: 'SUnit grace time exhausted' ])\x0a        valueWithTimeout: millis",
-messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -401,6 +375,32 @@ return self},
 args: [],
 source: "tearDown",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_timeout_",
+smalltalk.method({
+selector: "timeout:",
+category: 'async',
+fn: function (aNumber){
+var self=this;
+var $1;
+$1=self["@asyncTimeout"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(self["@asyncTimeout"],"_clearTimeout",[]);
+};
+self["@asyncTimeout"]=(0);
+self["@asyncTimeout"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_assert_description_",[false,"SUnit grace time exhausted"]);
+})]),"_valueWithTimeout_",[aNumber]);
+return self},
+args: ["aNumber"],
+source: "timeout: aNumber\x0a\x09\x22Set a grace time timeout in milliseconds to run the test asynchronously\x22\x0a    \x0a\x09asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].\x0a    \x0a     \x22to allow #async: message send without throwing an error\x22\x0a\x09asyncTimeout := 0.\x0a    \x0a\x09asyncTimeout := (self async: [ \x0a    \x09self assert: false description: 'SUnit grace time exhausted' ])\x0a        \x09valueWithTimeout: aNumber",
+messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);

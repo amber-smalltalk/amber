@@ -55,19 +55,24 @@ finished
 	asyncTimeout := nil
 !
 
-graceTime: millis
+timeout: aNumber
+	"Set a grace time timeout in milliseconds to run the test asynchronously"
+    
 	asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].
-	asyncTimeout := true. "to allow async:"
-	asyncTimeout :=
-		(self async: [ self assert: false description: 'SUnit grace time exhausted' ])
-        valueWithTimeout: millis
+    
+     "to allow #async: message send without throwing an error"
+	asyncTimeout := 0.
+    
+	asyncTimeout := (self async: [ 
+    	self assert: false description: 'SUnit grace time exhausted' ])
+        	valueWithTimeout: aNumber
 ! !
 
 !TestCase methodsFor: 'error handling'!
 
 errorIfNotAsync: aString
 	self isAsync ifFalse: [ 
-    	self error: aString, ' used without prior #graceTime:' ]
+    	self error: aString, ' used without prior #timeout:' ]
 ! !
 
 !TestCase methodsFor: 'private'!

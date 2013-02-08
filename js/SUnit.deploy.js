@@ -118,7 +118,7 @@ var self=this;
 var $1;
 $1=smalltalk.send(self,"_isAsync",[]);
 if(! smalltalk.assert($1)){
-smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
+smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #timeout:"])]);
 };
 return self}
 }),
@@ -132,27 +132,6 @@ fn: function (){
 var self=this;
 smalltalk.send(self,"_errorIfNotAsync_",["#finished"]);
 self["@asyncTimeout"]=nil;
-return self}
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-"_graceTime_",
-smalltalk.method({
-selector: "graceTime:",
-fn: function (millis){
-var self=this;
-var $1;
-$1=self["@asyncTimeout"];
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-smalltalk.send(self["@asyncTimeout"],"_clearTimeout",[]);
-};
-self["@asyncTimeout"]=true;
-self["@asyncTimeout"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
-return smalltalk.send(self,"_assert_description_",[false,"SUnit grace time exhausted"]);
-})]),"_valueWithTimeout_",[millis]);
 return self}
 }),
 smalltalk.TestCase);
@@ -290,6 +269,27 @@ smalltalk.method({
 selector: "tearDown",
 fn: function (){
 var self=this;
+return self}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_timeout_",
+smalltalk.method({
+selector: "timeout:",
+fn: function (aNumber){
+var self=this;
+var $1;
+$1=self["@asyncTimeout"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+smalltalk.send(self["@asyncTimeout"],"_clearTimeout",[]);
+};
+self["@asyncTimeout"]=(0);
+self["@asyncTimeout"]=smalltalk.send(smalltalk.send(self,"_async_",[(function(){
+return smalltalk.send(self,"_assert_description_",[false,"SUnit grace time exhausted"]);
+})]),"_valueWithTimeout_",[aNumber]);
 return self}
 }),
 smalltalk.TestCase);
