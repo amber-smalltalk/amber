@@ -1,79 +1,9 @@
 smalltalk.addPackage('SUnit', {});
-smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
-smalltalk.addMethod(
-"_result",
-smalltalk.method({
-selector: "result",
-fn: function (){
-var self=this;
-return self["@result"];
-}
-}),
-smalltalk.ResultAnnouncement);
-
-smalltalk.addMethod(
-"_result_",
-smalltalk.method({
-selector: "result:",
-fn: function (aTestResult){
-var self=this;
-self["@result"]=aTestResult;
-return self}
-}),
-smalltalk.ResultAnnouncement);
-
-
-
-smalltalk.addClass('RunningTestContext', smalltalk.Object, ['finished', 'testCase', 'result'], 'SUnit');
-smalltalk.addMethod(
-"_exception_do_",
-smalltalk.method({
-selector: "exception:do:",
-fn: function (anException,aBlock){
-var self=this;
-smalltalk.send(aBlock,"_value",[]);
-return self}
-}),
-smalltalk.RunningTestContext);
-
+smalltalk.addClass('BareTestContext', smalltalk.Object, ['testCase'], 'SUnit');
 smalltalk.addMethod(
 "_execute_",
 smalltalk.method({
 selector: "execute:",
-fn: function (aBlock){
-var self=this;
-var $1,$3,$2;
-$1=(function(){
-return smalltalk.send((function(){
-return smalltalk.send((function(){
-return smalltalk.send(self,"_executeWithCleanup_",[aBlock]);
-}),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
-return smalltalk.send(self,"_exception_do_",[ex,(function(){
-return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
-})]);
-})]);
-}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
-return smalltalk.send(self,"_exception_do_",[ex,(function(){
-return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
-})]);
-})]);
-});
-$2=(function(){
-$3=smalltalk.send(self["@testCase"],"_isAsync",[]);
-if(! smalltalk.assert($3)){
-smalltalk.send(self["@result"],"_increaseRuns",[]);
-return smalltalk.send(self["@finished"],"_value",[]);
-};
-});
-smalltalk.send($1,"_ensure_",[$2]);
-return self}
-}),
-smalltalk.RunningTestContext);
-
-smalltalk.addMethod(
-"_executeWithCleanup_",
-smalltalk.method({
-selector: "executeWithCleanup:",
 fn: function (aBlock){
 var self=this;
 var $1,$3,$4,$2;
@@ -102,29 +32,7 @@ return smalltalk.send(self["@testCase"],"_tearDown",[]);
 smalltalk.send($1,"_ensure_",[$2]);
 return self}
 }),
-smalltalk.RunningTestContext);
-
-smalltalk.addMethod(
-"_finished_",
-smalltalk.method({
-selector: "finished:",
-fn: function (aBlock){
-var self=this;
-self["@finished"]=aBlock;
-return self}
-}),
-smalltalk.RunningTestContext);
-
-smalltalk.addMethod(
-"_result_",
-smalltalk.method({
-selector: "result:",
-fn: function (aTestResult){
-var self=this;
-self["@result"]=aTestResult;
-return self}
-}),
-smalltalk.RunningTestContext);
+smalltalk.BareTestContext);
 
 smalltalk.addMethod(
 "_start",
@@ -138,7 +46,7 @@ return smalltalk.send(self["@testCase"],"_performTest",[]);
 })]);
 return self}
 }),
-smalltalk.RunningTestContext);
+smalltalk.BareTestContext);
 
 smalltalk.addMethod(
 "_testCase_",
@@ -149,7 +57,78 @@ var self=this;
 self["@testCase"]=aTestCase;
 return self}
 }),
-smalltalk.RunningTestContext);
+smalltalk.BareTestContext);
+
+
+smalltalk.addMethod(
+"_testCase_",
+smalltalk.method({
+selector: "testCase:",
+fn: function (aTestCase){
+var self=this;
+var $2,$3,$1;
+$2=smalltalk.send(self,"_new",[]);
+smalltalk.send($2,"_testCase_",[aTestCase]);
+$3=smalltalk.send($2,"_yourself",[]);
+$1=$3;
+return $1;
+}
+}),
+smalltalk.BareTestContext.klass);
+
+
+smalltalk.addClass('ReportingTestContext', smalltalk.BareTestContext, ['finished', 'result'], 'SUnit');
+smalltalk.addMethod(
+"_execute_",
+smalltalk.method({
+selector: "execute:",
+fn: function (aBlock){
+var self=this;
+var $1,$3,$2;
+$1=(function(){
+return smalltalk.send((function(){
+return smalltalk.send((function(){
+return smalltalk.send(self,"_execute_",[aBlock],smalltalk.BareTestContext);
+}),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
+return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
+})]);
+}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
+})]);
+});
+$2=(function(){
+$3=smalltalk.send(self["@testCase"],"_isAsync",[]);
+if(! smalltalk.assert($3)){
+smalltalk.send(self["@result"],"_increaseRuns",[]);
+return smalltalk.send(self["@finished"],"_value",[]);
+};
+});
+smalltalk.send($1,"_ensure_",[$2]);
+return self}
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_finished_",
+smalltalk.method({
+selector: "finished:",
+fn: function (aBlock){
+var self=this;
+self["@finished"]=aBlock;
+return self}
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_result_",
+smalltalk.method({
+selector: "result:",
+fn: function (aTestResult){
+var self=this;
+self["@result"]=aTestResult;
+return self}
+}),
+smalltalk.ReportingTestContext);
 
 
 smalltalk.addMethod(
@@ -159,8 +138,7 @@ selector: "testCase:result:finished:",
 fn: function (aTestCase,aTestResult,aBlock){
 var self=this;
 var $2,$3,$1;
-$2=smalltalk.send(self,"_new",[]);
-smalltalk.send($2,"_testCase_",[aTestCase]);
+$2=smalltalk.send(self,"_testCase_",[aTestCase],smalltalk.BareTestContext.klass);
 smalltalk.send($2,"_result_",[aTestResult]);
 smalltalk.send($2,"_finished_",[aBlock]);
 $3=smalltalk.send($2,"_yourself",[]);
@@ -168,35 +146,32 @@ $1=$3;
 return $1;
 }
 }),
-smalltalk.RunningTestContext.klass);
+smalltalk.ReportingTestContext.klass);
 
 
-smalltalk.addClass('ErroringTestContext', smalltalk.RunningTestContext, [], 'SUnit');
+smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.addMethod(
-"_exception_do_",
+"_result",
 smalltalk.method({
-selector: "exception:do:",
-fn: function (anException,aBlock){
+selector: "result",
+fn: function (){
 var self=this;
-smalltalk.send(anException,"_signal",[]);
-return self}
-}),
-smalltalk.ErroringTestContext);
-
-
-smalltalk.addMethod(
-"_testCase_",
-smalltalk.method({
-selector: "testCase:",
-fn: function (aTestCase){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_testCase_result_finished_",[aTestCase,smalltalk.send((smalltalk.TestResult || TestResult),"_new",[]),(function(){
-})]);
-return $1;
+return self["@result"];
 }
 }),
-smalltalk.ErroringTestContext.klass);
+smalltalk.ResultAnnouncement);
+
+smalltalk.addMethod(
+"_result_",
+smalltalk.method({
+selector: "result:",
+fn: function (aTestResult){
+var self=this;
+self["@result"]=aTestResult;
+return self}
+}),
+smalltalk.ResultAnnouncement);
+
 
 
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
@@ -360,7 +335,7 @@ smalltalk.method({
 selector: "runCase",
 fn: function (){
 var self=this;
-smalltalk.send(smalltalk.send((smalltalk.ErroringTestContext || ErroringTestContext),"_testCase_",[self]),"_start",[]);
+smalltalk.send(smalltalk.send((smalltalk.BareTestContext || BareTestContext),"_testCase_",[self]),"_start",[]);
 return self}
 }),
 smalltalk.TestCase);
@@ -728,7 +703,7 @@ selector: "contextOf:",
 fn: function (anInteger){
 var self=this;
 var $1;
-$1=smalltalk.send((smalltalk.RunningTestContext || RunningTestContext),"_testCase_result_finished_",[smalltalk.send(self["@suite"],"_at_",[anInteger]),self["@result"],(function(){
+$1=smalltalk.send((smalltalk.ReportingTestContext || ReportingTestContext),"_testCase_result_finished_",[smalltalk.send(self["@suite"],"_at_",[anInteger]),self["@result"],(function(){
 return smalltalk.send(self,"_resume",[]);
 })]);
 return $1;
