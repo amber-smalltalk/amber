@@ -74,7 +74,7 @@ fn: function (aBlock){
 var self=this;
 var $2,$1;
 var c;
-smalltalk.send(self,"_mustBeAsync_",["#async"]);
+smalltalk.send(self,"_errorIfNotAsync_",["#async"]);
 c=self["@context"];
 $1=(function(){
 $2=smalltalk.send(self,"_isAsync",[]);
@@ -110,12 +110,27 @@ return self}
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_errorIfNotAsync_",
+smalltalk.method({
+selector: "errorIfNotAsync:",
+fn: function (aString){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_isAsync",[]);
+if(! smalltalk.assert($1)){
+smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
+};
+return self}
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_finished",
 smalltalk.method({
 selector: "finished",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_mustBeAsync_",["#finished"]);
+smalltalk.send(self,"_errorIfNotAsync_",["#finished"]);
 self["@asyncTimeout"]=nil;
 return self}
 }),
@@ -152,21 +167,6 @@ var $1;
 $1=smalltalk.send(self["@asyncTimeout"],"_notNil",[]);
 return $1;
 }
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-"_mustBeAsync_",
-smalltalk.method({
-selector: "mustBeAsync:",
-fn: function (aString){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_isAsync",[]);
-if(! smalltalk.assert($1)){
-smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
-};
-return self}
 }),
 smalltalk.TestCase);
 
@@ -487,14 +487,8 @@ fn: function (aBlock){
 var self=this;
 var $1,$3,$2;
 $1=(function(){
-return smalltalk.send((function(){
-return smalltalk.send((function(){
+return smalltalk.send(self,"_withErrorReporting_",[(function(){
 return smalltalk.send(self,"_execute_",[aBlock],smalltalk.TestContext);
-}),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
-return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
-})]);
-}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
-return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
 })]);
 });
 $2=(function(){
@@ -527,6 +521,23 @@ selector: "result:",
 fn: function (aTestResult){
 var self=this;
 self["@result"]=aTestResult;
+return self}
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_withErrorReporting_",
+smalltalk.method({
+selector: "withErrorReporting:",
+fn: function (aBlock){
+var self=this;
+smalltalk.send((function(){
+return smalltalk.send(aBlock,"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
+return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
+})]);
+}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
+})]);
 return self}
 }),
 smalltalk.ReportingTestContext);

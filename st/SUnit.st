@@ -45,13 +45,13 @@ setTestSelector: aSelector
 
 async: aBlock
 	| c |
-	self mustBeAsync: '#async'.
+	self errorIfNotAsync: '#async'.
     c := context.
-    ^[ self isAsync ifTrue: [ c execute: aBlock ]]
+    ^ [ self isAsync ifTrue: [ c execute: aBlock ] ]
 !
 
 finished
-	self mustBeAsync: '#finished'.
+	self errorIfNotAsync: '#finished'.
 	asyncTimeout := nil
 !
 
@@ -61,14 +61,13 @@ graceTime: millis
 	asyncTimeout :=
 		(self async: [ self assert: false description: 'SUnit grace time exhausted' ])
         valueWithTimeout: millis
-!
+! !
 
-isAsync
-	^asyncTimeout notNil
-!
+!TestCase methodsFor: 'error handling'!
 
-mustBeAsync: aString
-	self isAsync ifFalse: [ self error: aString, ' used without prior #graceTime:' ]
+errorIfNotAsync: aString
+	self isAsync ifFalse: [ 
+    	self error: aString, ' used without prior #graceTime:' ]
 ! !
 
 !TestCase methodsFor: 'private'!
@@ -114,6 +113,10 @@ assert: expected equals: actual
 
 deny: aBoolean
 	self assert: aBoolean not
+!
+
+isAsync
+	^asyncTimeout notNil
 !
 
 should: aBlock
@@ -190,16 +193,26 @@ testCase: aTestCase
 
 execute: aBlock
 	| failed |
+    
     testCase context: self.
-    [ failed := true. aBlock value. failed := false ] ensure: [
-        testCase context: nil.
-        (failed and: [testCase isAsync]) ifTrue: [ testCase finished ].
-        testCase isAsync ifFalse: [ testCase tearDown ]
-    ]
+    [ 
+    	failed := true. 
+        aBlock value. 
+        failed := false 
+	] 
+    	ensure: [
+        	testCase context: nil.
+            
+        	(failed and: [ testCase isAsync ]) ifTrue: [ 
+            	testCase finished ].
+        	testCase isAsync ifFalse: [ 
+        		testCase tearDown ] ]
 !
 
 start
-	self execute: [ testCase setUp. testCase performTest ]
+	self execute: [ 
+    	testCase setUp. 
+        testCase performTest ]
 ! !
 
 !TestContext class methodsFor: 'instance creation'!
@@ -231,19 +244,26 @@ result: aTestResult
 	result := aTestResult
 ! !
 
+!ReportingTestContext methodsFor: 'private'!
+
+withErrorReporting: aBlock
+ 	[ aBlock
+		on: TestFailure 
+		do: [ :ex | result addFailure: testCase ] 
+	]
+    	on: Error 
+        do: [ :ex | result addError: testCase ]
+! !
+
 !ReportingTestContext methodsFor: 'running'!
 
 execute: aBlock
-    [
-    	[
-        	[ super execute: aBlock ]
-    			on: TestFailure 
-                do: [:ex | result addFailure: testCase ] 
-  		]
-    		on: Error 
-            do: [:ex | result addError: testCase] 
+    [ 
+    	self withErrorReporting: [ super execute: aBlock ] 
 	]
-    	ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ] ]
+    	ensure: [ 
+        	testCase isAsync ifFalse: [ 
+            	result increaseRuns. finished value ] ]
 ! !
 
 !ReportingTestContext class methodsFor: 'instance creation'!

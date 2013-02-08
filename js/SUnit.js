@@ -101,7 +101,7 @@ fn: function (aBlock){
 var self=this;
 var $2,$1;
 var c;
-smalltalk.send(self,"_mustBeAsync_",["#async"]);
+smalltalk.send(self,"_errorIfNotAsync_",["#async"]);
 c=self["@context"];
 $1=(function(){
 $2=smalltalk.send(self,"_isAsync",[]);
@@ -112,8 +112,8 @@ return smalltalk.send(c,"_execute_",[aBlock]);
 return $1;
 },
 args: ["aBlock"],
-source: "async: aBlock\x0a\x09| c |\x0a\x09self mustBeAsync: '#async'.\x0a    c := context.\x0a    ^[ self isAsync ifTrue: [ c execute: aBlock ]]",
-messageSends: ["mustBeAsync:", "ifTrue:", "execute:", "isAsync"],
+source: "async: aBlock\x0a\x09| c |\x0a\x09self errorIfNotAsync: '#async'.\x0a    c := context.\x0a    ^ [ self isAsync ifTrue: [ c execute: aBlock ] ]",
+messageSends: ["errorIfNotAsync:", "ifTrue:", "execute:", "isAsync"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -151,18 +151,38 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_errorIfNotAsync_",
+smalltalk.method({
+selector: "errorIfNotAsync:",
+category: 'error handling',
+fn: function (aString){
+var self=this;
+var $1;
+$1=smalltalk.send(self,"_isAsync",[]);
+if(! smalltalk.assert($1)){
+smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
+};
+return self},
+args: ["aString"],
+source: "errorIfNotAsync: aString\x0a\x09self isAsync ifFalse: [ \x0a    \x09self error: aString, ' used without prior #graceTime:' ]",
+messageSends: ["ifFalse:", "error:", ",", "isAsync"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_finished",
 smalltalk.method({
 selector: "finished",
 category: 'async',
 fn: function (){
 var self=this;
-smalltalk.send(self,"_mustBeAsync_",["#finished"]);
+smalltalk.send(self,"_errorIfNotAsync_",["#finished"]);
 self["@asyncTimeout"]=nil;
 return self},
 args: [],
-source: "finished\x0a\x09self mustBeAsync: '#finished'.\x0a\x09asyncTimeout := nil",
-messageSends: ["mustBeAsync:"],
+source: "finished\x0a\x09self errorIfNotAsync: '#finished'.\x0a\x09asyncTimeout := nil",
+messageSends: ["errorIfNotAsync:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -197,7 +217,7 @@ smalltalk.addMethod(
 "_isAsync",
 smalltalk.method({
 selector: "isAsync",
-category: 'async',
+category: 'testing',
 fn: function (){
 var self=this;
 var $1;
@@ -207,26 +227,6 @@ return $1;
 args: [],
 source: "isAsync\x0a\x09^asyncTimeout notNil",
 messageSends: ["notNil"],
-referencedClasses: []
-}),
-smalltalk.TestCase);
-
-smalltalk.addMethod(
-"_mustBeAsync_",
-smalltalk.method({
-selector: "mustBeAsync:",
-category: 'async',
-fn: function (aString){
-var self=this;
-var $1;
-$1=smalltalk.send(self,"_isAsync",[]);
-if(! smalltalk.assert($1)){
-smalltalk.send(self,"_error_",[smalltalk.send(aString,"__comma",[" used without prior #graceTime:"])]);
-};
-return self},
-args: ["aString"],
-source: "mustBeAsync: aString\x0a\x09self isAsync ifFalse: [ self error: aString, ' used without prior #graceTime:' ]",
-messageSends: ["ifFalse:", "error:", ",", "isAsync"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -581,7 +581,7 @@ return smalltalk.send(self["@testCase"],"_tearDown",[]);
 smalltalk.send($1,"_ensure_",[$2]);
 return self},
 args: ["aBlock"],
-source: "execute: aBlock\x0a\x09| failed |\x0a    testCase context: self.\x0a    [ failed := true. aBlock value. failed := false ] ensure: [\x0a        testCase context: nil.\x0a        (failed and: [testCase isAsync]) ifTrue: [ testCase finished ].\x0a        testCase isAsync ifFalse: [ testCase tearDown ]\x0a    ]\x0a",
+source: "execute: aBlock\x0a\x09| failed |\x0a    \x0a    testCase context: self.\x0a    [ \x0a    \x09failed := true. \x0a        aBlock value. \x0a        failed := false \x0a\x09] \x0a    \x09ensure: [\x0a        \x09testCase context: nil.\x0a            \x0a        \x09(failed and: [ testCase isAsync ]) ifTrue: [ \x0a            \x09testCase finished ].\x0a        \x09testCase isAsync ifFalse: [ \x0a        \x09\x09testCase tearDown ] ]",
 messageSends: ["context:", "ensure:", "ifTrue:", "finished", "and:", "isAsync", "ifFalse:", "tearDown", "value"],
 referencedClasses: []
 }),
@@ -600,7 +600,7 @@ return smalltalk.send(self["@testCase"],"_performTest",[]);
 })]);
 return self},
 args: [],
-source: "start\x0a\x09self execute: [ testCase setUp. testCase performTest ]",
+source: "start\x0a\x09self execute: [ \x0a    \x09testCase setUp. \x0a        testCase performTest ]",
 messageSends: ["execute:", "setUp", "performTest"],
 referencedClasses: []
 }),
@@ -656,14 +656,8 @@ fn: function (aBlock){
 var self=this;
 var $1,$3,$2;
 $1=(function(){
-return smalltalk.send((function(){
-return smalltalk.send((function(){
+return smalltalk.send(self,"_withErrorReporting_",[(function(){
 return smalltalk.send(self,"_execute_",[aBlock],smalltalk.TestContext);
-}),"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
-return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
-})]);
-}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
-return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
 })]);
 });
 $2=(function(){
@@ -676,9 +670,9 @@ return smalltalk.send(self["@finished"],"_value",[]);
 smalltalk.send($1,"_ensure_",[$2]);
 return self},
 args: ["aBlock"],
-source: "execute: aBlock\x0a    [\x0a    \x09[\x0a        \x09[ super execute: aBlock ]\x0a    \x09\x09\x09on: TestFailure \x0a                do: [:ex | result addFailure: testCase ] \x0a  \x09\x09]\x0a    \x09\x09on: Error \x0a            do: [:ex | result addError: testCase] \x0a\x09]\x0a    \x09ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ] ]",
-messageSends: ["ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "on:do:", "addError:", "addFailure:", "execute:"],
-referencedClasses: ["Error", "TestFailure"]
+source: "execute: aBlock\x0a    [ \x0a    \x09self withErrorReporting: [ super execute: aBlock ] \x0a\x09]\x0a    \x09ensure: [ \x0a        \x09testCase isAsync ifFalse: [ \x0a            \x09result increaseRuns. finished value ] ]",
+messageSends: ["ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "withErrorReporting:", "execute:"],
+referencedClasses: []
 }),
 smalltalk.ReportingTestContext);
 
@@ -711,6 +705,28 @@ args: ["aTestResult"],
 source: "result: aTestResult\x0a\x09result := aTestResult",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_withErrorReporting_",
+smalltalk.method({
+selector: "withErrorReporting:",
+category: 'private',
+fn: function (aBlock){
+var self=this;
+smalltalk.send((function(){
+return smalltalk.send(aBlock,"_on_do_",[(smalltalk.TestFailure || TestFailure),(function(ex){
+return smalltalk.send(self["@result"],"_addFailure_",[self["@testCase"]]);
+})]);
+}),"_on_do_",[(smalltalk.Error || Error),(function(ex){
+return smalltalk.send(self["@result"],"_addError_",[self["@testCase"]]);
+})]);
+return self},
+args: ["aBlock"],
+source: "withErrorReporting: aBlock\x0a \x09[ aBlock\x0a\x09\x09on: TestFailure \x0a\x09\x09do: [ :ex | result addFailure: testCase ] \x0a\x09]\x0a    \x09on: Error \x0a        do: [ :ex | result addError: testCase ]",
+messageSends: ["on:do:", "addError:", "addFailure:"],
+referencedClasses: ["Error", "TestFailure"]
 }),
 smalltalk.ReportingTestContext);
 
