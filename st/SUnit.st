@@ -1,4 +1,82 @@
 Smalltalk current createPackage: 'SUnit' properties: #{}!
+Object subclass: #BareTestContext
+	instanceVariableNames: 'testCase'
+	package: 'SUnit'!
+!BareTestContext commentStamp!
+BareTestContext governs running a particular test case.
+
+It's main added value is execute: method which runs a block
+as a part of test case (restores context, nilling it afterwards,
+cleaning/calling tearDown as appropriate for sync/async scenario).!
+
+!BareTestContext methodsFor: 'accessing'!
+
+testCase: aTestCase
+	testCase := aTestCase
+! !
+
+!BareTestContext methodsFor: 'running'!
+
+execute: aBlock
+	| failed |
+    testCase context: self.
+    [ failed := true. aBlock value. failed := false ] ensure: [
+        testCase context: nil.
+        (failed and: [testCase isAsync]) ifTrue: [ testCase finished ].
+        testCase isAsync ifFalse: [ testCase tearDown ]
+    ]
+!
+
+start
+	self execute: [ testCase setUp. testCase performTest ]
+! !
+
+!BareTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase
+	^self new
+        testCase: aTestCase;
+        yourself
+! !
+
+BareTestContext subclass: #ReportingTestContext
+	instanceVariableNames: 'finished result'
+	package: 'SUnit'!
+!ReportingTestContext commentStamp!
+ReportingTestContext adds TestResult reporting
+to BareTestContext.
+Errors are caught and save into TestResult,
+When test case is finished (which can be later for async tests),
+a callback block is executed; this is used by TestSuiteRunner.!
+
+!ReportingTestContext methodsFor: 'accessing'!
+
+finished: aBlock
+	finished := aBlock
+!
+
+result: aTestResult
+	result := aTestResult
+! !
+
+!ReportingTestContext methodsFor: 'running'!
+
+execute: aBlock
+    [[[ super execute: aBlock ]
+    on: TestFailure do: [:ex | result addFailure: testCase]]
+    on: Error do: [:ex | result addError: testCase]]
+    ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ]]
+! !
+
+!ReportingTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase result: aTestResult finished: aBlock
+	^(super testCase: aTestCase)
+        result: aTestResult;
+        finished: aBlock;
+        yourself
+! !
+
 Object subclass: #ResultAnnouncement
 	instanceVariableNames: 'result'
 	package: 'SUnit'!
@@ -11,82 +89,6 @@ result
 
 result: aTestResult
 	result := aTestResult
-! !
-
-Object subclass: #RunningTestContext
-	instanceVariableNames: 'finished testCase result'
-	package: 'SUnit'!
-
-!RunningTestContext methodsFor: 'accessing'!
-
-finished: aBlock
-	finished := aBlock
-!
-
-result: aTestResult
-	result := aTestResult
-!
-
-testCase: aTestCase
-	testCase := aTestCase
-! !
-
-!RunningTestContext methodsFor: 'private'!
-
-exception: anException do: aBlock
-	aBlock value
-!
-
-executeWithCleanup: aBlock
-	| failed |
-    testCase context: self.
-    [ failed := true. aBlock value. failed := false ] ensure: [
-        testCase context: nil.
-        (failed and: [testCase isAsync]) ifTrue: [ testCase finished ].
-        testCase isAsync ifFalse: [ testCase tearDown ]
-    ]
-! !
-
-!RunningTestContext methodsFor: 'running'!
-
-execute: aBlock
-    [[[ self executeWithCleanup: aBlock ]
-    on: TestFailure do: [:ex | self exception: ex do: [ result addFailure: testCase]]]
-    on: Error do: [:ex | self exception: ex do: [ result addError: testCase]]]
-    ensure: [ testCase isAsync ifFalse: [ result increaseRuns. finished value ]]
-!
-
-start
-	self execute: [ testCase setUp. testCase performTest ]
-! !
-
-!RunningTestContext class methodsFor: 'instance creation'!
-
-testCase: aTestCase result: aTestResult finished: aBlock
-	^self new
-        testCase: aTestCase;
-        result: aTestResult;
-        finished: aBlock;
-        yourself
-! !
-
-RunningTestContext subclass: #ErroringTestContext
-	instanceVariableNames: ''
-	package: 'SUnit'!
-
-!ErroringTestContext methodsFor: 'private'!
-
-exception: anException do: aBlock
-	anException signal
-! !
-
-!ErroringTestContext class methodsFor: 'instance creation'!
-
-testCase: aTestCase
-	^self
-        testCase: aTestCase
-        result: TestResult new
-        finished: []
 ! !
 
 Object subclass: #TestCase
@@ -155,7 +157,7 @@ performTest
 runCase
 	"Runs a test case in isolated context, leaking all errors."
 
-	(ErroringTestContext testCase: self) start
+	(BareTestContext testCase: self) start
 !
 
 setUp
@@ -344,7 +346,7 @@ initialize
 !TestSuiteRunner methodsFor: 'private'!
 
 contextOf: anInteger
-   	^RunningTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
+   	^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!
