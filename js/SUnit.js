@@ -7,7 +7,9 @@ selector: "result",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@result"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@result"];
+return $1;
 }, self, "result", [], smalltalk.ResultAnnouncement)},
 args: [],
 source: "result\x0a\x09^result",
@@ -34,7 +36,8 @@ smalltalk.ResultAnnouncement);
 
 
 
-smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector'], 'SUnit');
+smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
+smalltalk.TestCase.comment="A TestCase is an implementation of the command pattern to run a test.  \x0a\x0a`TestCase` instances are created with the class method `#selector:`, \x0apassing the symbol that names the method to be executed when the test case runs.\x0a\x0aWhen you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.  \x0aAs that method develops and more `#test...` methods are added, you will find yourself refactoring temps \x0ainto instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.  \x0aAs required, override `#tearDown` to nil references, release objects and deallocate."
 smalltalk.addMethod(
 "_assert_",
 smalltalk.method({
@@ -58,7 +61,9 @@ selector: "assert:description:",
 category: 'testing',
 fn: function (aBoolean,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { if(! smalltalk.assert(aBoolean)){
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=aBoolean;
+if(! smalltalk.assert($1)){
 _st(self)._signalFailure_(aString);
 };
 return self}, self, "assert:description:", [aBoolean,aString], smalltalk.TestCase)},
@@ -88,6 +93,48 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_async_",
+smalltalk.method({
+selector: "async:",
+category: 'async',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$ctx1.locals.c=nil;
+_st(self)._errorIfNotAsync_("#async");
+$ctx1.locals.c=self["@context"];
+$1=(function(){
+return smalltalk.withContext(function($ctx2) { $2=_st(self)._isAsync();
+if(smalltalk.assert($2)){
+return _st($ctx1.locals.c)._execute_(aBlock);
+};
+})});
+return $1;
+}, self, "async:", [aBlock], smalltalk.TestCase)},
+args: ["aBlock"],
+source: "async: aBlock\x0a\x09| c |\x0a\x09self errorIfNotAsync: '#async'.\x0a    c := context.\x0a    ^ [ self isAsync ifTrue: [ c execute: aBlock ] ]",
+messageSends: ["errorIfNotAsync:", "ifTrue:", "execute:", "isAsync"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_context_",
+smalltalk.method({
+selector: "context:",
+category: 'accessing',
+fn: function (aRunningTestContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@context"]=aRunningTestContext;
+return self}, self, "context:", [aRunningTestContext], smalltalk.TestCase)},
+args: ["aRunningTestContext"],
+source: "context: aRunningTestContext\x0a\x09context := aRunningTestContext",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_deny_",
 smalltalk.method({
 selector: "deny:",
@@ -104,16 +151,72 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
+"_errorIfNotAsync_",
+smalltalk.method({
+selector: "errorIfNotAsync:",
+category: 'error handling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._isAsync();
+if(! smalltalk.assert($1)){
+_st(self)._error_(_st(aString).__comma(" used without prior #timeout:"));
+};
+return self}, self, "errorIfNotAsync:", [aString], smalltalk.TestCase)},
+args: ["aString"],
+source: "errorIfNotAsync: aString\x0a\x09self isAsync ifFalse: [ \x0a    \x09self error: aString, ' used without prior #timeout:' ]",
+messageSends: ["ifFalse:", "error:", ",", "isAsync"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_finished",
+smalltalk.method({
+selector: "finished",
+category: 'async',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._errorIfNotAsync_("#finished");
+self["@asyncTimeout"]=nil;
+return self}, self, "finished", [], smalltalk.TestCase)},
+args: [],
+source: "finished\x0a\x09self errorIfNotAsync: '#finished'.\x0a\x09asyncTimeout := nil",
+messageSends: ["errorIfNotAsync:"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
+"_isAsync",
+smalltalk.method({
+selector: "isAsync",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@asyncTimeout"])._notNil();
+return $1;
+}, self, "isAsync", [], smalltalk.TestCase)},
+args: [],
+source: "isAsync\x0a\x09^asyncTimeout notNil",
+messageSends: ["notNil"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
+smalltalk.addMethod(
 "_performTest",
 smalltalk.method({
 selector: "performTest",
 category: 'running',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._perform_(_st(self)._selector());
+return smalltalk.withContext(function($ctx1) { self["@asyncTimeout"]=nil;
+_st(self)._perform_(_st(self)._selector());
 return self}, self, "performTest", [], smalltalk.TestCase)},
 args: [],
-source: "performTest\x0a\x09self perform: self selector\x0a",
+source: "performTest\x0a\x09asyncTimeout := nil.\x0a\x09self perform: self selector",
 messageSends: ["perform:", "selector"],
 referencedClasses: []
 }),
@@ -126,17 +229,12 @@ selector: "runCase",
 category: 'running',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((function(){
-return smalltalk.withContext(function($ctx2) { _st(self)._setUp();
-return _st(self)._performTest();
-})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(self)._tearDown();
-})}));
+return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.TestContext || TestContext))._testCase_(self))._start();
 return self}, self, "runCase", [], smalltalk.TestCase)},
 args: [],
-source: "runCase\x0a\x09[\x09self setUp.\x0a\x09\x09self performTest ] ensure: [\x0a\x09\x09self tearDown.\x0a\x09\x09\x22self cleanUpInstanceVariables\x22 ]\x0a",
-messageSends: ["ensure:", "tearDown", "setUp", "performTest"],
-referencedClasses: []
+source: "runCase\x0a\x09\x22Runs a test case in isolated context, leaking all errors.\x22\x0a\x0a\x09(TestContext testCase: self) start",
+messageSends: ["start", "testCase:"],
+referencedClasses: ["TestContext"]
 }),
 smalltalk.TestCase);
 
@@ -147,7 +245,9 @@ selector: "selector",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@testSelector"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@testSelector"];
+return $1;
 }, self, "selector", [], smalltalk.TestCase)},
 args: [],
 source: "selector\x0a\x09^testSelector",
@@ -279,6 +379,32 @@ referencedClasses: []
 }),
 smalltalk.TestCase);
 
+smalltalk.addMethod(
+"_timeout_",
+smalltalk.method({
+selector: "timeout:",
+category: 'async',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@asyncTimeout"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(self["@asyncTimeout"])._clearTimeout();
+};
+self["@asyncTimeout"]=(0);
+self["@asyncTimeout"]=_st(_st(self)._async_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._assert_description_(false,"SUnit grace time exhausted");
+})})))._valueWithTimeout_(aNumber);
+return self}, self, "timeout:", [aNumber], smalltalk.TestCase)},
+args: ["aNumber"],
+source: "timeout: aNumber\x0a\x09\x22Set a grace time timeout in milliseconds to run the test asynchronously\x22\x0a    \x0a\x09asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].\x0a    \x0a     \x22to allow #async: message send without throwing an error\x22\x0a\x09asyncTimeout := 0.\x0a    \x0a\x09asyncTimeout := (self async: [ \x0a    \x09self assert: false description: 'SUnit grace time exhausted' ])\x0a        \x09valueWithTimeout: aNumber",
+messageSends: ["ifNotNil:", "clearTimeout", "valueWithTimeout:", "async:", "assert:description:"],
+referencedClasses: []
+}),
+smalltalk.TestCase);
+
 
 smalltalk.addMethod(
 "_allTestSelectors",
@@ -287,14 +413,15 @@ selector: "allTestSelectors",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.selectors=nil;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$ctx1.locals.selectors=nil;
 $ctx1.locals.selectors=_st(self)._testSelectors();
 $1=_st(self)._shouldInheritSelectors();
 if(smalltalk.assert($1)){
 _st($ctx1.locals.selectors)._addAll_(_st(_st(self)._superclass())._allTestSelectors());
 };
-return $ctx1.locals.selectors;
+$2=$ctx1.locals.selectors;
+return $2;
 }, self, "allTestSelectors", [], smalltalk.TestCase.klass)},
 args: [],
 source: "allTestSelectors\x0a\x09| selectors |\x0a\x09selectors := self testSelectors.\x0a\x09self shouldInheritSelectors ifTrue: [\x0a\x09\x09selectors addAll: self superclass allTestSelectors].\x0a\x09^selectors",
@@ -348,7 +475,9 @@ selector: "lookupHierarchyRoot",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (smalltalk.TestCase || TestCase);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(smalltalk.TestCase || TestCase);
+return $1;
 }, self, "lookupHierarchyRoot", [], smalltalk.TestCase.klass)},
 args: [],
 source: "lookupHierarchyRoot\x0a\x09^TestCase",
@@ -417,10 +546,220 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 
+smalltalk.addClass('TestContext', smalltalk.Object, ['testCase'], 'SUnit');
+smalltalk.TestContext.comment="TestContext governs running a particular test case.\x0a\x0aIt's main added value is `#execute:` method which runs a block\x0aas a part of test case (restores context, nilling it afterwards,\x0acleaning/calling tearDown as appropriate for sync/async scenario)."
+smalltalk.addMethod(
+"_execute_",
+smalltalk.method({
+selector: "execute:",
+category: 'running',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
+$ctx1.locals.failed=nil;
+_st(self["@testCase"])._context_(self);
+$1=(function(){
+return smalltalk.withContext(function($ctx2) { $ctx1.locals.failed=true;
+$ctx1.locals.failed;
+_st(aBlock)._value();
+$ctx1.locals.failed=false;
+return $ctx1.locals.failed;
+})});
+$2=(function(){
+return smalltalk.withContext(function($ctx2) { _st(self["@testCase"])._context_(nil);
+$3=_st($ctx1.locals.failed)._and_((function(){
+return smalltalk.withContext(function($ctx3) { return _st(self["@testCase"])._isAsync();
+})}));
+if(smalltalk.assert($3)){
+_st(self["@testCase"])._finished();
+};
+$4=_st(self["@testCase"])._isAsync();
+if(! smalltalk.assert($4)){
+return _st(self["@testCase"])._tearDown();
+};
+})});
+_st($1)._ensure_($2);
+return self}, self, "execute:", [aBlock], smalltalk.TestContext)},
+args: ["aBlock"],
+source: "execute: aBlock\x0a\x09| failed |\x0a    \x0a    testCase context: self.\x0a    [ \x0a    \x09failed := true. \x0a        aBlock value. \x0a        failed := false \x0a\x09] \x0a    \x09ensure: [\x0a        \x09testCase context: nil.\x0a            \x0a        \x09(failed and: [ testCase isAsync ]) ifTrue: [ \x0a            \x09testCase finished ].\x0a        \x09testCase isAsync ifFalse: [ \x0a        \x09\x09testCase tearDown ] ]",
+messageSends: ["context:", "ensure:", "ifTrue:", "finished", "and:", "isAsync", "ifFalse:", "tearDown", "value"],
+referencedClasses: []
+}),
+smalltalk.TestContext);
+
+smalltalk.addMethod(
+"_start",
+smalltalk.method({
+selector: "start",
+category: 'running',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._execute_((function(){
+return smalltalk.withContext(function($ctx2) { _st(self["@testCase"])._setUp();
+return _st(self["@testCase"])._performTest();
+})}));
+return self}, self, "start", [], smalltalk.TestContext)},
+args: [],
+source: "start\x0a\x09self execute: [ \x0a    \x09testCase setUp. \x0a        testCase performTest ]",
+messageSends: ["execute:", "setUp", "performTest"],
+referencedClasses: []
+}),
+smalltalk.TestContext);
+
+smalltalk.addMethod(
+"_testCase_",
+smalltalk.method({
+selector: "testCase:",
+category: 'accessing',
+fn: function (aTestCase){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@testCase"]=aTestCase;
+return self}, self, "testCase:", [aTestCase], smalltalk.TestContext)},
+args: ["aTestCase"],
+source: "testCase: aTestCase\x0a\x09testCase := aTestCase",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestContext);
+
+
+smalltalk.addMethod(
+"_testCase_",
+smalltalk.method({
+selector: "testCase:",
+category: 'instance creation',
+fn: function (aTestCase){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._testCase_(aTestCase);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, self, "testCase:", [aTestCase], smalltalk.TestContext.klass)},
+args: ["aTestCase"],
+source: "testCase: aTestCase\x0a\x09^self new\x0a        testCase: aTestCase;\x0a        yourself",
+messageSends: ["testCase:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.TestContext.klass);
+
+
+smalltalk.addClass('ReportingTestContext', smalltalk.TestContext, ['finished', 'result'], 'SUnit');
+smalltalk.ReportingTestContext.comment="ReportingTestContext adds `TestResult` reporting\x0ato `TestContext`.\x0a\x0aErrors are caught and save into a `TestResult`,\x0aWhen test case is finished (which can be later for async tests),\x0aa callback block is executed; this is used by a `TestSuiteRunner`."
+smalltalk.addMethod(
+"_execute_",
+smalltalk.method({
+selector: "execute:",
+category: 'running',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+$1=(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._withErrorReporting_((function(){
+return smalltalk.withContext(function($ctx3) { return smalltalk.TestContext.fn.prototype._execute_.apply(_st(self), [aBlock]);
+})}));
+})});
+$2=(function(){
+return smalltalk.withContext(function($ctx2) { $3=_st(self["@testCase"])._isAsync();
+if(! smalltalk.assert($3)){
+_st(self["@result"])._increaseRuns();
+return _st(self["@finished"])._value();
+};
+})});
+_st($1)._ensure_($2);
+return self}, self, "execute:", [aBlock], smalltalk.ReportingTestContext)},
+args: ["aBlock"],
+source: "execute: aBlock\x0a    [ \x0a    \x09self withErrorReporting: [ super execute: aBlock ] \x0a\x09]\x0a    \x09ensure: [ \x0a        \x09testCase isAsync ifFalse: [ \x0a            \x09result increaseRuns. finished value ] ]",
+messageSends: ["ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "withErrorReporting:", "execute:"],
+referencedClasses: []
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_finished_",
+smalltalk.method({
+selector: "finished:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@finished"]=aBlock;
+return self}, self, "finished:", [aBlock], smalltalk.ReportingTestContext)},
+args: ["aBlock"],
+source: "finished: aBlock\x0a\x09finished := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_result_",
+smalltalk.method({
+selector: "result:",
+category: 'accessing',
+fn: function (aTestResult){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@result"]=aTestResult;
+return self}, self, "result:", [aTestResult], smalltalk.ReportingTestContext)},
+args: ["aTestResult"],
+source: "result: aTestResult\x0a\x09result := aTestResult",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ReportingTestContext);
+
+smalltalk.addMethod(
+"_withErrorReporting_",
+smalltalk.method({
+selector: "withErrorReporting:",
+category: 'private',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st((function(){
+return smalltalk.withContext(function($ctx2) { return _st(aBlock)._on_do_((smalltalk.TestFailure || TestFailure),(function(ex){
+return smalltalk.withContext(function($ctx3) { return _st(self["@result"])._addFailure_(self["@testCase"]);
+})}));
+})}))._on_do_((smalltalk.Error || Error),(function(ex){
+return smalltalk.withContext(function($ctx2) { return _st(self["@result"])._addError_(self["@testCase"]);
+})}));
+return self}, self, "withErrorReporting:", [aBlock], smalltalk.ReportingTestContext)},
+args: ["aBlock"],
+source: "withErrorReporting: aBlock\x0a \x09[ aBlock\x0a\x09\x09on: TestFailure \x0a\x09\x09do: [ :ex | result addFailure: testCase ] \x0a\x09]\x0a    \x09on: Error \x0a        do: [ :ex | result addError: testCase ]",
+messageSends: ["on:do:", "addError:", "addFailure:"],
+referencedClasses: ["Error", "TestFailure"]
+}),
+smalltalk.ReportingTestContext);
+
+
+smalltalk.addMethod(
+"_testCase_result_finished_",
+smalltalk.method({
+selector: "testCase:result:finished:",
+category: 'instance creation',
+fn: function (aTestCase,aTestResult,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=smalltalk.TestContext.klass.fn.prototype._testCase_.apply(_st(self), [aTestCase]);
+_st($2)._result_(aTestResult);
+_st($2)._finished_(aBlock);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, self, "testCase:result:finished:", [aTestCase,aTestResult,aBlock], smalltalk.ReportingTestContext.klass)},
+args: ["aTestCase", "aTestResult", "aBlock"],
+source: "testCase: aTestCase result: aTestResult finished: aBlock\x0a\x09^(super testCase: aTestCase)\x0a        result: aTestResult;\x0a        finished: aBlock;\x0a        yourself",
+messageSends: ["result:", "testCase:", "finished:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.ReportingTestContext.klass);
+
+
 smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
+smalltalk.TestFailure.comment="The test framework distinguishes between failures and errors.  \x0aA failure is an event whose possibiity is explicitly anticipated and checked for in an assertion, \x0awhereas an error is an unanticipated problem like a division by 0 or an index out of bounds.  \x0a\x0aTestFailure is raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims."
 
 
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
+smalltalk.TestResult.comment="A TestResult implements the collecting parameter pattern for running a bunch of tests.  \x0a\x0aA TestResult holds tests that have run, sorted into the result categories of passed, failures and errors.\x0a\x0aTestResult is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce"
 smalltalk.addMethod(
 "_addError_",
 smalltalk.method({
@@ -460,7 +799,9 @@ selector: "errors",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@errors"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@errors"];
+return $1;
 }, self, "errors", [], smalltalk.TestResult)},
 args: [],
 source: "errors\x0a\x09^errors",
@@ -476,7 +817,9 @@ selector: "failures",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@failures"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@failures"];
+return $1;
 }, self, "failures", [], smalltalk.TestResult)},
 args: [],
 source: "failures\x0a\x09^failures",
@@ -575,7 +918,9 @@ selector: "runs",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@runs"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@runs"];
+return $1;
 }, self, "runs", [], smalltalk.TestResult)},
 args: [],
 source: "runs\x0a\x09^runs",
@@ -591,18 +936,19 @@ selector: "status",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$4,$3,$1;
 $2=_st(_st(self)._errors())._isEmpty();
-if(smalltalk.assert($2)){
-$3=_st(_st(self)._failures())._isEmpty();
-if(smalltalk.assert($3)){
-$1="success";
+$3=(function(){
+return smalltalk.withContext(function($ctx2) { $4=_st(_st(self)._failures())._isEmpty();
+if(smalltalk.assert($4)){
+return "success";
 } else {
-$1="failure";
+return "failure";
 };
-} else {
-$1="error";
-};
+})});
+$1=_st($2)._ifTrue_ifFalse_($3,(function(){
+return smalltalk.withContext(function($ctx2) { return "error";
+})}));
 return $1;
 }, self, "status", [], smalltalk.TestResult)},
 args: [],
@@ -619,7 +965,9 @@ selector: "timestamp",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@timestamp"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@timestamp"];
+return $1;
 }, self, "timestamp", [], smalltalk.TestResult)},
 args: [],
 source: "timestamp\x0a\x09^timestamp",
@@ -635,7 +983,9 @@ selector: "total",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@total"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@total"];
+return $1;
 }, self, "total", [], smalltalk.TestResult)},
 args: [],
 source: "total\x0a\x09^total",
@@ -662,7 +1012,7 @@ smalltalk.TestResult);
 
 
 
-smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer'], 'SUnit');
+smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -670,12 +1020,34 @@ selector: "announcer",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@announcer"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@announcer"];
+return $1;
 }, self, "announcer", [], smalltalk.TestSuiteRunner)},
 args: [],
 source: "announcer\x0a\x09^announcer",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_contextOf_",
+smalltalk.method({
+selector: "contextOf:",
+category: 'private',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.ReportingTestContext || ReportingTestContext))._testCase_result_finished_(_st(self["@suite"])._at_(anInteger),self["@result"],(function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._resume();
+})}));
+return $1;
+}, self, "contextOf:", [anInteger], smalltalk.TestSuiteRunner)},
+args: ["anInteger"],
+source: "contextOf: anInteger\x0a   \x09^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]",
+messageSends: ["testCase:result:finished:", "at:", "resume"],
+referencedClasses: ["ReportingTestContext"]
 }),
 smalltalk.TestSuiteRunner);
 
@@ -686,13 +1058,23 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { var $1;
+smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@announcer"]=_st((smalltalk.Announcer || Announcer))._new();
 self["@result"]=_st((smalltalk.TestResult || TestResult))._new();
+self["@runNextTest"]=(function(){
+return smalltalk.withContext(function($ctx2) { $ctx2.locals.runs=nil;
+$ctx2.locals.runs=_st(self["@result"])._runs();
+$ctx2.locals.runs;
+$1=_st($ctx2.locals.runs).__lt(_st(self["@result"])._total());
+if(smalltalk.assert($1)){
+return _st(_st(self)._contextOf_(_st($ctx2.locals.runs).__plus((1))))._start();
+};
+})});
 return self}, self, "initialize", [], smalltalk.TestSuiteRunner)},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new",
-messageSends: ["initialize", "new"],
+source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a    result := TestResult new.\x0a    runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].",
+messageSends: ["initialize", "new", "runs", "ifTrue:", "start", "contextOf:", "+", "<", "total"],
 referencedClasses: ["Announcer", "TestResult"]
 }),
 smalltalk.TestSuiteRunner);
@@ -704,12 +1086,31 @@ selector: "result",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@result"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@result"];
+return $1;
 }, self, "result", [], smalltalk.TestSuiteRunner)},
 args: [],
 source: "result\x0a\x09^result",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.TestSuiteRunner);
+
+smalltalk.addMethod(
+"_resume",
+smalltalk.method({
+selector: "resume",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@runNextTest"])._fork();
+_st(self["@announcer"])._announce_(_st(_st((smalltalk.ResultAnnouncement || ResultAnnouncement))._new())._result_(self["@result"]));
+return self}, self, "resume", [], smalltalk.TestSuiteRunner)},
+args: [],
+source: "resume\x0a\x09runNextTest fork.\x0a    announcer announce: (ResultAnnouncement new result: result)",
+messageSends: ["fork", "announce:", "result:", "new"],
+referencedClasses: ["ResultAnnouncement"]
 }),
 smalltalk.TestSuiteRunner);
 
@@ -720,25 +1121,13 @@ selector: "run",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.worker=nil;
-_st(self["@result"])._total_(_st(self["@suite"])._size());
-_st(self["@announcer"])._announce_(_st(_st((smalltalk.ResultAnnouncement || ResultAnnouncement))._new())._result_(self["@result"]));
-$ctx1.locals.worker=(function(){
-return smalltalk.withContext(function($ctx2) { return _st(self["@result"])._nextRunDo_((function(index){
-return smalltalk.withContext(function($ctx3) { return _st((function(){
-return smalltalk.withContext(function($ctx4) { return _st(self["@result"])._runCase_(_st(self["@suite"])._at_(index));
-})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx4) { _st($ctx1.locals.worker)._fork();
-return _st(self["@announcer"])._announce_(_st(_st((smalltalk.ResultAnnouncement || ResultAnnouncement))._new())._result_(self["@result"]));
-})}));
-})}));
-})});
-_st($ctx1.locals.worker)._fork();
+return smalltalk.withContext(function($ctx1) { _st(self["@result"])._total_(_st(self["@suite"])._size());
+_st(self)._resume();
 return self}, self, "run", [], smalltalk.TestSuiteRunner)},
 args: [],
-source: "run\x0a\x09| worker |\x0a\x09result total: suite size.\x0a    announcer announce: (ResultAnnouncement new result: result).\x0a    worker := [ result nextRunDo: [ :index |\x0a\x09\x09[ result runCase: (suite at: index) ]\x0a\x09\x09ensure: [ worker fork.\x0a        \x09announcer announce: (ResultAnnouncement new result: result) ]]].\x0a\x09worker fork",
-messageSends: ["total:", "size", "announce:", "result:", "new", "nextRunDo:", "ensure:", "fork", "runCase:", "at:"],
-referencedClasses: ["ResultAnnouncement"]
+source: "run\x0a\x09result total: suite size.\x0a\x09self resume",
+messageSends: ["total:", "size", "resume"],
+referencedClasses: []
 }),
 smalltalk.TestSuiteRunner);
 

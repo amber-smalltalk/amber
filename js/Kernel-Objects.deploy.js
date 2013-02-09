@@ -2056,30 +2056,6 @@ return $1;
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_clearInterval",
-smalltalk.method({
-selector: "clearInterval",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { clearInterval(Number(self));
-;
-return self}, self, "clearInterval", [], smalltalk.Number)}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-"_clearTimeout",
-smalltalk.method({
-selector: "clearTimeout",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { clearTimeout(Number(self));
-;
-return self}, self, "clearTimeout", [], smalltalk.Number)}
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
 "_copy",
 smalltalk.method({
 selector: "copy",
@@ -3413,6 +3389,64 @@ return smalltalk.withContext(function($ctx1) { return smalltalk;
 return self}, self, "current", [], smalltalk.Smalltalk.klass)}
 }),
 smalltalk.Smalltalk.klass);
+
+
+smalltalk.addClass('Timeout', smalltalk.Object, ['rawTimeout'], 'Kernel-Objects');
+smalltalk.addMethod(
+"_clearInterval",
+smalltalk.method({
+selector: "clearInterval",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var interval = self["@rawTimeout"];
+		clearInterval(interval);
+    ;
+return self}, self, "clearInterval", [], smalltalk.Timeout)}
+}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+"_clearTimeout",
+smalltalk.method({
+selector: "clearTimeout",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+    ;
+return self}, self, "clearTimeout", [], smalltalk.Timeout)}
+}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+"_rawTimeout_",
+smalltalk.method({
+selector: "rawTimeout:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@rawTimeout"]=anObject;
+return self}, self, "rawTimeout:", [anObject], smalltalk.Timeout)}
+}),
+smalltalk.Timeout);
+
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._rawTimeout_(anObject);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, self, "on:", [anObject], smalltalk.Timeout.klass)}
+}),
+smalltalk.Timeout.klass);
 
 
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel-Objects');

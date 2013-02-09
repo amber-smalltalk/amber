@@ -194,8 +194,10 @@ smalltalk.method({
 selector: "valueWithInterval:",
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return setInterval(self, aNumber);
-;
+return smalltalk.withContext(function($ctx1) { 
+    	var interval = setInterval(self, aNumber);
+    	return smalltalk.Timeout._on_(interval);
+    ;
 return self}, self, "valueWithInterval:", [aNumber], smalltalk.BlockClosure)}
 }),
 smalltalk.BlockClosure);
@@ -218,8 +220,10 @@ smalltalk.method({
 selector: "valueWithTimeout:",
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return setTimeout(self, aNumber);
-;
+return smalltalk.withContext(function($ctx1) { 
+    	var timeout = setTimeout(self, aNumber);
+    	return smalltalk.Timeout._on_(timeout);
+    ;
 return self}, self, "valueWithTimeout:", [aNumber], smalltalk.BlockClosure)}
 }),
 smalltalk.BlockClosure);
@@ -475,13 +479,26 @@ return self}, self, "addWorker", [], smalltalk.ForkPool)}
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
+"_defaultMaxPoolSize",
+smalltalk.method({
+selector: "defaultMaxPoolSize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._defaultMaxPoolSize();
+return $1;
+}, self, "defaultMaxPoolSize", [], smalltalk.ForkPool)}
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
 "_fork_",
 smalltalk.method({
 selector: "fork:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@poolSize"]).__lt(self["@maxPoolSize"]);
+$1=_st(self["@poolSize"]).__lt(_st(self)._maxPoolSize());
 if(smalltalk.assert($1)){
 _st(self)._addWorker();
 };
@@ -498,7 +515,6 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@poolSize"]=(0);
-self["@maxPoolSize"]=_st(_st(self)._class())._defaultMaxPoolSize();
 self["@queue"]=_st((smalltalk.Queue || Queue))._new();
 self["@worker"]=_st(self)._makeWorker();
 return self}, self, "initialize", [], smalltalk.ForkPool)}
@@ -536,6 +552,35 @@ return $1;
 }),
 smalltalk.ForkPool);
 
+smalltalk.addMethod(
+"_maxPoolSize",
+smalltalk.method({
+selector: "maxPoolSize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@maxPoolSize"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(self)._defaultMaxPoolSize();
+} else {
+$1=$2;
+};
+return $1;
+}, self, "maxPoolSize", [], smalltalk.ForkPool)}
+}),
+smalltalk.ForkPool);
+
+smalltalk.addMethod(
+"_maxPoolSize_",
+smalltalk.method({
+selector: "maxPoolSize:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@maxPoolSize"]=anInteger;
+return self}, self, "maxPoolSize:", [anInteger], smalltalk.ForkPool)}
+}),
+smalltalk.ForkPool);
+
 
 smalltalk.ForkPool.klass.iVarNames = ['default'];
 smalltalk.addMethod(
@@ -544,12 +589,13 @@ smalltalk.method({
 selector: "default",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-if(($receiver = self["@default"]) == nil || $receiver == undefined){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@default"];
+if(($receiver = $2) == nil || $receiver == undefined){
 self["@default"]=_st(self)._new();
 $1=self["@default"];
 } else {
-$1=self["@default"];
+$1=$2;
 };
 return $1;
 }, self, "default", [], smalltalk.ForkPool.klass)}

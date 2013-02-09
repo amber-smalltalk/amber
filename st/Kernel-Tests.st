@@ -5,6 +5,14 @@ TestCase subclass: #BlockClosureTest
 
 !BlockClosureTest methodsFor: 'tests'!
 
+testCanClearInterval
+	self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error
+!
+
+testCanClearTimeout
+	self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error
+!
+
 testCompiledSource
 	self assert: ([1+1] compiledSource includesSubString: 'function')
 !
