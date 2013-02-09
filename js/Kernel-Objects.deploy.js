@@ -962,193 +962,6 @@ smalltalk.Boolean);
 
 
 
-smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.addMethod(
-"_arguments",
-smalltalk.method({
-selector: "arguments",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self.args || [];
-;
-return self}, self, "arguments", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_category",
-smalltalk.method({
-selector: "category",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._basicAt_("category");
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, self, "category", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_category_",
-smalltalk.method({
-selector: "category:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.locals.oldCategory=nil;
-$ctx1.locals.oldCategory=_st(self)._category();
-_st(self)._basicAt_put_("category",aString);
-$1=_st(self)._methodClass();
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-_st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
-_st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(_st(each)._category()).__eq($ctx1.locals.oldCategory);
-})})))._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._methodClass())._organization())._removeElement_($ctx1.locals.oldCategory);
-})}));
-};
-return self}, self, "category:", [aString], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_fn",
-smalltalk.method({
-selector: "fn",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("fn");
-return $1;
-}, self, "fn", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_fn_",
-smalltalk.method({
-selector: "fn:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("fn",aBlock);
-return self}, self, "fn:", [aBlock], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_messageSends",
-smalltalk.method({
-selector: "messageSends",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("messageSends");
-return $1;
-}, self, "messageSends", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_methodClass",
-smalltalk.method({
-selector: "methodClass",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("methodClass");
-return $1;
-}, self, "methodClass", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_protocol",
-smalltalk.method({
-selector: "protocol",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._category();
-return $1;
-}, self, "protocol", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_referencedClasses",
-smalltalk.method({
-selector: "referencedClasses",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("referencedClasses");
-return $1;
-}, self, "referencedClasses", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_selector",
-smalltalk.method({
-selector: "selector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("selector");
-return $1;
-}, self, "selector", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_selector_",
-smalltalk.method({
-selector: "selector:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("selector",aString);
-return self}, self, "selector:", [aString], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_source",
-smalltalk.method({
-selector: "source",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._basicAt_("source");
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, self, "source", [], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_source_",
-smalltalk.method({
-selector: "source:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("source",aString);
-return self}, self, "source:", [aString], smalltalk.CompiledMethod)}
-}),
-smalltalk.CompiledMethod);
-
-
-
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
 "__plus",

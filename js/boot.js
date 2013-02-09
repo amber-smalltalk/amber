@@ -818,7 +818,7 @@ smalltalk.Object.klass.superclass = smalltalk.Class;
 
 smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
 smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
-smalltalk.wrapClassName("CompiledMethod", "Kernel-Objects", SmalltalkMethod, smalltalk.Object, false);
+smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
 
 
