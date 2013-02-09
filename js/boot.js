@@ -627,11 +627,6 @@ function Smalltalk() {
 		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
 	}
 
-	/* Reuse one old context stored in oldContext */
-
-	st.oldContext = null;
-
-
 	/* Handle thisContext pseudo variable */
 
 	st.getThisContext = function() {
@@ -639,25 +634,12 @@ function Smalltalk() {
 	};
 
 	function pushContext(receiver, selector, locals, lookupClass) {
-		var c = st.oldContext, tc = st.thisContext;
-		if(!c) {
-			return st.thisContext = new SmalltalkMethodContext(receiver, selector, locals, tc, lookupClass);
-
-		}
-		st.oldContext = null;
-
-		c.homeContext = tc;
-		c.receiver    = receiver;
-        c.selector    = selector || "";
-		c.locals      = locals || {};
-        c.lookupClass = lookupClass;
-		return st.thisContext = c;
+		return st.thisContext = new SmalltalkMethodContext(receiver, selector, locals, smalltalk.thisContext, lookupClass);
 	}
 
 	function popContext(context) {
 		st.thisContext = context.homeContext;
 		context.homeContext = undefined;
-		st.oldContext = context;
 	}
 
 	/* Convert a Smalltalk selector into a JS selector */
