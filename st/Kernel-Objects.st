@@ -1600,6 +1600,12 @@ renamePackage: packageName to: newName
 
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
+!
+
+createPackage: packageName properties: aDict
+    "Needed to import .st files: they begin with this call."
+    aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
+    ^ self createPackage: packageName
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
