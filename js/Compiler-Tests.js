@@ -1,4 +1,128 @@
 smalltalk.addPackage('Compiler-Tests', {});
+smalltalk.addClass('ASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
+smalltalk.addMethod(
+"_analyze_forClass_",
+smalltalk.method({
+selector: "analyze:forClass:",
+category: 'accessing',
+fn: function (aNode,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(aClass))._visit_(aNode);
+return aNode;
+}, self, "analyze:forClass:", [aNode,aClass], smalltalk.ASTInterpreterTest)},
+args: ["aNode", "aClass"],
+source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a    ^ aNode",
+messageSends: ["visit:", "on:"],
+referencedClasses: ["SemanticAnalyzer"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_interpret_",
+smalltalk.method({
+selector: "interpret:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.ASTInterpreter || ASTInterpreter))._new())._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
+return $1;
+}, self, "interpret:", [aString], smalltalk.ASTInterpreterTest)},
+args: ["aString"],
+source: "interpret: aString\x0a\x09\x22the food is a methodNode. Interpret the sequenceNode only\x22\x0a    ^ ASTInterpreter new\x0a    \x09interpret: (self parse: aString forClass: Object) \x0a        \x09nodes first",
+messageSends: ["interpret:", "first", "nodes", "parse:forClass:", "new"],
+referencedClasses: ["Object", "ASTInterpreter"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_parse_",
+smalltalk.method({
+selector: "parse:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
+return $1;
+}, self, "parse:", [aString], smalltalk.ASTInterpreterTest)},
+args: ["aString"],
+source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
+messageSends: ["parse:", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_parse_forClass_",
+smalltalk.method({
+selector: "parse:forClass:",
+category: 'accessing',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
+return $1;
+}, self, "parse:forClass:", [aString,aClass], smalltalk.ASTInterpreterTest)},
+args: ["aString", "aClass"],
+source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
+messageSends: ["analyze:forClass:", "parse:"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testBinarySend",
+smalltalk.method({
+selector: "testBinarySend",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo 2+3+4"),(9));
+return self}, self, "testBinarySend", [], smalltalk.ASTInterpreterTest)},
+args: [],
+source: "testBinarySend\x0a\x09self assert: (self interpret: 'foo 2+3+4') equals: 9",
+messageSends: ["assert:equals:", "interpret:"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testBlockLiteral",
+smalltalk.method({
+selector: "testBlockLiteral",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]"),(1));
+_st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]"),(1));
+_st(self)._assert_equals_(_st(self)._interpret_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]"),(2));
+return self}, self, "testBlockLiteral", [], smalltalk.ASTInterpreterTest)},
+args: [],
+source: "testBlockLiteral\x0a\x09self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.\x0a    self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.\x0a    self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2",
+messageSends: ["assert:equals:", "interpret:"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testCascade",
+smalltalk.method({
+selector: "testCascade",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ OrderedCollection new add: 2; add: 3; yourself"),_st((smalltalk.OrderedCollection || OrderedCollection))._with_with_((2),(3)));
+return self}, self, "testCascade", [], smalltalk.ASTInterpreterTest)},
+args: [],
+source: "testCascade\x0a\x09self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)",
+messageSends: ["assert:equals:", "interpret:", "with:with:"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.ASTInterpreterTest);
+
+
+
 smalltalk.addClass('CodeGeneratorTest', smalltalk.TestCase, ['receiver'], 'Compiler-Tests');
 smalltalk.addMethod(
 "_codeGeneratorClass",
