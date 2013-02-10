@@ -14,3 +14,11 @@ test/run.js
 
 # In case amber is also saved in a local Subversion
 .svn
+
+# Ignoring local NPM modules
+node_modules
+
+# Ignoring folders - compiled versions of Amber
+# local NPM modules, tmp
+dist
+tmp

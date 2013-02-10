@@ -112,3 +112,19 @@ smalltalk.UnknownVariableError);
 
 
 
+smalltalk.addClass('RethrowErrorHandler', smalltalk.ErrorHandler, [], 'Compiler-Exceptions');
+smalltalk.addMethod(
+"_handleError_",
+smalltalk.method({
+selector: "handleError:",
+fn: function (anError){
+var self=this;
+smalltalk.send(self,"_handleError_",[anError],smalltalk.ErrorHandler);
+throw anError;
+;
+return self}
+}),
+smalltalk.RethrowErrorHandler);
+
+
+

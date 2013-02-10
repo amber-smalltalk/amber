@@ -95,12 +95,17 @@ function AmberC(amber_dir, closure_jar) {
  * Default values.
  */
 var createDefaults = function(amber_dir, finished_callback){
+	if (undefined === amber_dir) {
+		throw new Error('createDefaults() function needs a valid amber_dir parameter');
+	}
+
 	return {
-		'smalltalk': {}, // the evaluated compiler will be stored in this variable (see create_compiler)
 		'load': [],
 		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
+		'stFiles': [],
+		'jsFiles': [],
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
@@ -122,184 +127,38 @@ var createDefaults = function(amber_dir, finished_callback){
 /**
  * Main function for executing the compiler.
  */
-AmberC.prototype.main = function(parameters, finished_callback) {
+AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
-	var options = parameters || process.argv.slice(2);
+	if (undefined !== finished_callback) {
+		configuration.finished_callback = finished_callback;
+	}
 
-	if (1 > options.length) {
-		this.usage();
-	} else {
-		this.defaults = createDefaults(this.amber_dir, finished_callback);
-		this.handle_options(options);
+	if (this.check_configuration_ok(configuration)) {
+		this.defaults = configuration;
+		this.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
+		var self = this;
+		this.check_for_closure_compiler(function(){
+			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
+		});
 	}
 };
 
 
 /**
- * Process given program options and update defaults values.
- * Followed by check_for_closure_compiler() and then collect_files().
+ * Check if the passed in configuration object has sufficient/nonconflicting values
  */
-AmberC.prototype.handle_options = function(optionsArray) {
-	var stFiles = [];
-	var jsFiles = [];
-	var programName = [];
-	var currentItem = optionsArray.shift();
-	var defaults = this.defaults;
-
-	while(undefined !== currentItem) {
-		switch(currentItem) {
-			case '-l':
-				defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
-				break;
-			case '-i':
-				defaults.init = optionsArray.shift();
-				break;
-			case '-m':
-				defaults.main = optionsArray.shift();
-				break;
-			case '-M':
-				defaults.mainfile = optionsArray.shift();
-				break;
-			case '-o':
-				defaults.closure = true;
-				defaults.closure_parts = true;
-				break;
-			case '-O':
-				defaults.closure = true;
-				defaults.closure_full = true;
-				break;
-			case '-A':
-				defaults.closure = true;
-				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
-				defaults.closure_full = true;
-				break;
-			case '-d':
-				defaults.deploy = true;
-				break;
-			case '-s':
-				defaults.suffix = optionsArray.shift();
-				defaults.suffix_used = defaults.suffix;
-				break;
-			case '-S':
-				defaults.loadsuffix = optionsArray.shift();
-				defaults.suffix_used = defaults.suffix;
-				break;
-			case '-h':
-			case '--help':
-			case '?':
-				this.usage();
-				break;
-			default:
-				var fileSuffix = path.extname(currentItem);
-				switch (fileSuffix) {
-					case '.st':
-						stFiles.push(currentItem);
-						break;
-					case '.js':
-						jsFiles.push(currentItem);
-						break;
-					default:
-						// Will end up being the last non js/st argument
-						programName.push(currentItem);
-						break;
-				};
-		};
-		currentItem = optionsArray.shift();
+AmberC.prototype.check_configuration_ok = function(configuration) {
+	if (undefined === configuration) {
+		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
+	}
+	if (undefined === configuration.init) {
+		throw new Error('AmberC.check_configuration_ok(): init value missing in configuration object');
 	}
 
-	if(1 < programName.length) {
-		throw new Error('More than one name for ProgramName given: ' + programName);
-	} else {
-		defaults.program = programName[0];
+	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.lenght) {
+		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
 	}
-
-	var self = this;
-	this.check_for_closure_compiler(function(){
-		self.collect_files(stFiles, jsFiles)
-	});
-};
-
-
-/**
- * Print usage options and exit.
- */
-AmberC.prototype.usage = function() {
-	console.log('Usage: amberc [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
-	console.log('          [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]');
-	console.log('');
-	console.log('   amberc compiles Amber files - either separately or into a complete runnable');
-	console.log('   program. If no .st files are listed only a linking stage is performed.');
-	console.log('   Files listed will be handled using the following rules:');
-	console.log('');
-	console.log('   *.js');
-	console.log('     Files are linked (concatenated) in listed order.');
-	console.log('     If not found we look in $AMBER/js/');
-	console.log('');
-	console.log('   *.st');
-	console.log('     Files are compiled into .js files before concatenation.');
-	console.log('     If not found we look in $AMBER/st/.');
-	console.log('');
-	console.log('     NOTE: Each .st file is currently considered to be a fileout of a single class');
-	console.log('     category of the same name as the file!');
-	console.log('');
-	console.log('   If no <Program> is specified each given .st file will be compiled into');
-	console.log('   a matching .js file. Otherwise a <Program>.js file is linked together based on');
-	console.log('   the given options:');
-	console.log('  -l library1,library2');
-	console.log('     Add listed JavaScript libraries in listed order.');
-	console.log('     Libraries are not separated by spaces or end with .js.');
-	console.log('');
-	console.log('  -i init_file');
-	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
-	console.log('');
-	console.log('  -m main_class');
-	console.log('     Add a call to the class method main_class>>main at the end of <Program>.');
-	console.log('');
-	console.log('  -M main_file');
-	console.log('     Add <main_file> at the end of <Program.js> acting as #main.');
-	console.log('');
-	console.log('  -o');
-	console.log('     Optimize each .js file using the Google closure compiler.');
-	console.log('     Using Closure compiler found at ~/compiler.jar');
-	console.log('');
-	console.log('  -O');
-	console.log('     Optimize final <Program>.js using the Google closure compiler.');
-	console.log('     Using Closure compiler found at ~/compiler.jar');
-	console.log('');
-	console.log('  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS');
-	console.log('');
-	console.log('  -d');
-	console.log('     Additionally export code for deploy - stripped from source etc.');
-	console.log('     Uses suffix ".deploy.js" in addition to any explicit suffic set by -s.');
-	console.log('');
-	console.log('  -s suffix');
-	console.log('     Add <suffix> to compiled .js files. File.st is then compiled into');
-	console.log('     File.<suffix>.js.');
-	console.log('');
-	console.log('  -S suffix');
-	console.log('     Use <suffix> for all libraries accessed using -l. This makes it possible');
-	console.log('     to have multiple flavors of Amber and libraries in the same place.');
-	console.log('');
-	console.log('');
-	console.log('     Example invocations:');
-	console.log('');
-	console.log('     Just compile Kernel-Objects.st to Kernel-Objects.js:');
-	console.log('');
-	console.log('        amberc Kernel-Objects.st');
-	console.log('');
-	console.log('     Compile Hello.st to Hello.js and create complete program called Program.js.');
-	console.log('     Additionally add a call to the class method Hello>>main:');
-	console.log('');
-	console.log('        amberc -m Hello Hello.st Program');
-	console.log('');
-	console.log('     Compile Cat1.st and Cat2.st files into corresponding .js files.');
-	console.log('     Link them with myboot.js and myKernel.js and add myinit.js as custom');
-	console.log('     initializer file. Add main.js last which contains the startup code');
-	console.log('      and merge everything into a complete program named Program.js:');
-	console.log('');
-	console.log('        amberc -M main.js -i myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program');
-
-	process.exit();
+	return true;
 };
 
 
@@ -547,6 +406,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 		content = content + 'return smalltalk;})();';
 		self.defaults.smalltalk = eval(content);
 		console.log('Compiler loaded');
+		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
 		self.compile();
 	});
@@ -759,5 +619,6 @@ AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) 
 };
 
 module.exports.Compiler = AmberC;
+module.exports.createDefaults = createDefaults;
 module.exports.Combo = Combo;
 module.exports.map = async_map;
