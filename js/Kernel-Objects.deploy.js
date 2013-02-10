@@ -2000,15 +2000,18 @@ smalltalk.addMethod(
 "_timesRepeat_",
 smalltalk.method({
 selector: "timesRepeat:",
-fn: function (aBlock) {
-    var self = this;
-    var integer;
-    var count;
-    integer = smalltalk.send(self, "_truncated", []);
-    count = 1;
-    smalltalk.send(function () {return smalltalk.send(count, "__gt", [self]);}, "_whileFalse_", [function () {smalltalk.send(aBlock, "_value", []);count = smalltalk.send(count, "__plus", [1]);return count;}]);
-    return self;
-}
+fn: function (aBlock){
+var self=this;
+var count;
+count=(1);
+smalltalk.send((function(){
+return smalltalk.send(count,"__gt",[self]);
+}),"_whileFalse_",[(function(){
+smalltalk.send(aBlock,"_value",[]);
+count=smalltalk.send(count,"__plus",[(1)]);
+return count;
+})]);
+return self}
 }),
 smalltalk.Number);
 
