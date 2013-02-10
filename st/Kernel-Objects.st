@@ -902,8 +902,7 @@ deepCopy
 !Number methodsFor: 'enumerating'!
 
 timesRepeat: aBlock
-	| integer count |
-	integer := self truncated.
+	| count |
 	count := 1.
 	[count > self] whileFalse: [
 	    aBlock value.
