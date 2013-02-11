@@ -418,16 +418,24 @@ errorShadowingVariable: aString
 !
 
 errorUnknownVariable: aNode
-	"Throw an error if the variable is undeclared in the global JS scope (i.e. window)"
+	"Throw an error if the variable is undeclared in the global JS scope (i.e. window).
+    We allow four variable names in addition: `jQuery`, `window`, `process` and `global` 
+    for nodejs and browser environments. 
+    
+    This is only to make sure compilation works on both browser-based and nodejs environments.
+    The ideal solution would be to use a pragma instead"
 
 	| identifier |
     identifier := aNode value.
-	((#('jQuery' 'window' 'process' 'global') includes: identifier) not and: [ self isVariableGloballyUndefined: identifier ]) ifTrue: [
-			UnknownVariableError new
-				variableName: aNode value;
-				signal ]
-		ifFalse: [
-			currentScope methodScope unknownVariables add: aNode value. ]
+    
+	((#('jQuery' 'window' 'process' 'global') includes: identifier) not 
+        and: [ self isVariableGloballyUndefined: identifier ]) 
+        	ifTrue: [
+				UnknownVariableError new
+					variableName: aNode value;
+					signal ]
+			ifFalse: [
+				currentScope methodScope unknownVariables add: aNode value ]
 ! !
 
 !SemanticAnalyzer methodsFor: 'factory'!
