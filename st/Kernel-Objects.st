@@ -449,91 +449,6 @@ isBoolean
 	^ true
 ! !
 
-Object subclass: #CompiledMethod
-	instanceVariableNames: ''
-	package: 'Kernel-Methods'!
-!CompiledMethod commentStamp!
-CompiledMethod hold the source and compiled code of a class method.
-
-You can get a CompiledMethod using `Behavior>>methodAt:`
-
-	String methodAt: 'lines'
-
-and read the source code
-
-	(String methodAt: 'lines') source
-
-See referenced classes:
-
-	(String methodAt: 'lines') referencedClasses
-
-or messages sent from this method:
-	
-	(String methodAt: 'lines')  messageSends!
-
-!CompiledMethod methodsFor: 'accessing'!
-
-arguments
-	<return self.args || []>
-!
-
-category
-	^(self basicAt: 'category') ifNil: ['']
-!
-
-category: aString
-	| oldCategory |
-    oldCategory := self category.
-	self basicAt: 'category' put: aString.
-    
-    self methodClass ifNotNil: [
-    	self methodClass organization addElement: aString.
-    
-		(self methodClass methods 
-    		select: [ :each | each category = oldCategory ])
-        	ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]
-!
-
-fn
-	^self basicAt: 'fn'
-!
-
-fn: aBlock
-	self basicAt: 'fn' put: aBlock
-!
-
-messageSends
-	^self basicAt: 'messageSends'
-!
-
-methodClass
-	^self basicAt: 'methodClass'
-!
-
-protocol
-	^ self category
-!
-
-referencedClasses
-	^self basicAt: 'referencedClasses'
-!
-
-selector
-	^self basicAt: 'selector'
-!
-
-selector: aString
-	self basicAt: 'selector' put: aString
-!
-
-source
-	^(self basicAt: 'source') ifNil: ['']
-!
-
-source: aString
-	self basicAt: 'source' put: aString
-! !
-
 Object subclass: #Date
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
@@ -1600,6 +1515,12 @@ renamePackage: packageName to: newName
 
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
+!
+
+createPackage: packageName properties: aDict
+    "Needed to import .st files: they begin with this call."
+    aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
+    ^ self createPackage: packageName
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!

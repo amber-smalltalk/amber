@@ -368,92 +368,3 @@ smalltalk.ASTInterpreter);
 
 
 
-smalltalk.addClass('ASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Interpreter');
-smalltalk.addMethod(
-"_analyze_forClass_",
-smalltalk.method({
-selector: "analyze:forClass:",
-fn: function (aNode,aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(aClass))._visit_(aNode);
-return aNode;
-}, self, "analyze:forClass:", [aNode,aClass], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_interpret_",
-smalltalk.method({
-selector: "interpret:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ASTInterpreter || ASTInterpreter))._new())._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
-return $1;
-}, self, "interpret:", [aString], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_parse_",
-smalltalk.method({
-selector: "parse:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
-return $1;
-}, self, "parse:", [aString], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_parse_forClass_",
-smalltalk.method({
-selector: "parse:forClass:",
-fn: function (aString,aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
-return $1;
-}, self, "parse:forClass:", [aString,aClass], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_testBinarySend",
-smalltalk.method({
-selector: "testBinarySend",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo 2+3+4"),(9));
-return self}, self, "testBinarySend", [], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_testBlockLiteral",
-smalltalk.method({
-selector: "testBlockLiteral",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]"),(1));
-_st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]"),(1));
-_st(self)._assert_equals_(_st(self)._interpret_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]"),(2));
-return self}, self, "testBlockLiteral", [], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_testCascade",
-smalltalk.method({
-selector: "testCascade",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ OrderedCollection new add: 2; add: 3; yourself"),_st((smalltalk.OrderedCollection || OrderedCollection))._with_with_((2),(3)));
-return self}, self, "testCascade", [], smalltalk.ASTInterpreterTest)}
-}),
-smalltalk.ASTInterpreterTest);
-
-
-

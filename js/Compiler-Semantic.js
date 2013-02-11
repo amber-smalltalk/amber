@@ -1254,7 +1254,11 @@ category: 'error handling',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-$1=_st(self)._isVariableGloballyUndefined_(_st(aNode)._value());
+$ctx1.locals.identifier=nil;
+$ctx1.locals.identifier=_st(aNode)._value();
+$1=_st(_st(_st(["jQuery", "window", "process", "global"])._includes_($ctx1.locals.identifier))._not())._and_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._isVariableGloballyUndefined_($ctx1.locals.identifier);
+})}));
 if(smalltalk.assert($1)){
 $2=_st((smalltalk.UnknownVariableError || UnknownVariableError))._new();
 _st($2)._variableName_(_st(aNode)._value());
@@ -1265,8 +1269,8 @@ _st(_st(_st(self["@currentScope"])._methodScope())._unknownVariables())._add_(_s
 };
 return self}, self, "errorUnknownVariable:", [aNode], smalltalk.SemanticAnalyzer)},
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window)\x22\x0a\x0a\x09(self isVariableGloballyUndefined: aNode value)\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09signal ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09currentScope methodScope unknownVariables add: aNode value. ]",
-messageSends: ["ifTrue:ifFalse:", "variableName:", "value", "new", "signal", "add:", "unknownVariables", "methodScope", "isVariableGloballyUndefined:"],
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window)\x22\x0a\x0a\x09| identifier |\x0a    identifier := aNode value.\x0a\x09((#('jQuery' 'window' 'process' 'global') includes: identifier) not and: [ self isVariableGloballyUndefined: identifier ]) ifTrue: [\x0a\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09signal ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09currentScope methodScope unknownVariables add: aNode value. ]",
+messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:"],
 referencedClasses: ["UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzer);

@@ -922,7 +922,11 @@ selector: "errorUnknownVariable:",
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-$1=_st(self)._isVariableGloballyUndefined_(_st(aNode)._value());
+$ctx1.locals.identifier=nil;
+$ctx1.locals.identifier=_st(aNode)._value();
+$1=_st(_st(_st(["jQuery", "window", "process", "global"])._includes_($ctx1.locals.identifier))._not())._and_((function(){
+return smalltalk.withContext(function($ctx2) { return _st(self)._isVariableGloballyUndefined_($ctx1.locals.identifier);
+})}));
 if(smalltalk.assert($1)){
 $2=_st((smalltalk.UnknownVariableError || UnknownVariableError))._new();
 _st($2)._variableName_(_st(aNode)._value());

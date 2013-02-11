@@ -55,12 +55,8 @@ Array.prototype.addElement = function(el) {
 };
 
 Array.prototype.removeElement = function(el) {
-    for(var i=0; i<this.length; i++) {
-        if(this[i] == el) {
-            this.splice(i, 1);
-            break;
-        }
-    }
+    var i = this.indexOf(el);
+    if (i !== -1) { this.splice(i, 1); }
 };
 
 
@@ -441,7 +437,8 @@ function Smalltalk() {
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
 		var pkg = st.addPackage(pkgName);
-		if(st[className] && st[className].superclass === superclass) {
+        if (superclass == nil) { superclass = null; }
+		if(st[className] && st[className].superclass == superclass) {
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
 			st[className].pkg = pkg || st[className].pkg;
@@ -799,8 +796,7 @@ if(this.jQuery) {
  */
 
 var _st = function(o) {
-	if(typeof o === 'undefined') {return nil}
-	if(null === o) {return nil}
+	if(o == null) {return nil}
 	if(o.klass) {return o}
 	return smalltalk.JSObjectProxy._on_(o);
 }; 
@@ -818,7 +814,7 @@ smalltalk.Object.klass.superclass = smalltalk.Class;
 
 smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
 smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
-smalltalk.wrapClassName("CompiledMethod", "Kernel-Objects", SmalltalkMethod, smalltalk.Object, false);
+smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
 
 
