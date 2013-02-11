@@ -18,6 +18,22 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+smalltalk.send(self,"_messageText_",[smalltalk.send("Errorclass: ","__comma",[smalltalk.send(smalltalk.send(self,"_class",[]),"_name",[])])]);
+return self},
+args: [],
+source: "initialize\x0a\x09self messageText: 'Errorclass: ', (self class name).",
+messageSends: ["messageText:", ",", "name", "class"],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
 "_isSmalltalkError",
 smalltalk.method({
 selector: "isSmalltalkError",
