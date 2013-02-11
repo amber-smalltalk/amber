@@ -266,7 +266,7 @@ smalltalk.addMethod(
 "_subtreeNeedsAliasing",
 smalltalk.method({
 selector: "subtreeNeedsAliasing",
-category: 'accessing',
+category: 'testing',
 fn: function (){
 var self=this;
 var $1;
@@ -511,6 +511,26 @@ return self},
 args: ["aLexicalScope"],
 source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+"_subtreeNeedsAliasing",
+smalltalk.method({
+selector: "subtreeNeedsAliasing",
+category: 'testing',
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_shouldBeAliased",[]),"_or_",[(function(){
+return smalltalk.send(self,"_shouldBeInlined",[]);
+})]);
+return $1;
+},
+args: [],
+source: "subtreeNeedsAliasing\x0a    ^self shouldBeAliased or: [ self shouldBeInlined ]",
+messageSends: ["or:", "shouldBeInlined", "shouldBeAliased"],
 referencedClasses: []
 }),
 smalltalk.BlockNode);
