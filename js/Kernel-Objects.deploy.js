@@ -3371,11 +3371,11 @@ smalltalk.addMethod(
 "_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:package:",
-fn: function (aString, aString2, aString3) {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.ClassBuilder || ClassBuilder, "_new", []), "_superclass_subclass_instanceVariableNames_package_", [self, aString, aString2, aString3]);
-    return $1;
+fn: function (aString,aString2,aString3){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send((smalltalk.ClassBuilder || ClassBuilder),"_new",[]),"_superclass_subclass_instanceVariableNames_package_",[self,smalltalk.send(aString,"_asString",[]),aString2,aString3]);
+return $1;
 }
 }),
 smalltalk.UndefinedObject);
