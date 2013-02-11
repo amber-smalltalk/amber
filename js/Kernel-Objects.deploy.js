@@ -3000,6 +3000,7 @@ selector: "createPackage:properties:",
 fn: function (packageName,aDict){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self)._deprecatedAPI();
 $1=_st(aDict)._isEmpty();
 if(! smalltalk.assert($1)){
 _st(self)._error_("createPackage:properties: called with nonempty properties");

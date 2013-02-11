@@ -1519,6 +1519,8 @@ basicParse: aString
 
 createPackage: packageName properties: aDict
     "Needed to import .st files: they begin with this call."
+    self deprecatedAPI.
+    
     aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
     ^ self createPackage: packageName
 ! !

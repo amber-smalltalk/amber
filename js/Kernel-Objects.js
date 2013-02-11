@@ -4120,6 +4120,7 @@ category: 'private',
 fn: function (packageName,aDict){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self)._deprecatedAPI();
 $1=_st(aDict)._isEmpty();
 if(! smalltalk.assert($1)){
 _st(self)._error_("createPackage:properties: called with nonempty properties");
@@ -4128,8 +4129,8 @@ $2=_st(self)._createPackage_(packageName);
 return $2;
 }, self, "createPackage:properties:", [packageName,aDict], smalltalk.Smalltalk)},
 args: ["packageName", "aDict"],
-source: "createPackage: packageName properties: aDict\x0a    \x22Needed to import .st files: they begin with this call.\x22\x0a    aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a    ^ self createPackage: packageName",
-messageSends: ["ifFalse:", "error:", "isEmpty", "createPackage:"],
+source: "createPackage: packageName properties: aDict\x0a    \x22Needed to import .st files: they begin with this call.\x22\x0a    self deprecatedAPI.\x0a    \x0a    aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a    ^ self createPackage: packageName",
+messageSends: ["deprecatedAPI", "ifFalse:", "error:", "isEmpty", "createPackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
