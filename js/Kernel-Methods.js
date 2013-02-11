@@ -1023,6 +1023,24 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
+"_isBlockContext",
+smalltalk.method({
+selector: "isBlockContext",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._selector())._isNil();
+return $1;
+}, self, "isBlockContext", [], smalltalk.MethodContext)},
+args: [],
+source: "isBlockContext\x0a\x09\x22Block context do not have selectors.\x22\x0a    \x0a\x09^ self selector isNil",
+messageSends: ["isNil", "selector"],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
 "_locals",
 smalltalk.method({
 selector: "locals",
@@ -1035,6 +1053,29 @@ return self}, self, "locals", [], smalltalk.MethodContext)},
 args: [],
 source: "locals\x0a\x09<return self.locals>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+"_methodContext",
+smalltalk.method({
+selector: "methodContext",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st(self)._isBlockContext();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(self)._outerContext();
+return $3;
+}, self, "methodContext", [], smalltalk.MethodContext)},
+args: [],
+source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a    \x0a    ^ self outerContext",
+messageSends: ["ifFalse:", "isBlockContext", "outerContext"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1140,12 +1181,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._deprecatedAPI();
 $1=_st(self)._locals();
 return $1;
 }, self, "temps", [], smalltalk.MethodContext)},
 args: [],
-source: "temps\x0a\x09^ self locals",
-messageSends: ["locals"],
+source: "temps\x0a\x09self deprecatedAPI.\x0a    \x0a\x09^ self locals",
+messageSends: ["deprecatedAPI", "locals"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);

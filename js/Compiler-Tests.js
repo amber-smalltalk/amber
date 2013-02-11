@@ -25,13 +25,39 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ASTInterpreter || ASTInterpreter))._new())._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
+$1=_st(self)._interpret_withArguments_(aString,_st((smalltalk.Dictionary || Dictionary))._new());
 return $1;
 }, self, "interpret:", [aString], smalltalk.ASTInterpreterTest)},
 args: ["aString"],
-source: "interpret: aString\x0a\x09\x22the food is a methodNode. Interpret the sequenceNode only\x22\x0a    ^ ASTInterpreter new\x0a    \x09interpret: (self parse: aString forClass: Object) \x0a        \x09nodes first",
-messageSends: ["interpret:", "first", "nodes", "parse:forClass:", "new"],
-referencedClasses: ["Object", "ASTInterpreter"]
+source: "interpret: aString\x0a\x09^ self \x0a    \x09interpret: aString \x0a        withArguments: Dictionary new",
+messageSends: ["interpret:withArguments:", "new"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_interpret_withArguments_",
+smalltalk.method({
+selector: "interpret:withArguments:",
+category: 'accessing',
+fn: function (aString,aDictionary){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$ctx1.locals.ctx=nil;
+$ctx1.locals.ctx=_st((smalltalk.AIContext || AIContext))._new();
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.ctx)._localAt_put_(key,value);
+})}));
+$2=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
+_st($2)._context_($ctx1.locals.ctx);
+$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
+$1=$3;
+return $1;
+}, self, "interpret:withArguments:", [aString,aDictionary], smalltalk.ASTInterpreterTest)},
+args: ["aString", "aDictionary"],
+source: "interpret: aString withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a    \x0a    | ctx |\x0a    \x0a    ctx := AIContext new.\x0a    aDictionary keysAndValuesDo: [ :key :value |\x0a    \x09ctx localAt: key put: value ].\x0a    \x0a    ^ ASTInterpreter new\x0a    \x09context: ctx;\x0a    \x09interpret: (self parse: aString forClass: Object) \x0a        \x09nodes first",
+messageSends: ["new", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "first", "nodes", "parse:forClass:"],
+referencedClasses: ["AIContext", "ASTInterpreter", "Object"]
 }),
 smalltalk.ASTInterpreterTest);
 
@@ -118,6 +144,23 @@ args: [],
 source: "testCascade\x0a\x09self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)",
 messageSends: ["assert:equals:", "interpret:", "with:with:"],
 referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testInlinedJSStatement",
+smalltalk.method({
+selector: "testInlinedJSStatement",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
+_st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
+return self}, self, "testInlinedJSStatement", [], smalltalk.ASTInterpreterTest)},
+args: [],
+source: "testInlinedJSStatement\x0a\x09self assert: (self interpret: 'foo <return 2+3>') equals: 5.\x0a    self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger <return 2 + anInteger>' \x0a        \x09withArguments: #{ 'anInteger' -> 3}) \x0a\x09\x09equals: 5",
+messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"],
+referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
 

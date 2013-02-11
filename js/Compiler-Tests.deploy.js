@@ -19,9 +19,30 @@ selector: "interpret:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ASTInterpreter || ASTInterpreter))._new())._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
+$1=_st(self)._interpret_withArguments_(aString,_st((smalltalk.Dictionary || Dictionary))._new());
 return $1;
 }, self, "interpret:", [aString], smalltalk.ASTInterpreterTest)}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_interpret_withArguments_",
+smalltalk.method({
+selector: "interpret:withArguments:",
+fn: function (aString,aDictionary){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$ctx1.locals.ctx=nil;
+$ctx1.locals.ctx=_st((smalltalk.AIContext || AIContext))._new();
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.ctx)._localAt_put_(key,value);
+})}));
+$2=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
+_st($2)._context_($ctx1.locals.ctx);
+$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
+$1=$3;
+return $1;
+}, self, "interpret:withArguments:", [aString,aDictionary], smalltalk.ASTInterpreterTest)}
 }),
 smalltalk.ASTInterpreterTest);
 
@@ -83,6 +104,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ OrderedCollection new add: 2; add: 3; yourself"),_st((smalltalk.OrderedCollection || OrderedCollection))._with_with_((2),(3)));
 return self}, self, "testCascade", [], smalltalk.ASTInterpreterTest)}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testInlinedJSStatement",
+smalltalk.method({
+selector: "testInlinedJSStatement",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
+_st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
+return self}, self, "testInlinedJSStatement", [], smalltalk.ASTInterpreterTest)}
 }),
 smalltalk.ASTInterpreterTest);
 

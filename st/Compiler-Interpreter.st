@@ -15,6 +15,10 @@ initializeFromMethodContext: aMethodContext
     	self locals at: key put: value ]
 !
 
+localAt: aString put: anObject
+	self locals at: aString put: anObject
+!
+
 locals
 	^ locals ifNil: [ locals := Dictionary new ]
 !
@@ -66,7 +70,7 @@ NodeVisitor subclass: #ASTInterpreter
 !ASTInterpreter methodsFor: 'accessing'!
 
 context
-	^ context
+	^ context ifNil: [ context := AIContext new ]
 !
 
 context: anAIContext
@@ -81,6 +85,13 @@ initialize
 ! !
 
 !ASTInterpreter methodsFor: 'interpreting'!
+
+eval: aString
+	"Evaluate aString as JS source inside an immediately evaluated JS function. 
+    aString is not sandboxed."
+    
+    ^ Compiler new eval: '(function() { ', aString, ' })()'
+!
 
 interpret: aNode
 	shouldReturn := false.
@@ -126,7 +137,8 @@ visitClassReferenceNode: aNode
 !
 
 visitJSStatementNode: aNode
-	self halt
+	shouldReturn := true.
+	^ self eval: aNode source
 !
 
 visitReturnNode: aNode
@@ -142,9 +154,11 @@ visitSendNode: aNode
 !
 
 visitSequenceNode: aNode
+
 	aNode nodes allButLast do: [ :each | | value |
         value := self interpretNode: each.
 		shouldReturn ifTrue: [ ^ value ] ].
+        
     ^ self interpretNode: aNode nodes last
 !
 

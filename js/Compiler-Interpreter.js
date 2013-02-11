@@ -29,6 +29,22 @@ referencedClasses: []
 smalltalk.AIContext);
 
 smalltalk.addMethod(
+"_localAt_put_",
+smalltalk.method({
+selector: "localAt:put:",
+category: 'accessing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._locals())._at_put_(aString,anObject);
+return self}, self, "localAt:put:", [aString,anObject], smalltalk.AIContext)},
+args: ["aString", "anObject"],
+source: "localAt: aString put: anObject\x0a\x09self locals at: aString put: anObject",
+messageSends: ["at:put:", "locals"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
 "_locals",
 smalltalk.method({
 selector: "locals",
@@ -225,12 +241,20 @@ selector: "context",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@context"];
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@context"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@context"]=_st((smalltalk.AIContext || AIContext))._new();
+$1=self["@context"];
+} else {
+$1=$2;
+};
+return $1;
 }, self, "context", [], smalltalk.ASTInterpreter)},
 args: [],
-source: "context\x0a\x09^ context",
-messageSends: [],
-referencedClasses: []
+source: "context\x0a\x09^ context ifNil: [ context := AIContext new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["AIContext"]
 }),
 smalltalk.ASTInterpreter);
 
@@ -247,6 +271,24 @@ args: ["anAIContext"],
 source: "context: anAIContext\x0a\x09context := anAIContext",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+"_eval_",
+smalltalk.method({
+selector: "eval:",
+category: 'interpreting',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Compiler || Compiler))._new())._eval_(_st(_st("(function() { ").__comma(aString)).__comma(" })()"));
+return $1;
+}, self, "eval:", [aString], smalltalk.ASTInterpreter)},
+args: ["aString"],
+source: "eval: aString\x0a\x09\x22Evaluate aString as JS source inside an immediately evaluated JS function. \x0a    aString is not sandboxed.\x22\x0a    \x0a    ^ Compiler new eval: '(function() { ', aString, ' })()'",
+messageSends: ["eval:", ",", "new"],
+referencedClasses: ["Compiler"]
 }),
 smalltalk.ASTInterpreter);
 
@@ -397,11 +439,14 @@ selector: "visitJSStatementNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._halt();
-return self}, self, "visitJSStatementNode:", [aNode], smalltalk.ASTInterpreter)},
+return smalltalk.withContext(function($ctx1) { var $1;
+self["@shouldReturn"]=true;
+$1=_st(self)._eval_(_st(aNode)._source());
+return $1;
+}, self, "visitJSStatementNode:", [aNode], smalltalk.ASTInterpreter)},
 args: ["aNode"],
-source: "visitJSStatementNode: aNode\x0a\x09self halt",
-messageSends: ["halt"],
+source: "visitJSStatementNode: aNode\x0a\x09shouldReturn := true.\x0a\x09^ self eval: aNode source",
+messageSends: ["eval:", "source"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);
@@ -450,24 +495,28 @@ selector: "visitSequenceNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2,$5;
 var $early={};
 try {
-_st(_st(_st(aNode)._nodes())._allButLast())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { $ctx2.value=nil;
+$1=_st(_st(aNode)._nodes())._allButLast();
+$2=(function(each){
+return smalltalk.withContext(function($ctx2) { $ctx2.locals.value=nil;
 $ctx2.locals.value=_st(self)._interpretNode_(each);
 $ctx2.locals.value;
-if(smalltalk.assert(self["@shouldReturn"])){
-throw $early=[$ctx2.locals.value];
+$3=self["@shouldReturn"];
+if(smalltalk.assert($3)){
+$4=$ctx2.locals.value;
+throw $early=[$4];
 };
-})}));
-$1=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
-return $1;
+})});
+_st($1)._do_($2);
+$5=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
+return $5;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, self, "visitSequenceNode:", [aNode], smalltalk.ASTInterpreter)},
 args: ["aNode"],
-source: "visitSequenceNode: aNode\x0a\x09aNode nodes allButLast do: [ :each | | value |\x0a        value := self interpretNode: each.\x0a\x09\x09shouldReturn ifTrue: [ ^ value ] ].\x0a    ^ self interpretNode: aNode nodes last",
+source: "visitSequenceNode: aNode\x0a\x0a\x09aNode nodes allButLast do: [ :each | | value |\x0a        value := self interpretNode: each.\x0a\x09\x09shouldReturn ifTrue: [ ^ value ] ].\x0a        \x0a    ^ self interpretNode: aNode nodes last",
 messageSends: ["do:", "interpretNode:", "ifTrue:", "allButLast", "nodes", "last"],
 referencedClasses: []
 }),

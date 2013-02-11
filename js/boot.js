@@ -636,7 +636,6 @@ function Smalltalk() {
 
 	function popContext(context) {
 		st.thisContext = context.homeContext;
-		context.homeContext = undefined;
 	}
 
 	/* Convert a Smalltalk selector into a JS selector */

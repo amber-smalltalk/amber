@@ -24,6 +24,17 @@ return self}, self, "initializeFromMethodContext:", [aMethodContext], smalltalk.
 smalltalk.AIContext);
 
 smalltalk.addMethod(
+"_localAt_put_",
+smalltalk.method({
+selector: "localAt:put:",
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._locals())._at_put_(aString,anObject);
+return self}, self, "localAt:put:", [aString,anObject], smalltalk.AIContext)}
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
 "_locals",
 smalltalk.method({
 selector: "locals",
@@ -169,7 +180,15 @@ smalltalk.method({
 selector: "context",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@context"];
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@context"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@context"]=_st((smalltalk.AIContext || AIContext))._new();
+$1=self["@context"];
+} else {
+$1=$2;
+};
+return $1;
 }, self, "context", [], smalltalk.ASTInterpreter)}
 }),
 smalltalk.ASTInterpreter);
@@ -182,6 +201,19 @@ fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@context"]=anAIContext;
 return self}, self, "context:", [anAIContext], smalltalk.ASTInterpreter)}
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+"_eval_",
+smalltalk.method({
+selector: "eval:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Compiler || Compiler))._new())._eval_(_st(_st("(function() { ").__comma(aString)).__comma(" })()"));
+return $1;
+}, self, "eval:", [aString], smalltalk.ASTInterpreter)}
 }),
 smalltalk.ASTInterpreter);
 
@@ -296,8 +328,11 @@ smalltalk.method({
 selector: "visitJSStatementNode:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._halt();
-return self}, self, "visitJSStatementNode:", [aNode], smalltalk.ASTInterpreter)}
+return smalltalk.withContext(function($ctx1) { var $1;
+self["@shouldReturn"]=true;
+$1=_st(self)._eval_(_st(aNode)._source());
+return $1;
+}, self, "visitJSStatementNode:", [aNode], smalltalk.ASTInterpreter)}
 }),
 smalltalk.ASTInterpreter);
 
@@ -334,19 +369,23 @@ smalltalk.method({
 selector: "visitSequenceNode:",
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2,$5;
 var $early={};
 try {
-_st(_st(_st(aNode)._nodes())._allButLast())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { $ctx2.value=nil;
+$1=_st(_st(aNode)._nodes())._allButLast();
+$2=(function(each){
+return smalltalk.withContext(function($ctx2) { $ctx2.locals.value=nil;
 $ctx2.locals.value=_st(self)._interpretNode_(each);
 $ctx2.locals.value;
-if(smalltalk.assert(self["@shouldReturn"])){
-throw $early=[$ctx2.locals.value];
+$3=self["@shouldReturn"];
+if(smalltalk.assert($3)){
+$4=$ctx2.locals.value;
+throw $early=[$4];
 };
-})}));
-$1=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
-return $1;
+})});
+_st($1)._do_($2);
+$5=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
+return $5;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, self, "visitSequenceNode:", [aNode], smalltalk.ASTInterpreter)}

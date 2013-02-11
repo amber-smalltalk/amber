@@ -748,6 +748,19 @@ return self}, self, "home", [], smalltalk.MethodContext)}
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
+"_isBlockContext",
+smalltalk.method({
+selector: "isBlockContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._selector())._isNil();
+return $1;
+}, self, "isBlockContext", [], smalltalk.MethodContext)}
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
 "_locals",
 smalltalk.method({
 selector: "locals",
@@ -756,6 +769,24 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { return self.locals;
 ;
 return self}, self, "locals", [], smalltalk.MethodContext)}
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+"_methodContext",
+smalltalk.method({
+selector: "methodContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st(self)._isBlockContext();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(self)._outerContext();
+return $3;
+}, self, "methodContext", [], smalltalk.MethodContext)}
 }),
 smalltalk.MethodContext);
 
@@ -834,6 +865,7 @@ selector: "temps",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._deprecatedAPI();
 $1=_st(self)._locals();
 return $1;
 }, self, "temps", [], smalltalk.MethodContext)}

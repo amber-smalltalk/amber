@@ -367,6 +367,12 @@ locals
 	<return self.locals>
 !
 
+methodContext
+	self isBlockContext ifFalse: [ ^ self ].
+    
+    ^ self outerContext
+!
+
 outerContext
 	^ self home
 !
@@ -394,6 +400,16 @@ selector
 !
 
 temps
+	self deprecatedAPI.
+    
 	^ self locals
+! !
+
+!MethodContext methodsFor: 'testing'!
+
+isBlockContext
+	"Block context do not have selectors."
+    
+	^ self selector isNil
 ! !
 

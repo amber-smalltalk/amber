@@ -11,8 +11,22 @@ analyze: aNode forClass: aClass
 !
 
 interpret: aString
-	"the food is a methodNode. Interpret the sequenceNode only"
+	^ self 
+    	interpret: aString 
+        withArguments: Dictionary new
+!
+
+interpret: aString withArguments: aDictionary
+	"The food is a methodNode. Interpret the sequenceNode only"
+    
+    | ctx |
+    
+    ctx := AIContext new.
+    aDictionary keysAndValuesDo: [ :key :value |
+    	ctx localAt: key put: value ].
+    
     ^ ASTInterpreter new
+    	context: ctx;
     	interpret: (self parse: aString forClass: Object) 
         	nodes first
 !
@@ -39,6 +53,15 @@ testBlockLiteral
 
 testCascade
 	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
+!
+
+testInlinedJSStatement
+	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
+    self 
+    	assert: (self 
+    		interpret: 'foo: anInteger <return 2 + anInteger>' 
+        	withArguments: #{ 'anInteger' -> 3}) 
+		equals: 5
 ! !
 
 TestCase subclass: #CodeGeneratorTest
