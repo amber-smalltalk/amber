@@ -506,7 +506,9 @@ AmberC.prototype.verify = function() {
  */
 AmberC.prototype.compose_js_files = function() {
 	var defaults = this.defaults;
+	var self = this;
 	if (undefined === defaults.program) {
+		self.optimize();
 		return;
 	}
 	var program_files = [];
@@ -533,7 +535,7 @@ AmberC.prototype.compose_js_files = function() {
 		fileStream.end();
 		console.log(error);
 	});
-	var self = this;
+
 	fileStream.on('close', function(){
 		self.optimize();
 	});
