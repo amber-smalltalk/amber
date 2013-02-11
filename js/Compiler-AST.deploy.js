@@ -369,6 +369,21 @@ return self}
 }),
 smalltalk.BlockNode);
 
+smalltalk.addMethod(
+"_subtreeNeedsAliasing",
+smalltalk.method({
+selector: "subtreeNeedsAliasing",
+fn: function (){
+var self=this;
+var $1;
+$1=smalltalk.send(smalltalk.send(self,"_shouldBeAliased",[]),"_or_",[(function(){
+return smalltalk.send(self,"_shouldBeInlined",[]);
+})]);
+return $1;
+}
+}),
+smalltalk.BlockNode);
+
 
 
 smalltalk.addClass('CascadeNode', smalltalk.Node, ['receiver'], 'Compiler-AST');
