@@ -420,8 +420,9 @@ errorShadowingVariable: aString
 errorUnknownVariable: aNode
 	"Throw an error if the variable is undeclared in the global JS scope (i.e. window)"
 
-	(self isVariableGloballyUndefined: aNode value)
-		ifTrue: [ 
+	| identifier |
+    identifier := aNode value.
+	((#('jQuery' 'window' 'process' 'global') includes: identifier) not and: [ self isVariableGloballyUndefined: identifier ]) ifTrue: [
 			UnknownVariableError new
 				variableName: aNode value;
 				signal ]

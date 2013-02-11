@@ -109,7 +109,7 @@ log: aString
 logContext: aContext
 	aContext home ifNotNil: [
 		self logContext: aContext home].
-	self log: aContext receiver asString, '>>', aContext selector
+	self log: aContext receiver asString, '>>', aContext selector asString
 !
 
 logError: anError

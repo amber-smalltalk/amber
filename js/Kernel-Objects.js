@@ -1334,259 +1334,6 @@ smalltalk.Boolean);
 
 
 
-smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.CompiledMethod.comment="CompiledMethod hold the source and compiled code of a class method.\x0a\x0aYou can get a CompiledMethod using `Behavior>>methodAt:`\x0a\x0a\x09String methodAt: 'lines'\x0a\x0aand read the source code\x0a\x0a\x09(String methodAt: 'lines') source\x0a\x0aSee referenced classes:\x0a\x0a\x09(String methodAt: 'lines') referencedClasses\x0a\x0aor messages sent from this method:\x0a\x09\x0a\x09(String methodAt: 'lines')  messageSends"
-smalltalk.addMethod(
-"_arguments",
-smalltalk.method({
-selector: "arguments",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self.args || [];
-;
-return self}, self, "arguments", [], smalltalk.CompiledMethod)},
-args: [],
-source: "arguments\x0a\x09<return self.args || []>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_category",
-smalltalk.method({
-selector: "category",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._basicAt_("category");
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, self, "category", [], smalltalk.CompiledMethod)},
-args: [],
-source: "category\x0a\x09^(self basicAt: 'category') ifNil: ['']",
-messageSends: ["ifNil:", "basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_category_",
-smalltalk.method({
-selector: "category:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.locals.oldCategory=nil;
-$ctx1.locals.oldCategory=_st(self)._category();
-_st(self)._basicAt_put_("category",aString);
-$1=_st(self)._methodClass();
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-_st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
-_st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(_st(each)._category()).__eq($ctx1.locals.oldCategory);
-})})))._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._methodClass())._organization())._removeElement_($ctx1.locals.oldCategory);
-})}));
-};
-return self}, self, "category:", [aString], smalltalk.CompiledMethod)},
-args: ["aString"],
-source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organization addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]",
-messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_fn",
-smalltalk.method({
-selector: "fn",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("fn");
-return $1;
-}, self, "fn", [], smalltalk.CompiledMethod)},
-args: [],
-source: "fn\x0a\x09^self basicAt: 'fn'",
-messageSends: ["basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_fn_",
-smalltalk.method({
-selector: "fn:",
-category: 'accessing',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("fn",aBlock);
-return self}, self, "fn:", [aBlock], smalltalk.CompiledMethod)},
-args: ["aBlock"],
-source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
-messageSends: ["basicAt:put:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_messageSends",
-smalltalk.method({
-selector: "messageSends",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("messageSends");
-return $1;
-}, self, "messageSends", [], smalltalk.CompiledMethod)},
-args: [],
-source: "messageSends\x0a\x09^self basicAt: 'messageSends'",
-messageSends: ["basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_methodClass",
-smalltalk.method({
-selector: "methodClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("methodClass");
-return $1;
-}, self, "methodClass", [], smalltalk.CompiledMethod)},
-args: [],
-source: "methodClass\x0a\x09^self basicAt: 'methodClass'",
-messageSends: ["basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_protocol",
-smalltalk.method({
-selector: "protocol",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._category();
-return $1;
-}, self, "protocol", [], smalltalk.CompiledMethod)},
-args: [],
-source: "protocol\x0a\x09^ self category",
-messageSends: ["category"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_referencedClasses",
-smalltalk.method({
-selector: "referencedClasses",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("referencedClasses");
-return $1;
-}, self, "referencedClasses", [], smalltalk.CompiledMethod)},
-args: [],
-source: "referencedClasses\x0a\x09^self basicAt: 'referencedClasses'",
-messageSends: ["basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_selector",
-smalltalk.method({
-selector: "selector",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("selector");
-return $1;
-}, self, "selector", [], smalltalk.CompiledMethod)},
-args: [],
-source: "selector\x0a\x09^self basicAt: 'selector'",
-messageSends: ["basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_selector_",
-smalltalk.method({
-selector: "selector:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("selector",aString);
-return self}, self, "selector:", [aString], smalltalk.CompiledMethod)},
-args: ["aString"],
-source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
-messageSends: ["basicAt:put:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_source",
-smalltalk.method({
-selector: "source",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._basicAt_("source");
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, self, "source", [], smalltalk.CompiledMethod)},
-args: [],
-source: "source\x0a\x09^(self basicAt: 'source') ifNil: ['']",
-messageSends: ["ifNil:", "basicAt:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-smalltalk.addMethod(
-"_source_",
-smalltalk.method({
-selector: "source:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("source",aString);
-return self}, self, "source:", [aString], smalltalk.CompiledMethod)},
-args: ["aString"],
-source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
-messageSends: ["basicAt:put:"],
-referencedClasses: []
-}),
-smalltalk.CompiledMethod);
-
-
-
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Date.comment="The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in\x0aAmber and answer the same date object.\x0a\x0aDate wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects."
 smalltalk.addMethod(
@@ -4361,6 +4108,28 @@ return self}, self, "createPackage:", [packageName], smalltalk.Smalltalk)},
 args: ["packageName"],
 source: "createPackage: packageName\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a       <return smalltalk.addPackage(packageName)>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+"_createPackage_properties_",
+smalltalk.method({
+selector: "createPackage:properties:",
+category: 'private',
+fn: function (packageName,aDict){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(aDict)._isEmpty();
+if(! smalltalk.assert($1)){
+_st(self)._error_("createPackage:properties: called with nonempty properties");
+};
+$2=_st(self)._createPackage_(packageName);
+return $2;
+}, self, "createPackage:properties:", [packageName,aDict], smalltalk.Smalltalk)},
+args: ["packageName", "aDict"],
+source: "createPackage: packageName properties: aDict\x0a    \x22Needed to import .st files: they begin with this call.\x22\x0a    aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a    ^ self createPackage: packageName",
+messageSends: ["ifFalse:", "error:", "isEmpty", "createPackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

@@ -238,7 +238,7 @@ $1;
 } else {
 _st(self)._logContext_(_st(aContext)._home());
 };
-_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(aContext)._selector()));
+_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(_st(aContext)._selector())._asString()));
 return self}, self, "logContext:", [aContext], smalltalk.ErrorHandler)}
 }),
 smalltalk.ErrorHandler);
