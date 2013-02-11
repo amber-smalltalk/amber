@@ -110,6 +110,13 @@ SUnit-Tests.js: SUnit-Tests.st SUnit.js Compiler.js
 Documentation.js: Documentation.st Canvas.js Compiler.js
 	$(AMBERC) $(FLAGS) -l Canvas $<;
 
+#Helios
+Helios-Core.js: Helios-Core.st Canvas.js Compiler.js
+	$(AMBERC) $(FLAGS) -l Canvas $<;
+
+Helios-Browser.js: Helios-Browser.st Helios-Core.js Compiler.js
+	$(AMBERC) $(FLAGS) -l Helios-Core $<;
+
 # Installing is simply copying all js files to js directory.
 install: all
 	cp *.js $(JS)
