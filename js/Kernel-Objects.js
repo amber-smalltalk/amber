@@ -2781,18 +2781,21 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "timesRepeat:",
 category: 'enumerating',
-fn: function (aBlock) {
-    var self = this;
-    var integer;
-    var count;
-    integer = smalltalk.send(self, "_truncated", []);
-    count = 1;
-    smalltalk.send(function () {return smalltalk.send(count, "__gt", [self]);}, "_whileFalse_", [function () {smalltalk.send(aBlock, "_value", []);count = smalltalk.send(count, "__plus", [1]);return count;}]);
-    return self;
-},
+fn: function (aBlock){
+var self=this;
+var count;
+count=(1);
+smalltalk.send((function(){
+return smalltalk.send(count,"__gt",[self]);
+}),"_whileFalse_",[(function(){
+smalltalk.send(aBlock,"_value",[]);
+count=smalltalk.send(count,"__plus",[(1)]);
+return count;
+})]);
+return self},
 args: ["aBlock"],
-source: "timesRepeat: aBlock\x0a\x09| integer count |\x0a\x09integer := self truncated.\x0a\x09count := 1.\x0a\x09[count > self] whileFalse: [\x0a\x09    aBlock value.\x0a\x09    count := count + 1]",
-messageSends: ["truncated", "whileFalse:", "value", "+", ">"],
+source: "timesRepeat: aBlock\x0a\x09| count |\x0a\x09count := 1.\x0a\x09[count > self] whileFalse: [\x0a\x09    aBlock value.\x0a\x09    count := count + 1]",
+messageSends: ["whileFalse:", "value", "+", ">"],
 referencedClasses: []
 }),
 smalltalk.Number);
