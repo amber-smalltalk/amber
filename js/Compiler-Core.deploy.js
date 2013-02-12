@@ -198,7 +198,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 _st(_st(aClass)._methodDictionary())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {_st(console)._log_(_st(_st(_st(aClass)._name()).__comma(" >> ")).__comma(_st(each)._selector()));
 return _st(self)._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 _st(self)._setupClass_(aClass);
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
@@ -222,8 +222,8 @@ $2=_st($1)._cr();
 $2;
 return _st((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._recompile_(each);
-}, function($ctx3) {$ctx3.fill(null, null, {})})}))._valueWithTimeout_((100));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}))._valueWithTimeout_((100));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll", [], {}, smalltalk.Compiler)})}
 }),
 smalltalk.Compiler);
@@ -312,7 +312,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._recompile_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll", [], {}, smalltalk.Compiler.klass)})}
 }),
 smalltalk.Compiler.klass);
@@ -344,7 +344,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitAll:", [aCollection], {}, smalltalk.NodeVisitor)})}
 }),
@@ -558,7 +558,7 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$1;
 $2=_st(aClass)._isMetaclass();
 $3=(function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 $4=(function(){
 return smalltalk.withContext(function($ctx2) {$5=_st(aClass)._isNil();
 if(smalltalk.assert($5)){
@@ -566,7 +566,7 @@ return "nil";
 } else {
 return _st(aClass)._name();
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 $1=_st($2)._ifTrue_ifFalse_($3,$4);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:", [aClass], {}, smalltalk.AbstractCodeGenerator)})}

@@ -11,7 +11,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__minus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([html], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"decrease", [], {}, smalltalk.Counter)})},
 args: [],
 source: "decrease\x0a    count := count - 1.\x0a    header contents: [:html | html with: count asString]",
@@ -30,7 +30,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__plus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([html], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"increase", [], {}, smalltalk.Counter)})},
 args: [],
 source: "increase\x0a    count := count + 1.\x0a    header contents: [:html | html with: count asString]",
@@ -72,12 +72,12 @@ $3=_st(html)._button();
 _st($3)._with_("++");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._increase();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._decrease();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:", [html], {}, smalltalk.Counter)})},
 args: ["html"],
 source: "renderOn: html\x0a    header := html h1 \x0a\x09with: count asString;\x0a\x09yourself.\x0a    html button\x0a\x09with: '++';\x0a\x09onClick: [self increase].\x0a    html button\x0a\x09with: '--';\x0a\x09onClick: [self decrease]",

@@ -9,7 +9,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__minus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([html], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"decrease", [], {}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);
@@ -23,7 +23,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__plus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([html], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"increase", [], {}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);
@@ -55,12 +55,12 @@ $3=_st(html)._button();
 _st($3)._with_("++");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._increase();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._decrease();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:", [html], {}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);

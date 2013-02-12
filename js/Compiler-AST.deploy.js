@@ -228,13 +228,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._shouldBeInlined();
-}, function($ctx2) {$ctx2.fill(null, null, {})})})))._or_((function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})})))._or_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._nodes())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(each)._subtreeNeedsAliasing();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock([each], {})})}),(function(){
 return smalltalk.withContext(function($ctx3) {return false;
-}, function($ctx3) {$ctx3.fill(null, null, {})})}))).__tild_eq(false);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}))).__tild_eq(false);
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing", [], {}, smalltalk.Node)})}
 }),

@@ -38,7 +38,7 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 ctx=_st((smalltalk.AIContext || AIContext))._new();
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key,value);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([key,value], {})})}));
 $2=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
 _st($2)._context_(ctx);
 $3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
@@ -534,7 +534,7 @@ $2=_st($1)._yourself();
 node=$2;
 node;
 return _st(self)._assert_(_st(_st(_st((smalltalk.MethodLexicalScope || MethodLexicalScope))._new())._bindingFor_(node))._isPseudoVar());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testPseudoVar", [], {node:node,pseudoVars:pseudoVars}, smalltalk.ScopeVarTest)})}
 }),
 smalltalk.ScopeVarTest);
@@ -600,7 +600,7 @@ return smalltalk.withContext(function($ctx1) { src="foo self := 1";
 ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.InvalidAssignmentError || InvalidAssignmentError));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.InvalidAssignmentError || InvalidAssignmentError));
 return self}, function($ctx1) {$ctx1.fill(self,"testAssignment", [], {src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})}
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -692,7 +692,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | b + a";
 ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.UnknownVariableError || UnknownVariableError));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.UnknownVariableError || UnknownVariableError));
 return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables", [], {src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})}
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -708,7 +708,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a b | [ c + 1. [ a + 
 ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.UnknownVariableError || UnknownVariableError));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.UnknownVariableError || UnknownVariableError));
 return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope", [], {src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})}
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -738,7 +738,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ | a | a 
 ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.ShadowingVariableError || ShadowingVariableError));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.ShadowingVariableError || ShadowingVariableError));
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2", [], {src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})}
 }),
 smalltalk.SemanticAnalyzerTest);
@@ -782,7 +782,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ [ | a
 ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.ShadowingVariableError || ShadowingVariableError));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.ShadowingVariableError || ShadowingVariableError));
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5", [], {src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})}
 }),
 smalltalk.SemanticAnalyzerTest);

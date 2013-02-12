@@ -1028,10 +1028,28 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	self 
     	nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; 
         nextPutAll: String cr.
+    
     aBlock value.
+    
     self 
     	nextPutAll: '}, function(', anIRClosure scope alias, ') {';
-        nextPutAll: anIRClosure scope alias, '.fillBlock()})'
+        nextPutAll: anIRClosure scope alias, '.fillBlock(['.
+    
+    anIRClosure arguments 
+    	do: [ :each | self nextPutAll: each asVariableName ]
+      	separatedBy: [ self nextPutAll: ','  ].
+    self nextPutAll: '], {'.
+    
+    anIRClosure tempDeclarations 
+    	do: [ :each |
+    		self 
+        		nextPutAll: each name asVariableName;
+           	 	nextPutAll: ':';
+        		nextPutAll: each name asVariableName]
+		separatedBy: [ self nextPutAll: ',' ].
+    
+    self
+    	nextPutAll: '})})'
 !
 
 nextPutClosureWith: aBlock arguments: anArray

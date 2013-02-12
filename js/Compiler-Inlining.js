@@ -394,8 +394,8 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(anIRAssignment)._isInlined())._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(_st(_st(anIRAssignment)._instructions())._last())._isSend())._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._shouldInlineSend_(_st(_st(anIRAssignment)._instructions())._last());
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineAssignment:", [anIRAssignment], {}, smalltalk.IRInliner)})},
 args: ["anIRAssignment"],
@@ -416,8 +416,8 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(anIRReturn)._isInlined())._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(_st(_st(anIRReturn)._instructions())._first())._isSend())._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._shouldInlineSend_(_st(_st(anIRReturn)._instructions())._first());
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineReturn:", [anIRReturn], {}, smalltalk.IRInliner)})},
 args: ["anIRReturn"],
@@ -437,7 +437,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(anIRSend)._isInlined())._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((smalltalk.IRSendInliner || IRSendInliner))._shouldInline_(anIRSend);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineSend:", [anIRSend], {}, smalltalk.IRInliner)})},
 args: ["anIRSend"],
@@ -466,7 +466,7 @@ localReturn=$3;
 localReturn;
 _st(_st(anIRNonLocalReturn)._instructions())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(localReturn)._add_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 _st(anIRNonLocalReturn)._replaceWith_(localReturn);
 $4=localReturn;
 return $4;
@@ -602,7 +602,7 @@ fn: function (anIRInlinedClosure){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(anIRInlinedClosure)._instructions())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:", [anIRInlinedClosure], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedClosure"],
 source: "visitIRInlinedClosure: anIRInlinedClosure\x0a\x09anIRInlinedClosure instructions do: [ :each |\x0a\x09\x09self visit: each ]",
@@ -622,9 +622,9 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPu
 return smalltalk.withContext(function($ctx2) {_st(_st(self)._stream())._nextPutAll_("! smalltalk.assert(");
 _st(self)._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(")");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfFalse)._instructions())._last());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfFalse:", [anIRInlinedIfFalse], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfFalse"],
 source: "visitIRInlinedIfFalse: anIRInlinedIfFalse\x0a\x09self stream nextPutIf: [ \x0a\x09\x09self stream nextPutAll: '! smalltalk.assert('.\x0a\x09\x09self visit: anIRInlinedIfFalse instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfFalse instructions last ]",
@@ -644,9 +644,9 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPu
 return smalltalk.withContext(function($ctx2) {_st(_st(self)._stream())._nextPutAll_("($receiver = ");
 _st(self)._visit_(_st(_st(anIRInlinedIfNil)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(") == nil || $receiver == undefined");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfNil)._instructions())._last());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNil:", [anIRInlinedIfNil], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfNil"],
 source: "visitIRInlinedIfNil: anIRInlinedIfNil\x0a\x09self stream nextPutIf: [ \x0a\x09\x09self stream nextPutAll: '($receiver = '. \x0a\x09\x09self visit: anIRInlinedIfNil instructions first.\x0a\x09\x09self stream nextPutAll: ') == nil || $receiver == undefined' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNil instructions last ]",
@@ -666,11 +666,11 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPu
 return smalltalk.withContext(function($ctx2) {_st(_st(self)._stream())._nextPutAll_("($receiver = ");
 _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(") == nil || $receiver == undefined");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._second());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._third());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNilIfNotNil:", [anIRInlinedIfNilIfNotNil], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfNilIfNotNil"],
 source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream \x0a\x09\x09nextPutIfElse: [ \x0a\x09\x09\x09self stream nextPutAll: '($receiver = '. \x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == nil || $receiver == undefined' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
@@ -690,9 +690,9 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPu
 return smalltalk.withContext(function($ctx2) {_st(_st(self)._stream())._nextPutAll_("smalltalk.assert(");
 _st(self)._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(")");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfTrue)._instructions())._last());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrue:", [anIRInlinedIfTrue], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfTrue"],
 source: "visitIRInlinedIfTrue: anIRInlinedIfTrue\x0a\x09self stream nextPutIf: [ \x0a\x09\x09self stream nextPutAll: 'smalltalk.assert('. \x0a\x09\x09self visit: anIRInlinedIfTrue instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrue instructions last ]",
@@ -712,11 +712,11 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPu
 return smalltalk.withContext(function($ctx2) {_st(_st(self)._stream())._nextPutAll_("smalltalk.assert(");
 _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._first());
 return _st(_st(self)._stream())._nextPutAll_(")");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._second());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedIfTrueIfFalse)._instructions())._third());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrueIfFalse:", [anIRInlinedIfTrueIfFalse], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfTrueIfFalse"],
 source: "visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse\x0a\x09self stream \x0a\x09\x09nextPutIfElse: [ \x0a\x09\x09\x09self stream nextPutAll: 'smalltalk.assert('. \x0a\x09\x09\x09self visit: anIRInlinedIfTrueIfFalse instructions first.\x0a\x09\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]",
@@ -734,9 +734,9 @@ fn: function (anIRInlinedReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutStatementWith_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(_st(_st(anIRInlinedReturn)._instructions())._last());
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(_st(self)._stream())._nextPutNonLocalReturnWith_((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedNonLocalReturn:", [anIRInlinedReturn], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedReturn"],
 source: "visitIRInlinedNonLocalReturn: anIRInlinedReturn\x0a\x09self stream nextPutStatementWith: [\x0a\x09\x09self visit: anIRInlinedReturn instructions last ].\x0a\x09self stream nextPutNonLocalReturnWith: [ ]",
@@ -771,8 +771,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(anIRInlinedSequence)._instructions())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._stream())._nextPutStatementWith_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._visit_(each);
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:", [anIRInlinedSequence], {}, smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedSequence"],
 source: "visitIRInlinedSequence: anIRInlinedSequence\x0a\x09anIRInlinedSequence instructions do: [ :each | \x0a\x09\x09self stream nextPutStatementWith: [ self visit: each ]]",
@@ -960,7 +960,7 @@ return smalltalk.withContext(function($ctx2) {$3=_st(each)._isSequence();
 if(! smalltalk.assert($3)){
 return _st(inlinedClosure)._add_(each);
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([each], {})})});
 _st($1)._do_($2);
 sequence=_st(self)._inlinedSequence();
 _st(inlinedClosure)._add_(sequence);
@@ -969,16 +969,16 @@ $4=statements;
 $5=(function(){
 return smalltalk.withContext(function($ctx2) {_st(_st(statements)._allButLast())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(sequence)._add_(each);
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([each], {})})}));
 $6=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st(statements)._last())._isBlockReturn();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
 if(smalltalk.assert($6)){
 return _st(sequence)._add_(_st(_st(_st(statements)._last())._instructions())._first());
 } else {
 return _st(sequence)._add_(_st(statements)._last());
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 _st($4)._ifNotEmpty_($5);
 $7=inlinedClosure;
 return $7;
@@ -1240,7 +1240,7 @@ return smalltalk.withContext(function($ctx2) {$4=_st(each)._isClosure();
 if(! smalltalk.assert($4)){
 throw $early=[false];
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([each], {})})});
 _st($2)._do_($3);
 return true;
 }
@@ -1303,7 +1303,7 @@ _st(self)._assignment_(anIRAssignment);
 inlinedAssignment=_st((smalltalk.IRInlinedAssignment || IRInlinedAssignment))._new();
 _st(_st(anIRAssignment)._instructions())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(inlinedAssignment)._add_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 _st(anIRAssignment)._replaceWith_(inlinedAssignment);
 _st(self)._inlineSend_(_st(_st(inlinedAssignment)._instructions())._last());
 $1=inlinedAssignment;
@@ -1337,7 +1337,7 @@ _st($4)._add_(_st(_st(statements)._last())._copy());
 $5=_st($4)._yourself();
 return _st(_st(statements)._last())._replaceWith_($5);
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 _st($1)._ifNotEmpty_($2);
 $6=inlinedClosure;
 return $6;
@@ -1412,7 +1412,7 @@ _st($4)._add_(_st(_st(statements)._last())._copy());
 $5=_st($4)._yourself();
 return _st(_st(statements)._last())._replaceWith_($5);
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 _st($1)._ifNotEmpty_($2);
 $6=closure;
 return $6;
@@ -1436,7 +1436,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 return_=_st(self)._inlinedReturn();
 _st(_st(anIRReturn)._instructions())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(return_)._add_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 _st(anIRReturn)._replaceWith_(return_);
 _st(self)._inlineSend_(_st(_st(return_)._instructions())._last());
 $1=return_;

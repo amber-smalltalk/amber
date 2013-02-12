@@ -10,8 +10,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st((smalltalk.Error || Error))._new())._signal();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}))._valueWithInterval_((0)))._clearInterval();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}))._valueWithInterval_((0)))._clearInterval();
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testCanClearInterval\x0a\x09self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error",
@@ -30,8 +30,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st((smalltalk.Error || Error))._new())._signal();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}))._valueWithTimeout_((0)))._clearTimeout();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}))._valueWithTimeout_((0)))._clearTimeout();
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testCanClearTimeout\x0a\x09self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error",
@@ -49,7 +49,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1)).__plus((1));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._compiledSource())._includesSubString_("function"));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._compiledSource())._includesSubString_("function"));
 return self}, function($ctx1) {$ctx1.fill(self,"testCompiledSource", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testCompiledSource\x0a\x09self assert: ([1+1] compiledSource includesSubString: 'function')",
@@ -67,9 +67,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((3),_st((function(){
 return smalltalk.withContext(function($ctx2) {return (3);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._ensure_((function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {return (4);
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsure", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testEnsure\x0a\x09self assert: 3 equals: ([3] ensure: [4])",
@@ -88,10 +88,10 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st((smalltalk.Error || Error))._new())._signal();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}))._ensure_((function(){
+}, function($ctx3) {$ctx3.fillBlock([], {})})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx3) {return true;
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testEnsureRaises\x0a\x09self should: [[Error new signal] ensure: [true]] raise: Error",
@@ -108,9 +108,9 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fill(null, null, {})})}))._numArgs(),(0));
+return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock([], {})})}))._numArgs(),(0));
 _st(self)._assert_equals_(_st((function(a,b){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fill(null, null, {})})}))._numArgs(),(2));
+return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock([a,b], {})})}))._numArgs(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testNumArgs", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [:a :b | ] numArgs equals: 2",
@@ -128,9 +128,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Error || Error))._new())._signal();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._on_do_((smalltalk.Error || Error),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._on_do_((smalltalk.Error || Error),(function(ex){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([ex], {})})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testOnDo", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testOnDo\x0a\x09self assert: ([Error new signal] on: Error do: [:ex | true])",
@@ -148,16 +148,16 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1)).__plus((1));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._value(),(2));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._value(),(2));
 _st(self)._assert_equals_(_st((function(x){
 return smalltalk.withContext(function($ctx2) {return _st(x).__plus((1));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._value_((2)),(3));
+}, function($ctx2) {$ctx2.fillBlock([x], {})})}))._value_((2)),(3));
 _st(self)._assert_equals_(_st((function(x,y){
 return smalltalk.withContext(function($ctx2) {return _st(x).__star(y);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._value_value_((2),(4)),(8));
+}, function($ctx2) {$ctx2.fillBlock([x,y], {})})}))._value_value_((2),(4)),(8));
 _st(self)._assert_equals_(_st((function(a,b,c){
 return smalltalk.withContext(function($ctx2) {return (1);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._value(),(1));
+}, function($ctx2) {$ctx2.fillBlock([a,b,c], {})})}))._value(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testValue", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testValue\x0a\x09self assert: ([1+1] value) equals: 2.\x0a\x09self assert: ([:x | x +1] value: 2) equals: 3.\x0a\x09self assert: ([:x :y | x*y] value: 2 value: 4) equals: 8. \x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([:a :b :c | 1] value) equals: 1",
@@ -175,13 +175,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
 return smalltalk.withContext(function($ctx2) {return (1);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._valueWithPossibleArguments_([(3), (4)]),(1));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._valueWithPossibleArguments_([(3), (4)]),(1));
 _st(self)._assert_equals_(_st((function(a){
 return smalltalk.withContext(function($ctx2) {return _st(a).__plus((4));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._valueWithPossibleArguments_([(3), (4)]),(7));
+}, function($ctx2) {$ctx2.fillBlock([a], {})})}))._valueWithPossibleArguments_([(3), (4)]),(7));
 _st(self)._assert_equals_(_st((function(a,b){
 return smalltalk.withContext(function($ctx2) {return _st(a).__plus(b);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
+}, function($ctx2) {$ctx2.fillBlock([a,b], {})})}))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments", [], {}, smalltalk.BlockClosureTest)})},
 args: [],
 source: "testValueWithPossibleArguments\x0a\x09self assert: ([1] valueWithPossibleArguments: #(3 4)) equals: 1.\x0a\x09self assert: ([:a | a + 4] valueWithPossibleArguments: #(3 4)) equals: 7.\x0a\x09self assert: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5)) equals: 7.",
@@ -201,17 +201,17 @@ var i;
 return smalltalk.withContext(function($ctx1) { i=(0);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(i).__gt((5));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._whileFalse_((function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
 return i;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_equals_(i,(6));
 i=(0);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
 i;
 return _st(i).__gt((5));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._whileFalse();
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._whileFalse();
 _st(self)._assert_equals_(i,(6));
 return self}, function($ctx1) {$ctx1.fill(self,"testWhileFalse", [], {i:i}, smalltalk.BlockClosureTest)})},
 args: [],
@@ -232,17 +232,17 @@ var i;
 return smalltalk.withContext(function($ctx1) { i=(0);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(i).__lt((5));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._whileTrue_((function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
 return i;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_equals_(i,(5));
 i=(0);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
 i;
 return _st(i).__lt((5));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))._whileTrue();
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))._whileTrue();
 _st(self)._assert_equals_(i,(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testWhileTrue", [], {i:i}, smalltalk.BlockClosureTest)})},
 args: [],
@@ -502,49 +502,49 @@ return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self;
 _st($1)._assert_(_st(true)._and_((function(){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 _st($1)._deny_(_st(true)._and_((function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 _st($1)._deny_(_st(false)._and_((function(){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $2=_st($1)._deny_(_st(false)._and_((function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $3=self;
 _st($3)._assert_(_st(true)._or_((function(){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 _st($3)._assert_(_st(true)._or_((function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 _st($3)._assert_(_st(false)._or_((function(){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $4=_st($3)._deny_(_st(false)._or_((function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $5=self;
 _st($5)._assert_(_st(true)._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((0));
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 _st($5)._deny_(_st(_st((1)).__gt((0)))._and_((function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $6=_st($5)._deny_(_st(_st((1)).__gt((0)))._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((2));
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $7=self;
 _st($7)._assert_(_st(false)._or_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((0));
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 _st($7)._assert_(_st(_st((1)).__gt((0)))._or_((function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 $8=_st($7)._assert_(_st(_st((1)).__gt((0)))._or_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((2));
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords", [], {}, smalltalk.BooleanTest)})},
 args: [],
 source: "testLogicKeywords\x0a \x0a\x09\x22Trivial logic table\x22\x0a\x09self \x0a\x09\x09assert: (true and: [ true]); \x0a\x09\x09deny: (true and: [ false ]); \x0a\x09\x09deny: (false and: [ true ]); \x0a\x09\x09deny: (false and: [ false ]).\x0a\x09self \x0a\x09\x09assert: (true or: [ true ]); \x0a\x09\x09assert: (true or: [ false ]); \x0a\x09\x09assert: (false or: [ true ]); \x0a\x09\x09deny: (false or: [ false ]).\x0a        \x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self \x0a\x09\x09assert: (true and: [ 1 > 0 ]); \x0a\x09\x09deny: ((1 > 0) and: [ false ]); \x0a\x09\x09deny: ((1 > 0) and: [ 1 > 2 ]).\x0a        self \x0a\x09\x09assert: (false or: [ 1 > 0 ]); \x0a\x09\x09assert: ((1 > 0) or: [ false ]); \x0a\x09\x09assert: ((1 > 0) or: [ 1 > 2 ])",
@@ -566,7 +566,7 @@ $2=(function(){
 return smalltalk.withContext(function($ctx2) {if(smalltalk.assert("")){
 } else {
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 _st($1)._should_raise_($2,(smalltalk.NonBooleanReceiver || NonBooleanReceiver));
 return self}, function($ctx1) {$ctx1.fill(self,"testNonBooleanError", [], {}, smalltalk.BooleanTest)})},
 args: [],
@@ -669,7 +669,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(aCollection)._size()).__eq(_st(anotherCollection)._size()));
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(aCollection)._occurrencesOf_(each)).__eq(_st(anotherCollection)._occurrencesOf_(each)));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:", [aCollection,anotherCollection], {}, smalltalk.CollectionTest)})},
 args: ["aCollection", "anotherCollection"],
 source: "assertSameContents: aCollection \x09as: anotherCollection\x0a\x09self assert: aCollection size = anotherCollection size.\x0a\x09aCollection do: [ :each |\x0a\x09\x09self assert: (aCollection occurrencesOf: each) = (anotherCollection occurrencesOf: each) ]",
@@ -809,7 +809,7 @@ set=_st(c)._asSet();
 _st(self)._assert_(_st(_st(set)._size()).__eq((5)));
 _st(c)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(set)._includes_(each));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testAsSet", [], {c:c,set:set}, smalltalk.CollectionTest)})},
 args: [],
 source: "testAsSet\x0a\x09| c set |\x0a\x09c := self collectionWithDuplicates.\x0a\x09set := c asSet.\x0a\x09self assert: set size = 5.\x0a\x09c do: [ :each |\x0a\x09\x09self assert: (set includes: each) ]",
@@ -829,7 +829,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection=[(1), (2), (3), (4)];
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._abs();
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),newCollection);
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect", [], {newCollection:newCollection}, smalltalk.CollectionTest)})},
 args: [],
 source: "testCollect\x0a\x09| newCollection |\x0a\x09newCollection :=  #(1 2 3 4).\x0a\x09self \x0a\x09\x09assertSameContents: (self collection collect: [ :each |\x0a\x09\x09\x09each abs ])\x0a\x09\x09as: newCollection",
@@ -847,12 +847,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(_st(self)._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__lt((0));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq((-4)));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}))).__eq((-4)));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(each).__eq((6));
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx3) {$ctx3.fillBlock([each], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect", [], {}, smalltalk.CollectionTest)})},
 args: [],
 source: "testDetect\x0a\x09self assert: (self collection detect: [ :each | each < 0 ]) = -4.\x0a\x09self \x0a\x09\x09should: [ self collection detect: [ :each | each = 6 ] ]\x0a\x09\x09raise: Error",
@@ -872,7 +872,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
 _st(_st(self)._collection())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(newCollection)._add_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 _st(self)._assertSameContents_as_(_st(self)._collection(),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testDo", [], {newCollection:newCollection}, smalltalk.CollectionTest)})},
 args: [],
@@ -910,7 +910,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection=[(2), (-4)];
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._even();
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),newCollection);
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testSelect", [], {newCollection:newCollection}, smalltalk.CollectionTest)})},
 args: [],
 source: "testSelect\x0a\x09| newCollection |\x0a\x09newCollection := #(2 -4).\x0a\x09self \x0a\x09\x09assertSameContents: (self collection select: [ :each |\x0a\x09\x09\x09each even ])\x0a\x09\x09as: newCollection",
@@ -1094,10 +1094,10 @@ _st(d)._at_put_("hello","world");
 _st(self)._assert_(_st(_st(d)._at_("hello")).__eq("world"));
 _st(self)._assert_(_st(_st(d)._at_ifAbsent_("hello",(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq("world"));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq("world"));
 _st(self)._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq("world"));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq("world"));
 _st(d)._at_put_((1),(2));
 _st(self)._assert_(_st(_st(d)._at_((1))).__eq((2)));
 _st(d)._at_put_(_st((1)).__at((3)),(3));
@@ -1182,7 +1182,7 @@ d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_ifAbsent_("hello",(function(){
 return smalltalk.withContext(function($ctx2) {visited=true;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_(visited);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfAbsent", [], {d:d,visited:visited}, smalltalk.DictionaryTest)})},
 args: [],
@@ -1206,12 +1206,12 @@ _st(d)._at_put_("hello","world");
 _st(d)._at_ifPresent_("hello",(function(value){
 return smalltalk.withContext(function($ctx2) {visited=value;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([value], {})})}));
 _st(self)._assert_(_st(visited).__eq("world"));
 absent=_st(d)._at_ifPresent_("bye",(function(value){
 return smalltalk.withContext(function($ctx2) {visited=value;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([value], {})})}));
 _st(self)._assert_(_st(absent)._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testIfPresent", [], {d:d,visited:visited,absent:absent}, smalltalk.DictionaryTest)})},
 args: [],
@@ -1235,18 +1235,18 @@ _st(d)._at_put_("hello","world");
 _st(d)._at_ifPresent_ifAbsent_("hello",(function(value){
 return smalltalk.withContext(function($ctx2) {visited=value;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([value], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {visited=true;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_(_st(visited).__eq("world"));
 _st(d)._at_ifPresent_ifAbsent_("buy",(function(value){
 return smalltalk.withContext(function($ctx2) {visited=value;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([value], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {visited=true;
 return visited;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_(visited);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfPresentIfAbsent", [], {d:d,visited:visited}, smalltalk.DictionaryTest)})},
 args: [],
@@ -1341,11 +1341,11 @@ _st(self)._assert_(_st(_st(d)._removeKey_(key)).__eq((3)));
 key=(3);
 _st(self)._assert_(_st(_st(d)._removeKey_ifAbsent_(key,(function(){
 return smalltalk.withContext(function($ctx2) {return (42);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq((4)));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq((4)));
 key="why";
 _st(self)._assert_(_st(_st(d)._removeKey_ifAbsent_(key,(function(){
 return smalltalk.withContext(function($ctx2) {return (42);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq((42)));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq((42)));
 return self}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent", [], {d:d,key:key}, smalltalk.DictionaryTest)})},
 args: [],
 source: "testRemoveKeyIfAbsent\x0a    | d key |\x0a\x0a    d := Dictionary new.\x0a    d at: 1 put: 2.\x0a    d at: 2 put: 3.\x0a    d at: 3 put: 4.\x0a\x0a    key := 2.\x0a    self assert: (d removeKey: key) = 3.\x0a\x0a    key := 3.\x0a    self assert: (d removeKey: key ifAbsent: [42]) = 4.\x0a\x0a    key := 'why'.\x0a    self assert: (d removeKey: key ifAbsent: [42] ) = 42.",
@@ -1428,7 +1428,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(_st(self)._collection())._at_((4))).__eq((-4)));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._at_((5));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt", [], {}, smalltalk.SequenceableCollectionTest)})},
 args: [],
 source: "testAt\x0a\x09self assert: (self collection at: 4) = -4.\x0a\x09self should: [ self collection at: 5 ] raise: Error",
@@ -1446,7 +1446,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(_st(self)._collection())._at_ifAbsent_(_st(_st(_st(self)._collection())._size()).__plus((1)),(function(){
 return smalltalk.withContext(function($ctx2) {return "none";
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq("none"));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq("none"));
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent", [], {}, smalltalk.SequenceableCollectionTest)})},
 args: [],
 source: "testAtIfAbsent\x0a\x09self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) = 'none'",
@@ -1471,16 +1471,16 @@ _st(self)._assert_equals_(_st(array)._at_((1)),"hello");
 _st(self)._assert_equals_(_st(array)._at_((2)),"world");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((2),(function(){
 return smalltalk.withContext(function($ctx2) {return "not found";
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),"world");
+}, function($ctx2) {$ctx2.fillBlock([], {})})})),"world");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((0),(function(){
 return smalltalk.withContext(function($ctx2) {return "not found";
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),"not found");
+}, function($ctx2) {$ctx2.fillBlock([], {})})})),"not found");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((-10),(function(){
 return smalltalk.withContext(function($ctx2) {return "not found";
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),"not found");
+}, function($ctx2) {$ctx2.fillBlock([], {})})})),"not found");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((3),(function(){
 return smalltalk.withContext(function($ctx2) {return "not found";
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),"not found");
+}, function($ctx2) {$ctx2.fillBlock([], {})})})),"not found");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent", [], {array:array}, smalltalk.ArrayTest)})},
 args: [],
 source: "testAtIfAbsent\x0a\x09| array |\x0a\x09array := #('hello' 'world').\x0a\x09self assert: (array at: 1) equals: 'hello'.\x0a\x09self assert: (array at: 2) equals: 'world'.\x0a\x09self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.\x0a\x09self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.\x0a\x09self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.\x0a\x09self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.",
@@ -1514,7 +1514,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("zork",_st("")._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {return "zork";
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([], {})})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmpty", [], {}, smalltalk.ArrayTest)})},
 args: [],
 source: "testIfEmpty\x0a\x09self assert: 'zork' equals: ( '' ifEmpty: ['zork'] )",
@@ -1618,10 +1618,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st("hello")._add_("a");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st("hello")._remove_("h");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAddRemove", [], {}, smalltalk.StringTest)})},
 args: [],
 source: "testAddRemove\x0a\x09self should: ['hello' add: 'a'] raise: Error.\x0a\x09self should: ['hello' remove: 'h'] raise: Error",
@@ -1657,7 +1657,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st("hell
 _st(self)._assert_(_st(_st("hello")._at_((5))).__eq("o"));
 _st(self)._assert_(_st(_st("hello")._at_ifAbsent_((6),(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq(nil));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq(nil));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt", [], {}, smalltalk.StringTest)})},
 args: [],
 source: "testAt\x0a\x09self assert: ('hello' at: 1) = 'h'.\x0a\x09self assert: ('hello' at: 5) = 'o'.\x0a\x09self assert: ('hello' at: 6 ifAbsent: [nil]) = nil",
@@ -1675,7 +1675,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st("hello")._at_put_((1),"a");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAtPut", [], {}, smalltalk.StringTest)})},
 args: [],
 source: "testAtPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: ['hello' at: 1 put: 'a'] raise: Error",
@@ -1695,7 +1695,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection="hheelllloo";
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__comma(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),newCollection);
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect", [], {newCollection:newCollection}, smalltalk.StringTest)})},
 args: [],
 source: "testCollect\x0a\x09| newCollection |\x0a\x09newCollection := 'hheelllloo'.\x0a\x09self \x0a\x09\x09assertSameContents: (self collection collect: [ :each |\x0a\x09\x09\x09each, each ])\x0a\x09\x09as: newCollection",
@@ -1729,12 +1729,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(_st(self)._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__eq("h");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq("h"));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}))).__eq("h"));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(each).__eq((6));
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx3) {$ctx3.fillBlock([each], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect", [], {}, smalltalk.StringTest)})},
 args: [],
 source: "testDetect\x0a\x09self assert: (self collection detect: [ :each | each = 'h' ]) = 'h'.\x0a\x09self \x0a\x09\x09should: [ self collection detect: [ :each | each = 6 ] ]\x0a\x09\x09raise: Error",
@@ -1827,7 +1827,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection="o";
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__eq("o");
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),newCollection);
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testSelect", [], {newCollection:newCollection}, smalltalk.StringTest)})},
 args: [],
 source: "testSelect\x0a\x09| newCollection |\x0a\x09newCollection := 'o'.\x0a\x09self \x0a\x09\x09assertSameContents: (self collection select: [ :each |\x0a\x09\x09\x09each = 'o' ])\x0a\x09\x09as: newCollection",
@@ -1867,7 +1867,7 @@ _st($1)._nextPutAll_("hello");
 _st($1)._space();
 $2=_st($1)._nextPutAll_("world");
 return $2;
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([aStream], {})})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testStreamContents", [], {}, smalltalk.StringTest)})},
 args: [],
 source: "testStreamContents\x0a\x09self \x0a\x09\x09assert: 'hello world' \x0a\x09\x09equals: (String streamContents: [ :aStream | \x0a\x09\x09\x09aStream \x0a\x09\x09\x09\x09nextPutAll: 'hello'; space; \x0a\x09\x09\x09\x09nextPutAll: 'world' ])",
@@ -1972,7 +1972,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(small
 _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._at_((5))).__eq("o"));
 _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._at_ifAbsent_((6),(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq(nil));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq(nil));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt", [], {}, smalltalk.SymbolTest)})},
 args: [],
 source: "testAt\x0a\x09self assert: (#hello at: 1) = 'h'.\x0a\x09self assert: (#hello at: 5) = 'o'.\x0a\x09self assert: (#hello at: 6 ifAbsent: [nil]) = nil",
@@ -1990,7 +1990,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st("hello")._at_put_((1),"a");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAtPut", [], {}, smalltalk.SymbolTest)})},
 args: [],
 source: "testAtPut\x0a\x09\x22Symbol instances are read-only\x22\x0a\x09self should: ['hello' at: 1 put: 'a'] raise: Error",
@@ -2010,7 +2010,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection=smalltalk.symbolFor("hheelllloo");
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__comma(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),newCollection);
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect", [], {newCollection:newCollection}, smalltalk.SymbolTest)})},
 args: [],
 source: "testCollect\x0a\x09| newCollection |\x0a\x09newCollection := #hheelllloo.\x0a\x09self \x0a\x09\x09assertSameContents: (self collection collect: [ :each |\x0a\x09\x09\x09each, each ])\x0a\x09\x09as: newCollection",
@@ -2068,12 +2068,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(_st(self)._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__eq("h");
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq("h"));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}))).__eq("h"));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(each).__eq("z");
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx3) {$ctx3.fillBlock([each], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect", [], {}, smalltalk.SymbolTest)})},
 args: [],
 source: "testDetect\x0a\x09self assert: (self collection detect: [ :each | each = 'h' ]) = 'h'.\x0a\x09self \x0a\x09\x09should: [ self collection detect: [ :each | each = 'z' ] ]\x0a\x09\x09raise: Error",
@@ -2169,7 +2169,7 @@ var newCollection;
 return smalltalk.withContext(function($ctx1) { newCollection="o";
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__eq("o");
-}, function($ctx2) {$ctx2.fill(null, null, {})})})),newCollection);
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testSelect", [], {newCollection:newCollection}, smalltalk.SymbolTest)})},
 args: [],
 source: "testSelect\x0a\x09| newCollection |\x0a\x09newCollection := 'o'.\x0a\x09self \x0a\x09\x09assertSameContents: (self collection select: [ :each |\x0a\x09\x09\x09each = 'o' ])\x0a\x09\x09as: newCollection",
@@ -2241,7 +2241,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._jsObject())._foo();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU", [], {}, smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "testDNU\x0a\x09self should: [self jsObject foo] raise: MessageNotUnderstood",
@@ -2331,7 +2331,7 @@ var object;
 return smalltalk.withContext(function($ctx1) { object=_st(self)._jsObject();
 _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(object)._e();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._assert_(_st(_st(object)._e())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined", [], {object:object}, smalltalk.JSObjectProxyTest)})},
 args: [],
@@ -2523,127 +2523,127 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rG();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rg();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rH();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rh();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rI();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._ri();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rJ();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rj();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rK();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rk();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rL();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rl();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rM();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rm();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rN();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rn();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rO();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._ro();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rP();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rp();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rQ();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rq();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rR();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rr();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rS();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rs();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rT();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rt();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rU();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._ru();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rV();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rv();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rW();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rw();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rX();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rx();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rY();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._ry();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rZ();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((16))._rz();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((11259375))._Z();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 return self}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers", [], {}, smalltalk.NumberTest)})},
 args: [],
 source: "testInvalidHexNumbers\x0a\x0a\x09self should: [16rG] raise: MessageNotUnderstood.\x0a   \x09self should: [16rg] raise: MessageNotUnderstood.\x0a\x09self should: [16rH] raise: MessageNotUnderstood.\x0a   \x09self should: [16rh] raise: MessageNotUnderstood.\x0a\x09self should: [16rI] raise: MessageNotUnderstood.\x0a   \x09self should: [16ri] raise: MessageNotUnderstood.\x0a\x09self should: [16rJ] raise: MessageNotUnderstood.\x0a   \x09self should: [16rj] raise: MessageNotUnderstood.\x0a\x09self should: [16rK] raise: MessageNotUnderstood.\x0a   \x09self should: [16rk] raise: MessageNotUnderstood.\x0a\x09self should: [16rL] raise: MessageNotUnderstood.\x0a   \x09self should: [16rl] raise: MessageNotUnderstood.\x0a\x09self should: [16rM] raise: MessageNotUnderstood.\x0a   \x09self should: [16rm] raise: MessageNotUnderstood.\x0a\x09self should: [16rN] raise: MessageNotUnderstood.\x0a   \x09self should: [16rn] raise: MessageNotUnderstood.\x0a\x09self should: [16rO] raise: MessageNotUnderstood.\x0a   \x09self should: [16ro] raise: MessageNotUnderstood.\x0a\x09self should: [16rP] raise: MessageNotUnderstood.\x0a   \x09self should: [16rp] raise: MessageNotUnderstood.\x0a\x09self should: [16rQ] raise: MessageNotUnderstood.\x0a   \x09self should: [16rq] raise: MessageNotUnderstood.\x0a\x09self should: [16rR] raise: MessageNotUnderstood.\x0a   \x09self should: [16rr] raise: MessageNotUnderstood.\x0a\x09self should: [16rS] raise: MessageNotUnderstood.\x0a   \x09self should: [16rs] raise: MessageNotUnderstood.\x0a\x09self should: [16rT] raise: MessageNotUnderstood.\x0a   \x09self should: [16rt] raise: MessageNotUnderstood.\x0a\x09self should: [16rU] raise: MessageNotUnderstood.\x0a   \x09self should: [16ru] raise: MessageNotUnderstood.\x0a\x09self should: [16rV] raise: MessageNotUnderstood.\x0a   \x09self should: [16rv] raise: MessageNotUnderstood.\x0a\x09self should: [16rW] raise: MessageNotUnderstood.\x0a   \x09self should: [16rw] raise: MessageNotUnderstood.\x0a\x09self should: [16rX] raise: MessageNotUnderstood.\x0a   \x09self should: [16rx] raise: MessageNotUnderstood.\x0a\x09self should: [16rY] raise: MessageNotUnderstood.\x0a   \x09self should: [16ry] raise: MessageNotUnderstood.\x0a\x09self should: [16rZ] raise: MessageNotUnderstood.\x0a   \x09self should: [16rz] raise: MessageNotUnderstood.\x0a    self should: [16rABcdEfZ] raise: MessageNotUnderstood.",
@@ -2777,12 +2777,12 @@ return smalltalk.withContext(function($ctx1) { i=(0);
 _st((0))._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
 return i;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_equals_(i,(0));
 _st((5))._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
 return i;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(self)._assert_equals_(i,(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat", [], {i:i}, smalltalk.NumberTest)})},
 args: [],
@@ -2818,7 +2818,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((0))._to_by_((6),(2)),[(0), (2), (4), (6)]);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st((1))._to_by_((4),(0));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testToBy", [], {}, smalltalk.NumberTest)})},
 args: [],
 source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [1 to: 4 by: 0] raise: Error",
@@ -2932,10 +2932,10 @@ var o;
 return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
 _st(o)._basicAt_put_("func",(function(){
 return smalltalk.withContext(function($ctx2) {return "hello";
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 _st(o)._basicAt_put_("func2",(function(a){
 return smalltalk.withContext(function($ctx2) {return _st(a).__plus((1));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([a], {})})}));
 _st(self)._assert_equals_(_st(o)._basicPerform_("func"),"hello");
 _st(self)._assert_equals_(_st(o)._basicPerform_withArguments_("func2",[(3)]),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testBasicPerform", [], {o:o}, smalltalk.ObjectTest)})},
@@ -2955,7 +2955,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Object || Object))._new())._foo();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU", [], {}, smalltalk.ObjectTest)})},
 args: [],
 source: "testDNU\x0a\x09self should: [Object new foo] raise: MessageNotUnderstood",
@@ -2994,7 +2994,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Object || Object))._new())._halt();
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testHalt", [], {}, smalltalk.ObjectTest)})},
 args: [],
 source: "testHalt\x0a\x09self should: [Object new halt] raise: Error",
@@ -3062,9 +3062,9 @@ $10=_st($11).__eq(true);
 _st($9)._assert_($10);
 _st(self)._assert_(_st(_st(_st((smalltalk.Object || Object))._new())._ifNotNil_ifNil_((function(){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq(true));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq(true));
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil", [], {}, smalltalk.ObjectTest)})},
 args: [],
 source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [true]) = true.\x0a\x09self assert: (Object new ifNotNil: [true]) = true.\x0a\x0a\x09self assert: (Object new ifNil: [false] ifNotNil: [true]) = true.\x0a\x09self assert: (Object new ifNotNil: [true] ifNil: [false]) = true",
@@ -3474,7 +3474,7 @@ _st(self)._assert_(_st(next).__gt_eq((0)));
 _st(self)._assert_(_st(next).__lt((1)));
 _st(self)._deny_(_st(current).__eq(next));
 return _st(next).__eq(current);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {current:current,next:next})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"textNext", [], {}, smalltalk.RandomTest)})},
 args: [],
 source: "textNext\x0a\x0a\x0910000 timesRepeat: [\x0a\x09\x09\x09| current next | \x0a\x09\x09\x09next := Random new next.\x0a\x09\x09\x09self assert: (next >= 0).\x0a\x09\x09\x09self assert: (next < 1).\x0a\x09\x09\x09self deny: current = next.\x0a\x09\x09\x09next = current]",
@@ -3519,7 +3519,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Set || Set))._new())._at_put_((1),(2));
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt", [], {}, smalltalk.SetTest)})},
 args: [],
 source: "testAt\x0a\x09self should: [Set new at: 1 put: 2] raise: Error",
@@ -3670,9 +3670,9 @@ $7=false;
 _st($6)._assert_equals_($7,true);
 _st(self)._deny_(_st(_st(nil)._ifNotNil_ifNil_((function(){
 return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([], {})})}),(function(){
 return smalltalk.withContext(function($ctx2) {return false;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}))).__eq(true));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}))).__eq(true));
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil", [], {}, smalltalk.UndefinedTest)})},
 args: [],
 source: "testIfNil\x0a\x09self assert: (nil ifNil: [true]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true]) = true.\x0a\x09self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true] ifNil: [false]) = true",

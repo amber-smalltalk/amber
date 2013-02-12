@@ -87,7 +87,7 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@subscriptions"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._deliver_(anAnnouncement);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"announce:", [anAnnouncement], {}, smalltalk.Announcer)})}
 }),
 smalltalk.Announcer);

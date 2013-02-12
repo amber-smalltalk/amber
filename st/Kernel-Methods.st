@@ -360,7 +360,9 @@ arguments
 !
 
 asString
-	^self receiver class printString, ' >> ', self selector
+	^self isBlockContext 
+    	ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
+      	ifFalse: [ self receiver class printString, ' >> ', self selector ]
 !
 
 home

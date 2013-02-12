@@ -766,6 +766,7 @@ SmalltalkMethodContext.prototype.method = function() {
     return method;
 };
 
+// TODO: this is just wrong :)
 SmalltalkMethodContext.prototype.resume = function() {
     //Brutally set the receiver as thisContext, then re-enter the function
     smalltalk.thisContext = this;

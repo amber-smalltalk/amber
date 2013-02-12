@@ -115,7 +115,7 @@ return _st(aBlock)._value_(error);
 } else {
 return _st(error)._signal();
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([error], {})})});
 $1=_st($2)._try_catch_($3,$4);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:", [anErrorClass,aBlock], {}, smalltalk.BlockClosure)})}
@@ -225,7 +225,7 @@ selector: "whileFalse",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse", [], {}, smalltalk.BlockClosure)})}
 }),
 smalltalk.BlockClosure);
@@ -248,7 +248,7 @@ selector: "whileTrue",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue", [], {}, smalltalk.BlockClosure)})}
 }),
 smalltalk.BlockClosure);
@@ -313,9 +313,9 @@ $1;
 _st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
 _st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(oldCategory);
-}, function($ctx2) {$ctx2.fill(null, null, {})})})))._ifEmpty_((function(){
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})))._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldCategory);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {})})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"category:", [aString], {oldCategory:oldCategory}, smalltalk.CompiledMethod)})}
 }),
@@ -523,17 +523,17 @@ return smalltalk.withContext(function($ctx2) {self["@poolSize"]=_st(self["@pool
 self["@poolSize"];
 block=_st(self["@queue"])._frontIfAbsent_((function(){
 return smalltalk.withContext(function($ctx3) {return sentinel;
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){
 return _st((function(){
 return smalltalk.withContext(function($ctx3) {return _st(block)._value();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}))._ensure_((function(){
+}, function($ctx3) {$ctx3.fillBlock([], {})})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._addWorker();
-}, function($ctx3) {$ctx3.fill(null, null, {})})}));
+}, function($ctx3) {$ctx3.fillBlock([], {})})}));
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {block:block})})});
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker", [], {sentinel:sentinel}, smalltalk.ForkPool)})}
 }),
@@ -651,7 +651,7 @@ _st($2)._nextPutAll_("(");
 _st($2)._nextPutAll_(self["@selector"]);
 $3=_st($2)._nextPutAll_(")");
 return $3;
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([aStream], {})})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString", [], {}, smalltalk.Message)})}
 }),
@@ -731,8 +731,13 @@ smalltalk.method({
 selector: "asString",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(self)._isBlockContext();
+if(smalltalk.assert($2)){
+$1=_st(_st("a block (in ").__comma(_st(_st(self)._methodContext())._asString())).__comma(")");
+} else {
 $1=_st(_st(_st(_st(_st(self)._receiver())._class())._printString()).__comma(" >> ")).__comma(_st(self)._selector());
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString", [], {}, smalltalk.MethodContext)})}
 }),

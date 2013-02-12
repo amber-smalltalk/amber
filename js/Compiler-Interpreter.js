@@ -19,7 +19,7 @@ _st(self)._outerContext_(_st(_st(self)._class())._fromMethodContext_(_st(aMethod
 };
 _st(_st(aMethodContext)._locals())._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._locals())._at_put_(key,value);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([key,value], {})})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:", [aMethodContext], {}, smalltalk.AIContext)})},
 args: ["aMethodContext"],
 source: "initializeFromMethodContext: aMethodContext\x0a\x09self pc: aMethodContext pc.\x0a    self receiver: aMethodContext receiver.\x0a    self selector: aMethodContext selector.\x0a    aMethodContext outerContext ifNotNil: [\x0a\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a    aMethodContext locals keysAndValuesDo: [ :key :value |\x0a    \x09self locals at: key put: value ]\x0a    ",
@@ -359,7 +359,7 @@ $2=_st((smalltalk.Message || Message))._new();
 _st($2)._selector_(_st(aSendNode)._selector());
 _st($2)._arguments_(_st(_st(aSendNode)._arguments())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._interpretNode_(each);
-}, function($ctx2) {$ctx2.fill(null, null, {})})})));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})})));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -381,7 +381,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._interpretNode_(_st(_st(aNode)._nodes())._first());
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:", [aNode], {}, smalltalk.ASTInterpreter)})},
 args: ["aNode"],
@@ -403,7 +403,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 receiver=_st(self)._interpretNode_(_st(aNode)._receiver());
 _st(_st(_st(aNode)._nodes())._allButLast())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._messageFromSendNode_(each))._sendTo_(receiver);
-}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fillBlock([each], {})})}));
 $1=_st(_st(self)._messageFromSendNode_(_st(_st(aNode)._nodes())._last()))._sendTo_(receiver);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:", [aNode], {receiver:receiver}, smalltalk.ASTInterpreter)})},
@@ -508,7 +508,7 @@ if(smalltalk.assert($3)){
 $4=value;
 throw $early=[$4];
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([each], {value:value})})});
 _st($1)._do_($2);
 $5=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
 return $5;

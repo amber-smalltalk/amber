@@ -273,7 +273,7 @@ return $3;
 } else {
 return _st(self)._logContext_(_st(aContext)._home());
 };
-}, function($ctx2) {$ctx2.fill(null, null, {})})});
+}, function($ctx2) {$ctx2.fillBlock([], {})})});
 _st($1)._ifNotNil_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:", [aContext], {}, smalltalk.ErrorHandler)})}
 }),
