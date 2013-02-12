@@ -355,6 +355,10 @@ Current limitation: MethodContext instances are not created on Block evaluation.
 
 !MethodContext methodsFor: 'accessing'!
 
+arguments
+	<return self.args>
+!
+
 asString
 	^self receiver class printString, ' >> ', self selector
 !

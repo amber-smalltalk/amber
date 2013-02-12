@@ -9,7 +9,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@announcementClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcementClass", [], smalltalk.AnnouncementSubscription)})}
+}, function($ctx1) {$ctx1.fill(self,"announcementClass", [], {}, smalltalk.AnnouncementSubscription)})}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -20,7 +20,7 @@ selector: "announcementClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@announcementClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"announcementClass:", [aClass], smalltalk.AnnouncementSubscription)})}
+return self}, function($ctx1) {$ctx1.fill(self,"announcementClass:", [aClass], {}, smalltalk.AnnouncementSubscription)})}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -33,7 +33,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@block"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"block", [], smalltalk.AnnouncementSubscription)})}
+}, function($ctx1) {$ctx1.fill(self,"block", [], {}, smalltalk.AnnouncementSubscription)})}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -44,7 +44,7 @@ selector: "block:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@block"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"block:", [aBlock], smalltalk.AnnouncementSubscription)})}
+return self}, function($ctx1) {$ctx1.fill(self,"block:", [aBlock], {}, smalltalk.AnnouncementSubscription)})}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -59,7 +59,7 @@ $1=_st(self)._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
 _st(_st(self)._block())._value_(anAnnouncement);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"deliver:", [anAnnouncement], smalltalk.AnnouncementSubscription)})}
+return self}, function($ctx1) {$ctx1.fill(self,"deliver:", [anAnnouncement], {}, smalltalk.AnnouncementSubscription)})}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -72,7 +72,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(anAnnouncement)._isKindOf_(_st(self)._announcementClass());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:", [anAnnouncement], smalltalk.AnnouncementSubscription)})}
+}, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:", [anAnnouncement], {}, smalltalk.AnnouncementSubscription)})}
 }),
 smalltalk.AnnouncementSubscription);
 
@@ -88,7 +88,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@subscriptions"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._deliver_(anAnnouncement);
 }, function($ctx2) {$ctx2.fill(null, null, {})})}));
-return self}, function($ctx1) {$ctx1.fill(self,"announce:", [anAnnouncement], smalltalk.Announcer)})}
+return self}, function($ctx1) {$ctx1.fill(self,"announce:", [anAnnouncement], {}, smalltalk.Announcer)})}
 }),
 smalltalk.Announcer);
 
@@ -100,7 +100,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@subscriptions"]=_st((smalltalk.Array || Array))._new();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], smalltalk.Announcer)})}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], {}, smalltalk.Announcer)})}
 }),
 smalltalk.Announcer);
 
@@ -116,7 +116,7 @@ _st($1)._block_(aBlock);
 _st($1)._announcementClass_(aClass);
 $2=_st($1)._yourself();
 _st(self["@subscriptions"])._add_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"on:do:", [aClass,aBlock], smalltalk.Announcer)})}
+return self}, function($ctx1) {$ctx1.fill(self,"on:do:", [aClass,aBlock], {}, smalltalk.Announcer)})}
 }),
 smalltalk.Announcer);
 
@@ -140,7 +140,7 @@ $1=self["@current"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current", [], smalltalk.SystemAnnouncer.klass)})}
+}, function($ctx1) {$ctx1.fill(self,"current", [], {}, smalltalk.SystemAnnouncer.klass)})}
 }),
 smalltalk.SystemAnnouncer.klass);
 
@@ -151,7 +151,7 @@ selector: "new",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new", [], smalltalk.SystemAnnouncer.klass)})}
+return self}, function($ctx1) {$ctx1.fill(self,"new", [], {}, smalltalk.SystemAnnouncer.klass)})}
 }),
 smalltalk.SystemAnnouncer.klass);
 
@@ -166,7 +166,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@theClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass", [], smalltalk.SystemAnnouncement)})}
+}, function($ctx1) {$ctx1.fill(self,"theClass", [], {}, smalltalk.SystemAnnouncement)})}
 }),
 smalltalk.SystemAnnouncement);
 
@@ -177,7 +177,7 @@ selector: "theClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:", [aClass], smalltalk.SystemAnnouncement)})}
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:", [aClass], {}, smalltalk.SystemAnnouncement)})}
 }),
 smalltalk.SystemAnnouncement);
 
@@ -208,7 +208,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@method"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"method", [], smalltalk.MethodAnnouncement)})}
+}, function($ctx1) {$ctx1.fill(self,"method", [], {}, smalltalk.MethodAnnouncement)})}
 }),
 smalltalk.MethodAnnouncement);
 
@@ -219,7 +219,7 @@ selector: "method:",
 fn: function (aCompiledMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@method"]=aCompiledMethod;
-return self}, function($ctx1) {$ctx1.fill(self,"method:", [aCompiledMethod], smalltalk.MethodAnnouncement)})}
+return self}, function($ctx1) {$ctx1.fill(self,"method:", [aCompiledMethod], {}, smalltalk.MethodAnnouncement)})}
 }),
 smalltalk.MethodAnnouncement);
 

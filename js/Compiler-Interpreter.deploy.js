@@ -19,7 +19,7 @@ _st(self)._outerContext_(_st(_st(self)._class())._fromMethodContext_(_st(aMethod
 _st(_st(aMethodContext)._locals())._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._locals())._at_put_(key,value);
 }, function($ctx2) {$ctx2.fill(null, null, {})})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:", [aMethodContext], smalltalk.AIContext)})}
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:", [aMethodContext], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -30,7 +30,7 @@ selector: "localAt:put:",
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._locals())._at_put_(aString,anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"localAt:put:", [aString,anObject], smalltalk.AIContext)})}
+return self}, function($ctx1) {$ctx1.fill(self,"localAt:put:", [aString,anObject], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -49,7 +49,7 @@ $1=self["@locals"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"locals", [], smalltalk.AIContext)})}
+}, function($ctx1) {$ctx1.fill(self,"locals", [], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -62,7 +62,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@outerContext"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"outerContext", [], smalltalk.AIContext)})}
+}, function($ctx1) {$ctx1.fill(self,"outerContext", [], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -73,7 +73,7 @@ selector: "outerContext:",
 fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@outerContext"]=anAIContext;
-return self}, function($ctx1) {$ctx1.fill(self,"outerContext:", [anAIContext], smalltalk.AIContext)})}
+return self}, function($ctx1) {$ctx1.fill(self,"outerContext:", [anAIContext], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -92,7 +92,7 @@ $1=self["@pc"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pc", [], smalltalk.AIContext)})}
+}, function($ctx1) {$ctx1.fill(self,"pc", [], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -103,7 +103,7 @@ selector: "pc:",
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@pc"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"pc:", [anInteger], smalltalk.AIContext)})}
+return self}, function($ctx1) {$ctx1.fill(self,"pc:", [anInteger], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -116,7 +116,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@receiver"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"receiver", [], smalltalk.AIContext)})}
+}, function($ctx1) {$ctx1.fill(self,"receiver", [], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -127,7 +127,7 @@ selector: "receiver:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@receiver"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"receiver:", [anObject], smalltalk.AIContext)})}
+return self}, function($ctx1) {$ctx1.fill(self,"receiver:", [anObject], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -140,7 +140,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@selector"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector", [], smalltalk.AIContext)})}
+}, function($ctx1) {$ctx1.fill(self,"selector", [], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -151,7 +151,7 @@ selector: "selector:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@selector"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"selector:", [aString], smalltalk.AIContext)})}
+return self}, function($ctx1) {$ctx1.fill(self,"selector:", [aString], {}, smalltalk.AIContext)})}
 }),
 smalltalk.AIContext);
 
@@ -168,7 +168,7 @@ _st($2)._initializeFromMethodContext_(aMethodContext);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromMethodContext:", [aMethodContext], smalltalk.AIContext.klass)})}
+}, function($ctx1) {$ctx1.fill(self,"fromMethodContext:", [aMethodContext], {}, smalltalk.AIContext.klass)})}
 }),
 smalltalk.AIContext.klass);
 
@@ -189,7 +189,7 @@ $1=self["@context"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context", [], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"context", [], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -200,7 +200,7 @@ selector: "context:",
 fn: function (anAIContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@context"]=anAIContext;
-return self}, function($ctx1) {$ctx1.fill(self,"context:", [anAIContext], smalltalk.ASTInterpreter)})}
+return self}, function($ctx1) {$ctx1.fill(self,"context:", [anAIContext], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -213,7 +213,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.Compiler || Compiler))._new())._eval_(_st(_st("(function() { ").__comma(aString)).__comma(" })()"));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"eval:", [aString], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"eval:", [aString], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -225,7 +225,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.NodeVisitor.fn.prototype._initialize.apply(_st(self), []);
 self["@shouldReturn"]=false;
-return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], smalltalk.ASTInterpreter)})}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -239,7 +239,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 self["@shouldReturn"]=false;
 $1=_st(self)._interpretNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"interpret:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -253,7 +253,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 self["@currentNode"]=aNode;
 $1=_st(self)._visit_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpretNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"interpretNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -272,7 +272,7 @@ return smalltalk.withContext(function($ctx2) {return _st(self)._interpretNode_(
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:", [aSendNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:", [aSendNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -287,7 +287,7 @@ $1=(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._interpretNode_(_st(_st(aNode)._nodes())._first());
 }, function($ctx2) {$ctx2.fill(null, null, {})})});
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -305,7 +305,7 @@ return smalltalk.withContext(function($ctx2) {return _st(_st(self)._messageFrom
 }, function($ctx2) {$ctx2.fill(null, null, {})})}));
 $1=_st(_st(self)._messageFromSendNode_(_st(_st(aNode)._nodes())._last()))._sendTo_(receiver);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:", [aNode], {receiver:receiver}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -318,7 +318,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(aNode)._value());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -332,7 +332,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 self["@shouldReturn"]=true;
 $1=_st(self)._eval_(_st(aNode)._source());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -346,7 +346,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 self["@shouldReturn"]=true;
 $1=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._first());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -359,7 +359,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._messageFromSendNode_(aNode))._sendTo_(_st(self)._interpretNode_(_st(aNode)._receiver()));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -374,6 +374,7 @@ var $early={};
 try {
 $1=_st(_st(aNode)._nodes())._allButLast();
 $2=(function(each){
+var value;
 return smalltalk.withContext(function($ctx2) {value=_st(self)._interpretNode_(each);
 value;
 $3=self["@shouldReturn"];
@@ -387,7 +388,7 @@ $5=_st(self)._interpretNode_(_st(_st(aNode)._nodes())._last());
 return $5;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 
@@ -400,7 +401,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aNode)._value();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitValueNode:", [aNode], smalltalk.ASTInterpreter)})}
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:", [aNode], {}, smalltalk.ASTInterpreter)})}
 }),
 smalltalk.ASTInterpreter);
 

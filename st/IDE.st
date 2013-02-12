@@ -1311,10 +1311,25 @@ TabWidget subclass: #Debugger
 
 !Debugger methodsFor: 'accessing'!
 
+allVariables
+	| all |
+	all := Dictionary new.
+
+	self arguments withIndexDo: [:each :index |
+     	all at: each put: (selectedContext arguments at: index) ].
+	self receiver class allInstanceVariableNames do: [:each |
+		all at: each put: (self receiver instVarAt: each) ].
+    
+    selectedContext locals keysAndValuesDo: [ :key :value |
+    	all at: key put: value ].
+    
+    ^ all
+!
+
 arguments
 	^self method 
-		ifNil: [selectedContext temps collect: [:each | nil]]
-		ifNotNil: [self method arguments]
+		ifNil: [selectedContext arguments collect: [ :each | nil ] ]
+		ifNotNil: [ self method arguments ]
 !
 
 error
@@ -1374,6 +1389,7 @@ selectContext: aContext
 !
 
 selectVariable: anObject named: aString
+    
 	selectedVariable := anObject.
 	selectedVariableName := aString.
 	inspector contents: [:html | html with: anObject printString].
@@ -1495,27 +1511,22 @@ updateStatus
 !
 
 updateVariablesList
-	ul2 contents: [:html | | li |
+	ul2 contents: [ :html | | li |
 		li := html li 
 			with: 'self';
-			onClick: [self selectVariable: self receiver named: 'self'].
-                selectedVariableName = 'self' ifTrue: [
-			li class: 'selected'].
-                self arguments withIndexDo: [:each :index | | param |
-                        param := selectedContext temps at: index.
+			onClick: [ self selectVariable: self receiver named: 'self' ].
+                selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].
+        
+        self allVariables keysAndValuesDo: [:key :value |
                         li := html li 
-				with: each;
-				onClick: [self selectVariable: param named: each].
-                         selectedVariableName = each ifTrue: [
-				li class: 'selected']].
-                self receiver class allInstanceVariableNames do: [:each | | ivar |
-                        ivar := self receiver instVarAt: each.
-                        li := html li 
-				with: each;
-				onClick: [self selectVariable: ivar named: each].
-                         selectedVariableName = each ifTrue: [
-				li class: 'selected']]].
-	selectedVariable ifNil: [inspectButton at: 'disabled' put: true] ifNotNil: [inspectButton removeAt: 'disabled']
+							with: key;
+							onClick: [ self selectVariable: value named: key ].
+                        selectedVariableName = key ifTrue: [
+							li class: 'selected' ] ] ].
+                            
+	selectedVariable 
+    	ifNil: [ inspectButton at: 'disabled' put: true ] 
+        ifNotNil: [ inspectButton removeAt: 'disabled' ]
 ! !
 
 TabWidget subclass: #IDETranscript

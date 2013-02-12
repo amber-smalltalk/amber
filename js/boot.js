@@ -728,16 +728,16 @@ function SmalltalkMethodContext(home, setup) {
     this.setup       = setup || function() {};
     this.pc          = 0;
     this.locals      = {};
+    this.args        = [];
 }
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, // locals,
-                                                 lookupClass) {
+SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, locals, lookupClass) {
     this.receiver    = receiver;
     this.selector    = selector;
     this.args        = args || [];
-    this.locals      = /*locals ||*/ {};
+    this.locals      = locals || {};
     this.lookupClass = lookupClass;
 };
 

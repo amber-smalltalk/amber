@@ -129,6 +129,12 @@ asJavascript
 
 asString
 	^self printString
+!
+
+test
+	| a |
+    a := 1.
+    self halt
 ! !
 
 !Object methodsFor: 'copying'!
@@ -682,8 +688,9 @@ jsObject: aJSObject
 
 keysAndValuesDo: aBlock
 	<
-    	for(var i in self['@jsObject']) {
-			aBlock._value_(i, self['@jsObject'][i]);
+    	var o = self['@jsObject'];
+    	for(var i in o) {
+			aBlock(i, o[i]);
 		}
     >
 ! !

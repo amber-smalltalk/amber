@@ -415,6 +415,11 @@ scope: aScope
 
 sequence
 	^ self instructions last
+!
+
+tempDeclarations
+	^ self instructions select: [ :each | 
+    	each isTempDeclaration ]
 ! !
 
 !IRClosure methodsFor: 'testing'!
@@ -881,6 +886,8 @@ visitIRAssignment: anIRAssignment
 visitIRClosure: anIRClosure
 	self stream 
 		nextPutClosureWith: [ 
+        	self stream nextPutVars: (anIRClosure tempDeclarations collect: [ :each |
+    				each name asVariableName ]).
         	self stream 
             	nextPutBlockContextFor: anIRClosure
                 during: [ super visitIRClosure: anIRClosure ] ]
@@ -1042,13 +1049,26 @@ nextPutContextFor: aMethod during: aBlock
     	nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; 
         nextPutAll: String cr.
     aBlock value.
+    
     self 
     	nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias; 
         nextPutAll: '.fill(self,', aMethod selector asJavascript, ', ['.
+    
     aMethod arguments 
     	do: [ :each | self nextPutAll: each asVariableName ]
       	separatedBy: [ self nextPutAll: ','  ].
-    self nextPutAll: '], ';
+    self nextPutAll: '], {'.
+    
+    aMethod tempDeclarations 
+    	do: [ :each |
+    		self 
+        		nextPutAll: each name asVariableName;
+           	 	nextPutAll: ':';
+        		nextPutAll: each name asVariableName]
+		separatedBy: [ self nextPutAll: ',' ].
+    
+    self
+    	nextPutAll: '}, ';
         nextPutAll: aMethod theClass asJavascript;
         nextPutAll: ')})'
 !

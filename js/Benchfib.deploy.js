@@ -10,7 +10,7 @@ var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { result=_st((0))._tinyBenchmarks();
 _st(console)._log_(_st("0 tinyBenchmarks => ").__comma(result));
-return self}, function($ctx1) {$ctx1.fill(self,"main", [], smalltalk.Benchfib.klass)})}
+return self}, function($ctx1) {$ctx1.fill(self,"main", [], {result:result}, smalltalk.Benchfib.klass)})}
 }),
 smalltalk.Benchfib.klass);
 
@@ -29,7 +29,7 @@ $1=(1);
 $1=_st(_st(_st(_st(self).__minus((1)))._benchFib()).__plus(_st(_st(self).__minus((2)))._benchFib())).__plus((1));
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"benchFib", [], smalltalk.Number)})}
+}, function($ctx1) {$ctx1.fill(self,"benchFib", [], {}, smalltalk.Number)})}
 }),
 smalltalk.Number);
 
@@ -75,7 +75,7 @@ return _st((1))._to_do_($3,$4);
 _st((1))._to_do_($1,$2);
 $6=count;
 return $6;
-}, function($ctx1) {$ctx1.fill(self,"benchmark", [], smalltalk.Number)})}
+}, function($ctx1) {$ctx1.fill(self,"benchmark", [], {size:size,flags:flags,prime:prime,k:k,count:count}, smalltalk.Number)})}
 }),
 smalltalk.Number);
 
@@ -89,7 +89,7 @@ return smalltalk.withContext(function($ctx1) { if (this < 2) {
 return 1;
 } else {
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
-return self}, function($ctx1) {$ctx1.fill(self,"jsbenchFib", [], smalltalk.Number)})}
+return self}, function($ctx1) {$ctx1.fill(self,"jsbenchFib", [], {}, smalltalk.Number)})}
 }),
 smalltalk.Number);
 
@@ -121,7 +121,7 @@ for (var z=0;z<this;z++) {
   }
 }
 return count;
-return self}, function($ctx1) {$ctx1.fill(self,"jsbenchmark", [], smalltalk.Number)})}
+return self}, function($ctx1) {$ctx1.fill(self,"jsbenchmark", [], {}, smalltalk.Number)})}
 }),
 smalltalk.Number);
 
@@ -158,7 +158,7 @@ return n2;
 }, function($ctx2) {$ctx2.fill(null, null, {})})}));
 $1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"jstinyBenchmarks", [], smalltalk.Number)})}
+}, function($ctx1) {$ctx1.fill(self,"jstinyBenchmarks", [], {t1:t1,t2:t2,r:r,n1:n1,n2:n2}, smalltalk.Number)})}
 }),
 smalltalk.Number);
 
@@ -195,7 +195,7 @@ return n2;
 }, function($ctx2) {$ctx2.fill(null, null, {})})}));
 $1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"tinyBenchmarks", [], smalltalk.Number)})}
+}, function($ctx1) {$ctx1.fill(self,"tinyBenchmarks", [], {t1:t1,t2:t2,r:r,n1:n1,n2:n2}, smalltalk.Number)})}
 }),
 smalltalk.Number);
 
