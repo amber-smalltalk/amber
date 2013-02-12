@@ -1336,7 +1336,7 @@ smalltalk.ClassCategoryReader);
 
 
 
-smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel-Classes');
+smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class'], 'Kernel-Classes');
 smalltalk.ClassCommentReader.comment="ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.\x0aSee `ClassCategoryReader` too."
 smalltalk.addMethod(
 "_class_",
@@ -1362,12 +1362,11 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
-self["@chunkParser"]=smalltalk.send((smalltalk.ChunkParser || ChunkParser),"_new",[]);
 return self},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09chunkParser := ChunkParser new.",
-messageSends: ["initialize", "new"],
-referencedClasses: ["ChunkParser"]
+source: "initialize\x0a\x09super initialize.",
+messageSends: ["initialize"],
+referencedClasses: []
 }),
 smalltalk.ClassCommentReader);
 

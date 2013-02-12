@@ -488,7 +488,7 @@ compileMethod: aString
 ! !
 
 Object subclass: #ClassCommentReader
-	instanceVariableNames: 'class chunkParser'
+	instanceVariableNames: 'class'
 	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
 ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
@@ -513,7 +513,6 @@ scanFrom: aChunkParser
 
 initialize
 	super initialize.
-	chunkParser := ChunkParser new.
 ! !
 
 !ClassCommentReader methodsFor: 'private'!
