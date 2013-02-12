@@ -491,7 +491,7 @@ Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class'
 	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
-ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
+ClassCommentReader represents a mechanism for retrieving class comments stored on a file.
 See `ClassCategoryReader` too.!
 
 !ClassCommentReader methodsFor: 'accessing'!
