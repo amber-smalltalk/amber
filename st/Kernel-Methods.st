@@ -373,6 +373,10 @@ locals
 	<return self.locals>
 !
 
+method
+	^self methodContext receiver class lookupSelector: self methodContext selector
+!
+
 methodContext
 	self isBlockContext ifFalse: [ ^ self ].
     

@@ -1069,6 +1069,24 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
+"_method",
+smalltalk.method({
+selector: "method",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(_st(self)._methodContext())._receiver())._class())._lookupSelector_(_st(_st(self)._methodContext())._selector());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method", [], {}, smalltalk.MethodContext)})},
+args: [],
+source: "method\x0a\x09^self methodContext receiver class lookupSelector: self methodContext selector",
+messageSends: ["lookupSelector:", "selector", "methodContext", "class", "receiver"],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
 "_methodContext",
 smalltalk.method({
 selector: "methodContext",

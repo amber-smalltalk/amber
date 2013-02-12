@@ -779,6 +779,19 @@ return self}, function($ctx1) {$ctx1.fill(self,"locals", [], {}, smalltalk.Metho
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
+"_method",
+smalltalk.method({
+selector: "method",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(_st(self)._methodContext())._receiver())._class())._lookupSelector_(_st(_st(self)._methodContext())._selector());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method", [], {}, smalltalk.MethodContext)})}
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
 "_methodContext",
 smalltalk.method({
 selector: "methodContext",

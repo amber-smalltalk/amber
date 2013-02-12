@@ -1345,7 +1345,7 @@ label
 !
 
 method
-	^selectedContext receiver class lookupSelector: selectedContext selector
+	^selectedContext method
 !
 
 receiver

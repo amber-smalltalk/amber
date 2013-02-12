@@ -3060,7 +3060,7 @@ selector: "method",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self["@selectedContext"])._receiver())._class())._lookupSelector_(_st(self["@selectedContext"])._selector());
+$1=_st(self["@selectedContext"])._method();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method", [], {}, smalltalk.Debugger)})}
 }),
