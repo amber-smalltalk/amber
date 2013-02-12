@@ -180,8 +180,8 @@ testLogicKeywords
 !
 
 testNonBooleanError
-	|b|
-    b := < '' >.
+	|nonBoolean|
+    nonBoolean := < '' >.
     self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
 ! !
 

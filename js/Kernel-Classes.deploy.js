@@ -940,7 +940,7 @@ smalltalk.ClassBuilder);
 
 
 
-smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel-Classes');
+smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category'], 'Kernel-Classes');
 smalltalk.addMethod(
 "_class_category_",
 smalltalk.method({
@@ -971,7 +971,6 @@ selector: "initialize",
 fn: function (){
 var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
-self["@chunkParser"]=smalltalk.send((smalltalk.ChunkParser || ChunkParser),"_new",[]);
 return self}
 }),
 smalltalk.ClassCategoryReader);
@@ -997,7 +996,7 @@ smalltalk.ClassCategoryReader);
 
 
 
-smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class', 'chunkParser'], 'Kernel-Classes');
+smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class'], 'Kernel-Classes');
 smalltalk.addMethod(
 "_class_",
 smalltalk.method({
@@ -1016,7 +1015,6 @@ selector: "initialize",
 fn: function (){
 var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
-self["@chunkParser"]=smalltalk.send((smalltalk.ChunkParser || ChunkParser),"_new",[]);
 return self}
 }),
 smalltalk.ClassCommentReader);

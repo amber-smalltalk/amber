@@ -13,6 +13,17 @@ return self}
 smalltalk.Error);
 
 smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+smalltalk.send(self,"_messageText_",[smalltalk.send("Errorclass: ","__comma",[smalltalk.send(smalltalk.send(self,"_class",[]),"_name",[])])]);
+return self}
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
 "_isSmalltalkError",
 smalltalk.method({
 selector: "isSmalltalkError",
