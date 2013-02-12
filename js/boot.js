@@ -741,11 +741,11 @@ SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, local
     this.lookupClass = lookupClass;
 };
 
-SmalltalkMethodContext.prototype.fillBlock = function() {
+SmalltalkMethodContext.prototype.fillBlock = function(args, locals) {
     this.receiver    = null;
     this.selector    = null;
-    this.args        = [];
-    this.locals      = {};
+    this.args        = args || [];
+    this.locals      = locals || {};
     this.lookupClass = null;
 };
 
