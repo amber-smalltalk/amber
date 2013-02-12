@@ -1031,7 +1031,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
     aBlock value.
     self 
     	nextPutAll: '}, function(', anIRClosure scope alias, ') {';
-        nextPutAll: anIRClosure scope alias, '.fill(null, null, {})})'
+        nextPutAll: anIRClosure scope alias, '.fillBlock()})'
 !
 
 nextPutClosureWith: aBlock arguments: anArray

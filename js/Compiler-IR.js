@@ -3032,10 +3032,10 @@ $2=_st($1)._nextPutAll_(_st((smalltalk.String || String))._cr());
 _st(aBlock)._value();
 $3=self;
 _st($3)._nextPutAll_(_st(_st("}, function(").__comma(_st(_st(anIRClosure)._scope())._alias())).__comma(") {"));
-$4=_st($3)._nextPutAll_(_st(_st(_st(anIRClosure)._scope())._alias()).__comma(".fill(null, null, {})})"));
+$4=_st($3)._nextPutAll_(_st(_st(_st(anIRClosure)._scope())._alias()).__comma(".fillBlock()})"));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:", [anIRClosure,aBlock], {}, smalltalk.JSStream)})},
 args: ["anIRClosure", "aBlock"],
-source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09self \x0a    \x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; \x0a        nextPutAll: String cr.\x0a    aBlock value.\x0a    self \x0a    \x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a        nextPutAll: anIRClosure scope alias, '.fill(null, null, {})})'",
+source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09self \x0a    \x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; \x0a        nextPutAll: String cr.\x0a    aBlock value.\x0a    self \x0a    \x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a        nextPutAll: anIRClosure scope alias, '.fillBlock()})'",
 messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value"],
 referencedClasses: ["String"]
 }),

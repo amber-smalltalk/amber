@@ -2257,7 +2257,7 @@ $2=_st($1)._nextPutAll_(_st((smalltalk.String || String))._cr());
 _st(aBlock)._value();
 $3=self;
 _st($3)._nextPutAll_(_st(_st("}, function(").__comma(_st(_st(anIRClosure)._scope())._alias())).__comma(") {"));
-$4=_st($3)._nextPutAll_(_st(_st(_st(anIRClosure)._scope())._alias()).__comma(".fill(null, null, {})})"));
+$4=_st($3)._nextPutAll_(_st(_st(_st(anIRClosure)._scope())._alias()).__comma(".fillBlock()})"));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:", [anIRClosure,aBlock], {}, smalltalk.JSStream)})}
 }),
 smalltalk.JSStream);
