@@ -741,6 +741,14 @@ SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, local
     this.lookupClass = lookupClass;
 };
 
+SmalltalkMethodContext.prototype.fillBlock = function() {
+    this.receiver    = null;
+    this.selector    = null;
+    this.args        = [];
+    this.locals      = {};
+    this.lookupClass = null;
+};
+
 SmalltalkMethodContext.prototype.init = function() {
 	var home = this.homeContext;
 	if(home) {home = home.init()}
