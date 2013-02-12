@@ -357,12 +357,6 @@ ScopeVar subclass: #TempVar
 !TempVar commentStamp!
 I am an temporary variable of a method or block.!
 
-!TempVar methodsFor: 'accessing'!
-
-alias
-	^ self scope alias, '.locals.', super alias
-! !
-
 !TempVar methodsFor: 'testing'!
 
 isTempVar

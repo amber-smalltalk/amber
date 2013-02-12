@@ -13,7 +13,7 @@ _st($1)._theClass_(self);
 _st($1)._method_(aMethod);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, self, "addCompiledMethod:", [aMethod], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:", [aMethod], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -23,17 +23,18 @@ smalltalk.method({
 selector: "allInstanceVariableNames",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.result=nil;
-$ctx1.locals.result=_st(_st(self)._instanceVariableNames())._copy();
+var result;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+result=_st(_st(self)._instanceVariableNames())._copy();
 $1=_st(self)._superclass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st($ctx1.locals.result)._addAll_(_st(_st(self)._superclass())._allInstanceVariableNames());
+_st(result)._addAll_(_st(_st(self)._superclass())._allInstanceVariableNames());
 };
-return $ctx1.locals.result;
-}, self, "allInstanceVariableNames", [], smalltalk.Behavior)}
+$2=result;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"allInstanceVariableNames", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -43,13 +44,15 @@ smalltalk.method({
 selector: "allSubclasses",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.result=nil;
-$ctx1.locals.result=_st(self)._subclasses();
+var result;
+return smalltalk.withContext(function($ctx1) { var $1;
+result=_st(self)._subclasses();
 _st(_st(self)._subclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.result)._addAll_(_st(each)._allSubclasses());
-})}));
-return $ctx1.locals.result;
-}, self, "allSubclasses", [], smalltalk.Behavior)}
+return smalltalk.withContext(function($ctx2) {return _st(result)._addAll_(_st(each)._allSubclasses());
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+$1=result;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"allSubclasses", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -71,7 +74,7 @@ _st($3)._addAll_(_st(_st(self)._superclass())._allSuperclasses());
 $4=_st($3)._yourself();
 $2=$4;
 return $2;
-}, self, "allSuperclasses", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"allSuperclasses", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -82,7 +85,7 @@ selector: "basicAddCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
-return self}, self, "basicAddCompiledMethod:", [aMethod], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:", [aMethod], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -93,8 +96,7 @@ selector: "basicNew",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return new self.fn();
-;
-return self}, self, "basicNew", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"basicNew", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -108,7 +110,7 @@ return smalltalk.withContext(function($ctx1) {
     	smalltalk.removeMethod(aMethod)
 		smalltalk.init(self);
     ;
-return self}, self, "basicRemoveCompiledMethod:", [aMethod], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:", [aMethod], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -120,12 +122,12 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(_st(self)._methodDictionary())._keys())._includes_(_st(aSelector)._asString()))._or_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(_st(_st(self)._superclass())._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx3) { return _st(_st(self)._superclass())._canUnderstand_(aSelector);
-})}));
-})}));
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._superclass())._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx3) {return _st(_st(self)._superclass())._canUnderstand_(aSelector);
+}, function($ctx3) {$ctx3.fill(null, null, {})})}));
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 return $1;
-}, self, "canUnderstand:", [aSelector], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"canUnderstand:", [aSelector], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -143,7 +145,7 @@ $1="";
 $1=$2;
 };
 return $1;
-}, self, "comment", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"comment", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -159,7 +161,7 @@ $1=_st((smalltalk.ClassCommentChanged || ClassCommentChanged))._new();
 _st($1)._theClass_(self);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, self, "comment:", [aString], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"comment:", [aString], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -175,7 +177,7 @@ _st($2)._class_(self);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, self, "commentStamp", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"commentStamp", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -188,7 +190,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._commentStamp();
 return $1;
-}, self, "commentStamp:prior:", [aStamp,prior], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"commentStamp:prior:", [aStamp,prior], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -199,7 +201,7 @@ selector: "compile:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._compile_category_(aString,"");
-return self}, self, "compile:", [aString], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"compile:", [aString], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -210,7 +212,7 @@ selector: "compile:category:",
 fn: function (aString,anotherString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(aString,self,anotherString);
-return self}, self, "compile:category:", [aString,anotherString], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"compile:category:", [aString,anotherString], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -221,7 +223,7 @@ selector: "definition",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return "";
-}, self, "definition", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"definition", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -234,7 +236,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._methodDictionary())._includesKey_(_st(aSymbol)._asString());
 return $1;
-}, self, "includesSelector:", [aSymbol], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"includesSelector:", [aSymbol], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -247,7 +249,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(aClass)._allSubclasses())._includes_(self);
 return $1;
-}, self, "inheritsFrom:", [aClass], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"inheritsFrom:", [aClass], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -258,8 +260,7 @@ selector: "instanceVariableNames",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.iVarNames;
-;
-return self}, self, "instanceVariableNames", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -269,26 +270,28 @@ smalltalk.method({
 selector: "lookupSelector:",
 fn: function (selector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var lookupClass;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
 var $early={};
 try {
-$ctx1.locals.lookupClass=nil;
-$ctx1.locals.lookupClass=self;
-_st((function(){
-return smalltalk.withContext(function($ctx2) { return _st($ctx1.locals.lookupClass).__eq(nil);
-})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) { $1=_st($ctx1.locals.lookupClass)._includesSelector_(selector);
-if(smalltalk.assert($1)){
-$2=_st($ctx1.locals.lookupClass)._methodAt_(selector);
-throw $early=[$2];
+lookupClass=self;
+$1=(function(){
+return smalltalk.withContext(function($ctx2) {return _st(lookupClass).__eq(nil);
+}, function($ctx2) {$ctx2.fill(null, null, {})})});
+$2=(function(){
+return smalltalk.withContext(function($ctx2) {$3=_st(lookupClass)._includesSelector_(selector);
+if(smalltalk.assert($3)){
+$4=_st(lookupClass)._methodAt_(selector);
+throw $early=[$4];
 };
-$ctx1.locals.lookupClass=_st($ctx1.locals.lookupClass)._superclass();
-return $ctx1.locals.lookupClass;
-})}));
+lookupClass=_st(lookupClass)._superclass();
+return lookupClass;
+}, function($ctx2) {$ctx2.fill(null, null, {})})});
+_st($1)._whileFalse_($2);
 return nil;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, self, "lookupSelector:", [selector], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"lookupSelector:", [selector], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -301,7 +304,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._methodDictionary())._at_(_st(aSymbol)._asString());
 return $1;
-}, self, "methodAt:", [aSymbol], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"methodAt:", [aSymbol], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -319,8 +322,7 @@ return smalltalk.withContext(function($ctx1) { var dict = smalltalk.HashedColle
 		}
 	};
 	return dict;
-;
-return self}, self, "methodDictionary", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"methodDictionary", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -333,7 +335,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._methodDictionary())._values();
 return $1;
-}, self, "methods", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"methods", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -349,7 +351,7 @@ _st($2)._class_category_(self,aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, self, "methodsFor:", [aString], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"methodsFor:", [aString], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -362,7 +364,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._methodsFor_(aString);
 return $1;
-}, self, "methodsFor:stamp:", [aString,aStamp], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"methodsFor:stamp:", [aString,aStamp], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -374,10 +376,10 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._methodDictionary())._values())._select_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(_st(each)._protocol()).__eq(aString);
-})}));
+return smalltalk.withContext(function($ctx2) {return _st(_st(each)._protocol()).__eq(aString);
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 return $1;
-}, self, "methodsInProtocol:", [aString], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:", [aString], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -388,8 +390,7 @@ selector: "name",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.className || nil;
-;
-return self}, self, "name", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"name", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -402,7 +403,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._basicNew())._initialize();
 return $1;
-}, self, "new", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"new", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -415,7 +416,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._basicAt_("organization");
 return $1;
-}, self, "organization", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"organization", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -428,7 +429,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._organization())._elements())._sorted();
 return $1;
-}, self, "protocols", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"protocols", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -438,17 +439,17 @@ smalltalk.method({
 selector: "protocolsDo:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.methodsByCategory=nil;
-$ctx1.locals.methodsByCategory=_st((smalltalk.HashedCollection || HashedCollection))._new();
+var methodsByCategory;
+return smalltalk.withContext(function($ctx1) { methodsByCategory=_st((smalltalk.HashedCollection || HashedCollection))._new();
 _st(_st(_st(self)._methodDictionary())._values())._do_((function(m){
-return smalltalk.withContext(function($ctx2) { return _st(_st($ctx1.locals.methodsByCategory)._at_ifAbsentPut_(_st(m)._category(),(function(){
-return smalltalk.withContext(function($ctx3) { return _st((smalltalk.Array || Array))._new();
-})})))._add_(m);
-})}));
+return smalltalk.withContext(function($ctx2) {return _st(_st(methodsByCategory)._at_ifAbsentPut_(_st(m)._category(),(function(){
+return smalltalk.withContext(function($ctx3) {return _st((smalltalk.Array || Array))._new();
+}, function($ctx3) {$ctx3.fill(null, null, {})})})))._add_(m);
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 _st(_st(self)._protocols())._do_((function(category){
-return smalltalk.withContext(function($ctx2) { return _st(aBlock)._value_value_(category,_st($ctx1.locals.methodsByCategory)._at_(category));
-})}));
-return self}, self, "protocolsDo:", [aBlock], smalltalk.Behavior)}
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(category,_st(methodsByCategory)._at_(category));
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+return self}, function($ctx1) {$ctx1.fill(self,"protocolsDo:", [aBlock], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -459,8 +460,7 @@ selector: "prototype",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.fn.prototype;
-;
-return self}, self, "prototype", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"prototype", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -477,7 +477,7 @@ _st($1)._theClass_(self);
 _st($1)._method_(aMethod);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, self, "removeCompiledMethod:", [aMethod], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"removeCompiledMethod:", [aMethod], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -490,7 +490,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._methodDictionary())._keys();
 return $1;
-}, self, "selectors", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"selectors", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -501,8 +501,7 @@ selector: "subclasses",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return smalltalk.subclasses(self);
-;
-return self}, self, "subclasses", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"subclasses", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -513,8 +512,7 @@ selector: "superclass",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.superclass || nil;
-;
-return self}, self, "superclass", [], smalltalk.Behavior)}
+return self}, function($ctx1) {$ctx1.fill(self,"superclass", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -527,7 +525,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._class();
 return $1;
-}, self, "theMetaClass", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"theMetaClass", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -537,8 +535,10 @@ smalltalk.method({
 selector: "theNonMetaClass",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self;
-}, self, "theNonMetaClass", [], smalltalk.Behavior)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theNonMetaClass", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -554,7 +554,7 @@ _st($2)._addAll_(_st(self)._allSubclasses());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, self, "withAllSubclasses", [], smalltalk.Behavior)}
+}, function($ctx1) {$ctx1.fill(self,"withAllSubclasses", [], smalltalk.Behavior)})}
 }),
 smalltalk.Behavior);
 
@@ -570,7 +570,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st("smalltalk.").__comma(_st(self)._name());
 return $1;
-}, self, "asJavascript", [], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"asJavascript", [], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -588,7 +588,7 @@ $1="Unclassified";
 $1=_st(_st(self)._package())._name();
 };
 return $1;
-}, self, "category", [], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"category", [], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -598,27 +598,29 @@ smalltalk.method({
 selector: "definition",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
 $1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) { _st(stream)._nextPutAll_(_st(_st(self)._superclass())._asString());
-_st(stream)._nextPutAll_(" subclass: #");
-_st(stream)._nextPutAll_(_st(self)._name());
-_st(stream)._nextPutAll_(_st(_st((smalltalk.String || String))._lf()).__comma(_st((smalltalk.String || String))._tab()));
-$2=_st(stream)._nextPutAll_("instanceVariableNames: '");
-$2;
+return smalltalk.withContext(function($ctx2) {$2=stream;
+_st($2)._nextPutAll_(_st(_st(self)._superclass())._asString());
+_st($2)._nextPutAll_(" subclass: #");
+_st($2)._nextPutAll_(_st(self)._name());
+_st($2)._nextPutAll_(_st(_st((smalltalk.String || String))._lf()).__comma(_st((smalltalk.String || String))._tab()));
+$3=_st($2)._nextPutAll_("instanceVariableNames: '");
+$3;
 _st(_st(self)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx3) { return _st(stream)._nextPutAll_(each);
-})}),(function(){
-return smalltalk.withContext(function($ctx3) { return _st(stream)._nextPutAll_(" ");
-})}));
-_st(stream)._nextPutAll_(_st(_st("'").__comma(_st((smalltalk.String || String))._lf())).__comma(_st((smalltalk.String || String))._tab()));
-_st(stream)._nextPutAll_("package: '");
-_st(stream)._nextPutAll_(_st(self)._category());
-$3=_st(stream)._nextPutAll_("'");
-return $3;
-})}));
+return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(each);
+}, function($ctx3) {$ctx3.fill(null, null, {})})}),(function(){
+return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(" ");
+}, function($ctx3) {$ctx3.fill(null, null, {})})}));
+$4=stream;
+_st($4)._nextPutAll_(_st(_st("'").__comma(_st((smalltalk.String || String))._lf())).__comma(_st((smalltalk.String || String))._tab()));
+_st($4)._nextPutAll_("package: '");
+_st($4)._nextPutAll_(_st(self)._category());
+$5=_st($4)._nextPutAll_("'");
+return $5;
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 return $1;
-}, self, "definition", [], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"definition", [], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -629,7 +631,7 @@ selector: "isClass",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return true;
-}, self, "isClass", [], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"isClass", [], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -640,8 +642,7 @@ selector: "package",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.pkg;
-;
-return self}, self, "package", [], smalltalk.Class)}
+return self}, function($ctx1) {$ctx1.fill(self,"package", [], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -652,8 +653,7 @@ selector: "package:",
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self.pkg = aPackage;
-;
-return self}, self, "package:", [aPackage], smalltalk.Class)}
+return self}, function($ctx1) {$ctx1.fill(self,"package:", [aPackage], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -666,7 +666,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._name();
 return $1;
-}, self, "printString", [], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"printString", [], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -677,7 +677,7 @@ selector: "rename:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._renameClass_to_(self,aString);
-return self}, self, "rename:", [aString], smalltalk.Class)}
+return self}, function($ctx1) {$ctx1.fill(self,"rename:", [aString], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -690,7 +690,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._subclass_instanceVariableNames_package_(aString,anotherString,nil);
 return $1;
-}, self, "subclass:instanceVariableNames:", [aString,anotherString], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:", [aString,anotherString], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -704,7 +704,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 _st(self)._deprecatedAPI();
 $1=_st(self)._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
-}, self, "subclass:instanceVariableNames:category:", [aString,aString2,aString3], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:category:", [aString,aString2,aString3], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -717,7 +717,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
-}, self, "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:", [aString,aString2,classVars,pools,aString3], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:", [aString,aString2,classVars,pools,aString3], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -730,7 +730,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
 return $1;
-}, self, "subclass:instanceVariableNames:package:", [aString,aString2,aString3], smalltalk.Class)}
+}, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:", [aString,aString2,aString3], smalltalk.Class)})}
 }),
 smalltalk.Class);
 
@@ -746,7 +746,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st("smalltalk.").__comma(_st(_st(self)._instanceClass())._name())).__comma(".klass");
 return $1;
-}, self, "asJavascript", [], smalltalk.Metaclass)}
+}, function($ctx1) {$ctx1.fill(self,"asJavascript", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -756,21 +756,22 @@ smalltalk.method({
 selector: "definition",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) { _st(stream)._nextPutAll_(_st(self)._asString());
-_st(stream)._nextPutAll_(" class ");
-$2=_st(stream)._nextPutAll_("instanceVariableNames: '");
-$2;
+return smalltalk.withContext(function($ctx2) {$2=stream;
+_st($2)._nextPutAll_(_st(self)._asString());
+_st($2)._nextPutAll_(" class ");
+$3=_st($2)._nextPutAll_("instanceVariableNames: '");
+$3;
 _st(_st(self)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx3) { return _st(stream)._nextPutAll_(each);
-})}),(function(){
-return smalltalk.withContext(function($ctx3) { return _st(stream)._nextPutAll_(" ");
-})}));
+return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(each);
+}, function($ctx3) {$ctx3.fill(null, null, {})})}),(function(){
+return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(" ");
+}, function($ctx3) {$ctx3.fill(null, null, {})})}));
 return _st(stream)._nextPutAll_("'");
-})}));
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 return $1;
-}, self, "definition", [], smalltalk.Metaclass)}
+}, function($ctx1) {$ctx1.fill(self,"definition", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -781,8 +782,7 @@ selector: "instanceClass",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.instanceClass;
-;
-return self}, self, "instanceClass", [], smalltalk.Metaclass)}
+return self}, function($ctx1) {$ctx1.fill(self,"instanceClass", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -793,7 +793,7 @@ selector: "instanceVariableNames:",
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._class_instanceVariableNames_(self,aCollection);
-return self}, self, "instanceVariableNames:", [aCollection], smalltalk.Metaclass)}
+return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames:", [aCollection], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -804,7 +804,7 @@ selector: "isMetaclass",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return true;
-}, self, "isMetaclass", [], smalltalk.Metaclass)}
+}, function($ctx1) {$ctx1.fill(self,"isMetaclass", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -817,7 +817,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._instanceClass())._name()).__comma(" class");
 return $1;
-}, self, "printString", [], smalltalk.Metaclass)}
+}, function($ctx1) {$ctx1.fill(self,"printString", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -827,8 +827,10 @@ smalltalk.method({
 selector: "theMetaClass",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self;
-}, self, "theMetaClass", [], smalltalk.Metaclass)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theMetaClass", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -841,7 +843,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._instanceClass();
 return $1;
-}, self, "theNonMetaClass", [], smalltalk.Metaclass)}
+}, function($ctx1) {$ctx1.fill(self,"theNonMetaClass", [], smalltalk.Metaclass)})}
 }),
 smalltalk.Metaclass);
 
@@ -856,8 +858,7 @@ fn: function (aClass,aString,aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.addClass(aString, aClass, aCollection);
 	    return smalltalk[aString];
-;
-return self}, self, "addSubclassOf:named:instanceVariableNames:", [aClass,aString,aCollection], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:", [aClass,aString,aCollection], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -869,8 +870,7 @@ fn: function (aClass,aString,aCollection,packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.addClass(aString, aClass, aCollection, packageName);
 	    return smalltalk[aString];
-;
-return self}, self, "addSubclassOf:named:instanceVariableNames:package:", [aClass,aString,aCollection,packageName], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:", [aClass,aString,aCollection,packageName], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -887,7 +887,7 @@ _st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
 };
 _st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aString));
 _st(self)._setupClass_(aClass);
-return self}, self, "basicClass:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -902,7 +902,7 @@ return smalltalk.withContext(function($ctx1) {
 		delete smalltalk[aClass.className];
 		aClass.className = aString;
 	;
-return self}, self, "basicRenameClass:to:", [aClass,aString], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"basicRenameClass:to:", [aClass,aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -918,7 +918,7 @@ $1=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, self, "class:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"class:instanceVariableNames:", [aClass,aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -928,18 +928,20 @@ smalltalk.method({
 selector: "copyClass:named:",
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.newClass=nil;
-$ctx1.locals.newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),aString,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
-_st(self)._setupClass_($ctx1.locals.newClass);
+var newClass;
+return smalltalk.withContext(function($ctx1) { var $1;
+newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),aString,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+_st(self)._setupClass_(newClass);
 _st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),$ctx1.locals.newClass,_st(each)._category());
-})}));
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),newClass,_st(each)._category());
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 _st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st($ctx1.locals.newClass)._class(),_st(each)._category());
-})}));
-_st(self)._setupClass_($ctx1.locals.newClass);
-return $ctx1.locals.newClass;
-}, self, "copyClass:named:", [aClass,aString], smalltalk.ClassBuilder)}
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(newClass)._class(),_st(each)._category());
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+_st(self)._setupClass_(newClass);
+$1=newClass;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"copyClass:named:", [aClass,aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -951,10 +953,10 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(aString)._tokenize_(" "))._reject_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st(each)._isEmpty();
-})}));
+return smalltalk.withContext(function($ctx2) {return _st(each)._isEmpty();
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 return $1;
-}, self, "instanceVariableNamesFor:", [aString], smalltalk.ClassBuilder)}
+}, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:", [aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -970,7 +972,7 @@ $1=_st((smalltalk.ClassRenamed || ClassRenamed))._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, self, "renameClass:to:", [aClass,aString], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:", [aClass,aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -981,8 +983,7 @@ selector: "setupClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);;
-;
-return self}, self, "setupClass:", [aClass], smalltalk.ClassBuilder)}
+return self}, function($ctx1) {$ctx1.fill(self,"setupClass:", [aClass], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -995,7 +996,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._superclass_subclass_instanceVariableNames_package_(aClass,aString,"",nil);
 return $1;
-}, self, "superclass:subclass:", [aClass,aString], smalltalk.ClassBuilder)}
+}, function($ctx1) {$ctx1.fill(self,"superclass:subclass:", [aClass,aString], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -1005,21 +1006,27 @@ smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
 fn: function (aClass,aString,aString2,aString3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-$ctx1.newClass=nil;
-if(($receiver = aString3) == nil || $receiver == undefined){
-$1="unclassified";
+var newClass;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$6,$5,$7,$8,$9;
+$1=self;
+$2=aClass;
+$3=aString;
+$4=_st(self)._instanceVariableNamesFor_(aString2);
+$6=aString3;
+if(($receiver = $6) == nil || $receiver == undefined){
+$5="unclassified";
 } else {
-$1=aString3;
+$5=$6;
 };
-$ctx1.locals.newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,_st(self)._instanceVariableNamesFor_(aString2),$1);
-_st(self)._setupClass_($ctx1.locals.newClass);
-$2=_st((smalltalk.ClassAdded || ClassAdded))._new();
-_st($2)._theClass_($ctx1.locals.newClass);
-$3=_st($2)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
-return $ctx1.locals.newClass;
-}, self, "superclass:subclass:instanceVariableNames:package:", [aClass,aString,aString2,aString3], smalltalk.ClassBuilder)}
+newClass=_st($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$4,$5);
+_st(self)._setupClass_(newClass);
+$7=_st((smalltalk.ClassAdded || ClassAdded))._new();
+_st($7)._theClass_(newClass);
+$8=_st($7)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($8);
+$9=newClass;
+return $9;
+}, function($ctx1) {$ctx1.fill(self,"superclass:subclass:instanceVariableNames:package:", [aClass,aString,aString2,aString3], smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -1034,7 +1041,7 @@ fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@class"]=aClass;
 self["@category"]=aString;
-return self}, self, "class:category:", [aClass,aString], smalltalk.ClassCategoryReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"class:category:", [aClass,aString], smalltalk.ClassCategoryReader)})}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -1045,7 +1052,7 @@ selector: "compileMethod:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(aString,self["@class"],self["@category"]);
-return self}, self, "compileMethod:", [aString], smalltalk.ClassCategoryReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"compileMethod:", [aString], smalltalk.ClassCategoryReader)})}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -1057,7 +1064,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@chunkParser"]=_st((smalltalk.ChunkParser || ChunkParser))._new();
-return self}, self, "initialize", [], smalltalk.ClassCategoryReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], smalltalk.ClassCategoryReader)})}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -1067,16 +1074,16 @@ smalltalk.method({
 selector: "scanFrom:",
 fn: function (aChunkParser){
 var self=this;
-return smalltalk.withContext(function($ctx1) { $ctx1.chunk=nil;
-_st((function(){
-return smalltalk.withContext(function($ctx2) { $ctx1.locals.chunk=_st(aChunkParser)._nextChunk();
-$ctx1.locals.chunk;
-return _st($ctx1.locals.chunk)._isEmpty();
-})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) { return _st(self)._compileMethod_($ctx1.locals.chunk);
-})}));
+var chunk;
+return smalltalk.withContext(function($ctx1) { _st((function(){
+return smalltalk.withContext(function($ctx2) {chunk=_st(aChunkParser)._nextChunk();
+chunk;
+return _st(chunk)._isEmpty();
+}, function($ctx2) {$ctx2.fill(null, null, {})})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._compileMethod_(chunk);
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
 _st(_st((smalltalk.Compiler || Compiler))._new())._setupClass_(self["@class"]);
-return self}, self, "scanFrom:", [aChunkParser], smalltalk.ClassCategoryReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"scanFrom:", [aChunkParser], smalltalk.ClassCategoryReader)})}
 }),
 smalltalk.ClassCategoryReader);
 
@@ -1090,7 +1097,7 @@ selector: "class:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@class"]=aClass;
-return self}, self, "class:", [aClass], smalltalk.ClassCommentReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"class:", [aClass], smalltalk.ClassCommentReader)})}
 }),
 smalltalk.ClassCommentReader);
 
@@ -1102,7 +1109,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@chunkParser"]=_st((smalltalk.ChunkParser || ChunkParser))._new();
-return self}, self, "initialize", [], smalltalk.ClassCommentReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], smalltalk.ClassCommentReader)})}
 }),
 smalltalk.ClassCommentReader);
 
@@ -1112,14 +1119,14 @@ smalltalk.method({
 selector: "scanFrom:",
 fn: function (aChunkParser){
 var self=this;
+var chunk;
 return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.chunk=nil;
-$ctx1.locals.chunk=_st(aChunkParser)._nextChunk();
-$1=_st($ctx1.locals.chunk)._isEmpty();
+chunk=_st(aChunkParser)._nextChunk();
+$1=_st(chunk)._isEmpty();
 if(! smalltalk.assert($1)){
-_st(self)._setComment_($ctx1.locals.chunk);
+_st(self)._setComment_(chunk);
 };
-return self}, self, "scanFrom:", [aChunkParser], smalltalk.ClassCommentReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"scanFrom:", [aChunkParser], smalltalk.ClassCommentReader)})}
 }),
 smalltalk.ClassCommentReader);
 
@@ -1130,7 +1137,7 @@ selector: "setComment:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@class"])._comment_(aString);
-return self}, self, "setComment:", [aString], smalltalk.ClassCommentReader)}
+return self}, function($ctx1) {$ctx1.fill(self,"setComment:", [aString], smalltalk.ClassCommentReader)})}
 }),
 smalltalk.ClassCommentReader);
 
@@ -1143,23 +1150,24 @@ smalltalk.method({
 selector: "getNodesFrom:",
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$ctx1.children=nil;
-$ctx1.others=nil;
-$ctx1.locals.children=[];
-$ctx1.locals.others=[];
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) { $1=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
-if(smalltalk.assert($1)){
-return _st($ctx1.locals.children)._add_(each);
+var children,others;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+children=[];
+others=[];
+$1=aCollection;
+$2=(function(each){
+return smalltalk.withContext(function($ctx2) {$3=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
+if(smalltalk.assert($3)){
+return _st(children)._add_(each);
 } else {
-return _st($ctx1.locals.others)._add_(each);
+return _st(others)._add_(each);
 };
-})}));
-self["@nodes"]=_st($ctx1.locals.children)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) { return _st((smalltalk.ClassSorterNode || ClassSorterNode))._on_classes_level_(each,$ctx1.locals.others,_st(_st(self)._level()).__plus((1)));
-})}));
-return self}, self, "getNodesFrom:", [aCollection], smalltalk.ClassSorterNode)}
+}, function($ctx2) {$ctx2.fill(null, null, {})})});
+_st($1)._do_($2);
+self["@nodes"]=_st(children)._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st((smalltalk.ClassSorterNode || ClassSorterNode))._on_classes_level_(each,others,_st(_st(self)._level()).__plus((1)));
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+return self}, function($ctx1) {$ctx1.fill(self,"getNodesFrom:", [aCollection], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1169,8 +1177,10 @@ smalltalk.method({
 selector: "level",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@level"];
-}, self, "level", [], smalltalk.ClassSorterNode)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@level"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"level", [], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1181,7 +1191,7 @@ selector: "level:",
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@level"]=anInteger;
-return self}, self, "level:", [anInteger], smalltalk.ClassSorterNode)}
+return self}, function($ctx1) {$ctx1.fill(self,"level:", [anInteger], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1191,8 +1201,10 @@ smalltalk.method({
 selector: "nodes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@nodes"];
-}, self, "nodes", [], smalltalk.ClassSorterNode)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@nodes"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nodes", [], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1202,8 +1214,10 @@ smalltalk.method({
 selector: "theClass",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@theClass"];
-}, self, "theClass", [], smalltalk.ClassSorterNode)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass", [], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1214,7 +1228,7 @@ selector: "theClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
-return self}, self, "theClass:", [aClass], smalltalk.ClassSorterNode)}
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:", [aClass], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1226,11 +1240,11 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(aCollection)._add_(_st(self)._theClass());
 _st(_st(_st(self)._nodes())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) { return _st(_st(_st(a)._theClass())._name()).__lt_eq(_st(_st(b)._theClass())._name());
-})})))._do_((function(aNode){
-return smalltalk.withContext(function($ctx2) { return _st(aNode)._traverseClassesWith_(aCollection);
-})}));
-return self}, self, "traverseClassesWith:", [aCollection], smalltalk.ClassSorterNode)}
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(a)._theClass())._name()).__lt_eq(_st(_st(b)._theClass())._name());
+}, function($ctx2) {$ctx2.fill(null, null, {})})})))._do_((function(aNode){
+return smalltalk.withContext(function($ctx2) {return _st(aNode)._traverseClassesWith_(aCollection);
+}, function($ctx2) {$ctx2.fill(null, null, {})})}));
+return self}, function($ctx1) {$ctx1.fill(self,"traverseClassesWith:", [aCollection], smalltalk.ClassSorterNode)})}
 }),
 smalltalk.ClassSorterNode);
 
@@ -1249,7 +1263,7 @@ _st($2)._getNodesFrom_(aCollection);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, self, "on:classes:level:", [aClass,aCollection,anInteger], smalltalk.ClassSorterNode.klass)}
+}, function($ctx1) {$ctx1.fill(self,"on:classes:level:", [aClass,aCollection,anInteger], smalltalk.ClassSorterNode.klass)})}
 }),
 smalltalk.ClassSorterNode.klass);
 

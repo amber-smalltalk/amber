@@ -21,7 +21,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(" Invalid assignment to variable: ").__comma(_st(self)._variableName());
 return $1;
-}, self, "messageText", [], smalltalk.InvalidAssignmentError)}
+}, function($ctx1) {$ctx1.fill(self,"messageText", [], smalltalk.InvalidAssignmentError)})}
 }),
 smalltalk.InvalidAssignmentError);
 
@@ -31,8 +31,10 @@ smalltalk.method({
 selector: "variableName",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@variableName"];
-}, self, "variableName", [], smalltalk.InvalidAssignmentError)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName", [], smalltalk.InvalidAssignmentError)})}
 }),
 smalltalk.InvalidAssignmentError);
 
@@ -43,7 +45,7 @@ selector: "variableName:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
-return self}, self, "variableName:", [aString], smalltalk.InvalidAssignmentError)}
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:", [aString], smalltalk.InvalidAssignmentError)})}
 }),
 smalltalk.InvalidAssignmentError);
 
@@ -59,7 +61,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st("Variable shadowing error: ").__comma(_st(self)._variableName())).__comma(" is already defined");
 return $1;
-}, self, "messageText", [], smalltalk.ShadowingVariableError)}
+}, function($ctx1) {$ctx1.fill(self,"messageText", [], smalltalk.ShadowingVariableError)})}
 }),
 smalltalk.ShadowingVariableError);
 
@@ -69,8 +71,10 @@ smalltalk.method({
 selector: "variableName",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@variableName"];
-}, self, "variableName", [], smalltalk.ShadowingVariableError)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName", [], smalltalk.ShadowingVariableError)})}
 }),
 smalltalk.ShadowingVariableError);
 
@@ -81,7 +85,7 @@ selector: "variableName:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
-return self}, self, "variableName:", [aString], smalltalk.ShadowingVariableError)}
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:", [aString], smalltalk.ShadowingVariableError)})}
 }),
 smalltalk.ShadowingVariableError);
 
@@ -94,8 +98,10 @@ smalltalk.method({
 selector: "variableName",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@variableName"];
-}, self, "variableName", [], smalltalk.UnknownVariableError)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName", [], smalltalk.UnknownVariableError)})}
 }),
 smalltalk.UnknownVariableError);
 
@@ -106,7 +112,7 @@ selector: "variableName:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
-return self}, self, "variableName:", [aString], smalltalk.UnknownVariableError)}
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:", [aString], smalltalk.UnknownVariableError)})}
 }),
 smalltalk.UnknownVariableError);
 

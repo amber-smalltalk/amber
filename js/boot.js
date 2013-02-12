@@ -504,49 +504,27 @@ function Smalltalk() {
     };
 
 	/* Handles unhandled errors during message sends */
-    // TODO: simply send the message ans handle #dnu:
+    // simply send the message and handle #dnu:
 
 	st.send = function(receiver, selector, args, klass) {
-		if(st.thisContext) {
-			return withContextSend(receiver, selector, args, klass);
-		} else {
-			try {return withContextSend(receiver, selector, args, klass)}
-			catch(error) {
-				// Reset the context stack in any case
-				st.thisContext = undefined;
-				if(error.smalltalkError) {
-					handleError(error);
-					return nil;
-				} else {
-					throw(error);
-				}
-			}
-		}
-	};
-
-    //TODO: remove
-	function withContextSend(receiver, selector, args, klass) {
-		var call, method;
+		var method;
 		if(receiver == null) {
 			receiver = nil;
 		}
 		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(method) {
-			var context = pushContext(receiver, selector, args);
-			call = method.apply(receiver, args);
-			popContext(context);
-			return call;
+            return method.apply(receiver, args);
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
 		}
 	}
 
-	st.withContext = function(fn, receiver, selector, args, lookupClass) {
+	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
             st.thisContext.pc++;
-			return inContext(fn, receiver, selector, args, lookupClass);
+			return inContext(worker, setup);
 		} else {
-			try {return inContext(fn, receiver, selector, args, lookupClass)}
+			try {return inContext(worker, setup)}
 			catch(error) {
 				// Reset the context stack in any case
 				st.thisContext = undefined;
@@ -560,9 +538,9 @@ function Smalltalk() {
 		}
 	};
 
-	function inContext(fn, receiver, selector, args, lookupClass) {
-		var context = pushContext(receiver, selector, args, lookupClass);
-		var result = fn(context);
+	function inContext(worker, setup) {
+		var context = pushContext(setup);
+		var result = worker(context);
 		popContext(context);
 		return result;
 	}
@@ -627,11 +605,16 @@ function Smalltalk() {
 	/* Handle thisContext pseudo variable */
 
 	st.getThisContext = function() {
-		return st.thisContext ? st.thisContext.copy() : nil;
+        if(st.thisContext) {
+		    st.thisContext.init();
+            return st.thisContext;
+        } else {
+            return nil;
+        }
 	};
 
-	function pushContext(receiver, selector, locals, lookupClass) {
-		return st.thisContext = new SmalltalkMethodContext(receiver, selector, locals, smalltalk.thisContext, lookupClass);
+	function pushContext(setup) {
+		return st.thisContext = new SmalltalkMethodContext(smalltalk.thisContext, setup);
 	}
 
 	function popContext(context) {
@@ -740,28 +723,29 @@ function Smalltalk() {
 
 inherits(Smalltalk, SmalltalkObject);
 
-function SmalltalkMethodContext(receiver, selector, locals, home, lookupClass, pc) {
-	this.receiver    = receiver;
-    this.selector    = selector;
-	this.locals      = locals || {};
+function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
-    this.lookupClass = lookupClass;
-    this.pc          = pc || 0;
+    this.setup       = setup || function() {};
+    this.pc          = 0;
+    this.locals      = {};
 }
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-SmalltalkMethodContext.prototype.copy = function() {
+SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, // locals,
+                                                 lookupClass) {
+    this.receiver    = receiver;
+    this.selector    = selector;
+    this.args        = args || [];
+    this.locals      = /*locals ||*/ {};
+    this.lookupClass = lookupClass;
+};
+
+SmalltalkMethodContext.prototype.init = function() {
 	var home = this.homeContext;
-	if(home) {home = home.copy()}
-	return new SmalltalkMethodContext(
-		this.receiver,
-        this.selector,
-		this.locals,
-		home,
-        this.lookupClass,
-        this.pc
-	);
+	if(home) {home = home.init()}
+
+    this.setup(this);
 };
 
 SmalltalkMethodContext.prototype.method = function() {

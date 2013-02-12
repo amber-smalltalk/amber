@@ -6,7 +6,7 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, self, "clear", [], smalltalk.ConsoleTranscript)}
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"clear", [], smalltalk.ConsoleTranscript)})}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -16,7 +16,7 @@ smalltalk.method({
 selector: "cr",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, self, "cr", [], smalltalk.ConsoleTranscript)}
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"cr", [], smalltalk.ConsoleTranscript)})}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -26,7 +26,7 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, self, "open", [], smalltalk.ConsoleTranscript)}
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"open", [], smalltalk.ConsoleTranscript)})}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -37,8 +37,7 @@ selector: "show:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { console.log(String(string._asString()));
-;
-return self}, self, "show:", [anObject], smalltalk.ConsoleTranscript)}
+return self}, function($ctx1) {$ctx1.fill(self,"show:", [anObject], smalltalk.ConsoleTranscript)})}
 }),
 smalltalk.ConsoleTranscript);
 
@@ -50,7 +49,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st((smalltalk.Transcript || Transcript))._register_(_st(self)._new());
-return self}, self, "initialize", [], smalltalk.ConsoleTranscript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], smalltalk.ConsoleTranscript.klass)})}
 }),
 smalltalk.ConsoleTranscript.klass);
 
@@ -65,7 +64,7 @@ selector: "clear",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._clear();
-return self}, self, "clear", [], smalltalk.Transcript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"clear", [], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 
@@ -76,7 +75,7 @@ selector: "cr",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._show_(_st((smalltalk.String || String))._cr());
-return self}, self, "cr", [], smalltalk.Transcript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"cr", [], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 
@@ -86,8 +85,10 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self["@current"];
-}, self, "current", [], smalltalk.Transcript.klass)}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@current"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"current", [], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 
@@ -98,7 +99,7 @@ selector: "new",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
-return self}, self, "new", [], smalltalk.Transcript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"new", [], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 
@@ -109,7 +110,7 @@ selector: "open",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._open();
-return self}, self, "open", [], smalltalk.Transcript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"open", [], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 
@@ -120,7 +121,7 @@ selector: "register:",
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@current"]=aTranscript;
-return self}, self, "register:", [aTranscript], smalltalk.Transcript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"register:", [aTranscript], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 
@@ -131,7 +132,7 @@ selector: "show:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._current())._show_(anObject);
-return self}, self, "show:", [anObject], smalltalk.Transcript.klass)}
+return self}, function($ctx1) {$ctx1.fill(self,"show:", [anObject], smalltalk.Transcript.klass)})}
 }),
 smalltalk.Transcript.klass);
 

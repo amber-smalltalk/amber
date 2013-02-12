@@ -494,6 +494,11 @@ superSends: aCollection
 	superSends := aCollection
 !
 
+tempDeclarations
+	^ self instructions select: [ :each | 
+    	each isTempDeclaration ]
+!
+
 theClass
 	^ theClass
 !
@@ -593,6 +598,12 @@ name
 
 name: aString
 	name := aString
+! !
+
+!IRTempDeclaration methodsFor: 'testing'!
+
+isTempDeclaration
+	^ true
 ! !
 
 !IRTempDeclaration methodsFor: 'visiting'!
@@ -897,6 +908,8 @@ visitIRMethod: anIRMethod
 		nextPutMethodDeclaration: anIRMethod 
 		with: [ self stream 
 			nextPutFunctionWith: [ 
+            	self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |
+    				each name asVariableName ]).
             	self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
@@ -949,9 +962,9 @@ visitIRSequence: anIRSequence
 !
 
 visitIRTempDeclaration: anIRTempDeclaration
-	self stream 
-    	nextPutAll: anIRTempDeclaration scope alias, '.locals.', anIRTempDeclaration name, '=nil;'; 
-        lf
+	"self stream 
+    	nextPutAll: 'var ', anIRTempDeclaration name asVariableName, ';'; 
+        lf"
 !
 
 visitIRValue: anIRValue
@@ -1006,10 +1019,12 @@ nextPutAssignment
 
 nextPutBlockContextFor: anIRClosure during: aBlock
 	self 
-    	nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') { '; 
+    	nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; 
         nextPutAll: String cr.
     aBlock value.
-    self nextPutAll: '})'
+    self 
+    	nextPutAll: '}, function(', anIRClosure scope alias, ') {';
+        nextPutAll: anIRClosure scope alias, '.fill(null, null, {})})'
 !
 
 nextPutClosureWith: aBlock arguments: anArray
@@ -1028,14 +1043,14 @@ nextPutContextFor: aMethod during: aBlock
         nextPutAll: String cr.
     aBlock value.
     self 
-    	nextPutAll: '}, self, ';
-        nextPutAll: aMethod selector asJavascript, ', ['.
+    	nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias; 
+        nextPutAll: '.fill(self,', aMethod selector asJavascript, ', ['.
     aMethod arguments 
     	do: [ :each | self nextPutAll: each asVariableName ]
       	separatedBy: [ self nextPutAll: ','  ].
     self nextPutAll: '], ';
         nextPutAll: aMethod theClass asJavascript;
-        nextPutAll: ')'
+        nextPutAll: ')})'
 !
 
 nextPutFunctionWith: aBlock arguments: anArray
@@ -1135,6 +1150,8 @@ nextPutVar: aString
 !
 
 nextPutVars: aCollection
+	aCollection ifEmpty: [ ^self ].
+    
 	stream nextPutAll: 'var '.
 	aCollection 
 		do: [ :each | stream nextPutAll: each ]
