@@ -1259,7 +1259,7 @@ smalltalk.ClassBuilder);
 
 
 
-smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category', 'chunkParser'], 'Kernel-Classes');
+smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category'], 'Kernel-Classes');
 smalltalk.ClassCategoryReader.comment="ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file."
 smalltalk.addMethod(
 "_class_category_",
@@ -1302,12 +1302,11 @@ category: 'initialization',
 fn: function (){
 var self=this;
 smalltalk.send(self,"_initialize",[],smalltalk.Object);
-self["@chunkParser"]=smalltalk.send((smalltalk.ChunkParser || ChunkParser),"_new",[]);
 return self},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09chunkParser := ChunkParser new.",
-messageSends: ["initialize", "new"],
-referencedClasses: ["ChunkParser"]
+source: "initialize\x0a\x09super initialize.",
+messageSends: ["initialize"],
+referencedClasses: []
 }),
 smalltalk.ClassCategoryReader);
 

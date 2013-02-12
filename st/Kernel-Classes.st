@@ -453,7 +453,7 @@ setupClass: aClass
 ! !
 
 Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class category chunkParser'
+	instanceVariableNames: 'class category'
 	package: 'Kernel-Classes'!
 !ClassCategoryReader commentStamp!
 ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
@@ -479,7 +479,6 @@ scanFrom: aChunkParser
 
 initialize
 	super initialize.
-	chunkParser := ChunkParser new.
 ! !
 
 !ClassCategoryReader methodsFor: 'private'!
