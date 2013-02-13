@@ -355,12 +355,6 @@ Current limitation: MethodContext instances are not created on Block evaluation.
 
 !MethodContext methodsFor: 'accessing'!
 
-asString
-	^self isBlockContext 
-    	ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
-      	ifFalse: [ self receiver class printString, ' >> ', self selector ]
-!
-
 home
 	<return self.methodContext || self.homeContext>
 !
@@ -409,6 +403,14 @@ temps
 	self deprecatedAPI.
     
 	^ self locals
+! !
+
+!MethodContext methodsFor: 'converting'!
+
+asString
+	^self isBlockContext 
+    	ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
+      	ifFalse: [ self receiver class printString, ' >> ', self selector ]
 ! !
 
 !MethodContext methodsFor: 'testing'!

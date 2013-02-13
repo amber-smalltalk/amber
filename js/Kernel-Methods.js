@@ -983,7 +983,7 @@ smalltalk.addMethod(
 "_asString",
 smalltalk.method({
 selector: "asString",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
