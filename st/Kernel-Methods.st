@@ -349,9 +349,7 @@ Object subclass: #MethodContext
 !MethodContext commentStamp!
 MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
   
-MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js 
-
-Current limitation: MethodContext instances are not created on Block evaluation. That means it's actually impossible to debug inside a Block.!
+MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js!
 
 !MethodContext methodsFor: 'accessing'!
 
