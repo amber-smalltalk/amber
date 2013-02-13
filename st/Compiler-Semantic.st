@@ -11,6 +11,10 @@ Each context (method/closure) get a fresh scope that inherits from its outer sco
 
 !LexicalScope methodsFor: 'accessing'!
 
+alias
+	^ '$ctx', self scopeLevel asString
+!
+
 allVariableNames
 	^ self args keys, self temps keys
 !
@@ -70,9 +74,10 @@ pseudoVars
 !
 
 scopeLevel
-	^ (self outerScope 
-		ifNil: [ 0 ]
-		ifNotNil: [ self outerScope scopeLevel ]) + 1
+	self outerScope ifNil: [ ^ 1 ].
+	self isInlined ifTrue: [ ^ self outerScope scopeLevel ].
+    
+	^ self outerScope scopeLevel + 1
 !
 
 temps
@@ -102,7 +107,8 @@ isBlockScope
 !
 
 isInlined
-	^ self instruction isInlined
+	^ self instruction notNil and: [
+      	self instruction isInlined ]
 !
 
 isMethodScope
@@ -370,7 +376,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope theClass classReferences messageSends'
+	instanceVariableNames: 'currentScope theClass classReferences messageSends superSends'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -383,6 +389,10 @@ classReferences
 
 messageSends
 	^ messageSends ifNil: [ messageSends := Dictionary new ]
+!
+
+superSends
+	^ superSends ifNil: [ superSends := Dictionary new ]
 !
 
 theClass
@@ -402,19 +412,24 @@ errorShadowingVariable: aString
 !
 
 errorUnknownVariable: aNode
-	"Throw an error if the variable is undeclared in the global JS scope (i.e. window)"
+	"Throw an error if the variable is undeclared in the global JS scope (i.e. window).
+    We allow four variable names in addition: `jQuery`, `window`, `process` and `global` 
+    for nodejs and browser environments. 
+    
+    This is only to make sure compilation works on both browser-based and nodejs environments.
+    The ideal solution would be to use a pragma instead"
 
-	| notDefined |
-
-	notDefined := <eval('typeof ' + aNode._value() + ' == "undefined"')>.
-
-	notDefined
-		ifTrue: [ 
-			UnknownVariableError new
-				variableName: aNode value;
-				signal ]
-		ifFalse: [
-			currentScope methodScope unknownVariables add: aNode value. ]
+	| identifier |
+    identifier := aNode value.
+    
+	((#('jQuery' 'window' 'process' 'global') includes: identifier) not 
+        and: [ self isVariableGloballyUndefined: identifier ]) 
+        	ifTrue: [
+				UnknownVariableError new
+					variableName: aNode value;
+					signal ]
+			ifFalse: [
+				currentScope methodScope unknownVariables add: aNode value ]
 ! !
 
 !SemanticAnalyzer methodsFor: 'factory'!
@@ -450,6 +465,12 @@ validateVariableScope: aString
 
 	(currentScope lookupVariable: aString) ifNotNil: [
 		self errorShadowingVariable: aString ]
+! !
+
+!SemanticAnalyzer methodsFor: 'testing'!
+
+isVariableGloballyUndefined: aString
+	<return eval('typeof ' + aString + ' == "undefined"')>
 ! !
 
 !SemanticAnalyzer methodsFor: 'visiting'!
@@ -501,7 +522,8 @@ visitMethodNode: aNode
 
 	aNode 
 		classReferences: self classReferences;
-		messageSends: self messageSends keys.
+		messageSends: self messageSends keys;
+        superSends: self superSends keys.
 	self popScope
 !
 
@@ -518,7 +540,10 @@ visitSendNode: aNode
 	aNode receiver value = 'super' 
 		ifTrue: [
 			aNode superSend: true.
-			aNode receiver value: 'self' ]
+			aNode receiver value: 'self'.
+			self superSends at: aNode selector ifAbsentPut: [ Set new ].
+			(self superSends at: aNode selector) add: aNode ]
+          
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
 			aNode shouldBeInlined: true.
 			aNode receiver shouldBeAliased: true ] ].

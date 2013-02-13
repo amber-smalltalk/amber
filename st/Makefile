@@ -30,7 +30,7 @@ boot.js init.js:
 # $@ is the target
 # $< is the prerequisite
 parser.js: ../js/parser.pegjs
-	pegjs -e smalltalk.parser $< $@
+	pegjs --track-line-and-column --cache -e smalltalk.parser $< $@
 
 # Then we compile Kernel-*.st files depending on having boot.js, init.js and parser.js
 # $< means the first dependency - in other words Kernel-*.st
@@ -57,9 +57,18 @@ Kernel-Announcements.js: Kernel-Announcements.st boot.js init.js parser.js
 
 # ...and Compiler, but using the new Kernel from above.
 # We only need to depend on Kernel js files since it in turn depends on boot.js etc
+Compiler.st: Importer-Exporter.st Compiler-Exceptions.st Compiler-Core.st \
+    Compiler-AST.st Compiler-Semantic.st Compiler-IR.st Compiler-Inlining.st \
+    Compiler-Interpreter.st
+	echo "Smalltalk current createPackage: 'Compiler' properties: #{}!" >$@
+	sed -e '/^Smalltalk current createPackage:.*!$$/ d' \
+      -e 's/package: '"'[^':]*'"'!/package:'"'Compiler'"'!/' \
+      -e 's/ methodsFor: '"'[^']*'"'!$$/ methodsFor: '"'"'*Compiler'"'"'!/' \
+      $^ >>$@
+
 Compiler.js: Compiler.st Kernel-Objects.js Kernel-Classes.js Kernel-Methods.js Kernel-Collections.js \
 	Kernel-Exceptions.js Kernel-Transcript.js
-	$(AMBERC) $(FLAGS) $<
+	$(AMBERC) $(FLAGS) -l Importer-Exporter,Compiler-Exceptions,Compiler-Core,Compiler-AST,Compiler-Semantic,Compiler-IR,Compiler-Inlining $<
 
 # ...now that we have a new Kernel and Compiler we use them
 # to compile the rest of st files presuming that they only depend on Kernel, like
@@ -73,30 +82,40 @@ Compiler.js: Compiler.st Kernel-Objects.js Kernel-Classes.js Kernel-Methods.js K
 #
 # NOTE: With the new dependency model in class Package etc this will change!
 #
-Canvas.js: Canvas.st
+Canvas.js: Canvas.st Compiler.js
 	$(AMBERC) $(FLAGS) $<
 
 # IDE uses JQuery
-IDE.js: IDE.st Canvas.js
+IDE.js: IDE.st Canvas.js Compiler.js
 	$(AMBERC) $(FLAGS) -l Canvas $<
 
-TrySmalltalk.js: TrySmalltalk.st IDE.js
+TrySmalltalk.js: TrySmalltalk.st IDE.js Compiler.js
 	$(AMBERC) $(FLAGS) -l Canvas,IDE $<
 
 # Some Examples use SUnit and also IDE
-Examples.js: Examples.st SUnit.js IDE.js
+Examples.js: Examples.st SUnit.js IDE.js Compiler.js
 	$(AMBERC) $(FLAGS) -l SUnit,Canvas,IDE $<
 
 # Tests typically also use SUnit
-Kernel-Tests.js: Kernel-Tests.st SUnit.js
+Kernel-Tests.js: Kernel-Tests.st SUnit.js Compiler.js
 	$(AMBERC) $(FLAGS) -l SUnit $<
 
-Compiler-Tests.js: Compiler-Tests.st SUnit.js
+Compiler-Tests.js: Compiler-Tests.st SUnit.js Compiler.js
+	$(AMBERC) $(FLAGS) -l SUnit $<
+
+SUnit-Tests.js: SUnit-Tests.st SUnit.js Compiler.js
 	$(AMBERC) $(FLAGS) -l SUnit $<
 
 # Documentation
-Documentation.js: Documentation.st Canvas.js
+Documentation.js: Documentation.st Canvas.js Compiler.js
 	$(AMBERC) $(FLAGS) -l Canvas $<;
+
+#Helios
+Helios-Core.js: Helios-Core.st Canvas.js Compiler.js
+	$(AMBERC) $(FLAGS) -l Canvas $<;
+
+Helios-Browser.js: Helios-Browser.st Helios-Core.js Compiler.js
+	$(AMBERC) $(FLAGS) -l Helios-Core $<;
 
 # Installing is simply copying all js files to js directory.
 install: all

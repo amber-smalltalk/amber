@@ -331,7 +331,7 @@ printString
 !
 
 sendTo: anObject
-	^ Smalltalk current send: self selector to: anObject arguments: self arguments
+	^ anObject perform: self selector withArguments: self arguments
 ! !
 
 !Message class methodsFor: 'instance creation'!
@@ -349,17 +349,29 @@ Object subclass: #MethodContext
 !MethodContext commentStamp!
 MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
   
-MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js 
-
-Current limitation: MethodContext instances are not created on Block evaluation. That means it's actually impossible to debug inside a Block.!
+MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js!
 
 !MethodContext methodsFor: 'accessing'!
 
-asString
-	^self receiver class printString, ' >> ', self selector
+home
+	<return self.methodContext || self.homeContext>
 !
 
-home
+locals
+	<return self.locals>
+!
+
+method
+	^self methodContext receiver class lookupSelector: self methodContext selector
+!
+
+methodContext
+	self isBlockContext ifFalse: [ ^ self ].
+    
+    ^ self home
+!
+
+outerContext
 	<return self.homeContext>
 !
 
@@ -376,10 +388,34 @@ receiver
 !
 
 selector
-	<return smalltalk.convertSelector(self.selector)>
+	<
+    	if(self.selector) {
+        	return smalltalk.convertSelector(self.selector);
+        } else {
+        	return nil;
+        }
+    >
 !
 
 temps
-	<return self.temps>
+	self deprecatedAPI.
+    
+	^ self locals
+! !
+
+!MethodContext methodsFor: 'converting'!
+
+asString
+	^self isBlockContext 
+    	ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
+      	ifFalse: [ self receiver class printString, ' >> ', self selector ]
+! !
+
+!MethodContext methodsFor: 'testing'!
+
+isBlockContext
+	"Block context do not have selectors."
+    
+	^ self selector isNil
 ! !
 

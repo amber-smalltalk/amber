@@ -1,9 +1,11 @@
 Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
 Object subclass: #Node
-	instanceVariableNames: 'nodes shouldBeInlined shouldBeAliased'
+	instanceVariableNames: 'position nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
-I am the abstract root class of the abstract syntax tree.!
+I am the abstract root class of the abstract syntax tree.
+
+position: holds a point containing lline- and column number of the symbol location in the original source file!
 
 !Node methodsFor: 'accessing'!
 
@@ -13,6 +15,10 @@ addNode: aNode
 
 nodes
 	^nodes ifNil: [nodes := Array new]
+!
+
+position
+	^position ifNil: [position := 0@0]
 !
 
 shouldBeAliased
@@ -29,18 +35,16 @@ shouldBeInlined
 
 shouldBeInlined: aBoolean
 	shouldBeInlined := aBoolean
-!
-
-subtreeNeedsAliasing
-    ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
-        (self nodes detect: [ :node | node subtreeNeedsAliasing ] ifNone: [ false ]) ~= false
-    ]
 ! !
 
 !Node methodsFor: 'building'!
 
 nodes: aCollection
 	nodes := aCollection
+!
+
+position: aPosition
+	position := aPosition
 ! !
 
 !Node methodsFor: 'testing'!
@@ -61,6 +65,10 @@ isImmutable
 	^false
 !
 
+isNode
+	^ true
+!
+
 isReturnNode
 	^false
 !
@@ -71,6 +79,11 @@ isSendNode
 
 isValueNode
 	^false
+!
+
+subtreeNeedsAliasing
+    ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
+        (self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
 ! !
 
 !Node methodsFor: 'visiting'!
@@ -212,7 +225,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends'
+	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
 	package: 'Compiler-AST'!
 
 !MethodNode methodsFor: 'accessing'!
@@ -263,6 +276,14 @@ source
 
 source: aString
 	source := aString
+!
+
+superSends
+	^ superSends
+!
+
+superSends: aCollection
+	superSends := aCollection
 ! !
 
 !MethodNode methodsFor: 'visiting'!
@@ -521,5 +542,11 @@ VariableNode subclass: #ClassReferenceNode
 
 accept: aVisitor
 	^ aVisitor visitClassReferenceNode: self
+! !
+
+!Object methodsFor: '*Compiler-AST'!
+
+isNode
+	^ false
 ! !
 

@@ -156,10 +156,10 @@ ErrorHandler subclass: #DebugErrorHandler
 !DebugErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
-	[Debugger new
+	[ Debugger new
 		error: anError;
-		open] on: Error do: [:error |
-			ErrorHandler new handleError: error]
+		open ] on: Error do: [ :error |
+			ErrorHandler new handleError: error ]
 ! !
 
 !DebugErrorHandler class methodsFor: 'initialization'!
@@ -1311,10 +1311,17 @@ TabWidget subclass: #Debugger
 
 !Debugger methodsFor: 'accessing'!
 
-arguments
-	^self method 
-		ifNil: [selectedContext temps collect: [:each | nil]]
-		ifNotNil: [self method arguments]
+allVariables
+	| all |
+	all := Dictionary new.
+
+	self receiver class allInstanceVariableNames do: [:each |
+		all at: each put: (self receiver instVarAt: each) ].
+    
+    selectedContext locals keysAndValuesDo: [ :key :value |
+    	all at: key put: value ].
+    
+    ^ all
 !
 
 error
@@ -1330,7 +1337,7 @@ label
 !
 
 method
-	^selectedContext receiver class methodAt: selectedContext selector
+	^selectedContext method
 !
 
 receiver
@@ -1374,6 +1381,7 @@ selectContext: aContext
 !
 
 selectVariable: anObject named: aString
+    
 	selectedVariable := anObject.
 	selectedVariableName := aString.
 	inspector contents: [:html | html with: anObject printString].
@@ -1402,7 +1410,7 @@ renderBottomPanelOn: html
 !
 
 renderBoxOn: html
-    self 
+   self 
 	renderTopPanelOn: html;
 	renderBottomPanelOn: html
 !
@@ -1445,7 +1453,7 @@ renderContext: aContext on: html
 	li 
 		with: aContext asString;
 		onClick: [self selectContext: aContext].
-	aContext home ifNotNil: [self renderContext: aContext home on: html]
+	aContext outerContext ifNotNil: [self renderContext: aContext outerContext on: html]
 !
 
 renderTopPanelOn: html
@@ -1495,27 +1503,22 @@ updateStatus
 !
 
 updateVariablesList
-	ul2 contents: [:html | | li |
+	ul2 contents: [ :html | | li |
 		li := html li 
 			with: 'self';
-			onClick: [self selectVariable: self receiver named: 'self'].
-                selectedVariableName = 'self' ifTrue: [
-			li class: 'selected'].
-                self arguments withIndexDo: [:each :index | | param |
-                        param := selectedContext temps at: index.
+			onClick: [ self selectVariable: self receiver named: 'self' ].
+                selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].
+        
+        self allVariables keysAndValuesDo: [:key :value |
                         li := html li 
-				with: each;
-				onClick: [self selectVariable: param named: each].
-                         selectedVariableName = each ifTrue: [
-				li class: 'selected']].
-                self receiver class allInstanceVariableNames do: [:each | | ivar |
-                        ivar := self receiver instVarAt: each.
-                        li := html li 
-				with: each;
-				onClick: [self selectVariable: ivar named: each].
-                         selectedVariableName = each ifTrue: [
-				li class: 'selected']]].
-	selectedVariable ifNil: [inspectButton at: 'disabled' put: true] ifNotNil: [inspectButton removeAt: 'disabled']
+							with: key;
+							onClick: [ self selectVariable: value named: key ].
+                        selectedVariableName = key ifTrue: [
+							li class: 'selected' ] ] ].
+                            
+	selectedVariable 
+    	ifNil: [ inspectButton at: 'disabled' put: true ] 
+        ifNotNil: [ inspectButton removeAt: 'disabled' ]
 ! !
 
 TabWidget subclass: #IDETranscript
@@ -2362,24 +2365,6 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	elements withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector 
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!Date methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
 	anInspector 
 		setLabel: self printString;
 		setVariables: variables

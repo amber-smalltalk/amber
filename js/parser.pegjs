@@ -61,7 +61,7 @@ reference      = variable / classReference
 
 keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg}}
 
-binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("").replace(/\\/g, '\\\\')}
+binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("")}
 unarySelector  = identifier
 
 keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg: arg}})+ {
@@ -78,7 +78,7 @@ keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg: 
 binaryPattern  = ws selector:binarySelector ws arg:identifier {return [selector, [arg]]}
 unaryPattern   = ws selector:unarySelector {return [selector, []]}
 
-expression     = assignment / cascade / keywordSend / binarySend / jsStatement
+expression     = assignment / cascade / keywordSend / binarySend
 
 expressionList = ws "." ws expression:expression {return expression}
 expressions    = first:expression others:expressionList* {
@@ -116,11 +116,15 @@ statements     = ret:ret [.]* {return [ret]}
                        return expressions || []
                    }
 
-sequence       = temps:temps? ws statements:statements? ws {
+sequence       = jsSequence / stSequence
+
+stSequence     = temps:temps? ws statements:statements? ws {
                      return smalltalk.SequenceNode._new()
                             ._temps_(temps || [])
                             ._nodes_(statements || [])
                  }
+
+jsSequence     = jsStatement
 
 block          = '[' ws params:blockParamList? ws sequence:sequence? ws ']' {
                      return smalltalk.BlockNode._new()

@@ -131,17 +131,17 @@ testIfTrueIfFalse
 
 testIfTrueIfFalseWithBoxing
  
-	self assert: (true boxed ifTrue: ['alternative block']) = 'alternative block'.
-	self assert: (true boxed ifFalse: ['alternative block']) = nil.
+	self assert: (true yourself ifTrue: ['alternative block']) = 'alternative block'.
+	self assert: (true yourself ifFalse: ['alternative block']) = nil.
 
-	self assert: (false boxed ifTrue: ['alternative block']) = nil.
-	self assert: (false boxed ifFalse: ['alternative block']) = 'alternative block'.
+	self assert: (false yourself ifTrue: ['alternative block']) = nil.
+	self assert: (false yourself ifFalse: ['alternative block']) = 'alternative block'.
 
-	self assert: (false boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
-	self assert: (false boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
+	self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
+	self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
 
-	self assert: (true boxed ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
-	self assert: (true boxed ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+	self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
+	self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
 !
 
 testLogic
@@ -180,9 +180,7 @@ testLogicKeywords
 !
 
 testNonBooleanError
-	|b|
-    b := < '' >.
-    self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
+    self should: [ '' ifTrue: [] ifFalse: [] ] raise: NonBooleanReceiver
 ! !
 
 TestCase subclass: #ClassBuilderTest
@@ -206,6 +204,33 @@ testClassCopy
 	self assert: theClass name equals: 'ObjectMock2'.
 	self assert: theClass package == ObjectMock package.
 	self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys
+!
+
+testClassMigration
+	| instance oldClass |
+    
+    oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
+    instance := (Smalltalk  current at: 'ObjectMock2') new.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self deny: oldClass == ObjectMock2.
+    
+	self assert: ObjectMock2 superclass == ObjectMock.
+	self assert: ObjectMock2 instanceVariableNames isEmpty.
+	self assert: ObjectMock2 selectors equals: oldClass selectors.
+    self assert: ObjectMock2 comment equals: oldClass comment.
+    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.
+    
+	self deny: instance class == ObjectMock2.
+    self assert: instance class name equals: 'OldObjectMock2'.
+    
+    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
+    
+    Smalltalk current removeClass: ObjectMock2
 !
 
 testInstanceVariableNames
@@ -1106,6 +1131,8 @@ testTruncated
 Object subclass: #ObjectMock
 	instanceVariableNames: 'foo bar'
 	package: 'Kernel-Tests'!
+!ObjectMock commentStamp!
+ObjectMock is there only to perform tests on classes.!
 
 !ObjectMock methodsFor: 'not yet classified'!
 
@@ -1122,6 +1149,10 @@ TestCase subclass: #ObjectTest
 	package: 'Kernel-Tests'!
 
 !ObjectTest methodsFor: 'tests'!
+
+notDefined
+	<return undefined;>
+!
 
 testBasicAccess
 	| o |
@@ -1189,11 +1220,7 @@ testInstVars
 testNilUndefined
 	"nil in Smalltalk is the undefined object in JS"
 
-	| notDefined |
-    
-    <notDefined = undefined>.
-
-	self assert: nil = notDefined
+	self assert: nil = self notDefined
 !
 
 testYourself
@@ -1434,11 +1461,5 @@ testIfNil
 testIsNil
 	self assert: nil isNil.
 	self deny: nil notNil.
-! !
-
-!Boolean methodsFor: '*Kernel-Tests'!
-
-boxed
-	^self
 ! !
 

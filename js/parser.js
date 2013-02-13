@@ -73,6 +73,7 @@ smalltalk.parser = (function(){
         "subexpression": parse_subexpression,
         "statements": parse_statements,
         "sequence": parse_sequence,
+        "stSequence": parse_stSequence,
         "block": parse_block,
         "operand": parse_operand,
         "unaryMessage": parse_unaryMessage,
@@ -1809,7 +1810,7 @@ smalltalk.parser = (function(){
           result0 = null;
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, bin) {return bin.join("").replace(/\\/g, '\\\\')})(pos0.offset, pos0.line, pos0.column, result0);
+          result0 = (function(offset, line, column, bin) {return bin.join("")})(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -2041,9 +2042,6 @@ smalltalk.parser = (function(){
             result0 = parse_keywordSend();
             if (result0 === null) {
               result0 = parse_binarySend();
-              if (result0 === null) {
-                result0 = parse_jsStatement();
-              }
             }
           }
         }
@@ -2857,6 +2855,28 @@ smalltalk.parser = (function(){
       
       function parse_sequence() {
         var cacheKey = "sequence@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
+        var result0;
+        
+        result0 = parse_jsStatement();
+        if (result0 === null) {
+          result0 = parse_stSequence();
+        }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
+        return result0;
+      }
+      
+      function parse_stSequence() {
+        var cacheKey = "stSequence@" + pos.offset;
         var cachedResult = cache[cacheKey];
         if (cachedResult) {
           pos = clone(cachedResult.nextPos);

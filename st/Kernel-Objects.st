@@ -68,15 +68,11 @@ identityHash
 !
 
 instVarAt: aSymbol
-	| varname |
-	varname := aSymbol asString.
-	<return self['@'+varname]>
+	<return self['@'+aSymbol._asString()]>
 !
 
 instVarAt: aSymbol put: anObject
-	| varname |
-	varname := aSymbol asString.
-	<self['@' + varname] = anObject>
+	<self['@' + aSymbol._asString()] = anObject>
 !
 
 size
@@ -88,7 +84,7 @@ value
 !
 
 yourself
-	^ self
+	^self
 ! !
 
 !Object methodsFor: 'comparing'!
@@ -133,6 +129,12 @@ asJavascript
 
 asString
 	^self printString
+!
+
+test
+	| a |
+    a := 1.
+    self halt
 ! !
 
 !Object methodsFor: 'copying'!
@@ -228,9 +230,7 @@ perform: aSymbol
 !
 
 perform: aSymbol withArguments: aCollection
-	| selector |
-	selector := aSymbol asSelector.
-	<return smalltalk.send(self, selector, aCollection)>
+	<return smalltalk.send(self, aSymbol._asSelector(), aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
@@ -281,6 +281,10 @@ ifNotNil: aBlock
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
 	^aBlock value
+!
+
+isBoolean
+	^ false
 !
 
 isClass
@@ -347,8 +351,12 @@ Boolean instances are weither `true` or `false`.!
 !Boolean methodsFor: 'comparing'!
 
 = aBoolean
-	aBoolean class = self class ifFalse: [^false].
-	<return Boolean(self == true) == aBoolean>
+	<
+    	if(!! aBoolean._isBoolean || !! aBoolean._isBoolean()) {
+        	return false;
+        }
+    	return Boolean(self == true) == aBoolean
+    >
 !
 
 == aBoolean
@@ -439,6 +447,12 @@ shallowCopy
 
 printString
 	<return self.toString()>
+! !
+
+!Boolean methodsFor: 'testing'!
+
+isBoolean
+	^ true
 ! !
 
 Object subclass: #Date
@@ -655,15 +669,11 @@ __Note:__ For keyword-based messages, only the first keyword is kept: `window fo
 !JSObjectProxy methodsFor: 'accessing'!
 
 at: aSymbol
-	| attr |
-	attr := aSymbol asString.
-	<return self['@jsObject'][attr]>
+	<return self['@jsObject'][aSymbol._asString()]>
 !
 
 at: aSymbol put: anObject
-	| attr |
-	attr := aSymbol asString.
-	<self['@jsObject'][attr] = anObject>
+	<self['@jsObject'][aSymbol._asString()] = anObject>
 !
 
 jsObject
@@ -674,16 +684,38 @@ jsObject: aJSObject
 	jsObject := aJSObject
 ! !
 
+!JSObjectProxy methodsFor: 'enumerating'!
+
+keysAndValuesDo: aBlock
+	<
+    	var o = self['@jsObject'];
+    	for(var i in o) {
+			aBlock(i, o[i]);
+		}
+    >
+! !
+
 !JSObjectProxy methodsFor: 'proxy'!
 
+addObjectVariablesTo: aDictionary
+	<
+    	for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, self['@jsObject'][i]);
+		}
+    >
+!
+
 doesNotUnderstand: aMessage
-	| obj selector jsSelector arguments |
-	obj := self jsObject.
-	selector := aMessage selector.
-	jsSelector := selector asJavaScriptSelector.
-	arguments := aMessage arguments.
-	<if(jsSelector in obj) {return smalltalk.send(obj, jsSelector, arguments)}>.
-	super doesNotUnderstand: aMessage
+    
+   ^ (self canForwardMessage: aMessage) 
+    	ifTrue: [ self forwardMessage: aMessage ]
+        ifFalse: [ ^ super doesNotUnderstand: aMessage ]
+!
+
+forwardMessage: aMessage
+	<
+    	return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
+    >
 !
 
 inspectOn: anInspector
@@ -691,14 +723,25 @@ inspectOn: anInspector
 	variables := Dictionary new.
 	variables at: '#self' put: self jsObject.
 	anInspector setLabel: self printString.
-	<for(var i in self['@jsObject']) {
-		variables._at_put_(i, self['@jsObject'][i]);
-	}>.
+	self addObjectVariablesTo: variables.
 	anInspector setVariables: variables
 !
 
 printString
 	^self jsObject toString
+! !
+
+!JSObjectProxy methodsFor: 'testing'!
+
+canForwardMessage: aMessage
+	<
+    	var jsSelector = aMessage._selector()._asJavaScriptSelector();
+    	if(jsSelector in self._jsObject()) {
+        	return true
+        } else {
+        	return false;
+        }
+    >
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
@@ -759,8 +802,12 @@ identityHash
 	<return self % aNumber>
 !
 
+\\ aNumber
+	<return self % aNumber>
+!
+
 abs
-	^ <Math.abs(self);>
+	<return Math.abs(self);>
 !
 
 max: aNumber
@@ -796,8 +843,12 @@ squared
 !
 
 = aNumber
-	aNumber isNumber ifFalse: [^false]. 
-	<return Number(self) == aNumber>
+	<
+    	if(!! aNumber._isNumber || !! aNumber._isNumber()) {
+        	return false;
+        }
+    	return Number(self) == aNumber
+    >
 !
 
 > aNumber
@@ -876,13 +927,13 @@ to: stop by: step
 !
 
 truncated
-|result|
-
-    self >= 0 
-        ifTrue: [<result = Math.floor(self);>]
-        ifFalse: [<result = (Math.floor(self * (-1)) * (-1));>].
-
-    ^ result
+	<
+    	if(self >>= 0) {
+        	return Math.floor(self);
+        } else {
+        	return Math.floor(self * (-1)) * (-1);
+        };
+    >
 !
 
 | aNumber
@@ -902,8 +953,7 @@ deepCopy
 !Number methodsFor: 'enumerating'!
 
 timesRepeat: aBlock
-	| integer count |
-	integer := self truncated.
+	| count |
 	count := 1.
 	[count > self] whileFalse: [
 	    aBlock value.
@@ -986,7 +1036,7 @@ Object subclass: #Organizer
 !Organizer methodsFor: 'accessing'!
 
 addElement: anObject
-	<self.addElement(anObject)>
+	<self.elements.addElement(anObject)>
 !
 
 elements
@@ -994,7 +1044,7 @@ elements
 !
 
 removeElement: anObject
-	<self.removeElement(anObject)>
+	<self.elements.removeElement(anObject)>
 ! !
 
 Object subclass: #Package
@@ -1060,23 +1110,18 @@ organization
 
 properties
 	^Smalltalk current readJSObject: (self basicAt: 'properties')
-!
-
-properties: aDict
-	"We store it as a javascript object."
-	
-	| object |
-	<object = {};>.
-	aDict keysAndValuesDo: [:key :value |
-		<object[key] = value>.
-	].
-	<return self.properties = object>
 ! !
 
 !Package methodsFor: 'classes'!
 
 classes
 	^ self organization elements
+!
+
+setupClasses
+	self classes
+		do: [ :each | ClassBuilder new setupClass: each ];
+		do: [ :each | each initialize ]
 !
 
 sortedClasses
@@ -1124,15 +1169,19 @@ propertyAt: key put: value
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 
-!Package class methodsFor: 'commit paths'!
+!Package class methodsFor: 'accessing'!
 
-commitPathsFromLoader
-	| js st |
-    <var cp = smalltalk['@@commitPath'];
-        if (cp) { js = cp.js; st = cp.st; }>.
-    js ifNotNil: [ self defaultCommitPathJs: js ].
-    st ifNotNil: [ self defaultCommitPathSt: st ].
+named: aPackageName
+
+	^Smalltalk current packageAt: aPackageName
 !
+
+named: aPackageName ifAbsent: aBlock
+
+	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+! !
+
+!Package class methodsFor: 'commit paths'!
 
 defaultCommitPathJs
 	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
@@ -1155,46 +1204,17 @@ resetCommitPaths
         defaultCommitPathSt := nil.
 ! !
 
-!Package class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-    self commitPathsFromLoader
-! !
-
 !Package class methodsFor: 'loading-storing'!
-
-commitToLocalStorage: aPackageName
-	| key sourceCode |
-	key := 'smalltalk.packages.' , aPackageName.
-	sourceCode := Exporter new exportPackage: aPackageName.
-	<localStorage[key] = escape(sourceCode)>
-!
 
 fetch: aPackageName
 	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
 !
 
 fetch: aPackageName prefix: aPrefix
-	jQuery getScript: (aPrefix , aPackageName , '.js') onSuccess: [ Package init: aPackageName ]
-!
-
-init: aPackageName
-	(smalltalk classes select: [ :each | <each.pkg.pkgName == aPackageName> ])
-		do: [ :each | <smalltalk.init(each)> ];
-		do: [ :each | each initialize ]
-! !
-
-!Package class methodsFor: 'not yet classified'!
-
-named: aPackageName
-
-	^Smalltalk current packageAt: aPackageName
-!
-
-named: aPackageName ifAbsent: aBlock
-
-	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+	jQuery 
+    	getScript: (aPrefix , aPackageName , '.js') 
+        onSuccess: [ 
+        	(Package named: aPackageName) setupClasses ]
 ! !
 
 !Package class methodsFor: 'sorting'!
@@ -1394,29 +1414,10 @@ at: aSymbol
 	<return self[aSymbol._asString()]>
 !
 
-basicParse: aString
-	<return smalltalk.parser.parse(aString)>
-!
-
 parse: aString
 	| result | 
 	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
 	^result
-!
-
-parseError: anException parsing: aString
-	| row col message lines badLine code |
-	<row = anException.line;
-	col = anException.column;
-	message = anException.message;>.
-	lines := aString lines.
-	badLine := lines at: row.
-	badLine := (badLine copyFrom: 1 to: col - 1), ' ===>', (badLine copyFrom:  col to: badLine size).
-	lines at: row put: badLine.
-	code := String streamContents: [:s |
-                  lines withIndexDo: [:l :i |
-                     s nextPutAll: i asString, ': ', l, String lf]].
-	^ ParseError new messageText: ('Parse error on line ' , row , ' column ' , col , ' : ' , message , ' Below is code with line numbers and ===> marker inserted:' , String lf, code)
 !
 
 readJSObject: anObject
@@ -1426,18 +1427,18 @@ readJSObject: anObject
 reservedWords
 	"JavaScript reserved words"
 	<return self.reservedWords>
-!
-
-send: aSelector to: anObject arguments: aCollection
-	| selector |
-	selector := aSelector asString asSelector.
-	<return self.send(anObject, selector, aCollection)>
 ! !
 
 !Smalltalk methodsFor: 'classes'!
 
 classes
 	<return self.classes()>
+!
+
+deleteClass: aClass
+	"Deletes a class by deleting its binding only. Use #removeClass instead"
+    
+	<self.removeClass(aClass)>
 !
 
 removeClass: aClass
@@ -1457,7 +1458,25 @@ removeClass: aClass
             yourself)
 ! !
 
+!Smalltalk methodsFor: 'error handling'!
+
+parseError: anException parsing: aString
+	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
+! !
+
 !Smalltalk methodsFor: 'packages'!
+
+createPackage: packageName
+	"Create and bind a new package with given name and return it."
+       <return smalltalk.addPackage(packageName)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+       <delete smalltalk.packages[packageName]>
+!
 
 packageAt: packageName
        <return self.packages[packageName]>
@@ -1493,41 +1512,23 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	<smalltalk.packages[newName] = smalltalk.packages[packageName]>.
+    (self basicAt: 'packages') at: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
 ! !
 
 !Smalltalk methodsFor: 'private'!
 
-createPackage: packageName
-	"Create and bind a new package with given name and return it."
-
-      <return smalltalk.addPackage(packageName, nil)>
+basicParse: aString
+	<return smalltalk.parser.parse(aString)>
 !
 
 createPackage: packageName properties: aDict
-	"Create and bind a new package with given name and return it."
-
-	| object |
-	<object = {};>.
-	aDict keysAndValuesDo: [:key :value |
-		<object[key] = value>.
-	].
-       <return smalltalk.addPackage(packageName, object)>
-!
-
-deleteClass: aClass
-	"Deletes a class by deleting its binding only. Use #removeClass instead"
+    "Needed to import .st files: they begin with this call."
+    self deprecatedAPI.
     
-	<self.removeClass(aClass)>
-!
-
-deletePackage: packageName
-	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
-	To remove a package, use #removePackage instead."
-
-       <delete smalltalk.packages[packageName]>
+    aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
+    ^ self createPackage: packageName
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -1596,7 +1597,7 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
+	    superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'converting'!
@@ -1656,4 +1657,8 @@ notNil
 new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
+
+nil subclass: #[object Object]
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
 
