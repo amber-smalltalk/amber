@@ -923,4 +923,15 @@ return self}, function($ctx1) {$ctx1.fill(self,"class:value:value:value:",{aStri
 }),
 smalltalk.NativeFunction.klass);
 
+smalltalk.addMethod(
+"_exists_",
+smalltalk.method({
+selector: "exists:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { if(aString in window){return true}else{return false};
+return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
 

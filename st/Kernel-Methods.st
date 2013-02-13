@@ -442,5 +442,9 @@ class: aString value:anObject value: anObject2
 class: aString value:anObject value: anObject2 value:anObject3
 
 <var a=eval(aString); return new a(anObject,anObject2, anObject3);>
+!
+
+exists: aString
+<if(aString in window){return true}else{return false}>
 ! !
 

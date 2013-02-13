@@ -1268,4 +1268,20 @@ referencedClasses: []
 }),
 smalltalk.NativeFunction.klass);
 
+smalltalk.addMethod(
+"_exists_",
+smalltalk.method({
+selector: "exists:",
+category: 'not yet classified',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { if(aString in window){return true}else{return false};
+return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString}, smalltalk.NativeFunction.klass)})},
+args: ["aString"],
+source: "exists: aString\x0a<if(aString in window){return true}else{return false}>\x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NativeFunction.klass);
+
 
