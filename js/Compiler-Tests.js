@@ -157,11 +157,10 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
-_st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testInlinedJSStatement\x0a\x09self assert: (self interpret: 'foo <return 2+3>') equals: 5.\x0a    self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger <return 2 + anInteger>' \x0a        \x09withArguments: #{ 'anInteger' -> 3}) \x0a\x09\x09equals: 5",
-messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"],
+source: "testInlinedJSStatement\x0a\x09self assert: (self interpret: 'foo <return 2+3>') equals: 5.\x0a    \x22self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger <return 2 + anInteger>' \x0a        \x09withArguments: #{ 'anInteger' -> 3}) \x0a\x09\x09equals: 5\x22",
+messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
