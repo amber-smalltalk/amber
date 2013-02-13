@@ -16,19 +16,31 @@ interpret: aString
         withArguments: Dictionary new
 !
 
-interpret: aString withArguments: aDictionary
+interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
     
     | ctx |
     
     ctx := AIContext new.
+    ctx receiver: anObject.
     aDictionary keysAndValuesDo: [ :key :value |
     	ctx localAt: key put: value ].
     
-    ^ ASTInterpreter new
+    ^ self interpreter
     	context: ctx;
-    	interpret: (self parse: aString forClass: Object) 
+    	interpret: (self parse: aString forClass: anObject class) 
         	nodes first
+!
+
+interpret: aString withArguments: aDictionary
+	^ self 
+    	interpret: aString 
+        receiver: Object new
+        withArguments: aDictionary
+!
+
+interpreter
+	^ ASTInterpreter new
 !
 
 parse: aString
@@ -63,6 +75,19 @@ testInlinedJSStatement
     		interpret: 'foo: anInteger <return 2 + anInteger>' 
         	withArguments: #{ 'anInteger' -> 3}) 
 		equals: 5
+!
+
+testInstVarAssignment
+	self 
+    	assert: (self 
+    		interpret: 'foo: anInteger x := anInteger. ^ x'
+        	receiver: Point new
+        	withArguments: #{'anInteger' -> 2})
+        equals: 2
+!
+
+testTempAssignment
+	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
 ! !
 
 TestCase subclass: #CodeGeneratorTest

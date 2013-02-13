@@ -38,28 +38,65 @@ referencedClasses: ["Dictionary"]
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
+"_interpret_receiver_withArguments_",
+smalltalk.method({
+selector: "interpret:receiver:withArguments:",
+category: 'accessing',
+fn: function (aString,anObject,aDictionary){
+var self=this;
+var ctx;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+ctx=_st((smalltalk.AIContext || AIContext))._new();
+_st(ctx)._receiver_(anObject);
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+$2=_st(self)._interpreter();
+_st($2)._context_(ctx);
+$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._class()))._nodes())._first());
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})},
+args: ["aString", "anObject", "aDictionary"],
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a    \x0a    | ctx |\x0a    \x0a    ctx := AIContext new.\x0a    ctx receiver: anObject.\x0a    aDictionary keysAndValuesDo: [ :key :value |\x0a    \x09ctx localAt: key put: value ].\x0a    \x0a    ^ self interpreter\x0a    \x09context: ctx;\x0a    \x09interpret: (self parse: aString forClass: anObject class) \x0a        \x09nodes first",
+messageSends: ["new", "receiver:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "interpret:", "first", "nodes", "parse:forClass:", "class"],
+referencedClasses: ["AIContext"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
 "_interpret_withArguments_",
 smalltalk.method({
 selector: "interpret:withArguments:",
 category: 'accessing',
 fn: function (aString,aDictionary){
 var self=this;
-var ctx;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-ctx=_st((smalltalk.AIContext || AIContext))._new();
-_st(aDictionary)._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
-$2=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
-_st($2)._context_(ctx);
-$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
-$1=$3;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._interpret_receiver_withArguments_(aString,_st((smalltalk.Object || Object))._new(),aDictionary);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.ASTInterpreterTest)})},
 args: ["aString", "aDictionary"],
-source: "interpret: aString withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a    \x0a    | ctx |\x0a    \x0a    ctx := AIContext new.\x0a    aDictionary keysAndValuesDo: [ :key :value |\x0a    \x09ctx localAt: key put: value ].\x0a    \x0a    ^ ASTInterpreter new\x0a    \x09context: ctx;\x0a    \x09interpret: (self parse: aString forClass: Object) \x0a        \x09nodes first",
-messageSends: ["new", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "first", "nodes", "parse:forClass:"],
-referencedClasses: ["AIContext", "ASTInterpreter", "Object"]
+source: "interpret: aString withArguments: aDictionary\x0a\x09^ self \x0a    \x09interpret: aString \x0a        receiver: Object new\x0a        withArguments: aDictionary",
+messageSends: ["interpret:receiver:withArguments:", "new"],
+referencedClasses: ["Object"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_interpreter",
+smalltalk.method({
+selector: "interpreter",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTInterpreterTest)})},
+args: [],
+source: "interpreter\x0a\x09^ ASTInterpreter new",
+messageSends: ["new"],
+referencedClasses: ["ASTInterpreter"]
 }),
 smalltalk.ASTInterpreterTest);
 
@@ -162,6 +199,38 @@ return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smal
 args: [],
 source: "testInlinedJSStatement\x0a\x09self assert: (self interpret: 'foo <return 2+3>') equals: 5.\x0a    \x0a    self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger <return 2 + anInteger>' \x0a        \x09withArguments: #{ 'anInteger' -> 3}) \x0a\x09\x09equals: 5",
 messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testInstVarAssignment",
+smalltalk.method({
+selector: "testInstVarAssignment",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st((smalltalk.Point || Point))._new(),smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((2))])),(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{}, smalltalk.ASTInterpreterTest)})},
+args: [],
+source: "testInstVarAssignment\x0a\x09self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger x := anInteger. ^ x'\x0a        \x09receiver: Point new\x0a        \x09withArguments: #{'anInteger' -> 2})\x0a        equals: 2",
+messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new", "->"],
+referencedClasses: ["Point"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testTempAssignment",
+smalltalk.method({
+selector: "testTempAssignment",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo | a | a := 2. ^ a"),(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{}, smalltalk.ASTInterpreterTest)})},
+args: [],
+source: "testTempAssignment\x0a\x09self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2",
+messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);

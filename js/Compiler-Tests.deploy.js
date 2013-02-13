@@ -28,23 +28,50 @@ return $1;
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
+"_interpret_receiver_withArguments_",
+smalltalk.method({
+selector: "interpret:receiver:withArguments:",
+fn: function (aString,anObject,aDictionary){
+var self=this;
+var ctx;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+ctx=_st((smalltalk.AIContext || AIContext))._new();
+_st(ctx)._receiver_(anObject);
+_st(aDictionary)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+$2=_st(self)._interpreter();
+_st($2)._context_(ctx);
+$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._class()))._nodes())._first());
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
 "_interpret_withArguments_",
 smalltalk.method({
 selector: "interpret:withArguments:",
 fn: function (aString,aDictionary){
 var self=this;
-var ctx;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-ctx=_st((smalltalk.AIContext || AIContext))._new();
-_st(aDictionary)._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
-$2=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
-_st($2)._context_(ctx);
-$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,(smalltalk.Object || Object)))._nodes())._first());
-$1=$3;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._interpret_receiver_withArguments_(aString,_st((smalltalk.Object || Object))._new(),aDictionary);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_interpreter",
+smalltalk.method({
+selector: "interpreter",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTInterpreterTest)})}
 }),
 smalltalk.ASTInterpreterTest);
 
@@ -118,6 +145,28 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
 _st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testInstVarAssignment",
+smalltalk.method({
+selector: "testInstVarAssignment",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st((smalltalk.Point || Point))._new(),smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((2))])),(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testTempAssignment",
+smalltalk.method({
+selector: "testTempAssignment",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo | a | a := 2. ^ a"),(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{}, smalltalk.ASTInterpreterTest)})}
 }),
 smalltalk.ASTInterpreterTest);
 

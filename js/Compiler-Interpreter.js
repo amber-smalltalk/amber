@@ -29,6 +29,26 @@ referencedClasses: []
 smalltalk.AIContext);
 
 smalltalk.addMethod(
+"_localAt_",
+smalltalk.method({
+selector: "localAt:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._locals())._at_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString}, smalltalk.AIContext)})},
+args: ["aString"],
+source: "localAt: aString\x0a\x09^ self locals at: aString ifAbsent: [ nil ]",
+messageSends: ["at:ifAbsent:", "locals"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
 "_localAt_put_",
 smalltalk.method({
 selector: "localAt:put:",
@@ -235,6 +255,29 @@ smalltalk.AIContext.klass);
 
 smalltalk.addClass('ASTInterpreter', smalltalk.NodeVisitor, ['currentNode', 'context', 'shouldReturn'], 'Compiler-Interpreter');
 smalltalk.addMethod(
+"_assign_to_",
+smalltalk.method({
+selector: "assign:to:",
+category: 'interpreting',
+fn: function (aNode,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st(aNode)._binding())._isInstanceVar();
+if(smalltalk.assert($2)){
+$1=_st(_st(_st(self)._context())._receiver())._instVarAt_put_(_st(aNode)._value(),anObject);
+} else {
+$1=_st(_st(self)._context())._localAt_put_(_st(aNode)._value(),anObject);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"assign:to:",{aNode:aNode,anObject:anObject}, smalltalk.ASTInterpreter)})},
+args: ["aNode", "anObject"],
+source: "assign: aNode to: anObject\x0a\x09^ aNode binding isInstanceVar \x0a    \x09ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]\x0a      \x09ifFalse: [ self context localAt: aNode value put: anObject ]",
+messageSends: ["ifTrue:ifFalse:", "instVarAt:put:", "value", "receiver", "context", "localAt:put:", "isInstanceVar", "binding"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
 "_context",
 smalltalk.method({
 selector: "context",
@@ -383,6 +426,24 @@ args: ["aSendNode"],
 source: "messageFromSendNode: aSendNode\x0a\x09^ Message new\x0a    \x09selector: aSendNode selector;\x0a        arguments: (aSendNode arguments collect: [ :each |\x0a        \x09self interpretNode: each ]);\x0a        yourself",
 messageSends: ["selector:", "selector", "new", "arguments:", "collect:", "interpretNode:", "arguments", "yourself"],
 referencedClasses: ["Message"]
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+"_visitAssignmentNode_",
+smalltalk.method({
+selector: "visitAssignmentNode:",
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._assign_to_(_st(aNode)._left(),_st(self)._interpretNode_(_st(aNode)._right()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode}, smalltalk.ASTInterpreter)})},
+args: ["aNode"],
+source: "visitAssignmentNode: aNode\x0a\x09^ self assign: aNode left to: (self interpretNode: aNode right)",
+messageSends: ["assign:to:", "left", "interpretNode:", "right"],
+referencedClasses: []
 }),
 smalltalk.ASTInterpreter);
 
@@ -551,6 +612,29 @@ return $1;
 args: ["aNode"],
 source: "visitValueNode: aNode\x0a\x09^ aNode value",
 messageSends: ["value"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+"_visitVariableNode_",
+smalltalk.method({
+selector: "visitVariableNode:",
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st(aNode)._binding())._isInstanceVar();
+if(smalltalk.assert($2)){
+$1=_st(_st(_st(self)._context())._receiver())._instVarAt_(_st(aNode)._value());
+} else {
+$1=_st(_st(self)._context())._localAt_(_st(aNode)._value());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode}, smalltalk.ASTInterpreter)})},
+args: ["aNode"],
+source: "visitVariableNode: aNode\x0a\x09^ aNode binding isInstanceVar\x0a    \x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a      \x09ifFalse: [ self context localAt: aNode value ]",
+messageSends: ["ifTrue:ifFalse:", "instVarAt:", "value", "receiver", "context", "localAt:", "isInstanceVar", "binding"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);
