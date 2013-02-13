@@ -877,3 +877,50 @@ smalltalk.MethodContext);
 
 
 
+smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
+
+smalltalk.addMethod(
+"_class_",
+smalltalk.method({
+selector: "class:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a();;
+return self}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_class_value_",
+smalltalk.method({
+selector: "class:value:",
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a(anObject);;
+return self}, function($ctx1) {$ctx1.fill(self,"class:value:",{aString:aString,anObject:anObject}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_class_value_value_",
+smalltalk.method({
+selector: "class:value:value:",
+fn: function (aString,anObject,anObject2){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a(anObject,anObject2);;
+return self}, function($ctx1) {$ctx1.fill(self,"class:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_class_value_value_value_",
+smalltalk.method({
+selector: "class:value:value:value:",
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a(anObject,anObject2, anObject3);;
+return self}, function($ctx1) {$ctx1.fill(self,"class:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+

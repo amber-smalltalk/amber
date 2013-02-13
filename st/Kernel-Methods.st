@@ -419,3 +419,28 @@ isBlockContext
 	^ self selector isNil
 ! !
 
+Object subclass: #NativeFunction
+	instanceVariableNames: ''
+	package: 'Kernel-Methods'!
+
+!NativeFunction class methodsFor: 'not yet classified'!
+
+class: aString
+<var a=eval(aString); return new a();>
+!
+
+class: aString value:anObject
+
+<var a=eval(aString); return new a(anObject);>
+!
+
+class: aString value:anObject value: anObject2
+
+<var a=eval(aString); return new a(anObject,anObject2);>
+!
+
+class: aString value:anObject value: anObject2 value:anObject3
+
+<var a=eval(aString); return new a(anObject,anObject2, anObject3);>
+! !
+
