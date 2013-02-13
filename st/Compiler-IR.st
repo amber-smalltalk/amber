@@ -416,6 +416,12 @@ arguments: aCollection
 	arguments := aCollection
 !
 
+locals
+	^ self arguments copy
+    	addAll: (self tempDeclarations collect: [ :each | each name ]); 
+        yourself
+!
+
 scope: aScope
 	super scope: aScope.
 	aScope instruction: self
@@ -472,6 +478,12 @@ internalVariables
 
 isMethod
 	^ true
+!
+
+locals
+	^ self arguments copy
+    	addAll: (self tempDeclarations collect: [ :each | each name ]); 
+        yourself
 !
 
 messageSends
@@ -1050,19 +1062,14 @@ nextPutBlockContextFor: anIRClosure during: aBlock
     
     self 
     	nextPutAll: '}, function(', anIRClosure scope alias, ') {';
-        nextPutAll: anIRClosure scope alias, '.fillBlock(['.
+        nextPutAll: anIRClosure scope alias, '.fillBlock({'.
     
-    anIRClosure arguments 
-    	do: [ :each | self nextPutAll: each asVariableName ]
-      	separatedBy: [ self nextPutAll: ','  ].
-    self nextPutAll: '], {'.
-    
-    anIRClosure tempDeclarations 
+    anIRClosure locals 
     	do: [ :each |
     		self 
-        		nextPutAll: each name asVariableName;
+        		nextPutAll: each asVariableName;
            	 	nextPutAll: ':';
-        		nextPutAll: each name asVariableName]
+        		nextPutAll: each asVariableName]
 		separatedBy: [ self nextPutAll: ',' ].
     
     self
@@ -1088,19 +1095,14 @@ nextPutContextFor: aMethod during: aBlock
     
     self 
     	nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias; 
-        nextPutAll: '.fill(self,', aMethod selector asJavascript, ', ['.
-    
-    aMethod arguments 
-    	do: [ :each | self nextPutAll: each asVariableName ]
-      	separatedBy: [ self nextPutAll: ','  ].
-    self nextPutAll: '], {'.
-    
-    aMethod tempDeclarations 
+        nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.
+
+    aMethod locals 
     	do: [ :each |
     		self 
-        		nextPutAll: each name asVariableName;
+        		nextPutAll: each asVariableName;
            	 	nextPutAll: ':';
-        		nextPutAll: each name asVariableName]
+        		nextPutAll: each asVariableName]
 		separatedBy: [ self nextPutAll: ',' ].
     
     self

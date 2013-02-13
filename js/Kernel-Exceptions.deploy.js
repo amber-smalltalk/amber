@@ -7,7 +7,7 @@ selector: "context",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.context;
-return self}, function($ctx1) {$ctx1.fill(self,"context", [], {}, smalltalk.Error)})}
+return self}, function($ctx1) {$ctx1.fill(self,"context",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -18,7 +18,7 @@ selector: "isSmalltalkError",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.smalltalkError === true;
-return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError", [], {}, smalltalk.Error)})}
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -29,7 +29,7 @@ selector: "jsStack",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.stack;
-return self}, function($ctx1) {$ctx1.fill(self,"jsStack", [], {}, smalltalk.Error)})}
+return self}, function($ctx1) {$ctx1.fill(self,"jsStack",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -42,7 +42,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@messageText"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText", [], {}, smalltalk.Error)})}
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -53,7 +53,7 @@ selector: "messageText:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@messageText"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"messageText:", [aString], {}, smalltalk.Error)})}
+return self}, function($ctx1) {$ctx1.fill(self,"messageText:",{aString:aString}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -64,7 +64,7 @@ selector: "signal",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
-return self}, function($ctx1) {$ctx1.fill(self,"signal", [], {}, smalltalk.Error)})}
+return self}, function($ctx1) {$ctx1.fill(self,"signal",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -76,7 +76,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._messageText_(aString);
 _st(self)._signal();
-return self}, function($ctx1) {$ctx1.fill(self,"signal:", [aString], {}, smalltalk.Error)})}
+return self}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -90,7 +90,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._new())._signal();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"signal", [], {}, smalltalk.Error.klass)})}
+}, function($ctx1) {$ctx1.fill(self,"signal",{}, smalltalk.Error.klass)})}
 }),
 smalltalk.Error.klass);
 
@@ -103,7 +103,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._new())._signal_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"signal:", [aString], {}, smalltalk.Error.klass)})}
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString}, smalltalk.Error.klass)})}
 }),
 smalltalk.Error.klass);
 
@@ -118,7 +118,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@message"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"message", [], {}, smalltalk.MessageNotUnderstood)})}
+}, function($ctx1) {$ctx1.fill(self,"message",{}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -129,7 +129,7 @@ selector: "message:",
 fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@message"]=aMessage;
-return self}, function($ctx1) {$ctx1.fill(self,"message:", [aMessage], {}, smalltalk.MessageNotUnderstood)})}
+return self}, function($ctx1) {$ctx1.fill(self,"message:",{aMessage:aMessage}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -142,7 +142,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(_st(self)._receiver())._asString()).__comma(" does not understand #")).__comma(_st(_st(self)._message())._selector());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText", [], {}, smalltalk.MessageNotUnderstood)})}
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -155,7 +155,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@receiver"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"receiver", [], {}, smalltalk.MessageNotUnderstood)})}
+}, function($ctx1) {$ctx1.fill(self,"receiver",{}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -166,7 +166,7 @@ selector: "receiver:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@receiver"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"receiver:", [anObject], {}, smalltalk.MessageNotUnderstood)})}
+return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -182,7 +182,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@object"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"object", [], {}, smalltalk.NonBooleanReceiver)})}
+}, function($ctx1) {$ctx1.fill(self,"object",{}, smalltalk.NonBooleanReceiver)})}
 }),
 smalltalk.NonBooleanReceiver);
 
@@ -193,7 +193,7 @@ selector: "object:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@object"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"object:", [anObject], {}, smalltalk.NonBooleanReceiver)})}
+return self}, function($ctx1) {$ctx1.fill(self,"object:",{anObject:anObject}, smalltalk.NonBooleanReceiver)})}
 }),
 smalltalk.NonBooleanReceiver);
 
@@ -214,7 +214,7 @@ $1;
 _st(self)._logErrorContext_(_st(anError)._context());
 };
 _st(self)._logError_(anError);
-return self}, function($ctx1) {$ctx1.fill(self,"handleError:", [anError], {}, smalltalk.ErrorHandler)})}
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -225,7 +225,7 @@ selector: "log:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(console)._log_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"log:", [aString], {}, smalltalk.ErrorHandler)})}
+return self}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -243,7 +243,7 @@ $1;
 _st(self)._logContext_(_st(aContext)._home());
 };
 _st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(_st(aContext)._selector())._asString()));
-return self}, function($ctx1) {$ctx1.fill(self,"logContext:", [aContext], {}, smalltalk.ErrorHandler)})}
+return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -254,7 +254,7 @@ selector: "logError:",
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._log_(_st(anError)._messageText());
-return self}, function($ctx1) {$ctx1.fill(self,"logError:", [anError], {}, smalltalk.ErrorHandler)})}
+return self}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -273,9 +273,9 @@ return $3;
 } else {
 return _st(self)._logContext_(_st(aContext)._home());
 };
-}, function($ctx2) {$ctx2.fillBlock([], {})})});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
 _st($1)._ifNotNil_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:", [aContext], {}, smalltalk.ErrorHandler)})}
+return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -296,7 +296,7 @@ $1=self["@current"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current", [], {}, smalltalk.ErrorHandler.klass)})}
+}, function($ctx1) {$ctx1.fill(self,"current",{}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -307,7 +307,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._register();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], {}, smalltalk.ErrorHandler.klass)})}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -318,7 +318,7 @@ selector: "register",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st((smalltalk.ErrorHandler || ErrorHandler))._setCurrent_(_st(self)._new());
-return self}, function($ctx1) {$ctx1.fill(self,"register", [], {}, smalltalk.ErrorHandler.klass)})}
+return self}, function($ctx1) {$ctx1.fill(self,"register",{}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -329,7 +329,7 @@ selector: "setCurrent:",
 fn: function (anHandler){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@current"]=anHandler;
-return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:", [anHandler], {}, smalltalk.ErrorHandler.klass)})}
+return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandler}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 

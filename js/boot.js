@@ -730,7 +730,6 @@ function SmalltalkMethodContext(home, setup) {
 }
 
 // Fallbacks
-SmalltalkMethodContext.prototype.args = [];
 SmalltalkMethodContext.prototype.locals = {};
 SmalltalkMethodContext.prototype.receiver = null;
 SmalltalkMethodContext.prototype.selector = null;
@@ -738,20 +737,16 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, locals, lookupClass) {
+SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
     this.receiver    = receiver;
     this.selector    = selector;
-    this.args        = args || [];
     this.locals      = locals || {};
     this.lookupClass = lookupClass;
 };
 
-SmalltalkMethodContext.prototype.fillBlock = function(args, locals, ctx) {
-    this.args        = args || [];
-    this.locals      = locals || {};
-    if(ctx) {
-        this.methodContext = ctx;
-    }
+SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
+    this.locals        = locals || {};
+    this.methodContext = ctx;
 };
 
 SmalltalkMethodContext.prototype.init = function() {

@@ -9,8 +9,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__minus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fillBlock([html], {})})}));
-return self}, function($ctx1) {$ctx1.fill(self,"decrease", [], {}, smalltalk.Counter)})}
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"decrease",{}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);
 
@@ -23,8 +23,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@count"]=_st(self["@count"]).__plus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fillBlock([html], {})})}));
-return self}, function($ctx1) {$ctx1.fill(self,"increase", [], {}, smalltalk.Counter)})}
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"increase",{}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);
 
@@ -36,7 +36,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
 self["@count"]=(0);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize", [], {}, smalltalk.Counter)})}
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);
 
@@ -55,13 +55,13 @@ $3=_st(html)._button();
 _st($3)._with_("++");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._increase();
-}, function($ctx2) {$ctx2.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._decrease();
-}, function($ctx2) {$ctx2.fillBlock([], {})})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:", [html], {}, smalltalk.Counter)})}
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html}, smalltalk.Counter)})}
 }),
 smalltalk.Counter);
 
@@ -73,7 +73,7 @@ selector: "tryExample",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._new())._appendToJQuery_(_st("body")._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"tryExample", [], {}, smalltalk.Counter.klass)})}
+return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{}, smalltalk.Counter.klass)})}
 }),
 smalltalk.Counter.klass);
 

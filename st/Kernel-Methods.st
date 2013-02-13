@@ -355,10 +355,6 @@ Current limitation: MethodContext instances are not created on Block evaluation.
 
 !MethodContext methodsFor: 'accessing'!
 
-arguments
-	<return self.args>
-!
-
 asString
 	^self isBlockContext 
     	ifTrue: [ 'a block (in ', self methodContext asString, ')' ]

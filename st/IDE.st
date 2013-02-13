@@ -1315,8 +1315,6 @@ allVariables
 	| all |
 	all := Dictionary new.
 
-	self arguments withIndexDo: [:each :index |
-     	all at: each put: (selectedContext arguments at: index) ].
 	self receiver class allInstanceVariableNames do: [:each |
 		all at: each put: (self receiver instVarAt: each) ].
     
@@ -1324,12 +1322,6 @@ allVariables
     	all at: key put: value ].
     
     ^ all
-!
-
-arguments
-	^self method 
-		ifNil: [selectedContext arguments collect: [ :each | nil ] ]
-		ifNotNil: [ self method arguments ]
 !
 
 error
@@ -1461,7 +1453,7 @@ renderContext: aContext on: html
 	li 
 		with: aContext asString;
 		onClick: [self selectContext: aContext].
-	aContext home ifNotNil: [self renderContext: aContext outerContext on: html]
+	aContext outerContext ifNotNil: [self renderContext: aContext outerContext on: html]
 !
 
 renderTopPanelOn: html
