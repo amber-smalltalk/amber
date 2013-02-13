@@ -727,9 +727,14 @@ function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
     this.setup       = setup || function() {};
     this.pc          = 0;
-    this.locals      = {};
-    this.args        = [];
 }
+
+// Fallbacks
+SmalltalkMethodContext.prototype.args = [];
+SmalltalkMethodContext.prototype.locals = {};
+SmalltalkMethodContext.prototype.receiver = null;
+SmalltalkMethodContext.prototype.selector = null;
+SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
@@ -742,11 +747,8 @@ SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, local
 };
 
 SmalltalkMethodContext.prototype.fillBlock = function(args, locals) {
-    this.receiver    = null;
-    this.selector    = null;
     this.args        = args || [];
     this.locals      = locals || {};
-    this.lookupClass = null;
 };
 
 SmalltalkMethodContext.prototype.init = function() {
