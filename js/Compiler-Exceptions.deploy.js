@@ -93,6 +93,19 @@ smalltalk.ShadowingVariableError);
 
 smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st("Unknown Variable error: ").__comma(_st(self)._variableName())).__comma(" is not defined");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.UnknownVariableError)})}
+}),
+smalltalk.UnknownVariableError);
+
+smalltalk.addMethod(
 "_variableName",
 smalltalk.method({
 selector: "variableName",

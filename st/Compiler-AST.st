@@ -152,6 +152,10 @@ scope: aLexicalScope
 
 isBlockNode
 	^true
+!
+
+subtreeNeedsAliasing
+    ^self shouldBeAliased or: [ self shouldBeInlined ]
 ! !
 
 !BlockNode methodsFor: 'visiting'!

@@ -491,7 +491,7 @@ instanceVariableNamesFor: aString
 ! !
 
 Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class category chunkParser'
+	instanceVariableNames: 'class category'
 	package: 'Kernel-Classes'!
 !ClassCategoryReader commentStamp!
 ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
@@ -517,7 +517,6 @@ scanFrom: aChunkParser
 
 initialize
 	super initialize.
-	chunkParser := ChunkParser new.
 ! !
 
 !ClassCategoryReader methodsFor: 'private'!
@@ -527,10 +526,10 @@ compileMethod: aString
 ! !
 
 Object subclass: #ClassCommentReader
-	instanceVariableNames: 'class chunkParser'
+	instanceVariableNames: 'class'
 	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
-ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
+ClassCommentReader represents a mechanism for retrieving class comments stored on a file.
 See `ClassCategoryReader` too.!
 
 !ClassCommentReader methodsFor: 'accessing'!
@@ -552,7 +551,6 @@ scanFrom: aChunkParser
 
 initialize
 	super initialize.
-	chunkParser := ChunkParser new.
 ! !
 
 !ClassCommentReader methodsFor: 'private'!

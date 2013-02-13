@@ -12,6 +12,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"context",{}, smalltalk.Error)})}
 smalltalk.Error);
 
 smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._messageText_(_st("Errorclass: ").__comma(_st(_st(self)._class())._name()));
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Error)})}
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
 "_isSmalltalkError",
 smalltalk.method({
 selector: "isSmalltalkError",
