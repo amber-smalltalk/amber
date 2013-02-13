@@ -65,6 +65,10 @@ isImmutable
 	^false
 !
 
+isNode
+	^ true
+!
+
 isReturnNode
 	^false
 !
@@ -152,10 +156,6 @@ scope: aLexicalScope
 
 isBlockNode
 	^true
-!
-
-subtreeNeedsAliasing
-    ^self shouldBeAliased or: [ self shouldBeInlined ]
 ! !
 
 !BlockNode methodsFor: 'visiting'!
@@ -542,5 +542,11 @@ VariableNode subclass: #ClassReferenceNode
 
 accept: aVisitor
 	^ aVisitor visitClassReferenceNode: self
+! !
+
+!Object methodsFor: '*Compiler-AST'!
+
+isNode
+	^ false
 ! !
 

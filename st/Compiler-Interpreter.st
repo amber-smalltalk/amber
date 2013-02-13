@@ -68,7 +68,7 @@ fromMethodContext: aMethodContext
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
-	instanceVariableNames: 'currentNode context shouldReturn'
+	instanceVariableNames: 'currentNode context shouldReturn currentValue'
 	package: 'Compiler-Interpreter'!
 
 !ASTInterpreter methodsFor: 'accessing'!
@@ -79,6 +79,10 @@ context
 
 context: anAIContext
 	context := anAIContext
+!
+
+currentValue
+	^ currentValue
 ! !
 
 !ASTInterpreter methodsFor: 'initialization'!
@@ -94,6 +98,10 @@ assign: aNode to: anObject
 	^ aNode binding isInstanceVar 
     	ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]
       	ifFalse: [ self context localAt: aNode value put: anObject ]
+!
+
+continue: anObject
+	currentValue := anObject
 !
 
 eval: aString
@@ -119,84 +127,140 @@ eval: aString
 
 interpret: aNode
 	shouldReturn := false.
-    ^ self interpretNode: aNode
+    self interpret: aNode continue: [ :value |
+    	currentValue := value ]
 !
 
-interpretNode: aNode
-	currentNode := aNode.
-    ^ self visit: aNode
+interpret: aNode continue: aBlock
+
+	shouldReturn ifTrue: [ ^ self ].
+
+	aNode isNode 
+    	ifTrue: [ self visit: aNode ]
+        ifFalse: [ currentValue := aNode ].
+	aBlock value: self currentValue
 !
 
-messageFromSendNode: aSendNode
-	^ Message new
-    	selector: aSendNode selector;
-        arguments: (aSendNode arguments collect: [ :each |
-        	self interpretNode: each ]);
-        yourself
+interpretAll: aCollection continue: aBlock
+	self 
+    	interpretAll: aCollection 
+        continue: aBlock 
+        result: OrderedCollection new
+!
+
+interpretAll: nodes continue: aBlock result: aCollection
+	nodes isEmpty 
+    	ifTrue: [ aBlock value: aCollection ]
+    	ifFalse: [
+    		self interpret: nodes first continue: [:value |
+    			self 
+                	interpretAll: nodes allButFirst 
+                    continue: aBlock
+  					result: aCollection, { value } ] ]
+!
+
+messageFromSendNode: aSendNode do: aBlock
+	self interpretAll: aSendNode arguments continue: [ :args |
+    	aBlock value: (Message new
+    		selector: aSendNode selector;
+        	arguments: args;
+        	yourself) ]
 ! !
 
 !ASTInterpreter methodsFor: 'visiting'!
 
 visitAssignmentNode: aNode
-	^ self assign: aNode left to: (self interpretNode: aNode right)
+	self interpret: aNode right continue: [ :value |
+    	self continue: (self assign: aNode left to: value) ]
 !
 
 visitBlockNode: aNode
-    ^ [ self interpretNode: aNode nodes first ]
+	"TODO: Context should be set"
+    self continue: [ self interpret: aNode nodes first; currentValue ]
 !
 
 visitCascadeNode: aNode
 	"TODO: Handle super sends"
-	| receiver |
-    
-    receiver := self interpretNode: aNode receiver.
-
-    aNode nodes allButLast
-    	do: [ :each | 
-        	(self messageFromSendNode: each)
-            	sendTo: receiver ].
-
-    ^ (self messageFromSendNode: aNode nodes last)
-            	sendTo: receiver
+	
+    self interpret: aNode receiver continue: [ :receiver |
+		"Only interpret the receiver once"
+        aNode nodes do: [ :each | each receiver: receiver ].
+  
+    	self 
+        	interpretAll: aNode nodes allButLast
+    		continue: [
+              	self 
+                	interpret: aNode nodes last
+                	continue: [ :val | self continue: val ] ] ]
 !
 
 visitClassReferenceNode: aNode
-	^ Smalltalk current at: aNode value
+	self continue: (Smalltalk current at: aNode value)
+!
+
+visitDynamicArrayNode: aNode
+
+	self interpretAll: aNode nodes continue: [ :array |
+    	self continue: array ]
+!
+
+visitDynamicDictionaryNode: aNode
+	
+    self interpretAll: aNode nodes continue: [ :array | | hashedCollection |
+    	hashedCollection := HashedCollection new.
+        array do: [ :each | hashedCollection add: each ].
+        self continue: hashedCollection ]
 !
 
 visitJSStatementNode: aNode
 	shouldReturn := true.
-	^ self eval: aNode source
+	self continue: (self eval: aNode source)
 !
 
 visitReturnNode: aNode
-	shouldReturn := true.
-    ^ self interpretNode: aNode nodes first
+    self interpret: aNode nodes first continue: [ :value |
+    	shouldReturn := true.
+		self continue: value ]
 !
 
 visitSendNode: aNode
 	"TODO: Handle super sends"
     
-    ^ (self messageFromSendNode: aNode)
-    	sendTo: (self interpretNode: aNode receiver)
+    self interpret: aNode receiver continue: [ :receiver |
+    	self messageFromSendNode: aNode do: [ :message |
+        	self context pc: self context pc + 1.
+        	self continue: (message sendTo: receiver) ] ]
 !
 
 visitSequenceNode: aNode
-
-	aNode nodes allButLast do: [ :each | | value |
-        value := self interpretNode: each.
-		shouldReturn ifTrue: [ ^ value ] ].
-        
-    ^ self interpretNode: aNode nodes last
+	self interpretAll: aNode nodes continue: [ :array |
+    	self continue: array last ]
 !
 
 visitValueNode: aNode
-	^ aNode value
-!
+	self continue: aNode value
+! !
 
-visitVariableNode: aNode
-	^ aNode binding isInstanceVar
-    	ifTrue: [ self context receiver instVarAt: aNode value ]
-      	ifFalse: [ self context localAt: aNode value ]
+ASTInterpreter subclass: #ASTDebugger
+	instanceVariableNames: 'continuation'
+	package: 'Compiler-Interpreter'!
+
+!ASTDebugger methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    continuation := [  ]
+! !
+
+!ASTDebugger methodsFor: 'interpreting'!
+
+interpret: aNode continue: aBlock
+	continuation := [ super interpret: aNode continue: aBlock ]
+! !
+
+!ASTDebugger methodsFor: 'stepping'!
+
+stepOver
+	continuation value
 ! !
 
