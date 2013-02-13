@@ -21,6 +21,12 @@ messageText: aString
 	messageText := aString
 ! !
 
+!Error methodsFor: 'initialization'!
+
+initialize
+	self messageText: 'Errorclass: ', (self class name).
+! !
+
 !Error methodsFor: 'signaling'!
 
 signal
