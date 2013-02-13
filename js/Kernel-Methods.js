@@ -120,10 +120,10 @@ selector: "newValue:value:value:",
 category: 'evaluating',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2);
+return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2,anObject3);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
-source: "newValue:  anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
+source: "newValue:  anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2,anObject3)>",
 messageSends: [],
 referencedClasses: []
 }),

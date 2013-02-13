@@ -80,7 +80,7 @@ newValue:  anObject value: anObject2
 newValue:  anObject value: anObject2 value: anObject3
 	"Use the receiver as a JS constructor. 
 	*Do not* use this method to instanciate Smalltalk objects!!"
-	<return new self(anObject, anObject2)>
+	<return new self(anObject, anObject2,anObject3)>
 !
 
 timeToRun

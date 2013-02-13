@@ -83,7 +83,7 @@ smalltalk.method({
 selector: "newValue:value:value:",
 fn: function (anObject,anObject2,anObject3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2);
+return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2,anObject3);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.BlockClosure)})}
 }),
 smalltalk.BlockClosure);
