@@ -1145,34 +1145,44 @@ smalltalk.Metaclass);
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.ClassBuilder.comment="ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`."
 smalltalk.addMethod(
-"_addSubclassOf_named_instanceVariableNames_",
-smalltalk.method({
-selector: "addSubclassOf:named:instanceVariableNames:",
-category: 'private',
-fn: function (aClass,aString,aCollection){
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:",{aClass:aClass,aString:aString,aCollection:aCollection}, smalltalk.ClassBuilder)})},
-args: ["aClass", "aString", "aCollection"],
-source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection\x0a\x09<smalltalk.addClass(aString, aClass, aCollection);\x0a\x09    return smalltalk[aString]>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ClassBuilder);
-
-smalltalk.addMethod(
 "_addSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
 category: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.addClass(aString, aClass, aCollection, packageName);
-	    return smalltalk[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName}, smalltalk.ClassBuilder)})},
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+$2=_st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(aString,aClass,aCollection,packageName);
+return $2;
+};
+$3=_st(self)._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName}, smalltalk.ClassBuilder)})},
 args: ["aClass", "aString", "aCollection", "packageName"],
-source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09    return smalltalk[aString]>",
+source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09\x0a    (Smalltalk current at: aString) ifNotNil: [ \x0a    \x09^ self \x0a        \x09migrateClassNamed: aString \x0a            superclass: aClass \x0a            instanceVariableNames: aCollection \x0a            package: packageName ].\x0a\x0a\x09^ self \x0a    \x09basicAddSubclassOf: aClass \x0a        named: aString \x0a        instanceVariableNames: aCollection \x0a        package: packageName",
+messageSends: ["ifNotNil:", "migrateClassNamed:superclass:instanceVariableNames:package:", "at:", "current", "basicAddSubclassOf:named:instanceVariableNames:package:"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_basicAddSubclassOf_named_instanceVariableNames_package_",
+smalltalk.method({
+selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
+category: 'private',
+fn: function (aClass,aString,aCollection,packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		smalltalk.addClass(aString, aClass, aCollection, packageName);
+		return smalltalk[aString]
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName}, smalltalk.ClassBuilder)})},
+args: ["aClass", "aString", "aCollection", "packageName"],
+source: "basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09<\x0a\x09\x09smalltalk.addClass(aString, aClass, aCollection, packageName);\x0a\x09\x09return smalltalk[aString]\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1194,8 +1204,24 @@ _st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aStri
 _st(self)._setupClass_(aClass);
 return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})},
 args: ["aClass", "aString"],
-source: "basicClass: aClass instanceVariableNames: aString\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a\x09self setupClass: aClass",
+source: "basicClass: aClass instanceVariableNames: aString\x0a\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a\x09self setupClass: aClass",
 messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:", "instanceVariableNamesFor:", "setupClass:"],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_basicRemoveClass_",
+smalltalk.method({
+selector: "basicRemoveClass:",
+category: 'private',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.removeClass(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveClass:",{aClass:aClass}, smalltalk.ClassBuilder)})},
+args: ["aClass"],
+source: "basicRemoveClass: aClass\x0a\x09<smalltalk.removeClass(aClass)>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
@@ -1283,9 +1309,42 @@ return smalltalk.withContext(function($ctx2) {return _st(each)._isEmpty();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aString:aString}, smalltalk.ClassBuilder)})},
 args: ["aString"],
-source: "instanceVariableNamesFor: aString\x0a\x09^(aString tokenize: ' ') reject: [:each | each isEmpty]",
+source: "instanceVariableNamesFor: aString\x0a\x09^(aString tokenize: ' ') reject: [ :each | each isEmpty ]",
 messageSends: ["reject:", "isEmpty", "tokenize:"],
 referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_migrateClassNamed_superclass_instanceVariableNames_package_",
+smalltalk.method({
+selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
+category: 'private',
+fn: function (aString,aClass,aCollection,packageName){
+var self=this;
+var oldClass,newClass;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+$1=self;
+_st($1)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
+$2=_st($1)._basicRemoveClass_(oldClass);
+newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
+_st(self)._setupClass_(newClass);
+_st(newClass)._comment_(_st(oldClass)._comment());
+_st(_st(_st(oldClass)._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),newClass,_st(each)._category());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(_st(_st(_st(oldClass)._class())._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(newClass)._class(),_st(each)._category());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._setupClass_(newClass);
+$3=newClass;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass}, smalltalk.ClassBuilder)})},
+args: ["aString", "aClass", "aCollection", "packageName"],
+source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the class for existing instances\x22\x0a\x09self \x0a    \x09basicRenameClass: oldClass to: 'Old', aString;\x0a        basicRemoveClass: oldClass.\x0a        \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self setupClass: newClass.\x0a\x0a\x09newClass comment: oldClass comment.\x0a\x0a\x09oldClass methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass category: each category].\x0a\x0a\x09oldClass class methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass class category: each category].\x0a\x0a\x09self setupClass: newClass.\x0a    \x0a\x09^newClass",
+messageSends: ["at:", "current", "basicRenameClass:to:", ",", "basicRemoveClass:", "addSubclassOf:named:instanceVariableNames:package:", "setupClass:", "comment:", "comment", "do:", "install:forClass:category:", "source", "category", "new", "values", "methodDictionary", "class"],
+referencedClasses: ["Smalltalk", "Compiler"]
 }),
 smalltalk.ClassBuilder);
 

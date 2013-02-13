@@ -536,6 +536,30 @@ return self}, function($ctx1) {$ctx1.fill(self,"testClassCopy",{}, smalltalk.Cla
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
+"_testClassMigration",
+smalltalk.method({
+selector: "testClassMigration",
+fn: function (){
+var self=this;
+var instance,oldClass;
+return smalltalk.withContext(function($ctx1) { oldClass=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+instance=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"))._new();
+_st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
+_st(self)._deny_(_st(oldClass).__eq_eq((smalltalk.ObjectMock2 || ObjectMock2)));
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._superclass()).__eq_eq((smalltalk.ObjectMock || ObjectMock)));
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._instanceVariableNames())._isEmpty());
+_st(self)._assert_equals_(_st((smalltalk.ObjectMock2 || ObjectMock2))._selectors(),_st(oldClass)._selectors());
+_st(self)._assert_equals_(_st((smalltalk.ObjectMock2 || ObjectMock2))._comment(),_st(oldClass)._comment());
+_st(self)._assert_equals_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._package())._name(),"Kernel-Tests");
+_st(self)._deny_(_st(_st(instance)._class()).__eq_eq((smalltalk.ObjectMock2 || ObjectMock2)));
+_st(self)._assert_equals_(_st(_st(instance)._class())._name(),"OldObjectMock2");
+_st(self)._assert_(_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("OldObjectMock2"))._isNil());
+_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_((smalltalk.ObjectMock2 || ObjectMock2));
+return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass}, smalltalk.ClassBuilderTest)})}
+}),
+smalltalk.ClassBuilderTest);
+
+smalltalk.addMethod(
 "_testInstanceVariableNames",
 smalltalk.method({
 selector: "testInstanceVariableNames",

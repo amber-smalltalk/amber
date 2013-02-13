@@ -440,21 +440,39 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 
 !ClassBuilder methodsFor: 'private'!
 
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	<smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]>
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	
+    (Smalltalk current at: aString) ifNotNil: [ 
+    	^ self 
+        	migrateClassNamed: aString 
+            superclass: aClass 
+            instanceVariableNames: aCollection 
+            package: packageName ].
+
+	^ self 
+    	basicAddSubclassOf: aClass 
+        named: aString 
+        instanceVariableNames: aCollection 
+        package: packageName
 !
 
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	<smalltalk.addClass(aString, aClass, aCollection, packageName);
-	    return smalltalk[aString]>
+basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<
+		smalltalk.addClass(aString, aClass, aCollection, packageName);
+		return smalltalk[aString]
+	>
 !
 
 basicClass: aClass instanceVariableNames: aString
+
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
 	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
     
 	self setupClass: aClass
+!
+
+basicRemoveClass: aClass
+	<smalltalk.removeClass(aClass)>
 !
 
 basicRenameClass: aClass to: aString
@@ -487,7 +505,38 @@ copyClass: aClass named: aString
 !
 
 instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+	^(aString tokenize: ' ') reject: [ :each | each isEmpty ]
+!
+
+migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
+	| oldClass newClass |
+    
+    oldClass := Smalltalk current at: aString.
+    
+    "Rename the class for existing instances"
+	self 
+    	basicRenameClass: oldClass to: 'Old', aString;
+        basicRemoveClass: oldClass.
+        
+    newClass := self 
+		addSubclassOf: aClass
+		named: aString 
+		instanceVariableNames: aCollection
+		package: packageName.
+
+	self setupClass: newClass.
+
+	newClass comment: oldClass comment.
+
+	oldClass methodDictionary values do: [:each |
+		Compiler new install: each source forClass: newClass category: each category].
+
+	oldClass class methodDictionary values do: [:each |
+		Compiler new install: each source forClass: newClass class category: each category].
+
+	self setupClass: newClass.
+    
+	^newClass
 ! !
 
 Object subclass: #ClassCategoryReader

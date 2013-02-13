@@ -206,6 +206,33 @@ testClassCopy
 	self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys
 !
 
+testClassMigration
+	| instance oldClass |
+    
+    oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
+    instance := (Smalltalk  current at: 'ObjectMock2') new.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self deny: oldClass == ObjectMock2.
+    
+	self assert: ObjectMock2 superclass == ObjectMock.
+	self assert: ObjectMock2 instanceVariableNames isEmpty.
+	self assert: ObjectMock2 selectors equals: oldClass selectors.
+    self assert: ObjectMock2 comment equals: oldClass comment.
+    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.
+    
+	self deny: instance class == ObjectMock2.
+    self assert: instance class name equals: 'OldObjectMock2'.
+    
+    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
+    
+    Smalltalk current removeClass: ObjectMock2
+!
+
 testInstanceVariableNames
 	self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')
 ! !
@@ -1104,6 +1131,8 @@ testTruncated
 Object subclass: #ObjectMock
 	instanceVariableNames: 'foo bar'
 	package: 'Kernel-Tests'!
+!ObjectMock commentStamp!
+ObjectMock is there only to perform tests on classes.!
 
 !ObjectMock methodsFor: 'not yet classified'!
 

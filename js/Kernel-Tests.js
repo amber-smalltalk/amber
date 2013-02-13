@@ -641,6 +641,35 @@ referencedClasses: ["ObjectMock"]
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
+"_testClassMigration",
+smalltalk.method({
+selector: "testClassMigration",
+category: 'running',
+fn: function (){
+var self=this;
+var instance,oldClass;
+return smalltalk.withContext(function($ctx1) { oldClass=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+instance=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"))._new();
+_st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
+_st(self)._deny_(_st(oldClass).__eq_eq((smalltalk.ObjectMock2 || ObjectMock2)));
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._superclass()).__eq_eq((smalltalk.ObjectMock || ObjectMock)));
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._instanceVariableNames())._isEmpty());
+_st(self)._assert_equals_(_st((smalltalk.ObjectMock2 || ObjectMock2))._selectors(),_st(oldClass)._selectors());
+_st(self)._assert_equals_(_st((smalltalk.ObjectMock2 || ObjectMock2))._comment(),_st(oldClass)._comment());
+_st(self)._assert_equals_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._package())._name(),"Kernel-Tests");
+_st(self)._deny_(_st(_st(instance)._class()).__eq_eq((smalltalk.ObjectMock2 || ObjectMock2)));
+_st(self)._assert_equals_(_st(_st(instance)._class())._name(),"OldObjectMock2");
+_st(self)._assert_(_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("OldObjectMock2"))._isNil());
+_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_((smalltalk.ObjectMock2 || ObjectMock2));
+return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass}, smalltalk.ClassBuilderTest)})},
+args: [],
+source: "testClassMigration\x0a\x09| instance oldClass |\x0a    \x0a    oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a    instance := (Smalltalk  current at: 'ObjectMock2') new.\x0a    \x0a    \x22Change the superclass of ObjectMock2\x22\x0a    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a    \x09instanceVariableNames: ''\x0a        package: 'Kernel-Tests'.\x0a    \x0a    self deny: oldClass == ObjectMock2.\x0a    \x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a    self assert: ObjectMock2 comment equals: oldClass comment.\x0a    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a    \x0a\x09self deny: instance class == ObjectMock2.\x0a    self assert: instance class name equals: 'OldObjectMock2'.\x0a    \x0a    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.\x0a    \x0a    Smalltalk current removeClass: ObjectMock2",
+messageSends: ["copyClass:named:", "new", "at:", "current", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"],
+referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"]
+}),
+smalltalk.ClassBuilderTest);
+
+smalltalk.addMethod(
 "_testInstanceVariableNames",
 smalltalk.method({
 selector: "testInstanceVariableNames",
@@ -2848,6 +2877,7 @@ smalltalk.NumberTest);
 
 
 smalltalk.addClass('ObjectMock', smalltalk.Object, ['foo', 'bar'], 'Kernel-Tests');
+smalltalk.ObjectMock.comment="ObjectMock is there only to perform tests on classes."
 smalltalk.addMethod(
 "_foo",
 smalltalk.method({
