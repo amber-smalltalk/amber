@@ -191,16 +191,16 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-1.8.2.min.js'));
+			writeScriptTag(buildJSURL('core/jQuery/jquery-1.8.2.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+			writeScriptTag(buildJSURL('core/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
 	}
 
 	function loadIDEDependencies() {
-		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
+		addJSToLoad('core/jQuery/jquery.textarea.js');
 		addJSToLoad('js/lib/CodeMirror/codemirror.js');
 		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
