@@ -3514,6 +3514,27 @@ smalltalk.Package);
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
+"_commitPathsFromLoader",
+smalltalk.method({
+selector: "commitPathsFromLoader",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    var cp = smalltalk['@@commitPath'];
+    if (!cp) return;
+    if (cp.js) self._defaultCommitPathJs_(cp.js);
+    if (cp.st) self._defaultCommitPathSt_(cp.st);
+    ;
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{}, smalltalk.Package.klass)})},
+args: [],
+source: "commitPathsFromLoader\x0a    <\x0a    var cp = smalltalk['@@commitPath'];\x0a    if (!cp) return;\x0a    if (cp.js) self._defaultCommitPathJs_(cp.js);\x0a    if (cp.st) self._defaultCommitPathSt_(cp.st);\x0a    >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
 "_defaultCommitPathJs",
 smalltalk.method({
 selector: "defaultCommitPathJs",
@@ -3624,6 +3645,23 @@ args: ["aPackageName", "aPrefix"],
 source: "fetch: aPackageName prefix: aPrefix\x0a\x09jQuery \x0a    \x09getScript: (aPrefix , aPackageName , '.js') \x0a        onSuccess: [ \x0a        \x09(Package named: aPackageName) setupClasses ]",
 messageSends: ["getScript:onSuccess:", ",", "setupClasses", "named:"],
 referencedClasses: ["Package"]
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._commitPathsFromLoader();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Package.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a    self commitPathsFromLoader",
+messageSends: ["initialize", "commitPathsFromLoader"],
+referencedClasses: []
 }),
 smalltalk.Package.klass);
 
