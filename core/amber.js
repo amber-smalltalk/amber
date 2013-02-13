@@ -56,9 +56,9 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-shim.min.js');
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-sham.min.js');
-		addJSToLoad('js/boot.js');
+		addJSToLoad('core/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('core/es5-shim-2.0.2/es5-sham.min.js');
+		addJSToLoad('core/boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -110,7 +110,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('js/init.js');
+		addJSToLoad('core/init.js');
 		initializeSmalltalk(commitPathForInit);
 	};
 
@@ -191,16 +191,16 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-1.8.2.min.js'));
+			writeScriptTag(buildJSURL('core/jquery/jquery-1.8.2.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+			writeScriptTag(buildJSURL('core/jquery/jquery-ui-1.8.16.custom.min.js'));
 		}
 	}
 
 	function loadIDEDependencies() {
-		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
+		addJSToLoad('core/jquery/jquery.textarea.js');
 		addJSToLoad('js/lib/CodeMirror/codemirror.js');
 		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
