@@ -3199,12 +3199,12 @@ $2=li;
 _st($2)._with_(_st(aContext)._asString());
 $3=_st($2)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._selectContext_(aContext);
-}, function($ctx2) {$ctx2.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {},$ctx1)})}));
 $4=_st(aContext)._home();
 if(($receiver = $4) == nil || $receiver == undefined){
 $4;
 } else {
-_st(self)._renderContext_on_(_st(aContext)._home(),html);
+_st(self)._renderContext_on_(_st(aContext)._outerContext(),html);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renderContext:on:", [aContext,html], {li:li}, smalltalk.Debugger)})}
 }),

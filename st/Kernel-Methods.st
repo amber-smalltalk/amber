@@ -366,7 +366,7 @@ asString
 !
 
 home
-	<return self.homeContext>
+	<return self.methodContext || self.homeContext>
 !
 
 locals
@@ -380,11 +380,11 @@ method
 methodContext
 	self isBlockContext ifFalse: [ ^ self ].
     
-    ^ self outerContext
+    ^ self home
 !
 
 outerContext
-	^ self home
+	<return self.homeContext>
 !
 
 pc

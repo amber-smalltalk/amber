@@ -749,7 +749,7 @@ smalltalk.method({
 selector: "home",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.homeContext;
+return smalltalk.withContext(function($ctx1) { return self.methodContext || self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"home", [], {}, smalltalk.MethodContext)})}
 }),
 smalltalk.MethodContext);
@@ -803,7 +803,7 @@ if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(self)._outerContext();
+$3=_st(self)._home();
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"methodContext", [], {}, smalltalk.MethodContext)})}
 }),
@@ -815,10 +815,8 @@ smalltalk.method({
 selector: "outerContext",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._home();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"outerContext", [], {}, smalltalk.MethodContext)})}
+return smalltalk.withContext(function($ctx1) { return self.homeContext;
+return self}, function($ctx1) {$ctx1.fill(self,"outerContext", [], {}, smalltalk.MethodContext)})}
 }),
 smalltalk.MethodContext);
 

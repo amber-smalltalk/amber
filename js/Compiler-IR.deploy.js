@@ -609,6 +609,17 @@ return smalltalk.withContext(function($ctx1) { return false;
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
+"_isMethod",
+smalltalk.method({
+selector: "isMethod",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isMethod", [], {}, smalltalk.IRInstruction)})}
+}),
+smalltalk.IRInstruction);
+
+smalltalk.addMethod(
 "_isReturn",
 smalltalk.method({
 selector: "isReturn",
@@ -660,6 +671,19 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return false;
 }, function($ctx1) {$ctx1.fill(self,"isVariable", [], {}, smalltalk.IRInstruction)})}
+}),
+smalltalk.IRInstruction);
+
+smalltalk.addMethod(
+"_method",
+smalltalk.method({
+selector: "method",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._parent())._method();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method", [], {}, smalltalk.IRInstruction)})}
 }),
 smalltalk.IRInstruction);
 
@@ -1003,6 +1027,17 @@ return $1;
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
+"_isMethod",
+smalltalk.method({
+selector: "isMethod",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isMethod", [], {}, smalltalk.IRMethod)})}
+}),
+smalltalk.IRMethod);
+
+smalltalk.addMethod(
 "_messageSends",
 smalltalk.method({
 selector: "messageSends",
@@ -1023,6 +1058,19 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@messageSends"]=aCollection;
 return self}, function($ctx1) {$ctx1.fill(self,"messageSends:", [aCollection], {}, smalltalk.IRMethod)})}
+}),
+smalltalk.IRMethod);
+
+smalltalk.addMethod(
+"_method",
+smalltalk.method({
+selector: "method",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method", [], {}, smalltalk.IRMethod)})}
 }),
 smalltalk.IRMethod);
 
@@ -2250,7 +2298,7 @@ smalltalk.method({
 selector: "nextPutBlockContextFor:during:",
 fn: function (anIRClosure,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self;
 _st($1)._nextPutAll_(_st(_st("return smalltalk.withContext(function(").__comma(_st(_st(anIRClosure)._scope())._alias())).__comma(") {"));
 $2=_st($1)._nextPutAll_(_st((smalltalk.String || String))._cr());
@@ -2260,9 +2308,9 @@ _st($3)._nextPutAll_(_st(_st("}, function(").__comma(_st(_st(anIRClosure)._scope
 $4=_st($3)._nextPutAll_(_st(_st(_st(anIRClosure)._scope())._alias()).__comma(".fillBlock(["));
 _st(_st(anIRClosure)._arguments())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._nextPutAll_(_st(each)._asVariableName());
-}, function($ctx2) {$ctx2.fillBlock([each], {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([each], {},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._nextPutAll_(",");
-}, function($ctx2) {$ctx2.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {},$ctx1)})}));
 _st(self)._nextPutAll_("], {");
 _st(_st(anIRClosure)._tempDeclarations())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {$5=self;
@@ -2270,10 +2318,12 @@ _st($5)._nextPutAll_(_st(_st(each)._name())._asVariableName());
 _st($5)._nextPutAll_(":");
 $6=_st($5)._nextPutAll_(_st(_st(each)._name())._asVariableName());
 return $6;
-}, function($ctx2) {$ctx2.fillBlock([each], {})})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock([each], {},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._nextPutAll_(",");
-}, function($ctx2) {$ctx2.fillBlock([], {})})}));
-_st(self)._nextPutAll_("})})");
+}, function($ctx2) {$ctx2.fillBlock([], {},$ctx1)})}));
+$7=self;
+_st($7)._nextPutAll_("},");
+$8=_st($7)._nextPutAll_(_st(_st(_st(_st(anIRClosure)._method())._scope())._alias()).__comma(")})"));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:", [anIRClosure,aBlock], {}, smalltalk.JSStream)})}
 }),
 smalltalk.JSStream);

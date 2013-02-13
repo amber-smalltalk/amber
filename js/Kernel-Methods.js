@@ -1025,10 +1025,10 @@ selector: "home",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.homeContext;
+return smalltalk.withContext(function($ctx1) { return self.methodContext || self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"home", [], {}, smalltalk.MethodContext)})},
 args: [],
-source: "home\x0a\x09<return self.homeContext>",
+source: "home\x0a\x09<return self.methodContext || self.homeContext>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1099,12 +1099,12 @@ if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(self)._outerContext();
+$3=_st(self)._home();
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"methodContext", [], {}, smalltalk.MethodContext)})},
 args: [],
-source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a    \x0a    ^ self outerContext",
-messageSends: ["ifFalse:", "isBlockContext", "outerContext"],
+source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a    \x0a    ^ self home",
+messageSends: ["ifFalse:", "isBlockContext", "home"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1116,13 +1116,11 @@ selector: "outerContext",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._home();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"outerContext", [], {}, smalltalk.MethodContext)})},
+return smalltalk.withContext(function($ctx1) { return self.homeContext;
+return self}, function($ctx1) {$ctx1.fill(self,"outerContext", [], {}, smalltalk.MethodContext)})},
 args: [],
-source: "outerContext\x0a\x09^ self home",
-messageSends: ["home"],
+source: "outerContext\x0a\x09<return self.homeContext>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MethodContext);

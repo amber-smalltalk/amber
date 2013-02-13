@@ -264,6 +264,10 @@ instructions
 	^ instructions ifNil: [ instructions := OrderedCollection new ]
 !
 
+method
+	^ self parent method
+!
+
 parent
 	^ parent
 !
@@ -313,6 +317,10 @@ isInlined
 !
 
 isLocalReturn
+	^ false
+!
+
+isMethod
 	^ false
 !
 
@@ -462,12 +470,20 @@ internalVariables
 	^ internalVariables ifNil: [ internalVariables := Set new ]
 !
 
+isMethod
+	^ true
+!
+
 messageSends
 	^ messageSends
 !
 
 messageSends: aCollection
 	messageSends := aCollection
+!
+
+method
+	^ self
 !
 
 scope: aScope
@@ -911,6 +927,7 @@ visitIRDynamicDictionary: anIRDynamicDictionary
 !
 
 visitIRMethod: anIRMethod
+
 	self stream
 		nextPutMethodDeclaration: anIRMethod 
 		with: [ self stream 
@@ -1049,7 +1066,8 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 		separatedBy: [ self nextPutAll: ',' ].
     
     self
-    	nextPutAll: '})})'
+    	nextPutAll: '},';
+        nextPutAll:  anIRClosure method scope alias, ')})'
 !
 
 nextPutClosureWith: aBlock arguments: anArray

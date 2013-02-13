@@ -1461,7 +1461,7 @@ renderContext: aContext on: html
 	li 
 		with: aContext asString;
 		onClick: [self selectContext: aContext].
-	aContext home ifNotNil: [self renderContext: aContext home on: html]
+	aContext home ifNotNil: [self renderContext: aContext outerContext on: html]
 !
 
 renderTopPanelOn: html

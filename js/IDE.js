@@ -4020,17 +4020,17 @@ $2=li;
 _st($2)._with_(_st(aContext)._asString());
 $3=_st($2)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._selectContext_(aContext);
-}, function($ctx2) {$ctx2.fillBlock([], {})})}));
+}, function($ctx2) {$ctx2.fillBlock([], {},$ctx1)})}));
 $4=_st(aContext)._home();
 if(($receiver = $4) == nil || $receiver == undefined){
 $4;
 } else {
-_st(self)._renderContext_on_(_st(aContext)._home(),html);
+_st(self)._renderContext_on_(_st(aContext)._outerContext(),html);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renderContext:on:", [aContext,html], {li:li}, smalltalk.Debugger)})},
 args: ["aContext", "html"],
-source: "renderContext: aContext on: html\x0a\x09| li |\x0a\x09li := html li.\x0a\x09selectedContext = aContext ifTrue: [\x0a\x09\x09li class: 'selected'].\x0a\x09li \x0a\x09\x09with: aContext asString;\x0a\x09\x09onClick: [self selectContext: aContext].\x0a\x09aContext home ifNotNil: [self renderContext: aContext home on: html]",
-messageSends: ["li", "ifTrue:", "class:", "=", "with:", "asString", "onClick:", "selectContext:", "ifNotNil:", "renderContext:on:", "home"],
+source: "renderContext: aContext on: html\x0a\x09| li |\x0a\x09li := html li.\x0a\x09selectedContext = aContext ifTrue: [\x0a\x09\x09li class: 'selected'].\x0a\x09li \x0a\x09\x09with: aContext asString;\x0a\x09\x09onClick: [self selectContext: aContext].\x0a\x09aContext home ifNotNil: [self renderContext: aContext outerContext on: html]",
+messageSends: ["li", "ifTrue:", "class:", "=", "with:", "asString", "onClick:", "selectContext:", "ifNotNil:", "renderContext:on:", "outerContext", "home"],
 referencedClasses: []
 }),
 smalltalk.Debugger);

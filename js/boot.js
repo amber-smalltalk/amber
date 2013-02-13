@@ -746,9 +746,12 @@ SmalltalkMethodContext.prototype.fill = function(receiver, selector, args, local
     this.lookupClass = lookupClass;
 };
 
-SmalltalkMethodContext.prototype.fillBlock = function(args, locals) {
+SmalltalkMethodContext.prototype.fillBlock = function(args, locals, ctx) {
     this.args        = args || [];
     this.locals      = locals || {};
+    if(ctx) {
+        this.methodContext = ctx;
+    }
 };
 
 SmalltalkMethodContext.prototype.init = function() {
