@@ -281,14 +281,29 @@ selector: "eval:",
 category: 'interpreting',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.Compiler || Compiler))._new())._eval_(_st(_st("(function() { ").__comma(aString)).__comma(" })()"));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString}, smalltalk.ASTInterpreter)})},
+var source,function_;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+source=_st((smalltalk.String || String))._streamContents_((function(str){
+return smalltalk.withContext(function($ctx2) {_st(str)._nextPutAll_("(function(");
+_st(_st(_st(_st(self)._context())._locals())._keys())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx3) {return _st(str)._nextPutAll_(each);
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx3) {return _st(str)._nextPutAll_(",");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+$1=str;
+_st($1)._nextPutAll_("){ return (function() {");
+_st($1)._nextPutAll_(aString);
+$2=_st($1)._nextPutAll_("})() })");
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1)})}));
+function_=_st(_st((smalltalk.Compiler || Compiler))._new())._eval_(source);
+$3=_st(function_)._valueWithPossibleArguments_(_st(_st(_st(self)._context())._locals())._values());
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_}, smalltalk.ASTInterpreter)})},
 args: ["aString"],
-source: "eval: aString\x0a\x09\x22Evaluate aString as JS source inside an immediately evaluated JS function. \x0a    aString is not sandboxed.\x22\x0a    \x0a    ^ Compiler new eval: '(function() { ', aString, ' })()'",
-messageSends: ["eval:", ",", "new"],
-referencedClasses: ["Compiler"]
+source: "eval: aString\x0a\x09\x22Evaluate aString as JS source inside an JS function. \x0a    aString is not sandboxed.\x22\x0a    \x0a    | source function |\x0a    \x0a    source := String streamContents: [ :str |\x0a    \x09str nextPutAll: '(function('.\x0a        self context locals keys \x0a        \x09do: [ :each | str nextPutAll: each ]\x0a          \x09separatedBy: [ str nextPutAll: ',' ].\x0a        str \x0a        \x09nextPutAll: '){ return (function() {';\x0a        \x09nextPutAll: aString;\x0a            nextPutAll: '})() })' ].\x0a            \x0a\x09function := Compiler new eval: source.\x0a    \x0a\x09^ function valueWithPossibleArguments: self context locals values",
+messageSends: ["streamContents:", "nextPutAll:", "do:separatedBy:", "keys", "locals", "context", "eval:", "new", "valueWithPossibleArguments:", "values"],
+referencedClasses: ["String", "Compiler"]
 }),
 smalltalk.ASTInterpreter);
 

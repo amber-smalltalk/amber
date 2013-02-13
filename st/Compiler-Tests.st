@@ -57,11 +57,12 @@ testCascade
 
 testInlinedJSStatement
 	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
-    "self 
+    
+    self 
     	assert: (self 
     		interpret: 'foo: anInteger <return 2 + anInteger>' 
         	withArguments: #{ 'anInteger' -> 3}) 
-		equals: 5"
+		equals: 5
 ! !
 
 TestCase subclass: #CodeGeneratorTest

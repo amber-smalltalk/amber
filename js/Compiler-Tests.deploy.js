@@ -116,6 +116,7 @@ selector: "testInlinedJSStatement",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
+_st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smalltalk.ASTInterpreterTest)})}
 }),
 smalltalk.ASTInterpreterTest);

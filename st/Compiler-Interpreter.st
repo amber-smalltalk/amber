@@ -87,10 +87,24 @@ initialize
 !ASTInterpreter methodsFor: 'interpreting'!
 
 eval: aString
-	"Evaluate aString as JS source inside an immediately evaluated JS function. 
+	"Evaluate aString as JS source inside an JS function. 
     aString is not sandboxed."
     
-    ^ Compiler new eval: '(function() { ', aString, ' })()'
+    | source function |
+    
+    source := String streamContents: [ :str |
+    	str nextPutAll: '(function('.
+        self context locals keys 
+        	do: [ :each | str nextPutAll: each ]
+          	separatedBy: [ str nextPutAll: ',' ].
+        str 
+        	nextPutAll: '){ return (function() {';
+        	nextPutAll: aString;
+            nextPutAll: '})() })' ].
+            
+	function := Compiler new eval: source.
+    
+	^ function valueWithPossibleArguments: self context locals values
 !
 
 interpret: aNode
