@@ -849,20 +849,7 @@ smalltalk.IRScopedInstruction);
 
 
 
-smalltalk.addClass('IRClosure', smalltalk.IRScopedInstruction, ['arguments'], 'Compiler-IR');
-smalltalk.addMethod(
-"_accept_",
-smalltalk.method({
-selector: "accept:",
-fn: function (aVisitor){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(aVisitor)._visitIRClosure_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor}, smalltalk.IRClosure)})}
-}),
-smalltalk.IRClosure);
-
+smalltalk.addClass('IRClosureInstruction', smalltalk.IRScopedInstruction, ['arguments'], 'Compiler-IR');
 smalltalk.addMethod(
 "_arguments",
 smalltalk.method({
@@ -877,9 +864,9 @@ $1=[];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"arguments",{}, smalltalk.IRClosure)})}
+}, function($ctx1) {$ctx1.fill(self,"arguments",{}, smalltalk.IRClosureInstruction)})}
 }),
-smalltalk.IRClosure);
+smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
 "_arguments_",
@@ -888,20 +875,9 @@ selector: "arguments:",
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@arguments"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection}, smalltalk.IRClosure)})}
+return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection}, smalltalk.IRClosureInstruction)})}
 }),
-smalltalk.IRClosure);
-
-smalltalk.addMethod(
-"_isClosure",
-smalltalk.method({
-selector: "isClosure",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
-}, function($ctx1) {$ctx1.fill(self,"isClosure",{}, smalltalk.IRClosure)})}
-}),
-smalltalk.IRClosure);
+smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
 "_locals",
@@ -917,9 +893,9 @@ return smalltalk.withContext(function($ctx2) {return _st(each)._name();
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"locals",{}, smalltalk.IRClosure)})}
+}, function($ctx1) {$ctx1.fill(self,"locals",{}, smalltalk.IRClosureInstruction)})}
 }),
-smalltalk.IRClosure);
+smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
 "_scope_",
@@ -929,7 +905,49 @@ fn: function (aScope){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.IRScopedInstruction.fn.prototype._scope_.apply(_st(self), [aScope]);
 _st(aScope)._instruction_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope}, smalltalk.IRClosure)})}
+return self}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope}, smalltalk.IRClosureInstruction)})}
+}),
+smalltalk.IRClosureInstruction);
+
+smalltalk.addMethod(
+"_tempDeclarations",
+smalltalk.method({
+selector: "tempDeclarations",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._instructions())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._isTempDeclaration();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tempDeclarations",{}, smalltalk.IRClosureInstruction)})}
+}),
+smalltalk.IRClosureInstruction);
+
+
+
+smalltalk.addClass('IRClosure', smalltalk.IRClosureInstruction, [], 'Compiler-IR');
+smalltalk.addMethod(
+"_accept_",
+smalltalk.method({
+selector: "accept:",
+fn: function (aVisitor){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aVisitor)._visitIRClosure_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor}, smalltalk.IRClosure)})}
+}),
+smalltalk.IRClosure);
+
+smalltalk.addMethod(
+"_isClosure",
+smalltalk.method({
+selector: "isClosure",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isClosure",{}, smalltalk.IRClosure)})}
 }),
 smalltalk.IRClosure);
 
@@ -946,24 +964,9 @@ return $1;
 }),
 smalltalk.IRClosure);
 
-smalltalk.addMethod(
-"_tempDeclarations",
-smalltalk.method({
-selector: "tempDeclarations",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._instructions())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._isTempDeclaration();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"tempDeclarations",{}, smalltalk.IRClosure)})}
-}),
-smalltalk.IRClosure);
 
 
-
-smalltalk.addClass('IRMethod', smalltalk.IRScopedInstruction, ['theClass', 'source', 'selector', 'classReferences', 'messageSends', 'superSends', 'arguments', 'internalVariables'], 'Compiler-IR');
+smalltalk.addClass('IRMethod', smalltalk.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'messageSends', 'superSends', 'internalVariables'], 'Compiler-IR');
 smalltalk.addMethod(
 "_accept_",
 smalltalk.method({
@@ -974,30 +977,6 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aVisitor)._visitIRMethod_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor}, smalltalk.IRMethod)})}
-}),
-smalltalk.IRMethod);
-
-smalltalk.addMethod(
-"_arguments",
-smalltalk.method({
-selector: "arguments",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@arguments"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"arguments",{}, smalltalk.IRMethod)})}
-}),
-smalltalk.IRMethod);
-
-smalltalk.addMethod(
-"_arguments_",
-smalltalk.method({
-selector: "arguments:",
-fn: function (aCollection){
-var self=this;
-return smalltalk.withContext(function($ctx1) { self["@arguments"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection}, smalltalk.IRMethod)})}
 }),
 smalltalk.IRMethod);
 
@@ -1056,24 +1035,6 @@ return smalltalk.withContext(function($ctx1) { return true;
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_locals",
-smalltalk.method({
-selector: "locals",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st(_st(self)._arguments())._copy();
-_st($2)._addAll_(_st(_st(self)._tempDeclarations())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._name();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"locals",{}, smalltalk.IRMethod)})}
-}),
-smalltalk.IRMethod);
-
-smalltalk.addMethod(
 "_messageSends",
 smalltalk.method({
 selector: "messageSends",
@@ -1107,18 +1068,6 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{}, smalltalk.IRMethod)})}
-}),
-smalltalk.IRMethod);
-
-smalltalk.addMethod(
-"_scope_",
-smalltalk.method({
-selector: "scope:",
-fn: function (aScope){
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.IRScopedInstruction.fn.prototype._scope_.apply(_st(self), [aScope]);
-_st(aScope)._instruction_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"scope:",{aScope:aScope}, smalltalk.IRMethod)})}
 }),
 smalltalk.IRMethod);
 
@@ -1191,21 +1140,6 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@superSends"]=aCollection;
 return self}, function($ctx1) {$ctx1.fill(self,"superSends:",{aCollection:aCollection}, smalltalk.IRMethod)})}
-}),
-smalltalk.IRMethod);
-
-smalltalk.addMethod(
-"_tempDeclarations",
-smalltalk.method({
-selector: "tempDeclarations",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._instructions())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._isTempDeclaration();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"tempDeclarations",{}, smalltalk.IRMethod)})}
 }),
 smalltalk.IRMethod);
 

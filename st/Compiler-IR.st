@@ -402,11 +402,11 @@ scope: aScope
 	scope := aScope
 ! !
 
-IRScopedInstruction subclass: #IRClosure
+IRScopedInstruction subclass: #IRClosureInstruction
 	instanceVariableNames: 'arguments'
 	package: 'Compiler-IR'!
 
-!IRClosure methodsFor: 'accessing'!
+!IRClosureInstruction methodsFor: 'accessing'!
 
 arguments
 	^ arguments ifNil: [ #() ]
@@ -427,13 +427,19 @@ scope: aScope
 	aScope instruction: self
 !
 
-sequence
-	^ self instructions last
-!
-
 tempDeclarations
 	^ self instructions select: [ :each | 
     	each isTempDeclaration ]
+! !
+
+IRClosureInstruction subclass: #IRClosure
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRClosure methodsFor: 'accessing'!
+
+sequence
+	^ self instructions last
 ! !
 
 !IRClosure methodsFor: 'testing'!
@@ -448,21 +454,13 @@ accept: aVisitor
 	^ aVisitor visitIRClosure: self
 ! !
 
-IRScopedInstruction subclass: #IRMethod
-	instanceVariableNames: 'theClass source selector classReferences messageSends superSends arguments internalVariables'
+IRClosureInstruction subclass: #IRMethod
+	instanceVariableNames: 'theClass source selector classReferences messageSends superSends internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
 
 !IRMethod methodsFor: 'accessing'!
-
-arguments
-	^ arguments
-!
-
-arguments: aCollection
-	arguments := aCollection
-!
 
 classReferences
 	^ classReferences
@@ -480,12 +478,6 @@ isMethod
 	^ true
 !
 
-locals
-	^ self arguments copy
-    	addAll: (self tempDeclarations collect: [ :each | each name ]); 
-        yourself
-!
-
 messageSends
 	^ messageSends
 !
@@ -496,11 +488,6 @@ messageSends: aCollection
 
 method
 	^ self
-!
-
-scope: aScope
-	super scope: aScope.
-	aScope instruction: self
 !
 
 selector
@@ -525,11 +512,6 @@ superSends
 
 superSends: aCollection
 	superSends := aCollection
-!
-
-tempDeclarations
-	^ self instructions select: [ :each | 
-    	each isTempDeclaration ]
 !
 
 theClass
