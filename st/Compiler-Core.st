@@ -149,7 +149,7 @@ visit: aNode
 !
 
 visitAll: aCollection
-	^ aCollection do: [ :each | self visit: each ]
+	^ aCollection collect: [ :each | self visit: each ]
 !
 
 visitAssignmentNode: aNode

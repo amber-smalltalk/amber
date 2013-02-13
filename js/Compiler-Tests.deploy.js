@@ -42,7 +42,8 @@ return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $2=_st(self)._interpreter();
 _st($2)._context_(ctx);
-$3=_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._class()))._nodes())._first());
+_st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._class()))._nodes())._first());
+$3=_st($2)._currentValue();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})}
@@ -137,6 +138,28 @@ return self}, function($ctx1) {$ctx1.fill(self,"testCascade",{}, smalltalk.ASTIn
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
+"_testDynamicArray",
+smalltalk.method({
+selector: "testDynamicArray",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ {1+1. 2+2}"),[(2), (4)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArray",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testDynamicDictionary",
+smalltalk.method({
+selector: "testDynamicDictionary",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._fromPairs_([_st((1)).__minus_gt((1)),_st((2)).__minus_gt((3))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionary",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
 "_testInlinedJSStatement",
 smalltalk.method({
 selector: "testInlinedJSStatement",
@@ -156,6 +179,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st((smalltalk.Point || Point))._new(),smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((2))])),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testNonlocalReturn",
+smalltalk.method({
+selector: "testNonlocalReturn",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ]. ^2"),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testNonlocalReturn",{}, smalltalk.ASTInterpreterTest)})}
 }),
 smalltalk.ASTInterpreterTest);
 

@@ -69,6 +69,17 @@ return smalltalk.withContext(function($ctx1) { return false;
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_isNode",
+smalltalk.method({
+selector: "isNode",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isNode",{}, smalltalk.Node)})}
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_isReturnNode",
 smalltalk.method({
 selector: "isReturnNode",
@@ -1298,4 +1309,15 @@ return $1;
 smalltalk.ClassReferenceNode);
 
 
+
+smalltalk.addMethod(
+"_isNode",
+smalltalk.method({
+selector: "isNode",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isNode",{}, smalltalk.Object)})}
+}),
+smalltalk.Object);
 

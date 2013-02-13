@@ -100,6 +100,22 @@ referencedClasses: []
 smalltalk.Node);
 
 smalltalk.addMethod(
+"_isNode",
+smalltalk.method({
+selector: "isNode",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isNode",{}, smalltalk.Node)})},
+args: [],
+source: "isNode\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
 "_isReturnNode",
 smalltalk.method({
 selector: "isReturnNode",
@@ -1779,4 +1795,20 @@ referencedClasses: []
 smalltalk.ClassReferenceNode);
 
 
+
+smalltalk.addMethod(
+"_isNode",
+smalltalk.method({
+selector: "isNode",
+category: '*Compiler-AST',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isNode",{}, smalltalk.Object)})},
+args: [],
+source: "isNode\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
 

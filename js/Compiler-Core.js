@@ -461,14 +461,14 @@ category: 'visiting',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(aCollection)._do_((function(each){
+$1=_st(aCollection)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection}, smalltalk.NodeVisitor)})},
 args: ["aCollection"],
-source: "visitAll: aCollection\x0a\x09^ aCollection do: [ :each | self visit: each ]",
-messageSends: ["do:", "visit:"],
+source: "visitAll: aCollection\x0a\x09^ aCollection collect: [ :each | self visit: each ]",
+messageSends: ["collect:", "visit:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);

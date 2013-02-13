@@ -342,7 +342,7 @@ selector: "visitAll:",
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(aCollection)._do_((function(each){
+$1=_st(aCollection)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;

@@ -29,7 +29,8 @@ interpret: aString receiver: anObject withArguments: aDictionary
     ^ self interpreter
     	context: ctx;
     	interpret: (self parse: aString forClass: anObject class) 
-        	nodes first
+        	nodes first;
+        currentValue
 !
 
 interpret: aString withArguments: aDictionary
@@ -67,6 +68,14 @@ testCascade
 	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
 !
 
+testDynamicArray
+	self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)
+!
+
+testDynamicDictionary
+	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
+!
+
 testInlinedJSStatement
 	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
     
@@ -84,6 +93,10 @@ testInstVarAssignment
         	receiver: Point new
         	withArguments: #{'anInteger' -> 2})
         equals: 2
+!
+
+testNonlocalReturn
+	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
 !
 
 testTempAssignment
