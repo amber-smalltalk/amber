@@ -56,9 +56,9 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-shim.min.js');
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-sham.min.js');
-		addJSToLoad('js/boot.js');
+		addJSToLoad('core/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('core/es5-shim-2.0.2/es5-sham.min.js');
+		addJSToLoad('core/boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -110,7 +110,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('js/init.js');
+		addJSToLoad('core/init.js');
 		initializeSmalltalk(commitPathForInit);
 	};
 
