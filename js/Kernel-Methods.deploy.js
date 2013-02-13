@@ -723,7 +723,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._isBlockContext();
 if(smalltalk.assert($2)){
-$1=_st(_st("a block (in ").__comma(_st(_st(self)._methodContext())._asString())).__comma(")");
+$1=_st(_st("a block (in ").__comma(_st(_st(_st(_st(self)._methodContext())._receiver())._class())._printString())).__comma(")");
 } else {
 $1=_st(_st(_st(_st(_st(self)._receiver())._class())._printString()).__comma(" >> ")).__comma(_st(self)._selector());
 };

@@ -357,7 +357,7 @@ Current limitation: MethodContext instances are not created on Block evaluation.
 
 asString
 	^self isBlockContext 
-    	ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
+    	ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
       	ifFalse: [ self receiver class printString, ' >> ', self selector ]
 !
 
