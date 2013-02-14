@@ -2,6 +2,13 @@ Smalltalk current createPackage: 'Kernel-Exceptions' properties: #{}!
 Object subclass: #Error
 	instanceVariableNames: 'messageText'
 	package: 'Kernel-Exceptions'!
+!Error commentStamp!
+From the ANSI standard:
+
+This protocol describes the behavior of instances of class `Error`. 
+These are used to represent error conditions that prevent the normal continuation of processing. 
+Actual error exceptions used by an application may be subclasses of this class.
+As `Error` is explicitly specified  to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.!
 
 !Error methodsFor: 'accessing'!
 
@@ -58,6 +65,8 @@ signal: aString
 Error subclass: #MessageNotUnderstood
 	instanceVariableNames: 'message receiver'
 	package: 'Kernel-Exceptions'!
+!MessageNotUnderstood commentStamp!
+This exception is provided to support `Object>>doesNotUnderstand:`.!
 
 !MessageNotUnderstood methodsFor: 'accessing'!
 
@@ -84,6 +93,8 @@ receiver: anObject
 Error subclass: #NonBooleanReceiver
 	instanceVariableNames: 'object'
 	package: 'Kernel-Exceptions'!
+!NonBooleanReceiver commentStamp!
+NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.!
 
 !NonBooleanReceiver methodsFor: 'accessing'!
 
@@ -98,6 +109,15 @@ object: anObject
 Object subclass: #ErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Exceptions'!
+!ErrorHandler commentStamp!
+ErrorHandler is used to manage Smalltalk errors. 
+See `boot.js` `handleError()` function.
+
+Subclasses of `ErrorHandler` can register themselves as the current handler with
+`ErrorHandler class >> register`.
+
+Subclasses may override `#handleError:` to perform an action on the thrown exception.
+The default behavior is to log the error and the context stack to the JavaScript console.!
 
 !ErrorHandler methodsFor: 'error handling'!
 
