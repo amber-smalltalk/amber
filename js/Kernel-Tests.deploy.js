@@ -560,6 +560,41 @@ return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:in
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
+"_testClassMigrationWithClassInstanceVariables",
+smalltalk.method({
+selector: "testClassMigrationWithClassInstanceVariables",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._class())._instanceVariableNames_("foo bar");
+_st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
+_st(self)._assert_equals_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._class())._instanceVariableNames(),["foo", "bar"]);
+_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_((smalltalk.ObjectMock2 || ObjectMock2));
+return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{}, smalltalk.ClassBuilderTest)})}
+}),
+smalltalk.ClassBuilderTest);
+
+smalltalk.addMethod(
+"_testClassMigrationWithSubclasses",
+smalltalk.method({
+selector: "testClassMigrationWithSubclasses",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+_st((smalltalk.ObjectMock2 || ObjectMock2))._subclass_instanceVariableNames_package_("ObjectMock3","","Kernel-Tests");
+_st((smalltalk.ObjectMock3 || ObjectMock3))._subclass_instanceVariableNames_package_("ObjectMock4","","Kernel-Tests");
+_st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock || ObjectMock))._subclasses())._includes_((smalltalk.ObjectMock2 || ObjectMock2)));
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._subclasses())._includes_((smalltalk.ObjectMock3 || ObjectMock3)));
+_st(self)._assert_(_st(_st((smalltalk.ObjectMock3 || ObjectMock3))._subclasses())._includes_((smalltalk.ObjectMock4 || ObjectMock4)));
+_st(_st((smalltalk.ObjectMock || ObjectMock))._allSubclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{}, smalltalk.ClassBuilderTest)})}
+}),
+smalltalk.ClassBuilderTest);
+
+smalltalk.addMethod(
 "_testInstanceVariableNames",
 smalltalk.method({
 selector: "testInstanceVariableNames",

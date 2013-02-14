@@ -398,6 +398,7 @@ Rather than using ClassBuilder directly to compile a class, use `Class >> subcla
 
 class: aClass instanceVariableNames: aString
 	self basicClass: aClass instanceVariableNames: aString.
+    self setupClass: aClass.
     
     SystemAnnouncer current
     	announce: (ClassDefinitionChanged new
@@ -464,11 +465,13 @@ basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection pac
 !
 
 basicClass: aClass instanceVariableNames: aString
+	self basicClass: aClass instanceVariables: (self instanceVariableNamesFor: aString)
+!
+
+basicClass: aClass instanceVariables: aCollection
 
 	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
-    
-	self setupClass: aClass
+	aClass basicAt: 'iVarNames' put: aCollection
 !
 
 basicRemoveClass: aClass
@@ -492,20 +495,36 @@ copyClass: aClass named: aString
 		instanceVariableNames: aClass instanceVariableNames 
 		package: aClass package name.
 
-	self setupClass: newClass.
-
-	aClass methodDictionary values do: [:each |
-		Compiler new install: each source forClass: newClass category: each category].
-
-	aClass class methodDictionary values do: [:each |
-		Compiler new install: each source forClass: newClass class category: each category].
-
-	self setupClass: newClass.
+	self copyClass: aClass to: newClass.
+    
 	^newClass
+!
+
+copyClass: aClass to: anotherClass
+
+	anotherClass comment: aClass comment.
+
+	aClass methodDictionary values do: [ :each |
+		Compiler new install: each source forClass: anotherClass category: each category ].
+
+	aClass class methodDictionary values do: [ :each |
+		Compiler new install: each source forClass: anotherClass class category: each category ].
+
+	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
+
+	self setupClass: anotherClass
 !
 
 instanceVariableNamesFor: aString
 	^(aString tokenize: ' ') reject: [ :each | each isEmpty ]
+!
+
+migrateClass: aClass superclass: anotherClass
+	self 
+    	migrateClassNamed: aClass name
+        superclass: anotherClass
+        instanceVariableNames: aClass instanceVariableNames
+        package: aClass package name
 !
 
 migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
@@ -513,29 +532,27 @@ migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection
     
     oldClass := Smalltalk current at: aString.
     
-    "Rename the class for existing instances"
-	self 
-    	basicRenameClass: oldClass to: 'Old', aString;
-        basicRemoveClass: oldClass.
-        
+    "Rename the old class for existing instances"
+	self basicRenameClass: oldClass to: 'Old', aString.
+    
     newClass := self 
 		addSubclassOf: aClass
 		named: aString 
 		instanceVariableNames: aCollection
 		package: packageName.
 
-	self setupClass: newClass.
+	oldClass subclasses do: [ :each |
+    	self migrateClass: each superclass: newClass ].
 
-	newClass comment: oldClass comment.
-
-	oldClass methodDictionary values do: [:each |
-		Compiler new install: each source forClass: newClass category: each category].
-
-	oldClass class methodDictionary values do: [:each |
-		Compiler new install: each source forClass: newClass class category: each category].
-
-	self setupClass: newClass.
-    
+    [ self copyClass: oldClass to: newClass ] 
+    	on: Error
+        do: [ :exception |
+        	self 
+            	basicRemoveClass: newClass;
+            	basicRenameClass: oldClass to: aString.
+            exception signal ].
+            
+    self basicRemoveClass: oldClass.
 	^newClass
 ! !
 

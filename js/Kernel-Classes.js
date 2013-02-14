@@ -1195,17 +1195,32 @@ selector: "basicClass:instanceVariableNames:",
 category: 'private',
 fn: function (aClass,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._basicClass_instanceVariables_(aClass,_st(self)._instanceVariableNamesFor_(aString));
+return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})},
+args: ["aClass", "aString"],
+source: "basicClass: aClass instanceVariableNames: aString\x0a\x09self basicClass: aClass instanceVariables: (self instanceVariableNamesFor: aString)",
+messageSends: ["basicClass:instanceVariables:", "instanceVariableNamesFor:"],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_basicClass_instanceVariables_",
+smalltalk.method({
+selector: "basicClass:instanceVariables:",
+category: 'private',
+fn: function (aClass,aCollection){
+var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
 };
-_st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aString));
-_st(self)._setupClass_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})},
-args: ["aClass", "aString"],
-source: "basicClass: aClass instanceVariableNames: aString\x0a\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).\x0a    \x0a\x09self setupClass: aClass",
-messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:", "instanceVariableNamesFor:", "setupClass:"],
+_st(aClass)._basicAt_put_("iVarNames",aCollection);
+return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariables:",{aClass:aClass,aCollection:aCollection}, smalltalk.ClassBuilder)})},
+args: ["aClass", "aCollection"],
+source: "basicClass: aClass instanceVariables: aCollection\x0a\x0a\x09aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].\x0a\x09aClass basicAt: 'iVarNames' put: aCollection",
+messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
@@ -1255,14 +1270,15 @@ fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st(self)._basicClass_instanceVariableNames_(aClass,aString);
+_st(self)._setupClass_(aClass);
 $1=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"class:instanceVariableNames:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})},
 args: ["aClass", "aString"],
-source: "class: aClass instanceVariableNames: aString\x0a\x09self basicClass: aClass instanceVariableNames: aString.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassDefinitionChanged new\x0a        \x09theClass: aClass;\x0a            yourself)",
-messageSends: ["basicClass:instanceVariableNames:", "announce:", "theClass:", "new", "yourself", "current"],
+source: "class: aClass instanceVariableNames: aString\x0a\x09self basicClass: aClass instanceVariableNames: aString.\x0a    self setupClass: aClass.\x0a    \x0a    SystemAnnouncer current\x0a    \x09announce: (ClassDefinitionChanged new\x0a        \x09theClass: aClass;\x0a            yourself)",
+messageSends: ["basicClass:instanceVariableNames:", "setupClass:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassDefinitionChanged", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
@@ -1277,20 +1293,37 @@ var self=this;
 var newClass;
 return smalltalk.withContext(function($ctx1) { var $1;
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),aString,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
-_st(self)._setupClass_(newClass);
-_st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),newClass,_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(newClass)._class(),_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(newClass);
+_st(self)._copyClass_to_(aClass,newClass);
 $1=newClass;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"copyClass:named:",{aClass:aClass,aString:aString,newClass:newClass}, smalltalk.ClassBuilder)})},
 args: ["aClass", "aString"],
-source: "copyClass: aClass named: aString\x0a\x09| newClass |\x0a\x0a\x09newClass := self \x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aClass instanceVariableNames \x0a\x09\x09package: aClass package name.\x0a\x0a\x09self setupClass: newClass.\x0a\x0a\x09aClass methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass category: each category].\x0a\x0a\x09aClass class methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass class category: each category].\x0a\x0a\x09self setupClass: newClass.\x0a\x09^newClass",
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "setupClass:", "do:", "install:forClass:category:", "source", "category", "new", "values", "methodDictionary", "class"],
+source: "copyClass: aClass named: aString\x0a\x09| newClass |\x0a\x0a\x09newClass := self \x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aClass instanceVariableNames \x0a\x09\x09package: aClass package name.\x0a\x0a\x09self copyClass: aClass to: newClass.\x0a    \x0a\x09^newClass",
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "copyClass:to:"],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_copyClass_to_",
+smalltalk.method({
+selector: "copyClass:to:",
+category: 'private',
+fn: function (aClass,anotherClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(anotherClass)._comment_(_st(aClass)._comment());
+_st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),anotherClass,_st(each)._category());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._category());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._basicClass_instanceVariables_(_st(anotherClass)._class(),_st(_st(aClass)._class())._instanceVariableNames());
+_st(self)._setupClass_(anotherClass);
+return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})},
+args: ["aClass", "anotherClass"],
+source: "copyClass: aClass to: anotherClass\x0a\x0a\x09anotherClass comment: aClass comment.\x0a\x0a\x09aClass methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass category: each category ].\x0a\x0a\x09aClass class methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass class category: each category ].\x0a\x0a\x09self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.\x0a\x0a\x09self setupClass: anotherClass",
+messageSends: ["comment:", "comment", "do:", "install:forClass:category:", "source", "category", "new", "values", "methodDictionary", "class", "basicClass:instanceVariables:", "instanceVariableNames", "setupClass:"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.ClassBuilder);
@@ -1316,6 +1349,22 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
+"_migrateClass_superclass_",
+smalltalk.method({
+selector: "migrateClass:superclass:",
+category: 'private',
+fn: function (aClass,anotherClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(_st(aClass)._name(),anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})},
+args: ["aClass", "anotherClass"],
+source: "migrateClass: aClass superclass: anotherClass\x0a\x09self \x0a    \x09migrateClassNamed: aClass name\x0a        superclass: anotherClass\x0a        instanceVariableNames: aClass instanceVariableNames\x0a        package: aClass package name",
+messageSends: ["migrateClassNamed:superclass:instanceVariableNames:package:", "name", "instanceVariableNames", "package"],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 "_migrateClassNamed_superclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
@@ -1325,26 +1374,28 @@ var self=this;
 var oldClass,newClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
-$1=self;
-_st($1)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
-$2=_st($1)._basicRemoveClass_(oldClass);
+_st(self)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
-_st(self)._setupClass_(newClass);
-_st(newClass)._comment_(_st(oldClass)._comment());
-_st(_st(_st(oldClass)._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),newClass,_st(each)._category());
+_st(_st(oldClass)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(self)._migrateClass_superclass_(each,newClass);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(_st(_st(_st(oldClass)._class())._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(newClass)._class(),_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(newClass);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._copyClass_to_(oldClass,newClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(exception){
+return smalltalk.withContext(function($ctx2) {$1=self;
+_st($1)._basicRemoveClass_(newClass);
+$2=_st($1)._basicRenameClass_to_(oldClass,aString);
+$2;
+return _st(exception)._signal();
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
+_st(self)._basicRemoveClass_(oldClass);
 $3=newClass;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass}, smalltalk.ClassBuilder)})},
 args: ["aString", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the class for existing instances\x22\x0a\x09self \x0a    \x09basicRenameClass: oldClass to: 'Old', aString;\x0a        basicRemoveClass: oldClass.\x0a        \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self setupClass: newClass.\x0a\x0a\x09newClass comment: oldClass comment.\x0a\x0a\x09oldClass methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass category: each category].\x0a\x0a\x09oldClass class methodDictionary values do: [:each |\x0a\x09\x09Compiler new install: each source forClass: newClass class category: each category].\x0a\x0a\x09self setupClass: newClass.\x0a    \x0a\x09^newClass",
-messageSends: ["at:", "current", "basicRenameClass:to:", ",", "basicRemoveClass:", "addSubclassOf:named:instanceVariableNames:package:", "setupClass:", "comment:", "comment", "do:", "install:forClass:category:", "source", "category", "new", "values", "methodDictionary", "class"],
-referencedClasses: ["Smalltalk", "Compiler"]
+source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the old class for existing instances\x22\x0a\x09self basicRenameClass: oldClass to: 'Old', aString.\x0a    \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09oldClass subclasses do: [ :each |\x0a    \x09self migrateClass: each superclass: newClass ].\x0a\x0a    [ self copyClass: oldClass to: newClass ] \x0a    \x09on: Error\x0a        do: [ :exception |\x0a        \x09self \x0a            \x09basicRemoveClass: newClass;\x0a            \x09basicRenameClass: oldClass to: aString.\x0a            exception signal ].\x0a            \x0a    self basicRemoveClass: oldClass.\x0a\x09^newClass",
+messageSends: ["at:", "current", "basicRenameClass:to:", ",", "addSubclassOf:named:instanceVariableNames:package:", "do:", "migrateClass:superclass:", "subclasses", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:"],
+referencedClasses: ["Smalltalk", "Error"]
 }),
 smalltalk.ClassBuilder);
 

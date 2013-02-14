@@ -233,6 +233,39 @@ testClassMigration
     Smalltalk current removeClass: ObjectMock2
 !
 
+testClassMigrationWithClassInstanceVariables
+    
+    builder copyClass: ObjectMock named: 'ObjectMock2'.
+    ObjectMock2 class instanceVariableNames: 'foo bar'.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').
+    
+    Smalltalk current removeClass: ObjectMock2
+!
+
+testClassMigrationWithSubclasses
+    
+    builder copyClass: ObjectMock named: 'ObjectMock2'.
+    ObjectMock2 subclass: 'ObjectMock3' instanceVariableNames: '' package: 'Kernel-Tests'.
+    ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self assert: (ObjectMock subclasses includes: ObjectMock2).
+    self assert: (ObjectMock2 subclasses includes: ObjectMock3).
+    self assert: (ObjectMock3 subclasses includes: ObjectMock4).
+    
+    ObjectMock allSubclasses do: [ :each | Smalltalk current removeClass: each ]
+!
+
 testInstanceVariableNames
 	self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')
 ! !

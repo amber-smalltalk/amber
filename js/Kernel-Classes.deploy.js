@@ -890,14 +890,24 @@ smalltalk.method({
 selector: "basicClass:instanceVariableNames:",
 fn: function (aClass,aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._basicClass_instanceVariables_(aClass,_st(self)._instanceVariableNamesFor_(aString));
+return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})}
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_basicClass_instanceVariables_",
+smalltalk.method({
+selector: "basicClass:instanceVariables:",
+fn: function (aClass,aCollection){
+var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
 };
-_st(aClass)._basicAt_put_("iVarNames",_st(self)._instanceVariableNamesFor_(aString));
-_st(self)._setupClass_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})}
+_st(aClass)._basicAt_put_("iVarNames",aCollection);
+return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariables:",{aClass:aClass,aCollection:aCollection}, smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -935,6 +945,7 @@ fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st(self)._basicClass_instanceVariableNames_(aClass,aString);
+_st(self)._setupClass_(aClass);
 $1=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
@@ -952,17 +963,29 @@ var self=this;
 var newClass;
 return smalltalk.withContext(function($ctx1) { var $1;
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),aString,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
-_st(self)._setupClass_(newClass);
-_st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),newClass,_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(newClass)._class(),_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(newClass);
+_st(self)._copyClass_to_(aClass,newClass);
 $1=newClass;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"copyClass:named:",{aClass:aClass,aString:aString,newClass:newClass}, smalltalk.ClassBuilder)})}
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_copyClass_to_",
+smalltalk.method({
+selector: "copyClass:to:",
+fn: function (aClass,anotherClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(anotherClass)._comment_(_st(aClass)._comment());
+_st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),anotherClass,_st(each)._category());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._category());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._basicClass_instanceVariables_(_st(anotherClass)._class(),_st(_st(aClass)._class())._instanceVariableNames());
+_st(self)._setupClass_(anotherClass);
+return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 
@@ -982,6 +1005,17 @@ return $1;
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
+"_migrateClass_superclass_",
+smalltalk.method({
+selector: "migrateClass:superclass:",
+fn: function (aClass,anotherClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(_st(aClass)._name(),anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})}
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 "_migrateClassNamed_superclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
@@ -990,19 +1024,21 @@ var self=this;
 var oldClass,newClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
-$1=self;
-_st($1)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
-$2=_st($1)._basicRemoveClass_(oldClass);
+_st(self)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
-_st(self)._setupClass_(newClass);
-_st(newClass)._comment_(_st(oldClass)._comment());
-_st(_st(_st(oldClass)._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),newClass,_st(each)._category());
+_st(_st(oldClass)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(self)._migrateClass_superclass_(each,newClass);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(_st(_st(_st(oldClass)._class())._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(newClass)._class(),_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(newClass);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._copyClass_to_(oldClass,newClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(exception){
+return smalltalk.withContext(function($ctx2) {$1=self;
+_st($1)._basicRemoveClass_(newClass);
+$2=_st($1)._basicRenameClass_to_(oldClass,aString);
+$2;
+return _st(exception)._signal();
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
+_st(self)._basicRemoveClass_(oldClass);
 $3=newClass;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass}, smalltalk.ClassBuilder)})}
