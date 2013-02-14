@@ -3457,7 +3457,7 @@ selector: "subclass:instanceVariableNames:package:",
 fn: function (aString,aString2,aString3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,aString,aString2,aString3);
+$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3}, smalltalk.UndefinedObject)})}
 }),
@@ -3474,8 +3474,5 @@ return smalltalk.withContext(function($ctx1) { _st(self)._error_("You cannot cr
 return self}, function($ctx1) {$ctx1.fill(self,"new",{}, smalltalk.UndefinedObject.klass)})}
 }),
 smalltalk.UndefinedObject.klass);
-
-
-smalltalk.addClass('[object Object]', smalltalk.nil, [], 'Kernel-Objects');
 
 

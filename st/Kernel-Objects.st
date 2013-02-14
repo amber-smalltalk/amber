@@ -1631,7 +1631,7 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
-	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
+	    superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'converting'!
@@ -1691,8 +1691,4 @@ notNil
 new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
-
-nil subclass: #[object Object]
-	instanceVariableNames: ''
-	package: 'Kernel-Objects'!
 
