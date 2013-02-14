@@ -86,6 +86,15 @@ testInlinedJSStatement
 		equals: 5
 !
 
+testInstVarAccess
+	self 
+    	assert: (self 
+    		interpret: 'foo ^ x'
+        	receiver: 2@3
+        	withArguments: #{})
+        equals: 2
+!
+
 testInstVarAssignment
 	self 
     	assert: (self 
@@ -97,6 +106,15 @@ testInstVarAssignment
 
 testNonlocalReturn
 	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
+!
+
+testReceiver
+	self 
+    	assert: (self 
+    		interpret: 'foo ^ self'
+        	receiver: 2@3
+        	withArguments: #{})
+        equals: 2@3
 !
 
 testTempAssignment

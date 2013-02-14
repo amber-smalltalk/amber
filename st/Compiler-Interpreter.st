@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter' properties: #{}!
 NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'outerContext pc locals receiver selector'
+	instanceVariableNames: 'outerContext pc locals selector'
 	package: 'Compiler-Interpreter'!
 
 !AIContext methodsFor: 'accessing'!
@@ -44,27 +44,11 @@ pc: anInteger
 !
 
 receiver
-	^ receiver
+	^ self localAt: 'self'
 !
 
 receiver: anObject
-	receiver := anObject
-!
-
-selector
-	^ selector
-!
-
-selector: aString
-	selector := aString
-! !
-
-!AIContext class methodsFor: 'instance creation'!
-
-fromMethodContext: aMethodContext
-	^ self new 
-    	initializeFromMethodContext: aMethodContext;
-        yourself
+	self localAt: 'self' put: anObject
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
@@ -239,6 +223,12 @@ visitSequenceNode: aNode
 
 visitValueNode: aNode
 	self continue: aNode value
+!
+
+visitVariableNode: aNode
+    self continue: (aNode binding isInstanceVar
+		ifTrue: [ self context receiver instVarAt: aNode value ]
+		ifFalse: [ self context localAt: aNode value ])
 ! !
 
 ASTInterpreter subclass: #ASTDebugger

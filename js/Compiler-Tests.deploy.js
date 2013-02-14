@@ -172,6 +172,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smal
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
+"_testInstVarAccess",
+smalltalk.method({
+selector: "testInstVarAccess",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ x",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAccess",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
 "_testInstVarAssignment",
 smalltalk.method({
 selector: "testInstVarAssignment",
@@ -190,6 +201,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ]. ^2"),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testNonlocalReturn",{}, smalltalk.ASTInterpreterTest)})}
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+"_testReceiver",
+smalltalk.method({
+selector: "testReceiver",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ self",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])),_st((2)).__at((3)));
+return self}, function($ctx1) {$ctx1.fill(self,"testReceiver",{}, smalltalk.ASTInterpreterTest)})}
 }),
 smalltalk.ASTInterpreterTest);
 
