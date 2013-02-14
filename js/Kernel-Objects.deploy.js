@@ -2538,6 +2538,22 @@ smalltalk.Package);
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
+"_commitPathsFromLoader",
+smalltalk.method({
+selector: "commitPathsFromLoader",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    var cp = smalltalk['@@commitPath'];
+    if (!cp) return;
+    if (cp.js) self._defaultCommitPathJs_(cp.js);
+    if (cp.st) self._defaultCommitPathSt_(cp.st);
+    ;
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{}, smalltalk.Package.klass)})}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
 "_defaultCommitPathJs",
 smalltalk.method({
 selector: "defaultCommitPathJs",
@@ -2618,6 +2634,18 @@ return smalltalk.withContext(function($ctx1) { _st(jQuery)._getScript_onSuccess
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Package || Package))._named_(aPackageName))._setupClasses();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"fetch:prefix:",{aPackageName:aPackageName,aPrefix:aPrefix}, smalltalk.Package.klass)})}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._commitPathsFromLoader();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Package.klass)})}
 }),
 smalltalk.Package.klass);
 

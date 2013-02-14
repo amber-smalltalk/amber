@@ -279,7 +279,7 @@ amber = (function() {
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
-		var localPackages = {};
+		localPackages = {};
 
 		var match, key;
 

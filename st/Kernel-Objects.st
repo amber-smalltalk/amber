@@ -1183,6 +1183,15 @@ named: aPackageName ifAbsent: aBlock
 
 !Package class methodsFor: 'commit paths'!
 
+commitPathsFromLoader
+    <
+    var cp = smalltalk['@@commitPath'];
+    if (!!cp) return;
+    if (cp.js) self._defaultCommitPathJs_(cp.js);
+    if (cp.st) self._defaultCommitPathSt_(cp.st);
+    >
+!
+
 defaultCommitPathJs
 	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
 !
@@ -1202,6 +1211,13 @@ defaultCommitPathSt: aString
 resetCommitPaths
         defaultCommitPathJs := nil.
         defaultCommitPathSt := nil.
+! !
+
+!Package class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    self commitPathsFromLoader
 ! !
 
 !Package class methodsFor: 'loading-storing'!
@@ -1597,7 +1613,7 @@ subclass: aString instanceVariableNames: aString2 category: aString3
 
 subclass: aString instanceVariableNames: aString2 package: aString3
 	^ClassBuilder new
-	    superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
+	    superclass: self subclass: aString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'converting'!
