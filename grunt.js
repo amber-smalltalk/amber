@@ -80,7 +80,7 @@ module.exports = function(grunt) {
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
               'Kernel-Tests.js', 'Compiler-Tests.js',
               'Canvas.js', 'IDE.js', 'SUnit.js', 'Documentation.js', 'Examples.js'],
-        output_name: 'amber'
+        output_name: 'amber_lib'
       },
       server: {
         working_dir: 'server',

@@ -76,16 +76,22 @@ alias: aNode
 	^ variable
 !
 
-temporallyDependentList: nodes
+aliasTemporally: aCollection
+	"https://github.com/NicolasPetton/amber/issues/296
+    
+    If a node is aliased, all preceding ones are aliased as well.
+    The tree is iterated twice. First we get the aliasing dependency, 
+    then the aliasing itself is done"
+
 	| threshold result |
     threshold := 0.
     
-    nodes withIndexDo: [ :each :i |
+    aCollection withIndexDo: [ :each :i |
         each subtreeNeedsAliasing
 		    ifTrue: [ threshold := i ]].
 
 	result := OrderedCollection new.
-	nodes withIndexDo: [ :each :i | 
+	aCollection withIndexDo: [ :each :i | 
 		result add: (i <= threshold
 			ifTrue: [ self alias: each ]
 			ifFalse: [ self visit: each ])].
@@ -113,6 +119,7 @@ visitBlockNode: aNode
 	aNode scope temps do: [ :each |
 		closure add: (IRTempDeclaration new 
 			name: each name;
+            scope: aNode scope;
 			yourself) ].
 	aNode nodes do: [ :each | closure add: (self visit: each) ].
 	^ closure
@@ -147,14 +154,14 @@ visitCascadeNode: aNode
 visitDynamicArrayNode: aNode
 	| array |
 	array := IRDynamicArray new.
-	(self temporallyDependentList: aNode nodes) do: [:each | array add: each].
+	(self aliasTemporally: aNode nodes) do: [:each | array add: each].
 	^ array
 !
 
 visitDynamicDictionaryNode: aNode
 	| dictionary |
 	dictionary := IRDynamicDictionary new.
-    (self temporallyDependentList: aNode nodes) do: [:each | dictionary add: each].
+    (self aliasTemporally: aNode nodes) do: [:each | dictionary add: each].
 	^ dictionary
 !
 
@@ -168,9 +175,11 @@ visitMethodNode: aNode
 
 	self method: (IRMethod new
 		source: self source;
+        theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;
 		messageSends: aNode messageSends;
+        superSends: aNode superSends;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
 		yourself).
@@ -178,6 +187,7 @@ visitMethodNode: aNode
 	aNode scope temps do: [ :each |
 		self method add: (IRTempDeclaration new
 			name: each name;
+            scope: aNode scope;
 			yourself) ].
 
 	aNode nodes do: [ :each | self method add: (self visit: each) ].
@@ -209,7 +219,7 @@ visitSendNode: aNode
 		index: aNode index.
 	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
     
-    all := self temporallyDependentList: { aNode receiver }, aNode arguments.
+    all := self aliasTemporally: { aNode receiver }, aNode arguments.
 	receiver := all first.
 	arguments := all allButFirst.
 
@@ -252,6 +262,10 @@ The IR graph is used to emit JavaScript code using a JSStream.!
 
 instructions
 	^ instructions ifNil: [ instructions := OrderedCollection new ]
+!
+
+method
+	^ self parent method
 !
 
 parent
@@ -303,6 +317,10 @@ isInlined
 !
 
 isLocalReturn
+	^ false
+!
+
+isMethod
 	^ false
 !
 
@@ -384,11 +402,11 @@ scope: aScope
 	scope := aScope
 ! !
 
-IRScopedInstruction subclass: #IRClosure
+IRScopedInstruction subclass: #IRClosureInstruction
 	instanceVariableNames: 'arguments'
 	package: 'Compiler-IR'!
 
-!IRClosure methodsFor: 'accessing'!
+!IRClosureInstruction methodsFor: 'accessing'!
 
 arguments
 	^ arguments ifNil: [ #() ]
@@ -398,10 +416,27 @@ arguments: aCollection
 	arguments := aCollection
 !
 
+locals
+	^ self arguments copy
+    	addAll: (self tempDeclarations collect: [ :each | each name ]); 
+        yourself
+!
+
 scope: aScope
 	super scope: aScope.
 	aScope instruction: self
 !
+
+tempDeclarations
+	^ self instructions select: [ :each | 
+    	each isTempDeclaration ]
+! !
+
+IRClosureInstruction subclass: #IRClosure
+	instanceVariableNames: ''
+	package: 'Compiler-IR'!
+
+!IRClosure methodsFor: 'accessing'!
 
 sequence
 	^ self instructions last
@@ -419,21 +454,13 @@ accept: aVisitor
 	^ aVisitor visitIRClosure: self
 ! !
 
-IRScopedInstruction subclass: #IRMethod
-	instanceVariableNames: 'source selector classReferences messageSends arguments internalVariables'
+IRClosureInstruction subclass: #IRMethod
+	instanceVariableNames: 'theClass source selector classReferences messageSends superSends internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
 
 !IRMethod methodsFor: 'accessing'!
-
-arguments
-	^ arguments
-!
-
-arguments: aCollection
-	arguments := aCollection
-!
 
 classReferences
 	^ classReferences
@@ -447,6 +474,10 @@ internalVariables
 	^ internalVariables ifNil: [ internalVariables := Set new ]
 !
 
+isMethod
+	^ true
+!
+
 messageSends
 	^ messageSends
 !
@@ -455,9 +486,8 @@ messageSends: aCollection
 	messageSends := aCollection
 !
 
-scope: aScope
-	super scope: aScope.
-	aScope instruction: self
+method
+	^ self
 !
 
 selector
@@ -474,6 +504,22 @@ source
 
 source: aString
 	source := aString
+!
+
+superSends
+	^ superSends
+!
+
+superSends: aCollection
+	superSends := aCollection
+!
+
+theClass
+	^ theClass
+!
+
+theClass: aClass
+	theClass := aClass
 ! !
 
 !IRMethod methodsFor: 'visiting'!
@@ -555,6 +601,32 @@ accept: aVisitor
 	^ aVisitor visitIRNonLocalReturn: self
 ! !
 
+IRScopedInstruction subclass: #IRTempDeclaration
+	instanceVariableNames: 'name'
+	package: 'Compiler-IR'!
+
+!IRTempDeclaration methodsFor: 'accessing'!
+
+name
+	^ name
+!
+
+name: aString
+	name := aString
+! !
+
+!IRTempDeclaration methodsFor: 'testing'!
+
+isTempDeclaration
+	^ true
+! !
+
+!IRTempDeclaration methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitIRTempDeclaration: self
+! !
+
 IRInstruction subclass: #IRSend
 	instanceVariableNames: 'selector classSend index'
 	package: 'Compiler-IR'!
@@ -577,6 +649,12 @@ index
 
 index: anInteger
 	index := anInteger
+!
+
+javascriptSelector
+	^ self classSend 
+    	ifNil: [ self selector asSelector ]
+      	ifNotNil: [ self selector asSuperSelector ]
 !
 
 selector
@@ -623,32 +701,6 @@ IRSequence subclass: #IRBlockSequence
 
 accept: aVisitor
 	^ aVisitor visitIRBlockSequence: self
-! !
-
-IRInstruction subclass: #IRTempDeclaration
-	instanceVariableNames: 'name'
-	package: 'Compiler-IR'!
-!IRTempDeclaration commentStamp!
-I am a temporary variable declaration instruction!
-
-!IRTempDeclaration methodsFor: 'accessing'!
-
-name
-	^ name
-!
-
-name: aString
-	name := aString
-! !
-
-!IRTempDeclaration methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRTempDeclaration: self
-!
-
-isTempDeclaration
-	^ true
 ! !
 
 IRInstruction subclass: #IRValue
@@ -843,7 +895,12 @@ visitIRAssignment: anIRAssignment
 
 visitIRClosure: anIRClosure
 	self stream 
-		nextPutClosureWith: [ super visitIRClosure: anIRClosure ] 
+		nextPutClosureWith: [ 
+        	self stream nextPutVars: (anIRClosure tempDeclarations collect: [ :each |
+    				each name asVariableName ]).
+        	self stream 
+            	nextPutBlockContextFor: anIRClosure
+                during: [ super visitIRClosure: anIRClosure ] ]
 		arguments: anIRClosure arguments
 !
 
@@ -864,10 +921,14 @@ visitIRDynamicDictionary: anIRDynamicDictionary
 !
 
 visitIRMethod: anIRMethod
+
 	self stream
 		nextPutMethodDeclaration: anIRMethod 
 		with: [ self stream 
 			nextPutFunctionWith: [ 
+            	self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |
+    				each name asVariableName ]).
+            	self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
 						each variable alias ]) ].
@@ -875,7 +936,7 @@ visitIRMethod: anIRMethod
 					ifTrue: [
 						self stream nextPutNonLocalReturnHandlingWith: [
 							super visitIRMethod: anIRMethod ]]
-					ifFalse: [ super visitIRMethod: anIRMethod ]]
+					ifFalse: [ super visitIRMethod: anIRMethod ]]]
 			arguments: anIRMethod arguments ]
 !
 
@@ -890,23 +951,26 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
-	self stream nextPutAll: 'smalltalk.send('.
-	self visit: anIRSend instructions first.
-	self stream nextPutAll:  ',"', anIRSend selector asSelector, '",['.
-	anIRSend instructions allButFirst
-		do: [ :each | self visit: each ]
-		separatedBy: [ self stream nextPutAll: ',' ].
-	self stream nextPutAll: ']'.
-	"anIRSend index > 1 
-		ifTrue: [
-			anIRSend classSend 
-				ifNil: [ self stream nextPutAll: ',undefined' ]
-				ifNotNil: [ self stream nextPutAll: ',', anIRSend classSend asJavascript ].
-			self stream nextPutAll: ',', anIRSend index asString ]
-		ifFalse: ["
-			anIRSend classSend ifNotNil: [  
-				self stream nextPutAll: ',', anIRSend classSend asJavascript ]"]".
-	self stream nextPutAll: ')'
+	anIRSend classSend 
+    	ifNil: [
+			self stream nextPutAll: '_st('.
+			self visit: anIRSend instructions first.
+   		 	self stream nextPutAll: ').', anIRSend selector asSelector, '('.
+			anIRSend instructions allButFirst
+				do: [ :each | self visit: each ]
+				separatedBy: [ self stream nextPutAll: ',' ].
+			self stream nextPutAll: ')' ]
+		ifNotNil: [ 
+			self stream 
+            	nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
+				nextPutAll: anIRSend selector asSelector, '.apply(';
+				nextPutAll: '_st('.
+			self visit: anIRSend instructions first.
+			self stream nextPutAll: '), ['.
+			anIRSend instructions allButFirst
+				do: [ :each | self visit: each ]
+				separatedBy: [ self stream nextPutAll: ',' ].
+			self stream nextPutAll: '])' ]
 !
 
 visitIRSequence: anIRSequence
@@ -916,7 +980,9 @@ visitIRSequence: anIRSequence
 !
 
 visitIRTempDeclaration: anIRTempDeclaration
-	self stream nextPutVar: anIRTempDeclaration name asVariableName
+	"self stream 
+    	nextPutAll: 'var ', anIRTempDeclaration name asVariableName, ';'; 
+        lf"
 !
 
 visitIRValue: anIRValue
@@ -969,6 +1035,30 @@ nextPutAssignment
 	stream nextPutAll: '='
 !
 
+nextPutBlockContextFor: anIRClosure during: aBlock
+	self 
+    	nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; 
+        nextPutAll: String cr.
+    
+    aBlock value.
+    
+    self 
+    	nextPutAll: '}, function(', anIRClosure scope alias, ') {';
+        nextPutAll: anIRClosure scope alias, '.fillBlock({'.
+    
+    anIRClosure locals 
+    	do: [ :each |
+    		self 
+        		nextPutAll: each asVariableName;
+           	 	nextPutAll: ':';
+        		nextPutAll: each asVariableName]
+		separatedBy: [ self nextPutAll: ',' ].
+    
+    self
+    	nextPutAll: '},';
+        nextPutAll:  anIRClosure method scope alias, ')})'
+!
+
 nextPutClosureWith: aBlock arguments: anArray
 	stream nextPutAll: '(function('.
 	anArray 
@@ -977,6 +1067,30 @@ nextPutClosureWith: aBlock arguments: anArray
 	stream nextPutAll: '){'; lf.
 	aBlock value.
 	stream nextPutAll: '})'
+!
+
+nextPutContextFor: aMethod during: aBlock
+	self 
+    	nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; 
+        nextPutAll: String cr.
+    aBlock value.
+    
+    self 
+    	nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias; 
+        nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.
+
+    aMethod locals 
+    	do: [ :each |
+    		self 
+        		nextPutAll: each asVariableName;
+           	 	nextPutAll: ':';
+        		nextPutAll: each asVariableName]
+		separatedBy: [ self nextPutAll: ',' ].
+    
+    self
+    	nextPutAll: '}, ';
+        nextPutAll: aMethod theClass asJavascript;
+        nextPutAll: ')})'
 !
 
 nextPutFunctionWith: aBlock arguments: anArray
@@ -1012,12 +1126,12 @@ nextPutMethodDeclaration: aMethod with: aBlock
 	stream 
 		nextPutAll: 'smalltalk.method({'; lf;
 		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
-		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf. 
 	aBlock value.
 	stream 
 		nextPutAll: ',', String lf, 'messageSends: ';
 		nextPutAll: aMethod messageSends asArray asJavascript, ','; lf;
-          	nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
+        nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	aMethod classReferences 
 		do: [:each | stream nextPutAll: each asJavascript]
@@ -1052,16 +1166,6 @@ nextPutReturnWith: aBlock
 	aBlock value
 !
 
-nextPutSendTo: receiver selector: selector arguments: arguments
-	stream nextPutAll: 'smalltalk.send('.
-	receiver emitOn: self. 
-	stream nextPutAll: ',"', selector asSelector, '",['.
-	arguments 
-		do: [ :each | each emitOn: self ]
-		separatedBy: [ stream nextPutAll: ',' ].
-	stream nextPutAll: '])'
-!
-
 nextPutSequenceWith: aBlock
 	"stream 
 		nextPutAll: 'switch(smalltalk.thisContext.pc){'; lf."
@@ -1086,6 +1190,8 @@ nextPutVar: aString
 !
 
 nextPutVars: aCollection
+	aCollection ifEmpty: [ ^self ].
+    
 	stream nextPutAll: 'var '.
 	aCollection 
 		do: [ :each | stream nextPutAll: each ]

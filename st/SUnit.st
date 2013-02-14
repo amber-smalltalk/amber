@@ -358,6 +358,22 @@ initialize
 	total := 0
 ! !
 
+!TestResult methodsFor: 'running'!
+
+nextRunDo: aBlock
+"Runs aBlock with index of next run
+or does nothing if no more runs"
+^self runs == self total
+	ifFalse: [ aBlock value: self runs + 1 ]
+!
+
+runCase: aTestCase
+	[[	self increaseRuns.
+    	aTestCase runCase]
+	on: TestFailure do: [:ex | self addFailure: aTestCase]]
+	on: Error do: [:ex | self addError: aTestCase]
+! !
+
 Object subclass: #TestSuiteRunner
 	instanceVariableNames: 'suite result announcer runNextTest'
 	package: 'SUnit'!
