@@ -422,29 +422,59 @@ isBlockContext
 Object subclass: #NativeFunction
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
+!NativeFunction commentStamp!
+NativeFunction is a wrapper around native functions, such as `WebSocket`.
+For 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.
 
-!NativeFunction class methodsFor: 'not yet classified'!
+See the class-side `instance creation` methods.
 
-class: aString
-<var a=eval(aString); return new a();>
+Created instances will most probably be instance of `JSObjectProxy`.
+
+Usage example:
+
+    | ws |
+    ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.
+    ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]!
+
+!NativeFunction class methodsFor: 'instance creation'!
+
+constructor: aString
+	<
+    	var native=eval(aString); 
+        return new native();
+	>
 !
 
-class: aString value:anObject
-
-<var a=eval(aString); return new a(anObject);>
+constructor: aString value:anObject
+	<
+    	var native=eval(aString); 
+        return new native(anObject);
+	>
 !
 
-class: aString value:anObject value: anObject2
-
-<var a=eval(aString); return new a(anObject,anObject2);>
+constructor: aString value:anObject value: anObject2
+	<
+    	var native=eval(aString); 
+        return new native(anObject,anObject2);
+	>
 !
 
-class: aString value:anObject value: anObject2 value:anObject3
+constructor: aString value:anObject value: anObject2 value:anObject3
+	<
+    	var native=eval(aString); 
+        return new native(anObject,anObject2, anObject3);
+	>
+! !
 
-<var a=eval(aString); return new a(anObject,anObject2, anObject3);>
-!
+!NativeFunction class methodsFor: 'testing'!
 
 exists: aString
-<if(aString in window){return true}else{return false}>
+	<
+    	if(aString in window) {
+        	return true
+        } else {
+        	return false
+        }
+    >
 ! !
 

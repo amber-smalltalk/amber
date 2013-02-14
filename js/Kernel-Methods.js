@@ -1203,66 +1203,79 @@ smalltalk.MethodContext);
 
 
 smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.NativeFunction.comment="NativeFunction is a wrapper around native functions, such as `WebSocket`.\x0aFor 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.\x0a\x0aSee the class-side `instance creation` methods.\x0a\x0aCreated instances will most probably be instance of `JSObjectProxy`.\x0a\x0aUsage example:\x0a\x0a    | ws |\x0a    ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.\x0a    ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]"
 
 smalltalk.addMethod(
-"_class_",
+"_constructor_",
 smalltalk.method({
-selector: "class:",
-category: 'not yet classified',
+selector: "constructor:",
+category: 'instance creation',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a();;
-return self}, function($ctx1) {$ctx1.fill(self,"class:",{aString:aString}, smalltalk.NativeFunction.klass)})},
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString}, smalltalk.NativeFunction.klass)})},
 args: ["aString"],
-source: "class: aString\x0a<var a=eval(aString); return new a();>\x0a",
+source: "constructor: aString\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native();\x0a\x09>\x0a",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_class_value_",
+"_constructor_value_",
 smalltalk.method({
-selector: "class:value:",
-category: 'not yet classified',
+selector: "constructor:value:",
+category: 'instance creation',
 fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a(anObject);;
-return self}, function($ctx1) {$ctx1.fill(self,"class:value:",{aString:aString,anObject:anObject}, smalltalk.NativeFunction.klass)})},
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject}, smalltalk.NativeFunction.klass)})},
 args: ["aString", "anObject"],
-source: "class: aString value:anObject\x0a\x0a<var a=eval(aString); return new a(anObject);>\x0a",
+source: "constructor: aString value:anObject\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject);\x0a\x09>\x0a",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_class_value_value_",
+"_constructor_value_value_",
 smalltalk.method({
-selector: "class:value:value:",
-category: 'not yet classified',
+selector: "constructor:value:value:",
+category: 'instance creation',
 fn: function (aString,anObject,anObject2){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a(anObject,anObject2);;
-return self}, function($ctx1) {$ctx1.fill(self,"class:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2}, smalltalk.NativeFunction.klass)})},
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject,anObject2);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2}, smalltalk.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2"],
-source: "class: aString value:anObject value: anObject2\x0a\x0a<var a=eval(aString); return new a(anObject,anObject2);>\x0a",
+source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2);\x0a\x09>\x0a",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_class_value_value_value_",
+"_constructor_value_value_value_",
 smalltalk.method({
-selector: "class:value:value:value:",
-category: 'not yet classified',
+selector: "constructor:value:value:value:",
+category: 'instance creation',
 fn: function (aString,anObject,anObject2,anObject3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var a=eval(aString); return new a(anObject,anObject2, anObject3);;
-return self}, function($ctx1) {$ctx1.fill(self,"class:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.NativeFunction.klass)})},
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject,anObject2, anObject3);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2", "anObject3"],
-source: "class: aString value:anObject value: anObject2 value:anObject3\x0a\x0a<var a=eval(aString); return new a(anObject,anObject2, anObject3);>\x0a",
+source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2, anObject3);\x0a\x09>\x0a",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1272,13 +1285,19 @@ smalltalk.addMethod(
 "_exists_",
 smalltalk.method({
 selector: "exists:",
-category: 'not yet classified',
+category: 'testing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { if(aString in window){return true}else{return false};
+return smalltalk.withContext(function($ctx1) { 
+    	if(aString in window) {
+        	return true
+        } else {
+        	return false
+        }
+    ;
 return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString}, smalltalk.NativeFunction.klass)})},
 args: ["aString"],
-source: "exists: aString\x0a<if(aString in window){return true}else{return false}>\x0a",
+source: "exists: aString\x0a\x09<\x0a    \x09if(aString in window) {\x0a        \x09return true\x0a        } else {\x0a        \x09return false\x0a        }\x0a    >",
 messageSends: [],
 referencedClasses: []
 }),
