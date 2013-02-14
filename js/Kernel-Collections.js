@@ -3115,6 +3115,24 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
+"_asRegexp",
+smalltalk.method({
+selector: "asRegexp",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.RegularExpression || RegularExpression))._fromString_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asRegexp",{}, smalltalk.String)})},
+args: [],
+source: "asRegexp\x0a\x09^ RegularExpression fromString: self",
+messageSends: ["fromString:"],
+referencedClasses: ["RegularExpression"]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_asSelector",
 smalltalk.method({
 selector: "asSelector",

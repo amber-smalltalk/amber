@@ -1042,6 +1042,10 @@ asNumber
 	<return Number(self)>
 !
 
+asRegexp
+	^ RegularExpression fromString: self
+!
+
 asSelector
 	<return smalltalk.selector(self)>
 !

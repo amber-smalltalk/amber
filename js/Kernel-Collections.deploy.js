@@ -2324,6 +2324,19 @@ return self}, function($ctx1) {$ctx1.fill(self,"asNumber",{}, smalltalk.String)}
 smalltalk.String);
 
 smalltalk.addMethod(
+"_asRegexp",
+smalltalk.method({
+selector: "asRegexp",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.RegularExpression || RegularExpression))._fromString_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asRegexp",{}, smalltalk.String)})}
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_asSelector",
 smalltalk.method({
 selector: "asSelector",
