@@ -5,16 +5,6 @@ NodeVisitor subclass: #AIContext
 
 !AIContext methodsFor: 'accessing'!
 
-initializeFromMethodContext: aMethodContext
-	self pc: aMethodContext pc.
-    self receiver: aMethodContext receiver.
-    self selector: aMethodContext selector.
-    aMethodContext outerContext ifNotNil: [
-		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
-    aMethodContext locals keysAndValuesDo: [ :key :value |
-    	self locals at: key put: value ]
-!
-
 localAt: aString
 	^ self locals at: aString ifAbsent: [ nil ]
 !
@@ -49,6 +39,18 @@ receiver
 
 receiver: anObject
 	self localAt: 'self' put: anObject
+! !
+
+!AIContext methodsFor: 'initialization'!
+
+initializeFromMethodContext: aMethodContext
+	self pc: aMethodContext pc.
+    self receiver: aMethodContext receiver.
+    self selector: aMethodContext selector.
+    aMethodContext outerContext ifNotNil: [
+		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
+    aMethodContext locals keysAndValuesDo: [ :key :value |
+    	self locals at: key put: value ]
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
@@ -116,7 +118,6 @@ interpret: aNode
 !
 
 interpret: aNode continue: aBlock
-
 	shouldReturn ifTrue: [ ^ self ].
 
 	aNode isNode 
@@ -160,6 +161,7 @@ visitAssignmentNode: aNode
 
 visitBlockNode: aNode
 	"TODO: Context should be set"
+    
     self continue: [ self interpret: aNode nodes first; currentValue ]
 !
 
@@ -183,13 +185,11 @@ visitClassReferenceNode: aNode
 !
 
 visitDynamicArrayNode: aNode
-
 	self interpretAll: aNode nodes continue: [ :array |
     	self continue: array ]
 !
 
 visitDynamicDictionaryNode: aNode
-	
     self interpretAll: aNode nodes continue: [ :array | | hashedCollection |
     	hashedCollection := HashedCollection new.
         array do: [ :each | hashedCollection add: each ].

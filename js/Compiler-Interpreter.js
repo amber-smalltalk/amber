@@ -4,7 +4,7 @@ smalltalk.addMethod(
 "_initializeFromMethodContext_",
 smalltalk.method({
 selector: "initializeFromMethodContext:",
-category: 'accessing',
+category: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -389,7 +389,7 @@ self["@currentValue"];
 _st(aBlock)._value_(_st(self)._currentValue());
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock}, smalltalk.ASTInterpreter)})},
 args: ["aNode", "aBlock"],
-source: "interpret: aNode continue: aBlock\x0a\x0a\x09shouldReturn ifTrue: [ ^ self ].\x0a\x0a\x09aNode isNode \x0a    \x09ifTrue: [ self visit: aNode ]\x0a        ifFalse: [ currentValue := aNode ].\x0a\x09aBlock value: self currentValue",
+source: "interpret: aNode continue: aBlock\x0a\x09shouldReturn ifTrue: [ ^ self ].\x0a\x0a\x09aNode isNode \x0a    \x09ifTrue: [ self visit: aNode ]\x0a        ifFalse: [ currentValue := aNode ].\x0a\x09aBlock value: self currentValue",
 messageSends: ["ifTrue:", "ifTrue:ifFalse:", "visit:", "isNode", "value:", "currentValue"],
 referencedClasses: []
 }),
@@ -492,7 +492,7 @@ return $2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode}, smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09\x22TODO: Context should be set\x22\x0a    self continue: [ self interpret: aNode nodes first; currentValue ]",
+source: "visitBlockNode: aNode\x0a\x09\x22TODO: Context should be set\x22\x0a    \x0a    self continue: [ self interpret: aNode nodes first; currentValue ]",
 messageSends: ["continue:", "interpret:", "first", "nodes", "currentValue"],
 referencedClasses: []
 }),
@@ -551,7 +551,7 @@ return smalltalk.withContext(function($ctx2) {return _st(self)._continue_(array
 }, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode}, smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitDynamicArrayNode: aNode\x0a\x0a\x09self interpretAll: aNode nodes continue: [ :array |\x0a    \x09self continue: array ]",
+source: "visitDynamicArrayNode: aNode\x0a\x09self interpretAll: aNode nodes continue: [ :array |\x0a    \x09self continue: array ]",
 messageSends: ["interpretAll:continue:", "nodes", "continue:"],
 referencedClasses: []
 }),
@@ -575,7 +575,7 @@ return _st(self)._continue_(hashedCollection);
 }, function($ctx2) {$ctx2.fillBlock({array:array,hashedCollection:hashedCollection},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode}, smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09\x0a    self interpretAll: aNode nodes continue: [ :array | | hashedCollection |\x0a    \x09hashedCollection := HashedCollection new.\x0a        array do: [ :each | hashedCollection add: each ].\x0a        self continue: hashedCollection ]",
+source: "visitDynamicDictionaryNode: aNode\x0a    self interpretAll: aNode nodes continue: [ :array | | hashedCollection |\x0a    \x09hashedCollection := HashedCollection new.\x0a        array do: [ :each | hashedCollection add: each ].\x0a        self continue: hashedCollection ]",
 messageSends: ["interpretAll:continue:", "nodes", "new", "do:", "add:", "continue:"],
 referencedClasses: ["HashedCollection"]
 }),
