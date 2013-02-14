@@ -150,7 +150,8 @@ smalltalk.method({
 selector: "exception:",
 fn: function (anException){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@exception"]=anException;
+return smalltalk.withContext(function($ctx1) { _st(anException)._messageText_(_st(anException)._basicAt_("message"));
+self["@exception"]=anException;
 return self}, function($ctx1) {$ctx1.fill(self,"exception:",{anException:anException}, smalltalk.JavaScriptException)})}
 }),
 smalltalk.JavaScriptException);
@@ -161,7 +162,9 @@ smalltalk.method({
 selector: "messageText",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "A JavaScript exception occured while in the Smalltalk stack!";
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st("JavaScript exception: ").__comma(_st(_st(self)._exception())._messageText());
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.JavaScriptException)})}
 }),
 smalltalk.JavaScriptException);
