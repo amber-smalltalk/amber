@@ -1,5 +1,6 @@
 smalltalk.addPackage('Kernel-Announcements', {});
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
+smalltalk.AnnouncementSubscription.comment="The subscription is a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible."
 smalltalk.addMethod(
 "_announcementClass",
 smalltalk.method({
@@ -109,6 +110,7 @@ smalltalk.AnnouncementSubscription);
 
 
 smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
+smalltalk.Announcer.comment="The code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).\x0aThe Announcer holds annoncement subscriptions (`AnnouncementSubscription`) in a private registry.\x0a\x0aUse `#on:do:` to register subscriptions."
 smalltalk.addMethod(
 "_announce_",
 smalltalk.method({
