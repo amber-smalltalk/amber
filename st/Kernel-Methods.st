@@ -80,7 +80,7 @@ newValue:  anObject value: anObject2
 newValue:  anObject value: anObject2 value: anObject3
 	"Use the receiver as a JS constructor. 
 	*Do not* use this method to instanciate Smalltalk objects!!"
-	<return new self(anObject, anObject2)>
+	<return new self(anObject, anObject2,anObject3)>
 !
 
 timeToRun
@@ -417,5 +417,34 @@ isBlockContext
 	"Block context do not have selectors."
     
 	^ self selector isNil
+! !
+
+Object subclass: #NativeFunction
+	instanceVariableNames: ''
+	package: 'Kernel-Methods'!
+
+!NativeFunction class methodsFor: 'not yet classified'!
+
+class: aString
+<var a=eval(aString); return new a();>
+!
+
+class: aString value:anObject
+
+<var a=eval(aString); return new a(anObject);>
+!
+
+class: aString value:anObject value: anObject2
+
+<var a=eval(aString); return new a(anObject,anObject2);>
+!
+
+class: aString value:anObject value: anObject2 value:anObject3
+
+<var a=eval(aString); return new a(anObject,anObject2, anObject3);>
+!
+
+exists: aString
+<if(aString in window){return true}else{return false}>
 ! !
 
