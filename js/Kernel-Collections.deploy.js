@@ -390,14 +390,16 @@ smalltalk.method({
 selector: "includes:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-		var i = self.length;
-		while (i--) {
-			if (smalltalk.send(self[i], "__eq", [anObject])) {return true;}	
-		}
-		return false
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject}, smalltalk.Collection)})}
+var sentinel;
+return smalltalk.withContext(function($ctx1) { var $1;
+sentinel=_st((smalltalk.Object || Object))._new();
+$1=_st(_st(self)._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each).__eq(anObject);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__tild_eq(sentinel);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,sentinel:sentinel}, smalltalk.Collection)})}
 }),
 smalltalk.Collection);
 
@@ -1618,6 +1620,21 @@ return $1;
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
+"_includes_",
+smalltalk.method({
+selector: "includes:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._indexOf_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject}, smalltalk.SequenceableCollection)})}
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
 "_indexOf_",
 smalltalk.method({
 selector: "indexOf:",
@@ -1640,7 +1657,7 @@ fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 		for(var i=0;i<self.length;i++) {
-			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock();
 	;

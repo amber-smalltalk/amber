@@ -208,22 +208,6 @@ selection
 	^editor getSelection
 !
 
-selectionEnd
-   ^textarea element selectionEnd
-!
-
-selectionEnd: anInteger
-   textarea element selectionEnd: anInteger
-!
-
-selectionStart
-   ^textarea element selectionStart
-!
-
-selectionStart: anInteger
-   textarea element selectionStart: anInteger
-!
-
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'amber',

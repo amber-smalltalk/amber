@@ -881,85 +881,20 @@ referencedClasses: []
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
-"_selectionEnd",
-smalltalk.method({
-selector: "selectionEnd",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd", []);
-    return $1;
-},
-args: [],
-source: "selectionEnd\x0a   ^textarea element selectionEnd",
-messageSends: ["selectionEnd", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionEnd_",
-smalltalk.method({
-selector: "selectionEnd:",
-category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd_", [anInteger]);
-    return self;
-},
-args: ["anInteger"],
-source: "selectionEnd: anInteger\x0a   textarea element selectionEnd: anInteger",
-messageSends: ["selectionEnd:", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart",
-smalltalk.method({
-selector: "selectionStart",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart", []);
-    return $1;
-},
-args: [],
-source: "selectionStart\x0a   ^textarea element selectionStart",
-messageSends: ["selectionStart", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart_",
-smalltalk.method({
-selector: "selectionStart:",
-category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart_", [anInteger]);
-    return self;
-},
-args: ["anInteger"],
-source: "selectionStart: anInteger\x0a   textarea element selectionStart: anInteger",
-messageSends: ["selectionStart:", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
 "_setEditorOn_",
 smalltalk.method({
 selector: "setEditorOn:",
 category: 'accessing',
-fn: function (aTextarea) {
-    var self = this;
-    self['@editor'] = CodeMirror.fromTextArea(aTextarea, {theme: "amber", lineNumbers: true, enterMode: "flat", matchBrackets: true, electricChars: false});
-    return self;
-},
+fn: function (aTextarea){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+		theme: 'amber',
+                lineNumbers: true,
+                enterMode: 'flat',
+                matchBrackets: true,
+                electricChars: false
+	});
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.SourceArea)})},
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
@@ -972,12 +907,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "val",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@editor"])._getValue();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"val",{}, smalltalk.SourceArea)})},
 args: [],
 source: "val\x0a    ^editor getValue",
 messageSends: ["getValue"],
@@ -990,11 +925,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "val:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._setValue_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString}, smalltalk.SourceArea)})},
 args: ["aString"],
 source: "val: aString\x0a    editor setValue: aString",
 messageSends: ["setValue:"],

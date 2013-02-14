@@ -521,18 +521,20 @@ selector: "includes:",
 category: 'testing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-		var i = self.length;
-		while (i--) {
-			if (smalltalk.send(self[i], "__eq", [anObject])) {return true;}	
-		}
-		return false
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject}, smalltalk.Collection)})},
+var sentinel;
+return smalltalk.withContext(function($ctx1) { var $1;
+sentinel=_st((smalltalk.Object || Object))._new();
+$1=_st(_st(self)._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each).__eq(anObject);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return sentinel;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__tild_eq(sentinel);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,sentinel:sentinel}, smalltalk.Collection)})},
 args: ["anObject"],
-source: "includes: anObject\x0a\x09<\x0a\x09\x09var i = self.length;\x0a\x09\x09while (i--) {\x0a\x09\x09\x09if (smalltalk.send(self[i], \x22__eq\x22, [anObject])) {return true;}\x09\x0a\x09\x09}\x0a\x09\x09return false\x0a\x09>",
-messageSends: [],
-referencedClasses: []
+source: "includes: anObject\x0a\x09| sentinel |\x0a    sentinel := Object new.\x0a    ^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel",
+messageSends: ["new", "~=", "detect:ifNone:", "="],
+referencedClasses: ["Object"]
 }),
 smalltalk.Collection);
 
@@ -2144,6 +2146,26 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
+"_includes_",
+smalltalk.method({
+selector: "includes:",
+category: 'testing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._indexOf_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject}, smalltalk.SequenceableCollection)})},
+args: ["anObject"],
+source: "includes: anObject\x0a\x09^(self indexOf: anObject ifAbsent: [nil]) notNil",
+messageSends: ["notNil", "indexOf:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
 "_indexOf_",
 smalltalk.method({
 selector: "indexOf:",
@@ -2172,13 +2194,13 @@ fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 		for(var i=0;i<self.length;i++) {
-			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock}, smalltalk.SequenceableCollection)})},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock();\x0a\x09>",
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

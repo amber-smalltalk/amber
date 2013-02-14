@@ -257,13 +257,9 @@ ifNotEmpty: aBlock
 !
 
 includes: anObject
-	<
-		var i = self.length;
-		while (i--) {
-			if (smalltalk.send(self[i], "__eq", [anObject])) {return true;}	
-		}
-		return false
-	>
+	| sentinel |
+    sentinel := Object new.
+    ^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
 !
 
 isEmpty
@@ -683,7 +679,7 @@ indexOf: anObject
 indexOf: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
-			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock();
 	>
@@ -774,6 +770,12 @@ shallowCopy
 
 withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
+! !
+
+!SequenceableCollection methodsFor: 'testing'!
+
+includes: anObject
+	^(self indexOf: anObject ifAbsent: [nil]) notNil
 ! !
 
 SequenceableCollection subclass: #Array
