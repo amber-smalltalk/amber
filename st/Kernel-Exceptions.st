@@ -83,11 +83,12 @@ exception
 !
 
 exception: anException
+	anException messageText: (anException basicAt: 'message').
 	exception := anException
 !
 
 messageText
-	^ 'A JavaScript exception occured while in the Smalltalk stack!!'
+	^ 'JavaScript exception: ', self exception messageText
 ! !
 
 !JavaScriptException class methodsFor: 'instance creation'!
