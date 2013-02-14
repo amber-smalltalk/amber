@@ -671,64 +671,19 @@ return $1;
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
-"_selectionEnd",
-smalltalk.method({
-selector: "selectionEnd",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd", []);
-    return $1;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionEnd_",
-smalltalk.method({
-selector: "selectionEnd:",
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd_", [anInteger]);
-    return self;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart",
-smalltalk.method({
-selector: "selectionStart",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart", []);
-    return $1;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart_",
-smalltalk.method({
-selector: "selectionStart:",
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart_", [anInteger]);
-    return self;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
 "_setEditorOn_",
 smalltalk.method({
 selector: "setEditorOn:",
-fn: function (aTextarea) {
-    var self = this;
-    self['@editor'] = CodeMirror.fromTextArea(aTextarea, {theme: "amber", lineNumbers: true, enterMode: "flat", matchBrackets: true, electricChars: false});
-    return self;
-}
+fn: function (aTextarea){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+		theme: 'amber',
+                lineNumbers: true,
+                enterMode: 'flat',
+                matchBrackets: true,
+                electricChars: false
+	});
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.SourceArea)})}
 }),
 smalltalk.SourceArea);
 
@@ -736,12 +691,12 @@ smalltalk.addMethod(
 "_val",
 smalltalk.method({
 selector: "val",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
-}
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@editor"])._getValue();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"val",{}, smalltalk.SourceArea)})}
 }),
 smalltalk.SourceArea);
 
@@ -749,11 +704,10 @@ smalltalk.addMethod(
 "_val_",
 smalltalk.method({
 selector: "val:",
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return self;
-}
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._setValue_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString}, smalltalk.SourceArea)})}
 }),
 smalltalk.SourceArea);
 
