@@ -119,6 +119,88 @@ return $1;
 smalltalk.Error.klass);
 
 
+smalltalk.addClass('JavaScriptException', smalltalk.Error, ['exception'], 'Kernel-Exceptions');
+smalltalk.addMethod(
+"_context_",
+smalltalk.method({
+selector: "context:",
+fn: function (aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.context = aMethodContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_exception",
+smalltalk.method({
+selector: "exception",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@exception"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exception",{}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_exception_",
+smalltalk.method({
+selector: "exception:",
+fn: function (anException){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@exception"]=anException;
+return self}, function($ctx1) {$ctx1.fill(self,"exception:",{anException:anException}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "A JavaScript exception occured while in the Smalltalk stack!";
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (anException){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._exception_(anException);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException}, smalltalk.JavaScriptException.klass)})}
+}),
+smalltalk.JavaScriptException.klass);
+
+smalltalk.addMethod(
+"_on_context_",
+smalltalk.method({
+selector: "on:context:",
+fn: function (anException,aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._exception_(anException);
+_st($2)._context_(aMethodContext);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext}, smalltalk.JavaScriptException.klass)})}
+}),
+smalltalk.JavaScriptException.klass);
+
+
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 smalltalk.addMethod(
 "_message",

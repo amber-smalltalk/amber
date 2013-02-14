@@ -2940,6 +2940,26 @@ smalltalk.Random);
 
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
+"_asSmalltalkError_",
+smalltalk.method({
+selector: "asSmalltalkError:",
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st(self)._isSmalltalkObject_(anError))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(anError)._isKindOf_((smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+$1=anError;
+} else {
+$1=_st((smalltalk.JavaScriptException || JavaScriptException))._on_(anError);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSmalltalkError:",{anError:anError}, smalltalk.Smalltalk)})}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
@@ -3020,6 +3040,17 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { delete smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName}, smalltalk.Smalltalk)})}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+"_isSmalltalkObject_",
+smalltalk.method({
+selector: "isSmalltalkObject:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return typeof anObject.klass !== 'undefined';
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject}, smalltalk.Smalltalk)})}
 }),
 smalltalk.Smalltalk);
 

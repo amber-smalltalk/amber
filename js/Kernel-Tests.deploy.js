@@ -1915,6 +1915,48 @@ smalltalk.JSObjectProxyTest);
 
 
 
+smalltalk.addClass('JavaScriptExceptionTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testCatchingException",
+smalltalk.method({
+selector: "testCatchingException",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._throwException();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(error){
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(error)._exception()).__eq("test"));
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{}, smalltalk.JavaScriptExceptionTest)})}
+}),
+smalltalk.JavaScriptExceptionTest);
+
+smalltalk.addMethod(
+"_testRaisingException",
+smalltalk.method({
+selector: "testRaisingException",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._throwException();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.JavaScriptException || JavaScriptException));
+return self}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{}, smalltalk.JavaScriptExceptionTest)})}
+}),
+smalltalk.JavaScriptExceptionTest);
+
+smalltalk.addMethod(
+"_throwException",
+smalltalk.method({
+selector: "throwException",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { throw 'test';
+return self}, function($ctx1) {$ctx1.fill(self,"throwException",{}, smalltalk.JavaScriptExceptionTest)})}
+}),
+smalltalk.JavaScriptExceptionTest);
+
+
+
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_testAbs",

@@ -1476,6 +1476,15 @@ removeClass: aClass
 
 !Smalltalk methodsFor: 'error handling'!
 
+asSmalltalkError: anError
+	"A JavaScript error may be thrown.
+    We then need to convert it back to a Smalltalk object"
+    
+    ^ ((self isSmalltalkObject: anError) and: [ anError isKindOf: Error ])
+    	ifTrue: [ anError ]
+      	ifFalse: [ JavaScriptException on: anError ]
+!
+
 parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
 ! !
@@ -1545,6 +1554,15 @@ createPackage: packageName properties: aDict
     
     aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
     ^ self createPackage: packageName
+! !
+
+!Smalltalk methodsFor: 'testing'!
+
+isSmalltalkObject: anObject
+	"Consider anObject a Smalltalk object if it has a 'klass' property.
+    Note that this may be unaccurate"
+    
+    <return typeof anObject.klass !!== 'undefined'>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!

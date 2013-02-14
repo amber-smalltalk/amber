@@ -43,10 +43,14 @@ whileTrue: aBlock
 !BlockClosure methodsFor: 'error handling'!
 
 on: anErrorClass do: aBlock
-	^self try: self catch: [:error |
-	    (error isKindOf: anErrorClass) 
-	     ifTrue: [aBlock value: error]
-	     ifFalse: [error signal]]
+	"All exceptions thrown in the Smalltalk stack are cought.
+    Convert all JS exceptions to JavaScriptException instances."
+    
+	^self try: self catch: [ :error | | smalltalkError |
+    	smalltalkError := Smalltalk current asSmalltalkError: error.
+	    (smalltalkError isKindOf: anErrorClass) 
+	     ifTrue: [ aBlock value: smalltalkError ]
+	     ifFalse: [ smalltalkError signal ] ]
 ! !
 
 !BlockClosure methodsFor: 'evaluating'!

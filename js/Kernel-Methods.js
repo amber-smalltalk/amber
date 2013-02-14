@@ -152,24 +152,24 @@ selector: "on:do:",
 category: 'error handling',
 fn: function (anErrorClass,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$1;
-$2=self;
-$3=self;
-$4=(function(error){
-return smalltalk.withContext(function($ctx2) {$5=_st(error)._isKindOf_(anErrorClass);
-if(smalltalk.assert($5)){
-return _st(aBlock)._value_(error);
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$1=_st(self)._try_catch_(self,(function(error){
+var smalltalkError;
+return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkError_(error);
+smalltalkError;
+$2=_st(smalltalkError)._isKindOf_(anErrorClass);
+if(smalltalk.assert($2)){
+return _st(aBlock)._value_(smalltalkError);
 } else {
-return _st(error)._signal();
+return _st(smalltalkError)._signal();
 };
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})});
-$1=_st($2)._try_catch_($3,$4);
+}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock}, smalltalk.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
-source: "on: anErrorClass do: aBlock\x0a\x09^self try: self catch: [:error |\x0a\x09    (error isKindOf: anErrorClass) \x0a\x09     ifTrue: [aBlock value: error]\x0a\x09     ifFalse: [error signal]]",
-messageSends: ["try:catch:", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:"],
-referencedClasses: []
+source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a    Convert all JS exceptions to JavaScriptException instances.\x22\x0a    \x0a\x09^self try: self catch: [ :error | | smalltalkError |\x0a    \x09smalltalkError := Smalltalk current asSmalltalkError: error.\x0a\x09    (smalltalkError isKindOf: anErrorClass) \x0a\x09     ifTrue: [ aBlock value: smalltalkError ]\x0a\x09     ifFalse: [ smalltalkError signal ] ]",
+messageSends: ["try:catch:", "asSmalltalkError:", "current", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.BlockClosure);
 

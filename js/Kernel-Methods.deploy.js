@@ -105,18 +105,18 @@ smalltalk.method({
 selector: "on:do:",
 fn: function (anErrorClass,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$1;
-$2=self;
-$3=self;
-$4=(function(error){
-return smalltalk.withContext(function($ctx2) {$5=_st(error)._isKindOf_(anErrorClass);
-if(smalltalk.assert($5)){
-return _st(aBlock)._value_(error);
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$1=_st(self)._try_catch_(self,(function(error){
+var smalltalkError;
+return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkError_(error);
+smalltalkError;
+$2=_st(smalltalkError)._isKindOf_(anErrorClass);
+if(smalltalk.assert($2)){
+return _st(aBlock)._value_(smalltalkError);
 } else {
-return _st(error)._signal();
+return _st(smalltalkError)._signal();
 };
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})});
-$1=_st($2)._try_catch_($3,$4);
+}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock}, smalltalk.BlockClosure)})}
 }),

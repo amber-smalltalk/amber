@@ -973,6 +973,29 @@ testYourself
 	self assert: object d equals: 'test'
 ! !
 
+TestCase subclass: #JavaScriptExceptionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!JavaScriptExceptionTest methodsFor: 'helpers'!
+
+throwException
+	<throw 'test'>
+! !
+
+!JavaScriptExceptionTest methodsFor: 'testing'!
+
+testCatchingException
+	[ self throwException ]
+  		on: Error
+        do: [ :error | 
+			self assert: error exception = 'test' ]
+!
+
+testRaisingException
+	self should: [ self throwException ] raise: JavaScriptException
+! !
+
 TestCase subclass: #NumberTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

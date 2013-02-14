@@ -2465,6 +2465,63 @@ smalltalk.JSObjectProxyTest);
 
 
 
+smalltalk.addClass('JavaScriptExceptionTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testCatchingException",
+smalltalk.method({
+selector: "testCatchingException",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._throwException();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(error){
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(error)._exception()).__eq("test"));
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{}, smalltalk.JavaScriptExceptionTest)})},
+args: [],
+source: "testCatchingException\x0a\x09[ self throwException ]\x0a  \x09\x09on: Error\x0a        do: [ :error | \x0a\x09\x09\x09self assert: error exception = 'test' ]",
+messageSends: ["on:do:", "assert:", "=", "exception", "throwException"],
+referencedClasses: ["Error"]
+}),
+smalltalk.JavaScriptExceptionTest);
+
+smalltalk.addMethod(
+"_testRaisingException",
+smalltalk.method({
+selector: "testRaisingException",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._throwException();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.JavaScriptException || JavaScriptException));
+return self}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{}, smalltalk.JavaScriptExceptionTest)})},
+args: [],
+source: "testRaisingException\x0a\x09self should: [ self throwException ] raise: JavaScriptException",
+messageSends: ["should:raise:", "throwException"],
+referencedClasses: ["JavaScriptException"]
+}),
+smalltalk.JavaScriptExceptionTest);
+
+smalltalk.addMethod(
+"_throwException",
+smalltalk.method({
+selector: "throwException",
+category: 'helpers',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { throw 'test';
+return self}, function($ctx1) {$ctx1.fill(self,"throwException",{}, smalltalk.JavaScriptExceptionTest)})},
+args: [],
+source: "throwException\x0a\x09<throw 'test'>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JavaScriptExceptionTest);
+
+
+
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_testAbs",

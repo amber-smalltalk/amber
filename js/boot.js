@@ -526,11 +526,14 @@ function Smalltalk() {
 		} else {
 			try {return inContext(worker, setup)}
 			catch(error) {
-				// Reset the context stack in any case
-				st.thisContext = undefined;
 				if(error.smalltalkError) {
 					handleError(error);
+                } else {
+
+                    handleError(smalltalk.JavaScriptException._on_context_(error, smalltalk.thisContext));
                 }
+				// Reset the context stack in any case
+				st.thisContext = undefined;
                 // Throw the exception anyway, as we want to stop
                 // the execution to avoid infinite loops
 				throw(error);

@@ -62,6 +62,49 @@ signal: aString
 		signal: aString
 ! !
 
+Error subclass: #JavaScriptException
+	instanceVariableNames: 'exception'
+	package: 'Kernel-Exceptions'!
+!JavaScriptException commentStamp!
+A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.
+See `boot.js` `inContext()` and `BlockClosure >> on:do:`!
+
+!JavaScriptException methodsFor: 'accessing'!
+
+context: aMethodContext
+	"Set the context from the outside.
+    See boot.js `inContext()` exception handling"
+    
+    <self.context = aMethodContext>
+!
+
+exception
+	^ exception
+!
+
+exception: anException
+	exception := anException
+!
+
+messageText
+	^ 'A JavaScript exception occured while in the Smalltalk stack!!'
+! !
+
+!JavaScriptException class methodsFor: 'instance creation'!
+
+on: anException
+	^ self new
+    	exception: anException;
+        yourself
+!
+
+on: anException context: aMethodContext
+	^ self new
+    	exception: anException;
+        context: aMethodContext;
+        yourself
+! !
+
 Error subclass: #MessageNotUnderstood
 	instanceVariableNames: 'message receiver'
 	package: 'Kernel-Exceptions'!
