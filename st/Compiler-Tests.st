@@ -1,4 +1,108 @@
 Smalltalk current createPackage: 'Compiler-Tests' properties: #{}!
+TestCase subclass: #ASTInterpreterTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTInterpreterTest methodsFor: 'accessing'!
+
+analyze: aNode forClass: aClass
+	(SemanticAnalyzer on: aClass) visit: aNode.
+    ^ aNode
+!
+
+interpret: aString
+	^ self 
+    	interpret: aString 
+        withArguments: Dictionary new
+!
+
+interpret: aString receiver: anObject withArguments: aDictionary
+	"The food is a methodNode. Interpret the sequenceNode only"
+    
+    | ctx |
+    
+    ctx := AIContext new.
+    ctx receiver: anObject.
+    aDictionary keysAndValuesDo: [ :key :value |
+    	ctx localAt: key put: value ].
+    
+    ^ self interpreter
+    	context: ctx;
+    	interpret: (self parse: aString forClass: anObject class) 
+        	nodes first;
+        currentValue
+!
+
+interpret: aString withArguments: aDictionary
+	^ self 
+    	interpret: aString 
+        receiver: Object new
+        withArguments: aDictionary
+!
+
+interpreter
+	^ ASTInterpreter new
+!
+
+parse: aString
+	^ Smalltalk current parse: aString
+!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
+! !
+
+!ASTInterpreterTest methodsFor: 'tests'!
+
+testBinarySend
+	self assert: (self interpret: 'foo 2+3+4') equals: 9
+!
+
+testBlockLiteral
+	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
+    self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
+    self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
+!
+
+testCascade
+	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
+!
+
+testDynamicArray
+	self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)
+!
+
+testDynamicDictionary
+	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
+!
+
+testInlinedJSStatement
+	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
+    
+    self 
+    	assert: (self 
+    		interpret: 'foo: anInteger <return 2 + anInteger>' 
+        	withArguments: #{ 'anInteger' -> 3}) 
+		equals: 5
+!
+
+testInstVarAssignment
+	self 
+    	assert: (self 
+    		interpret: 'foo: anInteger x := anInteger. ^ x'
+        	receiver: Point new
+        	withArguments: #{'anInteger' -> 2})
+        equals: 2
+!
+
+testNonlocalReturn
+	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
+!
+
+testTempAssignment
+	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+! !
+
 TestCase subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!
@@ -357,13 +461,6 @@ testUnknownVariables
 	ast := smalltalk parse: src.
 
 	self should: [ analyzer visit: ast ] raise: UnknownVariableError
-!
-
-testUnknownVariablesDefinedInJS
-
-	< var someVariable = 1 >.
-
-	self shouldnt: [ smalltalk parse: 'foo someVariable' ] raise: UnknownVariableError
 !
 
 testUnknownVariablesWithScope

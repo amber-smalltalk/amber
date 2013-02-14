@@ -16,9 +16,4 @@ test/run.js
 .svn
 
 # Ignoring local NPM modules
-node_modules
-
-# Ignoring folders - compiled versions of Amber
-# local NPM modules, tmp
-dist
-tmp
+/node_modules/*

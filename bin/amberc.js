@@ -86,8 +86,8 @@ function AmberC(amber_dir, closure_jar) {
 	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 	                         'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Compiler', 'Compiler-Exceptions']);
-	                          //, 'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic'];
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter', 'Compiler-Exceptions',
+	                          'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
 
@@ -506,7 +506,9 @@ AmberC.prototype.verify = function() {
  */
 AmberC.prototype.compose_js_files = function() {
 	var defaults = this.defaults;
+	var self = this;
 	if (undefined === defaults.program) {
+		self.optimize();
 		return;
 	}
 	var program_files = [];
@@ -533,7 +535,7 @@ AmberC.prototype.compose_js_files = function() {
 		fileStream.end();
 		console.log(error);
 	});
-	var self = this;
+
 	fileStream.on('close', function(){
 		self.optimize();
 	});

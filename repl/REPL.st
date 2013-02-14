@@ -1,6 +1,6 @@
 Object subclass: #Repl
 	instanceVariableNames: 'readline interface util'
-	category: 'REPL'!
+	package: 'REPL'!
 
 !Repl methodsFor: 'accessing'!
 

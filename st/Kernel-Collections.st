@@ -810,9 +810,9 @@ remove: anObject ifAbsent: aBlock
 				self.splice(i,1);
 				return self;
 			}
-		}
-	>.
-	aBlock value
+		};
+        aBlock._value();
+	>
 !
 
 removeFrom: aNumber to: anotherNumber
@@ -995,8 +995,12 @@ unescaped
 !
 
 = aString
-	aString class = self class ifFalse: [^false].
-	<return String(self) === String(aString)>
+	<
+    	if(!! aString._isString || !! aString._isString()) {
+        	return false;
+        }
+    	return String(self) === String(aString)
+    >
 !
 
 == aString
@@ -1039,21 +1043,7 @@ asNumber
 !
 
 asSelector
-	"If you change this method, change smalltalk.convertSelector too (see js/boot.js file)"
-
-	| selector |
-	selector := '_', self.
-	selector := selector replace: ':' with: '_'.
-	selector := selector replace: '[+]' with: '_plus'.
-	selector := selector replace: '-' with: '_minus'.
-	selector := selector replace: '[*]' with: '_star'.
-	selector := selector replace: '[/]' with: '_slash'.
-	selector := selector replace: '>' with: '_gt'.
-	selector := selector replace: '<' with: '_lt'.
-	selector := selector replace: '=' with: '_eq'.
-	selector := selector replace: ',' with: '_comma'.
-	selector := selector replace: '[@]' with: '_at'.
-	^selector
+	<return smalltalk.selector(self)>
 !
 
 asString
@@ -1343,6 +1333,10 @@ asString
 	<return self.value>
 !
 
+asSuperSelector
+	^self asString asSuperSelector
+!
+
 asSymbol
 	^self
 ! !
@@ -1491,14 +1485,14 @@ Object subclass: #Queue
 	instanceVariableNames: 'read readIndex write'
 	package: 'Kernel-Collections'!
 !Queue commentStamp!
-I am a one-sided Queue.
+A Queue am a one-sided queue.
 
-I use two OrderedCollections inside,
+A Queue uses two OrderedCollections inside,
 `read` is at the front, is not modified and only read using `readIndex`.
 `write` is at the back and is appended new items.
 When `read` is exhausted, `write` is promoted to `read` and new `write` is created.
 
-As a consequence, no data moving is done by me; write appending may do data moving
+As a consequence, no data moving is done by the Queue; write appending may do data moving
 when growing `write`, but this is left to engine to implement as good as it chooses to.!
 
 !Queue methodsFor: 'accessing'!
@@ -1508,7 +1502,7 @@ back: anObject
 !
 
 front
-    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']
+    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
 !
 
 frontIfAbsent: aBlock
@@ -1530,9 +1524,9 @@ frontIfAbsent: aBlock
 
 initialize
 	super initialize.
-	read := #().
-    readIndex := 1.
-    write := OrderedCollection new
+	read := OrderedCollection new.
+    write := OrderedCollection new.
+    readIndex := 1
 ! !
 
 Object subclass: #RegularExpression
