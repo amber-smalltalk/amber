@@ -25,6 +25,21 @@ testEnsureRaises
 	self should: [[Error new signal] ensure: [true]] raise: Error
 !
 
+testExceptionSemantics
+	"See https://github.com/NicolasPetton/amber/issues/314"
+    self timeout: 100.
+    
+    (self async:  [ 
+    	[ 
+        	self assert: true. 
+            Error signal. 
+            "The following should *not* be run"
+            self deny: true.
+            self finished.
+  		] on: Error do: [ :ex | self finished ] 
+	]) valueWithTimeout: 0
+!
+
 testNumArgs
 	self assert: [] numArgs equals: 0.
 	self assert: [:a :b | ] numArgs equals: 2

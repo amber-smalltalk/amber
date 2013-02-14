@@ -76,6 +76,27 @@ return self}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{}, smalltalk.
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
+"_testExceptionSemantics",
+smalltalk.method({
+selector: "testExceptionSemantics",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._timeout_((100));
+_st(_st(self)._async_((function(){
+return smalltalk.withContext(function($ctx2) {return _st((function(){
+return smalltalk.withContext(function($ctx3) {_st(self)._assert_(true);
+_st((smalltalk.Error || Error))._signal();
+_st(self)._deny_(true);
+return _st(self)._finished();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+return smalltalk.withContext(function($ctx3) {return _st(self)._finished();
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
+return self}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{}, smalltalk.BlockClosureTest)})}
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
 "_testNumArgs",
 smalltalk.method({
 selector: "testNumArgs",

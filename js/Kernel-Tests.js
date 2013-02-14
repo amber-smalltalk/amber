@@ -101,6 +101,32 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
+"_testExceptionSemantics",
+smalltalk.method({
+selector: "testExceptionSemantics",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._timeout_((100));
+_st(_st(self)._async_((function(){
+return smalltalk.withContext(function($ctx2) {return _st((function(){
+return smalltalk.withContext(function($ctx3) {_st(self)._assert_(true);
+_st((smalltalk.Error || Error))._signal();
+_st(self)._deny_(true);
+return _st(self)._finished();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+return smalltalk.withContext(function($ctx3) {return _st(self)._finished();
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
+return self}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{}, smalltalk.BlockClosureTest)})},
+args: [],
+source: "testExceptionSemantics\x0a\x09\x22See https://github.com/NicolasPetton/amber/issues/314\x22\x0a    self timeout: 100.\x0a    \x0a    (self async:  [ \x0a    \x09[ \x0a        \x09self assert: true. \x0a            Error signal. \x0a            \x22The following should *not* be run\x22\x0a            self deny: true.\x0a            self finished.\x0a  \x09\x09] on: Error do: [ :ex | self finished ] \x0a\x09]) valueWithTimeout: 0",
+messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "finished", "assert:", "signal", "deny:"],
+referencedClasses: ["Error"]
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
 "_testNumArgs",
 smalltalk.method({
 selector: "testNumArgs",
