@@ -635,7 +635,7 @@ smalltalk.addMethod(
 "_addWorker",
 smalltalk.method({
 selector: "addWorker",
-category: 'action',
+category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@worker"])._valueWithTimeout_((0));
@@ -670,7 +670,7 @@ smalltalk.addMethod(
 "_fork_",
 smalltalk.method({
 selector: "fork:",
-category: 'action',
+category: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;

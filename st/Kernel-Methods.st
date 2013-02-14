@@ -237,12 +237,7 @@ maxPoolSize: anInteger
 	maxPoolSize := anInteger
 ! !
 
-!ForkPool methodsFor: 'action'!
-
-addWorker
-	worker valueWithTimeout: 0.
-    poolSize := poolSize + 1
-!
+!ForkPool methodsFor: 'actions'!
 
 fork: aBlock
 	poolSize < self maxPoolSize ifTrue: [ self addWorker ].
@@ -273,6 +268,13 @@ makeWorker
 		block := queue frontIfAbsent: [ sentinel ].
         block == sentinel ifFalse: [
         	[ block value ] ensure: [ self addWorker ]]]
+! !
+
+!ForkPool methodsFor: 'private'!
+
+addWorker
+	worker valueWithTimeout: 0.
+    poolSize := poolSize + 1
 ! !
 
 ForkPool class instanceVariableNames: 'default'!
