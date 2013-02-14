@@ -530,10 +530,10 @@ function Smalltalk() {
 				st.thisContext = undefined;
 				if(error.smalltalkError) {
 					handleError(error);
-					return nil;
-				} else {
-					throw(error);
-				}
+                }
+                // Throw the exception anyway, as we want to stop
+                // the execution to avoid infinite loops
+				throw(error);
 			}
 		}
 	};
