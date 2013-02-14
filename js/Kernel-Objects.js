@@ -4054,25 +4054,25 @@ smalltalk.Random);
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Smalltalk.comment="Smalltalk has only one instance, accessed with `Smalltalk current`. \x0aIt represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class of `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific class of `nil`\x0a\x0a__note:__ classes and packages are accessed using strings, not symbols\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Smalltalk source code. \x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work"
 smalltalk.addMethod(
-"_asSmalltalkError_",
+"_asSmalltalkException_",
 smalltalk.method({
-selector: "asSmalltalkError:",
+selector: "asSmalltalkException:",
 category: 'error handling',
-fn: function (anError){
+fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(_st(self)._isSmalltalkObject_(anError))._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(anError)._isKindOf_((smalltalk.Error || Error));
+$2=_st(_st(self)._isSmalltalkObject_(anObject))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(anObject)._isKindOf_((smalltalk.Error || Error));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($2)){
-$1=anError;
+$1=anObject;
 } else {
-$1=_st((smalltalk.JavaScriptException || JavaScriptException))._on_(anError);
+$1=_st((smalltalk.JavaScriptException || JavaScriptException))._on_(anObject);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSmalltalkError:",{anError:anError}, smalltalk.Smalltalk)})},
-args: ["anError"],
-source: "asSmalltalkError: anError\x0a\x09\x22A JavaScript error may be thrown.\x0a    We then need to convert it back to a Smalltalk object\x22\x0a    \x0a    ^ ((self isSmalltalkObject: anError) and: [ anError isKindOf: Error ])\x0a    \x09ifTrue: [ anError ]\x0a      \x09ifFalse: [ JavaScriptException on: anError ]",
+}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject}, smalltalk.Smalltalk)})},
+args: ["anObject"],
+source: "asSmalltalkException: anObject\x0a\x09\x22A JavaScript exception may be thrown.\x0a    We then need to convert it back to a Smalltalk object\x22\x0a    \x0a    ^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])\x0a    \x09ifTrue: [ anObject ]\x0a      \x09ifFalse: [ JavaScriptException on: anObject ]",
 messageSends: ["ifTrue:ifFalse:", "on:", "and:", "isKindOf:", "isSmalltalkObject:"],
 referencedClasses: ["JavaScriptException", "Error"]
 }),

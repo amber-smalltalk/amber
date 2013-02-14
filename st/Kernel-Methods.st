@@ -47,7 +47,7 @@ on: anErrorClass do: aBlock
     Convert all JS exceptions to JavaScriptException instances."
     
 	^self try: self catch: [ :error | | smalltalkError |
-    	smalltalkError := Smalltalk current asSmalltalkError: error.
+    	smalltalkError := Smalltalk current asSmalltalkException: error.
 	    (smalltalkError isKindOf: anErrorClass) 
 	     ifTrue: [ aBlock value: smalltalkError ]
 	     ifFalse: [ smalltalkError signal ] ]

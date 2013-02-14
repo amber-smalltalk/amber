@@ -2940,22 +2940,22 @@ smalltalk.Random);
 
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
-"_asSmalltalkError_",
+"_asSmalltalkException_",
 smalltalk.method({
-selector: "asSmalltalkError:",
-fn: function (anError){
+selector: "asSmalltalkException:",
+fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(_st(self)._isSmalltalkObject_(anError))._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(anError)._isKindOf_((smalltalk.Error || Error));
+$2=_st(_st(self)._isSmalltalkObject_(anObject))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(anObject)._isKindOf_((smalltalk.Error || Error));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($2)){
-$1=anError;
+$1=anObject;
 } else {
-$1=_st((smalltalk.JavaScriptException || JavaScriptException))._on_(anError);
+$1=_st((smalltalk.JavaScriptException || JavaScriptException))._on_(anObject);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSmalltalkError:",{anError:anError}, smalltalk.Smalltalk)})}
+}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject}, smalltalk.Smalltalk)})}
 }),
 smalltalk.Smalltalk);
 

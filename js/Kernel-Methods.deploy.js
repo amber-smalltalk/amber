@@ -108,7 +108,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $1=_st(self)._try_catch_(self,(function(error){
 var smalltalkError;
-return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkError_(error);
+return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkException_(error);
 smalltalkError;
 $2=_st(smalltalkError)._isKindOf_(anErrorClass);
 if(smalltalk.assert($2)){

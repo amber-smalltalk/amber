@@ -1476,13 +1476,13 @@ removeClass: aClass
 
 !Smalltalk methodsFor: 'error handling'!
 
-asSmalltalkError: anError
-	"A JavaScript error may be thrown.
+asSmalltalkException: anObject
+	"A JavaScript exception may be thrown.
     We then need to convert it back to a Smalltalk object"
     
-    ^ ((self isSmalltalkObject: anError) and: [ anError isKindOf: Error ])
-    	ifTrue: [ anError ]
-      	ifFalse: [ JavaScriptException on: anError ]
+    ^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])
+    	ifTrue: [ anObject ]
+      	ifFalse: [ JavaScriptException on: anObject ]
 !
 
 parseError: anException parsing: aString
