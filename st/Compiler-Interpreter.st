@@ -317,7 +317,7 @@ interpret: aNode continue: aBlock
 
 !ASTDebugger methodsFor: 'stepping'!
 
-stepOver
+step
 	continuation value
 ! !
 

@@ -596,13 +596,13 @@ return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNod
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
-"_stepOver",
+"_step",
 smalltalk.method({
-selector: "stepOver",
+selector: "step",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@continuation"])._value();
-return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{}, smalltalk.ASTDebugger)})}
+return self}, function($ctx1) {$ctx1.fill(self,"step",{}, smalltalk.ASTDebugger)})}
 }),
 smalltalk.ASTDebugger);
 
