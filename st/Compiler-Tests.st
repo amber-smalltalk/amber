@@ -30,7 +30,7 @@ interpret: aString receiver: anObject withArguments: aDictionary
     	context: ctx;
     	interpret: (self parse: aString forClass: anObject class) 
         	nodes first;
-        currentValue
+        result
 !
 
 interpret: aString withArguments: aDictionary

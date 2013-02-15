@@ -43,7 +43,7 @@ return smalltalk.withContext(function($ctx2) {return _st(ctx)._localAt_put_(key
 $2=_st(self)._interpreter();
 _st($2)._context_(ctx);
 _st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._class()))._nodes())._first());
-$3=_st($2)._currentValue();
+$3=_st($2)._result();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})}
