@@ -1,5 +1,6 @@
 smalltalk.addPackage('Compiler-Interpreter', {});
 smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['outerContext', 'pc', 'locals', 'selector'], 'Compiler-Interpreter');
+smalltalk.AIContext.comment="AIContext is like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, it is not read-only.\x0a\x0aWhen debugging, `AIContext` instances are created by copying the current `MethodContext` (thisContext)"
 smalltalk.addMethod(
 "_initializeFromMethodContext_",
 smalltalk.method({
@@ -199,7 +200,7 @@ smalltalk.AIContext);
 
 
 smalltalk.addClass('ASTInterpreter', smalltalk.Object, ['currentNode', 'context', 'shouldReturn', 'result'], 'Compiler-Interpreter');
-smalltalk.ASTInterpreter.comment="ASTIntepreter is like a `NodeVisitor`, interpreting nodes one after each other.\x0aIt is built using Continuation Passing Style for stepping purposes."
+smalltalk.ASTInterpreter.comment="ASTIntepreter is like a `NodeVisitor`, interpreting nodes one after each other.\x0aIt is built using Continuation Passing Style for stepping purposes.\x0a\x0aUsage example:\x0a\x0a    | ast interpreter |\x0a    ast := Smalltalk current parse: 'foo 1+2+4'.\x0a    (SemanticAnalyzer on: Object) visit: ast.\x0a\x0a    ASTInterpreter new\x0a        interpret: ast nodes first;\x0a        result \x22Answers 7\x22"
 smalltalk.addMethod(
 "_assign_to_",
 smalltalk.method({
@@ -755,6 +756,7 @@ smalltalk.ASTInterpreter);
 
 
 smalltalk.addClass('ASTDebugger', smalltalk.ASTInterpreter, ['continuation'], 'Compiler-Interpreter');
+smalltalk.ASTDebugger.comment="ASTDebugger is an interpreter with stepping capabilities.\x0aUse `#stepOver` to actually interpret the next node.\x0a\x0aUsage example:\x0a\x0a    | ast debugger |\x0a    ast := Smalltalk current parse: 'foo 1+2+4'.\x0a    (SemanticAnalyzer on: Object) visit: ast.\x0a\x0a    debugger := ASTDebugger new\x0a        interpret: ast nodes first;\x0a        yourself.\x0a        \x0a    debugger stepOver; stepOver.\x0a    debugger stepOver; stepOver.\x0a    debugger result.\x22Answers 1\x22\x0a    debugger stepOver.\x0a    debugger result. \x22Answers 3\x22\x0a    debugger stepOver.\x0a    debugger result. \x22Answers 7\x22\x0a    "
 smalltalk.addMethod(
 "_initialize",
 smalltalk.method({

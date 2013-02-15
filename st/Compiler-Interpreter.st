@@ -2,6 +2,11 @@ Smalltalk current createPackage: 'Compiler-Interpreter' properties: #{}!
 NodeVisitor subclass: #AIContext
 	instanceVariableNames: 'outerContext pc locals selector'
 	package: 'Compiler-Interpreter'!
+!AIContext commentStamp!
+AIContext is like a `MethodContext`, used by the `ASTInterpreter`.
+Unlike a `MethodContext`, it is not read-only.
+
+When debugging, `AIContext` instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
 
@@ -58,7 +63,17 @@ Object subclass: #ASTInterpreter
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
 ASTIntepreter is like a `NodeVisitor`, interpreting nodes one after each other.
-It is built using Continuation Passing Style for stepping purposes.!
+It is built using Continuation Passing Style for stepping purposes.
+
+Usage example:
+
+    | ast interpreter |
+    ast := Smalltalk current parse: 'foo 1+2+4'.
+    (SemanticAnalyzer on: Object) visit: ast.
+
+    ASTInterpreter new
+        interpret: ast nodes first;
+        result "Answers 7"!
 
 !ASTInterpreter methodsFor: 'accessing'!
 
@@ -265,6 +280,27 @@ messageFromSendNode: aSendNode do: aBlock
 ASTInterpreter subclass: #ASTDebugger
 	instanceVariableNames: 'continuation'
 	package: 'Compiler-Interpreter'!
+!ASTDebugger commentStamp!
+ASTDebugger is an interpreter with stepping capabilities.
+Use `#stepOver` to actually interpret the next node.
+
+Usage example:
+
+    | ast debugger |
+    ast := Smalltalk current parse: 'foo 1+2+4'.
+    (SemanticAnalyzer on: Object) visit: ast.
+
+    debugger := ASTDebugger new
+        interpret: ast nodes first;
+        yourself.
+        
+    debugger stepOver; stepOver.
+    debugger stepOver; stepOver.
+    debugger result."Answers 1"
+    debugger stepOver.
+    debugger result. "Answers 3"
+    debugger stepOver.
+    debugger result. "Answers 7"!
 
 !ASTDebugger methodsFor: 'initialization'!
 
