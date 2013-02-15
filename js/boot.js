@@ -529,10 +529,10 @@ function Smalltalk() {
 				if(error.smalltalkError) {
 					handleError(error);
                 } else {
-                    var wrapperError = st.JavaScriptException._on_(error);
-                    try {wrapperError._signal()} catch(ex) {}
-                    wrapperError._context_(st.getThisContext());
-                    handleError(wrapperError);
+                    var errorWrapper = st.JavaScriptException._on_(error);
+                    try {errorWrapper._signal()} catch(ex) {}
+                    errorWrapper._context_(st.getThisContext());
+                    handleError(errorWrapper);
                 }
 				// Reset the context stack in any case
 				st.thisContext = undefined;

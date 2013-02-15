@@ -213,12 +213,11 @@ selector: "exception:",
 category: 'accessing',
 fn: function (anException){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(anException)._messageText_(_st(anException)._basicAt_("message"));
-self["@exception"]=anException;
+return smalltalk.withContext(function($ctx1) { self["@exception"]=anException;
 return self}, function($ctx1) {$ctx1.fill(self,"exception:",{anException:anException}, smalltalk.JavaScriptException)})},
 args: ["anException"],
-source: "exception: anException\x0a\x09anException messageText: (anException basicAt: 'message').\x0a\x09exception := anException",
-messageSends: ["messageText:", "basicAt:"],
+source: "exception: anException\x0a\x09exception := anException",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JavaScriptException);
@@ -230,13 +229,11 @@ selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st("JavaScript exception: ").__comma(_st(_st(self)._exception())._messageText());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.JavaScriptException)})},
+return smalltalk.withContext(function($ctx1) { return 'JavaScript exception: ' + self["@exception"].toString();
+return self}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.JavaScriptException)})},
 args: [],
-source: "messageText\x0a\x09^ 'JavaScript exception: ', self exception messageText",
-messageSends: [",", "messageText", "exception"],
+source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JavaScriptException);

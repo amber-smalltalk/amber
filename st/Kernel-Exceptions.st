@@ -83,12 +83,11 @@ exception
 !
 
 exception: anException
-	anException messageText: (anException basicAt: 'message').
 	exception := anException
 !
 
 messageText
-	^ 'JavaScript exception: ', self exception messageText
+	<return 'JavaScript exception: ' + self["@exception"].toString()>
 ! !
 
 !JavaScriptException class methodsFor: 'instance creation'!
