@@ -529,14 +529,16 @@ function Smalltalk() {
 				if(error.smalltalkError) {
 					handleError(error);
                 } else {
-
-                    handleError(smalltalk.JavaScriptException._on_context_(error, smalltalk.thisContext));
+                    var wrapperError = st.JavaScriptException._on_(error);
+                    try {wrapperError._signal()} catch(ex) {}
+                    wrapperError._context_(st.getThisContext());
+                    handleError(wrapperError);
                 }
 				// Reset the context stack in any case
 				st.thisContext = undefined;
                 // Throw the exception anyway, as we want to stop
                 // the execution to avoid infinite loops
-				throw(error);
+				throw error;
 			}
 		}
 	};
