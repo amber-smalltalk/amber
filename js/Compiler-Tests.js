@@ -365,6 +365,31 @@ referencedClasses: ["ASTSteppingInterpreter"]
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
+"_testAtEnd",
+smalltalk.method({
+selector: "testAtEnd",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1 + 2");
+_st(self)._deny_(_st(_st(self)._interpreter())._atEnd());
+_st(_st(self)._interpreter())._step();
+_st(self)._deny_(_st(_st(self)._interpreter())._atEnd());
+_st(_st(self)._interpreter())._step();
+_st(self)._deny_(_st(_st(self)._interpreter())._atEnd());
+_st(_st(self)._interpreter())._step();
+_st(self)._deny_(_st(_st(self)._interpreter())._atEnd());
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_(_st(_st(self)._interpreter())._atEnd());
+return self}, function($ctx1) {$ctx1.fill(self,"testAtEnd",{}, smalltalk.ASTSteppingInterpreterTest)})},
+args: [],
+source: "testAtEnd\x0a\x09self interpret: 'foo 1 + 2'.\x0a    self deny: self interpreter atEnd.\x0a\x0a    self interpreter step.\x0a    self deny: self interpreter atEnd.\x0a    \x0a    self interpreter step.\x0a    self deny: self interpreter atEnd.\x0a    \x0a    self interpreter step.\x0a    self deny: self interpreter atEnd.\x0a    \x0a    self interpreter step.\x0a    self assert: self interpreter atEnd",
+messageSends: ["interpret:", "deny:", "atEnd", "interpreter", "step", "assert:"],
+referencedClasses: []
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+smalltalk.addMethod(
 "_testMessageSend",
 smalltalk.method({
 selector: "testMessageSend",

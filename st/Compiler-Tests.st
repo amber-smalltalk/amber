@@ -147,6 +147,23 @@ interpreter
 
 !ASTSteppingInterpreterTest methodsFor: 'tests'!
 
+testAtEnd
+	self interpret: 'foo 1 + 2'.
+    self deny: self interpreter atEnd.
+
+    self interpreter step.
+    self deny: self interpreter atEnd.
+    
+    self interpreter step.
+    self deny: self interpreter atEnd.
+    
+    self interpreter step.
+    self deny: self interpreter atEnd.
+    
+    self interpreter step.
+    self assert: self interpreter atEnd
+!
+
 testMessageSend
 	self interpret: 'foo 1 + 2'.
     
