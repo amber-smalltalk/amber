@@ -365,6 +365,30 @@ referencedClasses: ["ASTSteppingInterpreter"]
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
+"_testMessageSend",
+smalltalk.method({
+selector: "testMessageSend",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1 + 2");
+_st(_st(self)._interpreter())._step();
+_st(_st(self)._interpreter())._step();
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(1));
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(2));
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(3));
+return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{}, smalltalk.ASTSteppingInterpreterTest)})},
+args: [],
+source: "testMessageSend\x0a\x09self interpret: 'foo 1 + 2'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    \x22SendNode\x22\x0a    self interpreter step.\x0a    \x0a     \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 1.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 2.\x0a    \x0a    \x22Result\x22\x0a    self interpreter step.\x0a    self assert: self interpreter result equals: 3\x0a\x09",
+messageSends: ["interpret:", "step", "interpreter", "assert:equals:", "value", "currentNode", "result"],
+referencedClasses: []
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+smalltalk.addMethod(
 "_testSimpleStepping",
 smalltalk.method({
 selector: "testSimpleStepping",

@@ -147,6 +147,28 @@ interpreter
 
 !ASTSteppingInterpreterTest methodsFor: 'tests'!
 
+testMessageSend
+	self interpret: 'foo 1 + 2'.
+    
+    "SequenceNode"
+    self interpreter step.
+    
+    "SendNode"
+    self interpreter step.
+    
+     "ValueNode"
+    self interpreter step.
+    self assert: self interpreter currentNode value equals: 1.
+    
+    "ValueNode"
+    self interpreter step.
+    self assert: self interpreter currentNode value equals: 2.
+    
+    "Result"
+    self interpreter step.
+    self assert: self interpreter result equals: 3
+!
+
 testSimpleStepping
 	self interpret: 'foo 1'.
     

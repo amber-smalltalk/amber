@@ -85,6 +85,10 @@ context: anAIContext
 	context := anAIContext
 !
 
+currentNode
+	^ currentNode
+!
+
 result
 	^ result
 ! !
@@ -110,6 +114,7 @@ interpret: aNode continue: aBlock
 	aNode isNode 
     	ifTrue: [ 	
         	currentNode := aNode.
+            console log: aNode.
             self interpretNode: aNode continue: [ :value |
   				self continue: aBlock value: value] ]
         ifFalse: [ self continue: aBlock value: aNode ]
@@ -193,11 +198,15 @@ interpretSendNode: aNode continue: aBlock
 	"TODO: Handle super sends"
     
     self interpret: aNode receiver continue: [ :receiver |
-    	self messageFromSendNode: aNode do: [ :message |
-        	self context pc: self context pc + 1.
-        	self 
-            	continue: aBlock 
-                value: (message sendTo: receiver) ] ]
+    	self interpretAll: aNode arguments continue: [ :args |
+    		self 
+            	messageFromSendNode: aNode 
+                arguments: args
+                do: [ :message |
+        			self context pc: self context pc + 1.
+        			self 
+            			continue: aBlock 
+                		value: (message sendTo: receiver) ] ] ]
 !
 
 interpretSequenceNode: aNode continue: aBlock
@@ -260,7 +269,7 @@ interpretAll: aCollection continue: aBlock
 
 interpretAll: nodes continue: aBlock result: aCollection
 	nodes isEmpty 
-    	ifTrue: [ aBlock value: aCollection ]
+    	ifTrue: [ self continue: aBlock value: aCollection ]
     	ifFalse: [
     		self interpret: nodes first continue: [:value |
     			self 
@@ -269,12 +278,13 @@ interpretAll: nodes continue: aBlock result: aCollection
   					result: aCollection, { value } ] ]
 !
 
-messageFromSendNode: aSendNode do: aBlock
-	self interpretAll: aSendNode arguments continue: [ :args |
-    	aBlock value: (Message new
+messageFromSendNode: aSendNode arguments: aCollection do: aBlock
+    self 
+        continue: aBlock
+        value: (Message new
     		selector: aSendNode selector;
-        	arguments: args;
-        	yourself) ]
+        	arguments: aCollection;
+        	yourself)
 ! !
 
 ASTInterpreter subclass: #ASTSteppingInterpreter

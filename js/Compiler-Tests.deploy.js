@@ -265,6 +265,25 @@ return $1;
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
+"_testMessageSend",
+smalltalk.method({
+selector: "testMessageSend",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1 + 2");
+_st(_st(self)._interpreter())._step();
+_st(_st(self)._interpreter())._step();
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(1));
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(2));
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(3));
+return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{}, smalltalk.ASTSteppingInterpreterTest)})}
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+smalltalk.addMethod(
 "_testSimpleStepping",
 smalltalk.method({
 selector: "testSimpleStepping",
