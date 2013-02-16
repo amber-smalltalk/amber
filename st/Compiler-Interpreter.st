@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter' properties: #{}!
 NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'outerContext pc locals selector'
+	instanceVariableNames: 'outerContext pc locals method'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 AIContext is like a `MethodContext`, used by the `ASTInterpreter`.
@@ -20,6 +20,14 @@ localAt: aString put: anObject
 
 locals
 	^ locals ifNil: [ locals := Dictionary new ]
+!
+
+method
+	^ method
+!
+
+method: aCompiledMethod
+	method := aCompiledMethod
 !
 
 outerContext
@@ -44,6 +52,11 @@ receiver
 
 receiver: anObject
 	self localAt: 'self' put: anObject
+!
+
+selector
+	^ self metod
+    	ifNotNil: [ self method selector ]
 ! !
 
 !AIContext methodsFor: 'initialization'!
@@ -51,11 +64,88 @@ receiver: anObject
 initializeFromMethodContext: aMethodContext
 	self pc: aMethodContext pc.
     self receiver: aMethodContext receiver.
-    self selector: aMethodContext selector.
+    self method: aMethodContext method.
     aMethodContext outerContext ifNotNil: [
 		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
     aMethodContext locals keysAndValuesDo: [ :key :value |
     	self locals at: key put: value ]
+! !
+
+!AIContext class methodsFor: 'instance creation'!
+
+fromMethodContext: aMethodContext
+	^ self new
+    	initializeFromMethodContext: aMethodContext;
+        yourself
+! !
+
+Object subclass: #ASTDebugger
+	instanceVariableNames: 'interpreter context'
+	package: 'Compiler-Interpreter'!
+!ASTDebugger commentStamp!
+ASTDebugger is a debugger to Amber.
+It uses an AST interpreter to step through the code.
+
+ASTDebugger instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
+They hold an `AIContext` instance internally, recursive copy of the `MethodContext`.
+
+Use the methods of the 'stepping' protocol to do stepping.!
+
+!ASTDebugger methodsFor: 'accessing'!
+
+context: aContext
+	context := AIContext new.
+!
+
+interpreter
+	^ interpreter ifNil: [ interpreter := self defaultInterpreter ]
+!
+
+interpreter: anInterpreter
+	interpreter := anInterpreter
+!
+
+method
+	^ self context method
+! !
+
+!ASTDebugger methodsFor: 'defaults'!
+
+defaultInterpreter
+	^ ASTSteppingInterpreter new
+! !
+
+!ASTDebugger methodsFor: 'initialization'!
+
+initializeWithContext: aMethodContext
+	"TODO: do we need to handle block contexts?"
+    self context: IAContext fromMethodContext: aMethodContext
+! !
+
+!ASTDebugger methodsFor: 'stepping'!
+
+restart
+	self shouldBeImplemented
+!
+
+resume
+	self shouldBeImplemented
+!
+
+stepInto
+	self shouldBeImplemented
+!
+
+stepOver
+	self shouldBeImplemented
+! !
+
+!ASTDebugger class methodsFor: 'instance creation'!
+
+context: aMethodContext
+	^ self new
+    	initializeWithContext: aMethodContext;
+        yourself
 ! !
 
 Object subclass: #ASTInterpreter
