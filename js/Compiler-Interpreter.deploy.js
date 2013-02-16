@@ -293,7 +293,6 @@ $3=_st(aNode)._isNode();
 if(smalltalk.assert($3)){
 self["@currentNode"]=aNode;
 self["@currentNode"];
-_st(console)._log_(aNode);
 _st(self)._interpretNode_continue_(aNode,(function(value){
 return smalltalk.withContext(function($ctx2) {return _st(self)._continue_value_(aBlock,value);
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));

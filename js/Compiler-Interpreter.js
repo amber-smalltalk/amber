@@ -386,7 +386,6 @@ $3=_st(aNode)._isNode();
 if(smalltalk.assert($3)){
 self["@currentNode"]=aNode;
 self["@currentNode"];
-_st(console)._log_(aNode);
 _st(self)._interpretNode_continue_(aNode,(function(value){
 return smalltalk.withContext(function($ctx2) {return _st(self)._continue_value_(aBlock,value);
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
@@ -395,8 +394,8 @@ _st(self)._continue_value_(aBlock,aNode);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock}, smalltalk.ASTInterpreter)})},
 args: ["aNode", "aBlock"],
-source: "interpret: aNode continue: aBlock\x0a\x09shouldReturn ifTrue: [ ^ self ].\x0a\x0a\x09aNode isNode \x0a    \x09ifTrue: [ \x09\x0a        \x09currentNode := aNode.\x0a            console log: aNode.\x0a            self interpretNode: aNode continue: [ :value |\x0a  \x09\x09\x09\x09self continue: aBlock value: value] ]\x0a        ifFalse: [ self continue: aBlock value: aNode ]",
-messageSends: ["ifTrue:", "ifTrue:ifFalse:", "log:", "interpretNode:continue:", "continue:value:", "isNode"],
+source: "interpret: aNode continue: aBlock\x0a\x09shouldReturn ifTrue: [ ^ self ].\x0a\x0a\x09aNode isNode \x0a    \x09ifTrue: [ \x09\x0a        \x09currentNode := aNode.\x0a            self interpretNode: aNode continue: [ :value |\x0a  \x09\x09\x09\x09self continue: aBlock value: value] ]\x0a        ifFalse: [ self continue: aBlock value: aNode ]",
+messageSends: ["ifTrue:", "ifTrue:ifFalse:", "interpretNode:continue:", "continue:value:", "isNode"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);

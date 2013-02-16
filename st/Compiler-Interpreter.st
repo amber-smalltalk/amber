@@ -114,7 +114,6 @@ interpret: aNode continue: aBlock
 	aNode isNode 
     	ifTrue: [ 	
         	currentNode := aNode.
-            console log: aNode.
             self interpretNode: aNode continue: [ :value |
   				self continue: aBlock value: value] ]
         ifFalse: [ self continue: aBlock value: aNode ]
