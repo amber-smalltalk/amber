@@ -1,9 +1,15 @@
 Smalltalk current createPackage: 'Compiler-Tests' properties: #{}!
-TestCase subclass: #ASTInterpreterTest
+TestCase subclass: #AbstractASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
-!ASTInterpreterTest methodsFor: 'accessing'!
+!AbstractASTInterpreterTest methodsFor: 'accessing'!
+
+interpreter
+	^ self subclassResponsibility
+! !
+
+!AbstractASTInterpreterTest methodsFor: 'interpreting'!
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
@@ -38,11 +44,9 @@ interpret: aString withArguments: aDictionary
     	interpret: aString 
         receiver: Object new
         withArguments: aDictionary
-!
+! !
 
-interpreter
-	^ ASTInterpreter new
-!
+!AbstractASTInterpreterTest methodsFor: 'parsing'!
 
 parse: aString
 	^ Smalltalk current parse: aString
@@ -50,6 +54,16 @@ parse: aString
 
 parse: aString forClass: aClass
 	^ self analyze: (self parse: aString) forClass: aClass
+! !
+
+AbstractASTInterpreterTest subclass: #ASTInterpreterTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTInterpreterTest methodsFor: 'accessing'!
+
+interpreter
+	^ ASTInterpreter new
 ! !
 
 !ASTInterpreterTest methodsFor: 'tests'!

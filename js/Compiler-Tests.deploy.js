@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-Tests', {});
-smalltalk.addClass('ASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
+smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 "_analyze_forClass_",
 smalltalk.method({
@@ -10,9 +10,9 @@ return smalltalk.withContext(function($ctx1) { var $1;
 _st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(aClass))._visit_(aNode);
 $1=aNode;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass}, smalltalk.AbstractASTInterpreterTest)})}
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpret_",
@@ -23,9 +23,9 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._interpret_withArguments_(aString,_st((smalltalk.Dictionary || Dictionary))._new());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:",{aString:aString}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"interpret:",{aString:aString}, smalltalk.AbstractASTInterpreterTest)})}
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpret_receiver_withArguments_",
@@ -46,9 +46,9 @@ _st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._cl
 $3=_st($2)._result();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.AbstractASTInterpreterTest)})}
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpret_withArguments_",
@@ -59,9 +59,9 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._interpret_receiver_withArguments_(aString,_st((smalltalk.Object || Object))._new(),aDictionary);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.AbstractASTInterpreterTest)})}
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpreter",
@@ -70,11 +70,11 @@ selector: "interpreter",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
+$1=_st(self)._subclassResponsibility();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.AbstractASTInterpreterTest)})}
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_parse_",
@@ -85,9 +85,9 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.AbstractASTInterpreterTest)})}
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_parse_forClass_",
@@ -98,7 +98,23 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass}, smalltalk.ASTInterpreterTest)})}
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass}, smalltalk.AbstractASTInterpreterTest)})}
+}),
+smalltalk.AbstractASTInterpreterTest);
+
+
+
+smalltalk.addClass('ASTInterpreterTest', smalltalk.AbstractASTInterpreterTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+"_interpreter",
+smalltalk.method({
+selector: "interpreter",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTInterpreterTest)})}
 }),
 smalltalk.ASTInterpreterTest);
 

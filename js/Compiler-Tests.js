@@ -1,47 +1,47 @@
 smalltalk.addPackage('Compiler-Tests', {});
-smalltalk.addClass('ASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
+smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 "_analyze_forClass_",
 smalltalk.method({
 selector: "analyze:forClass:",
-category: 'accessing',
+category: 'interpreting',
 fn: function (aNode,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 _st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(aClass))._visit_(aNode);
 $1=aNode;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass}, smalltalk.ASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass}, smalltalk.AbstractASTInterpreterTest)})},
 args: ["aNode", "aClass"],
 source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a    ^ aNode",
 messageSends: ["visit:", "on:"],
 referencedClasses: ["SemanticAnalyzer"]
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpret_",
 smalltalk.method({
 selector: "interpret:",
-category: 'accessing',
+category: 'interpreting',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._interpret_withArguments_(aString,_st((smalltalk.Dictionary || Dictionary))._new());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:",{aString:aString}, smalltalk.ASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:",{aString:aString}, smalltalk.AbstractASTInterpreterTest)})},
 args: ["aString"],
 source: "interpret: aString\x0a\x09^ self \x0a    \x09interpret: aString \x0a        withArguments: Dictionary new",
 messageSends: ["interpret:withArguments:", "new"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpret_receiver_withArguments_",
 smalltalk.method({
 selector: "interpret:receiver:withArguments:",
-category: 'accessing',
+category: 'interpreting',
 fn: function (aString,anObject,aDictionary){
 var self=this;
 var ctx;
@@ -57,32 +57,89 @@ _st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._cl
 $3=_st($2)._result();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.ASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.AbstractASTInterpreterTest)})},
 args: ["aString", "anObject", "aDictionary"],
 source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a    \x0a    | ctx |\x0a    \x0a    ctx := AIContext new.\x0a    ctx receiver: anObject.\x0a    aDictionary keysAndValuesDo: [ :key :value |\x0a    \x09ctx localAt: key put: value ].\x0a    \x0a    ^ self interpreter\x0a    \x09context: ctx;\x0a    \x09interpret: (self parse: aString forClass: anObject class) \x0a        \x09nodes first;\x0a        result",
 messageSends: ["new", "receiver:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "interpret:", "first", "nodes", "parse:forClass:", "class", "result"],
 referencedClasses: ["AIContext"]
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
 "_interpret_withArguments_",
 smalltalk.method({
 selector: "interpret:withArguments:",
-category: 'accessing',
+category: 'interpreting',
 fn: function (aString,aDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._interpret_receiver_withArguments_(aString,_st((smalltalk.Object || Object))._new(),aDictionary);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.ASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.AbstractASTInterpreterTest)})},
 args: ["aString", "aDictionary"],
 source: "interpret: aString withArguments: aDictionary\x0a\x09^ self \x0a    \x09interpret: aString \x0a        receiver: Object new\x0a        withArguments: aDictionary",
 messageSends: ["interpret:receiver:withArguments:", "new"],
 referencedClasses: ["Object"]
 }),
-smalltalk.ASTInterpreterTest);
+smalltalk.AbstractASTInterpreterTest);
 
+smalltalk.addMethod(
+"_interpreter",
+smalltalk.method({
+selector: "interpreter",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._subclassResponsibility();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.AbstractASTInterpreterTest)})},
+args: [],
+source: "interpreter\x0a\x09^ self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.AbstractASTInterpreterTest);
+
+smalltalk.addMethod(
+"_parse_",
+smalltalk.method({
+selector: "parse:",
+category: 'parsing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.AbstractASTInterpreterTest)})},
+args: ["aString"],
+source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
+messageSends: ["parse:", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.AbstractASTInterpreterTest);
+
+smalltalk.addMethod(
+"_parse_forClass_",
+smalltalk.method({
+selector: "parse:forClass:",
+category: 'parsing',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass}, smalltalk.AbstractASTInterpreterTest)})},
+args: ["aString", "aClass"],
+source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
+messageSends: ["analyze:forClass:", "parse:"],
+referencedClasses: []
+}),
+smalltalk.AbstractASTInterpreterTest);
+
+
+
+smalltalk.addClass('ASTInterpreterTest', smalltalk.AbstractASTInterpreterTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
 "_interpreter",
 smalltalk.method({
@@ -98,42 +155,6 @@ args: [],
 source: "interpreter\x0a\x09^ ASTInterpreter new",
 messageSends: ["new"],
 referencedClasses: ["ASTInterpreter"]
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_parse_",
-smalltalk.method({
-selector: "parse:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.ASTInterpreterTest)})},
-args: ["aString"],
-source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
-messageSends: ["parse:", "current"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-"_parse_forClass_",
-smalltalk.method({
-selector: "parse:forClass:",
-category: 'accessing',
-fn: function (aString,aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass}, smalltalk.ASTInterpreterTest)})},
-args: ["aString", "aClass"],
-source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
-messageSends: ["analyze:forClass:", "parse:"],
-referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
 
