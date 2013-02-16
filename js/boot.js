@@ -827,7 +827,7 @@ smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Ke
 smalltalk.wrapClassName("String", "Kernel", String, smalltalk.CharacterArray);
 smalltalk.wrapClassName("Symbol", "Kernel", SmalltalkSymbol, smalltalk.CharacterArray, false);
 smalltalk.wrapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollection);
-smalltalk.wrapClassName("RegularExpression", "Kernel", RegExp, smalltalk.String);
+smalltalk.wrapClassName("RegularExpression", "Kernel", RegExp, smalltalk.Object);
 
 smalltalk.wrapClassName("Error", "Kernel", Error, smalltalk.Object);
 smalltalk.wrapClassName("MethodContext", "Kernel", SmalltalkMethodContext, smalltalk.Object, false);
