@@ -135,6 +135,32 @@ testTempAssignment
 	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
 ! !
 
+AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest
+	instanceVariableNames: 'interpreter'
+	package: 'Compiler-Tests'!
+
+!ASTSteppingInterpreterTest methodsFor: 'accessing'!
+
+interpreter
+	^ interpreter ifNil: [ interpreter := ASTSteppingInterpreter new ]
+! !
+
+!ASTSteppingInterpreterTest methodsFor: 'tests'!
+
+testSimpleStepping
+	self interpret: 'foo 1'.
+    
+    "SequenceNode"
+    self interpreter step.
+    
+    self assert: self interpreter result isNil.
+    
+    "ValueNode"
+    self interpreter step.
+    
+    self assert: self interpreter result equals: 1
+! !
+
 TestCase subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!

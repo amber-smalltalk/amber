@@ -339,6 +339,53 @@ smalltalk.ASTInterpreterTest);
 
 
 
+smalltalk.addClass('ASTSteppingInterpreterTest', smalltalk.AbstractASTInterpreterTest, ['interpreter'], 'Compiler-Tests');
+smalltalk.addMethod(
+"_interpreter",
+smalltalk.method({
+selector: "interpreter",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@interpreter"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@interpreter"]=_st((smalltalk.ASTSteppingInterpreter || ASTSteppingInterpreter))._new();
+$1=self["@interpreter"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTSteppingInterpreterTest)})},
+args: [],
+source: "interpreter\x0a\x09^ interpreter ifNil: [ interpreter := ASTSteppingInterpreter new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["ASTSteppingInterpreter"]
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+smalltalk.addMethod(
+"_testSimpleStepping",
+smalltalk.method({
+selector: "testSimpleStepping",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1");
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_(_st(_st(_st(self)._interpreter())._result())._isNil());
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{}, smalltalk.ASTSteppingInterpreterTest)})},
+args: [],
+source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result equals: 1\x0a    \x0a\x09",
+messageSends: ["interpret:", "step", "interpreter", "assert:", "isNil", "result", "assert:equals:"],
+referencedClasses: []
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+
+
 smalltalk.addClass('CodeGeneratorTest', smalltalk.TestCase, ['receiver'], 'Compiler-Tests');
 smalltalk.addMethod(
 "_codeGeneratorClass",

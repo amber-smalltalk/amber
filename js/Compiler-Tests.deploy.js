@@ -244,6 +244,43 @@ smalltalk.ASTInterpreterTest);
 
 
 
+smalltalk.addClass('ASTSteppingInterpreterTest', smalltalk.AbstractASTInterpreterTest, ['interpreter'], 'Compiler-Tests');
+smalltalk.addMethod(
+"_interpreter",
+smalltalk.method({
+selector: "interpreter",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@interpreter"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@interpreter"]=_st((smalltalk.ASTSteppingInterpreter || ASTSteppingInterpreter))._new();
+$1=self["@interpreter"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTSteppingInterpreterTest)})}
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+smalltalk.addMethod(
+"_testSimpleStepping",
+smalltalk.method({
+selector: "testSimpleStepping",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1");
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_(_st(_st(_st(self)._interpreter())._result())._isNil());
+_st(_st(self)._interpreter())._step();
+_st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{}, smalltalk.ASTSteppingInterpreterTest)})}
+}),
+smalltalk.ASTSteppingInterpreterTest);
+
+
+
 smalltalk.addClass('CodeGeneratorTest', smalltalk.TestCase, ['receiver'], 'Compiler-Tests');
 smalltalk.addMethod(
 "_codeGeneratorClass",
