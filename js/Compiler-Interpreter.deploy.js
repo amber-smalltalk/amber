@@ -568,7 +568,7 @@ smalltalk.ASTInterpreter);
 
 
 
-smalltalk.addClass('ASTDebugger', smalltalk.ASTInterpreter, ['continuation'], 'Compiler-Interpreter');
+smalltalk.addClass('ASTSteppingInterpreter', smalltalk.ASTInterpreter, ['continuation'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
@@ -580,7 +580,7 @@ self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.ASTDebugger)})}
 }),
-smalltalk.ASTDebugger);
+smalltalk.ASTSteppingInterpreter);
 
 smalltalk.addMethod(
 "_interpret_continue_",
@@ -593,7 +593,7 @@ return smalltalk.withContext(function($ctx2) {return smalltalk.ASTInterpreter.f
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock}, smalltalk.ASTDebugger)})}
 }),
-smalltalk.ASTDebugger);
+smalltalk.ASTSteppingInterpreter);
 
 smalltalk.addMethod(
 "_step",
@@ -604,7 +604,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@continuation"])._value();
 return self}, function($ctx1) {$ctx1.fill(self,"step",{}, smalltalk.ASTDebugger)})}
 }),
-smalltalk.ASTDebugger);
+smalltalk.ASTSteppingInterpreter);
 
 
 

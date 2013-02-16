@@ -277,45 +277,45 @@ messageFromSendNode: aSendNode do: aBlock
         	yourself) ]
 ! !
 
-ASTInterpreter subclass: #ASTDebugger
+ASTInterpreter subclass: #ASTSteppingInterpreter
 	instanceVariableNames: 'continuation'
 	package: 'Compiler-Interpreter'!
-!ASTDebugger commentStamp!
-ASTDebugger is an interpreter with stepping capabilities.
-Use `#stepOver` to actually interpret the next node.
+!ASTSteppingInterpreter commentStamp!
+ASTSteppingInterpreter is an interpreter with stepping capabilities.
+Use `#step` to actually interpret the next node.
 
 Usage example:
 
-    | ast debugger |
+    | ast interpreter |
     ast := Smalltalk current parse: 'foo 1+2+4'.
     (SemanticAnalyzer on: Object) visit: ast.
 
-    debugger := ASTDebugger new
+    interpreter := ASTSteppingInterpreter new
         interpret: ast nodes first;
         yourself.
         
-    debugger stepOver; stepOver.
-    debugger stepOver; stepOver.
+    debugger step; step.
+    debugger step; step.
     debugger result."Answers 1"
-    debugger stepOver.
+    debugger step.
     debugger result. "Answers 3"
-    debugger stepOver.
+    debugger step.
     debugger result. "Answers 7"!
 
-!ASTDebugger methodsFor: 'initialization'!
+!ASTSteppingInterpreter methodsFor: 'initialization'!
 
 initialize
 	super initialize.
     continuation := [  ]
 ! !
 
-!ASTDebugger methodsFor: 'interpreting'!
+!ASTSteppingInterpreter methodsFor: 'interpreting'!
 
 interpret: aNode continue: aBlock
 	continuation := [ super interpret: aNode continue: aBlock ]
 ! !
 
-!ASTDebugger methodsFor: 'stepping'!
+!ASTSteppingInterpreter methodsFor: 'stepping'!
 
 step
 	continuation value

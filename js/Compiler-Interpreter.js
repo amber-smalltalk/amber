@@ -755,8 +755,8 @@ smalltalk.ASTInterpreter);
 
 
 
-smalltalk.addClass('ASTDebugger', smalltalk.ASTInterpreter, ['continuation'], 'Compiler-Interpreter');
-smalltalk.ASTDebugger.comment="ASTDebugger is an interpreter with stepping capabilities.\x0aUse `#stepOver` to actually interpret the next node.\x0a\x0aUsage example:\x0a\x0a    | ast debugger |\x0a    ast := Smalltalk current parse: 'foo 1+2+4'.\x0a    (SemanticAnalyzer on: Object) visit: ast.\x0a\x0a    debugger := ASTDebugger new\x0a        interpret: ast nodes first;\x0a        yourself.\x0a        \x0a    debugger stepOver; stepOver.\x0a    debugger stepOver; stepOver.\x0a    debugger result.\x22Answers 1\x22\x0a    debugger stepOver.\x0a    debugger result. \x22Answers 3\x22\x0a    debugger stepOver.\x0a    debugger result. \x22Answers 7\x22\x0a    "
+smalltalk.addClass('ASTSteppingInterpreter', smalltalk.ASTInterpreter, ['continuation'], 'Compiler-Interpreter');
+smalltalk.ASTSteppingInterpreter.comment="ASTSteppingInterpreter is an interpreter with stepping capabilities.\x0aUse `#step` to actually interpret the next node.\x0a\x0aUsage example:\x0a\x0a    | ast interpreter |\x0a    ast := Smalltalk current parse: 'foo 1+2+4'.\x0a    (SemanticAnalyzer on: Object) visit: ast.\x0a\x0a    interpreter := ASTSteppingInterpreter new\x0a        interpret: ast nodes first;\x0a        yourself.\x0a        \x0a    debugger step; step.\x0a    debugger step; step.\x0a    debugger result.\x22Answers 1\x22\x0a    debugger step.\x0a    debugger result. \x22Answers 3\x22\x0a    debugger step.\x0a    debugger result. \x22Answers 7\x22\x0a    "
 smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
@@ -773,7 +773,7 @@ source: "initialize\x0a\x09super initialize.\x0a    continuation := [  ]",
 messageSends: ["initialize"],
 referencedClasses: []
 }),
-smalltalk.ASTDebugger);
+smalltalk.ASTSteppingInterpreter);
 
 smalltalk.addMethod(
 "_interpret_continue_",
@@ -791,7 +791,7 @@ source: "interpret: aNode continue: aBlock\x0a\x09continuation := [ super interp
 messageSends: ["interpret:continue:"],
 referencedClasses: []
 }),
-smalltalk.ASTDebugger);
+smalltalk.ASTSteppingInterpreter);
 
 smalltalk.addMethod(
 "_step",
@@ -807,7 +807,7 @@ source: "step\x0a\x09continuation value",
 messageSends: ["value"],
 referencedClasses: []
 }),
-smalltalk.ASTDebugger);
+smalltalk.ASTSteppingInterpreter);
 
 
 
