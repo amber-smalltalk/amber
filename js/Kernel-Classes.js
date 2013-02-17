@@ -1329,6 +1329,27 @@ referencedClasses: ["Compiler"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
+"_installCompiled_forClass_category_",
+smalltalk.method({
+selector: "installCompiled:forClass:category:",
+category: 'meta api',
+fn: function (aCompiledMethod,aBehavior,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(aCompiledMethod)._category_(aString);
+_st(aBehavior)._addCompiledMethod_(aCompiledMethod);
+_st(self)._setupClass_(aBehavior);
+$1=aCompiledMethod;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"installCompiled:forClass:category:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString}, smalltalk.ClassBuilder)})},
+args: ["aCompiledMethod", "aBehavior", "aString"],
+source: "installCompiled: aCompiledMethod forClass: aBehavior category: aString\x0a\x09aCompiledMethod category: aString.\x0a\x09aBehavior addCompiledMethod: aCompiledMethod.\x0a    self setupClass: aBehavior.\x0a\x09^aCompiledMethod",
+messageSends: ["category:", "addCompiledMethod:", "setupClass:"],
+referencedClasses: []
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 "_instanceVariableNamesFor_",
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
@@ -1557,12 +1578,12 @@ return _st(chunk)._isEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._compileMethod_(chunk);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st((smalltalk.Compiler || Compiler))._new())._setupClass_(self["@class"]);
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._setupClass_(self["@class"]);
 return self}, function($ctx1) {$ctx1.fill(self,"scanFrom:",{aChunkParser:aChunkParser,chunk:chunk}, smalltalk.ClassCategoryReader)})},
 args: ["aChunkParser"],
-source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09[chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty] whileFalse: [\x0a\x09    self compileMethod: chunk].\x0a\x09Compiler new setupClass: class",
+source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09[chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty] whileFalse: [\x0a\x09    self compileMethod: chunk].\x0a\x09ClassBuilder new setupClass: class",
 messageSends: ["whileFalse:", "compileMethod:", "nextChunk", "isEmpty", "setupClass:", "new"],
-referencedClasses: ["Compiler"]
+referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.ClassCategoryReader);
 
