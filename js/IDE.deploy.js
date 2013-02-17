@@ -1619,7 +1619,7 @@ selector: "compileMethodDefinitionFor:",
 fn: function (aClass){
 var self=this;
 var compiler,method,source,node;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$6,$8,$9,$7,$5;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 var $early={};
 try {
 source=_st(self["@sourceArea"])._val();
@@ -1640,23 +1640,20 @@ return $3;
 };
 _st(compiler)._currentClass_(aClass);
 method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
-_st(method)._category_(self["@selectedProtocol"]);
-$4=_st(compiler)._unknownVariables();
-$5=(function(each){
-return smalltalk.withContext(function($ctx2) {$6=_st(window)._at_(each);
-$7=(function(){
-return smalltalk.withContext(function($ctx3) {$8=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
-if(smalltalk.assert($8)){
+_st(_st(compiler)._unknownVariables())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$4=_st(window)._at_(each);
+if(($receiver = $4) == nil || $receiver == undefined){
+$5=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
+if(smalltalk.assert($5)){
 _st(self)._addInstanceVariableNamed_toClass_(each,aClass);
-$9=_st(self)._compileMethodDefinitionFor_(aClass);
-throw $early=[$9];
+$6=_st(self)._compileMethodDefinitionFor_(aClass);
+throw $early=[$6];
 };
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})});
-return _st($6)._ifNil_($7);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($4)._do_($5);
-_st(aClass)._addCompiledMethod_(method);
-_st(compiler)._setupClass_(aClass);
+} else {
+return $4;
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installCompiled_forClass_category_(method,aClass,self["@selectedProtocol"]);
 _st(self)._updateMethodsList();
 _st(self)._selectMethod_(method);
 return self}

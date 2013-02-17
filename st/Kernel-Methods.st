@@ -40,6 +40,12 @@ whileTrue: aBlock
 	<while(self()) {aBlock()}>
 ! !
 
+!BlockClosure methodsFor: 'converting'!
+
+asCompiledMethod: aString
+	<return smalltalk.method({selector:aString, fn:self});>
+! !
+
 !BlockClosure methodsFor: 'error handling'!
 
 on: anErrorClass do: aBlock
