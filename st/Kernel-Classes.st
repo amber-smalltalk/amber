@@ -514,10 +514,10 @@ copyClass: aClass to: anotherClass
 	aClass methodDictionary values do: [ :each |
 		Compiler new install: each source forClass: anotherClass category: each category ].
 
+	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
+
 	aClass class methodDictionary values do: [ :each |
 		Compiler new install: each source forClass: anotherClass class category: each category ].
-
-	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
 
 	self setupClass: anotherClass
 !

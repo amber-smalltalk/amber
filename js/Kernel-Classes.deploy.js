@@ -980,10 +980,10 @@ return smalltalk.withContext(function($ctx1) { _st(anotherClass)._comment_(_st(
 _st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),anotherClass,_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._basicClass_instanceVariables_(_st(anotherClass)._class(),_st(_st(aClass)._class())._instanceVariableNames());
 _st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._basicClass_instanceVariables_(_st(anotherClass)._class(),_st(_st(aClass)._class())._instanceVariableNames());
 _st(self)._setupClass_(anotherClass);
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})}
 }),
