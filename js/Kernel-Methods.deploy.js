@@ -34,6 +34,21 @@ return self}, function($ctx1) {$ctx1.fill(self,"compiledSource",{}, smalltalk.Bl
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
+"_currySelf",
+smalltalk.method({
+selector: "currySelf",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return function () {
+    	var args = [ this ];
+        args.push.apply(args, arguments);
+        return self.apply(null, args);
+    };
+return self}, function($ctx1) {$ctx1.fill(self,"currySelf",{}, smalltalk.BlockClosure)})}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
 "_ensure_",
 smalltalk.method({
 selector: "ensure:",
