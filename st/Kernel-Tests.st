@@ -17,6 +17,15 @@ testCompiledSource
 	self assert: ([1+1] compiledSource includesSubString: 'function')
 !
 
+testCurrySelf
+	| curriedMethod array |
+    curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.
+    array := #(3 1 4).
+    ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.
+    [ self assert: 1 equals: (array foo: 2) ]
+    ensure: [ Array removeCompiledMethod: curriedMethod ]
+!
+
 testEnsure
 	self assert: 3 equals: ([3] ensure: [4])
 !

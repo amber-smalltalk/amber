@@ -59,6 +59,32 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
+"_testCurrySelf",
+smalltalk.method({
+selector: "testCurrySelf",
+category: 'tests',
+fn: function (){
+var self=this;
+var curriedMethod,array;
+return smalltalk.withContext(function($ctx1) { curriedMethod=_st(_st((function(selfarg,x){
+return smalltalk.withContext(function($ctx2) {return _st(selfarg)._at_(x);
+}, function($ctx2) {$ctx2.fillBlock({selfarg:selfarg,x:x},$ctx1)})}))._currySelf())._asCompiledMethod_("foo:");
+array=[(3), (1), (4)];
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(curriedMethod,(smalltalk.Array || Array),"**test helper");
+_st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_equals_((1),_st(array)._foo_((2)));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
+return smalltalk.withContext(function($ctx2) {return _st((smalltalk.Array || Array))._removeCompiledMethod_(curriedMethod);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array}, smalltalk.BlockClosureTest)})},
+args: [],
+source: "testCurrySelf\x0a\x09| curriedMethod array |\x0a    curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.\x0a    array := #(3 1 4).\x0a    ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.\x0a    [ self assert: 1 equals: (array foo: 2) ]\x0a    ensure: [ Array removeCompiledMethod: curriedMethod ]",
+messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:category:", "new", "ensure:", "removeCompiledMethod:", "assert:equals:", "foo:"],
+referencedClasses: ["Array", "ClassBuilder"]
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
 "_testEnsure",
 smalltalk.method({
 selector: "testEnsure",
