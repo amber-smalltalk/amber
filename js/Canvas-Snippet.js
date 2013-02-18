@@ -7,8 +7,8 @@ selector: "addSnippet:",
 category: 'accessing',
 fn: function (anAssociation){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var snippet;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@snippets"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@snippets"]=smalltalk.HashedCollection._fromPairs_([]);
@@ -17,11 +17,15 @@ $1=self["@snippets"];
 $1=$2;
 };
 _st($1)._add_(anAssociation);
-return self}, function($ctx1) {$ctx1.fill(self,"addSnippet:",{anAssociation:anAssociation}, smalltalk.HtmlSnippet)})},
+snippet=_st(anAssociation)._value();
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
+return smalltalk.withContext(function($ctx2) {return _st(htmlReceiver)._snip_(snippet);
+}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1)})}))._currySelf())._asCompiledMethod_(_st(anAssociation)._key()),(smalltalk.HTMLCanvas || HTMLCanvas),"**snippets");
+return self}, function($ctx1) {$ctx1.fill(self,"addSnippet:",{anAssociation:anAssociation,snippet:snippet}, smalltalk.HtmlSnippet)})},
 args: ["anAssociation"],
-source: "addSnippet: anAssociation\x0a\x09(snippets ifNil: [ snippets := #{} ]) add: anAssociation",
-messageSends: ["add:", "ifNil:"],
-referencedClasses: []
+source: "addSnippet: anAssociation\x0a\x09| snippet |\x0a\x09(snippets ifNil: [ snippets := #{} ]) add: anAssociation.\x0a    snippet := anAssociation value.\x0a    ClassBuilder new\x0a    \x09installMethod: ([ :htmlReceiver | htmlReceiver snip: snippet ] currySelf asCompiledMethod: anAssociation key)\x0a        forClass: HTMLCanvas\x0a        category: '**snippets'",
+messageSends: ["add:", "ifNil:", "value", "installMethod:forClass:category:", "asCompiledMethod:", "key", "currySelf", "snip:", "new"],
+referencedClasses: ["HTMLCanvas", "ClassBuilder"]
 }),
 smalltalk.HtmlSnippet);
 
@@ -173,40 +177,6 @@ messageSends: ["at:", "asString", "current"],
 referencedClasses: ["HtmlSnippet"]
 }),
 smalltalk.CharacterArray);
-
-smalltalk.addMethod(
-"_doesNotUnderstand_",
-smalltalk.method({
-selector: "doesNotUnderstand:",
-category: '*Canvas-Snippet',
-fn: function (aMessage){
-var self=this;
-var snippet;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-var $early={};
-try {
-$1=_st(_st(aMessage)._arguments())._isEmpty();
-if(! smalltalk.assert($1)){
-$2=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-return $2;
-};
-snippet=_st(_st((smalltalk.HtmlSnippet || HtmlSnippet))._current())._at_ifAbsent_(_st(aMessage)._selector(),(function(){
-return smalltalk.withContext(function($ctx2) {
-$3=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-throw $early=[$3];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$4=_st(self)._snip_(snippet);
-return $4;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,snippet:snippet}, smalltalk.HTMLCanvas)})},
-args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09| snippet |\x0a\x09aMessage arguments isEmpty ifFalse: [ ^super doesNotUnderstand: aMessage ].\x0a    snippet := HtmlSnippet current at: aMessage selector ifAbsent: [ ^super doesNotUnderstand: aMessage ].\x0a    ^ self snip: snippet",
-messageSends: ["ifFalse:", "doesNotUnderstand:", "isEmpty", "arguments", "at:ifAbsent:", "selector", "current", "snip:"],
-referencedClasses: ["HtmlSnippet"]
-}),
-smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
 "_snip_",

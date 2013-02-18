@@ -6,7 +6,13 @@ Object subclass: #HtmlSnippet
 !HtmlSnippet methodsFor: 'accessing'!
 
 addSnippet: anAssociation
-	(snippets ifNil: [ snippets := #{} ]) add: anAssociation
+	| snippet |
+	(snippets ifNil: [ snippets := #{} ]) add: anAssociation.
+    snippet := anAssociation value.
+    ClassBuilder new
+    	installMethod: ([ :htmlReceiver | htmlReceiver snip: snippet ] currySelf asCompiledMethod: anAssociation key)
+        forClass: HTMLCanvas
+        category: '**snippets'
 !
 
 addSnippets: aCollection
@@ -54,13 +60,6 @@ asSnippet
 ! !
 
 !HTMLCanvas methodsFor: '*Canvas-Snippet'!
-
-doesNotUnderstand: aMessage
-	| snippet |
-	aMessage arguments isEmpty ifFalse: [ ^super doesNotUnderstand: aMessage ].
-    snippet := HtmlSnippet current at: aMessage selector ifAbsent: [ ^super doesNotUnderstand: aMessage ].
-    ^ self snip: snippet
-!
 
 snip: anElement
 	"Adds clone of anElement, finds [data-snippet=""*""] subelement
