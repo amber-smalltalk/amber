@@ -128,6 +128,18 @@ return $3;
 }),
 smalltalk.HtmlSnippet.klass);
 
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._current();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HtmlSnippet.klass)})}
+}),
+smalltalk.HtmlSnippet.klass);
+
 
 smalltalk.addMethod(
 "_asSnippet",

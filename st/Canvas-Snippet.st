@@ -46,6 +46,13 @@ digFromJQuery: aJQuery
 	^result
 ! !
 
+!HtmlSnippet class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self current
+! !
+
 !HtmlSnippet class methodsFor: 'instance creation'!
 
 current
