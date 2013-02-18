@@ -1653,7 +1653,7 @@ throw $early=[$6];
 return $4;
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installCompiled_forClass_category_(method,aClass,self["@selectedProtocol"]);
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
 _st(self)._updateMethodsList();
 _st(self)._selectMethod_(method);
 return self}

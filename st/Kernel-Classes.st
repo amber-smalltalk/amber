@@ -394,7 +394,7 @@ ClassBuilder is responsible for compiling new classes or modifying existing clas
 
 Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
 
-!ClassBuilder methodsFor: 'class creation'!
+!ClassBuilder methodsFor: 'api'!
 
 class: aClass instanceVariableNames: aString
 	self basicClass: aClass instanceVariableNames: aString.
@@ -404,6 +404,13 @@ class: aClass instanceVariableNames: aString
     	announce: (ClassDefinitionChanged new
         	theClass: aClass;
             yourself)
+!
+
+installMethod: aCompiledMethod forClass: aBehavior category: aString
+	aCompiledMethod category: aString.
+	aBehavior addCompiledMethod: aCompiledMethod.
+    self setupClass: aBehavior.
+	^aCompiledMethod
 !
 
 renameClass: aClass to: aString
@@ -437,15 +444,6 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
             yourself).
     
 	^newClass
-! !
-
-!ClassBuilder methodsFor: 'meta api'!
-
-installCompiled: aCompiledMethod forClass: aBehavior category: aString
-	aCompiledMethod category: aString.
-	aBehavior addCompiledMethod: aCompiledMethod.
-    self setupClass: aBehavior.
-	^aCompiledMethod
 ! !
 
 !ClassBuilder methodsFor: 'private'!

@@ -1265,7 +1265,7 @@ smalltalk.addMethod(
 "_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
-category: 'class creation',
+category: 'api',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -1329,10 +1329,10 @@ referencedClasses: ["Compiler"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_installCompiled_forClass_category_",
+"_installMethod_forClass_category_",
 smalltalk.method({
-selector: "installCompiled:forClass:category:",
-category: 'meta api',
+selector: "installMethod:forClass:category:",
+category: 'api',
 fn: function (aCompiledMethod,aBehavior,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1341,9 +1341,9 @@ _st(aBehavior)._addCompiledMethod_(aCompiledMethod);
 _st(self)._setupClass_(aBehavior);
 $1=aCompiledMethod;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"installCompiled:forClass:category:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString}, smalltalk.ClassBuilder)})},
+}, function($ctx1) {$ctx1.fill(self,"installMethod:forClass:category:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString}, smalltalk.ClassBuilder)})},
 args: ["aCompiledMethod", "aBehavior", "aString"],
-source: "installCompiled: aCompiledMethod forClass: aBehavior category: aString\x0a\x09aCompiledMethod category: aString.\x0a\x09aBehavior addCompiledMethod: aCompiledMethod.\x0a    self setupClass: aBehavior.\x0a\x09^aCompiledMethod",
+source: "installMethod: aCompiledMethod forClass: aBehavior category: aString\x0a\x09aCompiledMethod category: aString.\x0a\x09aBehavior addCompiledMethod: aCompiledMethod.\x0a    self setupClass: aBehavior.\x0a\x09^aCompiledMethod",
 messageSends: ["category:", "addCompiledMethod:", "setupClass:"],
 referencedClasses: []
 }),
@@ -1424,7 +1424,7 @@ smalltalk.addMethod(
 "_renameClass_to_",
 smalltalk.method({
 selector: "renameClass:to:",
-category: 'class creation',
+category: 'api',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -1445,7 +1445,7 @@ smalltalk.addMethod(
 "_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
-category: 'class creation',
+category: 'api',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);;
@@ -1461,7 +1461,7 @@ smalltalk.addMethod(
 "_superclass_subclass_",
 smalltalk.method({
 selector: "superclass:subclass:",
-category: 'class creation',
+category: 'api',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1479,7 +1479,7 @@ smalltalk.addMethod(
 "_superclass_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
-category: 'class creation',
+category: 'api',
 fn: function (aClass,aString,aString2,aString3){
 var self=this;
 var newClass;

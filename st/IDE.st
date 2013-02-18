@@ -830,7 +830,7 @@ compileMethodDefinition
 compileMethodDefinitionFor: aClass
     | compiler method source node | 
     source := sourceArea val.
-    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
+    selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].
     compiler := Compiler new.
     compiler source: source.
     node := compiler parse: source.
@@ -844,7 +844,7 @@ compileMethodDefinitionFor: aClass
 	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
-    ClassBuilder new installCompiled: method forClass: aClass category: selectedProtocol.
+    ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
     self updateMethodsList.
     self selectMethod: method
 !

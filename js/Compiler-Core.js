@@ -203,12 +203,12 @@ category: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installCompiled_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
+$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString}, smalltalk.Compiler)})},
 args: ["aString", "aBehavior", "anotherString"],
-source: "install: aString forClass: aBehavior category: anotherString\x0a   \x09^ ClassBuilder new\x0a    \x09installCompiled: (self eval: (self compile: aString forClass: aBehavior))\x0a        forClass: aBehavior\x0a        category: anotherString",
-messageSends: ["installCompiled:forClass:category:", "eval:", "compile:forClass:", "new"],
+source: "install: aString forClass: aBehavior category: anotherString\x0a   \x09^ ClassBuilder new\x0a    \x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a        forClass: aBehavior\x0a        category: anotherString",
+messageSends: ["installMethod:forClass:category:", "eval:", "compile:forClass:", "new"],
 referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Compiler);

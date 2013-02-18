@@ -990,9 +990,9 @@ return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,an
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_installCompiled_forClass_category_",
+"_installMethod_forClass_category_",
 smalltalk.method({
-selector: "installCompiled:forClass:category:",
+selector: "installMethod:forClass:category:",
 fn: function (aCompiledMethod,aBehavior,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1001,7 +1001,7 @@ _st(aBehavior)._addCompiledMethod_(aCompiledMethod);
 _st(self)._setupClass_(aBehavior);
 $1=aCompiledMethod;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"installCompiled:forClass:category:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString}, smalltalk.ClassBuilder)})}
+}, function($ctx1) {$ctx1.fill(self,"installMethod:forClass:category:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString}, smalltalk.ClassBuilder)})}
 }),
 smalltalk.ClassBuilder);
 

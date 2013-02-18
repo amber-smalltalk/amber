@@ -86,7 +86,7 @@ evaluateExpression: aString
 
 install: aString forClass: aBehavior category: anotherString
    	^ ClassBuilder new
-    	installCompiled: (self eval: (self compile: aString forClass: aBehavior))
+    	installMethod: (self eval: (self compile: aString forClass: aBehavior))
         forClass: aBehavior
         category: anotherString
 !
