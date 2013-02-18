@@ -44,6 +44,18 @@ whileTrue: aBlock
 
 asCompiledMethod: aString
 	<return smalltalk.method({selector:aString, fn:self});>
+!
+
+currySelf
+	"Transforms [ :selfarg :x :y | stcode ] block
+    which represents JS function (selfarg, x, y, ...) {jscode}
+    into function (x, y, ...) {jscode} that takes selfarg from 'this'.
+    IOW, it is usable as JS method and first arg takes the receiver."
+    <return function () {
+    	var args = [ this ];
+        args.push.apply(args, arguments);
+        return self.apply(null, args);
+    }>
 ! !
 
 !BlockClosure methodsFor: 'error handling'!
