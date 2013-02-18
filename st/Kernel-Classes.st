@@ -439,6 +439,15 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 	^newClass
 ! !
 
+!ClassBuilder methodsFor: 'meta api'!
+
+installCompiled: aCompiledMethod forClass: aBehavior category: aString
+	aCompiledMethod category: aString.
+	aBehavior addCompiledMethod: aCompiledMethod.
+    self setupClass: aBehavior.
+	^aCompiledMethod
+! !
+
 !ClassBuilder methodsFor: 'private'!
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
@@ -576,7 +585,7 @@ scanFrom: aChunkParser
 	[chunk := aChunkParser nextChunk.
 	chunk isEmpty] whileFalse: [
 	    self compileMethod: chunk].
-	Compiler new setupClass: class
+	ClassBuilder new setupClass: class
 ! !
 
 !ClassCategoryReader methodsFor: 'initialization'!

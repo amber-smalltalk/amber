@@ -18,6 +18,22 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
+"_asCompiledMethod_",
+smalltalk.method({
+selector: "asCompiledMethod:",
+category: 'converting',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.method({selector:aString, fn:self});;
+return self}, function($ctx1) {$ctx1.fill(self,"asCompiledMethod:",{aString:aString}, smalltalk.BlockClosure)})},
+args: ["aString"],
+source: "asCompiledMethod: aString\x0a\x09<return smalltalk.method({selector:aString, fn:self});>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
 "_compiledSource",
 smalltalk.method({
 selector: "compiledSource",
