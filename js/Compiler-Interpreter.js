@@ -301,6 +301,24 @@ referencedClasses: ["Smalltalk", "SemanticAnalyzer"]
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
+"_context",
+smalltalk.method({
+selector: "context",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@context"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"context",{}, smalltalk.ASTDebugger)})},
+args: [],
+source: "context\x0a\x09^ context",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
 "_context_",
 smalltalk.method({
 selector: "context:",
@@ -357,13 +375,13 @@ selector: "initializeWithContext:",
 category: 'initialization',
 fn: function (aMethodContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._context_fromMethodContext_((smalltalk.IAContext || IAContext),aMethodContext);
+return smalltalk.withContext(function($ctx1) { _st(self)._context_(_st((smalltalk.AIContext || AIContext))._fromMethodContext_(aMethodContext));
 _st(self)._initializeInterpreter();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aMethodContext:aMethodContext}, smalltalk.ASTDebugger)})},
 args: ["aMethodContext"],
-source: "initializeWithContext: aMethodContext\x0a\x09\x22TODO: do we need to handle block contexts?\x22\x0a    \x0a    self context: IAContext fromMethodContext: aMethodContext.\x0a    self initializeInterpreter",
-messageSends: ["context:fromMethodContext:", "initializeInterpreter"],
-referencedClasses: ["IAContext"]
+source: "initializeWithContext: aMethodContext\x0a\x09\x22TODO: do we need to handle block contexts?\x22\x0a    \x0a    self context: (AIContext fromMethodContext: aMethodContext).\x0a    self initializeInterpreter",
+messageSends: ["context:", "fromMethodContext:", "initializeInterpreter"],
+referencedClasses: ["AIContext"]
 }),
 smalltalk.ASTDebugger);
 

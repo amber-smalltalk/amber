@@ -93,6 +93,10 @@ Use the methods of the 'stepping' protocol to do stepping.!
 
 !ASTDebugger methodsFor: 'accessing'!
 
+context
+	^ context
+!
+
 context: aContext
 	context := AIContext new.
 !
@@ -138,7 +142,7 @@ initializeInterpreter
 initializeWithContext: aMethodContext
 	"TODO: do we need to handle block contexts?"
     
-    self context: IAContext fromMethodContext: aMethodContext.
+    self context: (AIContext fromMethodContext: aMethodContext).
     self initializeInterpreter
 ! !
 

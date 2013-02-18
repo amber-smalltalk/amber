@@ -224,6 +224,19 @@ return $1;
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
+"_context",
+smalltalk.method({
+selector: "context",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@context"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"context",{}, smalltalk.ASTDebugger)})}
+}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
 "_context_",
 smalltalk.method({
 selector: "context:",
@@ -264,7 +277,7 @@ smalltalk.method({
 selector: "initializeWithContext:",
 fn: function (aMethodContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._context_fromMethodContext_((smalltalk.IAContext || IAContext),aMethodContext);
+return smalltalk.withContext(function($ctx1) { _st(self)._context_(_st((smalltalk.AIContext || AIContext))._fromMethodContext_(aMethodContext));
 _st(self)._initializeInterpreter();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aMethodContext:aMethodContext}, smalltalk.ASTDebugger)})}
 }),
