@@ -51,11 +51,14 @@ currySelf
     which represents JS function (selfarg, x, y, ...) {jscode}
     into function (x, y, ...) {jscode} that takes selfarg from 'this'.
     IOW, it is usable as JS method and first arg takes the receiver."
-    <return function () {
-    	var args = [ this ];
-        args.push.apply(args, arguments);
-        return self.apply(null, args);
-    }>
+    
+    <
+    	return function () {
+    		var args = [ this ];
+        	args.push.apply(args, arguments);
+        	return self.apply(null, args);
+    	}
+	>
 ! !
 
 !BlockClosure methodsFor: 'error handling'!
