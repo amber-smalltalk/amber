@@ -492,22 +492,45 @@ onJQuery: aJQuery
 Object subclass: #HtmlSnippet
 	instanceVariableNames: 'snippets'
 	package: 'Canvas'!
+!HtmlSnippet commentStamp!
+HtmlSnippet instance is the registry of html snippets.
+HtmlSnippet current is the public singleton instance.
+
+At the beginning, it scans the document for any html elements
+with 'data-snippet="foo"' attribute and takes them off the document,
+remembering them in the store under the specified name.
+It also install method #foo into HTMLCanvas dynamically.
+
+Every html snippet should mark a 'caret', a place where contents
+can be inserted, by 'data-snippet="*"' (a special name for caret).
+For example:
+
+<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>
+
+defines a list element with a link inside; the link itself is marked as a caret.
+
+You can later issue
+
+html menuelement href: '/foo'; with: 'A foo'
+
+to insert the whole snippet and directly manipulate the caret, so it renders:
+
+<li class='...'><a href='/foo'>A foo</a></li>
+
+For a self-careting tags (not very useful, but you do not need to fill class etc.
+you can use
+
+<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>
+
+and in code later do:
+
+html bar with: [ xxx ]
+
+to render
+
+<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>!
 
 !HtmlSnippet methodsFor: 'accessing'!
-
-addSnippet: anAssociation
-	| snippet |
-	(snippets ifNil: [ snippets := #{} ]) add: anAssociation.
-    snippet := anAssociation value.
-    ClassBuilder new
-    	installMethod: ([ :htmlReceiver | htmlReceiver snip: snippet ] currySelf asCompiledMethod: anAssociation key)
-        forClass: HTMLCanvas
-        category: '**snippets'
-!
-
-addSnippets: aCollection
-	aCollection associationsDo: [ :each | self addSnippet: each ]
-!
 
 at: aString
 	^ snippets at: aString
@@ -515,39 +538,50 @@ at: aString
 
 at: aString ifAbsent: aBlock
 	^ snippets at: aString ifAbsent: aBlock
+!
+
+snippets
+	^snippets ifNil: [ snippets := #{} ]
 ! !
 
-HtmlSnippet class instanceVariableNames: 'current'!
+!HtmlSnippet methodsFor: 'snippet installation'!
 
-!HtmlSnippet class methodsFor: 'action'!
+addSnippet: anAssociation
+	| snippet |
+	self snippets add: anAssociation.
+    snippet := anAssociation value.
+    ClassBuilder new
+    	installMethod: ([ :htmlReceiver | htmlReceiver snippet: snippet ] currySelf asCompiledMethod: anAssociation key)
+        forClass: HTMLCanvas
+        category: '**snippets'
+!
 
-digFromJQuery: aJQuery
-	"Finds and takes out all snippets out of aJQuery"
-    | result |
-    result := #{}.
-	'[data-snippet]' asJQuery toArray do: [ :each |
+loadFromJQuery: aJQuery
+	"Finds and takes out all snippets out of aJQuery.
+    Installs it into self."
+	(aJQuery find: '[data-snippet]') toArray do: [ :each |
     	| jq name |
         jq := each asJQuery.
         name := jq attr: 'data-snippet'.
         name = '*' ifFalse: [
         	('^\*' asRegexp test: name) ifTrue: [ name := name allButFirst. jq attr: 'data-snippet' put: '*' ]
           		ifFalse: [ jq removeAttr: 'data-snippet' ].
-            result at: name put: (jq detach get: 0) ]].
-	^result
+            self addSnippet: name -> (jq detach get: 0) ]]
 ! !
+
+HtmlSnippet class instanceVariableNames: 'current'!
 
 !HtmlSnippet class methodsFor: 'initialization'!
 
 initialize
 	super initialize.
-	self current
+	self current loadFromJQuery: document asJQuery
 ! !
 
 !HtmlSnippet class methodsFor: 'instance creation'!
 
 current
-	^ current ifNil: [
-		current := self new addSnippets: (self digFromJQuery: document asJQuery); yourself ]
+	^ current ifNil: [ current := self new ]
 ! !
 
 Object subclass: #TagBrush
@@ -951,11 +985,12 @@ asJQuery
 
 !HTMLCanvas methodsFor: '*Canvas'!
 
-snip: anElement
+snippet: anElement
 	"Adds clone of anElement, finds [data-snippet=""*""] subelement
     and returns TagBrush as if that subelement was just added.
     
-    Use with asSnippet -- (html snip: #mySnip asSnippet) with: [...]"
+    Rarely needed to use directly, use `html foo` dynamically installed method
+    for a snippet named foo."
     | clone caret |
     clone := anElement asJQuery clone.
     self with: (TagBrush fromJQuery: clone canvas: self).
