@@ -1569,30 +1569,6 @@ smalltalk.HTMLCanvas.klass);
 
 smalltalk.addClass('HTMLSnippet', smalltalk.Object, ['snippets'], 'Canvas');
 smalltalk.addMethod(
-"_addSnippet_",
-smalltalk.method({
-selector: "addSnippet:",
-fn: function (anAssociation){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippets())._add_(anAssociation);
-return self}, function($ctx1) {$ctx1.fill(self,"addSnippet:",{anAssociation:anAssociation}, smalltalk.HtmlSnippet)})}
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
-"_compileSnippet_",
-smalltalk.method({
-selector: "compileSnippet:",
-fn: function (anAssociation){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
-return smalltalk.withContext(function($ctx2) {return _st(htmlReceiver)._snippet_(_st(anAssociation)._value());
-}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1)})}))._currySelf())._asCompiledMethod_(_st(anAssociation)._key()),(smalltalk.HTMLCanvas || HTMLCanvas),"**snippets");
-return self}, function($ctx1) {$ctx1.fill(self,"compileSnippet:",{anAssociation:anAssociation}, smalltalk.HtmlSnippet)})}
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
 "_initializeFromJQuery_",
 smalltalk.method({
 selector: "initializeFromJQuery:",
@@ -1602,20 +1578,6 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippetsFromJQuer
 return smalltalk.withContext(function($ctx2) {return _st(self)._installSnippetFromJQuery_(_st(each)._asJQuery());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery}, smalltalk.HtmlSnippet)})}
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
-"_installSnippet_",
-smalltalk.method({
-selector: "installSnippet:",
-fn: function (anAssociation){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self;
-_st($1)._addSnippet_(anAssociation);
-$2=_st($1)._compileSnippet_(anAssociation);
-return self}, function($ctx1) {$ctx1.fill(self,"installSnippet:",{anAssociation:anAssociation}, smalltalk.HtmlSnippet)})}
 }),
 smalltalk.HTMLSnippet);
 
@@ -1638,9 +1600,9 @@ _st(element)._attr_put_("data-snippet","*");
 } else {
 _st(element)._removeAttr_("data-snippet");
 };
-_st(self)._installSnippet_(_st(name).__minus_gt(_st(_st(element)._detach())._get_((0))));
+_st(self)._snippetAt_install_(name,_st(_st(element)._detach())._get_((0)));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name}, smalltalk.HtmlSnippet)})}
+return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name}, smalltalk.HTMLSnippet)})}
 }),
 smalltalk.HTMLSnippet);
 
@@ -1651,9 +1613,22 @@ selector: "snippetAt:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@snippets"])._at_(aString);
+$1=_st(_st(self)._snippets())._at_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:",{aString:aString}, smalltalk.HtmlSnippet)})}
+}, function($ctx1) {$ctx1.fill(self,"snippetAt:",{aString:aString}, smalltalk.HTMLSnippet)})}
+}),
+smalltalk.HTMLSnippet);
+
+smalltalk.addMethod(
+"_snippetAt_compile_",
+smalltalk.method({
+selector: "snippetAt:compile:",
+fn: function (aString,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
+return smalltalk.withContext(function($ctx2) {return _st(htmlReceiver)._snippet_(anElement);
+}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1)})}))._currySelf())._asCompiledMethod_(aString),(smalltalk.HTMLCanvas || HTMLCanvas),"**snippets");
+return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})}
 }),
 smalltalk.HTMLSnippet);
 
@@ -1664,9 +1639,34 @@ selector: "snippetAt:ifAbsent:",
 fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@snippets"])._at_ifAbsent_(aString,aBlock);
+$1=_st(_st(self)._snippets())._at_ifAbsent_(aString,aBlock);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:ifAbsent:",{aString:aString,aBlock:aBlock}, smalltalk.HtmlSnippet)})}
+}, function($ctx1) {$ctx1.fill(self,"snippetAt:ifAbsent:",{aString:aString,aBlock:aBlock}, smalltalk.HTMLSnippet)})}
+}),
+smalltalk.HTMLSnippet);
+
+smalltalk.addMethod(
+"_snippetAt_install_",
+smalltalk.method({
+selector: "snippetAt:install:",
+fn: function (aString,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=self;
+_st($1)._snippetAt_put_(aString,anElement);
+$2=_st($1)._snippetAt_compile_(aString,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})}
+}),
+smalltalk.HTMLSnippet);
+
+smalltalk.addMethod(
+"_snippetAt_put_",
+smalltalk.method({
+selector: "snippetAt:put:",
+fn: function (aString,anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippets())._at_put_(aString,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:put:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})}
 }),
 smalltalk.HTMLSnippet);
 
@@ -1744,8 +1744,9 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._ensureCurrent();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HtmlSnippet.klass)})}
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._ensureCurrent();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HTMLSnippet.klass)})}
 }),
 smalltalk.HTMLSnippet.klass);
 
