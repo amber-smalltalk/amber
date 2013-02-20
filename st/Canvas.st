@@ -548,24 +548,20 @@ to render
 
 !HTMLSnippet methodsFor: 'accessing'!
 
-addSnippet: anAssociation
-	self snippets add: anAssociation
-!
-
 snippetAt: aString
-	^ snippets at: aString
+	^ self snippets at: aString
 !
 
 snippetAt: aString ifAbsent: aBlock
-	^ snippets at: aString ifAbsent: aBlock
+	^ self snippets at: aString ifAbsent: aBlock
+!
+
+snippetAt: aString put: anElement
+	self snippets at: aString put: anElement
 !
 
 snippets
 	^snippets ifNil: [ snippets := #{} ]
-!
-
-snippetsFromJQuery: aJQuery
-	^ (aJQuery find: '[data-snippet]') toArray
 ! !
 
 !HTMLSnippet methodsFor: 'initialization'!
@@ -580,24 +576,24 @@ initializeFromJQuery: aJQuery
 
 !HTMLSnippet methodsFor: 'method generation'!
 
-compileSnippet: anAssociation
-	"Method generation the the snippet.
-    The selector is the key of anAssociation, the method block being the value of anAssociation"
+snippetAt: aString compile: anElement
+	"Method generation for the snippet.
+    The selector is aString, the method block uses anElement"
     
     ClassBuilder new
-    	installMethod: ([ :htmlReceiver | htmlReceiver snippet: anAssociation value ] 
-        	currySelf asCompiledMethod: anAssociation key)
+    	installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ] 
+        	currySelf asCompiledMethod: aString)
         forClass: HTMLCanvas
         category: '**snippets'
 ! !
 
-!HTMLSnippet methodsFor: 'snippet installation'!
+!HTMLSnippet methodsFor: 'private'!
 
-installSnippet: anAssociation
-	self 
-    	addSnippet: anAssociation;
-        compileSnippet: anAssociation
-!
+snippetsFromJQuery: aJQuery
+	^ (aJQuery find: '[data-snippet]') toArray
+! !
+
+!HTMLSnippet methodsFor: 'snippet installation'!
 
 installSnippetFromJQuery: element
 	| name |
@@ -609,7 +605,13 @@ installSnippetFromJQuery: element
                 element attr: 'data-snippet' put: '*' ]
           	ifFalse: [ 
             	element removeAttr: 'data-snippet' ].
-        self installSnippet: name -> (element detach get: 0) ]
+        self snippetAt: name install: (element detach get: 0) ]
+!
+
+snippetAt: aString install: anElement
+	self 
+    	snippetAt: aString put: anElement;
+        snippetAt: aString compile: anElement
 ! !
 
 HTMLSnippet class instanceVariableNames: 'current'!
@@ -624,6 +626,7 @@ ensureCurrent
 !
 
 initialize
+	super initialize.
 	self ensureCurrent
 ! !
 
