@@ -505,12 +505,12 @@ onJQuery: aJQuery
 		yourself
 ! !
 
-Object subclass: #HtmlSnippet
+Object subclass: #HTMLSnippet
 	instanceVariableNames: 'snippets'
 	package: 'Canvas'!
-!HtmlSnippet commentStamp!
-HtmlSnippet instance is the registry of html snippets.
-HtmlSnippet current is the public singleton instance.
+!HTMLSnippet commentStamp!
+HTMLSnippet instance is the registry of html snippets.
+HTMLSnippet current is the public singleton instance.
 
 At the beginning, it scans the document for any html elements
 with 'data-snippet="foo"' attribute and takes them off the document,
@@ -546,7 +546,7 @@ to render
 
 <div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>!
 
-!HtmlSnippet methodsFor: 'accessing'!
+!HTMLSnippet methodsFor: 'accessing'!
 
 addSnippet: anAssociation
 	self snippets add: anAssociation
@@ -568,7 +568,7 @@ snippetsFromJQuery: aJQuery
 	^ (aJQuery find: '[data-snippet]') toArray
 ! !
 
-!HtmlSnippet methodsFor: 'initialization'!
+!HTMLSnippet methodsFor: 'initialization'!
 
 initializeFromJQuery: aJQuery
 	"Finds and takes out all snippets out of aJQuery.
@@ -578,7 +578,7 @@ initializeFromJQuery: aJQuery
     	self installSnippetFromJQuery: each asJQuery ]
 ! !
 
-!HtmlSnippet methodsFor: 'method generation'!
+!HTMLSnippet methodsFor: 'method generation'!
 
 compileSnippet: anAssociation
 	"Method generation the the snippet.
@@ -591,7 +591,7 @@ compileSnippet: anAssociation
         category: '**snippets'
 ! !
 
-!HtmlSnippet methodsFor: 'snippet installation'!
+!HTMLSnippet methodsFor: 'snippet installation'!
 
 installSnippet: anAssociation
 	self 
@@ -612,9 +612,9 @@ installSnippetFromJQuery: element
         self installSnippet: name -> (element detach get: 0) ]
 ! !
 
-HtmlSnippet class instanceVariableNames: 'current'!
+HTMLSnippet class instanceVariableNames: 'current'!
 
-!HtmlSnippet class methodsFor: 'initialization'!
+!HTMLSnippet class methodsFor: 'initialization'!
 
 ensureCurrent
 	current ifNil: [ 
@@ -627,7 +627,7 @@ initialize
 	self ensureCurrent
 ! !
 
-!HtmlSnippet class methodsFor: 'instance creation'!
+!HTMLSnippet class methodsFor: 'instance creation'!
 
 current
 	^ current
@@ -1019,7 +1019,7 @@ appendToJQuery: aJQuery
 !CharacterArray methodsFor: '*Canvas'!
 
 asSnippet
-	^ HtmlSnippet current snippetAt: self asString
+	^ HTMLSnippet current snippetAt: self asString
 ! !
 
 !String methodsFor: '*Canvas'!

@@ -2162,8 +2162,8 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 
-smalltalk.addClass('HtmlSnippet', smalltalk.Object, ['snippets'], 'Canvas');
-smalltalk.HtmlSnippet.comment="HtmlSnippet instance is the registry of html snippets.\x0aHtmlSnippet current is the public singleton instance.\x0a\x0aAt the beginning, it scans the document for any html elements\x0awith 'data-snippet=\x22foo\x22' attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0ahtml menuelement href: '/foo'; with: 'A foo'\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a<li class='...'><a href='/foo'>A foo</a></li>\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>\x0a\x0aand in code later do:\x0a\x0ahtml bar with: [ xxx ]\x0a\x0ato render\x0a\x0a<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>\x0a"
+smalltalk.addClass('HTMLSnippet', smalltalk.Object, ['snippets'], 'Canvas');
+smalltalk.HTMLSnippet.comment="HTMLSnippet instance is the registry of html snippets.\x0aHTMLSnippet current is the public singleton instance.\x0a\x0aAt the beginning, it scans the document for any html elements\x0awith 'data-snippet=\x22foo\x22' attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0ahtml menuelement href: '/foo'; with: 'A foo'\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a<li class='...'><a href='/foo'>A foo</a></li>\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>\x0a\x0aand in code later do:\x0a\x0ahtml bar with: [ xxx ]\x0a\x0ato render\x0a\x0a<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>\x0a"
 smalltalk.addMethod(
 "_addSnippet_",
 smalltalk.method({
@@ -2178,7 +2178,7 @@ source: "addSnippet: anAssociation\x0a\x09self snippets add: anAssociation",
 messageSends: ["add:", "snippets"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_compileSnippet_",
@@ -2196,7 +2196,7 @@ source: "compileSnippet: anAssociation\x0a\x09\x22Method generation the the snip
 messageSends: ["installMethod:forClass:category:", "asCompiledMethod:", "key", "currySelf", "snippet:", "value", "new"],
 referencedClasses: ["HTMLCanvas", "ClassBuilder"]
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_initializeFromJQuery_",
@@ -2214,7 +2214,7 @@ source: "initializeFromJQuery: aJQuery\x0a\x09\x22Finds and takes out all snippe
 messageSends: ["do:", "installSnippetFromJQuery:", "asJQuery", "snippetsFromJQuery:"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_installSnippet_",
@@ -2233,7 +2233,7 @@ source: "installSnippet: anAssociation\x0a\x09self \x0a    \x09addSnippet: anAss
 messageSends: ["addSnippet:", "compileSnippet:"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_installSnippetFromJQuery_",
@@ -2263,7 +2263,7 @@ source: "installSnippetFromJQuery: element\x0a\x09| name |\x0a    name := elemen
 messageSends: ["attr:", "ifFalse:", "ifTrue:ifFalse:", "allButFirst", "attr:put:", "removeAttr:", "test:", "asRegexp", "installSnippet:", "->", "get:", "detach", "="],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_snippetAt_",
@@ -2281,7 +2281,7 @@ source: "snippetAt: aString\x0a\x09^ snippets at: aString",
 messageSends: ["at:"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_snippetAt_ifAbsent_",
@@ -2299,7 +2299,7 @@ source: "snippetAt: aString ifAbsent: aBlock\x0a\x09^ snippets at: aString ifAbs
 messageSends: ["at:ifAbsent:"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_snippets",
@@ -2323,7 +2323,7 @@ source: "snippets\x0a\x09^snippets ifNil: [ snippets := #{} ]\x0a",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
 "_snippetsFromJQuery_",
@@ -2341,10 +2341,10 @@ source: "snippetsFromJQuery: aJQuery\x0a\x09^ (aJQuery find: '[data-snippet]') t
 messageSends: ["toArray", "find:"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet);
+smalltalk.HTMLSnippet);
 
 
-smalltalk.HtmlSnippet.klass.iVarNames = ['current'];
+smalltalk.HTMLSnippet.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 "_current",
 smalltalk.method({
@@ -2361,7 +2361,7 @@ source: "current\x0a\x09^ current",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet.klass);
+smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
 "_ensureCurrent",
@@ -2387,7 +2387,7 @@ source: "ensureCurrent\x0a\x09current ifNil: [ \x0a    \x09current := super new\
 messageSends: ["ifNil:", "initializeFromJQuery:", "asJQuery", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet.klass);
+smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
 "_initialize",
@@ -2403,7 +2403,7 @@ source: "initialize\x0a\x09self ensureCurrent",
 messageSends: ["ensureCurrent"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet.klass);
+smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
 "_new",
@@ -2419,7 +2419,7 @@ source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
-smalltalk.HtmlSnippet.klass);
+smalltalk.HTMLSnippet.klass);
 
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
@@ -3729,13 +3729,13 @@ category: '*Canvas',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.HtmlSnippet || HtmlSnippet))._current())._snippetAt_(_st(self)._asString());
+$1=_st(_st((smalltalk.HTMLSnippet || HTMLSnippet))._current())._snippetAt_(_st(self)._asString());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSnippet",{}, smalltalk.CharacterArray)})},
 args: [],
-source: "asSnippet\x0a\x09^ HtmlSnippet current snippetAt: self asString",
+source: "asSnippet\x0a\x09^ HTMLSnippet current snippetAt: self asString",
 messageSends: ["snippetAt:", "asString", "current"],
-referencedClasses: ["HtmlSnippet"]
+referencedClasses: ["HTMLSnippet"]
 }),
 smalltalk.CharacterArray);
 
