@@ -2174,7 +2174,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippetsFromJQuery_(aJQuery))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._installSnippetFromJQuery_(_st(each)._asJQuery());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery}, smalltalk.HtmlSnippet)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery}, smalltalk.HTMLSnippet)})},
 args: ["aJQuery"],
 source: "initializeFromJQuery: aJQuery\x0a\x09\x22Finds and takes out all snippets out of aJQuery.\x0a    Installs it into self.\x22\x0a    \x0a\x09(self snippetsFromJQuery: aJQuery) do: [ :each |\x0a    \x09self installSnippetFromJQuery: each asJQuery ]",
 messageSends: ["do:", "installSnippetFromJQuery:", "asJQuery", "snippetsFromJQuery:"],
@@ -2317,7 +2317,7 @@ $1=self["@snippets"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippets",{}, smalltalk.HtmlSnippet)})},
+}, function($ctx1) {$ctx1.fill(self,"snippets",{}, smalltalk.HTMLSnippet)})},
 args: [],
 source: "snippets\x0a\x09^snippets ifNil: [ snippets := #{} ]\x0a",
 messageSends: ["ifNil:"],
@@ -2335,7 +2335,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(aJQuery)._find_("[data-snippet]"))._toArray();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetsFromJQuery:",{aJQuery:aJQuery}, smalltalk.HtmlSnippet)})},
+}, function($ctx1) {$ctx1.fill(self,"snippetsFromJQuery:",{aJQuery:aJQuery}, smalltalk.HTMLSnippet)})},
 args: ["aJQuery"],
 source: "snippetsFromJQuery: aJQuery\x0a\x09^ (aJQuery find: '[data-snippet]') toArray",
 messageSends: ["toArray", "find:"],
@@ -2355,7 +2355,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@current"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"current",{}, smalltalk.HtmlSnippet.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"current",{}, smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "current\x0a\x09^ current",
 messageSends: [],
@@ -2381,7 +2381,7 @@ self["@current"];
 } else {
 $1;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{}, smalltalk.HtmlSnippet.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{}, smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "ensureCurrent\x0a\x09current ifNil: [ \x0a    \x09current := super new\x0a\x09\x09\x09initializeFromJQuery: document asJQuery;\x0a\x09\x09\x09yourself ]",
 messageSends: ["ifNil:", "initializeFromJQuery:", "asJQuery", "new", "yourself"],
@@ -2414,7 +2414,7 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"new",{}, smalltalk.HtmlSnippet.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"new",{}, smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
