@@ -2249,54 +2249,18 @@ referencedClasses: ["HTMLCanvas", "ClassBuilder"]
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_ifAbsent_",
-smalltalk.method({
-selector: "snippetAt:ifAbsent:",
-category: 'accessing',
-fn: function (aString,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._snippets())._at_ifAbsent_(aString,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:ifAbsent:",{aString:aString,aBlock:aBlock}, smalltalk.HTMLSnippet)})},
-args: ["aString", "aBlock"],
-source: "snippetAt: aString ifAbsent: aBlock\x0a\x09^ self snippets at: aString ifAbsent: aBlock",
-messageSends: ["at:ifAbsent:", "snippets"],
-referencedClasses: []
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
 "_snippetAt_install_",
 smalltalk.method({
 selector: "snippetAt:install:",
 category: 'snippet installation',
 fn: function (aString,anElement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self;
-_st($1)._snippetAt_put_(aString,anElement);
-$2=_st($1)._snippetAt_compile_(aString,anElement);
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippets())._at_put_(aString,anElement);
+_st(self)._snippetAt_compile_(aString,anElement);
 return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})},
 args: ["aString", "anElement"],
-source: "snippetAt: aString install: anElement\x0a\x09self \x0a    \x09snippetAt: aString put: anElement;\x0a        snippetAt: aString compile: anElement",
-messageSends: ["snippetAt:put:", "snippetAt:compile:"],
-referencedClasses: []
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
-"_snippetAt_put_",
-smalltalk.method({
-selector: "snippetAt:put:",
-category: 'accessing',
-fn: function (aString,anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippets())._at_put_(aString,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:put:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})},
-args: ["aString", "anElement"],
-source: "snippetAt: aString put: anElement\x0a\x09self snippets at: aString put: anElement",
-messageSends: ["at:put:", "snippets"],
+source: "snippetAt: aString install: anElement\x0a\x09self snippets at: aString put: anElement.\x0a    self snippetAt: aString compile: anElement",
+messageSends: ["at:put:", "snippets", "snippetAt:compile:"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet);

@@ -552,14 +552,6 @@ snippetAt: aString
 	^ self snippets at: aString
 !
 
-snippetAt: aString ifAbsent: aBlock
-	^ self snippets at: aString ifAbsent: aBlock
-!
-
-snippetAt: aString put: anElement
-	self snippets at: aString put: anElement
-!
-
 snippets
 	^snippets ifNil: [ snippets := #{} ]
 ! !
@@ -609,9 +601,8 @@ installSnippetFromJQuery: element
 !
 
 snippetAt: aString install: anElement
-	self 
-    	snippetAt: aString put: anElement;
-        snippetAt: aString compile: anElement
+	self snippets at: aString put: anElement.
+    self snippetAt: aString compile: anElement
 ! !
 
 HTMLSnippet class instanceVariableNames: 'current'!
