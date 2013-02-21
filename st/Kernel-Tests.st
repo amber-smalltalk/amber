@@ -1480,6 +1480,10 @@ testAt
 	self should: [Set new at: 1 put: 2] raise: Error
 !
 
+testCollect
+	self assert: #(0 2) equals: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) asArray sorted
+!
+
 testPrintString
 	| set |
 	set := Set new.

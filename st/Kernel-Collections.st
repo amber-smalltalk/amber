@@ -1457,6 +1457,10 @@ asArray
 
 !Set methodsFor: 'enumerating'!
 
+collect: aBlock
+	^self class withAll: (elements collect: aBlock)
+!
+
 detect: aBlock ifNone: anotherBlock
 	^elements detect: aBlock ifNone: anotherBlock
 !
