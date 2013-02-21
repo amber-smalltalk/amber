@@ -1446,7 +1446,7 @@ remove: anObject
 
 = aCollection
 	^self class = aCollection class and: [
-		elements = aCollection asArray]
+		self asArray = aCollection asArray]
 ! !
 
 !Set methodsFor: 'converting'!

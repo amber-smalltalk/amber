@@ -1484,6 +1484,12 @@ testCollect
 	self assert: #(0 2) equals: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) asArray sorted
 !
 
+testComparing
+	self assert: #(0 2) asSet equals: #(0 2) asSet.
+    self deny: #(0 2 3) asSet = #(0 2) asSet.
+    self deny: #(1 2) asSet = #(0 2) asSet
+!
+
 testPrintString
 	| set |
 	set := Set new.
