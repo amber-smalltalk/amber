@@ -3713,6 +3713,24 @@ referencedClasses: ["Set", "Error"]
 smalltalk.SetTest);
 
 smalltalk.addMethod(
+"_testCollect",
+smalltalk.method({
+selector: "testCollect",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_([(0), (2)],_st(_st(_st(_st([(5), (6), (8)])._asSet())._collect_((function(x){
+return smalltalk.withContext(function($ctx2) {return _st(x).__backslash_backslash((3));
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})))._asArray())._sorted());
+return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{}, smalltalk.SetTest)})},
+args: [],
+source: "testCollect\x0a\x09self assert: #(0 2) equals: (#(5 6 8) asSet collect: [ :x | x \x5c\x5c 3 ]) asArray sorted",
+messageSends: ["assert:equals:", "sorted", "asArray", "collect:", "\x5c\x5c", "asSet"],
+referencedClasses: []
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
 "_testPrintString",
 smalltalk.method({
 selector: "testPrintString",

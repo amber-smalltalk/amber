@@ -3367,6 +3367,19 @@ return $1;
 smalltalk.Set);
 
 smalltalk.addMethod(
+"_collect_",
+smalltalk.method({
+selector: "collect:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._withAll_(_st(self["@elements"])._collect_(aBlock));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock}, smalltalk.Set)})}
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
 "_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
