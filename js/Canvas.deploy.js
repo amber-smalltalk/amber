@@ -1633,40 +1633,14 @@ return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aSt
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_ifAbsent_",
-smalltalk.method({
-selector: "snippetAt:ifAbsent:",
-fn: function (aString,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._snippets())._at_ifAbsent_(aString,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"snippetAt:ifAbsent:",{aString:aString,aBlock:aBlock}, smalltalk.HTMLSnippet)})}
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
 "_snippetAt_install_",
 smalltalk.method({
 selector: "snippetAt:install:",
 fn: function (aString,anElement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self;
-_st($1)._snippetAt_put_(aString,anElement);
-$2=_st($1)._snippetAt_compile_(aString,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})}
-}),
-smalltalk.HTMLSnippet);
-
-smalltalk.addMethod(
-"_snippetAt_put_",
-smalltalk.method({
-selector: "snippetAt:put:",
-fn: function (aString,anElement){
-var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._snippets())._at_put_(aString,anElement);
-return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:put:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})}
+_st(self)._snippetAt_compile_(aString,anElement);
+return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:install:",{aString:aString,anElement:anElement}, smalltalk.HTMLSnippet)})}
 }),
 smalltalk.HTMLSnippet);
 
