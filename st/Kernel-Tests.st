@@ -1481,7 +1481,7 @@ testAt
 !
 
 testCollect
-	self assert: #(0 2) equals: (#(5 6 8) asSet collect: [ :x | x \\ 3 ]) asArray sorted
+	self assert: #(0 2) asSet equals: (#(5 6 8) asSet collect: [ :x | x \\ 3 ])
 !
 
 testComparing

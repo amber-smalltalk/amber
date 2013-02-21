@@ -2885,12 +2885,12 @@ smalltalk.addMethod(
 "_testCollect",
 smalltalk.method({
 selector: "testCollect",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_([(0), (2)],_st(_st(_st(_st([(5), (6), (8)])._asSet())._collect_((function(x){
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st([(0), (2)])._asSet(),_st(_st([(5), (6), (8)])._asSet())._collect_((function(x){
 return smalltalk.withContext(function($ctx2) {return _st(x).__backslash_backslash((3));
-}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})))._asArray())._sorted());
-return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{}, smalltalk.SetTest)});}
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{}, smalltalk.SetTest)})}
 }),
 smalltalk.SetTest);
 

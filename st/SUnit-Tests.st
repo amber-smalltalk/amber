@@ -100,8 +100,8 @@ fakeTimeout
 
 !SUnitAsyncTest methodsFor: 'private'!
 
-sortedSelectors: aCollection
-	^(aCollection collect: [:each | each selector]) sorted
+selectorSetOf: aCollection
+	^(aCollection collect: [:each | each selector]) asSet
 ! !
 
 !SUnitAsyncTest methodsFor: 'running'!
@@ -123,8 +123,8 @@ testAsyncErrorsAndFailures
     self timeout: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: #('fakeError') equals: (self sortedSelectors: result errors).
-		self assert: #('fakeErrorFailingInTearDown' 'fakeFailure') equals: (self sortedSelectors: result failures).
+		self assert: #('fakeError') asSet equals: (self selectorSetOf: result errors).
+		self assert: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet equals: (self selectorSetOf: result failures).
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |
@@ -166,8 +166,8 @@ testTimeouts
     self timeout: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: result errors isEmpty.
-		self assert: #('fakeMultipleTimeoutFailing' 'fakeTimeout') equals: (self sortedSelectors: result failures).
+		self assert: Set new equals: (self selectorSetOf: result errors).
+		self assert: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet equals: (self selectorSetOf: result failures).
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |
