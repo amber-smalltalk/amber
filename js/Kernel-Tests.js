@@ -3738,11 +3738,12 @@ category: 'tests',
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st([(0), (2)])._asSet(),_st([(0), (2)])._asSet());
+_st(self)._assert_equals_(_st([(2), (0)])._asSet(),_st([(0), (2)])._asSet());
 _st(self)._deny_(_st(_st([(0), (2), (3)])._asSet()).__eq(_st([(0), (2)])._asSet()));
 _st(self)._deny_(_st(_st([(1), (2)])._asSet()).__eq(_st([(0), (2)])._asSet()));
 return self}, function($ctx1) {$ctx1.fill(self,"testComparing",{}, smalltalk.SetTest)});},
 args: [],
-source: "testComparing\x0a\x09self assert: #(0 2) asSet equals: #(0 2) asSet.\x0a    self deny: #(0 2 3) asSet = #(0 2) asSet.\x0a    self deny: #(1 2) asSet = #(0 2) asSet",
+source: "testComparing\x0a\x09self assert: #(0 2) asSet equals: #(0 2) asSet.\x0a    self assert: #(2 0) asSet equals: #(0 2) asSet.\x0a    self deny: #(0 2 3) asSet = #(0 2) asSet.\x0a    self deny: #(1 2) asSet = #(0 2) asSet",
 messageSends: ["assert:equals:", "asSet", "deny:", "="],
 referencedClasses: []
 }),

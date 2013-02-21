@@ -3324,11 +3324,26 @@ smalltalk.method({
 selector: "=",
 fn: function (aCollection) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._class()).__eq(_st(aCollection)._class()))._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._asArray()).__eq(_st(aCollection)._asArray());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+var $early={};
+try {
+$1=_st(_st(self)._class()).__eq(_st(aCollection)._class());
+if(! smalltalk.assert($1)){
+return false;
+};
+$2=_st(_st(self)._size()).__eq(_st(aCollection)._size());
+if(! smalltalk.assert($2)){
+return false;
+};
+_st(self)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$3=_st(aCollection)._includes_(each);
+if(! smalltalk.assert($3)){
+throw $early=[false];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection}, smalltalk.Set)});}
 }),
 smalltalk.Set);

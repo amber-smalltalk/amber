@@ -1486,6 +1486,7 @@ testCollect
 
 testComparing
 	self assert: #(0 2) asSet equals: #(0 2) asSet.
+    self assert: #(2 0) asSet equals: #(0 2) asSet.
     self deny: #(0 2 3) asSet = #(0 2) asSet.
     self deny: #(1 2) asSet = #(0 2) asSet
 !

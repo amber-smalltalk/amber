@@ -1445,8 +1445,10 @@ remove: anObject
 !Set methodsFor: 'comparing'!
 
 = aCollection
-	^self class = aCollection class and: [
-		self asArray = aCollection asArray]
+	self class = aCollection class ifFalse: [ ^ false ].
+    self size = aCollection size ifFalse: [ ^ false ].
+	self do: [:each | (aCollection includes: each) ifFalse: [ ^ false ] ].
+	^ true
 ! !
 
 !Set methodsFor: 'converting'!

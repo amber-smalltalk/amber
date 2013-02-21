@@ -2901,6 +2901,7 @@ selector: "testComparing",
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st([(0), (2)])._asSet(),_st([(0), (2)])._asSet());
+_st(self)._assert_equals_(_st([(2), (0)])._asSet(),_st([(0), (2)])._asSet());
 _st(self)._deny_(_st(_st([(0), (2), (3)])._asSet()).__eq(_st([(0), (2)])._asSet()));
 _st(self)._deny_(_st(_st([(1), (2)])._asSet()).__eq(_st([(0), (2)])._asSet()));
 return self}, function($ctx1) {$ctx1.fill(self,"testComparing",{}, smalltalk.SetTest)});}
