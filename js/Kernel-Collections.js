@@ -4543,6 +4543,24 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
+"_collect_",
+smalltalk.method({
+selector: "collect:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._withAll_(_st(self["@elements"])._collect_(aBlock));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock}, smalltalk.Set)})},
+args: ["aBlock"],
+source: "collect: aBlock\x0a\x09^self class withAll: (elements collect: aBlock)",
+messageSends: ["withAll:", "collect:", "class"],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
 "_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
