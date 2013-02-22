@@ -593,15 +593,15 @@ return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpres
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(_st(_st(compiler)._eval_(_st(compiler)._compile_forClass_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"),(smalltalk.DoIt || DoIt))))._fn())._applyTo_arguments_(_st(self)._receiver(),[]);
+$2=_st(compiler)._evaluateExpression_(aString);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,compiler:compiler}, smalltalk.SourceArea)})},
 args: ["aString"],
-source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: aString] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^(compiler eval: (compiler compile: 'doIt ^[', aString, '] value' forClass: DoIt)) fn applyTo: self receiver arguments: #()",
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "applyTo:arguments:", "receiver", "fn", "eval:", "compile:forClass:", ","],
-referencedClasses: ["Compiler", "Error", "DoIt"]
+source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: aString] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^compiler evaluateExpression: aString",
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:"],
+referencedClasses: ["Compiler", "Error"]
 }),
 smalltalk.SourceArea);
 
