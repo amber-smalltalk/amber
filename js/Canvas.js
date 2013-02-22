@@ -523,6 +523,29 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
+"_entity_",
+smalltalk.method({
+selector: "entity:",
+category: 'adding',
+fn: function (aString){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { var $1;
+result=_st(_st(_st("<span />")._asJQuery())._html_(_st(_st("&").__comma(aString)).__comma(";")))._text();
+$1=_st(_st(result)._size()).__eq((1));
+if(! smalltalk.assert($1)){
+_st(self)._error_(_st("Not an HTML entity: ").__comma(aString));
+};
+_st(self)._with_(result);
+return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result}, smalltalk.HTMLCanvas)})},
+args: ["aString"],
+source: "entity: aString\x0a\x09\x22Adds a character representing html entity, eg.\x0a    html entity: 'copy'\x0a    adds a copyright sign.\x0a    If a name does not represent valid HTML entity, error is raised.\x22\x0a\x09| result |\x0a    result := ('<span />' asJQuery html: '&', aString, ';') text.\x0a    result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].\x0a    self with: result",
+messageSends: ["text", "html:", ",", "asJQuery", "ifFalse:", "error:", "=", "size", "with:"],
+referencedClasses: []
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
 "_fieldset",
 smalltalk.method({
 selector: "fieldset",

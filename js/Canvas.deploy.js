@@ -378,6 +378,24 @@ return $1;
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
+"_entity_",
+smalltalk.method({
+selector: "entity:",
+fn: function (aString){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { var $1;
+result=_st(_st(_st("<span />")._asJQuery())._html_(_st(_st("&").__comma(aString)).__comma(";")))._text();
+$1=_st(_st(result)._size()).__eq((1));
+if(! smalltalk.assert($1)){
+_st(self)._error_(_st("Not an HTML entity: ").__comma(aString));
+};
+_st(self)._with_(result);
+return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result}, smalltalk.HTMLCanvas)})}
+}),
+smalltalk.HTMLCanvas);
+
+smalltalk.addMethod(
 "_fieldset",
 smalltalk.method({
 selector: "fieldset",
