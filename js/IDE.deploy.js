@@ -457,7 +457,7 @@ return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpres
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(_st(_st(compiler)._eval_(_st(compiler)._compile_forClass_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"),(smalltalk.DoIt || DoIt))))._fn())._applyTo_arguments_(_st(self)._receiver(),[]);
+$2=_st(compiler)._evaluateExpression_(aString);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
