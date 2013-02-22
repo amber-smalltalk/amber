@@ -682,6 +682,15 @@ jsObject
 
 jsObject: aJSObject
 	jsObject := aJSObject
+!
+
+value
+	"if attribute 'value' exists on the JS object return it,
+    otherwise return the result of Object>>value."
+	| attribute |
+	attribute := self at: 'value'.
+	attribute ifNil: [attribute := super value].
+    ^attribute
 ! !
 
 !JSObjectProxy methodsFor: 'enumerating'!

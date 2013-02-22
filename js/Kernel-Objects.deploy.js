@@ -1597,6 +1597,28 @@ return $1;
 }),
 smalltalk.JSObjectProxy);
 
+smalltalk.addMethod(
+"_value",
+smalltalk.method({
+selector: "value",
+fn: function (){
+var self=this;
+var attribute;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+attribute=_st(self)._at_("value");
+$1=attribute;
+if(($receiver = $1) == nil || $receiver == undefined){
+attribute=smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+attribute;
+} else {
+$1;
+};
+$2=attribute;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"value",{attribute:attribute}, smalltalk.JSObjectProxy)})}
+}),
+smalltalk.JSObjectProxy);
+
 
 smalltalk.addMethod(
 "_on_",
