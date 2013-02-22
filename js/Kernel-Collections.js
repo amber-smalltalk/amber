@@ -4115,15 +4115,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st("smalltalk.symbolFor(\x22").__comma(_st(self)._asString())).__comma("\x22)");
+$1=_st(_st("smalltalk.symbolFor(").__comma(_st(_st(self)._asString())._asJavascript())).__comma(")");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJavascript",{}, smalltalk.Symbol)});},
+}, function($ctx1) {$ctx1.fill(self,"asJavascript",{}, smalltalk.Symbol)})},
 args: [],
-source: "asJavascript\x0a\x09^'smalltalk.symbolFor(\x22', self asString, '\x22)'",
-messageSends: [",", "asString"],
+source: "asJavascript\x0a\x09^'smalltalk.symbolFor(', self asString asJavascript, ')'",
+messageSends: [",", "asJavascript", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);

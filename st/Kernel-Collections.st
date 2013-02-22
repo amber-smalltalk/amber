@@ -1328,7 +1328,7 @@ asJSON
 !
 
 asJavascript
-	^'smalltalk.symbolFor("', self asString, '")'
+	^'smalltalk.symbolFor(', self asString asJavascript, ')'
 !
 
 asSelector
