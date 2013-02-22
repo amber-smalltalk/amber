@@ -31,6 +31,17 @@ snippet: anElement
 
 !HTMLCanvas methodsFor: 'adding'!
 
+entity: aString
+	"Adds a character representing html entity, eg.
+    html entity: 'copy'
+    adds a copyright sign.
+    If a name does not represent valid HTML entity, error is raised."
+	| result |
+    result := ('<span />' asJQuery html: '&', aString, ';') text.
+    result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].
+    self with: result
+!
+
 with: anObject
     ^self root with: anObject
 ! !
