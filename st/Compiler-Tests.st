@@ -69,70 +69,70 @@ interpreter
 !ASTInterpreterTest methodsFor: 'tests'!
 
 testBinarySend
-	self assert: (self interpret: 'foo 2+3+4') equals: 9
+	self assert: 9 equals: (self interpret: 'foo 2+3+4')
 !
 
 testBlockLiteral
-	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
-    self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
-    self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
+	self assert: 1 equals: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]').
+    self assert: 1 equals: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]').
+    self assert: 2 equals: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]')
 !
 
 testCascade
-	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
+	self assert: (OrderedCollection with: 2 with: 3) equals: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself')
 !
 
 testDynamicArray
-	self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)
+	self assert: #(2 4) equals: (self interpret: 'foo ^ {1+1. 2+2}')
 !
 
 testDynamicDictionary
-	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
+	self assert: #{1->1. 2->3} equals: (self interpret: 'foo ^ #{1->1. 2->3}')
 !
 
 testInlinedJSStatement
-	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
+	self assert: 5 equals: (self interpret: 'foo <return 2+3>').
     
     self 
-    	assert: (self 
+    	assert: 5
+        equals: (self 
     		interpret: 'foo: anInteger <return 2 + anInteger>' 
-        	withArguments: #{ 'anInteger' -> 3}) 
-		equals: 5
+        	withArguments: #{ 'anInteger' -> 3})
 !
 
 testInstVarAccess
 	self 
-    	assert: (self 
+    	assert: 2
+        equals: (self 
     		interpret: 'foo ^ x'
         	receiver: 2@3
         	withArguments: #{})
-        equals: 2
 !
 
 testInstVarAssignment
 	self 
-    	assert: (self 
+    	assert: 2
+        equals: (self 
     		interpret: 'foo: anInteger x := anInteger. ^ x'
         	receiver: Point new
         	withArguments: #{'anInteger' -> 2})
-        equals: 2
 !
 
 testNonlocalReturn
-	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
+	self assert: 1 equals: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2')
 !
 
 testReceiver
 	self 
-    	assert: (self 
+    	assert: 2@3
+        equals: (self 
     		interpret: 'foo ^ self'
         	receiver: 2@3
         	withArguments: #{})
-        equals: 2@3
 !
 
 testTempAssignment
-	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+	self assert: 2 equals: (self interpret: 'foo | a | a := 2. ^ a')
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest
@@ -175,15 +175,15 @@ testMessageSend
     
      "ValueNode"
     self interpreter step.
-    self assert: self interpreter currentNode value equals: 1.
+    self assert: 1 equals: self interpreter currentNode value.
     
     "ValueNode"
     self interpreter step.
-    self assert: self interpreter currentNode value equals: 2.
+    self assert: 2 equals: self interpreter currentNode value.
     
     "Result"
     self interpreter step.
-    self assert: self interpreter result equals: 3
+    self assert: 3 equals: self interpreter result
 !
 
 testSimpleStepping
@@ -197,7 +197,7 @@ testSimpleStepping
     "ValueNode"
     self interpreter step.
     
-    self assert: self interpreter result equals: 1
+    self assert: 1 equals: self interpreter result
 ! !
 
 TestCase subclass: #CodeGeneratorTest
@@ -547,8 +547,8 @@ testScopeLevel
 	ast := smalltalk parse: src.
 	analyzer visit: ast.
 
-	self assert: ast scope scopeLevel = 1.
-	self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel = 3
+	self assert: 1 equals: ast scope scopeLevel.
+	self assert: 3 equals: ast nodes first nodes last nodes first nodes first scope scopeLevel
 !
 
 testUnknownVariables
