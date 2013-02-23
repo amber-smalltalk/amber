@@ -1468,6 +1468,21 @@ return self}, function($ctx1) {$ctx1.fill(self,"at:",{aSymbol:aSymbol}, smalltal
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_at_ifAbsent_",
+smalltalk.method({
+selector: "at:ifAbsent:",
+fn: function (aSymbol,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock}, smalltalk.JSObjectProxy)})}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",
@@ -1594,6 +1609,21 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._jsObject())._toString();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{}, smalltalk.JSObjectProxy)})}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_value",
+smalltalk.method({
+selector: "value",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifAbsent_("value",(function(){
+return smalltalk.withContext(function($ctx2) {return smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{}, smalltalk.JSObjectProxy)})}
 }),
 smalltalk.JSObjectProxy);
 

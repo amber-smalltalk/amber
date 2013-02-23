@@ -2057,6 +2057,26 @@ referencedClasses: []
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_at_ifAbsent_",
+smalltalk.method({
+selector: "at:ifAbsent:",
+category: 'accessing',
+fn: function (aSymbol,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock}, smalltalk.JSObjectProxy)})},
+args: ["aSymbol", "aBlock"],
+source: "at: aSymbol ifAbsent: aBlock\x0a\x09\x22return the aSymbol property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a    \x09var obj = self['@jsObject'],\x0a        \x09symbol = aSymbol._asString();\x0a\x09\x09return symbol in obj ? obj[symbol] : aBlock();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",
@@ -2227,6 +2247,26 @@ return $1;
 args: [],
 source: "printString\x0a\x09^self jsObject toString",
 messageSends: ["toString", "jsObject"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_value",
+smalltalk.method({
+selector: "value",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifAbsent_("value",(function(){
+return smalltalk.withContext(function($ctx2) {return smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{}, smalltalk.JSObjectProxy)})},
+args: [],
+source: "value\x0a\x09\x22if attribute 'value' exists on the JS object return it,\x0a    otherwise return the result of Object>>value.\x22\x0a\x09^ self at: 'value' ifAbsent: [super value]",
+messageSends: ["at:ifAbsent:", "value"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);

@@ -672,6 +672,15 @@ at: aSymbol
 	<return self['@jsObject'][aSymbol._asString()]>
 !
 
+at: aSymbol ifAbsent: aBlock
+	"return the aSymbol property or evaluate aBlock if the property is not defined on the object"
+	<
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
+	>
+!
+
 at: aSymbol put: anObject
 	<self['@jsObject'][aSymbol._asString()] = anObject>
 !
@@ -682,6 +691,12 @@ jsObject
 
 jsObject: aJSObject
 	jsObject := aJSObject
+!
+
+value
+	"if attribute 'value' exists on the JS object return it,
+    otherwise return the result of Object>>value."
+	^ self at: 'value' ifAbsent: [super value]
 ! !
 
 !JSObjectProxy methodsFor: 'enumerating'!
