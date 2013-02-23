@@ -50,8 +50,8 @@ testExceptionSemantics
 !
 
 testNumArgs
-	self assert: [] numArgs equals: 0.
-	self assert: [:a :b | ] numArgs equals: 2
+	self assert: 0 equals: [] numArgs.
+	self assert: 2 equals: [:a :b | ] numArgs
 !
 
 testOnDo
@@ -59,41 +59,41 @@ testOnDo
 !
 
 testValue
-	self assert: ([1+1] value) equals: 2.
-	self assert: ([:x | x +1] value: 2) equals: 3.
-	self assert: ([:x :y | x*y] value: 2 value: 4) equals: 8. 
+	self assert: 2 equals: ([1+1] value).
+	self assert: 3 equals: ([:x | x +1] value: 2).
+	self assert: 8 equals: ([:x :y | x*y] value: 2 value: 4).
 
 	"Arguments are optional in Amber. This isn't ANSI compliant."
 
-	self assert: ([:a :b :c | 1] value) equals: 1
+	self assert: 1 equals: ([:a :b :c | 1] value)
 !
 
 testValueWithPossibleArguments
-	self assert: ([1] valueWithPossibleArguments: #(3 4)) equals: 1.
-	self assert: ([:a | a + 4] valueWithPossibleArguments: #(3 4)) equals: 7.
-	self assert: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5)) equals: 7.
+	self assert: 1 equals: ([1] valueWithPossibleArguments: #(3 4)).
+	self assert: 7 equals: ([:a | a + 4] valueWithPossibleArguments: #(3 4)).
+	self assert: 7 equals: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5))
 !
 
 testWhileFalse
 	| i |
 	i := 0.
 	[i > 5] whileFalse: [i := i + 1].
-	self assert: i equals: 6.
+	self assert: 6 equals: i.
 
 	i := 0.
 	[i := i + 1. i > 5] whileFalse.
-	self assert: i equals: 6
+	self assert: 6 equals: i
 !
 
 testWhileTrue
 	| i |
 	i := 0.
 	[i < 5] whileTrue: [i := i + 1].
-	self assert: i equals: 5.
+	self assert: 5 equals: i.
 
 	i := 0.
 	[i := i + 1. i < 5] whileTrue.
-	self assert: i equals: 5
+	self assert: 5 equals: i
 ! !
 
 TestCase subclass: #BooleanTest
@@ -140,46 +140,54 @@ testIdentity
 
 testIfTrueIfFalse
  
-	self assert: (true ifTrue: ['alternative block']) = 'alternative block'.
-	self assert: (true ifFalse: ['alternative block']) = nil.
+	self assert: 'alternative block' equals: (true ifTrue: ['alternative block']).
+	self assert: nil equals: (true ifFalse: ['alternative block']).
 
-	self assert: (false ifTrue: ['alternative block']) = nil.
-	self assert: (false ifFalse: ['alternative block']) = 'alternative block'.
+	self assert: nil equals: (false ifTrue: ['alternative block']).
+	self assert: 'alternative block' equals: (false ifFalse: ['alternative block']).
 
-	self assert: (false ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
-	self assert: (false ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
+	self assert: 'alternative block2' equals: (false ifTrue: ['alternative block'] ifFalse: ['alternative block2']).
+	self assert: 'alternative block' equals: (false ifFalse: ['alternative block'] ifTrue: ['alternative block2']).
 
-	self assert: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
-	self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+	self assert: 'alternative block' equals: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']).
+	self assert: 'alternative block2' equals: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2'])
 !
 
 testIfTrueIfFalseWithBoxing
  
-	self assert: (true yourself ifTrue: ['alternative block']) = 'alternative block'.
-	self assert: (true yourself ifFalse: ['alternative block']) = nil.
+	self assert: 'alternative block' equals: (true yourself ifTrue: ['alternative block']).
+	self assert: nil equals: (true yourself ifFalse: ['alternative block']).
 
-	self assert: (false yourself ifTrue: ['alternative block']) = nil.
-	self assert: (false yourself ifFalse: ['alternative block']) = 'alternative block'.
+	self assert: nil equals: (false yourself ifTrue: ['alternative block']).
+	self assert: 'alternative block' equals: (false yourself ifFalse: ['alternative block']).
 
-	self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
-	self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
+	self assert: 'alternative block2' equals: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']).
+	self assert: 'alternative block' equals: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']).
 
-	self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
-	self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+	self assert: 'alternative block' equals: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']).
+	self assert: 'alternative block2' equals: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2'])
 !
 
 testLogic
- 
 	"Trivial logic table"
-	self assert: (true & true); deny: (true & false); deny: (false & true); deny: (false & false).
-	self assert: (true | true); assert: (true | false); assert: (false | true); deny: (false | false).
+	self assert: (true & true);
+    	deny: (true & false);
+        deny: (false & true);
+        deny: (false & false).
+	self assert: (true | true);
+    	assert: (true | false);
+        assert: (false | true);
+        deny: (false | false).
         "Checking that expressions work fine too"
-	self assert: (true & (1 > 0)); deny: ((1 > 0) & false); deny: ((1 > 0) & (1 > 2)).
-        self assert: (false | (1 > 0)); assert: ((1 > 0) | false); assert: ((1 > 0) | (1 > 2))
+	self assert: (true & (1 > 0));
+    	deny: ((1 > 0) & false);
+        deny: ((1 > 0) & (1 > 2)).
+    self assert: (false | (1 > 0));
+    	assert: ((1 > 0) | false);
+        assert: ((1 > 0) | (1 > 2))
 !
 
 testLogicKeywords
- 
 	"Trivial logic table"
 	self 
 		assert: (true and: [ true]); 
@@ -219,15 +227,17 @@ setUp
 
 tearDown
 	theClass ifNotNil: [Smalltalk current removeClass: theClass. theClass := nil]
-!
+! !
+
+!ClassBuilderTest methodsFor: 'tests'!
 
 testClassCopy
 	theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
 	self assert: theClass superclass == ObjectMock superclass.
 	self assert: theClass instanceVariableNames == ObjectMock instanceVariableNames.
-	self assert: theClass name equals: 'ObjectMock2'.
+	self assert: 'ObjectMock2' equals: theClass name.
 	self assert: theClass package == ObjectMock package.
-	self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys
+	self assert: ObjectMock methodDictionary keys equals: theClass methodDictionary keys
 !
 
 testClassMigration
@@ -245,12 +255,12 @@ testClassMigration
     
 	self assert: ObjectMock2 superclass == ObjectMock.
 	self assert: ObjectMock2 instanceVariableNames isEmpty.
-	self assert: ObjectMock2 selectors equals: oldClass selectors.
-    self assert: ObjectMock2 comment equals: oldClass comment.
-    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.
+	self assert: oldClass selectors equals: ObjectMock2 selectors.
+    self assert: oldClass comment equals: ObjectMock2 comment.
+    self assert: 'Kernel-Tests' equals: ObjectMock2 package name.
     
 	self deny: instance class == ObjectMock2.
-    self assert: instance class name equals: 'OldObjectMock2'.
+    self assert: 'OldObjectMock2' equals: instance class name.
     
     self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
     
@@ -267,7 +277,7 @@ testClassMigrationWithClassInstanceVariables
     	instanceVariableNames: ''
         package: 'Kernel-Tests'.
     
-    self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').
+    self assert: #('foo' 'bar') equals: ObjectMock2 class instanceVariableNames.
     
     Smalltalk current removeClass: ObjectMock2
 !
@@ -291,7 +301,7 @@ testClassMigrationWithSubclasses
 !
 
 testInstanceVariableNames
-	self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')
+	self assert: #('hello' 'world') equals: (builder instanceVariableNamesFor: '  hello   world   ')
 ! !
 
 TestCase subclass: #CollectionTest
@@ -363,7 +373,7 @@ testCollect
 !
 
 testDetect
-	self assert: (self collection detect: [ :each | each < 0 ]) = -4.
+	self assert: -4 equals: (self collection detect: [ :each | each < 0 ]).
 	self 
 		should: [ self collection detect: [ :each | each = 6 ] ]
 		raise: Error
@@ -394,8 +404,8 @@ testSelect
 !
 
 testSize
-	self assert: self collectionClass new size = 0.
-	self assert: self collection size = 4
+	self assert: 0 equals: self collectionClass new size.
+	self assert: 4 equals: self collection size
 ! !
 
 !CollectionTest class methodsFor: 'accessing'!
@@ -465,15 +475,15 @@ testAccessing
 	d := Dictionary new.
 
 	d at: 'hello' put: 'world'.
-	self assert: (d at: 'hello') = 'world'.
-	self assert: (d at: 'hello' ifAbsent: [nil]) = 'world'.
-	self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.
+	self assert: 'world' equals: (d at: 'hello').
+	self assert: 'world' equals: (d at: 'hello' ifAbsent: [nil]).
+	self deny: 'world' == (d at: 'foo' ifAbsent: [nil]).
 
 	d at: 1 put: 2.
-	self assert: (d at: 1) = 2.
+	self assert: 2 equals: (d at: 1).
 
 	d at: 1@3 put: 3.
-	self assert: (d at: 1@3) = 3
+	self assert: 3 equals: (d at: 1@3)
 !
 
 testDynamicDictionaries
@@ -584,26 +594,26 @@ testRemoveKeyIfAbsent
     d at: 3 put: 4.
 
     key := 2.
-    self assert: (d removeKey: key) = 3.
+    self assert: 3 equals: (d removeKey: key).
 
     key := 3.
-    self assert: (d removeKey: key ifAbsent: [42]) = 4.
+    self assert: 4 equals: (d removeKey: key ifAbsent: [42]).
 
     key := 'why'.
-    self assert: (d removeKey: key ifAbsent: [42] ) = 42.
+    self assert: 42 equals: (d removeKey: key ifAbsent: [42] ).
 !
 
 testSize
 	| d |
 
 	d := Dictionary new.
-	self assert: d size = 0.
+	self assert: 0 equals: d size.
 
 	d at: 1 put: 2.
-	self assert: d size = 1.
+	self assert: 1 equals: d size.
 
 	d at: 2 put: 3.
-	self assert: d size = 2.
+	self assert: 2 equals: d size.
 !
 
 testValues
@@ -614,7 +624,7 @@ testValues
 	d at: 2 put: 3.
 	d at: 3 put: 4.
 
-	self assert: d values = #(2 3 4)
+	self assert: #(2 3 4) equals: d values
 ! !
 
 !DictionaryTest class methodsFor: 'accessing'!
@@ -630,29 +640,29 @@ CollectionTest subclass: #SequenceableCollectionTest
 !SequenceableCollectionTest methodsFor: 'tests'!
 
 testAt
-	self assert: (self collection at: 4) = -4.
+	self assert: -4 equals: (self collection at: 4).
 	self should: [ self collection at: 5 ] raise: Error
 !
 
 testAtIfAbsent
-	self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) = 'none'
+	self assert: 'none' equals: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ])
 ! !
 
 SequenceableCollectionTest subclass: #ArrayTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!ArrayTest methodsFor: 'testing'!
+!ArrayTest methodsFor: 'tests'!
 
 testAtIfAbsent
 	| array |
 	array := #('hello' 'world').
-	self assert: (array at: 1) equals: 'hello'.
-	self assert: (array at: 2) equals: 'world'.
-	self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.
-	self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.
-	self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.
-	self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.
+	self assert: 'hello' equals: (array at: 1).
+	self assert: 'world' equals: (array at: 2).
+	self assert: 'world' equals: (array at: 2 ifAbsent: ['not found']).
+	self assert: 'not found' equals: (array at: 0 ifAbsent: ['not found']).
+	self assert: 'not found' equals: (array at: -10 ifAbsent: ['not found']).
+	self assert: 'not found' equals: (array at: 3 ifAbsent: ['not found']).
 !
 
 testFirstN
@@ -707,13 +717,13 @@ testAddRemove
 !
 
 testAsArray
-	self assert: 'hello' asArray = #('h' 'e' 'l' 'l' 'o').
+	self assert: #('h' 'e' 'l' 'l' 'o') equals: 'hello' asArray.
 !
 
 testAt
-	self assert: ('hello' at: 1) = 'h'.
-	self assert: ('hello' at: 5) = 'o'.
-	self assert: ('hello' at: 6 ifAbsent: [nil]) = nil
+	self assert: 'h' equals: ('hello' at: 1).
+	self assert: 'o' equals: ('hello' at: 5).
+	self assert: nil equals: ('hello' at: 6 ifAbsent: [nil])
 !
 
 testAtPut
@@ -737,7 +747,7 @@ testCopyWithoutAll
 !
 
 testDetect
-	self assert: (self collection detect: [ :each | each = 'h' ]) = 'h'.
+	self assert: 'h' equals: (self collection detect: [ :each | each = 'h' ]).
 	self 
 		should: [ self collection detect: [ :each | each = 6 ] ]
 		raise: Error
@@ -784,8 +794,8 @@ testSelect
 !
 
 testSize
-	self assert: 'smalltalk' size equals: 9.
-	self assert: '' size equals: 0
+	self assert: 9 equals: 'smalltalk' size.
+	self assert: 0 equals: '' size
 !
 
 testStreamContents
@@ -820,7 +830,7 @@ collectionWithDuplicates
 !SymbolTest methodsFor: 'tests'!
 
 testAsString
-	self assert: #hello asString equals: 'hello'
+	self assert: 'hello' equals: #hello asString
 !
 
 testAsSymbol
@@ -828,9 +838,9 @@ testAsSymbol
 !
 
 testAt
-	self assert: (#hello at: 1) = 'h'.
-	self assert: (#hello at: 5) = 'o'.
-	self assert: (#hello at: 6 ifAbsent: [nil]) = nil
+	self assert: 'h' equals: (#hello at: 1).
+	self assert: 'o' equals: (#hello at: 5).
+	self assert: nil equals: (#hello at: 6 ifAbsent: [nil])
 !
 
 testAtPut
@@ -867,7 +877,7 @@ testCopying
 !
 
 testDetect
-	self assert: (self collection detect: [ :each | each = 'h' ]) = 'h'.
+	self assert: 'h' equals: (self collection detect: [ :each | each = 'h' ]).
 	self 
 		should: [ self collection detect: [ :each | each = 'z' ] ]
 		raise: Error
@@ -914,8 +924,8 @@ testSelect
 !
 
 testSize
-	self assert: #a size equals: 1.
-	self assert: #aaaaa size equals: 5
+	self assert: 1 equals: #a size.
+	self assert: 5 equals: #aaaaa size
 ! !
 
 !SymbolTest class methodsFor: 'accessing'!
@@ -951,13 +961,13 @@ testDNU
 
 testMessageSend
 
-	self assert: self jsObject a equals: 1.
-	self assert: self jsObject b equals: 2.
-	self assert: (self jsObject c: 3) equals: 3
+	self assert: 1 equals: self jsObject a.
+	self assert: 2 equals: self jsObject b.
+	self assert: 3 equals: (self jsObject c: 3)
 !
 
 testMethodWithArguments
-	self assert: (self jsObject c: 1) equals: 1
+	self assert: 1 equals: (self jsObject c: 1)
 !
 
 testPrinting
@@ -996,7 +1006,7 @@ testYourself
 		d: 'test';
 		yourself.
 
-	self assert: object d equals: 'test'
+	self assert: 'test' equals: object d
 ! !
 
 TestCase subclass: #JavaScriptExceptionTest
@@ -1009,7 +1019,7 @@ throwException
 	<throw 'test'>
 ! !
 
-!JavaScriptExceptionTest methodsFor: 'testing'!
+!JavaScriptExceptionTest methodsFor: 'tests'!
 
 testCatchingException
 	[ self throwException ]
@@ -1154,8 +1164,8 @@ testInvalidHexNumbers
 
 testMinMax
 	
-	self assert: (2 max: 5) equals: 5.
-	self assert: (2 min: 5) equals: 2
+	self assert: 5 equals: (2 max: 5).
+	self assert: 2 equals: (2 min: 5)
 !
 
 testNegated
@@ -1202,18 +1212,18 @@ testTimesRepeat
 
 	i := 0.
 	0 timesRepeat: [i := i + 1].
-	self assert: i equals: 0.
+	self assert: 0 equals: i.
 
 	5 timesRepeat: [i := i + 1].
-	self assert: i equals: 5
+	self assert: 5 equals: i
 !
 
 testTo
-	self assert: (1 to: 5) equals: #(1 2 3 4 5)
+	self assert: #(1 2 3 4 5) equals: (1 to: 5)
 !
 
 testToBy
-	self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).
+	self assert: #(0 2 4 6) equals: (0 to: 6 by: 2).
 
 	self should: [1 to: 4 by: 0] raise: Error
 !
@@ -1255,8 +1265,8 @@ testBasicAccess
 	| o |
 	o := Object new.
 	o basicAt: 'a' put: 1.
-	self assert: (o basicAt: 'a') equals: 1.
-	self assert: (o basicAt: 'b') equals: nil
+	self assert: 1 equals: (o basicAt: 'a').
+	self assert: nil equals: (o basicAt: 'b')
 !
 
 testBasicPerform
@@ -1265,8 +1275,8 @@ testBasicPerform
 	o basicAt: 'func' put: ['hello'].	
 	o basicAt: 'func2' put: [:a | a + 1].
 
-	self assert: (o basicPerform: 'func')	 equals: 'hello'.
-	self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4
+	self assert: 'hello' equals: (o basicPerform: 'func').
+	self assert: 4 equals: (o basicPerform: 'func2' withArguments: #(3))
 !
 
 testDNU
@@ -1307,11 +1317,11 @@ testIfNil
 testInstVars
 	| o |
 	o := ObjectMock new.
-	self assert: (o instVarAt: #foo) equals: nil.
+	self assert: nil equals: (o instVarAt: #foo).
 
 	o instVarAt: #foo put: 1.
-	self assert: (o instVarAt: #foo) equals: 1.
-	self assert: (o instVarAt: 'foo') equals: 1
+	self assert: 1 equals: (o instVarAt: #foo).
+	self assert: 1 equals: (o instVarAt: 'foo')
 !
 
 testNilUndefined
@@ -1425,17 +1435,17 @@ TestCase subclass: #PointTest
 !PointTest methodsFor: 'tests'!
 
 testAccessing
-	self assert: (Point x: 3 y: 4) x equals: 3.
-	self assert: (Point x: 3 y: 4) y equals: 4.
-	self assert: (Point new x: 3) x equals: 3.
-	self assert: (Point new y: 4) y equals: 4
+	self assert: 3 equals: (Point x: 3 y: 4) x.
+	self assert: 4 equals: (Point x: 3 y: 4) y.
+	self assert: 3 equals: (Point new x: 3) x.
+	self assert: 4 equals: (Point new y: 4) y
 !
 
 testArithmetic
-	self assert: 3@4 * (3@4 ) equals: (Point x: 9 y: 16).
-	self assert: 3@4 + (3@4 ) equals: (Point x: 6 y: 8).
-	self assert: 3@4 - (3@4 ) equals: (Point x: 0 y: 0).
-	self assert: 6@8 / (3@4 ) equals: (Point x: 2 y: 2)
+	self assert: (Point x: 9 y: 16) equals: 3@4 * (3@4 ).
+	self assert: (Point x: 6 y: 8) equals: 3@4 + (3@4 ).
+	self assert: (Point x: 0 y: 0) equals: 3@4 - (3@4 ).
+	self assert: (Point x: 2 y: 2) equals: 6@8 / (3@4 )
 !
 
 testAt
@@ -1525,9 +1535,9 @@ testPrintString
 !
 
 testSize
-	self assert: Set new size equals: 0.
-	self assert: (Set withAll: #(1 2 3 4)) size equals: 4.
-	self assert: (Set withAll: #(1 1 1 1)) size equals: 1
+	self assert: 0 equals: Set new size.
+	self assert: 4 equals: (Set withAll: #(1 2 3 4)) size.
+	self assert: 1 equals: (Set withAll: #(1 1 1 1)) size
 !
 
 testUnicity
@@ -1542,7 +1552,7 @@ testUnicity
 	set add: 'hello'.
 	self assert: set size = 2.
 
-	self assert: set asArray equals: #(21 'hello')
+	self assert: #(21 'hello') equals: set asArray
 ! !
 
 TestCase subclass: #UndefinedTest
@@ -1552,7 +1562,7 @@ TestCase subclass: #UndefinedTest
 !UndefinedTest methodsFor: 'tests'!
 
 testCopying
-	self assert: nil copy equals: nil
+	self assert: nil equals: nil copy
 !
 
 testDeepCopy
@@ -1560,9 +1570,9 @@ testDeepCopy
 !
 
 testIfNil
-	self assert: (nil ifNil: [true]) equals: true.
+	self assert: true equals: (nil ifNil: [true]).
 	self deny: (nil ifNotNil: [true]) = true.
-	self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.
+	self assert: true equals: (nil ifNil: [true] ifNotNil: [false]).
 	self deny: (nil ifNotNil: [true] ifNil: [false]) = true
 !
 

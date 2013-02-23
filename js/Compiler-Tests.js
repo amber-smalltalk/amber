@@ -165,10 +165,10 @@ selector: "testBinarySend",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo 2+3+4"),(9));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((9),_st(self)._interpret_("foo 2+3+4"));
 return self}, function($ctx1) {$ctx1.fill(self,"testBinarySend",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testBinarySend\x0a\x09self assert: (self interpret: 'foo 2+3+4') equals: 9",
+source: "testBinarySend\x0a\x09self assert: 9 equals: (self interpret: 'foo 2+3+4')",
 messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
@@ -181,12 +181,12 @@ selector: "testBlockLiteral",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]"),(1));
-_st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]"),(1));
-_st(self)._assert_equals_(_st(self)._interpret_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]"),(2));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((1),_st(self)._interpret_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]"));
+_st(self)._assert_equals_((1),_st(self)._interpret_("foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]"));
+_st(self)._assert_equals_((2),_st(self)._interpret_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]"));
 return self}, function($ctx1) {$ctx1.fill(self,"testBlockLiteral",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testBlockLiteral\x0a\x09self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.\x0a    self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.\x0a    self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2",
+source: "testBlockLiteral\x0a\x09self assert: 1 equals: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]').\x0a    self assert: 1 equals: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]').\x0a    self assert: 2 equals: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]')",
 messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
@@ -199,11 +199,11 @@ selector: "testCascade",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ OrderedCollection new add: 2; add: 3; yourself"),_st((smalltalk.OrderedCollection || OrderedCollection))._with_with_((2),(3)));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((smalltalk.OrderedCollection || OrderedCollection))._with_with_((2),(3)),_st(self)._interpret_("foo ^ OrderedCollection new add: 2; add: 3; yourself"));
 return self}, function($ctx1) {$ctx1.fill(self,"testCascade",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testCascade\x0a\x09self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)",
-messageSends: ["assert:equals:", "interpret:", "with:with:"],
+source: "testCascade\x0a\x09self assert: (OrderedCollection with: 2 with: 3) equals: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself')",
+messageSends: ["assert:equals:", "with:with:", "interpret:"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.ASTInterpreterTest);
@@ -215,10 +215,10 @@ selector: "testDynamicArray",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ {1+1. 2+2}"),[(2), (4)]);
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_([(2), (4)],_st(self)._interpret_("foo ^ {1+1. 2+2}"));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArray",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testDynamicArray\x0a\x09self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)",
+source: "testDynamicArray\x0a\x09self assert: #(2 4) equals: (self interpret: 'foo ^ {1+1. 2+2}')",
 messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
@@ -231,11 +231,11 @@ selector: "testDynamicDictionary",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._fromPairs_([_st((1)).__minus_gt((1)),_st((2)).__minus_gt((3))]));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(smalltalk.HashedCollection._fromPairs_([_st((1)).__minus_gt((1)),_st((2)).__minus_gt((3))]),_st(self)._interpret_("foo ^ #{1->1. 2->3}"));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionary",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testDynamicDictionary\x0a\x09self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}",
-messageSends: ["assert:equals:", "interpret:", "->"],
+source: "testDynamicDictionary\x0a\x09self assert: #{1->1. 2->3} equals: (self interpret: 'foo ^ #{1->1. 2->3}')",
+messageSends: ["assert:equals:", "->", "interpret:"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
@@ -247,11 +247,11 @@ selector: "testInlinedJSStatement",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
-_st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((5),_st(self)._interpret_("foo <return 2+3>"));
+_st(self)._assert_equals_((5),_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])));
 return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testInlinedJSStatement\x0a\x09self assert: (self interpret: 'foo <return 2+3>') equals: 5.\x0a    \x0a    self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger <return 2 + anInteger>' \x0a        \x09withArguments: #{ 'anInteger' -> 3}) \x0a\x09\x09equals: 5",
+source: "testInlinedJSStatement\x0a\x09self assert: 5 equals: (self interpret: 'foo <return 2+3>').\x0a    \x0a    self \x0a    \x09assert: 5\x0a        equals: (self \x0a    \x09\x09interpret: 'foo: anInteger <return 2 + anInteger>' \x0a        \x09withArguments: #{ 'anInteger' -> 3})",
 messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"],
 referencedClasses: []
 }),
@@ -264,10 +264,10 @@ selector: "testInstVarAccess",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ x",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((2),_st(self)._interpret_receiver_withArguments_("foo ^ x",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAccess",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testInstVarAccess\x0a\x09self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo ^ x'\x0a        \x09receiver: 2@3\x0a        \x09withArguments: #{})\x0a        equals: 2",
+source: "testInstVarAccess\x0a\x09self \x0a    \x09assert: 2\x0a        equals: (self \x0a    \x09\x09interpret: 'foo ^ x'\x0a        \x09receiver: 2@3\x0a        \x09withArguments: #{})",
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"],
 referencedClasses: []
 }),
@@ -280,10 +280,10 @@ selector: "testInstVarAssignment",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st((smalltalk.Point || Point))._new(),smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((2))])),(2));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((2),_st(self)._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st((smalltalk.Point || Point))._new(),smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((2))])));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testInstVarAssignment\x0a\x09self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo: anInteger x := anInteger. ^ x'\x0a        \x09receiver: Point new\x0a        \x09withArguments: #{'anInteger' -> 2})\x0a        equals: 2",
+source: "testInstVarAssignment\x0a\x09self \x0a    \x09assert: 2\x0a        equals: (self \x0a    \x09\x09interpret: 'foo: anInteger x := anInteger. ^ x'\x0a        \x09receiver: Point new\x0a        \x09withArguments: #{'anInteger' -> 2})",
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new", "->"],
 referencedClasses: ["Point"]
 }),
@@ -296,10 +296,10 @@ selector: "testNonlocalReturn",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ]. ^2"),(1));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((1),_st(self)._interpret_("foo true ifTrue: [ ^ 1 ]. ^2"));
 return self}, function($ctx1) {$ctx1.fill(self,"testNonlocalReturn",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testNonlocalReturn\x0a\x09self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1",
+source: "testNonlocalReturn\x0a\x09self assert: 1 equals: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2')",
 messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
@@ -312,11 +312,11 @@ selector: "testReceiver",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ self",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])),_st((2)).__at((3)));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((2)).__at((3)),_st(self)._interpret_receiver_withArguments_("foo ^ self",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])));
 return self}, function($ctx1) {$ctx1.fill(self,"testReceiver",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testReceiver\x0a\x09self \x0a    \x09assert: (self \x0a    \x09\x09interpret: 'foo ^ self'\x0a        \x09receiver: 2@3\x0a        \x09withArguments: #{})\x0a        equals: 2@3",
-messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"],
+source: "testReceiver\x0a\x09self \x0a    \x09assert: 2@3\x0a        equals: (self \x0a    \x09\x09interpret: 'foo ^ self'\x0a        \x09receiver: 2@3\x0a        \x09withArguments: #{})",
+messageSends: ["assert:equals:", "@", "interpret:receiver:withArguments:"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
@@ -328,10 +328,10 @@ selector: "testTempAssignment",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo | a | a := 2. ^ a"),(2));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((2),_st(self)._interpret_("foo | a | a := 2. ^ a"));
 return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{}, smalltalk.ASTInterpreterTest)})},
 args: [],
-source: "testTempAssignment\x0a\x09self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2",
+source: "testTempAssignment\x0a\x09self assert: 2 equals: (self interpret: 'foo | a | a := 2. ^ a')",
 messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
@@ -400,14 +400,14 @@ return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1 + 2
 _st(_st(self)._interpreter())._step();
 _st(_st(self)._interpreter())._step();
 _st(_st(self)._interpreter())._step();
-_st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(1));
+_st(self)._assert_equals_((1),_st(_st(_st(self)._interpreter())._currentNode())._value());
 _st(_st(self)._interpreter())._step();
-_st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(2));
+_st(self)._assert_equals_((2),_st(_st(_st(self)._interpreter())._currentNode())._value());
 _st(_st(self)._interpreter())._step();
-_st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(3));
+_st(self)._assert_equals_((3),_st(_st(self)._interpreter())._result());
 return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{}, smalltalk.ASTSteppingInterpreterTest)})},
 args: [],
-source: "testMessageSend\x0a\x09self interpret: 'foo 1 + 2'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    \x22SendNode\x22\x0a    self interpreter step.\x0a    \x0a     \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 1.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 2.\x0a    \x0a    \x22Result\x22\x0a    self interpreter step.\x0a    self assert: self interpreter result equals: 3\x0a\x09",
+source: "testMessageSend\x0a\x09self interpret: 'foo 1 + 2'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    \x22SendNode\x22\x0a    self interpreter step.\x0a    \x0a     \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: 1 equals: self interpreter currentNode value.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: 2 equals: self interpreter currentNode value.\x0a    \x0a    \x22Result\x22\x0a    self interpreter step.\x0a    self assert: 3 equals: self interpreter result",
 messageSends: ["interpret:", "step", "interpreter", "assert:equals:", "value", "currentNode", "result"],
 referencedClasses: []
 }),
@@ -424,10 +424,10 @@ return smalltalk.withContext(function($ctx1) { _st(self)._interpret_("foo 1");
 _st(_st(self)._interpreter())._step();
 _st(self)._assert_(_st(_st(_st(self)._interpreter())._result())._isNil());
 _st(_st(self)._interpreter())._step();
-_st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(1));
+_st(self)._assert_equals_((1),_st(_st(self)._interpreter())._result());
 return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{}, smalltalk.ASTSteppingInterpreterTest)})},
 args: [],
-source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result equals: 1\x0a    \x0a\x09",
+source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: 1 equals: self interpreter result",
 messageSends: ["interpret:", "step", "interpreter", "assert:", "isNil", "result", "assert:equals:"],
 referencedClasses: []
 }),
@@ -1173,12 +1173,12 @@ var src,ast;
 return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ | b | b := a ] ]";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
-_st(self)._assert_(_st(_st(_st(ast)._scope())._scopeLevel()).__eq((1)));
-_st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel()).__eq((3)));
+_st(self)._assert_equals_((1),_st(_st(ast)._scope())._scopeLevel());
+_st(self)._assert_equals_((3),_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel());
 return self}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel = 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel = 3",
-messageSends: ["parse:", "visit:", "assert:", "=", "scopeLevel", "scope", "first", "nodes", "last"],
+source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: 1 equals: ast scope scopeLevel.\x0a\x09self assert: 3 equals: ast nodes first nodes last nodes first nodes first scope scopeLevel",
+messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzerTest);
