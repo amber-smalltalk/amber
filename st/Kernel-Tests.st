@@ -979,6 +979,14 @@ testPropertyThatReturnsUndefined
     self assert: object e isNil
 !
 
+testValue
+	| testObject |
+    testObject := self jsObject.
+	self assert: '[object Object]' equals: testObject value printString.
+    testObject at: 'value' put: 'aValue'.
+	self assert: 'aValue' equals: testObject value
+!
+
 testYourself
 	| object |
 	object := self jsObject

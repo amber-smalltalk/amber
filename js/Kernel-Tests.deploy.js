@@ -1937,6 +1937,21 @@ return self}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
+"_testValue",
+smalltalk.method({
+selector: "testValue",
+fn: function (){
+var self=this;
+var testObject;
+return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+_st(self)._assert_equals_("[object Object]",_st(_st(testObject)._value())._printString());
+_st(testObject)._at_put_("value","aValue");
+_st(self)._assert_equals_("aValue",_st(testObject)._value());
+return self}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject}, smalltalk.JSObjectProxyTest)})}
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
 "_testYourself",
 smalltalk.method({
 selector: "testYourself",

@@ -2492,6 +2492,26 @@ referencedClasses: ["MessageNotUnderstood"]
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
+"_testValue",
+smalltalk.method({
+selector: "testValue",
+category: 'tests',
+fn: function (){
+var self=this;
+var testObject;
+return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+_st(self)._assert_equals_("[object Object]",_st(_st(testObject)._value())._printString());
+_st(testObject)._at_put_("value","aValue");
+_st(self)._assert_equals_("aValue",_st(testObject)._value());
+return self}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject}, smalltalk.JSObjectProxyTest)})},
+args: [],
+source: "testValue\x0a\x09| testObject |\x0a    testObject := self jsObject.\x0a\x09self assert: '[object Object]' equals: testObject value printString.\x0a    testObject at: 'value' put: 'aValue'.\x0a\x09self assert: 'aValue' equals: testObject value",
+messageSends: ["jsObject", "assert:equals:", "printString", "value", "at:put:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
 "_testYourself",
 smalltalk.method({
 selector: "testYourself",
