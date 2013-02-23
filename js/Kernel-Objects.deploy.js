@@ -1474,9 +1474,9 @@ selector: "at:ifAbsent:",
 fn: function (aSymbol,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-    	var value = self['@jsObject'][aSymbol._asString()];
-        if (undefined === value) return aBlock();
-        return value;
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock}, smalltalk.JSObjectProxy)})}
 }),

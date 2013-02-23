@@ -2064,13 +2064,13 @@ category: 'accessing',
 fn: function (aSymbol,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-    	var value = self['@jsObject'][aSymbol._asString()];
-        if (undefined === value) return aBlock();
-        return value;
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock}, smalltalk.JSObjectProxy)})},
 args: ["aSymbol", "aBlock"],
-source: "at: aSymbol ifAbsent: aBlock\x0a\x09\x22return the aSymbol property or evaluate aBlock if the property is undefined\x22\x0a\x09<\x0a    \x09var value = self['@jsObject'][aSymbol._asString()];\x0a        if (undefined === value) return aBlock();\x0a        return value;\x0a\x09>",
+source: "at: aSymbol ifAbsent: aBlock\x0a\x09\x22return the aSymbol property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a    \x09var obj = self['@jsObject'],\x0a        \x09symbol = aSymbol._asString();\x0a\x09\x09return symbol in obj ? obj[symbol] : aBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

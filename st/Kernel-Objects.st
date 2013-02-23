@@ -673,11 +673,11 @@ at: aSymbol
 !
 
 at: aSymbol ifAbsent: aBlock
-	"return the aSymbol property or evaluate aBlock if the property is undefined"
+	"return the aSymbol property or evaluate aBlock if the property is not defined on the object"
 	<
-    	var value = self['@jsObject'][aSymbol._asString()];
-        if (undefined === value) return aBlock();
-        return value;
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
 	>
 !
 
