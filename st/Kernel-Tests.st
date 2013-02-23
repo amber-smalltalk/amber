@@ -227,7 +227,9 @@ setUp
 
 tearDown
 	theClass ifNotNil: [Smalltalk current removeClass: theClass. theClass := nil]
-!
+! !
+
+!ClassBuilderTest methodsFor: 'tests'!
 
 testClassCopy
 	theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
@@ -650,7 +652,7 @@ SequenceableCollectionTest subclass: #ArrayTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!ArrayTest methodsFor: 'testing'!
+!ArrayTest methodsFor: 'tests'!
 
 testAtIfAbsent
 	| array |
@@ -1017,7 +1019,7 @@ throwException
 	<throw 'test'>
 ! !
 
-!JavaScriptExceptionTest methodsFor: 'testing'!
+!JavaScriptExceptionTest methodsFor: 'tests'!
 
 testCatchingException
 	[ self throwException ]

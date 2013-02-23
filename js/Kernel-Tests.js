@@ -659,7 +659,7 @@ smalltalk.addMethod(
 "_testClassCopy",
 smalltalk.method({
 selector: "testClassCopy",
-category: 'running',
+category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@theClass"]=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
@@ -680,7 +680,7 @@ smalltalk.addMethod(
 "_testClassMigration",
 smalltalk.method({
 selector: "testClassMigration",
-category: 'running',
+category: 'tests',
 fn: function (){
 var self=this;
 var instance,oldClass;
@@ -709,7 +709,7 @@ smalltalk.addMethod(
 "_testClassMigrationWithClassInstanceVariables",
 smalltalk.method({
 selector: "testClassMigrationWithClassInstanceVariables",
-category: 'running',
+category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
@@ -729,7 +729,7 @@ smalltalk.addMethod(
 "_testClassMigrationWithSubclasses",
 smalltalk.method({
 selector: "testClassMigrationWithSubclasses",
-category: 'running',
+category: 'tests',
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
@@ -754,7 +754,7 @@ smalltalk.addMethod(
 "_testInstanceVariableNames",
 smalltalk.method({
 selector: "testInstanceVariableNames",
-category: 'running',
+category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(["hello", "world"],_st(self["@builder"])._instanceVariableNamesFor_("  hello   world   "));
@@ -1572,7 +1572,7 @@ smalltalk.addMethod(
 "_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
-category: 'testing',
+category: 'tests',
 fn: function (){
 var self=this;
 var array;
@@ -1603,7 +1603,7 @@ smalltalk.addMethod(
 "_testFirstN",
 smalltalk.method({
 selector: "testFirstN",
-category: 'testing',
+category: 'tests',
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_([(1),(2),(3)],_st([(1),(2),(3),(4),(5)])._first_((3)));
@@ -1619,7 +1619,7 @@ smalltalk.addMethod(
 "_testIfEmpty",
 smalltalk.method({
 selector: "testIfEmpty",
-category: 'testing',
+category: 'tests',
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("zork",_st("")._ifEmpty_((function(){
@@ -1637,7 +1637,7 @@ smalltalk.addMethod(
 "_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
-category: 'testing',
+category: 'tests',
 fn: function () {
 var self=this;
 var array;
@@ -2529,7 +2529,7 @@ smalltalk.addMethod(
 "_testCatchingException",
 smalltalk.method({
 selector: "testCatchingException",
-category: 'testing',
+category: 'tests',
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st((function(){
@@ -2549,7 +2549,7 @@ smalltalk.addMethod(
 "_testRaisingException",
 smalltalk.method({
 selector: "testRaisingException",
-category: 'testing',
+category: 'tests',
 fn: function () {
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
