@@ -931,10 +931,19 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
+
+testAtIfAbsent
+	| testObject |
+    testObject := self jsObject.
+	self assert: 'Property does not exist' equals: (testObject at: 'abc' ifAbsent: ['Property does not exist']).
+	self assert: nil equals: (testObject at: 'e' ifAbsent: ['Property does not exist']).
+    self assert: 1 equals: (testObject at: 'a' ifAbsent: ['Property does not exist']).
+    self assert: nil equals: (testObject at: 'f' ifAbsent: ['Property does not exist']).
+!
 
 testDNU
 	self should: [self jsObject foo] raise: MessageNotUnderstood
@@ -971,6 +980,14 @@ testPropertyThatReturnsUndefined
 	object := self jsObject.
 	self shouldnt: [ object e ]  raise: MessageNotUnderstood.
     self assert: object e isNil
+!
+
+testValue
+	| testObject |
+    testObject := self jsObject.
+	self assert: '[object Object]' equals: testObject value printString.
+    testObject at: 'value' put: 'aValue'.
+	self assert: 'aValue' equals: testObject value
 !
 
 testYourself
