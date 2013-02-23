@@ -2258,22 +2258,15 @@ selector: "value",
 category: 'accessing',
 fn: function (){
 var self=this;
-var attribute;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-attribute=_st(self)._at_("value");
-$1=attribute;
-if(($receiver = $1) == nil || $receiver == undefined){
-attribute=smalltalk.Object.fn.prototype._value.apply(_st(self), []);
-attribute;
-} else {
-$1;
-};
-$2=attribute;
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"value",{attribute:attribute}, smalltalk.JSObjectProxy)})},
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifAbsent_("value",(function(){
+return smalltalk.withContext(function($ctx2) {return smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{}, smalltalk.JSObjectProxy)})},
 args: [],
-source: "value\x0a\x09\x22if attribute 'value' exists on the JS object return it,\x0a    otherwise return the result of Object>>value.\x22\x0a\x09| attribute |\x0a\x09attribute := self at: 'value'.\x0a\x09attribute ifNil: [attribute := super value].\x0a    ^attribute",
-messageSends: ["at:", "ifNil:", "value"],
+source: "value\x0a\x09\x22if attribute 'value' exists on the JS object return it,\x0a    otherwise return the result of Object>>value.\x22\x0a\x09^ self at: 'value' ifAbsent: [super value]",
+messageSends: ["at:ifAbsent:", "value"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
