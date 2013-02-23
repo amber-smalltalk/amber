@@ -672,6 +672,15 @@ at: aSymbol
 	<return self['@jsObject'][aSymbol._asString()]>
 !
 
+at: aSymbol ifAbsent: aBlock
+	"return the aSymbol property or evaluate aBlock if the property is undefined"
+	<
+    	var value = self['@jsObject'][aSymbol._asString()];
+        if (undefined === value) return aBlock();
+        return value;
+	>
+!
+
 at: aSymbol put: anObject
 	<self['@jsObject'][aSymbol._asString()] = anObject>
 !
