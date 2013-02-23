@@ -931,15 +931,18 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
 
 testAtIfAbsent
-	self assert: 'Property does not exist' equals: (self jsObject at: 'abc' ifAbsent: ['Property does not exist']).
-	self assert: nil equals: (self jsObject at: 'e' ifAbsent: ['Property does not exist']).
-    self assert: 1 equals: (self jsObject at: 'a' ifAbsent: ['Property does not exist']).
+	| testObject |
+    testObject := self jsObject.
+	self assert: 'Property does not exist' equals: (testObject at: 'abc' ifAbsent: ['Property does not exist']).
+	self assert: nil equals: (testObject at: 'e' ifAbsent: ['Property does not exist']).
+    self assert: 1 equals: (testObject at: 'a' ifAbsent: ['Property does not exist']).
+    self assert: nil equals: (testObject at: 'f' ifAbsent: ['Property does not exist']).
 !
 
 testDNU

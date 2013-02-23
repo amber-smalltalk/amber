@@ -1831,10 +1831,10 @@ smalltalk.addMethod(
 "_jsObject",
 smalltalk.method({
 selector: "jsObject",
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null};
-return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{}, smalltalk.JSObjectProxyTest)});}
+return smalltalk.withContext(function($ctx1) { return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined};
+return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{}, smalltalk.JSObjectProxyTest)})}
 }),
 smalltalk.JSObjectProxyTest);
 
@@ -1844,16 +1844,21 @@ smalltalk.method({
 selector: "testAtIfAbsent",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("Property does not exist",_st(_st(self)._jsObject())._at_ifAbsent_("abc",(function(){
+var testObject;
+return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+_st(self)._assert_equals_("Property does not exist",_st(testObject)._at_ifAbsent_("abc",(function(){
 return smalltalk.withContext(function($ctx2) {return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
-_st(self)._assert_equals_(nil,_st(_st(self)._jsObject())._at_ifAbsent_("e",(function(){
+_st(self)._assert_equals_(nil,_st(testObject)._at_ifAbsent_("e",(function(){
 return smalltalk.withContext(function($ctx2) {return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
-_st(self)._assert_equals_((1),_st(_st(self)._jsObject())._at_ifAbsent_("a",(function(){
+_st(self)._assert_equals_((1),_st(testObject)._at_ifAbsent_("a",(function(){
 return smalltalk.withContext(function($ctx2) {return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{}, smalltalk.JSObjectProxyTest)})}
+_st(self)._assert_equals_(nil,_st(testObject)._at_ifAbsent_("f",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject}, smalltalk.JSObjectProxyTest)})}
 }),
 smalltalk.JSObjectProxyTest);
 
