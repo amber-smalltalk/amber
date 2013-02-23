@@ -2359,6 +2359,30 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
+"_testAtIfAbsent",
+smalltalk.method({
+selector: "testAtIfAbsent",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("Property does not exist",_st(_st(self)._jsObject())._at_ifAbsent_("abc",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+_st(self)._assert_equals_(nil,_st(_st(self)._jsObject())._at_ifAbsent_("e",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+_st(self)._assert_equals_((1),_st(_st(self)._jsObject())._at_ifAbsent_("a",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{}, smalltalk.JSObjectProxyTest)})},
+args: [],
+source: "testAtIfAbsent\x0a\x09self assert: 'Property does not exist' equals: (self jsObject at: 'abc' ifAbsent: ['Property does not exist']).\x0a\x09self assert: nil equals: (self jsObject at: 'e' ifAbsent: ['Property does not exist']).\x0a    self assert: 1 equals: (self jsObject at: 'a' ifAbsent: ['Property does not exist']).",
+messageSends: ["assert:equals:", "at:ifAbsent:", "jsObject"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
 "_testDNU",
 smalltalk.method({
 selector: "testDNU",

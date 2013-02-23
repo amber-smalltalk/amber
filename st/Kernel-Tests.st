@@ -936,6 +936,12 @@ jsObject
 
 !JSObjectProxyTest methodsFor: 'tests'!
 
+testAtIfAbsent
+	self assert: 'Property does not exist' equals: (self jsObject at: 'abc' ifAbsent: ['Property does not exist']).
+	self assert: nil equals: (self jsObject at: 'e' ifAbsent: ['Property does not exist']).
+    self assert: 1 equals: (self jsObject at: 'a' ifAbsent: ['Property does not exist']).
+!
+
 testDNU
 	self should: [self jsObject foo] raise: MessageNotUnderstood
 !

@@ -1839,6 +1839,25 @@ return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{}, smalltalk.JSObject
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
+"_testAtIfAbsent",
+smalltalk.method({
+selector: "testAtIfAbsent",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("Property does not exist",_st(_st(self)._jsObject())._at_ifAbsent_("abc",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+_st(self)._assert_equals_(nil,_st(_st(self)._jsObject())._at_ifAbsent_("e",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+_st(self)._assert_equals_((1),_st(_st(self)._jsObject())._at_ifAbsent_("a",(function(){
+return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{}, smalltalk.JSObjectProxyTest)})}
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
 "_testDNU",
 smalltalk.method({
 selector: "testDNU",
