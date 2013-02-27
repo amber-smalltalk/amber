@@ -68,13 +68,29 @@ instanceVariableNames
 	<return self.iVarNames>
 !
 
+lookupSelector: selector
+	"Look up the given selector in my methodDictionary.
+	Return the corresponding method if found.
+	Otherwise chase the superclass chain and try again.
+	Return nil if no method is found."
+    
+	| lookupClass |
+    
+	lookupClass := self.
+	[ lookupClass = nil ] whileFalse: [
+      	(lookupClass includesSelector: selector)
+				ifTrue: [ ^ lookupClass methodAt: selector ].
+			lookupClass := lookupClass superclass ].
+	^ nil
+!
+
 methodAt: aSymbol
-	<return smalltalk.methods(self)[aSymbol._asString()]>
+	^ self methodDictionary at: aSymbol asString
 !
 
 methodDictionary
 	<var dict = smalltalk.HashedCollection._new();
-	var methods = self.fn.prototype.methods;
+	var methods = self.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
 			dict._at_put_(methods[i].selector, methods[i]);
@@ -158,7 +174,7 @@ withAllSubclasses
 !Behavior methodsFor: 'compiling'!
 
 addCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>.
+	self basicAddCompiledMethod: aMethod.
     
     SystemAnnouncer current
    		announce: (MethodAdded new
@@ -179,10 +195,7 @@ compile: aString category: anotherString
 !
 
 removeCompiledMethod: aMethod
-	<
-    	smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-    >.
+	self basicRemoveCompiledMethod: aMethod.
     
     SystemAnnouncer current
    		announce: (MethodRemoved new
@@ -201,11 +214,28 @@ new
 	^self basicNew initialize
 ! !
 
+!Behavior methodsFor: 'private'!
+
+basicAddCompiledMethod: aMethod
+	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
+!
+
+basicRemoveCompiledMethod: aMethod
+	<
+    	smalltalk.removeMethod(aMethod)
+		smalltalk.init(self);
+    >
+! !
+
 !Behavior methodsFor: 'testing'!
 
 canUnderstand: aSelector
 	^(self methodDictionary keys includes: aSelector asString) or: [
 		self superclass notNil and: [self superclass canUnderstand: aSelector]]
+!
+
+includesSelector: aSymbol
+	^ self methodDictionary includesKey: aSymbol asString
 !
 
 inheritsFrom: aClass
@@ -364,31 +394,36 @@ ClassBuilder is responsible for compiling new classes or modifying existing clas
 
 Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
 
-!ClassBuilder methodsFor: 'class creation'!
+!ClassBuilder methodsFor: 'api'!
 
 class: aClass instanceVariableNames: aString
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: (self instanceVariableNamesFor: aString).
+	self basicClass: aClass instanceVariableNames: aString.
+    self setupClass: aClass.
     
     SystemAnnouncer current
     	announce: (ClassDefinitionChanged new
         	theClass: aClass;
-            yourself).
-    
-	self setupClass: aClass
+            yourself)
+!
+
+installMethod: aCompiledMethod forClass: aBehavior category: aString
+	aCompiledMethod category: aString.
+	aBehavior addCompiledMethod: aCompiledMethod.
+    self setupClass: aBehavior.
+	^aCompiledMethod
 !
 
 renameClass: aClass to: aString
-	<
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
-		aClass.className = aString;
-	>.
+	self basicRenameClass: aClass to: aString.
     
     SystemAnnouncer current
     	announce: (ClassRenamed new
         	theClass: aClass;
             yourself)
+!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
 !
 
 superclass: aClass subclass: aString
@@ -413,14 +448,49 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 
 !ClassBuilder methodsFor: 'private'!
 
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection
-	<smalltalk.addClass(aString, aClass, aCollection);
-	    return smalltalk[aString]>
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	
+    (Smalltalk current at: aString) ifNotNil: [ 
+    	^ self 
+        	migrateClassNamed: aString 
+            superclass: aClass 
+            instanceVariableNames: aCollection 
+            package: packageName ].
+
+	^ self 
+    	basicAddSubclassOf: aClass 
+        named: aString 
+        instanceVariableNames: aCollection 
+        package: packageName
 !
 
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	<smalltalk.addClass(aString, aClass, aCollection, packageName);
-	    return smalltalk[aString]>
+basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<
+		smalltalk.addClass(aString, aClass, aCollection, packageName);
+		return smalltalk[aString]
+	>
+!
+
+basicClass: aClass instanceVariableNames: aString
+	self basicClass: aClass instanceVariables: (self instanceVariableNamesFor: aString)
+!
+
+basicClass: aClass instanceVariables: aCollection
+
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: aCollection
+!
+
+basicRemoveClass: aClass
+	<smalltalk.removeClass(aClass)>
+!
+
+basicRenameClass: aClass to: aString
+	<
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	>
 !
 
 copyClass: aClass named: aString
@@ -432,28 +502,69 @@ copyClass: aClass named: aString
 		instanceVariableNames: aClass instanceVariableNames 
 		package: aClass package name.
 
-	self setupClass: newClass.
-
-	aClass methodDictionary values do: [:each |
-		Compiler new install: each source forClass: newClass category: each category].
-
-	aClass class methodDictionary values do: [:each |
-		Compiler new install: each source forClass: newClass class category: each category].
-
-	self setupClass: newClass.
+	self copyClass: aClass to: newClass.
+    
 	^newClass
 !
 
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [:each | each isEmpty]
+copyClass: aClass to: anotherClass
+
+	anotherClass comment: aClass comment.
+
+	aClass methodDictionary values do: [ :each |
+		Compiler new install: each source forClass: anotherClass category: each category ].
+
+	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
+
+	aClass class methodDictionary values do: [ :each |
+		Compiler new install: each source forClass: anotherClass class category: each category ].
+
+	self setupClass: anotherClass
 !
 
-setupClass: aClass
-	<smalltalk.init(aClass);>
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [ :each | each isEmpty ]
+!
+
+migrateClass: aClass superclass: anotherClass
+	self 
+    	migrateClassNamed: aClass name
+        superclass: anotherClass
+        instanceVariableNames: aClass instanceVariableNames
+        package: aClass package name
+!
+
+migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
+	| oldClass newClass |
+    
+    oldClass := Smalltalk current at: aString.
+    
+    "Rename the old class for existing instances"
+	self basicRenameClass: oldClass to: 'Old', aString.
+    
+    newClass := self 
+		addSubclassOf: aClass
+		named: aString 
+		instanceVariableNames: aCollection
+		package: packageName.
+
+	oldClass subclasses do: [ :each |
+    	self migrateClass: each superclass: newClass ].
+
+    [ self copyClass: oldClass to: newClass ] 
+    	on: Error
+        do: [ :exception |
+        	self 
+            	basicRemoveClass: newClass;
+            	basicRenameClass: oldClass to: aString.
+            exception signal ].
+            
+    self basicRemoveClass: oldClass.
+	^newClass
 ! !
 
 Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class category chunkParser'
+	instanceVariableNames: 'class category'
 	package: 'Kernel-Classes'!
 !ClassCategoryReader commentStamp!
 ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
@@ -472,14 +583,13 @@ scanFrom: aChunkParser
 	[chunk := aChunkParser nextChunk.
 	chunk isEmpty] whileFalse: [
 	    self compileMethod: chunk].
-	Compiler new setupClass: class
+	ClassBuilder new setupClass: class
 ! !
 
 !ClassCategoryReader methodsFor: 'initialization'!
 
 initialize
 	super initialize.
-	chunkParser := ChunkParser new.
 ! !
 
 !ClassCategoryReader methodsFor: 'private'!
@@ -489,10 +599,10 @@ compileMethod: aString
 ! !
 
 Object subclass: #ClassCommentReader
-	instanceVariableNames: 'class chunkParser'
+	instanceVariableNames: 'class'
 	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
-ClassCommentReader represents a mechanism for retrieving class descriptions stored on a file.
+ClassCommentReader represents a mechanism for retrieving class comments stored on a file.
 See `ClassCategoryReader` too.!
 
 !ClassCommentReader methodsFor: 'accessing'!
@@ -514,7 +624,6 @@ scanFrom: aChunkParser
 
 initialize
 	super initialize.
-	chunkParser := ChunkParser new.
 ! !
 
 !ClassCommentReader methodsFor: 'private'!

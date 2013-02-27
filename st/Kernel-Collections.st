@@ -257,13 +257,9 @@ ifNotEmpty: aBlock
 !
 
 includes: anObject
-	<
-		var i = self.length;
-		while (i--) {
-			if (smalltalk.send(self[i], "__eq", [anObject])) {return true;}	
-		}
-		return false
-	>
+	| sentinel |
+    sentinel := Object new.
+    ^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
 !
 
 isEmpty
@@ -683,7 +679,7 @@ indexOf: anObject
 indexOf: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
-			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock();
 	>
@@ -776,6 +772,12 @@ withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
 
+!SequenceableCollection methodsFor: 'testing'!
+
+includes: anObject
+	^(self indexOf: anObject ifAbsent: [nil]) notNil
+! !
+
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
@@ -810,9 +812,9 @@ remove: anObject ifAbsent: aBlock
 				self.splice(i,1);
 				return self;
 			}
-		}
-	>.
-	aBlock value
+		};
+        aBlock._value();
+	>
 !
 
 removeFrom: aNumber to: anotherNumber
@@ -995,8 +997,12 @@ unescaped
 !
 
 = aString
-	aString class = self class ifFalse: [^false].
-	<return String(self) === String(aString)>
+	<
+    	if(!! aString._isString || !! aString._isString()) {
+        	return false;
+        }
+    	return String(self) === String(aString)
+    >
 !
 
 == aString
@@ -1038,22 +1044,12 @@ asNumber
 	<return Number(self)>
 !
 
-asSelector
-	"If you change this method, change smalltalk.convertSelector too (see js/boot.js file)"
+asRegexp
+	^ RegularExpression fromString: self
+!
 
-	| selector |
-	selector := '_', self.
-	selector := selector replace: ':' with: '_'.
-	selector := selector replace: '[+]' with: '_plus'.
-	selector := selector replace: '-' with: '_minus'.
-	selector := selector replace: '[*]' with: '_star'.
-	selector := selector replace: '[/]' with: '_slash'.
-	selector := selector replace: '>' with: '_gt'.
-	selector := selector replace: '<' with: '_lt'.
-	selector := selector replace: '=' with: '_eq'.
-	selector := selector replace: ',' with: '_comma'.
-	selector := selector replace: '[@]' with: '_at'.
-	^selector
+asSelector
+	<return smalltalk.selector(self)>
 !
 
 asString
@@ -1332,7 +1328,7 @@ asJSON
 !
 
 asJavascript
-	^'smalltalk.symbolFor("', self asString, '")'
+	^'smalltalk.symbolFor(', self asString asJavascript, ')'
 !
 
 asSelector
@@ -1341,6 +1337,10 @@ asSelector
 
 asString
 	<return self.value>
+!
+
+asSuperSelector
+	^self asString asSuperSelector
 !
 
 asSymbol
@@ -1445,8 +1445,10 @@ remove: anObject
 !Set methodsFor: 'comparing'!
 
 = aCollection
-	^self class = aCollection class and: [
-		elements = aCollection asArray]
+	self class = aCollection class ifFalse: [ ^ false ].
+    self size = aCollection size ifFalse: [ ^ false ].
+	self do: [:each | (aCollection includes: each) ifFalse: [ ^ false ] ].
+	^ true
 ! !
 
 !Set methodsFor: 'converting'!
@@ -1456,6 +1458,10 @@ asArray
 ! !
 
 !Set methodsFor: 'enumerating'!
+
+collect: aBlock
+	^self class withAll: (elements collect: aBlock)
+!
 
 detect: aBlock ifNone: anotherBlock
 	^elements detect: aBlock ifNone: anotherBlock
@@ -1490,6 +1496,16 @@ includes: anObject
 Object subclass: #Queue
 	instanceVariableNames: 'read readIndex write'
 	package: 'Kernel-Collections'!
+!Queue commentStamp!
+A Queue am a one-sided queue.
+
+A Queue uses two OrderedCollections inside,
+`read` is at the front, is not modified and only read using `readIndex`.
+`write` is at the back and is appended new items.
+When `read` is exhausted, `write` is promoted to `read` and new `write` is created.
+
+As a consequence, no data moving is done by the Queue; write appending may do data moving
+when growing `write`, but this is left to engine to implement as good as it chooses to.!
 
 !Queue methodsFor: 'accessing'!
 
@@ -1498,7 +1514,7 @@ back: anObject
 !
 
 front
-    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.']
+    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
 !
 
 frontIfAbsent: aBlock
@@ -1519,9 +1535,10 @@ frontIfAbsent: aBlock
 !Queue methodsFor: 'initialization'!
 
 initialize
-	read := #().
-    readIndex := 1.
-    write := OrderedCollection new
+	super initialize.
+	read := OrderedCollection new.
+    write := OrderedCollection new.
+    readIndex := 1
 ! !
 
 Object subclass: #RegularExpression

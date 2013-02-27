@@ -19,7 +19,7 @@ amber = (function() {
 	var spec;
 	var jsToLoad = [];
 	var loadJS;
-    var nocache = '';
+	var nocache = '';
 
 	that.toggleIDE = function() {
 		if ($('#amber').length == 0) {
@@ -30,7 +30,7 @@ amber = (function() {
 			smalltalk.TabManager._current()._open();
 		}
 		return false;
-	}
+	};
 
 	that.load = function(obj) {
 		spec = obj || {};
@@ -56,9 +56,9 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('lib/es5-shim-2.0.2/es5-shim.min.js');
-		addJSToLoad('lib/es5-shim-2.0.2/es5-sham.min.js');
-		addJSToLoad('boot.js');
+		addJSToLoad('js/lib/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('js/lib/es5-shim-2.0.2/es5-sham.min.js');
+		addJSToLoad('js/boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -92,56 +92,90 @@ amber = (function() {
 				'Compiler-Semantic',
 				'Compiler-IR',
 				'Compiler-Inlining',
+				'Compiler-Interpreter',
 				'Compiler-Tests',
 				'parser',
 				'IDE',
 				'Examples',
 				'Benchfib',
-				'Kernel-Tests'
+				'Kernel-Tests',
+				'SUnit-Tests'
 			]);
 		}
 
 		var additionalFiles = spec.packages || spec.files;
+		var commitPathForInit = null;
 		if (additionalFiles) {
-			loadPackages(additionalFiles, spec.prefix, spec.packageHome);
+			commitPathForInit = loadPackages(additionalFiles, spec.prefix, spec.packageHome);
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('init.js');
-		initializeSmalltalk();
+		addJSToLoad('js/init.js');
+		initializeSmalltalk(commitPathForInit);
 	};
 
 	function loadPackages(names, prefix, urlHome){
-		var name, url;
-		var prefix = prefix || 'js';
-    var urlHome = urlHome || home;
+		var name;
+		prefix = prefix || 'js';
+		urlHome = urlHome || home;
 
 		for (var i=0; i < names.length; i++) {
 			name = names[i].split(/\.js$/)[0];
 			addJSToLoad(name + '.js', prefix, urlHome);
 		}
-	};
+
+		return  {
+			js: urlHome+prefix,
+			st: urlHome+'st'
+		};
+	}
 
 	function addJSToLoad(name, prefix, urlHome) {
-    var urlHome = urlHome || home;
+		urlHome = urlHome || home;
 		jsToLoad.push(buildJSURL(name, prefix, urlHome));
-	};
+	}
+
+	function resolve(base, path) {
+		if (/(^|:)\/\//.test(path)) {
+			// path: [http:]//foo.com/bar/; base: whatever/
+			// -> http://foo.com/bar/
+			return path;
+		}
+		if (!/^\//.test(path)) {
+			// path: relative/; base: whatever/
+			// -> whatever/relative/
+			return base + path;
+		}
+		var match = base.match(/^(([^:/]*:|^)\/\/[^/]*)/);
+		if (match) {
+			// path: /absolute/; base: [http:]//foo.com/whatever/
+			// -> [http:]//foo.com/absolute/
+			return match[1] + path;
+		}
+		// path: /absolute/; base: whatever/path/
+		// -> /absolute/
+		return path;
+	}
 
 	function buildJSURL(name, prefix, urlHome) {
-		var prefix = prefix || 'js';
-		var name = name;
-    var urlHome = urlHome || home;
+		prefix = prefix || '';
+		urlHome = urlHome || home;
+
+		var parts = name.match(/^(.*\/)([^/]*)$/);
+		if (parts) {
+			name = parts[2];
+			urlHome = resolve(urlHome, parts[1]);
+		}
 
 		if (!deploy) {
 			name = name + nocache;
 		}
 
 		return urlHome + prefix + '/' + name;
-	};
+	}
 
 	function loadCSS(name, prefix) {
-		var prefix = prefix || 'css';
-		var name = name;
+		prefix = prefix || 'css';
 		if (!deploy) {
 			name = name + nocache;
 		}
@@ -153,39 +187,43 @@ amber = (function() {
 		link.setAttribute("type", "text/css");
 		link.setAttribute("href", url);
 		document.getElementsByTagName("head")[0].appendChild(link);
-	};
+	}
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-1.8.2.min.js'));
+			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-1.8.2.min.js'));
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
 		}
-	};
+	}
 
 	function loadIDEDependencies() {
-		addJSToLoad('lib/jQuery/jquery.textarea.js');
-		addJSToLoad('lib/CodeMirror/codemirror.js');
-		addJSToLoad('lib/CodeMirror/smalltalk.js');
+		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
+		addJSToLoad('js/lib/CodeMirror/codemirror.js');
+		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
 		loadCSS('lib/CodeMirror/amber.css', 'js');
-	};
+	}
 
 	// This will be called after JS files have been loaded
-	function initializeSmalltalk() {
+	function initializeSmalltalk(commitPath) {
 		window.smalltalkReady = function() {
+			if (commitPath) {
+				smalltalk['@@commitPath'] = commitPath;
+				smalltalk.Package._commitPathsFromLoader();
+			}
 			if (spec.ready) {
 				spec.ready();
-			};
-            evaluateSmalltalkScripts();
+			}
+			evaluateSmalltalkScripts();
 		};
 
-		loadAllJS(); 
-	};
+		loadAllJS();
+	}
 
-	/* 
+	/*
 	 * When loaded using AJAX, scripts order not guaranteed.
 	 * Load JS in the order they have been added using addJSToLoad().
 	 * If loaded, will use jQuery's getScript instead of adding a script element
@@ -196,7 +234,7 @@ amber = (function() {
 			loadJS = loadJSViaJQuery;
 		}
 		loadNextJS();
-	};
+	}
 
 	function loadNextJS() {
 		loadJS(jsToLoad[0], function(){
@@ -205,37 +243,36 @@ amber = (function() {
 				loadNextJS();
 			}
 		});
-	};
+	}
 
 	function loadJSViaScriptTag(url, callback) {
 		writeScriptTag(url);
 		callback();
-	};
+	}
 
 	function loadJSViaJQuery(url, callback) {
 		$.ajax({
 			dataType: "script",
-			url: jsToLoad[0],
+			url: url,
 			cache: deploy,
 			success: callback
 		});
-	};
+	}
 
 	function writeScriptTag(src) {
 		var scriptString = '<script src="' + src + '" type="text/javascript"></script>';
 		document.write(scriptString);
-	};
+	}
 
-    function evaluateSmalltalkScripts() {
-        jQuery(document).ready(function() {
-            jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
-                smalltalk.send(
-                    smalltalk.send(smalltalk.Compiler, '_new'),
-                    '_evaluateExpression_',
-                    [jQuery(elt).html()])
-            });
-        })
-    };
+	function evaluateSmalltalkScripts() {
+		jQuery(document).ready(function() {
+			jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
+				smalltalk.Compiler._new()._evaluateExpression_(jQuery(elt).html());
+			});
+		})
+	}
+
+	var localPackages;
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
@@ -252,14 +289,14 @@ amber = (function() {
 		}
 
 		return localPackages;
-	};
+	}
 
 	function clearLocalPackages() {
 		for (var name in localPackages) {
 			log('Removing ' + name + ' from local storage');
 			localStorage.removeItem('smalltalk.packages.' + name);
 		}
-	};
+	}
 
 	function log(string) {
 		if (debug) {

@@ -6,9 +6,19 @@ smalltalk.method({
 selector: "context",
 fn: function (){
 var self=this;
-return self.context;
-;
-return self}
+return smalltalk.withContext(function($ctx1) { return self.context;
+return self}, function($ctx1) {$ctx1.fill(self,"context",{}, smalltalk.Error)})}
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._messageText_(_st("Errorclass: ").__comma(_st(_st(self)._class())._name()));
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -18,9 +28,8 @@ smalltalk.method({
 selector: "isSmalltalkError",
 fn: function (){
 var self=this;
-return self.smalltalkError === true;
-;
-return self}
+return smalltalk.withContext(function($ctx1) { return self.smalltalkError === true;
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -30,9 +39,8 @@ smalltalk.method({
 selector: "jsStack",
 fn: function (){
 var self=this;
-return self.stack;
-;
-return self}
+return smalltalk.withContext(function($ctx1) { return self.stack;
+return self}, function($ctx1) {$ctx1.fill(self,"jsStack",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -42,8 +50,10 @@ smalltalk.method({
 selector: "messageText",
 fn: function (){
 var self=this;
-return self["@messageText"];
-}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@messageText"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -53,8 +63,8 @@ smalltalk.method({
 selector: "messageText:",
 fn: function (aString){
 var self=this;
-self["@messageText"]=aString;
-return self}
+return smalltalk.withContext(function($ctx1) { self["@messageText"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"messageText:",{aString:aString}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -64,9 +74,8 @@ smalltalk.method({
 selector: "signal",
 fn: function (){
 var self=this;
-self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
-;
-return self}
+return smalltalk.withContext(function($ctx1) { self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self);
+return self}, function($ctx1) {$ctx1.fill(self,"signal",{}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -76,9 +85,9 @@ smalltalk.method({
 selector: "signal:",
 fn: function (aString){
 var self=this;
-smalltalk.send(self,"_messageText_",[aString]);
-smalltalk.send(self,"_signal",[]);
-return self}
+return smalltalk.withContext(function($ctx1) { _st(self)._messageText_(aString);
+_st(self)._signal();
+return self}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString}, smalltalk.Error)})}
 }),
 smalltalk.Error);
 
@@ -89,10 +98,10 @@ smalltalk.method({
 selector: "signal",
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_signal",[]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._new())._signal();
 return $1;
-}
+}, function($ctx1) {$ctx1.fill(self,"signal",{}, smalltalk.Error.klass)})}
 }),
 smalltalk.Error.klass);
 
@@ -102,12 +111,94 @@ smalltalk.method({
 selector: "signal:",
 fn: function (aString){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(self,"_new",[]),"_signal_",[aString]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._new())._signal_(aString);
 return $1;
-}
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString}, smalltalk.Error.klass)})}
 }),
 smalltalk.Error.klass);
+
+
+smalltalk.addClass('JavaScriptException', smalltalk.Error, ['exception'], 'Kernel-Exceptions');
+smalltalk.addMethod(
+"_context_",
+smalltalk.method({
+selector: "context:",
+fn: function (aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.context = aMethodContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_exception",
+smalltalk.method({
+selector: "exception",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@exception"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exception",{}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_exception_",
+smalltalk.method({
+selector: "exception:",
+fn: function (anException){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@exception"]=anException;
+return self}, function($ctx1) {$ctx1.fill(self,"exception:",{anException:anException}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return 'JavaScript exception: ' + self["@exception"].toString();
+return self}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.JavaScriptException)})}
+}),
+smalltalk.JavaScriptException);
+
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+fn: function (anException){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._exception_(anException);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException}, smalltalk.JavaScriptException.klass)})}
+}),
+smalltalk.JavaScriptException.klass);
+
+smalltalk.addMethod(
+"_on_context_",
+smalltalk.method({
+selector: "on:context:",
+fn: function (anException,aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._exception_(anException);
+_st($2)._context_(aMethodContext);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext}, smalltalk.JavaScriptException.klass)})}
+}),
+smalltalk.JavaScriptException.klass);
 
 
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
@@ -117,8 +208,10 @@ smalltalk.method({
 selector: "message",
 fn: function (){
 var self=this;
-return self["@message"];
-}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@message"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"message",{}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -128,8 +221,8 @@ smalltalk.method({
 selector: "message:",
 fn: function (aMessage){
 var self=this;
-self["@message"]=aMessage;
-return self}
+return smalltalk.withContext(function($ctx1) { self["@message"]=aMessage;
+return self}, function($ctx1) {$ctx1.fill(self,"message:",{aMessage:aMessage}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -139,10 +232,10 @@ smalltalk.method({
 selector: "messageText",
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(self,"_receiver",[]),"_asString",[]),"__comma",[" does not understand #"]),"__comma",[smalltalk.send(smalltalk.send(self,"_message",[]),"_selector",[])]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(_st(self)._receiver())._asString()).__comma(" does not understand #")).__comma(_st(_st(self)._message())._selector());
 return $1;
-}
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -152,8 +245,10 @@ smalltalk.method({
 selector: "receiver",
 fn: function (){
 var self=this;
-return self["@receiver"];
-}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@receiver"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"receiver",{}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -163,8 +258,8 @@ smalltalk.method({
 selector: "receiver:",
 fn: function (anObject){
 var self=this;
-self["@receiver"]=anObject;
-return self}
+return smalltalk.withContext(function($ctx1) { self["@receiver"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject}, smalltalk.MessageNotUnderstood)})}
 }),
 smalltalk.MessageNotUnderstood);
 
@@ -177,8 +272,10 @@ smalltalk.method({
 selector: "object",
 fn: function (){
 var self=this;
-return self["@object"];
-}
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@object"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"object",{}, smalltalk.NonBooleanReceiver)})}
 }),
 smalltalk.NonBooleanReceiver);
 
@@ -188,8 +285,8 @@ smalltalk.method({
 selector: "object:",
 fn: function (anObject){
 var self=this;
-self["@object"]=anObject;
-return self}
+return smalltalk.withContext(function($ctx1) { self["@object"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"object:",{anObject:anObject}, smalltalk.NonBooleanReceiver)})}
 }),
 smalltalk.NonBooleanReceiver);
 
@@ -202,15 +299,15 @@ smalltalk.method({
 selector: "handleError:",
 fn: function (anError){
 var self=this;
-var $1;
-$1=smalltalk.send(anError,"_context",[]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(anError)._context();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logErrorContext_",[smalltalk.send(anError,"_context",[])]);
+_st(self)._logErrorContext_(_st(anError)._context());
 };
-smalltalk.send(self,"_logError_",[anError]);
-return self}
+_st(self)._logError_(anError);
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -220,8 +317,8 @@ smalltalk.method({
 selector: "log:",
 fn: function (aString){
 var self=this;
-smalltalk.send(console,"_log_",[aString]);
-return self}
+return smalltalk.withContext(function($ctx1) { _st(console)._log_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -231,15 +328,15 @@ smalltalk.method({
 selector: "logContext:",
 fn: function (aContext){
 var self=this;
-var $1;
-$1=smalltalk.send(aContext,"_home",[]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(aContext)._home();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-smalltalk.send(self,"_logContext_",[smalltalk.send(aContext,"_home",[])]);
+_st(self)._logContext_(_st(aContext)._home());
 };
-smalltalk.send(self,"_log_",[smalltalk.send(smalltalk.send(smalltalk.send(smalltalk.send(aContext,"_receiver",[]),"_asString",[]),"__comma",[">>"]),"__comma",[smalltalk.send(aContext,"_selector",[])])]);
-return self}
+_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(_st(aContext)._selector())._asString()));
+return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -249,8 +346,8 @@ smalltalk.method({
 selector: "logError:",
 fn: function (anError){
 var self=this;
-smalltalk.send(self,"_log_",[smalltalk.send(anError,"_messageText",[])]);
-return self}
+return smalltalk.withContext(function($ctx1) { _st(self)._log_(_st(anError)._messageText());
+return self}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -260,18 +357,18 @@ smalltalk.method({
 selector: "logErrorContext:",
 fn: function (aContext){
 var self=this;
-var $1;
-if(($receiver = aContext) == nil || $receiver == undefined){
-aContext;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+$1=aContext;
+$2=(function(){
+return smalltalk.withContext(function($ctx2) {$3=_st(aContext)._home();
+if(($receiver = $3) == nil || $receiver == undefined){
+return $3;
 } else {
-$1=smalltalk.send(aContext,"_home",[]);
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-smalltalk.send(self,"_logContext_",[smalltalk.send(aContext,"_home",[])]);
+return _st(self)._logContext_(_st(aContext)._home());
 };
-};
-return self}
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+_st($1)._ifNotNil_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext}, smalltalk.ErrorHandler)})}
 }),
 smalltalk.ErrorHandler);
 
@@ -283,15 +380,16 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-var $1;
-if(($receiver = self["@current"]) == nil || $receiver == undefined){
-self["@current"]=smalltalk.send(self,"_new",[]);
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@current"]=_st(self)._new();
 $1=self["@current"];
 } else {
-$1=self["@current"];
+$1=$2;
 };
 return $1;
-}
+}, function($ctx1) {$ctx1.fill(self,"current",{}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -301,8 +399,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-smalltalk.send(self,"_register",[]);
-return self}
+return smalltalk.withContext(function($ctx1) { _st(self)._register();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -312,8 +410,8 @@ smalltalk.method({
 selector: "register",
 fn: function (){
 var self=this;
-smalltalk.send((smalltalk.ErrorHandler || ErrorHandler),"_setCurrent_",[smalltalk.send(self,"_new",[])]);
-return self}
+return smalltalk.withContext(function($ctx1) { _st((smalltalk.ErrorHandler || ErrorHandler))._setCurrent_(_st(self)._new());
+return self}, function($ctx1) {$ctx1.fill(self,"register",{}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 
@@ -323,8 +421,8 @@ smalltalk.method({
 selector: "setCurrent:",
 fn: function (anHandler){
 var self=this;
-self["@current"]=anHandler;
-return self}
+return smalltalk.withContext(function($ctx1) { self["@current"]=anHandler;
+return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandler}, smalltalk.ErrorHandler.klass)})}
 }),
 smalltalk.ErrorHandler.klass);
 

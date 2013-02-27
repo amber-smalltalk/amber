@@ -14,10 +14,24 @@ result: aTestResult
 ! !
 
 Object subclass: #TestCase
-	instanceVariableNames: 'testSelector'
+	instanceVariableNames: 'testSelector asyncTimeout context'
 	package: 'SUnit'!
+!TestCase commentStamp!
+A TestCase is an implementation of the command pattern to run a test.  
+
+`TestCase` instances are created with the class method `#selector:`, 
+passing the symbol that names the method to be executed when the test case runs.
+
+When you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.  
+As that method develops and more `#test...` methods are added, you will find yourself refactoring temps 
+into instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.  
+As required, override `#tearDown` to nil references, release objects and deallocate.!
 
 !TestCase methodsFor: 'accessing'!
+
+context: aRunningTestContext
+	context := aRunningTestContext
+!
 
 selector
 	^testSelector
@@ -25,6 +39,40 @@ selector
 
 setTestSelector: aSelector
 	testSelector := aSelector
+! !
+
+!TestCase methodsFor: 'async'!
+
+async: aBlock
+	| c |
+	self errorIfNotAsync: '#async'.
+    c := context.
+    ^ [ self isAsync ifTrue: [ c execute: aBlock ] ]
+!
+
+finished
+	self errorIfNotAsync: '#finished'.
+	asyncTimeout := nil
+!
+
+timeout: aNumber
+	"Set a grace time timeout in milliseconds to run the test asynchronously"
+    
+	asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].
+    
+     "to allow #async: message send without throwing an error"
+	asyncTimeout := 0.
+    
+	asyncTimeout := (self async: [ 
+    	self assert: false description: 'SUnit grace time exhausted' ])
+        	valueWithTimeout: aNumber
+! !
+
+!TestCase methodsFor: 'error handling'!
+
+errorIfNotAsync: aString
+	self isAsync ifFalse: [ 
+    	self error: aString, ' used without prior #timeout:' ]
 ! !
 
 !TestCase methodsFor: 'private'!
@@ -38,14 +86,14 @@ signalFailure: aString
 !TestCase methodsFor: 'running'!
 
 performTest
+	asyncTimeout := nil.
 	self perform: self selector
 !
 
 runCase
-	[	self setUp.
-		self performTest ] ensure: [
-		self tearDown.
-		"self cleanUpInstanceVariables" ]
+	"Runs a test case in isolated context, leaking all errors."
+
+	(TestContext testCase: self) start
 !
 
 setUp
@@ -70,6 +118,10 @@ assert: expected equals: actual
 
 deny: aBoolean
 	self assert: aBoolean not
+!
+
+isAsync
+	^asyncTimeout notNil
 !
 
 should: aBlock
@@ -126,13 +178,127 @@ shouldInheritSelectors
 	^self ~= self lookupHierarchyRoot
 ! !
 
+Object subclass: #TestContext
+	instanceVariableNames: 'testCase'
+	package: 'SUnit'!
+!TestContext commentStamp!
+TestContext governs running a particular test case.
+
+It's main added value is `#execute:` method which runs a block
+as a part of test case (restores context, nilling it afterwards,
+cleaning/calling tearDown as appropriate for sync/async scenario).!
+
+!TestContext methodsFor: 'accessing'!
+
+testCase: aTestCase
+	testCase := aTestCase
+! !
+
+!TestContext methodsFor: 'running'!
+
+execute: aBlock
+	| failed |
+    
+    testCase context: self.
+    [ 
+    	failed := true. 
+        aBlock value. 
+        failed := false 
+	] 
+    	ensure: [
+        	testCase context: nil.
+            
+        	(failed and: [ testCase isAsync ]) ifTrue: [ 
+            	testCase finished ].
+        	testCase isAsync ifFalse: [ 
+        		testCase tearDown ] ]
+!
+
+start
+	self execute: [ 
+    	testCase setUp. 
+        testCase performTest ]
+! !
+
+!TestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase
+	^self new
+        testCase: aTestCase;
+        yourself
+! !
+
+TestContext subclass: #ReportingTestContext
+	instanceVariableNames: 'finished result'
+	package: 'SUnit'!
+!ReportingTestContext commentStamp!
+ReportingTestContext adds `TestResult` reporting
+to `TestContext`.
+
+Errors are caught and save into a `TestResult`,
+When test case is finished (which can be later for async tests),
+a callback block is executed; this is used by a `TestSuiteRunner`.!
+
+!ReportingTestContext methodsFor: 'accessing'!
+
+finished: aBlock
+	finished := aBlock
+!
+
+result: aTestResult
+	result := aTestResult
+! !
+
+!ReportingTestContext methodsFor: 'private'!
+
+withErrorReporting: aBlock
+ 	[ aBlock
+		on: TestFailure 
+		do: [ :ex | result addFailure: testCase ] 
+	]
+    	on: Error 
+        do: [ :ex | result addError: testCase ]
+! !
+
+!ReportingTestContext methodsFor: 'running'!
+
+execute: aBlock
+    [ 
+    	self withErrorReporting: [ super execute: aBlock ] 
+	]
+    	ensure: [ 
+        	testCase isAsync ifFalse: [ 
+            	result increaseRuns. finished value ] ]
+! !
+
+!ReportingTestContext class methodsFor: 'instance creation'!
+
+testCase: aTestCase result: aTestResult finished: aBlock
+	^(super testCase: aTestCase)
+        result: aTestResult;
+        finished: aBlock;
+        yourself
+! !
+
 Error subclass: #TestFailure
 	instanceVariableNames: ''
 	package: 'SUnit'!
+!TestFailure commentStamp!
+The test framework distinguishes between failures and errors.  
+A failure is an event whose possibiity is explicitly anticipated and checked for in an assertion, 
+whereas an error is an unanticipated problem like a division by 0 or an index out of bounds.  
+
+TestFailure is raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.!
 
 Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
 	package: 'SUnit'!
+!TestResult commentStamp!
+A TestResult implements the collecting parameter pattern for running a bunch of tests.  
+
+A TestResult holds tests that have run, sorted into the result categories of passed, failures and errors.
+
+TestResult is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce!
 
 !TestResult methodsFor: 'accessing'!
 
@@ -209,7 +375,7 @@ runCase: aTestCase
 ! !
 
 Object subclass: #TestSuiteRunner
-	instanceVariableNames: 'suite result announcer'
+	instanceVariableNames: 'suite result announcer runNextTest'
 	package: 'SUnit'!
 
 !TestSuiteRunner methodsFor: 'accessing'!
@@ -228,15 +394,14 @@ suite: aCollection
 
 !TestSuiteRunner methodsFor: 'actions'!
 
+resume
+	runNextTest fork.
+    announcer announce: (ResultAnnouncement new result: result)
+!
+
 run
-	| worker |
 	result total: suite size.
-    announcer announce: (ResultAnnouncement new result: result).
-    worker := [ result nextRunDo: [ :index |
-		[ result runCase: (suite at: index) ]
-		ensure: [ worker fork.
-        	announcer announce: (ResultAnnouncement new result: result) ]]].
-	worker fork
+	self resume
 ! !
 
 !TestSuiteRunner methodsFor: 'initialization'!
@@ -244,7 +409,14 @@ run
 initialize
 	super initialize.
 	announcer := Announcer new.
-    result := TestResult new
+    result := TestResult new.
+    runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].
+! !
+
+!TestSuiteRunner methodsFor: 'private'!
+
+contextOf: anInteger
+   	^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!

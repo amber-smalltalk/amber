@@ -77,6 +77,10 @@ The default behavior is to allow it, as this is how Amber currently is able to s
 
 !UnknownVariableError methodsFor: 'accessing'!
 
+messageText
+	^ 'Unknown Variable error: ', self variableName, ' is not defined'
+!
+
 variableName
 	^ variableName
 !

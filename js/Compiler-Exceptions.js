@@ -24,10 +24,10 @@ selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(" Invalid assignment to variable: ","__comma",[smalltalk.send(self,"_variableName",[])]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(" Invalid assignment to variable: ").__comma(_st(self)._variableName());
 return $1;
-},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.InvalidAssignmentError)})},
 args: [],
 source: "messageText\x0a\x09^ ' Invalid assignment to variable: ', self variableName",
 messageSends: [",", "variableName"],
@@ -42,8 +42,10 @@ selector: "variableName",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@variableName"];
-},
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName",{}, smalltalk.InvalidAssignmentError)})},
 args: [],
 source: "variableName\x0a\x09^ variableName",
 messageSends: [],
@@ -58,8 +60,8 @@ selector: "variableName:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-self["@variableName"]=aString;
-return self},
+return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString}, smalltalk.InvalidAssignmentError)})},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -78,10 +80,10 @@ selector: "messageText",
 category: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=smalltalk.send(smalltalk.send("Variable shadowing error: ","__comma",[smalltalk.send(self,"_variableName",[])]),"__comma",[" is already defined"]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st("Variable shadowing error: ").__comma(_st(self)._variableName())).__comma(" is already defined");
 return $1;
-},
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.ShadowingVariableError)})},
 args: [],
 source: "messageText\x0a\x09^ 'Variable shadowing error: ', self variableName, ' is already defined'",
 messageSends: [",", "variableName"],
@@ -96,8 +98,10 @@ selector: "variableName",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@variableName"];
-},
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName",{}, smalltalk.ShadowingVariableError)})},
 args: [],
 source: "variableName\x0a\x09^ variableName",
 messageSends: [],
@@ -112,8 +116,8 @@ selector: "variableName:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-self["@variableName"]=aString;
-return self},
+return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString}, smalltalk.ShadowingVariableError)})},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],
@@ -126,14 +130,34 @@ smalltalk.ShadowingVariableError);
 smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects."
 smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st("Unknown Variable error: ").__comma(_st(self)._variableName())).__comma(" is not defined");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.UnknownVariableError)})},
+args: [],
+source: "messageText\x0a\x09^ 'Unknown Variable error: ', self variableName, ' is not defined'",
+messageSends: [",", "variableName"],
+referencedClasses: []
+}),
+smalltalk.UnknownVariableError);
+
+smalltalk.addMethod(
 "_variableName",
 smalltalk.method({
 selector: "variableName",
 category: 'accessing',
 fn: function (){
 var self=this;
-return self["@variableName"];
-},
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName",{}, smalltalk.UnknownVariableError)})},
 args: [],
 source: "variableName\x0a\x09^ variableName",
 messageSends: [],
@@ -148,8 +172,8 @@ selector: "variableName:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-self["@variableName"]=aString;
-return self},
+return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString}, smalltalk.UnknownVariableError)})},
 args: ["aString"],
 source: "variableName: aString\x0a\x09variableName := aString",
 messageSends: [],

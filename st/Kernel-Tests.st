@@ -5,8 +5,25 @@ TestCase subclass: #BlockClosureTest
 
 !BlockClosureTest methodsFor: 'tests'!
 
+testCanClearInterval
+	self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error
+!
+
+testCanClearTimeout
+	self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error
+!
+
 testCompiledSource
 	self assert: ([1+1] compiledSource includesSubString: 'function')
+!
+
+testCurrySelf
+	| curriedMethod array |
+    curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.
+    array := #(3 1 4).
+    ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.
+    [ self assert: 1 equals: (array foo: 2) ]
+    ensure: [ Array removeCompiledMethod: curriedMethod ]
 !
 
 testEnsure
@@ -15,6 +32,21 @@ testEnsure
 
 testEnsureRaises
 	self should: [[Error new signal] ensure: [true]] raise: Error
+!
+
+testExceptionSemantics
+	"See https://github.com/NicolasPetton/amber/issues/314"
+    self timeout: 100.
+    
+    (self async:  [ 
+    	[ 
+        	self assert: true. 
+            Error signal. 
+            "The following should *not* be run"
+            self deny: true.
+            self finished.
+  		] on: Error do: [ :ex | self finished ] 
+	]) valueWithTimeout: 0
 !
 
 testNumArgs
@@ -121,6 +153,21 @@ testIfTrueIfFalse
 	self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
 !
 
+testIfTrueIfFalseWithBoxing
+ 
+	self assert: (true yourself ifTrue: ['alternative block']) = 'alternative block'.
+	self assert: (true yourself ifFalse: ['alternative block']) = nil.
+
+	self assert: (false yourself ifTrue: ['alternative block']) = nil.
+	self assert: (false yourself ifFalse: ['alternative block']) = 'alternative block'.
+
+	self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block2'.
+	self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block'.
+
+	self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) = 'alternative block'.
+	self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) = 'alternative block2'.
+!
+
 testLogic
  
 	"Trivial logic table"
@@ -157,9 +204,7 @@ testLogicKeywords
 !
 
 testNonBooleanError
-	|b|
-    b := < '' >.
-    self should: [nonBoolean ifTrue: [] ifFalse: []] raise: NonBooleanReceiver
+    self should: [ '' ifTrue: [] ifFalse: [] ] raise: NonBooleanReceiver
 ! !
 
 TestCase subclass: #ClassBuilderTest
@@ -183,6 +228,66 @@ testClassCopy
 	self assert: theClass name equals: 'ObjectMock2'.
 	self assert: theClass package == ObjectMock package.
 	self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys
+!
+
+testClassMigration
+	| instance oldClass |
+    
+    oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
+    instance := (Smalltalk  current at: 'ObjectMock2') new.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self deny: oldClass == ObjectMock2.
+    
+	self assert: ObjectMock2 superclass == ObjectMock.
+	self assert: ObjectMock2 instanceVariableNames isEmpty.
+	self assert: ObjectMock2 selectors equals: oldClass selectors.
+    self assert: ObjectMock2 comment equals: oldClass comment.
+    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.
+    
+	self deny: instance class == ObjectMock2.
+    self assert: instance class name equals: 'OldObjectMock2'.
+    
+    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
+    
+    Smalltalk current removeClass: ObjectMock2
+!
+
+testClassMigrationWithClassInstanceVariables
+    
+    builder copyClass: ObjectMock named: 'ObjectMock2'.
+    ObjectMock2 class instanceVariableNames: 'foo bar'.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').
+    
+    Smalltalk current removeClass: ObjectMock2
+!
+
+testClassMigrationWithSubclasses
+    
+    builder copyClass: ObjectMock named: 'ObjectMock2'.
+    ObjectMock2 subclass: 'ObjectMock3' instanceVariableNames: '' package: 'Kernel-Tests'.
+    ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self assert: (ObjectMock subclasses includes: ObjectMock2).
+    self assert: (ObjectMock2 subclasses includes: ObjectMock3).
+    self assert: (ObjectMock3 subclasses includes: ObjectMock4).
+    
+    ObjectMock allSubclasses do: [ :each | Smalltalk current removeClass: each ]
 !
 
 testInstanceVariableNames
@@ -826,10 +931,19 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: ''}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
+
+testAtIfAbsent
+	| testObject |
+    testObject := self jsObject.
+	self assert: 'Property does not exist' equals: (testObject at: 'abc' ifAbsent: ['Property does not exist']).
+	self assert: nil equals: (testObject at: 'e' ifAbsent: ['Property does not exist']).
+    self assert: 1 equals: (testObject at: 'a' ifAbsent: ['Property does not exist']).
+    self assert: nil equals: (testObject at: 'f' ifAbsent: ['Property does not exist']).
+!
 
 testDNU
 	self should: [self jsObject foo] raise: MessageNotUnderstood
@@ -860,6 +974,22 @@ testPropertyThatReturnsEmptyString
 	self assert: 'hello' equals: object d
 !
 
+testPropertyThatReturnsUndefined
+	| object |
+
+	object := self jsObject.
+	self shouldnt: [ object e ]  raise: MessageNotUnderstood.
+    self assert: object e isNil
+!
+
+testValue
+	| testObject |
+    testObject := self jsObject.
+	self assert: '[object Object]' equals: testObject value printString.
+    testObject at: 'value' put: 'aValue'.
+	self assert: 'aValue' equals: testObject value
+!
+
 testYourself
 	| object |
 	object := self jsObject
@@ -867,6 +997,29 @@ testYourself
 		yourself.
 
 	self assert: object d equals: 'test'
+! !
+
+TestCase subclass: #JavaScriptExceptionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!JavaScriptExceptionTest methodsFor: 'helpers'!
+
+throwException
+	<throw 'test'>
+! !
+
+!JavaScriptExceptionTest methodsFor: 'testing'!
+
+testCatchingException
+	[ self throwException ]
+  		on: Error
+        do: [ :error | 
+			self assert: error exception = 'test' ]
+!
+
+testRaisingException
+	self should: [ self throwException ] raise: JavaScriptException
 ! !
 
 TestCase subclass: #NumberTest
@@ -931,6 +1084,17 @@ testEquality
 	self deny: 0 = ''
 !
 
+testHexNumbers
+
+	self assert: 16r9 = 9.
+	self assert: 16rA truncated = 10.
+	self assert: 16rB truncated = 11.
+	self assert: 16rC truncated = 12.
+	self assert: 16rD truncated = 13.
+	self assert: 16rE truncated = 14.
+	self assert: 16rF truncated = 15
+!
+
 testIdentity
 	self assert: 1 == 1.
 	self assert: 0 == 0.
@@ -941,6 +1105,51 @@ testIdentity
 	self assert: 1 yourself == 1 yourself.
 	
 	self deny: 1 == 2
+!
+
+testInvalidHexNumbers
+
+	self should: [16rG] raise: MessageNotUnderstood.
+   	self should: [16rg] raise: MessageNotUnderstood.
+	self should: [16rH] raise: MessageNotUnderstood.
+   	self should: [16rh] raise: MessageNotUnderstood.
+	self should: [16rI] raise: MessageNotUnderstood.
+   	self should: [16ri] raise: MessageNotUnderstood.
+	self should: [16rJ] raise: MessageNotUnderstood.
+   	self should: [16rj] raise: MessageNotUnderstood.
+	self should: [16rK] raise: MessageNotUnderstood.
+   	self should: [16rk] raise: MessageNotUnderstood.
+	self should: [16rL] raise: MessageNotUnderstood.
+   	self should: [16rl] raise: MessageNotUnderstood.
+	self should: [16rM] raise: MessageNotUnderstood.
+   	self should: [16rm] raise: MessageNotUnderstood.
+	self should: [16rN] raise: MessageNotUnderstood.
+   	self should: [16rn] raise: MessageNotUnderstood.
+	self should: [16rO] raise: MessageNotUnderstood.
+   	self should: [16ro] raise: MessageNotUnderstood.
+	self should: [16rP] raise: MessageNotUnderstood.
+   	self should: [16rp] raise: MessageNotUnderstood.
+	self should: [16rQ] raise: MessageNotUnderstood.
+   	self should: [16rq] raise: MessageNotUnderstood.
+	self should: [16rR] raise: MessageNotUnderstood.
+   	self should: [16rr] raise: MessageNotUnderstood.
+	self should: [16rS] raise: MessageNotUnderstood.
+   	self should: [16rs] raise: MessageNotUnderstood.
+	self should: [16rT] raise: MessageNotUnderstood.
+   	self should: [16rt] raise: MessageNotUnderstood.
+	self should: [16rU] raise: MessageNotUnderstood.
+   	self should: [16ru] raise: MessageNotUnderstood.
+	self should: [16rV] raise: MessageNotUnderstood.
+   	self should: [16rv] raise: MessageNotUnderstood.
+	self should: [16rW] raise: MessageNotUnderstood.
+   	self should: [16rw] raise: MessageNotUnderstood.
+	self should: [16rX] raise: MessageNotUnderstood.
+   	self should: [16rx] raise: MessageNotUnderstood.
+	self should: [16rY] raise: MessageNotUnderstood.
+   	self should: [16ry] raise: MessageNotUnderstood.
+	self should: [16rZ] raise: MessageNotUnderstood.
+   	self should: [16rz] raise: MessageNotUnderstood.
+    self should: [16rABcdEfZ] raise: MessageNotUnderstood.
 !
 
 testMinMax
@@ -1019,6 +1228,8 @@ testTruncated
 Object subclass: #ObjectMock
 	instanceVariableNames: 'foo bar'
 	package: 'Kernel-Tests'!
+!ObjectMock commentStamp!
+ObjectMock is there only to perform tests on classes.!
 
 !ObjectMock methodsFor: 'not yet classified'!
 
@@ -1035,6 +1246,10 @@ TestCase subclass: #ObjectTest
 	package: 'Kernel-Tests'!
 
 !ObjectTest methodsFor: 'tests'!
+
+notDefined
+	<return undefined;>
+!
 
 testBasicAccess
 	| o |
@@ -1102,11 +1317,7 @@ testInstVars
 testNilUndefined
 	"nil in Smalltalk is the undefined object in JS"
 
-	| notDefined |
-    
-    <notDefined = undefined>.
-
-	self assert: nil = notDefined
+	self assert: nil = self notDefined
 !
 
 testYourself
@@ -1284,6 +1495,17 @@ testAddRemove
 
 testAt
 	self should: [Set new at: 1 put: 2] raise: Error
+!
+
+testCollect
+	self assert: #(0 2) asSet equals: (#(5 6 8) asSet collect: [ :x | x \\ 3 ])
+!
+
+testComparing
+	self assert: #(0 2) asSet equals: #(0 2) asSet.
+    self assert: #(2 0) asSet equals: #(0 2) asSet.
+    self deny: #(0 2 3) asSet = #(0 2) asSet.
+    self deny: #(1 2) asSet = #(0 2) asSet
 !
 
 testPrintString
