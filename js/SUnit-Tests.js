@@ -43,11 +43,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@empty"])._addAll_(_st((1))._to_((100)));
-_st(self)._assert_(_st(_st(self["@empty"])._size()).__eq((100)));
+_st(self)._assert_equals_(_st(self["@empty"])._size(),(100));
 return self}, function($ctx1) {$ctx1.fill(self,"testGrow",{}, smalltalk.ExampleSetTest)})},
 args: [],
-source: "testGrow\x0a\x09empty addAll: (1 to: 100).\x0a\x09self assert: empty size = 100",
-messageSends: ["addAll:", "to:", "assert:", "=", "size"],
+source: "testGrow\x0a\x09empty addAll: (1 to: 100).\x0a\x09self assert: empty size equals: 100",
+messageSends: ["addAll:", "to:", "assert:equals:", "size"],
 referencedClasses: []
 }),
 smalltalk.ExampleSetTest);
@@ -97,14 +97,14 @@ selector: "testOccurrences",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(self["@empty"])._occurrencesOf_((0))).__eq((0)));
-_st(self)._assert_(_st(_st(self["@full"])._occurrencesOf_((5))).__eq((1)));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@empty"])._occurrencesOf_((0)),(0));
+_st(self)._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
 _st(self["@full"])._add_((5));
-_st(self)._assert_(_st(_st(self["@full"])._occurrencesOf_((5))).__eq((1)));
+_st(self)._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testOccurrences",{}, smalltalk.ExampleSetTest)})},
 args: [],
-source: "testOccurrences\x0a\x09self assert: (empty occurrencesOf: 0) = 0.\x0a\x09self assert: (full occurrencesOf: 5) = 1.\x0a\x09full add: 5.\x0a\x09self assert: (full occurrencesOf: 5) = 1",
-messageSends: ["assert:", "=", "occurrencesOf:", "add:"],
+source: "testOccurrences\x0a\x09self assert: (empty occurrencesOf: 0) equals: 0.\x0a\x09self assert: (full occurrencesOf: 5) equals: 1.\x0a\x09full add: 5.\x0a\x09self assert: (full occurrencesOf: 5) equals: 1",
+messageSends: ["assert:equals:", "occurrencesOf:", "add:"],
 referencedClasses: []
 }),
 smalltalk.ExampleSetTest);
@@ -488,7 +488,7 @@ self["@flag"]="ok";
 self["@flag"];
 x=_st(x).__plus((1));
 x;
-return _st(self)._assert_equals_((1),x);
+return _st(self)._assert_equals_(x,(1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
 self["@flag"]=_st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {_st(self)._finished();
@@ -496,11 +496,11 @@ self["@flag"]="ok";
 self["@flag"];
 x=_st(x).__plus((1));
 x;
-return _st(self)._assert_equals_((1),x);
+return _st(self)._assert_equals_(x,(1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
 return self}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x}, smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "testTwoAsyncPassesWithFinishedOnlyOneIsRun\x0a\x09| x |\x0a\x09flag := 'bad'.\x0a\x09self timeout: 10.\x0a    x := 0.\x0a    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.\x0a    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.",
+source: "testTwoAsyncPassesWithFinishedOnlyOneIsRun\x0a\x09| x |\x0a\x09flag := 'bad'.\x0a\x09self timeout: 10.\x0a    x := 0.\x0a    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.\x0a    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished", "+", "assert:equals:"],
 referencedClasses: []
 }),
