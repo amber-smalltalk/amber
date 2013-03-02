@@ -112,8 +112,8 @@ assert: aBoolean description: aString
 	aBoolean ifFalse: [self signalFailure: aString]
 !
 
-assert: expected equals: actual
-	^ self assert: (expected = actual) description: 'Expected: ', expected asString, ' but was: ', actual asString
+assert: actual equals: expected
+	^ self assert: (actual = expected) description: 'Expected: ', expected asString, ' but was: ', actual asString
 !
 
 deny: aBoolean
