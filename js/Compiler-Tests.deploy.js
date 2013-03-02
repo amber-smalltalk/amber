@@ -872,8 +872,8 @@ var src,ast;
 return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ | b | b := a ] ]";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
-_st(self)._assert_(_st(_st(_st(ast)._scope())._scopeLevel()).__eq((1)));
-_st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel()).__eq((3)));
+_st(self)._assert_equals_(_st(_st(ast)._scope())._scopeLevel(),(1));
+_st(self)._assert_equals_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})}
 }),
 smalltalk.SemanticAnalyzerTest);
