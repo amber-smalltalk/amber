@@ -267,10 +267,7 @@ amber = (function() {
 	function evaluateSmalltalkScripts() {
 		jQuery(document).ready(function() {
 			jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
-				smalltalk.send(
-					smalltalk.send(smalltalk.Compiler, '_new'),
-					'_evaluateExpression_',
-					[jQuery(elt).html()])
+				smalltalk.Compiler._new()._evaluateExpression_(jQuery(elt).html());
 			});
 		})
 	}
@@ -279,7 +276,7 @@ amber = (function() {
 
 	function populateLocalPackages(){
 		var localStorageRE = /^smalltalk\.packages\.(.*)$/;
-		var localPackages = {};
+		localPackages = {};
 
 		var match, key;
 

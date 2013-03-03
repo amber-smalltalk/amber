@@ -208,22 +208,6 @@ selection
 	^editor getSelection
 !
 
-selectionEnd
-   ^textarea element selectionEnd
-!
-
-selectionEnd: anInteger
-   textarea element selectionEnd: anInteger
-!
-
-selectionStart
-   ^textarea element selectionStart
-!
-
-selectionStart: anInteger
-   textarea element selectionStart: anInteger
-!
-
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'amber',
@@ -260,7 +244,7 @@ eval: aString
 	compiler := Compiler new.
 	[compiler parseExpression: aString] on: Error do: [:ex |
 		^window alert: ex messageText].
-	^(compiler eval: (compiler compile: 'doIt ^[', aString, '] value' forClass: DoIt)) fn applyTo: self receiver arguments: #()
+	^compiler evaluateExpression: aString
 !
 
 fileIn
@@ -846,7 +830,7 @@ compileMethodDefinition
 compileMethodDefinitionFor: aClass
     | compiler method source node | 
     source := sourceArea val.
-    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].
+    selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].
     compiler := Compiler new.
     compiler source: source.
     node := compiler parse: source.
@@ -854,15 +838,13 @@ compileMethodDefinitionFor: aClass
 	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
     compiler currentClass: aClass.
     method := compiler eval: (compiler compileNode: node).
-    method category: selectedProtocol.
     compiler unknownVariables do: [:each |
          "Do not try to redeclare javascript's objects"
          (window at: each) ifNil: [
 	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
-    aClass addCompiledMethod: method.
-    compiler setupClass: aClass.
+    ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
     self updateMethodsList.
     self selectMethod: method
 !

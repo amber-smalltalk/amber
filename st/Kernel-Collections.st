@@ -257,13 +257,9 @@ ifNotEmpty: aBlock
 !
 
 includes: anObject
-	<
-		var i = self.length;
-		while (i--) {
-			if (smalltalk.send(self[i], "__eq", [anObject])) {return true;}	
-		}
-		return false
-	>
+	| sentinel |
+    sentinel := Object new.
+    ^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
 !
 
 isEmpty
@@ -683,7 +679,7 @@ indexOf: anObject
 indexOf: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
-			if(smalltalk.send(self[i], '__eq', [anObject])) {return i+1}
+			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock();
 	>
@@ -774,6 +770,12 @@ shallowCopy
 
 withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
+! !
+
+!SequenceableCollection methodsFor: 'testing'!
+
+includes: anObject
+	^(self indexOf: anObject ifAbsent: [nil]) notNil
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1040,6 +1042,10 @@ asLowercase
 
 asNumber
 	<return Number(self)>
+!
+
+asRegexp
+	^ RegularExpression fromString: self
 !
 
 asSelector
@@ -1322,7 +1328,7 @@ asJSON
 !
 
 asJavascript
-	^'smalltalk.symbolFor("', self asString, '")'
+	^'smalltalk.symbolFor(', self asString asJavascript, ')'
 !
 
 asSelector
@@ -1439,8 +1445,10 @@ remove: anObject
 !Set methodsFor: 'comparing'!
 
 = aCollection
-	^self class = aCollection class and: [
-		elements = aCollection asArray]
+	self class = aCollection class ifFalse: [ ^ false ].
+    self size = aCollection size ifFalse: [ ^ false ].
+	self do: [:each | (aCollection includes: each) ifFalse: [ ^ false ] ].
+	^ true
 ! !
 
 !Set methodsFor: 'converting'!
@@ -1450,6 +1458,10 @@ asArray
 ! !
 
 !Set methodsFor: 'enumerating'!
+
+collect: aBlock
+	^self class withAll: (elements collect: aBlock)
+!
 
 detect: aBlock ifNone: anotherBlock
 	^elements detect: aBlock ifNone: anotherBlock

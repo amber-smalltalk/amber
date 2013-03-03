@@ -1468,6 +1468,21 @@ return self}, function($ctx1) {$ctx1.fill(self,"at:",{aSymbol:aSymbol}, smalltal
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_at_ifAbsent_",
+smalltalk.method({
+selector: "at:ifAbsent:",
+fn: function (aSymbol,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock}, smalltalk.JSObjectProxy)})}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",
@@ -1594,6 +1609,21 @@ return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(self)._jsObject())._toString();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{}, smalltalk.JSObjectProxy)})}
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_value",
+smalltalk.method({
+selector: "value",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifAbsent_("value",(function(){
+return smalltalk.withContext(function($ctx2) {return smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{}, smalltalk.JSObjectProxy)})}
 }),
 smalltalk.JSObjectProxy);
 
@@ -2538,6 +2568,22 @@ smalltalk.Package);
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
+"_commitPathsFromLoader",
+smalltalk.method({
+selector: "commitPathsFromLoader",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    var cp = smalltalk['@@commitPath'];
+    if (!cp) return;
+    if (cp.js) self._defaultCommitPathJs_(cp.js);
+    if (cp.st) self._defaultCommitPathSt_(cp.st);
+    ;
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{}, smalltalk.Package.klass)})}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
 "_defaultCommitPathJs",
 smalltalk.method({
 selector: "defaultCommitPathJs",
@@ -2618,6 +2664,18 @@ return smalltalk.withContext(function($ctx1) { _st(jQuery)._getScript_onSuccess
 return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Package || Package))._named_(aPackageName))._setupClasses();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"fetch:prefix:",{aPackageName:aPackageName,aPrefix:aPrefix}, smalltalk.Package.klass)})}
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._commitPathsFromLoader();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Package.klass)})}
 }),
 smalltalk.Package.klass);
 
@@ -2912,6 +2970,26 @@ smalltalk.Random);
 
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
+"_asSmalltalkException_",
+smalltalk.method({
+selector: "asSmalltalkException:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st(self)._isSmalltalkObject_(anObject))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(anObject)._isKindOf_((smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+$1=anObject;
+} else {
+$1=_st((smalltalk.JavaScriptException || JavaScriptException))._on_(anObject);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject}, smalltalk.Smalltalk)})}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
@@ -2992,6 +3070,17 @@ fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { delete smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName}, smalltalk.Smalltalk)})}
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+"_isSmalltalkObject_",
+smalltalk.method({
+selector: "isSmalltalkObject:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return typeof anObject.klass !== 'undefined';
+return self}, function($ctx1) {$ctx1.fill(self,"isSmalltalkObject:",{anObject:anObject}, smalltalk.Smalltalk)})}
 }),
 smalltalk.Smalltalk);
 
@@ -3398,7 +3487,7 @@ selector: "subclass:instanceVariableNames:package:",
 fn: function (aString,aString2,aString3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,aString,aString2,aString3);
+$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3}, smalltalk.UndefinedObject)})}
 }),
@@ -3415,8 +3504,5 @@ return smalltalk.withContext(function($ctx1) { _st(self)._error_("You cannot cr
 return self}, function($ctx1) {$ctx1.fill(self,"new",{}, smalltalk.UndefinedObject.klass)})}
 }),
 smalltalk.UndefinedObject.klass);
-
-
-smalltalk.addClass('[object Object]', smalltalk.nil, [], 'Kernel-Objects');
 
 

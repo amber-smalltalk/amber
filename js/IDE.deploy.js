@@ -457,7 +457,7 @@ return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpres
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(_st(_st(compiler)._eval_(_st(compiler)._compile_forClass_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"),(smalltalk.DoIt || DoIt))))._fn())._applyTo_arguments_(_st(self)._receiver(),[]);
+$2=_st(compiler)._evaluateExpression_(aString);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -671,64 +671,19 @@ return $1;
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
-"_selectionEnd",
-smalltalk.method({
-selector: "selectionEnd",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd", []);
-    return $1;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionEnd_",
-smalltalk.method({
-selector: "selectionEnd:",
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd_", [anInteger]);
-    return self;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart",
-smalltalk.method({
-selector: "selectionStart",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart", []);
-    return $1;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart_",
-smalltalk.method({
-selector: "selectionStart:",
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart_", [anInteger]);
-    return self;
-}
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
 "_setEditorOn_",
 smalltalk.method({
 selector: "setEditorOn:",
-fn: function (aTextarea) {
-    var self = this;
-    self['@editor'] = CodeMirror.fromTextArea(aTextarea, {theme: "amber", lineNumbers: true, enterMode: "flat", matchBrackets: true, electricChars: false});
-    return self;
-}
+fn: function (aTextarea){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+		theme: 'amber',
+                lineNumbers: true,
+                enterMode: 'flat',
+                matchBrackets: true,
+                electricChars: false
+	});
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.SourceArea)})}
 }),
 smalltalk.SourceArea);
 
@@ -736,12 +691,12 @@ smalltalk.addMethod(
 "_val",
 smalltalk.method({
 selector: "val",
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
-}
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@editor"])._getValue();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"val",{}, smalltalk.SourceArea)})}
 }),
 smalltalk.SourceArea);
 
@@ -749,11 +704,10 @@ smalltalk.addMethod(
 "_val_",
 smalltalk.method({
 selector: "val:",
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return self;
-}
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._setValue_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString}, smalltalk.SourceArea)})}
 }),
 smalltalk.SourceArea);
 
@@ -1665,7 +1619,7 @@ selector: "compileMethodDefinitionFor:",
 fn: function (aClass){
 var self=this;
 var compiler,method,source,node;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$6,$8,$9,$7,$5;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 var $early={};
 try {
 source=_st(self["@sourceArea"])._val();
@@ -1686,23 +1640,20 @@ return $3;
 };
 _st(compiler)._currentClass_(aClass);
 method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
-_st(method)._category_(self["@selectedProtocol"]);
-$4=_st(compiler)._unknownVariables();
-$5=(function(each){
-return smalltalk.withContext(function($ctx2) {$6=_st(window)._at_(each);
-$7=(function(){
-return smalltalk.withContext(function($ctx3) {$8=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
-if(smalltalk.assert($8)){
+_st(_st(compiler)._unknownVariables())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$4=_st(window)._at_(each);
+if(($receiver = $4) == nil || $receiver == undefined){
+$5=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
+if(smalltalk.assert($5)){
 _st(self)._addInstanceVariableNamed_toClass_(each,aClass);
-$9=_st(self)._compileMethodDefinitionFor_(aClass);
-throw $early=[$9];
+$6=_st(self)._compileMethodDefinitionFor_(aClass);
+throw $early=[$6];
 };
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})});
-return _st($6)._ifNil_($7);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($4)._do_($5);
-_st(aClass)._addCompiledMethod_(method);
-_st(compiler)._setupClass_(aClass);
+} else {
+return $4;
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
 _st(self)._updateMethodsList();
 _st(self)._selectMethod_(method);
 return self}

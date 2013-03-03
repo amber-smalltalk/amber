@@ -85,12 +85,10 @@ evaluateExpression: aString
 !
 
 install: aString forClass: aBehavior category: anotherString
-	| compiled |
-	compiled := self eval: (self compile: aString forClass: aBehavior).
-	compiled category: anotherString.
-	aBehavior addCompiledMethod: compiled.
-    self setupClass: aBehavior.
-	^compiled
+   	^ ClassBuilder new
+    	installMethod: (self eval: (self compile: aString forClass: aBehavior))
+        forClass: aBehavior
+        category: anotherString
 !
 
 parse: aString
@@ -105,7 +103,7 @@ recompile: aClass
 	aClass methodDictionary do: [:each |
 		console log: aClass name, ' >> ', each selector.
 		self install: each source forClass: aClass category: each category].
-	self setupClass: aClass.
+	"self setupClass: aClass."
 	aClass isMetaclass ifFalse: [self recompile: aClass class]
 !
 
@@ -113,10 +111,6 @@ recompileAll
 	Smalltalk current classes do: [:each |
 		Transcript show: each; cr.
 		[self recompile: each] valueWithTimeout: 100]
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass)>
 ! !
 
 !Compiler class methodsFor: 'compiling'!

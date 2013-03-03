@@ -17,12 +17,36 @@ testCompiledSource
 	self assert: ([1+1] compiledSource includesSubString: 'function')
 !
 
+testCurrySelf
+	| curriedMethod array |
+    curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.
+    array := #(3 1 4).
+    ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.
+    [ self assert: 1 equals: (array foo: 2) ]
+    ensure: [ Array removeCompiledMethod: curriedMethod ]
+!
+
 testEnsure
 	self assert: 3 equals: ([3] ensure: [4])
 !
 
 testEnsureRaises
 	self should: [[Error new signal] ensure: [true]] raise: Error
+!
+
+testExceptionSemantics
+	"See https://github.com/NicolasPetton/amber/issues/314"
+    self timeout: 100.
+    
+    (self async:  [ 
+    	[ 
+        	self assert: true. 
+            Error signal. 
+            "The following should *not* be run"
+            self deny: true.
+            self finished.
+  		] on: Error do: [ :ex | self finished ] 
+	]) valueWithTimeout: 0
 !
 
 testNumArgs
@@ -231,6 +255,39 @@ testClassMigration
     self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
     
     Smalltalk current removeClass: ObjectMock2
+!
+
+testClassMigrationWithClassInstanceVariables
+    
+    builder copyClass: ObjectMock named: 'ObjectMock2'.
+    ObjectMock2 class instanceVariableNames: 'foo bar'.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').
+    
+    Smalltalk current removeClass: ObjectMock2
+!
+
+testClassMigrationWithSubclasses
+    
+    builder copyClass: ObjectMock named: 'ObjectMock2'.
+    ObjectMock2 subclass: 'ObjectMock3' instanceVariableNames: '' package: 'Kernel-Tests'.
+    ObjectMock3 subclass: 'ObjectMock4' instanceVariableNames: '' package: 'Kernel-Tests'.
+    
+    "Change the superclass of ObjectMock2"
+    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
+    	instanceVariableNames: ''
+        package: 'Kernel-Tests'.
+    
+    self assert: (ObjectMock subclasses includes: ObjectMock2).
+    self assert: (ObjectMock2 subclasses includes: ObjectMock3).
+    self assert: (ObjectMock3 subclasses includes: ObjectMock4).
+    
+    ObjectMock allSubclasses do: [ :each | Smalltalk current removeClass: each ]
 !
 
 testInstanceVariableNames
@@ -874,10 +931,19 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
+
+testAtIfAbsent
+	| testObject |
+    testObject := self jsObject.
+	self assert: 'Property does not exist' equals: (testObject at: 'abc' ifAbsent: ['Property does not exist']).
+	self assert: nil equals: (testObject at: 'e' ifAbsent: ['Property does not exist']).
+    self assert: 1 equals: (testObject at: 'a' ifAbsent: ['Property does not exist']).
+    self assert: nil equals: (testObject at: 'f' ifAbsent: ['Property does not exist']).
+!
 
 testDNU
 	self should: [self jsObject foo] raise: MessageNotUnderstood
@@ -916,6 +982,14 @@ testPropertyThatReturnsUndefined
     self assert: object e isNil
 !
 
+testValue
+	| testObject |
+    testObject := self jsObject.
+	self assert: '[object Object]' equals: testObject value printString.
+    testObject at: 'value' put: 'aValue'.
+	self assert: 'aValue' equals: testObject value
+!
+
 testYourself
 	| object |
 	object := self jsObject
@@ -923,6 +997,29 @@ testYourself
 		yourself.
 
 	self assert: object d equals: 'test'
+! !
+
+TestCase subclass: #JavaScriptExceptionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!JavaScriptExceptionTest methodsFor: 'helpers'!
+
+throwException
+	<throw 'test'>
+! !
+
+!JavaScriptExceptionTest methodsFor: 'testing'!
+
+testCatchingException
+	[ self throwException ]
+  		on: Error
+        do: [ :error | 
+			self assert: error exception = 'test' ]
+!
+
+testRaisingException
+	self should: [ self throwException ] raise: JavaScriptException
 ! !
 
 TestCase subclass: #NumberTest
@@ -1398,6 +1495,17 @@ testAddRemove
 
 testAt
 	self should: [Set new at: 1 put: 2] raise: Error
+!
+
+testCollect
+	self assert: #(0 2) asSet equals: (#(5 6 8) asSet collect: [ :x | x \\ 3 ])
+!
+
+testComparing
+	self assert: #(0 2) asSet equals: #(0 2) asSet.
+    self assert: #(2 0) asSet equals: #(0 2) asSet.
+    self deny: #(0 2 3) asSet = #(0 2) asSet.
+    self deny: #(1 2) asSet = #(0 2) asSet
 !
 
 testPrintString

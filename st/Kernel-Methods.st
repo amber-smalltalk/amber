@@ -40,13 +40,38 @@ whileTrue: aBlock
 	<while(self()) {aBlock()}>
 ! !
 
+!BlockClosure methodsFor: 'converting'!
+
+asCompiledMethod: aString
+	<return smalltalk.method({selector:aString, fn:self});>
+!
+
+currySelf
+	"Transforms [ :selfarg :x :y | stcode ] block
+    which represents JS function (selfarg, x, y, ...) {jscode}
+    into function (x, y, ...) {jscode} that takes selfarg from 'this'.
+    IOW, it is usable as JS method and first arg takes the receiver."
+    
+    <
+    	return function () {
+    		var args = [ this ];
+        	args.push.apply(args, arguments);
+        	return self.apply(null, args);
+    	}
+	>
+! !
+
 !BlockClosure methodsFor: 'error handling'!
 
 on: anErrorClass do: aBlock
-	^self try: self catch: [:error |
-	    (error isKindOf: anErrorClass) 
-	     ifTrue: [aBlock value: error]
-	     ifFalse: [error signal]]
+	"All exceptions thrown in the Smalltalk stack are cought.
+    Convert all JS exceptions to JavaScriptException instances."
+    
+	^self try: self catch: [ :error | | smalltalkError |
+    	smalltalkError := Smalltalk current asSmalltalkException: error.
+	    (smalltalkError isKindOf: anErrorClass) 
+	     ifTrue: [ aBlock value: smalltalkError ]
+	     ifFalse: [ smalltalkError signal ] ]
 ! !
 
 !BlockClosure methodsFor: 'evaluating'!
@@ -80,7 +105,7 @@ newValue:  anObject value: anObject2
 newValue:  anObject value: anObject2 value: anObject3
 	"Use the receiver as a JS constructor. 
 	*Do not* use this method to instanciate Smalltalk objects!!"
-	<return new self(anObject, anObject2)>
+	<return new self(anObject, anObject2,anObject3)>
 !
 
 timeToRun
@@ -237,12 +262,7 @@ maxPoolSize: anInteger
 	maxPoolSize := anInteger
 ! !
 
-!ForkPool methodsFor: 'action'!
-
-addWorker
-	worker valueWithTimeout: 0.
-    poolSize := poolSize + 1
-!
+!ForkPool methodsFor: 'actions'!
 
 fork: aBlock
 	poolSize < self maxPoolSize ifTrue: [ self addWorker ].
@@ -273,6 +293,13 @@ makeWorker
 		block := queue frontIfAbsent: [ sentinel ].
         block == sentinel ifFalse: [
         	[ block value ] ensure: [ self addWorker ]]]
+! !
+
+!ForkPool methodsFor: 'private'!
+
+addWorker
+	worker valueWithTimeout: 0.
+    poolSize := poolSize + 1
 ! !
 
 ForkPool class instanceVariableNames: 'default'!
@@ -417,5 +444,64 @@ isBlockContext
 	"Block context do not have selectors."
     
 	^ self selector isNil
+! !
+
+Object subclass: #NativeFunction
+	instanceVariableNames: ''
+	package: 'Kernel-Methods'!
+!NativeFunction commentStamp!
+NativeFunction is a wrapper around native functions, such as `WebSocket`.
+For 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.
+
+See the class-side `instance creation` methods.
+
+Created instances will most probably be instance of `JSObjectProxy`.
+
+Usage example:
+
+    | ws |
+    ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.
+    ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]!
+
+!NativeFunction class methodsFor: 'instance creation'!
+
+constructor: aString
+	<
+    	var native=eval(aString); 
+        return new native();
+	>
+!
+
+constructor: aString value:anObject
+	<
+    	var native=eval(aString); 
+        return new native(anObject);
+	>
+!
+
+constructor: aString value:anObject value: anObject2
+	<
+    	var native=eval(aString); 
+        return new native(anObject,anObject2);
+	>
+!
+
+constructor: aString value:anObject value: anObject2 value:anObject3
+	<
+    	var native=eval(aString); 
+        return new native(anObject,anObject2, anObject3);
+	>
+! !
+
+!NativeFunction class methodsFor: 'testing'!
+
+exists: aString
+	<
+    	if(aString in window) {
+        	return true
+        } else {
+        	return false
+        }
+    >
 ! !
 

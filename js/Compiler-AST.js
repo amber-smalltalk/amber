@@ -581,6 +581,26 @@ referencedClasses: []
 }),
 smalltalk.BlockNode);
 
+smalltalk.addMethod(
+"_subtreeNeedsAliasing",
+smalltalk.method({
+selector: "subtreeNeedsAliasing",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._shouldBeAliased())._or_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._shouldBeInlined();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{}, smalltalk.BlockNode)})},
+args: [],
+source: "subtreeNeedsAliasing\x0a    ^ self shouldBeAliased or: [ self shouldBeInlined ]",
+messageSends: ["or:", "shouldBeInlined", "shouldBeAliased"],
+referencedClasses: []
+}),
+smalltalk.BlockNode);
+
 
 
 smalltalk.addClass('CascadeNode', smalltalk.Node, ['receiver'], 'Compiler-AST');

@@ -1,5 +1,6 @@
 smalltalk.addPackage('Kernel-Exceptions', {});
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
+smalltalk.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`. \x0aThese are used to represent error conditions that prevent the normal continuation of processing. \x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified  to be subclassable, conforming implementations must implement its behavior in a non-fragile manner."
 smalltalk.addMethod(
 "_context",
 smalltalk.method({
@@ -169,7 +170,121 @@ referencedClasses: []
 smalltalk.Error.klass);
 
 
+smalltalk.addClass('JavaScriptException', smalltalk.Error, ['exception'], 'Kernel-Exceptions');
+smalltalk.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`"
+smalltalk.addMethod(
+"_context_",
+smalltalk.method({
+selector: "context:",
+category: 'accessing',
+fn: function (aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self.context = aMethodContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext}, smalltalk.JavaScriptException)})},
+args: ["aMethodContext"],
+source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0a    See boot.js `inContext()` exception handling\x22\x0a    \x0a    <self.context = aMethodContext>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_exception",
+smalltalk.method({
+selector: "exception",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@exception"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exception",{}, smalltalk.JavaScriptException)})},
+args: [],
+source: "exception\x0a\x09^ exception",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_exception_",
+smalltalk.method({
+selector: "exception:",
+category: 'accessing',
+fn: function (anException){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@exception"]=anException;
+return self}, function($ctx1) {$ctx1.fill(self,"exception:",{anException:anException}, smalltalk.JavaScriptException)})},
+args: ["anException"],
+source: "exception: anException\x0a\x09exception := anException",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JavaScriptException);
+
+smalltalk.addMethod(
+"_messageText",
+smalltalk.method({
+selector: "messageText",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return 'JavaScript exception: ' + self["@exception"].toString();
+return self}, function($ctx1) {$ctx1.fill(self,"messageText",{}, smalltalk.JavaScriptException)})},
+args: [],
+source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JavaScriptException);
+
+
+smalltalk.addMethod(
+"_on_",
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (anException){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._exception_(anException);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException}, smalltalk.JavaScriptException.klass)})},
+args: ["anException"],
+source: "on: anException\x0a\x09^ self new\x0a    \x09exception: anException;\x0a        yourself",
+messageSends: ["exception:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.JavaScriptException.klass);
+
+smalltalk.addMethod(
+"_on_context_",
+smalltalk.method({
+selector: "on:context:",
+category: 'instance creation',
+fn: function (anException,aMethodContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._exception_(anException);
+_st($2)._context_(aMethodContext);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext}, smalltalk.JavaScriptException.klass)})},
+args: ["anException", "aMethodContext"],
+source: "on: anException context: aMethodContext\x0a\x09^ self new\x0a    \x09exception: anException;\x0a        context: aMethodContext;\x0a        yourself",
+messageSends: ["exception:", "new", "context:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.JavaScriptException.klass);
+
+
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
+smalltalk.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`."
 smalltalk.addMethod(
 "_message",
 smalltalk.method({
@@ -259,6 +374,7 @@ smalltalk.MessageNotUnderstood);
 
 
 smalltalk.addClass('NonBooleanReceiver', smalltalk.Error, ['object'], 'Kernel-Exceptions');
+smalltalk.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver."
 smalltalk.addMethod(
 "_object",
 smalltalk.method({
@@ -296,6 +412,7 @@ smalltalk.NonBooleanReceiver);
 
 
 smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel-Exceptions');
+smalltalk.ErrorHandler.comment="ErrorHandler is used to manage Smalltalk errors. \x0aSee `boot.js` `handleError()` function.\x0a\x0aSubclasses of `ErrorHandler` can register themselves as the current handler with\x0a`ErrorHandler class >> register`.\x0a\x0aSubclasses may override `#handleError:` to perform an action on the thrown exception.\x0aThe default behavior is to log the error and the context stack to the JavaScript console."
 smalltalk.addMethod(
 "_handleError_",
 smalltalk.method({

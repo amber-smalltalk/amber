@@ -2,6 +2,9 @@ Smalltalk current createPackage: 'Kernel-Announcements' properties: #{}!
 Object subclass: #AnnouncementSubscription
 	instanceVariableNames: 'block announcementClass'
 	package: 'Kernel-Announcements'!
+!AnnouncementSubscription commentStamp!
+The subscription is a single entry in a subscription registry of an `Announcer`.
+Several subscriptions by the same object is possible.!
 
 !AnnouncementSubscription methodsFor: 'accessing'!
 
@@ -35,6 +38,11 @@ handlesAnnouncement: anAnnouncement
 Object subclass: #Announcer
 	instanceVariableNames: 'registry subscriptions'
 	package: 'Kernel-Announcements'!
+!Announcer commentStamp!
+The code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).
+The Announcer holds annoncement subscriptions (`AnnouncementSubscription`) in a private registry.
+
+Use `#on:do:` to register subscriptions.!
 
 !Announcer methodsFor: 'announcing'!
 

@@ -202,19 +202,14 @@ selector: "install:forClass:category:",
 category: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
-var compiled;
 return smalltalk.withContext(function($ctx1) { var $1;
-compiled=_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior));
-_st(compiled)._category_(anotherString);
-_st(aBehavior)._addCompiledMethod_(compiled);
-_st(self)._setupClass_(aBehavior);
-$1=compiled;
+$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString,compiled:compiled}, smalltalk.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString}, smalltalk.Compiler)})},
 args: ["aString", "aBehavior", "anotherString"],
-source: "install: aString forClass: aBehavior category: anotherString\x0a\x09| compiled |\x0a\x09compiled := self eval: (self compile: aString forClass: aBehavior).\x0a\x09compiled category: anotherString.\x0a\x09aBehavior addCompiledMethod: compiled.\x0a    self setupClass: aBehavior.\x0a\x09^compiled",
-messageSends: ["eval:", "compile:forClass:", "category:", "addCompiledMethod:", "setupClass:"],
-referencedClasses: []
+source: "install: aString forClass: aBehavior category: anotherString\x0a   \x09^ ClassBuilder new\x0a    \x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a        forClass: aBehavior\x0a        category: anotherString",
+messageSends: ["installMethod:forClass:category:", "eval:", "compile:forClass:", "new"],
+referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Compiler);
 
@@ -266,15 +261,14 @@ _st(_st(aClass)._methodDictionary())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {_st(console)._log_(_st(_st(_st(aClass)._name()).__comma(" >> ")).__comma(_st(each)._selector()));
 return _st(self)._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(aClass);
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._recompile_(_st(aClass)._class());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass}, smalltalk.Compiler)})},
 args: ["aClass"],
-source: "recompile: aClass\x0a\x09aClass methodDictionary do: [:each |\x0a\x09\x09console log: aClass name, ' >> ', each selector.\x0a\x09\x09self install: each source forClass: aClass category: each category].\x0a\x09self setupClass: aClass.\x0a\x09aClass isMetaclass ifFalse: [self recompile: aClass class]",
-messageSends: ["do:", "log:", ",", "selector", "name", "install:forClass:category:", "source", "category", "methodDictionary", "setupClass:", "ifFalse:", "recompile:", "class", "isMetaclass"],
+source: "recompile: aClass\x0a\x09aClass methodDictionary do: [:each |\x0a\x09\x09console log: aClass name, ' >> ', each selector.\x0a\x09\x09self install: each source forClass: aClass category: each category].\x0a\x09\x22self setupClass: aClass.\x22\x0a\x09aClass isMetaclass ifFalse: [self recompile: aClass class]",
+messageSends: ["do:", "log:", ",", "selector", "name", "install:forClass:category:", "source", "category", "methodDictionary", "ifFalse:", "recompile:", "class", "isMetaclass"],
 referencedClasses: []
 }),
 smalltalk.Compiler);
@@ -301,22 +295,6 @@ args: [],
 source: "recompileAll\x0a\x09Smalltalk current classes do: [:each |\x0a\x09\x09Transcript show: each; cr.\x0a\x09\x09[self recompile: each] valueWithTimeout: 100]",
 messageSends: ["do:", "show:", "cr", "valueWithTimeout:", "recompile:", "classes", "current"],
 referencedClasses: ["Transcript", "Smalltalk"]
-}),
-smalltalk.Compiler);
-
-smalltalk.addMethod(
-"_setupClass_",
-smalltalk.method({
-selector: "setupClass:",
-category: 'compiling',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass}, smalltalk.Compiler)})},
-args: ["aClass"],
-source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass)>",
-messageSends: [],
-referencedClasses: []
 }),
 smalltalk.Compiler);
 

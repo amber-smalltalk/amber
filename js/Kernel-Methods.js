@@ -18,6 +18,22 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
+"_asCompiledMethod_",
+smalltalk.method({
+selector: "asCompiledMethod:",
+category: 'converting',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.method({selector:aString, fn:self});;
+return self}, function($ctx1) {$ctx1.fill(self,"asCompiledMethod:",{aString:aString}, smalltalk.BlockClosure)})},
+args: ["aString"],
+source: "asCompiledMethod: aString\x0a\x09<return smalltalk.method({selector:aString, fn:self});>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
 "_compiledSource",
 smalltalk.method({
 selector: "compiledSource",
@@ -28,6 +44,28 @@ return smalltalk.withContext(function($ctx1) { return self.toString();
 return self}, function($ctx1) {$ctx1.fill(self,"compiledSource",{}, smalltalk.BlockClosure)})},
 args: [],
 source: "compiledSource\x0a\x09<return self.toString()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+"_currySelf",
+smalltalk.method({
+selector: "currySelf",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	return function () {
+    		var args = [ this ];
+        	args.push.apply(args, arguments);
+        	return self.apply(null, args);
+    	}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"currySelf",{}, smalltalk.BlockClosure)})},
+args: [],
+source: "currySelf\x0a\x09\x22Transforms [ :selfarg :x :y | stcode ] block\x0a    which represents JS function (selfarg, x, y, ...) {jscode}\x0a    into function (x, y, ...) {jscode} that takes selfarg from 'this'.\x0a    IOW, it is usable as JS method and first arg takes the receiver.\x22\x0a    \x0a    <\x0a    \x09return function () {\x0a    \x09\x09var args = [ this ];\x0a        \x09args.push.apply(args, arguments);\x0a        \x09return self.apply(null, args);\x0a    \x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -120,10 +158,10 @@ selector: "newValue:value:value:",
 category: 'evaluating',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2);
+return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2,anObject3);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
-source: "newValue:  anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
+source: "newValue:  anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor. \x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2,anObject3)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -152,24 +190,24 @@ selector: "on:do:",
 category: 'error handling',
 fn: function (anErrorClass,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$1;
-$2=self;
-$3=self;
-$4=(function(error){
-return smalltalk.withContext(function($ctx2) {$5=_st(error)._isKindOf_(anErrorClass);
-if(smalltalk.assert($5)){
-return _st(aBlock)._value_(error);
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$1=_st(self)._try_catch_(self,(function(error){
+var smalltalkError;
+return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkException_(error);
+smalltalkError;
+$2=_st(smalltalkError)._isKindOf_(anErrorClass);
+if(smalltalk.assert($2)){
+return _st(aBlock)._value_(smalltalkError);
 } else {
-return _st(error)._signal();
+return _st(smalltalkError)._signal();
 };
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})});
-$1=_st($2)._try_catch_($3,$4);
+}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock}, smalltalk.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
-source: "on: anErrorClass do: aBlock\x0a\x09^self try: self catch: [:error |\x0a\x09    (error isKindOf: anErrorClass) \x0a\x09     ifTrue: [aBlock value: error]\x0a\x09     ifFalse: [error signal]]",
-messageSends: ["try:catch:", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:"],
-referencedClasses: []
+source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a    Convert all JS exceptions to JavaScriptException instances.\x22\x0a    \x0a\x09^self try: self catch: [ :error | | smalltalkError |\x0a    \x09smalltalkError := Smalltalk current asSmalltalkException: error.\x0a\x09    (smalltalkError isKindOf: anErrorClass) \x0a\x09     ifTrue: [ aBlock value: smalltalkError ]\x0a\x09     ifFalse: [ smalltalkError signal ] ]",
+messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.BlockClosure);
 
@@ -635,7 +673,7 @@ smalltalk.addMethod(
 "_addWorker",
 smalltalk.method({
 selector: "addWorker",
-category: 'action',
+category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@worker"])._valueWithTimeout_((0));
@@ -670,7 +708,7 @@ smalltalk.addMethod(
 "_fork_",
 smalltalk.method({
 selector: "fork:",
-category: 'action',
+category: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1200,5 +1238,107 @@ referencedClasses: []
 }),
 smalltalk.MethodContext);
 
+
+
+smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
+smalltalk.NativeFunction.comment="NativeFunction is a wrapper around native functions, such as `WebSocket`.\x0aFor 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.\x0a\x0aSee the class-side `instance creation` methods.\x0a\x0aCreated instances will most probably be instance of `JSObjectProxy`.\x0a\x0aUsage example:\x0a\x0a    | ws |\x0a    ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.\x0a    ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]"
+
+smalltalk.addMethod(
+"_constructor_",
+smalltalk.method({
+selector: "constructor:",
+category: 'instance creation',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString}, smalltalk.NativeFunction.klass)})},
+args: ["aString"],
+source: "constructor: aString\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native();\x0a\x09>\x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_constructor_value_",
+smalltalk.method({
+selector: "constructor:value:",
+category: 'instance creation',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject}, smalltalk.NativeFunction.klass)})},
+args: ["aString", "anObject"],
+source: "constructor: aString value:anObject\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject);\x0a\x09>\x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_constructor_value_value_",
+smalltalk.method({
+selector: "constructor:value:value:",
+category: 'instance creation',
+fn: function (aString,anObject,anObject2){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject,anObject2);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2}, smalltalk.NativeFunction.klass)})},
+args: ["aString", "anObject", "anObject2"],
+source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2);\x0a\x09>\x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_constructor_value_value_value_",
+smalltalk.method({
+selector: "constructor:value:value:value:",
+category: 'instance creation',
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject,anObject2, anObject3);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.NativeFunction.klass)})},
+args: ["aString", "anObject", "anObject2", "anObject3"],
+source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2, anObject3);\x0a\x09>\x0a",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_exists_",
+smalltalk.method({
+selector: "exists:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	if(aString in window) {
+        	return true
+        } else {
+        	return false
+        }
+    ;
+return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString}, smalltalk.NativeFunction.klass)})},
+args: ["aString"],
+source: "exists: aString\x0a\x09<\x0a    \x09if(aString in window) {\x0a        \x09return true\x0a        } else {\x0a        \x09return false\x0a        }\x0a    >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.NativeFunction.klass);
 
 

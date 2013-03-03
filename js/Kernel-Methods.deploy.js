@@ -12,6 +12,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:an
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
+"_asCompiledMethod_",
+smalltalk.method({
+selector: "asCompiledMethod:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.method({selector:aString, fn:self});;
+return self}, function($ctx1) {$ctx1.fill(self,"asCompiledMethod:",{aString:aString}, smalltalk.BlockClosure)})}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
 "_compiledSource",
 smalltalk.method({
 selector: "compiledSource",
@@ -19,6 +30,23 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.toString();
 return self}, function($ctx1) {$ctx1.fill(self,"compiledSource",{}, smalltalk.BlockClosure)})}
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+"_currySelf",
+smalltalk.method({
+selector: "currySelf",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	return function () {
+    		var args = [ this ];
+        	args.push.apply(args, arguments);
+        	return self.apply(null, args);
+    	}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"currySelf",{}, smalltalk.BlockClosure)})}
 }),
 smalltalk.BlockClosure);
 
@@ -83,7 +111,7 @@ smalltalk.method({
 selector: "newValue:value:value:",
 fn: function (anObject,anObject2,anObject3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2);
+return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2,anObject3);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.BlockClosure)})}
 }),
 smalltalk.BlockClosure);
@@ -105,18 +133,18 @@ smalltalk.method({
 selector: "on:do:",
 fn: function (anErrorClass,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$1;
-$2=self;
-$3=self;
-$4=(function(error){
-return smalltalk.withContext(function($ctx2) {$5=_st(error)._isKindOf_(anErrorClass);
-if(smalltalk.assert($5)){
-return _st(aBlock)._value_(error);
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$1=_st(self)._try_catch_(self,(function(error){
+var smalltalkError;
+return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkException_(error);
+smalltalkError;
+$2=_st(smalltalkError)._isKindOf_(anErrorClass);
+if(smalltalk.assert($2)){
+return _st(aBlock)._value_(smalltalkError);
 } else {
-return _st(error)._signal();
+return _st(smalltalkError)._signal();
 };
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})});
-$1=_st($2)._try_catch_($3,$4);
+}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock}, smalltalk.BlockClosure)})}
 }),
@@ -875,5 +903,81 @@ return $1;
 }),
 smalltalk.MethodContext);
 
+
+
+smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
+
+smalltalk.addMethod(
+"_constructor_",
+smalltalk.method({
+selector: "constructor:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_constructor_value_",
+smalltalk.method({
+selector: "constructor:value:",
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_constructor_value_value_",
+smalltalk.method({
+selector: "constructor:value:value:",
+fn: function (aString,anObject,anObject2){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject,anObject2);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_constructor_value_value_value_",
+smalltalk.method({
+selector: "constructor:value:value:value:",
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	var native=eval(aString); 
+        return new native(anObject,anObject2, anObject3);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
+
+smalltalk.addMethod(
+"_exists_",
+smalltalk.method({
+selector: "exists:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+    	if(aString in window) {
+        	return true
+        } else {
+        	return false
+        }
+    ;
+return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString}, smalltalk.NativeFunction.klass)})}
+}),
+smalltalk.NativeFunction.klass);
 
 

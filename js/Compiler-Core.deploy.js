@@ -150,15 +150,10 @@ smalltalk.method({
 selector: "install:forClass:category:",
 fn: function (aString,aBehavior,anotherString){
 var self=this;
-var compiled;
 return smalltalk.withContext(function($ctx1) { var $1;
-compiled=_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior));
-_st(compiled)._category_(anotherString);
-_st(aBehavior)._addCompiledMethod_(compiled);
-_st(self)._setupClass_(aBehavior);
-$1=compiled;
+$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString,compiled:compiled}, smalltalk.Compiler)})}
+}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString}, smalltalk.Compiler)})}
 }),
 smalltalk.Compiler);
 
@@ -199,7 +194,6 @@ _st(_st(aClass)._methodDictionary())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {_st(console)._log_(_st(_st(_st(aClass)._name()).__comma(" >> ")).__comma(_st(each)._selector()));
 return _st(self)._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(aClass);
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._recompile_(_st(aClass)._class());
@@ -225,17 +219,6 @@ return smalltalk.withContext(function($ctx3) {return _st(self)._recompile_(each
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((100));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{}, smalltalk.Compiler)})}
-}),
-smalltalk.Compiler);
-
-smalltalk.addMethod(
-"_setupClass_",
-smalltalk.method({
-selector: "setupClass:",
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass}, smalltalk.Compiler)})}
 }),
 smalltalk.Compiler);
 

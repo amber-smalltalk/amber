@@ -593,15 +593,15 @@ return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpres
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(_st(_st(compiler)._eval_(_st(compiler)._compile_forClass_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"),(smalltalk.DoIt || DoIt))))._fn())._applyTo_arguments_(_st(self)._receiver(),[]);
+$2=_st(compiler)._evaluateExpression_(aString);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,compiler:compiler}, smalltalk.SourceArea)})},
 args: ["aString"],
-source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: aString] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^(compiler eval: (compiler compile: 'doIt ^[', aString, '] value' forClass: DoIt)) fn applyTo: self receiver arguments: #()",
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "applyTo:arguments:", "receiver", "fn", "eval:", "compile:forClass:", ","],
-referencedClasses: ["Compiler", "Error", "DoIt"]
+source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: aString] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^compiler evaluateExpression: aString",
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:"],
+referencedClasses: ["Compiler", "Error"]
 }),
 smalltalk.SourceArea);
 
@@ -881,85 +881,20 @@ referencedClasses: []
 smalltalk.SourceArea);
 
 smalltalk.addMethod(
-"_selectionEnd",
-smalltalk.method({
-selector: "selectionEnd",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd", []);
-    return $1;
-},
-args: [],
-source: "selectionEnd\x0a   ^textarea element selectionEnd",
-messageSends: ["selectionEnd", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionEnd_",
-smalltalk.method({
-selector: "selectionEnd:",
-category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionEnd_", [anInteger]);
-    return self;
-},
-args: ["anInteger"],
-source: "selectionEnd: anInteger\x0a   textarea element selectionEnd: anInteger",
-messageSends: ["selectionEnd:", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart",
-smalltalk.method({
-selector: "selectionStart",
-category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart", []);
-    return $1;
-},
-args: [],
-source: "selectionStart\x0a   ^textarea element selectionStart",
-messageSends: ["selectionStart", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
-"_selectionStart_",
-smalltalk.method({
-selector: "selectionStart:",
-category: 'accessing',
-fn: function (anInteger) {
-    var self = this;
-    smalltalk.send(smalltalk.send(textarea, "_element", []), "_selectionStart_", [anInteger]);
-    return self;
-},
-args: ["anInteger"],
-source: "selectionStart: anInteger\x0a   textarea element selectionStart: anInteger",
-messageSends: ["selectionStart:", "element"],
-referencedClasses: []
-}),
-smalltalk.SourceArea);
-
-smalltalk.addMethod(
 "_setEditorOn_",
 smalltalk.method({
 selector: "setEditorOn:",
 category: 'accessing',
-fn: function (aTextarea) {
-    var self = this;
-    self['@editor'] = CodeMirror.fromTextArea(aTextarea, {theme: "amber", lineNumbers: true, enterMode: "flat", matchBrackets: true, electricChars: false});
-    return self;
-},
+fn: function (aTextarea){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+		theme: 'amber',
+                lineNumbers: true,
+                enterMode: 'flat',
+                matchBrackets: true,
+                electricChars: false
+	});
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.SourceArea)})},
 args: ["aTextarea"],
 source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
@@ -972,12 +907,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "val",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(self['@editor'], "_getValue", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self["@editor"])._getValue();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"val",{}, smalltalk.SourceArea)})},
 args: [],
 source: "val\x0a    ^editor getValue",
 messageSends: ["getValue"],
@@ -990,11 +925,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "val:",
 category: 'accessing',
-fn: function (aString) {
-    var self = this;
-    smalltalk.send(self['@editor'], "_setValue_", [aString]);
-    return self;
-},
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._setValue_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString}, smalltalk.SourceArea)})},
 args: ["aString"],
 source: "val: aString\x0a    editor setValue: aString",
 messageSends: ["setValue:"],
@@ -2171,7 +2105,7 @@ category: 'actions',
 fn: function (aClass){
 var self=this;
 var compiler,method,source,node;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$6,$8,$9,$7,$5;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 var $early={};
 try {
 source=_st(self["@sourceArea"])._val();
@@ -2192,32 +2126,29 @@ return $3;
 };
 _st(compiler)._currentClass_(aClass);
 method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
-_st(method)._category_(self["@selectedProtocol"]);
-$4=_st(compiler)._unknownVariables();
-$5=(function(each){
-return smalltalk.withContext(function($ctx2) {$6=_st(window)._at_(each);
-$7=(function(){
-return smalltalk.withContext(function($ctx3) {$8=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
-if(smalltalk.assert($8)){
+_st(_st(compiler)._unknownVariables())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$4=_st(window)._at_(each);
+if(($receiver = $4) == nil || $receiver == undefined){
+$5=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
+if(smalltalk.assert($5)){
 _st(self)._addInstanceVariableNamed_toClass_(each,aClass);
-$9=_st(self)._compileMethodDefinitionFor_(aClass);
-throw $early=[$9];
+$6=_st(self)._compileMethodDefinitionFor_(aClass);
+throw $early=[$6];
 };
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})});
-return _st($6)._ifNil_($7);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($4)._do_($5);
-_st(aClass)._addCompiledMethod_(method);
-_st(compiler)._setupClass_(aClass);
+} else {
+return $4;
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
 _st(self)._updateMethodsList();
 _st(self)._selectMethod_(method);
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node}, smalltalk.Browser)})},
 args: ["aClass"],
-source: "compileMethodDefinitionFor: aClass\x0a    | compiler method source node | \x0a    source := sourceArea val.\x0a    selectedProtocol ifNil: [selectedProtocol := selectedMethod category].\x0a    compiler := Compiler new.\x0a    compiler source: source.\x0a    node := compiler parse: source.\x0a    node isParseFailure ifTrue: [\x0a\x09^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].\x0a    compiler currentClass: aClass.\x0a    method := compiler eval: (compiler compileNode: node).\x0a    method category: selectedProtocol.\x0a    compiler unknownVariables do: [:each |\x0a         \x22Do not try to redeclare javascript's objects\x22\x0a         (window at: each) ifNil: [\x0a\x09 \x09(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^self compileMethodDefinitionFor: aClass]]].\x0a    aClass addCompiledMethod: method.\x0a    compiler setupClass: aClass.\x0a    self updateMethodsList.\x0a    self selectMethod: method",
-messageSends: ["val", "ifNil:", "category", "new", "source:", "parse:", "ifTrue:", "alert:", ",", "asString", "position", "reason", "isParseFailure", "currentClass:", "eval:", "compileNode:", "category:", "do:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "confirm:", "at:", "unknownVariables", "addCompiledMethod:", "setupClass:", "updateMethodsList", "selectMethod:"],
-referencedClasses: ["Compiler"]
+source: "compileMethodDefinitionFor: aClass\x0a    | compiler method source node | \x0a    source := sourceArea val.\x0a    selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].\x0a    compiler := Compiler new.\x0a    compiler source: source.\x0a    node := compiler parse: source.\x0a    node isParseFailure ifTrue: [\x0a\x09^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].\x0a    compiler currentClass: aClass.\x0a    method := compiler eval: (compiler compileNode: node).\x0a    compiler unknownVariables do: [:each |\x0a         \x22Do not try to redeclare javascript's objects\x22\x0a         (window at: each) ifNil: [\x0a\x09 \x09(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^self compileMethodDefinitionFor: aClass]]].\x0a    ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.\x0a    self updateMethodsList.\x0a    self selectMethod: method",
+messageSends: ["val", "ifNil:", "category", "new", "source:", "parse:", "ifTrue:", "alert:", ",", "asString", "position", "reason", "isParseFailure", "currentClass:", "eval:", "compileNode:", "do:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "confirm:", "at:", "unknownVariables", "installMethod:forClass:category:", "updateMethodsList", "selectMethod:"],
+referencedClasses: ["Compiler", "ClassBuilder"]
 }),
 smalltalk.Browser);
 

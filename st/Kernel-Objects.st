@@ -672,6 +672,15 @@ at: aSymbol
 	<return self['@jsObject'][aSymbol._asString()]>
 !
 
+at: aSymbol ifAbsent: aBlock
+	"return the aSymbol property or evaluate aBlock if the property is not defined on the object"
+	<
+    	var obj = self['@jsObject'],
+        	symbol = aSymbol._asString();
+		return symbol in obj ? obj[symbol] : aBlock();
+	>
+!
+
 at: aSymbol put: anObject
 	<self['@jsObject'][aSymbol._asString()] = anObject>
 !
@@ -682,6 +691,12 @@ jsObject
 
 jsObject: aJSObject
 	jsObject := aJSObject
+!
+
+value
+	"if attribute 'value' exists on the JS object return it,
+    otherwise return the result of Object>>value."
+	^ self at: 'value' ifAbsent: [super value]
 ! !
 
 !JSObjectProxy methodsFor: 'enumerating'!
@@ -1183,6 +1198,15 @@ named: aPackageName ifAbsent: aBlock
 
 !Package class methodsFor: 'commit paths'!
 
+commitPathsFromLoader
+    <
+    var cp = smalltalk['@@commitPath'];
+    if (!!cp) return;
+    if (cp.js) self._defaultCommitPathJs_(cp.js);
+    if (cp.st) self._defaultCommitPathSt_(cp.st);
+    >
+!
+
 defaultCommitPathJs
 	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
 !
@@ -1202,6 +1226,13 @@ defaultCommitPathSt: aString
 resetCommitPaths
         defaultCommitPathJs := nil.
         defaultCommitPathSt := nil.
+! !
+
+!Package class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    self commitPathsFromLoader
 ! !
 
 !Package class methodsFor: 'loading-storing'!
@@ -1460,6 +1491,15 @@ removeClass: aClass
 
 !Smalltalk methodsFor: 'error handling'!
 
+asSmalltalkException: anObject
+	"A JavaScript exception may be thrown.
+    We then need to convert it back to a Smalltalk object"
+    
+    ^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])
+    	ifTrue: [ anObject ]
+      	ifFalse: [ JavaScriptException on: anObject ]
+!
+
 parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
 ! !
@@ -1529,6 +1569,15 @@ createPackage: packageName properties: aDict
     
     aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
     ^ self createPackage: packageName
+! !
+
+!Smalltalk methodsFor: 'testing'!
+
+isSmalltalkObject: anObject
+	"Consider anObject a Smalltalk object if it has a 'klass' property.
+    Note that this may be unaccurate"
+    
+    <return typeof anObject.klass !!== 'undefined'>
 ! !
 
 Smalltalk class instanceVariableNames: 'current'!
@@ -1657,8 +1706,4 @@ notNil
 new
 	    self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
-
-nil subclass: #[object Object]
-	instanceVariableNames: ''
-	package: 'Kernel-Objects'!
 
