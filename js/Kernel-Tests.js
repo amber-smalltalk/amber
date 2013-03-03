@@ -776,14 +776,14 @@ selector: "assertSameContents:as:",
 category: 'convenience',
 fn: function (aCollection,anotherCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(aCollection)._size(),_st(anotherCollection)._size());
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(aCollection)._size()).__eq(_st(anotherCollection)._size()));
 _st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(self)._assert_equals_(_st(aCollection)._occurrencesOf_(each),_st(anotherCollection)._occurrencesOf_(each));
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(aCollection)._occurrencesOf_(each)).__eq(_st(anotherCollection)._occurrencesOf_(each)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection}, smalltalk.CollectionTest)})},
 args: ["aCollection", "anotherCollection"],
-source: "assertSameContents: aCollection as: anotherCollection\x0a\x09self assert: aCollection size equals: anotherCollection size.\x0a\x09aCollection do: [ :each |\x0a\x09\x09self assert: (aCollection occurrencesOf: each) equals: (anotherCollection occurrencesOf: each) ]",
-messageSends: ["assert:equals:", "size", "do:", "occurrencesOf:"],
+source: "assertSameContents: aCollection as: anotherCollection\x0a\x09self assert: (aCollection size = anotherCollection size).\x0a\x09aCollection do: [ :each |\x0a\x09\x09self assert: ((aCollection occurrencesOf: each) = (anotherCollection occurrencesOf: each)) ]",
+messageSends: ["assert:", "=", "size", "do:", "occurrencesOf:"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);

@@ -329,9 +329,9 @@ defaultValues
 !CollectionTest methodsFor: 'convenience'!
 
 assertSameContents: aCollection as: anotherCollection
-	self assert: aCollection size equals: anotherCollection size.
+	self assert: (aCollection size = anotherCollection size).
 	aCollection do: [ :each |
-		self assert: (aCollection occurrencesOf: each) equals: (anotherCollection occurrencesOf: each) ]
+		self assert: ((aCollection occurrencesOf: each) = (anotherCollection occurrencesOf: each)) ]
 ! !
 
 !CollectionTest methodsFor: 'testing'!

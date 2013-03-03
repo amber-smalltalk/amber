@@ -640,9 +640,9 @@ smalltalk.method({
 selector: "assertSameContents:as:",
 fn: function (aCollection,anotherCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(aCollection)._size(),_st(anotherCollection)._size());
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(aCollection)._size()).__eq(_st(anotherCollection)._size()));
 _st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(self)._assert_equals_(_st(aCollection)._occurrencesOf_(each),_st(anotherCollection)._occurrencesOf_(each));
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(aCollection)._occurrencesOf_(each)).__eq(_st(anotherCollection)._occurrencesOf_(each)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection}, smalltalk.CollectionTest)})}
 }),
