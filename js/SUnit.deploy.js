@@ -408,29 +408,27 @@ selector: "execute:",
 fn: function (aBlock){
 var self=this;
 var failed;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st(self["@testCase"])._context_(self);
-$1=(function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {failed=true;
 failed;
 _st(aBlock)._value();
 failed=false;
 return failed;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$2=(function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {_st(self["@testCase"])._context_(nil);
-$3=_st(failed)._and_((function(){
+$1=_st(failed)._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self["@testCase"])._isAsync();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($3)){
+if(smalltalk.assert($1)){
 _st(self["@testCase"])._finished();
 };
-$4=_st(self["@testCase"])._isAsync();
-if(! smalltalk.assert($4)){
+$2=_st(self["@testCase"])._isAsync();
+if(! smalltalk.assert($2)){
 return _st(self["@testCase"])._tearDown();
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ensure_($2);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock,failed:failed}, smalltalk.TestContext)})}
 }),
 smalltalk.TestContext);
@@ -485,20 +483,18 @@ smalltalk.method({
 selector: "execute:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
-$1=(function(){
+return smalltalk.withContext(function($ctx1) { var $1;
+_st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._withErrorReporting_((function(){
 return smalltalk.withContext(function($ctx3) {return smalltalk.TestContext.fn.prototype._execute_.apply(_st(self), [aBlock]);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(self["@testCase"])._isAsync();
-if(! smalltalk.assert($3)){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
+return smalltalk.withContext(function($ctx2) {$1=_st(self["@testCase"])._isAsync();
+if(! smalltalk.assert($1)){
 _st(self["@result"])._increaseRuns();
 return _st(self["@finished"])._value();
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ensure_($2);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock}, smalltalk.ReportingTestContext)})}
 }),
 smalltalk.ReportingTestContext);
@@ -695,19 +691,18 @@ smalltalk.method({
 selector: "status",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$4,$3,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(_st(self)._errors())._isEmpty();
-$3=(function(){
-return smalltalk.withContext(function($ctx2) {$4=_st(_st(self)._failures())._isEmpty();
-if(smalltalk.assert($4)){
-return "success";
+if(smalltalk.assert($2)){
+$3=_st(_st(self)._failures())._isEmpty();
+if(smalltalk.assert($3)){
+$1="success";
 } else {
-return "failure";
+$1="failure";
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$1=_st($2)._ifTrue_ifFalse_($3,(function(){
-return smalltalk.withContext(function($ctx2) {return "error";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+} else {
+$1="error";
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"status",{}, smalltalk.TestResult)})}
 }),

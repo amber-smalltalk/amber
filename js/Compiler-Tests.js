@@ -407,7 +407,7 @@ _st(_st(self)._interpreter())._step();
 _st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{}, smalltalk.ASTSteppingInterpreterTest)})},
 args: [],
-source: "testMessageSend\x0a\x09self interpret: 'foo 1 + 2'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    \x22SendNode\x22\x0a    self interpreter step.\x0a    \x0a     \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 1.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 2.\x0a    \x0a    \x22Result\x22\x0a    self interpreter step.\x0a    self assert: self interpreter result equals: 3\x0a\x09",
+source: "testMessageSend\x0a\x09self interpret: 'foo 1 + 2'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    \x22SendNode\x22\x0a    self interpreter step.\x0a    \x0a     \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 1.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    self assert: self interpreter currentNode value equals: 2.\x0a    \x0a    \x22Result\x22\x0a    self interpreter step.\x0a    self assert: self interpreter result equals: 3",
 messageSends: ["interpret:", "step", "interpreter", "assert:equals:", "value", "currentNode", "result"],
 referencedClasses: []
 }),
@@ -427,7 +427,7 @@ _st(_st(self)._interpreter())._step();
 _st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{}, smalltalk.ASTSteppingInterpreterTest)})},
 args: [],
-source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result equals: 1\x0a    \x0a\x09",
+source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result equals: 1",
 messageSends: ["interpret:", "step", "interpreter", "assert:", "isNil", "result", "assert:equals:"],
 referencedClasses: []
 }),
@@ -556,7 +556,7 @@ _st(self)._should_return_("foo | a | a := false ifTrue: [ 1 ]. ^ a",nil);
 _st(self)._should_return_("foo | a | ^ a := true ifTrue: [ 1 ]",(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{}, smalltalk.CodeGeneratorTest)})},
 args: [],
-source: "testAssignment\x0a\x09self should: 'foo | a | a := true ifTrue: [ 1 ]. ^ a' return: 1.\x0a\x09self should: 'foo | a | a := false ifTrue: [ 1 ]. ^ a' return: nil.\x0a\x0a\x09self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1 ",
+source: "testAssignment\x0a\x09self should: 'foo | a | a := true ifTrue: [ 1 ]. ^ a' return: 1.\x0a\x09self should: 'foo | a | a := false ifTrue: [ 1 ]. ^ a' return: nil.\x0a\x0a\x09self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1",
 messageSends: ["should:return:"],
 referencedClasses: []
 }),
@@ -606,7 +606,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a",[(1), (2)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArrayElementsOrdered",{}, smalltalk.CodeGeneratorTest)})},
 args: [],
-source: "testDynamicArrayElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a' return: #(1 2).\x0a",
+source: "testDynamicArrayElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a' return: #(1 2).",
 messageSends: ["should:return:"],
 referencedClasses: []
 }),
@@ -622,7 +622,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a  | x |\x0a  x := 'foo'->1.\x0a  ^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{}, smalltalk.CodeGeneratorTest)})},
 args: [],
-source: "testDynamicDictionaryElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := ''foo''->1.\x0a  ^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.\x0a",
+source: "testDynamicDictionaryElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := ''foo''->1.\x0a  ^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.",
 messageSends: ["should:return:", "->"],
 referencedClasses: []
 }),
@@ -641,7 +641,7 @@ _st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ { 'foo'->x. 'bar'-
 _st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]));
 return self}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{}, smalltalk.CodeGeneratorTest)})},
 args: [],
-source: "testInnerTemporalDependentElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->Array. 'bar'->2}.\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.\x0a",
+source: "testInnerTemporalDependentElementsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->Array. 'bar'->2}.\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: {'foo'->1. 'bar'->2}.\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }\x0a' return: #{'foo'->1. 'bar'->2}.",
 messageSends: ["should:return:", "->"],
 referencedClasses: ["Array"]
 }),
@@ -760,7 +760,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x
 _st(self)._should_return_("foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a",[(smalltalk.Array || Array),(2)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testSendReceiverAndArgumentsOrdered",{}, smalltalk.CodeGeneratorTest)})},
 args: [],
-source: "testSendReceiverAndArgumentsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a' return: #(1 2).\x0a\x0a\x09self should: 'foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a' return: {Array. 2}.\x0a",
+source: "testSendReceiverAndArgumentsOrdered\x0a\x09self should: 'foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a' return: #(1 2).\x0a\x0a\x09self should: 'foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a' return: {Array. 2}.",
 messageSends: ["should:return:"],
 referencedClasses: ["Array"]
 }),

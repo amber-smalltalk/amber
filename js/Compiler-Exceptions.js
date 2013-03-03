@@ -186,19 +186,34 @@ smalltalk.UnknownVariableError);
 smalltalk.addClass('RethrowErrorHandler', smalltalk.ErrorHandler, [], 'Compiler-Exceptions');
 smalltalk.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted."
 smalltalk.addMethod(
+"_basicSignal_",
+smalltalk.method({
+selector: "basicSignal:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { throw anError;
+return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError}, smalltalk.RethrowErrorHandler)})},
+args: ["anError"],
+source: "basicSignal: anError\x0a\x09<throw anError>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.RethrowErrorHandler);
+
+smalltalk.addMethod(
 "_handleError_",
 smalltalk.method({
 selector: "handleError:",
 category: 'error handling',
 fn: function (anError){
 var self=this;
-smalltalk.send(self,"_handleError_",[anError],smalltalk.ErrorHandler);
-throw anError;
-;
-return self},
+return smalltalk.withContext(function($ctx1) { smalltalk.ErrorHandler.fn.prototype._handleError_.apply(_st(self), [anError]);
+_st(self)._basicSignal_(anError);
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError}, smalltalk.RethrowErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09super handleError: anError.\x0a    <throw anError>",
-messageSends: ["handleError:"],
+source: "handleError: anError\x0a\x09super handleError: anError.\x0a    self basicSignal: anError",
+messageSends: ["handleError:", "basicSignal:"],
 referencedClasses: []
 }),
 smalltalk.RethrowErrorHandler);

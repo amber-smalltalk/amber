@@ -422,7 +422,7 @@ errorUnknownVariable: aNode
 	| identifier |
     identifier := aNode value.
     
-	((#('jQuery' 'window' 'process' 'global') includes: identifier) not 
+	((#('jQuery' 'window' 'document' 'process' 'global') includes: identifier) not 
         and: [ self isVariableGloballyUndefined: identifier ]) 
         	ifTrue: [
 				UnknownVariableError new

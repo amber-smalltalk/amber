@@ -1205,7 +1205,7 @@ updateSourceAndButtons
                 currentProtocol := selectedProtocol.
                 (currentProtocol isNil and: [ selectedMethod notNil ])
                 	ifTrue: [ currentProtocol := selectedMethod category].
-				self protocols do: [:each |
+				self protocols do: [:each | | option |
 					option := html option with: each.
 					currentProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ]].
 		selectedMethod isNil ifFalse: [

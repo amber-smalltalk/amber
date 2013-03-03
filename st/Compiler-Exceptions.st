@@ -99,8 +99,12 @@ As a result Smalltalk errors are not swallowd by the Amber runtime and compilati
 
 !RethrowErrorHandler methodsFor: 'error handling'!
 
+basicSignal: anError
+	<throw anError>
+!
+
 handleError: anError
 	super handleError: anError.
-    <throw anError>
+    self basicSignal: anError
 ! !
 

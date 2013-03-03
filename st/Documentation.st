@@ -1,16 +1,474 @@
 Smalltalk current createPackage: 'Documentation' properties: #{}!
+Object subclass: #ChapterSelectionAnnouncement
+	instanceVariableNames: 'id'
+	package: 'Documentation'!
+
+!ChapterSelectionAnnouncement methodsFor: 'accessing'!
+
+id
+	^id
+!
+
+id: aString
+	id := aString
+! !
+
+Object subclass: #ClassSelectionAnnouncement
+	instanceVariableNames: 'theClass'
+	package: 'Documentation'!
+
+!ClassSelectionAnnouncement methodsFor: 'accessing'!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
+! !
+
+!ClassSelectionAnnouncement class methodsFor: 'instance creation'!
+
+on: aClass
+	^self new
+		theClass: aClass;
+		yourself
+! !
+
+Widget subclass: #DocChapter
+	instanceVariableNames: 'title contents parent level'
+	package: 'Documentation'!
+
+!DocChapter methodsFor: 'accessing'!
+
+announcer
+	^DocumentationBuilder current announcer
+!
+
+chapters
+	"A doc chapter can contain sub chapters"
+	^#()
+!
+
+contents
+	^contents ifNil: ['']
+!
+
+contents: aString
+	contents := aString
+!
+
+cssClass
+	^'doc_chapter'
+!
+
+htmlContents
+	^(Showdown at: #converter) new makeHtml: self contents
+!
+
+id
+	"The id is used in url fragments. 
+	It must be unique amoung all chapters"
+	^self title replace: ' ' with: '-'
+!
+
+level
+	^self parent ifNil: [1] ifNotNil: [self parent level +1]
+!
+
+level: anInteger
+	level := anInteger
+!
+
+parent
+	^parent
+!
+
+parent: aChapter
+	parent := aChapter
+!
+
+title
+	^title ifNil: ['']
+!
+
+title: aString
+	title := aString
+! !
+
+!DocChapter methodsFor: 'actions'!
+
+displayChapter: aChapter
+	DocumentationBuilder current widget displayChapter: aChapter
+!
+
+selectChapter: aChapter
+	document location hash: aChapter id
+!
+
+selectClass: aClass
+	DocumentationBuilder current announcer announce: (ClassSelectionAnnouncement on: aClass)
+! !
+
+!DocChapter methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self subscribe
+! !
+
+!DocChapter methodsFor: 'rendering'!
+
+renderDocOn: html
+	| div |
+	html h1 with: self title.
+	self renderNavigationOn: html.
+	div := html div class: 'contents'.
+	div asJQuery html: self htmlContents
+!
+
+renderLinksOn: html
+	html ul 
+		class: 'links';
+		with: [
+			self chapters do: [:each |
+				html li with: [
+					html a
+						with: each title;
+						onClick: [self selectChapter: each]]]]
+!
+
+renderNavigationOn: html
+	self parent ifNotNil: [
+		html div 
+			class: 'navigation'; with: [
+				html a
+					with: '← back to ', self parent title;
+					onClick: [self selectChapter: self parent]]]
+!
+
+renderOn: html
+	html div 
+		class: self cssClass;
+		with: [
+			self renderDocOn: html.
+			self renderLinksOn: html]
+! !
+
+!DocChapter methodsFor: 'subscriptions'!
+
+subscribe
+	self announcer on: ChapterSelectionAnnouncement do: [:ann |
+		ann id = self id ifTrue: [self displayChapter: self]]
+! !
+
+DocChapter subclass: #ClassDocChapter
+	instanceVariableNames: 'theClass'
+	package: 'Documentation'!
+
+!ClassDocChapter methodsFor: 'accessing'!
+
+contents
+	^self theClass comment isEmpty
+		ifTrue: [self theClass name, ' is not documented yet.']
+		ifFalse: [self theClass comment]
+!
+
+cssClass
+	^'doc_class ', super cssClass
+!
+
+initializeWithClass: aClass
+	theClass := aClass
+!
+
+theClass
+	^theClass
+!
+
+title
+	^self theClass name
+! !
+
+!ClassDocChapter methodsFor: 'rendering'!
+
+renderLinksOn: html
+	html ul 
+		class: 'links';
+		with: [
+			html li with: [html a
+				with: 'Browse this class';
+				onClick: [Browser openOn: self theClass]]]
+! !
+
+!ClassDocChapter methodsFor: 'subscriptions'!
+
+subscribe
+	super subscribe.
+	self announcer 
+		on: ClassSelectionAnnouncement do: [:ann |
+			ann theClass = self theClass ifTrue: [
+				self selectChapter: self]]
+! !
+
+!ClassDocChapter class methodsFor: 'accessing'!
+
+on: aClass
+	^self basicNew
+		initializeWithClass: aClass;
+		initialize;
+		yourself
+! !
+
+DocChapter subclass: #ClassesIndexChapter
+	instanceVariableNames: ''
+	package: 'Documentation'!
+
+!ClassesIndexChapter methodsFor: 'accessing'!
+
+alphabet
+	^'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+!
+
+cssClass
+	^'index_doc ', super cssClass
+!
+
+title
+	^'Smalltalk classes by index'
+! !
+
+!ClassesIndexChapter methodsFor: 'rendering'!
+
+renderDocOn: html
+	html h1 with: self title.
+	self alphabet do: [:letter || classes |
+		classes := Smalltalk current classes select: [:each | each name first = letter].
+		classes ifNotEmpty: [html h2 with: letter].
+		html ul with: [
+			(classes sorted: [:a :b | a name < b name]) 
+				do: [:each |
+					html li with: [html a 
+						with: each name;
+						onClick: [self selectClass: each]]]]]
+! !
+
+DocChapter subclass: #PackageDocChapter
+	instanceVariableNames: 'package chapters'
+	package: 'Documentation'!
+
+!PackageDocChapter methodsFor: 'accessing'!
+
+chapters
+	^chapters
+!
+
+contents
+	^'Classes in package ', self package name, ':'
+!
+
+package
+	^package
+!
+
+title
+	^'Package ', self package name
+! !
+
+!PackageDocChapter methodsFor: 'initialization'!
+
+initializeWithPackage: aPackage
+	package := aPackage.
+	chapters := (aPackage classes sorted: [:a :b | a name < b name]) collect: [:each |
+		(ClassDocChapter on: each)
+			parent: self;
+			yourself]
+! !
+
+!PackageDocChapter class methodsFor: 'instance creation'!
+
+on: aPackage
+	^self basicNew
+		initializeWithPackage: aPackage;
+		initialize;
+		yourself
+! !
+
+DocChapter subclass: #TutorialsChapter
+	instanceVariableNames: ''
+	package: 'Documentation'!
+
+!TutorialsChapter methodsFor: 'accessing'!
+
+chapters
+	^{ self firstAppChapter. self counterChapter }
+!
+
+contents
+	^'Here''s a serie of tutorials. If you are new to Smalltalk, you can also learn Amber online with [ProfStef](http://www.amber-lang.net/learn.html)'
+!
+
+counterChapter
+	^DocChapter new
+		title: 'The counter application';
+		contents: '
+
+This tutorial will teach you how to build HTML with Amber using jQuery and the HTMLCanvas API. It is freely adapted from 
+the [Seaside counter example](http://www.seaside.st/about/examples/counter)
+
+##The counter widget
+
+The counter is the most basic example of a widget. It allows to increment and decrement a number by clicking a button.
+
+Amber already comes with a counter example in the `Examples` package. To avoid class name conflict, we''ll name our counter class `TCounter`.
+
+    Widget subclass: #TCounter
+        instanceVariableNames: ''count header''
+        package: ''Tutorials''
+
+The first method is used to initialize the component with the default state, in this case we set the counter to 0:
+
+    initialize
+        super initialize.
+        count := 0
+
+The method used for rendering a widget is `#renderOn:`. It takes an instance of HTMLCanvas as parameter. 
+The `header` h1 kept as an instance variable, so when the count value change, we can update it''s contents accordingly.
+
+    renderOn: html
+        header := html h1 
+            with: count asString;
+            yourself.
+        html button
+            with: ''++'';
+            onClick: [self increase].
+        html button
+            with: ''--'';
+            onClick: [self decrease]
+
+The counter is almost ready. All we need now is to implement the two action methods `#increase` and `#decrease` to change the state 
+of our counter and update its header.
+
+    increase
+        count := count + 1.
+        header contents: [:html | html with: count asString]
+
+    decrease
+        count := count - 1.
+        header contents: [:html | html with: count asString]
+
+
+That''s it!! We can now display an instance of TCounter by rendering it on the page using jQuery:
+
+    TCounter new appendToJQuery: ''body'' asJQuery
+
+'
+!
+
+firstAppChapter
+	^DocChapter new
+		title: 'A first application';
+		contents: '
+
+Let''s make Hello World in Amber.
+
+First, you need a place for your new project. I made a new directory under amber:
+
+    amber/projects/hello
+
+This will store your project files. To get started, add a new index.html file to this folder, as well as empty js and st folders.
+
+Your index.html can be really basic. The most important thing it does is include amber.js and run loadAmber. Here is a basic index.html you can use:
+
+
+    <!!DOCTYPE html>
+    <html>
+      <head>
+        <title>My First Amber Project</title>
+        <script src="../../js/amber.js" type="text/javascript"></script>
+        <script type="text/javascript">
+          loadAmber({
+            files: [],
+            prefix: ''projects/hello/js'',
+            ready: function() {
+              
+            }}); 
+        </script>
+      </head>
+      <body>
+        <article>
+          <h1>My First Amber Project</h1>
+          <button onclick="smalltalk.Browser._open()">class browser</button>
+          <button id="sayHello">say hello</button>
+        </article>
+      </body>
+    </html>
+
+Now start up amber with node.js and navigate to  http://localhost:4000/projects/hello/index.html
+
+It''s boring so far, so lets write some code. Click the button to open the class browser. Find an existing class and change its name to Hello and its package to HelloApp. 
+Then click save. This creates a new class and leaves the old one intact, it doesn''t overwrite it. Your class will look like this:
+
+    Object subclass: #Hello
+        instanceVariableNames: ''''
+        package: ''HelloApp''
+
+Now click save and navigate to your new class in its new package.
+ Then click ''commit package''. You just created a new class and saved your work. 
+On your file system check out your js and st folders. Your new class is now saved in both JavaScript and Smalltalk.
+
+Now, refresh your browser page and reopen the class browser. Oh no, your new class is gone!! To load your new class automatically, you have to add it in index.html. Make your JavaScript look like this:
+
+
+    loadAmber({
+        files: [''HelloApp.js''],
+        prefix: ''projects/hello/js'',
+        ready: function() {      
+    }}); 
+
+Save and refresh again. Now your class is loaded and shows up in the class browser.
+
+Now, let''s make this class do something. Create a new message in the class browser by navigating to your class, then clicking ''not yet classified'' and fill in a simple message. Try this for example:
+
+    begin
+	"Makes me say hello to the user."
+
+	| msg button |
+	msg := ''Hello world!!''.
+	button := ''#sayHello'' asJQuery.
+	button click: [button after: ''<p>'' , msg , ''</p>''].
+
+Your message isn''t too helpful if it doesn''t get called. Save it, commit the package, then edit index.html again. You can write JavaScript code that sends a message to Smalltalk:
+
+    loadAmber({
+        files: [''HelloApp.js''],
+        prefix: ''projects/hello/js'', // path for js files i think
+        ready: function() {
+          $(function() {
+            smalltalk.Hello._new()._begin();
+          });
+    }}); 
+
+From there, you can create new Smalltalk classes and messages to build up your app. Enjoy!!
+'
+!
+
+title
+	^'Tutorials'
+! !
+
 Object subclass: #DocumentationBuilder
 	instanceVariableNames: 'chapters announcer widget'
-	category: 'Documentation'!
+	package: 'Documentation'!
 
 !DocumentationBuilder methodsFor: 'accessing'!
 
-chapters
-	^chapters ifNil: [chapters := self buildChapters]
-!
-
 announcer
 	^announcer ifNil: [announcer := Announcer new]
+!
+
+chapters
+	^chapters ifNil: [chapters := self buildChapters]
 !
 
 widget
@@ -18,6 +476,10 @@ widget
 ! !
 
 !DocumentationBuilder methodsFor: 'building'!
+
+build
+	self buildOnJQuery: ('body' asJQuery)
+!
 
 buildChapters
 	^((self class methodDictionary values sorted: [:a :b | a selector < b selector])
@@ -34,10 +496,6 @@ buildOn: aCanvas
 
 buildOnJQuery: aJQuery
 	self buildOn: (HTMLCanvas onJQuery: aJQuery)
-!
-
-build
-	self buildOnJQuery: ('body' asJQuery)
 ! !
 
 !DocumentationBuilder methodsFor: 'chapters'!
@@ -152,6 +610,10 @@ NOTE: We can use any webDAV server and Apache2 has been used earlier and works f
 '
 !
 
+ch4Tutorials
+	^TutorialsChapter new
+!
+
 ch5Index
 	^ClassesIndexChapter new
 !
@@ -164,10 +626,6 @@ ch7KernelClasses
 	^PackageDocChapter on: (Package named: 'Kernel-Classes')
 !
 
-ch4Tutorials
-	^TutorialsChapter new
-!
-
 ch8KernelCollection
 	^PackageDocChapter on: (Package named: 'Kernel-Collections')
 !
@@ -178,16 +636,16 @@ ch9KernelMethods
 
 !DocumentationBuilder methodsFor: 'routing'!
 
-checkHashChange
-	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
-!
-
 checkHash
 	| hash presentation |
 	hash := document location hash  replace: '^#' with: ''.
 	self announcer announce: (ChapterSelectionAnnouncement new 
 		id: hash; 
 		yourself)
+!
+
+checkHashChange
+	(window jQuery: window) bind: 'hashchange' do: [self checkHash]
 ! !
 
 !DocumentationBuilder methodsFor: 'updating'!
@@ -214,235 +672,9 @@ initialize
 	self current build
 ! !
 
-Widget subclass: #DocChapter
-	instanceVariableNames: 'title contents parent'
-	category: 'Documentation'!
-
-!DocChapter methodsFor: 'accessing'!
-
-title
-	^title ifNil: ['']
-!
-
-title: aString
-	title := aString
-!
-
-contents
-	^contents ifNil: ['']
-!
-
-contents: aString
-	contents := aString
-!
-
-htmlContents
-	^(Showdown at: #converter) new makeHtml: self contents
-!
-
-chapters
-	"A doc chapter can contain sub chapters"
-	^#()
-!
-
-cssClass
-	^'doc_chapter'
-!
-
-level
-	^self parent ifNil: [1] ifNotNil: [self parent level +1]
-!
-
-level: anInteger
-	level := anInteger
-!
-
-parent
-	^parent
-!
-
-parent: aChapter
-	parent := aChapter
-!
-
-id
-	"The id is used in url fragments. 
-	It must be unique amoung all chapters"
-	^self title replace: ' ' with: '-'
-!
-
-announcer
-	^DocumentationBuilder current announcer
-! !
-
-!DocChapter methodsFor: 'actions'!
-
-selectClass: aClass
-	DocumentationBuilder current announcer announce: (ClassSelectionAnnouncement on: aClass)
-!
-
-selectChapter: aChapter
-	document location hash: aChapter id
-!
-
-displayChapter: aChapter
-	DocumentationBuilder current widget displayChapter: aChapter
-! !
-
-!DocChapter methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	self subscribe
-! !
-
-!DocChapter methodsFor: 'rendering'!
-
-renderOn: html
-	html div 
-		class: self cssClass;
-		with: [
-			self renderDocOn: html.
-			self renderLinksOn: html]
-!
-
-renderDocOn: html
-	| div |
-	html h1 with: self title.
-	self renderNavigationOn: html.
-	div := html div class: 'contents'.
-	div asJQuery html: self htmlContents
-!
-
-renderNavigationOn: html
-	self parent ifNotNil: [
-		html div 
-			class: 'navigation'; with: [
-				html a
-					with: '← back to ', self parent title;
-					onClick: [self selectChapter: self parent]]]
-!
-
-renderLinksOn: html
-	html ul 
-		class: 'links';
-		with: [
-			self chapters do: [:each |
-				html li with: [
-					html a
-						with: each title;
-						onClick: [self selectChapter: each]]]]
-! !
-
-!DocChapter methodsFor: 'subscriptions'!
-
-subscribe
-	self announcer on: ChapterSelectionAnnouncement do: [:ann |
-		ann id = self id ifTrue: [self displayChapter: self]]
-! !
-
-DocChapter subclass: #PackageDocChapter
-	instanceVariableNames: 'package chapters'
-	category: 'Documentation'!
-
-!PackageDocChapter methodsFor: 'accessing'!
-
-package
-	^package
-!
-
-title
-	^'Package ', self package name
-!
-
-chapters
-	^chapters
-!
-
-contents
-	^'Classes in package ', self package name, ':'
-! !
-
-!PackageDocChapter methodsFor: 'initialization'!
-
-initializeWithPackage: aPackage
-	package := aPackage.
-	chapters := (aPackage classes sorted: [:a :b | a name < b name]) collect: [:each |
-		(ClassDocChapter on: each)
-			parent: self;
-			yourself]
-! !
-
-!PackageDocChapter class methodsFor: 'instance creation'!
-
-on: aPackage
-	^self basicNew
-		initializeWithPackage: aPackage;
-		initialize;
-		yourself
-! !
-
-DocChapter subclass: #ClassDocChapter
-	instanceVariableNames: 'theClass'
-	category: 'Documentation'!
-
-!ClassDocChapter methodsFor: 'accessing'!
-
-theClass
-	^theClass
-!
-
-contents
-	^self theClass comment isEmpty
-		ifTrue: [self theClass name, ' is not documented yet.']
-		ifFalse: [self theClass comment]
-!
-
-cssClass
-	^'doc_class ', super cssClass
-!
-
-title
-	^self theClass name
-!
-
-initializeWithClass: aClass
-	theClass := aClass
-! !
-
-!ClassDocChapter methodsFor: 'rendering'!
-
-renderLinksOn: html
-	html ul 
-		class: 'links';
-		with: [
-			html li with: [html a
-				with: 'Browse this class';
-				onClick: [Browser openOn: self theClass]]]
-! !
-
-!ClassDocChapter methodsFor: 'subscriptions'!
-
-subscribe
-	super subscribe.
-	self announcer 
-		on: ClassSelectionAnnouncement do: [:ann |
-			ann theClass = self theClass ifTrue: [
-				self selectChapter: self]]
-! !
-
-!ClassDocChapter class methodsFor: 'accessing'!
-
-on: aClass
-	^self basicNew
-		initializeWithClass: aClass;
-		initialize;
-		yourself
-! !
-
 Widget subclass: #DocumentationWidget
 	instanceVariableNames: 'builder selectedChapter chapterDiv'
-	category: 'Documentation'!
+	package: 'Documentation'!
 
 !DocumentationWidget methodsFor: 'accessing'!
 
@@ -479,13 +711,15 @@ selectChapter: aChapter
 
 !DocumentationWidget methodsFor: 'rendering'!
 
-renderOn: html
-	html div 
-		class: 'documentation';
-		with: [
-			self renderMenuOn: html.
-			chapterDiv := html div.
-			self updateChapterDiv]
+renderChapterMenu: aChapter on: html
+	html a
+		with: aChapter title;
+		onClick: [
+			self selectChapter: aChapter].
+	html ol with: [
+			aChapter chapters do: [:each |
+				html li with: [
+					self renderChapterMenu: each on: html]]]
 !
 
 renderMenuOn: html
@@ -498,15 +732,13 @@ renderMenuOn: html
 						self renderChapterMenu: each on: html]]]]
 !
 
-renderChapterMenu: aChapter on: html
-	html a
-		with: aChapter title;
-		onClick: [
-			self selectChapter: aChapter].
-	html ol with: [
-			aChapter chapters do: [:each |
-				html li with: [
-					self renderChapterMenu: each on: html]]]
+renderOn: html
+	html div 
+		class: 'documentation';
+		with: [
+			self renderMenuOn: html.
+			chapterDiv := html div.
+			self updateChapterDiv]
 ! !
 
 !DocumentationWidget methodsFor: 'updating'!
@@ -522,237 +754,5 @@ on: aBuilder
 	^self new
 		builder: aBuilder;
 		yourself
-! !
-
-DocChapter subclass: #ClassesIndexChapter
-	instanceVariableNames: ''
-	category: 'Documentation'!
-
-!ClassesIndexChapter methodsFor: 'accessing'!
-
-cssClass
-	^'index_doc ', super cssClass
-!
-
-title
-	^'Smalltalk classes by index'
-!
-
-alphabet
-	^'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-! !
-
-!ClassesIndexChapter methodsFor: 'rendering'!
-
-renderDocOn: html
-	html h1 with: self title.
-	self alphabet do: [:letter || classes |
-		classes := Smalltalk current classes select: [:each | each name first = letter].
-		classes ifNotEmpty: [html h2 with: letter].
-		html ul with: [
-			(classes sorted: [:a :b | a name < b name]) 
-				do: [:each |
-					html li with: [html a 
-						with: each name;
-						onClick: [self selectClass: each]]]]]
-! !
-
-Object subclass: #ClassSelectionAnnouncement
-	instanceVariableNames: 'theClass'
-	category: 'Documentation'!
-
-!ClassSelectionAnnouncement methodsFor: 'accessing'!
-
-theClass
-	^theClass
-!
-
-theClass: aClass
-	theClass := aClass
-! !
-
-!ClassSelectionAnnouncement class methodsFor: 'instance creation'!
-
-on: aClass
-	^self new
-		theClass: aClass;
-		yourself
-! !
-
-Object subclass: #ChapterSelectionAnnouncement
-	instanceVariableNames: 'id'
-	category: 'Documentation'!
-
-!ChapterSelectionAnnouncement methodsFor: 'accessing'!
-
-id
-	^id
-!
-
-id: aString
-	id := aString
-! !
-
-DocChapter subclass: #TutorialsChapter
-	instanceVariableNames: ''
-	category: 'Documentation'!
-
-!TutorialsChapter methodsFor: 'accessing'!
-
-title
-	^'Tutorials'
-!
-
-contents
-	^'Here''s a serie of tutorials. If you are new to Smalltalk, you can also learn Amber online with [ProfStef](http://www.amber-lang.net/learn.html)'
-!
-
-chapters
-	^{ self firstAppChapter. self counterChapter }
-!
-
-firstAppChapter
-	^DocChapter new
-		title: 'A first application';
-		contents: '
-
-Let''s make Hello World in Amber.
-
-First, you need a place for your new project. I made a new directory under amber:
-
-    amber/projects/hello
-
-This will store your project files. To get started, add a new index.html file to this folder, as well as empty js and st folders.
-
-Your index.html can be really basic. The most important thing it does is include amber.js and run loadAmber. Here is a basic index.html you can use:
-
-
-    <!!DOCTYPE html>
-    <html>
-      <head>
-        <title>My First Amber Project</title>
-        <script src="../../js/amber.js" type="text/javascript"></script>
-        <script type="text/javascript">
-          loadAmber({
-            files: [],
-            prefix: ''projects/hello/js'',
-            ready: function() {
-              
-            }}); 
-        </script>
-      </head>
-      <body>
-        <article>
-          <h1>My First Amber Project</h1>
-          <button onclick="smalltalk.Browser._open()">class browser</button>
-          <button id="sayHello">say hello</button>
-        </article>
-      </body>
-    </html>
-
-Now start up amber with node.js and navigate to  http://localhost:4000/projects/hello/index.html
-
-It''s boring so far, so lets write some code. Click the button to open the class browser. Find an existing class and change its name to Hello and its package to HelloApp. 
-Then click save. This creates a new class and leaves the old one intact, it doesn''t overwrite it. Your class will look like this:
-
-    Object subclass: #Hello
-        instanceVariableNames: ''''
-        package: ''HelloApp''
-
-Now click save and navigate to your new class in its new package.
- Then click ''commit package''. You just created a new class and saved your work. 
-On your file system check out your js and st folders. Your new class is now saved in both JavaScript and Smalltalk.
-
-Now, refresh your browser page and reopen the class browser. Oh no, your new class is gone!! To load your new class automatically, you have to add it in index.html. Make your JavaScript look like this:
-
-
-    loadAmber({
-        files: [''HelloApp.js''],
-        prefix: ''projects/hello/js'',
-        ready: function() {      
-    }}); 
-
-Save and refresh again. Now your class is loaded and shows up in the class browser.
-
-Now, let''s make this class do something. Create a new message in the class browser by navigating to your class, then clicking ''not yet classified'' and fill in a simple message. Try this for example:
-
-    begin
-	"Makes me say hello to the user."
-
-	| msg button |
-	msg := ''Hello world!!''.
-	button := ''#sayHello'' asJQuery.
-	button click: [button after: ''<p>'' , msg , ''</p>''].
-
-Your message isn''t too helpful if it doesn''t get called. Save it, commit the package, then edit index.html again. You can write JavaScript code that sends a message to Smalltalk:
-
-    loadAmber({
-        files: [''HelloApp.js''],
-        prefix: ''projects/hello/js'', // path for js files i think
-        ready: function() {
-          $(function() {
-            smalltalk.Hello._new()._begin();
-          });
-    }}); 
-
-From there, you can create new Smalltalk classes and messages to build up your app. Enjoy!!
-'
-!
-
-counterChapter
-	^DocChapter new
-		title: 'The counter application';
-		contents: '
-
-This tutorial will teach you how to build HTML with Amber using jQuery and the HTMLCanvas API. It is freely adapted from 
-the [Seaside counter example](http://www.seaside.st/about/examples/counter)
-
-##The counter widget
-
-The counter is the most basic example of a widget. It allows to increment and decrement a number by clicking a button.
-
-Amber already comes with a counter example in the `Examples` package. To avoid class name conflict, we''ll name our counter class `TCounter`.
-
-    Widget subclass: #TCounter
-        instanceVariableNames: ''count header''
-        package: ''Tutorials''
-
-The first method is used to initialize the component with the default state, in this case we set the counter to 0:
-
-    initialize
-        super initialize.
-        count := 0
-
-The method used for rendering a widget is `#renderOn:`. It takes an instance of HTMLCanvas as parameter. 
-The `header` h1 kept as an instance variable, so when the count value change, we can update it''s contents accordingly.
-
-    renderOn: html
-        header := html h1 
-            with: count asString;
-            yourself.
-        html button
-            with: ''++'';
-            onClick: [self increase].
-        html button
-            with: ''--'';
-            onClick: [self decrease]
-
-The counter is almost ready. All we need now is to implement the two action methods `#increase` and `#decrease` to change the state 
-of our counter and update its header.
-
-    increase
-        count := count + 1.
-        header contents: [:html | html with: count asString]
-
-    decrease
-        count := count - 1.
-        header contents: [:html | html with: count asString]
-
-
-That''s it!! We can now display an instance of TCounter by rendering it on the page using jQuery:
-
-    TCounter new appendToJQuery: ''body'' asJQuery
-
-'
 ! !
 

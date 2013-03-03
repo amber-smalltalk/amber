@@ -951,37 +951,33 @@ category: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,sequence,statements;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$5,$7;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 inlinedClosure=_st(self)._inlinedClosure();
 _st(inlinedClosure)._scope_(_st(anIRClosure)._scope());
-$1=_st(anIRClosure)._instructions();
-$2=(function(each){
-return smalltalk.withContext(function($ctx2) {$3=_st(each)._isSequence();
-if(! smalltalk.assert($3)){
+_st(_st(anIRClosure)._instructions())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$1=_st(each)._isSequence();
+if(! smalltalk.assert($1)){
 return _st(inlinedClosure)._add_(each);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($1)._do_($2);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 sequence=_st(self)._inlinedSequence();
 _st(inlinedClosure)._add_(sequence);
 statements=_st(_st(_st(anIRClosure)._instructions())._last())._instructions();
-$4=statements;
-$5=(function(){
+_st(statements)._ifNotEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {_st(_st(statements)._allButLast())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(sequence)._add_(each);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
-$6=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
+$2=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st(statements)._last())._isBlockReturn();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($6)){
+if(smalltalk.assert($2)){
 return _st(sequence)._add_(_st(_st(_st(statements)._last())._instructions())._first());
 } else {
 return _st(sequence)._add_(_st(statements)._last());
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($4)._ifNotEmpty_($5);
-$7=inlinedClosure;
-return $7;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3=inlinedClosure;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements}, smalltalk.IRSendInliner)})},
 args: ["anIRClosure"],
 source: "inlineClosure: anIRClosure\x0a\x09| inlinedClosure sequence statements |\x0a\x0a\x09inlinedClosure := self inlinedClosure.\x0a\x09inlinedClosure scope: anIRClosure scope.\x0a\x0a\x09\x22Add the possible temp declarations\x22\x0a\x09anIRClosure instructions do: [ :each | \x0a\x09\x09each isSequence ifFalse: [\x0a\x09\x09\x09inlinedClosure add: each ]].\x0a\x0a\x09\x22Add a block sequence\x22\x0a\x09sequence := self inlinedSequence.\x0a\x09inlinedClosure add: sequence.\x0a\x0a\x09\x22Get all the statements\x22\x0a\x09statements := anIRClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements allButLast do: [ :each | sequence add: each ].\x0a\x0a\x09\x09\x22Inlined closures don't have implicit local returns\x22\x0a\x09\x09(statements last isReturn and: [ statements last isBlockReturn ])\x0a\x09\x09\x09ifTrue: [ sequence add: statements last instructions first ]\x0a\x09\x09\x09ifFalse: [ sequence add: statements last ] ].\x0a\x0a\x09^ inlinedClosure",
@@ -1227,21 +1223,19 @@ selector: "shouldInline:",
 category: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$3;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 var $early={};
 try {
 $1=_st(_st(self)._inlinedSelectors())._includes_(_st(anIRInstruction)._selector());
 if(! smalltalk.assert($1)){
 return false;
 };
-$2=_st(_st(anIRInstruction)._instructions())._allButFirst();
-$3=(function(each){
-return smalltalk.withContext(function($ctx2) {$4=_st(each)._isClosure();
-if(! smalltalk.assert($4)){
+_st(_st(_st(anIRInstruction)._instructions())._allButFirst())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$2=_st(each)._isClosure();
+if(! smalltalk.assert($2)){
 throw $early=[false];
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($2)._do_($3);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -1324,23 +1318,21 @@ category: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,statements;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$2,$6;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 inlinedClosure=smalltalk.IRSendInliner.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
 statements=_st(_st(_st(inlinedClosure)._instructions())._last())._instructions();
-$1=statements;
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(_st(statements)._last())._canBeAssigned();
-if(smalltalk.assert($3)){
-$4=_st((smalltalk.IRAssignment || IRAssignment))._new();
-_st($4)._add_(_st(_st(_st(self)._assignment())._instructions())._first());
-_st($4)._add_(_st(_st(statements)._last())._copy());
-$5=_st($4)._yourself();
-return _st(_st(statements)._last())._replaceWith_($5);
+_st(statements)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {$1=_st(_st(statements)._last())._canBeAssigned();
+if(smalltalk.assert($1)){
+$2=_st((smalltalk.IRAssignment || IRAssignment))._new();
+_st($2)._add_(_st(_st(_st(self)._assignment())._instructions())._first());
+_st($2)._add_(_st(_st(statements)._last())._copy());
+$3=_st($2)._yourself();
+return _st(_st(statements)._last())._replaceWith_($3);
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ifNotEmpty_($2);
-$6=inlinedClosure;
-return $6;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=inlinedClosure;
+return $4;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,statements:statements}, smalltalk.IRAssignmentInliner)})},
 args: ["anIRClosure"],
 source: "inlineClosure: anIRClosure\x0a\x09| inlinedClosure statements |\x0a\x0a\x09inlinedClosure := super inlineClosure: anIRClosure.\x0a\x09statements := inlinedClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements last canBeAssigned ifTrue: [\x0a\x09\x09\x09statements last replaceWith: (IRAssignment new\x0a\x09\x09\x09\x09add: self assignment instructions first;\x0a\x09\x09\x09\x09add: statements last copy;\x0a\x09\x09\x09\x09yourself) ] ].\x0a\x0a\x09^ inlinedClosure",
@@ -1400,22 +1392,20 @@ category: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var closure,statements;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$2,$6;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 closure=smalltalk.IRSendInliner.fn.prototype._inlineClosure_.apply(_st(self), [anIRClosure]);
 statements=_st(_st(_st(closure)._instructions())._last())._instructions();
-$1=statements;
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(_st(statements)._last())._isReturn();
-if(! smalltalk.assert($3)){
-$4=_st((smalltalk.IRReturn || IRReturn))._new();
-_st($4)._add_(_st(_st(statements)._last())._copy());
-$5=_st($4)._yourself();
-return _st(_st(statements)._last())._replaceWith_($5);
+_st(statements)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {$1=_st(_st(statements)._last())._isReturn();
+if(! smalltalk.assert($1)){
+$2=_st((smalltalk.IRReturn || IRReturn))._new();
+_st($2)._add_(_st(_st(statements)._last())._copy());
+$3=_st($2)._yourself();
+return _st(_st(statements)._last())._replaceWith_($3);
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ifNotEmpty_($2);
-$6=closure;
-return $6;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=closure;
+return $4;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,closure:closure,statements:statements}, smalltalk.IRReturnInliner)})},
 args: ["anIRClosure"],
 source: "inlineClosure: anIRClosure\x0a\x09| closure statements |\x0a\x0a\x09closure := super inlineClosure: anIRClosure.\x0a\x09statements := closure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements last isReturn\x0a\x09\x09\x09ifFalse: [ statements last replaceWith: (IRReturn new\x0a\x09\x09\x09\x09add: statements last copy;\x0a\x09\x09\x09\x09yourself)] ].\x0a\x0a\x09^ closure",

@@ -133,15 +133,25 @@ smalltalk.UnknownVariableError);
 
 smalltalk.addClass('RethrowErrorHandler', smalltalk.ErrorHandler, [], 'Compiler-Exceptions');
 smalltalk.addMethod(
+"_basicSignal_",
+smalltalk.method({
+selector: "basicSignal:",
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { throw anError;
+return self}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError}, smalltalk.RethrowErrorHandler)})}
+}),
+smalltalk.RethrowErrorHandler);
+
+smalltalk.addMethod(
 "_handleError_",
 smalltalk.method({
 selector: "handleError:",
 fn: function (anError){
 var self=this;
-smalltalk.send(self,"_handleError_",[anError],smalltalk.ErrorHandler);
-throw anError;
-;
-return self}
+return smalltalk.withContext(function($ctx1) { smalltalk.ErrorHandler.fn.prototype._handleError_.apply(_st(self), [anError]);
+_st(self)._basicSignal_(anError);
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError}, smalltalk.RethrowErrorHandler)})}
 }),
 smalltalk.RethrowErrorHandler);
 

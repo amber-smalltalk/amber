@@ -498,17 +498,18 @@ selector: "logErrorContext:",
 category: 'private',
 fn: function (aContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=aContext;
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(aContext)._home();
-if(($receiver = $3) == nil || $receiver == undefined){
-return $3;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
 } else {
-return _st(self)._logContext_(_st(aContext)._home());
+$2=_st(aContext)._home();
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+_st(self)._logContext_(_st(aContext)._home());
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ifNotNil_($2);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext}, smalltalk.ErrorHandler)})},
 args: ["aContext"],
 source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home]]",

@@ -537,20 +537,18 @@ smalltalk.method({
 selector: "classNameFor:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$1;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $2=_st(aClass)._isMetaclass();
-$3=(function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$4=(function(){
-return smalltalk.withContext(function($ctx2) {$5=_st(aClass)._isNil();
-if(smalltalk.assert($5)){
-return "nil";
+if(smalltalk.assert($2)){
+$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
 } else {
-return _st(aClass)._name();
+$3=_st(aClass)._isNil();
+if(smalltalk.assert($3)){
+$1="nil";
+} else {
+$1=_st(aClass)._name();
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$1=_st($2)._ifTrue_ifFalse_($3,$4);
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass}, smalltalk.AbstractCodeGenerator)})}
 }),

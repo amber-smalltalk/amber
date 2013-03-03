@@ -449,13 +449,17 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 !ClassBuilder methodsFor: 'private'!
 
 addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	
-    (Smalltalk current at: aString) ifNotNil: [ 
-    	^ self 
-        	migrateClassNamed: aString 
-            superclass: aClass 
-            instanceVariableNames: aCollection 
-            package: packageName ].
+    | theClass |
+    
+    theClass := Smalltalk current at: aString.
+    
+   	theClass ifNotNil: [ 
+    	theClass superclass == aClass ifFalse: [
+    		^ self 
+        		migrateClassNamed: aString 
+           	 	superclass: aClass 
+           	 	instanceVariableNames: aCollection 
+            	package: packageName ] ].
 
 	^ self 
     	basicAddSubclassOf: aClass 
@@ -527,6 +531,7 @@ instanceVariableNamesFor: aString
 !
 
 migrateClass: aClass superclass: anotherClass
+	console log: aClass name.
 	self 
     	migrateClassNamed: aClass name
         superclass: anotherClass
@@ -536,6 +541,8 @@ migrateClass: aClass superclass: anotherClass
 
 migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
 	| oldClass newClass |
+    
+    console log: '*** MIGRATING ', aString.
     
     oldClass := Smalltalk current at: aString.
     
