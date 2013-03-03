@@ -252,12 +252,12 @@ return smalltalk.withContext(function($ctx1) { _st(self)._deny_(_st((0)).__eq(f
 _st(self)._deny_(_st(false).__eq((0)));
 _st(self)._deny_(_st("").__eq(false));
 _st(self)._deny_(_st(false).__eq(""));
-_st(self)._assert_equals_(true,true);
+_st(self)._assert_(_st(true).__eq(true));
 _st(self)._deny_(_st(false).__eq(true));
 _st(self)._deny_(_st(true).__eq(false));
-_st(self)._assert_equals_(false,false);
-_st(self)._assert_equals_(_st(true)._yourself(),true);
-_st(self)._assert_equals_(_st(true)._yourself(),_st(true)._yourself());
+_st(self)._assert_(_st(false).__eq(false));
+_st(self)._assert_(_st(_st(true)._yourself()).__eq(true));
+_st(self)._assert_(_st(_st(true)._yourself()).__eq(_st(true)._yourself()));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{}, smalltalk.BooleanTest)})}
 }),
 smalltalk.BooleanTest);
@@ -998,7 +998,7 @@ $3=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($3)._at_put_((1),(2));
 $4=_st($3)._yourself();
 d2=$4;
-_st(self)._assert_equals_(d1,d2);
+_st(self)._assert_(_st(d1).__eq(d2));
 $5=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($5)._at_put_((1),(3));
 $6=_st($5)._yourself();
@@ -1718,10 +1718,10 @@ smalltalk.method({
 selector: "testEquality",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(smalltalk.symbolFor("hello"),smalltalk.symbolFor("hello"));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("hello")));
 _st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("world")));
 _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFor("hello"))._yourself()));
-_st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._yourself(),smalltalk.symbolFor("hello"));
+_st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(smalltalk.symbolFor("hello")));
 _st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq("hello"));
 _st(self)._deny_(_st("hello").__eq(smalltalk.symbolFor("hello")));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{}, smalltalk.SymbolTest)})}
@@ -2067,10 +2067,10 @@ smalltalk.method({
 selector: "testEquality",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((1),(1));
-_st(self)._assert_equals_((0),(0));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((1)).__eq((1)));
+_st(self)._assert_(_st((0)).__eq((0)));
 _st(self)._deny_(_st((1)).__eq((0)));
-_st(self)._assert_equals_(_st((1))._yourself(),(1));
+_st(self)._assert_(_st(_st((1))._yourself()).__eq((1)));
 _st(self)._assert_(_st((1)).__eq(_st((1))._yourself()));
 _st(self)._assert_(_st(_st((1))._yourself()).__eq(_st((1))._yourself()));
 _st(self)._deny_(_st((0)).__eq(false));
@@ -2489,8 +2489,8 @@ var self=this;
 var o;
 return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
 _st(self)._deny_(_st(o).__eq(_st((smalltalk.Object || Object))._new()));
-_st(self)._assert_equals_(o,o);
-_st(self)._assert_equals_(_st(o)._yourself(),o);
+_st(self)._assert_(_st(o).__eq(o));
+_st(self)._assert_(_st(_st(o)._yourself()).__eq(o));
 _st(self)._assert_(_st(o).__eq(_st(o)._yourself()));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o}, smalltalk.ObjectTest)})}
 }),
@@ -2825,7 +2825,7 @@ smalltalk.method({
 selector: "testEgality",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((3)).__at((4)),_st((3)).__at((4)));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st((3)).__at((4))).__eq(_st((3)).__at((4))));
 _st(self)._deny_(_st(_st((3)).__at((5))).__eq(_st((3)).__at((6))));
 return self}, function($ctx1) {$ctx1.fill(self,"testEgality",{}, smalltalk.PointTest)})}
 }),

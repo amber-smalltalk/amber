@@ -318,16 +318,16 @@ return smalltalk.withContext(function($ctx1) { _st(self)._deny_(_st((0)).__eq(f
 _st(self)._deny_(_st(false).__eq((0)));
 _st(self)._deny_(_st("").__eq(false));
 _st(self)._deny_(_st(false).__eq(""));
-_st(self)._assert_equals_(true,true);
+_st(self)._assert_(_st(true).__eq(true));
 _st(self)._deny_(_st(false).__eq(true));
 _st(self)._deny_(_st(true).__eq(false));
-_st(self)._assert_equals_(false,false);
-_st(self)._assert_equals_(_st(true)._yourself(),true);
-_st(self)._assert_equals_(_st(true)._yourself(),_st(true)._yourself());
+_st(self)._assert_(_st(false).__eq(false));
+_st(self)._assert_(_st(_st(true)._yourself()).__eq(true));
+_st(self)._assert_(_st(_st(true)._yourself()).__eq(_st(true)._yourself()));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{}, smalltalk.BooleanTest)})},
 args: [],
-source: "testEquality\x0a\x09\x22We're on top of JS...just be sure to check the basics!\x22\x0a\x0a\x09self deny: 0 = false. \x0a\x09self deny: false = 0.\x0a\x09self deny: '' = false.\x0a\x09self deny: false = ''.\x0a\x0a\x09self assert: true equals: true.\x0a\x09self deny: false = true.\x0a\x09self deny: true = false.\x0a\x09self assert: false equals: false.\x0a\x0a\x09\x22JS may do some type coercing after sending a message\x22\x0a\x09self assert: true yourself equals: true.\x0a\x09self assert: true yourself equals: true yourself",
-messageSends: ["deny:", "=", "assert:equals:", "yourself"],
+source: "testEquality\x0a\x09\x22We're on top of JS...just be sure to check the basics!\x22\x0a\x0a\x09self deny: 0 = false. \x0a\x09self deny: false = 0.\x0a\x09self deny: '' = false.\x0a\x09self deny: false = ''.\x0a\x0a\x09self assert: (true = true).\x0a\x09self deny: false = true.\x0a\x09self deny: true = false.\x0a\x09self assert: (false = false).\x0a\x0a\x09\x22JS may do some type coercing after sending a message\x22\x0a\x09self assert: (true yourself = true).\x0a\x09self assert: (true yourself = true yourself)",
+messageSends: ["deny:", "=", "assert:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.BooleanTest);
@@ -1254,7 +1254,7 @@ $3=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($3)._at_put_((1),(2));
 $4=_st($3)._yourself();
 d2=$4;
-_st(self)._assert_equals_(d1,d2);
+_st(self)._assert_(_st(d1).__eq(d2));
 $5=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($5)._at_put_((1),(3));
 $6=_st($5)._yourself();
@@ -1273,8 +1273,8 @@ d2=$10;
 _st(self)._deny_(_st(d1).__eq(d2));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{d1:d1,d2:d2}, smalltalk.DictionaryTest)})},
 args: [],
-source: "testEquality\x0a\x09| d1 d2 |\x0a\x0a\x09self assert: Dictionary new = Dictionary new.\x0a\x09\x09\x0a\x09d1 := Dictionary new at: 1 put: 2; yourself.\x0a\x09d2 := Dictionary new at: 1 put: 2; yourself.\x0a\x09self assert: d1 equals: d2.\x0a\x0a\x09d2 := Dictionary new at: 1 put: 3; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 2 put: 2; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.\x0a\x09self deny: d1 = d2.",
-messageSends: ["assert:", "=", "new", "at:put:", "yourself", "assert:equals:", "deny:"],
+source: "testEquality\x0a\x09| d1 d2 |\x0a\x0a\x09self assert: (Dictionary new = Dictionary new).\x0a\x09\x09\x0a\x09d1 := Dictionary new at: 1 put: 2; yourself.\x0a\x09d2 := Dictionary new at: 1 put: 2; yourself.\x0a\x09self assert: (d1 = d2).\x0a\x0a\x09d2 := Dictionary new at: 1 put: 3; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 2 put: 2; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.\x0a\x09self deny: d1 = d2.",
+messageSends: ["assert:", "=", "new", "at:put:", "yourself", "deny:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
@@ -2199,16 +2199,16 @@ selector: "testEquality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(smalltalk.symbolFor("hello"),smalltalk.symbolFor("hello"));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("hello")));
 _st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("world")));
 _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFor("hello"))._yourself()));
-_st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._yourself(),smalltalk.symbolFor("hello"));
+_st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(smalltalk.symbolFor("hello")));
 _st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq("hello"));
 _st(self)._deny_(_st("hello").__eq(smalltalk.symbolFor("hello")));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{}, smalltalk.SymbolTest)})},
 args: [],
-source: "testEquality\x0a\x09self assert: #hello equals: #hello.\x0a\x09self deny: #hello = #world.\x0a\x0a\x09self assert: #hello = #hello yourself.\x0a\x09self assert: #hello yourself equals: #hello.\x0a\x0a\x09self deny: #hello = 'hello'.\x0a\x09self deny: 'hello' = #hello.",
-messageSends: ["assert:equals:", "deny:", "=", "assert:", "yourself"],
+source: "testEquality\x0a\x09self assert: (#hello = #hello).\x0a\x09self deny: #hello = #world.\x0a\x0a\x09self assert: (#hello = #hello yourself).\x0a\x09self assert: (#hello yourself = #hello).\x0a\x0a\x09self deny: #hello = 'hello'.\x0a\x09self deny: 'hello' = #hello.",
+messageSends: ["assert:", "=", "deny:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.SymbolTest);
@@ -2668,10 +2668,10 @@ selector: "testEquality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((1),(1));
-_st(self)._assert_equals_((0),(0));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((1)).__eq((1)));
+_st(self)._assert_(_st((0)).__eq((0)));
 _st(self)._deny_(_st((1)).__eq((0)));
-_st(self)._assert_equals_(_st((1))._yourself(),(1));
+_st(self)._assert_(_st(_st((1))._yourself()).__eq((1)));
 _st(self)._assert_(_st((1)).__eq(_st((1))._yourself()));
 _st(self)._assert_(_st(_st((1))._yourself()).__eq(_st((1))._yourself()));
 _st(self)._deny_(_st((0)).__eq(false));
@@ -2680,8 +2680,8 @@ _st(self)._deny_(_st("").__eq((0)));
 _st(self)._deny_(_st((0)).__eq(""));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{}, smalltalk.NumberTest)})},
 args: [],
-source: "testEquality\x0a\x09self assert: 1 equals: 1.\x0a\x09self assert: 0 equals: 0.\x0a\x09self deny: 1 = 0.\x0a\x0a\x09self assert: 1 yourself equals: 1.\x0a\x09self assert: 1 = 1 yourself.\x0a\x09self assert: 1 yourself = 1 yourself.\x0a\x09\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = 0.\x0a\x09self deny: 0 = ''",
-messageSends: ["assert:equals:", "deny:", "=", "yourself", "assert:"],
+source: "testEquality\x0a\x09self assert: (1 = 1).\x0a\x09self assert: (0 = 0).\x0a\x09self deny: (1 = 0).\x0a\x0a\x09self assert: (1 yourself = 1).\x0a\x09self assert: (1 = 1 yourself).\x0a\x09self assert: (1 yourself = 1 yourself).\x0a\x09\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = 0.\x0a\x09self deny: 0 = ''",
+messageSends: ["assert:", "=", "deny:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
@@ -3191,13 +3191,13 @@ var self=this;
 var o;
 return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
 _st(self)._deny_(_st(o).__eq(_st((smalltalk.Object || Object))._new()));
-_st(self)._assert_equals_(o,o);
-_st(self)._assert_equals_(_st(o)._yourself(),o);
+_st(self)._assert_(_st(o).__eq(o));
+_st(self)._assert_(_st(_st(o)._yourself()).__eq(o));
 _st(self)._assert_(_st(o).__eq(_st(o)._yourself()));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o}, smalltalk.ObjectTest)})},
 args: [],
-source: "testEquality\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o = Object new.\x0a\x09self assert: o equals: o.\x0a\x09self assert: o yourself equals: o.\x0a\x09self assert: o = o yourself",
-messageSends: ["new", "deny:", "=", "assert:equals:", "yourself", "assert:"],
+source: "testEquality\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o = Object new.\x0a\x09self assert: (o = o).\x0a\x09self assert: (o yourself = o).\x0a\x09self assert: (o = o yourself)",
+messageSends: ["new", "deny:", "=", "assert:", "yourself"],
 referencedClasses: ["Object"]
 }),
 smalltalk.ObjectTest);
@@ -3642,12 +3642,12 @@ selector: "testEgality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((3)).__at((4)),_st((3)).__at((4)));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st((3)).__at((4))).__eq(_st((3)).__at((4))));
 _st(self)._deny_(_st(_st((3)).__at((5))).__eq(_st((3)).__at((6))));
 return self}, function($ctx1) {$ctx1.fill(self,"testEgality",{}, smalltalk.PointTest)})},
 args: [],
-source: "testEgality\x0a\x09self assert: 3@4 equals: (3@4).\x0a\x09self deny: 3@5 = (3@6)",
-messageSends: ["assert:equals:", "@", "deny:", "="],
+source: "testEgality\x0a\x09self assert: (3@4 = (3@4)).\x0a\x09self deny: 3@5 = (3@6)",
+messageSends: ["assert:", "=", "@", "deny:"],
 referencedClasses: []
 }),
 smalltalk.PointTest);

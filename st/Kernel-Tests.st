@@ -110,14 +110,14 @@ testEquality
 	self deny: '' = false.
 	self deny: false = ''.
 
-	self assert: true equals: true.
+	self assert: (true = true).
 	self deny: false = true.
 	self deny: true = false.
-	self assert: false equals: false.
+	self assert: (false = false).
 
 	"JS may do some type coercing after sending a message"
-	self assert: true yourself equals: true.
-	self assert: true yourself equals: true yourself
+	self assert: (true yourself = true).
+	self assert: (true yourself = true yourself)
 !
 
 testIdentity
@@ -493,11 +493,11 @@ testDynamicDictionaries
 testEquality
 	| d1 d2 |
 
-	self assert: Dictionary new = Dictionary new.
+	self assert: (Dictionary new = Dictionary new).
 		
 	d1 := Dictionary new at: 1 put: 2; yourself.
 	d2 := Dictionary new at: 1 put: 2; yourself.
-	self assert: d1 equals: d2.
+	self assert: (d1 = d2).
 
 	d2 := Dictionary new at: 1 put: 3; yourself.
 	self deny: d1 = d2.
@@ -884,11 +884,11 @@ testDetect
 !
 
 testEquality
-	self assert: #hello equals: #hello.
+	self assert: (#hello = #hello).
 	self deny: #hello = #world.
 
-	self assert: #hello = #hello yourself.
-	self assert: #hello yourself equals: #hello.
+	self assert: (#hello = #hello yourself).
+	self assert: (#hello yourself = #hello).
 
 	self deny: #hello = 'hello'.
 	self deny: 'hello' = #hello.
@@ -1079,13 +1079,13 @@ testCopying
 !
 
 testEquality
-	self assert: 1 equals: 1.
-	self assert: 0 equals: 0.
-	self deny: 1 = 0.
+	self assert: (1 = 1).
+	self assert: (0 = 0).
+	self deny: (1 = 0).
 
-	self assert: 1 yourself equals: 1.
-	self assert: 1 = 1 yourself.
-	self assert: 1 yourself = 1 yourself.
+	self assert: (1 yourself = 1).
+	self assert: (1 = 1 yourself).
+	self assert: (1 yourself = 1 yourself).
 	
 	self deny: 0 = false.
 	self deny: false = 0.
@@ -1286,9 +1286,9 @@ testEquality
 	| o |
 	o := Object new.
 	self deny: o = Object new.
-	self assert: o equals: o.
-	self assert: o yourself equals: o.
-	self assert: o = o yourself
+	self assert: (o = o).
+	self assert: (o yourself = o).
+	self assert: (o = o yourself)
 !
 
 testHalt
@@ -1452,7 +1452,7 @@ testAt
 !
 
 testEgality
-	self assert: 3@4 equals: (3@4).
+	self assert: (3@4 = (3@4)).
 	self deny: 3@5 = (3@6)
 !
 
