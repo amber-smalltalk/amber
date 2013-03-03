@@ -79,14 +79,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "assert:equals:",
 category: 'testing',
-fn: function (expected,actual){
+fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._assert_description_(_st(expected).__eq(actual),_st(_st(_st("Expected: ").__comma(_st(expected)._asString())).__comma(" but was: ")).__comma(_st(actual)._asString()));
+$1=_st(self)._assert_description_(_st(actual).__eq(expected),_st(_st(_st("Expected: ").__comma(_st(expected)._asString())).__comma(" but was: ")).__comma(_st(actual)._asString()));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"assert:equals:",{expected:expected,actual:actual}, smalltalk.TestCase)})},
-args: ["expected", "actual"],
-source: "assert: expected equals: actual\x0a\x09^ self assert: (expected = actual) description: 'Expected: ', expected asString, ' but was: ', actual asString",
+}, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected}, smalltalk.TestCase)})},
+args: ["actual", "expected"],
+source: "assert: actual equals: expected\x0a\x09^ self assert: (actual = expected) description: 'Expected: ', expected asString, ' but was: ', actual asString",
 messageSends: ["assert:description:", "=", ",", "asString"],
 referencedClasses: []
 }),

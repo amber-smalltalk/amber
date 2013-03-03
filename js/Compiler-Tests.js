@@ -427,7 +427,7 @@ _st(_st(self)._interpreter())._step();
 _st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{}, smalltalk.ASTSteppingInterpreterTest)})},
 args: [],
-source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result equals: 1\x0a    \x0a\x09",
+source: "testSimpleStepping\x0a\x09self interpret: 'foo 1'.\x0a    \x0a    \x22SequenceNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result isNil.\x0a    \x0a    \x22ValueNode\x22\x0a    self interpreter step.\x0a    \x0a    self assert: self interpreter result equals: 1",
 messageSends: ["interpret:", "step", "interpreter", "assert:", "isNil", "result", "assert:equals:"],
 referencedClasses: []
 }),
@@ -1173,12 +1173,12 @@ var src,ast;
 return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ | b | b := a ] ]";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
-_st(self)._assert_(_st(_st(_st(ast)._scope())._scopeLevel()).__eq((1)));
-_st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel()).__eq((3)));
+_st(self)._assert_equals_(_st(_st(ast)._scope())._scopeLevel(),(1));
+_st(self)._assert_equals_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
 args: [],
-source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel = 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel = 3",
-messageSends: ["parse:", "visit:", "assert:", "=", "scopeLevel", "scope", "first", "nodes", "last"],
+source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel equals: 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3",
+messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzerTest);
