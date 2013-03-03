@@ -125,8 +125,8 @@ amber = (function() {
 		}
 
 		return  {
-			js: urlHome+prefix,
-			st: urlHome+'st'
+			js: urlHome + prefix,
+			st: urlHome + (prefix.match(/\/js$/) ? prefix.replace(/\/js$/, "/st") : "st")
 		};
 	}
 
